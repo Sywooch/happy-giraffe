@@ -230,4 +230,12 @@ class User extends CActiveRecord
 		return FALSE;
 	}
 
+	/**
+     * @static
+     * @return User
+     */
+    public static function GetCurrentUser(){
+        $user = User::model()->with(array('babies'))->findByPk(Yii::app()->user->getId());
+        return $user;
+    }
 }

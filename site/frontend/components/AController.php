@@ -5,6 +5,8 @@
  */
 class AController extends Controller
 {
+    public $layout = 'club';
+
 	public function init()
 	{
 		Yii::app()->theme = '';

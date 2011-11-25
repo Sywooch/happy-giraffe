@@ -34,6 +34,7 @@ return array(
 		'ext.wr.WithRelatedBehavior',
 		'ext.ESaveRelatedBehavior',
 		'ext.image.Image',
+		'application.modules.vaccineCalendar.models.*',
 	),
 
 	'sourceLanguage' => 'en',
@@ -63,6 +64,7 @@ return array(
 			'callbackOrderProceed' => array('Order','callbackOrderProceed'),
 			'callbackOrderPaid' => array('Order','callbackOrderPaid'),
 		),
+		'vaccineCalendar',
 	),
 
 	// application components

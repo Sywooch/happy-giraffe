@@ -1,0 +1,12 @@
+site/frontend/www/index.php
+site/frontend/config/main-local.php
+site/console/yiic.php
+site/console/config/main-local.php
+site/backend/runtime/*
+site/console/runtime/*
+site/frontend/runtime/*
+site/frontend/www/assets/*
+site/frontend/www/temp_upload/*
+site/frontend/www/upload/*/*
+!site/frontend/www/upload/contest/preview
+!.gitignore

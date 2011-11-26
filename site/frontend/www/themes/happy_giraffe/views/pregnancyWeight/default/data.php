@@ -64,7 +64,7 @@
                             <td>
                                 <table>
                             <?php for($i=1;$i<=40;$i++): ?>
-                                    <tr>
+                                    <tr<?php if ($i == $model->week) echo ' class="active"' ?>>
                                         <td class="col-1"><?php echo $i ?></td>
                                         <td class="col-2"><?php echo $model->data[$i] ?></td>
                                     </tr>

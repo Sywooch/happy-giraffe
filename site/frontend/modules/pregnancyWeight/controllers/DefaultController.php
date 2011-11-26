@@ -18,16 +18,10 @@ class DefaultController extends Controller
                 if (!$model->validate())
                     Yii::app()->end();
 
-                $recommend_gain = PregnancyWeight::GetWeightGainByWeekAndBMI($model->week, $model->bmi);
-                $recommend_weight = $model->weight_before + (float)$recommend_gain;
-                $data = PregnancyWeight::GetWeightArray($model->weight_before, $model->bmi);
-                $gain = PregnancyWeight::GetWeightArrayFromCache($model->bmi);
+                $model->CalculateData();
 
                 $this->renderPartial('data', array(
-                    'recommend_weight' => $recommend_weight,
                     'model' => $model,
-                    'data' => $data,
-                    'gain' => $gain[$model->week]
                 ));
             }
         }

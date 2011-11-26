@@ -61,7 +61,6 @@
                                     <?php endfor; ?>
                                 </ul>
                             </div>
-<!--                            --><?php //echo $form->dropDownList($model, 'week', HDate::Range(1, 40)); ?>
                         </div>
                         <span class="units">нед</span>
                     </div>
@@ -73,13 +72,6 @@
                         <span class="units">кг</span>
                     </div>
                 </div>
-<!--            --><?php //echo CHtml::ajaxSubmitButton('Submit',$this->createUrl('/pregnancyWeight/default/getData'),array(
-//                'type'=>'POST',
-//                'success'=>'function(data){
-//                    $(".intro-text").hide();
-//                    $("#result").html(data);
-//                }'
-//            )); ?>
                 <button>Рассчитать<br/>прибавку</button>
             <?php $this->endWidget(); ?>
         </div>

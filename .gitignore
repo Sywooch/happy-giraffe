@@ -9,4 +9,5 @@ site/frontend/www/assets/*
 site/frontend/www/temp_upload/*
 site/frontend/www/upload/*/*
 !site/frontend/www/upload/contest/preview
+.idea/
 !.gitignore

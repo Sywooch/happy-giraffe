@@ -2,11 +2,15 @@
 /* @var $this Controller
  * @var $date int
  */
-$user_children = User::GetCurrentUser()->babies;
-if (empty($user_children))
-    $baby_id = null;
+if (!Yii::app()->user->isGuest){
+    $user_children = User::GetCurrentUser()->babies;
+    if (empty($user_children))
+        $baby_id = null;
+    else
+        $baby_id = $user_children[0]->id;
+}
 else
-    $baby_id = $user_children[0]->id;
+    $baby_id = null;
 ?>
 <style type="text/css">
     a.active {
@@ -19,7 +23,7 @@ else
 </style>
 
 <script type="text/javascript">
-    baby_id = <?php echo $baby_id ?>;
+    baby_id = '<?php echo $baby_id ?>';
 
     $(function() {
         $('div.tabs-headers li a').click(function(){
@@ -105,18 +109,22 @@ else
 
 <div class="tabs-headers">
     <ul>
-        <?php foreach($user_children as $baby):?>
-            <li class="vaccine-date-<?php echo $baby->id ?>"><a href="#" rel="<?php echo $baby->id ?>"><?php echo $baby->name ?></a></li>
-        <?php endforeach ?>
+        <?php if (isset($user_children)):?>
+            <?php foreach($user_children as $baby):?>
+                <li class="vaccine-date-<?php echo $baby->id ?>"><a href="#" rel="<?php echo $baby->id ?>"><?php echo $baby->name ?></a></li>
+            <?php endforeach ?>
+        <?php endif ?>
         <li class="empty-vaccine-date"><a href="#">Укажите дату рождения</a></li>
     </ul>
 </div>
 <ul class="tabs">
-    <?php foreach($user_children as $baby):?>
-        <li class="vaccine-date-<?php echo $baby->id ?>" <?php if ($baby_id != $baby->id) echo 'style="display:none;"'?> >
-            <?php $this->renderPartial('_view',array('baby'=>$baby)); ?>
-        </li>
-    <?php endforeach ?>
+    <?php if (isset($user_children)):?>
+        <?php foreach($user_children as $baby):?>
+            <li class="vaccine-date-<?php echo $baby->id ?>" <?php if ($baby_id != $baby->id) echo 'style="display:none;"'?> >
+                <?php $this->renderPartial('_view',array('baby'=>$baby)); ?>
+            </li>
+        <?php endforeach ?>
+    <?php endif ?>
 
     <li class="empty-vaccine-date" <?php if ($baby_id !== null) echo 'style="display:none;"'?> >
         <?php $this->renderPartial('_view',array('baby'=>null)); ?>

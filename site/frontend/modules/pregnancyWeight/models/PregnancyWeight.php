@@ -131,16 +131,16 @@ class PregnancyWeight extends CActiveRecord
     }
     
     /**
-     * Generates table with recommended weight by weeks
+     * Generates table with recommended weight by weeks (week => kilo)
      * 
      * @static
      * @param $weight_before
      * @param $bmi float body mass index
      * @return array table with recommended weight
      */
-    public static function GetWeightArray($weight_before, $bmi)
+    public static function GetUserWeightArray($weight_before, $bmi)
     {
-        $data = self::GetWeightArrayFromCache($bmi);
+        $data = self::GetWeightGainArray($bmi);
         $result = array();
         for ($i = 1; $i <= 40; $i++) {
             $result[$i] = $weight_before + $data[$i];
@@ -150,13 +150,13 @@ class PregnancyWeight extends CActiveRecord
     }
 
     /**
-     * Prepare data for caching
+     * Get weight gian array (week => kilo)
      *
      * @static
      * @param $bmi body mass index
      * @return array|mixed
      */
-    static function GetWeightArrayFromCache($bmi)
+    static function GetWeightGainArray($bmi)
     {
         $data = Yii::app()->cache->get(self::CACHE_ID . self::GetBMIId($bmi));
         if ($data === false) {

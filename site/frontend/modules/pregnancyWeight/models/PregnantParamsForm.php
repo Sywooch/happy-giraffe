@@ -17,12 +17,14 @@ class PregnantParamsForm extends CFormModel
      */
     public $data;
     public $normal_weight;
+    public $min_weight;
+    public $max_weight;
 
     public function rules()
     {
         return array(
             array('height, weight, week, weight_before', 'required'),
-            array('height, weight, week, weight_before', 'numerical', 'integerOnly' => true),
+            array('week', 'numerical', 'integerOnly' => true),
             array('height', 'numerical', 'max' => 250, 'min'=>80),
             array('weight, weight_before', 'numerical', 'max' => 1000, 'min'=>20),
             array('week', 'numerical', 'max' => 40, 'min'=>1),
@@ -37,24 +39,33 @@ class PregnantParamsForm extends CFormModel
         );
     }
 
+    public function beforeValidate(){
+        $this->height = str_replace(',','.',$this->height);
+        $this->weight = str_replace(',','.',$this->weight);
+        $this->weight_before = str_replace(',','.',$this->weight_before);
+        return parent::beforeValidate();
+    }
+
     public function afterValidate(){
-        //height in meters
-        $this->height = $this->height / 100;
-        $this->bmi = $this->weight_before / ($this->height * $this->height);
+        return parent::afterValidate();
     }
 
     public function CalculateData(){
+        //height in meters
+        $this->height = $this->height / 100;
+        $this->bmi = $this->weight_before / ($this->height * $this->height);
+
         $this->recommend_gain = PregnancyWeight::GetWeightGainByWeekAndBMI($this->week, $this->bmi);
         $this->recommend_weight = $this->weight_before + (float)$this->recommend_gain;
-        $this->data = PregnancyWeight::GetWeightArray($this->weight_before, $this->bmi);
+        $this->data = PregnancyWeight::GetUserWeightArray($this->weight_before, $this->bmi);
         $this->normal_weight = $this->GetNormalWeight();
     }
 
     public function GetNormalWeight(){
-        $min = round($this->recommend_weight - $this->recommend_gain*0.1);
-        $max = round($this->recommend_weight + $this->recommend_gain*0.1);
-        if ($min == $max)
-            return $max;
-        return $min.'-'.$max;
+        $this->min_weight = round($this->recommend_weight - $this->recommend_gain*0.1);
+        $this->max_weight = round($this->recommend_weight + $this->recommend_gain*0.1);
+        if ($this->min_weight == $this->max_weight)
+            return $this->max_weight;
+        return $this->min_weight.'-'.$this->max_weight;
     }
 }

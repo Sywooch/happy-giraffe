@@ -22,33 +22,56 @@
     <div class="block-in" id="recommend">
         <div class="box-left">
             <div class="img-box">
-                <?php if (($model->weight - $model->recommend_gain*0.1) > $model->recommend_weight): ?>
+                <?php if ($model->weight > $model->max_weight): ?>
                     <img src="/images/img_pregnancy_weight_gt.png" />
                     <span>+<?php echo round(($model->weight - $model->recommend_gain*0.1 - $model->recommend_weight),1) ?></span>
+                <?php elseif ($model->weight < $model->min_weight): ?>
+                    <img src="/images/img_pregnancy_weight_lt.png" />
+                    <span>-<?php echo round(($model->recommend_weight - $model->weight - $model->recommend_gain*0.1),1) ?></span>
                 <?php else: ?>
-                    <?php if (($model->weight + $model->recommend_gain*0.1) < $model->recommend_weight): ?>
-                        <img src="/images/img_pregnancy_weight_lt.png" />
-                        <span>-<?php echo round(($model->recommend_weight - $model->weight - $model->recommend_gain*0.1),1) ?></span>
-                        <?php else: ?>
-                            <img src="/images/img_pregnancy_weight_e.png" />
-                    <?php endif ?>
+                    <img src="/images/img_pregnancy_weight_e.png" />
                 <?php endif ?>
             </div>
 
-            <?php if (($model->weight - $model->recommend_gain*0.1) > $model->recommend_weight): ?>
+            <?php if ($model->weight > $model->max_weight): ?>
                 <div class="summary-text">Ваш вес <span>></span> нормы</div>
+            <?php elseif ($model->weight < $model->min_weight): ?>
+                <div class="summary-text">Ваш вес <span><</span> нормы</div>
             <?php else: ?>
-                <?php if (($model->weight + $model->recommend_gain*0.1) < $model->recommend_weight): ?>
-                    <div class="summary-text">Ваш вес <span><</span> нормы</div>
-                    <?php else: ?>
-                        <div class="summary-text">Ваш вес в норме</div>
-                <?php endif ?>
+                <div class="summary-text">Ваш вес в норме</div>
             <?php endif ?>
             <div class="summary-weight"><?php echo $model->normal_weight ?><span>кг</span></div>
         </div>
         <div class="box-main">
-            <big>Рекомендации:</big>
-            <p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг. Набираемый вес при беременности складывается из нескольких показателей: вес ребенка, матки, околоплодных вод, плаценты, а также увеличиваются молочные железы, объем циркулирующей крови, ну и, конечно, появляется запас жировой ткани. Желательно, чтобы набор веса при беременности происходил постепенно, без рывков.ткани. Желательно, чтобы набор веса при беременности происходил постепенно, без рывков.ткани. Желательно, чтобы набор веса при беременности происходил постепенно.</p>
+
+            <?php if ($model->weight > $model->max_weight): ?>
+                <big>Ваш вес выше нормы</big>
+                <p>Ваш вес выше нормы. Это может быть по нескольким причинам:</p>
+                <ul style="list-style-type: decimal;padding-left: 20px;">
+                    <li>Вы изначально имели вес ниже нормы, а сейчас набрали больше, компенсируя его дефицит</li>
+                    <li>Ваш ребёнок обещает родиться крупнее сверстников</li>
+                    <li>У Вас многоплодная беременность</li>
+                    <li>Вы не можете устоять перед мучным и сладким и едите гораздо больше, чем обычно. Нужно вернуться к обычному режиму питания, с перевесом овощей и фруктов</li>
+                    <li>Вы любите солёное, и Ваши почки не справляются с повышенной нагрузкой. В этом случае нужно уменьшить количество потребляемой соли</li>
+                    <li>У Вас есть отёки. Они могут быть и скрытыми. Нужно обратиться к врачу</li>
+                    <li>У Вас многоводие. Нужно обратиться к врачу и сделать УЗИ.</li>
+                </ul>
+            <?php elseif ($model->weight < $model->min_weight): ?>
+                <big>Ваш вес ниже нормы</big>
+                <ul style="list-style-type: decimal;padding-left: 20px;">
+                    <li>Вы изначально имели повышенный вес, а сейчас просто организм использует жировые запасы для своих целей</li>
+                    <li>Ваш ребёнок обещает родиться небольшим, как кто-то из родителей</li>
+                    <li>Вы мало пьёте жидкости. Нужно употреблять столько, сколько необходимо с учётом климата и погоды</li>
+                    <li>У Вас токсикоз с частой рвотой и резким снижением аппетита. Необходимо обратиться к врачу</li>
+                    <li>Ваш ребёнок развивается медленнее, чем нужно. Необходимо обратиться к врачу</li>
+                    <li>У Вас маловодие. Нужно обратиться к врачу и сделать УЗИ</li>
+                </ul>
+            <?php else: ?>
+                <big>Ваш вес в норме</big>
+                <p>Ваш вес в норме. Так держать!</p>
+                <p>Вы прекрасно знаете, что во время беременности главное – физическая активность и сбалансированное питание. Продолжайте гулять в любую погоду не менее двух часов в день и заниматься гимнастикой или йогой для беременных.</p>
+                <p>Не забывайте употреблять достаточное количество овощей, фруктов, рыбы и мяса. Солонку можно отставить подальше, так как недосол при беременности является прекрасной профилактикой возможных отёков. И пусть каждый день приносит Вам радость!</p>
+            <?php endif ?>
             <br/>
             <?php echo CHtml::link('Таблица вашего веса при беременности', '#', array('class' => 'go-weight-table')); ?>
         </div>

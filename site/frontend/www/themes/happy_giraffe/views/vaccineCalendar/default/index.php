@@ -160,7 +160,7 @@ else
         <?php endforeach ?>
     <?php endif ?>
 
-    <div class="empty-vaccine-date tab-box tab-box-0">
+    <div class="empty-vaccine-date tab-box tab-box-0" <?php if ($baby_id === null) echo ' style="display:block;"' ?>>
         <?php $this->renderPartial('_view_empty',array('baby'=>null)); ?>
     </div>
 </div>

@@ -47,6 +47,9 @@ class VaccineDateController extends Controller
     public function actionCreate()
     {
         $model = new VaccineDate;
+        $model->vote_agree = 0;
+        $model->vote_decline = 0;
+        $model->vote_did = 0;
 
         $this->performAjaxValidation($model);
 
@@ -56,7 +59,7 @@ class VaccineDateController extends Controller
                 $model->diseases = $_POST['VaccineDate']['VaccineDisease'];
 
             if ($model->save()) {
-                $this->redirect(array('view', 'id' => $model->id));
+                $this->redirect(array('admin'));
             }
         }
 
@@ -77,7 +80,7 @@ class VaccineDateController extends Controller
                 $model->diseases = $_POST['VaccineDate']['VaccineDisease'];
 
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+                $this->redirect(array('admin'));
         }
 
         $this->render('update', array(

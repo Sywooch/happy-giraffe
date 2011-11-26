@@ -2,7 +2,7 @@
 
 class DefaultController extends Controller
 {
-    public $layout = '//layouts/main';
+    public $layout = '//layouts/new';
 
     public function actionIndex()
     {
@@ -16,6 +16,17 @@ class DefaultController extends Controller
     public function actionVaccineTable(){
         if (isset($_POST['day']) && isset($_POST['month']) && isset($_POST['year'])) {
             $date = strtotime($_POST['day'] . '-' . $_POST['month'] . '-' . $_POST['year']);
+
+            $this->renderPartial('_data_table', array(
+                'date' => $date,
+                'baby_id'=>$_POST['baby_id'],
+            ));
+        }
+        if (isset($_POST['baby_id'])) {
+            $baby = Baby::model()->findByPk($_POST['baby_id']);
+            if (empty($baby))
+                Yii::app()->end();
+            $date = strtotime($baby->birthday);
 
             $this->renderPartial('_data_table', array(
                 'date' => $date,
@@ -56,9 +67,9 @@ class DefaultController extends Controller
             if ($vaccineDate->ChangeVote(Yii::app()->user->getId(),$vote, $baby_id))
                 echo CJSON::encode(array(
                     'success'=>true,
-                    'decline'=>array($vaccineDate->vote_decline,$vaccineDate->DeclinePercent()),
-                    'agree'=>array($vaccineDate->vote_agree,$vaccineDate->AgreePercent()),
-                    'did'=>array($vaccineDate->vote_did,$vaccineDate->DidPercent()),
+                    'decline'=>$vaccineDate->vote_decline.' ('.$vaccineDate->DeclinePercent().'%)',
+                    'agree'=>$vaccineDate->vote_agree.' ('.$vaccineDate->AgreePercent().'%)',
+                    'did'=>$vaccineDate->vote_did.' ('.$vaccineDate->DidPercent().'%)',
                 ));
             else
                 echo CJSON::encode(array('success'=>false));

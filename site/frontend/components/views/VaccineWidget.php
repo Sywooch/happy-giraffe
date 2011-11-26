@@ -9,52 +9,89 @@ if (!empty($baby))
 else
     $baby_id = '';
 ?>
-<table>
-    <thead>
-    <tr>
-        <th>Рекомендуемая дата</th>
-        <th>Возраст</th>
-        <th>Наименование прививки</th>
-        <th>Прививка</th>
-    </tr>
-    </thead>
 
-    <tbody>
-    <?php foreach ($data->vaccineDates as $day): ?>
-        <tr>
-            <?php if (count($day->recommendDate) == 1):?>
-                <td><?php echo $day->recommendDate[0]['year'].'<br>'.$day->recommendDate[0]['month'].'<br>'.$day->recommendDate[0]['day'] ?></td>
-            <?php else: ?>
-                <?php if (isset($day->recommendDate[0])):?>
-                <td><?php echo $day->recommendDate[1]['year'].'<br>'.$day->recommendDate[1]['month'].'<br>'.$day->recommendDate[0]['day'].'-'.$day->recommendDate[1]['day'] ?></td>
-                <?php else: ?>
-                    <td><?php //echo var_dump($day->recommendDate) ?></td>
-                <?php endif ?>
-            <?php endif ?>
-            <td><?php echo $day->age ?></td>
-            <td><?php echo $day->GetText() ?></td>
-            <td><?php echo CHtml::link($day->vaccine->name, '#') ?></td>
-        </tr>
-<?php if (!empty($baby_id)):?>
-            <tr>
-                <td></td>
-                <td colspan="3" class="<?php echo 'vc-'.$day->id.$baby_id ?>">
+<div class="vaccination-table">
+	<table>
+		<colgroup>
+			<col width="140" />
+			<col width="170" />
+			<col width="240" />
+			<col />
+		</colgroup>
+		<thead>
+			<tr>
+				<td>Рекомендуемая дата</td>
+				<td>Возраст ребенка</td>
+				<td>Наименование прививки</td>
+				<td>Вакцина</td>
+			</tr>
+		</thead>
+		<tbody>
+            <?php foreach ($data->vaccineDates as $day): ?>
+			<!-- прививка --->
+			<tr>
+				<td>
+					<div class="date">
+                        <?php if (count($day->recommendDate) == 1):?>
+                            <div class="y"><?php echo $day->recommendDate[0]['year'] ?></div>
+                            <div class="d"><?php echo $day->recommendDate[0]['day'] ?></div>
+                            <div class="m"><?php echo $day->recommendDate[0]['month'] ?></div>
+                        <?php else: ?>
+                            <?php if (isset($day->recommendDate[0])):?>
+                            <div class="y"><?php echo $day->recommendDate[1]['year'] ?></div>
+                            <div class="d"><?php echo $day->recommendDate[0]['day'].'-'.$day->recommendDate[1]['day'] ?></div>
+                            <div class="m"><?php echo $day->recommendDate[1]['month'] ?></div>
+                            <?php else: ?>
+                                <td><?php //echo var_dump($day->recommendDate) ?></td>
+                            <?php endif ?>
+                        <?php endif ?>
+					</div>
+				</td>
+                <td><?php echo $day->age ?></td>
+                <td><?php echo $day->GetText() ?></td>
+                <td><?php echo CHtml::link($day->vaccine->name, '#') ?></td>
+			</tr>
+        <?php if (!empty($baby_id)):?>
+			<tr class="bottom">
+				<td colspan="4" class="<?php echo 'vc-'.$day->id.$baby_id ?>">
                     <?php $user_vote = $day->GetUserVote($baby) ?>
-                    <?php echo CHtml::link('Отказываемся','#',array('rel'=> $day->id,'baby'=> $baby_id,
-                            'class'=>($user_vote == VaccineDate::VOTE_DECLINE)?'decline active':'decline')) ?>
-                    <span class="count"><?php echo $day->vote_decline ?></span>
-                    <?php echo $day->DeclinePercent() ?>%<br>
-                    <?php echo CHtml::link('Собираемся делать','#',array('rel'=> $day->id,'baby'=> $baby_id,
-                            'class'=>($user_vote == VaccineDate::VOTE_AGREE)?'active agree':'agree')) ?>
-                    <span class="count"><?php echo $day->vote_agree ?></span>
-                    <?php echo $day->AgreePercent() ?>%<br>
-                    <?php echo CHtml::link('Уже сделали','#',array('rel'=> $day->id,'baby'=> $baby_id,
-                            'class'=>($user_vote == VaccineDate::VOTE_DID)?'active did':'did')) ?>
-                    <span class="count"><?php echo $day->vote_did ?></span>
-                    <?php echo $day->DidPercent() ?>%<br><br><br>
-                </td>
-            </tr>
 
-<?php endif ?>    <?php endforeach; ?>
-    </tbody>
-</table>
+                    <div class="result-box">
+                        <?php echo CHtml::link('<span><span>Отказываемся</span></span>','#',
+                            array('rel'=> $day->id,'baby'=> $baby_id,
+                                'class'=>($user_vote == VaccineDate::VOTE_DECLINE)?'decline btn btn-red-small':'decline btn btn-gray-small')) ?>
+						<br/>
+						<span class="red"><b><?php echo $day->vote_decline.' ('.$day->DeclinePercent().'%)' ?></b></span>
+					</div>
+
+                    <div class="result-box">
+                        <?php echo CHtml::link('<span><span>Собираемся делать</span></span>','#',
+                            array('rel'=> $day->id,'baby'=> $baby_id,
+                                'class'=>($user_vote == VaccineDate::VOTE_AGREE)?'agree btn btn-yellow-small':'agree btn btn-gray-small')) ?>
+                        <br/>
+                        <span class="orange"><b><?php echo $day->vote_agree.' ('.$day->AgreePercent().'%)' ?></b></span>
+					</div>
+
+                    <div class="result-box">
+                        <?php echo CHtml::link('<span><span>Уже сделали</span></span>','#',
+                            array('rel'=> $day->id,'baby'=> $baby_id,
+                                'class'=>($user_vote == VaccineDate::VOTE_DID)?'did btn btn-green-small':'did btn btn-gray-small')) ?>
+                        <br/>
+                        <span class="green"><b><?php echo $day->vote_did.' ('.$day->DidPercent().'%)' ?></b></span>
+					</div>
+
+				</td>
+			</tr>
+        <?php endif ?>
+			<!-- /прививка --->
+            <?php endforeach; ?>
+		</tbody>
+
+	</table>
+
+	<div class="a-right table-actions">
+		<a href="" title="Распечатать"><img src="/images/icon_print.png" /></a>
+		<a href="" title="Скачать в формате PDF"><img src="/images/icon_pdf.png" /></a>
+	</div>
+
+</div>

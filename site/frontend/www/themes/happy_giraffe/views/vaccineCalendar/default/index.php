@@ -26,15 +26,11 @@ else
     baby_id = '<?php echo $baby_id ?>';
 
     $(function() {
-        $('div.tabs-headers li a').click(function(){
+        $('div.nav li a').click(function(){
             if ($(this).attr('rel') == undefined){
-                HideAllTabs();
-                $('.tabs .empty-vaccine-date').show();
                 baby_id = null;
                 cuSelRefresh({refreshEl: "#month-,#day-,#year-",visRows: 5,scrollArrows: true});
             }else{
-                HideAllTabs();
-                $('.tabs .vaccine-date-'+$(this).attr('rel')).show();
                 baby_id = $(this).attr('rel');
                 cuSelRefresh({refreshEl: "#month-"+baby_id+",#day-"+baby_id+",#year-"+baby_id,visRows: 5,scrollArrows: true});
             }
@@ -42,14 +38,9 @@ else
         });
     });
 
-    function HideAllTabs(){
-        $('.tabs li').hide();
-    }
-
-
     $(function() {
         $('body').delegate('a.decline','click',function(){
-            if (!$(this).hasClass('active') && baby_id !== null){
+            if (!$(this).hasClass('btn-red-small') && baby_id !== null){
                 $.ajax({
                     url: "<?php echo Yii::app()->createUrl("/vaccineCalendar/default/vote") ?>",
                     data: {vote:1,id:$(this).attr('rel'),baby_id:baby_id},
@@ -57,9 +48,10 @@ else
                     dataType: "JSON",
                     success: function(data) {
                         if (data.hasOwnProperty('success') && data.success){
-                            $('.vc-'+$(this).attr('rel')+$(this).attr('baby')+' a').removeClass('active');
-                            if (!$(this).hasClass("active"))
-                                $(this).addClass("active");
+                            DeleteActiveVote($(this).attr('rel'),baby_id);
+                            ShowNewVote($(this).attr('rel'),baby_id,data);
+                            $(this).addClass("btn-red-small");
+                            $(this).removeClass("btn-gray-small");
                         }
                     },
                     'context': $(this)
@@ -68,7 +60,7 @@ else
             return false;
         });
         $('body').delegate('a.agree','click',function(){
-            if (!$(this).hasClass('active') && baby_id !== null){
+            if (!$(this).hasClass('btn-yellow-small') && baby_id !== null){
                 $.ajax({
                     url: "<?php echo Yii::app()->createUrl("/vaccineCalendar/default/vote") ?>",
                     data: {vote:2,id:$(this).attr('rel'),baby_id:baby_id},
@@ -76,9 +68,10 @@ else
                     dataType: "JSON",
                     success: function(data) {
                         if (data.hasOwnProperty('success') && data.success){
-                            $('.vc-'+$(this).attr('rel')+$(this).attr('baby')+' a').removeClass('active');
-                            if (!$(this).hasClass("active"))
-                                $(this).addClass("active");
+                            DeleteActiveVote($(this).attr('rel'),baby_id);
+                            ShowNewVote($(this).attr('rel'),baby_id,data);
+                            $(this).addClass("btn-yellow-small");
+                            $(this).removeClass("btn-gray-small");
                         }
                     },
                     'context': $(this)
@@ -87,7 +80,7 @@ else
             return false;
         });
         $('body').delegate('a.did','click',function(){
-            if (!$(this).hasClass('active') && baby_id !== null){
+            if (!$(this).hasClass('btn-green-small') && baby_id !== null){
                 $.ajax({
                     url: "<?php echo Yii::app()->createUrl("/vaccineCalendar/default/vote") ?>",
                     data: {vote:3,id:$(this).attr('rel'),baby_id:baby_id},
@@ -95,8 +88,10 @@ else
                     dataType: "JSON",
                     success: function(data) {
                         if (data.hasOwnProperty('success') && data.success){
-                            $('.vc-'+$(this).attr('rel')+$(this).attr('baby')+' a').removeClass('active');
-                                $(this).addClass("active");
+                            DeleteActiveVote($(this).attr('rel'),baby_id);
+                            ShowNewVote($(this).attr('rel'),baby_id,data);
+                            $(this).addClass("btn-green-small");
+                            $(this).removeClass("btn-gray-small");
                         }
                     },
                     'context': $(this)
@@ -105,28 +100,67 @@ else
             return false;
         });
     });
+
+    function DeleteActiveVote(vaccine_id,baby_id){
+        $('.vc-'+vaccine_id+baby_id+' a').each(function(index) {
+            if ($(this).hasClass('btn-red-small')) {
+                $(this).removeClass('btn-red-small');
+                $(this).addClass("btn-gray-small");
+            }
+            if ($(this).hasClass('btn-green-small')) {
+                $(this).removeClass('btn-green-small');
+                $(this).addClass("btn-gray-small");
+            }
+            if ($(this).hasClass('btn-yellow-small')) {
+                $(this).removeClass('btn-yellow-small');
+                $(this).addClass("btn-gray-small");
+            }
+        });
+    }
+    function ShowNewVote(vaccine_id,baby_id,data){
+        $('.vc-'+vaccine_id+baby_id+' span.red').html(data.decline);
+        $('.vc-'+vaccine_id+baby_id+' span.orange').html(data.agree);
+        $('.vc-'+vaccine_id+baby_id+' span.green').html(data.did);
+    }
 </script>
 
-<div class="tabs-headers">
-    <ul>
-        <?php if (isset($user_children)):?>
-            <?php foreach($user_children as $baby):?>
-                <li class="vaccine-date-<?php echo $baby->id ?>"><a href="#" rel="<?php echo $baby->id ?>"><?php echo $baby->name ?></a></li>
-            <?php endforeach ?>
-        <?php endif ?>
-        <li class="empty-vaccine-date"><a href="#">Укажите дату рождения</a></li>
-    </ul>
+<div class="section-banner">
+    <img src="/images/section_banner_04.jpg" />
 </div>
-<ul class="tabs">
+
+<div class="tabs vaccination-tabs">
+    <div class="nav">
+        <ul>
+            <?php if (isset($user_children)):?>
+                <?php foreach($user_children as $baby):?>
+                    <li class="vaccine-date-<?php echo $baby->id ?> <?php if ($baby_id === $baby->id) echo ' active' ?>">
+                        <a href="javascript:void(0);" onclick="setTab(this, <?php echo $baby->id ?>);" href="#" rel="<?php echo $baby->id ?>">
+                            <div class="pic">
+                                <img src="/images/baby_pic_01.jpg" />
+                            </div>
+                            <span><?php echo $baby->name ?></span>
+                        </a>
+                    </li>
+                <?php endforeach ?>
+            <?php endif ?>
+            <li class="empty-vaccine-date<?php if ($baby_id === null) echo ' active' ?>">
+                <a href="javascript:void(0);" onclick="setTab(this, 0);">
+                    <div class="box-in">
+                        <span>Укажите дату<br/>рождения</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
     <?php if (isset($user_children)):?>
         <?php foreach($user_children as $baby):?>
-            <li class="vaccine-date-<?php echo $baby->id ?>" <?php if ($baby_id != $baby->id) echo 'style="display:none;"'?> >
+            <div class="tab-box tab-box-<?php echo $baby->id ?>" <?php if ($baby_id === $baby->id) echo ' style="display:block;"' ?>>
                 <?php $this->renderPartial('_view',array('baby'=>$baby)); ?>
-            </li>
+            </div>
         <?php endforeach ?>
     <?php endif ?>
 
-    <li class="empty-vaccine-date" <?php if ($baby_id !== null) echo 'style="display:none;"'?> >
-        <?php $this->renderPartial('_view',array('baby'=>null)); ?>
-    </li>
-</ul>
+    <div class="empty-vaccine-date tab-box tab-box-0">
+        <?php $this->renderPartial('_view_empty',array('baby'=>null)); ?>
+    </div>
+</div>

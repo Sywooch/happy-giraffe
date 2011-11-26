@@ -4,7 +4,8 @@ $(document).ready(function(){
 		overlayColor: '#000',
 		overlayOpacity: '0.6',
 		padding:0,
-		showCloseButton:false
+		showCloseButton:false,
+		scrolling: false
 	});	
 })
 
@@ -17,6 +18,31 @@ function setTab(el, num){
 		tabs.find('.tab-box-'+num).fadeIn();
 		tabs.find('.tab-box').not('.tab-box-'+num).hide();
 	}
+}
+
+function setItemRadiogroup(el, val){
+	var rg = $(el).parents('.filter-radiogroup');
+	var li = $(el).parent();
+	 
+	if (!li.hasClass('active')){
+		if (!rg.hasClass('filter-radiogroup-multiply'))
+			{rg.find('li').removeClass('active');
+			rg.find('input').val(val);
+		} else {
+			li.find('input').val(1);
+		}
+		
+		li.addClass('active');
+	}
+	
+}
+
+function unsetItemRadiogroup(el){
+	var rg = $(el).parents('.filter-radiogroup');
+	var li = $(el).parent();
+	
+	$(li).removeClass('active');
+	$(li).find('input').val(0);
 }
 
 function setRatingHover(el, num){
@@ -103,4 +129,8 @@ function unsetPlaceholder(el){
 
 function toggleChildForm(el){
 	$(el).parents('.child').find('.child-form').fadeToggle();
+}
+
+function toggleBudgetCategoryBox(el) {
+	$(el).parents('.category-box').find('.box-in:not(:animated)').slideToggle(function(){$(this).parents('.category-box').toggleClass('toggled')});
 }

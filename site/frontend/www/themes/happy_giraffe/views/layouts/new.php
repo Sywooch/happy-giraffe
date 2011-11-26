@@ -7,7 +7,7 @@
 	
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 <!--   	--><?php //Yii::app()->clientScript->registerCssFile('/stylesheets/wym.css'); ?>
-   	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/global.css'); ?>
+<!--   	--><?php //Yii::app()->clientScript->registerCssFile('/stylesheets/global.css'); ?>
    	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/common.css'); ?>
    	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css'); ?>
 
@@ -21,7 +21,7 @@
 
    	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/common.js'); ?>
 
-   	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css', 'screen'); ?>
+<!--   	--><?php //Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css', 'screen'); ?>
 
    	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.iframe-post-form.js'); ?>
 

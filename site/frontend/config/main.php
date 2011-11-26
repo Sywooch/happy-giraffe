@@ -35,6 +35,7 @@ return array(
 		'ext.ESaveRelatedBehavior',
 		'ext.image.Image',
 		'application.modules.vaccineCalendar.models.*',
+        'application.modules.pregnancyWeight.models.*',
 	),
 
 	'sourceLanguage' => 'en',
@@ -65,6 +66,7 @@ return array(
 			'callbackOrderPaid' => array('Order','callbackOrderPaid'),
 		),
 		'vaccineCalendar',
+        'pregnancyWeight'
 	),
 
 	// application components

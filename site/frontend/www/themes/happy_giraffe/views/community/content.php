@@ -43,7 +43,8 @@ $('.spam a').live('click', function() {
 	$cs
 		->registerScript('content_report', $js_content_report)
 		->registerScriptFile('http://vkontakte.ru/js/api/openapi.js', CClientScript::POS_HEAD)
-		->registerScript('ilike', $ilike, CClientScript::POS_HEAD);
+		->registerScript('ilike', $ilike, CClientScript::POS_HEAD)
+		->registerCssFile('/stylesheets/wym.css');
 ?>
 
 <?php $this->breadcrumbs = array(

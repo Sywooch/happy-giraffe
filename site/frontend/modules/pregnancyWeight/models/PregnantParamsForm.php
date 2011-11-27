@@ -62,8 +62,8 @@ class PregnantParamsForm extends CFormModel
     }
 
     public function GetNormalWeight(){
-        $this->min_weight = round($this->recommend_weight - $this->recommend_gain*0.1);
-        $this->max_weight = round($this->recommend_weight + $this->recommend_gain*0.1);
+        $this->min_weight = round($this->recommend_weight - $this->recommend_gain*0.1,1);
+        $this->max_weight = round($this->recommend_weight + $this->recommend_gain*0.1,1);
         if ($this->min_weight == $this->max_weight)
             return $this->max_weight;
         return $this->min_weight.'-'.$this->max_weight;

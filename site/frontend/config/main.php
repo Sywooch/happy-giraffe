@@ -68,6 +68,7 @@ return array(
 		'vaccineCalendar',
 		'pregnancyWeight',
 		'hospitalBag',
+		'contractionsTime'
 	),
 
 	// application components

@@ -3,8 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Untitled Document</title>
-	
-	
+
+
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 <!--   	--><?php //Yii::app()->clientScript->registerCssFile('/stylesheets/wym.css'); ?>
 <!--   	--><?php //Yii::app()->clientScript->registerCssFile('/stylesheets/global.css'); ?>
@@ -28,26 +28,26 @@
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
 	<![endif]-->
-	
+
 </head>
 <body class="body-club">
 	<div id="layout" class="wrapper">
-		
+
 		<div id="header" class="clearfix">
-			
+
 			<div class="logo-box">
 				<a href="" class="logo"></a>
 			</div>
-			
+
 			<div class="header-in">
-								
+
 				<div class="search-box">
 					<button class="btn"><span><span>Поиск</span></span></button>
 					<div class="text">
 						<input type="text" />
 					</div>
 				</div>
-				
+
                 <div class="login-box">
                     <?php if (Yii::app()->user->isGuest): ?>
                         <span class="lk">Личный кабинет</span>
@@ -59,9 +59,9 @@
                         <?php echo CHtml::link('Выход', Yii::app()->createUrl('../club/site/logout')); ?>
                     <?php endif; ?>
                 </div>
-				
+
 			</div>
-			
+
 		</div>
 
         <div id="nav" class="clearfix">
@@ -116,9 +116,9 @@
 			&nbsp;>&nbsp;
 			<b>Календарь прививок ребенка</b>
 		</div>
-		
+
 		<div id="content">
-			
+
 			<div id="baby">
 				<div class="content-box clearfix">
 					<div class="main main-right">

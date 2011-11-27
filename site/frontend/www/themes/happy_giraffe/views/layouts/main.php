@@ -5,7 +5,7 @@
 <head>
 	<?php echo CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type'); ?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/wym.css'); ?>
+<!--	--><?php //Yii::app()->clientScript->registerCssFile('/stylesheets/wym.css'); ?>
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/global.css'); ?>
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/common.css'); ?>
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css'); ?>
@@ -151,10 +151,10 @@ function report(item)
 		<br /> <br />
 		
 		<div id="content">
-			
+
 			<?php echo $content; ?>
-		
-		</div>  	
+
+		</div>
 		<div class="clear"></div>
 		<div class="empty"></div>
 	

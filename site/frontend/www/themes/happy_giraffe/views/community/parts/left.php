@@ -1,4 +1,4 @@
-<div class="section-banner">
+<div class="section-banner" style="height: 297px;">
 	<div class="section-nav" style="left:330px;top:40px;">
 		<?php 
 			$items = array();
@@ -20,7 +20,7 @@
 			));
 		?>		
 	</div>
-	<img src="/images/section_banner_01.png" />
+	<img src="/images/community/<?php echo $community->id; ?>.jpg" />
 </div>
 
 <div class="left-inner">

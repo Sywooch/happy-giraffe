@@ -66,7 +66,8 @@ return array(
 			'callbackOrderPaid' => array('Order','callbackOrderPaid'),
 		),
 		'vaccineCalendar',
-        'pregnancyWeight'
+		'pregnancyWeight',
+		'hospitalBag',
 	),
 
 	// application components

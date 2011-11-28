@@ -18,7 +18,7 @@ return array(
 		'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 		'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 		//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-		'shop' => 'product/view/Jetem_Turbo_4S_10/',
+		'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
 		'club/<controller:\w+>/<action:\w+>' => '<controller>/<action>', 
 	),
 );

@@ -109,7 +109,7 @@ function report(item)
 							'items' => array(
 								array(
 									'label' => '<span>Форумы</span>',
-									'url' => array('/community/list', 'community_id' => 5),
+									'url' => array('/community'),
 									'itemOptions' => array(
 										'class' => 'green',
 									),

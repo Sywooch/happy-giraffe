@@ -160,7 +160,7 @@
 				));
 			?>
 				<div class="new-hospital-bag-item">
-					Ваш предмет: <?php echo $form->textField($item, 'name', array('value' => 'Кипятильник')); ?> <span>Добавляйте только по одному предмету!</span>
+					Ваш предмет: <?php echo $form->textField($item, 'name'); ?> <span>Добавляйте только по одному предмету!</span>
 				</div>
 				
 				<?php $item->description = 'Напишите для чего может пригодиться этот предмет в роддоме.'; echo $form->textArea($item, 'description'); ?>

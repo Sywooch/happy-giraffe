@@ -93,7 +93,8 @@
         var hours=time.getHours().toString();
     	var mins=time.getMinutes().toString();
     	var secs=time.getSeconds().toString();
-    	return ((hours.length > 1 ? hours : "0" + hours)+":"+(mins.length > 1 ? mins : "0" + mins))
+    	return ((hours.length > 1 ? hours : "0" + hours)+":"+(mins.length > 1 ? mins : "0" + mins)
+                    +":"+(secs.length > 1 ? secs : "0" + secs))
     }
 
     function startSH()

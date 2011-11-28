@@ -205,7 +205,7 @@
 #baby .hospital-bag .items-storage .storage-text > span {color:#99dc7b;display:block;margin-top:8px;margin-bottom:12px;}
 #baby .hospital-bag .items-storage .storage-text > span span {color:#ba64e8;font-weight:bold;}
 
-#baby .comments {}
+#baby .comments {border: none;margin:0;padding:0;}
 #baby .comments .add, #product .comments .all {padding-top:10px;text-align:right;}
 #baby .comments ul {padding-top:10px;}
 #baby .comments li {padding:25px;}

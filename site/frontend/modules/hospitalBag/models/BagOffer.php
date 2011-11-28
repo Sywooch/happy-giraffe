@@ -103,7 +103,7 @@ class BagOffer extends CActiveRecord
 			'select' => 't.*, bag_user_vote.vote as vote',
 			'join' => 'LEFT JOIN bag_user_vote ON t.id = bag_user_vote.offer_id AND bag_user_vote.user_id = :user_id',
 			'params' => array(':user_id' => $user_id),
-			'with' => 'item',
+			'with' => array('item', 'author'),
 		));
 		
 		return new CActiveDataProvider(__CLASS__, array(

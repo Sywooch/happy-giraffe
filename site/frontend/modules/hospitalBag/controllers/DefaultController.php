@@ -16,6 +16,7 @@ class DefaultController extends Controller
 			'visible_items' => $visible_items,
 			'offers' => $offers,
 			'item' => $item,
+			'count' => count($bag),
 		));
 	}
 	
@@ -41,6 +42,8 @@ class DefaultController extends Controller
 			{
 				$transaction->rollBack();
 			}
+			
+			$this->redirect('/hospitalBag');
 		}
 	}
 	

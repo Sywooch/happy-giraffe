@@ -24,13 +24,12 @@
         TimerID=self.setTimeout("StartTimer()",1000);
          $('#timer').html(Pad(mins)+":"+Pad(secs));
 
+        secs++;
         if(secs==60)
         {
            mins++;
            secs=0;
         }
-        secs++;
-
      }
 
      function Pad(number)
@@ -224,6 +223,37 @@
         });
     });
 
+    //For testing service
+    function Test(){
+        list=new Array();
+        current = new Shvatka();
+        current.before = null;
+        current.length = 15000;
+        list.push(current);
+
+        current = new Shvatka();
+        current.before = 450000;
+        current.length = 14000;
+        list.push(current);
+
+        current = new Shvatka();
+        current.before = 450000;
+        current.length = 14000;
+        list.push(current);
+
+        current = new Shvatka();
+        current.before = 450000;
+        current.length = 18000;
+        list.push(current);
+
+        current = new Shvatka();
+        current.before = 450000;
+        current.length = 11000;
+        list.push(current);
+
+        StopCounting();
+    }
+
     //end counting and calculate result
     function StopCounting(){
         stopped = true;
@@ -236,20 +266,47 @@
         for (var key in list) {
             var val = list[key];
             val.length = Math.abs(val.length / 1000);
-            val.before = Math.abs(val.before / 1000);
+            if (val.before !== null)
+                val.before = Math.abs(val.before / 1000);
             common_length += val.length;
             common_interval += val.before;
         }
 
         var average_length = common_length / 5;
         var average_interval = common_interval / 4;
+//        console.log(average_length, average_interval);
+
+        var previous_val = null;
+        var max_range = 10;
+        var len_point_rise = average_length/500;
+        var interval_point_rise = average_interval/500;
+//        console.log(len_point_rise, interval_point_rise);
 
         for (var key in list) {
             var val = list[key];
-            if (Math.abs(val.length - average_length) > 10)
+            if (Math.abs(val.length - average_length) > (max_range + len_point_rise*2)){
+//                console.log(11);
+//                console.log(val.length - average_length);
                 return ShowPhase(9);
-            if (Math.abs(val.before - average_interval) > 10)
+            }
+            if (val.before !== null)
+                if (Math.abs(val.before - average_interval) > (max_range + interval_point_rise*2)){
+//                    console.log(22);
+//                    console.log(val.before, average_interval);
+                    return ShowPhase(9);
+                }
+        }
+
+        var iter = 0;
+        for (var key in list) {
+            var val = list[key];
+            if (previous_val !== null){
+            if ((val.length - previous_val) > (max_range + len_point_rise*iter)
+                || (val.length - previous_val) < (-max_range + len_point_rise*iter))
                 return ShowPhase(9);
+            }
+            iter++;
+            previous_val = list[key];
         }
 
         if (average_length < 30 && average_interval > 300)
@@ -289,7 +346,6 @@
         <div class="time" id="timer">00:00</div>
     </div>
 </div>
-
 <div class="contractions-summary">
     <table class="result-table contractions-data">
         <colgroup>
@@ -443,8 +499,10 @@
         <div class="block-in contractions-result contractions-result-6" style="display: none;">
             <div class="box-left">
                 <div class="result-text">
-                    <img src="/images/img_contractions_result_01.jpg"><br>
-                    Собирайтесь в<br>роддом!
+                    <img src="/images/img_contractions_result_04.jpg"><br>
+                    Вы рожаете!<br>
+                    Срочно вызывайте<br>
+                    СКОРУЮ!
                 </div>
             </div>
             <div class="box-main">

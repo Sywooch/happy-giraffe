@@ -1,8 +1,9 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<?php echo CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type'); ?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-<!--	--><?php //Yii::app()->clientScript->registerCssFile('/stylesheets/wym.css'); ?>
+    <?php //Yii::app()->clientScript->registerCssFile('/stylesheets/wym.css'); ?>
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/global.css?r=111'); ?>
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/common.css?r=111'); ?>
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css?r=111'); ?>

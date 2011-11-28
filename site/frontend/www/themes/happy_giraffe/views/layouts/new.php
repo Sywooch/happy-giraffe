@@ -1,4 +1,4 @@
-        <?php $this->beginContent('//layouts/main'); ?>
+<?php $this->beginContent('//layouts/main'); ?>
 			<div id="baby">
 				<div class="content-box clearfix">
 					<div class="main main-right">
@@ -17,4 +17,4 @@
 					
 				</div>
 			</div>
-        <?php $this->endContent(); ?>
+<?php $this->endContent(); ?>

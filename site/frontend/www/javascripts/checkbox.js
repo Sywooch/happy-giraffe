@@ -2,7 +2,7 @@ $(document).ready(function(){
    if ($('select').size()>0){  
       var params = {
 	  	  changedEl: "select",
-	  	  visRows: 5,
+	  	  visRows: 8,
 		 scrollArrows: true
 	  }
 

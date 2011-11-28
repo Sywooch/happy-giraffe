@@ -12,6 +12,13 @@ if (!Yii::app()->user->isGuest){
 else
     $baby_id = null;
 ?>
+<style type="text/css">
+    .wid100 {
+        width: 100px !important; /* !important обязателен */
+    }
+
+</style>
+
 <script type="text/javascript">
     baby_id = '<?php echo $baby_id ?>';
 
@@ -22,7 +29,7 @@ else
                 cuSelRefresh({refreshEl: "#month-,#day-,#year-",visRows: 5,scrollArrows: true});
             }else{
                 baby_id = $(this).attr('rel');
-                cuSelRefresh({refreshEl: "#month-"+baby_id+",#day-"+baby_id+",#year-"+baby_id,visRows: 5,scrollArrows: true});
+                cuSelRefresh({refreshEl: "#month-"+baby_id+",#day-"+baby_id+",#year-"+baby_id,visRows: 8,scrollArrows: true});
             }
             return false;
         });

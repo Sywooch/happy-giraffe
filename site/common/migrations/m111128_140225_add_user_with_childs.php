@@ -45,7 +45,7 @@ class m111128_140225_add_user_with_childs extends CDbMigration
 
 	public function down()
 	{
-        
+
 	}
 
 	/*

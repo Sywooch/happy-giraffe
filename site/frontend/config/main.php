@@ -36,6 +36,7 @@ return array(
 		'ext.image.Image',
 		'application.modules.vaccineCalendar.models.*',
         'application.modules.pregnancyWeight.models.*',
+	'application.modules.hospitalBag.models.*',
 	),
 
 	'sourceLanguage' => 'en',

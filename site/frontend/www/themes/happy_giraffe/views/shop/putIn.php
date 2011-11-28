@@ -1,7 +1,5 @@
 <div id="productAdded" class="popup">
-
 	<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
-
 	<div class="product-info clearfix">
 		<div class="img-box">
 			<?php echo CHtml::image($model->product_image->getUrl('subproduct'), $model->product_title); ?>
@@ -16,29 +14,22 @@
 				<input readonly type="text" value="<?php echo Yii::app()->shoppingCart->itemAt($model->getId())->getQuantity(); ?>" />
 				<a class="inc" onclick="incA(this, <?php echo $model->product_id;?>);return false;"></a> шт.
 			</div>
-
 		</div>
 	</div>
 	<div class="in">
-		В Вашей корзине <big><b id="itemSCount">
-				<?php echo Yii::app()->shoppingCart->getItemsCount(); ?>
-		</b></big> товара
+		В Вашей корзине <big><b id="itemSCount"><?php echo Yii::app()->shoppingCart->getItemsCount(); ?></b></big> товара
 		<div class="total-price">
-			<span class="a-right"><span><b id="itemSCost">
-						<?php echo Yii::app()->shoppingCart->getCost(); ?>
-			</b></span> руб.</span>
-
+			<span class="a-right"><span><b id="itemSCost"><?php echo Yii::app()->shoppingCart->getCost(); ?></b></span> руб.</span>
 			Предварительный итог:
 		</div>
 		<div class="note">Точная сумма с доставкой  будет рассчитана позднее.</div>
 	</div>
 	<div class="bottom">
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="btn btn-orange btn-arrow-left"><span><span><img src="../static/images/arrow_l.png" /><b>Вернуться в магазин</b></span></span></a>
-		<?php echo CHtml::link('<span><span>Оформить заказ<img src="/images/arrow_r.png" /></span></span>', array(
-			'/shop/shopCart'
-		), array(
-			'class' => 'btn btn-green-medium btn-arrow-right',
-		)); ?>
+		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="btn btn-orange btn-arrow-left"><span><span><img src="/images/arrow_l.png" /><b>Вернуться в магазин</b></span></span></a>
+		<?php echo CHtml::link(
+				'<span><span>Оформить заказ<img src="/images/arrow_r.png" /></span></span>', 
+				array('/shop/shopCart'), 
+				array('class' => 'btn btn-green-medium btn-arrow-right')); 
+		?>
 	</div>
-
 </div>

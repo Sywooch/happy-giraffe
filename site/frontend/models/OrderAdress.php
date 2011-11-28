@@ -111,4 +111,12 @@ class OrderAdress extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public function getAddressByOrderId($orderId) {
+		$address = $this->find('adress_order_id = :adress_order_id', array(':adress_order_id' => $orderId));
+		if ($address === null) {
+			$address = new self();
+		}
+		return $address;
+	}
 }

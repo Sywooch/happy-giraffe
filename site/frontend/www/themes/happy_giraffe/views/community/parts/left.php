@@ -14,10 +14,10 @@
 				);
 			}
 			
-			$this->widget('zii.widgets.CMenu', array(
+			/*$this->widget('zii.widgets.CMenu', array(
 				'encodeLabel' => false,
 				'items' => $items,
-			));
+			));*/
 		?>		
 	</div>
 	<img src="/images/community/<?php echo $community->id; ?>.jpg" />

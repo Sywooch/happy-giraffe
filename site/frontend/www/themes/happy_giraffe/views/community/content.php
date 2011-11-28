@@ -158,10 +158,8 @@ $('.spam a').live('click', function() {
 							}
 							else
 							{
-								preg_match('/<p>(.+)<\/p>/m', $rc->article->text, $matches2);
-								print_r($matches2);
-								//$content = strip_tags($matches2[1]);
-								$content = '';
+								preg_match('/<p>(.+)<\/p>/Uis', $rc->article->text, $matches2);
+								$content = strip_tags($matches2[1]);
 							}
 						break;
 						case 'video':

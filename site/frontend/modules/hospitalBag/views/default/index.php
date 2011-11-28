@@ -33,8 +33,8 @@
 			var button = $(this);
 			var offer = button.parents('.item-useful');
 			var a = {green: 1, red: 0};
-			var class = button.parents('div').attr('class');
-			var vote = a[class];
+			var lol = button.parents('div').attr('class');
+			var vote = a[lol];
 			var offer_id = offer.children('input[name=\"id\"]').val();
 			$.ajax({
 				dataType: 'JSON',

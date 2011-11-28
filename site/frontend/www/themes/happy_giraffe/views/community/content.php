@@ -149,6 +149,8 @@ $('.spam a').live('click', function() {
 			<?php 
 				foreach ($related as $rc)
 				{
+					echo $rc->id;
+					break;
 					switch ($rc->type->slug)
 					{
 						case 'article':

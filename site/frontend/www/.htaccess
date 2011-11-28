@@ -3,5 +3,8 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^(www\.|)happy-giraffe.ru$
 RewriteRule ^$ http://www.happy-giraffe.ru/community/list/community_id/5/ [L,R=301]
 
-RewriteRule ^(?:shop|club)/upload/(.+)$ /upload/$1
+RewriteRule ^(?:shop|club)/upload/(.+)$ /upload/$1 [L]
 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php

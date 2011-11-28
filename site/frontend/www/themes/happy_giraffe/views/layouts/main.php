@@ -93,12 +93,12 @@ function report(item)
 				<div class="login-box">
 					<?php if (Yii::app()->user->isGuest): ?>
 						<span class="lk">Личный кабинет</span>
-						<a href="#login" class="fancy">Вход</a>
+						<?php echo CHtml::link('Вход', '#login', array('class' => 'fancy')); ?>
 						|
-						<?php echo CHtml::link('Регистрация', '/club/signup'); ?>
+						<?php echo CHtml::link('Регистрация', Yii::app()->createUrl('signup')); ?>
 					<?php else: ?>
-						<span class="welcome"><b>Добро пожаловать,</b> <?php echo CHtml::link(Yii::app()->user->first_name, Yii::app()->createUrl('../shop/profile/index')); ?></span>
-						<?php echo CHtml::link('Выход', Yii::app()->createUrl('../club/site/logout')); ?>
+						<span class="welcome"><b>Добро пожаловать,</b> <a href="<?php echo CController::createUrl('profile/index'); ?>"><?php echo Yii::app()->user->first_name; ?><?php if (Yii::app()->user->last_name) echo ' ' . Yii::app()->user->last_name; ?>!</a></span>
+						<?php echo CHtml::link('Выход', Yii::app()->createUrl('site/logout')); ?>
 					<?php endif; ?>
 				</div>
 				

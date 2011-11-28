@@ -16,7 +16,6 @@ else
     .wid100 {
         width: 100px !important; /* !important обязателен */
     }
-
 </style>
 
 <script type="text/javascript">
@@ -124,7 +123,7 @@ else
 <div class="section-banner">
     <img src="/images/section_banner_04.jpg" />
 </div>
-
+<?php $i=1; ?>
 <div class="tabs vaccination-tabs">
     <div class="nav">
         <ul>
@@ -133,11 +132,16 @@ else
                     <li class="vaccine-date-<?php echo $baby->id ?> <?php if ($baby_id === $baby->id) echo ' active' ?>">
                         <a href="javascript:void(0);" onclick="setTab(this, <?php echo $baby->id ?>);" href="#" rel="<?php echo $baby->id ?>">
                             <div class="pic">
+<?php if ($i % 2 == 0): ?>
+                                    <img src="/images/baby_pic_02.jpg" />
+<?php else: ?>
                                 <img src="/images/baby_pic_01.jpg" />
+<?php endif; ?>
                             </div>
                             <span><?php echo $baby->name ?></span>
                         </a>
                     </li>
+                <?php $i++ ?>
                 <?php endforeach ?>
             <?php endif ?>
             <li class="empty-vaccine-date<?php if ($baby_id === null) echo ' active' ?>">

@@ -6,7 +6,7 @@ $(document).ready(function(){
 		 scrollArrows: true
 	  }
 
-	    cuSel(params);     
+//	    cuSel(params);
    }
    $(".CheckBoxClass").change(function(){
       if($(this).is(":checked")){

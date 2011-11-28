@@ -322,7 +322,7 @@
                 return ShowPhase(9);
             }
             if (val.before !== null)
-                if (Math.abs(val.before - average_interval) > (max_range + interval_point_rise*2)){
+                if (Math.abs(val.before - average_interval) > (max_range*2 + interval_point_rise*2)){
 //                    console.log(22);
 //                    console.log(val.before, average_interval);
                     return ShowPhase(9);
@@ -346,7 +346,7 @@
         if (average_length < 30 && average_interval <= 300)
             return ShowPhase(2);
         if (average_length >= 30 && average_length < 45
-            && average_interval >= 240 && average_interval < 300 )
+            && average_interval >= 240 && average_interval < 600 )
             return ShowPhase(3);
         if (average_length >= 45 && average_length < 65
             && average_interval >= 60 && average_interval < 240 )
@@ -453,7 +453,7 @@
             </div>
         </div>
         <div class="box-main">
-            <div class="summary-title">Рекоммендации:</div>
+            <div class="summary-title">Рекомендации:</div>
             <p>Есть две интепретации этого значения: либо вы приближаетесь к начальной стадии схваток, либо к вам пожаловали предвестники – ложные схватки.</p>
             <p>Что делать?</p>
             <p>Главное - не паникуйте. Если есть возможность, свяжитесь с врачом, если нет – спокойно подождите. Если схватки станут больше 30 секунд, а интервал «устаканится» и будет показывать значение 4-5 минут, значит, вы в родах. Если же схватки будут продолжаться так же, как и начались, или вообще прекратятся (такое тоже бывает), значит, пока рано готовиться в роддом.</p>
@@ -471,7 +471,7 @@
                 </div>
             </div>
             <div class="box-main">
-                <div class="summary-title">Рекоммендации:</div>
+                <div class="summary-title">Рекомендации:</div>
                 <p>Это неоднозначная ситуация, свидетельствующая либо о приближении начального периода схваток, либо о так называемых «ложных» схватках. Подождите до момента, когда ситуация станет более ясной и точной. Следите за схватками внимательней!</p>
                 <br/>
                 <center><a class="to-contractions-data" href="#">Таблица Ваших схваток</a></center>
@@ -486,7 +486,7 @@
                 </div>
             </div>
             <div class="box-main">
-                <div class="summary-title">Рекоммендации:</div>
+                <div class="summary-title">Рекомендации:</div>
                 <p>Раскрытие шейки матки находится на уровне 0-3 см.</p>
                 <p>Что это значит?</p>
                 <p>В роддом пока рано. Но вы уже можете начать собираться. Не торопитесь. Ваши роды состоятся через 7-8 часов. Значит, из дома надо будет выехать через 4-5 часов.</p>
@@ -504,7 +504,7 @@
                 </div>
             </div>
             <div class="box-main">
-            <div class="summary-title">Рекоммендации:</div>
+            <div class="summary-title">Рекомендации:</div>
                 <p>Раскрытие шейки составляет 3-7 см. Вы – в активной стадии.</p>
                 <p>Что это значит?</p>
                 <p>Пора ехать в роддом. Вызывайте скорую, такси – как вы планировали, и езжайте! Уже через 3-5 часов вы возьмете на руки своего малыша, появившегося на свет.</p>
@@ -521,7 +521,7 @@
                 </div>
             </div>
             <div class="box-main">
-            <div class="summary-title">Рекоммендации:</div>
+            <div class="summary-title">Рекомендации:</div>
                 <p>Раскрытие шейки уже достигло 7-10 см. Вы в переходной стадии – совсем скоро начнутся роды.</p>
                 <p>Что это значит?</p>
                 <p>Осталось ждать совсем немного. Через полчаса–полтора часа вы родите. Сейчас схватки очень болезненны, но вы справитесь! И станете счастливой мамой! Удачи вам!</p>
@@ -540,7 +540,7 @@
                 </div>
             </div>
             <div class="box-main">
-                <div class="summary-title">Рекоммендации:</div>
+                <div class="summary-title">Рекомендации:</div>
                 <p>Вы рожаете! И вы еще у компьютера? Срочно вызывайте скорую, в таких случаях лучше не рисковать, а сразу доверить себя специалистам-врачам. Даже если вы будете рожать в карете скорой помощи (всякое случается), врачи примут ваши роды грамотно! А вот таксист или муж – маловероятно.</p>
                 <br/>
                 <center><a class="to-contractions-data" href="#">Таблица Ваших схваток</a></center>
@@ -555,7 +555,7 @@
                 </div>
             </div>
             <div class="box-main">
-                <div class="summary-title">Рекоммендации:</div>
+                <div class="summary-title">Рекомендации:</div>
                 <p>Скоро начнутся роды!</p>
                 <br/>
                 <center><a class="to-contractions-data" href="#">Таблица Ваших схваток</a></center>
@@ -570,7 +570,7 @@
                 </div>
             </div>
             <div class="box-main">
-                <div class="summary-title">Рекоммендации:</div>
+                <div class="summary-title">Рекомендации:</div>
                 <p>Может быть, это ложные схватки, а может быть, начало патологических родов. Срочно обратитесь к врачу!</p>
                 <br/>
                 <center><a class="to-contractions-data" href="#">Таблица Ваших схваток</a></center>
@@ -585,7 +585,7 @@
                 </div>
             </div>
             <div class="box-main">
-                <div class="summary-title">Рекоммендации:</div>
+                <div class="summary-title">Рекомендации:</div>
                 <p>Скорее всего, вы ведете счет неправильно. Постарайтесь жать на кнопку точнее – именно в момент начала схваток и в момент их окончания.</p>
                 <br/>
                 <center><a class="to-contractions-data" href="#">Таблица Ваших схваток</a></center>

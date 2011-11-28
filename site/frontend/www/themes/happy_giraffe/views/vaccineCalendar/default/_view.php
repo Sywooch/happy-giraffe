@@ -30,3 +30,4 @@
 <div id="vaccine-result<?php echo $baby_id ?>">
 
 </div>
+<?php $this->renderPartial('_text'); ?>

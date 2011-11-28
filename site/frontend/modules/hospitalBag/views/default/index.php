@@ -151,24 +151,26 @@
 			</li>
 		<?php endforeach; ?>										
 	</ul>
-	<div class="add clearfix">
-		<div class="new-comment">
-			<?php
-				$form = $this->beginWidget('CActiveForm', array(
-					'action' => 'hospitalBag/default/addOffer',
-					'id' => 'addOffer',
-				));
-			?>
-				<div class="new-hospital-bag-item">
-					Ваш предмет: <?php echo $form->textField($item, 'name'); ?> <span>Добавляйте только по одному предмету!</span>
-				</div>
+	<?php if (! Yii::app()->user->isGuest): ?>
+		<div class="add clearfix">
+			<div class="new-comment">
+				<?php
+					$form = $this->beginWidget('CActiveForm', array(
+						'action' => 'hospitalBag/default/addOffer',
+						'id' => 'addOffer',
+					));
+				?>
+					<div class="new-hospital-bag-item">
+						Ваш предмет: <?php echo $form->textField($item, 'name'); ?> <span>Добавляйте только по одному предмету!</span>
+					</div>
 				
-				<?php $item->description = 'Напишите для чего может пригодиться этот предмет в роддоме.'; echo $form->textArea($item, 'description'); ?>
-				<button class="btn btn-gray-medium cancel"><span><span>Отменить</span></span></button>
-				<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
-			<?php $this->endWidget(); ?>
+					<?php $item->description = 'Напишите для чего может пригодиться этот предмет в роддоме.'; echo $form->textArea($item, 'description'); ?>
+					<button class="btn btn-gray-medium cancel"><span><span>Отменить</span></span></button>
+					<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
+				<?php $this->endWidget(); ?>
+			</div>
 		</div>
-	</div>
+	<?php endif; ?>
 	
 </div>
 

@@ -1,125 +1,615 @@
-<?php
-	$cs = Yii::app()->clientScript;
-
-	$js = "
-		$('.item').draggable({
-			handle: 'span'
-		});
-		
-		$('#bag, .mini_bag').droppable({
-			accept: '.item',
-			drop: function(event, ui) {
-				$.ajax({
-					dataType: 'JSON',
-					type: 'POST',
-					url: " . CJSON::encode(Yii::app()->createUrl('hospitalBag/default/putIn')) . ",
-					data: {
-						id: ui.draggable.children('input[name=\"id\"]').val()
-					},
-					success: function(response) {
-						if (response.success)
-						{
-							ui.draggable.remove();
-						}
-					}
-				});
-			}
-		});
-		
-		$('.offer').delegate('button', 'click', function() {
-			var offer = $(this).parent('.offer');
-			var a = {pro: 1, con: 0};
-			var class = $(this).attr('class').split(' ')[1];
-			var vote = a[class];
-			var offer_id = offer.children('input[name=\"id\"]').val();
-			$.ajax({
-				dataType: 'JSON',
-				type: 'POST',
-				url: " . CJSON::encode(Yii::app()->createUrl('hospitalBag/default/vote')) . ",
-				data: {
-					offer_id: offer_id,
-					vote: vote,
-				},
-				success: function(response) {
-					offer.children('span.votes_pro').text(response.votes_pro);
-					offer.children('span.votes_con').text(response.votes_con);
-					offer.children('span.pro_percent').text(response.pro_percent);
-					offer.children('span.con_percent').text(response.con_percent);
-				},
-			});
-		});
-	";
-	
-	$css = "
-		.item {
-			border: 1px solid #000;
-			background: #ccc;
-			margin: 5px;
-			padding: 3px;
-			display: inline-block;
-		}
-		
-			.item span {
-				border: 1px solid #000;
-				cursor: pointer;
-			}
-		
-		#bag {
-			border: 1px solid #000;
-			width: 100px;
-			height: 100px;
-		}
-		
-		.mini_bag {
-			border: 1px solid #000;
-			width: 100px;
-			height: 30px;
-		}
-	";
-	
-	$cs
-		->registerCoreScript('jquery.ui')
-		->registerScript('service_bag', $js)
-		->registerCss('service_bag', $css);
-?>
-
-<?php
-	foreach ($visible_items as $c)
-	{
-		foreach ($c->items as $i)
-		{
-			$this->renderPartial('_item', array('item' => $i));
-		}
-	}
-?>
-<div id="bag"></div>
-
-<?php foreach ($offers->data as $o): ?>
-<div class="offer">
-	<?php if (! in_array($o->item->id, Yii::app()->user->getState('hospitalBag', array()))): ?>
-		<?php $this->renderPartial('_item', array('item' => $o->item)); ?>
-	<?php endif; ?>
-	<?php echo $o->item->description; ?>
-	<div class="mini_bag"></div>
-	<?php if (! Yii::app()->user->isGuest): ?>
-		<button class="vote pro">Да</button> <?php echo '<span class="votes_pro">' . $o->votes_pro . '</span>' . '(<span class="pro_percent">' . $o->proPercent . '</span>%)'; ?>
-		<button class="vote con">Нет</button> <?php echo '<span class="votes_con">' . $o->votes_con . '</span>' . '(<span class="con_percent">' . $o->conPercent . '</span>%)'; ?>
-	<?php endif; ?>
-	<?php echo CHtml::hiddenField('id', $o->id); ?>
-	<hr />
+<div class="section-banner" style="margin:0;">
+	<img src="/images/section_banner_07.jpg" />								
 </div>
-<?php endforeach; ?>
 
-<?php
-	$form = $this->beginWidget('CActiveForm', array(
-		'action' => 'hospitalBag/default/addOffer',
-	));
-?>
+<div class="tabs vaccination-tabs">
+	<div class="nav" style="margin:0;">
+		<ul>
+			<li class="active">
+				<a href="javascript:void(0);" onclick="setTab(this, 1);">
+					<div class="box-in">
+						<span>Документы</span>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);" onclick="setTab(this, 2);">
+					<div class="box-in">
+						<span>Средства<br/>гигиены</span>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);" onclick="setTab(this, 3);">
+					<div class="box-in">
+						<span>Белье и<br/>одежда</span>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);" onclick="setTab(this, 4);">
+					<div class="box-in">
+						<span>На выписку</span>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);" onclick="setTab(this, 5);">
+					<div class="box-in">
+						<span>Прочее</span>
+					</div>
+				</a>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="hospital-bag">
+		<div class="items">
+			<div class="tab-box tab-box-1" style="display:block;">										
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло Мыло<br/>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Расчёска</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыльница</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Стерильная<br/>вата</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Стерильные<br/>послеродовые прокладки</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box item-box-pink">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>
+				
+			</div>	
+			<div class="tab-box tab-box-2">										
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Расчёска</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыльница</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Стерильная<br/>вата</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Стерильные<br/>послеродовые прокладки</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>
+				
+			</div>	
+			<div class="tab-box tab-box-3">										
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло Мыло<br/>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Расчёска</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыльница</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Стерильная<br/>вата</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Стерильные<br/>послеродовые прокладки</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>
+				
+			</div>	
+			<div class="tab-box tab-box-4">	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло Мыло<br/>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Расчёска</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыльница</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Стерильная<br/>вата</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Стерильные<br/>послеродовые прокладки</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>
+				
+			</div>	
+			<div class="tab-box tab-box-5">	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло Мыло<br/>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Расчёска</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыльница</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Стерильная<br/>вата</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Стерильные<br/>послеродовые прокладки</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>	
+				<div class="item-box">
+					<div class="box-in">
+						<span class="valign"></span>
+						<span>Мыло</span>
+						<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+						<div class="drag"></div>
+					</div>
+				</div>
+				
+			</div>	
+			
+		</div>
+		
+		<div class="items-storage">
+			<div class="storage-text">
+				Перетащите сюда<br/>необходимое Вам  
+				<span>В сумке предметов: <span>10</span></span>
+				<a href="" class="btn btn-green-small"><span><span>Показать</span></span></a>
+			</div>
+		</div>
+	</div>
+</div>
 
-<?php if (! Yii::app()->user->isGuest): ?>
-	Ваш предмет: <?php echo $form->textField($item, 'name'); ?>
-	Описание: <?php echo $form->textArea($item, 'description'); ?>
-	<button>Добавить</button>
-<?php endif; ?>
+<div class="steps steps-comments">
+	<a href="" class="btn btn-orange a-right"><span><span>Добавить предмет</span></span></a>
+	<ul>
+		<li class="active"><a>Что бы Вы положили в сумку? </a></li>
+	</ul>
+	<div class="comment-count">55</div>
+</div>
 
-<?php $this->endWidget(); ?>
+<div class="comments">
+	<ul>
+		<li class="clearfix even">
+			<div class="user">
+				<div class="ava"><img src="/images/ava.png" /></div>
+				Дарья
+			</div>
+			<div class="content">
+				<div class="hospital-bag-item-fast">
+					<div class="item-storage">Ко мне в сумку</div>
+					<div class="item-box">
+						<div class="box-in">
+							<span class="valign"></span>
+							<span>Расчёска</span>
+							<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+							<div class="drag"></div>
+						</div>
+					</div>
+				</div>
+				<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
+				<div class="item-useful">
+					Предмет нужен?
+					<div class="green"><a href="" class="btn btn-green-small"><span><span>Да</span></span></a><br/><b>4500 (45%)</b></div>
+					<div class="red"><a href="" class="btn btn-gray-small"><span><span>Нет</span></span></a><br/><b>5500 (55%)</b></div>
+				</div>
+			</div>
+		</li>
+		<li class="clearfix">
+			<div class="user">
+				<div class="ava"></div>
+				Дарья
+			</div>
+			<div class="content">
+				<div class="hospital-bag-item-fast">
+					<div class="item-storage">Ко мне в сумку</div>
+					<div class="item-box">
+						<div class="box-in">
+							<span class="valign"></span>
+							<span>Расчёска</span>
+							<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+							<div class="drag"></div>
+						</div>
+					</div>
+				</div>
+				<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
+				<div class="item-useful">
+					Предмет нужен?
+					<div class="green"><a href="" class="btn btn-gray-small"><span><span>Да</span></span></a><br/><b>4500 (45%)</b></div>
+					<div class="red"><a href="" class="btn btn-red-small"><span><span>Нет</span></span></a><br/><b>5500 (55%)</b></div>
+				</div>
+			</div>
+		</li>
+		<li class="clearfix even">
+			<div class="user">
+				<div class="ava"><img src="/images/ava.png" /></div>
+				Дарья
+			</div>
+			<div class="content">
+				<div class="hospital-bag-item-fast">
+					<div class="item-storage">Ко мне в сумку</div>
+					<div class="item-box">
+						<div class="box-in">
+							<span class="valign"></span>
+							<span>Расчёска</span>
+							<div class="hint">Мыло нужно для того-то и того-то, только сильно много не берите.</div>
+							<div class="drag"></div>
+						</div>
+					</div>
+				</div>
+				<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
+				<div class="item-useful">
+					Предмет нужен?
+					<div class="green"><a href="" class="btn btn-gray-small"><span><span>Да</span></span></a><br/><b>4500 (45%)</b></div>
+					<div class="red"><a href="" class="btn btn-gray-small"><span><span>Нет</span></span></a><br/><b>5500 (55%)</b></div>
+				</div>
+			</div>
+		</li>										
+	</ul>
+	<div class="add clearfix">
+		<div class="new-comment">
+			<form>
+				<div class="new-hospital-bag-item">
+					Ваш предмет: <input type="text" value="Кипятильник" /> <span>Добавляйте только по одному предмету!</span>
+				</div>
+				<textarea>Напишите для чего может пригодиться этот предмет в роддоме.</textarea>
+				<button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
+				<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
+			</form>
+		</div>
+	</div>
+	
+</div>
+
+<script type="text/javascript">
+	$(' .item-box').hover(function(){
+		$(this).find('.hint').stop(true, true).fadeIn();
+	}, function(){
+		$(this).find('.hint').stop(true, true).fadeOut();
+	})
+</script>

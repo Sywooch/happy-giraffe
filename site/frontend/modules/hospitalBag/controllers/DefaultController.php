@@ -2,6 +2,8 @@
 
 class DefaultController extends Controller
 {
+	public $layout = '//layouts/new';
+
 	public function actionIndex()
 	{	
 		$item = new BagItem;

@@ -40,7 +40,3 @@
 	<?php endif; ?>
 
 </div>
-
-<?php $this->widget('LinkPager', array(
-	'pages' => $pages,
-)); ?>

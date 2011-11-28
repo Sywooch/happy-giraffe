@@ -486,10 +486,18 @@
         </div>
 
         <div class="block-in contractions-result contractions-result-9" style="display: none;">
-            <div class="summary-title">Рекоммендации:</div>
-            <p>Скорее всего, вы ведете счет неправильно. Постарайтесь жать на кнопку точнее – именно в момент начала схваток и в момент их окончания.</p>
-            <br/>
-            <center><a class="to-contractions-data" href="#">Таблица Ваших схваток</a></center>
+            <div class="box-left">
+                <div class="result-text">
+                    <img src="/images/img_contractions_result_03.jpg" /><br/>
+                    Будьте внимательны!
+                </div>
+            </div>
+            <div class="box-main">
+                <div class="summary-title">Рекоммендации:</div>
+                <p>Скорее всего, вы ведете счет неправильно. Постарайтесь жать на кнопку точнее – именно в момент начала схваток и в момент их окончания.</p>
+                <br/>
+                <center><a class="to-contractions-data" href="#">Таблица Ваших схваток</a></center>
+            </div>
         </div>
 
 </div>

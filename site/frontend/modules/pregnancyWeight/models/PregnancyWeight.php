@@ -143,7 +143,7 @@ class PregnancyWeight extends CActiveRecord
         $data = self::GetWeightGainArray($bmi);
         $result = array();
         for ($i = 1; $i <= 40; $i++) {
-            $result[$i] = $weight_before + $data[$i];
+            $result[$i] = sprintf("%01.2f", $weight_before + $data[$i]);
         }
 
         return $result;

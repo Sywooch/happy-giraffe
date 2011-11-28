@@ -89,6 +89,7 @@
         var trClass = '';
         if (list.length % 2 == 0)
             trClass = ' class="even"';
+        $(".result-table a.remove").hide();
 
     	$(".result-table").append("<tr id='data"+counter+"'"+trClass+"><td></td><td class='col-1'>"+counter
             +"</td><td class='col-2'>"+getTime(this.begin)
@@ -161,6 +162,7 @@
             $('.contractions-result').hide();
             $('.contractions-data').show();
             $(".result-table tbody").empty();
+            $('.to-contractions-info').hide();
         }
 
     	if (status == 0)
@@ -190,6 +192,15 @@
         }
     }
 
+    function deleteLast()
+    {
+    	$("#data" + counter).remove();
+    	counter--;
+    	list.pop();
+    }
+
+
+
     $(function() {
         $('#start-count').click(function(){
             press();
@@ -200,10 +211,12 @@
             if (stopped)
                 return false;
 
-            index = $('#result-table a.remove').index($(this));
+//            index = $('#result-table a.remove').index($(this));
             //find row number
-            list.splice(index, 1);
-            $(this).parent().parent().remove();
+//            list.splice(index, 1);
+//            $(this).parent().parent().remove();
+            deleteLast();
+            $(".result-table a.remove:last").show();
             RemainsCount();
 
             return false;
@@ -211,7 +224,15 @@
 
         $('.to-contractions-data').click(function(){
             $('.contractions-result').hide();
+            $('.to-contractions-info').show();
             $('.contractions-data').show();
+            return false;
+        });
+
+        $('.to-contractions-info').click(function(){
+            $('.contractions-data').hide();
+            $('.to-contractions-info').hide();
+            $('.contractions-result-'+phase).show();
             return false;
         });
 
@@ -329,6 +350,8 @@
 
     </table>
 
+    <center><a class="to-contractions-info" href="#" style="display: none;">Рекомендации</a></center>
+
     <div class="block-in contractions-data">
 
         <div class="summary-title">Описание:</div>
@@ -358,7 +381,7 @@
     <div class="block-in contractions-result contractions-result-1" style="display: none;">
 
         <div class="box-left">
-            <div class="result-text" style="margin-top:80px;">
+            <div class="result-text" style="margin-top:40px;">
                 Подход к начальной фазе, либо ложные схватки
             </div>
         </div>
@@ -376,7 +399,7 @@
 
         <div class="block-in contractions-result contractions-result-2" style="display: none;">
             <div class="box-left">
-                <div class="result-text" style="margin-top:80px;">
+                <div class="result-text" style="margin-top:40px;">
                     Подход к начальной фазе, либо ложные схватки
                 </div>
             </div>
@@ -389,13 +412,21 @@
         </div>
 
         <div class="block-in contractions-result contractions-result-3" style="display: none;">
-            <div class="summary-title">Рекоммендации:</div>
-            <p>Раскрытие шейки матки находится на уровне 0-3 см.</p>
-            <p>Что это значит?</p>
-            <p>В роддом пока рано. Но вы уже можете начать собираться. Не торопитесь. Ваши роды состоятся через 7-8 часов. Значит, из дома надо будет выехать через 4-5 часов.</p>
+            <div class="box-left">
+                <div class="result-text">
+                    <img src="/images/img_contractions_result_01.jpg"><br>
+                    Собирайтесь в<br>роддом!
+                </div>
+            </div>
+            <div class="box-main">
+                <div class="summary-title">Рекоммендации:</div>
+                <p>Раскрытие шейки матки находится на уровне 0-3 см.</p>
+                <p>Что это значит?</p>
+                <p>В роддом пока рано. Но вы уже можете начать собираться. Не торопитесь. Ваши роды состоятся через 7-8 часов. Значит, из дома надо будет выехать через 4-5 часов.</p>
 
-            <br/>
-            <center><a class="to-contractions-data" href="#">Таблица Ваших схваток</a></center>
+                <br/>
+                <center><a class="to-contractions-data" href="#">Таблица Ваших схваток</a></center>
+                </div>
         </div>
 
         <div class="block-in contractions-result contractions-result-4" style="display: none;">
@@ -463,10 +494,18 @@
         </div>
 
         <div class="block-in contractions-result contractions-result-8" style="display: none;">
-            <div class="summary-title">Рекоммендации:</div>
-            <p>Может быть, это ложные схватки, а может быть, начало патологических родов. Срочно обратитесь к врачу!</p>
-            <br/>
-            <center><a class="to-contractions-data" href="#">Таблица Ваших схваток</a></center>
+            <div class="box-left">
+                <div class="result-text">
+                    <img src="/images/img_contractions_result_02.jpg" /><br/>
+                    Обратитесь к<br/>врачу
+                </div>
+            </div>
+            <div class="box-main">
+                <div class="summary-title">Рекоммендации:</div>
+                <p>Может быть, это ложные схватки, а может быть, начало патологических родов. Срочно обратитесь к врачу!</p>
+                <br/>
+                <center><a class="to-contractions-data" href="#">Таблица Ваших схваток</a></center>
+            </div>
         </div>
 
         <div class="block-in contractions-result contractions-result-9" style="display: none;">

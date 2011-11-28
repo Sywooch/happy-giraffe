@@ -142,8 +142,8 @@
 					<?php if (! Yii::app()->user->isGuest): ?>
 						<div class="item-useful">
 							Предмет нужен?
-							<div class="green"><a href="" class="btn btn-<?php echo ($o->vote == 1) ? 'green':'gray'; ?>-small"><span><span>Да</span></span></a><br/><b><span class="votes_pro"><?php echo $o->votes_pro; ?></span> (<span class="pro_percent"><?php echo $o->proPercent; ?></span>%)</b></div>
-							<div class="red"><a href="" class="btn btn-<?php echo ($o->vote == 0) ? 'red':'gray'; ?>-small"><span><span>Нет</span></span></a><br/><b><span class="votes_con"><?php echo $o->votes_con; ?></span> (<span class="con_percent"><?php echo $o->conPercent; ?></span>%)</b></div>
+							<div class="green"><a href="" class="btn btn-<?php echo ($o->vote === 1) ? 'green':'gray'; ?>-small"><span><span>Да</span></span></a><br/><b><span class="votes_pro"><?php echo $o->votes_pro; ?></span> (<span class="pro_percent"><?php echo $o->proPercent; ?></span>%)</b></div>
+							<div class="red"><a href="" class="btn btn-<?php echo ($o->vote === 0) ? 'red':'gray'; ?>-small"><span><span>Нет</span></span></a><br/><b><span class="votes_con"><?php echo $o->votes_con; ?></span> (<span class="con_percent"><?php echo $o->conPercent; ?></span>%)</b></div>
 							<?php echo CHtml::hiddenField('id', $o->id); ?>
 						</div>
 					<?php endif; ?>

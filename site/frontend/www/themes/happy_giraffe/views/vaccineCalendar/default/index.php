@@ -12,16 +12,6 @@ if (!Yii::app()->user->isGuest){
 else
     $baby_id = null;
 ?>
-<style type="text/css">
-    a.active {
-        color: red;
-    }
-    .wid100 {
-    width: 100px !important; /* !important обязателен */
-    }
-
-</style>
-
 <script type="text/javascript">
     baby_id = '<?php echo $baby_id ?>';
 

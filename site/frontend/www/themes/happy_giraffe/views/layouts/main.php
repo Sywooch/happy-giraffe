@@ -6,22 +6,22 @@
 	<?php echo CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type'); ?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 <!--	--><?php //Yii::app()->clientScript->registerCssFile('/stylesheets/wym.css'); ?>
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/global.css'); ?>
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/common.css'); ?>
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css'); ?>
+	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/global.css?r=111'); ?>
+	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/common.css?r=111'); ?>
+	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css?r=111'); ?>
 	
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/cusel.css'); ?>
+	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/cusel.css?r=111'); ?>
 	
 	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/cusel.js'); ?>
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/checkbox.js'); ?>
+	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/cusel.js?r=111'); ?>
+	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/checkbox.js?r=111'); ?>
 	
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css'); ?>
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js'); ?>
 	
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/common.js'); ?>
+	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/common.js?r=111'); ?>
 
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css', 'screen'); ?>
+	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css?r=111', 'screen'); ?>
 	
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.iframe-post-form.js'); ?>
 	

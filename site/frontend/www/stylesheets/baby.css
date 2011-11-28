@@ -213,7 +213,7 @@
 #baby .comments li .user {float:left;font:11px tahoma, arial, sans-serif;color:#1ba3c4;}
 #baby .comments li .user .ava {float:left;padding-right:8px;}
 #baby .comments li .user .ava img {display:block;border:1px solid #dddddd;}
-#baby .comments li .content {margin-left:200px;font-size:12px;}
+#baby .comments li .content {margin:0 0 0 200px;font-size:12px;width: auto;}
 #baby .comments li .content p {color:#888888;}
 
 #baby .new-comment {text-align:center;font-size:14px;color:#c2c4c4;line-height:27px;font-family:tahoma, arial, sans-serif;}

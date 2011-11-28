@@ -114,9 +114,9 @@ else
         });
     }
     function ShowNewVote(vaccine_id,baby_id,data){
-        $('.vc-'+vaccine_id+baby_id+' span.red').html(data.decline);
-        $('.vc-'+vaccine_id+baby_id+' span.orange').html(data.agree);
-        $('.vc-'+vaccine_id+baby_id+' span.green').html(data.did);
+        $('.vc-'+vaccine_id+baby_id+' span.red').html('<b>'+data.decline+'</b>');
+        $('.vc-'+vaccine_id+baby_id+' span.orange').html('<b>'+data.agree+'</b>');
+        $('.vc-'+vaccine_id+baby_id+' span.green').html('<b>'+data.did+'</b>');
     }
 </script>
 

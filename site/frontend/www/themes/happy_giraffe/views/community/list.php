@@ -1,3 +1,10 @@
+<?php
+	$cs = Yii::app()->clientScript;
+
+	$cs
+		->registerCssFile('/stylesheets/wym.css');
+?>
+
 <?
 	$this->breadcrumbs = array(
 		'Сообщества' => array('community/index'),

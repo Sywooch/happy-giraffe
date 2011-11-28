@@ -82,7 +82,18 @@
     	var mins = (time - (time%60000))/60000;
     	time-=mins * 60000;
     	var secs = Math.round(time/1000).toString();
-
+        time-=secs * 1000;
+        var milisecs = time.toString();
+        if (milisecs > 500)
+            secs++;
+        if (secs == 60){
+            secs = 0;
+            mins++;
+        }
+        if (mins == 60){
+            mins = 0;
+            hours++;
+        }
         return ((mins.length > 1 ? mins : "0" + mins)+":"+(secs.length > 1 ? secs : "0" + secs))
     }
 
@@ -90,9 +101,29 @@
     {
     	var time=new Date();
     	time.setTime(data);
-        var hours=time.getHours().toString();
-    	var mins=time.getMinutes().toString();
-    	var secs=time.getSeconds().toString();
+        var hours=time.getHours();
+    	var mins=time.getMinutes();
+    	var secs=time.getSeconds();
+        var milisecs=time.getMilliseconds();
+
+        if (milisecs > 500)
+            secs = secs+1;
+        if (secs == 60){
+            secs = 0;
+            mins++;
+        }
+        if (mins == 60){
+            mins = 0;
+            hours++;
+        }
+        if (hours == 24)
+            hours = 0;
+
+        hours=hours.toString();
+    	mins=mins.toString();
+    	secs=secs.toString();
+        milisecs=milisecs.toString();
+
     	return ((hours.length > 1 ? hours : "0" + hours)+":"+(mins.length > 1 ? mins : "0" + mins)
                     +":"+(secs.length > 1 ? secs : "0" + secs))
     }

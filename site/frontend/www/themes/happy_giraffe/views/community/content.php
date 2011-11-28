@@ -149,8 +149,6 @@ $('.spam a').live('click', function() {
 			<?php 
 				foreach ($related as $rc)
 				{
-					echo $rc->id;
-					break;
 					switch ($rc->type->slug)
 					{
 						case 'article':
@@ -161,7 +159,9 @@ $('.spam a').live('click', function() {
 							else
 							{
 								preg_match('/<p>(.+)<\/p>/', $rc->article->text, $matches2);
-								$content = strip_tags($matches2[1]);
+								print_r($matches2);
+								//$content = strip_tags($matches2[1]);
+								$content = '';
 							}
 						break;
 						case 'video':

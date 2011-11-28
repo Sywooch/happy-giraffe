@@ -1,6 +1,6 @@
 <li>
-	<div class="img-box"><?php echo CHtml::link(CHtml::image(str_replace('club', 'shop', $sp->product_image->getUrl('subproduct')), $sp->product_title), $this->createUrl('../shop/product/view', array('id' => $sp->product_id))); ?></div>
-	<div class="item-title"><?php echo CHtml::link($sp->product_title, $this->createUrl('../shop/product/view', array('id' => $sp->product_id))); ?></div>
+	<div class="img-box"><?php echo CHtml::link(CHtml::image($sp->product_image->getUrl('subproduct'), $sp->product_title), $this->createUrl('../shop/product/view', array('id' => $sp->product_id))); ?></div>
+	<div class="item-title"><?php echo CHtml::link($sp->product_title, $this->createUrl('product/view', array('id' => $sp->product_id))); ?></div>
 	<?php $this->renderPartial('rating', array('rating' => $sp->product_rate)); ?>
 	
 	<div class="item-price">

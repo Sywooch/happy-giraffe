@@ -57,7 +57,7 @@ class CommunityController extends Controller
 				$criteria = CommunityContent::model()->community($community_id)->type($content_type->id)->rubric($rubric_id)->getDbCriteria();
 				$count = CommunityContent::model()->count($criteria);
 				$pages = new CPagination($count);
-				$pages->pageSize = 1;
+				$pages->pageSize = 3;
 				$pages->applyLimit($criteria);		
 				$contents = CommunityContent::model()->findAll($criteria);
 				

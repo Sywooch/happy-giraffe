@@ -64,7 +64,7 @@ class HDate
                 $m = 'фев';
                 break;
             case 3:
-                $m = 'мрт';
+                $m = 'мар';
                 break;
             case 4:
                 $m = 'апр';
@@ -88,7 +88,7 @@ class HDate
                 $m = 'окт';
                 break;
             case 11:
-                $m = 'нбр';
+                $m = 'ноя';
                 break;
             case 12:
                 $m = 'дек';

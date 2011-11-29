@@ -1,27 +1,25 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
-<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
-<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<?php echo CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type'); ?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-<!--	--><?php //Yii::app()->clientScript->registerCssFile('/stylesheets/wym.css'); ?>
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/global.css'); ?>
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/common.css'); ?>
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css'); ?>
+    <?php //Yii::app()->clientScript->registerCssFile('/stylesheets/wym.css'); ?>
+	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/global.css?r=111'); ?>
+	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/common.css?r=111'); ?>
+	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css?r=111'); ?>
 	
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/cusel.css'); ?>
+	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/cusel.css?r=111'); ?>
 	
 	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/cusel.js'); ?>
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/checkbox.js'); ?>
+	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/cusel.js?r=111'); ?>
+	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/checkbox.js?r=111'); ?>
 	
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css'); ?>
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js'); ?>
 	
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/common.js'); ?>
+	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/common.js?r=111'); ?>
 
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css', 'screen'); ?>
+	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css?r=111', 'screen'); ?>
 	
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.iframe-post-form.js'); ?>
 	
@@ -93,12 +91,12 @@ function report(item)
 				<div class="login-box">
 					<?php if (Yii::app()->user->isGuest): ?>
 						<span class="lk">Личный кабинет</span>
-						<a href="#login" class="fancy">Вход</a>
+						<?php echo CHtml::link('Вход', '#login', array('class' => 'fancy')); ?>
 						|
-						<?php echo CHtml::link('Регистрация', '/club/signup'); ?>
+						<?php echo CHtml::link('Регистрация', Yii::app()->createUrl('signup')); ?>
 					<?php else: ?>
-						<span class="welcome"><b>Добро пожаловать,</b> <?php echo CHtml::link(Yii::app()->user->first_name, Yii::app()->createUrl('../shop/profile/index')); ?></span>
-						<?php echo CHtml::link('Выход', Yii::app()->createUrl('../club/site/logout')); ?>
+						<span class="welcome"><b>Добро пожаловать,</b> <a href="<?php echo CController::createUrl('profile/index'); ?>"><?php echo Yii::app()->user->first_name; ?><?php if (Yii::app()->user->last_name) echo ' ' . Yii::app()->user->last_name; ?>!</a></span>
+						<?php echo CHtml::link('Выход', Yii::app()->createUrl('site/logout')); ?>
 					<?php endif; ?>
 				</div>
 				
@@ -109,7 +107,7 @@ function report(item)
 							'items' => array(
 								array(
 									'label' => '<span>Форумы</span>',
-									'url' => array('/community/list', 'community_id' => 5),
+									'url' => array('/community'),
 									'itemOptions' => array(
 										'class' => 'green',
 									),

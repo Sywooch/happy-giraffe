@@ -7,7 +7,7 @@
 .jScrollPaneDrag,
 .jScrollArrowUp,
 .jScrollArrowDown {
-	background: url(../images/selects-2.png) no-repeat;
+	background: url(../images/select-2.png) no-repeat;
 }
 .cusel { /* общий вид селекта включая стрелку справа */
 	height: 18px;
@@ -17,8 +17,9 @@
 	cursor: pointer;
 	font-size: 14px;
 	z-index: 1;
-	border:  1px solid #c9eaf1;
+	border:  1px solid #e6d4f6;
 	background: #fff;
+    color: #575757;
 }
 .cuselFrameRight { /* левая чсть селект. обыно скругление и левая граница */
 	position: absolute;
@@ -28,7 +29,7 @@
 	height: 100%;
 	width: 19px;
 	background-position: right top;
-	background: #41b3cc url(../images/sel.png) no-repeat;
+	background: #41b3cc url(../images/select-2.png) no-repeat;
 }
 
 .cuselText { /* контейнер для отображенного текста селект */
@@ -55,7 +56,7 @@
 }
 .cusel span:hover,
 .cusel .cuselOptHover { /* реакция оптиона на наведение */
-	background: #41b3cc;
+	background: #a687c7;
 	color: #fff;
 }
 .cusel .cuselActive { /* оформление активного оптиона в списке */
@@ -94,7 +95,7 @@
 	position: absolute;
 	left: 0;
 	top: 100%;
-	border:  1px solid #c9eaf1;
+	/*border:  1px solid #c9eaf1;*/
 	background: #fff;
 	min-width: 100%;
 	width: auto;
@@ -104,23 +105,23 @@
 	position: relative;
 	overflow: hidden;
 	z-index: 5;
-	border: 1px solid #999; /* границы выпадающего спиcка */
+	border: 1px solid #e6d4f6; /* границы выпадающего спиcка */
 }
 
 .cusel .jScrollPaneTrack { /* трек для ползунка прокрутки */
 	height: 100%;
 	width: 7px !important;
-	background: #ccc;
+	background: #f6eefe;
 	position: absolute;
 	top: 0;
 	right: 4px;
 }
 .cusel .jScrollPaneDrag { /* ползунок */
 	position: absolute;
-	background-position: -40px -26px;
+	background-position: -2px -21px;
 	cursor: pointer;
-	width: 15px !important;
-	height: 27px !important;
+	width: 16px !important;
+	height: 21px !important;
 	right: -4px;
 	
 }
@@ -144,7 +145,7 @@
 	width: 26px;
 	height: 12px;
 	cursor: pointer;
-	background-position: -2px -26px;
+	background-position: -5px -43px;
 	overflow: hidden;
 }
 .cusel .jScrollArrowDown { /* стрелка вниз */
@@ -155,6 +156,6 @@
 	bottom: 0;
 	right: 3px;
 	cursor: pointer;
-	background-position: -21px -26px;
+	background-position: -4px -52px;
 	overflow: hidden;
 }

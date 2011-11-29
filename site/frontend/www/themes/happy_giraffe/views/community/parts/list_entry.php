@@ -37,13 +37,10 @@
 	</div>
 
 	<div class="entry-footer">
-		<?php if ($c->type->slug == 'article'): ?>
+		<?php if ($c->type->slug == 'article' && $c->article->source_type != 'me'): ?>
 			<div class="source">Источник:&nbsp;
 				<? switch($c->article->source_type):
-				   case 'me': ?>
-					<?=$c->contentAuthor->first_name?>
-				<? break; ?>
-				<? case 'book': ?>
+				   case 'book': ?>
 					<?=$c->article->book_author?>&nbsp;<?=$c->article->book_name?>
 				<? break; ?>
 				<? case 'internet': ?>

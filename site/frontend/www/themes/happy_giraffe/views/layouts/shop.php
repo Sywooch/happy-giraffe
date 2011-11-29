@@ -78,10 +78,10 @@
 						<span class="lk">Личный кабинет</span>
 						<?php echo CHtml::link('Вход', '#login', array('class' => 'fancy')); ?>
 						|
-						<?php echo CHtml::link('Регистрация', Yii::app()->createUrl('../club/signup')); ?>
+						<?php echo CHtml::link('Регистрация', Yii::app()->createUrl('signup')); ?>
 					<?php else: ?>
-						<span class="welcome"><b>Добро пожаловать,</b> <a href="<?php echo CController::createUrl('../shop/profile/index'); ?>"><?php echo Yii::app()->user->first_name; ?><?php if (Yii::app()->user->last_name) echo ' ' . Yii::app()->user->last_name; ?>!</a></span>
-						<?php echo CHtml::link('Выход', Yii::app()->createUrl('../club/site/logout')); ?>
+						<span class="welcome"><b>Добро пожаловать,</b> <a href="<?php echo CController::createUrl('profile/index'); ?>"><?php echo Yii::app()->user->first_name; ?><?php if (Yii::app()->user->last_name) echo ' ' . Yii::app()->user->last_name; ?>!</a></span>
+						<?php echo CHtml::link('Выход', Yii::app()->createUrl('site/logout')); ?>
 					<?php endif; ?>
 				</div>
 				

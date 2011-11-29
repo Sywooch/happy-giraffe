@@ -12,6 +12,8 @@
  */
 class BagOffer extends CActiveRecord
 {
+	public $vote;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return BagOffer the static model class
@@ -98,9 +100,10 @@ class BagOffer extends CActiveRecord
 	public function getOffers($user_id)
 	{
 		$criteria = new CDbCriteria(array(
-			'select' => 't.*, bag_user_vote.vote',
+			'select' => 't.*, bag_user_vote.vote as vote',
 			'join' => 'LEFT JOIN bag_user_vote ON t.id = bag_user_vote.offer_id AND bag_user_vote.user_id = :user_id',
 			'params' => array(':user_id' => $user_id),
+			'with' => array('item', 'author'),
 		));
 		
 		return new CActiveDataProvider(__CLASS__, array(
@@ -108,14 +111,71 @@ class BagOffer extends CActiveRecord
 		));
 	}
 	
-	/*
-	public function getVote($user_id)
+	public function getProPercent()
 	{
-		return Yii::app()->db->createCommand()
-		    ->select('vote')
-		    ->from($this->tableName())
-		    ->leftJoin('bag_user_vote', $this->tableName() . '.id = offer_id AND offer_id=:offer_id AND bag_user_vote.user_id=:user_id', array(':offer_id' => $this->id, ':user_id' => $user_id))
-		    ->queryScalar();
+		return $this->totalVotes == 0 ? 0 : round(($this->votes_pro / $this->totalVotes) * 100, 2);
 	}
-	*/
+	
+	public function getConPercent()
+	{
+		return $this->totalVotes == 0 ? 0 : round(($this->votes_con / $this->totalVotes) * 100, 2);
+	}
+	
+	public function getTotalVotes()
+	{
+		return $this->votes_pro + $this->votes_con;
+	}
+	
+	public function vote($user_id, $vote)
+	{
+		$current_vote = $this->getCurrentVote($user_id);
+		
+		if ($current_vote === NULL)
+		{
+			Yii::app()->db->createCommand()
+				->insert('bag_user_vote', array(
+					'offer_id' => $this->id,
+					'user_id' => $user_id,
+					'vote' => $vote,
+				));
+				
+			Yii::app()->db->createCommand()
+				->update($this->tableName(), array($this->columnByVote($vote) => new CDbExpression($this->columnByVote($vote) . ' + 1')), 'id = :offer_id', array(':offer_id' => $this->id));
+		}
+		elseif ($current_vote != $vote)
+		{
+			Yii::app()->db->createCommand()
+				->update('bag_user_vote', array('vote' => $vote), 'user_id = :user_id AND offer_id = :offer_id', array(
+					':user_id' => $user_id,
+					':offer_id' => $this->id,
+				));
+
+			Yii::app()->db->createCommand()
+				->update($this->tableName(), array($this->columnByVote($vote) => new CDbExpression($this->columnByVote($vote) . ' + 1')), 'id = :offer_id', array(':offer_id' => $this->id));
+		
+			Yii::app()->db->createCommand()
+				->update($this->tableName(), array($this->columnByVote($current_vote) => new CDbExpression($this->columnByVote($vote) . ' - 1')), 'id = :offer_id', array(':offer_id' => $this->id));
+		}
+	}
+	
+	protected function columnByVote($vote)
+	{
+		$array = array(
+			'0' => 'votes_con',
+			'1' => 'votes_pro',
+		);
+		
+		return $array[$vote];
+	}
+	
+	public function getCurrentVote($user_id)
+	{
+		$vote = Yii::app()->db->createCommand()
+		    ->select('vote')
+		    ->from('bag_user_vote')
+		    ->where('offer_id = :offer_id AND user_id = :user_id', array(':offer_id' => $this->id, ':user_id' => $user_id))
+		    ->queryScalar();
+		
+		return ($vote === FALSE) ? null : $vote;
+	}
 }

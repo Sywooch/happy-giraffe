@@ -26,3 +26,4 @@ $year = date('Y');
 <div id="vaccine-result">
 
 </div>
+<?php $this->renderPartial('_text'); ?>

@@ -86,7 +86,7 @@
 #baby .budget-choice .btn > span > span {padding-left:15px;height:32px;line-height:32px;background-position:0 -1600px;padding-right:10px;}
 
 
-#baby .vaccination-table {}
+#baby .vaccination-table {padding-bottom: 100px;}
 #baby .vaccination-table table {width:100%;}
 #baby .vaccination-table table tr td {border-left:1px solid #fff;text-align:center;vertical-align:middle;}
 #baby .vaccination-table table tr td:first-child {border-left:0;}
@@ -140,7 +140,7 @@
 #baby .pregnancy-weight-summary .box-left .img-box span {position:absolute;left:100px;top:80px;font-weight:bold;color:#fc5e74;font-size:30px;font-family:tahoma, arial, sans-serif;}
 #baby .pregnancy-weight-summary .box-left .summary-text {font-size:16px;color:#5e307d;}
 #baby .pregnancy-weight-summary .box-left .summary-text span {margin:0 4px;color:#fc5e74;font:bold 26px/1 arial, sans-serif;position:relative;top:4px;}
-#baby .pregnancy-weight-summary .box-left .summary-weight {color:#ef80c9;font-size:40px;font-family:tahoma, arial, sans-serif;}
+#baby .pregnancy-weight-summary .box-left .summary-weight {color:#ef80c9;font-size:30px;font-family:tahoma, arial, sans-serif;}
 #baby .pregnancy-weight-summary .box-left .summary-weight span {color:#c6c5c5;font-family:arial, sans-serif;margin-left:5px;}
 #baby .pregnancy-weight-summary .box-main {margin-left:180px;}
 #baby .pregnancy-weight-summary .box-main big {font-size:25px;color:#dd72b9;margin-bottom:10px;display:block;}
@@ -185,3 +185,77 @@
 #baby .contractions-summary p {margin:1em 0;}
 #baby .contractions-summary .result-text {color:#fc93ce;font-size:16px;text-align:center;}
 #baby .contractions-summary .result-text img {margin-bottom:15px;}
+
+#baby .hospital-bag {margin-bottom:40px;}
+#baby .hospital-bag .items {height:290px;background:url(../images/bg_hospital_bag.png) no-repeat;padding:15px 30px;text-align:center;}
+#baby .hospital-bag .items .item-box {display:inline-block;vertical-align:top;border:1px solid #c3edfd;background:#fff; font-size:14px;font-family:tahoma, arial, sans-serif;line-height:14px;color:#444;}
+#baby .hospital-bag .items .item-box {/*css3*/ border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;margin:11px 8px;}
+#baby .hospital-bag .items .item-box .box-in {display:block;height:32px;background:url(../images/hospital_bag_item.gif) no-repeat 8px;padding:8px 12px 8px 32px;position:relative;text-align:left;}
+#baby .hospital-bag .items .item-box.item-box-pink {background:#fff url(../images/bg_hospital_bag_item_pink.gif) repeat-x;border-color:#fdd5fe;z-index:5;}
+#baby .hospital-bag .items .item-box.item-box-pink .box-in {background:url(../images/hospital_bag_item_pink.gif) no-repeat 8px;}
+#baby .hospital-bag .items .item-box:hover {background:#fff url(../images/bg_hospital_bag_item.gif) repeat-x;border-color:#b2ef96;z-index:5;}
+#baby .hospital-bag .items .item-box:hover .box-in {background:url(../images/hospital_bag_item_h.gif) no-repeat 8px;}
+#baby .hospital-bag .items .item-box .box-in span {vertical-align:middle;display:inline-block;}
+#baby .hospital-bag .items .item-box .box-in span.valign {width:1px;height:32px;}
+#baby .hospital-bag .items .item-box .drag {width:16px;height:32px;cursor:move;position:absolute;top:8px;left:8px;}
+#baby .hospital-bag .items .item-box .hint {position:absolute;background:#fcfac6;padding:5px 10px;width:160px;z-index:6;border:1px solid #ffe572;color:#666;font-family:arial, sans-serif;font-size:12px;text-align:left;left:95%;top:80%;display:none;cursor:default;}
+#baby .hospital-bag .items .item-box .hint:after {display:block;content:'';width:14px;height:14px;right:100%;top:-1px;background:url(../images/hospital_bag_item_hint_tale.png) no-repeat;position:absolute;}
+#baby .hospital-bag .items-storage {height:227px;background:url(../images/bg_hospital_bag.png) no-repeat 0 -330px;padding-top:130px}
+#baby .hospital-bag .items-storage .storage-text {width:270px;text-align:center;margin:0 auto;font-size:18px;color:#c9c7c7;line-height:20px;}
+#baby .hospital-bag .items-storage .storage-text > span {color:#99dc7b;display:block;margin-top:8px;margin-bottom:12px;}
+#baby .hospital-bag .items-storage .storage-text > span span {color:#ba64e8;font-weight:bold;}
+
+#baby .comments {border: none;margin:0;padding:0;}
+#baby .comments .add, #product .comments .all {padding-top:10px;text-align:right;}
+#baby .comments ul {padding-top:10px;}
+#baby .comments li {padding:25px;}
+#baby .comments li.even {background:#f6fdfe;}
+#baby .comments li .user {float:left;font:11px tahoma, arial, sans-serif;color:#1ba3c4;}
+#baby .comments li .user .ava {float:left;padding-right:8px;}
+#baby .comments li .user .ava img {display:block;border:1px solid #dddddd;}
+#baby .comments li .content {margin:0 0 0 200px;font-size:12px;width: auto;}
+#baby .comments li .content p {color:#888888;}
+
+#baby .new-comment {text-align:center;font-size:14px;color:#c2c4c4;line-height:27px;font-family:tahoma, arial, sans-serif;}
+#baby .new-comment .new-hospital-bag-item {text-align:left;padding:10px;color:#58b7cc;font-size:14px;}
+#baby .new-comment .new-hospital-bag-item input {height:20px;line-height:20px;background:#fff;border:1px solid #c9eaf1;padding:13px;font-size:14px;font-weight:bold;color:#2192ab;font-family:arial, sans-serif;margin:0 15px;}
+#baby .new-comment .new-hospital-bag-item span {color:#8b8a8a;font-size:11px;font-family:tahoma, arial, sans-serif;}
+#baby .new-comment textarea {border:1px solid #c9eaf1;width:680px;padding:15px 14px;color:#c2c4c4;}
+#baby .new-comment .btn {margin:10px 5px;}
+
+#baby .steps-comments {overflow:hidden;}
+#baby .steps-comments .btn {margin-top:5px;}
+#baby .steps-comments ul {float:left;}
+#baby .steps-comments .comment-count {font:bold 40px/1 tahoma, arial, sans-serif;color:#b6e7ec;float:left;margin-top:-2px;}
+
+#baby .comments .item-useful {color:#2d98b0;font-size:12px;margin-top:10px;line-height:20px;}
+#baby .comments .item-useful div {display:inline-block;vertical-align:top;padding-left:15px;text-align:center;}
+#baby .comments .item-useful div .btn {margin-bottom:2px;}
+#baby .comments .item-useful .green {color:#97e085;}
+#baby .comments .item-useful .red {color:#fe6969;}
+
+#baby .hospital-bag-item-fast {padding-bottom:20px;}
+#baby .hospital-bag-item-fast .item-box {display:inline-block;vertical-align:top;border:1px solid #c3edfd;background:#fff; font-size:14px;font-family:tahoma, arial, sans-serif;line-height:14px;color:#444;}
+#baby .hospital-bag-item-fast .item-box {/*css3*/ border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;}
+#baby .hospital-bag-item-fast .item-box .box-in {display:block;height:32px;background:url(../images/hospital_bag_item.gif) no-repeat 8px;padding:8px 12px 8px 32px;position:relative;text-align:left;}
+#baby .hospital-bag-item-fast .item-box:hover {background:#fff url(../images/bg_hospital_bag_item.gif) repeat-x;border-color:#b2ef96;z-index:5;}
+#baby .hospital-bag-item-fast .item-box:hover .box-in {background:url(../images/hospital_bag_item_h.gif) no-repeat 8px;}
+#baby .hospital-bag-item-fast .item-box .drag {width:16px;height:32px;cursor:move;position:absolute;top:8px;left:8px;}
+#baby .hospital-bag-item-fast .item-box .box-in span {vertical-align:middle;display:inline-block;}
+#baby .hospital-bag-item-fast .item-box .box-in span.valign {width:1px;height:32px;}
+#baby .hospital-bag-item-fast .item-box .hint {position:absolute;background:#fcfac6;padding:5px 10px;width:160px;z-index:6;border:1px solid #ffe572;color:#666;font-family:arial, sans-serif;font-size:12px;text-align:left;left:95%;top:80%;display:none;cursor:default;}
+#baby .hospital-bag-item-fast .item-box .hint:after {display:block;content:'';width:14px;height:14px;right:100%;top:-1px;background:url(../images/hospital_bag_item_hint_tale.png) no-repeat;position:absolute;}
+#baby .hospital-bag-item-fast .item-storage {float:right;width:191px;height:49px;background:url(../images/hospital_bag_item_storage_fast.png) no-repeat;text-align:center;line-height:49px;font-size:18px;color:#c9c7c7;}
+
+
+#baby .seo-text {padding: 20px 20px 20px 35px;color: #474747;}
+#baby .seo-text .summary-title{color:#906ab3;font-size:25px;margin-bottom:0px;font-weight: normal;}
+#baby .seo-text p{margin: 1em 0 0;}
+#baby .seo-text h3{margin-top: 20px;}
+#baby .seo-text h4{margin-top: 20px;font-size: 16px;}
+#baby .seo-text ul{list-style-type: disc;margin-left: 20px;}
+#baby .seo-text ul li{padding-top: 0.4em;}
+#baby .seo-text div.brushed{background: #fcfbd5; padding:10px;margin: 20px 0;}
+#baby .seo-text div.brushed h3 {margin-top: 0;}
+#baby .vaccination-birthday .cusel{margin-top: 3px;}
+#baby .vaccination-birthday .cusel {margin-bottom: -5px;}

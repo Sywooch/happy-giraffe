@@ -2,7 +2,6 @@
 	$description = $item->description;
 	if (mb_strpos($description, " ", 0, 'utf-8') !== FALSE)
 	{
-		die;
 		$length = mb_strlen($description, 'utf-8');
 		$center = round($length / 2);
 		$center_to_left = mb_strrpos($description, ' ', -$center, 'utf-8');
@@ -19,7 +18,6 @@
 	}
 	else
 	{
-		die;
 		$lol = $description;
 	}
 ?>

@@ -4,19 +4,6 @@ class DefaultController extends Controller
 {
 	public $layout = '//layouts/new';
 
-	public function actionTest()
-	{
-		$description = 'Типа такой предмет';
-		if (strpos($description, ' ') !== FALSE)
-		{
-			$length = mb_strlen($description, 'utf8');
-			$center = round(mb_strlen($description, 'utf8') / 2);
-			echo 'len: ' . $length . '<br />';
-			echo 'center: ' . $center . '<br />';
-			
-		}
-	}
-	
 	public function actionIndex()
 	{	
 		$item = new BagItem;

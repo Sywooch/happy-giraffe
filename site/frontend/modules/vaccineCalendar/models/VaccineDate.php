@@ -16,6 +16,7 @@
  * @property integer $vote_decline
  * @property integer $vote_agree
  * @property integer $vote_did
+ * @property string $comment
  *
  * The followings are the available model relations:
  * @property VaccineDisease[] $diseases
@@ -92,10 +93,10 @@ class VaccineDate extends CActiveRecord
             array('vaccine_id, time_from, interval, vaccination_type, vote_decline, vote_agree, vote_did', 'required'),
             array('vaccine_id, adult, interval, every_period, vaccination_type, vote_decline, vote_agree, vote_did', 'numerical', 'integerOnly' => true),
             array('time_from, time_to', 'length', 'max' => 4),
-            array('age_text', 'length', 'max' => 256),
+            array('age_text, comment', 'length', 'max' => 256),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, vaccine_id, time_from, time_to, adult, interval, every_period, age_text, vaccination_type, vote_decline, vote_agree, vote_did', 'safe', 'on' => 'search'),
+            array('id, vaccine_id, time_from, time_to, adult, interval, every_period, age_text, vaccination_type, vote_decline, vote_agree, vote_did, comment', 'safe', 'on' => 'search'),
         );
     }
 
@@ -128,6 +129,7 @@ class VaccineDate extends CActiveRecord
             'vote_decline' => 'Голосов против',
             'vote_agree' => 'Голосов за',
             'vote_did' => 'Уже сделали',
+            'comment'=>'Примечание'
         );
     }
 
@@ -154,6 +156,7 @@ class VaccineDate extends CActiveRecord
         $criteria->compare('vote_decline', $this->vote_decline);
         $criteria->compare('vote_agree', $this->vote_agree);
         $criteria->compare('vote_did', $this->vote_did);
+        $criteria->compare('comment', $this->comment);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -311,7 +314,10 @@ class VaccineDate extends CActiveRecord
      */
     public function GetText()
     {
-        return $this->GetVaccinationTypeString() . ' против ' . $this->GetDiseasesLinks();
+        $str = $this->GetVaccinationTypeString() . ' против ' . $this->GetDiseasesLinks();
+        if (!empty($this->comment))
+            $str.= ' ('.$this->comment.')';
+        return $str;
     }
 
     public function GetVaccinationTypeString()
@@ -398,16 +404,10 @@ class VaccineDate extends CActiveRecord
     {
         if (Yii::app()->user->isGuest || $baby === null)
             return self::VOTE_EMPTY;
-
-        $user_vote = VaccineUserVote::model()->findByAttributes(array(
-            'user_id' => Yii::app()->user->getId(),
-            'vaccine_date_id' => $this->id,
-            'baby_id' => $baby->id,
-        ));
-
+        $user_vote = $this->GetUserVoteFromDb(Yii::app()->user->getId(), $baby->id);
         if (empty($user_vote))
             return self::VOTE_EMPTY;
-        return $user_vote->vote;
+        return $user_vote;
     }
 
     public function DeclinePercent()
@@ -447,32 +447,24 @@ class VaccineDate extends CActiveRecord
         $transaction = Yii::app()->db->beginTransaction();
         try
         {
-            $user_vote = VaccineUserVote::model()->findByAttributes(array(
-                'user_id' => $user_id,
-                'vaccine_date_id' => $this->id,
-                'baby_id' => $baby_id,
-            ));
+            $old_vote = $this->GetUserVoteFromDb($user_id, $baby_id);
 
-            if (!empty($user_vote)) {
-                if ($user_vote->vote == $vote)
+            if (!empty($old_vote)) {
+                if ($old_vote == $vote)
                     return true;
-                $old_vote = $user_vote->vote;
-                $user_vote->vote = $vote;
-                if (!$user_vote->save())
+                $result = $this->UpdateUserVote($user_id, $baby_id, $vote);
+                if (!$result)
                     return false;
                 $this->CancelVote($old_vote);
                 $this->AddVote($vote);
+//                var_dump($old_vote,$vote);
                 if (!$this->save()) {
-                    var_dump($this->getErrors());
+//                    var_dump($this->getErrors());
                     return false;
                 }
             } else {
-                $user_vote = new VaccineUserVote;
-                $user_vote->user_id = $user_id;
-                $user_vote->vaccine_date_id = $this->id;
-                $user_vote->baby_id = $baby_id;
-                $user_vote->vote = $vote;
-                if (!$user_vote->save())
+                $user_vote = $this->InsertNewUserVote($user_id, $baby_id, $vote);
+                if (!$user_vote)
                     return false;
                 $this->AddVote($vote);
                 if (!$this->save()) {
@@ -525,6 +517,38 @@ class VaccineDate extends CActiveRecord
                 $this->vote_did++;
                 break;
         }
+    }
+
+    private function GetUserVoteFromDb($user_id, $baby_id){
+        $connection=Yii::app()->db;
+        $command=$connection->createCommand("SELECT vote FROM {{vaccine_user_vote}}
+            WHERE user_id = :user_id AND vaccine_date_id=".$this->id." AND baby_id=".$baby_id);
+        $command->bindParam(":user_id",$user_id);
+        return $command->queryScalar();
+    }
+
+    private function UpdateUserVote($user_id, $baby_id, $new_vote){
+        $connection=Yii::app()->db;
+        $command=$connection->createCommand("UPDATE {{vaccine_user_vote}}
+            SET vote = ".$new_vote."
+            WHERE user_id = :user_id AND vaccine_date_id=".$this->id." AND baby_id=".$baby_id);
+        $command->bindParam(":user_id",$user_id);
+        return $command->execute();
+    }
+
+    private function InsertNewUserVote($user_id, $baby_id, $new_vote){
+        $connection=Yii::app()->db;
+        $command=$connection->createCommand("INSERT INTO {{vaccine_user_vote}}
+            (
+            `id` ,
+            `user_id` ,
+            `baby_id` ,
+            `vaccine_date_id` ,
+            `vote`
+            )
+            VALUES (
+            NULL, ".$user_id.", ".$baby_id.", '".$this->id."', '".$new_vote."')");
+        return $command->execute();
     }
 
     /****************************************************************************************************/

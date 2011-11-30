@@ -3,20 +3,6 @@
  * @var $model PregnantParamsForm
  */
 ?>
-<script type="text/javascript">
-    $(function () {
-        $('body').delegate('.go-weight-table', 'click', function () {
-            $('#recommend').hide();
-            $('#weight-table').show();
-            return false;
-        });
-        $('body').delegate('.go-recommend-table', 'click', function () {
-            $('#recommend').show();
-            $('#weight-table').hide();
-            return false;
-        });
-    });
-</script>
 
 <div class="pregnancy-weight-summary">
     <div class="block-in" id="recommend">

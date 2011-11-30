@@ -57,6 +57,7 @@ data: $(this).serialize()
 		'vote_decline',
 		'vote_agree',
 		'vote_did',
+        'comment',
 		array(
 			'class'=>'CButtonColumn',
 		),

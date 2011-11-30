@@ -174,7 +174,7 @@ class PregnancyWeight extends CActiveRecord
             for ($i = 3; $i < 40; $i = $i + 2)
                 $data[$i] = round(($data[$i - 1] + $data[$i + 1]) / 2, 2);
 
-            Yii::app()->cache->set(self::CACHE_ID . self::GetBMIId($bmi), $data, 60);
+            Yii::app()->cache->set(self::CACHE_ID . self::GetBMIId($bmi), $data, 3600);
         }
 
         return $data;

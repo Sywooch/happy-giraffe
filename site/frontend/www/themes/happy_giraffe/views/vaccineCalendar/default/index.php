@@ -17,37 +17,38 @@ else
         width: 100px !important; /* !important обязателен */
     }
 </style>
-
-<script type="text/javascript">
-    baby_id = '<?php echo $baby_id ?>';
+<?php
+$cs = Yii::app()->clientScript;
+$js = "
+    baby_id = '".$baby_id."';
 
     $(function() {
-        $('div.nav li a').click(function(){
+        $('#baby div.nav li a').click(function(){
             if ($(this).attr('rel') == undefined){
                 baby_id = null;
-                cuSelRefresh({refreshEl: "#month-,#day-,#year-",visRows: 5,scrollArrows: true});
+                cuSelRefresh({refreshEl: '#month-,#day-,#year-',visRows: 8,scrollArrows: true});
             }else{
                 baby_id = $(this).attr('rel');
-                cuSelRefresh({refreshEl: "#month-"+baby_id+",#day-"+baby_id+",#year-"+baby_id,visRows: 8,scrollArrows: true});
+                cuSelRefresh({refreshEl: '#month-'+baby_id+',#day-'+baby_id+',#year-'+baby_id,visRows: 8,scrollArrows: true});
             }
             return false;
         });
     });
 
     $(function() {
-        $('body').delegate('a.decline','click',function(){
+        $('body').delegate('#baby a.decline','click',function(){
             if (!$(this).hasClass('btn-red-small') && baby_id !== null){
                 $.ajax({
-                    url: "<?php echo Yii::app()->createUrl("/vaccineCalendar/default/vote") ?>",
+                    url: ".CJSON::encode(Yii::app()->createUrl("/vaccineCalendar/default/vote")).",
                     data: {vote:1,id:$(this).attr('rel'),baby_id:baby_id},
-                    type: "GET",
-                    dataType: "JSON",
+                    type: 'GET',
+                    dataType: 'JSON',
                     success: function(data) {
                         if (data.hasOwnProperty('success') && data.success){
                             DeleteActiveVote($(this).attr('rel'),baby_id);
                             ShowNewVote($(this).attr('rel'),baby_id,data);
-                            $(this).addClass("btn-red-small");
-                            $(this).removeClass("btn-gray-small");
+                            $(this).addClass('btn-red-small');
+                            $(this).removeClass('btn-gray-small');
                         }
                     },
                     'context': $(this)
@@ -55,19 +56,19 @@ else
             }
             return false;
         });
-        $('body').delegate('a.agree','click',function(){
+        $('body').delegate('#baby a.agree','click',function(){
             if (!$(this).hasClass('btn-yellow-small') && baby_id !== null){
                 $.ajax({
-                    url: "<?php echo Yii::app()->createUrl("/vaccineCalendar/default/vote") ?>",
+                    url: ". CJSON::encode(Yii::app()->createUrl("/vaccineCalendar/default/vote")) .",
                     data: {vote:2,id:$(this).attr('rel'),baby_id:baby_id},
-                    type: "GET",
-                    dataType: "JSON",
+                    type: 'GET',
+                    dataType: 'JSON',
                     success: function(data) {
                         if (data.hasOwnProperty('success') && data.success){
                             DeleteActiveVote($(this).attr('rel'),baby_id);
                             ShowNewVote($(this).attr('rel'),baby_id,data);
-                            $(this).addClass("btn-yellow-small");
-                            $(this).removeClass("btn-gray-small");
+                            $(this).addClass('btn-yellow-small');
+                            $(this).removeClass('btn-gray-small');
                         }
                     },
                     'context': $(this)
@@ -75,19 +76,19 @@ else
             }
             return false;
         });
-        $('body').delegate('a.did','click',function(){
+        $('body').delegate('#baby a.did','click',function(){
             if (!$(this).hasClass('btn-green-small') && baby_id !== null){
                 $.ajax({
-                    url: "<?php echo Yii::app()->createUrl("/vaccineCalendar/default/vote") ?>",
+                    url: ".CJSON::encode(Yii::app()->createUrl("/vaccineCalendar/default/vote")) .",
                     data: {vote:3,id:$(this).attr('rel'),baby_id:baby_id},
-                    type: "GET",
-                    dataType: "JSON",
+                    type: 'GET',
+                    dataType: 'JSON',
                     success: function(data) {
                         if (data.hasOwnProperty('success') && data.success){
                             DeleteActiveVote($(this).attr('rel'),baby_id);
                             ShowNewVote($(this).attr('rel'),baby_id,data);
-                            $(this).addClass("btn-green-small");
-                            $(this).removeClass("btn-gray-small");
+                            $(this).addClass('btn-green-small');
+                            $(this).removeClass('btn-gray-small');
                         }
                     },
                     'context': $(this)
@@ -101,15 +102,15 @@ else
         $('.vc-'+vaccine_id+baby_id+' a').each(function(index) {
             if ($(this).hasClass('btn-red-small')) {
                 $(this).removeClass('btn-red-small');
-                $(this).addClass("btn-gray-small");
+                $(this).addClass('btn-gray-small');
             }
             if ($(this).hasClass('btn-green-small')) {
                 $(this).removeClass('btn-green-small');
-                $(this).addClass("btn-gray-small");
+                $(this).addClass('btn-gray-small');
             }
             if ($(this).hasClass('btn-yellow-small')) {
                 $(this).removeClass('btn-yellow-small');
-                $(this).addClass("btn-gray-small");
+                $(this).addClass('btn-gray-small');
             }
         });
     }
@@ -117,8 +118,9 @@ else
         $('.vc-'+vaccine_id+baby_id+' span.red').html('<b>'+data.decline+'</b>');
         $('.vc-'+vaccine_id+baby_id+' span.orange').html('<b>'+data.agree+'</b>');
         $('.vc-'+vaccine_id+baby_id+' span.green').html('<b>'+data.did+'</b>');
-    }
-</script>
+    }";
+    $cs->registerScript('vaccine_calendar', $js);
+?>
 
 <div class="section-banner">
     <img src="/images/section_banner_04.jpg" />

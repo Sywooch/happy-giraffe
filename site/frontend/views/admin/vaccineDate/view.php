@@ -30,6 +30,7 @@ $this->menu=array(
 		'vote_decline',
 		'vote_agree',
 		'vote_did',
+        'comment'
 	),
 )); ?>
 

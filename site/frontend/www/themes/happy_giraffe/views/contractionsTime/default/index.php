@@ -1,4 +1,5 @@
-<script type="text/javascript">
+<?php
+$js = <<<EOD
     //Timer
     var mins,secs,TimerRunning,TimerID;
     TimerRunning=false;
@@ -368,8 +369,10 @@
         $('.contractions-data').hide();
         $('.contractions-result-'+num).show();
     }
+EOD;
+Yii::app()->clientScript->registerScript('contractionsTime',$js);
 
-</script>
+?>
 <div class="section-banner" style="margin:0;">
     <img src="/images/section_banner_06.jpg" />
 

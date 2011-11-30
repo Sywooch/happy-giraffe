@@ -1,20 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "vaccine_user_vote".
+ * This is the model class for table "placentaThickness".
  *
- * The followings are the available columns in table 'vaccine_user_vote':
+ * The followings are the available columns in table 'placentaThickness':
  * @property integer $id
- * @property integer $user_id
- * @property integer $baby_id
- * @property integer $vaccine_date_id
- * @property integer $vote
+ * @property integer $week
+ * @property double $min
+ * @property double $avg
+ * @property double $max
  */
-class VaccineUserVote extends CActiveRecord
+class PlacentaThickness extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return VaccineUserVote the static model class
+	 * @return PlacentaThickness the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -26,7 +26,7 @@ class VaccineUserVote extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'vaccine_user_vote';
+		return 'placentaThickness';
 	}
 
 	/**
@@ -37,11 +37,12 @@ class VaccineUserVote extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, baby_id, vaccine_date_id, vote', 'required'),
-			array('user_id, baby_id, vaccine_date_id, vote', 'numerical', 'integerOnly'=>true),
+			array('week, min, avg, max', 'required'),
+			array('week', 'numerical', 'integerOnly'=>true),
+			array('min, avg, max', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, user_id, baby_id, vaccine_date_id, vote', 'safe', 'on'=>'search'),
+			array('id, week, min, avg, max', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,10 +64,10 @@ class VaccineUserVote extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'user_id' => 'User',
-			'baby_id' => 'Baby',
-			'vaccine_date_id' => 'Vaccine Date',
-			'vote' => 'Vote',
+			'week' => 'Неделя',
+			'min' => 'Минимальная толщина',
+			'avg' => 'Нормальная толщина',
+			'max' => 'Максимальная толщина',
 		);
 	}
 
@@ -82,10 +83,10 @@ class VaccineUserVote extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('baby_id',$this->baby_id);
-		$criteria->compare('vaccine_date_id',$this->vaccine_date_id);
-		$criteria->compare('vote',$this->vote);
+		$criteria->compare('week',$this->week);
+		$criteria->compare('min',$this->min);
+		$criteria->compare('avg',$this->avg);
+		$criteria->compare('max',$this->max);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

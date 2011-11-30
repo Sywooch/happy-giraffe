@@ -36,7 +36,8 @@ return array(
 		'ext.image.Image',
 		'application.modules.vaccineCalendar.models.*',
         'application.modules.pregnancyWeight.models.*',
-	'application.modules.hospitalBag.models.*',
+	    'application.modules.hospitalBag.models.*',
+        'application.modules.placentaThickness.models.*',
 	),
 
 	'sourceLanguage' => 'en',
@@ -69,7 +70,8 @@ return array(
 		'vaccineCalendar',
 		'pregnancyWeight',
 		'hospitalBag',
-		'contractionsTime'
+		'contractionsTime',
+        'placentaThickness',
 	),
 
 	// application components

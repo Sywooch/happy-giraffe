@@ -31,16 +31,11 @@ class GeoRusSettlement extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+	public function rules() {
 		return array(
 			array('name, region_id', 'required'),
 			array('name', 'length', 'max'=>255),
 			array('district_id, region_id', 'length', 'max'=>11),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, name, district_id, region_id', 'safe', 'on'=>'search'),
 		);
 	}
@@ -48,10 +43,7 @@ class GeoRusSettlement extends CActiveRecord
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
+	public function relations() {
 		return array(
 			'streets' => array(self::HAS_MANY, 'GeoRusStreet', 'settlement_id'),
 			'region' => array(self::BELONGS_TO, 'GeoRusRegion', 'region_id'),
@@ -63,8 +55,7 @@ class GeoRusSettlement extends CActiveRecord
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
@@ -77,20 +68,38 @@ class GeoRusSettlement extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
+	public function search() {
+		$criteria = new CDbCriteria;
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('district_id',$this->district_id,true);
 		$criteria->compare('region_id',$this->region_id,true);
-
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	/**
+	 * Retrivies cities whose name like $title.
+	 * Is $regionId is not empty, retrivies cities whose name like $title
+	 * and region_id equal $regionId
+	 * @param string $title
+	 * @param int $regionId 
+	 * @return array
+	 */
+	public function getCitiesByTitle($title, $regionId = '') { 
+		$where = array('and');
+		$title = strtr($title, array('%' => '\%', '_' => '\_'));
+		$where[] = array('like', 'name', "%$title%");
+		if ($regionId) {
+			$where[] = array('in', 'region_id', array($regionId));
+		}
+		$command = Y::command();
+		$command->select('id, name AS value, name AS label');
+		$command->from(self::model()->tableName());
+		$command->where($where);
+		$command->order('name');
+		$command->limit(30);
+		return $command->queryAll();
 	}
 }

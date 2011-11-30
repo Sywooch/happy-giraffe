@@ -3,34 +3,17 @@
 /**
  * Description of ShopController
  *
- * @author Вячеслав
  */
 class ShopController extends Controller {
 
-	public $layout = '//layouts/column2';
+	public $layout = 'shop';
 
-	public function actionCities($term, $id='') {
-		$where = array('and');
-		$term = strtr($term, array('%' => '\%', '_' => '\_'));
-		$where[] = array('like', 'name', "%$term%");
-
-		if ($id) {
-			$where[] = array('in', 'region_id', array($id));
-		}
-
-		$cities = Y::command()
-				->select('id, name AS value, name AS label')
-				->from(GeoRusSettlement::model()->tableName())
-				->where($where)
-				->order('name')
-				->limit(30)
-				->queryAll();
-
+	public function actionCities($term, $id = '') {
+		$cities = GeoRusSettlement::model()->getCitiesByTitle($term, $id);
 		Y::endJson($cities);
 	}
 
 	public function actionUserInfo($id) {
-		$this->layout = 'shop';
 		$Order = $this->loadOrder($id);
 		if (Yii::app()->user->isGuest) {
 			$User = new User('signup_cart');
@@ -59,7 +42,7 @@ class ShopController extends Controller {
 			}
 		}
 		$validate = false;
-		$Address = OrderAdress::model()->getAddressByOrderId($Order->order_id);
+		$Address = OrderAdress::model()->getOrderAddress($Order->order_id);
 		if (isset($_POST['OrderAdress'])) {
 			$Address->attributes = $_POST['OrderAdress'];
 			$Address->adress_order_id = $Order->order_id;
@@ -128,11 +111,11 @@ class ShopController extends Controller {
 		$modelCities->unsetAttributes();
 
 		$this->renderPartial('delivery.views.default.actionSelectDestination', array(
-			'modelCities' => $modelCities,
-			'modelRegions' => $modelRegions,
-			'modelDistrict' => $modelDistrict,
-			'OrderId' => 0,
-				), true, true
+				'modelCities' => $modelCities,
+				'modelRegions' => $modelRegions,
+				'modelDistrict' => $modelDistrict,
+				'OrderId' => 0,
+			), true, true
 		);
 
 		return array(
@@ -144,9 +127,7 @@ class ShopController extends Controller {
 
 	public function actionPutInAjax($id, $count=1) {
 		$product = $this->loadProduct($id);
-
 		Yii::app()->shoppingCart->put($product, (int) $count);
-
 		Y::endJson(array(
 			'msg' => 'Ok',
 			'count' => Yii::app()->shoppingCart->getItemsCount(),
@@ -156,14 +137,13 @@ class ShopController extends Controller {
 
 	public function actionPutIn($id, $count=1) {
 		$product = $this->loadProduct($id);
-
 		Yii::app()->shoppingCart->put($product, (int) $count);
-
 		if (Y::isAjaxRequest()) {
 			$this->renderPartial('putIn', array(
 				'model' => $product,
 			));
-		} else {
+		} 
+		else {
 			$this->redirect(Y::request()->urlReferrer);
 		}
 	}
@@ -200,100 +180,47 @@ class ShopController extends Controller {
 	}
 
 	public function actionShopCart() {
-		$this->layout = 'shop';
 		$this->render('shopCart');
 	}
 
 	public function actionShopCartDelivery() {
-//		Y::dump(Yii::app()->getModule('billing')->paymentSystems());
-
-		$this->layout = 'shop';
-
-		if (!Y::user()->hasState('create_order_id'))
+		if (!Y::user()->hasState('create_order_id')) {
 			throw new CHttpException(404, 'The requested page does not exist.');
-
+		}
 		Yii::import('delivery.models.Delivery');
-
 		$id = Y::user()->getState('create_order_id');
-
-		$order = Y::command()
-				->select()
-				->from(Order::model()->tableName())
-				->where('order_id=:order_id', array(
-					':order_id' => $id,
-				))
-				->limit(1)
-				->queryRow();
-
-		if (!$order)
+		$Order = Order::model()->findByPk($id);
+		if ($Order === null) {
 			throw new CHttpException(404, 'The requested page does not exist.');
-
-		$delivery = array(
-			'cost' => Delivery::getCostByOrder($order['order_id']),
-			'adress' => Delivery::getAdressByOrder($order['order_id']),
-			'method' => Delivery::getMethodByOrder($order['order_id']),
-		);
-
-		Y::command()
-				->update(Order::model()->tableName(), array(
-					'order_price_delivery' => $delivery['cost'],
-					'order_delivery_adress' => $delivery['adress'],
-						), 'order_id=:order_id', array(
-					':order_id' => $order['order_id'],
-				));
-
-		$order = Y::command()
-				->select()
-				->from(Order::model()->tableName())
-				->where('order_id=:order_id', array(
-					':order_id' => $order['order_id'],
-				))
-				->limit(1)
-				->queryRow();
-
-		$adress = Y::command()
-				->select('adress_index, adress_street, adress_house, adress_corps, adress_room, adress_porch, adress_floor, geo_rus_region.name AS region_name, geo_rus_settlement.name AS city_name')
-				->from('shop_order_adress')
-				->where('adress_order_id=:adress_order_id', array(
-					':adress_order_id' => $id,
-				))
-				->leftJoin('geo_rus_region', 'geo_rus_region.id=adress_region_id')
-				->leftJoin('geo_rus_settlement', 'geo_rus_settlement.id=adress_city_id')
-				->order('adress_id DESC')
-				->limit(1)
-				->queryRow();
-
-//		$items = Y::command()
-//			->select()
-//			->from('shop_order_item')
-//			->leftJoin(Product::model()->tableName(), 'item_product_id=product_id')
-//			->where('item_order_id=:item_order_id', array(
-//				':item_order_id'=>$order['order_id'],
-//			))
-//			->queryAll();
-
+		}
+		$delivery = Delivery::getOrderInformation($Order->order_id);
+		/** Update order with delivery information */
+		$Order->order_price_delivery = $delivery['cost'];
+		$Order->order_delivery_adress = $delivery['adress'];
+		$Order->save();
+		
+		/** Get formatted address of order */
+		$address = OrderAdress::model()->getFormattedOrderAddress($Order->order_id);
 		Y::user()->setState('billing_url_next', $this->createAbsoluteUrl('/shop/thank'));
-
 		$this->render('shopCartDelivery', array(
 			'delivery' => $delivery,
-			'order' => $order,
-			'adress' => $adress,
+			'Order' => $Order,
+			'address' => $address,
 			'ps' => Yii::app()->getModule('billing')->paymentSystems(),
-//			'items' => $items,
 		));
 	}
 
 	public function actionThank() {
-		if (!Y::user()->hasState('billing_url_next'))
+		if (!Y::user()->hasState('billing_url_next')) {
 			throw new CHttpException(404, 'The requested page does not exist.');
+		}
 
 		Y::user()->setState('billing_url_next', null);
 		Y::user()->setState('vaucher', null);
-
+		
 		$id = Y::user()->getState('create_order_id');
-
+		
 		Yii::app()->shoppingCart->clear();
-
 		$this->render('thank', array(
 			'order_id' => $id,
 		));
@@ -307,8 +234,9 @@ class ShopController extends Controller {
 	 */
 	public function loadProduct($id) {
 		$model = Product::model()->findByPk($id);
-		if ($model === null)
+		if ($model === null) {
 			throw new CHttpException(404, 'The requested page does not exist.');
+		}
 		return $model;
 	}
 
@@ -320,8 +248,9 @@ class ShopController extends Controller {
 	 */
 	public function loadOrder($id) {
 		$model = Order::model()->findByPk($id);
-		if ($model === null)
+		if ($model === null) {
 			throw new CHttpException(404, 'The requested page does not exist.');
+		}
 		return $model;
 	}
 
@@ -329,14 +258,13 @@ class ShopController extends Controller {
 		if (($vaucher = Vaucher::isActive($code))) {
 			Y::user()->setState('vaucher', $vaucher);
 			$msg = array('msg' => 'Ok');
-		} else {
+		} 
+		else {
 			$msg = array('msg' => 'Ваучер с указанным кодом не найден');
 		}
-
-		if (Y::isAjaxRequest())
+		if (Y::isAjaxRequest()) {
 			Y::endJson($msg);
-
+		}
 		$this->redirect(Y::request()->urlReferrer);
 	}
-
 }

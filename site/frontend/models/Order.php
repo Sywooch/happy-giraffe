@@ -301,4 +301,8 @@ class Order extends CActiveRecord
 				':order_id'=>$order_id,
 			));
 	}
+	
+	public function primaryKey() {
+		return 'order_id';
+	}
 }

@@ -364,9 +364,7 @@ class Y
      * @param int $options JSON опции (JSON_HEX_QUOT, JSON_HEX_TAG, JSON_HEX_AMP, JSON_HEX_APOS,
      * JSON_NUMERIC_CHECK, JSON_PRETTY_PRINT, JSON_UNESCAPED_SLASHES, JSON_FORCE_OBJECT) (@since 1.1.3)
      */
-    public static function endJson($data, $options = 0)
-    {
-//        echo json_encode($data, $options);
+    public static function endJson($data, $options = 0) {
         echo CJSON::encode($data);
         Yii::app()->end();
     }
@@ -387,15 +385,14 @@ class Y
             $user->setFlash($key, $msg);
         }
     }
-//---------------------------------------------------------
+	
 	/**
 	 * Set a user flash notice message
 	 * @param string $message
 	 * @param mixed $context
 	 * @param type $logLevel
 	 */
-	public static function noticeFlash($message,$context='',$logLevel=null)
-	{
+	public static function noticeFlash($message,$context='',$logLevel=null) {
 		Yii::import('ext.userFlash.EUserFlash');
 		EUserFlash::setNoticeMessage($message, $context, $logLevel);
 	}
@@ -406,8 +403,7 @@ class Y
 	 * @param mixed $context
 	 * @param type $logLevel
 	 */
-	public static function successFlash($message,$context='',$logLevel=null)
-	{
+	public static function successFlash($message, $context='', $logLevel=null) {
 		Yii::import('ext.userFlash.EUserFlash');
 		EUserFlash::setSuccessMessage($message, $context, $logLevel);
 	}

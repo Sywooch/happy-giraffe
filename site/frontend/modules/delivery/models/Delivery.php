@@ -186,68 +186,65 @@ class Delivery extends CActiveRecord
 		return __CLASS__;
 	}
 
-	public static function getCostByOrder($id)
-	{
-		if(isset(self::$entitys[$id]))
-		{
+	public static function getCostByOrder($id) {
+		if(isset(self::$entitys[$id])) {
 			$module = self::$entitys[$id];
 		}
-		else
-		{
+		else{
 			$module = self::$entitys[$id] = self::model()->find('order_id=' . $id);
 		}
-		
-		if(isset($module))
-		{
+		if(isset($module)) {
 			return $module->delivery_cost;
 		}
-		else
-		{
+		else{
 			return 0;
 		}
 	}
 
-	public static function getAdressByOrder($id)
-	{
-		if(isset(self::$entitys[$id]))
-		{
+	public static function getAdressByOrder($id) {
+		if(isset(self::$entitys[$id])) {
 			$module = self::$entitys[$id];
 		}
-		else
-		{
+		else {
 			$module = self::$entitys[$id] = self::model()->find('order_id=' . $id);
 		}
-		
-		if(isset($module))
-		{
+		if(isset($module)) {
 		    $ext = Yii::app()->getModule('delivery')->components[$module->delivery_name]['ext'];
 		    $mn = Yii::app()->getModule('delivery')->components[$module->delivery_name]['class_name'];
 		    Yii::import($ext);
 		    $modelDelivery = CActiveRecord::model($mn)->findByPk($module->delivery_id);
 		    return $modelDelivery->getDestination();
 		}
-		else
-		{
+		else {
 			return 0;
 		}
 	}
 	
-	public static function getMethodByOrder($id)
-	{
-		if(isset(self::$entitys[$id]))
-		{
+	public static function getMethodByOrder($id) {
+		if(isset(self::$entitys[$id])) {
 			$module = self::$entitys[$id];
 		}
-		else
-		{
+		else {
 			$module = self::$entitys[$id] = self::model()->find('order_id=' . $id);
 		}
-		
-		if(isset($module))
-		{
+		if(isset($module)) {
 		    return Yii::app()->getModule('delivery')->components[$module->delivery_name]['show_name'];
 		}
 		return null;
+	}
+	
+	/**
+	 * Get order information: address, method, cost.
+	 * Return associated array.
+	 * @param int $orderId 
+	 * @return array
+	 */
+	public static function getOrderInformation($orderId) {
+		$info = array();
+		$info['method'] = self::getMethodByOrder($orderId);
+		$info['cost'] = self::getCostByOrder($orderId);
+		$info['adress'] = self::getAdressByOrder($orderId);
+		return $info;
 	}
 
 }

@@ -2,18 +2,9 @@
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/cusel.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/checkbox.js'); ?>
 <?php Yii::app()->clientScript->registerCss('oook', '
-.cusel {
-	height: 45px;
-}
-.cuselFrameRight {
-	background-position: right center;
-}
-.cuselText {
-	color: #C6C6C6;
-	font-size: 16px;
-	padding-top: 14px;
-	height: 18px;
-}
+.cusel {height: 45px;}
+.cuselFrameRight {background-position: right center;}
+.cuselText {color: #C6C6C6; font-size: 16px; padding-top: 14px; height: 18px;}
 '); ?>
 
 <?php
@@ -126,11 +117,6 @@ Y::script()->registerScript('total_var', $js, CClientScript::POS_HEAD);
 						<br/>
 						(введите 6 или более символов)
 					</div>
-<!--					<div class="col">
-						<input type="password" /><br/>
-						(введите пароль еще раз)
-					</div>-->
-
 				</div>
 			</div>
 
@@ -206,24 +192,16 @@ Y::script()->registerScript('total_var', $js, CClientScript::POS_HEAD);
 								}',
 							),
 							 'htmlOptions' => array(
-								 'placeholder'=>'Нас. пункт',
-								 'class'=>'placeholder',
+								'placeholder'=>'Нас. пункт',
+								'class'=>'placeholder',
 								'value'=>'Нас. пункт',
 								'onfocus'=>'unsetPlaceholder(this);',
 								'onblur'=>'setPlaceholder(this);',
 							 )
 						));
-
-//						echo CHtml::activeDropDownList($adress, 'adress_city_id', $geo['cities']->getCities(null, $adress->adress_region_id), array(
-//							'class'=>'empty',
-//							'empty'=>'Нас. пункт',
-//							'id'=>'selcity',
-//						));
 						?>
 						<div class="error-text" id="adress_adress_city_id"></div>
 					</div>
-<!--					<br/>
-					<a href="">Забыли почтовый индекс?</a>-->
 				</div>
 			</div>
 
@@ -308,14 +286,9 @@ Y::script()->registerScript('total_var', $js, CClientScript::POS_HEAD);
 						)); ?>
 						<div class="error-text" id="order_order_description"></div>
 					</div>
-
 				</div>
 			</div>
-
-
 		</div>
-
-
 		<div class="clear"></div>
 
 		<div class="subtitle">Способ доставки</div>

@@ -54,7 +54,7 @@ else
         <?php if (!empty($baby_id)):?>
 			<tr class="bottom">
 				<td colspan="4" class="<?php echo 'vc-'.$day->id.$baby_id ?>">
-                    <?php $user_vote = $day->GetUserVote($baby) ?>
+                    <?php $user_vote = $data->GetUserVote($day->id) ?>
 
                     <div class="result-box">
                         <?php echo CHtml::link('<span><span>Отказываемся</span></span>','#',

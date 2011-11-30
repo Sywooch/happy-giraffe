@@ -2,24 +2,33 @@
 /* @var $this Controller
  * @var $form CActiveForm
  */
-?>
-<script type="text/javascript">
-    $(function() {
-        $('.pregnancy-weight-form button').click(function(data){
+$js = "$('.pregnancy-weight-form button').click(function(data){
             $.ajax({
-                url: "<?php echo Yii::app()->createUrl("/pregnancyWeight/default/getData") ?>",
-                data: $("#pregnant-params-form").serialize(),
-                type: "POST",
+                url: ".CJSON::encode(Yii::app()->createUrl("/pregnancyWeight/default/getData")) .",
+                data: $('#pregnant-params-form').serialize(),
+                type: 'POST',
                 success: function(data) {
-                    $(".intro-text").hide();
-                    $("#result").html(data);
+                    $('.intro-text').hide();
+                    $('#result').html(data);
                 }
             });
 
             return false;
         });
-    });
-</script>
+        $('#baby').delegate('.go-weight-table', 'click', function () {
+            $('#recommend').hide();
+            $('#weight-table').show();
+            return false;
+        });
+        $('#baby').delegate('.go-recommend-table', 'click', function () {
+            $('#recommend').show();
+            $('#weight-table').hide();
+            return false;
+        });
+";
+Yii::app()->clientScript->registerScript('pregnancy-weight',$js);
+
+?>
 <div class="section-banner" style="margin:0;">
 
         <img src="/images/section_banner_05.jpg" />

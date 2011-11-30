@@ -12,7 +12,7 @@ class VaccineWidget extends CWidget
      */
     public $baby = null;
     public $baby_id = null;
-    public $enable_cache = false;
+    public $enable_cache = true;
 
     public function init()
     {
@@ -33,31 +33,21 @@ class VaccineWidget extends CWidget
 
     public function GetVaccineData()
     {
-        //        $mtime = microtime();
-        //        $mtime = explode(" ", $mtime);
-        //        $mtime = $mtime[1] + $mtime[0];
-        //        $starttime = $mtime;
-        //
         if ($this->enable_cache) {
             $data = Yii::app()->cache->get('vaccine_calendar');
             if ($data === false) {
                 $data = new VaccineData();
                 Yii::app()->cache->set('vaccine_calendar', $data, 60);
-            }
+            }else
+                $data->LoadVotes();
         } else
             $data = new VaccineData();
-        if (!empty($this->baby))
+        if (!empty($this->baby)){
             $data->CalculateForDate(strtotime($this->baby->birthday));
+            $data->LoadUserVotes($this->baby_id);
+        }
         else
             $data->CalculateForDate($this->date);
-
-        //
-        //        $mtime = microtime();
-        //        $mtime = explode(" ", $mtime);
-        //        $mtime = $mtime[1] + $mtime[0];
-        //        $endtime = $mtime;
-        //        $totaltime = ($endtime - $starttime);
-        //        echo "This page was created in " . $totaltime . " seconds";
 
         return $data;
     }

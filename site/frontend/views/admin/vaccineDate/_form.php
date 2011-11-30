@@ -57,6 +57,12 @@
 </div>
 
 <div class="row">
+    <?php echo $form->labelEx($model, 'comment'); ?>
+    <?php echo $form->textField($model, 'comment', array('size' => 60, 'maxlength' => 256)); ?>
+    <?php echo $form->error($model, 'comment'); ?>
+</div>
+
+<div class="row">
     <?php echo $form->labelEx($model, 'vaccination_type'); ?>
     <?php echo $form->dropDownList($model, 'vaccination_type',$model->vaccine_type_names); ?>
     <?php echo $form->error($model, 'vaccination_type'); ?>

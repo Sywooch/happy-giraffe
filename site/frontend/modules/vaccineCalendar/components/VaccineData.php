@@ -12,10 +12,11 @@ class VaccineData
      * @param int $date timestamp
      */
     public $birthday = null;
+    public $user_votes = array();
 
     function __construct()
     {
-        $vaccineDates = VaccineDate::model()->with(array('vaccine'))->findAll();
+        $vaccineDates = VaccineDate::model()->with(array('vaccine', 'diseases'))->findAll();
         foreach ($vaccineDates as $vaccineDate) {
             $this->vaccineDates [] = $vaccineDate;
             $vaccineDate->Prepare();
@@ -44,4 +45,57 @@ class VaccineData
         }
     }
 
+    public function LoadVotes(){
+        $vaccineDates = VaccineDate::model()->findAll(
+            array('select'=>array('vote_decline', 'vote_agree', 'vote_did')));
+        foreach ($vaccineDates as $vaccineDate) {
+            foreach ($this->vaccineDates as $vaccineDateCached) {
+                if ($vaccineDate->id == $vaccineDateCached->id){
+                    $vaccineDateCached->vote_agree = $vaccineDate->vote_agree;
+                    $vaccineDateCached->vote_decline = $vaccineDate->vote_decline;
+                    $vaccineDateCached->vote_did = $vaccineDate->vote_did;
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Load all user marks
+     * @param $baby_id
+     */
+    public function LoadUserVotes($baby_id){
+        $votes = $this->GetUserVotes(Yii::app()->user->getId(), $baby_id);
+        foreach($votes as $row){
+            $this->user_votes[$row['vaccine_date_id']] = $row['vote'];
+        }
+    }
+
+    /**
+     * Get user mark for current voteDate
+     *
+     * @param $day_id
+     * @return int
+     */
+    public function GetUserVote($day_id){
+        if (isset($this->user_votes[$day_id]))
+            return $this->user_votes[$day_id];
+        else
+            return VaccineDate::VOTE_EMPTY;
+    }
+
+    /**
+     * Get user mark from DB
+     *
+     * @param $user_id
+     * @param $baby_id
+     * @return array
+     */
+    private function GetUserVotes($user_id, $baby_id){
+        $connection=Yii::app()->db;
+        $command=$connection->createCommand("SELECT vaccine_date_id, vote FROM {{vaccine_user_vote}}
+            WHERE user_id = :user_id AND baby_id=".$baby_id);
+        $command->bindParam(":user_id",$user_id);
+        return $command->queryAll();
+    }
 }

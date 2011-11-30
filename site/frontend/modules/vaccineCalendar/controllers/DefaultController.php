@@ -35,25 +35,6 @@ class DefaultController extends Controller
         }
     }
 
-    public function actionSaveDate($date)
-    {
-        if (Yii::app()->request->isAjaxRequest) {
-            if (Yii::app()->user->isGuest) {
-                echo 'You are nor authorized';
-                Yii::app()->end();
-            }
-            if (isset($date)) {
-                $vaccine_date_save = new VaccineSave;
-                $vaccine_date_save->date = date("Y-m-d", $date);
-                $vaccine_date_save->user_id = Yii::app()->user->getId();
-                if ($vaccine_date_save->save())
-                    echo CJavaScript::encode(true);
-                else
-                    echo CJavaScript::encode(false);
-            }
-        }
-    }
-
     public function actionVote($id, $vote, $baby_id)
     {
         if (Yii::app()->request->isAjaxRequest) {

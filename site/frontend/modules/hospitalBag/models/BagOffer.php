@@ -132,7 +132,6 @@ class BagOffer extends CActiveRecord
 		
 		if ($current_vote === NULL)
 		{
-			//die('1');
 			Yii::app()->db->createCommand()
 				->insert('bag_user_vote', array(
 					'offer_id' => $this->id,
@@ -145,7 +144,6 @@ class BagOffer extends CActiveRecord
 		}
 		elseif ($current_vote != $vote)
 		{
-			//die('2');
 			Yii::app()->db->createCommand()
 				->update('bag_user_vote', array('vote' => $vote), 'user_id = :user_id AND offer_id = :offer_id', array(
 					':user_id' => $user_id,
@@ -158,7 +156,6 @@ class BagOffer extends CActiveRecord
 			Yii::app()->db->createCommand()
 				->update($this->tableName(), array($this->columnByVote($current_vote) => new CDbExpression($this->columnByVote($vote) . ' - 1')), 'id = :offer_id', array(':offer_id' => $this->id));
 		}
-		//die('3');
 	}
 	
 	protected function columnByVote($vote)
@@ -173,11 +170,12 @@ class BagOffer extends CActiveRecord
 	
 	public function getCurrentVote($user_id)
 	{
-		return Yii::app()->db->createCommand()
+		$vote = Yii::app()->db->createCommand()
 		    ->select('vote')
-		    ->from($this->tableName())
-		    ->leftJoin('bag_user_vote', 'bag_user_vote.user_id = :user_id', array(':offer_id' => $this->id, ':user_id' => $user_id))
-		    ->where('offer_id = :offer_id', array(':offer_id' => $this->id))
+		    ->from('bag_user_vote')
+		    ->where('offer_id = :offer_id AND user_id = :user_id', array(':offer_id' => $this->id, ':user_id' => $user_id))
 		    ->queryScalar();
+		
+		return ($vote === FALSE) ? null : $vote;
 	}
 }

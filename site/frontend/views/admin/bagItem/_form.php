@@ -5,6 +5,8 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
+	<?php echo $form->hiddenField($model, 'approved', array('value' => '1')); ?>
+
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
@@ -22,20 +24,23 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'approved'); ?>
-		<?php echo $form->textField($model,'approved'); ?>
-		<?php echo $form->error($model,'approved'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'for'); ?>
-		<?php echo $form->textField($model,'for'); ?>
+		<?php echo $form->dropDownList($model,'for', array('0' => 'Для мамы', '1' => 'Для ребёнка')); ?>
 		<?php echo $form->error($model,'for'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'category_id'); ?>
-		<?php echo $form->textField($model,'category_id',array('size'=>11,'maxlength'=>11)); ?>
+		<?php 
+			$this->widget('application.components.Relation', array(
+					'model' => $model,
+					'relation' => 'category',
+					'fields' => 'name',
+					'allowEmpty' => false,
+					'style' => 'dropdownlist',
+				)
+			); 
+		?>
 		<?php echo $form->error($model,'category_id'); ?>
 	</div>
 

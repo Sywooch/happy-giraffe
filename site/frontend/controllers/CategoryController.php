@@ -1,7 +1,9 @@
 <?php
 
-class CategoryController extends Controller
-{
+class CategoryController extends Controller {
+	
+	public $layout='shop';
+	
 	public $CQtreeGreedView  = array (
         'modelClassName' => 'Category', //название класса
         'adminAction' => 'admin', //action, где выводится QTreeGridView. Сюда будет идти редирект с других действий.
@@ -18,16 +20,9 @@ class CategoryController extends Controller
     }
 
 	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/shop';
-
-	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
+	public function filters() {
 		return array(
 			'accessControl', // perform access control for CRUD operations
 		);
@@ -38,8 +33,7 @@ class CategoryController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	public function accessRules()
-	{
+	public function accessRules() {
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view','new','brands','brand','ages','age','gender'),
@@ -57,52 +51,25 @@ class CategoryController extends Controller
 		);
 	}
 	
-	public function actionAges()
-	{
-		$ages = Y::command()
-			->select()
-			->from(AgeRange::model()->tableName())
-			->order('range_order')
-			->queryAll();
-		
-		$sexList = array(
-			0 => 'Для всех',
-			1 => 'Мальчик',
-			2 => 'Девочка',
-		);
-		
+	public function actionAges() {
+		$ages = AgeRange::model()->getAgesArray();
 		$this->render('ages', array(
-			'ages'=>$ages,
-			'sexList'=>$sexList,
+			'ages' => $ages,
+			'sexList' => AgeRange::model()->getGenderList(),
 		));
 	}
 
-	public function actionGender($id)
-	{
-		$sexList = array(
-			0 => 'Для всех',
-			1 => 'Мальчик',
-			2 => 'Девочка',
-		);
-		
-		$gender = isset($sexList[$id]) ? $sexList[$id] : null;
-		
-		if(!$gender)
+	public function actionGender($id) {
+		$gender = AgeRange::model()->getGender((int)$id);
+		if($gender === null) {
 			throw new CHttpException(404,'The requested page does not exist.');
-		
-		$descendants = Y::command()
-			->select('category_id, category_name')
-			->from('shop_category')
-			->queryAll();
-		$descendants = CHtml::listData($descendants, 'category_id', 'category_name');
+		}
+		$descendants = CHtml::listData(Category::model()->findAll(), 'category_id', 'category_name');
 		
 		$criteria = new CDbCriteria;
-		if($id)
-			$criteria->compare('product_sex', (int)$id);
-		$criteria->compare('product_status', '<>0');
-		
+		$criteria->compare('product_sex', (int)$id);
+		$criteria->compare('product_status', '<> 0');
 		$this->getFilter($criteria, $descendants, -2);
-		
 		$sort = new CSort;
 		$sort->modelClass = 'Product';
 		$sort->attributes = array(
@@ -116,51 +83,30 @@ class CategoryController extends Controller
 			'criteria' => $criteria,
 			'sort' => $sort,
 			'pagination' => array(
-					'pageSize' => 3,
-				),
-			));
-		/**
-		 * ---------------------------------------------------------------------
-		 */
-		
-		$render = Y::isAjaxRequest()
-			? 'renderPartial'
-			: 'render';
+				'pageSize' => 3,
+			),
+		));
+		$render = Y::isAjaxRequest() ? 'renderPartial'	: 'render';
 		
 		$this->$render('gender',array(
-			'criteria'=>$criteria,
-			'parents'=>array(),
-			'products'=>$products,
-			'descendants'=>$descendants,
-			'sort'=>$sort,
-			'gender'=>$gender,
+			'criteria' => $criteria,
+			'parents' => array(),
+			'products' => $products,
+			'descendants' => $descendants,
+			'sort' => $sort,
+			'gender' => $gender,
 		));
 	}
 
-	public function actionAge($id)
-	{
-		$age = Y::command()
-			->select()
-			->from(AgeRange::model()->tableName())
-			->where('range_id=:range_id', array(
-				':range_id'=>(int)$id,
-			))
-			->limit(1)
-			->queryRow();
-		
-		if(!$age)
+	public function actionAge($id) {
+		$age = AgeRange::model()->findByPk((int)$id);
+		if(empty($age)) {
 			throw new CHttpException(404,'The requested page does not exist.');
-		
-		$descendants = Y::command()
-			->select('category_id, category_name')
-			->from('shop_category')
-			->queryAll();
-		$descendants = CHtml::listData($descendants, 'category_id', 'category_name');
-		
+		}
+		$descendants = CHtml::listData(Category::model()->findAll(), 'category_id', 'category_name');
 		$criteria = new CDbCriteria;
 		$criteria->compare('product_age_range_id', (int)$id);
-		$criteria->compare('product_status', '<>0');
-		
+		$criteria->compare('product_status', '<> 0');
 		$this->getFilter($criteria, $descendants, -3);
 		
 		$sort = new CSort;
@@ -179,63 +125,36 @@ class CategoryController extends Controller
 					'pageSize' => 3,
 				),
 			));
-		/**
-		 * ---------------------------------------------------------------------
-		 */
-		
-		$render = Y::isAjaxRequest()
-			? 'renderPartial'
-			: 'render';
-		
+		$render = Y::isAjaxRequest() ? 'renderPartial' : 'render';
 		$this->$render('age',array(
-			'criteria'=>$criteria,
-			'parents'=>array(),
-			'products'=>$products,
-			'descendants'=>$descendants,
-			'sort'=>$sort,
-			'age'=>$age,
+			'criteria' => $criteria,
+			'parents' => array(),
+			'products' => $products,
+			'descendants' => $descendants,
+			'sort' => $sort,
+			'age' => $age,
 		));
 	}
 	
-	public function actionBrands()
-	{
-		$brands = Y::command()
-			->select()
-			->from(ProductBrand::model()->tableName())
-			->order('brand_title')
-			->queryAll();
-		
+	public function actionBrands() {
+		$ct = new CDbCriteria();
+		$ct->order = 'brand_title';
+		$brands = ProductBrand::model()->findAll($ct);
 		$this->render('brands', array(
-			'brands'=>$brands,
+			'brands' => $brands,
 		));
 	}
 	
-	public function actionBrand($id)
-	{
-		$brand = Y::command()
-			->select()
-			->from(ProductBrand::model()->tableName())
-			->where('brand_id=:brand_id', array(
-				':brand_id'=>(int)$id,
-			))
-			->limit(1)
-			->queryRow();
-		
-		if(!$brand)
+	public function actionBrand($id) {
+		$brand = ProductBrand::model()->find('brand_id = :brand_id', array(':brand_id' => (int)$id));
+		if(empty($brand)) {
 			throw new CHttpException(404,'The requested page does not exist.');
-		
-		$descendants = Y::command()
-			->select('category_id, category_name')
-			->from('shop_category')
-			->queryAll();
-		$descendants = CHtml::listData($descendants, 'category_id', 'category_name');
-		
+		}
+		$descendants = CHtml::listData(Category::model()->findAll(), 'category_id', 'category_name');
 		$criteria = new CDbCriteria;
 		$criteria->compare('product_brand_id', (int)$id);
-		$criteria->compare('product_status', '<>0');
-		
+		$criteria->compare('product_status', '<> 0');
 		$this->getFilter($criteria, $descendants, -1);
-		
 		$sort = new CSort;
 		$sort->modelClass = 'Product';
 		$sort->attributes = array(
@@ -252,35 +171,22 @@ class CategoryController extends Controller
 					'pageSize' => 3,
 				),
 			));
-		/**
-		 * ---------------------------------------------------------------------
-		 */
 		
-		$render = Y::isAjaxRequest()
-			? 'renderPartial'
-			: 'render';
-		
+		$render = Y::isAjaxRequest() ? 'renderPartial' : 'render';
 		$this->$render('brand',array(
-			'criteria'=>$criteria,
-			'parents'=>array(),
-			'products'=>$products,
-			'descendants'=>$descendants,
-			'sort'=>$sort,
-			'brand'=>$brand,
+			'criteria' => $criteria,
+			'parents' => array(),
+			'products' => $products,
+			'descendants' => $descendants,
+			'sort' => $sort,
+			'brand' => $brand,
 		));
 	}
 	
-	public function actionNew()
-	{
-		$descendants = Y::command()
-			->select('category_id, category_name')
-			->from('shop_category')
-			->queryAll();
-		$descendants = CHtml::listData($descendants, 'category_id', 'category_name');
-		
+	public function actionNew() {
+		$descendants = CHtml::listData(Category::model()->findAll(), 'category_id', 'category_name');
 		$criteria = new CDbCriteria;
-		$criteria->compare('product_status', '<>0');
-		
+		$criteria->compare('product_status', '<> 0');
 		$this->getFilter($criteria, $descendants, 0);
 		
 		$sort = new CSort;
@@ -299,27 +205,18 @@ class CategoryController extends Controller
 					'pageSize' => 3,
 				),
 			));
-		/**
-		 * ---------------------------------------------------------------------
-		 */
-		
-		$render = Y::isAjaxRequest()
-			? 'renderPartial'
-			: 'render';
-		
+		$render = Y::isAjaxRequest() ?  'renderPartial'	: 'render';
 		$this->$render('new',array(
-			'criteria'=>$criteria,
-			'parents'=>array(),
-			'products'=>$products,
-			'descendants'=>$descendants,
-			'sort'=>$sort,
+			'criteria' => $criteria,
+			'parents' => array(),
+			'products' => $products,
+			'descendants' => $descendants,
+			'sort' => $sort,
 		));
 	}
 
-	public function actionAttributeInSearch($id)
-	{
-		if(!isset($_POST['insearch']))
-		{
+	public function actionAttributeInSearch($id) {
+		if(!isset($_POST['insearch'])) {
 			Y::command()
 				->update('shop_category_attributes_map', array(
 					'map_in_search'=>0,
@@ -342,25 +239,18 @@ class CategoryController extends Controller
 		
 		$map = CHtml::listData($map, 0, 0);
 		
-//		Y::dump($_POST['insearch'], false);
-//		Y::dump($map, false);
-		
 		$to_del = array_diff($map, $_POST['insearch']);
 		$to_ins = array_diff($_POST['insearch'], $map);
 		
-//		Y::dump($to_ins, false);
-//		Y::dump($to_del);
 		
-		if($to_ins)
-		{
+		if($to_ins) {
 			$exist = Y::command()
 				->select('COUNT(*)')
 				->from('shop_product_attribute')
 				->where(array('in','attribute_id',$to_ins))
 				->queryScalar();
 
-			if(count($to_ins) != $exist)
-			{
+			if(count($to_ins) != $exist) {
 				Y::errorFlash('Hack');
 				$this->redirect(Y::request()->urlReferrer);
 			}
@@ -372,9 +262,7 @@ class CategoryController extends Controller
 				));
 		}
 		
-		if($to_del)
-		{
-//			Y::dump($to_del);
+		if($to_del) {
 			Y::command()
 				->update('shop_category_attributes_map', array(
 					'map_in_search'=>0,
@@ -493,8 +381,7 @@ class CategoryController extends Controller
 		));
 	}
 	
-	public function actionAttributeListSet($term='')
-	{
+	public function actionAttributeListSet($term = '') {
 		Yii::import('attribute.models.AttributeSet');
 		$sets = AttributeSet::model()->listAll($term, array('set_title','set_text'));
 		foreach($sets as $k=>$v)
@@ -513,8 +400,7 @@ class CategoryController extends Controller
 		Y::endJson($sets);
 	}
 	
-	public function actionAttributeList($term='')
-	{
+	public function actionAttributeList($term = '') {
 		Yii::import('attribute.models.Attribute');
 		$sets = Attribute::model()->listAll($term, array('attribute_title','attribute_text'));
 		foreach($sets as $k=>$v)
@@ -665,45 +551,33 @@ class CategoryController extends Controller
 		));
 	}
 	
-	protected function getFilter(&$criteria, $descendants, $id)
-	{
-		if(isset($_POST['resetFilter_x']))
-		{
+	protected function getFilter(&$criteria, $descendants, $id) {
+		
+		if(isset($_POST['resetFilter_x'])) {
 			unset ($_POST['AttributeAbstract']);
 			unset ($_POST['AttributeSearchForm']);
 			Y::user()->setState("AttributeAbstract_{$id}", null);
 			Y::user()->setState("AttributeSearchForm_{$id}", null);
 		}
 		
-		if(Y::user()->hasState("AttributeAbstract_{$id}") || isset($_POST['AttributeAbstract']))
-		{
-			if(isset($_POST['AttributeAbstract']))
+		if(Y::user()->hasState("AttributeAbstract_{$id}") || isset($_POST['AttributeAbstract'])) {
+			if(isset($_POST['AttributeAbstract'])) {
 				Y::user()->setState("AttributeAbstract_{$id}", $_POST['AttributeAbstract']);
-			
-//			Y::dump(Y::user()->getState("AttributeAbstract_{$id}"));
-				
+			}
 			$attributes = new AttributeAbstract;
 			$attributes->initialize($id);
 			
-			if(($product_ids = $attributes->getFilter())!==false)
-			{
-//				Y::dump($product_ids);
+			if(($product_ids = $attributes->getFilter())!==false) {
 				$criteria->addInCondition('product_id', $product_ids);
 			}
 		}
-		
-		if(Y::user()->hasState("AttributeSearchForm_{$id}") || isset($_POST['AttributeSearchForm']))
-		{
-			if(isset($_POST['AttributeSearchForm']))
-			{
+		if(Y::user()->hasState("AttributeSearchForm_{$id}") || isset($_POST['AttributeSearchForm'])) {
+			if(isset($_POST['AttributeSearchForm'])) {
 				Y::user()->setState("AttributeSearchForm_{$id}", $_POST['AttributeSearchForm']);
 			}
-				
 			$attributes = new AttributeSearchForm;
 			$attributes->initialize($id, $descendants);
-			
-			if(($crit = $attributes->getCriteria()) !== false)
-			{
+			if(($crit = $attributes->getCriteria()) !== false) {
 				$criteria->mergeWith($crit);
 			}
 		}
@@ -803,17 +677,13 @@ class CategoryController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
-	{
+	public function actionIndex() {
 		$categories = Y::command()
 			->select()
 			->from(Category::model()->tableName())
 			->order('category_root, category_lft')
 			->queryAll();
-		
-		
-		
-		$this->render('index',array(
+		$this->render('index', array(
 			'categories' => $categories,
 		));
 	}

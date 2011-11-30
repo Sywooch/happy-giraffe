@@ -21,20 +21,18 @@
  * @method boolean moveAfter($category) moveAfter(Category $category)
  * @method boolean moveBefore($category) moveBefore(Category $category)
  */
-class Category extends CActiveRecord
-{
+class Category extends CActiveRecord {
+
 	public $parentId;
-	
 	public $defAttributes = array(
-		'category_name','category_title','category_text','category_keywords','category_description',
+		'category_name', 'category_title', 'category_text', 'category_keywords', 'category_description',
 	);
 
-	public function behaviors()
-	{
+	public function behaviors() {
 		return array(
 			'tree' => array(
 				'class' => 'ext.trees.NestedSetBehavior',
-				'hasManyRoots'=>true,
+				'hasManyRoots' => true,
 				'rootAttribute' => 'category_root',
 				'leftAttribute' => 'category_lft',
 				'rightAttribute' => 'category_rgt',
@@ -47,24 +45,21 @@ class Category extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * @return Category the static model class
 	 */
-	public static function model($className=__CLASS__)
-	{
+	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
 
 	/**
 	 * @return string the associated database table name
 	 */
-	public function tableName()
-	{
+	public function tableName() {
 		return '{{shop_category}}';
 	}
 
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules()
-	{
+	public function rules() {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
@@ -81,8 +76,7 @@ class Category extends CActiveRecord
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	public function relations() {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
@@ -92,8 +86,7 @@ class Category extends CActiveRecord
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
 			'category_id' => 'Category',
 			'category_root' => 'Category Root',
@@ -112,8 +105,7 @@ class Category extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
+	public function search() {
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
@@ -130,78 +122,55 @@ class Category extends CActiveRecord
 		$criteria->compare('category_keywords', $this->category_keywords, true);
 		$criteria->compare('category_description', $this->category_description, true);
 
-		$criteria->order = $this->tree->hasManyRoots
-			   ? $this->tree->rootAttribute . ', ' . $this->tree->leftAttribute
-			   : $this->tree->leftAttribute;
+		$criteria->order = $this->tree->hasManyRoots ? $this->tree->rootAttribute . ', ' . $this->tree->leftAttribute : $this->tree->leftAttribute;
 
 		return new CActiveDataProvider($this, array(
 					'criteria' => $criteria,
 				));
 	}
 
-//	public function defaultScope()
-//	{
-//		return array(
-//			'order'=>'category_root, category_lft',
-//		);
-//	}
-
-	public function getNameExt()
-	{
+	public function getNameExt() {
 		return str_repeat('---', $this->category_level - 1) . ' ' . $this->category_name;
 	}
 
-	public function save($runValidation = true, $attributes = null)
-	{
-		$attributes = $attributes
-			? array_diff($attributes, $this->defAttributes)
-			: $this->defAttributes;
-
+	public function save($runValidation = true, $attributes = null) {
+		$attributes = $attributes ? array_diff($attributes, $this->defAttributes) : $this->defAttributes;
 		$this->tree->save($runValidation, $attributes);
 	}
-	
-	public function listAll($forhtml=true,$category_id=null)
-	{
+
+	public function listAll($forhtml = true, $category_id = null) {
 		$category_level = 'category_level';
-		if($category_id)
-		{
+		if ($category_id) {
 			$category = Y::command()
-				->select()
-				->from($this->tableName())
-				->where('category_id=:category_id', array(
-					':category_id'=>$category_id,
-				))
-				->limit(1)
-				->queryRow();
-			
+					->select()
+					->from($this->tableName())
+					->where('category_id=:category_id', array(
+						':category_id' => $category_id,
+					))
+					->limit(1)
+					->queryRow();
+
 			$category_level = "(category_level - {$category['category_level']}) AS category_level";
 		}
-		
-		
 		$list = Y::command()
-			->select(array_merge($this->defAttributes, array('category_id',$category_level)))
-			->from($this->tableName())
-			->order('category_root, category_lft');
-		
-		if($category_id)
-		{
+				->select(array_merge($this->defAttributes, array('category_id', $category_level)))
+				->from($this->tableName())
+				->order('category_root, category_lft');
+		if ($category_id) {
 			$list->where('category_lft>=:category_lft AND category_rgt<=:category_rgt', array(
-				':category_lft'=>$category['category_lft'],
-				':category_rgt'=>$category['category_rgt'],
+				':category_lft' => $category['category_lft'],
+				':category_rgt' => $category['category_rgt'],
 			));
 		}
-		
 		$list = $list->queryAll();
-		
-		if(!$forhtml)
+		if (!$forhtml) {
 			return $list;
-		
+		}
 		$html = array();
-		foreach ($list as $category)
-		{
+		foreach ($list as $category) {
 			$html[$category['category_id']] = str_repeat('---', $category['category_level'] - 1) . ' ' . $category['category_name'];
 		}
-		
 		return $html;
 	}
+
 }

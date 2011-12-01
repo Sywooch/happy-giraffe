@@ -27,14 +27,10 @@ $this->menu=array(
 		'order_time:datetime',
 		'order_user_id',
 		'order_item_count',
-//		'order_price',
 		'order_price_total',
-//		'order_width',
-//		'order_volume',
 		'order_description',
 		'order_price_delivery',
 		'order_delivery_adress',
-//		'order_vaucher_id',
 	),
 )); ?>
 

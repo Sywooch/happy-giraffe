@@ -131,19 +131,6 @@ $('#add_comment').live('submit', function(e) {
 	 ->registerScriptFile('/javascripts/cloud-zoom.1.0.2.min.js');
 	
 ?>
-
-<?php
-	$breadcrumbs=array();
-	foreach($parents as $id=>$name)
-	{
-		$breadcrumbs[$name] = array('category/view','id'=>$id);
-	}
-	$breadcrumbs[$model->category->category_name] = array('category/view', 'id'=>$model->category->category_id);
-	$breadcrumbs[] = $model->product_title;
-
-	$this->breadcrumbs=$breadcrumbs;
-?>
-
 <div class="content-box clearfix">
 	<div class="main">					
 			

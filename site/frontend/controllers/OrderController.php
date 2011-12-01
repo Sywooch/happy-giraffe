@@ -60,7 +60,7 @@ class OrderController extends Controller
 				':item_order_id' => (int) $id,
 			))
 			->queryAll();
-		
+		Y::dump($items);
 		$this->render('view',array(
 			'model'=>$model,
 			'items'=>$items,
@@ -74,26 +74,13 @@ class OrderController extends Controller
 	public function actionCreate()
 	{
 		$this->layout = 'empty';
-		
 		$model=new Order;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-//		if(isset($_POST['Order']))
-//		{
-//			$model->attributes=$_POST['Order'];
 		if($model->save())
 		{
 			Y::user()->setState('create_order_id', $model->order_id);
 			$this->redirect(array('shop/userInfo', 'id'=>$model->order_id));
 		}
-//		}
-
-//		$this->redirect(Y::request()->urlReferrer);
-//		$this->render('create',array(
-//			'model'=>$model,
-//		));
 	}
 
 	/**
@@ -105,17 +92,14 @@ class OrderController extends Controller
 	{
 		$model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Order']))
 		{
 			$model->attributes=$_POST['Order'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->order_id));
+				$this->redirect(array('view', 'id' => $model->order_id));
 		}
 
-		$this->render('update',array(
+		$this->render('update', array(
 			'model'=>$model,
 		));
 	}

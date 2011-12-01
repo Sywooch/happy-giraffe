@@ -118,4 +118,28 @@ class ProductComment extends CActiveRecord
 		$new_rating = round($record['rating']);
 		Product::model()->updateByPk($this->product_id, array('product_rate' => $new_rating));
 	}
+	
+	/**
+	 * Check whether the $authorId has rated
+	 * for the $productId.
+	 * @param type $authorId
+	 * @param type $productId 
+	 * @return bool
+	 */
+	public function isRated($authorId, $productId)
+	{
+		$command = Yii::app()->db->createCommand();
+		$command->select('COUNT(*)')
+				->from($this->tableName())
+				->where(array(
+					'and',
+					'author_id = :author_id',
+					'product_id = :product_id'
+				));
+		$command->params = array(
+			':author_id' => $authorId, 
+			':product_id' => $productId
+		);
+		return $command->queryScalar() > 0;
+	}
 }

@@ -33,12 +33,12 @@ class Product extends CActiveRecord implements IECartPosition
 	const SCENARIO_SELECT_CATEGORY = 1;
 	const SCENARIO_FILL_PRODUCT = 2;
 	
-	function getId()
+	public function getId()
 	{
 		return 'Product_' . $this->product_id;
 	}
 
-	function getPrice()
+	public function getPrice()
 	{
 		return intval($this->product_sell_price)
 			? $this->product_sell_price
@@ -89,11 +89,6 @@ class Product extends CActiveRecord implements IECartPosition
 					),
 				),
 			),
-//			'attribute_set' => array(
-//				'class'=>'attribute.AttributeSetBehavior',
-//				'table'=>'shop_product_attribute_set',
-//				'attribute'=>'product_attribute_set_id',
-//			),
 			'getUrl' => array(
 				'class' => 'ext.geturl.EGetUrlBehavior',
 				'route' => 'product/view',
@@ -122,17 +117,11 @@ class Product extends CActiveRecord implements IECartPosition
 				'class' => 'ext.status.EStatusBehavior',
 				// Поле зарезервированное для статуса
 				'statusField' => 'product_sex',
-				'statuses' => $this->sexList,
+				'statuses' => AgeRange::model()->getGenderList(),
 			),
 		);
 	}
 	
-	public $sexList = array(
-		0 => 'Для всех',
-		1 => 'Мальчик',
-		2 => 'Девочка',
-	);
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Product the static model class
@@ -169,7 +158,7 @@ class Product extends CActiveRecord implements IECartPosition
 			array('product_title, product_slug', 'length', 'max'=>150,'on'=>self::SCENARIO_FILL_PRODUCT),
 			array('product_keywords, product_description', 'length', 'max'=>250,'on'=>self::SCENARIO_FILL_PRODUCT),
 			array('product_age_range_id', 'in','range'=>array_keys($this->getAgeRanges()), 'on'=>self::SCENARIO_FILL_PRODUCT),
-			array('product_sex', 'in','range'=>array_keys($this->sexList), 'on'=>self::SCENARIO_FILL_PRODUCT),
+			array('product_sex', 'in','range'=>array_keys(AgeRange::model()->getGenderList()), 'on'=>self::SCENARIO_FILL_PRODUCT),
 			array('product_text', 'safe','on'=>self::SCENARIO_FILL_PRODUCT),
 
 			array('product_image', 'ext.ufile.UFileValidator',
@@ -274,40 +263,6 @@ class Product extends CActiveRecord implements IECartPosition
 		));
 	}
 
-//	protected function afterFind()
-//	{
-//		$this->_old_product_type_id = $this->product_type_id;
-//		return parent::afterFind();
-//	}
-//
-//	protected function beforeSave()
-//	{
-//		if($this->_old_product_type_id != $this->product_type_id)
-//		{
-//			$this->product_attribute_set_id = Y::command()
-//				->select('type_attribute_set_id')
-//				->from(ProductType::model()->tableName())
-//				->where('type_id=:type_id', array(
-//					':type_id'=>$this->product_type_id,
-//				))
-//				->queryScalar();
-//		}
-//		return parent::beforeSave();
-//	}
-//
-//	public function getProduct_type($name='type_title')
-//	{
-//		return Y::db()
-//			->cache(5)
-//			->createCommand()
-//			->select($name)
-//			->from(ProductType::model()->tableName())
-//			->where('type_id=:type_id', array(
-//				':type_id'=>$this->product_type_id,
-//			))
-//			->queryScalar();
-//	}
-	
 	public function getBrands()
 	{
 		static $brands;
@@ -332,7 +287,6 @@ class Product extends CActiveRecord implements IECartPosition
 				->from(AgeRange::model()->tableName())
 				->order('range_order')
 				->queryAll(false);
-		
 		return CHtml::listData($ranges, 0, 1);
 	}
 
@@ -411,18 +365,6 @@ class Product extends CActiveRecord implements IECartPosition
 
 		return is_array($val) ? $list : CHtml::listData($list, 'product_id', $val);
 	}
-
-//	public function getPrice($pricelist_id)
-//	{
-//		return Y::command()
-//			->select('map_set_price')
-//			->from(ProductPricelistSetMap::model()->tableName())
-//			->where('map_product_id=:map_product_id AND map_pricelist_id=:map_pricelist_id', array(
-//				':map_pricelist_id'=>$pricelist_id,
-//				':map_product_id'=>$this->product_id,
-//			))
-//			->queryScalar();
-//	}
 	
 	public function getAttributesText()
 	{
@@ -510,12 +452,40 @@ class Product extends CActiveRecord implements IECartPosition
 		return false;
 	}
 	
-	public function rated($author_id)
+	public function rated($authorId)
 	{
-		return Yii::app()->db->createCommand()
-		    ->select('count(*)')
-		    ->from(ProductComment::model()->tableName())
-		    ->where('author_id=:author_id AND product_id=:product_id', array(':author_id' => $author_id, ':product_id' => $this->product_id))
-		    ->queryScalar() > 0;
+		return ProductComment::model()->isRated($authorId, $this->product_id);
 	}
+	
+	/**
+	 * Add subproduct
+	 * @param int $productId
+	 * @param int $subProductId 
+	 * @return void
+	 */
+	public function addSubProduct($productId, $subProductId) {
+		$command = Yii::app()->db->createCommand();
+		$command->insert('shop_product_link', array(
+			'link_main_product_id'=>$productId,
+			'link_sub_product_id' => $subProductId,
+		));
+	}
+	
+	/**
+	 * Retrieves subproducts of product $productId
+	 * @param int $productId 
+	 * @return array
+	 */
+	public function getSubProductsByProductId($productId) { 
+		$command = Yii::app()->db->createCommand();
+		$command->select('link_sub_product_id')
+				->from('shop_product_link')
+				->where('link_main_product_id = :link_main_product_id')
+		;
+		$command->params = array(
+			':link_main_product_id' => $productId
+		);
+		return $command->queryAll();
+	}
+	
 }

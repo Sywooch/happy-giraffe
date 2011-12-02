@@ -72,6 +72,7 @@ return array(
 		'hospitalBag',
 		'contractionsTime',
         'placentaThickness',
+        'menstrualCycle',
 	),
 
 	// application components

@@ -9,7 +9,7 @@ class PlacentaThicknessForm extends CFormModel
     {
         return array(
             array('week, thickness', 'required'),
-            array('week', 'numerical', 'integerOnly' => true, 'max' => 40, 'min'=>1),
+            array('week', 'numerical', 'integerOnly' => true, 'max' => 40, 'min'=>7),
             array('thickness', 'numerical', 'max' => 500, 'min' => 0),
             array('week, thickness', 'safe')
         );

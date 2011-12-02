@@ -11,5 +11,4 @@ site/frontend/www/upload/*
 /images
 /error.log
 /access.log
-/framework
 /site/console/config/main-local.php

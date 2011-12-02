@@ -144,7 +144,7 @@ $year = date('Y');
         var cycle = parseInt($('#period').val());
         var critical_period = parseInt($('#critical-period').val());
         console.log(cycle, critical_period);
-        for (var i = 0; i < number_months + 1; i++) {
+        for (var i = 0; i < number_months + 3; i++) {
             for (var j = 1; j < critical_period + 1; j++) {
                 var current_day = new Date();
                 var plus = parseInt(cycle * i - j + 1);

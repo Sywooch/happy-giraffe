@@ -95,7 +95,7 @@ function report(item)
 						|
 						<?php echo CHtml::link('Регистрация', Yii::app()->createUrl('signup')); ?>
 					<?php else: ?>
-						<span class="welcome"><b>Добро пожаловать,</b> <a href="<?php echo CController::createUrl('profile/index'); ?>"><?php echo Yii::app()->user->first_name; ?><?php if (Yii::app()->user->last_name) echo ' ' . Yii::app()->user->last_name; ?>!</a></span>
+						<span class="welcome"><b>Добро пожаловать,</b> <a href="<?php echo Yii::app()->createUrl('profile/index'); ?>"><?php echo Yii::app()->user->first_name; ?><?php if (Yii::app()->user->last_name) echo ' ' . Yii::app()->user->last_name; ?>!</a></span>
 						<?php echo CHtml::link('Выход', Yii::app()->createUrl('site/logout')); ?>
 					<?php endif; ?>
 				</div>
@@ -114,7 +114,7 @@ function report(item)
 								),
 								array(
 									'label' => '<span>Конкурсы</span>',
-									'url' => array('/contest/1'),
+									'url' => Yii::app()->createUrl('/contest/contest/view', array('id'=>1)),
 									'itemOptions' => array(
 										'class' => 'yellow',
 									),

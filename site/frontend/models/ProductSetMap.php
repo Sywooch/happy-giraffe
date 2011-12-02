@@ -113,5 +113,22 @@ class ProductSetMap extends CActiveRecord
 				'criteria' => $criteria,
 			));
 	}
+	
+	/**
+	 * Get products by map_set_id
+	 * @param int $setId
+	 * @return array
+	 */
+	public function getProductsBySetId($setId) { 
+		$command = Yii::app()->db->createCommand();
+		$command->select('product_title,product_image,map_id AS id, map_product_count')
+				->from($this->tableName())
+				->leftJoin(Product::model()->tableName(), 'map_product_id=product_id')
+				->where('map_set_id=:map_set_id');
+		$command->params = array(
+			':map_set_id' => (int) $setId,
+		);
+		return $command->queryAll();
+	}
 
 }

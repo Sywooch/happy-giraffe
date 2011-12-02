@@ -74,17 +74,7 @@ class ProductPricelistController extends Controller
 
 	public function actionProducts($id, $pid)
 	{
-		$product = Y::command()
-			->select('map_id, map_product_id, map_set_price, product_title')
-			->from(ProductPricelistSetMap::model()->tableName())
-			->leftJoin(Product::model()->tableName(), 'map_product_id=product_id')
-			->where('map_product_id=:map_product_id AND map_pricelist_id=:map_pricelist_id', array(
-				'map_product_id'=>$id,
-				':map_pricelist_id'=>$pid,
-			))
-			->limit(1)
-			->queryRow();
-		
+		$product = ProductPricelistSetMap::model()->getProductBySetMapId($id, $pid);
 		if($product)
 			Y::endJson(array_merge($product, array('msg'=>'ok')));
 		
@@ -120,16 +110,7 @@ class ProductPricelistController extends Controller
 		}
 
 		$map->map_pricelist_id = (int) $id;
-
-		$maps = Y::command()
-			->select('map_product_id')
-			->from(ProductPricelistSetMap::model()->tableName())
-			->where('map_pricelist_id=:map_pricelist_id', array(
-				':map_pricelist_id' => (int) $id,
-			))
-			->queryAll();
-
-		$maps = CHtml::listData($maps, 'map_product_id', 'map_product_id');
+		$maps = CHtml::listData(ProductPricelistSetMap::model()->getByMapPricelistId((int)$id), 'map_product_id', 'map_product_id');
 		
 		$criteria = new CDbCriteria;
 		$criteria->addInCondition('product_id', $maps);
@@ -154,20 +135,12 @@ class ProductPricelistController extends Controller
 	 */
 	public function actionAjaxSets($id, $term='')
 	{
-		$exist_product_ids = Y::command()
-			->select('map_product_id')
-			->from(ProductPricelistSetMap::model()->tableName())
-			->where('map_pricelist_id=:map_pricelist_id', array(
-				':map_pricelist_id'=>(int)$id,
-			))
-			->queryAll();
-
 		if($exist_product_ids)
-			$exist_product_ids = CHtml::listData($exist_product_ids, 'map_product_id', 'map_product_id');
+			$exist_product_ids = CHtml::listData(ProductPricelistSetMap::model()->getByMapPricelistId((int)$id), 'map_product_id', 'map_product_id');
 
 		$criteria = new CDbCriteria;
 		if($term)
-			$criteria->compare('set_title',$term,true);
+			$criteria->compare('set_title', $term, true);
 		if($exist_product_ids)
 			$criteria->addNotInCondition('product_id', $exist_product_ids);
 
@@ -309,12 +282,10 @@ class ProductPricelistController extends Controller
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-			Y::command()
-				->delete(ProductPricelistSetMap::model()->tableName(), 'map_product_id=:map_product_id AND map_pricelist_id=:map_pricelist_id', array(
-					':map_product_id'=>$sid,
-					':map_pricelist_id'=>$pid,
-				));
-
+			ProductPricelistSetMap::model()->deleteAll('map_product_id=:map_product_id AND map_pricelist_id=:map_pricelist_id', array(
+				':map_product_id' => (int)$sid,
+				':map_pricelist_id' => (int)$pid,
+			));
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}

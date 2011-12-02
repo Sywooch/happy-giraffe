@@ -71,11 +71,9 @@ class CurlClient extends CComponent
         } elseif(strpos($method, 'JSON_') !== false) {
             $ch = $this->getCurl($url);
             $method = str_replace('JSON_', '', $method);
-//            echo "json method: $method<br/>";
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
             $data = json_encode($data);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-//            curl_setopt($ch, CURLOPT_POSTFIELDSIZE, strlen($data));
         } elseif($method != 'GET') {
             $ch = $this->getCurl($url);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);

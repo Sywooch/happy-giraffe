@@ -246,10 +246,7 @@ class Order extends CActiveRecord
 	
 	public function getCity()
 	{
-//		return 148315;
-		return Y::user()->hasState('settlement_id')
-			? Y::user()->getState('settlement_id')
-			: null;
+		return Y::user()->hasState('settlement_id') ? Y::user()->getState('settlement_id') : null;
 	}
 	
 	public function getAdress()
@@ -262,44 +259,20 @@ class Order extends CActiveRecord
 	
 	public static function callbackOrderProceed(BillingInvoice $invoce)
 	{
-		$order_id = Y::command()
-			->select('order_id')
-			->from(self::model()->tableName())
-			->where('order_id=:order_id', array(
-				':order_id'=>$invoce->invoice_order_id,
-			))
-			->queryScalar();
-		
-		if(!$order_id)
+		$order = self::model()->findByPk($invoce->invoice_order_id);
+		if(!$order) {
 			return;
-		
-		Y::command()
-			->update(self::model()->tableName(), array(
-				'order_status' => self::ORDER_STATUS_PROCEED,
-			), 'order_id=:order_id', array(
-				':order_id'=>$order_id,
-			));
+		}
+		self::model()->updateByPk($order->order_id, array('order_status' => self::ORDER_STATUS_PROCEED));
 	}
 	
 	public static function callbackOrderPaid(BillingInvoice $invoce)
 	{
-		$order_id = Y::command()
-			->select('order_id')
-			->from(self::model()->tableName())
-			->where('order_id=:order_id', array(
-				':order_id'=>$invoce->invoice_order_id,
-			))
-			->queryScalar();
-		
-		if(!$order_id)
+		$order = self::model()->findByPk($invoce->invoice_order_id);
+		if(!$order) {
 			return;
-		
-		Y::command()
-			->update(self::model()->tableName(), array(
-				'order_payed' => 1,
-			), 'order_id=:order_id', array(
-				':order_id'=>$order_id,
-			));
+		}
+		self::model()->updateByPk($order->order_id, array('order_payed' => 1));
 	}
 	
 	public function primaryKey() {

@@ -137,6 +137,7 @@ class CategoryController extends Controller {
 	}
 	
 	public function actionBrands() {
+		Y::dump(Yii::app()->format->formatTime(time()));
 		$ct = new CDbCriteria();
 		$ct->order = 'brand_title';
 		$brands = ProductBrand::model()->findAll($ct);
@@ -223,7 +224,6 @@ class CategoryController extends Controller {
 				), 'map_category_id=:map_category_id', array(
 					':map_category_id'=>$id,
 				));
-			
 			Y::successFlash('All deleted');
 			$this->redirect(Y::request()->urlReferrer);
 		}

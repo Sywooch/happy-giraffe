@@ -52,18 +52,11 @@ class ProductPricelistSetMap extends CActiveRecord
 		
 		if(!$this->getIsNewRecord())
 			return;
-		
-		$map_id = Y::command()
-			->select('map_id')
-			->from($this->tableName())
-			->where('map_product_id=:map_product_id AND map_pricelist_id=:map_pricelist_id', array(
-				':map_product_id'=>$this->map_product_id,
-				':map_pricelist_id'=>$this->map_pricelist_id,
-			))
-			->limit(1)
-			->queryScalar();
-
-		if($map_id)
+		$map = $this->find('map_product_id = :map_product_id AND map_pricelist_id = :map_pricelist_id', array(
+			':map_product_id'=>$this->map_product_id,
+			':map_pricelist_id'=>$this->map_pricelist_id
+		));
+		if($map)
 		{
 			$msg = 'Product alrady exists in this pricelist.';
 			$this->addError('map_product_id', $msg);
@@ -116,6 +109,24 @@ class ProductPricelistSetMap extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		));
+	}
+	
+	public function getProductByMapPricelistId($productId, $mapId) { 
+		$command = Yii::app()->db->createCommand();
+		$command->select('map_id, map_product_id, map_set_price, product_title')
+				->leftJoin(Product::model()->tableName(), 'map_product_id=product_id')
+				->where('map_product_id = :map_product_id AND map_pricelist_id = :map_pricelist_id');
+		$command->params = array(
+			':map_product_id' => $productId,
+			':map_pricelist_id'=>$mapId,
+		);
+		return $command->queryRow();
+	}
+	
+	public function getByMapPricelistId($mapPricelistId) { 
+		return ProductPricelistSetMap::model()->findAll('map_pricelist_id = :map_pricelist_id', array(
+			':map_pricelist_id' => (int) $mapPricelistId
 		));
 	}
 }

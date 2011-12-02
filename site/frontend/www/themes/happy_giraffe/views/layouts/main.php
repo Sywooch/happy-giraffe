@@ -22,7 +22,7 @@
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css?r=111', 'screen'); ?>
 	
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.iframe-post-form.js'); ?>
-	
+
 	<?php
 		$reports = "
 $('.report-block .cancel').live('click', function() {

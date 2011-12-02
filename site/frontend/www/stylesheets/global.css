@@ -935,3 +935,15 @@ float: left;
 .inner.contest.winners .like-block .cup.second{background-position: -64px -305px;}
 .inner.contest.winners .like-block .cup.third{background-position: -126px -305px;}
 .inner.contest.winners .like-block .block {margin: 25px 10px 0;display:inline-block;}
+
+/*from wym*/
+.img_left {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.img_right {
+	float: right;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}

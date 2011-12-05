@@ -122,61 +122,64 @@ class CommunityController extends Controller
 		}
 	}
 
-	public function actionAdd($content_type_slug = 'article', $community_id = NULL, $rubric_id = NULL)
+	public function actionAdd($content_type_slug = 'article', $community_id, $rubric_id = null)
 	{	
-		if ($content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug)))
+		$content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
+		if (! $content_type)
 		{
-			$communities = Community::model()->findAll();
-			$content_types = CommunityContentType::model()->findAll();
-			$content_model = new CommunityContent;
-			$slave_model_name = 'Community' . ucfirst($content_type->slug);
-			$slave_model = new $slave_model_name;
-		
-			if (isset($_POST['CommunityContent']))
+			throw new CHttpException(404, 'Такого раздела не существует.');
+		}
+		$community = Community::model()->with('rubrics')->findByPk($community_id);
+		if (! $community)
+		{
+			throw new CHttpException(404, 'Такого сообщества не существует.');
+		}
+		$content_types = CommunityContentType::model()->findAll();
+		$content_model = new CommunityContent;
+		$content_model->rubric_id = $rubric_id;
+		$slave_model_name = 'Community' . ucfirst($content_type->slug);
+		$slave_model = new $slave_model_name;
+	
+		if (isset($_POST['CommunityContent']))
+		{
+			$content_model->attributes = $_POST['CommunityContent'];
+			$slave_model->attributes = $_POST[$slave_model_name];
+			$slave_model->setAttributes($_POST);
+			$content_model->author_id = Yii::app()->user->id;
+			if ($content_model->save())
 			{
-				$content_model->attributes = $_POST['CommunityContent'];
-				$slave_model->attributes = $_POST[$slave_model_name];
-				$slave_model->setAttributes($_POST);
-				$content_model->author_id = Yii::app()->user->id;
-				if ($content_model->save())
+				$slave_model->content_id = $content_model->id;
+				if ($slave_model->save())
 				{
-					$slave_model->content_id = $content_model->id;
-					if ($slave_model->save())
+					if (is_null($community_id))
 					{
-						if (is_null($community_id))
-						{
-							$this->redirect('community/index');
-						}
-						else
-						{
-							$this->redirect(array('community/view', 'content_id' => $content_model->id));
-						}
+						$this->redirect('community/index');
 					}
 					else
 					{
-						$content_model->delete();
-						print_r($slave_model->getErrors());
+						$this->redirect(array('community/view', 'content_id' => $content_model->id));
 					}
 				}
 				else
 				{
-					print_r($content_model->getErrors());
+					$content_model->delete();
+					print_r($slave_model->getErrors());
 				}
 			}
-		
-			$this->render('add/' . $content_type->slug, array(
-				'content_model' => $content_model,
-				'slave_model' => $slave_model,
-				'communities' => $communities,
-				'content_types' => $content_types,
-				'content_type' => $content_type,
-				'community_id' => $community_id,
-				'rubric_id' => $rubric_id,
-			));
+			else
+			{
+				print_r($content_model->getErrors());
+			}
 		}
-		else
-		{
-			throw new CHttpException(404, 'Такого раздела не существует.');
-		}
+	
+		$this->render('add/' . $content_type->slug, array(
+			'content_model' => $content_model,
+			'slave_model' => $slave_model,
+			'community' => $community,
+			'content_types' => $content_types,
+			'content_type' => $content_type,
+			'community_id' => $community_id,
+			'rubric_id' => $rubric_id,
+		));
 	}
 }

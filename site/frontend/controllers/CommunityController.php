@@ -172,7 +172,7 @@ class CommunityController extends Controller
 			}
 		}
 	
-		$this->render('add/' . $content_type->slug, array(
+		$this->render('add', array(
 			'content_model' => $content_model,
 			'slave_model' => $slave_model,
 			'community' => $community,

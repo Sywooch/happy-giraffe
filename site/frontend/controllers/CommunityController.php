@@ -87,6 +87,13 @@ class CommunityController extends Controller
 		$content_id = (int) $content_id;
 		if ($content = CommunityContent::model()->view()->findByPk($content_id))
 		{
+			$meta_title = $content->meta_title;
+			if (! empty($meta_title))
+			{
+				$this->pageTitle = $meta_title;
+			}
+			Yii::app()->clientScript->registerMetaTag($content->meta_description, 'description');
+			Yii::app()->clientScript->registerMetaTag($content->meta_keywords, 'keywords');
 			$content->views++;
 			$content->save();
 			$comment_model = new CommunityComment;

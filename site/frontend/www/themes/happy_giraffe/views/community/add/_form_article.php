@@ -1,65 +1,74 @@
 <?php
-	Yii::app()->getClientScript()
-		->registerScript(
-			'source_type',
-			'$("input[name=\'CommunityArticle[source_type]\']").change(function () {
-				var url = "/ajax/view?path=source_type/" + $(this).val();
-				$("#source_container").load(url);
-			});'
-		)
-		->registerScript(
-			'book',
-			'$("#book").live("click", function() {
-				$.ajax({
-					type: "POST",
-					data: {
-						source_type: $("input[name=source_type]:checked").val(),
-						book_author: $("input[name=book_author]").val(),
-						book_name: $("input[name=book_name]").val()
-					},
-					url: "' . CController::createUrl('ajax/source') . '",
-					success: function(response) {
-						$("#source_submit_container").html(response);
-					}
-				});
-				return false;
-			});'
-		)
-		->registerScript(
-			'internet',
-			'$("#internet").live("click", function() {
-				$.ajax({
-					type: "POST",
-					data: {
-						source_type: $("input[name=source_type]:checked").val(),
-						internet_link: $("input[name=internet_link]").val(),
-					},
-					url: "' . CController::createUrl('ajax/source') . '",
-					success: function(response) {
-						$("#source_submit_container").html(response);
-					}
-				});
-				return false;
-			});'
-		);
+
+	$cs = Yii::app()->clientScript;
+
+	$js = "
+		$('#source_container > div').hide();
+		$('#source_" . $slave_model->source_type . "').show();
+	
+		$('input[name=\"CommunityArticle[source_type]\"]').change(function () {
+			$('#source_container > div').hide();
+			$('#source_' + $(this).val()).show();
+		});
+
+		$('#book').live('click', function() {
+			$.ajax({
+				type: 'POST',
+				data: {
+					source_type: $('input[name=\"CommunityArticle[source_type]\"]:checked').val(),
+					book_author: $('input[name=\"CommunityArticle[book_author]\"]').val(),
+					book_name: $('input[name=\"CommunityArticle[book_name]\"]').val()
+				},
+				url: '" . CController::createUrl('ajax/source') . "',
+				success: function(response) {
+					$('#source_submit_container').html(response);
+				}
+			});
+			return false;
+		});
+
+		$('#internet').live('click', function() {
+			$.ajax({
+				type: 'POST',
+				data: {
+					source_type: $('input[name=\"CommunityArticle[source_type]\"]:checked').val(),
+					internet_link: $('input[name=\"CommunityArticle[internet_link]\"]').val(),
+				},
+				url: '" . CController::createUrl('ajax/source') . "',
+				success: function(response) {
+					$('#source_submit_container').html(response);
+				}
+			});
+			return false;
+		});
+	";
+	
+
+	
+	$cs
+		->registerScript('form_article', $js)
+	;
+		
 ?>
 
 	<div class="">
 		<div class="inner-title">Заголовок статьи</div>
 		<?php echo $form->textField($content_model, 'name') ?>
+	
+		<div class="inner-title">Title</div>
+		<?php echo $form->textField($content_model, 'meta_title') ?>
+	
+		<div class="inner-title">Description</div>
+		<?php echo $form->textField($content_model, 'meta_description') ?>
+		
+		<div class="inner-title">Keywords</div>
+		<?php echo $form->textField($content_model, 'meta_keywords') ?>
 		
 		<div class="inner-title">Текст статьи</div>
 		<?php
-			$this->widget('ext.imperaviRedactor.EImperaviRedactorWidget', array(
+			$this->widget('ext.ckeditor.CKEditorWidget', array(
 				'model' => $slave_model,
 				'attribute' => 'text',
-				'options' => array(
-					'image_upload' => $this->createUrl('ajax/imageUpload'),
-					'toolbar' => 'custom',
-				),
-				'htmlOptions' => array(
-					'rows' => 10,
-				),
 			));
 		?>
 	</div>
@@ -122,7 +131,22 @@
 
 			<div class="clear"></div>
 			<div class="sel" id="source_container">
+				<div id="source_me">
 				
+				</div>
+				
+				<div id="source_internet">
+					<?php echo $form->textField($slave_model, 'internet_link', array('placeholder' => 'http://www.', 'class' => 'big')); ?>
+					<?php echo CHtml::link('<span><span>ОК</span></span>', '#', array('class' => 'btn btn-green-small', 'id' => 'internet')); ?>
+					<div class="clear"></div>
+				</div>
+				
+				<div id="source_book">
+					<?php echo $form->textField($slave_model, 'book_author', array('placeholder' => 'Автор')); ?>
+					<?php echo $form->textField($slave_model, 'book_name', array('placeholder' => 'Название книги')); ?>
+					<?php echo CHtml::link('<span><span>ОК</span></span>', '#', array('class' => 'btn btn-green-small', 'id' => 'book')); ?>
+					<div class="clear"></div>
+				</div>
 			</div>
 			<div class="sel" id="source_submit_container">
 

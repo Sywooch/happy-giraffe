@@ -23,6 +23,12 @@ $(document).ready(function(){
       }
    });
  
+    $(".RadioClass").ready(function(){
+      if($(this).is(":checked")){
+         $(".RadioSelected:not(:checked)").removeClass("RadioSelected");
+         $(this).next("label").addClass("RadioSelected");
+      }
+   });
    
    $('.tr').each(function(){
      $(this).css('height', $(this).next('.peach').outerHeight() );

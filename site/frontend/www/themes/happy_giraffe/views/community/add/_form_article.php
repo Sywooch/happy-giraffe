@@ -2,8 +2,8 @@
 	Yii::app()->getClientScript()
 		->registerScript(
 			'source_type',
-			'$("input[name=source_type]").change(function () {
-				var url = "/club/ajax/view?path=source_type/" + $(this).val();
+			'$("input[name=\'CommunityArticle[source_type]\']").change(function () {
+				var url = "/ajax/view?path=source_type/" + $(this).val();
 				$("#source_container").load(url);
 			});'
 		)
@@ -77,8 +77,9 @@
 			<?php if ($content_model->isNewRecord): ?>
 				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'), array('prompt' => 'Выберите рубрику')); ?>
 			<?php else: ?>
-				<?php echo CHtml::dropDownList('community_id', (!is_null($community_id)) ? $community_id:'0', array('0' => 'Выберите сообщество') + CHtml::listData($communities, 'id', 'name'),
+				<?php echo CHtml::dropDownList('community_id', $community->id, CHtml::listData($communities, 'id', 'name'),
 					array(
+						'prompt' => 'Выберите сообщество',
 						'ajax' => array(
 							'type' => 'POST',
 							'url' => CController::createUrl('ajax/rubrics'),
@@ -87,7 +88,7 @@
 					)
 				); ?></p>
 			
-				<?php echo $form->dropDownList($content_model, 'rubric_id', array('0' => 'Выберите рубрику')); ?>
+				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'), array('prompt' => 'Выберите рубрику')); ?>
 			<?php endif; ?>
 			
 		</div>
@@ -110,14 +111,13 @@
 		<div class="settings-l">
 			<div class="inner-title">Укажите источник</div>
 			
-			
-			<input type="radio" class="RadioClass" id="v1" value="me" name="source_type"/>
+			<?php echo $form->radioButton($slave_model, 'source_type', array('value' => 'me', 'id' => 'v1', 'class' => 'RadioClass')); ?>
 			<label for="v1" class="RadioLabelClass">Я автор</label>
 			
-			<input type="radio" class="RadioClass" id="v2" value="internet" name="source_type"/>
+			<?php echo $form->radioButton($slave_model, 'source_type', array('value' => 'internet', 'id' => 'v2', 'class' => 'RadioClass')); ?>
 			<label for="v2" class="RadioLabelClass">Интернет-ресурс</label>
 
-			<input type="radio" class="RadioClass" id="v3" value="book" name="source_type"/>
+			<?php echo $form->radioButton($slave_model, 'source_type', array('value' => 'book', 'id' => 'v3', 'class' => 'RadioClass')); ?>
 			<label for="v3" class="RadioLabelClass">Книга</label>
 
 			<div class="clear"></div>

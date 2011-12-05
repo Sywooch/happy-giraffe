@@ -7,9 +7,4 @@ site/frontend/www/assets/*
 site/frontend/www/temp_upload/*
 site/frontend/www/upload/*
 !.gitignore
-/nbproject
-/images
-/error.log
-/access.log
-/framework
 /site/console/config/main-local.php

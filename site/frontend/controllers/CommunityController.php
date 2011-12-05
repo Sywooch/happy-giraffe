@@ -25,7 +25,7 @@ class CommunityController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow',
-				'actions' => array('add'),
+				'actions' => array('add', 'edit'),
 				'users' => array('@'),
 			),
 			array('deny',
@@ -120,6 +120,43 @@ class CommunityController extends Controller
 		{
 			throw new CHttpException(404, 'Такой записи не существует.');
 		}
+	}
+	
+	public function actionEdit($content_id)
+	{
+		$content_id = (int) $content_id;
+		$content_model = CommunityContent::model()->with(array('type', 'article', 'video', 'rubric.community'))->findByPk($content_id);
+		if ($content_model === null)
+		{
+			throw new CHttpException(404, 'Такой записи не существует.');
+		}
+		$communities = Community::model()->findAll();
+		$slave_model = $content_model->{$content_model->type->slug};
+		$slave_model_name = get_class($slave_model);
+		
+		if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
+		{
+			$content_model->attributes = $_POST['CommunityContent'];
+			$slave_model->attributes = $_POST[$slave_model_name];
+			$slave_model->attributes = $_POST;
+			$valid = $content_model->validate();
+			$valid = $slave_model->validate() && $valid;
+		
+			if ($valid)
+			{
+				$content_model->save();
+				$slave_model->save();
+				$this->redirect(array('community/view', 'content_id' => $content_model->id));
+			}
+		}
+		
+		$this->render('edit', array(
+			'communities' => $communities,
+			'content_model' => $content_model,
+			'slave_model' => $slave_model,
+			'community' => $content_model->rubric->community,
+			'content_type' => $content_model->type,
+		));
 	}
 
 	public function actionAdd($content_type_slug = 'article', $community_id, $rubric_id = null)

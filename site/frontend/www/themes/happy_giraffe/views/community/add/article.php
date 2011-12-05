@@ -106,17 +106,21 @@
 			<div class="settings-l">
 				<div class="inner-title">Выберите сообщество и рубрику</div>
 				
-				<?php echo CHtml::dropDownList('community_id', (!is_null($community_id)) ? $community_id:'0', array('0' => 'Выберите сообщество') + CHtml::listData($communities, 'id', 'name'),
-					array(
-						'ajax' => array(
-							'type' => 'POST',
-							'url' => CController::createUrl('ajax/rubrics'),
-							'update' => '#cusel-scroll-CommunityContent_rubric_id',
-						),
-					)
-				); ?></p>
+				<?php if ($content_model->isNewRecord): ?>
+					<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'), array('prompt' => 'Выберите рубрику')); ?>
+				<?php else: ?>
+					<?php echo CHtml::dropDownList('community_id', (!is_null($community_id)) ? $community_id:'0', array('0' => 'Выберите сообщество') + CHtml::listData($communities, 'id', 'name'),
+						array(
+							'ajax' => array(
+								'type' => 'POST',
+								'url' => CController::createUrl('ajax/rubrics'),
+								'update' => '#cusel-scroll-CommunityContent_rubric_id',
+							),
+						)
+					); ?></p>
 				
-				<?php echo $form->dropDownList($content_model, 'rubric_id', array('0' => 'Выберите рубрику')); ?>
+					<?php echo $form->dropDownList($content_model, 'rubric_id', array('0' => 'Выберите рубрику')); ?>
+				<?php endif; ?>
 				
 			</div>
 			<div class="settings-r">

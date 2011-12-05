@@ -41,11 +41,11 @@ class CommunityContent extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, author_id, type_id', 'required'),
-			array('name', 'length', 'max'=>255),
+			array('name, meta_title, meta_description, meta_keywords', 'length', 'max'=>255),
 			array('views, rating, author_id, rubric_id, type_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, created, views, rating, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
+			array('id, name, meta_title, meta_description, meta_keywords, created, views, rating, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
 		);
 	}
 

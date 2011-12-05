@@ -31,7 +31,7 @@
 					break;
 			}
 		?>
-		<?php echo CHtml::link('редактировать', $this->createUrl('admin/community' . ucfirst($c->type->slug) . '/update', array('id' => $c->{$c->type->slug}->id))); ?>
+		<?php echo CHtml::link('редактировать', $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
 		<?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('submit'=>array('admin/communityContent/delete','id'=>$c->id),'confirm'=>'Вы уверены?')); ?>
 		<div class="clear"></div>
 	</div>

@@ -98,30 +98,18 @@ class GeoRusSettlement extends CActiveRecord
 	    $vid = md5(__CLASS__ . __FUNCTION__ . $district_id . "-" .$region_id);
 	    $value = Yii::app()->cache->get($vid);
 	    if (!$value) {
-		$carr = array();
-		$carr1 = array();
-		$carr2 = array();
-		
-		if ($region_id) {
-//		    $models = Yii::app()->db->createCommand()
-//			    ->where(array('and', 'district_id=null', ($region_id) ? 'region_id=' . $region_id : null 
-//				    )
-//			    )
-//			    ->from($this->tableName())
-//			    ->queryAll();
+			$carr = array();
+			$carr1 = array();
+			$carr2 = array();
 
-		    $models = $this->findAll('((region_id=' . $region_id.'))');
-		    foreach ($models as $model) $carr1[$model->id] = $model->name;
-		    asort($carr1, SORT_STRING);
-		    
-//		    $models = $this->findAll((($district_id) ? '(district_id=' . $district_id.')' : null));
-//		    foreach ($models as $model) $carr2[$model->id] = $model->name;
-//		    asort($carr, SORT_STRING);
-		    
-		    $carr = $carr1;// + $carr2;
-		}
-		$value = $carr;
-		Yii::app()->cache->set($vid, $value, 86400);
+			if ($region_id) {
+				$models = $this->findAll('((region_id=' . $region_id.'))');
+				foreach ($models as $model) $carr1[$model->id] = $model->name;
+				asort($carr1, SORT_STRING);
+				$carr = $carr1;// + $carr2;
+			}
+			$value = $carr;
+			Yii::app()->cache->set($vid, $value, 86400);
 	    } 
 	    return $value;
 	}
@@ -130,18 +118,19 @@ class GeoRusSettlement extends CActiveRecord
 	    $vid = md5(__CLASS__ . __FUNCTION__ . $this->id);
 	    $value = Yii::app()->cache->get($vid);
 	    if (!$value) {
-		$model = $this->findByPk($this->id);
-		$value[$model->id] = $model->name;
-		Yii::app()->cache->set($vid, $value, 86400);
+			$model = $this->findByPk($this->id);
+			$value[$model->id] = $model->name;
+			Yii::app()->cache->set($vid, $value, 86400);
 	    } 
 	    return $value;
 	}
 
 	public function getSettlementName() {
 	    if (isset($this->name)) {
-		return $this->name;
-	    } else {
-		return false;
+			return $this->name;
+	    } 
+		else {
+			return false;
 	    }
 	}
 }

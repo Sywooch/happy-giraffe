@@ -95,29 +95,30 @@ class GeoRusDistrict extends CActiveRecord
 
 	    return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
-		    ));
+		));
 	}
 
 	public function getDistrict($region_id=null) {
 	    $vid = md5(__CLASS__ . __FUNCTION__ . $region_id);
 	    $value = Yii::app()->cache->get($vid);
 	    if (!$value) {
-		$models = $this->findAll(($region_id) ? 'region_id=' . $region_id : null);
-		$carr = array();
-		foreach ($models as $model)
-		    $carr[$model->id] = $model->name;
-		asort($carr, SORT_STRING);
-		$value = $carr;
-		Yii::app()->cache->set($vid, $value, 86400);
+			$models = $this->findAll(($region_id) ? 'region_id=' . $region_id : null);
+			$carr = array();
+			foreach ($models as $model)
+				$carr[$model->id] = $model->name;
+			asort($carr, SORT_STRING);
+			$value = $carr;
+			Yii::app()->cache->set($vid, $value, 86400);
 	    } 
 	    return $value;
 	}
 
 	public function getSettlementName() {
 	    if (isset($this->settlement)) {
-		return $this->settlement->name;
-	    } else {
-		return false;
+			return $this->settlement->name;
+	    } 
+		else {
+			return false;
 	    }
 	}
 }

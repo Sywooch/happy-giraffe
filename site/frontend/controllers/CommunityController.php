@@ -92,6 +92,10 @@ class CommunityController extends Controller
 			{
 				$this->pageTitle = $meta_title;
 			}
+			else
+			{
+				$this->pageTitle = $content->name;
+			}
 			Yii::app()->clientScript->registerMetaTag($content->meta_description, 'description');
 			Yii::app()->clientScript->registerMetaTag($content->meta_keywords, 'keywords');
 			$content->views++;
@@ -153,7 +157,7 @@ class CommunityController extends Controller
 			{
 				$content_model->save();
 				$slave_model->save();
-				$this->redirect(array('community/view', 'content_id' => $content_model->id));
+				$this->redirect(array('community/view', 'community_id' => $content_model->rubric->community->id, 'content_id' => $content_model->id));
 			}
 		}
 		
@@ -201,7 +205,7 @@ class CommunityController extends Controller
 					}
 					else
 					{
-						$this->redirect(array('community/view', 'content_id' => $content_model->id));
+						$this->redirect(array('community/view', 'community_id' => $community_id, 'content_id' => $content_model->id));
 					}
 				}
 				else

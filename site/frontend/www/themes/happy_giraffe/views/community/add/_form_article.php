@@ -53,16 +53,21 @@
 
 	<div class="">
 		<div class="inner-title">Заголовок статьи</div>
-		<?php echo $form->textField($content_model, 'name') ?>
+		<?php echo $form->textField($content_model, 'name'); ?>
 	
-		<div class="inner-title">Title</div>
-		<?php echo $form->textField($content_model, 'meta_title') ?>
+		<?php if(Yii::app()->user->checkAccess('moder')): ?>
+			<div class="inner-title">Title</div>
+			<?php echo $form->textField($content_model, 'meta_title'); ?>
 	
-		<div class="inner-title">Description</div>
-		<?php echo $form->textField($content_model, 'meta_description') ?>
+			<div class="inner-title">Description</div>
+			<?php echo $form->textField($content_model, 'meta_description'); ?>
 		
-		<div class="inner-title">Keywords</div>
-		<?php echo $form->textField($content_model, 'meta_keywords') ?>
+			<div class="inner-title">Keywords</div>
+			<?php echo $form->textField($content_model, 'meta_keywords'); ?>
+			
+			<?php echo $form->checkbox($content_model, 'by_happy_giraffe'); ?> От Веселого Жирафа
+	
+		<?php endif; ?>
 		
 		<div class="inner-title">Текст статьи</div>
 		<?php
@@ -94,10 +99,16 @@
 							'url' => CController::createUrl('ajax/rubrics'),
 							'update' => '#cusel-scroll-CommunityContent_rubric_id',
 						),
+						'disabled' => Yii::app()->user->checkAccess('moder') ? '' : 'disabled',
 					)
 				); ?></p>
 			
-				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'), array('prompt' => 'Выберите рубрику')); ?>
+				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
+					array(
+						'prompt' => 'Выберите рубрику',
+						'disabled' => Yii::app()->user->checkAccess('moder') ? '' : 'disabled',
+					)
+				); ?>
 			<?php endif; ?>
 			
 		</div>

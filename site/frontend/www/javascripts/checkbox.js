@@ -23,6 +23,7 @@ $(document).ready(function(){
       }
    });
  
+    $(".RadioClass").trigger('change');
    
    $('.tr').each(function(){
      $(this).css('height', $(this).next('.peach').outerHeight() );

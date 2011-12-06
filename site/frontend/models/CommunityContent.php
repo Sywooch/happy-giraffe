@@ -40,12 +40,13 @@ class CommunityContent extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('by_happy_giraffe', 'boolean', 'allowEmpty' => true),
 			array('name, author_id, type_id', 'required'),
-			array('name', 'length', 'max'=>255),
+			array('name, meta_title, meta_description, meta_keywords', 'length', 'max'=>255),
 			array('views, rating, author_id, rubric_id, type_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, created, views, rating, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
+			array('id, by_happy_giraffe, name, meta_title, meta_description, meta_keywords, created, views, rating, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
 		);
 	}
 

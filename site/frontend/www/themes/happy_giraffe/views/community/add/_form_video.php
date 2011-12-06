@@ -29,7 +29,21 @@ $('.close').click(function () {
 
 	<div class="">
 		<div class="inner-title">Заголовок видео</div>
-		<?php echo $form->textField($content_model, 'name') ?>
+		<?php echo $form->textField($content_model, 'name'); ?>
+		
+		<?php if(Yii::app()->user->checkAccess('moder')): ?>
+			<div class="inner-title">Title</div>
+			<?php echo $form->textField($content_model, 'meta_title'); ?>
+	
+			<div class="inner-title">Description</div>
+			<?php echo $form->textField($content_model, 'meta_description'); ?>
+		
+			<div class="inner-title">Keywords</div>
+			<?php echo $form->textField($content_model, 'meta_keywords'); ?>
+			
+			<?php echo $form->checkbox($content_model, 'by_happy_giraffe'); ?> От Веселого Жирафа
+	
+		<?php endif; ?>
 	</div>
 	<div class="clear"></div>
 </div>
@@ -74,15 +88,9 @@ $('.close').click(function () {
 	<div>
 		<div class="inner-title">Комментарий к видео</div>
 		<?php
-			$this->widget('ext.imperaviRedactor.EImperaviRedactorWidget', array(
+			$this->widget('ext.ckeditor.CKEditorWidget', array(
 				'model' => $slave_model,
 				'attribute' => 'text',
-				'options' => array(
-					'toolbar' => 'main',
-				),
-				'htmlOptions' => array(
-					'rows' => 10,
-				),
 			));
 		?>
 	</div>
@@ -100,17 +108,24 @@ $('.close').click(function () {
 			<?php if ($content_model->isNewRecord): ?>
 				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'), array('prompt' => 'Выберите рубрику')); ?>
 			<?php else: ?>
-				<?php echo CHtml::dropDownList('community_id', (!is_null($community_id)) ? $community_id:'0', array('0' => 'Выберите сообщество') + CHtml::listData($communities, 'id', 'name'),
+				<?php echo CHtml::dropDownList('community_id', $community->id, CHtml::listData($communities, 'id', 'name'),
 					array(
+						'prompt' => 'Выберите сообщество',
 						'ajax' => array(
 							'type' => 'POST',
 							'url' => CController::createUrl('ajax/rubrics'),
 							'update' => '#cusel-scroll-CommunityContent_rubric_id',
 						),
+						'disabled' => Yii::app()->user->checkAccess('moder') ? '' : 'disabled',
 					)
 				); ?></p>
 			
-				<?php echo $form->dropDownList($content_model, 'rubric_id', array('0' => 'Выберите рубрику')); ?>
+				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
+					array(
+						'prompt' => 'Выберите рубрику',
+						'disabled' => Yii::app()->user->checkAccess('moder') ? '' : 'disabled',
+					)
+				); ?>
 			<?php endif; ?>
 			
 		</div>

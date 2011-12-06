@@ -37,16 +37,20 @@
 	</div>
 
 	<div class="entry-footer">
-		<?php if ($c->type->slug == 'article' && $c->article->source_type != 'me'): ?>
+		<?php if (($c->type->slug == 'article' AND in_array($c->article->source_type, array('book', 'internet'))) OR $c->by_happy_giraffe): ?>
 			<div class="source">Источник:&nbsp;
-				<? switch($c->article->source_type):
-				   case 'book': ?>
-					<?=$c->article->book_author?>&nbsp;<?=$c->article->book_name?>
-				<? break; ?>
-				<? case 'internet': ?>
-					<?=CHtml::image(Yii::app()->request->baseUrl . '/upload/favicons/' . $c->article->internet_favicon, $c->article->internet_title)?>&nbsp;<?=CHtml::link($c->article->internet_title, $c->article->internet_link, array('class' => 'link'))?>
-				<? break; ?>
-				<? endswitch; ?>
+				<?php if ($c->by_happy_giraffe): ?>
+					Весёлый Жираф
+				<?php else: ?>
+					<?php switch($c->article->source_type):
+					   case 'book': ?>
+						<?php echo $c->article->book_author?>&nbsp;<?=$c->article->book_name; ?>
+					<?php break; ?>
+					<?php case 'internet': ?>
+						<?php echo CHtml::image(Yii::app()->request->baseUrl . '/upload/favicons/' . $c->article->internet_favicon, $c->article->internet_title); ?>&nbsp;<?php echo CHtml::link($c->article->internet_title, $c->article->internet_link, array('class' => 'link')); ?>
+					<?php break; ?>
+					<?php endswitch; ?>
+				<?php endif; ?>
 			</div>
 		<?php endif; ?>
 		<a class="comm">Комментарии: <span><?php echo $c->commentsCount; ?></span></a>

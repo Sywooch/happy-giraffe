@@ -52,7 +52,7 @@
 		<div class="theme-pic">Рубрики</div>
 		<ul class="leftlist">
 			<? foreach ($community->rubrics as $r): ?>
-					<?=CHtml::tag('li', array(), CHtml::link($r->name, CController::createUrl('/community/list', array('community_id' => $community->id, 'content_type_slug' => $content_type->slug, 'rubric_id' => $r->id)), $r->id == $current_rubric ? array('class' => 'current'):array()))?>
+					<?=CHtml::tag('li', array(), CHtml::link($r->name, CController::createUrl('community/list', array('community_id' => $community->id, 'content_type_slug' => $content_type->slug, 'rubric_id' => $r->id)), $r->id == $current_rubric ? array('class' => 'current'):array()))?>
 			<? endforeach; ?>
 		
 		</ul>

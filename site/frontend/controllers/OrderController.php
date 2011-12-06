@@ -51,16 +51,7 @@ class OrderController extends Controller
 	public function actionView($id)
 	{
 		$model = $this->loadModel($id);
-		
-		$items = Y::command()
-			->select()
-			->from('shop_order_item')
-			->leftJoin(Product::model()->tableName(), 'item_product_id=product_id')
-			->where('item_order_id=:item_order_id', array(
-				':item_order_id' => (int) $id,
-			))
-			->queryAll();
-		Y::dump($items);
+		$items = OrderItem::model()->with()->findAll('item_order_id = :item_order_id', array(':item_order_id' => (int)$id));
 		$this->render('view',array(
 			'model'=>$model,
 			'items'=>$items,

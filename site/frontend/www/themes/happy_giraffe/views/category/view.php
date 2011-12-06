@@ -50,7 +50,6 @@ $data = $products->data;
 				'data' => $data,
 			));
 			?>
-
 		<?php if (!Y::isAjaxRequest()): ?>
 				</div>
 			</div>
@@ -70,13 +69,13 @@ $data = $products->data;
 
 		</div>
 
-			<ul>
+<!--			<ul>-->
+<!--				<li><a href=""><img src="/images/f-banner1.jpg"></a></li>
 				<li><a href=""><img src="/images/f-banner1.jpg"></a></li>
 				<li><a href=""><img src="/images/f-banner1.jpg"></a></li>
 				<li><a href=""><img src="/images/f-banner1.jpg"></a></li>
-				<li><a href=""><img src="/images/f-banner1.jpg"></a></li>
-				<li><a href=""><img src="/images/f-banner1.jpg"></a></li>
-			</ul>
-	</div>
+				<li><a href=""><img src="/images/f-banner1.jpg"></a></li>-->
+<!--			</ul>-->
 
+	</div>
 	<?php endif; ?>

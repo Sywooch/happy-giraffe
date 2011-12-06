@@ -15,6 +15,8 @@ CKEDITOR.editorConfig = function( config )
 	config.filebrowserFlashUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
 	
 	config.extraPlugins = 'cuttable';
+	
+	config.toolbar = 'Main';
 
 	config.toolbar_Full =
 	[
@@ -31,5 +33,35 @@ CKEDITOR.editorConfig = function( config )
 		{ name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] },
 		{ name: 'colors', items : [ 'TextColor','BGColor' ] },
 		{ name: 'tools', items : [ 'Maximize', 'ShowBlocks','-','About' ] }
+	];
+	
+	config.toolbar_Main =
+	[
+		{ name: 'document', items : [ 'Source' ] },
+		{ name: 'clipboard', items : [ 'Copy','Paste','-','Undo','Redo' ] },
+		'/',
+		{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike', ] },
+		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+		{ name: 'links', items : [ 'Link','Unlink' ] },
+		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','Cuttable' ] },
+		'/',
+		{ name: 'styles', items : [ 'Format','Font','FontSize' ] },
+		{ name: 'colors', items : [ 'TextColor','BGColor' ] },
+		{ name: 'tools', items : [ 'Maximize' ] }
+	];
+	
+	config.toolbar_Nocut =
+	[
+		{ name: 'document', items : [ 'Source' ] },
+		{ name: 'clipboard', items : [ 'Copy','Paste','-','Undo','Redo' ] },
+		'/',
+		{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike', ] },
+		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+		{ name: 'links', items : [ 'Link','Unlink' ] },
+		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley' ] },
+		'/',
+		{ name: 'styles', items : [ 'Format','Font','FontSize' ] },
+		{ name: 'colors', items : [ 'TextColor','BGColor' ] },
+		{ name: 'tools', items : [ 'Maximize' ] }
 	];
 };

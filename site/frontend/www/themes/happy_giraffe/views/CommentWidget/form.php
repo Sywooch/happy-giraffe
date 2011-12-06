@@ -50,15 +50,11 @@ $('#add_comment').live('submit', function(e) {
 		<?php echo $form->hiddenField($comment_model, 'model', array('value' => $model)); ?>
 		<?php echo $form->hiddenField($comment_model, 'object_id', array('value' => $object_id)); ?>
 		<?php
-			$this->widget('ext.imperaviRedactor.EImperaviRedactorWidget', array(
+			$this->widget('ext.ckeditor.CKEditorWidget', array(
 				'model' => $comment_model,
 				'attribute' => 'text',
-				'options' => array(
-					'toolbar' => 'main',
-				),
-				'htmlOptions' => array(
-					'rows' => 5,
-					'value' => '',
+				'config' => array(
+					'toolbar' => 'Nocut',
 				),
 			));
 		?>

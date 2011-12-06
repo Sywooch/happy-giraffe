@@ -210,15 +210,21 @@ class CommunityController extends Controller
 				}
 				else
 				{
-					$content_model->delete();
+					//$content_model->delete();
 					print_r($slave_model->getErrors());
+					echo '1';
+					Yii::app()->end();
 				}
 			}
 			else
 			{
 				print_r($content_model->getErrors());
+				echo '2';
+				Yii::app()->end();
 			}
 		}
+		
+		//die('123');
 	
 		$this->render('add', array(
 			'content_model' => $content_model,

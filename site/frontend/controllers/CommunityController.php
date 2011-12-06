@@ -82,7 +82,7 @@ class CommunityController extends Controller
 		}
 	}
 	
-	public function actionView($content_id)
+	public function actionView($community_id, $content_id)
 	{
 		$content_id = (int) $content_id;
 		if ($content = CommunityContent::model()->view()->findByPk($content_id))

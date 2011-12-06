@@ -25,7 +25,7 @@ class CommunityController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow',
-				'actions' => array('add'),
+				'actions' => array('add', 'edit'),
 				'users' => array('@'),
 			),
 			array('deny',
@@ -82,11 +82,22 @@ class CommunityController extends Controller
 		}
 	}
 	
-	public function actionView($content_id)
+	public function actionView($community_id, $content_id)
 	{
 		$content_id = (int) $content_id;
 		if ($content = CommunityContent::model()->view()->findByPk($content_id))
 		{
+			$meta_title = $content->meta_title;
+			if (! empty($meta_title))
+			{
+				$this->pageTitle = $meta_title;
+			}
+			else
+			{
+				$this->pageTitle = $content->name;
+			}
+			Yii::app()->clientScript->registerMetaTag($content->meta_description, 'description');
+			Yii::app()->clientScript->registerMetaTag($content->meta_keywords, 'keywords');
 			$content->views++;
 			$content->save();
 			$comment_model = new CommunityComment;
@@ -121,62 +132,102 @@ class CommunityController extends Controller
 			throw new CHttpException(404, 'Такой записи не существует.');
 		}
 	}
-
-	public function actionAdd($content_type_slug = 'article', $community_id = NULL, $rubric_id = NULL)
-	{	
-		if ($content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug)))
+	
+	public function actionEdit($content_id)
+	{
+		$content_id = (int) $content_id;
+		$content_model = CommunityContent::model()->with(array('type', 'article', 'video', 'rubric.community'))->findByPk($content_id);
+		if ($content_model === null)
 		{
-			$communities = Community::model()->findAll();
-			$content_types = CommunityContentType::model()->findAll();
-			$content_model = new CommunityContent;
-			$slave_model_name = 'Community' . ucfirst($content_type->slug);
-			$slave_model = new $slave_model_name;
+			throw new CHttpException(404, 'Такой записи не существует.');
+		}
+		$communities = Community::model()->findAll();
+		$slave_model = $content_model->{$content_model->type->slug};
+		$slave_model_name = get_class($slave_model);
 		
-			if (isset($_POST['CommunityContent']))
+		if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
+		{
+			$content_model->attributes = $_POST['CommunityContent'];
+			$slave_model->attributes = $_POST[$slave_model_name];
+			$slave_model->attributes = $_POST;
+			$valid = $content_model->validate();
+			$valid = $slave_model->validate() && $valid;
+		
+			if ($valid)
 			{
-				$content_model->attributes = $_POST['CommunityContent'];
-				$slave_model->attributes = $_POST[$slave_model_name];
-				$slave_model->setAttributes($_POST);
-				$content_model->author_id = Yii::app()->user->id;
-				if ($content_model->save())
+				$content_model->save();
+				$slave_model->save();
+				$this->redirect(array('community/view', 'community_id' => $content_model->rubric->community->id, 'content_id' => $content_model->id));
+			}
+		}
+		
+		$this->render('edit', array(
+			'communities' => $communities,
+			'content_model' => $content_model,
+			'slave_model' => $slave_model,
+			'community' => $content_model->rubric->community,
+			'content_type' => $content_model->type,
+		));
+	}
+
+	public function actionAdd($content_type_slug = 'article', $community_id, $rubric_id = null)
+	{	
+		$content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
+		if (! $content_type)
+		{
+			throw new CHttpException(404, 'Такого раздела не существует.');
+		}
+		$community = Community::model()->with('rubrics')->findByPk($community_id);
+		if (! $community)
+		{
+			throw new CHttpException(404, 'Такого сообщества не существует.');
+		}
+		$content_types = CommunityContentType::model()->findAll();
+		$content_model = new CommunityContent;
+		$content_model->rubric_id = $rubric_id;
+		$slave_model_name = 'Community' . ucfirst($content_type->slug);
+		$slave_model = new $slave_model_name;
+	
+		if (isset($_POST['CommunityContent']))
+		{
+			$content_model->attributes = $_POST['CommunityContent'];
+			$slave_model->attributes = $_POST[$slave_model_name];
+			$slave_model->setAttributes($_POST);
+			$content_model->author_id = Yii::app()->user->id;
+			if ($content_model->save())
+			{
+				$slave_model->content_id = $content_model->id;
+				if ($slave_model->save())
 				{
-					$slave_model->content_id = $content_model->id;
-					if ($slave_model->save())
+					if (is_null($community_id))
 					{
-						if (is_null($community_id))
-						{
-							$this->redirect('community/index');
-						}
-						else
-						{
-							$this->redirect(array('community/view', 'content_id' => $content_model->id));
-						}
+						$this->redirect('community/index');
 					}
 					else
 					{
-						$content_model->delete();
-						print_r($slave_model->getErrors());
+						$this->redirect(array('community/view', 'community_id' => $community_id, 'content_id' => $content_model->id));
 					}
 				}
 				else
 				{
-					print_r($content_model->getErrors());
+					$content_model->delete();
+					print_r($slave_model->getErrors());
 				}
 			}
-		
-			$this->render('add/' . $content_type->slug, array(
-				'content_model' => $content_model,
-				'slave_model' => $slave_model,
-				'communities' => $communities,
-				'content_types' => $content_types,
-				'content_type' => $content_type,
-				'community_id' => $community_id,
-				'rubric_id' => $rubric_id,
-			));
+			else
+			{
+				print_r($content_model->getErrors());
+			}
 		}
-		else
-		{
-			throw new CHttpException(404, 'Такого раздела не существует.');
-		}
+	
+		$this->render('add', array(
+			'content_model' => $content_model,
+			'slave_model' => $slave_model,
+			'community' => $community,
+			'content_types' => $content_types,
+			'content_type' => $content_type,
+			'community_id' => $community_id,
+			'rubric_id' => $rubric_id,
+		));
 	}
 }

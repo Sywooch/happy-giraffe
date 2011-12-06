@@ -5,6 +5,12 @@ return array(
 	'showScriptName' => false,
 	'urlSuffix' => '/',
 	'rules' => array(
+		'community/<community_id:\d+>/forum/post/<content_id:\d+>' => 'community/view',
+		'community/<community_id:\d+>/forum/<content_type_slug:\w+>/rubric/<rubric_id:\d+>' => 'community/list',
+		'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/list',
+		'community/<community_id:\d+>/forum/<content_type_slug:\w+>' => 'community/list',
+		'community/<community_id:\d+>/forum' => 'community/list',
+	
 		'contest/<id:\d+>' => 'contest/contest/view',
 		'contest/work/<id:\d+>' => 'contest/contestWork/view',
 		'contest/list/<id:\d+>/<sort:\w+>' => 'contest/contest/list',

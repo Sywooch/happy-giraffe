@@ -51,16 +51,7 @@ class OrderController extends AController
 	public function actionView($id)
 	{
 		$model = $this->loadModel($id);
-		
-		$items = Y::command()
-			->select()
-			->from('shop_order_item')
-			->leftJoin(Product::model()->tableName(), 'item_product_id=product_id')
-			->where('item_order_id=:item_order_id', array(
-				':item_order_id' => (int) $id,
-			))
-			->queryAll();
-		
+		$items = OrderItem::model()->with('product')->findAll('item_order_id = :item_order_id', array(':item_order_id' => (int)$id));
 		$this->render('view',array(
 			'model'=>$model,
 			'items'=>$items,
@@ -74,26 +65,12 @@ class OrderController extends AController
 	public function actionCreate()
 	{
 		$this->layout = 'empty';
-		
 		$model=new Order;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-//		if(isset($_POST['Order']))
-//		{
-//			$model->attributes=$_POST['Order'];
 		if($model->save())
 		{
 			Y::user()->setState('create_order_id', $model->order_id);
 			$this->redirect(array('shop/userInfo', 'id'=>$model->order_id));
 		}
-//		}
-
-//		$this->redirect(Y::request()->urlReferrer);
-//		$this->render('create',array(
-//			'model'=>$model,
-//		));
 	}
 
 	/**
@@ -104,10 +81,6 @@ class OrderController extends AController
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Order']))
 		{
 			$model->attributes=$_POST['Order'];

@@ -138,6 +138,10 @@ class Product extends CActiveRecord implements IECartPosition
 	{
 		return '{{shop_product}}';
 	}
+	
+	public function primaryKey() {
+		return 'product_id';
+	}
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -471,6 +475,40 @@ class Product extends CActiveRecord implements IECartPosition
 		));
 	}
 	
+	/**
+	 * Get subproduct
+	 * @param int $productId
+	 * @param int $subProductId
+	 * @return array
+	 */
+	public function getSubproduct($productId, $subProductId) { 
+		$command = Yii::app()->db->createCommand();
+		$command->select()
+				->from('shop_product_link')
+				->where('link_main_product_id = :link_main_product_id AND link_sub_product_id = :link_sub_product_id', array(
+					'link_main_product_id'=>(int) $_POST['main_product_id'],
+					'link_sub_product_id'=>(int) $_POST['product_id'],
+				))
+				->limit(1);
+		return $command->queryScalar();
+	}
+	
+	/**
+	 * Get subproducts
+	 * @param int $productId
+	 * @return array
+	 */
+	public function getSubproducts($productId) { 
+		$command = Yii::app()->db->createCommand();
+		$command->select()
+				->from('shop_product_link')
+				->where('link_main_product_id = :link_main_product_i', array(
+					':link_main_product_id' => $productId,
+				));
+		return $command->queryAll();
+	}
+
+
 	/**
 	 * Retrieves subproducts of product $productId
 	 * @param int $productId 

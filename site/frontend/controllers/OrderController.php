@@ -51,7 +51,7 @@ class OrderController extends Controller
 	public function actionView($id)
 	{
 		$model = $this->loadModel($id);
-		$items = OrderItem::model()->with()->findAll('item_order_id = :item_order_id', array(':item_order_id' => (int)$id));
+		$items = OrderItem::model()->with('product')->findAll('item_order_id = :item_order_id', array(':item_order_id' => (int)$id));
 		$this->render('view',array(
 			'model'=>$model,
 			'items'=>$items,

@@ -27,14 +27,10 @@ $this->menu=array(
 		'order_time:datetime',
 		'order_user_id',
 		'order_item_count',
-//		'order_price',
 		'order_price_total',
-//		'order_width',
-//		'order_volume',
 		'order_description',
 		'order_price_delivery',
 		'order_delivery_adress',
-//		'order_vaucher_id',
 	),
 )); ?>
 
@@ -44,10 +40,10 @@ $this->menu=array(
 <?php foreach ($items as $position): ?>
 	<tr>
 		<td>
-			<?php echo CHtml::image(UFiles::getFileInstance($position['product_image'])->getUrl("thumb"), $position['product_title']); ?>
+			<?php echo CHtml::image(UFiles::getFileInstance($position->product->product_image)->getUrl("thumb"), $position->product->product_title); ?>
 		</td>
 		<td>
-			<?php echo $position['product_title']; ?>
+			<?php echo $position->product->product_title; ?>
 		</td>
 		<td>
 			<?php
@@ -59,13 +55,13 @@ $this->menu=array(
 			?>
 		</td>
 		<td>
-			<?php echo $position['item_product_cost']; ?> руб
+			<?php echo $position->item_product_cost; ?> руб
 		</td>
 		<td>
-			<?php echo $position['item_product_count']; ?>
+			<?php echo $position->item_product_count; ?>
 		</td>
 		<td>
-			<?php echo $position['item_product_cost'] * $position['item_product_count']; ?> руб
+			<?php echo (int)$position->item_product_cost * (int)$position->item_product_count; ?> руб
 		</td>
 	</tr>
 <?php endforeach; ?>

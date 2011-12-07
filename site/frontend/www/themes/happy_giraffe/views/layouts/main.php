@@ -126,7 +126,7 @@ function report(item)
 										'class' => 'green',
 									),
 								),
-								array(
+								/*array(
 									'label' => '<span>Конкурсы</span>',
 									'url' => Yii::app()->createUrl('/contest/contest/view', array('id'=>1)),
 									'itemOptions' => array(
@@ -139,7 +139,7 @@ function report(item)
 									'itemOptions' => array(
 										'class' => 'orange',
 									),
-								),
+								),*/
 							),
 						));
 					?>

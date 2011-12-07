@@ -22,6 +22,17 @@ class CommunityVideo extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function behaviors()
+	{
+		return array(
+			'cut' => array(
+				'class' => 'application.components.CutBehavior',
+				'attributes' => array('text'),
+				'edit_routes' => array('community/edit'),
+			),
+		);
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */

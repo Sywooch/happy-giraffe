@@ -27,6 +27,10 @@ class GeoRusSettlement extends CActiveRecord
 	{
 		return '{{geo_rus_settlement}}';
 	}
+	
+	public function primaryKey() {
+		return 'id';
+	}
 
 	/**
 	 * @return array validation rules for model attributes.

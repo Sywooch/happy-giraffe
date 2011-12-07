@@ -37,12 +37,6 @@ class DeliveryModule extends CWebModule
 			'class_name' => 'EExpressDPM',
 			'show_name' => 'Экспресс доставка по Москве в пределах МКАД',
 		),
-//	    
-//	    'NochnoyExpress'=>array(
-//		'ext'=>'application.extensions.NochnoyExpress.ENochnoyExpress',
-//		'class_name'=>'ENochnoyExpress',
-//		'show_name'=>'Ночной экспресс',
-//	    ),
 	);
 
 	/*
@@ -101,122 +95,99 @@ class DeliveryModule extends CWebModule
 	
 	public function done($OrderId, $name, $city)
 	{
-		if(!$name)
-		{
+		if(!$name) {
 			return array();
 		}
 		//Получаем параметры модели заказа
-//и загружаем данные о модели
+		//и загружаем данные о модели
 		$params = $this->getParams();
 		$ext = $this->components[$name]['ext'];
 		$mn = $this->components[$name]['class_name'];
 		
 		$modelOrder = CActiveRecord::model($params['OrderModel'])->findByPk($OrderId);
-//		if(isset($modelOrder))
-//		{
-//Создаем модель настройки параметров доставки
-			Yii::import($ext);
-			$modelDelivery = new $mn();
+		//Создаем модель настройки параметров доставки
+		Yii::import($ext);
+		$modelDelivery = new $mn();
 
-			if(isset($_POST['ajax']) && $_POST['ajax'] === 'settings-sel')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'settings-sel') {
+			$modelDelivery->attributes = $_POST[$mn];
+		}
+
+		$price = $modelOrder->$params['getPrice']();
+		$weight = $modelOrder->$params['getWeight']();
+
+		//Получаем параметры заказа из модели заказа
+		$parameter = array('orderPrice' => $price,
+			'orderWeight' => $weight,
+			'orderCity' => array($city), //здесь указываем уже только конкретный город который выбрал пользователь
+			'orderRegion' => $city, 0, 0);
+
+		//Здесь проверка не требует ли модель ввода дополнительных данных
+		//Если требует то выводим СФорм с необходимыми полями (при этом та форма сохраняет все в пост)
+		//И после перезагрузки формы получаем дополнительные данные
+		//В противном случае пропускаем этот шаг
+		$model = new Delivery();
+		$model->order_id = $OrderId;
+
+		//Заново производим расчет стоимости доставки
+
+		$delivery_prices = $modelDelivery->getDeliveryCost($parameter);
+		$destination = $modelDelivery->getDestination();
+
+		if($delivery_prices)
+		{
+			foreach($delivery_prices as $delivery_price)
 			{
+				$model->delivery_name = $name;
+				$model->delivery_cost = $delivery_price['price'];
+				$model->delivery_address = $destination;
+			}
+		}
+
+		$bT = true;
+		if($modelDelivery->additionPropretys)
+		{
+			$bT = false;
+			if(isset($_POST[$mn]))
+			{
+				$bT = true;
 				$modelDelivery->attributes = $_POST[$mn];
 			}
-			
 
-			$price = $modelOrder->$params['getPrice']();
-			$weight = $modelOrder->$params['getWeight']();
-
-//Получаем параметры заказа из модели заказа
-			$parameter = array('orderPrice' => $price,
-				'orderWeight' => $weight,
-				'orderCity' => array($city), //здесь указываем уже только конкретный город который выбрал пользователь
-				'orderRegion' => $city,
-				0,
-				0);
-
-//Здесь проверка не требует ли модель ввода дополнительных данных
-//Если требует то выводим СФорм с необходимыми полями (при этом та форма сохраняет все в пост)
-//И после перезагрузки формы получаем дополнительные данные
-//В противном случае пропускаем этот шаг
-//	    $modelOrder = CActiveRecord::model($params['OrderModel'])->findByPk($OrderId);
-//	    if (isset($modelOrder)) {
-			$model = new Delivery();
-			$model->order_id = $OrderId;
-
-//Заново производим расчет стоимости доставки
-
-			$delivery_prices = $modelDelivery->getDeliveryCost($parameter);
-			$destination = $modelDelivery->getDestination();
-
-			if($delivery_prices)
-			{
-
-				foreach($delivery_prices as $delivery_price)
-				{
-					$model->delivery_name = $name;
-					$model->delivery_cost = $delivery_price['price'];
-					$model->delivery_address = $destination;
-				}
-			}
-
-			$bT = true;
-			if($modelDelivery->additionPropretys)
-			{
-				$bT = false;
-				if(isset($_POST[$mn]))
-				{
-					$bT = true;
-					$modelDelivery->attributes = $_POST[$mn];
-				}
-
-				$config = $modelDelivery->getForm($parameter);
-//				$config['buttons'] = array(
-//					'login' => array(
-//						'type' => 'submit',
-//						'label' => 'Дальше!!',
-//					),
-//				);
-				$config['activeForm'] = array(
-					'id' => 'settings-sel', // Важный момент.
-					'class' => 'CActiveForm',
-					'enableAjaxValidation' => true,
-					'clientOptions' => array(
-						'validateOnSubmit' => true,
-					),
-				);
+			$config = $modelDelivery->getForm($parameter);
+			$config['activeForm'] = array(
+				'id' => 'settings-sel', // Важный момент.
+				'class' => 'CActiveForm',
+				'enableAjaxValidation' => true,
+				'clientOptions' => array(
+					'validateOnSubmit' => true,
+				),
+			);
 
 			$form = new CForm($config, $modelDelivery);
-
-			}
-			if($bT)
+		}
+		if($bT)
+		{
+			if($modelDelivery->save())
 			{
-				if($modelDelivery->save())
+				$model->delivery_id = $modelDelivery->id;
+				if($model->save())
 				{
-					$model->delivery_id = $modelDelivery->id;
-					if($model->save())
+					if($this->showResult)
 					{
-						if($this->showResult)
-						{
-							$url = Controller::createUrl('/delivery/default/success', array('delivery_id' => $model->id));
-						}
-						else
-						{
-							$url = Controller::createUrl($params['returnUrl'], array($params['order_id'] => $OrderId));
-						}
-//						Controller::redirect($url);
-//						Y::endJson(array(
-//							'method'=>'redir',
-//							'url'=>$url,
-//						));
-						return array(
-							'method'=>'redir',
-							'url'=>$url,
-						);
+						$url = Controller::createUrl('/delivery/default/success', array('delivery_id' => $model->id));
 					}
+					else
+					{
+						$url = Controller::createUrl($params['returnUrl'], array($params['order_id'] => $OrderId));
+					}
+					return array(
+						'method'=>'redir',
+						'url'=>$url,
+					);
 				}
 			}
-//	    }
+		}
 		return array(
 			'formDelivery' => (string)$form,
 			'modelDelivery' => $modelDelivery,

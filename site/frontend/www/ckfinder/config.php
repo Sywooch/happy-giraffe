@@ -196,8 +196,8 @@ $config['ResourceType'][] = Array(
 
 $config['ResourceType'][] = Array(
 		'name' => 'Images',
-		'url' => $baseUrl . 'images/' . date('Y-m-d'),
-		'directory' => $baseDir . 'images/' . date('Y-m-d'),
+		'url' => $baseUrl . 'images/' . date('Y') . '/' . date('m') . '/' . date('d'),
+		'directory' => $baseDir . 'images/' . date('Y') . '/' . date('m') . '/' . date('d'),
 		'maxSize' => 0,
 		'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
 		'deniedExtensions' => '');

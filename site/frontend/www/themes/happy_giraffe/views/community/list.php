@@ -22,8 +22,33 @@
 
 <div class="right-inner">
 
+	<div>
+		<?php
+			$items = array();
+			$items[] = array(
+				'label' => 'Все',
+				'url' => array('/community/list', 'community_id' => $community->id),
+			);
+			foreach ($content_types as $ct)
+			{
+				$params = array('community_id' => $community->id);
+				if ($current_rubric !== null) $params['rubric_id'] = $current_rubric;
+				if ($content_type != null) $params['content_type_slug'] = $content_type->slug;
+				$items[] = array(
+					'label' => $ct->name_plural,
+					'url' => array('/community/list', 'community_id' => $community->id, 'content_type_slug' => $ct->slug),
+					'active' => $content_type !== null AND $content_type->slug == $ct->slug,
+				);
+			}
+			
+			$this->widget('zii.widgets.CMenu', array(
+				'items' => $items,
+			));
+		?>
+	</div>
+
 	<? foreach($contents as $c): ?>
-		<? $this->renderPartial('parts/list_entry', array('content_type' => $content_type, 'c' => $c)); ?>
+		<? $this->renderPartial('parts/list_entry', array('c' => $c)); ?>
 	<? endforeach; ?>
 	
 	<?php if ($pages->pageCount > 1): ?>

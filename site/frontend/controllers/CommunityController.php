@@ -42,46 +42,45 @@ class CommunityController extends Controller
 		));
 	}
 
-	public function actionList($community_id, $content_type_slug = 'article', $rubric_id = NULL)
+	/**
+	 * @sitemap dataSource=getCommunityUrls
+	 */
+	public function actionList($community_id, $rubric_id = null, $content_type_slug = null)
 	{
-		
-		if ($content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug)))
+		$community_id = (int) $community_id;
+		if (!is_null($rubric_id)) $rubric_id = (int) $rubric_id;
+		if ($community = Community::model()->with('rubrics')->findByPk($community_id))
 		{
-			$community_id = (int) $community_id;
-			if (!is_null($rubric_id)) $rubric_id = (int) $rubric_id;
-			if ($community = Community::model()->with('rubrics')->findByPk($community_id))
-			{
-				$content_types = CommunityContentType::model()->findAll();
-				$current_rubric = CommunityRubric::model()->findByPk($rubric_id);
-				
-				$criteria = CommunityContent::model()->community($community_id)->type($content_type->id)->rubric($rubric_id)->getDbCriteria();
-				$count = CommunityContent::model()->count($criteria);
-				$pages = new CPagination($count);
-				$pages->pageSize = 10;
-				$pages->applyLimit($criteria);		
-				$contents = CommunityContent::model()->findAll($criteria);
-				
-				$this->render('list', array(
-					'community' => $community,
-					'contents' => $contents,
-					'content_type' => $content_type,
-					'content_types' => $content_types,
-					'current_rubric' => $current_rubric,
-					'rubric_id' => $rubric_id,
-					'pages' => $pages,
-				));
-			}
-			else
-			{
-				throw new CHttpException(404, 'Такого сообщества не существует.');
-			}
+			$content_types = CommunityContentType::model()->findAll();
+			$current_rubric = CommunityRubric::model()->findByPk($rubric_id);
+			$content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
+			
+			$criteria = CommunityContent::model()->community($community_id)->type($content_type ? $content_type->id : null)->rubric($rubric_id)->getDbCriteria();
+			$count = CommunityContent::model()->count($criteria);
+			$pages = new CPagination($count);
+			$pages->pageSize = 10;
+			$pages->applyLimit($criteria);		
+			$contents = CommunityContent::model()->findAll($criteria);
+			
+			$this->render('list', array(
+				'community' => $community,
+				'contents' => $contents,
+				'content_type' => $content_type,
+				'content_types' => $content_types,
+				'current_rubric' => $current_rubric,
+				'rubric_id' => $rubric_id,
+				'pages' => $pages,
+			));
 		}
 		else
 		{
-			throw new CHttpException(404, 'Такого раздела не существует.');
+			throw new CHttpException(404, 'Такого сообщества не существует.');
 		}
 	}
 	
+	/**
+	 * @sitemap dataSource=getContentUrls
+	 */
 	public function actionView($community_id, $content_id)
 	{
 		$content_id = (int) $content_id;
@@ -235,5 +234,45 @@ class CommunityController extends Controller
 			'community_id' => $community_id,
 			'rubric_id' => $rubric_id,
 		));
+	}
+	
+	public function getContentUrls()
+	{
+		$models = CommunityContent::model()->with('rubric.community')->findAll();
+		$data = array();
+		foreach ($models as $model)
+		{
+			$data[] = array(
+				'params'=>array(
+					'community_id' => $model->rubric->community->id,
+					'content_id' => $model->id,
+				),
+				
+				'lastmod' => $model->created,
+			);
+		}
+		return $data;
+	}
+	
+	public function getCommunityUrls()
+	{
+		$models = Community::model()->findAll();
+		$data = array();
+		foreach ($models as $model)
+		{
+			$lastmod = CommunityContent::model()->with('rubric.community')->find(array(
+				'condition' => 'community_id = :community_id',
+				'params' => array(':community_id' => $model->id),
+				'order' => 'created DESC',
+			));
+			$data[] = array(
+				'params'=>array(
+					'community_id' => $model->id,
+				),
+				
+				'lastmod' => $lastmod->created,
+			);
+		}
+		return $data;
 	}
 }

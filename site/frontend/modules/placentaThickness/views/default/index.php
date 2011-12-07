@@ -30,7 +30,7 @@ $js = '';
     'id' => 'placenta-thickness-form',
     'enableAjaxValidation' => false,
 ));?>
-<?php echo $form->textField($model, 'week') ?><br>
+<?php echo $form->dropDownList($model, 'week', HDate::Range(7, 40)) ?><br>
 <?php echo $form->textField($model, 'thickness') ?><br>
 <button>Расчитать</button>
 <?php $this->endWidget(); ?>

@@ -14,22 +14,6 @@ echo $form->dropDownList(
 	$modelRegions, 'id', $modelRegions->getRegions(), 
 	array(
 	    'empty' => array('0' => '...'),
-//	    'ajax' => array(
-//		'type' => 'POST',
-//		'data' => 'js:({regval : this.value})',
-//		'dataType' => 'json',
-//		'url' => $this->createUrl('/delivery/default/getDistrictNames'),
-//		'success' => 'function(msg){			
-////			alert(msg.data);
-//			if(msg.data!="empty"){
-//				$("#seldist").html(msg.data);
-//				$("#selcity").html("");
-//			} else {
-//			    $("#seldist").html("");
-//			    $("#selcity").html("");
-//			};
-//		}',
-//	    ),
 	    'id'=>'selreg'
 	 )
 	);
@@ -41,20 +25,6 @@ echo $form->dropDownList(
 	(isset($modelRegions->id))?$modelDistrict->getDistrict($modelRegions->id):$modelDistrict->getDistrict(),
 	array(
 	    'empty' => array('0' => '...'),
-//	    'ajax' => array(
-//		'type' => 'POST',
-//		'data' => 'js:({regval : this.value})',
-//		'dataType' => 'json',
-//		'url' => $this->createUrl('/delivery/default/getCityNames'),
-//		'success' => 'function(msg){
-////			alert(msg.data);
-//			if(msg.data!="empty"){
-//				$("#selcity").html(msg.data);
-//				$("#table").html("");
-//				$("#table_dop").html("");
-//			};
-//		}',
-//	    ),
 	    'id'=>'seldist'
 	 )
 	);
@@ -65,7 +35,6 @@ echo $form->dropDownList(
 		?$modelCities->getCity()
 		:$modelCities->getCities($modelRegions->id, $modelDistrict->id), 
 	array(
-//	    'onChange'=>'js:citySelA(this)',
 	    'ajax' => array(
 			'type' => 'POST',
 			'data' => 'js:({
@@ -73,7 +42,7 @@ echo $form->dropDownList(
 				region_id: $("#selreg").val(), 
 				district_id: $("#seldist").val(), 
 				OrderId: $("#OrderId").val()
-				})',
+			})',
 			'dataType' => 'html',
 			'url' => $this->createUrl('/delivery/default/showDeliveryTable'),
 			'success' => 'function(data){
@@ -83,41 +52,12 @@ echo $form->dropDownList(
 	    ),
 	    'id' => 'selcity')); ?>
 <?php 
-//echo CHtml::ajaxSubmitButton('D', array('/delivery/default/showDeliveryTable'),array(
-//    'update'=>'#table'
-//));
-//echo CHtml::linkButton('D', array('/delivery/default/showDeliveryTable')); 
-/**/
-/*
-$js = 'function citySelA(sel){
-//alert($(sel).val());
-$.ajax({
-		type: "POST",
-		data :({
-		    city_id : $(sel).val(), 
-		    region_id: $("#selreg").val(), 
-		    district_id: $("#seldist").val(), 
-		    OrderId: $("#OrderId").val()
-		    }),
-		dataType :"html",
-		url :"'. $this->createUrl('/delivery/default/showDeliveryTable').'",
-		success: function(msg){
-			alert(msg);
-			$("#table").html(msg);
-		},
-		complete: function(msg, txt){
-			alert(txt);
-		},
-})}';
-
-Y::script()->registerScript('bmmbmbmbn', $js, CClientScript::POS_HEAD);
-*/
 $js = '
 $(".noBTC").live("click", function() {
 	$("#table_dop").html("");
 });
 $(".BTC").live("click", function() {
-//Здесь запускаем ajax ссылку и выводим данные в table_dop
+	//Здесь запускаем ajax ссылку и выводим данные в table_dop
 	$.ajax({
 		url:$(this).attr("rel"),
 		type: "POST",
@@ -129,10 +69,6 @@ $(".BTC").live("click", function() {
 				$("#totalPrice").html(data.price + toal_price);
 				return false;
 			}
-//			if(data.method == "redir")
-//			{
-//				windows.location = data.url;
-//			}
 		}
 	});
 });
@@ -155,17 +91,14 @@ $("#settings-sel").live("submit", function(){
 		}
 	},
 	complete: function(msg, txt){
-//	    alert(txt);
 	    return false;
 	},
     });
     return false;
 })
-
 ';
 
 Y::script()->registerScript("BTC_script", $js);
-/**/
 $js = '$(document).ready(function(){
 $.ajax({
 	url:"'.$this->createUrl('/delivery/default/showDeliveryTable').'",
@@ -184,49 +117,11 @@ return false;
 })';
 
 Y::script()->registerScript("BTC2_script", $js);
-/*
-$js = '$("#settings-sel").yiiactiveform({
-    "validateOnSubmit":true,
-    "validationUrl":"/delivery/default/validateDeliveryModule",
-    "attributes":[
-	{
-	    "id":"EExpressDPM_price",
-	    "inputID":"EExpressDPM_price",
-	    "errorID":"EExpressDPM_price_em_",
-	    "model":"EExpressDPM",
-	    "name":"price",
-	    "enableAjaxValidation":true
-	},
-	{
-	    "id":"EExpressDPM_address",
-	    "inputID":"EExpressDPM_address",
-	    "errorID":"EExpressDPM_address_em_",
-	    "model":"EExpressDPM",
-	    "name":"address",
-	    "enableAjaxValidation":true
-	 }
-	 ]
-	 });
- ';
-
-Y::script()->registerScript("BTC3_script", $js);
-*/
 Yii::app()->clientScript->registerCoreScript('yiiactiveform');
-/**/
 ?>
 <?php $this->endWidget(); ?>
-
-<?php
-/*$this->widget('ext.fancybox.EFancyBox', array(
-        'target'=>'.BTC',
-        )
-);/**/
-?>
-
 <?php  /*Место куда будет выводиться табличка с данными по доставке в города*/?>
 <div id="table"></div>
-
 <?php  /*Место куда будет выводиться дополнительные параметры настройки доставки*/?>
 <div id="table_dop"></div>
-
 <div id="table3"></div>

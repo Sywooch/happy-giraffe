@@ -66,10 +66,14 @@ class InvoiceController extends Controller
 		$model=new BillingInvoice('create');
 		$model->unsetAttributes();
 
-		if($post=isset($_POST['BillingInvoice'])) {
+		if(isset($_POST['BillingInvoice'])) {
 			$vars = $_POST['BillingInvoice'];
 		} else if(!empty($_GET)) {
-			foreach($_GET as $n=>$v) if (strncmp($n,'invoice_',8)===0) $vars[$n] = $v;
+			foreach($_GET as $n=>$v) {
+				if (strncmp($n, 'invoice_', 8) === 0) {
+					$vars[$n] = $v;
+				}
+			}
 		}
 
 		if(isset($vars))
@@ -98,9 +102,7 @@ class InvoiceController extends Controller
 					}
 				}
 				
-				$this->redirect(//$post ?array('view','id'=>$model->invoice_id):
-					array('pay/create', 'invoice_id'=>$model->invoice_id)
-				);
+				$this->redirect(array('pay/create', 'invoice_id'=>$model->invoice_id));
 			}
 		}
 

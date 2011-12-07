@@ -37,7 +37,6 @@ class DefaultController extends Controller
 
 	public function actionIndex()
 	{
-
 		$dataProvider = new CActiveDataProvider('Delivery', array());
 		$directories = glob('protected\\modules\\delivery\\modules\\*', GLOB_ONLYDIR);
 		$modules = array();
@@ -54,23 +53,15 @@ class DefaultController extends Controller
 				}
 			}
 			if(!$b)
-//array_push($modules, $modname);	    
 				$modules[$modname] = $modname;
 		}
-
 		$model = new Delivery();
 
 		if(isset($_POST['Delivery']))
 		{
 			$model->attributes = $_POST['Delivery'];
-			if($model->save())
-			{
-				
-			}
+			$model->save();
 		}
-
-
-
 		$this->render(__FUNCTION__, array(
 			'modules' => $modules,
 			'dataProvider' => $dataProvider,
@@ -99,109 +90,58 @@ class DefaultController extends Controller
 		if(isset($_POST['Delivery']))
 		{
 			$model->attributes = $_POST['Delivery'];
-
-
 			$params = $this->module->getParams();
-
 			$b = false;
 			if(isset($OrderId))
 			{
 				$modelOrder = CActiveRecord::model($params['OrderModel'])->findByPk($OrderId);
 				if(!isset($modelOrder))
-				{
 					$b = true;
-				}
 			}
 			else
-			{
 				$b = true;
-			}
-			if(!$b)
-			{
-				$url = $this->createUrl('/delivery/default/createD', array(
-					'OrderId' => $OrderId,
-					'DeliveryName' => $model->delivery_name,
-					));
-//		$this->redirect($url);
+			if(!$b) {
+				$url = $this->createUrl('/delivery/default/createD', array( 'OrderId' => $OrderId, 'DeliveryName' => $model->delivery_name));
 			}
 			else
-			{
 				echo 'Error with order #' . $OrderId;
-			}
 		}
 
 		$this->render(__FUNCTION__, array(
-			'modules' => $modules,
-			'model' => $model,
+				'modules' => $modules,
+				'model' => $model,
 			)
 		);
 	}
 
 	public function actionSelectDestination($OrderId)
 	{
-
-//	Y::dump(Delivery::model()->getAdressByOrder(1));
-
 		if(isset($_POST['OrderId']))
-		{
 			$OrderId = $_POST['OrderId'];
-		}
 
 		if(isset($OrderId))
 		{
-
 			$params = $this->module->getParams();
 			$modelOrder = CActiveRecord::model($params['OrderModel'])->findByPk($OrderId);
 			if(isset($modelOrder))
 			{
-
-//				if(!$_POST['update'] && !$_POST['OrderId'])
-//				{
-//					$form = $this->checkDeliveryAvailable($OrderId);
-//
-//					if(isset($form))
-//					{
-//						$this->render('_order', array('formDelivery' => $form));
-//						return;
-//					}
-//				}
-
-				$city = Yii::app()->db->createCommand()
-					->where('id=:id', array(
-						':id' => $modelOrder->$params['getCity'](),
-					))
-					->from(GeoRusSettlement::model()->tableName())
-					->limit(1)
-					->queryAll();
-
+				$city = GeoRusSettlement::model()->findAllByPk($modelOrder->$params['getCity']());
 				$modelRegions = new GeoRusRegion('searchRegions');
 				$modelRegions->unsetAttributes();  // clear any default values
 				if(isset($_POST['GeoRusRegion']))
-				{
 					$modelRegions->id = $_POST['GeoRusRegion']['id'];
-				}
 
 				$modelDistrict = new GeoRusDistrict();
 				$modelDistrict->unsetAttributes();  // clear any default values
 				if(isset($_POST['GeoRusDistrict']))
-				{
 					$modelDistrict->id = $_POST['GeoRusDistrict']['id'];
-				}
 
 				$modelCities = new GeoRusSettlement();
 				$modelCities->unsetAttributes();  // clear any default values
-				if(isset($_POST['GeoRusSettlement'])/* || ($modelRegions->id == 42) || ($modelRegions->id == 59) || ($modelRegions->id == 7) */)
+				if(isset($_POST['GeoRusSettlement']))
 				{
-
 					$modelCities->id = $_POST['GeoRusSettlement']['id'];
 
-//					$_POST['GeoRusSettlement'] = array();
-//					$url = $this->createUrl('/delivery/default/showDeliveryTable', array(
-//						'city_id' => $modelCities->id,
-//						'region_id' => $modelRegions->id,
-//						'district_id' => $modelDistrict->id,
-//						'OrderId' => $OrderId)
-//					);
 					$this->redirect(array(
 						'/delivery/default/showDeliveryTable',
 						'city_id' => $modelCities->id,
@@ -234,7 +174,6 @@ class DefaultController extends Controller
 
 	public function actionShowDeliveryTable(/* $city_id, $OrderId */)
 	{
-
 		$OrderId = Y::getGet('OrderId', Y::getPost('OrderId'));
 		$city_id = Y::getGet('city_id', Y::getPost('city_id', Y::getPost('GeoRusSettlement.id')));
 		$district_id = Y::getGet('district_id', Y::getPost('district_id', Y::getPost('GeoRusDistrict.id')));
@@ -247,8 +186,8 @@ class DefaultController extends Controller
 		$model = new Delivery();
 		$model->order_id = $OrderId;
 
-//Получаем параметры модели заказа
-//и загружаем данные о модели
+		//Получаем параметры модели заказа
+		//и загружаем данные о модели
 		$params = $this->module->getParams();
 
 		$cnt = 0;
@@ -257,23 +196,16 @@ class DefaultController extends Controller
 
 		foreach($this->module->components as $k => $dir)
 		{
-//	    $cnt++;
-//
-//	    $modules[$cnt]['id'] = $k;
-//	    $modules[$cnt]['name'] = $dir['show_name'];
-//	    $modules[$cnt]['class_name'] = $dir['class_name'];
-//Получаем имя класса расширения доставки
-//и подключаем его к модулю доставки
+			//Получаем имя класса расширения доставки
+			//и подключаем его к модулю доставки
 			$mn = $dir['class_name'];
 			Yii::import($dir['ext']);
 
-//Создаем модель настройки параметров доставки
+			//Создаем модель настройки параметров доставки
 			$modelDelivery = CActiveRecord::model($mn);
 
-//			if(isset($modelOrder))
-//			{
-//Получаем параметры заказа из модели заказа
-//Определяем три города по которым будем искать способы доставки
+			//Получаем параметры заказа из модели заказа
+			//Определяем три города по которым будем искать способы доставки
 			$city1 = false;
 			$city2 = false;
 			$city3 = false;
@@ -285,62 +217,44 @@ class DefaultController extends Controller
 			}
 
 
-//	Y::dump($modelCity);
+			$cityarr = array();
+			if(strlen($city1[0]) > 3)
+				array_push($cityarr, $city1[0]);
+			if(strlen($city2[0]) > 3)
+				array_push($cityarr, $city2[0]);
+			if(strlen($city3[0]) > 3)
+				array_push($cityarr, $city3[0]);
 
-				$cityarr = array();
-				if(strlen($city1[0]) > 3)
-					array_push($cityarr, $city1[0]);
-				if(strlen($city2[0]) > 3)
-					array_push($cityarr, $city2[0]);
-				if(strlen($city3[0]) > 3)
-					array_push($cityarr, $city3[0]);
+			$price = Yii::app()->shoppingCart->getCost();
+			$weight = 1;
+			if($modelOrder)
+			{
+				$price = $modelOrder->$params['getPrice']();
+				$weight = $modelOrder->$params['getWeight']();
+			}
+			$parameter = array('orderPrice' => $price,
+				'orderWeight' => $weight,
+				'orderCity' => $cityarr,
+				'orderRegion' => $city3[0], 0, 0);
 
-//		Y::dump($cityarr);
-				
-				
-				$price = Yii::app()->shoppingCart->getCost();
-				$weight = 1;
-				if($modelOrder)
+			$delivery_prices = $modelDelivery->getDeliveryCost($parameter);
+			if($delivery_prices)
+			{
+				foreach($delivery_prices as $delivery_price)
 				{
-					$price = $modelOrder->$params['getPrice']();
-					$weight = $modelOrder->$params['getWeight']();
-				}
-
-				$parameter = array('orderPrice' => $price,
-					'orderWeight' => $weight,
-					'orderCity' => $cityarr,
-					'orderRegion' => $city3[0],
-					0,
-					0);
-
-				$delivery_prices = $modelDelivery->getDeliveryCost($parameter);
-//		$url = (isset($modelDelivery->getSettingsUrl()))?$modelDelivery->getSettingsUrl():NULL;
-
-				if($delivery_prices)
-				{
-					foreach($delivery_prices as $delivery_price)
+					if(!($delivery_price['price'] === NULL))
 					{
-//		    CVarDumper::dump($delivery_price, 10, true);
-						if(!($delivery_price['price'] === NULL))
-						{
-							$cnt++;
-							$modules[$cnt]['id'] = $k;
-							$modules[$cnt]['name'] = $dir['show_name'];
-							$modules[$cnt]['class_name'] = $dir['class_name'];
-							$modules[$cnt]['price'] = $delivery_price['price'];
-							$modules[$cnt]['destination'] = $delivery_price['destination'];
-							$modules[$cnt]['htmlclass'] = ($modelDelivery->additionPropretys) ? "BTC" : "noBTC";
-//			    $modules[$cnt]['url'] = $url;
-						}
+						$cnt++;
+						$modules[$cnt]['id'] = $k;
+						$modules[$cnt]['name'] = $dir['show_name'];
+						$modules[$cnt]['class_name'] = $dir['class_name'];
+						$modules[$cnt]['price'] = $delivery_price['price'];
+						$modules[$cnt]['destination'] = $delivery_price['destination'];
+						$modules[$cnt]['htmlclass'] = ($modelDelivery->additionPropretys) ? "BTC" : "noBTC";
 					}
 				}
-//			}
+			}
 		}
-
-
-//	CVarDumper::dump($modules, 10, true);
-
-
 		$dataProvider = new CArrayDataProvider($modules, array(
 				'id' => 'id',
 				'pagination' => array(
@@ -351,12 +265,10 @@ class DefaultController extends Controller
 		$render = Y::isAjaxRequest() ? 'renderPartial' : 'render';
 
 		$this->$render(__FUNCTION__, array(
-			'modules' => $modules,
-//	    'model' => $model,
-			'modelCities' => $modelCity,
-			'OrderId' => $OrderId,
-			'dataProvider' => $dataProvider,
-//	    'modelRegions' => $modelRegions
+				'modules' => $modules,
+				'modelCities' => $modelCity,
+				'OrderId' => $OrderId,
+				'dataProvider' => $dataProvider,
 			)
 		);
 	}
@@ -398,7 +310,7 @@ class DefaultController extends Controller
 			else
 			{
 				echo CJSON::encode(array('val' => 0, 'data' => '', 'submit' => false, 'attrs' => ''));
-				exit;
+				Yii::app()->end();
 			}
 
 			$data = GeoRusDistrict::model()->getDistrict($pid);
@@ -433,12 +345,9 @@ class DefaultController extends Controller
 			if(($_POST['regval'] == 0))
 			{
 				echo CJSON::encode(array('val' => 0, 'data' => '', 'submit' => false, 'attrs' => ''));
-				exit;
+				Yii::app()->end();
 			}
 
-//			$rid = GeoRusDistrict::model()->findByPk($pid)->region_id;
-//	    echo 'rid='.$rid." ";
-			//$data = GeoRusSettlement::model()->getCities($pid, null);
 			$data2 = GeoRusSettlement::model()->getCities(null, $pid);
 
 			if(!empty($data) || !empty($data2))
@@ -475,21 +384,20 @@ class DefaultController extends Controller
 
 	public function actionCreateD()
 	{
-
 		$model = new Delivery();
 		$model->delivery_name = $_POST['Delivery']['delivery_name'];
 		$model->order_id = $_POST['Delivery']['order_id'];
 
-//Получаем имя класса расширения доставки
-//и подключаем его к модулю доставки
+		//Получаем имя класса расширения доставки
+		//и подключаем его к модулю доставки
 		$mn = $this->module->components[$model->delivery_name]['class_name'];
 		Yii::import($this->module->components[$model->delivery_name]['ext']);
 
-//Создаем модель настройки параметров доставки
+		//Создаем модель настройки параметров доставки
 		$modelDelivery = CActiveRecord::model($mn);
 
-//Получаем параметры модели заказа
-//и загражаем данные о модели
+		//Получаем параметры модели заказа
+		//и загражаем данные о модели
 		$params = $this->module->getParams();
 
 		$b = false; //Переменная ошибки при загрузке модели заказа
@@ -498,21 +406,18 @@ class DefaultController extends Controller
 			$modelOrder = CActiveRecord::model($params['OrderModel'])->findByPk($model->order_id);
 			if(isset($modelOrder))
 			{
-//Получаем параметры заказа из модели заказа
-				$parameter = array('orderPrice' => $modelOrder->$params['getPrice'](),
-					'orderWeight' => $modelOrder->$params['getWeight'](),
-					'orderCity' => $modelOrder->$params['getCity'](),
-					0,
-					0,
-					0);
+				//Получаем параметры заказа из модели заказа
+				$parameter = array(
+						'orderPrice' => $modelOrder->$params['getPrice'](),
+						'orderWeight' => $modelOrder->$params['getWeight'](),
+						'orderCity' => $modelOrder->$params['getCity'](), 0, 0, 0
+					);
 			}
-			else
-			{
+			else {
 				$b = true;
 			}
 		}
-		else
-		{
+		else {
 			$b = true;
 		}
 
@@ -520,22 +425,19 @@ class DefaultController extends Controller
 		{
 			$modelDelivery->attributes = $_POST[$mn];
 
-//	    CVarDumper::dump($modelDelivery, 10, true);
-//Проводим валидацию полученных параметров модели и проверяем были ли ошибки при загрузке заказа
+			//Проводим валидацию полученных параметров модели и проверяем были ли ошибки при загрузке заказа
 			if(($modelDelivery->validate()) && (!$b))
 			{
-//Производим расчет стоимости доставки
+				//Производим расчет стоимости доставки
 				$model->delivery_cost = $modelDelivery->getDeliveryCost($parameter);
 				$form = $modelDelivery->getHiddenForm($parameter);
 				$dform = $model->getForm();
 				$form['action'] = $this->createUrl('/delivery/default/showResults');
 			}
-			else
-			{
+			else {
 				$form = $modelDelivery->getForm($parameter);
 				$dform = $model->getHiddenForm();
 			}
-
 			$form['buttons'] = array(
 				'back' => array(
 					'type' => 'button',
@@ -582,7 +484,6 @@ class DefaultController extends Controller
 
 	public function actionShowResults()
 	{
-
 		$model = new Delivery();
 
 		if(isset($_POST['Delivery']))
@@ -597,9 +498,7 @@ class DefaultController extends Controller
 		$modelDelivery = new $mn();
 
 		if(isset($_POST[$mn]))
-		{
 			$modelDelivery->attributes = $_POST[$mn];
-		}
 
 		if($model->validate() && $modelDelivery->validate())
 		{
@@ -612,8 +511,8 @@ class DefaultController extends Controller
 		}
 
 		$this->render(__FUNCTION__, array(
-			'model' => $model,
-			'modelDelivery' => $modelDelivery
+				'model' => $model,
+				'modelDelivery' => $modelDelivery
 			)
 		);
 	}
@@ -621,14 +520,14 @@ class DefaultController extends Controller
 	public function actionSuccess($delivery_id)
 	{
 
-		$model = (isset($delivery_id)) ? Delivery::model()->findByPk($delivery_id) : NULL;
-		if(isset($model))
+		$model = (isset($delivery_id)) ? Delivery::model()->findByPk($delivery_id) : null;
+		if($model !== null)
 		{
 			$ext = $this->module->components[$model->delivery_name]['ext'];
 			$mn = $this->module->components[$model->delivery_name]['class_name'];
 
 			Yii::import($ext);
-//Создаем модель настройки параметров доставки
+			//Создаем модель настройки параметров доставки
 			$modelDelivery = CActiveRecord::model($mn)->findByPk($model->delivery_id);
 
 			$form = $modelDelivery->getSuccessForm($parameter);
@@ -644,21 +543,11 @@ class DefaultController extends Controller
 			);
 
 			$form['elements'] = array_merge($form['elements'], $dform['elements']);
-
 			$form = new CForm($form);
 
 			$form[$model->getClassName()]->model = $model;
 			$form[$mn]->model = $modelDelivery;
 		}
-
-//	if (Y::isAjaxRequest()) {
-//	    $render = 'renderPartial' ;
-//	    $this->layout = NULL;
-//	} else {
-//	    $render = 'render';
-//	    $this->layout = 'main';
-//	}
-
 		$this->render(__FUNCTION__, array(
 			'formDelivery' => $form,
 			'model' => $model
@@ -671,7 +560,6 @@ class DefaultController extends Controller
 		Y::dump($_POST, false);
 		if(isset($_POST['ajax']) && $_POST['ajax'] === 'fuck')
 		{
-
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
@@ -679,7 +567,6 @@ class DefaultController extends Controller
 
 	protected function getOrderDeliveryModel($OrderId)
 	{
-
 		if(isset($OrderId))
 		{
 			$condition = new CDbCriteria;
@@ -702,23 +589,21 @@ class DefaultController extends Controller
 			$mn = $this->module->components[$model->delivery_name]['class_name'];
 
 			Yii::import($ext);
-//Создаем модель настройки параметров доставки
+			//Создаем модель настройки параметров доставки
 			$modelDelivery = CActiveRecord::model($mn)->findByPk($model->delivery_id);
 
 			$form = $modelDelivery->getSuccessForm($parameter);
 			$dform = $model->getShowForm();
 			$params = $this->module->getParams();
-//	    $form['action'] = $this->createUrl($params['returnUrl']);
 
 			$form['buttons'] = array(
 				'back' => array(
 					'type' => 'link',
-					'attributes' => array('href' => $this->createUrl($params['returnUrl'])), //$this->createUrl('/delivery/default/success', array('delivery_id'=>$model->delivery_id))),
+					'attributes' => array('href' => $this->createUrl($params['returnUrl'])),
 					'label' => 'Назад',
 				),
 				'update' => array(
 					'type' => 'submit',
-//		    'attributes' => array('href' => $this->createUrl('')),
 					'label' => 'Изменить',
 				),
 			);
@@ -736,32 +621,10 @@ class DefaultController extends Controller
 		return NULL;
 	}
 
-	public function actionAAA($OrderId)
-	{
-
-
-
-		if(isset($OrderId))
-		{
-			$model = new Delivery();
-
-			$delivery_prices = $model->getCostByOrder($OrderId);
-			$destination = $model->getAdressByOrder($OrderId);
-
-			Y::dump($delivery_prices, false);
-			Y::dump($destination, false);
-			Y::dump($model);
-		}
-	}
-
 	public function actionValidateDeliveryModule()
 	{
-
-//	 
-
 		if(isset($_POST['ajax']) && $_POST['ajax'] === 'settings-sel')
 		{
-
 			foreach($_POST as $key => $val)
 			{
 				if(is_array($val))
@@ -771,20 +634,12 @@ class DefaultController extends Controller
 					Yii::import($ext);
 					$model = CActiveRecord::model($mn);
 					$model->attributes = $val;
-//		    Y::dump($_POST);
-
 					echo CActiveForm::validate($model);
-//		    echo '<pre>';		    
-//		    echo '</pre>';
 					Yii::app()->end();
-//		    
 				}
 			}
-
-//	    echo CActiveForm::validate($model);
 		}
 	}
-
 }
 
 ?>

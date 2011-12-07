@@ -197,4 +197,18 @@ return array(
 			),
 		),
 	),
+	
+        'controllerMap'=>array(
+                'sitemap'=>array(
+                        'class'=>'ext.sitemapgenerator.SGController',
+                        'config'=>array(
+                                'sitemap.xml'=>array(
+                                        'aliases'=>array(
+                                                'application.controllers',
+                                        ),
+                                ),
+                        ),
+                ),
+        ),
+
 );

@@ -135,20 +135,23 @@ class CommunityContent extends CActiveRecord
 	
 	public function type($type_id)
 	{
-		$this->getDbCriteria()->mergeWith(array(
-			'with' => array(
-				'rubric' => array(
-					'condition' => 'type_id=:type_id',
-					'params' => array(':type_id' => $type_id),
+		if ($type_id !== null)
+		{
+			$this->getDbCriteria()->mergeWith(array(
+				'with' => array(
+					'rubric' => array(
+						'condition' => 'type_id=:type_id',
+						'params' => array(':type_id' => $type_id),
+					),
 				),
-			),
-		));
+			));
+		}
 		return $this;
 	}
 	
 	public function rubric($rubric_id)
 	{
-		if (!is_null($rubric_id))
+		if ($rubric_id !== null)
 		{
 			$this->getDbCriteria()->mergeWith(array(
 				'with' => array(

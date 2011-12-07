@@ -55,7 +55,7 @@
 		<div class="inner-title">Заголовок статьи</div>
 		<?php echo $form->textField($content_model, 'name'); ?>
 	
-		<?php if(Yii::app()->user->checkAccess('moder')): ?>
+		<?php if(Yii::app()->user->checkAccess('editor')): ?>
 			<div class="inner-title">Title</div>
 			<?php echo $form->textField($content_model, 'meta_title'); ?>
 	

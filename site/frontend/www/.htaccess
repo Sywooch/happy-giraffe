@@ -8,6 +8,7 @@ RewriteRule ^(.*)$ http://www.happy-giraffe.ru/$1 [R=301,L]
 # Добавляем слэш, если его нет
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteCond %{REQUEST_URI} !sitemap.xml$
 RewriteRule ^(.*)$ $1/ [R=301,L]
 
 # Исправляем устаревшие пути

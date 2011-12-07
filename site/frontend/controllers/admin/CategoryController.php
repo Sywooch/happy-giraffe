@@ -59,71 +59,38 @@ class CategoryController extends AController
 
 	public function actionAttributeInSearch($id)
 	{
-		if(!isset($_POST['insearch']))
-		{
-			Y::command()
-				->update('shop_category_attributes_map', array(
-					'map_in_search'=>0,
-				), 'map_category_id=:map_category_id', array(
-					':map_category_id'=>$id,
-				));
-			
+		if(!isset($_POST['insearch'])) {
+			CategoryAttributesMap::model()->categoryNotInSearch((int)$id);
 			Y::successFlash('All deleted');
 			$this->redirect(Y::request()->urlReferrer);
 		}
+		$maps = CategoryAttributesMap::model()->getCategoryAttributesInSearch((int)$id);
 		
-		$map = Y::command()
-			->select('map_attribute_id')
-			->from('shop_category_attributes_map')
-			->where('map_category_id=:map_category_id AND map_in_search=1', array(
-				':map_category_id'=>$id,
-			))
-			->group('map_attribute_id')
-			->queryAll(false);
-		
+		$map = array();
+		foreach ($maps as $value)
+			$map[$value['map_attribute_id']] = $value['map_attribute_id'];
 		$map = CHtml::listData($map, 0, 0);
-		
-//		Y::dump($_POST['insearch'], false);
-//		Y::dump($map, false);
 		
 		$to_del = array_diff($map, $_POST['insearch']);
 		$to_ins = array_diff($_POST['insearch'], $map);
 		
-//		Y::dump($to_ins, false);
-//		Y::dump($to_del);
 		
-		if($to_ins)
-		{
+		if($to_ins) {
 			$exist = Y::command()
 				->select('COUNT(*)')
 				->from('shop_product_attribute')
 				->where(array('in','attribute_id',$to_ins))
 				->queryScalar();
 
-			if(count($to_ins) != $exist)
-			{
+			if(count($to_ins) != $exist) {
 				Y::errorFlash('Hack');
 				$this->redirect(Y::request()->urlReferrer);
 			}
-			Y::command()
-				->update('shop_category_attributes_map', array(
-					'map_in_search'=>1,
-				), array('and',array('in','map_attribute_id',$to_ins),'map_category_id=:map_category_id'),array(
-					':map_category_id'=>$id,
-				));
+			CategoryAttributesMap::model()->setCategoryMapsAttributesInSearch((int)$id, $to_ins);
 		}
 		
 		if($to_del)
-		{
-//			Y::dump($to_del);
-			Y::command()
-				->update('shop_category_attributes_map', array(
-					'map_in_search'=>0,
-				), array('and',array('in','map_attribute_id',$to_del),'map_category_id=:map_category_id'),array(
-					':map_category_id'=>$id,
-				));
-		}
-		
+			CategoryAttributesMap::model()->setCategoryMapsAttributesInSearch((int)$id, $to_del);
 		Y::successFlash('All saved');
 		$this->redirect(Y::request()->urlReferrer);
 	}
@@ -132,12 +99,7 @@ class CategoryController extends AController
 	{
 		if(Y::isPostRequest())
 		{
-			Y::command()
-				->delete('shop_category_attributes_map', 'map_category_id=:map_category_id AND map_attribute_id=:map_attribute_id', array(
-					':map_category_id'=>$categiry_id,
-					':map_attribute_id'=>$id,
-				));
-			
+			CategoryAttributesMap::model()->unconnectAttribute((int)$id, (int)$categiry_id);
 			if(!Y::isAjaxRequest())
 				Y::redir(array('view', 'id'=>$categiry_id));
 		}
@@ -149,17 +111,9 @@ class CategoryController extends AController
 	 */
 	public function actionAddAttributeInSearch($id, $categiry_id)
 	{
-		Y::command()
-			->update('shop_category_attributes_map', array(
-				'map_in_search'=>1,
-			), 'map_category_id=:map_category_id AND map_attribute_id=:map_attribute_id', array(
-				':map_category_id'=>$categiry_id,
-				':map_attribute_id'=>$id,
-			));
-		
+		CategoryAttributesMap::model()->addAttributeInSearch((int)$id, (int)$categiry_id);
 		if(Y::isAjaxRequest())
 			Y::end('Ok');
-		
 		$this->redirect(array('view','id'=>$categiry_id));
 	}
 	
@@ -169,14 +123,7 @@ class CategoryController extends AController
 	 */
 	public function actionRemAttributeInSearch($id, $categiry_id)
 	{
-		Y::command()
-			->update('shop_category_attributes_map', array(
-				'map_in_search'=>0,
-			), 'map_category_id=:map_category_id AND map_attribute_id=:map_attribute_id', array(
-				':map_category_id'=>$categiry_id,
-				':map_attribute_id'=>$id,
-			));
-		
+		CategoryAttributesMap::model()->removeAttributeFromSearch((int)$id, (int)$categiry_id);
 		if(Y::isAjaxRequest())
 			Y::end('Ok');
 		
@@ -192,19 +139,17 @@ class CategoryController extends AController
 	{
 		if(isset($_POST['attribute_id']))
 		{
-			$sql = "INSERT IGNORE INTO shop_category_attributes_map (map_category_id, map_attribute_id)
-				VALUES(:map_category_id, :map_attribute_id)";
-			Y::command($sql)->execute(array(
-				':map_category_id'=>(int) $id,
-				':map_attribute_id'=>(int) $_POST['attribute_id'],
-			));
-			Y::redir(array('view', 'id'=>$id));
+			$map = new CategoryAttributesMap;
+			$map->map_attribute_id = (int)$_POST['attribute_id'];
+			$map->map_category_id = (int)$id;
+			$map->save();
+			Y::redir(array('view', 'id' => $id));
 		}
 		
 		if(Y::isAjaxRequest())
 			$this->layout = 'empty';
 
-		$this->render('connectAttributes',array(
+		$this->render('connectAttributes', array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -217,15 +162,9 @@ class CategoryController extends AController
 	{
 		if(isset($_POST['set_id']))
 		{
-			$sql = "INSERT IGNORE INTO shop_category_attributes_map (map_category_id, map_attribute_id)
-				SELECT $id, map_attribute_id FROM shop_product_attribute_set_map
-					WHERE map_set_id=:map_set_id";
-			Y::command($sql)->execute(array(
-				':map_set_id'=>(int) $_POST['set_id'],
-			));
+			CategoryAttributesMap::model()->connectAttributesSet($id, (int) $_POST['set_id']);
 			Y::redir(array('view', 'id'=>$id));
 		}
-		
 		if(Y::isAjaxRequest())
 			$this->layout = 'empty';
 
@@ -308,42 +247,31 @@ class CategoryController extends AController
 	public function actionView($id)
 	{
 		$id = (int) $id;
-		
 		$model = $this->loadModel($id);
+		$criteriaParams = array(
+			':category_lft' => $model->category_lft,
+			':category_rgt' => $model->category_rgt,
+			':category_root' => $model->category_root,
+		);
+		$attridute_ids = CategoryAttributesMap::model()->getByCategory($id);
 		
-		$attridute_ids = Y::command()
-			->select('map_attribute_id')
-			->from('shop_category_attributes_map')
-			->where('map_category_id=:map_category_id', array(
-				':map_category_id'=>$id,
-			))
-			->queryAll();
+		$ct = new CDbCriteria;
+		$ct->addCondition('category_lft < :category_lft');
+		$ct->addCondition('category_rgt > :category_rgt');
+		$ct->addCondition('category_root = :category_root');
+		$ct->params = $criteriaParams;
+		$parents = CHtml::listData(Category::model()->findAll($ct), 'category_id', 'category_name');
 		
-		/**
-		 * ---------------------------------------------------------------------
-		 */
-		$parents = Y::command()
-			->select('category_id, category_name')
-			->from($model->tableName())
-			->where('category_lft<:category_lft AND category_rgt>:category_rgt', array(
-				':category_lft'=>$model->category_lft,
-				':category_rgt'=>$model->category_rgt,
-			))
-			->queryAll();
-		$parents = CHtml::listData($parents, 'category_id', 'category_name');
-		
-		$descendants = Y::command()
-			->select('category_id, category_name')
-			->from($model->tableName())
-			->where('category_lft>=:category_lft AND category_rgt<=:category_rgt', array(
-				':category_lft'=>$model->category_lft,
-				':category_rgt'=>$model->category_rgt,
-			))
-			->queryAll();
-		$descendants = CHtml::listData($descendants, 'category_id', 'category_name');
+		$ct = new CDbCriteria;
+		$ct->addCondition('category_lft >= :category_lft');
+		$ct->addCondition('category_rgt <= :category_rgt');
+		$ct->addCondition('category_root = :category_root');
+		$ct->params = $criteriaParams;
+		$descendants = CHtml::listData(Category::model()->findAll($ct), 'category_id', 'category_name');
 		
 		$criteria = new CDbCriteria;
 		$criteria->addInCondition('product_category_id', array_keys($descendants));
+		$criteria->compare('product_status', ' <> 0');
 		
 //		$this->getFilter($criteria, $descendants, $id);
 		
@@ -355,17 +283,17 @@ class CategoryController extends AController
 			'product_rate',
 			'product_title',
 		);
+		$sort->defaultOrder = array(
+			'product_price' => true,
+		);
 		
 		$products = new CActiveDataProvider('Product', array(
 			'criteria' => $criteria,
 			'sort' => $sort,
 			'pagination' => array(
-					'pageSize' => 20,
+					'pageSize' => 15,
 				),
 			));
-		/**
-		 * ---------------------------------------------------------------------
-		 */
 		
 		Yii::import('attribute.models.Attribute');
 		$attributes=new Attribute('search');
@@ -382,12 +310,12 @@ class CategoryController extends AController
 			$attridute_ids = CHtml::listData($attridute_ids, 'map_attribute_id', 'map_attribute_id');
 
 			$criteria->addInCondition('attribute_id', $attridute_ids);
-		}else
+		}
+		else {
 			$criteria->condition = 'attribute_id=0';
+		}
 		
-		$render = Y::isAjaxRequest()
-			? 'renderPartial'
-			: 'render';
+		$render = Y::isAjaxRequest() ? 'renderPartial' : 'render';
 		
 		$this->$render('view',array(
 			'model'=>$model,

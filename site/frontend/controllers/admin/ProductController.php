@@ -53,25 +53,13 @@ class ProductController extends AController
 		
 		if(isset($_POST['product_id'],$_POST['main_product_id']))
 		{
-			$mid = Y::command()
-				->select('link_id')
-				->from('shop_product_link')
-				->where('link_main_product_id=:link_main_product_id AND link_sub_product_id=:link_sub_product_id',array(
-					'link_main_product_id'=>(int) $_POST['main_product_id'],
-					'link_sub_product_id'=>(int) $_POST['product_id'],
-				))
-				->limit(1)
-				->queryScalar();
-			
+			$mid = Product::model()->getSubproduct((int) $_POST['main_product_id'], (int) $_POST['product_id']);
 			if(!$mid)
 			{
-				Y::command()
-					->insert('shop_product_link', array(
-						'link_main_product_id'=>(int) $_POST['main_product_id'],
-						'link_sub_product_id'=>(int) $_POST['product_id'],
-					));
+				Product::model()->addSubProduct((int)$_POST['main_product_id'], (int)$_POST['product_id']);
 				Y::successFlash('Подпродукт добавлен');
-			}else{
+			}
+			else{
 				Y::errorFlash('Подпродукт уже добавлен');
 			}
 			
@@ -101,29 +89,20 @@ class ProductController extends AController
 	public function actionView($id)
 	{
 		$model = $this->loadModel($id);
-		
-		$parents = Y::command()
-			->select('category_id, category_name')
-			->from($model->category->tableName())
-			->where('category_lft<:category_lft AND category_rgt>:category_rgt', array(
-				':category_lft'=>$model->category->category_lft,
-				':category_rgt'=>$model->category->category_rgt,
-			))
-			->queryAll();
-		$parents = CHtml::listData($parents, 'category_id', 'category_name');
+		$ct = new CDbCriteria();
+		$ct->addCondition('category_lft < :category_lft');
+		$ct->addCondition('category_rgt > :category_rgt');
+		$ct->params = array(
+			':category_lft'=>$model->category->category_lft,
+			':category_rgt'=>$model->category->category_rgt,
+		);
+		$parents = CHtml::listData(Category::model()->findAll($ct), 'category_id', 'category_name');
 		
 		$criteriaImage = new CDbCriteria;
 		$criteriaImage->compare('image_product_id', $id);
 		$images = new ProductImage('search');
 		
-		$subProducts = Y::command()
-			->select('link_sub_product_id')
-			->from('shop_product_link')
-			->where('link_main_product_id=:link_main_product_id', array(
-				':link_main_product_id'=>$id,
-			))
-			->queryAll();
-		$subProducts = CHtml::listData($subProducts, 'link_sub_product_id', 'link_sub_product_id');
+		$subProducts = CHtml::listData(Product::model()->getSubproducts((int) $id), 'link_sub_product_id', 'link_sub_product_id');
 		
 		$criteriaSubProduct = new CDbCriteria;
 		$criteriaSubProduct->addInCondition('product_id', $subProducts);
@@ -134,12 +113,12 @@ class ProductController extends AController
 		$comments = $comment_model->get($id);
 		
 		$this->render('view',array(
-			'model'=>$model,
-			'parents' => $parents,
-			'criteriaImage'=>$criteriaImage,
-			'images'=>$images,
-			'criteriaSubProduct'=>$criteriaSubProduct,
-			'subProducts'=>$subProducts,
+			'model' => $model,
+			'parents'  => $parents,
+			'criteriaImage' => $criteriaImage,
+			'images' => $images,
+			'criteriaSubProduct' => $criteriaSubProduct,
+			'subProducts' => $subProducts,
 			'comment_model' => $comment_model,
 			'comments' => $comments,
 		));
@@ -190,15 +169,7 @@ class ProductController extends AController
 	 */
 	public function actionAttributes($id)
 	{
-		$product = Y::command()
-			->select()
-			->from(Product::model()->tableName())
-			->where('product_id=:product_id', array(
-				':product_id'=>(int)$id,
-			))
-			->limit(1)
-			->queryRow();
-		
+		$product = Product::model()->findByPk((int) $id);
 		if(!$product)
 			throw new CHttpException(404,'The requested page does not exist.');
 		
@@ -217,7 +188,7 @@ class ProductController extends AController
 			$this->layout = 'empty';
 		
 		$this->render('attributes', array(
-			'form'=>$attribute->getForm(),
+			'form' => $attribute->getForm(),
 		));
 	}
 

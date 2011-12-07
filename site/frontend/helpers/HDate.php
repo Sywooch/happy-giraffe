@@ -25,6 +25,36 @@ class HDate
             12 => "Декабрь");
     }
 
+    public static function ruMonth($num)
+    {
+        switch ($num) {
+            case 1 :
+                return "Январь";
+            case 2  :
+                return "Февраль";
+            case 3  :
+                return "Март";
+            case 4  :
+                return "Апрель";
+            case 5  :
+                return "Май";
+            case 6  :
+                return "Июнь";
+            case 7  :
+                return "Июль";
+            case 8  :
+                return "Август";
+            case 9  :
+                return "Сентябрь";
+            case 10  :
+                return "Октябрь";
+            case 11  :
+                return "Ноябрь";
+            case 12  :
+                return "Декабрь";
+        }
+    }
+
     public static function Days()
     {
         $result = array();
@@ -94,9 +124,9 @@ class HDate
                 $m = 'дек';
                 break;
         }
-        return array('day'=>$date[0],
-            'month'=>$m ,
-            'year'=> $date[2]);
+        return array('day' => $date[0],
+            'month' => $m,
+            'year' => $date[2]);
     }
 
     /**
@@ -106,28 +136,43 @@ class HDate
      * @param $words
      * @param $number string
      */
-    public static function GenerateNoun($words, $number){
-        switch($number){
-            case 11: return $words[2];
-            case 12: return $words[2];
-            case 13: return $words[2];
-            case 14: return $words[2];
+    public static function GenerateNoun($words, $number)
+    {
+        switch ($number) {
+            case 11:
+                return $words[2];
+            case 12:
+                return $words[2];
+            case 13:
+                return $words[2];
+            case 14:
+                return $words[2];
         }
         if (strstr($number, '.') || strstr($number, ','))
             return $words[2];
 
         $last_symbol = substr($number, -1);
-        switch($last_symbol){
-            case 1: return $words[0];
-            case 2: return $words[1];
-            case 3: return $words[1];
-            case 4: return $words[1];
-            case 5: return $words[2];
-            case 6: return $words[2];
-            case 7: return $words[2];
-            case 8: return $words[2];
-            case 9: return $words[2];
-            case 0: return $words[2];
+        switch ($last_symbol) {
+            case 1:
+                return $words[0];
+            case 2:
+                return $words[1];
+            case 3:
+                return $words[1];
+            case 4:
+                return $words[1];
+            case 5:
+                return $words[2];
+            case 6:
+                return $words[2];
+            case 7:
+                return $words[2];
+            case 8:
+                return $words[2];
+            case 9:
+                return $words[2];
+            case 0:
+                return $words[2];
         }
     }
 }

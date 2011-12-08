@@ -41,6 +41,14 @@
 			});
 			return false;
 		});
+		
+		$('#CommunityContent_by_happy_giraffe').change(function() {
+			var s = $('div.settings:eq(1)');
+			if ($(this).is(':checked')) s.hide();
+			else s.show();
+		});
+		
+		$('#CommunityContent_by_happy_giraffe').trigger('change');
 	";
 	
 

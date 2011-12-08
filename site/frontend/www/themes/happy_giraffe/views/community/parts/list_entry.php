@@ -2,10 +2,12 @@
 
 	<div class="entry-header">
 		<?php echo CHtml::link($c->name, CController::createUrl('community/view', array('community_id' => $c->rubric->community->id, 'content_id' => $c->id)), array('class' => 'entry-title')); ?>
-		<div class="user">
-			<?php $this->widget('AvatarWidget', array('user' => $c->contentAuthor)); ?>
-			<a class="username"><?php echo $c->contentAuthor->first_name; ?></a>
-		</div>
+		<?php if (! $c->by_happy_giraffe): ?>
+			<div class="user">
+				<?php $this->widget('AvatarWidget', array('user' => $c->contentAuthor)); ?>
+				<a class="username"><?php echo $c->contentAuthor->first_name; ?></a>
+			</div>
+		<?php endif; ?>
 	
 		<div class="meta">
 			<div class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", strtotime($c->created)); ?></div>

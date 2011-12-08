@@ -146,7 +146,7 @@ $('.spam a').live('click', function() {
 	<?php if ($related): ?>
 		<div class="more">
 			<big class="title">
-				Ещё <?php echo mb_strtolower($c->type->name_plural, "UTF-8"); ?> на эту тему
+				Ещё на эту тему
 				<a href="<?php echo $this->createUrl('community/list', array('community_id' => $c->rubric->community->id, 'rubric_id' => $c->rubric->id)); ?>" class="btn btn-blue-small"><span><span>Показать все</span></span></a>
 			</big>
 			<?php 

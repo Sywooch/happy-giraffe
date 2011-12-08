@@ -102,12 +102,32 @@ class CommunityController extends Controller
 			$comment_model = new CommunityComment;
 			$content_types = CommunityContentType::model()->findAll();
 			
-			$related = CommunityContent::model()->with('type', 'article', 'video')->findAll(array(
-				'condition' => 'rubric_id=:rubric_id AND type_id=:type_id AND t.id!=:current_id',
-				'params' => array(':rubric_id' => $content->rubric_id, ':type_id' => $content->type->id, ':current_id' => $content->id),
-				'limit' => 3,
-				'order' => 'rand()',
+			$next = CommunityContent::model()->with('type', 'article', 'video')->find(array(
+				'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
+				'params' => array(':rubric_id' => $content->rubric_id, ':current_id' => $content->id),
+				'limit' => 1,
+				'order' => 't.id',
 			));
+			
+			$prev = CommunityContent::model()->with('type', 'article', 'video')->findAll(array(
+				'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
+				'params' => array(':rubric_id' => $content->rubric_id, ':current_id' => $content->id),
+				'limit' => 2,
+				'order' => 't.id DESC',
+			));
+			
+			$related = array();
+			if ($next !== null)
+			{
+				$related[] = $next;
+			}
+			if ($prev !== null)
+			{
+				foreach ($prev as $p)
+				{
+					$related[] = $p;
+				}
+			}
 			
 			if (isset($_POST['CommunityComment']))
 			{

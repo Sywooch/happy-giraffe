@@ -66,10 +66,12 @@ $('.spam a').live('click', function() {
 
 		<div class="entry-header">
 			<h1><?php echo $c->name; ?></h1>
-			<div class="user">
-				<?php $this->widget('AvatarWidget', array('user' => $c->contentAuthor)); ?>
-				<a class="username"><?php echo $c->contentAuthor->first_name; ?></a>
-			</div>
+			<?php if (! $c->by_happy_giraffe): ?>
+				<div class="user">
+					<?php $this->widget('AvatarWidget', array('user' => $c->contentAuthor)); ?>
+					<a class="username"><?php echo $c->contentAuthor->first_name; ?></a>
+				</div>
+			<?php endif; ?>
 		
 			<div class="meta">
 				<div class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", strtotime($c->created)); ?></div>
@@ -99,19 +101,20 @@ $('.spam a').live('click', function() {
 		</div>
 	
 		<div class="entry-footer">
-			<?php if ($c->type->slug == 'article'): ?>
+			<?php if (($c->type->slug == 'article' AND in_array($c->article->source_type, array('book', 'internet'))) OR $c->by_happy_giraffe): ?>
 				<div class="source">Источник:&nbsp;
-					<? switch($c->article->source_type):
-					   case 'me': ?>
-						<?=$c->contentAuthor->first_name?>
-					<? break; ?>
-					<? case 'book': ?>
-						<?=$c->article->book_author?>&nbsp;<?=$c->article->book_name?>
-					<? break; ?>
-					<? case 'internet': ?>
-						<?=CHtml::image(Yii::app()->request->baseUrl . '/upload/favicons/' . $c->article->internet_favicon, $c->article->internet_title)?>&nbsp;<?=CHtml::link($c->article->internet_title, $c->article->internet_link, array('class' => 'link'))?>
-					<? break; ?>
-					<? endswitch; ?>
+					<?php if ($c->by_happy_giraffe): ?>
+						Весёлый Жираф
+					<?php else: ?>
+						<?php switch($c->article->source_type):
+						   case 'book': ?>
+							<?php echo $c->article->book_author?>&nbsp;<?=$c->article->book_name; ?>
+						<?php break; ?>
+						<?php case 'internet': ?>
+							<?php echo CHtml::image(Yii::app()->request->baseUrl . '/upload/favicons/' . $c->article->internet_favicon, $c->article->internet_title); ?>&nbsp;<?php echo CHtml::link($c->article->internet_title, $c->article->internet_link, array('class' => 'link')); ?>
+						<?php break; ?>
+						<?php endswitch; ?>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 			<span class="comm">Комментариев: <span><?php echo $c->commentsCount; ?></span></span>

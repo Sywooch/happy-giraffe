@@ -95,8 +95,10 @@ $('.spam a').live('click', function() {
 						break;
 				}
 			?>
-			<?php echo CHtml::link('редактировать', $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
-                        <?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('id' => 'CommunityContent_delete_' . $c->id, 'submit'=>array('admin/communityContent/delete','id'=>$c->id),'confirm'=>'Вы уверены?')); ?>
+			<?php if ($c->contentAuthor->id == Yii::app()->user->id): ?>
+				<?php echo CHtml::link('редактировать', $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
+				<?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('id' => 'CommunityContent_delete_' . $c->id, 'submit'=>array('admin/communityContent/delete','id'=>$c->id),'confirm'=>'Вы уверены?')); ?>
+			<?php endif; ?>
 			<div class="clear"></div>
 		</div>
 	
@@ -173,7 +175,7 @@ $('.spam a').live('click', function() {
 				
 			?>
 			<div class="block">
-				<b><?php echo CHtml::link($rc->name, $this->createUrl('community/view', array('content_id' => $rc->id))); ?></b>
+				<b><?php echo CHtml::link($rc->name, $this->createUrl('community/view', array('community_id' => $c->rubric->community->id, 'content_id' => $rc->id))); ?></b>
 				<p><?php echo $content; ?></p>
 			</div>
 			<?php

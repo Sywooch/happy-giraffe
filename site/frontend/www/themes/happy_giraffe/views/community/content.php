@@ -154,6 +154,7 @@ $('.spam a').live('click', function() {
 			<?php 
 				foreach ($related as $rc)
 				{
+					$content = '';
 					switch ($rc->type->slug)
 					{
 						case 'post':

@@ -258,13 +258,14 @@ class CommunityController extends Controller
 	
 	public function getContentUrls()
 	{
-		$models = CommunityContent::model()->with('rubric.community')->findAll();
+		$models = CommunityContent::model()->with(array('rubric.community'))->findAll();
 		$data = array();
 		foreach ($models as $model)
 		{
 			$data[] = array(
 				'params'=>array(
 					'community_id' => $model->rubric->community->id,
+					'content_type_slug' => $model->type->slug,
 					'content_id' => $model->id,
 				),
 				

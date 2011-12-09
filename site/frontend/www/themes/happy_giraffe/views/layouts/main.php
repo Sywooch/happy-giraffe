@@ -173,7 +173,7 @@ function report(item)
 		<div class="footer">
 			<div class="violett">
 				<?php echo CHtml::link('Веселый Жираф', '/'); ?>
-				<?php echo CHtml::link('Клубы', Yii::app()->controller->createUrl('community')); ?>
+				<?php echo CHtml::link('Клубы', Yii::app()->controller->createUrl('/community')); ?>
 			</div>
 		</div>
 	

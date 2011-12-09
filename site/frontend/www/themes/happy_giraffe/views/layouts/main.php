@@ -90,7 +90,7 @@ function report(item)
 		<div id="header" class="clearfix">
 			
 			<div class="logo-box">
-				<a href="" class="logo"></a>
+				<a href="/" class="logo"></a>
 			</div>
 			
 			<div class="header-in">
@@ -120,7 +120,7 @@ function report(item)
 							'encodeLabel' => false,
 							'items' => array(
 								array(
-									'label' => '<span>Форумы</span>',
+									'label' => '<span>Клубы</span>',
 									'url' => array('/community'),
 									'itemOptions' => array(
 										'class' => 'green',
@@ -171,7 +171,10 @@ function report(item)
 		<div class="empty"></div>
 	
 		<div class="footer">
-			<div class="violett"></div>
+			<div class="violett">
+				<?php echo CHtml::link('Веселый Жираф', '/'); ?>
+				<?php echo CHtml::link('Клубы', Yii::app()->controller->createUrl('community')); ?>
+			</div>
 		</div>
 	
 

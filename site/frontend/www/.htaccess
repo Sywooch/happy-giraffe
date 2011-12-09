@@ -2,8 +2,8 @@ RewriteEngine On
 RewriteBase /
 
 # Добавляем www
-#RewriteCond %{HTTP_HOST} !^www\. [NC]
-#RewriteRule ^(.*)$ http://www.happy-giraffe.ru/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ http://www.happy-giraffe.ru/$1 [R=301,L]
 
 # Добавляем слэш, если его нет
 RewriteCond %{REQUEST_FILENAME} !-f

@@ -176,7 +176,7 @@ class CommunityController extends Controller
 			{
 				$content_model->save();
 				$slave_model->save();
-				$this->redirect(array('community/view', 'community_id' => $content_model->rubric->community->id, 'content_id' => $content_model->id));
+				$this->redirect(array('community/view', 'community_id' => $content_model->rubric->community->id, 'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
 			}
 		}
 		

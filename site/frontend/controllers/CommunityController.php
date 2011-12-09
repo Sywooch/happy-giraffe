@@ -189,7 +189,7 @@ class CommunityController extends Controller
 		));
 	}
 
-	public function actionAdd($content_type_slug = 'post', $rubric_id = null)
+	public function actionAdd($community_id, $content_type_slug = 'post', $rubric_id = null)
 	{	
 		$content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
 		if (! $content_type)
@@ -224,7 +224,7 @@ class CommunityController extends Controller
 					}
 					else
 					{
-						$this->redirect(array('community/view', 'community_id' => $community_id, 'content_id' => $content_model->id));
+						$this->redirect(array('community/view', 'community_id' => $community_id, 'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
 					}
 				}
 				else

@@ -85,8 +85,8 @@ $('.spam a').live('click', function() {
 			<?
 				switch ($c->type->slug)
 				{
-					case 'article':
-						echo $c->article->text;
+					case 'post':
+						echo $c->post->text;
 						break;
 					case 'video':
 						$video = new Video($c->video->link);
@@ -103,17 +103,17 @@ $('.spam a').live('click', function() {
 		</div>
 	
 		<div class="entry-footer">
-			<?php if (($c->type->slug == 'article' AND in_array($c->article->source_type, array('book', 'internet'))) OR $c->by_happy_giraffe): ?>
+			<?php if (($c->type->slug == 'post' AND in_array($c->post->source_type, array('book', 'internet'))) OR $c->by_happy_giraffe): ?>
 				<div class="source">Источник:&nbsp;
 					<?php if ($c->by_happy_giraffe): ?>
 						Весёлый Жираф
 					<?php else: ?>
-						<?php switch($c->article->source_type):
+						<?php switch($c->post->source_type):
 						   case 'book': ?>
-							<?php echo $c->article->book_author?>&nbsp;<?=$c->article->book_name; ?>
+							<?php echo $c->post->book_author?>&nbsp;<?=$c->post->book_name; ?>
 						<?php break; ?>
 						<?php case 'internet': ?>
-							<?php echo CHtml::image(Yii::app()->request->baseUrl . '/upload/favicons/' . $c->article->internet_favicon, $c->article->internet_title); ?>&nbsp;<?php echo CHtml::link($c->article->internet_title, $c->article->internet_link, array('class' => 'link')); ?>
+							<?php echo CHtml::image(Yii::app()->request->baseUrl . '/upload/favicons/' . $c->post->internet_favicon, $c->post->internet_title); ?>&nbsp;<?php echo CHtml::link($c->post->internet_title, $c->post->internet_link, array('class' => 'link')); ?>
 						<?php break; ?>
 						<?php endswitch; ?>
 					<?php endif; ?>
@@ -132,7 +132,7 @@ $('.spam a').live('click', function() {
 			<div class="rate"><?php echo $c->rating; ?></div>
 			рейтинг
 		</div>
-		<big>Вам <?php switch($c->type->slug) {case 'article': echo 'понравилась статья'; break; case 'video': echo 'понравилось видео'; break;} ?>? Отметьте!</big>
+		<big>Вам <?php switch($c->type->slug) {case 'post': echo 'понравилась статья'; break; case 'video': echo 'понравилось видео'; break;} ?>? Отметьте!</big>
 		<div class="like">
 			<span style="width:150px;">
 				<div id="vk_like" style="height: 22px; width: 180px; position: relative; clear: both; background-image: none; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: initial; background-position: initial initial; background-repeat: initial initial; "></div>
@@ -156,14 +156,14 @@ $('.spam a').live('click', function() {
 				{
 					switch ($rc->type->slug)
 					{
-						case 'article':
-							if (preg_match('/src="([^"]+)"/', $rc->article->text, $matches))
+						case 'post':
+							if (preg_match('/src="([^"]+)"/', $rc->post->text, $matches))
 							{
 								$content = '<img src="' . $matches[1] . '" alt="' . $rc->name . '" width="150" />';
 							}
 							else
 							{
-								preg_match('/<p>(.+)<\/p>/Uis', $rc->article->text, $matches2);
+								preg_match('/<p>(.+)<\/p>/Uis', $rc->post->text, $matches2);
 								$content = strip_tags($matches2[1]);
 							}
 						break;

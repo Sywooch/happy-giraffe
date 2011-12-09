@@ -6,7 +6,7 @@
 		$('#source_container > div').hide();
 		$('#source_" . $slave_model->source_type . "').show();
 	
-		$('input[name=\"CommunityArticle[source_type]\"]').change(function () {
+		$('input[name=\"CommunityPost[source_type]\"]').change(function () {
 			$('#source_container > div').hide();
 			$('#source_' + $(this).val()).show();
 		});
@@ -15,9 +15,9 @@
 			$.ajax({
 				type: 'POST',
 				data: {
-					source_type: $('input[name=\"CommunityArticle[source_type]\"]:checked').val(),
-					book_author: $('input[name=\"CommunityArticle[book_author]\"]').val(),
-					book_name: $('input[name=\"CommunityArticle[book_name]\"]').val()
+					source_type: $('input[name=\"CommunityPost[source_type]\"]:checked').val(),
+					book_author: $('input[name=\"CommunityPost[book_author]\"]').val(),
+					book_name: $('input[name=\"CommunityPost[book_name]\"]').val()
 				},
 				url: '" . CController::createUrl('ajax/source') . "',
 				success: function(response) {
@@ -31,8 +31,8 @@
 			$.ajax({
 				type: 'POST',
 				data: {
-					source_type: $('input[name=\"CommunityArticle[source_type]\"]:checked').val(),
-					internet_link: $('input[name=\"CommunityArticle[internet_link]\"]').val(),
+					source_type: $('input[name=\"CommunityPost[source_type]\"]:checked').val(),
+					internet_link: $('input[name=\"CommunityPost[internet_link]\"]').val(),
 				},
 				url: '" . CController::createUrl('ajax/source') . "',
 				success: function(response) {
@@ -54,7 +54,7 @@
 
 	
 	$cs
-		->registerScript('form_article', $js)
+		->registerScript('form_post', $js)
 	;
 		
 ?>

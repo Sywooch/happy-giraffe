@@ -5,7 +5,7 @@ return array(
 	'showScriptName' => false,
 	'urlSuffix' => '/',
 	'rules' => array(
-		'community/<community_id:\d+>/forum/post/<content_id:\d+>' => 'community/view',
+		'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
 		'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
 		'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/list',
 		'community/<community_id:\d+>/forum/<content_type_slug:\w+>' => 'community/list',

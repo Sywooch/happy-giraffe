@@ -4,21 +4,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'text'); ?>
-			<?php
-				$model->text = str_replace('<!--more-->', '<hr class="redactor_cut" />', $model->text);
-				$this->widget('ext.imperaviRedactor.EImperaviRedactorWidget', array(
-					'model' => $model,
-					'attribute' => 'text',
-					'options' => array(
-						'image_upload' => $this->createUrl('ajax/imageUpload'),
-						'toolbar' => 'custom',
-					),
-					'htmlOptions' => array(
-						'cols' => 70,
-						'rows' => 10,
-					),
-				));
-			?>
+<?php echo $form->textArea($model,'text',array('rows'=>6, 'cols'=>50)); ?>
 <?php echo $form->error($model,'text'); ?>
 	</div>
 
@@ -32,6 +18,18 @@
 		<?php echo $form->labelEx($model,'internet_link'); ?>
 <?php echo $form->textField($model,'internet_link',array('size'=>60,'maxlength'=>255)); ?>
 <?php echo $form->error($model,'internet_link'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'internet_favicon'); ?>
+<?php echo $form->textField($model,'internet_favicon',array('size'=>60,'maxlength'=>255)); ?>
+<?php echo $form->error($model,'internet_favicon'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'internet_title'); ?>
+<?php echo $form->textField($model,'internet_title',array('size'=>60,'maxlength'=>255)); ?>
+<?php echo $form->error($model,'internet_title'); ?>
 	</div>
 
 	<div class="row">

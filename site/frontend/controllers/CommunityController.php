@@ -81,7 +81,7 @@ class CommunityController extends Controller
 	/**
 	 * @sitemap dataSource=getContentUrls
 	 */
-	public function actionView($community_id, $content_id)
+	public function actionView($community_id, $content_type_slug, $content_id)
 	{
 		$content_id = (int) $content_id;
 		if ($content = CommunityContent::model()->view()->findByPk($content_id))
@@ -102,14 +102,14 @@ class CommunityController extends Controller
 			$comment_model = new CommunityComment;
 			$content_types = CommunityContentType::model()->findAll();
 			
-			$next = CommunityContent::model()->with('type', 'article', 'video')->find(array(
+			$next = CommunityContent::model()->with('type', 'post', 'video')->find(array(
 				'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
 				'params' => array(':rubric_id' => $content->rubric_id, ':current_id' => $content->id),
 				'limit' => 1,
 				'order' => 't.id',
 			));
 			
-			$prev = CommunityContent::model()->with('type', 'article', 'video')->findAll(array(
+			$prev = CommunityContent::model()->with('type', 'post', 'video')->findAll(array(
 				'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
 				'params' => array(':rubric_id' => $content->rubric_id, ':current_id' => $content->id),
 				'limit' => 2,
@@ -155,7 +155,7 @@ class CommunityController extends Controller
 	public function actionEdit($content_id)
 	{
 		$content_id = (int) $content_id;
-		$content_model = CommunityContent::model()->with(array('type', 'article', 'video', 'rubric.community'))->findByPk($content_id);
+		$content_model = CommunityContent::model()->with(array('type', 'post', 'video', 'rubric.community'))->findByPk($content_id);
 		if ($content_model === null)
 		{
 			throw new CHttpException(404, 'Такой записи не существует.');
@@ -189,7 +189,7 @@ class CommunityController extends Controller
 		));
 	}
 
-	public function actionAdd($content_type_slug = 'article', $community_id, $rubric_id = null)
+	public function actionAdd($content_type_slug = 'post', $rubric_id = null)
 	{	
 		$content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
 		if (! $content_type)

@@ -26,6 +26,16 @@
         </div>
 
         <div class="row">
+                <?php echo $form->label($model,'internet_favicon'); ?>
+                <?php echo $form->textField($model,'internet_favicon',array('size'=>60,'maxlength'=>255)); ?>
+        </div>
+
+        <div class="row">
+                <?php echo $form->label($model,'internet_title'); ?>
+                <?php echo $form->textField($model,'internet_title',array('size'=>60,'maxlength'=>255)); ?>
+        </div>
+
+        <div class="row">
                 <?php echo $form->label($model,'book_author'); ?>
                 <?php echo $form->textField($model,'book_author',array('size'=>60,'maxlength'=>255)); ?>
         </div>

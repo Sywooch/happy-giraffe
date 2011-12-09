@@ -1,20 +1,20 @@
 <?php
 $this->breadcrumbs=array(
-	'Community Articles'=>array(Yii::t('app', 'index')),
+	'Community Posts'=>array(Yii::t('app', 'index')),
 	Yii::t('app', 'Create'),
 );
 
 $this->menu=array(
-	array('label'=>'List CommunityArticle', 'url'=>array('index')),
-	array('label'=>'Manage CommunityArticle', 'url'=>array('admin')),
+	array('label'=>'List CommunityPost', 'url'=>array('index')),
+	array('label'=>'Manage CommunityPost', 'url'=>array('admin')),
 );
 ?>
 
-<h1> Create CommunityArticle </h1>
+<h1> Create CommunityPost </h1>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'community-article-form',
+	'id'=>'community-post-form',
 	'enableAjaxValidation'=>true,
 )); 
 echo $this->renderPartial('_form', array(

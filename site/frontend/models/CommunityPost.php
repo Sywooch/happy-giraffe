@@ -1,22 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "{{community_article}}".
+ * This is the model class for table "club_community_post".
  *
- * The followings are the available columns in table '{{community_article}}':
+ * The followings are the available columns in table 'club_community_post':
  * @property string $id
  * @property string $text
  * @property string $source_type
  * @property string $internet_link
+ * @property string $internet_favicon
+ * @property string $internet_title
  * @property string $book_author
  * @property string $book_name
  * @property string $content_id
  */
-class CommunityArticle extends CActiveRecord
+class CommunityPost extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return CommunityArticle the static model class
+	 * @return CommunityPost the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -39,7 +41,7 @@ class CommunityArticle extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{club_community_article}}';
+		return 'club_community_post';
 	}
 
 	/**
@@ -56,7 +58,7 @@ class CommunityArticle extends CActiveRecord
 			array('content_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, text, source_type, internet_link, book_author, book_name, content_id', 'safe', 'on'=>'search'),
+			array('id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, content_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -105,8 +107,8 @@ class CommunityArticle extends CActiveRecord
 		$criteria->compare('text',$this->text,true);
 		$criteria->compare('source_type',$this->source_type,true);
 		$criteria->compare('internet_link',$this->internet_link,true);
-		$criteria->compare('internet_favicon',$this->internet_link,true);
-		$criteria->compare('internet_title',$this->internet_link,true);
+		$criteria->compare('internet_favicon',$this->internet_favicon,true);
+		$criteria->compare('internet_title',$this->internet_title,true);
 		$criteria->compare('book_author',$this->book_author,true);
 		$criteria->compare('book_name',$this->book_name,true);
 		$criteria->compare('content_id',$this->content_id,true);

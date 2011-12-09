@@ -1,6 +1,6 @@
 <?php
 
-class CommunityArticleController extends Controller
+class CommunityPostController extends Controller
 {
 	public $layout='//layouts/column2';
 	private $_model;
@@ -16,10 +16,6 @@ class CommunityArticleController extends Controller
 	{
 		return array(
 			array('allow',  
-				'actions'=>array('index','view', 'create', 'update', 'admin', 'delete'),
-				'users'=>array('*'),
-			),
-			/*array('allow',  
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
@@ -33,7 +29,7 @@ class CommunityArticleController extends Controller
 			),
 			array('deny', 
 				'users'=>array('*'),
-			),*/
+			),
 		);
 	}
 
@@ -46,13 +42,13 @@ class CommunityArticleController extends Controller
 
 	public function actionCreate()
 	{
-		$model=new CommunityArticle;
+		$model=new CommunityPost;
 
 		$this->performAjaxValidation($model);
 
-		if(isset($_POST['CommunityArticle']))
+		if(isset($_POST['CommunityPost']))
 		{
-			$model->attributes=$_POST['CommunityArticle'];
+			$model->attributes=$_POST['CommunityPost'];
 		
 
 			if($model->save())
@@ -70,9 +66,9 @@ class CommunityArticleController extends Controller
 
 		$this->performAjaxValidation($model);
 
-		if(isset($_POST['CommunityArticle']))
+		if(isset($_POST['CommunityPost']))
 		{
-			$model->attributes=$_POST['CommunityArticle'];
+			$model->attributes=$_POST['CommunityPost'];
 		
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
@@ -99,7 +95,7 @@ class CommunityArticleController extends Controller
 
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('CommunityArticle');
+		$dataProvider=new CActiveDataProvider('CommunityPost');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -107,9 +103,9 @@ class CommunityArticleController extends Controller
 
 	public function actionAdmin()
 	{
-		$model=new CommunityArticle('search');
-		if(isset($_GET['CommunityArticle']))
-			$model->attributes=$_GET['CommunityArticle'];
+		$model=new CommunityPost('search');
+		if(isset($_GET['CommunityPost']))
+			$model->attributes=$_GET['CommunityPost'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -121,7 +117,7 @@ class CommunityArticleController extends Controller
 		if($this->_model===null)
 		{
 			if(isset($_GET['id']))
-				$this->_model=CommunityArticle::model()->findbyPk($_GET['id']);
+				$this->_model=CommunityPost::model()->findbyPk($_GET['id']);
 			if($this->_model===null)
 				throw new CHttpException(404, Yii::t('app', 'The requested page does not exist.'));
 		}
@@ -130,7 +126,7 @@ class CommunityArticleController extends Controller
 
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='community-article-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='community-post-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

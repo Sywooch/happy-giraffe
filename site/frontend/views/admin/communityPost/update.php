@@ -1,23 +1,23 @@
 <?php
 $this->breadcrumbs=array(
-	'Community Articles'=>array('index'),
+	'Community Posts'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	Yii::t('app', 'Update'),
 );
 
 $this->menu=array(
-	array('label'=>'List CommunityArticle', 'url'=>array('index')),
-	array('label'=>'Create CommunityArticle', 'url'=>array('create')),
-	array('label'=>'View CommunityArticle', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage CommunityArticle', 'url'=>array('admin')),
+	array('label'=>'List CommunityPost', 'url'=>array('index')),
+	array('label'=>'Create CommunityPost', 'url'=>array('create')),
+	array('label'=>'View CommunityPost', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Manage CommunityPost', 'url'=>array('admin')),
 );
 ?>
 
-<h1> Update CommunityArticle #<?php echo $model->id; ?> </h1>
+<h1> Update CommunityPost #<?php echo $model->id; ?> </h1>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'community-article-form',
+	'id'=>'community-post-form',
 	'enableAjaxValidation'=>true,
 )); 
 echo $this->renderPartial('_form', array(

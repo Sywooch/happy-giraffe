@@ -57,10 +57,10 @@
 							'style' => 'dropdownlist',
 							)
 						); ?>
-			<label for="CommunityArticle">Belonging CommunityArticle</label><?php 
+			<label for="CommunityArticle">Belonging CommunityPost</label><?php 
 					$this->widget('application.components.Relation', array(
 							'model' => $model,
-							'relation' => 'article',
+							'relation' => 'post',
 							'fields' => 'text',
 							'allowEmpty' => false,
 							'style' => 'dropdownlist',

@@ -63,7 +63,7 @@ class CommunityContent extends CActiveRecord
 			'comments' => array(self::HAS_MANY, 'CommunityComment', 'content_id'),
 			'commentsCount' => array(self::STAT, 'Comment', 'object_id', 'condition' => 'model=:modelName', 'params' => array(':modelName' => 'CommunityContent')),
 			'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => 'type_id = 2'),
-			'article' => array(self::HAS_ONE, 'CommunityArticle', 'content_id', 'on' => 'type_id = 1'),
+			'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => 'type_id = 1'),
 			'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
 		);
 	}
@@ -124,7 +124,7 @@ class CommunityContent extends CActiveRecord
 						)
 					),
 				),
-				'article',
+				'post',
 				'video',
 				'commentsCount',
 			),
@@ -185,7 +185,7 @@ class CommunityContent extends CActiveRecord
 							),
 						),
 					),
-					'article',
+					'post',
 					'video',
 					'commentsCount',
 					'contentAuthor',

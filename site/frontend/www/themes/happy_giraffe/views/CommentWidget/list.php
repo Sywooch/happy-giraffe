@@ -24,8 +24,10 @@
 							<?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $cm->created); ?>
 							<?php if ($cm->author->id != Yii::app()->user->id): ?><a href="#" class="report"></a><?php endif; ?>
 						</div>
-						<?php echo CHtml::link('редактировать', Yii::app()->createUrl('admin/comment/update', array('id' => $cm->id))); ?>
-						<?php echo CHtml::link('удалить', Yii::app()->createUrl('#', array('id' => $cm->id)), array('submit'=>array('admin/comment/delete','id'=>$cm->id),'confirm'=>'Вы уверены?')); ?>
+						<?php if ($cm->author->id == Yii::app()->user->id): ?>
+							<?php echo CHtml::link('редактировать', Yii::app()->createUrl('admin/comment/update', array('id' => $cm->id))); ?>
+							<?php echo CHtml::link('удалить', Yii::app()->createUrl('#', array('id' => $cm->id)), array('submit'=>array('admin/comment/delete','id'=>$cm->id),'confirm'=>'Вы уверены?')); ?>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

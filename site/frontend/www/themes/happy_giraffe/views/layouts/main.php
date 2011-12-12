@@ -69,6 +69,20 @@ function report(item)
 		";
 		Yii::app()->clientScript->registerScript('reports', $reports);
 	?>
+	
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-27545132-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
 </head>
 <body class="body-club">
 	<div class="page">
@@ -76,7 +90,7 @@ function report(item)
 		<div id="header" class="clearfix">
 			
 			<div class="logo-box">
-				<a href="" class="logo"></a>
+				<a href="/" class="logo"></a>
 			</div>
 			
 			<div class="header-in">
@@ -106,13 +120,13 @@ function report(item)
 							'encodeLabel' => false,
 							'items' => array(
 								array(
-									'label' => '<span>Форумы</span>',
+									'label' => '<span>Клубы</span>',
 									'url' => array('/community'),
 									'itemOptions' => array(
 										'class' => 'green',
 									),
 								),
-								array(
+								/*array(
 									'label' => '<span>Конкурсы</span>',
 									'url' => Yii::app()->createUrl('/contest/contest/view', array('id'=>1)),
 									'itemOptions' => array(
@@ -125,7 +139,7 @@ function report(item)
 									'itemOptions' => array(
 										'class' => 'orange',
 									),
-								),
+								),*/
 							),
 						));
 					?>
@@ -157,11 +171,30 @@ function report(item)
 		<div class="empty"></div>
 	
 		<div class="footer">
-			<div class="violett"></div>
+			<div class="violett">
+				<?php echo CHtml::link('Веселый Жираф', '/'); ?>
+				<?php echo CHtml::link('Клубы', Yii::app()->controller->createUrl('community/index')); ?>
+				<?php echo CHtml::link('Карта', Yii::app()->controller->createUrl('site/map')); ?>
+			</div>
 		</div>
 	
 
 	</div>
 	<?php $this->widget('LoginWidget'); ?>
+	
+	<!-- Yandex.Metrika counter -->
+	<div style="display:none;"><script type="text/javascript">
+	(function(w, c) {
+	    (w[c] = w[c] || []).push(function() {
+		try {
+		    w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true});
+		}
+		catch(e) { }
+	    });
+	})(window, "yandex_metrika_callbacks");
+	</script></div>
+	<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+	<noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+	<!-- /Yandex.Metrika counter -->
 </body>
 </html>

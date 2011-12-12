@@ -32,11 +32,11 @@ class DeliveryModule extends CWebModule
 			'class_name' => 'EDPM',
 			'show_name' => 'Доставка по Москве в пределах МКАД',
 		),
-		'EExpressDPM' => array(
-			'ext' => 'ext.delivery.ExpressDPM.EExpressDPM',
-			'class_name' => 'EExpressDPM',
-			'show_name' => 'Экспресс доставка по Москве в пределах МКАД',
-		),
+//		'EExpressDPM' => array(
+//			'ext' => 'ext.delivery.ExpressDPM.EExpressDPM',
+//			'class_name' => 'EExpressDPM',
+//			'show_name' => 'Экспресс доставка по Москве в пределах МКАД',
+//		),
 	);
 
 	/*

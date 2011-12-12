@@ -3,12 +3,9 @@
 class EDPD extends CActiveRecord {
 
 	public $additionPropretys = true;
-	public $createTable = true;
 
 	public function __construct($scenario='insert') {
 
-		if ($this->createTable)
-			$this->install();
 		parent::__construct($scenario);
 	}
 
@@ -83,38 +80,11 @@ class EDPD extends CActiveRecord {
 	}
 
 	/*
-	 * Здесь создаем в базе данных таблицу с настройками этого модуля
-	 */
-
-	public function install() {
-
-		$sql = 'CREATE TABLE IF NOT EXISTS  {{_delivery_' . __CLASS__ . '}} (
-		      `id` INTEGER  NOT NULL AUTO_INCREMENT,
-		      `DPD_weight` INTEGER  NOT NULL,
-		      `DPD_city` VARCHAR(255)  NOT NULL,
-		      `DPD_zone` INTEGER  NOT NULL,	
-		      `DPD_price` INTEGER  NOT NULL,		      	      
-		      PRIMARY KEY (`id`)
-		    ) ENGINE = InnoDB
-		    CHARACTER SET utf8 COLLATE utf8_general_ci;';
-
-		$connection = Yii::app()->db;
-		$command = $connection->createCommand($sql);
-		$command->execute();
-	}
-
-	/*
 	 * Возвращаемые значения массив цен с городами доставки
 	 */
 
 	public function getDeliveryCost($param) {
-
-
-
 		$searchCities = array();
-
-
-
 		if (is_array($param['orderCity'])) {
 			if ($k = array_search("Москва", $param['orderCity']))
 				unset($param['orderCity'][$k]);
@@ -135,8 +105,8 @@ class EDPD extends CActiveRecord {
 		$tarifs = Yii::app()->db->createCommand()
 				->leftjoin('{{_delivery_ETarifZones}}', '`{{_delivery_ETarifZones}}`.`tarifzones_zone`=`tarif_zone`')
 				->where(array('and', 'tarif_weight1 <=' . $param['orderWeight'],
-							'tarif_weight2 >=' . min(array(30, $param['orderWeight'])),
-							array('in', '{{_delivery_ETarifZones}}.tarifzones_city', $searchCities)
+					'tarif_weight2 >=' . min(array(30, $param['orderWeight'])),
+					array('in', '{{_delivery_ETarifZones}}.tarifzones_city', $searchCities)
 						)
 				)
 				->from(ETarif::model()->tableName())
@@ -184,10 +154,6 @@ class EDPD extends CActiveRecord {
 				__CLASS__ => array(
 					'type' => 'form',
 					'elements' => array(
-//			'DPD_city' => array(
-//			    'type' => 'dropdownlist',
-//			    'items' => $cities,
-//			),
 						'DPD_city' => array(
 							'type' => 'text',
 						),

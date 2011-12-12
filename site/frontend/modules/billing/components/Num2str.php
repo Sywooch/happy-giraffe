@@ -106,6 +106,7 @@ class num2str {
 				return $string = '';
 			}
 		}
+		$string = '';
 		if ($a >= 1) {
 			$string = $this->A100_900[$a];
 		}

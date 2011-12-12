@@ -3,12 +3,8 @@
 class EGruzovozoff extends CActiveRecord {
 
 	public $additionPropretys = true;
-	public $createTable = true;
 
 	public function __construct($scenario='insert') {
-
-		if ($this->createTable)
-			$this->install();
 		parent::__construct($scenario);
 	}
 
@@ -80,27 +76,6 @@ class EGruzovozoff extends CActiveRecord {
 		return new CActiveDataProvider(get_class($this), array(
 					'criteria' => $criteria,
 				));
-	}
-
-	/*
-	 * Здесь создаем в базе данных таблицу с настройками этого модуля
-	 */
-
-	public function install() {
-
-		$sql = 'CREATE TABLE IF NOT EXISTS  {{_delivery_' . __CLASS__ . '}} (
-		      `id` INTEGER  NOT NULL AUTO_INCREMENT,
-		      `Gff_weight` INTEGER  NOT NULL,
-		      `Gff_city` VARCHAR(255)  NOT NULL,
-		      `Gff_zone` INTEGER  NOT NULL,	
-		      `Gff_price` INTEGER  NOT NULL,		      	      
-		      PRIMARY KEY (`id`)
-		    ) ENGINE = InnoDB
-		    CHARACTER SET utf8 COLLATE utf8_general_ci;';
-
-		$connection = Yii::app()->db;
-		$command = $connection->createCommand($sql);
-		$command->execute();
 	}
 
 	/*

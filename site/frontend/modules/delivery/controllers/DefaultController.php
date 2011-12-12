@@ -76,7 +76,7 @@ class DefaultController extends Controller
 	 * и передает ордерИД и delivery_name
 	 */
 
-	public function actionSelectDelivery($OrderId=1)
+	public function actionSelectDelivery($OrderId = 1)
 	{
 		$modules = array();
 		foreach($this->module->components as $k => $dir)
@@ -215,7 +215,6 @@ class DefaultController extends Controller
 			    $city2 = explode(" ", $modelCity->district ? $modelCity->district->getSettlementName() : false);
 			    $city3 = explode(" ", $modelCity->region ? $modelCity->region->getSettlementName() : false);
 			}
-
 
 			$cityarr = array();
 			if(strlen($city1[0]) > 3)
@@ -549,8 +548,8 @@ class DefaultController extends Controller
 			$form[$mn]->model = $modelDelivery;
 		}
 		$this->render(__FUNCTION__, array(
-			'formDelivery' => $form,
-			'model' => $model
+				'formDelivery' => $form,
+				'model' => $model
 			)
 		);
 	}

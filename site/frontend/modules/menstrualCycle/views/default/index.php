@@ -1,22 +1,9 @@
 <?php
-/* @var $model PlacentaThicknessForm
+/**
  * @var $form CActiveForm
  */
 
-if (!Yii::app()->user->isGuest) {
-    $user_cycle = MenstrualCycle::GetUserCycle(Yii::app()->user->getId());
-    $day = date('j', strtotime($user_cycle['date']));
-    $month = date('m', strtotime($user_cycle['date']));
-    $year = date('Y', strtotime($user_cycle['date']));
-    $cycle = $user_cycle['cycle'];
-    $critical_period = $user_cycle['menstruation'];
-} else {
-    $day = date('j');
-    $month = date('m');
-    $year = date('Y');
-    $cycle = 25;
-    $critical_period = 5;
-}
+$model = new MenstrualCycleForm();
 ?>
 <style type="text/css">
     input {
@@ -88,13 +75,13 @@ if (!Yii::app()->user->isGuest) {
     'id' => 'menstrual-cycle-form',
     'enableAjaxValidation' => false,
 ));?>
-Первый день цикла: <?php echo CHtml::dropDownList('day', $day, HDate::Days(), array('id' => 'day', 'class' => 'wid100')); ?>
-<?php echo CHtml::dropDownList('month', $month, HDate::ruMonths(), array('id' => 'month', 'class' => 'wid100')); ?>
-<?php echo CHtml::dropDownList('year', $year, HDate::Range(1990, 2020), array('id' => 'year', 'class' => 'wid100')); ?>
+Первый день цикла: <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'day', 'class' => 'wid100')); ?>
+<?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'month', 'class' => 'wid100')); ?>
+<?php echo $form->dropDownList($model, 'year', HDate::Range(1990, 2020), array('id' => 'year', 'class' => 'wid100')); ?>
 <br>
-Длительность цикла: <?php echo CHtml::dropDownList('cycle', $cycle, HDate::Range(25, 35), array('id' => 'period', 'class' => 'wid100')); ?> дней
+Длительность цикла: <?php echo $form->dropDownList($model, 'cycle', HDate::Range(25, 35), array('id' => 'period', 'class' => 'wid100')); ?> дней
 <br>
-Длительность менструации: <?php echo CHtml::dropDownList('critical_period', $critical_period, HDate::Range(3, 7), array('id' => 'critical-period', 'class' => 'wid100')); ?> дней
+Длительность менструации: <?php echo $form->dropDownList($model, 'critical_period', HDate::Range(3, 7), array('id' => 'critical-period', 'class' => 'wid100')); ?> дней
 <br>
 
 <button>Расчитать</button>

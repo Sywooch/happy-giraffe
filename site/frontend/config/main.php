@@ -73,6 +73,7 @@ return array(
 		'contractionsTime',
         'placentaThickness',
         'menstrualCycle',
+        'babySex',
 	),
 
 	// application components

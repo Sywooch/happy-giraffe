@@ -255,4 +255,13 @@ class SiteController extends Controller
 		Y::cache()->flush();
 		$this->redirect('/shop/');
 	}
+	
+	public function actionMap()
+	{
+		$contents = CommunityContent::model()->with('rubric.community', 'type')->findAll();
+		
+		$this->render('map', array(
+			'contents' => $contents,
+		));
+	}
 }

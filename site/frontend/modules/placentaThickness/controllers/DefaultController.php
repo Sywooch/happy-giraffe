@@ -15,8 +15,10 @@ class DefaultController extends Controller
             if (isset($_POST['PlacentaThicknessForm'])){
                 $model = new PlacentaThicknessForm;
                 $model->attributes = $_POST['PlacentaThicknessForm'];
-                if (!$model->validate())
+                if (!$model->validate()){
+//                    echo CActiveForm::validate($model);
                     Yii::app()->end();
+                }
                 $placentaThickness = PlacentaThickness::model()->cache(3600)->find(array(
                     'condition'=>'week='.$model->week,
                     'select'=>array('min','avg','max')

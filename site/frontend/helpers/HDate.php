@@ -71,9 +71,16 @@ class HDate
     {
         $result = array();
 
-        while ($first < $second + 1) {
-            $result [$first] = $first;
-            $first++;
+        if ($first <= $second) {
+            while ($first < $second + 1) {
+                $result [$first] = $first;
+                $first++;
+            }
+        } else {
+            while ($first > $second + 1) {
+                $result [$first] = $first;
+                $first--;
+            }
         }
 
         return $result;

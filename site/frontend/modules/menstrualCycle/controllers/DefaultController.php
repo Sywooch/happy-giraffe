@@ -11,13 +11,15 @@ class DefaultController extends Controller
 
     public function actionCalculate(){
         if (Yii::app()->request->isAjaxRequest){
-            if (isset($_POST['day']) && isset($_POST['month']) && isset($_POST['year'])
-                && isset($_POST['cycle']) && isset($_POST['critical_period'])){
+            if (isset($_POST['MenstrualCycleForm'])){
+                $modelForm = new MenstrualCycleForm();
+                $modelForm->attributes = $_POST['MenstrualCycleForm'];
+                if (!$modelForm->validate())
+                                Yii::app()->end();
 
-                $date = strtotime($_POST['day'] . '-' . $_POST['month'] . '-' . $_POST['year']);
-                $model = $this->LoadModel($_POST['cycle'], $_POST['critical_period']);
-                $data = $model->GetCycleArray($date);
-                $model->SaveUserCycle($date);
+                $model = $this->LoadModel($modelForm->cycle, $modelForm->critical_period);
+                $data = $model->GetCycleArray($modelForm->start_date);
+                $model->SaveUserCycle($modelForm->start_date);
                 $this->renderPartial('data',array('data'=>$data));
             }
         }else

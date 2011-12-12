@@ -83,13 +83,13 @@ class SiteController extends Controller
 	}
 
 	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
+	 * @sitemap
 	 */
+
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
+		Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
+		Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
 		$this->render('index');
 	}
 
@@ -254,5 +254,14 @@ class SiteController extends Controller
 	{
 		Y::cache()->flush();
 		$this->redirect('/shop/');
+	}
+	
+	public function actionMap()
+	{
+		$contents = CommunityContent::model()->with('rubric.community', 'type')->findAll();
+		
+		$this->render('map', array(
+			'contents' => $contents,
+		));
 	}
 }

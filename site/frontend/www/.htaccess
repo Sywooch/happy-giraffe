@@ -1,10 +1,20 @@
 RewriteEngine On
+RewriteBase /
 
-RewriteCond %{HTTP_HOST} ^(www\.|)happy-giraffe.ru$
-RewriteRule ^$ http://www.happy-giraffe.ru/community/list/community_id/5/ [L,R=301]
+# Добавляем www
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ http://www.happy-giraffe.ru/$1 [R=301,L]
 
+# Добавляем слэш, если его нет
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteCond %{REQUEST_URI} !sitemap.xml$
+RewriteRule ^(.*)$ $1/ [R=301,L]
+
+# Исправляем устаревшие пути
 RewriteRule ^(?:shop|club)/upload/(.+)$ /upload/$1 [L]
 
+# Остальное передаем на фронт-контроллер
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php

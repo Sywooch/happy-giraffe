@@ -66,10 +66,12 @@ $('.spam a').live('click', function() {
 
 		<div class="entry-header">
 			<h1><?php echo $c->name; ?></h1>
-			<div class="user">
-				<?php $this->widget('AvatarWidget', array('user' => $c->contentAuthor)); ?>
-				<a class="username"><?php echo $c->contentAuthor->first_name; ?></a>
-			</div>
+			<?php if (! $c->by_happy_giraffe): ?>
+				<div class="user">
+					<?php $this->widget('AvatarWidget', array('user' => $c->contentAuthor)); ?>
+					<a class="username"><?php echo $c->contentAuthor->first_name; ?></a>
+				</div>
+			<?php endif; ?>
 		
 			<div class="meta">
 				<div class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", strtotime($c->created)); ?></div>
@@ -83,8 +85,8 @@ $('.spam a').live('click', function() {
 			<?
 				switch ($c->type->slug)
 				{
-					case 'article':
-						echo $c->article->text;
+					case 'post':
+						echo $c->post->text;
 						break;
 					case 'video':
 						$video = new Video($c->video->link);
@@ -93,25 +95,28 @@ $('.spam a').live('click', function() {
 						break;
 				}
 			?>
-			<?php echo CHtml::link('редактировать', $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
-                        <?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('id' => 'CommunityContent_delete_' . $c->id, 'submit'=>array('admin/communityContent/delete','id'=>$c->id),'confirm'=>'Вы уверены?')); ?>
+			<?php if ($c->contentAuthor->id == Yii::app()->user->id): ?>
+				<?php echo CHtml::link('редактировать', $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
+				<?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('id' => 'CommunityContent_delete_' . $c->id, 'submit'=>array('admin/communityContent/delete','id'=>$c->id),'confirm'=>'Вы уверены?')); ?>
+			<?php endif; ?>
 			<div class="clear"></div>
 		</div>
 	
 		<div class="entry-footer">
-			<?php if ($c->type->slug == 'article'): ?>
+			<?php if (($c->type->slug == 'post' AND in_array($c->post->source_type, array('book', 'internet'))) OR $c->by_happy_giraffe): ?>
 				<div class="source">Источник:&nbsp;
-					<? switch($c->article->source_type):
-					   case 'me': ?>
-						<?=$c->contentAuthor->first_name?>
-					<? break; ?>
-					<? case 'book': ?>
-						<?=$c->article->book_author?>&nbsp;<?=$c->article->book_name?>
-					<? break; ?>
-					<? case 'internet': ?>
-						<?=CHtml::image(Yii::app()->request->baseUrl . '/upload/favicons/' . $c->article->internet_favicon, $c->article->internet_title)?>&nbsp;<?=CHtml::link($c->article->internet_title, $c->article->internet_link, array('class' => 'link'))?>
-					<? break; ?>
-					<? endswitch; ?>
+					<?php if ($c->by_happy_giraffe): ?>
+						Весёлый Жираф
+					<?php else: ?>
+						<?php switch($c->post->source_type):
+						   case 'book': ?>
+							<?php echo $c->post->book_author?>&nbsp;<?=$c->post->book_name; ?>
+						<?php break; ?>
+						<?php case 'internet': ?>
+							<?php echo CHtml::image(Yii::app()->request->baseUrl . '/upload/favicons/' . $c->post->internet_favicon, $c->post->internet_title); ?>&nbsp;<?php echo CHtml::link($c->post->internet_title, $c->post->internet_link, array('class' => 'link')); ?>
+						<?php break; ?>
+						<?php endswitch; ?>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 			<span class="comm">Комментариев: <span><?php echo $c->commentsCount; ?></span></span>
@@ -127,7 +132,7 @@ $('.spam a').live('click', function() {
 			<div class="rate"><?php echo $c->rating; ?></div>
 			рейтинг
 		</div>
-		<big>Вам <?php switch($c->type->slug) {case 'article': echo 'понравилась статья'; break; case 'video': echo 'понравилось видео'; break;} ?>? Отметьте!</big>
+		<big>Вам <?php switch($c->type->slug) {case 'post': echo 'понравилась статья'; break; case 'video': echo 'понравилось видео'; break;} ?>? Отметьте!</big>
 		<div class="like">
 			<span style="width:150px;">
 				<div id="vk_like" style="height: 22px; width: 180px; position: relative; clear: both; background-image: none; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: initial; background-position: initial initial; background-repeat: initial initial; "></div>
@@ -143,22 +148,23 @@ $('.spam a').live('click', function() {
 	<?php if ($related): ?>
 		<div class="more">
 			<big class="title">
-				Ещё <?php echo mb_strtolower($c->type->name_plural, "UTF-8"); ?> на эту тему
+				Ещё на эту тему
 				<a href="<?php echo $this->createUrl('community/list', array('community_id' => $c->rubric->community->id, 'rubric_id' => $c->rubric->id)); ?>" class="btn btn-blue-small"><span><span>Показать все</span></span></a>
 			</big>
 			<?php 
 				foreach ($related as $rc)
 				{
+					$content = '';
 					switch ($rc->type->slug)
 					{
-						case 'article':
-							if (preg_match('/src="([^"]+)"/', $rc->article->text, $matches))
+						case 'post':
+							if (preg_match('/src="([^"]+)"/', $rc->post->text, $matches))
 							{
 								$content = '<img src="' . $matches[1] . '" alt="' . $rc->name . '" width="150" />';
 							}
 							else
 							{
-								preg_match('/<p>(.+)<\/p>/Uis', $rc->article->text, $matches2);
+								preg_match('/<p>(.+)<\/p>/Uis', $rc->post->text, $matches2);
 								$content = strip_tags($matches2[1]);
 							}
 						break;
@@ -170,7 +176,7 @@ $('.spam a').live('click', function() {
 				
 			?>
 			<div class="block">
-				<b><?php echo CHtml::link($rc->name, $this->createUrl('community/view', array('content_id' => $rc->id))); ?></b>
+				<b><?php echo CHtml::link($rc->name, $this->createUrl('community/view', array('community_id' => $c->rubric->community->id, 'content_id' => $rc->id))); ?></b>
 				<p><?php echo $content; ?></p>
 			</div>
 			<?php

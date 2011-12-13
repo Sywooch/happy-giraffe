@@ -7,13 +7,23 @@ class DefaultController extends Controller
     public function filters()
     {
         return array(
-            'ajaxOnly + bloodUpdate, japan',
+            'ajaxOnly + bloodUpdate, japanCalc',
         );
     }
 
     public function actionIndex()
     {
         $this->render('index');
+    }
+
+    public function actionBloodRefresh()
+    {
+        $this->render('blood_refresh');
+    }
+
+    public function actionJapan()
+    {
+        $this->render('japan');
     }
 
     public function actionBloodUpdate()
@@ -25,10 +35,13 @@ class DefaultController extends Controller
                 Yii::app()->end();
 
             $data = $model->CalculateMonthData();
+            $gender = $model->GetGender();
             $this->renderPartial('_blood_refresh_result', array(
                 'data' => $data,
                 'year' => $model->review_year,
                 'month' => $model->review_month,
+                'model' => $model,
+                'gender' => $gender
             ));
         }
     }
@@ -48,7 +61,7 @@ class DefaultController extends Controller
 //        }
 //    }
 
-    public function actionJapan()
+    public function actionJapanCalc()
     {
         if (isset($_POST['JapanCalendarForm'])) {
             $model = new JapanCalendarForm();
@@ -57,10 +70,13 @@ class DefaultController extends Controller
                 Yii::app()->end();
 
             $data = $model->CalculateData();
+            $gender = $model->GetGender();
             $this->renderPartial('_japan_result', array(
                 'data' => $data,
                 'year' => $model->review_year,
                 'month' => $model->review_month,
+                'model' => $model,
+                'gender' => $gender
             ));
         }
     }

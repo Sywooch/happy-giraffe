@@ -1,72 +1,107 @@
 <?php
-$month = date("m"); //1-12
-$year = date("Y");
+/* @var $this Controller
+ * @var $form CActiveForm
+ * @var $model MenstrualCycleForm
+ * @var $data array
+ */
+?>
+<div class="mother_calendar">
+    <div class="choice_month">
+        <a href="#" class="l_arr_mth">&larr;</a>
+        <a href="#" class="r_arr_mth">&rarr;</a>
+        <span><?php echo HDate::ruMonth($model->review_month) ?>, <?php echo $model->review_year ?></span>
+    </div>
+    <!-- .choice_month -->
+    <table class="calendar_body">
+        <tr>
+            <th>Пн</th>
+            <th>Вт</th>
+            <th>Ср</th>
+            <th>Чт</th>
+            <th>Пт</th>
+            <th>Сб</th>
+            <th>Вс</th>
+        </tr>
+        <tr>
+            <?php $i = 0;
+            foreach ($data as $cell): ?>
+                <?php if ($i % 7 == 0 && $i != 0 && count($data) != $i)
+                    echo "</tr><tr>";
+                $i++;?>
+                <td>
+                    <?php if ($cell['other_month']): ?>
+                    <div class="cal_item_default">
+                        <div class="cal_item <?php echo $cell['cell'] ?>">
+                            <ins><?php echo $cell['day'] ?></ins>
+                        </div>
+                    </div>
+                    <?php else: ?>
+                    <div class="cal_item <?php echo $cell['cell'] ?>">
+                        <ins><?php echo $cell['day'] ?></ins>
+                    </div>
+                    <?php endif ?>
+                </td>
+                <?php endforeach; ?>
+        </tr>
+    </table>
+</div><!-- .mother_calendar -->
+<div class="bottom-wrap">
+<div class="more_about_cal">
+    <div class="next_month_cal">
+        <span class="title_bl_ntmt">Календарь следующего месяца </span>
 
-for ($month_iter = 0; $month_iter < 2; $month_iter++) {
+        <div class="mother_calendar">
+            <div class="choice_month">
+                <span><?php echo HDate::ruMonth($model->next_month) ?>, <?php echo $model->next_month_year ?></span>
+            </div>
+            <!-- .choice_month -->
+            <table class="calendar_body">
+                <tr>
+                    <th>Пн</th>
+                    <th>Вт</th>
+                    <th>Ср</th>
+                    <th>Чт</th>
+                    <th>Пт</th>
+                    <th>Сб</th>
+                    <th>Вс</th>
+                </tr>
+                <tr>
+                    <?php $i = 0;
+                    foreach ($next_data as $cell): ?>
+                        <?php if ($i % 7 == 0 && $i != 0 && count($next_data) != $i)
+                            echo "</tr><tr>";
+                        $i++;?>
+                        <td>
+                            <?php if ($cell['other_month']): ?>
+                            <div class="cal_item_default">
 
-    $skip = date("w", mktime(0, 0, 0, $month, 1, $year)) - 1; // узнаем номер дня недели
-    if ($skip < 0)
-        $skip = 6;
-
-    $daysInMonth = date("t", mktime(0, 0, 0, $month, 1, $year)); // узнаем число дней в месяце
-    $calendar_head = ''; // обнуляем calendar head
-    $calendar_body = ''; // обнуляем calendar boday
-    $day = 1; // для цикла далее будем увеличивать значение
-
-    for ($i = 0; $i < 6; $i++) { // Внешний цикл для недель 6 с неполыми
-
-        $calendar_body .= '<tr>'; // открываем тэг строки
-        for ($j = 0; $j < 7; $j++) { // Внутренний цикл для дней недели
-
-            if (($skip > 0)or($day > $daysInMonth)) { // выводим пустые ячейки до 1 го дня ип после полного количства дней
-
-                $calendar_body .= '<td class="none"> </td>';
-                $skip--;
-
-            }
-            else {
-                $datetime = strtotime($day.'-'.$month.'-'.$year);
-                if (isset($data[$datetime]))
-                    $calendar_body .= '<td class="'.$data[$datetime].'">' . $day . '</td>';
-                else
-                    $calendar_body .= '<td>' . $day . '</td>';
-                $day++; // увеличиваем $day
-            }
-
-        }
-        $calendar_body .= '</tr>'; // закрываем тэг строки
-        if ($day > $daysInMonth)
-            break;
-    }
-
-    // заголовок календаря
-    $calendar_head = '
-  <tr>
-        <th colspan="7">' . HDate::ruMonth($month).', '.$year . '</th>
-  </tr>
-  <tr>
-    <th>Пн</th>
-    <th>Вт</th>
-    <th>Ср</th>
-    <th>Чт</th>
-    <th>Пт</th>
-    <th>Сб</th>
-    <th>Вс</th>
-  </tr>';
-
-    ?>
-<table <?php echo ($month_iter == 0)?'id="main-calendar"':'' ?> cellspacing="2" cellpadding="2" class="calendar-table">
-    <thead>
-        <?php echo $calendar_head; ?>
-    </thead>
-    <tbody>
-        <?php echo $calendar_body; ?>
-    </tbody>
-</table><br><br>
-<?php
-    $month++;
-    if ($month == 13){
-        $month = 1;
-        $year++;
-    }
-} ?>
+                            </div>
+                            <?php else: ?>
+                            <div class="cal_item <?php echo $cell['cell'] ?>">
+                                <ins><?php echo $cell['day'] ?></ins>
+                            </div>
+                            <?php endif ?>
+                        </td>
+                        <?php endforeach; ?>
+                </tr>
+            </table>
+        </div>
+        <!-- .mother_calendar -->
+    </div>
+    <!-- .next_month_cal -->
+    <div class="cal_helper">
+        <span class="title_helper">Обозначения:</span>
+        <ul>
+            <li class="mens">- менструация</li>
+            <li class="pms">- плохое самочуствие</li>
+            <li class="mbov">- возможна овуляция</li>
+            <li class="fov">- овуляция наиболее вероятна</li>
+            <li class="fsex">- безопасный секс</li>
+            <li class="pfsex">- условно безопасный секс</li>
+        </ul>
+    </div>
+    <!-- .cal_helper -->
+    <div class="clear"></div>
+    <!-- .clear -->
+</div><!-- .more_about_cal -->
+</div>

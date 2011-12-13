@@ -231,9 +231,11 @@ class DefaultController extends Controller
 				$price = $modelOrder->$params['getPrice']();
 				$weight = $modelOrder->$params['getWeight']();
 			}
-			$parameter = array('orderPrice' => $price,
+			$parameter = array(
+				'orderPrice' => $price,
 				'orderWeight' => $weight,
 				'orderCity' => $cityarr,
+				'orderCityId' => $city_id,
 				'orderRegion' => $city3[0], 0, 0);
 
 			$delivery_prices = $modelDelivery->getDeliveryCost($parameter);

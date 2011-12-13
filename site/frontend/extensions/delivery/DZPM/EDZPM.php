@@ -54,6 +54,7 @@ class EDZPM extends CActiveRecord {
 		return array(
 			'id' => 'ID',
 			'DZPM_price' => 'Price',
+			'DZPM_city' => 'Выберите город',
 		);
 	}
 
@@ -77,7 +78,6 @@ class EDZPM extends CActiveRecord {
 	}
 
 	public function getDeliveryCost($param) {
-
 		$searchCities = array();
 
 		if (is_array($param['orderCity'])) {
@@ -99,10 +99,9 @@ class EDZPM extends CActiveRecord {
 		$prices = array();
 		if (isset($tarifs)) {
 			foreach ($tarifs as $k => $tarif) {
-
 				$prices[$k]['price'] = $tarif['price'];
 				$prices[$k]['destination'] = $tarif['city'];
-
+				/** Пока комментим. Потом будет видно *//*
 				if ($param['orderPrice'] < 500) {
 					$prices[$k]['price'] += 350;
 				}
@@ -114,8 +113,7 @@ class EDZPM extends CActiveRecord {
 				}
 				if (($param['orderPrice'] >= 1500)) {
 					$prices[$k]['price'] += 0;
-				}
-
+				}*/
 				$this->DZPM_price = $prices[$k]['price'];
 				$this->DZPM_city = $prices[$k]['destination'];
 			}
@@ -131,28 +129,20 @@ class EDZPM extends CActiveRecord {
 		$criteria = new CDbCriteria;
 		$criteria->compare('city', $param['orderCity'], true);
 		$cityValues = EPriceCity::model()->findAll($criteria);
+
 		$cities = array();
-		if ($cityValues) {
+		if ($cityValues) { 
 			foreach ($cityValues as $city) {
 				$cities[$city->city] = $city->city;
 			}
 			if (count($cities) == 1) {
-				$this->DZPM_city = $cityValues->city;
+				$this->DZPM_city = $cityValues[0]->city;
 			}
 		}
-
 		$citys = array();
 
 		if ((!$cities) || (count($cities) > 1)) {
-			$EPriceCity = new EPriceCity;
-
-			$cityValues = Yii::app()->db->createCommand()
-					->select('city')
-					->from($EPriceCity->tableName())
-					->queryAll();
-
-			$citys = CHtml::listData($cityValues, 'city', 'city');
-
+			$citys = CHtml::listData(EPriceCity::model()->findAllByAttributes(array('city')), 'city', 'city');
 			$citys = array_diff($citys, $cities);
 		}
 
@@ -219,7 +209,5 @@ class EDZPM extends CActiveRecord {
 	public function getDestination() {
 		return $this->DZPM_city;
 	}
-
 }
-
 ?>

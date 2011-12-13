@@ -103,10 +103,10 @@ class EDPD extends CActiveRecord {
 		Yii::import('ext.delivery.DPD.ETarif');
 		Yii::import('ext.delivery.DPD.ETarifZones');
 		$tarifs = Yii::app()->db->createCommand()
-				->leftjoin('{{_delivery_ETarifZones}}', '`{{_delivery_ETarifZones}}`.`tarifzones_zone`=`tarif_zone`')
+				->leftjoin('{{shop__delivery_ETarifZones}}', '`{{shop__delivery_ETarifZones}}`.`tarifzones_zone`=`tarif_zone`')
 				->where(array('and', 'tarif_weight1 <=' . $param['orderWeight'],
 					'tarif_weight2 >=' . min(array(30, $param['orderWeight'])),
-					array('in', '{{_delivery_ETarifZones}}.tarifzones_city', $searchCities)
+					array('in', '{{shop__delivery_ETarifZones}}.tarifzones_city', $searchCities)
 						)
 				)
 				->from(ETarif::model()->tableName())

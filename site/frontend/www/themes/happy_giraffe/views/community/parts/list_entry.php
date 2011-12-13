@@ -26,8 +26,7 @@
 					echo $pos === false ? $c->post->text : substr($c->post->text, 0, $pos);
 					break;
 				case 'video':
-					$video = new Video($c->video->link);
-					echo '<div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div>';
+					
 					$pos = strpos($c->video->text, '<!--more-->');
 					echo $pos === false ? $c->video->text : substr($c->post->video, 0, $pos);
 					break;

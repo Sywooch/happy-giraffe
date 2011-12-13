@@ -15,7 +15,7 @@ $model = new MenstrualCycleForm();?>
             return false;
         });
 
-        $('body').delegate('div.choice_month a.r_arr_mth', 'click', function () {
+        $('body').delegate('div.choice_month a#next-month', 'click', function () {
             var month = $('#review_month').val();
             if (month == '')
                 return false;
@@ -29,11 +29,11 @@ $model = new MenstrualCycleForm();?>
             }
             $('#review_month').val(month);
             LoadCalendar();
-            $('div.choice_month a.l_arr_mth').removeClass('stop');
+            $('div.choice_month a.l_arr_mth').removeClass('l_arr_mth').addClass('l_arr_mth_active');
             return false;
         });
 
-        $('body').delegate('div.choice_month a.l_arr_mth', 'click', function () {
+        $('body').delegate('div.choice_month a#prev-month', 'click', function () {
             var month = $('#review_month').val();
             if (month == '')
                 return false;
@@ -49,6 +49,11 @@ $model = new MenstrualCycleForm();?>
                 year--;
                 $('#review_year').val(year);
             }
+
+            if (month == d.getMonth() + 1 && year == d.getFullYear()){
+                $('.choice_month .l_arr_mth_active').removeClass('l_arr_mth_active').addClass('l_arr_mth');
+            }
+
             $('#review_month').val(month);
             LoadCalendar();
 //            $('div.choice_month a.l_arr_mth').removeClass('stop');
@@ -143,9 +148,9 @@ $model = new MenstrualCycleForm();?>
 <div id="result">
 <div class="mother_calendar">
 <div class="choice_month">
-    <a href="#" class="l_arr_mth stop">&larr;</a>
-    <a href="#" class="r_arr_mth">&rarr;</a>
-    <span>Декабрь, 2011</span>
+    <a href="#" class="l_arr_mth" id="prev-month">&larr;</a>
+    <a href="#" class="r_arr_mth_active" id="next-month">&rarr;</a>
+    <span><?php echo HDate::ruMonth(date('m')),', '.date('Y') ?></span>
 </div>
 <!-- .choice_month -->
 <table class="calendar_body">

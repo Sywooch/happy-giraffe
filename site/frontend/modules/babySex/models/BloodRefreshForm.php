@@ -181,18 +181,20 @@ class BloodRefreshForm extends CFormModel
 
         if ($mother_blood_age >= $father_blood_age) {
             $probability = 50 + round(($mother_blood_age - $father_blood_age) * 50);
-            $who = self::IS_BOY;
+            $sex = self::IS_BOY;
         } else {
             $probability = 50 + round(($father_blood_age - $mother_blood_age) * 50);
-            $who = self::IS_GIRL;
+            $sex = self::IS_GIRL;
         }
+        if ($probability == 50)
+            $sex = self::IS_UNKNOWN;
 
         return array(
             'day' => $day,
-            'who' => $who,
+            'sex' => $sex,
             'probability' => $probability,
             'other_month' => $other_month,
-            'cell' => $this->GetCell($day, $who, $probability, $other_month)
+            'opacity' => self::Opacity($probability)
         );
     }
 
@@ -218,22 +220,27 @@ class BloodRefreshForm extends CFormModel
         return round(fmod(($date - $this->father_born_date) / (60 * 60 * 24), self::MAN_PERIOD)) / self::MAN_PERIOD;
     }
 
-    private function GetCell($day, $who, $probability, $other_month)
-    {
-        if ($probability == 50)
-            return "<td>" . $day . "</td>";
-        elseif ($who == self::IS_BOY) {
-            return "<td class='boy" .
-                "' style='opacity: ".self::Opacity($probability).";'>" . $day . "</td>";
-        } elseif ($who == self::IS_GIRL) {
-            return "<td class='girl" .
-                "' style='opacity: ".self::Opacity($probability)."'>" . $day . "</td>";
-        } else
-            return "<td class='empty'>" . $day . "</td>";
-    }
-
     private static function Opacity($prc)
     {
-        return sprintf("%01.2f", $prc/100);
+        $opacity = 0.2 + (($prc - 50) / 50) * 0.8;
+        //        $opacity = ($prc/100);
+        return sprintf("%01.2f", $opacity);
+    }
+
+    public function GetGender()
+    {
+        $mother_blood_age = $this->GetMotherBloodAge(strtotime($this->baby_d. '-' . $this->baby_m. '-' . $this->baby_y));
+        $father_blood_age = $this->GetFatherBloodAge(strtotime($this->baby_d. '-' . $this->baby_m. '-' . $this->baby_y));
+
+        if ($mother_blood_age >= $father_blood_age) {
+            $probability = 50 + round(($mother_blood_age - $father_blood_age) * 50);
+            $sex = self::IS_BOY;
+        } else {
+            $probability = 50 + round(($father_blood_age - $mother_blood_age) * 50);
+            $sex = self::IS_GIRL;
+        }
+        if ($probability == 50)
+            $sex = self::IS_UNKNOWN;
+        return $sex;
     }
 }

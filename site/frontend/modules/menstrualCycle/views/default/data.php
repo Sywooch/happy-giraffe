@@ -7,8 +7,8 @@
 ?>
 <div class="mother_calendar">
     <div class="choice_month">
-        <a href="#" class="l_arr_mth">&larr;</a>
-        <a href="#" class="r_arr_mth">&rarr;</a>
+        <a href="#" class="l_arr_mth" id="prev-month">&larr;</a>
+        <a href="#" class="r_arr_mth_active" id="next-month">&rarr;</a>
         <span><?php echo HDate::ruMonth($model->review_month) ?>, <?php echo $model->review_year ?></span>
     </div>
     <!-- .choice_month -->

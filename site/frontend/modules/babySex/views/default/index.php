@@ -63,48 +63,7 @@
     }
 </style>
 <script type="text/javascript">
-    $(function () {
-        //blood refresh
-        $('body').delegate('#blood-refresh-prev-month', 'click', function () {
-            var month = $('#blood_refr_review_month').val();
-            var year = $('#blood_refr_review_year').val();
-            month--;
-            if (month == 0) {
-                month = 12;
-                year--;
-                $('#blood_refr_review_year').val(year);
-            }
-            $('#blood_refr_review_month').val(month);
-            $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/bloodUpdate") ?>",
-                data:$("#blood-refresh-form").serialize(),
-                type:"POST",
-                success:function (data) {
-                    $("#blood-update-result").html(data);
-                }
-            });
-        });
-
-        $('body').delegate('#blood-refresh-next-month', 'click', function () {
-            var month = $('#blood_refr_review_month').val();
-            var year = $('#blood_refr_review_year').val();
-            month++;
-            if (month == 13) {
-                month = 1;
-                year++;
-                $('#blood_refr_review_year').val(year);
-            }
-            $('#blood_refr_review_month').val(month);
-            $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/bloodUpdate") ?>",
-                data:$("#blood-refresh-form").serialize(),
-                type:"POST",
-                success:function (data) {
-                    $("#blood-update-result").html(data);
-                }
-            });
-        });
-
+    $(function() {
         //blood link
         $('#blood-group-link').click(function () {
             var mg = parseInt($('#mother_blood_group').val());
@@ -117,53 +76,6 @@
                 $('#blood-group-result').html('Мальчик');
             }
         });
-
-        //japan calendar
-        $('body').delegate('#japan-prev-month', 'click', function () {
-            var month = $('#japan_review_month').val();
-            month--;
-            if (month == 0) {
-                month = 12;
-            }
-            $('#japan_review_month').val(month);
-            $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/japan") ?>",
-                data:$("#japan-form").serialize(),
-                type:"POST",
-                success:function (data) {
-                    $("#japan-result").html(data);
-                }
-            });
-        });
-
-        $('body').delegate('#japan-next-month', 'click', function () {
-            var month = $('#japan_review_month').val();
-            month++;
-            if (month == 13) {
-                month = 1;
-            }
-            $('#japan_review_month').val(month);
-            $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/japan") ?>",
-                data:$("#japan-form").serialize(),
-                type:"POST",
-                success:function (data) {
-                    $("#japan-result").html(data);
-                }
-            });
-        });
-
-        $('body').delegate('#japan-submit', 'click', function () {
-            $("#japan_review_month").val($("#japan-conception-m").val());
-            $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/japan") ?>",
-                data:jQuery(this).parents("form").serialize(),
-                type:"POST",
-                success:function (data) {
-                    $("#japan-result").html(data);
-                }
-            });
-        })
     });
 </script>
 <?php $this->renderPartial('blood_refresh'); ?>

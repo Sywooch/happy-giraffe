@@ -8,7 +8,6 @@ $model = new ChinaCalendarForm();
 <script type="text/javascript">
     $(document).ready(function () {
         var parent = $(this);
-
         var month = $('#china-conception-m');
         var submitBut = $('#china-submit');
 
@@ -20,9 +19,9 @@ $model = new ChinaCalendarForm();
             var baby_m = month.val();
             var mother_y = $('#china-mother-y').val();
 
-            var age = baby_y - mother_y - 1;
+            var age = baby_y - mother_y;
             if (baby_m <= mother_m)
-                var age = baby_y - mother_y;
+                var age = baby_y - mother_y - 1;
 
             var id = 'child_' + age + '_' + month.val();
             var cell = $('#' + id);
@@ -44,10 +43,47 @@ $model = new ChinaCalendarForm();
                 console.log('У вас будет мальчик!');
                 parent.data('activeCell').addClass('sex-test-table-cur-boy');
             }
+
+            SetReviewYear(baby_y);
+            ShowCalendar();
         });
-
-
     });
+
+    function SetReviewYear(year){
+        $('#china_review_year').val(year);
+    }
+
+    function ShowCalendar(){
+        var year = $('#china_review_year').val();
+        var calendar2_html = '<div class="years">';
+        calendar2_html += '<a href="#">prev</a><br>';
+        for (var i = 1; i <= 12; i++) {
+            var gender = GetGender(i,year);
+            if (gender == 1)
+                calendar2_html += "<div class='boy'></div>";
+            else
+                calendar2_html += "<div class='girl'></div>";
+        }
+        calendar2_html += '</div>';
+        calendar2_html += '<br><a href="#">next</a>';
+        $('#china-calendar-result').html(year+'<br>'+calendar2_html);
+    }
+
+    function GetGender(month, year) {
+        var mother_m = parseInt($('#china-mother-m').val());
+        var mother_y = parseInt($('#china-mother-y').val());
+
+        var age = year - mother_y;
+        if (month <= mother_m)
+            var age = year - mother_y - 1;
+
+        var id = 'child_' + age + '_' + month;
+        var cell = $('#' + id);
+        if (cell.children().hasClass('sex-test-table-girl'))
+            return 2;
+        else
+            return 1;
+    }
 </script>
 <div id="china-calendar">
     <?php $form = $this->beginWidget('CActiveForm', array(
@@ -61,9 +97,8 @@ $model = new ChinaCalendarForm();
     <br>
     <big>Месяц зачатия</big>
     <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('id' => 'china-conception-m', 'class' => 'wid100')); ?>
-    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year+2, 2000), array('id' => 'china-conception-y', 'class' => 'wid100')); ?>
+    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year + 2, 2000), array('id' => 'china-conception-y', 'class' => 'wid100')); ?>
     <br>
-    <?php echo $form->hiddenField($model, 'review_month', array('id' => 'china_review_month')) ?>
     <?php echo $form->hiddenField($model, 'review_year', array('id' => 'china_review_year')) ?>
 
     <?php echo CHtml::link('<span><span>Рассчитать</span></span>', '', array(
@@ -85,7 +120,7 @@ $model = new ChinaCalendarForm();
 <div id="china-calendar-result">
 
 </div>
-
+<div class="clear"></div>
 <div class="sex-test-child-table-left">
 <table class="sex-test-child-table" cellspacing="0">
 <thead>

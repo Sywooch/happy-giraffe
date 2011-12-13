@@ -37,6 +37,30 @@
     .sex-test-table-cur-girl {
         border: 3px solid #000;
     }
+    #china-calendar-result{
+        margin: 30px 0;
+    }
+
+    #china-calendar-result .boy {
+        width: 30px;
+        height: 30px;
+        float: left;
+        background: #0babd9;
+        margin: 5px;
+    }
+
+    #china-calendar-result .girl {
+        width: 30px;
+        height: 30px;
+        float: left;
+        margin: 5px;
+        background: #d921cc;
+    }
+
+    #japan-result table td {
+        width: 30px;
+        height: 30px;
+    }
 </style>
 <script type="text/javascript">
     $(function () {
@@ -129,23 +153,23 @@
             });
         });
 
-        $('body').delegate('#japan-submit', 'click', function(){
+        $('body').delegate('#japan-submit', 'click', function () {
             $("#japan_review_month").val($("#japan-conception-m").val());
             $.ajax({
-                url: "<?php echo Yii::app()->createUrl("/babySex/default/japan") ?>",
-                data: jQuery(this).parents("form").serialize(),
-                type: "POST",
-                success: function(data) {
+                url:"<?php echo Yii::app()->createUrl("/babySex/default/japan") ?>",
+                data:jQuery(this).parents("form").serialize(),
+                type:"POST",
+                success:function (data) {
                     $("#japan-result").html(data);
                 }
             });
         })
     });
 </script>
-<?php //$this->renderPartial('blood_refresh'); ?>
+<?php $this->renderPartial('blood_refresh'); ?>
 <br>
 <?php //$this->renderPartial('blood_group'); ?>
 <br>
 <?php //$this->renderPartial('china'); ?>
 <br>
-<?php $this->renderPartial('japan'); ?>
+<?php //$this->renderPartial('japan'); ?>

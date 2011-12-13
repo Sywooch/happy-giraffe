@@ -5,7 +5,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 CKEDITOR.editorConfig = function( config )
 {
-	config.language = 'ru';
+	CKEDITOR.lang.languages['ru-hg'] = 1;
+	config.language = 'ru-hg';
 	
 	config.filebrowserBrowseUrl = '/ckfinder/ckfinder.html';
 	config.filebrowserImageBrowseUrl = '/ckfinder/ckfinder.html?Type=Images';
@@ -18,50 +19,34 @@ CKEDITOR.editorConfig = function( config )
 	
 	config.toolbar = 'Main';
 
-	config.toolbar_Full =
-	[
-		{ name: 'document', items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },
-		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
-		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
-		{ name: 'forms', items : [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
-		'/',
-		{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
-		{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },
-		{ name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe' ] },
-		'/',
-		{ name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] },
-		{ name: 'colors', items : [ 'TextColor','BGColor' ] },
-		{ name: 'tools', items : [ 'Maximize', 'ShowBlocks','-','About' ] }
-	];
-	
 	config.toolbar_Main =
 	[
-		{ name: 'document', items : [ 'Source' ] },
+		{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike', ] },
+		{ name: 'styles', items : [ 'Format','Font' ] },
+		{ name: 'colors', items : [ 'TextColor','BGColor' ] },
 		{ name: 'clipboard', items : [ 'Copy','Paste','-','Undo','Redo' ] },
 		'/',
-		{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike', ] },
-		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent' ] },
 		{ name: 'links', items : [ 'Link','Unlink' ] },
-		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','Cuttable' ] },
-		'/',
-		{ name: 'styles', items : [ 'Format','Font','FontSize' ] },
-		{ name: 'colors', items : [ 'TextColor','BGColor' ] },
-		{ name: 'tools', items : [ 'Maximize' ] }
+		{ name: 'insert', items : [ 'Image' ] },
+		{ name: 'document', items : [ 'Source' ] },
+		{ name: 'cut', items : [ 'Cuttable' ] },
 	];
 	
 	config.toolbar_Nocut =
 	[
-		{ name: 'document', items : [ 'Source' ] },
+		{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike', ] },
+		{ name: 'styles', items : [ 'Format','Font' ] },
+		{ name: 'colors', items : [ 'TextColor','BGColor' ] },
 		{ name: 'clipboard', items : [ 'Copy','Paste','-','Undo','Redo' ] },
 		'/',
-		{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike', ] },
-		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent' ] },
 		{ name: 'links', items : [ 'Link','Unlink' ] },
-		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley' ] },
-		'/',
-		{ name: 'styles', items : [ 'Format','Font','FontSize' ] },
-		{ name: 'colors', items : [ 'TextColor','BGColor' ] },
-		{ name: 'tools', items : [ 'Maximize' ] }
+		{ name: 'insert', items : [ 'Image' ] },
+		{ name: 'document', items : [ 'Source' ] },
 	];
+	
+	CKEDITOR.config.format_tags = 'psmall;p;pbig;h2;h3';
+	config.format_psmall = { element : 'p', attributes : { 'style' : 'font-size: 10px;' } };
+	config.format_pbig = { element : 'p', attributes : { 'style' : 'font-size: 14px;' } };
 };

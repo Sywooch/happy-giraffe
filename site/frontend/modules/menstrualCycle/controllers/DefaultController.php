@@ -4,32 +4,40 @@ class DefaultController extends Controller
 {
     public $layout = '//layouts/new';
 
-	public function actionIndex()
-	{
-		$this->render('index');
-	}
-
-    public function actionCalculate(){
-        if (Yii::app()->request->isAjaxRequest){
-            if (isset($_POST['MenstrualCycleForm'])){
-                $modelForm = new MenstrualCycleForm();
-                $modelForm->attributes = $_POST['MenstrualCycleForm'];
-                if (!$modelForm->validate())
-                                Yii::app()->end();
-
-                $model = $this->LoadModel($modelForm->cycle, $modelForm->critical_period);
-                $data = $model->GetCycleArray($modelForm->start_date);
-                $model->SaveUserCycle($modelForm->start_date);
-                $this->renderPartial('data',array('data'=>$data));
-            }
-        }else
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+    public function filters()
+    {
+        return array(
+            'ajaxOnly + calculate',
+        );
     }
 
-    public function actionParse(){
-            $str =
-        <<<EOD
-21 7 0 3 1 3 5 2
+    public function actionIndex()
+    {
+        $this->render('index');
+    }
+
+    public function actionCalculate()
+    {
+        if (isset($_POST['MenstrualCycleForm'])) {
+            $modelForm = new MenstrualCycleForm();
+            $modelForm->attributes = $_POST['MenstrualCycleForm'];
+            if (!$modelForm->validate())
+                Yii::app()->end();
+
+            $data = $modelForm->CalculateData();
+            $this->renderPartial('data', array(
+                'data' => $data,
+                'model' => $modelForm,
+                'next_data' => $modelForm->CalculateDataForNextMonth()
+            ));
+        }
+    }
+
+    public function actionParse()
+    {
+        $str =
+            <<<EOD
+            21 7 0 3 1 3 5 2
 21 6 0 3 1 3 6 2
 21 5 0 4 1 3 6 2
 21 4 0 5 1 3 6 2
@@ -105,9 +113,9 @@ class DefaultController extends Controller
 35 4 7 5 1 3 10 5
 35 3 8 5 1 3 10 5
 EOD;
-        $data = explode("\n",$str);
-        foreach($data as $row){
-            $row_data = explode(" ",$row);
+        $data = explode("\n", $str);
+        foreach ($data as $row) {
+            $row_data = explode(" ", $row);
             var_dump($row_data);
             $model = new MenstrualCycle();
             $model->cycle = $row_data[0];
@@ -117,22 +125,8 @@ EOD;
             $model->ovulation_most_probable = $row_data[4];
             $model->ovulation_can = $row_data[5];
             $model->pms = $row_data[6];
-//            $model->save();
+            //            $model->save();
         }
     }
 
-    /**
-     * @param $cycle
-     * @param $menstruation_duration
-     * @return MenstrualCycle
-     * @throws CHttpException
-     */
-    public function LoadModel($cycle, $menstruation_duration)
-    {
-        $model = MenstrualCycle::model()->cache(3600)->find('cycle=' . $cycle . ' AND menstruation=' . $menstruation_duration);
-        if (empty($model))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        return $model;
-    }
 }

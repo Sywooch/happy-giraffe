@@ -102,45 +102,44 @@ class MenstrualCycle extends CActiveRecord
     }
 
     /**
-     * Return array with date class
-     * Example array{01012012 => 'menstruation')
+     * Get period brief name on current date
      *
      * @param $last_menstruation_start_date
-     * @return array
+     * @param $day
+     * @param $month
+     * @param $year
+     * @return string
      */
-    public function GetCycleArray($last_menstruation_start_date)
+    public function GetPeriod($last_menstruation_start_date, $day, $month, $year)
     {
-        $data = array();
-        $day = 0;
-        $cycle_day = 1;
-        do {
-            $date = strtotime('+' . $day . ' days', $last_menstruation_start_date);
-            if ($cycle_day == 1)
-                $data[$date] = 'first_day';
-            elseif ($cycle_day <= $this->menstruation)
-                $data[$date] = 'menstruation';
-            elseif ($cycle_day <= $this->menstruation + $this->safety_sex)
-                $data[$date] = 'safety_sex';
-            elseif ($cycle_day <= $this->menstruation + $this->safety_sex + $this->ovulation_probable)
-                $data[$date] = 'ovulation_probable';
-            elseif ($cycle_day <= $this->menstruation + $this->safety_sex + $this->ovulation_probable
-                + $this->ovulation_most_probable
-            )
-                $data[$date] = 'ovulation_most_probable';
-            elseif ($cycle_day <= $this->menstruation + $this->safety_sex + $this->ovulation_probable
-                + $this->ovulation_most_probable + $this->ovulation_can
-            )
-                $data[$date] = 'ovulation_can';
-            else
-                $data[$date] = 'pms';
+        $current_date = strtotime($year . '-' . $month . '-' . $day);
+        if ($current_date < $last_menstruation_start_date)
+            return '';
 
-            $day++;
-            $cycle_day++;
-            if ($cycle_day > $this->cycle)
-                $cycle_day = 1;
-        } while ($date < strtotime('+3 month', strtotime(date("Y-m-d H:i:s"))));
-
-        return $data;
+        $cycle_day = round(($current_date - $last_menstruation_start_date) / 86400) % $this->cycle;
+        $cycle_day = $cycle_day + 1;
+        if ($cycle_day == 1)
+            return 'mens';
+        elseif ($cycle_day <= $this->menstruation)
+            return 'mens';
+        elseif ($cycle_day <= $this->menstruation + $this->safety_sex)
+            return 'fsex';
+        elseif ($cycle_day <= $this->menstruation + $this->safety_sex + $this->ovulation_probable)
+            return 'mbov';
+        elseif ($cycle_day <= $this->menstruation + $this->safety_sex + $this->ovulation_probable
+            + $this->ovulation_most_probable
+        )
+            return 'fov';
+        elseif ($cycle_day <= $this->menstruation + $this->safety_sex + $this->ovulation_probable
+            + $this->ovulation_most_probable + $this->ovulation_can
+        )
+            return 'mbov';
+        elseif ($cycle_day <= $this->menstruation + $this->safety_sex + $this->ovulation_probable
+            + $this->ovulation_most_probable + $this->ovulation_can + $this->pms
+        )
+            return 'pfsex';
+        else
+            return 'pms';
     }
 
     /**

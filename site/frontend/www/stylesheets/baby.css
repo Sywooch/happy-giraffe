@@ -304,3 +304,81 @@
 #baby .placenta_article p {padding:0 0 20px 0;}
 #baby .placenta_article ul {padding:0 0 20px 0;}
 #baby .placenta_article ul ins {padding:0 0 0 15px;}
+
+#baby .calculate_tb {display:block;padding:20px;margin:0 0 20px 0;border-bottom:5px solid #d4c6e4;}
+#baby  .mother_cal_banner {display:block;width:674px;height:92px;background: url(../images/mother_calendar_banner.jpg) 0 0 no-repeat;padding:125px 17px 0 17px;}
+#baby  .mother_cal_banner span {font:22px/27px tahoma, sans-serif;color:#fff;background: url(../images/green_space.png) 0 0 repeat;padding:0 10px;}
+
+#baby .article_p {display:block;padding:0 25px;}
+#baby .article_p span.article_title {font:bold 25px/25px arial, sans-serif;color:#1787b6;display:block;padding:0 0 20px 0;}
+#baby .article_p p {padding:0 0 20px 0;}
+#baby .article_p ul {padding:0 0 20px 0;}
+#baby .article_p ul ins {padding:0 0 0 15px;}
+
+#baby .calculate_tb table {width:500px;float:left;}
+#baby .calculate_tb table th {text-align:left;color:#b0b0b0;font:12px/15px arial, sans-serif;padding:2px 5px;}
+#baby .calculate_tb table td {text-align:left;padding:5px;}
+#baby .calculate_tb ul.lists_td {background:#faf5fe;display:inline-block;padding:5px 0 5px 5px;margin:0 0 0 -5px;}
+#baby .calculate_tb ul.lists_td li {display:inline;padding:0 5px 0 0;}
+#baby .calculate_tb input.mth_calculate {float:right;margin:20px 0 0 0;width:120px;height:33px;background: url(../images/bg_yellow_sub.png) 0 0 repeat-x;border:1px solid #f1d419;font:bold 16px arial, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
+#baby .calculate_tb .cusel {height: 18px;background-position: left top;display: inline-block;position: relative;cursor: pointer;font-size: 14px;z-index: 100;border:  1px solid #e6d4f6;background: #fff;}
+#baby .calculate_tb .cuselFrameRight {position: absolute;z-index: 2;top: 0;right: 0;height: 100%;width: 19px;background-position: right top;background: #41b3cc url(../images/sel_violet.png) no-repeat;}
+#baby .calculate_tb .cusel .cusel-scroll-wrap {display: block;visibility: hidden;position: absolute;left: 0;top: 100%;border:  1px solid #e6d4f6;background: #fff;min-width: 100%;width: auto;font-size: 12px;}
+#baby .calculate_tb .cusel span:hover,
+#baby .calculate_tb .cusel .cuselOptHover {background: #a687c7;color: #fff;}
+#baby .calculate_tb .num_cal {width:50px;}
+#baby .calculate_tb .mn_cal {width:85px;}
+#baby .calculate_tb .yr_cal {width:63px;}
+
+#baby .mother_calendar {position:relative;z-index:4;display:block;padding:15px;margin:0 0 40px 0;box-shadow:0px 0px 5px 5px #f1f1f0;-moz-box-shadow:0px 0px 5px 5px #f1f1f0;-webkit-box-shadow:0px 0px 5px 5px #f1f1f0;}
+#baby .mother_calendar .choice_month {position:relative;display:block;height:77px; background:#f7efff;text-align:center;font:bold 40px/77px arial, sans-serif;color:#5a595a;}
+#baby .mother_calendar .choice_month a.l_arr_mth {display:block;width:22px;height:28px;background: url(../images/call_arrow.png) 0 0 no-repeat; text-indent:-9999px;position:absolute;left:20px;top:25px;}
+#baby .mother_calendar .choice_month a.r_arr_mth {display:block;width:22px;height:28px;background: url(../images/call_arrow.png) 100% 0 no-repeat; text-indent:-9999px;position:absolute;right:20px;top:25px;}
+#baby .mother_calendar table.calendar_body  th {text-align:center;width:87px;height:87px;padding:5px;vertical-align:middle;font:bold 22px tahoma, sans-serif;color:#a4a3a3;}
+#baby .mother_calendar table.calendar_body  td {text-align:center;width:87px;height:87px;padding:5px;vertical-align:top;}
+#baby .mother_calendar .cal_item {display:block;width:85px;height:85px;border:1px solid #f0f0f0;position:relative;}
+#baby .mother_calendar .cal_item ins {position:absolute;top:8px;right:8px;font:bold 16px tahoma, sans-serif;color:#a0a0a0;}
+#baby .mother_calendar .pms {background: url(../images/calendar/pms_icon.png) center 30px no-repeat;}
+#baby .mother_calendar .mens {background: url(../images/calendar/mens_icon.png) center 25px no-repeat;}
+#baby .mother_calendar .fsex {background: url(../images/calendar/fsex_icon.png) center 30px no-repeat;}
+#baby .mother_calendar .mbov {background: url(../images/calendar/mbov_icon.png) center 30px no-repeat;}
+#baby .mother_calendar .fov {background: url(../images/calendar/fov_icon.png) center 30px no-repeat;}
+#baby .mother_calendar .pfsex {background: url(../images/calendar/pfsex_icon.png) center 30px no-repeat;}
+
+#baby .mother_calendar .cal_item_default {display:block;width:65px;height:65px;position:relative;background:#fdfdfe;padding:22px 0 0 22px;}
+#baby .mother_calendar .cal_item_default .cal_item {width:42px;height:42px;border:1px solid #f0f0f0;background:#fff;}
+#baby .mother_calendar .cal_item_default .cal_item ins {position:absolute;top:3px;right:3px;font:bold 8px tahoma, sans-serif;color:#c5c3c3;}
+#baby .mother_calendar .cal_item_default .pms {background: url(../images/calendar/pms_sm_icon.png) center 14px no-repeat;}
+#baby .mother_calendar .cal_item_default .mens {background: url(../images/calendar/mens_sm_icon.png) center 13px no-repeat;}
+#baby .mother_calendar .cal_item_default .fsex {background: url(../images/calendar/fsex_sm_icon.png) center 14px no-repeat;}
+#baby .mother_calendar .cal_item_default .mbov {background: url(../images/calendar/mbov_sm_icon.png) center 14px no-repeat;}
+#baby .mother_calendar .cal_item_default .fov {background: url(../images/calendar/fov_sm_icon.png) center 14px no-repeat;}
+#baby .mother_calendar .cal_item_default .pfsex {background: url(../images/calendar/pfsex_sm_icon.png) center 14px no-repeat;}
+
+#baby .more_about_cal {display:block;margin:-40px 0 40px 0;position:relative;z-index:3;}
+#baby .more_about_cal .next_month_cal {display:block;width:380px;float:left;}
+#baby .more_about_cal .next_month_cal span.title_bl_ntmt {font:italic 16px/18px arial, sans-serif;color:#1787b6;text-align:center;padding:20px 0;display:block;}
+
+#baby .next_month_cal .mother_calendar {position:relative;z-index:4;display:block;padding:15px;margin:0 0 40px 0;box-shadow:0px 0px 5px 5px #f1f1f0;-moz-box-shadow:0px 0px 5px 5px #f1f1f0;-webkit-box-shadow:0px 0px 5px 5px #f1f1f0;}
+#baby .next_month_cal .mother_calendar .choice_month {position:relative;display:block;height:40px; background:#f7efff;text-align:center;font:bold 21px/40px arial, sans-serif;color:#5a595a;}
+#baby .next_month_cal .mother_calendar table.calendar_body  th {text-align:center;width:44px;height:44px;padding:3px;vertical-align:middle;font:bold 12px tahoma, sans-serif;color:#a4a3a3;}
+#baby .next_month_cal .mother_calendar table.calendar_body  td {text-align:center;width:44px;height:44px;padding:3px;vertical-align:top;}
+#baby .next_month_cal .mother_calendar .cal_item {display:block;width:42px;height:42px;border:1px solid #f0f0f0;position:relative;}
+#baby .next_month_cal .mother_calendar .cal_item ins {position:absolute;top:3px;right:3px;font:bold 8px tahoma, sans-serif;color:#a0a0a0;}
+#baby .next_month_cal .mother_calendar .cal_item_default {display:block;width:44px;height:44px;background:#fdfdfe;padding:0;}
+#baby .next_month_cal .mother_calendar .pms {background: url(../images/calendar/pms_sm_icon.png) center 14px no-repeat;}
+#baby .next_month_cal .mother_calendar .mens {background: url(../images/calendar/mens_sm_icon.png) center 13px no-repeat;}
+#baby .next_month_cal .mother_calendar .fsex {background: url(../images/calendar/fsex_sm_icon.png) center 14px no-repeat;}
+#baby .next_month_cal .mother_calendar .mbov {background: url(../images/calendar/mbov_sm_icon.png) center 14px no-repeat;}
+#baby .next_month_cal .mother_calendar .fov {background: url(../images/calendar/fov_sm_icon.png) center 14px no-repeat;}
+#baby .next_month_cal .mother_calendar .pfsex {background: url(../images/calendar/pfsex_sm_icon.png) center 14px no-repeat;}
+
+#baby .more_about_cal .cal_helper {display:block;width:250px;float:right;padding:25px 5px 25px 35px;background:#fef9fd;margin:0 15px 0 0;border-radius:0 0 20px 20px;-moz-border-radius:0 0 20px 20px;-webkit-border-radius:0 0 20px 20px;box-shadow:0px 2px 2px 2px #f1f1f0;}
+#baby .more_about_cal .cal_helper span.title_helper {display:block;font:bold 14px arial, sans-serif;color:#aeaeaf;padding:0 0 20px 0;}
+#baby .more_about_cal .cal_helper ul li {margin:0 0 12px 0;height:24px;font:13px/24px arial, sans-serif;color:#979697;padding:0 0 0 37px;}
+#baby .more_about_cal .cal_helper ul li.pms {background: url(../images/calendar/pms_sm_icon.png) 0 center no-repeat;}
+#baby .more_about_cal .cal_helper ul li.mens {background: url(../images/calendar/mens_sm_icon.png) 0 center no-repeat;}
+#baby .more_about_cal .cal_helper ul li.fsex {background: url(../images/calendar/fsex_sm_icon.png) 0 center no-repeat;}
+#baby .more_about_cal .cal_helper ul li.mbov {background: url(../images/calendar/mbov_sm_icon.png) 0 center no-repeat;}
+#baby .more_about_cal .cal_helper ul li.fov {background: url(../images/calendar/fov_sm_icon.png) 0 center no-repeat;}
+#baby .more_about_cal .cal_helper ul li.pfsex {background: url(../images/calendar/pfsex_sm_icon.png) 0 center no-repeat;}

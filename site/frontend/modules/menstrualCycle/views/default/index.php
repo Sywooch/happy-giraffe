@@ -138,7 +138,7 @@ $model = new MenstrualCycleForm();?>
                         <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_cal', 'class' => 'mn_cal')); ?>
                     </li>
                     <li>
-                        <?php echo $form->dropDownList($model, 'year', HDate::Range(1990, date('Y')), array('id' => 'yr_cal', 'class' => 'yr_cal')); ?>
+                        <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y')-1, date('Y')), array('id' => 'yr_cal', 'class' => 'yr_cal')); ?>
                     </li>
                 </ul>
             </td>

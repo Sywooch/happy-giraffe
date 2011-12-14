@@ -62,6 +62,21 @@ $model = new BloodRefreshForm();
                 }
             });
         });
+
+        $('body').delegate('.cal_item', 'hover', function (event) {
+            if (event.type == 'mouseenter') {
+                $(this).find('.hint').stop(true, true).fadeIn();
+            } else {
+                $(this).find('.hint').stop(true, true).fadeOut();
+            }
+        });
+        $('body').delegate('.cal_item_default', 'hover', function (event) {
+            if (event.type == 'mouseenter') {
+                $(this).find('.hint').stop(true, true).fadeIn();
+            } else {
+                $(this).find('.hint').stop(true, true).fadeOut();
+            }
+        });
     });
 </script>
 <div class="child_sex_banner">

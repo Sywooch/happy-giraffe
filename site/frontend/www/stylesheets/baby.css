@@ -260,8 +260,8 @@
 #baby .vaccination-birthday .cusel{margin-top: 3px;}
 #baby .vaccination-birthday .cusel {margin-bottom: -5px;}
 
-#baby .mother_calendar .cal_item .hint {position:absolute;background:#fcfac6;padding:5px 10px;width:70px;z-index:6;border:1px solid #ffe572;color:#666;font-family:arial, sans-serif;font-size:16px;text-align:left;left:95%;top:80%;display:none;cursor:default;}
-#baby .mother_calendar .cal_item .hint:after {display:block;content:'';width:14px;height:14px;right:100%;top:-1px;background:url(../images/hospital_bag_item_hint_tale.png) no-repeat;position:absolute;}
+#baby .mother_calendar .cal_item .hint, #baby .mother_calendar .cal_item_default .hint {position:absolute;background:#fcfac6;padding:5px 10px;width:70px;z-index:6;border:1px solid #ffe572;color:#666;font-family:arial, sans-serif;font-size:16px;text-align:left;left:95%;top:80%;display:none;cursor:default;}
+#baby .mother_calendar .cal_item .hint:after, #baby .mother_calendar .cal_item_default .hint:after {display:block;content:'';width:14px;height:14px;right:100%;top:-1px;background:url(../images/hospital_bag_item_hint_tale.png) no-repeat;position:absolute;}
 
 
 /*===== romant37 =====*/

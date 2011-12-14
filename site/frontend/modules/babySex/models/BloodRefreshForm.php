@@ -55,13 +55,13 @@ class BloodRefreshForm extends CFormModel
 
     public function init()
     {
-        $this->mother_d = date('j');
-        $this->mother_m = date('m');
-        $this->mother_y = date('Y') - 16;
+        $this->mother_d = 1;
+        $this->mother_m = 1;
+        $this->mother_y = date('Y') - 30;
 
-        $this->father_d = date('j');
-        $this->father_m = date('m');
-        $this->father_y = date('Y') - 16;
+        $this->father_d = 1;
+        $this->father_m = 1;
+        $this->father_y = date('Y') - 30;
 
         $this->baby_d = date('j');
         $this->baby_m = date('m');
@@ -180,13 +180,13 @@ class BloodRefreshForm extends CFormModel
         $father_blood_age = $this->GetFatherBloodAge(strtotime($day . '-' . $month . '-' . $year));
 
         if ($mother_blood_age >= $father_blood_age) {
-            $probability = 50 + round(($mother_blood_age - $father_blood_age) * 50);
+            $probability = round(($mother_blood_age - $father_blood_age) * 100);
             $sex = self::IS_BOY;
         } else {
-            $probability = 50 + round(($father_blood_age - $mother_blood_age) * 50);
+            $probability = round(($father_blood_age - $mother_blood_age) * 100);
             $sex = self::IS_GIRL;
         }
-        if ($probability == 50)
+        if ($probability == 0)
             $sex = self::IS_UNKNOWN;
 
         return array(
@@ -222,8 +222,8 @@ class BloodRefreshForm extends CFormModel
 
     private static function Opacity($prc)
     {
-        $opacity = 0.2 + (($prc - 50) / 50) * 0.8;
-        //        $opacity = ($prc/100);
+//        $opacity = 0.2 + (($prc - 50) / 50) * 0.8;
+        $opacity = 0.2 + ((abs($prc)) / 100) * 0.8;
         return sprintf("%01.2f", $opacity);
     }
 

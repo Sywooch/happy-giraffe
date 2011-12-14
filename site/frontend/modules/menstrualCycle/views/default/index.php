@@ -112,7 +112,7 @@ $model = new MenstrualCycleForm();?>
 </script>
 
 <div class="mother_cal_banner">
-    <img src="../images/mother_calendar_banner.jpg" alt="" title=""/>
+    <span>Менструальный цикл – это биологические часы женщины, запущенные самой природой. Составьте свой женский календарь и проверьте – правильно ли идут ваши часы, а также узнайте массу другой полезной информации.</span>
 </div><!-- .mother_cal_banner -->
 <div class="calculate_tb">
     <?php $form = $this->beginWidget('CActiveForm', array(
@@ -155,65 +155,65 @@ $model = new MenstrualCycleForm();?>
     <!-- .clear -->
 </div><!-- .calculate_tb -->
 <div id="result">
-<div class="mother_calendar">
-<div class="choice_month">
-    <a href="#" class="l_arr_mth" id="prev-month">&larr;</a>
-    <a href="#" class="r_arr_mth_active" id="next-month">&rarr;</a>
-    <span><?php echo HDate::ruMonth(date('m')), ', ' . date('Y') ?></span>
-</div>
-<!-- .choice_month -->
-<table class="calendar_body">
-<tr>
-    <th>Пн</th>
-    <th>Вт</th>
-    <th>Ср</th>
-    <th>Чт</th>
-    <th>Пт</th>
-    <th>Сб</th>
-    <th>Вс</th>
-</tr>
-    <?php
-    $skip = date("w");
-    if ($skip < 0)
-        $skip = 6;
-    $daysInMonth = date("t");
-    $day = 1;
-    $calendar_body = '';
-    for ($i = 0; $i < 6; $i++) { // Внешний цикл для недель 6 с неполыми
+    <div class="mother_calendar">
+        <div class="choice_month">
+            <a href="#" class="l_arr_mth" id="prev-month">&larr;</a>
+            <a href="#" class="r_arr_mth_active" id="next-month">&rarr;</a>
+            <span><?php echo HDate::ruMonth(date('m')), ', ' . date('Y') ?></span>
+        </div>
+        <!-- .choice_month -->
+        <table class="calendar_body">
+            <tr>
+                <th>Пн</th>
+                <th>Вт</th>
+                <th>Ср</th>
+                <th>Чт</th>
+                <th>Пт</th>
+                <th>Сб</th>
+                <th>Вс</th>
+            </tr>
+            <?php
+            $skip = date("w");
+            if ($skip < 0)
+                $skip = 6;
+            $daysInMonth = date("t");
+            $day = 1;
+            $calendar_body = '';
+            for ($i = 0; $i < 6; $i++) { // Внешний цикл для недель 6 с неполыми
 
-        $calendar_body .= '<tr>'; // открываем тэг строки
-        for ($j = 0; $j < 7; $j++) { // Внутренний цикл для дней недели
+                $calendar_body .= '<tr>'; // открываем тэг строки
+                for ($j = 0; $j < 7; $j++) { // Внутренний цикл для дней недели
 
-            if (($skip > 0)or($day > $daysInMonth)) { // выводим пустые ячейки до 1 го дня ип после полного количства дней
-                if ($day > $daysInMonth){
-                    $daysOtherMonth = date("t", strtotime('+1 month',strtotime(date("Y-m-d"))));
-                    $day2 = $day - $daysInMonth;
-                }else{
-                    $daysOtherMonth = date("t", strtotime('-1 month',strtotime(date("Y-m-d"))));
-                    $day2 = $daysOtherMonth - $skip + 1;
+                    if (($skip > 0)or($day > $daysInMonth)) { // выводим пустые ячейки до 1 го дня ип после полного количства дней
+                        if ($day > $daysInMonth) {
+                            $daysOtherMonth = date("t", strtotime('+1 month', strtotime(date("Y-m-d"))));
+                            $day2 = $day - $daysInMonth;
+                        } else {
+                            $daysOtherMonth = date("t", strtotime('-1 month', strtotime(date("Y-m-d"))));
+                            $day2 = $daysOtherMonth - $skip + 1;
+                        }
+                        $calendar_body .= ' <td><div class="cal_item_default"><div class="cal_item "><ins>' . $day2 . '</ins>' .
+                            '</div></div></td>';
+                        $skip--;
+
+                    }
+                    else {
+
+                        $calendar_body .= '<td><div class="cal_item"><ins>' . $day . '</ins></div></td>';
+                        $day++; // увеличиваем $day
+                    }
+
                 }
-                $calendar_body .= ' <td><div class="cal_item_default"><div class="cal_item "><ins>'.$day2.'</ins>'.
-                    '</div></div></td>';
-                $skip--;
-
+                $calendar_body .= '</tr>'; // закрываем тэг строки
+                if ($day > $daysInMonth)
+                    break;
             }
-            else {
-
-                $calendar_body .= '<td><div class="cal_item"><ins>' . $day . '</ins></div></td>';
-                $day++; // увеличиваем $day
-            }
-
-        }
-        $calendar_body .= '</tr>'; // закрываем тэг строки
-        if ($day > $daysInMonth)
-            break;
-    }
-    echo $calendar_body;
-    ?>
-</table>
-</div>
-<!-- .mother_calendar -->
-<div id="next-m"></div>
+            echo $calendar_body;
+            ?>
+        </table>
+    </div>
+    <!-- .mother_calendar -->
+    <div id="next-m"></div>
 </div>
 <div class="article_p">
     <span class="article_title">Менструальный цикл – жизнь по расписанию</span>

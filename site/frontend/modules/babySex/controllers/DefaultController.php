@@ -26,8 +26,14 @@ class DefaultController extends Controller
         $this->render('japan');
     }
 
-    public function actionBlood(){
+    public function actionBlood()
+    {
         $this->render('blood_group');
+    }
+
+    public function actionChina()
+    {
+        $this->render('china');
     }
 
     public function actionBloodUpdate()

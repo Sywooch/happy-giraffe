@@ -44,7 +44,7 @@ $model = new JapanCalendarForm;
         });
 
         $('.child_sex_japan_banner .calc_bt').click(function () {
-            $("#japan_review_month").val($("#japan-conception-m").val());
+            $("#japan_review_month").val($("#ch_mn_cal").val());
             $.ajax({
                 url:"<?php echo Yii::app()->createUrl("/babySex/default/japanCalc") ?>",
                 data:jQuery(this).parents("form").serialize(),

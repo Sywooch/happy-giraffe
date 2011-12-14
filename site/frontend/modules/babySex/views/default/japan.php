@@ -57,10 +57,10 @@ $model = new JapanCalendarForm;
         });
 
         function ShowResult(data) {
-            $('#japan-result').animate({opacity:0}, 'fast', 'swing', function () {
+//            $('#japan-result').animate({opacity:0}, 'fast', 'swing', function () {
                 $('#japan-result').html(data);
-                $('#japan-result').animate({opacity:1}, 'fast');
-            });
+//                $('#japan-result').animate({opacity:1}, 'fast');
+//            });
         }
 
         $('body').delegate('.cal_item', 'hover', function (event) {

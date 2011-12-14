@@ -43,13 +43,13 @@
                                         echo 'менструация';
                                         break;
                                     case 'pms':
-                                        echo 'плохое самочуствие';
+                                        echo 'предменструальный синдром';
                                         break;
                                     case 'mbov':
-                                        echo 'возможна овуляция';
+                                        echo 'благоприятные для зачатия дни';
                                         break;
                                     case 'fov':
-                                        echo 'овуляция наиболее вероятна';
+                                        echo 'овуляция';
                                         break;
                                     case 'fsex':
                                         echo 'безопасный секс';
@@ -74,13 +74,13 @@
                                     echo 'менструация';
                                     break;
                                 case 'pms':
-                                    echo 'плохое самочуствие';
+                                    echo 'предменструальный синдром';
                                     break;
                                 case 'mbov':
-                                    echo 'возможна овуляция';
+                                    echo 'благоприятные для зачатия дни';
                                     break;
                                 case 'fov':
-                                    echo 'овуляция наиболее вероятна';
+                                    echo 'овуляция';
                                     break;
                                 case 'fsex':
                                     echo 'безопасный секс';
@@ -147,9 +147,9 @@
             <span class="title_helper">Обозначения:</span>
             <ul>
                 <li class="mens">- менструация</li>
-                <li class="pms">- плохое самочуствие</li>
-                <li class="mbov">- возможна овуляция</li>
-                <li class="fov">- овуляция наиболее вероятна</li>
+                <li class="pms">- предменструальный синдром</li>
+                <li class="mbov">- благоприятные для зачатия дни</li>
+                <li class="fov">- овуляция</li>
                 <li class="fsex">- безопасный секс</li>
                 <li class="pfsex">- условно безопасный секс</li>
             </ul>

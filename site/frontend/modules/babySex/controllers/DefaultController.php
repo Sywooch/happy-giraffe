@@ -26,6 +26,10 @@ class DefaultController extends Controller
         $this->render('japan');
     }
 
+    public function actionBlood(){
+        $this->render('blood_group');
+    }
+
     public function actionBloodUpdate()
     {
         if (isset($_POST['BloodRefreshForm'])) {

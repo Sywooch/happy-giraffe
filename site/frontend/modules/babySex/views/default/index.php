@@ -62,22 +62,7 @@
         height: 30px;
     }
 </style>
-<script type="text/javascript">
-    $(function() {
-        //blood link
-        $('#blood-group-link').click(function () {
-            var mg = parseInt($('#mother_blood_group').val());
-            var fg = parseInt($('#father_blood_group').val());
-            var sum = mg + fg;
-            console.log(sum);
-            if (sum % 2 == 0) {
-                $('#blood-group-result').html('Девочка');
-            } else {
-                $('#blood-group-result').html('Мальчик');
-            }
-        });
-    });
-</script>
+
 <?php $this->renderPartial('blood_refresh'); ?>
 <br>
 <?php //$this->renderPartial('blood_group'); ?>

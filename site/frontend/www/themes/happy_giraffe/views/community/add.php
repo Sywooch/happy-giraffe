@@ -1,5 +1,6 @@
 <div class="inner">
 	<?php $form = $this->beginWidget('CActiveForm'); ?>
+	<?php echo CHtml::errorSummary(array($content_model, $slave_model)); ?>
 	<?php echo $form->hiddenField($content_model, 'type_id', array('value' => $content_type->id)); ?>
 	<div class="content-title">Добавить:</div>
 	

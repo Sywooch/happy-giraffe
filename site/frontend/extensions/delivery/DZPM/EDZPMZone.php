@@ -1,6 +1,7 @@
 <?php
+
 class EDZPMZone extends CActiveRecord {
-	
+
 	public function __construct($scenario='insert') {
 
 		parent::__construct($scenario);
@@ -11,8 +12,7 @@ class EDZPMZone extends CActiveRecord {
 		// will receive user inputs.
 		return array(
 			array('id, price', 'numerical', 'integerOnly' => true),
-//			array('price', 'required'),
-			array('id, price, city', 'safe'),
+			array('id, price, title', 'safe'),
 		);
 	}
 
@@ -52,7 +52,7 @@ class EDZPMZone extends CActiveRecord {
 		return array(
 			'id' => 'ID',
 			'price' => 'Price',
-			'city' => 'City'
+			'title' => 'title'
 		);
 	}
 
@@ -68,7 +68,7 @@ class EDZPMZone extends CActiveRecord {
 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('price', $this->price, true);
-		$criteria->compare('city', $this->city, true);
+		$criteria->compare('title', $this->title, true);
 
 		return new CActiveDataProvider(get_class($this), array(
 					'criteria' => $criteria,
@@ -83,16 +83,9 @@ class EDZPMZone extends CActiveRecord {
 					'type' => 'hidden',
 				),
 			),
-			'buttons' => array(
-				'login' => array(
-					'type' => 'submit',
-					'label' => 'Агумсссс',
-				),
-			),
 		);
 
 		return new CForm($params, $this);
 	}
 
-	
 }

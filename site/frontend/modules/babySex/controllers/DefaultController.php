@@ -56,20 +56,42 @@ class DefaultController extends Controller
         }
     }
 
-//    public function actionChina()
-//    {
-//        if (isset($_POST['ChinaCalendarForm'])) {
-//            $model = new ChinaCalendarForm();
-//            $model->attributes = $_POST['ChinaCalendarForm'];
-//            if (!$model->validate())
-//                Yii::app()->end();
-//
-//            $data = $model->CalculateData();
-//            $this->renderPartial('_china_result', array(
-//                'data' => $data,
-//            ));
-//        }
-//    }
+    public function actionParse()
+    {
+        $str = '2 1 2 1 1 1 1 1 1 1 1 1
+        1 2 1 2 2 1 1 2 1 1 2 2
+        2 1 2 1 1 1 1 1 1 2 1 1
+        1 2 2 2 2 2 2 2 2 2 2 2
+        2 1 1 2 1 2 2 1 2 2 2 2
+        1 1 1 2 1 1 2 2 2 1 1 2
+        1 2 2 1 1 2 1 2 1 1 2 1
+        2 1 2 1 2 1 2 1 2 1 1 1
+        1 1 1 1 1 2 1 2 2 1 2 2
+        2 2 1 1 2 1 2 2 1 2 1 1
+        1 1 1 2 2 1 2 1 2 2 1 2
+        2 1 2 2 1 2 2 1 2 1 2 2
+        1 1 2 1 2 1 1 1 1 1 1 1
+        1 1 1 1 2 2 1 2 1 2 2 2
+        1 2 2 1 2 1 1 2 1 1 2 1
+        2 1 1 2 2 1 2 1 2 1 1 2
+        1 1 2 2 1 2 1 1 2 1 2 2
+        1 2 1 2 1 2 1 2 1 1 2 1
+        1 2 1 1 1 2 1 1 2 2 2 2
+        2 2 1 2 2 2 1 2 2 1 1 1
+        1 1 2 2 1 2 2 1 2 2 1 2
+        2 2 1 2 2 2 1 2 1 1 2 1
+        1 1 1 2 1 2 1 2 1 2 2 1
+        2 2 1 2 1 1 2 2 1 2 1 2
+        1 2 2 1 1 1 1 1 2 1 2 1
+        2 1 2 2 1 1 1 2 2 2 1 1
+        1 2 2 2 1 2 1 1 2 1 2 1
+        2 1 2 1 2 2 1 2 1 2 1 2';
+        $data = explode("\n", $str);
+        foreach ($data as $row) {
+            $row_data = str_replace(" ", ",", trim($row));
+            echo 'new Array('.$row_data.'),'.'<br>';
+        }
+    }
 
     public function actionJapanCalc()
     {

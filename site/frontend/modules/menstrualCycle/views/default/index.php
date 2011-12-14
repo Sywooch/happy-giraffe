@@ -75,7 +75,36 @@ $model = new MenstrualCycleForm();?>
                 data:$("#menstrual-cycle-form").serialize(),
                 type:"POST",
                 success:function (data) {
-                    $('#result').html(data);
+//                    $('#result').html(data);
+                    $('#result').animate({opacity: 0}, 'fast', 'swing', function(){
+                        $('#result').html(data);
+                        $('#result').animate({opacity: 1}, 'fast');
+                    });
+
+//                    $('#result2').html(data);
+//                    $('#result > .mother_calendar .calendar_body').animate({opacity:0}, 'fast', 'swing', function () {
+//                        $('#result > .mother_calendar .calendar_body').html($('#result2 > .mother_calendar .calendar_body').html());
+//                        $('#result > .mother_calendar .calendar_body').animate({opacity:1}, 'fast', 'swing');
+//                    });
+//                    if (started) {
+//                        $('#result > .mother_calendar .choice_month span').animate({opacity:0}, 'fast', 'swing', function () {
+//                            $('#result > .mother_calendar .choice_month span').html($('#result2 > .mother_calendar .choice_month span').html());
+//                            $('#result > .mother_calendar .choice_month span').animate({opacity:1}, 'fast');
+//                        });
+//                    }
+//                    if (started) {
+//                        $('#next-m .next_month_cal .mother_calendar').animate({opacity:0}, 300, 'swing', function () {
+//                            $('#next-m .next_month_cal .mother_calendar').html($('#result2 .next_month_cal .mother_calendar').html());
+//                            $('#next-m .next_month_cal .mother_calendar').animate({opacity:1}, 300);
+//                        });
+//                    }
+//                    else {
+//                        $('#next-m').animate({opacity:0}, 1, 'swing', function () {
+//                            $('#next-m').html($('#result2 .bottom-wrap').html());
+//                            $('#next-m').animate({opacity:1}, 300);
+//                        });
+//                        started = true;
+//                    }
                 }
             });
         }

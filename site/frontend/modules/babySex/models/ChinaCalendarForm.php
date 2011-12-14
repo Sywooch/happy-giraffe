@@ -26,7 +26,7 @@ class ChinaCalendarForm extends CFormModel
 
     public function init()
     {
-        $this->mother_y = date('Y')-18;
+        $this->mother_y = date('Y')-25;
         $this->mother_m = date('m');
 
         $this->baby_y = date('Y');

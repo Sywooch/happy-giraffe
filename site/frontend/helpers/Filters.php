@@ -1,29 +1,26 @@
 <?php
 
+require_once('../vendor/simplehtmldom_1_5/simple_html_dom.php');
+
 class Filters
 {
 	public static function add_nofollow($value)
 	{
-		$dom = new DOMDocument('1.0', 'UTF-8');
-		$dom->loadHTML($value);
-		$dom->strictErrorChecking = false;
+		$html = str_get_html($value);
 
-		$links = $dom->getElementsByTagName('a');
+		$links = $html->find('a');
 		foreach ($links as $link)
 		{
-			$href = $link->getAttribute('href');
-			
-			if (! $link->hasAttribute('rel') AND strpos($href, 'happy-giraffe.ru') === false)
+			if (! isset($link->rel) AND strpos($link->href, 'happy-giraffe.ru') === false)
 			{
-				$link->setAttribute('rel', 'nofollow');
+				$link->rel = 'nofollow';
 			}
-			elseif ($link->getAttribute('rel') == 'nofollow')
+			elseif ($link->rel == 'nofollow')
 			{
-				$link->removeAttribute('rel');
+				$link->rel = null;
 			}
 		}
 
-		//return $dom->saveHTML();
-		return $value;
+		return $html;
 	}
 }

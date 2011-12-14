@@ -29,7 +29,6 @@ $model = new MenstrualCycleForm();?>
             }
             $('#review_month').val(month);
             LoadCalendar();
-            $('div.choice_month a.l_arr_mth').removeClass('l_arr_mth').addClass('l_arr_mth_active');
             return false;
         });
 
@@ -50,14 +49,24 @@ $model = new MenstrualCycleForm();?>
                 $('#review_year').val(year);
             }
 
-            if (month == d.getMonth() + 1 && year == d.getFullYear()){
-                $('.choice_month .l_arr_mth_active').removeClass('l_arr_mth_active').addClass('l_arr_mth');
-            }
-
             $('#review_month').val(month);
             LoadCalendar();
-//            $('div.choice_month a.l_arr_mth').removeClass('stop');
             return false;
+        });
+
+        $('body').delegate('.cal_item', 'hover', function (event) {
+            if (event.type == 'mouseenter') {
+                $(this).find('.hint').stop(true, true).fadeIn();
+            } else {
+                $(this).find('.hint').stop(true, true).fadeOut();
+            }
+        });
+        $('body').delegate('.cal_item_default', 'hover', function (event) {
+            if (event.type == 'mouseenter') {
+                $(this).find('.hint').stop(true, true).fadeIn();
+            } else {
+                $(this).find('.hint').stop(true, true).fadeOut();
+            }
         });
 
         function LoadCalendar() {
@@ -66,34 +75,35 @@ $model = new MenstrualCycleForm();?>
                 data:$("#menstrual-cycle-form").serialize(),
                 type:"POST",
                 success:function (data) {
+                    $('#result').html(data);
 //                    $('#result').animate({opacity: 0}, 'fast', 'swing', function(){
 //                        $('#result').html(data);
 //                        $('#result').animate({opacity: 1}, 'fast');
 //                    });
-                    $('#result2').html(data);
-                    $('#result > .mother_calendar .calendar_body').animate({opacity:0}, 'fast', 'swing', function () {
-                        $('#result > .mother_calendar .calendar_body').html($('#result2 > .mother_calendar .calendar_body').html());
-                        $('#result > .mother_calendar .calendar_body').animate({opacity:1}, 'fast', 'swing');
-                    });
-                    if (started) {
-                        $('#result > .mother_calendar .choice_month span').animate({opacity:0}, 'fast', 'swing', function () {
-                            $('#result > .mother_calendar .choice_month span').html($('#result2 > .mother_calendar .choice_month span').html());
-                            $('#result > .mother_calendar .choice_month span').animate({opacity:1}, 'fast');
-                        });
-                    }
-                    if (started) {
-                        $('#next-m .next_month_cal .mother_calendar').animate({opacity:0}, 300, 'swing', function () {
-                            $('#next-m .next_month_cal .mother_calendar').html($('#result2 .next_month_cal .mother_calendar').html());
-                            $('#next-m .next_month_cal .mother_calendar').animate({opacity:1}, 300);
-                        });
-                    }
-                    else {
-                        $('#next-m').animate({opacity:0}, 1, 'swing', function () {
-                            $('#next-m').html($('#result2 .bottom-wrap').html());
-                            $('#next-m').animate({opacity:1}, 300);
-                        });
-                        started = true;
-                    }
+//                    $('#result2').html(data);
+//                    $('#result > .mother_calendar .calendar_body').animate({opacity:0}, 'fast', 'swing', function () {
+//                        $('#result > .mother_calendar .calendar_body').html($('#result2 > .mother_calendar .calendar_body').html());
+//                        $('#result > .mother_calendar .calendar_body').animate({opacity:1}, 'fast', 'swing');
+//                    });
+//                    if (started) {
+//                        $('#result > .mother_calendar .choice_month span').animate({opacity:0}, 'fast', 'swing', function () {
+//                            $('#result > .mother_calendar .choice_month span').html($('#result2 > .mother_calendar .choice_month span').html());
+//                            $('#result > .mother_calendar .choice_month span').animate({opacity:1}, 'fast');
+//                        });
+//                    }
+//                    if (started) {
+//                        $('#next-m .next_month_cal .mother_calendar').animate({opacity:0}, 300, 'swing', function () {
+//                            $('#next-m .next_month_cal .mother_calendar').html($('#result2 .next_month_cal .mother_calendar').html());
+//                            $('#next-m .next_month_cal .mother_calendar').animate({opacity:1}, 300);
+//                        });
+//                    }
+//                    else {
+//                        $('#next-m').animate({opacity:0}, 1, 'swing', function () {
+//                            $('#next-m').html($('#result2 .bottom-wrap').html());
+//                            $('#next-m').animate({opacity:1}, 300);
+//                        });
+//                        started = true;
+//                    }
                 }
             });
         }
@@ -133,7 +143,7 @@ $model = new MenstrualCycleForm();?>
                 </ul>
             </td>
             <td>
-                <?php echo $form->dropDownList($model, 'cycle', HDate::Range(25, 35), array('id' => 'cl_cal', 'class' => 'num_cal')); ?>
+                <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('id' => 'cl_cal', 'class' => 'num_cal')); ?>
             </td>
             <td>
                 <?php echo $form->dropDownList($model, 'critical_period', HDate::Range(3, 7), array('id' => 'men_cal', 'class' => 'num_cal')); ?>
@@ -150,7 +160,7 @@ $model = new MenstrualCycleForm();?>
 <div class="choice_month">
     <a href="#" class="l_arr_mth" id="prev-month">&larr;</a>
     <a href="#" class="r_arr_mth_active" id="next-month">&rarr;</a>
-    <span><?php echo HDate::ruMonth(date('m')),', '.date('Y') ?></span>
+    <span><?php echo HDate::ruMonth(date('m')), ', ' . date('Y') ?></span>
 </div>
 <!-- .choice_month -->
 <table class="calendar_body">

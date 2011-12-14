@@ -75,11 +75,12 @@ $model = new MenstrualCycleForm();?>
                 data:$("#menstrual-cycle-form").serialize(),
                 type:"POST",
                 success:function (data) {
-                    $('#result').html(data);
-//                    $('#result').animate({opacity: 0}, 'fast', 'swing', function(){
-//                        $('#result').html(data);
-//                        $('#result').animate({opacity: 1}, 'fast');
-//                    });
+//                    $('#result').html(data);
+                    $('#result').animate({opacity: 0}, 'fast', 'swing', function(){
+                        $('#result').html(data);
+                        $('#result').animate({opacity: 1}, 'fast');
+                    });
+
 //                    $('#result2').html(data);
 //                    $('#result > .mother_calendar .calendar_body').animate({opacity:0}, 'fast', 'swing', function () {
 //                        $('#result > .mother_calendar .calendar_body').html($('#result2 > .mother_calendar .calendar_body').html());

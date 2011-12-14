@@ -93,7 +93,7 @@
 </div><!-- .wh_wait -->
 <?php endif ?>
 <?php if ($gender == BloodRefreshForm::IS_UNKNOWN): ?>
-<div class="wh_wait">
+<div class="wh_wait wh_unknown">
     <p><b>Мальчик или девочка?</b> В вашем случае однозначного ответа японский метод не даёт. Попробуйте воспользоваться
         другими способами определения пола будущего ребёнка.</p>
 </div><!-- .wh_wait -->

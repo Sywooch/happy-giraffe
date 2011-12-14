@@ -9,8 +9,8 @@ $model = new MenstrualCycleForm();?>
     $(function () {
         $('#menstrual-cycle-form input.mth_calculate').click(function () {
             var d = new Date();
-            $('#review_month').val(d.getMonth() + 1);
-            $('#review_year').val(d.getFullYear());
+            $('#review_month').val($('#mn_cal').val());
+            $('#review_year').val($('#yr_cal').val());
             LoadCalendar();
             return false;
         });
@@ -38,9 +38,9 @@ $model = new MenstrualCycleForm();?>
                 return false;
             var year = $('#review_year').val();
 
-            var d = new Date();
-            if (month == d.getMonth() + 1 && year == d.getFullYear())
-                return false;
+//            var d = new Date();
+//            if (month == d.getMonth() + 1 && year == d.getFullYear())
+//                return false;
 
             month--;
             if (month == 0) {
@@ -76,10 +76,10 @@ $model = new MenstrualCycleForm();?>
                 type:"POST",
                 success:function (data) {
 //                    $('#result').html(data);
-                    $('#result').animate({opacity:0}, 'fast', 'swing', function () {
+//                    $('#result').animate({opacity:0}, 'fast', 'swing', function () {
                         $('#result').html(data);
-                        $('#result').animate({opacity:1}, 'fast');
-                    });
+//                        $('#result').animate({opacity:1}, 'fast');
+//                    });
 
 //                    $('#result2').html(data);
 //                    $('#result > .mother_calendar .calendar_body').animate({opacity:0}, 'fast', 'swing', function () {
@@ -158,7 +158,7 @@ $model = new MenstrualCycleForm();?>
     <div class="mother_calendar">
         <div class="choice_month">
             <a href="#" class="l_arr_mth" id="prev-month">&larr;</a>
-            <a href="#" class="r_arr_mth_active" id="next-month">&rarr;</a>
+            <a href="#" class="r_arr_mth" id="next-month">&rarr;</a>
             <span><?php echo HDate::ruMonth(date('m')), ', ' . date('Y') ?></span>
         </div>
         <!-- .choice_month -->
@@ -247,7 +247,8 @@ $model = new MenstrualCycleForm();?>
         цикл составляет 28 дней в этом месяце, то и в следующем будет таким, и через полгода тоже. Многие женщины ведут
         календари, в которых отмечают начало и продолжительность каждой менструации.</p>
 
-    <p>Наш сервис предлагает завести себе электронный календарь, при помощи которого можно:</p>
+    <div class="brushed">
+    <p style="margin-top:0;">Наш сервис предлагает завести себе электронный календарь, при помощи которого можно:</p>
     <ul>
         <li>составить индивидуальный график менструального цикла за любой промежуток времени (при этом все данные
             сохраняются, и их легко проанализировать);
@@ -261,6 +262,7 @@ $model = new MenstrualCycleForm();?>
         поможет правильно спланировать свою личную жизнь. Кстати, вам не придётся повторять ввод данных &ndash; ваш
         женский календарь сохранится в вашем личном кабинете и будет постоянно доступен для пользования и занесения
         данных нового месяца.</p>
+    </div>
 
 </div><!-- .placenta_article -->
 <div id="result2" style="display: none;"></div>

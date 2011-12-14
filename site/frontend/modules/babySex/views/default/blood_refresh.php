@@ -64,10 +64,11 @@ $model = new BloodRefreshForm();
         });
 
         function ShowResult(data) {
-            $('#blood-update-result').animate({opacity:0}, 'fast', 'swing', function () {
-                $('#blood-update-result').html(data);
-                $('#blood-update-result').animate({opacity:1}, 'fast');
-            });
+            $('#blood-update-result').html(data);
+//            $('#blood-update-result').animate({opacity:0}, 'fast', 'swing', function () {
+//                $('#blood-update-result').html(data);
+//                $('#blood-update-result').animate({opacity:1}, 'fast');
+//            });
         }
 
         $('body').delegate('.cal_item', 'hover', function (event) {

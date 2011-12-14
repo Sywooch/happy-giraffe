@@ -250,23 +250,24 @@
 
 #baby .seo-text {padding: 20px 20px 20px 35px;color: #474747;}
 #baby .seo-text .summary-title{color:#906ab3;font-size:25px;margin-bottom:0px;font-weight: normal;line-height: 1;}
-#baby .seo-text p{margin: 1em 0 0;}
+#baby .seo-text p{margin: 1em 0 0;color: #474747;}
 #baby .seo-text h3{margin-top: 20px;}
 #baby .seo-text h4{margin-top: 20px;font-size: 16px;}
 #baby .seo-text ul{list-style-type: disc;margin-left: 20px;}
-#baby .seo-text ul li{padding-top: 0.4em;}
+#baby .seo-text ul li{padding-top: 0.4em;color: #474747;}
 #baby .seo-text div.brushed{background: #fcfbd5; padding:10px;margin: 20px 0;}
 #baby .seo-text div.brushed h3 {margin-top: 0;}
 #baby .vaccination-birthday .cusel{margin-top: 3px;}
 #baby .vaccination-birthday .cusel {margin-bottom: -5px;}
 
-#baby .mother_calendar .cal_item .hint, #baby .mother_calendar .cal_item_default .hint {position:absolute;background:#fcfac6;padding:5px 10px;width:130px;z-index:6;border:1px solid #ffe572;color:#666;font-family:arial, sans-serif;font-size:16px;text-align:left;left:95%;top:80%;display:none;cursor:default;}
+#baby .mother_calendar .cal_item .hint, #baby .mother_calendar .cal_item_default .hint {position:absolute;background:#fcfac6;padding:5px 10px;width:130px;z-index:6;border:1px solid #ffe572;color:#666;font-family:arial, sans-serif;font-size:12px;text-align:left;left:95%;top:80%;display:none;cursor:default;}
 #baby .mother_calendar .cal_item .hint:after, #baby .mother_calendar .cal_item_default .hint:after {display:block;content:'';width:14px;height:14px;right:100%;top:-1px;background:url(../images/hospital_bag_item_hint_tale.png) no-repeat;position:absolute;}
 #baby #blood-update-result .mother_calendar .cal_item .hint, #baby #blood-update-result .mother_calendar .cal_item_default .hint,
 #baby #japan-result .mother_calendar .cal_item .hint, #baby #japan-result .mother_calendar .cal_item_default .hint {width: 40px;}
 
 #baby .placenta_recomendation .seo-text{padding: 0;}
 #baby .article_p ul {list-style-type: disc;margin-left: 20px;}
+#baby .wh_unknown {background: url(../images/baby_unknown.png) 50px 0px no-repeat;padding: 0 50px 0 265px !important;}
 
 /*===== romant37 =====*/
 #baby .placenta_about {display:block;position:relative;z-index:3;padding:10px 10px 40px 10px;margin:0 0 10px 0;background:#fef8fc;}

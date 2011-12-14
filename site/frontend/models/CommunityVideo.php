@@ -49,6 +49,7 @@ class CommunityVideo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
 			array('link, text, content_id, player_favicon, player_title', 'required'),
 			array('link, player_favicon, player_title', 'length', 'max'=>255),
 			array('content_id', 'length', 'max'=>11),

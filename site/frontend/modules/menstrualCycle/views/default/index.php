@@ -215,8 +215,8 @@ $model = new MenstrualCycleForm();?>
     <!-- .mother_calendar -->
     <div id="next-m"></div>
 </div>
-<div class="article_p">
-    <span class="article_title">Менструальный цикл – жизнь по расписанию</span>
+<div class="seo-text">
+    <span class="summary-title">Менструальный цикл – жизнь по расписанию</span>
 
     <p>Менструальный цикл &ndash; это не просто кровотечение по расписанию, это перестройка всего организма с одной
         единственной целью &ndash; дать начало новой человеческой жизни.</p>

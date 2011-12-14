@@ -1,4 +1,5 @@
 <?php
+	print_r($_POST);
 
 	$cs = Yii::app()->clientScript;
 
@@ -139,13 +140,13 @@
 		<div class="settings-l">
 			<div class="inner-title">Укажите источник</div>
 			
-			<?php echo $form->radioButton($slave_model, 'source_type', array('value' => 'me', 'id' => 'v1', 'class' => 'RadioClass')); ?>
+			<input type="radio" class="RadioClass" id="v1" value="me" name="<?php echo get_class($slave_model); ?>[source_type]"/>
 			<label for="v1" class="RadioLabelClass">Я автор</label>
 			
-			<?php echo $form->radioButton($slave_model, 'source_type', array('value' => 'internet', 'id' => 'v2', 'class' => 'RadioClass')); ?>
+			<input type="radio" class="RadioClass" id="v2" value="internet" name="<?php echo get_class($slave_model); ?>[source_type]"/>
 			<label for="v2" class="RadioLabelClass">Интернет-ресурс</label>
 
-			<?php echo $form->radioButton($slave_model, 'source_type', array('value' => 'book', 'id' => 'v3', 'class' => 'RadioClass')); ?>
+			<input type="radio" class="RadioClass" id="v3" value="book" name="<?php echo get_class($slave_model); ?>[source_type]"/>
 			<label for="v3" class="RadioLabelClass">Книга</label>
 
 			<div class="clear"></div>

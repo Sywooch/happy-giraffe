@@ -52,11 +52,16 @@ class CommunityPost extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('text', 'required'),
+			array('content_id', 'required', 'on' => 'edit'),
+			array('internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max' => 255),
+			array('content_id', 'length', 'max' => 11),
+			array('content_id', 'numerical', 'integerOnly' => true),
+			array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),
+			array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
+		
 			array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
-			array('text, source_type, content_id', 'required'),
-			array('source_type', 'length', 'max'=>8),
-			array('internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max'=>255),
-			array('content_id', 'length', 'max'=>11),
+
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, content_id', 'safe', 'on'=>'search'),

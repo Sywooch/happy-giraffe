@@ -1,6 +1,4 @@
 <?php
-	print_r($_POST);
-
 	$cs = Yii::app()->clientScript;
 
 	$js = "

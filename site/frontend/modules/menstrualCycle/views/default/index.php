@@ -76,10 +76,10 @@ $model = new MenstrualCycleForm();?>
                 type:"POST",
                 success:function (data) {
 //                    $('#result').html(data);
-                    $('#result').animate({opacity:0}, 'fast', 'swing', function () {
+//                    $('#result').animate({opacity:0}, 'fast', 'swing', function () {
                         $('#result').html(data);
-                        $('#result').animate({opacity:1}, 'fast');
-                    });
+//                        $('#result').animate({opacity:1}, 'fast');
+//                    });
 
 //                    $('#result2').html(data);
 //                    $('#result > .mother_calendar .calendar_body').animate({opacity:0}, 'fast', 'swing', function () {
@@ -158,7 +158,7 @@ $model = new MenstrualCycleForm();?>
     <div class="mother_calendar">
         <div class="choice_month">
             <a href="#" class="l_arr_mth" id="prev-month">&larr;</a>
-            <a href="#" class="r_arr_mth_active" id="next-month">&rarr;</a>
+            <a href="#" class="r_arr_mth" id="next-month">&rarr;</a>
             <span><?php echo HDate::ruMonth(date('m')), ', ' . date('Y') ?></span>
         </div>
         <!-- .choice_month -->

@@ -63,10 +63,10 @@ $model = new BloodRefreshForm();
             });
         });
 
-        function ShowResult(data){
-            $('#blood-update-result').animate({opacity: 0}, 'fast', 'swing', function(){
+        function ShowResult(data) {
+            $('#blood-update-result').animate({opacity:0}, 'fast', 'swing', function () {
                 $('#blood-update-result').html(data);
-                $('#blood-update-result').animate({opacity: 1}, 'fast');
+                $('#blood-update-result').animate({opacity:1}, 'fast');
             });
         }
 
@@ -143,4 +143,15 @@ $model = new BloodRefreshForm();
 </div><!-- .child_sex_banner -->
 <div id="blood-update-result">
 
+</div>
+<div class="seo-text">
+    <div class="summary-title">Определение пола будущего ребенка по дате рождения родителей</div>
+    <p>В основе данного метода лежит цикличность обновления крови женщины и мужчины в зависимости от их возраста. Эти
+        циклы представляют собой определенные временные периоды, которые начинаются со дня рождения. Если на момент
+        зачатия «моложе» была кровь женщины – значит, родится девочка, если кровь мужчины – мальчик.</p>
+
+    <p>По правде говоря, эффективность данного метода недостаточно высока. Данный метод планирования пола будущего
+        малыша дает верный прогноз в 50-52% случаев. Так что, если результат не оправдал ваших ожиданий – не
+        расстраивайтесь. Главное – чтобы это был здоровый малыш, а поэкспериментировать вы сможете еще – со следующим
+        ребенком.</p>
 </div>

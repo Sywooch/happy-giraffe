@@ -40,7 +40,6 @@
     });
 
     function CheckButtonEnable() {
-//        console.log(father_group, mother_group);
         if (father_group !== null && mother_group !== null) {
 //            $('.child_sex_blood_banner input[type=button]').removeClass('calc_grey').addClass('calc_bt');
         }

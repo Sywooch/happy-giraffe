@@ -37,10 +37,8 @@ $model = new ChinaCalendarForm();
             parent.data('activeCell', cell.children());
 
             if (cell.children().hasClass('sex-test-table-girl')) {
-                console.log('У вас будет девочка!');
                 parent.data('activeCell').addClass('sex-test-table-cur-girl');
             } else {
-                console.log('У вас будет мальчик!');
                 parent.data('activeCell').addClass('sex-test-table-cur-boy');
             }
 

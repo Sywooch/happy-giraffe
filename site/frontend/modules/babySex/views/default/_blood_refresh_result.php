@@ -88,7 +88,7 @@
 </div><!-- .wh_wait -->
 <?php endif ?>
 <?php if ($gender == BloodRefreshForm::IS_BOY): ?>
-<div class="wh_wait wh_daughter">
+<div class="wh_wait wh_son">
     <span class="title_wh_wait">У Вас будет сын</span>
 
     <p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам.

@@ -101,7 +101,7 @@ $model = new BloodRefreshForm();
                 <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('id' => 'dad_mn_cal', 'class' => 'mn_cal')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 15, 1950), array('id' => 'dad_yr_cal', 'class' => 'yr_cal')); ?>
+                <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 65, $year - 15), array('id' => 'dad_yr_cal', 'class' => 'yr_cal')); ?>
             </li>
         </ul>
     </div>
@@ -116,7 +116,7 @@ $model = new BloodRefreshForm();
                 <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('id' => 'mam_mn_cal', 'class' => 'mn_cal')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 15, 1950), array('id' => 'mam_yr_cal', 'class' => 'yr_cal')); ?>
+                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 65, $year - 15), array('id' => 'mam_yr_cal', 'class' => 'yr_cal')); ?>
             </li>
         </ul>
     </div>

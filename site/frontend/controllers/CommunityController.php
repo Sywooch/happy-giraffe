@@ -168,7 +168,7 @@ class CommunityController extends Controller
 		{
 			$content_model->attributes = $_POST['CommunityContent'];
 			$slave_model->attributes = $_POST[$slave_model_name];
-			$slave_model->attributes = $_POST;
+			//$slave_model->attributes = $_POST;
 			$valid = $content_model->validate();
 			$valid = $slave_model->validate() && $valid;
 		
@@ -204,46 +204,27 @@ class CommunityController extends Controller
 		$content_types = CommunityContentType::model()->findAll();
 		$content_model = new CommunityContent;
 		$content_model->rubric_id = $rubric_id;
+		$content_model->author_id = Yii::app()->user->id;
 		$slave_model_name = 'Community' . ucfirst($content_type->slug);
 		$slave_model = new $slave_model_name;
 	
-		if (isset($_POST['CommunityContent']))
+		if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
 		{
 			$content_model->attributes = $_POST['CommunityContent'];
 			$slave_model->attributes = $_POST[$slave_model_name];
-			$slave_model->setAttributes($_POST);
-			$content_model->author_id = Yii::app()->user->id;
-			if ($content_model->save())
+			//$slave_model->attributes = $_POST;
+		
+			$valid = $content_model->validate();
+			$valid = $slave_model->validate() && $valid;
+			
+			if ($valid)
 			{
+				$content_model->save(false);
 				$slave_model->content_id = $content_model->id;
-				if ($slave_model->save())
-				{
-					if (is_null($community_id))
-					{
-						$this->redirect('community/index');
-					}
-					else
-					{
-						$this->redirect(array('community/view', 'community_id' => $community_id, 'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
-					}
-				}
-				else
-				{
-					//$content_model->delete();
-					print_r($slave_model->getErrors());
-					echo '1';
-					Yii::app()->end();
-				}
-			}
-			else
-			{
-				print_r($content_model->getErrors());
-				echo '2';
-				Yii::app()->end();
+				$slave_model->save(false);
+				$this->redirect(array('community/view', 'community_id' => $community_id, 'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
 			}
 		}
-		
-		//die('123');
 	
 		$this->render('add', array(
 			'content_model' => $content_model,

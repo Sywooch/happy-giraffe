@@ -9,8 +9,8 @@ $model = new MenstrualCycleForm();?>
     $(function () {
         $('#menstrual-cycle-form input.mth_calculate').click(function () {
             var d = new Date();
-            $('#review_month').val(d.getMonth() + 1);
-            $('#review_year').val(d.getFullYear());
+            $('#review_month').val($('#mn_cal').val());
+            $('#review_year').val($('#yr_cal').val());
             LoadCalendar();
             return false;
         });
@@ -38,9 +38,9 @@ $model = new MenstrualCycleForm();?>
                 return false;
             var year = $('#review_year').val();
 
-            var d = new Date();
-            if (month == d.getMonth() + 1 && year == d.getFullYear())
-                return false;
+//            var d = new Date();
+//            if (month == d.getMonth() + 1 && year == d.getFullYear())
+//                return false;
 
             month--;
             if (month == 0) {

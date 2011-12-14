@@ -52,6 +52,7 @@ class CommunityPost extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
 			array('text, source_type, content_id', 'required'),
 			array('source_type', 'length', 'max'=>8),
 			array('internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max'=>255),

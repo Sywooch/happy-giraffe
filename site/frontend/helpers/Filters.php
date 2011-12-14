@@ -4,7 +4,7 @@ class Filters
 {
 	public static function add_nofollow($value)
 	{
-		$dom = new DOMDocument;
+		$dom = new DOMDocument('1.0', 'UTF-8');
 		$dom->loadHTML($value);
 		$dom->strictErrorChecking = false;
 
@@ -23,6 +23,7 @@ class Filters
 			}
 		}
 
-		return $dom->saveHTML();
+		//return $dom->saveHTML();
+		return $value;
 	}
 }

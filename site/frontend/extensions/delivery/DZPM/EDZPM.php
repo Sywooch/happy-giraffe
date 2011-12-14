@@ -94,8 +94,6 @@ class EDZPM extends CActiveRecord {
 		$condition = new CDbCriteria();
 		$condition->addInCondition('city', $searchCities);
 
-		$tarifs = EPriceCity::model()->findAll($condition);
-
 		$prices = array();
 		if (isset($tarifs)) {
 			foreach ($tarifs as $k => $tarif) {

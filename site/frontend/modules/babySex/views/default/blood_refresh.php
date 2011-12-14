@@ -23,7 +23,7 @@ $model = new BloodRefreshForm();
                 data:$("#blood-refresh-form").serialize(),
                 type:"POST",
                 success:function (data) {
-                    $("#blood-update-result").html(data);
+                    ShowResult(data);
                 }
             });
             return false;
@@ -44,7 +44,7 @@ $model = new BloodRefreshForm();
                 data:$("#blood-refresh-form").serialize(),
                 type:"POST",
                 success:function (data) {
-                    $("#blood-update-result").html(data);
+                    ShowResult(data);
                 }
             });
             return false;
@@ -58,10 +58,17 @@ $model = new BloodRefreshForm();
                 data:$("#blood-refresh-form").serialize(),
                 type:"POST",
                 success:function (data) {
-                    $("#blood-update-result").html(data);
+                    ShowResult(data);
                 }
             });
         });
+
+        function ShowResult(data){
+            $('#blood-update-result').animate({opacity: 0}, 'fast', 'swing', function(){
+                $('#blood-update-result').html(data);
+                $('#blood-update-result').animate({opacity: 1}, 'fast');
+            });
+        }
 
         $('body').delegate('.cal_item', 'hover', function (event) {
             if (event.type == 'mouseenter') {

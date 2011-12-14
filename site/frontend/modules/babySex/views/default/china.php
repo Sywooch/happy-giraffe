@@ -5,84 +5,181 @@
 $year = date('Y');
 $model = new ChinaCalendarForm();
 ?>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var parent = $(this);
-        var month = $('#china-conception-m');
-        var submitBut = $('#china-submit');
+<style type="text/css">
+    input {
+        border: 1px solid #000;
+    }
 
-        submitBut.click(function () {
+    table td.boy {
+        background: #0babd9;
+    }
+
+    table td.girl {
+        background: #d921cc;
+    }
+
+    table.calendar-table {
+        border-collapse: separate;
+        border-spacing: 5px;
+    }
+
+    .sex-test-table-boy div {
+        height: 20px;
+        width: 30px;
+        background: #0babd9;
+        margin-right: 10px;
+    }
+
+    .sex-test-table-cur-boy {
+        border: 3px solid #000;
+    }
+
+    .sex-test-table-girl div {
+        height: 20px;
+        width: 30px;
+        margin-right: 10px;
+        background: #d921cc;
+    }
+
+    .sex-test-table-cur-girl {
+        border: 3px solid #000;
+    }
+
+    #china-calendar-result {
+        margin: 30px 0;
+    }
+
+    #china-calendar-result .boy {
+        width: 30px;
+        height: 30px;
+        float: left;
+        background: #0babd9;
+        margin: 5px;
+    }
+
+    #china-calendar-result .girl {
+        width: 30px;
+        height: 30px;
+        float: left;
+        margin: 5px;
+        background: #d921cc;
+    }
+
+    #japan-result table td {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+<script type="text/javascript">
+    var arr = new Array(
+        new Array(2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+        new Array(1, 2, 1, 2, 2, 1, 1, 2, 1, 1, 2, 2),
+        new Array(2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1),
+        new Array(1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2),
+        new Array(2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 2, 2),
+        new Array(1, 1, 1, 2, 1, 1, 2, 2, 2, 1, 1, 2),
+        new Array(1, 2, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1),
+        new Array(2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1, 1),
+        new Array(1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 2, 2),
+        new Array(2, 2, 1, 1, 2, 1, 2, 2, 1, 2, 1, 1),
+        new Array(1, 1, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2),
+        new Array(2, 1, 2, 2, 1, 2, 2, 1, 2, 1, 2, 2),
+        new Array(1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1),
+        new Array(1, 1, 1, 1, 2, 2, 1, 2, 1, 2, 2, 2),
+        new Array(1, 2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 1),
+        new Array(2, 1, 1, 2, 2, 1, 2, 1, 2, 1, 1, 2),
+        new Array(1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 2, 2),
+        new Array(1, 2, 1, 2, 1, 2, 1, 2, 1, 1, 2, 1),
+        new Array(1, 2, 1, 1, 1, 2, 1, 1, 2, 2, 2, 2),
+        new Array(2, 2, 1, 2, 2, 2, 1, 2, 2, 1, 1, 1),
+        new Array(1, 1, 2, 2, 1, 2, 2, 1, 2, 2, 1, 2),
+        new Array(2, 2, 1, 2, 2, 2, 1, 2, 1, 1, 2, 1),
+        new Array(1, 1, 1, 2, 1, 2, 1, 2, 1, 2, 2, 1),
+        new Array(2, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1, 2),
+        new Array(1, 2, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1),
+        new Array(2, 1, 2, 2, 1, 1, 1, 2, 2, 2, 1, 1),
+        new Array(1, 2, 2, 2, 1, 2, 1, 1, 2, 1, 2, 1),
+        new Array(2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1, 2)
+    );
+    var year = null;
+
+    $(document).ready(function () {
+        var d = new Date();
+        year = d.getFullYear();
+
+        $('#china-submit').click(function () {
             var d = new Date();
             var baby_m = d.getMonth() + 1;
             var baby_y = $('#china-conception-y').val();
             var mother_m = parseInt($('#china-mother-m').val());
-            var baby_m = month.val();
+            var baby_m = $('#china-conception-m').val();
             var mother_y = $('#china-mother-y').val();
+            year = baby_y;
 
             var age = baby_y - mother_y;
             if (baby_m <= mother_m)
                 var age = baby_y - mother_y - 1;
 
-            var id = 'child_' + age + '_' + month.val();
-            var cell = $('#' + id);
-
-            if (parent.data('activeCell')) {
-                if (parent.data('activeCell').hasClass('sex-test-table-cur-boy')) {
-                    parent.data('activeCell').removeClass('sex-test-table-cur-boy');
-                } else if (parent.data('activeCell').hasClass('sex-test-table-cur-girl')) {
-                    parent.data('activeCell').removeClass('sex-test-table-cur-girl');
-                }
-            }
-
-            parent.data('activeCell', cell.children());
-
-            if (cell.children().hasClass('sex-test-table-girl')) {
-                console.log('У вас будет девочка!');
-                parent.data('activeCell').addClass('sex-test-table-cur-girl');
-            } else {
-                console.log('У вас будет мальчик!');
-                parent.data('activeCell').addClass('sex-test-table-cur-boy');
-            }
-
-            SetReviewYear(baby_y);
             ShowCalendar();
+            return false;
+        });
+
+        $('body').delegate('#prev', 'click', function () {
+            var mother_y = $('#china-mother-y').val();
+            var age = year - mother_y - 1;
+            if (age < 18)
+                return false;
+
+            year--;
+            ShowCalendar();
+            return false;
+        });
+
+        $('body').delegate('#next', 'click', function () {
+            var mother_y = $('#china-mother-y').val();
+            var age = year - mother_y;
+            if (age > 45)
+                return false;
+            year++;
+            ShowCalendar();
+            return false;
         });
     });
 
-    function SetReviewYear(year){
-        $('#china_review_year').val(year);
-    }
-
-    function ShowCalendar(){
-        var year = $('#china_review_year').val();
+    function ShowCalendar() {
         var calendar2_html = '<div class="years">';
-        calendar2_html += '<a href="#">prev</a><br>';
-        for (var i = 1; i <= 12; i++) {
-            var gender = GetGender(i,year);
-            if (gender == 1)
-                calendar2_html += "<div class='boy'></div>";
-            else
-                calendar2_html += "<div class='girl'></div>";
-        }
-        calendar2_html += '</div>';
-        calendar2_html += '<br><a href="#">next</a>';
-        $('#china-calendar-result').html(year+'<br>'+calendar2_html);
-    }
+        calendar2_html += '<a id="prev" href="#">prev</a><br>';
 
-    function GetGender(month, year) {
+        //calc mother age
         var mother_m = parseInt($('#china-mother-m').val());
         var mother_y = parseInt($('#china-mother-y').val());
 
-        var age = year - mother_y;
-        if (month <= mother_m)
-            var age = year - mother_y - 1;
+        for (var i = 1; i <= 12; i++) {
+            var age = year - mother_y;
+            if (i <= mother_m)
+                var age = year - mother_y - 1;
 
-        var id = 'child_' + age + '_' + month;
-        var cell = $('#' + id);
-        if (cell.children().hasClass('sex-test-table-girl'))
-            return 2;
-        else
-            return 1;
+            var gender = GetGenderFromAge(age, i);
+            if (gender == 1)
+                calendar2_html += "<div class='boy'></div>";
+            if (gender == 2)
+                calendar2_html += "<div class='girl'></div>";
+            if (gender == 0)
+                calendar2_html += "<div></div>";
+        }
+        calendar2_html += '</div>';
+        calendar2_html += '<br><a id="next" href="#">next</a>';
+        $('#china-calendar-result').html(year + '<br>' + calendar2_html);
+    }
+
+    function GetGenderFromAge(age, month) {
+        if (age - 18 < 0)
+            return 0;
+        if (age - 45 > 0)
+            return 0;
+        var result = arr[age - 18][month - 1];
+//        console.log(result);
+        return result;
     }
 </script>
 <div id="china-calendar">
@@ -93,7 +190,7 @@ $model = new ChinaCalendarForm();
 
     <big>Год и месяц рождения матери:</big>
     <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('id' => 'china-mother-m', 'class' => 'wid100')); ?>
-    <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 18, 1950), array('id' => 'china-mother-y', 'class' => 'wid100')); ?>
+    <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 18, $year - 46), array('id' => 'china-mother-y', 'class' => 'wid100')); ?>
     <br>
     <big>Месяц зачатия</big>
     <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('id' => 'china-conception-m', 'class' => 'wid100')); ?>
@@ -102,15 +199,6 @@ $model = new ChinaCalendarForm();
     <?php echo $form->hiddenField($model, 'review_year', array('id' => 'china_review_year')) ?>
 
     <?php echo CHtml::link('<span><span>Рассчитать</span></span>', '', array(
-//        'type' => 'POST',
-//        'data' => 'js:jQuery(this).parents("form").serialize()',
-//        'success' => 'function(data){
-//            $("#china-calendar-result").html(data);
-//            $("#china_review_year").val($("#china-conception-y").val());
-//            $("#china_review_month").val($("#china-conception-m").val());
-//        }'
-//    ),
-//    array(
     'class' => 'btn btn-yellow-medium',
     'id' => 'china-submit'
 )); ?>
@@ -121,1298 +209,3 @@ $model = new ChinaCalendarForm();
 
 </div>
 <div class="clear"></div>
-<div class="sex-test-child-table-left">
-<table class="sex-test-child-table" cellspacing="0">
-<thead>
-<tr>
-    <th rowspan="2" class="sext-test-mother-age">
-        Возраст матери
-    </th>
-    <th colspan="11" class="sext-test-months-head">
-        Месяц
-    </th>
-    <th class="sex-test-months-right">&nbsp;</th>
-</tr>
-<tr class="sext-test-months">
-    <th>Январь</th>
-
-    <th>Февр</th>
-    <th>Март</th>
-    <th>Апр</th>
-    <th>Май</th>
-    <th>Июнь</th>
-    <th>Июль</th>
-
-    <th>Август</th>
-    <th>Сент</th>
-    <th>Окт</th>
-    <th>Нояб</th>
-    <th>Декаб</th>
-</tr>
-
-</thead>
-<tbody>
-<tr class="sex-test-table-odd">
-    <td class="sex-test-table-noborder sex-test-table-blue16">18</td>
-    <td id="child_18_1">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_18_2">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_18_3">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_18_4">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_18_5">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_18_6">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_18_7">
-
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_18_8">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_18_9">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_18_10">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_18_11">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td class="sex-test-table-last" id="child_18_12">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-even">
-    <td class="sex-test-table-noborder sex-test-table-blue16">19</td>
-    <td id="child_19_1">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_19_2">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_19_3">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_19_4">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_19_5">
-
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_19_6">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_19_7">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_19_8">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_19_9">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_19_10">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_19_11">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td class="sex-test-table-last" id="child_19_12">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-odd">
-    <td class="sex-test-table-noborder sex-test-table-blue16">20</td>
-    <td id="child_20_1">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_20_2">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_20_3">
-
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_20_4">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_20_5">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_20_6">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_20_7">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_20_8">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_20_9">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_20_10">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_20_11">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td class="sex-test-table-last" id="child_20_12">
-
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-even">
-    <td class="sex-test-table-noborder sex-test-table-blue16">21</td>
-    <td id="child_21_1">
-
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_21_2">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_21_3">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_21_4">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_21_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_21_6">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_21_7">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_21_8">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_21_9">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_21_10">
-
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_21_11">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td class="sex-test-table-last" id="child_21_12">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-odd">
-    <td class="sex-test-table-noborder sex-test-table-blue16">22</td>
-
-    <td id="child_22_1">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_22_2">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_22_3">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_22_4">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_22_5">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_22_6">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_22_7">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_22_8">
-
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_22_9">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_22_10">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_22_11">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_22_12">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-even">
-    <td class="sex-test-table-noborder sex-test-table-blue16">23</td>
-
-    <td id="child_23_1">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_23_2">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_23_3">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_23_4">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_23_5">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_23_6">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_23_7">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_23_8">
-
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_23_9">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_23_10">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_23_11">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_23_12">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-odd">
-    <td class="sex-test-table-noborder sex-test-table-blue16">24</td>
-
-    <td id="child_24_1">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_24_2">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_24_3">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_24_4">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_24_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_24_6">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_24_7">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_24_8">
-
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_24_9">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_24_10">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_24_11">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_24_12">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-even">
-    <td class="sex-test-table-noborder sex-test-table-blue16">25</td>
-
-    <td id="child_25_1">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_25_2">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_25_3">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_25_4">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_25_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_25_6">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_25_7">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_25_8">
-
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_25_9">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_25_10">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_25_11">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_25_12">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-odd">
-    <td class="sex-test-table-noborder sex-test-table-blue16">26</td>
-
-    <td id="child_26_1">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_26_2">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_26_3">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_26_4">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_26_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_26_6">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_26_7">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_26_8">
-
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_26_9">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_26_10">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_26_11">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_26_12">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-even">
-    <td class="sex-test-table-noborder sex-test-table-blue16">27</td>
-
-    <td id="child_27_1">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_27_2">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_27_3">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_27_4">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_27_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_27_6">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_27_7">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_27_8">
-
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_27_9">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_27_10">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_27_11">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_27_12">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-odd">
-    <td class="sex-test-table-noborder sex-test-table-blue16">28</td>
-
-    <td id="child_28_1">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_28_2">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_28_3">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_28_4">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_28_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_28_6">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_28_7">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_28_8">
-
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_28_9">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_28_10">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_28_11">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_28_12">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-even">
-    <td class="sex-test-table-noborder sex-test-table-blue16">29</td>
-
-    <td id="child_29_1">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_29_2">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_29_3">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_29_4">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_29_5">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_29_6">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_29_7">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_29_8">
-
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_29_9">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_29_10">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_29_11">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_29_12">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-odd">
-    <td class="sex-test-table-noborder sex-test-table-blue16">30</td>
-
-    <td id="child_30_1">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_30_2">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_30_3">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_30_4">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_30_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_30_6">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_30_7">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_30_8">
-
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_30_9">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_30_10">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_30_11">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_30_12">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-even">
-    <td class="sex-test-table-noborder sex-test-table-blue16">31</td>
-
-    <td id="child_31_1">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_31_2">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_31_3">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_31_4">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_31_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_31_6">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_31_7">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_31_8">
-
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_31_9">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_31_10">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_31_11">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_31_12">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-odd">
-    <td class="sex-test-table-noborder sex-test-table-blue16">32</td>
-
-    <td id="child_32_1">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_32_2">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_32_3">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_32_4">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_32_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_32_6">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_32_7">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_32_8">
-
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_32_9">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_32_10">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_32_11">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_32_12">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-even">
-    <td class="sex-test-table-noborder sex-test-table-blue16">33</td>
-
-    <td id="child_33_1">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_33_2">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_33_3">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_33_4">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_33_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_33_6">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_33_7">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_33_8">
-
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_33_9">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_33_10">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_33_11">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_33_12">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-odd">
-    <td class="sex-test-table-noborder sex-test-table-blue16">34</td>
-
-    <td id="child_34_1">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_34_2">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_34_3">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_34_4">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_34_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_34_6">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_34_7">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_34_8">
-
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_34_9">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_34_10">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_34_11">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_34_12">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-</tr>
-<tr class="sex-test-table-even">
-    <td class="sex-test-table-noborder sex-test-table-blue16">35</td>
-
-    <td id="child_35_1">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_35_2">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td id="child_35_3">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_35_4">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-
-        </div>
-    </td>
-    <td id="child_35_5">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_35_6">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-
-            <div></div>
-        </div>
-    </td>
-    <td id="child_35_7">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_35_8">
-
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_35_9">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-
-    <td id="child_35_10">
-        <div class="sex-test-table-inner  sex-test-table-girl">
-            <div></div>
-        </div>
-    </td>
-    <td id="child_35_11">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-
-    </td>
-    <td class="sex-test-table-last" id="child_35_12">
-        <div class="sex-test-table-inner  sex-test-table-boy">
-            <div></div>
-        </div>
-    </td>
-</tr>
-</tbody>
-</table>
-
-</div>

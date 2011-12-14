@@ -19,7 +19,7 @@ $model = new JapanCalendarForm;
                 data:$("#japan-form").serialize(),
                 type:"POST",
                 success:function (data) {
-                    $("#japan-result").html(data);
+                    ShowResult(data);
                 }
             });
             return false;
@@ -37,7 +37,7 @@ $model = new JapanCalendarForm;
                 data:$("#japan-form").serialize(),
                 type:"POST",
                 success:function (data) {
-                    $("#japan-result").html(data);
+                    ShowResult(data);
                 }
             });
             return false;
@@ -50,11 +50,18 @@ $model = new JapanCalendarForm;
                 data:jQuery(this).parents("form").serialize(),
                 type:"POST",
                 success:function (data) {
-                    $("#japan-result").html(data);
+                    ShowResult(data);
                 }
             });
             return false;
         });
+
+        function ShowResult(data) {
+            $('#japan-result').animate({opacity:0}, 'fast', 'swing', function () {
+                $('#japan-result').html(data);
+                $('#japan-result').animate({opacity:1}, 'fast');
+            });
+        }
 
         $('body').delegate('.cal_item', 'hover', function (event) {
             if (event.type == 'mouseenter') {

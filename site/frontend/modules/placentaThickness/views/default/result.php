@@ -7,10 +7,10 @@
  * Time: 12:54
  */
 
-//echo $placentaThickness->min . ' < ' . $placentaThickness->avg . ' < ' . $placentaThickness->max;
 $placentaThickness->min = str_replace('.', ',', $placentaThickness->min);
 $placentaThickness->max = str_replace('.', ',', $placentaThickness->max);
 $placentaThickness->avg = str_replace('.', ',', $placentaThickness->avg);
+$model->thickness = str_replace('.', ',', $model->thickness);
 if ($model->thickness < $placentaThickness->min) {
     ?>
 <div class="placenta_recomendation">
@@ -38,7 +38,7 @@ if ($model->thickness < $placentaThickness->min) {
 <!-- .placenta_recomendation -->
 <?php
 }
-elseif ($model->thickness < $placentaThickness->avg)
+elseif ($model->thickness <= $placentaThickness->max)
 {
     ?>
 <div class="placenta_recomendation">

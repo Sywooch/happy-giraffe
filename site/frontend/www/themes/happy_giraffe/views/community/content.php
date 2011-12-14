@@ -90,7 +90,7 @@ $('.spam a').live('click', function() {
 						break;
 					case 'video':
 						$video = new Video($c->video->link);
-						echo '<div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div>';
+						echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
 						echo $c->video->text;
 						break;
 				}

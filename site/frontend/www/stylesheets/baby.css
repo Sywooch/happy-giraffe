@@ -262,7 +262,8 @@
 
 #baby .mother_calendar .cal_item .hint, #baby .mother_calendar .cal_item_default .hint {position:absolute;background:#fcfac6;padding:5px 10px;width:100px;z-index:6;border:1px solid #ffe572;color:#666;font-family:arial, sans-serif;font-size:16px;text-align:left;left:95%;top:80%;display:none;cursor:default;}
 #baby .mother_calendar .cal_item .hint:after, #baby .mother_calendar .cal_item_default .hint:after {display:block;content:'';width:14px;height:14px;right:100%;top:-1px;background:url(../images/hospital_bag_item_hint_tale.png) no-repeat;position:absolute;}
-
+#baby #blood-update-result .mother_calendar .cal_item .hint, #baby #blood-update-result .mother_calendar .cal_item_default .hint,
+#baby #japan-result .mother_calendar .cal_item .hint, #baby #japan-result .mother_calendar .cal_item_default .hint {width: 40px;}
 
 /*===== romant37 =====*/
 #baby .placenta_about {display:block;position:relative;z-index:3;padding:10px 10px 40px 10px;margin:0 0 10px 0;background:#fef8fc;}

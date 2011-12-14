@@ -23,7 +23,7 @@ return array(
 		'<controller:\w+>/<title:\w+>_<id:\d+>'=>'<controller>/view',
 		'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 		'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-        '<module:\w+>/<action:\w+>'=>'<module>/default/<action>',
+		'babySex/<action:\w+>'=>'babySex/default/<action>',
 		//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 		'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
 //		'<controller:\w+>/<action:\w+>' => '<controller>/<action>', 

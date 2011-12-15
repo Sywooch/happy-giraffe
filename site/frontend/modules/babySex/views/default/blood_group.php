@@ -2,22 +2,24 @@
 /* @var $this Controller
  * @var $form CActiveForm
  */
-?>
-<script type="text/javascript">
-    var father_group = null;
+$js = "var father_group = null;
     var mother_group = null;
+    var current_gender = null;
 
     $(function () {
         $('.child_sex_blood_banner input[type=button]').click(function () {
             if (father_group !== null && mother_group !== null) {
                 var sum = father_group + mother_group;
-                if (sum % 2 == 0) {
-                    $('.wh_son').hide();
-                    $('.wh_daughter').show();
-                } else {
-                    $('.wh_daughter').hide();
-                    $('.wh_son').show();
-                }
+                var prev = current_gender;
+                if (sum % 2 == 0)
+                    current_gender = 1;
+                else
+                    current_gender = 2;
+
+                if (prev == 1)
+                    $('.wh_son').fadeOut(100, ShowGender);
+                else
+                    $('.wh_daughter').fadeOut(100, ShowGender);
             }
             return false;
         });
@@ -44,7 +46,18 @@
             $('.child_sex_blood_banner input[type=button]').removeClass('calc_grey').addClass('calc_grey_active');
         }
     }
-</script>
+
+    function ShowGender() {
+        if (current_gender == 2) {
+            $('.wh_son').hide();
+            $('.wh_daughter').fadeIn(100);
+        } else {
+            $('.wh_daughter').hide();
+            $('.wh_son').fadeIn(100);
+        }
+    }";
+Yii::app()->clientScript->registerScript('babyGender-blood-group', $js);
+?>
 
 <div class="child_sex_blood_banner">
     <form action="">

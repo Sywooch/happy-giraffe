@@ -116,8 +116,8 @@ class MenstrualCycle extends CActiveRecord
         if ($current_date < $last_menstruation_start_date)
             return '';
 
-        $cycle_day = round(($current_date - $last_menstruation_start_date) / 86400) % $this->cycle;
-        $cycle_day = $cycle_day + 1;
+        $cycle_day = round(($current_date - $last_menstruation_start_date) / 86400) % $this->cycle + 1;
+
         if ($cycle_day == 1)
             return 'mens';
         elseif ($cycle_day <= $this->menstruation)
@@ -140,6 +140,34 @@ class MenstrualCycle extends CActiveRecord
             return 'pfsex';
         else
             return 'pms';
+    }
+
+    /**
+     * Get period brief name on current date
+     *
+     * @param $last_menstruation_start_date
+     * @param $day
+     * @param $month
+     * @param $year
+     * @return string
+     */
+    public function GetBabyGender($last_menstruation_start_date, $day, $month, $year)
+    {
+        $current_date = strtotime($year . '-' . $month . '-' . $day);
+        if ($current_date < $last_menstruation_start_date)
+            return '';
+
+        $cycle_day = round(($current_date - $last_menstruation_start_date) / 86400) % $this->cycle + 1;
+        $ovulation_day = $this->menstruation + $this->safety_sex + $this->ovulation_probable;
+
+        if ($cycle_day > ($ovulation_day - 6) && $cycle_day < ($ovulation_day - 1))
+            return 2;
+        elseif ($cycle_day > ($ovulation_day - 2) && $cycle_day <= $ovulation_day)
+            return 1;
+        elseif ($cycle_day > $ovulation_day && $cycle_day <= ($ovulation_day+2))
+            return 3;
+        else
+            return 0;
     }
 
     /**
@@ -191,12 +219,12 @@ class MenstrualCycle extends CActiveRecord
      */
     public static function GetUserCycle($user_id)
     {
-        $vote = Yii::app()->db->createCommand()
+        $user_cycle = Yii::app()->db->createCommand()
             ->select('*')
             ->from('menstrual_user_cycle')
             ->where('user_id = :user_id', array(':user_id' => $user_id))
             ->queryRow();
 
-        return ($vote === FALSE) ? null : $vote;
+        return ($user_cycle === FALSE) ? null : $user_cycle;
     }
 }

@@ -9,12 +9,10 @@ class EDZPM extends CActiveRecord {
 	}
 
 	public function rules() {
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('id', 'numerical', 'integerOnly' => true),
-			array('DZPM_city', 'required'),
-			array('id, DZPM_price, DZPM_city', 'safe'),
+			array('city', 'required'),
+			array('id, price, city', 'safe'),
 		);
 	}
 
@@ -34,15 +32,13 @@ class EDZPM extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop__delivery_' . __CLASS__ . '}}';
+		return '{{shop_delivery_edzpm}}';
 	}
 
 	/**
 	 * @return array relational rules.
 	 */
 	public function relations() {
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 		);
 	}
@@ -53,8 +49,8 @@ class EDZPM extends CActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
-			'DZPM_price' => 'Price',
-			'DZPM_city' => 'Выберите город',
+			'price' => 'Цена',
+			'city' => 'Выберите город',
 		);
 	}
 
@@ -63,100 +59,49 @@ class EDZPM extends CActiveRecord {
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function search() {
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id);
-		$criteria->compare('DZPM_price', $this->DZPM_price, true);
-		$criteria->compare('DZPM_city', $this->DZPM_city, true);
+		$criteria->compare('price', $this->price, true);
+		$criteria->compare('city', $this->city, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-					'criteria' => $criteria,
-				));
+			'criteria' => $criteria,
+		));
 	}
 
 	public function getDeliveryCost($param) {
-		$searchCities = array();
-
-		if (is_array($param['orderCity'])) {
-			$searchCities = $param['orderCity'];
-		} else {
-			if (isset($param['orderCity'])) {
-				$searchCities = array($param['orderCity']);
-			} else {
-				return false;
-			}
+		Yii::import('ext.delivery.DZPM.EDZPMCityZoneLink');
+		Yii::import('ext.delivery.DZPM.EDZPMZone');
+		$cityId = $param['orderCityId'];
+		$city = $param['orderCity'][0];
+		if (!$cityId) {
+			return 0;
 		}
-
-		Yii::import('ext.delivery.DZPM.EPriceCity');
-		$condition = new CDbCriteria();
-		$condition->addInCondition('city', $searchCities);
-
+		$tr = EDZPMZone::model()->findAll();
+		$zoneId = EDZPMCityZoneLink::model()->getZoneByCityId((int)$cityId);
+		$price = EDZPMZone::model()->getPriceByZoneId((int)$zoneId);
 		$prices = array();
-		if (isset($tarifs)) {
-			foreach ($tarifs as $k => $tarif) {
-				$prices[$k]['price'] = $tarif['price'];
-				$prices[$k]['destination'] = $tarif['city'];
-				/** Пока комментим. Потом будет видно *//*
-				if ($param['orderPrice'] < 500) {
-					$prices[$k]['price'] += 350;
-				}
-				if (($param['orderPrice'] >= 500) && ($param['orderPrice'] < 1000)) {
-					$prices[$k]['price'] += 250;
-				}
-				if (($param['orderPrice'] >= 1000) && ($param['orderPrice'] < 1500)) {
-					$prices[$k]['price'] += 100;
-				}
-				if (($param['orderPrice'] >= 1500)) {
-					$prices[$k]['price'] += 0;
-				}*/
-				$this->DZPM_price = $prices[$k]['price'];
-				$this->DZPM_city = $prices[$k]['destination'];
-			}
-		} else {
-			$this->DZPM_price = NUll;
-		}
-
+		$prices[0]['price'] = $price;
+		$prices[0]['destination'] = $city;
+		$prices[0]['orderCityId'] = $cityId;
+		$this->price = $price;
+		$this->city = $city;
+		if (!$price)
+			$this->price = null;
 		return $prices;
 	}
 
 	public function getForm($param) {
-		Yii::import('ext.delivery.DZPM.EPriceCity');
-		$criteria = new CDbCriteria;
-		$criteria->compare('city', $param['orderCity'], true);
-		$cityValues = EPriceCity::model()->findAll($criteria);
-
-		$cities = array();
-		if ($cityValues) { 
-			foreach ($cityValues as $city) {
-				$cities[$city->city] = $city->city;
-			}
-			if (count($cities) == 1) {
-				$this->DZPM_city = $cityValues[0]->city;
-			}
-		}
-		$citys = array();
-
-		if ((!$cities) || (count($cities) > 1)) {
-			$citys = CHtml::listData(EPriceCity::model()->findAllByAttributes(array('city')), 'city', 'city');
-			$citys = array_diff($citys, $cities);
-		}
-
-
-		$cities = array_merge($cities, $citys);
-
 		$params = array(
 			'elements' => array(
 				__CLASS__ => array(
 					'type' => 'form',
 					'elements' => array(
-						'DZPM_city' => array(
-							'type' => 'dropdownlist',
-							'items' => $cities,
+						'city' => array(
+							'type' => 'hidden',
 						),
-						'DZPM_price' => array(
+						'price' => array(
 							'type' => 'hidden',
 						)
 					),
@@ -172,10 +117,10 @@ class EDZPM extends CActiveRecord {
 				__CLASS__ => array(
 					'type' => 'form',
 					'elements' => array(
-						'DZPM_city' => array(
+						'city' => array(
 							'type' => 'text',
 						),
-						'DZPM_price' => array(
+						'price' => array(
 							'type' => 'hidden',
 						)
 					),
@@ -191,10 +136,10 @@ class EDZPM extends CActiveRecord {
 				__CLASS__ => array(
 					'type' => 'form',
 					'elements' => array(
-						'DZPM_city' => array(
+						'city' => array(
 							'type' => 'hidden',
 						),
-						'DZPM_price' => array(
+						'price' => array(
 							'type' => 'hidden',
 						)
 					),
@@ -205,7 +150,7 @@ class EDZPM extends CActiveRecord {
 	}
 
 	public function getDestination() {
-		return $this->DZPM_city;
+		return $this->city;
 	}
 }
 ?>

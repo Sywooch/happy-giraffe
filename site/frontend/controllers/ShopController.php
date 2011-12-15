@@ -65,7 +65,7 @@ class ShopController extends Controller {
 		}
 		if ($validate) {
 			if ($Order->save()) {
-				$data = Yii::app()->getModule('delivery')->done($Order->order_id, $_POST['name'], $_POST['city']);
+				$data = Yii::app()->getModule('delivery')->done($Order->order_id, $_POST['name'], $_POST['city'], $_POST['OrderAdress']['adress_city_id']);
 				if ($data['method'] == 'redir') {
 					$Address->save(false);
 					Yii::app()->user->setState('create_order_id', $Order->order_id);

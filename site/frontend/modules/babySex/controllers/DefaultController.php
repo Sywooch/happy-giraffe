@@ -7,7 +7,7 @@ class DefaultController extends Controller
     public function filters()
     {
         return array(
-            'ajaxOnly + bloodUpdate, japanCalc',
+            'ajaxOnly + bloodUpdate, japanCalc, ovulationCalc',
         );
     }
 
@@ -36,6 +36,11 @@ class DefaultController extends Controller
         $this->render('china');
     }
 
+    public function actionOvulation()
+    {
+        $this->render('ovulation');
+    }
+
     public function actionBloodUpdate()
     {
         if (isset($_POST['BloodRefreshForm'])) {
@@ -56,6 +61,9 @@ class DefaultController extends Controller
         }
     }
 
+    /**
+     * DEV_METHOD
+     */
     public function actionParse()
     {
         $str = '2 1 2 1 1 1 1 1 1 1 1 1
@@ -89,7 +97,7 @@ class DefaultController extends Controller
         $data = explode("\n", $str);
         foreach ($data as $row) {
             $row_data = str_replace(" ", ",", trim($row));
-            echo 'new Array('.$row_data.'),'.'<br>';
+            echo 'new Array(' . $row_data . '),' . '<br>';
         }
     }
 
@@ -109,6 +117,22 @@ class DefaultController extends Controller
                 'month' => $model->review_month,
                 'model' => $model,
                 'gender' => $gender
+            ));
+        }
+    }
+
+    public function actionOvulationCalc()
+    {
+        if (isset($_POST['OvulationForm'])) {
+            $modelForm = new OvulationForm();
+            $modelForm->attributes = $_POST['OvulationForm'];
+            if (!$modelForm->validate())
+                Yii::app()->end();
+
+            $data = $modelForm->CalculateData();
+            $this->renderPartial('ovulation_result', array(
+                'data' => $data,
+                'model' => $modelForm,
             ));
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-class MenstrualCycleForm extends CFormModel
+class OvulationForm extends CFormModel
 {
     //day, month, year of cycle start
     public $day;
@@ -8,7 +8,6 @@ class MenstrualCycleForm extends CFormModel
     public $year;
 
     public $cycle;
-    public $critical_period;
 
     /**
      * @var int mother born date
@@ -21,13 +20,10 @@ class MenstrualCycleForm extends CFormModel
     public $review_month;
     public $review_year;
 
-    public $next_month;
-    public $next_month_year;
-
     public function rules()
     {
         return array(
-            array('day, month, year, cycle, critical_period', 'required'),
+            array('day, month, year, cycle', 'required'),
             array('review_month, review_year', 'safe'),
         );
     }
@@ -41,15 +37,12 @@ class MenstrualCycleForm extends CFormModel
                 $this->month = date('m', strtotime($user_cycle['date']));
                 $this->year = date('Y', strtotime($user_cycle['date']));
                 $this->cycle = $user_cycle['cycle'];
-                $this->critical_period = $user_cycle['menstruation'];
-                return;
             }
         }
         $this->day = date('j');
         $this->month = date('m');
         $this->year = date('Y');
         $this->cycle = 25;
-        $this->critical_period = 5;
 
     }
 
@@ -86,27 +79,9 @@ class MenstrualCycleForm extends CFormModel
      */
     public function CalculateData()
     {
-        $this->model = $this->LoadModel($this->cycle, $this->critical_period);
+        $this->model = $this->LoadModel($this->cycle, 5);
         $data = $this->CalculateMonthData($this->review_month, $this->review_year);
         $this->model->SaveUserCycle($this->start_date);
-
-        return $data;
-    }
-
-    /**
-     * Calculate data for next month
-     *
-     * @return array
-     */
-    public function CalculateDataForNextMonth()
-    {
-        $this->next_month = $this->review_month + 1;
-        $this->next_month_year = $this->review_year;
-        if ($this->next_month == 13) {
-            $this->next_month = 1;
-            $this->next_month_year++;
-        }
-        $data = $this->CalculateMonthData($this->next_month, $this->next_month_year);
 
         return $data;
     }
@@ -196,7 +171,7 @@ class MenstrualCycleForm extends CFormModel
         return array(
             'day' => $day,
             'other_month' => $other_month,
-            'cell' => $this->model->GetPeriod($this->start_date, $day, $month, $year)
+            'sex' => $this->model->GetBabyGender($this->start_date, $day, $month, $year)
         );
     }
 }

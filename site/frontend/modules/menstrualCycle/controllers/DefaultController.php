@@ -33,6 +33,9 @@ class DefaultController extends Controller
         }
     }
 
+    /**
+     * DEV_METHOD
+     */
     public function actionParse()
     {
         $str =

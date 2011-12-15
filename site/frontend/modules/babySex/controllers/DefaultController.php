@@ -7,7 +7,7 @@ class DefaultController extends Controller
     public function filters()
     {
         return array(
-            'ajaxOnly + bloodUpdate, japanCalc',
+            'ajaxOnly + bloodUpdate, japanCalc, ovulationCalc',
         );
     }
 
@@ -61,6 +61,9 @@ class DefaultController extends Controller
         }
     }
 
+    /**
+     * DEV_METHOD
+     */
     public function actionParse()
     {
         $str = '2 1 2 1 1 1 1 1 1 1 1 1

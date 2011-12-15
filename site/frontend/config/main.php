@@ -158,6 +158,11 @@ return array(
 					'levels'=>'error, warning',
 				),
 				array(
+					'class'=>'CEmailLogRoute',
+					'levels'=>'error, warning',
+					'emails'=>'choojoy.work@gmail.com',
+				),
+				array(
 					'class'=>'CWebLogRoute',
 					'categories'=>'system.db.CDbCommand',
 					'showInFireBug'=>true,

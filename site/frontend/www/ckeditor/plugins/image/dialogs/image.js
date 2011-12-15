@@ -628,7 +628,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													id : 'txtHSpace',
 													width: '60px',
 													label : editor.lang.image.hSpace,
-													'default' : '',
+													'default' : '10',
 													validate : CKEDITOR.dialog.validate.integer( editor.lang.image.validateHSpace ),
 													setup : function( type, element )
 													{
@@ -683,7 +683,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													id : 'txtVSpace',
 													width : '60px',
 													label : editor.lang.image.vSpace,
-													'default' : '',
+													'default' : '10',
 													validate : CKEDITOR.dialog.validate.integer( editor.lang.image.validateVSpace ),
 													setup : function( type, element )
 													{

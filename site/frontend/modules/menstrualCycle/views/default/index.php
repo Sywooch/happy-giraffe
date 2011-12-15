@@ -71,12 +71,8 @@ $model = new MenstrualCycleForm();?>
                 data:$("#menstrual-cycle-form").serialize(),
                 type:"POST",
                 success:function (data) {
+                    $("#result").fadeOut(100,function(){$("#result").html(data);$("#result").fadeIn(100);});
 //                    $('#result').html(data);
-//                    $('#result').animate({opacity:0}, 'fast', 'swing', function () {
-                        $('#result').html(data);
-//                        $('#result').animate({opacity:1}, 'fast');
-//                    });
-
                     started = true;
                 }
             });

@@ -11,6 +11,7 @@ class BabySexModule extends CWebModule
 		$this->setImport(array(
 			'babySex.models.*',
 			'babySex.components.*',
+            'menstrualCycle.models.*',
 		));
 	}
 

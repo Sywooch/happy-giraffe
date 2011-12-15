@@ -173,7 +173,7 @@ $model = new MenstrualCycleForm();?>
                 <th>Вс</th>
             </tr>
             <?php
-            $skip = date("w");
+            $skip = date("w")-1;
             if ($skip < 0)
                 $skip = 6;
             $daysInMonth = date("t");

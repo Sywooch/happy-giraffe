@@ -243,7 +243,7 @@ class DefaultController extends Controller
 			{
 				foreach($delivery_prices as $delivery_price)
 				{
-					if(!($delivery_price['price'] === NULL))
+					if($delivery_price['price'] !== null)
 					{
 						$cnt++;
 						$modules[$cnt]['id'] = $k;
@@ -252,6 +252,9 @@ class DefaultController extends Controller
 						$modules[$cnt]['price'] = $delivery_price['price'];
 						$modules[$cnt]['destination'] = $delivery_price['destination'];
 						$modules[$cnt]['htmlclass'] = ($modelDelivery->additionPropretys) ? "BTC" : "noBTC";
+						if (isset($delivery_price['orderCityId'])) {
+							$modules[$cnt]['orderCityId'] = $delivery_price['orderCityId'];
+						}
 					}
 				}
 			}
@@ -274,9 +277,9 @@ class DefaultController extends Controller
 		);
 	}
 
-	public function actionSelectDeliveryModule($OrderId, $name, $city)
+	public function actionSelectDeliveryModule($OrderId, $name, $city, $orderCityId = null)
 	{
-		$data = $this->getModule()->done($OrderId, $name, $city);
+		$data = $this->getModule()->done($OrderId, $name, $city, $orderCityId);
 		
 		if(isset($data['method']) && $data['method']=='redir')
 		{

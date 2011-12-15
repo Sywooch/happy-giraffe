@@ -3,7 +3,7 @@
 class DeliveryModule extends CWebModule
 {
 	/*
-	 * Здесь указываются подключаемые модуле конкретных типов доставки
+	 * Available Delivery methods
 	 */
 
 	public $components = array(
@@ -32,11 +32,6 @@ class DeliveryModule extends CWebModule
 			'class_name' => 'EDPM',
 			'show_name' => 'Доставка по Москве в пределах МКАД',
 		),
-//		'EExpressDPM' => array(
-//			'ext' => 'ext.delivery.ExpressDPM.EExpressDPM',
-//			'class_name' => 'EExpressDPM',
-//			'show_name' => 'Экспресс доставка по Москве в пределах МКАД',
-//		),
 	);
 
 	/*
@@ -93,7 +88,7 @@ class DeliveryModule extends CWebModule
 			return false;
 	}
 	
-	public function done($OrderId, $name, $city)
+	public function done($OrderId, $name, $city, $orderCityId = null)
 	{
 		if(!$name) {
 			return array();
@@ -117,10 +112,14 @@ class DeliveryModule extends CWebModule
 		$weight = $modelOrder->$params['getWeight']();
 
 		//Получаем параметры заказа из модели заказа
-		$parameter = array('orderPrice' => $price,
+		$parameter = array(
+			'orderPrice' => $price,
 			'orderWeight' => $weight,
 			'orderCity' => array($city), //здесь указываем уже только конкретный город который выбрал пользователь
 			'orderRegion' => $city, 0, 0);
+		if ($orderCityId !== null) {
+			$parameter['orderCityId'] = $orderCityId;
+		}
 
 		//Здесь проверка не требует ли модель ввода дополнительных данных
 		//Если требует то выводим СФорм с необходимыми полями (при этом та форма сохраняет все в пост)
@@ -156,7 +155,7 @@ class DeliveryModule extends CWebModule
 
 			$config = $modelDelivery->getForm($parameter);
 			$config['activeForm'] = array(
-				'id' => 'settings-sel', // Важный момент.
+				'id' => 'settings-sel', // Important
 				'class' => 'CActiveForm',
 				'enableAjaxValidation' => true,
 				'clientOptions' => array(

@@ -5,15 +5,13 @@
 			"name" => $data["id"],
 			"city" => $data["destination"]
 		);
-		
+		if (isset($data['orderCityId'])) {
+			$url['orderCityId'] = $data['orderCityId'];
+		}
 		if($OrderId)
 			$url = array_merge($url, array("OrderId" => $OrderId));
 		
-		$url = $this->createUrl("/delivery/default/selectDeliveryModule",$url);
-		
-//		echo CHtml::link(
-//			'sel', $url, array("class" => $data['htmlclass'])
-//		);
+		$url = $this->createUrl("/delivery/default/selectDeliveryModule", $url);
 		?>
 		<label>
 			<input type="radio" name="radio" rel="<?php echo $url;?>" class="<?php echo $data['htmlclass'];?>"/>

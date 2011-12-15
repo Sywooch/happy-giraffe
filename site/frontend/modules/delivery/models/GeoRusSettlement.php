@@ -108,7 +108,9 @@ class GeoRusSettlement extends CActiveRecord
 
 			if ($region_id) {
 				$models = $this->findAll('((region_id=' . $region_id.'))');
-				foreach ($models as $model) $carr1[$model->id] = $model->name;
+				foreach ($models as $model) {
+					$carr1[$model->id] = $model->name;
+				}
 				asort($carr1, SORT_STRING);
 				$carr = $carr1;// + $carr2;
 			}

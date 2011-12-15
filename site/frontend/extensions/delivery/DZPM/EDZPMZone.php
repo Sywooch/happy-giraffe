@@ -2,8 +2,7 @@
 
 class EDZPMZone extends CActiveRecord {
 
-	public function __construct($scenario='insert') {
-
+	public function __construct($scenario = 'insert') {
 		parent::__construct($scenario);
 	}
 
@@ -14,10 +13,6 @@ class EDZPMZone extends CActiveRecord {
 			array('id, price', 'numerical', 'integerOnly' => true),
 			array('id, price, title', 'safe'),
 		);
-	}
-
-	public function init() {
-		
 	}
 
 	/**
@@ -32,15 +27,13 @@ class EDZPMZone extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop__delivery_edzpm_zone}}';
+		return '{{shop_delivery_edzpm_zone}}';
 	}
 
 	/**
 	 * @return array relational rules.
 	 */
 	public function relations() {
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 		);
 	}
@@ -71,8 +64,8 @@ class EDZPMZone extends CActiveRecord {
 		$criteria->compare('title', $this->title, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-					'criteria' => $criteria,
-				));
+			'criteria' => $criteria,
+		));
 	}
 
 	public function getForm() {
@@ -84,8 +77,21 @@ class EDZPMZone extends CActiveRecord {
 				),
 			),
 		);
-
 		return new CForm($params, $this);
+	}
+	
+	/**
+	 * Return price by zone
+	 * @param int $zoneId
+	 * @return int
+	 */
+	public function getPriceByZoneId($zoneId) {
+		
+		$zone = $this->findByPk($zoneId);
+		if (!$zone) {
+			return 0;
+		}
+		return $zone->price;
 	}
 
 }

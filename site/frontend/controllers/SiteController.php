@@ -88,6 +88,7 @@ class SiteController extends Controller
 
 	public function actionIndex()
 	{
+		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
 		Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
 		Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
 		$this->render('index');

@@ -76,8 +76,8 @@ class ETarif extends CActiveRecord {
 		$criteria->compare('tarif_price', $this->tarif_price, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-					'criteria' => $criteria,
-				));
+			'criteria' => $criteria,
+		));
 	}
 }
 

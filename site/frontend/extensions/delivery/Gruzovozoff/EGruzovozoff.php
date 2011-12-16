@@ -10,7 +10,7 @@
  */
 class EGruzovozoff extends CActiveRecord {
 
-	public $additionPropretys = false;
+	public $additionPropretys = true;
 
 	public function __construct($scenario = 'insert') {
 		parent::__construct($scenario);

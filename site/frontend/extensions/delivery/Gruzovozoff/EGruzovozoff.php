@@ -1,32 +1,34 @@
 <?php
 
+/**
+ * This class represents table 'shop_delivery_egruzovozoff'
+ * @property $id
+ * @property $weight
+ * @property $city
+ * @property $zone
+ * @property $price
+ */
 class EGruzovozoff extends CActiveRecord {
 
-	public $additionPropretys = true;
+	public $additionPropretys = false;
 
-	public function __construct($scenario='insert') {
+	public function __construct($scenario = 'insert') {
 		parent::__construct($scenario);
 	}
 
 	public function rules() {
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('id', 'numerical', 'integerOnly' => true),
-			array('Gff_city, Gff_weight', 'required'),
-			array('id, Gff_price, Gff_city, Gff_zone, Gff_weight', 'safe'),
+			array('city, weight', 'required'),
+			array('id, price, city, zone, weight', 'safe'),
 		);
-	}
-
-	public function init() {
-		
 	}
 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Delivery the static model class
 	 */
-	public static function model($className=__CLASS__) {
+	public static function model($className = __CLASS__) {
 		return parent::model($className);
 	}
 
@@ -34,17 +36,11 @@ class EGruzovozoff extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop__delivery_' . __CLASS__ . '}}';
+		return '{{shop_delivery_egruzovozoff}}';
 	}
-
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations() {
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-		);
+	
+	public function primaryKey() {
+		return 'id';
 	}
 
 	/**
@@ -53,7 +49,10 @@ class EGruzovozoff extends CActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
-			'Gff_price' => 'Price',
+			'weight' => 'Вес товара',
+			'city' => 'Город',
+			'zone' => 'Зона',
+			'price' => 'Цена',
 		);
 	}
 
@@ -62,99 +61,72 @@ class EGruzovozoff extends CActiveRecord {
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function search() {
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria = new CDbCriteria;
-
 		$criteria->compare('id', $this->id);
-		$criteria->compare('Gff_price', $this->Gff_price, true);
-		$criteria->compare('Gff_zone', $this->Gff_zone, true);
-		$criteria->compare('Gff_city', $this->Gff_city, true);
-		$criteria->compare('Gff_weight', $this->Gff_weight, true);
+		$criteria->compare('price', $this->price, true);
+		$criteria->compare('zone', $this->zone, true);
+		$criteria->compare('city', $this->city, true);
+		$criteria->compare('weight', $this->weight, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-					'criteria' => $criteria,
-				));
+			'criteria' => $criteria,
+		));
 	}
 
-	/*
-	 * Возвращаемые значения массив цен с городами доставки
+	/**
+	 * Get array of prices and delivery citites
+	 * @param array $param
+	 * @return array
 	 */
 
 	public function getDeliveryCost($param) {
-
-		$searchCities = array();
-
-		if (is_array($param['orderCity'])) {
-			if ($k = array_search("Москва", $param['orderCity']))
-				unset($param['orderCity'][$k]);
-			$searchCities = $param['orderCity'];
-		} else {
-			if (isset($param['orderCity'])) {
-				$searchCities = array($param['orderCity']);
-			} else {
-				return false;
-			}
-		}
-		if (isset($searchCities[0]) && $searchCities[0] == "Москва")
+		if (!isset($param['orderCity'])) {
 			return false;
-
+		}
+		$orderCitites = array();
+		if (is_array($param['orderCity'])) {
+			$badKey = array_search("Москва", $param['orderCity']);
+			if ($badKey !== false) {
+				unset($param['orderCity'][$badKey]);
+			}
+			$orderCitites = array_unique($param['orderCity']);
+		}
+		else {
+			$orderCitites = array($param['orderCity']);
+		}
 		Yii::import('ext.delivery.Gruzovozoff.EGruzovozoffTarif');
-		$tarifs = Yii::app()->db->createCommand()
-				->where(array('in', EGruzovozoffTarif::model()->tableName() . '.tarif_city', $searchCities))
-				->from(EGruzovozoffTarif::model()->tableName())
-				->queryAll();
-
+		$ct = new CDbCriteria();
+		$ct->addInCondition('city', $orderCitites);
+		$tarifs = EGruzovozoffTarif::model()->findAll($ct);
 		$prices = array();
 		foreach ($tarifs as $k => $tarif) {
-			$prices[$k]['price'] = $tarif['tarif_price'];
-			$prices[$k]['destination'] = $tarif['tarif_city'];
-			$this->Gff_price = $prices[$k]['price'];
-			$this->Gff_zone = $tarif['tarif_zone'];
-			$this->Gff_city = $prices[$k]['destination'];
-			$this->Gff_weight = $param['orderWeight'];
+			$prices[$k]['price'] = $tarif->price;
+			$prices[$k]['destination'] = $tarif->city;
+			$this->price = $prices[$k]['price'];
+//			$this->zone = $tarif['zone'];
+			$this->city = $prices[$k]['destination'];
+			$this->weight = $param['orderWeight'];
 		}
-
 		return $prices;
 	}
 
 	public function getForm($param) {
-		Yii::import('ext.delivery.Gruzovozoff.EGruzovozoffTarif');
-		$criteria = new CDbCriteria;
-		$criteria->compare('tarif_city', $param['orderCity'], true);
-		$cityValues = EGruzovozoffTarif::model()->findAll($criteria);
-		$cities = array();
-		if ($cityValues) {
-			//Если нашли город из заказа в списке городов то ставим его первым в списке
-			foreach ($cityValues as $city) {
-				$cities[$city->tarifzones_city] = $city->tarifzones_city;
-			}
-		}
-
-		//Добавляем полный список городов для доставки    
-		$cityValues = EGruzovozoffTarif::model()->findAll();
-		foreach ($cityValues as $city) {
-			$cities[$city->tarif_city] = $city->tarif_city;
-		}
-
-		$this->Gff_weight = $param['orderWeight'];
-
+		$this->weight = $param['orderWeight'];
 		$params = array(
 			'elements' => array(
 				__CLASS__ => array(
 					'type' => 'form',
 					'elements' => array(
-						'Gff_city' => array(
+						'city' => array(
 							'type' => 'text',
 						),
-						'Gff_zone' => array(
+						'zone' => array(
 							'type' => 'hidden',
 						),
-						'Gff_price' => array(
+						'price' => array(
 							'type' => 'hidden',
 						),
-						'Gff_weight' => array(
+						'weight' => array(
 							'type' => 'hidden',
 						)
 					),
@@ -170,16 +142,16 @@ class EGruzovozoff extends CActiveRecord {
 				__CLASS__ => array(
 					'type' => 'form',
 					'elements' => array(
-						'Gff_city' => array(
+						'city' => array(
 							'type' => 'text',
 						),
-						'Gff_zone' => array(
+						'zone' => array(
 							'type' => 'hidden',
 						),
-						'Gff_price' => array(
+						'price' => array(
 							'type' => 'hidden',
 						),
-						'Gff_weight' => array(
+						'weight' => array(
 							'type' => 'hidden',
 						)
 					),
@@ -195,16 +167,16 @@ class EGruzovozoff extends CActiveRecord {
 				__CLASS__ => array(
 					'type' => 'form',
 					'elements' => array(
-						'Gff_city' => array(
+						'city' => array(
 							'type' => 'hidden',
 						),
-						'Gff_zone' => array(
+						'zone' => array(
 							'type' => 'hidden',
 						),
-						'Gff_price' => array(
+						'price' => array(
 							'type' => 'hidden',
 						),
-						'Gff_weight' => array(
+						'weight' => array(
 							'type' => 'hidden',
 						)
 					),
@@ -215,7 +187,7 @@ class EGruzovozoff extends CActiveRecord {
 	}
 
 	public function getDestination() {
-		return $this->Gff_city;
+		return $this->city;
 	}
 
 }

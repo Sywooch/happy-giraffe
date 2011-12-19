@@ -3,6 +3,7 @@
  * @var $form CActiveForm
  */
 ?>
+<?php //echo 'отработало за '.sprintf('%0.5f', Yii::getLogger()->getExecutionTime()) ?>
 <div class="mother_calendar">
     <div class="choice_month">
         <a href="#" class="l_arr_mth_active" id="blood-refresh-prev-month">&larr;</a>

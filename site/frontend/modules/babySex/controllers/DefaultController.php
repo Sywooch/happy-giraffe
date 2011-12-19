@@ -51,6 +51,8 @@ class DefaultController extends Controller
 
             $data = $model->CalculateMonthData();
             $gender = $model->GetGender();
+//            echo CJSON::encode($data);
+//            echo 'отработало за '.sprintf('%0.5f', Yii::getLogger()->getExecutionTime());
             $this->renderPartial('_blood_refresh_result', array(
                 'data' => $data,
                 'year' => $model->review_year,

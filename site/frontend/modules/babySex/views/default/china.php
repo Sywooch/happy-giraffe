@@ -4,8 +4,7 @@
  */
 $year = date('Y');
 $model = new ChinaCalendarForm();
-?>
-<script type="text/javascript">
+$js = <<<EOD
     var arr = new Array(
         new Array(2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1),
         new Array(1, 2, 1, 2, 2, 1, 1, 2, 1, 1, 2, 2),
@@ -141,7 +140,9 @@ $model = new ChinaCalendarForm();
         var result = arr[age - 18][month - 1];
         return result;
     }
-</script>
+EOD;
+Yii::app()->clientScript->registerScript('baby-sex-china',$js);
+?>
 
 <div class="child_sex_china_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(

@@ -1,32 +1,34 @@
 <?php
 
+/**
+ * This class represents table 'shop_delivery_epickpoint'
+ * @property $id
+ * @property $city
+ * @property $address
+ * @property $price
+ * @property $pickpoint_id
+ */
 class EPickPoint extends CActiveRecord {
 
 	public $additionPropretys = true;
 
-	public function __construct($scenario='insert') {
+	public function __construct($scenario = 'insert') {
 		parent::__construct($scenario);
 	}
 
 	public function rules() {
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('id', 'numerical', 'integerOnly' => true),
-			array('pickpoint_city, pickpoint_address', 'length', 'min' => 1, 'allowEmpty' => false),
-			array('id, pickpoint_price, pickpoint_city, pickpoint_address, pickpoint_id', 'safe'),
+			array('city, address', 'length', 'min' => 1, 'allowEmpty' => false),
+			array('id, price, city, address, pickpoint_id', 'safe'),
 		);
-	}
-
-	public function init() {
-		
 	}
 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Delivery the static model class
 	 */
-	public static function model($className=__CLASS__) {
+	public static function model($className = __CLASS__) {
 		return parent::model($className);
 	}
 
@@ -34,17 +36,7 @@ class EPickPoint extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop__delivery_' . __CLASS__ . '}}';
-	}
-
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations() {
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-		);
+		return '{{shop_delivery_epickpoint}}';
 	}
 
 	/**
@@ -53,7 +45,7 @@ class EPickPoint extends CActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
-			'pickpoint_price' => 'Price',
+			'price' => 'Price',
 		);
 	}
 
@@ -62,71 +54,52 @@ class EPickPoint extends CActiveRecord {
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function search() {
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria = new CDbCriteria;
-
 		$criteria->compare('id', $this->id);
-		$criteria->compare('pickpoint_price', $this->pickpoint_price, true);
-		$criteria->compare('pickpoint_city', $this->pickpoint_city, true);
+		$criteria->compare('price', $this->price, true);
+		$criteria->compare('city', $this->city, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-					'criteria' => $criteria,
-				));
+			'criteria' => $criteria,
+		));
 	}
 
 	public function getDeliveryCost($param) {
 
-		$searchCities = array();
-
-		if (is_array($param['orderCity'])) {
-			$searchCities = $param['orderCity'];
-		} else {
-			if (isset($param['orderCity'])) {
-				$searchCities = array($param['orderCity']);
-			} else {
-				return false;
-			}
+		$orderCities = $this->getOrderCities($param);
+		if ($orderCities === false) {
+			return false;
 		}
 
 		Yii::import('ext.delivery.PickPoint.EPickPointTarif');
 		$condition = new CDbCriteria();
-		$condition->addInCondition('tarif_city', $searchCities);
+		$condition->addInCondition('city', $orderCities);
 
 		$tarifs = EPickPointTarif::model()->findAll($condition);
 
 		$prices = array();
 		if (isset($tarifs)) {
 			foreach ($tarifs as $k => $tarif) {
-				$prices[$k]['price'] = $tarif['tarif_price'];
-				$prices[$k]['destination'] = $tarif['tarif_city'];
-				$this->pickpoint_price = $prices[$k]['price'];
-				$this->pickpoint_city = $prices[$k]['destination'];
+				$prices[$k]['price'] = $tarif['price'];
+				$prices[$k]['destination'] = $tarif['city'];
+				$this->price = $prices[$k]['price'];
+				$this->city = $prices[$k]['destination'];
 			}
 		} else {
-			$this->pickpoint_price = NUll;
+			$this->price = null;
 		}
-
 		return $prices;
 	}
 
 	public function getForm($param) {
-		$searchCities = array();
-
-		if (is_array($param['orderCity'])) {
-			$searchCities = $param['orderCity'];
-		} else {
-			if (isset($param['orderCity'])) {
-				$searchCities = array($param['orderCity']);
-			} else {
-				return false;
-			}
+		
+		$orderCities = $this->getOrderCities($param);
+		if ($orderCities === false) {
+			return false;
 		}
-
 		Yii::import('ext.delivery.PickPoint.EPickPointTarif');
 		$condition = new CDbCriteria();
-		$condition->addInCondition('tarif_city', $searchCities);
+		$condition->addInCondition('city', $orderCities);
 
 		$tarif = EPickPointTarif::model()->find($condition);
 
@@ -135,24 +108,39 @@ class EPickPoint extends CActiveRecord {
 				__CLASS__ => array(
 					'type' => 'form',
 					'elements' => array(
-						'pickpoint_city' => array(
+						'city' => array(
 							'type' => 'hidden',
 						),
-						'pickpoint_price' => array(
+						'price' => array(
 							'type' => 'hidden',
 						),
-						'pickpoint_address' => array(
+						'address' => array(
 							'type' => 'hidden',
 						),
 						'pickpoint_id' => array(
 							'type' => 'hidden',
 						),
-						Yii::app()->controller->renderPartial('ext.delivery.PickPoint._form', array('orderCity' => $tarif['tarif_pickgoname']), true),
+						Yii::app()->controller->renderPartial('ext.delivery.PickPoint._form', array('orderCity' => $tarif['pickgoname']), true),
 					),
 				),
 			),
 		);
 		return $params;
+	}
+	
+	
+	protected function getOrderCities($param) {
+		if (!isset($param['orderCity'])) {
+			return false;
+		}
+		$searchCities = array();
+		if (is_array($param['orderCity'])) {
+			$searchCities = $param['orderCity'];
+		} 
+		else {
+			$searchCities = array($param['orderCity']);
+		}
+		return $searchCities;
 	}
 
 	public function getSuccessForm($param) {
@@ -161,13 +149,13 @@ class EPickPoint extends CActiveRecord {
 				__CLASS__ => array(
 					'type' => 'form',
 					'elements' => array(
-						'pickpoint_city' => array(
+						'city' => array(
 							'type' => 'hidden',
 						),
-						'pickpoint_price' => array(
+						'price' => array(
 							'type' => 'hidden',
 						),
-						'pickpoint_address' => array(
+						'address' => array(
 							'type' => 'text',
 						),
 						'pickpoint_id' => array(
@@ -186,13 +174,13 @@ class EPickPoint extends CActiveRecord {
 				__CLASS__ => array(
 					'type' => 'form',
 					'elements' => array(
-						'pickpoint_city' => array(
+						'city' => array(
 							'type' => 'hidden',
 						),
-						'pickpoint_price' => array(
+						'price' => array(
 							'type' => 'text',
 						),
-						'pickpoint_address' => array(
+						'address' => array(
 							'type' => 'text',
 						),
 						'pickpoint_id' => array(
@@ -207,11 +195,10 @@ class EPickPoint extends CActiveRecord {
 
 	public function getSettingsUrl() {
 		return CHtml::link("Выбрать", "#", array('onclick' => "PickPoint.open(my_function, options);return false"));
-		;
 	}
 
 	public function getDestination() {
-		return $this->pickpoint_address;
+		return $this->address;
 	}
 
 }

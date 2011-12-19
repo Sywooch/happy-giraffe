@@ -4,9 +4,8 @@
  */
 $year = date('Y');
 $model = new BloodRefreshForm();
-?>
-<script type="text/javascript">
-    $(function () {
+$js="
+$(function () {
         //blood refresh
         $('body').delegate('#blood-refresh-prev-month', 'click', function () {
             var month = $('#blood_refr_review_month').val();
@@ -19,9 +18,9 @@ $model = new BloodRefreshForm();
             }
             $('#blood_refr_review_month').val(month);
             $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/bloodUpdate") ?>",
-                data:$("#blood-refresh-form").serialize(),
-                type:"POST",
+                url:'".Yii::app()->createUrl("/babySex/default/bloodUpdate")."',
+                data:$('#blood-refresh-form').serialize(),
+                type:'POST',
                 success:function (data) {
                     ShowResult(data);
                 }
@@ -40,9 +39,9 @@ $model = new BloodRefreshForm();
             }
             $('#blood_refr_review_month').val(month);
             $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/bloodUpdate") ?>",
-                data:$("#blood-refresh-form").serialize(),
-                type:"POST",
+                url:'".Yii::app()->createUrl("/babySex/default/bloodUpdate")."',
+                data:$('#blood-refresh-form').serialize(),
+                type:'POST',
                 success:function (data) {
                     ShowResult(data);
                 }
@@ -51,12 +50,12 @@ $model = new BloodRefreshForm();
         });
 
         $('input.calc_bt').click(function () {
-            $("#blood_refr_review_year").val($("#ch_yr_cal").val());
-            $("#blood_refr_review_month").val($("#ch_mn_cal").val());
+            $('#blood_refr_review_year').val($('#ch_yr_cal').val());
+            $('#blood_refr_review_month').val($('#ch_mn_cal').val());
             $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/bloodUpdate") ?>",
-                data:$("#blood-refresh-form").serialize(),
-                type:"POST",
+                url:'".Yii::app()->createUrl("/babySex/default/bloodUpdate")."',
+                data:$('#blood-refresh-form').serialize(),
+                type:'POST',
                 success:function (data) {
                     ShowResult(data);
                 }
@@ -64,11 +63,10 @@ $model = new BloodRefreshForm();
         });
 
         function ShowResult(data) {
-            $('#blood-update-result').html(data);
-//            $('#blood-update-result').animate({opacity:0}, 'fast', 'swing', function () {
-//                $('#blood-update-result').html(data);
-//                $('#blood-update-result').animate({opacity:1}, 'fast');
-//            });
+            //$('#blood-update-result').fadeOut(100,function(){
+                $('#blood-update-result').html(data);
+                //$('#blood-update-result').fadeIn(100);
+            //});
         }
 
         $('body').delegate('.cal_item', 'hover', function (event) {
@@ -86,7 +84,9 @@ $model = new BloodRefreshForm();
             }
         });
     });
-</script>
+";
+Yii::app()->clientScript->registerScript('blood-update',$js);
+?>
 <div class="child_sex_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'blood-refresh-form',

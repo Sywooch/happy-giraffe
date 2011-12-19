@@ -192,7 +192,7 @@ class BloodRefreshForm extends CFormModel
         return array(
             'day' => $day,
             'sex' => $sex,
-            'probability' => $probability,
+            'probability' => round($probability /2 + 50),
             'other_month' => $other_month,
             'opacity' => self::Opacity($probability)
         );

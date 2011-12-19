@@ -22,8 +22,8 @@
 		document.getElementById('address').innerHTML=result['name']+'<br />'+result['address'];
 			
 		var res = result['address'].split(",");					
-		document.getElementById('EPickPoint_pickpoint_address').value = result['address'];		    
-		document.getElementById('EPickPoint_pickpoint_city').value = res[2];
+		document.getElementById('EPickPoint_address').value = result['address'];		    
+		document.getElementById('EPickPoint_city').value = res[2];
 		document.getElementById('EPickPoint_pickpoint_id').value = result['id'];
     }
     

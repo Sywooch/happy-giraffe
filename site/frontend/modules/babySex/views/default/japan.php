@@ -3,9 +3,7 @@
  * @var $form CActiveForm
  */
 $model = new JapanCalendarForm;
-?>
-<script type="text/javascript">
-    $(function () {
+$js =    "$(function () {
         //japan calendar
         $('body').delegate('#japan-prev-month', 'click', function () {
             var month = $('#japan_review_month').val();
@@ -15,9 +13,9 @@ $model = new JapanCalendarForm;
             }
             $('#japan_review_month').val(month);
             $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/japanCalc") ?>",
-                data:$("#japan-form").serialize(),
-                type:"POST",
+                url:'".Yii::app()->createUrl("/babySex/default/japanCalc")."',
+                data:$('#japan-form').serialize(),
+                type:'POST',
                 success:function (data) {
                     ShowResult(data);
                 }
@@ -33,9 +31,9 @@ $model = new JapanCalendarForm;
             }
             $('#japan_review_month').val(month);
             $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/japanCalc") ?>",
-                data:$("#japan-form").serialize(),
-                type:"POST",
+                url:'".Yii::app()->createUrl("/babySex/default/japanCalc")."',
+                data:$('#japan-form').serialize(),
+                type:'POST',
                 success:function (data) {
                     ShowResult(data);
                 }
@@ -44,11 +42,11 @@ $model = new JapanCalendarForm;
         });
 
         $('.child_sex_japan_banner .calc_bt').click(function () {
-            $("#japan_review_month").val($("#ch_mn_cal").val());
+            $('#japan_review_month').val($('#ch_mn_cal').val());
             $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/japanCalc") ?>",
-                data:jQuery(this).parents("form").serialize(),
-                type:"POST",
+                url:'".Yii::app()->createUrl("/babySex/default/japanCalc")."',
+                data:jQuery(this).parents('form').serialize(),
+                type:'POST',
                 success:function (data) {
                     ShowResult(data);
                 }
@@ -57,10 +55,10 @@ $model = new JapanCalendarForm;
         });
 
         function ShowResult(data) {
-//            $('#japan-result').animate({opacity:0}, 'fast', 'swing', function () {
+            //$('#japan-result').fadeOut(100, function () {
                 $('#japan-result').html(data);
-//                $('#japan-result').animate({opacity:1}, 'fast');
-//            });
+                //$('#japan-result').fadeIn(100);
+            //});
         }
 
         $('body').delegate('.cal_item', 'hover', function (event) {
@@ -78,8 +76,9 @@ $model = new JapanCalendarForm;
                 $(this).find('.hint').stop(true, true).fadeOut();
             }
         });
-    });
-</script>
+    });";
+    Yii::app()->clientScript->registerScript('japan-baby-gender',$js);
+?>
 <div class="child_sex_japan_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'japan-form',

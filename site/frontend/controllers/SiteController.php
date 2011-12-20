@@ -59,9 +59,9 @@ class SiteController extends Controller
 				));
 				$model->social_services = array($service);
 			}
-			
+
 			if($model->save())
-			{	
+			{
 				foreach ($_POST['age_group'] as $k => $q)
 				{
 					for ($j = 0; $j < $q; $j++)
@@ -205,7 +205,7 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->request->urlReferrer);
 	}
-	
+
 	public function actionProfile()
 	{
 		$service = Yii::app()->request->getQuery('service');
@@ -225,7 +225,7 @@ class SiteController extends Controller
 
 			$authIdentity->redirect();
 		}
-	
+
 		$user = User::model()->with('babies', 'settlement', 'social_services')->findByPk(Yii::app()->user->getId());
 		$babies = array(
 			array('label' => 'Ждем ребенка', 'content' => array()),
@@ -256,11 +256,11 @@ class SiteController extends Controller
 		Y::cache()->flush();
 		$this->redirect('/shop/');
 	}
-	
+
 	public function actionMap()
 	{
 		$contents = CommunityContent::model()->with('rubric.community', 'type')->findAll();
-		
+
 		$this->render('map', array(
 			'contents' => $contents,
 		));

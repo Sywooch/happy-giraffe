@@ -19,7 +19,16 @@ return array(
 		'type' => CAuthItem::TYPE_ROLE,
 		'description' => 'Модератор',
 		'children' => array(
-			'guest',
+			'user',
+		),
+		'bizRule' => null,
+		'data' => null
+	),
+	'editor' => array(
+		'type' => CAuthItem::TYPE_ROLE,
+		'description' => 'Редактор',
+		'children' => array(
+			'user',
 		),
 		'bizRule' => null,
 		'data' => null

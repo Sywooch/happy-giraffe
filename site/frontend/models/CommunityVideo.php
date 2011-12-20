@@ -22,6 +22,17 @@ class CommunityVideo extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function behaviors()
+	{
+		return array(
+			'cut' => array(
+				'class' => 'application.components.CutBehavior',
+				'attributes' => array('text'),
+				'edit_routes' => array('community/edit'),
+			),
+		);
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -38,9 +49,15 @@ class CommunityVideo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('link, text, content_id, player_favicon, player_title', 'required'),
-			array('link, player_favicon, player_title', 'length', 'max'=>255),
-			array('content_id', 'length', 'max'=>11),
+			array('link, text', 'required'),
+			array('content_id', 'required', 'on' => 'edit'),
+			array('link', 'length', 'max' => 255),
+			array('content_id', 'length', 'max' => 11),
+			array('content_id', 'numerical', 'integerOnly' => true), 
+			array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),	
+			
+			array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, link, text, content_id, player_favicon, player_title', 'safe', 'on'=>'search'),

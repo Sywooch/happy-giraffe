@@ -154,6 +154,7 @@ $('.spam a').live('click', function() {
 			<?php 
 				foreach ($related as $rc)
 				{
+					$content = '';
 					switch ($rc->type->slug)
 					{
 						case 'post':
@@ -161,7 +162,9 @@ $('.spam a').live('click', function() {
 							{
 								$content = '<img src="' . $matches[1] . '" alt="' . $rc->name . '" width="150" />';
 							}
-							elseif (preg_match('/<p>(.+)<\/p>/Uis', $rc->post->text, $matches2))
+							else
+							{
+								preg_match('/<p>(.+)<\/p>/Uis', $rc->post->text, $matches2);
 								$content = strip_tags($matches2[1]);
 							}
 						break;
@@ -174,7 +177,7 @@ $('.spam a').live('click', function() {
 			?>
 			<div class="block">
 				<b><?php echo CHtml::link($rc->name, $this->createUrl('community/view', array('community_id' => $c->rubric->community->id, 'content_type_slug' => $rc->type->slug, 'content_id' => $rc->id))); ?></b>
-				<p><?php if (isset($content)) echo $content; ?></p>
+				<p><?php echo $content; ?></p>
 			</div>
 			<?php
 				}

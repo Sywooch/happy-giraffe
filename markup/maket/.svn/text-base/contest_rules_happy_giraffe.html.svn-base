@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -179,3 +180,186 @@
 </div>
 </body>
 </html>
+=======
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Untitled Document</title>
+	<link rel="stylesheet" type="text/css" href="../static/stylesheets/global.css" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+</head>
+
+<body>
+	<div class="page">
+		<div class="topbanner">
+			<a href="/"><img src="../static/images/topban.png"/></a>
+		</div>
+
+		<div class="topheader">
+			<div class="logo"></div> 
+			<div class="center">
+				<div class="log-in">
+					<div class="key">Личный кабинет</div>
+					<ul>
+						<li class="first"><a href="">Вход</a></li>
+						<li><a href="">Регистрация</a></li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+				
+				
+				<div class="search">
+					<form>
+						<input type="text"/>
+						<div class="g-button">
+							<div class="fill">
+								<input type="submit" value="поиск"/>
+							</div>
+							<div class="left">
+							</div>
+							<div class="right">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="shop">
+				<div class="g-button yellow">
+					<div class="fill">
+						<a href="">наш магазин</a>
+					</div>
+					<div class="left">
+					</div>
+					<div class="right">
+					</div>
+				</div>
+			
+			</div>
+		</div>
+
+	<ul class="topmenu">
+		<li id="forums"><a  href="/">Форумы</a></li>
+		<li id="kalendar"><a  href="/">Календарь&nbsp;малыша</a></li> 
+		<li id="budget"><a  href="/">Бюджет&nbsp;малыша</a></li> 
+		<li id="birthday"><a  href="/">День&nbsp;рождения</a></li> 
+		<li id="konkurs"><a href="/">Конкурсы</a></li>
+	</ul>
+
+	<a href="#" class="bannerunder"><img src="../static/images/bannerunder.png" /></a>
+
+	<div class="content">
+		<div class="breadcrumbs">
+			<a href="/">Главная</a> <span class="way">  </span> 
+			<a href="/">Конкурсы</a>  <span class="way">  </span>  
+			<a class="herenow" href="/">Фотоконкурс "Наши каникулы"</a>
+		</div>
+
+		<div class="kon_header">
+			<div class="kon_name">
+				<div class="kon_title">Фотоконкурс <br/>"Наши каникулы"</div>
+				<div class="g-button round">
+					<div class="fill">
+						<a href="" class="left-str">Участвовать</a>
+					</div>
+					<div class="left">
+					</div>
+					<div class="right">
+					</div>
+				</div>
+			</div>
+			<div class="kon_menu">
+				<a href="/">О конкурсе</a> 
+				<a class="current" href="/">Правила</a> 
+				<a href="/">Участники</a> 
+				
+				<a href="/" class="cup">Победители</a>
+			</div>
+		</div>
+	
+		<div class="inner contest">
+			<h1>Правила конкурса</h1>
+			<h2>1. Правила фотоконкурса "Наши каникулы"</h2>
+			 <div class="clear"></div>
+			<p>1.1 Организатором конкурса является "беби.ру", далее обозначаемый как Организатор.</p>
+			
+			<p>1.2 Конкурс проводится с 19 июля по 12 августа 2010 года. Результаты конкурса будут опубликованы в октябрьском (№8) номере «Сабрина Baby» (в продаже с 20 сентября), а также 20 сентября на «бэби.ру».</p>
+ 
+			<p>1.3 Цель и задача проведения конкурса: поддержания интереса и привлечение внимания пользователей к журналу «Сабрина Baby»  и социальной сети «бэби.ру»</p>
+ 
+			<p>1.4 К участию в конкурсе не допускаются сотрудники Организаторов, а также члены их семей.</p>
+ 
+			<h2>2. Условия участия в конкурсе</h2>
+			<div class="clear"></div>
+			<p>2.1 Для участия в конкурсе нужно быть зарегистрированным пользователем социальной сети «бэби.ру» (www.baby.ru)</p>
+			<p>2.2 У пользователя, решившего принять участие в фотоконкурсе «Вяжем для крохи» должна быть заполнена анкета (фамилия, имя, e-mail, город проживания, а также имя и возраст малыша), минимум: фото – аватар и не менее 2 записей в журнале.</p>
+			<p>2.3 К конкурсу будут допущены те фотографии, где изделия хорошо видны. К фотографии необходимо придумать название.</p>
+ 
+			<p>2.4 Участником и потенциальным получателем приза является тот, кто разместил фотографию по тематике конкурса, учитывая все требования к ее размещению. А так же выполнив все дополнительные условия участия в конкурсе.</p>
+ 
+			<p>2.5 Размещенные фотографии хранятся в базе данных «бэби.ру».</p>
+ 
+			<h2>3. Подведение итогов</h2>
+			<div class="clear"></div>
+			<p>3.1 Победителей, занявших 3 первых места, определяют пользователи «бэби.ру» голосованием. А также фотографии 10 лучших работ будут опубликованы в журнале «Сабрина Baby».</p>
+ 
+			<p>3.2 Организаторы сообщают о победе информационным письмом Участникам-победителям</p>
+
+			<p>3.3 Для оповещения о выигрыше и получения Приза, Участник должен правильно указать свои данные по просьбе администраторов конкурса.</p>
+
+			<p>3.4 Если Участник неверно предоставил о себе необходимую информацию, а также в случае почтовой ошибки, призы повторно не высылаются.</p>
+
+			<p>3.5 В случае отказа Участника от принятия Приза, он не передаётся третьим лицам и не выдаётся в денежном эквиваленте.</p>
+ 
+			<h2>4. Права и обязанности Участников и Организаторов</h2>
+			<div class="clear"></div>
+			<p>4.1 Участие в конкурсе подразумевает полное ознакомление и согласие Участников с данными Правилами.
+ 
+			<p>4.2 Публикуя фотографию для участия в конкурсе, участник<p>
+			<ul>
+				<li>подтверждает, что все авторские права на размещённую им фотографию принадлежат исключительно ему, и использование этой информации при проведении конкурса, не нарушает имущественных и/или неимущественных прав третьих лиц;</li>
+ 
+				<li>дает согласие на опубликование данной фотографии на сайтах по выбору Организаторов, с возможностью публикации в печатных тематических изданиях;</li>
+ 
+				<li>обязуется содействовать в разрешении претензий третьих лиц в случае предъявления таких претензий к Организаторам конкурса в связи с опубликованием фотографии и в полном объеме возместить все убытки в случае выявления факта нарушения авторских прав;</li>
+ 
+				<li>обязуется вступить в дело в качестве третьего лица, на стороне ответчика в случае предъявления к Организаторам конкурса третьими лицами иска, связанного с использованием опубликованной фотографии.</li>
+			</ul> 
+			<p>4.3 Организаторы имеют право не допускать к участию в конкурсе фотографии, не соответствующие требованиям, без предоставления дополнительных объяснений.</p>
+ 
+			<p>4.4 Организаторы имеют право отказать Участнику в предоставлении приза, если он нарушил Правила конкурса, несвоевременно или неверно предоставил о себе необходимую информацию.</p>
+			
+			
+			<div class="g-button round">
+				<div class="fill">
+					<a href="" class="left-str">Участвовать</a>
+				</div>
+				<div class="left">
+				</div>
+				<div class="right">
+				</div>
+			</div>
+		
+		</div>
+		
+	</div>  	
+	<div class="clear"></div>
+	<div class="empty"></div>
+	
+	<div class="footer">
+		<div class="banners">
+			<a href=""><img src="../static/images/f-banner1.jpg"/></a>
+			<a href=""><img src="../static/images/f-banner1.jpg"/></a>
+			<a href=""><img src="../static/images/f-banner1.jpg"/></a>
+			<a href=""><img src="../static/images/f-banner1.jpg"/></a>
+			<a href="" class="last"><img src="../static/images/f-banner1.jpg"/></a>
+		</div>
+		<div class="violett"></div>
+	</div>
+	
+
+</div>
+</body>
+</html>
+>>>>>>> ebc0ebc8402ae165da6efe8bbba623e06dc3d395

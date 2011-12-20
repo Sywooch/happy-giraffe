@@ -73,6 +73,7 @@ return array(
 		'contractionsTime',
         'placentaThickness',
         'menstrualCycle',
+        'babySex',
 	),
 
 	// application components
@@ -87,16 +88,6 @@ return array(
 					'maxButtonCount' => 5,
 				),
 				'CKEditorWidget' => array(
-					'config' => array(
-						'language' => 'ru',
-				
-						'filebrowserBrowseUrl' => '/ckfinder/ckfinder.html',
-						'filebrowserImageBrowseUrl' => '/ckfinder/ckfinder.html?Type=Images',
-						'filebrowserFlashBrowseUrl' => '/ckfinder/ckfinder.html?Type=Flash',
-						'filebrowserUploadUrl' => '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-						'filebrowserImageUploadUrl' => '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-						'filebrowserFlashUploadUrl' => '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash',
-					),
 					'ckEditor' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www' . DIRECTORY_SEPARATOR . 'ckeditor' . DIRECTORY_SEPARATOR . 'ckeditor.php',
 				),
 			),
@@ -167,6 +158,11 @@ return array(
 					'levels'=>'error, warning',
 				),
 				array(
+					'class'=>'CEmailLogRoute',
+					'levels'=>'error, warning',
+					'emails'=>'choojoy.work@gmail.com',
+				),
+				array(
 					'class'=>'CWebLogRoute',
 					'categories'=>'system.db.CDbCommand',
 					'showInFireBug'=>true,
@@ -207,4 +203,18 @@ return array(
 			),
 		),
 	),
+	
+        'controllerMap'=>array(
+                'sitemap'=>array(
+                        'class'=>'ext.sitemapgenerator.SGController',
+                        'config'=>array(
+                                'sitemap.xml'=>array(
+                                        'aliases'=>array(
+                                                'application.controllers',
+                                        ),
+                                ),
+                        ),
+                ),
+        ),
+
 );

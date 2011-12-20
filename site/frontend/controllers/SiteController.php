@@ -59,9 +59,9 @@ class SiteController extends Controller
 				));
 				$model->social_services = array($service);
 			}
-			
+
 			if($model->save())
-			{	
+			{
 				foreach ($_POST['age_group'] as $k => $q)
 				{
 					for ($j = 0; $j < $q; $j++)
@@ -83,13 +83,14 @@ class SiteController extends Controller
 	}
 
 	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
+	 * @sitemap
 	 */
+
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
+		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
+		Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
+		Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
 		$this->render('index');
 	}
 
@@ -204,7 +205,7 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->request->urlReferrer);
 	}
-	
+
 	public function actionProfile()
 	{
 		$service = Yii::app()->request->getQuery('service');
@@ -224,7 +225,7 @@ class SiteController extends Controller
 
 			$authIdentity->redirect();
 		}
-	
+
 		$user = User::model()->with('babies', 'settlement', 'social_services')->findByPk(Yii::app()->user->getId());
 		$babies = array(
 			array('label' => 'Ждем ребенка', 'content' => array()),
@@ -254,5 +255,14 @@ class SiteController extends Controller
 	{
 		Y::cache()->flush();
 		$this->redirect('/shop/');
+	}
+
+	public function actionMap()
+	{
+		$contents = CommunityContent::model()->with('rubric.community', 'type')->findAll();
+
+		$this->render('map', array(
+			'contents' => $contents,
+		));
 	}
 }

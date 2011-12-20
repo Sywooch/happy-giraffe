@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -345,3 +346,352 @@
 </div>
 </body>
 </html>
+=======
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Untitled Document</title>
+	<link rel="stylesheet" type="text/css" href="../static/stylesheets/global.css" />
+	<link rel="stylesheet" type="text/css" href="../static/stylesheets/cusel.css" />
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script type="text/javascript" src="../static/javascripts/cusel.js"></script>
+	
+	<script type="text/javascript" src="../static/javascripts/checkbox.js"></script>
+
+</head>
+
+<body>
+	<div class="page">
+		<div class="topbanner">
+			<a href="/"><img src="../static/images/topban.png"/></a>
+		</div>
+
+		<div class="topheader">
+			<div class="logo"></div> 
+			<div class="center">
+				<div class="log-in">
+					<div class="key">Личный кабинет</div>
+					<ul>
+						<li class="first"><a href="">Вход</a></li>
+						<li><a href="">Регистрация</a></li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+				
+				
+				<div class="search">
+					<form>
+						<input type="text"/>
+						<div class="g-button">
+							<div class="fill">
+								<input type="submit" value="поиск"/>
+							</div>
+							<div class="left">
+							</div>
+							<div class="right">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="shop">
+				<div class="g-button yellow">
+					<div class="fill">
+						<a href="">наш магазин</a>
+					</div>
+					<div class="left">
+					</div>
+					<div class="right">
+					</div>
+				</div>
+			
+			</div>
+		</div>
+
+	<ul class="topmenu">
+		<li id="forums"><a  href="/">Форумы</a></li>
+		<li id="kalendar"><a  href="/">Календарь&nbsp;малыша</a></li> 
+		<li id="budget"><a  href="/">Бюджет&nbsp;малыша</a></li> 
+		<li id="birthday"><a  href="/">День&nbsp;рождения</a></li> 
+		<li id="konkurs"><a href="/">Конкурсы</a></li>
+	</ul>
+
+	<a href="#" class="bannerunder"><img src="../static/images/bannerunder.png" /></a>
+
+	<div class="content">
+		<div class="breadcrumbs">
+			<a href="/">Главная</a> <span class="way">  </span> 
+			<a href="/">Конкурсы</a>  <span class="way">  </span>  
+			<a class="herenow" href="/">Фотоконкурс "Наши каникулы"</a>
+		</div>
+
+		<div class="kon_header">
+			<div class="kon_name">
+				<div class="kon_title">Фотоконкурс <br/>"Наши каникулы"</div>
+				<div class="g-button round">
+					<div class="fill">
+						<a href="" class="left-str">Участвовать</a>
+					</div>
+					<div class="left">
+					</div>
+					<div class="right">
+					</div>
+				</div>
+			</div>
+			<div class="kon_menu">
+				<a href="/">О конкурсе</a> 
+				<a href="/">Правила</a> 
+				<a class="current" href="/">Участники</a> 
+				
+				<a href="/" class="cup">Победители</a>
+			</div>
+		</div>
+	
+		<div class="inner contest list">
+			
+			<div class="photo-block">
+				<h1>
+					Участники конкурса
+				</h1>
+				<div class="sel">
+					<h2>Сортировать по:</h2>
+					<select id="sort">
+						<option value="1000" selected="selected">Дате</option>
+						<option value="1">22</option>
+						<option value="2">С33</option>
+					</select>
+				
+				</div>
+				
+				<div class="clear"></div>
+				<div class="paginator">
+					<span class="txt">
+						Показано: 1-15 из 82
+					</span>
+					<div class="pages">
+						<span class="txt">
+							Страниц
+						</span>
+						<a href="" class="prev"></a>
+						<a href="">5</a>
+						<a href="">6</a>
+						<div class="current">
+							<div class="fill">755</div>
+							<div class="left"></div>
+							<div class="right"></div>
+						</div>
+						<a href="">8</a>
+						<a href="">9</a>
+						<a href="" class="next"></a>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex1.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex2.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex1.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex2.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex1.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex2.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex1.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex2.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex1.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex2.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex1.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex2.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex2.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex2.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				<div class="item">
+					<div class="photo">
+						<img src="../static/images/example/ex2.png"/>
+						<span>Наш дайвинг</span>
+					</div>
+					<div class="mark">
+						<span>157</span> баллов
+					</div>
+				</div>
+				
+				
+				<div class="clear"></div>
+				
+								<div class="paginator">
+					<span class="txt">
+						Показано: 1-15 из 82
+					</span>
+					<div class="pages">
+						<span class="txt">
+							Страниц
+						</span>
+						<a href="" class="prev"></a>
+						<a href="">5</a>
+						<a href="">6</a>
+						<div class="current">
+							<div class="fill">755</div>
+							<div class="left"></div>
+							<div class="right"></div>
+						</div>
+						<a href="">8</a>
+						<a href="">9</a>
+						<a href="" class="next"></a>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+				<div class="clear"></div>
+			</div>
+			
+			
+			
+		</div>
+		
+		
+		
+		
+	</div>  	
+	<div class="clear"></div>
+	<div class="empty"></div>
+	
+	<div class="footer">
+		<div class="banners">
+			<a href=""><img src="../static/images/f-banner1.jpg"/></a>
+			<a href=""><img src="../static/images/f-banner1.jpg"/></a>
+			<a href=""><img src="../static/images/f-banner1.jpg"/></a>
+			<a href=""><img src="../static/images/f-banner1.jpg"/></a>
+			<a href="" class="last"><img src="../static/images/f-banner1.jpg"/></a>
+		</div>
+		<div class="violett"></div>
+	</div>
+	
+
+</div>
+</body>
+</html>
+>>>>>>> ebc0ebc8402ae165da6efe8bbba623e06dc3d395

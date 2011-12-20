@@ -40,10 +40,13 @@ class CommunityContent extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('by_happy_giraffe', 'boolean', 'allowEmpty' => true),
-			array('name, author_id, type_id', 'required'),
-			array('name, meta_title, meta_description, meta_keywords', 'length', 'max'=>255),
-			array('views, rating, author_id, rubric_id, type_id', 'length', 'max'=>11),
+			array('name, author_id, rubric_id, type_id', 'required'),
+			array('name, meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
+			array('views, rating, author_id, rubric_id, type_id', 'length', 'max' => 11),
+			array('views, rating, author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true), 
+			array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
+			array('by_happy_giraffe', 'boolean'),
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, by_happy_giraffe, name, meta_title, meta_description, meta_keywords, created, views, rating, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
@@ -63,7 +66,7 @@ class CommunityContent extends CActiveRecord
 			'comments' => array(self::HAS_MANY, 'CommunityComment', 'content_id'),
 			'commentsCount' => array(self::STAT, 'Comment', 'object_id', 'condition' => 'model=:modelName', 'params' => array(':modelName' => 'CommunityContent')),
 			'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => 'type_id = 2'),
-			'article' => array(self::HAS_ONE, 'CommunityArticle', 'content_id', 'on' => 'type_id = 1'),
+			'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => 'type_id = 1'),
 			'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
 		);
 	}
@@ -124,7 +127,7 @@ class CommunityContent extends CActiveRecord
 						)
 					),
 				),
-				'article',
+				'post',
 				'video',
 				'commentsCount',
 			),
@@ -135,20 +138,23 @@ class CommunityContent extends CActiveRecord
 	
 	public function type($type_id)
 	{
-		$this->getDbCriteria()->mergeWith(array(
-			'with' => array(
-				'rubric' => array(
-					'condition' => 'type_id=:type_id',
-					'params' => array(':type_id' => $type_id),
+		if ($type_id !== null)
+		{
+			$this->getDbCriteria()->mergeWith(array(
+				'with' => array(
+					'rubric' => array(
+						'condition' => 'type_id=:type_id',
+						'params' => array(':type_id' => $type_id),
+					),
 				),
-			),
-		));
+			));
+		}
 		return $this;
 	}
 	
 	public function rubric($rubric_id)
 	{
-		if (!is_null($rubric_id))
+		if ($rubric_id !== null)
 		{
 			$this->getDbCriteria()->mergeWith(array(
 				'with' => array(
@@ -182,7 +188,7 @@ class CommunityContent extends CActiveRecord
 							),
 						),
 					),
-					'article',
+					'post',
 					'video',
 					'commentsCount',
 					'contentAuthor',

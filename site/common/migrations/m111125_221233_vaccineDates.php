@@ -84,21 +84,7 @@ CREATE TABLE IF NOT EXISTS `vaccine_user_vote` (
   `vaccine_date_id` int(11) NOT NULL,
   `vote` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
-
-INSERT INTO `vaccine_user_vote` (`id`, `user_id`, `baby_id`, `vaccine_date_id`, `vote`) VALUES
-(1, 128, 1, 9, 1),
-(2, 128, 1, 5, 2),
-(3, 128, 1, 3, 3),
-(4, 128, 1, 1, 2),
-(5, 128, 1, 4, 2),
-(6, 128, 1, 7, 2),
-(7, 128, 2, 1, 3),
-(8, 128, 2, 5, 2),
-(9, 128, 2, 3, 1),
-(10, 128, 2, 15, 2),
-(11, 128, 1, 17, 2),
-(12, 128, 1, 15, 2);");
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;");
 		
 		if(Yii::app()->hasComponent('cache'))
 		{

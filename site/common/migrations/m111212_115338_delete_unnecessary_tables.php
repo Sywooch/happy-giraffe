@@ -15,6 +15,11 @@ class m111212_115338_delete_unnecessary_tables extends CDbMigration
 		$this->dropTable('_delivery_epricecity');
 		$this->dropTable('_delivery_etarif');
 	}
+	
+	
+	public function dropTable($table) {
+		$this->execute("DROP TABLE IF EXISTS `" . $table . '`');
+	}
 
 	public function down()
 	{

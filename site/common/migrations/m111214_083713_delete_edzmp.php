@@ -4,7 +4,7 @@ class m111214_083713_delete_edzmp extends CDbMigration
 {
 	public function up()
 	{
-		$this->dropTable('shop__delivery_edzpm');
+		$this->execute("DROP TABLE IF EXISTS `shop__delivery_edzpm`");
 	}
 
 	public function down()

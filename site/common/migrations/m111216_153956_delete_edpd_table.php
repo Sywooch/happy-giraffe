@@ -6,7 +6,7 @@ class m111216_153956_delete_edpd_table extends CDbMigration
 	
 	public function up()
 	{
-		$this->dropTable($this->_table);
+		$this->execute("DROP TABLE IF EXISTS `shop__delivery_edpm`");
 	}
 
 	public function down()

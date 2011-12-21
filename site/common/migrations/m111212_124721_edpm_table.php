@@ -14,6 +14,7 @@ class m111212_124721_edpm_table extends CDbMigration {
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 		";
+		$this->execute($sql);
 	}
 
 	public function down() {

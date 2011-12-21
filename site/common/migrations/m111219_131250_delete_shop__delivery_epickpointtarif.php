@@ -6,7 +6,7 @@ class m111219_131250_delete_shop__delivery_epickpointtarif extends CDbMigration
 	
 	public function up()
 	{
-		$this->dropTable($this->_table);
+		$this->execute("DROP TABLE IF EXISTS `shop__delivery_epickpointtarif`");
 	}
 
 	public function down()

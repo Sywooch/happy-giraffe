@@ -6,7 +6,7 @@ class m111216_132208_delete_egruzovozoff_tarif extends CDbMigration
 	
 	public function up()
 	{
-		$this->dropTable($this->_table);
+		$this->execute("DROP TABLE IF EXISTS `shop__delivery_egruzovozofftarif`");
 	}
 
 	public function down()

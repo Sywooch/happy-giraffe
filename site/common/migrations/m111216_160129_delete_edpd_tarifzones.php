@@ -6,7 +6,7 @@ class m111216_160129_delete_edpd_tarifzones extends CDbMigration
 	
 	public function up()
 	{
-		$this->dropTable($this->_table);
+		$this->execute("DROP TABLE IF EXISTS `shop__delivery_etarifzones`");
 	}
 
 	public function down()

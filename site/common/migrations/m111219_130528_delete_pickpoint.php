@@ -6,7 +6,7 @@ class m111219_130528_delete_pickpoint extends CDbMigration
 	
 	public function up()
 	{
-		$this->dropTable($this->_table);
+		$this->execute("DROP TABLE IF EXISTS `shop__delivery_epickpoint`");
 	}
 
 	public function down()

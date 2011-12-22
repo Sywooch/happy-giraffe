@@ -1,6 +1,6 @@
 <?php
 
-class m111212_115338_delete_unnecessary_tables extends CDbMigration
+class m111221_151322_fix extends CDbMigration
 {
 	public function up()
 	{

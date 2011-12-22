@@ -38,6 +38,7 @@ return array(
         'application.modules.pregnancyWeight.models.*',
 	    'application.modules.hospitalBag.models.*',
         'application.modules.placentaThickness.models.*',
+        'application.modules.names.models.*',
 	),
 
 	'sourceLanguage' => 'en',
@@ -74,6 +75,8 @@ return array(
         'placentaThickness',
         'menstrualCycle',
         'babySex',
+        'names',
+        'hairType',
 	),
 
 	// application components

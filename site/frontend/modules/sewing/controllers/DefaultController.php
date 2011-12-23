@@ -17,20 +17,28 @@ class DefaultController extends Controller
         $this->render('threadCalculation');
     }
 
+    public function actionYarnCalculator()
+    {
+        $this->render('yarnCalculator');
+    }
+
     public function actionLoopCalculator()
     {
         $this->render('loopCalculator');
     }
 
+    /**
+     * DEV_METHOD
+     */
     public function actionParseSite()
     {
         $url = 'http://www.kudel.ru/calc.php';
 
-        $project = 5;
+        $project = 16;
         $size = 8;
         $gauge = 7;
         $global_size = 1;
-        for ($size = 32; $size <= 37; $size++) {
+        for ($size = 105; $size <= 111; $size++) {
             for ($gauge = 1; $gauge <= 8; $gauge++) {
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
@@ -39,7 +47,7 @@ class DefaultController extends Controller
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
                 curl_setopt($ch, CURLOPT_TIMEOUT, 3); // times out after 4s
                 curl_setopt($ch, CURLOPT_POST, 1); // set POST method
-                $gauge_val = 244 + ($size - 32) * 8 + $gauge;
+                $gauge_val = 821 + ($global_size - 1) * 8 + $gauge;
                 curl_setopt($ch, CURLOPT_POSTFIELDS, "project=$project&size=$size&gauge=$gauge_val&submit=%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82+%D0%BF%D0%BE%D1%82%D1%80%D0%B5%D0%B1%D0%BD%D0%BE%D1%81%D1%82%D0%B8+%D0%BF%D1%80%D1%8F%D0%B6%D0%B8%21"); // add POST fields
                 $result = curl_exec($ch); // run the whole process
                 curl_close($ch);

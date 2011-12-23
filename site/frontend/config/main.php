@@ -77,6 +77,7 @@ return array(
         'babySex',
         'names',
         'hairType',
+        'sewing',
 	),
 
 	// application components

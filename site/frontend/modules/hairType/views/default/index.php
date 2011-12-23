@@ -9,7 +9,7 @@
 
     #test-inner {
         position: absolute;
-        width: 1200px;
+        width: 2800px;
         height: 200px;
         top: 0;
         left: 0;
@@ -64,26 +64,49 @@
         for (var i = 0; i <= result.length - 1; i++) {
             arr2[result[i]]++;
         }
-        var max = 0;
-        var res = 1;
-        for (var i = 0; i <= arr2.length - 1; i++) {
-            if (arr2[i] > max){
-                max = arr2[i];
-                res = i;
-            }
-        }
-        if (res == 1){
+        var v1 = arr2[1];
+        var v2 = arr2[2];
+        var v3 = arr2[3];
+        var v4 = arr2[4];
+
+        if (v1 > v2 && v1 > v3 && v1 > v4) {
             $('#test-wrap').html('Нормальные');
+            return;
         }
-        if (res == 2){
-            $('#test-wrap').html('Жирные');
-        }
-        if (res == 3){
-            $('#test-wrap').html('Сухие');
-        }
-        if (res == 4){
+        if (v1 > v2 && v1 > v3 && v1 == v4) {
             $('#test-wrap').html('Смешанные (жирные корни, сухие кончики)');
+            return;
         }
+        if (v2 > v1 && v2 > v3 && v2 > v4) {
+            $('#test-wrap').html('Жирные');
+            return;
+        }
+        if (v2 > v1 && v2 > v3 && v2 == v4) {
+            $('#test-wrap').html('Жирные');
+            return;
+        }
+        if (v2 == v1 && v2 > v3 && v2 > v4) {
+            $('#test-wrap').html('Жирные');
+            return;
+        }
+        if (v3 > v1 && v3 > v2 && v3 > v4) {
+            $('#test-wrap').html('Сухие');
+            return;
+        }
+        if (v3 > v1 && v3 > v2 && v3 == v4) {
+            $('#test-wrap').html('Сухие');
+            return;
+        }
+        if (v3 == v1 && v3 > v2 && v3 > v4) {
+            $('#test-wrap').html('Сухие');
+            return;
+        }
+        if (v4 > v1 && v4 > v2 && v4 > v3) {
+            $('#test-wrap').html('Смешанные (жирные корни, сухие кончики)');
+            return;
+        }
+
+        $('#test-wrap').html('Невозможно определить тип волос');
     }
 </script>
 <div class="error" style="display: none;">
@@ -118,6 +141,42 @@
             '4' => '1 раз в 3-4 дня',
         )) ?>
         </div>
+        <div class="step" id="step4">
+                    <p>Привычная для вас частота мытья волос</p>
+                    <?php echo CHtml::radioButtonList('step4', '', array(
+                    '1' => '1 раз в 2-3 дня',
+                    '2' => 'Каждый день и чаще',
+                    '3' => '1 раз в 6-8 дней и реже',
+                    '4' => '1 раз в 3-4 дня',
+                )) ?>
+                </div>
+        <div class="step" id="step5">
+                    <p>Привычная для вас частота мытья волос</p>
+                    <?php echo CHtml::radioButtonList('step5', '', array(
+                    '1' => '1 раз в 2-3 дня',
+                    '2' => 'Каждый день и чаще',
+                    '3' => '1 раз в 6-8 дней и реже',
+                    '4' => '1 раз в 3-4 дня',
+                )) ?>
+                </div>
+        <div class="step" id="step6">
+                    <p>Привычная для вас частота мытья волос</p>
+                    <?php echo CHtml::radioButtonList('step6', '', array(
+                    '1' => '1 раз в 2-3 дня',
+                    '2' => 'Каждый день и чаще',
+                    '3' => '1 раз в 6-8 дней и реже',
+                    '4' => '1 раз в 3-4 дня',
+                )) ?>
+                </div>
+        <div class="step" id="step7">
+                    <p>Привычная для вас частота мытья волос</p>
+                    <?php echo CHtml::radioButtonList('step7', '', array(
+                    '1' => '1 раз в 2-3 дня',
+                    '2' => 'Каждый день и чаще',
+                    '3' => '1 раз в 6-8 дней и реже',
+                    '4' => '1 раз в 3-4 дня',
+                )) ?>
+                </div>
     </div>
 </div>
 <?php echo CHtml::link('Следующий', '#', array('id' => 'next-step-button')) ?>

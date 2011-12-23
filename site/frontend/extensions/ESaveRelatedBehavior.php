@@ -5,7 +5,7 @@
  * @author Stephan Lüderitz
  * @link http://www.yiiframework.com/extension/esaverelatedbehavior/
  * @link http://www.luderitz.de
- * @version 1.4
+ * @version 1.5
  */
 
 /*
@@ -124,10 +124,17 @@
  * If saving was successful, then the relation will return the related models.
  *
  * When updating a model then all records related to this model are first deleted.
- * (Howto prevent deletion see section "advanced usage")
+ * (You can prevent deletion: see section "advanced usage")
  *
- * You can also specify the scenario to be used for the insertion of the related models:
+ * You can specify the scenario to be used for the insertion of the related models:
  * $model->saveWithRelated( array('relationName1' => array('scenario' => 'special')));
+ *
+ * You can specify the scenario to be used for the insertion of the last related model:
+ * $model->saveWithRelated( array('relationName1' => array('lastScenario' => 'special')));
+ * This can be useful if you have to validate aggregated values.
+ * Say you have a field A in the model and field B in the related models.
+ * Now you would like to check if the sum of values in field B equals the value in field A.
+ * You can do this with an SQL statement in a validator which is active for the last scenario
  *
  * Advanced usage
  * --------------
@@ -187,9 +194,9 @@ class ESaveRelatedBehavior extends CActiveRecordBehavior
 		    $result = false;
 		}
 		foreach ((array)$relations as $key => $relationName) { // loop through all relations that should be saved
-		    $append = (!is_numeric($key) && @$relationName['append']); // check if records should be appended
-		    $scenario = (!is_numeric($key) && @$relationName['scenario']) ? $relationName['scenario'] : null; // get scenario if specified (only for has_many relations)
-		    if(!is_numeric($key)) { // the relationName is the key when further options (like append) where set
+		    $config = array();
+		    if(!is_numeric($key)) {
+		        $config = $relationName;
 		        $relationName = $key;
 		    }
       	    $relation = $this->owner->getActiveRelation($relationName); // get relation information
@@ -216,7 +223,7 @@ class ESaveRelatedBehavior extends CActiveRecordBehavior
                 $possibleModels = $model->findAll(new CDbCriteria(array( // find all models, that can be related (used to make sure only existing records are linked)
                     'index' => $model->getMetaData()->tableSchema->primaryKey
                 )));
-                if (!$append) {
+                if (!@$config['append']) {
                     $criteria = new CDbCriteria;
                     $criteria->compare($info['mnFk1'], $this->owner->primaryKey);
                     $commandBuilder->createDeleteCommand($info['mnTable'], $criteria)->execute(); // delete current links to related model
@@ -253,16 +260,19 @@ class ESaveRelatedBehavior extends CActiveRecordBehavior
                 }
 
             } elseif ($relation instanceof CHasManyRelation) { // Handle has_many relations
-    		    if (!$append) {
+    		    if (!@$config['append']) {
     		        $class = new $relation->className;
     		        $class->deleteAllByAttributes(array(  // delete current related models
     		            $relation->foreignKey => $this->owner->primaryKey
     		        ));
     		    }
                 $dataProcessed = array();
+                $counter = 0;
+                $itemCount = count($data);
     			foreach ($data as $key => $value) {
                     $obj = new $relation->className;
-                    $obj->scenario = $scenario ? $scenario : $obj->scenario;
+                    $obj->scenario = @$config['scenario'] ? $config['scenario'] : $obj->scenario;
+                    $obj->scenario = (@$config['lastScenario'] && ++$counter == $itemCount) ? $config['lastScenario'] : $obj->scenario;
                     $obj->attributes = is_object($value) ? $value->attributes : $value;
                     $obj->{$relation->foreignKey} = $this->owner->primaryKey;
     				if ( (!$this->owner->isNewRecord && !$obj->save()) || ($this->owner->isNewRecord && !$obj->validate()) ) { // save related record if parent was saved, otherwise only validate it to prevent insertion without foreign key

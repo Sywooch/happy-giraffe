@@ -95,15 +95,12 @@ class EGruzovozoff extends CActiveRecord {
 			$orderCitites = array($param['orderCity']);
 		}
 		Yii::import('ext.delivery.Gruzovozoff.EGruzovozoffTarif');
-		$ct = new CDbCriteria();
-		$ct->addInCondition('city', $orderCitites);
-		$tarifs = EGruzovozoffTarif::model()->findAll($ct);
+		$tarifs = EGruzovozoffTarif::model()->getCosts($orderCitites);
 		$prices = array();
 		foreach ($tarifs as $k => $tarif) {
-			$prices[$k]['price'] = $tarif->price;
-			$prices[$k]['destination'] = $tarif->city;
+			$prices[$k]['price'] = $tarif['price'];
+			$prices[$k]['destination'] = $tarif['destination'];
 			$this->price = $prices[$k]['price'];
-//			$this->zone = $tarif['zone'];
 			$this->city = $prices[$k]['destination'];
 			$this->weight = $param['orderWeight'];
 		}

@@ -40,6 +40,7 @@ return array(
 	    'application.modules.hospitalBag.models.*',
         'application.modules.placentaThickness.models.*',
 	'application.modules.recipeBook.models.*',
+        'application.modules.names.models.*',
 	),
 
 	'sourceLanguage' => 'en',
@@ -76,7 +77,12 @@ return array(
         'placentaThickness',
         'menstrualCycle',
         'babySex',
+<<<<<<< HEAD
 	'recipeBook',
+=======
+        'names',
+        'hairType',
+>>>>>>> eb7a8292498bc531b866a84994f5e4c464826b62
 	),
 
 	// application components

@@ -34,10 +34,12 @@ return array(
 		'ext.wr.WithRelatedBehavior',
 		'ext.ESaveRelatedBehavior',
 		'ext.image.Image',
+		'ext.CAdvancedArBehavior',
 		'application.modules.vaccineCalendar.models.*',
         'application.modules.pregnancyWeight.models.*',
 	    'application.modules.hospitalBag.models.*',
         'application.modules.placentaThickness.models.*',
+	'application.modules.recipeBook.models.*',
 	),
 
 	'sourceLanguage' => 'en',
@@ -74,6 +76,7 @@ return array(
         'placentaThickness',
         'menstrualCycle',
         'babySex',
+	'recipeBook',
 	),
 
 	// application components

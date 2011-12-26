@@ -19,7 +19,22 @@ class DefaultController extends Controller
 
     public function actionYarnCalculator()
     {
-        $this->render('yarnCalculator');
+        if (Yii::app()->request->isAjaxRequest) {
+            if (isset($_POST['id'])) {
+                $model = new YarnCalcForm();
+                $model->LoadYarnProject($_POST['id']);
+
+                echo CJSON::encode(array(
+                    'size'=>CHtml::activeDropDownList($model, 'size', YarnProjects::model()->sizes[$model->model->sizes_id], array('id'=>'size')),
+                    'gauge'=>CHtml::activeDropDownList($model, 'gauge', YarnProjects::model()->gauges[$model->model->loop_type_id], array('id'=>'gauge'))));
+            }
+            if (isset($_POST['YarnCalcForm'])) {
+                $model = new YarnCalcForm();
+                $model->attributes = $_POST['YarnCalcForm'];
+                echo $model->GetResult();
+            }
+        } else
+            $this->render('yarnCalculator');
     }
 
     public function actionLoopCalculator()
@@ -67,4 +82,5 @@ class DefaultController extends Controller
             $global_size++;
         }
     }
+
 }

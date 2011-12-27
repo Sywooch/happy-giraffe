@@ -19,6 +19,11 @@ class DefaultController extends Controller
         $this->render('threadCalculation');
     }
 
+    public function actionLoopCalculator()
+    {
+        $this->render('loopCalculator');
+    }
+
     public function actionYarnCalculator()
     {
         if (Yii::app()->request->isAjaxRequest) {
@@ -37,11 +42,6 @@ class DefaultController extends Controller
             }
         } else
             $this->render('yarnCalculator');
-    }
-
-    public function actionLoopCalculator()
-    {
-        $this->render('loopCalculator');
     }
 
     /**

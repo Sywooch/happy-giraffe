@@ -479,9 +479,10 @@ padding-top: 10px;
    max-width: 90%;
 }
 .right-inner .entry-content ul.tr_map {display:block;padding:30px 0 30px 30px;}
-.right-inner .entry-content ul.tr_map li {display:inline;padding:0 10px 0 0;color:#7d7d7d;}
+.right-inner .entry-content ul.tr_map li {float:left;padding:0 10px 0 0;color:#7d7d7d;}
 .right-inner .entry-content ul.tr_map li span {position:relative;top:-18px;display:inline-block;width:20px;height:32px;background: url(../images/map_marker.png) 0 0 no-repeat;text-align:center;color:#fff;font:bold 10px/20px arial, sans-serif;}
 .right-inner .entry-content ul.tr_map li ins {font:bold 12px/18px tahoma, sans-serif;color:#535252;background:#f6f5b3;display:inline-block;padding:0 5px;}
+.right-inner .entry-content ul.tr_map li ul li {display:block;float:none;margin:0 0 10px 0;}
 
 .right-inner .entry p.image.left { display: block; float: left; padding: 0px 10px 5px 0;}
 .right-inner .entry p.image.right { display: block; float: right; padding: 0px 0px 5px 10px;}
@@ -1063,3 +1064,29 @@ float: left;
 .thread_result span.result_sp {display:block;font:bold 30px arial, sans-serif;color:#fc6501;}
 .thread_result ins {position:absolute;right:10px;bottom:10px;font:italic 13px/13px arial, sans-serif;color:#4185ca;}
 .thread_result b {font:bold 25px/25px arial, sans-serif;color:#49ac33;padding:0 0 0 10px;}
+
+/*===== Recipe settings =====*/
+.add_rec_field {display:block;padding:0 0 15px 0;}
+.add_rec_field span {display:block;text-align:center;padding:0 0 30px 0;font:bold 25px/25px arial, sans-serif;color:#2296b0;}
+.add_rec_field ins {display:block;margin:0 0 5px 165px;font:italic 20px/20px arial ,sans-serif;color:#2296b0;}
+.add_rec_field input {margin:0 0 0 165px;width:585px;padding:0 10px;height:43px;border:1px solid #c9eaf1;font:16px/43px arial ,sans-serif;color:#2296b0;}
+table.fr_recipe_tb {margin:10px 0 20px 0;}
+table.fr_recipe_tb td {width:50%;}
+.settings-l table.ingr_f_recipe_tb {margin:10px;}
+.settings-l table.ingr_f_recipe_tb th {font:11px tahoma, sans-serif;color:#9c9b9b;padding:5px;text-align:center;}
+.settings-l table.ingr_f_recipe_tb td {padding:7px;vertical-align:top;text-align:center;}
+.settings-l table.ingr_f_recipe_tb input.t_ingr {width:136px;padding:0 5px;margin:0;height:18px;}
+.settings-l table.ingr_f_recipe_tb input.t_much {width:60px;padding:0 5px;margin:0;height:18px;}
+.settings-l table.ingr_f_recipe_tb a {display:inline-block;}
+.settings-l table.ingr_f_recipe_tb a img {margin:0;padding:0;}
+.settings-l table.ingr_f_recipe_tb select {width:109px;}
+.settings-l table.ingr_f_recipe_tb .cusel {padding:0;margin:0;}
+.settings-l a.more_lk {float:right;margin:0 0 20px 0;text-decoration:none;border-bottom:1px dashed #41b3cc;}
+.html_redactor_sett {display:block;width:600px;margin:0 auto;padding:40px 0;}
+.html_redactor_sett span.title_red {display:block;font:italic 20px/20px arial, sans-serif;color:#0d8ca3;padding:0 0 15px 20px;}
+#baby .settings-l ul.wrote_u {display:block;text-align:center;margin:0 0 15px 0;}
+#baby .settings-l ul.wrote_u li {display:inline;margin:0 5px 10px 0;}
+#baby .settings-l ul.wrote_u li input {float:none;margin:0;}
+#baby .settings-l ul.wrote_w {display:block;text-align:center;margin:0 0 15px 0;}
+#baby .settings-l ul.wrote_w li {display:inline;margin:0 5px 10px 0;}
+#baby .settings-l ul.wrote_w li input {float:none;margin:0;}

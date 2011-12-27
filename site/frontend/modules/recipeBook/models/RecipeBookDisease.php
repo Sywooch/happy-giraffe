@@ -7,6 +7,16 @@
  * @property string $id
  * @property string $name
  * @property string $category_id
+ * @property integer $with_recipies
+ * @property string $text
+ * @property string $reasons_name
+ * @property string $symptoms_name
+ * @property string $treatment_name
+ * @property string $prophylaxis_name
+ * @property string $reasons_text
+ * @property string $symptoms_text
+ * @property string $treatment_text
+ * @property string $prophylaxis_text
  *
  * The followings are the available model relations:
  * @property RecipeBookDiseaseCategory $category
@@ -39,12 +49,13 @@ class RecipeBookDisease extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, category_id', 'required'),
-			array('name', 'length', 'max' => 255),
+			array('name, slug, category_id, with_recipies, text, reasons_text, symptoms_text, treatment_text, prophylaxis_text', 'required'),
+			array('with_recipies', 'boolean'),
+			array('name, slug, reasons_name, symptoms_name, treatment_name, prophylaxis_name', 'length', 'max'=>255),
 			array('category_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDiseaseCategory'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, category_id', 'safe', 'on'=>'search'),
+			array('id, name, slug, category_id, with_recipies, text, reasons_name, symptoms_name, treatment_name, prophylaxis_name, reasons_text, symptoms_text, treatment_text, prophylaxis_text', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,8 +79,19 @@ class RecipeBookDisease extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'category_id' => 'Category',
+			'name' => 'Название',
+			'slug' => 'Для урла',
+			'category_id' => 'Раздел',
+			'with_recipies' => 'Можно добавлять рецепты',
+			'text' => 'Текст',
+			'reasons_name' => 'Заголовок "Причины"',
+			'symptoms_name' => 'Заголовок "Симптомы"',
+			'treatment_name' => 'Заголовок "Лечение"',
+			'prophylaxis_name' => 'Заголовок "Профилактика"',
+			'reasons_text' => 'Текст "Причины"',
+			'symptoms_text' => 'Текст "Симптомы"',
+			'treatment_text' => 'Текст "Лечение"',
+			'prophylaxis_text' => 'Текст "Профилактика"',
 		);
 	}
 
@@ -87,6 +109,16 @@ class RecipeBookDisease extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('category_id',$this->category_id,true);
+		$criteria->compare('with_recipies',$this->with_recipies);
+		$criteria->compare('text',$this->text,true);
+		$criteria->compare('reasons_name',$this->reasons_name,true);
+		$criteria->compare('symptoms_name',$this->symptoms_name,true);
+		$criteria->compare('treatment_name',$this->treatment_name,true);
+		$criteria->compare('prophylaxis_name',$this->prophylaxis_name,true);
+		$criteria->compare('reasons_text',$this->reasons_text,true);
+		$criteria->compare('symptoms_text',$this->symptoms_text,true);
+		$criteria->compare('treatment_text',$this->treatment_text,true);
+		$criteria->compare('prophylaxis_text',$this->prophylaxis_text,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

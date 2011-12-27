@@ -14,8 +14,12 @@
         conf[20] = 0.001272;
         conf[22] = 0.0010958;
 
-        $('#calc-threads').click(function () {
+        $('.calc_bt').click(function () {
             var krestikov = parseInt($('#krestikov').val());
+            if (isNaN(krestikov)){
+                $('#result').html('');
+                return false;
+            }
             var kanva = parseInt($('#kanva').val());
             var s = parseInt($('#sl').val());
 
@@ -36,47 +40,75 @@
             if (last_2digit > 4 && last_2digit < 20)
                 bundle_word = 'мотков';
 
-            $('#res1').text(str+bundle_word+' (8 метров моток)');
+            $('#result').html('<div class="thread_result"><span class="result_sp">' + threads.toFixed(1)
+                + PluralNumber(threads.toFixed(1), ' метр', '', 'а', 'ов') + '</span> или<b>'
+                + bundles+ PluralNumber(bundles, ' мот', 'ок', 'ка', 'ков')
+                + '</b> <ins>Результаты расчета приблизительные*</ins></div>');
+            //var r = '<span class="result_sp">234 метра</span> или<b>30 мотков</b> <ins>Результаты расчета приблизительные*</ins>';
             return false;
         });
     });
+
+    function PluralNumber(count, arg0, arg1, arg2, arg3) {
+        var result = arg0;
+        var last_digit = count % 10;
+        var last_two_digits = count % 100;
+        if (last_digit == 1 && last_two_digits != 11) result += arg1;
+        else if ((last_digit == 2 && last_two_digits != 12)
+            || (last_digit == 3 && last_two_digits != 13)
+            || (last_digit == 4 && last_two_digits != 14))
+            result += arg2;
+        else
+            result += arg3;
+        return result;
+    }
 </script>
 
-<h1>Калькулятор для расчета ниток</h1>
-<form method="post">
-    <table>
-        <tbody>
-        <tr>
-            <th>Кол-во крестиков:</th>
-            <td><input type="text" value="" id="krestikov" name="kr" class="text"></td>
-        </tr>
-        <tr>
-            <th>Номер канвы Aida:</th>
-            <td><select id="kanva">
-                <option selected="true" value="11">11</option>
-                <option value="14">14</option>
-                <option value="16">16</option>
-                <option value="18">18</option>
-                <option value="20">20</option>
-                <option value="22">22</option>
-            </select></td>
-        </tr>
-        <tr>
-            <th>Сложений нити:</th>
-            <td><select id="sl">
-                <option selected="true" value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select></td>
-        </tr>
-        <tr>
-            <th></th>
-            <td><a href="#" id="calc-threads">Расчитать</a></td>
-        </tr>
-        </tbody>
-    </table>
-    <span id="res1"></span>
-</form>
+<div class="embroidery_service">
+    <img src="/images/service_much_thread.jpg" alt="" title=""/>
+
+    <div class="list_thread">
+        <form action="">
+            <ul>
+                <li>
+                    <ins>Количество крестиков:</ins>
+								<span class="title_h">
+									<input id="krestikov" type="text"/>
+								</span>
+                </li>
+                <li>
+                    <ins>Номер канвы Aida:</ins>
+								<span class="title_h">
+									<select id="kanva" class="num_cal">
+                                        <option selected="true" value="11">11</option>
+                                        <option value="14">14</option>
+                                        <option value="16">16</option>
+                                        <option value="18">18</option>
+                                        <option value="20">20</option>
+                                        <option value="22">22</option>
+                                    </select>
+								</span>
+                </li>
+                <li>
+                    <ins>Сложений нити</ins>
+								<span class="title_h">
+									<select id="sl" class="yr_cal">
+                                        <option selected="true" value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+								</span>
+                </li>
+                <li>
+                    <input type="button" class="calc_bt" value="Рассчитать"/>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div id="result">
+
+    </div>
+</div><!-- .embroidery_service -->

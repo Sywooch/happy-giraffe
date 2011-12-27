@@ -118,7 +118,7 @@ $('.spam a').live('click', function() {
 							$gMap = new EGMap();
 							$gMap->width = '100%';
 							$gMap->height = '325';
-							$gMap->zoom = 2;
+							$gMap->zoom = (count($c->travel->waypoints) == 1) ? 5 : 2;
 							$incLat = 0;
 							$incLng = 0;
 							foreach ($c->travel->waypoints as $w)
@@ -137,7 +137,6 @@ $('.spam a').live('click', function() {
 							$gMap->setCenter($centerLat, $centerLng);
 						
 							$gMap->renderMap();
-						}
 			?>	
 						<ul class="tr_map">
 							<li><ins>Посетили:</ins></li>
@@ -149,6 +148,9 @@ $('.spam a').live('click', function() {
 								</ul>
 							</li>
 						</ul>
+						<?php
+						}
+						?>
 						<div class="clear"></div>
 
 			<?php

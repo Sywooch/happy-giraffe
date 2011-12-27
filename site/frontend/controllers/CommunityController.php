@@ -25,7 +25,7 @@ class CommunityController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow',
-				'actions' => array('add', 'edit'),
+				'actions' => array('add', 'edit', 'addTravel', 'editTravel'),
 				'users' => array('@'),
 			),
 			array('deny',
@@ -234,6 +234,127 @@ class CommunityController extends Controller
 			'content_type' => $content_type,
 			'community_id' => $community_id,
 			'rubric_id' => $rubric_id,
+		));
+	}
+	
+	public function actionAddTravel()
+	{
+		$community_id = 21;
+		$rubric_id = 151;
+		$community = Community::model()->findByPk($community_id);
+		$content_types = CommunityContentType::model()->findAll();
+		$content_type = CommunityContentType::model()->findByAttributes(array('slug' => 'travel'));
+	
+		$content_model = new CommunityContent;
+		$content_model->rubric_id = $rubric_id;
+		$content_model->author_id = Yii::app()->user->id;
+		$slave_model = new CommunityTravel;
+		
+		$waypoints = array();
+		if (isset($_POST['CommunityContent'], $_POST['CommunityTravel'], $_POST['CommunityTravelWaypoint']))
+		{
+			$content_model->attributes = $_POST['CommunityContent'];
+			$slave_model->attributes = $_POST['CommunityTravel'];
+			
+			$valid = $content_model->validate();
+			$valid = $slave_model->validate() && $valid;
+			
+			foreach ($_POST['CommunityTravelWaypoint'] as $w)
+			{
+				if (! empty($w['city_id']) && ! empty($w['country_id']))
+				{
+					$waypoint = new CommunityTravelWaypoint;
+					$waypoint->attributes = $w;
+					$valid = $waypoint->validate() && $valid;
+					$waypoints[] = $waypoint;
+				}
+			}
+			
+			if ($valid)
+			{
+				$content_model->save(false);
+				$slave_model->content_id = $content_model->id;
+				$slave_model->save(false);
+				foreach ($waypoints as $waypoint)
+				{
+					$waypoint->travel_id = $slave_model->id;
+					$waypoint->save(false);
+				}
+				$this->redirect(array('community/view', 'community_id' => $community_id, 'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
+			}
+		}
+		
+		$this->render('add', array(
+			'content_model' => $content_model,
+			'slave_model' => $slave_model,
+			'community' => $community,
+			'content_types' => $content_types,
+			'content_type' => $content_type,
+			'community_id' => $community_id,
+			'rubric_id' => $rubric_id,
+			'waypoints' => $waypoints,
+		));
+	}
+	
+	public function actionEditTravel($id)
+	{
+		$community_id = 21;
+		$rubric_id = 151;
+		$community = Community::model()->findByPk($community_id);
+		$content_types = CommunityContentType::model()->findAll();
+		$content_type = CommunityContentType::model()->findByAttributes(array('slug' => 'travel'));
+	
+		$content_model = CommunityContent::model()->with('travel.waypoints')->findByPk($id);
+		if ($content_model === null)
+		{
+			throw new CHttpException(404, 'Такой записи не существует.');
+		}
+		$slave_model = $content_model->travel;
+		
+		$waypoints = array();
+		if (isset($_POST['CommunityContent'], $_POST['CommunityTravel'], $_POST['CommunityTravelWaypoint']))
+		{
+			$content_model->attributes = $_POST['CommunityContent'];
+			$slave_model->attributes = $_POST['CommunityTravel'];
+			
+			$valid = $content_model->validate();
+			$valid = $slave_model->validate() && $valid;
+			
+			foreach ($_POST['CommunityTravelWaypoint'] as $w)
+			{
+				if (! empty($w['city_id']) && ! empty($w['country_id']))
+				{
+					$waypoint = new CommunityTravelWaypoint;
+					$waypoint->attributes = $w;
+					$valid = $waypoint->validate() && $valid;
+					$waypoints[] = $waypoint;
+				}
+			}
+			
+			if ($valid)
+			{
+				$content_model->save(false);
+				$slave_model->content_id = $content_model->id;
+				$slave_model->save(false);
+				CommunityTravelWaypoint::model()->deleteAllByAttributes(array('travel_id' => $slave_model->id));
+				foreach ($waypoints as $waypoint)
+				{
+					$waypoint->travel_id = $slave_model->id;
+					$waypoint->save(false);
+				}
+				$this->redirect(array('community/view', 'community_id' => $community_id, 'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
+			}
+		}
+		
+		$this->render('add', array(
+			'content_model' => $content_model,
+			'slave_model' => $slave_model,
+			'community' => $community,
+			'content_types' => $content_types,
+			'content_type' => $content_type,
+			'community_id' => $community_id,
+			'rubric_id' => $rubric_id,
+			'waypoints' => $waypoints,
 		));
 	}
 	

@@ -2,6 +2,16 @@
 
 class Baby extends CActiveRecord
 {
+	public function getAge()
+	{
+		if ($this->birthday === null) return null;
+		
+		$date1 = new DateTime($this->birthday);
+		$date2 = new DateTime(date('Y-m-d'));
+		$interval = $date1->diff($date2);
+		return $interval->y;
+	}
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);

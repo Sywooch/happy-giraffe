@@ -59,7 +59,7 @@ class ProfileController extends Controller
 		if(isset($_POST['User']))
 		{
 			$this->user->attributes = $_POST['User'];
-			$this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'settlement_id'));
+			$this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'settlement_id', 'birthday'));
 		}
 		
 		$this->render('data', array(

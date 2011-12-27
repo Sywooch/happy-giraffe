@@ -35,6 +35,7 @@ return array(
 		'ext.ESaveRelatedBehavior',
 		'ext.image.Image',
 		'ext.CAdvancedArBehavior',
+		'ext.EGMap.*',
 		'application.modules.vaccineCalendar.models.*',
         'application.modules.pregnancyWeight.models.*',
 	    'application.modules.hospitalBag.models.*',

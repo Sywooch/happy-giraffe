@@ -7,6 +7,10 @@ class OvulationForm extends CFormModel
     public $month;
     public $year;
 
+    public $con_day;
+    public $con_month;
+    public $con_year;
+
     public $cycle;
 
     /**
@@ -24,7 +28,7 @@ class OvulationForm extends CFormModel
     {
         return array(
             array('day, month, year, cycle', 'required'),
-            array('review_month, review_year', 'safe'),
+            array('review_month, review_year, con_day, con_month, con_year', 'safe'),
         );
     }
 
@@ -42,6 +46,11 @@ class OvulationForm extends CFormModel
         $this->day = date('j');
         $this->month = date('m');
         $this->year = date('Y');
+
+        $this->con_day = date('j');
+        $this->con_month = date('m');
+        $this->con_year = date('Y');
+
         $this->cycle = 25;
 
     }
@@ -173,5 +182,10 @@ class OvulationForm extends CFormModel
             'other_month' => $other_month,
             'sex' => $this->model->GetBabyGender($this->start_date, $day, $month, $year)
         );
+    }
+
+    public function GetGender()
+    {
+        return $this->GetStrictDayData($this->con_day, $this->con_month, $this->con_year, false);
     }
 }

@@ -19,7 +19,7 @@ $model = new OvulationForm();
     var started = false;
 
     $(function () {
-        $('#ovulation-form input.mth_calculate').click(function () {
+        $('#ovulation-form input.calc_bt').click(function () {
             var d = new Date();
             $('#review_month').val($('#mn_cal').val());
             $('#review_year').val($('#yr_cal').val());
@@ -89,49 +89,53 @@ $model = new OvulationForm();
         }
     });
 </script>
-
-<div class="mother_cal_banner">
-    <span>Менструальный цикл – это биологические часы женщины, запущенные самой природой. Составьте свой женский календарь и проверьте – правильно ли идут ваши часы, а также узнайте массу другой полезной информации.</span>
-</div><!-- .mother_cal_banner -->
-<div class="calculate_tb">
+<div class="child_sex_ovulyaciya_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'ovulation-form',
     'enableAjaxValidation' => false,
 ));
     echo $form->hiddenField($model, 'review_month', array('id' => 'review_month'));
     echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
-    <table>
-        <tr>
-            <th>День первого дня<br/>менструации предыдущего цикла:</th>
-            <th>Длительность<br/> цикла</th>
-            <th>Длительность<br/> менструации</th>
-        </tr>
-        <tr>
-            <td>
-                <ul class="lists_td">
-                    <li>
-                        <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_cal', 'class' => 'num_cal')); ?>
-                    </li>
-                    <li>
-                        <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_cal', 'class' => 'mn_cal')); ?>
-                    </li>
-                    <li>
-                        <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_cal', 'class' => 'yr_cal')); ?>
-                    </li>
-                </ul>
-            </td>
-            <td>
-                <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('id' => 'cl_cal', 'class' => 'num_cal')); ?>
-            </td>
-            <td>
-            </td>
-        </tr>
-    </table>
-    <input type="button" class="mth_calculate" value="Рассчитать"/>
+        <div class="dad_bd">
+            <span class="title_pt_bn">Длительность цикла:</span>
+            <ul class="lists_td">
+                <li>
+                    <?php echo $form->dropDownList($model, 'cycle', HDate::Days(), array('id' => 'cl_cal', 'class' => 'num_cal')); ?>
+                </li>
+            </ul>
+        </div><!-- .dad_bd -->
+        <div class="mam_bd">
+            <span class="title_pt_bn">Дата первого дня менструации<br /> предыдущего цикла:</span>
+            <ul class="lists_td">
+                <li>
+                    <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_cal', 'class' => 'num_cal')); ?>
+                </li>
+                <li>
+                    <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_cal', 'class' => 'mn_cal')); ?>
+                </li>
+                <li>
+                    <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_cal', 'class' => 'yr_cal')); ?>
+                </li>
+            </ul>
+        </div><!-- .mam_bd -->
+        <div class="child_bd">
+            <span class="title_pt_bn"><ins>День зачатия ребенка:</ins></span>
+            <ul class="lists_td">
+                <li>
+                    <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_con', 'class' => 'num_cal')); ?>
+                </li>
+                <li>
+                    <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_con', 'class' => 'mn_cal')); ?>
+                </li>
+                <li>
+                    <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_con', 'class' => 'yr_cal')); ?>
+                </li>
+            </ul>
+        </div><!-- .child_bd -->
+        <input type="button" class="calc_bt" value="Рассчитать" />
     <?php $this->endWidget(); ?>
-    <div class="clear"></div>
-    <!-- .clear -->
-</div><!-- .calculate_tb -->
+</div><!-- .child_sex_banner -->
+
 <div id="result">
     <div class="mother_calendar">
         <div class="choice_month">

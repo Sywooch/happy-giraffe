@@ -11,22 +11,22 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
-margin: 0;
-padding: 0;
-border: 0;
-outline: 0;
-font-size: 100%;
-vertical-align: baseline;
-background: transparent;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
 }
 body {
-line-height: 1;
+    line-height: 1;
 }
-ol, ul {
-list-style: none;
+ul {
+    list-style: none;
 }
 blockquote, q {
-quotes: none;
+    quotes: none;
 }
 
 sup {font-size:smaller;position:relative;top:-5px;}
@@ -38,31 +38,31 @@ textarea {overflow:auto;font-family:arial,sans-serif;}
 
 /* remember to define focus styles! */
 :focus {
-outline: 0;
+    outline: 0;
 }
 
 /* remember to highlight inserts somehow! */
 ins {
-text-decoration: none;
+    text-decoration: none;
 }
 del {
-text-decoration: line-through;
+    text-decoration: line-through;
 }
 input { border: none; background: none;}
 /* tables still need 'cellspacing="0"' in the markup */
 table {
-border-collapse: collapse;
-border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 html, body {
     min-height: 100%;
-	height:100%;
+    height:100%;
     margin: 0;
     padding: 0;
-	position:relative;
-	font-family:arial;
-	font-size:12px;
-	line-height:18px;
+    position:relative;
+    font-family:arial;
+    font-size:12px;
+    line-height:18px;
 }
 
 #layout {min-height:100%;background:#fff;}
@@ -157,8 +157,8 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/ico
 
 .btn.btn-blue-shadow > span {padding-right:31px;height:64px;background-position:100% -2164px;color:#289eb8;font-size:20px;}
 .btn.btn-blue-shadow > span > span {padding-left:31px;height:64px;line-height:62px;background-position:0 -2100px;}
-.active .btn.btn-blue-shadow > span {background-position:100% -2294px;color:#fff;} 
-.active .btn.btn-blue-shadow > span > span {background-position:0 -2230px;} 
+.active .btn.btn-blue-shadow > span {background-position:100% -2294px;color:#fff;}
+.active .btn.btn-blue-shadow > span > span {background-position:0 -2230px;}
 
 .btn.btn-red-medium > span {padding-right:10px;height:34px;background-position:100% -734px;color:#fff;font-size:16px;font-weight:bold;}
 .btn.btn-red-medium > span > span {padding-left:18px;height:34px;line-height:34px;background-position:0 -700px;padding-right:8px;}
@@ -189,14 +189,14 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/ico
 .g-button.photo-name {float: left; height: 42px; padding: 0 7px 0 15px; position: relative; display: block; text-decoration: none;}
 .g-button.photo-name .left { background-position: left -1033px; width: 15px;}
 .g-button.photo-name .right { background-position: right -1069px; width: 7px; }
-.g-button.photo-name .fill {background-repeat: repeat-x; 
-background-position: 0 -996px; 
-min-height: 22px; padding: 4px 0px 5px; 
-display:block; color: #027089; 
-font: 11px tahoma, sans-serif; 
-text-decoration: none; 
-text-transform: none;
-text-align: left;
+.g-button.photo-name .fill {background-repeat: repeat-x;
+    background-position: 0 -996px;
+    min-height: 22px; padding: 4px 0px 5px;
+    display:block; color: #027089;
+    font: 11px tahoma, sans-serif;
+    text-decoration: none;
+    text-transform: none;
+    text-align: left;
 }
 a.left-str { background: url(../images/str.png) no-repeat; background-position: center right;}
 a.bot-str { background: url(../images/str-bot.png) no-repeat; background-position: center right;}
@@ -204,23 +204,23 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 
 .CheckBoxClass,.RadioClass{
-display: none;
+    display: none;
 }
 
 .RadioLabelClass{
-background: url(../images/radio.png) no-repeat;
-padding-left: 23px;
-padding-top: 3px;
-margin: 5px 0;
-display: block;
+    background: url(../images/radio.png) no-repeat;
+    padding-left: 23px;
+    padding-top: 3px;
+    margin: 5px 0;
+    display: block;
 }
 
 .b-banners {overflow:hidden;padding-bottom:15px;}
 .b-banners ul li {border-left:1px solid #eceeee;float:left;margin-left:-1px;width:20%;}
 
 .RadioSelected{
-   background: url(../images/radio.png) no-repeat;
-   background-position: 0 -24px;
+    background: url(../images/radio.png) no-repeat;
+    background-position: 0 -24px;
 }
 
 .pagination {font-size:11px;padding:15px 0;color:#ababab;}
@@ -326,8 +326,8 @@ display: block;
 }
 
 .jcarousel-vertical ul {
-width:auto;
-height:20000em;
+    width:auto;
+    height:20000em;
 }
 
 .jcarousel li {

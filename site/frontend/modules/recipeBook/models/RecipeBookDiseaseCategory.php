@@ -37,11 +37,11 @@ class RecipeBookDiseaseCategory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name', 'length', 'max' => 255),
+			array('name, slug', 'required'),
+			array('name, slug', 'length', 'max' => 255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, name, slug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,7 +64,8 @@ class RecipeBookDiseaseCategory extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'name' => 'Название',
+			'slug' => 'Для урла',
 		);
 	}
 

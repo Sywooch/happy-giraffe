@@ -48,6 +48,8 @@
 						$url = ($ct->slug == 'travel') ? CController::createUrl('community/addTravel') : CController::createUrl('community/add', $add_params);
 						$htmlOptions = array();
 					}
+					
+					$htmlOptions['rel'] = 'nofollow';
 				?>
 				<?=CHtml::tag('li', array(), CHtml::link($ct->name_accusative, $url, $htmlOptions))?>
 			<? endforeach; ?>

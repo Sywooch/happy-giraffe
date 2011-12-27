@@ -8,7 +8,7 @@
                 dataType:'JSON',
                 type: 'GET',
                 success: function(data) {
-                    if (data === false){
+                    if (data.success === false){
                         $(this).text('unlike');
                     }else
                         $(this).text('like');

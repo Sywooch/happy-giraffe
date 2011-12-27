@@ -5,12 +5,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List RecipeBookDisease', 'url'=>array('index')),
-	array('label'=>'Manage RecipeBookDisease', 'url'=>array('admin')),
+	array('label'=>'Все болезни', 'url'=>array('index')),
+	array('label'=>'Управление болезнями', 'url'=>array('admin')),
 );
 ?>
 
-<h1> Create RecipeBookDisease </h1>
+<h1>Создать болезнь</h1>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(

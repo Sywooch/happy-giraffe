@@ -5,15 +5,15 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List RecipeBookDiseaseCategory', 'url'=>array('index')),
-	array('label'=>'Create RecipeBookDiseaseCategory', 'url'=>array('create')),
-	array('label'=>'Update RecipeBookDiseaseCategory', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete RecipeBookDiseaseCategory', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage RecipeBookDiseaseCategory', 'url'=>array('admin')),
+	array('label'=>'Все категории болезней', 'url'=>array('index')),
+	array('label'=>'Создать категорию болезней', 'url'=>array('create')),
+	array('label'=>'Редактировать категорию болезней', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Удалить категорию болезней', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Управление категориями болезней', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View RecipeBookDiseaseCategory #<?php echo $model->id; ?></h1>
+<h1>Категория болезней <?php echo $model->name; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

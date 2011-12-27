@@ -6,14 +6,14 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List RecipeBookDiseaseCategory', 'url'=>array('index')),
-	array('label'=>'Create RecipeBookDiseaseCategory', 'url'=>array('create')),
-	array('label'=>'View RecipeBookDiseaseCategory', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage RecipeBookDiseaseCategory', 'url'=>array('admin')),
+	array('label'=>'Все категории болезней', 'url'=>array('index')),
+	array('label'=>'Создать категорию болезней', 'url'=>array('create')),
+	array('label'=>'Отобразить категорию болезней', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Управление категориями болезней', 'url'=>array('admin')),
 );
 ?>
 
-<h1> Update RecipeBookDiseaseCategory #<?php echo $model->id; ?> </h1>
+<h1>Редактировать категорию болезеней <?php echo $model->name; ?></h1>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(

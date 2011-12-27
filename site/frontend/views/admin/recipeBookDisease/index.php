@@ -5,12 +5,12 @@ $this->breadcrumbs = array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app', 'Create') . ' RecipeBookDisease', 'url'=>array('create')),
-	array('label'=>Yii::t('app', 'Manage') . ' RecipeBookDisease', 'url'=>array('admin')),
+	array('label'=>'Создать болезнь', 'url'=>array('create')),
+	array('label'=>'Управление болезнями', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Recipe Book Diseases</h1>
+<h1>Справочник болезней</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

@@ -132,9 +132,11 @@ class DefaultController extends Controller
                 Yii::app()->end();
 
             $data = $modelForm->CalculateData();
+            $gender = $modelForm->GetGender();
             $this->renderPartial('ovulation_result', array(
                 'data' => $data,
                 'model' => $modelForm,
+                'gender'=>$gender
             ));
         }
     }

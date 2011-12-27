@@ -2,7 +2,7 @@
 
 class DefaultController extends Controller
 {
-    public $layout = '//layouts/new2';
+    public $layout = '//layouts/new';
 
 	public function actionIndex()
 	{

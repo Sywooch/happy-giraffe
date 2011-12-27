@@ -82,6 +82,7 @@ return array(
         'names',
         'hairType',
         'sewing',
+        'babyBloodGroup',
 	),
 
 	// application components

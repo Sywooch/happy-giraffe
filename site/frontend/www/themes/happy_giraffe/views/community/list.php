@@ -38,6 +38,9 @@
 					'label' => $ct->name_plural,
 					'url' => array('/community/list', 'community_id' => $community->id, 'content_type_slug' => $ct->slug),
 					'active' => $content_type !== null AND $content_type->slug == $ct->slug,
+					'linkOptions' => array(
+						'rel' => 'nofollow',
+					),
 				);
 			}
 			

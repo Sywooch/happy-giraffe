@@ -49,13 +49,13 @@ class RecipeBookDisease extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, category_id, with_recipies, text, reasons_text, symptoms_text, treatment_text, prophylaxis_text', 'required'),
+			array('name, slug, category_id, with_recipies, text, reasons_text, symptoms_text, treatment_text, prophylaxis_text', 'required'),
 			array('with_recipies', 'boolean'),
-			array('name, reasons_name, symptoms_name, treatment_name, prophylaxis_name', 'length', 'max'=>255),
+			array('name, slug, reasons_name, symptoms_name, treatment_name, prophylaxis_name', 'length', 'max'=>255),
 			array('category_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDiseaseCategory'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, category_id, with_recipies, text, reasons_name, symptoms_name, treatment_name, prophylaxis_name, reasons_text, symptoms_text, treatment_text, prophylaxis_text', 'safe', 'on'=>'search'),
+			array('id, name, slug, category_id, with_recipies, text, reasons_name, symptoms_name, treatment_name, prophylaxis_name, reasons_text, symptoms_text, treatment_text, prophylaxis_text', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,6 +80,7 @@ class RecipeBookDisease extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Название',
+			'slug' => 'Для урла',
 			'category_id' => 'Раздел',
 			'with_recipies' => 'Можно добавлять рецепты',
 			'text' => 'Текст',

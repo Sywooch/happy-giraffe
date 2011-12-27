@@ -1,16 +1,13 @@
 <?php
-/* @var $this Controller
+/* @var $model OvulationForm
  * @var $form CActiveForm
- * @var $model MenstrualCycleForm
- * @var $data array
  */
 ?>
 <div class="mother_calendar">
     <div class="choice_month">
-        <a href="#"
-           class="l_arr_mth_active" id="prev-month">&larr;</a>
+        <a href="#" class="l_arr_mth_active" id="prev-month">&larr;</a>
         <a href="#" class="r_arr_mth_active" id="next-month">&rarr;</a>
-        <span><?php echo HDate::ruMonth($model->review_month) ?>, <?php echo $model->review_year ?></span>
+        <span><?php echo  HDate::ruMonth($month).', '.$year ?></span>
     </div>
     <!-- .choice_month -->
     <table class="calendar_body">
@@ -24,59 +21,94 @@
             <th>Вс</th>
         </tr>
         <tr>
-            <?php $i = 0;
-            foreach ($data as $cell): ?>
-                <?php if ($i % 7 == 0 && $i != 0 && count($data) != $i)
+            <?php
+            $i = 0;
+            foreach ($data as $cell) {
+                if ($i % 7 == 0 && $i != 0 && count($data) != $i)
                     echo "</tr><tr>";
                 $i++;?>
                 <td>
                     <?php if ($cell['other_month']): ?>
+
+                    <?php if ($cell['sex'] == BloodRefreshForm::IS_BOY)
+                        $class = 'boy_cl';
+                    elseif ($cell['sex'] == BloodRefreshForm::IS_GIRL)
+                        $class = 'girl_cl';
+                    elseif ($cell['sex'] == 3)
+                        $class = 'boy_cl';
+                    else
+                        $class = '';?>
                     <div class="cal_item_default">
-                        <div class="cal_item baby-<?php echo $cell['sex'] ?>">
+                        <div
+                            class="cal_item <?php echo $class ?>">
                             <ins><?php echo $cell['day'] ?></ins>
-                            <?php if ($cell['sex'] != 0) : ?>
-                            <div class="hint" style="display: none;">
-                                <?php
-                                switch ($cell['sex']) {
-                                    case 1:
-                                        echo 'мальчик';
-                                        break;
-                                    case 2:
-                                        echo 'девочка';
-                                        break;
-                                    case 3:
-                                        echo 'мальчик, но женщинам за 30 лучше не рисковать';
-                                        break;
-                                }
-                                ?>
-                            </div>
-                            <?php endif ?>
                         </div>
-                    </div>
-                    <?php else: ?>
-                    <div class="cal_item baby-<?php echo $cell['sex'] ?>">
-                        <ins><?php echo $cell['day'] ?></ins>
-                        <?php if ($cell['sex'] != 0) : ?>
+
+                        <?php if ($cell['sex'] == 3): ?>
                         <div class="hint" style="display: none;">
-                            <?php
-                            switch ($cell['sex']) {
-                                case 1:
-                                    echo 'мальчик';
-                                    break;
-                                case 2:
-                                    echo 'девочка';
-                                    break;
-                                case 3:
-                                    echo 'мальчик, но женщинам за 30 лучше не рисковать';
-                                    break;
-                            }
-                            ?>
+                            Мальчик, но женщинам за 30 лучше не рисковать
                         </div>
+                        <div class="attention_calc"></div><!-- .attention_calc -->
                         <?php endif ?>
                     </div>
+
+                    <?php else: ?>
+
+                    <?php
+                    $baby = '';
+                    if ($cell['sex'] == BloodRefreshForm::IS_BOY)
+                        $baby = '<div class="boy_lvl5"></div>';
+                    elseif ($cell['sex'] == BloodRefreshForm::IS_GIRL)
+                        $baby = '<div class="girl_lvl5"></div>';
+                    elseif ($cell['sex'] == 3)
+                        $baby = '<div class="boy_lvl5"></div>';
+                    ?>
+                    <div class="cal_item<?php if ($cell['day'] == $model->con_day
+                        && !$cell['other_month'] && $month == $model->con_month && $year == $model->con_year
+                    ) echo ' active_item' ?>">
+                        <?php echo $baby ?>
+                        <ins><?php echo $cell['day'] ?></ins>
+                        <?php if ($cell['sex'] == 3): ?>
+                        <div class="hint" style="display: none;">
+                            Мальчик, но женщинам за 30 лучше не рисковать
+                        </div>
+                        <div class="attention_calc"></div><!-- .attention_calc -->
+                        <?php endif ?>
+                    </div>
+
                     <?php endif ?>
                 </td>
-                <?php endforeach; ?>
+                <?php } ?>
         </tr>
     </table>
 </div><!-- .mother_calendar -->
+<?php if ($gender == BloodRefreshForm::IS_GIRL): ?>
+<div class="wh_wait wh_daughter">
+    <span class="title_wh_wait">Поздравляем! У вас будет девочка!</span>
+
+    <p>Японский метод, основанный на датах рождения отца, матери и месяце зачатия говорит именно об этом. Точность
+        метода 55% и он не гарантирует рождения девочки, зато так приятно помечтать об этом.</p>
+</div><!-- .wh_wait -->
+<?php endif ?>
+<?php if ($gender == BloodRefreshForm::IS_BOY): ?>
+<div class="wh_wait wh_son">
+    <span class="title_wh_wait">Поздравляем! У вас будет мальчик! </span>
+
+    <p>Так получается, исходя из дат рождения отца и матери, а также месяца зачатия. Этот известный японский метод точен
+        на 55%, поэтому не гарантирует рождения мальчика, зато позволяет помечтать об этом.</p>
+</div><!-- .wh_wait -->
+<?php endif ?>
+<?php if ($gender == 3): ?>
+<div class="wh_wait wh_son">
+    <span class="title_wh_wait">У вас будет мальчик, но если вам за 30 лучше не рисковать </span>
+
+    <p>Так получается, исходя из дат рождения отца и матери, а также месяца зачатия. Этот известный японский метод точен
+        на 55%, поэтому не гарантирует рождения мальчика, зато позволяет помечтать об этом.</p>
+</div><!-- .wh_wait -->
+<?php endif ?>
+<?php if ($gender == BloodRefreshForm::IS_UNKNOWN): ?>
+<div class="wh_wait wh_unknown">
+    <p><b>Мальчик или девочка?</b> В вашем случае однозначного ответа этот метод не даёт. Попробуйте воспользоваться
+        другими способами определения пола будущего ребёнка.</p>
+</div><!-- .wh_wait -->
+<?php endif ?>

@@ -122,13 +122,13 @@ $model = new OvulationForm();
             <span class="title_pt_bn"><ins>День зачатия ребенка:</ins></span>
             <ul class="lists_td">
                 <li>
-                    <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_con', 'class' => 'num_cal')); ?>
+                    <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('id' => 'num_con', 'class' => 'num_cal')); ?>
                 </li>
                 <li>
-                    <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_con', 'class' => 'mn_cal')); ?>
+                    <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array('id' => 'mn_con', 'class' => 'mn_cal')); ?>
                 </li>
                 <li>
-                    <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_con', 'class' => 'yr_cal')); ?>
+                    <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_con', 'class' => 'yr_cal')); ?>
                 </li>
             </ul>
         </div><!-- .child_bd -->
@@ -155,9 +155,9 @@ $model = new OvulationForm();
                 <th>Вс</th>
             </tr>
             <?php
-            $skip = date("w")-1;
-            if ($skip < 0)
-                $skip = 6;
+            $skip = date("w")+1;
+            if ($skip > 6)
+                $skip = 0;
             $daysInMonth = date("t");
             $day = 1;
             $calendar_body = '';

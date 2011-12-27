@@ -136,7 +136,9 @@ class DefaultController extends Controller
             $this->renderPartial('ovulation_result', array(
                 'data' => $data,
                 'model' => $modelForm,
-                'gender'=>$gender
+                'gender'=>$gender,
+                'year' => $modelForm->review_year,
+                'month' => $modelForm->review_month,
             ));
         }
     }

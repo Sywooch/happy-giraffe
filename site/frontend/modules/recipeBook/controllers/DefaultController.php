@@ -11,12 +11,10 @@ class DefaultController extends Controller
 	{
 		if ($id === null)
 		{
-			$action = 'add';
 			$model = new RecipeBookRecipe;
 		}
 		else
 		{
-			$action = 'edit';
 			$model = RecipeBookRecipe::model()->with(array('disease.category.diseases', 'purposes', 'ingredients'))->findByPk($id);
 			if ($model === null)
 			{
@@ -41,8 +39,9 @@ class DefaultController extends Controller
 			
 			if ($valid)
 			{
+				$isNewRecord = $model->isNewRecord;
 				$model->save(false);
-				if ($action == 'edit')
+				if (! $isNewRecord)
 				{
 					RecipeBookIngredient::model()->deleteAllByAttributes(array('recipe_id' => $model->id));
 				}
@@ -51,7 +50,7 @@ class DefaultController extends Controller
 					$ingredient->recipe_id = $model->id;
 					$ingredient->save(false);
 				}
-				if ($action == 'edit')
+				if (! $isNewRecord)
 				{
 					$model->refresh();
 				}
@@ -66,10 +65,13 @@ class DefaultController extends Controller
 	
 	public function actionDiseases()
 	{
-		$model = new RecipeBookRecipe;
-		$category_id = $_POST['disease_category'];
+		if (Yii::app()->request->isAjaxRequest)
+		{
+			$model = new RecipeBookRecipe;
+			$category_id = $_POST['disease_category'];
 		
-		$diseases = RecipeBookDisease::model()->findAllByAttributes(array('category_id' => $category_id));
-		echo CHtml::activeDropDownList($model, 'disease_id', CHtml::listData($diseases, 'id', 'name'), array('prompt' => 'Выберите болезнь'));
+			$diseases = RecipeBookDisease::model()->findAllByAttributes(array('category_id' => $category_id));
+			echo CHtml::activeDropDownList($model, 'disease_id', CHtml::listData($diseases, 'id', 'name'), array('prompt' => 'Выберите болезнь'));
+		}
 	}
 }

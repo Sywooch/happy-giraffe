@@ -25,6 +25,10 @@
 					$pos = strpos($c->post->text, '<!--more-->');
 					echo $pos === false ? $c->post->text : substr($c->post->text, 0, $pos);
 					break;
+				case 'travel':
+					$pos = strpos($c->travel->text, '<!--more-->');
+					echo $pos === false ? $c->travel->text : substr($c->travel->text, 0, $pos);
+					break;
 				case 'video':
 					$video = new Video($c->video->link);
 					echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
@@ -33,7 +37,7 @@
 			}
 		?>
 		<?php if ($c->contentAuthor->id == Yii::app()->user->id): ?>
-			<?php echo CHtml::link('редактировать', $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
+			<?php echo CHtml::link('редактировать', ($c->type->slug == 'travel') ? $this->createUrl('community/editTravel', array('id' => $c->id)) : $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
 			<?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('submit'=>array('admin/communityContent/delete','id'=>$c->id),'confirm'=>'Вы уверены?')); ?>
 		<?php endif; ?>
 		<div class="clear"></div>

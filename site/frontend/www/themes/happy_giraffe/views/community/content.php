@@ -93,10 +93,46 @@ $('.spam a').live('click', function() {
 						echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
 						echo $c->video->text;
 						break;
+					case 'travel':
+						$icon = new EGMapMarkerImage('/images/map_marker.png');
+						$icon->setSize(20, 32);
+
+						$gMap = new EGMap();
+						$gMap->width = '100%';
+						$gMap->height = '325';
+						$gMap->zoom = 2;
+						$incLat = 0;
+						$incLng = 0;
+						foreach ($c->travel->waypoints as $w)
+						{
+							$address = $w->country->name . ', ' . $w->city->name;
+							$geocoded_address = new EGMapGeocodedAddress($address);
+							$geocoded_address->geocode($gMap->getGMapClient());
+							$gMap->addMarker(
+								new EGMapMarker($geocoded_address->getLat(), $geocoded_address->getLng(), array('title' => 'a', 'icon' => $icon))
+							);
+							$incLat += $geocoded_address->getLat();
+							$incLng += $geocoded_address->getLng();
+						}
+						$centerLat = $incLat / count($c->travel->waypoints);
+						$centerLng = $incLng / count($c->travel->waypoints);
+						$gMap->setCenter($centerLat, $centerLng);
+						
+						$gMap->renderMap();
+			?>	
+						<ul class="tr_map">
+							<li><ins>Посетили:</ins></li>
+							<?php $i = 0; foreach ($c->travel->waypoints as $w): ?>
+								<li><?php echo $w->country_name; ?> - <span><?php echo ++$i; ?></span> <?php echo $w->city_name; ?></li>
+							<?php endforeach; ?>
+						</ul>
+			<?php
+						echo $c->travel->text;
+						break;
 				}
 			?>
 			<?php if ($c->contentAuthor->id == Yii::app()->user->id): ?>
-				<?php echo CHtml::link('редактировать', $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
+				<?php echo CHtml::link('редактировать', ($c->type->slug == 'travel') ? $this->createUrl('community/editTravel', array('id' => $c->id)) : $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
 				<?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('id' => 'CommunityContent_delete_' . $c->id, 'submit'=>array('admin/communityContent/delete','id'=>$c->id),'confirm'=>'Вы уверены?')); ?>
 			<?php endif; ?>
 			<div class="clear"></div>
@@ -132,7 +168,7 @@ $('.spam a').live('click', function() {
 			<div class="rate"><?php echo $c->rating; ?></div>
 			рейтинг
 		</div>
-		<big>Вам <?php switch($c->type->slug) {case 'post': echo 'понравилась статья'; break; case 'video': echo 'понравилось видео'; break;} ?>? Отметьте!</big>
+		<big><?php switch($c->type->slug) {case 'travel': echo 'Интересное путешествие?'; break; case 'post': echo 'Вам понравилась статья? Отметьте!'; break; case 'video': echo 'Вам понравилось видео? Отметьте!'; break;} ?></big>
 		<div class="like">
 			<span style="width:150px;">
 				<div id="vk_like" style="height: 22px; width: 180px; position: relative; clear: both; background-image: none; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: initial; background-position: initial initial; background-repeat: initial initial; "></div>
@@ -164,8 +200,23 @@ $('.spam a').live('click', function() {
 							}
 							else
 							{
-								preg_match('/<p>(.+)<\/p>/Uis', $rc->post->text, $matches2);
-								$content = strip_tags($matches2[1]);
+								if (preg_match('/<p>(.+)<\/p>/Uis', $rc->post->text, $matches2))
+								{
+									$content = strip_tags($matches2[1]);
+								}
+							}
+						break;
+						case 'travel':
+							if (preg_match('/src="([^"]+)"/', $rc->travel->text, $matches))
+							{
+								$content = '<img src="' . $matches[1] . '" alt="' . $rc->name . '" width="150" />';
+							}
+							else
+							{
+								if (preg_match('/<p>(.+)<\/p>/Uis', $rc->travel->text, $matches2))
+								{
+									$content = strip_tags($matches2[1]);
+								}
 							}
 						break;
 						case 'video':

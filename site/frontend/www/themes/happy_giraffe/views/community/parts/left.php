@@ -44,7 +44,7 @@
 					}
 					else
 					{
-						$url = CController::createUrl('community/add', $add_params);
+						$url = ($ct->slug == 'travel') ? CController::createUrl('community/addTravel') : CController::createUrl('community/add', $add_params);
 						$htmlOptions = array();
 					}
 				?>

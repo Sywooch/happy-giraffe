@@ -48,36 +48,23 @@ setTimeout(function() {
 		</div>
 	
 		<div class="row row-inline">
-		
+			
 			<div class="row-title">Дата рождения:</div>
 			<div class="row-elements">
 				<div class="col">
 					<?php
-					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-						'name'=>'User[birthday]',
-						'language'=>'ru',
-						'value'=>$this->user->birthday,
-						'options'=>array(
-							'showAnim'=>'fold',
-							'dateFormat'=>'yy-mm-dd',
-							'onSelect' => "js: function(dateText, inst) {
-							var today = new Date().getTime();
-							var birthday = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay).getTime();
-							alert((today - birthday)/(60*60*24*365));
-							}"
-						),
-						'htmlOptions'=>array(
-						'style'=>'height:20px;'
-						),
-					));
+						$this->widget('DateWidget', array(
+							'model' => $this->user,
+							'attribute' => 'birthday',
+						));
 					?>
 				</div>
 				<div class="col age">
-					Возраст: <b>29</b> лет
+					Возраст: <b><?php echo $this->user->age; ?></b> лет
 				</div>
-			
+				
 			</div>
-	
+		
 		</div>
 	
 		<div class="row row-inline">

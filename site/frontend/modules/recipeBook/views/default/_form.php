@@ -1,7 +1,20 @@
 <?php
+	$preloadedIngredients = 3;
+	$ingredient_model = new RecipeBookIngredient;
+	$nextIndex = $model->isNewRecord ? $preloadedIngredients : count($model->ingredients);
+
 	$cs = Yii::app()->clientScript;
 	
 	$js = "
+		function addField()
+		{
+			$('#ingredientTmpl').tmpl({num: nextIndex}).appendTo('#ingredients');
+			cuSel({changedEl: 'select', visRows: 8, scrollArrows: true});
+			nextIndex++;
+		}
+	
+		var nextIndex = " . $nextIndex . ";
+	
 		$('#disease_category').change(function () {
 			$.ajax({
 				type: 'POST',
@@ -15,10 +28,43 @@
 				}
 			});
 		});
+		
+		$('#addIngredient').click(function(e) {
+			e.preventDefault();
+			addField();
+		});
+		
+		$('button.remove').live('click', function(e) {
+			e.preventDefault();
+			$(this).parent().remove();
+		});
 	";
 	
-	$cs->registerScript('recipeBook_add', $js);
+	if ($model->isNewRecord)
+	{
+		$js .= "
+			for (var i = 0; i < " . $preloadedIngredients . "; i++)
+			{
+				addField();
+			}
+		";
+	}
+	
+	$cs
+		->registerScriptFile('https://raw.github.com/jquery/jquery-tmpl/master/jquery.tmpl.min.js')
+		->registerScript('recipeBook_add', $js);
 ?>
+
+<script id="ingredientTmpl" type="text/x-jquery-tmpl">
+<div>
+	<?php echo CHtml::activeTextField($ingredient_model, '[${num}]name'); ?>
+	<?php echo CHtml::activeTextField($ingredient_model, '[${num}]amount'); ?>
+	<?php echo CHtml::activeDropDownList($ingredient_model, '[${num}]unit', RecipeBookIngredient::getUnitValues(), array(
+		'prompt' => 'не указано',
+	)); ?>
+	<button class="remove">x</button>
+</div>
+</script>
 
 <?php $form = $this->beginWidget('CActiveForm'); ?>
 
@@ -45,27 +91,22 @@
 	<?php echo $form->checkBoxList($model, 'purposeIds', CHtml::listData(RecipeBookPurpose::model()->findAll(), 'id', 'name')); ?>
 </div>
 
-<?php if ($model->isNewRecord): ?>
-	<?php $ingredient_model = new RecipeBookIngredient; for ($i = 0; $i < 2; $i++): ?>
-		<div>
-			<?php echo $form->textField($ingredient_model, '[' . $i . ']name'); ?>
-			<?php echo $form->textField($ingredient_model, '[' . $i . ']amount'); ?>
-			<?php echo $form->dropDownList($ingredient_model, '[' . $i . ']unit', RecipeBookIngredient::getUnitValues(), array(
-				'prompt' => 'не указано',
-			)); ?>
-		</div>
-	<?php endfor; ?>
-<?php else: ?>
-	<?php foreach ($model->ingredients as $i => $ingredient_model): ?>
-		<div>
-			<?php echo $form->textField($ingredient_model, '[' . $i . ']name'); ?>
-			<?php echo $form->textField($ingredient_model, '[' . $i . ']amount'); ?>
-			<?php echo $form->dropDownList($ingredient_model, '[' . $i . ']unit', RecipeBookIngredient::getUnitValues(), array(
-				'prompt' => 'не указано',
-			)); ?>
-		</div>
-	<?php endforeach; ?>
-<?php endif; ?>
+<div id="ingredients">
+	<?php if (! $model->isNewRecord): ?>
+		<?php foreach ($model->ingredients as $i => $ingredient): ?>
+			<div>
+				<?php echo $form->textField($ingredient, '[' . $i . ']name'); ?>
+				<?php echo $form->textField($ingredient, '[' . $i . ']amount'); ?>
+				<?php echo $form->dropDownList($ingredient, '[' . $i . ']unit', RecipeBookIngredient::getUnitValues(), array(
+					'prompt' => 'не указано',
+				)); ?>
+				<button class="remove">x</button>
+			</div>
+		<?php endforeach; ?>
+	<?php endif; ?>
+</div>
+
+<button id="addIngredient">Добавить</button>
 
 <div>
 	<?php echo $model->getAttributeLabel('text'); ?>:

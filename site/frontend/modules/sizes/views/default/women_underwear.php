@@ -1,12 +1,3 @@
-<script type="text/javascript">
-    function change(which) {
-        for (var i = 0; i < document.form1.elements.length; i++) {
-            if ((document.form1.elements[i].type == 'select-one')) {
-                document.form1.elements[i].selectedIndex = which;
-            }
-        }
-    }
-</script>
 <form name="form1">
     <div style="width:220px" class="back">
         <table cellspacing="0" cellpadding="3" border="0" class="my_table">

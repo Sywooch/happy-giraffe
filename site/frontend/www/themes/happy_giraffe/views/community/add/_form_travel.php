@@ -34,9 +34,19 @@
 			addField();
 			$('#waypoints ul:visible:last input:first').focus();
 		});
+		
+		$('#CommunityTravelImage_image').MultiFile({
+			list: '.downloaded_items',
+			STRING: {
+				file: '<li><span>" . '$file' . "</span><a class=\"MultiFile-remove\" href=\"#CommunityTravelImage_image_wrap\">Удалить</a></li>',
+				remove: ''
+			}
+		});
+
 	";
 	
-	$cs
+	$cs	
+		->registerScriptFile('/javascripts/jquery.MultiFile.js')
 		->registerScript('travel_add', $js);
 ?>
 
@@ -134,16 +144,20 @@
 		<span>Добавить фотографии:</span>
 		<ul>
 			<li class="current"><a href="#"><span>По одной</span></a></li>
-			<li>|</li>
-			<li><a href="#"><span>Сразу много</span></a></li>
+			<!--<li>|</li>
+			<li><a href="#"><span>Сразу много</span></a></li>-->
 		</ul>
 		<div class="clear"></div>
 	</div><!-- .add_photos_changer -->
-	<a href="#" class="or_bt_average">Загрузить фото</a>
-	<span class="download_att">Загрузите файл (jpg, gif, png не более 4 МБ)</span>
+	<div class="upload-btn">
+		<div class="file-fake">
+			<button class="btn btn-orange"><span><span>Загрузить фото</span></span></button>
+			<?php echo UFiles::fileField(new CommunityTravelImage, 'image', array('name' => 'CommunityTravelImage[image][]')); ?>
+		</div>
+		<br/>
+		Загрузите файл (jpg, gif, png не более 4 МБ)
+	</div>
 	<ul class="downloaded_items">
-		<li><span>345.jpg</span><a href="#">Удалить</a></li>
-		<li><span>346.jpg</span><a href="#">Удалить</a></li>
-		<li><span>347.jpg</span><a href="#">Удалить</a></li>
+		
 	</ul>
 </div>

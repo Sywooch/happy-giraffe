@@ -110,7 +110,12 @@
 
 <div>
 	<?php echo $model->getAttributeLabel('text'); ?>:
-	<?php echo $form->textArea($model, 'text'); ?>
+	<?php
+		$this->widget('ext.ckeditor.CKEditorWidget', array(
+			'model' => $model,
+			'attribute' => 'text',
+		));
+	?>
 </div>
 
 <div>

@@ -538,7 +538,8 @@
 #baby .handbook_alfa ul.handbook_list li span {font:bold 16px/25px arial, sans-serif;width:25px;text-align:center;color:#fff;background:#c5a7e2;display:inline-block;}
 #baby p.p40 {padding:0 40px;}
 
-#handbook_article_ill {display:block;margin:-40px 0 0 0;}#handbook_article_ill h1 {padding:30px 0 20px 0;}
+#handbook_article_ill {display:block;margin:-40px 0 0 0;}
+#handbook_article_ill h1 {padding:30px 0 20px 0;}
 #handbook_article_ill h2 {display:block;font:italic bold 18px/18px arial,  sans-serif;color:#2296b0;padding:20px 0;}
 #handbook_article_ill .about_ill p {font:italic 14px/25px arial, sans-serif;color:#068eac;}
 #handbook_article_ill p {padding:0 0 20px 0;}
@@ -557,3 +558,18 @@
 
 #handbook_article_ill ol.article_list {display:block;padding:10px 0 20px 20px;}
 #handbook_article_ill ol.article_list li {margin:0 0 6px 0;}
+#handbook_article_ill ol.article_list li ins {color:#5fad4c;}
+
+/*===== Baby handbook illness recipes =====*/
+#baby .baby_recipes_service {display:block;height:296px;background: url(../images/service_recipes_illness.jpg) 0 0 no-repeat;position:relative;margin:0 0 40px 0;}
+#baby .baby_recipes_service ul.handbook_changes_u {position:absolute;bottom:0px;left:200px;}
+#baby .baby_recipes_service ul.handbook_changes_u li {float:left;margin:0 3px 0 0;}
+#baby .baby_recipes_service ul.handbook_changes_u li a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background: url(../images/vio_transparent.png) 0 0 repeat;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
+#baby .baby_recipes_service ul.handbook_changes_u li a span {display:inline-block;padding:0 20px 0 0;background: url(../images/down_wh_arr.png) 100% 27px no-repeat;}
+#baby .baby_recipes_service ul.handbook_changes_u li.current_t a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#724c99;text-decoration:none;background:#fff;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
+#baby .baby_recipes_service ul.handbook_changes_u li.current_t a span {display:inline-block;padding:0;}
+#baby .about_recipes_book {display:block;padding:0 40px;}
+#baby .about_recipes_book h1 {font:25px/25px arial, sans-serif;color:#986dc3;display:block;padding:0 0 30px 0;}
+#baby .about_recipes_book p {padding:0 0 15px 0;}
+#baby .about_recipes_book ul {padding:0 0 20px 0;}
+#baby .about_recipes_book ul  ins {padding:0 0 0 10px;}

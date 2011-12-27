@@ -5,37 +5,73 @@ class DefaultController extends Controller
     public $layout = 'names';
     public $likes = 0;
 
-    public function actionIndex($letter = null)
+    public function actionIndex($letter = null, $gender = null)
     {
-        if ($letter === null)
-            $dataProvider = new CActiveDataProvider('Name', array('pagination' => array('pageSize' => 2)));
-        else {
-            $criteria = new CDbCriteria;
+        $this->SetLikes();
+        $criteria = new CDbCriteria;
+        $show_all = false;
+        if ($letter !== null) {
             $criteria->compare('name', $letter . '%', true, 'AND', false);
-            $dataProvider = new CActiveDataProvider('Name', array('criteria' => $criteria, 'pagination' => array('pageSize' => 2)));
+            $show_all = true;
         }
+        if (!empty($gender))
+            $criteria->compare('gender', $gender);
 
-        $this->render('index', array(
-            'dataProvider' => $dataProvider
-        ));
+        if (!$show_all) {
+            $count = Name::model()->count($criteria);
+            $pages = new CPagination($count);
+            $pages->pageSize = 30;
+            $pages->applyLimit($criteria);
+            $names = Name::model()->findAll($criteria);
+            if (Yii::app()->request->isAjaxRequest) {
+                $this->renderPartial('index_data', array(
+                    'names' => $names,
+                    'pages' => $pages,
+                    'likes'=>Name::GetLikeIds()
+                ));
+            } else
+                $this->render('index', array(
+                    'names' => $names,
+                    'pages' => $pages,
+                    'likes'=>Name::GetLikeIds()
+                ));
+        } else {
+            $names = Name::model()->findAll($criteria);
+            if (Yii::app()->request->isAjaxRequest) {
+                $this->renderPartial('index_data', array(
+                    'names' => $names,
+                    'pages' => null,
+                    'likes'=>Name::GetLikeIds()
+                ));
+            } else
+                $this->render('index', array(
+                    'names' => $names,
+                    'pages' => null,
+                    'likes'=>Name::GetLikeIds()
+                ));
+        }
     }
 
     public function actionTop10()
     {
+        $this->SetLikes();
         $topMen = Name::model()->Top10Man();
         $topWomen = Name::model()->Top10Woman();
 
         $this->render('top10', array(
             'topMen' => $topMen,
             'topWomen' => $topWomen,
+            'likes'=>Name::GetLikeIds()
         ));
     }
 
     public function actionSaint()
     {
+        $this->SetLikes();
         $model = new BabyDateForm();
         $this->render('saint', array(
             'model' => $model,
+            'likes'=>Name::GetLikeIds()
         ));
     }
 
@@ -57,6 +93,7 @@ class DefaultController extends Controller
 
     public function actionLikes()
     {
+        $this->SetLikes();
         if (!Yii::app()->user->isGuest)
             $data = Name::model()->GetLikes(Yii::app()->user->getId());
         else
@@ -69,6 +106,7 @@ class DefaultController extends Controller
 
     public function actionName($name)
     {
+        $this->SetLikes();
         $name = $this->LoadModelByName($name);
         $this->render('name_view', array('name' => $name));
     }
@@ -76,8 +114,10 @@ class DefaultController extends Controller
     public function actionLike($id)
     {
         $name = $this->LoadModelById($id);
-        $res = $name->like(Yii::app()->user->getId());
-        echo CJSON::encode($res);
+        echo CJSON::encode(array(
+            'count'=>Name::GetLikesCount(Yii::app()->user->getId()),
+            'success'=>$name->like(Yii::app()->user->getId()),
+        ));
     }
 
     public function actionCreateFamous($id)
@@ -89,10 +129,10 @@ class DefaultController extends Controller
 
         if (isset($_POST['NameFamous'])) {
             $model->attributes = $_POST['NameFamous'];
-            $model->image=CUploadedFile::getInstance($model,'image');
+            $model->image = CUploadedFile::getInstance($model, 'image');
             $model->name_id = $name->id;
 
-            if ($model->save()){
+            if ($model->save()) {
                 $model->SaveImage();
                 $this->redirect(array('name', 'name' => $model->name->name));
             }
@@ -134,5 +174,10 @@ class DefaultController extends Controller
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
+    }
+
+    public function SetLikes(){
+        if (!Yii::app()->user->isGuest)
+            $this->likes = Name::GetLikesCount(Yii::app()->user->getId());
     }
 }

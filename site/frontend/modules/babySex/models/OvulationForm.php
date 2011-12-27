@@ -186,6 +186,7 @@ class OvulationForm extends CFormModel
 
     public function GetGender()
     {
-        return $this->GetStrictDayData($this->con_day, $this->con_month, $this->con_year, false);
+        $res =  $this->GetStrictDayData($this->con_day, $this->con_month, $this->con_year, false);
+        return $res['sex'];
     }
 }

@@ -26,6 +26,7 @@ return array(
 		'babySex/<action:\w+>'=>'babySex/default/<action>',
         'names/<action:\w+>'=>'names/default/<action>',
         'sewing/<action:\w+>'=>'sewing/default/<action>',
+        'sizes/<action:\w+>'=>'sizes/default/<action>',
 		//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 		'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
 //		'<controller:\w+>/<action:\w+>' => '<controller>/<action>', 

@@ -13,6 +13,25 @@
 <?php echo $form->textField($model,'slug',array('size'=>60,'maxlength'=>255)); ?>
 <?php echo $form->error($model,'slug'); ?>
 	</div>
+	
+	<div class="row">
+	
+<label for="RecipeBookDiseaseCategory">Belonging RecipeBookDiseaseCategory</label><?php 
+					$this->widget('application.components.Relation', array(
+							'model' => $model,
+							'relation' => 'category',
+							'fields' => 'name',
+							'allowEmpty' => false,
+							'style' => 'dropdownlist',
+							)
+						); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'with_recipies'); ?>
+<?php echo $form->checkBox($model,'with_recipies'); ?>
+<?php echo $form->error($model,'with_recipies'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'text'); ?>
@@ -23,12 +42,6 @@
 	));
 ?>
 <?php echo $form->error($model,'text'); ?>
-	</div>
-	
-	<div class="row">
-		<?php echo $form->labelEx($model,'with_recipies'); ?>
-<?php echo $form->checkBox($model,'with_recipies'); ?>
-<?php echo $form->error($model,'with_recipies'); ?>
 	</div>
 
 	<div class="row">
@@ -66,6 +79,23 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'diagnosis_name'); ?>
+<?php echo $form->textField($model,'diagnosis_name',array('size'=>60,'maxlength'=>255)); ?>
+<?php echo $form->error($model,'diagnosis_name'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'diagnosis_text'); ?>
+<?php
+	$this->widget('ext.ckeditor.CKEditorWidget', array(
+		'model' => $model,
+		'attribute' => 'diagnosis_text',
+	));
+?>
+<?php echo $form->error($model,'diagnosis_text'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'treatment_name'); ?>
 <?php echo $form->textField($model,'treatment_name',array('size'=>60,'maxlength'=>255)); ?>
 <?php echo $form->error($model,'treatment_name'); ?>
@@ -97,16 +127,4 @@
 	));
 ?>
 <?php echo $form->error($model,'prophylaxis_text'); ?>
-	</div>
-
-
-<label for="RecipeBookDiseaseCategory">Belonging RecipeBookDiseaseCategory</label><?php 
-					$this->widget('application.components.Relation', array(
-							'model' => $model,
-							'relation' => 'category',
-							'fields' => 'name',
-							'allowEmpty' => false,
-							'style' => 'dropdownlist',
-							)
-						); ?>
-			
+	</div>	

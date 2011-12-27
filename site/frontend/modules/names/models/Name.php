@@ -145,6 +145,31 @@ class Name extends CActiveRecord
         return $data;
     }
 
+    public static function GetLikeIds()
+    {
+        if (Yii::app()->user->isGuest)
+            return array();
+        $user_id = Yii::app()->user->getId();
+        $data = Yii::app()->db->createCommand()
+            ->select('name_id')
+            ->from('name_likes')
+            ->where('user_id = '.$user_id)
+            ->queryColumn();
+
+        return $data;
+    }
+
+    public static function GetLikesCount($user_id)
+    {
+        $data = Yii::app()->db->createCommand()
+            ->select('count(name_id)')
+            ->from('name_likes')
+            ->where('user_id = '.$user_id)
+            ->queryScalar();
+
+        return $data;
+    }
+
     public function like($user_id)
     {
         $current_vote = $this->isUserLike($user_id);

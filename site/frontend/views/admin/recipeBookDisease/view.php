@@ -5,15 +5,15 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List RecipeBookDisease', 'url'=>array('index')),
-	array('label'=>'Create RecipeBookDisease', 'url'=>array('create')),
-	array('label'=>'Update RecipeBookDisease', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete RecipeBookDisease', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage RecipeBookDisease', 'url'=>array('admin')),
+	array('label'=>'Все болезни', 'url'=>array('index')),
+	array('label'=>'Создать болезнь', 'url'=>array('create')),
+	array('label'=>'Редактировать болезнь', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Удалить болезнь', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Управление болезнями', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View RecipeBookDisease #<?php echo $model->id; ?></h1>
+<h1>Болезнь <?php echo $model->name; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

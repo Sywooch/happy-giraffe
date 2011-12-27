@@ -5,10 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-		array('label'=>Yii::t('app',
-				'List RecipeBookDisease'), 'url'=>array('index')),
-		array('label'=>Yii::t('app', 'Create RecipeBookDisease'),
-				'url'=>array('create')),
+		array('label'=>'Все болезни', 'url'=>array('index')),
+		array('label'=>'Создать болезнь', 'url'=>array('create')),
 			);
 
 		Yii::app()->clientScript->registerScript('search', "
@@ -25,7 +23,7 @@ data: $(this).serialize()
 			");
 		?>
 
-<h1> Manage&nbsp;Recipe Book Diseases</h1>
+<h1>Управление болезнями</h1>
 
 <?php echo CHtml::link(Yii::t('app', 'Advanced Search'),'#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">

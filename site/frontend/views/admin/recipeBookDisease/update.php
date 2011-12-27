@@ -6,14 +6,14 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List RecipeBookDisease', 'url'=>array('index')),
-	array('label'=>'Create RecipeBookDisease', 'url'=>array('create')),
-	array('label'=>'View RecipeBookDisease', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage RecipeBookDisease', 'url'=>array('admin')),
+	array('label'=>'Все болезни', 'url'=>array('index')),
+	array('label'=>'Создать болезнь', 'url'=>array('create')),
+	array('label'=>'Отобразить болезнь', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Управление болезнями', 'url'=>array('admin')),
 );
 ?>
 
-<h1> Update RecipeBookDisease #<?php echo $model->id; ?> </h1>
+<h1>Редактировать болезнь <?php echo $model->name; ?></h1>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(

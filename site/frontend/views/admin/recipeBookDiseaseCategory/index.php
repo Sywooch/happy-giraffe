@@ -5,8 +5,8 @@ $this->breadcrumbs = array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app', 'Create') . ' RecipeBookDiseaseCategory', 'url'=>array('create')),
-	array('label'=>Yii::t('app', 'Manage') . ' RecipeBookDiseaseCategory', 'url'=>array('admin')),
+	array('label'=>'Создать категорию болезней', 'url'=>array('create')),
+	array('label'=>'Управление категориями болезней', 'url'=>array('admin')),
 );
 ?>
 

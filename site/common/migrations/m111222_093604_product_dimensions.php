@@ -12,7 +12,7 @@ class m111222_093604_product_dimensions extends CDbMigration
 
 	public function down()
 	{
-		
+
 	}
 
 	/*

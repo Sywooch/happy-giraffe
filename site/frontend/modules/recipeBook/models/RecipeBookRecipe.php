@@ -16,24 +16,27 @@
  */
 class RecipeBookRecipe extends CActiveRecord
 {
-	public $purposeIds = array();
-
-	public function afterFind()
+	private $_purposeIds = null;
+	
+	public function getPurposeIds()
 	{
-		if (! empty($this->purposes))
+		if ($this->_purposeIds === null)
 		{
-			foreach ($this->purposes as $n => $service)
+			$this->_purposeIds = array();
+			if(!$this->isNewRecord)
 			{
-				$this->purposeIds[] = $service->id;
+				foreach($this->purposes as $purpose)
+				{
+					$this->_purposeIds[] = $purpose->primaryKey;
+				}
 			}
 		}
-
-		parent::afterFind();
+		return $this->_purposeIds == '' ? array() : $this->_purposeIds;
 	}
-
+	
 	public function setPurposeIds($value)
 	{
-		$this->purposeIds = $value;
+		$this->_purposeIds = $value;
 	}
 
 	/**
@@ -66,7 +69,7 @@ class RecipeBookRecipe extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, disease_id, text', 'required'),
+			array('name, disease_id, purposeIds, text', 'required'),
 			array('name', 'length', 'max'=>255),
 			array('disease_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDisease'),
 			array('purposeIds', 'safe'),
@@ -75,7 +78,7 @@ class RecipeBookRecipe extends CActiveRecord
 			array('id, name, disease_id, text', 'safe', 'on'=>'search'),
 		);
 	}
-
+	
 	/**
 	 * @return array relational rules.
 	 */

@@ -22,6 +22,16 @@ class User extends CActiveRecord
 	public $current_password;
 	public $new_password;
 	public $new_password_repeat;
+	
+	public function getAge()
+	{
+		if ($this->birthday === null) return null;
+		
+		$date1 = new DateTime($this->birthday);
+		$date2 = new DateTime(date('Y-m-d'));
+		$interval = $date1->diff($date2);
+		return $interval->y;
+	}
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -53,6 +63,7 @@ class User extends CActiveRecord
 			array('gender', 'boolean'),
 			array('phone', 'safe'),
 			array('settlement_id', 'numerical', 'integerOnly' => true),
+			array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
 		
 			//login
 			array('email, password', 'required', 'on' => 'login'),

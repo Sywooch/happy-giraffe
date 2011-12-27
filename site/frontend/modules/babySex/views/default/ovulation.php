@@ -5,13 +5,15 @@
 $model = new OvulationForm();
 ?>
 <style type="text/css">
-    .baby-1{
+    .baby-1 {
         background: #0babd9;
     }
-    .baby-2{
+
+    .baby-2 {
         background: #d920bd;
     }
-    .baby-3{
+
+    .baby-3 {
         background: #d9122a;
     }
 </style>
@@ -83,7 +85,7 @@ $model = new OvulationForm();
                 data:$("#ovulation-form").serialize(),
                 type:"POST",
                 success:function (data) {
-                        $('#result').html(data);
+                    $('#result').html(data);
                 }
             });
         }
@@ -96,43 +98,46 @@ $model = new OvulationForm();
 ));
     echo $form->hiddenField($model, 'review_month', array('id' => 'review_month'));
     echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
-        <div class="dad_bd">
-            <span class="title_pt_bn">Длительность цикла:</span>
-            <ul class="lists_td">
-                <li>
-                    <?php echo $form->dropDownList($model, 'cycle', HDate::Days(), array('id' => 'cl_cal', 'class' => 'num_cal')); ?>
-                </li>
-            </ul>
-        </div><!-- .dad_bd -->
-        <div class="mam_bd">
-            <span class="title_pt_bn">Дата первого дня менструации<br /> предыдущего цикла:</span>
-            <ul class="lists_td">
-                <li>
-                    <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_cal', 'class' => 'num_cal')); ?>
-                </li>
-                <li>
-                    <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_cal', 'class' => 'mn_cal')); ?>
-                </li>
-                <li>
-                    <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_cal', 'class' => 'yr_cal')); ?>
-                </li>
-            </ul>
-        </div><!-- .mam_bd -->
-        <div class="child_bd">
-            <span class="title_pt_bn"><ins>День зачатия ребенка:</ins></span>
-            <ul class="lists_td">
-                <li>
-                    <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('id' => 'num_con', 'class' => 'num_cal')); ?>
-                </li>
-                <li>
-                    <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array('id' => 'mn_con', 'class' => 'mn_cal')); ?>
-                </li>
-                <li>
-                    <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_con', 'class' => 'yr_cal')); ?>
-                </li>
-            </ul>
-        </div><!-- .child_bd -->
-        <input type="button" class="calc_bt" value="Рассчитать" />
+    <div class="dad_bd">
+        <span class="title_pt_bn">Длительность цикла:</span>
+        <ul class="lists_td">
+            <li>
+                <?php echo $form->dropDownList($model, 'cycle', HDate::Days(), array('id' => 'cl_cal', 'class' => 'num_cal')); ?>
+            </li>
+        </ul>
+    </div>
+    <!-- .dad_bd -->
+    <div class="mam_bd">
+        <span class="title_pt_bn">Дата первого дня менструации<br/> предыдущего цикла:</span>
+        <ul class="lists_td">
+            <li>
+                <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_cal', 'class' => 'num_cal')); ?>
+            </li>
+            <li>
+                <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_cal', 'class' => 'mn_cal')); ?>
+            </li>
+            <li>
+                <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_cal', 'class' => 'yr_cal')); ?>
+            </li>
+        </ul>
+    </div>
+    <!-- .mam_bd -->
+    <div class="child_bd">
+        <span class="title_pt_bn"><ins>День зачатия ребенка:</ins></span>
+        <ul class="lists_td">
+            <li>
+                <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('id' => 'num_con', 'class' => 'num_cal')); ?>
+            </li>
+            <li>
+                <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array('id' => 'mn_con', 'class' => 'mn_cal')); ?>
+            </li>
+            <li>
+                <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_con', 'class' => 'yr_cal')); ?>
+            </li>
+        </ul>
+    </div>
+    <!-- .child_bd -->
+    <input type="button" class="calc_bt" value="Рассчитать"/>
     <?php $this->endWidget(); ?>
 </div><!-- .child_sex_banner -->
 
@@ -155,7 +160,7 @@ $model = new OvulationForm();
                 <th>Вс</th>
             </tr>
             <?php
-            $skip = date("w")+1;
+            $skip = date("w") + 1;
             if ($skip > 6)
                 $skip = 0;
             $daysInMonth = date("t");
@@ -195,4 +200,25 @@ $model = new OvulationForm();
         </table>
     </div>
     <!-- .mother_calendar -->
+</div>
+
+<div class="seo-text">
+    <div class="summary-title">Определение пола по овуляции</div>
+    <p>Существует несколько способов определить пол будущего ребёнка. Практически все они придуманы очень давно,
+        доказательной базы не имеют и высокой достоверностью похвастаться не могут.</p>
+    <p>Единственный способ достаточно точно узнать пол будущего ребёнка, который составлен на основании современных
+        данных медицины – определение его по дате овуляции. За основу метода взяты различия в размерах и поведении
+        сперматозоидов, содержащих Х и Y-хромосомы, а также длительность жизни яйцеклетки.</p>
+    <p>Этот сервис позволяет определить пол будущего ребёнка по овуляции. Точность метода зависит от того, насколько
+        точно вы определили дату овуляции, поэтому будет выше, если есть возможность взять усреднённые данные за 6 - 12
+        предыдущих циклов.</p>
+
+    <p>Итак, вы вводите:</p>
+    <ul>
+        <li>дату начала менструации</li>
+        <li>длительность менструации</li>
+        <li>продолжительность менструального цикла</li>
+    </ul>
+    <p>Через несколько секунд вы получите результат и узнаете, кто же у вас появится – мальчик или девочка. Метод,
+        конечно, не даёт 100% гарантии рождения ребёнка необходимого пола, однако он точнее прочих.</p>
 </div>

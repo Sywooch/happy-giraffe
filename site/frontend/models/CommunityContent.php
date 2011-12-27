@@ -65,9 +65,9 @@ class CommunityContent extends CActiveRecord
 			'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
 			'comments' => array(self::HAS_MANY, 'CommunityComment', 'content_id'),
 			'commentsCount' => array(self::STAT, 'Comment', 'object_id', 'condition' => 'model=:modelName', 'params' => array(':modelName' => 'CommunityContent')),
-			'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id', 'on' => 'type_id = 3'),
-			'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => 'type_id = 2'),
-			'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => 'type_id = 1'),
+			'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id'),
+			'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id'),
+			'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id'),
 			'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
 		);
 	}

@@ -1,37 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "club_community_travel".
+ * This is the model class for table "club_community_travel_image".
  *
- * The followings are the available columns in table 'club_community_travel':
+ * The followings are the available columns in table 'club_community_travel_image':
  * @property string $id
- * @property string $text
- * @property string $content_id
- *
- * The followings are the available model relations:
- * @property ClubCommunityContent $content
- * @property ClubCommunityTravelWaypoint[] $clubCommunityTravelWaypoints
+ * @property string $image
+ * @property string $travel_id
  */
-class CommunityTravel extends CActiveRecord
+class CommunityTravelImage extends CActiveRecord
 {
+	public function getUrl($size)
+	{
+		return '/upload/travels/' . $size . '/' . $this->image;
+	}
+
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return CommunityTravel the static model class
+	 * @return CommunityTravelImage the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
-	}
-	
-	public function behaviors()
-	{
-		return array(
-			'cut' => array(
-				'class' => 'application.components.CutBehavior',
-				'attributes' => array('text'),
-				'edit_routes' => array('community/editTravel'),
-			),
-		);
 	}
 
 	/**
@@ -39,7 +29,7 @@ class CommunityTravel extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'club_community_travel';
+		return 'club_community_travel_image';
 	}
 
 	/**
@@ -50,11 +40,12 @@ class CommunityTravel extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('text', 'required'),
-			array('content_id', 'safe'),
+			array('image', 'required'),
+			array('image', 'length', 'max'=>255),
+			array('travel_id', 'safe',),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, text, content_id', 'safe', 'on'=>'search'),
+			array('id, image, travel_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,9 +57,7 @@ class CommunityTravel extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
-			'waypoints' => array(self::HAS_MANY, 'CommunityTravelWaypoint', 'travel_id'),
-			'images' => array(self::HAS_MANY, 'CommunityTravelImage', 'travel_id'),
+			'travel' => array(self::BELONGS_TO, 'CommunityTravel', 'travel_id'),
 		);
 	}
 
@@ -79,8 +68,8 @@ class CommunityTravel extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'text' => 'Text',
-			'content_id' => 'Content',
+			'image' => 'Image',
+			'travel_id' => 'Travel',
 		);
 	}
 
@@ -96,8 +85,8 @@ class CommunityTravel extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('text',$this->text,true);
-		$criteria->compare('content_id',$this->content_id,true);
+		$criteria->compare('image',$this->image,true);
+		$criteria->compare('travel_id',$this->travel_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

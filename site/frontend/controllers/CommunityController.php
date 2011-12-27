@@ -280,6 +280,24 @@ class CommunityController extends Controller
 					$waypoint->travel_id = $slave_model->id;
 					$waypoint->save(false);
 				}
+				$images = CUploadedFile::getInstancesByName('CommunityTravelImage[image]');
+				foreach ($images as $i)
+				{	
+					if ($i->saveAs(Yii::getPathOfAlias('webroot').'/upload/travels/original/'.$i->name))
+					{
+						$image = new CommunityTravelImage;
+						$image->image = $i->name;
+						$image->travel_id = $slave_model->id;
+						$image->save();
+						
+						FileHandler::run(Yii::getPathOfAlias('webroot').'/upload/travels/original/'.$i->name, Yii::getPathOfAlias('webroot').'/upload/travels/thumb/'.$i->name, array(
+							'resize' => array(
+								'width' => 170,
+								'height' => 180,
+							),
+						));
+					}
+				}
 				$this->redirect(array('community/view', 'community_id' => $community_id, 'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
 			}
 		}

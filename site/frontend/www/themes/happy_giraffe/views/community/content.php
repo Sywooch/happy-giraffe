@@ -40,11 +40,27 @@ $('.spam a').live('click', function() {
 });
 ";
 
+	$js = "
+	$(document).ready(function() {
+		$('.lol').fancybox();
+	});
+
+	";
+
 	$cs
 		->registerScript('content_report', $js_content_report)
 		->registerScriptFile('http://vkontakte.ru/js/api/openapi.js', CClientScript::POS_HEAD)
 		->registerScript('ilike', $ilike, CClientScript::POS_HEAD)
-		->registerCssFile('/stylesheets/wym.css');
+		->registerCssFile('/stylesheets/wym.css')
+		
+		->registerScriptFile('/fancybox/lib/jquery.mousewheel-3.0.6.pack.js')
+		->registerCssFile('/fancybox/source/jquery.fancybox.css?v=2.0.4')
+		->registerScriptFile('/fancybox/source/jquery.fancybox.pack.js?v=2.0.4')
+		->registerCssFile('/fancybox/source/helpers/jquery.fancybox-buttons.css?v=2.0.4')
+		->registerScriptFile('/fancybox/source/helpers/jquery.fancybox-buttons.js?v=2.0.4')
+		->registerCssFile('/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=2.0.4')
+		->registerScriptFile('/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=2.0.4')
+		->registerScript('travel_images', $js);
 ?>
 
 <?php $this->breadcrumbs = array(
@@ -94,40 +110,69 @@ $('.spam a').live('click', function() {
 						echo $c->video->text;
 						break;
 					case 'travel':
-						$icon = new EGMapMarkerImage('/images/map_marker.png');
-						$icon->setSize(20, 32);
-
-						$gMap = new EGMap();
-						$gMap->width = '100%';
-						$gMap->height = '325';
-						$gMap->zoom = 2;
-						$incLat = 0;
-						$incLng = 0;
-						foreach ($c->travel->waypoints as $w)
+						if ($c->travel->waypoints)
 						{
-							$address = $w->country->name . ', ' . $w->city->name;
-							$geocoded_address = new EGMapGeocodedAddress($address);
-							$geocoded_address->geocode($gMap->getGMapClient());
-							$gMap->addMarker(
-								new EGMapMarker($geocoded_address->getLat(), $geocoded_address->getLng(), array('title' => 'a', 'icon' => $icon))
-							);
-							$incLat += $geocoded_address->getLat();
-							$incLng += $geocoded_address->getLng();
-						}
-						$centerLat = $incLat / count($c->travel->waypoints);
-						$centerLng = $incLng / count($c->travel->waypoints);
-						$gMap->setCenter($centerLat, $centerLng);
+							$icon = new EGMapMarkerImage('/images/map_marker.png');
+							$icon->setSize(20, 32);
+
+							$gMap = new EGMap();
+							$gMap->width = '100%';
+							$gMap->height = '325';
+							$gMap->zoom = (count($c->travel->waypoints) == 1) ? 5 : 2;
+							$incLat = 0;
+							$incLng = 0;
+							foreach ($c->travel->waypoints as $w)
+							{
+								$address = $w->country->name . ', ' . $w->city->name;
+								$geocoded_address = new EGMapGeocodedAddress($address);
+								$geocoded_address->geocode($gMap->getGMapClient());
+								$gMap->addMarker(
+									new EGMapMarker($geocoded_address->getLat(), $geocoded_address->getLng(), array('title' => 'a', 'icon' => $icon))
+								);
+								$incLat += $geocoded_address->getLat();
+								$incLng += $geocoded_address->getLng();
+							}
+							$centerLat = $incLat / count($c->travel->waypoints);
+							$centerLng = $incLng / count($c->travel->waypoints);
+							$gMap->setCenter($centerLat, $centerLng);
 						
-						$gMap->renderMap();
+							$gMap->renderMap();
 			?>	
 						<ul class="tr_map">
 							<li><ins>Посетили:</ins></li>
-							<?php $i = 0; foreach ($c->travel->waypoints as $w): ?>
-								<li><?php echo $w->country_name; ?> - <span><?php echo ++$i; ?></span> <?php echo $w->city_name; ?></li>
-							<?php endforeach; ?>
+							<li>
+								<ul>
+									<?php $i = 0; foreach ($c->travel->waypoints as $w): ?>
+										<li><?php echo $w->country_name; ?> - <span><?php echo ++$i; ?></span> <?php echo $w->city_name; ?></li>
+									<?php endforeach; ?>
+								</ul>
+							</li>
 						</ul>
+						<?php
+						}
+						?>
+						<div class="clear"></div>
+
 			<?php
 						echo $c->travel->text;
+			?>
+						<div class="clear"></div>
+						<div class="travel_photo">
+							<ul class="photo-list">
+								<?php foreach ($c->travel->images as $i): ?>
+									<li>
+										<div class="img-box">							
+											<?php echo CHtml::link(CHtml::image($i->getUrl('thumb')), $i->getUrl('original'), array(
+												'class' => 'lol',
+												'rel' => 'group',
+											)); ?>
+										</div>
+									</li>
+								<?php endforeach; ?>
+							</ul>	
+							<div class="clear"></div><!-- .clear -->
+						</div><!-- .travel_photo -->
+			<?php
 						break;
 				}
 			?>

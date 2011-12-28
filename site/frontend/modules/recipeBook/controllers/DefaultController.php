@@ -148,6 +148,9 @@ class DefaultController extends Controller
         if (!isset($model))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        $model->views_amount++;
+        $model->update(array('views_amount'));
+
         $cat_diseases = RecipeBookDisease::model()->findAll(array(
             'order' => 'name',
             'select' => array('id', 'name', 'slug'),

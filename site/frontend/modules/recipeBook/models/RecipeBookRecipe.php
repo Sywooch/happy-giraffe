@@ -7,17 +7,24 @@
  * @property string $id
  * @property string $name
  * @property string $disease_id
+ * @property string $user_id
  * @property string $text
+ * @property string $source_type
+ * @property string $internet_link
+ * @property string $internet_favicon
+ * @property string $internet_title
+ * @property string $book_author
+ * @property string $book_name
+ * @property string $create_time
+ * @property integer $views_amount
  *
  * The followings are the available model relations:
- * @property RecipeBookIngredient[] $recipeBookIngredients
- * @property RecipeBookDisease $disease
- * @property RecipeBookRecipeViaPurpose[] $recipeBookRecipeViaPurposes
+ * @property User $user
  */
 class RecipeBookRecipe extends CActiveRecord
 {
 	private $_purposeIds = null;
-	
+
 	public function getPurposeIds()
 	{
 		if ($this->_purposeIds === null)
@@ -33,7 +40,7 @@ class RecipeBookRecipe extends CActiveRecord
 		}
 		return $this->_purposeIds == '' ? array() : $this->_purposeIds;
 	}
-	
+
 	public function setPurposeIds($value)
 	{
 		$this->_purposeIds = $value;
@@ -42,12 +49,12 @@ class RecipeBookRecipe extends CActiveRecord
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return RecipeBookRecipe the static model class
-	 */	 
+	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-	
+
 	public function behaviors()
 	{
 		return array('CAdvancedArBehavior' => array('class' => 'application.extensions.CAdvancedArBehavior'));
@@ -70,16 +77,17 @@ class RecipeBookRecipe extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, disease_id, purposeIds, text', 'required'),
+			array('views_amount', 'numerical', 'integerOnly'=>true),
 			array('name, internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max'=>255),
 			array('disease_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDisease'),
 			array('purposeIds', 'safe'),
 			array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, disease_id, text', 'safe', 'on'=>'search'),
+			array('id, name, disease_id, user_id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, create_time, views_amount', 'safe', 'on'=>'search'),
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -88,9 +96,10 @@ class RecipeBookRecipe extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'ingredients' => array(self::HAS_MANY, 'RecipeBookIngredient', 'recipe_id'),
-			'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
-			'purposes' => array(self::MANY_MANY, 'RecipeBookPurpose', 'recipeBook_recipe_via_purpose(recipe_id, purpose_id)'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'ingredients' => array(self::HAS_MANY, 'RecipeBookIngredient', 'recipe_id'),
+            'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
+            'purposes' => array(self::MANY_MANY, 'RecipeBookPurpose', 'recipeBook_recipe_via_purpose(recipe_id, purpose_id)'),
 		);
 	}
 
@@ -103,7 +112,16 @@ class RecipeBookRecipe extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Заголовок рецепта',
 			'disease_id' => 'Болезнь',
+			'user_id' => 'User',
 			'text' => 'Текст рецепта',
+			'source_type' => 'Source Type',
+			'internet_link' => 'Internet Link',
+			'internet_favicon' => 'Internet Favicon',
+			'internet_title' => 'Internet Title',
+			'book_author' => 'Book Author',
+			'book_name' => 'Book Name',
+			'create_time' => 'Create Time',
+			'views_amount' => 'Views Amount',
 		);
 	}
 
@@ -121,7 +139,16 @@ class RecipeBookRecipe extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('disease_id',$this->disease_id,true);
+		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('text',$this->text,true);
+		$criteria->compare('source_type',$this->source_type,true);
+		$criteria->compare('internet_link',$this->internet_link,true);
+		$criteria->compare('internet_favicon',$this->internet_favicon,true);
+		$criteria->compare('internet_title',$this->internet_title,true);
+		$criteria->compare('book_author',$this->book_author,true);
+		$criteria->compare('book_name',$this->book_name,true);
+		$criteria->compare('create_time',$this->create_time,true);
+		$criteria->compare('views_amount',$this->views_amount);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

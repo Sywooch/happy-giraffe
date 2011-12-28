@@ -9,15 +9,15 @@
         <a href="<?php echo $this->createUrl('/recipeBook/default/view', array('id'=>$data->id))
             ?>"><h1><?php echo $data->name ?></h1></a>
         <div class="user">
-            <div class="ava female 	avatar">
+            <div class="ava <?php echo ($data->user->gender == 1)?'male':'female' ?> avatar">
 
             </div>
-            <a class="username">Светлана</a>
+            <a class="username"><?php echo $data->user->first_name.' '.$data->user->last_name ?></a>
         </div>
 
         <div class="meta">
-            <div class="time">3 сентября 2011, 08:25</div>
-            <div class="seen">Просмотров:&nbsp;<span>265</span></div>
+            <div class="time"><?php echo Yii::app()->dateFormatter->format('d MMMM y, H:m', strtotime($data->create_time)) ?></div>
+            <div class="seen">Просмотров:&nbsp;<span><?php echo $data->views_amount ?></span></div>
 
         </div>
         <div class="clear"></div>

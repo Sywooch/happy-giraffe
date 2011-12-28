@@ -14,7 +14,6 @@
                         $('#popup').show();
                         $(this).parent('li').addClass('current_t');
                         timer = setTimeout('popupOff()', 1000);
-                        current_link = 'alphabet';
                     },
                     context:$(this)
                 });
@@ -36,56 +35,11 @@
                         $('#popup').show();
                         $(this).parent('li').addClass('current_t');
                         timer = setTimeout('popupOff()', 1000);
-                        current_link = 'type';
                     },
                     context:$(this)
                 });
             }
             return false;
-        });
-
-        $('#popup').mouseover(function(){
-            if (timer != null)
-                clearTimeout(timer);
-            in_block = true;
-        });
-
-        $('#popup').mouseout(function(){
-            if (timer != null)
-                clearTimeout(timer);
-            in_block = false;
-        });
-
-        $('#disease-alphabet').mouseout(function(){
-            if (current_link == 'alphabet'){
-                if (timer != null)
-                    clearTimeout(timer);
-                in_link = false;
-            }
-        });
-
-        $('#disease-alphabet').mouseover(function(){
-            if (current_link == 'alphabet'){
-                if (timer != null)
-                clearTimeout(timer);
-                in_link = true;
-            }
-        });
-
-        $('#disease-type').mouseout(function(){
-            if (current_link == 'type'){
-                if (timer != null)
-                clearTimeout(timer);
-                in_link = false;
-            }
-        });
-
-        $('#disease-type').mouseover(function(){
-            if (current_link == 'type'){
-                if (timer != null)
-                clearTimeout(timer);
-                in_link = true;
-            }
         });
 
         $('html').click(function(){
@@ -102,21 +56,6 @@
         });
 
 "); ?>
-<script type="text/javascript">
-    var timer;
-    var in_block = false;
-    var in_link = false;
-    var current_link = null;
-
-    function popupOff(){
-        if (!in_block && !in_link){
-            $('#popup').hide();
-            $('#disease-alphabet').parent('li').removeClass('current_t');
-            $('#disease-type').parent('li').removeClass('current_t');
-            timer = null;
-        }
-    }
-</script>
 <div id="baby">
     <div class="content-box clearfix">
         <div class="baby_recipes_service">

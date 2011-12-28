@@ -139,6 +139,7 @@ class DefaultController extends Controller
 
     public function actionView($id)
     {
+        $this->layout = 'rec-layout';
         $model = RecipeBookRecipe::model()->with(array(
             'disease' => array(
                 'select' => array('category_id', 'id', 'name', 'slug')

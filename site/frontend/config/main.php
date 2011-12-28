@@ -84,6 +84,7 @@ return array(
         'sewing',
         'babyBloodGroup',
         'sizes',
+        'childrenDiseases',
 	),
 
 	// application components

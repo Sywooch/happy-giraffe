@@ -257,6 +257,9 @@ class CommunityController extends Controller
 			$slave_model->attributes = $_POST['CommunityTravel'];
 			$images = CUploadedFile::getInstancesByName('CommunityTravelImage[image]');
 			
+			print_r($images);
+			die;
+			
 			$valid = $content_model->validate();
 			$valid = $slave_model->validate() && $valid;
 			

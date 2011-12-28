@@ -84,6 +84,7 @@
                 $('#popup').hide();
                 $('#disease-alphabet').parent('li').removeClass('current_t');
                 $('#disease-type').parent('li').removeClass('current_t');
+                clearTimeout(closetimer);
             }
         }
 "); ?>

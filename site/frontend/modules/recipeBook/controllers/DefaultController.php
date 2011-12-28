@@ -6,7 +6,14 @@ class DefaultController extends Controller
 
 	public function actionIndex()
 	{
-		$this->render('index');
+        $diseases = RecipeBookDisease::model()->findAll(array('order'=>'name','select'=>array('id','name','slug','category_id')));
+        $alphabetList = RecipeBookDisease::GetDiseaseAlphabetList($diseases);
+        $categoryList = RecipeBookDisease::GetDiseaseCategoryList($diseases);
+
+        $this->render('index',array(
+            'alphabetList'=>$alphabetList,
+            'categoryList'=>$categoryList
+        ));
 	}
 	
 	public function actionEdit($id = null)

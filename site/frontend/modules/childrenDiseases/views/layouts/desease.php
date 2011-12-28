@@ -13,7 +13,6 @@
                         $('#popup').html(data);
                         $('#popup').show();
                         $(this).parent('li').addClass('current_t');
-                        timer = setTimeout('popupOff()', 1000);
                     },
                     context:$(this)
                 });
@@ -34,7 +33,6 @@
                         $('#popup').html(data);
                         $('#popup').show();
                         $(this).parent('li').addClass('current_t');
-                        timer = setTimeout('popupOff()', 1000);
                     },
                     context:$(this)
                 });

@@ -4,19 +4,6 @@
  */
 $model = new OvulationForm();
 ?>
-<style type="text/css">
-    .baby-1 {
-        background: #0babd9;
-    }
-
-    .baby-2 {
-        background: #d920bd;
-    }
-
-    .baby-3 {
-        background: #d9122a;
-    }
-</style>
 <script type="text/javascript">
     var started = false;
 

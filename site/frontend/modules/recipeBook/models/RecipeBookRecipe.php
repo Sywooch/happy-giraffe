@@ -17,6 +17,8 @@
  * @property string $book_name
  * @property string $create_time
  * @property integer $views_amount
+ * @property integer votes_pro
+ * @property integer votes_con
  *
  * The followings are the available model relations:
  * @property User $user
@@ -24,6 +26,7 @@
 class RecipeBookRecipe extends CActiveRecord
 {
 	private $_purposeIds = null;
+    public $vote;
 
 	public function getPurposeIds()
 	{
@@ -100,6 +103,7 @@ class RecipeBookRecipe extends CActiveRecord
             'ingredients' => array(self::HAS_MANY, 'RecipeBookIngredient', 'recipe_id'),
             'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
             'purposes' => array(self::MANY_MANY, 'RecipeBookPurpose', 'recipeBook_recipe_via_purpose(recipe_id, purpose_id)'),
+            'commentsCount' => array(self::STAT, 'Comment', 'object_id', 'condition' => 'model=:modelName', 'params' => array(':modelName' => 'RecipeBookRecipe')),
 		);
 	}
 
@@ -154,4 +158,72 @@ class RecipeBookRecipe extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getProPercent()
+    {
+        return $this->totalVotes == 0 ? 0 : round(($this->votes_pro / $this->totalVotes) * 100, 2);
+    }
+
+    public function getConPercent()
+    {
+        return $this->totalVotes == 0 ? 0 : round(($this->votes_con / $this->totalVotes) * 100, 2);
+    }
+
+    public function getTotalVotes()
+    {
+        return $this->votes_pro + $this->votes_con;
+    }
+
+    public function vote($user_id, $vote)
+    {
+        $current_vote = $this->getCurrentVote($user_id);
+
+        if ($current_vote === NULL)
+        {
+            Yii::app()->db->createCommand()
+                ->insert('recipeBook_recipe_vote', array(
+                'recipe_id' => $this->id,
+                'user_id' => $user_id,
+                'vote' => $vote,
+            ));
+
+            Yii::app()->db->createCommand()
+                ->update($this->tableName(), array($this->columnByVote($vote) => new CDbExpression($this->columnByVote($vote) . ' + 1')), 'id = :recipe_id', array(':recipe_id' => $this->id));
+        }
+        elseif ($current_vote != $vote)
+        {
+            Yii::app()->db->createCommand()
+                ->update('recipeBook_recipe_vote', array('vote' => $vote), 'user_id = :user_id AND recipe_id = :recipe_id', array(
+                ':user_id' => $user_id,
+                ':recipe_id' => $this->id,
+            ));
+
+            Yii::app()->db->createCommand()
+                ->update($this->tableName(), array($this->columnByVote($vote) => new CDbExpression($this->columnByVote($vote) . ' + 1')), 'id = :recipe_id', array(':recipe_id' => $this->id));
+
+            Yii::app()->db->createCommand()
+                ->update($this->tableName(), array($this->columnByVote($current_vote) => new CDbExpression($this->columnByVote($vote) . ' - 1')), 'id = :recipe_id', array(':recipe_id' => $this->id));
+        }
+    }
+
+    protected function columnByVote($vote)
+    {
+        $array = array(
+            '0' => 'votes_con',
+            '1' => 'votes_pro',
+        );
+
+        return $array[$vote];
+    }
+
+    public function getCurrentVote($user_id)
+    {
+        $vote = Yii::app()->db->createCommand()
+            ->select('vote')
+            ->from('recipeBook_recipe_vote')
+            ->where('recipe_id = :recipe_id AND user_id = :user_id', array(':recipe_id' => $this->id, ':user_id' => $user_id))
+            ->queryScalar();
+
+        return ($vote === FALSE) ? null : $vote;
+    }
 }

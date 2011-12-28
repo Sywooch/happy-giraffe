@@ -172,4 +172,35 @@ class DefaultController extends Controller
             'more_recipes'=>$more_recipes
         ));
     }
+
+    public function actionVote()
+    {
+        if (Yii::app()->request->isAjaxRequest && ! Yii::app()->user->isGuest)
+        {
+            $model_id = $_POST['id'];
+            $vote = $_POST['vote'];
+            $model = RecipeBookRecipe::model()->findByPk($model_id);
+            if ($model)
+            {
+                $model->vote(Yii::app()->user->id, $vote);
+                $model->refresh();
+
+                $response = array(
+                    'success' => true,
+                    'votes_pro' => $model->votes_pro,
+                    'votes_con' => $model->votes_con,
+                    'pro_percent' => $model->proPercent,
+                    'con_percent' => $model->conPercent,
+                );
+            }
+            else
+            {
+                $response = array(
+                    'success' => false,
+                );
+            }
+
+            echo CJSON::encode($response);
+        }
+    }
 }

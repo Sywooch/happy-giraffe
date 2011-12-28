@@ -3,7 +3,7 @@
  * @var $data RecipeBookRecipe
  */
 ?>
-<div class="entry entry-full">
+<div class="entry entry-full" id="RecipeBookRecipe_<?php echo $data->id; ?>">
 
     <div class="entry-header">
         <a href="<?php echo $this->createUrl('/recipeBook/default/view', array('id'=>$data->id))
@@ -16,7 +16,7 @@
         </div>
 
         <div class="meta">
-            <div class="time"><?php echo Yii::app()->dateFormatter->format('d MMMM y, H:m', strtotime($data->create_time)) ?></div>
+            <div class="time"><?php echo Yii::app()->dateFormatter->format('d MMMM yyyy, HH:mm', strtotime($data->create_time)) ?></div>
             <div class="seen">Просмотров:&nbsp;<span><?php echo $data->views_amount ?></span></div>
 
         </div>
@@ -51,17 +51,20 @@
             <?php echo $data->book_author.' &laquo;'.$data->book_name.'&raquo;' ?>
             <?php endif ?>
         </div>
-        <span class="comm">Отзывов: <span>2</span></span>
+        <span class="comm">Отзывов: <span><?php echo $data->commentsCount;  ?></span></span>
         <div class="spam">
-            <a href=""><span>Нарушение!</span></a>
+            <a href="#"><span>Нарушение!</span></a>
         </div>
         <div class="clear"></div>
-        <div class="art_lk_recipes">
-            <ul class="quest_fun">
-                <li><span>Считаете ли Вы полезным этот рецепт?</span></li>
-                <li class="agree_u"><a href="#">Да</a></li>
-                <li class="disagree_u"><a href="#">Нет</a></li>
-            </ul>
-        </div><!-- .art_lk_recipes -->
+        <?php if (!isset($short)):?>
+            <div class="art_lk_recipes" rel="<?php echo $data->id ?>">
+                <ul class="quest_fun">
+                    <li><span>Считаете ли Вы полезным этот рецепт?</span></li>
+                    <li class="agree_u"><a href="#">Да</a></li>
+                    <li class="disagree_u"><a href="#">Нет</a></li>
+                </ul>
+            </div><!-- .art_lk_recipes -->
+        <?php endif ?>
+
     </div>
 </div>

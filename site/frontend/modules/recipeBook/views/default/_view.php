@@ -32,6 +32,7 @@
                 </ul>
             </div>
         </div><!-- .rec_in -->
+	<div class="clear"></div>
         <?php echo $data->text ?>
         <div class="clear"></div>
     </div>

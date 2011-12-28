@@ -1,5 +1,5 @@
 <?php
-	$preloadedIngredients = 3;
+	$preloadedIngredients = 1;
 	$ingredient_model = new RecipeBookIngredient;
 	$nextIndex = $model->isNewRecord ? $preloadedIngredients : count($model->ingredients);
 
@@ -37,6 +37,45 @@
 		$('a.remove').live('click', function(e) {
 			e.preventDefault();
 			$(this).parents('tr').remove();
+		});
+		
+		$('#source_container > div').hide();
+		$('#source_" . $model->source_type . "').show();
+	
+		$('input[name=\"RecipeBookRecipe[source_type]\"]').change(function () {
+			$('#source_container > div').hide();
+			$('#source_' + $(this).val()).show();
+		});
+
+		$('#book').live('click', function() {
+			$.ajax({
+				type: 'POST',
+				data: {
+					source_type: $('input[name=\"CommunityPost[source_type]\"]:checked').val(),
+					book_author: $('input[name=\"CommunityPost[book_author]\"]').val(),
+					book_name: $('input[name=\"CommunityPost[book_name]\"]').val()
+				},
+				url: '" . CController::createUrl('ajax/source') . "',
+				success: function(response) {
+					$('#source_submit_container').html(response);
+				}
+			});
+			return false;
+		});
+
+		$('#internet').live('click', function() {
+			$.ajax({
+				type: 'POST',
+				data: {
+					source_type: $('input[name=\"CommunityPost[source_type]\"]:checked').val(),
+					internet_link: $('input[name=\"CommunityPost[internet_link]\"]').val(),
+				},
+				url: '" . CController::createUrl('ajax/source') . "',
+				success: function(response) {
+					$('#source_submit_container').html(response);
+				}
+			});
+			return false;
 		});
 	";
 	
@@ -175,41 +214,56 @@
 						));
 					?>
 				</div><!-- html_redactor_sett -->
-			<!--	<div class="settings">
+				<div class="settings">
+		
+					<div class="settings-l">
+						<div class="inner-title">Укажите источник</div>
 			
-			<div class="settings-l">
-				<div class="inner-title">Укажите источник</div>
-				<ul class="wrote_w">
-					<li><input type="radio" class="RadioClass" id="w1" name="set"/>
-					<label for="w1" class="RadioLabelClass">Я автор</label></li>
-					<li><input type="radio" class="RadioClass" id="w2" name="set"/>
-					<label for="w2" class="RadioLabelClass">Интернет-ресурс</label></li>
-					<li><input type="radio" class="RadioClass" id="w3" name="set"/>
-					<label for="w3" class="RadioLabelClass">Книга</label></li>
-				</ul>
-				<div class="clear"></div>
-				<div class="sel">
-					<ul class="wrote_u">
-						<li><input type="text" value="" placeholder="Автор"/></li>
-						<li><input type="text" value="" placeholder="Название книги"/></li>
-						<li><a href="" class="btn btn-green-small"><span><span>ОК</span></span></a></li>
-					</ul>
-					<div class="clear"></div>
-				</div>
-			</div>
-			<div class="settings-r">
-				<div class="peach">
-					<div class="t"></div>
-					<div class="b"></div>
-					<span class="mdash">&mdash;</span>							
-					<div class="in">
-						Уважайте интелектуальную собственность!<br/>Указывайте автора или источник статьи
+						<input type="radio" class="RadioClass" id="v1" value="me" name="<?php echo get_class($model); ?>[source_type]"/>
+						<label for="v1" class="RadioLabelClass">Я автор</label>
+			
+						<input type="radio" class="RadioClass" id="v2" value="internet" name="<?php echo get_class($model); ?>[source_type]"/>
+						<label for="v2" class="RadioLabelClass">Интернет-ресурс</label>
+
+						<input type="radio" class="RadioClass" id="v3" value="book" name="<?php echo get_class($model); ?>[source_type]"/>
+						<label for="v3" class="RadioLabelClass">Книга</label>
+
+						<div class="clear"></div>
+						<div class="sel" id="source_container">
+							<div id="source_me">
+				
+							</div>
+				
+							<div id="source_internet">
+								<?php echo $form->textField($model, 'internet_link', array('placeholder' => 'http://www.', 'class' => 'big')); ?>
+								<?php echo CHtml::link('<span><span>ОК</span></span>', '#', array('class' => 'btn btn-green-small', 'id' => 'internet')); ?>
+								<div class="clear"></div>
+							</div>
+				
+							<div id="source_book">
+								<?php echo $form->textField($model, 'book_author', array('placeholder' => 'Автор')); ?>
+								<?php echo $form->textField($model, 'book_name', array('placeholder' => 'Название книги')); ?>
+								<?php echo CHtml::link('<span><span>ОК</span></span>', '#', array('class' => 'btn btn-green-small', 'id' => 'book')); ?>
+								<div class="clear"></div>
+							</div>
+						</div>
+						<div class="sel" id="source_submit_container">
+
+						</div>
+					</div>
+					<div class="settings-r">
+						<div class="peach">
+							<div class="t"></div>
+							<div class="b"></div>
+							<span class="mdash">&mdash;</span>							
+							<div class="in">
+								Уважайте интелектуальную собственность!<br/>Указывайте автора или источник статьи
+							</div>
+						</div>
+					</div>
+					<div class="clear">
 					</div>
 				</div>
-			</div>
-			<div class="clear">
-			</div>
-		</div>-->
 				<div class="clear"></div>
 				
 				<div class="button_panel">

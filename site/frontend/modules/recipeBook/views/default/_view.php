@@ -1,7 +1,13 @@
+<?php
+/* @var $this Controller
+ * @var $data RecipeBookRecipe
+ */
+?>
 <div class="entry entry-full">
 
     <div class="entry-header">
-        <a href="#"><h1>Овсяная вода</h1></a>
+        <a href="<?php echo $this->createUrl('/recipeBook/default/view', array('id'=>$data->id))
+            ?>"><h1><?php echo $data->name ?></h1></a>
         <div class="user">
             <div class="ava female 	avatar">
 
@@ -22,18 +28,29 @@
             <div>
                 <span>Ингредиенты:</span>
                 <ul>
-                    <li><a href="#">неочищенный овес</a></li>
-                    <li><a href="#">неочищенный овес</a></li>
-                    <li><a href="#">неочищенный овес</a></li>
+                    <?php foreach ($data->ingredients as $ingredient): ?>
+                        <li><a href="#"><?php echo $ingredient->name ?></a> <?php echo 'x '.$ingredient->amount ?></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div><!-- .rec_in -->
-        <p>Берётся одна часть овса неочищенного и 5 частей воды, доводиться до кипения и варится 10 минут, затем настаивается до комнатной температуры, процеживается, выжимается овёс, так, чтобы слизь попала в процеженный отвар. <br>Даётся за 30 минут до еды 1-2 столовой ложки - курс лечения 1 месяц. </p>
+        <?php echo $data->text ?>
         <div class="clear"></div>
     </div>
 
     <div class="entry-footer">
-        <div class="source">Источник:&nbsp;<img src="../static/images/ico.jpg">&nbsp;<a href="http://www.championat.com/" class="link">Чемпионат.com</a></div>&nbsp;
+        <div class="source">Источник:&nbsp;
+            <?php if ($data->source_type == 'internet'):?>
+            <img src="<?php echo $data->internet_favicon ?>">&nbsp;
+            <a href="<?php echo $data->internet_link ?>" class="link"><?php echo $data->internet_title ?></a>&nbsp;
+            <?php endif ?>
+            <?php if ($data->source_type == 'me'):?>
+            личный опыт
+            <?php endif ?>
+            <?php if ($data->source_type == 'book'):?>
+            <?php echo $data->book_author.' &laquo;'.$data->book_name.'&raquo;' ?>
+            <?php endif ?>
+        </div>
         <span class="comm">Отзывов: <span>2</span></span>
         <div class="spam">
             <a href=""><span>Нарушение!</span></a>

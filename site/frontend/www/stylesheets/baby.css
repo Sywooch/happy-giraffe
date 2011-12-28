@@ -509,9 +509,9 @@
 #baby .child_sex_ovulyaciya_banner .num_cal {width:50px;}
 #baby .child_sex_ovulyaciya_banner .mn_cal {width:85px;}
 #baby .child_sex_ovulyaciya_banner .yr_cal {width:63px;}
-#baby .child_sex_ovulyaciya_banner .mam_bd {width:240px;display:block;position:absolute;left:20px;top:130px;text-align:center;z-index:5;}
-#baby .child_sex_ovulyaciya_banner .child_bd {width:240px;display:block;position:absolute;left:20px;top:282px;text-align:center;z-index:5;}
-#baby .child_sex_ovulyaciya_banner .dad_bd {width:240px;display:block;position:absolute;left:20px;top:210px;text-align:center;z-index:5;}
+#baby .child_sex_ovulyaciya_banner .mam_bd {width:240px;display:block;position:absolute;left:20px;top:130px;text-align:center;z-index:13;}
+#baby .child_sex_ovulyaciya_banner .child_bd {width:240px;display:block;position:absolute;left:20px;top:282px;text-align:center;z-index:11;}
+#baby .child_sex_ovulyaciya_banner .dad_bd {width:240px;display:block;position:absolute;left:20px;top:210px;text-align:center;z-index:12;}
 #baby .child_sex_ovulyaciya_banner span.title_pt_bn {display:block;text-align:center;font:15px tahoma, sans-serif;color:#111110;padding:0 0 10px 0;}
 #baby .child_sex_ovulyaciya_banner span.title_pt_bn ins {background:#fcf7a9;padding:0 5px;}
 #baby .child_sex_ovulyaciya_banner input.calc_bt {position:absolute;bottom:25px;right:100px;width:220px;height:58px;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;border:1px solid #f1d419;font:bold 30px arial, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}

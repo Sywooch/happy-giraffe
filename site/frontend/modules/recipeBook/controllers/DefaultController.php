@@ -17,29 +17,21 @@ class DefaultController extends Controller
         ));
     }
 
-    public function actionCreate()
-    {
-
-    }
-
     public function actionEdit($id = null)
     {
-        if ($id === null)
-        {
+        if ($id === null) {
             $model = new RecipeBookRecipe;
         }
         else
         {
             $model = RecipeBookRecipe::model()->with(array('disease.category.diseases', 'purposes', 'ingredients'))->findByPk($id);
-            if ($model === null)
-            {
+            if ($model === null) {
                 throw new CHttpException(404, 'Такой записи не существует.');
             }
         }
 
         $ingredients = array();
-        if (isset($_POST['RecipeBookRecipe'], $_POST['RecipeBookIngredient']))
-        {
+        if (isset($_POST['RecipeBookRecipe'], $_POST['RecipeBookIngredient'])) {
             $model->attributes = $_POST['RecipeBookRecipe'];
             $model->purposes = $model->purposeIds;
             $valid = $model->validate();
@@ -52,12 +44,10 @@ class DefaultController extends Controller
                 $ingredients[] = $ingredient;
             }
 
-            if ($valid)
-            {
+            if ($valid) {
                 $isNewRecord = $model->isNewRecord;
                 $model->save(false);
-                if (! $isNewRecord)
-                {
+                if (!$isNewRecord) {
                     RecipeBookIngredient::model()->deleteAllByAttributes(array('recipe_id' => $model->id));
                 }
                 foreach ($ingredients as $ingredient)
@@ -65,8 +55,7 @@ class DefaultController extends Controller
                     $ingredient->recipe_id = $model->id;
                     $ingredient->save(false);
                 }
-                if (! $isNewRecord)
-                {
+                if (!$isNewRecord) {
                     $model->refresh();
                 }
 
@@ -90,8 +79,7 @@ class DefaultController extends Controller
 
     public function actionDiseases()
     {
-        if (Yii::app()->request->isAjaxRequest)
-        {
+        if (Yii::app()->request->isAjaxRequest) {
             $model = new RecipeBookRecipe;
             $category_id = $_POST['disease_category'];
 
@@ -127,7 +115,7 @@ class DefaultController extends Controller
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $cat = RecipeBookDisease::model()->findAll(array(
+        $cat_diseases = RecipeBookDisease::model()->findAll(array(
             'order' => 'name',
             'select' => array('id', 'name', 'slug'),
             'condition' => 'category_id=' . $model->category_id
@@ -141,21 +129,35 @@ class DefaultController extends Controller
         $pages->applyLimit($criteria);
         $recipes = RecipeBookRecipe::model()->findAll($criteria);
 
-        if (Yii::app()->request->isAjaxRequest) {
-            $this->renderPartial('disease_data', array(
-                'model' => $model,
-                'cat' => $cat,
-                'recipes' => $recipes,
-                'pages' => $pages,
-                'likes' => Name::GetLikeIds()
-            ));
-        } else
-            $this->render('disease', array(
-                'model' => $model,
-                'cat' => $cat,
-                'recipes' => $recipes,
-                'pages' => $pages,
-                'likes' => Name::GetLikeIds()
-            ));
+        $this->render('disease', array(
+            'model' => $model,
+            'cat_diseases' => $cat_diseases,
+            'recipes' => $recipes,
+            'pages' => $pages,
+        ));
+    }
+
+    public function actionView($id)
+    {
+        $model = RecipeBookRecipe::model()->with(array(
+            'disease' => array(
+                'select' => 'category_id'
+            )
+        ))->findByPk($id);
+
+        if (!isset($model))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $cat_diseases = RecipeBookDisease::model()->findAll(array(
+            'order' => 'name',
+            'select' => array('id', 'name', 'slug'),
+            'condition' => 'category_id=' . $model->disease->category_id
+        ));
+
+        $this->render('view', array(
+            'model' => $model,
+            'active_disease' => $model->disease->id,
+            'cat_diseases' => $cat_diseases,
+        ));
     }
 }

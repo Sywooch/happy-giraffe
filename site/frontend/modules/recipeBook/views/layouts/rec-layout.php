@@ -7,7 +7,7 @@
             } else{
                 $('#disease-type').parent('li').removeClass('current_t');
                 $.ajax({
-                    url:'" . Yii::app()->createUrl("/childrenDiseases/default/getAlphabetList") . "',
+                    url:'" . Yii::app()->createUrl("/recipeBook/default/getAlphabetList") . "',
                     type:'POST',
                     success:function (data) {
                         $('#popup').html(data);
@@ -27,7 +27,7 @@
             } else{
                 $('#disease-alphabet').parent('li').removeClass('current_t');
                 $.ajax({
-                    url:'" . Yii::app()->createUrl("/childrenDiseases/default/getCategoryList") . "',
+                    url:'" . Yii::app()->createUrl("/recipeBook/default/getCategoryList") . "',
                     type:'POST',
                     success:function (data) {
                         $('#popup').html(data);
@@ -54,11 +54,10 @@
         });
     "); ?>
 <div id="baby">
-
     <div class="content-box clearfix">
-        <div class="baby_handbook_service">
+        <div class="baby_recipes_service">
             <ul class="handbook_changes_u">
-                <li class="current_t"><a href="<?php echo $this->createUrl('/childrenDiseases/default/index') ?>">Главная</a>
+                <li class="current_t"><a href="<?php echo $this->createUrl('/recipeBook/default/index') ?>">Главная</a>
                 </li>
                 <li><a id="disease-alphabet" href="#"><span>Болезни по алфавиту</span></a></li>
                 <li><a id="disease-type" href="#"><span>Болезни по типу</span></a></li>
@@ -67,13 +66,7 @@
 
             </div>
         </div>
-        <div class="clear"></div>
-        <!-- .clear -->
-        <!-- .baby_recipes_service -->
-
-        <?php echo $content ?>
     </div>
-
+    <?php echo $content ?>
 </div>
-<div class="push"></div>
 <?php $this->endContent(); ?>

@@ -19,61 +19,6 @@
             return false;
         });
 "); ?>
-<?php Yii::app()->clientScript->registerScript('chilred-dizzy-2', "
-        $('#disease-alphabet').click(function () {
-            if ($(this).parent('li').hasClass('current_t')) {
-                $('#popup').hide();
-                $(this).parent('li').removeClass('current_t');
-            } else{
-                $('#disease-type').parent('li').removeClass('current_t');
-                $.ajax({
-                    url:'" . Yii::app()->createUrl("/childrenDiseases/default/getAlphabetList") . "',
-                    type:'POST',
-                    success:function (data) {
-                        $('#popup').html(data);
-                        $('#popup').show();
-                        $(this).parent('li').addClass('current_t');
-                    },
-                    context:$(this)
-                });
-            }
-            return false;
-        });
-
-        $('#disease-type').click(function () {
-            if ($(this).parent('li').hasClass('current_t')) {
-                $('#popup').hide();
-                $(this).parent('li').removeClass('current_t');
-            } else{
-                $('#disease-alphabet').parent('li').removeClass('current_t');
-                $.ajax({
-                    url:'" . Yii::app()->createUrl("/childrenDiseases/default/getCategoryList") . "',
-                    type:'POST',
-                    success:function (data) {
-                        $('#popup').html(data);
-                        $('#popup').show();
-                        $(this).parent('li').addClass('current_t');
-                    },
-                    context:$(this)
-                });
-            }
-            return false;
-        });
-    "); ?>
-<div id="baby">
-
-    <div class="content-box clearfix">
-        <div class="baby_recipes_service">
-            <ul class="handbook_changes_u">
-                <li class="current_t"><a href="#">Главная</a></li>
-                <li><a id="disease-alphabet" href="#"><span>Болезни по алфавиту</span></a></li>
-                <li><a id="disease-type" href="#"><span>Болезни по типу</span></a></li>
-            </ul>
-            <div class="handbook_alfa_popup" id="popup" style="display: none;">
-
-            </div>
-        </div>
-        <!-- .baby_recipes_service -->
         <div class="handbook_alfa">
             <span class="handbook_title">Выберите болезнь</span>
             <ul class="sortable_u">
@@ -89,7 +34,7 @@
                     <li><span><?php echo strtoupper($letter) ?></span></li>
                     <?php foreach ($diseases as $disease): ?>
                     <li><a
-                        href="<?php echo $this->createUrl('/childrenDiseases/default/view', array('url' => $disease->slug)) ?>"><?php
+                        href="<?php echo $this->createUrl('/recipeBook/default/disease', array('url' => $disease->slug)) ?>"><?php
                         echo $disease->name ?></a></li>
                     <?php endforeach; ?>
                 </ul>
@@ -103,7 +48,7 @@
                     <li><span><?php echo strtoupper($category) ?></span></li>
                     <?php foreach ($diseases as $disease): ?>
                     <li><a
-                        href="<?php echo $this->createUrl('/childrenDiseases/default/view', array('url' => $disease->slug)) ?>"><?php
+                        href="<?php echo $this->createUrl('/recipeBook/default/disease', array('url' => $disease->slug)) ?>"><?php
                         echo $disease->name ?></a></li>
                     <?php endforeach; ?>
                 </ul>
@@ -125,8 +70,3 @@
 
             <p><i>Пользуйтесь нашим сервисом на здоровье!</i></p>
         </div>
-
-    </div>
-
-</div>
-<div class="push"></div>

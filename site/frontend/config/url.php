@@ -27,6 +27,8 @@ return array(
         'names/<action:\w+>'=>'names/default/<action>',
         'sewing/<action:\w+>'=>'sewing/default/<action>',
         'sizes/<action:\w+>'=>'sizes/default/<action>',
+//        'recipeBook/disease/<url:\w+>'=>'recipeBook/default/disease',
+//        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',
 		//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 		'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
 //		'<controller:\w+>/<action:\w+>' => '<controller>/<action>', 

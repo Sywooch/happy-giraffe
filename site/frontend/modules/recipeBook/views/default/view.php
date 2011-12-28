@@ -4,49 +4,7 @@
 )); ?>
 
 <div class="right-inner">
-    <div class="entry entry-full">
-
-        <div class="entry-header">
-            <h1>Как выбрать детскую кроватку?</h1>
-            <div class="user">
-                <div class="ava female 	avatar">
-
-                </div>
-                <a class="username">Светлана</a>
-            </div>
-
-            <div class="meta">
-                <div class="time">3 сентября 2011, 08:25</div>
-                <div class="seen">Просмотров:&nbsp;<span>265</span></div>
-
-            </div>
-            <div class="clear"></div>
-        </div>
-
-        <div class="entry-content">
-            <div class="rec_in">
-                <div>
-                    <span>Ингредиенты:</span>
-                    <ul>
-                        <li><a href="#">неочищенный овес</a></li>
-                        <li><a href="#">неочищенный овес</a></li>
-                        <li><a href="#">неочищенный овес</a></li>
-                    </ul>
-                </div>
-            </div><!-- .rec_in -->
-            <p>Берётся одна часть овса неочищенного и 5 частей воды, доводиться до кипения и варится 10 минут, затем настаивается до комнатной температуры, процеживается, выжимается овёс, так, чтобы слизь попала в процеженный отвар. <br />Даётся за 30 минут до еды 1-2 столовой ложки - курс лечения 1 месяц. </p>
-            <div class="clear"></div>
-        </div>
-
-        <div class="entry-footer">
-            <div class="source">Источник:&nbsp;<img src="../static/images/ico.jpg"/>&nbsp;<a class="link" href="http://www.championat.com/">Чемпионат.com</a></div>&nbsp
-            <span class="comm">Отзывов: <span>2</span></span>
-            <div class="spam">
-                <a href=""><span>Нарушение!</span></a>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
+    <?php $this->renderPartial('_view',array('data'=>$model)); ?>
 
     <div class="like-block">
         <div class="block">
@@ -63,47 +21,31 @@
         <div class="clear"></div>
     </div>
 
-    <div class="more">
-        <big class="title">
-            Еще рецепты - <ins class="clr_bl">Атопический дерматит</ins>
-            <a href="" class="btn btn-blue-small"><span><span>Показать все</span></span></a>
-        </big>
-        <div class="block">
-            <b><a href="">Яичная скорлупа от<br /> дерматита</a></b>
-            <div class="more_ing">
-                <span>Ингредиенты:</span>
-                <ul>
-                    <li><a href="#">неочищенный овес</a> - 50гр.</li>
-                </ul>
+    <?php if (!empty($more_recipes)):?>
+            <div class="more">
+                <big class="title">
+                    Еще рецепты - <ins class="clr_bl"><?php echo $model->disease->name ?></ins>
+                    <a href="<?php echo $this->createUrl('/recipeBook/default/disease', array('url'=>$model->disease->slug))
+                        ?>" class="btn btn-blue-small"><span><span>Показать все</span></span></a>
+                </big>
+                <?php foreach ($more_recipes as $recipe): ?>
+                <div class="block">
+                    <b><a href="<?php echo $this->createUrl('/recipeBook/default/view', array('id'=>$recipe->id))
+                        ?>"><?php echo $recipe->name ?></a></b>
+                    <div class="more_ing">
+                        <span>Ингредиенты:</span>
+                        <ul>
+                            <?php foreach ($recipe->ingredients as $ingredient): ?>
+                            <li><a href="#"><?php echo $ingredient->name ?></a> <?php echo 'x '.$ingredient->amount ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php echo $recipe->text ?>
+                </div>
+                <?php endforeach; ?>
+                <div class="clear"></div>
             </div>
-            <img src="../static/images/dermatit_4.jpg" alt="" title="" width="100%" />
-            <p>Очищенную скорлупу от куриных яиц высушить на воздухе -  ...</p>
-        </div>
-        <div class="block">
-            <b><a href="">Рецепт травяной ванны «Чебурашка»</a></b>
-            <div class="more_ing">
-                <span>Ингредиенты:</span>
-                <ul>
-                    <li><a href="#">неочищенный овес</a></li>
-                    <li><a href="#">неочищенный овес</a></li>
-                </ul>
-            </div>
-            <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке. Это вредно для не доконца оформившегося позвоночника малыша. Младенцам нужна ... </p>
-        </div>
-        <div class="block">
-            <b><a href="">Мед и оливковое масло</a></b>
-            <div class="more_ing">
-                <span>Ингредиенты:</span>
-                <ul>
-                    <li><a href="#">неочищенный овес</a></li>
-                    <li><a href="#">неочищенный овес</a></li>
-                    <li><a href="#">неочищенный овес</a></li>
-                </ul>
-            </div>
-            <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке. Это вредно для не доконца оформившегося позвоночника малыша. Младенцам нужна ... </p>
-        </div>
-        <div class="clear"></div>
-    </div>
+    <?php endif ?>
 
     <div class="comments">
         <div class="c-header">
@@ -166,7 +108,7 @@
         <div class="user">
             <div class="user">
                 <div class="ava avatar male">
-                    <a href=""><img src="../static/images/ava.png"></a>
+                    <a href=""><img src="/images/ava.png"></a>
                 </div>
                 <a class="username">Светлана</a>
             </div>
@@ -183,7 +125,7 @@
     <div class="clearfix">
         <div class="user">
             <div class="ava avatar male">
-                <a href=""><img src="../static/images/ava.png"></a>
+                <a href=""><img src="/images/ava.png"></a>
             </div>
             <a class="username">Светлана</a>
         </div>

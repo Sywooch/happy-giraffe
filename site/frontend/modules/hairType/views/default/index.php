@@ -53,7 +53,7 @@
             active_step++;
         });
 
-        $('.hair_type_bl').show();
+//        $('.hair_type_bl').show();
     });
 
     function ShowResult() {

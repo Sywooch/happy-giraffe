@@ -2,17 +2,18 @@
 <?php Yii::app()->clientScript->registerScript('chilred-dizzy-2', "
         $('#disease-alphabet').mouseover(function () {
             if ($(this).parent('li').hasClass('current_t')) {
-                $('#popup').hide();
-                $(this).parent('li').removeClass('current_t');
+                still_out = false;
             } else{
-                $('#disease-type').parent('li').removeClass('current_t');
+            $(this).parent('li').addClass('current_t');
+                        $('#disease-type').parent('li').removeClass('current_t');
+
                 $.ajax({
                     url:'" . Yii::app()->createUrl("/childrenDiseases/default/getAlphabetList") . "',
                     type:'POST',
                     success:function (data) {
                         $('#popup').html(data);
                         $('#popup').show();
-                        $(this).parent('li').addClass('current_t');
+
                     },
                     context:$(this)
                 });
@@ -22,17 +23,17 @@
 
         $('#disease-type').mouseover(function () {
             if ($(this).parent('li').hasClass('current_t')) {
-                $('#popup').hide();
-                $(this).parent('li').removeClass('current_t');
+                still_out = false;
             } else{
-                $('#disease-alphabet').parent('li').removeClass('current_t');
+                $(this).parent('li').addClass('current_t');
+                        $('#disease-alphabet').parent('li').removeClass('current_t');
                 $.ajax({
                     url:'" . Yii::app()->createUrl("/childrenDiseases/default/getCategoryList") . "',
                     type:'POST',
                     success:function (data) {
                         $('#popup').html(data);
                         $('#popup').show();
-                        $(this).parent('li').addClass('current_t');
+
                     },
                     context:$(this)
                 });
@@ -53,6 +54,38 @@
             event.stopPropagation();
         });
 
+        var still_out = true;
+        var closetimer;
+
+        $('#popup').bind('mouseleave', function(){
+            still_out = true;
+            closetimer = window.setTimeout(popup_close, 500);
+        });
+
+        $('#popup').bind('mouseover', function(){
+            still_out = false;
+        });
+
+        $('#disease-alphabet').bind('mouseleave',  function(){
+            if ($(this).parent('li').hasClass('current_t')){
+                still_out = true;
+                closetimer = window.setTimeout(popup_close, 500);
+            }
+        });
+        $('#disease-type').bind('mouseleave',  function(){
+            if ($(this).parent('li').hasClass('current_t')){
+                still_out = true;
+                closetimer = window.setTimeout(popup_close, 500);
+            }
+        });
+
+        function popup_close(){
+            if (still_out){
+                $('#popup').hide();
+                $('#disease-alphabet').parent('li').removeClass('current_t');
+                $('#disease-type').parent('li').removeClass('current_t');
+            }
+        }
 "); ?>
 <div id="baby">
 

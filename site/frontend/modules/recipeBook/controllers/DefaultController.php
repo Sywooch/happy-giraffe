@@ -141,7 +141,7 @@ class DefaultController extends Controller
     {
         $model = RecipeBookRecipe::model()->with(array(
             'disease' => array(
-                'select' => 'category_id'
+                'select' => array('category_id', 'id', 'name', 'slug')
             )
         ))->findByPk($id);
 
@@ -157,10 +157,18 @@ class DefaultController extends Controller
             'condition' => 'category_id=' . $model->disease->category_id
         ));
 
+        $more_recipes = RecipeBookRecipe::model()->findAll(array(
+            'order' => new CDbExpression('RAND()'),
+            'limit'=>3,
+//            'select' => array('id', 'name', 'slug'),
+            'condition' => 'disease_id=' . $model->disease_id.' AND id != '.$id
+        ));
+
         $this->render('view', array(
             'model' => $model,
             'active_disease' => $model->disease->id,
             'cat_diseases' => $cat_diseases,
+            'more_recipes'=>$more_recipes
         ));
     }
 }

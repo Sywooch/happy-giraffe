@@ -70,9 +70,10 @@ class RecipeBookRecipe extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, disease_id, purposeIds, text', 'required'),
-			array('name', 'length', 'max'=>255),
+			array('name, internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max'=>255),
 			array('disease_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDisease'),
 			array('purposeIds', 'safe'),
+			array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, disease_id, text', 'safe', 'on'=>'search'),

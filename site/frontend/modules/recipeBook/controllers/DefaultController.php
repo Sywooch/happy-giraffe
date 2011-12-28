@@ -63,6 +63,8 @@ class DefaultController extends Controller
 				{
 					$model->refresh();
 				}
+				
+				$this->redirect('/recipeBook');
 			}
 		}
 		

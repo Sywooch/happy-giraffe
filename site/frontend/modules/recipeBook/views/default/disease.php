@@ -1,6 +1,6 @@
 <?php $this->renderPartial('_left_col',array(
     'cat_diseases' => $cat_diseases,
-    'active_disease'=>$model->id
+    'active_disease'=>$model
 ));
 
 $js_content_report = "

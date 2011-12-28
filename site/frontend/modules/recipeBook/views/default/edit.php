@@ -58,7 +58,7 @@
 <script id="ingredientTmpl" type="text/x-jquery-tmpl">
 <tr>
 	<td><?php echo CHtml::activeTextField($ingredient_model, '[${num}]name', array('class' => 't_ingr')); ?></td>
-	<td><?php echo CHtml::activeTextField($ingredient_model, '[${num}]name', array('class' => 't_much')); ?></td>
+	<td><?php echo CHtml::activeTextField($ingredient_model, '[${num}]amount', array('class' => 't_much')); ?></td>
 	<td>
 		<?php echo CHtml::activeDropDownList($ingredient_model, '[${num}]unit', RecipeBookIngredient::getUnitValues(), array(
 			'prompt' => 'не указано',
@@ -80,6 +80,7 @@
 				</ul>
 			</div><!-- .baby_recipes_service -->
 			<div class="new-footer">
+				<?php echo CHtml::errorSummary(array_merge(array($model), $ingredients)); ?>
 				<div class="add_rec_field">
 					<span>Добавить рецепт:</span>
 					<ins>Заголовок рецепта:</ins>
@@ -118,30 +119,9 @@
 					<div class="settings-l">
 						<div class="inner-title">Назначение рецепта</div>
 						<table class="fr_recipe_tb">
-							<tr>
-								<td><input type="checkbox" class="RadioClass" id="v1" />
-								<label for="v1" class="RadioLabelClass">Детские</label></td>
-								<td><input type="checkbox" class="RadioClass" id="v2" />
-								<label for="v2" class="RadioLabelClass">Примочки</label></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" class="RadioClass" id="v3" />
-								<label for="v3" class="RadioLabelClass">Отвары, напитки, настои</label></td>
-								<td><input type="checkbox" class="RadioClass" id="v4" />
-								<label for="v4" class="RadioLabelClass">Мази</label</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" class="RadioClass" id="v5" />
-								<label for="v5" class="RadioLabelClass">Ванны</label></td>
-								<td><input type="checkbox" class="RadioClass" id="v6" />
-								<label for="v6" class="RadioLabelClass">Бальзамы</label</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" class="RadioClass" id="v7" />
-								<label for="v7" class="RadioLabelClass">Порошки</label></td>
-								<td><input type="checkbox" class="RadioClass" id="v8" />
-								<label for="v8" class="RadioLabelClass">Экстракты</label</td>
-							</tr>
+							<?php echo $form->checkBoxList($model, 'purposeIds', CHtml::listData(RecipeBookPurpose::model()->findAll(), 'id', 'name'), array(
+								'template' => '<tr><td>{input} {label}</td></tr>',
+							)); ?>
 						</table>
 						<div class="clear"></div>
 					</div>
@@ -167,6 +147,20 @@
 							<th>Ед. измерения</th>
 							<th>Удалить</th>
 						</tr>
+						<?php if (! $model->isNewRecord): ?>
+							<?php foreach ($model->ingredients as $i => $ingredient): ?>
+								<tr>
+									<td><?php echo CHtml::activeTextField($ingredient, '[${num}]name', array('class' => 't_ingr')); ?></td>
+									<td><?php echo CHtml::activeTextField($ingredient, '[${num}]amount', array('class' => 't_much')); ?></td>
+									<td>
+										<?php echo CHtml::activeDropDownList($ingredient, '[${num}]unit', RecipeBookIngredient::getUnitValues(), array(
+											'prompt' => 'не указано',
+										)); ?>
+									</td>
+									<td><a href="#" class="remove"><img src="/images/bg_popup_close.gif" alt="" title="" /></a></td>
+								</tr>
+							<?php endforeach; ?>
+						<?php endif; ?>
 					</table>
 					<a href="#" class="more_lk">Добавить еще поле</a>
 					<div class="clear"></div>
@@ -181,7 +175,7 @@
 						));
 					?>
 				</div><!-- html_redactor_sett -->
-				<div class="settings">
+			<!--	<div class="settings">
 			
 			<div class="settings-l">
 				<div class="inner-title">Укажите источник</div>
@@ -215,7 +209,7 @@
 			</div>
 			<div class="clear">
 			</div>
-		</div>
+		</div>-->
 				<div class="clear"></div>
 				
 				<div class="button_panel">

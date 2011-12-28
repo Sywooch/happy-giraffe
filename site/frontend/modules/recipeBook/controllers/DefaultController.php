@@ -123,7 +123,7 @@ class DefaultController extends Controller
 
         $criteria = new CDbCriteria;
         $criteria->compare('disease_id', $model->id);
-	$criteria->with ='user';
+	    $criteria->with ='user';
         $count = RecipeBookRecipe::model()->count($criteria);
         $pages = new CPagination($count);
         $pages->pageSize = 10;
@@ -193,6 +193,7 @@ class DefaultController extends Controller
                     'votes_con' => $model->votes_con,
                     'pro_percent' => $model->proPercent,
                     'con_percent' => $model->conPercent,
+                    'total' => $model->votes_pro - $model->votes_con,
                 );
             }
             else

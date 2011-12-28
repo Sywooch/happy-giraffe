@@ -27,7 +27,7 @@ $js = "$('.your_opinion').delegate('a', 'click', function(e) {
 				success: function(response) {
 					//var b = {0: 'red', 1: 'green'};
 					//offer.find('a').removeClass('btn-red-small').removeClass('btn-green-small').addClass('btn-gray-small');
-					//button.removeClass('btn-gray-small').addClass('btn-' + b[vote] + '-small');
+					offer.find('.rate').text(response.total);
 					offer.find('span.votes_pro').text(response.votes_pro+' ('+response.pro_percent+'%)');
 					offer.find('span.votes_con').text(response.votes_con+' ('+response.con_percent+'%)');
 				},
@@ -46,7 +46,7 @@ Yii::app()->clientScript
 
     <div class="like-block" rel="<?php echo $model->id ?>">
         <div class="block">
-            <div class="rate"><?php echo $model->getTotalVotes() ?></div>
+            <div class="rate"><?php echo $model->votes_pro - $model->votes_con ?></div>
             рейтинг
         </div>
         <big>Рецепт полезен?</big>

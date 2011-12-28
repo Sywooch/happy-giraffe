@@ -523,7 +523,7 @@
 #baby .baby_handbook_service ul.handbook_changes_u li a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background:#64bc51;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
 #baby .baby_handbook_service ul.handbook_changes_u li a span {display:inline-block;padding:0 20px 0 0;background: url(../images/down_wh_arr.png) 100% 27px no-repeat;}
 #baby .baby_handbook_service ul.handbook_changes_u li.current_t a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#724c99;text-decoration:none;background:#fff;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
-#baby .baby_handbook_service ul.handbook_changes_u li.current_t a span {display:inline-block;padding:0;}
+#baby .baby_handbook_service ul.handbook_changes_u li.current_t a span {display:inline-block;display:inline-block;padding:0 20px 0 0;background: url(../images/rarr_fio.png) 100% 27px no-repeat;}
 #baby .handbook_alfa {display:block;padding:40px;margin:20px 0 40px 0;background:#fffde8;}
 #baby .handbook_alfa span.handbook_title {float:left;font:bold 25px/25px arial, sans-serif;color:#4a4a4a;padding:0 0 35px 0;}
 #baby .handbook_alfa ul.sortable_u {float:right;padding:0 0 35px 0;font:13px/18px arial, sans-serif;color:#5e5f60;}

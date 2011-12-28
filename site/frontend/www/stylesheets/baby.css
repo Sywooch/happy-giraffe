@@ -585,4 +585,4 @@
 #baby .handbook_alfa_popup .handbook_multi {-moz-column-count: 4;-moz-column-gap: 20px;-webkit-column-count: 4;-webkit-column-gap: 20px;column-count: 4;column-gap: 20px;}
 #baby .handbook_alfa_popup ul.handbook_list {display:block;margin:0 0 40px 0;}
 #baby .handbook_alfa_popup ul.handbook_list li {margin:0 0 5px 0;}
-#baby .handbook_alfa_popup ul.handbook_list li span {font:bold 16px/25px arial, sans-serif;width:25px;text-align:center;color:#fff;background:#c5a7e2;display:inline-block;}
+#baby .handbook_alfa_popup ul.handbook_list li span {font:bold 16px/25px arial, sans-serif;padding: 0 10px;text-align:center;color:#fff;background:#c5a7e2;display:inline-block;}

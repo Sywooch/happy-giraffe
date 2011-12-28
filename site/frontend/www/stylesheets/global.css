@@ -1109,7 +1109,7 @@ table.fr_recipe_tb td {width:50%;}
 .add .btn-green_bl {font:bold 30px/28px arial, sans-serif;color:#fff;text-decoration:none;display:block;height:62px;padding:5px 0 0 0;text-align:center;background: url(../images/bg_gr_large_button.png) 0 0 repeat-x;border:1px solid #3eaf51;border-radius:15px;-moz-border-radius:15px;-webkit-border-radius:15px;}
 .text .r_us {display:block;color:#5dca41;font-size:12px;}
 .text .r_unus {display:block;color:#ff2033;font-size:12px;}
-.rec_in {display:block;width:170px;padding:0 75px 0 0;margin:0 0 20px 0;background: url(../images/recipe_icon.png) 100% center no-repeat;}
+.rec_in {display:block;float:left;padding:0 75px 0 0;margin:0 0 20px 0;background: url(../images/recipe_icon.png) 100% center no-repeat;}
 .rec_in div {display:block;padding:10px;background:#e2fedf;min-height:50px;}
 .rec_in div span {font:20px/20px arial, sans-serif;color:#515151;display:block;}
 .rec_in div ul li {margin:5px 0 0 0;}

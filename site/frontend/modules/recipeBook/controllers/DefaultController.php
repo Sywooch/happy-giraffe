@@ -123,6 +123,7 @@ class DefaultController extends Controller
 
         $criteria = new CDbCriteria;
         $criteria->compare('disease_id', $model->id);
+	$criteria->with ='user';
         $count = RecipeBookRecipe::model()->count($criteria);
         $pages = new CPagination($count);
         $pages->pageSize = 10;
@@ -141,7 +142,7 @@ class DefaultController extends Controller
     {
         $this->layout = 'rec-layout';
         $model = RecipeBookRecipe::model()->with(array(
-		'user',
+	
             'disease' => array(
                 'select' => array('category_id', 'id', 'name', 'slug')
             )

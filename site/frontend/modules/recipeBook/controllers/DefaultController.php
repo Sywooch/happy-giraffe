@@ -141,6 +141,7 @@ class DefaultController extends Controller
     {
         $this->layout = 'rec-layout';
         $model = RecipeBookRecipe::model()->with(array(
+		'user',
             'disease' => array(
                 'select' => array('category_id', 'id', 'name', 'slug')
             )

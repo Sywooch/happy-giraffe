@@ -74,7 +74,7 @@ Yii::app()->clientScript
                     <span>Ингредиенты:</span>
                     <ul>
                         <?php foreach ($recipe->ingredients as $ingredient): ?>
-                        <li><a href="#"><?php echo $ingredient->name ?></a> <?php echo 'x '.$ingredient->amount ?></li>
+                        <li><a href="#"><?php echo $ingredient->name ?></a> <?php echo 'x '.(int)$ingredient->amount.' '.$ingredient->unitValue; ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>

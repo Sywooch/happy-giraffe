@@ -5,9 +5,11 @@ Yii::import('application.modules.recipeBook.models.RecipeBookDiseaseCategory.php
 class DefaultController extends Controller
 {
     public $layout = 'desease';
+    public $index = false;
 
 	public function actionIndex()
 	{
+        $this->index = true;
         $diseases = RecipeBookDisease::model()->findAll(array('order'=>'name','select'=>array('id','name','slug','category_id')));
         $alphabetList = RecipeBookDisease::GetDiseaseAlphabetList($diseases);
         $categoryList = RecipeBookDisease::GetDiseaseCategoryList($diseases);

@@ -1,8 +1,9 @@
 <style type="text/css">
-    #cuselFrame-project{
+    #cuselFrame-project {
         z-index: 12;
     }
-    #cuselFrame-size{
+
+    #cuselFrame-size {
         z-index: 11;
     }
 </style>
@@ -29,7 +30,7 @@
                 type:'POST',
                 success:function (data) {
                     $('#result').html('<div class="yarn_result"><span class="result_sp">' +
-                        data + PluralNumber(data, ' метр', '', 'а', 'ов')+'</span> пряжи потребуется ' +
+                        data + PluralNumber(data, ' метр', '', 'а', 'ов') + '</span> пряжи потребуется ' +
                         '<ins>Результаты расчета приблизительные*</ins></div>');
                 }
             });
@@ -54,35 +55,71 @@
 </script>
 <?php $model = new YarnCalcForm ?>
 <div class="embroidery_service">
-    <img src="/images/service_much_yarn.jpg" alt="" title="" />
+    <img src="/images/service_much_yarn.jpg" alt="" title=""/>
+
     <div class="list_yarn">
         <form id="yarn-form" action="">
             <ul>
                 <li>
                     <ins>Что вяжем?</ins>
 								<span class="title_h">
-                                    <?php echo CHtml::activeDropDownList($model, 'project', CHtml::listData(YarnProjects::model()->cache(60)->findAll(), 'id', 'name'), array('id' => 'project','class'=>'mn_cal')) ?>
+                                    <?php echo CHtml::activeDropDownList($model, 'project', CHtml::listData(YarnProjects::model()->cache(60)->findAll(), 'id', 'name'), array('id' => 'project', 'class' => 'mn_cal')) ?>
 								</span>
                 </li>
                 <li>
                     <ins>Размер</ins>
 								<span class="title_h">
-                                    <?php echo CHtml::activeDropDownList($model, 'size', YarnProjects::model()->sizes[$model->size], array('id' => 'size','class'=>"num_cal")) ?><br>
+                                    <?php echo CHtml::activeDropDownList($model, 'size', YarnProjects::model()->sizes[$model->size], array('id' => 'size', 'class' => "num_cal")) ?>
+                                    <br>
 								</span>
                 </li>
                 <li>
                     <ins>Количество</ins>
 								<span class="title_h">
-                                    <?php echo CHtml::activeDropDownList($model, 'gauge', YarnProjects::model()->gauges[$model->gauge], array('id' => 'gauge', 'class'=>"yr_cal")) ?>
+                                    <?php echo CHtml::activeDropDownList($model, 'gauge', YarnProjects::model()->gauges[$model->gauge], array('id' => 'gauge', 'class' => "yr_cal")) ?>
 								</span>
                 </li>
                 <li>
-                    <input type="button" class="calc_bt" value="Рассчитать" />
+                    <input type="button" class="calc_bt" value="Рассчитать"/>
                 </li>
             </ul>
         </form>
-    </div><!-- .list_yarn -->
+    </div>
+    <!-- .list_yarn -->
     <div id="result">
 
     </div>
 </div><!-- .embroidery_service -->
+<div class="seo-text">
+    <h1 class="summary-title">Сколько пряжи для вязания нужно?</h1>
+
+    <p>Вы хотите связать жилет для мужа, платье для себя или пинетки для будущего малыша, но не знаете, на что хватит
+        пряжи дома, а на что – лучше купить в магазине?</p>
+
+    <div class="brushed">
+        <h3>Воспользуйтесь нашим сервисом!</h3>
+
+        <p>Это очень просто. Для начала вам нужно связать образец в виде квадрата со сторонами 10 сантиметров. Потом –
+            подсчитать количество петель, уместившихся в одном ряду.</p>
+
+        <p>Вводим в специальную форму:</p>
+        <ul>
+            <li>Название изделия,</li>
+            <li>Его размер,</li>
+            <li>Количество петель, уместившихся в одном ряду образца.</li>
+        </ul>
+        <p>Через секунду вы получите результат, сколько метров пряжи вам потребуется.</p>
+    </div>
+
+    <p><b>Важно:</b></p>
+    <ul>
+        <li>При вывязывании ажурных узоров с крупными отверстиями пряжи может понадобиться меньше, но лучше взять
+            рассчитанное количество.
+        </li>
+        <li>Если вы планируете вывязывать объёмный узор – косы, шишки, узорную резинку, дополнительные или накладные
+            элементы изделия – пряжи может понадобиться значительно больше. В этом случае количество пряжи лучше
+            увеличить на 10 – 20%.
+        </li>
+    </ul>
+    <p><b>Удачного вам вязания!</b></p>
+</div>

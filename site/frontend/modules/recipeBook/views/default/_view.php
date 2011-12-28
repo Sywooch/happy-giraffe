@@ -9,9 +9,7 @@
         <a href="<?php echo $this->createUrl('/recipeBook/default/view', array('id'=>$data->id))
             ?>"><h1><?php echo $data->name ?></h1></a>
         <div class="user">
-            <div class="ava <?php echo ($data->user->gender == 1)?'male':'female' ?> avatar">
-
-            </div>
+            <?php $this->widget('AvatarWidget', array('user' => $data->user)); ?>
             <a class="username"><?php echo $data->user->first_name.' '.$data->user->last_name ?></a>
         </div>
 
@@ -29,7 +27,7 @@
                 <span>Ингредиенты:</span>
                 <ul>
                     <?php foreach ($data->ingredients as $ingredient): ?>
-                        <li><a href="#"><?php echo $ingredient->name ?></a> <?php echo 'x '.$ingredient->amount ?></li>
+                        <li><a href="#"><?php echo $ingredient->name ?></a> <?php echo 'x '.(int)$ingredient->amount.' '.$ingredient->unitValue; ?></li>
                     <?php endforeach; ?>
                 </ul>
             </div>

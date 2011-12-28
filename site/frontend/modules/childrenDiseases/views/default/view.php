@@ -22,7 +22,7 @@ Yii::app()->clientScript
 <div id="handbook_article_ill">
     <div class="left-inner">
         <div class="themes">
-            <div class="theme-pic">Заболевания</div>
+            <div class="theme-pic"><?php echo $model->category->name; ?></div>
             <ul class="leftlist">
                 <?php foreach ($cat as $cat_disease): ?>
                 <li><a <?php if ($cat_disease->id == $model->id) echo 'class="current" ' ?>

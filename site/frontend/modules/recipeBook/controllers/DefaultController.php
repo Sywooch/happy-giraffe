@@ -74,6 +74,14 @@ class DefaultController extends Controller
 		));
 	}
 	
+	public function actionList()
+	{
+		$recipies = RecipeBookRecipe::model()->findAll();
+		$this->render('list', array(
+			'recipies' => $recipies,
+		));
+	}
+	
 	public function actionDiseases()
 	{
 		if (Yii::app()->request->isAjaxRequest)

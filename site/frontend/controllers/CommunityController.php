@@ -255,6 +255,7 @@ class CommunityController extends Controller
 		{
 			$content_model->attributes = $_POST['CommunityContent'];
 			$slave_model->attributes = $_POST['CommunityTravel'];
+			$images = CUploadedFile::getInstancesByName('CommunityTravelImage[image]');
 			
 			$valid = $content_model->validate();
 			$valid = $slave_model->validate() && $valid;
@@ -270,6 +271,13 @@ class CommunityController extends Controller
 				}
 			}
 			
+			$j = 0;
+			foreach ($images as $i)
+			{
+				$valid = (! $i->hasError) && $valid;
+				$slave_model->addError('name', 'Произошла ошибка при загрузке файла #' . ++$j . '.');
+			}
+			
 			if ($valid)
 			{
 				$content_model->save(false);
@@ -280,7 +288,6 @@ class CommunityController extends Controller
 					$waypoint->travel_id = $slave_model->id;
 					$waypoint->save(false);
 				}
-				$images = CUploadedFile::getInstancesByName('CommunityTravelImage[image]');
 				foreach ($images as $i)
 				{	
 					if ($i->saveAs(Yii::getPathOfAlias('webroot').'/upload/travels/original/'.$i->name))

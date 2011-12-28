@@ -2,6 +2,8 @@
 
 class DefaultController extends Controller
 {
+	public $layout = '//layouts/main';
+
 	public function actionIndex()
 	{
 		$this->render('index');
@@ -57,7 +59,7 @@ class DefaultController extends Controller
 			}
 		}
 		
-		$this->render('_form', array(
+		$this->render('edit', array(
 			'model' => $model,
 			'ingredients' => $ingredients,
 		));

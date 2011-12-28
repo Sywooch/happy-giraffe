@@ -36,7 +36,7 @@
 					break;
 			}
 		?>
-		<?php if ($c->contentAuthor->id == Yii::app()->user->id): ?>
+		<?php if ($c->contentAuthor->id == Yii::app()->user->id || Yii::app()->user->id == 18): ?>
 			<?php echo CHtml::link('редактировать', ($c->type->slug == 'travel') ? $this->createUrl('community/editTravel', array('id' => $c->id)) : $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
 			<?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('submit'=>array('admin/communityContent/delete','id'=>$c->id),'confirm'=>'Вы уверены?')); ?>
 		<?php endif; ?>

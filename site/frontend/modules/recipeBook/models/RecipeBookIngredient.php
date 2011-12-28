@@ -33,6 +33,12 @@ class RecipeBookIngredient extends CActiveRecord
 			12 => 'капли',
 		);
 	}
+	
+	public function getUnitValue()
+	{
+		$v = self::getUnitValues();
+		return $v[$this->unit];
+	}
 
 	/**
 	 * Returns the static model of the specified AR class.

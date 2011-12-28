@@ -32,8 +32,6 @@
             return false;
         });
 
-
-
         $('#step0 .hair_begin').click(function(){
             $('#step0').fadeOut(300, function(){
                 $('.h_step_first').fadeIn(300);
@@ -120,23 +118,23 @@
     <img src="../images/hair_section_step_first.jpg" alt="" title="" />
     <div class="hair_inner_bl">
         <form action="">
-            <span class="h_question_title">Ваши корни волос…</span>
+            <span class="h_question_title">Как часто вы моете волосы?</span>
             <ul>
                 <li>
                     <input type="radio" name="v" id="value11" class="RadioClass" />
-                    <label for="value11" class="RadioLabelClass">После мытья нормальные, но через день-два становятся жирными и сальными</label>
+                    <label for="value11" class="RadioLabelClass">1 раз в 2-3 дня</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value12" class="RadioClass"/>
-                    <label for="value12" class="RadioLabelClass">После мытья корни нормальные, но уже к вечеру выглядят жирными и неопрятными</label>
+                    <label for="value12" class="RadioLabelClass">Ежедневно</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value13" class="RadioClass"/>
-                    <label for="value13" class="RadioLabelClass">После мытья корни сухие, через несколько дней состояние нормализуется, через неделю волосы у корней немного жирные</label>
+                    <label for="value13" class="RadioLabelClass">1 раз в неделю или реже</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value14" class="RadioClass"/>
-                    <label for="value14" class="RadioLabelClass">После мытья корни волос нормальные, через 2-3 дня корни становятся жирными, а кончики волос остаются сухими</label>
+                    <label for="value14" class="RadioLabelClass">1 раз в 3-4 дня</label>
                 </li>
             </ul>
         </form>
@@ -147,25 +145,23 @@
     <img src="../images/hair_section_step_second.jpg" alt="" title="" />
     <div class="hair_inner_bl">
         <form action="">
-            <span class="h_question_title">Состояние кончиков ваших волос<br>
-            (если длина волос 20-25 см)
-            </span>
+            <span class="h_question_title">Ваши корни волос…</span>
             <ul>
                 <li>
                     <input type="radio" name="v" id="value21"class="RadioClass" />
-                    <label for="value21" class="RadioLabelClass">Обычные или немного суховатые, иногда секутся</label>
+                    <label for="value21" class="RadioLabelClass">После мытья нормальные, но через день-два становятся жирными и сальными</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value22" class="RadioClass"/>
-                    <label for="value22" class="RadioLabelClass">Обычные, в основном не секутся</label>
+                    <label for="value22" class="RadioLabelClass">После мытья корни нормальные, но уже к вечеру выглядят жирными и неопрятными</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value23" class="RadioClass"/>
-                    <label for="value23" class="RadioLabelClass">Тонкие и ломкие, часто секутся</label>
+                    <label for="value23" class="RadioLabelClass">После мытья корни сухие, через несколько дней состояние нормализуется, через неделю волосы у корней немного жирные</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value24" class="RadioClass"/>
-                    <label for="value24" class="RadioLabelClass">Тонкие, секущиеся и сухие</label>
+                    <label for="value24" class="RadioLabelClass">После мытья корни волос нормальные, через 2-3 дня корни становятся жирными, а кончики волос остаются сухими</label>
                 </li>
             </ul>
         </form>
@@ -176,23 +172,25 @@
     <img src="../images/hair_section_step_third.jpg" alt="" title="" />
     <div class="hair_inner_bl">
         <form action="">
-            <span class="h_question_title">Естественный блеск ваших волос<br />  (сразу после мытья)</span>
+            <span class="h_question_title">Состояние кончиков ваших волос<br>
+            (если длина волос 20-25 см)
+            </span>
             <ul>
                 <li>
                     <input type="radio" name="v" id="value31"class="RadioClass" />
-                    <label for="value31" class="RadioLabelClass">После мытья блестят, через пару дней у корней появляется жирный блеск</label>
+                    <label for="value31" class="RadioLabelClass">Обычные или немного суховатые, иногда секутся</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value32" class="RadioClass"/>
-                    <label for="value32" class="RadioLabelClass">Сразу после мытья блеск натуральный, но уже через несколько часов появляется избыточный жирный блеск</label>
+                    <label for="value32" class="RadioLabelClass">Обычные, в основном не секутся</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value33" class="RadioClass"/>
-                    <label for="value33" class="RadioLabelClass">После мытья волосы немного блестят, но быстро тускнеют</label>
+                    <label for="value33" class="RadioLabelClass">Тонкие и ломкие, часто секутся</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value34" class="RadioClass"/>
-                    <label for="value34" class="RadioLabelClass">После мытья у корней волосы блестят, на кончиках блеск не такой интенсивный. Через пару дней корни жирные, а кончики не блестят</label>
+                    <label for="value34" class="RadioLabelClass">Тонкие, секущиеся и сухие</label>
                 </li>
             </ul>
         </form>
@@ -203,23 +201,23 @@
     <img src="../images/hair_section_step_fourth.jpg" alt="" title="" />
     <div class="hair_inner_bl">
         <form action="">
-            <span class="h_question_title">Электризуются ли ваши волосы?</span>
+            <span class="h_question_title">Естественный блеск ваших волос<br />  (сразу после мытья)</span>
             <ul>
                 <li>
                     <input type="radio" name="v" id="value41"class="RadioClass" />
-                    <label for="value41" class="RadioLabelClass">Весьма редко</label>
+                    <label for="value41" class="RadioLabelClass">После мытья блестят, через пару дней у корней появляется жирный блеск</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value42" class="RadioClass"/>
-                    <label for="value42" class="RadioLabelClass">Практически никогда</label>
+                    <label for="value42" class="RadioLabelClass">Сразу после мытья блеск натуральный, но уже через несколько часов появляется избыточный жирный блеск</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value43" class="RadioClass"/>
-                    <label for="value43" class="RadioLabelClass">Достаточно регулярно</label>
+                    <label for="value43" class="RadioLabelClass">После мытья волосы немного блестят, но быстро тускнеют</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value44" class="RadioClass"/>
-                    <label for="value44" class="RadioLabelClass">В основном кончики волос</label>
+                    <label for="value44" class="RadioLabelClass">После мытья у корней волосы блестят, на кончиках блеск не такой интенсивный. Через пару дней корни жирные, а кончики не блестят</label>
                 </li>
             </ul>
         </form>
@@ -230,23 +228,23 @@
     <img src="../images/hair_section_step_fifth.jpg" alt="" title="" />
     <div class="hair_inner_bl">
         <form action="">
-            <span class="h_question_title">Объем ваших волос</span>
+            <span class="h_question_title">Электризуются ли ваши волосы?</span>
             <ul>
                 <li>
                     <input type="radio" name="v" id="value51"class="RadioClass" />
-                    <label for="value51" class="RadioLabelClass">Нормальный</label>
+                    <label for="value51" class="RadioLabelClass">Весьма редко</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value52" class="RadioClass"/>
-                    <label for="value52" class="RadioLabelClass">После мытья объем есть, но держится недолго</label>
+                    <label for="value52" class="RadioLabelClass">Практически никогда</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value53" class="RadioClass"/>
-                    <label for="value53" class="RadioLabelClass">Непостоянный, волосы разлетаются</label>
+                    <label for="value53" class="RadioLabelClass">Достаточно регулярно</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value54" class="RadioClass"/>
-                    <label for="value54" class="RadioLabelClass">Объем только у кончиков волос</label>
+                    <label for="value54" class="RadioLabelClass">В основном кончики волос</label>
                 </li>
             </ul>
         </form>
@@ -257,23 +255,23 @@
     <img src="../images/hair_section_step_sixth.jpg" alt="" title="" />
     <div class="hair_inner_bl">
         <form action="">
-            <span class="h_question_title">Насколько хорошо ваши волосы <br> впитывают влагу?</span>
+            <span class="h_question_title">Объем ваших волос</span>
             <ul>
                 <li>
                     <input type="radio" name="v" id="value61"class="RadioClass" />
-                    <label for="value61" class="RadioLabelClass">Средне</label>
+                    <label for="value61" class="RadioLabelClass">Нормальный</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value62" class="RadioClass"/>
-                    <label for="value62" class="RadioLabelClass">Плохо</label>
+                    <label for="value62" class="RadioLabelClass">После мытья объем есть, но держится недолго</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value63" class="RadioClass"/>
-                    <label for="value63" class="RadioLabelClass">Отлично</label>
+                    <label for="value63" class="RadioLabelClass">Непостоянный, волосы разлетаются</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value64" class="RadioClass"/>
-                    <label for="value64" class="RadioLabelClass">У корней впитываемость хорошая, на кончиках - хуже</label>
+                    <label for="value64" class="RadioLabelClass">Объем только у кончиков волос</label>
                 </li>
             </ul>
         </form>
@@ -284,23 +282,23 @@
     <img src="../images/hair_section_step_seventh.jpg" alt="" title="" />
     <div class="hair_inner_bl">
         <form action="">
-            <span class="h_question_title">Ваша укладка (без использования <br>косметических средств)</span>
+            <span class="h_question_title">Насколько хорошо ваши волосы <br> впитывают влагу?</span>
             <ul>
                 <li>
                     <input type="radio" name="v" id="value71"class="RadioClass" />
-                    <label for="value71" class="RadioLabelClass">Средняя</label>
+                    <label for="value71" class="RadioLabelClass">Средне</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value72" class="RadioClass"/>
-                    <label for="value72" class="RadioLabelClass">Низкая</label>
+                    <label for="value72" class="RadioLabelClass">Плохо</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value73" class="RadioClass"/>
-                    <label for="value73" class="RadioLabelClass">Высокая (впитывают влагу как губка)</label>
+                    <label for="value73" class="RadioLabelClass">Отлично</label>
                 </li>
                 <li>
                     <input type="radio" name="v" id="value74" class="RadioClass"/>
-                    <label for="value74" class="RadioLabelClass">У корней низкая, на кончиках – высокая</label>
+                    <label for="value74" class="RadioLabelClass">У корней впитываемость хорошая, на кончиках - хуже</label>
                 </li>
             </ul>
         </form>
@@ -308,7 +306,7 @@
 </div><!-- .hair_type_bl -->
 
 <div class="hair_type_bl" id="greasy_type" style="display: none;">
-    <img src="../images/hair_section_main.jpg" alt="" title="" />
+    <img src="../images/hair_section_result.jpg" alt="" title="" />
     <div class="hair_result_bl">
         <span class="your_res">Тип Ваших волос: <ins>Жирные</ins></span>
         <span class="your_rec">Рекомендации</span>
@@ -325,7 +323,7 @@
 </div><!-- .hair_type_bl -->
 
 <div class="hair_type_bl" id="dry_type" style="display: none;">
-    <img src="../images/hair_section_main.jpg" alt="" title="" />
+    <img src="../images/hair_section_result.jpg" alt="" title="" />
     <div class="hair_result_bl">
         
         <span class="your_res">Тип Ваших волос: <ins>Сухие</ins></span>
@@ -342,7 +340,7 @@
 </div><!-- .hair_type_bl -->
 
 <div class="hair_type_bl" id="normal_type" style="display: none;">
-    <img src="../images/hair_section_main.jpg" alt="" title="" />
+    <img src="../images/hair_section_result.jpg" alt="" title="" />
     <div class="hair_result_bl">
         
         <span class="your_res">Тип Ваших волос: <ins>Нормальные</ins></span>
@@ -358,7 +356,7 @@
 </div><!-- .hair_type_bl -->
 
 <div class="hair_type_bl" id="mixed_type" style="display: none;">
-    <img src="../images/hair_section_main.jpg" alt="" title="" />
+    <img src="../images/hair_section_result.jpg" alt="" title="" />
     <div class="hair_result_bl">
         
         <span class="your_res">Тип Ваших волос: <ins>Смешанный</ins></span>
@@ -373,10 +371,10 @@
 </div><!-- .hair_type_bl -->
 
 <div class="hair_type_bl" id="unknown_type" style="display: none;">
-    <img src="../images/hair_section_main.jpg" alt="" title="" />
+    <img src="../images/hair_section_result.jpg" alt="" title="" />
     <div class="hair_result_bl">
         
-        <span class="your_res">Тип Ваших волос: <ins>неизвестен</ins></span>
+        <span class="your_res">Тип Ваших волос: <ins>Неизвестен</ins></span>
         <span class="your_rec">Рекомендации</span>
 
         <p>Похоже, что вы некорректно ответили на поставленные вопросы, поэтому ваш результат определить затруднительно.</p>

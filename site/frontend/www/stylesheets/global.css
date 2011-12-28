@@ -995,24 +995,24 @@ float: left;
 .hair_type_bl .RadioSelected{background: url(../images/radio_sel.png) 0 0 no-repeat;}
 
 .h_step_first .hair_inner_bl {height:275px;}
-.h_step_first span.h_question_title {padding:20px 0;}
-.h_step_first ul {padding:0 0 0 20px;}
+.h_step_first span.h_question_title {padding:40px 0;}
+.h_step_first ul {padding:0 0 0 60px;}
 
 .h_step_second .hair_inner_bl {height:275px;}
-.h_step_second span.h_question_title {padding:20px 0 30px;}
-.h_step_second ul {padding:0 40px;}
+.h_step_second span.h_question_title {padding:20px;}
+.h_step_second ul {padding:0 20px;}
 
 .h_step_third .hair_inner_bl {height:275px;}
-.h_step_third span.h_question_title {padding:20px 0 10px;}
+.h_step_third span.h_question_title {padding:30px 0 40px;}
 .h_step_third ul {padding:0 10px 0 20px;}
 
 .h_step_fourth .hair_inner_bl {height:326px;}
-.h_step_fourth span.h_question_title {padding:50px 0;}
-.h_step_fourth ul {padding:0 25px 0 60px;}
+.h_step_fourth span.h_question_title {padding:25px 0;}
+.h_step_fourth ul {padding:0 20px;}
 
 .h_step_fifth .hair_inner_bl {height:275px;}
-.h_step_fifth span.h_question_title {padding:45px 0 30px 0;}
-.h_step_fifth ul {padding:0 0 0 20px;}
+.h_step_fifth span.h_question_title {padding:45px 0 40px 0;}
+.h_step_fifth ul {padding:0 0 0 60px;}
 
 .h_step_sixth .hair_inner_bl {height:275px;}
 .h_step_sixth span.h_question_title {padding:30px 0 30px 0;}
@@ -1067,7 +1067,7 @@ float: left;
 .thread_result b {font:bold 25px/25px arial, sans-serif;color:#49ac33;padding:0 0 0 10px;}
 
 /*===== Recipe settings =====*/
-.add_rec_field {display:block;padding:0 0 15px 0;}
+.add_rec_field {display:block;padding:20px 0 15px 0;}
 .add_rec_field span {display:block;text-align:center;padding:0 0 30px 0;font:bold 25px/25px arial, sans-serif;color:#2296b0;}
 .add_rec_field ins {display:block;margin:0 0 5px 165px;font:italic 20px/20px arial ,sans-serif;color:#2296b0;}
 .add_rec_field input {margin:0 0 0 165px;width:585px;padding:0 10px;height:43px;border:1px solid #c9eaf1;font:16px/43px arial ,sans-serif;color:#2296b0;}
@@ -1091,3 +1091,37 @@ table.fr_recipe_tb td {width:50%;}
 #baby .settings-l ul.wrote_w {display:block;text-align:center;margin:0 0 15px 0;}
 #baby .settings-l ul.wrote_w li {display:inline;margin:0 5px 10px 0;}
 #baby .settings-l ul.wrote_w li input {float:none;margin:0;}
+
+/*===== Recipe article =====*/
+.add .btn-green_bl {font:bold 30px/28px arial, sans-serif;color:#fff;text-decoration:none;display:block;height:62px;padding:5px 0 0 0;text-align:center;background: url(../images/bg_gr_large_button.png) 0 0 repeat-x;border:1px solid #3eaf51;border-radius:15px;-moz-border-radius:15px;-webkit-border-radius:15px;}
+.text .r_us {display:block;color:#5dca41;font-size:12px;}
+.text .r_unus {display:block;color:#ff2033;font-size:12px;}
+.rec_in {display:block;width:170px;padding:0 75px 0 0;margin:0 0 20px 0;background: url(../images/recipe_icon.png) 100% center no-repeat;}
+.rec_in div {display:block;padding:10px;background:#e2fedf;min-height:50px;}
+.rec_in div span {font:20px/20px arial, sans-serif;color:#515151;display:block;}
+.rec_in div ul li {margin:5px 0 0 0;}
+.your_opinion {display:block;padding:10px 0 0 100px;}
+.your_opinion ul li {display:inline;margin:0 15px 0 0;font:18px/32px arial, sans-serif;}
+.your_opinion ul li.agree_u {color:#2ba74b;}
+.your_opinion ul li.agree_u a {margin:0 5px 0 0;display:inline-block;padding:0 22px;height:30px;border:1px solid #34ac51;font:bold 16px/32px arial, sans-serif;color:#fff;background: url(../images/bg_gr_agree.png) 0 0 repeat-x;text-decoration:none;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+.your_opinion ul li.disagree_u {color:#ef3939;}
+.your_opinion ul li.disagree_u a {margin:0 5px 0 0;display:inline-block;padding:0 22px;height:30px;border:1px solid #de1818;font:bold 16px/32px arial, sans-serif;color:#fff;background: url(../images/bg_rd_disagree.png) 0 0 repeat-x;text-decoration:none;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+big.title ins.clr_bl {color:#000;font-weight:normal;}
+.more_ing {display:block;padding:10px;background:#e2fedf;margin:0 0 10px 0;}
+.more_ing span {font:15px/15px arial, sans-serif;color:#515151;display:block;}
+.more_ing ul li {margin:5px 0 0 0;}
+.more .more_ing ul li a {padding:0;height:auto;min-height:1em;}
+.add_comment_newest {display:block;padding:30px 0;}
+.add_comment_newest textarea {width:96%;padding:20px 2%;border:1px solid #c9eaf1;height:130px;font:14px/18px tahoma, sans-serif;color:#c2c4c4;}
+.add_comment_newest .button_panel {display:block;padding:15px 0 0 0;}
+ul.quest_fun {display:block;padding:0 0 10px 0;}
+ul.quest_fun li {display:inline;margin:0 5px 0 0;}
+ul.quest_fun li span {margin:0 5px 0 0;font:14px arial, sans-serif;color:#58b7cc;}
+ul.quest_fun li.agree_u a {display:inline-block;padding:0 10px;height:18px;border:1px solid #8dd562;font:bold 11px/18px arial, sans-serif;color:#209b07;background: url(../images/bg_gr_small_agree.png) 0 0 repeat-x;text-decoration:none;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+ul.quest_fun li.disagree_u a {display:inline-block;padding:0 10px;height:18px;border:1px solid #e35e5e;font:bold 11px/18px arial, sans-serif;color:#ca0202;background: url(../images/bg_rd_small_disagree.png) 0 0 repeat-x;text-decoration:none;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+.art_lk_recipes {display:block;padding:15px 0 5px 0;border-bottom:1px solid #caf3f8;text-align:center;}
+.art_lk_recipes ul.quest_fun {display:block;}
+.art_lk_recipes ul.quest_fun li {display:inline;margin:0 5px 0 0;}
+.art_lk_recipes ul.quest_fun li span {margin:0 5px 0 0;font:14px arial, sans-serif;color:#58b7cc;}
+.art_lk_recipes ul.quest_fun li.agree_u a {display:inline-block;padding:0 10px;height:18px;border:1px solid #8dd562;font:bold 11px/18px arial, sans-serif;color:#209b07;background: url(../images/bg_gr_small_agree.png) 0 0 repeat-x;text-decoration:none;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+.art_lk_recipes ul.quest_fun li.disagree_u a {display:inline-block;padding:0 10px;height:18px;border:1px solid #e35e5e;font:bold 11px/18px arial, sans-serif;color:#ca0202;background: url(../images/bg_rd_small_disagree.png) 0 0 repeat-x;text-decoration:none;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}

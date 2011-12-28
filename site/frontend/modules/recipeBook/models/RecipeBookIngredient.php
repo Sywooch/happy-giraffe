@@ -18,8 +18,19 @@ class RecipeBookIngredient extends CActiveRecord
 	public static function getUnitValues()
 	{
 		return array(
-			'g' => 'гр',
-			'ml' => 'мл',
+			0 => '1/2 ст',
+			1 => '1/3 ст',
+			2 => '1/4 ст',
+			3 => 'г',
+			4 => 'кг',
+			5 => 'л',
+			6 => 'мл',
+			7 => 'ст',
+			8 => 'ст. ложка',
+			9 => 'ч',
+			10 => 'ч. ложка',
+			11 => 'штук',
+			12 => 'капли',
 		);
 	}
 

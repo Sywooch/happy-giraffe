@@ -249,7 +249,7 @@
 
 
 .seo-text {padding: 20px 20px 20px 35px;color: #474747;}
-.seo-text .summary-title{color:#906ab3;font-size:25px;margin-bottom:0px;font-weight: normal;line-height: 1;}
+.seo-text .summary-title{color:#906ab3 !important;font-size:25px !important;margin-bottom:0px;font-weight: normal;line-height: 1;}
 .seo-text p{margin: 1em 0 0;color: #474747;}
 .seo-text h3{margin-top: 20px;}
 .seo-text h4{margin-top: 20px;font-size: 16px;}

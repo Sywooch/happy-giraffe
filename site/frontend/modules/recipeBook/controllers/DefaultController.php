@@ -169,7 +169,7 @@ class DefaultController extends Controller
 
         $this->render('view', array(
             'model' => $model,
-            'active_disease' => $model->disease->id,
+            'active_disease' => $model->disease,
             'cat_diseases' => $cat_diseases,
             'more_recipes'=>$more_recipes
         ));

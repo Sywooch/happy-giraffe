@@ -5,10 +5,10 @@
     </div>
 
     <div class="themes">
-        <div class="theme-pic_double">Инфекционные<br>заболевания</div>
+        <div class="theme-pic_double"><?php echo $active_disease->name; ?></div>
         <ul class="leftlist">
             <?php foreach ($cat_diseases as $cat_disease): ?>
-            <li><a <?php if ($cat_disease->id == $active_disease) echo 'class="current" ' ?>
+            <li><a <?php if ($cat_disease->id == $active_disease->id) echo 'class="current" ' ?>
                 href="<?php echo $this->createUrl('/recipeBook/default/disease', array('url' => $cat_disease->slug)) ?>"><?php
                 echo $cat_disease->name ?></a></li>
             <?php endforeach; ?>

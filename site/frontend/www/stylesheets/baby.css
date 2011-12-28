@@ -248,15 +248,15 @@
 #baby .hospital-bag-item-fast .item-storage {float:right;width:191px;height:49px;background:url(../images/hospital_bag_item_storage_fast.png) no-repeat;text-align:center;line-height:49px;font-size:18px;color:#c9c7c7;}
 
 
-#baby .seo-text {padding: 20px 20px 20px 35px;color: #474747;}
-#baby .seo-text .summary-title{color:#906ab3;font-size:25px;margin-bottom:0px;font-weight: normal;line-height: 1;}
-#baby .seo-text p{margin: 1em 0 0;color: #474747;}
-#baby .seo-text h3{margin-top: 20px;}
-#baby .seo-text h4{margin-top: 20px;font-size: 16px;}
-#baby .seo-text ul{list-style-type: disc;margin-left: 20px;}
-#baby .seo-text ul li{padding-top: 0.4em;color: #474747;}
-#baby .seo-text div.brushed{background: #fcfbd5; padding:10px;margin: 20px 0;}
-#baby .seo-text div.brushed h3 {margin-top: 0;}
+.seo-text {padding: 20px 20px 20px 35px;color: #474747;}
+.seo-text .summary-title{color:#906ab3;font-size:25px;margin-bottom:0px;font-weight: normal;line-height: 1;}
+.seo-text p{margin: 1em 0 0;color: #474747;}
+.seo-text h3{margin-top: 20px;}
+.seo-text h4{margin-top: 20px;font-size: 16px;}
+.seo-text ul{list-style-type: disc;margin-left: 20px;}
+.seo-text ul li{padding-top: 0.4em;color: #474747;}
+.seo-text div.brushed{background: #fcfbd5; padding:10px;margin: 20px 0;}
+.seo-text div.brushed h3 {margin-top: 0;}
 #baby .vaccination-birthday .cusel{margin-top: 3px;}
 #baby .vaccination-birthday .cusel {margin-bottom: -5px;}
 

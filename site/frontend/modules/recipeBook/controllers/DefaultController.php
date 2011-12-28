@@ -24,19 +24,22 @@ class DefaultController extends Controller
 
     public function actionEdit($id = null)
     {
-        if ($id === null) {
+        if ($id === null)
+        {
             $model = new RecipeBookRecipe;
         }
         else
         {
             $model = RecipeBookRecipe::model()->with(array('disease.category.diseases', 'purposes', 'ingredients'))->findByPk($id);
-            if ($model === null) {
+            if ($model === null)
+            {
                 throw new CHttpException(404, 'Такой записи не существует.');
             }
         }
 
         $ingredients = array();
-        if (isset($_POST['RecipeBookRecipe'], $_POST['RecipeBookIngredient'])) {
+        if (isset($_POST['RecipeBookRecipe'], $_POST['RecipeBookIngredient']))
+        {
             $model->attributes = $_POST['RecipeBookRecipe'];
             $model->purposes = $model->purposeIds;
             $valid = $model->validate();
@@ -49,10 +52,12 @@ class DefaultController extends Controller
                 $ingredients[] = $ingredient;
             }
 
-            if ($valid) {
+            if ($valid)
+            {
                 $isNewRecord = $model->isNewRecord;
                 $model->save(false);
-                if (!$isNewRecord) {
+                if (! $isNewRecord)
+                {
                     RecipeBookIngredient::model()->deleteAllByAttributes(array('recipe_id' => $model->id));
                 }
                 foreach ($ingredients as $ingredient)
@@ -60,7 +65,8 @@ class DefaultController extends Controller
                     $ingredient->recipe_id = $model->id;
                     $ingredient->save(false);
                 }
-                if (!$isNewRecord) {
+                if (! $isNewRecord)
+                {
                     $model->refresh();
                 }
 
@@ -72,6 +78,26 @@ class DefaultController extends Controller
             'model' => $model,
             'ingredients' => $ingredients,
         ));
+    }
+
+    public function actionList()
+    {
+        $recipies = RecipeBookRecipe::model()->findAll();
+        $this->render('list', array(
+            'recipies' => $recipies,
+        ));
+    }
+
+    public function actionDiseases()
+    {
+        if (Yii::app()->request->isAjaxRequest)
+        {
+            $model = new RecipeBookRecipe;
+            $category_id = $_POST['disease_category'];
+
+            $diseases = RecipeBookDisease::model()->findAllByAttributes(array('category_id' => $category_id));
+            echo CHtml::activeDropDownList($model, 'disease_id', CHtml::listData($diseases, 'id', 'name'), array('prompt' => 'Выберите болезнь'));
+        }
     }
 
     public function actionGetAlphabetList()
@@ -92,17 +118,6 @@ class DefaultController extends Controller
         $this->renderPartial('category_list', array(
             'categoryList' => $categoryList
         ));
-    }
-
-    public function actionDiseases()
-    {
-        if (Yii::app()->request->isAjaxRequest) {
-            $model = new RecipeBookRecipe;
-            $category_id = $_POST['disease_category'];
-
-            $diseases = RecipeBookDisease::model()->findAllByAttributes(array('category_id' => $category_id));
-            echo CHtml::activeDropDownList($model, 'disease_id', CHtml::listData($diseases, 'id', 'name'), array('prompt' => 'Выберите болезнь'));
-        }
     }
 
     public function actionDisease($url)

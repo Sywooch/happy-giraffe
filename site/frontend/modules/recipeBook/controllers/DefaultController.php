@@ -3,10 +3,12 @@
 class DefaultController extends Controller
 {
     public $layout = '//layouts/main';
+    public $index = false;
 
     public function actionIndex()
     {
         $this->layout = 'rec-layout';
+        $this->index = true;
         $diseases = RecipeBookDisease::model()->findAll(array('order' => 'name', 'select' => array('id', 'name', 'slug', 'category_id')));
         $alphabetList = RecipeBookDisease::GetDiseaseAlphabetList($diseases);
         $categoryList = RecipeBookDisease::GetDiseaseCategoryList($diseases);

@@ -6,7 +6,7 @@
     var step_count;
 
     $(function () {
-        step_count = 7;
+        step_count = 8;
         $('.RadioClass').attr('checked', false);
 
         $('#next-step-button').click(function () {
@@ -299,6 +299,33 @@
                 <li>
                     <input type="radio" name="v" id="value74" class="RadioClass"/>
                     <label for="value74" class="RadioLabelClass">У корней впитываемость хорошая, на кончиках - хуже</label>
+                </li>
+            </ul>
+        </form>
+    </div><!-- .hair_inner_bl -->
+</div><!-- .hair_type_bl -->
+
+<div class="hair_type_bl h_step_eight" id="step8" style="display: none;">
+    <img src="../images/hair_section_step_eight.jpg" alt="" title="" />
+    <div class="hair_inner_bl">
+        <form action="">
+            <span class="h_question_title">Ваша укладка<br>(без использования <br>косметических средств)</span>
+            <ul>
+                <li>
+                    <input type="radio" name="v" id="value81"class="RadioClass" />
+                    <label for="value81" class="RadioLabelClass">В зависимости от объема волос, укладка нормальная</label>
+                </li>
+                <li>
+                    <input type="radio" name="v" id="value82" class="RadioClass"/>
+                    <label for="value82" class="RadioLabelClass">Волосы укладываются, но прическа держится недолго</label>
+                </li>
+                <li>
+                    <input type="radio" name="v" id="value83" class="RadioClass"/>
+                    <label for="value83" class="RadioLabelClass">Не укладываются или плохо укладываются</label>
+                </li>
+                <li>
+                    <input type="radio" name="v" id="value84" class="RadioClass"/>
+                    <label for="value84" class="RadioLabelClass">Хорошо держится только у корней</label>
                 </li>
             </ul>
         </form>

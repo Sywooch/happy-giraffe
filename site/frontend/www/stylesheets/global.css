@@ -1079,6 +1079,33 @@ float: left;
 .thread_result ins {position:absolute;right:10px;bottom:10px;font:italic 13px/13px arial, sans-serif;color:#4185ca;}
 .thread_result b {font:bold 25px/25px arial, sans-serif;color:#49ac33;padding:0 0 0 10px;}
 
+.tissue_left {display:block;width:293px;position:absolute;left:40px;top:142px;text-align:center;}
+.tissue_left .tissue_type {position:relativedisplay:block;width:264px;height:120px;margin:0 auto;padding:15px 0 0 0;background: url(../images/much_flax.png) 0 0 no-repeat;}
+.tissue_left .tissue_type span {display:block;margin:0 15px 15px 15px;background: url(../images/wh_tr_form.png) 0 0 repeat;padding:10px;font:16px/16px tahoma, sans-serif;color:#181718;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+.tissue_left .tissue_type span ins {display:block;font:35px/35px tahoma, sans-serif;color:#181718;padding:0 0 3px 0;}
+.tissue_left .tissue_calc {margin:10px 0 0 0;display:block;padding:15px;background: url(../images/blue_trans.png) 0 0 repeat;border-radius:15px;-moz-border-radius:15px;-webkit-border-radius:15px;}
+.tissue_left input.calc_bt {font:30px tahoma, sans-serif;color:#a46307;width:220px;height:58px;border:1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+.tissue_calc ul li {display:block;padding:5px;margin:0 0 13px 0;background: url(../images/wh_trans.png) 0 0 repeat;color:#757474;}
+.tissue_calc ul li ins {font:16px/17px arial, sans-serif; color:#131212;display:block;text-align:center;padding:0 0 5px 0;}
+.tissue_calc ul li input.wh_t {margin:0 3px;width:50px;text-align:center;height:17px;background:#fff;border:1px solid #d9bff2;font:11px/17px tahoma, sans-serif;color:#575757;}
+.tissue_calc ul li input.much_t {margin:0 3px;width:34px;text-align:center;height:17px;background:#fff;border:1px solid #d9bff2;font:11px/17px tahoma, sans-serif;color:#575757;}
+.tissue_calc ul li .cusel {height: 18px;background-position: left top;display: inline-block;position: relative;cursor: pointer;font-size: 14px;z-index: 1;border:  1px solid #e6d4f6;background: #fff;font:11px tahoma, sans-serif;color:#575757;}
+.tissue_calc ul li .cuselFrameRight {position: absolute;z-index: 2;top: 0;right: 0;height: 100%;width: 19px;background-position: right top;background: #41b3cc url(../images/sel_violet.png) no-repeat;}
+.tissue_calc ul li .cusel .cusel-scroll-wrap {display: block;visibility: hidden;position: absolute;left: 0;top: 100%;border:  1px solid #e6d4f6;background: #fff;min-width: 100%;width: auto;font-size: 12px;}
+.tissue_calc ul li .cusel span:hover,
+.tissue_calc ul li .cusel .cuselOptHover {background: #a687c7;color: #fff;}
+.tissue_calc ul li .num_cal {width:50px;z-index:5;position:relative;}
+.tissue_result {font:50px/50px arial, sans-serif;color:#fc6501;display:block;padding:20px 0;background: url(../images/wh_tr_form.png) 0 0 repeat;margin:10px 0 0 0;border-radius:15px;-moz-border-radius:15px;-webkit-border-radius:15px;}
+.tissue_result span {font-size:35px;color:#a9a7a3;}
+
+.tissue_right {display:block;width:293px;position:absolute;right:40px;top:142px;text-align:center;}
+.tissue_right .tissue_type {position:relative;display:block;width:264px;height:120px;margin:0 auto;padding:15px 0 0 0;background: url(../images/much_canvas.png) 0 0 no-repeat;}
+.tissue_right .tissue_type span {height:70px;display:block;margin:0 15px 15px 15px;background: url(../images/wh_tr_form.png) 0 0 repeat;padding:10px;font:16px/16px tahoma, sans-serif;color:#181718;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+.tissue_right .tissue_type span ins {display:block;font:35px/70px tahoma, sans-serif;color:#181718;padding:0 0 3px 0;}
+.tissue_right .tissue_calc {margin:10px 0 0 0;display:block;padding:15px;background: url(../images/pink_trans.png) 0 0 repeat;border-radius:15px;-moz-border-radius:15px;-webkit-border-radius:15px;}
+.tissue_right input.calc_bt {font:30px tahoma, sans-serif;color:#a46307;width:220px;height:58px;border:1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+.tissue_right .tissue_type .style_rarr {display:block;width:47px;height:77px;background: url(../images/rd_rarr.png) 0 0 no-repeat;position:absolute;top:80px;left:85px;}
+.tissue_left .tissue_type .style_rarr {display:block;width:47px;height:63px;background: url(../images/ld_rarr.png) 0 0 no-repeat;position:absolute;top:92px;left:165px;}
 /*===== Recipe settings =====*/
 .add_rec_field {display:block;padding:20px 0 15px 0;}
 .add_rec_field span {display:block;text-align:center;padding:0 0 30px 0;font:bold 25px/25px arial, sans-serif;color:#2296b0;}
@@ -1109,7 +1136,7 @@ table.fr_recipe_tb td {width:50%;}
 .add .btn-green_bl {font:bold 30px/28px arial, sans-serif;color:#fff;text-decoration:none;display:block;height:62px;padding:5px 0 0 0;text-align:center;background: url(../images/bg_gr_large_button.png) 0 0 repeat-x;border:1px solid #3eaf51;border-radius:15px;-moz-border-radius:15px;-webkit-border-radius:15px;}
 .text .r_us {display:block;color:#5dca41;font-size:12px;}
 .text .r_unus {display:block;color:#ff2033;font-size:12px;}
-.rec_in {display:block;float:left;padding:0 75px 0 0;margin:0 0 20px 0;background: url(../images/recipe_icon.png) 100% center no-repeat;}
+.rec_in {display:inline-block;padding:0 75px 0 0;margin:0 0 20px 0;background: url(../images/recipe_icon.png) 100% center no-repeat;}
 .rec_in div {display:block;padding:10px;background:#e2fedf;min-height:50px;}
 .rec_in div span {font:20px/20px arial, sans-serif;color:#515151;display:block;}
 .rec_in div ul li {margin:5px 0 0 0;}

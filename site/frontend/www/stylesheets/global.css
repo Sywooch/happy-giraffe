@@ -859,8 +859,8 @@ width: 200px;
 .inner.contest .photo-block .content-title {margin: 0px 0 20px}
 
 .photo-list {padding:20px 0;text-align:left;}
-.photo-list li {display:block;float:left;padding:5px;text-indent:0 !important;color: #626161;font: italic 10px Arial, Helvetica, sans-serif;width:170px;height:250px;} 
-.photo-list li .img-box {text-align: center;height:180px;position:relative;background:#fafafa;text-align:center;display:table-cell;width:170px;vertical-align:bottom;}
+.photo-list li {display:block;float:left;padding:5px;text-indent:0 !important;color: #626161;font: italic 10px Arial, Helvetica, sans-serif;width:170px;} 
+.photo-list li .img-box {text-align: center;position:relative;background:#fafafa;text-align:center;display:table-cell;width:170px;vertical-align:bottom;}
 .photo-list li .img-box img {display:block;max-width:170px;max-height:180px;margin:auto;}
 .photo-list .item-title {background:#ededed;padding:5px;display:block;text-align:center;}
 .photo-list .mark {background: #fffedf;display:block;font: 10px Arial, Helvetica, sans-serif; color: #7a7b7b;text-align:right;padding:3px 12px;float:right;}

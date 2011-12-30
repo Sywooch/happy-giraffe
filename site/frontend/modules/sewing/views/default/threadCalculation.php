@@ -1,8 +1,3 @@
-<style type="text/css">
-    input {
-        border: 1px solid #000;
-    }
-</style>
 <script type="text/javascript">
     var conf = new Array();
 

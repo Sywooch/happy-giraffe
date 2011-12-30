@@ -1,8 +1,3 @@
-<style type="text/css">
-    input {
-        border: 1px solid #000;
-    }
-</style>
 <script language="javascript" type="text/javascript">
     function pushed() {
         var LEN = document.getElementById("len").value;
@@ -11,7 +6,6 @@
         var W = document.getElementById("w").value;
         var H = document.getElementById("h").value;
         if (!parseInt(PLUS) && parseInt(PLUS) != 0 || !parseInt(W) || !parseInt(H) || !parseInt(NIT)) {
-
             return;
         }
         LEN = parseInt(LEN);
@@ -27,20 +21,12 @@
         $('#res').show();
     }
 
-    function clean() {
-        document.getElementById("res").innerHTML = '';
-        document.getElementById("w").value = "";
-        document.getElementById("h").value = "";
-        document.getElementById("plus").value = "";
-        document.getElementById("nit").value = "";
-    }
     function pushed1() {
         var AIDA = document.getElementById("aida").value;
         var PLUS1 = document.getElementById("plus1").value;
         var W1 = document.getElementById("w1").value;
         var H1 = document.getElementById("h1").value;
         if (!parseInt(PLUS1) && parseInt(PLUS1) != 0 || !parseInt(W1) || !parseInt(H1)) {
-            
             return;
         }
         AIDA = parseInt(AIDA);
@@ -55,30 +41,28 @@
         $('#res1').show();
 
     }
-    function clean1() {
-        document.getElementById("res1").innerHTML = '';
-        document.getElementById("w1").value = "";
-        document.getElementById("h1").value = "";
-        document.getElementById("plus1").value = "";
-
-    }
 </script>
 <div class="embroidery_service">
-    <img src="/images/service_much_tissue.jpg" alt="" title="" />
+    <img src="/images/service_much_tissue.jpg" alt="" title=""/>
+
     <div class="tissue_left">
         <div class="tissue_type">
-            <span><ins>Для льна</ins>или другой ткани<br />равномерного переплетения</span>
-            <div class="style_rarr"></div><!-- .style_rarr -->
-        </div><!-- .tissue_type -->
+            <span><ins>Для льна</ins>или другой ткани<br/>равномерного переплетения</span>
+
+            <div class="style_rarr"></div>
+            <!-- .style_rarr -->
+        </div>
+        <!-- .tissue_type -->
         <div class="tissue_calc">
             <ul>
                 <li>
-                    <ins>Введите размер схемы<br /> в стежках:</ins>
+                    <ins>Введите размер схемы<br/> в стежках:</ins>
                     Ширина <input type="text" class="wh_t" id="w"/>
                     Высота <input type="text" class="wh_t" id="h"/>
                 </li>
                 <li>
-                    <ins>Введите количество нитей  для <br />одного “креста:<input type="text" class="much_t" id="nit"/></ins>
+                    <ins>Введите количество нитей для <br/>одного “креста:<input type="text" class="much_t" id="nit"/>
+                    </ins>
                     (обычно это 2х2 нити)
                 </li>
                 <li>
@@ -87,44 +71,54 @@
                 </li>
                 <li>
                     <ins>Выберите номер ткани:
-                        <?php echo CHtml::dropDownList('size', 28, array(25=>25,27=>27,28=>28,32=>32,36=>36), array('id' => 'len', 'class' => "num_cal")) ?>
+                        <?php echo CHtml::dropDownList('size', 28, array(25 => 25, 27 => 27, 28 => 28, 32 => 32, 36 => 36), array('id' => 'len', 'class' => "num_cal")) ?>
                     </ins>
                     (количество нитей в одном дюйме)
                 </li>
             </ul>
-            <input type="button" class="calc_bt" value="Рассчитать"  onclick="pushed()"/>
-        </div><!-- .tissue_calc -->
+            <input type="button" class="calc_bt" value="Рассчитать" onclick="pushed()"/>
+        </div>
+        <!-- .tissue_calc -->
         <div class="tissue_result" id="res" style="display: none;">
             64 x 64 <span>см</span>
-        </div><!-- .tissue_result -->
-    </div><!-- .tissue_left -->
+        </div>
+        <!-- .tissue_result -->
+    </div>
+    <!-- .tissue_left -->
     <div class="tissue_right">
         <div class="tissue_type">
             <span><ins>Для канвы</ins></span>
-            <div class="style_rarr"></div><!-- .style_rarr -->
-        </div><!-- .tissue_type -->
+
+            <div class="style_rarr"></div>
+            <!-- .style_rarr -->
+        </div>
+        <!-- .tissue_type -->
         <div class="tissue_calc">
             <ul>
                 <li>
-                    <ins>Введите размер схемы<br /> в стежках:</ins>
+                    <ins>Введите размер схемы<br/> в стежках:</ins>
                     Ширина <input type="text" class="wh_t" id="w1"/>
                     Высота <input type="text" class="wh_t" id="h1"/>
                 </li>
                 <li>
-                    <ins>Введите количество нитей  для <br />одного “креста:<input type="text" class="much_t" id="plus1"/></ins>
+                    <ins>Введите количество нитей для <br/>одного “креста:<input type="text" class="much_t" id="plus1"/>
+                    </ins>
                     (обычно это 2х2 нити)
                 </li>
                 <li>
                     <ins>Выберите номер ткани:
-                        <?php echo CHtml::dropDownList('size', 14, array(11=>11,14=>14,16=>16,18=>18,22=>22), array('id' => 'aida', 'class' => "num_cal")) ?>
+                        <?php echo CHtml::dropDownList('size', 14, array(11 => 11, 14 => 14, 16 => 16, 18 => 18, 22 => 22), array('id' => 'aida', 'class' => "num_cal")) ?>
                     </ins>
                     (количество нитей в одном дюйме)
                 </li>
             </ul>
-            <input type="button" class="calc_bt" value="Рассчитать"  onclick="pushed1()"/>
-        </div><!-- .tissue_calc -->
+            <input type="button" class="calc_bt" value="Рассчитать" onclick="pushed1()"/>
+        </div>
+        <!-- .tissue_calc -->
         <div class="tissue_result" id="res1" style="display: none;">
             64 x 64 <span>см</span>
-        </div><!-- .tissue_result -->
-    </div><!-- .tissue_right -->
+        </div>
+        <!-- .tissue_result -->
+    </div>
+    <!-- .tissue_right -->
 </div><!-- .embroidery_service -->	

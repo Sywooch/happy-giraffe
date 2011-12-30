@@ -601,7 +601,7 @@
 #baby .baby_blood_parent_group .ch_group ul li a {display:inline-block;width:42px;height:20px;background: url(../images/sr_buttons.png) 0 100% no-repeat;text-decoration:none;font:bold 16px/20px times new roman, sans-serif;color:#9e9e9e;}
 #baby .baby_blood_parent_group .ch_group ul li a.active {display:inline-block;width:42px;height:20px;background: url(../images/sr_buttons.png) 0 0 no-repeat;text-decoration:none;font:bold 16px/20px times new roman, sans-serif;color:#209b07;}
 
-#baby .baby_hanbook_names {display:block;height:296px;background: url(../images/service_recipes_illness.jpg) 0 0 no-repeat;position:relative;margin:0 0 0px 0;}
+#baby .baby_hanbook_names {display:block;height:350px;background: url(../images/service_handbook_names.jpg) 0 0 no-repeat;position:relative;margin:0 0 0px 0;}
 #baby .baby_hanbook_names ul.handbook_changes_u {position:absolute;bottom:0px;left:200px;}
 #baby .baby_hanbook_names ul.handbook_changes_u li {float:left;margin:0 3px 0 0;}
 #baby .baby_hanbook_names ul.handbook_changes_u li a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background: url(../images/vio_transparent.png) 0 0 repeat;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}

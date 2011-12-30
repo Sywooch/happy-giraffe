@@ -5,8 +5,8 @@
 
     $(function () {
 
-        $('a.letter-link').click(function () {
-            letter = $(this).attr('rel');
+        $('ul.choice_alfa_letter a').click(function () {
+            letter = $(this).text();
 
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("/names/default/index") ?>',
@@ -16,8 +16,8 @@
                 },
                 type:'GET',
                 success:function (data) {
-                    $('a.letter-link').removeClass('active');
-                    $(this).addClass('active');
+                    $('ul.choice_alfa_letter li').removeClass('current');
+                    $(this).parent('li').addClass('current');
                     $('#result').html(data);
                 },
                 context:$(this)
@@ -25,7 +25,7 @@
             return false;
         });
 
-        $('a.gender-link').click(function () {
+        $('.gender-link a').click(function () {
             gender = $(this).attr('rel');
 
             $.ajax({
@@ -36,8 +36,8 @@
                 },
                 type:'GET',
                 success:function (data) {
-                    $('a.gender-link').removeClass('active');
-                    $(this).addClass('active');
+                    $('.gender-link li').removeClass('current');
+                    $(this).parent('li').addClass('current');
                     $('#result').html(data);
                 },
                 context:$(this)
@@ -62,16 +62,60 @@
         });
     });
 </script>
-<a class="letter-link" rel="" href="<?php echo $this->createUrl('/names/default/index', array('letter' => '')) ?>">все
-    имена</a>
-<a class="letter-link" rel="а" href="<?php echo $this->createUrl('/names/default/index', array('letter' => 'а')) ?>">а</a>
-<a class="letter-link" rel="б" href="<?php echo $this->createUrl('/names/default/index', array('letter' => 'б')) ?>">б</a>
-<a class="letter-link" rel="п" href="<?php echo $this->createUrl('/names/default/index', array('letter' => 'п')) ?>">п</a>
-<br>
-<a class="gender-link" rel="" href="<?php echo $this->createUrl('/names/default/index', array('gender' => '0')) ?>">all</a>
-<a class="gender-link" rel="1" href="<?php echo $this->createUrl('/names/default/index', array('gender' => '1')) ?>">boys</a>
-<a class="gender-link" rel="2" href="<?php echo $this->createUrl('/names/default/index', array('gender' => '2')) ?>">girls</a>
-<br><br>
+<ul class="choice_alfa_letter">
+    <li class="current"><a href="#">Все</a></li>
+    <li><a href="#">А</a></li>
+    <li><a href="#">Б</a></li>
+    <li><a href="#">В</a></li>
+    <li><a href="#">Г</a></li>
+    <li><a href="#">Д</a></li>
+    <li><a href="#">Е</a></li>
+    <li><a href="#">Ж</a></li>
+    <li><a href="#">З</a></li>
+    <li><a href="#">И</a></li>
+    <li><a href="#">К</a></li>
+    <li><a href="#">Л</a></li>
+    <li><a href="#">М</a></li>
+    <li><a href="#">Н</a></li>
+    <li><a href="#">О</a></li>
+    <li><a href="#">П</a></li>
+    <li><a href="#">Р</a></li>
+    <li><a href="#">С</a></li>
+    <li><a href="#">Т</a></li>
+    <li><a href="#">У</a></li>
+    <li><a href="#">Ф</a></li>
+    <li><a href="#">Х</a></li>
+    <li><a href="#">Ц</a></li>
+    <li><a href="#">Ч</a></li>
+    <li><a href="#">Э</a></li>
+    <li><a href="#">Ю</a></li>
+    <li><a href="#">Я</a></li>
+</ul>
+<div class="show_names">
+    <span class="show_wh">Показывать:</span>
+    <ul class="gender-link">
+        <li class="all_names current">
+            <a href="#" rel="">
+                <img src="/images/all_names_icon.png" alt="" title="" /><br />
+                <span>Все имена</span>
+            </a>
+        </li>
+        <li class="man_names">
+            <a href="#" rel="1">
+                <img src="/images/man_names_icon.png" alt="" title="" /><br />
+                <span>Мальчики</span>
+            </a>
+        </li>
+        <li class="woman_names">
+            <a href="#" rel="2">
+                <img src="/images/women_names_icon.png" alt="" title="" /><br />
+                <span>Девочки</span>
+            </a>
+        </li>
+    </ul>
+    <div class="clear"></div><!-- .clear -->
+</div><!-- .show_names -->
+<div class="clear"></div><!-- .clear -->
 <div id="result">
     <?php
     $this->renderPartial('index_data', array(

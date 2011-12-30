@@ -586,3 +586,48 @@
 #baby .handbook_alfa_popup ul.handbook_list {display:block;margin:0 0 40px 0;}
 #baby .handbook_alfa_popup ul.handbook_list li {margin:0 0 5px 0;}
 #baby .handbook_alfa_popup ul.handbook_list li span {font:bold 16px/25px arial, sans-serif;padding: 0 10px;text-align:center;color:#fff;background:#c5a7e2;display:inline-block;}
+
+#baby .baby_blood_parent_group {position:relative;display:block;width:710px;height:652px;background: url(../images/service_baby_blood.jpg) 0 0 no-repeat;margin:0 0 30px 0;}
+#baby .baby_blood_parent_group input.calc_grey {margin:0 0 10px 0;width:230px;height:58px;border:1px solid #dcdcdc;background: url(../images/bg_grey_button.png) 0 0 repeat-x;font:30px tahoma, sans-serif;color:#9c9c9c;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
+#baby .baby_blood_parent_group input.calc_grey_active {margin:0 0 10px 0;width:230px;height:58px;border:1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;font:30px tahoma, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
+#baby .baby_blood_parent_group .gr_bl {display:block;width:230px;text-align:center;}
+#baby .baby_blood_parent_group .gr_bl span {display:block;text-align:center;padding:0 0 10px 0;font:15px/15px tahoma, sans-serif;color:#111110;}
+#baby .baby_blood_parent_group ul.baby_blood_parent_group_u {width:230px;display:block;position:absolute;left:110px;top:294px;}
+#baby .baby_blood_parent_group ul.baby_blood_parent_group_u li {display:block;margin:0 0 10px 0;}
+#baby .baby_blood_parent_group .ch_group {display:block;background:#f9ebf5;padding:10px 0 10px 0;}
+#baby .baby_blood_parent_group span.baby_blood_result {font:bold 30px/20px times new roman, sans-serif;color:#fa0354;display:block;text-align:center;}
+#baby .baby_blood_parent_group span.baby_blood_result ins {font-size:20px;}
+#baby .baby_blood_parent_group .ch_group ul li {display:inline;padding:0 3px;}
+#baby .baby_blood_parent_group .ch_group ul li a {display:inline-block;width:42px;height:20px;background: url(../images/sr_buttons.png) 0 100% no-repeat;text-decoration:none;font:bold 16px/20px times new roman, sans-serif;color:#9e9e9e;}
+#baby .baby_blood_parent_group .ch_group ul li a.active {display:inline-block;width:42px;height:20px;background: url(../images/sr_buttons.png) 0 0 no-repeat;text-decoration:none;font:bold 16px/20px times new roman, sans-serif;color:#209b07;}
+
+#baby .baby_hanbook_names {display:block;height:296px;background: url(../images/service_recipes_illness.jpg) 0 0 no-repeat;position:relative;margin:0 0 0px 0;}
+#baby .baby_hanbook_names ul.handbook_changes_u {position:absolute;bottom:0px;left:200px;}
+#baby .baby_hanbook_names ul.handbook_changes_u li {float:left;margin:0 3px 0 0;}
+#baby .baby_hanbook_names ul.handbook_changes_u li a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background: url(../images/vio_transparent.png) 0 0 repeat;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
+#baby .baby_hanbook_names ul.handbook_changes_u li a span {border-bottom:1px dashed #fff;}
+#baby .baby_hanbook_names ul.handbook_changes_u li.current_t a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#724c99;text-decoration:none;background:#fff;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
+#baby .baby_hanbook_names ul.handbook_changes_u li.likes a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background: url(../images/green_trans.png) 0 0 repeat;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
+
+#baby ul.choice_alfa_letter {display:block;text-align:center;padding:15px;background:#fefceb;margin:20px 0 0 0;}
+#baby ul.choice_alfa_letter li {display:inline;padding:0 4px;}
+#baby ul.choice_alfa_letter li.current a {display:inline-block;padding:5px;background:#fdf496;font:16px/16px arial, sans-serif;color:#272527;}
+#baby ul.choice_alfa_letter li  a {display:inline-block;padding:5px;font:14px/16px arial, sans-serif;color:#272527;text-decoration:none;}
+
+#baby .show_names {display:block;padding:30px 50px;}
+#baby .show_names span.show_wh {display:inline-block;font:13px arial, sans-serif;color:#b6b6b6;float:left;padding:40px 20px 0 0;float:left;}
+#baby .show_names ul {display:block;}
+#baby .show_names ul li {display:block;float:left;}
+#baby .show_names ul li a {display:block;width:65px;height:52px;text-align:center;padding:8px 0 0 0;}
+#baby .show_names ul li.current a {background:#fdf5a2;}
+#baby .show_names ul li a span {display:block;font-size:11px;}
+#baby .show_names ul li.woman_names a {color:#ffaed2;}
+
+#baby .handbook_names_alfa {padding:0 50px;-moz-column-count: 3;-moz-column-gap: 40px;-webkit-column-count: 3;-webkit-column-gap: 40px;column-count: 3;column-gap: 40px;}
+#baby .handbook_names_alfa ul li {height:60px;display:block;}
+#baby .handbook_names_alfa ul li a {display:inline-block;padding:0 30px 0 0;font:15px/20px arial, sans-serif;}
+#baby .handbook_names_alfa ul li a.dislike_nm {background: url(../images/hearts_names.png) 100% 100% no-repeat;}
+#baby .handbook_names_alfa ul li a.like_nm {background: url(../images/hearts_names.png) 100% 0 no-repeat;}
+#baby .handbook_names_alfa ul li a.man_names_lk {color:#2ca3fe;}
+#baby .handbook_names_alfa ul li a.woman_names_lk {color:#d73a92;}
+#baby .handbook_names_alfa ul li span {display:block;font:13px/13px arial, sans-serif;color:#a9a9a9;padding:3px 0 0 0;}

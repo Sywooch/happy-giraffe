@@ -1,15 +1,25 @@
-<table>
-    <tr>
-        <td>
+<div class="handbook_names_alfa">
+<?php if ($pages !== null): ?>
+<ul>
         <? $i=0;
             foreach($names as $name): ?>
-            <? $this->renderPartial('_name', array('data' => $name)); ?>
+            <li><? $this->renderPartial('_name', array('data' => $name)); ?></li>
             <?php $i++; ?>
-            <?php if ($i%10 == 0 && $i != 30) echo '</td><td>' ?>
+            <?php if ($i%10 == 0 && $i != 30) echo '</ul><ul>' ?>
         <? endforeach; ?>
-        </td>
-    </tr>
-</table>
+</ul>
+<?php else: ?>
+<?php $col = ceil(count($names)/3) ?>
+<ul>
+            <? $i=0;
+            foreach($names as $name): ?>
+                <li><? $this->renderPartial('_name', array('data' => $name)); ?></li>
+                <?php $i++; ?>
+                <?php if ($i%$col == 0 && $i != $col*3) echo '</ul><ul>' ?>
+                <? endforeach; ?>
+</ul>
+<?php endif; ?>
+</div>
 
 <?php if ($pages !== null): ?>
     <?php if ($pages->pageCount > 1): ?>

@@ -10,8 +10,8 @@ class DefaultController extends Controller
         $this->SetLikes();
         $criteria = new CDbCriteria;
         $show_all = false;
-        if ($letter !== null) {
-            $criteria->compare('name', $letter . '%', true, 'AND', false);
+        if ($letter !== null && strlen($letter) < 3) {
+            $criteria->compare('name', strtolower($letter) . '%', true, 'AND', false);
             $show_all = true;
         }
         if (!empty($gender))
@@ -27,7 +27,7 @@ class DefaultController extends Controller
                 $this->renderPartial('index_data', array(
                     'names' => $names,
                     'pages' => $pages,
-                    'likes'=>Name::GetLikeIds()
+                    'likes'=>Name::GetLikeIds(),
                 ));
             } else
                 $this->render('index', array(
@@ -41,13 +41,13 @@ class DefaultController extends Controller
                 $this->renderPartial('index_data', array(
                     'names' => $names,
                     'pages' => null,
-                    'likes'=>Name::GetLikeIds()
+                    'likes'=>Name::GetLikeIds(),
                 ));
             } else
                 $this->render('index', array(
                     'names' => $names,
                     'pages' => null,
-                    'likes'=>Name::GetLikeIds()
+                    'likes'=>Name::GetLikeIds(),
                 ));
         }
     }

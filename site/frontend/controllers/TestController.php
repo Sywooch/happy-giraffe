@@ -3,6 +3,15 @@
 class TestController extends Controller
 {
 
+	public function actionFix()
+	{
+		$contents = CommunityContent::model()->findAll(array('select' => 'id, author_id', 'order' => 'id DESC'));
+		foreach ($contents as $c)
+		{
+			echo 'UPDATE `club_community_content` SET `author_id`=' . $c->author_id . ' WHERE `id`=' . $c->id . ';' . "\n";
+		}
+	}
+
 	public function actionIndex()
 	{
 		phpinfo();

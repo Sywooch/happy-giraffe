@@ -193,8 +193,8 @@ class DefaultController extends Controller
                     'success' => true,
                     'votes_pro' => $model->votes_pro,
                     'votes_con' => $model->votes_con,
-                    'pro_percent' => $model->proPercent,
-                    'con_percent' => $model->conPercent,
+                    'pro_percent' => $model->getPercent(1),
+                    'con_percent' => $model->getPercent(0),
                     'total' => $model->votes_pro - $model->votes_con,
                 );
             }

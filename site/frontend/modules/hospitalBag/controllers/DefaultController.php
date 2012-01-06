@@ -81,8 +81,8 @@ class DefaultController extends Controller
 					'success' => true,
 					'votes_pro' => $offer->votes_pro,
 					'votes_con' => $offer->votes_con,
-					'pro_percent' => $offer->proPercent,
-					'con_percent' => $offer->conPercent,
+					'pro_percent' => $offer->getPercent(1),
+					'con_percent' => $offer->getPercent(0),
 				);
 			}
 			else

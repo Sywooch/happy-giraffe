@@ -47,7 +47,7 @@ class VaccineData
 
     public function LoadVotes(){
         $vaccineDates = VaccineDate::model()->findAll(
-            array('select'=>array('vote_decline', 'vote_agree', 'vote_did')));
+            array('select'=>array('id','vote_decline', 'vote_agree', 'vote_did')));
         foreach ($vaccineDates as $vaccineDate) {
             foreach ($this->vaccineDates as $vaccineDateCached) {
                 if ($vaccineDate->id == $vaccineDateCached->id){
@@ -67,7 +67,7 @@ class VaccineData
     public function LoadUserVotes($baby_id){
         $votes = $this->GetUserVotes(Yii::app()->user->getId(), $baby_id);
         foreach($votes as $row){
-            $this->user_votes[$row['vaccine_date_id']] = $row['vote'];
+            $this->user_votes[$row['object_id']] = $row['vote'];
         }
     }
 
@@ -81,7 +81,7 @@ class VaccineData
         if (isset($this->user_votes[$day_id]))
             return $this->user_votes[$day_id];
         else
-            return VaccineDate::VOTE_EMPTY;
+            return null;
     }
 
     /**
@@ -93,7 +93,7 @@ class VaccineData
      */
     private function GetUserVotes($user_id, $baby_id){
         $connection=Yii::app()->db;
-        $command=$connection->createCommand("SELECT vaccine_date_id, vote FROM {{vaccine_user_vote}}
+        $command=$connection->createCommand("SELECT object_id, vote FROM {{vaccine_date_vote}}
             WHERE user_id = :user_id AND baby_id=".$baby_id);
         $command->bindParam(":user_id",$user_id);
         return $command->queryAll();

@@ -13,13 +13,14 @@ class DefaultController extends Controller
         ));
     }
 
-    public function actionVaccineTable(){
+    public function actionVaccineTable()
+    {
         if (isset($_POST['day']) && isset($_POST['month']) && isset($_POST['year'])) {
             $date = strtotime($_POST['day'] . '-' . $_POST['month'] . '-' . $_POST['year']);
 
             $this->renderPartial('_data_table', array(
                 'date' => $date,
-                'baby_id'=>$_POST['baby_id'],
+                'baby_id' => $_POST['baby_id'],
             ));
         }
         if (isset($_POST['baby_id'])) {
@@ -30,7 +31,7 @@ class DefaultController extends Controller
 
             $this->renderPartial('_data_table', array(
                 'date' => $date,
-                'baby_id'=>$_POST['baby_id'],
+                'baby_id' => $_POST['baby_id'],
             ));
         }
     }
@@ -40,20 +41,24 @@ class DefaultController extends Controller
         if (Yii::app()->request->isAjaxRequest) {
             if (Yii::app()->user->isGuest) {
                 echo CJSON::encode(array(
-                    'success'=>false,
+                    'success' => false,
                 ));
                 Yii::app()->end();
             }
             $vaccineDate = $this->LoadVaccineDate($id);
-            if ($vaccineDate->ChangeVote(Yii::app()->user->getId(),$vote, $baby_id))
-                echo CJSON::encode(array(
-                    'success'=>true,
-                    'decline'=>$vaccineDate->vote_decline.' ('.$vaccineDate->DeclinePercent().'%)',
-                    'agree'=>$vaccineDate->vote_agree.' ('.$vaccineDate->AgreePercent().'%)',
-                    'did'=>$vaccineDate->vote_did.' ('.$vaccineDate->DidPercent().'%)',
-                ));
-            else
-                echo CJSON::encode(array('success'=>false));
+            $vaccineDate->vote(array(
+                'user_id' => Yii::app()->user->getId(),
+                'baby_id' => $baby_id), $vote);
+            $vaccineDate->refresh();
+
+            echo CJSON::encode(array(
+                'success' => true,
+                'decline' => $vaccineDate->vote_decline . ' (' . $vaccineDate->getPercent(0) . '%)',
+                'agree' => $vaccineDate->vote_agree . ' (' . $vaccineDate->getPercent(1) . '%)',
+                'did' => $vaccineDate->vote_did . ' (' . $vaccineDate->getPercent(2) . '%)',
+            ));
+            //            else
+            //                echo CJSON::encode(array('success' => false));
         }
     }
 
@@ -61,7 +66,8 @@ class DefaultController extends Controller
      * @param $id
      * @return VaccineDate
      */
-    public function LoadVaccineDate($id){
+    public function LoadVaccineDate($id)
+    {
         return VaccineDate::model()->findByPk($id);
     }
 }

@@ -30,9 +30,9 @@ class VaccineDate extends CActiveRecord
     const INTERVAL_YEAR = 4;
 
     const VOTE_EMPTY = 0;
-    const VOTE_DECLINE = 1;
-    const VOTE_AGREE = 2;
-    const VOTE_DID = 3;
+    const VOTE_DECLINE = 0;
+    const VOTE_AGREE = 1;
+    const VOTE_DID = 2;
 
     /**
      * @var int
@@ -129,7 +129,7 @@ class VaccineDate extends CActiveRecord
             'vote_decline' => 'Голосов против',
             'vote_agree' => 'Голосов за',
             'vote_did' => 'Уже сделали',
-            'comment'=>'Примечание'
+            'comment' => 'Примечание'
         );
     }
 
@@ -165,7 +165,16 @@ class VaccineDate extends CActiveRecord
 
     public function behaviors()
     {
-        return array('ManyToManyBehavior');
+        return array(
+            'ManyToManyBehavior',
+            'VoteBehavior' => array(
+                'class' => 'VoteBehavior',
+                'vote_attributes' => array(
+                    '0' => 'vote_decline',
+                    '1' => 'vote_agree',
+                    '2' => 'vote_did',
+                )),
+        );
     }
 
     //****************************************************************************************************/
@@ -316,7 +325,7 @@ class VaccineDate extends CActiveRecord
     {
         $str = $this->GetVaccinationTypeString() . ' против ' . $this->GetDiseasesLinks();
         if (!empty($this->comment))
-            $str.= ' ('.$this->comment.')';
+            $str .= ' (' . $this->comment . ')';
         return $str;
     }
 
@@ -329,7 +338,7 @@ class VaccineDate extends CActiveRecord
     {
         $result = '';
         foreach ($this->diseases as $disease)
-            $result .= CHtml::link($disease->name_genitive,'#') . ', ';
+            $result .= CHtml::link($disease->name_genitive, '#') . ', ';
         return trim($result, ', ');
     }
 
@@ -410,145 +419,13 @@ class VaccineDate extends CActiveRecord
         return $user_vote;
     }
 
-    public function DeclinePercent()
+    private function GetUserVoteFromDb($user_id, $baby_id)
     {
-        if ($this->VoteAmount() == 0)
-            return 0;
-        return round(($this->vote_decline / $this->VoteAmount()) * 100);
-    }
-
-    public function AgreePercent()
-    {
-        if ($this->VoteAmount() == 0)
-            return 0;
-        return round(($this->vote_agree / $this->VoteAmount()) * 100);
-    }
-
-    public function DidPercent()
-    {
-        if ($this->VoteAmount() == 0)
-            return 0;
-        return round(($this->vote_did / $this->VoteAmount()) * 100);
-    }
-
-    public function VoteAmount()
-    {
-        return $this->vote_decline + $this->vote_agree + $this->vote_did;
-    }
-
-    /**
-     * @param $user_id
-     * @param $vote
-     * @param $baby_id
-     * @return bool
-     */
-    public function ChangeVote($user_id, $vote, $baby_id)
-    {
-        $transaction = Yii::app()->db->beginTransaction();
-        try
-        {
-            $old_vote = $this->GetUserVoteFromDb($user_id, $baby_id);
-
-            if (!empty($old_vote)) {
-                if ($old_vote == $vote)
-                    return true;
-                $result = $this->UpdateUserVote($user_id, $baby_id, $vote);
-                if (!$result)
-                    return false;
-                $this->CancelVote($old_vote);
-                $this->AddVote($vote);
-//                var_dump($old_vote,$vote);
-                if (!$this->save()) {
-//                    var_dump($this->getErrors());
-                    return false;
-                }
-            } else {
-                $user_vote = $this->InsertNewUserVote($user_id, $baby_id, $vote);
-                if (!$user_vote)
-                    return false;
-                $this->AddVote($vote);
-                if (!$this->save()) {
-                    var_dump($this->getErrors());
-                    return false;
-                }
-            }
-            $transaction->commit();
-        }
-        catch (Exception $e)
-        {
-            $transaction->rollBack();
-            echo 'Ошибка транзакции';
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * @param $vote user choice
-     */
-    public function CancelVote($vote)
-    {
-        switch ($vote) {
-            case self::VOTE_DECLINE :
-                $this->vote_decline--;
-                break;
-            case self::VOTE_AGREE :
-                $this->vote_agree--;
-                break;
-            case self::VOTE_DID :
-                $this->vote_did--;
-                break;
-        }
-    }
-
-    /**
-     * @param $vote
-     */
-    public function AddVote($vote)
-    {
-        switch ($vote) {
-            case self::VOTE_DECLINE :
-                $this->vote_decline++;
-                break;
-            case self::VOTE_AGREE :
-                $this->vote_agree++;
-                break;
-            case self::VOTE_DID :
-                $this->vote_did++;
-                break;
-        }
-    }
-
-    private function GetUserVoteFromDb($user_id, $baby_id){
-        $connection=Yii::app()->db;
-        $command=$connection->createCommand("SELECT vote FROM {{vaccine_user_vote}}
-            WHERE user_id = :user_id AND vaccine_date_id=".$this->id." AND baby_id=".$baby_id);
-        $command->bindParam(":user_id",$user_id);
+        $connection = Yii::app()->db;
+        $command = $connection->createCommand("SELECT vote FROM {{vaccine_date_vote}}
+            WHERE user_id = :user_id AND object_id=" . $this->id . " AND baby_id=" . $baby_id);
+        $command->bindParam(":user_id", $user_id);
         return $command->queryScalar();
-    }
-
-    private function UpdateUserVote($user_id, $baby_id, $new_vote){
-        $connection=Yii::app()->db;
-        $command=$connection->createCommand("UPDATE {{vaccine_user_vote}}
-            SET vote = ".$new_vote."
-            WHERE user_id = :user_id AND vaccine_date_id=".$this->id." AND baby_id=".$baby_id);
-        $command->bindParam(":user_id",$user_id);
-        return $command->execute();
-    }
-
-    private function InsertNewUserVote($user_id, $baby_id, $new_vote){
-        $connection=Yii::app()->db;
-        $command=$connection->createCommand("INSERT INTO {{vaccine_user_vote}}
-            (
-            `id` ,
-            `user_id` ,
-            `baby_id` ,
-            `vaccine_date_id` ,
-            `vote`
-            )
-            VALUES (
-            NULL, ".$user_id.", ".$baby_id.", '".$this->id."', '".$new_vote."')");
-        return $command->execute();
     }
 
     /****************************************************************************************************/

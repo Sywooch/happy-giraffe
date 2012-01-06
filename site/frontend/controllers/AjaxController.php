@@ -195,4 +195,40 @@ class AjaxController extends Controller
 			echo CHtml::tag('span', array('val' => $r->id), CHtml::encode($r->name));
 		}
 	}
+
+    public function actionVote()
+    {
+        if (Yii::app()->request->isAjaxRequest && ! Yii::app()->user->isGuest)
+        {
+            $object_id = $_POST['object_id'];
+            $vote = $_POST['vote'];
+            $model = $_POST['model']::model()->findByPk($object_id);
+
+            if ($model)
+            {
+                $depends = Yii::app()->user->id;
+                if (isset($_POST['depends'])){
+                    $depends = array('user_id'=>Yii::app()->user->id);
+                    foreach($_POST['depends'] as $key=>$value)
+                        $depends[$key] = $value;
+                }
+
+                $model->vote($depends, $vote);
+                $model->refresh();
+
+                $response = array('success' => true);
+                foreach ($model->vote_attributes as $key => $value) {
+                    $response[$value] = $model->$value;
+                    $response[$value.'_percent'] = $model->getPercent($key);
+                }
+                if (isset($model->vote_attributes[0]) && isset($model->vote_attributes[1])){
+                    $response['rating'] = $model->{$model->vote_attributes[1]} - $model->{$model->vote_attributes[0]};
+                }
+            }
+            else
+                $response = array('success' => false);
+
+            echo CJSON::encode($response);
+        }
+    }
 }

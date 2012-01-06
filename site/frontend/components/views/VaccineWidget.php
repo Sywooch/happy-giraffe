@@ -53,32 +53,39 @@ else
 			</tr>
         <?php if (!empty($baby_id)):?>
 			<tr class="bottom">
-				<td colspan="4" class="<?php echo 'vc-'.$day->id.$baby_id ?>">
-                    <?php $user_vote = $data->GetUserVote($day->id) ?>
+				<td colspan="4" class="vc-vote">
+                    <?php $w = $this->widget('VoteWidget', array(
+                        'model'=>$day,
+                        'template'=>
+                            '<div class="result-box red">
+                                <a href="#" vote="0" class="decline btn btn-gray-small{active0}"><span><span>Отказываемся</span></span></a>
+                                <br/>
+                                <span class="red"><b><span class="votes_decline">{vote0}</span> (<span class="decline_percent">{vote_percent0}</span>%)</b></span>
+                            </div>
 
-                    <div class="result-box">
-                        <?php echo CHtml::link('<span><span>Отказываемся</span></span>','#',
-                            array('rel'=> $day->id,'baby'=> $baby_id,
-                                'class'=>($user_vote == VaccineDate::VOTE_DECLINE)?'decline btn btn-red-small':'decline btn btn-gray-small')) ?>
-						<br/>
-						<span class="red"><b><?php echo $day->vote_decline.' ('.$day->DeclinePercent().'%)' ?></b></span>
-					</div>
+                            <div class="result-box yellow">
+                                <a href="#" vote="1" class="agree btn btn-gray-small{active1}"><span><span>Собираемся делать</span></span></a>
+                                <br/>
+                                <span class="orange"><b><span class="votes_agree">{vote1}</span> (<span class="agree_percent">{vote_percent1}</span>%)</b></span>
+                            </div>
 
-                    <div class="result-box">
-                        <?php echo CHtml::link('<span><span>Собираемся делать</span></span>','#',
-                            array('rel'=> $day->id,'baby'=> $baby_id,
-                                'class'=>($user_vote == VaccineDate::VOTE_AGREE)?'agree btn btn-yellow-small':'agree btn btn-gray-small')) ?>
-                        <br/>
-                        <span class="orange"><b><?php echo $day->vote_agree.' ('.$day->AgreePercent().'%)' ?></b></span>
-					</div>
+                            <div class="result-box green">
+                                <a href="#" vote="2" class="did btn btn-gray-small{active2}"><span><span>Уже сделали</span></span></a>
+                                <br/>
+                                <span class="green"><b><span class="votes_did">{vote2}</span> (<span class="did_percent">{vote_percent2}</span>%)</b></span>
+                            </div>',
+                        'links' => array('a.decline','a.agree', 'a.did'),
+                        'result'=>array(
+                            0=>array('.votes_decline','.decline_percent'),
+                            1=>array('.votes_agree','.agree_percent'),
+                            2=>array('.votes_did','.did_percent')
+                        ),
+                        'main_selector'=>'.vc-vote',
+                        'depends'=>array(
+                            'baby_id'=>$baby_id
+                        )
+                    )); ?>
 
-                    <div class="result-box">
-                        <?php echo CHtml::link('<span><span>Уже сделали</span></span>','#',
-                            array('rel'=> $day->id,'baby'=> $baby_id,
-                                'class'=>($user_vote == VaccineDate::VOTE_DID)?'did btn btn-green-small':'did btn btn-gray-small')) ?>
-                        <br/>
-                        <span class="green"><b><?php echo $day->vote_did.' ('.$day->DidPercent().'%)' ?></b></span>
-					</div>
 
 				</td>
 			</tr>
@@ -95,3 +102,6 @@ else
 	</div>
 
 </div>
+<script type="text/javascript">
+    <?php echo $w->js; ?>
+</script>

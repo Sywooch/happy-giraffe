@@ -90,7 +90,6 @@ class OvulationForm extends CFormModel
     {
         $this->model = $this->LoadModel($this->cycle, 5);
         $data = $this->CalculateMonthData($this->review_month, $this->review_year);
-        $this->model->SaveUserCycle($this->start_date);
 
         return $data;
     }

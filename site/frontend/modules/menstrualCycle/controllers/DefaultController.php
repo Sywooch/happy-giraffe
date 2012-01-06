@@ -36,7 +36,7 @@ class DefaultController extends Controller
     /**
      * DEV_METHOD
      */
-    public function actionParse()
+    /*public function actionParse()
     {
         $str =
             <<<EOD
@@ -131,5 +131,5 @@ EOD;
             //            $model->save();
         }
     }
-
+*/
 }

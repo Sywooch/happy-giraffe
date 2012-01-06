@@ -2,7 +2,6 @@
 /* @var $baby Baby
  */
     $baby_id = $baby->id;
-    $baby = Baby::model()->findByPk($baby_id);
     $day = date('j',strtotime($baby->birthday));
     $month = date('m',strtotime($baby->birthday));
     $year = date('Y',strtotime($baby->birthday));

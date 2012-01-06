@@ -4,6 +4,13 @@ class DefaultController extends Controller
 {
     public $layout = '//layouts/new';
 
+    public function filters()
+    {
+        return array(
+            'ajaxOnly + GetData',
+        );
+    }
+
     public function actionIndex()
     {
         $this->render('index');
@@ -11,21 +18,17 @@ class DefaultController extends Controller
 
     public function actionGetData()
     {
-        if (Yii::app()->request->isAjaxRequest) {
-            if (isset($_POST['PregnantParamsForm'])) {
-                $model = new PregnantParamsForm();
-                $model->attributes = $_POST['PregnantParamsForm'];
-                if (!$model->validate())
-                    Yii::app()->end();
+        if (isset($_POST['PregnantParamsForm'])) {
+            $model = new PregnantParamsForm();
+            $model->attributes = $_POST['PregnantParamsForm'];
+            if (!$model->validate())
+                Yii::app()->end();
 
-                $model->CalculateData();
+            $model->CalculateData();
 
-                $this->renderPartial('data', array(
-                    'model' => $model,
-                ));
-            }
+            $this->renderPartial('data', array(
+                'model' => $model,
+            ));
         }
-        else
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
     }
 }

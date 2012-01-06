@@ -7,50 +7,81 @@ class DefaultController extends Controller
     public $layout = 'desease';
     public $index = false;
 
-	public function actionIndex()
-	{
+    public function actionIndex()
+    {
         $this->index = true;
-        $diseases = RecipeBookDisease::model()->findAll(array('order'=>'name','select'=>array('id','name','slug','category_id')));
+        $diseases = RecipeBookDisease::model()->with(array(
+            'category' => array(
+                'select' => array('name')
+            )
+        ))->findAll(array(
+                'order' => 't.name',
+                'select' => array('id', 'name', 'slug', 'category_id'))
+        );
         $alphabetList = RecipeBookDisease::GetDiseaseAlphabetList($diseases);
         $categoryList = RecipeBookDisease::GetDiseaseCategoryList($diseases);
 
-		$this->render('index',array(
-            'alphabetList'=>$alphabetList,
-            'categoryList'=>$categoryList
+        $this->render('index', array(
+            'alphabetList' => $alphabetList,
+            'categoryList' => $categoryList
         ));
-	}
+    }
 
-    public function actionView($url){
-        $model = RecipeBookDisease::model()->findByAttributes(array('slug'=>$url));
+    public function actionView($url)
+    {
+        $model = RecipeBookDisease::model()->with(array(
+            'category' => array(
+                'select' => array('name'),
+            )
+        ))->findByAttributes(array('slug' => $url));
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         $cat = RecipeBookDisease::model()->findAll(array(
-            'order'=>'name',
-            'select'=>array('id','name','slug'),
-            'condition'=>'category_id='.$model->category_id
+            'order' => 't.name',
+            'select' => array('id', 'name', 'slug'),
+            'condition' => 'category_id=' . $model->category_id
         ));
 
-        $this->render('view',array(
-            'model'=>$model,
-            'cat'=>$cat
+        $this->render('view', array(
+            'model' => $model,
+            'cat' => $cat
         ));
     }
 
-    public function actionGetAlphabetList(){
-        $diseases = RecipeBookDisease::model()->findAll(array('order'=>'name','select'=>array('id','name','slug')));
+    public function actionGetAlphabetList()
+    {
+        $diseases = RecipeBookDisease::model()->findAll(array(
+            'order' => 'name',
+            'select' => array(
+                'id',
+                'name',
+                'slug'
+            ),
+        ));
         $alphabetList = RecipeBookDisease::GetDiseaseAlphabetList($diseases);
 
-        $this->renderPartial('alphabet_list',array(
-            'alphabetList'=>$alphabetList,
+        $this->renderPartial('alphabet_list', array(
+            'alphabetList' => $alphabetList,
         ));
     }
 
-    public function actionGetCategoryList(){
-        $diseases = RecipeBookDisease::model()->findAll(array('order'=>'name','select'=>array('id','name','slug','category_id')));
+    public function actionGetCategoryList()
+    {
+        $diseases = RecipeBookDisease::model()->with(array(
+            'category' => array(
+                'select' => array('name')
+            )
+        ))->findAll(
+            array(
+                'order' => 't.name',
+                'select' => array('id', 'name', 'slug', 'category_id')
+            )
+        );
         $categoryList = RecipeBookDisease::GetDiseaseCategoryList($diseases);
 
-        $this->renderPartial('category_list',array(
-            'categoryList'=>$categoryList
+        $this->renderPartial('category_list', array(
+            'categoryList' => $categoryList
         ));
     }
 }

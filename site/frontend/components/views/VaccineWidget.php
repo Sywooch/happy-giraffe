@@ -83,7 +83,8 @@ else
                         'main_selector'=>'.vc-vote',
                         'depends'=>array(
                             'baby_id'=>$baby_id
-                        )
+                        ),
+                        'all_votes'=>$data->user_votes
                     )); ?>
 
 
@@ -103,5 +104,5 @@ else
 
 </div>
 <script type="text/javascript">
-    <?php echo $w->js; ?>
+    <?php echo isset($w)?$w->js:''; ?>
 </script>

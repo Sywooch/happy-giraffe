@@ -14,7 +14,8 @@
         $('.baby_blood_parent_group_u input[type=button]').click(function () {
             if (father_group !== null && mother_group !== null) {
                 baby_group = arr[father_group-1][mother_group-1];
-            }
+            }else
+                return false;
             ShowBabyBlood();
             return false;
         });

@@ -55,10 +55,8 @@ $js =    "$(function () {
         });
 
         function ShowResult(data) {
-            //$('#japan-result').fadeOut(100, function () {
-                $('#japan-result').html(data);
-                //$('#japan-result').fadeIn(100);
-            //});
+            $('#japan-result').html(data);
+            $('html,body').animate({scrollTop: $('#japan-result').offset().top},'fast');
         }
 
         $('body').delegate('.cal_item', 'hover', function (event) {

@@ -64,7 +64,7 @@ class DefaultController extends Controller
     /**
      * DEV_METHOD
      */
-    public function actionParse()
+    /*public function actionParse()
     {
         $str = '2 1 2 1 1 1 1 1 1 1 1 1
         1 2 1 2 2 1 1 2 1 1 2 2
@@ -100,7 +100,7 @@ class DefaultController extends Controller
             echo 'new Array(' . $row_data . '),' . '<br>';
         }
     }
-
+*/
     public function actionJapanCalc()
     {
         if (isset($_POST['JapanCalendarForm'])) {

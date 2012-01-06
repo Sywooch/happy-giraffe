@@ -3,10 +3,7 @@
  * @var $form CActiveForm
  */
 $model = new OvulationForm();
-?>
-<script type="text/javascript">
-    var started = false;
-
+$js = "var started = false;
     $(function () {
         $('#ovulation-form input.calc_bt').click(function () {
             var d = new Date();
@@ -68,16 +65,18 @@ $model = new OvulationForm();
 
         function LoadCalendar() {
             $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/babySex/default/OvulationCalc") ?>",
-                data:$("#ovulation-form").serialize(),
-                type:"POST",
+                url:'".Yii::app()->createUrl("/babySex/default/OvulationCalc") ."',
+                data:$('#ovulation-form').serialize(),
+                type:'POST',
                 success:function (data) {
                     $('#result').html(data);
+                    $('html,body').animate({scrollTop: $('#result .calendar_body').offset().top},'fast');
                 }
             });
         }
-    });
-</script>
+    });";
+Yii::app()->clientScript->registerScript('baby-gender-ovulation',$js);
+?>
 <div class="child_sex_ovulyaciya_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'ovulation-form',

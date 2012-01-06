@@ -63,10 +63,8 @@ $(function () {
         });
 
         function ShowResult(data) {
-            //$('#blood-update-result').fadeOut(100,function(){
-                $('#blood-update-result').html(data);
-                //$('#blood-update-result').fadeIn(100);
-            //});
+            $('#blood-update-result').html(data);
+            $('html,body').animate({scrollTop: $('#blood-update-result').offset().top},'fast');
         }
 
         $('body').delegate('.cal_item', 'hover', function (event) {

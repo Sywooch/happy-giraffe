@@ -10,6 +10,7 @@ $js = "$('.pregnancy-weight-form button').click(function(data){
                 success: function(data) {
                     $('.intro-text').hide();
                     $('#result').html(data);
+                    $('html,body').animate({scrollTop: $('#result').offset().top},'fast');
                 }
             });
 

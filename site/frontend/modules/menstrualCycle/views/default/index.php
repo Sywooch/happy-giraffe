@@ -2,10 +2,8 @@
 /**
  * @var $form CActiveForm
  */
-$model = new MenstrualCycleForm();?>
-<script type="text/javascript">
-    var started = false;
-
+$model = new MenstrualCycleForm();
+$js = "var started = false;
     $(function () {
         $('#menstrual-cycle-form input.mth_calculate').click(function () {
             var d = new Date();
@@ -67,19 +65,19 @@ $model = new MenstrualCycleForm();?>
 
         function LoadCalendar() {
             $.ajax({
-                url:"<?php echo Yii::app()->createUrl("/menstrualCycle/default/calculate") ?>",
-                data:$("#menstrual-cycle-form").serialize(),
-                type:"POST",
+                url:'".Yii::app()->createUrl("/menstrualCycle/default/calculate")."',
+                data:$('#menstrual-cycle-form').serialize(),
+                type:'POST',
                 success:function (data) {
-                    $("#result").fadeOut(100,function(){$("#result").html(data);$("#result").fadeIn(100);});
-//                    $('#result').html(data);
+                    $('#result').fadeOut(100,function(){ $('#result').html(data);$('#result').fadeIn(100);});
+                    $('html,body').animate({scrollTop: $('#result').offset().top},'fast');
                     started = true;
                 }
             });
         }
-    });
-</script>
-
+    });";
+Yii::app()->clientScript->registerScript('woman_cycle',$js);
+?>
 <div class="mother_cal_banner">
     <span>Менструальный цикл – это биологические часы женщины, запущенные самой природой. Составьте свой женский календарь и проверьте – правильно ли идут ваши часы, а также узнайте массу другой полезной информации.</span>
 </div><!-- .mother_cal_banner -->

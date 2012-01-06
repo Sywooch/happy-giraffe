@@ -173,11 +173,11 @@ return array(
 					'levels'=>'error, warning',
 					'emails'=>'choojoy.work@gmail.com',
 				),
-				array(
-					'class'=>'CWebLogRoute',
-					'categories'=>'system.db.CDbCommand',
-					'showInFireBug'=>true,
-				),
+//				array(
+//					'class'=>'CWebLogRoute',
+//					'categories'=>'system.db.CDbCommand',
+//					'showInFireBug'=>false,
+//				),
 
 				// uncomment the following to show log messages on web pages
 				/*

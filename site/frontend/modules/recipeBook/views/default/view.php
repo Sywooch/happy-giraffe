@@ -8,36 +8,8 @@ $js_content_report = "$('.spam a').live('click', function() {
 	return false;
 });";
 
-$js = "$('.your_opinion').delegate('a', 'click', function(e) {
-			e.preventDefault();
-			var button = $(this);
-			var offer = button.parents('.like-block');
-			var a = {agree_u: 1, disagree_u: 0};
-			var lol = button.parents('li').attr('class');
-			var vote = a[lol];
-			var offer_id = offer.attr('rel');
-			$.ajax({
-				dataType: 'JSON',
-				type: 'POST',
-				url: " . CJSON::encode(Yii::app()->createUrl('recipeBook/default/vote')) . ",
-				data: {
-					id: offer_id,
-					vote: vote,
-				},
-				success: function(response) {
-					//var b = {0: 'red', 1: 'green'};
-					//offer.find('a').removeClass('btn-red-small').removeClass('btn-green-small').addClass('btn-gray-small');
-					offer.find('.rate').text(response.total);
-					offer.find('span.votes_pro').text(response.votes_pro+' ('+response.pro_percent+'%)');
-					offer.find('span.votes_con').text(response.votes_con+' ('+response.con_percent+'%)');
-				},
-			});
-		});
-	";
-
 Yii::app()->clientScript
-    ->registerScript('content_report', $js_content_report)
-    ->registerScript('recipe_vote', $js);
+    ->registerScript('content_report', $js_content_report);
 
 ?>
 
@@ -51,10 +23,18 @@ Yii::app()->clientScript
         </div>
         <big>Рецепт полезен?</big>
         <div class="your_opinion">
-            <ul>
-                <li class="agree_u"><a href="#">Да</a><span class="votes_pro"><?php echo $model->votes_pro ?> (<?php echo $model->proPercent ?>%)</span></li>
-                <li class="disagree_u"><a href="#">Нет</a><span class="votes_con"><?php echo $model->votes_con ?> (<?php echo $model->conPercent ?>%)</span></li>
-            </ul>
+            <?php $this->widget('VoteWidget', array(
+                'model'=>$model,
+                'template'=>
+                '<ul>
+                    <li class="agree_u"><a vote="1" class="{active1}" href="#">Да</a><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</li>
+                    <li class="disagree_u"><a vote="0" class="{active0}" href="#">Нет</a><span class="votes_con">{vote0}</span> (<span class="con_percent">{vote_percent0}</span>%)</li>
+                </ul>',
+                'links' => array('.disagree_u a','.agree_u a'),
+                'result'=>array(0=>array('.votes_con','.con_percent'),1=>array('.votes_pro','.pro_percent')),
+                'main_selector'=>'.like-block',
+                'rating'=>'.rate'
+            )); ?>
         </div><!-- .your_opinion -->
         <div class="clear"></div>
     </div>

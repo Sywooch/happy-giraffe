@@ -28,34 +28,6 @@
 			}
 		});
 		
-		$('.item-useful').delegate('a', 'click', function(e) {
-			e.preventDefault();
-			var button = $(this);
-			var offer = button.parents('.item-useful');
-			var a = {green: 1, red: 0};
-			var lol = button.parents('div').attr('class');
-			var vote = a[lol];
-			var offer_id = offer.children('input[name=\"id\"]').val();
-			$.ajax({
-				dataType: 'JSON',
-				type: 'POST',
-				url: " . CJSON::encode(Yii::app()->createUrl('hospitalBag/default/vote')) . ",
-				data: {
-					offer_id: offer_id,
-					vote: vote,
-				},
-				success: function(response) {
-					var b = {0: 'red', 1: 'green'};
-					offer.find('a').removeClass('btn-red-small').removeClass('btn-green-small').addClass('btn-gray-small');
-					button.removeClass('btn-gray-small').addClass('btn-' + b[vote] + '-small');
-					offer.find('span.votes_pro').text(response.votes_pro);
-					offer.find('span.votes_con').text(response.votes_con);
-					offer.find('span.pro_percent').text(response.pro_percent);
-					offer.find('span.con_percent').text(response.con_percent);
-				},
-			});
-		});
-		
 		$('#addOffer').delegate('button.cancel', 'click', function(e) {
 			e.preventDefault();
 			$('#BagItem_description').val('');
@@ -69,14 +41,14 @@
 			$('#BagItem_name').val('');
 		});
 	";
-	
+
 	$cs
 		->registerCoreScript('jquery.ui')
 		->registerScript('service_bag', $js);
 ?>
 
 <div class="section-banner" style="margin:0;">
-	<img src="/images/section_banner_07.jpg" />								
+	<img src="/images/section_banner_07.jpg" />
 </div>
 
 <div class="tabs vaccination-tabs">
@@ -96,18 +68,18 @@
 	<div class="hospital-bag">
 		<div class="items">
 			<?php $j = 0; foreach ($visible_items as $c): ?>
-				<div class="tab-box tab-box-<?php echo $c->id; ?>"<?php if ($j == 0) echo ' style="display:block;"'; ?>>	
-					<?php foreach ($c->items as $i): ?>								
+				<div class="tab-box tab-box-<?php echo $c->id; ?>"<?php if ($j == 0) echo ' style="display:block;"'; ?>>
+					<?php foreach ($c->items as $i): ?>
 						<?php $this->renderPartial('_item', array('item' => $i)); ?>
 					<?php endforeach; ?>
 				</div>
 			<?php $j++; endforeach; ?>
-			
+
 		</div>
-		
+
 		<div class="items-storage">
 			<div class="storage-text">
-				Перетащите сюда<br/>необходимое Вам  
+				Перетащите сюда<br/>необходимое Вам
 				<span>В сумке предметов: <span class="count"><?php echo $count; ?></span></span>
 				<!--<a href="" class="btn btn-green-small"><span><span>Показать</span></span></a>-->
 			</div>
@@ -142,14 +114,30 @@
 					<?php if (! Yii::app()->user->isGuest): ?>
 						<div class="item-useful">
 							Предмет нужен?
-							<div class="green"><a href="" class="btn btn-<?php echo ($o->vote === 1) ? 'green':'gray'; ?>-small"><span><span>Да</span></span></a><br/><b><span class="votes_pro"><?php echo $o->votes_pro; ?></span> (<span class="pro_percent"><?php echo $o->proPercent; ?></span>%)</b></div>
-							<div class="red"><a href="" class="btn btn-<?php echo ($o->vote === 0) ? 'red':'gray'; ?>-small"><span><span>Нет</span></span></a><br/><b><span class="votes_con"><?php echo $o->votes_con; ?></span> (<span class="con_percent"><?php echo $o->conPercent; ?></span>%)</b></div>
-							<?php echo CHtml::hiddenField('id', $o->id); ?>
+                            <?php $this->widget('VoteWidget', array(
+                            'model'=>$o,
+                            'template'=>'<div class="green">
+                                <a vote="1" class="btn btn-gray-small{active1}" href=""><span><span>Да</span></span></a>
+                                <br>
+                                <b><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</b>
+                            </div>
+                            <div class="red">
+                                <a vote="0" class="btn btn-gray-small{active0}" href=""><span><span>Нет</span></span></a>
+                                <br>
+                                <b><span class="votes_con">{vote0}</span> (<span class="con_percent">{vote_percent0}</span>%)</b>
+                            </div>',
+                            'links' => array('.red','.green'),
+                            'result'=>array(0=>array('.votes_con','.con_percent'),1=>array('.votes_pro','.pro_percent')),
+                            'main_selector'=>'.item-useful'
+                            )); ?>
+<!--							<div class="green"><a href="" class="btn btn---><?php //echo ($o->vote == 1) ? 'green':'gray'; ?><!---small"><span><span>Да</span></span></a><br/><b><span class="votes_pro">--><?php //echo $o->votes_pro; ?><!--</span> (<span class="pro_percent">--><?php //echo $o->getPercent(1); ?><!--</span>%)</b></div>-->
+<!--							<div class="red"><a href="" class="btn btn---><?php //echo ($o->vote == 0 && $o->vote !== null) ? 'red':'gray'; ?><!---small"><span><span>Нет</span></span></a><br/><b><span class="votes_con">--><?php //echo $o->votes_con; ?><!--</span> (<span class="con_percent">--><?php //echo $o->getPercent(0); ?><!--</span>%)</b></div>-->
+<!--							--><?php //echo CHtml::hiddenField('id', $o->id); ?>
 						</div>
 					<?php endif; ?>
 				</div>
 			</li>
-		<?php endforeach; ?>										
+		<?php endforeach; ?>
 	</ul>
 	<?php if (! Yii::app()->user->isGuest): ?>
 		<div class="add clearfix">
@@ -163,7 +151,7 @@
 					<div class="new-hospital-bag-item">
 						Ваш предмет: <?php echo $form->textField($item, 'name'); ?> <span>Добавляйте только по одному предмету!</span>
 					</div>
-				
+
 					<?php $item->description = 'Напишите для чего может пригодиться этот предмет в роддоме.'; echo $form->textArea($item, 'description'); ?>
 					<button class="btn btn-gray-medium cancel"><span><span>Отменить</span></span></button>
 					<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
@@ -171,7 +159,7 @@
 			</div>
 		</div>
 	<?php endif; ?>
-	
+
 </div>
 
 <script type="text/javascript">
@@ -181,3 +169,24 @@
 		$(this).find('.hint').stop(true, true).fadeOut();
 	})
 </script>
+
+<?php
+
+$a = array(
+    'template'=>'<div class="green">
+    <a class="btn btn-gray-small" href=""><span><span>Да</span></span></a>
+    <br>
+    <b><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</b>
+</div>
+<div class="red">
+    <a class="btn btn-red-small" href=""><span><span>Нет</span></span></a>
+    <br>
+    <b><span class="votes_con">{vote0}</span> (<span class="con_percent">{vote_percent0}</span>%)</b>
+</div>',
+    'links' => array('.red','.green'), // селекторы для обработки нажатий на кнопки голосования, берется "{selector} a"
+    'result'=>array('.votes_con','.con_percent','.votes_pro','.pro_percent'),//селекторы для вставки результатов после голосования
+    'total'=>'.#total',//селектор для вставки общего кол-ва проголосовавших
+    'rating'=>'.#rating',//селектор для вставки разницы между положительными голосами (1) и отрицательными (0)
+);
+
+?>

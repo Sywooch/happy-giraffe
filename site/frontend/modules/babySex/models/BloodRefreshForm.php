@@ -6,8 +6,6 @@ class BloodRefreshForm extends CFormModel
     const IS_BOY = 1;
     const IS_GIRL = 2;
 
-//    const WOMAN_PERIOD = 1095.75;
-//    const MAN_PERIOD = 1461;
     const WOMAN_PERIOD = 91.3125;
     const MAN_PERIOD = 121.75;
 
@@ -222,7 +220,6 @@ class BloodRefreshForm extends CFormModel
 
     private static function Opacity($prc)
     {
-//        $opacity = 0.2 + (($prc - 50) / 50) * 0.8;
         $opacity = 0.2 + ((abs($prc)) / 100) * 0.8;
         return sprintf("%01.2f", $opacity);
     }

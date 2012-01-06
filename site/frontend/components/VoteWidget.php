@@ -24,6 +24,11 @@ class VoteWidget extends CWidget
      */
     public $rating = null;
     public $main_selector = null;
+    /**
+     * All user votes in array
+     * @var array
+     */
+    public $all_votes = null;
 
     public $depends = array();
     /**
@@ -41,7 +46,14 @@ class VoteWidget extends CWidget
 
     private function GenerateTemplate()
     {
-        $vote = $this->model->getCurrentVote(Yii::app()->user->getId());
+        if ($this->all_votes === null)
+            $vote = $this->model->getCurrentVote(Yii::app()->user->getId());
+        else{
+            if (isset($this->all_votes[$this->model->owner->id]))
+                $vote = $this->all_votes[$this->model->owner->id];
+            else
+                $vote = null;
+        }
 
         //insert values in template
         foreach ($this->model->vote_attributes as $key => $value) {

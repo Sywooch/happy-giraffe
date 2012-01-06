@@ -3,7 +3,7 @@
  * @var $date int
  */
 if (!Yii::app()->user->isGuest){
-    $user_children = User::GetCurrentUser()->babies;
+    $user_children = User::GetCurrentUserWithBabies()->babies;
     if (empty($user_children))
         $baby_id = null;
     else

@@ -10,6 +10,31 @@
  */
 class Community extends CActiveRecord
 {
+	private $_typeCounts = null;
+	
+	public function getCount($type_id = null)
+	{
+		if ($this->_typeCounts === null)
+		{
+			$raw = Yii::app()->db->createCommand()
+				->select('type_id, count(*)')
+				->from('club_community_content c')
+				->join('club_community_rubric r', 'r.id=c.rubric_id')
+				->where('r.community_id = :community_id', array(':community_id' => $this->id))
+				->group('c.type_id')
+				->queryAll();
+				
+			$this->_typeCounts['total'] = 0;
+			foreach ($raw as $r)
+			{
+				$this->_typeCounts[$r['type_id']] = $r['count(*)'];
+				$this->_typeCounts['total'] += $r['count(*)'];
+			}
+		}
+		
+		return ($type_id === null) ? $this->_typeCounts['total'] : (isset($this->_typeCounts[$type_id])) ? $this->_typeCounts[$type_id] : 0;
+	}
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Community the static model class

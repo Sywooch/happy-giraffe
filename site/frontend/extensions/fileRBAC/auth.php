@@ -28,7 +28,7 @@ return array(
 		'type' => CAuthItem::TYPE_ROLE,
 		'description' => 'Редактор',
 		'children' => array(
-			'user',
+			'moder',
 		),
 		'bizRule' => null,
 		'data' => null

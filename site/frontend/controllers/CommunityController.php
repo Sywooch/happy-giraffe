@@ -21,7 +21,7 @@ class CommunityController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave'),
+				'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser'),
 				'users'=>array('*'),
 			),
 			array('allow',
@@ -430,8 +430,8 @@ class CommunityController extends Controller
 			array(
 				'condition' => 't.id > :id_from AND t.id <= :id_till',
 				'params' => array(
-					':id_from' => 1647,
-					':id_till' => 1968,
+					':id_from' => 100,
+					':id_till' => 200,
 				),
 				'with' => array(
 					'type',
@@ -487,6 +487,16 @@ class CommunityController extends Controller
 			{
 				file_put_contents(Yii::getPathOfAlias('webroot') . '/fix.txt', $_POST['content_id'] . "\n", FILE_APPEND);
 			}
+		}
+	}
+	
+	public function actionFixUser()
+	{
+		if (Yii::app()->request->isAjaxRequest)
+		{
+			$user = User::model()->findByPk($_POST['author_id']);
+			$response = $this->renderPartial('fixuser', array('user' => $user), true);
+			echo $response;
 		}
 	}
 }

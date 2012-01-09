@@ -430,8 +430,8 @@ class CommunityController extends Controller
 			array(
 				'condition' => 't.id > :id_from AND t.id <= :id_till',
 				'params' => array(
-					':id_from' => 100/*1647*/,
-					':id_till' => 200/*1968*/,
+					':id_from' => 1647,
+					':id_till' => 1968,
 				),
 				'with' => array(
 					'type',

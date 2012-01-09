@@ -45,6 +45,17 @@
 							'select' => "js:function (event, ui)
 								{
 									$(this).next().val(ui.item.id);
+									$.ajax({
+										type: 'POST',
+										url: '" . $this->createUrl('fixUser') . "',
+										data: {
+											author_id: ui.item.id
+										},
+										success: function(response) {
+											$(this).parents('td').find('div.user').html(response);
+										},
+										context: this
+									});
 								}
 							",
 						),
@@ -58,6 +69,10 @@
 				<?php echo CHtml::hiddenField('content_id', $c->id); ?>
 				<?php echo CHtml::submitButton('Сохранить'); ?>
 				<?php $this->endWidget(); ?>
+				<div class="user">
+				
+				</div>
+				<div class="clear"> </div>
 			</td>
 		</tr>
 	<?php endforeach; ?>

@@ -21,7 +21,7 @@ class CommunityController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions' => array('index', 'list', 'view'),
+				'actions' => array('index', 'list', 'fixList', 'view'),
 				'users'=>array('*'),
 			),
 			array('allow',
@@ -422,5 +422,18 @@ class CommunityController extends Controller
 			);
 		}
 		return $data;
+	}
+	
+	public function actionFixList()
+	{
+		$contents = CommunityContent::model()->findAll(array(
+			'condition' => 'id > :id AND created < :created',
+			'params' => array(
+				':id' => 1647,
+				':created' => '2012-01-05 12:00:00',
+			),
+		));
+		
+		print_r($contents);
 	}
 }

@@ -21,7 +21,7 @@ class CommunityController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions' => array('index', 'list', 'fixList', 'view'),
+				'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave'),
 				'users'=>array('*'),
 			),
 			array('allow',
@@ -426,14 +426,67 @@ class CommunityController extends Controller
 	
 	public function actionFixList()
 	{
-		$contents = CommunityContent::model()->findAll(array(
-			'condition' => 'id > :id_from AND id <= :id_till',
-			'params' => array(
-				':id_from' => 1647,
-				':id_till' => 1968,
-			),
-		));
+		$criteria = new CDbCriteria(
+			array(
+				'condition' => 't.id > :id_from AND t.id <= :id_till',
+				'params' => array(
+					':id_from' => 100/*1647*/,
+					':id_till' => 200/*1968*/,
+				),
+				'with' => array(
+					'type',
+					'rubric' => array(
+						'with' => array(
+							'community',
+						),
+					),
+				),
+			)
+		);
 		
-		echo count($contents);
+		$file = file_get_contents(Yii::getPathOfAlias('webroot') . '/fix.txt');
+		$updated = array_unique(explode("\n", $file));
+		$criteria->addNotInCondition('t.id', $updated);
+	
+		$contents = CommunityContent::model()->findAll($criteria);
+		
+		$this->render('fixlist', array(
+			'contents' => $contents,
+		));
+	}
+	
+	public function actionFixUsers()
+	{
+		if (Yii::app()->request->isAjaxRequest)
+		{
+			$users = User::model()->findAll(array(
+				'condition' => 'email LIKE :term',
+				'params' => array(':term' => $_GET['term'] . '%'),
+			));
+			
+			$_users = array();
+			foreach ($users as $user)
+			{
+				$_users[] = array(
+					'label' => $user->email,
+					'value' => $user->email,
+					'id' => $user->id,
+				);
+			}
+			echo CJSON::encode($_users);
+		}
+	}
+	
+	public function actionFixSave()
+	{
+		if (Yii::app()->request->isAjaxRequest)
+		{
+			$content = CommunityContent::model()->findByPk($_POST['content_id']);
+			$content->author_id = $_POST['author_id'];
+			if ($content->save())
+			{
+				file_put_contents(Yii::getPathOfAlias('webroot') . '/fix.txt', $_POST['content_id'] . "\n", FILE_APPEND);
+			}
+		}
 	}
 }

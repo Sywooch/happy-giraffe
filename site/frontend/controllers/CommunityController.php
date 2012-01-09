@@ -427,10 +427,10 @@ class CommunityController extends Controller
 	public function actionFixList()
 	{
 		$contents = CommunityContent::model()->findAll(array(
-			'condition' => 'id > :id AND created < :created',
+			'condition' => 'id > :id_from AND id <= :id_till',
 			'params' => array(
-				':id' => 1647,
-				':created' => '2012-01-05 12:00:00',
+				':id_from' => 1647,
+				':id_till' => 1968,
 			),
 		));
 		

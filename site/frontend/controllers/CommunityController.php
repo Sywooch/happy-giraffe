@@ -434,8 +434,6 @@ class CommunityController extends Controller
 			),
 		));
 		
-		echo time();
-		
-		//echo count($contents);
+		echo count($contents);
 	}
 }

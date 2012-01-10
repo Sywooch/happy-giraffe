@@ -2,12 +2,11 @@
 
 class DefaultController extends Controller
 {
-    public $layout = '//layouts/main';
+    public $layout = 'rec-layout';
     public $index = false;
 
     public function actionIndex()
     {
-        $this->layout = 'rec-layout';
         $this->index = true;
         $diseases = RecipeBookDisease::model()->with(array(
             'category' => array(
@@ -128,7 +127,6 @@ class DefaultController extends Controller
 
     public function actionDisease($url)
     {
-        $this->layout = 'rec-layout';
         $model = RecipeBookDisease::model()->with(array(
             'category' => array(
                 'select' => array('name')
@@ -169,7 +167,6 @@ class DefaultController extends Controller
 
     public function actionView($id)
     {
-        $this->layout = 'rec-layout';
         $model = RecipeBookRecipe::model()->with(array(
             'disease' => array(
                 'select' => array('category_id', 'id', 'name', 'slug')

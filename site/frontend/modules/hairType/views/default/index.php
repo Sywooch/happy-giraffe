@@ -53,7 +53,7 @@
             active_step++;
         });
 
-//        $('.hair_type_bl').show();
+        //$('.hair_type_bl').show();
     });
 
     function ShowResult() {
@@ -106,9 +106,6 @@
         $('#unknown_type').fadeIn(300);
     }
 </script>
-<div class="error" style="display: none;">
-    Выберите вариант
-</div>
 <div class="hair_type_bl" id="step0">
     <img src="../images/hair_section_main.jpg" alt="" title="" />
     <a href="#" class="hair_begin">Пройти тест</a>
@@ -410,6 +407,7 @@
 
     </div><!-- .hair_result_bl -->
 </div><!-- .hair_type_bl -->
+
 <div class="seo-text">
     <h1 class="summary-title">Тест на определение типа волос</h1>
 

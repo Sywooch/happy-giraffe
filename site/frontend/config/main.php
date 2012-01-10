@@ -40,8 +40,9 @@ return array(
         'application.modules.pregnancyWeight.models.*',
 	    'application.modules.hospitalBag.models.*',
         'application.modules.placentaThickness.models.*',
-	'application.modules.recipeBook.models.*',
+	    'application.modules.recipeBook.models.*',
         'application.modules.names.models.*',
+        'application.modules.test.models.*',
 	),
 
 	'sourceLanguage' => 'en',
@@ -85,6 +86,7 @@ return array(
         'babyBloodGroup',
         'sizes',
         'childrenDiseases',
+        'test',
 	),
 
 	// application components

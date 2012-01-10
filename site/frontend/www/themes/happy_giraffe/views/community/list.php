@@ -32,10 +32,18 @@
 			foreach ($content_types as $ct)
 			{
 				$params = array('community_id' => $community->id);
-				if ($current_rubric !== null) $params['rubric_id'] = $current_rubric;
+				if ($current_rubric !== null)
+				{
+					$params['rubric_id'] = $current_rubric;
+					$label = (Yii::app()->user->checkAccess('moder')) ? $ct->name_plural . ' (' . $current_rubric->getCount($ct->id) . ')'  : $ct->name_plural;
+				}
+				else
+				{
+					$label = (Yii::app()->user->checkAccess('moder')) ? $ct->name_plural . ' (' . $community->getCount($ct->id) . ')'  : $ct->name_plural;
+				}
 				if ($content_type != null) $params['content_type_slug'] = $content_type->slug;
 				$items[] = array(
-					'label' => $ct->name_plural,
+					'label' => $label,
 					'url' => array('/community/list', 'community_id' => $community->id, 'content_type_slug' => $ct->slug),
 					'active' => $content_type !== null AND $content_type->slug == $ct->slug,
 					'linkOptions' => array(

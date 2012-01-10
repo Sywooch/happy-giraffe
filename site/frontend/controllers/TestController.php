@@ -3,6 +3,12 @@
 class TestController extends Controller
 {
 
+	public function actionCount()
+	{
+		$c = Community::model()->findByPk(1);
+		echo $c->getCount(1);
+	}
+
 	public function actionFix()
 	{
 		$contents = CommunityContent::model()->findAll(array('select' => 'id, author_id', 'order' => 'id DESC'));

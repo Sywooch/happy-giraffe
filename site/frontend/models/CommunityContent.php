@@ -45,6 +45,7 @@ class CommunityContent extends CActiveRecord
 			array('views, rating, author_id, rubric_id, type_id', 'length', 'max' => 11),
 			array('views, rating, author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true), 
 			array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
+			array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
 			array('by_happy_giraffe', 'boolean'),
 			
 			// The following rule is used by search().

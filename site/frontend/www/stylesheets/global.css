@@ -2105,6 +2105,9 @@ label {
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
 }
+.prikorm .result_bl p{
+    padding-top: 6px;
+}
 
 .prikorm .result_bl span.rs_title {
     display: block;
@@ -2133,7 +2136,7 @@ label {
     font: bold 20px/20px arial, sans-serif;
     color: #212022;
     font-weight: normal;
-    padding: 0 0 10px 0;
+    padding: 0;
 }
 
 /*===== Embroidery section =====*/

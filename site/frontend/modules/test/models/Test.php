@@ -14,6 +14,7 @@
  * @property string $result_title
  * @property string $unknown_result_image
  * @property string $unknown_result_text
+ * @property string $yes_no
  *
  * The followings are the available model relations:
  * @property TestQuestion[] $testQuestions
@@ -49,7 +50,7 @@ class Test extends CActiveRecord
 			array('name, start_image, slug, result_image, result_title', 'required'),
 			array('name, start_image, slug, result_image, result_title, unknown_result_image', 'length', 'max'=>255),
 			array('css_class', 'length', 'max'=>20),
-			array('text, unknown_result_text', 'safe'),
+			array('text, unknown_result_text, yes_no', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, start_image, css_class, text, slug, result_image, result_title, unknown_result_image, unknown_result_text', 'safe', 'on'=>'search'),
@@ -86,6 +87,7 @@ class Test extends CActiveRecord
 			'result_title' => 'Result Title',
 			'unknown_result_image' => 'Unknown Result Image',
 			'unknown_result_text' => 'Unknown Result Text',
+            'yes_no'=>'Yes/No test',
 		);
 	}
 

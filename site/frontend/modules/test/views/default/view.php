@@ -52,19 +52,33 @@
         $(".RadioClass").change(function () {
             step_result = $(this).attr('rel');
             result.push(step_result);
+            NextStep();
+        });
 
-            if (step_count == active_step)
-                $('#step' + active_step).fadeOut(300, function () {
-                    ShowResult();
-                });
-            $('#step' + active_step).fadeOut(300, function () {
-                $('#step' + active_step).fadeIn(300);
-            });
-            active_step++;
+        $('.inner_bl a.yes_button').click(function(){
+            result.push(2);
+            NextStep();
+            return false;
+        });
+        $('.inner_bl a.no_button').click(function(){
+            result.push(1);
+            NextStep();
+            return false;
         });
 
         //$('.hair_type_bl').show();
     });
+
+    function NextStep(){
+        if (step_count == active_step)
+            $('#step' + active_step).fadeOut(300, function () {
+                ShowResult();
+            });
+        $('#step' + active_step).fadeOut(300, function () {
+            $('#step' + active_step).fadeIn(300);
+        });
+        active_step++;
+    }
 
     function ShowResult() {
 //        console.log(result);
@@ -125,13 +139,20 @@ foreach ($test->testQuestions as $question): ?>
         <form action="">
             <span class="question_title"><?php echo $question->name ?></span>
             <ul>
+                <?php if ($test->yes_no):?>
+                    <a href="#" class="yes_button">Да</a>
+                    <a href="#" class="no_button">Нет</a>
+                <?php else: ?>
+
                 <?php foreach ($question->testQuestionAnswers as $answer): ?>
-                <li>
-                    <input type="radio" name="v" rel="<?php echo $answer->number ?>" id="value<?php echo $i . $answer->number ?>" class="RadioClass"/>
-                    <label for="value<?php echo $i . $answer->number ?>" class="RadioLabelClass"><?php
-                        echo $answer->text ?></label>
-                </li>
-                <?php endforeach; ?>
+                    <li>
+                        <input type="radio" name="v" rel="<?php echo $answer->number ?>" id="value<?php echo $i . $answer->number ?>" class="RadioClass"/>
+                        <label for="value<?php echo $i . $answer->number ?>" class="RadioLabelClass"><?php
+                            echo $answer->text ?></label>
+                    </li>
+                    <?php endforeach; ?>
+
+                <?php endif ?>
             </ul>
         </form>
     </div>

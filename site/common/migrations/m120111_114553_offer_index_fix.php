@@ -6,9 +6,7 @@ class m120111_114553_offer_index_fix extends CDbMigration
 
 	public function up()
 	{
-        $this->execute('SET foreign_key_checks = 0;
-        DROP TABLE '.$this->_table.'
-        SET foreign_key_checks = 1;');
+        $this->dropTable($this->_table);
 
         $this->execute('CREATE TABLE IF NOT EXISTS `bag_offer_vote` (
   `user_id` int(11) unsigned NOT NULL,

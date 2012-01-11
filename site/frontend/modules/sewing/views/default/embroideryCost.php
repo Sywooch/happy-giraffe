@@ -189,12 +189,12 @@ Yii::app()->clientScript->registerScript('embroideryCost', $js, CClientScript::P
                 <p>
                     <input type="checkbox" id="ch7" onclick="activate(this)" name="ch7" class="CheckBoxClass"/>
                     <label for="ch7" class="CheckBoxLabelClass">
-                        Сами разрабатывали схему? Добавьте стоимость её разработки!
+                        Сами разрабатывали схему? Добавьте стоимость её разработки
                     </label>
                 </p>
 
                 <p class="children">
-                    <label>Итак, ваш дизайн стоит:</label>
+                    <label>Стоимость вашего дизайна:</label>
                     <input type="text" id="ch7f" value="0" disabled="disabled" name="ch7f"/>
                 </p>
             </div>

@@ -1978,14 +1978,13 @@ label {
     padding: 0 0 15px 0;
 }
 
-.hair_type_bl .result_bl span.your_res {
-    display: block;
+.hair_type_bl .result_bl div.your_res {
     font: 16px/16px tahoma, sans-serif;
     color: #5e307d;
     padding: 0 0 15px 0;
 }
 
-.hair_type_bl .result_bl span.your_res ins {
+.hair_type_bl .result_bl div.your_res ins {
     font: bold 16px/16px tahoma, sans-serif;
     color: #dd72b9;
 }
@@ -2012,13 +2011,31 @@ label {
     display: block;
     width: 305px;
     background: url(../images/wh_trans.png) 0 0 repeat;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
 }
 
 #step1.prikorm .inner_bl {
     background: url(../images/yellow_trans.png) 0 0 repeat;
+}
+#step2.prikorm .inner_bl {
+    background: url(../images/pink_trans.png) 0 0 repeat;
+}
+#step3.prikorm .inner_bl {
+    background: url(../images/brun_trans.png) 0 0 repeat;
+}
+#step4.prikorm .inner_bl {
+    background: url(../images/green_trans2.png) 0 0 repeat;
+}
+#step5.prikorm .inner_bl {
+    background: url(../images/blue_trans2.png) 0 0 repeat;
+}
+#step6.prikorm .inner_bl {
+    background: url(../images/brun_trans.png) 0 0 repeat;
+}
+#step7.prikorm .inner_bl {
+    background: url(../images/blue_trans2.png) 0 0 repeat;
 }
 
 .prikorm span.question_title {
@@ -2077,20 +2094,16 @@ label {
 }
 
 .prikorm .result_bl {
-    height: 420px;
-    padding: 35px 15px 0 30px;
+    padding: 25px 15px 30px 18px;
     position: absolute;
     right: 13px;
-    bottom: 30px;
+    top: 50px;
     display: block;
-    width: 380px;
-    background: url(../images/wh_trans.png) 0 0 repeat;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    box-shadow: 0 0 3px 1px #a1a1a1;
-    -moz-box-shadow: 0 0 3px 1px #a1a1a1;
-    -webkit-box-shadow: 0 0 3px 1px #a1a1a1;
+    width: 305px;
+    background: url(../images/pink2_trans.png) 0 0 repeat;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
 }
 
 .prikorm .result_bl span.rs_title {
@@ -2100,23 +2113,27 @@ label {
     padding: 0 0 15px 0;
 }
 
-.prikorm .result_bl span.your_res {
-    display: block;
-    font: 16px/16px tahoma, sans-serif;
-    color: #5e307d;
-    padding: 0 0 15px 0;
+.prikorm .result_bl div.your_res {
+    color: #D50101;
+    font: 28px/20px tahoma,sans-serif;
+    padding: 0;
 }
 
-.prikorm .result_bl span.your_res ins {
-    font: bold 16px/16px tahoma, sans-serif;
-    color: #dd72b9;
+.prikorm .result_bl div.your_res div {
+    background: url(../images/pink3_trans.png) 0 0 repeat;
+    font: bold 16px/18px tahoma, sans-serif;
+    color: #ffffff;
+    font-weight: normal;
+    padding: 10px;
+    margin: 15px 0 17px;
 }
 
 .prikorm .result_bl span.your_rec {
     display: block;
     font: bold 20px/20px arial, sans-serif;
-    color: #444;
-    padding: 0 0 15px 0;
+    color: #212022;
+    font-weight: normal;
+    padding: 0 0 10px 0;
 }
 
 /*===== Embroidery section =====*/

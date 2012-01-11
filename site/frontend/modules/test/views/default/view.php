@@ -66,7 +66,7 @@
             return false;
         });
 
-        //$('.hair_type_bl').show();
+        //$('.<?php //echo $test->css_class ?>').show();
     });
 
     function NextStep(){
@@ -165,8 +165,7 @@ foreach ($test->testQuestions as $question): ?>
         echo empty($test->unknown_result_image)?$test->result_image:$test->unknown_result_image ?>" alt="" title="" />
     <div class="result_bl">
 
-        <span class="your_res"><?php echo $test->result_title ?>:<ins> <?php
-            echo 'Неизвестен' ?></ins></span>
+        <div class="your_res"><?php echo $test->result_title ?>:<ins> <?php echo 'Неизвестен' ?></ins></div>
         <span class="your_rec">Рекомендации</span>
         <?php echo $test->unknown_result_text ?>
     </div>
@@ -178,7 +177,7 @@ foreach ($test->testQuestions as $question): ?>
         echo empty($result->image)?$test->result_image:$result->image ?>" alt="" title="" />
     <div class="result_bl">
 
-        <span class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->name ?></ins></span>
+        <div class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->name ?></ins></div>
         <span class="your_rec">Рекомендации</span>
         <?php echo $result->text ?>
         
@@ -187,5 +186,6 @@ foreach ($test->testQuestions as $question): ?>
 <?php endforeach; ?>
 
 <div class="seo-text">
+    <h1 class="summary-title"><?php echo $test->name ?></h1>
     <?php echo $test->text ?>
 </div>

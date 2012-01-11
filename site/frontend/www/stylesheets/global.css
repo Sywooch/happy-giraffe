@@ -371,9 +371,10 @@ margin: 20px 0;
 .right-inner {
 display: block;
 background: #FFFFFF;
-padding: 25px 0 0 35px;
-margin: 0px;
-width: 690px; float: left; 
+padding: 25px 0 0 25px;
+margin: 0;
+width: 700px;
+    float: left;
 }
 
 .right-inner .entry{
@@ -1133,3 +1134,324 @@ ul.quest_fun li.disagree_u a {display:inline-block;padding:0 10px;height:18px;bo
 .art_lk_recipes ul.quest_fun li span {margin:0 5px 0 0;font:14px arial, sans-serif;color:#58b7cc;}
 .art_lk_recipes ul.quest_fun li.agree_u a {display:inline-block;padding:0 10px;height:18px;border:1px solid #8dd562;font:bold 11px/18px arial, sans-serif;color:#209b07;background: url(../images/bg_gr_small_agree.png) 0 0 repeat-x;text-decoration:none;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
 .art_lk_recipes ul.quest_fun li.disagree_u a {display:inline-block;padding:0 10px;height:18px;border:1px solid #e35e5e;font:bold 11px/18px arial, sans-serif;color:#ca0202;background: url(../images/bg_rd_small_disagree.png) 0 0 repeat-x;text-decoration:none;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+
+/*===== Cost calculation =====*/
+.right_block {
+    background: url("../images/content_bg.png") repeat left top;
+    padding: 12px 14px;
+}
+.right_block .cost_calculation{
+    background: url("../images/cost_calculation.jpg") no-repeat left top;
+    padding: 16px 0 10px 0;
+}
+.right_block h1{
+    background: url("../images/plashka.png") repeat-x left top;
+    height: 98px;
+    text-align: right;
+    padding: 0 34px 0 0;
+    margin: 0 0 12px 0;
+    font-size: 50px;
+    color: #fff;
+    font-family: Tahoma, Geneva, Kalimati, sans-serif;
+    font-weight: normal;
+    display: inline-block;
+    line-height: 50px;
+    zoom: 1;
+    *display: inline;
+
+}
+.right_block h1 span{
+    font-size: 35px;
+    display: block;
+    line-height: 35px;
+}
+.right_block .cost_calculation h1{
+    padding: 0 34px 0 100px;
+}
+.right_block .cost_calculation p.form_header {
+    font-size: 30px;
+    text-align: center;
+    color: #040404;
+    line-height: 30px;
+    margin: 10px 0 0 0;
+}
+.right_block .cost_calculation p.form_header span{
+    font-size: 20px;
+    display: block;
+}
+.right_block .cost_calculation p.form_header ins{
+    font-size: 50px;
+    text-decoration: none;
+    color: #fd0505;
+    margin: 0 7px 0 0;
+    top: 10px;
+    vertical-align: bottom;
+}
+
+.right_block .cost_calculation .form_block p {
+    margin: 0 0 8px 0;
+}
+
+.right_block .cost_calculation .form_block p span {
+    font-size: 12px;
+    color: #757474;
+    display: block;
+}
+.right_block .cost_calculation form .form_block {
+    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    color: #131212;
+    width: 200px;
+    height: 70px;
+    text-align: center;
+    float: left;
+    margin: 6px 3px 0 0;
+    padding: 4px 0 0 0;
+    zoom: 1;
+    *display: inline;
+}
+.right_block .cost_calculation form .form_block.first {
+    width: 232px;
+    margin: 6px 3px 0 18px;
+}
+.right_block .cost_calculation form .form_block label{
+    font-size: 16px;
+    color: #131212;
+}
+.right_block .cost_calculation form .form_block.first label {
+    font-size: 12px;
+    color: #757474;
+}
+.right_block .cost_calculation form .form_block input{
+    font-size: 11px;
+    background: #fff;
+    color: #575757;
+    font-family: Tahoma, Geneva, Kalimati, sans-serif;
+    border: 1px solid #d7c4ec;
+    width: 45px;
+    height: 16px;
+    text-align: center;
+    margin: 0 3px;
+}
+
+.right_block .cost_calculation form .form_big_block{
+    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    color: #757474;
+    padding: 19px;
+    margin: 0 16px 0 18px;
+}
+.right_block .cost_calculation form .form_big_block p{
+    margin: 10px 0 0 0;
+    font-size: 12px;
+    color: #757474;
+}
+.right_block .cost_calculation form .form_big_block p input[type="text"]{
+    font-size: 11px;
+    color: #575757;
+    font-family: Tahoma, Geneva, Kalimati, sans-serif;
+    border: 1px solid #d7c4ec;
+    width: 41px;
+    height: 16px;
+    text-align: center;
+    margin: 0 3px;
+    background: #fff;
+}
+.right_block .cost_calculation form .form_big_block p.children{
+    margin: 4px 0 0 25px;
+}
+.right_block .cost_calculation form .form_big_block label{
+    font-size: 13px;
+    color: #747474;
+}
+.right_block .cost_calculation form .form_big_block label span{
+    color: #131212;
+}
+.right_block .cost_calculation form .form_big_block label ins{
+    color: #828181;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.right_block .cost_calculation form input[type="submit"], .right_block .calculator_loops form input[type="submit"] {
+    background: url("../images/cost_btn.png") no-repeat left top;
+    width: 257px;
+    height: 70px;
+    color: #854201;
+    font-size: 35px;
+    border: none;
+    margin: 10px auto;
+    display: block;
+}
+
+.right_block .cost_calculation .total_block {
+    background: url("../images/cost_result.png") no-repeat left top;
+    width: 419px;
+    height: 107px;
+    color: #fefefd;
+    font-size: 14px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 13px 0 0 0;
+}
+.right_block .cost_calculation .total_block p{
+    color: #fefefd;
+    line-height: 23px;
+}
+.right_block .cost_calculation .total_block p span{
+    color: #fcd50e;
+    font-size: 25px;
+    margin: 0 0 0 10px;
+}
+.right_block .cost_calculation .total_block p.big{
+    font-size: 30px;
+    line-height: 33px;
+}
+.right_block .cost_calculation .total_block p.big span{
+    font-size: 35px;
+}
+
+.right_block .cost_calculation .input-box {
+    position:relative;margin:4px 0 0 25px;
+    color: #747474;
+    font-size: 13px;
+}
+.right_block .cost_calculation .input-box span.units{
+    display: block;
+    float: left;
+}
+
+.right_block .cost_calculation .select-box {
+    width:47px;height:18px;position:relative;z-index:5;float: left; margin: 0 0 0 4px;
+
+}
+.right_block .cost_calculation .select-box .select-value {
+    width:27px;height:14px;
+    padding:3px 19px 1px 1px;
+    background:url(../images/cost_select.png) no-repeat left top;
+    color:#575757;font-size:11px;line-height:11px;cursor:pointer;
+    text-align: center;
+}
+.right_block .cost_calculation .select-box .select-list {display:none;position:absolute;top:18px;right:0;}
+.right_block .cost_calculation .select-box .select-list ul {width:47px;text-align:center;overflow:auto;height:160px;background:#fff;}
+.right_block .cost_calculation .select-box .select-list ul li {height:18px;line-height:18px;cursor:pointer;color:#575757;font-size:11px;}
+.right_block .cost_calculation .select-box .select-list ul li:hover {background:#f0f0f0;}
+
+.right_block .cost_calculation .CheckBoxLabelClass.LabelSelected {
+    background: url("../images/check.png") no-repeat scroll 0 0 transparent;
+}
+.right_block .cost_calculation .CheckBoxLabelClass {
+    background: url("../images/no_check.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    line-height: 16px;
+    margin: 0;
+    padding: 2px 0 0 25px;
+}
+
+/*===== Calculator of loops =====*/
+.right_block .calculator_loops{
+    background: url("../images/calculator.jpg") no-repeat left top;
+    padding: 16px 0 10px 0;
+    height: 653px;
+}
+
+.right_block .calculator_loops h1{
+    height: 78px;
+    padding: 20px 34px 0 70px;
+}
+
+.right_block .calculator_loops .form_block{
+    width: 263px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    *behavior: url(PIE.htc);
+    text-align: center;
+    padding: 20px 15px 10px 15px;
+    float: left;
+}
+.right_block .calculator_loops .form_block p.form_header{
+    font-size: 30px;
+    color: #040404;
+    line-height: 30px;
+    margin: 0 0 10px 0;
+}
+.right_block .calculator_loops .form_block p {
+    font-size: 16px;
+    color: #131212;
+    line-height: 18px;
+}
+.right_block .calculator_loops .form_block .left_column {
+    float: left;
+    width: 120px;
+    margin: 15px 0 0 28px;
+}
+.right_block .calculator_loops .form_block .right_column {
+    margin: 15px 5px 0 0;
+}
+.right_block .calculator_loops .form_block .left_column, .right_block .calculator_loops .form_block .right_column{
+    text-align: left;
+}
+.right_block .calculator_loops .form_block .left_column p, .right_block .calculator_loops .form_block .right_column p{
+    font-size: 12px;
+    color: #757474;
+    line-height: 12px;
+    margin: 0 0 2px 0;
+}
+.right_block .calculator_loops .form_block .left_column input, .right_block .calculator_loops .form_block .right_column input{
+    width: 48px;
+    height: 14px;
+    background: #fff;
+    border: 1px solid #d7c4ec;
+    color: #575757;
+    text-align: center;
+    font-size: 11px;
+    font-family: Tahoma, Geneva, Kalimati, sans-serif;
+    margin: 0 0 20px 0;
+}
+.right_block .calculator_loops .form_block .left_column label, .right_block .calculator_loops .form_block .right_column label{
+    font-size: 16px;
+    color: #131212;
+    margin: 0 0 0 4px;
+}
+
+.right_block .calculator_loops .form_block.green{
+    background: url("../images/calc_green_block.png") no-repeat left top;
+    height: 184px;
+    margin: 30px 10px 0 42px;
+}
+.right_block .calculator_loops .form_block.blue{
+    background: url("../images/calc_blue_block.png") no-repeat left top;
+    height: 122px;
+    margin: 120px 10px 0 8px;
+}
+.right_block .calculator_loops .form_block.pink{
+    background: url("../images/calc_pink_block.png") no-repeat left top;
+    height: 27px;
+    margin: 22px 10px 0 25px;
+    padding: 25px 15px 15px 15px;
+}
+.right_block .calculator_loops .form_block.pink p{
+    float: left;
+    color: #131212;
+    font-size: 16px;
+    width: 49%;
+    text-align: center;
+    padding: 0 0 10px 0;
+}
+.right_block .calculator_loops .form_block.pink p span{
+    color: #fefbb5;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.right_block .calculator_loops form input[type="submit"] {
+    float: left;
+    margin: 0 10px 0 60px;
+}
+
+
+

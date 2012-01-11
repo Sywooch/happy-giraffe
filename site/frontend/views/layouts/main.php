@@ -50,6 +50,8 @@
 	<img alt="Подождите, пожалуйста..."  src="/club/images/wait.gif" />
 </div>
 
+<?php if (false): ?>
+
 <div id="login_popup" class="pop-up" style="background-color: white; height: 300px; width: 400px; padding: 5px;">
 	<h2>Войти</h2>
 	<div class="form">
@@ -82,6 +84,8 @@
 	<a class="popup_close" href="">Закрыть</a>
 </div>
 
+<?php endif; ?>
+
 <div class="container" id="page">
 
 	<div id="header">
@@ -92,7 +96,7 @@
 		<?php
 //		$this->widget('zii.widgets.CMenu',array(
 		$this->widget('ext.mbmenu.MbMenu',array(
-			'items'=>require_once(dirname(__FILE__).'/'.YII_PROJECT.'_menu.php'),
+			'items'=>require_once(dirname(__FILE__).'/shop_menu.php'),
 		)); ?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>

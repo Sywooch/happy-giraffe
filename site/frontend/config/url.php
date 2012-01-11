@@ -18,7 +18,6 @@ return array(
 		
 		'/' => 'site/index',
 		'admin/' => 'admin/site/index',
-        'test2/<action:\w+>'=>'test2/<action>',
 		'<controller:\w+>/admin'=>'site/index',
 		'<controller:\w+>/master'=>'<controller>/admin',
 		'<controller:\w+>/<title:\w+>_<id:\d+>'=>'<controller>/view',
@@ -33,7 +32,7 @@ return array(
 //        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',
 		//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 		'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
-		'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+//		'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 
 		array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 

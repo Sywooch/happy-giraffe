@@ -1,18 +1,24 @@
-<style type="text/css">
-    input{
-        border: 1px solid #000;
-    }
-</style>
-<script type="text/javascript">
+<?php
+$js = <<<EOD
     function calculate(stitchcount) {
         var w = parseInt(document.getElementById("w").value);
         var h = parseInt(document.getElementById("h").value);
         var crossprice = (document.getElementById("crossprice").value).replace(',', '.');
         var pricematerals = parseInt(document.getElementById("pricematerals").value);
 
+        if (isNaN(w) || isNaN(h) || isNaN(crossprice) || isNaN(pricematerals) || crossprice === '' || pricematerals === ''){
+            $('#result').html('');
+            return false;
+        }
+
         var ch1f = document.getElementById("ch1f").value;
         var ch4f = document.getElementById("ch4f").value;
         var ch7f = document.getElementById("ch7f").value;
+
+        if (isNaN(ch1f) || ch1f === "") ch1f = 0;
+        if (isNaN(ch4f) || ch4f === "") ch4f = 0;
+        if (isNaN(ch7f) || ch7f === "") ch7f = 0;
+
         if (ch1f < 25) {
             ch1f = 0
         } else {
@@ -62,82 +68,140 @@
         totalprice = Math.round(totalprice);
         complexelemprice = Math.round(complexelemprice);
 
-        document.getElementById("baseprice").innerHTML = 'Базовая стоимость работы ' + baseprice;
-        document.getElementById("complexelemprice").innerHTML = 'Стоимость усложняющих элементов ' + complexelemprice;
-        document.getElementById("totalprice").innerHTML = 'Итоговая стоимость: ' + totalprice;
+        $('#result').html('<div class="total_block">' +
+            '<p>Базовая стоимость работы:<span>' + baseprice +
+            '</span></p>' +
+            '<p>Стоимость усложняющих элементов:<span>' + complexelemprice +
+            '</span>' +
+            '</p><p class="big">ИТОГО:<span>' + totalprice +
+            ' руб</span></p></div>');
+        $('html,body').animate({scrollTop: $('#form-header').offset().top},'fast');
+        return false;
     }
 
     function activate(par) {
         if (par.checked) {
-            document.getElementById(par.name + 'f').disabled = false
-            $('#cuselFrame-'+par.name + 'f').removeClass("classDisCusel");
+            document.getElementById(par.name + 'f').disabled = false;
+            $('#cuselFrame-' + par.name + 'f').removeClass("classDisCusel");
         }
         else {
             document.getElementById(par.name + 'f').disabled = true;
-            document.getElementById(par.name + 'f').value = '0'
-            $('#cuselFrame-'+par.name + 'f').addClass("classDisCusel");
+            $('#cuselFrame-' + par.name + 'f').addClass("classDisCusel");
         }
     }
-</script>
+EOD;
 
-<form name="stitchcount">
-    <table>
-        <tbody>
-        <tr>
-            <td>Ширина картины, крестиков</td>
-            <td><input type="text" size="5" value="100" id="w"></td>
-        </tr>
-        <tr>
-            <td>Высота картины, крестиков</td>
-            <td><input type="text" size="5" value="100" id="h"></td>
-        </tr>
-        <tr>
-            <td>Цена одного крестика</td>
-            <td><input type="text" size="10" value="0,05" id="crossprice"></td>
-        </tr>
-        <tr>
-            <td>Стоимость материалов (канва, нитки, рамка...)</td>
-            <td><input type="text" size="10" value="150" id="pricematerals"></td>
-        </tr>
-        </tbody>
-    </table>
-    <p>Эти числа дают нам базовую стоимость работы. Однако стоимость может зависеть ещё от множества других параметров.
-        Итак смотрим и отмечаем нужные:</p>
-    <ul>
-        <li><input type="checkbox" onclick="activate(this)" id="ch1" name="ch1"> за каждый цвет, если общее количество
-            цветов в схеме болше 25, добавляем 1%<br>Количество используемых в схеме цветов:
-            <input type="text" size="10" value="25" id="ch1f" disabled="disabled" name="ch1f"></li>
-        <li><input type="checkbox" id="ch2" name="ch2"> большое количество одиночных крестиков значительно усложняет
-            процесс вышивки, добавляем +20%
-        </li>
-        <li><input type="checkbox" id="ch3" name="ch3">
-            тёмная канва, вышивка по которой значительно сложнее, добавляем + 25%
-        </li>
-        <li><input type="checkbox" onclick="activate(this)" id="ch4" name="ch4"> мелкая канва (Аида 14 считается
-            нормальным размером), добавляем 5-20%<br>Размер используемой в схеме канвы:
-            <select id="ch4f" disabled="disabled" name="ch4f">
-                <option value="0">7</option>
-                <option value="0">11</option>
-                <option selected="" value="0">14</option>
-                <option value="5">16</option>
-                <option value="10">18</option>
-                <option value="15">20</option>
-                <option value="20">22</option>
-                <option value="25">25</option>
-            </select></li>
-        <li><input type="checkbox" id="ch5" name="ch5"> срочный заказ, добавляем 25%</li>
-        <li><input type="checkbox" id="ch6" name="ch6"> наличие дополнительных элементов (бекстич, французские узелки,
-            коучинг, бисер, ленты), добавляем 15%
-        </li>
-        <li><input type="checkbox" onclick="activate(this)" id="ch7" name="ch7">&nbsp;сами разрабатывали схему? Добавьте
-            стоимость её разработки! Итак, ваш дизайн стоит: <br>
-            <input type="text" size="15" value="0" id="ch7f" disabled="disabled" name="ch7f"></li>
-    </ul>
-    <p><strong><font size="2" color="#6b8e23" id="baseprice"></font></strong><br>
-        <strong><font size="2" color="#6b8e23" id="complexelemprice"></font></strong></p>
-    <hr>
-    <strong><font size="4" color="#ff6347" id="totalprice"></font></strong><br>
+Yii::app()->clientScript->registerScript('embroideryCost',$js, CClientScript::POS_HEAD);
+?>
+<div class="right_block">
+    <div class="cost_calculation">
+        <h1>Расчет стоимости <span>вышитой картины</span></h1>
 
-    <p></p>
-    <center><input type="button" value="Рассчитать!" onclick="calculate(this.form)"></center>
-</form>
+        <form action="#">
+            <p class="form_header">Базовая стоимость</p>
+
+            <div class="form_block first">
+                <p>Введите размер картины в "крестиках":</p>
+                <label>Ширина</label><input type="text" id="w" value=""/>
+                <label>Высота</label><input type="text" id="h" value=""/>
+            </div>
+            <div class="form_block">
+                <p>Цена одного "крестика"<span>обычно это 0,01-0,5 руб</span></p>
+                <input type="text" id="crossprice" value="0,01"/><label>руб</label>
+            </div>
+            <div class="form_block">
+                <p>Стоимость материалов:<span>канва, нитки, рамка и т.д.</span></p>
+                <input type="text" id="pricematerals" value=""/><label>руб</label>
+            </div>
+            <div class="clear"></div>
+            <p class="form_header" id="form-header">
+                <ins>+</ins>
+                Дополнительная стоимость
+                <span>(усложняющие элементы)</span>
+            </p>
+            <div class="form_big_block">
+                <p class="children">Отметьте условия работы, которые будут входить в стоимость</p>
+
+                <p>
+                    <input type="checkbox" onclick="activate(this)" name="ch1" id="ch1" class="CheckBoxClass"/>
+                    <label for="ch1" class="CheckBoxLabelClass">
+                        Если в схеме более 25 цветов, добавляем <span>1%</span> за каждый цвет
+                    </label>
+                </p>
+
+                <p class="children">
+                    <label>Количество цветов в схеме:</label>
+                    <input type="text" value="25" id="ch1f" disabled="disabled"/>
+                </p>
+
+                <p>
+                    <input type="checkbox" id="ch2" name="ch2" class="CheckBoxClass"/>
+                    <label for="ch2" class="CheckBoxLabelClass">
+                        Большое количество одиночных “крестиков” значительно усложняет процесс вышивки,
+                        добавляем <span>20%</span>
+                    </label>
+                </p>
+
+                <p>
+                    <input type="checkbox" id="ch3" name="ch3" class="CheckBoxClass"/>
+                    <label for="ch3" class="CheckBoxLabelClass">
+                        Темная канва, вышивка по которой значительно сложнее, добавляем <span>25%</span>
+                    </label>
+                </p>
+
+                <p>
+                    <input type="checkbox" id="ch4" name="ch4" onclick="activate(this)" class="CheckBoxClass"/>
+                    <label for="ch4" class="CheckBoxLabelClass">
+                        Мелкая канва, добавляем <span>5-20%</span>
+                        <ins>Аида 14 считается нормальным размером</ins>
+                    </label>
+                </p>
+                <div class="input-box">
+                    <span class="units">Размер канвы в схеме:</span>
+
+                    <select id="ch4f" disabled="disabled" name="ch4f">
+                        <option value="0">7</option>
+                        <option value="0">11</option>
+                        <option selected="" value="0">14</option>
+                        <option value="5">16</option>
+                        <option value="10">18</option>
+                        <option value="15">20</option>
+                        <option value="20">22</option>
+                        <option value="25">25</option>
+                    </select>
+
+                    <div class="clear"></div>
+                </div>
+                <p>
+                    <input type="checkbox" id="ch5" name="ch5" class="CheckBoxClass"/>
+                    <label for="ch5" class="CheckBoxLabelClass">
+                        Срочный заказ, добавляем <span>25%</span>
+                    </label>
+                </p>
+
+                <p>
+                    <input type="checkbox" id="ch6" name="ch6" class="CheckBoxClass"/>
+                    <label for="ch6" class="CheckBoxLabelClass">
+                        Наличие дополнительных элементов, добавляем <span>25%</span>
+                        <ins>(бекстич, французские узелки, коучинг, бисер, ленты)</ins>
+                    </label>
+                </p>
+                <p>
+                    <input type="checkbox" id="ch7" onclick="activate(this)" name="ch7" class="CheckBoxClass"/>
+                    <label for="ch7" class="CheckBoxLabelClass">
+                        Сами разрабатывали схему? Добавьте стоимость её разработки!
+                    </label>
+                </p>
+
+                <p class="children">
+                    <label>Итак, ваш дизайн стоит:</label>
+                    <input type="text" id="ch7f" value="0" disabled="disabled" name="ch7f"/>
+                </p>
+            </div>
+
+            <input type="submit" value="Рассчитать" onclick="return calculate(this.form)"/>
+        </form>
+        <div id="result">
+        </div>
+    </div>
+</div>

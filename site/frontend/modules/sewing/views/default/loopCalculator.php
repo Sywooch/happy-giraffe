@@ -56,7 +56,7 @@
                 <div class="right_column">
                     <p>Длина</p>
                     <input type="text" id="c2" value="10"/><label>см</label>
-                    <input type="text" id="p2" value=""/><label>петель</label>
+                    <input type="text" id="p2" value=""/><label>рядов</label>
                 </div>
                 <div class="clear"></div>
             </div>

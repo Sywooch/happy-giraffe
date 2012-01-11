@@ -34,7 +34,8 @@ class TestController extends Controller
 	
 	public function actionTest()
 	{
-		var_dump(Yii::app()->user->settlement_id);
+		//var_dump(Yii::app()->user->settlement_id);
+        var_dump(Yii::app()->db->createCommand('SHOW INDEX FROM bag_offer_vote')->queryAll());
 	}
 
 	public function actionVideo()

@@ -18,6 +18,8 @@
  * The followings are the available model relations:
  * @property NameGroup $nameGroup
  * @property NameFamous[] $nameFamouses
+ * @property NameSaintDate[] $nameSaintDates
+ * @property NameStats $nameStats
  * @property User[] $users
  */
 class Name extends CActiveRecord
@@ -74,6 +76,7 @@ class Name extends CActiveRecord
             'nameGroup' => array(self::BELONGS_TO, 'NameGroup', 'name_group_id'),
             'nameFamouses' => array(self::HAS_MANY, 'NameFamous', 'name_id'),
             'nameSaintDates' => array(self::HAS_MANY, 'NameSaintDate', 'name_id'),
+            'nameStats' => array(self::HAS_MANY, 'NameStats', 'name_id'),
             'users' => array(self::MANY_MANY, 'User', 'name_likes(name_id, user_id)'),
         );
     }
@@ -126,20 +129,75 @@ class Name extends CActiveRecord
 
     public function Top10Man()
     {
-        return self::findAll('gender=' . self::GENDER_MAN);
+        return self::findAll(array(
+            'condition' => 'gender=' . self::GENDER_MAN,
+            'order' => 'likes',
+            'limit' => 10
+        ));
     }
 
     public function Top10Woman()
     {
-        return self::findAll('gender=' . self::GENDER_WOMAN);
+        return self::findAll(array(
+            'condition' => 'gender=' . self::GENDER_WOMAN,
+            'order' => 'likes',
+            'limit' => 10
+        ));
+    }
+
+    /**
+     * @static
+     * @param $month
+     * @param $gender
+     * @return Array
+     */
+    public static function GetSaintMonthArray($month, $gender)
+    {
+        $models = self::GetSaintNames($month, $gender);
+        $result = array();
+
+        for ($i = 1; $i < 32; $i++) {
+            foreach ($models as $model) {
+                foreach ($model->nameSaintDates as $saintDate)
+                    if ($saintDate->day == $i) {
+                        if (isset($result[$saintDate->day]))
+                            $result[$saintDate->day][] = $model;
+                        else
+                            $result[$saintDate->day] = array($model);
+                        break;
+                    }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @static
+     * @param $month
+     * @param $gender
+     * @return Name[]
+     */
+    public static function GetSaintNames($month, $gender)
+    {
+        if ($gender != 1 && $gender != 2)
+            $models = Name::model()->with(array(
+                'nameSaintDates' => array('order' => 'day, name')
+            ))->findAll('nameSaintDates.month=' . $month);
+        else
+            $models = Name::model()->with(array(
+                'nameSaintDates' => array('order' => 'day, name')
+            ))->findAll('nameSaintDates.month=' . $month . ' AND gender=' . $gender);
+
+        return $models;
     }
 
     public function GetLikes($user_id)
     {
         $data = Yii::app()->db->createCommand()
-            ->select(array('id','name'))
+            ->select(array('id', 'name', 'gender', 'translate'))
             ->from('name')
-            ->join('name_likes', 'name.id = name_likes.name_id AND name_likes.user_id = '.$user_id)
+            ->join('name_likes', 'name.id = name_likes.name_id AND name_likes.user_id = ' . $user_id)
             ->queryAll();
 
         return $data;
@@ -153,7 +211,7 @@ class Name extends CActiveRecord
         $data = Yii::app()->db->createCommand()
             ->select('name_id')
             ->from('name_likes')
-            ->where('user_id = '.$user_id)
+            ->where('user_id = ' . $user_id)
             ->queryColumn();
 
         return $data;
@@ -164,7 +222,7 @@ class Name extends CActiveRecord
         $data = Yii::app()->db->createCommand()
             ->select('count(name_id)')
             ->from('name_likes')
-            ->where('user_id = '.$user_id)
+            ->where('user_id = ' . $user_id)
             ->queryScalar();
 
         return $data;
@@ -196,7 +254,7 @@ class Name extends CActiveRecord
                 ->update($this->tableName(), array('likes' => new CDbExpression('likes - 1')), 'id = :name_id', array(':name_id' => $this->id));
         }
 
-        return $current_vote;
+        return true;
     }
 
     public function isUserLike($user_id)

@@ -66,7 +66,7 @@
             return false;
         });
 
-        $('.<?php echo $test->css_class ?>').show();
+        //$('.<?php //echo $test->css_class ?>').show();
     });
 
     function NextStep(){

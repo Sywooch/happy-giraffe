@@ -24,7 +24,7 @@ ALTER TABLE `bag_offer_vote`
 
 	public function down()
 	{
-        
+
 	}
 
 	/*

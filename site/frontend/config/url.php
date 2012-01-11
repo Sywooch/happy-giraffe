@@ -32,7 +32,7 @@ return array(
 //        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',
 		//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 		'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
-//		'<controller:\w+>/<action:\w+>' => '<controller>/<action>', 
+		'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 
 		array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 

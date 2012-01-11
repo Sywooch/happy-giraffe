@@ -1,8 +1,7 @@
 <?php
 
-class TestController extends Controller
+class Test2Controller extends Controller
 {
-
 	public function actionCount()
 	{
 		$c = Community::model()->findByPk(1);

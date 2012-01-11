@@ -27,7 +27,7 @@ return array(
         'names/<action:\w+>'=>'names/default/<action>',
         'sewing/<action:\w+>'=>'sewing/default/<action>',
         'sizes/<action:\w+>'=>'sizes/default/<action>',
-        'test/<slug:[\w-]+>'=>'test/default/view',
+        'tests/<slug:[\w-]+>'=>'test/default/view',
 //        'recipeBook/disease/<url:\w+>'=>'recipeBook/default/disease',
 //        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',
 		//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

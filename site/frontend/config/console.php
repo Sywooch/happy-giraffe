@@ -11,6 +11,7 @@ return array(
 	'import'=>array(
         'application.components.*',
         'application.models.*',
+        'application.modules.names.models.*',
     ),
 	// application components
 	'components'=>array(

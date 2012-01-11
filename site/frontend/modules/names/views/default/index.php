@@ -121,5 +121,6 @@
     $this->renderPartial('index_data', array(
         'names' => $names,
         'pages' => $pages,
+        'like_ids'=>$like_ids
     )); ?>
 </div>

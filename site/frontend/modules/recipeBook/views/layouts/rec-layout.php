@@ -89,6 +89,7 @@
         }
 "); ?>
 <div id="baby">
+    <div class="inner">
     <div class="content-box clearfix">
         <div class="baby_recipes_service">
             <ul class="handbook_changes_u">
@@ -103,5 +104,6 @@
         </div>
     </div>
     <?php echo $content ?>
+    </div>
 </div>
 <?php $this->endContent(); ?>

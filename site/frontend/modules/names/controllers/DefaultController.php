@@ -8,6 +8,8 @@ class DefaultController extends Controller
     public function actionIndex($letter = null, $gender = null)
     {
         $this->SetLikes();
+        $like_ids = Name::GetLikeIds();
+
         $criteria = new CDbCriteria;
         $show_all = false;
         if ($letter !== null && strlen($letter) < 3) {
@@ -27,13 +29,15 @@ class DefaultController extends Controller
                 $this->renderPartial('index_data', array(
                     'names' => $names,
                     'pages' => $pages,
-                    'likes'=>Name::GetLikeIds(),
+                    'likes' => Name::GetLikeIds(),
+                    'like_ids' => $like_ids,
                 ));
             } else
                 $this->render('index', array(
                     'names' => $names,
                     'pages' => $pages,
-                    'likes'=>Name::GetLikeIds()
+                    'likes' => Name::GetLikeIds(),
+                    'like_ids' => $like_ids,
                 ));
         } else {
             $names = Name::model()->findAll($criteria);
@@ -41,13 +45,15 @@ class DefaultController extends Controller
                 $this->renderPartial('index_data', array(
                     'names' => $names,
                     'pages' => null,
-                    'likes'=>Name::GetLikeIds(),
+                    'likes' => Name::GetLikeIds(),
+                    'like_ids' => $like_ids,
                 ));
             } else
                 $this->render('index', array(
                     'names' => $names,
                     'pages' => null,
-                    'likes'=>Name::GetLikeIds(),
+                    'likes' => Name::GetLikeIds(),
+                    'like_ids' => $like_ids,
                 ));
         }
     }
@@ -61,46 +67,44 @@ class DefaultController extends Controller
         $this->render('top10', array(
             'topMen' => $topMen,
             'topWomen' => $topWomen,
-            'likes'=>Name::GetLikeIds()
+            'like_ids' => Name::GetLikeIds()
         ));
     }
 
     public function actionSaint()
     {
         $this->SetLikes();
-        $model = new BabyDateForm();
-        $this->render('saint', array(
-            'model' => $model,
-            'likes'=>Name::GetLikeIds()
-        ));
+        $this->render('saint');
     }
 
-    public function actionSaintCalc()
+    public function actionSaintCalc($month, $gender = null)
     {
-        if (isset($_POST['BabyDateForm'])) {
-            $modelForm = new BabyDateForm();
-            $modelForm->attributes = $_POST['BabyDateForm'];
-            if (!$modelForm->validate())
-                Yii::app()->end();
-
-            $data = $modelForm->CalculateData();
-            $this->renderPartial('saint_res', array(
-                'data' => $data,
-                'modelForm' => $modelForm
-            ));
-        }
+        $data = Name::GetSaintMonthArray($month, $gender);
+        $this->renderPartial('saint_res', array(
+            'data' => $data,
+            'like_ids' => Name::GetLikeIds(),
+            'month' => $month
+        ));
     }
 
     public function actionLikes()
     {
         $this->SetLikes();
-        if (!Yii::app()->user->isGuest)
-            $data = Name::model()->GetLikes(Yii::app()->user->getId());
-        else
-            $data = null;
+        $data = Name::model()->GetLikes(Yii::app()->user->getId());
+        $man = array();
+        $woman = array();
+        foreach ($data as $name) {
+            if ($name['gender'] == 1)
+                $man[] = $name;
+            if ($name['gender'] == 2)
+                $woman[] = $name;
+        }
 
         $this->render('likes', array(
-            'data' => $data
+            'data' => $data,
+            'man' => $man,
+            'woman' => $woman,
+            'like_ids' => Name::GetLikeIds(),
         ));
     }
 
@@ -108,6 +112,7 @@ class DefaultController extends Controller
     {
         $this->SetLikes();
         $name = $this->LoadModelByName($name);
+
         $this->render('name_view', array('name' => $name));
     }
 
@@ -115,8 +120,8 @@ class DefaultController extends Controller
     {
         $name = $this->LoadModelById($id);
         echo CJSON::encode(array(
-            'count'=>Name::GetLikesCount(Yii::app()->user->getId()),
-            'success'=>$name->like(Yii::app()->user->getId()),
+            'success' => $name->like(Yii::app()->user->getId()),
+            'count' => Name::GetLikesCount(Yii::app()->user->getId()),
         ));
     }
 
@@ -157,7 +162,10 @@ class DefaultController extends Controller
      */
     public function LoadModelByName($name)
     {
-        $model = Name::model()->findByAttributes(array('name' => $name));
+        $model = Name::model()->with(array(
+            'nameFamouses' => array('order' => 'nameFamouses.last_name'),
+            'nameSaintDates' => array('order' => 'nameSaintDates.month, nameSaintDates.day')
+        ))->findByAttributes(array('name' => $name));
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
@@ -176,8 +184,92 @@ class DefaultController extends Controller
         return $model;
     }
 
-    public function SetLikes(){
+    public function SetLikes()
+    {
         if (!Yii::app()->user->isGuest)
             $this->likes = Name::GetLikesCount(Yii::app()->user->getId());
+    }
+
+    public function actionImg()
+    {
+        $this->layout = null;
+        $data = array(2875, 3204, 3874, 4576, 3204, 3874, 4576);
+        $min = min($data);
+        $max = max($data);
+        $diff = $max - $min;
+        $w = 45;
+
+        $image_width = $w * (count($data) - 1);
+        $image_height = 132;
+
+        $im = new Imagick();
+        $im->newImage($image_width, $image_height, new ImagickPixel('#f4fdff'));
+
+        $draw = new ImagickDraw();
+
+        //draw vertical lines
+        $draw->setStrokeColor(new ImagickPixel('#d1e7ec'));
+        $draw->setStrokeWidth(1);
+        for ($i = 1; $i < count($data); $i++) {
+            $draw->line($i * $w, 0, $i * $w, $image_height);
+        }
+
+        //draw chart line
+        $point1 = array(0, $this->GetY($data[0], $max, $diff));
+        $draw->setStrokeColor(new ImagickPixel('#fd93b9'));
+        $draw->setStrokeWidth(1.5);
+
+        for ($i = 1; $i < count($data); $i++) {
+            $y = $this->GetY($data[$i], $max, $diff);
+            $draw->line($point1[0], $point1[1], $i * $w, $y);
+
+            $point1 = array($i * $w, $y);
+        }
+        $im->drawImage($draw);
+
+        //draw chart points
+        for ($i = 1; $i < count($data) - 1; $i++) {
+            $y = $this->GetY($data[$i], $max, $diff);
+
+            $draw->setStrokeColor(new ImagickPixel('#fd93b9'));
+            $draw->setStrokeWidth(1.5);
+            $draw->setFillColor(new ImagickPixel('#ffffff'));
+            $draw->ellipse($i * $w, $y, 4, 4, 0, 360);
+            $im->drawImage($draw);
+
+            $draw->clear();
+            $draw->setFontSize(11);
+            $draw->setFillColor(new ImagickPixel('#b68cd4'));
+            $draw->setFont("font/arial.ttf");
+            $draw->annotation($i * $w - strlen($data[$i]) * 3, $y + 16, $data[$i]);
+            $im->drawImage($draw);
+        }
+
+        $im->drawImage($draw);
+        $im->borderImage('#e3d8ea', 2, 2);
+        $im->writeImage(Yii::app()->basePath . '\www\images\modules\names\test.jpg');
+
+        //draw hearts on image
+        $marker = imagecreatefrompng(Yii::app()->basePath . '\www\images\heart.png');
+        $img = imagecreatefromjpeg(Yii::app()->basePath . '\www\images\modules\names\test.jpg');
+
+        for ($i = 1; $i < count($data) - 1; $i++) {
+            $y = $this->GetY($data[$i], $max, $diff);
+            imagecopy($img, $marker, $i * $w - 10, $y - 23, 0, 0, imagesx($marker), imagesy($marker));
+        }
+
+        imagejpeg($img, Yii::app()->basePath . '\www\images\modules\names\test.jpg', 100);
+
+        //$thumb = new Imagick();
+        //$heart = new Imagick(Yii::app()->basePath.'\www\images\heart.png');
+        //$im->setImageFormat("png");
+        //echo $im;
+    }
+
+    public function GetY($value, $max, $diff)
+    {
+        if ($diff == 0)
+            return 30;
+        return 30 + ($max - $value) * 85 / $diff;
     }
 }

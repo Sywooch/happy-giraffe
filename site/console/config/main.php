@@ -9,4 +9,9 @@ return array(
 			'migrationPath' => 'site.common.migrations',
 		),
 	),
+    'import'=>array(
+        'site.frontend.components.*',
+        'site.frontend.models.*',
+        'site.frontend.modules.names.models.*',
+    ),
 );

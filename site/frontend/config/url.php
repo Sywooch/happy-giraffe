@@ -18,6 +18,7 @@ return array(
 		
 		'/' => 'site/index',
 		'admin/' => 'admin/site/index',
+        'test2/<action:\w+>'=>'test2/<action>',
 		'<controller:\w+>/admin'=>'site/index',
 		'<controller:\w+>/master'=>'<controller>/admin',
 		'<controller:\w+>/<title:\w+>_<id:\d+>'=>'<controller>/view',

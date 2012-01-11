@@ -6,6 +6,7 @@ class m120105_141517_drop_offer_id extends CDbMigration
 
 	public function up()
 	{
+        $this->truncateTable($this->_table);
         $this->dropIndex('offer_id',$this->_table);
 	}
 

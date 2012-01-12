@@ -131,7 +131,7 @@ class Name extends CActiveRecord
     {
         return self::findAll(array(
             'condition' => 'gender=' . self::GENDER_MAN,
-            'order' => 'likes',
+            'order' => 'likes desc',
             'limit' => 10
         ));
     }
@@ -140,7 +140,7 @@ class Name extends CActiveRecord
     {
         return self::findAll(array(
             'condition' => 'gender=' . self::GENDER_WOMAN,
-            'order' => 'likes',
+            'order' => 'likes desc',
             'limit' => 10
         ));
     }

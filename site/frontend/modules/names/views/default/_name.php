@@ -8,5 +8,6 @@ $this->renderPartial('__name',array(
     'gender' => $data->gender,
     'translate' => $data->translate,
     'like_ids' => $like_ids,
+    'num'=>$num
 ))
 ?>

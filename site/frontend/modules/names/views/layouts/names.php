@@ -1,7 +1,7 @@
 <?php $this->beginContent('//layouts/baby_no_left_banner'); ?>
 <script type="text/javascript">
     $(function() {
-        $('body').delegate('a.like-btn', 'click', function(){
+        $('body').delegate('a.heart', 'click', function(){
             var id = $(this).attr('rel');
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("/names/default/like") ?>',
@@ -12,8 +12,8 @@
                 dataType: 'JSON',
                 success:function (data) {
                     if (data.success){
-                        $(this).toggleClass('dislike_nm').toggleClass('like_nm');
-                        $('li.likes span span').html(data.count);
+                        $(this).toggleClass('empty_heart');
+                        $('li.like ins ins').html(data.count);
                     }
                 },
                 context:$(this)
@@ -22,18 +22,22 @@
         });
     });
 </script>
-<div class="baby_hanbook_names">
-    <ul class="handbook_changes_u">
-        <li<?php if ($this->action->id == 'index') echo ' class="current_t"' ?>><a href="<?php
-        echo $this->createUrl('/names/default/index', array()) ?>"><span>По алфавиту</span></a></li>
-        <li<?php if ($this->action->id == 'top10') echo ' class="current_t"' ?>><a href="<?php echo $this->createUrl('/names/default/top10', array()) ?>"><span>ТОР-10 </span></a></li>
-        <li<?php if ($this->action->id == 'saint') echo ' class="current_t"' ?>><a href="<?php echo $this->createUrl('/names/default/saint', array()) ?>"><span>По святцам</span></a></li>
-        <?php if (!Yii::app()->user->isGuest):?>
-            <li class="likes<?php if ($this->action->id == 'likes') echo ' current_t' ?>"><a href="<?php echo $this->createUrl('/names/default/likes', array()) ?>"><span>Нравятся<?php
-                echo ' (<span>'.Yii::app()->controller->likes.'</span>)' ?></span></a></li>
-        <?php endif ?>
+<div class="right_block">
+    <div class="choice_name">
+        <h1>Выбор имени ребенка</h1>
+    </div>
+    <ul class="choice_name_navi">
+        <li<?php if ($this->action->id == 'index') echo ' class="active"' ?>><a href="<?php
+            echo $this->createUrl('/names/default/index') ?>"><ins>По алфавиту</ins></a><span></span></li>
+        <li<?php if ($this->action->id == 'top10') echo ' class="active"' ?>><a href="<?php
+            echo $this->createUrl('/names/default/top10', array()) ?>"><ins>ТОП-10</ins></a><span></span></li>
+        <li<?php if ($this->action->id == 'saint') echo ' class="active"' ?>><a href="<?php
+            echo $this->createUrl('/names/default/saint', array()) ?>"><ins>По святцам</ins></a><span></span></li>
+        <li class="like<?php if ($this->action->id == 'likes') echo ' active' ?>"><a href="<?php
+        echo $this->createUrl('/names/default/likes', array()) ?>"><ins>Нравятся<?php
+            echo ' (<ins>'.Yii::app()->controller->likes.'</ins>)' ?></ins></a><span></span></li>
     </ul>
-</div><!-- .baby_hanbook_names -->
+</div>
 <?php echo $content; ?>
 
 <?php $this->endContent(); ?>

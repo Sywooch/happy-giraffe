@@ -4,83 +4,76 @@
         $('.gender-link a').click(function () {
             gender = $(this).attr('rel');
             if (gender == 1) {
-                $('.names_bl').hide();
+                $('.list_names').hide();
                 $('#likes-man').show();
 
-                $('.gender-link li').removeClass('current');
-                $(this).parent('li').addClass('current');
+                $('.gender-link a').removeClass('active');
+                $(this).addClass('active');
                 return false;
             }
             if (gender == 2) {
-                $('.names_bl').hide();
+                $('.list_names').hide();
                 $('#likes-woman').show();
-                $('.gender-link li').removeClass('current');
-                $(this).parent('li').addClass('current');
+                $('.gender-link a').removeClass('active');
+                $(this).addClass('active');
                 return false;
             }
 
-            $('.names_bl').hide();
+            $('.list_names').hide();
             $('#likes-all').show();
-            $('.gender-link li').removeClass('current');
-            $(this).parent('li').addClass('current');
+            $('.gender-link a').removeClass('active');
+            $(this).addClass('active');
             return false;
         });
     });
 </script>
-<div class="show_names">
-    <span class="show_wh">Показывать:</span>
-    <ul class="gender-link">
-        <li class="all_names current">
-            <a href="#" rel="">
-                <img src="/images/all_names_icon.png" alt="" title=""/><br/>
-                <span>Все имена</span>
-            </a>
-        </li>
-        <li class="man_names">
-            <a href="#" rel="1">
-                <img src="/images/man_names_icon.png" alt="" title=""/><br/>
-                <span>Мальчики</span>
-            </a>
-        </li>
-        <li class="woman_names">
-            <a href="#" rel="2">
-                <img src="/images/women_names_icon.png" alt="" title=""/><br/>
-                <span>Девочки</span>
-            </a>
-        </li>
-    </ul>
-    <div class="clear"></div>
-    <!-- .clear -->
-</div><!-- .show_names -->
-<div class="clear"></div><!-- .clear -->
 
-<div id="likes-all" class="names_bl">
-    <?php foreach ($data as $name)
-                   $this->renderPartial('__name', array(
-                       'id' => $name['id'],
-                       'name' => $name['name'],
-                       'gender' => $name['gender'],
-                       'translate' => $name['translate'],
-                       'like_ids' => $like_ids,
-                   )) ?>
-</div>
-<div id="likes-man" class="names_bl" style="display: none;">
-    <?php foreach ($man as $name)
-                   $this->renderPartial('__name', array(
-                       'id' => $name['id'],
-                       'name' => $name['name'],
-                       'gender' => $name['gender'],
-                       'translate' => $name['translate'],
-                       'like_ids' => $like_ids,
-                   )) ?>
-</div>
-<div id="likes-woman" class="names_bl" style="display: none;">
-    <?php foreach ($woman as $name)
-                   $this->renderPartial('__name', array(
-                       'id' => $name['id'],
-                       'name' => $name['name'],
-                       'gender' => $name['gender'],
-                       'translate' => $name['translate'],
-                       'like_ids' => $like_ids,
-                   )) ?>
+
+<div class="content_block">
+    <?php $this->renderPartial('_gender'); ?>
+    <p class="names_header like">Мне нравятся</p>
+
+    <div class="clear"></div>
+
+    <div class="list_names" id="likes-all">
+        <?php $i=1;
+            foreach ($data as $name){
+                       $this->renderPartial('__name', array(
+                           'id' => $name['id'],
+                           'name' => $name['name'],
+                           'gender' => $name['gender'],
+                           'translate' => $name['translate'],
+                           'like_ids' => $like_ids,
+                           'num'=>$i
+                       ));$i++; }?>
+        <div class="clear"></div>
+    </div>
+
+    <div class="list_names" id="likes-man" style="display: none;">
+        <?php $i=1;
+        foreach ($man as $name){
+                       $this->renderPartial('__name', array(
+                           'id' => $name['id'],
+                           'name' => $name['name'],
+                           'gender' => $name['gender'],
+                           'translate' => $name['translate'],
+                           'like_ids' => $like_ids,
+                           'num'=>$i
+                       ));$i++;} ?>
+        <div class="clear"></div>
+    </div>
+
+    <div class="list_names" id="likes-woman" style="display: none;">
+        <?php $i=1;
+        foreach ($woman as $name){
+                       $this->renderPartial('__name', array(
+                           'id' => $name['id'],
+                           'name' => $name['name'],
+                           'gender' => $name['gender'],
+                           'translate' => $name['translate'],
+                           'like_ids' => $like_ids,
+                           'num'=>$i
+                       ));$i++;} ?>
+        <div class="clear"></div>
+    </div>
 </div>

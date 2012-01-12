@@ -3463,7 +3463,6 @@ ul.quest_fun li.disagree_u a {
     margin: 0 0 0 204px;
     padding: 0;
 }
-
 .right_block ul.choice_name_navi li {
     list-style: none;
     float: left;
@@ -3472,8 +3471,7 @@ ul.quest_fun li.disagree_u a {
     padding: 0 0 0 14px;
     margin: 0 3px 0 0;
 }
-
-.right_block ul.choice_name_navi li a {
+.right_block ul.choice_name_navi li a{
     font-size: 18px;
     height: 19px;
     padding: 21px 9px 20px 9px;
@@ -3483,55 +3481,48 @@ ul.quest_fun li.disagree_u a {
     text-decoration: none;
     background: url("../images/name_navi_bg.png") repeat left top;
 }
-
-.right_block ul.choice_name_navi li a ins {
+.right_block ul.choice_name_navi li a ins{
     text-decoration: none;
     border-bottom: 1px dashed #fff;
 }
-
-.right_block ul.choice_name_navi li a:hover ins {
+.right_block ul.choice_name_navi li a:hover ins{
     border-bottom: none;
 }
 
-.right_block ul.choice_name_navi li span {
+.right_block ul.choice_name_navi li span{
     display: block;
     float: left;
     background: url("../images/name_navi_right.png") no-repeat left top;
     width: 14px;
     height: 60px;
 }
-
-.right_block ul.choice_name_navi li.active {
+.right_block ul.choice_name_navi li.active, .right_block ul.choice_name_navi li.like.active {
     background: url("../images/name_navi_active_left.png") no-repeat left top;
     padding: 0 0 0 18px;
 }
-
-.right_block ul.choice_name_navi li.active a {
+.right_block ul.choice_name_navi li.active a, .right_block ul.choice_name_navi li.like.active a{
     color: #724c99;
     background: #fff;
     border-bottom: none;
     padding: 21px 5px 20px 5px;
 }
-
-.right_block ul.choice_name_navi li.active span {
+.right_block ul.choice_name_navi li.active span, .right_block ul.choice_name_navi li.like.active span{
     background: url("../images/name_navi_active_right.png") no-repeat left top;
     width: 18px;
 }
-
 .right_block ul.choice_name_navi li.like {
     background: url("../images/name_navi_like_left.png") no-repeat left top;
 }
-
-.right_block ul.choice_name_navi li.like a {
+.right_block ul.choice_name_navi li.like a{
     background: url("../images/name_navi_like_bg.png") repeat left top;
 }
-
-.right_block ul.choice_name_navi li.like span {
+.right_block ul.choice_name_navi li.like span{
     background: url("../images/name_navi_like_right.png") no-repeat left top;
 }
 
+
 ul.letters {
-    margin: 24px 20px 0 20px;
+    margin: 24px 0 0 0;
     padding: 12px 11px 12px 70px;
     background: #fefceb;
 }
@@ -3541,6 +3532,13 @@ ul.letters li {
     list-style: none;
     font-size: 14px;
     padding: 2px 9px 2px 8px;
+    margin: 0;
+}
+ul.letters.month {
+    padding: 12px 0 12px 70px;
+}
+ul.letters.month li {
+    padding: 2px 10px 2px 12px;
 }
 
 ul.letters li.active {
@@ -3564,7 +3562,7 @@ ul.letters li a:hover {
 }
 
 .content_block {
-    padding: 29px 31px 0 90px;
+    padding: 29px 11px 0 70px;
 }
 
 .content_block .view_name {
@@ -3619,7 +3617,6 @@ ul.letters li a:hover {
     color: #3088b1;
     padding: 22px 0 0 0;
 }
-
 .content_block .names_header.like {
     background: url("../images/heart_like_big.png") no-repeat right top;
     display: inline-block;
@@ -3636,7 +3633,6 @@ ul.letters li a:hover {
     top: -8px;
     background-color: #fdf5a2;
 }
-
 .content_block .names_header.calendar span {
     font-size: 25px;
     top: 0;
@@ -3655,22 +3651,35 @@ ul.letters li a:hover {
 }
 
 .name_block.last {
-    margin: 25px 0 0 0;
+    margin: 15px 0 10px 0;
 }
 
 .name_block a {
-    display: inline-block;
-    *display: inline;
-    background: url("../images/name_heart.png") no-repeat right top;
-    padding: 6px 37px 4px 0;
+    display: block;
+    float: left;
+    height: 15px;
+    padding: 6px 0 4px 0;
     font-size: 15px;
+}
+.name_block a.heart {
+    background: url("../images/name_heart.png") no-repeat right top;
+    width: 37px;
+    height: 25px;
+    padding: 0;
+}
+
+.name_block a.heart.empty_heart {
+    background: url("../images/name_heart_empty.png") no-repeat right top;
 }
 
 .top_boys .name_block a, .top_girls .name_block a {
-    padding: 6px 37px 4px 0;
     margin: 8px 0 0 0;
 }
-
+.top_boys .name_block p, .top_girls .name_block p {
+    clear: none;
+    float: left;
+    width: 275px;
+}
 .top_boys .name_block, .top_girls .name_block {
     margin: 0 0 20px 0;
     height: 60px;
@@ -3678,6 +3687,8 @@ ul.letters li a:hover {
 
 .name_block p {
     color: #a9a9a9;
+    clear: both;
+    padding: 4px 0 0 0;
 }
 
 .name_block a.girl, .top_girls .name_block a {
@@ -3686,10 +3697,6 @@ ul.letters li a:hover {
 
 .name_block a.boy, .top_boys .name_block a {
     color: #2ca3fe;
-}
-
-.name_block a.empty_heart {
-    background: url("../images/name_heart_empty.png") no-repeat right top;
 }
 
 .name_block .heart_like {
@@ -3704,21 +3711,20 @@ ul.letters li a:hover {
     float: left;
 }
 
-.list_names .pagination {
+.list_names .pagination{
     margin: 40px 0 30px 0;
 }
+
 
 .name_info {
     padding: 3px 0 0 35px;
 }
-
-.name_info p {
+.name_info p{
     color: #7b7b7b;
     font-size: 13px;
     line-height: 17px;
 }
-
-.name_info p span {
+.name_info p span{
     font-weight: bold;
     color: #605f5f;
 }
@@ -3733,31 +3739,26 @@ ul.letters li a:hover {
     font-weight: bold;
     color: #fb3da8;
 }
-
 .name_info p.name {
     color: #2e2e2e;
     font-size: 20px;
     line-height: 20px;
 }
-
-.name_info p.name span {
+.name_info p.name span{
     color: #fb3da8;
 }
-
-.name_info .plashka {
+.name_info .plashka{
     background: #fdfcdc;
     padding: 7px 14px 15px 14px;
     margin: 20px 0 22px 0;
 }
-
-.name_info .plashka p.variants {
+.name_info .plashka p.variants{
     color: #2e2e2e;
     font-size: 20px;
     line-height: 22px;
     margin: 0 0 5px 0;
 }
-
-.name_info .plashka p span {
+.name_info .plashka p span{
     font-weight: bold;
     color: #605f5f;
 }
@@ -3768,18 +3769,15 @@ ul.letters li a:hover {
     color: #2e2e2e;
     margin: 20px 0 10px 0;
 }
-
 .name_info .best_person {
     background: #ededed;
     float: left;
     margin: 20px 20px 0 0;
 }
-
-.name_info .best_person img {
+.name_info .best_person img{
     display: block;
 }
-
-.name_info .best_person a {
+.name_info .best_person a{
     text-align: center;
     display: block;
     color: #5e5e5e;
@@ -3791,37 +3789,31 @@ ul.letters li a:hover {
 .name_link {
     margin: 40px 0 60px 0;
 }
-
 .name_link a {
     font-size: 13px;
     margin: 0 0 0 22px;
 }
-
 .name_info_right {
     border: 1px solid #e7d5f3;
-    padding: 10px 0 10px 10px;
-    margin: 0 20px 0 0;
+    padding: 20px 0 20px 20px;
+    margin: 0;
 }
-
 .name_info_right p {
     font-size: 13px;
     line-height: 17px;
     color: #7b7b7b;
 }
-
 .name_info_right p.header {
     font-size: 18px;
     line-height: 18px;
     color: #f755af;
     margin: 37px 0 3px 0;
 }
-
-.name_info_right p.header.like {
+.name_info_right p.header.like{
     padding: 9px 0 0 0;
     float: left;
 }
-
-.name_info_right p.heart_like {
+.name_info_right p.heart_like{
     font-size: 16px;
     line-height: 16px;
     float: left;
@@ -3832,7 +3824,6 @@ ul.letters li a:hover {
     text-align: center;
     padding: 30px 0 0 0;
 }
-
 .name_info_right p.header.first {
     margin: 0 0 3px 0;
 }
@@ -3849,8 +3840,7 @@ ul.letters li a:hover {
     padding: 28px 0 0 0;
     margin: 4px 3px 3px 0;
 }
-
-.name_info_right ul.calendar li span {
+.name_info_right ul.calendar li span{
     font-size: 20px;
     display: block;
 }
@@ -3858,7 +3848,6 @@ ul.letters li a:hover {
 .diagram {
     margin: 35px 0 0 0;
 }
-
 .diagram_navi {
     margin: 0 0 40px 0;
 }
@@ -3869,28 +3858,23 @@ ul.letters li a:hover {
     float: left;
     padding: 0;
 }
-
 .diagram_navi ul {
     text-align: center;
     padding: 4px 0 8px 0;
 }
-
-.diagram_navi ul li a {
+.diagram_navi ul li a{
     font-size: 13px;
     color: #c5c5c5;
     font-weight: normal;
     text-decoration: none;
 }
-
 .diagram_navi ul li.right_arrow {
     float: right;
 }
-
 .diagram_navi ul li.left_arrow, .diagram_navi ul li.right_arrow {
     margin: 0;
 }
-
-.diagram_navi ul li.left_arrow a {
+.diagram_navi ul li.left_arrow a{
     background: url("../images/left_arrow_like.png") no-repeat left top;
     display: block;
     float: left;
@@ -3898,8 +3882,7 @@ ul.letters li a:hover {
     height: 22px;
     margin: 0 0 0 10px;
 }
-
-.diagram_navi ul li.right_arrow a {
+.diagram_navi ul li.right_arrow a{
     background: url("../images/right_arrow_like.png") no-repeat left top;
     display: block;
     float: right;
@@ -3907,8 +3890,7 @@ ul.letters li a:hover {
     height: 22px;
     margin: 0 41px 0 0;
 }
-
-.diagram_navi p.year {
+.diagram_navi p.year{
     clear: both;
     margin: 20px 30px 0 0;
     text-align: center;
@@ -3927,8 +3909,7 @@ ul.letters li a:hover {
     padding: 28px 0 0 0;
     margin: 0;
 }
-
-.list_names .calendar span {
+.list_names .calendar span{
     font-weight: bold;
     font-size: 20px;
     display: block;
@@ -3941,7 +3922,6 @@ ul.letters li a:hover {
     background: url("../images/top_boys.png") no-repeat 30px top;
     padding: 215px 0 0 0;
 }
-
 .top_girls {
     margin: 36px 0 40px 20px;
     float: left;

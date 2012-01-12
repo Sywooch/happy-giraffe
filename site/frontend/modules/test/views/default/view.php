@@ -91,15 +91,22 @@
                 res_count[result[i]]++;
         }
 
-//        console.log(res_count);
-
         //check result that has maximum answers
-        <?php foreach ($test->testResults as $result): ?>
-            if (ElementIsMax(res_count, <?php echo $result->number ?>)){
+        <?php if ($test->NoPointResults()):?>
+            <?php foreach ($test->testResults as $result): ?>
+                if (ElementIsMax(res_count, <?php echo $result->number ?>)){
+                    $('#result<?php echo $result->number ?>').fadeIn(300);
+                    return;
+                }
+            <?php endforeach; ?>
+        <?php else: ?>
+            <?php foreach ($test->testResults as $result): ?>
+            if (HasPoints(res_count, <?php echo $result->number ?>, <?php echo $result->points ?>)){
                 $('#result<?php echo $result->number ?>').fadeIn(300);
                 return;
             }
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        <?php endif ?>
 
         $('#unknown_result').fadeIn(300);
     }
@@ -120,6 +127,14 @@
             }
         }
         return true;
+    }
+
+    function HasPoints(arr, el_index, points){
+        if (isNaN(arr[el_index]))
+            return false;
+
+        if (arr[el_index] >= points)
+            return true;
     }
 </script>
 

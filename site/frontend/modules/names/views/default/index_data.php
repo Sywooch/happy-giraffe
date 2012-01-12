@@ -1,27 +1,7 @@
-<div class="handbook_names_alfa">
-<?php if ($pages !== null): ?>
-<ul>
-        <? $i=0;
-            foreach($names as $name): ?>
-            <li><? $this->renderPartial('_name', array('data' => $name,'like_ids'=>$like_ids)); ?></li>
-            <?php $i++; ?>
-            <?php if ($i%10 == 0 && $i != 30) echo '</ul><ul>' ?>
-        <? endforeach; ?>
-</ul>
-<div class="clear"></div><!-- .clear -->
-<?php else: ?>
-<?php $col = ceil(count($names)/3) ?>
-<ul>
-            <? $i=0;
-            foreach($names as $name): ?>
-                <li><? $this->renderPartial('_name', array('data' => $name,'like_ids'=>$like_ids)); ?></li>
-                <?php $i++; ?>
-                <?php if ($i%$col == 0 && $i != $col*3) echo '</ul><ul>' ?>
-                <? endforeach; ?>
-</ul>
-<div class="clear"></div><!-- .clear -->
-<?php endif; ?>
-</div>
+<?php $i=1; foreach($names as $name): ?>
+    <? $this->renderPartial('_name', array('data' => $name,'like_ids'=>$like_ids,'num'=>$i));$i++; ?>
+<?php endforeach; ?>
+<div class="clear"></div>
 
 <?php if ($pages !== null): ?>
     <?php if ($pages->pageCount > 1): ?>

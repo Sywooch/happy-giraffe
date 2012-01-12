@@ -9,8 +9,8 @@
     var month;
 
     $(function () {
-        $('ul.choice_month a').click(function () {
-            month = $(this).attr('rel');
+        $('ul.letters a').click(function () {
+            month = $('ul.month li a').index($(this)) + 1;
 
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("/names/default/SaintCalc") ?>',
@@ -20,9 +20,10 @@
                 },
                 type:'GET',
                 success:function (data) {
-                    $('ul.choice_alfa_letter li').removeClass('current');
-                    $(this).parent('li').addClass('current');
+                    $('ul.letters li').removeClass('active');
+                    $(this).parent('li').addClass('active');
                     $('#result').html(data);
+                    $('p.names_header').html('Имена по святцам - <span>' + $(this).text() + '</span>');
                 },
                 context:$(this)
             });
@@ -40,8 +41,8 @@
                 },
                 type:'GET',
                 success:function (data) {
-                    $('.gender-link li').removeClass('current');
-                    $(this).parent('li').addClass('current');
+                    $('.gender-link a').removeClass('active');
+                    $(this).addClass('active');
                     $('#result').html(data);
                 },
                 context:$(this)
@@ -51,38 +52,27 @@
     });
 </script>
 
-<ul class="choice_month">
-    <li class="current"><a href="#" rel="1">Январь</a></li>
-    <li><a href="#" rel="2">Февраль</a></li>
-    <li><a href="#" rel="3">Март</a></li>
+<ul class="letters month">
+    <li><a href="#">Январь</a></li>
+    <li><a href="#">Февраль</a></li>
+    <li><a href="#">Март</a></li>
+    <li><a href="#">Апрель</a></li>
+    <li><a href="#">Май</a></li>
+    <li><a href="#">Июнь</a></li>
+    <li><a href="#">Июль</a></li>
+    <li><a href="#">Август</a></li>
+    <li><a href="#">Сентябрь</a></li>
+    <li><a href="#">Октябрь</a></li>
+    <li><a href="#">Ноябрь</a></li>
+    <li><a href="#">Декабрь</a></li>
 </ul>
 
-<div class="show_names">
-    <span class="show_wh">Показывать:</span>
-    <ul class="gender-link">
-        <li class="all_names current">
-            <a href="#" rel="">
-                <img src="/images/all_names_icon.png" alt="" title="" /><br />
-                <span>Все имена</span>
-            </a>
-        </li>
-        <li class="man_names">
-            <a href="#" rel="1">
-                <img src="/images/man_names_icon.png" alt="" title="" /><br />
-                <span>Мальчики</span>
-            </a>
-        </li>
-        <li class="woman_names">
-            <a href="#" rel="2">
-                <img src="/images/women_names_icon.png" alt="" title="" /><br />
-                <span>Девочки</span>
-            </a>
-        </li>
-    </ul>
-    <div class="clear"></div><!-- .clear -->
-</div><!-- .show_names -->
-<div class="clear"></div><!-- .clear -->
+<div class="content_block">
+    <?php $this->renderPartial('_gender'); ?>
+    <p class="names_header calendar">Имена по святцам</p>
+    <div class="clear"></div>
 
-<div id="result">
+    <div id="result">
 
+    </div>
 </div>

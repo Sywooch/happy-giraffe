@@ -5,7 +5,7 @@
 
     $(function () {
 
-        $('ul.choice_alfa_letter a').click(function () {
+        $('ul.letters a').click(function () {
             letter = $(this).text();
 
             $.ajax({
@@ -16,8 +16,12 @@
                 },
                 type:'GET',
                 success:function (data) {
-                    $('ul.choice_alfa_letter li').removeClass('current');
-                    $(this).parent('li').addClass('current');
+                    $('ul.letters li').removeClass('active');
+                    if ($(this).text() == 'Все')
+                        $('p.names_header').html('Все имена');
+                    else
+                        $('p.names_header').html('Имена на букву <span>'+$(this).text()+'</span>');
+                    $(this).parent('li').addClass('active');
                     $('#result').html(data);
                 },
                 context:$(this)
@@ -36,8 +40,8 @@
                 },
                 type:'GET',
                 success:function (data) {
-                    $('.gender-link li').removeClass('current');
-                    $(this).parent('li').addClass('current');
+                    $('.gender-link a').removeClass('active');
+                    $(this).addClass('active');
                     $('#result').html(data);
                 },
                 context:$(this)
@@ -45,7 +49,7 @@
             return false;
         });
 
-        $('body').delegate('.pagination a', 'click', function(){
+        $('body').delegate('.pagination a', 'click', function () {
             $.ajax({
                 url:$(this).attr('href'),
                 data:{
@@ -55,6 +59,7 @@
                 type:'GET',
                 success:function (data) {
                     $('#result').html(data);
+                    $('html,body').animate({scrollTop: $('ul.letters').offset().top},'fast');
                 }
             });
 
@@ -62,8 +67,8 @@
         });
     });
 </script>
-<ul class="choice_alfa_letter">
-    <li class="current"><a href="#">Все</a></li>
+<ul class="letters">
+    <li class="active"><a href="#">Все</a></li>
     <li><a href="#">А</a></li>
     <li><a href="#">Б</a></li>
     <li><a href="#">В</a></li>
@@ -91,36 +96,18 @@
     <li><a href="#">Ю</a></li>
     <li><a href="#">Я</a></li>
 </ul>
-<div class="show_names">
-    <span class="show_wh">Показывать:</span>
-    <ul class="gender-link">
-        <li class="all_names current">
-            <a href="#" rel="">
-                <img src="/images/all_names_icon.png" alt="" title="" /><br />
-                <span>Все имена</span>
-            </a>
-        </li>
-        <li class="man_names">
-            <a href="#" rel="1">
-                <img src="/images/man_names_icon.png" alt="" title="" /><br />
-                <span>Мальчики</span>
-            </a>
-        </li>
-        <li class="woman_names">
-            <a href="#" rel="2">
-                <img src="/images/women_names_icon.png" alt="" title="" /><br />
-                <span>Девочки</span>
-            </a>
-        </li>
-    </ul>
-    <div class="clear"></div><!-- .clear -->
-</div><!-- .show_names -->
-<div class="clear"></div><!-- .clear -->
-<div id="result">
-    <?php
-    $this->renderPartial('index_data', array(
-        'names' => $names,
-        'pages' => $pages,
-        'like_ids'=>$like_ids
-    )); ?>
+<div class="content_block">
+    <?php $this->renderPartial('_gender'); ?>
+    <p class="names_header">Все имена</p>
+
+    <div class="clear"></div>
+
+    <div id="result" class="list_names">
+        <?php
+        $this->renderPartial('index_data', array(
+            'names' => $names,
+            'pages' => $pages,
+            'like_ids' => $like_ids
+        )); ?>
+    </div>
 </div>

@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Name Famouses'=>array(Yii::t('app', 'index')),
-	Yii::t('app', 'Create'),
+	'Name Famouses'=>array('index'),
+	'Create',
 );
 
 $this->menu=array(
@@ -10,22 +10,6 @@ $this->menu=array(
 );
 ?>
 
-<h1> Create NameFamous </h1>
-<div class="form">
+<h1>Create NameFamous</h1>
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'name-famous-form',
-	'enableAjaxValidation'=>true,
-)); 
-echo $this->renderPartial('_form', array(
-	'model'=>$model,
-	'form' =>$form
-	)); ?>
-
-<div class="row buttons">
-	<?php echo CHtml::submitButton(Yii::t('app', 'Create')); ?>
-</div>
-
-<?php $this->endWidget(); ?>
-
-</div>
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

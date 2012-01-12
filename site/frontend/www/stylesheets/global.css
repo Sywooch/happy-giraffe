@@ -494,7 +494,7 @@ p {
 .right-inner.mirror {
     display: block;
     background: #FFFFFF;
-    padding: 25px 0 0 25px;
+    padding: 25px 0 0 5px;
     margin: 0;
     width: 630px;
     float: left;
@@ -3729,24 +3729,44 @@ ul.letters li a:hover {
     color: #605f5f;
 }
 
-.name_info h1 {
+#content .name_info h1 {
     display: inline-block;
     *display: inline;
-    background: url("../images/name_heart_big.png") no-repeat right top;
-    padding: 20px 70px 8px 0;
+    padding: 20px 0 8px 0;
     margin: 0 0 27px 0;
     font-size: 40px;
     font-weight: bold;
     color: #fb3da8;
 }
+#content .name_info a.like_name{
+    display: inline-block;
+    *display: inline;
+    background: url("../images/name_heart_big.png") no-repeat right top;
+    width: 70px;
+    height: 48px;
+}
+#content .name_info a.like_name.empty_heart{
+    background: url("../images/name_heart_empty_big.png") no-repeat right top;
+}
+
 .name_info p.name {
     color: #2e2e2e;
     font-size: 20px;
     line-height: 20px;
 }
-.name_info p.name span{
+#content .name_info h1.boy {
+    color: #2CA3FE;
+}
+.name_info p.name span.boy {
+    color: #2CA3FE;
+}
+#content .name_info h1.girl {
     color: #fb3da8;
 }
+.name_info p.name span.girl {
+    color: #fb3da8;
+}
+
 .name_info .plashka{
     background: #fdfcdc;
     padding: 7px 14px 15px 14px;
@@ -3806,9 +3826,15 @@ ul.letters li a:hover {
 .name_info_right p.header {
     font-size: 18px;
     line-height: 18px;
-    color: #f755af;
     margin: 37px 0 3px 0;
 }
+.name_info_right.girl p.header {
+    color: #f755af;
+}
+.name_info_right.boy p.header {
+    color: #2CA3FE;
+}
+
 .name_info_right p.header.like{
     padding: 9px 0 0 0;
     float: left;

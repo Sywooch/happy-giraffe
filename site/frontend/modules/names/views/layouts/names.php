@@ -12,7 +12,8 @@
                 dataType: 'JSON',
                 success:function (data) {
                     if (data.success){
-                        $(this).toggleClass('empty_heart');
+                        //$(this).toggleClass('empty_heart');
+                        $('a.heart[rel='+id+']').toggleClass('empty_heart');
                         $('li.like ins ins').html(data.count);
                     }
                 },

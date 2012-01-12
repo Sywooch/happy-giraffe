@@ -117,4 +117,17 @@ class Test extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    /**
+     * Check if results has points
+     * @return bool
+     */
+    public function NoPointResults(){
+        foreach ($this->testResults as $res) {
+            if (!empty($res->points))
+                return false;
+        }
+
+        return true;
+    }
 }

@@ -10,6 +10,7 @@
  * @property string $image
  * @property integer $number
  * @property integer $priority
+ * @property integer $points
  * @property string $text
  *
  * The followings are the available model relations:
@@ -43,11 +44,11 @@ class TestResult extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('test_id, name, number, text', 'required'),
-			array('test_id, number, priority', 'numerical', 'integerOnly'=>true),
+			array('test_id, number, priority, points', 'numerical', 'integerOnly'=>true),
 			array('name, image', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, test_id, name, image, number, priority, text', 'safe', 'on'=>'search'),
+			array('id, test_id, name, image, number, priority, points, text', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,6 +76,7 @@ class TestResult extends CActiveRecord
 			'image' => 'Image',
 			'number' => 'Number',
 			'priority' => 'Priority',
+			'points' => 'Points',
 			'text' => 'Text',
 		);
 	}
@@ -96,6 +98,7 @@ class TestResult extends CActiveRecord
 		$criteria->compare('image',$this->image,true);
 		$criteria->compare('number',$this->number);
 		$criteria->compare('priority',$this->priority);
+		$criteria->compare('points',$this->points);
 		$criteria->compare('text',$this->text,true);
 
 		return new CActiveDataProvider($this, array(

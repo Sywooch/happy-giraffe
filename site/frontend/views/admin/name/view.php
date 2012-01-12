@@ -23,28 +23,10 @@ $this->menu=array(
 		'gender',
 		'translate',
 		'origin',
-		'nameGroup.name',
+		'description',
 		'options',
 		'sweet',
 		'middle_names',
 		'likes',
 	),
 )); ?>
-
-
-<br /><h2> This NameFamous belongs to this Name: </h2>
-<ul><?php foreach($model->nameFamouses as $foreignobj) { 
-
-				printf('<li>%s</li>', CHtml::link($foreignobj->middle_name, array('namefamous/view', 'id' => $foreignobj->id)));
-
-				} ?></ul><br /><h2> This NameSaintDate belongs to this Name: </h2>
-<ul><?php foreach($model->nameSaintDates as $foreignobj) { 
-
-				printf('<li>%s</li>', CHtml::link($foreignobj->day, array('namesaintdate/view', 'id' => $foreignobj->id)));
-
-				} ?></ul><br /><h2> This User belongs to this Name: </h2>
-<ul><?php foreach($model->users as $foreignobj) { 
-
-				printf('<li>%s</li>', CHtml::link($foreignobj->external_id, array('user/view', 'id' => $foreignobj->id)));
-
-				} ?></ul>

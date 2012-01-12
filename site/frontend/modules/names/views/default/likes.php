@@ -28,7 +28,6 @@
     });
 </script>
 
-
 <div class="content_block">
     <?php $this->renderPartial('_gender'); ?>
     <p class="names_header like">Мне нравятся</p>

@@ -2,7 +2,7 @@
 $this->breadcrumbs=array(
 	'Name Famouses'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
-	Yii::t('app', 'Update'),
+	'Update',
 );
 
 $this->menu=array(
@@ -13,22 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1> Update NameFamous #<?php echo $model->id; ?> </h1>
-<div class="form">
+<h1>Update NameFamous <?php echo $model->id; ?></h1>
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'name-famous-form',
-	'enableAjaxValidation'=>true,
-)); 
-echo $this->renderPartial('_form', array(
-	'model'=>$model,
-	'form' =>$form
-	)); ?>
-
-<div class="row buttons">
-	<?php echo CHtml::submitButton(Yii::t('app', 'Update')); ?>
-</div>
-
-<?php $this->endWidget(); ?>
-
-</div><!-- form -->
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

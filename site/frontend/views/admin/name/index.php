@@ -1,12 +1,11 @@
 <?php
-$this->breadcrumbs = array(
+$this->breadcrumbs=array(
 	'Names',
-	Yii::t('app', 'Index'),
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app', 'Create') . ' Name', 'url'=>array('create')),
-	array('label'=>Yii::t('app', 'Manage') . ' Name', 'url'=>array('admin')),
+	array('label'=>'Create Name', 'url'=>array('create')),
+	array('label'=>'Manage Name', 'url'=>array('admin')),
 );
 ?>
 

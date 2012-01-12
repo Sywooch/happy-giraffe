@@ -6,4 +6,5 @@
     <div class="right-inner">
         <?php echo $content; ?>
     </div>
+    <div class="clear"></div>
 <?php $this->endContent(); ?>

@@ -9,6 +9,7 @@
  * @property integer $gender
  * @property string $translate
  * @property string $origin
+ * @property string $description
  * @property string $name_group_id
  * @property string $options
  * @property string $sweet
@@ -61,7 +62,7 @@ class Name extends CActiveRecord
             array('middle_names', 'length', 'max' => 1024),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, gender, translate, origin, name_group_id, options, sweet, middle_names, likes', 'safe', 'on' => 'search'),
+            array('id, name, gender, translate, description, origin, name_group_id, options, sweet, middle_names, likes', 'safe', 'on' => 'search'),
         );
     }
 
@@ -73,7 +74,7 @@ class Name extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'nameGroup' => array(self::BELONGS_TO, 'NameGroup', 'name_group_id'),
+//            'nameGroup' => array(self::BELONGS_TO, 'NameGroup', 'name_group_id'),
             'nameFamouses' => array(self::HAS_MANY, 'NameFamous', 'name_id'),
             'nameSaintDates' => array(self::HAS_MANY, 'NameSaintDate', 'name_id'),
             'nameStats' => array(self::HAS_MANY, 'NameStats', 'name_id'),
@@ -92,6 +93,7 @@ class Name extends CActiveRecord
             'gender' => 'Пол',
             'translate' => 'Значение',
             'origin' => 'Происхождение',
+            'description'=>'Характеристика',
             'name_group_id' => 'Языковая группа',
             'options' => 'Варианты',
             'sweet' => 'Ласковык варианты',
@@ -125,6 +127,11 @@ class Name extends CActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function GenderText(){
+        if ($this->gender == 1) echo  'мужской';
+        if ($this->gender == 2) echo  'женский';
     }
 
     public function Top10Man()
@@ -198,6 +205,7 @@ class Name extends CActiveRecord
             ->select(array('id', 'name', 'gender', 'translate'))
             ->from('name')
             ->join('name_likes', 'name.id = name_likes.name_id AND name_likes.user_id = ' . $user_id)
+            ->order('name')
             ->queryAll();
 
         return $data;
@@ -226,6 +234,10 @@ class Name extends CActiveRecord
             ->queryScalar();
 
         return $data;
+    }
+
+    public function GetFirstLetter(){
+        return substr($this->name, 0, 2);
     }
 
     public function like($user_id)

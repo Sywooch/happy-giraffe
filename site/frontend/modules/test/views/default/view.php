@@ -70,10 +70,13 @@
     });
 
     function NextStep(){
-        if (step_count == active_step)
+        if (step_count == active_step){
             $('#step' + active_step).fadeOut(300, function () {
                 ShowResult();
             });
+            active_step++;
+            return;
+        }
         $('#step' + active_step).fadeOut(300, function () {
             $('#step' + active_step).fadeIn(300);
         });
@@ -138,6 +141,8 @@
     }
 </script>
 
+<div style="height: 520px;">
+
 <div class="<?php echo $test->css_class ?>" id="step0">
     <img src="/images/test/<?php echo $test->id . '/' . $test->start_image ?>" alt=""/>
     <a href="#" class="test_begin">Пройти тест</a>
@@ -174,7 +179,6 @@ foreach ($test->testQuestions as $question): ?>
 </div>
 <?php endforeach; ?>
 
-
 <div class="<?php echo $test->css_class ?>" id="unknown_result" style="display: none;">
     <img src="/images/test/<?php echo $test->id ?>/<?php
         echo empty($test->unknown_result_image)?$test->result_image:$test->unknown_result_image ?>" alt="" title="" />
@@ -199,6 +203,7 @@ foreach ($test->testQuestions as $question): ?>
     </div>
 </div>
 <?php endforeach; ?>
+</div>
 
 <div class="seo-text">
     <h1 class="summary-title"><?php echo $test->name ?></h1>

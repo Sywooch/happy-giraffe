@@ -11,6 +11,7 @@ class DefaultController extends Controller
         $like_ids = Name::GetLikeIds();
 
         $criteria = new CDbCriteria;
+        $criteria->order = 'name';
         $show_all = false;
         if ($letter !== null && strlen($letter) < 3) {
             $criteria->compare('name', strtolower($letter) . '%', true, 'AND', false);
@@ -272,4 +273,140 @@ class DefaultController extends Controller
             return 30;
         return 30 + ($max - $value) * 85 / $diff;
     }
+
+    public function ParsePage2()
+    {
+        Yii::import('ext.phpQuery.phpQuery.phpQuery');
+        $urls = array(
+            'http://www.baby.ru/names/svyatki/january/',
+            'http://www.baby.ru/names/svyatki/february/',
+            'http://www.baby.ru/names/svyatki/march/',
+            'http://www.baby.ru/names/svyatki/april/',
+            'http://www.baby.ru/names/svyatki/may/',
+            'http://www.baby.ru/names/svyatki/june/',
+            'http://www.baby.ru/names/svyatki/july/',
+            'http://www.baby.ru/names/svyatki/august/',
+            'http://www.baby.ru/names/svyatki/september/',
+            'http://www.baby.ru/names/svyatki/october/',
+            'http://www.baby.ru/names/svyatki/november/',
+            'http://www.baby.ru/names/svyatki/december/',
+        );
+        $month = 0;
+        foreach ($urls as $url) {
+            $month++;
+            $html = file_get_contents($url);
+            $document = phpQuery::newDocument($html);
+            foreach ($document->find('ul.table_of_names div.name_title a') as $link) {
+                $name = pq($link)->text();
+                $woman = pq($link)->hasClass('pink_color');
+                $date = pq($link)->parents('ul.table_of_names')->find('div.main_journal_font')->text() . '<br>';
+                $link = pq($link)->attr('href');
+                $day = preg_replace("/([^0-9]+)/", "", $date);
+
+                $model = Name::model()->findByAttributes(array(
+                    'name' => $name,
+                ));
+                if ($model === null) {
+                    $model = new Name;
+                    $model->name = $name;
+                    $model->gender = $woman ? 2 : 1;
+                    $model->middle_names = $link;
+                    if (!$model->save())
+                        var_dump($model->getErrors());
+                }
+
+                $exist = NameSaintDate::model()->findByAttributes(array(
+                    'day' => $day,
+                    'month' => $month,
+                    'name_id' => $model->id,
+                ));
+                if ($exist === null) {
+                    $saint = new NameSaintDate;
+                    $saint->day = $day;
+                    $saint->month = $month;
+                    $saint->name_id = $model->id;
+                    if (!$saint->save())
+                        var_dump($saint->getErrors());
+                }
+            }
+            sleep(1);
+        }
+    }
+
+
+    public function ParsePage()
+    {
+        Yii::import('ext.phpQuery.phpQuery.phpQuery');
+
+        for ($page = 0; $page < 20; $page++) {
+            $url = 'http://www.baby.ru/names/ajax';
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
+            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // allow redirects
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
+            curl_setopt($ch, CURLOPT_TIMEOUT, 3); // times out after 4s
+            curl_setopt($ch, CURLOPT_POST, 1); // set POST method
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "action=getAllNames&ethnic_id=0&letter_id=0&page=$page&random=1&sex=all"); // add POST fields
+            $html = curl_exec($ch); // run the whole process
+            curl_close($ch);
+
+            $document = phpQuery::newDocument($html);
+            echo $document;
+            foreach ($document->find('ul.table_of_names div.name_title a') as $link) {
+                $name = trim(pq($link)->text());
+                $woman = trim(pq($link)->hasClass('pink_color'));
+                $link = trim(pq($link)->attr('href'));
+
+                $model = Name::model()->findByAttributes(array(
+                    'name' => $name,
+                ));
+                if ($model === null) {
+                    $model = new Name;
+                    $model->name = $name;
+                    $model->gender = $woman ? 2 : 1;
+                    $model->middle_names = $link;
+                    if (!$model->save())
+                        var_dump($model->getErrors());
+                }
+            }
+            sleep(1);
+        }
+    }
+
+
+    public function ParseName()
+    {
+        Yii::import('ext.phpQuery.phpQuery.phpQuery');
+
+        $models = Name::model()->findAll();
+        foreach ($models as $model) {
+            $html = file_get_contents($model->middle_names);
+            $document = phpQuery::newDocument($html);
+            $i = 0;
+            foreach ($document->find('.name_group .cont_main .padding_5 .padding_0_0_10') as $link) {
+                if ($i == 1) {
+                    $name = pq($link)->text();
+                    $model->translate = $name;
+                    echo $name."<br>";
+                }
+                $i++;
+            }
+            $i = 0;
+            foreach ($document->find('div.name_full_info .description_info p') as $p) {
+                if ($i == 5) {
+                    $name = pq($p)->text();
+                    $name = substr($name, strpos($name, ':')+1, strlen($name));
+                    $model->origin = $name;
+                    echo trim($name)."<br>";
+                }
+                $i++;
+            }
+
+            $model->update(array('translate','origin'));
+
+            sleep(1);
+        }
+    }
+
 }

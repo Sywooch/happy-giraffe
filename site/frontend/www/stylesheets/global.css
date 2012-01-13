@@ -3793,9 +3793,11 @@ ul.letters li a:hover {
     background: #ededed;
     float: left;
     margin: 20px 20px 0 0;
+    width: 150px;
 }
 .name_info .best_person img{
     display: block;
+    width: 150px;
 }
 .name_info .best_person p{
     text-align: center;

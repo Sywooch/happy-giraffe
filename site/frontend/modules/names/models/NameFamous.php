@@ -140,7 +140,8 @@ class NameFamous extends CActiveRecord
 
     protected function afterDelete()
     {
-        unlink($this->uploadTo() . $this->photo);
+        if (!empty($this->photo))
+            unlink($this->uploadTo() . $this->photo);
 
         return parent::afterDelete();
     }

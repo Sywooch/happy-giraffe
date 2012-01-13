@@ -3,6 +3,14 @@
  * @var $name Name
  */
 ?>
+<script type="text/javascript">
+    $(function() {
+        $('.diagram_navi a').click(function(){
+
+            return false;
+        });
+    });
+</script>
 <div class="left-inner mirror">
     <div class="name_link">
         <a href="<?php echo $this->createUrl('/names/default/index') ?>">Все имена</a>
@@ -46,17 +54,26 @@
             <p class="variants">Варианты имени <?php echo $name->name; ?>, ласковое обращение</p>
 
             <p><span>Варианты имени <?php echo $name->name; ?>:</span> <?php echo $name->options; ?></p>
+            <p><span>Ласковое обращение <?php echo $name->name; ?>:</span> <?php echo $name->sweet; ?></p>
         </div>
 
         <h2>Характеристика имени <?php echo $name->name; ?></h2>
 
-        <p><span>Характеристика имени <?php echo $name->name; ?>:</span> <?php echo $name->origin ?></p>
+        <p><span>Характеристика имени <?php echo $name->name; ?>:</span> <?php echo $name->description ?></p>
+
+        <h2>Подходящие отчества к имени <?php echo $name->name; ?></h2>
+
+        <p><span>Подходящие отчества к имени <?php echo $name->name; ?>:</span> <?php echo $name->middle_names ?></p>
+
+        <h2>Христианские святые с именем <?php echo $name->name; ?></h2>
+
+        <p><span>Христианские святые с именем <?php echo $name->name; ?>:</span> <?php echo $name->saints ?></p>
 
         <h2>Известные личности с именем <?php echo $name->name; ?></h2>
 
         <?php foreach ($name->nameFamouses as $famous): ?>
             <div class="best_person">
-                <img src="<?php echo $famous->photo ?>" alt=""/>
+                <?php if (!empty($famous->photo)) $famous->GetAdminPhoto() ?>
                 <a href="#" onclick="return false;"><?php echo $name->name.' '.$famous->last_name ?></a>
             </div>
         <?php endforeach; ?>

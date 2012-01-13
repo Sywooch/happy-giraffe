@@ -3797,7 +3797,7 @@ ul.letters li a:hover {
 .name_info .best_person img{
     display: block;
 }
-.name_info .best_person a{
+.name_info .best_person p{
     text-align: center;
     display: block;
     color: #5e5e5e;

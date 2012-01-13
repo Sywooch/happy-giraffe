@@ -59,22 +59,23 @@
 
         <h2>Характеристика имени <?php echo $name->name; ?></h2>
 
-        <p><span>Характеристика имени <?php echo $name->name; ?>:</span> <?php echo $name->description ?></p>
+        <p><?php echo $name->description ?></p>
 
         <h2>Подходящие отчества к имени <?php echo $name->name; ?></h2>
 
-        <p><span>Подходящие отчества к имени <?php echo $name->name; ?>:</span> <?php echo $name->middle_names ?></p>
+        <p><?php echo $name->middle_names ?></p>
 
         <h2>Христианские святые с именем <?php echo $name->name; ?></h2>
 
-        <p><span>Христианские святые с именем <?php echo $name->name; ?>:</span> <?php echo $name->saints ?></p>
+        <p><?php echo $name->saints ?></p>
 
         <h2>Известные личности с именем <?php echo $name->name; ?></h2>
 
         <?php foreach ($name->nameFamouses as $famous): ?>
             <div class="best_person">
                 <?php if (!empty($famous->photo)) $famous->GetAdminPhoto() ?>
-                <a href="#" onclick="return false;"><?php echo $name->name.' '.$famous->last_name ?></a>
+                <p><?php echo $name->name.' '.$famous->last_name ?>
+                    <?php if (!empty($famous->description)) echo ', '.$famous->description ?></p>
             </div>
         <?php endforeach; ?>
 

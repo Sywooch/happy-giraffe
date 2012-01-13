@@ -43,7 +43,7 @@ class NameFamous extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name_id, last_name, description', 'required'),
+            array('name_id, last_name', 'required'),
             array('name_id', 'length', 'max' => 10),
             array('middle_name, last_name', 'length', 'max' => 50),
             array('description, photo', 'length', 'max' => 256),
@@ -93,19 +93,27 @@ class NameFamous extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('name_id', $this->name_id, true);
+        $criteria->compare('name.name', $this->name_id, true);
         $criteria->compare('middle_name', $this->middle_name, true);
         $criteria->compare('last_name', $this->last_name, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('photo', $this->photo, true);
+
+        $criteria->with = 'name';
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
 
-    public function uploadTo(){
+    public function uploadTo()
+    {
         return 'upload/names/famous/';
+    }
+
+    public function GetAdminPhoto()
+    {
+        echo  CHtml::image('/' . $this->uploadTo() . $this->photo);
     }
 
     /**
@@ -121,8 +129,19 @@ class NameFamous extends CActiveRecord
 
         if (!empty($file)) {
             $file->saveAs($imagePath . $name);
+            Yii::import('ext.image.Image');
+            $image = new Image($imagePath . $name);
+            $image->resize(200, 200, Image::AUTO);
+            $image->save($imagePath . $name);
         }
         $this->photo = $name;
         $this->save();
+    }
+
+    protected function afterDelete()
+    {
+        unlink($_SERVER['DOCUMENT_ROOT'] . $this->uploadTo() . $this->photo);
+
+        return parent::afterDelete();
     }
 }

@@ -1,3 +1,13 @@
+<style type="text/css">
+    .admin-btn-temp {
+        background: green;
+        color: #FFFFFF;
+        font-size: 16px;
+        font-weight: bold;
+        height: 30px;
+        width: 150px;
+    }
+</style>
 <?php
 /* @var $this Controller
  * @var $form CActiveForm
@@ -8,6 +18,8 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'name-famous-form',
 	'enableAjaxValidation'=>false,
+    'htmlOptions' => array(
+        'enctype' => 'multipart/form-data'),
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
@@ -39,13 +51,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'photo'); ?>
-		<?php echo $form->textField($model,'photo',array('size'=>60,'maxlength'=>256)); ?>
-		<?php echo $form->error($model,'photo'); ?>
+		<?php echo $form->labelEx($model,'image'); ?>
+		<?php echo $form->fileField($model,'image'); ?>
+		<?php echo $form->error($model,'image'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class'=>'admin-btn-temp')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

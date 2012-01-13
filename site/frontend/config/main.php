@@ -16,6 +16,7 @@ return array(
 
 	// autoloading model and component classes
 	'import'=>array(
+		'site.common.models.*',
 		'ext.ufile.UFiles',
 		'application.models.*',
 		'application.components.*',

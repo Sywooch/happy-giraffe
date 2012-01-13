@@ -3916,6 +3916,13 @@ ul.letters li a:hover {
     height: 22px;
     margin: 0 41px 0 0;
 }
+.diagram_navi ul li.left_arrow a:hover, .diagram_navi ul li.left_arrow a.active{
+    background: url("../images/left_arrow_like_active.png") no-repeat left top;
+}
+.diagram_navi ul li.right_arrow a:hover, .diagram_navi ul li.right_arrow a.active{
+    background: url("../images/right_arrow_like_active.png") no-repeat left top;
+}
+
 .diagram_navi p.year{
     clear: both;
     margin: 20px 30px 0 0;

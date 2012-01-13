@@ -15,6 +15,7 @@
  * @property string $sweet
  * @property string $middle_names
  * @property integer $likes
+ * @property string $saints
  *
  * The followings are the available model relations:
  * @property NameGroup $nameGroup
@@ -57,12 +58,13 @@ class Name extends CActiveRecord
             array('gender, likes', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 30),
             array('translate, options, sweet', 'length', 'max' => 512),
-            array('origin', 'length', 'max' => 2048),
+            array('origin, saints', 'length', 'max' => 2048),
             array('name_group_id', 'length', 'max' => 10),
             array('middle_names', 'length', 'max' => 1024),
+            array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, gender, translate, description, origin, name_group_id, options, sweet, middle_names, likes', 'safe', 'on' => 'search'),
+            array('id, name, gender, translate, description, saints, origin, name_group_id, options, sweet, middle_names, likes', 'safe', 'on' => 'search'),
         );
     }
 
@@ -91,14 +93,15 @@ class Name extends CActiveRecord
             'id' => 'ID',
             'name' => 'Имя',
             'gender' => 'Пол',
-            'translate' => 'Значение',
+            'translate' => 'перевод, значение',
             'origin' => 'Происхождение',
             'description'=>'Характеристика',
             'name_group_id' => 'Языковая группа',
             'options' => 'Варианты',
-            'sweet' => 'Ласковык варианты',
+            'sweet' => 'Ласковые обращения',
             'middle_names' => 'Подходящие отчества',
             'likes' => 'Нравится',
+            'saints'=>'Христианские святые с этим именем',
         );
     }
 
@@ -113,6 +116,7 @@ class Name extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
+        $criteria->order = 'name';
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('gender', $this->gender);
@@ -127,6 +131,14 @@ class Name extends CActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function GetShort($attribute){
+        $len = 80;
+        if (strlen($this->getAttribute($attribute)) > $len){
+            echo substr($this->getAttribute($attribute), 0, $len).'...';
+        }else
+            echo $this->getAttribute($attribute);
     }
 
     public function GenderText(){
@@ -251,8 +263,9 @@ class Name extends CActiveRecord
                 'user_id' => $user_id,
             ));
 
-            Yii::app()->db->createCommand()
-                ->update($this->tableName(), array('likes' => new CDbExpression('likes + 1')), 'id = :name_id', array(':name_id' => $this->id));
+            $this->likes++;
+//            Yii::app()->db->createCommand()
+//                ->update($this->tableName(), array('likes' => new CDbExpression('likes + 1')), 'id = :name_id', array(':name_id' => $this->id));
         }
         else
         {
@@ -262,11 +275,12 @@ class Name extends CActiveRecord
                 ':name_id' => $this->id,
             ));
 
-            Yii::app()->db->createCommand()
-                ->update($this->tableName(), array('likes' => new CDbExpression('likes - 1')), 'id = :name_id', array(':name_id' => $this->id));
+//            Yii::app()->db->createCommand()
+//                ->update($this->tableName(), array('likes' => new CDbExpression('likes - 1')), 'id = :name_id', array(':name_id' => $this->id));
+            $this->likes--;
         }
 
-        return true;
+        return $this->update(array('likes'));
     }
 
     public function isUserLike($user_id)

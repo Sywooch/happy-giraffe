@@ -14,24 +14,30 @@
 
         <p>"<?php echo $name->translate; ?>"</p>
 
-        <p class="header">Святцы</p>
-        <ul class="calendar">
-            <?php foreach ($name->nameSaintDates as $saint): ?>
-                <li><span><?php echo $saint->day ?></span><?php echo HDate::ruMonth($saint->month) ?></li>
-            <?php endforeach; ?>
-        </ul>
+        <?php if (!empty($name->nameSaintDates)):?>
+            <p class="header">Святцы</p>
+            <ul class="calendar">
+                <?php foreach ($name->nameSaintDates as $saint): ?>
+                    <li><span><?php echo $saint->day ?></span><?php echo HDate::ruMonth($saint->month) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif ?>
+
         <div class="clear"></div>
         <p class="header like">Имя нравится</p>
 
         <p class="heart_like"><?php echo $name->likes; ?></p>
 
         <div class="clear"></div>
+        <?php $this->renderPartial('_stats',array()); ?>
     </div>
 </div>
 
 <div class="right-inner mirror">
     <div class="name_info">
-        <h1 class="<?php echo ($name->gender == 1)?'boy':'girl' ?>"><?php echo $name->name; ?></h1><a href="#" class="like_name"></a>
+        <h1 class="<?php echo ($name->gender == 1)?'boy':'girl' ?>"><?php echo $name->name; ?></h1>
+        <a rel="<?php echo $name->id ?>" href="#"
+           class="like_name heart <?php if (!$name->isUserLike(Yii::app()->user->getId())) echo 'empty_heart' ?>"></a>
 
         <p class="name">Имя: <span class="<?php echo ($name->gender == 1)?'boy':'girl' ?>">
             <?php echo ($name->gender == 1)?'мужское':'женское' ?></span></p>

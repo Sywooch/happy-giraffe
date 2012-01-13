@@ -1,5 +1,5 @@
 <div class="diagram">
-    <img src="../static/images/grafik.png" alt=""/>
+    <img src="/images/chart.jpg" alt=""/>
 </div>
 <div class="diagram_navi">
     <ul>

@@ -31,7 +31,7 @@ class NameFamousController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'admin','delete'),
+				'actions'=>array('create','update', 'admin','delete', 'delete2'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -65,8 +65,11 @@ class NameFamousController extends Controller
 		if(isset($_POST['NameFamous']))
 		{
 			$model->attributes=$_POST['NameFamous'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+            $model->image = CUploadedFile::getInstance($model, 'image');
+			if($model->save()){
+                $model->SaveImage();
+				$this->redirect(array('admin'));
+            }
 		}
 
 		$this->render('create',array(
@@ -89,8 +92,12 @@ class NameFamousController extends Controller
 		if(isset($_POST['NameFamous']))
 		{
 			$model->attributes=$_POST['NameFamous'];
+            $model->image = CUploadedFile::getInstance($model, 'image');
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                if($model->save()){
+                    $model->SaveImage();
+                    $this->redirect(array('admin'));
+                }
 		}
 
 		$this->render('update',array(
@@ -108,8 +115,8 @@ class NameFamousController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
-
+			$model = $this->loadModel($id);
+            $model->delete();
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
@@ -117,6 +124,16 @@ class NameFamousController extends Controller
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
+
+    public function actionDelete2()
+    {
+        if(Yii::app()->request->isPostRequest)
+        {
+            // we only allow deletion via POST request
+            $model = $this->loadModel($_POST['id']);
+            $model->delete();
+        }
+    }
 
 	/**
 	 * Lists all models.

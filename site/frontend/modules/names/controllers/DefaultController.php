@@ -119,10 +119,15 @@ class DefaultController extends Controller
 
     public function actionLike($id)
     {
+        if (Yii::app()->user->isGuest) {
+            echo CJSON::encode(array('success' => false));
+            Yii::app()->end();
+        }
         $name = $this->LoadModelById($id);
         echo CJSON::encode(array(
             'success' => $name->like(Yii::app()->user->getId()),
             'count' => Name::GetLikesCount(Yii::app()->user->getId()),
+            'likes' => $name->likes,
         ));
     }
 
@@ -388,7 +393,7 @@ class DefaultController extends Controller
                 if ($i == 1) {
                     $name = pq($link)->text();
                     $model->translate = $name;
-                    echo $name."<br>";
+                    echo $name . "<br>";
                 }
                 $i++;
             }
@@ -396,14 +401,14 @@ class DefaultController extends Controller
             foreach ($document->find('div.name_full_info .description_info p') as $p) {
                 if ($i == 5) {
                     $name = pq($p)->text();
-                    $name = substr($name, strpos($name, ':')+1, strlen($name));
+                    $name = substr($name, strpos($name, ':') + 1, strlen($name));
                     $model->origin = $name;
-                    echo trim($name)."<br>";
+                    echo trim($name) . "<br>";
                 }
                 $i++;
             }
 
-            $model->update(array('translate','origin'));
+            $model->update(array('translate', 'origin'));
 
             sleep(1);
         }

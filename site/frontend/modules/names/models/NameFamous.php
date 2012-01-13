@@ -108,12 +108,12 @@ class NameFamous extends CActiveRecord
 
     public function uploadTo()
     {
-        return '/upload/names/famous/';
+        return 'upload/names/famous/';
     }
 
     public function GetAdminPhoto()
     {
-        echo  CHtml::image($this->uploadTo() . $this->photo);
+        echo  CHtml::image('/'.$this->uploadTo() . $this->photo);
     }
 
     /**
@@ -121,7 +121,7 @@ class NameFamous extends CActiveRecord
      */
     public function SaveImage()
     {
-        $imagePath = $_SERVER['DOCUMENT_ROOT'] . $this->uploadTo();
+        $imagePath = $this->uploadTo();
         $file = $this->image;
         $name = $this->id . '_' . substr(md5(microtime()), 0, 5) . '.' . $file->extensionName;
         while (file_exists($imagePath . $name))
@@ -140,7 +140,7 @@ class NameFamous extends CActiveRecord
 
     protected function afterDelete()
     {
-        unlink($_SERVER['DOCUMENT_ROOT'] . $this->uploadTo() . $this->photo);
+        unlink($this->uploadTo() . $this->photo);
 
         return parent::afterDelete();
     }

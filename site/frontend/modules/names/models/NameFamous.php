@@ -108,12 +108,12 @@ class NameFamous extends CActiveRecord
 
     public function uploadTo()
     {
-        return 'upload/names/famous/';
+        return '/upload/names/famous/';
     }
 
     public function GetAdminPhoto()
     {
-        echo  CHtml::image('/' . $this->uploadTo() . $this->photo);
+        echo  CHtml::image($this->uploadTo() . $this->photo);
     }
 
     /**

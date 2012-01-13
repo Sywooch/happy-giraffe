@@ -3,6 +3,14 @@
  * @var $name Name
  */
 ?>
+<script type="text/javascript">
+    $(function() {
+        $('.diagram_navi a').click(function(){
+
+            return false;
+        });
+    });
+</script>
 <div class="left-inner mirror">
     <div class="name_link">
         <a href="<?php echo $this->createUrl('/names/default/index') ?>">Все имена</a>
@@ -56,7 +64,7 @@
 
         <?php foreach ($name->nameFamouses as $famous): ?>
             <div class="best_person">
-                <img src="<?php echo $famous->photo ?>" alt=""/>
+                <?php $famous->GetAdminPhoto() ?>
                 <a href="#" onclick="return false;"><?php echo $name->name.' '.$famous->last_name ?></a>
             </div>
         <?php endforeach; ?>

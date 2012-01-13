@@ -1,5 +1,7 @@
 site/frontend/www/index.php
 site/frontend/config/main-local.php
+site/backend/www/index.php
+site/backend/config/main-local.php
 site/console/yiic.php
 site/console/config/main-local.php
 site/backend/runtime/*

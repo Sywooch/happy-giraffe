@@ -8,6 +8,7 @@ return array(
 		'site.common.models.*',
 		'application.models.*',
 		'application.components.*',
+        'site.frontend.modules.attribute.models.*',
 	),
 	
 	'components' => array(

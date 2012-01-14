@@ -51,7 +51,7 @@
             <?php echo ($name->gender == 1)?'мужское':'женское' ?></span></p>
 
         <div class="plashka">
-            <p class="variants">Варианты имени <?php echo $name->name; ?>, ласковое обращение</p>
+<!--            <p class="variants">Варианты имени --><?php //echo $name->name; ?><!--, ласковое обращение</p>-->
 
             <p><span>Варианты имени <?php echo $name->name; ?>:</span> <?php echo $name->options; ?></p>
             <p><span>Ласковое обращение <?php echo $name->name; ?>:</span> <?php echo $name->sweet; ?></p>
@@ -61,23 +61,31 @@
 
         <p><?php echo $name->description ?></p>
 
-        <h2>Подходящие отчества к имени <?php echo $name->name; ?></h2>
+        <?php if (!empty($name->middle_names)):?>
+            <h2>Подходящие отчества к имени <?php echo $name->name; ?></h2>
 
-        <p><?php echo $name->middle_names ?></p>
+            <p><?php echo $name->middle_names ?></p>
 
-        <h2>Христианские святые с именем <?php echo $name->name; ?></h2>
+        <?php endif ?>
 
-        <p><?php echo $name->saints ?></p>
+        
+        <?php if (!empty($name->saints)):?>
+            <h2>Христианские святые с именем <?php echo $name->name; ?></h2>
 
-        <h2>Известные личности с именем <?php echo $name->name; ?></h2>
+            <p><?php echo $name->saints ?></p>
+        <?php endif ?>
 
-        <?php foreach ($name->nameFamouses as $famous): ?>
-            <div class="best_person">
-                <?php if (!empty($famous->photo)) $famous->GetAdminPhoto() ?>
-                <p><?php echo $name->name.' '.$famous->last_name ?>
-                    <?php if (!empty($famous->description)) echo ', '.$famous->description ?></p>
-            </div>
-        <?php endforeach; ?>
+        <?php if (!empty($name->nameFamouses)):?>
+            <h2>Известные личности с именем <?php echo $name->name; ?></h2>
+
+            <?php foreach ($name->nameFamouses as $famous): ?>
+                <div class="best_person">
+                    <?php if (!empty($famous->photo)) $famous->GetAdminPhoto() ?>
+                    <p><?php echo $name->name.' '.$famous->last_name ?>
+                        <?php if (!empty($famous->description)) echo ', '.$famous->description ?></p>
+                </div>
+            <?php endforeach; ?>
+        <?php endif ?>
 
     </div>
 </div>

@@ -25,15 +25,15 @@ class Attribute extends CActiveRecord
 	{
         return array(
             'types' => array(
-                'class' => 'ext.status.EStatusBehavior',
+                'class' => 'site.frontend.extensions.status.EStatusBehavior',
                 'statusField' => 'attribute_type',
                 'statuses' => array(
-					self::TYPE_ENUM => 'enum',
-					self::TYPE_INTG => 'integer',
-					self::TYPE_2DIG => '2 digit',
-					self::TYPE_3DIG => '3 digit',
-					self::TYPE_TEXT => 'text',
-					self::TYPE_BOOL => 'boolean',
+					self::TYPE_ENUM => 'Список',
+					self::TYPE_INTG => 'Число',
+					self::TYPE_2DIG => '2-х значное число',
+					self::TYPE_3DIG => '3-х значное число',
+					self::TYPE_TEXT => 'Текст',
+					self::TYPE_BOOL => 'Да-Нет',
 				),
             ),
         );
@@ -99,11 +99,10 @@ class Attribute extends CActiveRecord
 			'attribute_text' => 'Attribute Text',
 			'attribute_type' => 'Attribute Type',
 			'type' => 'Attribute Type',
-			'attribute_required' => 'Attribute Required',
-			'attribute_is_insearch' => 'Attribute Is Insearch',
-			
+			'attribute_required' => 'Обязателен',
+			'attribute_is_insearch' => 'Поиск по атрибуту',
+            'price_influence'=>'Влияет на цену',
 			'categoryInSearch' => 'Is Category In Search',
-            'price_influence'=>'Price Influence'
 		);
 	}
 

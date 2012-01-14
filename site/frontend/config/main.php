@@ -44,6 +44,7 @@ return array(
 	    'application.modules.recipeBook.models.*',
         'application.modules.names.models.*',
         'application.modules.test.models.*',
+        'application.modules.attribute.models.*',
 	),
 
 	'sourceLanguage' => 'en',

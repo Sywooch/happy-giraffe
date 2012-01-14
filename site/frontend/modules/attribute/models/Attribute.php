@@ -10,6 +10,7 @@
  * @property integer $attribute_type
  * @property integer $attribute_required
  * @property integer $attribute_is_insearch
+ * @property integer $price_influence
  */
 class Attribute extends CActiveRecord
 {
@@ -64,15 +65,15 @@ class Attribute extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('attribute_type, attribute_required, attribute_is_insearch, attribute_title', 'required'),
-			array('attribute_type, attribute_required, attribute_is_insearch', 'numerical', 'integerOnly'=>true),
+			array('attribute_type, attribute_required, attribute_is_insearch, price_influence', 'numerical', 'integerOnly'=>true),
 			array('attribute_title', 'length', 'max'=>50),
 			array('attribute_text', 'safe'),
 
 			array('attribute_title', 'length', 'max'=>50),
-			array('attribute_is_insearch', 'default', 'value' => 0),
+			array('attribute_is_insearch, price_influence', 'default', 'value' => 0),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('attribute_id, attribute_title, attribute_text, attribute_type, type, attribute_required, attribute_is_insearch', 'safe', 'on'=>'search'),
+			array('attribute_id, attribute_title, attribute_text, attribute_type, type, attribute_required, attribute_is_insearch, price_influence', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -102,6 +103,7 @@ class Attribute extends CActiveRecord
 			'attribute_is_insearch' => 'Attribute Is Insearch',
 			
 			'categoryInSearch' => 'Is Category In Search',
+            'price_influence'=>'Price Influence'
 		);
 	}
 
@@ -122,6 +124,7 @@ class Attribute extends CActiveRecord
 		$criteria->compare('attribute_type',$this->attribute_type);
 		$criteria->compare('attribute_required',$this->attribute_required);
 		$criteria->compare('attribute_is_insearch',$this->attribute_is_insearch);
+        $criteria->compare('price_influence',$this->price_influence);
 //		Y::dump($this->attributes, false);
 		
 		if($crit)

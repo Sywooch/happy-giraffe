@@ -87,9 +87,9 @@ class AttributeSetMap extends CActiveRecord
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
+            'map_attribute' => array(self::BELONGS_TO, 'Attribute', 'map_attribute_id'),
+            'map_set' => array(self::BELONGS_TO, 'AttributeSet', 'map_set_id'),
 		);
 	}
 

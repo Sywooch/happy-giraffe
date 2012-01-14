@@ -43,8 +43,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'map_id',
-		'map_attribute_id',
-		'map_value_id',
+		'map_attribute.attribute_title',
+		'map_value.value_value',
 		array(
 			'class'=>'CButtonColumn',
 		),

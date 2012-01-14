@@ -31,11 +31,17 @@
 		<?php echo $form->error($model,'attribute_required'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'attribute_is_insearch'); ?>
-		<?php echo $form->checkBox($model,'attribute_is_insearch'); ?>
-		<?php echo $form->error($model,'attribute_is_insearch'); ?>
-	</div>
+    <div class="row">
+        <?php echo $form->labelEx($model,'attribute_is_insearch'); ?>
+        <?php echo $form->checkBox($model,'attribute_is_insearch'); ?>
+        <?php echo $form->error($model,'attribute_is_insearch'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'price_influence'); ?>
+        <?php echo $form->checkBox($model,'price_influence'); ?>
+        <?php echo $form->error($model,'price_influence'); ?>
+    </div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

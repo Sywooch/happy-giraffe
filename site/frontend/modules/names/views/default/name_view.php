@@ -52,8 +52,9 @@
 
         <div class="plashka">
 <!--            <p class="variants">Варианты имени --><?php //echo $name->name; ?><!--, ласковое обращение</p>-->
-
-            <p><span>Варианты имени <?php echo $name->name; ?>:</span> <?php echo $name->options; ?></p>
+            <?php if (!empty($name->options)):?>
+                <p><span>Варианты имени <?php echo $name->name; ?>:</span> <?php echo $name->options; ?></p>
+            <?php endif ?>
             <p><span>Ласковое обращение <?php echo $name->name; ?>:</span> <?php echo $name->sweet; ?></p>
         </div>
 
@@ -68,7 +69,7 @@
 
         <?php endif ?>
 
-        
+
         <?php if (!empty($name->saints)):?>
             <h2>Христианские святые с именем <?php echo $name->name; ?></h2>
 

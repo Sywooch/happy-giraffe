@@ -47,7 +47,7 @@ class DefaultController extends Controller
     /**
      * DEV_METHOD
      */
-    public function actionParseSite()
+    /*public function actionParseSite()
     {
         $url = 'http://www.kudel.ru/calc.php';
 
@@ -83,6 +83,6 @@ class DefaultController extends Controller
             }
             $global_size++;
         }
-    }
+    }*/
 
 }

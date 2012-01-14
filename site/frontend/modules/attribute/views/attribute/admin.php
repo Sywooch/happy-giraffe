@@ -50,6 +50,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		),
 		'attribute_required',
 		'attribute_is_insearch',
+        'price_influence',
 		array(
 			'class'=>'CButtonColumn',
 //			'template'=>'{view} {values} {update} {delete}',

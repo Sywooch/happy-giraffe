@@ -50,6 +50,8 @@ class AttributeValueMap extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'map_attribute' => array(self::BELONGS_TO, 'Attribute', 'map_attribute_id'),
+            'map_value' => array(self::BELONGS_TO, 'AttributeValue', 'map_value_id'),
 		);
 	}
 

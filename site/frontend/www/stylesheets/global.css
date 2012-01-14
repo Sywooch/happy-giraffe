@@ -3733,7 +3733,7 @@ ul.letters li a:hover {
     display: inline-block;
     *display: inline;
     padding: 20px 0 8px 0;
-    margin: 0 0 27px 0;
+    margin: 0;
     font-size: 40px;
     font-weight: bold;
     color: #fb3da8;
@@ -3753,6 +3753,7 @@ ul.letters li a:hover {
     color: #2e2e2e;
     font-size: 20px;
     line-height: 20px;
+    padding: 27px 0 0 0;
 }
 #content .name_info h1.boy {
     color: #2CA3FE;
@@ -3792,8 +3793,8 @@ ul.letters li a:hover {
 .name_info .best_person {
     background: #ededed;
     float: left;
-    margin: 20px 20px 0 0;
     width: 150px;
+    margin: 20px 20px 0 0;
 }
 .name_info .best_person img{
     display: block;
@@ -3806,6 +3807,7 @@ ul.letters li a:hover {
     font-size: 10px;
     font-style: italic;
     padding: 4px 0;
+    text-decoration: underline;
 }
 
 .name_link {

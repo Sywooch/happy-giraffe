@@ -31,7 +31,7 @@ class Category extends CActiveRecord {
 	public function behaviors() {
 		return array(
 			'tree' => array(
-				'class' => 'ext.trees.NestedSetBehavior',
+				'class' => 'site.frontend.extensions.trees.NestedSetBehavior',
 				'hasManyRoots' => true,
 				'rootAttribute' => 'category_root',
 				'leftAttribute' => 'category_lft',
@@ -172,5 +172,4 @@ class Category extends CActiveRecord {
 		}
 		return $html;
 	}
-
 }

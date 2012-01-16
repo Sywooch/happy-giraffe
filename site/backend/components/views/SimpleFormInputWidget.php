@@ -73,6 +73,7 @@ $js = "
 
     ";
 Yii::app()->clientScript->registerScript('input-text-edit', $js);
+if ($model !== null){
 ?>
 <div class="name attr-elem-name">
     <input type="hidden" class="elem-class" value="<?php echo get_class($model) ?>">
@@ -84,3 +85,4 @@ Yii::app()->clientScript->registerScript('input-text-edit', $js);
     <a class="edit" href="#"></a>
     <a class="delete" href="#"></a>
 </div>
+<?php }

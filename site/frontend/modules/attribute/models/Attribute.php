@@ -85,6 +85,7 @@ class Attribute extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'value_map' => array(self::HAS_MANY, 'AttributeValueMap', 'map_attribute_id'),
 		);
 	}
 

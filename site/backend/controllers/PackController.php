@@ -87,6 +87,27 @@ class PackController extends BController
         //        }
     }
 
+    public function actionAddAttrListElem(){
+        $text = $_POST['text'];
+        $id = $_POST['model_id'];
+        if (empty($text))
+            Yii::app()->end();
+
+        $attr_val = new AttributeValue();
+        $attr_val->value_value = $text;
+        $attr_val->save();
+
+        $attr_map_val = new AttributeValueMap();
+        $attr_map_val->map_attribute_id = $id;
+        $attr_map_val->map_value_id = $attr_val->value_id;
+        $attr_map_val->save();
+
+        $this->widget('SimpleFormInputWidget',array(
+            'model'=>$attr_val,
+            'attribute'=>'value_value'
+        ));
+    }
+
     /**
      * @param integer the ID of the model to be loaded
      * @return Attribute

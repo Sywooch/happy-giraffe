@@ -227,7 +227,10 @@
                                     </li>
                                 <?php endforeach; ?>
                                 <li>
-                                    <span class="add_paket add_enum_value" title="Добавить зависимость">+</span>
+                                    <?php $this->widget('SimpleFormAddWidget',array(
+                                            'url'=>$this->createUrl('pack/AddAttrListElem'),
+                                            'model_id' => $attr->attribute_id,
+                                    ))?>
                                 </li>
                             </ul>
                         <?php endif ?>

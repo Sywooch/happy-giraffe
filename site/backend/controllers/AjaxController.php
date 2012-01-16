@@ -1,0 +1,21 @@
+<?php
+
+class AjaxController extends BController
+{
+    public function actionEditInput($class, $id, $text, $attribute){
+        $model = CActiveRecord::model($class)->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        $model->setAttribute($attribute, $text);
+
+        echo $model->update(array($attribute));
+    }
+
+    public function actionDelete($class, $id){
+        $model = CActiveRecord::model($class)->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        echo $model->delete();
+    }
+}

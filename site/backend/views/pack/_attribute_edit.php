@@ -15,11 +15,6 @@
 </p>
 
 <p class="row">
-    <?php echo $form->label($model, 'attribute_required'); ?>
-    <?php echo $form->checkBox($model, 'attribute_required', array('class' => 'niceCheck')); ?>
-</p>
-
-<p class="row">
     <?php echo $form->label($model, 'attribute_is_insearch'); ?>
     <?php echo $form->checkBox($model, 'attribute_is_insearch', array('class' => 'niceCheck')); ?>
 </p>

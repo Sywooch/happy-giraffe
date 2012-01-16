@@ -76,8 +76,9 @@
 <!-- .navigation -->
 
 <script type="text/javascript">
+    var set_id = <?php echo $model->set_id ?>;
     $(function () {
-        $('body').delegate('.add_paket', 'click', function () {
+        $('body').delegate('.add_attr', 'click', function () {
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("pack/CreateAttribute") ?>',
                 type:'POST',
@@ -113,12 +114,53 @@
 
         return false;
     });
-</script>
 
+    $('body').delegate('p.triangle', 'click', function(){
+        var attr_id = $(this).parent('li').attr('obj_id');
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl("pack/attributeInSearch") ?>',
+            data: 'id='+attr_id,
+            type: 'GET',
+            success: function(data) {
+                if (data == '1')
+                    $(this).toggleClass('vain');
+            },
+            context: $(this)
+        });
+    });
+
+    $('body').delegate('a.attr_del', 'click', function(){
+        var answer = confirm("Удалить атрибут?");
+        var attr_id = $(this).parents('li.set_attr_li').attr('obj_id');
+        if (answer){
+            $.ajax({
+                url: '<?php echo Yii::app()->createUrl("pack/DeleteAttribute") ?>',
+                data: {
+                    set_id:set_id,
+                    id:attr_id
+                },
+                type: 'GET',
+                success: function(data) {
+                    if (data == '1')
+                        $(this).parents('li.set_attr_li').remove();
+                },
+                context: $(this)
+            });
+        }
+
+        return false;
+    });
+
+</script>
+    <?php
+    /**
+     * @var AttributeSet $model
+     */
+    ?>
 <div class="content">
     <div class="centered">
 
-        <h1>Пакет свойств - детское пюре</h1>
+        <h1>Пакет свойств - <?php echo $model->set_title ?></h1>
 
         <p class="text_header">Название</p>
 
@@ -155,102 +197,50 @@
         </div>
 
         <p class="text_header">Характеристики</p>
+        <?php $attributes = $model->set_map ?>
 
         <div class="text_block">
             <ul class="inline_block">
-                <li>
-                    <div class="name">
-                        <p>Упаковка</p>
-                        <a href="#" class="edit"></a>
-                        <a href="#" class="delete"></a>
-                    </div>
-                    <p class="triangle"></p>
+                <?php foreach ($attributes as $attribute): ?>
+                <?php $attr = Attribute::model()->findByPk($attribute->map_attribute_id);
+                /**
+                 * @var Attribute $attr
+                 */
+                ?>
+                    <li class="set_attr_li" obj_id="<?php echo $attr->attribute_id ?>">
+                        <?php $this->widget('SimpleFormInputWidget',array(
+                        'model'=>$attr,
+                        'attribute'=>'attribute_title'
+                    ))?>
+                        <p class="triangle<?php if (!$attr->attribute_is_insearch) echo ' vain' ?>"></p>
 
-                    <p class="type">Список</p>
-                    <ul>
-                        <li>
-                            <div class="name">
-                                <p>Жестяная банка</p>
-                                <a href="#" class="edit"></a>
-                                <a href="#" class="delete"></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="name">
-                                <p>Картонная коробка</p>
-                                <a href="#" class="edit"></a>
-                                <a href="#" class="delete"></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="name">
-                                <p>Стекло</p>
-                                <a href="#" class="edit"></a>
-                                <a href="#" class="delete"></a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="add_paket" title="Добавить зависимость">+</span>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="name">
-                        <p>Вид пюре</p>
-                        <a href="#" class="edit"></a>
-                        <a href="#" class="delete"></a>
-                    </div>
-                    <p class="triangle vain"></p>
+                        <p class="type"><?php echo $attr->getType() ?></p>
 
-                    <p class="type">Список</p>
-                    <ul>
-                        <li>
-                            <div class="name">
-                                <p>Мясное пюре</p>
-                                <a href="#" class="edit"></a>
-                                <a href="#" class="delete"></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="name">
-                                <p>Овощное пюре</p>
-                                <a href="#" class="edit"></a>
-                                <a href="#" class="delete"></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="name">
-                                <p>Пюре из мяса и овощей</p>
-                                <a href="#" class="edit"></a>
-                                <a href="#" class="delete"></a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="add_paket" title="Добавить зависимость">+</span>
-                        </li>
-                    </ul>
-                </li>
+                        <?php if ($attr->attribute_type == Attribute::TYPE_ENUM):?>
+                            <ul class="list-elems">
+                                <?php foreach ($attr->value_map as $attr_val): ?>
+                                    <li>
+                                        <?php $this->widget('SimpleFormInputWidget',array(
+                                        'model'=>$attr_val->map_value,
+                                        'attribute'=>'value_value'
+                                        ))?>
+                                    </li>
+                                <?php endforeach; ?>
+                                <li>
+                                    <span class="add_paket add_enum_value" title="Добавить зависимость">+</span>
+                                </li>
+                            </ul>
+                        <?php endif ?>
+                    </li>
+                <?php endforeach; ?>
                 <li>
-                    <div class="name">
-                        <p>Содержание сахара</p>
-                        <a href="#" class="edit"></a>
-                        <a href="#" class="delete"></a>
-                    </div>
-                    <p class="triangle"></p>
-
-                    <p class="type">Да-Нет</p>
-                </li>
-                <li>
-                    <span class="add_paket" title="Добавить характеристику">+</span>
+                    <span class="add_paket add_attr" title="Добавить характеристику">+</span>
                 </li>
             </ul>
             <div class="clear"></div>
         </div>
-
-
     </div>
     <!-- .centered -->
-
 </div>
 <!-- .content -->
 <div class="clear"></div>

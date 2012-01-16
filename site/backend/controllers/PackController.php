@@ -2,9 +2,15 @@
 
 class PackController extends BController
 {
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        $this->render('edit');
+        $model = AttributeSet::model()->findByPk($id);
+        if($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+
+        $this->render('edit',array(
+            'model'=>$model
+        ));
     }
 
     public function actionCreateAttribute()
@@ -42,6 +48,43 @@ class PackController extends BController
         $this->render('_attribute_view', array(
             'model' => $model
         ));
+    }
+
+    public function actionAttributeInSearch($id){
+        $model = Attribute::model()->findByPk($id);
+        if ($model->attribute_is_insearch)
+            $model->attribute_is_insearch = 0;
+        else
+            $model->attribute_is_insearch = 1;
+
+        echo $model->update(array('attribute_is_insearch'));
+    }
+
+    public function actionDeleteAttribute($id, $set_id){
+        $model = Attribute::model()->findByPk($id);
+        if($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+//        if ($model->delete()){
+//            $model = AttributeSetMap::model()->findByAttributes(array(
+//                'map_set_id'=>$set_id,
+//                'map_attribute_id'=>$id,
+//            ));
+            echo $model->delete();
+//        }
+    }
+
+    public function actionDeleteAttributeValue($id){
+        $model = AttributeValue::model()->findByPk($id);
+        if($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        //        if ($model->delete()){
+        //            $model = AttributeSetMap::model()->findByAttributes(array(
+        //                'map_set_id'=>$set_id,
+        //                'map_attribute_id'=>$id,
+        //            ));
+        AttributeValueMap::model()->deleteAll('map_value_id='.$id);
+        echo $model->delete();
+        //        }
     }
 
     /**

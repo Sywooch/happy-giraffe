@@ -956,14 +956,14 @@ table.common_sett td.ad_ct ul li a.deactivate {
     padding: 0 32px 0 0;
 }
 .content .text_block .inline_block form input[type=text]{
-    color: #bcbbbb;
+    color: #333;
     font-size: 12px;
     border: 1px solid #6dc0d1;
     background: #fff;
     height: 17px;
     width: 151px;
     padding: 0 0 0 7px;
-    margin: 17px 13px 0 0;
+    margin: 0 13px 0 0;
     float: left;
 }
 .content .text_block .inline_block form input[type=submit]{
@@ -974,7 +974,7 @@ table.common_sett td.ad_ct ul li a.deactivate {
     font-size: 11px;
     font-weight: bold;
     color: #fff;
-    margin: 18px 0 0 7px;
+    margin: 0 0 0 7px;
 }
 
 .niceCheck {

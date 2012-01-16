@@ -5,6 +5,7 @@ site/backend/config/main-local.php
 site/console/yiic.php
 site/console/config/main-local.php
 site/backend/runtime/*
+site/backend/www/assets/*
 site/console/runtime/*
 site/frontend/runtime/*
 site/frontend/www/assets/*

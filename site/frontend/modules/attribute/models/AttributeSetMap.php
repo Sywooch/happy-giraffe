@@ -8,6 +8,7 @@
  * @property string $map_set_id
  * @property string $map_attribute_id
  * @property string $map_attribute_title
+ * @property string $pos
  */
 class AttributeSetMap extends CActiveRecord
 {
@@ -36,15 +37,16 @@ class AttributeSetMap extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('map_attribute_title, map_attribute_id', 'required'),
+			array('map_set_id, map_attribute_id', 'required'),
 			array('map_set_id, map_attribute_id', 'length', 'max'=>10),
 			array('map_attribute_title', 'length', 'max'=>2),
+            array('pos', 'numerical', 'integerOnly'=>true),
 
 			array('map_attribute_id','aunique'),
-			array('map_attribute_title','tunique'),
+//			array('map_attribute_title','tunique'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('map_id, map_set_id, map_attribute_id, map_attribute_title', 'safe', 'on'=>'search'),
+			array('map_id, map_set_id, map_attribute_id, map_attribute_title, pos', 'safe', 'on'=>'search'),
 		);
 	}
 

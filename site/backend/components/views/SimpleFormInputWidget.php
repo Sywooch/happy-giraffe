@@ -56,7 +56,7 @@ $js = "
                     url: '" . Yii::app()->createUrl("ajax/delete") . "',
                     data: {
                         class: class_name,
-                        id: id,
+                        id: id
                     },
                     type: 'GET',
                     success: function(data) {

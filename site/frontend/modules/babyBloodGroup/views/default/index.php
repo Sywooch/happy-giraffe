@@ -127,7 +127,7 @@
     </form>
 </div><!-- .baby_blood_parent_group -->
 
-<div class="seo-text">
+<div class="seo-text" style="display: none;">
     <h1 class="summary-title">Определение группы крови ребёнка по группам крови его родителей</h1>
 
     <p>Кроме паспортных данных, веса и роста, каждый человек, обычно, знает ещё и свою группу крови. Группа крови

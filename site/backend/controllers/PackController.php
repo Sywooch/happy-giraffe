@@ -5,11 +5,11 @@ class PackController extends BController
     public function actionIndex($id)
     {
         $model = AttributeSet::model()->findByPk($id);
-        if($model === null)
+        if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
 
-        $this->render('edit',array(
-            'model'=>$model
+        $this->render('edit', array(
+            'model' => $model
         ));
     }
 
@@ -19,38 +19,48 @@ class PackController extends BController
 
         if (isset($_POST['Attribute'])) {
             $model->attributes = $_POST['Attribute'];
-            if ($model->save()){
-                echo CJSON::encode(array('success'=>true));
+            $model->attribute_required = 1;
+            if ($model->save()) {
+                $map_model = new AttributeSetMap();
+                $map_model->map_attribute_id = $model->attribute_id;
+                $map_model->map_attribute_title = '';
+                $map_model->map_set_id = $_POST['set_id'];
+                if ($map_model->save())
+                    echo CJSON::encode(array('success' => true, 'id' => $model->attribute_id));
+                else
+                    var_dump($map_model->getErrors());
+            } else {
+
             }
-        }else
+        } else
             $this->renderPartial('_attribute_edit', array('model' => $model));
     }
 
-    public function actionUpdateAttribute($id)
+    public function actionUpdateAttribute()
     {
+        $id = $_POST['id'];
         $model = $this->loadModel($id);
 
         if (isset($_POST['Attribute'])) {
             $model->attributes = $_POST['Attribute'];
-            if ($model->save()){
-                echo CJSON::encode(array('success'=>true));
+            if ($model->save()) {
+                echo CJSON::encode(array('success' => true));
             }
-        }else
+        } else
             $this->renderPartial('_attribute_edit', array('model' => $model));
     }
 
     public function actionAttributeView()
     {
-        $model = new Attribute();
-        $model->attribute_title = 'sfjkjsfh';
-        $model->attribute_type = Attribute::TYPE_BOOL;
-
-        $this->render('_attribute_view', array(
+        $id = $_POST['id'];
+        $model = $this->loadModel($id);
+        $this->renderPartial('_attribute_view', array(
             'model' => $model
         ));
     }
 
-    public function actionAttributeInSearch($id){
+    public function actionAttributeInSearch($id)
+    {
         $model = Attribute::model()->findByPk($id);
         if ($model->attribute_is_insearch)
             $model->attribute_is_insearch = 0;
@@ -60,34 +70,37 @@ class PackController extends BController
         echo $model->update(array('attribute_is_insearch'));
     }
 
-    public function actionDeleteAttribute($id, $set_id){
+    public function actionDeleteAttribute($id, $set_id)
+    {
         $model = Attribute::model()->findByPk($id);
-        if($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-//        if ($model->delete()){
-//            $model = AttributeSetMap::model()->findByAttributes(array(
-//                'map_set_id'=>$set_id,
-//                'map_attribute_id'=>$id,
-//            ));
-            echo $model->delete();
-//        }
-    }
-
-    public function actionDeleteAttributeValue($id){
-        $model = AttributeValue::model()->findByPk($id);
-        if($model === null)
+        if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         //        if ($model->delete()){
         //            $model = AttributeSetMap::model()->findByAttributes(array(
         //                'map_set_id'=>$set_id,
         //                'map_attribute_id'=>$id,
         //            ));
-        AttributeValueMap::model()->deleteAll('map_value_id='.$id);
         echo $model->delete();
         //        }
     }
 
-    public function actionAddAttrListElem(){
+    public function actionDeleteAttributeValue($id)
+    {
+        $model = AttributeValue::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        //        if ($model->delete()){
+        //            $model = AttributeSetMap::model()->findByAttributes(array(
+        //                'map_set_id'=>$set_id,
+        //                'map_attribute_id'=>$id,
+        //            ));
+        AttributeValueMap::model()->deleteAll('map_value_id=' . $id);
+        echo $model->delete();
+        //        }
+    }
+
+    public function actionAddAttrListElem()
+    {
         $text = $_POST['text'];
         $id = $_POST['model_id'];
         if (empty($text))
@@ -102,9 +115,9 @@ class PackController extends BController
         $attr_map_val->map_value_id = $attr_val->value_id;
         $attr_map_val->save();
 
-        $this->widget('SimpleFormInputWidget',array(
-            'model'=>$attr_val,
-            'attribute'=>'value_value'
+        $this->widget('SimpleFormInputWidget', array(
+            'model' => $attr_val,
+            'attribute' => 'value_value'
         ));
     }
 
@@ -115,7 +128,7 @@ class PackController extends BController
     public function loadModel($id)
     {
         $model = Attribute::model()->findByPk($id);
-        if($model === null)
+        if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }

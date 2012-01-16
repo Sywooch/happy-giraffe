@@ -83,7 +83,8 @@
                 url:'<?php echo Yii::app()->createUrl("pack/CreateAttribute") ?>',
                 type:'POST',
                 success:function (data) {
-                    $(this).parent('li.add_attribute').append(data);
+                    $(this).hide();
+                    $(this).parent('li').append(data);
                     var form = $(this).next('form');
                     form.children('p').children('select').selectBox();
                     form.children('p').children(".niceCheck").each(
@@ -101,13 +102,24 @@
     $('body').delegate('#attribute-form input[type=submit]', 'click', function () {
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("pack/CreateAttribute") ?>',
-            data:$('#attribute-form').serialize(),
+            data:$(this).parent().parent('form').serialize()+'&set_id='+set_id,
             type:'POST',
             dataType:'JSON',
             success:function (data) {
                 if (data !== null && data.hasOwnProperty('success'))
-                    if (data.success)
-                        $(this).parent('p').parent('form').remove();
+                    if (data.success) {
+                        $.ajax({
+                            url:'<?php echo Yii::app()->createUrl("pack/AttributeView") ?>',
+                            data:{id:data.id},
+                            type:'POST',
+                            success: function (data) {
+                                $(this).parent().parent().parent().find('.add_attr').show();
+                                $(this).parent().parent().parent().before(data);
+                                $(this).parent().parent('form').remove();
+                            },
+                            context:$(this)
+                        });
+                    }
             },
             context:$(this)
         });
@@ -115,48 +127,50 @@
         return false;
     });
 
-    $('body').delegate('p.triangle', 'click', function(){
-        var attr_id = $(this).parent('li').attr('obj_id');
-        $.ajax({
-            url: '<?php echo Yii::app()->createUrl("pack/attributeInSearch") ?>',
-            data: 'id='+attr_id,
-            type: 'GET',
-            success: function(data) {
-                if (data == '1')
-                    $(this).toggleClass('vain');
-            },
-            context: $(this)
-        });
-    });
-
-    $('body').delegate('a.attr_del', 'click', function(){
-        var answer = confirm("Удалить атрибут?");
-        var attr_id = $(this).parents('li.set_attr_li').attr('obj_id');
+    $('body').delegate('.attr-name .delete', 'click', function(){
+        var answer = confirm('Точно удалить?');
         if (answer){
+            var bl = $(this).parents('li.set_attr_li');
+            var id = bl.attr('obj_id');
+            var class_name = 'Attribute';
+
             $.ajax({
-                url: '<?php echo Yii::app()->createUrl("pack/DeleteAttribute") ?>',
+                url: '<?php echo Yii::app()->createUrl("ajax/delete") ?>',
                 data: {
-                    set_id:set_id,
-                    id:attr_id
+                    class: class_name,
+                    id: id
                 },
                 type: 'GET',
                 success: function(data) {
-                    if (data == '1')
-                        $(this).parents('li.set_attr_li').remove();
+                    if (data == '1'){
+                        bl.remove();
+                    }
                 },
                 context: $(this)
             });
         }
-
         return false;
     });
 
+    $('body').delegate('p.triangle', 'click', function () {
+        var attr_id = $(this).parent('li').attr('obj_id');
+        $.ajax({
+            url:'<?php echo Yii::app()->createUrl("pack/attributeInSearch") ?>',
+            data:'id=' + attr_id,
+            type:'GET',
+            success:function (data) {
+                if (data == '1')
+                    $(this).toggleClass('vain');
+            },
+            context:$(this)
+        });
+    });
 </script>
-    <?php
-    /**
-     * @var AttributeSet $model
-     */
-    ?>
+<?php
+/**
+ * @var AttributeSet $model
+ */
+?>
 <div class="content">
     <div class="centered">
 
@@ -207,34 +221,35 @@
                  * @var Attribute $attr
                  */
                 ?>
-                    <li class="set_attr_li" obj_id="<?php echo $attr->attribute_id ?>">
-                        <?php $this->widget('SimpleFormInputWidget',array(
-                        'model'=>$attr,
-                        'attribute'=>'attribute_title'
-                    ))?>
-                        <p class="triangle<?php if (!$attr->attribute_is_insearch) echo ' vain' ?>"></p>
+                <li class="set_attr_li" obj_id="<?php echo $attr->attribute_id ?>">
+                    <div class="name attr-name">
+                        <p><?php echo $attr->attribute_title ?></p>
+                        <a class="edit" href="#"></a>
+                        <a class="delete" href="#"></a>
+                    </div>
+                    <p class="triangle<?php if (!$attr->attribute_is_insearch) echo ' vain' ?>"></p>
 
-                        <p class="type"><?php echo $attr->getType() ?></p>
+                    <p class="type"><?php echo $attr->getType() ?></p>
 
-                        <?php if ($attr->attribute_type == Attribute::TYPE_ENUM):?>
-                            <ul class="list-elems">
-                                <?php foreach ($attr->value_map as $attr_val): ?>
-                                    <li>
-                                        <?php $this->widget('SimpleFormInputWidget',array(
-                                        'model'=>$attr_val->map_value,
-                                        'attribute'=>'value_value'
-                                        ))?>
-                                    </li>
-                                <?php endforeach; ?>
-                                <li>
-                                    <?php $this->widget('SimpleFormAddWidget',array(
-                                            'url'=>$this->createUrl('pack/AddAttrListElem'),
-                                            'model_id' => $attr->attribute_id,
-                                    ))?>
-                                </li>
-                            </ul>
-                        <?php endif ?>
-                    </li>
+                    <?php if ($attr->attribute_type == Attribute::TYPE_ENUM): ?>
+                    <ul class="list-elems">
+                        <?php foreach ($attr->value_map as $attr_val): ?>
+                        <li>
+                            <?php $this->widget('SimpleFormInputWidget', array(
+                            'model' => $attr_val->map_value,
+                            'attribute' => 'value_value'
+                        ))?>
+                        </li>
+                        <?php endforeach; ?>
+                        <li>
+                            <?php $this->widget('SimpleFormAddWidget', array(
+                            'url' => $this->createUrl('pack/AddAttrListElem'),
+                            'model_id' => $attr->attribute_id,
+                        ))?>
+                        </li>
+                    </ul>
+                    <?php endif ?>
+                </li>
                 <?php endforeach; ?>
                 <li>
                     <span class="add_paket add_attr" title="Добавить характеристику">+</span>

@@ -34,7 +34,7 @@ class UFiles
 		return self::fetchFileByName(CHtml::resolveName($model, $attribute));
 	}
 
-	public function fetchFileByName($name)
+	static function fetchFileByName($name)
 	{
 		if (!isset(self::$files)) self::prefetchFiles();
 

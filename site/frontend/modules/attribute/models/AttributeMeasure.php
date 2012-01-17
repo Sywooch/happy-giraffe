@@ -8,7 +8,7 @@
  * @property string $title
  *
  * The followings are the available model relations:
- * @property ShopProductAttributeMeasureOption[] $shopProductAttributeMeasureOptions
+ * @property AttributeMeasureOption[] $measureOptions
  */
 class AttributeMeasure extends CActiveRecord
 {
@@ -52,7 +52,7 @@ class AttributeMeasure extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'shopProductAttributeMeasureOptions' => array(self::HAS_MANY, 'ShopProductAttributeMeasureOption', 'measure_id'),
+			'measureOptions' => array(self::HAS_MANY, 'AttributeMeasureOption', 'measure_id'),
 		);
 	}
 

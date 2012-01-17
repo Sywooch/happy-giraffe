@@ -12,6 +12,9 @@
  * @property integer $attribute_is_insearch
  * @property integer $price_influence
  * @property integer $attribute_in_price
+ * @property integer $measure_option_id
+ *
+ * @property AttributeMeasureOption measure_option
  */
 class Attribute extends CActiveRecord
 {
@@ -64,7 +67,7 @@ class Attribute extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('attribute_type, attribute_required, attribute_is_insearch, attribute_title', 'required'),
-			array('attribute_type, attribute_required, attribute_is_insearch, price_influence, attribute_in_price', 'numerical', 'integerOnly'=>true),
+			array('attribute_type, attribute_required, attribute_is_insearch, price_influence, attribute_in_price, measure_option_id', 'numerical', 'integerOnly'=>true),
 			array('attribute_title', 'length', 'max'=>50),
 			array('attribute_text', 'safe'),
 
@@ -85,6 +88,7 @@ class Attribute extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
             'value_map' => array(self::HAS_MANY, 'AttributeValueMap', 'map_attribute_id'),
+            'measure_option' => array(self::BELONGS_TO, 'AttributeMeasureOption', 'measure_option_id'),
 		);
 	}
 

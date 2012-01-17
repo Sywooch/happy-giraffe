@@ -1,0 +1,73 @@
+.jcarousel-clip {
+    overflow: hidden;
+}
+
+
+/**
+ *  Horizontal Buttons
+ */
+.jcarousel-next-horizontal {
+    position: absolute;
+    top: 100px;
+    right: 5px;
+    width: 51px;
+    height: 44px;
+    cursor: pointer;
+    background-image: url('next_active_horiz.png');
+}
+
+.jcarousel-direction-rtl .jcarousel-next-horizontal {
+    left: 5px;
+    right: auto;
+    background-image: url('next_active_horiz.png');
+}
+
+.jcarousel-next-horizontal:hover,
+.jcarousel-next-horizontal:focus {
+    background-image: url('next_active_horiz.png');
+}
+
+.jcarousel-next-horizontal:active {
+    background-image: url('next_active_horiz.png');
+}
+
+.jcarousel-next-disabled-horizontal,
+.jcarousel-next-disabled-horizontal:hover,
+.jcarousel-next-disabled-horizontal:focus,
+.jcarousel-next-disabled-horizontal:active {
+    cursor: default;
+    background-image: url('next_horiz.png');
+}
+
+.jcarousel-prev-horizontal {
+    position: absolute;
+    top: 20px;
+    left: -25px;
+    width: 51px;
+    height: 44px;
+    cursor: pointer;
+    background-image: url('left_arrow.png');
+}
+
+.jcarousel-direction-rtl .jcarousel-prev-horizontal {
+    left: auto;
+    right: 5px;
+    background-image: url('prev_active_horiz.png');
+}
+
+.jcarousel-prev-horizontal:hover,
+.jcarousel-prev-horizontal:focus {
+    background-image: url('prev_active_horiz.png');
+}
+
+.jcarousel-skin-horiz .jcarousel-prev-horizontal:active {
+    background-image: url('prev_active_horiz.png');
+}
+
+.jcarousel-skin-horiz .jcarousel-prev-disabled-horizontal,
+.jcarousel-skin-horiz .jcarousel-prev-disabled-horizontal:hover,
+.jcarousel-skin-horiz .jcarousel-prev-disabled-horizontal:focus,
+.jcarousel-skin-horiz .jcarousel-prev-disabled-horizontal:active {
+    cursor: default;
+    background-image: url('prev_horiz.png');
+}

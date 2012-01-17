@@ -125,6 +125,13 @@ class PackController extends BController
         ));
     }
 
+    public function actionGetMeasureOptions(){
+        $model = AttributeMeasure::model()->findByPk($_POST['id']);
+        $data = CHtml::listData($model->measureOptions, 'id', 'title');
+        $htmlOptions = array();
+        echo CHtml::listOptions(null, $data, $htmlOptions);
+    }
+
     /**
      * @param integer the ID of the model to be loaded
      * @return Attribute

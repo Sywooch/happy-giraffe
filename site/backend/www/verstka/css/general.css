@@ -934,6 +934,13 @@ table.common_sett td.ad_ct ul li a.deactivate {
 .content .text_block .inline_block div.name a {
     display: none;
 }
+.content .text_block .inline_block div.name span.drop {
+    display: block;
+    float: left;
+    background: url("../images/icons/drop_bg.png") no-repeat left top;
+    width: 19px;
+    height: 31px;
+}
 
 .content .text_block .inline_block div.name p {
     cursor: pointer;

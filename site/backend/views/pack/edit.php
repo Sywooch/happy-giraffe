@@ -86,7 +86,7 @@
 
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("pack/CreateAttribute") ?>',
-                data: {in_price:in_price},
+                data:{in_price:in_price},
                 type:'POST',
                 success:function (data) {
                     $(this).hide();
@@ -110,7 +110,7 @@
 
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("pack/UpdateAttribute") ?>',
-                data: {id:id},
+                data:{id:id},
                 type:'POST',
                 success:function (data) {
                     var li = $(this).parents('li.set_attr_li');
@@ -226,6 +226,30 @@
             return false;
         });
 
+        $('body').delegate('#Attribute_attribute_type', 'change', function () {
+            if ($(this).val() == <?php echo Attribute::TYPE_MEASURE ?>) {
+                $(this).parent().parent().find('p').show();
+            } else{
+                $(this).parent().next('p').hide();
+                $(this).parent().next('p').next('p').hide();
+            }
+
+        });
+
+        $('body').delegate('#attribute_measure', 'change', function () {
+            if ($('#attribute_measure').val() != '')
+                $.ajax({
+                    url:'<?php echo Yii::app()->createUrl("pack/GetMeasureOptions") ?>',
+                    data:{id:$('#attribute_measure').val()},
+                    type:'POST',
+                    success:function (data) {
+                        $('#Attribute_measure_option_id').html(data);
+                        $('#Attribute_measure_option_id').selectBox('refresh');
+                    },
+                    context:$(this)
+                });
+        });
+
     });
 </script>
 <?php
@@ -256,7 +280,7 @@
             <ul class="inline_block">
                 <?php foreach ($model->set_map as $attribute): ?>
                 <?php $attr = Attribute::model()->findByPk($attribute->map_attribute_id); ?>
-                <?php if ($attr->attribute_in_price) $this->renderPartial('_attribute_view',array('model'=>$attr)); ?>
+                <?php if ($attr->attribute_in_price) $this->renderPartial('_attribute_view', array('model' => $attr)); ?>
                 <?php endforeach; ?>
                 <li>
                     <span class="add_paket add_attr in_price" title="Добавить характеристику">+</span>
@@ -271,8 +295,8 @@
         <div class="text_block">
             <ul class="inline_block">
                 <?php foreach ($model->set_map as $attribute): ?>
-                    <?php $attr = Attribute::model()->findByPk($attribute->map_attribute_id); ?>
-                    <?php if (!$attr->attribute_in_price) $this->renderPartial('_attribute_view',array('model'=>$attr)); ?>
+                <?php $attr = Attribute::model()->findByPk($attribute->map_attribute_id); ?>
+                <?php if (!$attr->attribute_in_price) $this->renderPartial('_attribute_view', array('model' => $attr)); ?>
                 <?php endforeach; ?>
                 <li>
                     <span class="add_paket add_attr" title="Добавить характеристику">+</span>

@@ -70,8 +70,7 @@ $js = "
 
         return false;
     });
-
-    ";
+";
 Yii::app()->clientScript->registerScript('input-text-edit', $js);
 if ($model !== null){
 ?>

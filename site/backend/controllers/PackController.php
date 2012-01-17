@@ -16,10 +16,13 @@ class PackController extends BController
     public function actionCreateAttribute()
     {
         $model = new Attribute();
+        if (isset($_POST['in_price']) && $_POST['in_price'] == 1)
+            $model->attribute_in_price = 1;
 
         if (isset($_POST['Attribute'])) {
             $model->attributes = $_POST['Attribute'];
             $model->attribute_required = 1;
+
             if ($model->save()) {
                 $map_model = new AttributeSetMap();
                 $map_model->map_attribute_id = $model->attribute_id;
@@ -43,11 +46,12 @@ class PackController extends BController
 
         if (isset($_POST['Attribute'])) {
             $model->attributes = $_POST['Attribute'];
+
             if ($model->save()) {
-                echo CJSON::encode(array('success' => true));
+                echo CJSON::encode(array('success' => true, 'id' => $model->attribute_id));
             }
         } else
-            $this->renderPartial('_attribute_edit', array('model' => $model));
+            $this->renderPartial('_attribute_edit', array('model' => $model, 'no_list' => true));
     }
 
     public function actionAttributeView()

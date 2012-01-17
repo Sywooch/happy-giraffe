@@ -5,6 +5,7 @@ return array(
 	'name' => 'Админка',
 
 	'import'=>array(
+        'site.frontend.extensions.ufile.UFileBehavior',
 		'site.common.models.*',
 		'application.models.*',
 		'application.components.*',
@@ -15,5 +16,11 @@ return array(
 		'urlManager' => array(
 			'urlFormat'=>'path',
 		),
+        'db' => array(
+            'schemaCachingDuration' => 3600,
+            'enableProfiling' => true,
+            'enableParamLogging' => true,
+            'tablePrefix'=> '',
+        ),
 	),
 );

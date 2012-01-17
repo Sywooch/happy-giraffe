@@ -10,6 +10,7 @@
  * @property string $last_name
  * @property string $description
  * @property string $photo
+ * @property string $link
  *
  * The followings are the available model relations:
  * @property Name $name
@@ -47,10 +48,12 @@ class NameFamous extends CActiveRecord
             array('name_id', 'length', 'max' => 10),
             array('middle_name, last_name', 'length', 'max' => 50),
             array('description, photo', 'length', 'max' => 256),
+            array('link', 'length', 'max' => 1024),
+            array('link', 'url'),
             array('image', 'file', 'types' => 'jpg, gif, png', 'maxSize' => 1048576, 'allowEmpty' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name_id, middle_name, last_name, description, photo', 'safe', 'on' => 'search'),
+            array('id, name_id, middle_name, last_name, description, photo, link', 'safe', 'on' => 'search'),
         );
     }
 
@@ -78,6 +81,7 @@ class NameFamous extends CActiveRecord
             'last_name' => 'Фамилия',
             'description' => 'Чем знаменит',
             'photo' => 'Фото',
+            'link'=>'Ссылка'
         );
     }
 

@@ -5,18 +5,21 @@
     height: 17px;
     font-weight: normal;
     font-size: 12px;
-    margin: 17px 14px 0 0;
+    margin: 0 14px 0 0;
     padding: 0 11px 0 0;
 
 
 	min-width: 128px;
 	position: relative;
 	text-decoration: none;
-	color: #bcbbbb;
+	color: #474747;
 	outline: none;
 	vertical-align: middle;
 	display: inline-block;
 	cursor: default;
+}
+.selectBox-dropdown.withMargin {
+    margin: 17px 14px 0 0;
 }
 
 .selectBox-dropdown:focus,
@@ -91,7 +94,7 @@
 	cursor: default;
 	padding: 0;
 	margin: 0;
-    color: #bcbbbb;
+    color: #474747;
 }
 
 

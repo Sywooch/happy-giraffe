@@ -907,6 +907,54 @@ table.common_sett td.ad_ct ul li a.deactivate {
     background-position: -20px 100%;
 }
 
+.propertyBlock {
+    float: left;
+}
+.filter_sorter {
+    width: 275px;
+    background: #e9f8fa;
+    z-index: 15;
+    float: right;
+    font-weight: bold;
+    color: #474747;
+    font-size: 14px;
+    margin: 20px 200px 0 0;
+}
+.filter_sorter .filter_header {
+    font-size: 25px;
+    height: 40px;
+    background: #3babc3;
+    border-bottom: 1px solid #fff;
+    text-align: center;
+    color: #fff;
+    padding: 7px 0 0 0;
+    font-weight: normal;
+}
+.filter_sorter .filter_header span {
+    font-weight: bold;
+}
+.filter_sorter ul {
+    padding: 0;
+    margin: 23px 0 48px 21px;
+}
+.filter_sorter ul li{
+    height: 30px;
+    margin: 0 0 12px 0;
+    clear: both;
+}
+.filter_sorter ul li div{
+    background: url("../images/icons/drop_bg.png") no-repeat left top;
+    width: 19px;
+    height: 30px;
+    margin: 0 8px 0 0;
+    float: left;
+    cursor: pointer;
+}
+.filter_sorter ul li p{
+    float: left;
+    padding: 6px 0 0 0;
+}
+
 .content .text_header {
     margin: 38px 0 0 0;
     color: #03839f;
@@ -930,9 +978,23 @@ table.common_sett td.ad_ct ul li a.deactivate {
     float: left;
     position: relative;
 }
+.content .text_block .inline_block.property div.name {
+    padding: 5px 41px 0 0;
+    height: 18px;
+    float: left;
+    position: relative;
+}
 
 .content .text_block .inline_block div.name a {
     display: none;
+}
+.content .text_block .inline_block.property div.drop {
+    float: left;
+    background: url("../images/icons/drop_bg.png") no-repeat left top;
+    width: 19px;
+    height: 30px;
+    margin: 0 0 0 -27px;
+    cursor: pointer;
 }
 
 .content .text_block .inline_block div.name p {
@@ -969,7 +1031,7 @@ table.common_sett td.ad_ct ul li a.deactivate {
     display: block;
     width: 20px;
     height: 18px;
-    margin: 0 14px;
+    margin: 5px 14px 0 14px;
 }
 
 .content .text_block .inline_block .triangle.vain {
@@ -983,7 +1045,7 @@ table.common_sett td.ad_ct ul li a.deactivate {
     color: #ff8840;
     font-size: 11px;
     font-weight: normal;
-    margin: 2px 0 0 0;
+    margin: 7px 0 0 0;
 }
 
 .content .text_block .inline_block p.active {

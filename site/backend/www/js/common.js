@@ -7,7 +7,7 @@ $(document).ready(function() {
         scrolling: false
     });
 
-    $('table.common_sett a, .add_main_ct, .add_paket').tooltip({
+    $('table.common_sett a, .add_main_ct, .add_paket, .addValue').tooltip({
         track: true,
         delay: 0,
         showURL: false,
@@ -19,6 +19,19 @@ $(document).ready(function() {
         function() {
             changeCheckStart(jQuery(this));
         });
+
+    $('.small_foto div').click(function(){
+        var Input = basename($(this).children('img').attr('src'));
+        $('.big_foto').find('a').attr({ href: '/upload/catalog/product/'+Input});
+        $('.big_foto').find('img').attr({ src: '/upload/catalog/product/thumb/'+Input});
+        return false;
+    });
+
+    function basename( path )
+    {
+      parts = path.split( '/' );
+      return parts[parts.length-1];
+    }
 
 });
 

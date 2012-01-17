@@ -14,13 +14,22 @@ class ProductBrand extends CActiveRecord {
 	public function behaviors() {
 		return array(
 			'behavior_ufiles' => array(
-				'class' => 'ext.ufile.UFileBehavior',
+				'class' => 'site.frontend.extensions.ufile.UFileBehavior',
 				'fileAttributes' => array(
 					'brand_image' => array(
 						'fileName' => 'upload/brand/<date>-{brand_id}-<name>.<ext>',
 						'fileItems' => array(
-							array('fileHandler' => array(__CLASS__, 'ufileHandler'), 'W' => 100, 'H' => 50),
-						)
+                            'optimized' => array(
+                                'fileHandler' => array('FileHandler', 'run'),
+                                'resize' => array(
+                                    'width' => 100,
+                                    'height' => 50,
+                                ),
+                            ),
+                            'original' => array(
+                                'fileHandler' => array('FileHandler', 'run'),
+                            ),
+						),
 					),
 				),
 			),
@@ -109,19 +118,6 @@ class ProductBrand extends CActiveRecord {
 				));
 	}
 
-	public static function ufileHandler($src, $dst, $params) {
-		Yii::import('application.extensions.image.Image');
-		Yii::import('ext.helpers.CArray');
-		if (isset($params['origin']) && $params['origin'])
-			Image::factory($src)
-					->save($dst, false);
-		else
-			Image::factory($src)
-					->resize($params['W'], $params['H'])
-					->quality(90)
-					->save($dst, false);
-	}
-
 	public function listAll($term='', $val='brand_title') {
 		if (!is_array($val)) {
 			$val = explode(',', $val);
@@ -147,4 +143,8 @@ class ProductBrand extends CActiveRecord {
 
 		return $command->queryAll();
 	}
+
+    public function getAll() {
+        return new CActiveDataProvider($this);
+    }
 }

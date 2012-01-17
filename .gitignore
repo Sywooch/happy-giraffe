@@ -1,13 +1,13 @@
-site/frontend/www/index.php
-site/frontend/config/main-local.php
 site/backend/www/index.php
-site/backend/config/main-local.php
 site/console/yiic.php
+site/frontend/www/index.php
+site/backend/config/main-local.php
 site/console/config/main-local.php
+site/frontend/config/main-local.php
 site/backend/runtime/*
-site/backend/www/assets/*
 site/console/runtime/*
 site/frontend/runtime/*
+site/backend/www/assets/*
 site/frontend/www/assets/*
 site/frontend/www/temp_upload/*
 site/frontend/www/upload/*/*

@@ -101,6 +101,7 @@ class NameController extends Controller
             $m->name_id = $model->id;
             $m->last_name = $famous['last_name'];
             $m->description = $famous['description'];
+            $m->link = $famous['link'];
             $m->image = CUploadedFile::getInstanceByName('famous[' . $i . '][photo]');
             $m->save();
             if (!empty($m->image))

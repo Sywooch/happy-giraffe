@@ -3809,6 +3809,15 @@ ul.letters li a:hover {
     padding: 4px 0;
     text-decoration: underline;
 }
+.name_info .best_person a{
+    text-align: center;
+    display: block;
+    color: #5e5e5e;
+    font-size: 10px;
+    font-style: italic;
+    padding: 4px 0;
+    text-decoration: underline;
+}
 
 .name_link {
     margin: 40px 0 60px 0;

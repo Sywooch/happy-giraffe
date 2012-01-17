@@ -406,11 +406,7 @@ class Product extends CActiveRecord implements IECartPosition
 		{
 			switch($val['attribute_type'])
 			{
-				case Attribute::TYPE_2DIG:
-					$eav[$key]['eav_attribute_value'] = $val['eav_attribute_value']/100;
-					break;
-				case Attribute::TYPE_3DIG:
-					$eav[$key]['eav_attribute_value'] = $val['eav_attribute_value']/1000;
+				case Attribute::TYPE_MEASURE:
 					break;
 				case Attribute::TYPE_ENUM:
 					if(isset($enum[$val['eav_attribute_value']]))

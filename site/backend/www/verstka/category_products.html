@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title>Администратор</title>
+
+    <link href="css/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="css/general.css" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+    <script type="text/javascript" src="js/jquery.fancybox-1.3.4.pack.js"></script>
+    <script type="text/javascript" src="js/jquery.tooltip.js"></script>
+    <link href="css/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="js/common.js"></script>
+
+    <!--[if IE 6]>
+    <script type="text/javascript" src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('table.common_sett span.add_main_ct').live('click', function() {
+                $('table.common_sett').append('<tr><td class="name_ct" colspan="4"><a href="#" class="move_lvl" title="Переместить">&nbsp;</a>           <a href="#" class="nm_catg turn_icon" title="Развернуть">&nbsp;</a><form action="#"><input type="text" value="" class="t_new_catg"/>                <input type="button" value="Ok" class="b_new_catg"/></form></td></tr>');
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="wrapper">
+<div class="header">
+    <a href="#" class="logo" title="Обновить страницу">Администратор</a>
+    <!-- .logo -->
+    <ul class="logged">
+        <li>Анастасия Петрова</li>
+        <li><a href="#">Выйти</a></li>
+    </ul>
+    <ul class="going">
+        <li>Перейти в</li>
+        <li><a href="#">Клуб</a></li>
+        <li>|</li>
+        <li><a href="#">Магазин</a></li>
+    </ul>
+    <ul class="header_nav">
+        <li><a href="#">Клуб</a></li>
+        <li class="active"><a href="#">Магазин</a></li>
+    </ul>
+</div>
+<!-- .header -->
+<div class="navigation">
+    <ul>
+        <li><a href="#"><span>Главная</span></a></li>
+        <li class="submenu active">
+            <a href="#"><span>Категории</span></a>
+            <ul>
+                <li><a href="#"><span>Категории</span></a></li>
+                <li><a href="#"><span>Пакеты свойств</span></a></li>
+            </ul>
+        </li>
+        <li class="submenu">
+            <a href="#"><span>Товары</span></a>
+            <ul>
+                <li><a href="#"><span>Товары</span></a></li>
+                <li><a href="#"><span>Бренды</span></a></li>
+            </ul>
+        </li>
+        <li><a href="#"><span>Скидки</span></a></li>
+        <li><a href="#"><span>Оплата</span></a></li>
+        <li><a href="#"><span>Доставка</span></a></li>
+        <li><a href="#"><span>Заказы</span></a></li>
+    </ul>
+    <div class="clear"></div>
+    <!-- .clear -->
+</div>
+<!-- .navigation -->
+<div class="content">
+    <div class="centered">
+        <h1>Категории товаров</h1>
+
+        <div class="total_block">
+            <p>Категорий (подкатегорий)- 58</p>
+
+            <p>
+                <span class="deactive_items">- 13</span>
+                <span class="active_items">- 27</span>
+            </p>
+        </div>
+
+        <div class="search_ct">
+            <form action="#">
+                <p>
+                    <label for="findText">Поиск категории</label>
+                    <input id="findText" type="text" class="search_catg"/>
+                    <input type="button" class="search_subm" value="Найти"/>
+                </p>
+            </form>
+        </div>
+        <!-- .search_ct -->
+        <div class="clear"></div>
+        <!-- .clear -->
+    </div>
+    <!-- .centered -->
+    <div class="sett_block">
+        <table class="common_sett">
+            <tr>
+                <th class="name_ct">
+                    <span>Название категории</span>
+                </th>
+                <th class="active_ct">Действие</th>
+                <th class="goods_ct">Товары</th>
+                <th class="ad_ct"></th>
+            </tr>
+            <tr class="sett_lvl1">
+                <td class="name_ct">
+                    <a href="#" class="nm_catg expand_icon" title="Свернуть">&nbsp;</a>
+                    <a href="#" class="edit">Коляски</a>
+                </td>
+                <td class="active_ct">
+                    <ul>
+                        <li><a href="#" title="Открыть пакет свойств">
+                            <img src="images/icons/show_paket_propety.png" alt="Открыть пакет свойств"/></a></li>
+                        <li><a href="#" title="Посмотреть в магазине">
+                            <img src="images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a></li>
+                    </ul>
+                </td>
+                <td class="goods_ct">
+                    <ul>
+                        <li>Товаров - <a href="#">25673</a></li>
+                    </ul>
+                </td>
+                <td class="ad_ct">
+                    <ul>
+                        <li><a href="#deactivate" class="activate fancy" title="Деактивировать">Состояние элемента</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="sett_lvl2">
+                <td class="name_ct">
+                    <a href="#" class="no_child edit">Прогулочная</a>
+                </td>
+                <td class="active_ct">
+                    <ul>
+                        <li><a href="#" title="Добавить пакет свойств">
+                            <img src="images/icons/add_paket_propety.png" alt="Добавить пакет свойств"/></a></li>
+                        <li><a href="#" title="Посмотреть в магазине">
+                            <img src="images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a></li>
+                    </ul>
+                </td>
+                <td class="goods_ct">
+                    <ul>
+                        <li>Товаров - <a href="#">25673</a></li>
+                    </ul>
+                </td>
+                <td class="ad_ct">
+                    <ul>
+                        <li><a href="#deactivate" class="activate fancy" title="Деактивировать">Состояние элемента</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="sett_lvl2">
+                <td class="name_ct">
+                    <a href="#" class="no_child edit">Прогулочная</a>
+                </td>
+                <td class="active_ct">
+                    <ul>
+                        <li><a href="#" title="Добавить пакет свойств">
+                            <img src="images/icons/add_paket_propety.png" alt="Добавить пакет свойств"/></a></li>
+                        <li><a href="#" title="Посмотреть в магазине">
+                            <img src="images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a></li>
+                    </ul>
+                </td>
+                <td class="goods_ct">
+                    <ul>
+                        <li>Товаров - <a href="#">25673</a></li>
+                    </ul>
+                </td>
+                <td class="ad_ct">
+                    <ul>
+                        <li><a href="#deactivate" class="activate fancy" title="Деактивировать">Состояние элемента</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="sett_lvl2">
+                <td class="name_ct">
+                    <a href="#" class="no_child edit">Прогулочная</a>
+                </td>
+                <td class="active_ct">
+                    <ul>
+                        <li><a href="#" title="Добавить пакет свойств">
+                            <img src="images/icons/add_paket_propety.png" alt="Добавить пакет свойств"/></a></li>
+                        <li><a href="#" title="Посмотреть в магазине">
+                            <img src="images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a></li>
+                    </ul>
+                </td>
+                <td class="goods_ct">
+                    <ul>
+                        <li>Товаров - <a href="#">25673</a></li>
+                    </ul>
+                </td>
+                <td class="ad_ct">
+                    <ul>
+                        <li><a href="#deactivate" class="activate fancy" title="Деактивировать">Состояние элемента</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="name_ct" colspan="4">
+                    <a href="#" class="nm_catg turn_icon" title="Развернуть">&nbsp;</a>
+                    <a href="#" class="edit">Косметика</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- .sett_block -->
+    <div class="pagination pagination-center clearfix">
+    <span class="text">
+        Страницы:
+    </span>
+        <ul>
+            <li class="previous"><a href="#"></a></li>
+            <li class="page"><a href="#"><span>1</span></a></li>
+            <li class="page"><a href="#"><span>2</span></a></li>
+            <li class="page selected"><a href="#"><span>321</span></a></li>
+            <li class="page"><a href="#"><span>4</span></a></li>
+            <li class="page"><a href="#"><span>5</span></a></li>
+            <li class="page"><a href="#"><span>6</span></a></li>
+            <li class="page"><a href="#"><span>7</span></a></li>
+            <li class="next"><a href="#"></a></li>
+        </ul>
+    </div>
+</div>
+<!-- .content -->
+<div class="clear"></div>
+<!-- .clear -->
+<div class="empty"></div>
+<!-- .empty -->
+<div class="footer">
+    <span>&copy; Все права защищены.</span>
+</div>
+<!-- .footer -->
+</div>
+<!-- #wrapper -->
+<div style="display:none">
+    <div id="delete_category" class="popup">
+        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
+
+        <div class="popup_question">
+            <form action="">
+                <span>Вы уверены, что хотите удалить категорию?</span>
+                <ul>
+                    <li><input type="button" class="disagree" value="Отказаться"/></li>
+                    <li><input type="button" class="agree" value="Да"/></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display:none">
+    <div id="deactivate" class="popup">
+        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
+
+        <div class="popup_question">
+            <form action="">
+                <span>Вы уверены, что хотите деактивировать<br/> категорию?</span>
+                <ul>
+                    <li><input type="button" class="disagree" value="Отказаться"/></li>
+                    <li><input type="button" class="agree" value="Да"/></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display:none">
+    <div id="activate" class="popup">
+        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
+
+        <div class="popup_question">
+            <form action="">
+                <span>Вы уверены, что хотите активировать<br/> категорию?</span>
+                <ul>
+                    <li><input type="button" class="disagree" value="Отказаться"/></li>
+                    <li><input type="button" class="agree" value="Да"/></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

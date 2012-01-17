@@ -1,0 +1,84 @@
+.jcarousel-clip {
+    overflow: hidden;
+}
+
+.jcarousel-clip-horizontal {
+    width: 331px;
+    height: 81px;
+}
+
+.jcarousel-item {
+    width: 76px;
+    height: 79px;
+    display: block;
+    position: relative;
+}
+
+/**
+*  Horizontal Buttons
+*/
+.jcarousel-next-horizontal {
+    position: absolute;
+    top: 31px;
+    right: -20px;
+    width: 13px;
+    height: 17px;
+    cursor: pointer;
+    background-image: url('../images/icons/right_arrow_active.png');
+}
+
+.jcarousel-direction-rtl .jcarousel-next-horizontal {
+    left: 5px;
+    right: auto;
+    background-image: url('../images/icons/right_arrow_active.png');
+}
+
+.jcarousel-next-horizontal:hover,
+.jcarousel-next-horizontal:focus {
+    background-image: url('../images/icons/right_arrow_active.png');
+}
+
+.jcarousel-next-horizontal:active {
+    background-image: url('../images/icons/right_arrow_active.png');
+}
+
+.jcarousel-next-disabled-horizontal,
+.jcarousel-next-disabled-horizontal:hover,
+.jcarousel-next-disabled-horizontal:focus,
+.jcarousel-next-disabled-horizontal:active {
+    cursor: default;
+    background-image: url('../images/icons/right_arrow.png');
+}
+
+.jcarousel-prev-horizontal {
+    position: absolute;
+    top: 31px;
+    left: -20px;
+    width: 13px;
+    height: 17px;
+    cursor: pointer;
+    background-image: url('../images/icons/left_arrow_active.png');
+}
+
+.jcarousel-direction-rtl .jcarousel-prev-horizontal {
+    left: auto;
+    right: 5px;
+    background-image: url('../images/icons/left_arrow_active.png');
+}
+
+.jcarousel-prev-horizontal:hover,
+.jcarousel-prev-horizontal:focus {
+    background-image: url('../images/icons/left_arrow_active.png');
+}
+
+.jcarousel-prev-horizontal:active {
+    background-image: url('../images/icons/left_arrow_active.png');
+}
+
+.jcarousel-prev-disabled-horizontal,
+.jcarousel-prev-disabled-horizontal:hover,
+.jcarousel-prev-disabled-horizontal:focus,
+.jcarousel-prev-disabled-horizontal:active {
+    cursor: default;
+    background-image: url('../images/icons/left_arrow.png');
+}

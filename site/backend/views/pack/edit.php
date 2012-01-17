@@ -144,6 +144,7 @@
                                 success:function (data) {
                                     $(this).parent().parent().parent().find('.add_attr').show();
                                     $(this).parent().parent().parent().before(data);
+                                    $(this).parent().parent('form').find('select').selectBox('destroy');
                                     $(this).parent().parent('form').remove();
                                 },
                                 context:$(this)
@@ -170,6 +171,7 @@
                                 data:{id:data.id},
                                 type:'POST',
                                 success:function (data) {
+                                    $(this).parent().parent('form').find('select').selectBox('destroy');
                                     $(this).parent().parent().parent().before(data);
                                     $(this).parent().parent().parent().remove();
                                 },

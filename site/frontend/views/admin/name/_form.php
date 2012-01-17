@@ -116,11 +116,11 @@
         <?php echo $form->error($model, 'middle_names'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'saints'); ?>
-        <?php echo $form->textArea($model, 'saints', array('rows' => 3, 'cols' => 50)); ?>
-        <?php echo $form->error($model, 'saints'); ?>
-    </div>
+<!--    <div class="row">-->
+<!--        --><?php //echo $form->labelEx($model, 'saints'); ?>
+<!--        --><?php //echo $form->textArea($model, 'saints', array('rows' => 3, 'cols' => 50)); ?>
+<!--        --><?php //echo $form->error($model, 'saints'); ?>
+<!--    </div>-->
 
     <br>
     <h2>Знаменитости</h2>
@@ -142,6 +142,10 @@
         <div class="row">
             <?php echo CHtml::label('Описание', ''); ?>
             <?php echo CHtml::textField('famous[0][description]', ''); ?>
+        </div>
+        <div class="row">
+            <?php echo CHtml::label('Ссылка', ''); ?>
+            <?php echo CHtml::textField('famous[0][link]', ''); ?>
         </div>
         <div class="row">
             <?php echo CHtml::label('Фото', ''); ?>

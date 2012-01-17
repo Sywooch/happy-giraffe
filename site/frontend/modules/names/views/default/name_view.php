@@ -70,11 +70,11 @@
         <?php endif ?>
 
 
-        <?php if (!empty($name->saints)):?>
-            <h2>Христианские святые с именем <?php echo $name->name; ?></h2>
-
-            <p><?php echo $name->saints ?></p>
-        <?php endif ?>
+        <?php //if (!empty($name->saints)):?>
+<!--            <h2>Христианские святые с именем --><?php //echo $name->name; ?><!--</h2>-->
+<!---->
+<!--            <p>--><?php //echo $name->saints ?><!--</p>-->
+        <?php //endif ?>
 
         <?php if (!empty($name->nameFamouses)):?>
             <h2>Известные личности с именем <?php echo $name->name; ?></h2>
@@ -82,8 +82,13 @@
             <?php foreach ($name->nameFamouses as $famous): ?>
                 <div class="best_person">
                     <?php if (!empty($famous->photo)) $famous->GetAdminPhoto() ?>
-                    <p><?php echo $name->name.' '.$famous->last_name ?>
-                        <?php if (!empty($famous->description)) echo ', '.$famous->description ?></p>
+                    <?php if (!empty($famous->link)): ?>
+                        <a href="<?php echo $famous->link ?>" rel="nofollow"><?php echo $name->name.' '.$famous->last_name ?>
+                            <?php if (!empty($famous->description)) echo ', '.$famous->description ?></a>
+                    <?php else: ?>
+                        <p><?php echo $name->name.' '.$famous->last_name ?>
+                            <?php if (!empty($famous->description)) echo ', '.$famous->description ?></p>
+                    <?php endif ?>
                 </div>
             <?php endforeach; ?>
         <?php endif ?>

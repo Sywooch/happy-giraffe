@@ -16,9 +16,8 @@
 class Attribute extends CActiveRecord
 {
 	const TYPE_ENUM = 1;
-	const TYPE_INTG = 2;
-	const TYPE_2DIG = 3;
-	const TYPE_3DIG = 4;
+    const TYPE_INTG = 2;
+    const TYPE_MEASURE = 3;
 	const TYPE_TEXT = 5;
 	const TYPE_BOOL = 6;
 
@@ -31,8 +30,7 @@ class Attribute extends CActiveRecord
                 'statuses' => array(
 					self::TYPE_ENUM => 'Список',
 					self::TYPE_INTG => 'Число',
-					self::TYPE_2DIG => '2-х значное число',
-					self::TYPE_3DIG => '3-х значное число',
+					self::TYPE_MEASURE => 'Единицы измерения',
 					self::TYPE_TEXT => 'Текст',
 					self::TYPE_BOOL => 'Да-Нет',
 				),

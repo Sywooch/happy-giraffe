@@ -79,8 +79,14 @@
     var set_id = <?php echo $model->set_id ?>;
     $(function () {
         $('body').delegate('.add_attr', 'click', function () {
+            if ($(this).hasClass('in_price'))
+                var in_price = 1;
+            else
+                var in_price = 0;
+
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("pack/CreateAttribute") ?>',
+                data: {in_price:in_price},
                 type:'POST',
                 success:function (data) {
                     $(this).hide();
@@ -97,73 +103,127 @@
 
             return false;
         });
-    });
 
-    $('body').delegate('#attribute-form input[type=submit]', 'click', function () {
-        $.ajax({
-            url:'<?php echo Yii::app()->createUrl("pack/CreateAttribute") ?>',
-            data:$(this).parent().parent('form').serialize()+'&set_id='+set_id,
-            type:'POST',
-            dataType:'JSON',
-            success:function (data) {
-                if (data !== null && data.hasOwnProperty('success'))
-                    if (data.success) {
-                        $.ajax({
-                            url:'<?php echo Yii::app()->createUrl("pack/AttributeView") ?>',
-                            data:{id:data.id},
-                            type:'POST',
-                            success: function (data) {
-                                $(this).parent().parent().parent().find('.add_attr').show();
-                                $(this).parent().parent().parent().before(data);
-                                $(this).parent().parent('form').remove();
-                            },
-                            context:$(this)
-                        });
-                    }
-            },
-            context:$(this)
-        });
-
-        return false;
-    });
-
-    $('body').delegate('.attr-name .delete', 'click', function(){
-        var answer = confirm('Точно удалить?');
-        if (answer){
+        $('body').delegate('.attr-name a.edit', 'click', function () {
             var bl = $(this).parents('li.set_attr_li');
             var id = bl.attr('obj_id');
-            var class_name = 'Attribute';
 
             $.ajax({
-                url: '<?php echo Yii::app()->createUrl("ajax/delete") ?>',
-                data: {
-                    class: class_name,
-                    id: id
+                url:'<?php echo Yii::app()->createUrl("pack/UpdateAttribute") ?>',
+                data: {id:id},
+                type:'POST',
+                success:function (data) {
+                    var li = $(this).parents('li.set_attr_li');
+                    li.html(data);
+                    var form = li.find('form');
+                    form.children('p').children('select').selectBox();
+                    form.children('p').children(".niceCheck").each(
+                        function () {
+                            changeCheckStart(jQuery(this));
+                        });
                 },
-                type: 'GET',
-                success: function(data) {
-                    if (data == '1'){
-                        bl.remove();
-                    }
-                },
-                context: $(this)
+                context:$(this)
             });
-        }
-        return false;
-    });
 
-    $('body').delegate('p.triangle', 'click', function () {
-        var attr_id = $(this).parent('li').attr('obj_id');
-        $.ajax({
-            url:'<?php echo Yii::app()->createUrl("pack/attributeInSearch") ?>',
-            data:'id=' + attr_id,
-            type:'GET',
-            success:function (data) {
-                if (data == '1')
-                    $(this).toggleClass('vain');
-            },
-            context:$(this)
+            return false;
         });
+
+        $('body').delegate('#attribute-form input.add_attr_btn', 'click', function () {
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("pack/CreateAttribute") ?>',
+                data:$(this).parent().parent('form').serialize() + '&set_id=' + set_id,
+                type:'POST',
+                dataType:'JSON',
+                success:function (data) {
+                    if (data !== null && data.hasOwnProperty('success'))
+                        if (data.success) {
+                            $.ajax({
+                                url:'<?php echo Yii::app()->createUrl("pack/AttributeView") ?>',
+                                data:{id:data.id},
+                                type:'POST',
+                                success:function (data) {
+                                    $(this).parent().parent().parent().find('.add_attr').show();
+                                    $(this).parent().parent().parent().before(data);
+                                    $(this).parent().parent('form').remove();
+                                },
+                                context:$(this)
+                            });
+                        }
+                },
+                context:$(this)
+            });
+
+            return false;
+        });
+
+        $('body').delegate('#attribute-form input.edit_attr_btn', 'click', function () {
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("pack/UpdateAttribute") ?>',
+                data:$(this).parent().parent('form').serialize() + '&set_id=' + set_id,
+                type:'POST',
+                dataType:'JSON',
+                success:function (data) {
+                    if (data !== null && data.hasOwnProperty('success'))
+                        if (data.success) {
+                            $.ajax({
+                                url:'<?php echo Yii::app()->createUrl("pack/AttributeView") ?>',
+                                data:{id:data.id},
+                                type:'POST',
+                                success:function (data) {
+                                    $(this).parent().parent().parent().before(data);
+                                    $(this).parent().parent().parent().remove();
+                                },
+                                context:$(this)
+                            });
+                        }
+                },
+                context:$(this)
+            });
+
+            return false;
+        });
+
+        $('body').delegate('.attr-name .delete', 'click', function () {
+            var answer = confirm('Точно удалить?');
+            if (answer) {
+                var bl = $(this).parents('li.set_attr_li');
+                var id = bl.attr('obj_id');
+                var class_name = 'Attribute';
+
+                $.ajax({
+                    url:'<?php echo Yii::app()->createUrl("ajax/delete") ?>',
+                    data:{
+                        class:class_name,
+                        id:id
+                    },
+                    type:'GET',
+                    success:function (data) {
+                        if (data == '1') {
+                            bl.remove();
+                        }
+                    },
+                    context:$(this)
+                });
+            }
+            return false;
+        });
+
+        $('body').delegate('a.triangle', 'click', function () {
+            var attr_id = $(this).parent('li').attr('obj_id');
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("pack/attributeInSearch") ?>',
+                data:'id=' + attr_id,
+                type:'GET',
+                success:function (data) {
+                    if (data == '1')
+                        $(this).toggleClass('vain');
+                },
+                context:$(this)
+            });
+
+            return false;
+        });
+
     });
 </script>
 <?php
@@ -192,19 +252,12 @@
 
         <div class="text_block">
             <ul class="inline_block">
+                <?php foreach ($model->set_map as $attribute): ?>
+                <?php $attr = Attribute::model()->findByPk($attribute->map_attribute_id); ?>
+                <?php if ($attr->attribute_in_price) $this->renderPartial('_attribute_view',array('model'=>$attr)); ?>
+                <?php endforeach; ?>
                 <li>
-                    <div class="name">
-                        <p>Цена</p>
-                        <a href="#" class="edit"></a>
-                        <a href="#" class="delete"></a>
-                    </div>
-                    <p class="triangle"></p>
-
-                    <p class="type">Список</p>
-                </li>
-                <li class="add_attribute">
-                    <span class="add_paket" title="Добавить характеристику">+</span>
-
+                    <span class="add_paket add_attr in_price" title="Добавить характеристику">+</span>
                 </li>
             </ul>
             <div class="clear"></div>
@@ -215,41 +268,9 @@
 
         <div class="text_block">
             <ul class="inline_block">
-                <?php foreach ($attributes as $attribute): ?>
-                <?php $attr = Attribute::model()->findByPk($attribute->map_attribute_id);
-                /**
-                 * @var Attribute $attr
-                 */
-                ?>
-                <li class="set_attr_li" obj_id="<?php echo $attr->attribute_id ?>">
-                    <div class="name attr-name">
-                        <p><?php echo $attr->attribute_title ?></p>
-                        <a class="edit" href="#"></a>
-                        <a class="delete" href="#"></a>
-                    </div>
-                    <p class="triangle<?php if (!$attr->attribute_is_insearch) echo ' vain' ?>"></p>
-
-                    <p class="type"><?php echo $attr->getType() ?></p>
-
-                    <?php if ($attr->attribute_type == Attribute::TYPE_ENUM): ?>
-                    <ul class="list-elems">
-                        <?php foreach ($attr->value_map as $attr_val): ?>
-                        <li>
-                            <?php $this->widget('SimpleFormInputWidget', array(
-                            'model' => $attr_val->map_value,
-                            'attribute' => 'value_value'
-                        ))?>
-                        </li>
-                        <?php endforeach; ?>
-                        <li>
-                            <?php $this->widget('SimpleFormAddWidget', array(
-                            'url' => $this->createUrl('pack/AddAttrListElem'),
-                            'model_id' => $attr->attribute_id,
-                        ))?>
-                        </li>
-                    </ul>
-                    <?php endif ?>
-                </li>
+                <?php foreach ($model->set_map as $attribute): ?>
+                    <?php $attr = Attribute::model()->findByPk($attribute->map_attribute_id); ?>
+                    <?php if (!$attr->attribute_in_price) $this->renderPartial('_attribute_view',array('model'=>$attr)); ?>
                 <?php endforeach; ?>
                 <li>
                     <span class="add_paket add_attr" title="Добавить характеристику">+</span>

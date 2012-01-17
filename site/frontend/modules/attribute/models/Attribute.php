@@ -11,6 +11,7 @@
  * @property integer $attribute_required
  * @property integer $attribute_is_insearch
  * @property integer $price_influence
+ * @property integer $attribute_in_price
  */
 class Attribute extends CActiveRecord
 {
@@ -65,15 +66,15 @@ class Attribute extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('attribute_type, attribute_required, attribute_is_insearch, attribute_title', 'required'),
-			array('attribute_type, attribute_required, attribute_is_insearch, price_influence', 'numerical', 'integerOnly'=>true),
+			array('attribute_type, attribute_required, attribute_is_insearch, price_influence, attribute_in_price', 'numerical', 'integerOnly'=>true),
 			array('attribute_title', 'length', 'max'=>50),
 			array('attribute_text', 'safe'),
 
 			array('attribute_title', 'length', 'max'=>50),
-			array('attribute_is_insearch, price_influence', 'default', 'value' => 0),
+			array('attribute_is_insearch, price_influence, attribute_in_price', 'default', 'value' => 0),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('attribute_id, attribute_title, attribute_text, attribute_type, type, attribute_required, attribute_is_insearch, price_influence', 'safe', 'on'=>'search'),
+			array('attribute_id, attribute_title, attribute_text, attribute_type, attribute_in_price, type, attribute_required, attribute_is_insearch, price_influence', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -104,6 +105,7 @@ class Attribute extends CActiveRecord
 			'attribute_is_insearch' => 'Поиск по атрибуту',
             'price_influence'=>'Влияет на цену',
 			'categoryInSearch' => 'Is Category In Search',
+            'attribute_in_price'=>'В корзину'
 		);
 	}
 

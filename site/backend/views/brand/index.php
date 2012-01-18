@@ -2,11 +2,11 @@
     <h1>Категории товаров</h1>
 
     <div class="total_block">
-        <p>Категорий (подкатегорий)- 58</p>
+        <p>Категорий (подкатегорий)- <ins>58</ins></p>
 
         <p>
-            <span class="deactive_items">- 13</span>
-            <span class="active_items">- 27</span>
+            <span class="deactive_items">- <ins><?php echo $onOffCount['off']; ?></ins></span>
+            <span class="active_items">- <ins><?php echo $onOffCount['on']; ?></ins></span>
         </p>
     </div>
 
@@ -55,19 +55,15 @@
 </div>
 <!-- .sett_block -->
 
+<?php if ($pages->pageCount > 1): ?>
 <div class="pagination pagination-center clearfix">
-            <span class="text">
-                Страницы:
-            </span>
-    <ul>
-        <li class="previous"><a href="#"></a></li>
-        <li class="page"><a href="#"><span>1</span></a></li>
-        <li class="page"><a href="#"><span>2</span></a></li>
-        <li class="page selected"><a href="#"><span>321</span></a></li>
-        <li class="page"><a href="#"><span>4</span></a></li>
-        <li class="page"><a href="#"><span>5</span></a></li>
-        <li class="page"><a href="#"><span>6</span></a></li>
-        <li class="page"><a href="#"><span>7</span></a></li>
-        <li class="next"><a href="#"></a></li>
-    </ul>
+			<span class="text">
+				Показано: <?php echo $pages->currentPage * $pages->pageSize + 1; ?>-<?php echo ($pages->currentPage + 1) * $pages->pageSize; ?> из <?php echo $pages->itemCount; ?>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Страницы:
+			</span>
+    <?php $this->widget('LinkPager', array(
+    'pages' => $pages,
+)); ?>
 </div>
+<?php endif; ?>

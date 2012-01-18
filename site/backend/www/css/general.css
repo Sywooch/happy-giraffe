@@ -909,6 +909,7 @@ table.common_sett td.ad_ct ul li a.deactivate {
 
 .propertyBlock {
     float: left;
+    width: 570px;
 }
 .filter_sorter {
     width: 275px;
@@ -918,7 +919,7 @@ table.common_sett td.ad_ct ul li a.deactivate {
     font-weight: bold;
     color: #474747;
     font-size: 14px;
-    margin: 20px 200px 0 0;
+    margin: 20px 20px 0 0;
 }
 .filter_sorter .filter_header {
     font-size: 25px;

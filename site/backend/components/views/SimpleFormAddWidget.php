@@ -38,7 +38,9 @@ $js = "
     });
 ";
 Yii::app()->clientScript->registerScript('input-text-add', $js);
+
+if (!$init){
 ?>
 <input type="hidden" class="url" value="<?php echo $url ?>">
 <input type="hidden" class="model_id" value="<?php echo $model_id ?>">
-<span class="add_paket add_enum_value">+</span>
+<span class="add_paket add_enum_value" title="добавить элемент в список">+</span><?php }

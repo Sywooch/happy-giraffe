@@ -2,6 +2,13 @@
 
 class PackController extends BController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl', // perform access control for CRUD operations
+        );
+    }
+
     public function actionIndex($id)
     {
         $model = AttributeSet::model()->findByPk($id);
@@ -28,6 +35,7 @@ class PackController extends BController
                 $map_model->map_attribute_id = $model->attribute_id;
                 $map_model->map_attribute_title = '';
                 $map_model->map_set_id = $_POST['set_id'];
+                $map_model->pos = $map_model->MaxPosition();
                 if ($map_model->save())
                     echo CJSON::encode(array('success' => true, 'id' => $model->attribute_id));
                 else
@@ -61,17 +69,6 @@ class PackController extends BController
         $this->renderPartial('_attribute_view', array(
             'model' => $model
         ));
-    }
-
-    public function actionAttributeInSearch($id)
-    {
-        $model = Attribute::model()->findByPk($id);
-        if ($model->attribute_is_insearch)
-            $model->attribute_is_insearch = 0;
-        else
-            $model->attribute_is_insearch = 1;
-
-        echo $model->update(array('attribute_is_insearch'));
     }
 
     public function actionDeleteAttribute($id, $set_id)
@@ -125,7 +122,8 @@ class PackController extends BController
         ));
     }
 
-    public function actionGetMeasureOptions(){
+    public function actionGetMeasureOptions()
+    {
         $model = AttributeMeasure::model()->findByPk($_POST['id']);
         $data = CHtml::listData($model->measureOptions, 'id', 'title');
         $htmlOptions = array();
@@ -142,5 +140,35 @@ class PackController extends BController
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
+    }
+
+    public function actionAttributePosition($id, $new_pos = null, $set_id = null)
+    {
+        if ($id == 'brand') {
+            $set = AttributeSet::model()->findByPk($set_id);
+            if ($new_pos == null){
+                $set->brand_pos = 0;
+                Yii::app()->db->createCommand('Update ' . AttributeSetMap::model()->tableName()
+                    . ' SET pos = pos+1 WHERE map_set_id=' . $set_id)->execute();
+            }
+            else {
+                $after = AttributeSetMap::model()->findByAttributes(array('map_attribute_id' => $new_pos));
+                $new_pos = $after->pos;
+                Yii::app()->db->createCommand('Update ' . AttributeSetMap::model()->tableName()
+                    . ' SET pos = pos+1 WHERE pos > ' . $new_pos . ' AND map_set_id=' . $set_id)->execute();
+                $set->brand_pos = $new_pos + 1;
+            }
+            $success = $set->update(array('brand_pos'));
+        } else {
+            $model = AttributeSetMap::model()->findByAttributes(array('map_attribute_id' => $id));
+            $success = $model->MoveAfter($new_pos);
+        }
+        echo CJSON::encode(array('success' => $success));
+    }
+
+    public function actionGetSortBlock($set_id)
+    {
+        $model = AttributeSet::model()->findByPk($set_id);
+        $this->renderPartial('_sorter', array('model' => $model));
     }
 }

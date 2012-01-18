@@ -11,13 +11,13 @@
     </div>
 
     <div class="search_ct">
-        <form action="#">
+        <?php echo CHtml::beginForm('index', 'get'); ?>
             <p>
                 <label for="findText">Поиск категории</label>
-                <input id="findText" type="text" class="search_catg"/>
-                <input type="button" class="search_subm" value="Найти"/>
+                <input id="findText" type="text" class="search_catg" name='query'/>
+                <input type="button" class="search_subm" value="Найти" onclick="submit();"/>
             </p>
-        </form>
+        <?php echo CHtml::endForm(); ?>
     </div>
     <!-- .much_catg -->
     <div class="clear"></div>

@@ -34,10 +34,7 @@
     <td class="ad_ct">
         <ul>
             <li><?php $this->widget('OnOffWidget', array('model' => $brand)); ?></li>
-            <li><a href="#delete_category" class="fancy" title="Удалить категорию"><img
-                src="/images/icons/delete_sm_icon.png"
-                alt="Удалить категорию"/></a>
-            </li>
+            <li><?php $this->widget('DeleteWidget', array('model' => $brand)); ?></li>
         </ul>
     </td>
 </tr>

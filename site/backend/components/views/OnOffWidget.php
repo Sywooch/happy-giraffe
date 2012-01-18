@@ -1,7 +1,7 @@
 <?php
-$cs = Yii::app()->clientScript;
+    $cs = Yii::app()->clientScript;
 
-$js = "
+    $js = "
         $('body').delegate('a.activate, a.deactivate', 'click', function(e) {
             e.preventDefault();
             $.ajax({
@@ -12,32 +12,35 @@ $js = "
                     modelPk: $(this).find('input[name=modelPk]').val()
                 },
                 success: function(response) {
-                    $(this).toggleClass('activate deactivate');
-                    if ($(this).hasClass('activate'))
+                    if (response == '1')
                     {
-                        $(this).attr('title', 'Деактивировать');
-                        $('.active_items ins').text(parseInt($('.active_items ins').text()) + 1);
-                        $('.deactive_items ins').text(parseInt($('.deactive_items ins').text()) - 1);
+                        $(this).toggleClass('activate deactivate');
+                        if ($(this).hasClass('activate'))
+                        {
+                            $(this).attr('title', 'Деактивировать');
+                            $('.active_items ins').text(parseInt($('.active_items ins').text()) + 1);
+                            $('.deactive_items ins').text(parseInt($('.deactive_items ins').text()) - 1);
+                        }
+                        else
+                        {
+                            $(this).attr('title', 'Активировать');
+                            $('.active_items ins').text(parseInt($('.active_items ins').text()) - 1);
+                            $('.deactive_items ins').text(parseInt($('.deactive_items ins').text()) + 1);
+                        }
+                        $(this).tooltip({
+                            track: true,
+                            delay: 0,
+                            showURL: false,
+                            fade: 200
+                        });
                     }
-                    else
-                    {
-                        $(this).attr('title', 'Активировать');
-                        $('.active_items ins').text(parseInt($('.active_items ins').text()) - 1);
-                        $('.deactive_items ins').text(parseInt($('.deactive_items ins').text()) + 1);
-                    }
-                    $(this).tooltip({
-                        track: true,
-                        delay: 0,
-                        showURL: false,
-                        fade: 200
-                    });
                 },
                 context: $(this)
             });
         });
     ";
 
-$cs->registerScript('onOffWidget', $js);
+    $cs->registerScript('onOffWidget', $js);
 ?>
 
 <a href="#" class="<?php echo ($model->active ? 'activate' : 'deactivate'); ?>" title="<?php echo ($model->active ? 'Деактивировать' : 'Активировать'); ?>">

@@ -6,7 +6,8 @@ class BrandController extends BController
     {
         $dataProvider = ProductBrand::model()->getAll($query);
 
-        $onOffCount = array(
+        $count = array(
+            'total' => ProductBrand::model()->count(),
             'on' => ProductBrand::model()->count('active = 1'),
             'off' => ProductBrand::model()->count('active = 0'),
         );
@@ -14,7 +15,7 @@ class BrandController extends BController
         $this->render('index', array(
             'brands' => $dataProvider->data,
             'pages' => $dataProvider->pagination,
-            'onOffCount' => $onOffCount,
+            'count' => $count,
         ));
     }
 }

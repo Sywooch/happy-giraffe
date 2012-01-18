@@ -2,11 +2,11 @@
     <h1>Категории товаров</h1>
 
     <div class="total_block">
-        <p>Категорий (подкатегорий)- <ins>58</ins></p>
+        <p>Категорий (подкатегорий)- <ins><?php echo $count['total']; ?></ins></p>
 
         <p>
-            <span class="deactive_items">- <ins><?php echo $onOffCount['off']; ?></ins></span>
-            <span class="active_items">- <ins><?php echo $onOffCount['on']; ?></ins></span>
+            <span class="deactive_items">- <ins><?php echo $count['off']; ?></ins></span>
+            <span class="active_items">- <ins><?php echo $count['on']; ?></ins></span>
         </p>
     </div>
 

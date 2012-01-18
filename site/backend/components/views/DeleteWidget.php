@@ -5,11 +5,11 @@
         $('body').delegate('a.delete', 'click', function(e) {
             e.preventDefault();
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: '" . Yii::app()->createUrl('ajax/delete') . "',
                 data: {
-                    class: $(this).find('input[name=modelName]').val(),
-                    id: $(this).find('input[name=modelPk]').val()
+                    modelName: $(this).find('input[name=modelName]').val(),
+                    modelPk: $(this).find('input[name=modelPk]').val()
                 },
                 success: function(response) {
                     if (response == '1')

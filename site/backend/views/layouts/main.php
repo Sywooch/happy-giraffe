@@ -39,19 +39,19 @@
 
         $('html').delegate('#confirm_popup .popup_question input.agree', 'click', function(){
             $.fancybox.close();
-            confirm_popup.callback(confirm_popup.owner);
+            confirm_popup.callback(confirm_popup.sender);
         });
 
         $('html').delegate('#confirm_popup .popup_question input.disagree', 'click', function(){
             $.fancybox.close();
         });
 
-        function ConfirmPopup(text, owner, callback)
+        function ConfirmPopup(text, sender, callback)
         {
             $('#confirm_popup .popup_question span').text(text);
             $('#confirm_popup_link').trigger('click');
             this.callback = callback;
-            this.owner = owner;
+            this.sender = sender;
             confirm_popup = this;
         }
 

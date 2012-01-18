@@ -18,4 +18,13 @@ class AjaxController extends BController
 
         echo $model->delete();
     }
+
+    public function actionSetValue($class, $id, $attribute, $value){
+        $model = CActiveRecord::model($class)->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $model->setAttribute($attribute, $value);
+        echo $model->update(array($attribute));
+    }
 }

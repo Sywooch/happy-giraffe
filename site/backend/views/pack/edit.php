@@ -2,10 +2,9 @@
 var set_id = <?php echo $model->set_id ?>;
 $(function () {
     $('body').delegate('.add_attr', 'click', function () {
+        var in_price = 0;
         if ($(this).hasClass('in_price'))
-            var in_price = 1;
-        else
-            var in_price = 0;
+            in_price = 1;
 
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("pack/CreateAttribute") ?>',
@@ -140,10 +139,9 @@ $(function () {
     });
 
     $('body').delegate('a.triangle', 'click', function () {
+        var value = 0;
         if ($(this).hasClass('vain'))
-            var value = 1;
-        else
-            var value = 0;
+            value = 1;
 
         if ($(this).hasClass('sort-attr')) {
             $.ajax({
@@ -226,11 +224,6 @@ function sortableInit() {
                 id:id,
                 new_pos:new_pos,
                 set_id:set_id
-            },
-            success:function (response) {
-                if (response.success) {
-
-                }
             },
             context:$(this)
         });

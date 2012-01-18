@@ -46,9 +46,8 @@ $js = "
     });
 
     $('body').delegate('.attr-elem-name > a.delete', 'click', function(){
-        var answer = confirm('Точно удалить?');
-        if (answer){
-            var bl = $(this).closest('div.attr-elem-name');
+        ConfirmPopup('Вы точно хотите удалить атрибут \"' + $(this).prev().prev().text() + '\"', $(this), function (owner) {
+            var bl = owner.closest('div.attr-elem-name');
             var id = bl.find('input.elem-id').val();
             var class_name = bl.find('input.elem-class').val();
 
@@ -63,16 +62,15 @@ $js = "
                         if (data == '1'){
                             bl.parent('li').remove();
                         }
-                    },
-                    context: $(this)
+                    }
             });
-        }
+        });
 
         return false;
     });
 ";
 Yii::app()->clientScript->registerScript('input-text-edit', $js);
-if ($model !== null){
+if (!$init){
 ?>
 <div class="name attr-elem-name">
     <input type="hidden" class="elem-class" value="<?php echo get_class($model) ?>">
@@ -81,7 +79,7 @@ if ($model !== null){
            value="<?php echo $model->getAttribute($model->getTableSchema()->primaryKey) ?>">
 
     <p><?php echo $model->getAttribute($attribute) ?></p>
-    <a class="edit" href="#"></a>
-    <a class="delete" href="#"></a>
+    <a class="edit" href="#" title="редактировать"></a>
+    <a class="delete" href="#" title="удалить"></a>
 </div>
 <?php }

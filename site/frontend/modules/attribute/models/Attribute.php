@@ -168,7 +168,7 @@ class Attribute extends CActiveRecord
 
 		return parent::beforeDelete();
 	}
-	
+
 	/**
 	 * Find is this attribute in search in this category
 	 * @param int $category_id 

@@ -21,8 +21,6 @@ class ProductBrand extends CActiveRecord {
             ->queryRow();
     }
 
-    public fu
-
     public $accusativeName = 'брэнд';
 
 	public function behaviors() {

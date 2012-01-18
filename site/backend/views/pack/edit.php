@@ -208,7 +208,7 @@ $(function () {
 });
 
 function sortableInit() {
-    $("#sortable").sortable({revert:true});
+    $("#sortable").sortable();
 
     $("#sortable").bind("sortstop", function (event, ui) {
         var id = ui.item.find('input[name=\"id\"]').val();
@@ -240,7 +240,6 @@ function refreshSorter() {
             $('#sortable').sortable("destroy");
             $('.filter_sorter').html(data);
             sortableInit();
-            console.log('refresh');
         },
         context:$(this)
     });

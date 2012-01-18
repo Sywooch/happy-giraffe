@@ -18,4 +18,13 @@ class AjaxController extends BController
 
         echo $model->delete();
     }
+
+    public function actionOnOff()
+    {
+        $modelName = Yii::app()->request->getPost('modelName');
+        $modelPk = Yii::app()->request->getPost('modelPk');
+        $model = CActiveRecord::model($modelName)->findByPk($modelPk);
+        $model->active = ! $model->active;
+        echo $model->save(true, array('active'));
+    }
 }

@@ -54,10 +54,10 @@ $js = "
             $.ajax({
                     url: '" . Yii::app()->createUrl("ajax/delete") . "',
                     data: {
-                        class: class_name,
-                        id: id
+                        modelName: class_name,
+                        modelPk: id
                     },
-                    type: 'GET',
+                    type: 'POST',
                     success: function(data) {
                         if (data == '1'){
                             bl.parent('li').remove();

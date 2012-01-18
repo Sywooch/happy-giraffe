@@ -5,6 +5,7 @@ return array(
 	'name' => 'Админка',
 
 	'import'=>array(
+        'site.frontend.extensions.shoppingCart.*',
         'site.frontend.components.*',
         'site.frontend.extensions.LinkPager',
         'site.frontend.extensions.ufile.UFiles',

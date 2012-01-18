@@ -15,7 +15,7 @@
     </td>
     <td class="goods_ct">
         <ul>
-            <li>Товаров - <a href="#">25673</a></li>
+            <li>Товаров - <a href="#"><?php echo $brand->productsCount; ?></a></li>
             <li>Категорий - <a href="#">256</a></li>
         </ul>
     </td>

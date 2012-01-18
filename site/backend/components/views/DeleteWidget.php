@@ -25,7 +25,7 @@
     $cs->registerScript('deleteWidget', $js);
 ?>
 
-<a href="#delete_category" class="delete" title="Удалить <?php echo $model->accusativeName; ?>">
+<a class="delete" title="Удалить <?php echo $model->accusativeName; ?>">
     <img src="/images/icons/delete_sm_icon.png" alt="Удалить <?php echo $model->accusativeName; ?>"/>
     <?php echo CHtml::hiddenField('modelName', get_class($model)); ?>
     <?php echo CHtml::hiddenField('modelPk', $model->primaryKey); ?>

@@ -2,9 +2,9 @@
 
 class BrandController extends BController
 {
-    public function actionIndex()
+    public function actionIndex($query = null)
     {
-        $dataProvider = ProductBrand::model()->getAll();
+        $dataProvider = ProductBrand::model()->getAll($query);
 
         $onOffCount = array(
             'on' => ProductBrand::model()->count('active = 1'),

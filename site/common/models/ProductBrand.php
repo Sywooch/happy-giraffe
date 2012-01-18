@@ -11,6 +11,8 @@
  */
 class ProductBrand extends CActiveRecord {
 
+    public $accusativeName = 'брэнд';
+
 	public function behaviors() {
 		return array(
 			'behavior_ufiles' => array(
@@ -62,7 +64,8 @@ class ProductBrand extends CActiveRecord {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('active', 'boolean'),
+            array('active', 'default', 'value' => 1),
+            array('active', 'boolean', 'defaultValue'),
 			array('brand_title, brand_image', 'required'),
 			array('brand_title', 'length', 'max' => 250),
 			array('brand_text', 'safe'),
@@ -145,8 +148,21 @@ class ProductBrand extends CActiveRecord {
 		return $command->queryAll();
 	}
 
-    public function getAll() {
+    public function getAll($query) {
+        $criteria = new CDbCriteria(array(
+            'order' => 'brand_id',
+        ));
+        if ($query !== null)
+        {
+            $criteria->mergeWith(array(
+                'condition' => 'brand_title LIKE :query',
+                'params' => array(
+                    ':query' => '%' . $query . '%',
+                ),
+            ));
+        }
         return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 5,
             ),

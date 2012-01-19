@@ -1764,10 +1764,10 @@ div.name_actions a.delete {
 
 
 .bodyr.long {
-    padding: 0 350px 0 50px;
+    padding: 0 330px 0 50px;
 }
 .bodyr.long .right {
-    margin: 0 -350px 0 0;
+    margin: 0 -330px 0 0;
     width: 330px;
 }
 
@@ -1775,7 +1775,7 @@ h1.edit.name {
     font-size: 40px;
     font-weight: bold;
     color: #5fb4ea;
-    margin: 0 0 13px 0;
+    margin: 0 0 22px 0;
 }
 h1:hover.edit.name {
     background-position: right 22px;
@@ -1783,11 +1783,11 @@ h1:hover.edit.name {
 
 .name_info {
     background-color: #fffde8;
-    padding: 20px 10px 0 10px;
-    margin: 20px 0 20px 0;
+    padding: 28px 15px 0 15px;
+    margin: 22px 0 23px 0;
 }
 .name_info .line{
-    padding: 0 0 20px 0;
+    padding: 0 0 30px 0;
 }
 .name_info .variants {
     color: #474747;
@@ -1807,11 +1807,11 @@ h1:hover.edit.name {
     color: #7a7a7a;
 }
 .character_name .name_bold{
-    margin: 0 0 5px 0;
+    margin: 0 0 13px 0;
 }
 
 .patronymic {
-    margin: 40px 0 40px 0;
+    margin: 58px 0 51px 0;
 }
 .patronymic .name_bold{
     margin: 0 10px 0 0;
@@ -1827,7 +1827,7 @@ h1:hover.edit.name {
     font-size: 10px;
     color: #5e5e5e;
     font-style: italic;
-    margin: 0 15px 15px 0;
+    margin: 6px 19px 15px 2px;
     float: left;
     position: relative;
 }
@@ -1850,16 +1850,225 @@ h1:hover.edit.name {
 .famous .famous_add{
     float: left;
     background: url("../images/icons/add_famous.png") no-repeat left top;
+    display: block;
     width: 121px;
     height: 95px;
     cursor: pointer;
+    margin: 6px 19px 15px 2px;
 }
 
 .right_block {
     border: 1px solid #c9eaf1;
-    width: 268px;
-    padding: 20px;
-    margin: 50px 0 0 20px;
+    width: 288px;
+    padding: 16px 0 20px 20px;
+    margin: 83px 0 0 20px;
+}
+
+.right_block .name_value{
+    color: #7a7a7a;
+    margin: 12px 0 24px 0;
+}
+
+.right_block .calendar {
+    margin: 12px 0 0 0;
+}
+.right_block .calendar .list{
+    position: relative;
+    float: left;
+    margin: 2px 12px 12px 0;
+    background: url("../images/icons/calendar_list.png") no-repeat left top;
+    width: 89px;
+    height: 56px;
+    text-align: center;
+    font-size: 17px;
+    color: #32a5e3;
+    line-height: 17px;
+    padding: 28px 0 0 0;
+}
+.right_block .calendar .list span{
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+}
+.right_block .calendar .list a.delete{
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: url("../images/icons/delete_sm_icon.png") no-repeat left top;
+    width: 18px;
+    height: 18px;
+}
+.right_block .calendar .add{
+    position: relative;
+    float: left;
+    display: block;
+    text-decoration: none;
+    margin: 2px 12px 12px 0;
+    background: url("../images/icons/calendar_add.png") no-repeat left top;
+    width: 89px;
+    height: 66px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: bold;
+    color: #3babc3;
+    padding: 18px 0 0 0;
+}
+
+#famous_add h2 {
+    text-align: center;
+    font-size: 20px;
+    color: #2296b0;
+    margin: 0 0 15px 0;
+}
+#famous_add input[type="text"], #famous_add textarea {
+    width: 128px;
+    border: 1px solid #a4e1ee;
+}
+#famous_add input[type="text"] {
+    height: 17px;
+}
+#famous_add textarea {
+    height: 57px;
+}
+#famous_add .content_block {
+    border-bottom: 1px solid #caf3f8;
+    padding: 0 0 23px 0;
+    margin: 0 0 10px 0;
+}
+#famous_add .input_block {
+    float: left;
+    margin: 2px 0 0 0;
+}
+#famous_add .input_block p {
+    clear: both;
+    padding: 0 0 11px 0;
+}
+#famous_add .input_block label {
+    text-align: right;
+    color: #3babc3;
+    font-size: 14px;
+    margin: 0 10px 0 0;
+    display: block;
+    width: 90px;
+    float: left;
+}
+#famous_add a.add_photo {
+    display: block;
+    float: right;
+    text-align: center;
+    padding: 42px 15px 0 15px;
+    width: 86px;
+    height: 88px;
+    background-color: #d8f3f7;
+    border: 1px solid #a4e1ee;
+    color: #2296b0;
+    font-size: 16px;
+}
+#famous_add a.add_photo ins{
+    text-decoration: none;
+    border-bottom: 1px dashed #2296b0;
+}
+#famous_add .greenGradient, #add_calendar .greenGradient{
+    float: right;
+}
+
+#add_calendar .content_block {
+    border-bottom: 1px solid #caf3f8;
+    padding: 0 0 15px 0;
+    margin: 20px 0 10px 0;
+}
+#add_calendar .greenGradient.ok{
+    height: 21px;
+    margin: 0 3px 0 0;
+    font-size: 12px;
+}
+#add_calendar a{
+    color: #474747;
+}
+
+/******************************************* Name Edit *****************************/
+.add {
+    background-color: #d8f3f7;
+    float: left;
+    display: block;
+    text-decoration: none;
+}
+.add.small {
+    font-size: 15px;
+    font-weight: bold;
+    color: #3babc3;
+    line-height: 15px;
+    padding: 2px 5px 0 5px;
+    margin: -2px 0 0 0;
+}
+
+.greenGradient.ok{
+    height: 21px;
+    font-size: 12px;
+    padding: 0 5px;
+}
+
+
+.editName .name input.h1 {
+    font-size: 32px;
+    color: #474747;
+    border: 1px solid #c9eaf1;
+    width: 488px;
+    height: 46px;
+    padding: 0 0 0 20px;
+    margin: 0;
+}
+.editName .name input {
+    display: block;
+    float: left;
+    margin: 7px 0 0 8px;
+}
+.editName .sex {
+    margin: 22px 0 0 0;
+}
+
+.name_info input {
+    float: left;
+}
+.name_info input[type="text"] {
+    width: 127px;
+    height: 17px;
+    border: 1px solid #6dc0d1;
+    margin: -2px 0 0 0;
+}
+.name_info input.greenGradient.ok {
+    margin: -3px 0 0 5px;
+}
+.character_name textarea {
+    width: 577px;
+    height: 172px;
+    border: 1px solid #c9eaf1;
+    margin: 0 0 10px 0;
+}
+.character_name input.greyGradient {
+    display: inline-block;
+    margin: 0 12px 0 200px;
+}
+.character_name input.greenGradient {
+    display: inline-block;
+}
+
+.right_block .edit_value {
+    margin: 12px 0 30px 0;
+}
+.right_block .edit_value textarea{
+    width: 270px;
+    height: 93px;
+    border: 1px solid #c9eaf1;
+    margin: 0 0 10px 0;
+}
+.right_block .edit_value input.greyGradient {
+    display: inline-block;
+    margin: 0 12px 0 50px;
+}
+.right_block .edit_value input.greenGradient {
+    display: inline-block;
 }
 
 

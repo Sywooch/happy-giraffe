@@ -1,0 +1,147 @@
+/*
+ * jQuery UI Slider 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Slider#theming
+ */
+.ui-slider {
+    position: relative;
+    text-align: left;
+}
+
+.ui-slider .ui-slider-handle {
+    position: absolute;
+    z-index: 2;
+    width: 1.2em;
+    height: 1.2em;
+    cursor: default;
+}
+
+.ui-slider .ui-slider-range {
+    position: absolute;
+    z-index: 1;
+    font-size: .7em;
+    display: block;
+    border: 0;
+    background-position: 0 0;
+}
+
+.ui-slider-horizontal {
+    height: .8em;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+    top: -.3em;
+    margin-left: -.6em;
+}
+
+.ui-slider-horizontal .ui-slider-range {
+    top: 0;
+    height: 100%;
+}
+
+.ui-slider-horizontal .ui-slider-range-min {
+    left: 0;
+}
+
+.ui-slider-horizontal .ui-slider-range-max {
+    right: 0;
+}
+
+.ui-slider-vertical {
+    width: .8em;
+    height: 100px;
+}
+
+.ui-slider-vertical .ui-slider-handle {
+    left: -.3em;
+    margin-left: 0;
+    margin-bottom: -.6em;
+}
+
+.ui-slider-vertical .ui-slider-range {
+    left: 0;
+    width: 100%;
+}
+
+.ui-slider-vertical .ui-slider-range-min {
+    bottom: 0;
+}
+
+.ui-slider-vertical .ui-slider-range-max {
+    top: 0;
+}
+
+.filter-box .filter-slider {
+    margin-top: 10px;
+    width: 590px;
+    position: relative;
+}
+
+.filter-box .filter-slider .slider-values {
+    color: #474747;
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.filter-box .filter-slider .slider-values input {
+    width: 50px;
+    background: #fff;
+    height: 18px;
+    padding: 0;
+    border: 1px solid #6ccee3;
+    background: #fff;
+    text-align: center;
+    font: bold 12px arial, sans-serif;
+    color: #424343;
+}
+
+.filter-box .filter-slider .slider-in {
+    padding-bottom: 8px;
+    position: relative;
+    margin: 13px 0 0 21px;
+}
+
+.filter-box .filter-slider .slider-in span {
+    color: #808282;
+    font-size: 10px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+}
+
+.filter-box .side-filter .filter-slider .slider-in .max {
+    right: 3px;
+}
+
+.filter-box .filter-slider .slider-in .min {
+    left: 3px;
+}
+
+.filter-box .filter-slider .ui-slider {
+    background: #a4e0e7;
+    border: 1px solid #6ccee3;
+    height: 12px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+}
+
+.filter-box .filter-slider .ui-slider-range {
+    background: #fffedf;
+    height: 12px;
+}
+
+.filter-box .filter-slider .ui-slider-handle {
+    width: 26px;
+    height: 29px;
+    border: 0;
+    background: url(../../images/bg_slider_handler.png) no-repeat;
+    top: -13px;
+    cursor: pointer;
+}

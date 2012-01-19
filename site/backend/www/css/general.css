@@ -1631,7 +1631,7 @@ table.characteristic tr td.name {
 }
 
 .filter-box {
-    margin: 24px 0 15px 0;
+    margin: 24px 0 26px 0;
 }
 .filter-box span.and {
     color: #6ccee3;
@@ -1673,24 +1673,23 @@ div.sex a {
     display: block;
     float: left;
     width: 67px;
-    height: 19px;
-    background-color: #fffac6;
-    padding: 50px 0 0 0;
+    height: 25px;
+    padding: 44px 0 0 0;
     text-align: center;
     background-repeat: no-repeat;
     font-size: 11px;
-    margin: 0 10px 0 0;
+    margin: 0 6px 0 0;
 }
 div.sex p.name {
     color: #474747;
     font-size: 14px;
     font-weight: bold;
     float: left;
-    margin: 20px 20px 0 0;
+    margin: 23px 33px 0 0;
 }
 div.sex a.all {
     background-image: url("../images/all.png");
-    background-position: center 10px;
+    background-position: center 11px;
 }
 div.sex a.boys {
     background-image: url("../images/boys.png");
@@ -1698,8 +1697,11 @@ div.sex a.boys {
 }
 div.sex a.girls {
     background-image: url("../images/girls.png");
-    background-position: center 10px;
+    background-position: center 12px;
     color: #e28bbc;
+}
+div.sex a.active {
+    background-color: #fffac6;
 }
 
 

@@ -1629,8 +1629,77 @@ table.characteristic tr td.name {
     color: #25b4d3;
 }
 
-
-
+.filter-box {
+    margin: 24px 0 15px 0;
+}
+.filter-box span.and {
+    color: #6ccee3;
+}
+.filter-box .year_old {
+    background: url("../images/year_old.png") no-repeat left bottom;
+    width: 566px;
+    padding: 0 0 25px 0;
+    font-size: 10px;
+    color: #b3b5b6;
+    margin: 3px 0 5px 34px;
+}
+.filter-box p {
+    float: left;
+    text-align: center;
+    line-height: 8px;
+}
+.filter-box p.first_year {
+    width: 172px;
+    margin: 9px 0 0 0;
+}
+.filter-box p.nursery {
+    width: 76px;
+}
+.filter-box p.preschool {
+    width: 82px;
+}
+.filter-box p.student {
+    width: 81px;
+}
+.filter-box p.teenager {
+    width: 81px;
+    margin: 9px 0 0 0;
+}
+.filter-box p.young {
+    width: 74px;
+}
+div.sex a {
+    display: block;
+    float: left;
+    width: 67px;
+    height: 19px;
+    background-color: #fffac6;
+    padding: 50px 0 0 0;
+    text-align: center;
+    background-repeat: no-repeat;
+    font-size: 11px;
+    margin: 0 10px 0 0;
+}
+div.sex p.name {
+    color: #474747;
+    font-size: 14px;
+    font-weight: bold;
+    float: left;
+    margin: 20px 20px 0 0;
+}
+div.sex a.all {
+    background-image: url("../images/all.png");
+    background-position: center 10px;
+}
+div.sex a.boys {
+    background-image: url("../images/boys.png");
+    background-position: center 10px;
+}
+div.sex a.girls {
+    background-image: url("../images/girls.png");
+    background-position: center 10px;
+    color: #e28bbc;
+}
 
 
 

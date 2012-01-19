@@ -18,6 +18,9 @@
 	display: inline-block;
 	cursor: default;
 }
+.slider-values .selectBox-dropdown {
+	min-width: 76px;
+}
 .selectBox-dropdown.withMargin {
     margin: 17px 14px 0 0;
 }

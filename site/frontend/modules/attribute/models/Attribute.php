@@ -230,4 +230,20 @@ class Attribute extends CActiveRecord
 		
 		return $command->queryAll();
 	}
+
+    /**
+     * @return array
+     */
+    public function GetEnumList(){
+        $models = AttributeValueMap::model()->with(array(
+            'map_value'
+        ))->findAll('map_attribute_id='.$this->attribute_id);
+
+        $res = array();
+        foreach ($models as $model) {
+            $res [] = $model->map_value;
+        }
+
+        return CHtml::listData($res, 'value_id', 'value_value');
+    }
 }

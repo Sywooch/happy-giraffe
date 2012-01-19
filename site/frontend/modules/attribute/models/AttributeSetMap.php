@@ -11,6 +11,7 @@
  * @property integer $pos
  *
  * @property AttributeSet $map_set
+ * @property Attribute $map_attribute
  */
 class AttributeSetMap extends CActiveRecord
 {

@@ -200,8 +200,6 @@ class AttributeAbstract extends CFormModel
 					);
 					break;
 				case Attribute::TYPE_INTG:
-				case Attribute::TYPE_2DIG:
-				case Attribute::TYPE_3DIG:
 					$elements[$key] = array(
 						'type'=>'text',
 					);
@@ -245,8 +243,6 @@ class AttributeAbstract extends CFormModel
 					break;
 				case Attribute::TYPE_TEXT:
 				case Attribute::TYPE_INTG:
-				case Attribute::TYPE_2DIG:
-				case Attribute::TYPE_3DIG:
 					$elements[$key] = array(
 						'type'=>'text',
 					);
@@ -313,14 +309,6 @@ class AttributeAbstract extends CFormModel
 				case Attribute::TYPE_INTG:
 					$eav[$key] = $attribute;
 					$eav[$key]['_value'] = intval($eav[$key]['value']);
-					break;
-				case Attribute::TYPE_2DIG:
-					$eav[$key] = $attribute;
-					$eav[$key]['_value'] = intval(100*$eav[$key]['value']);
-					break;
-				case Attribute::TYPE_3DIG:
-					$eav[$key] = $attribute;
-					$eav[$key]['_value'] = intval(1000*$eav[$key]['value']);
 					break;
 				default:
 					new Exception("Error field for attribute {$key} - {$attribute['attribute_title']}");
@@ -421,18 +409,6 @@ class AttributeAbstract extends CFormModel
 					$eav[] = "(eav_attribute_id=:{$key}_id AND eav_attribute_value=:{$key}_value)";
 					$where[":{$key}_id"] = end(explode('_', $key, 2));
 					$where[":{$key}_value"] = $value;
-					$is_eav = true;
-					break;
-				case Attribute::TYPE_2DIG:
-					$eav[] = "(eav_attribute_id=:{$key}_id AND eav_attribute_value=:{$key}_value)";
-					$where[":{$key}_id"] = end(explode('_', $key, 2));
-					$where[":{$key}_value"] = intval(100*$value);
-					$is_eav = true;
-					break;
-				case Attribute::TYPE_3DIG:
-					$eav[] = "(eav_attribute_id=:{$key}_id AND eav_attribute_value=:{$key}_value)";
-					$where[":{$key}_id"] = end(explode('_', $key, 2));
-					$where[":{$key}_value"] = intval(1000*$value);
 					$is_eav = true;
 					break;
 				default:

@@ -16,18 +16,18 @@ if ($model->attribute_type == Attribute::TYPE_MEASURE){
     'enableAjaxValidation' => false,
 )); ?>
 <?php echo CHtml::hiddenField('id', $model->attribute_id) ?>
-<p class="row">
+<p class="row withMargin">
     <?php echo $form->textField($model, 'attribute_title', array('size' => 50, 'maxlength' => 50)); ?>
 </p>
-<p class="row">
+<p class="row withMargin">
     <?php echo $form->dropDownList($model, 'attribute_type', $model->types->statuses); ?>
 </p>
 
-<p class="row"<?php if ($model->attribute_type != Attribute::TYPE_MEASURE) echo ' style="display: none;"' ?>>
+<p class="row withMargin"<?php if ($model->attribute_type != Attribute::TYPE_MEASURE) echo ' style="display: none;"' ?>>
     <?php echo CHtml::dropDownList('attribute_measure', $attribute_measure_selected, CHtml::listData(AttributeMeasure::model()->findAll(), 'id', 'title'), array('empty'=>' ')); ?>
 </p>
 
-<p class="row"<?php if ($model->attribute_type != Attribute::TYPE_MEASURE) echo ' style="display: none;"' ?>>
+<p class="row withMargin"<?php if ($model->attribute_type != Attribute::TYPE_MEASURE) echo ' style="display: none;"' ?>>
     <?php echo $form->dropDownList($model, 'measure_option_id', $attribute_measure_options); ?>
 </p>
 
@@ -45,7 +45,7 @@ if ($model->attribute_type == Attribute::TYPE_MEASURE){
 
 <?php echo $form->hiddenField($model, 'attribute_in_price'); ?>
 
-<p class="row buttons">
+<p class="row buttons withMargin">
     <?php echo CHtml::submitButton('OK',array('class'=>$model->isNewRecord?'add_attr_btn':'edit_attr_btn')); ?>
 </p>
 

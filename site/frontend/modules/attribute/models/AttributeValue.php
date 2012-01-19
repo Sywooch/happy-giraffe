@@ -99,14 +99,11 @@ class AttributeValue extends CActiveRecord
 
         if ($this->save())
             return $this->value_id;
-
-        return;
     }
 
     public function beforeDelete()
     {
-        if (AttributeValueMap::model()->deleteAll('map_value_id=' . $this->value_id) > 0)
-            return parent::beforeDelete();
-        return false;
+        AttributeValueMap::model()->deleteAll('map_value_id=' . $this->value_id);
+        return parent::beforeDelete();
     }
 }

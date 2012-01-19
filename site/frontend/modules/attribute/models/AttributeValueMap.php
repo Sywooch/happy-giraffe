@@ -7,6 +7,8 @@
  * @property string $map_id
  * @property string $map_attribute_id
  * @property string $map_value_id
+ *
+ * @property AttributeValue map_value
  */
 class AttributeValueMap extends CActiveRecord
 {

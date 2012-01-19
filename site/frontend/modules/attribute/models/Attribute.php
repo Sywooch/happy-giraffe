@@ -14,7 +14,8 @@
  * @property integer $attribute_in_price
  * @property integer $measure_option_id
  *
- * @property AttributeMeasureOption measure_option
+ * @property AttributeMeasureOption $measure_option
+ * @property AttributeValueMap[] $value_map
  */
 class Attribute extends CActiveRecord
 {

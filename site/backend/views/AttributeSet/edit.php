@@ -1,13 +1,15 @@
 <script type="text/javascript">
 var set_id = <?php echo $model->set_id ?>;
 $(function () {
+    /************************************ ADD UPDATE ***************************************/
+
     $('body').delegate('.add_attr', 'click', function () {
         var in_price = 0;
         if ($(this).hasClass('in_price'))
             in_price = 1;
 
         $.ajax({
-            url:'<?php echo Yii::app()->createUrl("pack/CreateAttribute") ?>',
+            url:'<?php echo Yii::app()->createUrl("AttributeSet/CreateAttribute") ?>',
             data:{in_price:in_price},
             type:'POST',
             success:function (data) {
@@ -26,12 +28,12 @@ $(function () {
         return false;
     });
 
-    $('body').delegate('.attr-name a.edit', 'click', function () {
+    $('body').delegate('.set_attr_li > .attr-name > a.edit', 'click', function () {
         var bl = $(this).parents('li.set_attr_li');
         var id = bl.attr('obj_id');
 
         $.ajax({
-            url:'<?php echo Yii::app()->createUrl("pack/UpdateAttribute") ?>',
+            url:'<?php echo Yii::app()->createUrl("AttributeSet/UpdateAttribute") ?>',
             data:{id:id},
             type:'POST',
             success:function (data) {
@@ -52,7 +54,7 @@ $(function () {
 
     $('body').delegate('#attribute-form input.add_attr_btn', 'click', function () {
         $.ajax({
-            url:'<?php echo Yii::app()->createUrl("pack/CreateAttribute") ?>',
+            url:'<?php echo Yii::app()->createUrl("AttributeSet/CreateAttribute") ?>',
             data:$(this).parent().parent('form').serialize() + '&set_id=' + set_id,
             type:'POST',
             dataType:'JSON',
@@ -61,7 +63,7 @@ $(function () {
                     if (data.success) {
                         var obj_id = data.id;
                         $.ajax({
-                            url:'<?php echo Yii::app()->createUrl("pack/AttributeView") ?>',
+                            url:'<?php echo Yii::app()->createUrl("AttributeSet/AttributeView") ?>',
                             data:{id:data.id},
                             type:'POST',
                             success:function (data) {
@@ -85,7 +87,7 @@ $(function () {
 
     $('body').delegate('#attribute-form input.edit_attr_btn', 'click', function () {
         $.ajax({
-            url:'<?php echo Yii::app()->createUrl("pack/UpdateAttribute") ?>',
+            url:'<?php echo Yii::app()->createUrl("AttributeSet/UpdateAttribute") ?>',
             data:$(this).parent().parent('form').serialize() + '&set_id=' + set_id,
             type:'POST',
             dataType:'JSON',
@@ -93,7 +95,7 @@ $(function () {
                 if (data !== null && data.hasOwnProperty('success'))
                     if (data.success) {
                         $.ajax({
-                            url:'<?php echo Yii::app()->createUrl("pack/AttributeView") ?>',
+                            url:'<?php echo Yii::app()->createUrl("AttributeSet/AttributeView") ?>',
                             data:{id:data.id},
                             type:'POST',
                             success:function (data) {
@@ -112,6 +114,7 @@ $(function () {
         return false;
     });
 
+    /************************************ DELETE ***************************************/
     $('body').delegate('.attr-name .delete', 'click', function () {
         ConfirmPopup('Вы точно хотите удалить атрибут "' + $(this).prev().prev().text() + '"', $(this), function (owner) {
             var bl = owner.parents('li.set_attr_li');
@@ -121,10 +124,10 @@ $(function () {
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("ajax/delete") ?>',
                 data:{
-                    class:class_name,
-                    id:id
+                    modelName:class_name,
+                    modelPk:id
                 },
-                type:'GET',
+                type:'POST',
                 success:function (data) {
                     if (data == '1') {
                         bl.remove();
@@ -138,6 +141,7 @@ $(function () {
         return false;
     });
 
+    /************************************ IN SEARCH ***************************************/
     $('body').delegate('a.triangle', 'click', function () {
         var value = 0;
         if ($(this).hasClass('vain'))
@@ -147,12 +151,12 @@ $(function () {
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
                 data:{
-                    id:set_id,
+                    modelPk:set_id,
                     attribute:$(this).prev().val(),
-                    class:'AttributeSet',
+                    modelName:'AttributeSet',
                     value:value
                 },
-                type:'GET',
+                type:'POST',
                 success:function (data) {
                     if (data == '1')
                         $(this).toggleClass('vain');
@@ -164,12 +168,12 @@ $(function () {
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
                 data:{
-                    id:attr_id,
+                    modelPk:attr_id,
                     attribute:'attribute_is_insearch',
-                    class:'Attribute',
+                    modelName:'Attribute',
                     value:value
                 },
-                type:'GET',
+                type:'POST',
                 success:function (data) {
                     if (data == '1')
                         $(this).toggleClass('vain');
@@ -180,6 +184,7 @@ $(function () {
         return false;
     });
 
+    /************************************ MEASURE HELP ***************************************/
     $('body').delegate('#Attribute_attribute_type', 'change', function () {
         if ($(this).val() == <?php echo Attribute::TYPE_MEASURE ?>) {
             $(this).parent().parent().find('p').show();
@@ -193,7 +198,7 @@ $(function () {
     $('body').delegate('#attribute_measure', 'change', function () {
         if ($('#attribute_measure').val() != '')
             $.ajax({
-                url:'<?php echo Yii::app()->createUrl("pack/GetMeasureOptions"); ?>',
+                url:'<?php echo Yii::app()->createUrl("AttributeSet/GetMeasureOptions"); ?>',
                 data:{id:$('#attribute_measure').val()},
                 type:'POST',
                 success:function (data) {
@@ -207,6 +212,7 @@ $(function () {
     sortableInit();
 });
 
+/************************************ SORTING ***************************************/
 function sortableInit() {
     $("#sortable").sortable();
 
@@ -218,8 +224,8 @@ function sortableInit() {
 
         $.ajax({
             dataType:'JSON',
-            type:'GET',
-            url:'<?php echo Yii::app()->createUrl('pack/AttributePosition') ?>',
+            type:'POST',
+            url:'<?php echo Yii::app()->createUrl('AttributeSet/AttributePosition') ?>',
             data:{
                 id:id,
                 new_pos:new_pos,
@@ -233,9 +239,9 @@ function sortableInit() {
 
 function refreshSorter() {
     $.ajax({
-        url:'<?php echo Yii::app()->createUrl("pack/GetSortBlock") ?>',
+        url:'<?php echo Yii::app()->createUrl("AttributeSet/GetFilterBlock") ?>',
         data:{set_id:set_id},
-        type:'GET',
+        type:'POST',
         success:function (data) {
             $('#sortable').sortable("destroy");
             $('.filter_sorter').html(data);
@@ -246,15 +252,16 @@ function refreshSorter() {
 }
 </script>
 <?php
-
 Yii::app()->clientScript->registerCoreScript('jquery.ui');
+$this->widget('EditDeleteWidget', array(
+    'init' => true,
+    'options'=> array(
+        'ondelete'=>'$(this).parent().parent().remove()',
+        'edit_selector'=>'p',
+    )
+));
 
-$this->widget('SimpleFormInputWidget', array(
-    'init' => true,
-));
-$this->widget('SimpleFormAddWidget', array(
-    'init' => true,
-));
+$this->widget('AddWidget', array('init' => true));
 
 /**
  * @var AttributeSet $model

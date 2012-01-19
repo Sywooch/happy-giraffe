@@ -1,6 +1,16 @@
 <tr>
     <td class="name_ct">
-        <a href="#" class="no_child edit"><?php echo $brand->brand_title; ?></a>
+        <?php
+        $this->widget('EditDeleteWidget', array(
+            'deleteButton'=>false,
+            'model' => $brand,
+            'attribute' => 'brand_title',
+            'options'=> array(
+                'edit_selector'=>'a',
+                'edit_link_class'=>'no_child',
+                'edit_link_text'=>$brand->brand_title,
+            )
+        ));?>
     </td>
     <td class="logo_ct">
         <?php echo CHtml::image($brand->brand_image->getUrl('display')); ?>

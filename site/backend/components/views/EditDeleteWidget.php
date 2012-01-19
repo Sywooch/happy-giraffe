@@ -7,14 +7,16 @@
  *
  * @var array $options
  */
-$js = "
+
+if ($editButton) {
+    $edit_js = "
     $('body').delegate('a.edit-widget', 'click', function(){
         var bl = $(this).parent();
-        bl.find('".$options['edit_selector']."').hide();
+        bl.find('" . $options['edit_selector'] . "').hide();
         bl.find('a.edit').hide();
         bl.find('a.delete').hide();
         bl.append('<form class=\"input-text-edit-form\" action=\"#\">' +
-            '<p><input type=\"text\" value=\"' +bl.find('".$options['edit_selector']."').text()+
+            '<p><input type=\"text\" value=\"' +bl.find('" . $options['edit_selector'] . "').text()+
                 '\"/></p>' +
                 '<p><input type=\"submit\" value=\"Ok\"/></p>' +
                 '</form>');
@@ -40,8 +42,8 @@ $js = "
                 success: function(data) {
                     if (data == '1'){
                         bl.find('form').remove();
-                        bl.find('".$options['edit_selector']."').text(text);
-                        bl.find('".$options['edit_selector']."').show();
+                        bl.find('" . $options['edit_selector'] . "').text(text);
+                        bl.find('" . $options['edit_selector'] . "').show();
                         bl.find('a').removeAttr('style');
                         bl.find('.edw-attribute-title').val(text);
                     }
@@ -50,10 +52,13 @@ $js = "
         });
 
         return false;
-    });
+    });";
+    Yii::app()->clientScript->registerScript('edw-edit', $edit_js);
+}
 
-    $('body').delegate('a.delete-widget', 'click', function(){
-        ConfirmPopup('Вы точно хотите удалить атрибут \"' + $(this).parent().find('.edw-attribute-title').val() + '\"', $(this), function (owner) {
+if ($deleteButton) {
+    $delete_js = "$('body').delegate('a.delete-widget', 'click', function(){
+        ConfirmPopup('Вы точно хотите удалить \"' + $(this).parent().find('.edw-attribute-title').val() + '\"', $(this), function (owner) {
             var bl = owner.parent();
             var id = bl.find('input.edw-id').val();
             var class_name = bl.find('input.edw-class').val();
@@ -67,7 +72,7 @@ $js = "
                     type: 'POST',
                     success: function(data) {
                         if (data == '1'){
-                            ".$options['ondelete'].";
+                            " . $options['ondelete'] . ";
                         }
                     },
                     context: owner
@@ -75,20 +80,23 @@ $js = "
         });
 
         return false;
-    });
-";
-Yii::app()->clientScript->registerScript('input-text-edit', $js);
-if (!$init){
-?>
-    <input type="hidden" class="edw-class" value="<?php echo get_class($model) ?>">
-    <input type="hidden" class="edw-attribute" value="<?php echo $attribute ?>">
-    <input type="hidden" class="edw-id"
-           value="<?php echo $model->getAttribute($model->getTableSchema()->primaryKey) ?>">
-    <input type="hidden" class="edw-attribute-title" value="<?php echo $model->getAttribute($attribute) ?>">
-    <?php if ($editButton):?>
-        <a class="edit edit-widget" href="#" title="редактировать"></a>
+    });";
+    Yii::app()->clientScript->registerScript('edw-delete', $delete_js);
+}
+if (!$init) {
+    ?>
+<input type="hidden" class="edw-class" value="<?php echo get_class($model) ?>">
+<input type="hidden" class="edw-attribute" value="<?php echo $attribute ?>">
+<input type="hidden" class="edw-id"
+       value="<?php echo $model->getAttribute($model->getTableSchema()->primaryKey) ?>">
+<input type="hidden" class="edw-attribute-title" value="<?php echo $model->getAttribute($attribute) ?>">
+<?php if ($editButton): ?>
+    <a class="edit edit-widget <?php if (isset($options['edit_link_class'])) echo $options['edit_link_class'] ?>" href="#"
+       title="редактировать <?php echo $model->getAttribute($attribute) ?>"><?php
+        if (isset($options['edit_link_text'])) echo $options['edit_link_text'] ?></a>
     <?php endif ?>
-    <?php if ($deleteButton):?>
-        <a class="delete delete-widget" href="#" title="удалить"></a>
+<?php if ($deleteButton): ?>
+    <a class="delete delete-widget <?php if (isset($options['delete_link_class'])) echo $options['delete_link_class'] ?>" href="#" title="удалить <?php
+        echo $model->getAttribute($attribute) ?>"></a>
     <?php endif ?>
 <?php }

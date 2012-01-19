@@ -1,14 +1,20 @@
 <?php
 /* @var $model CActiveRecord
  * @var $attribute string
+ * @var bool $editButton
+ * @var bool $deleteButton
+ * @var bool $init
+ *
+ * @var array $options
  */
 $js = "
-    $('body').delegate('.attr-elem-name > a.edit', 'click', function(){
-        $(this).parent('div.name').find('p').hide();
-        $(this).parent('div.name').find('a.edit').hide();
-        $(this).parent('div.name').find('a.delete').hide();
-        $(this).parent('div.name').append('<form class=\"input-text-edit-form\" action=\"#\">' +
-            '<p><input type=\"text\" value=\"' +$(this).parent('div.name').find('p').text()+
+    $('body').delegate('a.edit-widget', 'click', function(){
+        var bl = $(this).parent();
+        bl.find('".$options['edit_selector']."').hide();
+        bl.find('a.edit').hide();
+        bl.find('a.delete').hide();
+        bl.append('<form class=\"input-text-edit-form\" action=\"#\">' +
+            '<p><input type=\"text\" value=\"' +bl.find('".$options['edit_selector']."').text()+
                 '\"/></p>' +
                 '<p><input type=\"submit\" value=\"Ok\"/></p>' +
                 '</form>');
@@ -16,11 +22,11 @@ $js = "
     });
 
     $('body').delegate('form.input-text-edit-form input[type=submit]', 'click', function(){
-        var bl = $(this).closest('div.attr-elem-name');
+        var bl = $(this).parent().parent().parent();
         var text = bl.find('input[type=text]').val();
-        var id = bl.find('input.elem-id').val();
-        var class_name = bl.find('input.elem-class').val();
-        var attribute = bl.find('input.elem-attribute').val();
+        var id = bl.find('input.edw-id').val();
+        var class_name = bl.find('input.edw-class').val();
+        var attribute = bl.find('input.edw-attribute').val();
 
         $.ajax({
                 url: '" . Yii::app()->createUrl("ajax/SetValue") . "',
@@ -30,13 +36,14 @@ $js = "
                     value: text,
                     attribute: attribute
                 },
-                type: 'GET',
+                type: 'POST',
                 success: function(data) {
                     if (data == '1'){
                         bl.find('form').remove();
-                        bl.children('p').text(text);
-                        bl.children('p').show();
-                        bl.append('<a class=\"edit edit_attribute\" href=\"#\"></a><a class=\"delete delete_attribute\" href=\"#\"></a>');
+                        bl.find('".$options['edit_selector']."').text(text);
+                        bl.find('".$options['edit_selector']."').show();
+                        bl.find('a').removeAttr('style');
+                        bl.find('.edw-attribute-title').val(text);
                     }
                 },
                 context: $(this)
@@ -45,11 +52,11 @@ $js = "
         return false;
     });
 
-    $('body').delegate('.attr-elem-name > a.delete', 'click', function(){
-        ConfirmPopup('Вы точно хотите удалить атрибут \"' + $(this).prev().prev().text() + '\"', $(this), function (owner) {
-            var bl = owner.closest('div.attr-elem-name');
-            var id = bl.find('input.elem-id').val();
-            var class_name = bl.find('input.elem-class').val();
+    $('body').delegate('a.delete-widget', 'click', function(){
+        ConfirmPopup('Вы точно хотите удалить атрибут \"' + $(this).parent().find('.edw-attribute-title').val() + '\"', $(this), function (owner) {
+            var bl = owner.parent();
+            var id = bl.find('input.edw-id').val();
+            var class_name = bl.find('input.edw-class').val();
 
             $.ajax({
                     url: '" . Yii::app()->createUrl("ajax/delete") . "',
@@ -60,9 +67,10 @@ $js = "
                     type: 'POST',
                     success: function(data) {
                         if (data == '1'){
-                            bl.parent('li').remove();
+                            ".$options['ondelete'].";
                         }
-                    }
+                    },
+                    context: owner
             });
         });
 
@@ -72,14 +80,15 @@ $js = "
 Yii::app()->clientScript->registerScript('input-text-edit', $js);
 if (!$init){
 ?>
-<div class="name attr-elem-name">
-    <input type="hidden" class="elem-class" value="<?php echo get_class($model) ?>">
-    <input type="hidden" class="elem-attribute" value="<?php echo $attribute ?>">
-    <input type="hidden" class="elem-id"
+    <input type="hidden" class="edw-class" value="<?php echo get_class($model) ?>">
+    <input type="hidden" class="edw-attribute" value="<?php echo $attribute ?>">
+    <input type="hidden" class="edw-id"
            value="<?php echo $model->getAttribute($model->getTableSchema()->primaryKey) ?>">
-
-    <p><?php echo $model->getAttribute($attribute) ?></p>
-    <a class="edit" href="#" title="редактировать"></a>
-    <a class="delete" href="#" title="удалить"></a>
-</div>
+    <input type="hidden" class="edw-attribute-title" value="<?php echo $model->getAttribute($attribute) ?>">
+    <?php if ($editButton):?>
+        <a class="edit edit-widget" href="#" title="редактировать"></a>
+    <?php endif ?>
+    <?php if ($deleteButton):?>
+        <a class="delete delete-widget" href="#" title="удалить"></a>
+    <?php endif ?>
 <?php }

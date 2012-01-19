@@ -87,15 +87,12 @@ class AttributeSetController extends BController
         $attr_map_val->map_value_id = $attr_val->value_id;
         $attr_map_val->save();
 
-        $this->widget('EditDeleteWidget', array(
-            'model' => $attr_val,
-            'attribute' => 'value_value'
-        ));
+        $this->renderPartial('_attribute_value_view',array('attr_val'=>$attr_map_val));
     }
 
     public function actionGetMeasureOptions()
     {
-        $model = AttributeMeasure::model()->findByPk($_POST['id']);
+        $model = AttributeMeasure::model()->findByPk(Yii::app()->request->getPost('id'));
         $data = CHtml::listData($model->measureOptions, 'id', 'title');
         $htmlOptions = array();
         echo CHtml::listOptions(null, $data, $htmlOptions);

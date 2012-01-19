@@ -1,6 +1,6 @@
 <?php
 
-class SimpleFormInputWidget extends CWidget
+class EditDeleteWidget extends CWidget
 {
     public $model;
     public $attribute;
@@ -12,7 +12,7 @@ class SimpleFormInputWidget extends CWidget
 
     public function run()
     {
-        $this->render('SimpleFormInputWidget', array(
+        $this->render('EditDeleteWidget', array(
             'model' => $this->model,
             'attribute' => $this->attribute,
             'onlyDelete' => $this->onlyDelete,

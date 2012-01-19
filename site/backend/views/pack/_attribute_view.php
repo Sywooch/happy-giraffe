@@ -18,14 +18,14 @@
     <ul class="list-elems">
         <?php foreach ($model->value_map as $attr_val): ?>
         <li>
-            <?php $this->widget('SimpleFormInputWidget', array(
+            <?php $this->widget('EditDeleteWidget', array(
             'model' => $attr_val->map_value,
             'attribute' => 'value_value'
         ))?>
         </li>
         <?php endforeach; ?>
         <li>
-            <?php $this->widget('SimpleFormAddWidget', array(
+            <?php $this->widget('AddWidget', array(
             'url' => $this->createUrl('pack/AddAttrListElem'),
             'model_id' => $model->attribute_id,
         ))?>

@@ -1,6 +1,6 @@
 <?php
 
-class SimpleFormAddWidget extends CWidget
+class AddWidget extends CWidget
 {
     /**
      * @var string Url where send ajax request
@@ -17,7 +17,7 @@ class SimpleFormAddWidget extends CWidget
 
     public function run()
     {
-        $this->render('SimpleFormAddWidget', array(
+        $this->render('AddWidget', array(
             'url' => $this->url,
             'model_id' => $this->model_id,
             'init'=>$this->init

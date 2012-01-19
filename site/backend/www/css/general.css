@@ -349,6 +349,9 @@ input.search_subm {
 .total_block p span.active_items {
     background: url(../images/icons/on_icon.png) 0 0 no-repeat;
 }
+.total_block p span.deactive_items ins, .total_block p span.active_items ins {
+    text-decoration: none;
+}
 
 .alphabet {
     background: #fefceb;
@@ -1132,7 +1135,7 @@ table.common_sett td.ad_ct ul li a.deactivate {
     color: #fff;
     margin: 1px 0 0 7px;
 }
-.content .text_block .inline_block form input.withMargin {
+.content .text_block .inline_block p.withMargin input, .content .text_block .inline_block p.withMargin .selectBox-dropdown{
     margin: 17px 13px 0 0;
 }
 

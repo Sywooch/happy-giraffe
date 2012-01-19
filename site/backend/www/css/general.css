@@ -32,7 +32,7 @@ h1 {
 }
 
 .bodyr {
-    padding: 0 205px 0 0;
+    padding: 0 205px 0 50px;
 }
 
 .container {
@@ -58,7 +58,7 @@ h1 {
     margin: 0 -205px 0 0;
     position: relative;
     width: 205px;
-    z-index: 99;
+    z-index: 9;
 }
 
 .t_right {
@@ -978,7 +978,7 @@ table.common_sett td.ad_ct ul li a.deactivate {
     margin: 0 0 12px 0;
 }
 
-.content .text_block .inline_block div.name {
+.content .text_block .inline_block div.name, .content .quantity div.name {
     padding: 0 41px 0 0;
     height: 18px;
     float: left;
@@ -990,8 +990,7 @@ table.common_sett td.ad_ct ul li a.deactivate {
     float: left;
     position: relative;
 }
-
-.content .text_block .inline_block div.name a {
+.content .text_block .inline_block div.name a, .content .quantity div.name a{
     display: none;
 }
 .content .text_block .inline_block.property div.drop {
@@ -1003,11 +1002,11 @@ table.common_sett td.ad_ct ul li a.deactivate {
     cursor: pointer;
 }
 
-.content .text_block .inline_block div.name p {
+.content .text_block .inline_block div.name p, .content .quantity div.name p {
     cursor: pointer;
 }
 
-.content .text_block .inline_block div.name:hover a {
+.content .text_block .inline_block div.name:hover a, .content .quantity div.name:hover a {
     display: block;
 }
 
@@ -1016,7 +1015,7 @@ table.common_sett td.ad_ct ul li a.deactivate {
     float: left;
 }
 
-.content .text_block .inline_block a.edit {
+.content .text_block .inline_block a.edit, .content .quantity div.name a.edit {
     background: url("../images/icons/pencil_icon.png") no-repeat left top;
     width: 15px;
     height: 18px;
@@ -1024,7 +1023,7 @@ table.common_sett td.ad_ct ul li a.deactivate {
     right: 22px;
 }
 
-.content .text_block .inline_block a.delete {
+.content .text_block .inline_block a.delete, .content .quantity div.name a.delete {
     background: url("../images/icons/delete_sm_icon.png") no-repeat left top;
     width: 18px;
     height: 18px;
@@ -1192,6 +1191,10 @@ table.common_sett td.ad_ct ul li a.deactivate {
 h1.edit {
     margin: 0 0 13px 0;
 }
+h1:hover.edit {
+    background-position: right 13px;
+}
+
 .big_foto {
     border: 1px solid #cff3f7;
     background: #fff;
@@ -1442,6 +1445,11 @@ table.characteristic tr td {
     font-weight: bold;
     color: #8a8a8a;
     padding: 0 6px 16px 0;
+    height: 20px;
+}
+table.characteristic tr td a.edit {
+    color: #8a8a8a;
+    text-decoration: none;
 }
 table.characteristic tr td.name {
     font-size: 14px;
@@ -1709,9 +1717,149 @@ div.sex a.active {
     background-color: #fffac6;
 }
 
+/*********************************** Name *****************************************************/
+div.name_bold {
+    color: #474747;
+    font-size: 14px;
+    font-weight: bold;
+}
+div.name_actions {
+    padding: 0;
+    margin: 0 4px 0 0;
+    font-size: 13px;
+    height: 18px;
+    position: relative;
+    float: left;
+    color: #7a7a7a;
+}
+div.name_actions a{
+    display: none;
+}
+div.name_actions p {
+    cursor: pointer;
+    float: left;
+}
+div.name_actions:hover {
+    padding: 0 41px 0 0;
+}
+div.name_actions:hover a {
+    display: block;
+}
+div.name_actions a.edit {
+    background: url("../images/icons/pencil_icon.png") no-repeat left top;
+    width: 15px;
+    height: 18px;
+    position: absolute;
+    right: 22px;
+    padding: 0;
+}
+div.name_actions a.delete {
+    background: url("../images/icons/delete_sm_icon.png") no-repeat left top;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    right: 0;
+}
 
 
 
+.bodyr.long {
+    padding: 0 350px 0 50px;
+}
+.bodyr.long .right {
+    margin: 0 -350px 0 0;
+    width: 330px;
+}
 
+h1.edit.name {
+    font-size: 40px;
+    font-weight: bold;
+    color: #5fb4ea;
+    margin: 0 0 13px 0;
+}
+h1:hover.edit.name {
+    background-position: right 22px;
+}
+
+.name_info {
+    background-color: #fffde8;
+    padding: 20px 10px 0 10px;
+    margin: 20px 0 20px 0;
+}
+.name_info .line{
+    padding: 0 0 20px 0;
+}
+.name_info .variants {
+    color: #474747;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 20px 0 0;
+}
+.content .name_info div.name p{
+    float: left;
+    font-size: 13px;
+    margin: 1px 0 0 0;
+}
+
+.character_name {
+    margin: 10px 0 20px 0;
+    color: #7a7a7a;
+}
+.character_name .name_bold{
+    margin: 0 0 5px 0;
+}
+
+.patronymic {
+    margin: 40px 0 40px 0;
+}
+.patronymic .name_bold{
+    margin: 0 10px 0 0;
+    float: left;
+}
+
+.famous .name_bold{
+    margin: 0 0 10px 0;
+}
+.famous .famous_block{
+    width: 150px;
+    text-align: center;
+    font-size: 10px;
+    color: #5e5e5e;
+    font-style: italic;
+    margin: 0 15px 15px 0;
+    float: left;
+    position: relative;
+}
+.famous .famous_block img{
+    display: block;
+    width: 150px;
+}
+.famous .famous_block p{
+    background-color: #ededed;
+    padding: 5px 0;
+}
+.famous .famous_block a.delete{
+    display: block;
+    position: absolute;
+    right: 20px;
+    background: url("../images/icons/delete_sm_icon.png") no-repeat left top;
+    width: 18px;
+    height: 18px;
+}
+.famous .famous_add{
+    float: left;
+    background: url("../images/icons/add_famous.png") no-repeat left top;
+    width: 121px;
+    height: 95px;
+    cursor: pointer;
+}
+
+.right_block {
+    border: 1px solid #c9eaf1;
+    width: 268px;
+    padding: 20px;
+    margin: 50px 0 0 20px;
+}
 
 

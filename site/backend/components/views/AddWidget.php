@@ -2,8 +2,7 @@
 /* @var $model CActiveRecord
  * @var $attribute string
  */
-$js = "
-    $('body').delegate('span.add_enum_value', 'click', function(){
+$js = "$('body').delegate('span.add_enum_value', 'click', function(){
         $(this).parent().append('<form class=\"input-text-add-form\" action=\"#\">' +
             '<p><input type=\"text\" value=\"\"/></p>' +
                 '<p><input type=\"submit\" value=\"Ok\"/></p>' +
@@ -38,7 +37,9 @@ $js = "
     });
 ";
 Yii::app()->clientScript->registerScript('input-text-add', $js);
+
+if (!$init){
 ?>
 <input type="hidden" class="url" value="<?php echo $url ?>">
 <input type="hidden" class="model_id" value="<?php echo $model_id ?>">
-<span class="add_paket add_enum_value">+</span>
+<span class="add_paket add_enum_value" title="добавить элемент в список">+</span><?php }

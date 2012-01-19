@@ -23,10 +23,10 @@
  * @property integer $product_rate
  * @property integer $product_status
  */
-Yii::import('ext.ufile.UFiles', true);
-Yii::import('ext.ufile.UFileBehavior');
-Yii::import('ext.geturl.EGetUrlBehavior');
-Yii::import('ext.status.EStatusBehavior');
+Yii::import('site.frontend.extensions.ufile.UFiles', true);
+Yii::import('site.frontend.extensions.ufile.UFileBehavior');
+Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
+Yii::import('site.frontend.extensions.status.EStatusBehavior');
 
 class Product extends CActiveRecord implements IECartPosition
 {
@@ -49,7 +49,7 @@ class Product extends CActiveRecord implements IECartPosition
 	{
 		return array(
 			'behavior_ufiles' => array(
-				'class' => 'ext.ufile.UFileBehavior',
+				'class' => 'site.frontend.extensions.ufile.UFileBehavior',
 				'fileAttributes'=>array(
 					'product_image'=>array(
 						'fileName'=>'upload/product/*/<date>-{product_id}-<name>.<ext>',
@@ -90,7 +90,7 @@ class Product extends CActiveRecord implements IECartPosition
 				),
 			),
 			'getUrl' => array(
-				'class' => 'ext.geturl.EGetUrlBehavior',
+				'class' => 'site.frontend.extensions.geturl.EGetUrlBehavior',
 				'route' => 'product/view',
 				'dataField' => array(
 					'id' => 'product_id',
@@ -98,7 +98,7 @@ class Product extends CActiveRecord implements IECartPosition
 				),
 			),
 			'statuses' => array(
-				'class' => 'ext.status.EStatusBehavior',
+				'class' => 'site.frontend.extensions.status.EStatusBehavior',
 				// Поле зарезервированное для статуса
 				'statusField' => 'product_status',
 				'statuses' => array(
@@ -108,13 +108,13 @@ class Product extends CActiveRecord implements IECartPosition
 				),
 			),
 			'ages' => array(
-				'class' => 'ext.status.EStatusBehavior',
+				'class' => 'site.frontend.extensions.status.EStatusBehavior',
 				// Поле зарезервированное для статуса
 				'statusField' => 'product_age_range_id',
 				'statuses' => $this->getAgeRanges(),
 			),
 			'sexs' => array(
-				'class' => 'ext.status.EStatusBehavior',
+				'class' => 'site.frontend.extensions.status.EStatusBehavior',
 				// Поле зарезервированное для статуса
 				'statusField' => 'product_sex',
 				'statuses' => AgeRange::model()->getGenderList(),
@@ -165,14 +165,14 @@ class Product extends CActiveRecord implements IECartPosition
 			array('product_sex', 'in','range'=>array_keys(AgeRange::model()->getGenderList()), 'on'=>self::SCENARIO_FILL_PRODUCT),
 			array('product_text', 'safe','on'=>self::SCENARIO_FILL_PRODUCT),
 
-			array('product_image', 'ext.ufile.UFileValidator',
+			array('product_image', 'site.frontend.extensions.ufile.UFileValidator',
 				'allowedTypes'=>'jpg, gif, png, jpeg',
 //				'minWidth'=>621, 'minHeight'=>424,
 				'allowEmpty'=>false,
 				'on'=>self::SCENARIO_FILL_PRODUCT
 			),
 
-			array('product_slug','ext.translit.ETranslitFilter','translitAttribute'=>'product_title','on'=>self::SCENARIO_FILL_PRODUCT),
+			array('product_slug','site.frontend.extensions.translit.ETranslitFilter','translitAttribute'=>'product_title','on'=>self::SCENARIO_FILL_PRODUCT),
 
 			array('product_time', 'default', 'value' => time(),'on'=>self::SCENARIO_FILL_PRODUCT),
 			array('product_rate', 'default', 'value' => 0,'on'=>self::SCENARIO_FILL_PRODUCT),

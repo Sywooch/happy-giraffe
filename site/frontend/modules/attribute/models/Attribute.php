@@ -14,7 +14,8 @@
  * @property integer $attribute_in_price
  * @property integer $measure_option_id
  *
- * @property AttributeMeasureOption measure_option
+ * @property AttributeMeasureOption $measure_option
+ * @property AttributeValueMap[] $value_map
  */
 class Attribute extends CActiveRecord
 {
@@ -168,7 +169,7 @@ class Attribute extends CActiveRecord
 
 		return parent::beforeDelete();
 	}
-	
+
 	/**
 	 * Find is this attribute in search in this category
 	 * @param int $category_id 

@@ -8,13 +8,14 @@
     <link href="/css/reset.css" rel="stylesheet" type="text/css"/>
     <link href="/css/general.css" rel="stylesheet" type="text/css"/>
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-
     <script type="text/javascript" src="/js/jquery.fancybox-1.3.4.pack.js"></script>
     <script type="text/javascript" src="/js/jquery.tooltip.js"></script>
     <script type="text/javascript" src="/js/jquery.jcarousel.js"></script>
+    <script type="text/javascript" src="/js/jquery.selectBox.min.js"></script>
+
     <link href="/css/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css"/>
     <link href="/css/jcarousel.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/jquery.selectBox.css" rel="stylesheet" type="text/css"/>
 
     <script type="text/javascript" src="/js/common.js"></script>
 
@@ -22,11 +23,38 @@
     <script type="text/javascript" src="/js/DD_belatedPNG_0.0.8a-min.js"></script>
     <![endif]-->
     <script type="text/javascript">
+        var confirm_popup = null;
         $(document).ready(function() {
             jQuery('#mycarousel').jcarousel({
                 scroll : 1
             });
+            $('#confirm_popup_link').fancybox({
+                overlayColor: '#000',
+                overlayOpacity: '0.6',
+                padding:0,
+                showCloseButton:false,
+                scrolling: false
+            });
         });
+
+        $('html').delegate('#confirm_popup .popup_question input.agree', 'click', function(){
+            $.fancybox.close();
+            confirm_popup.callback(confirm_popup.sender);
+        });
+
+        $('html').delegate('#confirm_popup .popup_question input.disagree', 'click', function(){
+            $.fancybox.close();
+        });
+
+        function ConfirmPopup(text, sender, callback)
+        {
+            $('#confirm_popup .popup_question span').text(text);
+            $('#confirm_popup_link').trigger('click');
+            this.callback = callback;
+            this.sender = sender;
+            confirm_popup = this;
+        }
+
     </script>
 </head>
 <body>
@@ -93,57 +121,37 @@
 </div>
 <!-- #wrapper -->
 <div style="display:none">
-    <div id="addQuantity" class="popup">
+    <div id="fb" class="popup">
         <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
 
-        <div class="popupQuantity">
-            <form action="#">
-                <h2>Добавить на склад</h2>
-
-                <div class="input_block">
-                    <p>
-                        <label>Количество:</label>
-                        <span class="input">
-                            <input type="text" value="250 000 000" class="piece">
-                            <ins>шт.</ins>
-                        </span>
-                    </p>
-
-                    <p>
-                        <label>Закупочная цена:</label>
-                        <span class="input">
-                            <input type="text" value="250 000 000.00" class="price">
-                            <ins>руб.</ins>
-                        </span>
-                    </p>
-
-                    <p>
-                        <label>Накрутка:</label>
-                        <span class="input">
-                            <input type="text" value="25" class="procent">
-                            <ins>%</ins>
-                        </span>
-                    </p>
-                </div>
-                <input type="button" value="Ok" class="greenGradient ok" />
-                <div class="clear"></div>
-                <div class="form_block">
-                    <div>
-                        <p>
-                            <span class="label">Маржа (штука):</span>
-                            <span class="input">2.56 руб.</span>
-                        </p>
-
-                        <p>
-                            <span class="label">Маржа (партия):</span>
-                            <span class="input">2863.36 руб.</span>
-                        </p>
-                    </div>
-                </div>
-                <input type="submit" class="greenGradient" value="Добавить" />
+        <div class="popup_question">
+            <form action="">
+                <span>Вы уверены, что хотите деактивировать<br/> категорию?</span>
+                <ul>
+                    <li><input type="button" class="disagree" value="Отказаться"/></li>
+                    <li><input type="button" class="agree" value="Да"/></li>
+                </ul>
             </form>
         </div>
     </div>
 </div>
+
+<div style="display:none">
+    <div id="confirm_popup" class="popup">
+        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
+
+        <div class="popup_question">
+            <form action="">
+                <span>Вы уверены, что хотите удалить категорию?</span>
+                <ul>
+                    <li><input type="button" class="disagree" value="Отказаться"/></li>
+                    <li><input type="button" class="agree" value="Да"/></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+<a id="confirm_popup_link" href="#confirm_popup"></a>
+
 </body>
 </html>

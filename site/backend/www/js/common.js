@@ -7,7 +7,7 @@ $(document).ready(function() {
         scrolling: false
     });
 
-    $('table.common_sett a, .add_main_ct, .add_paket, .addValue').tooltip({
+    $('table.common_sett a, .add_main_ct, .add_paket, .addValue, .content a').tooltip({
         track: true,
         delay: 0,
         showURL: false,

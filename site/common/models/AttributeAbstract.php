@@ -149,9 +149,6 @@ class AttributeAbstract extends CFormModel
 					$rule[] = array($key, 'numerical', 'integerOnly'=>true, 'allowEmpty'=>true);
 					break;
 				case Attribute::TYPE_BOOL:
-				case Attribute::TYPE_2DIG:
-				case Attribute::TYPE_3DIG:
-					$rule[] = array($key, 'numerical', 'allowEmpty'=>true);
 					break;
 				case Attribute::TYPE_ENUM:
 					$rule[] = array($key, 'in', 'range'=>  array_keys($this->_enum[$attribute['attribute_id']]), 'allowEmpty'=>true);

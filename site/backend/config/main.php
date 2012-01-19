@@ -5,7 +5,10 @@ return array(
 	'name' => 'Админка',
 
 	'import'=>array(
-        'site.frontend.extensions.ufile.UFileBehavior',
+        'site.frontend.extensions.shoppingCart.*',
+        'site.frontend.components.*',
+        'site.frontend.extensions.LinkPager',
+        'site.frontend.extensions.ufile.UFiles',
 		'site.common.models.*',
 		'application.models.*',
 		'application.components.*',
@@ -13,6 +16,17 @@ return array(
 	),
 	
 	'components' => array(
+        'widgetFactory' => array(
+            'widgets' => array(
+                'LinkPager' => array(
+                    'cssFile' => FALSE,
+                    'header' => '',
+                    'nextPageLabel' => '',
+                    'prevPageLabel' => '',
+                    'maxButtonCount' => 5,
+                ),
+            ),
+        ),
 		'urlManager' => array(
 			'urlFormat'=>'path',
 		),

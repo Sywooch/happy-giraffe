@@ -11,6 +11,18 @@
  */
 class ProductBrand extends CActiveRecord {
 
+    public function getProductsCount()
+    {
+        $user = Yii::app()->db->createCommand()
+            ->select('id, username, profile')
+            ->from('tbl_user u')
+            ->join('tbl_profile p', 'u.id=p.user_id')
+            ->where('id=:id', array(':id'=>$id))
+            ->queryRow();
+    }
+
+    public $accusativeName = 'брэнд';
+
 	public function behaviors() {
 		return array(
 			'behavior_ufiles' => array(
@@ -19,7 +31,7 @@ class ProductBrand extends CActiveRecord {
 					'brand_image' => array(
 						'fileName' => 'upload/brand/<date>-{brand_id}-<name>.<ext>',
 						'fileItems' => array(
-                            'optimized' => array(
+                            'display' => array(
                                 'fileHandler' => array('FileHandler', 'run'),
                                 'resize' => array(
                                     'width' => 100,
@@ -62,10 +74,12 @@ class ProductBrand extends CActiveRecord {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+            array('active', 'default', 'value' => 1),
+            array('active', 'boolean', 'defaultValue'),
 			array('brand_title, brand_image', 'required'),
 			array('brand_title', 'length', 'max' => 250),
 			array('brand_text', 'safe'),
-			array('brand_image', 'ext.ufile.UFileValidator',
+			array('brand_image', 'site.frontend.extensions.ufile.UFileValidator',
 				'allowedTypes' => 'jpg, gif, png',
 //				'minWidth'=>621, 'minHeight'=>424,
 				'allowEmpty' => false
@@ -144,7 +158,24 @@ class ProductBrand extends CActiveRecord {
 		return $command->queryAll();
 	}
 
-    public function getAll() {
-        return new CActiveDataProvider($this);
+    public function getAll($query) {
+        $criteria = new CDbCriteria(array(
+            'order' => 'brand_id',
+        ));
+        if ($query !== null)
+        {
+            $criteria->mergeWith(array(
+                'condition' => 'brand_title LIKE :query',
+                'params' => array(
+                    ':query' => '%' . $query . '%',
+                ),
+            ));
+        }
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 5,
+            ),
+        ));
     }
 }

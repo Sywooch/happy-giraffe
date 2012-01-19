@@ -1,6 +1,6 @@
 <?php
 
-class PackController extends BController
+class AttributeSetController extends BController
 {
     public function filters()
     {
@@ -9,7 +9,7 @@ class PackController extends BController
         );
     }
 
-    public function actionIndex($id)
+    public function actionUpdate($id)
     {
         $model = AttributeSet::model()->findByPk($id);
         if ($model === null)
@@ -71,29 +71,6 @@ class PackController extends BController
         ));
     }
 
-    public function actionDeleteAttribute()
-    {
-        $id = Yii::app()->request->getPost('id');
-
-        $model = Attribute::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-
-        echo $model->delete();
-    }
-
-    public function actionDeleteAttributeValue()
-    {
-        $id = Yii::app()->request->getPost('id');
-
-        $model = AttributeValue::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-        AttributeValueMap::model()->deleteAll('map_value_id=' . $id);
-
-        echo $model->delete();
-    }
-
     public function actionAddAttrListElem()
     {
         $text = $_POST['text'];
@@ -110,7 +87,7 @@ class PackController extends BController
         $attr_map_val->map_value_id = $attr_val->value_id;
         $attr_map_val->save();
 
-        $this->widget('SimpleFormInputWidget', array(
+        $this->widget('EditDeleteWidget', array(
             'model' => $attr_val,
             'attribute' => 'value_value'
         ));
@@ -136,6 +113,9 @@ class PackController extends BController
         return $model;
     }
 
+    /**
+     * Change attribute position
+     */
     public function actionAttributePosition()
     {
         $id = Yii::app()->request->getPost('id');
@@ -144,7 +124,7 @@ class PackController extends BController
 
         if ($id == 'brand') {
             $set = AttributeSet::model()->findByPk($set_id);
-            if (empty($new_pos)){
+            if (empty($new_pos)) {
                 $set->brand_pos = 0;
                 Yii::app()->db->createCommand('Update ' . AttributeSetMap::model()->tableName()
                     . ' SET pos = pos+1 WHERE map_set_id=' . $set_id)->execute();
@@ -164,7 +144,10 @@ class PackController extends BController
         echo CJSON::encode(array('success' => $success));
     }
 
-    public function actionGetSortBlock()
+    /**
+     * Show filter block
+     */
+    public function actionGetFilterBlock()
     {
         $set_id = Yii::app()->request->getPost('set_id');
 

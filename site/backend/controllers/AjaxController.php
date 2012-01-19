@@ -23,11 +23,12 @@ class AjaxController extends BController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $model->active = ! $model->active;
+        $model->active = !$model->active;
         echo $model->save(true, array('active'));
     }
 
-    public function actionSetValue(){
+    public function actionSetValue()
+    {
         $modelName = Yii::app()->request->getPost('modelName');
         $modelPk = Yii::app()->request->getPost('modelPk');
         $attribute = Yii::app()->request->getPost('attribute');

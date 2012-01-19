@@ -26,7 +26,7 @@
         <?php endforeach; ?>
         <li>
             <?php $this->widget('AddWidget', array(
-            'url' => $this->createUrl('pack/AddAttrListElem'),
+            'url' => $this->createUrl('AttributeSet/AddAttrListElem'),
             'model_id' => $model->attribute_id,
         ))?>
         </li>

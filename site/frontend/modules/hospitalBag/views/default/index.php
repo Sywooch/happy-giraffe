@@ -159,9 +159,7 @@
 			</div>
 		</div>
 	<?php endif; ?>
-
 </div>
-
 <script type="text/javascript">
 	$(' .item-box').hover(function(){
 		$(this).find('.hint').stop(true, true).fadeIn();
@@ -169,24 +167,3 @@
 		$(this).find('.hint').stop(true, true).fadeOut();
 	})
 </script>
-
-<?php
-
-$a = array(
-    'template'=>'<div class="green">
-    <a class="btn btn-gray-small" href=""><span><span>Да</span></span></a>
-    <br>
-    <b><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</b>
-</div>
-<div class="red">
-    <a class="btn btn-red-small" href=""><span><span>Нет</span></span></a>
-    <br>
-    <b><span class="votes_con">{vote0}</span> (<span class="con_percent">{vote_percent0}</span>%)</b>
-</div>',
-    'links' => array('.red','.green'), // селекторы для обработки нажатий на кнопки голосования, берется "{selector} a"
-    'result'=>array('.votes_con','.con_percent','.votes_pro','.pro_percent'),//селекторы для вставки результатов после голосования
-    'total'=>'.#total',//селектор для вставки общего кол-ва проголосовавших
-    'rating'=>'.#rating',//селектор для вставки разницы между положительными голосами (1) и отрицательными (0)
-);
-
-?>

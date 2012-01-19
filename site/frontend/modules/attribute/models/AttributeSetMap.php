@@ -132,7 +132,7 @@ class AttributeSetMap extends CActiveRecord
 
     public function MoveAfter($after_id)
     {
-        if ($after_id == null) {
+        if (empty($after_id)) {
             Yii::app()->db->createCommand('Update ' . $this->tableName()
                 . ' SET pos = pos+1 WHERE map_set_id=' . $this->map_set_id)->execute();
 

@@ -1,6 +1,6 @@
 <?php
 
-class PackController extends BController
+class AttributeSetController extends BController
 {
     public function filters()
     {
@@ -9,7 +9,7 @@ class PackController extends BController
         );
     }
 
-    public function actionIndex($id)
+    public function actionUpdate($id)
     {
         $model = AttributeSet::model()->findByPk($id);
         if ($model === null)
@@ -71,35 +71,6 @@ class PackController extends BController
         ));
     }
 
-    public function actionDeleteAttribute($id, $set_id)
-    {
-        $model = Attribute::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-        //        if ($model->delete()){
-        //            $model = AttributeSetMap::model()->findByAttributes(array(
-        //                'map_set_id'=>$set_id,
-        //                'map_attribute_id'=>$id,
-        //            ));
-        echo $model->delete();
-        //        }
-    }
-
-    public function actionDeleteAttributeValue($id)
-    {
-        $model = AttributeValue::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-        //        if ($model->delete()){
-        //            $model = AttributeSetMap::model()->findByAttributes(array(
-        //                'map_set_id'=>$set_id,
-        //                'map_attribute_id'=>$id,
-        //            ));
-        AttributeValueMap::model()->deleteAll('map_value_id=' . $id);
-        echo $model->delete();
-        //        }
-    }
-
     public function actionAddAttrListElem()
     {
         $text = $_POST['text'];
@@ -116,15 +87,12 @@ class PackController extends BController
         $attr_map_val->map_value_id = $attr_val->value_id;
         $attr_map_val->save();
 
-        $this->widget('SimpleFormInputWidget', array(
-            'model' => $attr_val,
-            'attribute' => 'value_value'
-        ));
+        $this->renderPartial('_attribute_value_view',array('attr_val'=>$attr_map_val));
     }
 
     public function actionGetMeasureOptions()
     {
-        $model = AttributeMeasure::model()->findByPk($_POST['id']);
+        $model = AttributeMeasure::model()->findByPk(Yii::app()->request->getPost('id'));
         $data = CHtml::listData($model->measureOptions, 'id', 'title');
         $htmlOptions = array();
         echo CHtml::listOptions(null, $data, $htmlOptions);
@@ -142,11 +110,18 @@ class PackController extends BController
         return $model;
     }
 
-    public function actionAttributePosition($id, $new_pos = null, $set_id = null)
+    /**
+     * Change attribute position
+     */
+    public function actionAttributePosition()
     {
+        $id = Yii::app()->request->getPost('id');
+        $new_pos = Yii::app()->request->getPost('new_pos');
+        $set_id = Yii::app()->request->getPost('set_id');
+
         if ($id == 'brand') {
             $set = AttributeSet::model()->findByPk($set_id);
-            if ($new_pos == null){
+            if (empty($new_pos)) {
                 $set->brand_pos = 0;
                 Yii::app()->db->createCommand('Update ' . AttributeSetMap::model()->tableName()
                     . ' SET pos = pos+1 WHERE map_set_id=' . $set_id)->execute();
@@ -166,8 +141,13 @@ class PackController extends BController
         echo CJSON::encode(array('success' => $success));
     }
 
-    public function actionGetSortBlock($set_id)
+    /**
+     * Show filter block
+     */
+    public function actionGetFilterBlock()
     {
+        $set_id = Yii::app()->request->getPost('set_id');
+
         $model = AttributeSet::model()->findByPk($set_id);
         $this->renderPartial('_sorter', array('model' => $model));
     }

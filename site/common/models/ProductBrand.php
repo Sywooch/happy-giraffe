@@ -13,12 +13,13 @@ class ProductBrand extends CActiveRecord {
 
     public function getProductsCount()
     {
-        $user = Yii::app()->db->createCommand()
-            ->select('id, username, profile')
-            ->from('tbl_user u')
-            ->join('tbl_profile p', 'u.id=p.user_id')
-            ->where('id=:id', array(':id'=>$id))
-            ->queryRow();
+//        $user = Yii::app()->db->createCommand()
+//            ->select('id, username, profile')
+//            ->from('tbl_user u')
+//            ->join('tbl_profile p', 'u.id=p.user_id')
+//            ->where('id=:id', array(':id'=>$id))
+//            ->queryRow();
+        return 0;
     }
 
     public $accusativeName = 'брэнд';

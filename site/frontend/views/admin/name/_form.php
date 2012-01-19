@@ -26,6 +26,10 @@
                 '<input type="text" id="famous_' + num + '_description" name="famous[' + num + '][description]" value="">' +
                 '</div>' +
                 '<div class="row">' +
+                '<label for="">Ссылка</label>' +
+                '<input type="text" id="famous_' + num + '_link" name="famous[' + num + '][link]" value="">' +
+                '</div>' +
+                '<div class="row">' +
                 '<label for="">Фото</label>' +
                 '<input type="file" id="famous_' + num + '_photo" name="famous[' + num + '][photo]" value="">' +
                 '</div>';

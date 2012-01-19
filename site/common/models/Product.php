@@ -526,7 +526,7 @@ class Product extends CActiveRecord implements IECartPosition
     public function GetAttributeValue($attr)
     {
         if ($attr->attribute_type == Attribute::TYPE_BOOL || $attr->attribute_type == Attribute::TYPE_ENUM ||
-            $attr->attribute_type == Attribute::TYPE_INTG
+            $attr->attribute_type == Attribute::TYPE_INTG || $attr->attribute_type == Attribute::TYPE_MEASURE
         ) {
 
             $eav_id = Y::command()
@@ -546,16 +546,15 @@ class Product extends CActiveRecord implements IECartPosition
                     return null;
                 else
                     return 'Нет';
-
             } elseif ($attr->attribute_type == Attribute::TYPE_ENUM) {
                 if ($eav_id === false)
-                    return null;
+                    return false;
 
                 $value = AttributeValue::model()->findByPk($eav_id);
                 if ($value !== null)
                     return $value->value_value;
                 else
-                    return '';
+                    return false;
             }
 
             return $eav_id;

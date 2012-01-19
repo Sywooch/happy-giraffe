@@ -121,10 +121,10 @@ $(function () {
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("ajax/delete") ?>',
                 data:{
-                    class:class_name,
-                    id:id
+                    modelName:class_name,
+                    modelPk:id
                 },
-                type:'GET',
+                type:'POST',
                 success:function (data) {
                     if (data == '1') {
                         bl.remove();
@@ -147,12 +147,12 @@ $(function () {
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
                 data:{
-                    id:set_id,
+                    modelPk:set_id,
                     attribute:$(this).prev().val(),
-                    class:'AttributeSet',
+                    modelName:'AttributeSet',
                     value:value
                 },
-                type:'GET',
+                type:'POST',
                 success:function (data) {
                     if (data == '1')
                         $(this).toggleClass('vain');
@@ -164,12 +164,12 @@ $(function () {
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
                 data:{
-                    id:attr_id,
+                    modelPk:attr_id,
                     attribute:'attribute_is_insearch',
-                    class:'Attribute',
+                    modelName:'Attribute',
                     value:value
                 },
-                type:'GET',
+                type:'POST',
                 success:function (data) {
                     if (data == '1')
                         $(this).toggleClass('vain');
@@ -218,7 +218,7 @@ function sortableInit() {
 
         $.ajax({
             dataType:'JSON',
-            type:'GET',
+            type:'POST',
             url:'<?php echo Yii::app()->createUrl('pack/AttributePosition') ?>',
             data:{
                 id:id,
@@ -235,7 +235,7 @@ function refreshSorter() {
     $.ajax({
         url:'<?php echo Yii::app()->createUrl("pack/GetSortBlock") ?>',
         data:{set_id:set_id},
-        type:'GET',
+        type:'POST',
         success:function (data) {
             $('#sortable').sortable("destroy");
             $('.filter_sorter').html(data);
@@ -249,10 +249,10 @@ function refreshSorter() {
 
 Yii::app()->clientScript->registerCoreScript('jquery.ui');
 
-$this->widget('SimpleFormInputWidget', array(
+$this->widget('EditDeleteWidget', array(
     'init' => true,
 ));
-$this->widget('SimpleFormAddWidget', array(
+$this->widget('AddWidget', array(
     'init' => true,
 ));
 

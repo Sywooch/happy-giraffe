@@ -23,11 +23,11 @@ $js = "
         var attribute = bl.find('input.elem-attribute').val();
 
         $.ajax({
-                url: '" . Yii::app()->createUrl("ajax/EditInput") . "',
+                url: '" . Yii::app()->createUrl("ajax/SetValue") . "',
                 data: {
-                    class: class_name,
-                    id: id,
-                    text: text,
+                    modelName: class_name,
+                    modelPk: id,
+                    value: text,
                     attribute: attribute
                 },
                 type: 'GET',

@@ -18,10 +18,7 @@
     <ul class="list-elems">
         <?php foreach ($model->value_map as $attr_val): ?>
         <li>
-            <?php $this->widget('EditDeleteWidget', array(
-            'model' => $attr_val->map_value,
-            'attribute' => 'value_value'
-        ))?>
+            <?php $this->renderPartial('_attribute_value_view',array('attr_val'=>$attr_val)); ?>
         </li>
         <?php endforeach; ?>
         <li>

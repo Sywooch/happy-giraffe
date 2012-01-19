@@ -28,7 +28,7 @@ $(function () {
         return false;
     });
 
-    $('body').delegate('.attr-name a.edit', 'click', function () {
+    $('body').delegate('.set_attr_li > .attr-name > a.edit', 'click', function () {
         var bl = $(this).parents('li.set_attr_li');
         var id = bl.attr('obj_id');
 
@@ -253,7 +253,14 @@ function refreshSorter() {
 </script>
 <?php
 Yii::app()->clientScript->registerCoreScript('jquery.ui');
-$this->widget('EditDeleteWidget', array('init' => true));
+$this->widget('EditDeleteWidget', array(
+    'init' => true,
+    'options'=> array(
+        'ondelete'=>'$(this).parent().parent().remove()',
+        'edit_selector'=>'p',
+    )
+));
+
 $this->widget('AddWidget', array('init' => true));
 
 /**

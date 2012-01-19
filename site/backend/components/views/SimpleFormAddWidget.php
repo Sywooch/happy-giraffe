@@ -2,8 +2,7 @@
 /* @var $model CActiveRecord
  * @var $attribute string
  */
-$js = "
-    $('body').delegate('span.add_enum_value', 'click', function(){
+$js = "$('body').delegate('span.add_enum_value', 'click', function(){
         $(this).parent().append('<form class=\"input-text-add-form\" action=\"#\">' +
             '<p><input type=\"text\" value=\"\"/></p>' +
                 '<p><input type=\"submit\" value=\"Ok\"/></p>' +

@@ -34,7 +34,7 @@ Yii::app()->clientScript
             if (title != '')
                 $.ajax({
                     url:'<?php echo Yii::app()->createUrl("product/create") ?>',
-                    data:{title:title, category:category_id},
+                    data:{title:title, category_id:category_id},
                     type:'GET',
                     dataType:'JSON',
                     success:function (data) {

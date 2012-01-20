@@ -81,7 +81,8 @@
         });
     }
 </script>
-<?php foreach ($attributeMap as $attribute): ?>
+<?php foreach ($attributeMap as $attribute){
+    if ($attribute->map_attribute->attribute_in_price != 1){ ?>
 <?php $attr = $attribute->map_attribute;
     if ($model->isNewRecord)
         $value = false;
@@ -134,4 +135,6 @@
         <?php endif ?>
 
     </td>
-<?php endforeach; ?>
+<?php
+    }
+} ?>

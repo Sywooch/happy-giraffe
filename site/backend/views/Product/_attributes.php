@@ -10,6 +10,7 @@
             var block = $(this).parent();
             block.find('a').hide();
             block.find('p').show();
+            block.find('a.selectBox').show();
 
             return false;
         });

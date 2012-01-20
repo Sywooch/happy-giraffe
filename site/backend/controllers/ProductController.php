@@ -2,24 +2,26 @@
 
 class ProductController extends BController
 {
-    public function actionCreate($category)
+    public function actionCreate($category_id)
     {
         if (Yii::app()->request->isAjaxRequest) {
             $title = Yii::app()->request->getParam('title');
-            $product = new Product;
+            $product = new Product(Product::SCENARIO_FILL_PRODUCT);
             $product->product_title = $title;
+            $product->product_category_id = $category_id;
 
             if ($product->save()) {
                 echo CJSON::encode(array('success' => true, 'id' => $product->product_id));
             } else
-                echo CJSON::encode(array('success' => false));
+                echo CJSON::encode(array('success' => false,'error'=>$product->getErrors()));
             Yii::app()->end();
         }
 
-        $attributeMap = AttributeSetMap::model()->findAll('map_set_id=3');
+        $category = $this->loadCategoryModel($category_id);
+        $attributeMap = $category->GetAttributesMap();
 
         $this->render('create', array(
-            'category_id' => $category,
+            'category_id' => $category_id,
             'attributeMap' => $attributeMap,
             'model'=>new Product
         ));
@@ -27,7 +29,7 @@ class ProductController extends BController
 
     public function actionUpdate($product_id){
         $model = $this->loadModel($product_id);
-        $attributeMap = AttributeSetMap::model()->findAll('map_set_id=3');
+        $attributeMap = $model->category->GetAttributesMap();
 
         $this->render('create', array(
             'category_id' => $model->product_category_id,
@@ -113,6 +115,18 @@ class ProductController extends BController
      */
     public function loadModel($id){
         $model = Product::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return Category
+     * @throws CHttpException
+     */
+    public function loadCategoryModel($id){
+        $model = Category::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

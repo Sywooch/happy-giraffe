@@ -1,5 +1,10 @@
 <?php
 
+Yii::import('site.frontend.extensions.ufile.UFiles', true);
+Yii::import('site.frontend.extensions.ufile.UFileBehavior');
+Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
+Yii::import('site.frontend.extensions.status.EStatusBehavior');
+
 /**
  * This is the model class for table "{{product}}".
  *
@@ -22,12 +27,9 @@
  * @property string $product_time
  * @property integer $product_rate
  * @property integer $product_status
+ *
+ * @property Category $category
  */
-Yii::import('site.frontend.extensions.ufile.UFiles', true);
-Yii::import('site.frontend.extensions.ufile.UFileBehavior');
-Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
-Yii::import('site.frontend.extensions.status.EStatusBehavior');
-
 class Product extends CActiveRecord implements IECartPosition
 {
     const SCENARIO_SELECT_CATEGORY = 1;
@@ -169,7 +171,7 @@ class Product extends CActiveRecord implements IECartPosition
             array('product_image', 'site.frontend.extensions.ufile.UFileValidator',
                 'allowedTypes' => 'jpg, gif, png, jpeg',
 //				'minWidth'=>621, 'minHeight'=>424,
-                'allowEmpty' => false,
+                'allowEmpty' => true,
                 'on' => self::SCENARIO_FILL_PRODUCT
             ),
 

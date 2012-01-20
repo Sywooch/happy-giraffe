@@ -509,7 +509,31 @@ table.common_sett tr td table tr td {
     border-bottom: none;
 }
 
-table td.name_ct input[type="text"] {
+table td.name_ct input.t_new_catg {
+    margin: 0;
+    width: 96px;
+    height: 19px;
+    border: 1px solid #6dc0d1;
+    padding: 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #a0a0a0;
+}
+
+table td.name_ct input.b_new_catg {
+    width: 34px;
+    height: 19px;
+    background: url(../images/bg_sm_button.png) 0 0 no-repeat;
+    border: 0;
+    font-size: 11px;
+    font-weight: bold;
+    color: #fff;
+    margin: 0 0 0 4px;
+}
+table form.input-text-edit-form p {
+    display: inline-block;
+}
+table form.input-text-edit-form input[type="text"] {
     margin: 0;
     width: 96px;
     height: 19px;
@@ -521,7 +545,7 @@ table td.name_ct input[type="text"] {
     display: inline-block;
 }
 
-table td.name_ct input[type="submit"] {
+table form.input-text-edit-form input[type="submit"] {
     width: 34px;
     height: 19px;
     background: url(../images/bg_sm_button.png) 0 0 no-repeat;

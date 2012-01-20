@@ -27,8 +27,10 @@ Yii::import('site.frontend.extensions.status.EStatusBehavior');
  * @property string $product_time
  * @property integer $product_rate
  * @property integer $product_status
+ * @property AgeRange $ageRange
  *
  * @property Category $category
+ * @property ProductBrand $brand
  */
 class Product extends CActiveRecord implements IECartPosition
 {
@@ -198,6 +200,7 @@ class Product extends CActiveRecord implements IECartPosition
             'videos' => array(self::HAS_MANY, 'ProductVideo', 'product_id'),
             'brand' => array(self::BELONGS_TO, 'ProductBrand', 'product_brand_id'),
             'category' => array(self::BELONGS_TO, 'Category', 'product_category_id'),
+            'ageRange' => array(self::BELONGS_TO, 'AgeRange', 'product_age_range_id'),
         );
     }
 
@@ -576,5 +579,9 @@ class Product extends CActiveRecord implements IECartPosition
         }
 
         return null;
+    }
+
+    public function GetAgeRangeText(){
+        return $this->ageRange->range_title;
     }
 }

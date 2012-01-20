@@ -509,7 +509,7 @@ table.common_sett tr td table tr td {
     border-bottom: none;
 }
 
-table td.name_ct input.t_new_catg {
+table td.name_ct input[type="text"] {
     margin: 0;
     width: 96px;
     height: 19px;
@@ -518,9 +518,10 @@ table td.name_ct input.t_new_catg {
     font-size: 12px;
     font-weight: bold;
     color: #a0a0a0;
+    display: inline-block;
 }
 
-table td.name_ct input.b_new_catg {
+table td.name_ct input[type="submit"] {
     width: 34px;
     height: 19px;
     background: url(../images/bg_sm_button.png) 0 0 no-repeat;
@@ -529,6 +530,7 @@ table td.name_ct input.b_new_catg {
     font-weight: bold;
     color: #fff;
     margin: 0 0 0 4px;
+    display: inline-block;
 }
 
 table td.name_ct a.move_lvl {
@@ -1221,6 +1223,11 @@ h1:hover.edit {
     line-height: 30px;
     text-decoration: none;
 }
+.big_foto a.add.addValue {
+    padding: 130px 0 0 0;
+    height: 225px;
+}
+
 .big_foto a.add ins{
     font-size: 40px;
     line-height: 38px;
@@ -1297,7 +1304,7 @@ h1:hover.edit {
     padding: 2px 0 0 0;
 }
 
-div.brand {
+div.brand, div.brand_add {
     font-size: 14px;
     font-weight: bold;
     color: #474747;
@@ -1311,7 +1318,7 @@ div.brand span {
     float: left;
     margin: 16px 0 0 0;
 }
-div.brand.add span {
+div.brand_add span {
     display: block;
     float: left;
     margin: 36px 20px 0 0;
@@ -1323,7 +1330,7 @@ div.brand img {
     margin: 0 20px 0 20px;
 }
 
-div.brand a {
+div.brand a, div.brand_add a {
     display: block;
     float: left;
     margin: 14px 0 0 0;
@@ -1336,7 +1343,7 @@ div.brand a {
     font-size: 11px;
     padding: 2px 0 0 0;
 }
-div.brand a.addValue {
+div.brand a.addValue, div.brand_add a.addValue {
     margin: 14px 0 0 0;
     background: url("../images/icons/add_brand.png") no-repeat left top;
     width: 98px;
@@ -1444,8 +1451,9 @@ input.greenGradient, input.greyGradient {
 table.characteristic tr td {
     font-weight: bold;
     color: #8a8a8a;
-    padding: 0 6px 16px 0;
-    height: 20px;
+    padding: 0 6px 0 0;
+    height: 36px;
+    vertical-align: middle;
 }
 table.characteristic tr td a.edit {
     color: #8a8a8a;
@@ -1455,9 +1463,10 @@ table.characteristic tr td.name {
     font-size: 14px;
     color: #474747;
     width: 257px;
+    padding: 0;
 }
 .characteristic p {
-    margin: 0 6px 16px 0;
+    margin: 0 6px 0 0;
 }
 .characteristic p span.name{
     font-size: 14px;
@@ -1582,6 +1591,14 @@ table.characteristic tr td.name {
     height: 46px;
     padding: 0 0 0 20px;
 }
+input[type="text"], textarea {
+    color: #d6d6d6;
+}
+input[type="text"]:focus, textarea:focus {
+    color: #474747;
+}
+
+
 .editProduct .name input {
     display: block;
     float: left;
@@ -1594,7 +1611,6 @@ table.characteristic tr td.name {
 }
 .editProduct textarea {
     font-size: 14px;
-    color: #c2c4c4;
     border: 1px solid #c9eaf1;
     width: 275px;
     height: 286px;
@@ -1606,7 +1622,7 @@ table.characteristic tr td.name {
     float: left;
 }
 .editProduct .selectBox-dropdown {
-    margin: 0 10px;
+    margin: 0 10px 0 0;
 }
 
 .smallGreen {

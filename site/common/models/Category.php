@@ -210,4 +210,18 @@ class Category extends CActiveRecord
         else
             return null;
     }
+
+    /**
+     * @return bool
+     */
+    public function HasAgeFilter(){
+        return $this->GetAttributeSet()->age_filter;
+    }
+
+    /**
+     * @return bool
+     */
+    public function HasSexFilter(){
+        return $this->GetAttributeSet()->sex_filter;
+    }
 }

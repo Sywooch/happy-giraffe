@@ -58,7 +58,7 @@
             var block = $(this).parent().parent();
             var id = block.find('input[type=hidden]').val();
             var value = block.find('select').val();
-            var text = block.find("select option[value='" + value + "']").text()
+            var text = block.find("select option[value='" + value + "']").text();
             SetAttributeValue(id, value, text, block);
         });
 

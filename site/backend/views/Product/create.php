@@ -14,7 +14,6 @@ Yii::app()->clientScript
     var category_id = <?php echo $category->category_id ?>;
 
     $(function () {
-
         $("#filter-price-1").slider({
             range:true,
             min:0,
@@ -31,9 +30,10 @@ Yii::app()->clientScript
         $("#filter-price-1-max").val($("#filter-price-1").slider("values", 1));
 
 
-        $('form.editProduct > div.name input[type=button]').click(function () {
+        $('div.editProduct > div.name input[type=button]').click(function () {
             var title = $(this).prev().val();
-            if (title != '')
+            if (title != ''){
+                if (model_id == null)
                 $.ajax({
                     url:'<?php echo Yii::app()->createUrl("product/create") ?>',
                     data:{title:title, category_id:category_id},
@@ -41,12 +41,36 @@ Yii::app()->clientScript
                     dataType:'JSON',
                     success:function (data) {
                         if (data.success) {
-                            $('form.editProduct > div').show();
+                            $('div.editProduct > div').show();
                             model_id = data.id;
+
+                            $(this).parent().hide();
+                            $(this).parent().prev().text(title);
+                            $(this).parent().prev().show();
+                            $('select').selectBox('refresh');
                         }
                     },
                     context:$(this)
                 });
+                else{
+                    $.ajax({
+                        url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
+                        data:{
+                            modelPk:model_id,
+                            attribute:'product_title',
+                            modelName:'Product',
+                            value:title
+                        },
+                        type:'POST',
+                        success:function (data) {
+                            $(this).parent().hide();
+                            $(this).parent().prev().text(title);
+                            $(this).parent().prev().show();
+                        },
+                        context:$(this)
+                    });
+                }
+            }
         });
 
         $('.description h2.edit').click(function () {
@@ -144,6 +168,14 @@ Yii::app()->clientScript
 
             return false;
         });
+
+        $('h1.edit').click(function () {
+            $(this).hide();
+            $(this).next().show();
+
+            return false;
+        });
+
     });
 
     function SetGender(value, sender){
@@ -169,7 +201,13 @@ Yii::app()->clientScript
         <a href="#" class="all_products">Список товаров</a>
     </div>
     <div class="center">
-            <div class="name">
+        <div class="editProduct">
+            <?php if ($model->isNewRecord):?>
+                <h1 class="edit" style="display: none;"></h1>
+            <?php else: ?>
+                <h1 class="edit"><?php echo $model->product_title ?></h1>
+            <?php endif ?>
+            <div class="name"<?php if (!$model->isNewRecord) echo 'style="display: none;"' ?>>
                 <input type="text" class="h1" value="<?php echo $model->product_title ?>"/>
                 <input type="button" class="greenGradient" value="Ok"/>
 
@@ -217,7 +255,7 @@ Yii::app()->clientScript
                     </span>
 
                     <img<?php if (empty($model->product_brand_id)) echo ' style="display: none;"' ?>
-                        src="<?php if (!empty($model->product_brand_id)) echo $model->brand->GetImageUrl()  ?>" alt="">
+                        src="<?php if (!empty($model->product_brand_id)) echo $model->brand->brand_image->getUrl()  ?>" alt="">
                     <a<?php if (empty($model->product_brand_id)) echo ' style="display: none;"' ?> class="edit-brand" href="#">Изм.</a>
                 </div>
 
@@ -317,6 +355,7 @@ Yii::app()->clientScript
             </div>
             <?php endif ?>
 
+    </div>
     </div>
 </div>
 </div>

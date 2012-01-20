@@ -582,6 +582,9 @@ class Product extends CActiveRecord implements IECartPosition
     }
 
     public function GetAgeRangeText(){
-        return $this->ageRange->range_title;
+        if (!empty($this->ageRange))
+            return $this->ageRange->range_title;
+        else
+            return '';
     }
 }

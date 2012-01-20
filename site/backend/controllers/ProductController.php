@@ -133,7 +133,10 @@ class ProductController extends BController
      */
     public function loadModel($id)
     {
-        $model = Product::model()->findByPk($id);
+        $model = Product::model()->with(array(
+            'brand',
+            'category'
+        ))->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

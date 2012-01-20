@@ -14,16 +14,16 @@ Yii::app()->clientScript
     var category_id = <?php echo $category->category_id ?>;
 
     $(function () {
-        $("#filter-price-1").slider({
-            range:true,
-            min:0,
-            max:60000,
-            values:[0, 60000],
-            slide:function (event, ui) {
-                $("#filter-price-1-min").val(ui.values[0]);
-                $("#filter-price-1-max").val(ui.values[1]);
-            }
-        });
+//        $("#filter-price-1").slider({
+//            range:true,
+//            min:0,
+//            max:60000,
+//            values:[0, 60000],
+//            slide:function (event, ui) {
+//                $("#filter-price-1-min").val(ui.values[0]);
+//                $("#filter-price-1-max").val(ui.values[1]);
+//            }
+//        });
         $('select').selectBox();
 
         $("#filter-price-1-min").val($("#filter-price-1").slider("values", 0));
@@ -103,8 +103,10 @@ Yii::app()->clientScript
         });
 
         $('#descr-cancel').click(function () {
-            var block = $(this).parent().parent();
-            block.find('textarea').val(block.find('.pd-text').text());
+            if (model_id != null){
+                $(this).parent().hide();
+                $(this).parent().next().show();
+            }
         });
 
         $('.brand_add .edit-brand').click(function(){
@@ -322,7 +324,7 @@ Yii::app()->clientScript
                         </span>
                         <a<?php if (empty($value)) echo ' style="display: none;"' ?> href="#" class="edit"><?php echo $value ?></a>
                     </div>
-                    <div class="year_old">
+                    <div class="year_old" style="display: none;">
                         <p class="first_year">Первый год жизни</p>
 
                         <p class="nursery">Ясельный возраст</p>
@@ -337,7 +339,7 @@ Yii::app()->clientScript
 
                         <div class="clear"></div>
                     </div>
-                    <div class="slider-in">
+                    <div class="slider-in" style="display: none;">
                         <div id="filter-price-1"></div>
                     </div>
                 </div>

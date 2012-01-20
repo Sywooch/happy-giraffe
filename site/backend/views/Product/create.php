@@ -83,14 +83,14 @@ Yii::app()->clientScript
             block.find('textarea').val(block.find('.pd-text').text());
         });
 
-        $('.brand .edit-brand').click(function(){
+        $('.brand_add .edit-brand').click(function(){
             $(this).hide();
             $(this).prev().hide();
             $(this).prev().prev().show();
             return false;
         });
 
-        $('.brand .set-brand').click(function(){
+        $('.brand_add .set-brand').click(function(){
             var brand_id = $(this).prev().val();
                 $.ajax({
                 url:'<?php echo Yii::app()->createUrl("product/setBrand") ?>',
@@ -169,7 +169,6 @@ Yii::app()->clientScript
         <a href="#" class="all_products">Список товаров</a>
     </div>
     <div class="center">
-        <form action="#" class="editProduct">
             <div class="name">
                 <input type="text" class="h1" value="<?php echo $model->product_title ?>"/>
                 <input type="button" class="greenGradient" value="Ok"/>
@@ -209,7 +208,7 @@ Yii::app()->clientScript
                     <p class="total">Всего фото: 3</p>
                 </div>
 
-                <div class="brand add">
+                <div class="brand_add">
                     <span class="brand-title">Brand</span>
                     <span<?php if (!empty($model->product_brand_id)) echo ' style="display: none;"' ?>>
                         <?php echo CHtml::dropDownList('brand_id', ' ',
@@ -319,7 +318,6 @@ Yii::app()->clientScript
             <?php endif ?>
 
     </div>
-    </form>
 </div>
 </div>
 <div class="clear"></div>

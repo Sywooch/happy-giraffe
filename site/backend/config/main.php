@@ -29,6 +29,7 @@ return array(
         ),
 		'urlManager' => array(
 			'urlFormat'=>'path',
+            'showScriptName'=>false
 		),
         'db' => array(
             'schemaCachingDuration' => 3600,

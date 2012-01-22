@@ -445,7 +445,7 @@ table.common_sett th.logo_ct {
 }
 
 table.common_sett th.active_ct {
-    width: 150px;
+    width: 200px;
     text-align: center;
     border-right: 1px solid #fff;
 }
@@ -1342,10 +1342,10 @@ div.brand span {
     float: left;
     margin: 16px 0 0 0;
 }
-div.brand_add span {
+div.brand_add span.brand-title {
     display: block;
     float: left;
-    margin: 36px 20px 0 0;
+    margin: 16px 20px 0 0;
 }
 
 div.brand img {
@@ -1354,7 +1354,7 @@ div.brand img {
     margin: 0 20px 0 20px;
 }
 
-div.brand a, div.brand_add a {
+div.brand a, div.brand_add a.edit-brand {
     display: block;
     float: left;
     margin: 14px 0 0 0;

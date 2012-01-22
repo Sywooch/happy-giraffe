@@ -49,6 +49,13 @@
                 <img src="images/icons/info_catg_icon.png" alt="Подробно о категории"/></a></li>
             <li><a href="#" title="Посмотреть в магазине">
                 <img src="images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a></li>
+            <?php if (empty($category->attributeSets)):?>
+                <li><a href="<?php echo $this->createUrl('AttributeSet/create', array('category_id'=>$category->category_id)) ?>" title="Добавить пакет свойств">
+                    <img src="images/icons/add_paket_propety.png" alt="Добавить пакет свойств"/></a></li>
+                <?php else: ?>
+                <li><a href="<?php echo $this->createUrl('AttributeSet/update', array('id'=>$category->GetAttributeSet()->set_id)) ?>" title="Открыть пакет свойств">
+                    <img src="images/icons/show_paket_propety.png" alt="Открыть пакет свойств"/></a></li>
+                <?php endif ?>
         </ul>
     </td>
     <td class="goods_ct">

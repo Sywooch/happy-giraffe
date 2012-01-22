@@ -133,6 +133,14 @@ class ProductBrand extends CActiveRecord {
 				));
 	}
 
+    public function uploadTo(){
+        return 'upload/brand/';
+    }
+
+    public function GetImageUrl(){
+        return $this->brand_image;
+    }
+
 	public function listAll($term='', $val='brand_title') {
 		if (!is_array($val)) {
 			$val = explode(',', $val);

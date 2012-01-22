@@ -2,37 +2,42 @@
 
 class ProductController extends BController
 {
-    public function actionCreate($category)
+    public $layout = 'main';
+
+    public function actionCreate($category_id)
     {
         if (Yii::app()->request->isAjaxRequest) {
             $title = Yii::app()->request->getParam('title');
-            $product = new Product;
+            $product = new Product(Product::SCENARIO_FILL_PRODUCT);
             $product->product_title = $title;
+            $product->product_category_id = $category_id;
 
             if ($product->save()) {
                 echo CJSON::encode(array('success' => true, 'id' => $product->product_id));
             } else
-                echo CJSON::encode(array('success' => false));
+                echo CJSON::encode(array('success' => false, 'error' => $product->getErrors()));
             Yii::app()->end();
         }
 
-        $attributeMap = AttributeSetMap::model()->findAll('map_set_id=3');
+        $category = $this->loadCategoryModel($category_id);
+        $attributeMap = $category->GetAttributesMap();
 
         $this->render('create', array(
-            'category_id' => $category,
+            'category' => $category,
             'attributeMap' => $attributeMap,
-            'model'=>new Product
+            'model' => new Product
         ));
     }
 
-    public function actionUpdate($product_id){
+    public function actionUpdate($product_id)
+    {
         $model = $this->loadModel($product_id);
-        $attributeMap = AttributeSetMap::model()->findAll('map_set_id=3');
+        $attributeMap = $model->category->GetAttributesMap();
 
         $this->render('create', array(
-            'category_id' => $model->product_category_id,
+            'category' => $model->category,
             'attributeMap' => $attributeMap,
-            'model'=>$model
+            'model' => $model
         ));
     }
 
@@ -106,13 +111,58 @@ class ProductController extends BController
         }
     }
 
+    public function actionSetBrand()
+    {
+        $product_id = Yii::app()->request->getPost('product_id');
+        $brand_id = Yii::app()->request->getPost('brand_id');
+
+        $model = $this->loadModel($product_id);
+        $brand = $this->loadProductBrand($brand_id);
+        $model->product_brand_id = $brand_id;
+        if ($model->update(array('product_brand_id'))) {
+            $image = $brand->GetImageUrl();
+            echo CJSON::encode(array('success' => true, 'image' => $image->getUrl()));
+        } else
+            echo CJSON::encode(array('success' => false, 'error' => $model->getErrors()));
+    }
+
     /**
      * @param int $id model id
      * @return Product
      * @throws CHttpException
      */
-    public function loadModel($id){
-        $model = Product::model()->findByPk($id);
+    public function loadModel($id)
+    {
+        $model = Product::model()->with(array(
+            'brand',
+            'category'
+        ))->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return Category
+     * @throws CHttpException
+     */
+    public function loadCategoryModel($id)
+    {
+        $model = Category::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return ProductBrand
+     * @throws CHttpException
+     */
+    public function loadProductBrand($id)
+    {
+        $model = ProductBrand::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

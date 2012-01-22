@@ -2,7 +2,6 @@
 var set_id = <?php echo $model->set_id ?>;
 $(function () {
     /************************************ ADD UPDATE ***************************************/
-
     $('body').delegate('.add_attr', 'click', function () {
         var in_price = 0;
         if ($(this).hasClass('in_price'))

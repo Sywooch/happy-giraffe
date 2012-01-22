@@ -33,7 +33,6 @@
     <script type="text/javascript" src="/js/DD_belatedPNG_0.0.8a-min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-        var confirm_popup = null;
         $(document).ready(function() {
             jQuery('#mycarousel').jcarousel({
                 scroll : 1
@@ -46,25 +45,6 @@
                 scrolling: false
             });
         });
-
-        $('html').delegate('#confirm_popup .popup_question input.agree', 'click', function(){
-            $.fancybox.close();
-            confirm_popup.callback(confirm_popup.sender);
-        });
-
-        $('html').delegate('#confirm_popup .popup_question input.disagree', 'click', function(){
-            $.fancybox.close();
-        });
-
-        function ConfirmPopup(text, sender, callback)
-        {
-            $('#confirm_popup .popup_question span').text(text);
-            $('#confirm_popup_link').trigger('click');
-            this.callback = callback;
-            this.sender = sender;
-            confirm_popup = this;
-        }
-
     </script>
 </head>
 <body>

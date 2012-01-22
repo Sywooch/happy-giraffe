@@ -9,13 +9,30 @@ class AttributeSetController extends BController
         );
     }
 
+    public function actionCreate($category_id)
+    {
+        $category  = $this->loadCategoryModel($category_id);
+        $model = new AttributeSet;
+        $model->categories = array($category);
+        $model->set_title = $category->category_name;
+        if (!$model->save()){
+            var_dump($model->getErrors());
+            Yii::app()->end();
+        }
+
+        $this->render('form', array(
+            'model' => $model
+        ));
+    }
+
+
     public function actionUpdate($id)
     {
         $model = AttributeSet::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
 
-        $this->render('edit', array(
+        $this->render('form', array(
             'model' => $model
         ));
     }
@@ -107,6 +124,18 @@ class AttributeSetController extends BController
         $model = Attribute::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return Category
+     * @throws CHttpException
+     */
+    public function loadCategoryModel($id){
+        $model = Category::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
     }
 

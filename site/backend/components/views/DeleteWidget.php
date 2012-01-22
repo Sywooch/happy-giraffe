@@ -4,12 +4,13 @@
     $js = "
         $('body').delegate('a.delete', 'click', function(e) {
             e.preventDefault();
+            ConfirmPopup('Вы точно хотите ' + $(this).find('img').attr('alt'), $(this), function (owner) {
             $.ajax({
                 type: 'POST',
                 url: '" . Yii::app()->createUrl('ajax/delete') . "',
                 data: {
-                    modelName: $(this).find('input[name=modelName]').val(),
-                    modelPk: $(this).find('input[name=modelPk]').val()
+                    modelName: owner.find('input[name=modelName]').val(),
+                    modelPk: owner.find('input[name=modelPk]').val()
                 },
                 success: function(response) {
                     if (response == '1')
@@ -24,7 +25,8 @@
                         }
                     }
                 },
-                context: $(this)
+                context: owner
+            });
             });
         });
     ";

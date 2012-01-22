@@ -1,5 +1,10 @@
 <?php
 
+Yii::import('site.frontend.extensions.ufile.UFiles', true);
+Yii::import('site.frontend.extensions.ufile.UFileBehavior');
+Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
+Yii::import('site.frontend.extensions.status.EStatusBehavior');
+
 /**
  * This is the model class for table "{{product}}".
  *
@@ -22,12 +27,11 @@
  * @property string $product_time
  * @property integer $product_rate
  * @property integer $product_status
+ * @property AgeRange $ageRange
+ *
+ * @property Category $category
+ * @property ProductBrand $brand
  */
-Yii::import('site.frontend.extensions.ufile.UFiles', true);
-Yii::import('site.frontend.extensions.ufile.UFileBehavior');
-Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
-Yii::import('site.frontend.extensions.status.EStatusBehavior');
-
 class Product extends CActiveRecord implements IECartPosition
 {
     const SCENARIO_SELECT_CATEGORY = 1;
@@ -169,7 +173,7 @@ class Product extends CActiveRecord implements IECartPosition
             array('product_image', 'site.frontend.extensions.ufile.UFileValidator',
                 'allowedTypes' => 'jpg, gif, png, jpeg',
 //				'minWidth'=>621, 'minHeight'=>424,
-                'allowEmpty' => false,
+                'allowEmpty' => true,
                 'on' => self::SCENARIO_FILL_PRODUCT
             ),
 
@@ -196,6 +200,7 @@ class Product extends CActiveRecord implements IECartPosition
             'videos' => array(self::HAS_MANY, 'ProductVideo', 'product_id'),
             'brand' => array(self::BELONGS_TO, 'ProductBrand', 'product_brand_id'),
             'category' => array(self::BELONGS_TO, 'Category', 'product_category_id'),
+            'ageRange' => array(self::BELONGS_TO, 'AgeRange', 'product_age_range_id'),
         );
     }
 
@@ -574,5 +579,12 @@ class Product extends CActiveRecord implements IECartPosition
         }
 
         return null;
+    }
+
+    public function GetAgeRangeText(){
+        if (!empty($this->ageRange))
+            return $this->ageRange->range_title;
+        else
+            return '';
     }
 }

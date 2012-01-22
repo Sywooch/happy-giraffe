@@ -118,6 +118,14 @@
             var selector = ((active) ? 'span.deactive' : 'span.active') + ' > ins';
             selector.text(parseInt(selector.text()) + 1);
         }
+
+        $('table.common_sett tbody').sortable({
+            handle: 'a.move_lvl',
+        }).disableSelection();
+
+        $('table.common_sett tbody').bind('sortstop', function (event, ui) {
+            alert('123');
+        });
     ";
 
     $cs->registerScript('add_root_category', $js)
@@ -250,32 +258,36 @@
 <!-- .centered -->
 <div class="sett_block">
 <table class="common_sett">
-<tr>
-    <th class="name_ct">
-        <span>Название категории</span>
-        <span class="add_main_ct" title="Создание подкатегории">+</span>
-    </th>
-    <th class="active_ct">Действие</th>
-    <th class="goods_ct">Товары</th>
-    <th class="sell_ct">
-        <span>Продажи <ins>(руб.)</ins></span>
-        <ul>
-            <li><a href="#" class="active">д</a></li>
-            <li>|</li>
-            <li><a href="#">н</a></li>
-            <li>|</li>
-            <li><a href="#">м</a></li>
-            <li>|</li>
-            <li><a href="#">г</a></li>
-        </ul>
-    </th>
-    <th class="ad_ct"></th>
-</tr>
-<?php foreach ($tree as $c): ?>
-    <?php $this->renderPartial('_tr', array(
-        'category' => $c,
-    )); ?>
-<?php endforeach; ?>
+<thead>
+    <tr>
+        <th class="name_ct">
+            <span>Название категории</span>
+            <span class="add_main_ct" title="Создание подкатегории">+</span>
+        </th>
+        <th class="active_ct">Действие</th>
+        <th class="goods_ct">Товары</th>
+        <th class="sell_ct">
+            <span>Продажи <ins>(руб.)</ins></span>
+            <ul>
+                <li><a href="#" class="active">д</a></li>
+                <li>|</li>
+                <li><a href="#">н</a></li>
+                <li>|</li>
+                <li><a href="#">м</a></li>
+                <li>|</li>
+                <li><a href="#">г</a></li>
+            </ul>
+        </th>
+        <th class="ad_ct"></th>
+    </tr>
+</thead>
+<tbody>
+    <?php foreach ($tree as $c): ?>
+        <?php $this->renderPartial('_tr', array(
+            'category' => $c,
+        )); ?>
+    <?php endforeach; ?>
+</tbody>
 </table>
 </div>
 <!-- .sett_block -->

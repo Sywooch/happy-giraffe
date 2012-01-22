@@ -10,6 +10,7 @@
             ->registerCssFile('/css/reset.css')
             ->registerCssFile('/css/general.css')
             ->registerCoreScript('jquery')
+            ->registerCoreScript('jquery.ui')
 
             ->registerScriptFile('/js/jquery.fancybox-1.3.4.pack.js')
             ->registerCssFile('/css/jquery.fancybox-1.3.4.css')

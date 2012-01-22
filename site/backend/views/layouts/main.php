@@ -5,19 +5,28 @@
 
     <title>Администратор</title>
 
-    <link href="/css/reset.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/general.css" rel="stylesheet" type="text/css"/>
+    <?php
+        Yii::app()->clientScript
+            ->registerCssFile('/css/reset.css')
+            ->registerCssFile('/css/general.css')
+            ->registerCoreScript('jquery')
 
-    <script type="text/javascript" src="/js/jquery.fancybox-1.3.4.pack.js"></script>
-    <script type="text/javascript" src="/js/jquery.tooltip.js"></script>
-    <script type="text/javascript" src="/js/jquery.jcarousel.js"></script>
-    <script type="text/javascript" src="/js/jquery.selectBox.min.js"></script>
+            ->registerScriptFile('/js/jquery.fancybox-1.3.4.pack.js')
+            ->registerCssFile('/css/jquery.fancybox-1.3.4.css')
 
-    <link href="/css/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/jcarousel.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/jquery.selectBox.css" rel="stylesheet" type="text/css"/>
+            ->registerScriptFile('/js/jquery.jcarousel.js')
+            ->registerCssFile('/css/jcarousel.css')
 
-    <script type="text/javascript" src="/js/common.js"></script>
+            ->registerScriptFile('/js/jquery.selectBox.min.js')
+            ->registerCssFile('/css/jquery.selectBox.css')
+
+            ->registerScriptFile('/js/jquery.tooltip.js')
+
+            ->registerScriptFile('/js/common.js')
+
+            ->registerScriptFile('https://raw.github.com/jquery/jquery-tmpl/master/jquery.tmpl.min.js')
+        ;
+    ?>
 
     <!--[if IE 6]>
     <script type="text/javascript" src="/js/DD_belatedPNG_0.0.8a-min.js"></script>

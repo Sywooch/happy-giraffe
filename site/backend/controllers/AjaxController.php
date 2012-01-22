@@ -11,7 +11,15 @@ class AjaxController extends BController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        echo $model->delete();
+        if($model->asa('tree') instanceof NestedSetBehavior)
+        {
+            echo $model->deleteNode();
+        }
+        else
+        {
+            $model->disableBehavior('tree');
+            echo $model->delete();
+        }
     }
 
     public function actionOnOff()
@@ -24,7 +32,8 @@ class AjaxController extends BController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $model->active = !$model->active;
-        echo $model->save(true, array('active'));
+        $model->disableBehavior('tree');
+        echo $model->update(array('active'));
     }
 
     public function actionSetValue()

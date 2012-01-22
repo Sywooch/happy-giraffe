@@ -15,6 +15,13 @@
                     if (response == '1')
                     {
                         $(this).parents('tr').remove();
+
+                        if ($(this).find('input[name=modelIsTree]').val() == '1')
+                        {
+                            var currentRow = $(this).parents('tr');
+                            var currentPk = currentRow.attr('id').replace('node_', '');
+                            deleteNode(currentPk);
+                        }
                     }
                 },
                 context: $(this)
@@ -25,8 +32,9 @@
     $cs->registerScript('deleteWidget', $js);
 ?>
 
-<a class="delete" title="Удалить <?php echo $model->accusativeName; ?>">
-    <img src="/images/icons/delete_sm_icon.png" alt="Удалить <?php echo $model->accusativeName; ?>"/>
-    <?php echo CHtml::hiddenField('modelName', get_class($model)); ?>
-    <?php echo CHtml::hiddenField('modelPk', $model->primaryKey); ?>
+<a class="delete" title="Удалить <?php echo $modelAccusativeName; ?>">
+    <img src="/images/icons/delete_sm_icon.png" alt="Удалить <?php echo $modelAccusativeName; ?>"/>
+    <?php echo CHtml::hiddenField('modelName', $modelName); ?>
+    <?php echo CHtml::hiddenField('modelPk', $modelPk); ?>
+    <?php echo CHtml::hiddenField('modelIsTree', $modelIsTree); ?>
 </a>

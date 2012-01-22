@@ -10,7 +10,6 @@
  * @property string $category_rgt
  * @property integer $category_level
  * @property string $category_name
- * @property string $category_title
  * @property string $category_text
  * @property string $category_keywords
  * @property string $category_description
@@ -23,9 +22,50 @@
  */
 class Category extends CActiveRecord {
 
+    public function getDescendatsIds()
+    {
+        $descendantsIds = array();
+        $descendants = $this->descendants()->findAll();
+        foreach ($descendants as $node) $descendantsIds[] = $node->primaryKey;
+        return $descendantsIds;
+    }
+
+    public function getChildrenIds()
+    {
+        $childrenIds = array();
+        $children = $this->children()->findAll();
+        foreach ($children as $node) $childrenIds[] = $node->primaryKey;
+        return $childrenIds;
+    }
+
+    public function getAncestorsIds()
+    {
+        $ancestorsIds = array();
+        $ancestors = $this->ancestors()->findAll();
+        foreach ($ancestors as $node) $ancestorsIds[] = $node->primaryKey;
+        return $ancestorsIds;
+    }
+
+    public function getParentIds()
+    {
+        $parent = $this->parent;
+        return ($parent === null) ? null : $parent->primaryKey;
+    }
+
+    public function getBrandsCount()
+    {
+        return Yii::app()->db->createCommand()
+            ->select('count(DISTINCT `product_brand_id`)')
+            ->from('shop_product')
+            ->where('product_category_id = :category_id', array(':category_id' => $this->primaryKey))
+            ->queryScalar();
+    }
+
+    public $accusativeName = 'категорию';
+
 	public $parentId;
 	public $defAttributes = array(
-		'category_name', 'category_title', 'category_text', 'category_keywords', 'category_description',
+		'category_name', 'category_text', 'category_keywords', 'category_description',
 	);
 
 	public function behaviors() {
@@ -63,13 +103,15 @@ class Category extends CActiveRecord {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('category_name, category_title', 'required'),
-			array('category_name, category_title', 'length', 'max' => 150),
+            array('active', 'default', 'value' => 1),
+            array('active', 'boolean'),
+			array('category_name', 'required'),
+			array('category_name', 'length', 'max' => 150),
 			array('category_keywords, category_description', 'length', 'max' => 250),
 			array('category_text', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('category_id, category_name, category_title, category_text, category_keywords, category_description', 'safe', 'on' => 'search'),
+			array('category_id, category_name, category_text, category_keywords, category_description', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -80,6 +122,7 @@ class Category extends CActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'productsCount' => array(self::STAT, 'Product', 'product_category_id'),
 		);
 	}
 
@@ -94,7 +137,6 @@ class Category extends CActiveRecord {
 			'category_rgt' => 'Category Rgt',
 			'category_level' => 'Category Level',
 			'category_name' => 'Имя',
-			'category_title' => 'Заголовок',
 			'category_text' => 'Описание',
 			'category_keywords' => 'Keywords',
 			'category_description' => 'Descriptions',
@@ -116,8 +158,7 @@ class Category extends CActiveRecord {
 		$criteria->compare('category_lft', $this->category_lft, true);
 		$criteria->compare('category_rgt', $this->category_rgt, true);
 		$criteria->compare('category_level', $this->category_level);
-		$criteria->compare('category_name', $this->category_name, true);
-		$criteria->compare('category_title', $this->category_title, true);
+		$criteria->compare('category_name', $this->category_name, true);;
 		$criteria->compare('category_text', $this->category_text, true);
 		$criteria->compare('category_keywords', $this->category_keywords, true);
 		$criteria->compare('category_description', $this->category_description, true);

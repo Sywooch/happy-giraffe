@@ -43,8 +43,8 @@
     $cs->registerScript('onOffWidget', $js);
 ?>
 
-<a href="#" class="<?php echo ($model->active ? 'activate' : 'deactivate'); ?>" title="<?php echo ($model->active ? 'Деактивировать' : 'Активировать'); ?>">
+<a href="#" class="<?php echo ($modelActive ? 'activate' : 'deactivate'); ?>" title="<?php echo ($modelActive ? 'Деактивировать' : 'Активировать'); ?>">
     Состояние элемента
-    <?php echo CHtml::hiddenField('modelName', get_class($model)); ?>
-    <?php echo CHtml::hiddenField('modelPk', $model->primaryKey); ?>
+    <?php echo CHtml::hiddenField('modelName', $modelName); ?>
+    <?php echo CHtml::hiddenField('modelPk', $modelPk); ?>
 </a>

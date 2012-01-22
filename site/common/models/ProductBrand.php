@@ -76,7 +76,7 @@ class ProductBrand extends CActiveRecord {
 		// will receive user inputs.
 		return array(
             array('active', 'default', 'value' => 1),
-            array('active', 'boolean', 'defaultValue'),
+            array('active', 'boolean'),
 			array('brand_title, brand_image', 'required'),
 			array('brand_title', 'length', 'max' => 250),
 			array('brand_text', 'safe'),

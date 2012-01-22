@@ -143,4 +143,11 @@ class AttributeSet extends CActiveRecord
 
         return $command->queryAll();
     }
+
+    public function behaviors()
+    {
+        return array(
+            'ManyToManyBehavior'
+        );
+    }
 }

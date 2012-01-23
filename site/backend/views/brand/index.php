@@ -45,6 +45,13 @@ $js = "
         });
     });
 </script>
+<script id="product_image" type="text/x-jquery-tmpl">
+    <a href="#">
+        <span>
+            <?php echo CHtml::image('${url}', '${title}'); ?>
+        </span>
+    </a>
+</script>
 <script id="new_brand_form" type="text/x-jquery-tmpl">
     <tr>
         <td class='name_ct'>

@@ -4,40 +4,11 @@
     $cs = Yii::app()->clientScript;
 
     $js= "
-            $('body').delegate('span.add_main_ct', 'click', function() {
-                $('table.common_sett').append($('#new_good_form').tmpl());
-            });
-
-            $('body').delegate('input[type=button].b_new_catg', 'click', function() {
-                $(this).parents('form').submit();
-            });
-
-            $('select').selectBox();
+        $('select').selectBox();
     ";
 
     $cs->registerScript('product_index', $js);
 ?>
-
-<script id="new_good_form" type="text/x-jquery-tmpl">
-    <tr>
-        <td class='name_ct'>
-            <?php
-                $form = $this->beginWidget('CActiveForm', array(
-                    'action' => 'brand/add',
-                ));
-            ?>
-                <?php echo $form->textField($model, 'product_title', array('class' => 't_new_catg')); ?>
-                <?php echo CHtml::button('Ok', array('class' => 'b_new_catg')); ?>
-            <?php $this->endWidget(); ?>
-        </td>
-        <td class='logo_ct'>
-            <a href='#' class='add_logo' title='Загрузить логотип'>+</a>
-        </td>
-        <td class='logo_ct' colspan='3'>
-
-        </td>
-    </tr>
-</script>
 
 <div class="centered">
     <h1>Товары</h1>
@@ -68,10 +39,10 @@
             <th class="name_ct">
                 <span>Название товара</span>
             <?php if (!empty($category_id)):?>
-                    <span class="add_main_ct" title="Добавить товар">+</span>
+                    <a href="<?php echo $this->createUrl('product/create', array('category_id'=>$category_id)) ?>"
+                       class="add_main_ct" title="Добавить товар" target="_blank">+</a>
             <?php endif ?>
             </th>
-            <th class="logo_ct">Фото</th>
             <th class="active_ct">Действие</th>
             <th class="sell_ct">
                 <span>Продажи <ins>(руб.)</ins></span>

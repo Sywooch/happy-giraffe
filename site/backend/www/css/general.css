@@ -96,7 +96,7 @@ table.common_sett {width: 100%;}
 div.sett_lvl2 {display: block;padding: 0 0 0 30px;}
 div.sett_lvl3 {display: block;padding: 0 0 0 60px;}
 table.common_sett th {vertical-align: middle;background: #c1ecf5;height: 47px;font-size: 12px;color: #40b1ca;}
-table.common_sett th.name_ct {border-right: 1px solid #fff;padding: 0 40px 0 50px;}
+table.common_sett th.name_ct {border-right: 1px solid #fff;padding: 0 40px 0 50px;min-width: 150px;}
 span.add_main_ct {float: right;display: block;width: 15px;height: 15px;background: url(../images/icons/add_icon.png) 0 0 no-repeat;text-indent: -9999px;cursor: pointer;}
 table.common_sett th.logo_ct {border-right: 1px solid #fff;width: 116px;text-align: center;}
 table.common_sett th.active_ct {width: 200px;text-align: center;border-right: 1px solid #fff;}

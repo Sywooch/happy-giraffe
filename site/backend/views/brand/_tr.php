@@ -19,7 +19,6 @@
 
         $('body').delegate('#ProductBrand_brand_image', 'change', function() {
             $(this).parents('form').submit();
-            tr = $(this).parents('tr');
         });
     ";
 

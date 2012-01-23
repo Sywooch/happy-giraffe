@@ -52,7 +52,7 @@
 <body>
 <div id="wrapper">
 <div class="header">
-    <a href="#" class="logo" title="Обновить страницу">Администратор</a>
+    <a href="/" class="logo" title="Обновить страницу">Администратор</a>
     <!-- .logo -->
     <ul class="logged">
         <li>Анастасия Петрова</li>
@@ -72,7 +72,7 @@
 <!-- .header -->
 <div class="navigation">
     <ul>
-        <li><a href="#"><span>Главная</span></a></li>
+        <li><a href="/"><span>Главная</span></a></li>
         <li class="submenu active">
             <a href="<?php echo $this->createUrl('category/index', array()) ?>"><span>Категории</span></a>
             <ul>

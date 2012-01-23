@@ -2,8 +2,8 @@
 
 class SiteController extends BController
 {
-	public function actionLol()
+	public function actionIndex()
 	{
-		echo '3123';
+        $this->render('index');
 	}
 }

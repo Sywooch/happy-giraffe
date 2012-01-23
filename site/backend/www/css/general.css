@@ -85,6 +85,24 @@ h1 {
     margin: 0 auto;
 }
 
+.fake_file {
+    position: relative;
+    overflow: hidden;
+}
+
+.fake_file form {
+    position: relative;
+    overflow: hidden;
+}
+
+.fake_file input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 999px;
+    opacity: 0;
+}
+
 /*===== Wrapper =====*/
 #wrapper {
     display: block;

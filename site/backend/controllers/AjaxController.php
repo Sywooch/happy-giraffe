@@ -17,7 +17,6 @@ class AjaxController extends BController
         }
         else
         {
-            $model->disableBehavior('tree');
             echo $model->delete();
         }
     }

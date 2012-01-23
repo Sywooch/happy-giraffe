@@ -1,3 +1,42 @@
+<?php
+    $model = new ProductBrand;
+
+    $cs = Yii::app()->clientScript;
+
+    $js= "
+            $('body').delegate('span.add_main_ct', 'click', function() {
+                $('table.common_sett').append($('#new_brand_form').tmpl());
+            });
+
+            $('body').delegate('input[type=button].b_new_catg', 'click', function() {
+                $(this).parents('form').submit();
+            });
+    ";
+
+    $cs->registerScript('brand_index', $js);
+?>
+
+<script id="new_brand_form" type="text/x-jquery-tmpl">
+    <tr>
+        <td class='name_ct'>
+            <?php
+                $form = $this->beginWidget('CActiveForm', array(
+                    'action' => 'brand/add',
+                ));
+            ?>
+                <?php echo $form->textField($model, 'brand_title', array('class' => 't_new_catg')); ?>
+                <?php echo CHtml::button('Ok', array('class' => 'b_new_catg')); ?>
+            <?php $this->endWidget(); ?>
+        </td>
+        <td class='logo_ct'>
+            <a href='#' class='add_logo' title='Загрузить логотип'>+</a>
+        </td>
+        <td class='logo_ct' colspan='3'>
+
+        </td>
+    </tr>
+</script>
+
 <div class="centered">
     <h1>Категории товаров</h1>
 

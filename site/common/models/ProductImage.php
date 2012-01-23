@@ -12,11 +12,13 @@
  */
 class ProductImage extends CActiveRecord
 {
+    public $accusativeName = 'изображение';
+
 	public function behaviors()
 	{
 		return array(
 			'behavior_ufiles' => array(
-				'class' => 'ext.ufile.UFileBehavior',
+				'class' => 'site.frontend.extensions.ufile.UFileBehavior',
 				'fileAttributes'=>array(
 					'image_file'=>array(
 						'fileName'=>'upload/product/*/{image_product_id}-<date>-{image_id}.<ext>',
@@ -89,7 +91,7 @@ class ProductImage extends CActiveRecord
 			array('image_file', 'length', 'max'=>250),
 			array('image_text','safe'),
 			
-			array('image_file', 'ext.ufile.UFileValidator',
+			array('image_file', 'site.frontend.extensions.ufile.UFileValidator',
 				'allowedTypes'=>'jpg, gif, png, jpeg',
 				'allowEmpty'=>false,
 			),

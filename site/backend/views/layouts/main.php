@@ -26,6 +26,8 @@
             ->registerScriptFile('/js/common.js')
 
             ->registerScriptFile('https://raw.github.com/jquery/jquery-tmpl/master/jquery.tmpl.min.js')
+
+            ->registerScriptFile('/js/jquery.iframe-post-form.js')
         ;
     ?>
 

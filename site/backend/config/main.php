@@ -5,10 +5,13 @@ return array(
 	'name' => 'Админка',
 
 	'import'=>array(
+	'site.frontend.helpers.FileHandler',
+	'site.frontend.helpers.CArray',
         'site.frontend.extensions.shoppingCart.*',
         'site.frontend.components.*',
         'site.frontend.extensions.LinkPager',
         'site.frontend.extensions.ufile.UFiles',
+	'site.frontend.extensions.image.Image',
 		'site.common.models.*',
 		'application.models.*',
 		'application.components.*',
@@ -38,4 +41,8 @@ return array(
             'tablePrefix'=> '',
         ),
 	),
+
+    'params' => array(
+        'ufileStorageRoot' => 'temp_upload',
+    )
 );

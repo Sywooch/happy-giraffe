@@ -30,7 +30,7 @@ class ProductBrand extends CActiveRecord {
 				'class' => 'site.frontend.extensions.ufile.UFileBehavior',
 				'fileAttributes' => array(
 					'brand_image' => array(
-						'fileName' => 'upload/brand/<date>-{brand_id}-<name>.<ext>',
+						'fileName' => 'upload/brand/*/<date>-{brand_id}-<name>.<ext>',
 						'fileItems' => array(
                             'display' => array(
                                 'fileHandler' => array('FileHandler', 'run'),
@@ -83,7 +83,7 @@ class ProductBrand extends CActiveRecord {
 			array('brand_image', 'site.frontend.extensions.ufile.UFileValidator',
 				'allowedTypes' => 'jpg, gif, png',
 //				'minWidth'=>621, 'minHeight'=>424,
-				'allowEmpty' => false
+				'allowEmpty' => true
 			),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -183,7 +183,7 @@ class ProductBrand extends CActiveRecord {
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 5,
+                'pageSize' => 20,
             ),
         ));
     }

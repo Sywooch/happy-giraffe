@@ -18,4 +18,47 @@ class BrandController extends BController
             'count' => $count,
         ));
     }
+
+    public function loadModel($id)
+    {
+        $model = ProductBrand::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    public function actionAdd()
+    {
+        if (isset($_POST['ProductBrand']))
+        {
+            $brand = new ProductBrand;
+            $brand->attributes = $_POST['ProductBrand'];
+            $brand->save();
+            $this->redirect('index');
+        }
+    }
+
+    public function actionUploadImage()
+    {
+        if (isset($_POST['ProductBrand']))
+        {
+            $brand = $this->loadModel($_POST['ProductBrand']['brand_id']);
+            $brand->attributes = $_POST['ProductBrand'];
+            if ($brand->save(true, array('brand_image')))
+            {
+                $response = array(
+                    'status' => true,
+                    'url' => $brand->brand_image->getUrl('display'),
+                    'title' => $brand->brand_title,
+                );
+            }
+            else
+            {
+                $response = array(
+                    'status' => false,
+                );
+            }
+            echo CJSON::encode($response);
+        }
+    }
 }

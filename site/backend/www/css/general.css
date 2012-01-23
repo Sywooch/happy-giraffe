@@ -96,8 +96,8 @@ table.common_sett {width: 100%;}
 div.sett_lvl2 {display: block;padding: 0 0 0 30px;}
 div.sett_lvl3 {display: block;padding: 0 0 0 60px;}
 table.common_sett th {vertical-align: middle;background: #c1ecf5;height: 47px;font-size: 12px;color: #40b1ca;}
-table.common_sett th.name_ct {border-right: 1px solid #fff;padding: 0 40px 0 50px;}
-span.add_main_ct {float: right;display: block;width: 15px;height: 15px;background: url(../images/icons/add_icon.png) 0 0 no-repeat;text-indent: -9999px;cursor: pointer;}
+table.common_sett th.name_ct {border-right: 1px solid #fff;padding: 0 40px 0 50px;min-width: 150px;}
+span.add_main_ct, a.add_main_ct {float: right;display: block;width: 15px;height: 15px;background: url(../images/icons/add_icon.png) 0 0 no-repeat;text-indent: -9999px;cursor: pointer;}
 table.common_sett th.logo_ct {border-right: 1px solid #fff;width: 116px;text-align: center;}
 table.common_sett th.active_ct {width: 200px;text-align: center;border-right: 1px solid #fff;}
 table.common_sett th.goods_ct {width: 177px;text-align: center;border-right: 1px solid #fff;}
@@ -300,9 +300,8 @@ table.characteristic tr td.name {font-size: 14px;color: #474747;width: 257px;pad
 #addQuantity div.form_block div {background: #c1e6ee;padding: 7px 0 7px 0;}
 #addQuantity .greenGradient {float: right;padding: 0 10px;height: 32px;}
 #addQuantity .greenGradient.ok {height: 21px;margin: 24px 3px 0 0;font-size: 12px;}
-.editProduct .name input.h1 {font-size: 32px;color: #d6d6d6;border: 1px solid #c9eaf1;width: 488px;height: 46px;padding: 0 0 0 20px;}
-input[type="text"], textarea {color: #d6d6d6;}
-input[type="text"]:focus, textarea:focus {color: #474747;}
+.editProduct .name input.h1 {font-size: 32px;border: 1px solid #c9eaf1;width: 488px;height: 46px;padding: 0 0 0 20px;}
+input[type="text"], textarea {color: #090909;}
 .editProduct .name input {display: block;float: left;}
 .editProduct .name input.greenGradient {margin: 10px 0 0 20px;}
 .editProduct .name {margin: 0 0 20px 0;}

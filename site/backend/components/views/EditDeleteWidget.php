@@ -1,5 +1,6 @@
 <?php
-/* @var $model CActiveRecord
+/* @var string $modelName
+ * @var string $modelPk
  * @var $attribute string
  * @var bool $editButton
  * @var bool $deleteButton
@@ -85,18 +86,18 @@ if ($deleteButton) {
 }
 if (!$init) {
     ?>
-<input type="hidden" class="edw-class" value="<?php echo get_class($model) ?>">
+<input type="hidden" class="edw-class" value="<?php echo $modelName ?>">
 <input type="hidden" class="edw-attribute" value="<?php echo $attribute ?>">
 <input type="hidden" class="edw-id"
-       value="<?php echo $model->getAttribute($model->getTableSchema()->primaryKey) ?>">
-<input type="hidden" class="edw-attribute-title" value="<?php echo $model->getAttribute($attribute) ?>">
+       value="<?php echo $modelPk ?>">
+<input type="hidden" class="edw-attribute-title" value="<?php echo $attributeValue ?>">
 <?php if ($editButton): ?>
     <a class="edit edit-widget <?php if (isset($options['edit_link_class'])) echo $options['edit_link_class'] ?>" href="#"
-       title="редактировать <?php echo $model->getAttribute($attribute) ?>"><?php
+       title="редактировать <?php echo $attributeValue ?>"><?php
         if (isset($options['edit_link_text'])) echo $options['edit_link_text'] ?></a>
     <?php endif ?>
 <?php if ($deleteButton): ?>
     <a class="delete delete-widget <?php if (isset($options['delete_link_class'])) echo $options['delete_link_class'] ?>" href="#" title="удалить <?php
-        echo $model->getAttribute($attribute) ?>"></a>
+        echo $attributeValue ?>"></a>
     <?php endif ?>
 <?php }

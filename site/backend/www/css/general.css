@@ -115,27 +115,27 @@ table td.name_ct input.b_new_catg {width: 34px;height: 19px;background: url(../i
 table form.input-text-edit-form p {display: inline-block;}
 table form.input-text-edit-form input[type="text"] {margin: 0;width: 96px;height: 19px;border: 1px solid #6dc0d1;padding: 0 5px;font-size: 12px;font-weight: bold;color: #a0a0a0;display: inline-block;}
 table form.input-text-edit-form input[type="submit"] {width: 34px;height: 19px;background: url(../images/bg_sm_button.png) 0 0 no-repeat;border: 0;font-size: 11px;font-weight: bold;color: #fff;margin: 0 0 0 4px;display: inline-block;}
-table td.name_ct a.move_lvl {float: left;margin: 0;display: block;width: 18px;height: 54px;text-indent: -9999px;background: url(../images/icons/move_pl.png) 0 0 no-repeat;}
+table td.name_ct a.move_lvl, .grid .grid_body div.data div.name_ct a.move_lvl {float: left;margin: 0;display: block;width: 18px;height: 54px;text-indent: -9999px;background: url(../images/icons/move_pl.png) 0 0 no-repeat;}
 table.common_sett td.name_ct {vertical-align: middle;}
 table.common_sett td.name_ct a.no_child {margin: 0 0 0 25px;}
 table.common_sett tr.sett_lvl2 td.name_ct a.move_lvl {float: left;margin: 0;display: block;width: 18px;height: 54px;text-indent: -9999px;background: url(../images/icons/move_pl.png) 0 0 no-repeat;opacity: 0.5;}
 table.common_sett tr.sett_lvl3 td.name_ct a.move_lvl {float: left;margin: 0 15px 0 0;display: block;width: 18px;height: 54px;text-indent: -9999px;background: url(../images/icons/move_pl.png) 0 0 no-repeat;opacity: 0.2;}
 table td.name_ct form {float: left;margin: 17px 0 0 0;}
 table.common_sett.brands td.name_ct form {margin: 0 0 0 25px;}
-table td.name_ct a.nm_catg {display: block;float: left;width: 19px;height: 19px;text-indent: -9999px;text-decoration: none;margin: 17px 5px 0 15px;}
-table td.name_ct a.edit {display: inline-block;font-size: 12px;font-weight: bold;color: #2f2f2f;text-decoration: none;margin: 20px 0 0 0;}
+table td.name_ct a.nm_catg, .grid .grid_body div.data div.name_ct a.nm_catg {display: block;float: left;width: 19px;height: 19px;text-indent: -9999px;text-decoration: none;margin: 17px 5px 0 15px;}
+table td.name_ct a.edit, .grid .grid_body div.data div.name_ct a.edit {display: inline-block;font-size: 12px;font-weight: bold;color: #2f2f2f;text-decoration: none;margin: 20px 0 0 0;}
 table.common_sett tr.sett_lvl2 td.name_ct {padding: 0 0 0 30px;}
 table.common_sett tr.sett_lvl3 td.name_ct {padding: 0 0 0 60px;}
 table.common_sett tr.sett_lvl2 td.name_ct a.edit {display: inline-block;font-size: 12px;color: #686767;text-decoration: none;}
 table.common_sett tr.sett_lvl3 td.name_ct a.edit {display: inline-block;font-size: 12px;color: #a1a1a1;text-decoration: none;}
-table td.name_ct a.turn_icon {background: url(../images/icons/expand_icon.png) 0 0 no-repeat;}
+table td.name_ct a.turn_icon, .grid .grid_body div.data div.name_ct a.turn_icon {background: url(../images/icons/expand_icon.png) 0 0 no-repeat;}
 table td.name_ct a.expand_icon {background: url(../images/icons/turn_icon.png) 0 0 no-repeat;}
 table.common_sett td.logo_ct {text-align: center;vertical-align: middle;padding: 14px 0;}
 table.common_sett td.logo_ct a.add_logo {display: block;background: url("../images/add_logo.png") no-repeat left top;width: 98px;height: 66px;text-indent: -9999px;margin: 0 auto;}
 table.common_sett td.active_ct {text-align: center;border-right: 1px solid #fff;}
 table.common_sett td.active_ct span {cursor: pointer;}
-table.common_sett td.active_ct ul {display: block;padding: 5px 0 0 0;}
-table.common_sett td.active_ct ul li {display: inline;padding: 0 4px;}
+table.common_sett td.active_ct ul, .grid .grid_body div.data div.active_ct ol {display: block;padding: 5px 0 0 0;}
+table.common_sett td.active_ct ul li, .grid .grid_body div.data div.active_ct ol li {display: inline;padding: 0 4px;}
 table.common_sett td.goods_ct {text-align: left;padding: 0 0 0 50px;border-right: 1px solid #fff;}
 table.common_sett td.sell_ct {text-align: left;padding: 0 0 0 50px;border-right: 1px solid #fff;}
 table.common_sett td.sell_ct ins {width: 45px;display: inline-block;text-decoration: none;}
@@ -395,3 +395,30 @@ h1:hover.edit.name {background-position: right 22px;}
 .right_block .edit_value textarea {width: 270px;height: 93px;border: 1px solid #c9eaf1;margin: 0 0 10px 0;}
 .right_block .edit_value input.greyGradient {display: inline-block;margin: 0 12px 0 50px;}
 .right_block .edit_value input.greenGradient {display: inline-block;}
+
+
+.grid {}
+    .grid .grid_head > div {background:#C1ECF5;color: #40B1CA;font-size: 12px;height: 47px;vertical-align: middle;display:table-cell;border-right: 1px solid #FFFFFF;text-align:center;}
+    .grid .grid_head > div.name_ct {padding: 0 40px 0 50px;width:227px;text-align:left;}
+    .grid .grid_head > div.active_ct {width:200px;}
+    .grid .grid_head > div.goods_ct {width:177px;}
+    .grid .grid_head > div.sell_ct {width:212px;}
+    .grid .grid_head > div.sell_ct ul li {display:inline;}
+    .grid .grid_head > div.sell_ct ul li a {display: inline-block;font-size: 12px;padding: 0 3px;}
+    .grid .grid_head > div.sell_ct ul li a.active {background:#FFF8B4;display: inline-block;font-size: 12px;padding: 0 3px;text-decoration: none;}
+    .grid .grid_head > div.ad_ct {width:50px;}
+    .grid .grid_head > div:last-child {border-right:none;}
+    .grid .grid_body div.data {overflow: hidden;}
+        .grid .grid_body div.data > div {border-bottom: 1px solid #E6FAFE;color: #40B1CA;font-size: 11px;height: 62px;padding: 0;position: relative;display:table-cell;vertical-align: middle;}
+        .grid .grid_body div.data > div.name_ct {width:318px;}
+        .grid .grid_body div.data > div.active_ct {width:201px;text-align: center;}
+        .grid .grid_body div.data > div.goods_ct {width:128px;padding-left:50px;}
+        .grid .grid_body div.data > div.sell_ct {width:163px;padding-left:50px;}
+        .grid .grid_body div.data > div.ad_ct {width:44px;}
+        .grid .grid_body > ul > li > ul {margin-left:30px;}
+        .grid .grid_body > ul > li > ul > li > div.data div.name_ct {width:288px;}
+        .grid .grid_body > ul > li > ul > li > ul {margin-left:30px;}
+        .grid .grid_body > ul > li > ul > li > ul > li > div.data div.name_ct {width:258px;}
+        .grid .grid_body > ul > li > ul > li > ul > li > ul {margin-left:30px;}
+        .grid .grid_body > ul > li > ul > li > ul > li > ul > li > div.data div.name_ct {width:228px;}
+    .grid .placeholder {height:61px;background-color:#C1ECF5;}

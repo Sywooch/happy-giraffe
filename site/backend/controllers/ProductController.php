@@ -216,4 +216,9 @@ class ProductController extends BController
             echo CJSON::encode($response);
         }
     }
+
+    public function actionTrans()
+    {
+        echo Yii::app()->db->createCommand('Update shop_product_attribute SET attribute_type = '.Attribute::TYPE_INTG.' WHERE attribute_type=3 OR attribute_type=4')->execute();
+    }
 }

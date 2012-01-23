@@ -19,6 +19,8 @@
  *
  * The followings are the available model relations:
  * @property NameGroup $nameGroup
+ * @property NameMiddle[] $nameMiddles
+ * @property NameOption[] $nameOptions
  * @property NameFamous[] $nameFamouses
  * @property NameSaintDate[] $nameSaintDates
  * @property NameStats $nameStats
@@ -81,6 +83,9 @@ class Name extends CActiveRecord
             'nameSaintDates' => array(self::HAS_MANY, 'NameSaintDate', 'name_id'),
             'nameStats' => array(self::HAS_MANY, 'NameStats', 'name_id'),
             'users' => array(self::MANY_MANY, 'User', 'name_likes(name_id, user_id)'),
+            'nameMiddles' => array(self::HAS_MANY, 'NameMiddle', 'name_id'),
+            'nameOptions' => array(self::HAS_MANY, 'NameOption', 'name_id'),
+            'nameSweets' => array(self::HAS_MANY, 'NameSweet', 'name_id'),
         );
     }
 

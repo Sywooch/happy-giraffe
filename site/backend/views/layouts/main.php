@@ -74,9 +74,9 @@
     <ul>
         <li><a href="#"><span>Главная</span></a></li>
         <li class="submenu active">
-            <a href="#"><span>Категории</span></a>
+            <a href="<?php echo $this->createUrl('category/index', array()) ?>"><span>Категории</span></a>
             <ul>
-                <li><a href="#"><span>Категории</span></a></li>
+                <li><a href="<?php echo $this->createUrl('category/index', array()) ?>"><span>Категории</span></a></li>
                 <li><a href="#"><span>Пакеты свойств</span></a></li>
             </ul>
         </li>
@@ -84,7 +84,7 @@
             <a href="#"><span>Товары</span></a>
             <ul>
                 <li><a href="#"><span>Товары</span></a></li>
-                <li><a href="#"><span>Бренды</span></a></li>
+                <li><a href="<?php echo $this->createUrl('brand/index', array()) ?>"><span>Бренды</span></a></li>
             </ul>
         </li>
         <li><a href="#"><span>Скидки</span></a></li>

@@ -38,21 +38,12 @@
 </script>
 
 <div class="centered">
-    <h1>Категории товаров</h1>
-
-    <div class="total_block">
-        <p>Категорий (подкатегорий)- <ins><?php echo $count['total']; ?></ins></p>
-
-        <p>
-            <span class="deactive_items">- <ins><?php echo $count['off']; ?></ins></span>
-            <span class="active_items">- <ins><?php echo $count['on']; ?></ins></span>
-        </p>
-    </div>
+    <h1>Брэнды</h1>
 
     <div class="search_ct">
         <?php echo CHtml::beginForm('index', 'get'); ?>
             <p>
-                <label for="findText">Поиск категории</label>
+                <label for="findText">Поиск брэнда</label>
                 <input id="findText" type="text" class="search_catg" name='query'/>
                 <input type="button" class="search_subm" value="Найти" onclick="submit();"/>
             </p>

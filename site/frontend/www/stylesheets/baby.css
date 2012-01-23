@@ -520,7 +520,7 @@
 #baby .baby_handbook_service {display:block;height:296px;background: url(../images/service_childhood_illness.jpg) 0 0 no-repeat;position:relative;margin:0 0 40px 0;}
 #baby .baby_handbook_service ul.handbook_changes_u {position:absolute;bottom:0px;left:200px;}
 #baby .baby_handbook_service ul.handbook_changes_u li {float:left;margin:0 3px 0 0;}
-#baby .baby_handbook_service ul.handbook_changes_u li a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background:#64bc51;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
+#baby .baby_handbook_service ul.handbook_changes_u li a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background:#64bc51;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;opacity: 0.9;}
 #baby .baby_handbook_service ul.handbook_changes_u li a span {display:inline-block;padding:0 20px 0 0;background: url(../images/down_wh_arr.png) 100% 27px no-repeat;}
 #baby .baby_handbook_service ul.handbook_changes_u li.current_t a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#724c99;text-decoration:none;background:#fff;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
 #baby .baby_handbook_service ul.handbook_changes_u li.current_t a span {display:inline-block;display:inline-block;padding:0 20px 0 0;background: url(../images/rarr_fio.png) 100% 27px no-repeat;}

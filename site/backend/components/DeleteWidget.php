@@ -7,6 +7,8 @@ class DeleteWidget extends CWidget
     public $modelName;
     public $modelAccusativeName;
     public $modelIsTree = false;
+    public $selector = 'tr';
+    public $onSuccess = '';
 
     public function run()
     {
@@ -23,6 +25,8 @@ class DeleteWidget extends CWidget
             'modelPk' => $this->modelPk,
             'modelAccusativeName' => $this->modelAccusativeName,
             'modelIsTree' => $this->modelIsTree,
+            'selector' => $this->selector,
+            'onSuccess' => $this->onSuccess,
         ));
     }
 }

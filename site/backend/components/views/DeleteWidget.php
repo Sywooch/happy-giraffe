@@ -15,7 +15,7 @@
                 success: function(response) {
                     if (response == '1')
                     {
-                        $(this).parents('tr').remove();
+                        $(this).parents('" . $selector . "').remove();
 
                         if ($(this).find('input[name=modelIsTree]').val() == '1')
                         {
@@ -23,6 +23,8 @@
                             var currentPk = currentRow.attr('id').replace('node_', '');
                             deleteNode(currentPk);
                         }
+
+                        " . $onSuccess . "
                     }
                 },
                 context: owner

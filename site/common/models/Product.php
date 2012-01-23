@@ -196,6 +196,7 @@ class Product extends CActiveRecord implements IECartPosition
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'images' => array(self::HAS_MANY, 'ProductImage', 'image_product_id'),
             'comments' => array(self::HAS_MANY, 'ProductComment', 'product_id'),
             'videos' => array(self::HAS_MANY, 'ProductVideo', 'product_id'),
             'brand' => array(self::BELONGS_TO, 'ProductBrand', 'product_brand_id'),

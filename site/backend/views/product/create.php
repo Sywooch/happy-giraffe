@@ -8,10 +8,12 @@ Yii::app()->clientScript
     ->registerCoreScript('jquery')
     ->registerCoreScript('jquery.ui')
     ->registerCssFile('/css/jquery.ui/slider.css');
+    $image = $model->product_image->getUrl('product');
 ?>
 <script type="text/javascript">
     var model_id = <?php echo ($model->isNewRecord) ? 'null' : $model->product_id ?>;
     var category_id = <?php echo $category->category_id ?>;
+    var has_image = <?php echo (int) is_string($image); ?>;
 
     $(function () {
 //        $("#filter-price-1").slider({
@@ -43,6 +45,7 @@ Yii::app()->clientScript
                             if (data.success) {
                                 $('div.editProduct > div').show();
                                 model_id = data.id;
+                                $('input[name="Product[product_id]"]').val(model_id);
 
                                 $(this).parent().hide();
                                 $(this).parent().prev().text(title);
@@ -187,13 +190,39 @@ Yii::app()->clientScript
             return false;
         });
 
+        $('#big_foto_upload').iframePostForm({
+            json: true,
+            complete: function(response) {
+                if (response.status == '1')
+                {
+                    $('.big_foto a').replaceWith($('#product_image').tmpl({url: response.url, title: response.title}));
+                    if (! has_image) $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
+                    has_image = 1;
+                }
+            }
+        });
+
+        $('#small_foto_upload').iframePostForm({
+            json: true,
+            complete: function(response) {
+                if (response.status == '1')
+                {
+                    $('#mycarousel li:eq(0)').after($('#product_small_image').tmpl({url: response.url, modelPk: response.modelPk}));
+                    $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
+                }
+            }
+        });
+
+        $('body').delegate('#Product_product_image, #ProductImage_image_file', 'change', function() {
+            $(this).parents('form').submit();
+        });
     });
 
     function SetGender(value, sender) {
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
             data:{
-                modelPk:model_id,
+                modelPk: model_id,
                 attribute:'product_sex',
                 modelName:'Product',
                 value:value
@@ -207,6 +236,34 @@ Yii::app()->clientScript
         });
     }
 </script>
+
+<script id="product_image" type="text/x-jquery-tmpl">
+    <a href="#">
+        <span>
+            <?php echo CHtml::image('${url}', '${title}'); ?>
+        </span>
+    </a>
+</script>
+
+<script id="product_small_image" type="text/x-jquery-tmpl">
+    <li>
+        <?php
+            $this->widget('DeleteWidget', array(
+                'modelName' => 'ProductImage',
+                'modelPk' => '${modelPk}',
+                'selector' => 'li',
+                'onSuccess' => "$('p.total ins').text(parseInt($('p.total ins').text()) - 1);",
+            ));
+        ?>
+
+        <p>
+            <span>
+                <?php echo CHtml::image('${url}'); ?>
+            </span>
+        </p>
+    </li>
+</script>
+
 <div class="bodyr">
     <div class="right">
         <a href="#" class="all_products">Список товаров</a>
@@ -227,34 +284,64 @@ Yii::app()->clientScript
 
             <div<?php if ($model->isNewRecord) echo ' style="display: none;"' ?>>
                 <div class="one_product">
-                    <div class="big_foto">
-                        <a href="#" class="add addValue" title="Загрузить фото">
-                                    <span>
-                                        Загрузите <ins>фото</ins> товара
-                                    </span>
-                        </a>
+                    <div class="big_foto fake_file">
+                        <?php $form = $this->beginWidget('CActiveForm', array(
+                            'id' => 'big_foto_upload',
+                            'action' => $this->createUrl('uploadBigPhoto'),
+                            'htmlOptions' => array(
+                                'enctype' => 'multipart/form-data',
+                            ),
+                        )); ?>
+                        <?php echo $form->hiddenField($model, 'product_id'); ?>
+                        <?php if ($image): ?>
+                            <a href="#">
+                                <span>
+                                    <?php echo CHtml::image($image, $model->product_title); ?>
+                                </span>
+                            </a>
+                        <?php else: ?>
+                            <a href="#" class="add addValue" title="Загрузить фото">
+                                <span>
+                                    Загрузите <ins>фото</ins> товара
+                                </span>
+                            </a>
+                        <?php endif; ?>
+                        <?php echo CHtml::activeFileField($model, 'product_image'); ?>
+                        <?php $this->endWidget(); ?>
                     </div>
+                    <?php $form = $this->beginWidget('CActiveForm', array(
+                        'id' => 'small_foto_upload',
+                        'action' => $this->createUrl('uploadSmallPhoto'),
+                        'htmlOptions' => array(
+                            'enctype' => 'multipart/form-data',
+                        ),
+                    )); ?>
+                    <?php echo $form->hiddenField($model, 'product_id'); ?>
                     <ul id="mycarousel" class="small_foto">
-                        <li>
+                        <li class="fake_file">
                             <a href="#" class="add addValue" title="Добавить фото"></a>
+                            <?php echo CHtml::activeFileField(new ProductImage, 'image_file'); ?>
                         </li>
+                        <?php foreach ($model->images as $i): ?>
                         <li>
-                            <a href="#" class="add addValue" title="Добавить фото"></a>
+                            <?php
+                                $this->widget('DeleteWidget', array(
+                                    'model' => $i,
+                                    'selector' => 'li',
+                                    'onSuccess' => "$('p.total ins').text(parseInt($('p.total ins').text()) - 1);",
+                                ));
+                            ?>
+
+                            <p>
+                                <span>
+                                    <?php echo CHtml::image($i->image_file->getUrl('product_thumb')); ?>
+                                </span>
+                            </p>
                         </li>
-                        <li>
-                            <a href="#" class="add addValue" title="Добавить фото"></a>
-                        </li>
-                        <li>
-                            <a href="#" class="add addValue" title="Добавить фото"></a>
-                        </li>
-                        <li>
-                            <a href="#" class="add addValue" title="Добавить фото"></a>
-                        </li>
-                        <li>
-                            <a href="#" class="add addValue" title="Добавить фото"></a>
-                        </li>
+                        <?php endforeach; ?>
                     </ul>
-                    <p class="total">Всего фото: 3</p>
+                    <?php $this->endWidget(); ?>
+                    <p class="total">Всего фото: <ins><?php echo (int) is_string($image) + count($model->images); ?></ins></p>
                 </div>
 
                 <div class="brand_add">

@@ -167,4 +167,53 @@ class ProductController extends BController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
     }
+
+    public function actionUploadBigPhoto()
+    {
+        if (isset($_POST['Product']))
+        {
+            $product = $this->loadModel($_POST['Product']['product_id']);
+            $product->attributes = $_POST['Product'];
+            if ($product->save(true, array('product_image')))
+            {
+                $response = array(
+                    'status' => true,
+                    'url' => $product->product_image->getUrl('product'),
+                    'title' => $product->product_title,
+                );
+            }
+            else
+            {
+                $response = array(
+                    'status' => false,
+                );
+            }
+            echo CJSON::encode($response);
+        }
+    }
+
+    public function actionUploadSmallPhoto()
+    {
+        if (isset($_POST['ProductImage']))
+        {
+            $product_image = new ProductImage;
+            $product_image->attributes = $_POST['ProductImage'];
+            $product_image->image_product_id = $_POST['Product']['product_id'];
+            if ($product_image->save())
+            {
+                $response = array(
+                    'status' => true,
+                    'url' => $product_image->image_file->getUrl('product_thumb'),
+                    'modelPk' => $product_image->primaryKey,
+                );
+            }
+            else
+            {
+                $response = array(
+                    'status' => false,
+                );
+            }
+            echo CJSON::encode($response);
+        }
+    }
 }

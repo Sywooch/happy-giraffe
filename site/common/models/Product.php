@@ -37,6 +37,8 @@ class Product extends CActiveRecord implements IECartPosition
     const SCENARIO_SELECT_CATEGORY = 1;
     const SCENARIO_FILL_PRODUCT = 2;
 
+    public $accusativeName = 'Товар';
+
     public function getId()
     {
         return 'Product_' . $this->product_id;
@@ -450,7 +452,7 @@ class Product extends CActiveRecord implements IECartPosition
         ), 'product_id=:product_id', array(
             ':product_id' => $this->product_id,
         ));
-        return false;
+        return true;
     }
 
     public function rated($authorId)
@@ -549,7 +551,7 @@ class Product extends CActiveRecord implements IECartPosition
                 if ($eav_id == 1)
                     return 'Да';
                 elseif ($eav_id === false)
-                    return null;
+                    return false;
                 else
                     return 'Нет';
             } elseif ($attr->attribute_type == Attribute::TYPE_ENUM) {
@@ -580,6 +582,42 @@ class Product extends CActiveRecord implements IECartPosition
         }
 
         return null;
+    }
+
+    /**
+     * @param $category_id
+     * @param $brand_id
+     * @return CActiveDataProvider
+     */
+    public function getAll($category_id, $brand_id) {
+        $criteria = new CDbCriteria(array(
+            'order' => 'product_id',
+            'condition'=> 'product_status = 1'
+        ));
+        if (!empty($category_id))
+        {
+            $criteria->mergeWith(array(
+                'condition' => 'product_category_id =  :product_category_id',
+                'params' => array(
+                    ':product_category_id' => $category_id,
+                ),
+            ));
+        }
+        if (!empty($brand_id))
+        {
+            $criteria->mergeWith(array(
+                'condition' => 'product_brand_id =  :product_brand_id',
+                'params' => array(
+                    ':product_brand_id' => $brand_id,
+                ),
+            ));
+        }
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
     }
 
     public function GetAgeRangeText(){

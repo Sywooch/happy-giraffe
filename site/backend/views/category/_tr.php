@@ -37,7 +37,19 @@
     <td class="name_ct">
         <a href="#" class="move_lvl" title="Переместить">&nbsp;</a>
         <a href="#" class="nm_catg turn_icon" title="Развернуть">&nbsp;</a>
-        <a href="#" class="edit"><?php echo $category->category_name; ?></a>
+        <span>
+        <?php
+        $this->widget('EditDeleteWidget', array(
+            'deleteButton'=>false,
+            'model' => $category,
+            'attribute' => 'category_name',
+            'options'=> array(
+                'edit_selector'=>'a',
+                'edit_link_class'=>'edit',
+                'edit_link_text'=>$category->category_name,
+            )
+        ));?>
+            </span>
     </td>
     <td class="active_ct">
         <ul>
@@ -60,8 +72,10 @@
     </td>
     <td class="goods_ct">
         <ul>
-            <li>Товаров - <a href="#"><?php echo $category->productsCount; ?></a></li>
+            <li>Товаров - <a href="<?php echo $this->createUrl('product/index', array('category_id'=>$category->category_id)) ?>"><?php echo $category->productsCount; ?></a></li>
             <li>Брендов - <a href="#"><?php echo $category->brandsCount; ?></a></li>
+            <li><?php echo CHtml::link('Добавить товар',
+                $this->createUrl('product/create', array('category_id'=>$category->category_id))) ?></li>
         </ul>
     </td>
     <td class="sell_ct">

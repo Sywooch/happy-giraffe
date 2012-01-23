@@ -11,8 +11,7 @@ class AjaxController extends BController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        if($model->asa('tree') instanceof NestedSetBehavior)
-        {
+        if ($model->asa('tree') instanceof NestedSetBehavior) {
             echo $model->deleteNode();
         }
         else
@@ -36,6 +35,24 @@ class AjaxController extends BController
     }
 
     public function actionSetValue()
+    {
+        $modelName = Yii::app()->request->getPost('modelName');
+        $modelPk = Yii::app()->request->getPost('modelPk');
+        $attribute = Yii::app()->request->getPost('attribute');
+        $value = Yii::app()->request->getPost('value');
+
+        /**
+         * @var CActiveRecord $model
+         */
+        $model = new $modelName;
+        Yii::app()->db->createCommand()
+            ->update($model->tableName(),
+            array($attribute => $value),
+            $model->getTableSchema()->primaryKey.' = '.$modelPk);
+        echo '1';
+    }
+
+    public function actionSetValueAR()
     {
         $modelName = Yii::app()->request->getPost('modelName');
         $modelPk = Yii::app()->request->getPost('modelPk');

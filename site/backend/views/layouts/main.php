@@ -81,9 +81,9 @@
             </ul>
         </li>
         <li class="submenu">
-            <a href="#"><span>Товары</span></a>
+            <a href="<?php echo $this->createUrl('product/index', array()) ?>"><span>Товары</span></a>
             <ul>
-                <li><a href="#"><span>Товары</span></a></li>
+                <li><a href="<?php echo $this->createUrl('product/index', array()) ?>"><span>Товары</span></a></li>
                 <li><a href="<?php echo $this->createUrl('brand/index', array()) ?>"><span>Бренды</span></a></li>
             </ul>
         </li>

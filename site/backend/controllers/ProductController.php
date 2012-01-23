@@ -4,6 +4,19 @@ class ProductController extends BController
 {
     public $layout = 'main';
 
+    public function actionIndex($category_id = null, $brand_id = null){
+        $dataProvider = Product::model()->getAll($category_id, $brand_id);
+        $count = Product::model()->count();
+
+        $this->render('index', array(
+            'goods' => $dataProvider->data,
+            'pages' => $dataProvider->pagination,
+            'count' => $count,
+            'category_id'=>$category_id,
+            'brand_id'=>$brand_id,
+        ));
+    }
+
     public function actionCreate($category_id)
     {
         if (Yii::app()->request->isAjaxRequest) {
@@ -22,7 +35,7 @@ class ProductController extends BController
         $category = $this->loadCategoryModel($category_id);
         $attributeMap = $category->GetAttributesMap();
 
-        $this->render('create', array(
+        $this->render('form', array(
             'category' => $category,
             'attributeMap' => $attributeMap,
             'model' => new Product
@@ -34,7 +47,7 @@ class ProductController extends BController
         $model = $this->loadModel($product_id);
         $attributeMap = $model->category->GetAttributesMap();
 
-        $this->render('create', array(
+        $this->render('form', array(
             'category' => $model->category,
             'attributeMap' => $attributeMap,
             'model' => $model
@@ -215,10 +228,5 @@ class ProductController extends BController
             }
             echo CJSON::encode($response);
         }
-    }
-
-    public function actionTrans()
-    {
-        echo Yii::app()->db->createCommand('Update shop_product_attribute SET attribute_type = '.Attribute::TYPE_INTG.' WHERE attribute_type=3 OR attribute_type=4')->execute();
     }
 }

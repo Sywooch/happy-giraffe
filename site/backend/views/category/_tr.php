@@ -60,8 +60,10 @@
     </td>
     <td class="goods_ct">
         <ul>
-            <li>Товаров - <a href="#"><?php echo $category->productsCount; ?></a></li>
+            <li>Товаров - <a href="<?php echo $this->createUrl('product/index', array('category_id'=>$category->category_id)) ?>"><?php echo $category->productsCount; ?></a></li>
             <li>Брендов - <a href="#"><?php echo $category->brandsCount; ?></a></li>
+            <li><?php echo CHtml::link('Добавить товар',
+                $this->createUrl('product/create', array('category_id'=>$category->category_id))) ?></li>
         </ul>
     </td>
     <td class="sell_ct">

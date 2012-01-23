@@ -8,7 +8,7 @@ Yii::app()->clientScript
     ->registerCoreScript('jquery')
     ->registerCoreScript('jquery.ui')
     ->registerCssFile('/css/jquery.ui/slider.css');
-    $image = $model->product_image->getUrl('product');
+    $image = $model->isNewRecord?0:$model->product_image->getUrl('product');
 ?>
 <script type="text/javascript">
     var model_id = <?php echo ($model->isNewRecord) ? 'null' : $model->product_id ?>;
@@ -448,7 +448,7 @@ Yii::app()->clientScript
                 <?php if ($category->HasSexFilter()): ?>
                 <div class="sex">
                     <p class="name">По полу</p>
-                    <a class="all<?php if ($model->product_sex == 0) echo ' active' ?>" href="#">Всем</a>
+                    <a class="all<?php if ($model->product_sex === 0) echo ' active' ?>" href="#">Всем</a>
                     <a class="boys<?php if ($model->product_sex == 1) echo ' active' ?>" href="#">Мальчики</a>
                     <a class="girls<?php if ($model->product_sex == 2) echo ' active' ?>" href="#">Девочки</a>
 

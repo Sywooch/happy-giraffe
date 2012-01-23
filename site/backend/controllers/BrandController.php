@@ -33,8 +33,22 @@ class BrandController extends BController
         {
             $brand = new ProductBrand;
             $brand->attributes = $_POST['ProductBrand'];
-            $brand->save();
-            $this->redirect('index');
+            if ($brand->save())
+            {
+                $response = array(
+                    'status' => true,
+                    'attributes' => $brand->attributes,
+                    'modelPk' => $brand->primaryKey,
+                );
+            }
+            else
+            {
+                $response = array(
+                    'status' => $brand->getErrors(),
+                );
+            }
+
+            echo CJSON::encode($response);
         }
     }
 

@@ -11,5 +11,7 @@ site/backend/www/assets/*
 site/frontend/www/assets/*
 site/frontend/www/temp_upload/*
 site/frontend/www/upload/*/*
+site/backend/www/temp_upload/*
+site/backend/www/upload/*/*
 !site/frontend/www/upload/contest/preview
 !.gitignore

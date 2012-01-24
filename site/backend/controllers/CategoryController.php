@@ -20,7 +20,25 @@ class CategoryController extends BController
         ));
     }
 
-    public function actionAdd($type)
+    public function actionMoveNode($id, $parent = false, $prev = false)
+    {
+        $model = Category::model()->findByPk($id);
+        if($model === null)
+            Yii::app()->end();
+        if($parent !== false)
+            $parent = Category::model()->findByPk($parent);
+        if($prev !== false)
+            $prev = Category::model()->findByPk($prev);
+
+        if($prev && !$prev->isRoot())
+            $model->moveAfter($prev);
+        elseif($parent)
+            $model->moveAsFirst($parent);
+        else
+            $model->moveAsRoot();
+    }
+
+    public function actionAdd()
     {
         if (Yii::app()->request->isAjaxRequest)
         {
@@ -29,7 +47,7 @@ class CategoryController extends BController
                 $category = new Category;
                 $category->attributes = $_POST['Category'];
 
-                if ($type == 'root')
+                if ($_POST['type'] == 'root')
                 {
                     $result = $category->saveNode();
                 }
@@ -44,6 +62,7 @@ class CategoryController extends BController
                 {
                     $response = array(
                         'status' => true,
+                        'html' => $this->renderPartial('_tree_item', array('model' => $category), true),
                         'attributes' => $category->attributes,
                         'modelPk' => $category->primaryKey,
                     );
@@ -54,18 +73,15 @@ class CategoryController extends BController
                         'status' => false,
                     );
                 }
-
                 echo CJSON::encode($response);
             }
         }
     }
 
-    public function getTreeItems($model)
+    protected function getTreeItems($model)
     {
-        if(!$model || count($model) == 0)
-            return '';
         $html = '';
-        $html .= CHtml::openTag('ul');
+        $html .= CHtml::openTag('ul', array('class' => 'descendants'));
         foreach($model as $item)
         {
             $html .= $this->renderPartial('_tree_item', array(

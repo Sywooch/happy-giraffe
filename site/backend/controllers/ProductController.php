@@ -231,7 +231,7 @@ class ProductController extends BController
     {
         if (isset($_POST['value']) && isset($_POST['product_id']) && isset($_POST['attribute_id'])) {
             $text = $_POST['value'];
-            $id = $_POST['model_id'];
+            $id = $_POST['product_id'];
             $attr_id = $_POST['attribute_id'];
 
             $attr_val = new ProductEavText;
@@ -239,11 +239,11 @@ class ProductController extends BController
             $attr_val->eav_attribute_value = $text;
             $attr_val->eav_product_id = $id;
 
-            if ($attr_val->save()) {
+            if ($attr_val->save())
+            {
                 $response = array(
                     'status' => true,
-                    'modelPk' => $attr_val->primaryKey,
-                    'value' => $text
+                    'html' => $this->renderPartial('_attribute_value_view',array('attr_val'=>$attr_val), true),
                 );
             }
             else

@@ -1,235 +1,6 @@
 <?php
 $model = new Category;
-$this->renderPartial('index2', array('tree' => $tree,'count' => $count,'model'=>$model));
-
-    $cs = Yii::app()->clientScript;
-
-    $js = "
-        var treeInfo = new Array;
-
-        $('table.common_sett tr[class!=\"sett_lvl1\"]:gt(0)').hide();
-
-        $('body').delegate('a.turn_icon, a.expand_icon', 'click', function(e) {
-            e.preventDefault();
-            $(this).toggleClass('turn_icon expand_icon');
-        });
-
-        $('body').delegate('a.turn_icon', 'click', function() {
-            var currentRow = $(this).parents('tr');
-            var currentPk = currentRow.attr('id').replace('node_', '');
-            expand(currentPk);
-        });
-
-        $('body').delegate('a.expand_icon', 'click', function() {
-            var currentRow = $(this).parents('tr');
-            var currentPk = currentRow.attr('id').replace('node_', '');
-            collapse(currentPk);
-        });
-
-        $('body').delegate('span.add_main_ct', 'click', function() {
-            $('#new_root_form').tmpl().appendTo('table.common_sett');
-        });
-
-        $('body').delegate('span.add_child', 'click', function() {
-            var currentRow = $(this).parents('tr');
-            var currentLvl = parseInt(currentRow.attr('class').replace(/sett_lvl/, ''));
-            var currentPk = currentRow.attr('id').replace('node_', '');
-            expand(currentPk);
-            currentRow.after($('#new_child_form').tmpl({lvl: currentLvl + 1, prependTo: currentPk}));
-        });
-
-        $('body').delegate('input[type=button].b_new_catg', 'click', function() {
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: $(this).parents('form').attr('action'),
-                data: $(this).parents('form').serialize(),
-                success: function(response) {
-                    if (response.status == '1')
-                    {
-                        $(this).parents('tr').replaceWith($('#new_ct').tmpl({
-                            lvl: response.attributes.category_level,
-                            category_name: response.attributes.category_name,
-                            modelPk: response.modelPk,
-                            modelName: response.modelName,
-                            modelActive: response.attributes.modelActive,
-                        }));
-
-                        var parentId = $(this).parents('form').find('input[name=\"prependTo\"]').val();
-                        addNode(response.modelPk, parentId);
-
-                        totalCountInc(response.attributes.modelActive);
-                    }
-                },
-                context: $(this)
-            });
-        });
-
-        function addNode(pk, to)
-        {
-            treeInfo[pk] = new Array;
-            treeInfo[pk]['descendants'] = new Array;
-            treeInfo[pk]['children'] = new Array;
-            treeInfo[pk]['ancestors'] = new Array;
-            treeInfo[pk]['parent'] = '';
-
-            if (typeof(to) != 'undefined')
-            {
-                treeInfo[pk]['ancestors'] = treeInfo[to]['ancestors'];
-                treeInfo[pk]['ancestors'].push(to);
-                treeInfo[pk]['parent'] = to;
-                treeInfo[to]['children'].push(pk);
-                treeInfo[to]['descendants'].push(pk);
-                for (var key in treeInfo[to]['ancestors'])
-                {
-                    treeInfo[treeInfo[to]['ancestors'][key]]['descendants'].push(pk);
-                }
-            }
-        }
-
-        function deleteNode(pk)
-        {
-            for (var key in treeInfo[pk]['descendants'])
-            {
-                $('#node_' + treeInfo[pk]['descendants'][key]).remove();
-            }
-        }
-
-        function expand(pk)
-        {
-            for (var key in treeInfo[pk]['children'])
-            {
-                $('#node_' + treeInfo[pk]['children'][key]).show();
-            }
-        }
-
-        function collapse(pk)
-        {
-            for (var key in treeInfo[pk]['descendants'])
-            {
-                var node = $('#node_' + treeInfo[pk]['descendants'][key]);
-                node.find('a.expand_icon').toggleClass('turn_icon expand_icon');
-                node.hide();
-            }
-        }
-
-        function totalCountInc(active)
-        {
-            $('div.total_block > p > ins').text(parseInt($('div.total_block > p > ins').text()) + 1);
-            var selector = ((active) ? 'span.deactive' : 'span.active') + ' > ins';
-            selector.text(parseInt(selector.text()) + 1);
-        }
-
-        $('table.common_sett tbody').sortable({
-            handle: 'a.move_lvl',
-        }).disableSelection();
-
-        $('table.common_sett tbody').bind('sortstop', function (event, ui) {
-            alert('123');
-        });
-    ";
-
-    $cs->registerScript('add_root_category', $js)
 ?>
-
-<script id="new_root_form" type="text/x-jquery-tmpl">
-    <tr class="sett_lvl1">
-        <td class="name_ct" colspan="4">
-            <a href="#" class="move_lvl" title="Переместить">&nbsp;</a>
-            <a href="#" class="nm_catg turn_icon" title="Развернуть">&nbsp;</a>
-            <?php
-                $form = $this->beginWidget('CActiveForm', array(
-                    'action' => 'category/add/type/root',
-                ));
-            ?>
-                <?php echo $form->textField($model, 'category_name', array('class' => 't_new_catg')); ?>
-                <?php echo CHtml::button('Ok', array('class' => 'b_new_catg')); ?>
-            <?php $this->endWidget(); ?>
-        </td>
-    </tr>
-</script>
-
-<script id="new_child_form" type="text/x-jquery-tmpl">
-    <tr class="sett_lvl${lvl}">
-        <td class="name_ct" colspan="4">
-            <a href="#" class="move_lvl" title="Переместить">&nbsp;</a>
-            <a href="#" class="nm_catg turn_icon" title="Развернуть">&nbsp;</a>
-            <?php
-            $form = $this->beginWidget('CActiveForm', array(
-                'action' => 'category/add/type/child',
-            ));
-            ?>
-            <?php echo $form->textField($model, 'category_name', array('class' => 't_new_catg')); ?>
-            <?php echo CHtml::hiddenField('prependTo', '${prependTo}'); ?>
-            <?php echo CHtml::button('Ok', array('class' => 'b_new_catg')); ?>
-            <?php $this->endWidget(); ?>
-        </td>
-    </tr>
-</script>
-
-<script id="new_ct" type="text/x-jquery-tmpl">
-    <tr class="sett_lvl${lvl}" id="node_${modelPk}">
-        <td class="name_ct">
-            <a href="#" class="move_lvl" title="Переместить">&nbsp;</a>
-            <a href="#" class="nm_catg expand_icon" title="Свернуть">&nbsp;</a>
-            <a href="#" class="edit">${category_name}</a>
-        </td>
-        <td class="active_ct">
-            <ul>
-                {{if lvl < 3}}
-                    <li><span title="Создание подкатегории" class="add_child">
-                    <img src="images/icons/add_catg_icon.png" alt="Создание подкатегории"/></span></li>
-                {{/if}}
-                <li><a href="#" title="Подробно о категории">
-                    <img src="images/icons/info_catg_icon.png" alt="Подробно о категории"/></a></li>
-                <li><a href="#" title="Посмотреть в магазине">
-                    <img src="images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a></li>
-            </ul>
-        </td>
-        <td class="goods_ct">
-            <ul>
-                <li>Товаров - <a href="#">0</a></li>
-                <li>Брендов - <a href="#">0</a></li>
-            </ul>
-        </td>
-        <td class="sell_ct">
-            <ul>
-                <li>
-                    <ins>Оборот</ins>
-                    - 23 256 789
-                </li>
-                <li>
-                    <ins>Прибыль</ins>
-                    - 8 363 123
-                </li>
-            </ul>
-        </td>
-        <td class="ad_ct">
-            <ul>
-                <li>
-                    <?php
-                        $this->widget('OnOffWidget', array(
-                            'modelPk' => '${modelPk}',
-                            'modelName' => get_class($model),
-                            'modelActive' => '${modelActive}',
-                        ));
-                    ?>
-                </li>
-                <li>
-                    <?php
-                        $this->widget('DeleteWidget', array(
-                            'modelPk' => '${modelPk}',
-                            'modelName' => get_class($model),
-                            'modelAccusativeName' => $model->accusativeName,
-                            'modelIsTree' => true,
-                        ));
-                    ?>
-                </li>
-            </ul>
-        </td>
-    </tr>
-</script>
-
 <div class="centered">
     <h1>Категории товаров</h1>
 
@@ -256,18 +27,15 @@ $this->renderPartial('index2', array('tree' => $tree,'count' => $count,'model'=>
     <!-- .clear -->
 </div>
 
-<!-- .centered -->
-<div class="sett_block">
-<table class="common_sett">
-<thead>
-    <tr>
-        <th class="name_ct">
+<div class="grid">
+    <div class="grid_head">
+        <div class="name_ct">
             <span>Название категории</span>
             <span class="add_main_ct" title="Создание подкатегории">+</span>
-        </th>
-        <th class="active_ct">Действие</th>
-        <th class="goods_ct">Товары</th>
-        <th class="sell_ct">
+        </div>
+        <div class="active_ct">Действие</div>
+        <div class="goods_ct">Товары</div>
+        <div class="sell_ct">
             <span>Продажи <ins>(руб.)</ins></span>
             <ul>
                 <li><a href="#" class="active">д</a></li>
@@ -278,17 +46,108 @@ $this->renderPartial('index2', array('tree' => $tree,'count' => $count,'model'=>
                 <li>|</li>
                 <li><a href="#">г</a></li>
             </ul>
-        </th>
-        <th class="ad_ct"></th>
-    </tr>
-</thead>
-<tbody>
-    <?php foreach ($tree as $c): ?>
-        <?php $this->renderPartial('_tr', array(
-            'category' => $c,
-        )); ?>
-    <?php endforeach; ?>
-</tbody>
-</table>
+        </div>
+        <div class="ad_ct"></div>
+    </div>
+    <div class="grid_body">
+        <?php echo $this->getTreeItems($tree); ?>
+    </div>
 </div>
-<!-- .sett_block -->
+
+<script type="text/javascript">
+    $('.grid .grid_body ul').nestedSortable({
+        listType : 'ul',
+        items: 'li',
+        handle : 'a.move_lvl',
+        placeholder: 'placeholder',
+        helper : 'original',
+        maxLevels : 3,
+        update : function(event, ui) {
+            //TODO зафиксить, не всегда работает
+            var old = $(this);
+            if(old.children().size() == 0) {
+                old.parent().removeClass('opened').addClass('empty_item');
+                old.remove();
+            }
+
+            ui.item.parent().addClass('descendants');
+            var item_id = ui.item.attr('id').split('_')[2];
+            if(ui.item.index() != 0)
+                var prev_id = ui.item.prev().attr('id').split('_')[2];
+            if(ui.item.parents('li:eq(0)').size() > 0) {
+                var parent = ui.item.parents('li:eq(0)');
+                var parent_id = parent.attr('id').split('_')[2];
+                parent.addClass('opened');
+                parent.children('div.data').find('.nm_catg').removeClass('turn_icon').addClass('expand_icon');
+                if(parent.hasClass('empty_item'))
+                    parent.removeClass('empty_item');
+            }
+            $.get(
+                '<?php echo $this->createUrl('moveNode'); ?>',
+                {id : item_id, prev : prev_id, parent : parent_id}
+            );
+        }
+    });
+    $('.grid .grid_body').delegate('a.nm_catg', 'click', function() {
+        $(this).parents('li:eq(0)').toggleClass('opened');
+    });
+    $('.grid').delegate('span.add_main_ct', 'click', function() {
+        $('#grid_new_root_form').tmpl().appendTo('.grid .grid_body > ul');
+    });
+    $('.grid').delegate('span.add_child', 'click', function() {
+        var parent = $(this).parents('li:eq(1)');
+        if(parent.children('ul').size() > 0)
+            var ul = parent.children('ul');
+        else {
+            var ul = $('<ul></ul>').addClass('descendants').appendTo(parent);
+        }
+        $('#grid_new_root_form').tmpl().prependTo(ul);
+        if(!parent.hasClass('opened'))
+            parent.children('div.data').find('.nm_catg').trigger('click');
+    });
+    $('body').delegate('input[type=button].b_new_catg', 'click', function() {
+        if($(this).parents('li:eq(0)').parent('ul').parent('.grid_body').size() > 0) {
+            var type = 'root';
+            var prependTo = 0;
+        } else {
+            var type = 'child';
+            var prependTo = $(this).parents('li:eq(1)').attr('id').split('_')[2];
+        }
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: $(this).parents('form').attr('action'),
+            data: $(this).parents('form').serialize() + '&type=' + type + '&prependTo=' + prependTo,
+            success: function(response) {
+                if (response.status == '1') {
+                    $(this).parents('li:eq(0)').replaceWith($(response.html));
+                    totalCountInc(response.attributes.active);
+                }
+            },
+            context: $(this)
+        });
+    });
+    function totalCountInc(active) {
+        $('div.total_block > p > ins').text(parseInt($('div.total_block > p > ins').text()) + 1);
+        var selector = ((!active || active == null) ? 'span.deactive_items' : 'span.active_items') + ' > ins';
+        $('div.total_block').find(selector).text(parseInt($('div.total_block').find(selector).text()) + 1);
+    }
+</script>
+<script id="grid_new_root_form" type="text/x-jquery-tmpl">
+    <li class="empty_item new_item">
+        <div class="data">
+            <div class="name_ct">
+                <a href="#" class="move_lvl" title="Переместить">&nbsp;</a>
+                <a href="#" class="nm_catg turn_icon" title="Развернуть">&nbsp;</a>
+                <?php
+                    $form = $this->beginWidget('CActiveForm', array(
+                        'action' => 'add',
+                    ));
+                ?>
+                    <?php echo $form->textField($model, 'category_name', array('class' => 't_new_catg')); ?>
+                    <?php echo CHtml::button('Ok', array('class' => 'b_new_catg')); ?>
+                <?php $this->endWidget(); ?>
+            </div>
+        </div>
+    </li>
+</script>

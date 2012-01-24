@@ -1,20 +1,39 @@
-<li>
+<?php $descendants = $model->children()->findAll(array('order' => 'category_root, category_lft')); ?>
+<li<?php echo count($descendants) == 0 ? ' class="empty_item"' : '' ?> id="category_item_<?php echo $model->primaryKey; ?>">
     <div class="data">
         <div class="column name_ct">
-            <a href="#" class="move_lvl" title="Переместить">&nbsp;</a>
-            <a href="#" class="nm_catg turn_icon" title="Развернуть">&nbsp;</a>
-            <a href="#" class="edit"><?php echo $model->category_name; ?></a>
+            <a href="javascript:void(0);" class="move_lvl" title="Переместить">&nbsp;</a>
+            <a href="javascript:void(0);" class="nm_catg turn_icon" title="Развернуть">&nbsp;</a>
+            <span>
+                <?php
+                $this->widget('EditDeleteWidget', array(
+                    'deleteButton'=>false,
+                    'model' => $model,
+                    'attribute' => 'category_name',
+                    'options'=> array(
+                        'edit_selector'=>'a',
+                        'edit_link_class'=>'edit',
+                        'edit_link_text'=>$model->category_name,
+                    )
+                ));?>
+            </span>
         </div>
         <div class="column active_ct">
             <ol>
                 <?php if ($model->category_level < 3): ?>
-                    <li><span title="Создание подкатегории" class="add_child">
-                        <img src="/images/icons/add_catg_icon.png" alt="Создание подкатегории"/></span></li>
+                    <li>
+                        <span title="Создание подкатегории" class="add_child">
+                        <img src="/images/icons/add_catg_icon.png" alt="Создание подкатегории"/></span>
+                    </li>
                 <?php endif; ?>
-                <li><a href="#" title="Подробно о категории">
-                    <img src="/images/icons/info_catg_icon.png" alt="Подробно о категории"/></a></li>
-                <li><a href="#" title="Посмотреть в магазине">
-                    <img src="/images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a></li>
+                <li>
+                    <a href="#" title="Подробно о категории">
+                    <img src="/images/icons/info_catg_icon.png" alt="Подробно о категории"/></a>
+                </li>
+                <li>
+                    <a href="#" title="Посмотреть в магазине">
+                    <img src="/images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a>
+                </li>
                 <?php if (empty($model->attributeSets)):?>
                     <li>
                         <a href="<?php echo $this->createUrl('AttributeSet/create', array('category_id'=>$model->category_id)) ?>" title="Добавить пакет свойств">
@@ -47,8 +66,13 @@
             </ul>
         </div>
         <div class="column ad_ct">
-13
+            <ul>
+                <li><?php $this->widget('OnOffWidget', array('model' => $model)); ?></li>
+                <li><?php $this->widget('DeleteWidget', array('model' => $model)); ?></li>
+            </ul>
         </div>
     </div>
-    <?php echo $this->getTreeItems($model->children()->findAll(array('order' => 'category_root, category_lft'))); ?>
+    <?php if(count($descendants) > 0): ?>
+        <?php echo $this->getTreeItems($descendants); ?>
+    <?php endif; ?>
 </li>

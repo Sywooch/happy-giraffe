@@ -75,7 +75,7 @@ $model = new Category;
     $('.grid .grid_body ul.sortable').nestedSortable({
         listType : 'ul',
         items: 'li',
-        /*handle : 'a.move_lvl',*/
+        handle : 'a.move_lvl',
         placeholder: 'placeholder',
         forcePlaceholderSize: true,
         helper : 'clone',
@@ -84,6 +84,8 @@ $model = new Category;
         tabSize: 25,
         tolerance: 'pointer',
         update : function(event, ui) {
+            if(ui.item.hasClass('is_root') && ui.item.parent().hasClass('sortable'))
+                return false;
             //TODO зафиксить, не всегда работает
             var old = $(this);
             if(old.children().size() == 0) {
@@ -103,6 +105,10 @@ $model = new Category;
                 if(parent.hasClass('empty_item'))
                     parent.removeClass('empty_item');
             }
+            if(ui.item.parent().hasClass('sortable'))
+                ui.item.addClass('is_root');
+            else
+                ui.item.removeClass('is_root');
             $.get(
                 '<?php echo $this->createUrl('moveNode'); ?>',
                 {id : item_id, prev : prev_id, parent : parent_id}

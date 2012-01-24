@@ -110,17 +110,17 @@ table.common_sett th.sell_ct ul li a.active {display: inline-block;padding: 0 3p
 table.common_sett th.ad_ct {width: 50px;}
 table.common_sett tr td {height: 62px;padding: 0;border-bottom: 1px solid #e6fafe;color: #40b1ca;font-size: 11px;position: relative;}
 table.common_sett tr td table tr td {border-top: 1px solid #e6fafe;border-bottom: none;}
-table td.name_ct input.t_new_catg {margin: 0;width: 96px;height: 19px;border: 1px solid #6dc0d1;padding: 0 5px;font-size: 12px;font-weight: bold;color: #a0a0a0;}
-table td.name_ct input.b_new_catg {width: 34px;height: 19px;background: url(../images/bg_sm_button.png) 0 0 no-repeat;border: 0;font-size: 11px;font-weight: bold;color: #fff;margin: 0 0 0 4px;}
-table form.input-text-edit-form p {display: inline-block;}
-table form.input-text-edit-form input[type="text"] {margin: 0;width: 96px;height: 19px;border: 1px solid #6dc0d1;padding: 0 5px;font-size: 12px;font-weight: bold;color: #a0a0a0;display: inline-block;}
-table form.input-text-edit-form input[type="submit"] {width: 34px;height: 19px;background: url(../images/bg_sm_button.png) 0 0 no-repeat;border: 0;font-size: 11px;font-weight: bold;color: #fff;margin: 0 0 0 4px;display: inline-block;}
+table td.name_ct input.t_new_catg, .grid .grid_body div.data div.name_ct input.t_new_catg {margin: 0;width: 96px;height: 19px;border: 1px solid #6dc0d1;padding: 0 5px;font-size: 12px;font-weight: bold;color: #a0a0a0;}
+table td.name_ct input.b_new_catg, .grid .grid_body div.data div.name_ct input.b_new_catg {width: 34px;height: 19px;background: url(../images/bg_sm_button.png) 0 0 no-repeat;border: 0;font-size: 11px;font-weight: bold;color: #fff;margin: 0 0 0 4px;}
+table form.input-text-edit-form p, .grid .grid_body form.input-text-edit-form p {display: inline-block;}
+table form.input-text-edit-form input[type="text"], .grid .grid_body form.input-text-edit-form input[type="text"] {margin: 0;width: 96px;height: 19px;border: 1px solid #6dc0d1;padding: 0 5px;font-size: 12px;font-weight: bold;color: #a0a0a0;display: inline-block;}
+table form.input-text-edit-form input[type="submit"], .grid .grid_body form.input-text-edit-form input[type="submit"] {width: 34px;height: 19px;background: url(../images/bg_sm_button.png) 0 0 no-repeat;border: 0;font-size: 11px;font-weight: bold;color: #fff;margin: 0 0 0 4px;display: inline-block;}
 table td.name_ct a.move_lvl, .grid .grid_body div.data div.name_ct a.move_lvl {float: left;margin: 0;display: block;width: 18px;height: 54px;text-indent: -9999px;background: url(../images/icons/move_pl.png) 0 0 no-repeat;}
 table.common_sett td.name_ct {vertical-align: middle;}
 table.common_sett td.name_ct a.no_child {margin: 0 0 0 25px;}
 table.common_sett tr.sett_lvl2 td.name_ct a.move_lvl {float: left;margin: 0;display: block;width: 18px;height: 54px;text-indent: -9999px;background: url(../images/icons/move_pl.png) 0 0 no-repeat;opacity: 0.5;}
 table.common_sett tr.sett_lvl3 td.name_ct a.move_lvl {float: left;margin: 0 15px 0 0;display: block;width: 18px;height: 54px;text-indent: -9999px;background: url(../images/icons/move_pl.png) 0 0 no-repeat;opacity: 0.2;}
-table td.name_ct form {float: left;margin: 17px 0 0 0;}
+table td.name_ct form, .grid .grid_body div.name_ct form {float: left;margin: 17px 0 0 0;}
 table.common_sett.brands td.name_ct form {margin: 0 0 0 25px;}
 table td.name_ct a.nm_catg, .grid .grid_body div.data div.name_ct a.nm_catg {display: block;float: left;width: 19px;height: 19px;text-indent: -9999px;text-decoration: none;margin: 17px 5px 0 15px;}
 table td.name_ct a.edit, .grid .grid_body div.data div.name_ct a.edit {display: inline-block;font-size: 12px;font-weight: bold;color: #2f2f2f;text-decoration: none;margin: 20px 0 0 0;}
@@ -133,7 +133,7 @@ table td.name_ct a.expand_icon, .grid .grid_body div.data div.name_ct a.expand_i
 table.common_sett td.logo_ct {text-align: center;vertical-align: middle;padding: 14px 0;}
 table.common_sett td.logo_ct a.add_logo {display: block;background: url("../images/add_logo.png") no-repeat left top;width: 98px;height: 66px;text-indent: -9999px;margin: 0 auto;}
 table.common_sett td.active_ct {text-align: center;border-right: 1px solid #fff;}
-table.common_sett td.active_ct span {cursor: pointer;}
+table.common_sett td.active_ct span, .grid .grid_body div.data div.active_ct span {cursor: pointer;}
 table.common_sett td.active_ct ul, .grid .grid_body div.data div.active_ct ol {display: block;padding: 5px 0 0 0;}
 table.common_sett td.active_ct ul li, .grid .grid_body div.data div.active_ct ol li {display: inline;padding: 0 4px;}
 table.common_sett td.goods_ct {text-align: left;padding: 0 0 0 50px;border-right: 1px solid #fff;}

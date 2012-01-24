@@ -60,7 +60,8 @@ $model = new Category;
         items: 'li',
         handle : 'a.move_lvl',
         placeholder: 'placeholder',
-        helper : 'original',
+        forcePlaceholderSize: true,
+        helper : 'clone',
         maxLevels : 3,
         update : function(event, ui) {
             //TODO зафиксить, не всегда работает

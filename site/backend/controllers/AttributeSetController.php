@@ -60,8 +60,12 @@ class AttributeSetController extends BController
             } else {
 
             }
-        } else
-            $this->renderPartial('_attribute_edit', array('model' => $model));
+        } else{
+            if ($model->attribute_in_price)
+                $this->renderPartial('_card_attribute_edit', array('model' => $model));
+            else
+                $this->renderPartial('_attribute_edit', array('model' => $model));
+        }
     }
 
     public function actionUpdateAttribute()
@@ -75,8 +79,12 @@ class AttributeSetController extends BController
             if ($model->save()) {
                 echo CJSON::encode(array('success' => true, 'id' => $model->attribute_id));
             }
-        } else
-            $this->renderPartial('_attribute_edit', array('model' => $model, 'no_list' => true));
+        } else {
+            if ($model->attribute_in_price)
+                $this->renderPartial('_card_attribute_edit', array('model' => $model));
+            else
+                $this->renderPartial('_attribute_edit', array('model' => $model));
+        }
     }
 
     public function actionAttributeView()

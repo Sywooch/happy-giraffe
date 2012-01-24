@@ -1,22 +1,23 @@
 <?php
-$model = new ProductBrand;
-
-$cs = Yii::app()->clientScript;
-
-$js = "
-            $('body').delegate('span.add_main_ct', 'click', function() {
-                $('table.common_sett').append($('#new_brand_form').tmpl());
-            });
-
-            $('body').delegate('input[type=button].b_new_catg', 'click', function() {
-                $(this).parents('form').submit();
-            });
-    ";
-
-//    $cs->registerScript('brand_index', $js);
+    $model = new ProductBrand;
 ?>
 <script type="text/javascript">
     $(function () {
+        $('form.image_upload').iframePostForm({
+            json: true,
+            complete: function(response) {
+                if (response.status == '1')
+                {
+                    tr.find('div.fake_file').children().first().replaceWith($('#brand_image').tmpl({url: response.url, title: response.title}));
+                }
+            }
+        });
+
+        $('body').delegate('#ProductBrand_brand_image', 'change', function() {
+            tr = $(this).parents('tr');
+            $(this).parents('form').submit();
+        });
+
         $('body').delegate('span.add_main_ct', 'click', function () {
             $('table.common_sett').append($('#new_brand_form').tmpl());
         });
@@ -29,13 +30,23 @@ $js = "
                 dataType:'JSON',
                 success:function (response) {
                     if (response.status == '1') {
-                        $(this).parents('tr').replaceWith($('#new_ct').tmpl({
+                        tr = $(this).parents('tr');
+
+                        tr.replaceWith($('#new_ct').tmpl({
                             modelPk:response.modelPk,
                             modelName:response.modelName,
                             titleValue:response.attributes.brand_title
                         }));
 
-                        var parentId = $(this).parents('form').find('input[name=\"prependTo\"]').val();
+                        $('form.image_upload').iframePostForm({
+                            json: true,
+                            complete: function(response) {
+                                if (response.status == '1')
+                                {
+                                    tr.find('div.fake_file').children().first().replaceWith($('#brand_image').tmpl({url: response.url, title: response.title}));
+                                }
+                            }
+                        });
                     }
                 },
                 context:$(this)
@@ -93,13 +104,13 @@ $js = "
         </td>
         <td class="logo_ct">
             <?php $form = $this->beginWidget('CActiveForm', array(
-            'id' => 'image_upload',
             'action' => $this->createUrl('uploadImage'),
             'htmlOptions' => array(
                 'enctype' => 'multipart/form-data',
+                'class' => 'image_upload',
             ),
         )); ?>
-            <input type="hidden" name="Brand[brand_id]" value="${modelPk}">
+            <?php echo CHtml::hiddenField('ProductBrand[brand_id]', '${modelPk}'); ?>
 
             <div class="fake_file">
                 <?php if ($image = ''): ?>

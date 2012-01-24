@@ -49,7 +49,7 @@
 
 <a href="#" class="<?php echo ($modelActive ? 'activate' : 'deactivate'); ?>" title="<?php echo ($modelActive ? 'Деактивировать' : 'Активировать'); ?>">
     Состояние элемента
-    <?php echo CHtml::hiddenField('showQuestion', 'Деактивировать'); ?>
+    <?php echo CHtml::hiddenField('showQuestion', ($modelActive ? 'Деактивировать' : 'Активировать')); ?>
     <?php echo CHtml::hiddenField('modelName', $modelName); ?>
     <?php echo CHtml::hiddenField('modelPk', $modelPk); ?>
 </a>

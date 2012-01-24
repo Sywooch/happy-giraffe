@@ -63,6 +63,40 @@
             SetAttributeValue(id, value, text, block);
         });
 
+        $('body').delegate('span.add_paket', 'click', function () {
+            $(this).parent().append('<form class=\"input-text-add-form\" action=\"#\">' +
+                '<p><input type=\"text\" value=\"\"/></p>' +
+                '<p><input type=\"submit\" value=\"Ok\"/></p>' +
+                '</form>');
+            $(this).hide();
+            return false;
+        });
+
+        $('body').delegate('form.input-text-add-form input[type=submit]', 'click', function () {
+            var bl = $(this).parent('p').parent('form').parent();
+            var text = bl.find('input[type=text]').val();
+            var attr_id = bl.find('input[name=attribute_id]').val();
+
+            $.ajax({
+                url:'<?php echo $this->createUrl('product/AddAttrListElem', array()) ?>',
+                data:{
+                    value:text,
+                    product_id:model_id,
+                    attribute_id:attr_id
+                },
+                type:'POST',
+                dataType:'JSON',
+                success:function (data) {
+                    if (data.status) {
+                        bl.find('form').remove();
+                        bl.find('span.add_paket').show();
+                        bl.before('<li>' + data.html + '</li>');
+                    }
+                }
+            });
+
+            return false;
+        });
     });
 
     function SetAttributeValue(attr_id, value, set_test, block) {
@@ -82,22 +116,24 @@
         });
     }
 </script>
-    <div class="propertyBlock">
-        <p class="text_header">Характеристики в корзину</p>
-        <div class="text_block">
-            <ul class="inline_block">
-                <?php foreach ($attributeMap as $attribute)
-                        if ($attribute->map_attribute->attribute_in_price == 1) {?>
+<div class="propertyBlock">
+    <p class="text_header">Характеристики в корзину</p>
+
+    <div class="text_block">
+        <ul class="inline_block">
+            <?php foreach ($attributeMap as $attribute)
+            if ($attribute->map_attribute->attribute_in_price == 1) {
+                ?>
                 <?php $attr = $attribute->map_attribute; ?>
                 <?php $this->renderPartial('_attribute_view', array(
-                                'model' => $attr,
-                                'product' => $model,
-                            )); ?>
+                    'model' => $attr,
+                    'product' => $model,
+                )); ?>
                 <?php } ?>
-            </ul>
-            <div class="clear"></div>
-        </div>
+        </ul>
+        <div class="clear"></div>
     </div>
+</div>
 
 <p class="text_header">Технические характеристики</p>
 

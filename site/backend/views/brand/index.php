@@ -170,10 +170,10 @@ $js = "
     <h1>Брэнды</h1>
 
     <div class="search_ct">
-        <?php echo CHtml::beginForm('index', 'get'); ?>
+        <?php echo CHtml::beginForm(array('brand/index'), 'get'); ?>
         <p>
             <label for="findText">Поиск брэнда</label>
-            <input id="findText" type="text" class="search_catg" name='query'/>
+            <input id="findText" type="text" class="search_catg" name='query' value="<?php echo $query ?>"/>
             <input type="button" class="search_subm" value="Найти" onclick="submit();"/>
         </p>
         <?php echo CHtml::endForm(); ?>
@@ -182,6 +182,28 @@ $js = "
     <div class="clear"></div>
     <!-- .clear -->
 </div>
+
+<div class="alphabet">
+    <p<?php if (empty($query)) echo ' class="active"' ?>><a href="<?php echo $this->createUrl('brand/index', array()) ?>">Все</a></p>
+    <ul>
+        <?php $alp = array('А','Б','В','Г','Д','Е','Ж','З','И','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х',
+        'Ц','Ч','Э','Ю','Я'); ?>
+        <?php foreach ($alp as $letter): ?>
+        <li<?php if ($query == $letter) echo ' class="active"' ?>><a href="<?php
+            echo $this->createUrl('brand/index', array('query'=>$letter)) ?>"><?php echo $letter ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    <ul>
+        <?php $alp = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U',
+        'V','W','X','Y','Z'); ?>
+        <?php foreach ($alp as $letter): ?>
+        <li<?php if ($query == $letter) echo ' class="active"' ?>><a href="<?php
+            echo $this->createUrl('brand/index', array('query'=>$letter)) ?>"><?php echo $letter ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    <div class="clear"></div>
+</div>
+
 <!-- .centered -->
 <div class="sett_block">
     <table class="common_sett brands">

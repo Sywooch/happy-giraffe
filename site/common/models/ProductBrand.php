@@ -170,7 +170,7 @@ class ProductBrand extends CActiveRecord {
             $criteria->mergeWith(array(
                 'condition' => 'brand_title LIKE :query',
                 'params' => array(
-                    ':query' => '%' . $query . '%',
+                    ':query' => $query . '%',
                 ),
             ));
         }

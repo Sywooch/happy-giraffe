@@ -16,6 +16,7 @@ class BrandController extends BController
             'brands' => $dataProvider->data,
             'pages' => $dataProvider->pagination,
             'count' => $count,
+            'query'=>$query
         ));
     }
 

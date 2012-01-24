@@ -423,4 +423,6 @@ h1:hover.edit.name {background-position: right 22px;}
         .grid .grid_body > ul > li > ul > li > ul > li > div.data div.name_ct {width:258px;}
         .grid .grid_body > ul > li > ul > li > ul > li > ul {margin-left:30px;}
         .grid .grid_body > ul > li > ul > li > ul > li > ul > li > div.data div.name_ct {width:228px;}
-    .grid .placeholder {height:61px;background-color:#C1ECF5;}
+        .grid .grid_body > ul > li > ul > li > ul > li > ul > li > ul > li {margin-left:30px;}
+        .grid .grid_body > ul > li > ul > li > ul > li > ul > li > div.data div.name_ct {width:198px;}
+        .grid .placeholder {height:61px;background-color:#C1ECF5;}

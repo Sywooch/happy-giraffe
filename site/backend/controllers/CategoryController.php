@@ -4,13 +4,15 @@ class CategoryController extends BController
 {
     public function actionIndex()
     {
-        $tree = Category::model()->findAll(array('order' => 'category_root, category_lft'));
+        $tree = Category::model()->roots()->findAll(array('order' => 'category_root, category_lft'));
 
         $count = array(
             'total' => Category::model()->count(),
             'on' => Category::model()->count('active = 1'),
             'off' => Category::model()->count('active = 0'),
         );
+
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.ui.nestedSortable.js');
 
         $this->render('index', array(
             'tree' => $tree,
@@ -56,5 +58,21 @@ class CategoryController extends BController
                 echo CJSON::encode($response);
             }
         }
+    }
+
+    public function getTreeItems($model)
+    {
+        if(!$model || count($model) == 0)
+            return '';
+        $html = '';
+        $html .= CHtml::openTag('ul');
+        foreach($model as $item)
+        {
+            $html .= $this->renderPartial('_tree_item', array(
+                'model' => $item,
+            ), true);
+        }
+        $html .= CHtml::closeTag('ul');
+        return $html;
     }
 }

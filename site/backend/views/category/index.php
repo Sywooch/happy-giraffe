@@ -1,5 +1,6 @@
 <?php
-    $model = new Category;
+$model = new Category;
+$this->renderPartial('index2', array('tree' => $tree,'count' => $count,'model'=>$model));
 
     $cs = Yii::app()->clientScript;
 

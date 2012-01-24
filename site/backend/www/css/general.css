@@ -103,7 +103,7 @@ table.common_sett th.active_ct {width: 200px;text-align: center;border-right: 1p
 table.common_sett th.goods_ct {width: 177px;text-align: center;border-right: 1px solid #fff;}
 table.common_sett th.sell_ct {width: 212px;text-align: center;border-right: 1px solid #fff;}
 table.common_sett th.sell_ct span {display: block;text-align: center;padding: 0 0 2px 0;}
-table.common_sett th.sell_ct span ins {font-size: 11px;text-decoration: none;}
+table.common_sett th.sell_ct span ins, .grid .grid_head div.sell_ct span ins {font-size: 11px;text-decoration: none;}
 table.common_sett th.sell_ct ul li {display: inline;}
 table.common_sett th.sell_ct ul li a {display: inline-block;padding: 0 3px;font-size: 12px;}
 table.common_sett th.sell_ct ul li a.active {display: inline-block;padding: 0 3px;font-size: 12px;background: #fff8b4;text-decoration: none;}
@@ -129,7 +129,7 @@ table.common_sett tr.sett_lvl3 td.name_ct {padding: 0 0 0 60px;}
 table.common_sett tr.sett_lvl2 td.name_ct a.edit {display: inline-block;font-size: 12px;color: #686767;text-decoration: none;}
 table.common_sett tr.sett_lvl3 td.name_ct a.edit {display: inline-block;font-size: 12px;color: #a1a1a1;text-decoration: none;}
 table td.name_ct a.turn_icon, .grid .grid_body div.data div.name_ct a.turn_icon {background: url(../images/icons/expand_icon.png) 0 0 no-repeat;}
-table td.name_ct a.expand_icon {background: url(../images/icons/turn_icon.png) 0 0 no-repeat;}
+table td.name_ct a.expand_icon, .grid .grid_body div.data div.name_ct a.expand_icon {background: url(../images/icons/turn_icon.png) 0 0 no-repeat;}
 table.common_sett td.logo_ct {text-align: center;vertical-align: middle;padding: 14px 0;}
 table.common_sett td.logo_ct a.add_logo {display: block;background: url("../images/add_logo.png") no-repeat left top;width: 98px;height: 66px;text-indent: -9999px;margin: 0 auto;}
 table.common_sett td.active_ct {text-align: center;border-right: 1px solid #fff;}
@@ -138,11 +138,11 @@ table.common_sett td.active_ct ul, .grid .grid_body div.data div.active_ct ol {d
 table.common_sett td.active_ct ul li, .grid .grid_body div.data div.active_ct ol li {display: inline;padding: 0 4px;}
 table.common_sett td.goods_ct {text-align: left;padding: 0 0 0 50px;border-right: 1px solid #fff;}
 table.common_sett td.sell_ct {text-align: left;padding: 0 0 0 50px;border-right: 1px solid #fff;}
-table.common_sett td.sell_ct ins {width: 45px;display: inline-block;text-decoration: none;}
+table.common_sett td.sell_ct ins, .grid .grid_body div.data div.sell_ct ins {width: 45px;display: inline-block;text-decoration: none;}
 table.common_sett td.ad_ct {text-align: center;padding: 0 0 0 6px;}
-table.common_sett td.ad_ct ul li {float: left;}
+table.common_sett td.ad_ct ul li, .grid .grid_body div.data div.ad_ct ul li {float: left;}
 table.common_sett td.ad_ct ul li a.activate {display: inline-block;width: 18px;height: 18px;background: url(../images/icons/on_icon.png) center 2px no-repeat;text-indent: -9999px;}
-table.common_sett td.ad_ct ul li a.deactivate {display: inline-block;width: 18px;height: 18px;background: url(../images/icons/off_icon.png) center 2px no-repeat;text-indent: -9999px;}
+table.common_sett td.ad_ct ul li a.deactivate, .grid .grid_body div.data div.ad_ct ul li a.deactivate {display: inline-block;width: 18px;height: 18px;background: url(../images/icons/off_icon.png) center 2px no-repeat;text-indent: -9999px;}
 
 /*===== Footer =====*/
 .empty {width: 99%;height: 65px;clear: both;}
@@ -414,6 +414,9 @@ h1:hover.edit.name {background-position: right 22px;}
         .grid .grid_body div.data > div.goods_ct {width:128px;padding-left:50px;}
         .grid .grid_body div.data > div.sell_ct {width:163px;padding-left:50px;}
         .grid .grid_body div.data > div.ad_ct {width:44px;}
+        .grid .grid_body ul li ul.descendants {display:none;}
+        .grid .grid_body li.empty_item div.data div.name_ct a.nm_catg {visibility:hidden;}
+        .grid .grid_body ul li.opened > ul {display:block;}
         .grid .grid_body > ul > li > ul {margin-left:30px;}
         .grid .grid_body > ul > li > ul > li > div.data div.name_ct {width:288px;}
         .grid .grid_body > ul > li > ul > li > ul {margin-left:30px;}

@@ -49,7 +49,7 @@
                 'edit_link_text'=>$category->category_name,
             )
         ));?>
-            </span>
+        </span>
     </td>
     <td class="active_ct">
         <ul>

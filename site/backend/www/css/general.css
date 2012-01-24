@@ -113,7 +113,7 @@ table.common_sett tr td table tr td {border-top: 1px solid #e6fafe;border-bottom
 table td.name_ct input.t_new_catg {margin: 0;width: 96px;height: 19px;border: 1px solid #6dc0d1;padding: 0 5px;font-size: 12px;font-weight: bold;color: #a0a0a0;}
 table td.name_ct input.b_new_catg {width: 34px;height: 19px;background: url(../images/bg_sm_button.png) 0 0 no-repeat;border: 0;font-size: 11px;font-weight: bold;color: #fff;margin: 0 0 0 4px;}
 table form.input-text-edit-form p {display: inline-block;}
-table form.input-text-edit-form input[type="text"] {margin: 0;width: 96px;height: 19px;border: 1px solid #6dc0d1;padding: 0 5px;font-size: 12px;font-weight: bold;color: #a0a0a0;display: inline-block;}
+table form.input-text-edit-form input[type="text"] {margin: 0;width: 96px;height: 19px;border: 1px solid #6dc0d1;padding: 0 5px;font-size: 12px;font-weight: bold;color: #444;display: inline-block;}
 table form.input-text-edit-form input[type="submit"] {width: 34px;height: 19px;background: url(../images/bg_sm_button.png) 0 0 no-repeat;border: 0;font-size: 11px;font-weight: bold;color: #fff;margin: 0 0 0 4px;display: inline-block;}
 table td.name_ct a.move_lvl {float: left;margin: 0;display: block;width: 18px;height: 54px;text-indent: -9999px;background: url(../images/icons/move_pl.png) 0 0 no-repeat;}
 table.common_sett td.name_ct {vertical-align: middle;}

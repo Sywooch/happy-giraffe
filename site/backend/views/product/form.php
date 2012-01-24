@@ -255,7 +255,6 @@ Yii::app()->clientScript
                 'onSuccess' => "$('p.total ins').text(parseInt($('p.total ins').text()) - 1);",
             ));
         ?>
-
         <p>
             <span>
                 <?php echo CHtml::image('${url}'); ?>

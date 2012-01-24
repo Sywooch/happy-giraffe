@@ -97,7 +97,10 @@ class AttributeSetController extends BController
 
         $attr_val = new AttributeValue();
         $attr_val->value_value = $text;
-        $attr_val->save();
+        if (!$attr_val->save()){
+            var_dump($attr_val->getErrors());
+            Yii::app()->end();
+        }
 
         $attr_map_val = new AttributeValueMap();
         $attr_map_val->map_attribute_id = $id;

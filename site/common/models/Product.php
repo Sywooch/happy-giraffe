@@ -626,4 +626,17 @@ class Product extends CActiveRecord implements IECartPosition
         else
             return '';
     }
+
+    public function GetCardAttributeValues($attr_id){
+        $eav_text = Y::command()
+            ->select('eav_id, eav_attribute_value')
+            ->from('shop_product_eav_text')
+            ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
+            ':eav_product_id' => $this->product_id,
+            ':eav_attribute_id' => $attr_id,
+        ))
+            ->queryAll();
+
+        return $eav_text;
+    }
 }

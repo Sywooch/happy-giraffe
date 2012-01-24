@@ -346,7 +346,7 @@ Yii::app()->clientScript
 
                 <div class="brand_add">
                     <span class="brand-title">Brand</span>
-                    <span<?php if (!empty($model->product_brand_id)) echo ' style="display: none;padding-top:15px;float: left;"' ?>>
+                    <span style="padding-top:15px;float: left;<?php if (!empty($model->product_brand_id)) echo 'display: none;' ?>">
                         <?php echo CHtml::dropDownList('brand_id', ' ',
                         CHtml::listData(ProductBrand::model()->findAll(), 'brand_id', 'brand_title'), array('empty' => ' ')); ?>
                         <input type="button" class="smallGreen set-brand" value="Ok"/>
@@ -385,14 +385,10 @@ Yii::app()->clientScript
                     <div class="clear"></div>
                 </div>
 
-                <p class="text_header">Технические характеристики</p>
-
-                <table class="characteristic">
                     <?php $this->renderPartial('_attributes', array(
                     'attributeMap' => $attributeMap,
                     'model' => $model
                 )); ?>
-                </table>
 
                 <p class="text_header">Видео о товаре</p>
 

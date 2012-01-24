@@ -20,6 +20,24 @@ class CategoryController extends BController
         ));
     }
 
+    public function actionMoveNode($id, $parent = false, $prev = false)
+    {
+        $model = Category::model()->findByPk($id);
+        if($model === null)
+            Yii::app()->end();
+        if($parent !== false)
+            $parent = Category::model()->findByPk($parent);
+        if($prev !== false)
+            $prev = Category::model()->findByPk($prev);
+
+        if($prev)
+            $model->moveAfter($prev);
+        elseif($parent)
+            $model->moveAsFirst($parent);
+        else
+            $model->moveAsRoot();
+    }
+
     public function actionAdd($type)
     {
         if (Yii::app()->request->isAjaxRequest)
@@ -60,12 +78,10 @@ class CategoryController extends BController
         }
     }
 
-    public function getTreeItems($model)
+    protected function getTreeItems($model)
     {
-        if(!$model || count($model) == 0)
-            return '';
         $html = '';
-        $html .= CHtml::openTag('ul');
+        $html .= CHtml::openTag('ul', array('class' => 'descendants'));
         foreach($model as $item)
         {
             $html .= $this->renderPartial('_tree_item', array(

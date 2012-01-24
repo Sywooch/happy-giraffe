@@ -55,8 +55,24 @@
     $('.grid .grid_body ul').nestedSortable({
         listType : 'ul',
         items: 'li',
+        handle : 'a.move_lvl',
         placeholder: 'placeholder',
         helper : 'original',
-        maxLevels : 5
+        maxLevels : 3,
+        update : function(event, ui) {
+            console.log(ui);
+            var item_id = ui.item.attr('id').split('_')[2];
+            if(ui.item.index() != 0)
+                var prev_id = ui.item.prev().attr('id').split('_')[2];
+            if(ui.item.parents('li:eq(0)').size() > 0)
+                var parent_id = ui.item.parents('li:eq(0)').attr('id').split('_')[2];
+            $.get(
+                '<?php echo $this->createUrl('moveNode'); ?>',
+                {id : item_id, prev : prev_id, parent : parent_id}
+            );
+        }
+    });
+    $('.grid .grid_body').delegate('a.nm_catg', 'click', function() {
+        $(this).parents('li:eq(0)').toggleClass('opened');
     });
 </script>

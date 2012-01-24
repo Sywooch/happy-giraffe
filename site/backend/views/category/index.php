@@ -14,11 +14,11 @@ $model = new Category;
     </div>
 
     <div class="search_ct">
-        <form action="#">
+        <form action="#" onsubmit="return findNodes(this);">
             <p>
                 <label for="findText">Поиск категории</label>
                 <input id="findText" type="text" class="search_catg"/>
-                <input type="button" class="search_subm" value="Найти"/>
+                <input type="submit" class="search_subm" value="Найти"/>
             </p>
         </form>
     </div>
@@ -55,6 +55,23 @@ $model = new Category;
 </div>
 
 <script type="text/javascript">
+    function findNodes(form) {
+        var text = $(form).find('input[type=text]').val();
+        $('.grid .grid_body ul.sortable').find('.is_found').removeClass('is_found');
+        var first = null;
+        $('.grid .grid_body ul.sortable div.data div.name_ct a.edit:contains('+text.toLowerCase()+'), .grid .grid_body ul.sortable div.data div.name_ct a.edit:contains('+text.toUpperCase()+')').each(function() {
+            if(first === null)
+                first = $(this).parents('div.data:eq(0)');
+            $(this).parents('li:gt(0)').each(function() {
+                if(!$(this).hasClass('opened'))
+                $(this).children('div.data').find('.nm_catg').trigger('click');
+            });
+            $(this).parents('div.data:eq(0)').addClass('is_found');
+        });
+        if(first !== null)
+            $(document).scrollTop(first.offset().top);
+        return false;
+    }
     $('.grid .grid_body ul.sortable').nestedSortable({
         listType : 'ul',
         items: 'li',

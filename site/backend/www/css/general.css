@@ -408,6 +408,7 @@ h1:hover.edit.name {background-position: right 22px;}
     .grid .grid_head > div.ad_ct {width:50px;}
     .grid .grid_head > div:last-child {border-right:none;}
     .grid .grid_body div.data {overflow: hidden;}
+    .grid .grid_body div.data.is_found {background-color:#BBCCEE;}
         .grid .grid_body div.data > div {border-bottom: 1px solid #E6FAFE;color: #40B1CA;font-size: 11px;height: 62px;padding: 0;position: relative;display:table-cell;vertical-align: middle;}
         .grid .grid_body div.data > div.name_ct {width:318px;}
         .grid .grid_body div.data > div.active_ct {width:201px;text-align: center;}

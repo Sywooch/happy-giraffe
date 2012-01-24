@@ -1,5 +1,12 @@
 <?php $descendants = $model->children()->findAll(array('order' => 'category_root, category_lft')); ?>
-<li<?php echo count($descendants) == 0 ? ' class="empty_item"' : '' ?> id="category_item_<?php echo $model->primaryKey; ?>">
+<?php
+$class = '';
+if(count($descendants) == 0)
+    $class .= 'empty_item';
+if($model->isRoot())
+    $class .= ($class == '' ? '' : ' ') . 'is_root';
+?>
+<li<?php echo $class != '' ? ' class="'.$class.'"' : '' ?> id="category_item_<?php echo $model->primaryKey; ?>">
     <div class="data">
         <div class="column name_ct">
             <a href="javascript:void(0);" class="move_lvl" title="Переместить">&nbsp;</a>

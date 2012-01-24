@@ -50,12 +50,12 @@ $model = new Category;
         <div class="ad_ct"></div>
     </div>
     <div class="grid_body">
-        <?php echo $this->getTreeItems($tree); ?>
+        <?php echo $this->getTreeItems($tree, true); ?>
     </div>
 </div>
 
 <script type="text/javascript">
-    $('.grid .grid_body ul').nestedSortable({
+    $('.grid .grid_body ul.sortable').nestedSortable({
         listType : 'ul',
         items: 'li',
         handle : 'a.move_lvl',
@@ -63,7 +63,7 @@ $model = new Category;
         forcePlaceholderSize: true,
         helper : 'clone',
         maxLevels : 3,
-        update : function(event, ui) {
+        update : function(event, ui) {;
             if(ui.item.hasClass('is_root') && ui.item.parent().hasClass('sortable'))
                 return false;
             //TODO зафиксить, не всегда работает

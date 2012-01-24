@@ -25,4 +25,11 @@ $brand_showed = false;
         <input type="hidden" name="id" value="<?php echo $attribute->map_attribute_id ?>">
     </li>
     <?php endforeach; ?>
+    <?php if (!$brand_showed): ?>
+    <li class="sort-elem">
+        <div class="drop"></div>
+        <p>Бренд</p>
+        <input type="hidden" name="id" value="brand">
+    </li>
+    <?php endif ?>
 </ul>

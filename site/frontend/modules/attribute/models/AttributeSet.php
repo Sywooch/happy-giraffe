@@ -62,8 +62,8 @@ class AttributeSet extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'categories' => array(self::MANY_MANY, 'ShopCategory', 'shop_category_attribute_set_map(attribute_set_id, category_id)'),
-            'types' => array(self::HAS_MANY, 'ShopProductType', 'type_attribute_set_id'),
+            'categories' => array(self::MANY_MANY, 'Category', 'shop_category_attribute_set_map(attribute_set_id, category_id)'),
+            'types' => array(self::HAS_MANY, 'ProductType', 'type_attribute_set_id'),
             'set_map' => array(self::HAS_MANY, 'AttributeSetMap', 'map_set_id', 'order'=>'pos asc'),
         );
     }

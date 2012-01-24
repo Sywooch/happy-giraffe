@@ -7,19 +7,7 @@
     $cs = Yii::app()->clientScript;
 
     $js= "
-        $('#image_upload').iframePostForm({
-            json: true,
-            complete: function(response) {
-                if (response.status == '1')
-                {
-                    tr.find('div.fake_file').children().first().replaceWith($('#brand_image').tmpl({url: response.url, title: response.title}));
-                }
-            }
-        });
 
-        $('body').delegate('#ProductBrand_brand_image', 'change', function() {
-            $(this).parents('form').submit();
-        });
     ";
 
     $cs->registerScript('brand_tr', $js);
@@ -45,10 +33,10 @@
     </td>
     <td class="logo_ct">
         <?php $form = $this->beginWidget('CActiveForm', array(
-            'id' => 'image_upload',
             'action' => $this->createUrl('uploadImage'),
             'htmlOptions' => array(
                 'enctype' => 'multipart/form-data',
+                'class' => 'image_upload',
             ),
         )); ?>
         <?php echo $form->hiddenField($model, 'brand_id'); ?>

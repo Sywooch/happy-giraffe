@@ -14,11 +14,11 @@ $model = new Category;
     </div>
 
     <div class="search_ct">
-        <form action="#">
+        <form action="#" onsubmit="return findNodes(this);">
             <p>
                 <label for="findText">Поиск категории</label>
-                <input id="findText" type="text" class="search_catg" name="query"/>
-                <input type="button" class="search_subm" value="Найти" onclick="submit();"/>
+                <input id="findText" type="text" class="search_catg"/>
+                <input type="submit" class="search_subm" value="Найти"/>
             </p>
         </form>
     </div>

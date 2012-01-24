@@ -2,8 +2,8 @@
 <li<?php echo count($descendants) == 0 ? ' class="empty_item"' : '' ?> id="category_item_<?php echo $model->primaryKey; ?>">
     <div class="data">
         <div class="column name_ct">
-            <a href="#" class="move_lvl" title="Переместить">&nbsp;</a>
-            <a href="#" class="nm_catg turn_icon" title="Развернуть">&nbsp;</a>
+            <a href="javascript:void(0);" class="move_lvl" title="Переместить">&nbsp;</a>
+            <a href="javascript:void(0);" class="nm_catg turn_icon" title="Развернуть">&nbsp;</a>
             <span>
                 <?php
                 $this->widget('EditDeleteWidget', array(
@@ -21,13 +21,19 @@
         <div class="column active_ct">
             <ol>
                 <?php if ($model->category_level < 3): ?>
-                    <li><span title="Создание подкатегории" class="add_child">
-                        <img src="/images/icons/add_catg_icon.png" alt="Создание подкатегории"/></span></li>
+                    <li>
+                        <span title="Создание подкатегории" class="add_child">
+                        <img src="/images/icons/add_catg_icon.png" alt="Создание подкатегории"/></span>
+                    </li>
                 <?php endif; ?>
-                <li><a href="#" title="Подробно о категории">
-                    <img src="/images/icons/info_catg_icon.png" alt="Подробно о категории"/></a></li>
-                <li><a href="#" title="Посмотреть в магазине">
-                    <img src="/images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a></li>
+                <li>
+                    <a href="#" title="Подробно о категории">
+                    <img src="/images/icons/info_catg_icon.png" alt="Подробно о категории"/></a>
+                </li>
+                <li>
+                    <a href="#" title="Посмотреть в магазине">
+                    <img src="/images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a>
+                </li>
                 <?php if (empty($model->attributeSets)):?>
                     <li>
                         <a href="<?php echo $this->createUrl('AttributeSet/create', array('category_id'=>$model->category_id)) ?>" title="Добавить пакет свойств">

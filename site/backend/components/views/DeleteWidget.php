@@ -19,9 +19,7 @@
 
                         if ($(this).find('input[name=modelIsTree]').val() == '1')
                         {
-                            var currentRow = $(this).parents('tr');
-                            var currentPk = currentRow.attr('id').replace('node_', '');
-                            deleteNode(currentPk);
+                            $(this).parents('li:eq(1)').remove();
                         }
 
                         " . $onSuccess . "

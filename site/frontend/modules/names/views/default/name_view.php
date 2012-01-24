@@ -78,8 +78,10 @@
 
         <?php if (!empty($name->nameFamouses)):?>
             <h2>Известные личности с именем <?php echo $name->name; ?></h2>
-
+        <?php $i = 0; ?>
+            <div>
             <?php foreach ($name->nameFamouses as $famous): ?>
+                <?php $i++; ?>
                 <div class="best_person">
                     <?php if (!empty($famous->photo)) $famous->GetAdminPhoto() ?>
                     <?php if (!empty($famous->link)): ?>
@@ -90,7 +92,9 @@
                             <?php if (!empty($famous->description)) echo ', '.$famous->description ?></p>
                     <?php endif ?>
                 </div>
+                <?php if ($i % 3 == 0) echo '</div><div>' ?>
             <?php endforeach; ?>
+            </div>
         <?php endif ?>
 
     </div>

@@ -50,29 +50,12 @@ $model = new Category;
         <div class="ad_ct"></div>
     </div>
     <div class="grid_body">
-        <?php echo $this->getTreeItems($tree, true); ?>
+        <?php echo $this->getTreeItems($tree); ?>
     </div>
 </div>
 
 <script type="text/javascript">
-    function findNodes(form) {
-        var text = $(form).find('input[type=text]').val();
-        $('.grid .grid_body ul.sortable').find('.is_found').removeClass('is_found');
-        var first = null;
-        $('.grid .grid_body ul.sortable div.data div.name_ct a.edit:contains('+text.toLowerCase()+'), .grid .grid_body ul.sortable div.data div.name_ct a.edit:contains('+text.toUpperCase()+')').each(function() {
-            if(first === null)
-                first = $(this).parents('div.data:eq(0)');
-            $(this).parents('li:gt(0)').each(function() {
-                if(!$(this).hasClass('opened'))
-                $(this).children('div.data').find('.nm_catg').trigger('click');
-            });
-            $(this).parents('div.data:eq(0)').addClass('is_found');
-        });
-        if(first !== null)
-            $(document).scrollTop(first.offset().top);
-        return false;
-    }
-    $('.grid .grid_body ul.sortable').nestedSortable({
+    $('.grid .grid_body ul').nestedSortable({
         listType : 'ul',
         items: 'li',
         handle : 'a.move_lvl',
@@ -80,9 +63,6 @@ $model = new Category;
         forcePlaceholderSize: true,
         helper : 'clone',
         maxLevels : 3,
-        revert: 250,
-        tabSize: 25,
-        tolerance: 'pointer',
         update : function(event, ui) {
             if(ui.item.hasClass('is_root') && ui.item.parent().hasClass('sortable'))
                 return false;

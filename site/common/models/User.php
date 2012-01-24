@@ -184,7 +184,7 @@ class User extends CActiveRecord
 	public function behaviors(){
 		return array(
 			'behavior_ufiles' => array(
-				'class' => 'ext.ufile.UFileBehavior',
+				'class' => 'site.frontend.extensions.ufile.UFileBehavior',
 				'fileAttributes'=>array(
 					'pic_small'=>array(
 						'fileName'=>'upload/avatars/*/<date>-{id}-<name>.<ext>',
@@ -209,7 +209,7 @@ class User extends CActiveRecord
 //				'attribute'=>'product_attribute_set_id',
 //			),
 			'getUrl' => array(
-				'class' => 'ext.geturl.EGetUrlBehavior',
+				'class' => 'site.frontend.extensions.geturl.EGetUrlBehavior',
 				'route' => 'product/view',
 				'dataField' => array(
 					'id' => 'product_id',
@@ -217,7 +217,7 @@ class User extends CActiveRecord
 				),
 			),
 			'statuses' => array(
-				'class' => 'ext.status.EStatusBehavior',
+				'class' => 'site.frontend.extensions.status.EStatusBehavior',
 				// Поле зарезервированное для статуса
 				'statusField' => 'product_status',
 				'statuses' => array(

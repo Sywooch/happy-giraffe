@@ -10,12 +10,13 @@ return array(
         'site.frontend.extensions.shoppingCart.*',
         'site.frontend.components.*',
         'site.frontend.extensions.LinkPager',
-        'site.frontend.extensions.ufile.UFiles',
+        'site.frontend.extensions.ufile.*',
 	'site.frontend.extensions.image.Image',
 		'site.common.models.*',
 		'application.models.*',
 		'application.components.*',
         'site.frontend.modules.attribute.models.*',
+        'site.frontend.extensions.*'
 	),
 	
 	'components' => array(

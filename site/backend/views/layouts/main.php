@@ -55,8 +55,8 @@
     <a href="/" class="logo" title="Обновить страницу">Администратор</a>
     <!-- .logo -->
     <ul class="logged">
-        <li>Анастасия Петрова</li>
-        <li><a href="#">Выйти</a></li>
+        <li><?php echo Yii::app()->user->first_name.' '.Yii::app()->user->last_name ?></li>
+        <li><a href="<?php echo $this->createUrl('site/logout') ?>">Выйти</a></li>
     </ul>
     <ul class="going">
         <li>Перейти в</li>

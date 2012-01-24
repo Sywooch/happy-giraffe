@@ -304,7 +304,6 @@ table.characteristic tr td.name {font-size: 14px;color: #474747;width: 257px;pad
 input[type="text"], textarea {color: #090909;}
 .editProduct .name input {display: block;float: left;}
 .editProduct .name input.greenGradient {margin: 10px 0 0 20px;}
-.editProduct .name {margin: 0 0 20px 0;}
 .editProduct textarea {font-size: 14px;border: 1px solid #c9eaf1;width: 275px;height: 286px;font-family: Arial, "Helvetica CY", "Nimbus Sans L", sans-serif;margin: 0 0 10px 0;}
 .editProduct input.greyGradient {margin: 0 10px 0 40px;float: left;}
 .editProduct .selectBox-dropdown {margin: 0 10px 0 0;}
@@ -427,3 +426,9 @@ h1:hover.edit.name {background-position: right 22px;}
         .grid .grid_body > ul > li > ul > li > ul > li > ul > li > ul > li {margin-left:30px;}
         .grid .grid_body > ul > li > ul > li > ul > li > ul > li > div.data div.name_ct {width:198px;}
         .grid .placeholder {height:61px;background-color:#C1ECF5;}
+
+.login {margin: 0 auto;width: 300px;padding-top: 200px;}
+    .login div.row{padding-bottom: 15px;}
+        .login div.row label{display: block;float: left;width: 60px;}
+        .login div.row input[type=text], .login div.row input[type=password]{padding: 3px;}
+        .login div.row input[type=submit]{padding: 3px 40px;}

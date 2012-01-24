@@ -141,7 +141,7 @@ table.common_sett td.sell_ct {text-align: left;padding: 0 0 0 50px;border-right:
 table.common_sett td.sell_ct ins, .grid .grid_body div.data div.sell_ct ins {width: 45px;display: inline-block;text-decoration: none;}
 table.common_sett td.ad_ct {text-align: center;padding: 0 0 0 6px;}
 table.common_sett td.ad_ct ul li, .grid .grid_body div.data div.ad_ct ul li {float: left;}
-table.common_sett td.ad_ct ul li a.activate {display: inline-block;width: 18px;height: 18px;background: url(../images/icons/on_icon.png) center 2px no-repeat;text-indent: -9999px;}
+table.common_sett td.ad_ct ul li a.activate, .grid .grid_body div.data div.ad_ct ul li a.activate {display: inline-block;width: 18px;height: 18px;background: url(../images/icons/on_icon.png) center 2px no-repeat;text-indent: -9999px;}
 table.common_sett td.ad_ct ul li a.deactivate, .grid .grid_body div.data div.ad_ct ul li a.deactivate {display: inline-block;width: 18px;height: 18px;background: url(../images/icons/off_icon.png) center 2px no-repeat;text-indent: -9999px;}
 
 /*===== Footer =====*/

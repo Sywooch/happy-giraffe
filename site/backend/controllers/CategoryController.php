@@ -78,10 +78,10 @@ class CategoryController extends BController
         }
     }
 
-    protected function getTreeItems($model)
+    protected function getTreeItems($model, $root = false)
     {
         $html = '';
-        $html .= CHtml::openTag('ul', array('class' => 'descendants'));
+        $html .= CHtml::openTag('ul', array('class' => 'descendants'.($root ? ' sortable' : '')));
         foreach($model as $item)
         {
             $html .= $this->renderPartial('_tree_item', array(

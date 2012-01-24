@@ -4,7 +4,8 @@ class ProductController extends BController
 {
     public $layout = 'main';
 
-    public function actionIndex($category_id = null, $brand_id = null){
+    public function actionIndex($category_id = null, $brand_id = null)
+    {
         $dataProvider = Product::model()->getAll($category_id, $brand_id);
         $count = Product::model()->count();
 
@@ -12,8 +13,8 @@ class ProductController extends BController
             'goods' => $dataProvider->data,
             'pages' => $dataProvider->pagination,
             'count' => $count,
-            'category_id'=>$category_id,
-            'brand_id'=>$brand_id,
+            'category_id' => $category_id,
+            'brand_id' => $brand_id,
         ));
     }
 
@@ -183,12 +184,10 @@ class ProductController extends BController
 
     public function actionUploadBigPhoto()
     {
-        if (isset($_POST['Product']))
-        {
+        if (isset($_POST['Product'])) {
             $product = $this->loadModel($_POST['Product']['product_id']);
             $product->attributes = $_POST['Product'];
-            if ($product->save(true, array('product_image')))
-            {
+            if ($product->save(true, array('product_image'))) {
                 $response = array(
                     'status' => true,
                     'url' => $product->product_image->getUrl('product'),
@@ -207,17 +206,44 @@ class ProductController extends BController
 
     public function actionUploadSmallPhoto()
     {
-        if (isset($_POST['ProductImage']))
-        {
+        if (isset($_POST['ProductImage'])) {
             $product_image = new ProductImage;
             $product_image->attributes = $_POST['ProductImage'];
             $product_image->image_product_id = $_POST['Product']['product_id'];
-            if ($product_image->save())
-            {
+            if ($product_image->save()) {
                 $response = array(
                     'status' => true,
                     'url' => $product_image->image_file->getUrl('product_thumb'),
                     'modelPk' => $product_image->primaryKey,
+                );
+            }
+            else
+            {
+                $response = array(
+                    'status' => false,
+                );
+            }
+            echo CJSON::encode($response);
+        }
+    }
+
+    public function actionAddAttrListElem()
+    {
+        if (isset($_POST['value']) && isset($_POST['product_id']) && isset($_POST['attribute_id'])) {
+            $text = $_POST['value'];
+            $id = $_POST['product_id'];
+            $attr_id = $_POST['attribute_id'];
+
+            $attr_val = new ProductEavText;
+            $attr_val->eav_attribute_id = $attr_id;
+            $attr_val->eav_attribute_value = $text;
+            $attr_val->eav_product_id = $id;
+
+            if ($attr_val->save())
+            {
+                $response = array(
+                    'status' => true,
+                    'html' => $this->renderPartial('_attribute_value_view',array('attr_val'=>$attr_val), true),
                 );
             }
             else

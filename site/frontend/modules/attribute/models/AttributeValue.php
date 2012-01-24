@@ -36,7 +36,6 @@ class AttributeValue extends CActiveRecord
         return array(
             array('value_value', 'required'),
             array('value_value', 'length', 'max' => 150),
-            array('value_value', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('value_id, value_value', 'safe', 'on' => 'search'),

@@ -90,6 +90,7 @@ $model = new Category;
     });
     $('.grid .grid_body').delegate('a.nm_catg', 'click', function() {
         $(this).parents('li:eq(0)').toggleClass('opened');
+        $(this).toggleClass('turn_icon expand_icon');
     });
     $('.grid').delegate('span.add_main_ct', 'click', function() {
         $('#grid_new_root_form').tmpl().appendTo('.grid .grid_body > ul');
@@ -141,7 +142,7 @@ $model = new Category;
                 <a href="#" class="nm_catg turn_icon" title="Развернуть">&nbsp;</a>
                 <?php
                     $form = $this->beginWidget('CActiveForm', array(
-                        'action' => 'add',
+                        'action' => '/category/add',
                     ));
                 ?>
                     <?php echo $form->textField($model, 'category_name', array('class' => 't_new_catg')); ?>

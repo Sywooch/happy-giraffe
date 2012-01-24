@@ -414,7 +414,7 @@ h1:hover.edit.name {background-position: right 22px;}
         .grid .grid_body div.data > div.goods_ct {width:128px;padding-left:50px;}
         .grid .grid_body div.data > div.sell_ct {width:163px;padding-left:50px;}
         .grid .grid_body div.data > div.ad_ct {width:44px;}
-        /*.grid .grid_body ul li ul.descendants {display:none;}*/
+        .grid .grid_body ul li ul.descendants {display:none;}
         .grid .grid_body li.empty_item div.data div.name_ct a.nm_catg {visibility:hidden;}
         .grid .grid_body ul li.opened > ul {display:block;}
         .grid .grid_body > ul > li > ul {margin-left:30px;}

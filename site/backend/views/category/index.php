@@ -50,19 +50,22 @@ $model = new Category;
         <div class="ad_ct"></div>
     </div>
     <div class="grid_body">
-        <?php echo $this->getTreeItems($tree); ?>
+        <?php echo $this->getTreeItems($tree, true); ?>
     </div>
 </div>
 
 <script type="text/javascript">
-    $('.grid .grid_body ul').nestedSortable({
+    $('.grid .grid_body ul.sortable').nestedSortable({
         listType : 'ul',
         items: 'li',
-        handle : 'a.move_lvl',
+        /*handle : 'a.move_lvl',*/
         placeholder: 'placeholder',
         forcePlaceholderSize: true,
         helper : 'clone',
         maxLevels : 3,
+        revert: 250,
+        tabSize: 25,
+        tolerance: 'pointer',
         update : function(event, ui) {
             //TODO зафиксить, не всегда работает
             var old = $(this);

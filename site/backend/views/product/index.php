@@ -14,7 +14,7 @@
     <h1>Товары</h1>
 
     <div class="search_ct">
-        <?php echo CHtml::beginForm('index', 'get'); ?>
+        <?php echo CHtml::beginForm($this->createUrl('product/index'), 'get'); ?>
             <p>
                 <label>Поиск по категории</label>
                 <?php echo CHtml::dropDownList('category_id', $category_id,

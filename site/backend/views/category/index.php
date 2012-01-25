@@ -82,7 +82,6 @@ $model = new Category;
         maxLevels : 3,
         revert: 250,
         tabSize: 25,
-        tolerance: 'pointer',
         update : function(event, ui) {
             if(ui.item.hasClass('is_root') && ui.item.parent().hasClass('sortable'))
                 return false;

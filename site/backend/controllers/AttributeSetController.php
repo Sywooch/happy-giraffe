@@ -191,4 +191,9 @@ class AttributeSetController extends BController
         $model = AttributeSet::model()->findByPk($set_id);
         $this->renderPartial('_sorter', array('model' => $model));
     }
+
+    public function actionTestt(){
+        echo Yii::app()->db->createCommand('INSERT INTO `shop_category_attribute_set_map`
+          (`category_id`, `attribute_set_id`) VALUES (7, 3);')->execute();
+    }
 }

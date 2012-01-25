@@ -121,6 +121,7 @@ $model = new Category;
     });
     $('.grid').delegate('span.add_main_ct', 'click', function() {
         $('#grid_new_root_form').tmpl().appendTo('.grid .grid_body > ul');
+        $('html,body').animate({scrollTop: $('#Category_category_name').offset().top},'fast');
     });
     $('.grid').delegate('span.add_child', 'click', function() {
         var parent = $(this).parents('li:eq(1)');
@@ -133,7 +134,10 @@ $model = new Category;
         if(!parent.hasClass('opened'))
             parent.children('div.data').find('.nm_catg').trigger('click');
     });
-    $('body').delegate('input[type=button].b_new_catg', 'click', function() {
+    $('body').delegate('div.name_ct form', 'submit', function() {
+        return false;
+    });
+    $('body').delegate('div.name_ct input[type=button].b_new_catg', 'click', function() {
         if($(this).parents('li:eq(0)').parent('ul').parent('.grid_body').size() > 0) {
             var type = 'root';
             var prependTo = 0;

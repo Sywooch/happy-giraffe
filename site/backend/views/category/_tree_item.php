@@ -38,7 +38,7 @@ if($model->isRoot())
                     <img src="/images/icons/info_catg_icon.png" alt="Подробно о категории"/></a>
                 </li>
                 <li>
-                    <a href="#" title="Посмотреть в магазине">
+                    <a href="<?php echo Yii::app()->params['frontend_url'].'category/'.$model->category_id ?>" title="Посмотреть в магазине">
                     <img src="/images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a>
                 </li>
                 <?php if (empty($model->attributeSets)):?>
@@ -56,8 +56,9 @@ if($model->isRoot())
         </div>
         <div class="column goods_ct">
             <ul>
-               <li>Товаров - <a href="<?php echo $this->createUrl('product/index', array('category_id'=>$model->category_id)) ?>"><?php echo $model->productsCount; ?></a></li>
-               <li>Брендов - <a href="#"><?php echo $model->brandsCount; ?></a></li>
+                <li>Товаров - <a href="<?php echo $this->createUrl('product/index', array('category_id'=>$model->category_id)) ?>"><?php echo $model->productsCount; ?></a></li>
+                <li>Брендов - <a href="#"><?php echo $model->brandsCount; ?></a></li>
+                <li><a href="<?php echo $this->createUrl('product/create', array('category_id'=>$model->category_id)) ?>">Добавить товар</a></li>
            </ul>
         </div>
         <div class="column sell_ct">

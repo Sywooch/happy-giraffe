@@ -129,6 +129,7 @@ Yii::app()->clientScript
                 success:function (data) {
                     if (data.success) {
                         $(this).parent().parent().find('img').attr("src", data.image);
+                        $(this).parent().parent().find('span.brand-title').text(data.name);
                         $(this).parent().hide();
                         $(this).parent().parent().find('img').show();
                         $(this).parent().parent().find('a').show();
@@ -265,7 +266,8 @@ Yii::app()->clientScript
 
 <div class="bodyr">
     <div class="right">
-        <a href="<?php echo $this->createUrl('product/index', array('category_id'=>$model->product_category_id)) ?>" class="all_products">Список товаров</a>
+        <a href="<?php echo $this->createUrl('product/index') ?>" class="all_products">Список товаров</a>
+        <a href="<?php echo $this->createUrl('product/index', array('category_id'=>$category->category_id)) ?>" class="all_products">Список товаров этой категории</a>
     </div>
     <div class="center">
         <div class="editProduct">
@@ -344,14 +346,14 @@ Yii::app()->clientScript
                 </div>
 
                 <div class="brand_add">
-                    <span class="brand-title">Brand</span>
+                    <span class="brand-title"><?php echo (empty($model->product_brand_id))?'Brand':$model->brand->brand_title ?></span>
                     <span style="padding-top:15px;float: left;<?php if (!empty($model->product_brand_id)) echo 'display: none;' ?>">
                         <?php echo CHtml::dropDownList('brand_id', ' ',
                         CHtml::listData(ProductBrand::model()->findAll(), 'brand_id', 'brand_title'), array('empty' => ' ')); ?>
                         <input type="button" class="smallGreen set-brand" value="Ok"/>
                     </span>
 
-                    <img<?php if (empty($model->product_brand_id)) echo ' style="display: none;"' ?>
+                    <img style="float: left;<?php if (empty($model->product_brand_id)) echo 'display: none;' ?>"
                         src="<?php if (!empty($model->product_brand_id)) echo $model->brand->brand_image->getUrl()  ?>"
                         alt="">
                     <a<?php if (empty($model->product_brand_id)) echo ' style="display: none;"' ?> class="edit-brand"
@@ -393,7 +395,7 @@ Yii::app()->clientScript
 
                 <div class="video">
                     <a href="#" class="delete"></a>
-                    <img src="images/content/video.png" alt=""/>
+                    <img src="/images/content/video.png" alt=""/>
                 </div>
 
                 <div class="video add">

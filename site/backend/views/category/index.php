@@ -133,7 +133,10 @@ $model = new Category;
         if(!parent.hasClass('opened'))
             parent.children('div.data').find('.nm_catg').trigger('click');
     });
-    $('body').delegate('input[type=button].b_new_catg', 'click', function() {
+    $('body').delegate('div.name_ct form', 'submit', function() {
+        return false;
+    });
+    $('body').delegate('div.name_ct input[type=button].b_new_catg', 'click', function() {
         if($(this).parents('li:eq(0)').parent('ul').parent('.grid_body').size() > 0) {
             var type = 'root';
             var prependTo = 0;

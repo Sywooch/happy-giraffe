@@ -265,7 +265,8 @@ Yii::app()->clientScript
 
 <div class="bodyr">
     <div class="right">
-        <a href="<?php echo $this->createUrl('product/index', array('category_id'=>$model->product_category_id)) ?>" class="all_products">Список товаров</a>
+        <a href="<?php echo $this->createUrl('product/index') ?>" class="all_products">Список товаров</a>
+        <a href="<?php echo $this->createUrl('product/index', array('category_id'=>$category->category_id)) ?>" class="all_products">Список товаров этой категории</a>
     </div>
     <div class="center">
         <div class="editProduct">

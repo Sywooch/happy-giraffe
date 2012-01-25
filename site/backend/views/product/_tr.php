@@ -17,7 +17,7 @@
             <li><a href="<?php echo $this->createUrl('update', array('product_id'=>$good->product_id)) ?>"
                    title="Подробно о товаре" target="_blank">
                 <img src="/images/icons/info_catg_icon.png" alt="Подробно о товаре"/></a></li>
-            <li><a href="<?php echo Yii::app()->params['main_site'].'product/'.$good->product_id ?>"
+            <li><a href="<?php echo Yii::app()->params['frontend_url'].'product/'.$good->product_id ?>"
                    title="Посмотреть в магазине" target="_blank">
                 <img src="/images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a></li>
         </ul>

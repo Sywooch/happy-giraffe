@@ -20,6 +20,7 @@
 
         $('body').delegate('span.add_main_ct', 'click', function () {
             $('table.common_sett').append($('#new_brand_form').tmpl());
+            $('html,body').animate({scrollTop: $('#ProductBrand_brand_title').offset().top},'fast');
         });
 
         $('body').delegate('input[type=button].b_new_catg', 'click', function () {

@@ -120,6 +120,7 @@ $model = new Category;
     });
     $('.grid').delegate('span.add_main_ct', 'click', function() {
         $('#grid_new_root_form').tmpl().appendTo('.grid .grid_body > ul');
+        $('html,body').animate({scrollTop: $('#Category_category_name').offset().top},'fast');
     });
     $('.grid').delegate('span.add_child', 'click', function() {
         var parent = $(this).parents('li:eq(1)');

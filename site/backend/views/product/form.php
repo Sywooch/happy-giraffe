@@ -217,6 +217,30 @@ Yii::app()->clientScript
         $('body').delegate('#Product_product_image, #ProductImage_image_file', 'change', function() {
             $(this).parents('form').submit();
         });
+
+        $('body').delegate('div.video > a.add', 'click', function(e) {
+            e.preventDefault();
+            $('#add_video').dialog('open');
+        });
+
+        $('body').delegate('#add_video > form', 'submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    $('#add_video').dialog('close');
+                    if (response.status == '1')
+                    {
+                        $('div.videos').append(response.video);
+                        $(this).children('input[name="video_url"]').val('http://');
+                    }
+                },
+                context: $(this)
+            });
+        });
     });
 
     function SetGender(value, sender) {
@@ -393,9 +417,12 @@ Yii::app()->clientScript
 
                 <p class="text_header">Видео о товаре</p>
 
-                <div class="video">
-                    <a href="#" class="delete"></a>
-                    <img src="/images/content/video.png" alt=""/>
+                <div class="videos">
+                    <?php foreach ($model->videos as $v): ?>
+                        <?php $this->renderPartial('_video', array(
+                            'model' => $v,
+                        )); ?>
+                    <?php endforeach; ?>
                 </div>
 
                 <div class="video add">
@@ -458,3 +485,21 @@ Yii::app()->clientScript
     </div>
 </div>
 <div class="clear"></div>
+
+<?php
+    $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+        'id' => 'add_video',
+        'options' => array(
+            'title' => 'Добавить видео',
+            'autoOpen' => false,
+        ),
+    ));
+?>
+<?php echo CHtml::beginForm('/product/addVideo', 'post'); ?>
+<?php echo CHtml::hiddenField('product_id', $model->primaryKey); ?>
+URL: <?php echo CHtml::textField('video_url', 'http://'); ?>
+<?php echo CHtml::submitButton('Добавить'); ?>
+<?php echo CHtml::endForm(); ?>
+<?
+    $this->endWidget('zii.widgets.jui.CJuiDialog');
+?>

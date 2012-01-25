@@ -346,7 +346,7 @@ Yii::app()->clientScript
                 </div>
 
                 <div class="brand_add">
-                    <span class="brand-title">Brand</span>
+                    <span class="brand-title"><?php echo (empty($model->product_brand_id))?'Brand':$model->brand->brand_title ?></span>
                     <span style="padding-top:15px;float: left;<?php if (!empty($model->product_brand_id)) echo 'display: none;' ?>">
                         <?php echo CHtml::dropDownList('brand_id', ' ',
                         CHtml::listData(ProductBrand::model()->findAll(), 'brand_id', 'brand_title'), array('empty' => ' ')); ?>

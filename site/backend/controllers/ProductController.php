@@ -135,7 +135,7 @@ class ProductController extends BController
         $model->product_brand_id = $brand_id;
         if ($model->update(array('product_brand_id'))) {
             $image = $brand->GetImageUrl();
-            echo CJSON::encode(array('success' => true, 'image' => $image->getUrl()));
+            echo CJSON::encode(array('success' => true, 'image' => $image->getUrl('display'), 'name'=>$brand->brand_title));
         } else
             echo CJSON::encode(array('success' => false, 'error' => $model->getErrors()));
     }

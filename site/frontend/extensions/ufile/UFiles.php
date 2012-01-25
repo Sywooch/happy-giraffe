@@ -313,8 +313,8 @@ class UFile extends CComponent
 	public function getUrl($item=null)
 	{
 		if (!$this->_path) return false;
-		
-		return Yii::app()->params['frontend_url'].UFiles::getUrlByAbsolutePath($this->getPath($item));
+		$url = UFiles::getUrlByAbsolutePath($this->getPath($item));
+		return Yii::app()->params['frontend_url'].ltrim($url, '/');
 	}
 
 	public function getType($item=null)

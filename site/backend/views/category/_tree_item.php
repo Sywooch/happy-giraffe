@@ -38,7 +38,7 @@ if($model->isRoot())
                     <img src="/images/icons/info_catg_icon.png" alt="Подробно о категории"/></a>
                 </li>
                 <li>
-                    <a href="#" title="Посмотреть в магазине">
+                    <a href="<?php echo Yii::app()->params['frontend_url'].'category/'.$model->category_id ?>" title="Посмотреть в магазине">
                     <img src="/images/icons/view_shop_icon.png" alt="Посмотреть в магазине"/></a>
                 </li>
                 <?php if (empty($model->attributeSets)):?>

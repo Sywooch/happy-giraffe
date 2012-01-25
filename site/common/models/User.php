@@ -59,6 +59,7 @@ class User extends CActiveRecord
 			//general
 			array('first_name, last_name', 'length', 'max' => 50),
 			array('email', 'email'),
+            array('email', 'unique', 'on' => 'signup'),
 			array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
 			array('gender', 'boolean'),
 			array('phone', 'safe'),

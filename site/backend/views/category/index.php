@@ -50,12 +50,29 @@ $model = new Category;
         <div class="ad_ct"></div>
     </div>
     <div class="grid_body">
-        <?php echo $this->getTreeItems($tree); ?>
+        <?php echo $this->getTreeItems($tree, true); ?>
     </div>
 </div>
 
 <script type="text/javascript">
-    $('.grid .grid_body ul').nestedSortable({
+    function findNodes(form) {
+        var text = $(form).find('input[type=text]').val();
+        $('.grid .grid_body ul.sortable').find('.is_found').removeClass('is_found');
+        var first = null;
+        $('.grid .grid_body ul.sortable div.data div.name_ct a.edit:contains('+text.toLowerCase()+'), .grid .grid_body ul.sortable div.data div.name_ct a.edit:contains('+text.toUpperCase()+')').each(function() {
+            if(first === null)
+                first = $(this).parents('div.data:eq(0)');
+            $(this).parents('li:gt(0)').each(function() {
+                if(!$(this).hasClass('opened'))
+                $(this).children('div.data').find('.nm_catg').trigger('click');
+            });
+            $(this).parents('div.data:eq(0)').addClass('is_found');
+        });
+        if(first !== null)
+            $(document).scrollTop(first.offset().top);
+        return false;
+    }
+    $('.grid .grid_body ul.sortable').nestedSortable({
         listType : 'ul',
         items: 'li',
         handle : 'a.move_lvl',
@@ -63,7 +80,12 @@ $model = new Category;
         forcePlaceholderSize: true,
         helper : 'clone',
         maxLevels : 3,
+        revert: 250,
+        tabSize: 25,
+        tolerance: 'pointer',
         update : function(event, ui) {
+            if(ui.item.hasClass('is_root') && ui.item.parent().hasClass('sortable'))
+                return false;
             //TODO зафиксить, не всегда работает
             var old = $(this);
             if(old.children().size() == 0) {
@@ -83,6 +105,10 @@ $model = new Category;
                 if(parent.hasClass('empty_item'))
                     parent.removeClass('empty_item');
             }
+            if(ui.item.parent().hasClass('sortable'))
+                ui.item.addClass('is_root');
+            else
+                ui.item.removeClass('is_root');
             $.get(
                 '<?php echo $this->createUrl('moveNode'); ?>',
                 {id : item_id, prev : prev_id, parent : parent_id}

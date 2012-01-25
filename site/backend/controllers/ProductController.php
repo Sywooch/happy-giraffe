@@ -255,4 +255,36 @@ class ProductController extends BController
             echo CJSON::encode($response);
         }
     }
+
+    public function actionAddVideo()
+    {
+        if (isset($_POST['video_url']))
+        {
+            $video = new Video($_POST['video_url']);
+            $productVideo = new ProductVideo;
+            $productVideo->code = $video->code;
+            $productVideo->title = $video->title;
+            $productVideo->description = $video->description;
+            $productVideo->preview = $video->preview;
+            $productVideo->url = $_POST['video_url'];
+            $productVideo->product_id = $_POST['product_id'];
+            if ($productVideo->save())
+            {
+                $response = array(
+                    'status' => true,
+                    'video' => $this->renderPartial('_video', array(
+                        'model' => $productVideo,
+                    ), true),
+                );
+            }
+            else
+            {
+                $response = array(
+                    'status' => false,
+                );
+            }
+
+            echo CJSON::encode($response);
+        }
+    }
 }

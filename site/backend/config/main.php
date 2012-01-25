@@ -5,6 +5,7 @@ return array(
 	'name' => 'Админка',
 
 	'import'=>array(
+    'site.frontend.components.Video',
 	'site.frontend.helpers.FileHandler',
 	'site.frontend.helpers.CArray',
         'site.frontend.extensions.shoppingCart.*',

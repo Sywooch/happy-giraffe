@@ -174,11 +174,11 @@ class DeliveryModule extends CWebModule
 				{
 					if($this->showResult)
 					{
-						$url = Controller::createUrl('/delivery/default/success', array('delivery_id' => $model->id));
+						$url = $this->createUrl('/delivery/default/success', array('delivery_id' => $model->id));
 					}
 					else
 					{
-						$url = Controller::createUrl($params['returnUrl'], array($params['order_id'] => $OrderId));
+						$url = Yii::app()->createUrl($params['returnUrl'], array($params['order_id'] => $OrderId));
 					}
 					return array(
 						'method'=>'redir',

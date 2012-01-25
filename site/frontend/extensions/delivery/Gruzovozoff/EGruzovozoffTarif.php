@@ -151,7 +151,7 @@ class EGruzovozoffTarif extends CActiveRecord {
 	 * @return array|false
 	 */
 	protected function getGffCityToId($name) {
-		$cities = require 'cities.php';
+        $cities = require dirname(__FILE__) . '/cities.php';
 		$c = array_flip($cities);
 		return isset($c[$name]) ? $c[$name] : false;
 	}

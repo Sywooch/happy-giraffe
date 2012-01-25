@@ -44,7 +44,7 @@ class UFiles
 	public static function getWebRoot()
 	{
 		if (!isset(self::$webRoot)) {
-			self::$webRoot = self::tidyPath(Yii::getPathOfAlias('webroot'));
+			self::$webRoot = self::tidyPath(Yii::getPathOfAlias('site.frontend.www'));
 		}
 		return self::$webRoot;
 	}
@@ -314,7 +314,7 @@ class UFile extends CComponent
 	{
 		if (!$this->_path) return false;
 		
-		return UFiles::getUrlByAbsolutePath($this->getPath($item));
+		return Yii::app()->params['frontend_url'].UFiles::getUrlByAbsolutePath($this->getPath($item));
 	}
 
 	public function getType($item=null)

@@ -45,6 +45,6 @@ return array(
 
     'params' => array(
         'ufileStorageRoot' => 'temp_upload',
-        'main_site'=>'http://www.happy-giraffe.ru/'
+        'frontend_url'=>'http://www.happy-giraffe.ru/'
     )
 );

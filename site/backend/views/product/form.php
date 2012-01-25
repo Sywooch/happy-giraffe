@@ -129,6 +129,7 @@ Yii::app()->clientScript
                 success:function (data) {
                     if (data.success) {
                         $(this).parent().parent().find('img').attr("src", data.image);
+                        $(this).parent().parent().find('span.brand-title').text(data.name);
                         $(this).parent().hide();
                         $(this).parent().parent().find('img').show();
                         $(this).parent().parent().find('a').show();
@@ -352,7 +353,7 @@ Yii::app()->clientScript
                         <input type="button" class="smallGreen set-brand" value="Ok"/>
                     </span>
 
-                    <img<?php if (empty($model->product_brand_id)) echo ' style="display: none;"' ?>
+                    <img style="float: left;<?php if (empty($model->product_brand_id)) echo 'display: none;' ?>"
                         src="<?php if (!empty($model->product_brand_id)) echo $model->brand->brand_image->getUrl()  ?>"
                         alt="">
                     <a<?php if (empty($model->product_brand_id)) echo ' style="display: none;"' ?> class="edit-brand"
@@ -394,7 +395,7 @@ Yii::app()->clientScript
 
                 <div class="video">
                     <a href="#" class="delete"></a>
-                    <img src="images/content/video.png" alt=""/>
+                    <img src="/images/content/video.png" alt=""/>
                 </div>
 
                 <div class="video add">

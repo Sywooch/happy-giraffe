@@ -251,7 +251,7 @@ div.brand, div.brand_add {font-size: 14px;font-weight: bold;color: #474747;displ
 div.brand span {display: block;float: left;margin: 16px 0 0 0;}
 div.brand_add span.brand-title {display: block;float: left;margin: 16px 20px 0 0;}
 div.brand img {display: block;float: left;margin: 0 20px 0 20px;}
-div.brand a, div.brand_add a.edit-brand {display: block;float: left;margin: 14px 0 0 0;background: url("../images/icons/brand_edit.png") no-repeat left top;width: 43px;height: 17px;text-align: center;color: #a1a1a1;text-decoration: none;font-size: 11px;padding: 2px 0 0 0;}
+div.brand a, div.brand_add a.edit-brand {display: block;float: left;margin: 14px 0 0 15px;background: url("../images/icons/brand_edit.png") no-repeat left top;width: 43px;height: 17px;text-align: center;color: #a1a1a1;text-decoration: none;font-size: 11px;padding: 2px 0 0 0;}
 div.brand a.addValue, div.brand_add a.addValue {margin: 14px 0 0 0;background: url("../images/icons/add_brand.png") no-repeat left top;width: 98px;height: 64px;}
 .description h2.edit {margin: 3px 0 8px 0;color: #03839f;font-size: 25px;line-height: 30px;}
 .description h2:hover.edit {background-position: right 10px;}

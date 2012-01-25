@@ -74,7 +74,8 @@ class EDZPM extends CActiveRecord {
 		Yii::import('ext.delivery.DZPM.EDZPMCityZoneLink');
 		Yii::import('ext.delivery.DZPM.EDZPMZone');
 		$cityId = $param['orderCityId'];
-		$city = $param['orderCity'][0];
+        // TODO lnghost fix
+		$city = isset($param['orderCity'][0]) ? $param['orderCity'][0] : false;
 		if (!$cityId) {
 			return 0;
 		}

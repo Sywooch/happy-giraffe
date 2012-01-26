@@ -41,6 +41,7 @@ class NameOption extends CActiveRecord
 			array('name_id', 'required'),
 			array('name_id', 'length', 'max'=>10),
 			array('value', 'length', 'max'=>255),
+            array('name_id+value', 'uniqueMultiColumnValidator'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name_id, value', 'safe', 'on'=>'search'),

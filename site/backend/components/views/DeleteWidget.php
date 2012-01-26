@@ -2,7 +2,7 @@
     $cs = Yii::app()->clientScript;
 
     $js = "
-        $('body').delegate('a.delete', 'click', function(e) {
+        $('body').delegate('" . $selector . " a.delete', 'click', function(e) {
             e.preventDefault();
             ConfirmPopup('Вы точно хотите ' + $(this).find('img').attr('alt'), $(this), function (owner) {
             $.ajax({
@@ -31,12 +31,12 @@
         });
     ";
 
-    $cs->registerScript('deleteWidget', $js);
+    $cs->registerScript('deleteWidget-'.$selector, $js);
+if (!$init){
 ?>
-
 <a class="delete" title="Удалить <?php echo $modelAccusativeName; ?>">
     <img src="/images/icons/delete_sm_icon.png" alt="Удалить <?php echo $modelAccusativeName; ?>"/>
     <?php echo CHtml::hiddenField('modelName', $modelName); ?>
     <?php echo CHtml::hiddenField('modelPk', $modelPk); ?>
     <?php echo CHtml::hiddenField('modelIsTree', $modelIsTree); ?>
-</a>
+</a><?php }

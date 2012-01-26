@@ -35,6 +35,15 @@ $(document).ready(function() {
 
 });
 
+function RefreshTooltip(elem){
+    elem.tooltip({
+        track: true,
+        delay: 0,
+        showURL: false,
+        fade: 200
+    });
+}
+
 
 function changeCheck(el)
     /*

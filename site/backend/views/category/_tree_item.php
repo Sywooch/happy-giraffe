@@ -18,7 +18,7 @@ if($model->isRoot())
                     'model' => $model,
                     'attribute' => 'category_name',
                     'options'=> array(
-                        'edit_selector'=>'a',
+                        'edit_selector'=>'a.edit',
                         'edit_link_class'=>'edit',
                         'edit_link_text'=>$model->category_name,
                     )

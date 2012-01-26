@@ -18,6 +18,7 @@
 class NameFamous extends CActiveRecord
 {
     public $image;
+    public $accusativeName = 'Известную личность';
 
     /**
      * Returns the static model of the specified AR class.
@@ -117,7 +118,7 @@ class NameFamous extends CActiveRecord
 
     public function GetAdminPhoto()
     {
-        echo  CHtml::image('/'.$this->uploadTo() . $this->photo);
+        echo CHtml::image(Yii::app()->params['frontend_url'].$this->uploadTo() . $this->photo);
     }
 
     /**

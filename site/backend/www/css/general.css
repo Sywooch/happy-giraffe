@@ -37,6 +37,27 @@ h1 {font-size: 32px;color: #090909;padding: 0 0 30px 0;}
     opacity: 0;
 }
 
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
 /*===== Wrapper =====*/
 #wrapper {display: block;width: 1000px;margin: 0 auto;height: auto;min-height: 100%;background: #fff;position: relative;}
 
@@ -214,9 +235,10 @@ table.common_sett td.ad_ct ul li a.deactivate, .grid .grid_body div.data div.ad_
 .content .text_block .inline_block form p {display: inline-block;*display: inline;}
 .content .text_block .inline_block form label {font-size: 10px;color: #bcbbbb;display: block;margin: 0 10px 0 10px;}
 .content .text_block .inline_block form select option {padding: 0 32px 0 0;}
-.content .text_block .inline_block form input[type=text] {color: #474747;font-size: 12px;border: 1px solid #6dc0d1;background: #fff;height: 17px;width: 151px;padding: 0 0 0 7px;margin: 0 13px 0 0;float: left;}
+.content .text_block .inline_block form input[type=text] {color: #474747;font-size: 12px;border: 1px solid #6dc0d1;background: #fff;height: 17px;padding: 0 0 0 7px;margin: 0 13px 0 0;}
 .content .text_block .inline_block form input[type=submit] {width: 34px;height: 19px;background: url(../images/bg_sm_button.png) 0 0 no-repeat;border: 0;font-size: 11px;font-weight: bold;color: #fff;margin: 1px 0 0 7px;}
 .content .text_block .inline_block p.withMargin input, .content .text_block .inline_block p.withMargin .selectBox-dropdown {margin: 17px 13px 0 0;}
+.content .text_block .inline_block form.editw-form {width: 280px;}
 
 /* styled checkbox */
 .niceCheck {width: 21px;height: 19px;display: block;margin: 3px auto 0 auto;cursor: pointer;background: url('../images/checkbox.png');overflow: hidden;}
@@ -327,15 +349,17 @@ div.sex a.all {background-image: url("../images/all.png");background-position: c
 div.sex a.boys {background-image: url("../images/boys.png");background-position: center 10px;}
 div.sex a.girls {background-image: url("../images/girls.png");background-position: center 12px;color: #e28bbc;}
 div.sex a.active {background-color: #fffac6;}
+
 /*********************************** Name *****************************************************/
 div.name_bold {color: #474747;font-size: 14px;font-weight: bold;}
 div.name_actions {padding: 0;margin: 0 4px 0 0;font-size: 13px;height: 18px;position: relative;float: left;color: #7a7a7a;}
 div.name_actions a {display: none;}
-div.name_actions p {cursor: pointer;float: left;}
-div.name_actions:hover {padding: 0 41px 0 0;}
+div.name_actions p {float: left;}
+div.name_actions .editw-form {width: 180px;}
+/*div.name_actions:hover {padding: 0 41px 0 0;}*/
 div.name_actions:hover a {display: block;}
-div.name_actions a.edit {background: url("../images/icons/pencil_icon.png") no-repeat left top;width: 15px;height: 18px;position: absolute;right: 22px;padding: 0;}
-div.name_actions a.delete {background: url("../images/icons/delete_sm_icon.png") no-repeat left top;width: 18px;height: 18px;position: absolute;right: 0;}
+div.name_actions a.edit {background: url("../images/icons/pencil_icon.png") no-repeat left top;width: 15px;height: 18px;padding: 0;float: left;}
+div.name_actions a.delete {background: url("../images/icons/delete_sm_icon.png") no-repeat left top;width: 18px;height: 18px;float: left;}
 .bodyr.long {padding: 0 330px 0 50px;}
 .bodyr.long .right {margin: 0 -330px 0 0;width: 330px;}
 h1.edit.name {font-size: 40px;font-weight: bold;color: #5fb4ea;margin: 0 0 22px 0;}
@@ -350,11 +374,11 @@ h1:hover.edit.name {background-position: right 22px;}
 .patronymic .name_bold {margin: 0 10px 0 0;float: left;}
 .famous .name_bold {margin: 0 0 10px 0;}
 .famous .famous_block {width: 150px;text-align: center;font-size: 10px;color: #5e5e5e;font-style: italic;margin: 6px 19px 15px 2px;float: left;position: relative;}
-.famous .famous_block img {display: block;width: 150px;}
+.famous .famous_block > img {display: block;width: 150px;}
 .famous .famous_block p {background-color: #ededed;padding: 5px 0;}
 .famous .famous_block a.delete {display: block;position: absolute;right: 20px;background: url("../images/icons/delete_sm_icon.png") no-repeat left top;width: 18px;height: 18px;}
 .famous .famous_add {float: left;background: url("../images/icons/add_famous.png") no-repeat left top;display: block;width: 121px;height: 95px;cursor: pointer;margin: 6px 19px 15px 2px;}
-.right_block {border: 1px solid #c9eaf1;width: 288px;padding: 16px 0 20px 20px;margin: 83px 0 0 20px;}
+.right_block {border: 1px solid #c9eaf1;width: 288px;padding: 16px 0 20px 20px;margin: 33px 0 0 20px;}
 .right_block .name_value {color: #7a7a7a;margin: 12px 0 24px 0;}
 .right_block .calendar {margin: 12px 0 0 0;}
 .right_block .calendar .list {position: relative;float: left;margin: 2px 12px 12px 0;background: url("../images/icons/calendar_list.png") no-repeat left top;width: 89px;height: 56px;text-align: center;font-size: 17px;color: #32a5e3;line-height: 17px;padding: 28px 0 0 0;}
@@ -432,3 +456,8 @@ h1:hover.edit.name {background-position: right 22px;}
         .login div.row label{display: block;float: left;width: 60px;}
         .login div.row input[type=text], .login div.row input[type=password]{padding: 3px;}
         .login div.row input[type=submit]{padding: 3px 40px;}
+
+.editw-form {width: 180px;}
+.editw-form input[type="text"], .input-text-add-form input[type="text"] {width: 130px;margin-right: 5px;border: 1px solid #6DC0D1;}
+.editw-form input, .input-text-add-form input {float: left;}
+a.delete {cursor: pointer;}

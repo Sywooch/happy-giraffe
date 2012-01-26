@@ -3,12 +3,49 @@ Yii::import('site.frontend.modules.names.models.*');
 
 class NamesController extends BController
 {
-    public $layout = '//layouts/main';
+    public $layout = '//layouts/club';
 
-    public function actionIndex()
+    public function actionIndex($letter = null, $gender = null)
     {
-        $names = Name::model()->findAll();
-        $this->render('index', array('names' => $names));
+        $criteria = new CDbCriteria;
+        $criteria->order = 'name';
+        $show_all = false;
+        if ($letter !== null && strlen($letter) < 3) {
+            $criteria->compare('name', strtolower($letter) . '%', true, 'AND', false);
+            $show_all = true;
+        }
+        if (!empty($gender))
+            $criteria->compare('gender', $gender);
+
+        if (!$show_all) {
+            $count = Name::model()->count($criteria);
+            $pages = new CPagination($count);
+            $pages->pageSize = 30;
+            $pages->applyLimit($criteria);
+            $names = Name::model()->findAll($criteria);
+            if (Yii::app()->request->isAjaxRequest) {
+                $this->renderPartial('index_data', array(
+                    'names' => $names,
+                    'pages' => $pages,
+                ));
+            } else
+                $this->render('index', array(
+                    'names' => $names,
+                    'pages' => $pages,
+                ));
+        } else {
+            $names = Name::model()->findAll($criteria);
+            if (Yii::app()->request->isAjaxRequest) {
+                $this->renderPartial('index_data', array(
+                    'names' => $names,
+                    'pages' => null,
+                ));
+            } else
+                $this->render('index', array(
+                    'names' => $names,
+                    'pages' => null,
+                ));
+        }
     }
 
     public function actionCreate()
@@ -164,19 +201,44 @@ class NamesController extends BController
         $attributes = Yii::app()->request->getPost('NameFamous');
 
         if (!empty($attributes)) {
-            $famous = new NameFamous;
-            $famous->attributes = $attributes;
-
-            if ($famous->save()) {
-                $response = array(
-                    'status' => true,
-                    'html' => $this->renderPartial('_famous', array('model' => $famous), true)
-                );
+            if (empty($attributes['id'])) {
+                $famous = new NameFamous;
+                $famous->attributes = $attributes;
+                if (!empty($attributes['photo'])) {
+                    $famous->photo = $attributes['photo'];
+                    $famous->SaveImage();
+                }
+                if ($famous->save()) {
+                    $response = array(
+                        'status' => true,
+                        'html' => $this->renderPartial('_famous', array('model' => $famous), true)
+                    );
+                } else {
+                    $response = array(
+                        'status' => false,
+                        'error' => $famous->getErrors()
+                    );
+                }
             } else {
-                $response = array(
-                    'status' => false,
-                    'error'=>$famous->getErrors()
-                );
+                $famous = $this->loadFamousModel($attributes['id']);
+                $famous->attributes = $attributes;
+                if (!empty($attributes['photo'])) {
+                    $famous->DeletePhoto();
+                    $famous->photo = $attributes['photo'];
+                    $famous->SaveImage();
+                }
+                if ($famous->save()) {
+                    $response = array(
+                        'status' => true,
+                        'info' => $famous->name->name . ' ' . $famous->last_name . ', ' . $famous->description,
+                        'url' => $famous->GetUrl()
+                    );
+                } else {
+                    $response = array(
+                        'status' => false,
+                        'error' => $famous->getErrors()
+                    );
+                }
             }
         } else {
             $response = array(
@@ -186,8 +248,51 @@ class NamesController extends BController
         echo CJSON::encode($response);
     }
 
-    public function actionUploadPhoto(){
+    public function actionUploadPhoto()
+    {
+        $path = Yii::getPathOfAlias('site.frontend.www.temp_upload');
+        $image = CUploadedFile::getInstanceByName('photo');
+        if (!empty($image)) {
+            if ($image->saveAs($path . '/' . $image->name)) {
+                $response = array(
+                    'status' => true,
+                    'image' => Yii::app()->params['frontend_url'] . 'temp_upload/' . $image->name,
+                    'name' => $image->name,
+                );
+            }
+            else
+            {
+                $response = array(
+                    'status' => false,
+                );
+            }
+            echo CJSON::encode($response);
+        } else
+            echo CJSON::encode(array(
+                'status' => false,
+                'error' => 'empty photo',
+            ));
+    }
 
+    public function actionFamousInfo()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $model = $this->loadFamousModel($id);
+        echo CJSON::encode(array_merge($model->attributes, array('url' => $model->GetUrl())));
+    }
+
+
+    /**
+     * @param int $id model id
+     * @return NameFamous
+     * @throws CHttpException
+     */
+    public function loadFamousModel($id)
+    {
+        $model = NameFamous::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }
 

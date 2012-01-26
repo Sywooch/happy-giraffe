@@ -65,32 +65,17 @@
         <li><a href="#">Магазин</a></li>
     </ul>
     <ul class="header_nav">
-        <li><a href="<?php echo $this->createUrl('modules/index', array()) ?>">Клуб</a></li>
-        <li class="active"><a href="<?php echo $this->createUrl('site/index', array()) ?>">Магазин</a></li>
+        <li class="active"><a href="<?php echo $this->createUrl('modules/index', array()) ?>">Клуб</a></li>
+        <li><a href="<?php echo $this->createUrl('site/index', array()) ?>">Магазин</a></li>
     </ul>
 </div>
 <!-- .header -->
 <div class="navigation">
     <ul>
         <li><a href="/"><span>Главная</span></a></li>
-        <li class="submenu active">
-            <a href="<?php echo $this->createUrl('category/index', array()) ?>"><span>Категории</span></a>
-            <ul>
-                <li><a href="<?php echo $this->createUrl('category/index', array()) ?>"><span>Категории</span></a></li>
-                <li><a href="#"><span>Пакеты свойств</span></a></li>
-            </ul>
+        <li<?php if (Yii::app()->controller->id == 'club/names' ) echo ' class="active"' ?>>
+            <a href="<?php echo $this->createUrl('/club/names/index', array()) ?>"><span>Имена</span></a>
         </li>
-        <li class="submenu">
-            <a href="<?php echo $this->createUrl('product/index', array()) ?>"><span>Товары</span></a>
-            <ul>
-                <li><a href="<?php echo $this->createUrl('product/index', array()) ?>"><span>Товары</span></a></li>
-                <li><a href="<?php echo $this->createUrl('brand/index', array()) ?>"><span>Бренды</span></a></li>
-            </ul>
-        </li>
-        <li><a href="#"><span>Скидки</span></a></li>
-        <li><a href="#"><span>Оплата</span></a></li>
-        <li><a href="#"><span>Доставка</span></a></li>
-        <li><a href="#"><span>Заказы</span></a></li>
     </ul>
     <div class="clear"></div>
     <!-- .clear -->

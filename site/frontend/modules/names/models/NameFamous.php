@@ -1,5 +1,10 @@
 <?php
 
+Yii::import('site.frontend.extensions.ufile.UFiles', true);
+Yii::import('site.frontend.extensions.ufile.UFileBehavior');
+Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
+Yii::import('site.frontend.extensions.status.EStatusBehavior');
+
 /**
  * This is the model class for table "name_famous".
  *
@@ -55,6 +60,7 @@ class NameFamous extends CActiveRecord
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name_id, middle_name, last_name, description, photo, link', 'safe', 'on' => 'search'),
+            array('photo', 'unsafe'),
         );
     }
 
@@ -82,7 +88,7 @@ class NameFamous extends CActiveRecord
             'last_name' => 'Фамилия',
             'description' => 'Чем знаменит',
             'photo' => 'Фото',
-            'link'=>'Ссылка'
+            'link' => 'Ссылка'
         );
     }
 
@@ -116,9 +122,9 @@ class NameFamous extends CActiveRecord
         return 'upload/names/famous/';
     }
 
-    public function GetAdminPhoto()
+    public function GetUrl()
     {
-        echo CHtml::image(Yii::app()->params['frontend_url'].$this->uploadTo() . $this->photo);
+        return Yii::app()->params['frontend_url'] . $this->uploadTo() . $this->photo;
     }
 
     /**
@@ -126,28 +132,33 @@ class NameFamous extends CActiveRecord
      */
     public function SaveImage()
     {
-        $imagePath = $this->uploadTo();
-        $file = $this->image;
-        $name = $this->id . '_' . substr(md5(microtime()), 0, 5) . '.' . $file->extensionName;
-        while (file_exists($imagePath . $name))
-            $name = $this->id . '_' . substr(md5(microtime()), 0, 5) . '.' . $file->extensionName;
+        Yii::import('site.frontend.extensions.image.Image');
+        $temp_path = Yii::getPathOfAlias('site.frontend.www.temp_upload');
+        $path = Yii::getPathOfAlias('site.frontend.www') . '/' . $this->uploadTo();
+        $image = new Image($temp_path . '/' . $this->photo);
+        $image->resize(200, 200, Image::AUTO);
+        $ext = pathinfo($this->photo, PATHINFO_EXTENSION);
 
-        if (!empty($file)) {
-            $file->saveAs($imagePath . $name);
-            Yii::import('ext.image.Image');
-            $image = new Image($imagePath . $name);
-            $image->resize(200, 200, Image::AUTO);
-            $image->save($imagePath . $name);
-        }
+        $name = $this->id . '_' . substr(md5(microtime()), 0, 5) . '.' . $ext;
+        while (file_exists($path . $name))
+            $name = $this->id . '_' . substr(md5(microtime()), 0, 5) . '.' . $ext;
+
+        $image->save($path . $name);
         $this->photo = $name;
-        $this->save();
     }
 
     protected function afterDelete()
     {
-        if (!empty($this->photo))
-            unlink($this->uploadTo() . $this->photo);
+        $this->DeletePhoto();
 
         return parent::afterDelete();
+    }
+
+    public function DeletePhoto()
+    {
+        if (!empty($this->photo)) {
+            if (file_exists($this->uploadTo() . $this->photo))
+                unlink($this->uploadTo() . $this->photo);
+        }
     }
 }

@@ -217,6 +217,7 @@ return array(
 				'secret_key' => '9a33bbf4e3c6c78e1dd6427362b0d040',
 			),
 		),
+        'frontend_url'=>'http://www.happy-giraffe.ru/',
 	),
 	
         'controllerMap'=>array(

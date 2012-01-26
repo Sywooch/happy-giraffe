@@ -14,6 +14,8 @@
  */
 class ProductVideo extends CActiveRecord
 {
+    public $accusativeName = 'видео';
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return ProductVideo the static model class

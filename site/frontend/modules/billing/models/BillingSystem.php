@@ -103,7 +103,7 @@ class BillingSystem extends CActiveRecord
 		parse_str(join('&',preg_split('#[\n\r]+#',trim($this->system_params," \n\r\t"))), $params);
 		return $params;
 	}
-	public function enum($fields="system_id,system_code",$where=null, $reset=false)
+	public static function enum($fields="system_id,system_code",$where=null, $reset=false)
 	{
 		static $enums;
 		$eid = $fields.'|'.(is_array($where) ?http_build_query($where) :$where);

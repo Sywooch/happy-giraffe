@@ -113,13 +113,13 @@ class num2str {
 		if ($b <= 9 && $b != 0) {
 			$string.=' ' . $A;
 		}
-		if ($b <= 19) {
+		elseif ($b <= 19) {
 			$string.=' ' . $this->A10_19[$b];
 		}
-		if ($b >= 20 && $d == 0) {
+		elseif ($b >= 20 && $d == 0) {
 			$string.=' ' . $this->A20_90[$c];
 		}
-		if ($b >= 20 && $d != 0) {
+		elseif ($b >= 20 && $d != 0) {
 			$string.=' ' . $this->A20_90[$c] . ' ' . $A;
 		}
 

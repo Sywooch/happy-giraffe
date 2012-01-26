@@ -60,9 +60,9 @@
     </ul>
     <ul class="going">
         <li>Перейти в</li>
-        <li><a href="#">Клуб</a></li>
+        <li><a href="<?php echo $this->createUrl('modules/index', array()) ?>">Клуб</a></li>
         <li>|</li>
-        <li><a href="#">Магазин</a></li>
+        <li><a href="<?php echo $this->createUrl('site/index', array()) ?>">Магазин</a></li>
     </ul>
     <ul class="header_nav">
         <li class="active"><a href="<?php echo $this->createUrl('modules/index', array()) ?>">Клуб</a></li>
@@ -72,7 +72,7 @@
 <!-- .header -->
 <div class="navigation">
     <ul>
-        <li><a href="/"><span>Главная</span></a></li>
+        <li><a href="<?php echo $this->createUrl('modules/index', array()) ?>"><span>Главная</span></a></li>
         <li<?php if (Yii::app()->controller->id == 'club/names' ) echo ' class="active"' ?>>
             <a href="<?php echo $this->createUrl('/club/names/index', array()) ?>"><span>Имена</span></a>
         </li>

@@ -5,8 +5,8 @@
 ?>
 <div class="bodyr long">
     <div class="editName">
-        <h1 class="edit name"<?php AdminHelper::HideIfEmpty($name->description) ?>><?php echo $name->name ?></h1>
-        <div class="name"<?php AdminHelper::HideIfNotEmpty($name->description) ?>>
+        <h1 class="edit name"<?php AdminHelper::HideIfTrue($name->isNewRecord) ?>><?php echo $name->name ?></h1>
+        <div class="name"<?php AdminHelper::HideIfTrue(!$name->isNewRecord) ?>>
             <input type="text" class="h1" value="<?php echo $name->name ?>"/>
             <input type="button" class="greenGradient" value="Ok"/>
 
@@ -91,27 +91,31 @@
     <div id="famous_add" class="popup">
         <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
 
-        <form action="#" id="famous-form">
+        <div>
             <h2>Добавить известную личность</h2>
 
             <div class="content_block">
                 <div class="input_block">
-                    <p>
-                        <label>Имя</label>
-                        <input type="text" value="" name="NameFamous[last_name]"/>
-                    </p>
+                    <form id="famous-form">
+                        <p>
+                            <label>Фамилия</label>
+                            <input type="text" value="" name="NameFamous[last_name]"/>
+                        </p>
 
-                    <p>
-                        <label>Известен</label>
-                        <textarea name="NameFamous[description]"></textarea>
-                    </p>
+                        <p>
+                            <label>Известен</label>
+                            <textarea name="NameFamous[description]"></textarea>
+                        </p>
 
-                    <p>
-                        <label>www</label>
-                        <input type="text" value="" name="NameFamous[link]"/>
-                    </p>
+                        <p>
+                            <label>www</label>
+                            <input type="text" value="" name="NameFamous[link]"/>
+                        </p>
+                        <input type="hidden" name="NameFamous[photo]">
+                        <input type="hidden" name="NameFamous[id]">
+                    </form>
                 </div>
-
+                <?php $model = new NameFamous() ?>
                 <?php $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'small_foto_upload',
                     'action' => $this->createUrl('uploadPhoto'),
@@ -119,10 +123,12 @@
                         'enctype' => 'multipart/form-data',
                     ),
                 )); ?>
-                <a class="add_photo" id="small_foto_upload">
-                    <ins>Загрузить фото</ins>
+                <a class="add_photo fake_file" id="link_upload">
+                    <div class="add_photo_ins">
+                        <ins>Загрузить фото</ins>
+                    </div>
+                    <?php echo CHtml::fileField('photo', '', array('id'=>'photo_file_upload')); ?>
                 </a>
-                <input type="hidden" name="NameFamous[photo]">
                 <?php $this->endWidget(); ?>
 
                 <div class="clear"></div>
@@ -130,7 +136,7 @@
             <input type="submit" class="greenGradient" value="Добавить"/>
 
             <div class="clear"></div>
-        </form>
+        </div>
     </div>
 </div>
 <div style="display:none">
@@ -354,6 +360,7 @@
 
         /*************************** Add famous person ****************************************/
         $('#famous_add input[type=submit]').click(function(){
+            var new_model = $('#famous-form input[name="NameFamous[id]"]').val() == '';
             $.ajax({
                 url: '<?php echo Yii::app()->createUrl("/club/names/AddFamous") ?>',
                 data: $('#famous-form').serialize()+'&NameFamous[name_id]='+model_id,
@@ -361,9 +368,16 @@
                 dataType:'JSON',
                 success: function(response) {
                     if (response.status){
-                        $('.famous_add.fancy').before(response.html);
-                        $.fancybox.close();
-                        RefreshTooltip($('.famous_add.fancy').prev().find('a'));
+                        if (new_model){
+                            $('.famous_add.fancy').before(response.html);
+                            $.fancybox.close();
+                            RefreshTooltip($('.famous_add.fancy').prev().find('a'));
+                        }else{
+                            var bl = $('.famous_block.id'+$('#famous-form input[name="NameFamous[id]"]').val());
+                            bl.find('p').text(response.info);
+                            bl.find('img.person-photo').attr('src',response.url);
+                            $.fancybox.close();
+                        }
                     }
                 },
                 context: $(this)
@@ -376,10 +390,48 @@
             complete: function(response) {
                 if (response.status == '1')
                 {
-                    $('#mycarousel li:eq(0)').after($('#product_small_image').tmpl({url: response.url, modelPk: response.modelPk}));
-                    $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
+                    $('#link_upload').find('img').remove();
+                    $('#small_foto_upload a div.add_photo_ins').hide();
+                    $('#link_upload').append('<img src="'+response.image+'" />');
+                    $('input[name="NameFamous[photo]"]').val(response.name);
                 }
             }
+        });
+
+        $('body').delegate('#photo_file_upload', 'change', function() {
+            $('form#small_foto_upload').submit();
+        });
+
+        $('body').delegate('.famous_block.edit > img', 'click', function(){
+            var id = $(this).prev().find('input[name=modelPk]').val();
+            $.ajax({
+                url: '<?php echo Yii::app()->createUrl("/club/names/FamousInfo") ?>',
+                data: {id:id},
+                type: 'POST',
+                dataType:'JSON',
+                success: function(response) {
+                    $('.famous_add.fancy').trigger('click');
+                    $('#famous-form input[name="NameFamous[last_name]"]').val(response.last_name);
+                    $('#famous-form input[name="NameFamous[link]"]').val(response.link);
+                    $('#famous-form input[name="NameFamous[id]"]').val(response.id);
+                    $('#famous-form textarea').val(response.description);
+                    $('#link_upload').find('img').remove();
+                    $('#small_foto_upload a div.add_photo_ins').hide();
+                    $('#link_upload').append('<img src="'+response.url+'" />');
+                },
+                context: $(this)
+            });
+            return false;
+        });
+
+        $('body').delegate('.famous_add.fancy', 'click', function(){
+            $('#famous-form input[name="NameFamous[last_name]"]').val('');
+            $('#famous-form input[name="NameFamous[link]"]').val('');
+            $('#famous-form textarea').val('');
+            $('#famous-form input[name="NameFamous[id]"]').val('');
+            $('#famous-form input[name="NameFamous[photo]"]').val('');
+            $('#link_upload').find('img').remove();
+            $('#small_foto_upload a div.add_photo_ins').show();
         });
 
     });

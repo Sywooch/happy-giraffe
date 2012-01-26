@@ -11,4 +11,9 @@ class AdminHelper
     {
         if (!empty($attribute)) echo ' style="display:none;"';
     }
+
+    static public function HideIfTrue($condition)
+    {
+        if ($condition) echo ' style="display:none;"';
+    }
 }

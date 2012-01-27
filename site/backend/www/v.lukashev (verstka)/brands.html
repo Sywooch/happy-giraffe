@@ -4,6 +4,8 @@
     <title></title>
     <meta charset="utf-8" > 
     <link rel="stylesheet" href="css/styles.css" >
+	<script src="js/jquery-1.6.1.min.js"></script>
+	<script src="js/main.js"></script>
 	<!--[if lt IE 9]>
   		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
  	<![endif]-->
@@ -161,7 +163,7 @@
 			<table id="brands" class="main_table">
 				<thead>
 					<tr>
-						<td>Название бренда <a href="#" class="add" title="Добавить бренд"></a></td>
+						<td><div>Название бренда <a href="#" class="add" jtitle="Добавить бренд"></a></div></td>
 						<td>Логотип</td>
 						<td>Действие</td>
 						<td>Товары</td>
@@ -177,8 +179,8 @@
 						<td><span>Jetem <a href="#" class="edit"></a></span></td>
 						<td><img src="uploads/jetem.png" alt="" /></td>
 						<td>
-							<a href="#" title="Подробно о бренде"><img src="ico/about_ico.png" alt="Подробно о бренде" /></a>
-							<a href="#" title="Посмотреть в магазине"><img src="ico/look_in_the_net.png" alt="Посмотреть в магазине" /></a>
+							<a href="#" jtitle="Подробно о бренде"><img src="ico/about_ico.png" alt="Подробно о бренде" /></a>
+							<a href="#" jtitle="Посмотреть в магазине"><img src="ico/look_in_the_net.png" alt="Посмотреть в магазине" /></a>
 						</td>
 						<td>
 							Товаров - <a href="#">25673</a><br />
@@ -197,8 +199,8 @@
 						<td><span>Teutonia <a href="#" class="edit"></a></span></td>
 						<td><img src="uploads/teutonia.png" alt="" /></td>
 						<td>
-							<a href="#" title="Подробно о бренде"><img src="ico/about_ico.png" alt="Подробно о бренде" /></a>
-							<a href="#" title="Посмотреть в магазине"><img src="ico/look_in_the_net.png" alt="Посмотреть в магазине" /></a>
+							<a href="#" jtitle="Подробно о бренде"><img src="ico/about_ico.png" alt="Подробно о бренде" /></a>
+							<a href="#" jtitle="Посмотреть в магазине"><img src="ico/look_in_the_net.png" alt="Посмотреть в магазине" /></a>
 						</td>
 						<td>
 							Товаров - <a href="#">25673</a><br />
@@ -212,27 +214,6 @@
 							<a href="#" class="activation deact"></a>
 							<a href="#" class="delete"></a>
 						</td>
-					</tr>
-					<tr>
-						<td>
-							<form action="#">
-								<div>
-									<input type="text" value="" class="simple" />
-									<a href="#" class="simple">Ok</a>
-								</div>
-							</form>
-						</td>
-						<td>
-							<form action="#">
-								<div>
-									<input type="file" class="upload_image" />
-								</div>
-							</form>
-						</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
 					</tr>
 				</tbody>
 				<tfoot>
@@ -259,6 +240,33 @@
 			<!-- end pager -->
 		</section>
 		<!-- end section -->
+		
+		<!-- start footer -->
+		<footer>
+			<div class="copyrights">&copy 2012 All rights reserved!</div>
+		</footer>
+		<!-- end footer -->
 	</div>
+	
+	<!-- start popup -->
+	<!--<div class="popup">
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите удалить категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите деактивировать категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>
+	</div>-->
+	<!-- end popup -->
 </body>
 </html>

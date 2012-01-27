@@ -2,6 +2,8 @@
 
 class BController extends CController
 {
+    public $section = 'shop';
+
     public function filters()
     {
         return array(

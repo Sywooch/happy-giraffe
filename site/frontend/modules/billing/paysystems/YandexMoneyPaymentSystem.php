@@ -64,7 +64,7 @@ class BillingSystem_Yandex
         if (@$_GET['error']) {
             throw new CException(@$_GET['error_description'], 500003);
         }
-        if (!isset($this->client_id)) {
+        if (!isset(BillingSystem_Yandex::client_id)) {
             throw new CException('Client id was not defined', 500001);
         }
         $params = array(

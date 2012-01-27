@@ -60,48 +60,16 @@
     </ul>
     <ul class="going">
         <li>Перейти в</li>
-        <li><a href="#">Клуб</a></li>
+        <li><a href="<?php echo $this->createUrl('modules/index', array()) ?>">Клуб</a></li>
         <li>|</li>
-        <li><a href="#">Магазин</a></li>
+        <li><a href="<?php echo $this->createUrl('site/index', array()) ?>">Магазин</a></li>
     </ul>
     <ul class="header_nav">
-        <li><a href="#">Клуб</a></li>
-        <li class="active"><a href="#">Магазин</a></li>
+        <li<?php if (Yii::app()->controller->section == 'club') echo ' class="active"'; ?>><a href="<?php echo $this->createUrl('modules/index', array()) ?>">Клуб</a></li>
+        <li<?php if (Yii::app()->controller->section == 'shop') echo ' class="active"'; ?>><a href="<?php echo $this->createUrl('site/index', array()) ?>">Магазин</a></li>
     </ul>
 </div>
-<!-- .header -->
-<div class="navigation">
-    <ul>
-        <li><a href="/"><span>Главная</span></a></li>
-        <li class="submenu active">
-            <a href="<?php echo $this->createUrl('category/index', array()) ?>"><span>Категории</span></a>
-            <ul>
-                <li><a href="<?php echo $this->createUrl('category/index', array()) ?>"><span>Категории</span></a></li>
-                <li><a href="#"><span>Пакеты свойств</span></a></li>
-            </ul>
-        </li>
-        <li class="submenu">
-            <a href="<?php echo $this->createUrl('product/index', array()) ?>"><span>Товары</span></a>
-            <ul>
-                <li><a href="<?php echo $this->createUrl('product/index', array()) ?>"><span>Товары</span></a></li>
-                <li><a href="<?php echo $this->createUrl('brand/index', array()) ?>"><span>Бренды</span></a></li>
-            </ul>
-        </li>
-        <li><a href="#"><span>Скидки</span></a></li>
-        <li><a href="#"><span>Оплата</span></a></li>
-        <li><a href="#"><span>Доставка</span></a></li>
-        <li><a href="#"><span>Заказы</span></a></li>
-    </ul>
-    <div class="clear"></div>
-    <!-- .clear -->
-</div>
-<!-- .navigation -->
-<div class="content">
-    
-	<?php echo $content; ?>
-
-</div>
-<!-- .content -->
+<?php echo $content; ?>
 <div class="clear"></div>
 <!-- .clear -->
 <div class="empty"></div>
@@ -112,22 +80,6 @@
 <!-- .footer -->
 </div>
 <!-- #wrapper -->
-<div style="display:none">
-    <div id="fb" class="popup">
-        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
-
-        <div class="popup_question">
-            <form action="">
-                <span>Вы уверены, что хотите деактивировать<br/> категорию?</span>
-                <ul>
-                    <li><input type="button" class="disagree" value="Отказаться"/></li>
-                    <li><input type="button" class="agree" value="Да"/></li>
-                </ul>
-            </form>
-        </div>
-    </div>
-</div>
-
 <div style="display:none">
     <div id="confirm_popup" class="popup">
         <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>

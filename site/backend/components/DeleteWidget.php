@@ -7,8 +7,17 @@ class DeleteWidget extends CWidget
     public $modelName;
     public $modelAccusativeName;
     public $modelIsTree = false;
+    /**
+     * selector of html-element that contains delete link and will be deleted when object deleted
+     * @var string
+     */
     public $selector = 'tr';
+    /**
+     * js-code that execute after success delete
+     * @var string
+     */
     public $onSuccess = '';
+    public $init = false;
 
     public function run()
     {
@@ -27,6 +36,7 @@ class DeleteWidget extends CWidget
             'modelIsTree' => $this->modelIsTree,
             'selector' => $this->selector,
             'onSuccess' => $this->onSuccess,
+            'init'=>$this->init,
         ));
     }
 }

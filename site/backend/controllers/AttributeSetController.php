@@ -14,6 +14,10 @@ class AttributeSetController extends BController
     public function actionCreate($category_id)
     {
         $category  = $this->loadCategoryModel($category_id);
+        if (!empty($category->attributeSets)){
+            $set = $category->attributeSets[0];
+            $this->redirect($this->createUrl('attributeSet/update', array('id'=>$set->set_id)));
+        }
         $model = new AttributeSet;
         $model->categories = array($category);
         $model->set_title = $category->category_name;

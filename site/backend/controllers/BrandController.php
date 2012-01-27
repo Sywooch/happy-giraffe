@@ -2,6 +2,8 @@
 
 class BrandController extends BController
 {
+    public $layout = 'shop';
+
     public function actionIndex($query = null)
     {
         $dataProvider = ProductBrand::model()->getAll($query);

@@ -1,3 +1,4 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style>
 .cheque {border: 1px solid #000;}
 .cheque table {margin: 0px; padding: 0px;}

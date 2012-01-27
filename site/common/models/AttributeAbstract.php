@@ -406,8 +406,9 @@ class AttributeAbstract extends CFormModel
 				case Attribute::TYPE_BOOL:
 				case Attribute::TYPE_ENUM:
 				case Attribute::TYPE_INTG:
+                    $id = explode('_', $key, 2);
 					$eav[] = "(eav_attribute_id=:{$key}_id AND eav_attribute_value=:{$key}_value)";
-					$where[":{$key}_id"] = end(explode('_', $key, 2));
+					$where[":{$key}_id"] = end($id);
 					$where[":{$key}_value"] = $value;
 					$is_eav = true;
 					break;

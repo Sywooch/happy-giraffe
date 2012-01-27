@@ -2,6 +2,8 @@
 
 class CategoryController extends BController
 {
+    public $layout = 'shop';
+
     public function actionIndex()
     {
         $tree = Category::model()->roots()->findAll(array('order' => 'category_root, category_lft'));

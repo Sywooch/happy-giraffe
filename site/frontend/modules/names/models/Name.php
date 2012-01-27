@@ -21,6 +21,7 @@
  * @property NameGroup $nameGroup
  * @property NameMiddle[] $nameMiddles
  * @property NameOption[] $nameOptions
+ * @property NameSweet[] $nameSweets
  * @property NameFamous[] $nameFamouses
  * @property NameSaintDate[] $nameSaintDates
  * @property NameStats $nameStats
@@ -136,6 +137,13 @@ class Name extends CActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function behaviors()
+    {
+        return array(
+            'ManyToManyBehavior'
+        );
     }
 
     public function GetShort($attribute){

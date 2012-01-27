@@ -16,16 +16,15 @@ if ($editButton) {
         bl.find('" . $options['edit_selector'] . "').hide();
         bl.find('a.edit').hide();
         bl.find('a.delete').hide();
-        bl.append('<form class=\"input-text-edit-form\" action=\"#\">' +
-            '<p><input type=\"text\" value=\"' +bl.find('" . $options['edit_selector'] . "').text()+
-                '\"/></p>' +
-                '<p><input type=\"submit\" value=\"Ok\"/></p>' +
+        bl.append('<form class=\"editw-form\" action=\"#\">' +
+            '<input type=\"text\" value=\"' +bl.find('" . $options['edit_selector'] . "').text()+'\"/>' +
+                '<input type=\"submit\" class=\"greenGradient ok\" value=\"Ok\"/>' +
                 '</form>');
         return false;
     });
 
-    $('body').delegate('form.input-text-edit-form input[type=submit]', 'click', function(){
-        var bl = $(this).parent().parent().parent();
+    $('body').delegate('form.editw-form input[type=submit]', 'click', function(){
+        var bl = $(this).parent().parent();
         var text = bl.find('input[type=text]').val();
         var id = bl.find('input.edw-id').val();
         var class_name = bl.find('input.edw-class').val();

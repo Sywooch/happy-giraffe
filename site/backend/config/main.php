@@ -17,7 +17,9 @@ return array(
 		'application.models.*',
 		'application.components.*',
         'site.frontend.modules.attribute.models.*',
-        'site.frontend.extensions.*'
+        'site.frontend.modules.names.models.*',
+        'site.frontend.extensions.*',
+        'site.frontend.helpers.*'
 	),
 	
 	'components' => array(

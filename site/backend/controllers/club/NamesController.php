@@ -3,6 +3,7 @@ Yii::import('site.frontend.modules.names.models.*');
 
 class NamesController extends BController
 {
+    public $section = 'club';
     public $layout = '//layouts/club';
 
     public function actionIndex($letter = null, $gender = null)

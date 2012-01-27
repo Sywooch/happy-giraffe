@@ -2,6 +2,8 @@
 
 class AttributeSetController extends BController
 {
+    public $layout = 'shop';
+
     public function filters()
     {
         return array(

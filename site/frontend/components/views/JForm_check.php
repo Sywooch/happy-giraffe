@@ -1,8 +1,10 @@
 <?php
 $model = $element->getParent()->getModel();
 $attribute = $element->name;
-
-$selected = $model->$attribute ? $model->$attribute : array();
+if(get_class($model) == 'AttributeAbstract')
+    $selected = $model->selected($attribute);
+else
+    $selected = $model->$attribute ? $model->$attribute : array();
 
 ?>
 <div class="filter-box">

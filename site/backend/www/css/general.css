@@ -477,10 +477,10 @@ ul.letters li a:hover {text-decoration: underline;}
 .content_block .view_name {float: right;}
 .content_block .view_name a {float: left;display: block;zoom: 1;height: 21px;text-align: center;padding: 40px 6px 0 6px;margin: 0 7px 0 2px;font-size: 11px;}
 .content_block .view_name p {float: left;font-size: 13px;color: #b6b6b6;margin: 41px 23px 0 0;}
-.content_block .view_name a.active {background-color: #fdf5a2;}
-.content_block .view_name a.all_names {background-image: url("../images/all.png");background-repeat: no-repeat;background-position: center 11px;}
+.content_block .view_name a.all_names {background: url("../images/all.png") center 11px no-repeat;}
 .content_block .view_name a.boy_names {background-image: url("../images/boys.png");background-repeat: no-repeat;background-position: center 11px;}
 .content_block .view_name a.girl_names {background-image: url("../images/girls.png");background-repeat: no-repeat;background-position: center 13px;color: #ffaed2;}
+.content_block .view_name a.active {background-color: #fdf5a2;}
 .content_block .names_header {font-size: 25px;line-height: 35px;font-weight: bold;color: #3088b1;padding: 22px 0 0 0;}
 .content_block .names_header span {font-size: 45px;color: #fd4195;padding: 5px 20px;margin: 0 0 0 14px;position: relative;top: -8px;background-color: #fdf5a2;}
 .content_block .names_header.calendar span {font-size: 25px;top: 0;}
@@ -497,5 +497,5 @@ ul.letters li a:hover {text-decoration: underline;}
 .list_names .pagination{margin: 40px 0 30px 0;}
 .name_block a.delete {display: none;}
 .name_block:hover a.delete {display: block;}
-#famous_add {
-    width: 600px;}
+#famous_add {width: 600px;}
+.content_block .add-btn {background: url("../images/icons/add_catg_icon.png") no-repeat;display: block;height: 33px;width: 35px;}

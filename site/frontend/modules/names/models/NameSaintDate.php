@@ -14,6 +14,8 @@
  */
 class NameSaintDate extends CActiveRecord
 {
+    public $accusativeName = 'Дату';
+
     /**
      * Returns the static model of the specified AR class.
      * @return NameSaintDate the static model class

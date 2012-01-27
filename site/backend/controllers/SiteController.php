@@ -2,6 +2,8 @@
 
 class SiteController extends BController
 {
+    public $layout = 'shop';
+
     public function accessRules()
     {
         return array(

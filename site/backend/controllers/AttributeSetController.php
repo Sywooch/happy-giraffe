@@ -2,6 +2,8 @@
 
 class AttributeSetController extends BController
 {
+    public $layout = 'shop';
+
     public function filters()
     {
         return array(
@@ -12,6 +14,10 @@ class AttributeSetController extends BController
     public function actionCreate($category_id)
     {
         $category  = $this->loadCategoryModel($category_id);
+        if (!empty($category->attributeSets)){
+            $set = $category->attributeSets[0];
+            $this->redirect($this->createUrl('attributeSet/update', array('id'=>$set->set_id)));
+        }
         $model = new AttributeSet;
         $model->categories = array($category);
         $model->set_title = $category->category_name;
@@ -190,10 +196,5 @@ class AttributeSetController extends BController
 
         $model = AttributeSet::model()->findByPk($set_id);
         $this->renderPartial('_sorter', array('model' => $model));
-    }
-
-    public function actionTestt(){
-        echo Yii::app()->db->createCommand('INSERT INTO `shop_category_attribute_set_map`
-          (`category_id`, `attribute_set_id`) VALUES (7, 3);')->execute();
     }
 }

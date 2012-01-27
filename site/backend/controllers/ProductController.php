@@ -2,7 +2,7 @@
 
 class ProductController extends BController
 {
-    public $layout = 'main';
+    public $layout = 'shop';
 
     public function actionIndex($category_id = null, $brand_id = null)
     {

@@ -13,14 +13,12 @@ class FilterWidget extends CWidget
 
 	public function run()
 	{
-		$attributes = new AttributeAbstract;
-		$attributes->initialize($this->category_id, true);
-		
+        $attributes = new AttributeAbstract;
+        $attributes->initialize($this->category_id, true);
+
 		$filter = new AttributeSearchForm;
 		$filter->initialize($this->category_id, $this->descendants);
-		
 		$elements = array(
-//			'title' => 'Фильтр',
 			'attributes' => array(
 				'id' => 'categoryFilter',
 				'name' => 'categoryFilter',

@@ -1,15 +1,13 @@
-<script type="text/javascript">
-    var gender;
+<?php
+$js = "var gender;
     var letter;
     var page;
-
-    $(function () {
 
         $('ul.letters a').click(function () {
             letter = $(this).text();
 
             $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/club/names/index") ?>',
+                url:'". Yii::app()->createUrl("/club/names/index")."',
                 data:{
                     letter:letter,
                     gender:gender
@@ -17,10 +15,6 @@
                 type:'GET',
                 success:function (data) {
                     $('ul.letters li').removeClass('active');
-                    if ($(this).text() == 'Все')
-                        $('p.names_header').html('Все имена');
-                    else
-                        $('p.names_header').html('Имена на букву <span>'+$(this).text()+'</span>');
                     $(this).parent('li').addClass('active');
                     $('#result').html(data);
                 },
@@ -33,7 +27,7 @@
             gender = $(this).attr('rel');
 
             $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/club/names/index") ?>',
+                url:'". Yii::app()->createUrl("/club/names/index") ."',
                 data:{
                     letter:letter,
                     gender:gender
@@ -64,9 +58,9 @@
             });
 
             return false;
-        });
-    });
-</script>
+        });";
+Yii::app()->clientScript->registerScript('names-index-admin',$js);
+?>
 <ul class="letters">
     <li class="active"><a href="#">Все</a></li>
     <li><a href="#">А</a></li>
@@ -98,7 +92,7 @@
 </ul>
 <div class="content_block">
     <?php $this->renderPartial('_gender'); ?>
-    <p class="names_header">Все имена</p>
+    <a class="add-btn" href="<?php echo $this->createUrl('/club/names/create') ?>" title="Добавить Имя"></a>
 
     <div class="clear"></div>
 

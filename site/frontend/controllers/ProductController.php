@@ -147,7 +147,8 @@ class ProductController extends Controller
 	 *
 	 * @param int $id product_id
 	 */
-	public function actionAttributes($id)
+    /* TODO DELETE */
+	/*public function actionAttributes($id)
 	{
 		$product = Product::model()->findByPk((int)$id);
 		
@@ -171,7 +172,7 @@ class ProductController extends Controller
 		$this->render('attributes', array(
 			'form' => $attribute->getForm(),
 		));
-	}
+	}*/
 
 	/**
 	 * Updates a particular model.

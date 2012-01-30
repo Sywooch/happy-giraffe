@@ -143,6 +143,7 @@ class AttributeSearchForm extends CFormModel
 		{
 			$this->prices = $this->_prices;
 		}
+        //Y::user()->clearStates();
 	}
 	
 	public function rangeValidator($attribute, $params)
@@ -203,21 +204,23 @@ class AttributeSearchForm extends CFormModel
 	
 	public function getFields()
 	{
-		return array(
-//			'descendants' => array(
-//				'type' => 'checkboxlist',
-//				'items' => $this->_descendants,
-//			),
-//			'sex' => array(
-//				'type' => 'checkboxlist',
-//				'type' => 'radiolist',
-//				'items' => $this->sexList,
-//			),
-//			'ages' => array(
-//				'type' => 'checkboxlist',
-//				'type' => 'radiolist',
-//				'items' => CHtml::listData($this->_ages, 'range_id', 'range_title'),
-//			),
+        $fields = array();
+        $attributes = Category::model()->findByPk($this->_category_id)->GetAttributeSet();
+        if($attributes->sex_filter != 0)
+            $fields['sex'] = array(
+                            'type' => 'checkboxlist',
+                            'items' => $this->sexList,
+                        );
+        if($attributes->age_filter != 0)
+            $fields['ages'] = array(
+                            'type' => 'checkboxlist',
+                            'items' => CHtml::listData($this->_ages, 'range_id', 'range_title'),
+                        );
+		return array_merge($fields, array(
+			/*'descendants' => array(
+				'type' => 'checkboxlist',
+				'items' => $this->_descendants,
+			),*/
 			'<div class="filter-box">',
 			'<big onclick="toggleFilterBox(this)" class="box-title">Цена <span>(в рублях)</span></big>',
 			'<div class="filter-slider">',
@@ -258,7 +261,7 @@ class AttributeSearchForm extends CFormModel
 				'type' => 'checkboxlist',
 				'items' => CHtml::listData($this->_brands, 'brand_id', 'brand_title'),
 			),
-		);
+		));
 	}
 	
 	public function getCriteria()
@@ -281,7 +284,7 @@ class AttributeSearchForm extends CFormModel
 			$sex = is_array($this->sex) ? $this->sex : array($this->sex, 0);
 			$criteria->addInCondition('product_sex', $sex);
 		}
-		
+
 		if($this->brands)
 		{
 			$criteria->addInCondition('product_brand_id', is_array($this->brands) ? $this->brands : array($this->brands));

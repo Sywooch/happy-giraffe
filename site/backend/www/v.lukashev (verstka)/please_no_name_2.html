@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+    <title></title>
+    <meta charset="utf-8" > 
+    <link rel="stylesheet" href="css/styles.css" >
+	<!--[if lt IE 9]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+ 	<![endif]-->
+	<script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+	<div id="mainarea">
+		<!-- start header -->
+		<header>
+			<h1>Администратор</h1>
+			<!-- start project_nav -->
+			<nav id="project_nav">
+				<ul>
+					<li><a href="#">Клуб</a></li>
+					<li class="active"><a href="#">Магазин</a></li>
+				</ul>
+			</nav>
+			<!-- end project_nav -->
+			
+			<!-- start user -->
+			<div id="user">
+				<span>Анастасия Петрова</span>
+				<a href="#">Выйти</a>
+			</div>
+			<!-- end user -->
+			
+			<!-- start go_to -->
+			<div id="go_to">
+				Перейти  в  <a href="#">Клуб</a> | <a href="#">Магазин</a>
+			</div>
+			<!-- end go_to -->
+		</header>
+		<!-- end header -->
+		
+		<!-- start main_nav -->
+		<nav id="main_nav">
+			<ul>
+				<li><a href="#"><span>Главная</span></a></li>
+				<li><a href="#"><span>Категории</span></a></li>
+				<li><a href="#"><span>Товары</span></a></li>
+				<li class="active"><a href="#"><span>Имена<span></span></span></a>
+					<ul>
+						<li><a href="#">Товары</a></li>
+						<li><a href="#">Бренды</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><span>Сервисы<span></span></span></a>
+					<ul>
+						<li><a href="#">Товары</a></li>
+						<li><a href="#">Бренды</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><span>Скидки</span></a></li>
+				<li><a href="#"><span>Оплата</span></a></li>
+				<li><a href="#"><span>Доставка</span></a></li>
+				<li><a href="#"><span>Заказы</span></a></li>
+			</ul>
+			<div class="clear"></div>
+		</nav>
+		<!-- end main_nav -->
+		
+		<!-- start section -->
+		<section>
+			<form action="#">
+				<div>
+					<div class="insert_name">
+						<input type="text" value="Имя" class="simple"/>
+						<a href="#" class="big_sub">Ok<i></i></a>
+					</div>
+					<ul class="summary">
+						<li class="sex_block">
+							<b>Имя</b>
+							<label class="male">
+								<input type="radio" name="sex">
+								<span></span>
+								Мальчики
+							</label>
+							<label class="female">
+								<input type="radio" name="sex">
+								<span></span>
+								Девочки
+							</label>
+						</li>
+						<li class="name_block">
+							<div>
+								<b>Варианты имени</b>
+								<span>Александрин<a href="#" class="edit"></a><a href="#" class="delete"></a></span>,
+								<a href="#" class="add_2"></a>
+							</div>
+							<div>
+								<b>Ласковое обращение</b>
+								<span>Степушка<a href="#" class="edit"></a><a href="#" class="delete"></a></span>,
+								<input class="simple" type="text" value="Степашка">
+								<a class="simple" href="#">Ok</a>
+							</div>
+						</li>
+						<li>
+							<b>Характеристика имени</b>
+							<div class="leave_message">
+								<div class="message_bar">
+									<div>
+										<a href="#"><img src="img/message_bar_1.png" alt=""/></a>
+										<a href="#"><img src="img/message_bar_2.png" alt=""/></a>
+										<a href="#"><img src="img/message_bar_3.png" alt=""/></a>
+									</div>
+								</div>
+								<textarea class="simple">Напишите характеристику имени не более 400 символов</textarea>
+								<div class="buttons_block">
+									<a href="#" class="reset big_sub">Отменить<i></i></a>
+									<a href="#" class="big_sub">Ok<i></i></a>
+								</div>
+							</div>
+						</li>
+						<li class="art_block">
+							<b>Подходящие отчества к имени</b>
+							<span>Сергеевич<a href="#" class="edit"></a><a href="#" class="delete"></a></span>,
+							<a class="add_2" href="#"></a>
+						</li>
+						<li>
+							<b>Известные личности с именем</b>
+							<ul class="item_list">
+								<li>
+									<input type="file" class="upload_image" jform />
+								</li>
+							</ul>
+							<div class="clear"></div>
+						</li>
+					</ul>
+					
+					<ul class="summary alt">
+						<li>
+							<b>Значение имени</b>
+							<div class="leave_message">
+								<div class="message_bar">
+									<div>
+										<a href="#"><img src="img/message_bar_1.png" alt=""/></a>
+										<a href="#"><img src="img/message_bar_2.png" alt=""/></a>
+										<a href="#"><img src="img/message_bar_3.png" alt=""/></a>
+									</div>
+								</div>
+								<textarea class="simple">Напишите характеристику имени не более 400 символов</textarea>
+								<div class="buttons_block">
+									<a href="#" class="reset big_sub">Отменить<i></i></a>
+									<a href="#" class="big_sub">Ok<i></i></a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<b>Святцы</b>
+							<ul class="item_list alt">
+								<li class="add">
+									<a href="#"></a>
+								</li>
+							</ul>
+							<div class="clear"></div>
+						</li>
+					</ul>
+					
+					<div class="clear"></div>
+				</div>
+			</form>
+		</section>
+		<!-- end section -->
+		
+		<!-- start footer -->
+		<footer>
+			<div class="copyrights">&copy 2012 All rights reserved!</div>
+		</footer>
+		<!-- end footer -->
+	</div>
+	
+	<!-- start popup -->
+	<!--<div class="popup">
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите удалить категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите деактивировать категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>
+	</div>-->
+	<!-- end popup -->
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+    <title></title>
+    <meta charset="utf-8" > 
+    <link rel="stylesheet" href="css/styles.css" >
+	<script src="js/jquery-1.6.1.min.js"></script>
+	<script src="js/main.js"></script>
+	<!--[if lt IE 9]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+ 	<![endif]-->
+</head>
+<body>
+	<div id="mainarea">
+		<!-- start header -->
+		<header>
+			<h1>Администратор</h1>
+			<!-- start project_nav -->
+			<nav id="project_nav">
+				<ul>
+					<li><a href="#">Клуб</a></li>
+					<li class="active"><a href="#">Магазин</a></li>
+				</ul>
+			</nav>
+			<!-- end project_nav -->
+			
+			<!-- start user -->
+			<div id="user">
+				<span>Анастасия Петрова</span>
+				<a href="#">Выйти</a>
+			</div>
+			<!-- end user -->
+			
+			<!-- start go_to -->
+			<div id="go_to">
+				Перейти  в  <a href="#">Клуб</a> | <a href="#">Магазин</a>
+			</div>
+			<!-- end go_to -->
+		</header>
+		<!-- end header -->
+		
+		<!-- start main_nav -->
+		<nav id="main_nav">
+			<ul>
+				<li><a href="#"><span>Главная</span></a></li>
+				<li><a href="#"><span>Категории</span></a></li>
+				<li><a href="#"><span>Товары</span></a></li>
+				<li><a href="#"><span>Имена<span></span></span></a>
+					<ul>
+						<li><a href="#">Товары</a></li>
+						<li><a href="#">Бренды</a></li>
+					</ul>
+				</li>
+				<li class="active"><a href="#"><span>Сервисы<span></span></span></a>
+					<ul>
+						<li><a href="#">Товары</a></li>
+						<li><a href="#">Бренды</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><span>Скидки</span></a></li>
+				<li><a href="#"><span>Оплата</span></a></li>
+				<li><a href="#"><span>Доставка</span></a></li>
+				<li><a href="#"><span>Заказы</span></a></li>
+			</ul>
+			<div class="clear"></div>
+		</nav>
+		<!-- end main_nav -->
+		
+		<!-- start section -->
+		<section>
+			<h2 class="title">Календарь прививок ребенка</h2>
+			
+            <h3>Таблица вакцин</h3>
+            
+            <ul id="table_filter">     
+            	<li><a href="#">Таблица прививок</a></li>
+                <li><a href="#">Таблица болезней</a></li>
+                <li class="active"><a>Таблица вакцин</a></li>
+            </ul>
+            
+            <div class="clear"></div>
+            
+			<!-- start #vaccine  .main_table -->
+			<table id="vaccine" class="main_table cols_2">
+				<thead>
+					<tr>
+						<td>Название вакцины</td>
+						<td>Ссылка на вакцину</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Энджерикс В</td>
+						<td>
+                            <a href="#">www.happy-giraffe.ru/childrenDiseases/default/view/url/diphtheria</a>
+                            <a href="#" class="edit"></a>
+                            <a href="#" class="delete"></a>
+                        </td>					
+					</tr>
+					<tr>
+						<td>БЦЖ</td>
+						<td>
+                        	<a href="#">www.happy-giraffe.ru/childrenDiseases/default/view/url/diphtheria</a>
+                            <a href="#" class="edit"></a>
+                            <a href="#" class="delete"></a>
+                        </td>						
+					</tr>
+                    <tr>
+						<td><a href="#" class="add_2"></a></td>
+						<td>
+                            <a href="#">www.happy-giraffe.ru/childrenDiseases/default/view/url/diphtheria</a>
+                            <a href="#" class="edit"></a>
+                            <a href="#" class="delete"></a>
+                        </td>					
+					</tr>
+                    <tr>
+                    	<td>
+                        	<input class="simple wide160" type="text" value="Название">
+                        	<a href="#" class="simple">Ok</a>
+                        </td>
+                        <td>
+                        	<input class="simple wide380" type="text" value="www.">
+                        	<a href="#" class="simple">Ok</a>
+                        </td>
+                    </tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2">&nbsp;</td>
+					</tr>
+				</tfoot>
+			</table>
+			<!-- end main_table -->
+
+		</section>
+		<!-- end section -->
+		
+		<!-- start footer -->
+		<footer>
+			<div class="copyrights">&copy 2012 All rights reserved!</div>
+		</footer>
+		<!-- end footer -->
+	</div>
+	
+	<!-- start popup -->
+	<!--<div class="popup">
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите удалить категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите деактивировать категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>
+	</div>-->
+	<!-- end popup -->
+</body>
+</html>

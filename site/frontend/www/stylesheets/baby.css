@@ -1,39 +1,84 @@
 #baby {padding-bottom:50px;}
 
-#baby .age-list {padding:15px 20px 10px;background:#f2fafe;margin-bottom:20px;}
-#baby .age-list big {display:block;color:#c8dde7;font-size:16px;}
-#baby .age-list ul {height:110px;width:100%;}
-#baby .age-list ul li {float:left;margin-left:3px;position:relative;height:110px;}
+#baby .age-list {padding:15px 17px 10px;background:#f8f4fc url(../images/bg_baby_calendar.gif) no-repeat;margin-bottom:20px;height:123px;}
+#baby .age-list big {display:block;color:#cbcbcb;font-size:16px;margin-bottom:10px;}
+#baby .age-list ul {height:88px;width:100%;}
+#baby .age-list ul li {float:left;margin-left:3px;position:relative;height:88px;}
 #baby .age-list ul li:first-child {margin-left:0;}
-#baby .age-list ul li a {display:block;height:40px;margin-top:42px;width:26px;background:#b5e7ff;line-height:40px;color:#fff;text-align:center;font:14px/40px tahoma, arial, sans-serif;text-decoration:none;position:relative;z-index:2;}
-#baby .age-list ul li a {/*css3*/border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;}
-#baby .age-list ul li .age-title {position:absolute;display:none;bottom:0;left:10px;white-space:nowrap;color:#3088b1;font-family:tahoma, arial, sans-serif;}
-#baby .age-list ul li .flag {position:absolute;background:url(../images/bg_baby_calendar_age_flag.gif) no-repeat left bottom;padding-bottom:20px;white-space:nowrap;top:0;left:-2px;font-size:11px;color:#b3d6e8;font-family:tahoma, arial, sans-serif;z-index:1;}
-#baby .age-list ul li.weeks a {background:#94d2ef;}
-#baby .age-list ul li.monthes a {background:#6ebbdf;}
-#baby .age-list ul li.years a {background:#50a7cf;}
-#baby .age-list ul li.pre-school {padding-left:2px;margin-left:4px;}
-#baby .age-list ul li.pre-school a {background:#4298c0;width:107px;}
-#baby .age-list ul li.school {padding-left:2px;margin-left:4px;}
-#baby .age-list ul li.school a {background:#3088b1;width:107px;}
-#baby .age-list ul li.active a {background:#fda446;padding-top:8px;padding-bottom:8px;margin-top:34px;}
-#baby .age-list ul li a:hover {padding-top:8px;padding-bottom:8px;margin-top:34px;}
+#baby .age-list ul li a {display:block;height:16px;margin-top:42px;width:20px;background:#f4b6f8;line-height:16px;color:#fff;text-align:center;font:10px/8px tahoma, arial, sans-serif;text-decoration:none;padding:2px 0;}
+#baby .age-list ul li a {/*css3*/border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+#baby .age-list ul li img {position:absolute;bottom:29px;left:0;z-index:5;}
+#baby .age-list ul li .age-title {position:absolute;display:none;bottom:0;left:2px;white-space:nowrap;color:#626262;font-family:tahoma, arial, sans-serif;}
+#baby .age-list ul li .flag {position:absolute;background:url(../images/bg_baby_calendar_age_flag.png) no-repeat left bottom;padding-bottom:20px;white-space:nowrap;top:3px;left:-2px;font-size:11px;color:#cbcbcb;font-family:tahoma, arial, sans-serif;z-index:1;}
+#baby .age-list ul li .no-flag {position:absolute;padding-bottom:20px;white-space:nowrap;top:3px;left:0px;font-size:11px;color:#e37cc9;font-family:tahoma, arial, sans-serif;z-index:1;}
+#baby .age-list ul li .hl {color:#828282;}
+#baby .age-list ul li.weeks a {background:#d7bfed;}
+#baby .age-list ul li.monthes a {background:#c5a7e2;}
+#baby .age-list ul li.years a {background:#ba92e0;}
+#baby .age-list ul li.teen a {background:#a879d4;width:85px;margin-left:3px;}
+#baby .age-list ul li.teen .flag {margin-left:1px;}
+#baby .age-list ul li.active a {background:#fbc6fe;margin-top:37px;padding:7px 0;}
+#baby .age-list ul li a:hover {padding:7px 0;margin-top:37px;}
 #baby .age-list ul li.active .age-title {display:block;}
+#baby .age-list ul li.one-line a {line-height:16px;}
 
-#baby .side-right {width:310px;margin-left:-310px;}
+#baby .side-right {width:240px;margin-left:-240px;}
 #baby .main {margin:0;}
-#baby .main .main-in {margin:0 340px 0 0;}
+#baby .main .main-in {margin:0 260px 0 0;}
 
 #baby .main.main-right .main-in {margin:0 0 0 250px;}
 
-#baby .need-to-know {}
-#baby .need-to-know .title {background:#c5a7e2;padding:20px 25px;font:bold 23px/1 arial, sans-serif;color:#fff;}
-#baby .need-to-know .block-in {padding:10px 24px 20px;border:1px solid #ecd0ff;background:#fbf4ff;}
-#baby .need-to-know .block-in big {display:block;padding:15px 0;font:bold 16px arial, sans-serif;}
-#baby .need-to-know .block-in ul {list-style:none;font-size:14px;font-family:tahoma, arial, sans-serif;}
-#baby .need-to-know .block-in ul li {padding:5px 0;}
+#baby .need-to-know {background:url(../images/bg_baby_ntk.gif) repeat-y;position:relative;margin-bottom:20px;}
+#baby .need-to-know .t {display:block;width:100%;height:39px;position:absolute;left:0;top:0;background:url(../images/bg_baby_ntk_t.gif) no-repeat;z-index:1;}
+#baby .need-to-know .title {font:bold 28px/1.3 calibri, trebuchet ms, arial, sens-serif;color:#727272;text-transform:uppercase;text-align:center;margin-bottom:10px;}
+#baby .need-to-know .age {width:118px;height:33px;background:url(../images/baby_ntk_age.png) no-repeat;position:absolute;top:0;right:0;z-index:3;text-align:center;line-height:28px;color:#fff;font-size:20px;}
+#baby .need-to-know .block-in {background:url(../images/bg_baby_ntk_b.gif) no-repeat bottom;padding:33px 20px 25px;position:relative;z-index:2;}
+#baby .need-to-know .block-in ul {}
+#baby .need-to-know .block-in ul li {padding:7px 0;border-top:1px dashed #d1cfd1;font-size:14px;line-height:1.2;}
+#baby .need-to-know .block-in ul li:first-child {border-top:0;padding-top:0;}
+#baby .need-to-know .block-in ul li a:hover {text-decoration:none;}
+
+
+#baby .all-about {position:relative;background:url(../images/bg_baby_aa.gif) repeat-y;margin-bottom:20px;}
+#baby .all-about .block-in {padding:0 14px 26px;background:url(../images/bg_baby_aa_b.gif) no-repeat bottom;position:relative;z-index:2;}
+#baby .all-about .t {display:block;width:100%;height:39px;position:absolute;left:0;top:0;background:url(../images/bg_baby_aa_t.gif) no-repeat;z-index:1;}
+#baby .all-about .title {padding:15px 0;font:bold 22px/1 calibri, trebuchet ms, arial, sans-serif;text-align:center;}
+#baby .all-about .title span {color:#fc79a2;font-size:28px;}
+#baby .all-about ul {list-style:none;}
+#baby .all-about ul li {margin-top:20px;position:relative;}
+#baby .all-about ul li a {display:block;color:#fff;text-decoration:none;}
+#baby .all-about ul li:first-child {margin-top:0;}
+#baby .all-about ul li img {display:block;}
+#baby .all-about ul li .subtitle {position:absolute;top:4px;left:0;}
+#baby .all-about ul li .subtitle span {background:#b471e3;background:rgba(180, 113, 227, 0.7);padding:4px 9px;font-size:16px;display:block;float:left;text-decoration:underline;}
+#baby .all-about ul li .subtitle .count {margin:4px;padding-left:4px;background:url(../images/aa_count.png) no-repeat left bottom;height:28px;float:left;clear:left;}
+#baby .all-about ul li .subtitle .count .in {height:21px;background:url(../images/aa_count.png) no-repeat right top;padding-right:4px;padding-top:7px;line-height:21px;}
+#baby .all-about ul li a:hover .subtitle span {text-decoration:none;}
+
+
+#baby .favor-services {padding:4px;background:url(../images/pattern_02.gif) center;}
+#baby .favor-services {/*css3*/ border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+#baby .favor-services .block-in {background:#fff;}
+#baby .favor-services .block-in {/*css3*/ border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;}
+#baby .favor-services .title {font:normal 18px/25px arial, sans-serif;padding:15px 10px;text-align:center;color:#727272;background:url(../images/bg_favor_services_title.gif) repeat-x;border-bottom:1px solid #f9eaf9;}
+#baby .favor-services .title {/*css3*/ border-radius:8px 8px 0 0;-moz-border-radius:8px 8px 0 0;-webkit-border-radius:8px 8px 0 0;}
+#baby .favor-services .title span {font-size:20px;color:#be39be;font-weight:bold;}
+#baby .favor-services ul {list-style:none;}
+#baby .favor-services ul li {padding:12px 0;border-bottom:1px solid #faf0fa;}
+#baby .favor-services ul li a {text-decoration:none;}
+#baby .favor-services ul li .img {width:70px;text-align:center;display:inline-block;vertical-align:middle;}
+#baby .favor-services ul li .text {width:150px;text-align:center;display:inline-block;vertical-align:middle;text-align:left;font-size:14px;text-decoration:underline;}
+#baby .favor-services ul li a:hover .text {text-decoration:none;}
+
 
 #baby .article {margin-top:22px;}
+
+#baby .article .age-features {width:257px;background:url(../images/bg_age_features.png) no-repeat bottom;float:left;margin:10px 15px 10px 0;padding:0 35px 25px;}
+#baby .article .age-features .title {font:bold 20px/25px arial, sans-serif;color:#727272;margin-left:35px;}
+#baby .article .age-features .title span {color:#88b9d8;font-size:50px;}
+#baby .article .age-features ul {list-style:none;font-size:14px;}
+#baby .article .age-features ul li {background:url(../images/age_features_star.png) no-repeat left 4px;padding:10px 0 10px 35px;margin-top:5px;}
+
 
 #baby .budget-categories {}
 
@@ -213,7 +258,7 @@
 #baby .comments li .user {float:left;font:11px tahoma, arial, sans-serif;color:#1ba3c4;}
 #baby .comments li .user .ava {float:left;padding-right:8px;}
 #baby .comments li .user .ava img {display:block;border:1px solid #dddddd;}
-#baby .comments li .content {margin-left:200px;font-size:12px;width: auto;}
+#baby .comments li .content {margin-left:200px;font-size:12px;}
 #baby .comments li .content p {color:#888888;}
 
 #baby .new-comment {text-align:center;font-size:14px;color:#c2c4c4;line-height:27px;font-family:tahoma, arial, sans-serif;}
@@ -520,7 +565,7 @@
 #baby .baby_handbook_service {display:block;height:296px;background: url(../images/service_childhood_illness.jpg) 0 0 no-repeat;position:relative;margin:0 0 40px 0;}
 #baby .baby_handbook_service ul.handbook_changes_u {position:absolute;bottom:0px;left:200px;}
 #baby .baby_handbook_service ul.handbook_changes_u li {float:left;margin:0 3px 0 0;}
-#baby .baby_handbook_service ul.handbook_changes_u li a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background:#64bc51;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;opacity: 0.9;}
+#baby .baby_handbook_service ul.handbook_changes_u li a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background:#64bc51;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
 #baby .baby_handbook_service ul.handbook_changes_u li a span {display:inline-block;padding:0 20px 0 0;background: url(../images/down_wh_arr.png) 100% 27px no-repeat;}
 #baby .baby_handbook_service ul.handbook_changes_u li.current_t a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#724c99;text-decoration:none;background:#fff;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
 #baby .baby_handbook_service ul.handbook_changes_u li.current_t a span {display:inline-block;display:inline-block;padding:0 20px 0 0;background: url(../images/rarr_fio.png) 100% 27px no-repeat;}
@@ -592,7 +637,7 @@
 #baby .baby_blood_parent_group input.calc_grey_active {margin:0 0 10px 0;width:230px;height:58px;border:1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;font:30px tahoma, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
 #baby .baby_blood_parent_group .gr_bl {display:block;width:230px;text-align:center;}
 #baby .baby_blood_parent_group .gr_bl span {display:block;text-align:center;padding:0 0 10px 0;font:15px/15px tahoma, sans-serif;color:#111110;}
-#baby .baby_blood_parent_group ul.baby_blood_parent_group_u {width:230px;display:block;position:absolute;left:110px;top:294px;}
+#baby .baby_blood_parent_group ul.baby_blood_parent_group_u {width:230px;display:block;position:absolute;left:110px;bottom:40px;}
 #baby .baby_blood_parent_group ul.baby_blood_parent_group_u li {display:block;margin:0 0 10px 0;}
 #baby .baby_blood_parent_group .ch_group {display:block;background:#f9ebf5;padding:10px 0 10px 0;}
 #baby .baby_blood_parent_group span.baby_blood_result {font:bold 30px/20px times new roman, sans-serif;color:#fa0354;display:block;text-align:center;}
@@ -601,7 +646,7 @@
 #baby .baby_blood_parent_group .ch_group ul li a {display:inline-block;width:42px;height:20px;background: url(../images/sr_buttons.png) 0 100% no-repeat;text-decoration:none;font:bold 16px/20px times new roman, sans-serif;color:#9e9e9e;}
 #baby .baby_blood_parent_group .ch_group ul li a.active {display:inline-block;width:42px;height:20px;background: url(../images/sr_buttons.png) 0 0 no-repeat;text-decoration:none;font:bold 16px/20px times new roman, sans-serif;color:#209b07;}
 
-#baby .baby_hanbook_names {display:block;height:350px;background: url(../images/service_handbook_names.jpg) 0 0 no-repeat;position:relative;margin:0 0 0px 0;}
+#baby .baby_hanbook_names {display:block;height:296px;background: url(../images/service_recipes_illness.jpg) 0 0 no-repeat;position:relative;margin:0 0 0px 0;}
 #baby .baby_hanbook_names ul.handbook_changes_u {position:absolute;bottom:0px;left:200px;}
 #baby .baby_hanbook_names ul.handbook_changes_u li {float:left;margin:0 3px 0 0;}
 #baby .baby_hanbook_names ul.handbook_changes_u li a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background: url(../images/vio_transparent.png) 0 0 repeat;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}

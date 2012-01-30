@@ -83,7 +83,7 @@
             <?php foreach ($name->nameFamouses as $famous): ?>
                 <?php $i++; ?>
                 <div class="best_person">
-                    <?php if (!empty($famous->photo)) $famous->GetAdminPhoto() ?>
+                    <img src="<?php if (!empty($famous->photo)) $famous->GetUrl() ?>" alt="">
                     <?php if (!empty($famous->link)): ?>
                         <a href="<?php echo $famous->link ?>" rel="nofollow"><?php echo $name->name.' '.$famous->last_name ?>
                             <?php if (!empty($famous->description)) echo ', '.$famous->description ?></a>

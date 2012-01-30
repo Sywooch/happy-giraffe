@@ -205,14 +205,17 @@ class AttributeSearchForm extends CFormModel
 	public function getFields()
 	{
         $fields = array();
-        $fields['sex'] = array(
-        				'type' => 'checkboxlist',
-        				'items' => $this->sexList,
-        			);
-        $fields['ages'] = array(
-        				'type' => 'checkboxlist',
-        				'items' => CHtml::listData($this->_ages, 'range_id', 'range_title'),
-        			);
+        $attributes = Category::model()->findByPk($this->_category_id)->GetAttributeSet();
+        if($attributes->sex_filter != 0)
+            $fields['sex'] = array(
+                            'type' => 'checkboxlist',
+                            'items' => $this->sexList,
+                        );
+        if($attributes->age_filter != 0)
+            $fields['ages'] = array(
+                            'type' => 'checkboxlist',
+                            'items' => CHtml::listData($this->_ages, 'range_id', 'range_title'),
+                        );
 		return array_merge($fields, array(
 			/*'descendants' => array(
 				'type' => 'checkboxlist',

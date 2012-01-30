@@ -7,18 +7,25 @@ class CalendarController extends Controller
 
 	public function actionIndex()
 	{
-		$content = CommunityContent::model()->community(5)->findAll(array(
-			'limit' => 5,
-		));
+		$contents = CommunityContent::model()->with('rubric.community', 'type')->findAll(array(
+            'order' => 'RAND()',
+            'limit' => 5,
+        ));
+
+        $communities = Community::model()->findAll(array(
+            'order' => 'RAND()',
+            'limit' => 4,
+        ));
 		
 		$products = Product::model()->findAll(array(
-			'condition' => 'product_category_id=:category_id',
+			'condition' => 'product_category_id = :category_id',
 			'params' => array(':category_id' => 7),
 		));
 		
 		$this->render('index', array(
 			'products' => $products,
-			'content' => $content,
+			'contents' => $contents,
+            'communities' => $communities,
 		));
 	}
 

@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="character_name">
+            <div class="character_name descr">
                 <div class="name_bold edit">Характеристика имени</div>
                 <div<?php AdminHelper::HideIfNotEmpty($name->description) ?>>
                     <textarea rows="20" cols="50"><?php echo $name->description ?></textarea>
@@ -67,6 +67,18 @@
                 </div>
                 <p<?php AdminHelper::HideIfEmpty($name->description) ?>><?php echo $name->description ?></p>
             </div>
+            <div class="clear"></div>
+
+            <div class="character_name origin">
+                <div class="name_bold edit">Происхождение имени</div>
+                <div<?php AdminHelper::HideIfNotEmpty($name->origin) ?>>
+                    <textarea rows="20" cols="50"><?php echo $name->origin ?></textarea>
+                    <input id="origin-cancel" type="button" value="Отменить" class="greyGradient"/>
+                    <input type="submit" value="Ok" class="greenGradient"/>
+                </div>
+                <p<?php AdminHelper::HideIfEmpty($name->origin) ?>><?php echo $name->origin ?></p>
+            </div>
+            <div class="clear"></div>
 
             <div class="patronymic clearfix">
                 <?php $this->renderPartial('_middle',array('name'=>$name)); ?>
@@ -268,7 +280,7 @@
             }
         });
 
-        $('.character_name .edit').click(function () {
+        $('.descr .edit').click(function () {
             $(this).next().show();
             $(this).next().next().hide();
             $(this).parent().find('textarea').val($(this).parent().find('p').text());
@@ -276,13 +288,52 @@
             return false;
         });
 
-        $('.character_name input[type=submit]').click(function () {
+        $('.descr input[type=submit]').click(function () {
             var text = $(this).prev().prev().val();
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
                 data:{
                     modelPk:model_id,
                     attribute:'description',
+                    modelName:'Name',
+                    value:text
+                },
+                type:'POST',
+                success:function (data) {
+                    if (data) {
+                        $(this).parent().hide();
+                        $(this).parent().parent().find('p').text(text);
+                        $(this).parent().parent().find('p').show();
+                    }
+                },
+                context:$(this)
+            });
+            return false;
+        });
+
+        /********** Происхождение имени *********/
+        $('#origin-cancel').click(function () {
+            if (model_id != null) {
+                $(this).parent().hide();
+                $(this).parent().next().show();
+            }
+        });
+
+        $('.origin .edit').click(function () {
+            $(this).next().show();
+            $(this).next().next().hide();
+            $(this).parent().find('textarea').val($(this).parent().find('p').text());
+
+            return false;
+        });
+
+        $('.origin input[type=submit]').click(function () {
+            var text = $(this).prev().prev().val();
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
+                data:{
+                    modelPk:model_id,
+                    attribute:'origin',
                     modelName:'Name',
                     value:text
                 },

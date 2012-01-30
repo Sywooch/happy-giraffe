@@ -64,4 +64,19 @@ class Test2Controller extends Controller
 		}
 	}
 
+    public function actionParseStats(){
+        $url = 'http://www.liveinternet.ru/stat/blog.mosmedclinic.ru/queries.html?id=139;id=3224346;id=3138283;id=3224088;id=3225442;date=2011-12-31;period=month;page=';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_COOKIE, 'session=0708ZM0mw8qJ; suid=0HL2kG3LzWGy; per_page=100; adv-uid=2d663d.2664c3.bcd35c'); // allow redirects
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
+        $result = curl_exec($ch); // run the whole process
+        curl_close($ch);
+
+        echo $result;
+    }
+
 }

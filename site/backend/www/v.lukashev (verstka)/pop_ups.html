@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+    <title></title>
+    <meta charset="utf-8" > 
+    <link rel="stylesheet" href="css/styles.css" >
+	<script src="js/jquery-1.6.1.min.js"></script>
+	<script src="js/main.js"></script>
+	<!--[if lt IE 9]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+ 	<![endif]-->
+</head>
+<body>
+	<div id="mainarea">
+		<!-- start header -->
+		<header>
+			<h1>Администратор</h1>
+			<!-- start project_nav -->
+			<nav id="project_nav">
+				<ul>
+					<li><a href="#">Клуб</a></li>
+					<li class="active"><a href="#">Магазин</a></li>
+				</ul>
+			</nav>
+			<!-- end project_nav -->
+			
+			<!-- start user -->
+			<div id="user">
+				<span>Анастасия Петрова</span>
+				<a href="#">Выйти</a>
+			</div>
+			<!-- end user -->
+			
+			<!-- start go_to -->
+			<div id="go_to">
+				Перейти  в  <a href="#">Клуб</a> | <a href="#">Магазин</a>
+			</div>
+			<!-- end go_to -->
+		</header>
+		<!-- end header -->
+		
+		<!-- start main_nav -->
+		<nav id="main_nav">
+			<ul>
+				<li><a href="#"><span>Главная</span></a></li>
+				<li><a href="#"><span>Категории</span></a></li>
+				<li><a href="#"><span>Товары</span></a></li>
+				<li><a href="#"><span>Имена<span></span></span></a>
+					<ul>
+						<li><a href="#">Товары</a></li>
+						<li><a href="#">Бренды</a></li>
+					</ul>
+				</li>
+				<li class="active"><a href="#"><span>Сервисы<span></span></span></a>
+					<ul>
+						<li><a href="#">Товары</a></li>
+						<li><a href="#">Бренды</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><span>Скидки</span></a></li>
+				<li><a href="#"><span>Оплата</span></a></li>
+				<li><a href="#"><span>Доставка</span></a></li>
+				<li><a href="#"><span>Заказы</span></a></li>
+			</ul>
+			<div class="clear"></div>
+		</nav>
+		<!-- end main_nav -->
+		
+		<!-- start section -->
+		<section>
+			<h2 class="title">Бренды</h2>
+			
+			<!-- start search -->
+			<form id="search" action="#">
+				<div>
+					<label>
+						<span>Поиск брендов</span>
+						<input type="text" value="" />
+						<a href="#" class="submit">Найти</a>
+					</label>
+					<div class="clear"></div>
+				</div>
+			</form>
+			<!-- end search -->
+			
+			<!-- start brand_info -->
+			<div class="brand_info">
+				<span>Брендов</span> - 58 <br />
+				<img src="ico/activated.png" alt="" /> - 27 <img src="ico/deactivated.png" alt="" /> - 31
+			</div>
+			<!-- end brand_info -->
+			
+			<div class="clear"></div>
+			
+			<!-- start alphabet -->
+			<div class="alphabet">
+				<div class="all">
+					<a href="#" class="active">Все</a>
+				</div>
+				<ul>
+					<li class="rus">
+						<a href="#" class="active">А</a>
+						<a href="#">Б</a>
+						<a href="#">В</a>
+						<a href="#">Г</a>
+						<a href="#">Д</a>
+						<a href="#">Е</a>
+						<a href="#">Ж</a>
+						<a href="#">З</a>
+						<a href="#">И</a>
+						<a href="#">К</a>
+						<a href="#">Л</a>
+						<a href="#">М</a>
+						<a href="#">Н</a>
+						<a href="#">О</a>
+						<a href="#">П</a>
+						<a href="#">Р</a>
+						<a href="#">С</a>
+						<a href="#">Т</a>
+						<a href="#">У</a>
+						<a href="#">Ф</a>
+						<a href="#">Х</a>
+						<a href="#">Ц</a>
+						<a href="#">Ч</a>
+						<a href="#">Э</a>
+						<a href="#">Ю</a>
+						<a href="#">Я</a>
+					</li>
+					<li class="eng">
+						<a href="#">A</a>
+						<a href="#">B</a>
+						<a href="#">C</a>
+						<a href="#">D</a>
+						<a href="#">E</a>
+						<a href="#">F</a>
+						<a href="#">G</a>
+						<a href="#">H</a>
+						<a href="#">I</a>
+						<a href="#">J</a>
+						<a href="#">K</a>
+						<a href="#">L</a>
+						<a href="#">M</a>
+						<a href="#">N</a>
+						<a href="#">O</a>
+						<a href="#">P</a>
+						<a href="#">Q</a>
+						<a href="#">R</a>
+						<a href="#">S</a>
+						<a href="#">T</a>
+						<a href="#">U</a>
+						<a href="#">V</a>
+						<a href="#">W</a>
+						<a href="#">X</a>
+						<a href="#">Y</a>
+						<a href="#">Z</a>
+					</li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+			<!-- end alphabet -->
+			
+			<!-- start #brands  .main_table -->
+			<table id="brands" class="main_table">
+				<thead>
+					<tr>
+						<td><div>Название бренда <a href="#" class="add" jtitle="Добавить бренд"></a></div></td>
+						<td>Логотип</td>
+						<td>Действие</td>
+						<td>Товары</td>
+						<td class="date_filter">
+							Продажи (руб.)<br />
+							<a href="#" class="active">Д</a> | <a href="#">Н</a> | <a href="#">М</a> | <a href="#">Г</a>
+						</td>
+						<td>&nbsp;</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><span>Jetem <a href="#" class="edit"></a></span></td>
+						<td><img src="uploads/jetem.png" alt="" /></td>
+						<td>
+							<a href="#" jtitle="Подробно о бренде"><img src="ico/about_ico.png" alt="Подробно о бренде" /></a>
+							<a href="#" jtitle="Посмотреть в магазине"><img src="ico/look_in_the_net.png" alt="Посмотреть в магазине" /></a>
+						</td>
+						<td>
+							Товаров - <a href="#">25673</a><br />
+							Категорий - <a href="#">256</a>
+						</td>
+						<td>
+							Оборот - 23 256 789<br />
+							Прибыль - 8 363 123
+						</td>
+						<td>
+							<a href="#" class="activation act"></a>
+							<a href="#" class="delete"></a>
+						</td>
+					</tr>
+					<tr>
+						<td><span>Teutonia <a href="#" class="edit"></a></span></td>
+						<td><img src="uploads/teutonia.png" alt="" /></td>
+						<td>
+							<a href="#" jtitle="Подробно о бренде"><img src="ico/about_ico.png" alt="Подробно о бренде" /></a>
+							<a href="#" jtitle="Посмотреть в магазине"><img src="ico/look_in_the_net.png" alt="Посмотреть в магазине" /></a>
+						</td>
+						<td>
+							Товаров - <a href="#">25673</a><br />
+							Категорий - <a href="#">256</a>
+						</td>
+						<td>
+							Оборот - 23 256 789<br />
+							Прибыль - 8 363 123
+						</td>
+						<td>
+							<a href="#" class="activation deact"></a>
+							<a href="#" class="delete"></a>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="6">&nbsp;</td>
+					</tr>
+				</tfoot>
+			</table>
+			<!-- end main_table -->
+			
+			<!-- start pager -->
+			<div class="pager">
+				<span>Страницы:</span>
+				<a href="#" class="prev">prev</a>
+				<a href="#">1</a>
+				<a href="#">2</a>
+				<a href="#">3</a>
+				<a href="#" class="active">4</a>
+				<a href="#">5</a>
+				<a href="#">6</a>
+				<a href="#">7</a>
+				<a href="#" class="next">next</a>
+			</div>
+			<!-- end pager -->
+		</section>
+		<!-- end section -->
+		
+		<!-- start footer -->
+		<footer>
+			<div class="copyrights">&copy 2012 All rights reserved!</div>
+		</footer>
+		<!-- end footer -->
+	</div>
+	
+	<!-- start popup -->
+	<div class="popup"><!--
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите удалить категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите деактивировать категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>-->
+        
+        <!--
+        <div class="popup_box hint famous">
+			<a href="#" class="close">Закрыть</a>
+            <h3>Добавить известную личность</h3>
+			<form action="#">
+            	<div>          	
+                    <div class="left">
+                        <label><span>Имя</span><input class="simple" type="text"></label>
+                        <div class="textarea">
+                            <span>Чем известен</span>
+                            <textarea></textarea>
+                        </div>
+                        <label><span>www</span><input class="simple" type="text"><span class="required"></span></label>
+                    </div>
+                    
+                    <div class="right">
+                    	<input type="file">
+                    </div>
+                </div>
+            </form>
+			<div class="actions">
+				<a href="#" class="yes">Сохранить<span></span></a>
+			</div>
+		</div>
+        -->
+        
+        <div class="popup_box hint date">
+        	<a href="#" class="close">Закрыть</a>
+            
+            <form action="#">
+            	<div>
+            	<select class="date_num">
+                	<option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select>
+                <select class="month">
+                	<option value="Январь">Январь</option>
+                    <option value="Февраль">Февраль</option>
+                    <option value="Март">Март</option>
+                    <option value="Апрель">Апрель</option>
+                    <option value="Май">Май</option>
+                    <option value="Июнь">Июнь</option>
+                    <option value="Июль">Июль</option>
+                    <option value="Август">Август</option>
+                    <option value="Сентябрь">Сентябрь</option>
+                    <option value="Октябрь">Октябрь</option>
+                    <option value="Ноябрь">Ноябрь</option>
+                </select>
+                <a class="simple" href="#">Ok</a>
+                </div>
+            </form>
+            
+            <div class="actions">
+				<a href="#" class="yes">Сохранить<span></span></a>
+			</div>
+        </div>
+        
+     	
+	</div>
+	<!-- end popup -->
+</body>
+</html>

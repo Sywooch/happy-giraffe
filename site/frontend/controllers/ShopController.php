@@ -127,6 +127,7 @@ class ShopController extends Controller {
 
 	public function actionPutInAjax($id, $count=1) {
 		$product = $this->loadProduct($id);
+        ShopCart::add($product, (int) $count);
 		Yii::app()->shoppingCart->put($product, (int) $count);
 		Y::endJson(array(
 			'msg' => 'Ok',
@@ -162,13 +163,16 @@ class ShopController extends Controller {
         if(count($attributes) == 0)
             $put = true;
 
-        if(isset($_POST['Attributes']))
+        if(isset($_POST['Attribute']))
         {
-            $product->cart_attributes = $_POST['Attributes'];
+            $product->cart_attributes = $_POST['Attribute'];
         }
 
         if($put !== false)
-		    Yii::app()->shoppingCart->put($product, (int) $count);
+        {
+            Yii::app()->shoppingCart->put($product, (int) $count);
+            ShopCart::add($product, (int) $count);
+        }
 		if (Y::isAjaxRequest()) {
             if($put !== false)
             {

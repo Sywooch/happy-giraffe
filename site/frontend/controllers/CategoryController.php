@@ -614,8 +614,8 @@ class CategoryController extends Controller {
 	 */
 	public function actionIndex() {
 		$ct = new CDbCriteria;
-		$ct->order = 'category_root, category_lft';
-		$categories = Category::model()->findAll($ct);
+		$ct->order = 'category_lft';
+		$categories = Category::model()->findByPk(1)->descendants()->findAll($ct);
 		$this->render('index', array(
 			'categories' => $categories,
 		));

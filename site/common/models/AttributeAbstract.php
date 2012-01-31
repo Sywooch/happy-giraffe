@@ -47,64 +47,6 @@ class AttributeAbstract extends CFormModel
 
         if($inSearch)
             $this->setSearchValues();
-
-        /* TODO DELETE */
-		/*$this->_category_id = (int) $category_id;
-		
-		$condition = 'map_category_id=:map_category_id';
-		$where = array(
-			':map_category_id' => $this->_category_id,
-		);
-		
-		if($inSearch)
-		{
-			$condition .= ' AND map_in_search=:map_in_search';
-			$where[':map_in_search'] = 1;
-		}
-		
-		$attributes = Y::command()
-			->select()
-			->from('shop_category_attributes_map')
-			->leftJoin('shop_product_attribute', 'map_attribute_id=attribute_id')
-			->where($condition, $where)
-			->queryAll();
-
-		foreach($attributes as $attribute)
-		{
-			$this->_attributes["attr_{$attribute['attribute_id']}"] = array_merge(
-				$attribute,
-				array('value' => null)
-			);
-		}
-
-
-
-		
-
-		
-		foreach($this->_attributes as $attribute)
-		{
-			if($attribute['attribute_type'] == Attribute::TYPE_ENUM)
-			{
-				$this->_enum[] = $attribute['attribute_id'];
-			}
-		}
-		if($this->_enum)
-		{
-			$this->_enum = Y::command()
-				->select('map_attribute_id, value_id, value_value')
-				->from('shop_product_attribute_value_map')
-				->leftJoin('shop_product_attribute_value', 'map_value_id=value_id')
-				->where(array('in', 'map_attribute_id', $this->_enum))
-				->order('value_id')
-				->queryAll();
-
-			$this->_enum = CHtml::listData($this->_enum, 'value_id', 'value_value', 'map_attribute_id');
-		}
-        print_r($this->_enum);
-		
-		if($inSearch)
-			$this->setSearchValues();*/
 	}
 
 	private function setSearchValues()

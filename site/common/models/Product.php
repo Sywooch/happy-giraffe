@@ -28,6 +28,7 @@ Yii::import('site.frontend.extensions.status.EStatusBehavior');
  * @property integer $product_rate
  * @property integer $product_status
  * @property AgeRange $ageRange
+ * @property array $cart_attributes
  *
  * @property Category $category
  * @property ProductBrand $brand
@@ -36,6 +37,8 @@ class Product extends CActiveRecord implements IECartPosition
 {
     const SCENARIO_SELECT_CATEGORY = 1;
     const SCENARIO_FILL_PRODUCT = 2;
+
+    public $cart_attributes;
 
     public $accusativeName = 'Товар';
 
@@ -187,6 +190,7 @@ class Product extends CActiveRecord implements IECartPosition
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('product_id, product_category_id, product_age_range_id, product_sex, product_title, product_text, product_slug, product_image, product_keywords, product_description, product_time, product_rate, product_brand_id, product_price, product_buy_price, product_sell_price, product_status, product_articul', 'safe', 'on' => 'search'),
+            array('cart_attributes', 'safe'),
         );
     }
 

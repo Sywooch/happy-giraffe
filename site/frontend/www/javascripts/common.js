@@ -1,13 +1,35 @@
-$(document).ready(function(){
-	
-	if ($('a.fancy').size() > 0) $('a.fancy').fancybox({
-		overlayColor: '#000',
-		overlayOpacity: '0.6',
-		padding:0,
-		showCloseButton:false,
-		scrolling: false
-	});	
-})
+$(document).ready(function() {
+	if ($('a.fancy').size() > 0) {
+        $('body').delegate('a.fancy', 'click', function() {
+            $(this).clone().fancybox({
+                overlayColor: '#000',
+                overlayOpacity: '0.6',
+                padding:0,
+                showCloseButton:false,
+                scrolling: false
+            }).trigger('click');
+            return false;
+        });
+    }
+});
+
+function addAttributesToCart(form, update) {
+    var link = $('<a></a>').attr('href', form.action);
+    link.fancybox({
+        overlayColor: '#000',
+        overlayOpacity: '0.6',
+        padding:0,
+        showCloseButton:false,
+        scrolling: false,
+        ajax : {
+            type : 'POST',
+            data : $(form).serialize()
+        }
+    });
+    link.trigger('click');
+    return false;
+}
+
 
 function setTab(el, num){
 	var tabs = $(el).parents('.tabs');
@@ -34,7 +56,7 @@ function setItemRadiogroup(el, val){
 		
 		li.addClass('active');
 	}
-	
+
 }
 
 function unsetItemRadiogroup(el){

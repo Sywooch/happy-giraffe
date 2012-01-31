@@ -6,7 +6,7 @@ class CategoryController extends BController
 
     public function actionIndex()
     {
-        $tree = Category::model()->roots()->findAll(array('order' => 'category_root, category_lft'));
+        $tree = Category::model()->findByPk(1)->children()->findAll(array('order' => 'category_lft'));
 
         $count = array(
             'total' => Category::model()->count(),
@@ -37,47 +37,36 @@ class CategoryController extends BController
         elseif($parent)
             $model->moveAsFirst($parent);
         else
-            $model->moveAsRoot();
+            $model->moveAsFirst(Category::model()->findByPk(1));
     }
 
     public function actionAdd()
     {
-        if (Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->request->isAjaxRequest || !isset($_POST['Category']))
+            Yii::app()->end();
+        $category = new Category;
+        $category->attributes = $_POST['Category'];
+
+        $prependTo = Yii::app()->request->getPost('prependTo');
+        $node = Category::model()->findByPk($prependTo);
+        $result = $category->prependTo($node);
+
+        if ($result)
         {
-            if (isset($_POST['Category']))
-            {
-                $category = new Category;
-                $category->attributes = $_POST['Category'];
-
-                if ($_POST['type'] == 'root')
-                {
-                    $result = $category->saveNode();
-                }
-                else
-                {
-                    $prependTo = Yii::app()->request->getPost('prependTo');
-                    $node = Category::model()->findByPk($prependTo);
-                    $result = $category->prependTo($node);
-                }
-
-                if ($result)
-                {
-                    $response = array(
-                        'status' => true,
-                        'html' => $this->renderPartial('_tree_item', array('model' => $category), true),
-                        'attributes' => $category->attributes,
-                        'modelPk' => $category->primaryKey,
-                    );
-                }
-                else
-                {
-                    $response = array(
-                        'status' => false,
-                    );
-                }
-                echo CJSON::encode($response);
-            }
+            $response = array(
+                'status' => true,
+                'html' => $this->renderPartial('_tree_item', array('model' => $category), true),
+                'attributes' => $category->attributes,
+                'modelPk' => $category->primaryKey,
+            );
         }
+        else
+        {
+            $response = array(
+                'status' => false,
+            );
+        }
+        echo CJSON::encode($response);
     }
 
     protected function getTreeItems($model, $root = false)

@@ -17,6 +17,7 @@ return array(
 	// autoloading model and component classes
 	'import'=>array(
 		'site.common.models.*',
+        'site.common.models.mongo.*',
 		'ext.ufile.UFiles',
 		'application.models.*',
 		'application.components.*',
@@ -37,6 +38,7 @@ return array(
 		'ext.image.Image',
 		'ext.CAdvancedArBehavior',
 		'ext.EGMap.*',
+        'ext.YiiMongoDbSuite.*',
 		'application.modules.vaccineCalendar.models.*',
         'application.modules.pregnancyWeight.models.*',
 	    'application.modules.hospitalBag.models.*',
@@ -198,6 +200,14 @@ return array(
 				array('class' => 'JirafDiscount'),
 			),
 		),
+        'mongodb' => array(
+            'class'            => 'EMongoDB',
+            'connectionString' => 'mongodb://localhost',
+            'dbName'           => 'happy_giraffe_db',
+            'fsyncFlag'        => true,
+            'safeFlag'         => true,
+            'useCursor'        => false
+        ),
 	),
 
 	// application-level parameters that can be accessed

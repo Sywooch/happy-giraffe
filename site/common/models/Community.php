@@ -31,8 +31,19 @@ class Community extends CActiveRecord
 				$this->_typeCounts['total'] += $r['count(*)'];
 			}
 		}
-		
-		return ($type_id === null) ? $this->_typeCounts['total'] : (isset($this->_typeCounts[$type_id])) ? $this->_typeCounts[$type_id] : 0;
+
+        if ($type_id == null)
+        {
+            return $this->_typeCounts['total'];
+        }
+        elseif (isset($this->_typeCounts[$type_id]))
+        {
+            return $this->_typeCounts[$type_id];
+        }
+        else
+        {
+            return 0;
+        }
 	}
 
 	/**

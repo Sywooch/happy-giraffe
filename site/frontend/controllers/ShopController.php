@@ -135,13 +135,54 @@ class ShopController extends Controller {
 		));
 	}
 
-	public function actionPutIn($id, $count=1) {
+	public function actionPutIn($id, $count=1, $put = false) {
 		$product = $this->loadProduct($id);
-		Yii::app()->shoppingCart->put($product, (int) $count);
+
+        $attributes = array();
+        if($put == false)
+        {
+            $attributeSetMap = $product->category->GetAttributesMap();
+            foreach ($attributeSetMap as $attribute)
+            {
+
+                if ($attribute->map_attribute->attribute_in_price == 1) {
+                    $attribute_values = $product->GetCardAttributeValues($attribute->map_attribute->attribute_id);
+                    if(count($attribute_values) == 0)
+                        continue;
+                    $attributes[$attribute->map_attribute->attribute_id] = array(
+                        'attribute' => $attribute,
+                        'items' => array(),
+                    );
+                    foreach($attribute_values as $attribute_value)
+                        $attributes[$attribute->map_attribute->attribute_id]['items'][$attribute_value['eav_id']] = $attribute_value['eav_attribute_value'];
+                }
+            }
+        }
+
+        if(count($attributes) == 0)
+            $put = true;
+
+        if(isset($_POST['Attributes']))
+        {
+            $product->cart_attributes = $_POST['Attributes'];
+        }
+
+        if($put !== false)
+		    Yii::app()->shoppingCart->put($product, (int) $count);
 		if (Y::isAjaxRequest()) {
-			$this->renderPartial('putIn', array(
-				'model' => $product,
-			));
+            if($put !== false)
+            {
+                $this->renderPartial('putIn', array(
+                    'model' => $product,
+                ));
+            }
+            else
+            {
+                $this->renderPartial('putInAttributes', array(
+                    'model' => $product,
+                    'attributes' => $attributes
+                ));
+            }
 		} 
 		else {
 			$this->redirect(Y::request()->urlReferrer);

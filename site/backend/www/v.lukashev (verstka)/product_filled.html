@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+    <title></title>
+    <meta charset="utf-8" > 
+    <link rel="stylesheet" href="css/styles.css" >
+	<script src="js/jquery-1.6.1.min.js"></script>
+	<script src="js/main.js"></script>
+	<!--[if lt IE 9]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+ 	<![endif]-->
+</head>
+<body>
+	<div id="mainarea">
+		<!-- start header -->
+		<header>
+			<h1>Администратор</h1>
+			<!-- start project_nav -->
+			<nav id="project_nav">
+				<ul>
+					<li><a href="#">Клуб</a></li>
+					<li class="active"><a href="#">Магазин</a></li>
+				</ul>
+			</nav>
+			<!-- end project_nav -->
+			
+			<!-- start user -->
+			<div id="user">
+				<span>Анастасия Петрова</span>
+				<a href="#">Выйти</a>
+			</div>
+			<!-- end user -->
+			
+			<!-- start go_to -->
+			<div id="go_to">
+				Перейти  в  <a href="#">Клуб</a> | <a href="#">Магазин</a>
+			</div>
+			<!-- end go_to -->
+		</header>
+		<!-- end header -->
+		
+		<!-- start main_nav -->
+		<nav id="main_nav">
+			<ul>
+				<li><a href="#"><span>Главная</span></a></li>
+				<li><a href="#"><span>Категории</span></a></li>
+				<li><a href="#"><span>Товары</span></a></li>
+				<li><a href="#"><span>Имена<span></span></span></a>
+					<ul>
+						<li><a href="#">Товары</a></li>
+						<li><a href="#">Бренды</a></li>
+					</ul>
+				</li>
+				<li class="active"><a href="#"><span>Сервисы<span></span></span></a>
+					<ul>
+						<li><a href="#">Товары</a></li>
+						<li><a href="#">Бренды</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><span>Скидки</span></a></li>
+				<li><a href="#"><span>Оплата</span></a></li>
+				<li><a href="#"><span>Доставка</span></a></li>
+				<li><a href="#"><span>Заказы</span></a></li>
+			</ul>
+			<div class="clear"></div>
+		</nav>
+		<!-- end main_nav -->
+		
+		<!-- start section -->
+		<section>
+			<a href="#" class="add_link">Список товаров</a>
+			<div class="clear"></div>
+			<!--start product_present-->
+			<div class="product_present">
+				<h2 class="title hover_edit"><span>Фруктовые пюре Earth's Best<a href="#" class="edit"></a></span></h2>
+				
+				<div class="left_side">
+					<div class="photo">
+						<img src="uploads/product_present.jpg" alt=""/>
+					</div>
+					<div id="slider">
+						<div class="slides_block delete_block">
+							<ul>
+								<li>
+									<a href="#"><img src="uploads/product_present_2.jpg" alt=""/></a>
+									<a href="#" class="delete"></a>
+								</li>
+								<li>
+									<a href="#"><img src="uploads/product_present_2.jpg" alt=""/></a>
+									<a href="#" class="delete"></a>
+								</li>
+								<li>
+									<a href="#"><img src="uploads/product_present_2.jpg" alt=""/></a>
+									<a href="#" class="delete"></a>
+								</li>
+								<li class="add">
+									<a href="#" jtitle="Добавить фото"></a>
+								</li>
+								<li>
+									<a href="#"><img src="uploads/product_present_2.jpg" alt=""/></a>
+									<a href="#" class="delete"></a>
+								</li>
+							</ul>
+						</div>
+						<a href="#" class="prev"></a>
+						<a href="#" class="next"></a>
+						<p>Всего фото: 3</p>
+					</div>
+				</div>
+				
+				<div class="text">
+					<div class="brend">
+						<b>Бренд</b>
+						<a href="#"><img src="uploads/brend.jpg" alt=""/></a>
+						<a href="#" class="button">Изм.<span></span></a>
+						<h4 class="hover_edit"><span>Описание товара<a href="#" class="edit"></a></span></h4>
+						<p>Особенности Нartan Sky XL: стильная и
+многофункциональная версия модели Hartan Sky. Нartan Sky XL отличается очень компактными размерами в сложенном состоянии, легко помещается в багажник любого автомобиля. Ее можно использовать как в прогулочном варианте, так и с люлькой для новорожденных. Новая комбинация совмещает в себе два преимущества: спортивный стиль и многофункциональность. Большие колеса и облегченная рама обеспечивают маневренность и высокую проходимость коляски отличается очень компактными размерами в сложенном состоянии, легко помещается в багажник любого автомобиля. Ее можно использовать как в прогулочном варианте, так и с люлькой для новорожденных. Новая комбинация совмещает в себе два преимущества... </p>
+					</div>
+				</div>
+				
+			</div>
+			<!--end product_present-->
+			
+			<div class="price_block">
+				<div>
+					<h4></h4>
+					<strong><span></span></strong>
+				</div>
+			</div>
+		</section>
+		<!-- end section -->
+		
+		<!-- start footer -->
+		<footer>
+			<div class="copyrights">&copy 2012 All rights reserved!</div>
+		</footer>
+		<!-- end footer -->
+	</div>
+	
+	<!-- start popup -->
+	<!--<div class="popup">
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите удалить категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите деактивировать категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>
+	</div>-->
+	<!-- end popup -->
+</body>
+</html>

@@ -31,37 +31,38 @@
 				</thead>
 				<tbody>
 					<?php $i=0; ?>
-					<?php foreach(Yii::app()->shoppingCart->getPositions() as $k=>$position): ?>
+					<?php foreach(ShopCart::getItems() as $k=>$position): ?>
+                        <?php $product = Product::model()->findByPk($position->id); ?>
 					<?php $i++; ?>
 					<tr class="<?php echo ($i % 2) ? 'even' : '';?>">
 						<td class="col-1">
 							<?php echo CHtml::link(
-								CHtml::image($position->product_image->getUrl('subproduct'), $position->product_title),
-								$position->getUrl()
+								CHtml::image($product->product_image->getUrl('subproduct'), $product->product_title),
+                            $product->getUrl()
 							); ?>
 						</td>
 						<td class="col-2">
 							<p><big>
 								<?php echo CHtml::link(
-									'<b>'.$position->product_title.'</b>',
-									$position->getUrl()
+									'<b>'.$product->product_title.'</b>',
+                                    $product->getUrl()
 								); ?>
 							</big></p>
 <!--				<p>Цвет:  зелено-желтый</p>-->
 				<p class="price">
 					Цена: <span><b>
-							<?php if(intval($position->product_sell_price) || intval(Y::user()->getRate()*100)): ?><strike><?php endif; ?>
-								<?php echo $position->product_price; ?>
-							<?php if(intval($position->product_sell_price) || intval(Y::user()->getRate()*100)): ?></strike><?php endif; ?>
+							<?php if(intval($product->product_sell_price) || intval(Y::user()->getRate()*100)): ?><strike><?php endif; ?>
+								<?php echo $product->product_price; ?>
+							<?php if(intval($product->product_sell_price) || intval(Y::user()->getRate()*100)): ?></strike><?php endif; ?>
 						</b></span> руб.
 					&nbsp;&nbsp;&nbsp;
 					
-					<?php if(intval($position->product_sell_price)): ?>
-						<img src="/images/shock-price-cart.png"> <span class="discounted"><b><?php echo $position->product_sell_price; ?></b></span> руб.</p>
+					<?php if(intval($product->product_sell_price)): ?>
+						<img src="/images/shock-price-cart.png"> <span class="discounted"><b><?php echo $product->product_sell_price; ?></b></span> руб.</p>
 				
 					<?php else: ?>
 						<?php if(intval(Y::user()->getRate()*100)): ?>
-						<img src="/images/product_price_discount_img.png"> <span class="discounted"><b><?php echo intval((1-Y::user()->getRate())*$position->product_price); ?></b></span> руб.</p>
+						<img src="/images/product_price_discount_img.png"> <span class="discounted"><b><?php echo intval((1-Y::user()->getRate())*$product->product_price); ?></b></span> руб.</p>
 				
 						<?php endif; ?>
 				
@@ -72,7 +73,7 @@
 <!--					<a class="hold" href="">Отложить</a>-->
 					<?php echo CHtml::link('Удалить',array(
 						'remove',
-						'id'=>$position->product_id,
+						'sid'=>$position->primaryKey,
 					), array(
 						'class'=>'remove',
 					)); ?>
@@ -81,22 +82,24 @@
 					<div class="counter">
 						<?php echo CHtml::link('', array(
 							'putIn',
-							'id' => $position->product_id,
+							'id' => $position->primaryKey,
 							'count' => -1),
 						array(
-							'class'=>'dec'
+							'class'=>'dec',
+                            'onclick' => "updateCount(this, '".$position->primaryKey."', -1);return false;"
 						)); ?>
-						<input readonly type="text" value="<?php echo $position->getQuantity(); ?>">
+						<input readonly type="text" value="<?php echo $position->count; ?>">
 						<?php echo CHtml::link('', array(
 							'putIn',
-							'id' => $position->product_id,
+							'id' => $position->primaryKey,
 							'count' => 1),
 						array(
-							'class'=>'inc'
+							'class'=>'inc',
+                            'onclick' => "updateCount(this, '".$position->primaryKey."', 1);return false;"
 						)); ?>
 					</div>
 				</td>
-				<td class="col-5"><span><span><?php echo $position->getSumPrice(); ?></span> руб.</span></td>
+				<td class="col-5"><span><span class="item_price"><?php echo $position->getSumPrice(); ?></span> руб.</span></td>
 				</tr>
 				<?php endforeach; ?>
 
@@ -155,7 +158,7 @@
 		<div class="total a-right">
 			
 			<?php if(0==1 && Yii::app()->shoppingCart->getDiscount()): ?>
-			<div class="total-discount">
+			<!--<div class="total-discount">
 				<span class="a-right"><span><b>
 							<?php echo Yii::app()->shoppingCart->getDiscount(); ?>
 						</b></span> руб.</span>
@@ -168,12 +171,12 @@
 				<?php else: ?>
 					<span>Ваша скидка: "<?php echo Y::user()->getRate()*100; ?>%"</span>
 				<?php endif; ?>
-			</div>
+			</div>-->
 			<?php endif; ?>
 			
 			<div class="total-price">
 				<span class="a-right"><span><b>
-					<?php echo Yii::app()->shoppingCart->getCost(); ?>
+					<?php echo ShopCart::getCost(); ?>
 				</b></span> руб.</span>
 				Предварительный итог:
 			</div>
@@ -191,3 +194,21 @@
 			)); ?>
 		</div>
 </div>
+    <script type="text/javascript">
+        function updateCount(elem, id, value) {
+            var count = $(elem).siblings('input').val();
+            if(parseInt(count) + value <= 0)
+                return false;
+            var url = '<?php echo $this->createUrl('/shop/putInAjax/'); ?>?count=' + value + '&id=' + id;
+            $.get(
+                url,
+                {},
+                function(data) {
+                    $(elem).siblings('input').val(data.itemCount);
+                    $(elem).parents('tr:eq(0)').find('.item_price').text(data.itemCost);
+                    $('.fast-cart span.count').text(data.count);
+                },
+                'json'
+            )
+        }
+    </script>

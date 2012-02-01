@@ -126,13 +126,13 @@ class ShopController extends Controller {
 	}
 
 	public function actionPutInAjax($id, $count=1) {
-		$product = $this->loadProduct($id);
-        ShopCart::add($product, (int) $count);
-		Yii::app()->shoppingCart->put($product, (int) $count);
+        $model = ShopCart::add($id, (int) $count);
 		Y::endJson(array(
 			'msg' => 'Ok',
-			'count' => Yii::app()->shoppingCart->getItemsCount(),
-			'cost' => Yii::app()->shoppingCart->getCost(),
+			'count' => ShopCart::getItemsCount(),
+			'cost' => ShopCart::getCost(),
+            'itemCount' => $model->count,
+            'itemCost' => $model->getSumPrice(),
 		));
 	}
 
@@ -170,14 +170,14 @@ class ShopController extends Controller {
 
         if($put !== false)
         {
-            Yii::app()->shoppingCart->put($product, (int) $count);
-            ShopCart::add($product, (int) $count);
+            $cart = ShopCart::add($product, (int) $count);
         }
 		if (Y::isAjaxRequest()) {
             if($put !== false)
             {
                 $this->renderPartial('putIn', array(
                     'model' => $product,
+                    'cart' => $cart,
                 ));
             }
             else
@@ -204,11 +204,8 @@ class ShopController extends Controller {
 		$this->redirect(Y::request()->urlReferrer);
 	}
 
-	public function actionRemove($id) {
-		$product = $this->loadProduct($id);
-
-		Yii::app()->shoppingCart->remove($product->getId());
-
+	public function actionRemove($sid) {
+		ShopCart::remove($sid);
 		if (Y::isAjaxRequest())
 			Y::endJson(array('msg' => 'Ok'));
 
@@ -216,7 +213,7 @@ class ShopController extends Controller {
 	}
 
 	public function actionClear() {
-		Yii::app()->shoppingCart->clear($product);
+		ShopCart::clear();
 
 		if (Y::isAjaxRequest())
 			Y::endJson(array('msg' => 'Ok'));
@@ -265,7 +262,7 @@ class ShopController extends Controller {
 		
 		$id = Y::user()->getState('create_order_id');
 		
-		Yii::app()->shoppingCart->clear();
+		ShopCart::clear();
 		$this->render('thank', array(
 			'order_id' => $id,
 		));

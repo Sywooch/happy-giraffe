@@ -75,8 +75,7 @@ class Category extends CActiveRecord
         return array(
             'tree' => array(
                 'class' => 'site.frontend.extensions.trees.NestedSetBehavior',
-                'hasManyRoots' => true,
-                'rootAttribute' => 'category_root',
+                'hasManyRoots' => false,
                 'leftAttribute' => 'category_lft',
                 'rightAttribute' => 'category_rgt',
                 'levelAttribute' => 'category_level',
@@ -234,7 +233,6 @@ class Category extends CActiveRecord
         foreach ($this->attributeSets as $attrSet) {
             $attrMap = array_merge($attrMap, $attrSet->set_map);
         }
-
         return $attrMap;
     }
 

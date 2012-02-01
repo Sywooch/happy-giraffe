@@ -1,10 +1,8 @@
-<?php $descendants = $model->children()->findAll(array('order' => 'category_root, category_lft')); ?>
+<?php $descendants = $model->children()->findAll(array('order' => 'category_lft')); ?>
 <?php
 $class = '';
 if(count($descendants) == 0)
     $class .= 'empty_item';
-if($model->isRoot())
-    $class .= ($class == '' ? '' : ' ') . 'is_root';
 ?>
 <li<?php echo $class != '' ? ' class="'.$class.'"' : '' ?> id="category_item_<?php echo $model->primaryKey; ?>">
     <div class="data">
@@ -27,7 +25,7 @@ if($model->isRoot())
         </div>
         <div class="column active_ct">
             <ol>
-                <?php if ($model->category_level < 3): ?>
+                <?php if ($model->category_level < 4): ?>
                     <li>
                         <span title="Создание подкатегории" class="add_child">
                         <img src="/images/icons/add_catg_icon.png" alt="Создание подкатегории"/></span>

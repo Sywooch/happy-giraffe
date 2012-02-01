@@ -83,8 +83,6 @@ $model = new Category;
         revert: 250,
         tabSize: 25,
         update : function(event, ui) {
-            if(ui.item.hasClass('is_root') && ui.item.parent().hasClass('sortable'))
-                return false;
             //TODO зафиксить, не всегда работает
             var old = $(this);
             if(old.children().size() == 0) {
@@ -105,9 +103,7 @@ $model = new Category;
                     parent.removeClass('empty_item');
             }
             if(ui.item.parent().hasClass('sortable'))
-                ui.item.addClass('is_root');
-            else
-                ui.item.removeClass('is_root');
+                parent_id = 1;
             $.get(
                 '<?php echo $this->createUrl('moveNode'); ?>',
                 {id : item_id, prev : prev_id, parent : parent_id}
@@ -138,17 +134,15 @@ $model = new Category;
     });
     $('body').delegate('div.name_ct input[type=button].b_new_catg', 'click', function() {
         if($(this).parents('li:eq(0)').parent('ul').parent('.grid_body').size() > 0) {
-            var type = 'root';
-            var prependTo = 0;
+            var prependTo = 1;
         } else {
-            var type = 'child';
             var prependTo = $(this).parents('li:eq(1)').attr('id').split('_')[2];
         }
         $.ajax({
             type: 'POST',
             dataType: 'json',
             url: $(this).parents('form').attr('action'),
-            data: $(this).parents('form').serialize() + '&type=' + type + '&prependTo=' + prependTo,
+            data: $(this).parents('form').serialize() + '&prependTo=' + prependTo,
             success: function(response) {
                 if (response.status == '1') {
                     $(this).parents('li:eq(0)').replaceWith($(response.html));

@@ -119,10 +119,13 @@ function ajaxQuery(data)
 
 function submitForm()
 {
+    $("#categoryContent").css({opacity:1}).animate({opacity:0}, 300);
 '.
 	CHtml::ajax(array(
 		'url' => '',
-		'update' => '#categoryContent',
+        'success' => 'js:function(data) {
+            $("#categoryContent").stop().css({opacity:0}).html(data).animate({opacity:1}, 300);
+        }',
 		'type' => 'post',
 		'data' => 'js:oldData',
 	))

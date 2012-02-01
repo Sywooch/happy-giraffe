@@ -306,4 +306,27 @@ class Name extends CActiveRecord
 
         return ($vote === FALSE) ? false : true;
     }
+
+    public function initOptionsSweetMiddles()
+    {
+        $this->sweet = '';
+        foreach ($this->nameSweets as $name) {
+            $this->sweet.=$name->value.', ';
+        }
+        $this->sweet = rtrim($this->sweet, ', ');
+
+        $this->options = '';
+        foreach ($this->nameOptions as $name) {
+            $this->options.=$name->value.', ';
+        }
+        $this->options = rtrim($this->options, ', ');
+
+        $this->middle_names = '';
+        foreach ($this->nameMiddles as $name) {
+            $this->middle_names.=$name->value.', ';
+        }
+        $this->middle_names = rtrim($this->middle_names, ', ');
+
+        return parent::afterFind();
+    }
 }

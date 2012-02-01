@@ -95,7 +95,7 @@ class Dklab_Realplexor
 	/**
 	 * Return list of online IDs (keys) and number of online browsers
 	 * for each ID. (Now "online" means "connected just now", it is
-	 * very approximate; more precision is in TODO.)
+	 * very approximate; more precision is in .)
 	 *
 	 * @param array $idPrefixes   If set, only online IDs with these prefixes are returned.
 	 * @return array              List of matched online IDs (keys) and online counters (values).
@@ -236,7 +236,7 @@ class Dklab_Realplexor
 			}
 			if (!@stream_socket_shutdown($f, STREAM_SHUT_WR)) {
 				throw new Dklab_Realplexor_Exception($php_errormsg);
-				break;
+//				break;
 			}
 			$result = @stream_get_contents($f);
 			if ($result === false) {

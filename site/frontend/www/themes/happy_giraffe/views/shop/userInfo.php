@@ -10,7 +10,7 @@
 <?php
 Y::script()->registerScriptFile('http://pickpoint.ru/select/postamat.js');
 
-$js = 'var toal_price='.Yii::app()->shoppingCart->getCost().';';
+$js = 'var toal_price='.ShopCart::getCost().';';
 Y::script()->registerScript('total_var', $js, CClientScript::POS_HEAD);
 ?>
 
@@ -315,7 +315,7 @@ Y::script()->registerScript('total_var', $js, CClientScript::POS_HEAD);
 		<div class="total a-right">
 			
 			<?php if(0==1 && Yii::app()->shoppingCart->getDiscount()): ?>
-			<div class="total-discount">
+			<!--<div class="total-discount">
 				<span class="a-right"><span><b>
 							<?php echo Yii::app()->shoppingCart->getDiscount(); ?>
 						</b></span> руб.</span>
@@ -328,13 +328,13 @@ Y::script()->registerScript('total_var', $js, CClientScript::POS_HEAD);
 				<?php else: ?>
 					<span>Ваша скидка: "<?php echo Y::user()->getRate()*100; ?>%"</span>
 				<?php endif; ?>
-			</div>
+			</div>-->
 			<?php endif; ?>
 			
 			<div class="total-price">
 				<dl>
 					<dd>Предварительный итог:</dd>
-					<dt><span><b><?php echo Yii::app()->shoppingCart->getCost(); ?></b></span> руб. (включая НДС)</dt>
+					<dt><span><b><?php echo ShopCart::getCost(); ?></b></span> руб. (включая НДС)</dt>
 <!--					<dd>Доставка и обработка:</dd>
 					<dt><span><b>449</b></span> руб.</dt>-->
 				</dl>
@@ -342,7 +342,7 @@ Y::script()->registerScript('total_var', $js, CClientScript::POS_HEAD);
 			<div class="note">
 				<dl>
 					<dd><span><b>Итого:</b></span></dd>
-					<dt><span><b id="totalPrice"><?php echo Yii::app()->shoppingCart->getCost(); ?></b></span> руб.</dt>
+					<dt><span><b id="totalPrice"><?php echo ShopCart::getCost(); ?></b></span> руб.</dt>
 				</dl>
 			</div>
 		</div>

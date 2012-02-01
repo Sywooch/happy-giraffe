@@ -168,15 +168,15 @@ class Order extends CActiveRecord
 	
 	public function beforeValidate()
 	{
-		if($this->getIsNewRecord() && Yii::app()->shoppingCart->isEmpty())
+		if($this->getIsNewRecord() && ShopCart::isEmpty())
 		{
 			$this->addError('order_description', 'Shopping Cart is empty');
 			return false;
 		}
 		
-		$this->order_item_count = Yii::app()->shoppingCart->getItemsCount();
-		$this->order_price = Yii::app()->shoppingCart->getCost(false);
-		$this->order_price_total = Yii::app()->shoppingCart->getCost(true);
+		$this->order_item_count = ShopCart::getItemsCount();
+		$this->order_price = ShopCart::getCost(false);
+		$this->order_price_total = ShopCart::getCost(true);
 		
 		/**
 		 * @todo calculate width and volume
@@ -195,17 +195,18 @@ class Order extends CActiveRecord
 	
 	public function afterSave()
 	{
-		foreach(Yii::app()->shoppingCart->getPositions() as $position)
+		foreach(ShopCart::getItems() as $position)
 		{
-			$property = $position->getAttributesText();
+            $product = Product::model()->findByPk($position->id);
+			$property = $product->getAttributesText();
 
 			Y::command()
 				->insert('shop_order_item', array(
 					'item_order_id' => $this->order_id,
-					'item_product_id' => $position->product_id,
-					'item_product_count' => $position->getQuantity(),
-					'item_product_cost' => $position->getPrice(),
-					'item_product_title' => $position->product_title,
+					'item_product_id' => $product->product_id,
+					'item_product_count' => $position->count,
+					'item_product_cost' => $product->getPrice(),
+					'item_product_title' => $product->product_title,
 					'item_product_property' => CJSON::encode($property),
 				));
 		}

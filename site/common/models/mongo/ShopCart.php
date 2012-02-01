@@ -2,78 +2,142 @@
 /**
  * @property integer $id
  * @property string $title
- * @property ShopCartProduct $products
+ * @property array $cart_attributes
+ * @property int $count
+ * @property int $price
+ * @property int $user_id
+ * @property int $is_guest
  */
 class ShopCart extends EMongoDocument
 {
+    public $id;
     public $title;
-    public $products;
+    public $cart_attributes;
+    public $count = 0;
+    public $price = 0;
+    public $user_id;
+    public $is_guest = false;
+    public $image;
 
     public function rules()
     {
         return array(
-            array('title', 'safe'),
+            array('id, title, cart_attributes, count, price, user_id, is_guest, image', 'safe'),
         );
     }
 
-    public function behaviors()
+    public static function add($product, $count)
     {
-        return array(
-            array(
-                'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
-                'arrayPropertyName' => 'products', // name of property
-                'arrayDocClassName' => 'ShopCartProduct' // class name of documents in array
-            ),
-        );
-    }
-
-    public static function add(Product $product, $count)
-    {
-        $criteria = new EMongoCriteria;
-        $criteria->_id('==', $product->primaryKey);
-
-        $cart_attributes = null;
-        if($product->cart_attributes)
+        if($product instanceof Product)
         {
-            $cart_attributes = $product->cart_attributes;
-            ksort($cart_attributes);
-            $criteria->products->cart_attributes('==', $cart_attributes);
-        }
+            $criteria = new EMongoCriteria;
+            $criteria->id('==', $product->primaryKey);
 
-        $model = ShopCart::model()->find($criteria);
+            $criteria = self::getUserCriteria($criteria);
+
+            $cart_attributes = null;
+            if($product->cart_attributes)
+            {
+                $cart_attributes = $product->cart_attributes;
+                ksort($cart_attributes);
+            }
+            $criteria->cart_attributes('==', $cart_attributes);
+
+            $model = ShopCart::model()->find($criteria);
+        }
+        else
+        {
+            $product = new MongoId($product);
+            $model = ShopCart::model()->findByPk($product);
+        }
 
         if(!$model)
         {
-            if(!$model = ShopCart::model()->findByPk($product->primaryKey))
+            $model = new ShopCart;
+            $model->id = $product->primaryKey;
+            $model->title = $product->product_title;
+            $model->count = $count;
+            $model->price = $product->getPrice();
+            $model->cart_attributes = $cart_attributes;
+            if(Yii::app()->user->isGuest)
             {
-                $model = new ShopCart;
-                $model->id = $product->primaryKey;
-                $model->title = $product->product_title;
+                $model->is_guest = true;
+                $model->user_id = Yii::app()->session->sessionID;
             }
-            $products_count = count($model->products) - 1;
-            $model->products[$products_count] = new ShopCartProduct;
-            $model->products[$products_count]->id = $product->primaryKey;
-            $model->products[$products_count]->count = $count;
-            $model->products[$products_count]->price = $product->getPrice();
-            if($cart_attributes)
+            else
             {
-                $model->products[$products_count]->cart_attributes = $cart_attributes;
+                $model->user_id = Yii::app()->user->id;
             }
         }
         else
         {
-            foreach ($model->products as $m_product)
-            {
-                if($m_product->cart_attributes == $cart_attributes)
-                {
-                    $m_product->count += $count;
-                    break;
-                }
-            }
-
+            $model->count += $count;
         }
         $model->save();
         return $model;
+    }
+
+    public function getSumPrice()
+    {
+        return $this->price * $this->count;
+    }
+
+    public static function getItemsCount()
+    {
+        $criteria = self::getUserCriteria();
+        $count = 0;
+        foreach(ShopCart::model()->findAll($criteria) as $model)
+        {
+            $count += $model->count;
+        }
+        return $count;
+    }
+
+    public static function getCost()
+    {
+        $criteria = self::getUserCriteria();
+        $price = 0.0;
+        foreach(ShopCart::model()->findAll($criteria) as $model)
+            $price += $model->price * $model->count;
+        return $price;
+    }
+
+    public static function getItems()
+    {
+        $criteria = self::getUserCriteria();
+        return ShopCart::model()->findAll($criteria);
+    }
+
+    public static function remove($id)
+    {
+        $id = new MongoId($id);
+        $model = ShopCart::model()->deleteByPk($id);
+    }
+
+    public static function clear()
+    {
+        $criteria = self::getUserCriteria();
+        return ShopCart::model()->deleteAll($criteria);
+    }
+
+    public static function getUserCriteria($criteria = false)
+    {
+        if(!$criteria)
+            $criteria = new EMongoCriteria;
+        if(Yii::app()->user->isGuest)
+        {
+            $criteria->is_guest('==', true);
+            $criteria->user_id('==', Yii::app()->session->sessionID);
+        }
+        else
+        {
+            $criteria->user_id('==', Yii::app()->user->id);
+        }
+    }
+
+    public static function isEmpty()
+    {
+        return self::getItemsCount() == 0 ? true : false;
     }
 
     public function getCollectionName()

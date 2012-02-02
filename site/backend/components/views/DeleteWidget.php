@@ -15,12 +15,12 @@
                 success: function(response) {
                     if (response == '1')
                     {
-                        $(this).parents('" . $selector . "').remove();
-
                         if ($(this).find('input[name=modelIsTree]').val() == '1')
                         {
                             $(this).parents('li:eq(1)').remove();
                         }
+                        else
+                            $(this).parents('" . $selector . "').remove();
 
                         " . $onSuccess . "
                     }

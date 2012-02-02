@@ -17,10 +17,11 @@ class DefaultController extends Controller
 
     public function actionDialog($id)
     {
-        $messages = MessageLog::GetLastMessages(1);
+        $messages = MessageLog::GetLastMessages($id);
 
         $this->render('dialog', array(
-            'messages' => $messages
+            'messages' => $messages,
+            'id'=>$id
         ));
     }
 

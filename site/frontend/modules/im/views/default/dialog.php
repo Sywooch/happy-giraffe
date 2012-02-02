@@ -1,26 +1,9 @@
 <script type="text/javascript" src="/javascripts/dklab_realplexor.js"></script>
 <style type="text/css">
-    .unread {
-        background: #9DD1FC;
-    }
-
-    input {
-        border: 1px solid #000;
-    }
-
-    #messages {
-        height: 300px;
-        border: 1px solid #000;
-        overflow: auto;
-    }
-
-    .mess_content {
-        padding: 5px;
-        margin: 3px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-    }
+    .unread {background: #9DD1FC;}
+    input {border: 1px solid #000;}
+    #messages {height: 300px;border: 1px solid #000;overflow: auto;}
+    .mess_content {padding: 5px;margin: 3px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
 </style>
 <div id="messages">
     <?php foreach ($messages as $message): ?>
@@ -34,7 +17,7 @@
 
 <script type="text/javascript">
     var user_cache = '<?php echo MessageCache::GetCurrentUserCache() ?>';
-    var dialog = 1;
+    var dialog = <?php echo $id ?>;
     var last_massage = null;
     var window_active = 1;
 

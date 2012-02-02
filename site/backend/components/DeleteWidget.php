@@ -11,7 +11,7 @@ class DeleteWidget extends CWidget
      * selector of html-element that contains delete link and will be deleted when object deleted
      * @var string
      */
-    public $selector = 'tr';
+    public $selector = '';
     /**
      * js-code that execute after success delete
      * @var string

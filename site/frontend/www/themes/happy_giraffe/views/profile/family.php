@@ -1,15 +1,22 @@
 <?php
-	$preloadedBabies = 0;
-	$maxBabies = 10;
-	
+$this->user->refresh();
 	$cs = Yii::app()->clientScript;
 	
 	$js = "
-		$('div.child:gt(" . count($this->user->babies) . "), div.child:eq(" . count($this->user->babies) . ")').hide();
+		$('div.child:gt(" . count($this->user->babies) . "), div.child:eq(" . count($this->user->babies) . ")').each(function() {
+	        $(this).hide();
+            $(this).find('.isset_child').val(0);
+		});
+
+		$('div.child-in').hover(function() {
+		    $(this).children('.remove-baby').toggle();
+		});
 	
 		function addField()
 		{
-			$('div.child:hidden:first').show();
+			var div = $('div.child:hidden:first');
+			div.show();
+			div.find('.isset_child').val(1);
 			if ($('div.child:hidden').length == 0)
 			{
 				$('#addBaby').parent().hide();
@@ -22,8 +29,7 @@
 		});
 	";
 	
-	$cs
-		->registerScript('travel_add', $js);
+	$cs->registerScript('travel_add', $js);
 ?>
 
 <?php $this->breadcrumbs = array(
@@ -74,29 +80,31 @@
 		
 		</div>
 		<br/>
-		<?php $form = $this->beginWidget('CActiveForm'); ?>
+		<?php $form = $this->beginWidget('CActiveForm', array('id' => 'baby-form')); ?>
 		<?php for ($i = 0; $i < $maxBabies; $i++): ?>
 			<?php
-				$baby_model = (isset($this->user->babies[$i]) && $this->user->babies[$i] instanceof Baby) ? $this->user->babies[$i] : new Baby;
+				$baby_model = $baby_models[$i];
 			?>
 			<div class="child">
+                <?php echo CHtml::hiddenField('Baby['.$i.'][isset]', 1, array('class' => 'isset_child')) ?>
 				<div class="age-box">
 					<img src="/images/profile_age_img_01.png" /><br/>
 					<span>0 - 1</span>
 				</div>
 				<div class="child-in">
 					<a href="javascript:void(0);" class="fill-form" onclick="toggleChildForm(this);">Заполнить данные <?php echo (! empty($baby_model->name)) ? 'ребенка по имени ' . $baby_model->name : ($i + 1) . '-го ребенка' ?></a>
+                    <?php echo CHtml::link('Удалить', array('/profile/removeBaby', 'id' => $i), array('style' => 'display:none;', 'class' => 'remove-baby', 'confirm' => 'Вы действительно хотите удалить ребенка?')); ?>
 				</div>
 	
 				<div class="child-form">
-		
+		            <?php echo $form->errorSummary($baby_model); ?>
 					<div class="row row-inline">
 			
 						<div class="row-title">Имя ребенка:</div>
 						<div class="row-elements">
 							<div class="col">
-								<input type="text" />
-							</div>									
+								<?php echo CHtml::textField('Baby['.$i.'][name]', $baby_model->name, array('maxlength' => 255)) ?>
+							</div>
 						</div>
 		
 					</div>
@@ -105,21 +113,11 @@
 						<div class="row-title">Дата рождения:</div>
 						<div class="row-elements">
 							<div class="col">
-								<select>
-									<option>29</option>
-									<option>января</option>
-									<option>1981</option>
-								</select>
-								<select>
-									<option>января</option>
-									<option>29</option>
-									<option>1981</option>
-								</select>
-								<select>
-									<option>1981</option>
-									<option>29</option>
-									<option>января</option>
-								</select>
+                                <?php $days = array(); for($day = 1;$day <= 31;$day++) $days[$day] = $day; ?>
+                                <?php $years = array(); for($year = 1980;$year <= date('Y');$year++) $years[$year] = $year; ?>
+                                <?php echo CHtml::dropDownList('Baby['.$i.'][day]', date('d', strtotime($baby_model->birthday)), $days); ?>
+								<?php echo CHtml::dropDownList('Baby['.$i.'][month]', date('m', strtotime($baby_model->birthday)), Yii::app()->locale->monthNames); ?>
+                                <?php echo CHtml::dropDownList('Baby['.$i.'][year]', date('Y', strtotime($baby_model->birthday)), $years); ?>
 							</div>
 							<div class="col age">
 								Возраст: <b>29</b> лет
@@ -133,14 +131,7 @@
 	
 						<div class="row-title">Пол:</div>
 						<div class="row-elements">
-							<div class="col">
-								<label><input type="radio" /> Девочка</label>
-					
-							</div>
-							<div class="col">
-								<label><input type="radio" /> Мальчик</label>
-							</div>
-				
+                            <?php echo CHtml::radioButtonList('Baby['.$i.'][sex]', $baby_model->sex, array(0 => 'Мальчик', 1 => 'Девочка')); ?>
 						</div>
 		
 					</div>
@@ -176,5 +167,5 @@
 	</div>
 </div>
 <div class="bottom">
-	<button class="btn btn-green-medium btn-arrow-right"><span><span>Сохранить<img src="/images/arrow_r.png" /></span></span></button>
+	<button class="btn btn-green-medium btn-arrow-right" onclick="$('#baby-form').submit();"><span><span>Сохранить<img src="/images/arrow_r.png" /></span></span></button>
 </div>

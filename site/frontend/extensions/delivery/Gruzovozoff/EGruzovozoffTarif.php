@@ -75,6 +75,9 @@ class EGruzovozoffTarif extends CActiveRecord {
 	public function getCosts($citites) {
 		$prices = array();
 		$k = 0;
+        /*
+         * @todo change this
+         */
 		$products = Yii::app()->shoppingCart->getPositions();
 		foreach ($citites as $city) {
 			$price = 0;

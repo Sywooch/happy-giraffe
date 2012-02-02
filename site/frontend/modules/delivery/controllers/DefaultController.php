@@ -224,7 +224,7 @@ class DefaultController extends Controller
 			if(strlen($city3[0]) > 3)
 				array_push($cityarr, $city3[0]);
 
-			$price = Yii::app()->shoppingCart->getCost();
+			$price = ShopCart::getCost();
 			$weight = 1;
 			if($modelOrder)
 			{

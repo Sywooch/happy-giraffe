@@ -119,7 +119,7 @@
 				<div class="fast-cart">
 					<?php echo CHtml::link('Моя корзина', array('shop/shopCart')); ?>
 					<div class="in">
-						<span class="count"><?php echo Yii::app()->shoppingCart->getItemsCount(); ?></span>
+						<span class="count"><?php echo ShopCart::getItemsCount(); ?></span>
 						&nbsp;
 						<?php echo CHtml::link('товара', array('shop/shopCart')); ?>
 						&nbsp;&nbsp;

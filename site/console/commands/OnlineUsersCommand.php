@@ -22,9 +22,11 @@ class OnlineUsersCommand extends CConsoleCommand
                 if ($event['event'] == 'online'){
                     Yii::app()->db->createCommand()
                         ->update('user', array('online' => '1'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$event['id']}\")");
+                    echo "user online: {$event['id']}\n";
                 }elseif ($event['event'] == 'offline'){
                     Yii::app()->db->createCommand()
                         ->update('user', array('online' => '0'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$event['id']}\")");
+                    echo "user offline: {$event['id']}\n";
                 }
 //                echo "Received: {$event['event']} - {$event['id']} - {$event['pos']}\n";
                 $pos = $event['pos'];

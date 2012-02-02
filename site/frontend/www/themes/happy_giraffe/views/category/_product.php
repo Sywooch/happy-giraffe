@@ -11,6 +11,7 @@ $js = "function incA(el, id) {
 			'success'=>'js:function(msg){
 				$("#itemSCount").html(msg.count);
 				$("#itemSCost").html(msg.cost);
+				$(".fast-cart span.count").text(msg.count);
 			}',
 	))."
 };
@@ -27,6 +28,7 @@ function decA(el, id) {
 			'success'=>'js:function(msg){
 				$("#itemSCount").html(msg.count);
 				$("#itemSCost").html(msg.cost);
+				$(".fast-cart span.count").text(msg.count);
 			}',
 		))."
 	}

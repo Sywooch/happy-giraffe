@@ -133,6 +133,7 @@ class ShopCart extends EMongoDocument
         {
             $criteria->user_id('==', Yii::app()->user->id);
         }
+        return $criteria;
     }
 
     public static function isEmpty()

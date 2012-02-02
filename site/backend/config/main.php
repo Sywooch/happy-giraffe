@@ -1,5 +1,4 @@
 <?php
-defined('YII_DEBUG') or define('YII_DEBUG',true);
 
 return array(
 	'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',

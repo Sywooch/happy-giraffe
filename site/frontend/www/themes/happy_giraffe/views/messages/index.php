@@ -1,35 +1,158 @@
-<?php echo CHtml::link('send_message', '#',array('id'=>'send_message')) ?>
 <script type="text/javascript" src="/javascripts/dklab_realplexor.js"></script>
+<style type="text/css">
+    .unread {
+        background: #9DD1FC;
+    }
+
+    input {
+        border: 1px solid #000;
+    }
+
+    #messages {
+        height: 300px;
+        border: 1px solid #000;
+        overflow: auto;
+    }
+
+    .mess_content {
+        padding: 5px;
+        margin: 3px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+    }
+</style>
+<div id="messages">
+    <?php foreach ($messages as $message): ?>
+    <?php $this->renderPartial('_message', array(
+        'message' => $message
+    )); ?>
+    <?php endforeach; ?>
+</div>
+<input type="text" id="mess-text"><br>
+<?php echo CHtml::link('send_message', '#', array('id' => 'send_message')) ?>
+
 <script type="text/javascript">
-    $('a#send_message').click(function(){
-        $.ajax({
-            url: '<?php echo Yii::app()->createUrl("messages/CreateMessage") ?>',
-            data: {dialog:1,text:'dfdfdf'},
-            type: 'POST',
-            dataType:'JSON',
-            success: function(response) {
+    var user_cache = '<?php echo MessageCache::GetCurrentUserCache() ?>';
+    var dialog = 1;
+    var last_massage = null;
+    var window_active = 1;
 
-            },
-            context: $(this)
+    $(function () {
+        GoTop();
+
+        $(window).focus(function(){
+            window_active = 1;
+            SetReadStatus();
         });
-        return false;
+        $(window).blur(function(){
+            window_active = 0;
+        });
+
+        $('#mess-text').keypress(function (e) {
+            if (e.which == 13) {
+                SendMessage();
+            }
+        });
+
+        $('a#send_message').click(function () {
+            SendMessage();
+            return false;
+        });
+
+        var realplexor = new Dklab_Realplexor(
+            "http://<?php echo Yii::app()->comet->host ?>", // Realplexor's engine URL; must be a sub-domain
+            "<?php echo Yii::app()->comet->namespace ?>"
+        );
+
+        // Subscribe a callback to channel Alpha.
+        realplexor.subscribe(user_cache, function (result, id) {
+            console.log(result);
+            if (result.type == <?php echo MessageLog::TYPE_NEW_MESSAGE ?>) {
+                last_massage = result.message_id;
+                $('#messages').append("<div class='mess_content' id='mess" + result.message_id + "'>"
+                    + result.user + " : " + result.text + " : " + result.time + "</div>");
+                GoTop();
+            } else if (result.type == <?php echo MessageLog::TYPE_READ ?>) {
+                //SHOW AS READ
+                $('.mess_content.unread').each(function (index) {
+                    var id = $(this).attr('id').replace(/mess/g, "");
+                    if (id <= result.message_id) {
+                        $(this).removeClass('unread');
+                    }
+                });
+            }
+        });
+
+        $('#messages').bind('scroll', MoreMessages);
+        realplexor.execute();
     });
 
-    var realplexor = new Dklab_Realplexor(
-        "http://chat.happy-giraffe.com/",  // Realplexor's engine URL; must be a sub-domain
-        "demo_" // namespace
-    );
+    function SendMessage() {
+        var text = $('#mess-text').val();
+        $('#mess-text').val('');
+        $.ajax({
+            url:'<?php echo Yii::app()->createUrl("messages/CreateMessage") ?>',
+            data:{dialog:dialog, text:text},
+            type:'POST',
+            dataType:'JSON',
+            success:function (response) {
+                if (response.status) {
+                    $('#messages').append(response.html);
+                    GoTop();
+                } else {
+                    $('#mess-text').val(text);
+                }
+            },
+            error:function (jqXHR, textStatus, errorThrown) {
+                $('#mess-text').val(text);
+            },
+            context:$(this)
+        });
+    }
 
-    // Subscribe a callback to channel Alpha.
-    realplexor.subscribe("Alpha", function (result, id) {
-        alert(result);
-    });
+    function MoreMessages(event) {
+        if ($(this).scrollTop() < 20) {
+            var first_id = $('#messages .mess_content:first').attr('id').replace(/mess/g, "");
+            $('#messages').unbind('scroll');
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("messages/moreMessages") ?>',
+                data:{id:first_id, dialog_id:dialog},
+                type:'POST',
+                dataType:'JSON',
+                success:function (response) {
+                    if (response.status) {
+                        $('#messages .mess_content:first').before(response.html);
 
-    // Subscribe a callback to channel Beta.
-    realplexor.subscribe("Beta", function (result, id) {
-        div.innerHTML = result;
-    });
+                        var h = 0;
+                        for (var i = 0; i < 10; i++) {
+                            h += $("#messages .mess_content:eq(" + i + ")").outerHeight(true);
+                        }
+                        $("#messages").scrollTop(h);
+                        $('#messages').bind('scroll', MoreMessages);
+                    }
+                },
+                context:$(this)
+            });
+        }
+    }
 
-    // Apply subscriptions. Сallbacks are called asynchronously on data arrival.
-    realplexor.execute();
+    function SetReadStatus() {
+        if (window_active && last_massage !== null)
+        $.ajax({
+            url:'<?php echo Yii::app()->createUrl("messages/SetRead") ?>',
+            data:{dialog:dialog, id:last_massage},
+            type:'POST',
+            dataType:'JSON',
+            success:function (response) {
+                last_massage = null;
+            },
+            context:$(this)
+        });
+    }
+
+    function GoTop() {
+        $("#messages").scrollTop($("#messages")[0].scrollHeight);
+    }
+
 </script>

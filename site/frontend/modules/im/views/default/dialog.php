@@ -92,7 +92,7 @@
         var text = $('#mess-text').val();
         $('#mess-text').val('');
         $.ajax({
-            url:'<?php echo Yii::app()->createUrl("messages/CreateMessage") ?>',
+            url:'<?php echo Yii::app()->createUrl("im/CreateMessage") ?>',
             data:{dialog:dialog, text:text},
             type:'POST',
             dataType:'JSON',
@@ -116,7 +116,7 @@
             var first_id = $('#messages .mess_content:first').attr('id').replace(/mess/g, "");
             $('#messages').unbind('scroll');
             $.ajax({
-                url:'<?php echo Yii::app()->createUrl("messages/moreMessages") ?>',
+                url:'<?php echo Yii::app()->createUrl("im/moreMessages") ?>',
                 data:{id:first_id, dialog_id:dialog},
                 type:'POST',
                 dataType:'JSON',
@@ -140,7 +140,7 @@
     function SetReadStatus() {
         if (window_active && last_massage !== null)
         $.ajax({
-            url:'<?php echo Yii::app()->createUrl("messages/SetRead") ?>',
+            url:'<?php echo Yii::app()->createUrl("im/SetRead") ?>',
             data:{dialog:dialog, id:last_massage},
             type:'POST',
             dataType:'JSON',

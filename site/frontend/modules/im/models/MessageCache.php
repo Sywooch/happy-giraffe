@@ -4,6 +4,7 @@
  * This is the model class for table "message_cache".
  *
  * The followings are the available columns in table 'message_cache':
+ * @property string $id
  * @property string $user_id
  * @property string $cache
  *

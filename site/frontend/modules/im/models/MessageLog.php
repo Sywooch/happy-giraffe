@@ -144,7 +144,18 @@ class MessageLog extends CActiveRecord
      */
     static function GetLastMessages($dialog_id)
     {
-        $models = MessageLog::model()->findAll(array(
+        MessageLog::model()->updateAll(array(
+            'read_status'=>'1'
+        ), 'dialog_id='.$dialog_id.' AND user_id != '.Yii::app()->user->getId());
+
+        //send comet-message to user who emails.
+        MessageDialog::SetRead($dialog_id);
+
+        $models = MessageLog::model()->with(array(
+            'user'=>array(
+//                'select'=>array(),
+            )
+        ))->findAll(array(
             'condition'=>'dialog_id='.$dialog_id,
             'order'=>'created DESC',
             'limit'=>10

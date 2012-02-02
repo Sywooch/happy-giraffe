@@ -59,7 +59,8 @@ class MessageDialog extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'messageLogs' => array(self::HAS_MANY, 'MessageLog', 'dialog_id'),
-            'messageUsers' => array(self::HAS_MANY, 'MessageUser', 'dialog_id'),
+            'messageUsers' => array(self::HAS_MANY, 'MessageUser','dialog_id'),
+            'lastMessage' => array(self::HAS_ONE, 'MessageLog', 'dialog_id','order'=>'lastMessage.id DESC'),
         );
     }
 
@@ -95,18 +96,36 @@ class MessageDialog extends CActiveRecord
         ));
     }
 
-    public static function SetRead($dialog_id, $last_message_id)
+    public static function SetRead($dialog_id, $last_message_id = null)
     {
+        if ($last_message_id === null) {
+            $last_message = MessageLog::model()->find(array(
+                'condition' => 'dialog_id=' . $dialog_id . ' AND user_id != ' . Yii::app()->user->getId(),
+                'order' => 'id DESC',
+            ));
+            $last_message_id = $last_message->id;
+        }else
+            $last_message = MessageLog::model()->findByPk($last_message_id);
+
         $user_id = Yii::app()->user->getId();
-        $result = MessageLog::model()->updateAll(array('read_status' => '1'), 'dialog_id=' . $dialog_id
+        MessageLog::model()->updateAll(array('read_status' => '1'), 'dialog_id=' . $dialog_id
             . ' AND read_status=0 AND user_id != ' . $user_id . ' AND id <= ' . $last_message_id);
 
-        $message = MessageLog::model()->findByAttributes(array('id' => $last_message_id));
-
-        Yii::app()->comet->send(MessageCache::GetUserCache($message->user_id), array(
+        Yii::app()->comet->send(MessageCache::GetUserCache($last_message->user_id), array(
             'message_id' => $last_message_id,
             'type' => MessageLog::TYPE_READ
         ));
+    }
+
+    public static function GetUserDialogs()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 't.id IN (SELECT dialog_id FROM message_user WHERE user_id = '.Yii::app()->user->getId().')';
+        $dialogs = MessageDialog::model()->with(array(
+            'messageUsers','messageUsers','lastMessage.user'
+        ))->findAll($criteria);
+
+        return $dialogs;
     }
 
     /**
@@ -119,9 +138,9 @@ class MessageDialog extends CActiveRecord
         $unreadByPal = self::UnreadByPalDialogIds();
 
         foreach ($dialogs as $dialog) {
-            if (in_array($unread, $dialog->id) && in_array($unreadByPal, $dialog->id)){
+            if (in_array($unread, $dialog->id) && in_array($unreadByPal, $dialog->id)) {
                 $dialog->unreadByAll = 1;
-            }elseif (in_array($unread, $dialog->id)){
+            } elseif (in_array($unread, $dialog->id)) {
                 $dialog->unread = 1;
             }
         }
@@ -131,10 +150,10 @@ class MessageDialog extends CActiveRecord
     {
         return Yii::app()->db->createCommand()
             ->select('t.dialog_id')
-            ->from(MessageUser::model()->tableName().' t')
-            ->join(MessageLog::model()->tableName().' t2', 't2.dialog_id = t.dialog_id')
+            ->from(MessageUser::model()->tableName() . ' t')
+            ->join(MessageLog::model()->tableName() . ' t2', 't2.dialog_id = t.dialog_id')
             ->where('t2.read_status = 0 AND t.user_id = ' . Yii::app()->user->getId()
-            . ' AND t2.user_id != '.Yii::app()->user->getId())
+            . ' AND t2.user_id != ' . Yii::app()->user->getId())
             ->queryColumn();
     }
 
@@ -142,10 +161,10 @@ class MessageDialog extends CActiveRecord
     {
         return Yii::app()->db->createCommand()
             ->select('t.dialog_id')
-            ->from(MessageUser::model()->tableName().' t')
-            ->join(MessageLog::model()->tableName().' t2', 't2.dialog_id = t.dialog_id')
+            ->from(MessageUser::model()->tableName() . ' t')
+            ->join(MessageLog::model()->tableName() . ' t2', 't2.dialog_id = t.dialog_id')
             ->where('t2.read_status = 0 AND t.user_id = ' . Yii::app()->user->getId()
-            . ' AND t2.user_id = '.Yii::app()->user->getId())
+            . ' AND t2.user_id = ' . Yii::app()->user->getId())
             ->queryColumn();
     }
 }

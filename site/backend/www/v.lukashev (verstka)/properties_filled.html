@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+    <title></title>
+    <meta charset="utf-8" > 
+    <link rel="stylesheet" href="css/styles.css" >
+	<script src="js/jquery-1.6.1.min.js"></script>
+	<script src="js/main.js"></script>
+	<!--[if lt IE 9]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+ 	<![endif]-->
+</head>
+<body>
+	<div id="mainarea">
+		<!-- start header -->
+		<header>
+			<h1>Администратор</h1>
+			<!-- start project_nav -->
+			<nav id="project_nav">
+				<ul>
+					<li><a href="#">Клуб</a></li>
+					<li class="active"><a href="#">Магазин</a></li>
+				</ul>
+			</nav>
+			<!-- end project_nav -->
+			
+			<!-- start user -->
+			<div id="user">
+				<span>Анастасия Петрова</span>
+				<a href="#">Выйти</a>
+			</div>
+			<!-- end user -->
+			
+			<!-- start go_to -->
+			<div id="go_to">
+				Перейти  в  <a href="#">Клуб</a> | <a href="#">Магазин</a>
+			</div>
+			<!-- end go_to -->
+		</header>
+		<!-- end header -->
+		
+		<!-- start main_nav -->
+		<nav id="main_nav">
+			<ul>
+				<li><a href="#"><span>Главная</span></a></li>
+				<li class="active"><a href="#"><span>Категории</span></a></li>
+				<li><a href="#"><span>Товары</span></a></li>
+				<li><a href="#"><span>Имена<span></span></span></a>
+					<ul>
+						<li><a href="#">Товары</a></li>
+						<li><a href="#">Бренды</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><span>Сервисы<span></span></span></a>
+					<ul>
+						<li><a href="#">Товары</a></li>
+						<li><a href="#">Бренды</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><span>Скидки</span></a></li>
+				<li><a href="#"><span>Оплата</span></a></li>
+				<li><a href="#"><span>Доставка</span></a></li>
+				<li><a href="#"><span>Заказы</span></a></li>
+			</ul>
+			<div class="clear"></div>
+		</nav>
+		<!-- end main_nav -->
+		
+		<!-- start section -->
+		<section>
+        	
+            <a id="category_all" href="#">Пакеты свойств - Категории товаров</a>
+            
+            <div class="clear"></div>
+            
+			<h2 class="title prop">Пакет свойств - Детское пюре</h2>
+			
+            <div class="properties_left">
+                <dl class="properties">
+                    <dt>Название</dt>
+                    <dd>
+                    	<span>
+                        	Бренд
+                            <a href="#" class="edit"></a>
+                            <a href="#" class="delete"></a>
+                        </span>
+                    </dd>
+                </dl>
+                
+                <dl class="properties">
+                    <dt>Описание</dt>
+                    <dd><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non felis in quam scelerisque fringilla sollicitudin ultrices velit. Fusce eu mauris ac velit ullamcorper varius.<a href="#" class="edit"></a><a href="#" class="delete"></a></p></dd>
+                </dl>
+                
+                <dl class="properties">
+                    <dt>Цена</dt>
+                    <dd>
+                    	<span>
+                        	Емкость упаковки
+                            <a href="#" class="edit"></a>
+                            <a href="#" class="delete"></a>
+                        </span>
+                        <a href="#" class="list">Ед. измерения<span class="down"></span></a>
+                    </dd>
+                    <dd class="add_item">
+                    	<form action="#">
+                            <div>
+                                <input class="simple" type="text" value="Название">
+                                <select>
+                                    <option value="">Тип</option>
+                                    <option value="">Тип</option>
+                                </select>
+                                <label class="mini_descr"><span>Влияет на цену</span><input type="checkbox"></label>
+                                <a href="#" class="simple">Ok</a>                            
+                            </div>
+                        </form>
+                    </dd>
+                </dl>
+                
+                <dl class="properties">
+                	<dt>Характеристики</dt>
+                    <dd>
+                    	<span>
+                        	Упаковка
+                            <a href="#" class="edit"></a>
+                            <a href="#" class="delete"></a>
+                        </span>
+                    	<a href="#" class="list">Список</a>
+                        <ul>
+                        	<li>Жестяная банка
+                            	<a href="#" class="edit"></a>
+                            	<a href="#" class="delete"></a>
+                            </li>
+                            <li>Картонная коробка
+                            	<a href="#" class="edit"></a>
+                            	<a href="#" class="delete"></a>
+                            </li>
+                            <li>Стекло
+                            	<a href="#" class="edit"></a>
+                            	<a href="#" class="delete"></a>
+                            </li>
+                            <li>
+                            	<form action="#">
+                                	<div>
+                                        <input class="simple" type="text" value="Наменование">
+                                        <a href="#" class="simple">Ok</a>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </dd>
+                   	<dd>
+                        <span>
+                        	Вид пюре
+                            <a href="#" class="edit"></a>
+                            <a href="#" class="delete"></a>
+                        </span>
+                    	<a href="#" class="list active">Список</a>
+                        <ul>
+                        	<li>Мясное пюре
+                            	<a href="#" class="edit"></a>
+                            	<a href="#" class="delete"></a>
+                            </li>
+                            <li>Овощное пюре
+                            	<a href="#" class="edit"></a>
+                            	<a href="#" class="delete"></a>
+                            </li>
+                            <li>Пюре из мяса и овощей
+                            	<a href="#" class="edit"></a>
+                            	<a href="#" class="delete"></a>
+                            </li>
+                            <li>Рыбное пюре
+                            	<a href="#" class="edit"></a>
+                            	<a href="#" class="delete"></a>
+                            </li>
+                            <li>Фруктовое пюре
+                            	<a href="#" class="edit"></a>
+                            	<a href="#" class="delete"></a>
+                            </li>
+                            <li><a class="add_2" href="#"></a></li>
+                        </ul>
+                    </dd>
+                    <dd>
+                    	<span>
+                        	Содержание сахара
+                            <a href="#" class="edit"></a>
+                            <a href="#" class="delete"></a>
+                        </span>
+                    	<a href="#" class="list">Да-Нет</a>
+                    </dd>
+                        
+                    <dd class="add_item">
+                    	<form action="#">
+							<div>
+								<input class="simple" type="text" value="Наменование">
+								<select>
+									<option value="Список">Список</option>
+									<option value="Да-Нет">Да-Нет</option>
+								</select>
+								<a href="#" class="simple">Ok</a>
+							</div>
+						</form>
+					</dd>
+                </dl>
+                
+                <dl class="properties advanced">
+                	<dt>Дополнительно</dt>
+                    <dd><span>
+                        	<a href="#" class="list">Фильтр по возрасту</a>
+                            <input type="checkbox">
+                            <a href="#" class="edit"></a>
+                            <a href="#" class="delete"></a>
+                        </span>                    	
+                    </dd>
+                </dl>
+            </div>
+            
+
+		</section>
+		<!-- end section -->
+		
+		<!-- start footer -->
+		<footer>
+			<div class="copyrights">&copy 2012 All rights reserved!</div>
+		</footer>
+		<!-- end footer -->
+	</div>
+	
+	<!-- start popup -->
+	<!--<div class="popup">
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите удалить категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>
+		<div class="popup_box hint">
+			<a href="#" class="close">Закрыть</a>
+			<p>Вы уверены, что хотите деактивировать категорию?</p>
+			<div class="actions">
+				<a href="#" class="no">Отказаться<span></span></a>
+				<a href="#" class="yes">Да<span></span></a>
+			</div>
+		</div>
+	</div>-->
+	<!-- end popup -->
+</body>
+</html>

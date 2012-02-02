@@ -12,6 +12,10 @@ class Dklab_Realplexor
 	private $_identifier;
 	private $_login;
 	private $_password;
+	public $host = '';
+	public $port = 10010;
+	public $namespace = null;
+	public $identifier = "identifier";
 
 	/**
 	 * Create new realplexor API instance.
@@ -21,12 +25,13 @@ class Dklab_Realplexor
 	 * @param strinf $namespace   Namespace to use. 
 	 * @param string $identifier  Use this "identifier" marker instead of the default one.
 	 */
-	public function __construct($host, $port, $namespace = null, $identifier = "identifier")
+	
+	public function init() 
 	{
-		$this->_host = $host;
-		$this->_port = $port;
-		$this->_namespace = $namespace;
-		$this->_identifier = $identifier;
+		$this->_host = $this->host;
+		$this->_port = $this->port;
+		$this->_namespace = $this->namespace;
+		$this->_identifier = $this->identifier;
 		if (version_compare(PHP_VERSION, "5.2.1", "<")) {
 			throw new Dklab_Realplexor_Exception("You should use PHP 5.2.1 and higher to run this library");
 		}
@@ -95,7 +100,7 @@ class Dklab_Realplexor
 	/**
 	 * Return list of online IDs (keys) and number of online browsers
 	 * for each ID. (Now "online" means "connected just now", it is
-	 * very approximate; more precision is in .)
+	 * very approximate; more precision is in TODO.)
 	 *
 	 * @param array $idPrefixes   If set, only online IDs with these prefixes are returned.
 	 * @return array              List of matched online IDs (keys) and online counters (values).
@@ -236,7 +241,7 @@ class Dklab_Realplexor
 			}
 			if (!@stream_socket_shutdown($f, STREAM_SHUT_WR)) {
 				throw new Dklab_Realplexor_Exception($php_errormsg);
-//				break;
+				break;
 			}
 			$result = @stream_get_contents($f);
 			if ($result === false) {

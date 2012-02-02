@@ -198,6 +198,12 @@ return array(
 				array('class' => 'JirafDiscount'),
 			),
 		),
+        'comet'=>array(
+            'class' => 'ext.Dklab_Realplexor',
+            'host' => 'chat.happy-giraffe.com',
+            'port' => 10010,
+            'namespace' => 'crm_',
+        )
 	),
 
 	// application-level parameters that can be accessed
@@ -218,6 +224,7 @@ return array(
 			),
 		),
         'frontend_url'=>'http://www.happy-giraffe.ru/',
+
 	),
 	
         'controllerMap'=>array(

@@ -6,14 +6,50 @@
  * The followings are the available columns in table 'user':
  * @property integer $id
  * @property integer $external_id
+ * @property string $vk_id
  * @property string $nick
  * @property string $email
+ * @property string $phone
+ * @property string $password
  * @property string $first_name
  * @property string $last_name
  * @property string $pic_small
+ * @property string $role
  * @property string $link
  * @property string $country
  * @property string $city
+ * @property integer $gender
+ * @property string $birthday
+ * @property string $settlement_id
+ * @property string $mail_id
+ * @property string $last_active
+ * @property integer $online
+ *
+ * The followings are the available model relations:
+ * @property BagOffer[] $bagOffers
+ * @property BagOfferVote[] $bagOfferVotes
+ * @property ClubCommunityComment[] $clubCommunityComments
+ * @property ClubCommunityContent[] $clubCommunityContents
+ * @property ClubContest[] $clubContests
+ * @property ClubContestUser[] $clubContestUsers
+ * @property ClubContestWinner[] $clubContestWinners
+ * @property ClubContestWork[] $clubContestWorks
+ * @property ClubContestWorkComment[] $clubContestWorkComments
+ * @property ClubPhoto[] $clubPhotos
+ * @property ClubPhotoComment[] $clubPhotoComments
+ * @property ClubPost[] $clubPosts
+ * @property Comment[] $comments
+ * @property MenstrualUserCycle[] $menstrualUserCycles
+ * @property MessageCache[] $messageCaches
+ * @property MessageLog[] $messageLogs
+ * @property MessageUser[] $messageUsers
+ * @property Name[] $names
+ * @property RecipeBookRecipe[] $recipeBookRecipes
+ * @property RecipeBookRecipeVote[] $recipeBookRecipeVotes
+ * @property UserPointsHistory[] $userPointsHistories
+ * @property UserSocialService[] $userSocialServices
+ * @property UserViaCommunity[] $userViaCommunities
+ * @property VaccineDateVote[] $vaccineDateVotes
  */
 class User extends CActiveRecord
 {
@@ -59,6 +95,7 @@ class User extends CActiveRecord
 			//general
 			array('first_name, last_name', 'length', 'max' => 50),
 			array('email', 'email'),
+            array('online', 'numerical', 'integerOnly'=>true),
             array('email', 'unique', 'on' => 'signup'),
 			array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
 			array('gender', 'boolean'),
@@ -108,6 +145,29 @@ class User extends CActiveRecord
 			'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
 			'settlement'=> array(self::BELONGS_TO, 'GeoRusSettlement', 'settlement_id'),
 			'communities' => array(self::MANY_MANY, 'User', 'user_via_community(user_id, community_id)'),
+
+            'clubCommunityComments' => array(self::HAS_MANY, 'ClubCommunityComment', 'author_id'),
+            'clubCommunityContents' => array(self::HAS_MANY, 'ClubCommunityContent', 'author_id'),
+            'clubContests' => array(self::HAS_MANY, 'ClubContest', 'contest_user_id'),
+            'clubContestUsers' => array(self::HAS_MANY, 'ClubContestUser', 'user_user_id'),
+            'clubContestWinners' => array(self::HAS_MANY, 'ClubContestWinner', 'winner_user_id'),
+            'clubContestWorks' => array(self::HAS_MANY, 'ClubContestWork', 'work_user_id'),
+            'clubContestWorkComments' => array(self::HAS_MANY, 'ClubContestWorkComment', 'comment_user_id'),
+            'clubPhotos' => array(self::HAS_MANY, 'ClubPhoto', 'author_id'),
+            'clubPhotoComments' => array(self::HAS_MANY, 'ClubPhotoComment', 'author_id'),
+            'clubPosts' => array(self::HAS_MANY, 'ClubPost', 'author_id'),
+            'comments' => array(self::HAS_MANY, 'Comment', 'author_id'),
+            'menstrualUserCycles' => array(self::HAS_MANY, 'MenstrualUserCycle', 'user_id'),
+            'messageCaches' => array(self::HAS_MANY, 'MessageCache', 'user_id'),
+            'messageLogs' => array(self::HAS_MANY, 'MessageLog', 'user_id'),
+            'messageUsers' => array(self::HAS_MANY, 'MessageUser', 'user_id'),
+            'names' => array(self::MANY_MANY, 'Name', 'name_likes(user_id, name_id)'),
+			'recipeBookRecipes' => array(self::HAS_MANY, 'RecipeBookRecipe', 'user_id'),
+			'recipeBookRecipeVotes' => array(self::HAS_MANY, 'RecipeBookRecipeVote', 'user_id'),
+			'userPointsHistories' => array(self::HAS_MANY, 'UserPointsHistory', 'user_id'),
+			'userSocialServices' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
+			'userViaCommunities' => array(self::HAS_MANY, 'UserViaCommunity', 'user_id'),
+			'vaccineDateVotes' => array(self::HAS_MANY, 'VaccineDateVote', 'user_id'),
 		);
 	}
 

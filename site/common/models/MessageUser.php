@@ -88,4 +88,9 @@ class MessageUser extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function UserCache()
+    {
+        MessageCache::GetCurrentUserCache();
+    }
 }

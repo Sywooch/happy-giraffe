@@ -21,9 +21,7 @@ class ProductImage extends CActiveRecord
 				'class' => 'site.frontend.extensions.ufile.UFileBehavior',
 				'fileAttributes'=>array(
 					'image_file'=>array(
-//						'fileName'=>'../../frontend/www/upload/product/*/{image_product_id}-<date>-{image_id}.<ext>',
                         'fileName'=>'upload/product/*/{image_product_id}-<date>-{image_id}.<ext>',
-//                        'urlName'=>Yii::app()->params['upload_host'].'/upload/product/*/{image_product_id}-<date>-{image_id}.<ext>',
 						'fileItems'=>array(
 							'product' => array(
 								'fileHandler' => array('FileHandler', 'run'),

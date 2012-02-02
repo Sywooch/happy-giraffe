@@ -3,127 +3,152 @@
 class ProfileController extends Controller
 {
 
-	public $user;
-	
-	public function actions()
-	{
-		return array(
-			'captcha'=>array(
-				'class'=>'CaptchaAction',
-				'backColor'=>0xFFFFFF,
-				'width' => 125,
-				'height' => 46,
-				'onlyDigits' => TRUE,
-			),
-		);
-	}
+    public $user;
 
-	public function filters()
-	{
-		return array(
-			'accessControl',
-		);
-	}
+    public function actions()
+    {
+        return array(
+            'captcha' => array(
+                'class' => 'CaptchaAction',
+                'backColor' => 0xFFFFFF,
+                'width' => 125,
+                'height' => 46,
+                'onlyDigits' => TRUE,
+            ),
+        );
+    }
 
-	public function accessRules()
-	{
-		return array(
-			array('allow',
-				'users' => array('@'),
-			),
-			array('deny',
-				'users'=>array('*'),
-			),
-		);
-	}
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
 
-	public $layout = '//layouts/profile';
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'users' => array('@'),
+            ),
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
 
-	protected function beforeAction($action)
-	{
-		$this->user = User::model()->with('settlement')->findByPk(Yii::app()->user->id);
-		return true;
-	}
+    public $layout = '//layouts/profile';
 
-	public function actionIndex()
-	{
-		$regions = GeoRusRegion::model()->findAll();
-		$_regions = array('' => '---');
-		foreach ($regions as $r)
-		{
-			$_regions[$r->id] = $r->name;
-		}
-		
-		$current_region = ($this->user->settlement) ? $this->user->settlement->region->id : null;
-	
-		if(isset($_POST['User']))
-		{
-			$this->user->attributes = $_POST['User'];
-			$this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'settlement_id', 'birthday'));
-		}
-		
-		$this->render('data', array(
-			'regions' => $_regions,
-			'current_region' => $current_region,
-		));
-	}
-	
-	public function actionPhoto()
-	{
-		print_r($_POST);
-	
-		if(isset($_POST['User']))
-		{
-			$this->user->attributes = $_POST['User'];
-			$this->user->save(true, array('pic_small'));
-		}
-	
-		$this->render('photo');
-	}
-	
-	public function actionFamily()
-	{
-		$this->render('family');
-	}
-	
-	public function actionAccess()
-	{
-		$this->render('access');
-	}
-	
-	public function actionBlacklist()
-	{
-		$this->render('blacklist');
-	}
+    protected function beforeAction($action)
+    {
+        $this->user = User::model()->with('settlement')->findByPk(Yii::app()->user->id);
+        return true;
+    }
 
-	public function actionSubscription()
-	{
-		$this->render('subscription');
-	}
-	
-	public function actionSocials()
-	{
-		$this->render('socials');
-	}
-	
-	public function actionPassword()
-	{
-		$this->user->scenario = 'change_password';
-		
-		if(isset($_POST['User']))
-		{
-			$this->user->attributes = $_POST['User'];
-			if ($this->user->validate(array('current_password', 'new_password', 'new_password_repeat', 'verifyCode')))
-			{
-				$this->user->password = $this->user->new_password;
-				$this->user->save(true, array('password'));
-			}
-		}
-	
-		$this->render('password', array(
-			'user' => $this->user,
-		));
-	}
+    public function actionIndex()
+    {
+        $regions = GeoRusRegion::model()->findAll();
+        $_regions = array('' => '---');
+        foreach ($regions as $r)
+        {
+            $_regions[$r->id] = $r->name;
+        }
+
+        $current_region = ($this->user->settlement) ? $this->user->settlement->region->id : null;
+
+        if (isset($_POST['User'])) {
+            $this->user->attributes = $_POST['User'];
+            $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'settlement_id', 'birthday'));
+        }
+
+        $this->render('data', array(
+            'regions' => $_regions,
+            'current_region' => $current_region,
+        ));
+    }
+
+    public function actionPhoto()
+    {
+        print_r($_POST);
+
+        if (isset($_POST['User'])) {
+            $this->user->attributes = $_POST['User'];
+            $this->user->save(true, array('pic_small'));
+        }
+
+        $this->render('photo');
+    }
+
+    public function actionFamily()
+    {
+        $maxBabies = 10;
+        for ($i = 0; $i < $maxBabies; $i++)
+        {
+            $baby_models[] = (isset($this->user->babies[$i]) && $this->user->babies[$i] instanceof Baby) ? $this->user->babies[$i] : new Baby;
+        }
+        if (isset($_POST['Baby'])) {
+            for ($i = 0; $i < $maxBabies; $i++)
+            {
+                if($_POST['Baby'][$i]['isset'] == 0)
+                    continue;
+                $baby_models[$i]->attributes = $_POST['Baby'][$i];
+                $baby_models[$i]->birthday = $_POST['Baby'][$i]['year'] . '-' . (mb_strlen($_POST['Baby'][$i]['month']) > 1 ? $_POST['Baby'][$i]['month'] : '0'.$_POST['Baby'][$i]['month']) . '-' . (mb_strlen($_POST['Baby'][$i]['day']) > 1 ? $_POST['Baby'][$i]['day'] : '0'.$_POST['Baby'][$i]['day']);
+                $baby_models[$i]->parent_id = Yii::app()->user->id;
+                $baby_models[$i]->save();
+            }
+        }
+        $this->render('family', array(
+            'maxBabies' => $maxBabies,
+            'baby_models' => $baby_models,
+        ));
+    }
+
+    public function actionRemoveBaby($id)
+    {
+        if(isset($this->user->babies[$id]))
+        {
+            $model = $this->user->babies[$id];
+            $model->delete();
+        }
+        $this->redirect(array('/profile/family'));
+    }
+
+    public function actionAccess()
+    {
+        $this->render('access');
+    }
+
+    public function actionBlacklist()
+    {
+        $this->render('blacklist');
+    }
+
+    public function actionSubscription()
+    {
+        $this->render('subscription');
+    }
+
+    public function actionSocials()
+    {
+        $this->render('socials');
+    }
+
+    public function actionPassword()
+    {
+        $this->user->scenario = 'change_password';
+
+        if (isset($_POST['User'])) {
+            $this->user->attributes = $_POST['User'];
+            if ($this->user->validate(array('current_password', 'new_password', 'new_password_repeat', 'verifyCode'))) {
+                $this->user->password = $this->user->new_password;
+                $this->user->save(true, array('password'));
+            }
+        }
+
+        $this->render('password', array(
+            'user' => $this->user,
+        ));
+    }
 
 
 }

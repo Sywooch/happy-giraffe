@@ -138,7 +138,8 @@ class AttributeSearchForm extends CFormModel
 				$this->$key = null;
 			}
 		}
-		
+        if(!isset($this->prices['min']))
+            $this->_prices['min'] = 0;
 		if($this->prices['min'] == 0 && $this->prices['max']==1000000)
 		{
 			$this->prices = $this->_prices;

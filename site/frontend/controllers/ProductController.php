@@ -98,7 +98,7 @@ class ProductController extends Controller
 			'criteriaImage' => $criteriaImage,
 			'images' => $images,
 			'criteriaSubProduct' => $criteriaSubProduct,
-			'subProducts' => $subProducts,
+            'subProducts' => $subProducts,
 			'comment_model' => $comment_model,
 			'comments' => $comments,
 		));

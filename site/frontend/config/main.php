@@ -17,6 +17,7 @@ return array(
 	// autoloading model and component classes
 	'import'=>array(
 		'site.common.models.*',
+        'site.common.models.mongo.*',
 		'ext.ufile.UFiles',
 		'application.models.*',
 		'application.components.*',
@@ -37,6 +38,7 @@ return array(
 		'ext.image.Image',
 		'ext.CAdvancedArBehavior',
 		'ext.EGMap.*',
+        'ext.YiiMongoDbSuite.*',
 		'application.modules.vaccineCalendar.models.*',
         'application.modules.pregnancyWeight.models.*',
 	    'application.modules.hospitalBag.models.*',
@@ -45,6 +47,7 @@ return array(
         'application.modules.names.models.*',
         'application.modules.test.models.*',
         'application.modules.attribute.models.*',
+        'application.modules.im.models.*',
 	),
 
 	'sourceLanguage' => 'en',
@@ -89,6 +92,7 @@ return array(
         'sizes',
         'childrenDiseases',
         'test',
+        'im'
 	),
 
 	// application components
@@ -198,6 +202,14 @@ return array(
 				array('class' => 'JirafDiscount'),
 			),
 		),
+        'mongodb' => array(
+            'class'            => 'EMongoDB',
+            'connectionString' => 'mongodb://localhost',
+            'dbName'           => 'happy_giraffe_db',
+            'fsyncFlag'        => true,
+            'safeFlag'         => true,
+            'useCursor'        => false
+        ),
         'comet'=>array(
             'class' => 'ext.Dklab_Realplexor',
             'host' => 'chat.happy-giraffe.com',
@@ -224,7 +236,6 @@ return array(
 			),
 		),
         'frontend_url'=>'http://www.happy-giraffe.ru/',
-
 	),
 	
         'controllerMap'=>array(

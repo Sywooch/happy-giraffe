@@ -77,5 +77,5 @@ $data = $products->data;
 				<li><a href=""><img src="/images/f-banner1.jpg"></a></li>-->
 <!--			</ul>-->
 
-	</div>
+
 	<?php endif; ?>

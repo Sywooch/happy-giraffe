@@ -6,6 +6,9 @@ class CategoryController extends BController
 
     public function actionIndex()
     {
+        $m = Category::model()->findByPk(1);
+        if ($m === null)
+            throw new CHttpException(404, 'start point not loaded.');
         $tree = Category::model()->findByPk(1)->children()->findAll(array('order' => 'category_lft'));
 
         $count = array(

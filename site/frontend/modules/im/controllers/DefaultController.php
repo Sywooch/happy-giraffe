@@ -8,16 +8,20 @@ class DefaultController extends Controller
     {
         if (Yii::app()->user->isGuest)
             $this->redirect(array('site/index'));
-        $messages = MessageLog::GetLastMessages(1);
 
+        $dialogs = MessageDialog::GetUserDialogs();
         $this->render('index', array(
-            'messages' => $messages
+            'dialogs' => $dialogs
         ));
     }
 
-    public function actionDialog()
+    public function actionDialog($id)
     {
+        $messages = MessageLog::GetLastMessages(1);
 
+        $this->render('dialog', array(
+            'messages' => $messages
+        ));
     }
 
     public function actionSetRead()

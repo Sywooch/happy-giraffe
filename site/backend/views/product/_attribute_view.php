@@ -7,7 +7,8 @@ $values = $product->GetCardAttributeValues($model->attribute_id);
 ?>
 <li>
     <div class="name attr-name">
-        <p><?php echo $model->attribute_title ?></p>
+        <p><?php echo $model->attribute_title ?><?php
+        if ($model->attribute_in_price && $model->attribute_type == Attribute::TYPE_MEASURE) echo ', '.$model->measure_option->title ?></p>
     </div>
     <ul class="list-elems">
         <?php foreach ($values as $attr_val): ?>

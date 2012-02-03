@@ -96,6 +96,11 @@ class MessageDialog extends CActiveRecord
         ));
     }
 
+    /**
+     * @static
+     * @param int $dialog_id
+     * @param null|int $last_message_id
+     */
     public static function SetRead($dialog_id, $last_message_id = null)
     {
         if ($last_message_id === null) {

@@ -94,7 +94,7 @@ class MessageCache extends CActiveRecord
         $model = self::model()->findByAttributes(array('user_id' => $user_id));
         if (isset($model)) {
             $model->UpdateCache();
-            self::model()->updateAll(array('cache'=>$model->cache), 'user_id='.$user_id);
+            self::model()->updateAll(array('cache' => $model->cache), 'user_id=' . $user_id);
         } else {
             $model = new MessageCache();
             $model->user_id = $user_id;
@@ -105,24 +105,30 @@ class MessageCache extends CActiveRecord
 
     public static function GetUserCache($user_id)
     {
-        $model = self::model()->find('user_id='.$user_id);
-        if (isset($model))
-            return $model->cache;
-        else{
-            $model = new MessageCache();
-            $model->user_id = $user_id;
-            $model->UpdateCache();
-            $model->save();
-            return $model->cache;
+        $value = Yii::app()->cache->get('uc_' . $user_id);
+        if ($value === false) {
+            $model = self::model()->find('user_id=' . $user_id);
+            if (isset($model))
+                $value = $model->cache;
+            else {
+                $model = new MessageCache();
+                $model->user_id = $user_id;
+                $model->UpdateCache();
+                $model->save();
+                $value = $model->cache;
+            }
+            Yii::app()->cache->set('uc_' . $user_id, $value);
         }
+        return $value;
     }
 
     public function UpdateCache()
     {
         do {
             $cache = substr(md5(time() . $this->user_id), 0, 8);
-        } while (MessageCache::model()->count('cache="' . $cache.'"') != 0);
+        } while (MessageCache::model()->count('cache="' . $cache . '"') != 0);
         $this->cache = $cache;
+        Yii::app()->cache->set('uc_' . $this->user_id, $cache);
     }
 
     /**

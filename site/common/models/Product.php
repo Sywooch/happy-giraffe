@@ -29,7 +29,11 @@ Yii::import('site.frontend.extensions.status.EStatusBehavior');
  * @property integer $product_status
  * @property AgeRange $ageRange
  * @property array $cart_attributes
- *
+ * @property string $height
+ * @property string $weight
+ * @property integer $age_from
+ * @property integer $age_to
+ * *
  * @property Category $category
  * @property ProductBrand $brand
  */
@@ -625,10 +629,28 @@ class Product extends CActiveRecord implements IECartPosition
     }
 
     public function GetAgeRangeText(){
-        if (!empty($this->ageRange))
-            return $this->ageRange->range_title;
-        else
-            return '';
+//        if (!empty($this->ageRange))
+//            return $this->ageRange->range_title;
+//        else
+//            return '';
+        $text = '';
+        if (!empty($this->age_from)){
+            $text .= 'С ';
+            if ($this->age_from >= 24){
+                $text .= round($this->age_from/12).' лет';
+            }else
+                $text .= $this->age_from.' месяцев';
+
+        }
+        if (!empty($this->age_to)){
+            $text .= ' до ';
+            if ($this->age_to >= 24){
+                $text .= round($this->age_to/12).' лет';
+            }else
+                $text .= $this->age_to.' месяцев';
+        }
+
+        return $text;
     }
 
     public function GetCardAttributeValues($attr_id){

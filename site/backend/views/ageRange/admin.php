@@ -1,5 +1,4 @@
 <h1>Manage Age Ranges</h1>
-
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'age-range-grid',
 	'dataProvider'=>$model->search(),

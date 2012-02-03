@@ -19,6 +19,7 @@ class MessageLog extends CActiveRecord
 {
     const TYPE_NEW_MESSAGE = 1;
     const TYPE_READ = 2;
+
     /**
      * Returns the static model of the specified AR class.
      * @return MessageLog the static model class
@@ -114,6 +115,13 @@ class MessageLog extends CActiveRecord
         return parent::beforeSave();
     }
 
+    /**
+     * @static
+     * @param $dialog_id
+     * @param $user_id
+     * @param string $text
+     * @return MessageLog
+     */
     static function NewMessage($dialog_id, $user_id, $text)
     {
         $message = new MessageLog();
@@ -122,16 +130,16 @@ class MessageLog extends CActiveRecord
         $message->user_id = $user_id;
         $message->save();
 
-        $users = MessageUser::model()->findAll('dialog_id='.$dialog_id);
+        //send to dialog users
+        $users = MessageUser::model()->findAll('dialog_id=' . $dialog_id);
         foreach ($users as $user) {
-            if ($user->user_id !== Yii::app()->user->getId())
+            if ($user->user_id !== Yii::app()->user->getId()) {
                 Yii::app()->comet->send(MessageCache::GetUserCache($user->user_id), array(
-                'text' => $message->text,
-                'user' => $user_id,
-                'time' => date("H:i:s"),
-                'message_id'=>$message->id,
-                'type'=>MessageLog::TYPE_NEW_MESSAGE
-            ));
+                    'message_id' => $message->id,
+                    'type' => MessageLog::TYPE_NEW_MESSAGE,
+                    'html' => Yii::app()->controller->renderPartial('_message', array('message' => $message, 'read'=>true), true)
+                ));
+            }
         }
 
         return $message;
@@ -144,21 +152,16 @@ class MessageLog extends CActiveRecord
      */
     static function GetLastMessages($dialog_id)
     {
-        MessageLog::model()->updateAll(array(
-            'read_status'=>'1'
-        ), 'dialog_id='.$dialog_id.' AND user_id != '.Yii::app()->user->getId());
-
         //send comet-message to user who emails.
         MessageDialog::SetRead($dialog_id);
-
         $models = MessageLog::model()->with(array(
-            'user'=>array(
+            'user' => array(
 //                'select'=>array(),
             )
         ))->findAll(array(
-            'condition'=>'dialog_id='.$dialog_id,
-            'order'=>'created DESC',
-            'limit'=>10
+            'condition' => 'dialog_id=' . $dialog_id,
+            'order' => 'created DESC',
+            'limit' => 10
         ));
 
         return array_reverse($models);
@@ -172,10 +175,14 @@ class MessageLog extends CActiveRecord
      */
     static function GetMessagesBefore($dialog_id, $message_id)
     {
-        $models = MessageLog::model()->findAll(array(
-            'condition'=>'dialog_id='.$dialog_id.' AND id < '.$message_id,
-            'order'=>'created DESC',
-            'limit'=>10
+        $models = MessageLog::model()->with(array(
+            'user'=>array(
+//                'select'=>array(),
+            )
+        ))->findAll(array(
+            'condition' => 'dialog_id=' . $dialog_id . ' AND t.id < ' . $message_id,
+            'order' => 't.created DESC',
+            'limit' => 10
         ));
 
         return array_reverse($models);

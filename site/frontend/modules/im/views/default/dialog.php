@@ -20,6 +20,7 @@
     var dialog = <?php echo $id ?>;
     var last_massage = null;
     var window_active = 1;
+    var no_more_messages = 0;
 
     $(function () {
         GoTop();
@@ -44,17 +45,15 @@
         });
 
         var realplexor = new Dklab_Realplexor(
-            "http://<?php echo Yii::app()->comet->host ?>", // Realplexor's engine URL; must be a sub-domain
+            "http://<?php echo Yii::app()->comet->host ?>",
             "<?php echo Yii::app()->comet->namespace ?>"
         );
 
-        // Subscribe a callback to channel Alpha.
         realplexor.subscribe(user_cache, function (result, id) {
             console.log(result);
             if (result.type == <?php echo MessageLog::TYPE_NEW_MESSAGE ?>) {
                 last_massage = result.message_id;
-                $('#messages').append("<div class='mess_content' id='mess" + result.message_id + "'>"
-                    + result.user + " : " + result.text + " : " + result.time + "</div>");
+                $('#messages').append(result.html);
                 GoTop();
             } else if (result.type == <?php echo MessageLog::TYPE_READ ?>) {
                 //SHOW AS READ
@@ -95,7 +94,7 @@
     }
 
     function MoreMessages(event) {
-        if ($(this).scrollTop() < 20) {
+        if ($(this).scrollTop() < 20 && no_more_messages == 0) {
             var first_id = $('#messages .mess_content:first').attr('id').replace(/mess/g, "");
             $('#messages').unbind('scroll');
             $.ajax({
@@ -113,6 +112,8 @@
                         }
                         $("#messages").scrollTop(h);
                         $('#messages').bind('scroll', MoreMessages);
+                    }else{
+                        no_more_messages = 1;
                     }
                 },
                 context:$(this)

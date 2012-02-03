@@ -41,9 +41,7 @@ class DefaultController extends Controller
         $response = array(
             'id' => $message->id,
             'status' => true,
-            'html' => $this->renderPartial('_message', array(
-                'message' => $message
-            ), true)
+            'html' => $this->renderPartial('_message', array('message' => $message), true)
         );
         echo CJSON::encode($response);
     }

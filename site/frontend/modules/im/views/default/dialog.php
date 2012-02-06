@@ -5,6 +5,35 @@
     #messages {height: 300px;border: 1px solid #000;overflow: auto;}
     .mess_content {padding: 5px;margin: 3px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
 </style>
+<div><a href="<?php echo $this->createUrl('/im/default/index') ?>">Все диалоги</a></div>
+<div>
+    <form action="<?php echo $this->createUrl('/im/default/getDialog') ?>">
+    <input type="text" id="find-user" name="dialog_name">
+    <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+        'name' => 'search_user_autocomplete',
+        'sourceUrl' => $this->createUrl('/im/default/ajaxSearchByName'),
+        'value' => '',
+        'htmlOptions' => array(
+            'id'=>'find-user'
+        ),
+        'options' => array(
+            'select' => "js: function(event, ui) {
+                            this.value = ui.item.label;
+                            $(\"#find-user\").val(ui.item.label);
+                            return false;
+                        }",
+        ),
+    ), true); ?>
+    <?php echo CHtml::submitButton('Go', array('id'=>'go_dialog')); ?>
+    </form>
+</div>
+
+<?php $models = ActiveDialogs::model()->getDialogs(); ?>
+<?php foreach ($models as $model): ?>
+    <div><?php echo CHtml::link('user: '.$model->GetInterlocutor()->last_name,
+        $this->createUrl('/im/default/dialog', array('id'=>$model->id))) ?></div>
+<?php endforeach; ?>
+
 <div id="messages">
     <?php foreach ($messages as $message): ?>
     <?php $this->renderPartial('_message', array(
@@ -12,15 +41,35 @@
     )); ?>
     <?php endforeach; ?>
 </div>
-<input type="text" id="mess-text"><br>
-<?php echo CHtml::link('send_message', '#', array('id' => 'send_message')) ?>
+<div class="new_comment">
+    <?php
+    $message = new MessageLog();
+    $this->widget('ext.ckeditor.CKEditorWidget', array(
+        'id'=>'message',
+        'model' => $message,
+        'attribute' => 'text',
+        'config' => array(
+            'toolbar' => 'Chat',
+            'onkeyup'=>'testt'
+        ),
+    ));
+    ?>
+    <div class="button_panel">
+        <button class="btn"><span><span>Добавить</span></span></button>
+    </div>
+</div>
 
 <script type="text/javascript">
     var user_cache = '<?php echo MessageCache::GetCurrentUserCache() ?>';
+    var window_active = 1;
+
     var dialog = <?php echo $id ?>;
     var last_massage = null;
-    var window_active = 1;
     var no_more_messages = 0;
+
+    function testt(event){
+        console.log('dagashf');
+    }
 
     $(function () {
         GoTop();
@@ -33,13 +82,13 @@
             window_active = 0;
         });
 
-        $('#mess-text').keypress(function (e) {
-            if (e.which == 13) {
+        $('.new_comment iframe body').keypress(function (e) {
+            if (e.ctrlKey && e.keyCode == 13){
                 SendMessage();
             }
         });
 
-        $('a#send_message').click(function () {
+        $('.button_panel .btn').click(function () {
             SendMessage();
             return false;
         });
@@ -71,10 +120,12 @@
     });
 
     function SendMessage() {
-        var text = $('#mess-text').val();
-        $('#mess-text').val('');
+        var editor = CKEDITOR.instances['MessageLog[text]'];
+        var text = editor.getData();
+        //console.log(text);
+        CKEDITOR.currentInstance.setData('');
         $.ajax({
-            url:'<?php echo Yii::app()->createUrl("im/CreateMessage") ?>',
+            url:'<?php echo Yii::app()->createUrl("im/default/CreateMessage") ?>',
             data:{dialog:dialog, text:text},
             type:'POST',
             dataType:'JSON',
@@ -82,12 +133,14 @@
                 if (response.status) {
                     $('#messages').append(response.html);
                     GoTop();
+                    editor.focus();
+                    editor.on('keyup', testt);
                 } else {
-                    $('#mess-text').val(text);
+                    editor.setData(text);
                 }
             },
             error:function (jqXHR, textStatus, errorThrown) {
-                $('#mess-text').val(text);
+                editor.setData(text);
             },
             context:$(this)
         });
@@ -98,7 +151,7 @@
             var first_id = $('#messages .mess_content:first').attr('id').replace(/mess/g, "");
             $('#messages').unbind('scroll');
             $.ajax({
-                url:'<?php echo Yii::app()->createUrl("im/moreMessages") ?>',
+                url:'<?php echo Yii::app()->createUrl("im/default/moreMessages") ?>',
                 data:{id:first_id, dialog_id:dialog},
                 type:'POST',
                 dataType:'JSON',
@@ -124,7 +177,7 @@
     function SetReadStatus() {
         if (window_active && last_massage !== null)
         $.ajax({
-            url:'<?php echo Yii::app()->createUrl("im/SetRead") ?>',
+            url:'<?php echo Yii::app()->createUrl("im/default/SetRead") ?>',
             data:{dialog:dialog, id:last_massage},
             type:'POST',
             dataType:'JSON',

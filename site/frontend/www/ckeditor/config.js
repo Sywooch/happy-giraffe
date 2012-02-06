@@ -32,6 +32,11 @@ CKEDITOR.editorConfig = function( config )
 		{ name: 'document', items : [ 'Source' ] },
 		{ name: 'cut', items : [ 'Cuttable' ] },
 	];
+
+    config.toolbar_Chat =
+        [
+            { name: 'basicstyles', items : [ 'Bold','Italic','Underline' ] },
+        ];
 	
 	config.toolbar_Nocut =
 	[

@@ -127,7 +127,7 @@ class MessageDialog extends CActiveRecord
         $criteria = new CDbCriteria;
         $criteria->condition = 't.id IN (SELECT dialog_id FROM message_user WHERE user_id = '.Yii::app()->user->getId().')';
         $dialogs = MessageDialog::model()->with(array(
-            'messageUsers','messageUsers','lastMessage.user'
+            'messageUsers','lastMessage.user'
         ))->findAll($criteria);
 
         return $dialogs;
@@ -136,6 +136,7 @@ class MessageDialog extends CActiveRecord
     /**
      * @static
      * @param $dialogs MessageDialog[]
+     * @return MessageDialog[]
      */
     static public function CheckReadStatus($dialogs)
     {
@@ -149,6 +150,8 @@ class MessageDialog extends CActiveRecord
                 $dialog->unread = 1;
             }
         }
+
+        return $dialogs;
     }
 
     public static function UnreadDialogIds()
@@ -171,5 +174,18 @@ class MessageDialog extends CActiveRecord
             ->where('t2.read_status = 0 AND t.user_id = ' . Yii::app()->user->getId()
             . ' AND t2.user_id = ' . Yii::app()->user->getId())
             ->queryColumn();
+    }
+
+    /**
+     * @return User
+     */
+    public function GetInterlocutor()
+    {
+        foreach ($this->messageUsers as $messageUser) {
+            if ($messageUser->user_id !== Yii::app()->user->getId())
+                return $messageUser->user;
+        }
+
+        return null;
     }
 }

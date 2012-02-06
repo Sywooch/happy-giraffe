@@ -116,6 +116,8 @@ class MessageLog extends CActiveRecord
     }
 
     /**
+     * Create new message
+     *
      * @static
      * @param $dialog_id
      * @param $user_id

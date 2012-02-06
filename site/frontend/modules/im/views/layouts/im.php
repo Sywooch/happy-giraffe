@@ -23,7 +23,7 @@
 
                         <div class="nav steps">
                             <ul>
-                                <li class="opened"><a href="<?php echo $this->createUrl('/im/default/dialogs', array()) ?>">Открытые диалоги</a></li>
+                                <li class="opened<?php if (Yii::app()->controller->action->id =='dialog') echo ' active'?>"><a href="<?php echo $this->createUrl('/im/default/dialogs', array()) ?>">Открытые диалоги</a></li>
                                 <li<?php if (Yii::app()->controller->action->id =='index') echo ' class="active"'?>><a href="<?php
                                     echo $this->createUrl('/im/default/index', array()) ?>"><span>Все диалоги</span></a></li>
                                 <li<?php if (Yii::app()->controller->action->id =='new') echo ' class="active"'?>><a href="<?php echo $this->createUrl('/im/default/new', array()) ?>"><span>Новое</span></a></li>

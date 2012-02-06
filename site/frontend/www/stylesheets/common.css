@@ -483,6 +483,7 @@ a {color:#51afc3;}
 #dialogs .tabs .steps ul li.active a {line-height:39px;color:#326fb1;}
 
 #dialogs .dialog-list {padding:8px 0;}
+#dialogs .dialog-list.scroll {max-height:500px;overflow:auto;}
 
 #dialogs .dialog-message {padding:8px 0;border-bottom:1px dashed #e2e2e2;font-size:12px;color:#393838;line-height:15px;cursor:pointer;}
 

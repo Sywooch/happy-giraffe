@@ -8,14 +8,14 @@ Yii::app()->clientScript
     ->registerCoreScript('jquery')
     ->registerCoreScript('jquery.ui')
     ->registerCssFile('/css/jquery.ui/slider.css');
-    $image = $model->isNewRecord?0:$model->product_image->getUrl('product');
+$image = $model->isNewRecord ? 0 : $model->product_image->getUrl('product');
 ?>
 <script type="text/javascript">
-    var model_id = <?php echo ($model->isNewRecord) ? 'null' : $model->product_id ?>;
-    var category_id = <?php echo $category->category_id ?>;
-    var has_image = <?php echo (int) is_string($image); ?>;
+var model_id = <?php echo ($model->isNewRecord) ? 'null' : $model->product_id ?>;
+var category_id = <?php echo $category->category_id ?>;
+var has_image = <?php echo (int)is_string($image); ?>;
 
-    $(function () {
+$(function () {
 //        $("#filter-price-1").slider({
 //            range:true,
 //            min:0,
@@ -26,240 +26,241 @@ Yii::app()->clientScript
 //                $("#filter-price-1-max").val(ui.values[1]);
 //            }
 //        });
-        $('select').selectBox();
+    $('select').selectBox();
 
-        $("#filter-price-1-min").val($("#filter-price-1").slider("values", 0));
-        $("#filter-price-1-max").val($("#filter-price-1").slider("values", 1));
+    $("#filter-price-1-min").val($("#filter-price-1").slider("values", 0));
+    $("#filter-price-1-max").val($("#filter-price-1").slider("values", 1));
 
 
-        $('div.editProduct > div.name input[type=button]').click(function () {
-            var title = $(this).prev().val();
-            if (title != '') {
-                if (model_id == null)
-                    $.ajax({
-                        url:'<?php echo Yii::app()->createUrl("product/create") ?>',
-                        data:{title:title, category_id:category_id},
-                        type:'GET',
-                        dataType:'JSON',
-                        success:function (data) {
-                            if (data.success) {
-                                $('div.editProduct > div').show();
-                                model_id = data.id;
-                                $('input[name="Product[product_id]"]').val(model_id);
+    $('div.editProduct > div.name input[type=button]').click(function () {
+        var title = $(this).prev().val();
+        if (title != '') {
+            if (model_id == null)
+                $.ajax({
+                    url:'<?php echo Yii::app()->createUrl("product/create") ?>',
+                    data:{title:title, category_id:category_id},
+                    type:'GET',
+                    dataType:'JSON',
+                    success:function (data) {
+                        if (data.success) {
+                            $('div.editProduct > div').show();
+                            model_id = data.id;
+                            $('input[name="Product[product_id]"]').val(model_id);
 
-                                $(this).parent().hide();
-                                $(this).parent().prev().text(title);
-                                $(this).parent().prev().show();
-                                $('select').selectBox('refresh');
-                            }
-                        },
-                        context:$(this)
-                    });
-                else {
-                    $.ajax({
-                        url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
-                        data:{
-                            modelPk:model_id,
-                            attribute:'product_title',
-                            modelName:'Product',
-                            value:title
-                        },
-                        type:'POST',
-                        success:function (data) {
                             $(this).parent().hide();
                             $(this).parent().prev().text(title);
                             $(this).parent().prev().show();
-                        },
-                        context:$(this)
-                    });
-                }
-            }
-        });
-
-        $('.description h2.edit').click(function () {
-            $(this).next().show();
-            $(this).next().next().hide();
-
-            return false;
-        });
-
-        $('#descr-update').click(function () {
-            var text = $(this).prev().prev().val();
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
-                data:{
-                    modelPk:model_id,
-                    attribute:'product_text',
-                    modelName:'Product',
-                    value:text
-                },
-                type:'POST',
-                success:function (data) {
-                    if (data) {
+                            $('select').selectBox('refresh');
+                        }
+                    },
+                    context:$(this)
+                });
+            else {
+                $.ajax({
+                    url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
+                    data:{
+                        modelPk:model_id,
+                        attribute:'product_title',
+                        modelName:'Product',
+                        value:title
+                    },
+                    type:'POST',
+                    success:function (data) {
                         $(this).parent().hide();
-                        $(this).parent().parent().find('div.pd-text').text(text);
-                        $(this).parent().parent().find('div.pd-text').show();
-                    }
-                },
-                context:$(this)
-            });
-        });
-
-        $('#descr-cancel').click(function () {
-            if (model_id != null) {
-                $(this).parent().hide();
-                $(this).parent().next().show();
+                        $(this).parent().prev().text(title);
+                        $(this).parent().prev().show();
+                    },
+                    context:$(this)
+                });
             }
-        });
-
-        $('.brand_add .edit-brand').click(function () {
-            $(this).hide();
-            $(this).prev().hide();
-            $(this).prev().prev().show();
-            return false;
-        });
-
-        $('.brand_add .set-brand').click(function () {
-            var brand_id = $(this).parent().find('select').val();
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("product/setBrand") ?>',
-                data:{product_id:model_id, brand_id:brand_id},
-                type:'POST',
-                dataType:'JSON',
-                success:function (data) {
-                    if (data.success) {
-                        $(this).parent().parent().find('img').attr("src", data.image);
-                        $(this).parent().parent().find('span.brand-title').text(data.name);
-                        $(this).parent().hide();
-                        $(this).parent().parent().find('img').show();
-                        $(this).parent().parent().find('a').show();
-                    }
-                },
-                context:$(this)
-            });
-
-            return false;
-        });
-
-        $('.sex .all').click(function () {
-            if (!$(this).hasClass('active')) SetGender(0, $(this));
-            return false;
-        });
-        $('.sex .boys').click(function () {
-            if (!$(this).hasClass('active')) SetGender(1, $(this));
-            return false;
-        });
-        $('.sex .girls').click(function () {
-            if (!$(this).hasClass('active')) SetGender(2, $(this));
-            return false;
-        });
-
-        $('.filter-box .slider-values a.edit').click(function () {
-            $(this).prev().show();
-            $(this).hide();
-            return false;
-        });
-
-        $('.set-ageRange').click(function () {
-            var value = $(this).parent().find("select").val();
-
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
-                data:{
-                    modelPk:model_id,
-                    attribute:'product_age_range_id',
-                    modelName:'Product',
-                    value:value
-                },
-                type:'POST',
-                success:function (data) {
-                    $(this).parent().hide();
-                    $(this).parent().next().show();
-                    var text = $(this).parent().find("select option[value='" + value + "']").text();
-                    $(this).parent().next().text(text);
-                },
-                context:$(this)
-            });
-
-            return false;
-        });
-
-        $('h1.edit').click(function () {
-            $(this).hide();
-            $(this).next().show();
-
-            return false;
-        });
-
-        $('#big_foto_upload').iframePostForm({
-            json: true,
-            complete: function(response) {
-                if (response.status == '1')
-                {
-                    $('.big_foto a').replaceWith($('#product_image').tmpl({url: response.url, title: response.title}));
-                    if (! has_image) $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
-                    has_image = 1;
-                }
-            }
-        });
-
-        $('#small_foto_upload').iframePostForm({
-            json: true,
-            complete: function(response) {
-                if (response.status == '1')
-                {
-                    $('#mycarousel li:eq(0)').after($('#product_small_image').tmpl({url: response.url, modelPk: response.modelPk}));
-                    $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
-                }
-            }
-        });
-
-        $('body').delegate('#Product_product_image, #ProductImage_image_file', 'change', function() {
-            $(this).parents('form').submit();
-        });
-
-        $('body').delegate('div.video > a.add', 'click', function(e) {
-            e.preventDefault();
-            $('#add_video').dialog('open');
-        });
-
-        $('body').delegate('#add_video > form', 'submit', function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#add_video').dialog('close');
-                    if (response.status == '1')
-                    {
-                        $('div.videos').append(response.video);
-                        $(this).children('input[name="video_url"]').val('http://');
-                    }
-                },
-                context: $(this)
-            });
-        });
+        }
     });
 
-    function SetGender(value, sender) {
+    $('.description h2.edit').click(function () {
+        $(this).next().show();
+        $(this).next().next().hide();
+
+        return false;
+    });
+
+    $('#descr-update').click(function () {
+        var text = $(this).prev().prev().val();
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
             data:{
-                modelPk: model_id,
-                attribute:'product_sex',
+                modelPk:model_id,
+                attribute:'product_text',
                 modelName:'Product',
-                value:value
+                value:text
             },
             type:'POST',
             success:function (data) {
-                sender.parent().find('a').removeClass('active');
-                sender.addClass('active');
+                if (data) {
+                    $(this).parent().hide();
+                    $(this).parent().parent().find('div.pd-text').text(text);
+                    $(this).parent().parent().find('div.pd-text').show();
+                }
             },
-            context:sender
+            context:$(this)
         });
-    }
+    });
+
+    $('#descr-cancel').click(function () {
+        if (model_id != null) {
+            $(this).parent().hide();
+            $(this).parent().next().show();
+        }
+    });
+
+    $('.brand_add .edit-brand').click(function () {
+        $(this).hide();
+        $(this).prev().hide();
+        $(this).prev().prev().show();
+        return false;
+    });
+
+    $('.brand_add .set-brand').click(function () {
+        var brand_id = $(this).parent().find('select').val();
+        $.ajax({
+            url:'<?php echo Yii::app()->createUrl("product/setBrand") ?>',
+            data:{product_id:model_id, brand_id:brand_id},
+            type:'POST',
+            dataType:'JSON',
+            success:function (data) {
+                if (data.success) {
+                    $(this).parent().parent().find('img').attr("src", data.image);
+                    $(this).parent().parent().find('span.brand-title').text(data.name);
+                    $(this).parent().hide();
+                    $(this).parent().parent().find('img').show();
+                    $(this).parent().parent().find('a').show();
+                }
+            },
+            context:$(this)
+        });
+
+        return false;
+    });
+
+    $('.sex .all').click(function () {
+        if (!$(this).hasClass('active')) SetGender(0, $(this));
+        return false;
+    });
+    $('.sex .boys').click(function () {
+        if (!$(this).hasClass('active')) SetGender(1, $(this));
+        return false;
+    });
+    $('.sex .girls').click(function () {
+        if (!$(this).hasClass('active')) SetGender(2, $(this));
+        return false;
+    });
+
+    $('.filter-box .slider-values a.edit').click(function () {
+        $(this).prev().show();
+        $(this).hide();
+        return false;
+    });
+
+    $('.set-ageRange').click(function () {
+        var age_from = $("#age_from").val();
+        var age_to = $("#age_to").val();
+        var age_interval = $("#age_interval").val();
+
+        $.ajax({
+            url:'<?php echo Yii::app()->createUrl("product/SetAge") ?>',
+            data:{
+                id:model_id,
+                age_from:age_from,
+                age_to:age_to,
+                age_interval:age_interval
+            },
+            type:'POST',
+            dataType:'JSON',
+            success:function (result) {
+                if (result.status) {
+                    $(this).parent().hide();
+                    $(this).parent().next().show();
+                    $(this).parent().next().text(result.text);
+                }
+            },
+            context:$(this)
+        });
+
+        return false;
+    });
+
+    $('h1.edit').click(function () {
+        $(this).hide();
+        $(this).next().show();
+
+        return false;
+    });
+
+    $('#big_foto_upload').iframePostForm({
+        json:true,
+        complete:function (response) {
+            if (response.status == '1') {
+                $('.big_foto a').replaceWith($('#product_image').tmpl({url:response.url, title:response.title}));
+                if (!has_image) $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
+                has_image = 1;
+            }
+        }
+    });
+
+    $('#small_foto_upload').iframePostForm({
+        json:true,
+        complete:function (response) {
+            if (response.status == '1') {
+                $('#mycarousel li:eq(0)').after($('#product_small_image').tmpl({url:response.url, modelPk:response.modelPk}));
+                $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
+            }
+        }
+    });
+
+    $('body').delegate('#Product_product_image, #ProductImage_image_file', 'change', function () {
+        $(this).parents('form').submit();
+    });
+
+    $('body').delegate('div.video > a.add', 'click', function (e) {
+        e.preventDefault();
+        $('#add_video').dialog('open');
+    });
+
+    $('body').delegate('#add_video > form', 'submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            dataType:'json',
+            url:$(this).attr('action'),
+            data:$(this).serialize(),
+            success:function (response) {
+                $('#add_video').dialog('close');
+                if (response.status == '1') {
+                    $('div.videos').append(response.video);
+                    $(this).children('input[name="video_url"]').val('http://');
+                }
+            },
+            context:$(this)
+        });
+    });
+});
+
+function SetGender(value, sender) {
+    $.ajax({
+        url:'<?php echo Yii::app()->createUrl("ajax/SetValue") ?>',
+        data:{
+            modelPk:model_id,
+            attribute:'product_sex',
+            modelName:'Product',
+            value:value
+        },
+        type:'POST',
+        success:function (data) {
+            sender.parent().find('a').removeClass('active');
+            sender.addClass('active');
+        },
+        context:sender
+    });
+}
 </script>
 
 <script id="product_image" type="text/x-jquery-tmpl">
@@ -273,12 +274,12 @@ Yii::app()->clientScript
 <script id="product_small_image" type="text/x-jquery-tmpl">
     <li>
         <?php
-            $this->widget('DeleteWidget', array(
-                'modelName' => 'ProductImage',
-                'modelPk' => '${modelPk}',
-                'selector' => 'li',
-                'onSuccess' => "$('p.total ins').text(parseInt($('p.total ins').text()) - 1);",
-            ));
+        $this->widget('DeleteWidget', array(
+            'modelName' => 'ProductImage',
+            'modelPk' => '${modelPk}',
+            'selector' => 'li',
+            'onSuccess' => "$('p.total ins').text(parseInt($('p.total ins').text()) - 1);",
+        ));
         ?>
         <p>
             <span>
@@ -291,7 +292,8 @@ Yii::app()->clientScript
 <div class="bodyr">
     <div class="right">
         <a href="<?php echo $this->createUrl('product/index') ?>" class="all_products">Список товаров</a>
-        <a href="<?php echo $this->createUrl('product/index', array('category_id'=>$category->category_id)) ?>" class="all_products">Список товаров этой категории</a>
+        <a href="<?php echo $this->createUrl('product/index', array('category_id' => $category->category_id)) ?>"
+           class="all_products">Список товаров этой категории</a>
     </div>
     <div class="center">
         <div class="editProduct">
@@ -311,36 +313,36 @@ Yii::app()->clientScript
                 <div class="one_product">
                     <div class="big_foto fake_file">
                         <?php $form = $this->beginWidget('CActiveForm', array(
-                            'id' => 'big_foto_upload',
-                            'action' => $this->createUrl('uploadBigPhoto'),
-                            'htmlOptions' => array(
-                                'enctype' => 'multipart/form-data',
-                            ),
-                        )); ?>
+                        'id' => 'big_foto_upload',
+                        'action' => $this->createUrl('uploadBigPhoto'),
+                        'htmlOptions' => array(
+                            'enctype' => 'multipart/form-data',
+                        ),
+                    )); ?>
                         <?php echo $form->hiddenField($model, 'product_id'); ?>
                         <?php if ($image): ?>
-                            <a href="#">
+                        <a href="#">
                                 <span>
                                     <?php echo CHtml::image($image, $model->product_title); ?>
                                 </span>
-                            </a>
+                        </a>
                         <?php else: ?>
-                            <a href="#" class="add addValue" title="Загрузить фото">
+                        <a href="#" class="add addValue" title="Загрузить фото">
                                 <span>
                                     Загрузите <ins>фото</ins> товара
                                 </span>
-                            </a>
+                        </a>
                         <?php endif; ?>
                         <?php echo CHtml::activeFileField($model, 'product_image'); ?>
                         <?php $this->endWidget(); ?>
                     </div>
                     <?php $form = $this->beginWidget('CActiveForm', array(
-                        'id' => 'small_foto_upload',
-                        'action' => $this->createUrl('uploadSmallPhoto'),
-                        'htmlOptions' => array(
-                            'enctype' => 'multipart/form-data',
-                        ),
-                    )); ?>
+                    'id' => 'small_foto_upload',
+                    'action' => $this->createUrl('uploadSmallPhoto'),
+                    'htmlOptions' => array(
+                        'enctype' => 'multipart/form-data',
+                    ),
+                )); ?>
                     <?php echo $form->hiddenField($model, 'product_id'); ?>
                     <ul id="mycarousel" class="small_foto">
                         <li class="fake_file">
@@ -350,11 +352,11 @@ Yii::app()->clientScript
                         <?php foreach ($model->images as $i): ?>
                         <li>
                             <?php
-                                $this->widget('DeleteWidget', array(
-                                    'model' => $i,
-                                    'selector' => 'li',
-                                    'onSuccess' => "$('p.total ins').text(parseInt($('p.total ins').text()) - 1);",
-                                ));
+                            $this->widget('DeleteWidget', array(
+                                'model' => $i,
+                                'selector' => 'li',
+                                'onSuccess' => "$('p.total ins').text(parseInt($('p.total ins').text()) - 1);",
+                            ));
                             ?>
 
                             <p>
@@ -366,20 +368,24 @@ Yii::app()->clientScript
                         <?php endforeach; ?>
                     </ul>
                     <?php $this->endWidget(); ?>
-                    <p class="total">Всего фото: <ins><?php echo (int) is_string($image) + count($model->images); ?></ins></p>
+                    <p class="total">Всего фото:
+                        <ins><?php echo (int)is_string($image) + count($model->images); ?></ins>
+                    </p>
                 </div>
 
                 <div class="brand_add">
-                    <span class="brand-title"><?php echo (empty($model->product_brand_id))?'Brand':$model->brand->brand_title ?></span>
-                    <span style="padding-top:15px;float: left;<?php if (!empty($model->product_brand_id)) echo 'display: none;' ?>">
+                    <span
+                        class="brand-title"><?php echo (empty($model->product_brand_id)) ? 'Brand' : $model->brand->brand_title ?></span>
+                    <span
+                        style="padding-top:15px;float: left;<?php if (!empty($model->product_brand_id)) echo 'display: none;' ?>">
                         <?php echo CHtml::dropDownList('brand_id', ' ',
                         CHtml::listData(ProductBrand::model()->findAll(), 'brand_id', 'brand_title'), array('empty' => ' ')); ?>
                         <input type="button" class="smallGreen set-brand" value="Ok"/>
                     </span>
 
                     <img style="float: left;<?php if (empty($model->product_brand_id)) echo 'display: none;' ?>"
-                        src="<?php if (!empty($model->product_brand_id)) echo $model->brand->brand_image->getUrl()  ?>"
-                        alt="">
+                         src="<?php if (!empty($model->product_brand_id)) echo $model->brand->brand_image->getUrl()  ?>"
+                         alt="">
                     <a<?php if (empty($model->product_brand_id)) echo ' style="display: none;"' ?> class="edit-brand"
                                                                                                    href="#">Изм.</a>
                 </div>
@@ -410,18 +416,18 @@ Yii::app()->clientScript
                     <div class="clear"></div>
                 </div>
 
-                    <?php $this->renderPartial('_attributes', array(
-                    'attributeMap' => $attributeMap,
-                    'model' => $model
-                )); ?>
+                <?php $this->renderPartial('_attributes', array(
+                'attributeMap' => $attributeMap,
+                'model' => $model
+            )); ?>
 
                 <p class="text_header">Видео о товаре</p>
 
                 <div class="videos">
                     <?php foreach ($model->videos as $v): ?>
-                        <?php $this->renderPartial('_video', array(
-                            'model' => $v,
-                        )); ?>
+                    <?php $this->renderPartial('_video', array(
+                        'model' => $v,
+                    )); ?>
                     <?php endforeach; ?>
                 </div>
 
@@ -440,8 +446,9 @@ Yii::app()->clientScript
                             <span class="name">По возрасту</span>
                             <?php $value = $model->GetAgeRangeText(); ?>
                             <span<?php if (!empty($value)) echo ' style="display: none;"' ?>>
-                            <?php echo CHtml::dropDownList('age', '', CHtml::listData(AgeRange::model()->findAll(),
-                                'range_id', 'range_title'), array('empty' => ' ')); ?>
+                            С <?php echo CHtml::dropDownList('age_from', '', HDate::Range(0, 18), array('empty' => ' ', 'id' => 'age_from')); ?>
+                              До  <?php echo CHtml::dropDownList('age_to', '', HDate::Range(0, 18), array('empty' => ' ', 'id' => 'age_to')); ?>
+                                <?php echo CHtml::dropDownList('age_interval', '', array('1' => 'месяцев', '2' => 'лет'), array('id' => 'age_interval')); ?>
                                 <input type="button" class="smallGreen set-ageRange" value="Ok"/>
                         </span>
                             <a<?php if (empty($value)) echo ' style="display: none;"' ?> href="#"
@@ -487,13 +494,13 @@ Yii::app()->clientScript
 <div class="clear"></div>
 
 <?php
-    $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-        'id' => 'add_video',
-        'options' => array(
-            'title' => 'Добавить видео',
-            'autoOpen' => false,
-        ),
-    ));
+$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+    'id' => 'add_video',
+    'options' => array(
+        'title' => 'Добавить видео',
+        'autoOpen' => false,
+    ),
+));
 ?>
 <?php echo CHtml::beginForm('/product/addVideo', 'post'); ?>
 <?php echo CHtml::hiddenField('product_id', $model->primaryKey); ?>
@@ -501,5 +508,5 @@ URL: <?php echo CHtml::textField('video_url', 'http://'); ?>
 <?php echo CHtml::submitButton('Добавить'); ?>
 <?php echo CHtml::endForm(); ?>
 <?
-    $this->endWidget('zii.widgets.jui.CJuiDialog');
+$this->endWidget('zii.widgets.jui.CJuiDialog');
 ?>

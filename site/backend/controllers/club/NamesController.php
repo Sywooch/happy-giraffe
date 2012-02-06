@@ -90,9 +90,9 @@ class NamesController extends BController
         $model = Name::model()->with(array(
             'nameFamouses',
             'nameSaintDates' => array('order' => 'month, day'),
-            'nameMiddles' => array('order' => 'nameMiddles.id'),
-            'nameOptions' => array('order' => 'nameOptions.id'),
-            'nameSweets' => array('order' => 'nameSweets.id')
+//            'nameMiddles' => array('order' => 'nameMiddles.id'),
+//            'nameOptions' => array('order' => 'nameOptions.id'),
+//            'nameSweets' => array('order' => 'nameSweets.id')
         ))->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

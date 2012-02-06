@@ -6,27 +6,6 @@
     .mess_content {padding: 5px;margin: 3px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
 </style>
 <div><a href="<?php echo $this->createUrl('/im/default/index') ?>">Все диалоги</a></div>
-<div>
-    <form action="<?php echo $this->createUrl('/im/default/getDialog') ?>">
-    <input type="text" id="find-user" name="dialog_name">
-    <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-        'name' => 'search_user_autocomplete',
-        'sourceUrl' => $this->createUrl('/im/default/ajaxSearchByName'),
-        'value' => '',
-        'htmlOptions' => array(
-            'id'=>'find-user'
-        ),
-        'options' => array(
-            'select' => "js: function(event, ui) {
-                            this.value = ui.item.label;
-                            $(\"#find-user\").val(ui.item.label);
-                            return false;
-                        }",
-        ),
-    ), true); ?>
-    <?php echo CHtml::submitButton('Go', array('id'=>'go_dialog')); ?>
-    </form>
-</div>
 
 <?php $models = ActiveDialogs::model()->getDialogs(); ?>
 <?php foreach ($models as $model): ?>
@@ -66,10 +45,6 @@
     var dialog = <?php echo $id ?>;
     var last_massage = null;
     var no_more_messages = 0;
-
-    function testt(event){
-        console.log('dagashf');
-    }
 
     $(function () {
         GoTop();
@@ -123,7 +98,7 @@
         var editor = CKEDITOR.instances['MessageLog[text]'];
         var text = editor.getData();
         //console.log(text);
-        CKEDITOR.currentInstance.setData('');
+        editor.setData('');
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("im/default/CreateMessage") ?>',
             data:{dialog:dialog, text:text},

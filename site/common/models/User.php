@@ -14,6 +14,7 @@
  * @property string $link
  * @property string $country
  * @property string $city
+ * @property int $deleted
  */
 class User extends CActiveRecord
 {
@@ -59,11 +60,11 @@ class User extends CActiveRecord
 			//general
 			array('first_name, last_name', 'length', 'max' => 50),
 			array('email', 'email'),
-            array('email', 'unique', 'on' => 'signup'),
-			array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
+			array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup'),
+            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'change_password'),
 			array('gender', 'boolean'),
 			array('phone', 'safe'),
-			array('settlement_id', 'numerical', 'integerOnly' => true),
+			array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
 			array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
 		
 			//login
@@ -72,6 +73,7 @@ class User extends CActiveRecord
 			//signup
 			array('first_name, email, password, gender', 'required', 'on' => 'signup'),
 			array('verifyCode', 'captcha', 'on' => 'signup', 'allowEmpty' => Yii::app()->session->get('service') !== NULL),
+            array('email', 'unique', 'on' => 'signup'),
 			
 			//change_password
 			array('new_password', 'required', 'on' => 'change_password'),
@@ -110,6 +112,13 @@ class User extends CActiveRecord
 			'communities' => array(self::MANY_MANY, 'User', 'user_via_community(user_id, community_id)'),
 		);
 	}
+
+    public function defaultScope()
+    {
+        return array(
+            'condition' => 'deleted = 0',
+        );
+    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)

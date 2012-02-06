@@ -17,11 +17,11 @@ class DefaultController extends Controller
 
     public function actionDialog($id)
     {
+        ActiveDialogs::model()->addDialog($id);
         $messages = MessageLog::GetLastMessages($id);
-
         $this->render('dialog', array(
             'messages' => $messages,
-            'id'=>$id
+            'id' => $id
         ));
     }
 
@@ -60,5 +60,17 @@ class DefaultController extends Controller
         else $response = array('status' => false);
 
         echo CJSON::encode($response);
+    }
+
+    public function actionAjaxSearchByName($term){
+        echo CJSON::encode(Im::model()->findDialogUserNames($term));
+    }
+
+    public function actionGetDialog($dialog_name){
+        $id = Im::model()->findDialog($dialog_name);
+        if (empty($id))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        else
+            $this->redirect($this->createUrl('dialog', array('id'=>$id)));
     }
 }

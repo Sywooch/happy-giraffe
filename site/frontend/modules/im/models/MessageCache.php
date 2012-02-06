@@ -13,6 +13,8 @@
  */
 class MessageCache extends CActiveRecord
 {
+    CONST CACHE_ID = 'user_cache_';
+
     /**
      * Returns the static model of the specified AR class.
      * @return MessageCache the static model class
@@ -89,23 +91,23 @@ class MessageCache extends CActiveRecord
         ));
     }
 
-    static public function UpdateUserCache($user_id)
+    /**
+     * @static
+     * @return string cache
+     */
+    public static function GetCurrentUserCache()
     {
-        $model = self::model()->findByAttributes(array('user_id' => $user_id));
-        if (isset($model)) {
-            $model->UpdateCache();
-            self::model()->updateAll(array('cache' => $model->cache), 'user_id=' . $user_id);
-        } else {
-            $model = new MessageCache();
-            $model->user_id = $user_id;
-            $model->UpdateCache();
-            $model->save();
-        }
+        return self::GetUserCache(Yii::app()->user->getId());
     }
 
+    /**
+     * @static
+     * @param $user_id
+     * @return string
+     */
     public static function GetUserCache($user_id)
     {
-        $value = Yii::app()->cache->get('uc_' . $user_id);
+        $value = Yii::app()->cache->get(self::CACHE_ID . $user_id);
         if ($value === false) {
             $model = self::model()->find('user_id=' . $user_id);
             if (isset($model))
@@ -117,27 +119,36 @@ class MessageCache extends CActiveRecord
                 $model->save();
                 $value = $model->cache;
             }
-            Yii::app()->cache->set('uc_' . $user_id, $value);
+            Yii::app()->cache->set(self::CACHE_ID . $user_id, $value);
         }
         return $value;
+    }
+
+    /**
+     * @static
+     * @param int $user_id
+     */
+    static public function UpdateUserCache($user_id)
+    {
+        $model = self::model()->findByAttributes(array('user_id' => $user_id));
+        if (isset($model)) {
+            $model->UpdateCache();
+            $model->save();
+            //self::model()->updateAll(array('cache' => $model->cache), 'user_id=' . $user_id);
+        } else {
+            $model = new MessageCache();
+            $model->user_id = $user_id;
+            $model->UpdateCache();
+            $model->save();
+        }
     }
 
     public function UpdateCache()
     {
         do {
-            $cache = substr(md5(time() . $this->user_id), 0, 8);
+            $cache = substr(md5(time() . $this->user_id), 0, 5);
         } while (MessageCache::model()->count('cache="' . $cache . '"') != 0);
         $this->cache = $cache;
-        Yii::app()->cache->set('uc_' . $this->user_id, $cache);
+        Yii::app()->cache->set(self::CACHE_ID . $this->user_id, $cache);
     }
-
-    /**
-     * @static
-     * @return string cache
-     */
-    public static function GetCurrentUserCache()
-    {
-        return self::GetUserCache(Yii::app()->user->getId());
-    }
-
 }

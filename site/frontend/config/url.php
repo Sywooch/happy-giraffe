@@ -28,6 +28,7 @@ return array(
         'sewing/<action:\w+>'=>'sewing/default/<action>',
         'sizes/<action:\w+>'=>'sizes/default/<action>',
         'test/<slug:[\w-]+>'=>'test/default/view',
+        'im/<action:[\w-]+>'=>'im/default/<action>',
 //        'recipeBook/disease/<url:\w+>'=>'recipeBook/default/disease',
 //        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',
 		//'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

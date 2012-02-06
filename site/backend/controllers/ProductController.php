@@ -287,4 +287,34 @@ class ProductController extends BController
             echo CJSON::encode($response);
         }
     }
+
+    public function actionSetAge(){
+        $id = Yii::app()->request->getPost('id');
+        $age_from = Yii::app()->request->getPost('age_from');
+        $age_to = Yii::app()->request->getPost('age_to');
+        $age_interval = Yii::app()->request->getPost('age_interval');
+
+        if ($age_interval == 2){
+            $age_from *= 12;
+            $age_to *= 12;
+        }
+
+        $product = $this->loadModel($id);
+
+        $product->age_from = $age_from;
+        $product->age_to = $age_to;
+
+        if ($product->save()){
+            $response = array(
+                'status' => true,
+                'text'=>$product->GetAgeRangeText()
+            );
+        }else{
+            $response = array(
+                'status' => false,
+            );
+        }
+
+        echo CJSON::encode($response);
+    }
 }

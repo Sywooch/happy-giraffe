@@ -74,7 +74,7 @@ if(count($descendants) == 0)
         <div class="column ad_ct">
             <ul>
                 <li><?php $this->widget('OnOffWidget', array('model' => $model)); ?></li>
-                <li><?php $this->widget('DeleteWidget', array('model' => $model)); ?></li>
+                <li><?php $this->widget('DeleteWidget', array('model' => $model, 'selector'=>'li')); ?></li>
             </ul>
         </div>
     </div>

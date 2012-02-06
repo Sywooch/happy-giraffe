@@ -47,6 +47,7 @@ return array(
         'application.modules.names.models.*',
         'application.modules.test.models.*',
         'application.modules.attribute.models.*',
+        'application.modules.im.models.*',
 	),
 
 	'sourceLanguage' => 'en',
@@ -91,6 +92,7 @@ return array(
         'sizes',
         'childrenDiseases',
         'test',
+        'im'
 	),
 
 	// application components
@@ -208,6 +210,12 @@ return array(
             'safeFlag'         => true,
             'useCursor'        => false
         ),
+        'comet'=>array(
+            'class' => 'ext.Dklab_Realplexor',
+            'host' => 'chat.happy-giraffe.com',
+            'port' => 10010,
+            'namespace' => 'crm_',
+        )
 	),
 
 	// application-level parameters that can be accessed

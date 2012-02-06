@@ -21,7 +21,6 @@ return array(
         'site.frontend.extensions.*',
         'site.frontend.helpers.*'
 	),
-	
 	'components' => array(
         'widgetFactory' => array(
             'widgets' => array(

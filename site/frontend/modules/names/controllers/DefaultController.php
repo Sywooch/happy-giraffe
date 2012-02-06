@@ -170,8 +170,8 @@ class DefaultController extends Controller
     public function LoadModelByName($name)
     {
         $model = Name::model()->with(array(
-//            'nameFamouses' => array('order' => 'nameFamouses.last_name'),
-//            'nameSaintDates' => array('order' => 'nameSaintDates.month, nameSaintDates.day'),
+            'nameFamouses' => array('order' => 'nameFamouses.last_name'),
+            'nameSaintDates' => array('order' => 'nameSaintDates.month, nameSaintDates.day'),
 //            'nameMiddles'=>array('select'=>'value'),
 //            'nameOptions'=>array('select'=>'value'),
 //            'nameSweets'=>array('select'=>'value'),

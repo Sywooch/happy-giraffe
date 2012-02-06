@@ -170,11 +170,11 @@ class DefaultController extends Controller
     public function LoadModelByName($name)
     {
         $model = Name::model()->with(array(
-            'nameFamouses' => array('order' => 'nameFamouses.last_name'),
-            'nameSaintDates' => array('order' => 'nameSaintDates.month, nameSaintDates.day'),
-            'nameMiddles'=>array('select'=>'value'),
-            'nameOptions'=>array('select'=>'value'),
-            'nameSweets'=>array('select'=>'value'),
+//            'nameFamouses' => array('order' => 'nameFamouses.last_name'),
+//            'nameSaintDates' => array('order' => 'nameSaintDates.month, nameSaintDates.day'),
+//            'nameMiddles'=>array('select'=>'value'),
+//            'nameOptions'=>array('select'=>'value'),
+//            'nameSweets'=>array('select'=>'value'),
         ))->findByAttributes(array('name' => $name));
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

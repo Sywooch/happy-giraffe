@@ -2,14 +2,25 @@
 
 class DefaultController extends Controller
 {
-    public $layout = '//layouts/new';
+    public $layout = 'im';
 
     public function actionIndex()
     {
-        if (Yii::app()->user->isGuest)
-            $this->redirect(array('site/index'));
-
         $dialogs = MessageDialog::GetUserDialogs();
+        $this->render('index', array(
+            'dialogs' => $dialogs
+        ));
+    }
+
+    public function actionNew(){
+        $dialogs = MessageDialog::GetUserNewDialogs();
+        $this->render('index', array(
+            'dialogs' => $dialogs
+        ));
+    }
+
+    public function actionOnline(){
+        $dialogs = MessageDialog::GetUserOnlineDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
         ));

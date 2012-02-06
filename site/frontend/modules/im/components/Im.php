@@ -63,6 +63,17 @@ class Im
     }
 
     /**
+     * @return array
+     */
+    public function getDialogIds()
+    {
+        $res = array();
+        foreach($this->_dialogs as $dialog)
+            $res [] = $dialog['id'];
+        return $res;
+    }
+
+    /**
      * @static
      * @return Im
      */
@@ -92,6 +103,16 @@ class Im
         }
 
         return $result;
+    }
+
+    /**
+     * @param $dialog_id
+     * @return User
+     */
+    public function GetDialogUser($dialog_id)
+    {
+        $id = $this->_dialogs[$dialog_id]['users'][0];
+        return User::model()->findByPk($id);
     }
 
     public function findDialog($name)

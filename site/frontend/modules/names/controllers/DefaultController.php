@@ -172,9 +172,9 @@ class DefaultController extends Controller
         $model = Name::model()->with(array(
             'nameFamouses' => array('order' => 'nameFamouses.last_name'),
             'nameSaintDates' => array('order' => 'nameSaintDates.month, nameSaintDates.day'),
-            'nameMiddles'=>array('select'=>'id, value'),
-            'nameOptions'=>array('select'=>'id, value'),
-            'nameSweets'=>array('select'=>'id, value'),
+            'nameMiddles',//=>array('select'=>'id, value'),
+            'nameOptions',//=>array('select'=>'id, value'),
+            'nameSweets',//=>array('select'=>'id, value'),
         ))->findByAttributes(array('name' => $name));
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

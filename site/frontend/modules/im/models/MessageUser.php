@@ -90,8 +90,11 @@ class MessageUser extends CActiveRecord
         ));
     }
 
+    /**
+     * @return string
+     */
     public function UserCache()
     {
-        MessageCache::GetCurrentUserCache();
+        return MessageCache::GetUserCache($this->user_id);
     }
 }

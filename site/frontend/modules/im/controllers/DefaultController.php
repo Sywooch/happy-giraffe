@@ -2,14 +2,25 @@
 
 class DefaultController extends Controller
 {
-    public $layout = '//layouts/new';
+    public $layout = 'im';
 
     public function actionIndex()
     {
-        if (Yii::app()->user->isGuest)
-            $this->redirect(array('site/index'));
-
         $dialogs = MessageDialog::GetUserDialogs();
+        $this->render('index', array(
+            'dialogs' => $dialogs
+        ));
+    }
+
+    public function actionNew(){
+        $dialogs = MessageDialog::GetUserNewDialogs();
+        $this->render('index', array(
+            'dialogs' => $dialogs
+        ));
+    }
+
+    public function actionOnline(){
+        $dialogs = MessageDialog::GetUserOnlineDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
         ));
@@ -17,11 +28,11 @@ class DefaultController extends Controller
 
     public function actionDialog($id)
     {
+        ActiveDialogs::model()->addDialog($id);
         $messages = MessageLog::GetLastMessages($id);
-
         $this->render('dialog', array(
             'messages' => $messages,
-            'id'=>$id
+            'id' => $id
         ));
     }
 
@@ -60,5 +71,17 @@ class DefaultController extends Controller
         else $response = array('status' => false);
 
         echo CJSON::encode($response);
+    }
+
+    public function actionAjaxSearchByName($term){
+        echo CJSON::encode(Im::model()->findDialogUserNames($term));
+    }
+
+    public function actionGetDialog($dialog_name){
+        $id = Im::model()->findDialog($dialog_name);
+        if (empty($id))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        else
+            $this->redirect($this->createUrl('dialog', array('id'=>$id)));
     }
 }

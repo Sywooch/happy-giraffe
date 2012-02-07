@@ -4,8 +4,7 @@ foreach($this->options as $key => $value)
 {
     if($key == 'image')
         $key = 'imageurl';
-    if($key == 'description')
-        $value = substr($value, 0, 10);
+
     $params[$key] = $value;
 }
 

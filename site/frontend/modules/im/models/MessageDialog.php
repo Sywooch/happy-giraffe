@@ -11,11 +11,12 @@
  * The followings are the available model relations:
  * @property MessageLog[] $messageLogs
  * @property MessageUser[] $messageUsers
+ * @property MessageLog lastMessage
  */
 class MessageDialog extends CActiveRecord
 {
-    public $unread = 0;
-    public $unreadByAll = 0;
+    public $unreadByMe = 0;
+    public $unreadByPal = 0;
 
     /**
      * Returns the static model of the specified AR class.
@@ -122,20 +123,55 @@ class MessageDialog extends CActiveRecord
         ));
     }
 
+    /**
+     * @static
+     * @return MessageDialog[]
+     */
+    public static function GetUserNewDialogs(){
+        $dialogs = self::GetUserDialogs();
+        $new = array();
+        foreach($dialogs as $dialog){
+            if ($dialog->unreadByMe || $dialog->unreadByPal)
+                $new [] = $dialog;
+        }
+        return $new;
+    }
+
+    /**
+     * @static
+     * @return MessageDialog[]
+     */
+    public static function GetUserOnlineDialogs(){
+        $dialogs = self::GetUserDialogs();
+        $online = array();
+        foreach($dialogs as $dialog){
+            if ($dialog->GetInterlocutor()->online)
+                $online [] = $dialog;
+        }
+        return $online;
+    }
+
+    /**
+     * @static
+     * @return MessageDialog[]
+     */
     public static function GetUserDialogs()
     {
+        $dialogs = Im::model()->getDialogIds();
+        //load last messages
         $criteria = new CDbCriteria;
-        $criteria->condition = 't.id IN (SELECT dialog_id FROM message_user WHERE user_id = '.Yii::app()->user->getId().')';
+        $criteria->compare('t.id', $dialogs);
         $dialogs = MessageDialog::model()->with(array(
-            'messageUsers','messageUsers','lastMessage.user'
+            'lastMessage'
         ))->findAll($criteria);
 
-        return $dialogs;
+        return self::CheckReadStatus($dialogs);
     }
 
     /**
      * @static
      * @param $dialogs MessageDialog[]
+     * @return MessageDialog[]
      */
     static public function CheckReadStatus($dialogs)
     {
@@ -143,12 +179,14 @@ class MessageDialog extends CActiveRecord
         $unreadByPal = self::UnreadByPalDialogIds();
 
         foreach ($dialogs as $dialog) {
-            if (in_array($unread, $dialog->id) && in_array($unreadByPal, $dialog->id)) {
-                $dialog->unreadByAll = 1;
-            } elseif (in_array($unread, $dialog->id)) {
-                $dialog->unread = 1;
+            if (in_array($dialog->id, $unreadByPal)) {
+                $dialog->unreadByPal = 1;
+            } elseif (in_array($dialog->id, $unread)) {
+                $dialog->unreadByMe = 1;
             }
         }
+
+        return $dialogs;
     }
 
     public static function UnreadDialogIds()
@@ -171,5 +209,18 @@ class MessageDialog extends CActiveRecord
             ->where('t2.read_status = 0 AND t.user_id = ' . Yii::app()->user->getId()
             . ' AND t2.user_id = ' . Yii::app()->user->getId())
             ->queryColumn();
+    }
+
+    /**
+     * @return User
+     */
+    public function GetInterlocutor()
+    {
+        foreach ($this->messageUsers as $messageUser) {
+            if ($messageUser->user_id !== Yii::app()->user->getId())
+                return $messageUser->user;
+        }
+
+        return null;
     }
 }

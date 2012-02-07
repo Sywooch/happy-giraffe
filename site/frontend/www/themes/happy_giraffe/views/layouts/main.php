@@ -162,7 +162,7 @@ function report(item)
 		?>
 		<br /> <br />
 		
-		<div id="content">
+		<div id="content" class="clearfix">
 
 			<?php echo $content; ?>
 

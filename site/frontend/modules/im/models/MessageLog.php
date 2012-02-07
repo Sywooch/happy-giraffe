@@ -116,6 +116,8 @@ class MessageLog extends CActiveRecord
     }
 
     /**
+     * Create new message
+     *
      * @static
      * @param $dialog_id
      * @param $user_id
@@ -160,7 +162,7 @@ class MessageLog extends CActiveRecord
             )
         ))->findAll(array(
             'condition' => 'dialog_id=' . $dialog_id,
-            'order' => 'created DESC',
+            'order' => 't.id DESC',
             'limit' => 10
         ));
 
@@ -186,5 +188,14 @@ class MessageLog extends CActiveRecord
         ));
 
         return array_reverse($models);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMessageSentByUser(){
+        if ($this->user_id == Yii::app()->user->getId())
+            return true;
+        return false;
     }
 }

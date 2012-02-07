@@ -1,0 +1,2 @@
+<a target="_blank" class="mrc__plugin_uber_like_button" href="http://connect.mail.ru/share?share_url=<?php echo urlencode(Yii::app()->createAbsoluteUrl(Yii::app()->request->pathInfo)); ?>" data-mrc-config="{'type' : 'button', 'caption-mm' : '1', 'caption-ok' : '3', 'counter' : 'true', 'text' : 'true', 'width' : '100%'}">Нравится</a>
+<script src="http://cdn.connect.mail.ru/js/loader.js" type="text/javascript" charset="UTF-8"></script>

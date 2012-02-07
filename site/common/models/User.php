@@ -177,7 +177,7 @@ class User extends CActiveRecord
     public function defaultScope()
     {
         return array(
-            'condition' => 'deleted = 0',
+            'condition' => $this->getTableAlias(false, false) . '.deleted = 0',
         );
     }
 

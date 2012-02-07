@@ -10,7 +10,7 @@ class m120206_125331_create_ratings_table extends CDbMigration
           `social_key` varchar(2) NOT NULL,
           `value` mediumint(9) NOT NULL DEFAULT '0',
           PRIMARY KEY (`entity_id`,`entity_name`,`social_key`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;ц");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 	}
 
 	public function down()

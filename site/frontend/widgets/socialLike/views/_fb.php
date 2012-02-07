@@ -3,6 +3,10 @@
 <?php
 foreach($this->options as $key => $value)
 {
+    if($key == 'description')
+    {
+        $value = strip_tags($value);
+    }
     Yii::app()->clientScript->registerMetaTag($value, null, null, array(
         'property' => 'og:' . $key
     ));

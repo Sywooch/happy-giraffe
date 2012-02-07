@@ -29,6 +29,10 @@ class SocialLikeWidget extends CWidget
     public function init()
     {
         parent::init();
+        if(isset($this->options['image']) && !strstr($this->options['image'], 'http'))
+            $this->options['image'] = Yii::app()->createAbsoluteUrl('/') . $this->options['image'];
+        if(isset($this->options['description']))
+            $this->options['description'] = trim(strip_tags($this->options['description']));
         $this->render('index');
     }
 }

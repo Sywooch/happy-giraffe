@@ -1,5 +1,14 @@
 <!-- Поместите этот тег туда, где должна отображаться кнопка +1. -->
-<g:plusone size="small"></g:plusone>
+<g:plusone></g:plusone>
+
+<?php
+foreach($this->options as $key => $value)
+{
+    Yii::app()->clientScript->registerMetaTag($value, null, null, array(
+        'property' => 'og:' . $key
+    ));
+}
+?>
 
 <!-- Поместите этот вызов функции отображения в соответствующее место. -->
 <script type="text/javascript">

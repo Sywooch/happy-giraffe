@@ -32,7 +32,7 @@ class SocialLikeWidget extends CWidget
         if(isset($this->options['image']) && !strstr($this->options['image'], 'http'))
             $this->options['image'] = Yii::app()->createAbsoluteUrl('/') . $this->options['image'];
         if(isset($this->options['description']))
-            $this->options['description'] = trim(strip_tags($this->options['description']));
+            $this->options['description'] = Str::truncate(trim(strip_tags(html_entity_decode($this->options['description'], ENT_QUOTES, 'UTF-8'))), 300, '...');
         $this->render('index');
     }
 }

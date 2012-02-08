@@ -232,6 +232,9 @@ class User extends CActiveRecord
             $service->user_id = $this->id;
             $service->save();
         }
+        if (!$this->isNewRecord){
+            User::model()->cache(0)->findByPk($this->id);
+        }
     }
 
     public function hashPassword($password)
@@ -253,6 +256,13 @@ class User extends CActiveRecord
                                 'accurate_resize' => array(
                                     'width' => 76,
                                     'height' => 79,
+                                ),
+                            ),
+                            'mini' => array(
+                                'fileHandler' => array('FileHandler', 'run'),
+                                'accurate_resize' => array(
+                                    'width' => 38,
+                                    'height' => 37,
                                 ),
                             ),
                             'original' => array(
@@ -310,8 +320,24 @@ class User extends CActiveRecord
         return $user;
     }
 
+    /**
+     * @return string
+     */
     public function getFullName()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * @static
+     * @param $id
+     * @return User
+     */
+    public static function getUserById($id)
+    {
+        $user = User::model()->cache(3600*24)->findByPk($id);
+        if ($user === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $user;
     }
 }

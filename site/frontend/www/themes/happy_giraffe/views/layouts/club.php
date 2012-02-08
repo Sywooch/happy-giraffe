@@ -20,7 +20,52 @@
     <!--[if IE 7]>
     <?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css?r=112'); ?>
     <![endif]-->
+    <?php
+    $reports = "
+$('.report-block .cancel').live('click', function() {
+	$(this).parents('.report-block').remove();
+	return false;
+});
+$('.report-form').live('submit', function() {
+	var report_block = $(this).parents('.report-block');
+	$.ajax({
+		type: 'POST',
+		data: $(this).serialize(),
+		url: " . CJSON::encode($this->createUrl('/ajax/acceptreport')) . ",
+		success: function(response) {
+			report_block.remove();
+		}
+	});
+	return false;
+});
+function report(item)
+{
+	if (item.next().attr('class') != 'report-block')
+	{
+		var source_data = item.attr('id').split('_');
+		$.ajax({
+			type: 'POST',
+			data: {
+				source_data: {
+					model: source_data[0],
+					object_id: source_data[1],
+				}
+			},
+			url: " . CJSON::encode($this->createUrl('/ajax/showreport')) . ",
+			success: function(response) {
+				item.after(response);
+			}
+		});
+	}
+	else
+	{
+		item.next().remove();
+	}
 
+}
+		";
+    Yii::app()->clientScript->registerScript('reports', $reports);
+    ?>
 </head>
 <body class="body-club">
 <div id="layout" class="wrapper">
@@ -41,8 +86,15 @@
             </div>
 
             <div class="login-box">
-                <span class="welcome"><b>Добро пожаловать,</b> <a href="">Анастасия Петрова!</a></span>
-                <a href="">Выйти</a>
+                <?php if (Yii::app()->user->isGuest): ?>
+                <span class="lk">Личный кабинет</span>
+                <?php echo CHtml::link('Вход', '#login', array('class' => 'fancy')); ?>
+                |
+                <?php echo CHtml::link('Регистрация', Yii::app()->createUrl('signup')); ?>
+                <?php else: ?>
+                <span class="welcome"><b>Добро пожаловать,</b> <a href="<?php echo Yii::app()->createUrl('profile/index'); ?>"><?php echo Yii::app()->user->first_name; ?><?php if (Yii::app()->user->last_name) echo ' ' . Yii::app()->user->last_name; ?>!</a></span>
+                <?php echo CHtml::link('Выход', Yii::app()->createUrl('site/logout')); ?>
+                <?php endif; ?>
             </div>
 
             <div class="nav">

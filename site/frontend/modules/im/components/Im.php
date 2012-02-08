@@ -30,14 +30,10 @@ class Im
         $criteria = new CDbCriteria;
         $criteria->condition = 't.id IN (SELECT dialog_id FROM message_user WHERE user_id = ' . $this->_user_id . ')';
         $dialogs = MessageDialog::model()->with(array(
-            'messageUsers',
-            array('messageUsers.user' => array(
-                'select' => array('id', 'first_name', 'last_name')
-            ))
+            'messageUsers'
         ))->findAll($criteria);
-
-        $value = array();
         $users = array();
+        $this->_dialogs = array();
         foreach ($dialogs as $dialog) {
             $new_dialog = array(
                 'id' => $dialog->id,
@@ -45,20 +41,19 @@ class Im
                 'users' => array()
             );
             foreach ($dialog->messageUsers as $user) {
-                if ($user->user_id !== $this->_user_id && !in_array($user->user_id, $value)) {
+                if ($user->user_id !== $this->_user_id && !in_array($user->user_id, $this->_dialogs)) {
                     $users [] = $user->user_id;
-                    $new_dialog['name'] = $user->user->getFullName();
+                    $new_dialog['name'] = User::getUserById($user->user_id)->getFullName();
                     $new_dialog['users'][] = $user->user_id;
                 }
             }
-            $value[$dialog->id] = $new_dialog;
+            $this->_dialogs[$dialog->id] = $new_dialog;
         }
 
         $this->_dialog_users = $users;
-        $this->_dialogs = $value;
         Yii::app()->cache->set($this->_users_cache_id . $this->_user_id, array(
             'users' => $users,
-            'dialogs' => $value
+            'dialogs' => $this->_dialogs
         ));
     }
 
@@ -93,7 +88,7 @@ class Im
     {
         $result = array();
         foreach ($this->_dialog_users as $user_id) {
-            $user = User::model()->findByPk($user_id);
+            $user = User::getUserById($user_id);
             if ($this->startsWith($user->first_name, $term) || $this->startsWith($user->last_name, $term)
                 || $this->startsWith($user->first_name . ' ' . $user->last_name, $term)
                 || $this->startsWith($user->last_name . ' ' . $user->first_name, $term)
@@ -112,7 +107,7 @@ class Im
     public function GetDialogUser($dialog_id)
     {
         $id = $this->_dialogs[$dialog_id]['users'][0];
-        return User::model()->findByPk($id);
+        return User::getUserById($id);
     }
 
     public function findDialog($name)

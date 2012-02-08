@@ -4,6 +4,11 @@ class OnlineUsersCommand extends CConsoleCommand
 {
     public function actionIndex()
     {
+//        Yii::import('site.frontend.modules.im.models.*');
+//        Yii::import('site.common.models.User');
+//        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
+//        Yii::import('site.frontend.extensions.ufile.*');
+
         $rpl = Yii::app()->comet;
 
         $list = $rpl->cmdOnline();
@@ -11,8 +16,13 @@ class OnlineUsersCommand extends CConsoleCommand
             ->update('user', array('online' => '0'));
         foreach ($list as $user) {
             echo "User online: {$user}\n";
+//            $userCache = MessageCache::model()->find('cache = "'.$user.'"');
+//            $user = User::getUserById($userCache->user_id);
+//            $user->online = 1;
+//            $user->save();
             Yii::app()->db->createCommand()
                 ->update('user', array('online' => '1'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$user}\")");
+
         }
 
 
@@ -22,10 +32,20 @@ class OnlineUsersCommand extends CConsoleCommand
                 if ($event['event'] == 'online'){
                     Yii::app()->db->createCommand()
                         ->update('user', array('online' => '1'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$event['id']}\")");
+//                    $userCache = MessageCache::model()->find('cache = "'.$event['id'].'"');
+//                    $user = User::getUserById($userCache->user_id);
+//                    $user->online = 1;
+//                    $user->save();
+
                     echo "user online: {$event['id']}\n";
                 }elseif ($event['event'] == 'offline'){
                     Yii::app()->db->createCommand()
                         ->update('user', array('online' => '0'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$event['id']}\")");
+//                    $userCache = MessageCache::model()->find('cache = "'.$event['id'].'"');
+//                    $user = User::getUserById($userCache->user_id);
+//                    $user->online = 1;
+//                    $user->save();
+
                     echo "user offline: {$event['id']}\n";
                 }
 //                echo "Received: {$event['event']} - {$event['id']} - {$event['pos']}\n";
@@ -35,3 +55,4 @@ class OnlineUsersCommand extends CConsoleCommand
         }
     }
 }
+

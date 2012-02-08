@@ -29,17 +29,7 @@
                     <?php echo CHtml::decode($dialog->lastMessage->text) ?>
                 </td>
                 <td class="meta">
-                    <span><?php
-                        if (date("Y:m:d", strtotime($dialog->lastMessage->created)) == date("Y:m:d"))
-                            echo 'Сегодня';
-                        elseif (date("Y", strtotime($dialog->lastMessage->created)) == date("Y"))
-                            echo date("j", strtotime($dialog->lastMessage->created)) . ' '
-                                . HDate::ruMonthShort(date("m", strtotime($dialog->lastMessage->created)));
-                        else
-                            echo date("Y", strtotime($dialog->lastMessage->created)) . '<br>' .
-                                date("j", strtotime($dialog->lastMessage->created)) . ' '
-                                . HDate::ruMonthShort(date("m", strtotime($dialog->lastMessage->created)))
-                        ?><br/><?php echo date("H:i", strtotime($dialog->lastMessage->created))  ?></span>
+                    <span><?php echo MessageLog::GetFormattedTime($dialog->lastMessage->created); ?></span>
                 </td>
                 <td class="actions">
 

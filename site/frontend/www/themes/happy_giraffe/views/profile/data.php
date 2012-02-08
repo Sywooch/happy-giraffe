@@ -117,7 +117,7 @@ setTimeout(function() {
 	
 		<div class="row row-inline">
 			<div class="row-title">Удалить анкету:</div>
-			<div class="row-elements"><div class="text">Да, я хочу <a href="" class="remove">Удалить анкету</a>, потеряв всю введенную информацию без возможности восстановления.</div></div>
+			<div class="row-elements"><div class="text">Да, я хочу <?php echo CHtml::link('Удалить анкету', array('remove'), array('class' => 'remove', 'confirm' => 'Вы действительно хотите удалить анкету?')) ?>, потеряв всю введенную информацию без возможности восстановления.</div></div>
 		</div>
 	
 	</div>

@@ -7,14 +7,15 @@ class AjaxController extends Controller
 		Yii::import('contest.models.*');
 		$modelName = $_POST['modelName'];
 		$objectId = $_POST['objectId'];
-		$attributeName = $_POST['attributeName'];
-		$r = $_POST['r'];
-		
-		$object = CActiveRecord::model($modelName)->findByPk($objectId);
-		$object->$attributeName = $r * 5;
-		$object->save(true, array($attributeName));
-		
-		echo CJSON::encode($object->$attributeName);
+        $social_key = $_POST['key'];
+        $value = $_POST['r'];
+
+        $model = $modelName::model()->findByPk($objectId);
+        if(!$model)
+            Yii::app()->end();
+        Rating::saveByEntity($model, $social_key, $value);
+        echo Rating::countByEntity($model);
+        Yii::app()->end();
 	}
 
 	public function actionImageUpload()

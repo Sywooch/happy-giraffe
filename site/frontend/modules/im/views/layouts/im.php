@@ -1,4 +1,27 @@
 <?php $this->beginContent('//layouts/club'); ?>
+<script type="text/javascript" src="/javascripts/dklab_realplexor.js"></script>
+<?php
+Yii::app()->clientScript->registerScript('Realplexor-reg', '
+        var user_cache = "'. MessageCache::GetCurrentUserCache() .'";
+        var last_dialog = "'. ActiveDialogs::model()->getLastDialogId() .'";
+        var realplexor = new Dklab_Realplexor(
+            "http://'.Yii::app()->comet->host .'",
+            "'. Yii::app()->comet->namespace .'"
+        );
+
+        realplexor.subscribe(user_cache, function (result, id) {
+            console.log(result);
+            if (result.type == '. MessageLog::TYPE_NEW_MESSAGE .') {
+                if(window.ShowNewMessage)
+                    ShowNewMessage(result);
+            } else if (result.type == '. MessageLog::TYPE_READ .') {
+                if(window.ShowAsRead)
+                        ShowAsRead(result);
+            }
+        });
+        realplexor.execute();
+');
+?>
 <div class="main">
 
     <div class="main-right">
@@ -23,11 +46,18 @@
 
                         <div class="nav steps">
                             <ul>
-                                <li class="opened<?php if (Yii::app()->controller->action->id =='dialog') echo ' active'?>"><a href="<?php echo $this->createUrl('/im/default/dialogs', array()) ?>">Открытые диалоги</a></li>
+                                <?php
+                                $d = ActiveDialogs::model()->getDialogIds();
+                                if (!empty($d)):?>
+                                    <li class="opened<?php if (Yii::app()->controller->action->id =='dialog') echo ' active'?>">
+                                        <a href="<?php echo $this->createUrl('/im/default/dialog', array('id'=>ActiveDialogs::model()->getLastDialogId())) ?>">Открытые диалоги</a></li>
+                                <?php endif ?>
                                 <li<?php if (Yii::app()->controller->action->id =='index') echo ' class="active"'?>><a href="<?php
                                     echo $this->createUrl('/im/default/index', array()) ?>"><span>Все диалоги</span></a></li>
-                                <li<?php if (Yii::app()->controller->action->id =='new') echo ' class="active"'?>><a href="<?php echo $this->createUrl('/im/default/new', array()) ?>"><span>Новое</span></a></li>
-                                <li<?php if (Yii::app()->controller->action->id =='online') echo ' class="active"'?>><a href="<?php echo $this->createUrl('/im/default/online', array()) ?>"><span>Кто в онлайне</span></a></li>
+                                <li<?php if (Yii::app()->controller->action->id =='new') echo ' class="active"'?>>
+                                    <a href="<?php echo $this->createUrl('/im/default/new', array()) ?>"><span>Новое</span></a></li>
+                                <li<?php if (Yii::app()->controller->action->id =='online') echo ' class="active"'?>>
+                                    <a href="<?php echo $this->createUrl('/im/default/online', array()) ?>"><span>Кто в онлайне</span></a></li>
                                 <li>
                                     <form action="<?php echo $this->createUrl('/im/default/getDialog') ?>">
                                         <input type="text" value="введите имя" class="placeholder"
@@ -72,5 +102,4 @@
     side
 
 </div>
-
 <?php $this->endContent(); ?>

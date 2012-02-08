@@ -18,6 +18,7 @@ return array(
 	'import'=>array(
 		'site.common.models.*',
         'site.common.models.mongo.*',
+        'site.common.helpers.*',
 		'ext.ufile.UFiles',
 		'application.models.*',
 		'application.components.*',

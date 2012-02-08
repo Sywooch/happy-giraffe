@@ -102,7 +102,7 @@ Yii::app()->clientScript->registerScript('Realplexor-reg', '
 
 <div class="side-right">
 
-    side
+    <?php echo Yii::app()->user->getId() ?>
 
 </div>
 <?php $this->endContent(); ?>

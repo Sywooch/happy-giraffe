@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'id' => 'happy-giraffe',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'My Console Application',
     'commandMap' => array(

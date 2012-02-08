@@ -1,9 +1,5 @@
 <div id="dialog">
     <div class="opened-dialogs-list">
-        <?php
-        //User::clearCache(22);
-        //$user = User::model()->cache(24*3600)->findByPk(22);
-        //echo $user->online ?>
         <div class="t"></div>
         <div class="container">
             <ul>

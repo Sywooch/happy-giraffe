@@ -23,6 +23,10 @@ return array(
             'port' => 10010,
             'namespace' => 'crm_',
         ),
+        'cache' => array(
+            'class' => 'CDummyCache',
+//            'class' => 'CMemCache',
+        ),
         'db'=>require_once(dirname(__FILE__).'/db.php'),
     ),
 );

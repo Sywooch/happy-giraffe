@@ -8,6 +8,7 @@ class m120207_135734_delete_dialogs extends CDbMigration
     {
         $this->createTable($this->_table,
             array(
+                'id'=>'INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
                 'dialog_id' => 'int(10) UNSIGNED not null',
                 'message_id' => 'int(10) UNSIGNED not null',
                 'user_id' => 'int(10) UNSIGNED not null',

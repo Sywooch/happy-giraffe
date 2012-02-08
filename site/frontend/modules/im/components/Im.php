@@ -1,11 +1,14 @@
 <?php
 
+/**
+ * Store in cache user dialogs with opponents
+ */
 class Im
 {
     protected static $instance;
     private $_dialog_users;
     private $_dialogs;
-    private $_users_cache_id = 'user_dialogs_';
+    const USER_CACHE_ID = 'user_dialogs_';
     private $_user_id;
 
     private function __construct()
@@ -16,12 +19,15 @@ class Im
 
     private function loadDialogs()
     {
-        $value = Yii::app()->cache->get($this->_users_cache_id . $this->_user_id);
+        $value = Yii::app()->cache->get(self::USER_CACHE_ID . $this->_user_id);
         if ($value === false || $value === null) {
             $this->refreshDialogUsers();
-        } else{
+        } else {
             $this->_dialog_users = $value['users'];
-            $this->_dialogs = $value['dialogs'];
+            if (!is_array($value['dialogs']))
+                $value['dialogs'] = array();
+            else
+                $this->_dialogs = $value['dialogs'];
         }
     }
 
@@ -30,7 +36,7 @@ class Im
         $criteria = new CDbCriteria;
         $criteria->condition = 't.id IN (SELECT dialog_id FROM message_user WHERE user_id = ' . $this->_user_id . ')';
         $dialogs = MessageDialog::model()->with(array(
-            'messageUsers'
+            'messageUsers', 'lastMessage', 'lastDeletedMessage'
         ))->findAll($criteria);
         $users = array();
         $this->_dialogs = array();
@@ -38,8 +44,18 @@ class Im
             $new_dialog = array(
                 'id' => $dialog->id,
                 'name' => '',
-                'users' => array()
+                'users' => array(),
+                'empty'=>false
             );
+
+            //check empty dialogs
+            if (empty($dialog->lastMessage))
+                $new_dialog['empty']=true;
+
+            if (isset($dialog->lastMessage) && isset($dialog->lastDeletedMessage))
+                if ($dialog->lastMessage->id <= $dialog->lastDeletedMessage->message_id)
+                    $new_dialog['empty']=true;
+
             foreach ($dialog->messageUsers as $user) {
                 if ($user->user_id !== $this->_user_id && !in_array($user->user_id, $this->_dialogs)) {
                     $users [] = $user->user_id;
@@ -51,7 +67,7 @@ class Im
         }
 
         $this->_dialog_users = $users;
-        Yii::app()->cache->set($this->_users_cache_id . $this->_user_id, array(
+        Yii::app()->cache->set(self::USER_CACHE_ID . $this->_user_id, array(
             'users' => $users,
             'dialogs' => $this->_dialogs
         ));
@@ -63,8 +79,20 @@ class Im
     public function getDialogIds()
     {
         $res = array();
-        foreach($this->_dialogs as $dialog)
+        foreach ($this->_dialogs as $dialog)
             $res [] = $dialog['id'];
+        return $res;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNotEmptyDialogIds()
+    {
+        $res = array();
+        foreach ($this->_dialogs as $dialog)
+            if (!$dialog['empty'])
+                $res [] = $dialog['id'];
         return $res;
     }
 
@@ -110,6 +138,20 @@ class Im
         return User::getUserById($id);
     }
 
+    /**
+     * @param $user_id
+     * @return mixed
+     */
+    public function getDialogByUser($user_id)
+    {
+        foreach ($this->_dialogs as $dialog) {
+            if ($dialog['users'][0] == $user_id) {
+                return $dialog['id'];
+            }
+        }
+        return null;
+    }
+
     public function findDialog($name)
     {
         foreach ($this->_dialogs as $dialog) {
@@ -127,8 +169,8 @@ class Im
         return (substr($haystack, 0, $length) === $needle);
     }
 
-    static public function clearCache()
+    static function clearCache()
     {
-        Yii::app()->cache->delete($this->_users_cache_id . Yii::app()->user->getId());
+        Yii::app()->cache->delete(self::USER_CACHE_ID . Yii::app()->user->getId());
     }
 }

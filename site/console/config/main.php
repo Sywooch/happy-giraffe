@@ -10,9 +10,10 @@ return array(
         ),
     ),
     'import' => array(
-        'site.frontend.components.*',
-        'site.frontend.models.*',
-        'site.frontend.modules.names.models.*',
+//        'site.frontend.components.*',
+//        'site.frontend.models.*',
+//        'site.frontend.modules.names.models.*',
+        'site.console.models.*',
     ),
     'components' => array(
         'comet' => array(

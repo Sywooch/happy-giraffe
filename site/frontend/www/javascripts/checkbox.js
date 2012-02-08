@@ -1,13 +1,5 @@
 $(document).ready(function(){
-   if ($('select').size()>0){  
-      var params = {
-	  	  changedEl: "select",
-	  	  visRows: 8,
-		 scrollArrows: true
-	  }
-
-	    cuSel(params);
-   }
+   
    $(".CheckBoxClass").change(function(){
       if($(this).is(":checked")){
          $(this).next("label").addClass("LabelSelected");

@@ -24,7 +24,7 @@ $pal = Im::model()->GetDialogUser($id);
 </div>
 
 <div class="list-actions">
-    <a href=""><i class="icon-remove"></i>Удалить диалог</a>
+    <a class="remove-dialog" href=""><i class="icon-remove"></i>Удалить диалог</a>
     &nbsp;&nbsp;&nbsp;&nbsp;
     <a href="">Распечатать</a>
 </div>

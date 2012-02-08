@@ -52,7 +52,7 @@ class RatingCache extends EMongoDocument
             $model->save();
             self::updateCache($entity, $url);
         }
-        elseif($model->created_date < time() - 1)
+        elseif($model->created_date < time() - 3600)
         {
             $model->created_date = time();
             $model->save();

@@ -1,35 +1,6 @@
 <?php
 	$cs = Yii::app()->clientScript;
-	$ilike = "
-function rate(count)
-{
-	$.ajax({
-		type: 'POST',
-		dataType: 'json',
-		data: {
-			modelName: 'CommunityContent',
-			objectId: " . $c->id . ",
-			attributeName: 'rating',
-			r: count,
-		},
-		url: '" . CController::createUrl('/ajax/rate') . "',
-		success: function(response) {
-			$('div.rate').text(response);
-		}
-	});
-}
-VK.init({
-	apiId: 2450198, 
-	onlyWidgets: true
-});
-VK.Observer.subscribe('widgets.like.liked', function(count){
-	rate(count);
-});
-VK.Observer.subscribe('widgets.like.unliked', function(count){
-	rate(count);
-});
-	";
-	$js_content_report = "
+$js_content_report = "
 $('.comments .item .report').live('click', function() {
 	report($(this).parents('.item'));
 	return false;
@@ -40,19 +11,14 @@ $('.spam a').live('click', function() {
 });
 ";
 
-	$js = "
-	$(document).ready(function() {
-		$('.lol').fancybox();
-	});
-
-	";
+    $js = "
+    $(document).ready(function() {
+        $('.lol').fancybox();
+    });";
 
 	$cs
 		->registerScript('content_report', $js_content_report)
-		->registerScriptFile('http://vkontakte.ru/js/api/openapi.js', CClientScript::POS_HEAD)
-		->registerScript('ilike', $ilike, CClientScript::POS_HEAD)
 		->registerCssFile('/stylesheets/wym.css')
-		
 		->registerScriptFile('/fancybox/lib/jquery.mousewheel-3.0.6.pack.js')
 		->registerCssFile('/fancybox/source/jquery.fancybox.css?v=2.0.4')
 		->registerScriptFile('/fancybox/source/jquery.fancybox.pack.js?v=2.0.4')
@@ -102,12 +68,20 @@ $('.spam a').live('click', function() {
 				switch ($c->type->slug)
 				{
 					case 'post':
-						echo $c->post->text;
+                        echo $c->post->text;
+						$c_text =  $c->post->text;
+                        preg_match('!<img.*?src="(.*?)"!', $c_text, $matches);
+                        if(count($matches) > 0)
+                            $c_image = $matches[1];
+                        else
+                            $c_image = false;
 						break;
 					case 'video':
 						$video = new Video($c->video->link);
 						echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
-						echo $c->video->text;
+                        echo $c->video->text;
+						$c_text = $c->video->text;
+                        $c_image = $video->preview;
 						break;
 					case 'travel':
 						if ($c->travel->waypoints)
@@ -210,17 +184,19 @@ $('.spam a').live('click', function() {
 	
 	<div class="like-block">
 		<div class="block">
-			<div class="rate"><?php echo $c->rating; ?></div>
+			<div class="rate"><?php echo Rating::countByEntity($c); ?></div>
 			рейтинг
 		</div>
 		<big><?php switch($c->type->slug) {case 'travel': echo 'Интересное путешествие?'; break; case 'post': echo 'Вам понравилась статья? Отметьте!'; break; case 'video': echo 'Вам понравилось видео? Отметьте!'; break;} ?></big>
 		<div class="like">
-			<span style="width:150px;">
-				<div id="vk_like" style="height: 22px; width: 180px; position: relative; clear: both; background-image: none; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: initial; background-position: initial initial; background-repeat: initial initial; "></div>
-					<script type="text/javascript">
-					VK.Widgets.Like("vk_like", {type: "button"});
-				</script>
-			</span>
+            <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+                    'model' => $c,
+                    'options' => array(
+                        'title' => $c->name,
+                        'image' => $c_image,
+                        'description' => $c_text,
+                    ),
+            )); ?>
 			<div class="clear"></div>
 		</div>
 		<div class="clear"></div>

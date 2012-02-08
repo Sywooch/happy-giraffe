@@ -10,9 +10,10 @@ return array(
         ),
     ),
     'import' => array(
-        'site.frontend.components.*',
-        'site.frontend.models.*',
-        'site.frontend.modules.names.models.*',
+//        'site.frontend.components.*',
+//        'site.frontend.models.*',
+//        'site.frontend.modules.names.models.*',
+        'site.console.models.*',
     ),
     'components' => array(
         'comet' => array(
@@ -20,6 +21,7 @@ return array(
             'host' => 'chat.happy-giraffe.com',
             'port' => 10010,
             'namespace' => 'crm_',
-        )
+        ),
+        'db'=>require_once(dirname(__FILE__).'/db.php'),
     ),
 );

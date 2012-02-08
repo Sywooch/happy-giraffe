@@ -11,7 +11,6 @@
  * @property string $work_text
  * @property string $work_image
  * @property string $work_time
- * @property string $work_rate
  * @property integer $work_status
  *
  * rel
@@ -106,14 +105,13 @@ class ContestWork extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('work_title, work_image', 'required'),
-			array('work_status, work_rate', 'numerical', 'integerOnly'=>true),
+			array('work_status', 'numerical', 'integerOnly'=>true),
 			array('work_user_id, work_contest_id', 'length', 'max'=>10),
 			array('work_title, work_image', 'length', 'max'=>250),
 			array('work_text', 'safe'),
 
 			array('work_time', 'default', 'value' => time()),
 			array('work_status', 'default', 'value' => 1),
-			array('work_rate', 'default', 'value' => 0),
 			array('work_user_id', 'default', 'value' => Yii::app()->user->id),
 //----------------------SImageUploadBehavior------------------------
 			array('work_image', 'file', 'types'=>'jpg, gif, png'), //Опционально
@@ -121,7 +119,7 @@ class ContestWork extends CActiveRecord
 //----------------------SImageUploadBehavior------------------------
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('work_id, work_user_id, work_contest_id, work_title, work_text, work_image, work_time, work_rate, work_status', 'safe', 'on'=>'search'),
+			array('work_id, work_user_id, work_contest_id, work_title, work_text, work_image, work_time, work_status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -151,7 +149,6 @@ class ContestWork extends CActiveRecord
 			'work_text' => 'Work Text',
 			'work_image' => 'Work Image',
 			'work_time' => 'Work Time',
-			'work_rate' => 'Work Rate',
 			'work_status' => 'Work Status',
 		);
 	}
@@ -174,7 +171,6 @@ class ContestWork extends CActiveRecord
 		$criteria->compare('work_text',$this->work_text,true);
 		$criteria->compare('work_image',$this->work_image,true);
 		$criteria->compare('work_time',$this->work_time,true);
-		$criteria->compare('work_rate',$this->work_rate,true);
 		$criteria->compare('work_status',$this->work_status);
 
 		return new CActiveDataProvider($this, array(

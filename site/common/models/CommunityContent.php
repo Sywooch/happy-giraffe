@@ -8,7 +8,6 @@
  * @property string $name
  * @property string $created
  * @property string $views
- * @property string $rating
  * @property string $author_id
  * @property string $rubric_id
  * @property string $type_id
@@ -42,15 +41,15 @@ class CommunityContent extends CActiveRecord
 		return array(
 			array('name, author_id, rubric_id, type_id', 'required'),
 			array('name, meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
-			array('views, rating, author_id, rubric_id, type_id', 'length', 'max' => 11),
-			array('views, rating, author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true), 
+			array('views, author_id, rubric_id, type_id', 'length', 'max' => 11),
+			array('views, author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
 			array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
 			array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
 			array('by_happy_giraffe', 'boolean'),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, by_happy_giraffe, name, meta_title, meta_description, meta_keywords, created, views, rating, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
+			array('id, by_happy_giraffe, name, meta_title, meta_description, meta_keywords, created, views, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -83,7 +82,6 @@ class CommunityContent extends CActiveRecord
 			'name' => 'Name',
 			'created' => 'Created',
 			'views' => 'Views',
-			'rating' => 'Rating',
 			'author_id' => 'Author',
 			'rubric_id' => 'Rubric',
 			'type_id' => 'Type',
@@ -105,7 +103,6 @@ class CommunityContent extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('views',$this->views,true);
-		$criteria->compare('rating',$this->rating,true);
 		$criteria->compare('author_id',$this->author_id,true);
 		$criteria->compare('rubric_id',$this->rubric_id,true);
 		$criteria->compare('type_id',$this->type_id,true);

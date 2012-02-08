@@ -2,24 +2,46 @@
 
 class DefaultController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'accessControl', // perform access control for CRUD operations
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'users' => array('@'),
+            ),
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public $layout = 'im';
 
     public function actionIndex()
     {
+        Im::clearCache();
         $dialogs = MessageDialog::GetUserDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
         ));
     }
 
-    public function actionNew(){
+    public function actionNew()
+    {
         $dialogs = MessageDialog::GetUserNewDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
         ));
     }
 
-    public function actionOnline(){
+    public function actionOnline()
+    {
         $dialogs = MessageDialog::GetUserOnlineDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -29,10 +51,49 @@ class DefaultController extends Controller
     public function actionDialog($id)
     {
         ActiveDialogs::model()->addDialog($id);
+        ActiveDialogs::model()->SetLastDialogId($id);
         $messages = MessageLog::GetLastMessages($id);
         $this->render('dialog', array(
             'messages' => $messages,
             'id' => $id
+        ));
+    }
+
+    public function actionCreate($id)
+    {
+        if ($id == Yii::app()->user->getId())
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $user = User::getUserById($id);
+        //find if dialog with this user exist
+        $dialog_id = Im::model()->getDialogByUser($id);
+        if (empty($dialog_id)) {
+            $dialog = new MessageDialog;
+            $dialog->title = $user->getFullName();
+            if (!$dialog->save())
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+            $um = new MessageUser;
+            $um->dialog_id = $dialog->id;
+            $um->user_id = $id;
+            if (!$um->save())
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+            $um = new MessageUser;
+            $um->dialog_id = $dialog->id;
+            $um->user_id = Yii::app()->user->getId();
+            if (!$um->save())
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+            Im::clearCache();
+            $dialog_id = $dialog->id;
+        }
+        ActiveDialogs::model()->addDialog($dialog_id);
+
+        $messages = array();
+        $this->render('dialog', array(
+            'messages' => $messages,
+            'id' => $dialog_id
         ));
     }
 
@@ -47,12 +108,12 @@ class DefaultController extends Controller
     {
         $dialog = Yii::app()->request->getPost('dialog');
         $text = Yii::app()->request->getPost('text');
-        $message = MessageLog::NewMessage($dialog, Yii::app()->user->getId(), CHtml::encode($text));
+        $message = MessageLog::NewMessage($dialog, Yii::app()->user->getId(), $text);
 
         $response = array(
             'id' => $message->id,
             'status' => true,
-            'html' => $this->renderPartial('_message', array('message' => $message), true)
+            'html' => $this->renderPartial('_message', array('message' => $message->attributes), true)
         );
         echo CJSON::encode($response);
     }
@@ -73,15 +134,93 @@ class DefaultController extends Controller
         echo CJSON::encode($response);
     }
 
-    public function actionAjaxSearchByName($term){
+    public function actionAjaxSearchByName($term)
+    {
         echo CJSON::encode(Im::model()->findDialogUserNames($term));
     }
 
-    public function actionGetDialog($dialog_name){
+    public function actionGetDialog($dialog_name)
+    {
         $id = Im::model()->findDialog($dialog_name);
         if (empty($id))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         else
-            $this->redirect($this->createUrl('dialog', array('id'=>$id)));
+            $this->redirect($this->createUrl('dialog', array('id' => $id)));
+    }
+
+    public function actionRemoveMessage()
+    {
+        MessageLog::removeMessage(Yii::app()->request->getPost('id'));
+    }
+
+    public function actionRemoveActiveDialog()
+    {
+        $id = Yii::app()->request->getPost('id');
+        if (ActiveDialogs::model()->deleteDialog($id)) {
+            $response = array(
+                'status' => true,
+            );
+        } else {
+            $response = array(
+                'status' => false,
+            );
+        }
+
+        echo CJSON::encode($response);
+    }
+
+    public function actionRemoveDialog()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $dialog = $this->loadModel($id);
+
+        if ($dialog->deleteDialog()) {
+            //change active url when some dialog removed
+            $last_dialog = ActiveDialogs::model()->GetLastDialogId();
+            if (empty($last_dialog))
+                $url = '';
+            else
+                $url = $this->createUrl('/im/default/dialog', array('id' => ActiveDialogs::model()->GetLastDialogId()));
+
+            $response = array(
+                'status' => true,
+                'active_dialog_url' => $url
+            );
+        } else {
+            $response = array(
+                'status' => false,
+            );
+        }
+
+        echo CJSON::encode($response);
+    }
+
+    public function actionAjaxDialog()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $messages = MessageLog::GetLastMessages($id);
+        $response = array(
+            'status' => true,
+            'html' => $this->renderPartial('_dialog_content', array(
+                'messages' => $messages,
+                'id' => $id
+            ), true)
+        );
+
+        echo CJSON::encode($response);
+        ActiveDialogs::model()->SetLastDialogId($id);
+    }
+
+    /**
+     * @param int $id model id
+     * @return MessageDialog
+     * @throws CHttpException
+     */
+    public function loadModel($id)
+    {
+        $model = MessageDialog::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

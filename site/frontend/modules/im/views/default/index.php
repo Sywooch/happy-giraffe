@@ -14,6 +14,8 @@
         ?>">
         <input type="hidden" value="<?php echo $this->createUrl('/im/default/dialog', array('id' => $dialog->id)) ?>"
                class="dialog_url">
+        <input type="hidden" value="<?php echo $dialog->id ?>"
+               class="dialog_id">
         <table>
             <tr>
                 <td class="user">
@@ -29,17 +31,7 @@
                     <?php echo CHtml::decode($dialog->lastMessage->text) ?>
                 </td>
                 <td class="meta">
-                    <span><?php
-                        if (date("Y:m:d", strtotime($dialog->lastMessage->created)) == date("Y:m:d"))
-                            echo 'Сегодня';
-                        elseif (date("Y", strtotime($dialog->lastMessage->created)) == date("Y"))
-                            echo date("j", strtotime($dialog->lastMessage->created)) . ' '
-                                . HDate::ruMonthShort(date("m", strtotime($dialog->lastMessage->created)));
-                        else
-                            echo date("Y", strtotime($dialog->lastMessage->created)) . '<br>' .
-                                date("j", strtotime($dialog->lastMessage->created)) . ' '
-                                . HDate::ruMonthShort(date("m", strtotime($dialog->lastMessage->created)))
-                        ?><br/><?php echo date("H:i", strtotime($dialog->lastMessage->created))  ?></span>
+                    <span><?php echo MessageLog::GetFormattedTime($dialog->lastMessage->created); ?></span>
                 </td>
                 <td class="actions">
 
@@ -56,6 +48,26 @@
 
 <script type="text/javascript">
     $(function () {
+        $('.dialog-message .actions a.remove').click(function(){
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("/im/default/removeDialog") ?>',
+                data:{id:$(this).parents('.dialog-message').find('input.dialog_id').val()},
+                type:'POST',
+                dataType:'JSON',
+                success:function (response) {
+                    if (response.status) {
+                        $(this).parents('.dialog-message').remove();
+                        if (response.active_dialog_url == '')
+                            $('.nav .opened').hide();
+                        else
+                            $('.nav .opened a').attr("href", response.active_dialog_url);
+                    }
+                },
+                context:$(this)
+            });
+            return false;
+        });
+
         $('div.dialog-message').click(function () {
             var url = $(this).find('.dialog_url').val();
             window.location = url;

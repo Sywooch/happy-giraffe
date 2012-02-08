@@ -1,6 +1,30 @@
 <?php
 /* @var $this Controller
- * @var $message MessageLog
+ * @var $message array
  */
-?><div class="mess_content<?php if ($message->read_status == 0 && !isset($read)) echo ' unread' ?>" id='mess<?php echo $message->id ?>'>
-    <?php echo $message->user->first_name ?> : <?php echo $message->text ?> : <?php echo $message->created ?></div>
+$user = User::getUserById($message['user_id']);
+?><div class="dialog-message<?php if ($message['read_status'] == 0 && !isset($read)) echo ' dialog-message-new-out' ?>" id="mess<?php echo $message['id'] ?>">
+    <table>
+        <tr>
+            <td class="user">
+
+                <div class="img"><img src="<?php echo $user->pic_small->getUrl('mini') ?>" /></div>
+                <span><?php $user->first_name ?></span>
+
+            </td>
+            <td class="content">
+                <?php echo $message['text'] ?>
+            </td>
+            <td class="meta">
+                <span><?php echo MessageLog::GetFormattedTime($message['created']); ?></span>
+            </td>
+            <td class="actions">
+                <a href="" class="remove"></a>
+                <?php if ($message['user_id'] !== Yii::app()->user->getId() || isset($read)):?>
+                    <a href="" class="claim"></a>
+                <?php endif ?>
+
+            </td>
+        </tr>
+    </table>
+</div>

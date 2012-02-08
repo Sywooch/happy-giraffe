@@ -24,8 +24,8 @@ return array(
             'namespace' => 'crm_',
         ),
         'cache' => array(
-            'class' => 'CDummyCache',
-//            'class' => 'CMemCache',
+//            'class' => 'CDummyCache',
+            'class' => 'CMemCache',
         ),
         'db'=>require_once(dirname(__FILE__).'/db.php'),
     ),

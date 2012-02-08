@@ -150,5 +150,11 @@ class ProfileController extends Controller
         ));
     }
 
-
+    public function actionRemove()
+    {
+        $this->user->deleted = 1;
+        $this->user->save();
+        Yii::app()->user->logout();
+        $this->redirect(array('/site/index'));
+    }
 }

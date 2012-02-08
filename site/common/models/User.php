@@ -18,6 +18,7 @@
  * @property string $link
  * @property string $country
  * @property string $city
+ * @property int $deleted
  * @property integer $gender
  * @property string $birthday
  * @property string $settlement_id

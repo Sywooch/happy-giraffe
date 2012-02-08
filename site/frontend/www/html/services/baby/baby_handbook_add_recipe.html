@@ -8,14 +8,14 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/cusel.css" />
 	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/cusel.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 
@@ -89,13 +89,13 @@
 							<div class="settings-l">
 								<div class="inner-title">Выберите болезнь:</div>
 								
-								<select id="community">
+								<select id="community" class="chzn">
 									<option value="1000" selected="selected">Тип заболевания</option>
 									<option value="1">Тип заболевания</option>
 									<option value="2">Тип заболевания2</option>
 								</select>
 								
-								<select id="rubrik">
+								<select id="rubrik" class="chzn">
 									<option value="1000" selected="selected">Название болезни</option>
 									<option value="1">Название болезни</option>
 									<option value="2">Название болезни2</option>
@@ -174,7 +174,7 @@
 									<td><input type="text" class="t_ingr"/></td>
 									<td><input type="text" class="t_much"/></td>
 									<td>
-										<select id="much_o">
+										<select id="much_o" class="chzn">
 											<option value="1000" selected="selected">Не указано</option>
 											<option value="1">Не указано</option>
 											<option value="2">Не указано</option>
@@ -186,7 +186,7 @@
 									<td><input type="text" class="t_ingr"/></td>
 									<td><input type="text" class="t_much"/></td>
 									<td>
-										<select id="much_t">
+										<select id="much_t" class="chzn">
 											<option value="1000" selected="selected">Не указано</option>
 											<option value="1">Не указано</option>
 											<option value="2">Не указано</option>
@@ -198,7 +198,7 @@
 									<td><input type="text" class="t_ingr"/></td>
 									<td><input type="text" class="t_much"/></td>
 									<td>
-										<select id="much_f">
+										<select id="much_f" class="chzn">
 											<option value="1000" selected="selected">Не указано</option>
 											<option value="1">Не указано</option>
 											<option value="2">Не указано</option>

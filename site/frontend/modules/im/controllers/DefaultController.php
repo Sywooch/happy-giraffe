@@ -25,6 +25,7 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
+        Im::clearCache();
         $dialogs = MessageDialog::GetUserDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -60,31 +61,39 @@ class DefaultController extends Controller
 
     public function actionCreate($id)
     {
+        if ($id == Yii::app()->user->getId())
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         $user = User::getUserById($id);
-        $dialog = new MessageDialog;
-        $dialog->title = $user->getFullName();
-        if (!$dialog->save())
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        //find if dialog with this user exist
+        $dialog_id = Im::model()->getDialogByUser($id);
+        if (empty($dialog_id)) {
+            $dialog = new MessageDialog;
+            $dialog->title = $user->getFullName();
+            if (!$dialog->save())
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $um = new MessageUser;
-        $um->dialog_id = $dialog->id;
-        $um->user_id = $id;
-        if (!$um->save())
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            $um = new MessageUser;
+            $um->dialog_id = $dialog->id;
+            $um->user_id = $id;
+            if (!$um->save())
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $um = new MessageUser;
-        $um->dialog_id = $dialog->id;
-        $um->user_id = Yii::app()->user->getId();
-        if (!$um->save())
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            $um = new MessageUser;
+            $um->dialog_id = $dialog->id;
+            $um->user_id = Yii::app()->user->getId();
+            if (!$um->save())
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        Im::model()->refreshDialogUsers();
-        ActiveDialogs::model()->addDialog($dialog->id);
+            Im::clearCache();
+            $dialog_id = $dialog->id;
+        }
+        ActiveDialogs::model()->addDialog($dialog_id);
 
         $messages = array();
         $this->render('dialog', array(
             'messages' => $messages,
-            'id' => $dialog->id
+            'id' => $dialog_id
         ));
     }
 
@@ -166,8 +175,16 @@ class DefaultController extends Controller
         $dialog = $this->loadModel($id);
 
         if ($dialog->deleteDialog()) {
+            //change active url when some dialog removed
+            $last_dialog = ActiveDialogs::model()->GetLastDialogId();
+            if (empty($last_dialog))
+                $url = '';
+            else
+                $url = $this->createUrl('/im/default/dialog', array('id' => ActiveDialogs::model()->GetLastDialogId()));
+
             $response = array(
                 'status' => true,
+                'active_dialog_url' => $url
             );
         } else {
             $response = array(
@@ -199,7 +216,8 @@ class DefaultController extends Controller
      * @return MessageDialog
      * @throws CHttpException
      */
-    public function loadModel($id){
+    public function loadModel($id)
+    {
         $model = MessageDialog::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

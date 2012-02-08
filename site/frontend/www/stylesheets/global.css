@@ -1069,7 +1069,7 @@ label {
 .inner .settings-l {
     color: #158aa0;
     font: 12px tahoma, sans-serif;
-    padding: 0 15px 0 5px;
+    padding: 0 15px 10px 5px;
     background: #e9fafc;
     float: left;
     width: 450px;
@@ -1442,7 +1442,7 @@ label {
     margin: 25px 0 15px;
 }
 
-.inner.contest ul li {
+.inner.contest > ul li {
     text-align: left;
     list-style: disc inside;
     margin: 2px 0;

@@ -8,8 +8,10 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/baby.css" />
 	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
@@ -365,17 +367,24 @@
 								</div>
 								<div class="tab-box tab-box-3">
 									
+									
 									<div class="vaccination-birthday">
-										<big>День рождения:</big> 
-											<select>
-												<option>29</option>
-											</select>
-											<select>
-												<option>января</option>
-											</select>
-											<select>
-												<option>1981</option>
-											</select>
+										
+										<big>День рождения:</big> 										
+										
+										<select class="chzn">
+											<option>29</option>
+											<option>28</option>
+											<option>27</option>
+										</select>										
+										
+										<select class="chzn">
+											<option>января</option>
+										</select>
+										
+										<select class="chzn">
+											<option>1981</option>
+										</select>
 											
 										<a href="" class="btn btn-yellow-medium"><span><span>Рассчитать</span></span></a>
 									</div>
@@ -383,11 +392,13 @@
 								</div>
 								
 							</div>
+							
+							
 						</div>
 					</div>
 					
 					<div class="side-left">
-
+						
 						<div class="banner-box">
 							<a href=""><img src="/images/leftban.png"></a>						
 						</div>

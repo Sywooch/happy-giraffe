@@ -11,6 +11,7 @@
  * @property MessageLog[] $messageLogs
  * @property MessageUser[] $messageUsers
  * @property MessageLog lastMessage
+ * @property MessageDialogDeleted[] $lastDeletedMessage
  */
 class MessageDialog extends CActiveRecord
 {
@@ -60,6 +61,7 @@ class MessageDialog extends CActiveRecord
             'messageLogs' => array(self::HAS_MANY, 'MessageLog', 'dialog_id'),
             'messageUsers' => array(self::HAS_MANY, 'MessageUser', 'dialog_id'),
             'lastMessage' => array(self::HAS_ONE, 'MessageLog', 'dialog_id', 'order' => 'lastMessage.id DESC'),
+            'lastDeletedMessage' => array(self::HAS_ONE, 'MessageDialogDeleted', 'dialog_id'),
         );
     }
 
@@ -157,7 +159,11 @@ class MessageDialog extends CActiveRecord
      */
     public static function GetUserDialogs()
     {
-        $dialogs = Im::model()->getDialogIds();
+        $dialogs = Im::model()->getNotEmptyDialogIds();
+
+        if (empty($dialogs))
+            return array();
+
         //load last messages
         $criteria = new CDbCriteria;
         $criteria->compare('t.id', $dialogs);
@@ -241,9 +247,10 @@ class MessageDialog extends CActiveRecord
                 'dialog_id' => $this->id,
                 'message_id' => $last_message,
                 'user_id' => Yii::app()->user->getId(),
-            ))
-                ->execute();
+            ));
+            Im::clearCache();
         }
+        ActiveDialogs::model()->deleteDialog($this->id);
         return true;
     }
 }

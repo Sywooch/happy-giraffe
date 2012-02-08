@@ -8,8 +8,10 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/baby.css" />
 	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
@@ -94,24 +96,12 @@
 										<div class="row">
 											<span>Мой срок беременности:</span>
 											<div class="input-box">
-												<div class="select-box">
-													<div class="select-value" onclick="toggleSelectBox(this);"><span>1</span><input type="hidden" value="1" /></div>
-													<div class="select-list">
-														<ul>
-															<li onclick="setSelectBoxValue(this);"><span>1</span><input type="hidden" value="1" /></li>
-															<li onclick="setSelectBoxValue(this);"><span>2</span><input type="hidden" value="2" /></li>
-															<li onclick="setSelectBoxValue(this);"><span>3</span><input type="hidden" value="3" /></li>
-															<li onclick="setSelectBoxValue(this);"><span>4</span><input type="hidden" value="4" /></li>
-															<li onclick="setSelectBoxValue(this);"><span>5</span><input type="hidden" value="5" /></li>
-															<li onclick="setSelectBoxValue(this);"><span>6</span><input type="hidden" value="6" /></li>
-															<li onclick="setSelectBoxValue(this);"><span>7</span><input type="hidden" value="7" /></li>
-															<li onclick="setSelectBoxValue(this);"><span>8</span><input type="hidden" value="8" /></li>
-															<li onclick="setSelectBoxValue(this);"><span>9</span><input type="hidden" value="9" /></li>
-															<li onclick="setSelectBoxValue(this);"><span>10</span><input type="hidden" value="10" /></li>
-															<li onclick="setSelectBoxValue(this);"><span>11</span><input type="hidden" value="11" /></li>
-														</ul>
-													</div>
-												</div>
+												<select class="chzn pregnancy_term">
+													<option>1</option>
+													<option>11</option>
+													<option>21</option>
+													<option>31</option>													
+												</select>
 												<span class="units">нед</span>
 											</div>
 										</div>

@@ -66,15 +66,24 @@ class Rating extends CActiveRecord
     /**
      * @static
      * @param CActiveRecord $entity
+     * @param string $social_key
      * @return int
      */
-    public static function countByEntity($entity)
+    public static function countByEntity($entity, $social_key = false)
     {
-        $model = self::findByEntity($entity);
-        $sum = 0;
-        foreach($model as $item)
-            $sum += $item->value;
-        return $sum;
+        $model = self::findByEntity($entity, $social_key);
+        if($social_key === false)
+        {
+            $sum = 0;
+            foreach($model as $item)
+                $sum += $item->value;
+            return $sum;
+        }
+        else if($model)
+        {
+            return $model->value;
+        }
+        return 0;
     }
 
 

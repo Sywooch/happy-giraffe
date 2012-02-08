@@ -115,7 +115,7 @@ class RatingCache extends EMongoDocument
                     curl_close ($curl);
 
                     $json = CJSON::decode($curl_results);
-                    var_dump($curl_results);
+                    $count = $json ? intval( $json[0]['result']['metadata']['globalCounts']['count'] ) : 0;
                     break;
                 default : $count = 0;
             }

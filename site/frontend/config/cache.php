@@ -1,8 +1,8 @@
 <?php
 
 return array(
-	'class' => 'CMemCache',
-//'class' => 'CDummyCache',
+//	'class' => 'CMemCache',
+    'class' => 'CDummyCache',
 //	'servers' => array(
 //		array(
 //			'host' => 'localhost',

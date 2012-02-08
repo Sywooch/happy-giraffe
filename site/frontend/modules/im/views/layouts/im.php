@@ -16,7 +16,10 @@ Yii::app()->clientScript->registerScript('Realplexor-reg', '
                     ShowNewMessage(result);
             } else if (result.type == '. MessageLog::TYPE_READ .') {
                 if(window.ShowAsRead)
-                        ShowAsRead(result);
+                    ShowAsRead(result);
+            } else if (result.type == '. MessageLog::TYPE_STATUS_CHANGE .') {
+                if(window.StatusChanged)
+                    StatusChanged(result);
             }
         });
         realplexor.execute();

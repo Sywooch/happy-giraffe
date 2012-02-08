@@ -253,4 +253,14 @@ class MessageDialog extends CActiveRecord
         ActiveDialogs::model()->deleteDialog($this->id);
         return true;
     }
+
+    static function getUnreadMessagesCount($id){
+        return Yii::app()->db->createCommand()
+            ->select('count(id)')
+            ->from(MessageLog::model()->tableName() . ' t')
+            ->where('dialog_id = :dialog_id AND t.user_id != ' . Yii::app()->user->getId().' AND read_status =0',array(
+            ':dialog_id'=>$id
+        ))
+            ->queryScalar();
+    }
 }

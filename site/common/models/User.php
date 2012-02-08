@@ -233,8 +233,10 @@ class User extends CActiveRecord
             $service->user_id = $this->id;
             $service->save();
         }
-        if (!$this->isNewRecord){
-            User::model()->cache(0)->findByPk($this->id);
+        if (!$this->isNewRecord) {
+//            User::model()->cache(0)->findByPk($this->id);
+//            Yii::app()->cache->delete('User_' . $this->id);
+            self::clearCache($this->id);
         }
     }
 
@@ -337,8 +339,25 @@ class User extends CActiveRecord
     public static function getUserById($id)
     {
         $user = User::model()->cache(3600*24)->findByPk($id);
-        if ($user === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $user;
+
+//        $value = Yii::app()->cache->get('User_' . $id);
+//        if ($value === false) {
+//            $value = User::model()->findByPk($id);
+//            if ($value === null)
+//                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+//
+//            Yii::app()->cache->set('User_' . $id, $value, 5184000);
+//        }
+//        return $value;
+    }
+
+    public static function clearCache($id)
+    {
+//        $dep = new CDbCacheDependency('SELECT NOW()');
+//        return User::model()->cache(3600*24, $dep)->findByPk($id);
+        $cacheKey='yii:dbquery'.Yii::app()->db->connectionString.':'.Yii::app()->db->username;
+        $cacheKey.=':'.'SELECT * FROM `user` `t` WHERE `t`.`id`=\''.$id.'\' LIMIT 1:a:0:{}';
+        Yii::app()->cache->delete($cacheKey);
     }
 }

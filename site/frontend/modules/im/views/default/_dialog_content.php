@@ -31,10 +31,8 @@ $pal = Im::model()->GetDialogUser($id);
 
 <div class="dialog-list scroll" id="messages">
 
-    <?php foreach ($messages as $message): ?>
-    <?php $this->renderPartial('_message', array(
-        'message' => $message
+    <?php $this->renderPartial('_messages', array(
+        'messages' => $messages
     )); ?>
-    <?php endforeach; ?>
 
 </div>

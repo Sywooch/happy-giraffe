@@ -5,20 +5,19 @@ class OnlineUsersCommand extends CConsoleCommand
     public function actionIndex()
     {
         Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.frontend.modules.im.components.*');
 //        Yii::import('site.common.models.User');
 //        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
 //        Yii::import('site.frontend.extensions.ufile.*');
 
         $rpl = Yii::app()->comet;
-        Yii::app()->cache->set('5246fsg', 'dfdfdf');
-
         $list = $rpl->cmdOnline();
         Yii::app()->db->createCommand()
             ->update('user', array('online' => '0'));
 
         $users = User::model()->findAll(array('select'=>'id','condition'=>'online=1'));
         foreach ($users as $user) {
-            User::model()->cache(0)->findByPk($user->id);
+            Yii::app()->cache->delete('User_' . $user->id);
         }
 
         foreach ($list as $user) {
@@ -43,6 +42,7 @@ class OnlineUsersCommand extends CConsoleCommand
                     if (empty($user)) {echo "user not found: {$user->id}\n"; continue;}
                     $user->online = 1;
                     $user->save();
+                    $this->SendOnlineNotice($rpl, $user->id, 1);
 
                     echo "user online: {$user->id}\n";
                 }elseif ($event['event'] == 'offline'){
@@ -52,6 +52,7 @@ class OnlineUsersCommand extends CConsoleCommand
                     if (empty($user)) {echo "user not found: {$user->id}\n"; continue;}
                     $user->online = 0;
                     $user->save();
+                    $this->SendOnlineNotice($rpl, $user->id, 0);
 
                     echo "user offline: {$user->id}\n";
                 }
@@ -69,10 +70,26 @@ class OnlineUsersCommand extends CConsoleCommand
         $userCache = MessageCache::model()->find('cache = "'.$cache.'"');
         if (empty($userCache))
             return null;
-        return User::model()->cache(0)->find(array(
+        return User::model()->find(array(
             'condition'=>'id='.$userCache->user_id,
             'select'=>array('id', 'online')
         ));
+    }
+
+    /**
+     * @param Dklab_Realplexor $rpl
+     * @param int $user_id
+     * @param bool $online
+     */
+    private function SendOnlineNotice($rpl, $user_id, $online){
+        $dialogs = Im::model($user_id)->getDialogs();
+        foreach ($dialogs as $dialog) {
+            $rpl->send(MessageCache::GetUserCache($dialog['users'][0]), array(
+                'dialog_id' => $dialog['id'],
+                'type' => MessageLog::TYPE_STATUS_CHANGE,
+                'online' => $online
+            ));
+        }
     }
 }
 

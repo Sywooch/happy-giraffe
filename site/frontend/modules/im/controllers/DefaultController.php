@@ -59,6 +59,23 @@ class DefaultController extends Controller
         ));
     }
 
+    public function actionAjaxDialog()
+    {
+        $id = Yii::app()->request->getPost('id');
+        ActiveDialogs::model()->SetLastDialogId($id);
+        $messages = MessageLog::GetLastMessages($id);
+        $response = array(
+            'status' => true,
+            'html' => $this->renderPartial('_dialog_content', array(
+                'messages' => $messages,
+                'id' => $id
+            ), true)
+        );
+
+        echo CJSON::encode($response);
+        ActiveDialogs::model()->SetLastDialogId($id);
+    }
+
     public function actionCreate($id)
     {
         if ($id == Yii::app()->user->getId())
@@ -113,7 +130,7 @@ class DefaultController extends Controller
         $response = array(
             'id' => $message->id,
             'status' => true,
-            'html' => $this->renderPartial('_message', array('message' => $message->attributes), true)
+            'html' => $this->renderPartial('_message', array('message' => $message->attributes, 'read'=>0), true)
         );
         echo CJSON::encode($response);
     }
@@ -127,7 +144,7 @@ class DefaultController extends Controller
         if (!empty($messages))
             $response = array(
                 'status' => true,
-                'html' => $this->renderPartial('_messages', array('messages' => $messages), true)
+                'html' => $this->renderPartial('_messages', array('messages' => $messages, 'read' => true), true)
             );
         else $response = array('status' => false);
 
@@ -193,22 +210,6 @@ class DefaultController extends Controller
         }
 
         echo CJSON::encode($response);
-    }
-
-    public function actionAjaxDialog()
-    {
-        $id = Yii::app()->request->getPost('id');
-        $messages = MessageLog::GetLastMessages($id);
-        $response = array(
-            'status' => true,
-            'html' => $this->renderPartial('_dialog_content', array(
-                'messages' => $messages,
-                'id' => $id
-            ), true)
-        );
-
-        echo CJSON::encode($response);
-        ActiveDialogs::model()->SetLastDialogId($id);
     }
 
     /**

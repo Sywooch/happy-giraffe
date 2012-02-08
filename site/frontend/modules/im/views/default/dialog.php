@@ -1,18 +1,32 @@
 <div id="dialog">
     <div class="opened-dialogs-list">
-        <?php //$user = User::model()->cache(0)->findByPk(22);echo $user->online ?>
+        <?php
+        //User::clearCache(22);
+        //$user = User::model()->cache(24*3600)->findByPk(22);
+        //echo $user->online ?>
         <div class="t"></div>
         <div class="container">
             <ul>
                 <?php $dialogs = ActiveDialogs::model()->getDialogs(); ?>
                 <?php foreach ($dialogs as $dialog): ?>
-                <li<?php if ($dialog['id'] == $id) echo ' class="active"' ?> id="dialog-<?php echo $dialog['id'] ?>">
+                <?php $unread = MessageDialog::getUnreadMessagesCount($dialog['id']); ?>
+                <li<?php
+                    $class = '';
+                    if ($unread > 0) $class = 'new-messages';
+                    if ($dialog['id'] == $id) $class .= ' active';
+                    $class = trim($class);
+                    if (!empty($class))
+                        echo ' class="' . $class . '"';
+                    ?> id="dialog-<?php echo $dialog['id'] ?>">
                     <input type="hidden" value="<?php echo $dialog['id'] ?>" class="dialog-id">
                     <a href="#" class="remove"></a>
 
                     <div class="img"><img src="<?php echo $dialog['user']->pic_small->getUrl('mini') ?>"/></div>
-                <div class="status<?php if (!$dialog['user']->online) echo '-offline' ?>"><i class="icon"></i></div>
+                    <div class="status<?php if (!$dialog['user']->online) echo ' status-offline' ?>"><i
+                        class="icon"></i></div>
                     <div class="name"><span><?php echo $dialog['user']->getFullName() ?></span></div>
+                    <div
+                        class="meta"<?php if ($unread == 0) echo ' style="display:none"'; ?>><?php echo $unread; ?></div>
                 </li>
                 <?php endforeach; ?>
             </ul>
@@ -49,8 +63,6 @@
 
     </div>
 </div>
-
-
 
 
 
@@ -172,7 +184,10 @@ function ChangeDialog(id) {
         window.location = "<?php echo $this->createUrl('/im/default/index', array()) ?>";
     } else {
         $('.opened-dialogs-list li').removeClass('active');
-        $('#dialog-' + id + '').addClass('active');
+        $('#dialog-' + id).addClass('active');
+        $('#dialog-' + id + ' div.meta').hide();
+        $('#dialog-' + id + ' div.meta').html('0');
+        $('#dialog-' + id).removeClass('new-messages');
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("im/default/ajaxDialog") ?>',
             data:{id:id},
@@ -260,9 +275,17 @@ function SetReadStatus() {
 }
 
 function ShowNewMessage(result) {
-    last_massage = result.message_id;
-    $("#messages").append(result.html);
-    GoTop();
+    if (result.dialog_id == dialog) {
+        last_massage = result.message_id;
+        $("#messages").append(result.html);
+        GoTop();
+    } else {
+        var li = $('#dialog-' + result.dialog_id);
+        if (!li.hasClass('new-messages'))
+            li.addClass('new-messages');
+        var current_count = parseInt(li.find('.meta').text());
+        li.find('.meta').show().html(current_count + 1);
+    }
 }
 
 function ShowAsRead(result) {
@@ -272,6 +295,23 @@ function ShowAsRead(result) {
             $(this).removeClass("dialog-message-new-out");
         }
     });
+}
+
+function StatusChanged(result) {
+    if (dialog == result.dialog_id) {
+        if (result.online == 1) {
+            $('.user-details span.status-offline').removeClass('status-offline').addClass('status-online');
+        } else {
+            $('.user-details span.status-online').removeClass('status-online').addClass('status-offline');
+        }
+    }
+
+    if (result.online == 1){
+        $('#dialog-'+result.dialog_id+' div.status').removeClass('status-offline');
+    }else{
+        if (!$('.opened-dialogs-list ul li.active div.status').hasClass('status-offline'))
+            $('.opened-dialogs-list ul li.active div.status').addClass('status-offline');
+    }
 }
 
 function GoTop() {

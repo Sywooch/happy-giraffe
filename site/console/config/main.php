@@ -20,6 +20,7 @@ return array(
             'host' => 'chat.happy-giraffe.com',
             'port' => 10010,
             'namespace' => 'crm_',
-        )
+        ),
+        'db'=>require_once(dirname(__FILE__).'/db.php'),
     ),
 );

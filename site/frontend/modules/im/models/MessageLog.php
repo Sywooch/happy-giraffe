@@ -9,7 +9,6 @@
  * @property string $text
  * @property string $created
  * @property integer $read_status
- * @property integer $deleted
  *
  * The followings are the available model relations:
  * @property MessageDialog $dialog
@@ -46,14 +45,13 @@ class MessageLog extends CActiveRecord
         // will receive user inputs.
         return array(
             array('dialog_id', 'required'),
-            array('read_status, deleted', 'numerical', 'integerOnly' => true),
+            array('read_status', 'numerical', 'integerOnly' => true),
             array('dialog_id, user_id', 'length', 'max' => 10),
-            array('deleted', 'default', 'value' => 0),
             array('read_status', 'default', 'value' => 0),
             array('text, created', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('dialog_id, user_id, text, created, read_status, deleted', 'safe', 'on' => 'search'),
+            array('dialog_id, user_id, text, created, read_status', 'safe', 'on' => 'search'),
         );
     }
 
@@ -81,7 +79,6 @@ class MessageLog extends CActiveRecord
             'text' => 'Text',
             'created' => 'Created',
             'read_status' => 'Read Status',
-            'deleted' => 'Deleted',
         );
     }
 
@@ -101,7 +98,6 @@ class MessageLog extends CActiveRecord
         $criteria->compare('text', $this->text, true);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('read_status', $this->read_status);
-        $criteria->compare('deleted', $this->deleted);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -139,7 +135,7 @@ class MessageLog extends CActiveRecord
                 Yii::app()->comet->send(MessageCache::GetUserCache($user->user_id), array(
                     'message_id' => $message->id,
                     'type' => MessageLog::TYPE_NEW_MESSAGE,
-                    'html' => Yii::app()->controller->renderPartial('_message', array('message' => $message, 'read'=>true), true)
+                    'html' => Yii::app()->controller->renderPartial('_message', array('message' => $message->attributes, 'read' => true), true)
                 ));
             }
         }
@@ -150,22 +146,34 @@ class MessageLog extends CActiveRecord
     /**
      * @static
      * @param $dialog_id
-     * @return MessageLog[]
+     * @return array
      */
     static function GetLastMessages($dialog_id)
     {
+        $last_deleted = self::LastDeletedMessage($dialog_id);
+        $models = Yii::app()->db->createCommand()
+            ->select(array('id', 'user_id', 'text', 'created', 'read_status'))
+            ->from('message_log');
+        if (empty($last_deleted))
+            $models = $models->where('dialog_id=:dialog_id AND id not in
+                (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
+                ':dialog_id' => $dialog_id,
+                ':user_id' => Yii::app()->user->getId()
+            ));
+        else
+            $models = $models->where('dialog_id=:dialog_id AND id > :deleted_id AND id not in
+                (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
+                ':dialog_id' => $dialog_id,
+                ':user_id' => Yii::app()->user->getId(),
+                ':deleted_id'=>$last_deleted
+            ));
+
+        $models = $models->order('id desc')
+            ->limit(10)
+            ->queryAll();
+
         //send comet-message to user who emails.
         MessageDialog::SetRead($dialog_id);
-        $models = MessageLog::model()->with(array(
-            'user' => array(
-//                'select'=>array(),
-            )
-        ))->findAll(array(
-            'condition' => 'dialog_id=' . $dialog_id,
-            'order' => 't.id DESC',
-            'limit' => 10
-        ));
-
         return array_reverse($models);
     }
 
@@ -173,29 +181,97 @@ class MessageLog extends CActiveRecord
      * @static
      * @param $dialog_id
      * @param $message_id
-     * @return MessageLog[]
+     * @return array
      */
     static function GetMessagesBefore($dialog_id, $message_id)
     {
-        $models = MessageLog::model()->with(array(
-            'user'=>array(
-//                'select'=>array(),
-            )
-        ))->findAll(array(
-            'condition' => 'dialog_id=' . $dialog_id . ' AND t.id < ' . $message_id,
-            'order' => 't.created DESC',
-            'limit' => 10
+        $last_deleted = self::LastDeletedMessage($dialog_id);
+        $models = Yii::app()->db->createCommand()
+            ->select(array('id', 'user_id', 'text', 'created', 'read_status'))
+            ->from('message_log');
+
+        if (empty($last_deleted))
+            $models = $models->where('dialog_id=:dialog_id AND id < :message_id AND id not in
+                (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
+            ':dialog_id' => $dialog_id,
+            ':user_id' => Yii::app()->user->getId(),
+            ':message_id' => $message_id
         ));
+        else
+            $models = $models->where('dialog_id=:dialog_id AND id < :message_id AND id > :deleted_id AND id not in
+                (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
+                ':dialog_id' => $dialog_id,
+                ':user_id' => Yii::app()->user->getId(),
+                ':message_id' => $message_id,
+                ':deleted_id'=>$last_deleted
+            ));
+
+        $models = $models->order('id desc')
+            ->limit(10)
+            ->queryAll();
 
         return array_reverse($models);
+    }
+
+    public static function LastDeletedMessage($dialog_id)
+    {
+        $deleted = Yii::app()->db->createCommand()
+            ->select(array('message_id'))
+            ->from('message_dialog_deleted')
+            ->where('dialog_id = :dialog_id AND user_id = :user_id', array(
+            ':dialog_id' => $dialog_id,
+            ':user_id' => Yii::app()->user->getId()
+        ))
+            ->queryScalar();
+
+        return $deleted;
     }
 
     /**
      * @return bool
      */
-    public function isMessageSentByUser(){
+    public function isMessageSentByUser()
+    {
         if ($this->user_id == Yii::app()->user->getId())
             return true;
         return false;
+    }
+
+    /**
+     * @static
+     * @param string $time
+     * @return string
+     */
+    public static function GetFormattedTime($time)
+    {
+        $result = '';
+        if (date("Y:m:d", strtotime($time)) == date("Y:m:d"))
+            $result .= 'Сегодня';
+        elseif (date("Y", strtotime($time)) == date("Y"))
+            $result .= date("j", strtotime($time)) . ' '
+                . HDate::ruMonthShort(date("m", strtotime($time)));
+        else
+            $result .= date("Y", strtotime($time)) . '<br>' .
+                date("j", strtotime($time)) . ' '
+                . HDate::ruMonthShort(date("m", strtotime($time)));
+
+        $result .= '<br/>';
+        $result .= date("H:i", strtotime($time));
+
+        return $result;
+    }
+
+    /**
+     * @static
+     * @param int $id
+     */
+    public static function removeMessage($id)
+    {
+        Yii::app()->db->createCommand()
+            ->insert('message_deleted', array(
+            'message_id' => $id,
+            'user_id' => Yii::app()->user->getId(),
+        ))
+            ->execute();
     }
 }

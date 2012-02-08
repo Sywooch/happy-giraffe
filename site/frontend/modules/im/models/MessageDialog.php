@@ -5,7 +5,6 @@
  *
  * The followings are the available columns in table 'message_dialog':
  * @property string $id
- * @property string $cache
  * @property string $title
  *
  * The followings are the available model relations:
@@ -43,11 +42,10 @@ class MessageDialog extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('cache', 'required'),
-            array('cache, title', 'length', 'max' => 100),
+            array('title', 'length', 'max' => 100),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, cache, title', 'safe', 'on' => 'search'),
+            array('id, title', 'safe', 'on' => 'search'),
         );
     }
 
@@ -60,8 +58,8 @@ class MessageDialog extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'messageLogs' => array(self::HAS_MANY, 'MessageLog', 'dialog_id'),
-            'messageUsers' => array(self::HAS_MANY, 'MessageUser','dialog_id'),
-            'lastMessage' => array(self::HAS_ONE, 'MessageLog', 'dialog_id','order'=>'lastMessage.id DESC'),
+            'messageUsers' => array(self::HAS_MANY, 'MessageUser', 'dialog_id'),
+            'lastMessage' => array(self::HAS_ONE, 'MessageLog', 'dialog_id', 'order' => 'lastMessage.id DESC'),
         );
     }
 
@@ -72,7 +70,6 @@ class MessageDialog extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'cache' => 'Cache',
             'title' => 'Title',
         );
     }
@@ -89,7 +86,6 @@ class MessageDialog extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('cache', $this->cache, true);
         $criteria->compare('title', $this->title, true);
 
         return new CActiveDataProvider($this, array(
@@ -109,8 +105,10 @@ class MessageDialog extends CActiveRecord
                 'condition' => 'dialog_id=' . $dialog_id . ' AND user_id != ' . Yii::app()->user->getId(),
                 'order' => 'id DESC',
             ));
+            if (empty($last_message))
+                return;
             $last_message_id = $last_message->id;
-        }else
+        } else
             $last_message = MessageLog::model()->findByPk($last_message_id);
 
         $user_id = Yii::app()->user->getId();
@@ -127,10 +125,11 @@ class MessageDialog extends CActiveRecord
      * @static
      * @return MessageDialog[]
      */
-    public static function GetUserNewDialogs(){
+    public static function GetUserNewDialogs()
+    {
         $dialogs = self::GetUserDialogs();
         $new = array();
-        foreach($dialogs as $dialog){
+        foreach ($dialogs as $dialog) {
             if ($dialog->unreadByMe || $dialog->unreadByPal)
                 $new [] = $dialog;
         }
@@ -141,10 +140,11 @@ class MessageDialog extends CActiveRecord
      * @static
      * @return MessageDialog[]
      */
-    public static function GetUserOnlineDialogs(){
+    public static function GetUserOnlineDialogs()
+    {
         $dialogs = self::GetUserDialogs();
         $online = array();
-        foreach($dialogs as $dialog){
+        foreach ($dialogs as $dialog) {
             if ($dialog->GetInterlocutor()->online)
                 $online [] = $dialog;
         }
@@ -161,6 +161,7 @@ class MessageDialog extends CActiveRecord
         //load last messages
         $criteria = new CDbCriteria;
         $criteria->compare('t.id', $dialogs);
+        $criteria->order = 'lastMessage.created desc';
         $dialogs = MessageDialog::model()->with(array(
             'lastMessage'
         ))->findAll($criteria);
@@ -222,5 +223,27 @@ class MessageDialog extends CActiveRecord
         }
 
         return null;
+    }
+
+    public function deleteDialog()
+    {
+        Yii::app()->db->createCommand()
+            ->delete('message_dialog_deleted', 'dialog_id = :dialog_id AND user_id =:user_id', array(
+            'dialog_id' => $this->id,
+            'user_id' => Yii::app()->user->getId(),
+        ));
+
+        if (isset($this->lastMessage)) {
+            $last_message = $this->lastMessage->id;
+
+            Yii::app()->db->createCommand()
+                ->insert('message_dialog_deleted', array(
+                'dialog_id' => $this->id,
+                'message_id' => $last_message,
+                'user_id' => Yii::app()->user->getId(),
+            ))
+                ->execute();
+        }
+        return true;
     }
 }

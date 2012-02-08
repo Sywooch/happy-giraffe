@@ -14,6 +14,8 @@
         ?>">
         <input type="hidden" value="<?php echo $this->createUrl('/im/default/dialog', array('id' => $dialog->id)) ?>"
                class="dialog_url">
+        <input type="hidden" value="<?php echo $dialog->id ?>"
+               class="dialog_id">
         <table>
             <tr>
                 <td class="user">
@@ -46,6 +48,26 @@
 
 <script type="text/javascript">
     $(function () {
+        $('.dialog-message .actions a.remove').click(function(){
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("/im/default/removeDialog") ?>',
+                data:{id:$(this).parents('.dialog-message').find('input.dialog_id').val()},
+                type:'POST',
+                dataType:'JSON',
+                success:function (response) {
+                    if (response.status) {
+                        $(this).parents('.dialog-message').remove();
+                        if (response.active_dialog_url == '')
+                            $('.nav .opened').hide();
+                        else
+                            $('.nav .opened a').attr("href", response.active_dialog_url);
+                    }
+                },
+                context:$(this)
+            });
+            return false;
+        });
+
         $('div.dialog-message').click(function () {
             var url = $(this).find('.dialog_url').val();
             window.location = url;

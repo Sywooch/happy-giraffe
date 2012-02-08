@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
 	if ($('a.fancy').size() > 0) {
         $('body').delegate('a.fancy', 'click', function() {
             $(this).clone().fancybox({
@@ -11,6 +12,9 @@ $(document).ready(function() {
             return false;
         });
     }
+	
+	if ($('.chzn').size() > 0) $('.chzn').chosen();
+	
 });
 
 function addAttributesToCart(form, update) {
@@ -38,7 +42,9 @@ function setTab(el, num){
 		tabs.find('li').removeClass('active');
 		li.addClass('active');
 		tabs.find('.tab-box-'+num).fadeIn();
+		initSelects(tabs.find('.tab-box-'+num));
 		tabs.find('.tab-box').not('.tab-box-'+num).hide();
+		
 	}
 }
 
@@ -172,4 +178,10 @@ function setSelectBoxValue(el){
 	$(el).parents('.select-box').find('.select-list li').removeClass('active');
 	$(el).addClass('active');
 	if (!$(el).parents().hasClass('popup-container')) toggleSelectBox(el);
+}
+
+function initSelects(block){
+	block.find('.chzn-done').next().remove();
+	block.find('.chzn-done').removeClass('chzn-done').chosen();
+	//alert(block);
 }

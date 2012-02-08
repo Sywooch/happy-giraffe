@@ -1,13 +1,16 @@
 <?php
+
 /**
- * Created by JetBrains PhpStorm.
- * User: Eugene
- * Date: 06.02.12
- * Time: 12:15
- * To change this template use File | Settings | File Templates.
+ * property CActiveRecord $model
+ * property array $options
+ * property array $providers
  */
 class SocialLikeWidget extends CWidget
 {
+
+    /**
+     * @var CActiveRecord
+     */
     public $model;
 
     public $options;
@@ -20,10 +23,9 @@ class SocialLikeWidget extends CWidget
         'tw' => array(
             'via' => 'HappyGiraffe'
         ),
+        'mr' => array(),
+        'gp' => array(),
         'ok' => array(),
-        'gp' => array(
-
-        ),
     );
 
     public function init()
@@ -33,6 +35,9 @@ class SocialLikeWidget extends CWidget
             $this->options['image'] = Yii::app()->createAbsoluteUrl('/') . $this->options['image'];
         if(isset($this->options['description']))
             $this->options['description'] = Str::truncate(trim(strip_tags(html_entity_decode($this->options['description'], ENT_QUOTES, 'UTF-8'))), 300, '...');
+        if(!isset($this->options['url']))
+            $this->options['url'] = Yii::app()->createAbsoluteUrl(Yii::app()->request->pathInfo);
+        RatingCache::checkCache($this->model, $this->providers, $this->options['url']);
         $this->render('index');
     }
 }

@@ -5,5 +5,5 @@ Yii::app()->clientScript
     ->registerScript('ok_init', 'ODKL.init();', CClientScript::POS_READY);
 ?>
 <div style="float: left;">
-    <a class="odkl-klass-oc" href="<?php echo $this->options['url']; ?>" onclick="ODKL.Share(this);return false;" ><span>0</span></a>
+    <a class="odkl-klass-stat" href="<?php echo $this->options['url']; ?>" onclick="ODKL.Share(this);return false;" ><span>0</span></a>
 </div>

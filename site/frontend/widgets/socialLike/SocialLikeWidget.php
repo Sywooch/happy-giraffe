@@ -13,9 +13,12 @@ class SocialLikeWidget extends CWidget
      */
     public $model;
 
+    public $title;
+
     public $options;
 
     public $providers = array(
+        'yh' => array(),
         'vk' => array(
             'id' => 2791084,
         ),

@@ -96,12 +96,13 @@ class User extends CActiveRecord
             //general
             array('first_name, last_name', 'length', 'max' => 50),
             array('email', 'email'),
+            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup'),
             array('online', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
             array('gender', 'boolean'),
             array('phone', 'safe'),
-            array('settlement_id', 'numerical', 'integerOnly' => true),
+            array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
 
             //login
@@ -110,6 +111,7 @@ class User extends CActiveRecord
             //signup
             array('first_name, email, password, gender', 'required', 'on' => 'signup'),
             array('verifyCode', 'captcha', 'on' => 'signup', 'allowEmpty' => Yii::app()->session->get('service') !== NULL),
+            array('email', 'unique', 'on' => 'signup'),
 
             //change_password
             array('new_password', 'required', 'on' => 'change_password'),
@@ -168,6 +170,13 @@ class User extends CActiveRecord
             'userSocialServices' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
             'userViaCommunities' => array(self::HAS_MANY, 'UserViaCommunity', 'user_id'),
             'vaccineDateVotes' => array(self::HAS_MANY, 'VaccineDateVote', 'user_id'),
+        );
+    }
+
+    public function defaultScope()
+    {
+        return array(
+            'condition' => $this->getTableAlias(false, false) . '.deleted = 0',
         );
     }
 

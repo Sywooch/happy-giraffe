@@ -69,6 +69,7 @@ var window_active = 1;
 var dialog = <?php echo $id ?>;
 var last_massage = null;
 var no_more_messages = 0;
+var last_typing_time = 0;
 
 $(function () {
     GoTop();
@@ -174,6 +175,23 @@ $(function () {
         }
         return false;
     });
+
+    var editor = CKEDITOR.instances['MessageLog[text]'];
+    editor.on('key', function (e) {
+        if (last_typing_time + 10000 < new Date().getTime()) {
+            last_typing_time = new Date().getTime();
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("/im/default/UserTyping") ?>',
+                data:{dialog_id:dialog},
+                type:'POST'
+            });
+        }
+        console.log(e);
+
+        if (e.data.keyCode == 1114125) {
+            SendMessage();
+        }
+    });
 });
 
 function ChangeDialog(id) {
@@ -195,6 +213,7 @@ function ChangeDialog(id) {
                 dialog = id;
                 last_massage = null;
                 no_more_messages = 0;
+                last_typing_time = 0;
                 $('div.dialog-inn').html(response.html);
                 GoTop();
                 $('#messages').bind('scroll', MoreMessages);
@@ -283,8 +302,9 @@ function ShowNewMessage(result) {
         var li = $('#dialog-' + result.dialog_id);
         if (!li.hasClass('new-messages'))
             li.addClass('new-messages');
-        var current_count = parseInt(li.find('.meta').text());
-        li.find('.meta').show().html(current_count + 1);
+        var current_count = parseInt(li.find('.meta:first').text());
+        li.find('.meta:first').show().html(current_count + 1);
+        li.find('.meta:last').hide();
     }
 }
 
@@ -312,6 +332,13 @@ function StatusChanged(result) {
         if (!$('.opened-dialogs-list ul li.active div.status').hasClass('status-offline'))
             $('.opened-dialogs-list ul li.active div.status').addClass('status-offline');
     }
+}
+
+function ShowUserTyping(result) {
+    $('#dialog-' + result.dialog_id).append('<div class="meta"><i class="editing"></i></div>')
+        .find('div.meta:last').delay(5000).fadeOut(300, function () {
+            $(this).remove()
+        });
 }
 
 function GoTop() {

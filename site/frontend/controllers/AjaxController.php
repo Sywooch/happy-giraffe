@@ -13,8 +13,15 @@ class AjaxController extends Controller
         $model = $modelName::model()->findByPk($objectId);
         if(!$model)
             Yii::app()->end();
-        Rating::saveByEntity($model, $social_key, $value);
-        echo Rating::countByEntity($model);
+
+        if($social_key == 'yh')
+            Rating::pushUserByYohoho($model, Yii::app()->user->id);
+        else
+            Rating::saveByEntity($model, $social_key, $value, true);
+        echo CJSON::encode(array(
+            'entity' => Rating::countByEntity($model, $social_key),
+            'count' => Rating::countByEntity($model),
+        ));
         Yii::app()->end();
 	}
 

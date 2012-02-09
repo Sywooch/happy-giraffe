@@ -276,7 +276,7 @@ function MoreMessages(event) {
 
 function SetReadStatus() {
     if (window_active && last_massage !== null){
-        $("#messages .dialog-message-new-in td").animate({ backgroundColor: "#fff" }, 3000);
+        $("#messages .dialog-message-new-in td").animate({ backgroundColor: "#fff" }, 2000);
         $('.dialog-message-new-in').removeClass('dialog-message-new-in');
 
         $.ajax({
@@ -312,7 +312,14 @@ function ShowAsRead(result) {
     $(".dialog-message-new-out").each(function (index) {
         var id = $(this).attr("id").replace(/mess/g, "");
         if (id <= result.message_id) {
+            $(this).find("td.content").css('background-color' , '#EBF5FF');
+            $(this).find("td.content").animate({ backgroundColor: "#fff" }, 2000);
+            $(this).find("td.meta").css('background-color' , '#EBF5FF');
+            $(this).find("td.meta").animate({ backgroundColor: "#fff" }, 2000);
+            $(this).find("td.actions").css('background-color' , '#EBF5FF');
+            $(this).find("td.actions").animate({ backgroundColor: "#fff" }, 2000);
             $(this).removeClass("dialog-message-new-out");
+
         }
     });
 }

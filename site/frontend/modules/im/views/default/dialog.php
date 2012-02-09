@@ -263,9 +263,8 @@ function MoreMessages(event) {
                     $('#messages .dialog-message:first').before(response.html);
 
                     var h = 0;
-                    for (var i = 1; i < 10; i++) {
+                    for (var i = 1; i < response.count; i++)
                         h += $("#messages .dialog-message:eq(" + i + ")").outerHeight(true);
-                    }
 
                     $("#messages").scrollTop(h);
                     $('#messages').delay(2000).bind('scroll', MoreMessages);

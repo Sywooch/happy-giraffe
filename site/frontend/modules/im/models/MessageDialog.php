@@ -132,7 +132,7 @@ class MessageDialog extends CActiveRecord
         $dialogs = self::GetUserDialogs();
         $new = array();
         foreach ($dialogs as $dialog) {
-            if ($dialog->unreadByMe || $dialog->unreadByPal)
+            if ($dialog->unreadByMe)
                 $new [] = $dialog;
         }
         return $new;

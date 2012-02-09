@@ -187,6 +187,10 @@ $(function () {
         }
     });
 
+    $("body").delegate(".dialog-message a.claim", "click", function(e){
+        e.preventDefault();
+        report($(this).parents(".dialog-message"));
+    });
 });
 
 function ChangeDialog(id) {
@@ -310,7 +314,7 @@ function ShowNewMessage(result) {
 
 function ShowAsRead(result) {
     $(".dialog-message-new-out").each(function (index) {
-        var id = $(this).attr("id").replace(/mess/g, "");
+        var id = $(this).attr("id").replace(/MessageLog_/g, "");
         if (id <= result.message_id) {
             $(this).find("td.content").css('background-color' , '#EBF5FF');
             $(this).find("td.content").animate({ backgroundColor: "#fff" }, 2000);
@@ -350,5 +354,30 @@ function ShowUserTyping(result) {
 
 function GoTop() {
     $("#messages").scrollTop($("#messages")[0].scrollHeight);
+}
+
+function report(item)
+{
+    if (item.next().attr('class') != 'report-block')
+    {
+        var source_data = item.attr('id').split('_');
+        $.ajax({
+            type: 'POST',
+            data: {
+                source_data: {
+                    model: source_data[0],
+                    object_id: source_data[1]
+                }
+            },
+            url: "<?php echo  $this->createUrl('/ajax/showreport') ?>",
+            success: function(response) {
+                item.after(response);
+            }
+        });
+    }
+    else
+    {
+        item.next().remove();
+    }
 }
 </script>

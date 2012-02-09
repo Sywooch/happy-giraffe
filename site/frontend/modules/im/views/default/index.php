@@ -11,7 +11,7 @@
         else {
             echo ($dialog->lastMessage->isMessageSentByUser()) ? 'out' : 'in';
         }
-        ?>">
+        ?>" id="MessageDialog_<?php echo $dialog->id; ?>">
         <input type="hidden" value="<?php echo $this->createUrl('/im/default/dialog', array('id' => $dialog->id)) ?>"
                class="dialog_url">
         <input type="hidden" value="<?php echo $dialog->id ?>"
@@ -71,11 +71,41 @@
             return false;
         });
 
+        $(".dialog-message a.claim").click(function(){
+            report($(this).parents(".dialog-message"));
+            return false;
+        });
+
         $('div.dialog-message').click(function () {
             var url = $(this).find('.dialog_url').val();
             window.location = url;
         });
     });
+
+    function report(item)
+    {
+        if (item.next().attr('class') != 'report-block')
+        {
+            var source_data = item.attr('id').split('_');
+            $.ajax({
+                type: 'POST',
+                data: {
+                    source_data: {
+                        model: source_data[0],
+                        object_id: source_data[1]
+                    }
+                },
+                url: "<?php echo  $this->createUrl('/ajax/showreport') ?>",
+                success: function(response) {
+                    item.after(response);
+                }
+            });
+        }
+        else
+        {
+            item.next().remove();
+        }
+    }
 </script>
 
 

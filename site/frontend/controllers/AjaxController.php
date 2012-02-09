@@ -95,7 +95,9 @@ class AjaxController extends Controller
 		$accepted_models = array(
 			'CommunityComment',
 			'CommunityContent',
-            'RecipeBookRecipe'
+            'RecipeBookRecipe',
+            'MessageDialog',
+            'MessageLog'
 		);
 	
 		$source_data = $_POST['source_data'];

@@ -38,33 +38,8 @@ $('.report-form').live('submit', function() {
 	});
 	return false;
 });
-function report(item)
-{
-	if (item.next().attr('class') != 'report-block')
-	{
-		var source_data = item.attr('id').split('_');
-		$.ajax({
-			type: 'POST',
-			data: {
-				source_data: {
-					model: source_data[0],
-					object_id: source_data[1],
-				}
-			},
-			url: " . CJSON::encode($this->createUrl('/ajax/showreport')) . ",
-			success: function(response) {
-				item.after(response);
-			}
-		});
-	}
-	else
-	{
-		item.next().remove();
-	}
-
-}
 		";
-    Yii::app()->clientScript->registerScript('reports', $reports);
+    Yii::app()->clientScript->registerScript('reports_', $reports);
     ?>
 </head>
 <body class="body-club">

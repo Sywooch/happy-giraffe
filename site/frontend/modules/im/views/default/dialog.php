@@ -253,7 +253,7 @@ function SendMessage() {
 
 function MoreMessages(event) {
     if ($(this).scrollTop() < 20 && no_more_messages == 0) {
-        var first_id = $('#messages .dialog-message:first').attr('id').replace(/mess/g, "");
+        var first_id = $('#messages .dialog-message:first').attr('id').replace(/MessageLog_/g, "");
         $('#messages').unbind('scroll');
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("im/default/moreMessages") ?>',

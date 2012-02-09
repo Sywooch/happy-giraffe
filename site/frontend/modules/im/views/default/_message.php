@@ -8,7 +8,7 @@ $user = User::getUserById($message['user_id']);
         <tr>
             <td class="user">
 
-                <div class="img"><img src="<?php echo $user->pic_small->getUrl('mini') ?>" /></div>
+                <div class="img"><img src="<?php echo $user->getMiniAva() ?>" /></div>
                 <span><?php $user->first_name ?></span>
 
             </td>

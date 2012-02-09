@@ -3,13 +3,15 @@
  * @var $message array
  */
 $user = User::getUserById($message['user_id']);
-?><div class="dialog-message<?php if ($message['read_status'] == 0 && !$read) echo ' dialog-message-new-out' ?>" id="mess<?php echo $message['id'] ?>">
+if (!isset($class))
+    $class = '';
+?><div class="dialog-message<?php if ($message['read_status'] == 0 && !$read) echo ' dialog-message-new-out' ?> <?php echo $class ?>" id="mess<?php echo $message['id'] ?>">
     <table>
         <tr>
             <td class="user">
 
                 <div class="img"><img src="<?php echo $user->getMiniAva() ?>" /></div>
-                <span><?php $user->first_name ?></span>
+                <span><?php echo $user->first_name ?></span>
 
             </td>
             <td class="content">

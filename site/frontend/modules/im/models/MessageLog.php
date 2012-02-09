@@ -138,7 +138,11 @@ class MessageLog extends CActiveRecord
                     'message_id' => $message->id,
                     'dialog_id' => $dialog_id,
                     'type' => MessageLog::TYPE_NEW_MESSAGE,
-                    'html' => Yii::app()->controller->renderPartial('_message', array('message' => $message->attributes, 'read' => 1), true)
+                    'html' => Yii::app()->controller->renderPartial('_message', array(
+                        'message' => $message->attributes,
+                        'read' => 1,
+                        'class'=>'dialog-message-new-in'
+                    ), true)
                 ));
             }
         }

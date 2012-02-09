@@ -4,6 +4,7 @@
 </div>
 <?php
 $js = 'function pushYohoho() {
+            ' . (Yii::app()->user->isGuest ? 'return false;' : '') . '
             $.post(
                 "' . Yii::app()->createUrl('/ajax/rate') . '",
                 {

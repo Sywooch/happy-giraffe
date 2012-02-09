@@ -94,7 +94,7 @@ $(function () {
     });
 
     $('body').delegate('div.dialog-message a.remove', 'click', function () {
-        var id = $(this).parents('div.dialog-message').attr("id").replace(/mess/g, "");
+        var id = $(this).parents('div.dialog-message').attr("id").replace(/MessageLog_/g, "");
         $(this).parents('div.dialog-message').remove();
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("im/default/removeMessage") ?>',

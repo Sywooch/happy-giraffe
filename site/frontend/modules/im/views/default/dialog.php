@@ -62,7 +62,9 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.color.animatio
 
     </div>
 </div>
-
+<style type="text/css">
+    .cke_bottom {display: none;}
+</style>
 <script type="text/javascript">
 var window_active = 1;
 

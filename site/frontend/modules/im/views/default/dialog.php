@@ -301,6 +301,7 @@ function ShowNewMessage(result) {
         $("#messages").append(result.html);
         $("#messages .dialog-message-new-in:last td").css('background-color' , '#EBF5FF');
         GoTop();
+        SetReadStatus();
     } else {
         var li = $('#dialog-' + result.dialog_id);
         if (!li.hasClass('new-messages'))

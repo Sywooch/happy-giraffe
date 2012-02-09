@@ -132,7 +132,7 @@ class MessageDialog extends CActiveRecord
         $dialogs = self::GetUserDialogs();
         $new = array();
         foreach ($dialogs as $dialog) {
-            if ($dialog->unreadByMe || $dialog->unreadByPal)
+            if ($dialog->unreadByMe)
                 $new [] = $dialog;
         }
         return $new;
@@ -248,9 +248,31 @@ class MessageDialog extends CActiveRecord
                 'message_id' => $last_message,
                 'user_id' => Yii::app()->user->getId(),
             ));
+            Yii::app()->db->createCommand()
+                ->update('message_log', array(
+                    'read_status' => 1
+                ),
+                'dialog_id =:dialog_id AND user_id != :user_id AND read_status=0', array(
+                    ':dialog_id' => $this->id,
+                    ':user_id' => Yii::app()->user->getId(),
+                )
+            );
             Im::clearCache();
         }
         ActiveDialogs::model()->deleteDialog($this->id);
         return true;
+    }
+
+    static function getUnreadMessagesCount($id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('count(t.id)')
+            ->from(MessageLog::model()->tableName() . ' t')
+        //->join('message_dialog_deleted t2', 't2.dialog_id = t.id AND t2.user_id = ' . Yii::app()->user->getId())
+            ->where('t.dialog_id = :dialog_id AND t.user_id != ' . Yii::app()->user->getId()
+            . ' AND t.read_status = 0', array(
+            ':dialog_id' => $id
+        ))
+            ->queryScalar();
     }
 }

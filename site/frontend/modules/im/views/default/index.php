@@ -11,7 +11,7 @@
         else {
             echo ($dialog->lastMessage->isMessageSentByUser()) ? 'out' : 'in';
         }
-        ?>">
+        ?>" id="MessageDialog_<?php echo $dialog->id; ?>">
         <input type="hidden" value="<?php echo $this->createUrl('/im/default/dialog', array('id' => $dialog->id)) ?>"
                class="dialog_url">
         <input type="hidden" value="<?php echo $dialog->id ?>"
@@ -20,7 +20,8 @@
             <tr>
                 <td class="user">
 
-                    <div class="ava"></div>
+                    <div class="ava"><img src="<?php echo Im::model()->GetDialogUser($dialog->id)->getAva(); ?>" alt="">
+                    </div>
                     <span><?php echo Im::model()->GetDialogUser($dialog->id)->getFullName() ?></span>
 
                 </td>
@@ -48,23 +49,30 @@
 
 <script type="text/javascript">
     $(function () {
-        $('.dialog-message .actions a.remove').click(function(){
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/im/default/removeDialog") ?>',
-                data:{id:$(this).parents('.dialog-message').find('input.dialog_id').val()},
-                type:'POST',
-                dataType:'JSON',
-                success:function (response) {
-                    if (response.status) {
-                        $(this).parents('.dialog-message').remove();
-                        if (response.active_dialog_url == '')
-                            $('.nav .opened').hide();
-                        else
-                            $('.nav .opened a').attr("href", response.active_dialog_url);
-                    }
-                },
-                context:$(this)
-            });
+        $('.dialog-message .actions a.remove').click(function () {
+            if (confirm("Удалить диалог?")) {
+                $.ajax({
+                    url:'<?php echo Yii::app()->createUrl("/im/default/removeDialog") ?>',
+                    data:{id:$(this).parents('.dialog-message').find('input.dialog_id').val()},
+                    type:'POST',
+                    dataType:'JSON',
+                    success:function (response) {
+                        if (response.status) {
+                            $(this).parents('.dialog-message').remove();
+                            if (response.active_dialog_url == '')
+                                $('.nav .opened').hide();
+                            else
+                                $('.nav .opened a').attr("href", response.active_dialog_url);
+                        }
+                    },
+                    context:$(this)
+                });
+            }
+            return false;
+        });
+
+        $(".dialog-message a.claim").click(function(){
+            report($(this).parents(".dialog-message"));
             return false;
         });
 
@@ -73,6 +81,31 @@
             window.location = url;
         });
     });
+
+    function report(item)
+    {
+        if (item.next().attr('class') != 'report-block')
+        {
+            var source_data = item.attr('id').split('_');
+            $.ajax({
+                type: 'POST',
+                data: {
+                    source_data: {
+                        model: source_data[0],
+                        object_id: source_data[1]
+                    }
+                },
+                url: "<?php echo  $this->createUrl('/ajax/showreport') ?>",
+                success: function(response) {
+                    item.after(response);
+                }
+            });
+        }
+        else
+        {
+            item.next().remove();
+        }
+    }
 </script>
 
 

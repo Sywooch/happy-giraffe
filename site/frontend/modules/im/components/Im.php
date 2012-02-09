@@ -11,9 +11,13 @@ class Im
     const USER_CACHE_ID = 'user_dialogs_';
     private $_user_id;
 
-    private function __construct()
+    private function __construct($user_id = null)
     {
-        $this->_user_id = Yii::app()->user->getId();
+        if ($user_id === null)
+            $this->_user_id = Yii::app()->user->getId();
+        else
+            $this->_user_id = $user_id;
+
         $this->loadDialogs();
     }
 
@@ -45,16 +49,16 @@ class Im
                 'id' => $dialog->id,
                 'name' => '',
                 'users' => array(),
-                'empty'=>false
+                'empty' => false
             );
 
             //check empty dialogs
             if (empty($dialog->lastMessage))
-                $new_dialog['empty']=true;
+                $new_dialog['empty'] = true;
 
             if (isset($dialog->lastMessage) && isset($dialog->lastDeletedMessage))
                 if ($dialog->lastMessage->id <= $dialog->lastDeletedMessage->message_id)
-                    $new_dialog['empty']=true;
+                    $new_dialog['empty'] = true;
 
             foreach ($dialog->messageUsers as $user) {
                 if ($user->user_id !== $this->_user_id && !in_array($user->user_id, $this->_dialogs)) {
@@ -98,12 +102,13 @@ class Im
 
     /**
      * @static
+     * @param null $user_id
      * @return Im
      */
-    public static function model()
+    public static function model($user_id = null)
     {
         if (is_null(self::$instance)) {
-            self::$instance = new Im;
+            self::$instance = new Im($user_id);
         }
         return self::$instance;
     }
@@ -167,6 +172,10 @@ class Im
     {
         $length = strlen($needle);
         return (substr($haystack, 0, $length) === $needle);
+    }
+
+    public function getDialogs(){
+        return $this->_dialogs;
     }
 
     static function clearCache()

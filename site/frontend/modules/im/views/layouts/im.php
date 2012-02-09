@@ -16,7 +16,13 @@ Yii::app()->clientScript->registerScript('Realplexor-reg', '
                     ShowNewMessage(result);
             } else if (result.type == '. MessageLog::TYPE_READ .') {
                 if(window.ShowAsRead)
-                        ShowAsRead(result);
+                    ShowAsRead(result);
+            } else if (result.type == '. MessageLog::TYPE_STATUS_CHANGE .') {
+                if(window.StatusChanged)
+                    StatusChanged(result);
+            } else if (result.type == '. MessageLog::TYPE_USER_WRITE .') {
+                if(window.ShowUserTyping)
+                    ShowUserTyping(result);
             }
         });
         realplexor.execute();
@@ -99,7 +105,7 @@ Yii::app()->clientScript->registerScript('Realplexor-reg', '
 
 <div class="side-right">
 
-    side
+    <?php echo Yii::app()->user->getId() ?>
 
 </div>
 <?php $this->endContent(); ?>

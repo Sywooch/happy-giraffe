@@ -49,6 +49,20 @@ class User extends CActiveRecord
 
     public function afterSave()
     {
-        User::model()->cache(0)->findByPk($this->id);
+        //Yii::app()->cache->delete('User_' . $this->id);
+        $cacheKey='yii:dbquery'.Yii::app()->db->connectionString.':'.Yii::app()->db->username;
+        $cacheKey.=':'.'SELECT * FROM `user` `t` WHERE `t`.`id`=\''.$this->id.'\' LIMIT 1:a:0:{}';
+        Yii::app()->cache->delete($cacheKey);
+    }
+
+    public static function getUserById($id)
+    {
+        $user = User::model()->cache(3600*24)->findByPk($id);
+        return $user;
+    }
+
+    public function getFullName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }

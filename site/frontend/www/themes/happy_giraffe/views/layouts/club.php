@@ -38,33 +38,8 @@ $('.report-form').live('submit', function() {
 	});
 	return false;
 });
-function report(item)
-{
-	if (item.next().attr('class') != 'report-block')
-	{
-		var source_data = item.attr('id').split('_');
-		$.ajax({
-			type: 'POST',
-			data: {
-				source_data: {
-					model: source_data[0],
-					object_id: source_data[1],
-				}
-			},
-			url: " . CJSON::encode($this->createUrl('/ajax/showreport')) . ",
-			success: function(response) {
-				item.after(response);
-			}
-		});
-	}
-	else
-	{
-		item.next().remove();
-	}
-
-}
 		";
-    Yii::app()->clientScript->registerScript('reports', $reports);
+    Yii::app()->clientScript->registerScript('reports_', $reports);
     ?>
 </head>
 <body class="body-club">
@@ -122,60 +97,6 @@ function report(item)
 </div>
 <div id="footer" class="wrapper">
     f
-</div>
-<div style="display:none">
-    <div id="login" class="popup">
-
-        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
-
-        <div class="popup-title">Вход на сайт</div>
-
-        <form>
-            <div class="form">
-
-                <div class="a-right login-btn">
-
-                    <div class="remember">
-                        <label><input type="checkbox"/><br/>Запомнить меня</label>
-                    </div>
-
-                    <button class="btn btn-green-arrow-big"><span><span>Войти</span></span></button>
-
-                </div>
-
-                <div class="row">
-                    <div class="row-title">Ваш e-mail:</div>
-                    <div class="row-elements"><input type="text"/></div>
-                </div>
-
-                <div class="row">
-                    <div class="row-title">Ваш пароль:</div>
-                    <div class="row-elements"><input type="password"/></div>
-                    <div class="row-bottom"><a href="">Забыли пароль?</a></div>
-                </div>
-
-                <div class="row row-social">
-                    Быстрый вход:
-                    &nbsp;
-                    <a href=""><img src="../images/icon_social_odnoklassniki.png"/></a>
-                    <a href=""><img src="../images/icon_social_vkontakte.png"/></a>
-                    <a href=""><img src="../images/icon_social_mailru.png"/></a>
-                </div>
-
-                <div class="reg-link">
-
-                    <div class="a-right">
-                        <a class="btn btn-orange" href=""><span><span>Зарегистрироваться</span></span></a>
-                    </div>
-
-                    <div class="row"><span>Еще нет учетной записи?</span></div>
-
-                </div>
-
-            </div>
-        </form>
-
-    </div>
 </div>
 </body>
 </html>

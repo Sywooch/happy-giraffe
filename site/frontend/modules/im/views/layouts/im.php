@@ -20,6 +20,9 @@ Yii::app()->clientScript->registerScript('Realplexor-reg', '
             } else if (result.type == '. MessageLog::TYPE_STATUS_CHANGE .') {
                 if(window.StatusChanged)
                     StatusChanged(result);
+            } else if (result.type == '. MessageLog::TYPE_USER_WRITE .') {
+                if(window.ShowUserTyping)
+                    ShowUserTyping(result);
             }
         });
         realplexor.execute();

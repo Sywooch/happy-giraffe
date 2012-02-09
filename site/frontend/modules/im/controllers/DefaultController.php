@@ -104,7 +104,7 @@ class DefaultController extends Controller
             Im::clearCache();
             $dialog_id = $dialog->id;
         }
-        $this->redirect($this->createUrl('/im/default/dialog', array('id'=>$dialog_id)));
+        $this->redirect($this->createUrl('/im/default/dialog', array('id' => $dialog_id)));
     }
 
     public function actionSetRead()
@@ -123,7 +123,7 @@ class DefaultController extends Controller
         $response = array(
             'id' => $message->id,
             'status' => true,
-            'html' => $this->renderPartial('_message', array('message' => $message->attributes, 'read'=>0), true)
+            'html' => $this->renderPartial('_message', array('message' => $message->attributes, 'read' => 0), true)
         );
         echo CJSON::encode($response);
     }
@@ -203,6 +203,16 @@ class DefaultController extends Controller
         }
 
         echo CJSON::encode($response);
+    }
+
+    public function actionUserTyping()
+    {
+        $dialog_id = Yii::app()->request->getPost('dialog_id');
+        $user_to = Im::model()->GetDialogUser($dialog_id);
+        Yii::app()->comet->send(MessageCache::GetUserCache($user_to->id), array(
+            'type' => MessageLog::TYPE_USER_WRITE,
+            'dialog_id'=>$dialog_id
+        ));
     }
 
     /**

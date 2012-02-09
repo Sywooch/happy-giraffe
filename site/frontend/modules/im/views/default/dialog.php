@@ -1,3 +1,6 @@
+<?php
+Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.color.animation.js');
+?>
 <div id="dialog">
     <div class="opened-dialogs-list">
         <div class="t"></div>
@@ -60,9 +63,6 @@
     </div>
 </div>
 
-
-
-
 <script type="text/javascript">
 var window_active = 1;
 
@@ -80,12 +80,6 @@ $(function () {
     $(window).blur(function () {
         window_active = 0;
     });
-
-//        $('.new_comment iframe body').keypress(function (e) {
-//            if (e.ctrlKey && e.keyCode == 13) {
-//                SendMessage();
-//            }
-//        });
 
     $('.buttons .btn').click(function () {
         SendMessage();
@@ -192,6 +186,7 @@ $(function () {
             SendMessage();
         }
     });
+
 });
 
 function ChangeDialog(id) {
@@ -280,7 +275,10 @@ function MoreMessages(event) {
 }
 
 function SetReadStatus() {
-    if (window_active && last_massage !== null)
+    if (window_active && last_massage !== null){
+        $("#messages .dialog-message-new-in td").animate({ backgroundColor: "#fff" }, 3000);
+        $('.dialog-message-new-in').removeClass('dialog-message-new-in');
+
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("im/default/SetRead") ?>',
             data:{dialog:dialog, id:last_massage},
@@ -291,12 +289,14 @@ function SetReadStatus() {
             },
             context:$(this)
         });
+    }
 }
 
 function ShowNewMessage(result) {
     if (result.dialog_id == dialog) {
         last_massage = result.message_id;
         $("#messages").append(result.html);
+        $("#messages .dialog-message-new-in:last td").css('background-color' , '#EBF5FF');
         GoTop();
     } else {
         var li = $('#dialog-' + result.dialog_id);
@@ -344,5 +344,4 @@ function ShowUserTyping(result) {
 function GoTop() {
     $("#messages").scrollTop($("#messages")[0].scrollHeight);
 }
-
 </script>

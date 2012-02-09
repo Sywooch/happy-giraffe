@@ -18,6 +18,8 @@ class MessageLog extends CActiveRecord
 {
     const TYPE_NEW_MESSAGE = 1;
     const TYPE_READ = 2;
+    const TYPE_USER_WRITE = 3;
+    const TYPE_STATUS_CHANGE = 5;
 
     /**
      * Returns the static model of the specified AR class.
@@ -134,8 +136,13 @@ class MessageLog extends CActiveRecord
             if ($user->user_id !== Yii::app()->user->getId()) {
                 Yii::app()->comet->send(MessageCache::GetUserCache($user->user_id), array(
                     'message_id' => $message->id,
+                    'dialog_id' => $dialog_id,
                     'type' => MessageLog::TYPE_NEW_MESSAGE,
-                    'html' => Yii::app()->controller->renderPartial('_message', array('message' => $message->attributes, 'read' => true), true)
+                    'html' => Yii::app()->controller->renderPartial('_message', array(
+                        'message' => $message->attributes,
+                        'read' => 1,
+                        'class'=>'dialog-message-new-in'
+                    ), true)
                 ));
             }
         }
@@ -186,6 +193,7 @@ class MessageLog extends CActiveRecord
     static function GetMessagesBefore($dialog_id, $message_id)
     {
         $last_deleted = self::LastDeletedMessage($dialog_id);
+
         $models = Yii::app()->db->createCommand()
             ->select(array('id', 'user_id', 'text', 'created', 'read_status'))
             ->from('message_log');

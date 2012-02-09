@@ -765,11 +765,11 @@ p {
 }
 
 
-.like-block {padding: 30px 30px;background: #fffedf;margin: 10px 0;color: #535353;position:relative;}
+.like-block {padding: 30px 30px 10px;background: #fffedf;margin: 10px 0;color: #535353;position:relative;}
 
 .like-block .title {font-family: Arial, Tahoma, sans-serif;font-size: 30px;display: block;}
 
-.like-block .rating {text-align: right;float: right;font: 16px/1 tahoma, sans-serif;margin-top:-13px;}
+.like-block .rating {text-align: right;font: 16px/1 tahoma, sans-serif;position:absolute;right:30px;top:15px;}
 .like-block .rating span {font: bold 36px/1 tahoma, sans-serif;position: relative;color: #FF6600;}
 
 .like-block .tip {position:absolute;width:25px;height:25px;right:7px;top:7px;}
@@ -781,10 +781,13 @@ p {
 .like-block .tip .text big {font-size:14px;font-weight:bold;color:#848484;}
 .like-block .tip:hover .text {display:block;}
 
-.like-block table.like-buttons {width:100%;margin-top:20px;}
-.like-block table.like-buttons td {vertical-align:middle;}
+.like-block .like-buttons  {overflow:hidden;margin-top:30px;}
 
-.like-block .hg-like {width:153px;height:25px;background:url(/images/bg_hg_like.png) no-repeat;padding:67px 0 0 37px;}
+.like-block .like-buttons .other-likes {margin-left:220px;padding-top:10px;}
+.like-block .like-buttons .other-likes ul {list-style:none;}
+.like-block .like-buttons .other-likes ul li {float:left;width:33%;height:26px;padding:10px 0;margin-bottom:10px;}
+
+.like-block .hg-like {width:153px;height:25px;background:url(/images/bg_hg_like.png) no-repeat;padding:67px 0 0 37px;float:left;}
 .like-block .hg-like .btn > span > span {font:bold italic 18px/25px arial, sans-serif;min-width:45px;}
 .like-block .hg-like .btn {vertical-align:middle;}
 .like-block .hg-like .count {background:#fff;border:1px solid #c8b2dd;display:inline-block;padding:0 7px;height:19px;line-height:19px;vertical-align:middle;margin-left:10px;position:relative;cursor:default;}

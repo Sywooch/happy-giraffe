@@ -59,6 +59,22 @@ class DefaultController extends Controller
         ));
     }
 
+    public function actionAjaxDialog()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $messages = MessageLog::GetLastMessages($id);
+        $response = array(
+            'status' => true,
+            'html' => $this->renderPartial('_dialog_content', array(
+                'messages' => $messages,
+                'id' => $id
+            ), true)
+        );
+
+        echo CJSON::encode($response);
+        ActiveDialogs::model()->SetLastDialogId($id);
+    }
+
     public function actionCreate($id)
     {
         if ($id == Yii::app()->user->getId())
@@ -88,13 +104,7 @@ class DefaultController extends Controller
             Im::clearCache();
             $dialog_id = $dialog->id;
         }
-        ActiveDialogs::model()->addDialog($dialog_id);
-
-        $messages = array();
-        $this->render('dialog', array(
-            'messages' => $messages,
-            'id' => $dialog_id
-        ));
+        $this->redirect($this->createUrl('/im/default/dialog', array('id' => $dialog_id)));
     }
 
     public function actionSetRead()
@@ -113,7 +123,7 @@ class DefaultController extends Controller
         $response = array(
             'id' => $message->id,
             'status' => true,
-            'html' => $this->renderPartial('_message', array('message' => $message->attributes), true)
+            'html' => $this->renderPartial('_message', array('message' => $message->attributes, 'read' => 0), true)
         );
         echo CJSON::encode($response);
     }
@@ -127,7 +137,8 @@ class DefaultController extends Controller
         if (!empty($messages))
             $response = array(
                 'status' => true,
-                'html' => $this->renderPartial('_messages', array('messages' => $messages), true)
+                'count'=>count($messages),
+                'html' => $this->renderPartial('_messages', array('messages' => $messages, 'read' => true), true)
             );
         else $response = array('status' => false);
 
@@ -195,20 +206,14 @@ class DefaultController extends Controller
         echo CJSON::encode($response);
     }
 
-    public function actionAjaxDialog()
+    public function actionUserTyping()
     {
-        $id = Yii::app()->request->getPost('id');
-        $messages = MessageLog::GetLastMessages($id);
-        $response = array(
-            'status' => true,
-            'html' => $this->renderPartial('_dialog_content', array(
-                'messages' => $messages,
-                'id' => $id
-            ), true)
-        );
-
-        echo CJSON::encode($response);
-        ActiveDialogs::model()->SetLastDialogId($id);
+        $dialog_id = Yii::app()->request->getPost('dialog_id');
+        $user_to = Im::model()->GetDialogUser($dialog_id);
+        Yii::app()->comet->send(MessageCache::GetUserCache($user_to->id), array(
+            'type' => MessageLog::TYPE_USER_WRITE,
+            'dialog_id'=>$dialog_id
+        ));
     }
 
     /**

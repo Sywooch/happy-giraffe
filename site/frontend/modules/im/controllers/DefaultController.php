@@ -137,6 +137,7 @@ class DefaultController extends Controller
         if (!empty($messages))
             $response = array(
                 'status' => true,
+                'count'=>count($messages),
                 'html' => $this->renderPartial('_messages', array('messages' => $messages, 'read' => true), true)
             );
         else $response = array('status' => false);

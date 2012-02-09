@@ -193,6 +193,7 @@ class MessageLog extends CActiveRecord
     static function GetMessagesBefore($dialog_id, $message_id)
     {
         $last_deleted = self::LastDeletedMessage($dialog_id);
+
         $models = Yii::app()->db->createCommand()
             ->select(array('id', 'user_id', 'text', 'created', 'read_status'))
             ->from('message_log');

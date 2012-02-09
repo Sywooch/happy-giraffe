@@ -5,7 +5,8 @@
 $user = User::getUserById($message['user_id']);
 if (!isset($class))
     $class = '';
-?><div class="dialog-message<?php if ($message['read_status'] == 0 && !$read) echo ' dialog-message-new-out' ?> <?php echo $class ?>" id="mess<?php echo $message['id'] ?>">
+?><div class="dialog-message<?php if ($message['read_status'] == 0 && !$read) echo ' dialog-message-new-out'
+?> <?php echo $class ?>" id="MessageLog_<?php echo $message['id'] ?>">
     <table>
         <tr>
             <td class="user">
@@ -23,7 +24,7 @@ if (!isset($class))
             <td class="actions">
                 <a href="" class="remove"></a>
                 <?php if ($message['user_id'] !== Yii::app()->user->getId() || isset($read)):?>
-                    <a href="" class="claim"></a>
+                <a class="claim report" href="#"></a>
                 <?php endif ?>
 
             </td>

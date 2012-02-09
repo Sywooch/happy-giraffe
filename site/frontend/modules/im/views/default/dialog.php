@@ -263,7 +263,7 @@ function MoreMessages(event) {
                     $('#messages .dialog-message:first').before(response.html);
 
                     var h = 0;
-                    for (var i = 0; i < 10; i++) {
+                    for (var i = 1; i < 10; i++) {
                         h += $("#messages .dialog-message:eq(" + i + ")").outerHeight(true);
                     }
 

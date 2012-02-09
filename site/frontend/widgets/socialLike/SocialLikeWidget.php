@@ -22,12 +22,12 @@ class SocialLikeWidget extends CWidget
         'vk' => array(
             'id' => 2791084,
         ),
+        'gp' => array(),
+        'mr' => array(),
         'fb' => array(),
         'tw' => array(
             'via' => 'HappyGiraffe'
         ),
-        'mr' => array(),
-        'gp' => array(),
         'ok' => array(),
     );
 

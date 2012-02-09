@@ -65,5 +65,4 @@ class User extends CActiveRecord
     {
         return $this->first_name . ' ' . $this->last_name;
     }
-
 }

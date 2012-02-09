@@ -20,7 +20,8 @@
             <tr>
                 <td class="user">
 
-                    <div class="ava"></div>
+                    <div class="ava"><img src="<?php echo Im::model()->GetDialogUser($dialog->id)->getAva(); ?>" alt="">
+                    </div>
                     <span><?php echo Im::model()->GetDialogUser($dialog->id)->getFullName() ?></span>
 
                 </td>
@@ -48,23 +49,25 @@
 
 <script type="text/javascript">
     $(function () {
-        $('.dialog-message .actions a.remove').click(function(){
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/im/default/removeDialog") ?>',
-                data:{id:$(this).parents('.dialog-message').find('input.dialog_id').val()},
-                type:'POST',
-                dataType:'JSON',
-                success:function (response) {
-                    if (response.status) {
-                        $(this).parents('.dialog-message').remove();
-                        if (response.active_dialog_url == '')
-                            $('.nav .opened').hide();
-                        else
-                            $('.nav .opened a').attr("href", response.active_dialog_url);
-                    }
-                },
-                context:$(this)
-            });
+        $('.dialog-message .actions a.remove').click(function () {
+            if (confirm("Удалить диалог?")) {
+                $.ajax({
+                    url:'<?php echo Yii::app()->createUrl("/im/default/removeDialog") ?>',
+                    data:{id:$(this).parents('.dialog-message').find('input.dialog_id').val()},
+                    type:'POST',
+                    dataType:'JSON',
+                    success:function (response) {
+                        if (response.status) {
+                            $(this).parents('.dialog-message').remove();
+                            if (response.active_dialog_url == '')
+                                $('.nav .opened').hide();
+                            else
+                                $('.nav .opened a').attr("href", response.active_dialog_url);
+                        }
+                    },
+                    context:$(this)
+                });
+            }
             return false;
         });
 

@@ -234,8 +234,8 @@ class User extends CActiveRecord
             $service->save();
         }
         if (!$this->isNewRecord) {
-//            User::model()->cache(0)->findByPk($this->id);
-//            Yii::app()->cache->delete('User_' . $this->id);
+            //            User::model()->cache(0)->findByPk($this->id);
+            //            Yii::app()->cache->delete('User_' . $this->id);
             self::clearCache($this->id);
         }
     }
@@ -338,26 +338,56 @@ class User extends CActiveRecord
      */
     public static function getUserById($id)
     {
-        $user = User::model()->cache(3600*24)->findByPk($id);
+        $user = User::model()->cache(3600 * 24)->findByPk($id);
         return $user;
 
-//        $value = Yii::app()->cache->get('User_' . $id);
-//        if ($value === false) {
-//            $value = User::model()->findByPk($id);
-//            if ($value === null)
-//                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-//
-//            Yii::app()->cache->set('User_' . $id, $value, 5184000);
-//        }
-//        return $value;
+        //        $value = Yii::app()->cache->get('User_' . $id);
+        //        if ($value === false) {
+        //            $value = User::model()->findByPk($id);
+        //            if ($value === null)
+        //                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        //
+        //            Yii::app()->cache->set('User_' . $id, $value, 5184000);
+        //        }
+        //        return $value;
     }
 
     public static function clearCache($id)
     {
-//        $dep = new CDbCacheDependency('SELECT NOW()');
-//        return User::model()->cache(3600*24, $dep)->findByPk($id);
-        $cacheKey='yii:dbquery'.Yii::app()->db->connectionString.':'.Yii::app()->db->username;
-        $cacheKey.=':'.'SELECT * FROM `user` `t` WHERE `t`.`id`=\''.$id.'\' LIMIT 1:a:0:{}';
+        //        $dep = new CDbCacheDependency('SELECT NOW()');
+        //        return User::model()->cache(3600*24, $dep)->findByPk($id);
+        $cacheKey = 'yii:dbquery' . Yii::app()->db->connectionString . ':' . Yii::app()->db->username;
+        $cacheKey .= ':' . 'SELECT * FROM `user` `t` WHERE `t`.`id`=\'' . $id . '\' LIMIT 1:a:0:{}';
         Yii::app()->cache->delete($cacheKey);
+    }
+
+    public function getMiniAva()
+    {
+        $url = $this->pic_small->getUrl('mini');
+        if (empty($url)) {
+            if ($this->gender == 1)
+                return '/images/mini_noimg_male.png';
+            elseif ($this->gender == 0)
+                return '/images/mini_noimg_female.png';
+            else
+                return '/images/mini_noimg.png';
+        }
+        else
+            return $url;
+    }
+
+    public function getAva()
+    {
+        $url = $this->pic_small->getUrl('ava');
+        if (empty($url)) {
+            if ($this->gender == 1)
+                return '/images/ava_noimg_male.png';
+            elseif ($this->gender == 0)
+                return '/images/ava_noimg_female.png';
+            else
+                return '/images/ava_noimg.png';
+        }
+        else
+            return $url;
     }
 }

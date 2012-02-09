@@ -62,7 +62,6 @@ class DefaultController extends Controller
     public function actionAjaxDialog()
     {
         $id = Yii::app()->request->getPost('id');
-        ActiveDialogs::model()->SetLastDialogId($id);
         $messages = MessageLog::GetLastMessages($id);
         $response = array(
             'status' => true,
@@ -105,13 +104,7 @@ class DefaultController extends Controller
             Im::clearCache();
             $dialog_id = $dialog->id;
         }
-        ActiveDialogs::model()->addDialog($dialog_id);
-
-        $messages = array();
-        $this->render('dialog', array(
-            'messages' => $messages,
-            'id' => $dialog_id
-        ));
+        $this->redirect($this->createUrl('/im/default/dialog', array('id'=>$dialog_id)));
     }
 
     public function actionSetRead()

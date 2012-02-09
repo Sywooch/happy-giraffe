@@ -17,7 +17,7 @@
                     <input type="hidden" value="<?php echo $dialog['id'] ?>" class="dialog-id">
                     <a href="#" class="remove"></a>
 
-                    <div class="img"><img src="<?php echo $dialog['user']->pic_small->getUrl('mini') ?>"/></div>
+                    <div class="img"><img src="<?php echo $dialog['user']->getMiniAva() ?>"/></div>
                     <div class="status<?php if (!$dialog['user']->online) echo ' status-offline' ?>"><i
                         class="icon"></i></div>
                     <div class="name"><span><?php echo $dialog['user']->getFullName() ?></span></div>
@@ -144,32 +144,34 @@ $(function () {
     });
 
     $('body').delegate('#dialog .dialog-inn a.remove-dialog', 'click', function () {
-        $.ajax({
-            url:'<?php echo Yii::app()->createUrl("/im/default/removeDialog") ?>',
-            data:{id:dialog},
-            type:'POST',
-            dataType:'JSON',
-            success:function (response) {
-                if (response.status) {
-                    $('li#dialog-' + dialog).remove();
-                    $('.dialog-inn').html('');
+        if (confirm("Удалить диалог?")) {
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("/im/default/removeDialog") ?>',
+                data:{id:dialog},
+                type:'POST',
+                dataType:'JSON',
+                success:function (response) {
+                    if (response.status) {
+                        $('li#dialog-' + dialog).remove();
+                        $('.dialog-inn').html('');
 
-                    var ul = $('.opened-dialogs-list ul');
-                    if (ul.find('li input.dialog-id').length == 0) {
-                        ChangeDialog(null);
-                    }
-                    else {
-                        ChangeDialog(ul.find('li input.dialog-id').val());
-                    }
+                        var ul = $('.opened-dialogs-list ul');
+                        if (ul.find('li input.dialog-id').length == 0) {
+                            ChangeDialog(null);
+                        }
+                        else {
+                            ChangeDialog(ul.find('li input.dialog-id').val());
+                        }
 
-                    if (response.active_dialog_url == '')
-                        $('.nav .opened').hide();
-                    else
-                        $('.nav .opened a').attr("href", response.active_dialog_url);
-                }
-            },
-            context:$(this)
-        });
+                        if (response.active_dialog_url == '')
+                            $('.nav .opened').hide();
+                        else
+                            $('.nav .opened a').attr("href", response.active_dialog_url);
+                    }
+                },
+                context:$(this)
+            });
+        }
         return false;
     });
 });
@@ -205,6 +207,8 @@ function ChangeDialog(id) {
 function SendMessage() {
     var editor = CKEDITOR.instances['MessageLog[text]'];
     var text = editor.getData();
+    if (text == '')
+        return false;
     editor.setData('');
     $.ajax({
         url:'<?php echo Yii::app()->createUrl("im/default/CreateMessage") ?>',
@@ -302,9 +306,9 @@ function StatusChanged(result) {
         }
     }
 
-    if (result.online == 1){
-        $('#dialog-'+result.dialog_id+' div.status').removeClass('status-offline');
-    }else{
+    if (result.online == 1) {
+        $('#dialog-' + result.dialog_id + ' div.status').removeClass('status-offline');
+    } else {
         if (!$('.opened-dialogs-list ul li.active div.status').hasClass('status-offline'))
             $('.opened-dialogs-list ul li.active div.status').addClass('status-offline');
     }

@@ -10,6 +10,7 @@ class Im
     private $_dialogs;
     const USER_CACHE_ID = 'user_dialogs_';
     private $_user_id;
+    private $_loaded_users = array();
 
     private function __construct($user_id = null)
     {
@@ -140,7 +141,7 @@ class Im
     public function GetDialogUser($dialog_id)
     {
         $id = $this->_dialogs[$dialog_id]['users'][0];
-        return User::getUserById($id);
+        return $this->getUser($id);
     }
 
     /**
@@ -181,5 +182,17 @@ class Im
     static function clearCache()
     {
         Yii::app()->cache->delete(self::USER_CACHE_ID . Yii::app()->user->getId());
+    }
+
+    /**
+     * @param $id
+     * @return User
+     */
+    public function getUser($id){
+        if (isset($this->_loaded_users[$id]))
+            return $this->_loaded_users[$id];
+        $user = User::getUserById($id);
+        $this->_loaded_users[$id] = $user;
+        return $user;
     }
 }

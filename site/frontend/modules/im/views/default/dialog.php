@@ -182,8 +182,6 @@ $(function () {
                 type:'POST'
             });
         }
-        console.log(e);
-
         if (e.data.keyCode == 1114125) {
             SendMessage();
         }

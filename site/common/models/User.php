@@ -25,6 +25,8 @@
  * @property string $mail_id
  * @property string $last_active
  * @property integer $online
+ * @propery string $register_date
+ * @propery string $login_date
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -104,6 +106,7 @@ class User extends CActiveRecord
             array('phone', 'safe'),
             array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
+            array('login_date, register_date', 'safe'),
 
             //login
             array('email, password', 'required', 'on' => 'login'),

@@ -36,7 +36,7 @@ class OnlineUsersCommand extends CConsoleCommand
 //                        ->update('user', array('online' => '1'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$event['id']}\")");
 //                    $userCache = MessageCache::model()->find('cache = "'.$event['id'].'"');
                     $user = $this->getUserByCache($event['id']);
-                    if (empty($user)) {echo "user not found: {$user->id}\n"; continue;}
+                    if (empty($user)) {echo "user not found: {$event['id']}\n"; continue;}
                     $user->online = 1;
                     $user->save();
                     $this->SendOnlineNotice($rpl, $user->id, 1);
@@ -46,7 +46,7 @@ class OnlineUsersCommand extends CConsoleCommand
 //                    Yii::app()->db->createCommand()
 //                        ->update('user', array('online' => '0'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$event['id']}\")");
                     $user = $this->getUserByCache($event['id']);
-                    if (empty($user)) {echo "user not found: {$user->id}\n"; continue;}
+                    if (empty($user)) {echo "user not found: {$event['id']}\n"; continue;}
                     $user->online = 0;
                     $user->save();
                     $this->SendOnlineNotice($rpl, $user->id, 0);

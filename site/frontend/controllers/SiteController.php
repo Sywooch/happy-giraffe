@@ -162,6 +162,8 @@ class SiteController extends Controller
 					if ($identity->errorCode == UserIdentity::ERROR_NONE)
 					{
 						Yii::app()->user->login($identity);
+                        $user->login_date = date('Y-m-d H:i:s');
+                        $user->save(false);
 						$authIdentity->redirect();
 					}
 				}
@@ -190,6 +192,8 @@ class SiteController extends Controller
 				if ($identity->errorCode == UserIdentity::ERROR_NONE)
 				{
 					Yii::app()->user->login($identity);
+                    $userModel->login_date = date('Y-m-d H:i:s');
+                    $userModel->save(false);
 				}
 			}
 		}

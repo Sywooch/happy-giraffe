@@ -158,7 +158,7 @@ return array(
 			'class'=>'WebUser',
 			'allowAutoLogin'=>true,
 			'roleAttribute'=>'role',
-//			'loginUrl'=>'#login',
+			'loginUrl'=>'/',
 		),
 		'authManager' => array(
 			'class' => 'ext.fileRBAC.PhpAuthManager',

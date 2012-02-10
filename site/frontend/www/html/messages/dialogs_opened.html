@@ -15,7 +15,23 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.jscrollpane.css" />
+	<script type="text/javascript" src="/javascripts/jquery.jscrollpane.min.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/jquery.mousewheel.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
+	
+	<script>
+		$(document).ready(function(){
+			$('.scroll').jScrollPane({
+				showArrows: true, 
+				animateScroll: true, 
+				arrowButtonSpeed: 50, 
+				autoReinitialise :true
+			});
+		})
+	</script>
 	
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
@@ -90,7 +106,7 @@
 									<div class="nav steps">
 										
 										<ul>
-											<li class="opened active"><a href="">Открытые диалоги</a></li>
+											<li class="opened active"><a href="">Открытые диалоги<i class="icon-arr"></i></a></li>
 											<li><a><span>Все диалоги</span></a></li>
 											<li><a><span>Новое</span></a></li>
 											<li><a><span>Кто в онлайне</span></a></li>
@@ -187,7 +203,7 @@
 										<a href="">Распечатать</a>
 									</div>
 										
-									<div class="dialog-list scroll" >
+									<div class="dialog-list scroll">
 										
 										<div class="dialog-message">
 											

@@ -117,10 +117,10 @@ p {
 
 .topheader .logo {
     float: left;
-    height: 107px;
-    width: 167px;
+    width:166px;
+	height:100px;
+	background:url(../images/common.png) no-repeat 0 0;
     display: block;
-    background: url("../images/logo.png") no-repeat;
     position: relative;
     margin: 0px 0 0 30px;
     top: 20px;
@@ -774,25 +774,27 @@ p {
 
 .like-block .tip {position:absolute;width:25px;height:25px;right:7px;top:7px;}
 .like-block .tip .container {position:relative;}
-.like-block .tip .icon-question {display:block;width:25px;height:25px;background:url(/images/icon_question_25x25.png) no-repeat;cursor:pointer;}
+.like-block .tip .icon-question {display:block;width:25px;height:25px;background:url(/images/common.png) no-repeat -72px -101px;cursor:pointer;}
 .like-block .tip .text {position:absolute;right:50%;bottom:100%;display:none;width:230px;padding:15px;background:#fcfac6;color:#737373;font-size:12px;border:1px solid #ffe572;margin-bottom:12px;}
-.like-block .tip .text:after {display:block;width:15px;height:14px;background:url(/images/like_block_tip_tale.png) no-repeat;content:'';position:absolute;right:-1px;bottom:-14px;}
+.like-block .tip .text:after {display:block;width:15px;height:14px;background:url(/images/common.png) no-repeat -98px -101px;content:'';position:absolute;right:-1px;bottom:-14px;}
 .like-block .tip .text p {color:#737373;margin-top:1em;}
 .like-block .tip .text big {font-size:14px;font-weight:bold;color:#848484;}
 .like-block .tip:hover .text {display:block;}
 
-.like-block .like-buttons  {overflow:hidden;margin-top:30px;}
+.like-block .like-buttons  {margin-top:30px;}
 
 .like-block .like-buttons .other-likes {margin-left:220px;padding-top:10px;}
 .like-block .like-buttons .other-likes ul {list-style:none;}
 .like-block .like-buttons .other-likes ul li {float:left;width:33%;height:26px;padding:10px 0;margin-bottom:10px;}
 
-.like-block .hg-like {width:153px;height:25px;background:url(/images/bg_hg_like.png) no-repeat;padding:67px 0 0 37px;float:left;}
-.like-block .hg-like .btn > span > span {font:bold italic 18px/25px arial, sans-serif;min-width:45px;}
-.like-block .hg-like .btn {vertical-align:middle;}
-.like-block .hg-like .count {background:#fff;border:1px solid #c8b2dd;display:inline-block;padding:0 7px;height:19px;line-height:19px;vertical-align:middle;margin-left:10px;position:relative;cursor:default;}
-.like-block .hg-like .count {border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
-.like-block .hg-like .count:before {display:block;width:8px;height:10px;background:url(/images/hg_like_count_tale.png) no-repeat;content:'';position:absolute;left:-8px;top:4px;}
+.like-block .hg-like {float:left;}
+
+.hg-like {width:153px;height:25px;background:url(/images/common.png) no-repeat -416px 0;padding:67px 0 0 37px;}
+.hg-like .btn > span > span {font:bold italic 18px/25px arial, sans-serif;min-width:45px;}
+.hg-like .btn {vertical-align:middle;}
+.hg-like .count {background:#fff;border:1px solid #c8b2dd;display:inline-block;padding:0 7px;height:19px;line-height:19px;vertical-align:middle;margin-left:10px;position:relative;cursor:default;}
+.hg-like .count {border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
+.hg-like .count:before {display:block;width:8px;height:10px;background:url(/images/common.png) no-repeat -62px -101px;content:'';position:absolute;left:-8px;top:4px;}
 
 
 .right-inner .more {
@@ -913,11 +915,10 @@ p {
 }
 
 .comments .item .report {
-    background: url(../images/button-green.png) no-repeat;
+    background: url(../images/common.png) no-repeat -115px -101px;
     display: inline-block;
     width: 20px;
     height: 20px;
-    background-position: 0 -655px;
     vertical-align: top;
     position: relative;
     top: -2px;
@@ -1099,9 +1100,9 @@ label {
     color: #158aa0;
 }
 
-.inner .settings-l select, .inner .settings-l .cusel {
+.inner .settings-l select, .inner .settings-l .chzn-container {
     width: 205px;
-    margin: 10px 5px 20px 10px;
+    margin: 10px 5px 10px 10px;
 
 }
 
@@ -1230,14 +1231,17 @@ label {
     padding: 0 18px 0 0;
 }
 
-.inner ul.downloaded_items li a {
+.inner ul.downloaded_items .remove {
     display: inline-block;
     padding: 0 0 0 25px;
     color: #9c9b9b;
     font-size: 11px;
     text-decoration: none;
-    background: url(../images/bg_popup_close.gif) 0 0 no-repeat;
+	position:relative;
 }
+
+.inner ul.downloaded_items .remove .icon {display:block;width:21px;height:18px;background:url(../images/common.png) no-repeat -1px -101px;position:absolute;top:50%;left:0;margin-top:-9px;}
+
 
 .inner .jq_droggable {
     display: block;
@@ -1276,7 +1280,7 @@ label {
     background: #fff;
     float: left;
     border: 1px solid #c9eaf1;
-    margin: 5px 10px;
+    margin: 5px 0px 5px 10px;
     width: 182px;
 }
 
@@ -1286,12 +1290,11 @@ label {
     background: #fff;
     float: left;
     border: 1px solid #c9eaf1;
-    margin: 5px 10px;
-    width: 390px;
+    margin: 5px 0 5px 10px;
+    width: 380px;
 }
 
 .inner .settings-l img {
-    margin: 10px 0 10px 10px;
     border: 1px solid #c9eaf1;
     float: left;
 }
@@ -1302,15 +1305,16 @@ label {
 
 }
 
-.inner .settings-l a.del {
-    background: url(../images/close.png) no-repeat;
-    background-position: right center;
+.inner .settings-l a.remove {
     color: #b0afaf;
     float: right;
     margin: 10px 0px 10px 10px;
     padding: 3px 25px 5px 0;
     text-decoration: none;
+	position:relative;
 }
+
+.inner .settings-l a.remove .icon {display:block;width:21px;height:18px;background:url(../images/common.png) no-repeat -1px -101px;position:absolute;top:50%;right:0;margin-top:-9px;}
 
 .inner .settings-r {
     float: right;
@@ -1404,15 +1408,19 @@ label {
     vertical-align: top;
 }
 
-.validate .right-v .close {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 40px;
-    height: 37px;
-    display: block;
-    background: url(../images/close-big.png) no-repeat;
+.validate .right-v.test-img {width:auto;padding:10px;}
+.validate .right-v.test-img img {margin:0;}
+
+.validate .right-v .remove {
+    display:block;
+	width:21px;
+	height:18px;
+	background:url(../images/common.png) no-repeat -1px -101px;
+	padding:0 !important;
+	margin:0 0 0 5px!important;
 }
+
+
 
 .inner.contest {
     padding: 20px 40px;
@@ -1468,7 +1476,7 @@ label {
 }
 
 .inner.contest .right-inner .sticker {
-    background: url(../images/contest/stiker.png) no-repeat;
+    background: url(../images/stiker.png) no-repeat;
     width: 297px;
     height: 295px;
     padding: 20px 30px;
@@ -1487,11 +1495,11 @@ label {
 
 .inner.contest .right-inner .sticker ul {
     width: 200px;
-    margin: 0px 15px 10px;
+    margin: 0px 15px 10px 30px;
 }
 
 .inner.contest .right-inner .sticker ul li {
-    list-style-image: url(../images/contest/list.png);
+    list-style-image: url(../images/list.png);
     text-indent: 0;
     padding: 3px 0;
 }
@@ -1622,6 +1630,7 @@ label {
 
 .settings .sel .btn {
     margin-top: 7px;
+	margin-left:10px;
 }
 
 .inner.contest .comments .item .text {
@@ -1629,7 +1638,7 @@ label {
 }
 
 #contest-photo {
-    background: url(../images/contest/giraffe.png) no-repeat right top;
+    background: url(../images/giraffe.png) no-repeat right top;
     padding-top: 60px;
 }
 
@@ -1673,7 +1682,7 @@ label {
 }
 
 .inner.contest .one_photo {
-    background: url(../images/contest/giraffe.png) no-repeat;
+    background: url(../images/giraffe.png) no-repeat;
     background-position: top right;
 }
 
@@ -1699,7 +1708,7 @@ label {
 }
 
 .inner.contest .one_photo .photo-content .top, .inner.contest .one_photo .photo-content .name {
-    background: url(../images/contest/ramka.png);
+    background: url(../images/ramka.png);
     position: absolute;
 }
 
@@ -1725,7 +1734,7 @@ label {
 .inner.contest .one_photo .photo-content .fill {
     padding: 0 21px;
     margin: 0 auto;
-    background: url(../images/contest/ramka-c.png) repeat-y;
+    background: url(../images/ramka-c.png) repeat-y;
 }
 
 .inner.contest .c-header .btn {
@@ -1749,7 +1758,7 @@ label {
 }
 
 .win.active {
-    background: url(../images/contest/winners_spite.png) repeat-x 0 13px;
+    background: url(../images/winners_spite.png) repeat-x 0 13px;
 }
 
 .win .ph {
@@ -1767,7 +1776,7 @@ label {
 }
 
 .win .cup {
-    background: url(../images/contest/winners_spite.png) no-repeat;
+    background: url(../images/winners_spite.png) no-repeat;
     display: block;
     margin: 5px auto;
     width: 40px;
@@ -1777,7 +1786,7 @@ label {
 }
 
 .win.second .cup {
-    background: url(../images/contest/winners_spite.png) no-repeat;
+    background: url(../images/winners_spite.png) no-repeat;
     display: block;
     margin: 5px auto;
     width: 38px;
@@ -1787,7 +1796,7 @@ label {
 }
 
 .win.third .cup {
-    background: url(../images/contest/winners_spite.png) no-repeat;
+    background: url(../images/winners_spite.png) no-repeat;
     display: block;
     margin: 5px auto;
     width: 38px;
@@ -1817,7 +1826,7 @@ label {
 }
 
 .win .place span {
-    background: url(../images/contest/winners_spite.png) no-repeat;
+    background: url(../images/winners_spite.png) no-repeat;
     display: inline-block;
     width: 35px;
     height: 33px;
@@ -1856,7 +1865,7 @@ label {
 }
 
 .inner.contest.winners .like-block .cup {
-    background: url(../images/contest/winners_spite.png) no-repeat;
+    background: url(../images/winners_spite.png) no-repeat;
     display: inline-block;
     width: 60px;
     height: 100px;

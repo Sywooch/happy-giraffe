@@ -10,10 +10,15 @@ class Im
     private $_dialogs;
     const USER_CACHE_ID = 'user_dialogs_';
     private $_user_id;
+    private $_loaded_users = array();
 
-    private function __construct()
+    private function __construct($user_id = null)
     {
-        $this->_user_id = Yii::app()->user->getId();
+        if ($user_id === null)
+            $this->_user_id = Yii::app()->user->getId();
+        else
+            $this->_user_id = $user_id;
+
         $this->loadDialogs();
     }
 
@@ -45,21 +50,21 @@ class Im
                 'id' => $dialog->id,
                 'name' => '',
                 'users' => array(),
-                'empty'=>false
+                'empty' => false
             );
 
             //check empty dialogs
             if (empty($dialog->lastMessage))
-                $new_dialog['empty']=true;
+                $new_dialog['empty'] = true;
 
             if (isset($dialog->lastMessage) && isset($dialog->lastDeletedMessage))
                 if ($dialog->lastMessage->id <= $dialog->lastDeletedMessage->message_id)
-                    $new_dialog['empty']=true;
+                    $new_dialog['empty'] = true;
 
             foreach ($dialog->messageUsers as $user) {
                 if ($user->user_id !== $this->_user_id && !in_array($user->user_id, $this->_dialogs)) {
                     $users [] = $user->user_id;
-                    $new_dialog['name'] = User::getUserById($user->user_id)->getFullName();
+                    $new_dialog['name'] = $this->getUser($user->user_id)->getFullName();
                     $new_dialog['users'][] = $user->user_id;
                 }
             }
@@ -98,12 +103,13 @@ class Im
 
     /**
      * @static
+     * @param null $user_id
      * @return Im
      */
-    public static function model()
+    public static function model($user_id = null)
     {
         if (is_null(self::$instance)) {
-            self::$instance = new Im;
+            self::$instance = new Im($user_id);
         }
         return self::$instance;
     }
@@ -135,12 +141,12 @@ class Im
     public function GetDialogUser($dialog_id)
     {
         $id = $this->_dialogs[$dialog_id]['users'][0];
-        return User::getUserById($id);
+        return $this->getUser($id);
     }
 
     /**
      * @param $user_id
-     * @return mixed
+     * @return int
      */
     public function getDialogByUser($user_id)
     {
@@ -169,8 +175,24 @@ class Im
         return (substr($haystack, 0, $length) === $needle);
     }
 
+    public function getDialogs(){
+        return $this->_dialogs;
+    }
+
     static function clearCache()
     {
         Yii::app()->cache->delete(self::USER_CACHE_ID . Yii::app()->user->getId());
+    }
+
+    /**
+     * @param $id
+     * @return User
+     */
+    public function getUser($id){
+        if (isset($this->_loaded_users[$id]))
+            return $this->_loaded_users[$id];
+        $user = User::getUserById($id);
+        $this->_loaded_users[$id] = $user;
+        return $user;
     }
 }

@@ -96,12 +96,13 @@ class User extends CActiveRecord
             //general
             array('first_name, last_name', 'length', 'max' => 50),
             array('email', 'email'),
+            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup'),
             array('online', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
             array('gender', 'boolean'),
             array('phone', 'safe'),
-            array('settlement_id', 'numerical', 'integerOnly' => true),
+            array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
 
             //login
@@ -110,6 +111,7 @@ class User extends CActiveRecord
             //signup
             array('first_name, email, password, gender', 'required', 'on' => 'signup'),
             array('verifyCode', 'captcha', 'on' => 'signup', 'allowEmpty' => Yii::app()->session->get('service') !== NULL),
+            array('email', 'unique', 'on' => 'signup'),
 
             //change_password
             array('new_password', 'required', 'on' => 'change_password'),
@@ -168,6 +170,13 @@ class User extends CActiveRecord
             'userSocialServices' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
             'userViaCommunities' => array(self::HAS_MANY, 'UserViaCommunity', 'user_id'),
             'vaccineDateVotes' => array(self::HAS_MANY, 'VaccineDateVote', 'user_id'),
+        );
+    }
+
+    public function defaultScope()
+    {
+        return array(
+            'condition' => $this->getTableAlias(false, false) . '.deleted = 0',
         );
     }
 
@@ -233,8 +242,10 @@ class User extends CActiveRecord
             $service->user_id = $this->id;
             $service->save();
         }
-        if (!$this->isNewRecord){
-            User::model()->cache(0)->findByPk($this->id);
+        if (!$this->isNewRecord) {
+            //            User::model()->cache(0)->findByPk($this->id);
+            //            Yii::app()->cache->delete('User_' . $this->id);
+            self::clearCache($this->id);
         }
     }
 
@@ -336,9 +347,74 @@ class User extends CActiveRecord
      */
     public static function getUserById($id)
     {
-        $user = User::model()->cache(3600*24)->findByPk($id);
-        if ($user === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        $user = User::model()->cache(3600 * 24)->findByPk($id);
         return $user;
+
+        //        $value = Yii::app()->cache->get('User_' . $id);
+        //        if ($value === false) {
+        //            $value = User::model()->findByPk($id);
+        //            if ($value === null)
+        //                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        //
+        //            Yii::app()->cache->set('User_' . $id, $value, 5184000);
+        //        }
+        //        return $value;
+    }
+
+    public static function clearCache($id)
+    {
+        //        $dep = new CDbCacheDependency('SELECT NOW()');
+        //        return User::model()->cache(3600*24, $dep)->findByPk($id);
+        $cacheKey = 'yii:dbquery' . Yii::app()->db->connectionString . ':' . Yii::app()->db->username;
+        $cacheKey .= ':' . 'SELECT * FROM `user` `t` WHERE `t`.`id`=\'' . $id . '\' LIMIT 1:a:0:{}';
+        Yii::app()->cache->delete($cacheKey);
+    }
+
+    public function getMiniAva()
+    {
+        $url = $this->pic_small->getUrl('mini');
+        if (empty($url)) {
+            if ($this->gender == 1)
+                return '/images/mini_noimg_male.png';
+            elseif ($this->gender == 0)
+                return '/images/mini_noimg_female.png';
+            else
+                return '/images/mini_noimg.png';
+        }
+        else
+            return $url;
+    }
+
+    public function getAva()
+    {
+        $url = $this->pic_small->getUrl('ava');
+        if (empty($url)) {
+            if ($this->gender == 1)
+                return '/images/ava_noimg_male.png';
+            elseif ($this->gender == 0)
+                return '/images/ava_noimg_female.png';
+            else
+                return '/images/ava_noimg.png';
+        }
+        else
+            return $url;
+    }
+
+    public function getDialogLink()
+    {
+        if (Yii::app()->user->isGuest)
+            return '';
+
+        Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.frontend.modules.im.components.*');
+
+        $dialog_id = Im::model()->getDialogByUser($this->id);
+        if (isset($dialog_id)){
+            $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
+        }else{
+            $url = Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
+        }
+
+        return CHtml::link('написать', $url);
     }
 }

@@ -4,8 +4,8 @@ $pal = Im::model()->GetDialogUser($id);
 <div class="user-details">
 
     <div class="actions">
-        <a href="" class="add"><i class="icon"></i><br/>Добавить<br/>в друзья</a>
-        <a href="" class="block"><i class="icon"></i><br/>В черный<br/>список</a>
+        <a href="#" class="add"><i class="icon"></i><br/>Добавить<br/>в друзья</a>
+        <a href="#" class="block"><i class="icon"></i><br/>В черный<br/>список</a>
     </div>
 
     <?php $this->widget('AvatarWidget', array('user'=>$pal))?>
@@ -15,9 +15,9 @@ $pal = Im::model()->GetDialogUser($id);
             <span><?php echo $pal->first_name ?></span><br/>
             Россия, Москва</p>
 
-        <a href="">Больше...</a>
+        <a href="#">Больше...</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="" class="yellow">Анкета</a>
+        <a href="#" class="yellow">Анкета</a>
 
     </div>
 
@@ -26,15 +26,13 @@ $pal = Im::model()->GetDialogUser($id);
 <div class="list-actions">
     <a class="remove-dialog" href=""><i class="icon-remove"></i>Удалить диалог</a>
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="">Распечатать</a>
+    <a href="#">Распечатать</a>
 </div>
 
 <div class="dialog-list scroll" id="messages">
 
-    <?php foreach ($messages as $message): ?>
-    <?php $this->renderPartial('_message', array(
-        'message' => $message
+    <?php $this->renderPartial('_messages', array(
+        'messages' => $messages
     )); ?>
-    <?php endforeach; ?>
 
 </div>

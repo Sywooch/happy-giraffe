@@ -158,7 +158,7 @@ return array(
 			'class'=>'WebUser',
 			'allowAutoLogin'=>true,
 			'roleAttribute'=>'role',
-//			'loginUrl'=>'#login',
+			'loginUrl'=>'/',
 		),
 		'authManager' => array(
 			'class' => 'ext.fileRBAC.PhpAuthManager',
@@ -214,7 +214,7 @@ return array(
         ),
         'comet'=>array(
             'class' => 'ext.Dklab_Realplexor',
-            'host' => 'plexor.dev.happy-giraffe.ru',
+            'host' => 'test.dev.happy-giraffe.ru',
             'port' => 10010,
             'namespace' => 'crm_',
         )

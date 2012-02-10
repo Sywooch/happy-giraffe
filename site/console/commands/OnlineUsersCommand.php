@@ -6,9 +6,6 @@ class OnlineUsersCommand extends CConsoleCommand
     {
         Yii::import('site.frontend.modules.im.models.*');
         Yii::import('site.frontend.modules.im.components.*');
-//        Yii::import('site.common.models.User');
-//        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
-//        Yii::import('site.frontend.extensions.ufile.*');
 
         $rpl = Yii::app()->comet;
         $list = $rpl->cmdOnline();

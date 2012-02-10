@@ -25,7 +25,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.color.animatio
                         class="icon"></i></div>
                     <div class="name"><span><?php echo $dialog['user']->getFullName() ?></span></div>
                     <div
-                        class="meta"<?php if ($unread == 0) echo ' style="display:none"'; ?>><?php echo $unread; ?></div>
+                        class="meta"<?php if ($unread == 0) echo ' style="display:none"'; ?>>(<?php echo $unread; ?>)</div>
                 </li>
                 <?php endforeach; ?>
             </ul>
@@ -185,6 +185,10 @@ $(function () {
         if (e.data.keyCode == 1114125) {
             SendMessage();
         }
+        SetReadStatusForIframe();
+    });
+    editor.on('mouseup', function() {
+        SetReadStatusForIframe();
     });
 
     $("body").delegate(".dialog-message a.claim", "click", function(e){
@@ -295,6 +299,24 @@ function SetReadStatus() {
     }
 }
 
+function SetReadStatusForIframe() {
+    if (last_massage !== null){
+        $("#messages .dialog-message-new-in td").animate({ backgroundColor: "#fff" }, 2000);
+        $('.dialog-message-new-in').removeClass('dialog-message-new-in');
+
+        $.ajax({
+            url:'<?php echo Yii::app()->createUrl("im/default/SetRead") ?>',
+            data:{dialog:dialog, id:last_massage},
+            type:'POST',
+            dataType:'JSON',
+            success:function (response) {
+                last_massage = null;
+            },
+            context:$(this)
+        });
+    }
+}
+
 function ShowNewMessage(result) {
     if (result.dialog_id == dialog) {
         last_massage = result.message_id;
@@ -306,8 +328,9 @@ function ShowNewMessage(result) {
         var li = $('#dialog-' + result.dialog_id);
         if (!li.hasClass('new-messages'))
             li.addClass('new-messages');
-        var current_count = parseInt(li.find('.meta:first').text());
-        li.find('.meta:first').show().html(current_count + 1);
+        var comment_count = li.find('.meta:first').text().replace(/\(/g, "").replace(/\)/g, "");
+        var current_count = parseInt(comment_count)+1;
+        li.find('.meta:first').show().html("("+current_count+")");
         li.find('.meta:last').hide();
     }
 }

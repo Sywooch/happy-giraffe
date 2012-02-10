@@ -22,6 +22,9 @@ class UsersController extends BController
             $criteria->params[':gender'] = Yii::app()->request->getQuery('gender');
         }
 
+        if(Yii::app()->request->getQuery('list_sort'))
+            $criteria->order = Yii::app()->request->getQuery('list_sort') . ' asc';
+
         $dataProvider = new CActiveDataProvider('User', array(
             'criteria' => $criteria,
             'pagination' => array(

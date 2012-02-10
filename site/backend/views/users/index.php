@@ -8,9 +8,19 @@
 
 
 <form method="get" action="" onsubmit="return changeUserView(this);" id="user-view-form">
+    <p>
+        <!--<input type="text" name="">-->
+    </p>
     <input type="hidden" name="change_view" value="1"/>
     <input type="hidden" id="user-list-filter" name="" value=""/>
-    <?php echo CHtml::dropDownList('list_type', '', array('table' => 'table', 'list1' => 'list 1', 'list2' => 'list 2'), array('onchange' => '$("#user-view-form").submit();')); ?>
+    <p>
+        View as:
+        <?php echo CHtml::dropDownList('list_type', '', array('table' => 'table', 'list1' => 'list 1', 'list2' => 'list 2'), array('onchange' => '$("#user-view-form").submit();')); ?>
+    </p>
+    <p>
+        Sort by:
+        <?php echo CHtml::dropDownList('list_sort', 'id', array('id' => 'Id', 'nick' => 'Nick name'), array('onchange' => '$("#user-view-form").submit();')); ?>
+    </p>
 
     <div id="users-list">
         <?php $this->renderPartial('_' . $list_type, array(
@@ -19,7 +29,8 @@
     </div>
     <input type="checkbox" id="user-list-select-all" onchange="selectAllUsers(this)"; />
     <label for="user-list-select-all">Выделить все</label>&nbsp;&nbsp;
-    С отмеченными: <?=CHtml::dropDownList('workWithItemsSelected', null, array('delete' => 'Удалить'),array('empty' =>'--')); ?>
+    С
+    отмеченными: <?=CHtml::dropDownList('workWithItemsSelected', null, array('delete' => 'Удалить'), array('empty' => '--')); ?>
     <?=CHtml::submitButton('Выполнить'); ?>
 </form>
 <script type="text/javascript">
@@ -39,7 +50,7 @@
         $("#user-view-form").submit();
     });
     function selectAllUsers(input) {
-        if($(input).is(':checked'))
+        if ($(input).is(':checked'))
             $('#user-list-grid input').attr('checked', 'checked');
         else
             $('#user-list-grid input').removeAttr('checked');

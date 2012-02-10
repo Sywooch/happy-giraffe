@@ -25,7 +25,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.color.animatio
                         class="icon"></i></div>
                     <div class="name"><span><?php echo $dialog['user']->getFullName() ?></span></div>
                     <div
-                        class="meta"<?php if ($unread == 0) echo ' style="display:none"'; ?>>(<?php echo $unread; ?>)</div>
+                        class="meta"<?php if ($unread == 0) echo ' style="display:none"'; ?>><?php echo $unread; ?></div>
                 </li>
                 <?php endforeach; ?>
             </ul>
@@ -328,9 +328,9 @@ function ShowNewMessage(result) {
         var li = $('#dialog-' + result.dialog_id);
         if (!li.hasClass('new-messages'))
             li.addClass('new-messages');
-        var comment_count = li.find('.meta:first').text().replace(/\(/g, "").replace(/\)/g, "");
+        var comment_count = li.find('.meta:first').text();
         var current_count = parseInt(comment_count)+1;
-        li.find('.meta:first').show().html("("+current_count+")");
+        li.find('.meta:first').show().html(current_count);
         li.find('.meta:last').hide();
     }
 }

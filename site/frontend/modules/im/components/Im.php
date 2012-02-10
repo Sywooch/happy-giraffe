@@ -146,7 +146,7 @@ class Im
 
     /**
      * @param $user_id
-     * @return mixed
+     * @return int
      */
     public function getDialogByUser($user_id)
     {

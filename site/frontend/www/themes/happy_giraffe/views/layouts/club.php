@@ -16,6 +16,8 @@
     <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js?r=111'); ?>
 
     <?php Yii::app()->clientScript->registerScriptFile('/javascripts/common.js?r=111'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.mousewheel.js?r=111'); ?>
+
 
     <!--[if IE 7]>
     <?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css?r=112'); ?>

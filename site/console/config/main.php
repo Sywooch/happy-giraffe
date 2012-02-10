@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'id' => 'happy-giraffe',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'My Console Application',
     'commandMap' => array(
@@ -16,11 +17,15 @@ return array(
         'site.console.models.*',
     ),
     'components' => array(
-        'comet' => array(
+        'comet'=>array(
             'class' => 'site.frontend.extensions.Dklab_Realplexor',
-            'host' => 'chat.happy-giraffe.com',
+            'host' => 'plexor.dev.happy-giraffe.ru',
             'port' => 10010,
             'namespace' => 'crm_',
+        ),
+        'cache' => array(
+            'class' => 'CDummyCache',
+//            'class' => 'CMemCache',
         ),
         'db'=>require_once(dirname(__FILE__).'/db.php'),
     ),

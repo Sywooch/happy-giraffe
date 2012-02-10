@@ -2,7 +2,7 @@
 
 return array(
 //	'class' => 'CMemCache',
-'class' => 'CDummyCache',
+    'class' => 'CDummyCache',
 //	'servers' => array(
 //		array(
 //			'host' => 'localhost',

@@ -20,7 +20,7 @@ function Dklab_Realplexor(fullUrl, namespace, viaDocumentWrite)
 		'<iframe'
 		+ ' id="' + this._iframeId + '"'
 		+ ' onload="' + 'Dklab_Realplexor' + '._iframeLoaded(&quot;' + this._iframeId + '&quot;)"'
-		+ ' src="' + fullUrl +':8080'+ '?identifier=IFRAME&amp;HOST=' + host + '&amp;version=' + this.version + '"'
+		+ ' src="' + fullUrl + ':8080/?identifier=IFRAME&amp;HOST=' + host + '&amp;version=' + this.version + '"'
 		+ ' style="position:absolute; visibility:hidden; width:200px; height:200px; left:-1000px; top:-1000px"' +
 		'></iframe>';
 	this._iframeCreated = false;

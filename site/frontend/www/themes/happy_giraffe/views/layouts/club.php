@@ -48,7 +48,7 @@ $('.report-form').live('submit', function() {
     <div id="header" class="clearfix">
 
         <div class="logo-box">
-            <a href="" class="logo"></a>
+            <a href="/" class="logo"></a>
         </div>
 
         <div class="header-in">

@@ -402,4 +402,22 @@ class User extends CActiveRecord
         else
             return $url;
     }
+
+    public function getDialogLink()
+    {
+        if (Yii::app()->user->isGuest)
+            return '';
+
+        Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.frontend.modules.im.components.*');
+
+        $dialog_id = Im::model()->getDialogByUser($this->id);
+        if (isset($dialog_id)){
+            $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
+        }else{
+            $url = Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
+        }
+
+        return CHtml::link('написать', $url);
+    }
 }

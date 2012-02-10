@@ -34,6 +34,7 @@ class DefaultController extends Controller
 
     public function actionNew()
     {
+        Im::clearCache();
         $dialogs = MessageDialog::GetUserNewDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -42,6 +43,7 @@ class DefaultController extends Controller
 
     public function actionOnline()
     {
+        Im::clearCache();
         $dialogs = MessageDialog::GetUserOnlineDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -50,6 +52,7 @@ class DefaultController extends Controller
 
     public function actionDialog($id)
     {
+        $this->checkDialog($id);
         ActiveDialogs::model()->addDialog($id);
         ActiveDialogs::model()->SetLastDialogId($id);
         $messages = MessageLog::GetLastMessages($id);
@@ -62,6 +65,7 @@ class DefaultController extends Controller
     public function actionAjaxDialog()
     {
         $id = Yii::app()->request->getPost('id');
+        $this->checkDialog($id);
         $messages = MessageLog::GetLastMessages($id);
         $response = array(
             'status' => true,
@@ -137,7 +141,7 @@ class DefaultController extends Controller
         if (!empty($messages))
             $response = array(
                 'status' => true,
-                'count'=>count($messages),
+                'count' => count($messages),
                 'html' => $this->renderPartial('_messages', array('messages' => $messages, 'read' => true), true)
             );
         else $response = array('status' => false);
@@ -212,8 +216,25 @@ class DefaultController extends Controller
         $user_to = Im::model()->GetDialogUser($dialog_id);
         Yii::app()->comet->send(MessageCache::GetUserCache($user_to->id), array(
             'type' => MessageLog::TYPE_USER_WRITE,
-            'dialog_id'=>$dialog_id
+            'dialog_id' => $dialog_id
         ));
+    }
+
+    /**
+     * @param int $id model id
+     * @throws CHttpException
+     */
+    public function checkDialog($id)
+    {
+        $dialog = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('message_dialog')
+            ->where('id=:id', array(
+            ':id' => $id,
+        ))
+            ->queryScalar();
+        if ($dialog === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
     }
 
     /**

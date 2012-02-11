@@ -182,6 +182,7 @@ function setSelectBoxValue(el){
 
 function initSelects(block){
 	block.find('.chzn-done').next().remove();
-	block.find('.chzn-done').removeClass('chzn-done').chosen();
+	var chzns = block.find('.chzn-done');
+	if (chzns.size() > 0) chzns.removeClass('chzn-done').chosen();
 	//alert(block);
 }

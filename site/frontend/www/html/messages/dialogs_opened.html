@@ -5,22 +5,23 @@
 	<title>Untitled Document</title>
 	
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/baby.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/store.css" />
+	<link rel="stylesheet" type="text/css" href="../stylesheets/common.css" />
+	<link rel="stylesheet" type="text/css" href="../stylesheets/baby.css" />
+	<link rel="stylesheet" type="text/css" href="../stylesheets/store.css" />
 	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script>
+	<script type="text/javascript" src="../javascripts/checkbox.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="../stylesheets/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="../javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.jscrollpane.css" />
-	<script type="text/javascript" src="/javascripts/jquery.jscrollpane.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../stylesheets/jquery.jscrollpane.css" />
+	<script type="text/javascript" src="../javascripts/jquery.jscrollpane.min.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/jquery.mousewheel.js"></script>
+	<script type="text/javascript" src="../javascripts/jquery.mousewheel.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/common.js"></script>
+	
+	<script type="text/javascript" src="../javascripts/common.js"></script>
 	
 	<script>
 		$(document).ready(function(){
@@ -28,7 +29,49 @@
 				showArrows: true, 
 				animateScroll: true, 
 				arrowButtonSpeed: 50, 
-				autoReinitialise :true
+				
+			});
+			
+			var newContent = '<div class="dialog-message">\
+					\
+					<table>\
+						<tr>\
+							<td class="user">\
+								\
+								<div class="img"><img src="../images/ava_small.jpg" /></div>\
+								<span>Мира</span>\
+								\
+							</td>\
+							<td class="content">\
+								<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>\
+							</td>\
+							<td class="meta">\
+								<span>Сегодня<br/>16:45</span>\
+							</td>\
+							<td class="actions">\
+								\
+								<a href="" class="remove"></a>\
+								<a href="" class="claim"></a>\
+								\
+							</td>\
+						</tr>\
+					</table>\
+					\
+				</div>\
+			';
+			
+			$('.scroll').bind('jsp-scroll-y', function(event, scrollPositionY, isAtBottom, isAtTop){
+				
+				$('#r').html(isAtTop?'true':'false');
+				
+				if (isAtTop) {
+					
+					$('.dialog-list .jspPane').append(newContent);
+					
+					$('.scroll').data('jsp').reinitialise();
+					
+				}			
+				
 			});
 		})
 	</script>
@@ -81,6 +124,7 @@
 		
 		<div id="content" class="clearfix">
 			
+			
 			<div class="main">
 				
 				<div class="main-right">
@@ -131,40 +175,40 @@
 										<ul>
 											<li class="active">
 												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
+												<div class="img"><img src="../images/ava_small.jpg" /></div>
 												<div class="status"><i class="icon"></i></div>
 												<div class="name"><span>Мира Оченьдлиннаяфамилия</span></div>
 											</li>
 											<li>
 												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
+												<div class="img"><img src="../images/ava_small.jpg" /></div>
 												<div class="status"><i class="icon"></i></div>
 												<div class="name"><span>Мира Самаядлиннаяфамилия</span></div>
 											</li>
 											<li class="new-messages">
 												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
+												<div class="img"><img src="../images/ava_small.jpg" /></div>
 												<div class="status"><i class="icon"></i></div>
 												<div class="name"><span>Мира Смурков</span></div>
 												<div class="meta">2</div>
 											</li>
 											<li>
 												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
+												<div class="img"><img src="../images/ava_small.jpg" /></div>
 												<div class="status"><i class="icon"></i></div>
 												<div class="name"><span>Мира Смурков</span></div>
 												<div class="meta"><i class="editing"></i></div>
 											</li>
 											<li class="new-messages">
 												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
+												<div class="img"><img src="../images/ava_small.jpg" /></div>
 												<div class="status"><i class="icon"></i></div>
 												<div class="name"><span>Анастасия Перепеловская</span></div>
 												<div class="meta">999</div>
 											</li>
 											<li>
 												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
+												<div class="img"><img src="../images/ava_small.jpg" /></div>
 												<div class="status"><i class="icon"></i></div>
 												<div class="name"><span>Мира Смурков</span></div>
 											</li>
@@ -202,7 +246,12 @@
 										&nbsp;&nbsp;&nbsp;&nbsp;
 										<a href="">Распечатать</a>
 									</div>
-										
+									
+									<div style="padding:20px;">
+										<div id="r"></div>
+									</div>
+									
+									
 									<div class="dialog-list scroll">
 										
 										<div class="dialog-message">
@@ -211,7 +260,7 @@
 												<tr>
 													<td class="user">
 														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
+														<div class="img"><img src="../images/ava_small.jpg" /></div>
 														<span>Мира</span>
 														
 													</td>
@@ -238,7 +287,7 @@
 												<tr>
 													<td class="user">
 														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
+														<div class="img"><img src="../images/ava_small.jpg" /></div>
 														<span>Мира</span>
 														
 													</td>
@@ -265,7 +314,7 @@
 												<tr>
 													<td class="user">
 														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
+														<div class="img"><img src="../images/ava_small.jpg" /></div>
 														<span>Мира</span>
 														
 													</td>
@@ -292,7 +341,7 @@
 												<tr>
 													<td class="user">
 														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
+														<div class="img"><img src="../images/ava_small.jpg" /></div>
 														<span>Мира</span>
 														
 													</td>
@@ -319,7 +368,7 @@
 												<tr>
 													<td class="user">
 														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
+														<div class="img"><img src="../images/ava_small.jpg" /></div>
 														<span>Мира</span>
 														
 													</td>
@@ -346,7 +395,7 @@
 												<tr>
 													<td class="user">
 														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
+														<div class="img"><img src="../images/ava_small.jpg" /></div>
 														<span>Мира</span>
 														
 													</td>
@@ -373,7 +422,7 @@
 												<tr>
 													<td class="user">
 														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
+														<div class="img"><img src="../images/ava_small.jpg" /></div>
 														<span>Мира</span>
 														
 													</td>
@@ -400,7 +449,7 @@
 												<tr>
 													<td class="user">
 														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
+														<div class="img"><img src="../images/ava_small.jpg" /></div>
 														<span>Мира</span>
 														
 													</td>
@@ -424,7 +473,7 @@
 									</div>
 										
 									<div class="new-message">
-										<img src="/images/editor.gif" />
+										<img src="../images/editor.gif" />
 										<div class="buttons">
 											<button class="btn btn-green-smedium"><span><span>Отправить</span></span></button>
 										</div>
@@ -488,9 +537,9 @@
 				<div class="row row-social">
 					Быстрый вход:
 					&nbsp;
-					<a href=""><img src="/images/icon_social_odnoklassniki.png" /></a>
-					<a href=""><img src="/images/icon_social_vkontakte.png" /></a>
-					<a href=""><img src="/images/icon_social_mailru.png" /></a>
+					<a href=""><img src="../images/icon_social_odnoklassniki.png" /></a>
+					<a href=""><img src="../images/icon_social_vkontakte.png" /></a>
+					<a href=""><img src="../images/icon_social_mailru.png" /></a>
 				</div>
 				
 				<div class="reg-link">

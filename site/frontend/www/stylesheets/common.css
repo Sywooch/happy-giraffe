@@ -392,7 +392,7 @@ a {color:#51afc3;}
 .body-club #header {background:#c5a7e2;}
 #header a {color:#f6e596;}
 #header .logo-box {float:left;width:200px;}
-#header .logo-box a.logo {display:block;width:166px;height:100px;background:url(../images/common.png) no-repeat 0 0;}
+#header .logo-box a.logo {display:block;width:166px;height:100px;background:url(../images/common.png) no-repeat 0 0;text-indent:-9999px;}
 #header .header-in {margin-left:200px;}
 #header .login-box {font-size:11px;height:32px;}
 #header .login-box .lk {background:url(../images/key.png) no-repeat;padding:7px 7px 7px 30px;color:#6a4b88;font:bold 11px Tahoma, Arial, sans-serif;background-position:5px center;margin-right:5px;display:inline-block;color:#fff;}

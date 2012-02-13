@@ -192,11 +192,11 @@
 
 .buy-else-horizontal #else-products-slider {width:920px;height:300px}
 
-.buy-else-horizontal .product-list .prev {display:block;width:12px;height:17px;background:url(../images/bg_product_thumbs_nav.png) no-repeat 0 0;position:absolute;left:8px;top:25%;}
-.buy-else-horizontal .product-list .prev.disabled {background-position:0 100%;cursor:default;}
+.buy-else-horizontal .product-list .prev {display:block;width:12px;height:17px;background:url(../images/common.png) no-repeat -42px -114px;position:absolute;top:50%;left:5px;margin-top:-9px;}
+.buy-else-horizontal .product-list .prev.disabled {background-position:-42px -131px;cursor:default;}
 
-.buy-else-horizontal .product-list .next {display:block;width:12px;height:17px;background:url(../images/bg_product_thumbs_nav.png) no-repeat 100% 0;position:absolute;right:8px;top:25%;}
-.buy-else-horizontal .product-list .next.disabled {background-position:100% 100%;cursor:default;}
+.buy-else-horizontal .product-list .next {display:block;width:12px;height:17px;background:url(../images/common.png) no-repeat -54px -114px;position:absolute;top:50%;right:5px;margin-top:-9px;}
+.buy-else-horizontal .product-list .next.disabled {background-position:-54px -131px;cursor:default;}
 
 
 .product-list {margin-left:1px;overflow:hidden;padding:15px 0 15px;}

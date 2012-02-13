@@ -124,6 +124,7 @@ p {
     position: relative;
     margin: 0px 0 0 30px;
     top: 20px;
+	text-indent:-9999px;
 }
 
 .topheader .center {

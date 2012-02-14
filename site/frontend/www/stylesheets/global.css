@@ -768,25 +768,25 @@ p {
 
 .like-block {padding: 30px 30px 10px;background: #fffedf;margin: 10px 0;color: #535353;position:relative;}
 
-.like-block .title {font-family: Arial, Tahoma, sans-serif;font-size: 30px;display: block;}
+.like-block .title {font-family: Arial, Tahoma, sans-serif;font-size:26px;display:block;margin-left:95px;}
 
-.like-block .rating {text-align: right;font: 16px/1 tahoma, sans-serif;position:absolute;right:30px;top:15px;}
+.like-block .rating {text-align: right;font: 16px/1 tahoma, sans-serif;position:absolute;right:30px;top:16px;}
 .like-block .rating span {font: bold 36px/1 tahoma, sans-serif;position: relative;color: #FF6600;}
 
 .like-block .tip {position:absolute;width:25px;height:25px;right:7px;top:7px;}
 .like-block .tip .container {position:relative;}
-.like-block .tip .icon-question {display:block;width:25px;height:25px;background:url(/images/common.png) no-repeat -72px -101px;cursor:pointer;}
-.like-block .tip .text {position:absolute;right:50%;bottom:100%;display:none;width:230px;padding:15px;background:#fcfac6;color:#737373;font-size:12px;border:1px solid #ffe572;margin-bottom:12px;}
+.like-block .tip .icon-question {display:block;width:21px;height:21px;background:url(/images/common.png) no-repeat -292px -136px;cursor:pointer;}
+.like-block .tip .text {position:absolute;right:70%;bottom:100%;display:none;width:230px;padding:15px;background:#fcfac6;color:#737373;font-size:12px;border:1px solid #ffe572;margin-bottom:12px;}
 .like-block .tip .text:after {display:block;width:15px;height:14px;background:url(/images/common.png) no-repeat -98px -101px;content:'';position:absolute;right:-1px;bottom:-14px;}
 .like-block .tip .text p {color:#737373;margin-top:1em;}
 .like-block .tip .text big {font-size:14px;font-weight:bold;color:#848484;}
 .like-block .tip:hover .text {display:block;}
 
-.like-block .like-buttons  {margin-top:30px;}
+.like-block .like-buttons  {margin-top:30px;padding-bottom:10px;}
 
-.like-block .like-buttons .other-likes {margin-left:220px;padding-top:10px;}
-.like-block .like-buttons .other-likes ul {list-style:none;}
-.like-block .like-buttons .other-likes ul li {float:left;width:33%;height:26px;padding:10px 0;margin-bottom:10px;}
+.like-block .like-buttons .other-likes {margin-left:205px;margin-top:10px;border-left:1px dashed #c2c1a7;padding-left:19px;height:95px;}
+.like-block .like-buttons .other-likes ul {list-style:none;width:100%;width:415px;}
+.like-block .like-buttons .other-likes ul li {float:left;width:33%;height:24px;padding:13px 0;}
 
 .like-block .hg-like {float:left;}
 

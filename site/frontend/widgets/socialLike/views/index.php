@@ -27,12 +27,12 @@
         ?>
         <div class="other-likes">
             <ul>
-                <li><?php $this->render('_fb', array($this->providers['fb'])); ?></li>
-                <li><?php $this->render('_gp', array($this->providers['gp'])); ?></li>
                 <li><?php $this->render('_ok', array($this->providers['ok'])); ?></li>
+                <li style="text-align:center;"><?php $this->render('_gp', array($this->providers['gp'])); ?></li>
                 <li><?php $this->render('_vk', array($this->providers['vk'])); ?></li>
-                <li><?php $this->render('_tw', array($this->providers['tw'])); ?></li>
                 <li><?php $this->render('_mr', array($this->providers['mr'])); ?></li>
+                <li style="text-align:center;"><?php $this->render('_tw', array($this->providers['tw'])); ?></li>
+                <li style="align:right;"><?php $this->render('_fb', array($this->providers['fb'])); ?></li>
             </ul>
         </div>
     </div>

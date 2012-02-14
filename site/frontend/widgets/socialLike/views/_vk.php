@@ -1,4 +1,4 @@
-<div id="vk_like"></div>
+<div id="vk_like" style="float:right;"></div>
 <?php
 /*$js = "$('#vk_like').html(VK.Share.button(" . CJavaScript::encode($this->options) . ", {type: 'round'}));";
 

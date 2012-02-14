@@ -20,8 +20,7 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'name',
-		'community_id',
-		'type_id',
+		'community.name',
 	),
 )); ?>
 

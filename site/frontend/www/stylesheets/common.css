@@ -812,5 +812,8 @@ select.pregnancy_term + .chzn-container-single .chzn-single {height:64px;}
 select.pregnancy_term + .chzn-container-single .chzn-single span {line-height:64px;font-size:40px;}
 select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-size:20px;}
 
+/* */
+
+.with-search .chzn-container-single .chzn-search {display:block;}
 
 /* select */

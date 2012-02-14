@@ -5,7 +5,7 @@
 				'id' => 'CommunityTravelWaypoint_' . $i . '_country_name',
 				'name' => 'CommunityTravelWaypoint[' . $i . '][country_name]',
 
-				'sourceUrl' => $this->createUrl('geo/countries'),
+				'sourceUrl' => $this->createUrl('/geo/geo/countries'),
 	
 				'options' => array(
 					'select' => "js:function (event, ui)
@@ -29,7 +29,7 @@
 				'source' => "js: function(request, response)
 					{
 						$.ajax({
-							url: '" . $this->createUrl('geo/cities') . "',
+							url: '" . $this->createUrl('/geo/geo/cities') . "',
 							dataType: 'json',
 							data: {
 								term: request.term,

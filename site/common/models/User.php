@@ -16,8 +16,8 @@
  * @property string $pic_small
  * @property string $role
  * @property string $link
- * @property string $country
- * @property string $city
+ * @property string $country_id
+ * @property string $city_id
  * @property int $deleted
  * @property integer $gender
  * @property string $birthday
@@ -53,6 +53,7 @@
  * @property UserSocialService[] $userSocialServices
  * @property UserViaCommunity[] $userViaCommunities
  * @property VaccineDateVote[] $vaccineDateVotes
+ * @property GeoCountry $country
  */
 class User extends CActiveRecord
 {
@@ -149,6 +150,7 @@ class User extends CActiveRecord
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
             'settlement' => array(self::BELONGS_TO, 'GeoRusSettlement', 'settlement_id'),
+            'country' => array(self::BELONGS_TO, 'GeoCountry', 'country_id'),
             'communities' => array(self::MANY_MANY, 'User', 'user_via_community(user_id, community_id)'),
 
             'clubCommunityComments' => array(self::HAS_MANY, 'ClubCommunityComment', 'author_id'),
@@ -419,5 +421,13 @@ class User extends CActiveRecord
         }
 
         return CHtml::link('написать', $url);
+    }
+
+    public function getFlag()
+    {
+        if (!empty($this->country_id))
+            return '<img src="/images/blank.gif" class="flag flag-'.strtolower($this->country->iso_code).'" title="'.$this->country->name.'" />';
+        else
+            return '';
     }
 }

@@ -1,5 +1,8 @@
 <?php
-Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.color.animation.js');
+Yii::app()->clientScript
+    ->registerScriptFile('/javascripts/jquery.color.animation.js')
+    ->registerScriptFile('/javascripts/jquery.jscrollpane.min.js')
+    ->registerCssFile('/stylesheets/jquery.jscrollpane.css');
 ?>
 <div id="dialog">
     <div class="opened-dialogs-list">
@@ -63,7 +66,9 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.color.animatio
     </div>
 </div>
 <style type="text/css">
-    .cke_bottom {display: none;}
+    .cke_bottom {
+        display: none;
+    }
 </style>
 <script type="text/javascript">
 var window_active = 1;
@@ -72,9 +77,26 @@ var dialog = <?php echo $id ?>;
 var last_massage = null;
 var no_more_messages = 0;
 var last_typing_time = 0;
+var pane = null;
+var no_scroll = 0;
 
 $(function () {
+//    pane = $('.scroll').bind(
+//        'jsp-arrow-change',
+//        function(event, isAtTop, isAtBottom, isAtLeft, isAtRight)
+//        {
+//            console.log(event, isAtTop);
+//            if (isAtTop && !no_scroll)
+//                MoreMessages();
+//        }
+//    ).jScrollPane({
+//        showArrows:true,
+//        animateScroll:true,
+//        arrowButtonSpeed:50,
+//        autoReinitialise:true
+//    });
     GoTop();
+
     $(window).focus(function () {
         window_active = 1;
         SetReadStatus();
@@ -187,11 +209,11 @@ $(function () {
         }
         SetReadStatusForIframe();
     });
-    editor.on('mouseup', function() {
+    editor.on('mouseup', function () {
         SetReadStatusForIframe();
     });
 
-    $("body").delegate(".dialog-message a.claim", "click", function(e){
+    $("body").delegate(".dialog-message a.claim", "click", function (e) {
         e.preventDefault();
         report($(this).parents(".dialog-message"));
     });
@@ -253,8 +275,9 @@ function SendMessage() {
     });
 }
 
-function MoreMessages(event) {
-    if ($(this).scrollTop() < 20 && no_more_messages == 0) {
+function MoreMessages() {
+    if (no_more_messages == 0 && $('#messages').scrollTop < 10) {
+//        no_scroll = 1;
         var first_id = $('#messages .dialog-message:first').attr('id').replace(/MessageLog_/g, "");
         $('#messages').unbind('scroll');
         $.ajax({
@@ -272,6 +295,8 @@ function MoreMessages(event) {
 
                     $("#messages").scrollTop(h);
                     $('#messages').delay(2000).bind('scroll', MoreMessages);
+//                    SetScrollPosition(h);
+//                    no_scroll = 0;
                 } else {
                     no_more_messages = 1;
                 }
@@ -282,8 +307,8 @@ function MoreMessages(event) {
 }
 
 function SetReadStatus() {
-    if (window_active && last_massage !== null){
-        $("#messages .dialog-message-new-in td").animate({ backgroundColor: "#fff" }, 2000);
+    if (window_active && last_massage !== null) {
+        $("#messages .dialog-message-new-in td").animate({ backgroundColor:"#fff" }, 2000);
         $('.dialog-message-new-in').removeClass('dialog-message-new-in');
 
         $.ajax({
@@ -300,8 +325,8 @@ function SetReadStatus() {
 }
 
 function SetReadStatusForIframe() {
-    if (last_massage !== null){
-        $("#messages .dialog-message-new-in td").animate({ backgroundColor: "#fff" }, 2000);
+    if (last_massage !== null) {
+        $("#messages .dialog-message-new-in td").animate({ backgroundColor:"#fff" }, 2000);
         $('.dialog-message-new-in').removeClass('dialog-message-new-in');
 
         $.ajax({
@@ -321,7 +346,7 @@ function ShowNewMessage(result) {
     if (result.dialog_id == dialog) {
         last_massage = result.message_id;
         $("#messages").append(result.html);
-        $("#messages .dialog-message-new-in:last td").css('background-color' , '#EBF5FF');
+        $("#messages .dialog-message-new-in:last td").css('background-color', '#EBF5FF');
         GoTop();
         SetReadStatus();
     } else {
@@ -329,7 +354,7 @@ function ShowNewMessage(result) {
         if (!li.hasClass('new-messages'))
             li.addClass('new-messages');
         var comment_count = li.find('.meta:first').text();
-        var current_count = parseInt(comment_count)+1;
+        var current_count = parseInt(comment_count) + 1;
         li.find('.meta:first').show().html(current_count);
         li.find('.meta:last').hide();
     }
@@ -339,12 +364,12 @@ function ShowAsRead(result) {
     $(".dialog-message-new-out").each(function (index) {
         var id = $(this).attr("id").replace(/MessageLog_/g, "");
         if (id <= result.message_id) {
-            $(this).find("td.content").css('background-color' , '#EBF5FF');
-            $(this).find("td.content").animate({ backgroundColor: "#fff" }, 2000);
-            $(this).find("td.meta").css('background-color' , '#EBF5FF');
-            $(this).find("td.meta").animate({ backgroundColor: "#fff" }, 2000);
-            $(this).find("td.actions").css('background-color' , '#EBF5FF');
-            $(this).find("td.actions").animate({ backgroundColor: "#fff" }, 2000);
+            $(this).find("td.content").css('background-color', '#EBF5FF');
+            $(this).find("td.content").animate({ backgroundColor:"#fff" }, 2000);
+            $(this).find("td.meta").css('background-color', '#EBF5FF');
+            $(this).find("td.meta").animate({ backgroundColor:"#fff" }, 2000);
+            $(this).find("td.actions").css('background-color', '#EBF5FF');
+            $(this).find("td.actions").animate({ backgroundColor:"#fff" }, 2000);
             $(this).removeClass("dialog-message-new-out");
 
         }
@@ -376,31 +401,38 @@ function ShowUserTyping(result) {
 }
 
 function GoTop() {
-    $("#messages").scrollTop($("#messages")[0].scrollHeight);
+    SetScrollPosition($("#messages")[0].scrollHeight);
+    //$("#messages").scrollTop($("#messages")[0].scrollHeight);
 }
 
-function report(item)
-{
-    if (item.next().attr('class') != 'report-block')
-    {
+function report(item) {
+    if (item.next().attr('class') != 'report-block') {
         var source_data = item.attr('id').split('_');
         $.ajax({
-            type: 'POST',
-            data: {
-                source_data: {
-                    model: source_data[0],
-                    object_id: source_data[1]
+            type:'POST',
+            data:{
+                source_data:{
+                    model:source_data[0],
+                    object_id:source_data[1]
                 }
             },
-            url: "<?php echo  $this->createUrl('/ajax/showreport') ?>",
-            success: function(response) {
+            url:"<?php echo  $this->createUrl('/ajax/showreport') ?>",
+            success:function (response) {
                 item.after(response);
             }
         });
     }
-    else
-    {
+    else {
         item.next().remove();
     }
+}
+
+function SetScrollPosition(yPos){
+    //pane.data('jsp').scrollTo(0, yPos);
+    $("#messages").scrollTop(yPos)
+}
+function getScrollContentPosition(){
+    return pane.data('jsp').getContentPositionY();
+
 }
 </script>

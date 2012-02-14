@@ -19,16 +19,16 @@ class SocialLikeWidget extends CWidget
 
     public $providers = array(
         'yh' => array(),
+        'fb' => array(),
+        'gp' => array(),
+        'ok' => array(),
         'vk' => array(
             'id' => 2791084,
         ),
-        'gp' => array(),
-        'mr' => array(),
-        'fb' => array(),
         'tw' => array(
             'via' => 'HappyGiraffe'
         ),
-        'ok' => array(),
+        'mr' => array(),
     );
 
     public function init()

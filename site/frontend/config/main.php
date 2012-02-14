@@ -69,6 +69,7 @@ return array(
 		),
 		'contest',
 		'attribute',
+        'albums',
 		'delivery' => array(
 			'class' => 'application.modules.delivery.DeliveryModule',
 			'returnUrl' => '/shop/shopCartDelivery',

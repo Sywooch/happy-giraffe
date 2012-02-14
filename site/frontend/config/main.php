@@ -215,7 +215,7 @@ return array(
         ),
         'comet'=>array(
             'class' => 'ext.Dklab_Realplexor',
-            'host' => 'test.dev.happy-giraffe.ru',
+            'host' => 'plexor.dev.happy-giraffe.ru',
             'port' => 10010,
             'namespace' => 'crm_',
         )

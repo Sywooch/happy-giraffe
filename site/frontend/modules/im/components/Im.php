@@ -120,6 +120,7 @@ class Im
      */
     public function findDialogUserNames($term)
     {
+        $term = strtolower($term);
         $result = array();
         foreach ($this->_dialog_users as $user_id) {
             $user = User::getUserById($user_id);
@@ -172,7 +173,7 @@ class Im
     private function startsWith($haystack, $needle)
     {
         $length = strlen($needle);
-        return (substr($haystack, 0, $length) === $needle);
+        return (substr(strtolower($haystack), 0, $length) === $needle);
     }
 
     public function getDialogs(){

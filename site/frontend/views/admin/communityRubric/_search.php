@@ -17,12 +17,7 @@
 
         <div class="row">
                 <?php echo $form->label($model,'community_id'); ?>
-                <?php echo $form->textField($model,'community_id',array('size'=>11,'maxlength'=>11)); ?>
-        </div>
-
-        <div class="row">
-                <?php echo $form->label($model,'type_id'); ?>
-                <?php echo $form->textField($model,'type_id',array('size'=>11,'maxlength'=>11)); ?>
+                <?php ; ?>
         </div>
 
         <div class="row buttons">

@@ -83,11 +83,16 @@ h3 { font-size: 16px;}
 h4 { font-size: 12px}
 
 
+.opacity-20 {opacity:0.2;filter: alpha(opacity = 20);}
+.opacity-40 {opacity:0.4;filter: alpha(opacity = 40);}
+.opacity-60 {opacity:0.6;filter: alpha(opacity = 60);}
+.opacity-80 {opacity:0.8;filter: alpha(opacity = 80);}
+
 .file-fake {display:inline-block;position:relative;cursor:pointer;height:32px;}
 .file-fake input {opacity:0;position:absolute;z-index:3;left:0;top:0;height:100%;width:100%;display:block;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)}
 .file-fake .btn {position:relative;z-index:2;}
 
-a.info {display:inline-block;width:13px;height:13px;background:url(../images/icon_info.png) no-repeat;}
+a.info {display:inline-block;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
 
 .placeholder {color:#c6c6c6 !important;font-weight:normal !important;}
 
@@ -223,7 +228,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/ico
 .btn.btn-green-smedium > span > span {padding-left:10px;height:25px;line-height:25px;background-position:0 -2900px;padding-right:4px;}
 
 
-.btn-wish-list img {margin-right:-5px;position:relative;top:1px;}
+.btn-wish-list .icon-wish-list {margin-right:-5px;position:relative;top:-2px;}
 
 
 .g-button.photo-name {float: left; height: 42px; padding: 0 7px 0 15px; position: relative; display: block; text-decoration: none;}
@@ -311,8 +316,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 .counter {display:inline-block;line-height:20px;vertical-align:top;}
 .counter input[type=text] {width:26px;height:16px;padding:0;font-size:12px;font-weight:bold;text-align:center;line-height:16px;margin:0 6px;vertical-align:top;border:1px solid #99d5e2;background:#fff;}
-.counter .inc {display:inline-block;width:8px;height:11px;background:url(../images/icon_inc.gif) no-repeat;vertical-align:top;cursor:pointer;margin-top:4px;}
-.counter .dec {display:inline-block;width:8px;height:11px;background:url(../images/icon_dec.gif) no-repeat;vertical-align:top;cursor:pointer;margin-top:4px;}
+.counter .dec {display:inline-block;width:8px;height:11px;background:url(../images/common.png) no-repeat -42px -101px;vertical-align:top;cursor:pointer;margin-top:4px;}
+.counter .inc {display:inline-block;width:8px;height:11px;background:url(../images/common.png) no-repeat -52px -101px;vertical-align:top;cursor:pointer;margin-top:4px;}
 
 /* */
 
@@ -387,7 +392,7 @@ a {color:#51afc3;}
 .body-club #header {background:#c5a7e2;}
 #header a {color:#f6e596;}
 #header .logo-box {float:left;width:200px;}
-#header .logo-box a.logo {display:block;width:166px;height:100px;background:url(../images/common.png) no-repeat 0 0;}
+#header .logo-box a.logo {display:block;width:166px;height:100px;background:url(../images/common.png) no-repeat 0 0;text-indent:-9999px;}
 #header .header-in {margin-left:200px;}
 #header .login-box {font-size:11px;height:32px;}
 #header .login-box .lk {background:url(../images/key.png) no-repeat;padding:7px 7px 7px 30px;color:#6a4b88;font:bold 11px Tahoma, Arial, sans-serif;background-position:5px center;margin-right:5px;display:inline-block;color:#fff;}
@@ -803,11 +808,12 @@ a {color:#51afc3;}
 
 select.pregnancy_term {width:148px;}
 
+select.pregnancy_term + .chzn-container-single .chzn-single {height:64px;}
+select.pregnancy_term + .chzn-container-single .chzn-single span {line-height:64px;font-size:40px;}
+select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-size:20px;}
 
-select.pregnancy_term + .chzn-container-single .chzn-single {height:44px;}
-select.pregnancy_term + .chzn-container-single .chzn-single span {line-height:44px;font-size:14px;}
-select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-size:14px;}
+/* */
 
-
+.with-search .chzn-container-single .chzn-search {display:block;}
 
 /* select */

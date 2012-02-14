@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/baby.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/store.css" />
 	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
@@ -20,6 +20,7 @@
 	
 	<script type="text/javascript" src="/javascripts/jquery.mousewheel.js"></script>
 	
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 	<script>
@@ -28,7 +29,49 @@
 				showArrows: true, 
 				animateScroll: true, 
 				arrowButtonSpeed: 50, 
-				autoReinitialise :true
+				
+			});
+			
+			var newContent = '<div class="dialog-message">\
+					\
+					<table>\
+						<tr>\
+							<td class="user">\
+								\
+								<div class="img"><img src="/images/ava_small.jpg" /></div>\
+								<span>Мира</span>\
+								\
+							</td>\
+							<td class="content">\
+								<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>\
+							</td>\
+							<td class="meta">\
+								<span>Сегодня<br/>16:45</span>\
+							</td>\
+							<td class="actions">\
+								\
+								<a href="" class="remove"></a>\
+								<a href="" class="claim"></a>\
+								\
+							</td>\
+						</tr>\
+					</table>\
+					\
+				</div>\
+			';
+			
+			$('.scroll').bind('jsp-scroll-y', function(event, scrollPositionY, isAtBottom, isAtTop){
+				
+				$('#r').html(isAtTop?'true':'false');
+				
+				if (isAtTop) {
+					
+					$('.dialog-list .jspPane').append(newContent);
+					
+					$('.scroll').data('jsp').reinitialise();
+					
+				}			
+				
 			});
 		})
 	</script>
@@ -44,7 +87,7 @@
 		<div id="header" class="clearfix">
 			
 			<div class="logo-box">
-				<a href="" class="logo"></a>
+				<a href="/" class="logo" title="hg.ru – Домашняя страница">Ключевые слова сайта</a>
 			</div>
 			
 			<div class="header-in">
@@ -80,6 +123,7 @@
 		</div>
 		
 		<div id="content" class="clearfix">
+			
 			
 			<div class="main">
 				
@@ -202,7 +246,12 @@
 										&nbsp;&nbsp;&nbsp;&nbsp;
 										<a href="">Распечатать</a>
 									</div>
-										
+									
+									<div style="padding:20px;">
+										<div id="r"></div>
+									</div>
+									
+									
 									<div class="dialog-list scroll">
 										
 										<div class="dialog-message">

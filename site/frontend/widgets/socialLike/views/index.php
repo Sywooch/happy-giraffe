@@ -27,18 +27,12 @@
         ?>
         <div class="other-likes">
             <ul>
-                <?php
-                foreach ($this->providers as $provider => $options)
-                {
-                    if ($provider == 'yh')
-                        continue;
-                    echo '<li>';
-                    $this->render('_' . $provider, array(
-                        'options' => $options,
-                    ));
-                    echo '</li>';
-                }
-                ?>
+                <li><?php $this->render('_fb', array($this->providers['fb'])); ?></li>
+                <li><?php $this->render('_gp', array($this->providers['gp'])); ?></li>
+                <li><?php $this->render('_ok', array($this->providers['ok'])); ?></li>
+                <li><?php $this->render('_vk', array($this->providers['vk'])); ?></li>
+                <li><?php $this->render('_tw', array($this->providers['tw'])); ?></li>
+                <li><?php $this->render('_mr', array($this->providers['mr'])); ?></li>
             </ul>
         </div>
     </div>

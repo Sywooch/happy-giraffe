@@ -1,0 +1,4 @@
+#img-upload-list {overflow:hidden;}
+#img-upload-list li {float:left;margin:10px 15px;}
+#img-upload-list li img {width:100px;}
+#img-upload-container {background-color:#cccccc;min-height:50px;}

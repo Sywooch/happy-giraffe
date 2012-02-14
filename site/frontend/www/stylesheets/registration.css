@@ -11,7 +11,7 @@ body, html {height:100%;}
 #registration .header {zoom:1;}
 
 #registration .header .logo-box {}
-#registration .header .logo-box .logo {display:block;width:166px;height:100px;background:url(../images/common.png) no-repeat 0 0;}
+#registration .header .logo-box .logo {display:block;width:166px;height:100px;background:url(../images/common.png) no-repeat 0 0;text-indent:-9999px;}
 
 #registration .header .login-link {padding-top:20px;}
 #registration .header .login-link .login-q {background:#fefeda;font:italic 14px/40px arial;display:inline-block;padding:0 25px;margin-right:8px;vertical-align:middle;color:#575757;}

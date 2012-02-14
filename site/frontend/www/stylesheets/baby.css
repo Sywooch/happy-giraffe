@@ -9,7 +9,8 @@
 #baby .age-list ul li a {/*css3*/border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
 #baby .age-list ul li img {position:absolute;bottom:29px;left:0;z-index:5;}
 #baby .age-list ul li .age-title {position:absolute;display:none;bottom:0;left:2px;white-space:nowrap;color:#626262;font-family:tahoma, arial, sans-serif;}
-#baby .age-list ul li .flag {position:absolute;background:url(../images/bg_baby_calendar_age_flag.png) no-repeat left bottom;padding-bottom:20px;white-space:nowrap;top:3px;left:-2px;font-size:11px;color:#cbcbcb;font-family:tahoma, arial, sans-serif;z-index:1;}
+#baby .age-list ul li .flag {position:absolute;padding-bottom:20px;white-space:nowrap;top:3px;left:-2px;font-size:11px;color:#cbcbcb;font-family:tahoma, arial, sans-serif;z-index:1;}
+#baby .age-list ul li .flag .icon {width:20px;height:20px;display:block;background:url(../images/common.png) no-repeat -139px -151px;}
 #baby .age-list ul li .no-flag {position:absolute;padding-bottom:20px;white-space:nowrap;top:3px;left:0px;font-size:11px;color:#e37cc9;font-family:tahoma, arial, sans-serif;z-index:1;}
 #baby .age-list ul li .hl {color:#828282;}
 #baby .age-list ul li.weeks a {background:#d7bfed;}
@@ -21,6 +22,9 @@
 #baby .age-list ul li a:hover {padding:7px 0;margin-top:37px;}
 #baby .age-list ul li.active .age-title {display:block;}
 #baby .age-list ul li.one-line a {line-height:16px;}
+
+#baby .age-list .icon-stork {width:23px;height:36px;background:url(../images/common.png) no-repeat -191px -127px;display:block;position:absolute;bottom:29px;left:0;z-index:5;}
+#baby .age-list .icon-18 {width:33px;height:34px;background:url(../images/common.png) no-repeat -156px -127px;display:block;position:absolute;bottom:29px;left:0;z-index:5;}
 
 #baby .side-right {width:240px;margin-left:-240px;}
 #baby .main {margin:0;}
@@ -144,7 +148,7 @@
 #baby .vaccination-table table tr td:first-child {border-left:0;}
 #baby .vaccination-table table thead td {background:#c9ade5;padding:12px 0;font-size:16px;font-family:tahoma, arial, sans-serif;color:#fff;}
 #baby .vaccination-table table tbody td {padding:10px 0;font-size:13px;color:#828181;}
-#baby .vaccination-table .date {width:85px;height:80px;background:url(../images/bg_baby_vaccination_table_date.gif) no-repeat;margin:5px auto 15px;}
+#baby .vaccination-table .date {width:85px;height:80px;background:url(../images/common.png) no-repeat -614px -1px;margin:5px auto 15px;}
 #baby .vaccination-table .date .y {padding-top:10px;color:#b3b3b3;font-family:arial black, arial, sans-serif;font-size:14px;}
 #baby .vaccination-table .date .d {margin-top:5px;color:#32a5e3;font-family:arial black, arial, sans-serif;font-size:20px;}
 #baby .vaccination-table .date .m {color:#32a5e3;font-size:17px;}
@@ -156,6 +160,8 @@
 #baby .vaccination-table .result-box .green {color:#97e085;}
 #baby .vaccination-table .table-actions {padding:15px;background:#e8d7f7;margin-top:20px;}
 #baby .vaccination-table .table-actions a {margin:0 10px;}
+#baby .vaccination-table .table-actions .icon-print {width:32px;height:29px;background:url(../images/common.png) no-repeat -527px -101px;display:inline-block;}
+#baby .vaccination-table .table-actions .icon-pdf {width:26px;height:32px;background:url(../images/common.png) no-repeat -499px -101px;display:inline-block;}
 
 #baby .vaccination-tabs {margin-top:-74px;position:relative;z-index:4;}
 #baby .vaccination-tabs .nav {text-align:center;margin-bottom:25px;}
@@ -381,56 +387,45 @@
 #baby .calculate_tb table td {text-align:left;padding:5px;}
 #baby .calculate_tb ul.lists_td {background:#faf5fe;display:inline-block;padding:5px 0 5px 5px;margin:0 0 0 -5px;}
 #baby .calculate_tb ul.lists_td li {display:inline;padding:0 5px 0 0;}
-#baby .calculate_tb input.mth_calculate {float:right;margin:20px 0 0 0;width:120px;height:33px;background: url(../images/bg_yellow_sub.png) 0 0 repeat-x;border:1px solid #f1d419;font:bold 16px arial, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
-#baby .calculate_tb .cusel {height: 18px;background-position: left top;display: inline-block;position: relative;cursor: pointer;font-size: 14px;z-index: 1;border:  1px solid #e6d4f6;background: #fff;}
-#baby .calculate_tb .cuselFrameRight {position: absolute;z-index: 2;top: 0;right: 0;height: 100%;width: 19px;background-position: right top;background: #41b3cc url(../images/sel_violet.png) no-repeat;}
-#baby .calculate_tb .cusel .cusel-scroll-wrap {display: block;visibility: hidden;position: absolute;left: 0;top: 100%;border:  1px solid #e6d4f6;background: #fff;min-width: 100%;width: auto;font-size: 12px;}
-#baby .calculate_tb .cusel span:hover,
-#baby .calculate_tb .cusel .cuselOptHover {background: #a687c7;color: #fff;}
+#baby .calculate_tb .btn {float:right;margin:20px 0 0 0;}
 #baby .calculate_tb .num_cal {width:50px;}
 #baby .calculate_tb .mn_cal {width:85px;}
 #baby .calculate_tb .yr_cal {width:63px;}
 
 #baby .mother_calendar {position:relative;z-index:3;display:block;padding:15px;margin:0 0 40px 0;box-shadow:0px 0px 5px 5px #f1f1f0;-moz-box-shadow:0px 0px 5px 5px #f1f1f0;-webkit-box-shadow:0px 0px 5px 5px #f1f1f0;}
-#baby .mother_calendar .choice_month {position:relative;display:block;height:77px; background:#f7efff;text-align:center;font:bold 40px/77px arial, sans-serif;color:#5a595a;}
-#baby .mother_calendar .choice_month a.l_arr_mth {display:block;width:22px;height:28px;background: url(../images/call_arrow.png) 0 0 no-repeat; text-indent:-9999px;position:absolute;left:20px;top:25px;}
-#baby .mother_calendar .choice_month a.r_arr_mth {display:block;width:22px;height:28px;background: url(../images/call_arrow.png) 100% 100% no-repeat; text-indent:-9999px;position:absolute;right:20px;top:25px;}
-#baby .mother_calendar .choice_month a.l_arr_mth_active {display:block;width:22px;height:28px;background: url(../images/call_arrow.png) 0 100% no-repeat; text-indent:-9999px;position:absolute;left:20px;top:25px;}
-#baby .mother_calendar .choice_month a.r_arr_mth_active {display:block;width:22px;height:28px;background: url(../images/call_arrow.png) 100% 0 no-repeat; text-indent:-9999px;position:absolute;right:20px;top:25px;}
+
 #baby .mother_calendar table.calendar_body  th {text-align:center;width:87px;height:87px;padding:5px;vertical-align:middle;font:bold 22px tahoma, sans-serif;color:#a4a3a3;}
 #baby .mother_calendar table.calendar_body  td {text-align:center;width:87px;height:87px;padding:5px;vertical-align:top;}
 #baby .mother_calendar .cal_item {display:block;width:85px;height:85px;border:1px solid #f0f0f0;position:relative;}
 #baby .mother_calendar .active_item {border:1px solid #f7e567;background:#fffdd6;}
 #baby .mother_calendar .cal_item ins {position:absolute;top:8px;right:8px;font:bold 16px tahoma, sans-serif;color:#a0a0a0;}
-#baby .mother_calendar .pms {background: url(../images/calendar/pms_icon.png) center 30px no-repeat;}
-#baby .mother_calendar .mens {background: url(../images/calendar/mens_icon.png) center 25px no-repeat;}
-#baby .mother_calendar .fsex {background: url(../images/calendar/fsex_icon.png) center 30px no-repeat;}
-#baby .mother_calendar .mbov {background: url(../images/calendar/mbov_icon.png) center 30px no-repeat;}
-#baby .mother_calendar .fov {background: url(../images/calendar/fov_icon.png) center 30px no-repeat;}
-#baby .mother_calendar .pfsex {background: url(../images/calendar/pfsex_icon.png) center 30px no-repeat;}
-#baby .mother_calendar .attention_calc {position:absolute;top:4px;left:4px;width:19px;height:18px;background: url(../images/calendar/attention_calc.png) 0 0 no-repeat;}
-#baby .mother_calendar .boy_lvl1 {display:block;position:absolute;top:27px;left:12px;width:61px;height:51px;background: url(../images/calendar/boy.png) 0 0 no-repeat;opacity:0.2;-moz-opacity: 0.2;-khtml-opacity: 0.2;}
-#baby .mother_calendar .boy_lvl2 {display:block;position:absolute;top:27px;left:12px;width:61px;height:51px;background: url(../images/calendar/boy.png) 0 0 no-repeat;opacity:0.3;-moz-opacity: 0.3;-khtml-opacity: 0.3;}
-#baby .mother_calendar .boy_lvl3 {display:block;position:absolute;top:27px;left:12px;width:61px;height:51px;background: url(../images/calendar/boy.png) 0 0 no-repeat;opacity:0.6;-moz-opacity: 0.6;-khtml-opacity: 0.6;}
-#baby .mother_calendar .boy_lvl4 {display:block;position:absolute;top:27px;left:12px;width:61px;height:51px;background: url(../images/calendar/boy.png) 0 0 no-repeat;opacity:0.8;-moz-opacity: 0.8;-khtml-opacity: 0.8;}
-#baby .mother_calendar .boy_lvl5 {display:block;position:absolute;top:27px;left:12px;width:61px;height:51px;background: url(../images/calendar/boy.png) 0 0 no-repeat;}
-#baby .mother_calendar .girl_lvl1 {display:block;position:absolute;top:23px;left:12px;width:61px;height:56px;background: url(../images/calendar/girl.png) 0 0 no-repeat;opacity:0.2;-moz-opacity: 0.2;-khtml-opacity: 0.2;}
-#baby .mother_calendar .girl_lvl2 {display:block;position:absolute;top:23px;left:12px;width:61px;height:56px;background: url(../images/calendar/girl.png) 0 0 no-repeat;opacity:0.3;-moz-opacity: 0.3;-khtml-opacity: 0.3;}
-#baby .mother_calendar .girl_lvl3 {display:block;position:absolute;top:23px;left:12px;width:61px;height:56px;background: url(../images/calendar/girl.png) 0 0 no-repeat;opacity:0.6;-moz-opacity: 0.6;-khtml-opacity: 0.6;}
-#baby .mother_calendar .girl_lvl4 {display:block;position:absolute;top:23px;left:12px;width:61px;height:56px;background: url(../images/calendar/girl.png) 0 0 no-repeat;opacity:0.8;-moz-opacity: 0.8;-khtml-opacity: 0.8;}
-#baby .mother_calendar .girl_lvl5 {display:block;position:absolute;top:23px;left:12px;width:61px;height:56px;background: url(../images/calendar/girl.png) 0 0 no-repeat;}
+#baby .mother_calendar .cal_item .icon {display:block;background:url(../images/calendar_icons.png) no-repeat;}
+#baby .mother_calendar .pms .icon {width:45px;height:42px;background-position:-1px -1px;margin:30px auto 0;}
+#baby .mother_calendar .mens .icon {width:47px;height:47px;background-position:-230px -1px;margin:27px auto 0;}
+#baby .mother_calendar .fsex .icon {width:46px;height:42px;background-position:-96px -1px;margin:30px auto 0;}
+#baby .mother_calendar .mbov .icon {width:41px;height:41px;background-position:-144px -1px;margin:30px auto 0;}
+#baby .mother_calendar .fov .icon {width:41px;height:41px;background-position:-187px -1px;margin:30px auto 0;}
+#baby .mother_calendar .pfsex .icon {width:46px;height:42px;background-position:-48px -1px;margin:30px auto 0;}
+
+#baby .mother_calendar .attention_calc {position:absolute;top:4px;left:4px;width:19px;height:18px;background: url(../images/calendar_icons.png) -281px -61px no-repeat;}
+
+#baby .mother_calendar .girl .icon, #baby .mother_calendar  .boy .icon {display:block;width:61px;height:56px;background:url(../images/calendar_icons.png) no-repeat;margin:20px auto 0;}
+#baby .mother_calendar  .girl .icon {background-position:-155px  -48px;}
+#baby .mother_calendar  .boy .icon {background-position:-218px  -48px;}
 
 #baby .mother_calendar .cal_item_default {display:block;width:65px;height:65px;position:relative;background:#fdfdfe;padding:22px 0 0 22px;}
 #baby .mother_calendar .cal_item_default .cal_item {width:42px;height:42px;border:1px solid #f0f0f0;background:#fff;}
 #baby .mother_calendar .cal_item_default .cal_item ins {position:absolute;top:3px;right:3px;font:bold 8px tahoma, sans-serif;color:#c5c3c3;}
-#baby .mother_calendar .cal_item_default .pms {background: url(../images/calendar/pms_sm_icon.png) center 14px no-repeat;}
-#baby .mother_calendar .cal_item_default .mens {background: url(../images/calendar/mens_sm_icon.png) center 13px no-repeat;}
-#baby .mother_calendar .cal_item_default .fsex {background: url(../images/calendar/fsex_sm_icon.png) center 14px no-repeat;}
-#baby .mother_calendar .cal_item_default .mbov {background: url(../images/calendar/mbov_sm_icon.png) center 14px no-repeat;}
-#baby .mother_calendar .cal_item_default .fov {background: url(../images/calendar/fov_sm_icon.png) center 14px no-repeat;}
-#baby .mother_calendar .cal_item_default .pfsex {background: url(../images/calendar/pfsex_sm_icon.png) center 14px no-repeat;}
-#baby .mother_calendar .cal_item_default .girl_cl {background: url(../images/calendar/girl_sm_icon.png) center 11px no-repeat;}
-#baby .mother_calendar .cal_item_default .boy_cl {background: url(../images/calendar/boy_sm_icon.png) center 14px no-repeat;}
+#baby .mother_calendar .cal_item_default .icon {display:block;background:url(../images/calendar_icons.png) no-repeat;}
+#baby .mother_calendar .cal_item_default .pms .icon {width:24px;height:21px;background-position:-1px -45px;margin:16px auto 0;}
+#baby .mother_calendar .cal_item_default .mens .icon {width:24px;height:24px;background-position:-126px -45px;margin:16px auto 0;}
+#baby .mother_calendar .cal_item_default .fsex .icon {width:24px;height:21px;background-position:-53px -45px;margin:16px auto 0;}
+#baby .mother_calendar .cal_item_default .mbov .icon {width:22px;height:22px;background-position:-79px -45px;margin:16px auto 0;}
+#baby .mother_calendar .cal_item_default .fov .icon {width:22px;height:22px;background-position:-103px -45px;margin:16px auto 0;}
+#baby .mother_calendar .cal_item_default .pfsex .icon {width:24px;height:21px;background-position:-27px -45px;margin:16px auto 0;}
+
+#baby .mother_calendar .cal_item_default .girl_cl .icon {display:block;width:29px;height:28px;background:url(../images/calendar_icons.png) no-repeat -93px  -70px;margin:10px auto 0;}
+#baby .mother_calendar .cal_item_default .boy_cl .icon {display:block;width:29px;height:28px;background:url(../images/calendar_icons.png) no-repeat -124px  -70px;margin:10px auto 0;}
 
 #baby .more_about_cal {display:block;margin:-40px 0 40px 0;position:relative;z-index:2;}
 #baby .more_about_cal .next_month_cal {display:block;width:380px;float:left;}
@@ -443,22 +438,24 @@
 #baby .next_month_cal .mother_calendar .cal_item {display:block;width:42px;height:42px;border:1px solid #f0f0f0;position:relative;}
 #baby .next_month_cal .mother_calendar .cal_item ins {position:absolute;top:3px;right:3px;font:bold 8px tahoma, sans-serif;color:#a0a0a0;}
 #baby .next_month_cal .mother_calendar .cal_item_default {display:block;width:44px;height:44px;background:#fdfdfe;padding:0;}
-#baby .next_month_cal .mother_calendar .pms {background: url(../images/calendar/pms_sm_icon.png) center 14px no-repeat;}
-#baby .next_month_cal .mother_calendar .mens {background: url(../images/calendar/mens_sm_icon.png) center 13px no-repeat;}
-#baby .next_month_cal .mother_calendar .fsex {background: url(../images/calendar/fsex_sm_icon.png) center 14px no-repeat;}
-#baby .next_month_cal .mother_calendar .mbov {background: url(../images/calendar/mbov_sm_icon.png) center 14px no-repeat;}
-#baby .next_month_cal .mother_calendar .fov {background: url(../images/calendar/fov_sm_icon.png) center 14px no-repeat;}
-#baby .next_month_cal .mother_calendar .pfsex {background: url(../images/calendar/pfsex_sm_icon.png) center 14px no-repeat;}
+#baby .next_month_cal .mother_calendar .cal_item .icon {display:block;background:url(../images/calendar_icons.png) no-repeat;}
+#baby .next_month_cal .mother_calendar .pms .icon {width:24px;height:21px;background-position:-1px -45px;margin:16px auto 0;}
+#baby .next_month_cal .mother_calendar .mens .icon {width:24px;height:24px;background-position:-126px -45px;margin:12px auto 0;}
+#baby .next_month_cal .mother_calendar .fsex .icon {width:24px;height:21px;background-position:-53px -45px;margin:16px auto 0;}
+#baby .next_month_cal .mother_calendar .mbov .icon {width:22px;height:22px;background-position:-79px -45px;margin:16px auto 0;}
+#baby .next_month_cal .mother_calendar .fov .icon {width:22px;height:22px;background-position:-103px -45px;margin:16px auto 0;}
+#baby .next_month_cal .mother_calendar .pfsex .icon {width:24px;height:21px;background-position:-27px -45px;margin:16px auto 0;}
 
 #baby .more_about_cal .cal_helper {position:relative;z-index:1;display:block;width:250px;float:right;padding:25px 5px 25px 35px;background:#fef9fd;margin:0 15px 0 0;border-radius:0 0 20px 20px;-moz-border-radius:0 0 20px 20px;-webkit-border-radius:0 0 20px 20px;box-shadow:0px 2px 2px 2px #f1f1f0;-moz-box-shadow:0px 2px 2px 2px #f1f1f0;-webkit-box-shadow:0px 2px 2px 2px #f1f1f0;}
 #baby .more_about_cal .cal_helper span.title_helper {display:block;font:bold 14px arial, sans-serif;color:#aeaeaf;padding:0 0 20px 0;}
-#baby .more_about_cal .cal_helper ul li {margin:0 0 12px 0;height:24px;font:13px/24px arial, sans-serif;color:#979697;padding:0 0 0 37px;}
-#baby .more_about_cal .cal_helper ul li.pms {background: url(../images/calendar/pms_sm_icon.png) 0 center no-repeat;}
-#baby .more_about_cal .cal_helper ul li.mens {background: url(../images/calendar/mens_sm_icon.png) 0 center no-repeat;}
-#baby .more_about_cal .cal_helper ul li.fsex {background: url(../images/calendar/fsex_sm_icon.png) 0 center no-repeat;}
-#baby .more_about_cal .cal_helper ul li.mbov {background: url(../images/calendar/mbov_sm_icon.png) 0 center no-repeat;}
-#baby .more_about_cal .cal_helper ul li.fov {background: url(../images/calendar/fov_sm_icon.png) 0 center no-repeat;}
-#baby .more_about_cal .cal_helper ul li.pfsex {background: url(../images/calendar/pfsex_sm_icon.png) 0 center no-repeat;}
+#baby .more_about_cal .cal_helper ul li {margin:0 0 12px 0;height:24px;font:13px/24px arial, sans-serif;color:#979697;padding:0 0 0 0px;clear:left;}
+#baby .more_about_cal .cal_helper ul li .icon {display:inline-block;background:url(../images/calendar_icons.png) no-repeat;position:relative;top:-13px;margin-right:5px;vertical-align:top;}
+#baby .more_about_cal .cal_helper ul li.pms .icon {width:24px;height:21px;background-position:-1px -45px;margin:16px auto 0;}
+#baby .more_about_cal .cal_helper ul li.mens .icon {width:24px;height:24px;background-position:-126px -45px;margin:12px auto 0;top:-9px;}
+#baby .more_about_cal .cal_helper ul li.fsex .icon {width:24px;height:21px;background-position:-53px -45px;margin:16px auto 0;}
+#baby .more_about_cal .cal_helper ul li.mbov .icon {width:22px;height:22px;background-position:-79px -45px;margin:16px auto 0;}
+#baby .more_about_cal .cal_helper ul li.fov .icon {width:22px;height:22px;background-position:-103px -45px;margin:16px auto 0;}
+#baby .more_about_cal .cal_helper ul li.pfsex .icon {width:24px;height:21px;background-position:-27px -45px;margin:16px auto 0;}
 
 #baby .child_sex_banner {position:relative;display:block;width:710px;height:666px;background: url(../images/sex_child_bann.jpg) 0 0 no-repeat;margin:0 0 30px 0;}
 #baby .child_sex_banner ul.lists_td {background:#faf5fe;display:inline-block;padding:5px;}
@@ -478,11 +475,11 @@
 #baby .child_sex_banner span.title_pt_bn {display:block;text-align:center;font:15px tahoma, sans-serif;color:#111110;padding:0 0 10px 0;}
 #baby .child_sex_banner span.title_pt_bn ins {background:#fcf7a9;padding:0 5px;}
 #baby .child_sex_banner input.calc_bt {position:absolute;right:30px;top:568px;font:30px tahoma, sans-serif;color:#a46307;width:220px;height:58px;border:1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
-#baby .wh_wait {display:block;padding:0 50px 0 215px;min-height:165px;}
+#baby .wh_wait {display:block;padding:0 50px 0 0px;min-height:165px;}
+#baby .wh_wait .img-box {float:left;width:200px;text-align:center;}
+#baby .wh_wait .text {margin-left:215px;}
 #baby .wh_wait span.title_wh_wait {font:25px arial, sans-serif;display:block;padding:0 0 10px 0;}
-#baby .wh_daughter {background: url(../images/baby_girl.jpg) 50px 10px no-repeat;}
 #baby .wh_daughter span.title_wh_wait {color:#dd72b9;}
-#baby .wh_son {background: url(../images/baby_boy.jpg) 50px 10px no-repeat;}
 #baby .wh_son span.title_wh_wait {color:#0c9fe4;}
 
 #baby .child_sex_japan_banner {position:relative;display:block;width:710px;height:666px;background: url(../images/sex_child_japan_bann.jpg) 0 0 no-repeat;margin:0 0 30px 0;}
@@ -515,8 +512,8 @@
 #baby .child_sex_blood_banner .gr_bl span {display:block;text-align:center;padding:0 0 5px 0;font:15px/15px tahoma, sans-serif;color:#111110;}
 #baby .child_sex_blood_banner .ch_group {display:block;height:34px;background:#f9ebf5;padding:15px 0 0 0;}
 #baby .child_sex_blood_banner .ch_group ul li {display:inline;padding:0 3px;}
-#baby .child_sex_blood_banner .ch_group ul li a {display:inline-block;width:42px;height:20px;background: url(../images/common.png) -1px -151px no-repeat;text-decoration:none;font:16px/20px times new roman, sans-serif;color:#9e9e9e;}
-#baby .child_sex_blood_banner .ch_group ul li a.active {display:inline-block;width:42px;height:20px;background: url(../images/common.png) -1px -174px no-repeat;text-decoration:none;font:16px/20px times new roman, sans-serif;color:#209b07;}
+#baby .child_sex_blood_banner .ch_group ul li a {display:inline-block;width:42px;height:20px;background: url(../images/common.png) -1px -151px no-repeat;text-decoration:none;font:16px/20px times new roman, sans-serif;color:#209b07;}
+#baby .child_sex_blood_banner .ch_group ul li a.active {display:inline-block;width:42px;height:20px;background: url(../images/common.png) -1px -174px no-repeat;text-decoration:none;font:16px/20px times new roman, sans-serif;color:#9e9e9e;}
 
 #baby .child_sex_china_banner {position:relative;display:block;width:710px;height:625px;background: url(../images/sex_child_china_bann.jpg) 0 0 no-repeat;margin:0 0 30px 0;}
 #baby .child_sex_china_banner input.mth_calculate {float:right;margin:20px 0 0 0;width:120px;height:33px;background: url(../images/bg_yellow_sub.png) 0 0 repeat-x;border:1px solid #f1d419;font:bold 16px arial, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
@@ -537,17 +534,21 @@
 #baby .child_sex_china_banner input.calc_bt {position:absolute;bottom:50px;right:34px;width:120px;height:33px;background: url(../images/bg_yellow_sub.png) 0 0 repeat-x;border:1px solid #f1d419;font:bold 16px arial, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
 
 #baby .month_calendar {position:relative;z-index:4;display:block;padding:15px;margin:0 0 40px 0;box-shadow:0px 0px 5px 5px #f1f1f0;-moz-box-shadow:0px 0px 5px 5px #f1f1f0;-webkit-box-shadow:0px 0px 5px 5px #f1f1f0;}
-#baby .month_calendar .choice_month {position:relative;display:block;height:77px; background:#f7efff;text-align:center;font:bold 40px/77px arial, sans-serif;color:#5a595a;}
-#baby .month_calendar .choice_month a.l_arr_mth {display:block;width:22px;height:28px;background: url(../images/call_arrow.png) 0 0 no-repeat; text-indent:-9999px;position:absolute;left:20px;top:25px;}
-#baby .month_calendar .choice_month a.r_arr_mth {display:block;width:22px;height:28px;background: url(../images/call_arrow.png) 100% 100% no-repeat; text-indent:-9999px;position:absolute;right:20px;top:25px;}
-#baby .month_calendar .choice_month a.l_arr_mth_active {display:block;width:22px;height:28px;background: url(../images/call_arrow.png) 0 100% no-repeat; text-indent:-9999px;position:absolute;left:20px;top:25px;}
-#baby .month_calendar .choice_month a.r_arr_mth_active {display:block;width:22px;height:28px;background: url(../images/call_arrow.png) 100% 0 no-repeat; text-indent:-9999px;position:absolute;right:20px;top:25px;}
+#baby .choice_month {position:relative;display:block;height:77px; background:#f7efff;text-align:center;font:bold 40px/77px arial, sans-serif;color:#5a595a;}
+
+#baby .choice_month a.prev, #baby .choice_month a.next {display:block;width:21px;height:28px;background: url(../images/calendar_icons.png); text-indent:-9999px;position:absolute;top:25px;}
+#baby .choice_month a.next {right:20px;background-position:-304px -1px;}
+#baby .choice_month a.prev {left:20px;background-position:-281px -31px;}
+#baby .choice_month a.prev.disabled {background-position:-281px -1px}
+#baby .choice_month a.next.disabled {background-position:-304px -31px;}
+
 #baby .month_calendar table.calendar_body  th {text-align:center;width:54px;height:54px;padding:0 3px 0 0;vertical-align:middle;font:16px tahoma, sans-serif;color:#a4a3a3;}
 #baby .month_calendar table.calendar_body  td {text-align:center;width:54px;height:54px;padding:0 3px 0 0;vertical-align:top;}
 #baby .month_calendar .cal_item {display:block;width:52px;height:52px;border:1px solid #f0f0f0;position:relative;}
 #baby .month_calendar .active_item {border:1px solid #f7e567;background:#fffdd6;}
-#baby .month_calendar .boy_day {background: url(../images/calendar/boy_av_icon.png) center center no-repeat;}
-#baby .month_calendar .girl_day {background: url(../images/calendar/girl_av_icon.png) center center no-repeat;}
+#baby .month_calendar .boy_day .icon, #baby .month_calendar .girl_day .icon {display:block;width:45px;height:40px;background:url(../images/calendar_icons.png) no-repeat;margin:5px auto 0;}
+#baby .month_calendar .boy_day .icon {background-position:-47px -70px;}
+#baby .month_calendar .girl_day .icon {background-position:-1px -70px;}
 
 #baby .child_sex_ovulyaciya_banner {position:relative;display:block;width:710px;height:376px;background: url(../images/sex_child_ovulyaciya_bann.jpg) 0 0 no-repeat;margin:0 0 30px 0;}
 #baby .child_sex_ovulyaciya_banner input.mth_calculate {float:right;margin:20px 0 0 0;width:120px;height:33px;background: url(../images/bg_yellow_sub.png) 0 0 repeat-x;border:1px solid #f1d419;font:bold 16px arial, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
@@ -674,12 +675,16 @@
 #baby .show_names ul li.current a {background:#fdf5a2;}
 #baby .show_names ul li a span {display:block;font-size:11px;}
 #baby .show_names ul li.woman_names a {color:#ffaed2;}
+#baby .show_names ul li .icon {margin:0 auto;}
+#baby .show_names ul .all_names .icon {width:21px;height:31px;display:block;background:url(../images/common.png) no-repeat -243px -131px;}
+#baby .show_names ul .man_names .icon {width:11px;height:31px;display:block;background:url(../images/common.png) no-repeat -216px -131px;}
+#baby .show_names ul .woman_names .icon {width:12px;height:31px;display:block;background:url(../images/common.png) no-repeat -229px -131px;}
 
 #baby .handbook_names_alfa {padding:0 50px;-moz-column-count: 3;-moz-column-gap: 40px;-webkit-column-count: 3;-webkit-column-gap: 40px;column-count: 3;column-gap: 40px;}
 #baby .handbook_names_alfa ul li {height:60px;display:block;}
-#baby .handbook_names_alfa ul li a {display:inline-block;padding:0 30px 0 0;font:15px/20px arial, sans-serif;}
-#baby .handbook_names_alfa ul li a.dislike_nm {background: url(../images/hearts_names.png) 100% 100% no-repeat;}
-#baby .handbook_names_alfa ul li a.like_nm {background: url(../images/hearts_names.png) 100% 0 no-repeat;}
+#baby .handbook_names_alfa ul li a {display:inline-block;padding:0 30px 0 0;font:15px/20px arial, sans-serif;position:relative;}
+#baby .handbook_names_alfa ul li a .icon {display:block;width:23px;height:20px;background:url(../images/common.png) no-repeat -267px -158px;position:absolute;right:0;top:0;}
+#baby .handbook_names_alfa ul li a.like_nm .icon {background-position:-267px -136px;}
 #baby .handbook_names_alfa ul li a.man_names_lk {color:#2ca3fe;}
 #baby .handbook_names_alfa ul li a.woman_names_lk {color:#d73a92;}
 #baby .handbook_names_alfa ul li span {display:block;font:13px/13px arial, sans-serif;color:#a9a9a9;padding:3px 0 0 0;}

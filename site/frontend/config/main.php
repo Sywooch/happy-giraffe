@@ -94,7 +94,8 @@ return array(
         'sizes',
         'childrenDiseases',
         'test',
-        'im'
+        'im',
+        'geo',
 	),
 
 	// application components

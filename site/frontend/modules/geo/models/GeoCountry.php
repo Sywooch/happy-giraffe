@@ -1,17 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "geo_rus_region".
+ * This is the model class for table "geo_country".
  *
- * The followings are the available columns in table 'geo_rus_region':
+ * The followings are the available columns in table 'geo_country':
  * @property string $id
  * @property string $name
+ * @property integer $iso_code
+ * @property integer $pos
  */
-class GeoRusRegion extends CActiveRecord
+class GeoCountry extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return GeoRusRegion the static model class
+	 * @param string $className active record class name.
+	 * @return GeoCountry the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -23,7 +26,7 @@ class GeoRusRegion extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{geo_rus_region}}';
+		return 'geo_country';
 	}
 
 	/**
@@ -35,10 +38,11 @@ class GeoRusRegion extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
+			array('pos', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, name, pos', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,8 +54,6 @@ class GeoRusRegion extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'districts' => array(self::HAS_MANY, 'GeoRusDistrict', 'region_id'),
-			'settlements' => array(self::HAS_MANY, 'GeoRusSettlement', 'region_id'),
 		);
 	}
 
@@ -63,6 +65,7 @@ class GeoRusRegion extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'pos' => 'Pos',
 		);
 	}
 
@@ -79,6 +82,7 @@ class GeoRusRegion extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('pos',$this->pos);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

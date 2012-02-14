@@ -123,7 +123,7 @@ class Im
         $term = strtolower($term);
         $result = array();
         foreach ($this->_dialog_users as $user_id) {
-            $user = User::getUserById($user_id);
+            $user = $this->getUser($user_id);
             if ($this->startsWith($user->first_name, $term) || $this->startsWith($user->last_name, $term)
                 || $this->startsWith($user->first_name . ' ' . $user->last_name, $term)
                 || $this->startsWith($user->last_name . ' ' . $user->first_name, $term)
@@ -162,7 +162,8 @@ class Im
     public function findDialog($name)
     {
         foreach ($this->_dialogs as $dialog) {
-            if ($dialog['name'] == $name) {
+            $pal_id = $dialog['users'][0];
+            if (mb_strtolower($this->getUser($pal_id)->getFullName(), 'utf-8') == mb_strtolower($name, 'utf-8')) {
                 return $dialog['id'];
             }
         }
@@ -173,7 +174,8 @@ class Im
     private function startsWith($haystack, $needle)
     {
         $length = strlen($needle);
-        return (substr(strtolower($haystack), 0, $length) === $needle);
+        $haystack = mb_strtolower($haystack, 'utf-8');
+        return (substr($haystack, 0, $length) === $needle);
     }
 
     public function getDialogs(){

@@ -84,7 +84,7 @@ class DefaultController extends Controller
         if ($id == Yii::app()->user->getId())
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $user = User::getUserById($id);
+        $user = Im::model()->getUser($id);
         //find if dialog with this user exist
         $dialog_id = Im::model()->getDialogByUser($id);
         if (empty($dialog_id)) {

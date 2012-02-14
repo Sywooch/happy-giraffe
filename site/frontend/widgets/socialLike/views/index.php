@@ -32,7 +32,7 @@
                 <li><?php $this->render('_vk', array($this->providers['vk'])); ?></li>
                 <li><?php $this->render('_mr', array($this->providers['mr'])); ?></li>
                 <li style="text-align:center;"><?php $this->render('_tw', array($this->providers['tw'])); ?></li>
-                <li style="align:right;"><?php $this->render('_fb', array($this->providers['fb'])); ?></li>
+                <li style="text-align:right;"><?php $this->render('_fb', array($this->providers['fb'])); ?></li>
             </ul>
         </div>
     </div>

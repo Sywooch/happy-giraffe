@@ -48,12 +48,12 @@ class Test2Controller extends Controller
         Yii::import('ext.excelReader.Spreadsheet_Excel_Reader');
         $data = new Spreadsheet_Excel_Reader('giraffe.xls');
         $i = 0;
-        while ($community_name = $data->val(1, ++$i))
+        while ($community_name = $data->val(2, ++$i))
         {
             $community = new Community;
             $community->name = $community_name;
             $community->save(false);
-            $j = 2;
+            $j = 3;
             while ($rubric_name = $data->val(++$j, $i))
             {
                 $rubric = new CommunityRubric;

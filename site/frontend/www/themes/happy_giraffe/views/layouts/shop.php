@@ -18,6 +18,7 @@
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js'); ?>
 	
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.js'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.placeholder.min.js'); ?>
 	
 	<script type="text/javascript">
 	

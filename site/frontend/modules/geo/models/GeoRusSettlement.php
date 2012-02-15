@@ -61,6 +61,7 @@ class GeoRusSettlement extends CActiveRecord
 		    'region' => array(self::BELONGS_TO, 'GeoRusRegion', 'region_id'),
 		    'district' => array(self::BELONGS_TO, 'GeoRusDistrict', 'district_id'),
 		    'cityReg' => array(self::HAS_ONE, 'GeoRusSettlement', 'settlement_id','through'=>'region'),
+            'type' => array(self::BELONGS_TO, 'GeoRusSettlementType', 'type_id'),
 //		    'cityDist' => array(self::HAS_ONE, 'GeoRusSettlement', 'id','through'=>'district'),
 		);
 	}

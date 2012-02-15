@@ -2,7 +2,7 @@
 
 Yii::import('application.profile.*');
 
-class ProfileWidget extends CPortlet
+class ProfileCoreWidget extends CPortlet
 {
 
     protected $_attributes = array();
@@ -20,7 +20,7 @@ class ProfileWidget extends CPortlet
                 'default' => 'all',
             )),
             'title' => new ProfileStringAttribute(array(
-                ''
+                'default' => $this->title,
             )),
         );
     }

@@ -64,8 +64,6 @@ class ProfileController extends Controller
 
     public function actionPhoto()
     {
-        print_r($_POST);
-
         if (isset($_POST['User'])) {
             $this->user->attributes = $_POST['User'];
             $this->user->save(true, array('pic_small'));

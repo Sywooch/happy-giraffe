@@ -94,6 +94,8 @@ h4 { font-size: 12px}
 
 a.info {display:inline-block;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
 
+::-webkit-input-placeholder {color: #c6c6c6 !important;font-weight: normal !important;}
+:-moz-placeholder {color: #c6c6c6 !important;font-weight: normal !important;}
 .placeholder {color:#c6c6c6 !important;font-weight:normal !important;}
 
 .ava {width:81px;height:77px;background:url(../images/common.png) no-repeat -168px -1px;}

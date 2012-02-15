@@ -22,6 +22,7 @@
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css?r=112', 'screen'); ?>
 	
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.iframe-post-form.js'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.placeholder.min.js'); ?>
 
 	<?php
 		$reports = "

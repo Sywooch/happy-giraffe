@@ -431,6 +431,8 @@ class User extends CActiveRecord
 
     public function getFlag()
     {
+        Yii::import('site.frontend.modules.geo.models.*');
+
         if (!empty($this->country_id))
             return '<img src="/images/blank.gif" class="flag flag-' . strtolower($this->country->iso_code) . '" title="' . $this->country->name . '" />';
         else
@@ -439,6 +441,8 @@ class User extends CActiveRecord
 
     public function getLocationString()
     {
+        Yii::import('site.frontend.modules.geo.models.*');
+
         if (empty($this->country_id))
             return '';
 
@@ -458,6 +462,31 @@ class User extends CActiveRecord
                 $str .= ', ' . $this->street->name;
             if (!empty($this->house))
                 $str .= ', д. ' . $this->house;
+
+            return $str;
+        }
+        return $str;
+    }
+
+    public function getPublicLocation()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+
+        if (empty($this->country_id))
+            return '';
+
+        $str = $this->country->name;
+        if (!empty($this->settlement_id)) {
+            if (empty($this->settlement->region_id)) {
+                $str .= ', ' . $this->settlement->name;
+            } elseif ($this->settlement->region_id == 42){
+                $str .= ', ' . $this->settlement->name;
+            } elseif ($this->settlement->region_id == 59){
+                $str .= ', ' . $this->settlement->name;
+            }else{
+                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
+                $str .= ', ' . $this->settlement->region->name . ', ' . $type . ' ' . $this->settlement->name;
+            }
 
             return $str;
         }

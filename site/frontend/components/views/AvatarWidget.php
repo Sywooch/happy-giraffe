@@ -2,4 +2,3 @@
 	<?php if ($ava = $user->pic_small->getUrl('ava')) echo CHtml::image($ava); ?>
 </div>
 <?php echo $user->getDialogLink(); ?>
-<?php echo $user->getFlag(); ?>

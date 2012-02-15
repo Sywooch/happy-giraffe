@@ -48,23 +48,17 @@ class ProfileController extends Controller
 
     public function actionIndex()
     {
-        $regions = GeoRusRegion::model()->findAll();
-        $_regions = array('' => '---');
-        foreach ($regions as $r)
-        {
-            $_regions[$r->id] = $r->name;
-        }
-
-        $current_region = ($this->user->settlement) ? $this->user->settlement->region->id : null;
-
         if (isset($_POST['User'])) {
+            $address = new AddressForm();
+            $address->attributes = $_POST;
+            $address->saveAddress($this->user);
             $this->user->attributes = $_POST['User'];
-            $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'settlement_id', 'birthday'));
+            $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'settlement_id', 'birthday',
+            'country_id', 'street_id', 'house', 'room'));
         }
 
         $this->render('data', array(
-            'regions' => $_regions,
-            'current_region' => $current_region,
+
         ));
     }
 

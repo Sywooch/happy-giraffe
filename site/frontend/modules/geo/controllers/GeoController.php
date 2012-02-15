@@ -30,10 +30,10 @@ class GeoController extends Controller
             $i++;
         }*/
         $countries = Countries::model()->findAll();
-        foreach($countries as $country){
-            $c = GeoCountry::model()->find('name="'.$country->rus_name.'"');
+        foreach ($countries as $country) {
+            $c = GeoCountry::model()->find('name="' . $country->rus_name . '"');
             $c->iso_code = $country->iso_code;
-            if (!$c->save()){
+            if (!$c->save()) {
                 throw new CHttpException(404, 'Not saved!');
             }
         }
@@ -71,7 +71,7 @@ class GeoController extends Controller
                         ':region_id' => $_GET['region_id'],
                     ),
                     'limit' => 10,
-                    'order'=>'population desc',
+                    'order' => 'population desc',
                 ));
             else
                 $cities = GeoRusSettlement::model()->findAll(array(
@@ -82,7 +82,7 @@ class GeoController extends Controller
                         ':district_id' => $_GET['district_id']
                     ),
                     'limit' => 10,
-                    'order'=>'population, id',
+                    'order' => 'population, id',
                 ));
 
             $_cities = array();
@@ -92,6 +92,46 @@ class GeoController extends Controller
                     'label' => $city->name,
                     'value' => $city->name,
                     'id' => $city->id,
+                );
+            }
+            echo CJSON::encode($_cities);
+        }
+    }
+
+    public function actionStreet()
+    {
+        if (Yii::app()->request->isAjaxRequest) {
+            if ($_GET['city_id'] == 148315 || $_GET['city_id'] == 148316) {
+                $city = $this->loadSettlment($_GET['city_id']);
+                $settlement_ids = Yii::app()->db->createCommand()
+                    ->select('id')
+                    ->from('geo_rus_settlement')
+                    ->where('region_id = :region_id', array(':region_id' => $city->region_id))
+                    ->queryColumn();
+
+                $criteria = new CDbCriteria;
+                $criteria->compare('settlement_id', $settlement_ids);
+                $criteria->compare('name', $_GET['term'].'%', true, 'AND', false);
+                $criteria->limit = 10;
+                $models = GeoRusStreet::model()->findAll($criteria);
+            }
+            else
+                $models = GeoRusStreet::model()->findAll(array(
+                    'condition' => 'name LIKE :term AND settlement_id = :settlement_id',
+                    'params' => array(
+                        ':term' => $_GET['term'] . '%',
+                        ':settlement_id' => $_GET['city_id'],
+                    ),
+                    'limit' => 10,
+                ));
+
+            $_cities = array();
+            foreach ($models as $model)
+            {
+                $_cities[] = array(
+                    'label' => $model->name,
+                    'value' => $model->name,
+                    'id' => $model->id,
                 );
             }
             echo CJSON::encode($_cities);
@@ -108,7 +148,19 @@ class GeoController extends Controller
                 ),
             ));
 
-            echo CHtml::listOptions('', array(''=>'')+CHtml::listData($cities, 'id', 'name'), $null);
+            echo CHtml::listOptions('', array('' => '') + CHtml::listData($cities, 'id', 'name'), $null);
         }
+    }
+
+    /**
+     * @param int $id model id
+     * @return GeoRusSettlement
+     * @throws CHttpException
+     */
+    public function loadSettlment($id){
+        $model = GeoRusSettlement::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

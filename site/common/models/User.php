@@ -17,7 +17,6 @@
  * @property string $role
  * @property string $link
  * @property string $country_id
- * @property string $city_id
  * @property int $deleted
  * @property integer $gender
  * @property string $birthday
@@ -27,6 +26,9 @@
  * @property integer $online
  * @propery string $register_date
  * @propery string $login_date
+ * @propery integer $street_id
+ * @propery string $room
+ * @propery string $house
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -54,6 +56,9 @@
  * @property UserViaCommunity[] $userViaCommunities
  * @property VaccineDateVote[] $vaccineDateVotes
  * @property GeoCountry $country
+ * @property GeoRusSettlement $settlement
+ * @property GeoRusStreet $street
+ *
  */
 class User extends CActiveRecord
 {
@@ -151,6 +156,7 @@ class User extends CActiveRecord
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
             'settlement' => array(self::BELONGS_TO, 'GeoRusSettlement', 'settlement_id'),
             'country' => array(self::BELONGS_TO, 'GeoCountry', 'country_id'),
+            'street' => array(self::BELONGS_TO, 'GeoRusStreet', 'street_id'),
             'communities' => array(self::MANY_MANY, 'User', 'user_via_community(user_id, community_id)'),
 
             'clubCommunityComments' => array(self::HAS_MANY, 'ClubCommunityComment', 'author_id'),

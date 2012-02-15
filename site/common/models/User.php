@@ -420,9 +420,9 @@ class User extends CActiveRecord
         Yii::import('site.frontend.modules.im.components.*');
 
         $dialog_id = Im::model()->getDialogByUser($this->id);
-        if (isset($dialog_id)){
+        if (isset($dialog_id)) {
             $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
-        }else{
+        } else {
             $url = Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
         }
 
@@ -432,8 +432,42 @@ class User extends CActiveRecord
     public function getFlag()
     {
         if (!empty($this->country_id))
-            return '<img src="/images/blank.gif" class="flag flag-'.strtolower($this->country->iso_code).'" title="'.$this->country->name.'" />';
+            return '<img src="/images/blank.gif" class="flag flag-' . strtolower($this->country->iso_code) . '" title="' . $this->country->name . '" />';
         else
             return '';
+    }
+
+    public function getLocationString()
+    {
+        if (empty($this->country_id))
+            return '';
+
+        $str = $this->country->name;
+        if (!empty($this->settlement_id)) {
+            if (empty($this->settlement->region_id)) {
+                $str .= ', ' . $this->settlement->name;
+            } elseif (empty($this->settlement->district_id)) {
+                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
+                $str .= ', ' . $this->settlement->region->name . ', ' . $type . ' ' . $this->settlement->name;
+            } else {
+                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
+                $str .= ', ' . $this->settlement->region->name . ', ' . $this->settlement->district->name . ', ' . $type . ' ' . $this->settlement->name;
+            }
+
+            if (!empty($this->street_id))
+                $str .= ', ' . $this->street->name;
+            if (!empty($this->house))
+                $str .= ', д. ' . $this->house;
+
+            return $str;
+        }
+        return $str;
+    }
+
+    public function getZoom()
+    {
+        if (!empty($this->settlement_id))
+            return 11;
+        return 5;
     }
 }

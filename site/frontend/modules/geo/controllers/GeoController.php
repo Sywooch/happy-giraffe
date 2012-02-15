@@ -65,7 +65,7 @@ class GeoController extends Controller
         if (Yii::app()->request->isAjaxRequest) {
             if (empty($_GET['district_id']))
                 $cities = GeoRusSettlement::model()->findAll(array(
-                    'condition' => 'name LIKE :term AND region_id = :region_id AND district_id is null',
+                    'condition' => 'name LIKE :term AND region_id = :region_id AND',
                     'params' => array(
                         ':term' => $_GET['term'] . '%',
                         ':region_id' => $_GET['region_id'],

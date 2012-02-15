@@ -29,10 +29,7 @@ class AddressForm extends CFormModel
             $user->country_id = $this->country_id;
             //var_dump($this->city_id, $this->region_id);
             if (!empty($this->city_id) && !empty($this->region_id)) {
-                if (empty($this->city_name))
-                    $user->settlement_id = null;
-                else
-                    $user->settlement_id = $this->city_id;
+                $user->settlement_id = $this->city_id;
             } elseif (!empty($this->city_name) && !empty($this->region_id)) {
                 //add new city
                 $city = new GeoRusSettlement();

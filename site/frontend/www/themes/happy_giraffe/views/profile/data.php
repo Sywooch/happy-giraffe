@@ -28,17 +28,13 @@ $this->breadcrumbs = array(
         <div class="col">
             <?php echo $form->textField($this->user, 'last_name', array(
             'placeholder' => 'Фамилия',
-            'class' => (empty($this->user->last_name)) ? "placeholder" : '',
-            'onfocus' => "unsetPlaceholder(this);",
-            'onblur' => "setPlaceholder(this);"
+//            'class' => (empty($this->user->last_name)) ? "placeholder" : '',
         )); ?>
         </div>
         <div class="col">
             <?php echo $form->textField($this->user, 'first_name', array(
             'placeholder' => 'Имя',
-            'class' => (empty($this->user->first_name)) ? "placeholder" : '',
-            'onfocus' => "unsetPlaceholder(this);",
-            'onblur' => "setPlaceholder(this);"
+//            'class' => (empty($this->user->first_name)) ? "placeholder" : '',
         )); ?>
         </div>
 
@@ -153,9 +149,7 @@ $this->breadcrumbs = array(
                         'htmlOptions' => array(
                             'style' => (empty($region_id)) ? 'display: none;' : '',
                             'placeholder' => 'Выберите город',
-                            'class' => (empty($region_id)) ? "placeholder" : '',
-                            'onfocus' => "unsetPlaceholder(this);",
-                            'onblur' => "setPlaceholder(this);"
+//                            'class' => (empty($region_id)) ? "placeholder" : '',
                         )
                     ));
                     ?>
@@ -199,9 +193,7 @@ $this->breadcrumbs = array(
                         'htmlOptions' => array(
                             'style' => (empty($region_id)) ? 'display: none;' : '',
                             'placeholder' => 'Выберите улицу',
-                            'class' => (empty($user->street)) ? "placeholder" : '',
-                            'onfocus' => "unsetPlaceholder(this);",
-                            'onblur' => "setPlaceholder(this);"
+//                            'class' => (empty($user->street)) ? "placeholder" : '',
                         )
                     ));
                     ?>
@@ -210,17 +202,13 @@ $this->breadcrumbs = array(
                 <li>
                     <?php echo CHtml::textField('house', $user->house, array(
                     'placeholder' => 'дом',
-                    'class' => (empty($user->house)) ? "placeholder" : '',
-                    'onfocus' => "unsetPlaceholder(this);",
-                    'onblur' => "setPlaceholder(this);"
+//                    'class' => (empty($user->house)) ? "placeholder" : '',
                 )) ?>
                 </li>
                 <li>
                     <?php echo CHtml::textField('room', $user->room, array(
                     'placeholder' => 'квартира',
-                    'class' => (empty($user->room)) ? "placeholder" : '',
-                    'onfocus' => "unsetPlaceholder(this);",
-                    'onblur' => "setPlaceholder(this);"
+//                    'class' => (empty($user->room)) ? "placeholder" : '',
                 )) ?>
                 </li>
             </ul>

@@ -424,10 +424,14 @@ $this->breadcrumbs = array(
         $('#house').show();
         $('#room').show();
 
-        $('#street_name').val('').addClass('placeholder');
-        $('#street_id').val('').addClass('placeholder');
-        $('#house').val('').addClass('placeholder');
-        $('#room').val('').addClass('placeholder');
+        $('#street_name').val('');
+        setPlaceholder(document.getElementById('street_name'));
+        $('#street_id').val('');
+        setPlaceholder(document.getElementById('street_id'));
+        $('#house').val('');
+        setPlaceholder(document.getElementById('house'));
+        $('#room').val('');
+        setPlaceholder(document.getElementById('room'));
     }
     function HideStreet() {
         $('#street_name').hide();

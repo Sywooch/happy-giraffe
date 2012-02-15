@@ -148,7 +148,7 @@ $this->breadcrumbs = array(
                         ),
                         'htmlOptions' => array(
                             'style' => (empty($region_id)) ? 'display: none;' : '',
-                            'placeholder' => 'Выберите город',
+                            'placeholder' => 'город',
 //                            'class' => (empty($region_id)) ? "placeholder" : '',
                         )
                     ));
@@ -192,7 +192,7 @@ $this->breadcrumbs = array(
                         ),
                         'htmlOptions' => array(
                             'style' => (empty($region_id)) ? 'display: none;' : '',
-                            'placeholder' => 'Выберите улицу',
+                            'placeholder' => 'улица',
 //                            'class' => (empty($user->street)) ? "placeholder" : '',
                         )
                     ));
@@ -200,16 +200,10 @@ $this->breadcrumbs = array(
                     <?php echo CHtml::hiddenField('street_id', $user->street_id);?>
                 </li>
                 <li>
-                    <?php echo CHtml::textField('house', $user->house, array(
-                    'placeholder' => 'дом',
-//                    'class' => (empty($user->house)) ? "placeholder" : '',
-                )) ?>
+                    <?php echo CHtml::textField('house', $user->house, array('placeholder' => 'дом')) ?>
                 </li>
                 <li>
-                    <?php echo CHtml::textField('room', $user->room, array(
-                    'placeholder' => 'квартира',
-//                    'class' => (empty($user->room)) ? "placeholder" : '',
-                )) ?>
+                    <?php echo CHtml::textField('room', $user->room, array('placeholder' => 'квартира')) ?>
                 </li>
             </ul>
         </div>
@@ -235,7 +229,7 @@ $this->breadcrumbs = array(
     <div class="row-title">E-mail:</div>
     <div class="row-elements">
         <div class="col">
-            <?php echo $form->textField($this->user, 'email'); ?>
+            <?php echo $form->textField($this->user, 'email', array('placeholder' => 'Ваш e-mail')); ?>
         </div>
     </div>
 
@@ -351,7 +345,7 @@ $this->breadcrumbs = array(
         $('#district_id').chosen({allow_single_deselect:true}).change(function () {
             $('#city_id').val('');
             $('#city_name').val('');
-            setPlaceholder(document.getElementById('city_name'));
+//            setPlaceholder(document.getElementById('city_name'));
 
             console.log($("#district_id option:selected").text());
             geocoder = new YMaps.Geocoder($("#country_id option:selected").text()
@@ -395,12 +389,12 @@ $this->breadcrumbs = array(
         $('#room').show();
 
         $('#street_name').val('');
-        setPlaceholder(document.getElementById('street_name'));
+//        setPlaceholder(document.getElementById('street_name'));
         $('#street_id').val('');
         $('#house').val('');
-        setPlaceholder(document.getElementById('house'));
+//        setPlaceholder(document.getElementById('house'));
         $('#room').val('');
-        setPlaceholder(document.getElementById('room'));
+//        setPlaceholder(document.getElementById('room'));
     }
     function HideStreet() {
         $('#street_name').hide();

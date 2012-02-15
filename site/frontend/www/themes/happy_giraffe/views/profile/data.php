@@ -14,13 +14,9 @@ $this->breadcrumbs = array(
     'Профиль' => array('/profile'),
     '<b>Личная информация</b>',
 ); ?>
-<style type="text/css">
-    #map_canvas {
-        height: 400px;
-        width: 600px;
-    }
-</style>
-<?php $form = $this->beginWidget('CActiveForm'); ?>
+<?php $form = $this->beginWidget('CActiveForm',array(
+    'id'=>'profile-form'
+)); ?>
 <div class="profile-form-in">
 
 <?php echo $form->errorSummary($this->user); ?>
@@ -390,6 +386,7 @@ $this->breadcrumbs = array(
         $('#district_id').chosen({allow_single_deselect:true}).change(function () {
             $('#city_id').val('');
             $('#city_name').val('');
+            setPlaceholder(document.getElementById('city_name'));
 
             console.log($("#district_id option:selected").text());
             geocoder = new YMaps.Geocoder($("#country_id option:selected").text()
@@ -417,6 +414,14 @@ $this->breadcrumbs = array(
             $('#city_name').hide();
             HideStreet();
         }
+
+        $('form#profile-form').submit(function(){
+            unsetPlaceholder(document.getElementById('street_name'));
+            unsetPlaceholder(document.getElementById('street_id'));
+            unsetPlaceholder(document.getElementById('house'));
+            unsetPlaceholder(document.getElementById('room'));
+            return true;
+        });
     });
 
     function ShowStreet() {

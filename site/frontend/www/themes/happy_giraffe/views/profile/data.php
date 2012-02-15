@@ -439,6 +439,15 @@ $this->breadcrumbs = array(
         $('#room').hide();
     }
 
+    $('#house').change(function(){
+        geocoder = new YMaps.Geocoder($('#country_id option:selected').text()
+            + ', ' + $('#region_id option:selected').text()
+            + ', ' + $('#district_id option:selected').text()
+            + ', ' + $('#street_name').val()
+            + ', ' + $('#house').val());
+        ShowNewLoc();
+    });
+
     function ShowNewLoc() {
         YMaps.Events.observe(geocoder, geocoder.Events.Load, function (geocoder) {
             if (geocoder.length()) {

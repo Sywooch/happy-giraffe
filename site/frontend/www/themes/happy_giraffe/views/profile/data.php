@@ -6,7 +6,6 @@ $districts = empty($region_id) ? array() : CHtml::listData(
     GeoRusDistrict::model()->findAll('region_id = '.$region_id), 'id', 'name');
 $city_id = empty($user->settlement_id) ? null : $user->settlement_id;
 $city_name = empty($user->settlement_id) ? null : $user->settlement->name;
-$street_id = empty($user->street_id) ? null : $user->street->name;
 
 $this->breadcrumbs = array(
 	'Профиль' => array('/profile'),
@@ -93,7 +92,6 @@ $this->breadcrumbs = array(
                             array(
                                 'class' => 'chzn chzn-deselect',
                                 'data-placeholder' => 'Выберите регион',
-//            'style' => ($user->country_id != 174) ? 'display: none;' : ''
                             )); ?>
                         </li>
                         <li class="with-search">
@@ -101,7 +99,6 @@ $this->breadcrumbs = array(
                             'empty' => '',
                             'class' => 'chzn chzn-deselect',
                             'data-placeholder' => 'Выберите район',
-//        'style' => (empty($region_id) || $region_id == 42 || $region_id == 59) ? 'width: 300px;display: none;' : 'width: 300px;'
                             'style' => 'width: 300px;'
                         )); ?>
                         </li>
@@ -181,7 +178,7 @@ $this->breadcrumbs = array(
                                 )
                             ));
                             ?>
-                            <?php echo CHtml::hiddenField('street_id', $user->street_id); ?>
+                            <?php echo CHtml::hiddenField('street_id', $user->street_id);?>
                         </li>
                         <li>
                             <?php echo CHtml::textField('house', $user->house, array(
@@ -243,7 +240,7 @@ $this->breadcrumbs = array(
         });
 
         $('#region_id').chosen({allow_single_deselect: true}).change(function () {
-            if ($(this).val() == '') {
+            if ($(this).val() == '' || $(this).val() == 42 || $(this).val() == 59) {
                 $('#district_id_chzn').hide();
                 $('#city_name').hide();
                 if ($(this).val() == ''){
@@ -299,7 +296,9 @@ $this->breadcrumbs = array(
         if ($('#region_id').val() == 42 || $('#region_id').val() == 59) {
             $('#district_id_chzn').hide();
             $('#city_name').hide();
-            ShowStreet();
+            $('#street_name').show();
+            $('#house').show();
+            $('#room').show();
         }else if($('#region_id').val() == ''){
             $('#district_id_chzn').hide();
             $('#city_name').hide();

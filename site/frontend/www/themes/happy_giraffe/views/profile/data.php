@@ -276,29 +276,6 @@ $this->breadcrumbs = array(
     var placemark;
 
     $(function () {
-        /*
-                geocoder = new google.maps.Geocoder();
-
-                console.log($('#map_container').attr("data-name"));
-                geocoder.geocode({ 'address':$('#map_container').attr("data-name"), 'latLng':PlaceLoc}, function (results, status) {
-                    if ((status == google.maps.GeocoderStatus.OK)) {
-                        var loc = results[0].geometry.location;
-                        console.log(loc);
-                        PlaceLoc = new google.maps.LatLng(loc.lat(), loc.lng());
-
-                        var myOptions = {
-                            center:PlaceLoc,
-                            zoom:(parseInt($('#map_container').attr("data-zoom"))),
-                            MapTypeId:google.maps.MapTypeId.ROADMAP
-                        };
-                        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-                        directionsDisplay = new google.maps.DirectionsRenderer();
-                        directionsDisplay.setMap(map);
-                    } else {
-                        console.log("bad answer from maps");
-                    }
-                });
-        */
 
         // Создание экземпляра карты и его привязка к созданному контейнеру
         map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);

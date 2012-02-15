@@ -199,7 +199,7 @@ $this->breadcrumbs = array(
                         'htmlOptions' => array(
                             'style' => (empty($region_id)) ? 'display: none;' : '',
                             'placeholder' => 'Выберите улицу',
-                            'class' => (empty($city_id)) ? "placeholder" : '',
+                            'class' => (empty($user->street)) ? "placeholder" : '',
                             'onfocus' => "unsetPlaceholder(this);",
                             'onblur' => "setPlaceholder(this);"
                         )
@@ -393,8 +393,8 @@ $this->breadcrumbs = array(
         }
 
         $('form#profile-form').submit(function(){
+            unsetPlaceholder(document.getElementById('city_name'));
             unsetPlaceholder(document.getElementById('street_name'));
-            unsetPlaceholder(document.getElementById('street_id'));
             unsetPlaceholder(document.getElementById('house'));
             unsetPlaceholder(document.getElementById('room'));
             return true;
@@ -409,7 +409,6 @@ $this->breadcrumbs = array(
         $('#street_name').val('');
         setPlaceholder(document.getElementById('street_name'));
         $('#street_id').val('');
-        setPlaceholder(document.getElementById('street_id'));
         $('#house').val('');
         setPlaceholder(document.getElementById('house'));
         $('#room').val('');

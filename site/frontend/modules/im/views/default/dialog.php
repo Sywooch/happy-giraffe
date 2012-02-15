@@ -276,7 +276,7 @@ function SendMessage() {
 }
 
 function MoreMessages() {
-    if (no_more_messages == 0 && $('#messages').scrollTop < 10) {
+    if (no_more_messages == 0 && $('#messages').scrollTop() < 10) {
 //        no_scroll = 1;
         var first_id = $('#messages .dialog-message:first').attr('id').replace(/MessageLog_/g, "");
         $('#messages').unbind('scroll');
@@ -294,7 +294,7 @@ function MoreMessages() {
                         h += $("#messages .dialog-message:eq(" + i + ")").outerHeight(true);
 
                     $("#messages").scrollTop(h);
-                    $('#messages').delay(2000).bind('scroll', MoreMessages);
+                    $('#messages').bind('scroll', MoreMessages);
 //                    SetScrollPosition(h);
 //                    no_scroll = 0;
                 } else {
@@ -433,6 +433,5 @@ function SetScrollPosition(yPos){
 }
 function getScrollContentPosition(){
     return pane.data('jsp').getContentPositionY();
-
 }
 </script>

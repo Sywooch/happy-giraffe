@@ -12,9 +12,5 @@
 	<?php echo CHtml::encode($data->community_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('type_id')); ?>:</b>
-	<?php echo CHtml::encode($data->type_id); ?>
-	<br />
-
 
 </div>

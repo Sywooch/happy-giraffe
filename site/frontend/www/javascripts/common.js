@@ -13,7 +13,18 @@ $(document).ready(function() {
         });
     }
 	
-	if ($('.chzn').size() > 0) $('.chzn').chosen();
+	if ($('.chzn').size() > 0) {
+		
+		$('.chzn').each(function(){
+			
+			var s = $(this);
+			s.chosen({
+				allow_single_deselect: s.hasClass('chzn-deselect')
+			})
+			
+		});
+		
+	}
 	
 });
 
@@ -183,6 +194,16 @@ function setSelectBoxValue(el){
 function initSelects(block){
 	block.find('.chzn-done').next().remove();
 	var chzns = block.find('.chzn-done');
-	if (chzns.size() > 0) chzns.removeClass('chzn-done').chosen();
+	if (chzns.size() > 0) {
+		chzns.each(function(){
+			
+			var s = $(this);
+			s.removeClass('chzn-done').chosen({
+				allow_single_deselect: s.hasClass('chzn-deselect')
+			})
+			
+		});
+	}
+	
 	//alert(block);
 }

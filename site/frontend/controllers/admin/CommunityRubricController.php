@@ -16,10 +16,6 @@ class CommunityRubricController extends Controller
 	{
 		return array(
 			array('allow',  
-				'actions'=>array('index','view', 'create', 'update', 'admin', 'delete'),
-				'users'=>array('*'),
-			),
-			/*array('allow',  
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
@@ -33,7 +29,7 @@ class CommunityRubricController extends Controller
 			),
 			array('deny', 
 				'users'=>array('*'),
-			),*/
+			),
 		);
 	}
 

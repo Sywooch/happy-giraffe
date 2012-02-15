@@ -42,7 +42,6 @@ data: $(this).serialize()
 		'id',
 		'name',
 		'community_id',
-		'type_id',
 		array(
 			'class'=>'CButtonColumn',
 		),

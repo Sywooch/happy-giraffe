@@ -29,6 +29,7 @@
  * @propery integer $street_id
  * @propery string $room
  * @propery string $house
+ * @propery string $last_ip
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers

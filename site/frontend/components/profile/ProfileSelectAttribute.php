@@ -14,8 +14,8 @@ class ProfileSelectAttribute extends ProfileAttribute
         }
     }
 
-    public function input($name)
+    public function input($name, $value)
     {
-        echo CHtml::dropDownList($name, $this->default, $this->choices);
+        echo CHtml::dropDownList($name, $value, $this->choices);
     }
 }

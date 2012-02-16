@@ -389,7 +389,7 @@ function ShowUserTyping(result) {
 
 function GoTop() {
     $("#messages").scrollTop($("#messages .inner-messages").outerHeight());
-    $('#messages').scrollbarPaper();
+//    $('#messages').scrollbarPaper();
 }
 
 function report(item) {

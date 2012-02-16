@@ -43,6 +43,10 @@ return array(
             'enableParamLogging' => true,
             'tablePrefix'=> '',
         ),
+        'authManager'=>array(
+            'class'=>'CDbAuthManager',
+            'connectionID'=>'db',
+        ),
 	),
 
     'params' => array(

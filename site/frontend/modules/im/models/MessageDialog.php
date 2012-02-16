@@ -102,6 +102,13 @@ class MessageDialog extends CActiveRecord
      */
     public static function SetRead($dialog_id, $last_message_id = null)
     {
+        $has_unread = MessageLog::model()->find(array(
+            'condition' => 'dialog_id=' . $dialog_id . ' AND user_id != ' . Yii::app()->user->getId()
+        . ' AND read_status = 0',
+        ));
+        if ($has_unread === null)
+            return ;
+
         if ($last_message_id === null) {
             $last_message = MessageLog::model()->find(array(
                 'condition' => 'dialog_id=' . $dialog_id . ' AND user_id != ' . Yii::app()->user->getId(),

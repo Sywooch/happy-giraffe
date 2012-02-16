@@ -145,6 +145,7 @@ class MessageLog extends CActiveRecord
                     ), true)
                 ));
             }
+            Im::clearCache($user->user_id);
         }
 
         return $message;

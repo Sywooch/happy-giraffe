@@ -2,8 +2,8 @@
 
 class ProfileStringAttribute extends ProfileAttribute
 {
-    public function input($name)
+    public function input($name, $value)
     {
-        echo CHtml::textField($name, $this->default);
+        echo CHtml::textField($name, $value);
     }
 }

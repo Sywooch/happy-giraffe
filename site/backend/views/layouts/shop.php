@@ -59,6 +59,21 @@
             array(
                 'label' => 'Пользователи',
                 'url' => array('users/index'),
+                'itemOptions' => array('class' => 'submenu'),
+                'items' => array(
+                    array(
+                        'label' => 'Роли',
+                        'url' => array('roles/admin'),
+                    ),
+                    array(
+                        'label' => 'Группы действий',
+                        'url' => array('operationGroups/admin'),
+                    ),
+                    array(
+                        'label' => 'Действия',
+                        'url' => array('operations/admin'),
+                    ),
+                )
             ),
         ),
     ));?>

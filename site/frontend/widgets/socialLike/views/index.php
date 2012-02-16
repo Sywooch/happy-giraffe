@@ -3,7 +3,7 @@
 <p><a onclick="window.open(this.href, 'mmir', 'width=626, height=436'); return false;" href="http://connect.mail.ru/share?share_url=<?php echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); ?>&title=liketest&imageurl=<?php echo urlencode('http://i027.radikal.ru/1111/f9/ffc27bf8f55c.jpg'); ?>">Поделиться с друзьями Моего Мира на Mail.ru</a></p>
 <p><a onclick="window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?php echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); ?>">Поделиться с друзьями в Одноклассниках</a></p>
 <p><a onclick="window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="http://twitter.com/intent/tweet?text=<?php echo urlencode('Рецепты для борьбы с токсикозом. http://www.happy-giraffe.ru/community/2/forum/post/4600/'); ?>">Поделиться с друзьями в Twitter</a></p>
-<p><a onclick="window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="https://plusone.google.com/_/+1/confirm?hl=en&url=<?php echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); ?>&title=<?php echo urlencode('Рецепты для борьбы с токсикозом.'); ?>>Поделиться с друзьями в +1</a></p>
+<p><a onclick="window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="https://plusone.google.com/_/+1/confirm?hl=en&url=<?php echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); ?>&title=<?php echo urlencode('Рецепты для борьбы с токсикозом.'); ?>">Поделиться с друзьями в +1</a></p>
 <div class="like-block clearfix">
     <div class="tip">
         <div class="container">

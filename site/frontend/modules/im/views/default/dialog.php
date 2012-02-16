@@ -1,8 +1,10 @@
 <?php
 Yii::app()->clientScript
     ->registerScriptFile('/javascripts/jquery.color.animation.js')
-    ->registerScriptFile('/javascripts/jquery.jscrollpane.min.js')
-    ->registerCssFile('/stylesheets/jquery.jscrollpane.css');
+    ->registerScriptFile('/javascripts/scrollbarpaper.js');
+//    ->registerScriptFile('/javascripts/jquery.jscrollpane.min.js')
+//    ->registerCssFile('/stylesheets/jquery.jscrollpane.css');
+
 ?>
 <div id="dialog">
     <div class="opened-dialogs-list">
@@ -66,9 +68,7 @@ Yii::app()->clientScript
     </div>
 </div>
 <style type="text/css">
-    .cke_bottom {
-        display: none;
-    }
+    .cke_bottom {display: none;}
 </style>
 <script type="text/javascript">
 var window_active = 1;
@@ -77,24 +77,10 @@ var dialog = <?php echo $id ?>;
 var last_massage = null;
 var no_more_messages = 0;
 var last_typing_time = 0;
-var pane = null;
-var no_scroll = 0;
+var scrollBar = null;
 
 $(function () {
-//    pane = $('.scroll').bind(
-//        'jsp-arrow-change',
-//        function(event, isAtTop, isAtBottom, isAtLeft, isAtRight)
-//        {
-//            console.log(event, isAtTop);
-//            if (isAtTop && !no_scroll)
-//                MoreMessages();
-//        }
-//    ).jScrollPane({
-//        showArrows:true,
-//        animateScroll:true,
-//        arrowButtonSpeed:50,
-//        autoReinitialise:true
-//    });
+    //scrollBar = $('#messages').scrollbarPaper();
     GoTop();
 
     $(window).focus(function () {
@@ -261,7 +247,7 @@ function SendMessage() {
         dataType:'JSON',
         success:function (response) {
             if (response.status) {
-                $('#messages').append(response.html);
+                $('#messages .inner-messages').append(response.html);
                 GoTop();
                 editor.focus();
             } else {
@@ -293,12 +279,13 @@ function MoreMessages() {
                     for (var i = 1; i < response.count; i++)
                         h += $("#messages .dialog-message:eq(" + i + ")").outerHeight(true);
 
-                    $("#messages").scrollTop(h);
-                    $('#messages').bind('scroll', MoreMessages);
-//                    SetScrollPosition(h);
+                    SetScrollPosition(h);
 //                    no_scroll = 0;
+                    $('#messages').bind('scroll', MoreMessages);
                 } else {
                     no_more_messages = 1;
+                    $('#messages').bind('scroll', MoreMessages);
+                    $('#messages').scrollbarPaper('update');
                 }
             },
             context:$(this)
@@ -345,7 +332,7 @@ function SetReadStatusForIframe() {
 function ShowNewMessage(result) {
     if (result.dialog_id == dialog) {
         last_massage = result.message_id;
-        $("#messages").append(result.html);
+        $("#messages .inner-messages").append(result.html);
         $("#messages .dialog-message-new-in:last td").css('background-color', '#EBF5FF');
         GoTop();
         SetReadStatus();
@@ -401,8 +388,8 @@ function ShowUserTyping(result) {
 }
 
 function GoTop() {
-    SetScrollPosition($("#messages")[0].scrollHeight);
-    //$("#messages").scrollTop($("#messages")[0].scrollHeight);
+    $("#messages").scrollTop($("#messages")[0].scrollHeight);
+    $('#messages').scrollbarPaper();
 }
 
 function report(item) {
@@ -428,10 +415,7 @@ function report(item) {
 }
 
 function SetScrollPosition(yPos){
-    //pane.data('jsp').scrollTo(0, yPos);
-    $("#messages").scrollTop(yPos)
-}
-function getScrollContentPosition(){
-    return pane.data('jsp').getContentPositionY();
+    $("#messages").scrollTop(yPos);
+    //$('#messages').scrollbarPaper('update');
 }
 </script>

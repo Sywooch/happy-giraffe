@@ -77,7 +77,7 @@ class Album extends CActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => array(
                 'condition' => 'user_id = :user_id',
-                'params' => array(':user_id' => $user_id)
+                'params' => array(':user_id' => $user_id),
             ),
         ));
     }

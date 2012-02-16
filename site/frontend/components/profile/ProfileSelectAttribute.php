@@ -13,4 +13,9 @@ class ProfileSelectAttribute extends ProfileAttribute
             throw new CException('Select attributes must declare the available choices');
         }
     }
+
+    public function input($name)
+    {
+        echo CHtml::dropDownList($name, $this->default, $this->choices);
+    }
 }

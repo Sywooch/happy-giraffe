@@ -14,7 +14,7 @@
  * @property string $creation_date
  *
  * The followings are the available model relations:
- * @property Albums $album
+ * @property Album $album
  * @property User $user
  */
 class AlbumPhoto extends CActiveRecord
@@ -71,8 +71,9 @@ class AlbumPhoto extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'album' => array(self::BELONGS_TO, 'Albums', 'album_id'),
+            'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'attach' => array(self::HAS_MANY, 'AttachPhoto', 'photo_id'),
         );
     }
 

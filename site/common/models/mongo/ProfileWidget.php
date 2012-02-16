@@ -3,32 +3,32 @@
 class ProfileWidget extends EMongoDocument
 {
     public $title;
-    public $class_name;
     public $description;
+    public $class;
+
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
 
     public function getCollectionName()
     {
-        return 'profileWidgets';
+        return 'widgets';
     }
 
     public function rules()
     {
         return array(
-            array('title, name, description', 'required'),
+            array('title, description, class', 'safe'),
         );
     }
 
-    public function attributeNames()
+    public function attributeLabels()
     {
         return array(
             'title' => 'Заголовок',
-            'class_name' => 'Класс',
             'description' => 'Описание',
+            'class' => 'Класс',
         );
-    }
-
-    public static function model($className=__CLASS__)
-    {
-        return parent::model($className);
     }
 }

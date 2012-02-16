@@ -2,12 +2,17 @@ $(document).ready(function() {
 
 	if ($('a.fancy').size() > 0) {
         $('body').delegate('a.fancy', 'click', function() {
+            var onComplete_function = function() {};
+            if($(this).hasClass('attach_link')) {
+                onComplete_function = function() {Attach.init();};
+            }
             $(this).clone().fancybox({
                 overlayColor: '#000',
                 overlayOpacity: '0.6',
                 padding:0,
                 showCloseButton:false,
-                scrolling: false
+                scrolling: false,
+                onComplete : onComplete_function
             }).trigger('click');
             return false;
         });
@@ -208,4 +213,8 @@ function initSelects(block){
 	}
 	
 	//alert(block);
+}
+
+function cl(value) {
+    console.log(value);
 }

@@ -388,8 +388,7 @@ function ShowUserTyping(result) {
 }
 
 function GoTop() {
-    console.log($("#messages .inner-messages").height());
-    $("#messages").scrollTop($("#messages .inner-messages").height() + 100);
+    $("#messages").scrollTop($("#messages .inner-messages").outerHeight());
     $('#messages').scrollbarPaper();
 }
 

@@ -1,3 +1,1 @@
-<?php
-
-echo $box->user_id;
+<?php $box->widget()->object->showSettingsForm($box); ?>

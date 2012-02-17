@@ -4,6 +4,9 @@ class ProfileWidgetBox extends EMongoDocument
 {
     public $user_id;
     public $widget_id;
+    public $settings;
+    public $position_x;
+    public $position_y;
 
     public static function model($className=__CLASS__)
     {
@@ -18,7 +21,7 @@ class ProfileWidgetBox extends EMongoDocument
     public function rules()
     {
         return array(
-            array('user_id, widget_id', 'safe'),
+            array('user_id, widget_id, settings', 'safe'),
         );
     }
 
@@ -27,6 +30,7 @@ class ProfileWidgetBox extends EMongoDocument
         return array(
             'user_id' => 'Пользователь',
             'widget_id' => 'Виджет',
+            'settings' => 'Настройки',
         );
     }
 

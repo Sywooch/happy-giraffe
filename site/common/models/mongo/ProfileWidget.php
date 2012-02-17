@@ -6,6 +6,8 @@ class ProfileWidget extends EMongoDocument
     public $description;
     public $class;
 
+    private $_object = null;
+
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
@@ -30,5 +32,14 @@ class ProfileWidget extends EMongoDocument
             'description' => 'Описание',
             'class' => 'Класс',
         );
+    }
+
+    public function getObject()
+    {
+        if ($this->_object == null) {
+            $this->_object = new $this->class;
+        }
+
+        return $this->_object;
     }
 }

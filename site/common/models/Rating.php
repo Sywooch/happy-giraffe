@@ -193,7 +193,6 @@ class Rating extends CActiveRecord
             case 'tw' :
                 $response = CJSON::decode(file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url=' . $url));
                 $count = $response['count'];
-                echo $count;
                 break;
             case 'fb' :
                 $response = CJSON::decode(file_get_contents('https://api.facebook.com/method/fql.query?query=' . urlencode('select total_count from link_stat where url="' . $url . '"') . '&format=json'));

@@ -5,6 +5,8 @@ class ProfileWidgetBox extends EMongoDocument
     public $user_id;
     public $widget_id;
     public $settings;
+    public $position_x;
+    public $position_y;
 
     public static function model($className=__CLASS__)
     {

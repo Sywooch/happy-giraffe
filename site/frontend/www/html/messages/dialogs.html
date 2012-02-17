@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
@@ -73,198 +74,168 @@
 					
 					<div id="dialogs">
 						
-						<div class="tabs">
+						<div class="header clearfix">
+							<big>Мои сообщения</big>
+							<ul>
+								<li class="active"><a href=""><span>Все диалоги</span></a></li>
+								<li><a href=""><span>Новые</span><div class="count">5</div></a></li>
+								<li><a href=""><span>Кто в онлайне</span></a></li>
+								<li><a href=""><span>Открытые диалоги</span></a></li>
+							</ul>
+						</div>
 						
-							<div class="header">
-								<div class="container">
-									
-									<div class="clearfix">
-										<div class="search">
-											<form>
-												<input type="text">
-												<button class="btn btn-green-smedium"><span><span>Найти</span></span></button>
-											</form>
-										</div>
-										
-										<div class="title">Мои сообщения</div>
-									</div>
-									
-									<div class="nav steps">
-										
-										<ul>
-											<li class="opened"><a href="">Открытые диалоги<i class="icon-arr"></i></a></li>
-											<li class="active"><a><span>Все диалоги</span></a></li>
-											<li><a><span>Новое</span></a></li>
-											<li><a><span>Кто в онлайне</span></a></li>
-											<li>
-												<form>
-													<input type="text" value="введите имя" class="placeholder" placeholder="введите имя" onblur="setPlaceholder(this)" onfocus="unsetPlaceholder(this)" />
-													<button class="btn btn-green-small"><span><span>Ok</span></span></button>
-												</form>
-											</li>
-										</ul>
-										
-									</div>
-									
-								</div>
+						<div class="dialog-list">
+						
+							<div class="dialog-message dialog-message-new-in">
+								
+								<table>
+									<tr>
+										<td class="user">
+											
+											<div class="ava"></div>
+											<span>Мира</span>
+											
+										</td>
+										<td class="message-icon">
+											<div class="icon"></div>
+											<div class="date">
+												<span>Сегодня<br/>16:45</span>
+											</div>
+										</td>
+										<td class="content">
+											<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
+										</td>
+										<td class="actions">											
+											<a href="" class="remove"></a>
+											<a href="" class="claim"></a>											
+										</td>
+									</tr>
+								</table>
+								
 							</div>
-							
-							<div class="dialog-list">
-							
-								<div class="dialog-message dialog-message-new-in">
-									
-									<table>
-										<tr>
-											<td class="user">
-												
-												<div class="ava"></div>
-												<span>Мира</span>
-												
-											</td>
-											<td class="message-icon">
-												<div class="icon"></div>
-											</td>
-											<td class="content">
-												<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-											</td>
-											<td class="meta">
+						
+							<div class="dialog-message dialog-message-new-in">
+								
+								<table>
+									<tr>
+										<td class="user">
+											
+											<div class="ava"></div>
+											<span>Мира</span>
+											
+										</td>
+										<td class="message-icon">
+											<div class="icon"></div>
+											<div class="date">
 												<span>Сегодня<br/>16:45</span>
-											</td>
-											<td class="actions">
-												
-												<a href="" class="remove"></a>
-												<a href="" class="claim"></a>
-												
-											</td>
-										</tr>
-									</table>
-									
-								</div>
-							
-								<div class="dialog-message dialog-message-new-in">
-									
-									<table>
-										<tr>
-											<td class="user">
-												
-												<div class="ava"></div>
-												<span>Мира</span>
-												
-											</td>
-											<td class="message-icon">
-												<div class="icon"></div>
-											</td>
-											<td class="content">
-												<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-											</td>
-											<td class="meta">
+											</div>
+										</td>
+										<td class="content">
+											<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
+										</td>
+										<td class="actions">
+											
+											<a href="" class="remove"></a>
+											<a href="" class="claim"></a>
+											
+										</td>
+									</tr>
+								</table>
+								
+							</div>
+						
+							<div class="dialog-message dialog-message-new-out">
+								
+								<table>
+									<tr>
+										<td class="user">
+											
+											<div class="ava"></div>
+											<span>Мира</span>
+											
+										</td>
+										<td class="message-icon">
+											<div class="icon"></div>
+											<div class="date">
 												<span>Сегодня<br/>16:45</span>
-											</td>
-											<td class="actions">
-												
-												<a href="" class="remove"></a>
-												<a href="" class="claim"></a>
-												
-											</td>
-										</tr>
-									</table>
-									
-								</div>
-							
-								<div class="dialog-message dialog-message-new-out">
-									
-									<table>
-										<tr>
-											<td class="user">
-												
-												<div class="ava"></div>
-												<span>Мира</span>
-												
-											</td>
-											<td class="message-icon">
-												<div class="icon"></div>
-											</td>
-											<td class="content">
-												<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-											</td>
-											<td class="meta">
+											</div>
+										</td>
+										<td class="content">
+											<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
+										</td>
+										<td class="actions">
+											
+											<a href="" class="remove"></a>
+											<a href="" class="claim"></a>
+											
+										</td>
+									</tr>
+								</table>
+								
+							</div>
+						
+							<div class="dialog-message dialog-message-in">
+								
+								<table>
+									<tr>
+										<td class="user">
+											
+											<div class="ava"></div>
+											<span>Мира</span>
+											
+										</td>
+										<td class="message-icon">
+											<div class="icon"></div>
+											<div class="date">
 												<span>Сегодня<br/>16:45</span>
-											</td>
-											<td class="actions">
-												
-												<a href="" class="remove"></a>
-												<a href="" class="claim"></a>
-												
-											</td>
-										</tr>
-									</table>
-									
-								</div>
-							
-								<div class="dialog-message dialog-message-in">
-									
-									<table>
-										<tr>
-											<td class="user">
-												
-												<div class="ava"></div>
-												<span>Мира</span>
-												
-											</td>
-											<td class="message-icon">
-												<div class="icon"></div>
-											</td>
-											<td class="content">
-												<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-											</td>
-											<td class="meta">
+											</div>
+										</td>
+										<td class="content">
+											<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
+										</td>
+										<td class="actions">
+											
+											<a href="" class="remove"></a>
+											<a href="" class="claim"></a>
+											
+										</td>
+									</tr>
+								</table>
+								
+							</div>
+						
+							<div class="dialog-message dialog-message-out">
+								
+								<table>
+									<tr>
+										<td class="user">
+											
+											<div class="ava"></div>
+											<span>Мира</span>
+											
+										</td>
+										<td class="message-icon">
+											<div class="icon"></div>
+											<div class="date">
 												<span>Сегодня<br/>16:45</span>
-											</td>
-											<td class="actions">
-												
-												<a href="" class="remove"></a>
-												<a href="" class="claim"></a>
-												
-											</td>
-										</tr>
-									</table>
-									
-								</div>
-							
-								<div class="dialog-message dialog-message-out">
-									
-									<table>
-										<tr>
-											<td class="user">
-												
-												<div class="ava"></div>
-												<span>Мира</span>
-												
-											</td>
-											<td class="message-icon">
-												<div class="icon"></div>
-											</td>
-											<td class="content">
-												<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-											</td>
-											<td class="meta">
-												<span>Сегодня<br/>16:45</span>
-											</td>
-											<td class="actions">
-												
-												<a href="" class="remove"></a>
-												<a href="" class="claim"></a>
-												
-											</td>
-										</tr>
-									</table>
-									
-								</div>
-							
+											</div>
+										</td>
+										<td class="content">
+											<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
+										</td>
+										<td class="actions">
+											
+											<a href="" class="remove"></a>
+											<a href="" class="claim"></a>
+											
+										</td>
+									</tr>
+								</table>
+								
 							</div>
 						
 						</div>
-						
+					
 					</div>
 					
 				</div>

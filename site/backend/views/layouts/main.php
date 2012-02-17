@@ -9,6 +9,7 @@
         Yii::app()->clientScript
             ->registerCssFile('/css/reset.css')
             ->registerCssFile('/css/general.css')
+            ->registerCssFile('/css/form.css')
             ->registerCoreScript('jquery')
             ->registerCoreScript('jquery.ui')
 

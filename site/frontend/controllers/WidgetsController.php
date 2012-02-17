@@ -17,20 +17,8 @@ class WidgetsController extends Controller
         $box = new ProfileWidgetBox;
         $box->user_id = Yii::app()->user->id;
         $box->widget_id = $widget_id;
+        $box->settings = $box->widget()->object->defaults;
         $box->save();
-
-        $class = $box->widget()->class;
-        $widget = new $class;
-        $widget->init();
-
-        foreach ($widget->defaults as $name => $value)
-        {
-            $setting = new ProfileWidgetSetting;
-            $setting->box_id = $box->primaryKey;
-            $setting->attribute_name = $name;
-            $setting->attribute_value = $value;
-            $setting->save();
-        }
 
         $this->redirect(array('settings', 'box_id' => $box->primaryKey));
     }
@@ -38,9 +26,15 @@ class WidgetsController extends Controller
     public function actionSettings($box_id)
     {
         $box = ProfileWidgetBox::model()->findByPk(new MongoID($box_id));
+
+        if (isset($_POST['Settings']))
+        {
+            $box->settings = $_POST['Settings'];
+            $box->save();
+        }
+
         $this->render('settings', array(
             'box' => $box,
-            'settings' => ProfileWidgetSetting::model()->getUserSettings(Yii::app()->user->id),
         ));
     }
 }

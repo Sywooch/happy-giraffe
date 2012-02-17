@@ -9,7 +9,7 @@
 		function addField()
 		{
 			$('#ingredientTmpl').tmpl({num: nextIndex}).appendTo('.ingr_f_recipe_tb');
-			cuSel({changedEl: 'select', visRows: 8, scrollArrows: true});
+			//cuSel({changedEl: 'select', visRows: 8, scrollArrows: true});
 			nextIndex++;
 		}
 	
@@ -24,7 +24,7 @@
 				},
 				success: function(response) {
 					$('#cuselFrame-RecipeBookRecipe_disease_id').replaceWith(response);
-					cuSel({changedEl: 'select', visRows: 8, scrollArrows: true});
+					//cuSel({changedEl: 'select', visRows: 8, scrollArrows: true});
 				}
 			});
 		});

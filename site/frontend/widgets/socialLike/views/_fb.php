@@ -1,5 +1,3 @@
-<div id="fb-root"></div>
-<fb:like layout="button_count"></fb:like>
 <?php
 foreach($this->options as $key => $value)
 {
@@ -8,14 +6,4 @@ foreach($this->options as $key => $value)
     ));
 }
 ?>
-<?php
-$init_js = "(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = '//connect.facebook.net/ru_RU/all.js#xfbml=1';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));";
-Yii::app()->clientScript
-    ->registerScript('fb_init', $init_js, CClientScript::POS_HEAD)
-?>
+<p><a onclick="return Social.open('fb', this.href, 'Опубликовать ссылку в Facebook', 800, 300);" title="Опубликовать ссылку в Facebook" href="http://www.facebook.com/sharer.php?u=<?php echo urlencode($this->options['url']); ?>">Опубликовать ссылку во Facebook</a></p>

@@ -1,7 +1,1 @@
-<?php
-$js = '!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");';
-Yii::app()->clientScript
-    ->registerScript('fb_init', $js, CClientScript::POS_END);
-$text = isset($this->options['title']) ? ' data-text="' . $this->options['title'] . '"' : '';
-?>
-<a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $this->options['url']; ?>"<?php echo $text ?>>Tweet</a>
+<p><a onclick="return Social.open('tw', this.href, 'Опубликовать ссылку в Twitter', 800, 300);" rel="nofollow" href="http://twitter.com/intent/tweet?text=<?php echo urlencode($this->options['title'] . ' ' . $this->options['url']); ?>">Поделиться с друзьями в Twitter</a></p>

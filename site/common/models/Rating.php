@@ -196,6 +196,7 @@ class Rating extends CActiveRecord
                 break;
             case 'fb' :
                 $response = CJSON::decode(file_get_contents('https://api.facebook.com/method/fql.query?query=' . urlencode('select total_count from link_stat where url="' . $url . '"') . '&format=json'));
+                echo 'https://api.facebook.com/method/fql.query?query=' . urlencode('select total_count from link_stat where url="' . $url . '"') . '&format=json';
                 $count = isset($response[0]) && isset($response[0]['total_count']) ? $response[0]['total_count'] : 0;
                 break;
             case 'vk' :

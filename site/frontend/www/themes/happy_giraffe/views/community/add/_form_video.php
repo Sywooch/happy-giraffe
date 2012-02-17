@@ -24,7 +24,9 @@ $('.close').click(function () {
 .validate .right-v {
 	display: none;
 }";
-	$cs->registerScript('add_video', $js_add_video)->registerCss('add_video', $css_add_video);
+	$cs
+        ->registerScript('add_video', $js_add_video)->registerCss('add_video', $css_add_video)
+        ->registerScriptFile('/javascripts/chosen.jquery.min.js');
 ?>
 
 	<div class="">
@@ -106,7 +108,11 @@ $('.close').click(function () {
 			<div class="inner-title">Выберите сообщество и рубрику</div>
 			
 			<?php if ($content_model->isNewRecord): ?>
-				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'), array('prompt' => 'Выберите рубрику')); ?>
+				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
+                array(
+                    'prompt' => 'Выберите рубрику',
+                    'class'=>'chzn',
+                )); ?>
 			<?php else: ?>
 				<?php echo CHtml::dropDownList('community_id', $community->id, CHtml::listData($communities, 'id', 'name'),
 					array(
@@ -117,6 +123,7 @@ $('.close').click(function () {
 							'update' => '#cusel-scroll-CommunityContent_rubric_id',
 						),
 						'disabled' => Yii::app()->user->checkAccess('moder') ? '' : 'disabled',
+                        'class'=>'chzn',
 					)
 				); ?></p>
 			
@@ -124,6 +131,7 @@ $('.close').click(function () {
 					array(
 						'prompt' => 'Выберите рубрику',
 						'disabled' => Yii::app()->user->checkAccess('moder') ? '' : 'disabled',
+                        'class'=>'chzn',
 					)
 				); ?>
 			<?php endif; ?>

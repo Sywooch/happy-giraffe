@@ -16,6 +16,8 @@ class AuthItem extends CActiveRecord
     const TYPE_TASK = CAuthItem::TYPE_TASK;
     const TYPE_ROLE = CAuthItem::TYPE_ROLE;
 
+    public $children;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -31,7 +33,7 @@ class AuthItem extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'AuthItem';
+		return 'auth_item';
 	}
 
 	/**
@@ -43,6 +45,7 @@ class AuthItem extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, type', 'required'),
+            array('name', 'unique'),
 			array('type', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>64),
 			array('description, bizrule, data', 'safe'),
@@ -69,11 +72,12 @@ class AuthItem extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'name' => 'Name',
+			'name' => 'Название',
 			'type' => 'Type',
-			'description' => 'Description',
+			'description' => 'Описание',
 			'bizrule' => 'Bizrule',
 			'data' => 'Data',
+            'children'=>'Включает'
 		);
 	}
 
@@ -98,4 +102,19 @@ class AuthItem extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    /**
+     * @return string
+     */
+    public function getChildrenElements()
+    {
+        $am = Yii::app()->authManager;
+        $children = $am->getItemChildren($this->name);
+        $res = '';
+        foreach ($children as $child) {
+            $res .= $child->description.', ';
+        }
+
+        return trim($res, ', ');
+    }
 }

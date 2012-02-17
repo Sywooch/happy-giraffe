@@ -62,6 +62,10 @@
                 'itemOptions' => array('class' => 'submenu'),
                 'items' => array(
                     array(
+                        'label' => 'Назначения',
+                        'url' => array('UserRoles/admin'),
+                    ),
+                    array(
                         'label' => 'Роли',
                         'url' => array('roles/admin'),
                     ),

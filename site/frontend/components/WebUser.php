@@ -10,18 +10,17 @@ class WebUser extends CWebUser
 
 	function getRole()
 	{
-		if(($user = $this->getModel()))
-		{
-			// в таблице User есть поле role
-			return $user->{$this->roleAttribute};
-		}
+        $roles = Yii::app()->authManager->getRoles($this->id);
+        if (!empty($roles))
+            return $roles[0];
+        return 'user';
 	}
 
 	private function getModel()
 	{
 		if(!$this->isGuest && $this->_model === null)
 		{
-			$this->_model = CActiveRecord::model($this->modelName)->findByPk($this->id, array('select' => $this->roleAttribute));
+			$this->_model = CActiveRecord::model($this->modelName)->findByPk($this->id);
 		}
 		return $this->_model;
 	}

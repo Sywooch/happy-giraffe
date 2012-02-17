@@ -88,6 +88,7 @@
 				</div>
 				
 				<div class="login-box">
+                    <?php echo Yii::app()->user->getRole() ?>
 					<?php if (Yii::app()->user->isGuest): ?>
 						<span class="lk">Личный кабинет</span>
 						<?php echo CHtml::link('Вход', '#login', array('class' => 'fancy')); ?>

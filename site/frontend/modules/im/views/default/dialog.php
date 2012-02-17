@@ -9,25 +9,10 @@ Yii::app()->clientScript
         <ul>
             <?php $dialogs = ActiveDialogs::model()->getDialogs(); ?>
             <?php foreach ($dialogs as $dialog): ?>
-            <?php $unread = MessageDialog::getUnreadMessagesCount($dialog['id']); ?>
-            <li<?php
-                $class = '';
-                if ($unread > 0) $class = 'new-messages';
-                if ($dialog['id'] == $id) $class .= ' active';
-                $class = trim($class);
-                if (!empty($class))
-                    echo ' class="' . $class . '"';
-                ?> id="dialog-<?php echo $dialog['id'] ?>">
-                <input type="hidden" value="<?php echo $dialog['id'] ?>" class="dialog-id">
-                <a href="#" class="remove"></a>
-
-                <div class="img"><img src="<?php echo $dialog['user']->getMiniAva() ?>"/></div>
-                <div class="status<?php if (!$dialog['user']->online) echo ' status-offline' ?>"><i
-                    class="icon"></i></div>
-                <div class="name"><span><?php echo $dialog['user']->getFullName() ?></span></div>
-                <div
-                    class="meta"<?php if ($unread == 0) echo ' style="display:none"'; ?>><?php echo $unread; ?></div>
-            </li>
+                <?php $this->renderPartial('_dialog_preview',array(
+                    'dialog'=>$dialog,
+                    'current_dialog_id'=>$id
+                )); ?>
             <?php endforeach; ?>
         </ul>
     </div>
@@ -94,11 +79,13 @@ $(function () {
 
     $('#messages').bind('scroll', MoreMessages);
 
+    //change dialog
     $('body').delegate('.opened-dialogs-list li', 'click', function () {
         var id = $(this).find('input.dialog-id').val();
         ChangeDialog(id);
     });
 
+    //remove message
     $('body').delegate('div.dialog-message a.remove', 'click', function () {
         var id = $(this).parents('div.dialog-message').attr("id").replace(/MessageLog_/g, "");
         $(this).parents('div.dialog-message').remove();
@@ -116,6 +103,7 @@ $(function () {
         return false;
     });
 
+    //remove opened dialog
     $('body').delegate('.opened-dialogs-list a.remove', 'click', function () {
         var id = $(this).prev("input.dialog-id").val();
         $.ajax({
@@ -144,38 +132,7 @@ $(function () {
         return false;
     });
 
-    $('body').delegate('#dialog .dialog-inn a.remove-dialog', 'click', function () {
-        if (confirm("Удалить диалог?")) {
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/im/default/removeDialog") ?>',
-                data:{id:dialog},
-                type:'POST',
-                dataType:'JSON',
-                success:function (response) {
-                    if (response.status) {
-                        $('li#dialog-' + dialog).remove();
-                        $('.dialog-inn').html('');
-
-                        var ul = $('.opened-dialogs-list ul');
-                        if (ul.find('li input.dialog-id').length == 0) {
-                            ChangeDialog(null);
-                        }
-                        else {
-                            ChangeDialog(ul.find('li input.dialog-id').val());
-                        }
-
-                        if (response.active_dialog_url == '')
-                            $('.nav .opened').hide();
-                        else
-                            $('.nav .opened a').attr("href", response.active_dialog_url);
-                    }
-                },
-                context:$(this)
-            });
-        }
-        return false;
-    });
-
+    //bind key press on CKEDITOR
     var editor = CKEDITOR.instances['MessageLog[text]'];
     editor.on('key', function (e) {
         if (last_typing_time + 10000 < new Date().getTime()) {
@@ -194,11 +151,6 @@ $(function () {
     editor.on('mouseup', function () {
         SetReadStatusForIframe();
     });
-
-    $("body").delegate(".dialog-message a.claim", "click", function (e) {
-        e.preventDefault();
-        report($(this).parents(".dialog-message"));
-    });
 });
 
 function ChangeDialog(id) {
@@ -206,6 +158,7 @@ function ChangeDialog(id) {
     if (id == null) {
         window.location = "<?php echo $this->createUrl('/im/default/index', array()) ?>";
     } else {
+        var new_dialog_unread_messages_count = $('#dialog-' + id + ' div.meta').html();
         $('.opened-dialogs-list li').removeClass('active');
         $('#dialog-' + id).addClass('active');
         $('#dialog-' + id + ' div.meta').hide();
@@ -224,6 +177,8 @@ function ChangeDialog(id) {
                 $('div.dialog-inn').html(response.html);
                 GoTop();
                 $('#messages').bind('scroll', MoreMessages);
+
+                ShowNewMessagesCount($('#dialogs .header .count').html() - new_dialog_unread_messages_count);
             },
             context:$(this)
         });
@@ -328,6 +283,7 @@ function SetReadStatusForIframe() {
 
 function ShowNewMessage(result) {
     if (result.dialog_id == dialog) {
+        //message recieved in current dialog
         last_massage = result.message_id;
         $("#messages .inner-messages").append(result.html);
         $("#messages .dialog-message-new-in:last td").css('background-color', '#EBF5FF');
@@ -335,12 +291,30 @@ function ShowNewMessage(result) {
         SetReadStatus();
     } else {
         var li = $('#dialog-' + result.dialog_id);
-        if (!li.hasClass('new-messages'))
-            li.addClass('new-messages');
-        var comment_count = li.find('.meta:first').text();
-        var current_count = parseInt(comment_count) + 1;
-        li.find('.meta:first').show().html(current_count);
-        li.find('.meta:last').hide();
+        if (li.length > 0) {
+            //message recieved in some opened dialog
+            if (!li.hasClass('new-messages'))
+                li.addClass('new-messages');
+            var comment_count = li.find('.meta:first').text();
+            var current_count = parseInt(comment_count) + 1;
+            li.find('.meta:first').show().html(current_count);
+            li.find('.meta:last').hide();
+        }else{
+            //message recieved in dialog that not represent there. Add it
+            $.ajax({
+                url: '<?php echo Yii::app()->createUrl("/im/default/OpenedDialog") ?>',
+                data: {id:result.dialog_id},
+                type: 'POST',
+                dataType:'JSON',
+                success: function(response) {
+                    if (response.status){
+                        $('.opened-dialogs-list ul').append(response.html);
+                    }
+                },
+                context: $(this)
+            });
+        }
+        ShowNewMessagesCount(result.unread_count);
     }
 }
 
@@ -392,5 +366,15 @@ function GoTop() {
 
 function SetScrollPosition(yPos) {
     $("#messages").scrollTop(yPos);
+}
+
+function ShowNewMessagesCount(id){
+    if (id > 0){
+        $('.header .count').show();
+    }
+    else{
+        $('.header .count').hide();
+    }
+    $('.header .count').html(id);
 }
 </script>

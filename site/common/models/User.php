@@ -506,11 +506,4 @@ class User extends CActiveRecord
             return $assign->itemName;
         }
     }
-
-    public function getUnreadMessagesCount()
-    {
-        Yii::import('site.frontend.modules.im.models.*');
-
-
-    }
 }

@@ -23,7 +23,7 @@
 					disease_category: $('#disease_category').val()
 				},
 				success: function(response) {
-					$('#cuselFrame-RecipeBookRecipe_disease_id').replaceWith(response);
+					$('#RecipeBookRecipe_disease_id').replaceWith(response);
 					//cuSel({changedEl: 'select', visRows: 8, scrollArrows: true});
 				}
 			});

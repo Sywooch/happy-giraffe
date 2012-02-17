@@ -9,7 +9,7 @@
 		function addField()
 		{
 			$('#ingredientTmpl').tmpl({num: nextIndex}).appendTo('.ingr_f_recipe_tb');
-			cuSel({changedEl: 'select', visRows: 8, scrollArrows: true});
+			$('.ingr_f_recipe_tb select').chosen();
 			nextIndex++;
 		}
 	
@@ -23,8 +23,8 @@
 					disease_category: $('#disease_category').val()
 				},
 				success: function(response) {
-					$('#cuselFrame-RecipeBookRecipe_disease_id').replaceWith(response);
-					cuSel({changedEl: 'select', visRows: 8, scrollArrows: true});
+					$('#RecipeBookRecipe_disease_id').html(response);
+					$('#RecipeBookRecipe_disease_id').trigger('liszt:updated');
 				}
 			});
 		});
@@ -91,6 +91,7 @@
 
 	$cs
 		->registerScriptFile('https://raw.github.com/jquery/jquery-tmpl/master/jquery.tmpl.min.js')
+        ->registerScriptFile('/javascripts/chosen.jquery.min.js')
 		->registerScript('recipeBook_add', $js);
 ?>
 
@@ -123,10 +124,12 @@
 
 						<?php echo CHtml::dropDownList('disease_category', $model->isNewRecord ? '' : $model->disease->category->id, CHtml::listData(RecipeBookDiseaseCategory::model()->findAll(), 'id', 'name'), array(
 							'prompt' => 'Выберите категорию',
+                            'class'=>'chzn'
 						)); ?>
 
 						<?php echo $form->dropDownList($model, 'disease_id', $model->isNewRecord ? array() : CHtml::listData($model->disease->category->diseases, 'id', 'name'), array(
 							'prompt' => 'Выберите болезнь',
+                            'class'=>'chzn'
 						)); ?>
 
 					</div>
@@ -178,13 +181,14 @@
 							<th>Удалить</th>
 						</tr>
 						<?php if (! $model->isNewRecord): ?>
-							<?php foreach ($model->ingredients as $i => $ingredient): ?>
+							<?php foreach ($model->ingredients as $num => $ingredient): ?>
 								<tr>
-									<td><?php echo CHtml::activeTextField($ingredient, '[${num}]name', array('class' => 't_ingr')); ?></td>
-									<td><?php echo CHtml::activeTextField($ingredient, '[${num}]amount', array('class' => 't_much')); ?></td>
+									<td><?php echo CHtml::activeTextField($ingredient, "[$num]name", array('class' => 't_ingr')); ?></td>
+									<td><?php echo CHtml::activeTextField($ingredient, "[$num]amount", array('class' => 't_much')); ?></td>
 									<td>
-										<?php echo CHtml::activeDropDownList($ingredient, '[${num}]unit', RecipeBookIngredient::getUnitValues(), array(
+										<?php echo CHtml::activeDropDownList($ingredient, "[$num]unit", RecipeBookIngredient::getUnitValues(), array(
 											'prompt' => 'не указано',
+                                            'class'=>'chzn'
 										)); ?>
 									</td>
 									<td><a href="#" class="remove"><img src="/images/bg_popup_close.gif" alt="" title="" /></a></td>

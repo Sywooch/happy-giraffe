@@ -162,8 +162,12 @@ return array(
 			'roleAttribute'=>'role',
 			'loginUrl'=>'/',
 		),
-		'authManager' => array(
-			'class' => 'ext.fileRBAC.PhpAuthManager',
+        'authManager'=>array(
+            'class'=>'CDbAuthManager',
+            'connectionID'=>'db',
+            'itemTable'=>'auth_item',
+            'itemChildTable'=>'auth_item_child',
+            'assignmentTable'=>'auth_assignment',
 			'defaultRoles' => array('guest'),
 		),
 		'urlManager'=>require_once(dirname(__FILE__).'/url.php'),

@@ -379,7 +379,8 @@ class User extends CActiveRecord
         //        return User::model()->cache(3600*24, $dep)->findByPk($id);
         $cacheKey = 'yii:dbquery' . Yii::app()->db->connectionString . ':' . Yii::app()->db->username;
         $cacheKey .= ':' . 'SELECT * FROM `user` `t` WHERE `t`.`id`=\'' . $id . '\' LIMIT 1:a:0:{}';
-        Yii::app()->cache->delete($cacheKey);
+        if (isset(Yii::app()->cache))
+            Yii::app()->cache->delete($cacheKey);
     }
 
     public function getMiniAva()
@@ -494,10 +495,13 @@ class User extends CActiveRecord
         return $str;
     }
 
-    public function getZoom()
+    public function getRole()
     {
-        if (!empty($this->settlement_id))
-            return 11;
-        return 5;
+        $assigns = Yii::app()->authManager->getAuthAssignments($this->id);
+        if (empty($assigns))
+            return 'user';
+        foreach($assigns as $assign){
+            return $assign->itemName;
+        }
     }
 }

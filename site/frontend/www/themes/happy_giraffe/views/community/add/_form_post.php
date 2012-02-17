@@ -54,7 +54,7 @@
 	
 	$cs
 		->registerScript('form_post', $js)
-	;
+        ->registerScriptFile('/javascripts/chosen.jquery.min.js');
 		
 ?>
 
@@ -96,11 +96,16 @@
 			<div class="inner-title">Выберите сообщество и рубрику</div>
 			
 			<?php if ($content_model->isNewRecord): ?>
-				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'), array('prompt' => 'Выберите рубрику')); ?>
+				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
+                array(
+                    'prompt' => 'Выберите рубрику',
+                    'class'=>'chzn'
+                )); ?>
 			<?php else: ?>
 				<?php echo CHtml::dropDownList('community_id', $community->id, CHtml::listData($communities, 'id', 'name'),
 					array(
 						'prompt' => 'Выберите сообщество',
+                        'class'=>'chzn',
 						'ajax' => array(
 							'type' => 'POST',
 							'url' => CController::createUrl('ajax/rubrics'),
@@ -114,6 +119,7 @@
 					array(
 						'prompt' => 'Выберите рубрику',
 						'disabled' => Yii::app()->user->checkAccess('moder') ? '' : 'disabled',
+                        'class'=>'chzn'
 					)
 				); ?>
 			<?php endif; ?>

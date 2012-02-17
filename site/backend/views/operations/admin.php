@@ -1,4 +1,4 @@
-<h1>Операции</h1>
+<h1>Действия</h1>
 <?php echo CHtml::link('создать', array('operations/create')) ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'auth-item-grid',

@@ -3,7 +3,7 @@
  * @var $form CActiveForm
  */
 ?>
-<?php echo CHtml::link('Администрирование операций', array('operations/admin')) ?><br><br>
+<?php echo CHtml::link('Администрирование действий', array('operations/admin')) ?><br><br>
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'auth-item-form',
@@ -27,7 +27,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

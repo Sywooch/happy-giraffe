@@ -191,7 +191,7 @@ class Rating extends CActiveRecord
         switch($social_key)
         {
             case 'tw' :
-                $response = CJSON::decode(file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url=' . urlencode($url)));
+                $response = CJSON::decode(file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url=' . $url));
                 $count = $response['count'];
                 echo $count;
                 break;

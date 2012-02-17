@@ -4,18 +4,6 @@
 <!--<p><a onclick="socwin = window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?php /*echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); */?>">Поделиться с друзьями в Одноклассниках</a></p>-->
 <!--<p><a onclick="socwin = window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="http://twitter.com/intent/tweet?text=<?php /*echo urlencode('Рецепты для борьбы с токсикозом. http://www.happy-giraffe.ru/community/2/forum/post/4600/'); */?>">Поделиться с друзьями в Twitter</a></p>-->
 <!--<p><a onclick="socwin = window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="https://plusone.google.com/_/+1/confirm?hl=en&url=<?php /*echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); */?>&title=<?php /*echo urlencode('Рецепты для борьбы с токсикозом.'); */?>">Поделиться с друзьями в +1</a></p>-->
-<?php
-$curl = curl_init();
-curl_setopt($curl, CURLOPT_URL, "https://clients6.google.com/rpc");
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, '[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"' . 'http://www.happy-giraffe.ru/community/1/forum/post/4817/' . '","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]');
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
-$curl_results = curl_exec ($curl);
-var_dump($curl_results);
-curl_close ($curl);
-$json = CJSON::decode($curl_results);
-?>
 <div class="like-block clearfix">
     <div class="tip">
         <div class="container">

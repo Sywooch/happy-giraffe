@@ -1,3 +1,4 @@
+var socwin;
 $(document).ready(function() {
 
 	if ($('a.fancy').size() > 0) {

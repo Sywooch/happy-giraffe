@@ -1,9 +1,9 @@
-<p><a onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false" title="Опубликовать ссылку во ВКонтакте" href="http://vkontakte.ru/share.php?url=http://happyfront/community/2/forum/post/447/&image=http://i027.radikal.ru/1111/f9/ffc27bf8f55c.jpg&title=<?php echo urlencode('Рецепты для борьбы с токсикозом') ?>&description=<?php echo urlencode('Моя беременность протекала поначалу с ярко выраженными симптомами токсикоза.Хочу поделиться  рецептами,которые..') ?>">Опубликовать ссылку во ВКонтакте</a></p>
-<p><a onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false" title="Опубликовать ссылку во ВКонтакте" href="http://www.facebook.com/sharer.php?u=http://www.happy-giraffe.ru/community/2/forum/post/4600/">Опубликовать ссылку во Facebook</a></p>
-<p><a onclick="window.open(this.href, 'mmir', 'width=626, height=436'); return false;" href="http://connect.mail.ru/share?share_url=<?php echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); ?>&title=liketest&imageurl=<?php echo urlencode('http://i027.radikal.ru/1111/f9/ffc27bf8f55c.jpg'); ?>">Поделиться с друзьями Моего Мира на Mail.ru</a></p>
-<p><a onclick="window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?php echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); ?>">Поделиться с друзьями в Одноклассниках</a></p>
-<p><a onclick="window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="http://twitter.com/intent/tweet?text=<?php echo urlencode('Рецепты для борьбы с токсикозом. http://www.happy-giraffe.ru/community/2/forum/post/4600/'); ?>">Поделиться с друзьями в Twitter</a></p>
-<p><a onclick="window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="https://plusone.google.com/_/+1/confirm?hl=en&url=<?php echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); ?>&title=<?php echo urlencode('Рецепты для борьбы с токсикозом.'); ?>">Поделиться с друзьями в +1</a></p>
+<!--<p><a onclick="return Social.open('vk', this.href, 'Опубликовать ссылку во Вконтакте', 800, 300);" title="Опубликовать ссылку во ВКонтакте" href="http://vkontakte.ru/share.php?url=http://happyfront/community/2/forum/post/447/&image=http://i027.radikal.ru/1111/f9/ffc27bf8f55c.jpg&title=<?php /*echo urlencode('Рецепты для борьбы с токсикозом') */?>&description=<?php /*echo urlencode('Моя беременность протекала поначалу с ярко выраженными симптомами токсикоза.Хочу поделиться  рецептами,которые..') */?>">Опубликовать ссылку во ВКонтакте</a></p>-->
+<!--<p><a onclick="return Social.open('fb', this.href, 'Опубликовать ссылку в Facebook', 800, 300);" title="Опубликовать ссылку в Facebook" href="http://www.facebook.com/sharer.php?u=http://www.happy-giraffe.ru/community/2/forum/post/4600/">Опубликовать ссылку во Facebook</a></p>-->
+<!--<p><a onclick="socwin = window.open(this.href, 'mmir', 'width=626, height=436'); return false;" href="http://connect.mail.ru/share?share_url=<?php /*echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); */?>&title=liketest&imageurl=<?php /*echo urlencode('http://i027.radikal.ru/1111/f9/ffc27bf8f55c.jpg'); */?>">Поделиться с друзьями Моего Мира на Mail.ru</a></p>-->
+<!--<p><a onclick="socwin = window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?php /*echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); */?>">Поделиться с друзьями в Одноклассниках</a></p>-->
+<!--<p><a onclick="socwin = window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="http://twitter.com/intent/tweet?text=<?php /*echo urlencode('Рецепты для борьбы с токсикозом. http://www.happy-giraffe.ru/community/2/forum/post/4600/'); */?>">Поделиться с друзьями в Twitter</a></p>-->
+<!--<p><a onclick="socwin = window.open(this.href, 'odkl', 'width=626, height=436'); return false;" rel="nofollow" href="https://plusone.google.com/_/+1/confirm?hl=en&url=<?php /*echo urlencode('http://www.happy-giraffe.ru/community/2/forum/post/4600/'); */?>&title=<?php /*echo urlencode('Рецепты для борьбы с токсикозом.'); */?>">Поделиться с друзьями в +1</a></p>-->
 <div class="like-block clearfix">
     <div class="tip">
         <div class="container">
@@ -44,7 +44,7 @@
     </div>
 
     <div class="rating">
-        <span><?php echo Rating::countByEntity($this->model) ?></span><br/>рейтинг
+        <span><?php echo Rating::countByEntity($this->model, false, true) ?></span><br/>рейтинг
     </div>
 
 </div>

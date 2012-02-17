@@ -41,6 +41,25 @@ class SocialLikeWidget extends CWidget
         if(!isset($this->options['url']))
             $this->options['url'] = Yii::app()->createAbsoluteUrl(Yii::app()->request->pathInfo);
         RatingCache::checkCache($this->model, $this->providers, $this->options['url']);
+
+        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+        Yii::app()->clientScript->registerScriptFile($baseUrl . '/social.js');
+        Yii::app()->clientScript->registerScript('social_update_url', '
+            Social.update_url = "' . Yii::app()->createUrl('/ajax/rate') . '";
+            Social.model_name = "' . get_class($this->model) . '";
+            Social.model_id = "' . $this->model->primaryKey . '";
+            Social.api_url = "' . $this->options['url'] . '"'
+        );
+
         $this->render('index');
+    }
+
+    public function arrayToUrl($array)
+    {
+        $url = '';
+        foreach($array as $key => $option)
+            $url .= ($url == '' ? '?' : '&amp;') . $key . '=' . urlencode($option);
+        return $url;
     }
 }

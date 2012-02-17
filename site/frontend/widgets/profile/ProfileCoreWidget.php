@@ -8,8 +8,10 @@ class ProfileCoreWidget extends CPortlet
 
     protected $_attributes = array();
 
-    public function init()
+    public function __construct($owner = null)
     {
+        parent::__construct();
+
         $this->_attributes += array(
             'visibility' => new ProfileSelectAttribute(array(
                 'label' => 'Кто может видеть этот виджет?',
@@ -26,13 +28,6 @@ class ProfileCoreWidget extends CPortlet
         );
     }
 
-    public function showSettings()
-    {
-        $this->renderPartial('settings', array(
-            'attributes' => $this->_attributes,
-        ));
-    }
-
     public function getDefaults()
     {
         $defaults = array();
@@ -41,5 +36,13 @@ class ProfileCoreWidget extends CPortlet
             $defaults[$name] = $a->default;
         }
         return $defaults;
+    }
+
+    public function showSettingsForm($box)
+    {
+        $this->render('settings/generic', array(
+            'attributes' => $this->_attributes,
+            'box' => $box,
+        ));
     }
 }

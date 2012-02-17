@@ -25,7 +25,6 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
-        Im::clearCache();
         $dialogs = MessageDialog::GetUserDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -34,7 +33,6 @@ class DefaultController extends Controller
 
     public function actionNew()
     {
-        Im::clearCache();
         $dialogs = MessageDialog::GetUserNewDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -43,7 +41,6 @@ class DefaultController extends Controller
 
     public function actionOnline()
     {
-        Im::clearCache();
         $dialogs = MessageDialog::GetUserOnlineDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs

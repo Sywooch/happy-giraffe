@@ -94,9 +94,9 @@ h4 { font-size: 12px}
 
 a.info {display:inline-block;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
 
-::-webkit-input-placeholder {color: #c6c6c6 !important;font-weight: normal !important;}
-:-moz-placeholder {color: #c6c6c6 !important;font-weight: normal !important;}
-.placeholder {color:#c6c6c6 !important;font-weight:normal !important;}
+::-webkit-input-placeholder {color: grey !important;font-weight: normal !important;}
+:-moz-placeholder {color: grey !important;font-weight: normal !important;}
+.placeholder { color: grey !important;font-weight: normal !important;}
 
 .ava {width:81px;height:77px;background:url(../images/common.png) no-repeat -168px -1px;}
 .ava.female {background-position:-251px -1px;}
@@ -493,92 +493,81 @@ a {color:#51afc3;}
 
 #dialogs {}
 
-#dialogs .header {background:url(../images/pattern_1.gif);padding:8px 8px 0;}
-#dialogs .header .container {padding:20px 8px 0;background:#74aae5;}
+#dialogs .header {padding-bottom:10px;border-bottom:1px solid #d9e9fd;}
 
-#dialogs .header .search {float:right;margin-right:16px;}
-#dialogs .header .search input {width:140px;background:#fff;font-size:11px;height:15px;line-height:15px;padding:2px 7px;margin-top:3px;float:left;}
-#dialogs .header .search button {float:left;}
+#dialogs .header big {float:left;display:block;margin-left:15px;font:bold 25px Arial, Tahoma, sans-serif;color:#2296b0;}
 
-#dialogs .header .title {font:bold 25px arial, sans-serif;color:#fff;margin-left:16px;}
-
-#dialogs .header .nav {margin-top:20px;}
-#dialogs .header .nav ul {}
-#dialogs .header .nav ul li {margin-right:3px;text-align:center;}
-#dialogs .header .nav ul li {/*css3*/ border-radius:7px 7px 0 0;}
-#dialogs .header .nav ul li.opened {float:right;width:166px;margin-right:6px;}
-#dialogs .header .nav ul li.opened a {padding-right:23px;position:relative;}
-#dialogs .header .nav ul li.opened.active a {background:none;padding-right:14px;}
-#dialogs .header .nav ul li.opened a .icon-arr {background:url(../images/dialogs_icons.png) no-repeat -23px -119px;display:block;width:10px;height:8px;position:absolute;right:10px;top:50%;margin-top:-1px;}
-#dialogs .header .nav ul li.opened.active a .icon-arr {display:none;}
-
-#dialogs .header .nav form {padding:6px 14px 0;line-height:1;}
-#dialogs .header .nav form input {width:86px;background:#fff;font-size:11px;height:14px;line-height:14px;padding:2px 7px;}
-
-#dialogs .tabs {border:0;}
-#dialogs .tabs .steps {border:0;padding:0;}
-#dialogs .tabs .steps ul li {background:#5490d1;border:0;color:#fff;height:32px;line-height:32px;margin-top:7px;}
-#dialogs .tabs .steps ul li a {color:#fff;border:0;line-height:32px;cursor:pointer;padding:0 14px;display:block;}
-#dialogs .tabs .steps ul li a span {border-color:#fff;}
-#dialogs .tabs .steps ul li.active {height:39px;line-height:39px;margin-top:0;font-size:16px;background:#fff;}
-#dialogs .tabs .steps ul li.active a {line-height:39px;color:#326fb1;}
+#dialogs .header ul {margin-left:240px;padding-top:7px;}
+#dialogs .header ul li {float:left;}
+#dialogs .header ul li a {display:block;float:left;text-decoration:none;font-size:12px;height:14px;line-height:14px;padding:3px 10px;}
+#dialogs .header ul li a span {float:left;border-bottom:1px dashed #0498b8;display:block;}
+#dialogs .header ul li a:hover span {border:0;}
+#dialogs .header ul li a .count {background:#75bb6e;color:#fff;float:left;padding:0px 6px;height:13px;line-height:13px;font-size:10px;font-weight:bold;margin-left:5px;position:relative;top:-3px;}
+#dialogs .header ul li a .count {/*css3*/ -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}
+#dialogs .header ul li.active a {background:#fef4c5;}
+#dialogs .header ul li.active a span {border:0;}
 
 #dialogs .dialog-list {padding:8px 0;}
-#dialogs .dialog-list.scroll {max-height:500px;overflow:auto;}
+#dialogs .dialog-list.scroll {max-height:400px;overflow:auto;}
 
-#dialogs .dialog-message {padding:8px 0;border-bottom:1px dashed #e2e2e2;font-size:12px;color:#393838;line-height:15px;cursor:pointer;}
+#dialogs .dialog-message {padding:8px 0;border-top:1px dashed #e2e2e2;font-size:12px;color:#393838;line-height:15px;cursor:pointer;}
+#dialogs .dialog-message:first-child {border-top:0;}
 #messages .dialog-message {cursor: default;}
 
 #dialogs .dialog-message table {width:100%;}
 #dialogs .dialog-message table td {vertical-align:top;padding:10px 0;}
-#dialogs .dialog-message:hover table td {background:#f9fcff;}
+#dialogs .dialog-message:hover table td {background:#f9f2ff;}
 
 #dialogs .dialog-message-new-in table td {background:#ebf5ff !important;}
 #dialogs .dialog-message-new-out table td.content, #dialogs .dialog-message-new-out table td.meta, #dialogs .dialog-message-new-out table td.actions {background:#ebf5ff;}
 
-#dialogs .dialog-message .user {width:180px;padding-left:16px;color:#1ba3c4;font-size:11px;font-family:tahoma, arial, sans-serif;}
+#dialogs .dialog-message .user {width:180px;padding-left:15px;color:#1ba3c4;font-size:11px;font-family:tahoma, arial, sans-serif;}
 #dialogs .dialog-message .user .ava {float:left;margin-right:10px;}
 
-#dialogs .dialog-message .message-icon {width:75px;padding-top:18px;}
+#dialogs .dialog-message .message-icon {width:75px;padding-top:8px;text-align:center;font-size:9px;color:#bfc1c1;font-family:tahoma, arial, sans-serif;line-height:1.4;}
 #dialogs .dialog-message .message-icon .icon {width:55px;height:38px;margin:0 auto;background:url(../images/dialogs_icons.png) no-repeat;}
 #dialogs .dialog-message-new-in .message-icon .icon {background-position:-80px -38px;}
 #dialogs .dialog-message-new-out .message-icon .icon {background-position:-25px -38px;}
 #dialogs .dialog-message-in .message-icon .icon {background-position:-80px 0;}
 #dialogs .dialog-message-out .message-icon .icon {background-position:-25px 0;}
 
-#dialogs .dialog-message .content {padding:10px 20px;padding-top:18px;}
+#dialogs .dialog-message .message-icon .date {padding-left:14px;margin-top:5px;}
 
-#dialogs .dialog-message .meta {width:60px;padding-top:20px;text-align:center;font-size:9px;color:#bfc1c1;font-family:tahoma, arial, sans-serif;line-height:1.4;}
+#dialogs .dialog-message .content {padding:10px 0px 10px 10px;padding-top:18px;}
 
-#dialogs .dialog-message .actions {width:60px;padding-right:10px;}
-#dialogs .dialog-message .actions a {background:url(../images/dialogs_icons.png) no-repeat;}
-#dialogs .dialog-message .actions .remove {display:block;width:21px;height:15px;background-position:0 -36px;float:right;clear:both;margin-bottom:2px;}
+#dialogs .dialog-message .actions {width:20px;padding:10px;}
+#dialogs .dialog-message .actions a {background:url(../images/dialogs_icons.png) no-repeat;display:none;}
+#dialogs .dialog-message .actions .remove {width:21px;height:15px;background-position:0 -36px;float:right;clear:both;margin-bottom:2px;}
 #dialogs .dialog-message .actions .remove:hover {background-position:0 -50px;}
-#dialogs .dialog-message .actions .claim {display:block;width:21px;height:18px;background-position:0 0px;float:right;clear:both;}
+#dialogs .dialog-message .actions .claim {width:21px;height:18px;background-position:0 0px;float:right;clear:both;}
 #dialogs .dialog-message .actions .claim:hover {background-position:0 -18px;}
+#dialogs .dialog-message:hover .actions a {display:block;}
+
+#dialog {padding-top:16px;}
 
 #dialog .dialog-message {padding:4px 0;}
-#dialog .dialog-message .user {width:140px;padding-left:10px;}
-#dialog .dialog-message .img {float:left;margin-right:8px;}
+#dialog .dialog-message .user {width:40px;padding:2px 10px;}
+#dialog .dialog-message .date {color:#bfc1c1;font-size:9px;font-family:tahoma, arial, sans-serif;line-height:1.2;text-align:center;margin-top:5px;}
+#dialog .dialog-message .img {}
 #dialog .dialog-message .img img {border:1px solid #e1e1e1;}
-#dialog .dialog-message .content {padding-top:10px;}
-#dialog .dialog-message .meta {padding-top:10px;}
+#dialog .dialog-message .content {padding:2px 0px 2px 10px;}
+#dialog .dialog-message .content p {margin-bottom:8px;}
+#dialog .dialog-message .actions {padding:2px 5px 0;}
+#dialog .dialog-message:hover table td {background:none;}
 
-#dialog .opened-dialogs-list {width:210px;float:right;padding-bottom:20px;}
-#dialog .opened-dialogs-list .t {width:166px;border:1px solid #c4daf7;height:5px;margin:0 auto;border-top:0;border-bottom:0;position:relative;z-index:3;background:#fff;}
-#dialog .opened-dialogs-list .container {border:1px solid #c4daf7;position:relative;z-index:2;margin-top:-1px;padding:8px;}
+#dialog .opened-dialogs-list {width:180px;float:right;padding-bottom:20px;}
 #dialog .opened-dialogs-list ul {}
-#dialog .opened-dialogs-list ul li {cursor:pointer;background:#d9e9fd;padding:10px;overflow:hidden;margin-top:8px;}
+#dialog .opened-dialogs-list ul li {cursor:pointer;background:#d9e9fd;padding:5px;overflow:hidden;margin-top:4px;}
 #dialog .opened-dialogs-list ul li:first-child {margin-top:0;}
-#dialog .opened-dialogs-list ul li {/*css3*/ border-radius:6px;}
+#dialog .opened-dialogs-list ul li {/*css3*/ -moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;}
 #dialog .opened-dialogs-list ul li .img {width:47px;float:left;display:none;}
 #dialog .opened-dialogs-list ul li .img img {border:1px solid #ced4db;display:block;}
 #dialog .opened-dialogs-list ul li .status {width:9px;margin-right:6px;float:left;margin-top:2px;}
 #dialog .opened-dialogs-list ul li .status .icon {display:block;width:9px;height:9px;background:url(../images/dialogs_icons.png) no-repeat -6px -107px;}
 #dialog .opened-dialogs-list ul li .status-offline .icon {background-position:-6px -118px;}
-#dialog .opened-dialogs-list ul li .name {width:105px;font:bold 11px/12px tahoma, arial, sans-serif;color:#74aae5;float:left;overflow:hidden;}
-#dialog .opened-dialogs-list ul li .meta {width:20px;padding:0 5px;float:left;text-align:center;font-size:18px;font-weight:bold;color:#a687c4;letter-spacing:-1px;}
-#dialog .opened-dialogs-list ul li .meta .editing {display:block;width:17px;height:20px;background:url(../images/dialogs_icons.png) no-repeat -21px -77px;margin:0 auto;}
+#dialog .opened-dialogs-list ul li .name {width:105px;font:bold 11px/14px tahoma, arial, sans-serif;color:#74aae5;float:left;overflow:hidden;}
+#dialog .opened-dialogs-list ul li .meta {width:20px;padding:0 5px;float:left;text-align:center;font-size:13px;font-weight:bold;color:#34c927;letter-spacing:-1px;}
+#dialog .opened-dialogs-list ul li .meta .editing {display:block;width:11px;height:12px;background:url(../images/dialogs_icons.png) no-repeat -35px -106px;margin:0 auto;}
 #dialog .opened-dialogs-list ul li .remove {display:block;width:12px;height:13px;float:right;background:url(../images/dialogs_icons.png) no-repeat -5px -64px;}
 #dialog .opened-dialogs-list ul li.new-messages {background:#ebd6ff;}
 #dialog .opened-dialogs-list ul li.new-messages .remove {background-position:-6px -79px;}
@@ -588,26 +577,14 @@ a {color:#51afc3;}
 #dialog .opened-dialogs-list ul li.active .remove {background-position:-6px -93px;}
 #dialog .opened-dialogs-list ul li.active .name {color:#fff;width:93px;}
 
-#dialog .dialog-in {margin-right:220px;padding-top:12px;padding-bottom:20px;}
-
-#dialog .dialog-in .user-details {background:#fffdea;border-bottom:1px solid #f1e6b9;padding:10px;overflow:hidden;}
-#dialog .dialog-in .user-details .ava {float:left;margin-right:12px;}
-#dialog .dialog-in .user-details .status-online {display:inline-block;width:9px;height:9px;background:url(../images/dialogs_icons.png) no-repeat -6px -107px;}
-#dialog .dialog-in .user-details .status-offline {display:inline-block;width:9px;height:9px;background:url(../images/dialogs_icons.png) no-repeat -6px -118px;}
-#dialog .dialog-in .user-details .text {font-family:tahoma, arial, sans-serif;font-size:11px;}
-#dialog .dialog-in .user-details .text p {height:60px;}
-#dialog .dialog-in .user-details .text p span {color:#74aae5;}
-#dialog .dialog-in .user-details a.yellow {color:#dad394;}
-#dialog .dialog-in .user-details .actions {float:right;}
-#dialog .dialog-in .user-details .actions a {float:left;text-align:center;margin-left:15px;line-height:11px;text-decoration:none;color:#dad394;}
-#dialog .dialog-in .user-details .actions a .icon {display:inline-block;height:29px;background:url(../images/dialogs_icons.png) no-repeat;}
-#dialog .dialog-in .user-details .actions .add .icon {width:38px;background-position: -39px -76px;margin-bottom:4px;}
-#dialog .dialog-in .user-details .actions .block .icon {display:inline-block;width:29px;height:29px;background-position:  -77px -76px;margin-bottom:4px;}
+#dialog .dialog-in {margin-right:190px;padding-bottom:20px;}
 
 #dialog .dialog-in .list-actions {padding:5px 0;text-align:right;}
 #dialog .dialog-in .list-actions .icon-remove {display:inline-block;width:13px;height:17px;background:url(../images/dialogs_icons.png) no-repeat -21px -98px;position:relative;top:4px;margin-right:3px;}
+#dialog .dialog-list {padding:0;}
 
-#dialog .new-message {text-align:center;width:410px;margin:0 auto;padding-top:20px;}
+#dialog .new-message {text-align:center;margin:0 auto;padding:6px 0 10px;background:#cfe1f8;margin-top:6px;border-top:1px solid #b9d3ef;}
+#dialog .new-message .editor-box {width:410px;margin:0 auto;}
 #dialog .new-message .buttons {padding-top:10px;text-align:right;}
 
 /* dialogs end */
@@ -819,6 +796,22 @@ select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-
 .with-search .chzn-container-single .chzn-search {display:block;}
 
 /* select */
+
+
+/* scroll */
+
+div.scrollbarpaper-container {position:absolute;z-index:1;background:#fff;} 
+div.scrollbarpaper-track {position:absolute;top:0;right:0;height:100%;cursor:pointer;width:8px;background-color:#e5f1ff;}
+div.scrollbarpaper-drag{position:absolute;width:100%;height:100px;background-color:#b3cfed;width:10px;margin-left:-2px;border:1px solid #a5c5e8;}
+div.scrollbarpaper-drag:after {display:block;content:'';width:7px;height:7px;background:url(../images/common.png) no-repeat -257px -102px;position:absolute;top:50%;left:50%;margin:-3px -4px;}
+div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+.scrollbarpaper-visible{padding-right:13px;}
+
+/* scroll */
+
+
+/* flags */
+
 .flag {
     width: 16px;
     height: 11px;
@@ -1070,3 +1063,4 @@ select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-
 .flag.flag-za {background-position: -48px -165px}
 .flag.flag-zm {background-position: -64px -165px}
 .flag.flag-zw {background-position: -80px -165px}
+/* */

@@ -178,20 +178,24 @@ class Im
         return (substr($haystack, 0, $length) === $needle);
     }
 
-    public function getDialogs(){
+    public function getDialogs()
+    {
         return $this->_dialogs;
     }
 
-    static function clearCache()
+    static function clearCache($user_id = null)
     {
-        Yii::app()->cache->delete(self::USER_CACHE_ID . Yii::app()->user->getId());
+        if ($user_id === null)
+            $user_id = Yii::app()->user->getId();
+        Yii::app()->cache->delete(self::USER_CACHE_ID . $user_id);
     }
 
     /**
      * @param $id
      * @return User
      */
-    public function getUser($id){
+    public function getUser($id)
+    {
         if (isset($this->_loaded_users[$id]))
             return $this->_loaded_users[$id];
         $user = User::getUserById($id);

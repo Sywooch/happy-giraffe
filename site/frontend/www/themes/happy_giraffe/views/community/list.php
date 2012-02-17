@@ -31,6 +31,7 @@
 			);
 			foreach ($content_types as $ct)
 			{
+                if ($ct->id == 3 && $community->id != 21) break;
 				$params = array('community_id' => $community->id);
 				if ($current_rubric !== null)
 				{

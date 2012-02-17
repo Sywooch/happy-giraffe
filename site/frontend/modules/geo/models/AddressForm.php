@@ -42,7 +42,7 @@ class AddressForm extends CFormModel
                     throw new CHttpException(404, 'Ошибка при добавлении населенного пункта.');
                 }
                 $user->settlement_id = $city->id;
-            } else{
+            } else {
                 $user->settlement_id = null;
                 $user->street_id = null;
                 $user->house = null;
@@ -51,7 +51,10 @@ class AddressForm extends CFormModel
             }
 
             if (!empty($this->street_id) && !empty($this->city_id)) {
-                $user->street_id = $this->street_id;
+                if (empty($this->street_name))
+                    $user->street_id = null;
+                else
+                    $user->street_id = $this->street_id;
             } elseif (!empty($this->street_name) && !empty($this->city_id)) {
                 //add new street
                 $street = new GeoRusStreet();
@@ -62,7 +65,7 @@ class AddressForm extends CFormModel
                     throw new CHttpException(404, 'Ошибка при добавлении улицы.');
                 }
                 $user->street_id = $street->id;
-            } else{
+            } else {
                 $user->street_id = null;
                 $user->house = null;
                 $user->room = null;
@@ -71,7 +74,7 @@ class AddressForm extends CFormModel
 
             $user->house = $this->house;
             $user->room = $this->room;
-        }else{
+        } else {
             $user->country_id = null;
             $user->settlement_id = null;
             $user->street_id = null;

@@ -213,6 +213,10 @@ switch ($c->type->slug) {
     ),
 )); ?>
 
+<?php $this->widget('site.frontend.widgets.fileAttach.FileAttachWidget', array(
+    'model' => $c,
+)); ?>
+
 <?php if ($related): ?>
 <div class="more">
     <big class="title">

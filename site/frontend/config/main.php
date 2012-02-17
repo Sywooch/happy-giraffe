@@ -162,8 +162,12 @@ return array(
 			'roleAttribute'=>'role',
 			'loginUrl'=>'/',
 		),
-		'authManager' => array(
-			'class' => 'ext.fileRBAC.PhpAuthManager',
+        'authManager'=>array(
+            'class'=>'CDbAuthManager',
+            'connectionID'=>'db',
+            'itemTable'=>'auth_item',
+            'itemChildTable'=>'auth_item_child',
+            'assignmentTable'=>'auth_assignment',
 			'defaultRoles' => array('guest'),
 		),
 		'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
@@ -240,6 +244,7 @@ return array(
 			),
 		),
         'frontend_url'=>'http://www.happy-giraffe.ru/',
+        'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA=='
 	),
 	
         'controllerMap'=>array(

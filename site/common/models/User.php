@@ -29,6 +29,7 @@
  * @propery integer $street_id
  * @propery string $room
  * @propery string $house
+ * @propery string $last_ip
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -378,7 +379,8 @@ class User extends CActiveRecord
         //        return User::model()->cache(3600*24, $dep)->findByPk($id);
         $cacheKey = 'yii:dbquery' . Yii::app()->db->connectionString . ':' . Yii::app()->db->username;
         $cacheKey .= ':' . 'SELECT * FROM `user` `t` WHERE `t`.`id`=\'' . $id . '\' LIMIT 1:a:0:{}';
-        Yii::app()->cache->delete($cacheKey);
+        if (isset(Yii::app()->cache))
+            Yii::app()->cache->delete($cacheKey);
     }
 
     public function getMiniAva()
@@ -420,9 +422,9 @@ class User extends CActiveRecord
         Yii::import('site.frontend.modules.im.components.*');
 
         $dialog_id = Im::model()->getDialogByUser($this->id);
-        if (isset($dialog_id)){
+        if (isset($dialog_id)) {
             $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
-        }else{
+        } else {
             $url = Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
         }
 
@@ -431,9 +433,75 @@ class User extends CActiveRecord
 
     public function getFlag()
     {
+        Yii::import('site.frontend.modules.geo.models.*');
+
         if (!empty($this->country_id))
-            return '<img src="/images/blank.gif" class="flag flag-'.strtolower($this->country->iso_code).'" title="'.$this->country->name.'" />';
+            return '<img src="/images/blank.gif" class="flag flag-' . strtolower($this->country->iso_code) . '" title="' . $this->country->name . '" />';
         else
             return '';
+    }
+
+    public function getLocationString()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+
+        if (empty($this->country_id))
+            return '';
+
+        $str = $this->country->name;
+        if (!empty($this->settlement_id)) {
+            if (empty($this->settlement->region_id)) {
+                $str .= ', ' . $this->settlement->name;
+            } elseif (empty($this->settlement->district_id)) {
+                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
+                $str .= ', ' . $this->settlement->region->name . ', ' . $type . ' ' . $this->settlement->name;
+            } else {
+                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
+                $str .= ', ' . $this->settlement->region->name . ', ' . $this->settlement->district->name . ', ' . $type . ' ' . $this->settlement->name;
+            }
+
+            if (!empty($this->street_id))
+                $str .= ', ' . $this->street->name;
+            if (!empty($this->house))
+                $str .= ', д. ' . $this->house;
+
+            return $str;
+        }
+        return $str;
+    }
+
+    public function getPublicLocation()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+
+        if (empty($this->country_id))
+            return '';
+
+        $str = $this->country->name;
+        if (!empty($this->settlement_id)) {
+            if (empty($this->settlement->region_id)) {
+                $str .= ', ' . $this->settlement->name;
+            } elseif ($this->settlement->region_id == 42){
+                $str .= ', ' . $this->settlement->name;
+            } elseif ($this->settlement->region_id == 59){
+                $str .= ', ' . $this->settlement->name;
+            }else{
+                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
+                $str .= ', ' . $this->settlement->region->name . ', ' . $type . ' ' . $this->settlement->name;
+            }
+
+            return $str;
+        }
+        return $str;
+    }
+
+    public function getRole()
+    {
+        $assigns = Yii::app()->authManager->getAuthAssignments($this->id);
+        if (empty($assigns))
+            return 'user';
+        foreach($assigns as $assign){
+            return $assign->itemName;
+        }
     }
 }

@@ -92,7 +92,7 @@ class DefaultController extends Controller
             $category_id = $_POST['disease_category'];
 
             $diseases = RecipeBookDisease::model()->findAllByAttributes(array('category_id' => $category_id));
-            echo CHtml::activeDropDownList($model, 'disease_id', CHtml::listData($diseases, 'id', 'name'), array('prompt' => 'Выберите болезнь'));
+            echo CHtml::listOptions('', array(''=>'Выберите болезнь')+CHtml::listData($diseases, 'id', 'name'), $null);
         }
     }
 

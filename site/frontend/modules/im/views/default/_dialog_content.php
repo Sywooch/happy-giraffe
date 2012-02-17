@@ -13,7 +13,7 @@ $pal = Im::model()->GetDialogUser($id);
     <div class="text">
         <p><span class="status-<?php echo ($pal->online)?'online':'offline' ?>"></span>
             <span><?php echo $pal->first_name ?></span><br/>
-            Россия, Москва</p>
+            <?php echo $pal->getFlag(); ?><?php echo $pal->getPublicLocation(); ?></p>
 
         <a href="#">Больше...</a>
         &nbsp;&nbsp;&nbsp;
@@ -30,9 +30,10 @@ $pal = Im::model()->GetDialogUser($id);
 </div>
 
 <div class="dialog-list scroll" id="messages">
-
+    <div class="inner-messages">
     <?php $this->renderPartial('_messages', array(
         'messages' => $messages
     )); ?>
+    </div>
 
 </div>

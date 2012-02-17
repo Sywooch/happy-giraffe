@@ -18,6 +18,7 @@
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js'); ?>
 	
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.js'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.placeholder.min.js'); ?>
 	
 	<script type="text/javascript">
 	
@@ -87,6 +88,7 @@
 				</div>
 				
 				<div class="login-box">
+                    <?php echo Yii::app()->user->getRole() ?>
 					<?php if (Yii::app()->user->isGuest): ?>
 						<span class="lk">Личный кабинет</span>
 						<?php echo CHtml::link('Вход', '#login', array('class' => 'fancy')); ?>

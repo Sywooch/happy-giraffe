@@ -3,7 +3,7 @@
 return array(
 	'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
 	'name' => 'Админка',
-
+    'language'=>'ru',
 	'import'=>array(
     'site.frontend.components.Video',
 	'site.frontend.helpers.FileHandler',
@@ -42,6 +42,14 @@ return array(
             'enableProfiling' => true,
             'enableParamLogging' => true,
             'tablePrefix'=> '',
+        ),
+        'authManager'=>array(
+            'class'=>'CDbAuthManager',
+            'connectionID'=>'db',
+            'itemTable'=>'auth_item',
+            'itemChildTable'=>'auth_item_child',
+            'assignmentTable'=>'auth_assignment',
+            'defaultRoles' => array('guest'),
         ),
 	),
 

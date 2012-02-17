@@ -17,64 +17,14 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.jscrollpane.css" />
-	<script type="text/javascript" src="/javascripts/jquery.jscrollpane.min.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/jquery.mousewheel.js"></script>
-	
+	<script type="text/javascript" src="/javascripts/scrollbarpaper.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 	<script>
 		$(document).ready(function(){
-			$('.scroll').jScrollPane({
-				showArrows: true, 
-				animateScroll: true, 
-				arrowButtonSpeed: 50, 
-				
-			});
-			
-			var newContent = '<div class="dialog-message">\
-					\
-					<table>\
-						<tr>\
-							<td class="user">\
-								\
-								<div class="img"><img src="/images/ava_small.jpg" /></div>\
-								<span>Мира</span>\
-								\
-							</td>\
-							<td class="content">\
-								<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>\
-							</td>\
-							<td class="meta">\
-								<span>Сегодня<br/>16:45</span>\
-							</td>\
-							<td class="actions">\
-								\
-								<a href="" class="remove"></a>\
-								<a href="" class="claim"></a>\
-								\
-							</td>\
-						</tr>\
-					</table>\
-					\
-				</div>\
-			';
-			
-			$('.scroll').bind('jsp-scroll-y', function(event, scrollPositionY, isAtBottom, isAtTop){
-				
-				$('#r').html(isAtTop?'true':'false');
-				
-				if (isAtTop) {
-					
-					$('.dialog-list .jspPane').append(newContent);
-					
-					$('.scroll').data('jsp').reinitialise();
-					
-				}			
-				
-			});
+			$('.scroll').scrollbarPaper();			
 		})
 	</script>
 	
@@ -133,354 +83,231 @@
 					
 					<div id="dialogs">
 						
-						<div class="tabs">
+						<div class="header clearfix">
+							<big>Мои сообщения</big>
+							<ul>
+								<li class="active"><a href=""><span>Все диалоги</span></a></li>
+								<li><a href=""><span>Новые</span><div class="count">5</div></a></li>
+								<li><a href=""><span>Кто в онлайне</span></a></li>
+								<li><a href=""><span>Открытые диалоги</span></a></li>
+							</ul>
+						</div>
 						
-							<div class="header">
-								<div class="container">
+						<div id="dialog">
+							
+							<div class="opened-dialogs-list">
+								
+								<ul>
+									<li class="active">
+										<a href="javascript:void(0);" class="remove"></a>
+										<div class="img"><img src="/images/ava_small.jpg" /></div>
+										<div class="status"><i class="icon"></i></div>
+										<div class="name"><span>Мира Оченьдлиннаяфамилия</span></div>
+									</li>
+									<li>
+										<a href="javascript:void(0);" class="remove"></a>
+										<div class="img"><img src="/images/ava_small.jpg" /></div>
+										<div class="status"><i class="icon"></i></div>
+										<div class="name"><span>Мира Самаядлиннаяфамилия</span></div>
+									</li>
+									<li class="new-messages">
+										<a href="javascript:void(0);" class="remove"></a>
+										<div class="img"><img src="/images/ava_small.jpg" /></div>
+										<div class="status"><i class="icon"></i></div>
+										<div class="name"><span>Мира Смурков</span></div>
+										<div class="meta">2</div>
+									</li>
+									<li>
+										<a href="javascript:void(0);" class="remove"></a>
+										<div class="img"><img src="/images/ava_small.jpg" /></div>
+										<div class="status"><i class="icon"></i></div>
+										<div class="name"><span>Мира Смурков</span></div>
+										<div class="meta"><i class="editing"></i></div>
+									</li>
+									<li class="new-messages">
+										<a href="javascript:void(0);" class="remove"></a>
+										<div class="img"><img src="/images/ava_small.jpg" /></div>
+										<div class="status"><i class="icon"></i></div>
+										<div class="name"><span>Анастасия Перепеловская</span></div>
+										<div class="meta">999</div>
+									</li>
+									<li>
+										<a href="javascript:void(0);" class="remove"></a>
+										<div class="img"><img src="/images/ava_small.jpg" /></div>
+										<div class="status"><i class="icon"></i></div>
+										<div class="name"><span>Мира Смурков</span></div>
+									</li>
 									
-									<div class="clearfix">
-										<div class="search">
-											<form>
-												<input type="text">
-												<button class="btn btn-green-smedium"><span><span>Найти</span></span></button>
-											</form>
-										</div>
-										
-										<div class="title">Мои сообщения</div>
-									</div>
-									
-									<div class="nav steps">
-										
-										<ul>
-											<li class="opened active"><a href="">Открытые диалоги<i class="icon-arr"></i></a></li>
-											<li><a><span>Все диалоги</span></a></li>
-											<li><a><span>Новое</span></a></li>
-											<li><a><span>Кто в онлайне</span></a></li>
-											<li>
-												<form>
-													<input type="text" value="введите имя" class="placeholder" placeholder="введите имя" onblur="setPlaceholder(this)" onfocus="unsetPlaceholder(this)" />
-													<button class="btn btn-green-small"><span><span>Ok</span></span></button>
-												</form>
-											</li>
-										</ul>
-										
-									</div>
-									
-								</div>
+								</ul>
+							
 							</div>
 							
-							<div id="dialog">
-								
-								<div class="opened-dialogs-list">
-									<div class="t"></div>
-									<div class="container">
-										<ul>
-											<li class="active">
-												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
-												<div class="status"><i class="icon"></i></div>
-												<div class="name"><span>Мира Оченьдлиннаяфамилия</span></div>
-											</li>
-											<li>
-												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
-												<div class="status"><i class="icon"></i></div>
-												<div class="name"><span>Мира Самаядлиннаяфамилия</span></div>
-											</li>
-											<li class="new-messages">
-												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
-												<div class="status"><i class="icon"></i></div>
-												<div class="name"><span>Мира Смурков</span></div>
-												<div class="meta">2</div>
-											</li>
-											<li>
-												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
-												<div class="status"><i class="icon"></i></div>
-												<div class="name"><span>Мира Смурков</span></div>
-												<div class="meta"><i class="editing"></i></div>
-											</li>
-											<li class="new-messages">
-												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
-												<div class="status"><i class="icon"></i></div>
-												<div class="name"><span>Анастасия Перепеловская</span></div>
-												<div class="meta">999</div>
-											</li>
-											<li>
-												<a href="javascript:void(0);" class="remove"></a>
-												<div class="img"><img src="/images/ava_small.jpg" /></div>
-												<div class="status"><i class="icon"></i></div>
-												<div class="name"><span>Мира Смурков</span></div>
-											</li>
-											
-										</ul>
+							<div class="dialog-in">
+							
+								<div class="dialog-list scroll">
+									
+									<div class="dialog-message">
+										
+										<table>
+											<tr>
+												<td class="user">													
+													<div class="img"><img src="/images/ava_small.jpg" /></div>
+													<div class="date">30.01.12<br />13:45</div>
+												</td>
+												<td class="content">
+													<p>Одна строка</p>
+												</td>
+												<td class="actions">
+													<a href="" class="remove"></a>
+												</td>
+											</tr>
+										</table>
+										
 									</div>
+									
+									<div class="dialog-message">
+										
+										<table>
+											<tr>
+												<td class="user">													
+													<div class="img"><img src="/images/ava_small.jpg" /></div>
+													<div class="date">30.01.12<br />13:45</div>
+												</td>
+												<td class="content">
+													<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели. Коляска просто супер!!! Очень удобная и функциональная. Ни разуели.</p>
+												</td>
+												<td class="actions">
+													<a href="" class="remove"></a>
+												</td>
+											</tr>
+										</table>
+										
+									</div>
+									
+									<div class="dialog-message">
+										
+										<table>
+											<tr>
+												<td class="user">													
+													<div class="img"><img src="/images/ava_small.jpg" /></div>
+													<div class="date">30.01.12<br />13:45</div>
+												</td>
+												<td class="content">
+													<p>Коляска просто супер!!! Очень удобе пожалели. Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
+													<p><img src="/images/example/ex3.jpg" /></p>
+												</td>
+												<td class="actions">
+													<a href="" class="remove"></a>
+												</td>
+											</tr>
+										</table>
+										
+									</div>
+									
+									<div class="dialog-message">
+										
+										<table>
+											<tr>
+												<td class="user">													
+													<div class="img"><img src="/images/ava_small.jpg" /></div>
+													<div class="date">30.01.12<br />13:45</div>
+												</td>
+												<td class="content">
+													<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели. Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
+												</td>
+												<td class="actions">
+													<a href="" class="remove"></a>
+												</td>
+											</tr>
+										</table>
+										
+									</div>
+									
+									<div class="dialog-message">
+										
+										<table>
+											<tr>
+												<td class="user">													
+													<div class="img"><img src="/images/ava_small.jpg" /></div>
+													<div class="date">30.01.12<br />13:45</div>
+												</td>
+												<td class="content">
+													<p>Одна строка</p>
+												</td>
+												<td class="actions">
+													<a href="" class="remove"></a>
+												</td>
+											</tr>
+										</table>
+										
+									</div>
+									
+									<div class="dialog-message">
+										
+										<table>
+											<tr>
+												<td class="user">													
+													<div class="img"><img src="/images/ava_small.jpg" /></div>
+													<div class="date">30.01.12<br />13:45</div>
+												</td>
+												<td class="content">
+													<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели. Коляска просто супер!!! Очень удобная и функциональная. Ни разуели.</p>
+												</td>
+												<td class="actions">
+													<a href="" class="remove"></a>
+												</td>
+											</tr>
+										</table>
+										
+									</div>
+									
+									<div class="dialog-message">
+										
+										<table>
+											<tr>
+												<td class="user">													
+													<div class="img"><img src="/images/ava_small.jpg" /></div>
+													<div class="date">30.01.12<br />13:45</div>
+												</td>
+												<td class="content">
+													<p>Коляска просто супер!!! Очень удобе пожалели. Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
+												</td>
+												<td class="actions">
+													<a href="" class="remove"></a>
+												</td>
+											</tr>
+										</table>
+										
+									</div>
+									
+									<div class="dialog-message">
+										
+										<table>
+											<tr>
+												<td class="user">													
+													<div class="img"><img src="/images/ava_small.jpg" /></div>
+													<div class="date">30.01.12<br />13:45</div>
+												</td>
+												<td class="content">
+													<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели. Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
+												</td>
+												<td class="actions">
+													<a href="" class="remove"></a>
+												</td>
+											</tr>
+										</table>
+										
+									</div>
+								
 								</div>
-								
-								<div class="dialog-in">
 									
-									<div class="user-details">
-										
-										<div class="actions">
-											<a href="" class="add"><i class="icon"></i><br/>Добавить<br/>в друзья</a>
-											<a href="" class="block"><i class="icon"></i><br/>В черный<br/>список</a>
-										</div>
-										
-										<div class="ava"></div>
-										
-										<div class="text">
-											<p><span class="status-online"></span>
-											<span>Мира</span><br/>
-											Россия, Москва</p>
-											
-											<a href="">Больше...</a>
-											&nbsp;&nbsp;&nbsp;
-											<a href="" class="yellow">Анкета</a>
-											
-										</div>
-										
-									</div>
-									
-									<div class="list-actions">
-										<a href=""><i class="icon-remove"></i>Удалить диалог</a>
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<a href="">Распечатать</a>
-									</div>
-									
-									<div style="padding:20px;">
-										<div id="r"></div>
-									</div>
-									
-									
-									<div class="dialog-list scroll">
-										
-										<div class="dialog-message">
-											
-											<table>
-												<tr>
-													<td class="user">
-														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
-														<span>Мира</span>
-														
-													</td>
-													<td class="content">
-														<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-													</td>
-													<td class="meta">
-														<span>Сегодня<br/>16:45</span>
-													</td>
-													<td class="actions">
-														
-														<a href="" class="remove"></a>
-														<a href="" class="claim"></a>
-														
-													</td>
-												</tr>
-											</table>
-											
-										</div>
-									
-										<div class="dialog-message">
-											
-											<table>
-												<tr>
-													<td class="user">
-														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
-														<span>Мира</span>
-														
-													</td>
-													<td class="content">
-														<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-													</td>
-													<td class="meta">
-														<span>Сегодня<br/>16:45</span>
-													</td>
-													<td class="actions">
-														
-														<a href="" class="remove"></a>
-														<a href="" class="claim"></a>
-														
-													</td>
-												</tr>
-											</table>
-											
-										</div>
-									
-										<div class="dialog-message">
-											
-											<table>
-												<tr>
-													<td class="user">
-														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
-														<span>Мира</span>
-														
-													</td>
-													<td class="content">
-														<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-													</td>
-													<td class="meta">
-														<span>Сегодня<br/>16:45</span>
-													</td>
-													<td class="actions">
-														
-														<a href="" class="remove"></a>
-														<a href="" class="claim"></a>
-														
-													</td>
-												</tr>
-											</table>
-											
-										</div>
-									
-										<div class="dialog-message dialog-message-new-out">
-											
-											<table>
-												<tr>
-													<td class="user">
-														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
-														<span>Мира</span>
-														
-													</td>
-													<td class="content">
-														<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-													</td>
-													<td class="meta">
-														<span>Сегодня<br/>16:45</span>
-													</td>
-													<td class="actions">
-														
-														<a href="" class="remove"></a>
-														<a href="" class="claim"></a>
-														
-													</td>
-												</tr>
-											</table>
-											
-										</div>
-									
-										<div class="dialog-message">
-											
-											<table>
-												<tr>
-													<td class="user">
-														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
-														<span>Мира</span>
-														
-													</td>
-													<td class="content">
-														<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-													</td>
-													<td class="meta">
-														<span>Сегодня<br/>16:45</span>
-													</td>
-													<td class="actions">
-														
-														<a href="" class="remove"></a>
-														<a href="" class="claim"></a>
-														
-													</td>
-												</tr>
-											</table>
-											
-										</div>
-									
-										<div class="dialog-message">
-											
-											<table>
-												<tr>
-													<td class="user">
-														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
-														<span>Мира</span>
-														
-													</td>
-													<td class="content">
-														<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-													</td>
-													<td class="meta">
-														<span>Сегодня<br/>16:45</span>
-													</td>
-													<td class="actions">
-														
-														<a href="" class="remove"></a>
-														<a href="" class="claim"></a>
-														
-													</td>
-												</tr>
-											</table>
-											
-										</div>
-									
-										<div class="dialog-message">
-											
-											<table>
-												<tr>
-													<td class="user">
-														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
-														<span>Мира</span>
-														
-													</td>
-													<td class="content">
-														<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-													</td>
-													<td class="meta">
-														<span>Сегодня<br/>16:45</span>
-													</td>
-													<td class="actions">
-														
-														<a href="" class="remove"></a>
-														<a href="" class="claim"></a>
-														
-													</td>
-												</tr>
-											</table>
-											
-										</div>
-									
-										<div class="dialog-message dialog-message-new-out">
-											
-											<table>
-												<tr>
-													<td class="user">
-														
-														<div class="img"><img src="/images/ava_small.jpg" /></div>
-														<span>Мира</span>
-														
-													</td>
-													<td class="content">
-														<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели.</p>
-													</td>
-													<td class="meta">
-														<span>Сегодня<br/>16:45</span>
-													</td>
-													<td class="actions">
-														
-														<a href="" class="remove"></a>
-														<a href="" class="claim"></a>
-														
-													</td>
-												</tr>
-											</table>
-											
-										</div>
-									
-									</div>
-										
-									<div class="new-message">
+								<div class="new-message">
+									<div class="editor-box">
 										<img src="/images/editor.gif" />
 										<div class="buttons">
 											<button class="btn btn-green-smedium"><span><span>Отправить</span></span></button>
 										</div>
 									</div>
-									
 								</div>
 								
 							</div>

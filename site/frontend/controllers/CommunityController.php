@@ -1,5 +1,5 @@
 <?php
-
+Yii::import('site.frontend.modules.geo.models.*');
 class CommunityController extends Controller
 {
 
@@ -54,7 +54,14 @@ class CommunityController extends Controller
 			$content_types = CommunityContentType::model()->findAll();
 			$current_rubric = CommunityRubric::model()->findByPk($rubric_id);
 			$content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
-			
+
+            if ($rubric_id === null) {
+                $this->pageTitle = 'Клуб «' . $community->name . '» - общение с Веселым Жирафом';
+            }
+            else {
+                $this->pageTitle = 'Клуб «' . $community->name . '» – рубрика «' . $current_rubric->name . '» у Веселого Жирафа';
+            }
+
 			$criteria = CommunityContent::model()->community($community_id)->type($content_type ? $content_type->id : null)->rubric($rubric_id)->getDbCriteria();
 			$count = CommunityContent::model()->count($criteria);
 			$pages = new CPagination($count);

@@ -191,7 +191,7 @@ class Rating extends CActiveRecord
         switch($social_key)
         {
             case 'tw' :
-                $response = CJSON::decode(file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url=' . urlencode($url)));
+                $response = CJSON::decode(file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url=' . $url));
                 $count = $response['count'];
                 break;
             case 'fb' :
@@ -208,12 +208,13 @@ class Rating extends CActiveRecord
                 $count = count($response) > 0 && isset($response[$url]) && isset($response[$url]['shares']) ? $response[$url]['shares'] : 0;
                 break;
             case 'ok' :
-                $response = file_get_contents('http://www.odnoklassniki.ru/dk?st.cmd=extOneClickLike&uid=odklocs0&ref=' . urlencode($url));
+                /*$response = file_get_contents('http://www.odnoklassniki.ru/dk?st.cmd=extOneClickLike&uid=odklocs0&ref=' . urlencode($url));
                 preg_match("/^ODKL.updateCountOC\('[\d\w]+','(\d+)','(\d+)','(\d+)'\);$/i", $response, $matches);
-                $count = $matches[1];
+                $count = $matches[1];*/
+                $count = 1;
                 break;
             case 'gp' :
-                $curl = curl_init();
+                /*$curl = curl_init();
                 curl_setopt($curl, CURLOPT_URL, "https://clients6.google.com/rpc");
                 curl_setopt($curl, CURLOPT_POST, 1);
                 curl_setopt($curl, CURLOPT_POSTFIELDS, '[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"' . $url . '","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]');
@@ -221,9 +222,9 @@ class Rating extends CActiveRecord
                 curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
                 $curl_results = curl_exec ($curl);
                 curl_close ($curl);
-
                 $json = CJSON::decode($curl_results);
-                $count = $json ? intval( $json[0]['result']['metadata']['globalCounts']['count'] ) : 0;
+                $count = $json ? intval( $json[0]['result']['metadata']['globalCounts']['count'] ) : 0;*/
+                $count = 1;
                 break;
             case 'yh' :
                 $count = Rating::countByEntity($entity, $social_key);

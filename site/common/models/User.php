@@ -182,6 +182,8 @@ class User extends CActiveRecord
             'userSocialServices' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
             'userViaCommunities' => array(self::HAS_MANY, 'UserViaCommunity', 'user_id'),
             'vaccineDateVotes' => array(self::HAS_MANY, 'VaccineDateVote', 'user_id'),
+
+            'commentsCount' => array(self::STAT, 'Comment', 'author_id'),
         );
     }
 
@@ -503,5 +505,12 @@ class User extends CActiveRecord
         foreach($assigns as $assign){
             return $assign->itemName;
         }
+    }
+
+    public function getUnreadMessagesCount()
+    {
+        Yii::import('site.frontend.modules.im.models.*');
+
+
     }
 }

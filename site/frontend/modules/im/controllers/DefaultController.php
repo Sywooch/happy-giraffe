@@ -217,6 +217,23 @@ class DefaultController extends Controller
         ));
     }
 
+    public function actionOpenedDialog()
+    {
+        $dialog_id = Yii::app()->request->getPost('id');
+        $this->checkDialog($dialog_id);
+        ActiveDialogs::model()->addDialog($dialog_id);
+
+        $response = array(
+            'status' => true,
+            'html' => $this->renderPartial('_dialog_preview', array(
+                'dialog'=>Im::model()->getDialog($dialog_id),
+                'current_dialog_id'=>0
+            ), true)
+        );
+
+        echo CJSON::encode($response);
+    }
+
     /**
      * @param int $id model id
      * @throws CHttpException

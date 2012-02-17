@@ -136,6 +136,7 @@ class MessageLog extends CActiveRecord
             if ($user->user_id !== Yii::app()->user->getId()) {
                 Yii::app()->comet->send(MessageCache::GetUserCache($user->user_id), array(
                     'message_id' => $message->id,
+                    'unread_count'=>Im::getUnreadMessagesCount($user->user_id),
                     'dialog_id' => $dialog_id,
                     'type' => MessageLog::TYPE_NEW_MESSAGE,
                     'html' => Yii::app()->controller->renderPartial('_message', array(

@@ -89,6 +89,17 @@ class Im
         return $res;
     }
 
+    public function getDialog($id)
+    {
+        foreach ($this->_dialogs as $dialog)
+            if ($id == $dialog['id'])
+                return array(
+                    'id'=>$id,
+                    'user'=>$this->GetDialogUser($id)
+                );
+        return null;
+    }
+
     /**
      * @return array
      */
@@ -141,6 +152,8 @@ class Im
      */
     public function GetDialogUser($dialog_id)
     {
+//        if (!isset($this->_dialogs[$dialog_id]))
+//        {var_dump($dialog_id);Yii::app()->end();}
         $id = $this->_dialogs[$dialog_id]['users'][0];
         return $this->getUser($id);
     }
@@ -201,5 +214,22 @@ class Im
         $user = User::getUserById($id);
         $this->_loaded_users[$id] = $user;
         return $user;
+    }
+
+    public static function getUnreadMessagesCount($user_id)
+    {
+        Yii::import('site.frontend.modules.im.models.*');
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 't.id IN (SELECT dialog_id FROM message_user WHERE user_id = ' . $user_id . ')';
+        $criteria->select = 'id';
+        $dialogs = MessageDialog::model()->findAll($criteria);
+
+        $unread = 0;
+        foreach ($dialogs as $dialog) {
+            $unread += MessageDialog::getUnreadMessagesCount($dialog->id, $user_id);
+        }
+
+        return $unread;
     }
 }

@@ -104,10 +104,10 @@ class MessageDialog extends CActiveRecord
     {
         $has_unread = MessageLog::model()->find(array(
             'condition' => 'dialog_id=' . $dialog_id . ' AND user_id != ' . Yii::app()->user->getId()
-        . ' AND read_status = 0',
+                . ' AND read_status = 0',
         ));
         if ($has_unread === null)
-            return ;
+            return;
 
         if ($last_message_id === null) {
             $last_message = MessageLog::model()->find(array(
@@ -270,13 +270,15 @@ class MessageDialog extends CActiveRecord
         return true;
     }
 
-    static function getUnreadMessagesCount($id)
+    static function getUnreadMessagesCount($id, $user_id = null)
     {
+        if ($user_id === null)
+            $user_id = Yii::app()->user->getId();
+
         return Yii::app()->db->createCommand()
             ->select('count(t.id)')
             ->from(MessageLog::model()->tableName() . ' t')
-        //->join('message_dialog_deleted t2', 't2.dialog_id = t.id AND t2.user_id = ' . Yii::app()->user->getId())
-            ->where('t.dialog_id = :dialog_id AND t.user_id != ' . Yii::app()->user->getId()
+            ->where('t.dialog_id = :dialog_id AND t.user_id != ' . $user_id
             . ' AND t.read_status = 0', array(
             ':dialog_id' => $id
         ))

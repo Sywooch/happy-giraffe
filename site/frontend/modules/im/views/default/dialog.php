@@ -80,7 +80,6 @@ var last_typing_time = 0;
 var scrollBar = null;
 
 $(function () {
-    //scrollBar = $('#messages').scrollbarPaper();
     GoTop();
 
     $(window).focus(function () {
@@ -285,7 +284,8 @@ function MoreMessages() {
                 } else {
                     no_more_messages = 1;
                     $('#messages').bind('scroll', MoreMessages);
-                    $('#messages').scrollbarPaper('update');
+                    if ($('#messages .inner-messages').height() > $("#messages").height())
+                        $('#messages').scrollbarPaper('update');
                 }
             },
             context:$(this)
@@ -389,7 +389,8 @@ function ShowUserTyping(result) {
 
 function GoTop() {
     $("#messages").scrollTop($("#messages .inner-messages").outerHeight());
-    $('#messages').scrollbarPaper();
+    if ($('#messages .inner-messages').height() > $("#messages").height())
+        $('#messages').scrollbarPaper();
 }
 
 function report(item) {
@@ -416,6 +417,5 @@ function report(item) {
 
 function SetScrollPosition(yPos){
     $("#messages").scrollTop(yPos);
-    //$('#messages').scrollbarPaper('update');
 }
 </script>

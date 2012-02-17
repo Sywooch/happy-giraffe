@@ -3,7 +3,8 @@
 	$js = "
 $('button.cancel').live('click', function(e) {
 	e.preventDefault();
-	Comment_text_redactor.setHtml('<p>&nbsp;</p>');
+	var editor = CKEDITOR.instances['Comment[text]'];
+    editor.setData('');
 });
 $('#add_comment').live('submit', function(e) {
 	e.preventDefault();
@@ -30,7 +31,8 @@ $('#add_comment').live('submit', function(e) {
 						});
 					}
 				});
-				Comment_text_redactor.setHtml('<p>&nbsp;</p>');
+				var editor = CKEDITOR.instances['Comment[text]'];
+                editor.setData('');
 			}
 		},
 	});

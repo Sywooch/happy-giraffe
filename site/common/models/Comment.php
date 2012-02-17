@@ -10,6 +10,8 @@
  * @property string $author_id
  * @property string $model
  * @property string $object_id
+ *
+ * @property User author
  */
 class Comment extends CActiveRecord
 {
@@ -96,6 +98,22 @@ class Comment extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function afterSave()
+    {
+        if ($this->isNewRecord){
+            if ($this->author->commentsCount == 1){
+                //первый комментарий пользователя, сообщаем модераторам
+                $signal = new ModerationSignals;
+                $signal->type = ModerationSignals::TYPE_NEW_USER_COMMENT;
+                $signal->user_id = $this->author_id;
+                $signal->item_id = $this->id;
+                $signal->item_name = 'Comment';
+                $signal->save();
+            }
+        }
+        return parent::afterSave();
+    }
 	
 	public function get($model, $object_id)
 	{

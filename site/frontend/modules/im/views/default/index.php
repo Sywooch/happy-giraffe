@@ -27,12 +27,12 @@
                 </td>
                 <td class="message-icon">
                     <div class="icon"></div>
+                    <div class="date">
+                        <span><?php echo MessageLog::GetFormattedTime($dialog->lastMessage->created); ?></span>
+                    </div>
                 </td>
                 <td class="content">
                     <?php echo CHtml::decode($dialog->lastMessage->text) ?>
-                </td>
-                <td class="meta">
-                    <span><?php echo MessageLog::GetFormattedTime($dialog->lastMessage->created); ?></span>
                 </td>
                 <td class="actions">
 

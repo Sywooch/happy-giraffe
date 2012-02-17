@@ -9,7 +9,7 @@
 		function addField()
 		{
 			$('#ingredientTmpl').tmpl({num: nextIndex}).appendTo('#ingredients');
-			cuSel({changedEl: 'select', visRows: 8, scrollArrows: true});
+			//cuSel({changedEl: 'select', visRows: 8, scrollArrows: true});
 			nextIndex++;
 		}
 	

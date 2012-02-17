@@ -2,39 +2,34 @@
 Yii::app()->clientScript
     ->registerScriptFile('/javascripts/jquery.color.animation.js')
     ->registerScriptFile('/javascripts/scrollbarpaper.js');
-//    ->registerScriptFile('/javascripts/jquery.jscrollpane.min.js')
-//    ->registerCssFile('/stylesheets/jquery.jscrollpane.css');
 
 ?>
 <div id="dialog">
     <div class="opened-dialogs-list">
-        <div class="t"></div>
-        <div class="container">
-            <ul>
-                <?php $dialogs = ActiveDialogs::model()->getDialogs(); ?>
-                <?php foreach ($dialogs as $dialog): ?>
-                <?php $unread = MessageDialog::getUnreadMessagesCount($dialog['id']); ?>
-                <li<?php
-                    $class = '';
-                    if ($unread > 0) $class = 'new-messages';
-                    if ($dialog['id'] == $id) $class .= ' active';
-                    $class = trim($class);
-                    if (!empty($class))
-                        echo ' class="' . $class . '"';
-                    ?> id="dialog-<?php echo $dialog['id'] ?>">
-                    <input type="hidden" value="<?php echo $dialog['id'] ?>" class="dialog-id">
-                    <a href="#" class="remove"></a>
+        <ul>
+            <?php $dialogs = ActiveDialogs::model()->getDialogs(); ?>
+            <?php foreach ($dialogs as $dialog): ?>
+            <?php $unread = MessageDialog::getUnreadMessagesCount($dialog['id']); ?>
+            <li<?php
+                $class = '';
+                if ($unread > 0) $class = 'new-messages';
+                if ($dialog['id'] == $id) $class .= ' active';
+                $class = trim($class);
+                if (!empty($class))
+                    echo ' class="' . $class . '"';
+                ?> id="dialog-<?php echo $dialog['id'] ?>">
+                <input type="hidden" value="<?php echo $dialog['id'] ?>" class="dialog-id">
+                <a href="#" class="remove"></a>
 
-                    <div class="img"><img src="<?php echo $dialog['user']->getMiniAva() ?>"/></div>
-                    <div class="status<?php if (!$dialog['user']->online) echo ' status-offline' ?>"><i
-                        class="icon"></i></div>
-                    <div class="name"><span><?php echo $dialog['user']->getFullName() ?></span></div>
-                    <div
-                        class="meta"<?php if ($unread == 0) echo ' style="display:none"'; ?>><?php echo $unread; ?></div>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
+                <div class="img"><img src="<?php echo $dialog['user']->getMiniAva() ?>"/></div>
+                <div class="status<?php if (!$dialog['user']->online) echo ' status-offline' ?>"><i
+                    class="icon"></i></div>
+                <div class="name"><span><?php echo $dialog['user']->getFullName() ?></span></div>
+                <div
+                    class="meta"<?php if ($unread == 0) echo ' style="display:none"'; ?>><?php echo $unread; ?></div>
+            </li>
+            <?php endforeach; ?>
+        </ul>
     </div>
 
     <div class="dialog-in">
@@ -68,7 +63,9 @@ Yii::app()->clientScript
     </div>
 </div>
 <style type="text/css">
-    .cke_bottom {display: none;}
+    .cke_bottom {
+        display: none;
+    }
 </style>
 <script type="text/javascript">
 var window_active = 1;
@@ -393,29 +390,7 @@ function GoTop() {
         $('#messages').scrollbarPaper();
 }
 
-function report(item) {
-    if (item.next().attr('class') != 'report-block') {
-        var source_data = item.attr('id').split('_');
-        $.ajax({
-            type:'POST',
-            data:{
-                source_data:{
-                    model:source_data[0],
-                    object_id:source_data[1]
-                }
-            },
-            url:"<?php echo  $this->createUrl('/ajax/showreport') ?>",
-            success:function (response) {
-                item.after(response);
-            }
-        });
-    }
-    else {
-        item.next().remove();
-    }
-}
-
-function SetScrollPosition(yPos){
+function SetScrollPosition(yPos) {
     $("#messages").scrollTop(yPos);
 }
 </script>

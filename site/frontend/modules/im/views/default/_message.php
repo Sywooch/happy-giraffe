@@ -10,23 +10,14 @@ if (!isset($class))
     <table>
         <tr>
             <td class="user">
-
                 <div class="img"><img src="<?php echo $user->getMiniAva() ?>" /></div>
-                <span><?php echo $user->first_name ?></span>
-
+                <div class="date"><?php echo MessageLog::GetFormattedTime($message['created']); ?></div>
             </td>
             <td class="content">
                 <?php echo $message['text'] ?>
             </td>
-            <td class="meta">
-                <span><?php echo MessageLog::GetFormattedTime($message['created']); ?></span>
-            </td>
             <td class="actions">
                 <a href="" class="remove"></a>
-                <?php if ($message['user_id'] !== Yii::app()->user->getId() || isset($read)):?>
-                <a class="claim report" href="#"></a>
-                <?php endif ?>
-
             </td>
         </tr>
     </table>

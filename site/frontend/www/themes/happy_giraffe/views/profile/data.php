@@ -213,9 +213,7 @@ $this->breadcrumbs = array(
 
 </div>
 <div>
-    <div class="inner" id="map_container" style="display: none;"
-         data-name="<?php echo $user->getLocationString() ?>"
-         data-zoom="<?php echo $user->getZoom() ?>">
+    <div class="inner" id="map_container" style="display: none;" data-name="<?php echo $user->getLocationString() ?>">
         <div class="clearfix">
 
             <div id="map_canvas"></div>

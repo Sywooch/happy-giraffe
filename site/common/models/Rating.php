@@ -67,10 +67,26 @@ class Rating extends CActiveRecord
      * @static
      * @param CActiveRecord $entity
      * @param string $social_key
+     * @param bool $cache
      * @return int
      */
-    public static function countByEntity($entity, $social_key = false)
+    public static function countByEntity($entity, $social_key = false, $cache = false)
     {
+        if($cache)
+        {
+            if($rating = RatingCache::findByEntity($entity, $social_key = false))
+            {
+                if($social_key)
+                    return $rating->ratings[$social_key];
+                else
+                {
+                    $sum = 0;
+                    foreach($rating->ratings as $sk => $sv)
+                        $sum += $sv;
+                    return $sum;
+                }
+            }
+        }
         $model = self::findByEntity($entity, $social_key);
         if($social_key === false)
         {
@@ -106,6 +122,11 @@ class Rating extends CActiveRecord
         }
         $model->value = $plus !== false ? $model->value + $value : $value;
         $model->save();
+        if($cache = RatingCache::findByEntity($entity))
+        {
+            $cache->ratings[$social_key] = $model->value;
+            $cache->save();
+        }
         return $model;
     }
 
@@ -155,11 +176,61 @@ class Rating extends CActiveRecord
             ->delete('ratings_yohoho', 'entity_id=:entity_id and entity_name=:entity_name
                     and social_key=:social_key and user_id=:user_id', $where);
         self::saveByEntity($entity, 'yh', -2, true);
+        return false;
     }
 
     public static function pushUserByYohoho($entity, $user_id)
     {
-        if(!self::addUserByYohoho($entity, $user_id))
-            self::deleteByYohoho($entity, $user_id);
+        if(!$value = self::addUserByYohoho($entity, $user_id))
+            $value = self::deleteByYohoho($entity, $user_id);
+        return $value;
+    }
+
+    public static function updateByApi($entity, $social_key, $url)
+    {
+        switch($social_key)
+        {
+            case 'tw' :
+                $response = CJSON::decode(file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url=' . urlencode($url)));
+                $count = $response['count'];
+                break;
+            case 'fb' :
+                $response = CJSON::decode(file_get_contents('https://api.facebook.com/method/fql.query?query=' . urlencode('select total_count from link_stat where url="' . $url . '"') . '&format=json'));
+                $count = isset($response[0]) && isset($response[0]['total_count']) ? $response[0]['total_count'] : 0;
+                break;
+            case 'vk' :
+                $response = file_get_contents('http://vk.com/share.php?act=count&index=1&url=' . urlencode($url) . '&format=json&callback=?');
+                preg_match('|\((?:\d+),\s?(\d+)\)|', $response, $matches);
+                $count = $matches[1];
+                break;
+            case 'mr' :
+                $response = CJSON::decode(file_get_contents('http://connect.mail.ru/share_count?url_list=' . urlencode($url)));
+                $count = count($response) > 0 && isset($response[$url]) && isset($response[$url]['shares']) ? $response[$url]['shares'] : 0;
+                break;
+            case 'ok' :
+                $response = file_get_contents('http://www.odnoklassniki.ru/dk?st.cmd=extOneClickLike&uid=odklocs0&ref=' . urlencode($url));
+                preg_match("/^ODKL.updateCountOC\('[\d\w]+','(\d+)','(\d+)','(\d+)'\);$/i", $response, $matches);
+                $count = $matches[1];
+                break;
+            case 'gp' :
+                $curl = curl_init();
+                curl_setopt($curl, CURLOPT_URL, "https://clients6.google.com/rpc");
+                curl_setopt($curl, CURLOPT_POST, 1);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, '[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"' . $url . '","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]');
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+                $curl_results = curl_exec ($curl);
+                curl_close ($curl);
+
+                $json = CJSON::decode($curl_results);
+                $count = $json ? intval( $json[0]['result']['metadata']['globalCounts']['count'] ) : 0;
+                break;
+            case 'yh' :
+                $count = Rating::countByEntity($entity, $social_key);
+                break;
+            default : $count = 0;
+        }
+        Rating::saveByEntity($entity, $social_key, $count);
+        RatingCache::saveByEntity($entity, $social_key, $count);
     }
 }

@@ -19,7 +19,7 @@
 //		'last_ip',
 		array(
 			'class'=>'CButtonColumn',
-			'template' => '{update}{delete}'
+			'template' => '{update}'
 		),
 	),
 )); ?>

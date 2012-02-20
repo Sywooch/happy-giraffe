@@ -6,4 +6,9 @@ foreach($this->options as $key => $value)
     ));
 }
 ?>
-<p><a onclick="return Social.open('ok', this.href, 'Опубликовать ссылку в Одноклассниках', 800, 300);" rel="nofollow" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?php echo urlencode($this->options['url']); ?>">Поделиться с друзьями в Одноклассниках</a></p>
+<a onclick="return Social.open('ok', this.href, 'Опубликовать ссылку в Одноклассниках', 800, 300, this);"
+   href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?php echo urlencode($this->options['url']); ?>"
+   rel="nofollow"
+   title="Поделиться с друзьями в Одноклассниках"
+   class="btn-icon ok"></a>
+<div class="count"><?php echo Rating::model()->countByEntity($this->model, 'ok'); ?></div>

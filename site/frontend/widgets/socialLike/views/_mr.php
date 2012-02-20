@@ -1,12 +1,18 @@
 <?php
 $options = array();
-foreach($this->options as $key => $value)
+foreach ($this->options as $key => $value)
 {
-    if($key == 'url')
+    if ($key == 'url')
         $key = 'share_url';
-    elseif($key == 'image')
+    elseif ($key == 'image')
         $key = 'imageurl';
     $options[$key] = $value;
 }
 ?>
-<p><a onclick="return Social.open('mr', this.href, 'Опубликовать ссылку в Mail.ru', 626, 436);" href="http://connect.mail.ru/share<?php echo $this->arrayToUrl($options); ?>">Поделиться с друзьями Моего Мира на Mail.ru</a></p>
+<a
+    onclick="return Social.open('mr', this.href, 'Опубликовать ссылку в Mail.ru', 626, 436, this);"
+    href="http://connect.mail.ru/share<?php echo $this->arrayToUrl($options); ?>"
+    title="Поделиться с друзьями Моего Мира на Mail.ru"
+    rel="nofollow"
+    class="btn-icon mm"></a>
+<div class="count"><?php echo Rating::model()->countByEntity($this->model, 'mr'); ?></div>

@@ -40,7 +40,6 @@ class SocialLikeWidget extends CWidget
             $this->options['description'] = Str::truncate(trim(strip_tags(html_entity_decode($this->options['description'], ENT_QUOTES, 'UTF-8'))), 300, '...');
         if(!isset($this->options['url']))
             $this->options['url'] = Yii::app()->createAbsoluteUrl(Yii::app()->request->pathInfo);
-        RatingCache::checkCache($this->model, $this->providers, $this->options['url']);
 
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);

@@ -228,7 +228,7 @@ class SiteController extends Controller
 				$service->save();
 			}
 
-			$authIdentity->redirect();
+			//$authIdentity->redirect();
 		}
 
 		$user = User::model()->with('babies', 'settlement', 'social_services')->findByPk(Yii::app()->user->getId());

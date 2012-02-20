@@ -5,7 +5,7 @@ Yii::import('application.components.profile.*');
 
 class ProfileCoreWidget extends CPortlet
 {
-
+    public $model;
     protected $_attributes = array();
 
     public function __construct($owner = null)
@@ -26,6 +26,30 @@ class ProfileCoreWidget extends CPortlet
                 'default' => $this->title,
             )),
         );
+    }
+
+    public function init()
+    {
+        $this->id = $this->model->_id;
+
+        parent::init();
+    }
+
+    protected function renderDecoration()
+    {
+        $this->render('decoration', array(
+            'decorationCssClass' => $this->decorationCssClass,
+            'titleCssClass' => $this->titleCssClass,
+            'title' => $this->title,
+            '_id' => $this->model->_id,
+        ));
+    }
+
+    protected function renderContent()
+    {
+        $this->render(get_class($this), array(
+            'settings' => $this->model->settings,
+        ));
     }
 
     public function getDefaults()

@@ -553,9 +553,8 @@ a {color:#51afc3;}
 #dialog .dialog-message .content p {margin-bottom:8px;}
 #dialog .dialog-message .content .name {color:#2296B0;font-weight:bold;margin-bottom:5px;}
 #dialog .dialog-message .actions {padding:2px 5px 0;}
+#dialog .dialog-message .date {width:50px;padding:2px 0 2px 5px;}
 #dialog .dialog-message:hover table td {background:none;}
-#dialog .dialog-message .date {margin-top:23px;}
-#dialog .dialog-message:hover .date {margin-top:23px;}
 
 #dialog .opened-dialogs-list {width:180px;float:right;padding-bottom:20px;}
 #dialog .opened-dialogs-list ul {}
@@ -910,12 +909,12 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .like-block .block-in {width:700px;margin:-30px auto 0;position:relative;padding-top:30px;}
 
-.like-block .title {font-family: Arial, Tahoma, sans-serif;font-size:26px;display:block;margin-left:95px;}
+.like-block .title {font-family: Arial, Tahoma, sans-serif;font-size:26px;display:block;text-align:center;}
 
-.like-block .rating {text-align: right;font: 16px/1 tahoma, sans-serif;position:absolute;right:30px;top:16px;}
-.like-block .rating span {font: bold 36px/1 tahoma, sans-serif;position: relative;color: #FF6600;}
+.like-block .rating {text-align: right;font: 16px/1 tahoma, sans-serif;position:absolute;right:30px;top:106px;}
+.like-block .rating span {font: bold 36px/1 tahoma, sans-serif;position: relative;color: #FF6600;top:2px;}
 
-.like-block .tip {position:absolute;width:25px;height:25px;right:7px;top:7px;}
+.like-block .tip {position:absolute;width:25px;height:25px;right:7px;top:97px;}
 .like-block .tip .container {position:relative;}
 .like-block .tip .icon-question {display:block;width:21px;height:21px;background:url(/images/common.png) no-repeat -292px -136px;cursor:pointer;}
 .like-block .tip .text {position:absolute;right:70%;bottom:100%;display:none;width:230px;padding:15px;background:#fcfac6;color:#737373;font-size:12px;border:1px solid #ffe572;margin-bottom:12px;}
@@ -927,18 +926,29 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .like-block .like-buttons  {margin-top:30px;padding-bottom:10px;}
 
 .like-block .like-buttons .other-likes {margin-left:205px;margin-top:10px;border-left:1px dashed #c2c1a7;padding-left:19px;height:95px;}
-.like-block .like-buttons .other-likes ul {list-style:none;width:100%;width:415px;}
-.like-block .like-buttons .other-likes ul li {float:left;width:33%;height:24px;padding:13px 0;}
+.like-block .like-buttons .other-likes ul {list-style:none;width:300px;}
+.like-block .like-buttons .other-likes ul li {float:left;width:100px;height:24px;padding:13px 0;}
 
 .like-block .hg-like {float:left;}
 
 .hg-like {width:153px;height:25px;background:url(/images/common.png) no-repeat -416px 0;padding:67px 0 0 37px;}
 .hg-like .btn > span > span {font:bold italic 18px/25px arial, sans-serif;min-width:45px;}
 .hg-like .btn {vertical-align:middle;}
-.hg-like .count {background:#fff;border:1px solid #c8b2dd;display:inline-block;padding:0 7px;height:19px;line-height:19px;vertical-align:middle;margin-left:10px;position:relative;cursor:default;}
-.hg-like .count {border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
-.hg-like .count:before {display:block;width:8px;height:10px;background:url(/images/common.png) no-repeat -62px -101px;content:'';position:absolute;left:-8px;top:4px;}
 
+
+.like-btn .count {background:#fff;border:1px solid #c8b2dd;display:inline-block;padding:0 7px;height:19px;line-height:19px;vertical-align:middle;margin-left:10px;position:relative;cursor:default;}
+.like-btn .count {border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
+.like-btn .count:before {display:block;width:8px;height:10px;background:url(/images/common.png) no-repeat -62px -101px;content:'';position:absolute;left:-8px;top:4px;}
+
+.like-btn {display:inline-block;}
+.like-btn .btn-icon {display:inline-block;width:24px;height:24px;vertical-align:middle;background:url(../images/common.png) no-repeat 24px 24px;}
+
+.like-btn .vk {background-position:-561px -101px;}
+.like-btn .gp {background-position:-587px -101px;}
+.like-btn .mm {background-position:-613px -101px;}
+.like-btn .fb {background-position:-561px -127px;}
+.like-btn .twt {background-position:-587px -127px;}
+.like-btn .ok {background-position:-613px -127px;}
 
 /* like block */
 

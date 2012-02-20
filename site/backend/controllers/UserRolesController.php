@@ -23,6 +23,7 @@ class UserRolesController extends BController
                 Yii::app()->authManager->revoke($model->getRole(), $model->id);
                 if (!empty($_POST['User']['role']))
                     Yii::app()->authManager->assign($_POST['User']['role'], $model->id);
+                $this->redirect('/userRoles/admin');
             }
 		}
 

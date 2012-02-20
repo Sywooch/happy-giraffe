@@ -40,6 +40,7 @@ class RolesController extends BController
 		{
 			$model->attributes=$_POST['AuthItem'];
             if ($model->save()) {
+                AuthItemChild::model()->deleteAll('parent="' . $model->name . '"');
                 if (isset($_POST['Operation']))
                     foreach ($_POST['Operation'] as $key => $value) {
                         if ($value == 1) {

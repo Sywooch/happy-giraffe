@@ -93,4 +93,13 @@ class RolesController extends BController
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
+
+    public function SecretAction(){
+        $users = User::model()->findAll();
+        foreach($users as $user){
+            if ($user->getRole() == 'user'){
+//                $role =
+            }
+        }
+    }
 }

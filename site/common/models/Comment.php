@@ -129,4 +129,14 @@ class Comment extends CActiveRecord
 			),
 		));
 	}
+
+    public static function getUserAvarageCommentsCount($user)
+    {
+        $comments_count = Comment::model()->count('author_id='.$user->id);
+        $days = ceil(strtotime(date("Y-m-d H:i:s")) - strtotime($user->register_date)/86400);
+        if ($days == 0)
+            $days = 1;
+
+        return round($comments_count/$days);
+    }
 }

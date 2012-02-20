@@ -14,10 +14,7 @@ VALUES (
 'editor',  '0',  'редактор, осталось от старой системы', NULL , NULL
 ), (
 'moder',  '0',  'модератор, осталось от старой системы', NULL , NULL
-);
-
-
-");
+);");
 		$this->insert('auth_assignment', array(
             'itemname'=>'editor',
             'userid'=>'9990'

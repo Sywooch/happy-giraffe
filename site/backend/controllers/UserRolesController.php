@@ -6,34 +6,6 @@ class UserRolesController extends BController
 	public $defaultAction='admin';
 
 	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new User;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
-			if($model->save()){
-                if (isset($_POST['User']['role'])){
-                    if (!empty($_POST['User']['role']))
-                        Yii::app()->authManager->assign($_POST['User']['role'], $model->id);
-                }
-				$this->redirect(array('admin'));
-            }
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
@@ -47,40 +19,16 @@ class UserRolesController extends BController
 
 		if(isset($_POST['User']))
 		{
-			$model->attributes=$_POST['User'];
-            if($model->save()){
-                if (isset($_POST['User']['role'])){
-                    Yii::app()->authManager->revoke($model->getRole(), $model->id);
-                    if (!empty($_POST['User']['role']))
-                        Yii::app()->authManager->assign($_POST['User']['role'], $model->id);
-                }
-                $this->redirect(array('admin'));
+            if (isset($_POST['User']['role'])){
+                Yii::app()->authManager->revoke($model->getRole(), $model->id);
+                if (!empty($_POST['User']['role']))
+                    Yii::app()->authManager->assign($_POST['User']['role'], $model->id);
             }
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
 		));
-	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**

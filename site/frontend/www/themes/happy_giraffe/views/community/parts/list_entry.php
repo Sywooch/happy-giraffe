@@ -12,7 +12,7 @@
 		<div class="meta">
 			<div class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", strtotime($c->created)); ?></div>
 			<div class="seen">Просмотров:&nbsp <?php echo $c->views; ?></div>
-			<div class="rate"><?php echo Rating::countByEntity($c); ?></div>рейтинг
+			<div class="rate"><?php echo Rating::model()->countByEntity($c); ?></div>рейтинг
 		</div>
 		<div class="clear"></div>
 	</div>

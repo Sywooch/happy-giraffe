@@ -59,7 +59,6 @@
  * @property GeoCountry $country
  * @property GeoRusSettlement $settlement
  * @property GeoRusStreet $street
- *
  */
 class User extends CActiveRecord
 {
@@ -257,6 +256,7 @@ class User extends CActiveRecord
             $service->save();
         }
         if (!$this->isNewRecord) {
+            $this->register_date = date("Y-m-d H:i:s");
             //            User::model()->cache(0)->findByPk($this->id);
             //            Yii::app()->cache->delete('User_' . $this->id);
             self::clearCache($this->id);
@@ -504,6 +504,28 @@ class User extends CActiveRecord
             return 'user';
         foreach($assigns as $assign){
             return $assign->itemName;
+        }
+    }
+
+    /**
+     * Возвращает приоритет пользователя для окучивания модераторами
+     * @return int
+     */
+    public function getUserPriority()
+    {
+        //если много пишет, то наивысший приоритет 6
+        if (Comment::getUserAvarageCommentsCount($this) > 10)
+            return 6;
+
+        //с каждой неделей пребывания на сервере приоритет уменьшается
+        $weeks_gone = floor(strtotime(date("Y-m-d H:i:s") ) - strtotime($this->register_date)/604800);
+        switch ($weeks_gone){
+            case 0: return 5;
+            case 1: return 4;
+            case 2: return 3;
+            case 3: return 2;
+            case 4: return 1;
+            default: return 0;
         }
     }
 }

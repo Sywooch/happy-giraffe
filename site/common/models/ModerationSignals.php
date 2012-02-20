@@ -16,6 +16,9 @@
 class ModerationSignals extends CActiveRecord
 {
     const TYPE_NEW_USER_COMMENT = 1;
+    const TYPE_NEW_USER_POST = 2;
+
+    const SIGNAL_UPDATE = 20;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -103,8 +106,13 @@ class ModerationSignals extends CActiveRecord
     public function afterSave()
     {
         if ($this->isNewRecord){
-            //send email to moderators
-
+            //send signal to moderators
+            $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
+            foreach($moderators as $moderator){
+                Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
+                    'type' => self::SIGNAL_UPDATE
+                ));
+            }
         }
         return parent::afterSave();
     }

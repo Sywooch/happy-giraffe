@@ -4,14 +4,19 @@
     <?php
     $this->widget('zii.widgets.CMenu', array(
         'linkLabelWrapper' => 'span',
-        'items'=>array(
+        'items' => array(
             array(
-                'label'=>'Главная',
-                'url'=>array('modules/index'),
+                'label' => 'Главная',
+                'url' => array('modules/index'),
             ),
-            array('label'=>'Имена',
-                'url'=>array('/club/names/index'),
-                'active'=>(Yii::app()->controller->id == 'club/names')
+            array('label' => 'Имена',
+                'url' => array('/club/names/index'),
+                'active' => (Yii::app()->controller->id == 'club/names')
+            ),
+            array('label' => 'Сигналы',
+                'url' => array('/club/signals/index'),
+                'visible'=> Yii::app()->user->checkAccess('видеть сигналы'),
+                'active' => (Yii::app()->controller->id == 'club/signals')
             )
         ),
     ));?>
@@ -20,7 +25,7 @@
 </div>
 <!-- .navigation -->
 <div class="content">
-	<?php echo $content; ?>
+    <?php echo $content; ?>
 </div>
 <!-- .content -->
 <?php $this->endContent(); ?>

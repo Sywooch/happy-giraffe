@@ -11,6 +11,19 @@
  * @property string $author_id
  * @property string $rubric_id
  * @property string $type_id
+ * @property string $meta_title
+ * @property string $meta_keywords
+ * @property string $meta_description
+ * @property integer $by_happy_giraffe
+ *
+ * The followings are the available model relations:
+ *
+ * @property CommunityComment[] $comments
+ * @property User $contentAuthor
+ * @property CommunityRubric $rubric
+ * @property CommunityContentType $type
+ * @property CommunityPost $post
+ * @property CommunityVideo $video
  */
 class CommunityContent extends CActiveRecord
 {
@@ -215,4 +228,20 @@ class CommunityContent extends CActiveRecord
 			),
 		);
 	}
+
+    public function afterSave()
+    {
+        if ($this->contentAuthor->isNewComer()){
+            $signal = new ModerationSignals();
+            $signal->user_id = $this->author_id;
+            $signal->item_id = $this->id;
+            $signal->item_name = 'CommunityContent';
+            $signal->type = ModerationSignals::TYPE_NEW_USER_POST;
+            if (!$signal->save()){
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+            }
+        }
+        return parent::afterSave();
+    }
 }

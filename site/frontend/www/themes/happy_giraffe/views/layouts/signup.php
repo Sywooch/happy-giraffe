@@ -25,6 +25,5 @@
 <body>
 
 <?php echo $content; ?>
-<?php $this->widget('LoginWidget'); ?>
 </body>
 </html>

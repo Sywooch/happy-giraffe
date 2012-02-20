@@ -4,7 +4,7 @@ class Rating extends EMongoDocument
     public $entity_id;
     public $entity_name;
     public $ratings;
-    public $sum;
+    public $sum = 0;
 
     public function getCollectionName()
     {

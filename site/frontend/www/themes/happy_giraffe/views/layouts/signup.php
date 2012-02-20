@@ -15,6 +15,7 @@
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js'); ?>
 	
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/common.js'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.placeholder.min.js'); ?>
 	
 	<!--[if IE 7]>
 		<?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css'); ?>

@@ -48,7 +48,7 @@
     </div>
 
     <div class="rating">
-        <span><?php echo Rating::model()->countByEntity($this->model, false) ?></span><br/>рейтинг
+        <span><?php var_dump(Rating::model()->countByEntity($this->model, false)) ?></span><br/>рейтинг
     </div>
 
 </div>

@@ -14,22 +14,18 @@ class AjaxController extends Controller
         if(!$model)
             Yii::app()->end();
 
-        if($social_key == 'yh')
-            Rating::pushUserByYohoho($model, Yii::app()->user->id);
+        if($url = Yii::app()->request->getPost('url'))
+        {
+            Rating::model()->updateByApi($model, $social_key, $url);
+        }
         else
         {
-            if($url = Yii::app()->request->getPost('url'))
-            {
-                Rating::updateByApi($model, $social_key, $url);
-            }
-            else
-            {
-                Rating::saveByEntity($model, $social_key, $value, true);
-            }
+            Rating::model()->saveByEntity($model, $social_key, $value, true);
         }
+
         echo CJSON::encode(array(
-            'entity' => Rating::countByEntity($model, $social_key),
-            'count' => Rating::countByEntity($model),
+            'entity' => Rating::model()->countByEntity($model, $social_key),
+            'count' => Rating::model()->countByEntity($model),
         ));
         Yii::app()->end();
 	}

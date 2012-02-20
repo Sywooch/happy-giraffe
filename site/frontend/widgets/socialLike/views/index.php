@@ -25,26 +25,30 @@
         <div class="title">Вам полезна статья? Отметь!</div>
     </div>
 
-    <div class="like-buttons">
-        <?php
-        $this->render('_yh', array(
-            'options' => $this->providers['yh'],
-        ));
-        ?>
+    <div class="like-buttons clearfix">
+
+        <div class="hg-like like-btn">
+            <?php
+            $this->render('_yh', array(
+                'options' => $this->providers['yh'],
+            ));
+            ?>
+        </div>
+
         <div class="other-likes">
-            <ul>
-                <li><?php $this->render('_ok', array($this->providers['ok'])); ?></li>
-                <li style="text-align:center;"><?php $this->render('_gp', array($this->providers['gp'])); ?></li>
-                <li><?php $this->render('_vk', array($this->providers['vk'])); ?></li>
-                <li><?php $this->render('_mr', array($this->providers['mr'])); ?></li>
-                <li style="text-align:center;"><?php $this->render('_tw', array($this->providers['tw'])); ?></li>
-                <li style="text-align:right;"><?php $this->render('_fb', array($this->providers['fb'])); ?></li>
+            <ul class="">
+                <li><div class="like-btn"><?php $this->render('_vk', array($this->providers['vk'])); ?></div></li>
+                <li><div class="like-btn"><?php $this->render('_gp', array($this->providers['gp'])); ?></div></li>
+                <li><div class="like-btn"><?php $this->render('_mr', array($this->providers['mr'])); ?></div></li>
+                <li><div class="like-btn"><?php $this->render('_fb', array($this->providers['fb'])); ?></div></li>
+                <li><div class="like-btn"><?php $this->render('_tw', array($this->providers['tw'])); ?></div></li>
+                <li><div class="like-btn"><?php $this->render('_ok', array($this->providers['ok'])); ?></div></li>
             </ul>
         </div>
     </div>
 
     <div class="rating">
-        <span><?php echo Rating::countByEntity($this->model, false, true) ?></span><br/>рейтинг
+        <span><?php echo Rating::model()->countByEntity($this->model, false) ?></span><br/>рейтинг
     </div>
 
 </div>

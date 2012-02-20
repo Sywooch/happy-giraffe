@@ -6,14 +6,16 @@ var Social = {
     model_name : false,
     model_id : false,
     api_url : false,
+    elem : null,
     wait : function() {
         if (this.window && this.window.closed) {
             clearInterval(this.timer);
             this.update(1, true);
         }
     },
-    open : function(key, url, title, width, height) {
+    open : function(key, url, title, width, height, elem) {
         this.key = key;
+        this.elem = elem;
         this.window = window.open(url, title, 'width='+width+',height='+height);
         if(this.timer) {
             clearInterval(this.timer);
@@ -33,7 +35,7 @@ var Social = {
             params.url = this.api_url;
         $.post(this.update_url, params, function(response) {
             $(".like-block div.rating span").text(response.count);
-            //$(".hg-like div.count").text(response.entity);
+            $(Social.elem).parent().find('.count').text(response.entity);
         },
         "json");
     }

@@ -164,7 +164,7 @@ class SiteController extends Controller
 						Yii::app()->user->login($identity);
                         $user->login_date = date('Y-m-d H:i:s');
                         $user->save(false);
-						$authIdentity->redirect();
+						//$authIdentity->redirect();
 					}
 				}
 			}
@@ -228,7 +228,7 @@ class SiteController extends Controller
 				$service->save();
 			}
 
-			//$authIdentity->redirect();
+			$authIdentity->redirect();
 		}
 
 		$user = User::model()->with('babies', 'settlement', 'social_services')->findByPk(Yii::app()->user->getId());

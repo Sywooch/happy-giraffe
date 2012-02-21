@@ -16,6 +16,7 @@
  * @property string $middle_names
  * @property integer $likes
  * @property string $saints
+ * @property string $slug
  *
  * The followings are the available model relations:
  * @property NameGroup $nameGroup
@@ -31,6 +32,8 @@ class Name extends CActiveRecord
 {
     const GENDER_MAN = 1;
     const GENDER_WOMAN = 2;
+
+    const SCENARIO_EDIT_NAME = 1;
 
     /**
      * Returns the static model of the specified AR class.
@@ -65,6 +68,7 @@ class Name extends CActiveRecord
             array('name_group_id', 'length', 'max' => 10),
             array('middle_names', 'length', 'max' => 1024),
             array('description', 'safe'),
+            array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'name', 'on' => self::SCENARIO_EDIT_NAME),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, gender, translate, description, saints, origin, name_group_id, options, sweet, middle_names, likes', 'safe', 'on' => 'search'),
@@ -227,7 +231,7 @@ class Name extends CActiveRecord
     public function GetLikes($user_id)
     {
         $data = Yii::app()->db->createCommand()
-            ->select(array('id', 'name', 'gender', 'translate'))
+            ->select(array('id', 'name', 'gender', 'translate', 'slug'))
             ->from('name')
             ->join('name_likes', 'name.id = name_likes.name_id AND name_likes.user_id = ' . $user_id)
             ->order('name')

@@ -59,7 +59,7 @@ class RecipeBookRecipe extends CActiveRecord
     public function behaviors()
     {
         return array(
-            'CAdvancedArBehavior' => array('class' => 'application.extensions.CAdvancedArBehavior'),
+            'CAdvancedArBehavior' => array('class' => 'site.frontend.extensions.CAdvancedArBehavior'),
             'VoteBehavior' => array(
                 'class' => 'VoteBehavior',
                 'vote_attributes' => array(

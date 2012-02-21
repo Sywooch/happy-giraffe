@@ -67,38 +67,44 @@
         });
     });
 </script>
+<?php $letter = (isset($_GET['letter']) && !empty($_GET['letter']))?$_GET['letter']:null;  ?>
 <ul class="letters">
-    <li class="active"><a href="#">Все</a></li>
-    <li><a href="#">А</a></li>
-    <li><a href="#">Б</a></li>
-    <li><a href="#">В</a></li>
-    <li><a href="#">Г</a></li>
-    <li><a href="#">Д</a></li>
-    <li><a href="#">Е</a></li>
-    <li><a href="#">Ж</a></li>
-    <li><a href="#">З</a></li>
-    <li><a href="#">И</a></li>
-    <li><a href="#">К</a></li>
-    <li><a href="#">Л</a></li>
-    <li><a href="#">М</a></li>
-    <li><a href="#">Н</a></li>
-    <li><a href="#">О</a></li>
-    <li><a href="#">П</a></li>
-    <li><a href="#">Р</a></li>
-    <li><a href="#">С</a></li>
-    <li><a href="#">Т</a></li>
-    <li><a href="#">У</a></li>
-    <li><a href="#">Ф</a></li>
-    <li><a href="#">Х</a></li>
-    <li><a href="#">Ц</a></li>
-    <li><a href="#">Ч</a></li>
-    <li><a href="#">Э</a></li>
-    <li><a href="#">Ю</a></li>
-    <li><a href="#">Я</a></li>
+    <li<?php if (empty($letter)) echo ' class="active"' ?>><a href="#">Все</a></li>
+    <li<?php if ($letter == 'А') echo ' class="active"' ?>><a href="#">А</a></li>
+    <li<?php if ($letter == 'Б') echo ' class="active"' ?>><a href="#">Б</a></li>
+    <li<?php if ($letter == 'В') echo ' class="active"' ?>><a href="#">В</a></li>
+    <li<?php if ($letter == 'Г') echo ' class="active"' ?>><a href="#">Г</a></li>
+    <li<?php if ($letter == 'Д') echo ' class="active"' ?>><a href="#">Д</a></li>
+    <li<?php if ($letter == 'Е') echo ' class="active"' ?>><a href="#">Е</a></li>
+    <li<?php if ($letter == 'Ж') echo ' class="active"' ?>><a href="#">Ж</a></li>
+    <li<?php if ($letter == 'З') echo ' class="active"' ?>><a href="#">З</a></li>
+    <li<?php if ($letter == 'И') echo ' class="active"' ?>><a href="#">И</a></li>
+    <li<?php if ($letter == 'К') echo ' class="active"' ?>><a href="#">К</a></li>
+    <li<?php if ($letter == 'Л') echo ' class="active"' ?>><a href="#">Л</a></li>
+    <li<?php if ($letter == 'М') echo ' class="active"' ?>><a href="#">М</a></li>
+    <li<?php if ($letter == 'Н') echo ' class="active"' ?>><a href="#">Н</a></li>
+    <li<?php if ($letter == 'О') echo ' class="active"' ?>><a href="#">О</a></li>
+    <li<?php if ($letter == 'П') echo ' class="active"' ?>><a href="#">П</a></li>
+    <li<?php if ($letter == 'Р') echo ' class="active"' ?>><a href="#">Р</a></li>
+    <li<?php if ($letter == 'С') echo ' class="active"' ?>><a href="#">С</a></li>
+    <li<?php if ($letter == 'Т') echo ' class="active"' ?>><a href="#">Т</a></li>
+    <li<?php if ($letter == 'У') echo ' class="active"' ?>><a href="#">У</a></li>
+    <li<?php if ($letter == 'Ф') echo ' class="active"' ?>><a href="#">Ф</a></li>
+    <li<?php if ($letter == 'Х') echo ' class="active"' ?>><a href="#">Х</a></li>
+    <li<?php if ($letter == 'Ц') echo ' class="active"' ?>><a href="#">Ц</a></li>
+    <li<?php if ($letter == 'Ч') echo ' class="active"' ?>><a href="#">Ч</a></li>
+    <li<?php if ($letter == 'Э') echo ' class="active"' ?>><a href="#">Э</a></li>
+    <li<?php if ($letter == 'Ю') echo ' class="active"' ?>><a href="#">Ю</a></li>
+    <li<?php if ($letter == 'Я') echo ' class="active"' ?>><a href="#">Я</a></li>
 </ul>
 <div class="content_block">
     <?php $this->renderPartial('_gender'); ?>
-    <p class="names_header">Все имена</p>
+
+    <?php if (!empty($letter)):?>
+        <p class="names_header">Имена на букву <span><?php echo $letter ?></span></p>
+    <?php else: ?>
+        <p class="names_header">Все имена</p>
+    <?php endif ?>
 
     <div class="clear"></div>
 

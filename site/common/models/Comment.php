@@ -102,6 +102,7 @@ class Comment extends CActiveRecord
     public function afterSave()
     {
         if ($this->isNewRecord){
+            // Если комментарий поста - считаем рейтинг
             if ($this->author->commentsCount == 1){
                 //первый комментарий пользователя, сообщаем модераторам
                 $signal = new ModerationSignals;

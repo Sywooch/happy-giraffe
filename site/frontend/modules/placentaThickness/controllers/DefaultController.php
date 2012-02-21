@@ -11,6 +11,9 @@ class DefaultController extends Controller
         );
     }
 
+    /**
+     * @sitemap
+     */
     public function actionIndex()
     {
         $model = new PlacentaThicknessForm;

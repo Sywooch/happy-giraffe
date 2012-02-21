@@ -76,9 +76,10 @@ function report(item)
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-27545132-1']);
 	  _gaq.push(['_trackPageview']);
+      var ga;
 
 	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
@@ -86,6 +87,24 @@ function report(item)
 	</script>
 </head>
 <body class="body-club">
+<?php
+Yii::import('site.frontend.extensions.GoogleAnalytics');
+$ga = new GoogleAnalytics('lnghosteg@gmail.com', 'EXJhWLcoT');
+$ga->setProfile('ga:53688414');
+
+
+	$report = $ga->getReport(
+		array('dimensions'=>urlencode('ga:pagePath'),
+			'metrics'=>urlencode('ga:newVisits,ga:visits'),
+            'filters'=>urlencode('ga:pagePath=@/community/'),
+			)
+		);
+
+	//print out the $report array
+	print "<pre>";
+	//print_r($report);
+	print "</pre>";
+?>
 	<div class="page">
 	
 		<div id="header" class="clearfix">

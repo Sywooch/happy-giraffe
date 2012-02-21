@@ -4,6 +4,7 @@ class m120216_124651_create_photos_attaches extends CDbMigration
 {
 	public function up()
 	{
+        $this->execute("ALTER TABLE `album_photos` CHANGE `id` `id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT ");
         $this->execute("CREATE TABLE IF NOT EXISTS `album_photos_attaches` (
           `photo_id` int(11) unsigned NOT NULL,
           `entity` varchar(50) NOT NULL,

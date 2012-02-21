@@ -86,7 +86,6 @@ function report(item)
 	</script>
 </head>
 <body class="body-club">
-123
 	<div class="page">
 	
 		<div id="header" class="clearfix">

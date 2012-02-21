@@ -87,26 +87,6 @@ function report(item)
 	</script>
 </head>
 <body class="body-club">
-<?php
-Yii::import('site.frontend.extensions.GoogleAnalytics');
-$ga = new GoogleAnalytics('lnghosteg@gmail.com', 'EXJhWLcoT');
-$ga->setProfile('ga:53688414');
-
-
-	$report = $ga->getReport(
-		array(
-            'dimensions'=>urlencode('ga:pagePath'),
-			'metrics'=>urlencode('ga:newVisits,ga:visits'),
-            'filters'=>urlencode('ga:pagePath==/' . Yii::app()->request->pathInfo . '/'),
-            'max-results' => 1,
-			)
-		);
-
-	//print out the $report array
-	print "<pre>";
-	//print_r($report);
-	print "</pre>";
-?>
 	<div class="page">
 	
 		<div id="header" class="clearfix">

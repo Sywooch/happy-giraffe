@@ -2,6 +2,28 @@
 /* @var $this Controller
  * @var $models UserSignal[]
  */
+
+Yii::app()->clientScript
+    ->registerScriptFile('/javascripts/dklab_realplexor.js')
+    ->registerScript('Realplexor-reg', '
+        var user_cache = "' . MessageCache::GetCurrentUserCache() . '";
+        var realplexor = new Dklab_Realplexor(
+            "http://' . Yii::app()->comet->host . '",
+            "' . Yii::app()->comet->namespace . '"
+        );
+
+        realplexor.subscribe(user_cache, function (result, id) {
+            console.log(result);
+            if (result.type == ' . UserSignal::SIGNAL_TAKEN . ') {
+                if(window.ShowNewMessage)
+                    ShowNewMessage(result);
+            }
+        });
+        realplexor.execute();
+')
+    ->registerScript('im_script', '
+
+    ');
 ?>
 <style type="text/css">
     .grid-view {
@@ -56,7 +78,11 @@
                         $(this).hide();
                     } else {
                         if (response.status == 2) {
-
+                            $.pnotify({
+                                pnotify_title: '<?php echo Yii::t('app', 'Ошибка');?>',
+                                pnotify_type: 'error',
+                                pnotify_text: 'Уже достаточно человек на задание'
+                            });
                         }
                     }
                 },

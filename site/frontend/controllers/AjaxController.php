@@ -54,7 +54,7 @@ class AjaxController extends Controller
             Yii::app()->end();
         $count = 0;
         if($model = PageView::model()->updateByPath($path))
-            $count = $model->views;
+            $count = $model->views + 1;
         echo CJSON::encode(array(
             'count' => (int)$count,
         ));

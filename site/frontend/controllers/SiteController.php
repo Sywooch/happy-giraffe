@@ -27,9 +27,18 @@ class SiteController extends Controller
         $criteria->from = 'communityName';
         $criteria->select = '*';
         $criteria->paginator = new CPagination();
-        $criteria->query = 'Удаление гемангиомы*';
+        $criteria->query = '*' . $text . '*';
         $resIterator = Yii::app()->search->search($criteria);
-        print_r($resIterator->getRawData());
+
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('t.id', array_keys($resIterator->getRawData()));
+        $criteria->with = array('travel', 'video', 'post');
+        $dataProvider = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria
+        ));
+        $this->render('search', array(
+            'dataProvider' => $dataProvider,
+        ));
     }
 
 	public function actionRegister()

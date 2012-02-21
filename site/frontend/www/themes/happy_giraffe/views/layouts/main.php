@@ -94,9 +94,11 @@ $ga->setProfile('ga:53688414');
 
 
 	$report = $ga->getReport(
-		array('dimensions'=>urlencode('ga:pagePath'),
+		array(
+            'dimensions'=>urlencode('ga:pagePath'),
 			'metrics'=>urlencode('ga:newVisits,ga:visits'),
-            'filters'=>urlencode('ga:pagePath=@/community/'),
+            'filters'=>urlencode('ga:pagePath==/' . Yii::app()->request->pathInfo . '/'),
+            'max-results' => 1,
 			)
 		);
 

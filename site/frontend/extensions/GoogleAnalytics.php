@@ -119,7 +119,6 @@ class GoogleAnalytics {
 		if ($xml) {
 			$dom = new DOMDocument();
 			$dom->loadXML($xml);
-            echo $xml;
 			$entries = $dom->getElementsByTagName('entry');
 			foreach ($entries as $entry){
 				$dimensions = $entry->getElementsByTagName('dimension');

@@ -10,12 +10,12 @@ return array(
 		'community/<community_id:\d+>/forum/<content_type_slug:\w+>' => 'community/list',
 		'community/<community_id:\d+>/forum' => 'community/list',
 		'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
-	
+
 		'contest/<id:\d+>' => 'contest/contest/view',
 		'contest/work/<id:\d+>' => 'contest/contestWork/view',
 		'contest/list/<id:\d+>/<sort:\w+>' => 'contest/contest/list',
 		'contest/<action:\w+>/<id:\d+>' => 'contest/contest/<action>',
-		
+
 		'/' => 'site/index',
 		'admin/' => 'admin/site/index',
 		'<controller:\w+>/admin'=>'site/index',
@@ -51,7 +51,14 @@ return array(
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 
-		array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
+		'pregnancyWeight' => 'pregnancyWeight/default/index',
+        'contractionsTime' => 'contractionsTime/default/index',
+        'placentaThickness' => 'placentaThickness/default/index',
+        'vaccineCalendar' => 'vaccineCalendar/default/index',
+        'menstrualCycle' => 'menstrualCycle/default/index',
+        'babyBloodGroup' => 'babyBloodGroup/default/index',
+
+        array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 
 	),
 );

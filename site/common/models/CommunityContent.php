@@ -231,17 +231,29 @@ class CommunityContent extends CActiveRecord
 
     public function afterSave()
     {
-        if ($this->contentAuthor->isNewComer()){
-            $signal = new ModerationSignals();
+        if ($this->contentAuthor->isNewComer() && $this->isNewRecord){
+            $signal = new UserSignal();
             $signal->user_id = $this->author_id;
             $signal->item_id = $this->id;
             $signal->item_name = 'CommunityContent';
-            $signal->type = ModerationSignals::TYPE_NEW_USER_POST;
+            $signal->signal_type = ModerationSignals::TYPE_NEW_USER_POST;
             if (!$signal->save()){
-                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
+                Yii::log('NewComers signal not saved', 'warning', 'application');
             }
         }
         return parent::afterSave();
+    }
+
+    public static function getLink($id)
+    {
+        $model = self::model()->with(array(
+            'type'=>array(
+                'select'=>'slug'
+            ),'rubric'=>array(
+                'select'=>'community_id'
+            )
+        ))->findByPk($id);
+        return Yii::app()->createUrl('community/view', array('community_id' => $model->rubric->community_id,
+            'content_type_slug' => $model->type->slug, 'content_id' => $model->id));
     }
 }

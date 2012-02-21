@@ -21,6 +21,17 @@ class SiteController extends Controller
 		);
 	}
 
+    public function actionSearch($text)
+    {
+        $criteria = new stdClass();
+        $criteria->from = 'communityName';
+        $criteria->select = '*';
+        $criteria->paginator = new CPagination();
+        $criteria->query = 'Удаление гемангиомы*';
+        $resIterator = Yii::app()->search->search($criteria);
+        print_r($resIterator->getRawData());
+    }
+
 	public function actionRegister()
 	{
 		$session = Yii::app()->session;

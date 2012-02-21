@@ -97,10 +97,12 @@ function report(item)
 			<div class="header-in">
 								
 				<div class="search-box">
-					<button class="btn"><span><span>Поиск</span></span></button>
-					<div class="text">
-						<input type="text" />
-					</div>
+                    <form action="<?php echo $this->createUrl('site/search'); ?>">
+                        <button class="btn"><span><span>Поиск</span></span></button>
+                        <div class="text">
+                            <input type="text" name="text" />
+                        </div>
+                    </form>
 				</div>
 				<?php $this->widget('site.frontend.widgets.loginWidget.LoginWidget'); ?>
 				<div class="nav">

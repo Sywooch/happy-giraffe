@@ -13,7 +13,7 @@ class m120221_080515_add_slug_to_names extends CDbMigration
         $names = Name::model()->findAll();
         foreach ($names as $name) {
             $name->scenario = Name::SCENARIO_EDIT_NAME;
-            $name->update('slug');
+            $name->save();
         }
     }
 

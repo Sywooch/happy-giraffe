@@ -27,6 +27,9 @@ class DefaultController extends Controller
 
     public function actionEdit($id = null)
     {
+        if (Yii::app()->user->isGuest)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         if ($id === null) {
             $model = new RecipeBookRecipe;
         }

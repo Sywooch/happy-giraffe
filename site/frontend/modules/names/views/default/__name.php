@@ -3,7 +3,7 @@
  */
 ?>
 <div class="name_block<?php if (!empty($num) && $num % 3 == 0) echo ' last' ?>">
-    <a href="<?php echo $this->createUrl('/names/default/name', array('name' => $name)) ?>" class="<?php
+    <a href="<?php echo $this->createUrl('/names/default/name', array('name' => $slug)) ?>" class="<?php
     echo ($gender == 1) ? 'boy' : 'girl'  ?>"><?php
         echo $name ?></a>
     <a rel="<?php echo $id ?>" href="#" class="heart<?php

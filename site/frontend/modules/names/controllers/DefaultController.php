@@ -112,7 +112,7 @@ class DefaultController extends Controller
     public function actionName($name)
     {
         $this->SetLikes();
-        $name = $this->LoadModelByName($name);
+        $name = $this->LoadModelBySlugName($name);
         $name->initOptionsSweetMiddles();
 
         $this->render('name_view', array('name' => $name));
@@ -167,7 +167,7 @@ class DefaultController extends Controller
      * @param string $name
      * @return Name
      */
-    public function LoadModelByName($name)
+    public function LoadModelBySlugName($name)
     {
         $model = Name::model()->with(array(
             'nameFamouses' => array('order' => 'nameFamouses.last_name'),
@@ -175,7 +175,7 @@ class DefaultController extends Controller
 //            'nameMiddles'=>array('select'=>'value'),
 //            'nameOptions'=>array('select'=>'value'),
 //            'nameSweets'=>array('select'=>'value'),
-        ))->findByAttributes(array('name' => $name));
+        ))->findByAttributes(array('slug' => $name));
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

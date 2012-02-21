@@ -40,6 +40,7 @@
                        $this->renderPartial('__name', array(
                            'id' => $name['id'],
                            'name' => $name['name'],
+                           'slug' => $name['slug'],
                            'gender' => $name['gender'],
                            'translate' => $name['translate'],
                            'like_ids' => $like_ids,
@@ -54,6 +55,7 @@
                        $this->renderPartial('__name', array(
                            'id' => $name['id'],
                            'name' => $name['name'],
+                           'slug' => $name['slug'],
                            'gender' => $name['gender'],
                            'translate' => $name['translate'],
                            'like_ids' => $like_ids,
@@ -68,6 +70,7 @@
                        $this->renderPartial('__name', array(
                            'id' => $name['id'],
                            'name' => $name['name'],
+                           'slug' => $name['slug'],
                            'gender' => $name['gender'],
                            'translate' => $name['translate'],
                            'like_ids' => $like_ids,

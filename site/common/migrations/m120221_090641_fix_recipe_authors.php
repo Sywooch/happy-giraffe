@@ -12,6 +12,7 @@ class m120221_090641_fix_recipe_authors extends CDbMigration
         print_r($user_ids);
         $user_not_set = RecipeBookRecipe::model()->findAll('user_id IS NULL');
 
+        if (!empty($user_ids))
         foreach ($user_not_set as $model) {
             $model->user_id = $user_ids[rand(0, count($user_ids)-1)];
             $model->update('user_id');

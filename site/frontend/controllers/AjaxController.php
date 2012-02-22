@@ -116,6 +116,8 @@ class AjaxController extends Controller
 
 	public function actionShowReport()
 	{
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
 		$accepted_models = array(
 			'CommunityComment',
 			'CommunityContent',
@@ -127,7 +129,9 @@ class AjaxController extends Controller
 		$source_data = $_POST['source_data'];
 		if (in_array($source_data['model'], $accepted_models))
 		{
-			$this->widget('ReportWidget', array('source_data' => $source_data));
+			$report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('source_data' => $source_data));
+            $report->form();
+            $this->endWidget();
 		}
 	}
 

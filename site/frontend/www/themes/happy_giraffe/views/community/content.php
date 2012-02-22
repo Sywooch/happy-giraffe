@@ -186,7 +186,9 @@ $cs
         <span class="comm">Комментариев: <span><?php echo $c->commentsCount; ?></span></span>
 
         <div class="spam">
-            <a href="#"><span>Нарушение!</span></a>
+            <?php $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $c));
+            $report->button();
+            $this->endWidget(); ?>
         </div>
         <div class="clear"></div>
     </div>

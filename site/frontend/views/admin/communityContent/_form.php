@@ -15,12 +15,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'views'); ?>
-<?php echo $form->textField($model,'views',array('size'=>11,'maxlength'=>11)); ?>
-<?php echo $form->error($model,'views'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'rating'); ?>
 <?php echo $form->textField($model,'rating',array('size'=>11,'maxlength'=>11)); ?>
 <?php echo $form->error($model,'rating'); ?>

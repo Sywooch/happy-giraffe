@@ -80,6 +80,7 @@ class CommunityContent extends CActiveRecord
 			'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id'),
 			'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id'),
 			'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
 		);
 	}
 

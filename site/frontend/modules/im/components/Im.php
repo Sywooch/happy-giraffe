@@ -73,6 +73,10 @@ class Im
                     $new_dialog['users'][] = $user->user_id;
                 }
             }
+            if (empty($new_dialog['users'])){
+                //remove dialog
+                MessageDialog::model()->deleteByPk($dialog->id);
+            }
             $this->_dialogs[$dialog->id] = $new_dialog;
         }
 

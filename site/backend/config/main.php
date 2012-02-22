@@ -62,10 +62,14 @@ return array(
             'useCursor'        => false
         ),
         'comet'=>array(
-            'class' => 'ext.Dklab_Realplexor',
+            'class' => 'site.frontend.extensions.Dklab_Realplexor',
             'host' => 'plexor.dev.happy-giraffe.ru',
             'port' => 10010,
             'namespace' => 'crm_',
+        ),
+        'cache'=>array(
+            //	'class' => 'CMemCache',
+            'class' => 'CDummyCache',
         )
 	),
 

@@ -5,8 +5,8 @@ class m120222_054059_moderator_functions extends CDbMigration
     private $_table = 'auth_item_child';
 	public function up()
 	{
-//        $this->dropForeignKey($this->_table.'_parent_fk', $this->_table);
-//        $this->dropForeignKey($this->_table.'_child_fk', $this->_table);
+        $this->dropForeignKey($this->_table.'_parent_fk', $this->_table);
+        $this->dropForeignKey($this->_table.'_child_fk', $this->_table);
 
         $this->truncateTable($this->_table);
 

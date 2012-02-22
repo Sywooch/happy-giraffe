@@ -48,6 +48,18 @@ class AjaxController extends Controller
 		}
 	}
 
+    public function actionPageView()
+    {
+        if(!Yii::app()->request->isAjaxRequest || false === ($path = Yii::app()->request->getPost('path')))
+            Yii::app()->end();
+        $count = 0;
+        if($model = PageView::model()->updateByPath($path))
+            $count = $model->views;
+        echo CJSON::encode(array(
+            'count' => (int)$count,
+        ));
+    }
+
 	public function actionShowComments()
 	{
 		$this->widget('CommentWidget', array(

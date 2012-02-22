@@ -106,10 +106,11 @@ class AjaxController extends Controller
 	{
 		if ($_POST['Report'])
 		{
+            $path = parse_url($_SERVER['HTTP_REFERER']);
 			$report = new Report;
 			$report->setAttributes($_POST['Report'], FALSE);
-			$report->informer_id = Yii::app()->user->id;
-			$report->type = 'Другое';
+			$report->author_id = Yii::app()->user->id;
+            $report->path = $path['path'];
 			$report->save();
 		}
 	}

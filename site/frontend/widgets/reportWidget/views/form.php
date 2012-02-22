@@ -9,22 +9,7 @@
 	<?php endforeach; ?>
 	<div class="left-b">
 		<big>Укажите нарушение</big>
-		<p>
-			<?php echo $form->radioButton($report, 'type', array('class' => 'RadioClass', 'id' => 'value1', 'value' => 'Спам')); ?>
-			<label for="value1" class="RadioLabelClass">Спам</label>
-		</p>
-		<p>
-			<?php echo $form->radioButton($report, 'type', array('class' => 'RadioClass', 'id' => 'value2', 'value' => 'Оскорбление пользователей')); ?>
-			<label for="value2" class="RadioLabelClass">Оскорбление пользователей</label>
-		</p>
-		<p>
-			<?php echo $form->radioButton($report, 'type', array('class' => 'RadioClass', 'id' => 'value3', 'value' => 'Разжигание межнациональной розни')); ?>
-			<label for="value3" class="RadioLabelClass">Разжигание межнациональной розни</label>
-		</p>
-		<p>
-			<?php echo $form->radioButton($report, 'type', array('class' => 'RadioClass', 'id' => 'value4', 'value' => 'Другое')); ?>
-			<label for="value4" class="RadioLabelClass">Другое</label>
-		</p>
+        <?php echo $form->radioButtonList($report, 'type', $report->types); ?>
 	</div>
 	<div class="right-b">
 		<big>Опишите нарушение (обязательно)</big>

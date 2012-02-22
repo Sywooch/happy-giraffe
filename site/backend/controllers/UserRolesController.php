@@ -5,6 +5,13 @@ class UserRolesController extends BController
     public $layout = 'shop';
 	public $defaultAction='admin';
 
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('управление правами пользователей'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -14,17 +21,22 @@ class UserRolesController extends BController
 	{
 		$model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['User']))
 		{
-            if (isset($_POST['User']['role'])){
-                Yii::app()->authManager->revoke($model->getRole(), $model->id);
-                if (!empty($_POST['User']['role']))
+            $assignments = Yii::app()->authManager->getAuthAssignments($model->id);
+            foreach($assignments as $assignment)
+                Yii::app()->authManager->revoke($assignment->itemName, $model->id);
+
+            if (isset($_POST['User']['role']) && !empty($_POST['User']['role']))
                     Yii::app()->authManager->assign($_POST['User']['role'], $model->id);
-                $this->redirect('/userRoles/admin');
-            }
+
+            if (isset($_POST['Operation']))
+                foreach ($_POST['Operation'] as $key => $value) {
+                    if ($value == 1) {
+                        Yii::app()->authManager->assign($key, $model->id);
+                    }
+                }
+            $this->redirect('/userRoles/admin');
 		}
 
 		$this->render('update',array(

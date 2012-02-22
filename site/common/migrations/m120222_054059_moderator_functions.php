@@ -9,6 +9,7 @@ class m120222_054059_moderator_functions extends CDbMigration
         $this->_table = 'auth_assignment';
         $this->truncateTable($this->_table);
         $this->_table = 'auth_item';
+        $this->alterColumn($this->_table, 'name', 'varchar(64) null');
         $this->truncateTable($this->_table);
         $this->execute("INSERT INTO `auth_item` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
 ('administrator', 2, 'Администратор', NULL, NULL),
@@ -46,7 +47,7 @@ INSERT INTO `auth_assignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('administrator', '22', NULL, NULL);
 
 ");
-
+        $this->alterColumn($this->_table, 'name', 'varchar(64) not null');
 	}
 
 	public function down()

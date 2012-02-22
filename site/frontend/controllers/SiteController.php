@@ -149,9 +149,11 @@ class SiteController extends Controller
             if(isset($_SERVER['HTTP_REFERER']) && $url_info = parse_url($_SERVER['HTTP_REFERER']))
             {
                 if($url_info['host'] == $_SERVER['HTTP_HOST'])
+                {
                     $redirectUrl = $url_info['path'];
+                    Yii::app()->user->setState('social_redirect', $redirectUrl);
+                }
             }
-            Yii::app()->user->setState('social_redirect', $redirectUrl);
             $authIdentity->redirectUrl = $redirectUrl;
 
 			if ($authIdentity->authenticate()) {

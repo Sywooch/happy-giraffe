@@ -145,7 +145,13 @@ class SiteController extends Controller
 		$service = Yii::app()->request->getQuery('service');
 		if (isset($service)) {
 			$authIdentity = Yii::app()->eauth->getIdentity($service);
-			$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
+            $redirectUrl = Yii::app()->user->loginUrl;
+            if(isset($_SERVER['HTTP_REFERER']) && $url_info = parse_url($_SERVER['HTTP_REFERER']))
+            {
+                if($url_info['host'] == $_SERVER['HTTP_HOST'])
+                    $redirectUrl = $_SERVER['HTTP_REFERER'];
+            }
+            $authIdentity->redirectUrl = $redirectUrl;
 
 			if ($authIdentity->authenticate()) {
 				$name = $authIdentity->getServiceName();

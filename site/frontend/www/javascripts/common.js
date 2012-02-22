@@ -1,6 +1,5 @@
 var socwin;
 $(document).ready(function() {
-
 	if ($('a.fancy').size() > 0) {
         $('body').delegate('a.fancy', 'click', function() {
             var onComplete_function = function() {};

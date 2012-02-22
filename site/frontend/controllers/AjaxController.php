@@ -52,9 +52,9 @@ class AjaxController extends Controller
     {
         if(!Yii::app()->request->isAjaxRequest || false === ($path = Yii::app()->request->getPost('path')))
             Yii::app()->end();
-        $count = 0;
+        $count = 1;
         if($model = PageView::model()->updateByPath($path))
-            $count = $model->views;
+            $count = $model->views + 1;
         echo CJSON::encode(array(
             'count' => (int)$count,
         ));

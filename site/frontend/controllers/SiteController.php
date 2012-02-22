@@ -151,7 +151,6 @@ class SiteController extends Controller
                 if($url_info['host'] == $_SERVER['HTTP_HOST'])
                     $redirectUrl = $_SERVER['HTTP_REFERER'];
             }
-            echo $redirectUrl;exit;
             $authIdentity->redirectUrl = $redirectUrl;
 
 			if ($authIdentity->authenticate()) {

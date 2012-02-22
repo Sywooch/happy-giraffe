@@ -207,6 +207,7 @@ class User extends CActiveRecord
             'current_password' => 'Текущий пароль',
             'new_password' => 'Новый пароль',
             'new_password_repeat' => 'Новый пароль ещё раз',
+            'role'=>'Роль'
         );
     }
 
@@ -502,9 +503,11 @@ class User extends CActiveRecord
         $assigns = Yii::app()->authManager->getAuthAssignments($this->id);
         if (empty($assigns))
             return 'user';
+        $roles = '';
         foreach($assigns as $assign){
-            return $assign->itemName;
+            $roles.= $assign->itemName.', ';
         }
+        return trim($roles, ', ');
     }
 
     /**

@@ -76,7 +76,6 @@ class CommunityContent extends CActiveRecord
 		return array(
 			'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
 			'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
-			'comments' => array(self::HAS_MANY, 'CommunityComment', 'content_id'),
 			'commentsCount' => array(self::STAT, 'Comment', 'object_id', 'condition' => 'model=:modelName', 'params' => array(':modelName' => 'CommunityContent')),
 			'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id'),
 			'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id'),
@@ -195,12 +194,6 @@ class CommunityContent extends CActiveRecord
 		return array(
 			'view' => array(
 				'with' => array(
-					'comments' => array(
-						'with' => array(
-							'commentAuthor',
-						),
-						'order' => 'comments.created DESC',
-					),
 					'rubric' => array(
 						'with' => array(
 							'community' => array(

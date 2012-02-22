@@ -21,11 +21,6 @@
         </div>
 
         <div class="row">
-                <?php echo $form->label($model,'views'); ?>
-                <?php echo $form->textField($model,'views',array('size'=>11,'maxlength'=>11)); ?>
-        </div>
-
-        <div class="row">
                 <?php echo $form->label($model,'rating'); ?>
                 <?php echo $form->textField($model,'rating',array('size'=>11,'maxlength'=>11)); ?>
         </div>

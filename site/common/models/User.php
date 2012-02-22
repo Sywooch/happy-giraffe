@@ -67,6 +67,7 @@ class User extends CActiveRecord
     public $current_password;
     public $new_password;
     public $new_password_repeat;
+    public $remember;
 
     public function getAge()
     {
@@ -207,6 +208,8 @@ class User extends CActiveRecord
             'current_password' => 'Текущий пароль',
             'new_password' => 'Новый пароль',
             'new_password_repeat' => 'Новый пароль ещё раз',
+            'remember' => 'Запомнить меня',
+            'role'=>'Роль'
         );
     }
 
@@ -502,9 +505,11 @@ class User extends CActiveRecord
         $assigns = Yii::app()->authManager->getAuthAssignments($this->id);
         if (empty($assigns))
             return 'user';
+        $roles = '';
         foreach($assigns as $assign){
-            return $assign->itemName;
+            $roles.= $assign->itemName.', ';
         }
+        return trim($roles, ', ');
     }
 
     /**

@@ -2,9 +2,13 @@
 
 class m120222_054059_moderator_functions extends CDbMigration
 {
-    private $_table = 'auth_item';
+    private $_table = 'auth_item_child';
 	public function up()
 	{
+        $this->truncateTable($this->_table);
+        $this->_table = 'auth_assignment';
+        $this->truncateTable($this->_table);
+        $this->_table = 'auth_item';
         $this->truncateTable($this->_table);
         $this->execute("INSERT INTO `auth_item` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
 ('administrator', 2, 'Администратор', NULL, NULL),

@@ -30,12 +30,13 @@ $('.close').click(function () {
 ?>
 
 
-	<?php if (Yii::app()->user->checkAccess('редактирование тем в сообществах')):?>
+	<?php if (Yii::app()->user->checkAccess('редактирование тем в сообществах') ||
+        $content_model->author_id == Yii::app()->user->getId()):?>
 	    <div class="">
     		<div class="inner-title">Заголовок видео</div>
     		<?php echo $form->textField($content_model, 'name'); ?>
 
-    		<?php if(Yii::app()->user->checkAccess('editor')): ?>
+    		<?php if(Yii::app()->user->checkAccess('редактирование meta')): ?>
     			<div class="inner-title">Title</div>
     			<?php echo $form->textField($content_model, 'meta_title'); ?>
 

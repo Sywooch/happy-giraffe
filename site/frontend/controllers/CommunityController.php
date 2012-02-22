@@ -107,7 +107,6 @@ class CommunityController extends Controller
 			Yii::app()->clientScript->registerMetaTag($content->meta_keywords, 'keywords');
 			$content->views++;
 			$content->save();
-			$comment_model = new CommunityComment;
 			$content_types = CommunityContentType::model()->findAll();
 			
 			$next = CommunityContent::model()->with('type', 'post', 'video')->find(array(

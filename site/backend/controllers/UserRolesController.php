@@ -5,6 +5,13 @@ class UserRolesController extends BController
     public $layout = 'shop';
 	public $defaultAction='admin';
 
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('управление правами пользователей'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.

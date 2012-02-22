@@ -37,6 +37,29 @@ $('#add_comment').live('submit', function(e) {
 		},
 	});
 });
+
+$('body').delegate('a.remove-comment', 'click', function () {
+        if (confirm('Вы точно хотите удалить комментарий?')) {
+            var id = $(this).parents('.item').attr('id').replace(/CommunityComment_/g, '');
+            $.ajax({
+                url:'" . Yii::app()->createUrl("ajax/deleteComment") . "',
+                data:{id:id},
+                type:'POST',
+                dataType:'JSON',
+                success:function (response) {
+                    if (response.status) {
+                        $(this).parents('.item').fadeOut(300, function(){
+                            $(this).undelegate('click');
+                            $(this).remove();
+                            $('.left-s .col').html(parseInt($('.left-s .col').html()) - 1);
+                        });
+                    }
+                },
+                context:$(this)
+            });
+        }
+        return false;
+    });
 	";
 	$cs->registerScript('comment_widget_form', $js);
 	

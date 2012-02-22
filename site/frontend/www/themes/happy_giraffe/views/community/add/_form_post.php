@@ -60,6 +60,7 @@
 
 	<div class="">
 		<div class="inner-title">Заголовок статьи</div>
+
 		<?php echo $form->textField($content_model, 'name'); ?>
 	
 		<?php if(Yii::app()->user->checkAccess('editor')): ?>
@@ -94,7 +95,7 @@
 		
 		<div class="settings-l">
 			<div class="inner-title">Выберите сообщество и рубрику</div>
-			
+
 			<?php if ($content_model->isNewRecord): ?>
 				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
                 array(
@@ -111,14 +112,14 @@
 							'url' => CController::createUrl('ajax/rubrics'),
 							'update' => '#cusel-scroll-CommunityContent_rubric_id',
 						),
-						'disabled' => Yii::app()->user->checkAccess('moder') ? '' : 'disabled',
+						'disabled' => Yii::app()->user->checkAccess('перенос темы из сообщества в сообщество') ? '' : 'disabled',
 					)
 				); ?></p>
 			
 				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
 					array(
 						'prompt' => 'Выберите рубрику',
-						'disabled' => Yii::app()->user->checkAccess('moder') ? '' : 'disabled',
+						'disabled' => Yii::app()->user->checkAccess('перенос темы из сообщества в сообщество') ? '' : 'disabled',
                         'class'=>'chzn'
 					)
 				); ?>

@@ -25,7 +25,8 @@
             <div class="a-right login-btn">
 
                 <div class="remember">
-                    <label><input type="checkbox"/><br/>Запомнить меня</label>
+                    <?php echo $form->checkBox($model, 'remember'); ?>
+                    <?php echo $form->label($model, 'remember'); ?>
                 </div>
 
                 <button class="btn btn-green-arrow-big"><span><span>Войти</span></span></button>

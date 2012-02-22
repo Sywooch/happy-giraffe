@@ -75,7 +75,6 @@ class CommunityContent extends CActiveRecord
 		return array(
 			'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
 			'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
-			'comments' => array(self::HAS_MANY, 'CommunityComment', 'content_id'),
 			'commentsCount' => array(self::STAT, 'Comment', 'object_id', 'condition' => 'model=:modelName', 'params' => array(':modelName' => 'CommunityContent')),
 			'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id'),
 			'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id'),
@@ -192,12 +191,6 @@ class CommunityContent extends CActiveRecord
 		return array(
 			'view' => array(
 				'with' => array(
-					'comments' => array(
-						'with' => array(
-							'commentAuthor',
-						),
-						'order' => 'comments.created DESC',
-					),
 					'rubric' => array(
 						'with' => array(
 							'community' => array(
@@ -228,17 +221,29 @@ class CommunityContent extends CActiveRecord
 
     public function afterSave()
     {
-        if ($this->contentAuthor->isNewComer()){
-            $signal = new ModerationSignals();
+        if ($this->contentAuthor->isNewComer() && $this->isNewRecord){
+            $signal = new UserSignal();
             $signal->user_id = $this->author_id;
             $signal->item_id = $this->id;
             $signal->item_name = 'CommunityContent';
-            $signal->type = ModerationSignals::TYPE_NEW_USER_POST;
+            $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
             if (!$signal->save()){
-                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
+                Yii::log('NewComers signal not saved', 'warning', 'application');
             }
         }
         return parent::afterSave();
+    }
+
+    public static function getLink($id)
+    {
+        $model = self::model()->with(array(
+            'type'=>array(
+                'select'=>'slug'
+            ),'rubric'=>array(
+                'select'=>'community_id'
+            )
+        ))->findByPk($id);
+        return Yii::app()->createUrl('community/view', array('community_id' => $model->rubric->community_id,
+            'content_type_slug' => $model->type->slug, 'content_id' => $model->id));
     }
 }

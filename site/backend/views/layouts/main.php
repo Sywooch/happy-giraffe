@@ -28,6 +28,9 @@
 
             ->registerScriptFile('/js/jquery.tmpl.min.js')
 
+            ->registerScriptFile('/js/jquery.pnotify.min.js')
+            ->registerCssFile('/css/jquery.pnotify.css')
+
             ->registerScriptFile('/js/jquery.iframe-post-form.js')
         ;
     ?>

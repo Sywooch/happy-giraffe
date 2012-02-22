@@ -5,97 +5,44 @@ class m120222_054059_moderator_functions extends CDbMigration
     private $_table = 'auth_item';
 	public function up()
 	{
-        $this->insert($this->_table, array(
-            'name'=>'удаление тем в сообществах',
-            'type'=>'0',
-            'description'=>'Удаление тем в сообществах',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'удаление тем в блогах',
-            'type'=>'0',
-            'description'=>'удаление тем в блогах',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'редактирование тем в сообществах',
-            'type'=>'0',
-            'description'=>'редактирование тем в сообществах (название темы, текст)',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'редактирование тем в блогах',
-            'type'=>'0',
-            'description'=>'редактирование тем в блогах (название темы, текст)',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'удаление комментариев в сообществах',
-            'type'=>'0',
-            'description'=>'удаление комментариев в сообществах',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'удаление комментариев в блогах',
-            'type'=>'0',
-            'description'=>'удаление комментариев в блогах',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'редактирование комментариев в блогах',
-            'type'=>'0',
-            'description'=>'редактирование комментариев в блогах',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'редактирование комментариев в сообществах',
-            'type'=>'0',
-            'description'=>'редактирование комментариев в сообществах',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'изменение рубрик в темах',
-            'type'=>'0',
-            'description'=>'изменение рубрик в темах',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'перенос темы из сообщества в сообщество',
-            'type'=>'0',
-            'description'=>'перенос темы из сообщества в сообщество',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'удаление пользователей',
-            'type'=>'0',
-            'description'=>'удаление пользователей',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'блокировка пользователей',
-            'type'=>'0',
-            'description'=>'блокировка пользователей',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'редактирование страницы пользователей',
-            'type'=>'0',
-            'description'=>'полное редактирование страницы пользователей',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'удаление фото в конкурсе',
-            'type'=>'0',
-            'description'=>'удаление фото в конкурсе',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'редактирование и удалении записей в сервисах',
-            'type'=>'0',
-            'description'=>'редактирование и удалении записей в сервисах',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'редактирование и удаление комментариев в сервисах',
-            'type'=>'0',
-            'description'=>'редактирование и удаление комментариев в сервисах',
-        ));
+        $this->truncateTable($this->_table);
+        $this->execute("INSERT INTO `auth_item` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
+('administrator', 2, 'Администратор', NULL, NULL),
+('editor', 2, 'Редактор', NULL, NULL),
+('moderator', 2, 'обработка сигналов от пользователей', NULL, NULL),
+('supermoderator', 2, 'Супер модератор', NULL, NULL),
+('user_signals', 1, 'обработка сигналов от пользователей', NULL, NULL),
+('блокировка пользователей', 0, 'блокировка пользователей', NULL, NULL),
+('видеть сигналы', 0, 'видеть сигналы от новых пользователей', NULL, NULL),
+('изменение рубрик в темах', 0, 'изменение рубрик в темах', NULL, NULL),
+('перенос темы из сообщества в сообщество', 0, 'перенос темы из сообщества в сообщество', NULL, NULL),
+('редактирование meta', 0, 'редактирование title, description, keywords', NULL, NULL),
+('редактирование и удалении записей в сервисах', 0, 'редактирование и удалении записей в сервисах', NULL, NULL),
+('редактирование комментариев', 0, 'редактирование комментариев', NULL, NULL),
+('редактирование страницы пользователей', 0, 'полное редактирование страницы пользователей', NULL, NULL),
+('редактирование тем в блогах', 0, 'редактирование тем в блогах (название темы, текст)', NULL, NULL),
+('редактирование тем в сообществах', 0, 'редактирование тем в сообществах (название темы, текст)', NULL, NULL),
+('удаление комментариев', 0, 'удаление комментариев', NULL, NULL),
+('удаление пользователей', 0, 'удаление пользователей', NULL, NULL),
+('удаление тем в блогах', 0, 'удаление тем в блогах', NULL, NULL),
+('удаление тем в сообществах', 0, 'Удаление тем в сообществах', NULL, NULL),
+('удаление фото в конкурсе', 0, 'удаление фото в конкурсе', NULL, NULL),
+('управление правами пользователей', 0, 'управление правами пользователей', NULL, NULL);
 
-        $this->insert($this->_table, array(
-            'name'=>'administrator',
-            'type'=>'2',
-            'description'=>'Администратор',
-        ));
-        $this->insert($this->_table, array(
-            'name'=>'supermoderator',
-            'type'=>'2',
-            'description'=>'Супер модератор',
-        ));
+
+INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
+('moderator', 'user_signals'),
+('user_signals', 'видеть сигналы'),
+('editor', 'редактирование meta'),
+('administrator', 'управление правами пользователей'),
+('supermoderator', 'управление правами пользователей');
+
+INSERT INTO `auth_assignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
+('administrator', '9987', NULL, NULL),
+('administrator', '22', NULL, NULL);
+
+");
+
 	}
 
 	public function down()

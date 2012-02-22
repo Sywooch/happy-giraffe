@@ -95,7 +95,7 @@ class AjaxController extends Controller
         $comment = Comment::model()->findByPk($id);
         //check user is author or moderator
         if ($comment->author_id == Yii::app()->user->getId() ||
-            Yii::app()->authManager->checkAccess('удаление комментариев в сообществах', Yii::app()->user->getId())) {
+            Yii::app()->authManager->checkAccess('удаление комментариев', Yii::app()->user->getId())) {
             echo CJSON::encode(array(
                 'status' => $comment->delete(),
             ));

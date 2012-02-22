@@ -27,7 +27,7 @@
                                                                                  class="report"></a><?php endif; ?>
                     </div>
                     <?php if ($cm->author->id == Yii::app()->user->id ||
-                    Yii::app()->authManager->checkAccess('редактирование комментариев в сообществах',
+                    Yii::app()->authManager->checkAccess('редактирование комментариев',
                         Yii::app()->user->getId(), array(
                             'community_id' => null,
                         ))
@@ -35,7 +35,7 @@
                     <?php echo CHtml::link('редактировать', Yii::app()->createUrl('admin/comment/update', array('id' => $cm->id))); ?>
                     <?php endif; ?>
                     <?php if ($cm->author->id == Yii::app()->user->id ||
-                    Yii::app()->authManager->checkAccess('удаление комментариев в сообществах', Yii::app()->user->getId(), array(
+                    Yii::app()->authManager->checkAccess('удаление комментариев', Yii::app()->user->getId(), array(
                         'community_id' => null,
                     ))
                 ): ?>

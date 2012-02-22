@@ -26,19 +26,23 @@ class CommentController extends Controller
     {
         $model = $this->loadModel();
 
-        if (isset($_POST['Comment']['text'])) {
-            $model->text = $_POST['Comment']['text'];
+        if ($model->author_id == Yii::app()->user->getId() ||
+            Yii::app()->authManager->checkAccess('редактирование комментариев', Yii::app()->user->getId())
+        ) {
+            if (isset($_POST['Comment']['text'])) {
+                $model->text = $_POST['Comment']['text'];
 
-            if ($model->save()){
-                $class = $model->model;
-                $link = $class::getLink($model->object_id);
-                $this->redirect($link);
+                if ($model->save()) {
+                    $class = $model->model;
+                    $link = $class::getLink($model->object_id);
+                    $this->redirect($link);
+                }
             }
-        }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+            $this->render('update', array(
+                'model' => $model,
+            ));
+        }
     }
 
     /**

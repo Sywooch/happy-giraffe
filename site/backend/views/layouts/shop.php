@@ -60,28 +60,28 @@
                 'label' => 'Пользователи',
                 'url' => array('users/index'),
                 'itemOptions' => array('class' => 'submenu'),
-//                'visible'=> (Yii::app()->user->checkAccess('управление правами пользователей') ||
-//                     Yii::app()->user->checkAccess('удаление пользователей')),
+                'visible'=> (Yii::app()->user->checkAccess('управление правами пользователей') ||
+                     Yii::app()->user->checkAccess('удаление пользователей')),
                 'items' => array(
                     array(
                         'label' => 'Назначения',
                         'url' => array('UserRoles/admin'),
-//                        'visible'=> Yii::app()->user->checkAccess('управление правами пользователей'),
+                        'visible'=> Yii::app()->user->checkAccess('управление правами пользователей'),
                     ),
                     array(
                         'label' => 'Роли',
                         'url' => array('roles/admin'),
-//                        'visible'=> Yii::app()->user->checkAccess('управление правами пользователей'),
+                        'visible'=> Yii::app()->user->checkAccess('управление правами пользователей'),
                     ),
                     array(
                         'label' => 'Группы действий',
                         'url' => array('operationGroups/admin'),
-//                        'visible'=> Yii::app()->user->checkAccess('управление правами пользователей'),
+                        'visible'=> Yii::app()->user->checkAccess('управление правами пользователей'),
                     ),
                     array(
                         'label' => 'Действия',
                         'url' => array('operations/admin'),
-//                        'visible'=> Yii::app()->user->checkAccess('управление правами пользователей'),
+                        'visible'=> Yii::app()->user->checkAccess('управление правами пользователей'),
                     ),
                 )
             ),

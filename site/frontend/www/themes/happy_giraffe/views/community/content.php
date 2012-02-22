@@ -58,7 +58,8 @@ $cs
         <div class="meta">
             <div
                 class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", strtotime($c->created)); ?></div>
-            <div class="seen">Просмотров:&nbsp;<span><?php echo $c->views; ?></span></div>
+            <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php echo $this->views; ?></span></div>
+            <?php Rating::model()->saveByEntity($c, 'rt', floor($this->views / 100)); ?>
 
         </div>
         <div class="clear"></div>

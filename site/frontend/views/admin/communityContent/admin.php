@@ -42,7 +42,6 @@ data: $(this).serialize()
 		'id',
 		'name',
 		'created',
-		'views',
 		'rating',
 		'author_id',
 		/*

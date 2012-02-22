@@ -53,6 +53,9 @@ class SiteController extends BController
                     ':password'=>md5($model->password),
                 )));
 
+            if (!Yii::app()->authManager->checkAccess('вход в админку', $userModel->id))
+                throw new CHttpException(404, 'Недостаточно прав.');
+
             if ($userModel)
             {
                 $identity=new AdminUserIdentity($userModel->getAttributes());

@@ -5,6 +5,8 @@ class m120222_054059_moderator_functions extends CDbMigration
     private $_table = 'auth_item_child';
 	public function up()
 	{
+        $this->alterColumn($this->_table, 'parent', 'varchar(64) null');
+        $this->alterColumn($this->_table, 'child', 'varchar(64) null');
         $this->truncateTable($this->_table);
         $this->_table = 'auth_assignment';
         $this->truncateTable($this->_table);
@@ -48,6 +50,9 @@ INSERT INTO `auth_assignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 
 ");
         $this->alterColumn($this->_table, 'name', 'varchar(64) not null');
+        $this->_table = 'auth_item_child';
+        $this->alterColumn($this->_table, 'parent', 'varchar(64) null');
+        $this->alterColumn($this->_table, 'child', 'varchar(64) null');
 	}
 
 	public function down()

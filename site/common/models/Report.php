@@ -11,6 +11,7 @@
  * @property string $model
  * @property string $object_id
  * @property string $path
+ * @property int $accepted
  * @property string $created
  * @property string $updated
  */
@@ -21,6 +22,11 @@ class Report extends CActiveRecord
         'Оскорбление пользователей',
         'Разжигание межнациональной розни',
         'Другое',
+    );
+
+    public $accepted_types = array(
+        'Нет',
+        'Да',
     );
 	/**
 	 * Returns the static model of the specified AR class.
@@ -52,9 +58,10 @@ class Report extends CActiveRecord
 			array('author_id, object_id', 'length', 'max'=>11),
 			array('model', 'length', 'max'=>255),
             array('path, created, updated', 'safe'),
-			// The following rule is used by search().
+            array('accepted', 'boolean'),
+            // The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, text, author_id, model, object_id', 'safe', 'on'=>'search'),
+			array('id, type, text, author_id, model, object_id, accepted', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +73,7 @@ class Report extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
 		);
 	}
 
@@ -89,14 +97,23 @@ class Report extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'type' => 'Type',
-			'text' => 'Text',
-			'author_id' => 'Informer',
+			'id' => '#',
+			'type' => 'Тип жалобы',
+			'text' => 'Комментарий пользователя',
+			'author_id' => 'Автор',
 			'model' => 'Model',
 			'object_id' => 'Object',
+            'path' => 'Ссылка',
+            'created' => 'Создана',
+            'updated' => 'Изменена',
+            'accepted' => 'Рассмотрено',
 		);
 	}
+
+    public function getEntity()
+    {
+        return call_user_func(array($this->model, 'model'))->findByPk($this->object_id);
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -116,6 +133,7 @@ class Report extends CActiveRecord
 		$criteria->compare('model',$this->model,true);
 		$criteria->compare('object_id',$this->object_id,true);
         $criteria->compare('path',$this->path,true);
+        $criteria->compare('accepted',$this->accepted,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -14,7 +14,6 @@ var Report = {
                 },
                 url:this.url,
                 success:function (response) {
-                    console.log(selector);
                     selector.after(response);
                 }
             });

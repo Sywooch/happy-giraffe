@@ -236,7 +236,7 @@ class CommunityContent extends CActiveRecord
             $signal->user_id = $this->author_id;
             $signal->item_id = $this->id;
             $signal->item_name = 'CommunityContent';
-            $signal->signal_type = ModerationSignals::TYPE_NEW_USER_POST;
+            $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
             if (!$signal->save()){
                 Yii::log('NewComers signal not saved', 'warning', 'application');
             }

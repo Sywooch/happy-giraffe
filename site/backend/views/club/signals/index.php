@@ -4,84 +4,58 @@
  */
 
 Yii::app()->clientScript
-    ->registerScriptFile('/javascripts/dklab_realplexor.js')
-    ->registerScript('Realplexor-reg', '
-        var user_cache = "' . MessageCache::GetCurrentUserCache() . '";
-        var realplexor = new Dklab_Realplexor(
-            "http://' . Yii::app()->comet->host . '",
-            "' . Yii::app()->comet->namespace . '"
+    ->registerScriptFile('/js/dklab_realplexor.js')
+    ->registerCssFile('/css/jquery.ui/theme.css');
+?>
+<?php $this->renderPartial('_style',array()); ?>
+<script type="text/javascript">
+    var user_cache = "<?php echo MessageCache::GetCurrentUserCache() ?>";
+    var realplexor;
+
+    $(function () {
+        realplexor = new Dklab_Realplexor(
+            "http://<?php echo Yii::app()->comet->host ?>",
+            "<?php echo Yii::app()->comet->namespace ?>"
         );
 
         realplexor.subscribe(user_cache, function (result, id) {
             console.log(result);
-            if (result.type == ' . UserSignal::SIGNAL_TAKEN . ') {
-                if(window.ShowNewMessage)
-                    ShowNewMessage(result);
+            if (result.type == <?php echo UserSignal::SIGNAL_TAKEN ?>) {
+                AddExecutor(result.id.$id);
+            }
+            if (result.type == <?php echo UserSignal::SIGNAL_DECLINE ?>) {
+                RemoveExecutor(result.id.$id);
+            }
+            if (result.type == <?php echo UserSignal::SIGNAL_UPDATE ?>) {
+                UpdateTable();
+            }
+            if (result.type == <?php echo UserSignal::SIGNAL_EXECUTED ?>) {
+                TaskExecuted(result.id.$id);
             }
         });
         realplexor.execute();
-')
-    ->registerScript('im_script', '
 
-    ');
-?>
-<style type="text/css">
-    .grid-view {
-        padding: 15px 0;
-    }
-
-    .grid-view table.items {
-        background: none repeat scroll 0 0 white;
-        border: 1px solid #D0E3EF;
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    .grid-view table.items th, .grid-view table.items td {
-        font-size: 0.9em;
-        padding: 0.3em;
-    }
-
-    .grid-view table.items th {
-        font-weight: bold;
-        text-decoration: none;
-        padding-bottom: 10px;
-    }
-
-    .grid-view table.items th a:hover {
-        color: #FFFFFF;
-    }
-
-    .grid-view table.items tr:hover {
-        background: none repeat scroll 0 0 #ECFBD4;
-    }
-
-    a.decline-task {
-        color: #a10600;
-    }
-
-    .actions span {
-        color: #00b522;
-    }
-</style>
-<script type="text/javascript">
-    $(function () {
-        $('a.take-task').click(function () {
+        $('body').delegate('a.take-task', 'click', function () {
+            var id = $(this).prev().val();
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("/club/signals/take") ?>',
-                data:{id:$(this).prev().val()},
+                data:{id:id},
                 type:'POST',
                 dataType:'JSON',
                 success:function (response) {
                     if (response.status == 1) {
-                        $('.taken').show();
+                        var id = $(this).prev().val();
                         $(this).hide();
+                        $(this).next().show();
+                        $.pnotify({
+                            pnotify_text: 'Вы взяли задание. Приступите к его выполнению.'
+                        });
                     } else {
                         if (response.status == 2) {
                             $.pnotify({
-                                pnotify_title: '<?php echo Yii::t('app', 'Ошибка');?>',
-                                pnotify_type: 'error',
-                                pnotify_text: 'Уже достаточно человек на задание'
+                                pnotify_title:'<?php echo Yii::t('app', 'Ошибка');?>',
+                                pnotify_type:'error',
+                                pnotify_text:'Уже достаточно человек на задание'
                             });
                         }
                     }
@@ -90,36 +64,59 @@ Yii::app()->clientScript
             });
             return false;
         });
+
+        $('body').delegate('a.decline-task', 'click', function () {
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("/club/signals/decline") ?>',
+                data:{id:$(this).parents('td.actions').find('input').val()},
+                type:'POST',
+                dataType:'JSON',
+                success:function (response) {
+                    if (response.status == 1) {
+                        $(this).parent().hide();
+                        $(this).parent().prev().show();
+                    }
+                },
+                context:$(this)
+            });
+            return false;
+        });
     });
+
+    function AddExecutor(id) {
+        var count = parseInt($('#signal' + id + ' .executors').html()) + 1;
+        var max = parseInt($('#signal' + id + ' .need').html());
+        $('#signal' + id + ' .executors').html(count);
+        if (count >= max) {
+            $('#signal' + id).addClass('full');
+        }
+    }
+
+    function RemoveExecutor(id) {
+        var count = parseInt($('#signal' + id + ' .executors').html()) - 1;
+        var max = parseInt($('#signal' + id + ' .need').html());
+        $('#signal' + id + ' .executors').html(count);
+        if (count < max) {
+            $('#signal' + id).removeClass('full');
+        }
+    }
+
+    function UpdateTable() {
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl("/club/signals/index") ?>',
+            type: 'POST',
+            success: function(response) {
+                $('.grid-view').html(response);
+            }
+        });
+    }
+
+    function TaskExecuted(id) {
+        $('#signal' + id + ' .taken').hide();
+        $('#signal' + id + ' .take-task').hide();
+        $('#signal' + id + ' .executed').show();
+    }
 </script>
 <div class="grid-view">
-    <table class="items">
-        <thead>
-        <tr>
-            <th>Сигнал</th>
-            <th>Пользователь</th>
-            <th>Ссылка</th>
-            <th>Действие</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($models as $model): ?>
-        <tr>
-            <td><?php echo $model->signalType() ?></td>
-            <td><?php echo $model->getUser()->getFullName() ?></td>
-            <td><?php echo $model->getLink() ?></td>
-            <td class="actions">
-                <input type="hidden" value="<?php echo $model->_id ?>">
-                <a href="#" class="take-task">Взять на выолнение</a>
-
-                <div class="taken">
-                    <span>Взято вами на выполнение</span>
-                    <br>
-                    <a href="#" class="decline-task">Отказаться</a>
-                </div>
-            </td>
-        </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <?php $this->renderPartial('_data', array('models' => $models)); ?>
 </div>

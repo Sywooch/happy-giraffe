@@ -28,7 +28,6 @@ class EAuthRedirectWidget extends CWidget {
 	 */
     public function run() {
 		$assets_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'assets';
-        echo $this->url;exit;
 		$this->render('redirect', array(
 			'id' => $this->getId(),
 			'url' => $this->url,

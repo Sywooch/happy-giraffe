@@ -63,10 +63,18 @@ class Im
 
             foreach ($dialog->messageUsers as $user) {
                 if ($user->user_id !== $this->_user_id && !in_array($user->user_id, $this->_dialogs)) {
+                    $um = $this->getUser($user->user_id);
+                    if ($um === null)
+                        continue;
+
                     $users [] = $user->user_id;
                     $new_dialog['name'] = $this->getUser($user->user_id)->getFullName();
                     $new_dialog['users'][] = $user->user_id;
                 }
+            }
+            if (empty($new_dialog['users'])){
+                //remove dialog
+                MessageDialog::model()->deleteByPk($dialog->id);
             }
             $this->_dialogs[$dialog->id] = $new_dialog;
         }
@@ -165,6 +173,8 @@ class Im
     public function getDialogByUser($user_id)
     {
         foreach ($this->_dialogs as $dialog) {
+            if (!isset($dialog['users'][0]))
+                return null;
             if ($dialog['users'][0] == $user_id) {
                 return $dialog['id'];
             }
@@ -209,9 +219,12 @@ class Im
      */
     public function getUser($id)
     {
-        if (isset($this->_loaded_users[$id]))
+        if (!empty($this->_loaded_users[$id]))
             return $this->_loaded_users[$id];
         $user = User::getUserById($id);
+        if ($user === null)
+            return null;
+
         $this->_loaded_users[$id] = $user;
         return $user;
     }

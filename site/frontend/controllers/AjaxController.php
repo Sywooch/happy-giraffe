@@ -2,11 +2,11 @@
 
 class AjaxController extends Controller
 {
-	public function actionRate()
-	{
-		Yii::import('contest.models.*');
-		$modelName = $_POST['modelName'];
-		$objectId = $_POST['objectId'];
+    public function actionRate()
+    {
+        Yii::import('contest.models.*');
+        $modelName = $_POST['modelName'];
+        $objectId = $_POST['objectId'];
         $social_key = $_POST['key'];
         $value = $_POST['r'];
 
@@ -69,25 +69,42 @@ class AjaxController extends Controller
 		));
 	}
 
-	public function actionSendComment()
-	{
-		$comment = new Comment;
-		$comment->attributes = $_POST['Comment'];
-		$comment->author_id = Yii::app()->user->id;
-		if ($comment->save())
-		{
-			$response = array(
-				'status' => 'ok',
-			);
-		}
-		else
-		{
-			$response = array(
-				'status' => 'error',
-			);
-		}
-		echo CJSON::encode($response);
-	}
+    public function actionSendComment()
+    {
+        $comment = new Comment;
+        $comment->attributes = $_POST['Comment'];
+        $comment->author_id = Yii::app()->user->id;
+        if ($comment->save())
+        {
+            $response = array(
+                'status' => 'ok',
+            );
+        }
+        else
+        {
+            $response = array(
+                'status' => 'error',
+            );
+        }
+        echo CJSON::encode($response);
+    }
+    
+    public function actionDeleteComment()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $comment = Comment::model()->findByPk($id);
+        //check user is author or moderator
+        if ($comment->author_id == Yii::app()->user->getId() ||
+            Yii::app()->authManager->checkAccess('удаление комментариев', Yii::app()->user->getId())) {
+            echo CJSON::encode(array(
+                'status' => $comment->delete(),
+            ));
+        } else {
+            echo CJSON::encode(array(
+                'status' => false,
+            ));
+        }
+    }
 
 	public function actionUserViaCommunity()
 	{
@@ -104,39 +121,39 @@ class AjaxController extends Controller
 
 	public function actionAcceptReport()
 	{
-		if ($_POST['Report'])
-		{
+        if ($_POST['Report'])
+        {
             $path = parse_url($_SERVER['HTTP_REFERER']);
-			$report = new Report;
-			$report->setAttributes($_POST['Report'], FALSE);
-			$report->author_id = Yii::app()->user->id;
+            $report = new Report;
+            $report->setAttributes($_POST['Report'], FALSE);
+            $report->author_id = Yii::app()->user->id;
             $report->path = $path['path'];
-			$report->save();
-		}
+            $report->save();
+        }
 	}
 
-	public function actionShowReport()
-	{
+    public function actionShowReport()
+    {
         if(!Yii::app()->request->isAjaxRequest)
             Yii::app()->end();
-		$accepted_models = array(
-			'Comment',
-			'CommunityContent',
+        $accepted_models = array(
+            'Comment',
+            'CommunityContent',
             'RecipeBookRecipe',
             'MessageDialog',
             'MessageLog'
-		);
-		$source_data = $_POST['source_data'];
-		if (in_array($source_data['model'], $accepted_models))
-		{
-			$report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array(
+        );
+        $source_data = $_POST['source_data'];
+        if (in_array($source_data['model'], $accepted_models))
+        {
+            $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array(
                 'entity_name' => $source_data['model'],
                 'entity_id' => $source_data['object_id'],
             ));
             $report->form();
             $this->endWidget();
-		}
-	}
+        }
+    }
 
 	public function actionView($path)
 	{

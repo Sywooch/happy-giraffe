@@ -151,10 +151,10 @@ class SiteController extends Controller
                 if($url_info['host'] == $_SERVER['HTTP_HOST'])
                     $redirectUrl = $url_info['path'];
             }
+            Yii::app()->user->setState('social_redirect', $redirectUrl);
             $authIdentity->redirectUrl = $redirectUrl;
 
 			if ($authIdentity->authenticate()) {
-                echo 123;exit;
 				$name = $authIdentity->getServiceName();
 				$id = $authIdentity->getAttribute('id');
 				$check = UserSocialService::model()->findByAttributes(array(
@@ -171,7 +171,8 @@ class SiteController extends Controller
 						Yii::app()->user->login($identity);
                         $user->login_date = date('Y-m-d H:i:s');
                         $user->save(false);
-						$authIdentity->redirect();
+                        $rediret_url = Yii::app()->user->getState('social_redirect');
+						$authIdentity->redirect($rediret_url);
 					}
 				}
 			}

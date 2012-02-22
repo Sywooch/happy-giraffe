@@ -154,6 +154,7 @@ class SiteController extends Controller
             $authIdentity->redirectUrl = $redirectUrl;
 
 			if ($authIdentity->authenticate()) {
+                echo 123;exit;
 				$name = $authIdentity->getServiceName();
 				$id = $authIdentity->getAttribute('id');
 				$check = UserSocialService::model()->findByAttributes(array(

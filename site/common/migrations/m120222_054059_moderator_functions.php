@@ -5,12 +5,15 @@ class m120222_054059_moderator_functions extends CDbMigration
     private $_table = 'auth_item_child';
 	public function up()
 	{
-        $this->dropForeignKey($this->_table.'_parent_fk', $this->_table);
-        $this->dropForeignKey($this->_table.'_child_fk', $this->_table);
+//        $this->dropForeignKey($this->_table.'_parent_fk', $this->_table);
+//        $this->dropForeignKey($this->_table.'_child_fk', $this->_table);
 
         $this->truncateTable($this->_table);
+
         $this->_table = 'auth_assignment';
+        $this->dropForeignKey($this->_table.'_itemname_fk', $this->_table);
         $this->truncateTable($this->_table);
+
         $this->_table = 'auth_item';
         $this->truncateTable($this->_table);
         $this->execute("INSERT INTO `auth_item` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
@@ -55,7 +58,10 @@ INSERT INTO `auth_assignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
         $this->alterColumn($this->_table, 'child', 'varchar(64) not null');
         $this->addForeignKey($this->_table.'_parent_fk', $this->_table, 'parent', 'auth_item', 'name','CASCADE',"CASCADE");
         $this->addForeignKey($this->_table.'_child_fk', $this->_table, 'child', 'auth_item', 'name','CASCADE',"CASCADE");
-	}
+
+        $this->_table = 'auth_assignment';
+        $this->addForeignKey($this->_table.'_itemname_fk', $this->_table, 'itemname', 'auth_item', 'name','CASCADE',"CASCADE");
+    }
 
 	public function down()
 	{

@@ -11,10 +11,11 @@ class AjaxController extends Controller
         $value = $_POST['r'];
 
         $model = $modelName::model()->findByPk($objectId);
-        if (!$model)
+        if(!$model)
             Yii::app()->end();
 
-        if ($url = Yii::app()->request->getPost('url')) {
+        if($url = Yii::app()->request->getPost('url'))
+        {
             Rating::model()->updateByApi($model, $social_key, $url);
         }
         else
@@ -39,12 +40,24 @@ class AjaxController extends Controller
             || $_FILES['file']['type'] == 'image/jpg'
             || $_FILES['file']['type'] == 'image/gif'
             || $_FILES['file']['type'] == 'image/jpeg'
-            || $_FILES['file']['type'] == 'image/pjpeg'
-        ) {
+            || $_FILES['file']['type'] == 'image/pjpeg')
+        {
             copy($_FILES['file']['tmp_name'], $dir . time() . $_FILES['file']['name']);
 
             echo Yii::app()->baseUrl . '/upload/images/' . time() . $_FILES['file']['name'];
         }
+    }
+
+    public function actionPageView()
+    {
+        if(!Yii::app()->request->isAjaxRequest || false === ($path = Yii::app()->request->getPost('path')))
+            Yii::app()->end();
+        $count = 1;
+        if($model = PageView::model()->updateByPath($path))
+            $count = $model->views + 1;
+        echo CJSON::encode(array(
+            'count' => (int)$count,
+        ));
     }
 
     public function actionShowComments()
@@ -54,6 +67,26 @@ class AjaxController extends Controller
             'object_id' => $_POST['object_id'],
             'onlyList' => TRUE,
         ));
+    }
+
+    public function actionSendComment()
+    {
+        $comment = new Comment;
+        $comment->attributes = $_POST['Comment'];
+        $comment->author_id = Yii::app()->user->id;
+        if ($comment->save())
+        {
+            $response = array(
+                'status' => 'ok',
+            );
+        }
+        else
+        {
+            $response = array(
+                'status' => 'error',
+            );
+        }
+        echo CJSON::encode($response);
     }
 
     public function actionDeleteComment()
@@ -73,25 +106,6 @@ class AjaxController extends Controller
         }
     }
 
-    public function actionSendComment()
-    {
-        $comment = new Comment;
-        $comment->attributes = $_POST['Comment'];
-        $comment->author_id = Yii::app()->user->id;
-        if ($comment->save()) {
-            $response = array(
-                'status' => 'ok',
-            );
-        }
-        else
-        {
-            $response = array(
-                'status' => 'error',
-            );
-        }
-        echo CJSON::encode($response);
-    }
-
     public function actionUserViaCommunity()
     {
         $user = User::model()->with('communities')->findByPk(Yii::app()->user->id);
@@ -107,7 +121,8 @@ class AjaxController extends Controller
 
     public function actionAcceptReport()
     {
-        if ($_POST['Report']) {
+        if ($_POST['Report'])
+        {
             $report = new Report;
             $report->setAttributes($_POST['Report'], FALSE);
             $report->informer_id = Yii::app()->user->id;
@@ -127,7 +142,8 @@ class AjaxController extends Controller
         );
 
         $source_data = $_POST['source_data'];
-        if (in_array($source_data['model'], $accepted_models)) {
+        if (in_array($source_data['model'], $accepted_models))
+        {
             $this->widget('ReportWidget', array('source_data' => $source_data));
         }
     }
@@ -146,7 +162,7 @@ class AjaxController extends Controller
         $host = parse_url($link, PHP_URL_HOST);
         $favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
         $favicon = strtr($host, array('.' => '_')) . '.png';
-        $favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' . $favicon;
+        $favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' .  $favicon;
         file_put_contents($favicon_path, file_get_contents($favicon_url));
 
         $this->renderPartial('video_preview', array(
@@ -174,7 +190,7 @@ class AjaxController extends Controller
                 $host = parse_url($link, PHP_URL_HOST);
                 $favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
                 $favicon = strtr($host, array('.' => '_')) . '.png';
-                $favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' . $favicon;
+                $favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' .  $favicon;
                 file_put_contents($favicon_path, file_get_contents($favicon_url));
 
                 $this->renderPartial('source_type/preview/internet', array(
@@ -204,10 +220,10 @@ class AjaxController extends Controller
 
     public function actionSettlements()
     {
-        $data = GeoRusSettlement::model()->findAll('region_id=:region_id', array(':region_id' => (int)$_POST['region_id']));
+        $data = GeoRusSettlement::model()->findAll('region_id=:region_id', array(':region_id'=>(int) $_POST['region_id']));
 
-        $data = CHtml::listData($data, 'id', 'name');
-        foreach ($data as $value => $name)
+        $data = CHtml::listData($data,'id','name');
+        foreach($data as $value=>$name)
         {
             echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), TRUE);
         }
@@ -215,7 +231,7 @@ class AjaxController extends Controller
 
     public function actionRubrics()
     {
-        $rubrics = CommunityRubric::model()->findAll('community_id=:community_id', array(':community_id' => (int)$_POST['community_id']));
+        $rubrics = CommunityRubric::model()->findAll('community_id=:community_id', array(':community_id'=>(int) $_POST['community_id']));
 
         echo CHtml::tag('span', array('val' => '0', 'class' => 'cuselActive'), 'Выберите рубрику');
         foreach ($rubrics as $r)
@@ -226,16 +242,18 @@ class AjaxController extends Controller
 
     public function actionVote()
     {
-        if (Yii::app()->request->isAjaxRequest && !Yii::app()->user->isGuest) {
+        if (Yii::app()->request->isAjaxRequest && ! Yii::app()->user->isGuest)
+        {
             $object_id = $_POST['object_id'];
             $vote = $_POST['vote'];
             $model = $_POST['model']::model()->findByPk($object_id);
 
-            if ($model) {
+            if ($model)
+            {
                 $depends = Yii::app()->user->id;
-                if (isset($_POST['depends'])) {
-                    $depends = array('user_id' => Yii::app()->user->id);
-                    foreach ($_POST['depends'] as $key => $value)
+                if (isset($_POST['depends'])){
+                    $depends = array('user_id'=>Yii::app()->user->id);
+                    foreach($_POST['depends'] as $key=>$value)
                         $depends[$key] = $value;
                 }
 
@@ -245,9 +263,9 @@ class AjaxController extends Controller
                 $response = array('success' => true);
                 foreach ($model->vote_attributes as $key => $value) {
                     $response[$value] = $model->$value;
-                    $response[$value . '_percent'] = $model->getPercent($key);
+                    $response[$value.'_percent'] = $model->getPercent($key);
                 }
-                if (isset($model->vote_attributes[0]) && isset($model->vote_attributes[1])) {
+                if (isset($model->vote_attributes[0]) && isset($model->vote_attributes[1])){
                     $response['rating'] = $model->{$model->vote_attributes[1]} - $model->{$model->vote_attributes[0]};
                 }
             }

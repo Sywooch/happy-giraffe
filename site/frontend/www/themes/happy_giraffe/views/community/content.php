@@ -1,15 +1,5 @@
 <?php
 $cs = Yii::app()->clientScript;
-$js_content_report = "
-$('.comments .item .report').live('click', function() {
-	report($(this).parents('.item'));
-	return false;
-});
-$('.spam a').live('click', function() {
-	report($(this).parents('.entry'));
-	return false;
-});
-";
 
 $js = "
     $(document).ready(function() {
@@ -17,7 +7,6 @@ $js = "
     });";
 
 $cs
-    ->registerScript('content_report', $js_content_report)
     ->registerCssFile('/stylesheets/wym.css')
     ->registerScriptFile('/fancybox/lib/jquery.mousewheel-3.0.6.pack.js')
     ->registerCssFile('/fancybox/source/jquery.fancybox.css?v=2.0.4')
@@ -187,7 +176,7 @@ $cs
 
         <div class="spam">
             <?php $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $c));
-            $report->button();
+            $report->button("$(this).parents('.entry')");
             $this->endWidget(); ?>
         </div>
         <div class="clear"></div>

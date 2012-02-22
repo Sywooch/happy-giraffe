@@ -1,7 +1,7 @@
 <div class="report-block">
 	<?php $form = $this->beginWidget('CActiveForm', array('action' => Yii::app()->createUrl('ajax/acceptreport'),
 		'htmlOptions' => array(
-			'class'=> 'report-form',
+			'onsubmit'=> 'return Report.sendForm(this);',
 		)
 	)); ?>
 	<?php foreach($source_data as $k => $v): ?>
@@ -32,7 +32,7 @@
 	</div>
 	<div class="clear"></div>
 	<div class="button_panel">
-		<button class="btn btn-gray-medium cancel"><span><span>Отмена</span></span></button>
+		<button class="btn btn-gray-medium" onclick="Report.closeForm(this);"><span><span>Отмена</span></span></button>
 		<button class="btn btn-red-medium"><span><span>Сообщить об нарушении</span></span></button>
 	</div>
 	<?php $this->endWidget(); ?>

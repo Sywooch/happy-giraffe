@@ -119,17 +119,19 @@ class AjaxController extends Controller
         if(!Yii::app()->request->isAjaxRequest)
             Yii::app()->end();
 		$accepted_models = array(
-			'CommunityComment',
+			'Comment',
 			'CommunityContent',
             'RecipeBookRecipe',
             'MessageDialog',
             'MessageLog'
 		);
-	
 		$source_data = $_POST['source_data'];
 		if (in_array($source_data['model'], $accepted_models))
 		{
-			$report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('source_data' => $source_data));
+			$report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array(
+                'entity_name' => $source_data['model'],
+                'entity_id' => $source_data['object_id'],
+            ));
             $report->form();
             $this->endWidget();
 		}

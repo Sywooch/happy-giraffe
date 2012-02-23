@@ -18,26 +18,36 @@ class DefaultController extends Controller
 
     public function actionBloodRefresh()
     {
+        $this->pageTitle = 'Пол ребенка по обновлению крови';
+
         $this->render('blood_refresh');
     }
 
     public function actionJapan()
     {
+        $this->pageTitle = 'Будущий пол ребенка - японский метод';
+
         $this->render('japan');
     }
 
     public function actionBlood()
     {
+        $this->pageTitle = 'Пол ребенка по группе крови';
+
         $this->render('blood_group');
     }
 
     public function actionChina()
     {
+        $this->pageTitle = 'Пол ребенка по китайской таблице. Китайский метод определения пола ребенка';
+
         $this->render('china');
     }
 
     public function actionOvulation()
     {
+        $this->pageTitle = 'Пол ребенка по овуляции';
+
         $this->render('ovulation');
     }
 

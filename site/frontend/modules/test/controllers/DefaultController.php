@@ -56,4 +56,15 @@ class DefaultController extends Controller
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
     }
+
+    public function actionTitles()
+    {
+        $test = $this->LoadModel('hair-type');
+        $test->name = 'Какие типы волос бывают? Определить тип волос';
+        $test->save(false);
+
+        $test = $this->LoadModel('prikorm');
+        $test->name = 'Первый прикорм ребенка. Как вводить прикорм грудных детей? ';
+        $test->save(false);
+    }
 }

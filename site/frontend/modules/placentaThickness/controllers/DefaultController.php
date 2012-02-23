@@ -16,6 +16,8 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        $this->pageTitle = 'Толщина плаценты по неделям. Толщина плаценты норма';
+
         $model = new PlacentaThicknessForm;
         $this->render('index', array('model' => $model));
     }

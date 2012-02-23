@@ -16,6 +16,8 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        $this->pageTitle = 'Вес при беременности. Прибавка веса во время беременности по неделям';
+
         $this->render('index');
     }
 

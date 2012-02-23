@@ -209,7 +209,8 @@ class User extends CActiveRecord
             'new_password' => 'Новый пароль',
             'new_password_repeat' => 'Новый пароль ещё раз',
             'remember' => 'Запомнить меня',
-            'role' => 'Роль'
+            'role'=>'Роль',
+            'fullName' => 'Имя пользователя',
         );
     }
 

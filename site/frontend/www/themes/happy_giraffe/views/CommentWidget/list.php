@@ -23,8 +23,13 @@
 
                     <div class="data">
                         <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $cm->created); ?>
-                        <?php if ($cm->author->id != Yii::app()->user->id): ?><a href="#"
-                                                                                 class="report"></a><?php endif; ?>
+                        <?php
+                        if ($cm->author->id != Yii::app()->user->id){
+                            $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $cm));
+                            $report->button("$(this).parents('.item')");
+                            $this->endWidget();
+                        }
+                        ?>
                     </div>
                     <?php if ($cm->author->id == Yii::app()->user->id ||
                     Yii::app()->authManager->checkAccess('редактирование комментариев',

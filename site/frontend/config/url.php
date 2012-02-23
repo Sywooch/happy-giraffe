@@ -40,7 +40,7 @@ return array(
         'childrenDiseases/'=>'childrenDiseases/default/index',
         'childrenDiseases/getAlphabetList'=>'childrenDiseases/default/getAlphabetList',
         'childrenDiseases/getCategoryList'=>'childrenDiseases/default/getCategoryList',
-        'childrenDiseases/<url:[\w\d-+]+>'=>'childrenDiseases/default/view',
+        'childrenDiseases/<url:[\w\d- ]+>'=>'childrenDiseases/default/view',
 
 //        'recipeBook/disease/<url:\w+>'=>'recipeBook/default/disease',
 //        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',

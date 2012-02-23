@@ -70,7 +70,7 @@ class SocialController extends Controller
 		return md5($params . $secret_key);
 	}
 	
-	public function afterAction()
+	public function afterAction($action)
 	{
 	
 		Yii::app()->session['regdata'] = $this->regdata;

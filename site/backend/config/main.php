@@ -21,7 +21,8 @@ return array(
         'site.frontend.extensions.YiiMongoDbSuite.*',
         'site.frontend.modules.attribute.models.*',
         'site.frontend.modules.names.models.*',
-        'site.frontend.helpers.*'
+        'site.frontend.helpers.*',
+        'site.common.helpers.*',
 	),
 	'components' => array(
         'widgetFactory' => array(

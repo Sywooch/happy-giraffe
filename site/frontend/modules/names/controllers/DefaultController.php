@@ -7,6 +7,11 @@ class DefaultController extends Controller
 
     public function actionIndex($letter = null, $gender = null)
     {
+        if ($letter == null)
+            $this->pageTitle = 'Выбор имени';
+        else
+            $this->pageTitle = 'Имена для ребенка на букву '.$letter;
+
         $this->SetLikes();
         $like_ids = Name::GetLikeIds();
 
@@ -67,6 +72,7 @@ class DefaultController extends Controller
 
     public function actionTop10()
     {
+        $this->pageTitle = 'Топ 10 имен';
         $this->SetLikes();
         $topMen = Name::model()->Top10Man();
         $topWomen = Name::model()->Top10Woman();
@@ -83,8 +89,11 @@ class DefaultController extends Controller
         if ($m !== null) {
             $m = HDate::getMonthIndex($m);
             $data = Name::GetSaintMonthArray($m, null);
-        } else
+            $this->pageTitle = 'Имена по святцам - '.HDate::ruMonth($m);
+        } else{
+            $this->pageTitle = 'Имена по святцам';
             $data = null;
+        }
 
         if (Yii::app()->request->isAjaxRequest) {
             if ($m === null) {
@@ -118,6 +127,7 @@ class DefaultController extends Controller
 
     public function actionLikes()
     {
+        $this->pageTitle = 'Мне нравится';
         $this->SetLikes();
         $data = Name::model()->GetLikes(Yii::app()->user->getId());
         $man = array();
@@ -142,6 +152,7 @@ class DefaultController extends Controller
         $this->SetLikes();
         $name = $this->LoadModelBySlugName($name);
         $name->initOptionsSweetMiddles();
+        $this->pageTitle = $name->name;
 
         $this->render('name_view', array('name' => $name));
     }

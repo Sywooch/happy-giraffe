@@ -30,6 +30,7 @@ return array(
 
         'names/'=>'names/default/index',
         'names/top10'=>'names/default/top10',
+        'names/saint/<m:[\w]+>'=>'names/default/saint',
         'names/saint'=>'names/default/saint',
         'names/saintCalc'=>'names/default/saintCalc',
         'names/likes'=>'names/default/likes',

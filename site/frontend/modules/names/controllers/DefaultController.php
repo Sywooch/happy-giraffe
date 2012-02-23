@@ -27,12 +27,15 @@ class DefaultController extends Controller
             $pages->applyLimit($criteria);
             $names = Name::model()->findAll($criteria);
             if (Yii::app()->request->isAjaxRequest) {
-                $this->renderPartial('index_data', array(
+                $response = array(
+                    'letter' => $letter,
+                    'html' => $this->renderPartial('index_data', array(
                     'names' => $names,
                     'pages' => $pages,
                     'likes' => Name::GetLikeIds(),
                     'like_ids' => $like_ids,
-                ));
+                ), true));
+                echo CJSON::encode($response);
             } else
                 $this->render('index', array(
                     'names' => $names,
@@ -43,12 +46,15 @@ class DefaultController extends Controller
         } else {
             $names = Name::model()->findAll($criteria);
             if (Yii::app()->request->isAjaxRequest) {
-                $this->renderPartial('index_data', array(
-                    'names' => $names,
-                    'pages' => null,
-                    'likes' => Name::GetLikeIds(),
-                    'like_ids' => $like_ids,
-                ));
+                $response = array(
+                    'letter' => $letter,
+                    'html' => $this->renderPartial('index_data', array(
+                        'names' => $names,
+                        'pages' => null,
+                        'likes' => Name::GetLikeIds(),
+                        'like_ids' => $like_ids,
+                    ), true));
+                echo CJSON::encode($response);
             } else
                 $this->render('index', array(
                     'names' => $names,
@@ -72,20 +78,42 @@ class DefaultController extends Controller
         ));
     }
 
-    public function actionSaint()
+    public function actionSaint($m = null, $gender = null)
     {
-        $this->SetLikes();
-        $this->render('saint');
-    }
+        if ($m !== null) {
+            $m = HDate::getMonthIndex($m);
+            $data = Name::GetSaintMonthArray($m, null);
+        } else
+            $data = null;
 
-    public function actionSaintCalc($month, $gender = null)
-    {
-        $data = Name::GetSaintMonthArray($month, $gender);
-        $this->renderPartial('saint_res', array(
-            'data' => $data,
-            'like_ids' => Name::GetLikeIds(),
-            'month' => $month
-        ));
+        if (Yii::app()->request->isAjaxRequest) {
+            if ($m === null) {
+                $response = array(
+                    'month' => null,
+                    'html' => '',
+                    'month_num' => null
+                );
+            } else {
+                $data = Name::GetSaintMonthArray($m, $gender);
+                $response = array(
+                    'month' => HDate::ruMonth($m),
+                    'html' => $this->renderPartial('saint_res', array(
+                        'data' => $data,
+                        'like_ids' => Name::GetLikeIds(),
+                        'month' => $m,
+                    ), true),
+                    'month_num' => $m
+                );
+            }
+            echo CJSON::encode($response);
+        } else {
+            $this->SetLikes();
+            $this->render('saint', array(
+                'month' => $m,
+                'data' => $data,
+                'like_ids' => Name::GetLikeIds(),
+            ));
+        }
     }
 
     public function actionLikes()

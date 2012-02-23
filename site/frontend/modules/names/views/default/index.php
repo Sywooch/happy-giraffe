@@ -8,6 +8,12 @@
         $('ul.letters a').click(function () {
             letter = $(this).text();
 
+            if (typeof(window.history.pushState) == 'function'){
+                window.history.pushState({ path: $(this).attr('href') },'Имена на букву '+letter,$(this).attr('href'));
+            } else {
+                return true;
+            }
+
             $.ajax({
                 url:'<?php echo Yii::app()->createUrl("/names/default/index") ?>',
                 data:{
@@ -15,6 +21,7 @@
                     gender:gender
                 },
                 type:'GET',
+                dataType:'JSON',
                 success:function (data) {
                     $('ul.letters li').removeClass('active');
                     if ($(this).text() == 'Все')
@@ -22,7 +29,7 @@
                     else
                         $('p.names_header').html('Имена на букву <span>'+$(this).text()+'</span>');
                     $(this).parent('li').addClass('active');
-                    $('#result').html(data);
+                    $('#result').html(data.html);
                 },
                 context:$(this)
             });
@@ -38,11 +45,12 @@
                     letter:letter,
                     gender:gender
                 },
+                dataType:'JSON',
                 type:'GET',
                 success:function (data) {
                     $('.gender-link a').removeClass('active');
                     $(this).addClass('active');
-                    $('#result').html(data);
+                    $('#result').html(data.html);
                 },
                 context:$(this)
             });
@@ -56,46 +64,77 @@
                     letter:letter,
                     gender:gender
                 },
+                dataType:'JSON',
                 type:'GET',
                 success:function (data) {
-                    $('#result').html(data);
+                    $('#result').html(data.html);
                     $('html,body').animate({scrollTop: $('ul.letters').offset().top},'fast');
                 }
             });
 
             return false;
         });
+
+        $(window).bind('popstate', function(event) {
+            var state = event.originalEvent.state;
+            if (state) {
+                gender = $(this).attr('rel');
+                $.ajax({
+                    url:state.path,
+                    type:'GET',
+                    dataType:'JSON',
+                    success:function (data) {
+                        $('ul.letters li').removeClass('active');
+                        $('.gender-link a').removeClass('active');
+                        $('.all_names a').addClass('active');
+
+                        if (data.letter == null)
+                            $('p.names_header').html('Все имена');
+                        else
+                            $('p.names_header').html('Имена на букву <span>'+data.letter+'</span>');
+                        $('ul.letters li').each(function(index, value){
+                            if ($(this).text() == data.letter)
+                                $(this).addClass('active');
+                        });
+                        $('#result').html(data.html);
+                    },
+                    context:$(this)
+                });
+            }
+        });
+
+        history.replaceState({ path: window.location.href }, '');
     });
 </script>
 <?php $letter = (isset($_GET['letter']) && !empty($_GET['letter']))?$_GET['letter']:null;  ?>
 <ul class="letters">
     <li<?php if (empty($letter)) echo ' class="active"' ?>><a href="#">Все</a></li>
-    <li<?php if ($letter == 'А') echo ' class="active"' ?>><a href="#">А</a></li>
-    <li<?php if ($letter == 'Б') echo ' class="active"' ?>><a href="#">Б</a></li>
-    <li<?php if ($letter == 'В') echo ' class="active"' ?>><a href="#">В</a></li>
-    <li<?php if ($letter == 'Г') echo ' class="active"' ?>><a href="#">Г</a></li>
-    <li<?php if ($letter == 'Д') echo ' class="active"' ?>><a href="#">Д</a></li>
-    <li<?php if ($letter == 'Е') echo ' class="active"' ?>><a href="#">Е</a></li>
-    <li<?php if ($letter == 'Ж') echo ' class="active"' ?>><a href="#">Ж</a></li>
-    <li<?php if ($letter == 'З') echo ' class="active"' ?>><a href="#">З</a></li>
-    <li<?php if ($letter == 'И') echo ' class="active"' ?>><a href="#">И</a></li>
-    <li<?php if ($letter == 'К') echo ' class="active"' ?>><a href="#">К</a></li>
-    <li<?php if ($letter == 'Л') echo ' class="active"' ?>><a href="#">Л</a></li>
-    <li<?php if ($letter == 'М') echo ' class="active"' ?>><a href="#">М</a></li>
-    <li<?php if ($letter == 'Н') echo ' class="active"' ?>><a href="#">Н</a></li>
-    <li<?php if ($letter == 'О') echo ' class="active"' ?>><a href="#">О</a></li>
-    <li<?php if ($letter == 'П') echo ' class="active"' ?>><a href="#">П</a></li>
-    <li<?php if ($letter == 'Р') echo ' class="active"' ?>><a href="#">Р</a></li>
-    <li<?php if ($letter == 'С') echo ' class="active"' ?>><a href="#">С</a></li>
-    <li<?php if ($letter == 'Т') echo ' class="active"' ?>><a href="#">Т</a></li>
-    <li<?php if ($letter == 'У') echo ' class="active"' ?>><a href="#">У</a></li>
-    <li<?php if ($letter == 'Ф') echo ' class="active"' ?>><a href="#">Ф</a></li>
-    <li<?php if ($letter == 'Х') echo ' class="active"' ?>><a href="#">Х</a></li>
-    <li<?php if ($letter == 'Ц') echo ' class="active"' ?>><a href="#">Ц</a></li>
-    <li<?php if ($letter == 'Ч') echo ' class="active"' ?>><a href="#">Ч</a></li>
-    <li<?php if ($letter == 'Э') echo ' class="active"' ?>><a href="#">Э</a></li>
-    <li<?php if ($letter == 'Ю') echo ' class="active"' ?>><a href="#">Ю</a></li>
-    <li<?php if ($letter == 'Я') echo ' class="active"' ?>><a href="#">Я</a></li>
+    <li<?php if ($letter == 'А') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'А')) ?>">А</a></li>
+    <li<?php if ($letter == 'Б') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Б')) ?>">Б</a></li>
+    <li<?php if ($letter == 'В') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'В')) ?>">В</a></li>
+    <li<?php if ($letter == 'Г') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Г')) ?>">Г</a></li>
+    <li<?php if ($letter == 'Д') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Д')) ?>">Д</a></li>
+    <li<?php if ($letter == 'Е') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Е')) ?>">Е</a></li>
+    <li<?php if ($letter == 'Ж') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Ж')) ?>">Ж</a></li>
+    <li<?php if ($letter == 'З') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'З')) ?>">З</a></li>
+    <li<?php if ($letter == 'И') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'И')) ?>">И</a></li>
+    <li<?php if ($letter == 'К') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'К')) ?>">К</a></li>
+    <li<?php if ($letter == 'Л') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Л')) ?>">Л</a></li>
+    <li<?php if ($letter == 'М') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'М')) ?>">М</a></li>
+    <li<?php if ($letter == 'Н') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Н')) ?>">Н</a></li>
+    <li<?php if ($letter == 'О') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'О')) ?>">О</a></li>
+    <li<?php if ($letter == 'П') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'П')) ?>">П</a></li>
+    <li<?php if ($letter == 'Р') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Р')) ?>">Р</a></li>
+    <li<?php if ($letter == 'С') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'С')) ?>">С</a></li>
+    <li<?php if ($letter == 'Т') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Т')) ?>">Т</a></li>
+    <li<?php if ($letter == 'У') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'У')) ?>">У</a></li>
+    <li<?php if ($letter == 'Ф') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Ф')) ?>">Ф</a></li>
+    <li<?php if ($letter == 'Х') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Х')) ?>">Х</a></li>
+    <li<?php if ($letter == 'Ц') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Ц')) ?>">Ц</a></li>
+    <li<?php if ($letter == 'Ч') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Ч')) ?>">Ч</a></li>
+    <li<?php if ($letter == 'Э') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Э')) ?>">Э</a></li>
+    <li<?php if ($letter == 'Ю') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Ю')) ?>">Ю</a></li>
+    <li<?php if ($letter == 'Я') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Я')) ?>">Я</a></li>
 </ul>
 <div class="content_block">
     <?php $this->renderPartial('_gender'); ?>

@@ -78,15 +78,13 @@
         $(window).bind('popstate', function(event) {
             var state = event.originalEvent.state;
             if (state) {
-                gender = $(this).attr('rel');
                 $.ajax({
                     url:state.path,
                     type:'GET',
+                    data:{gender:gender},
                     dataType:'JSON',
                     success:function (data) {
                         $('ul.letters li').removeClass('active');
-                        $('.gender-link a').removeClass('active');
-                        $('.all_names a').addClass('active');
 
                         if (data.letter == null){
                             $('p.names_header').html('Все имена');

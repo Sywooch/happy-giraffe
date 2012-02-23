@@ -16,6 +16,8 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        $this->pageTitle = 'Менструальный цикл - составь свой женский календарь';
+
         $this->render('index');
     }
 

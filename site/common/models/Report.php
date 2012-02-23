@@ -7,12 +7,27 @@
  * @property string $id
  * @property string $type
  * @property string $text
- * @property string $informer_id
+ * @property string $author_id
  * @property string $model
  * @property string $object_id
+ * @property string $path
+ * @property int $accepted
+ * @property string $created
+ * @property string $updated
  */
 class Report extends CActiveRecord
 {
+    public $types = array(
+        'Спам',
+        'Оскорбление пользователей',
+        'Разжигание межнациональной розни',
+        'Другое',
+    );
+
+    public $accepted_types = array(
+        'Нет',
+        'Да',
+    );
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Report the static model class
@@ -40,11 +55,13 @@ class Report extends CActiveRecord
 		return array(
 			array('type, text, model, object_id', 'required'),
 			array('type', 'length', 'max'=>62),
-			array('informer_id, object_id', 'length', 'max'=>11),
+			array('author_id, object_id', 'length', 'max'=>11),
 			array('model', 'length', 'max'=>255),
-			// The following rule is used by search().
+            array('path, created, updated', 'safe'),
+            array('accepted', 'boolean'),
+            // The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, text, informer_id, model, object_id', 'safe', 'on'=>'search'),
+			array('id, type, text, author_id, model, object_id, accepted', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,8 +73,23 @@ class Report extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
 		);
 	}
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            )
+        );
+    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -65,14 +97,23 @@ class Report extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'type' => 'Type',
-			'text' => 'Text',
-			'informer_id' => 'Informer',
+			'id' => '#',
+			'type' => 'Тип жалобы',
+			'text' => 'Комментарий пользователя',
+			'author_id' => 'Автор',
 			'model' => 'Model',
 			'object_id' => 'Object',
+            'path' => 'Ссылка',
+            'created' => 'Создана',
+            'updated' => 'Изменена',
+            'accepted' => 'Рассмотрено',
 		);
 	}
+
+    public function getEntity()
+    {
+        return call_user_func(array($this->model, 'model'))->findByPk($this->object_id);
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -88,9 +129,11 @@ class Report extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('type',$this->type,true);
 		$criteria->compare('text',$this->text,true);
-		$criteria->compare('informer_id',$this->informer_id,true);
+		$criteria->compare('author_id',$this->author_id,true);
 		$criteria->compare('model',$this->model,true);
 		$criteria->compare('object_id',$this->object_id,true);
+        $criteria->compare('path',$this->path,true);
+        $criteria->compare('accepted',$this->accepted,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -1,6 +1,6 @@
 <script type="text/javascript">
     var gender;
-    var letter;
+    var letter = '<?php echo (empty($letter))?null:$letter ?>';
     var page;
 
     $(function () {
@@ -9,7 +9,11 @@
             letter = $(this).text();
 
             if (typeof(window.history.pushState) == 'function'){
-                window.history.pushState({ path: $(this).attr('href') },'Имена на букву '+letter,$(this).attr('href'));
+                window.history.pushState(
+                    { path: $(this).attr('href'), letter:letter },
+                    'Имена на букву '+letter,
+                    $(this).attr('href')
+                );
             } else {
                 return true;
             }
@@ -21,7 +25,6 @@
                     gender:gender
                 },
                 type:'GET',
-                dataType:'JSON',
                 success:function (data) {
                     $('ul.letters li').removeClass('active');
                     if ($(this).text() == 'Все')
@@ -29,7 +32,7 @@
                     else
                         $('p.names_header').html('Имена на букву <span>'+$(this).text()+'</span>');
                     $(this).parent('li').addClass('active');
-                    $('#result').html(data.html);
+                    $('#result').html(data);
                 },
                 context:$(this)
             });
@@ -45,12 +48,11 @@
                     letter:letter,
                     gender:gender
                 },
-                dataType:'JSON',
                 type:'GET',
                 success:function (data) {
                     $('.gender-link a').removeClass('active');
                     $(this).addClass('active');
-                    $('#result').html(data.html);
+                    $('#result').html(data);
                 },
                 context:$(this)
             });
@@ -64,10 +66,9 @@
                     letter:letter,
                     gender:gender
                 },
-                dataType:'JSON',
                 type:'GET',
                 success:function (data) {
-                    $('#result').html(data.html);
+                    $('#result').html(data);
                     $('html,body').animate({scrollTop: $('ul.letters').offset().top},'fast');
                 }
             });
@@ -82,34 +83,32 @@
                     url:state.path,
                     type:'GET',
                     data:{gender:gender},
-                    dataType:'JSON',
                     success:function (data) {
                         $('ul.letters li').removeClass('active');
 
-                        if (data.letter == null){
+                        if (state.letter == null){
                             $('p.names_header').html('Все имена');
                             $('ul.letters li:first').addClass('active');
                             letter = null;
                         }
                         else{
-                            $('p.names_header').html('Имена на букву <span>'+data.letter+'</span>');
-                            letter = data.letter;
+                            $('p.names_header').html('Имена на букву <span>'+state.letter+'</span>');
+                            letter = state.letter;
                         }
                         $('ul.letters li').each(function(index, value){
-                            if ($(this).text() == data.letter)
+                            if ($(this).text() == state.letter)
                                 $(this).addClass('active');
                         });
-                        $('#result').html(data.html);
+                        $('#result').html(data);
                     },
                     context:$(this)
                 });
             }
         });
 
-        history.replaceState({ path: window.location.href }, '');
+        history.replaceState({ path: window.location.href, letter:letter }, '');
     });
 </script>
-<?php $letter = (isset($_GET['letter']) && !empty($_GET['letter']))?$_GET['letter']:null;  ?>
 <ul class="letters">
     <li<?php if (empty($letter)) echo ' class="active"' ?>><a href="#">Все</a></li>
     <li<?php if ($letter == 'А') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'А')) ?>">А</a></li>

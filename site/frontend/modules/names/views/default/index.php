@@ -88,10 +88,15 @@
                         $('.gender-link a').removeClass('active');
                         $('.all_names a').addClass('active');
 
-                        if (data.letter == null)
+                        if (data.letter == null){
                             $('p.names_header').html('Все имена');
-                        else
+                            $('ul.letters li:first').addClass('active');
+                            letter = null;
+                        }
+                        else{
                             $('p.names_header').html('Имена на букву <span>'+data.letter+'</span>');
+                            letter = data.letter;
+                        }
                         $('ul.letters li').each(function(index, value){
                             if ($(this).text() == data.letter)
                                 $(this).addClass('active');

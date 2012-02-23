@@ -6,7 +6,7 @@
 ?>
 <script type="text/javascript">
     var gender;
-    var month;
+    var month = <?php echo (empty($month))?'null':$month ?>;
 
     $(function () {
         $('ul.letters a').click(function () {

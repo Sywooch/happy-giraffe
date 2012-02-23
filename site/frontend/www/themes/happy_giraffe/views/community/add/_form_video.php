@@ -30,8 +30,9 @@ $('.close').click(function () {
 ?>
 
 
-	<?php if (Yii::app()->user->checkAccess('редактирование тем в сообществах') ||
-        $content_model->author_id == Yii::app()->user->getId()):?>
+	<?php if ($content_model->isNewRecord || (Yii::app()->user->checkAccess('редактирование тем в сообществах',
+    array('community_id'=>$content_model->rubric->community_id)) ||
+    $content_model->author_id == Yii::app()->user->getId())):?>
 	    <div class="">
     		<div class="inner-title">Заголовок видео</div>
     		<?php echo $form->textField($content_model, 'name'); ?>

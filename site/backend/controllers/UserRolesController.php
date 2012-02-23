@@ -23,17 +23,25 @@ class UserRolesController extends BController
 
 		if(isset($_POST['User']))
 		{
+            //clear all
             $assignments = Yii::app()->authManager->getAuthAssignments($model->id);
             foreach($assignments as $assignment)
                 Yii::app()->authManager->revoke($assignment->itemName, $model->id);
 
+            //assign role
             if (isset($_POST['User']['role']) && !empty($_POST['User']['role']))
                     Yii::app()->authManager->assign($_POST['User']['role'], $model->id);
 
+            //assign operations
             if (isset($_POST['Operation']))
                 foreach ($_POST['Operation'] as $key => $value) {
                     if ($value == 1) {
-                        Yii::app()->authManager->assign($key, $model->id);
+                        if (isset($_POST['community_id']) && ($key =='изменение рубрик в темах' ||
+                            $key =='редактирование тем в сообществах' || $key =='удаление тем в сообществах'))
+                            Yii::app()->authManager->assign($key, $model->id,
+                                'return $params["community_id"] == '.$_POST['community_id'].';');
+                        else
+                            Yii::app()->authManager->assign($key, $model->id);
                     }
                 }
             $this->redirect('/userRoles/admin');

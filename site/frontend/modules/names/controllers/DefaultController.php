@@ -12,8 +12,8 @@ class DefaultController extends Controller
         else
             $this->pageTitle = 'Имена для ребенка на букву '.$letter;
 
-        $this->SetLikes();
         $like_ids = Name::GetLikeIds();
+        $this->likes = count($like_ids);
 
         $criteria = new CDbCriteria;
         $criteria->order = 'name';
@@ -32,40 +32,32 @@ class DefaultController extends Controller
             $pages->applyLimit($criteria);
             $names = Name::model()->findAll($criteria);
             if (Yii::app()->request->isAjaxRequest) {
-                $response = array(
-                    'letter' => $letter,
-                    'html' => $this->renderPartial('index_data', array(
+                $this->renderPartial('index_data', array(
                     'names' => $names,
                     'pages' => $pages,
-                    'likes' => Name::GetLikeIds(),
                     'like_ids' => $like_ids,
-                ), true));
-                echo CJSON::encode($response);
+                ));
             } else
                 $this->render('index', array(
                     'names' => $names,
                     'pages' => $pages,
-                    'likes' => Name::GetLikeIds(),
                     'like_ids' => $like_ids,
+                    'letter' => $letter,
                 ));
         } else {
             $names = Name::model()->findAll($criteria);
             if (Yii::app()->request->isAjaxRequest) {
-                $response = array(
-                    'letter' => $letter,
-                    'html' => $this->renderPartial('index_data', array(
+                $this->renderPartial('index_data', array(
                         'names' => $names,
                         'pages' => null,
-                        'likes' => Name::GetLikeIds(),
                         'like_ids' => $like_ids,
-                    ), true));
-                echo CJSON::encode($response);
+                    ));
             } else
                 $this->render('index', array(
                     'names' => $names,
                     'pages' => null,
-                    'likes' => Name::GetLikeIds(),
                     'like_ids' => $like_ids,
+                    'letter' => $letter,
                 ));
         }
     }

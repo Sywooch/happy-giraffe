@@ -19,7 +19,7 @@
     </p>
     <p>
         Sort by:
-        <?php echo CHtml::dropDownList('list_sort', 'id', array('id' => 'Id', 'nick' => 'Nick name'), array('onchange' => '$("#user-view-form").submit();')); ?>
+        <?php echo CHtml::dropDownList('list_sort', 'id', array('id' => 'Id', 'email' => 'Email'), array('onchange' => '$("#user-view-form").submit();')); ?>
     </p>
 
     <div id="users-list">

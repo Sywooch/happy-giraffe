@@ -11,6 +11,11 @@
             ),
         ),
         'id',
-        'nick'
+        'email',
+        array(
+            'name'=>'deleted',
+            'value'=>'($data->deleted == 0)?"":"Да"',
+            'header'=>'Удален'
+        ),
     )
 )); ?>

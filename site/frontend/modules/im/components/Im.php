@@ -63,10 +63,6 @@ class Im
 
             foreach ($dialog->messageUsers as $user) {
                 if ($user->user_id !== $this->_user_id && !in_array($user->user_id, $this->_dialogs)) {
-                    $um = $this->getUser($user->user_id);
-                    if ($um === null)
-                        continue;
-
                     $users [] = $user->user_id;
                     $new_dialog['name'] = $this->getUser($user->user_id)->getFullName();
                     $new_dialog['users'][] = $user->user_id;
@@ -173,8 +169,6 @@ class Im
     public function getDialogByUser($user_id)
     {
         foreach ($this->_dialogs as $dialog) {
-            if (!isset($dialog['users'][0]))
-                return null;
             if ($dialog['users'][0] == $user_id) {
                 return $dialog['id'];
             }

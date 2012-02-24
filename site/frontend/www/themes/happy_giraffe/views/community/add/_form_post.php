@@ -122,7 +122,7 @@
 				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
 					array(
 						'prompt' => 'Выберите рубрику',
-						'disabled' => Yii::app()->user->checkAccess('перенос темы из сообщества в сообщество') ? '' : 'disabled',
+						'disabled' => Yii::app()->user->checkAccess('editor') ? '' : 'disabled',
                         'class'=>'chzn'
 					)
 				); ?>

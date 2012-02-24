@@ -4,8 +4,10 @@ class UserSignal extends EMongoDocument
 {
     const TYPE_NEW_USER_COMMENT = 1;
     const TYPE_NEW_USER_POST = 2;
-    const TYPE_NEW_USER_PHOTO = 3;
-    const TYPE_NEW_USER_REGISTER = 4;
+    const TYPE_NEW_USER_VIDEO = 3;
+    const TYPE_NEW_USER_TRAVEL = 4;
+    const TYPE_NEW_USER_PHOTO = 5;
+    const TYPE_NEW_USER_REGISTER = 6;
 
     const SIGNAL_UPDATE = 20;
     const SIGNAL_TAKEN = 21;
@@ -34,7 +36,9 @@ class UserSignal extends EMongoDocument
     {
         return array(
             self::TYPE_NEW_USER_COMMENT => 'Новый коммент',
-            self::TYPE_NEW_USER_POST => 'Новый пост. Нужно прокомментировать.',
+            self::TYPE_NEW_USER_POST => 'Новый пост в сообществе. Нужно прокомментировать.',
+            self::TYPE_NEW_USER_VIDEO => 'Новое видео в сообществе. Нужно прокомментировать.',
+            self::TYPE_NEW_USER_TRAVEL => 'Новое путешествие в сообществе. Нужно прокомментировать.',
             self::TYPE_NEW_USER_PHOTO => 'Новое фото',
             self::TYPE_NEW_USER_REGISTER => 'Зарегистрировался',
         );
@@ -57,6 +61,10 @@ class UserSignal extends EMongoDocument
             $this->priority = 1;
             $this->status = self::STATUS_OPEN;
             if ($this->signal_type == self::TYPE_NEW_USER_POST) {
+                $this->limits = array(rand(4, 6), rand(8, 12));
+            }elseif ($this->signal_type == self::TYPE_NEW_USER_VIDEO) {
+                $this->limits = array(rand(4, 6), rand(8, 12));
+            }elseif ($this->signal_type == self::TYPE_NEW_USER_TRAVEL) {
                 $this->limits = array(rand(4, 6), rand(8, 12));
             }
         }
@@ -215,7 +223,7 @@ class UserSignal extends EMongoDocument
                 unset($this->executors[$key]);
 
         $this->success [] = $user_id;
-        if (empty($this->executors)){
+        if (count($this->success) >= $this->currentLimit()){
             $this->success = array();
             $this->priority++;
             $this->save();
@@ -260,5 +268,16 @@ class UserSignal extends EMongoDocument
         if (Yii::app()->user->checkAccess('moderator')){
             self::CheckTask($comment->model, $comment->object_id, Yii::app()->user->getId());
         }
+    }
+
+    /**
+     *
+     */
+    public function getSumPriority()
+    {
+        //складывается из:
+        // 1. приоритета пользователя
+        // 2. приоритета типа сигнала
+        // 3. особенностей конкретного действия
     }
 }

@@ -41,4 +41,23 @@
     .full a.take-task {
         display: none;
     }
+
+    .choose-type{
+        width: 100%;
+    }
+    .choose-type td{
+        text-align: center;
+    }
+    .choose-type a{
+        font-weight: normal;
+        font-size: 14px;
+        color: #333;
+        text-decoration: none;
+    }
+    .choose-type td.active{
+        background: #333;
+    }
+    .choose-type td.active a{
+        color: #fff;
+    }
 </style>

@@ -121,7 +121,7 @@ class CommunityContent extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
+
 	public function community($community_id)
 	{
 		$this->getDbCriteria()->mergeWith(array(
@@ -220,6 +220,23 @@ class CommunityContent extends CActiveRecord
 		);
 	}
 
+    public function beforeDelete()
+    {
+        $criteria = new EMongoCriteria();
+        $criteria->item_name = 'CommunityContent';
+        $criteria->item_id = $this->id;
+        UserSignal::model()->deleteAll($criteria);
+
+        $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
+        foreach ($moderators as $moderator) {
+            Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
+                'type' => self::SIGNAL_UPDATE
+            ));
+        }
+
+        return true;
+    }
+
     public function afterSave()
     {
         if ($this->contentAuthor->isNewComer() && $this->isNewRecord){
@@ -227,7 +244,13 @@ class CommunityContent extends CActiveRecord
             $signal->user_id = $this->author_id;
             $signal->item_id = $this->id;
             $signal->item_name = 'CommunityContent';
-            $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
+            if ($this->type->slug == 'video')
+                $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
+            elseif ($this->type->slug == 'travel')
+                $signal->signal_type = UserSignal::TYPE_NEW_USER_TRAVEL;
+            else
+                $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
+
             if (!$signal->save()){
                 Yii::log('NewComers signal not saved', 'warning', 'application');
             }

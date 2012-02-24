@@ -211,6 +211,7 @@ class User extends CActiveRecord
             'remember' => 'Запомнить меня',
             'role'=>'Роль',
             'fullName' => 'Имя пользователя',
+            'last_name'=>'Фамилия',
         );
     }
 

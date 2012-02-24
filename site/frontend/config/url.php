@@ -30,6 +30,7 @@ return array(
 
         'names/'=>'names/default/index',
         'names/top10'=>'names/default/top10',
+        'names/saint/<m:[\w]+>'=>'names/default/saint',
         'names/saint'=>'names/default/saint',
         'names/saintCalc'=>'names/default/saintCalc',
         'names/likes'=>'names/default/likes',
@@ -40,7 +41,7 @@ return array(
         'childrenDiseases/'=>'childrenDiseases/default/index',
         'childrenDiseases/getAlphabetList'=>'childrenDiseases/default/getAlphabetList',
         'childrenDiseases/getCategoryList'=>'childrenDiseases/default/getCategoryList',
-        'childrenDiseases/<url:[\w\d-]+>'=>'childrenDiseases/default/view',
+        'childrenDiseases/<url:[\w\d- ]+>'=>'childrenDiseases/default/view',
 
 //        'recipeBook/disease/<url:\w+>'=>'recipeBook/default/disease',
 //        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',

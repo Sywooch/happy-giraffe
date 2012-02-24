@@ -3542,7 +3542,7 @@ ul.letters li a:hover {
     font-size: 13px;
     float: left;
     width: 240px;
-    height: 50px;
+    /*height: 50px;*/
 }
 
 .name_block.last {

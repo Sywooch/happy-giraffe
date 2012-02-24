@@ -10,8 +10,6 @@
     'enableAjaxValidation' => false,
 )); ?>
 
-    <p class="note">Поля с <span class="required">*</span> обязательны.</p>
-
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
@@ -24,6 +22,11 @@
         <?php echo $form->labelEx($model, 'role'); ?>
         <?php echo CHtml::dropDownList('User[role]', $model->getRole(), CHtml::listData(Yii::app()->authManager->getRoles(), 'name', 'name'), array('empty' => ' ')); ?>
         <?php echo $form->error($model, 'role'); ?>
+    </div>
+
+    <div class="row">
+        <label>Сообщество</label>
+        <?php echo CHtml::dropDownList('community_id', '', CHtml::listData(Community::model()->findAll(), 'id', 'name'), array('empty' => 'Все')); ?>
     </div>
 
     <b>Действия</b><br>

@@ -15,7 +15,9 @@
             ),
             array('label' => 'Жалобы',
                     'url' => array('/club/reports/index'),
-                    'active' => (Yii::app()->controller->id == 'club/reports')
+                ),
+            array('label' => 'Спам',
+                    'url' => array('/club/reports/spam'),
                 ),
             array('label' => 'Сигналы',
                 'url' => array('/club/signals/index'),

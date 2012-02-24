@@ -240,9 +240,9 @@ class CommunityContent extends CActiveRecord
 
         $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
         foreach ($moderators as $moderator) {
-            Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
-                'type' => self::SIGNAL_UPDATE
-            ));
+//            Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
+//                'type' => self::SIGNAL_UPDATE
+//            ));
         }
 
         return true;

@@ -69,12 +69,7 @@
                     echo '<br>'.CHtml::hiddenField('rubric-'.$r->id, $r->id,array('class'=>'rubric-id'));
                     echo CHtml::link('удалить', '#', array('class'=>'remove-rubric')).' ';
                     echo CHtml::link('редактировать', '#', array('class'=>'edit-rubric'));
-                }
-                    $assign = Yii::app()->authManager->getAuthItem('изменение рубрик в темах');
-                    echo $assign->bizRule;
-                echo $assign->name;
-                echo $assign->description;
-                ?>
+                }?>
             </li>
             <? endforeach; ?>
             <?php if (Yii::app()->authManager->checkAccess('изменение рубрик в темах', Yii::app()->user->getId(), array('community_id'=>$community->id))) {

@@ -22,6 +22,8 @@
 			switch ($c->type->slug)
 			{
 				case 'post':
+                    if ($c->post === null)
+                        $c->post = new CommunityPost();
 					$pos = strpos($c->post->text, '<!--more-->');
 					echo '<noindex>';
 					echo $pos === false ? $c->post->text : substr($c->post->text, 0, $pos);

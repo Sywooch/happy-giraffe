@@ -13,6 +13,12 @@
                 'url' => array('/club/names/index'),
                 'active' => (Yii::app()->controller->id == 'club/names')
             ),
+            array('label' => 'Жалобы',
+                    'url' => array('/club/reports/index'),
+                ),
+            array('label' => 'Спам',
+                    'url' => array('/club/reports/spam'),
+                ),
             array('label' => 'Сигналы',
                 'url' => array('/club/signals/index'),
                 'visible'=> Yii::app()->user->checkAccess('видеть сигналы'),

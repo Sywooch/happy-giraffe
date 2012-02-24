@@ -102,10 +102,13 @@ class Comment extends CActiveRecord
     public function afterSave()
     {
         if ($this->isNewRecord){
+            //проверяем на предмет выполненного модератором задания
+            UserSignal::CheckComment($this);
+
             if ($this->author->commentsCount == 1){
                 //первый комментарий пользователя, сообщаем модераторам
-                $signal = new ModerationSignals;
-                $signal->type = ModerationSignals::TYPE_NEW_USER_COMMENT;
+                $signal = new UserSignal;
+                $signal->signal_type = UserSignal::TYPE_NEW_USER_COMMENT;
                 $signal->user_id = $this->author_id;
                 $signal->item_id = $this->id;
                 $signal->item_name = 'Comment';

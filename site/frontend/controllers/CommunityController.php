@@ -1,5 +1,6 @@
 <?php
 Yii::import('site.frontend.modules.geo.models.*');
+
 class CommunityController extends Controller
 {
 
@@ -25,7 +26,7 @@ class CommunityController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow',
-				'actions' => array('add', 'edit', 'addTravel', 'editTravel'),
+				'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete'),
 				'users' => array('@'),
 			),
 			array('deny',
@@ -104,7 +105,6 @@ class CommunityController extends Controller
 			}
 			Yii::app()->clientScript->registerMetaTag($content->meta_description, 'description');
 			Yii::app()->clientScript->registerMetaTag($content->meta_keywords, 'keywords');
-			$comment_model = new CommunityComment;
 			$content_types = CommunityContentType::model()->findAll();
 			
 			$next = CommunityContent::model()->with('type', 'post', 'video')->find(array(
@@ -133,21 +133,10 @@ class CommunityController extends Controller
 					$related[] = $p;
 				}
 			}
-			
-			if (isset($_POST['CommunityComment']))
-			{
-				$comment_model->attributes = $_POST['CommunityComment'];
-				$comment_model->content_id = $content_id;
-				$comment_model->author_id = Yii::app()->user->id;
-				$comment_model->save();
-				//костыль
-				$content = CommunityContent::model()->view()->findByPk($content_id);
-			}
-			
+
 			$this->render('content', array(
 				'c' => $content,
 				'related' => $related,
-				'comment_model' => $comment_model,
 				'content_types' => $content_types,
 			));
 		}
@@ -165,6 +154,13 @@ class CommunityController extends Controller
 		{
 			throw new CHttpException(404, 'Такой записи не существует.');
 		}
+        if ($content_model->author_id != Yii::app()->user->getId() &&
+            !Yii::app()->authManager->checkAccess('удаление тем в сообществах', Yii::app()->user->getId(),
+                array('community_id'=>$content_model->rubric->community_id)) &&
+            !Yii::app()->authManager->checkAccess('перенос темы из сообщества в сообщество', Yii::app()->user->getId())
+        ) {
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        }
 		$communities = Community::model()->findAll();
 		$slave_model = $content_model->{$content_model->type->slug};
 		$slave_model_name = get_class($slave_model);
@@ -181,7 +177,8 @@ class CommunityController extends Controller
 			{
 				$content_model->save();
 				$slave_model->save();
-				$this->redirect(array('community/view', 'community_id' => $content_model->rubric->community->id, 'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
+				$this->redirect(array('community/view', 'community_id' => $content_model->rubric->community->id,
+                    'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
 			}
 		}
 		
@@ -193,6 +190,20 @@ class CommunityController extends Controller
 			'content_type' => $content_model->type,
 		));
 	}
+
+    public function actionDelete($id){
+        $post = CommunityContent::model()->findByPk($id);
+        //check user is author or moderator
+        if ($post->author_id == Yii::app()->user->getId() ||
+            Yii::app()->authManager->checkAccess('удаление тем в сообществах', Yii::app()->user->getId(),
+                array('community_id'=>$post->rubric->community_id))) {
+            $redirect_url = array('community/list', 'community_id' => $post->rubric->community->id, 'content_type_slug' => $post->type->slug);
+            $post->delete();
+            $this->redirect($redirect_url);
+        } else {
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        }
+    }
 
 	public function actionAdd($community_id, $content_type_slug = 'post', $rubric_id = null)
 	{	

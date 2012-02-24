@@ -537,7 +537,7 @@ a {color:#51afc3;}
 
 #dialogs .dialog-message .actions {width:21px;padding:10px;}
 #dialogs .dialog-message .actions a {background:url(../images/dialogs_icons.png) no-repeat;display:none;}
-#dialogs .dialog-message .actions .remove {width:10px;height:15px;background-position:-1px -36px;float:right;clear:both;margin-bottom:2px;}
+#dialogs .dialog-message .actions .remove {width:10px;height:15px;background-position:-1px -36px;float:right;clear:both;margin-bottom:2px;margin-right:5px;}
 #dialogs .dialog-message .actions .remove:hover {background-position:-13px -50px;}
 #dialogs .dialog-message .actions .claim {width:21px;height:18px;background-position:0 0px;float:right;clear:both;}
 #dialogs .dialog-message .actions .claim:hover {background-position:0 -18px;}

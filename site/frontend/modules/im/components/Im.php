@@ -68,6 +68,10 @@ class Im
                     $new_dialog['users'][] = $user->user_id;
                 }
             }
+            if (empty($new_dialog['users'])){
+                //remove dialog
+                MessageDialog::model()->deleteByPk($dialog->id);
+            }
             $this->_dialogs[$dialog->id] = $new_dialog;
         }
 
@@ -209,9 +213,12 @@ class Im
      */
     public function getUser($id)
     {
-        if (isset($this->_loaded_users[$id]))
+        if (!empty($this->_loaded_users[$id]))
             return $this->_loaded_users[$id];
         $user = User::getUserById($id);
+        if ($user === null)
+            return null;
+
         $this->_loaded_users[$id] = $user;
         return $user;
     }

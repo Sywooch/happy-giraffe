@@ -99,6 +99,17 @@ class Comment extends CActiveRecord
 		));
 	}
 
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            )
+        );
+    }
+
     public function afterSave()
     {
         if ($this->isNewRecord){

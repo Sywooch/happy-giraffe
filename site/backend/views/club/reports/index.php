@@ -18,7 +18,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'value' => '$data->types[$data->type]',
         ),
         array(
-            'header' => 'Пожаловались на',
+            'header' => 'Нарушитель',
             'type' => 'raw',
             'value' => '$data->entity->author->fullName'
         ),

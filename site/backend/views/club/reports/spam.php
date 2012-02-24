@@ -24,8 +24,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'header' => '',
             'type' => 'raw',
-            'value' => 'CHtml::link("Открыть", array("/club/reports/spamView", "id" => $data->id));'
-        )
+            'value' => 'CHtml::link("Открыть", array("/club/reports/spamView", "id" => $data->breaker_id));'
+        ),
     )
 ));
 ?>

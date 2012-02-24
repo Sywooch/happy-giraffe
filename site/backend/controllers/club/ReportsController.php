@@ -42,7 +42,17 @@ class ReportsController extends BController
 
     public function actionSpamView($id)
     {
-        $this->render('spam_view');
+        $model = new Report('search');
+        $model->unsetAttributes();
+        $model->breaker_id = $id;
+        $model->type = 0;
+
+        $breaker = User::model()->findByPk($id);
+
+        $this->render('spam_view', array(
+            'model' => $model,
+            'breaker' => $breaker,
+        ));
     }
 
     public function actionAccept($id)

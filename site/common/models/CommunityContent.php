@@ -150,7 +150,7 @@ class CommunityContent extends CActiveRecord
 					)
 				),
 			),
-			'order' => 'created DESC',
+			'order' => 't.id DESC',
 		));
 		return $this;
 	}

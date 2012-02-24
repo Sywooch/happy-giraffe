@@ -502,7 +502,7 @@ class User extends CActiveRecord
         return $str;
     }
 
-    public function getAssignes()
+    public function getAssigns()
     {
         $assigns = Yii::app()->authManager->getAuthAssignments($this->id);
         if (empty($assigns))

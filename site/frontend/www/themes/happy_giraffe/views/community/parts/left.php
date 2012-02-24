@@ -72,7 +72,7 @@
                 }?>
             </li>
             <? endforeach; ?>
-            <?php if (Yii::app()->authManager->checkAccess('изменение рубрик в темах', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
+            <?php if (Yii::app()->authManager->checkAccess('edit-rubrics', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
                 echo CHtml::link('добавить', '#', array('class'=>'add-rubric'));
         } ?>
         </ul>

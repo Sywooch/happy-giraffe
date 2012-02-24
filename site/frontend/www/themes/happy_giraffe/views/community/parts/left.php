@@ -70,7 +70,10 @@
                     echo CHtml::link('удалить', '#', array('class'=>'remove-rubric')).' ';
                     echo CHtml::link('редактировать', '#', array('class'=>'edit-rubric'));
                 }
-                    echo Yii::app()->user->checkAccess('изменение рубрик в темах');
+                    $assign = Yii::app()->authManager->getAuthItem('изменение рубрик в темах');
+                    echo $assign->bizRule;
+                echo $assign->name;
+                echo $assign->description;
                 ?>
             </li>
             <? endforeach; ?>

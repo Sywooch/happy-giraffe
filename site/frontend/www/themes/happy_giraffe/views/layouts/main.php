@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#">
 <head>
 	<?php echo CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type'); ?>
@@ -121,6 +121,7 @@
 	
 
 	</div>
+    <?php var_dump(Yii::app()->db->createCommand('SHOW TABLE STATUS')->queryAll()); ?>
 	
 	<!-- Yandex.Metrika counter -->
 	<div style="display:none;"><script type="text/javascript">

@@ -70,7 +70,7 @@
                     echo CHtml::link('удалить', '#', array('class'=>'remove-rubric')).' ';
                     echo CHtml::link('редактировать', '#', array('class'=>'edit-rubric'));
                 }
-                    echo User::getUserById(Yii::app()->user->getId())->getAssigns();
+                    echo Yii::app()->user->getId();
                 ?>
             </li>
             <? endforeach; ?>

@@ -1,10 +1,12 @@
 <?php
-	$cs = Yii::app()->clientScript;
-	$js = "
+$cs = Yii::app()->clientScript;
+$js = "
 $('button.cancel').live('click', function(e) {
 	e.preventDefault();
 	var editor = CKEDITOR.instances['Comment[text]'];
     editor.setData('');
+    edit_comment = null;
+    endEdit();
 });
 $('#add_comment').live('submit', function(e) {
 	e.preventDefault();
@@ -16,54 +18,98 @@ $('#add_comment').live('submit', function(e) {
 		success: function(response) {
 			if (response.status == 'ok')
 			{
-				$.ajax({
-					type: 'POST',
-					data: {
-						model: $('#Comment_model').val(),
-						object_id: $('#Comment_object_id').val()
-					},
-					url: " . CJSON::encode(Yii::app()->createUrl('ajax/showcomments')) . ",
-					success: function(response) {
-						$('div.comments').replaceWith(response);
-						$('div.comments div.item:first').hide();
-						$('html,body').animate({scrollTop: $('div.comments').offset().top},'slow',function() {
-							$('div.comments div.item:first').fadeIn(1000);
-						});
-					}
-				});
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        model: $('#Comment_model').val(),
+                        object_id: $('#Comment_object_id').val()
+                    },
+                    url: " . CJSON::encode(Yii::app()->createUrl('ajax/showcomments')) . ",
+                    success: function(response) {
+                        $('div.comments').replaceWith(response);
+                        if ($('#edit-id').val() != ''){
+			                $('html,body').animate({scrollTop: $('#CommunityComment_' + $('#edit-id').val()).offset().top},'fast');
+                        }else{
+                            $('div.comments div.item:first').hide();
+                            $('html,body').animate({scrollTop: $('div.comments').offset().top},'slow',function() {
+                                $('div.comments div.item:first').fadeIn(1000);
+                            });
+                        }
+                        endEdit();
+                    }
+                });
 				var editor = CKEDITOR.instances['Comment[text]'];
                 editor.setData('');
 			}
 		},
 	});
 });
-	";
-	$cs->registerScript('comment_widget_form', $js);
-	
+
+$('body').delegate('a.remove-comment', 'click', function () {
+        if (confirm('Вы точно хотите удалить комментарий?')) {
+            var id = $(this).parents('.item').attr('id').replace(/CommunityComment_/g, '');
+            $.ajax({
+                url:'" . Yii::app()->createUrl("ajax/deleteComment") . "',
+                data:{id:id},
+                type:'POST',
+                dataType:'JSON',
+                success:function (response) {
+                    if (response.status) {
+                        $(this).parents('.item').fadeOut(300, function(){
+                            $(this).undelegate('click');
+                            $(this).remove();
+                            $('.left-s .col').html(parseInt($('.left-s .col').html()) - 1);
+                        });
+                    }
+                },
+                context:$(this)
+            });
+        }
+        return false;
+    });
+
+    $('body').delegate('a.edit-comment', 'click', function () {
+        var id = $(this).parents('.item').attr('id').replace(/CommunityComment_/g, '');
+        $('#edit-id').val(id);
+        var editor = CKEDITOR.instances['Comment[text]'];
+        editor.setData($(this).parents('.item').find('.comment-content').html());
+        $('#add_comment .button_panel .btn-green-medium span span').text('Редактировать');
+
+        $('html,body').animate({scrollTop: $('#add_comment').offset().top - 100},'fast');
+        return false;
+    });
+
+function endEdit(){
+    $('#add_comment .button_panel .btn-green-medium span span').text('Добавить');
+    $('#edit-id').val('');
+}";
+$cs->registerScript('comment_widget_form', $js);
 ?>
+<?php $this->render('list', array('comments' => $data_provider->data,
+    'total' => $data_provider->totalItemCount,
+    'pages' => $data_provider->pagination)); ?>
 
-<?php $this->render('list', array('comments' => $data_provider->data, 'total' => $data_provider->totalItemCount, 'pages' => $data_provider->pagination)); ?>
-
-<?php if (! Yii::app()->user->isGuest): ?>
-	<div class="new_comment">
-		<?php $form = $this->beginWidget('CActiveForm', array(
-			'id' => 'add_comment',
-		)); ?>
-		<?php echo $form->hiddenField($comment_model, 'model', array('value' => $model)); ?>
-		<?php echo $form->hiddenField($comment_model, 'object_id', array('value' => $object_id)); ?>
-		<?php
-			$this->widget('ext.ckeditor.CKEditorWidget', array(
-				'model' => $comment_model,
-				'attribute' => 'text',
-				'config' => array(
-					'toolbar' => 'Nocut',
-				),
-			));
-		?>
-		<div class="button_panel">
-			<button class="btn btn-gray-medium cancel"><span><span>Отмена</span></span></button>
-			<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
-		</div>
-		<?php $this->endWidget(); ?>
-	</div>
+<?php if (!Yii::app()->user->isGuest): ?>
+<div class="new_comment">
+    <?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'add_comment',
+)); ?>
+    <?php echo $form->hiddenField($comment_model, 'model', array('value' => $model)); ?>
+    <?php echo $form->hiddenField($comment_model, 'object_id', array('value' => $object_id)); ?>
+    <?php echo CHtml::hiddenField('edit-id', ''); ?>
+    <?php
+    $this->widget('ext.ckeditor.CKEditorWidget', array(
+        'model' => $comment_model,
+        'attribute' => 'text',
+        'config' => array(
+            'toolbar' => 'Nocut',
+        ),
+    ));
+    ?>
+    <div class="button_panel">
+        <button class="btn btn-gray-medium cancel"><span><span>Отмена</span></span></button>
+        <button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
+    </div>
+    <?php $this->endWidget(); ?>
+</div>
 <?php endif; ?>

@@ -2,11 +2,11 @@
 
 class AjaxController extends Controller
 {
-	public function actionRate()
-	{
-		Yii::import('contest.models.*');
-		$modelName = $_POST['modelName'];
-		$objectId = $_POST['objectId'];
+    public function actionRate()
+    {
+        Yii::import('contest.models.*');
+        $modelName = $_POST['modelName'];
+        $objectId = $_POST['objectId'];
         $social_key = $_POST['key'];
         $value = $_POST['r'];
 
@@ -33,17 +33,17 @@ class AjaxController extends Controller
 	public function actionImageUpload()
 	{
 		$dir = Yii::getPathOfAlias('webroot') . '/upload/images/';
- 
+
 		$_FILES['file']['type'] = strtolower($_FILES['file']['type']);
- 
-		if ($_FILES['file']['type'] == 'image/png' 
-		|| $_FILES['file']['type'] == 'image/jpg' 
-		|| $_FILES['file']['type'] == 'image/gif' 
+
+		if ($_FILES['file']['type'] == 'image/png'
+		|| $_FILES['file']['type'] == 'image/jpg'
+		|| $_FILES['file']['type'] == 'image/gif'
 		|| $_FILES['file']['type'] == 'image/jpeg'
 		|| $_FILES['file']['type'] == 'image/pjpeg')
 		{
 			copy($_FILES['file']['tmp_name'], $dir . time() . $_FILES['file']['name']);
- 
+
 			echo Yii::app()->baseUrl . '/upload/images/' . time() . $_FILES['file']['name'];
 		}
 	}
@@ -52,9 +52,9 @@ class AjaxController extends Controller
     {
         if(!Yii::app()->request->isAjaxRequest || false === ($path = Yii::app()->request->getPost('path')))
             Yii::app()->end();
-        $count = 0;
+        $count = 1;
         if($model = PageView::model()->updateByPath($path))
-            $count = $model->views;
+            $count = $model->views + 1;
         echo CJSON::encode(array(
             'count' => (int)$count,
         ));
@@ -69,25 +69,52 @@ class AjaxController extends Controller
 		));
 	}
 
-	public function actionSendComment()
-	{
-		$comment = new Comment;
-		$comment->attributes = $_POST['Comment'];
-		$comment->author_id = Yii::app()->user->id;
-		if ($comment->save())
-		{
-			$response = array(
-				'status' => 'ok',
-			);
-		}
-		else
-		{
-			$response = array(
-				'status' => 'error',
-			);
-		}
-		echo CJSON::encode($response);
-	}
+    public function actionSendComment()
+    {
+        if (empty($_POST['edit-id'])){
+            $comment = new Comment;
+            $comment->attributes = $_POST['Comment'];
+            $comment->author_id = Yii::app()->user->id;
+        }else{
+            $comment = $this->loadComment($_POST['edit-id']);
+            //check access
+            if ($comment->author_id != Yii::app()->user->getId() &&
+                !Yii::app()->authManager->checkAccess('редактирование комментариев',Yii::app()->user->getId())
+            )
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            $comment->attributes = $_POST['Comment'];
+        }
+        if ($comment->save())
+        {
+            $response = array(
+                'status' => 'ok',
+            );
+        }
+        else
+        {
+            $response = array(
+                'status' => 'error',
+            );
+        }
+        echo CJSON::encode($response);
+    }
+
+    public function actionDeleteComment()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $comment = Comment::model()->findByPk($id);
+        //check user is author or moderator
+        if ($comment->author_id == Yii::app()->user->getId() ||
+            Yii::app()->authManager->checkAccess('удаление комментариев', Yii::app()->user->getId())) {
+            echo CJSON::encode(array(
+                'status' => $comment->delete(),
+            ));
+        } else {
+            echo CJSON::encode(array(
+                'status' => false,
+            ));
+        }
+    }
 
 	public function actionUserViaCommunity()
 	{
@@ -104,56 +131,63 @@ class AjaxController extends Controller
 
 	public function actionAcceptReport()
 	{
-		if ($_POST['Report'])
-		{
-			$report = new Report;
-			$report->setAttributes($_POST['Report'], FALSE);
-			$report->informer_id = Yii::app()->user->id;
-			$report->type = 'Другое';
-			$report->save();
-		}
+        if ($_POST['Report'])
+        {
+            $path = parse_url($_SERVER['HTTP_REFERER']);
+            $report = new Report;
+            $report->setAttributes($_POST['Report'], FALSE);
+            $report->author_id = Yii::app()->user->id;
+            $report->path = $path['path'];
+            $report->save();
+        }
 	}
 
-	public function actionShowReport()
-	{
-		$accepted_models = array(
-			'CommunityComment',
-			'CommunityContent',
+    public function actionShowReport()
+    {
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
+        $accepted_models = array(
+            'Comment',
+            'CommunityContent',
             'RecipeBookRecipe',
             'MessageDialog',
             'MessageLog'
-		);
-	
-		$source_data = $_POST['source_data'];
-		if (in_array($source_data['model'], $accepted_models))
-		{
-			$this->widget('ReportWidget', array('source_data' => $source_data));
-		}
-	}
+        );
+        $source_data = $_POST['source_data'];
+        if (in_array($source_data['model'], $accepted_models))
+        {
+            $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array(
+                'entity_name' => $source_data['model'],
+                'entity_id' => $source_data['object_id'],
+            ));
+            $report->form();
+            $this->endWidget();
+        }
+    }
 
 	public function actionView($path)
 	{
 		$this->renderPartial($path);
 	}
-	
+
 	public function actionVideo()
 	{
 		$link = $_POST['url'];
-		
+
 		$video = new Video($link);
-		
+
 		$host = parse_url($link, PHP_URL_HOST);
 		$favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
 		$favicon = strtr($host, array('.' => '_')) . '.png';
 		$favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' .  $favicon;
 		file_put_contents($favicon_path, file_get_contents($favicon_url));
-		
+
 		$this->renderPartial('video_preview', array(
 			'video' => $video,
 			'favicon' => $favicon,
 		));
 	}
-	
+
 	public function actionSource()
 	{
 		switch ($_POST['source_type'])
@@ -169,13 +203,13 @@ class AjaxController extends Controller
 				$html = file_get_contents($link);
 				$title = preg_match('/<title>(.+)<\/title>/', $html, $matches) ? $matches[1] : $link;
 				$title = mb_convert_encoding($title, 'UTF-8', 'cp1251');
-				
+
 				$host = parse_url($link, PHP_URL_HOST);
 				$favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
 				$favicon = strtr($host, array('.' => '_')) . '.png';
 				$favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' .  $favicon;
 				file_put_contents($favicon_path, file_get_contents($favicon_url));
-				
+
 				$this->renderPartial('source_type/preview/internet', array(
 					'title' => $title,
 					'favicon' => $favicon,
@@ -191,7 +225,7 @@ class AjaxController extends Controller
 		$user->setAttributes($_POST['User']);
 		$user->save(TRUE, array('first_name', 'last_name', 'nick', 'birthday', 'settlement_id'));
 	}
-	
+
 	public function actionSaveChild()
 	{
 		//sleep(2);
@@ -200,7 +234,7 @@ class AjaxController extends Controller
 		$baby->save(TRUE, array('name', 'birthday'));
 		echo json_encode($baby->getAttributes());
 	}
-	
+
 	public function actionSettlements()
 	{
 		$data = GeoRusSettlement::model()->findAll('region_id=:region_id', array(':region_id'=>(int) $_POST['region_id']));
@@ -211,11 +245,11 @@ class AjaxController extends Controller
 			echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), TRUE);
 		}
 	}
-	
+
 	public function actionRubrics()
 	{
 		$rubrics = CommunityRubric::model()->findAll('community_id=:community_id', array(':community_id'=>(int) $_POST['community_id']));
-		
+
 		echo CHtml::tag('span', array('val' => '0', 'class' => 'cuselActive'), 'Выберите рубрику');
 		foreach ($rubrics as $r)
 		{
@@ -257,5 +291,17 @@ class AjaxController extends Controller
 
             echo CJSON::encode($response);
         }
+    }
+
+    /**
+     * @param int $id model id
+     * @return Comment
+     * @throws CHttpException
+     */
+    public function loadComment($id){
+        $model = Comment::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

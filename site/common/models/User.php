@@ -67,6 +67,7 @@ class User extends CActiveRecord
     public $current_password;
     public $new_password;
     public $new_password_repeat;
+    public $remember;
 
     public function getAge()
     {
@@ -186,10 +187,10 @@ class User extends CActiveRecord
         );
     }
 
-    public function defaultScope()
+    public function scopes()
     {
         return array(
-            'condition' => $this->getTableAlias(false, false) . '.deleted = 0',
+            'active' => $this->getTableAlias(false, false) . '.deleted = 0'
         );
     }
 
@@ -207,6 +208,10 @@ class User extends CActiveRecord
             'current_password' => 'Текущий пароль',
             'new_password' => 'Новый пароль',
             'new_password_repeat' => 'Новый пароль ещё раз',
+            'remember' => 'Запомнить меня',
+            'role'=>'Роль',
+            'fullName' => 'Имя пользователя',
+            'last_name'=>'Фамилия',
         );
     }
 
@@ -483,11 +488,11 @@ class User extends CActiveRecord
         if (!empty($this->settlement_id)) {
             if (empty($this->settlement->region_id)) {
                 $str .= ', ' . $this->settlement->name;
-            } elseif ($this->settlement->region_id == 42){
+            } elseif ($this->settlement->region_id == 42) {
                 $str .= ', ' . $this->settlement->name;
-            } elseif ($this->settlement->region_id == 59){
+            } elseif ($this->settlement->region_id == 59) {
                 $str .= ', ' . $this->settlement->name;
-            }else{
+            } else {
                 $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
                 $str .= ', ' . $this->settlement->region->name . ', ' . $type . ' ' . $this->settlement->name;
             }
@@ -497,14 +502,28 @@ class User extends CActiveRecord
         return $str;
     }
 
+    public function getAssignes()
+    {
+        $assigns = Yii::app()->authManager->getAuthAssignments($this->id);
+        if (empty($assigns))
+            return 'user';
+        $roles = '';
+        foreach ($assigns as $assign) {
+            $roles .= $assign->itemName . ', ';
+        }
+        return trim($roles, ', ');
+    }
+
     public function getRole()
     {
         $assigns = Yii::app()->authManager->getAuthAssignments($this->id);
         if (empty($assigns))
             return 'user';
-        foreach($assigns as $assign){
-            return $assign->itemName;
+        foreach (Yii::app()->authManager->getRoles() as $name => $item) {
+            if (Yii::app()->authManager->checkAccess($name, $this->id))
+                return $name;
         }
+        return 'user';
     }
 
     /**
@@ -518,21 +537,27 @@ class User extends CActiveRecord
             return 6;
 
         //с каждой неделей пребывания на сервере приоритет уменьшается
-        $weeks_gone = floor((strtotime(date("Y-m-d H:i:s") ) - strtotime($this->register_date))/604800);
-        switch ($weeks_gone){
-            case 0: return 5;
-            case 1: return 4;
-            case 2: return 3;
-            case 3: return 2;
-            case 4: return 1;
-            default: return 0;
+        $weeks_gone = floor((strtotime(date("Y-m-d H:i:s")) - strtotime($this->register_date)) / 604800);
+        switch ($weeks_gone) {
+            case 0:
+                return 5;
+            case 1:
+                return 4;
+            case 2:
+                return 3;
+            case 3:
+                return 2;
+            case 4:
+                return 1;
+            default:
+                return 0;
         }
     }
 
     public function isNewComer()
     {
         //с каждой неделей пребывания на сервере приоритет уменьшается
-        $weeks_gone = floor((strtotime(date("Y-m-d H:i:s") ) - strtotime($this->register_date))/604800);
+        $weeks_gone = floor((strtotime(date("Y-m-d H:i:s")) - strtotime($this->register_date)) / 604800);
 
         if ($this->getRole() == 'user' && $weeks_gone < 5)
             return true;

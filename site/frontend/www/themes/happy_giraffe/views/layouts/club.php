@@ -22,27 +22,6 @@
     <!--[if IE 7]>
     <?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css?r=112'); ?>
     <![endif]-->
-    <?php
-    $reports = "
-$('.report-block .cancel').live('click', function() {
-	$(this).parents('.report-block').remove();
-	return false;
-});
-$('.report-form').live('submit', function() {
-	var report_block = $(this).parents('.report-block');
-	$.ajax({
-		type: 'POST',
-		data: $(this).serialize(),
-		url: " . CJSON::encode($this->createUrl('/ajax/acceptreport')) . ",
-		success: function(response) {
-			report_block.remove();
-		}
-	});
-	return false;
-});
-		";
-    Yii::app()->clientScript->registerScript('reports_', $reports);
-    ?>
 </head>
 <body class="body-club">
 <div id="layout" class="wrapper">

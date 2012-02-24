@@ -121,8 +121,7 @@
 	
 
 	</div>
-    <?php var_dump(Yii::app()->db->createCommand('SHOW TABLE STATUS')->queryAll()); ?>
-	
+
 	<!-- Yandex.Metrika counter -->
 	<div style="display:none;"><script type="text/javascript">
 	(function(w, c) {

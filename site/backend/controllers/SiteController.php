@@ -8,6 +8,7 @@ class SiteController extends BController
     {
         return array(
             array('allow',
+                'actions'=>array('index'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -53,7 +54,7 @@ class SiteController extends BController
                     ':password'=>md5($model->password),
                 )));
 
-            if ($userModel)
+            if ($userModel !== null)
             {
                 $identity=new AdminUserIdentity($userModel->getAttributes());
                 $identity->authenticate();

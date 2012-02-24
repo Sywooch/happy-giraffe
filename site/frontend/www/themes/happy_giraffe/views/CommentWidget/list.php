@@ -19,31 +19,22 @@
                     <a class="username"><?php echo $cm->author->first_name; ?></a>
                 </div>
                 <div class="text">
-                    <p><?php echo $cm->text; ?></p>
+                    <div class="comment-content"><?php echo $cm->text; ?></div>
 
                     <div class="data">
                         <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $cm->created); ?>
                         <?php
-                        if ($cm->author->id != Yii::app()->user->id){
+                        if ($cm->author->id != Yii::app()->user->id) {
                             $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $cm));
                             $report->button("$(this).parents('.item')");
                             $this->endWidget();
                         }
                         ?>
                     </div>
-                    <?php if ($cm->author->id == Yii::app()->user->id ||
-                    Yii::app()->authManager->checkAccess('редактирование комментариев',
-                        Yii::app()->user->getId(), array(
-                            'community_id' => null,
-                        ))
-                ): ?>
-                    <?php echo CHtml::link('редактировать', Yii::app()->createUrl('admin/comment/update', array('id' => $cm->id))); ?>
+                    <?php if ($cm->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('редактирование комментариев',Yii::app()->user->getId())): ?>
+                    <?php echo CHtml::link('редактировать', '#', array('class' => 'edit-comment')); ?>
                     <?php endif; ?>
-                    <?php if ($cm->author->id == Yii::app()->user->id ||
-                    Yii::app()->authManager->checkAccess('удаление комментариев', Yii::app()->user->getId(), array(
-                        'community_id' => null,
-                    ))
-                ): ?>
+                    <?php if ($cm->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('удаление комментариев', Yii::app()->user->getId())): ?>
                     <?php echo CHtml::link('удалить', Yii::app()->createUrl('#', array('id' => $cm->id)), array(
                         'class' => 'remove-comment',
                     )); ?>

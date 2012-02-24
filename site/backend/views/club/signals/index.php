@@ -11,6 +11,7 @@ Yii::app()->clientScript
 <script type="text/javascript">
     var user_cache = "<?php echo MessageCache::GetCurrentUserCache() ?>";
     var realplexor;
+    var filter = null;
 
     $(function () {
         realplexor = new Dklab_Realplexor(
@@ -81,6 +82,14 @@ Yii::app()->clientScript
             });
             return false;
         });
+
+        $('table.choose-type a').click(function(){
+            filter = $(this).attr('obj');
+            $('table.choose-type td').removeClass('active');
+            $(this).parent().addClass('active');
+            UpdateTable();
+            return false;
+        });
     });
 
     function AddExecutor(id) {
@@ -105,6 +114,7 @@ Yii::app()->clientScript
         $.ajax({
             url: '<?php echo Yii::app()->createUrl("/club/signals/index") ?>',
             type: 'POST',
+            data:{filter:filter},
             success: function(response) {
                 $('.grid-view').html(response);
             }
@@ -117,6 +127,14 @@ Yii::app()->clientScript
         $('#signal' + id + ' .executed').show();
     }
 </script>
+<table class="choose-type">
+    <tr>
+        <td class="active"><a href="#" obj="">все события</a></td>
+        <td><a href="#" obj="<?php echo UserSignal::TYPE_NEW_USER_POST ?>">только посты</a></td>
+        <td><a href="#" obj="<?php echo UserSignal::TYPE_NEW_USER_VIDEO ?>">только видео</a></td>
+        <td><a href="#" obj="<?php echo UserSignal::TYPE_NEW_USER_TRAVEL ?>">только путешествия</a></td>
+    </tr>
+</table>
 <div class="grid-view">
     <?php $this->renderPartial('_data', array('models' => $models)); ?>
 </div>

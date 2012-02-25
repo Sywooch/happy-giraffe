@@ -65,7 +65,7 @@
                 if ($content_type !== null)
                     $params['content_type_slug'] = $content_type->slug;
                 echo CHtml::link($r->name, CController::createUrl('community/list', $params), $r->id == $current_rubric ? array('class' => 'current') : array());
-                if (Yii::app()->authManager->checkAccess('изменение рубрик в темах', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
+                if (Yii::app()->authManager->checkAccess('edit rubrics', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
                     echo '<br>'.CHtml::hiddenField('rubric-'.$r->id, $r->id,array('class'=>'rubric-id'));
                     echo CHtml::link('удалить', '#', array('class'=>'remove-rubric')).' ';
                     echo CHtml::link('редактировать', '#', array('class'=>'edit-rubric'));
@@ -73,7 +73,7 @@
                 ?>
             </li>
             <? endforeach; ?>
-            <?php if (Yii::app()->authManager->checkAccess('изменение рубрик в темах', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
+            <?php if (Yii::app()->authManager->checkAccess('edit rubrics', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
                 echo CHtml::link('добавить', '#', array('class'=>'add-rubric'));
         } ?>
         </ul>

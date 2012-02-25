@@ -38,7 +38,7 @@ class m120222_054059_moderator_functions extends CDbMigration
 ('delete post', 0, 'delete post', NULL, NULL),
 ('удаление фото в конкурсе', 0, 'удаление фото в конкурсе', NULL, NULL),
 ('user access', 0, 'user access', NULL, NULL),
-('вход в админку', 0, 'вход в админку', NULL, NULL);
+('admin panel access', 0, 'вход в админку', NULL, NULL);
 
 
 INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('user_signals', 'видеть сигналы'),
 ('editor', 'edit meta'),
 ('administrator', 'user access'),
-('administrator', 'вход в админку'),
+('administrator', 'admin panel access'),
 ('supermoderator', 'user access');
 
 INSERT INTO `auth_assignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES

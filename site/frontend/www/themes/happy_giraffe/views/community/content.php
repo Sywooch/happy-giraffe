@@ -145,14 +145,14 @@ $cs
         }
         ?>
         <?php if ($c->contentAuthor->id == Yii::app()->user->id ||
-        Yii::app()->authManager->checkAccess('редактирование тем в сообществах',Yii::app()->user->getId(), array(
+        Yii::app()->authManager->checkAccess('edit post',Yii::app()->user->getId(), array(
                 'community_id'=>$c->rubric->community->id,
             )) ||
-        Yii::app()->authManager->checkAccess('перенос темы из сообщества в сообщество',Yii::app()->user->getId())): ?>
+        Yii::app()->authManager->checkAccess('transfer post',Yii::app()->user->getId())): ?>
         <?php echo CHtml::link('редактировать', ($c->type->slug == 'travel') ? $this->createUrl('community/editTravel', array('id' => $c->id)) : $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
         <?php endif; ?>
         <?php if ($c->contentAuthor->id == Yii::app()->user->id ||
-            Yii::app()->authManager->checkAccess('удаление тем в сообществах',
+            Yii::app()->authManager->checkAccess('delete post',
                 Yii::app()->user->getId(), array(
                     'community_id'=>$c->rubric->community->id,
                 ))): ?>

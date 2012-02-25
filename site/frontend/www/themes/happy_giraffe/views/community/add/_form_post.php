@@ -58,7 +58,7 @@
 		
 ?>
 
-<?php if ($content_model->isNewRecord || (Yii::app()->user->checkAccess('редактирование тем в сообществах',
+<?php if ($content_model->isNewRecord || (Yii::app()->user->checkAccess('edit post',
     array('community_id'=>$content_model->rubric->community_id)) ||
     $content_model->author_id == Yii::app()->user->getId())):?>
 	<div class="">
@@ -66,7 +66,7 @@
 
 		<?php echo $form->textField($content_model, 'name'); ?>
 	
-		<?php if(Yii::app()->user->checkAccess('редактирование meta')): ?>
+		<?php if(Yii::app()->user->checkAccess('edit meta')): ?>
 			<div class="inner-title">Title</div>
 			<?php echo $form->textField($content_model, 'meta_title'); ?>
 	
@@ -115,14 +115,14 @@
 							'url' => CController::createUrl('ajax/rubrics'),
 							'update' => '#cusel-scroll-CommunityContent_rubric_id',
 						),
-						'disabled' => Yii::app()->user->checkAccess('перенос темы из сообщества в сообщество') ? '' : 'disabled',
+						'disabled' => Yii::app()->user->checkAccess('transfer post') ? '' : 'disabled',
 					)
 				); ?></p>
 			
 				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
 					array(
 						'prompt' => 'Выберите рубрику',
-						'disabled' => Yii::app()->user->checkAccess('перенос темы из сообщества в сообщество') ? '' : 'disabled',
+						'disabled' => Yii::app()->user->checkAccess('transfer post') ? '' : 'disabled',
                         'class'=>'chzn'
 					)
 				); ?>

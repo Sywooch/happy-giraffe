@@ -145,8 +145,7 @@ $cs
         }
         ?>
 
-        <?php $res = Yii::app()->authManager->checkAccess('delete post',
-        Yii::app()->user->getId());
+        <?php $res = Yii::app()->authManager->checkAccess('delete post', Yii::app()->user->getId());
         var_dump($res);
         ?>
 

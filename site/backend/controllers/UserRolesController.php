@@ -7,8 +7,8 @@ class UserRolesController extends BController
 
     public function beforeAction($action)
     {
-//        if (!Yii::app()->user->checkAccess('user access'))
-//            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        if (!Yii::app()->user->checkAccess('user access'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }
 
@@ -36,7 +36,7 @@ class UserRolesController extends BController
             if (isset($_POST['Operation']))
                 foreach ($_POST['Operation'] as $key => $value) {
                     if ($value == 1) {
-                        if (isset($_POST['community_id']) && ($key =='изменение рубрик в темах' ||
+                        if (isset($_POST['community_id']) && ($key =='transfer post' ||
                             $key =='edit post' || $key =='delete post'))
                             Yii::app()->authManager->assign($key, $model->id,
                                 'return $params["community_id"] == '.$_POST['community_id'].';');

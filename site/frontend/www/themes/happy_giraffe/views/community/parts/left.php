@@ -76,9 +76,6 @@
                 echo CHtml::link('добавить', '#', array('class'=>'add-rubric'));
         } ?>
         </ul>
-        <?php $res = Yii::app()->authManager->checkAccess('delete post', Yii::app()->user->getId());
-        var_dump($res);
-        ?>
     </div>
 
     <div class="leftbanner">

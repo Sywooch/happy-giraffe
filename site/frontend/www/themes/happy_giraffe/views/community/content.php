@@ -145,10 +145,6 @@ $cs
         }
         ?>
 
-        <?php $res = Yii::app()->authManager->checkAccess('delete post', Yii::app()->user->getId());
-        var_dump($res);
-        ?>
-
         <?php if ($c->contentAuthor->id == Yii::app()->user->id ||
         Yii::app()->authManager->checkAccess('edit post', Yii::app()->user->getId(), array(
                 'community_id'=>$c->rubric->community->id,

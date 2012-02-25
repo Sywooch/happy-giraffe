@@ -31,10 +31,10 @@
                         }
                         ?>
                     </div>
-                    <?php if ($cm->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('редактирование комментариев',Yii::app()->user->getId())): ?>
+                    <?php if ($cm->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())): ?>
                     <?php echo CHtml::link('редактировать', '#', array('class' => 'edit-comment')); ?>
                     <?php endif; ?>
-                    <?php if ($cm->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('удаление комментариев', Yii::app()->user->getId())): ?>
+                    <?php if ($cm->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId())): ?>
                     <?php echo CHtml::link('удалить', Yii::app()->createUrl('#', array('id' => $cm->id)), array(
                         'class' => 'remove-comment',
                     )); ?>

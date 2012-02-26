@@ -1,6 +1,12 @@
 <p>
     Нарушитель: <?php echo $breaker->fullName ?>,
     зарегистрирован <?php echo $breaker->register_date; ?>
+</p>
+    <?php if($breaker->blocked == 0): ?>
+        <p><?php echo CHtml::link('Заблокировать', array('club/reports/blockUser', 'id' => $breaker->id)); ?></p>
+    <?php elseif($breaker->blocked == 1): ?>
+        <p>Пользователь заблокирован</p>
+    <?php  endif;?>
     <?php
     $this->widget('zii.widgets.grid.CGridView', array(
         'dataProvider'=>$model->search(),
@@ -31,4 +37,3 @@
         )
     ));
     ?>
-</p>

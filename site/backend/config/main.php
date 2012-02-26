@@ -4,6 +4,7 @@ return array(
 	'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
 	'name' => 'Админка',
     'language'=>'ru',
+    'preload'=>array('log'),
 	'import'=>array(
         'site.common.models.*',
         'site.common.models.mongo.*',
@@ -24,6 +25,9 @@ return array(
         'site.frontend.helpers.*',
         'site.common.helpers.*',
 	),
+    'modules'=>array(
+        'seo'
+    ),
 	'components' => array(
         'widgetFactory' => array(
             'widgets' => array(

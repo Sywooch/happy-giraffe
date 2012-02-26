@@ -113,7 +113,7 @@ class User extends CActiveRecord
             array('phone', 'safe'),
             array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
-            array('login_date, register_date', 'safe'),
+            array('blocked, login_date, register_date', 'safe'),
 
             //login
             array('email, password', 'required', 'on' => 'login'),

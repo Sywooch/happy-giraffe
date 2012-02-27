@@ -115,7 +115,7 @@ return array(
 			),
 		),
 		'search' => array(
-		    'class' => 'application.components.DGSphinxSearch',
+		    'class' => 'site.frontend.extensions.DGSphinxSearch',
 		    'server' => '127.0.0.1',
 		    'port' => 9312,
 		    'maxQueryTime' => 3000,

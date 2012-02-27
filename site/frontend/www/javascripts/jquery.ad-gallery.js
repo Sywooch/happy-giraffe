@@ -279,11 +279,13 @@
             thumb.load(
               function() {
                 thumb_wrapper_width += this.parentNode.parentNode.offsetWidth;
+				thumb_wrapper_width += 20;
                 thumbs_loaded++;
               }
             );
           } else{
             thumb_wrapper_width += thumb[0].parentNode.parentNode.offsetWidth;
+            thumb_wrapper_width += 20;
             thumbs_loaded++;
           };
           link.addClass('ad-thumb'+ i);

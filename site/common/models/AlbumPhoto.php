@@ -11,7 +11,8 @@
  * @property string $fs_name
  * @property string $previewUrl
  * @property string $originalUrl
- * @property string $creation_date
+ * @property string $created
+ * @property string $updated
  *
  * The followings are the available model relations:
  * @property Album $album
@@ -19,6 +20,8 @@
  */
 class AlbumPhoto extends CActiveRecord
 {
+    private $_check_access = null;
+
     /**
      * @var string original photos folder
      */
@@ -57,9 +60,10 @@ class AlbumPhoto extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, album_id, file_name, creation_date', 'required'),
+            array('user_id, album_id, file_name', 'required'),
             array('user_id, album_id', 'length', 'max' => 10),
             array('file_name, fs_name', 'length', 'max' => 100),
+            array('created, updated', 'safe'),
         );
     }
 
@@ -77,15 +81,26 @@ class AlbumPhoto extends CActiveRecord
         );
     }
 
+    public function scopes()
+    {
+        return array(
+            'forAlbum' => array(
+                'limit' => 3,
+            )
+        );
+    }
+
     /**
      * @return array
      */
     public function behaviors()
     {
         return array(
-            'AutoTimestampBehavior' => array(
-                'class' => 'site.common.behaviors.AutoTimestampBehavior',
-            ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            )
         );
     }
 
@@ -99,7 +114,8 @@ class AlbumPhoto extends CActiveRecord
             'user_id' => 'User',
             'album_id' => 'Album',
             'file_name' => 'File Name',
-            'creation_date' => 'Created Date',
+            'created' => 'Дата создания',
+            'updated' => 'Дата последнего обновления',
         );
     }
 
@@ -188,7 +204,7 @@ class AlbumPhoto extends CActiveRecord
                 mkdir($model_dir);
             Yii::import('ext.image.Image');
             $image = new Image($this->originalPath);
-            $image->resize($width, $height, Image::WIDTH);
+            $image->resize($width, $height, Image::AUTO);
             $image->save($thumb);
         }
         return $thumb;
@@ -211,5 +227,10 @@ class AlbumPhoto extends CActiveRecord
             $this->primaryKey,
             $this->fs_name,
         ));
+    }
+
+    public function getCheckAccess()
+    {
+        return true;
     }
 }

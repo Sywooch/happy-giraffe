@@ -1,0 +1,65 @@
+#
+# Minimal Sphinx configuration sample (clean, simple, functional)
+#
+
+source src
+{
+	type			= mysql
+
+	sql_host		= localhost
+	sql_user		= root
+	sql_pass		=
+	sql_db			= happy_giraffe
+	sql_port		= 3306	# optional, default is 3306
+
+	sql_query_pre                   = SET NAMES utf8
+    sql_query_pre                   = SET SESSION query_cache_type=OFF
+}
+
+source communitySource : src
+{
+    sql_query = \
+            select content.id, content.name, post.text, video.text, travel.text from club_community_content content \
+            left join club_community_post post on content.type_id = 1 and post.content_id = content.id \
+            left join club_community_video video on content.type_id = 2 and video.content_id = content.id \
+            left join club_community_travel travel on content.type_id = 3 and travel.content_id = content.id \
+            where 1 = 1
+    sql_query_info = sql_query_info = SELECT * FROM club_community_content WHERE id=$id
+
+
+}
+
+index community
+{
+    source = communitySource
+    path = c:\server\sphinx\index\communityName
+    charset_type = utf-8
+    html_strip = 1
+    morphology              = stem_en, stem_ru, soundex
+    min_infix_len = 3
+    enable_star = 1
+}
+
+
+
+indexer
+{
+	mem_limit		= 32M
+}
+
+
+searchd
+{
+	listen			= 9312
+	listen			= 9306:mysql41
+	log			=   c:/server/sphinx/log/searchd.log
+	query_log		= c:/server/sphinx/log/query.log
+	read_timeout		= 5
+	max_children		= 30
+	pid_file		= c:\server\sphinx\log\searchd.pid
+	max_matches		= 1000
+	seamless_rotate		= 1
+	preopen_indexes		= 1
+	unlink_old		= 1
+	workers			= threads # for RT to work
+}

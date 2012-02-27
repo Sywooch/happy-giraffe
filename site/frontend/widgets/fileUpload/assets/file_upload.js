@@ -14,8 +14,9 @@ $(document).ready(function () {
          ajax_upload_success(response);
          }
          });*/
-        $(document).ready(function () {
-            $('#upload-form').swfupload({
+
+        $('#upload-input').hide();
+            $('#upload-control').swfupload({
                 upload_url:upload_ajax_url,
                 file_size_limit:"10240",
                 file_types:"*.*",
@@ -24,8 +25,9 @@ $(document).ready(function () {
                 flash_url:upload_base_url + "/swfupload.swf",
                 button_width:61,
                 button_height:22,
+                button_text:1123,
                 button_placeholder:$('#upload-button')[0],
-                debug:true,
+                debug:false,
                 custom_settings:{something:"here"}
             })
                 .bind('swfuploadLoaded', function (event) {
@@ -46,6 +48,7 @@ $(document).ready(function () {
                     $('#log').append('<li>File dialog complete</li>');
                 })
                 .bind('uploadStart', function (event, file) {
+                    cl(file);
                     $('#log').append('<li>Upload start - ' + file.name + '</li>');
                 })
                 .bind('uploadProgress', function (event, file, bytesLoaded) {
@@ -62,7 +65,7 @@ $(document).ready(function () {
                 .bind('uploadError', function (event, file, errorCode, message) {
                     $('#log').append('<li>Upload error - ' + message + '</li>');
                 });
-        });
+
     }
 });
 

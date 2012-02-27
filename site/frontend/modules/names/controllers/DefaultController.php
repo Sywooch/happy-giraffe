@@ -7,8 +7,13 @@ class DefaultController extends Controller
 
     public function actionIndex($letter = null, $gender = null)
     {
-        $this->SetLikes();
+        if ($letter == null)
+            $this->pageTitle = 'Выбор имени';
+        else
+            $this->pageTitle = 'Имена для ребенка на букву '.$letter;
+
         $like_ids = Name::GetLikeIds();
+        $this->likes = count($like_ids);
 
         $criteria = new CDbCriteria;
         $criteria->order = 'name';
@@ -30,37 +35,36 @@ class DefaultController extends Controller
                 $this->renderPartial('index_data', array(
                     'names' => $names,
                     'pages' => $pages,
-                    'likes' => Name::GetLikeIds(),
                     'like_ids' => $like_ids,
                 ));
             } else
                 $this->render('index', array(
                     'names' => $names,
                     'pages' => $pages,
-                    'likes' => Name::GetLikeIds(),
                     'like_ids' => $like_ids,
+                    'letter' => $letter,
                 ));
         } else {
             $names = Name::model()->findAll($criteria);
             if (Yii::app()->request->isAjaxRequest) {
                 $this->renderPartial('index_data', array(
-                    'names' => $names,
-                    'pages' => null,
-                    'likes' => Name::GetLikeIds(),
-                    'like_ids' => $like_ids,
-                ));
+                        'names' => $names,
+                        'pages' => null,
+                        'like_ids' => $like_ids,
+                    ));
             } else
                 $this->render('index', array(
                     'names' => $names,
                     'pages' => null,
-                    'likes' => Name::GetLikeIds(),
                     'like_ids' => $like_ids,
+                    'letter' => $letter,
                 ));
         }
     }
 
     public function actionTop10()
     {
+        $this->pageTitle = 'Топ 10 имен';
         $this->SetLikes();
         $topMen = Name::model()->Top10Man();
         $topWomen = Name::model()->Top10Woman();
@@ -72,24 +76,50 @@ class DefaultController extends Controller
         ));
     }
 
-    public function actionSaint()
+    public function actionSaint($m = null, $gender = null)
     {
-        $this->SetLikes();
-        $this->render('saint');
-    }
+        if ($m !== null) {
+            $m = HDate::getMonthIndex($m);
+            $data = Name::GetSaintMonthArray($m, null);
+            $this->pageTitle = 'Имена по святцам - '.HDate::ruMonth($m);
+        } else{
+            $this->pageTitle = 'Имена по святцам';
+            $data = null;
+        }
 
-    public function actionSaintCalc($month, $gender = null)
-    {
-        $data = Name::GetSaintMonthArray($month, $gender);
-        $this->renderPartial('saint_res', array(
-            'data' => $data,
-            'like_ids' => Name::GetLikeIds(),
-            'month' => $month
-        ));
+        if (Yii::app()->request->isAjaxRequest) {
+            if ($m === null) {
+                $response = array(
+                    'month' => null,
+                    'html' => '',
+                    'month_num' => null
+                );
+            } else {
+                $data = Name::GetSaintMonthArray($m, $gender);
+                $response = array(
+                    'month' => HDate::ruMonth($m),
+                    'html' => $this->renderPartial('saint_res', array(
+                        'data' => $data,
+                        'like_ids' => Name::GetLikeIds(),
+                        'month' => $m,
+                    ), true),
+                    'month_num' => $m
+                );
+            }
+            echo CJSON::encode($response);
+        } else {
+            $this->SetLikes();
+            $this->render('saint', array(
+                'month' => $m,
+                'data' => $data,
+                'like_ids' => Name::GetLikeIds(),
+            ));
+        }
     }
 
     public function actionLikes()
     {
+        $this->pageTitle = 'Мне нравится';
         $this->SetLikes();
         $data = Name::model()->GetLikes(Yii::app()->user->getId());
         $man = array();
@@ -114,6 +144,7 @@ class DefaultController extends Controller
         $this->SetLikes();
         $name = $this->LoadModelBySlugName($name);
         $name->initOptionsSweetMiddles();
+        $this->pageTitle = $name->name;
 
         $this->render('name_view', array('name' => $name));
     }

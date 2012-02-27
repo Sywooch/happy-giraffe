@@ -12,14 +12,6 @@
 	<?php echo CHtml::encode($data->created); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('views')); ?>:</b>
-	<?php echo CHtml::encode($data->views); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('rating')); ?>:</b>
-	<?php echo CHtml::encode($data->rating); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('author_id')); ?>:</b>
 	<?php echo CHtml::encode($data->author_id); ?>
 	<br />

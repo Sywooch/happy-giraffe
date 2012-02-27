@@ -7,12 +7,30 @@
  * @property string $id
  * @property string $type
  * @property string $text
- * @property string $informer_id
+ * @property string $author_id
+ * @property string $breaker_id
  * @property string $model
  * @property string $object_id
+ * @property string $path
+ * @property int $accepted
+ * @property string $created
+ * @property string $updated
+ * @property CActiveRecord $entity
  */
 class Report extends CActiveRecord
 {
+    public $count;
+    public $types = array(
+        'Спам',
+        'Оскорбление пользователей',
+        'Разжигание межнациональной розни',
+        'Другое',
+    );
+
+    public $accepted_types = array(
+        'Нет',
+        'Да',
+    );
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Report the static model class
@@ -40,11 +58,13 @@ class Report extends CActiveRecord
 		return array(
 			array('type, text, model, object_id', 'required'),
 			array('type', 'length', 'max'=>62),
-			array('informer_id, object_id', 'length', 'max'=>11),
+			array('author_id, object_id', 'length', 'max'=>11),
 			array('model', 'length', 'max'=>255),
-			// The following rule is used by search().
+            array('path, created, updated, breaker_id', 'safe'),
+            array('accepted', 'boolean'),
+            // The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, text, informer_id, model, object_id', 'safe', 'on'=>'search'),
+			array('id, type, text, author_id, breaker_id, model, object_id, accepted', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,8 +76,25 @@ class Report extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'breaker' => array(self::BELONGS_TO, 'User', 'breaker_id'),
+            'spam' => array(self::HAS_MANY, 'ReportSpam', 'report_id'),
 		);
 	}
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            )
+        );
+    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -65,35 +102,72 @@ class Report extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'type' => 'Type',
-			'text' => 'Text',
-			'informer_id' => 'Informer',
+			'id' => '#',
+			'type' => 'Тип жалобы',
+			'text' => 'Комментарий пользователя',
+			'author_id' => 'Автор',
+            'breaker_id' => 'Нарушитель',
 			'model' => 'Model',
 			'object_id' => 'Object',
+            'path' => 'Ссылка',
+            'created' => 'Создана',
+            'updated' => 'Изменена',
+            'accepted' => 'Рассмотрено',
+            'count' => 'Жалоб',
 		);
 	}
+
+    public function getEntity()
+    {
+        return call_user_func(array($this->model, 'model'))->findByPk($this->object_id);
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('type',$this->type,true);
-		$criteria->compare('text',$this->text,true);
-		$criteria->compare('informer_id',$this->informer_id,true);
-		$criteria->compare('model',$this->model,true);
-		$criteria->compare('object_id',$this->object_id,true);
+        $criteria->compare('id',$this->id,true);
+        if($this->type !== null)
+            $criteria->compare('type',$this->type,true);
+        else
+            $criteria->addCondition('type != 0');
+        $criteria->compare('text',$this->text,true);
+        $criteria->compare('author_id',$this->author_id,true);
+        $criteria->compare('breaker_id', $this->breaker_id, true);
+        $criteria->compare('model',$this->model,true);
+        $criteria->compare('object_id',$this->object_id,true);
+        $criteria->compare('path',$this->path,true);
+        $criteria->compare('accepted',$this->accepted,true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
+
+    public function spam()
+    {
+        $dataProvider = $this->search();
+
+        $criteria = $dataProvider->getCriteria();
+        $criteria->group = 't.breaker_id';
+        $criteria->select = 't.id, t.breaker_id, t.accepted, count(*) as count, max(created) as created';
+        $criteria->order = 't.created desc';
+
+        $dataProvider->criteria = $criteria;
+        return $dataProvider;
+    }
+
+    public function beforeSave()
+    {
+        if($this->isNewRecord)
+            $this->breaker_id = $this->entity->author_id;
+        return parent::beforeSave();
+    }
 }

@@ -8,6 +8,7 @@ class SiteController extends BController
     {
         return array(
             array('allow',
+                'actions'=>array('index', 'logout'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -52,6 +53,9 @@ class SiteController extends BController
                     ':email'=>$model->username,
                     ':password'=>md5($model->password),
                 )));
+
+            if (!Yii::app()->authManager->checkAccess('admin panel access', $userModel->id))
+                throw new CHttpException(404, 'Недостаточно прав.');
 
             if ($userModel)
             {

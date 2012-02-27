@@ -7,7 +7,6 @@
  * @property string $id
  * @property string $name
  * @property string $created
- * @property string $views
  * @property string $author_id
  * @property string $rubric_id
  * @property string $type_id
@@ -54,15 +53,15 @@ class CommunityContent extends CActiveRecord
 		return array(
 			array('name, author_id, rubric_id, type_id', 'required'),
 			array('name, meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
-			array('views, author_id, rubric_id, type_id', 'length', 'max' => 11),
-			array('views, author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
+			array('author_id, rubric_id, type_id', 'length', 'max' => 11),
+			array('author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
 			array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
 			array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
 			array('by_happy_giraffe', 'boolean'),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, by_happy_giraffe, name, meta_title, meta_description, meta_keywords, created, views, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
+			array('id, by_happy_giraffe, name, meta_title, meta_description, meta_keywords, created, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,12 +75,12 @@ class CommunityContent extends CActiveRecord
 		return array(
 			'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
 			'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
-			'comments' => array(self::HAS_MANY, 'CommunityComment', 'content_id'),
 			'commentsCount' => array(self::STAT, 'Comment', 'object_id', 'condition' => 'model=:modelName', 'params' => array(':modelName' => 'CommunityContent')),
 			'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id'),
 			'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id'),
 			'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id'),
 			'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
 		);
 	}
 
@@ -94,12 +93,22 @@ class CommunityContent extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'created' => 'Created',
-			'views' => 'Views',
 			'author_id' => 'Author',
 			'rubric_id' => 'Rubric',
 			'type_id' => 'Type',
 		);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            )
+        );
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -115,7 +124,6 @@ class CommunityContent extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('created',$this->created,true);
-		$criteria->compare('views',$this->views,true);
 		$criteria->compare('author_id',$this->author_id,true);
 		$criteria->compare('rubric_id',$this->rubric_id,true);
 		$criteria->compare('type_id',$this->type_id,true);
@@ -124,7 +132,7 @@ class CommunityContent extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
+
 	public function community($community_id)
 	{
 		$this->getDbCriteria()->mergeWith(array(
@@ -153,7 +161,7 @@ class CommunityContent extends CActiveRecord
 					)
 				),
 			),
-			'order' => 'created DESC',
+			'order' => 't.id DESC',
 		));
 		return $this;
 	}
@@ -195,12 +203,6 @@ class CommunityContent extends CActiveRecord
 		return array(
 			'view' => array(
 				'with' => array(
-					'comments' => array(
-						'with' => array(
-							'commentAuthor',
-						),
-						'order' => 'comments.created DESC',
-					),
 					'rubric' => array(
 						'with' => array(
 							'community' => array(
@@ -229,19 +231,54 @@ class CommunityContent extends CActiveRecord
 		);
 	}
 
+    public function beforeDelete()
+    {
+        $criteria = new EMongoCriteria();
+        $criteria->item_name = 'CommunityContent';
+        $criteria->item_id = $this->id;
+        UserSignal::model()->deleteAll($criteria);
+
+        $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
+        foreach ($moderators as $moderator) {
+//            Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
+//                'type' => self::SIGNAL_UPDATE
+//            ));
+        }
+
+        return true;
+    }
+
     public function afterSave()
     {
-        if ($this->contentAuthor->isNewComer()){
-            $signal = new ModerationSignals();
+        if ($this->contentAuthor->isNewComer() && $this->isNewRecord){
+            $signal = new UserSignal();
             $signal->user_id = $this->author_id;
             $signal->item_id = $this->id;
             $signal->item_name = 'CommunityContent';
-            $signal->type = ModerationSignals::TYPE_NEW_USER_POST;
-            if (!$signal->save()){
-                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            if ($this->type->slug == 'video')
+                $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
+            elseif ($this->type->slug == 'travel')
+                $signal->signal_type = UserSignal::TYPE_NEW_USER_TRAVEL;
+            else
+                $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
 
+            if (!$signal->save()){
+                Yii::log('NewComers signal not saved', 'warning', 'application');
             }
         }
         return parent::afterSave();
+    }
+
+    public static function getLink($id)
+    {
+        $model = self::model()->with(array(
+            'type'=>array(
+                'select'=>'slug'
+            ),'rubric'=>array(
+                'select'=>'community_id'
+            )
+        ))->findByPk($id);
+        return Yii::app()->createUrl('community/view', array('community_id' => $model->rubric->community_id,
+            'content_type_slug' => $model->type->slug, 'content_id' => $model->id));
     }
 }

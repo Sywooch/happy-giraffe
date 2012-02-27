@@ -1,15 +1,5 @@
 <?php
 $cs = Yii::app()->clientScript;
-$js_content_report = "
-$('.comments .item .report').live('click', function() {
-	report($(this).parents('.item'));
-	return false;
-});
-$('.spam a').live('click', function() {
-	report($(this).parents('.entry'));
-	return false;
-});
-";
 
 $js = "
     $(document).ready(function() {
@@ -17,7 +7,6 @@ $js = "
     });";
 
 $cs
-    ->registerScript('content_report', $js_content_report)
     ->registerCssFile('/stylesheets/wym.css')
     ->registerScriptFile('/fancybox/lib/jquery.mousewheel-3.0.6.pack.js')
     ->registerCssFile('/fancybox/source/jquery.fancybox.css?v=2.0.4')
@@ -59,6 +48,7 @@ $cs
             <div
                 class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", strtotime($c->created)); ?></div>
             <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php echo $this->views; ?></span></div>
+            <?php Rating::model()->saveByEntity($c, 'rt', floor($this->views / 100)); ?>
 
         </div>
         <div class="clear"></div>
@@ -154,9 +144,19 @@ $cs
                 break;
         }
         ?>
-        <?php if ($c->contentAuthor->id == Yii::app()->user->id || Yii::app()->user->id == 18): ?>
+
+        <?php if ($c->contentAuthor->id == Yii::app()->user->id ||
+        Yii::app()->authManager->checkAccess('edit post', Yii::app()->user->getId(), array(
+                'community_id'=>$c->rubric->community->id,
+            )) || Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->getId())): ?>
         <?php echo CHtml::link('редактировать', ($c->type->slug == 'travel') ? $this->createUrl('community/editTravel', array('id' => $c->id)) : $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
-        <?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('id' => 'CommunityContent_delete_' . $c->id, 'submit' => array('admin/communityContent/delete', 'id' => $c->id), 'confirm' => 'Вы уверены?')); ?>
+        <?php endif; ?>
+        <?php if ($c->contentAuthor->id == Yii::app()->user->id ||
+            Yii::app()->authManager->checkAccess('delete post',
+                Yii::app()->user->getId(), array(
+                    'community_id'=>$c->rubric->community->id,
+                ))): ?>
+        <?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('id' => 'CommunityContent_delete_' . $c->id, 'submit' => array('community/delete', 'id' => $c->id), 'confirm' => 'Вы точно хотите удалить тему?')); ?>
         <?php endif; ?>
         <div class="clear"></div>
     </div>
@@ -185,7 +185,9 @@ $cs
         <span class="comm">Комментариев: <span><?php echo $c->commentsCount; ?></span></span>
 
         <div class="spam">
-            <a href="#"><span>Нарушение!</span></a>
+            <?php $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $c));
+            $report->button("$(this).parents('.entry')");
+            $this->endWidget(); ?>
         </div>
         <div class="clear"></div>
     </div>

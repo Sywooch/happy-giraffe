@@ -21,7 +21,6 @@ $this->menu=array(
 		'id',
 		'name',
 		'created',
-		'views',
 		'rating',
 		'author_id',
 		'rubric_id',

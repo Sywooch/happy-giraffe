@@ -5,6 +5,13 @@ class OperationGroupsController extends BController
     public $layout = 'shop';
     public $defaultAction = 'admin';
 
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('user access'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
     public function actionCreate()
     {
         $model = new AuthItem;

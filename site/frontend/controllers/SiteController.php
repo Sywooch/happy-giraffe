@@ -165,7 +165,16 @@ class SiteController extends Controller
 		$service = Yii::app()->request->getQuery('service');
 		if (isset($service)) {
 			$authIdentity = Yii::app()->eauth->getIdentity($service);
-			$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
+            $redirectUrl = Yii::app()->user->loginUrl;
+            if(isset($_SERVER['HTTP_REFERER']) && $url_info = parse_url($_SERVER['HTTP_REFERER']))
+            {
+                if($url_info['host'] == $_SERVER['HTTP_HOST'])
+                {
+                    $redirectUrl = $url_info['path'];
+                    Yii::app()->user->setState('social_redirect', $redirectUrl);
+                }
+            }
+            $authIdentity->redirectUrl = $redirectUrl;
 
 			if ($authIdentity->authenticate()) {
 				$name = $authIdentity->getServiceName();
@@ -184,7 +193,8 @@ class SiteController extends Controller
 						Yii::app()->user->login($identity);
                         $user->login_date = date('Y-m-d H:i:s');
                         $user->save(false);
-						$authIdentity->redirect();
+                        $rediret_url = Yii::app()->user->getState('social_redirect');
+						$authIdentity->redirect($rediret_url);
 					}
 				}
 			}
@@ -211,6 +221,7 @@ class SiteController extends Controller
 				$identity->authenticate();
 				if ($identity->errorCode == UserIdentity::ERROR_NONE)
 				{
+                    $duration = $_POST['User']['remember'] == 1 ? 2592000 : 0;
 					Yii::app()->user->login($identity);
                     $userModel->login_date = date('Y-m-d H:i:s');
                     $userModel->last_ip = $_SERVER['REMOTE_ADDR'];

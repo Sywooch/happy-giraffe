@@ -11,7 +11,9 @@
 		'last_name',
 		array(
 		    'name'=>'role',
-		    'value'=>'$data->getRole()',
+		    'value'=>'$data->getAssigns()',
+            //'filter'=>CHtml::listData(Yii::app()->authManager->getRoles(), 'name', 'name')
+            'filter'=>false
 		),
 //		'last_active',
 //		'register_date',

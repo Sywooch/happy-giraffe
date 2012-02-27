@@ -25,6 +25,7 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
+        $this->pageTitle = 'Диалоги';
         $dialogs = MessageDialog::GetUserDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -33,6 +34,7 @@ class DefaultController extends Controller
 
     public function actionNew()
     {
+        $this->pageTitle = 'Новые Сообщения';
         $dialogs = MessageDialog::GetUserNewDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -41,6 +43,7 @@ class DefaultController extends Controller
 
     public function actionOnline()
     {
+        $this->pageTitle = 'Кто онлайн';
         $dialogs = MessageDialog::GetUserOnlineDialogs();
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -49,6 +52,7 @@ class DefaultController extends Controller
 
     public function actionDialog($id)
     {
+        $this->pageTitle = 'Просмотр диалогов';
         $this->checkDialog($id);
         ActiveDialogs::model()->addDialog($id);
         ActiveDialogs::model()->SetLastDialogId($id);

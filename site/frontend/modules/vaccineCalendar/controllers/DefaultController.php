@@ -9,6 +9,8 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        $this->pageTitle = 'Календарь прививок ребенка. Какие прививки делают детям?';
+
         $date = null;
 
         $this->render('index', array(

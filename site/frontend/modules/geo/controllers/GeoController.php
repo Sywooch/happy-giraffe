@@ -9,9 +9,9 @@ class GeoController extends Controller
         $this->render('index');
     }
 
-    public function actionP()
+    /*public function actionP()
     {
-        /*$ountries = Countries::model()->findAll();
+        $ountries = Countries::model()->findAll();
         foreach($ountries as $country){
             $c = new GeoCountry;
             $c->name = $country->rus_name;
@@ -19,8 +19,8 @@ class GeoController extends Controller
             if (!$c->save()){
                 throw new CHttpException(404, 'Not saved!');
             }
-        }*/
-        /*$countries = GeoCountry::model()->findAll(array('order'=>'pos DESC'));
+        }
+        $countries = GeoCountry::model()->findAll(array('order'=>'pos DESC'));
         $i = 100;
         foreach($countries as $c){
             $c->pos = $i;
@@ -28,7 +28,7 @@ class GeoController extends Controller
                 throw new CHttpException(404, 'Not saved!');
             }
             $i++;
-        }*/
+        }
         $countries = Countries::model()->findAll();
         foreach ($countries as $country) {
             $c = GeoCountry::model()->find('name="' . $country->rus_name . '"');
@@ -37,7 +37,7 @@ class GeoController extends Controller
                 throw new CHttpException(404, 'Not saved!');
             }
         }
-    }
+    }*/
 
     public function actionCountries()
     {
@@ -63,27 +63,34 @@ class GeoController extends Controller
     public function actionCities()
     {
         if (Yii::app()->request->isAjaxRequest) {
-            if (empty($_GET['district_id']))
-                $cities = GeoRusSettlement::model()->findAll(array(
-                    'condition' => 'name LIKE :term AND region_id = :region_id',
-                    'params' => array(
-                        ':term' => $_GET['term'] . '%',
-                        ':region_id' => $_GET['region_id'],
-                    ),
-                    'limit' => 10,
-                    'order' => 'population desc',
-                ));
-            else
+            //if (empty($_GET['district_id']))
+            $term = $_GET['term'];
+            $filter_parts = FilterParts::model()->findAll();
+            foreach($filter_parts as $filter_part){
+                $term = str_replace($filter_part->part.' ', '',$term);
+            }
+            $term = trim($term);
+
+            $cities = GeoRusSettlement::model()->findAll(array(
+                'condition' => 'name LIKE :term AND region_id = :region_id',
+                'params' => array(
+                    ':term' => $term . '%',
+                    ':region_id' => $_GET['region_id'],
+                ),
+                'limit' => 10,
+                'order' => 'population desc',
+            ));
+            /*else
                 $cities = GeoRusSettlement::model()->findAll(array(
                     'condition' => 'name LIKE :term AND region_id = :region_id AND district_id = :district_id',
                     'params' => array(
-                        ':term' => $_GET['term'] . '%',
+                        ':term' => $term . '%',
                         ':region_id' => $_GET['region_id'],
                         ':district_id' => $_GET['district_id']
                     ),
                     'limit' => 10,
                     'order' => 'population, id',
-                ));
+                ));*/
 
             $_cities = array();
             foreach ($cities as $city)
@@ -111,7 +118,7 @@ class GeoController extends Controller
 
                 $criteria = new CDbCriteria;
                 $criteria->compare('settlement_id', $settlement_ids);
-                $criteria->compare('name', $_GET['term'].'%', true, 'AND', false);
+                $criteria->compare('name', $_GET['term'] . '%', true, 'AND', false);
                 $criteria->limit = 10;
                 $models = GeoRusStreet::model()->findAll($criteria);
             }
@@ -157,7 +164,8 @@ class GeoController extends Controller
      * @return GeoRusSettlement
      * @throws CHttpException
      */
-    public function loadSettlment($id){
+    public function loadSettlment($id)
+    {
         $model = GeoRusSettlement::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

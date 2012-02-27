@@ -1,70 +1,110 @@
 <style type="text/css">
-    #wrapper{
-        width: 100% !important;
+    .choose-type{
+        width: 100%;
+    }
+    .choose-type td{
+        text-align: center;
+    }
+    .choose-type a{
+        font-weight: normal;
+        font-size: 14px;
+        color: #333;
+        text-decoration: none;
+    }
+    .choose-type td.active{
+        background: #333;
+    }
+    .choose-type td.active a{
+        color: #fff;
     }
 </style>
-<h1>Статистика сайта за 2011 го</h1>
+<br><br>
+<?php $sites = SeoSite::model()->findAll(); ?>
+<table class="choose-type">
+    <tr>
+        <?php foreach ($sites as $site): ?>
+        <td<?php if ($site_id == $site->id) echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/seo/default/index', array('site_id'=>$site->id)) ?>"><?php echo $site->url ?></a></td>
+        <?php endforeach; ?>
+    </tr>
+</table><br><br>
+перейти к странице <input type="text" id="page">
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'keywords-grid',
     'dataProvider'=>$model->search(),
     'filter'=>$model,
+    'template'=>'{pager}{summary}{items}',
     'columns'=>array(
-        'name',
         array(
-            'name'=>'all',
-            'value'=>'$data->GetSummStats()',
+            'name'=>'key_name',
+            'value'=>'$data->keyword->name',
+        ),
+        array(
+            'name'=>'sum',
+            'filter'=>false
         ),
         array(
             'name'=>'avarage',
             'value'=>'$data->GetAverageStats()',
+            'filter'=>false
         ),
         array(
             'name'=>'m12',
-            'value'=>'$data->GetMonthStats(12)',
+            'value'=>'$data->m12',
+            'header'=>'Дек',
+            'filter'=>false
         ),
         array(
             'name'=>'m11',
-            'value'=>'$data->GetMonthStats(11)',
+            'value'=>'$data->m11',
+            'header'=>'Ноя',
+            'filter'=>false
         ),
         array(
             'name'=>'m10',
-            'value'=>'$data->GetMonthStats(10)',
+            'filter'=>false
         ),
         array(
             'name'=>'m9',
-            'value'=>'$data->GetMonthStats(9)',
+            'filter'=>false
         ),
         array(
             'name'=>'m8',
-            'value'=>'$data->GetMonthStats(8)',
+            'filter'=>false
         ),
         array(
             'name'=>'m7',
-            'value'=>'$data->GetMonthStats(7)',
+            'filter'=>false
         ),
         array(
             'name'=>'m6',
-            'value'=>'$data->GetMonthStats(6)',
+            'filter'=>false
         ),
         array(
             'name'=>'m5',
-            'value'=>'$data->GetMonthStats(5)',
+            'filter'=>false
         ),
         array(
             'name'=>'m4',
-            'value'=>'$data->GetMonthStats(4)',
+            'filter'=>false
         ),
         array(
             'name'=>'m3',
-            'value'=>'$data->GetMonthStats(3)',
+            'filter'=>false
         ),
         array(
             'name'=>'m2',
-            'value'=>'$data->GetMonthStats(2)',
+            'filter'=>false
         ),
         array(
             'name'=>'m1',
-            'value'=>'$data->GetMonthStats(1)',
+            'filter'=>false
         ),
     ),
 )); ?>
+<script type="text/javascript">
+    $('#page').keyup(function(){
+        var url = $('.yiiPager li.last a').attr('href')+'/SeoKeyStats_page/'+$(this).val();
+        console.log(url);
+        $.fn.yiiGridView.update('keywords-grid', {url:url});
+    });
+</script>

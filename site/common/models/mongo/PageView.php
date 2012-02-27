@@ -28,9 +28,9 @@ class PageView extends EMongoDocument
     public function viewsByPath($path)
     {
         if(($model = $this->findByPath($path)) !== null)
-            return $model->views;
+            return $model->views  + 1;
         else
-            return 0;
+            return 1;
     }
 
     public function updateByPath($path)

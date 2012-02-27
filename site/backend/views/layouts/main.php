@@ -28,6 +28,9 @@
 
             ->registerScriptFile('/js/jquery.tmpl.min.js')
 
+            ->registerScriptFile('/js/jquery.pnotify.min.js')
+            ->registerCssFile('/css/jquery.pnotify.css')
+
             ->registerScriptFile('/js/jquery.iframe-post-form.js')
         ;
     ?>
@@ -61,13 +64,17 @@
     </ul>
     <ul class="going">
         <li>Перейти в</li>
-        <li><a href="<?php echo $this->createUrl('modules/index', array()) ?>">Клуб</a></li>
+        <li><a href="<?php echo $this->createUrl('modules/index') ?>">Клуб</a></li>
         <li>|</li>
-        <li><a href="<?php echo $this->createUrl('site/index', array()) ?>">Магазин</a></li>
+        <li><a href="<?php echo $this->createUrl('site/index') ?>">Магазин</a></li>
     </ul>
     <ul class="header_nav">
-        <li<?php if (Yii::app()->controller->section == 'club') echo ' class="active"'; ?>><a href="<?php echo $this->createUrl('modules/index', array()) ?>">Клуб</a></li>
-        <li<?php if (Yii::app()->controller->section == 'shop') echo ' class="active"'; ?>><a href="<?php echo $this->createUrl('site/index', array()) ?>">Магазин</a></li>
+        <li<?php if (Yii::app()->controller->section == 'club') echo ' class="active"'; ?>><a href="<?php echo $this->createUrl('/modules/index', array()) ?>">Клуб</a></li>
+        <li<?php if (Yii::app()->controller->section == 'shop') echo ' class="active"'; ?>><a href="<?php echo $this->createUrl('/site/index', array()) ?>">Магазин</a></li>
+        <?php if (Yii::app()->user->checkAccess('seo')):?>
+        <li<?php if (Yii::app()->controller->section == 'seo') echo ' class="active"'; ?>><a href="<?php
+            echo $this->createUrl('/seo/default/index') ?>">SEO</a></li>
+        <?php endif ?>
     </ul>
 </div>
 <?php echo $content; ?>

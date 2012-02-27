@@ -1,0 +1,132 @@
+/* user.css */
+
+#user {line-height:normal;}
+
+#user .box-title {font-size:22px;color:#4c4d4d;padding-bottom:10px;}
+#user .box-title a {font-size:13px;margin-left:20px;}
+
+#user .header {padding-bottom:10px;}
+
+#user .header .user-name {float:left;padding-left:12px;}
+#user .header .user-name h1 {line-height:1;margin:0 0 7px 0;}
+
+#user .header .user-name .online-status {color:#a6a6a6;font-size:13px;}
+#user .header .user-name .online-status  .icon {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;margin-right:5px;}
+#user .header .user-name .online-status.online .icon {background-position:-44px -180px;}
+#user .header .user-name .online-status.offline .icon {background-position:-55px -180px;}
+
+#user .header .user-nav {margin-left:450px;padding-top:20px;}
+#user .header .user-nav ul {overflow:hidden;list-style:none;}
+#user .header .user-nav ul li {float:left;padding:0 10px;height:20px;margin:0 10px;}
+#user .header .user-nav ul li a {border-bottom:1px dashed #51afc3;text-decoration:none;height:16px;line-height:16px;margin:2px 0;display:block;}
+#user .header .user-nav ul li a:hover {border:0;}
+#user .header .user-nav ul li.active {background:#cdecff;}
+#user .header .user-nav ul li.active a {border:0;cursor:default;}
+
+#user .user-cols {padding-bottom:20px;}
+#user .user-cols .col-1 {float:left;width:240px;padding-right:20px;}
+#user .user-cols .col-2 {float:left;width:340px;padding-right:20px;}
+#user .user-cols .col-3 {float:left;width:340px;}
+
+#user .user-photo {margin-bottom:10px;}
+#user .user-photo img {display:block;}
+
+#user .user-meta {font-size:13px;color:#4c4d4d;padding-left:10px;margin-bottom:20px;}
+#user .user-meta span {color:#bbbaba;}
+#user .user-meta .location {font-size:14px;}
+#user .user-meta .location .flag {border:1px solid #eeeeee;display:inline-block;margin-right:5px;position:relative;top:1px;}
+#user .user-meta .details {color:#afafb0;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;background:#fffeea;text-indent:0;margin-top:5px;margin-left:-10px;}
+#user .user-meta .details .rating {color:#fb7a03;font-weight:bold;font-size:15px;}
+#user .user-meta .details .rang {color:#484747;font-size:14px;}
+
+#user .user-friends {padding-bottom:20px;padding-left:15px;}
+#user .user-friends ul {list-style:none;}
+#user .user-friends ul li {float:left;margin:0 15px 15px 0;}
+#user .user-friends ul li img {display:block;}
+
+#user .user-map {padding:10px 8px 7px;border:1px solid #f7f7f7;margin-bottom:20px;}
+#user .user-map .box-title {margin-left:6px;padding-bottom:15px;}
+
+#user .user-mood {font-size:22px;color:#484747;padding-bottom:10px;}
+#user .user-mood img {vertical-align:middle;}
+
+#user .user-status {background:#cdecff;padding:15px;position:relative;margin-bottom:10px;}
+#user .user-status {/*css3*/ border-radius:10px;}
+#user .user-status:after {display:block;content:'';width:45px;height:44px;background:url(/images/common.png) no-repeat -557px -152px;position:absolute;right:100%;top:25px;}
+#user .user-status .date {color:#908e8e;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;}
+#user .user-status p {color:#0281b0;font:italic 20px 'times new roman', 'times', arial, helvetica, sans-serif;}
+
+#user .user-purpose {color:#4c4d4d;font-size:12px;position:relative;padding-left:100px;padding-top:5px;min-height:60px;margin-bottom:20px;}
+#user .user-purpose p {color:#fe4939;line-height:1;}
+#user .user-purpose .icon {display:block;width:78px;height:65px;background:url(/images/common.png) no-repeat -604px -153px;position:absolute;top:50%;left:11px;margin-top:-32px;}
+
+#user .user-blog {background:#e0ffda;padding:15px 0px 0 15px;margin-bottom:20px;}
+#user .user-blog ul {list-style:none;}
+#user .user-blog ul li {width:150px;display:inline-block;vertical-align:top;padding-right:10px;padding-bottom:15px;line-height:1.4;}
+#user .user-blog ul li a {font-weight:bold;}
+#user .user-blog ul li .date {color:#908e8e;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin:6px 0 8px;}
+#user .user-blog ul li p {}
+
+#user .user-interests {}
+#user .user-interests ul {list-style:none;}
+#user .user-interests ul li {display:inline;margin-right:5px;line-height:1.5;}
+#user .user-interests ul li a {white-space:nowrap;text-decoration:none;color:#404040;}
+
+#user .user-clubs {padding-bottom:20px;padding-left:15px;}
+#user .user-clubs ul {list-style:none;}
+#user .user-clubs ul li {float:left;margin:0 15px 0px 0;width:76px;height:130px;}
+#user .user-clubs ul li img {display:block;margin-bottom:2px;}
+#user .user-clubs ul li a {font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;line-height:10px;text-decoration:none;font-weight:bold;}
+
+#user .user-albums {padding-left:15px;padding-bottom:20px;}
+#user .user-albums ul {}
+#user .user-albums ul li {padding-bottom:20px;}
+#user .user-albums ul li big {color:#4c4d4d;display:block;margin:0px 0 15px;font-size:14px;}
+#user .user-albums ul li .preview {position:relative;width:230px;height:180px;float:left;}
+#user .user-albums ul li .preview img {position:absolute;display:block;}
+#user .user-albums ul li .preview img.img-1 {top:0;left:0;}
+#user .user-albums ul li .preview img.img-2 {right:0;top:20px;}
+#user .user-albums ul li .preview img.img-3 {left:20px;bottom:0;}
+#user .user-albums ul li .more {color:#b9b9b9;font-size:13px;padding-top:50px;float:left;text-decoration:none;margin-left:10px;}
+#user .user-albums ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
+
+#user .user-family {margin-bottom:20px;}
+#user .user-family .t {height:39px;background:url(/images/bg_user_family.png) no-repeat 0 0;}
+#user .user-family .c {background:url(/images/bg_user_family.png) repeat-y 100% 0;padding:15px 35px 15px;}
+#user .user-family .b {height:18px;background:url(/images/bg_user_family.png) no-repeat 0 100%;}
+#user .user-family ul {list-style:none;}
+#user .user-family ul li {list-style:none;margin-top:15px;}
+#user .user-family ul li:first-child {margin-top:0;}
+#user .user-family ul li big {font-size:14px;color:#4c4d4d;display:block;margin-bottom:5px;}
+#user .user-family ul li .img {float:left;width:80px;}
+#user .user-family ul li .img img {display:block;margin-bottom:5px;}
+#user .user-family ul li p {margin-left:85px;font-family:tahoma, arial, helvetica, sans-serif;color:#939697;line-height:1.3;}
+#user .user-family ul li span {font-family:tahoma, arial, helvetica, sans-serif;color:#3fa0c3;font-size:11px;}
+#user .user-family ul li span span {color:#585959;}
+
+#user .user-weather {margin-bottom:20px;text-align:center;}
+#user .user-weather .location {font-size:12px;color:#929292;}
+#user .user-weather .location .flag {display:inline-block;margin-right:5px;border:1px solid #eeeeee;position:relative;top:1px;}
+#user .user-weather .location big {font-size:22px;color:#484747;}
+#user .user-weather .img {display:inline-block;padding:10px;vertical-align:top;}
+#user .user-weather .text {display:inline-block;padding:10px;width:95px;vertical-align:top;}
+#user .user-weather .text big {line-height:55px;font-size:55px;color:#2997e3;}
+#user .user-weather .text .row {padding:3px 10px;font-size:12px;color:#4d9fd5;text-align:left;}
+#user .user-weather .text .row span {float:left;width:55px;color:#484747;}
+#user .user-weather .text .row.hl {background:#e1f3fe;} 
+
+#user .user-horoscope {padding:10px 14px;border:1px solid #efefef;}
+#user .user-horoscope {/*css3*/ border-radius:10px;}
+#user .user-horoscope .actions {float:right;}
+#user .user-horoscope .actions a {display:block;float:right;width:12px;height:11px;background:url(/images/common.png) no-repeat;}
+#user .user-horoscope .actions a.close {background-position:-314px -136px;margin-left:2px;}
+#user .user-horoscope .actions a.close:hover {background-position:-314px -149px;}
+#user .user-horoscope .actions a.settings {background-position:-314px -163px;margin-left:2px;}
+#user .user-horoscope .actions a.settings:hover {background-position:-300px -163px;}
+#user .user-horoscope .img {float:left;width:150px;margin-right:10px;}
+#user .user-horoscope .date {display:inline-block;text-align:center;font-size:13px;color:#565655;margin-top:20px;}
+#user .user-horoscope .date big {font-size:22px;color:#3d3c3c;display:block;}
+#user .user-horoscope p {font-size:12px;margin:1em 0;color:#404040;}
+#user .user-horoscope b {color:#f05d6e;}
+
+/* /user.css */

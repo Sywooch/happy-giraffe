@@ -21,7 +21,6 @@
 )); ?>
 
 <div class="right-inner">
-
 	<div>
 		<?php
 			$items = array();
@@ -36,11 +35,11 @@
 				if ($current_rubric !== null)
 				{
 					$params['rubric_id'] = $current_rubric;
-					$label = (Yii::app()->user->checkAccess('moder')) ? $ct->name_plural . ' (' . $current_rubric->getCount($ct->id) . ')'  : $ct->name_plural;
+					$label = (Yii::app()->user->checkAccess('moderator')) ? $ct->name_plural . ' (' . $current_rubric->getCount($ct->id) . ')'  : $ct->name_plural;
 				}
 				else
 				{
-					$label = (Yii::app()->user->checkAccess('moder')) ? $ct->name_plural . ' (' . $community->getCount($ct->id) . ')'  : $ct->name_plural;
+					$label = (Yii::app()->user->checkAccess('moderator')) ? $ct->name_plural . ' (' . $community->getCount($ct->id) . ')'  : $ct->name_plural;
 				}
 				if ($content_type != null) $params['content_type_slug'] = $content_type->slug;
 				$items[] = array(

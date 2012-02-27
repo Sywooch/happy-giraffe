@@ -8,10 +8,8 @@
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/common.css?r=112'); ?>
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css?r=112'); ?>
 	
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/cusel.css?r=112'); ?>
-	
+
 	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/cusel.js?r=111'); ?>
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/checkbox.js?r=111'); ?>
 	
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css'); ?>
@@ -24,53 +22,6 @@
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.iframe-post-form.js'); ?>
     <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.placeholder.min.js'); ?>
 
-	<?php
-		$reports = "
-$('.report-block .cancel').live('click', function() {
-	$(this).parents('.report-block').remove();
-	return false;
-});
-$('.report-form').live('submit', function() {
-	var report_block = $(this).parents('.report-block');
-	$.ajax({
-		type: 'POST',
-		data: $(this).serialize(),
-		url: " . CJSON::encode($this->createUrl('/ajax/acceptreport')) . ",
-		success: function(response) {
-			report_block.remove();
-		}
-	});
-	return false;
-});
-function report(item)
-{
-	if (item.next().attr('class') != 'report-block')
-	{
-		var source_data = item.attr('id').split('_');
-		$.ajax({
-			type: 'POST',
-			data: {
-				source_data: {
-					model: source_data[0],
-					object_id: source_data[1],
-				}
-			},
-			url: " . CJSON::encode($this->createUrl('/ajax/showreport')) . ",
-			success: function(response) {
-				item.after(response);
-			}
-		});
-	}
-	else
-	{
-		item.next().remove();
-	}
-
-}
-		";
-		Yii::app()->clientScript->registerScript('reports', $reports);
-	?>
-	
 	<script type="text/javascript">
 
 	  var _gaq = _gaq || [];
@@ -172,7 +123,7 @@ function report(item)
 	
 
 	</div>
-	
+
 	<!-- Yandex.Metrika counter -->
 	<div style="display:none;"><script type="text/javascript">
 	(function(w, c) {

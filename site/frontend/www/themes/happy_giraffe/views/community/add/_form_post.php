@@ -58,11 +58,15 @@
 		
 ?>
 
+<?php if ($content_model->isNewRecord || (Yii::app()->user->checkAccess('edit post',
+    array('community_id'=>$content_model->rubric->community_id)) ||
+    $content_model->author_id == Yii::app()->user->getId())):?>
 	<div class="">
 		<div class="inner-title">Заголовок статьи</div>
+
 		<?php echo $form->textField($content_model, 'name'); ?>
 	
-		<?php if(Yii::app()->user->checkAccess('editor')): ?>
+		<?php if(Yii::app()->user->checkAccess('edit meta')): ?>
 			<div class="inner-title">Title</div>
 			<?php echo $form->textField($content_model, 'meta_title'); ?>
 	
@@ -84,7 +88,7 @@
 			));
 		?>
 	</div>
-	
+<?php endif; ?>
 </div>
 
 <div class="clear"></div>
@@ -94,7 +98,7 @@
 		
 		<div class="settings-l">
 			<div class="inner-title">Выберите сообщество и рубрику</div>
-			
+
 			<?php if ($content_model->isNewRecord): ?>
 				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
                 array(
@@ -109,16 +113,19 @@
 						'ajax' => array(
 							'type' => 'POST',
 							'url' => CController::createUrl('ajax/rubrics'),
-							'update' => '#cusel-scroll-CommunityContent_rubric_id',
+							'success' => 'function(data){
+							    $("#CommunityContent_rubric_id").html(data);
+							    $("#CommunityContent_rubric_id").trigger("liszt:updated");
+                            }',
 						),
-						'disabled' => Yii::app()->user->checkAccess('moder') ? '' : 'disabled',
+						'disabled' => Yii::app()->user->checkAccess('transfer post') ? '' : 'disabled',
 					)
 				); ?></p>
 			
 				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
 					array(
 						'prompt' => 'Выберите рубрику',
-						'disabled' => Yii::app()->user->checkAccess('moder') ? '' : 'disabled',
+						'disabled' => Yii::app()->user->checkAccess('transfer post') ? '' : 'disabled',
                         'class'=>'chzn'
 					)
 				); ?>

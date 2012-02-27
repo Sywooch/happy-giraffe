@@ -106,6 +106,17 @@ class MessageLog extends CActiveRecord
         ));
     }
 
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            )
+        );
+    }
+
     public function beforeSave()
     {
         if ($this->isNewRecord)

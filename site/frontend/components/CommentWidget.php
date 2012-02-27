@@ -11,6 +11,11 @@ class CommentWidget extends CWidget
 	{
 		$comment_model = Comment::model();
 		$data_provider = $comment_model->get($this->model, $this->object_id);
+        // Если комментарии поста - считаем рейтинг
+        if($this->model == 'CommunityContent')
+        {
+            Rating::model()->saveByEntity(CommunityContent::model()->findByPk($this->object_id), 'cm', floor($data_provider->itemCount / 10));
+        }
 		if ($this->onlyList)
 		{
 			$this->render('list', array(

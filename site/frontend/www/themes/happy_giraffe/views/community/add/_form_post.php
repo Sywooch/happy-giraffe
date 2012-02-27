@@ -113,7 +113,10 @@
 						'ajax' => array(
 							'type' => 'POST',
 							'url' => CController::createUrl('ajax/rubrics'),
-							'update' => '#cusel-scroll-CommunityContent_rubric_id',
+							'success' => 'function(data){
+							    $("#CommunityContent_rubric_id").html(data);
+							    $("#CommunityContent_rubric_id").trigger("liszt:updated");
+                            }',
 						),
 						'disabled' => Yii::app()->user->checkAccess('transfer post') ? '' : 'disabled',
 					)

@@ -28,11 +28,13 @@ $this->breadcrumbs = array(
         <div class="col">
             <?php echo $form->textField($this->user, 'last_name', array(
             'placeholder' => 'Фамилия',
+//            'class' => (empty($this->user->last_name)) ? "placeholder" : '',
         )); ?>
         </div>
         <div class="col">
             <?php echo $form->textField($this->user, 'first_name', array(
             'placeholder' => 'Имя',
+//            'class' => (empty($this->user->first_name)) ? "placeholder" : '',
         )); ?>
         </div>
 
@@ -98,6 +100,14 @@ $this->breadcrumbs = array(
                         'data-placeholder' => 'Выберите регион',
                     )); ?>
                 </li>
+                <li class="with-search">
+                    <?php echo CHtml::dropDownList('district_id', $district_id, $districts, array(
+                    'empty' => '',
+                    'class' => 'chzn chzn-deselect',
+                    'data-placeholder' => 'Выберите район',
+                    'style' => 'width: 300px;'
+                )); ?>
+                </li>
                 <li>
                     <?php
                     $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
@@ -113,6 +123,7 @@ $this->breadcrumbs = array(
 								term: request.term,
 								country_id: $('#country_id').val(),
 								region_id: $('#region_id').val(),
+								district_id: $('#district_id').val()
 							},
 							success: function (data)
 							{
@@ -124,6 +135,8 @@ $this->breadcrumbs = array(
                             'select' => "js:function (event, ui)
 						{
 							$('#city_id').val(ui.item.id);
+
+                            ShowStreet();
                             console.log(ui.item.value);
                             geocoder = new YMaps.Geocoder($('#country_id option:selected').text()
                                 + ', ' + $('#region_id option:selected').text()
@@ -134,7 +147,7 @@ $this->breadcrumbs = array(
 
                         ),
                         'htmlOptions' => array(
-                            'style' => (empty($region_id) || $region_id == 42 || $region_id == 59) ? 'display: none;' : '',
+                            'style' => (empty($region_id)) ? 'display: none;' : '',
                             'placeholder' => 'город',
 //                            'class' => (empty($region_id)) ? "placeholder" : '',
                         )
@@ -142,8 +155,60 @@ $this->breadcrumbs = array(
                     ?>
                     <?php echo CHtml::hiddenField('city_id', $city_id); ?>
                 </li>
+                <li>
+                    <?php
+                    $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                        'id' => 'street_name',
+                        'name' => 'street_name',
+                        'value' => empty($user->street) ? '' : $user->street->name,
+                        'source' => "js: function(request, response)
+					{
+						$.ajax({
+							url: '" . $this->createUrl('/geo/geo/street') . "',
+							dataType: 'json',
+							data: {
+								term: request.term,
+								city_id: $('#city_id').val(),
+							},
+							success: function (data)
+							{
+								response(data);
+							}
+						})
+					}",
+                        'options' => array(
+                            'select' => "js:function (event, ui)
+						{
+                            $('#street_id').val(ui.item.id);
+                            console.log(ui.item.value);
+                            geocoder = new YMaps.Geocoder($('#country_id option:selected').text()
+                                + ', ' + $('#region_id option:selected').text()
+                                + ', ' + $('#district_id option:selected').text()
+                                + ', ' + ui.item.value);
+                            ShowNewLoc();
+						}
+					",
+
+                        ),
+                        'htmlOptions' => array(
+                            'style' => (empty($region_id)) ? 'display: none;' : '',
+                            'placeholder' => 'улица',
+//                            'class' => (empty($user->street)) ? "placeholder" : '',
+                        )
+                    ));
+                    ?>
+                    <?php echo CHtml::hiddenField('street_id', $user->street_id);?>
+                </li>
+                <li>
+                    <?php echo CHtml::textField('house', $user->house, array('placeholder' => 'дом')) ?>
+                </li>
+                <li>
+                    <?php echo CHtml::textField('room', $user->room, array('placeholder' => 'квартира')) ?>
+                </li>
             </ul>
         </div>
+
+
     </div>
 
 </div>
@@ -219,11 +284,15 @@ $this->breadcrumbs = array(
             if ($(this).val() == 174) {
                 $('#region_id_chzn').show();
                 if ($('#region_id').val() != '' && $('#region_id').val() != 42 && $('#region_id').val() != 59) {
+                    $('#district_id_chzn').show();
                     $('#city_name').show();
                 }
             } else {
                 $('#region_id_chzn').hide();
+                $('#district_id_chzn').hide();
                 $('#city_name').hide();
+
+                HideStreet();
             }
         });
 
@@ -233,29 +302,111 @@ $this->breadcrumbs = array(
             ShowNewLoc();
 
             if ($(this).val() == '' || $(this).val() == 42 || $(this).val() == 59) {
+                $('#district_id_chzn').hide();
                 $('#city_name').hide();
                 if ($(this).val() == '') {
+                    $('#street_name').hide();
+                    $('#house').hide();
+                    $('#room').hide();
                 } else {
                     if ($(this).val() == 42)
                         $('#city_id').val(148315);
                     if ($(this).val() == 59)
                         $('#city_id').val(148316);
+                    ShowStreet();
                 }
             } else {
-                $('#city_name').show();
-                $('#city_id').val('');
-                $('#city_name').val('');
+                $.ajax({
+                    url:'<?php echo Yii::app()->createUrl("/geo/geo/districts") ?>',
+                    data:{
+                        country_id:$('#country_id').val(),
+                        region_id:$(this).val()
+                    },
+                    type:'POST',
+                    success:function (response) {
+                        $('#district_id_chzn').show();
+                        $('#city_name').show();
+
+                        $('#district_id').html(response);
+                        $("#district_id").trigger("liszt:updated");
+                        $('#city_id').val('');
+                        $('#city_name').val('');
+
+                        HideStreet();
+
+                    },
+                    context:$(this)
+                });
             }
         });
 
+        $('#district_id').chosen({allow_single_deselect:true}).change(function () {
+            $('#city_id').val('');
+            $('#city_name').val('');
+//            setPlaceholder(document.getElementById('city_name'));
+
+            console.log($("#district_id option:selected").text());
+            geocoder = new YMaps.Geocoder($("#country_id option:selected").text()
+                + ", " + $("#region_id option:selected").text() + ", " + $("#district_id option:selected").text());
+            ShowNewLoc();
+
+            HideStreet();
+        });
+
         if ($('#country_id').val() != 174) {
+            $('#region_id_chzn').hide();
+            $('#district_id_chzn').hide();
             $('#city_name').hide();
+            HideStreet();
+        }
+
+        if ($('#region_id').val() == 42 || $('#region_id').val() == 59) {
+            $('#district_id_chzn').hide();
+            $('#city_name').hide();
+            $('#street_name').show();
+            $('#house').show();
+            $('#room').show();
+        } else if ($('#region_id').val() == '') {
+            $('#district_id_chzn').hide();
+            $('#city_name').hide();
+            HideStreet();
         }
 
         $('form#profile-form').submit(function(){
             unsetPlaceholder(document.getElementById('city_name'));
+            unsetPlaceholder(document.getElementById('street_name'));
+            unsetPlaceholder(document.getElementById('house'));
+            unsetPlaceholder(document.getElementById('room'));
             return true;
         });
+    });
+
+    function ShowStreet() {
+        $('#street_name').show();
+        $('#house').show();
+        $('#room').show();
+
+        $('#street_name').val('');
+//        setPlaceholder(document.getElementById('street_name'));
+        $('#street_id').val('');
+        $('#house').val('');
+//        setPlaceholder(document.getElementById('house'));
+        $('#room').val('');
+//        setPlaceholder(document.getElementById('room'));
+    }
+    function HideStreet() {
+        $('#street_name').hide();
+        $('#house').hide();
+        $('#room').hide();
+    }
+
+    $('#house').change(function(){
+        geocoder = new YMaps.Geocoder($('#country_id option:selected').text()
+            + ', ' + $('#region_id option:selected').text()
+            + ', ' + $('#district_id option:selected').text()
+            + ', ' + $('#street_name').val()
+            + ', ' + $('#house').val());
+        ShowNewLoc();
     });
 
     function ShowNewLoc() {

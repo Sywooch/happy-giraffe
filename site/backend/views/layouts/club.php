@@ -21,7 +21,7 @@
                 ),
             array('label' => 'Сигналы',
                 'url' => array('/club/signals/index'),
-                'visible'=> Yii::app()->user->checkAccess('видеть сигналы'),
+                'visible'=> Yii::app()->user->checkAccess('moder signals'),
                 'active' => (Yii::app()->controller->id == 'club/signals')
             )
         ),

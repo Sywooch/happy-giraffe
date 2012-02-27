@@ -123,11 +123,14 @@ $('.close').click(function () {
     				<?php echo CHtml::dropDownList('community_id', $community->id, CHtml::listData($communities, 'id', 'name'),
     					array(
     						'prompt' => 'Выберите сообщество',
-    						'ajax' => array(
-    							'type' => 'POST',
-    							'url' => CController::createUrl('ajax/rubrics'),
-    							'update' => '#cusel-scroll-CommunityContent_rubric_id',
-    						),
+                            'ajax' => array(
+                                'type' => 'POST',
+                                'url' => CController::createUrl('ajax/rubrics'),
+                                'success' => 'function(data){
+							    $("#CommunityContent_rubric_id").html(data);
+							    $("#CommunityContent_rubric_id").trigger("liszt:updated");
+                            }',
+                            ),
     						'disabled' => Yii::app()->user->checkAccess('transfer post') ? '' : 'disabled',
                             'class'=>'chzn',
     					)

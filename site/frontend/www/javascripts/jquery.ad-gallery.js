@@ -279,19 +279,13 @@
             thumb.load(
               function() {
                 thumb_wrapper_width += this.parentNode.parentNode.offsetWidth;
-<<<<<<< HEAD
 				thumb_wrapper_width += 20;
-=======
->>>>>>> 4d22079b9ab9d986f9da333d8d005488ff6f4702
                 thumbs_loaded++;
               }
             );
           } else{
             thumb_wrapper_width += thumb[0].parentNode.parentNode.offsetWidth;
-<<<<<<< HEAD
-			thumb_wrapper_width += 20;
-=======
->>>>>>> 4d22079b9ab9d986f9da333d8d005488ff6f4702
+            thumb_wrapper_width += 20;
             thumbs_loaded++;
           };
           link.addClass('ad-thumb'+ i);

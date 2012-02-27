@@ -249,12 +249,7 @@ class AjaxController extends Controller
 	public function actionRubrics()
 	{
 		$rubrics = CommunityRubric::model()->findAll('community_id=:community_id', array(':community_id'=>(int) $_POST['community_id']));
-
-		echo CHtml::tag('span', array('val' => '0', 'class' => 'cuselActive'), 'Выберите рубрику');
-		foreach ($rubrics as $r)
-		{
-			echo CHtml::tag('span', array('val' => $r->id), CHtml::encode($r->name));
-		}
+        echo CHtml::listOptions('', array('' => 'Выберите рубрику') + CHtml::listData($rubrics, 'id', 'name'), $null);
 	}
 
     public function actionVote()

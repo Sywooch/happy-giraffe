@@ -4,7 +4,7 @@ class m120227_083251_truncate_albums extends CDbMigration
 {
 	public function up()
 	{
-        $this->execute('TRUNCATE albums');
+        $this->execute('delete from albums');
 	}
 
 	public function down()

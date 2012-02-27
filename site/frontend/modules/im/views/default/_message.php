@@ -11,11 +11,12 @@ if (!isset($class))
         <tr>
             <td class="user">
                 <div class="img"><img src="<?php echo $user->getMiniAva() ?>" /></div>
-                <div class="date"><?php echo MessageLog::GetFormattedTime($message['created']); ?></div>
             </td>
             <td class="content">
+                <div class="name"><?php echo $user->first_name ?></div>
                 <?php echo $message['text'] ?>
             </td>
+            <td class="date"><?php echo MessageLog::GetFormattedTime($message['created']); ?></td>
             <td class="actions">
                 <a href="" class="remove"></a>
             </td>

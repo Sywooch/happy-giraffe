@@ -7,7 +7,7 @@ class OperationsController extends BController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('управление правами пользователей'))
+        if (!Yii::app()->user->checkAccess('user access'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }

@@ -25,10 +25,48 @@ class ReportsController extends BController
         ));
     }
 
+    public function actionSpam()
+    {
+        $model = new Report('search');
+        $model->unsetAttributes();
+        $model->accepted = 0;
+        $model->type = 0;
+
+        if(($attributes = Yii::app()->request->getQuery('Report')) !== false)
+            $model->attributes = $attributes;
+
+        $this->render('spam', array(
+            'model' => $model,
+        ));
+    }
+
+    public function actionSpamView($id)
+    {
+        $model = new Report('search');
+        $model->unsetAttributes();
+        $model->breaker_id = $id;
+        $model->type = 0;
+
+        $breaker = User::model()->findByPk($id);
+
+        $this->render('spam_view', array(
+            'model' => $model,
+            'breaker' => $breaker,
+        ));
+    }
+
     public function actionAccept($id)
     {
         $model = Report::model()->findByPk($id);
         $model->accepted = 1;
         $model->save();
+    }
+
+    public function actionBlockUser($id)
+    {
+        $user = User::model()->findByPk($id);
+        $user->blocked = 1;
+        $user->save(false);
+        $this->redirect(array('club/reports/spamView', 'id' => $id));
     }
 }

@@ -7,11 +7,16 @@ class SignalsController extends BController
 
     public function actionIndex()
     {
+        $filter = Yii::app()->request->getPost('filter');
         $criteria = new EMongoCriteria;
+        $criteria->addCond('status', '==', UserSignal::STATUS_OPEN);
+
         $criteria->setSort(array(
-            'priority'=> EMongoCriteria::SORT_ASC,
-            '_id'=> EMongoCriteria::SORT_ASC
+            'priority' => EMongoCriteria::SORT_ASC,
+            '_id' => EMongoCriteria::SORT_ASC,
         ));
+        if (!empty($filter))
+            $criteria->addCond('signal_type', '==', (int)$filter);
 
         $models = UserSignal::model()->findAll($criteria);
         if (Yii::app()->request->isAjaxRequest) {

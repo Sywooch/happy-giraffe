@@ -8,10 +8,8 @@
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/common.css?r=112'); ?>
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css?r=112'); ?>
 	
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/cusel.css?r=112'); ?>
-	
+
 	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/cusel.js?r=111'); ?>
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/checkbox.js?r=111'); ?>
 	
 	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css'); ?>
@@ -123,7 +121,7 @@
 	
 
 	</div>
-	
+
 	<!-- Yandex.Metrika counter -->
 	<div style="display:none;"><script type="text/javascript">
 	(function(w, c) {

@@ -155,9 +155,9 @@ class CommunityController extends Controller
 			throw new CHttpException(404, 'Такой записи не существует.');
 		}
         if ($content_model->author_id != Yii::app()->user->getId() &&
-            !Yii::app()->authManager->checkAccess('удаление тем в сообществах', Yii::app()->user->getId(),
+            !Yii::app()->authManager->checkAccess('delete post', Yii::app()->user->getId(),
                 array('community_id'=>$content_model->rubric->community_id)) &&
-            !Yii::app()->authManager->checkAccess('перенос темы из сообщества в сообщество', Yii::app()->user->getId())
+            !Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->getId())
         ) {
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         }
@@ -195,7 +195,7 @@ class CommunityController extends Controller
         $post = CommunityContent::model()->findByPk($id);
         //check user is author or moderator
         if ($post->author_id == Yii::app()->user->getId() ||
-            Yii::app()->authManager->checkAccess('удаление тем в сообществах', Yii::app()->user->getId(),
+            Yii::app()->authManager->checkAccess('delete post', Yii::app()->user->getId(),
                 array('community_id'=>$post->rubric->community_id))) {
             $redirect_url = array('community/list', 'community_id' => $post->rubric->community->id, 'content_type_slug' => $post->type->slug);
             $post->delete();

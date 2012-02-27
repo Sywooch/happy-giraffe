@@ -33,17 +33,17 @@ class AjaxController extends Controller
 	public function actionImageUpload()
 	{
 		$dir = Yii::getPathOfAlias('webroot') . '/upload/images/';
- 
+
 		$_FILES['file']['type'] = strtolower($_FILES['file']['type']);
- 
-		if ($_FILES['file']['type'] == 'image/png' 
-		|| $_FILES['file']['type'] == 'image/jpg' 
-		|| $_FILES['file']['type'] == 'image/gif' 
+
+		if ($_FILES['file']['type'] == 'image/png'
+		|| $_FILES['file']['type'] == 'image/jpg'
+		|| $_FILES['file']['type'] == 'image/gif'
 		|| $_FILES['file']['type'] == 'image/jpeg'
 		|| $_FILES['file']['type'] == 'image/pjpeg')
 		{
 			copy($_FILES['file']['tmp_name'], $dir . time() . $_FILES['file']['name']);
- 
+
 			echo Yii::app()->baseUrl . '/upload/images/' . time() . $_FILES['file']['name'];
 		}
 	}
@@ -71,9 +71,19 @@ class AjaxController extends Controller
 
     public function actionSendComment()
     {
-        $comment = new Comment;
-        $comment->attributes = $_POST['Comment'];
-        $comment->author_id = Yii::app()->user->id;
+        if (empty($_POST['edit-id'])){
+            $comment = new Comment;
+            $comment->attributes = $_POST['Comment'];
+            $comment->author_id = Yii::app()->user->id;
+        }else{
+            $comment = $this->loadComment($_POST['edit-id']);
+            //check access
+            if ($comment->author_id != Yii::app()->user->getId() &&
+                !Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())
+            )
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            $comment->attributes = $_POST['Comment'];
+        }
         if ($comment->save())
         {
             $response = array(
@@ -88,14 +98,14 @@ class AjaxController extends Controller
         }
         echo CJSON::encode($response);
     }
-    
+
     public function actionDeleteComment()
     {
         $id = Yii::app()->request->getPost('id');
         $comment = Comment::model()->findByPk($id);
         //check user is author or moderator
         if ($comment->author_id == Yii::app()->user->getId() ||
-            Yii::app()->authManager->checkAccess('удаление комментариев', Yii::app()->user->getId())) {
+            Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId())) {
             echo CJSON::encode(array(
                 'status' => $comment->delete(),
             ));
@@ -159,25 +169,25 @@ class AjaxController extends Controller
 	{
 		$this->renderPartial($path);
 	}
-	
+
 	public function actionVideo()
 	{
 		$link = $_POST['url'];
-		
+
 		$video = new Video($link);
-		
+
 		$host = parse_url($link, PHP_URL_HOST);
 		$favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
 		$favicon = strtr($host, array('.' => '_')) . '.png';
 		$favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' .  $favicon;
 		file_put_contents($favicon_path, file_get_contents($favicon_url));
-		
+
 		$this->renderPartial('video_preview', array(
 			'video' => $video,
 			'favicon' => $favicon,
 		));
 	}
-	
+
 	public function actionSource()
 	{
 		switch ($_POST['source_type'])
@@ -193,13 +203,13 @@ class AjaxController extends Controller
 				$html = file_get_contents($link);
 				$title = preg_match('/<title>(.+)<\/title>/', $html, $matches) ? $matches[1] : $link;
 				$title = mb_convert_encoding($title, 'UTF-8', 'cp1251');
-				
+
 				$host = parse_url($link, PHP_URL_HOST);
 				$favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
 				$favicon = strtr($host, array('.' => '_')) . '.png';
 				$favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' .  $favicon;
 				file_put_contents($favicon_path, file_get_contents($favicon_url));
-				
+
 				$this->renderPartial('source_type/preview/internet', array(
 					'title' => $title,
 					'favicon' => $favicon,
@@ -215,7 +225,7 @@ class AjaxController extends Controller
 		$user->setAttributes($_POST['User']);
 		$user->save(TRUE, array('first_name', 'last_name', 'nick', 'birthday', 'settlement_id'));
 	}
-	
+
 	public function actionSaveChild()
 	{
 		//sleep(2);
@@ -224,7 +234,7 @@ class AjaxController extends Controller
 		$baby->save(TRUE, array('name', 'birthday'));
 		echo json_encode($baby->getAttributes());
 	}
-	
+
 	public function actionSettlements()
 	{
 		$data = GeoRusSettlement::model()->findAll('region_id=:region_id', array(':region_id'=>(int) $_POST['region_id']));
@@ -235,16 +245,11 @@ class AjaxController extends Controller
 			echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), TRUE);
 		}
 	}
-	
+
 	public function actionRubrics()
 	{
 		$rubrics = CommunityRubric::model()->findAll('community_id=:community_id', array(':community_id'=>(int) $_POST['community_id']));
-		
-		echo CHtml::tag('span', array('val' => '0', 'class' => 'cuselActive'), 'Выберите рубрику');
-		foreach ($rubrics as $r)
-		{
-			echo CHtml::tag('span', array('val' => $r->id), CHtml::encode($r->name));
-		}
+        echo CHtml::listOptions('', array('' => 'Выберите рубрику') + CHtml::listData($rubrics, 'id', 'name'), $null);
 	}
 
     public function actionVote()
@@ -281,5 +286,17 @@ class AjaxController extends Controller
 
             echo CJSON::encode($response);
         }
+    }
+
+    /**
+     * @param int $id model id
+     * @return Comment
+     * @throws CHttpException
+     */
+    public function loadComment($id){
+        $model = Comment::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

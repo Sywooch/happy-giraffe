@@ -226,6 +226,8 @@ class UserSignal extends EMongoDocument
         if (count($this->success) >= $this->currentLimit()){
             $this->success = array();
             $this->priority++;
+            if ($this->priority > count($this->limits))
+                $this->status = self::STATUS_CLOSED;
             $this->save();
             //send signal to moderators
             $moderators = AuthAssignment::model()->findAll('itemname="moderator"');

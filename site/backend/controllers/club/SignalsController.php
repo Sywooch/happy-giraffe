@@ -9,6 +9,7 @@ class SignalsController extends BController
     {
         $filter = Yii::app()->request->getPost('filter');
         $criteria = new EMongoCriteria;
+        $criteria->addCond('status', '==', UserSignal::STATUS_OPEN);
 
         $criteria->setSort(array(
             'priority' => EMongoCriteria::SORT_ASC,

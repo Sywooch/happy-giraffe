@@ -16,7 +16,7 @@ class DefaultController extends BController
         $model = new SeoKeyStats;
         $model->site_id = $site_id;
 
-        $this->render('index2', array(
+        $this->render('index', array(
             'model' => $model,
             'site_id'=>$site_id
         ));
@@ -99,7 +99,6 @@ class DefaultController extends BController
 
     public function actionParseStats2()
     {
-        Yii::app()->end();
         Yii::import('site.frontend.extensions.phpQuery.phpQuery.phpQuery');
         $site_id = 3;
         $year = 2011;
@@ -189,20 +188,5 @@ class DefaultController extends BController
         }
 
         return $res;
-    }
-
-    public function actionStats()
-    {
-        $keywords = SeoKeywords::model()->with(array(
-            'seoStats' => array(
-                'select' => array('month', 'value'),
-            ),
-        ))->findAll(array(
-            'limit' => 300
-        ));
-        usort($keywords, array('SeoKeywords', 'cmp_fun'));
-        $this->render('stats3', array(
-            'keywords' => $keywords,
-        ));
     }
 }

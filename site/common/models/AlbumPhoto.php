@@ -180,7 +180,7 @@ class AlbumPhoto extends CActiveRecord
      * @param int $height
      *
      * @return string
-     */public function getPreviewPath($width = 100, $height = 100)
+     */public function getPreviewPath($width = 100, $height = 100, $master = false)
     {
         // Uload root
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
@@ -204,7 +204,7 @@ class AlbumPhoto extends CActiveRecord
                 mkdir($model_dir);
             Yii::import('ext.image.Image');
             $image = new Image($this->originalPath);
-            $image->resize($width, $height, Image::AUTO);
+            $image->resize($width, $height, $master ? $master : Image::AUTO);
             $image->save($thumb);
         }
         return $thumb;
@@ -217,9 +217,9 @@ class AlbumPhoto extends CActiveRecord
      * @param int $height
      * @return string
      */
-    public function getPreviewUrl($width = 100, $height = 100)
+    public function getPreviewUrl($width = 100, $height = 100, $master = false)
     {
-        $this->getPreviewPath($width, $height);
+        $this->getPreviewPath($width, $height, $master);
         return implode('/', array(
             Yii::app()->params['photos_url'],
             $this->thumb_folder,
@@ -232,5 +232,10 @@ class AlbumPhoto extends CActiveRecord
     public function getCheckAccess()
     {
         return true;
+    }
+
+    public function getDescription()
+    {
+        return $this->file_name;
     }
 }

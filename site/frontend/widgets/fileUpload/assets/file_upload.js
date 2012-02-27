@@ -2,7 +2,7 @@ $(document).ready(function () {
     var fileInput = $('#upload-input');
     var form = $('#upload-form');
     // проверка html5
-    if (!window.File && window.FileReader && window.FileList && window.Blob && ('draggable' in document.createElement('span'))) {
+    if (window.File && window.FileReader && window.FileList && window.Blob && ('draggable' in document.createElement('span'))) {
         HTML5Upload.init(fileInput, form);
     } else {
         /*fileInput.attr('multiple', false);
@@ -16,6 +16,7 @@ $(document).ready(function () {
          });*/
 
         $('#upload-input').hide();
+        $(document).ready(function() {
             $('#upload-control').swfupload({
                 upload_url:upload_ajax_url,
                 file_size_limit:"10240",
@@ -48,7 +49,6 @@ $(document).ready(function () {
                     $('#log').append('<li>File dialog complete</li>');
                 })
                 .bind('uploadStart', function (event, file) {
-                    cl(file);
                     $('#log').append('<li>Upload start - ' + file.name + '</li>');
                 })
                 .bind('uploadProgress', function (event, file, bytesLoaded) {
@@ -65,7 +65,7 @@ $(document).ready(function () {
                 .bind('uploadError', function (event, file, errorCode, message) {
                     $('#log').append('<li>Upload error - ' + message + '</li>');
                 });
-
+        });
     }
 });
 
@@ -102,7 +102,6 @@ var ru2en = {
 }
 
 function ajax_upload_success(response) {
-    console.log(response)
     if (response == 1) {
         $.fancybox.close();
         document.location.reload();

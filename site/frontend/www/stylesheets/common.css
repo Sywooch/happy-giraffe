@@ -893,7 +893,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery #photo .gallery-photos .next {display:block;width:12px;height:17px;background:url(../images/common.png) no-repeat -54px -114px;position:absolute;top:50%;right:-45px;margin-top:-9px;}
 #gallery #photo .gallery-photos .next.disabled {background-position:-54px -131px;cursor:default;}
 #gallery #photo .ad-thumb-list li {margin:0;float:left;}
-#gallery #photo .ad-thumb-list li a {padding:10px;display:block;margin:0;}
+#gallery #photo .ad-thumb-list li a {padding:10px;display:block;margin:0;text-decoration:none;}
 #gallery #photo .ad-thumb-list li a.ad-active {padding:0;margin:10px 0;}
 #gallery #photo .ad-thumb-list li a.ad-active table td.img div {border:10px solid #88cad8;border-bottom:0;padding:0px;}
 #gallery #photo .ad-thumb-list li a.ad-active table tr.title td {background:#fffedf;font-size:10px;}

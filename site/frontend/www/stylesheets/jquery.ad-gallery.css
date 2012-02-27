@@ -30,40 +30,42 @@
     }
     .ad-gallery .ad-image-wrapper .ad-next {
       position: absolute;
-      right: 0;
+      right: -65px;
       top: 0;
       width: 25%;
       height: 100%;
       cursor: pointer;
       display: block;
       z-index: 100;
+	  padding-right:65px;
     }
     .ad-gallery .ad-image-wrapper .ad-prev {
       position: absolute;
-      left: 0;
       top: 0;
       width: 25%;
       height: 100%;
       cursor: pointer;
       display: block;
       z-index: 100;
+	  padding-left:65px;
+	  left:-65px;
     }
     .ad-gallery .ad-image-wrapper .ad-prev, .ad-gallery .ad-image-wrapper .ad-next {
       /* Or else IE will hide it */
       background: url(non-existing.jpg)\9
     }
       .ad-gallery .ad-image-wrapper .ad-prev .ad-prev-image, .ad-gallery .ad-image-wrapper .ad-next .ad-next-image {
-        display:none;
+        display:block !important;
 		width:25px;
 		height:35px;
 		background:url(../images/common.png) no-repeat -159px -164px;
 		position:absolute;
 		top:50%;
-		left:-65px;
+		left:0px;
 		margin-top:-18px;
       }
       .ad-gallery .ad-image-wrapper .ad-next .ad-next-image {
-        left:auto;right:-65px;background-position:-240px -164px;
+        left:auto;right:0px;background-position:-240px -164px;
       }
     .ad-gallery .ad-image-wrapper .ad-image {
       position: absolute;

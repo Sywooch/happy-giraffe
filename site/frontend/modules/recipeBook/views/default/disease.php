@@ -3,13 +3,6 @@
     'active_disease'=>$model
 ));
 
-$js_content_report = "
-$('.spam a').live('click', function() {
-	report($(this).parents('.entry'));
-	return false;
-});
-";
-
 $js = "$('.art_lk_recipes').delegate('a', 'click', function(e) {
 			e.preventDefault();
 			var button = $(this);
@@ -38,7 +31,6 @@ $js = "$('.art_lk_recipes').delegate('a', 'click', function(e) {
 	";
 
 Yii::app()->clientScript
-    ->registerScript('content_report', $js_content_report)
     ->registerScript('recipe_vote', $js);
 
 ?>

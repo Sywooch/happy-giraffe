@@ -89,8 +89,9 @@
 
 <div class="comments">
 	<ul>
+        <?php $i = 0; ?>
 		<?php foreach ($offers->data as $o): ?>
-			<li class="clearfix even">
+			<li class="clearfix<?php if ($i % 2 == 0) echo ' even' ?>">
 				<div class="user">
 					<?php $this->widget('AvatarWidget', array('user' => $o->author)); ?>
 					<a class="username"><?php echo $o->author->first_name; ?></a>
@@ -126,6 +127,7 @@
 					<?php endif; ?>
 				</div>
 			</li>
+        <?php $i++; ?>
 		<?php endforeach; ?>
 	</ul>
 	<?php if (! Yii::app()->user->isGuest): ?>
@@ -141,8 +143,7 @@
 						Ваш предмет: <?php echo $form->textField($item, 'name'); ?> <span>Добавляйте только по одному предмету!</span>
 					</div>
 
-					<?php //$item->description = 'Напишите для чего может пригодиться этот предмет в роддоме.';
-                        echo $form->textArea($item, 'description', array('placeholder'=>'Напишите для чего может пригодиться этот предмет в роддоме.')); ?>
+					<?php echo $form->textArea($item, 'description', array('placeholder'=>'Напишите для чего может пригодиться этот предмет в роддоме.')); ?>
 					<button class="btn btn-gray-medium cancel"><span><span>Отменить</span></span></button>
 					<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
 				<?php $this->endWidget(); ?>

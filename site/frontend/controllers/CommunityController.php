@@ -22,7 +22,7 @@ class CommunityController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents'),
                 'users'=>array('*'),
             ),
             array('allow',
@@ -518,20 +518,24 @@ class CommunityController extends Controller
 
     public function actionShortList()
     {
-        $contents = Community::model()->findAll(array(
-            'with' => array(
-                'rubrics' => array(
-                    'with' => array(
-                        'contents' => array(
-                            'with' => 'type',
-                        )
-                    )
-                )
-            )
-        ));
+        $contents = Community::model()->with('rubrics')->findAll();
 
         $this->render('shortList', array(
             'contents' => $contents,
         ));
+    }
+
+    public function actionShortListContents($rubric_id)
+    {
+        $model = CommunityRubric::model()->with(array('community', 'contents.type'))->findByPk($rubric_id);
+        foreach ($model->contents as $c)
+        {
+            echo CHtml::tag('li', array(), '&nbsp;&nbsp;&nbsp;&nbsp;' . CHtml::link($c->name, array(
+                'community/view',
+                'community_id' => $model->community->id,
+                'content_type_slug' => $c->type->slug,
+                'content_id' => $c->id,
+            )));
+        }
     }
 }

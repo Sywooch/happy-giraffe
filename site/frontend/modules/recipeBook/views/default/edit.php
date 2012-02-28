@@ -91,7 +91,6 @@
 
 	$cs
 		->registerScriptFile('https://raw.github.com/jquery/jquery-tmpl/master/jquery.tmpl.min.js')
-        ->registerScriptFile('/javascripts/chosen.jquery.min.js')
 		->registerScript('recipeBook_add', $js);
 ?>
 

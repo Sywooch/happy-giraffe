@@ -25,10 +25,8 @@ $('.close').click(function () {
 	display: none;
 }";
 	$cs
-        ->registerScript('add_video', $js_add_video)->registerCss('add_video', $css_add_video)
-        ->registerScriptFile('/javascripts/chosen.jquery.min.js');
+        ->registerScript('add_video', $js_add_video)->registerCss('add_video', $css_add_video);
 ?>
-
 
 	<?php if ($content_model->isNewRecord || (Yii::app()->user->checkAccess('edit post',
     array('community_id'=>$content_model->rubric->community_id)) ||

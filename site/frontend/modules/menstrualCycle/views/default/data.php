@@ -8,8 +8,8 @@
 <div class="mother_calendar">
     <div class="choice_month">
         <a href="#"
-           class="l_arr_mth_active" id="prev-month">&larr;</a>
-        <a href="#" class="r_arr_mth_active" id="next-month">&rarr;</a>
+           class="prev" id="prev-month">&larr;</a>
+        <a href="#" class="next" id="next-month">&rarr;</a>
         <span><?php echo HDate::ruMonth($model->review_month) ?>, <?php echo $model->review_year ?></span>
     </div>
     <!-- .choice_month -->
@@ -60,6 +60,7 @@
                                 ?>
                             </div>
                             <?php endif ?>
+                            <i class="icon"></i>
                         </div>
                     </div>
                     <?php else: ?>
@@ -91,6 +92,7 @@
                             ?>
                         </div>
                         <?php endif ?>
+                        <i class="icon"></i>
                     </div>
                     <?php endif ?>
                 </td>
@@ -132,6 +134,7 @@
                                 <?php else: ?>
                                 <div class="cal_item <?php echo $cell['cell'] ?>">
                                     <ins><?php echo $cell['day'] ?></ins>
+                                    <i class="icon"></i>
                                 </div>
                                 <?php endif ?>
                             </td>
@@ -145,12 +148,12 @@
         <div class="cal_helper">
             <span class="title_helper">Обозначения:</span>
             <ul>
-                <li class="mens">- менструация</li>
-                <li class="pms">- предменструальный синдром</li>
-                <li class="mbov">- благоприятные для зачатия дни</li>
-                <li class="fov">- овуляция</li>
-                <li class="fsex">- безопасный секс</li>
-                <li class="pfsex">- условно безопасный секс</li>
+                <li class="mens"><i class="icon"></i> - менструация</li>
+                <li class="pms"><i class="icon"></i> - предменструальный синдром</li>
+                <li class="mbov"><i class="icon"></i> - благоприятные для зачатия дни</li>
+                <li class="fov"><i class="icon"></i> - овуляция</li>
+                <li class="fsex"><i class="icon"></i> - безопасный секс</li>
+                <li class="pfsex"><i class="icon"></i> - условно безопасный секс</li>
             </ul>
         </div>
         <!-- .cal_helper -->

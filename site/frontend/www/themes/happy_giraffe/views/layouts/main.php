@@ -21,6 +21,7 @@
 	
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.iframe-post-form.js'); ?>
     <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.placeholder.min.js'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/chosen.jquery.min.js'); ?>
 
 	<script type="text/javascript">
 
@@ -49,10 +50,12 @@
 			<div class="header-in">
 								
 				<div class="search-box">
-					<button class="btn"><span><span>Поиск</span></span></button>
-					<div class="text">
-						<input type="text" />
-					</div>
+                    <form action="<?php echo $this->createUrl('site/search'); ?>">
+                        <button class="btn"><span><span>Поиск</span></span></button>
+                        <div class="text">
+                            <input type="text" name="text" />
+                        </div>
+                    </form>
 				</div>
 				<?php $this->widget('site.frontend.widgets.loginWidget.LoginWidget'); ?>
 				<div class="nav">

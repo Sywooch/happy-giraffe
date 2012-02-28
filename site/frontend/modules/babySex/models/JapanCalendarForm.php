@@ -239,7 +239,7 @@ class JapanCalendarForm extends CFormModel
 
     private static function Opacity($prc)
     {
-        $opacity = 0.2 + ((abs($prc)) / 100) * 0.8;
-        return sprintf("%01.2f", $opacity);
+        $opacity = round((abs($prc/2 + 50)) / 20) * 20;
+        return $opacity;
     }
 }

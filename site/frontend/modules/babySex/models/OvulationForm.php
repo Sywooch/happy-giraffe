@@ -76,7 +76,7 @@ class OvulationForm extends CFormModel
     {
         $model = MenstrualCycle::model()->cache(3600)->find('cycle=' . $cycle . ' AND menstruation=' . $menstruation_duration);
         if (empty($model))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.....');
 
         return $model;
     }

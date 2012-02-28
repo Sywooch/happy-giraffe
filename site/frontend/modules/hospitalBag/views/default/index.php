@@ -32,14 +32,6 @@
 			e.preventDefault();
 			$('#BagItem_description').val('');
 		});
-		
-		$('#BagItem_description').focus(function() {
-			$('#BagItem_description').val('');
-		});
-		
-		$('#BagItem_name').focus(function() {
-			$('#BagItem_name').val('');
-		});
 	";
 
 	$cs
@@ -130,9 +122,6 @@
                             'result'=>array(0=>array('.votes_con','.con_percent'),1=>array('.votes_pro','.pro_percent')),
                             'main_selector'=>'.item-useful'
                             )); ?>
-<!--							<div class="green"><a href="" class="btn btn---><?php //echo ($o->vote == 1) ? 'green':'gray'; ?><!---small"><span><span>Да</span></span></a><br/><b><span class="votes_pro">--><?php //echo $o->votes_pro; ?><!--</span> (<span class="pro_percent">--><?php //echo $o->getPercent(1); ?><!--</span>%)</b></div>-->
-<!--							<div class="red"><a href="" class="btn btn---><?php //echo ($o->vote == 0 && $o->vote !== null) ? 'red':'gray'; ?><!---small"><span><span>Нет</span></span></a><br/><b><span class="votes_con">--><?php //echo $o->votes_con; ?><!--</span> (<span class="con_percent">--><?php //echo $o->getPercent(0); ?><!--</span>%)</b></div>-->
-<!--							--><?php //echo CHtml::hiddenField('id', $o->id); ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -144,15 +133,16 @@
 			<div class="new-comment">
 				<?php
 					$form = $this->beginWidget('CActiveForm', array(
-						'action' => 'hospitalBag/default/addOffer',
+						'action' => '/hospitalBag/default/addOffer',
 						'id' => 'addOffer',
 					));
-				?>
+				    ?>
 					<div class="new-hospital-bag-item">
 						Ваш предмет: <?php echo $form->textField($item, 'name'); ?> <span>Добавляйте только по одному предмету!</span>
 					</div>
 
-					<?php $item->description = 'Напишите для чего может пригодиться этот предмет в роддоме.'; echo $form->textArea($item, 'description'); ?>
+					<?php //$item->description = 'Напишите для чего может пригодиться этот предмет в роддоме.';
+                        echo $form->textArea($item, 'description', array('placeholder'=>'Напишите для чего может пригодиться этот предмет в роддоме.')); ?>
 					<button class="btn btn-gray-medium cancel"><span><span>Отменить</span></span></button>
 					<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
 				<?php $this->endWidget(); ?>

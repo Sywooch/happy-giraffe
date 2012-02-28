@@ -274,6 +274,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .pagination .summary {display:inline-block;}
 .pagination.pagination-center {text-align:center;}
 .pagination.pagination-center .summary {margin-left:-180px;display:inline-block;}
+.pagination .pager {display:inline;}
 .pagination ul {display:inline-block;}
 .pagination ul li {display:inline-block;padding:0 3px;text-indent:0 !important;margin:0 !important;}
 .pagination ul li a {padding:0 3px;text-decoration:none;display:block;color:#2296b0;}

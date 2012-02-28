@@ -10,21 +10,20 @@
     <div class="like-block" rel="<?php echo $model->id ?>">
         <div class="block-in">
             <div class="fast-rating"><span><?php echo $model->votes_pro - $model->votes_con ?></span> рейтинг</div>
-        </div>
         <div class="title">Рецепт полезен?</div>
         <div class="your_opinion">
             <?php $this->widget('VoteWidget', array(
                 'model'=>$model,
                 'template'=>
-                '<div class="green"><a vote="1" class="btn btn-green-medium" href="#"><span><span>Да</span></span></a><span><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</span></div>
-                    <div class="red"><a vote="0" class="btn btn-red-medium" href="#"><span><span>Нет</span></span></a><span><span class="votes_con">{vote0}</span> (<span class="con_percent">{vote_percent0}</span>%)</span></div>',
+                '<div class="green"><a vote="1" class="btn btn-green-medium" href="#"><span><span>Да</span></span></a> &nbsp; <span><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</span></div>
+                    <div class="red"><a vote="0" class="btn btn-red-medium" href="#"><span><span>Нет</span></span></a> &nbsp; <span><span class="votes_con">{vote0}</span> (<span class="con_percent">{vote_percent0}</span>%)</span></div>',
                 'links' => array('.red a','.green a'),
                 'result'=>array(0=>array('.votes_con','.con_percent'),1=>array('.votes_pro','.pro_percent')),
                 'main_selector'=>'.like-block',
-                'rating'=>'.fast-rating'
+                'rating'=>'.fast-rating span'
             )); ?>
-        </div><!-- .your_opinion -->
-        <div class="clear"></div>
+        </div>
+        </div>
     </div>
 
     <?php if (!empty($more_recipes)):?>

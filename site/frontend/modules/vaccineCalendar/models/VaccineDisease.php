@@ -60,7 +60,7 @@ class VaccineDisease extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'vaccineDates' => array(self::MANY_MANY, 'VaccineDate', 'vaccine_date_disease(vaccine_disease_id, vaccine_date_id)'),
-			'disease' => array(self::BELONGS_TO, 'RecipebookDisease', 'disease_id'),
+			'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
 		);
 	}
 

@@ -1,5 +1,5 @@
 <?php
-
+Yii::import('site.frontend.modules.recipeBook.models.*');
 class VaccineDiseaseController extends Controller
 {
     public $layout = '//layouts/club';

@@ -52,4 +52,5 @@ AjaxHistory.prototype.load = function (id, url) {
             $(id).replaceWith($(id, '<div>' + data + '</div>'));
         }
     });
+    return this;
 }

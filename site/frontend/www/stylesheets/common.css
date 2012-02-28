@@ -914,12 +914,15 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .like-block {background: #fffedf;margin: 20px 0;color: #535353;position:relative;}
 
-.like-block .block-in {width:700px;padding:30px auto 20px;position:relative;}
+.like-block .block-in {width:660px;padding:20px 20px 20px;position:relative;margin:0 auto;}
 
 .like-block .title {font-family: Arial, Tahoma, sans-serif;font-size:26px;display:block;text-align:center;}
 
 .like-block .rating {text-align: right;font: 16px/1 tahoma, sans-serif;position:absolute;right:30px;top:106px;}
 .like-block .rating span {font: bold 36px/1 tahoma, sans-serif;position: relative;color: #FF6600;top:2px;}
+
+.like-block .fast-rating {text-align: right;font: 11px/normal tahoma, sans-serif;float:right;}
+.like-block .fast-rating span {font: bold 24px/1 tahoma, sans-serif;position: relative;color: #FF6600;top:2px;display:block;}
 
 .like-block .tip {position:absolute;width:25px;height:25px;right:7px;top:97px;}
 .like-block .tip .container {position:relative;}

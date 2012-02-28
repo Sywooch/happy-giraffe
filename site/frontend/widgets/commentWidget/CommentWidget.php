@@ -25,6 +25,7 @@ class CommentWidget extends CWidget
         {
             Rating::model()->saveByEntity(CommunityContent::model()->findByPk($this->entity_id), 'cm', floor($data_provider->itemCount / 10));
         }
+        $this->registerScripts();
 		if ($this->onlyList)
 		{
 			$this->render('list', array(
@@ -38,6 +39,12 @@ class CommentWidget extends CWidget
 				'dataProvider' => $data_provider,
 			));
 		}
-	}	
-	
+	}
+
+    public function registerScripts()
+    {
+        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+        Yii::app()->clientScript->registerScriptFile($baseUrl . '/comment.js');
+    }
 }

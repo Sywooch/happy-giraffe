@@ -25,6 +25,7 @@
                 'class' => 'remove-comment',
             )); ?>
             <?php endif; ?>
+            <a href="javascript:void(0)" onclick="Comment.response(this);">Ответить</a>
         </div>
     </div>
 </div>

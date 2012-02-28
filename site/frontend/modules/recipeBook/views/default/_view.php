@@ -9,8 +9,8 @@
         <a href="<?php echo $this->createUrl('/recipeBook/default/view', array('id'=>$data->id))
             ?>"><h1><?php echo $data->name ?></h1></a>
         <div class="user">
-            <?php $this->widget('AvatarWidget', array('user' => $data->user)); ?>
-            <a class="username"><?php echo $data->user->first_name.' '.$data->user->last_name ?></a>
+            <?php $this->widget('AvatarWidget', array('user' => $data->author)); ?>
+            <a class="username"><?php echo $data->author->first_name.' '.$data->author->last_name ?></a>
         </div>
 
         <div class="meta">
@@ -52,7 +52,9 @@
         </div>
         <span class="comm">Отзывов: <span><?php echo $data->commentsCount;  ?></span></span>
         <div class="spam">
-            <a href="#"><span>Нарушение!</span></a>
+            <?php $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
+            $report->button("$(this).parents('.entry-footer')");
+            $this->endWidget(); ?>
         </div>
         <div class="clear"></div>
         <?php if (!isset($short)):?>

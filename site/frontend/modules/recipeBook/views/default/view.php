@@ -2,38 +2,26 @@
     'cat_diseases' => $cat_diseases,
     'active_disease'=>$active_disease
 ));
-
-$js_content_report = "$('.spam a').live('click', function() {
-	report($(this).parents('.entry'));
-	return false;
-});";
-
-Yii::app()->clientScript
-    ->registerScript('content_report', $js_content_report);
-
 ?>
 
 <div class="right-inner">
     <?php $this->renderPartial('_view',array('data'=>$model, 'short'=>true)); ?>
 
     <div class="like-block" rel="<?php echo $model->id ?>">
-        <div class="block">
-            <div class="rate"><?php echo $model->votes_pro - $model->votes_con ?></div>
-            рейтинг
+        <div class="block-in">
+            <div class="fast-rating"><span><?php echo $model->votes_pro - $model->votes_con ?></span> рейтинг</div>
         </div>
-        <big>Рецепт полезен?</big>
+        <div class="title">Рецепт полезен?</div>
         <div class="your_opinion">
             <?php $this->widget('VoteWidget', array(
                 'model'=>$model,
                 'template'=>
-                '<ul>
-                    <li class="agree_u"><a vote="1" class="{active1}" href="#">Да</a><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</li>
-                    <li class="disagree_u"><a vote="0" class="{active0}" href="#">Нет</a><span class="votes_con">{vote0}</span> (<span class="con_percent">{vote_percent0}</span>%)</li>
-                </ul>',
-                'links' => array('.disagree_u a','.agree_u a'),
+                '<div class="green"><a vote="1" class="btn btn-green-medium" href="#"><span><span>Да</span></span></a><span><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</span></div>
+                    <div class="red"><a vote="0" class="btn btn-red-medium" href="#"><span><span>Нет</span></span></a><span><span class="votes_con">{vote0}</span> (<span class="con_percent">{vote_percent0}</span>%)</span></div>',
+                'links' => array('.red a','.green a'),
                 'result'=>array(0=>array('.votes_con','.con_percent'),1=>array('.votes_pro','.pro_percent')),
                 'main_selector'=>'.like-block',
-                'rating'=>'.rate'
+                'rating'=>'.fast-rating'
             )); ?>
         </div><!-- .your_opinion -->
         <div class="clear"></div>

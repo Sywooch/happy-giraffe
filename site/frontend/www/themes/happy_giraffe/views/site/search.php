@@ -20,11 +20,14 @@
             'itemView' => '_search', // refers to the partial view named '_post'
             'summaryText' => 'показано: {start} - {end} из {count}',
             'pager' => array(
+                'class' => 'MyLinkPager',
                 'header' => 'Страницы',
             ),
             'template' => '{items}
-                {summary}
-                {pager}
+                <div class="pagination pagination-center clearfix">
+                    {summary}
+                    {pager}
+                </div>
             ',
         ));
         ?>

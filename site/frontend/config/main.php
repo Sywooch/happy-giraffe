@@ -69,7 +69,6 @@ return array(
 		),
 		'contest',
 		'attribute',
-        'albums',
 		'delivery' => array(
 			'class' => 'application.modules.delivery.DeliveryModule',
 			'returnUrl' => '/shop/shopCartDelivery',
@@ -116,7 +115,7 @@ return array(
 			),
 		),
 		'search' => array(
-		    'class' => 'application.components.DGSphinxSearch',
+		    'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',
 		    'server' => '127.0.0.1',
 		    'port' => 9312,
 		    'maxQueryTime' => 3000,

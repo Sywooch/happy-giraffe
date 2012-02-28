@@ -6,7 +6,7 @@
     <div class="content">
         <div class="hospital-bag-item-fast">
             <div class="item-storage">Ко мне в сумку</div>
-            <?php if (!in_array($model->item->id, Yii::app()->user->getState('hospitalBag'))): ?>
+            <?php if (!in_array($model->item->id, Yii::app()->user->getState('hospitalBag', array()))): ?>
             <?php $this->renderPartial('_item', array('item' => $model->item)); ?>
             <?php endif; ?>
         </div>

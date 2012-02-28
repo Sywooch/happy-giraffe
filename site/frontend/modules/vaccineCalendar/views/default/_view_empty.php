@@ -1,27 +1,58 @@
 <?php
-$day = date('j');
-$month = date('m');
-$year = date('Y');
+/* @var $this Controller
+ * @var $form CActiveForm
+ * @var $date DateForm
+ */
 ?>
-<div class="vaccination-birthday">
-    <?php echo CHtml::beginForm() ?>
+<div class="vaccination-birthday form">
+    <?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'date-form',
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+    'action' => $this->createUrl('/vaccineCalendar/default/validateDate'),
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => true,
+        'validateOnType' => false,
+        'validationUrl' => $this->createUrl('/vaccineCalendar/default/validateDate'),
+        'afterValidate' => "js:function(form, data, hasError) {
+                  if (!hasError) {
+                      $.ajax({
+                          url: '" . $this->createUrl('/vaccineCalendar/default/VaccineTable') . "',
+                          type: 'POST',
+                          data: $('#date-form').serialize(),
+                          success: function(data) {
+                              $('#vaccine-result').html(data);
+                          }
+                      });
+                  }
+                  return false;
+              }",
+    ))); ?>
 
-    <big>День рождения:</big>
-    <?php echo CHtml::dropDownList('day', $day, HDate::Days(),array('id'=>'day-','class'=>'wid100')); ?>
-    <?php echo CHtml::dropDownList('month', $month, HDate::ruMonths(),array('id'=>'month-','class'=>'wid100')); ?>
-    <?php echo CHtml::dropDownList('year', $year, HDate::Range(1990, 2020),array('id'=>'year-','class'=>'wid100')); ?>
+    <big style="float:left;">День рождения:</big>
+
+    <div class="row" style="float:left;">
+        <?php echo $form->dropDownList($date, 'day', HDate::Days(), array('class' => 'chzn', 'empty' => 'День')); ?>
+        <?php echo $form->error($date, 'day'); ?>
+    </div>
+    <div class="row" style="float:left;">
+        <?php echo $form->dropDownList($date, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'Месяц')); ?>
+        <?php echo $form->error($date, 'month'); ?>
+    </div>
+    <div class="row" style="float:left;">
+        <?php echo $form->dropDownList($date, 'year', HDate::Range(1990, 2020), array('class' => 'chzn', 'empty' => 'Год')); ?>
+        <?php echo $form->error($date, 'year'); ?>
+    </div>
     <?php echo CHtml::hiddenField('baby_id', '') ?>
 
-    <?php echo CHtml::ajaxLink('<span><span>Рассчитать</span></span>',$this->createUrl('/vaccineCalendar/default/VaccineTable'),array(
-            'type'=>'POST',
-            'data' => 'js:jQuery(this).parents("form").serialize()',
-            'success'=>'function(data){$("#vaccine-result").html(data);}'
-        ),
-        array(
-            'class'=>'btn btn-yellow-medium'
-        )); ?>
+    <?php echo CHtml::link('<span><span>Рассчитать</span></span>', '#', array(
+        'class' => 'btn btn-yellow-medium',
+        'onclick'=>'js:$("#date-form").submit();return false;'
+    )); ?>
+    <div class="clear"></div>
 
-    <?php echo CHtml::endForm() ?>
+    <?php $this->endWidget(); ?>
 </div>
 <div id="vaccine-result">
 

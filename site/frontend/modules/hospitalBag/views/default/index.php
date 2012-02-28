@@ -86,7 +86,23 @@
 	</ul>
 	<div class="comment-count"><?php echo $offers->totalItemCount; ?></div>
 </div>
-
+<?php $this->widget('VoteWidget', array(
+    'model'=>new BagOffer,
+    'init'=>true,
+    'template'=>'<div class="green">
+                                <a vote="1" class="btn btn-gray-small{active1}" href=""><span><span>Да</span></span></a>
+                                <br>
+                                <b><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</b>
+                            </div>
+                            <div class="red">
+                                <a vote="0" class="btn btn-gray-small{active0}" href=""><span><span>Нет</span></span></a>
+                                <br>
+                                <b><span class="votes_con">{vote0}</span> (<span class="con_percent">{vote_percent0}</span>%)</b>
+                            </div>',
+    'links' => array('.red','.green'),
+    'result'=>array(0=>array('.votes_con','.con_percent'),1=>array('.votes_pro','.pro_percent')),
+    'main_selector'=>'.item-useful'
+)); ?>
 <div class="comments">
 	<ul>
         <?php $i = 0; ?>

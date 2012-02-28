@@ -97,7 +97,7 @@ else
 
 	</table>
 
-	<div class="a-right table-actions">
+	<div class="a-right table-actions" style="display: none;">
 		<a href="" title="Распечатать"><img src="/images/icon_print.png" /></a>
 		<a href="" title="Скачать в формате PDF"><img src="/images/icon_pdf.png" /></a>
 	</div>

@@ -7,8 +7,8 @@ $js = "var started = false;
     $(function () {
         $('#ovulation-form input.calc_bt').click(function () {
             var d = new Date();
-            $('#review_month').val($('#mn_cal').val());
-            $('#review_year').val($('#yr_cal').val());
+            $('#review_month').val($('#mn_con').val());
+            $('#review_year').val($('#yr_con').val());
             LoadCalendar();
             return false;
         });
@@ -65,7 +65,7 @@ $js = "var started = false;
 
         function LoadCalendar() {
             $.ajax({
-                url:'".Yii::app()->createUrl("/babySex/default/OvulationCalc") ."',
+                url:'".Yii::app()->createUrl("/babySex/default/ovulationCalc") ."',
                 data:$('#ovulation-form').serialize(),
                 type:'POST',
                 success:function (data) {
@@ -88,7 +88,7 @@ Yii::app()->clientScript->registerScript('baby-gender-ovulation',$js);
         <span class="title_pt_bn">Длительность цикла:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'cycle', HDate::Days(), array('id' => 'cl_cal', 'class' => 'num_cal')); ?>
+                <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21,35), array('id' => 'cl_cal', 'class' => 'chzn')); ?>
             </li>
         </ul>
     </div>
@@ -97,13 +97,13 @@ Yii::app()->clientScript->registerScript('baby-gender-ovulation',$js);
         <span class="title_pt_bn">Дата первого дня менструации<br/> предыдущего цикла:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_cal', 'class' => 'num_cal')); ?>
+                <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_cal', 'class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_cal', 'class' => 'mn_cal')); ?>
+                <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_cal', 'class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_cal', 'class' => 'yr_cal')); ?>
+                <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_cal', 'class' => 'chzn')); ?>
             </li>
         </ul>
     </div>
@@ -112,13 +112,13 @@ Yii::app()->clientScript->registerScript('baby-gender-ovulation',$js);
         <span class="title_pt_bn"><ins>День зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('id' => 'num_con', 'class' => 'num_cal')); ?>
+                <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('id' => 'num_con', 'class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array('id' => 'mn_con', 'class' => 'mn_cal')); ?>
+                <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array('id' => 'mn_con', 'class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_con', 'class' => 'yr_cal')); ?>
+                <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_con', 'class' => 'chzn')); ?>
             </li>
         </ul>
     </div>
@@ -130,8 +130,8 @@ Yii::app()->clientScript->registerScript('baby-gender-ovulation',$js);
 <div id="result">
     <div class="mother_calendar">
         <div class="choice_month">
-            <a href="#" class="l_arr_mth" id="prev-month">&larr;</a>
-            <a href="#" class="r_arr_mth" id="next-month">&rarr;</a>
+            <a href="#" class="prev" id="prev-month">&larr;</a>
+            <a href="#" class="next" id="next-month">&rarr;</a>
             <span><?php echo HDate::ruMonth(date('m')), ', ' . date('Y') ?></span>
         </div>
         <!-- .choice_month -->

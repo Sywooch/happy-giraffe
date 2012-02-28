@@ -80,7 +80,7 @@ $js = <<<EOD
             year--;
             ShowCalendar();
             if (age == 18 || (age == 19 && $('#mam_mn_cal').val() == 12))
-                $('#prev').removeClass('l_arr_mth_active').addClass('l_arr_mth');
+                $('#prev').addClass('disabled');
 
             return false;
         });
@@ -94,7 +94,7 @@ $js = <<<EOD
             year++;
             ShowCalendar();
             if (age == 45)
-                $('#next').removeClass('r_arr_mth_active').addClass('r_arr_mth');
+                $('#next').addClass('disabled');
 
             return false;
         });
@@ -102,8 +102,8 @@ $js = <<<EOD
 
     function ShowCalendar() {
         var calendar2_html = '<div class="month_calendar"><div class="choice_month">' +
-            '<a href="#" id="prev" class="l_arr_mth_active">&larr;</a>' +
-            '<a href="#" id="next"  class="r_arr_mth_active">&rarr;</a>' +
+            '<a href="#" id="prev" class="prev">&larr;</a>' +
+            '<a href="#" id="next"  class="next">&rarr;</a>' +
             '<span>' + year + '</span>' +
             '</div><table class="calendar_body"><tr><th>Янв</th><th>Фев</th><th>Мар</th><th>Апр</th><th>Май</th>' +
             '<th>Июн</th><th>Июл</th><th>Авг</th><th>Сен</th><th>Окт</th><th>Ноя</th><th>Дек</th></tr><tr>';
@@ -126,7 +126,7 @@ $js = <<<EOD
             if (year == $('#child_yr_cal').val() && i == $('#ch_mn_cal').val())
                 cell_class += ' active_item';
 
-            calendar2_html += "<td><div class='" + cell_class + "'></div></td>";
+            calendar2_html += "<td><div class='" + cell_class + "'><i class='icon'></i></div></td>";
         }
         calendar2_html += '</tr></table></div>';
         $('#china-calendar-result').html(calendar2_html);
@@ -153,10 +153,10 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
         <span class="title_pt_bn">Месяц и год рождения матери:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('id' => 'mam_mn_cal', 'class' => 'mn_cal')); ?>
+                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('id' => 'mam_mn_cal', 'class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'mam_yr_cal', 'class' => 'yr_cal')); ?>
+                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'mam_yr_cal', 'class' => 'chzn')); ?>
             </li>
         </ul>
     </div>
@@ -165,10 +165,10 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
         <span class="title_pt_bn"><ins>Месяц и год зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('id' => 'ch_mn_cal', 'class' => 'mn_cal')); ?>
+                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('id' => 'ch_mn_cal', 'class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 10, $year + 2), array('id' => 'child_yr_cal', 'class' => 'yr_cal')); ?>
+                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 10, $year + 20), array('id' => 'child_yr_cal', 'class' => 'chzn')); ?>
             </li>
         </ul>
     </div>
@@ -184,17 +184,25 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
 <div class="clear"></div>
 
 <div class="wh_wait wh_daughter" style="display: none;">
+    <div class="img-box">
+        <img src="/images/baby_girl.jpg">
+    </div>
+    <div class="text">
     <span class="title_wh_wait">Поздравляем! У вас будет девочка!</span>
 
     <p>ООб этом говорит древнекитайская таблица, точность результатов которой составляет 60%. Конечно, надо понимать,
         что это не 100%-я гарантия рождения девочки.</p>
-</div><!-- .wh_wait -->
+</div></div>
 <div class="wh_wait wh_son" style="display: none;">
+    <div class="img-box">
+        <img src="/images/baby_boy.jpg">
+    </div>
+    <div class="text">
     <span class="title_wh_wait">Поздравляем! У вас будет мальчик!</span>
 
     <p>Так получается, исходя из данных древнекитайской таблицы. Её точность составляет 60%, она не даёт гарантии
         рождения мальчика, но почему бы и не попробовать?</p>
-</div><!-- .wh_wait -->
+</div></div>
 
 <div class="seo-text">
     <div class="summary-title">Китайский метод определения</div>

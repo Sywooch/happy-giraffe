@@ -22,7 +22,7 @@ $js = <<<EOD
      function StartTimer()
      {
         TimerRunning=true;
-        TimerID=self.setTimeout("StartTimer()",1000);
+        TimerID=self.setTimeout(StartTimer,1000);
          $('#timer').html(Pad(mins)+":"+Pad(secs));
 
         secs++;
@@ -39,8 +39,6 @@ $js = <<<EOD
            number=0+""+number;
         return number;
      }
-
-
 
     //Contractions
     var status=0;
@@ -171,6 +169,9 @@ $js = <<<EOD
             $('.contractions-data').show();
             $(".result-table tbody").empty();
             $('.to-contractions-info').hide();
+            $('#start-count').text('Старт!');
+            $('#contractions-remain big').html('Еще 5 схваток');
+            return;
         }
 
     	if (status == 0)
@@ -193,8 +194,8 @@ $js = <<<EOD
         if (remains == 1)
             $('#contractions-remain big').html('Еще 1 схватка');
         else {
-            if (remains == 0)
-                $('#contractions-remain big').html('Еще 0 схваток');
+            if (remains == 0 || remains == 5)
+                $('#contractions-remain big').html('Еще '+remains+' схваток');
             else
                 $('#contractions-remain big').html('Еще '+(5 - list.length)+' схватки');
         }

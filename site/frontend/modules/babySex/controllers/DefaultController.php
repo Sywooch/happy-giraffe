@@ -150,4 +150,9 @@ class DefaultController extends Controller
             ));
         }
     }
+
+    public function roundOpacity($op)
+    {
+        return round($op/20)*20;
+    }
 }

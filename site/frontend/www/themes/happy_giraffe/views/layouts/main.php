@@ -21,6 +21,7 @@
 	
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.iframe-post-form.js'); ?>
     <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.placeholder.min.js'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/chosen.jquery.min.js'); ?>
 
 	<script type="text/javascript">
 

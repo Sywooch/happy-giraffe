@@ -1,6 +1,6 @@
 <script type="text/javascript">
     var gender;
-    var letter = '<?php echo (empty($letter))?null:$letter ?>';
+    var letter = <?php echo (empty($letter))?'null':"'".$letter."'" ?>;
     var page;
 
     $(function () {

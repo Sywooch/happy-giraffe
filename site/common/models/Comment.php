@@ -8,8 +8,8 @@
  * @property string $text
  * @property string $created
  * @property string $author_id
- * @property string $model
- * @property string $object_id
+ * @property string $entity
+ * @property string $entity_id
  *
  * @property User author
  */
@@ -40,12 +40,12 @@ class Comment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('text, author_id, model, object_id', 'required'),
-			array('author_id, object_id', 'length', 'max'=>11),
-			array('model', 'length', 'max'=>255),
+			array('text, author_id, entity, entity_id', 'required'),
+			array('author_id, entity_id', 'length', 'max'=>11),
+			array('entity', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, text, created, author_id, model, object_id', 'safe', 'on'=>'search'),
+			array('id, text, created, author_id, entity, entity_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,8 +71,8 @@ class Comment extends CActiveRecord
 			'text' => 'Text',
 			'created' => 'Created',
 			'author_id' => 'Author',
-			'model' => 'Model',
-			'object_id' => 'Object',
+			'entity' => 'Model',
+			'entity_id' => 'Object',
 		);
 	}
 
@@ -91,8 +91,8 @@ class Comment extends CActiveRecord
 		$criteria->compare('text',$this->text,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('author_id',$this->author_id,true);
-		$criteria->compare('model',$this->model,true);
-		$criteria->compare('object_id',$this->object_id,true);
+		$criteria->compare('entity',$this->entity,true);
+		$criteria->compare('entity_id',$this->entity_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -129,17 +129,17 @@ class Comment extends CActiveRecord
         return parent::afterSave();
     }
 	
-	public function get($model, $object_id)
+	public function get($entity, $entity_id)
 	{
 		return new CActiveDataProvider(get_class(), array(
 			'criteria' => array(
-				'condition' => 'model=:model AND object_id=:object_id',
-				'params' => array(':model' => $model, ':object_id' => $object_id),
+				'condition' => 'entity=:entity AND entity_id=:entity_id',
+				'params' => array(':entity' => $entity, ':entity_id' => $entity_id),
 				'with' => array('author'),
-				'order' => 'created DESC',
+				'order' => 'created ASC',
 			),
 			'pagination' => array(
-				'pageSize' => 20,
+				'pageSize' => 2,
 			),
 		));
 	}

@@ -54,7 +54,6 @@
     <?php endif ?>
 
     <?php $this->widget('CommentWidget', array(
-        'model' => 'RecipeBookRecipe',
-        'object_id' => $model->id,
+        'model' => $model,
     )); ?>
 </div>

@@ -116,7 +116,10 @@
                                           type: 'POST',
                                           data: $('#addOffer').serialize()+'&i='+i,
                                           success: function(data) {
-                                              $('.comments ul').append(data);
+                                              $('div.comments ul').append(data);
+                                              $('div.comments li:last').hide();
+                                              $('div.comments li:last').fadeIn(300);
+
                                               $('#BagItem_name').val('');
                                               $('#BagItem_description').val('');
 

@@ -18,16 +18,14 @@
             'dataProvider' => $dataProvider,
             //'summaryText' => 'Показано',
             'itemView' => '_search', // refers to the partial view named '_post'
-            'summaryText' => '{start} - {end} из {count}',
+            'summaryText' => 'показано: {start} - {end} из {count}',
             'pager' => array(
                 'header' => 'Страницы',
             ),
             'template' => '{items}
-            <div class="pagination pagination-center clearfix">
-                <span class="text">показано: {summary}
-                </span>
+                {summary}
                 {pager}
-            </div>',
+            ',
         ));
         ?>
     </div>

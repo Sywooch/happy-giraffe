@@ -3,6 +3,7 @@
 class DefaultController extends Controller
 {
 	public $layout = '//layouts/new';
+    public $pageTitle = 'Сумка в роддом';
 
 	public function actionIndex()
 	{	
@@ -43,7 +44,7 @@ class DefaultController extends Controller
 				$transaction->rollBack();
 			}
 			
-			$this->redirect('/hospitalBag');
+			$this->redirect('/hospitalBag/default/index');
 		}
 	}
 	

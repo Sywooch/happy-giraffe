@@ -271,8 +271,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 }
 
 .pagination {font-size:11px;padding:15px 0;color:#ababab;}
+.pagination .summary {display:inline-block;}
 .pagination.pagination-center {text-align:center;}
-.pagination.pagination-center .text {margin-left:-180px;display:inline-block;}
+.pagination.pagination-center .summary {margin-left:-180px;display:inline-block;}
 .pagination ul {display:inline-block;}
 .pagination ul li {display:inline-block;padding:0 3px;text-indent:0 !important;margin:0 !important;}
 .pagination ul li a {padding:0 3px;text-decoration:none;display:block;color:#2296b0;}
@@ -281,6 +282,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .pagination ul li.previous a, .pagination ul li.next a {padding:0;width:19px;height:19px;background:url(../images/common.png) no-repeat;position:relative;top:5px;}
 .pagination ul li.previous a {background-position:-136px -101px;}
 .pagination ul li.next a {background-position:-157px -101px;}
+.pagination .hidden {display:none;}
 
 
 
@@ -599,7 +601,7 @@ a {color:#51afc3;}
 /* --------------- default select --------- */
 
 /* @group Base */
-.chzn-container {position:relative;display:inline-block;zoom: 1;*display: inline;font-size:11px;text-align:left;}
+.chzn-container {position:relative;display:inline-block;zoom: 1;*display: inline;font-size:11px;text-align:left;min-width:50px;}
 .chzn-container .chzn-drop {background:#fff;border:1px solid #41b3cc;border-top:0;position:absolute;top:29px;left:0;z-index: 999;}
 /* @end */
 

@@ -63,7 +63,7 @@
                 <li>
                     <ins>Введите количество нитей для <br/>одного “креста:<input type="text" class="much_t" id="nit"/>
                     </ins>
-                    (обычно это 2х2 нити)
+                    (обычно это 2 нити)
                 </li>
                 <li>
                     <ins>Прибавьте на припуски: <input type="text" class="much_t" id="plus"/> см</ins>

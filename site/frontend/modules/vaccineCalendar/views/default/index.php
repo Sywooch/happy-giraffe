@@ -12,11 +12,6 @@ if (!Yii::app()->user->isGuest){
 else
     $baby_id = null;
 ?>
-<style type="text/css">
-    .wid100 {
-        width: 100px !important; /* !important обязателен */
-    }
-</style>
 <?php
 $cs = Yii::app()->clientScript;
 $js = "
@@ -26,10 +21,8 @@ $js = "
         $('#baby div.nav li a').click(function(){
             if ($(this).attr('rel') == undefined){
                 baby_id = null;
-                cuSelRefresh({refreshEl: '#month-,#day-,#year-',visRows: 8,scrollArrows: true});
             }else{
                 baby_id = $(this).attr('rel');
-                cuSelRefresh({refreshEl: '#month-'+baby_id+',#day-'+baby_id+',#year-'+baby_id,visRows: 8,scrollArrows: true});
             }
             return false;
         });
@@ -80,6 +73,6 @@ $js = "
     <?php endif ?>
 
     <div class="empty-vaccine-date tab-box tab-box-0" <?php if ($baby_id === null) echo ' style="display:block;"' ?>>
-        <?php $this->renderPartial('_view_empty',array('baby'=>null)); ?>
+        <?php $this->renderPartial('_view_empty',array('baby'=>null, 'date'=> new DateForm())); ?>
     </div>
 </div>

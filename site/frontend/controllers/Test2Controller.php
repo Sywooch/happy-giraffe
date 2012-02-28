@@ -173,4 +173,11 @@ class Test2Controller extends Controller
         ));
     }
 
+    public function actionFriends()
+    {
+        $user = User::model()->findByPk(38);
+        foreach ($user->friends as $f) {
+            echo $f->first_name . '<br />';
+        }
+    }
 }

@@ -22,7 +22,7 @@ class CommunityController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser'),
                 'users'=>array('*'),
             ),
             array('allow',

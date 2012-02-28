@@ -911,9 +911,9 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* like block */
 
-.like-block {padding: 30px 30px 10px;background: #fffedf;margin: 20px 0;color: #535353;position:relative;}
+.like-block {background: #fffedf;margin: 20px 0;color: #535353;position:relative;}
 
-.like-block .block-in {width:700px;margin:-30px auto 0;position:relative;padding-top:30px;}
+.like-block .block-in {width:700px;padding:30px auto 20px;position:relative;}
 
 .like-block .title {font-family: Arial, Tahoma, sans-serif;font-size:26px;display:block;text-align:center;}
 

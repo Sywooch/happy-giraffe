@@ -16,14 +16,12 @@ class DefaultController extends Controller
         ));
     }
 
-
     public function actionValidateDate(){
         $model=new DateForm();
         if(isset($_POST['DateForm']))
         {
             $model->attributes = $_POST['DateForm'];
             echo CActiveForm::validate($model);
-            //echo CJSON::encode(array('success' => true));
         }
     }
 
@@ -72,8 +70,6 @@ class DefaultController extends Controller
                 'agree' => $vaccineDate->vote_agree . ' (' . $vaccineDate->getPercent(1) . '%)',
                 'did' => $vaccineDate->vote_did . ' (' . $vaccineDate->getPercent(2) . '%)',
             ));
-            //            else
-            //                echo CJSON::encode(array('success' => false));
         }
     }
 

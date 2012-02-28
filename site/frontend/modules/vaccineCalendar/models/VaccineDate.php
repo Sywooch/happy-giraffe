@@ -337,8 +337,13 @@ class VaccineDate extends CActiveRecord
     public function GetDiseasesLinks()
     {
         $result = '';
-        foreach ($this->diseases as $disease)
-            $result .= CHtml::link($disease->name_genitive, '#') . ', ';
+        foreach ($this->diseases as $disease){
+            if (isset($disease->disease_id))
+                $result .= CHtml::link($disease->name_genitive,
+                    Yii::app()->createUrl('/childrenDiseases/default/view', array('url'=>$disease->disease->slug))) . ', ';
+            else
+                $result .= $disease->name_genitive . ', ';
+        }
         return trim($result, ', ');
     }
 

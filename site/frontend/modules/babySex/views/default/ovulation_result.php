@@ -42,15 +42,14 @@
                         <div
                             class="cal_item <?php echo $class ?>">
                             <ins><?php echo $cell['day'] ?></ins>
+                            <?php if ($cell['sex'] == 3): ?>
+                            <div class="hint" style="display: none;">
+                                Мальчик, но женщинам за 30 лучше не рисковать
+                            </div>
+                            <div class="attention_calc"></div>
+                            <?php endif ?>
                             <i class="icon"></i>
                         </div>
-
-                        <?php if ($cell['sex'] == 3): ?>
-                        <div class="hint" style="display: none;">
-                            Мальчик, но женщинам за 30 лучше не рисковать
-                        </div>
-                        <div class="attention_calc"></div>
-                        <?php endif ?>
                     </div>
 
                     <?php else: ?>

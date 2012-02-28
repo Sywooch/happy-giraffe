@@ -9,7 +9,7 @@
                     <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>
                 </div>
                 <div class="result-count">
-                    Всего нашлось <span class="search-highlight"><?php echo $dataProvider->itemCount; ?></span> результатов
+                    Всего нашлось <span class="search-highlight"><?php echo $dataProvider->totalItemCount; ?></span> результатов
                 </div>
             </form>
         </div>
@@ -18,16 +18,14 @@
             'dataProvider' => $dataProvider,
             //'summaryText' => 'Показано',
             'itemView' => '_search', // refers to the partial view named '_post'
-            'summaryText' => '{start} - {end} из {count}',
+            'summaryText' => 'показано: {start} - {end} из {count}',
             'pager' => array(
                 'header' => 'Страницы',
             ),
             'template' => '{items}
-            <div class="pagination pagination-center clearfix">
-                <span class="text">показано: {summary}
-                </span>
+                {summary}
                 {pager}
-            </div>',
+            ',
         ));
         ?>
     </div>

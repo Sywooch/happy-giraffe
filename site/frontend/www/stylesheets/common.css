@@ -271,10 +271,11 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 }
 
 .pagination {font-size:11px;padding:15px 0;color:#ababab;}
-.pagination .summary {display:inline-block;}
+.pagination .summary {display:inline-block;padding-right:15px;}
 .pagination.pagination-center {text-align:center;}
 .pagination.pagination-center .summary {margin-left:-180px;display:inline-block;}
-.pagination ul {display:inline-block;}
+.pagination .pager {display:inline;}
+.pagination ul {display:inline-block;margin-left:15px;}
 .pagination ul li {display:inline-block;padding:0 3px;text-indent:0 !important;margin:0 !important;}
 .pagination ul li a {padding:0 3px;text-decoration:none;display:block;color:#2296b0;}
 .pagination ul li.selected a {padding:0;padding-right:11px;background:url(../images/common.png) no-repeat right -101px;font-weight:bold;}
@@ -911,14 +912,17 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* like block */
 
-.like-block {padding: 30px 30px 10px;background: #fffedf;margin: 20px 0;color: #535353;position:relative;}
+.like-block {background: #fffedf;margin: 20px 0;color: #535353;position:relative;}
 
-.like-block .block-in {width:700px;margin:-30px auto 0;position:relative;padding-top:30px;}
+.like-block .block-in {width:660px;padding:20px 20px 20px;position:relative;margin:0 auto;}
 
 .like-block .title {font-family: Arial, Tahoma, sans-serif;font-size:26px;display:block;text-align:center;}
 
 .like-block .rating {text-align: right;font: 16px/1 tahoma, sans-serif;position:absolute;right:30px;top:106px;}
 .like-block .rating span {font: bold 36px/1 tahoma, sans-serif;position: relative;color: #FF6600;top:2px;}
+
+.like-block .fast-rating {text-align: right;font: 11px/normal tahoma, sans-serif;float:right;}
+.like-block .fast-rating span {font: bold 24px/1 tahoma, sans-serif;position: relative;color: #FF6600;top:2px;display:block;}
 
 .like-block .tip {position:absolute;width:25px;height:25px;right:7px;top:97px;}
 .like-block .tip .container {position:relative;}

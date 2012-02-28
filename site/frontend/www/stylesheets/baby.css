@@ -652,8 +652,8 @@
 #baby .baby_blood_parent_group span.baby_blood_result {font:bold 30px/20px times new roman, sans-serif;color:#fa0354;display:block;text-align:center;}
 #baby .baby_blood_parent_group span.baby_blood_result ins {font-size:20px;}
 #baby .baby_blood_parent_group .ch_group ul li {display:inline;padding:0 3px;}
-#baby .baby_blood_parent_group .ch_group ul li a {display:inline-block;width:42px;height:20px;background: url(../images/common.png) -1px -151px no-repeat;text-decoration:none;font:bold 16px/20px times new roman, sans-serif;color:#209b07;}
-#baby .baby_blood_parent_group .ch_group ul li a.active {display:inline-block;width:42px;height:20px;background: url(../images/common.png) -1px -174px no-repeat;text-decoration:none;font:bold 16px/20px times new roman, sans-serif;color:#9e9e9e;}
+#baby .baby_blood_parent_group .ch_group ul li a {display:inline-block;width:42px;height:20px;background: url(../images/common.png) -1px -174px no-repeat;text-decoration:none;font:bold 16px/20px times new roman, sans-serif;color:#9e9e9e;}
+#baby .baby_blood_parent_group .ch_group ul li a.active {display:inline-block;width:42px;height:20px;background: url(../images/common.png) -1px -151px no-repeat;text-decoration:none;font:bold 16px/20px times new roman, sans-serif;color:#209b07;}
 
 #baby .baby_hanbook_names {display:block;height:296px;background: url(../images/service_recipes_illness.jpg) 0 0 no-repeat;position:relative;margin:0 0 0px 0;}
 #baby .baby_hanbook_names ul.handbook_changes_u {position:absolute;bottom:0px;left:200px;}

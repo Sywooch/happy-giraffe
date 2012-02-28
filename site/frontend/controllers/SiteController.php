@@ -32,7 +32,6 @@ class SiteController extends Controller
         $criteria->query = '*' . $text . '*';
         $resIterator = Yii::app()->search->search($criteria);
 
-
         $criteria = new CDbCriteria;
         $criteria->addInCondition('t.id', array_keys($resIterator->getRawData()));
         $criteria->with = array('travel', 'video', 'post');

@@ -42,6 +42,10 @@ data: $(this).serialize()
 		'id',
 		'name',
 		'name_genitive',
+        array(
+            'name'=>'disease_id',
+            'value'=>'isset($data->disease)?$data->disease->name:""',
+        ),
 		array(
 			'class'=>'CButtonColumn',
 		),

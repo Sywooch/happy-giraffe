@@ -11,7 +11,7 @@ class VaccineCalendarModule extends CWebModule
 		$this->setImport(array(
 			'vaccineCalendar.models.*',
 			'vaccineCalendar.components.*',
-            'recipeBook.models.*',
+            'site.frontend.modules.recipeBook.models.*',
 		));
 	}
 

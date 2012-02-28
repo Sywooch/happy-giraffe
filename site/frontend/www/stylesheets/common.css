@@ -271,11 +271,11 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 }
 
 .pagination {font-size:11px;padding:15px 0;color:#ababab;}
-.pagination .summary {display:inline-block;}
+.pagination .summary {display:inline-block;padding-right:15px;}
 .pagination.pagination-center {text-align:center;}
 .pagination.pagination-center .summary {margin-left:-180px;display:inline-block;}
 .pagination .pager {display:inline;}
-.pagination ul {display:inline-block;}
+.pagination ul {display:inline-block;margin-left:15px;}
 .pagination ul li {display:inline-block;padding:0 3px;text-indent:0 !important;margin:0 !important;}
 .pagination ul li a {padding:0 3px;text-decoration:none;display:block;color:#2296b0;}
 .pagination ul li.selected a {padding:0;padding-right:11px;background:url(../images/common.png) no-repeat right -101px;font-weight:bold;}

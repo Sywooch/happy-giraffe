@@ -6,6 +6,7 @@ class DefaultController extends Controller
 {
     public $layout = 'desease';
     public $index = false;
+    public $pageTitle = 'Справочник детских болезней';
 
     public function actionIndex()
     {
@@ -37,6 +38,7 @@ class DefaultController extends Controller
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        $this->pageTitle = $model->name;
         $cat = RecipeBookDisease::model()->findAll(array(
             'order' => 't.name',
             'select' => array('id', 'name', 'slug'),

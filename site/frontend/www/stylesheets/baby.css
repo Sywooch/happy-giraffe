@@ -234,7 +234,7 @@
 #baby .contractions-summary .result-table .col-3 {color:#a3a2a2;font-size:25px;}
 #baby .contractions-summary .result-table .col-4 {color:#f96eae;font-size:30px;}
 #baby .contractions-summary .result-table .col-5 {color:#f96eae;font-size:30px;}
-#baby .contractions-summary .result-table .remove {padding-top:22px;background:url(../images/bg_profile_blacklist_remove.gif) no-repeat top;line-height:1;color:#babcbd;font-size:11px;font-family:tahoma, arial, sans-serif;display:inline-block;cursor:pointer;}
+#baby .contractions-summary .result-table .remove {padding-top:22px;background:url(../images/bg_popup_close.gif) no-repeat top;line-height:1;color:#babcbd;font-size:11px;font-family:tahoma, arial, sans-serif;display:inline-block;cursor:pointer;}
 #baby .contractions-summary .block-in {padding:25px;}
 #baby .contractions-summary .box-left {float:left;width:180px;}
 #baby .contractions-summary .box-main {margin-left:200px;}
@@ -269,7 +269,6 @@
 #baby .comments li {padding:25px;}
 #baby .comments li.even {background:#f6fdfe;}
 #baby .comments li .user {float:left;font:11px tahoma, arial, sans-serif;color:#1ba3c4;}
-#baby .comments li .user .ava {float:left;padding-right:8px;}
 #baby .comments li .user .ava img {display:block;border:1px solid #dddddd;}
 #baby .comments li .content {margin-left:200px;font-size:12px;}
 #baby .comments li .content p {color:#888888;}
@@ -306,7 +305,7 @@
 #baby .hospital-bag-item-fast .item-storage {float:right;width:191px;height:49px;background:url(../images/hospital_bag_item_storage_fast.png) no-repeat;text-align:center;line-height:49px;font-size:18px;color:#c9c7c7;}
 
 
-.seo-text {padding: 20px 0;color: #474747;}
+.seo-text {padding: 30px 0 0;color: #474747;}
 .seo-text .summary-title{color:#906ab3 !important;font-size:25px !important;margin-bottom:0px;font-weight: normal;line-height: 1;}
 .seo-text p{margin: 1em 0 0;color: #474747;}
 .seo-text h3{margin-top: 20px;}

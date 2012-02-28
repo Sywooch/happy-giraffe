@@ -50,10 +50,10 @@
         <?php echo $model->treatment_text ?>
         <h2 id="prophylaxis"><?php echo empty($model->prophylaxis_name) ? 'Профилактика' : $model->prophylaxis_name ?></h2>
         <?php echo $model->prophylaxis_text ?>
-        <div class="like-block">
-            <big>Полезен ли материал?</big>
-
-            <?php $this->widget('LikesWidget')?>
-        </div>
+        <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+//        'title' => 'Полезен ли материал?',
+        'model' => $model,
+        'options' => array('title' => 'Полезен ли материал?',),
+    )); ?>
     </div>
 </div><!-- .handbook_article_ill -->

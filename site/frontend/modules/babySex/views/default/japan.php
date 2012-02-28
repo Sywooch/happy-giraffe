@@ -75,7 +75,8 @@ $js =    "$(function () {
             }
         });
     });";
-    Yii::app()->clientScript->registerScript('japan-baby-gender',$js);
+    Yii::app()->clientScript
+        ->registerScript('japan-baby-gender',$js);
 ?>
 <div class="child_sex_japan_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(
@@ -86,7 +87,7 @@ $js =    "$(function () {
         <span class="title_pt_bn">Месяц рождения отца:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('id' => 'dad_mn_cal', 'class' => 'mn_cal')); ?>
+                <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('id' => 'dad_mn_cal', 'class' => 'chzn')); ?>
             </li>
         </ul>
     </div>
@@ -95,7 +96,7 @@ $js =    "$(function () {
         <span class="title_pt_bn">Месяц рождения матери:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('id' => 'mam_mn_cal', 'class' => 'mn_cal')); ?>
+                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('id' => 'mam_mn_cal', 'class' => 'chzn')); ?>
             </li>
         </ul>
     </div>
@@ -104,10 +105,10 @@ $js =    "$(function () {
         <span class="title_pt_bn"><ins>День и месяц зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('id' => 'ch_num_cal', 'class' => 'num_cal')); ?>
+                <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('id' => 'ch_num_cal', 'class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('id' => 'ch_mn_cal', 'class' => 'mn_cal')); ?>
+                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('id' => 'ch_mn_cal', 'class' => 'chzn')); ?>
             </li>
         </ul>
     </div>

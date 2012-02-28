@@ -5,7 +5,7 @@
 $model = new MenstrualCycleForm();
 $js = "var started = false;
     $(function () {
-        $('#menstrual-cycle-form input.mth_calculate').click(function () {
+        $('#menstrual-cycle-form button.btn').click(function () {
             var d = new Date();
             $('#review_month').val($('#mn_cal').val());
             $('#review_year').val($('#yr_cal').val());
@@ -98,25 +98,25 @@ Yii::app()->clientScript->registerScript('woman_cycle',$js);
             <td>
                 <ul class="lists_td">
                     <li>
-                        <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_cal', 'class' => 'num_cal')); ?>
+                        <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_cal', 'class' => 'chzn')); ?>
                     </li>
                     <li>
-                        <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_cal', 'class' => 'mn_cal')); ?>
+                        <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_cal', 'class' => 'chzn')); ?>
                     </li>
                     <li>
-                        <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_cal', 'class' => 'yr_cal')); ?>
+                        <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_cal', 'class' => 'chzn')); ?>
                     </li>
                 </ul>
             </td>
             <td>
-                <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('id' => 'cl_cal', 'class' => 'num_cal')); ?>
+                <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('id' => 'cl_cal', 'class' => 'chzn')); ?>
             </td>
             <td>
-                <?php echo $form->dropDownList($model, 'critical_period', HDate::Range(3, 7), array('id' => 'men_cal', 'class' => 'num_cal')); ?>
+                <?php echo $form->dropDownList($model, 'critical_period', HDate::Range(3, 7), array('id' => 'men_cal', 'class' => 'chzn')); ?>
             </td>
         </tr>
     </table>
-    <input type="button" class="mth_calculate" value="Рассчитать"/>
+    <button class="btn btn-yellow-medium"><span><span>Рассчитать</span></span></button>
     <?php $this->endWidget(); ?>
     <div class="clear"></div>
     <!-- .clear -->
@@ -124,8 +124,8 @@ Yii::app()->clientScript->registerScript('woman_cycle',$js);
 <div id="result">
     <div class="mother_calendar">
         <div class="choice_month">
-            <a href="#" class="l_arr_mth" id="prev-month">&larr;</a>
-            <a href="#" class="r_arr_mth" id="next-month">&rarr;</a>
+            <a href="#" class="prev" id="prev-month">&larr;</a>
+            <a href="#" class="next" id="next-month">&rarr;</a>
             <span><?php echo HDate::ruMonth(date('m')), ', ' . date('Y') ?></span>
         </div>
         <!-- .choice_month -->

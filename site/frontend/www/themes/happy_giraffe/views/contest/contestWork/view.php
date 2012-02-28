@@ -99,8 +99,7 @@ VK.Observer.subscribe('widgets.like.unliked', function(count){
 	</div>
 	
 	<?php $this->widget('CommentWidget', array(
-		'model' => 'ContestWork',
-		'object_id' => $work->work_id,
+		'model' => $work,
 	)); ?>
 	
 </div>

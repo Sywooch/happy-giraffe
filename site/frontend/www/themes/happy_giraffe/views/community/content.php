@@ -273,8 +273,7 @@ switch ($c->type->slug) {
 </div>
     <?php endif; ?>
 
-<?php $this->widget('CommentWidget', array(
-    'model' => 'CommunityContent',
-    'object_id' => $c->id,
+<?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
+    'model' => $c,
 )); ?>
 </div>

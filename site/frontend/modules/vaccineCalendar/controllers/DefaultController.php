@@ -10,25 +10,35 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $this->pageTitle = 'Календарь прививок ребенка. Какие прививки делают детям?';
-
         $date = null;
-
         $this->render('index', array(
             'date' => $date
         ));
     }
 
+
+    public function actionValidateDate(){
+        $model=new DateForm();
+        if(isset($_POST['DateForm']))
+        {
+            $model->attributes = $_POST['DateForm'];
+            echo CActiveForm::validate($model);
+            //echo CJSON::encode(array('success' => true));
+        }
+    }
+
     public function actionVaccineTable()
     {
-        if (isset($_POST['day']) && isset($_POST['month']) && isset($_POST['year'])) {
-            $date = strtotime($_POST['day'] . '-' . $_POST['month'] . '-' . $_POST['year']);
-
-            $this->renderPartial('_data_table', array(
-                'date' => $date,
-                'baby_id' => $_POST['baby_id'],
-            ));
+        $model=new DateForm();
+        if (isset($_POST['DateForm'])) {
+            $model->attributes = $_POST['DateForm'];
+            if ($model->validate())
+                $this->renderPartial('_data_table', array(
+                    'date' => $model->date,
+                    'baby_id' => $_POST['baby_id'],
+                ));
         }
-        if (isset($_POST['baby_id'])) {
+        elseif (isset($_POST['baby_id'])) {
             $baby = Baby::model()->findByPk($_POST['baby_id']);
             if (empty($baby))
                 Yii::app()->end();

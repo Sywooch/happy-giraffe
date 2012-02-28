@@ -2,15 +2,8 @@
 /**
  * @var $placentaThickness PlacentaThickness
  * @var $model PlacentaThicknessForm
- * Author: alexk984
- * Date: 30.11.11
- * Time: 12:54
  */
 
-//$placentaThickness->min = str_replace('.', ',', $placentaThickness->min);
-//$placentaThickness->max = str_replace('.', ',', $placentaThickness->max);
-//$placentaThickness->avg = str_replace('.', ',', $placentaThickness->avg);
-//$model->thickness = str_replace('.', ',', $model->thickness);
 if ($model->thickness < $placentaThickness->min) {
     if (($model->week >= 20 && $model->thickness >= 15) ||
         ($model->week < 20 && $model->thickness >= $placentaThickness->min * 0.8)
@@ -56,13 +49,10 @@ if ($model->thickness < $placentaThickness->min) {
     <div class="placenta_recomendation">
         <span class="title_p">Значительно ниже нормы</span>
 
-        <div class="seo-text">
-
             <p>Полученный результат значительно ниже нормы. Обычно так не бывает. Проверьте – правильно ли вы ввели
                 данные. Срок беременности нужно вводить именно тот, на котором было проведено УЗИ. Если результат
                 сохраняется – возможно, была неправильно измерена толщина плаценты на УЗИ. Обратитесь с вопросом к
                 своему гинекологу.</p><br><br>
-        </div>
         <ul class="placent_norm">
             <li class="your_w"><?php echo $model->thickness ?>
                 <ins>мм</ins>
@@ -85,12 +75,10 @@ elseif ($model->thickness <= $placentaThickness->max)
 <div class="placenta_recomendation">
     <span class="title_p">Норма</span>
 
-    <div class="seo-text">
         <p>Поздравляем! Толщина вашей плаценты соответствует норме. Ваш малыш получает все необходимые питательные
             вещества, кислород и иммунную защиту. Это способствует его нормальному развитию. Не забывайте, что плацента
             не является барьером для вирусов, никотина и алкогольных напитков. Старайтесь дышать свежим воздухом,
             избегать спиртосодержащих продуктов и не болеть вирусными заболеваниями.</p>
-    </div>
     <ul class="placent_norm">
         <li class="your_w"><?php echo $model->thickness ?>
             <ins>мм</ins>

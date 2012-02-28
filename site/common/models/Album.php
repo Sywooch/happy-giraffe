@@ -8,12 +8,16 @@
  * @property integer $title
  * @property integer $description
  * @property string $user_id
+ * @property string $created
+ * @property string $updated
  *
  * The followings are the available model relations:
  * @property User $user
  */
 class Album extends CActiveRecord
 {
+    private $_check_access = null;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Album the static model class
@@ -43,6 +47,7 @@ class Album extends CActiveRecord
             array('title', 'length', 'max' => 100),
             array('description', 'length', 'max' => 255),
 			array('user_id', 'length', 'max'=>10),
+            array('created, updated', 'safe'),
 		);
 	}
 
@@ -59,6 +64,17 @@ class Album extends CActiveRecord
 		);
 	}
 
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            )
+        );
+    }
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -69,6 +85,8 @@ class Album extends CActiveRecord
 			'title' => 'Название',
 			'description' => 'Описание',
 			'user_id' => 'User',
+            'created' => 'Дата создания',
+            'updated' => 'Дата последнего обновления',
 		);
 	}
 
@@ -76,9 +94,14 @@ class Album extends CActiveRecord
     {
         return new CActiveDataProvider($this, array(
             'criteria' => array(
-                'condition' => 'user_id = :user_id',
+                'condition' => 't.user_id = :user_id',
                 'params' => array(':user_id' => $user_id),
             ),
         ));
+    }
+
+    public function getCheckAccess()
+    {
+        return true;
     }
 }

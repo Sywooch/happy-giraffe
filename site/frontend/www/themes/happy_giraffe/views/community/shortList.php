@@ -5,9 +5,6 @@ $js = "
         $('div.community').delegate('h1', 'click', function() {
             $(this).next().toggle();
         });
-        $('div.community').delegate('h2', 'click', function() {
-            $(this).next().toggle();
-        });
     ";
 
 $css = "
@@ -15,11 +12,7 @@ $css = "
             display: none;
         }
 
-        ul.contents {
-            display: none;
-        }
-
-        h1, h2 {
+        h1 {
             cursor: pointer;
         }
     ";
@@ -34,18 +27,13 @@ $cs
     <h1><?=$c->name?></h1>
     <div class="rubric">
         <?php foreach ($c->rubrics as $r): ?>
-        <h2><?=$r->name?></h2>
-        <ul class="contents">
-            <?php foreach ($r->contents as $cn): ?>
-            <li><?php echo CHtml::link($cn->name, array(
-                    'community/view',
-                    'community_id' => $c->id,
-                    'content_type_slug' => $cn->type->slug,
-                    'content_id' => $cn->id,
-                )
-            ); ?></li>
-            <?php endforeach; ?>
-        </ul>
+            <h3><?php echo CHtml::ajaxLink($r->name, $this->createUrl('community/shortListContents'), array(
+                'update' => '#' . $r->id,
+                'data' => array(
+                    'rubric_id' => $r->id,
+                ),
+            )); ?></h3>
+            <ul id="<?php echo $r->id; ?>"></ul>
         <?php endforeach; ?>
     </div>
 </div>

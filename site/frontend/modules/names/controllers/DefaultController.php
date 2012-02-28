@@ -7,6 +7,8 @@ class DefaultController extends Controller
 
     public function actionIndex($letter = null, $gender = null)
     {
+        if (empty($letter))
+            $letter = null;
         if ($letter == null)
             $this->pageTitle = 'Выбор имени';
         else

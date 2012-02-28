@@ -86,30 +86,10 @@
 	</ul>
 	<div class="comment-count"><?php echo $offers->totalItemCount; ?></div>
 </div>
-
-<div class="comments">
-	<ul>
-        <?php $i = 0; ?>
-		<?php foreach ($offers->data as $o): ?>
-			<li class="clearfix<?php if ($i % 2 == 0) echo ' even' ?>">
-				<div class="user">
-					<?php $this->widget('AvatarWidget', array('user' => $o->author)); ?>
-					<a class="username"><?php echo $o->author->first_name; ?></a>
-				</div>
-				<div class="content">
-					<div class="hospital-bag-item-fast">
-						<div class="item-storage">Ко мне в сумку</div>
-						<?php if (! in_array($o->item->id, Yii::app()->user->getState('hospitalBag', array()))): ?>
-							<?php $this->renderPartial('_item', array('item' => $o->item)); ?>
-						<?php endif; ?>
-					</div>
-					<p><?php echo $o->item->description; ?></p>
-					<?php if (! Yii::app()->user->isGuest): ?>
-						<div class="item-useful">
-							Предмет нужен?
-                            <?php $this->widget('VoteWidget', array(
-                            'model'=>$o,
-                            'template'=>'<div class="green">
+<?php $this->widget('VoteWidget', array(
+    'model'=>new BagOffer,
+    'init'=>true,
+    'template'=>'<div class="green">
                                 <a vote="1" class="btn btn-gray-small{active1}" href=""><span><span>Да</span></span></a>
                                 <br>
                                 <b><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</b>
@@ -119,15 +99,15 @@
                                 <br>
                                 <b><span class="votes_con">{vote0}</span> (<span class="con_percent">{vote_percent0}</span>%)</b>
                             </div>',
-                            'links' => array('.red','.green'),
-                            'result'=>array(0=>array('.votes_con','.con_percent'),1=>array('.votes_pro','.pro_percent')),
-                            'main_selector'=>'.item-useful'
-                            )); ?>
-						</div>
-					<?php endif; ?>
-				</div>
-			</li>
-        <?php $i++; ?>
+    'links' => array('.red','.green'),
+    'result'=>array(0=>array('.votes_con','.con_percent'),1=>array('.votes_pro','.pro_percent')),
+    'main_selector'=>'.item-useful'
+)); ?>
+<div class="comments">
+	<ul>
+        <?php $i = 0; ?>
+		<?php foreach ($offers->data as $o): ?>
+        <?php $this->renderPartial('_comment',array('model'=>$o,'i'=>$i)); ?> <?php $i++; ?>
 		<?php endforeach; ?>
 	</ul>
 	<?php if (! Yii::app()->user->isGuest): ?>
@@ -135,15 +115,47 @@
 			<div class="new-comment">
 				<?php
 					$form = $this->beginWidget('CActiveForm', array(
-						'action' => '/hospitalBag/default/addOffer',
+						'action' => $this->createUrl('/hospitalBag/default/addOffer'),
 						'id' => 'addOffer',
-					));
-				    ?>
+                        'enableAjaxValidation' => true,
+                        'enableClientValidation' => true,
+                        'clientOptions' => array(
+                            'validateOnSubmit' => true,
+                            'validateOnChange' => true,
+                            'validateOnType' => false,
+                            'validationUrl' => $this->createUrl('/hospitalBag/default/addOffer'),
+                            'afterValidate' => "js:function(form, data, hasError) {
+                                var i = $('.comments > ul > li').size();
+                                  if (!hasError) {
+                                      $.ajax({
+                                          url: '" . $this->createUrl('/hospitalBag/default/addOffer') . "',
+                                          type: 'POST',
+                                          data: $('#addOffer').serialize()+'&i='+i,
+                                          success: function(data) {
+                                              $('div.comments ul').append(data);
+                                              $('div.comments li:last').hide();
+                                              $('div.comments li:last').fadeIn(300);
+
+                                              $('#BagItem_name').val('');
+                                              $('#BagItem_description').val('');
+
+                                              $('.item-box').draggable({
+                                                  handle: '.drag',
+                                                  revert: true,
+                                              });
+                                          }
+                                      });
+                                  }
+                                  return false;
+                              }",
+                        ))); ?>
 					<div class="new-hospital-bag-item">
 						Ваш предмет: <?php echo $form->textField($item, 'name'); ?> <span>Добавляйте только по одному предмету!</span>
+                        <?php echo $form->error($item, 'name'); ?>
 					</div>
 
 					<?php echo $form->textArea($item, 'description', array('placeholder'=>'Напишите для чего может пригодиться этот предмет в роддоме.')); ?>
+                    <?php echo $form->error($item, 'description'); ?>
 					<button class="btn btn-gray-medium cancel"><span><span>Отменить</span></span></button>
 					<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
 				<?php $this->endWidget(); ?>

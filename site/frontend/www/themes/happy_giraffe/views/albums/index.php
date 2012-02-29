@@ -1,3 +1,11 @@
+<div id="user">
+    <?php $this->widget('site.frontend.widgets.albumWidget.AlbumWidget', array(
+        'model' => User::model()->findByPk(Yii::app()->user->id),
+    )); ?>
+</div>
+
+
+
 <p><?php echo CHtml::link('Создать альбом', array('albums/create')); ?></p>
 <div id="gallery">
     <div class="header">

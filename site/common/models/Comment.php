@@ -10,6 +10,7 @@
  * @property string $author_id
  * @property string $entity
  * @property string $entity_id
+ * @property string $parent_id
  *
  * @property User author
  */
@@ -41,7 +42,7 @@ class Comment extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('text, author_id, entity, entity_id', 'required'),
-			array('author_id, entity_id', 'length', 'max'=>11),
+			array('author_id, entity_id, parent_id', 'length', 'max'=>11),
 			array('entity', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -58,6 +59,7 @@ class Comment extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'parent' => array(self::BELONGS_TO, 'Comment', 'parent_id'),
 		);
 	}
 
@@ -71,8 +73,9 @@ class Comment extends CActiveRecord
 			'text' => 'Text',
 			'created' => 'Created',
 			'author_id' => 'Author',
-			'entity' => 'Model',
-			'entity_id' => 'Object',
+			'entity' => 'Entity',
+			'entity_id' => 'Entity PK',
+            'parent_id' => 'Parent id',
 		);
 	}
 
@@ -93,6 +96,7 @@ class Comment extends CActiveRecord
 		$criteria->compare('author_id',$this->author_id,true);
 		$criteria->compare('entity',$this->entity,true);
 		$criteria->compare('entity_id',$this->entity_id,true);
+        $criteria->compare('parent_id',$this->parent_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

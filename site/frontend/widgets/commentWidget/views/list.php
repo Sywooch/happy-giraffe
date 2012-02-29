@@ -27,6 +27,9 @@
                     {pager}
                 </div>
             ',
+        'viewData' => array(
+            'currentPage' => $dataProvider->pagination->currentPage,
+        ),
     ));
     ?>
 </div>

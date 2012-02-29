@@ -25,9 +25,19 @@ var Comment = {
         $('#add_comment').find('.quote input').val('');
         $('#add_comment').find('.quote .text').empty();
     },
-    goTo : function() {
-        var h = new AjaxHistory('yw0');
-        var url = 'http://happyfront/community/2/forum/post/447/?Comment_page=3';
-        h.load('yw0', url).changeBrowserUrl(url);
+    goTo : function(index, currentPage) {
+        var page = Math.ceil(index / 10);
+        if(page != currentPage) {
+            console.log(page);
+            var pager = $('#comment_list .yiiPager .page:eq(' + (page - 1) + ')');
+            var url = false;
+            if(pager.size() > 0)
+                url = pager.children('a').attr('href');
+            url += '#comment_' + index.toString();
+            var h = new AjaxHistory('comment_list');
+            h.load('comment_list', url).changeBrowserUrl(url);
+        } else {
+            document.location.hash = '#comment_' + index.toString();
+        }
     }
 }

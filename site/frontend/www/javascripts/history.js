@@ -1,13 +1,20 @@
+var states = new Array();
 function AjaxHistory(id) {
     this.id = id;
     var $this = this;
-    history.replaceState({ path:window.location.href }, '');
-    $(window).bind('popstate', function (event) {
-        var state = event.originalEvent.state;
-        if (state) {
-            $this.load($this.id, state.path);
-        }
-    });
+    if(history.replaceState)
+        history.replaceState({ path:window.location.href }, '');
+
+    if(typeof(states[$this.id]) == 'undefined')
+    {
+        states[$this.id] = true;
+        $(window).bind('popstate', function (event) {
+            var state = event.originalEvent.state;
+            if (state) {
+                $this.load($this.id, state.path);
+            }
+        });
+    }
 }
 
 AjaxHistory.prototype.changeBrowserUrl = function (url) {
@@ -24,8 +31,11 @@ AjaxHistory.prototype.changeBrowserUrl = function (url) {
             query[param[0]] = param[1];
         }
     }
-    if (history.replaceState) {
-        window.history.pushState({path : this.buildUrl(url[0], query)}, "", this.buildUrl(url[0], query));
+    var path = this.buildUrl(url[0], query);
+    if (typeof(window.history.pushState) == 'function') {
+        window.history.pushState({path : path}, "", path);
+    } else {
+        document.location.href = path;
     }
 }
 
@@ -34,7 +44,7 @@ AjaxHistory.prototype.buildUrl = function (url, parameters) {
     var qs = "";
     for (var key in parameters) {
         var value = parameters[key];
-        qs += key + "=" + encodeURIComponent(value) + "&";
+        qs += key + "=" + value + "&";
     }
     if (qs.length > 0) {
         qs = qs.substring(0, qs.length - 1);
@@ -50,6 +60,7 @@ AjaxHistory.prototype.load = function (id, url) {
         success:function (data) {
             id = '#' + id;
             $(id).replaceWith($(id, '<div>' + data + '</div>'));
+            document.location.hash = document.location.hash;
         }
     });
     return this;

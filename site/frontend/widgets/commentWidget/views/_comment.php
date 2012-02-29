@@ -1,5 +1,5 @@
 <div class="item" id="CommunityComment_<?php echo $data->id; ?>">
-    <?php echo $data->position; ?>
+    <div class="comment-position" id="comment_<?php echo $data->position; ?>"><?php echo $data->position; ?></div>
     <div class="clearfix">
         <div class="user">
             <?php $this->widget('AvatarWidget', array('user' => $data->author)); ?>

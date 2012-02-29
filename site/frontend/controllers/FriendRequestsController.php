@@ -30,7 +30,7 @@ class FriendRequestsController extends Controller
             $model->from_id = Yii::app()->user->id;
             $model->to_id = $to_id;
             if ($model->save()) {
-                $this->redirect(array('user/myInvites'));
+                $this->redirect(array('friendRequests/list'));
             }
         }
 
@@ -41,16 +41,15 @@ class FriendRequestsController extends Controller
 
     public function actionList()
     {
-        $dataProvider = new CActiveDataProvider('FriendRequest', array(
-            'criteria'=>array(
-                'condition' => 'from_id = :user_id OR to_id = :user_id',
-                'params' => array(':user_id' => Yii::app()->user->id),
-                'with' => array('from', 'to'),
-            ),
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
+        $dataProvider = Yii::app()->user->model->friendRequests;
+
+        $criteria = clone $dataProvider->getCriteria();
+        $criteria->compare('to_id', Yii::app()->user->id);
+        if (($pagination = $dataProvider->getPagination()) !== false) {
+            $pagination->setItemCount($dataProvider->getTotalItemCount());
+            $pagination->applyLimit($criteria);
+        }
+        FriendRequest::model()->updateAll(array('read_status' => true), $criteria);
 
         $this->render('list', array(
             'dataProvider' => $dataProvider,
@@ -59,18 +58,15 @@ class FriendRequestsController extends Controller
 
     public function actionReply($request_id, $new_status)
     {
-        if (Yii::app()->request->isAjaxRequest) {
-
-        } else {
-            $request = FriendRequest::model()->findByPk($request_id);
-            if ($request === null)
-                throw new CHttpException(404, 'Запрос не найден');
-            if ($request->to_id != Yii::app()->user->id)
-                throw new CHttpException(403, 'Это не ваше приглашение');
-            $request->new_status = $new_status;
-            if ($request->save()) {
-                $user = Yii::app()->user->model;
-            }
+        $request = FriendRequest::model()->findByPk($request_id);
+        if ($request === null)
+            throw new CHttpException(404, 'Запрос не найден');
+        if ($request->to_id != Yii::app()->user->id)
+            throw new CHttpException(403, 'Это не ваше приглашение');
+        $request->status = $new_status;
+        if ($request->save()) {
+            Yii::app()->user->model->addFriend($request->from_id);
         }
+        $this->redirect(array('friendRequests/list'));
     }
 }

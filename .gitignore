@@ -20,3 +20,5 @@ site/backend/www/upload/*/*
 /site/backend/config/main_local.php
 /site/console/config/main_local.php
 /site/frontend/config/main_local.php
+/site/common/uploads/photos/originals
+/site/common/uploads/photos/thumbs

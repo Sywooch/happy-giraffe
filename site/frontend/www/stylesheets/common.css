@@ -970,7 +970,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments {}
 .default-comments .add, .default-comments .all {padding-top:10px;text-align:right;}
 .default-comments ul {padding-top:10px;}
-.default-comments li {padding:25px;}
+.default-comments li {padding:10px;}
 .default-comments li.even {background:#f6fdfe;}
 .default-comments li .user {float:left;font:11px tahoma, arial, sans-serif;color:#1ba3c4;}
 .default-comments li .user .ava {float:left;margin-right:8px;}

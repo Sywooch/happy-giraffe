@@ -3,7 +3,8 @@
 #user {line-height:normal;}
 
 #user .box-title {font-size:22px;color:#4c4d4d;padding-bottom:10px;}
-#user .box-title a {font-size:13px;margin-left:20px;}
+#user .box-title a {font-size:13px;margin-left:10px;}
+#user .box-title .btn {position:relative;top:4px;margin-right:15px;margin-left:0;}
 
 #user .header {padding-bottom:10px;}
 
@@ -15,7 +16,7 @@
 #user .header .user-name .online-status.online .icon {background-position:-44px -180px;}
 #user .header .user-name .online-status.offline .icon {background-position:-55px -180px;}
 
-#user .header .user-nav {margin-left:450px;padding-top:20px;}
+#user .header .user-nav {margin-left:450px;padding-top:20px;font-size:13px;}
 #user .header .user-nav ul {overflow:hidden;list-style:none;}
 #user .header .user-nav ul li {float:left;padding:0 10px;height:20px;margin:0 10px;}
 #user .header .user-nav ul li a {border-bottom:1px dashed #51afc3;text-decoration:none;height:16px;line-height:16px;margin:2px 0;display:block;}
@@ -48,6 +49,7 @@
 #user .user-map {padding:10px 8px 7px;border:1px solid #f7f7f7;margin-bottom:20px;}
 #user .user-map .box-title {margin-left:6px;padding-bottom:15px;}
 
+
 #user .user-mood {font-size:22px;color:#484747;padding-bottom:10px;}
 #user .user-mood img {vertical-align:middle;}
 
@@ -68,6 +70,13 @@
 #user .user-blog ul li .date {color:#908e8e;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin:6px 0 8px;}
 #user .user-blog ul li p {}
 
+#user .user-blog-add {padding:5px;background:#e0ffda;}
+#user .user-photo-add {padding:5px;border:1px solid #f7f7f7;}
+
+#user .user-add a {vertical-align:middle;display:inline-block;font:italic 30px/1 'timew new roman', times, sans;}
+#user .user-add img {margin-right:20px;}
+
+
 #user .user-interests {}
 #user .user-interests ul {list-style:none;}
 #user .user-interests ul li {display:inline;margin-right:5px;line-height:1.5;}
@@ -79,17 +88,18 @@
 #user .user-clubs ul li img {display:block;margin-bottom:2px;}
 #user .user-clubs ul li a {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;line-height:11px;text-decoration:none;font-weight:bold;}
 
-#user .user-albums {padding-left:15px;padding-bottom:20px;}
+#user .user-albums {padding:15px;border:1px solid #f3f3f3;margin-bottom:20px;}
+#user .user-albums .box-title .btn {margin-right:0;}
 #user .user-albums ul {}
 #user .user-albums ul li {padding-bottom:20px;}
 #user .user-albums ul li big {color:#4c4d4d;display:block;margin:0px 0 15px;font-size:14px;}
-#user .user-albums ul li .preview {position:relative;width:230px;height:180px;float:left;}
+#user .user-albums ul li .preview {position:relative;width:210px;height:180px;float:left;}
 #user .user-albums ul li .preview img {position:absolute;display:block;}
 #user .user-albums ul li .preview img.img-1 {top:0;left:0;}
 #user .user-albums ul li .preview img.img-2 {right:0;top:20px;}
 #user .user-albums ul li .preview img.img-3 {left:20px;bottom:0;}
-#user .user-albums ul li .more {color:#b9b9b9;font-size:13px;padding-top:50px;float:left;text-decoration:none;margin-left:10px;}
-#user .user-albums ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin-bottom:10px;}
+#user .user-albums ul li .more {color:#b9b9b9;font-size:13px;padding-top:50px;float:left;text-decoration:none;margin-left:10px;max-width:80px;text-align:center}
+#user .user-albums ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
 
 #user .user-family {margin-bottom:20px;}
 #user .user-family .t {height:39px;background:url(/images/bg_user_family.png) no-repeat 0 0;}

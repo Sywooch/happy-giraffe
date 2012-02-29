@@ -17,10 +17,12 @@ class UserCoreWidget extends CWidget
 
     public function run()
     {
-        $this->render(get_class($this), array(
-            'user' => $this->user,
-            'isMyProfile' => $this->isMyProfile,
-            'visible' => $this->visible,
-        ));
+        if ($this->visible) {
+            $this->render(get_class($this), array(
+                'user' => $this->user,
+                'isMyProfile' => $this->isMyProfile,
+                'visible' => $this->visible,
+            ));
+        }
     }
 }

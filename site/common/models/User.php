@@ -430,7 +430,7 @@ class User extends CActiveRecord
         Yii::import('site.frontend.modules.im.models.*');
         Yii::import('site.frontend.modules.im.components.*');
 
-        $dialog_id = Im::model()->getDialogByUser($this->id);
+        $dialog_id = Im::model()->getDialogIdByUser($this->id);
         if (isset($dialog_id)) {
             $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
         } else {

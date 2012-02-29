@@ -31,7 +31,7 @@ $(document).ready(function() {
 		
 	}
 
-    $('input[placeholder], textarea[placeholder]').placeholder();
+    if ($('input[placeholder], textarea[placeholder]').size() > 0 ) $('input[placeholder], textarea[placeholder]').placeholder();
 	
 });
 

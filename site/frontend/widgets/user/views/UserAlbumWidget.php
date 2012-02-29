@@ -10,7 +10,7 @@
                     <div class="preview">
                         <?php $index = 1; ?>
                         <?php foreach($album->getRelated('photos', true, array('limit' => 3)) as $photo): ?>
-                            <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180), '', array('class' => 'img-' . $index)), array('photo', 'id' => $photo->id)); ?>
+                            <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180), '', array('class' => 'img-' . $index)), array('/albums/photo', 'id' => $photo->id)); ?>
                             <?php $index++; ?>
                         <?php endforeach; ?>
                     </div>

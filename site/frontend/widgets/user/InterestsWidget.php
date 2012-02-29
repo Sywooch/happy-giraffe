@@ -5,6 +5,12 @@
  */
 class InterestsWidget extends UserCoreWidget
 {
+    public function init()
+    {
+        parent::init();
+        $this->visible = $this->isMyProfile || !empty($this->user->interests);
+    }
+
     public function run()
     {
         if (empty($this->user->interests))

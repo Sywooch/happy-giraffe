@@ -4,7 +4,8 @@ class m120229_062722_change_comment extends CDbMigration
 {
 	public function up()
 	{
-        $this->execute("ALTER TABLE `comment` ADD `parent_id` INT UNSIGNED NOT NULL ");
+        $this->execute("ALTER TABLE `comment` ADD `response_id` INT UNSIGNED NOT NULL ");
+        $this->execute("ALTER TABLE `comment` ADD `quote_id` INT UNSIGNED NOT NULL ");
 	}
 
 	public function down()

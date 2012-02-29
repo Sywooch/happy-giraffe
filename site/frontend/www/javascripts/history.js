@@ -18,7 +18,7 @@ AjaxHistory.prototype.changeBrowserUrl = function (url) {
         for (i in params) {
             var param = params[i].split("=");
             // удаляем параметр ajax, т. к. он не должен передаваться в ссылке
-            if (param[0] == "ajax") {
+            if (param[0] == "ajax" || param[0] == 'lastPage') {
                 continue;
             }
             query[param[0]] = param[1];

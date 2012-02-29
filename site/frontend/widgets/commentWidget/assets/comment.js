@@ -1,14 +1,27 @@
 var Comment = {
     response : function(link) {
         Comment.clearResponse();
+        Comment.clearQuote();
         var id = $(link).parents('.item:eq(0)').attr('id').split('_')[1];
-        var text = $(link).parents('.text:eq(0)').find('.comment-content').clone();
-        text.append('<a href="javascript:void(0);" onclick="Comment.clearResponse();">Отменить цитирование</a>');
+        var text = $(link).parents('.item:eq(0)').find('.user .username').text();
+        $('#add_comment').find('.response input').val(id);
+        $('#add_comment').find('.response .text').html(text);
+        return false;
+    },
+    clearResponse : function() {
+        $('#add_comment').find('.response input').val('');
+        $('#add_comment').find('.response .text').empty();
+    },
+    quote : function(link) {
+        Comment.clearResponse();
+        Comment.clearQuote();
+        var id = $(link).parents('.item:eq(0)').attr('id').split('_')[1];
+        var text = $(link).parents('.item:eq(0)').find('.comment-content').html();
         $('#add_comment').find('.quote input').val(id);
         $('#add_comment').find('.quote .text').html(text);
         return false;
     },
-    clearResponse : function() {
+    clearQuote : function() {
         $('#add_comment').find('.quote input').val('');
         $('#add_comment').find('.quote .text').empty();
     },

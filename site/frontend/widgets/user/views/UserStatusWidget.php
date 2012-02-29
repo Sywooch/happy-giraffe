@@ -31,26 +31,26 @@
         ->registerCss('UserStatusWidget', $css);
 ?>
 
-<?php if ($isMyProfile): ?>
+<?php if ($visible): ?>
     <div class="user-status">
-        <?php if ($user->status === null): ?>
-            <p><a href="" class="pseudo">Что бы Вы хотели всем сообщить?</a></p>
+        <?php if ($isMyProfile): ?>
+            <?php if ($user->status === null): ?>
+                <p><a href="" class="pseudo">Что бы Вы хотели всем сообщить?</a></p>
+            <?php else: ?>
+                <?php $this->render('_status', array(
+                    'status' => $user->status,
+                    'canUpdate' => true,
+                )); ?>
+            <?php endif; ?>
         <?php else: ?>
-            <?php $this->render('_status', array(
-                'status' => $user->status,
-                'canUpdate' => true,
-            )); ?>
+            <?php if ($user->status): ?>
+                <?php $this->render('_status', array(
+                    'status' => $user->status,
+                    'canUpdate' => false,
+                )); ?>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
-<?php else: ?>
-    <?php if ($user->status): ?>
-        <div class="user-status">
-            <?php $this->render('_status', array(
-                'status' => $user->status,
-                'canUpdate' => false,
-            )); ?>
-        </div>
-    <?php endif; ?>
 <?php endif; ?>
 
 <div id="user-status-form">

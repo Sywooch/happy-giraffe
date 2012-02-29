@@ -13,3 +13,12 @@
 </ul>
 <p>Здесь можно пообщаться с другими родителями, получить консультацию специалиста, прочитать экспертные статьи, ответить на вопросы тестов. А ещё «Весёлый жираф» предлагает принять участие в интересных конкурсах и получить за них призы.</p>
 <p>Социальная сеть для всей семьи «Весёлый жираф» – проводите время весело и с пользой!</p>
+
+<?php $this->widget('application.widgets.user.location.LocaionWidget',array(
+    'user'=>User::getUserById(Yii::app()->user->getId()))) ?><br><br>
+
+<?php $this->widget('application.widgets.user.horoscope.HoroscopeWidget',array(
+    'user'=>User::getUserById(Yii::app()->user->getId()))) ?><br><br>
+
+<?php $this->widget('application.widgets.user.interests.InterestsWidget',array(
+    'user'=>User::getUserById(Yii::app()->user->getId()))) ?><br><br>

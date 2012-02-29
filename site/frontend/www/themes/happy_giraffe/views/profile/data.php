@@ -1,11 +1,10 @@
 <?php Yii::app()->clientScript
-//    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?sensor=false&language=ru&region=ru')
     ->registerScriptFile('http://api-maps.yandex.ru/1.1/index.xml?key=' . Yii::app()->params['yandex_map_key']);
 $user = User::getUserById(Yii::app()->user->getId());
 $region_id = empty($user->settlement_id) ? null : $user->settlement->region_id;
-$district_id = empty($user->settlement_id) ? null : $user->settlement->district_id;
-$districts = empty($region_id) ? array() : CHtml::listData(
-    GeoRusDistrict::model()->findAll('region_id = ' . $region_id), 'id', 'name');
+//$district_id = empty($user->settlement_id) ? null : $user->settlement->district_id;
+//$districts = empty($region_id) ? array() : CHtml::listData(
+    //GeoRusDistrict::model()->findAll('region_id = ' . $region_id), 'id', 'name');
 $city_id = empty($user->settlement_id) ? null : $user->settlement_id;
 $city_name = empty($user->settlement_id) ? null : $user->settlement->name;
 
@@ -144,17 +143,9 @@ $this->breadcrumbs = array(
             </ul>
         </div>
     </div>
-
 </div>
-<div>
-    <div class="inner" id="map_container" style="display: none;" data-name="<?php echo $user->getLocationString() ?>">
-        <div class="clearfix">
+<div id="YMapsID" style="width:600px;height:400px;margin-bottom: 20px;"></div>
 
-            <div id="map_canvas"></div>
-        </div>
-    </div>
-    <div id="YMapsID" style="width:600px;height:400px;margin-bottom: 20px;"></div>
-</div>
 
 <div class="row row-inline">
 
@@ -190,7 +181,6 @@ $this->breadcrumbs = array(
     var placemark;
 
     $(function () {
-
         // Создание экземпляра карты и его привязка к созданному контейнеру
         map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);
         // Добавление элементов управления

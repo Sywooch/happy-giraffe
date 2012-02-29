@@ -8,7 +8,7 @@ class HoroscopeWidget extends UserCoreWidget
     public function init()
     {
         parent::init();
-        $this->visible = $this->isMyProfile || !empty($this->user->birthday);
+        $this->visible = !empty($this->user->birthday);
     }
 
     public function run()

@@ -158,7 +158,7 @@
 
             </div>
 
-            <?php $this->widget('application.widgets.user.LocaionWidget',array(
+            <?php $this->widget('application.widgets.user.LocationWidget',array(
             'user'=>$user)) ?>
 
             <div class="user-weather">

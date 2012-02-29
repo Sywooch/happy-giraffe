@@ -5,8 +5,5 @@
  */
 class UserAlbumWidget extends UserCoreWidget
 {
-    public function run()
-    {
-        parent::run();
-    }
+
 }

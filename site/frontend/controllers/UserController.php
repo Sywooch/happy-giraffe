@@ -11,9 +11,6 @@ class UserController extends Controller
         $user = User::model()->with(array(
             'status',
             'purpose',
-            'interests',
-            'country',
-            'settlement',
         ))->findByPk($user_id);
         if ($user === null)
             throw new CHttpException(404, 'Пользователь не найден');

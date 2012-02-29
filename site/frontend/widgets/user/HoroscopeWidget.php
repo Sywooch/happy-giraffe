@@ -5,12 +5,16 @@
  */
 class HoroscopeWidget extends UserCoreWidget
 {
+    public function init()
+    {
+        parent::init();
+        $this->visible = $this->isMyProfile || !empty($this->user->birthday);
+    }
+
     public function run()
     {
-        if (empty($this->user->birthday))
-            return;
-
         Yii::import('application.modules.horoscope.models.*');
+
         $user_zodiac = Horoscope::model()->getDateZodiac($this->user->birthday);
         if ($user_zodiac === null)
             return;

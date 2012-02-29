@@ -5,11 +5,14 @@
  */
 class LocaionWidget extends UserCoreWidget
 {
+    public function init()
+    {
+        parent::init();
+        $this->visible = $this->isMyProfile || !empty($this->user->country_id);
+    }
+
     public function run()
     {
-        if (empty($this->user->country_id))
-            return ;
-
         $this->render('location');
     }
 }

@@ -70,24 +70,7 @@
                 <div class="b"></div>
             </div>
 
-            <div class="user-interests">
-
-                <div class="box-title">Интересы</div>
-
-                <ul>
-                    <li><a href="" style="background:#fff9bc;">Спорт</a></li>
-                    <li><a href="" style="background:#bef2b9;">Семья</a></li>
-                    <li><a href="" style="background:#bfddff;">Игры</a></li>
-                    <li><a href="" style="background:#e5d2f7;">Кулинария</a></li>
-                    <li><a href="" style="background:#bfddff;">Педагогика</a></li>
-                    <li><a href="" style="background:#ffe4b5;">Авто</a></li>
-                    <li><a href="" style="background:#ffe4b5;">Рыбалка</a></li>
-                    <li><a href="" style="background:#ccf7ff;">Туризм</a></li>
-                </ul>
-
-            </div>
-
-
+            <?php $this->widget('application.widgets.user.InterestsWidget',array('user'=>$user)) ?>
 
         </div>
 
@@ -152,9 +135,7 @@
 
             </div>
 
-            <?php $this->widget('site.frontend.widgets.user.UserAlbumWidget', array(
-                'model' => $user,
-            )); ?>
+            <?php $this->widget('site.frontend.widgets.user.UserAlbumWidget', array('user' => $user,)); ?>
 
         </div>
 
@@ -177,13 +158,8 @@
 
             </div>
 
-            <div class="user-map">
-
-                <div class="box-title">Я живу здесь</div>
-
-                <img src="/images/user_map_img.jpg" />
-
-            </div>
+            <?php $this->widget('application.widgets.user.LocaionWidget',array(
+            'user'=>$user)) ?>
 
             <div class="user-weather">
 
@@ -208,26 +184,7 @@
 
             </div>
 
-            <div class="user-horoscope">
-
-                <div class="actions">
-                    <a href="" class="close"></a>
-                    <a href="" class="settings"></a>
-                </div>
-
-                <div class="clearfix">
-                    <div class="img"><img src="/images/user_horoscope_01.png" /></div>
-                    <div class="date"><big>Овен</big>(24.12-23.01)</div>
-                </div>
-
-                <p><b>21 февраля</b> -  Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью – дела стоят на месте, приходится возвращаться к, казалось бы, уже решенным вопросам и переделывать многое
-                    Вам хотелось бы организовать эффективное взаимодействие в совместных проектах. Однако идеи, которые придут к Вам сегодня, могут оказаться не слишком продуманными. Возможно, Вы еще не владеете всей необходимой информацией, поэтому не торопитесь делиться своими мыслями.s</p>
-
-                <p>Вас могут не правильно понять.
-                    Так же торопливы сегодня будут и Ваши чувства. Бурные эмоции могут нахлынуть внезапно. Но не рассчитывайте на полное взаимопонимание партнеров.
-                    Вечер лучше провести в одиночестве, посвятив его только себе.</p>
-
-            </div>
+            <?php $this->widget('application.widgets.user.HoroscopeWidget',array('user'=>$user)) ?>
 
         </div>
 

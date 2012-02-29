@@ -183,6 +183,9 @@ class User extends CActiveRecord
             'vaccineDateVotes' => array(self::HAS_MANY, 'VaccineDateVote', 'user_id'),
 
             'commentsCount' => array(self::STAT, 'Comment', 'author_id'),
+
+            'status' => array(self::HAS_ONE, 'UserStatus', 'user_id', 'order' => 'status.created DESC'),
+            'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
         );
     }
 
@@ -567,7 +570,7 @@ class User extends CActiveRecord
     {
         return new CDbCriteria(array(
             'condition' => '(user1_id = :user_id AND user2_id = :friend_id) OR (user1_id = :friend_id AND user2_id = :user_id)',
-            'params' => array(':user_id' => $this->primaryKey, ':friend_id' => $friend_id),
+            'params' => array(':user_id' => $this->id, ':friend_id' => $friend_id),
         ));
     }
 
@@ -579,7 +582,7 @@ class User extends CActiveRecord
     {
         if ($this->isFriend($friend_id)) return false;
         $friend = new Friend;
-        $friend->user1_id = $this->primaryKey;
+        $friend->user1_id = $this->id;
         $friend->user2_id = $friend_id;
         return $friend->save();
     }
@@ -595,6 +598,7 @@ class User extends CActiveRecord
 
     /**
      * @param $friend_id
+     * @return bool
      */
     public function delFriend($friend_id)
     {
@@ -602,13 +606,30 @@ class User extends CActiveRecord
     }
 
     /**
-     * @return array
+     * @return CActiveDataProvider
      */
     public function getFriends()
     {
-        return User::findAll(array(
+        return new CActiveDataProvider('User', array(
             'join' => 'JOIN ' . Friend::model()->tableName() . ' ON (t.id = friends.user1_id AND friends.user2_id = :user_id) OR (t.id = friends.user2_id AND friends.user1_id = :user_id)',
             'params' => array(':user_id' => $this->id),
+        ));
+    }
+
+    /**
+     * @return CActiveDataProvider
+     */
+    public function getFriendRequests()
+    {
+        return new CActiveDataProvider('FriendRequest', array(
+            'criteria'=>array(
+                'condition' => 'from_id = :user_id OR to_id = :user_id',
+                'params' => array(':user_id' => Yii::app()->user->id),
+                'with' => array('from', 'to'),
+            ),
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
         ));
     }
 }

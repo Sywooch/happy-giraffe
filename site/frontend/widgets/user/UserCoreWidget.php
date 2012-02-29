@@ -4,6 +4,7 @@ class UserCoreWidget extends CWidget
 {
     public $user;
     protected $isMyProfile;
+    protected $visible = true;
 
     public function init()
     {
@@ -15,6 +16,7 @@ class UserCoreWidget extends CWidget
         $this->render(get_class($this), array(
             'user' => $this->user,
             'isMyProfile' => $this->isMyProfile,
+            'visible' => $this->visible,
         ));
     }
 }

@@ -2,6 +2,8 @@
 
 #user {line-height:normal;}
 
+#user a.pseudo {border-bottom:1px dashed #51afc3;text-decoration:none;line-height:normal;}
+
 #user .box-title {font-size:22px;color:#4c4d4d;padding-bottom:10px;}
 #user .box-title a {font-size:13px;margin-left:10px;}
 #user .box-title .btn {position:relative;top:4px;margin-right:15px;margin-left:0;}
@@ -53,15 +55,20 @@
 #user .user-mood {font-size:22px;color:#484747;padding-bottom:10px;}
 #user .user-mood img {vertical-align:middle;}
 
-#user .user-status {background:#cdecff;padding:15px;position:relative;margin-bottom:10px;}
+#user .user-status {background:#cdecff;padding:10px 15px;position:relative;margin-bottom:10px;}
 #user .user-status {/*css3*/ border-radius:10px;}
 #user .user-status:after {display:block;content:'';width:45px;height:44px;background:url(/images/common.png) no-repeat -557px -152px;position:absolute;right:100%;top:25px;}
-#user .user-status .date {color:#908e8e;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;}
+#user .user-status .date {color:#908e8e;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;padding-bottom:8px;}
 #user .user-status p {color:#0281b0;font:italic 20px 'times new roman', 'times', arial, helvetica, sans-serif;}
+#user .user-status form {text-align:right;}
+#user .user-status textarea {vertical-align:bottom;overflow:auto;width:300px;max-width:300px;margin-right:5px;height:90px;padding:2px 5px;border:1px solid #c5e8ef;margin-bottom:5px;}
 
-#user .user-purpose {color:#4c4d4d;font-size:12px;position:relative;padding-left:100px;padding-top:5px;min-height:60px;margin-bottom:20px;}
-#user .user-purpose p {color:#fe4939;line-height:1;}
-#user .user-purpose .icon {display:block;width:78px;height:65px;background:url(/images/common.png) no-repeat -604px -153px;position:absolute;top:50%;left:11px;margin-top:-32px;}
+#user .user-purpose {color:#4c4d4d;font-size:11px;position:relative;padding-left:100px;min-height:60px;margin-bottom:20px;}
+#user .user-purpose p {color:#fe4939;line-height:1;font-size:14px;margin-top:5px;}
+#user .user-purpose p a {font-size:12px;}
+#user .user-purpose .icon {display:block;width:78px;height:65px;background:url(/images/common.png) no-repeat -604px -153px;position:absolute;top:0;left:11px;}
+#user .user-purpose form {text-align:right;margin:10px 0 0 -6px;}
+#user .user-purpose textarea {vertical-align:bottom;overflow:auto;width:228px;max-width:228px;margin-right:5px;height:90px;padding:2px 5px;border:1px solid #c5e8ef;margin-bottom:5px;}
 
 #user .user-blog {background:#e0ffda;padding:15px 0px 0 15px;margin-bottom:20px;}
 #user .user-blog ul {list-style:none;}

@@ -70,8 +70,8 @@
                 <div class="b"></div>
             </div>
 
-            <?php $this->widget('application.widgets.user.interests.InterestsWidget',array(
-            'user'=>User::getUserById(Yii::app()->user->getId()))) ?>
+            <?php $this->widget('application.widgets.user.InterestsWidget',array(
+            'user'=>$user)) ?>
 
         </div>
 
@@ -191,8 +191,8 @@
 
             </div>
 
-            <?php $this->widget('application.widgets.user.location.LocaionWidget',array(
-            'user'=>User::getUserById(Yii::app()->user->getId()))) ?>
+            <?php $this->widget('application.widgets.user.LocaionWidget',array(
+            'user'=>$user)) ?>
 
             <div class="user-weather">
 
@@ -217,8 +217,8 @@
 
             </div>
 
-            <?php $this->widget('application.widgets.user.horoscope.HoroscopeWidget',array(
-            'user'=>User::getUserById(Yii::app()->user->getId()))) ?>
+            <?php $this->widget('application.widgets.user.HoroscopeWidget',array(
+            'user'=>$user)) ?>
 
         </div>
 

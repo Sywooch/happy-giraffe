@@ -3,13 +3,8 @@
  * Author: alexk984
  * Date: 29.02.12
  */
-class HoroscopeWidget extends CWidget
+class HoroscopeWidget extends UserCoreWidget
 {
-    /**
-     * @var User
-     */
-    public $user = null;
-
     public function run()
     {
         if (empty($this->user->birthday))

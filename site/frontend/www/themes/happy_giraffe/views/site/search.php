@@ -29,6 +29,10 @@
                     {pager}
                 </div>
             ',
+            'viewData' => array(
+                'search_text' => $text,
+                'search_index' => $index,
+            )
         ));
         ?>
     </div>

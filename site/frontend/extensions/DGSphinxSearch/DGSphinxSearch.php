@@ -169,6 +169,13 @@ class DGSphinxSearch extends CApplicationComponent
         $this->resetCriteria();
     }
 
+    public function buildExcerpts($docs, $index, $words, $opts=array())
+    {
+        $opts['before_match'] = '<span class="search-highlight">';
+        $opts["after_match"] = "</span>";
+        return $this->client->BuildExcerpts($docs, $index, $words, $opts);
+    }
+
     /**
      * @brief connect to searchd server, run given search query through given indexes,
      * and return the search results

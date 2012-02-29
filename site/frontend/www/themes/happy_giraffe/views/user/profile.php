@@ -70,8 +70,7 @@
                 <div class="b"></div>
             </div>
 
-            <?php $this->widget('application.widgets.user.InterestsWidget',array(
-            'user'=>$user)) ?>
+            <?php //$this->widget('application.widgets.user.InterestsWidget',array('user'=>$user)) ?>
 
         </div>
 
@@ -138,9 +137,7 @@
 
             </div>
 
-            <?php $this->widget('site.frontend.widgets.user.UserAlbumWidget', array(
-                'user' => $user,
-            )); ?>
+            <?php //$this->widget('site.frontend.widgets.user.UserAlbumWidget', array('user' => $user,)); ?>
 
         </div>
 
@@ -189,8 +186,7 @@
 
             </div>
 
-            <?php $this->widget('application.widgets.user.HoroscopeWidget',array(
-            'user'=>$user)) ?>
+            <?php //$this->widget('application.widgets.user.HoroscopeWidget',array('user'=>$user)) ?>
 
         </div>
 

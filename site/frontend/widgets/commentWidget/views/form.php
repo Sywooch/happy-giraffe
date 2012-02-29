@@ -2,6 +2,7 @@
 $cs = Yii::app()->clientScript;
 $js = "
 $('button.cancel').live('click', function(e) {
+    Comment.clearResponse();
 	e.preventDefault();
 	var editor = CKEDITOR.instances['Comment[text]'];
     editor.setData('');
@@ -40,6 +41,7 @@ $('#add_comment').live('submit', function(e) {
                 });
 				var editor = CKEDITOR.instances['Comment[text]'];
                 editor.setData('');
+                Comment.clearResponse();
 			}
 		},
 	});
@@ -92,6 +94,10 @@ $cs->registerScript('comment_widget_form', $js);
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'add_comment',
 )); ?>
+    <div class="quote">
+        <input type="hidden" id="Comment_parent" name="Comment[parent_id]" value="" />
+        <div class="text"></div>
+    </div>
     <?php echo $form->hiddenField($comment_model, 'entity', array('value' => $this->entity)); ?>
     <?php echo $form->hiddenField($comment_model, 'entity_id', array('value' => $this->entity_id)); ?>
     <?php echo CHtml::hiddenField('edit-id', ''); ?>

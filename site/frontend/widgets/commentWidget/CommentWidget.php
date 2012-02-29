@@ -47,4 +47,19 @@ class CommentWidget extends CWidget
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/comment.js');
     }
+
+    protected function getParents($model)
+    {
+        $comments = array();
+        if($model->parent_id !== 0 && $model->parent)
+        {
+            $comments[] = $model->parent;
+            $parent = $this->getParents($model->parent);
+            if(count($parent) > 0)
+            {
+                $comments = array_merge_recursive($comments, $parent);
+            }
+        }
+        return array_reverse($comments);
+    }
 }

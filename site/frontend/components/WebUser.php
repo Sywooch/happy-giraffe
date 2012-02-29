@@ -1,5 +1,4 @@
 <?php
-
 class WebUser extends CWebUser
 {
 	public $roleAttribute = 'user_role';

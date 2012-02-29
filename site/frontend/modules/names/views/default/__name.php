@@ -10,3 +10,4 @@
     if (!in_array($id, $like_ids)) echo ' empty_heart' ?>"></a>
     <p><?php echo $translate ?></p>
 </div>
+<?php if ($num % 3 == 0) echo '</div><div class="clearfix">'; ?>

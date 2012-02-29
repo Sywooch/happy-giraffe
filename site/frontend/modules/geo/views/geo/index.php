@@ -1,4 +1,3 @@
-<?php Yii::app()->clientScript->registerScriptFile('/javascripts/chosen.jquery.min.js'); ?>
 <?php $user = User::getUserById(Yii::app()->user->getId()); ?>
 <?php $region_id = empty($user->settlement_id) ? null : $user->settlement->region_id ?>
 <?php $district_id = empty($user->settlement_id) ? null : $user->settlement->district_id ?>

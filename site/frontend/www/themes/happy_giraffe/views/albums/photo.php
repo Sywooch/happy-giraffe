@@ -77,6 +77,5 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
     ),
 )); ?>
 <?php $this->widget('CommentWidget', array(
-    'model' => 'AlbumPhoto',
-    'object_id' => $photo->id,
+    'model' => $photo,
 )); ?>

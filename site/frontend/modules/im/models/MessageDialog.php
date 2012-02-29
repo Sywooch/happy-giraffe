@@ -11,7 +11,7 @@
  * @property MessageLog[] $messageLogs
  * @property MessageUser[] $messageUsers
  * @property MessageLog lastMessage
- * @property MessageDialogDeleted[] $lastDeletedMessage
+ * @property MessageDialogDeleted $lastDeletedMessage
  */
 class MessageDialog extends CActiveRecord
 {
@@ -166,7 +166,7 @@ class MessageDialog extends CActiveRecord
      */
     public static function GetUserDialogs()
     {
-        $dialogs = Im::model()->getNotEmptyDialogIds();
+        $dialogs = Im::model()->getDialogIds();
 
         if (empty($dialogs))
             return array();
@@ -176,10 +176,23 @@ class MessageDialog extends CActiveRecord
         $criteria->compare('t.id', $dialogs);
         $criteria->order = 'lastMessage.created desc';
         $dialogs = MessageDialog::model()->with(array(
-            'lastMessage'
+            'lastMessage', 'lastDeletedMessage'
         ))->findAll($criteria);
 
-        return self::CheckReadStatus($dialogs);
+        //remove empty dialogs
+        $notEmptyDialogs = array();
+        foreach ($dialogs as $dialog) {
+            if (isset($dialog->lastMessage)) {
+                if (isset($dialog->lastDeletedMessage)) {
+                    if ($dialog->lastDeletedMessage->message_id < $dialog->lastMessage->id)
+                        $notEmptyDialogs [] = $dialog;
+                }
+                else
+                    $notEmptyDialogs [] = $dialog;
+            }
+        }
+
+        return self::CheckReadStatus($notEmptyDialogs);
     }
 
     /**
@@ -264,7 +277,6 @@ class MessageDialog extends CActiveRecord
                     ':user_id' => Yii::app()->user->getId(),
                 )
             );
-            Im::clearCache();
         }
         ActiveDialogs::model()->deleteDialog($this->id);
         return true;

@@ -38,9 +38,12 @@ class VoteWidget extends CWidget
 
     public $js = '';
 
+    public $init = false;
+
     public function run()
     {
-        $this->GenerateTemplate();
+        if (!$this->init)
+            $this->GenerateTemplate();
         $this->GenerateScript();
     }
 
@@ -86,7 +89,7 @@ class VoteWidget extends CWidget
         }
 
         //form javascript
-        $js = "$('$this->main_selector').delegate('a', 'click', function(e) {
+        $js = "$('body').delegate('$this->main_selector a', 'click', function(e) {
 			e.preventDefault();
 			if ($(this).hasClass('active'))
 			    return false;

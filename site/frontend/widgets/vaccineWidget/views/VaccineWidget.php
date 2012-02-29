@@ -49,7 +49,7 @@ else
 				</td>
                 <td><?php echo $day->age ?></td>
                 <td><?php echo $day->GetText() ?></td>
-                <td><?php echo CHtml::link($day->vaccine->name, '#') ?></td>
+                <td><?php echo $day->vaccine->name ?></td>
 			</tr>
         <?php if (!empty($baby_id)):?>
 			<tr class="bottom">
@@ -97,7 +97,7 @@ else
 
 	</table>
 
-	<div class="a-right table-actions">
+	<div class="a-right table-actions" style="display: none;">
 		<a href="" title="Распечатать"><img src="/images/icon_print.png" /></a>
 		<a href="" title="Скачать в формате PDF"><img src="/images/icon_pdf.png" /></a>
 	</div>

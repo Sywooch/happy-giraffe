@@ -8,8 +8,11 @@
  * @property string $text
  * @property string $created
  * @property string $author_id
- * @property string $model
- * @property string $object_id
+ * @property string $entity
+ * @property string $entity_id
+ * @property string $response_id
+ * @property string $quote_id
+ * @property string $position
  *
  * @property User author
  */
@@ -40,12 +43,13 @@ class Comment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('text, author_id, model, object_id', 'required'),
-			array('author_id, object_id', 'length', 'max'=>11),
-			array('model', 'length', 'max'=>255),
+			array('text, author_id, entity, entity_id', 'required'),
+			array('author_id, entity_id, response_id, quote_id', 'length', 'max'=>11),
+			array('entity', 'length', 'max'=>255),
+            array('position', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, text, created, author_id, model, object_id', 'safe', 'on'=>'search'),
+			array('id, text, created, author_id, entity, entity_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +62,8 @@ class Comment extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
+            'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
 		);
 	}
 
@@ -71,8 +77,11 @@ class Comment extends CActiveRecord
 			'text' => 'Text',
 			'created' => 'Created',
 			'author_id' => 'Author',
-			'model' => 'Model',
-			'object_id' => 'Object',
+			'entity' => 'Entity',
+			'entity_id' => 'Entity PK',
+            'response_id' => 'Response id',
+            'quote_id' => 'Quote id',
+            'position' => 'Позиция',
 		);
 	}
 
@@ -91,8 +100,10 @@ class Comment extends CActiveRecord
 		$criteria->compare('text',$this->text,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('author_id',$this->author_id,true);
-		$criteria->compare('model',$this->model,true);
-		$criteria->compare('object_id',$this->object_id,true);
+		$criteria->compare('entity',$this->entity,true);
+		$criteria->compare('entity_id',$this->entity_id,true);
+        $criteria->compare('response_id',$this->response_id,true);
+        $criteria->compare('quote_id',$this->quote_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -109,6 +120,21 @@ class Comment extends CActiveRecord
             )
         );
     }
+	
+	public function get($entity, $entity_id)
+	{
+		return new CActiveDataProvider(get_class(), array(
+			'criteria' => array(
+				'condition' => 'entity=:entity AND entity_id=:entity_id',
+				'params' => array(':entity' => $entity, ':entity_id' => $entity_id),
+				'with' => array('author'),
+				'order' => 'created ASC',
+			),
+			'pagination' => array(
+				'pageSize' => 10,
+			),
+		));
+	}
 
     public function afterSave()
     {
@@ -128,21 +154,46 @@ class Comment extends CActiveRecord
         }
         return parent::afterSave();
     }
-	
-	public function get($model, $object_id)
-	{
-		return new CActiveDataProvider(get_class(), array(
-			'criteria' => array(
-				'condition' => 'model=:model AND object_id=:object_id',
-				'params' => array(':model' => $model, ':object_id' => $object_id),
-				'with' => array('author'),
-				'order' => 'created DESC',
-			),
-			'pagination' => array(
-				'pageSize' => 20,
-			),
-		));
-	}
+
+    public function beforeSave()
+    {
+        if($this->isNewRecord)
+        {
+            $criteria = new CDbCriteria(array(
+                'select' => 'position',
+                'order' => 'created DESC',
+                'limit' => 1,
+                'condition' => 'entity = :entity and entity_id = :entity_id',
+                'params' => array(':entity' => $this->entity, ':entity_id' => $this->entity_id)
+            ));
+            $model = Comment::model()->find($criteria);
+            if(!$model)
+                $position = 1;
+            else
+                $position = $model->position + 1;
+            $this->position = $position;
+        }
+        return parent::beforeSave();
+    }
+
+    public function afterDelete()
+    {
+        $criteria = new CDbCriteria(array(
+            'select' => '*',
+            'order' => 'created ASC',
+            'condition' => 'entity = :entity and entity_id = :entity_id',
+            'params' => array(':entity' => $this->entity, ':entity_id' => $this->entity_id)
+        ));
+        $index = 0;
+        $comments = Comment::model()->findAll($criteria);
+        foreach($comments as $model)
+        {
+            $index++;
+            $model->position = $index;
+            $model->save();
+        }
+        return parent::afterDelete();
+    }
 
     public static function getUserAvarageCommentsCount($user)
     {
@@ -152,5 +203,28 @@ class Comment extends CActiveRecord
             $days = 1;
 
         return round($comments_count/$days);
+    }
+
+    public static function updateComments()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->group = 'entity, entity_id';
+        $criteria->select = '*';
+        $comments = Comment::model()->findAll($criteria);
+        foreach($comments as $c)
+        {
+            $cr = new CDbCriteria;
+            $cr->condition = 'entity = :entity and entity_id = :entity_id';
+            $cr->params = array(':entity' => $c->entity, ':entity_id' => $c->entity_id);
+            $cr->order = 'created ASC';
+            $comment = Comment::model()->findAll($cr);
+            $index = 0;
+            foreach($comment as $km)
+            {
+                $index++;
+                $km->position = $index;
+                $km->save();
+            }
+        }
     }
 }

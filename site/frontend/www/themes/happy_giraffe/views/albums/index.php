@@ -1,3 +1,11 @@
+<div id="user">
+    <?php $this->widget('site.frontend.widgets.albumWidget.AlbumWidget', array(
+        'model' => User::model()->findByPk(Yii::app()->user->id),
+    )); ?>
+</div>
+
+
+
 <p><?php echo CHtml::link('Создать альбом', array('albums/create')); ?></p>
 <div id="gallery">
     <div class="header">
@@ -37,7 +45,7 @@
         </div>
         <div class="gallery-photos clearfix">
             <ul>
-                <?php foreach ($model->photos('photos:forAlbum') as $photo): ?>
+                <?php foreach ($model->getRelated('photos', true, array('limit' => 3)) as $photo): ?>
                 <li>
                     <table>
                         <tr>

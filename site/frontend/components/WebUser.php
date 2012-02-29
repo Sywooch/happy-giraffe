@@ -15,7 +15,7 @@ class WebUser extends CWebUser
         return 'user';
 	}
 
-	private function getModel()
+	public function getModel()
 	{
 		if(!$this->isGuest && $this->_model === null)
 		{

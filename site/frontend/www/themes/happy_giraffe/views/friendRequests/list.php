@@ -3,15 +3,15 @@
         'dataProvider'=>$dataProvider,
         'columns' => array(
             array(
-                'value' => '$data->from_id == Yii::app()->user->id ? \'→\' : \'←\'',
+                'value' => '$data->from_id == Yii::app()->user->id ? "→" : "←"',
             ),
             array(
                 'name' => 'from_id',
-                'value' => '$data->from->first_name . \' \' . $data->from->last_name',
+                'value' => '$data->from->first_name . " " . $data->from->last_name',
             ),
             array(
                 'name' => 'to_id',
-                'value' => '$data->to->first_name . \' \' . $data->to->last_name',
+                'value' => '$data->to->first_name . " " . $data->to->last_name',
             ),
             'text',
             array(
@@ -20,20 +20,22 @@
             ),
             array(
                 'name' => 'read_status',
-                'value' => '$data->read_status ? \'Да\' : \'Нет\'',
+                'value' => '$data->read_status ? "Да" : "Нет"',
             ),
             'created',
+            'updated',
             array(
                 'class' => 'CButtonColumn',
                 'buttons' => array(
                     'accept' => array(
                         'label' => 'Принять',
-                        'visible' => '$data->status == \'pending\' && $data->to_id == Yii::app()->user->id',
-                        'click' => 'funtion() {alert(\'123\');}'
+                        'visible' => '$data->status == "pending" && $data->to_id == Yii::app()->user->id',
+                        'url' => 'Yii::app()->controller->createUrl("friendRequests/reply", array("request_id" => $data->id, "new_status" => "accepted"))',
                     ),
                     'decline' => array(
                         'label' => 'Отклонить',
-                        'visible' => '$data->status == \'pending\' && $data->to_id == Yii::app()->user->id',
+                        'visible' => '$data->status == "pending" && $data->to_id == Yii::app()->user->id',
+                        'url' => 'Yii::app()->controller->createUrl("friendRequests/reply", array("request_id" => $data->id, "new_status" => "declined"))',
                     ),
                 ),
                 'template' => '{accept} {decline}',

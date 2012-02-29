@@ -5,7 +5,7 @@ class UserController extends Controller
     public function actionProfile($user_id)
     {
         Yii::import('application.widgets.user.*');
-        Yii::import('application.modules.interests.models.*');
+        Yii::import('application.modules.Interests.models.*');
         Yii::import('application.modules.geo.models.*');
 
         $user = User::model()->with(array(

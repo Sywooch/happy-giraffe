@@ -1,6 +1,9 @@
+<?php
+$albums = $this->user->getRelated('albums', true, array('limit' => 2));
+Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/user.css');
+?>
 <div class="user-albums">
-
-    <div class="box-title">Фотоальбомы <?php echo CHtml::link('Все альбомы (' . count($this->model->albums) . ')', array('/albums/index')); ?></div>
+    <div class="box-title">Фотоальбомы <?php echo CHtml::link('Все альбомы (' . count($this->user->albums) . ')', array('/albums/index')); ?></div>
     <ul>
         <?php foreach($albums as $album): ?>
             <?php if(count($album->photos) == 0) continue; ?>

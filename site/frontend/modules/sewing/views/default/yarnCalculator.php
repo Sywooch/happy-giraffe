@@ -1,12 +1,3 @@
-<style type="text/css">
-    #cuselFrame-project {
-        z-index: 12;
-    }
-
-    #cuselFrame-size {
-        z-index: 11;
-    }
-</style>
 <script type="text/javascript">
     $(function () {
         $('#project').change(function () {

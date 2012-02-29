@@ -59,6 +59,7 @@
  * @property GeoCountry $country
  * @property GeoRusSettlement $settlement
  * @property GeoRusStreet $street
+ * @property Album[] $albums
  */
 class User extends CActiveRecord
 {
@@ -184,6 +185,8 @@ class User extends CActiveRecord
             'vaccineDateVotes' => array(self::HAS_MANY, 'VaccineDateVote', 'user_id'),
 
             'commentsCount' => array(self::STAT, 'Comment', 'author_id'),
+
+            'albums' => array(self::HAS_MANY, 'Album', 'user_id'),
         );
     }
 

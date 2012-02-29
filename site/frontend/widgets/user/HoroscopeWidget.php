@@ -13,28 +13,29 @@ class HoroscopeWidget extends UserCoreWidget
 
     public function run()
     {
-        if (!$this->visible)
-            return ;
-        Yii::import('application.modules.horoscope.models.*');
+        if ($this->visible) {
 
-        $user_zodiac = Horoscope::model()->getDateZodiac($this->user->birthday);
-        if ($user_zodiac === null)
-            return;
+            Yii::import('application.modules.horoscope.models.*');
 
-        if ($this->beginCache('HoroscopeWidget-' . $user_zodiac . '- ' . date("Y-m-d"), array('duration' => 3600))) {
-            $criteria = new CDbCriteria;
-            $criteria->compare('zodiac', $user_zodiac);
-            $criteria->compare('`date`', date("Y-m-d"));
-            $forecast = Horoscope::model()->find($criteria);
-            if ($forecast === null)
+            $user_zodiac = Horoscope::model()->getDateZodiac($this->user->birthday);
+            if ($user_zodiac === null)
                 return;
 
-            $this->render('HoroscopeWidget', array(
-                'user_zodiac' => $user_zodiac,
-                'forecast' => $forecast
-            ));
+            if ($this->beginCache('HoroscopeWidget-' . $user_zodiac . '- ' . date("Y-m-d"), array('duration' => 3600))) {
+                $criteria = new CDbCriteria;
+                $criteria->compare('zodiac', $user_zodiac);
+                $criteria->compare('`date`', date("Y-m-d"));
+                $forecast = Horoscope::model()->find($criteria);
+                if ($forecast === null)
+                    return;
 
-            $this->endCache();
+                $this->render('HoroscopeWidget', array(
+                    'user_zodiac' => $user_zodiac,
+                    'forecast' => $forecast
+                ));
+
+                $this->endCache();
+            }
         }
     }
 }

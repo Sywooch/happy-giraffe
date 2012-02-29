@@ -20,7 +20,7 @@ $('#add_comment').live('submit', function(e) {
 		success: function(response) {
 			if (response.status == 'ok')
 			{
-			    var pager = $('#comment_list .yiiPager .page:last')
+			    var pager = $('#comment_list .yiiPager .page:last');
 			    var url = false;
 			    if(pager.size() > 0)
 			        url = pager.children('a').attr('href');

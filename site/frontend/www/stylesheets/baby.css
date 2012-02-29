@@ -9,7 +9,7 @@
 #baby .age-list ul li a {/*css3*/border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
 #baby .age-list ul li img {position:absolute;bottom:29px;left:0;z-index:5;}
 #baby .age-list ul li .age-title {position:absolute;display:none;bottom:0;left:2px;white-space:nowrap;color:#626262;font-family:tahoma, arial, sans-serif;}
-#baby .age-list ul li .flag {position:absolute;padding-bottom:20px;white-space:nowrap;top:3px;left:-2px;font-size:11px;color:#cbcbcb;font-family:tahoma, arial, sans-serif;z-index:1;}
+#baby .age-list ul li .flag {position:absolute;padding-bottom:20px;white-space:nowrap;top:3px;left:-2px;font-size:11px;color:#cbcbcb;font-family:tahoma, arial, sans-serif;z-index:1;background:none;}
 #baby .age-list ul li .flag .icon {width:20px;height:20px;display:block;background:url(../images/common.png) no-repeat -139px -151px;}
 #baby .age-list ul li .no-flag {position:absolute;padding-bottom:20px;white-space:nowrap;top:3px;left:0px;font-size:11px;color:#e37cc9;font-family:tahoma, arial, sans-serif;z-index:1;}
 #baby .age-list ul li .hl {color:#828282;}

@@ -59,6 +59,7 @@
  * @property GeoCountry $country
  * @property GeoRusSettlement $settlement
  * @property GeoRusStreet $street
+ * @property Album[] $albums
  */
 class User extends CActiveRecord
 {
@@ -186,6 +187,7 @@ class User extends CActiveRecord
 
             'status' => array(self::HAS_ONE, 'UserStatus', 'user_id', 'order' => 'status.created DESC'),
             'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
+            'albums' => array(self::HAS_MANY, 'Album', 'user_id'),
         );
     }
 

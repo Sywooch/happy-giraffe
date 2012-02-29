@@ -2,6 +2,8 @@
 $cs = Yii::app()->clientScript;
 $js = "
 $('button.cancel').live('click', function(e) {
+    Comment.clearResponse();
+    Comment.clearQuote();
 	e.preventDefault();
 	var editor = CKEDITOR.instances['Comment[text]'];
     editor.setData('');
@@ -18,28 +20,18 @@ $('#add_comment').live('submit', function(e) {
 		success: function(response) {
 			if (response.status == 'ok')
 			{
-                $.ajax({
-                    type: 'POST',
-                    data: {
-                        entity: $('#Comment_entity').val(),
-                        entity_id: $('#Comment_entity_id').val()
-                    },
-                    url: " . CJSON::encode(Yii::app()->createUrl('ajax/showcomments')) . ",
-                    success: function(response) {
-                        $('div.comments').replaceWith(response);
-                        if ($('#edit-id').val() != ''){
-			                $('html,body').animate({scrollTop: $('#CommunityComment_' + $('#edit-id').val()).offset().top},'fast');
-                        }else{
-                            $('div.comments div.item:first').hide();
-                            $('html,body').animate({scrollTop: $('div.comments').offset().top},'slow',function() {
-                                $('div.comments div.item:first').fadeIn(1000);
-                            });
-                        }
-                        endEdit();
-                    }
-                });
+			    var pager = $('#comment_list .yiiPager .page:last');
+			    var url = false;
+			    if(pager.size() > 0)
+			        url = pager.children('a').attr('href');
+			    if(url !== false)
+			        $.fn.yiiListView.update('comment_list', {url : url, data : {lastPage : true}});
+                else
+                    $.fn.yiiListView.update('comment_list', {data : {lastPage : true}});
 				var editor = CKEDITOR.instances['Comment[text]'];
                 editor.setData('');
+                Comment.clearResponse();
+                Comment.clearQuote();
 			}
 		},
 	});
@@ -92,6 +84,14 @@ $cs->registerScript('comment_widget_form', $js);
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'add_comment',
 )); ?>
+    <div class="response">
+        <input type="hidden" id="Comment_response_id" name="Comment[response_id]" value="" />
+        <div class="text"></div>
+    </div>
+    <div class="quote">
+        <input type="hidden" id="Comment_quote_id" name="Comment[quote_id]" value="" />
+        <div class="text"></div>
+    </div>
     <?php echo $form->hiddenField($comment_model, 'entity', array('value' => $this->entity)); ?>
     <?php echo $form->hiddenField($comment_model, 'entity_id', array('value' => $this->entity_id)); ?>
     <?php echo CHtml::hiddenField('edit-id', ''); ?>

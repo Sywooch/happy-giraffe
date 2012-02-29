@@ -104,7 +104,7 @@
             <div class="user-purpose">
                 <i class="icon"></i>
                 <span>Цель №1</span>
-                <p><?php echo $user->purpose->text; ?></p>
+                <p>Хочу в этом году поехать с семьей на море</p>
             </div>
 
             <div class="user-blog">

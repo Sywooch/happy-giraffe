@@ -1,11 +1,5 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Eugene
- * Date: 28.02.12
- * Time: 10:56
- * To change this template use File | Settings | File Templates.
- */
+Yii::import('system.web.widgets.pagers.CLinkPager');
 class MyLinkPager extends CLinkPager
 {
     public $cssFile = false;

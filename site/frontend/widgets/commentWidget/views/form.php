@@ -21,8 +21,8 @@ $('#add_comment').live('submit', function(e) {
                 $.ajax({
                     type: 'POST',
                     data: {
-                        model: $('#Comment_model').val(),
-                        object_id: $('#Comment_object_id').val()
+                        entity: $('#Comment_entity').val(),
+                        entity_id: $('#Comment_entity_id').val()
                     },
                     url: " . CJSON::encode(Yii::app()->createUrl('ajax/showcomments')) . ",
                     success: function(response) {
@@ -85,17 +85,15 @@ function endEdit(){
 }";
 $cs->registerScript('comment_widget_form', $js);
 ?>
-<?php $this->render('list', array('comments' => $data_provider->data,
-    'total' => $data_provider->totalItemCount,
-    'pages' => $data_provider->pagination)); ?>
+<?php $this->render('list', array('dataProvider' => $dataProvider)); ?>
 
 <?php if (!Yii::app()->user->isGuest): ?>
 <div class="new_comment">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'add_comment',
 )); ?>
-    <?php echo $form->hiddenField($comment_model, 'model', array('value' => $model)); ?>
-    <?php echo $form->hiddenField($comment_model, 'object_id', array('value' => $object_id)); ?>
+    <?php echo $form->hiddenField($comment_model, 'entity', array('value' => $this->entity)); ?>
+    <?php echo $form->hiddenField($comment_model, 'entity_id', array('value' => $this->entity_id)); ?>
     <?php echo CHtml::hiddenField('edit-id', ''); ?>
     <?php
     $this->widget('ext.ckeditor.CKEditorWidget', array(

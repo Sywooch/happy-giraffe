@@ -1,5 +1,5 @@
 <?php
-
+Yii::import('site.frontend.modules.recipeBook.models.*');
 class VaccineDiseaseController extends Controller
 {
     public $layout = '//layouts/club';
@@ -19,21 +19,6 @@ class VaccineDiseaseController extends Controller
                 'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
                 'users' => array('*'),
             ),
-            //            array('allow',
-            //                'actions' => array('index', 'view'),
-            //                'users' => array('*'),
-            //            ),
-            //            array('allow',
-            //                'actions' => array('create', 'update'),
-            //                'users' => array('@'),
-            //            ),
-            //            array('allow',
-            //                'actions' => array('admin', 'delete'),
-            //                'users' => array('admin'),
-            //            ),
-            //            array('deny',
-            //                'users' => array('*'),
-            //            ),
         );
     }
 
@@ -55,7 +40,7 @@ class VaccineDiseaseController extends Controller
 
 
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+                $this->redirect(array('admin'));
         }
 
         $this->render('create', array(
@@ -73,7 +58,7 @@ class VaccineDiseaseController extends Controller
             $model->attributes = $_POST['VaccineDisease'];
 
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+                $this->redirect(array('admin'));
         }
 
         $this->render('update', array(

@@ -976,10 +976,10 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments li .user .ava {float:left;margin-right:8px;}
 .default-comments li .user .ava img {display:block;border:1px solid #dddddd;}
 .default-comments li .content {margin-left:200px;font-size:12px;}
-.default-comments li .content p {color:#888888;}
+.default-comments li .content p {color:#3f3e3e;margin:5px 0;}
 .default-comments li .content .rating {margin-bottom:5px;height:12px;display:inline-block;overflow:hidden}
 .default-comments li .content .rating .s1 {width:13px;height:12px;display:block;float:left;background:url(../images/common.png) no-repeat -68px -128px;}
-.default-comments li .content .meta {font-size:11px;color:#4eafc2;margin-top:5px;}
+.default-comments li .content .meta {font-size:11px;color:#b9baba;margin-bottom:5px;}
 
 .steps-comments {overflow:hidden;}
 .steps-comments .btn {margin-top:5px;}

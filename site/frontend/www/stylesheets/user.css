@@ -27,6 +27,7 @@
 #user .user-cols .col-1 {float:left;width:240px;padding-right:20px;}
 #user .user-cols .col-2 {float:left;width:340px;padding-right:20px;}
 #user .user-cols .col-3 {float:left;width:340px;}
+#user .user-cols .col-23 {float:left;width:700px;}
 
 #user .user-photo {margin-bottom:10px;}
 #user .user-photo img {display:block;}

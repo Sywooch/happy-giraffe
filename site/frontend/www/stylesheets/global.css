@@ -501,7 +501,7 @@ p {
     float: left;
 }
 
-.right-inner .entry {
+.entry {
     display: block;
     background: #fff;
     border-bottom: 1px solid #caf3f8;
@@ -510,21 +510,21 @@ p {
     margin-bottom: 40px;
 }
 
-.right-inner .entry.entry-full {
+.entry.entry-full {
     padding-bottom: 0;
     border: 0;
 }
 
-.right-inner .entry .entry-header {
+.entry .entry-header {
     display: block;
     background: #fff;
 }
 
-.right-inner .entry .entry-header h1 {
+.entry .entry-header h1 {
     text-decoration: underline;
 }
 
-.right-inner .entry .entry-header a.entry-title, .right-inner .entry .entry-header h1 {
+.entry .entry-header a.entry-title, .entry .entry-header h1 {
     display: block;
     font: bold 25px Arial, Tahoma, sans-serif;
     color: #2296B0;
@@ -584,7 +584,7 @@ p {
     color: #2296b0;
 }
 
-.right-inner .entry  a.username, .source a.link, .entry-footer a.comm, .meta  .time {
+.entry  a.username, .source a.link, .entry-footer a.comm, .meta  .time {
     margin-bottom: 2px;
     font: 11px tahoma, sans-serif;
     color: #2296b0;
@@ -610,31 +610,31 @@ p {
     /*max-width: 200px;*/
 }
 
-.right-inner .entry .entry-footer {
+.entry .entry-footer {
     padding-top: 10px;
 }
 
-.right-inner .entry-content {
+.entry-content {
     padding: 12px 0
 }
 
-.right-inner .entry p {
+.entry p {
     line-height: 17px;
     margin: 0 0 1em;
 }
 
-.right-inner .entry p.image {
+.entry p.image {
     display: block;
     text-align: center;
     margin: 1.4em 0;
 }
 
-.right-inner .entry p.image img {
+.entry p.image img {
     display: block;
     margin: 0 auto;
 }
 
-.right-inner .entry p.image .under-img {
+.entry p.image .under-img {
     text-align: center;
     margin: 3px auto 0;
     font: 11px tahoma, sans-serif;
@@ -643,18 +643,18 @@ p {
     max-width: 90%;
 }
 
-.right-inner .entry-content ul.tr_map {
+.entry-content ul.tr_map {
     display: block;
     padding: 30px 0 30px 30px;
 }
 
-.right-inner .entry-content ul.tr_map li {
+.entry-content ul.tr_map li {
     float: left;
     padding: 0 10px 0 0;
     color: #7d7d7d;
 }
 
-.right-inner .entry-content ul.tr_map li span {
+.entry-content ul.tr_map li span {
     position: relative;
     top: -18px;
     display: inline-block;
@@ -666,7 +666,7 @@ p {
     font: bold 10px/20px arial, sans-serif;
 }
 
-.right-inner .entry-content ul.tr_map li ins {
+.entry-content ul.tr_map li ins {
     font: bold 12px/18px tahoma, sans-serif;
     color: #535252;
     background: #f6f5b3;
@@ -674,43 +674,43 @@ p {
     padding: 0 5px;
 }
 
-.right-inner .entry-content ul.tr_map li ul li {
+.entry-content ul.tr_map li ul li {
     display: block;
     float: none;
     margin: 0 0 10px 0;
 }
 
-.right-inner .entry p.image.left {
+.entry p.image.left {
     display: block;
     float: left;
     padding: 0px 10px 5px 0;
 }
 
-.right-inner .entry p.image.right {
+.entry p.image.right {
     display: block;
     float: right;
     padding: 0px 0px 5px 10px;
 }
 
-.right-inner .entry .entry-footer a {
+.entry .entry-footer a {
     text-decoration: underline;
     color: #41b3cc;
 }
 
-.right-inner .entry h2 {
+.entry h2 {
     font: italic 18px Arial, Tahoma, sans-serif;
     color: #0d8ca3;
     margin: 20px 0 20px 0px;
 }
 
-.right-inner .entry h3 {
+.entry h3 {
     color: #d4423f;
     font-weight: normal;
     text-decoration: underline;
     font-size: 12px;
 }
 
-.right-inner .entry .entry-footer .source {
+.entry .entry-footer .source {
     display: block;
     background: #d8fbff;
     width: auto;
@@ -719,12 +719,12 @@ p {
     color: #777;
 }
 
-.right-inner .entry .entry-footer .source img {
+.entry .entry-footer .source img {
     margin: 0px 3px -3px;
 
 }
 
-.right-inner .entry .entry-footer .spam {
+.entry .entry-footer .spam {
     display: block;
     background: #ff5656;
     width: auto;
@@ -733,7 +733,7 @@ p {
     clear: right;
 }
 
-.right-inner .entry .entry-footer .spam a {
+.entry .entry-footer .spam a {
     padding: 1px 15px 4px;
     color: #fff;
     text-decoration: none;
@@ -741,11 +741,11 @@ p {
     display: block;
 }
 
-.right-inner .entry .entry-footer .spam a span {
+.entry .entry-footer .spam a span {
     border-bottom: 1px dashed #fff;
 }
 
-.right-inner .entry .entry-footer .comm {
+.entry .entry-footer .comm {
     display: block;
     float: right;
     width: auto;
@@ -753,15 +753,15 @@ p {
     color: #737575;
 }
 
-.right-inner .entry .entry-footer a.comm {
+.entry .entry-footer a.comm {
     color: #2296b0;
 }
 
-.right-inner .entry .entry-footer span.comm {
+.entry .entry-footer span.comm {
     margin: -16px 0 0 0;
 }
 
-.right-inner .entry .entry-footer .comm span {
+.entry .entry-footer .comm span {
     font-size: 12px;
 }
 
@@ -861,7 +861,6 @@ p {
 }
 
 .comments .item .text p {
-    color: #888888;
     font-size: 12px;
 }
 

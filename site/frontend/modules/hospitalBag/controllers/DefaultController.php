@@ -3,6 +3,7 @@
 class DefaultController extends Controller
 {
 	public $layout = '//layouts/new';
+    public $pageTitle = 'Сумка в роддом';
 
 	public function actionIndex()
 	{	
@@ -22,11 +23,17 @@ class DefaultController extends Controller
 	
 	public function actionAddOffer()
 	{
-		if (isset($_POST['BagItem']) && ! Yii::app()->user->isGuest)
+        if (isset($_POST['BagItem']) && !Yii::app()->user->isGuest)
 		{
-			$item = new BagItem;
+            $item = new BagItem;
+            $item->attributes = $_POST['BagItem'];
+
+            if (isset($_POST['ajax']) && $_POST['ajax'] == 'addOffer'){
+                $item->attributes = $_POST['BagItem'];
+                echo CActiveForm::validate($item);
+                Yii::app()->end();
+            }
 			$offer = new BagOffer;
-			$item->attributes = $_POST['BagItem'];
 			$item->for = BagItem::FOR_MUM;
 			$item->category_id = 5;
 			$offer->user_id = Yii::app()->user->id;
@@ -42,8 +49,10 @@ class DefaultController extends Controller
 			{
 				$transaction->rollBack();
 			}
-			
-			$this->redirect('/hospitalBag');
+			$this->renderPartial('_comment',array(
+                'model'=>$offer,
+                'i'=>$_POST['i']
+            ));
 		}
 	}
 	

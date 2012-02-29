@@ -29,13 +29,11 @@ VK.Observer.subscribe('widgets.like.unliked', function(count){
 	rate(count);
 });
 	";
-	$js_work_report = "
-$('.comments .item .report').live('click', function() {
-	report($(this).parents('.item'));
-	return false;
-});
-";
-	$cs->registerScript('work_report', $js_work_report)->registerCssFile('/stylesheets/carusel.css')->registerScriptFile('http://vkontakte.ru/js/api/openapi.js', CClientScript::POS_HEAD)->registerScript('ilike', $ilike, CClientScript::POS_HEAD);
+
+	$cs
+        ->registerCssFile('/stylesheets/carusel.css')
+        ->registerScriptFile('http://vkontakte.ru/js/api/openapi.js', CClientScript::POS_HEAD)
+        ->registerScript('ilike', $ilike, CClientScript::POS_HEAD);
 ?>
 
 <?php $this->breadcrumbs = array(
@@ -101,8 +99,7 @@ $('.comments .item .report').live('click', function() {
 	</div>
 	
 	<?php $this->widget('CommentWidget', array(
-		'model' => 'ContestWork',
-		'object_id' => $work->work_id,
+		'model' => $work,
 	)); ?>
 	
 </div>

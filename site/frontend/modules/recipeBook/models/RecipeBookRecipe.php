@@ -7,7 +7,7 @@
  * @property string $id
  * @property string $name
  * @property string $disease_id
- * @property string $user_id
+ * @property string $author_id
  * @property string $text
  * @property string $source_type
  * @property string $internet_link
@@ -21,7 +21,7 @@
  * @property integer votes_con
  *
  * The followings are the available model relations:
- * @property User $user
+ * @property User $author
  */
 class RecipeBookRecipe extends CActiveRecord
 {
@@ -93,7 +93,7 @@ class RecipeBookRecipe extends CActiveRecord
             array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, disease_id, user_id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, create_time, views_amount', 'safe', 'on' => 'search'),
+            array('id, name, disease_id, author_id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, create_time, views_amount', 'safe', 'on' => 'search'),
         );
     }
 
@@ -105,7 +105,7 @@ class RecipeBookRecipe extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'ingredients' => array(self::HAS_MANY, 'RecipeBookIngredient', 'recipe_id'),
             'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
             'purposes' => array(self::MANY_MANY, 'RecipeBookPurpose', 'recipeBook_recipe_via_purpose(recipe_id, purpose_id)'),
@@ -122,7 +122,7 @@ class RecipeBookRecipe extends CActiveRecord
             'id' => 'ID',
             'name' => 'Заголовок рецепта',
             'disease_id' => 'Болезнь',
-            'user_id' => 'User',
+            'author_id' => 'Автор',
             'text' => 'Текст рецепта',
             'source_type' => 'Source Type',
             'internet_link' => 'Internet Link',
@@ -149,7 +149,7 @@ class RecipeBookRecipe extends CActiveRecord
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('disease_id', $this->disease_id, true);
-        $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('author_id', $this->author_id, true);
         $criteria->compare('text', $this->text, true);
         $criteria->compare('source_type', $this->source_type, true);
         $criteria->compare('internet_link', $this->internet_link, true);

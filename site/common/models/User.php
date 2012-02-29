@@ -63,7 +63,6 @@
  */
 class User extends CActiveRecord
 {
-
     public $verifyCode;
     public $current_password;
     public $new_password;
@@ -431,7 +430,7 @@ class User extends CActiveRecord
         Yii::import('site.frontend.modules.im.models.*');
         Yii::import('site.frontend.modules.im.components.*');
 
-        $dialog_id = Im::model()->getDialogByUser($this->id);
+        $dialog_id = Im::model()->getDialogIdByUser($this->id);
         if (isset($dialog_id)) {
             $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
         } else {
@@ -565,5 +564,54 @@ class User extends CActiveRecord
         if ($this->getRole() == 'user' && $weeks_gone < 5)
             return true;
         return false;
+    }
+
+    public function getFriendCriteria($friend_id)
+    {
+        return new CDbCriteria(array(
+            'condition' => '(user1_id = :user_id AND user2_id = :friend_id) OR (user1_id = :friend_id AND user2_id = :user_id)',
+            'params' => array(':user_id' => $this->primaryKey, ':friend_id' => $friend_id),
+        ));
+    }
+
+    /**
+     * @param $friend_id
+     * @return bool
+     */
+    public function addFriend($friend_id)
+    {
+        if ($this->isFriend($friend_id)) return false;
+        $friend = new Friend;
+        $friend->user1_id = $this->primaryKey;
+        $friend->user2_id = $friend_id;
+        return $friend->save();
+    }
+
+    /**
+     * @param $friend_id
+     * @return bool
+     */
+    public function isFriend($friend_id)
+    {
+        return Friend::model()->count($this->getFriendCriteria($friend_id)) != 0;
+    }
+
+    /**
+     * @param $friend_id
+     */
+    public function delFriend($friend_id)
+    {
+        return Friend::model()->deleteAll($this->getFriendCriteria($friend_id)) != 0;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFriends()
+    {
+        return User::findAll(array(
+            'join' => 'JOIN ' . Friend::model()->tableName() . ' ON (t.id = friends.user1_id AND friends.user2_id = :user_id) OR (t.id = friends.user2_id AND friends.user1_id = :user_id)',
+            'params' => array(':user_id' => $this->id),
+        ));
     }
 }

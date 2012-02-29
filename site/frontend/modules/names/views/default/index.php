@@ -1,17 +1,23 @@
 <script type="text/javascript">
     var gender;
-    var letter = '<?php echo (empty($letter))?null:$letter ?>';
+    var letter = <?php echo (empty($letter))?'null':"'".$letter."'" ?>;
     var page;
+    var title;
 
     $(function () {
 
         $('ul.letters a').click(function () {
             letter = $(this).text();
+            title = 'Имена на букву '+letter;
+            if (letter == 'Все'){
+                letter = null;
+                title = 'Все имена'
+            }
 
             if (typeof(window.history.pushState) == 'function'){
                 window.history.pushState(
                     { path: $(this).attr('href'), letter:letter },
-                    'Имена на букву '+letter,
+                    title,
                     $(this).attr('href')
                 );
             } else {
@@ -78,11 +84,16 @@
 
         $(window).bind('popstate', function(event) {
             var state = event.originalEvent.state;
+            letter = state.letter;
+
             if (state) {
                 $.ajax({
-                    url:state.path,
+                    url:'<?php echo Yii::app()->createUrl("/names/default/index") ?>',
+                    data:{
+                        letter:letter,
+                        gender:gender
+                    },
                     type:'GET',
-                    data:{gender:gender},
                     success:function (data) {
                         $('ul.letters li').removeClass('active');
 
@@ -110,7 +121,7 @@
     });
 </script>
 <ul class="letters">
-    <li<?php if (empty($letter)) echo ' class="active"' ?>><a href="#">Все</a></li>
+    <li<?php if (empty($letter)) echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index') ?>">Все</a></li>
     <li<?php if ($letter == 'А') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'А')) ?>">А</a></li>
     <li<?php if ($letter == 'Б') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Б')) ?>">Б</a></li>
     <li<?php if ($letter == 'В') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'В')) ?>">В</a></li>

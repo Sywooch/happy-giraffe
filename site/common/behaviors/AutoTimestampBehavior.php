@@ -10,6 +10,6 @@ class AutoTimestampBehavior extends CActiveRecordBehavior
             $this->Owner->{$this->created} = $now;
 		if($this->Owner->hasAttribute($this->updated))
 			$this->Owner->{$this->updated} = $now;
-        return true;    
+        return true;
     }
 } 

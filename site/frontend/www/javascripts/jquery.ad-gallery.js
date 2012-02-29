@@ -396,7 +396,7 @@
             context.slideshow.stop();
           };
         }
-      ).find('div').css('opacity', 0.7);
+      ).find('div').css('opacity', 1);
     },
     initBackAndForward: function() {
       var context = this;

@@ -21,6 +21,29 @@ class SiteController extends Controller
 		);
 	}
 
+    public function actionSearch($text = false, $page = 1)
+    {
+        $pages = new CPagination();
+        $pages->pageSize = 100000;
+        $criteria = new stdClass();
+        $criteria->from = 'community';
+        $criteria->select = '*';
+        $criteria->paginator = $pages;
+        $criteria->query = '*' . $text . '*';
+        $resIterator = Yii::app()->search->search($criteria);
+
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('t.id', array_keys($resIterator->getRawData()));
+        $criteria->with = array('travel', 'video', 'post');
+        $dataProvider = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria,
+        ));
+        $this->render('search', array(
+            'dataProvider' => $dataProvider,
+            'text' => $text,
+        ));
+    }
+
 	public function actionRegister()
 	{
 		$session = Yii::app()->session;

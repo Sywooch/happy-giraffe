@@ -10,6 +10,7 @@
  * @property string $text
  * @property string $status
  * @property integer $read_status
+ * @property string $updated
  * @property string $created
  *
  * The followings are the available model relations:
@@ -56,7 +57,7 @@ class FriendRequest extends CActiveRecord
             array('status', 'in', 'range' => array('pending', 'accepted', 'declined')),
             array('read_status', 'boolean'),
             array('to_id', 'compare', 'compareAttribute' => 'from_id', 'operator' => '!=', 'message' => 'Вы не можете отправить приглашение самому себе.'),
-            array('to_id', 'alreadySent'),
+            array('to_id', 'alreadySent', 'on' => 'insert'),
         );
 	}
 
@@ -87,6 +88,7 @@ class FriendRequest extends CActiveRecord
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
             )
         );
     }
@@ -104,6 +106,7 @@ class FriendRequest extends CActiveRecord
 			'status' => 'Статус',
 			'read_status' => 'Прочитано',
 			'created' => 'Создано',
+            'updated' => 'Обновлено',
 		);
 	}
 

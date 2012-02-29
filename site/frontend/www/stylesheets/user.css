@@ -2,8 +2,11 @@
 
 #user {line-height:normal;}
 
+#user a.pseudo {border-bottom:1px dashed #51afc3;text-decoration:none;line-height:normal;}
+
 #user .box-title {font-size:22px;color:#4c4d4d;padding-bottom:10px;}
-#user .box-title a {font-size:13px;margin-left:20px;}
+#user .box-title a {font-size:13px;margin-left:10px;}
+#user .box-title .btn {position:relative;top:4px;margin-right:15px;margin-left:0;}
 
 #user .header {padding-bottom:10px;}
 
@@ -15,7 +18,7 @@
 #user .header .user-name .online-status.online .icon {background-position:-44px -180px;}
 #user .header .user-name .online-status.offline .icon {background-position:-55px -180px;}
 
-#user .header .user-nav {margin-left:450px;padding-top:20px;}
+#user .header .user-nav {margin-left:450px;padding-top:20px;font-size:13px;}
 #user .header .user-nav ul {overflow:hidden;list-style:none;}
 #user .header .user-nav ul li {float:left;padding:0 10px;height:20px;margin:0 10px;}
 #user .header .user-nav ul li a {border-bottom:1px dashed #51afc3;text-decoration:none;height:16px;line-height:16px;margin:2px 0;display:block;}
@@ -27,6 +30,7 @@
 #user .user-cols .col-1 {float:left;width:240px;padding-right:20px;}
 #user .user-cols .col-2 {float:left;width:340px;padding-right:20px;}
 #user .user-cols .col-3 {float:left;width:340px;}
+#user .user-cols .col-23 {float:left;width:700px;}
 
 #user .user-photo {margin-bottom:10px;}
 #user .user-photo img {display:block;}
@@ -47,18 +51,36 @@
 #user .user-map {padding:10px 8px 7px;border:1px solid #f7f7f7;margin-bottom:20px;}
 #user .user-map .box-title {margin-left:6px;padding-bottom:15px;}
 
-#user .user-mood {font-size:22px;color:#484747;padding-bottom:10px;}
-#user .user-mood img {vertical-align:middle;}
 
-#user .user-status {background:#cdecff;padding:15px;position:relative;margin-bottom:10px;}
+#user .user-mood {font-size:22px;color:#484747;padding-bottom:10px;padding-left:15px;position:relative;}
+#user .user-mood img {vertical-align:middle;position:relative;top:-3px;}
+
+#user .user-mood .moods-list {position:absolute;right:0;top:100%;background:#fffeea;z-index:4;padding:5px;width:308px;font-size:9px;border:1px solid #e7e395;}
+#user .user-mood .moods-list {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+#user .user-mood .moods-list li {width:75px;float:left;text-align:center;border:1px solid #fffeea;}
+#user .user-mood .moods-list li {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:5px;height:100px;}
+#user .user-mood .moods-list li a {display:block;width:75px;height:95px;text-decoration:none;color:#918b1a;padding-top:5px;line-height:1;}
+#user .user-mood .moods-list li img {display:block;}
+#user .user-mood .moods-list li:hover {border-color:#e7e395;}
+#user .user-mood .moods-list:before {display:block;content:'';width:19px;height:16px;background:url(/images/common.png) no-repeat -557px -198px;position:absolute;bottom:100%;right:45px;}
+#user .user-mood a.small {font-size:11px;}
+
+
+
+#user .user-status {background:#cdecff;padding:10px 15px;position:relative;margin-bottom:10px;}
 #user .user-status {/*css3*/ border-radius:10px;}
 #user .user-status:after {display:block;content:'';width:45px;height:44px;background:url(/images/common.png) no-repeat -557px -152px;position:absolute;right:100%;top:25px;}
-#user .user-status .date {color:#908e8e;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;}
+#user .user-status .date {color:#908e8e;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;padding-bottom:8px;}
 #user .user-status p {color:#0281b0;font:italic 20px 'times new roman', 'times', arial, helvetica, sans-serif;}
+#user .user-status form {text-align:right;}
+#user .user-status textarea {vertical-align:bottom;overflow:auto;width:300px;max-width:300px;margin-right:5px;height:90px;padding:2px 5px;border:1px solid #c5e8ef;margin-bottom:5px;}
 
-#user .user-purpose {color:#4c4d4d;font-size:12px;position:relative;padding-left:100px;padding-top:5px;min-height:60px;margin-bottom:20px;}
-#user .user-purpose p {color:#fe4939;line-height:1;}
-#user .user-purpose .icon {display:block;width:78px;height:65px;background:url(/images/common.png) no-repeat -604px -153px;position:absolute;top:50%;left:11px;margin-top:-32px;}
+#user .user-purpose {color:#4c4d4d;font-size:11px;position:relative;padding-left:100px;min-height:60px;margin-bottom:20px;}
+#user .user-purpose p {color:#fe4939;line-height:1;font-size:14px;margin-top:5px;}
+#user .user-purpose p a {font-size:12px;}
+#user .user-purpose .icon {display:block;width:78px;height:65px;background:url(/images/common.png) no-repeat -604px -153px;position:absolute;top:0;left:11px;}
+#user .user-purpose form {text-align:right;margin:10px 0 0 -6px;}
+#user .user-purpose textarea {vertical-align:bottom;overflow:auto;width:228px;max-width:228px;margin-right:5px;height:90px;padding:2px 5px;border:1px solid #c5e8ef;margin-bottom:5px;}
 
 #user .user-blog {background:#e0ffda;padding:15px 0px 0 15px;margin-bottom:20px;}
 #user .user-blog ul {list-style:none;}
@@ -66,6 +88,13 @@
 #user .user-blog ul li a {font-weight:bold;}
 #user .user-blog ul li .date {color:#908e8e;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin:6px 0 8px;}
 #user .user-blog ul li p {}
+
+#user .user-blog-add {padding:5px;background:#e0ffda;}
+#user .user-photo-add {padding:5px;border:1px solid #f7f7f7;}
+
+#user .user-add a {vertical-align:middle;display:inline-block;font:italic 30px/1 'timew new roman', times, sans;}
+#user .user-add img {margin-right:20px;}
+
 
 #user .user-interests {}
 #user .user-interests ul {list-style:none;}
@@ -76,18 +105,19 @@
 #user .user-clubs ul {list-style:none;}
 #user .user-clubs ul li {float:left;margin:0 15px 0px 0;width:76px;height:130px;}
 #user .user-clubs ul li img {display:block;margin-bottom:2px;}
-#user .user-clubs ul li a {font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;line-height:10px;text-decoration:none;font-weight:bold;}
+#user .user-clubs ul li a {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;line-height:11px;text-decoration:none;font-weight:bold;}
 
-#user .user-albums {padding-left:15px;padding-bottom:20px;}
+#user .user-albums {padding:15px;border:1px solid #f3f3f3;margin-bottom:20px;}
+#user .user-albums .box-title .btn {margin-right:0;}
 #user .user-albums ul {}
 #user .user-albums ul li {padding-bottom:20px;}
 #user .user-albums ul li big {color:#4c4d4d;display:block;margin:0px 0 15px;font-size:14px;}
-#user .user-albums ul li .preview {position:relative;width:230px;height:180px;float:left;}
+#user .user-albums ul li .preview {position:relative;width:210px;height:180px;float:left;}
 #user .user-albums ul li .preview img {position:absolute;display:block;}
 #user .user-albums ul li .preview img.img-1 {top:0;left:0;}
 #user .user-albums ul li .preview img.img-2 {right:0;top:20px;}
 #user .user-albums ul li .preview img.img-3 {left:20px;bottom:0;}
-#user .user-albums ul li .more {color:#b9b9b9;font-size:13px;padding-top:50px;float:left;text-decoration:none;margin-left:10px;}
+#user .user-albums ul li .more {color:#b9b9b9;font-size:13px;padding-top:50px;float:left;text-decoration:none;margin-left:10px;max-width:80px;text-align:center}
 #user .user-albums ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
 
 #user .user-family {margin-bottom:20px;}

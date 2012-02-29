@@ -81,15 +81,6 @@ class AlbumPhoto extends CActiveRecord
         );
     }
 
-    public function scopes()
-    {
-        return array(
-            'forAlbum' => array(
-                'limit' => 3,
-            )
-        );
-    }
-
     /**
      * @return array
      */

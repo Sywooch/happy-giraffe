@@ -186,7 +186,7 @@
 
             </div>
 
-            <?php $this->widget('application.widgets.user.HoroscopeWidget',array('user'=>$user)) ?>
+            <?php //$this->widget('application.widgets.user.HoroscopeWidget',array('user'=>$user)) ?>
 
         </div>
 

@@ -2,7 +2,11 @@
 
 class UserCoreWidget extends CWidget
 {
+    /**
+     * @var User
+     */
     public $user;
+
     protected $isMyProfile;
 
     public function init()

@@ -10,9 +10,4 @@ class LocaionWidget extends UserCoreWidget
         parent::init();
         $this->visible = $this->isMyProfile || !empty($this->user->country_id);
     }
-
-    public function run()
-    {
-        $this->render('location');
-    }
 }

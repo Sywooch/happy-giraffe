@@ -13,6 +13,8 @@ class HoroscopeWidget extends UserCoreWidget
 
     public function run()
     {
+        if (!$this->visible)
+            return ;
         Yii::import('application.modules.horoscope.models.*');
 
         $user_zodiac = Horoscope::model()->getDateZodiac($this->user->birthday);
@@ -27,7 +29,7 @@ class HoroscopeWidget extends UserCoreWidget
             if ($forecast === null)
                 return;
 
-            $this->render('horoscope', array(
+            $this->render('HoroscopeWidget', array(
                 'user_zodiac' => $user_zodiac,
                 'forecast' => $forecast
             ));

@@ -60,15 +60,6 @@ class AjaxController extends Controller
         ));
     }
 
-	public function actionShowComments()
-	{
-		$this->widget('application.widgets.commentWidget.CommentWidget', array(
-			'entity' => $_POST['entity'],
-			'entity_id' => $_POST['entity_id'],
-			'onlyList' => TRUE,
-		));
-	}
-
     public function actionSendComment()
     {
         if (empty($_POST['edit-id'])){

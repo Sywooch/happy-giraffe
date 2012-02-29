@@ -20,6 +20,7 @@
             'class' => 'MyLinkPager',
             'header' => 'Страницы',
         ),
+        'id' => 'comment_list',
         'template' => '{items}
                 <div class="pagination pagination-center clearfix">
                     {summary}

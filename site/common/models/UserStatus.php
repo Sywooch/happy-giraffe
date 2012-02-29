@@ -59,6 +59,7 @@ class UserStatus extends CActiveRecord
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => null,
+                'timestampExpression' => time(),
             )
         );
     }

@@ -170,7 +170,7 @@ class MessageLog extends CActiveRecord
      */
     static function GetLastMessages($dialog_id)
     {
-        $last_deleted = self::LastDeletedMessage($dialog_id);
+        $last_deleted = self::LastDeletedMessageId($dialog_id);
         $models = Yii::app()->db->createCommand()
             ->select(array('id', 'user_id', 'text', 'created', 'read_status'))
             ->from('message_log');
@@ -205,7 +205,7 @@ class MessageLog extends CActiveRecord
      */
     static function GetMessagesBefore($dialog_id, $message_id)
     {
-        $last_deleted = self::LastDeletedMessage($dialog_id);
+        $last_deleted = self::LastDeletedMessageId($dialog_id);
 
         $models = Yii::app()->db->createCommand()
             ->select(array('id', 'user_id', 'text', 'created', 'read_status'))
@@ -233,8 +233,14 @@ class MessageLog extends CActiveRecord
 
         return array_reverse($models);
     }
-
-    public static function LastDeletedMessage($dialog_id)
+    
+    /**
+     * Last deleted Message id
+     * @static
+     * @param $dialog_id
+     * @return int
+     */
+    public static function LastDeletedMessageId($dialog_id)
     {
         $deleted = Yii::app()->db->createCommand()
             ->select(array('message_id'))

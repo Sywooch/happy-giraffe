@@ -101,11 +101,9 @@
                 'user' => $user,
             )); ?>
 
-            <div class="user-purpose">
-                <i class="icon"></i>
-                <span>Цель №1</span>
-                <p>Хочу в этом году поехать с семьей на море</p>
-            </div>
+            <?php $this->widget('UserPurposeWidget', array(
+                'user' => $user,
+            )); ?>
 
             <div class="user-blog">
 

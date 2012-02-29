@@ -45,7 +45,7 @@
         </div>
         <div class="gallery-photos clearfix">
             <ul>
-                <?php foreach ($model->photos('photos:forAlbum') as $photo): ?>
+                <?php foreach ($model->getRelated('photos', true, array('limit' => 3)) as $photo): ?>
                 <li>
                     <table>
                         <tr>

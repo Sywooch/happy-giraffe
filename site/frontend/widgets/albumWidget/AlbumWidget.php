@@ -12,9 +12,10 @@ class AlbumWidget extends CWidget
 
     public function run()
     {
+        $albums = $this->model->getRelated('albums', true, array('limit' => 2));
         Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/user.css');
         $this->render('index', array(
-            'albums' => $this->model->getRelated('albums', true, array('limit' => 2))
+            'albums' => $albums
         ));
     }
 }

@@ -27,6 +27,7 @@ class DefaultController extends Controller
     {
         $this->pageTitle = 'Диалоги';
         $dialogs = MessageDialog::GetUserDialogs();
+
         $this->render('index', array(
             'dialogs' => $dialogs
         ));
@@ -36,6 +37,7 @@ class DefaultController extends Controller
     {
         $this->pageTitle = 'Новые Сообщения';
         $dialogs = MessageDialog::GetUserNewDialogs();
+
         $this->render('index', array(
             'dialogs' => $dialogs
         ));
@@ -45,6 +47,7 @@ class DefaultController extends Controller
     {
         $this->pageTitle = 'Кто онлайн';
         $dialogs = MessageDialog::GetUserOnlineDialogs();
+
         $this->render('index', array(
             'dialogs' => $dialogs
         ));
@@ -53,10 +56,11 @@ class DefaultController extends Controller
     public function actionDialog($id)
     {
         $this->pageTitle = 'Просмотр диалогов';
-        $this->checkDialog($id);
+        $this->loadModel($id);
         ActiveDialogs::model()->addDialog($id);
         ActiveDialogs::model()->SetLastDialogId($id);
         $messages = MessageLog::GetLastMessages($id);
+
         $this->render('dialog', array(
             'messages' => $messages,
             'id' => $id
@@ -66,7 +70,7 @@ class DefaultController extends Controller
     public function actionAjaxDialog()
     {
         $id = Yii::app()->request->getPost('id');
-        $this->checkDialog($id);
+        $this->loadModel($id);
         $messages = MessageLog::GetLastMessages($id);
         $response = array(
             'status' => true,
@@ -87,7 +91,7 @@ class DefaultController extends Controller
 
         $user = Im::model()->getUser($id);
         //find if dialog with this user exist
-        $dialog_id = Im::model()->getDialogByUser($id);
+        $dialog_id = Im::model()->getDialogIdByUser($id);
         if (empty($dialog_id)) {
             $dialog = new MessageDialog;
             $dialog->title = $user->getFullName();
@@ -224,7 +228,7 @@ class DefaultController extends Controller
     public function actionOpenedDialog()
     {
         $dialog_id = Yii::app()->request->getPost('id');
-        $this->checkDialog($dialog_id);
+        $this->loadModel($dialog_id);
         ActiveDialogs::model()->addDialog($dialog_id);
 
         $response = array(
@@ -236,23 +240,6 @@ class DefaultController extends Controller
         );
 
         echo CJSON::encode($response);
-    }
-
-    /**
-     * @param int $id model id
-     * @throws CHttpException
-     */
-    public function checkDialog($id)
-    {
-        $dialog = Yii::app()->db->createCommand()
-            ->select('id')
-            ->from('message_dialog')
-            ->where('id=:id', array(
-            ':id' => $id,
-        ))
-            ->queryScalar();
-        if ($dialog === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
     }
 
     /**

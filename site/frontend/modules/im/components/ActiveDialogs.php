@@ -17,7 +17,7 @@ class ActiveDialogs
 //        Yii::app()->user->setState($this->_cache_id, array());
         $this->_ids = Yii::app()->user->getState($this->_cache_id);
         $this->_lastDialog = Yii::app()->user->getState($this->_last_dialog_cache_id);
-        if ($this->_ids === null)
+        if (!is_array($this->_ids))
             $this->_ids = array();
     }
 

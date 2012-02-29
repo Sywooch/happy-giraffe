@@ -139,7 +139,7 @@
             </div>
 
             <?php $this->widget('site.frontend.widgets.user.UserAlbumWidget', array(
-                'model' => $user,
+                'user' => $user,
             )); ?>
 
         </div>

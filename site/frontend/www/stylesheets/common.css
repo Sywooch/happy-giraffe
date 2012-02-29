@@ -34,6 +34,8 @@ sub {font-size:smaller;position:relative;top:5px;}
 
 textarea {overflow:auto;font-family:arial,sans-serif;}
 
+a {cursor:pointer;}
+
 .a-right {float:right;}
 
 /* remember to define focus styles! */
@@ -273,9 +275,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .pagination {font-size:11px;padding:15px 0;color:#ababab;}
 .pagination .summary {display:inline-block;padding-right:15px;}
 .pagination.pagination-center {text-align:center;}
-.pagination.pagination-center .summary {margin-left:-180px;display:inline-block;}
+.pagination.pagination-center .summary {margin-left:-180px;}
 .pagination .pager {display:inline;}
-.pagination ul {display:inline-block;margin-left:15px;}
+.pagination ul {display:inline-block;margin-left:8px;}
 .pagination ul li {display:inline-block;padding:0 3px;text-indent:0 !important;margin:0 !important;}
 .pagination ul li a {padding:0 3px;text-decoration:none;display:block;color:#2296b0;}
 .pagination ul li.selected a {padding:0;padding-right:11px;background:url(../images/common.png) no-repeat right -101px;font-weight:bold;}
@@ -916,7 +918,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .like-block .block-in {width:660px;padding:20px 20px 20px;position:relative;margin:0 auto;}
 
-.like-block .title {font-family: Arial, Tahoma, sans-serif;font-size:26px;display:block;text-align:center;}
+.like-block .title {font-family: Arial, Tahoma, sans-serif;font-size:26px;line-height:normal;display:block;text-align:center;}
 
 .like-block .rating {text-align: right;font: 16px/1 tahoma, sans-serif;position:absolute;right:30px;top:106px;}
 .like-block .rating span {font: bold 36px/1 tahoma, sans-serif;position: relative;color: #FF6600;top:2px;}

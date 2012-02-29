@@ -1,33 +1,24 @@
 <div class="user-albums">
 
-    <div class="box-title">Фотоальбомы <a href="">Все альбомы (12)</a></div>
-
+    <div class="box-title">Фотоальбомы <?php echo CHtml::link('Все альбомы (' . count($this->model->albums) . ')', array('/albums/index')); ?></div>
     <ul>
-        <li>
-            <big>Альбом «Поездка в Турцию»</big>
-
-            <div class="clearfix">
-                <div class="preview">
-                    <img class="img-1" src="/images/album_photo_01.jpg">
-                    <img class="img-2" src="/images/album_photo_02.jpg">
-                    <img class="img-3" src="/images/album_photo_03.jpg">
+        <?php foreach($albums as $album): ?>
+            <?php if(count($album->photos) == 0) continue; ?>
+            <li>
+                <big>Альбом &#171;<?php echo $album->title; ?>&#187;</big>
+                <div class="clearfix">
+                    <div class="preview">
+                        <?php $index = 1; ?>
+                        <?php foreach($album->getRelated('photos', true, array('limit' => 3)) as $photo): ?>
+                            <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180), '', array('class' => 'img-' . $index)), array('photo', 'id' => $photo->id)); ?>
+                            <?php $index++; ?>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php if(($count = count($album->photos)) > 3): ?>
+                    <a class="more" href="<?php echo Yii::app()->createUrl('albums/view', array('id' => $album->id)); ?>"><i class="icon"></i>еще <?php echo $count - 3; ?> фото</a>
+                    <?php endif; ?>
                 </div>
-                <a class="more" href=""><i class="icon"></i>еще 63 фото</a>
-            </div>
-        </li>
-        <li>
-            <big>Альбом «Поездка в Турцию»</big>
-
-            <div class="clearfix">
-                <div class="preview">
-                    <img class="img-1" src="/images/album_photo_04.jpg">
-                    <img class="img-2" src="/images/album_photo_05.jpg">
-                    <img class="img-3" src="/images/album_photo_06.jpg">
-                </div>
-                <a class="more" href=""><i class="icon"></i>еще 63 фото</a>
-            </div>
-        </li>
-
+            </li>
+        <?php endforeach; ?>
     </ul>
-
 </div>

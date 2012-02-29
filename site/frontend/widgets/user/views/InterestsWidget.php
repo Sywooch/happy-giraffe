@@ -5,6 +5,7 @@
  *
  * @var $user User
  */
+if ($this->visible){
 ?><div class="user-interests">
 
     <div class="box-title">Интересы</div>
@@ -14,4 +15,4 @@
             <li><a href="#" class="<?php echo $interest->category->css_class ?>"><?php echo $interest->name ?></a></li>
         <?php endforeach; ?>
     </ul>
-</div>
+</div><?php }

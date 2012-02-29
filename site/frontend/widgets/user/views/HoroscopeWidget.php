@@ -5,10 +5,12 @@
 ?>
 <div class="user-horoscope">
 
-    <!--<div class="actions">
+    <!--
+    <div class="actions">
         <a href="" class="close"></a>
         <a href="" class="settings"></a>
-    </div>-->
+    </div>
+    -->
 
     <div class="clearfix">
         <div class="img"><img src="/images/user_horoscope_01.png"></div>

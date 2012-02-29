@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 29.02.12
  */
-class LocaionWidget extends UserCoreWidget
+class LocationWidget extends UserCoreWidget
 {
     public function init()
     {

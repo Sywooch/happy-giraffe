@@ -2002,6 +2002,8 @@ label {
 }
 #step7.prikorm .inner_bl {
     background: url(../images/blue_trans2.png) 0 0 repeat;
+    top: 70px;
+    width: 350px;
 }
 
 .prikorm span.question_title {

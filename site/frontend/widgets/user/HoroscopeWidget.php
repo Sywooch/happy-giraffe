@@ -21,7 +21,7 @@ class HoroscopeWidget extends UserCoreWidget
             if ($user_zodiac === null)
                 return;
 
-            if (CController::beginCache('HoroscopeWidget-' . $user_zodiac . '- ' . date("Y-m-d"), array('duration' => 3600))) {
+//            if (CController::beginCache('HoroscopeWidget-' . $user_zodiac . '- ' . date("Y-m-d"), array('duration' => 3600))) {
                 $criteria = new CDbCriteria;
                 $criteria->compare('zodiac', $user_zodiac);
                 $criteria->compare('`date`', date("Y-m-d"));
@@ -34,8 +34,8 @@ class HoroscopeWidget extends UserCoreWidget
                     'forecast' => $forecast
                 ));
 
-                CController::endCache();
-            }
+//                CController::endCache();
+//            }
         }
     }
 }

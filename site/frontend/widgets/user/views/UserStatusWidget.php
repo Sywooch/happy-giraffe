@@ -54,7 +54,7 @@
 <?php endif; ?>
 
 <div id="user-status-form">
-    <?php echo CHtml::beginForm(array('user/updateStatus')); ?>
+    <?php echo CHtml::beginForm(array('user/createRelated', 'relation' => 'status')); ?>
     <?php echo CHtml::textArea('text'); ?><br/>
     <button class="btn btn-green-small"><span><span>Ок</span></span></button>
     <?php echo CHtml::endForm(); ?>

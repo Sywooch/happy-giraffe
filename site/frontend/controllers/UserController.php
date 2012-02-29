@@ -15,15 +15,20 @@ class UserController extends Controller
         ));
     }
 
-    public function actionUpdateStatus()
+    /*
+     * @todo убрать $model->refresh()
+     */
+    public function actionCreateRelated($relation)
     {
         if (Yii::app()->request->isAjaxRequest) {
-            $status = new UserStatus;
-            $status->user_id = Yii::app()->user->id;
-            $status->text = Yii::app()->request->getPost('text');
-            if ($status->save()) {
-                echo $this->renderPartial('application.widgets.user.views._status', array(
-                    'status' => $status,
+            $entity = 'User' . ucfirst($relation);
+            $model = new $entity;
+            $model->user_id = Yii::app()->user->id;
+            $model->text = Yii::app()->request->getPost('text');
+            if ($model->save()) {
+                $model->refresh();
+                echo $this->renderPartial('application.widgets.user.views._' . $relation, array(
+                    $relation => $model,
                     'canUpdate' => true,
                 ));
             }

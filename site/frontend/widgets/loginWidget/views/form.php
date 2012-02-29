@@ -14,7 +14,7 @@
                 'id' => 'login-form',
                 'action' => Yii::app()->createUrl('site/login'),
                 'enableClientValidation' => false,
-                /*'enableAjaxValidation' => true,*/
+                'enableAjaxValidation' => true,
                 'clientOptions' => array(
                     'validateOnSubmit' => true,
                 ),

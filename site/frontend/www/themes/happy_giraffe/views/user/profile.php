@@ -1,18 +1,8 @@
 <?php
     $cs = Yii::app()->clientScript;
 
-    $js = "
-
-    ";
-
-    $css = "
-
-    ";
-
     $cs
-        ->registerCssFile('/stylesheets/user.css')
-        ->registerCss('user_profile', $css)
-        ->registerScript('user_profile', $js);
+        ->registerCssFile('/stylesheets/user.css');
 ?>
 
 <div id="user">
@@ -107,10 +97,9 @@
                 Мое настроение &ndash; <img src="/images/user_mood_01.png" />
             </div>
 
-            <div class="user-status">
-                <div class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", strtotime($user->status->created)); ?></div>
-                <p><?php echo $user->status->text; ?></p>
-            </div>
+            <?php $this->widget('UserStatusWidget', array(
+                'user' => $user,
+            )); ?>
 
             <div class="user-purpose">
                 <i class="icon"></i>

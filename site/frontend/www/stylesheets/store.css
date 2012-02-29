@@ -258,7 +258,7 @@
 #cart .success p {margin:1em 0;}
 #cart .success p.note {background:#fdf9db;padding:5px 20px;margin-left:-20px;}
 #cart .success p a.download {background:#f89731;color:#fff;display:inline-block;padding:0 8px;text-decoration:none;}
-#cart .success p a.download {/*css3*/border-radius:8px;}
+#cart .success p a.download {/*css3*/-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
 
 
 

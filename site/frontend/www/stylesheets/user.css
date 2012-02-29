@@ -76,7 +76,7 @@
 #user .user-clubs ul {list-style:none;}
 #user .user-clubs ul li {float:left;margin:0 15px 0px 0;width:76px;height:130px;}
 #user .user-clubs ul li img {display:block;margin-bottom:2px;}
-#user .user-clubs ul li a {font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;line-height:10px;text-decoration:none;font-weight:bold;}
+#user .user-clubs ul li a {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;line-height:11px;text-decoration:none;font-weight:bold;}
 
 #user .user-albums {padding-left:15px;padding-bottom:20px;}
 #user .user-albums ul {}
@@ -88,7 +88,7 @@
 #user .user-albums ul li .preview img.img-2 {right:0;top:20px;}
 #user .user-albums ul li .preview img.img-3 {left:20px;bottom:0;}
 #user .user-albums ul li .more {color:#b9b9b9;font-size:13px;padding-top:50px;float:left;text-decoration:none;margin-left:10px;}
-#user .user-albums ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
+#user .user-albums ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin-bottom:10px;}
 
 #user .user-family {margin-bottom:20px;}
 #user .user-family .t {height:39px;background:url(/images/bg_user_family.png) no-repeat 0 0;}

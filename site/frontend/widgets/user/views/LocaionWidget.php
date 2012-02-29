@@ -3,6 +3,7 @@
  * Author: alexk984
  * Date: 29.02.12
  */
+if ($this->visible){
 $js = 'var geocoder;
     var map;
     var placemark;
@@ -58,4 +59,4 @@ Yii::app()->clientScript
 
     <div id="YMapsID" style="width:322px;height:199px;"></div>
 
-</div>
+</div><?php }

@@ -52,9 +52,7 @@
 	
 
 	
-	$cs
-		->registerScript('form_post', $js)
-        ->registerScriptFile('/javascripts/chosen.jquery.min.js');
+	$cs->registerScript('form_post', $js);
 		
 ?>
 

@@ -62,9 +62,9 @@ class AjaxController extends Controller
 
 	public function actionShowComments()
 	{
-		$this->widget('CommentWidget', array(
-			'model' => $_POST['model'],
-			'object_id' => $_POST['object_id'],
+		$this->widget('application.widgets.commentWidget.CommentWidget', array(
+			'entity' => $_POST['entity'],
+			'entity_id' => $_POST['entity_id'],
 			'onlyList' => TRUE,
 		));
 	}

@@ -150,7 +150,7 @@ class DefaultController extends Controller
 
         $criteria = new CDbCriteria;
         $criteria->compare('disease_id', $model->id);
-        $criteria->with = array('user'=>array('select'=>array('id','first_name','last_name','gender','pic_small')));
+        $criteria->with = array('author'=>array('select'=>array('id','first_name','last_name','gender','pic_small')));
         $count = RecipeBookRecipe::model()->count($criteria);
         $pages = new CPagination($count);
         $pages->pageSize = 10;
@@ -179,7 +179,7 @@ class DefaultController extends Controller
             ),
             'ingredients',
             'commentsCount',
-            'user'=>array('select'=>array('id','first_name','last_name','gender','pic_small'))
+            'author'=>array('select'=>array('id','first_name','last_name','gender','pic_small'))
         ))->findByPk($id);
 
         if (!isset($model))

@@ -1,5 +1,4 @@
 <?php Yii::app()->clientScript
-    ->registerScriptFile('/javascripts/chosen.jquery.min.js')
 //    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?sensor=false&language=ru&region=ru')
     ->registerScriptFile('http://api-maps.yandex.ru/1.1/index.xml?key=' . Yii::app()->params['yandex_map_key']);
 $user = User::getUserById(Yii::app()->user->getId());

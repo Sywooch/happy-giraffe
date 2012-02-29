@@ -154,37 +154,9 @@
 
             </div>
 
-            <div class="user-albums">
-
-                <div class="box-title">Фотоальбомы <a href="">Все альбомы (12)</a></div>
-
-                <ul>
-                    <li>
-                        <big>Альбом «Поездка в Турцию»</big>
-                        <div class="clearfix">
-                            <div class="preview">
-                                <img src="/images/album_photo_01.jpg" class="img-1" />
-                                <img src="/images/album_photo_02.jpg" class="img-2" />
-                                <img src="/images/album_photo_03.jpg" class="img-3" />
-                            </div>
-                            <a href="" class="more"><i class="icon"></i>еще 63 фото</a>
-                        </div>
-                    </li>
-                    <li>
-                        <big>Альбом «Поездка в Турцию»</big>
-                        <div class="cleafix">
-                            <div class="preview">
-                                <img src="/images/album_photo_04.jpg" class="img-1" />
-                                <img src="/images/album_photo_05.jpg" class="img-2" />
-                                <img src="/images/album_photo_06.jpg" class="img-3" />
-                            </div>
-                            <a href="" class="more"><i class="icon"></i>еще 63 фото</a>
-                        </div>
-                    </li>
-
-                </ul>
-
-            </div>
+            <?php $this->widget('site.frontend.widgets.user.UserAlbumWidget', array(
+                'model' => $user,
+            )); ?>
 
         </div>
 

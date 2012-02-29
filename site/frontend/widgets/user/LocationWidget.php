@@ -8,6 +8,6 @@ class LocationWidget extends UserCoreWidget
     public function init()
     {
         parent::init();
-        $this->visible = $this->isMyProfile || !empty($this->user->country_id);
+        $this->visible = !empty($this->user->country_id);
     }
 }

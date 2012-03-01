@@ -182,7 +182,7 @@ class UFiles
 	 * Initially processes $_FILES superglobal for easier use.
 	 * Only for internal usage.
 	 */
-	protected static function prefetchFiles()
+	public static function prefetchFiles()
 	{
 		self::$files = array();
 

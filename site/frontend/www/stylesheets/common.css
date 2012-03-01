@@ -116,7 +116,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .report-block .right-b {
     float: left;
-    width: 370px;
+    width: 350px;
 }
 
 .report-block .left-b big {
@@ -137,7 +137,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 }
 
 .report-block textarea {
-    width: 100%;
+    width: 98%;
     max-width: 100%;
     min-width: 100%;
     margin: 0 0 10px 0;

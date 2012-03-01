@@ -2,7 +2,9 @@
 
 class ProfileController extends Controller
 {
-
+    /**
+     * @var User
+     */
     public $user;
 
     public function actions()
@@ -42,7 +44,7 @@ class ProfileController extends Controller
     protected function beforeAction($action)
     {
         Yii::import('site.frontend.modules.geo.models.*');
-        $this->user = User::model()->with('settlement')->findByPk(Yii::app()->user->id);
+        $this->user = User::model()->with('settlement')->findByPk(Yii::app()->user->getId());
         return true;
     }
 
@@ -79,6 +81,14 @@ class ProfileController extends Controller
         {
             $baby_models[] = (isset($this->user->babies[$i]) && $this->user->babies[$i] instanceof Baby) ? $this->user->babies[$i] : new Baby;
         }
+
+        if (isset($_POST['relationship_status'])) {
+            $this->user->relationship_status = $_POST['relationship_status'];
+            if (isset($_POST['relationship_status']))
+                $this->user->partner_name = $_POST['partner_name'];
+            $this->user->update(array('relationship_status', 'partner_name'));
+        }
+
         if (isset($_POST['Baby'])) {
             for ($i = 0; $i < $maxBabies; $i++)
             {

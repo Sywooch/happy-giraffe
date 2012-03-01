@@ -4,7 +4,7 @@
  */
 $year = date('Y');
 $model = new BloodRefreshForm();
-$js="
+$js = "
 $(function () {
         //blood refresh
         $('body').delegate('#blood-refresh-prev-month', 'click', function () {
@@ -18,7 +18,7 @@ $(function () {
             }
             $('#blood_refr_review_month').val(month);
             $.ajax({
-                url:'".Yii::app()->createUrl("/babySex/default/bloodUpdate")."',
+                url:'" . Yii::app()->createUrl("/babySex/default/bloodUpdate") . "',
                 data:$('#blood-refresh-form').serialize(),
                 type:'POST',
                 success:function (data) {
@@ -39,7 +39,7 @@ $(function () {
             }
             $('#blood_refr_review_month').val(month);
             $.ajax({
-                url:'".Yii::app()->createUrl("/babySex/default/bloodUpdate")."',
+                url:'" . Yii::app()->createUrl("/babySex/default/bloodUpdate") . "',
                 data:$('#blood-refresh-form').serialize(),
                 type:'POST',
                 success:function (data) {
@@ -53,7 +53,7 @@ $(function () {
             $('#blood_refr_review_year').val($('#ch_yr_cal').val());
             $('#blood_refr_review_month').val($('#ch_mn_cal').val());
             $.ajax({
-                url:'".Yii::app()->createUrl("/babySex/default/bloodUpdate")."',
+                url:'" . Yii::app()->createUrl("/babySex/default/bloodUpdate") . "',
                 data:$('#blood-refresh-form').serialize(),
                 type:'POST',
                 success:function (data) {
@@ -83,7 +83,7 @@ $(function () {
         });
     });
 ";
-Yii::app()->clientScript->registerScript('blood-update',$js);
+Yii::app()->clientScript->registerScript('blood-update', $js);
 ?>
 <div class="child_sex_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(
@@ -149,8 +149,7 @@ Yii::app()->clientScript->registerScript('blood-update',$js);
         циклы представляют собой определенные временные периоды, которые начинаются со дня рождения. Если на момент
         зачатия «моложе» была кровь женщины – значит, родится девочка, если кровь мужчины – мальчик.</p>
 
-    <p>По правде говоря, эффективность данного метода недостаточно высока. Данный метод планирования пола будущего
-        малыша дает верный прогноз в 50-52% случаев. Так что, если результат не оправдал ваших ожиданий – не
-        расстраивайтесь. Главное – чтобы это был здоровый малыш, а поэкспериментировать вы сможете еще – со следующим
-        ребенком.</p>
+    <p>По правде говоря, эффективность данного метода недостаточно высока. Так что, если результат не оправдал ваших
+        ожиданий – не расстраивайтесь. Главное – чтобы это был здоровый малыш, а поэкспериментировать вы сможете еще –
+        со следующим ребенком.</p>
 </div>

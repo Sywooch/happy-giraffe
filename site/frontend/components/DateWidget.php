@@ -40,7 +40,7 @@ class DateWidget extends CWidget
 		);
 		
 		if ($this->model->{$this->attribute} !== null)
-		{	
+		{
 			$pieces = explode('-', $this->model->{$this->attribute});
 			$this->_current = array(
 				'd' => $pieces[2],

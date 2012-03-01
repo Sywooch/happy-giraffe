@@ -76,111 +76,115 @@
             <?php $this->widget('application.widgets.user.InterestsWidget',array('user'=>$user)) ?>
 
         </div>
+        <div class="col-23 clearfix">
+            <div class="clearfix">
+                <div class="col-2">
 
-        <div class="col-2">
+                    <?php $this->widget('UserMoodWidget', array(
+                        'user' => $user,
+                    )); ?>
 
-            <?php $this->widget('UserMoodWidget', array(
-                'user' => $user,
-            )); ?>
+                    <?php $this->widget('UserStatusWidget', array(
+                        'user' => $user,
+                    )); ?>
 
-            <?php $this->widget('UserStatusWidget', array(
-                'user' => $user,
-            )); ?>
+                    <?php $this->widget('UserPurposeWidget', array(
+                        'user' => $user,
+                    )); ?>
 
-            <?php $this->widget('UserPurposeWidget', array(
-                'user' => $user,
-            )); ?>
+                    <div class="user-blog">
 
-            <div class="user-blog">
+                        <div class="box-title">Блог <a href="">Все записи (25)</a></div>
 
-                <div class="box-title">Блог <a href="">Все записи (25)</a></div>
+                        <ul>
+                            <li>
+                                <a href="">Профилактика атопического дерматита</a>
+                                <div class="date">3 сентября 2011, 08:25</div>
+                                <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке...</p>
+                            </li>
+                            <li>
+                                <a href="">Профилактика атопического дерматита</a>
+                                <div class="date">3 сентября 2011, 08:25</div>
+                                <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке...</p>
+                            </li>
+                            <li>
+                                <a href="">Профилактика атопического дерматита</a>
+                                <div class="date">3 сентября 2011, 08:25</div>
+                                <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке...</p>
+                            </li>
+                            <li>
+                                <a href="">Профилактика атопического дерматита</a>
+                                <div class="date">3 сентября 2011, 08:25</div>
+                                <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке...</p>
+                            </li>
 
-                <ul>
-                    <li>
-                        <a href="">Профилактика атопического дерматита</a>
-                        <div class="date">3 сентября 2011, 08:25</div>
-                        <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке...</p>
-                    </li>
-                    <li>
-                        <a href="">Профилактика атопического дерматита</a>
-                        <div class="date">3 сентября 2011, 08:25</div>
-                        <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке...</p>
-                    </li>
-                    <li>
-                        <a href="">Профилактика атопического дерматита</a>
-                        <div class="date">3 сентября 2011, 08:25</div>
-                        <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке...</p>
-                    </li>
-                    <li>
-                        <a href="">Профилактика атопического дерматита</a>
-                        <div class="date">3 сентября 2011, 08:25</div>
-                        <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке...</p>
-                    </li>
+                        </ul>
 
-                </ul>
-
-            </div>
-
-            <div class="user-clubs clearfix">
-
-                <div class="box-title">Клубы <a href="">Все клубы (105)</a></div>
-
-                <ul>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход Дети до года</a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим до года</a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Дети до года</a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход Дети до и уход Дети до года</a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим</a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Дети</a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход</a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход Дети до года</a></li>
-                </ul>
-
-            </div>
-
-            <?php $this->widget('site.frontend.widgets.user.UserAlbumWidget', array('user' => $user,)); ?>
-
-        </div>
-
-        <div class="col-3">
-
-            <?php $this->widget('UserFriendsWidget', array(
-                'user' => $user,
-            )); ?>
-
-            <?php $this->widget('application.widgets.user.LocationWidget',array(
-            'user'=>$user)) ?>
-
-            <div class="user-weather">
-
-                <div class="location">
-                    <div class="flag flag-ru"></div>Россия<br/>
-                    <big>Гаврилов-Ям</big>
-                </div>
-
-                <div class="clearfix">
-
-                    <div class="img"><img src="/images/user_weather_01.png" /></div>
-
-                    <div class="text">
-                        <big>-16</big>
-                        <div class="row hl"><span>Ночью</span>-22</div>
-                        <div class="row"><span>Завтра</span>-17</div>
                     </div>
 
+                    <div class="user-clubs clearfix">
+
+                        <div class="box-title">Клубы <a href="">Все клубы (105)</a></div>
+
+                        <ul>
+                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход Дети до года</a></li>
+                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим до года</a></li>
+                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Дети до года</a></li>
+                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход Дети до и уход Дети до года</a></li>
+                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим</a></li>
+                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Дети</a></li>
+                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход</a></li>
+                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход Дети до года</a></li>
+                        </ul>
+
+                    </div>
+
+                    <?php $this->widget('site.frontend.widgets.user.UserAlbumWidget', array('user' => $user,)); ?>
+
                 </div>
 
-                <a href="">Прогноз на неделю</a>
+                <div class="col-3">
 
+                    <?php $this->widget('UserFriendsWidget', array(
+                        'user' => $user,
+                    )); ?>
+
+                    <?php $this->widget('application.widgets.user.LocationWidget',array(
+                    'user'=>$user)) ?>
+
+                    <div class="user-weather">
+
+                        <div class="location">
+                            <div class="flag flag-ru"></div>Россия<br/>
+                            <big>Гаврилов-Ям</big>
+                        </div>
+
+                        <div class="clearfix">
+
+                            <div class="img"><img src="/images/user_weather_01.png" /></div>
+
+                            <div class="text">
+                                <big>-16</big>
+                                <div class="row hl"><span>Ночью</span>-22</div>
+                                <div class="row"><span>Завтра</span>-17</div>
+                            </div>
+
+                        </div>
+
+                        <a href="">Прогноз на неделю</a>
+
+                    </div>
+
+                    <?php $this->widget('application.widgets.user.HoroscopeWidget',array('user'=>$user)) ?>
+
+                </div>
             </div>
-
-            <?php $this->widget('application.widgets.user.HoroscopeWidget',array('user'=>$user)) ?>
-
+            <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
+                'model' => $user,
+                'title' => 'Гостевая'
+            )); ?>
         </div>
 
     </div>
-    <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
-        'model' => $user,
-        'title' => 'Гостевая'
-    )); ?>
+
 </div>

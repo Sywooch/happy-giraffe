@@ -3,8 +3,11 @@
     <div class="header">
         <div class="clearfix">
             <div class="user">
-                <div class="ava"><img src="/images/ava.png"></div>
-                <p><span>Анастасия</span><br>Россия, Ярославль</p>
+                <?php $this->widget('AvatarWidget', array('user' => Yii::app()->user->model, 'withMail' => false)); ?>
+                <p><span><?php echo Yii::app()->user->model->fullName; ?></span>
+                    <?php if(Yii::app()->user->model->country): ?>
+                        <br><?php echo Yii::app()->user->model->country->name; ?></p>
+                    <?php endif; ?>
             </div>
             <div class="back-link">← <a href="">В анкету</a></div>
         </div>

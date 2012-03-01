@@ -1,12 +1,3 @@
-<style type="text/css">
-    #cuselFrame-project {
-        z-index: 12;
-    }
-
-    #cuselFrame-size {
-        z-index: 11;
-    }
-</style>
 <script type="text/javascript">
     $(function () {
         $('#project').change(function () {
@@ -93,7 +84,7 @@
 <div class="seo-text">
     <h1 class="summary-title">Сколько пряжи для вязания нужно?</h1>
 
-    <p>Вы хотите связать жилет для мужа, платье для себя или пинетки для будущего малыша, но не знаете, на что хватит
+    <p>Вы хотите связать жилет для мужа, пуловер для себя или носочки для будущего малыша, но не знаете, на что хватит
         пряжи дома, а на что – лучше купить в магазине?</p>
 
     <div class="brushed">

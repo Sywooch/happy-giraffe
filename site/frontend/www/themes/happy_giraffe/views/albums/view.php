@@ -41,7 +41,7 @@
                     <tr>
                         <td class="img">
                             <div>
-                                <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180)), array('photo', 'id' => $photo->id)); ?>
+                                <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180)), array('/albums/photo', 'id' => $photo->id)); ?>
                                 <?php if($photo->checkAccess): ?>
                                     <a href="" class="remove"></a>
                                 <?php endif; ?>

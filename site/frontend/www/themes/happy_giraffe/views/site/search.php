@@ -29,6 +29,10 @@
                     {pager}
                 </div>
             ',
+            'viewData' => array(
+                'search_text' => $text,
+                'search_index' => $index,
+            )
         ));
         ?>
     </div>
@@ -37,9 +41,9 @@
 
     <div class="content-search-filter">
         <ul>
-            <li class="active"><a href=""><span>Все</span>365</a></li>
-            <li><a href=""><span>Посты</span>361</a></li>
-            <li><a href=""><span>Видео</span>4</a></li>
+            <li<?php echo $index == 'community' ? ' class="active"' : '' ?>><a href="<?php echo $this->createUrl('/site/search', array('text' => $text)) ?>"><span>Все</span><?php echo $allCount; ?></a></li>
+            <li<?php echo $index == 'communityText' ? ' class="active"' : '' ?>><a href="<?php echo $this->createUrl('/site/search', array('text' => $text, 'index' => 'communityText')) ?>"><span>Посты</span><?php echo $textCount; ?></a></li>
+            <li<?php echo $index == 'communityVideo' ? ' class="active"' : '' ?>><a href="<?php echo $this->createUrl('/site/search', array('text' => $text, 'index' => 'communityVideo')) ?>"><span>Видео</span><?php echo $videoCount; ?></a></li>
         </ul>
     </div>
 

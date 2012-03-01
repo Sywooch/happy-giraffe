@@ -24,12 +24,14 @@
  * @property string $mail_id
  * @property string $last_active
  * @property integer $online
- * @propery string $register_date
- * @propery string $login_date
- * @propery integer $street_id
- * @propery string $room
- * @propery string $house
- * @propery string $last_ip
+ * @property string $register_date
+ * @property string $login_date
+ * @property integer $street_id
+ * @property string $room
+ * @property string $house
+ * @property string $last_ip
+ * @property string $relationship_status
+ * @property string $partner_name
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -59,6 +61,8 @@
  * @property GeoCountry $country
  * @property GeoRusSettlement $settlement
  * @property GeoRusStreet $street
+ * @property Album[] $albums
+ * @property Interest[] interests
  */
 class User extends CActiveRecord
 {
@@ -67,6 +71,26 @@ class User extends CActiveRecord
     public $new_password;
     public $new_password_repeat;
     public $remember;
+
+    public $women_rel = array(
+        '1'=>'Замужем',
+        '2'=>'Не замужем',
+        '3'=>'Вдова',
+        '4'=>'Есть друг',
+        '5'=>'Невеста',
+        '6'=>'Влюблена',
+        '7'=>'В поиске',
+    );
+
+    public $men_rel = array(
+        '1'=>'Женат',
+        '2'=>'Не женат',
+        '3'=>'Вдовец',
+        '4'=>'Есть подруга',
+        '5'=>'Жених',
+        '6'=>'Влюблен',
+        '7'=>'В поиске',
+    );
 
     public function getAge()
     {
@@ -105,7 +129,7 @@ class User extends CActiveRecord
             array('first_name, last_name', 'length', 'max' => 50),
             array('email', 'email'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup'),
-            array('online', 'numerical', 'integerOnly' => true),
+            array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
             array('gender', 'boolean'),
@@ -113,6 +137,7 @@ class User extends CActiveRecord
             array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
             array('blocked, login_date, register_date', 'safe'),
+            array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -183,6 +208,12 @@ class User extends CActiveRecord
             'vaccineDateVotes' => array(self::HAS_MANY, 'VaccineDateVote', 'user_id'),
 
             'commentsCount' => array(self::STAT, 'Comment', 'author_id'),
+
+            'status' => array(self::HAS_ONE, 'UserStatus', 'user_id', 'order' => 'status.created DESC'),
+            'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
+            'albums' => array(self::HAS_MANY, 'Album', 'user_id'),
+            'interests' => array(self::MANY_MANY, 'Interest', 'user_interest(interest_id, user_id)'),
+            'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
         );
     }
 
@@ -442,7 +473,8 @@ class User extends CActiveRecord
         Yii::import('site.frontend.modules.geo.models.*');
 
         if (!empty($this->country_id))
-            return '<img src="/images/blank.gif" class="flag flag-' . strtolower($this->country->iso_code) . '" title="' . $this->country->name . '" />';
+            return '<div class="flag flag-' . strtolower($this->country->iso_code) . '" title="'
+                . $this->country->name . '"></div>';
         else
             return '';
     }
@@ -460,10 +492,10 @@ class User extends CActiveRecord
                 $str .= ', ' . $this->settlement->name;
             } elseif (empty($this->settlement->district_id)) {
                 $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
-                $str .= ', ' . $this->settlement->region->name . ', ' . $type . ' ' . $this->settlement->name;
+                $str .= ', ' . str_replace('респ.', '', $this->settlement->region->name) . ', ' . $type . ' ' . $this->settlement->name;
             } else {
                 $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
-                $str .= ', ' . $this->settlement->region->name . ', ' . $this->settlement->district->name . ', ' . $type . ' ' . $this->settlement->name;
+                $str .= ', ' . str_replace('респ.', '', $this->settlement->region->name) . ', ' . $this->settlement->district->name . ', ' . $type . ' ' . $this->settlement->name;
             }
 
             if (!empty($this->street_id))
@@ -486,14 +518,14 @@ class User extends CActiveRecord
         $str = $this->country->name;
         if (!empty($this->settlement_id)) {
             if (empty($this->settlement->region_id)) {
-                $str .= ', ' . $this->settlement->name;
+                $str .= '<br>' . $this->settlement->name;
             } elseif ($this->settlement->region_id == 42) {
-                $str .= ', ' . $this->settlement->name;
+                $str .= '<br>' . $this->settlement->name;
             } elseif ($this->settlement->region_id == 59) {
-                $str .= ', ' . $this->settlement->name;
+                $str .= '<br>' . $this->settlement->name;
             } else {
                 $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
-                $str .= ', ' . $this->settlement->region->name . ', ' . $type . ' ' . $this->settlement->name;
+                $str .= '<br>' . $this->settlement->region->name . '<br>' . $type . ' ' . $this->settlement->name;
             }
 
             return $str;
@@ -563,11 +595,15 @@ class User extends CActiveRecord
         return false;
     }
 
+    /**
+     * @param $friend_id
+     * @return CDbCriteria
+     */
     public function getFriendCriteria($friend_id)
     {
         return new CDbCriteria(array(
             'condition' => '(user1_id = :user_id AND user2_id = :friend_id) OR (user1_id = :friend_id AND user2_id = :user_id)',
-            'params' => array(':user_id' => $this->primaryKey, ':friend_id' => $friend_id),
+            'params' => array(':user_id' => $this->id, ':friend_id' => $friend_id),
         ));
     }
 
@@ -579,7 +615,7 @@ class User extends CActiveRecord
     {
         if ($this->isFriend($friend_id)) return false;
         $friend = new Friend;
-        $friend->user1_id = $this->primaryKey;
+        $friend->user1_id = $this->id;
         $friend->user2_id = $friend_id;
         return $friend->save();
     }
@@ -595,20 +631,84 @@ class User extends CActiveRecord
 
     /**
      * @param $friend_id
+     * @return bool
      */
     public function delFriend($friend_id)
     {
         return Friend::model()->deleteAll($this->getFriendCriteria($friend_id)) != 0;
     }
 
-    /**
-     * @return array
-     */
-    public function getFriends()
+    public function getFriendSelectCriteria()
     {
-        return User::findAll(array(
+        return new CDbCriteria(array(
             'join' => 'JOIN ' . Friend::model()->tableName() . ' ON (t.id = friends.user1_id AND friends.user2_id = :user_id) OR (t.id = friends.user2_id AND friends.user1_id = :user_id)',
             'params' => array(':user_id' => $this->id),
         ));
+    }
+
+    /**
+     * @param string $condition
+     * @param array $params
+     * @return array
+     */
+    public function getFriends($condition = '', $params = array())
+    {
+        $criteria = $this->getCommandBuilder()->createCriteria($condition, $params);
+        $criteria->mergeWith($this->getFriendSelectCriteria());
+
+        return self::model()->findAll($criteria);
+    }
+
+    /**
+     * @return int
+     */
+    public function getFriendsCount()
+    {
+        return self::model()->count($this->getFriendSelectCriteria());
+    }
+
+    /**
+     * @return CActiveDataProvider
+     */
+    public function getFriendRequests()
+    {
+        return new CActiveDataProvider('FriendRequest', array(
+            'criteria'=>array(
+                'condition' => 'from_id = :user_id OR to_id = :user_id',
+                'params' => array(':user_id' => Yii::app()->user->id),
+                'with' => array('from', 'to'),
+            ),
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
+        ));
+    }
+
+    public function getRelashionshipList(){
+        if ($this->gender == 0)
+            return $this->women_rel;
+        if ($this->gender == 1)
+            return $this->men_rel;
+        return array();
+    }
+
+    public function getPartnerTitle($id){
+        if ($this->gender == 1){
+            if ($id == 1)
+                return 'Моя жена:';
+            if ($id == 4)
+                return 'Моя подруга:';
+            if ($id == 5)
+                return 'Моя невеста:';
+        }else{
+            if ($id == 1)
+                return 'Мой муж:';
+            if ($id == 4)
+                return 'Мой друг:';
+            if ($id == 5)
+                return 'Мой жених:';
+        }
+
+        return '';
     }
 }

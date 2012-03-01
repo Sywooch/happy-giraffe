@@ -38,22 +38,25 @@ $this->user->refresh();
 ); ?>
 
 	<div class="profile-form-in">
-	
+
+     <?php $form = $this->beginWidget('CActiveForm', array('id' => 'baby-form')); ?>
 		<div class="subtitle">Семейное положение:</div>
 	
 		<div class="row">
-			<select>
-				<option>Замужем</option>
-				<option>В активном поиске</option>
-			</select>							
+            <?php echo CHtml::dropDownList('relationship_status', $this->user->relationship_status,
+            array('' => 'нет ответа') + $this->user->getRelashionshipList(),
+            array(
+                'class' => 'chzn',
+            )); ?>
 		</div>
 	
-		<div class="row row-inline">
+		<div class="row row-inline" id="partner_name_bl"<?php
+        if (!in_array($this->user->relationship_status, array(1,4,5))) echo ' style="display:none;"' ?>>
 		
-			<div class="row-title">Мой муж:</div>
+			<div class="row-title"><?php echo $this->user->getPartnerTitle($this->user->relationship_status) ?></div>
 			<div class="row-elements">
 				<div class="col">
-					<input type="text" />
+                    <?php echo CHtml::textField('partner_name', $this->user->partner_name) ?>
 				</div>									
 			</div>
 	
@@ -80,7 +83,6 @@ $this->user->refresh();
 		
 		</div>
 		<br/>
-		<?php $form = $this->beginWidget('CActiveForm', array('id' => 'baby-form')); ?>
 		<?php for ($i = 0; $i < $maxBabies; $i++): ?>
 			<?php
 				$baby_model = $baby_models[$i];
@@ -169,3 +171,20 @@ $this->user->refresh();
 <div class="bottom">
 	<button class="btn btn-green-medium btn-arrow-right" onclick="$('#baby-form').submit();"><span><span>Сохранить<img src="/images/arrow_r.png" /></span></span></button>
 </div>
+<script type="text/javascript">
+    $('#relationship_status').change(function(){
+        if ($(this).val() == 1 || $(this).val() == 4 || $(this).val() == 5){
+            if ($(this).val() == 1)
+                $('#partner_name_bl .row-title').text('<?php echo $this->user->getPartnerTitle(1) ?>');
+            if ($(this).val() == 4)
+                $('#partner_name_bl .row-title').text('<?php echo $this->user->getPartnerTitle(4) ?>');
+            if ($(this).val() == 5)
+                $('#partner_name_bl .row-title').text('<?php echo $this->user->getPartnerTitle(5) ?>');
+
+            $('#partner_name_bl').show();
+        }else{
+            $('#partner_name_bl').hide();
+            $('#partner_name').val('');
+        }
+    });
+</script>

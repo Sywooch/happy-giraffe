@@ -9,6 +9,6 @@ class FamilyWidget extends UserCoreWidget
     {
         parent::init();
         $this->visible = $this->isMyProfile || (count($this->user->babies) > 0) || (
-            User::relationshipStatusHasPartner($this->user->relationship_status));
+            User::relationshipStatusHasPartner($this->user->relationship_status) && isset($this->user->partner));
     }
 }

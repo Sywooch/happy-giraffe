@@ -60,7 +60,7 @@ $this->user->refresh();
                     <?php echo CHtml::textField('partner_name', empty($this->user->partner)?'':$this->user->partner->name) ?>
 				</div>
 			</div>
-			<div class="row-title">Заметка</div>
+			<div class="row-title">Заметка:</div>
             <div class="row-elements">
                 <div class="col">
                     <?php echo CHtml::textField('partner_notice', empty($this->user->partner)?'':$this->user->partner->notice) ?>
@@ -138,6 +138,8 @@ $this->user->refresh();
 								<?php echo CHtml::textField('Baby['.$i.'][name]', $baby_model->name, array('maxlength' => 255)) ?>
 							</div>
 						</div>
+
+                        <div class="row-title">Заметка:</div>
                         <div class="row-elements">
                             <div class="col">
                                 <?php echo CHtml::textField('Baby['.$i.'][notice]', $baby_model->notice, array('maxlength' => 1024)) ?>

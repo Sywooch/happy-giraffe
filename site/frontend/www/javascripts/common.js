@@ -215,6 +215,12 @@ function initSelects(block){
 	//alert(block);
 }
 
+ function confirmMessage(el){
+	var box =  $(el).parents('.popup');
+	box.find('.confirm-after').fadeIn();
+	box.find('.confirm-before').hide();
+ }
+
 function cl(value) {
     console.log(value);
 }

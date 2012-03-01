@@ -38,12 +38,12 @@
             <div class="user-meta">
 
                 <div class="location"><?php echo $user->getFlag() ?> <?php echo isset($user->settlement)?$user->settlement->name:'' ?></div>
-                <span>День рождения:</span> 15 декабря (39 лет)
+                <span>День рождения:</span> <?php echo Yii::app()->dateFormatter->format("dd MMMM", $user->birthday); ?> (<?php echo $user->age; ?>)
 
                 <div class="details">
-                    Зарегистрирван  25 февраля 2012<br/>
-                    Баллов: <span class="rating">12 867</span><br/>
-                    Уровень: <span class="rang">Ветеран</span><br/>
+                    Зарегистрирван  <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date); ?><br/>
+                    <!--Баллов: <span class="rating">12 867</span><br/>
+                    Уровень: <span class="rang">Ветеран</span><br/>-->
                 </div>
 
             </div>

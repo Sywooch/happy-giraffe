@@ -273,6 +273,7 @@ class HDate
     /**
      * @static
      * @param string $time
+     * @param string $delimiter
      * @return string
      */
     public static function GetFormattedTime($time, $delimiter = ' ')

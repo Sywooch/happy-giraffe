@@ -65,14 +65,18 @@ class ProfileController extends Controller
         ));
     }
 
-    public function actionPhoto()
+    public function actionPhoto($returnUrl = null)
     {
         if (isset($_POST['User'])) {
             $this->user->attributes = $_POST['User'];
             $this->user->save(true, array('pic_small'));
+            if (isset($_POST['returnUrl']) && !empty($_POST['returnUrl']))
+                $this->redirect(urldecode($_POST['returnUrl']));
         }
 
-        $this->render('photo');
+        $this->render('photo',array(
+            'returnUrl'=>$returnUrl
+        ));
     }
 
     public function actionFamily()

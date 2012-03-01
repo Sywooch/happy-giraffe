@@ -36,7 +36,13 @@
         <div class="col-1">
 
             <div class="user-photo">
-                <img src="/images/user_profile_img.jpg" />
+                <?php if ($user->id == Yii::app()->user->getId()):?>
+                <a href="<?php echo Yii::app()->createUrl('profile/photo', array('returnUrl'=>urlencode(Yii::app()->createUrl('user/profile', array('user_id'=>Yii::app()->user->getId()))))) ?>">
+                    <img src="<?php echo $user->pic_small->getUrl('bigAva'); ?>" />
+                </a>
+                <?php else: ?>
+                    <img src="<?php echo $user->pic_small->getUrl('bigAva'); ?>" />
+                <?php endif ?>
             </div>
 
             <div class="user-meta">

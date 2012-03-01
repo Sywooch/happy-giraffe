@@ -53,4 +53,5 @@ $('#User_pic_small').change(function() {
 <div class="bottom">
 	&nbsp;
 </div>
+<?php echo CHtml::textField('returnUrl', $returnUrl) ?>
 <?php $this->endWidget(); ?>

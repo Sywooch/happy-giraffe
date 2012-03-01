@@ -48,6 +48,8 @@ a {
     color: #0498b8;
 }
 
+a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
+
 p {
     font-size: 12px;
     line-height: 17px;

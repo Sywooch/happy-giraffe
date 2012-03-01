@@ -50,7 +50,7 @@
 					</div>
 					<div class="item-title"><?php echo $w->work_title; ?></div>
 					<div class="mark">
-						<span><?php echo $w->work_rate; ?></span> баллов
+						<span>x</span> баллов
 					</div>
 				</li>
 			<?php endforeach; ?>

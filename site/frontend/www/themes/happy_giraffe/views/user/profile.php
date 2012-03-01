@@ -1,4 +1,7 @@
 <?php
+/* @var $this Controller
+ * @var $user User
+ */
     $cs = Yii::app()->clientScript;
 
     $cs
@@ -34,7 +37,7 @@
 
             <div class="user-meta">
 
-                <div class="location"><div class="flag flag-ru"></div> Гаврилов-Ям</div>
+                <div class="location"><?php echo $user->getFlag() ?> <?php echo isset($user->settlement)?$user->settlement->name:'' ?></div>
                 <span>День рождения:</span> 15 декабря (39 лет)
 
                 <div class="details">

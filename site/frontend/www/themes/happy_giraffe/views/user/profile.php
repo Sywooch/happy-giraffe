@@ -9,7 +9,7 @@
 
     <div class="header clearfix">
         <div class="user-name">
-            <h1>Богоявленский<br/>Александр</h1>
+            <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
             <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
         </div>
 
@@ -76,9 +76,9 @@
 
         <div class="col-2">
 
-            <div class="user-mood">
-                Мое настроение &ndash; <img src="/images/user_mood_01.png" />
-            </div>
+            <?php $this->widget('UserMoodWidget', array(
+                'user' => $user,
+            )); ?>
 
             <?php $this->widget('UserStatusWidget', array(
                 'user' => $user,

@@ -39,4 +39,21 @@ class UserController extends Controller
             }
         }
     }
+
+    public function actionUpdateMood()
+    {
+        if (Yii::app()->request->isAjaxRequest) {
+            $user = Yii::app()->user->model;
+            $user->mood_id = Yii::app()->request->getPost('mood_id');
+            if ($user->save(true, array('mood_id'))) {
+                echo $this->renderPartial('application.widgets.user.views._mood', array(
+                    'mood' => $user->mood,
+                    'canUpdate' => true,
+                ));
+            }
+            else {
+                print_r($user->errors);
+            }
+        }
+    }
 }

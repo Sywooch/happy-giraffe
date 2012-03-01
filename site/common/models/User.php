@@ -98,7 +98,8 @@ class User extends CActiveRecord
 
         $birthday = new DateTime($this->birthday);
         $now = new DateTime(date('Y-m-d'));
-        $age = $birthday->diff($now);
+        $interval = $birthday->diff($now);
+        $age = $interval->y;
 
         return $age . ' ' . HDate::normallizeAge($age);
     }

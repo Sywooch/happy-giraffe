@@ -33,6 +33,24 @@ $(document).ready(function() {
 
     if ($('input[placeholder], textarea[placeholder]').size() > 0 ) $('input[placeholder], textarea[placeholder]').placeholder();
 	
+	if ($('#userMood').size() > 0) {
+		
+		$('#userMood').bind({
+			'mousemove':function(e){
+				$('#userMoodTooltip').css({
+					left: e.pageX - ($('#userMoodTooltip').innerWidth() / 2), top: e.pageY - ($('#userMoodTooltip').innerHeight() + 10)
+				});
+			},
+			'mouseenter': function(e){
+				$('#userMoodTooltip').fadeIn();
+			},
+			'mouseleave': function(e){
+				$('#userMoodTooltip').fadeOut();
+			}
+		})
+		
+	}
+	
 });
 
 function addAttributesToCart(form, update) {
@@ -219,6 +237,7 @@ function initSelects(block){
 	var box =  $(el).parents('.popup');
 	box.find('.confirm-after').fadeIn();
 	box.find('.confirm-before').hide();
+	setTimeout(function(){$.fancybox.close()}, 2000)
  }
 
 function cl(value) {

@@ -31,27 +31,23 @@
         ->registerCss('UserStatusWidget', $css);
 ?>
 
-<?php if ($visible): ?>
-    <div class="user-status">
-        <?php if ($isMyProfile): ?>
-            <?php if ($user->status === null): ?>
-                <p><a href="" class="pseudo">Что бы Вы хотели всем сообщить?</a></p>
-            <?php else: ?>
-                <?php $this->render('_status', array(
-                    'status' => $user->status,
-                    'canUpdate' => true,
-                )); ?>
-            <?php endif; ?>
+<div class="user-status">
+    <?php if ($isMyProfile): ?>
+        <?php if ($user->status === null): ?>
+            <p><a href="" class="pseudo">Что бы Вы хотели всем сообщить?</a></p>
         <?php else: ?>
-            <?php if ($user->status): ?>
-                <?php $this->render('_status', array(
-                    'status' => $user->status,
-                    'canUpdate' => false,
-                )); ?>
-            <?php endif; ?>
+            <?php $this->render('_status', array(
+                'status' => $user->status,
+                'canUpdate' => true,
+            )); ?>
         <?php endif; ?>
-    </div>
-<?php endif; ?>
+    <?php else: ?>
+        <?php $this->render('_status', array(
+            'status' => $user->status,
+            'canUpdate' => false,
+        )); ?>
+    <?php endif; ?>
+</div>
 
 <div id="user-status-form">
     <?php echo CHtml::beginForm(array('user/createRelated', 'relation' => 'status')); ?>

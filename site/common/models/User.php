@@ -473,7 +473,8 @@ class User extends CActiveRecord
         Yii::import('site.frontend.modules.geo.models.*');
 
         if (!empty($this->country_id))
-            return '<img src="/images/blank.gif" class="flag flag-' . strtolower($this->country->iso_code) . '" title="' . $this->country->name . '" />';
+            return '<div class="flag flag-' . strtolower($this->country->iso_code) . '" title="'
+                . $this->country->name . '"></div>';
         else
             return '';
     }

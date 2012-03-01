@@ -21,16 +21,27 @@ class SiteController extends Controller
 		);
 	}
 
-    public function actionSearch($text = false, $page = 1)
+    public function actionSearch($text = false, $index = false)
     {
+        $index = $index ? $index : 'community';
         $pages = new CPagination();
         $pages->pageSize = 100000;
         $criteria = new stdClass();
-        $criteria->from = 'community';
+        $criteria->from = $index;
         $criteria->select = '*';
         $criteria->paginator = $pages;
         $criteria->query = '*' . $text . '*';
         $resIterator = Yii::app()->search->search($criteria);
+
+        $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
+        $allCount = count($allSearch['matches']);
+
+        $textSearch = Yii::app()->search->select('*')->from('communityText')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
+        $textCount = count($textSearch['matches']);
+
+        $videoSearch = Yii::app()->search->select('*')->from('communityVideo')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
+        $videoCount = count($videoSearch['matches']);
+
 
         $criteria = new CDbCriteria;
         $criteria->addInCondition('t.id', array_keys($resIterator->getRawData()));
@@ -38,10 +49,10 @@ class SiteController extends Controller
         $dataProvider = new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,
         ));
-        $this->render('search', array(
-            'dataProvider' => $dataProvider,
-            'text' => $text,
-        ));
+
+        $viewData = compact('dataProvider', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
+
+        $this->render('search', $viewData);
     }
 
 	public function actionRegister()

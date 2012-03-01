@@ -13,7 +13,11 @@
     <div class="header clearfix">
         <div class="user-name">
             <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
-            <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
+            <?php if ($user->online): ?>
+                <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
+            <?php else: ?>
+                <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->login_date); ?></span></div>
+            <?php endif; ?>
         </div>
 
         <div class="user-nav">
@@ -41,7 +45,7 @@
                 <?php if ($user->birthday): ?><span>День рождения:</span> <?php echo Yii::app()->dateFormatter->format("dd MMMM", $user->birthday); ?> (<?php echo $user->age . ' ' . $user->ageSuffix; ?>)<?php endif; ?>
 
                 <div class="details">
-                    Зарегистрирван  <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date); ?><br/>
+                    Зарегистрирован  <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date); ?><br/>
                     <!--Баллов: <span class="rating">12 867</span><br/>
                     Уровень: <span class="rang">Ветеран</span><br/>-->
                 </div>

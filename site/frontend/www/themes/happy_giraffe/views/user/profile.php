@@ -52,30 +52,7 @@
 
             </div>
 
-            <div class="user-family">
-                <div class="t"></div>
-                <div class="c">
-                    <ul>
-                        <li class="clearfix">
-                            <big>Моя жена</big>
-                            <div class="img"><a href=""><img src="/images/user_friends_img.jpg" /></a><span>Светлана</span></div>
-                            <p>Очень любит готовить, заниматься с детьми</p>
-                        </li>
-                        <li class="clearfix">
-                            <big>Моя дочь</big>
-                            <div class="img"><a href=""><img src="/images/user_friends_img.jpg" /></a><span>Иришка, <span>3 года</span></span></div>
-                            <p>Очень любит готовить, заниматься с детьми</p>
-                        </li>
-                        <li class="clearfix">
-                            <big>Мой сын</big>
-                            <div class="img"><a href=""><img src="/images/user_friends_img.jpg" /></a><span>Артем, <span>10 лет</span></span></div>
-                            <p>Очень любит готовить, заниматься с детьми</p>
-                        </li>
-
-                    </ul>
-                </div>
-                <div class="b"></div>
-            </div>
+            <?php $this->widget('application.widgets.user.FamilyWidget',array('user'=>$user)) ?>
 
             <?php $this->widget('application.widgets.user.InterestsWidget',array('user'=>$user)) ?>
 

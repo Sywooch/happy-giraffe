@@ -85,7 +85,7 @@
 								<li><a href="">Видео</a></li>
 							</ul>
 							
-							<a href="" class="club-join-btn">Вступить в клуб</a>
+							<a href="#joinClub" class="club-join-btn fancy">Вступить в клуб</a>
 							
 						</div>
 						
@@ -126,7 +126,7 @@
 								<div class="admin-actions">
 									<a href="" class="edit"><i class="icon"></i></a>
 									<a href="" class="move">Переместить</a>
-									<a href="" class="remove"><i class="icon"></i></a>
+									<a href="#deletePost" class="remove fancy"><i class="icon"></i></a>
 								</div>
 								
 								<div class="source">Источник:&nbsp;<img src="/images/ico.jpg"/>&nbsp;<a class="link" href="http://www.championat.com/">Чемпионат.com</a></div>
@@ -284,7 +284,7 @@
 									<div class="user">
 										<div class="ava"><img src="/images/ava.png"></div>
 										<div class="details">
-											<span class="icon-status status-online"></span><a href="">Дарья</a>
+											<span class="icon-status status-online"></span><a href="">Дарья Супердлиннаяфамилияударьи</a>
 											<div class="location">
 												<div class="flag flag-ru"></div>
 												Гаврилов-Ям
@@ -461,6 +461,29 @@
 		</form>
 		
 	</div>
+	
+	<div id="joinClub" class="popup-confirm popup">
+		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
+		<div class="confirm-question">
+			<p>Чтобы размещать материалы и добавлять<br/>комментарии, Вы должны вступить в клуб!</p>
+		</div>
+		<div class="bottom">
+			<a href="" class="btn btn-gray-medium"><span><span>Отменить</span></span></a>
+			<a href="" class="btn btn-green-medium"><span><span>Вступить в клуб</span></span></a>
+		</div>
+	</div>
+	
+	<div id="deletePost" class="popup-confirm popup">
+		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
+		<div class="confirm-question">
+			<p>Вы уверены, что<br/>хотите удалить этот<br/>комментарий?</p>
+		</div>
+		<div class="bottom">
+			<a href="" class="btn btn-gray-medium"><span><span>Отменить</span></span></a>
+			<a href="" class="btn btn-red-medium"><span><span>Удалить</span></span></a>
+		</div>
+	</div>
+	
 </div>
 </body>
 </html>

@@ -3,10 +3,10 @@
     <div class="header">
         <div class="clearfix">
             <div class="user">
-                <?php $this->widget('AvatarWidget', array('user' => Yii::app()->user->model, 'withMail' => false)); ?>
-                <p><span><?php echo Yii::app()->user->model->fullName; ?></span>
-                    <?php if(Yii::app()->user->model->country): ?>
-                        <br><?php echo Yii::app()->user->model->country->name; ?></p>
+                <?php $this->widget('AvatarWidget', array('user' => $user, 'withMail' => false)); ?>
+                <p><span><?php echo $user->fullName; ?></span>
+                    <?php if($user->country): ?>
+                        <br><?php echo $user->country->name; ?></p>
                     <?php endif; ?>
             </div>
             <div class="back-link">← <a href="">В анкету</a></div>

@@ -96,10 +96,16 @@ class User extends CActiveRecord
     {
         if ($this->birthday === null) return null;
 
-        $date1 = new DateTime($this->birthday);
-        $date2 = new DateTime(date('Y-m-d'));
-        $interval = $date1->diff($date2);
-        return $interval->y;
+        $birthday = new DateTime($this->birthday);
+        $now = new DateTime(date('Y-m-d'));
+        $interval = $birthday->diff($now);
+        $age = $interval->y;
+        return $age;
+    }
+
+    public function getAgeSuffix()
+    {
+        return HDate::normallizeAge($this->age);
     }
 
     /**
@@ -669,8 +675,8 @@ class User extends CActiveRecord
      */
     public function getFriends($condition = '', $params = array())
     {
-        $criteria = $this->getCommandBuilder()->createCriteria($condition, $params);
-        $criteria->mergeWith($this->getFriendSelectCriteria());
+        $criteria = $this->getFriendSelectCriteria();
+        $criteria->mergeWith($this->getCommandBuilder()->createCriteria($condition, $params));
 
         return self::model()->findAll($criteria);
     }

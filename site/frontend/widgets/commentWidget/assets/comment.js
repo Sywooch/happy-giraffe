@@ -28,7 +28,6 @@ var Comment = {
     goTo : function(index, currentPage) {
         var page = Math.ceil(index / 10);
         if(page != currentPage) {
-            console.log(page);
             var pager = $('#comment_list .yiiPager .page:eq(' + (page - 1) + ')');
             var url = false;
             if(pager.size() > 0)
@@ -39,5 +38,6 @@ var Comment = {
         } else {
             document.location.hash = '#comment_' + index.toString();
         }
+        return false;
     }
 }

@@ -137,6 +137,7 @@ class User extends CActiveRecord
             array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
             array('blocked, login_date, register_date', 'safe'),
+            array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -212,6 +213,7 @@ class User extends CActiveRecord
             'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
             'albums' => array(self::HAS_MANY, 'Album', 'user_id'),
             'interests' => array(self::MANY_MANY, 'Interest', 'user_interest(interest_id, user_id)'),
+            'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
         );
     }
 
@@ -471,7 +473,8 @@ class User extends CActiveRecord
         Yii::import('site.frontend.modules.geo.models.*');
 
         if (!empty($this->country_id))
-            return '<img src="/images/blank.gif" class="flag flag-' . strtolower($this->country->iso_code) . '" title="' . $this->country->name . '" />';
+            return '<div class="flag flag-' . strtolower($this->country->iso_code) . '" title="'
+                . $this->country->name . '"></div>';
         else
             return '';
     }
@@ -634,11 +637,17 @@ class User extends CActiveRecord
     /**
      * @return CActiveDataProvider
      */
-    public function getFriends()
+    public function getFriends($condition = '', $params = array())
     {
-        return new CActiveDataProvider('User', array(
+        $baseCriteria = new CDbCriteria(array(
             'join' => 'JOIN ' . Friend::model()->tableName() . ' ON (t.id = friends.user1_id AND friends.user2_id = :user_id) OR (t.id = friends.user2_id AND friends.user1_id = :user_id)',
             'params' => array(':user_id' => $this->id),
+        ));
+        $criteria = $this->getCommandBuilder()->createCriteria($condition, $params);
+        $criteria->mergeWith($baseCriteria);
+
+        return new CActiveDataProvider('User', array(
+            'criteria' => $criteria,
         ));
     }
 

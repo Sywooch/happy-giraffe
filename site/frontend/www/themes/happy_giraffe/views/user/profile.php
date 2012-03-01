@@ -1,4 +1,7 @@
 <?php
+/* @var $this Controller
+ * @var $user User
+ */
     $cs = Yii::app()->clientScript;
 
     $cs
@@ -9,7 +12,7 @@
 
     <div class="header clearfix">
         <div class="user-name">
-            <h1>Богоявленский<br/>Александр</h1>
+            <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
             <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
         </div>
 
@@ -34,7 +37,7 @@
 
             <div class="user-meta">
 
-                <div class="location"><div class="flag flag-ru"></div> Гаврилов-Ям</div>
+                <div class="location"><?php echo $user->getFlag() ?> <?php echo isset($user->settlement)?$user->settlement->name:'' ?></div>
                 <span>День рождения:</span> 15 декабря (39 лет)
 
                 <div class="details">
@@ -76,9 +79,9 @@
 
         <div class="col-2">
 
-            <div class="user-mood">
-                Мое настроение &ndash; <img src="/images/user_mood_01.png" />
-            </div>
+            <?php $this->widget('UserMoodWidget', array(
+                'user' => $user,
+            )); ?>
 
             <?php $this->widget('UserStatusWidget', array(
                 'user' => $user,
@@ -158,7 +161,7 @@
 
             </div>
 
-            <?php $this->widget('application.widgets.user.LocaionWidget',array(
+            <?php $this->widget('application.widgets.user.LocationWidget',array(
             'user'=>$user)) ?>
 
             <div class="user-weather">

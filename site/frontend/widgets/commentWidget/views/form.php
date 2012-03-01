@@ -39,7 +39,7 @@ $('#add_comment').live('submit', function(e) {
 
 $('body').delegate('a.remove-comment', 'click', function () {
         if (confirm('Вы точно хотите удалить комментарий?')) {
-            var id = $(this).parents('.item').attr('id').replace(/CommunityComment_/g, '');
+            var id = $(this).parents('.item').attr('id').replace(/comment_/g, '');
             $.ajax({
                 url:'" . Yii::app()->createUrl("ajax/deleteComment") . "',
                 data:{id:id},
@@ -61,7 +61,7 @@ $('body').delegate('a.remove-comment', 'click', function () {
     });
 
     $('body').delegate('a.edit-comment', 'click', function () {
-        var id = $(this).parents('.item').attr('id').replace(/CommunityComment_/g, '');
+        var id = $(this).parents('.item').attr('id').replace(/comment_/g, '');
         $('#edit-id').val(id);
         var editor = CKEDITOR.instances['Comment[text]'];
         editor.setData($(this).parents('.item').find('.comment-content').html());

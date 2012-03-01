@@ -100,8 +100,12 @@ class User extends CActiveRecord
         $now = new DateTime(date('Y-m-d'));
         $interval = $birthday->diff($now);
         $age = $interval->y;
+        return $age;
+    }
 
-        return $age . ' ' . HDate::normallizeAge($age);
+    public function getAgeSuffix()
+    {
+        return HDate::normallizeAge($this->age);
     }
 
     /**

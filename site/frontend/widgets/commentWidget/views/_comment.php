@@ -17,15 +17,15 @@
             <span class="num"><?php echo $data->position; ?></span>
             <span class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></span>
             <?php if(($data->response_id !== 0 && $response = $data->response) || ($data->quote_id !== 0 && $response = $data->quote)): ?>
-                <span class="answer">
+                <div class="answer">
                     Ответ для
                     <?php $this->widget('AvatarWidget', array('user' => $response->author, 'withMail' => false)); ?>
                     на <span class="num"><a href="#" onclick="return Comment.goTo(<?php echo $response->position; ?>, <?php echo $currentPage + 1; ?>);"><?php echo $response->position; ?></a></span>
-                </span>
+                </div>
             <?php endif; ?>
         </div>
         <?php if(($data->quote_id !== 0 && $data->quote)): ?>
-            <div class="reply">
+            <div class="quote">
                 <?php echo $data->quote->text; ?>
             </div>
         <?php endif; ?>
@@ -36,68 +36,25 @@
             <?php
             if ($data->author->id != Yii::app()->user->id) {
                 $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
-                $report->button("$(this).parents('.item')");
+                $report->button("$(this).parents('.content:eq(0)')");
                 $this->endWidget();
             }
             ?>
-            <div class="admin-actions">
-                <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())): ?>
-                    <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit')); ?>
-                <?php endif; ?>
-                <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId())): ?>
-                    <?php echo CHtml::link('<i class="icon"></i>', Yii::app()->createUrl('#', array('id' => $data->id)), array(
-                        'class' => 'remove',
-                    )); ?>
-                <?php endif; ?>
-            </div>
+            <?php if (($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())) || ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId()))): ?>
+                <div class="admin-actions">
+                    <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())): ?>
+                        <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit')); ?>
+                    <?php endif; ?>
+                    <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId())): ?>
+                        <?php echo CHtml::link('<i class="icon"></i>', Yii::app()->createUrl('#', array('id' => $data->id)), array(
+                            'class' => 'remove',
+                        )); ?>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
             <a href="javascript:void(0)" onclick="return Comment.response(this);">Ответить</a>
             &nbsp;
             <a href="javascript:void(0)" onclick="return Comment.quote(this);">С цитатой</a>
         </div>
     </div>
 </li>
-
-
-
-
-<div class="item" id="CommunityComment_<?php echo $data->id; ?>">
-    <div class="comment-position" id="comment_<?php echo $data->position; ?>"><?php echo $data->position; ?></div>
-    <div class="clearfix">
-        <div class="user">
-            <?php $this->widget('AvatarWidget', array('user' => $data->author)); ?>
-            <a class="username"><?php echo $data->author->first_name; ?></a>
-        </div>
-        <div class="text">
-            <?php if($data->response_id !== 0 && $data->response): ?>
-                <div class="comment-response"><?php echo $data->response->author->fullName; ?></div>
-            <?php endif; ?>
-            <?php if($data->quote_id !== 0 && $data->quote): ?>
-                <div class="comment-response"><?php echo $data->quote->text; ?></div>
-            <?php endif; ?>
-            <div class="comment-content">
-                <?php echo $data->text; ?>
-            </div>
-
-            <div class="data">
-                <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?>
-                <?php
-                if ($data->author->id != Yii::app()->user->id) {
-                    $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
-                    $report->button("$(this).parents('.item')");
-                    $this->endWidget();
-                }
-                ?>
-                &nbsp;<a href="javascript:void(0)" onclick="return Comment.response(this);">Ответить</a>
-                &nbsp;<a href="javascript:void(0)" onclick="return Comment.quote(this);">С цитатой</a>
-            </div>
-            <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())): ?>
-                <?php echo CHtml::link('редактировать', '#', array('class' => 'edit-comment')); ?>
-            <?php endif; ?>
-            <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId())): ?>
-                <?php echo CHtml::link('удалить', Yii::app()->createUrl('#', array('id' => $data->id)), array(
-                    'class' => 'remove-comment',
-                )); ?>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>

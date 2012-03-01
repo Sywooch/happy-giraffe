@@ -261,4 +261,36 @@ class HDate
                 return $words[2];
         }
     }
+
+    public static function normallizeAge($year)
+    {
+        $year = abs($year);
+        $t1 = $year % 10;
+        $t2 = $year % 100;
+        return ($t1 == 1 && $t2 != 11 ? "год" : ($t1 >= 2 && $t1 <= 4 && ($t2 < 10 || $t2 >= 20) ? "года" : "лет"));
+    }
+
+    /**
+     * @static
+     * @param string $time
+     * @param string $delimiter
+     * @return string
+     */
+    public static function GetFormattedTime($time, $delimiter = ' ')
+    {
+        $result = '';
+        if (date("Y:m:d", strtotime($time)) == date("Y:m:d"))
+            $result .= 'Сегодня';
+        elseif (date("Y", strtotime($time)) == date("Y"))
+            $result .= date("j", strtotime($time)) . ' '
+                . self::ruMonthShort(date("m", strtotime($time)));
+        else
+            $result .= date("Y", strtotime($time)) . $delimiter .
+                date("j", strtotime($time)) . ' '
+                . self::ruMonthShort(date("m", strtotime($time)));
+        $result .= $delimiter;
+        $result .= date("H:i", strtotime($time));
+
+        return $result;
+    }
 }

@@ -6,6 +6,7 @@ class CommentWidget extends CWidget
 	public $model;
     public $entity;
 	public $entity_id;
+    public $title = 'Комментарии';
 
     public function init()
     {

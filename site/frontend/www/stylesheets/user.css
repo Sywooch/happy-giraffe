@@ -17,6 +17,7 @@
 #user .header .user-name .online-status  .icon {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;margin-right:5px;}
 #user .header .user-name .online-status.online .icon {background-position:-44px -180px;}
 #user .header .user-name .online-status.offline .icon {background-position:-55px -180px;}
+#user .header .user-name .online-status .date {font-size:9px;color:#a6a6a6;background:#fffeea;padding:0 5px;}
 
 #user .header .user-nav {margin-left:450px;padding-top:20px;font-size:13px;}
 #user .header .user-nav ul {overflow:hidden;list-style:none;}

@@ -7,8 +7,9 @@ class UserCoreWidget extends CWidget
      */
     public $user;
 
-    protected $isMyProfile;
+    protected $isMyProfile = false;
     protected $visible = true;
+    protected $viewFile = null;
 
     public function init()
     {
@@ -18,7 +19,9 @@ class UserCoreWidget extends CWidget
     public function run()
     {
         if ($this->visible) {
-            $this->render(get_class($this), array(
+            if($this->viewFile === null)
+                $this->viewFile = get_class($this);
+            $this->render($this->viewFile, array(
                 'user' => $this->user,
                 'isMyProfile' => $this->isMyProfile,
             ));

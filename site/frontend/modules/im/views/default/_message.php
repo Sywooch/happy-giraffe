@@ -16,7 +16,7 @@ if (!isset($class))
                 <div class="name"><?php echo $user->first_name ?></div>
                 <?php echo $message['text'] ?>
             </td>
-            <td class="date"><?php echo MessageLog::GetFormattedTime($message['created']); ?></td>
+            <td class="date"><?php echo HDate::GetFormattedTime($message['created'], '<br/>'); ?></td>
             <td class="actions">
                 <a href="" class="remove"></a>
             </td>

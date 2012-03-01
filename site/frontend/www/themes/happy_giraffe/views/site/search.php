@@ -15,6 +15,7 @@
         </div>
         <?php
         $this->widget('zii.widgets.CListView', array(
+            'ajaxUpdate' => false,
             'dataProvider' => $dataProvider,
             //'summaryText' => 'Показано',
             'itemView' => '_search', // refers to the partial view named '_post'
@@ -32,6 +33,7 @@
             'viewData' => array(
                 'search_text' => $text,
                 'search_index' => $index,
+                'criteria' => $criteria,
             )
         ));
         ?>

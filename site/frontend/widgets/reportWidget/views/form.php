@@ -17,7 +17,7 @@
 	</div>
 	<div class="clear"></div>
 	<div class="button_panel">
-		<button class="btn btn-gray-medium" onclick="Report.closeForm(this);"><span><span>Отмена</span></span></button>
+		<button class="btn btn-gray-medium" onclick="return Report.closeForm(this);"><span><span>Отмена</span></span></button>
 		<button class="btn btn-red-medium"><span><span>Сообщить об нарушении</span></span></button>
 	</div>
 	<?php $this->endWidget(); ?>

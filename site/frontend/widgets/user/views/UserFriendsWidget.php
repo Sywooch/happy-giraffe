@@ -4,7 +4,7 @@
 
     <ul>
         <?php foreach ($friends as $f): ?>
-            <li><?php CHtml::link(CHtml::image($f->pic_small->getUrl('ava')), array('user/profile', 'user_id' => $f->id)); ?></li>
+            <li><?php echo CHtml::link(CHtml::image($f->pic_small->getUrl('ava')), array('user/profile', 'user_id' => $f->id)); ?></li>
         <?php endforeach; ?>
     </ul>
 

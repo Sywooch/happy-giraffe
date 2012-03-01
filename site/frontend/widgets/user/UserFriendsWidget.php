@@ -3,20 +3,25 @@
 class UserFriendsWidget extends UserCoreWidget
 {
     public $limit;
+    private $_friends;
+
+    public function init()
+    {
+        parent::init();
+        $this->_friends = $this->user->getFriends(array(
+            'limit' => $this->limit,
+            'order' => 'RAND()',
+            'condition' => 'pic_small != \'\'',
+        ));
+        $this->visible = !empty($this->_friends);
+    }
 
     public function run()
     {
         if ($this->visible) {
-
-            $friends = $this->user->getFriends(array(
-                'limit' => $this->limit,
-                'order' => 'RAND()',
-                'condition' => 'pic_small != \'\'',
-            ));
-
             $this->render(get_class($this), array(
                 'user' => $this->user,
-                'friends' => $friends,
+                'friends' => $this->_friends,
             ));
         }
     }

@@ -55,6 +55,7 @@ class ProfileController extends Controller
             $address->attributes = $_POST;
             $address->saveAddress($this->user);
             $this->user->attributes = $_POST['User'];
+            var_dump($this->user->birthday);
             $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'settlement_id', 'birthday',
                 'country_id', 'street_id', 'house', 'room'));
         }

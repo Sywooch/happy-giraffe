@@ -1,11 +1,9 @@
-<div class="steps steps-comments">
-    <a class="btn btn-orange a-right" href="#add_comment"><span><span>Добавить запись</span></span></a>
-    <ul>
-        <li class="active"><a>Гостевая</a></li>
-    </ul>
-    <div class="comment-count"><?php echo $dataProvider->totalItemCount; ?></div>
-</div>
 <div class="default-comments">
+    <div class="comments-meta">
+        <a href="#add_comment" class="btn btn-orange a-right"><span><span>Добавить запись</span></span></a>
+        <div class="title">Гостевая</div>
+        <div class="count"><?php echo $dataProvider->totalItemCount; ?></div>
+    </div>
     <?php
     $this->widget('MyListView', array(
         'dataProvider' => $dataProvider,

@@ -300,12 +300,26 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .popup .form .row {width:344px;}
 .popup .form input[type=text], .popup .form input[type=password] {width:320px;}
 .popup .form {overflow:hidden;}
-.popup .bottom {text-align:center;padding-top:8px;border-top:1px solid #caf3f8;margin-top:20px;}
+.popup .bottom {text-align:right;padding-top:8px;border-top:1px solid #caf3f8;margin-top:20px;}
 .popup .bottom .btn {margin:0 5px;}
+.popup .bottom.bottom-center {text-align:center;}
 
-.popup-confirm {width:400px;padding-top:40px;}
-.popup-confirm .confirm-question {font-size:16px;text-align:center;}
-.popup-confirm .confirm-question p {color:#4c4d4d;line-height:24px;}
+.popup-confirm {width:460px;padding-top:40px;}
+.popup-confirm .confirm-question {font-size:18px;text-align:center;}
+.popup-confirm .confirm-question p {color:#595959;line-height:24px;}
+.popup-confirm .reason {width:220px;padding-right:10px;float:left;text-align:left;font-size:12px;color:#575757;}
+.popup-confirm .reason .title {color:#424141;font-size:16px;margin-bottom:8px;}
+.popup-confirm .reason label {display:block;padding:2px 0;color:#575757;}
+.popup-confirm .reason label input {margin:0 5px 0 0;margin-right:5px;position:relative;top:1px;}
+.popup-confirm .reason input.other-reason {height:16px;line-height:16px;padding:3px 5px;border:1px solid #c9eaf1;background:#fff;color:#202121;font-size:13px;font-family:tahoma, arial, sans-serif;margin-left:15px;margin-top:5px;width:200px;}
+.popup-confirm .question-in {width:230px;float:left;padding-top:1.5em;}
+.popup-confirm .confirm-after {display:none;font-size:25px;text-align:center;margin:20px 0 40px;}
+.popup-confirm .confirm-after p {color:#92d087;}
+
+.popup-confirm .move-post {text-align:center;color:#0d8ca3;font-size:18px;font-style:italic;}
+.popup-confirm .move-post select {width:200px;margin:20px 10px 10px;}
+.popup-confirm .move-post .chzn-container {margin:20px 10px 10px;}
+
 
 /* form */
 

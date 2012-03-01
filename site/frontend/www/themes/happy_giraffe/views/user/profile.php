@@ -179,5 +179,8 @@
         </div>
 
     </div>
-
+    <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
+        'model' => $user,
+        'title' => 'Гостевая'
+    )); ?>
 </div>

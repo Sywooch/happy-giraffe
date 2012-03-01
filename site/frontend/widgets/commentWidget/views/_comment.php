@@ -1,9 +1,9 @@
-<li class="clearfix" id="comment_<?php echo $data->position; ?>">
+<li class="clearfix item" id="comment_<?php echo $data->position; ?>">
     <div class="user">
         <?php $this->widget('AvatarWidget', array('user' => $data->author, 'withMail' => false)); ?>
         <div class="details">
             <span class="icon-status status-<?php echo $data->author->online == 1 ? 'online' : 'offline'; ?>"></span>
-            <a href="javascript:void(0);"><?php echo $data->author->fullName; ?></a>
+            <a href="javascript:void(0);" class="username"><?php echo $data->author->fullName; ?></a>
             <?php if($data->author->country !== null): ?>
                 <div class="location">
                     <div class="flag flag-<?php echo $data->author->country->iso_code; ?>"></div>
@@ -43,18 +43,18 @@
             <?php if (($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())) || ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId()))): ?>
                 <div class="admin-actions">
                     <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())): ?>
-                        <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit')); ?>
+                        <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit edit-comment')); ?>
                     <?php endif; ?>
                     <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId())): ?>
                         <?php echo CHtml::link('<i class="icon"></i>', Yii::app()->createUrl('#', array('id' => $data->id)), array(
-                            'class' => 'remove',
+                            'class' => 'remove remove-comment',
                         )); ?>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
-            <a href="javascript:void(0)" onclick="return Comment.response(this);">Ответить</a>
+            <a href="#add_comment" onclick="return Comment.response(this);">Ответить</a>
             &nbsp;
-            <a href="javascript:void(0)" onclick="return Comment.quote(this);">С цитатой</a>
+            <a href="#add_comment" onclick="return Comment.quote(this);">С цитатой</a>
         </div>
     </div>
 </li>

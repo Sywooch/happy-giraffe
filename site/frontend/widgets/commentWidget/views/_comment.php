@@ -15,7 +15,7 @@
     <div class="content">
         <div class="meta">
             <span class="num" id="cp_<?php echo $data->id; ?>"><?php echo $data->position; ?></span>
-            <span class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></span>
+            <span class="date"><?php echo HDate::GetFormattedTime($data->created, ', '); ?></span>
             <?php if(($data->response_id !== 0 && $response = $data->response) || ($data->quote_id !== 0 && $response = $data->quote)): ?>
                 <div class="answer">
                     Ответ для

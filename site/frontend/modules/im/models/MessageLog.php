@@ -266,30 +266,6 @@ class MessageLog extends CActiveRecord
 
     /**
      * @static
-     * @param string $time
-     * @return string
-     */
-    public static function GetFormattedTime($time)
-    {
-        $result = '';
-        if (date("Y:m:d", strtotime($time)) == date("Y:m:d"))
-            $result .= 'Сегодня';
-        elseif (date("Y", strtotime($time)) == date("Y"))
-            $result .= date("j", strtotime($time)) . ' '
-                . HDate::ruMonthShort(date("m", strtotime($time)));
-        else
-            $result .= date("Y", strtotime($time)) . '<br>' .
-                date("j", strtotime($time)) . ' '
-                . HDate::ruMonthShort(date("m", strtotime($time)));
-
-        $result .= '<br/>';
-        $result .= date("H:i", strtotime($time));
-
-        return $result;
-    }
-
-    /**
-     * @static
      * @param int $id
      */
     public static function removeMessage($id)

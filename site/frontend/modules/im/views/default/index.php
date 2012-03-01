@@ -28,7 +28,7 @@
                 <td class="message-icon">
                     <div class="icon"></div>
                     <div class="date">
-                        <span><?php echo MessageLog::GetFormattedTime($dialog->lastMessage->created); ?></span>
+                        <span><?php echo HDate::GetFormattedTime($dialog->lastMessage->created, '<br/>'); ?></span>
                     </div>
                 </td>
                 <td class="content">

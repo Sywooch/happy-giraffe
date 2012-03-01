@@ -38,14 +38,14 @@ $(document).ready(function() {
 		$('#userMood').bind({
 			'mousemove':function(e){
 				$('#userMoodTooltip').css({
-					left: e.pageX - ($('#userMoodTooltip').innerWidth() / 2), top: e.pageY - ($('#userMoodTooltip').innerHeight() + 10)
+					left: e.pageX - $('#userMoodTooltip').parents('.user-mood').offset().left - ($('#userMoodTooltip').innerWidth() / 2), top: e.pageY - $('#userMoodTooltip').parents('.user-mood').offset().top - ($('#userMoodTooltip').innerHeight() + 10)
 				});
 			},
 			'mouseenter': function(e){
-				$('#userMoodTooltip').fadeIn();
+				$('#userMoodTooltip').fadeIn(200);
 			},
 			'mouseleave': function(e){
-				$('#userMoodTooltip').fadeOut();
+				$('#userMoodTooltip').fadeOut(200);
 			}
 		})
 		

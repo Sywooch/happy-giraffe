@@ -594,6 +594,10 @@ class User extends CActiveRecord
         return false;
     }
 
+    /**
+     * @param $friend_id
+     * @return CDbCriteria
+     */
     public function getFriendCriteria($friend_id)
     {
         return new CDbCriteria(array(
@@ -633,21 +637,33 @@ class User extends CActiveRecord
         return Friend::model()->deleteAll($this->getFriendCriteria($friend_id)) != 0;
     }
 
-    /**
-     * @return CActiveDataProvider
-     */
-    public function getFriends($condition = '', $params = array())
+    public function getFriendSelectCriteria()
     {
-        $baseCriteria = new CDbCriteria(array(
+        return new CDbCriteria(array(
             'join' => 'JOIN ' . Friend::model()->tableName() . ' ON (t.id = friends.user1_id AND friends.user2_id = :user_id) OR (t.id = friends.user2_id AND friends.user1_id = :user_id)',
             'params' => array(':user_id' => $this->id),
         ));
-        $criteria = $this->getCommandBuilder()->createCriteria($condition, $params);
-        $criteria->mergeWith($baseCriteria);
+    }
 
-        return new CActiveDataProvider('User', array(
-            'criteria' => $criteria,
-        ));
+    /**
+     * @param string $condition
+     * @param array $params
+     * @return array
+     */
+    public function getFriends($condition = '', $params = array())
+    {
+        $criteria = $this->getCommandBuilder()->createCriteria($condition, $params);
+        $criteria->mergeWith($this->getFriendSelectCriteria());
+
+        return self::model()->findAll($criteria);
+    }
+
+    /**
+     * @return int
+     */
+    public function getFriendsCount()
+    {
+        return self::model()->count($this->getFriendSelectCriteria());
     }
 
     /**

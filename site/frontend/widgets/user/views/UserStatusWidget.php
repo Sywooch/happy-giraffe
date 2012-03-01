@@ -4,7 +4,8 @@
     $js = "
         $('div.user-status').delegate('a.pseudo', 'click', function(e) {
             e.preventDefault();
-            $('div.user-status').html($('#user-status-form').html());
+            $('div.status-container').hide();
+            $('div.user-status > form').show();
         });
 
         $('div.user-status').delegate('form', 'submit', function(e) {
@@ -14,14 +15,16 @@
                 url: $(this).attr('action'),
                 data: $(this).serialize(),
                 success: function(response) {
-                    $('div.user-status').html(response);
+                    $('div.status-container').html(response);
+                    $('div.user-status > form').hide();
+                    $('div.status-container').show();
                 }
             });
         });
     ";
 
     $css = "
-        #user-status-form {
+        div.user-status > form {
             display: none;
         }
     ";
@@ -32,26 +35,27 @@
 ?>
 
 <div class="user-status">
-    <?php if ($isMyProfile): ?>
-        <?php if ($user->status === null): ?>
-            <p><a href="" class="pseudo">Что бы Вы хотели всем сообщить?</a></p>
+    <div class="status-container">
+        <?php if ($isMyProfile): ?>
+            <?php if ($user->status === null): ?>
+                <p><a href="" class="pseudo">Что бы Вы хотели всем сообщить?</a></p>
+            <?php else: ?>
+                <?php $this->render('_status', array(
+                    'status' => $user->status,
+                    'canUpdate' => true,
+                )); ?>
+            <?php endif; ?>
         <?php else: ?>
             <?php $this->render('_status', array(
                 'status' => $user->status,
-                'canUpdate' => true,
+                'canUpdate' => false,
             )); ?>
         <?php endif; ?>
-    <?php else: ?>
-        <?php $this->render('_status', array(
-            'status' => $user->status,
-            'canUpdate' => false,
-        )); ?>
+    </div>
+    <?php if ($isMyProfile): ?>
+        <?php echo CHtml::beginForm(array('user/createRelated', 'relation' => 'status')); ?>
+        <?php echo CHtml::textArea('text'); ?><br/>
+        <button class="btn btn-green-small"><span><span>Ок</span></span></button>
+        <?php echo CHtml::endForm(); ?>
     <?php endif; ?>
-</div>
-
-<div id="user-status-form">
-    <?php echo CHtml::beginForm(array('user/createRelated', 'relation' => 'status')); ?>
-    <?php echo CHtml::textArea('text'); ?><br/>
-    <button class="btn btn-green-small"><span><span>Ок</span></span></button>
-    <?php echo CHtml::endForm(); ?>
 </div>

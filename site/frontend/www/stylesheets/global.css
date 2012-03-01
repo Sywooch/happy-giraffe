@@ -914,8 +914,7 @@ p {
 .report-block {
     background: #fed6d6;
     padding: 15px 20px;
-    margin: 20px 0;
-    width: 650px;
+    margin: 10px 0 0;
     display: block;
 }
 

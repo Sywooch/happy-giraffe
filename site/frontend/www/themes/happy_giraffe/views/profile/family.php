@@ -29,7 +29,9 @@ $this->user->refresh();
 		});
 	";
 	
-	$cs->registerScript('travel_add', $js);
+	$cs->registerScript('travel_add', $js)
+    ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
+    ->registerScriptFile('/javascripts/jquery.tmpl.min.js');
 ?>
 
 <?php $this->breadcrumbs = array(
@@ -39,9 +41,8 @@ $this->user->refresh();
 
 	<div class="profile-form-in">
 
-     <?php $form = $this->beginWidget('CActiveForm', array('id' => 'baby-form')); ?>
 		<div class="subtitle">Семейное положение:</div>
-	
+
 		<div class="row">
             <?php echo CHtml::dropDownList('relationship_status', $this->user->relationship_status,
             array('' => 'нет ответа') + $this->user->getRelashionshipList(),
@@ -56,18 +57,39 @@ $this->user->refresh();
 			<div class="row-title"><?php echo $this->user->getPartnerTitle($this->user->relationship_status) ?></div>
 			<div class="row-elements">
 				<div class="col">
-                    <?php echo CHtml::textField('partner_name', $this->user->partner_name) ?>
-				</div>									
+                    <?php echo CHtml::textField('partner_name', empty($this->user->partner)?'':$this->user->partner->name) ?>
+				</div>
 			</div>
+			<div class="row-title">Заметка:</div>
+            <div class="row-elements">
+                <div class="col">
+                    <?php echo CHtml::textField('partner_notice', empty($this->user->partner)?'':$this->user->partner->notice) ?>
+                </div>
+            </div>
 	
 		</div>
-	
+
 		<div class="photo-upload">
-		
+            <?php $form = $this->beginWidget('CActiveForm', array(
+            'id' => 'partner_photo_upload',
+            'action' => $this->createUrl('uploadPartnerPhoto'),
+            'htmlOptions' => array(
+                'enctype' => 'multipart/form-data',
+            ),
+        )); ?>
+            <?php echo $form->hiddenField($this->user, 'id'); ?>
+
 			<div class="left">
 				<div class="img-box">
-					<img src="/images/ava.png" />
-					<a href="" class="remove">Удалить</a>
+                    <?php echo CHtml::image($this->user->getPartnerPhotoUrl()); ?>
+                    <a href="" class="remove">Удалить</a>
+                    <?php
+//                    $this->widget('DeleteWidget', array(
+//                        'model' => $this->user->partner,
+//                        'selector' => 'li',
+//                    ));
+                    ?>
+
 				</div>
 				<p>Вы можете загрузить сюда только фотографию Вашего мужа.</p>
 			</div>
@@ -75,23 +97,31 @@ $this->user->refresh();
 			<div class="upload-btn">
 				<div class="file-fake">
 					<button class="btn btn-orange"><span><span>Загрузить фото</span></span></button>
-					<input type="file" />
+                    <?php echo CHtml::activeFileField(new UserPartner(), 'photo', array('id'=>'UserPartnerPhotoFile')); ?>
 				</div>
 				<br/>
 				Загрузите файл (jpg, gif, png не более 4 МБ)
 			</div>
-		
+            <?php $this->endWidget(); ?>
+
 		</div>
 		<br/>
-		<?php for ($i = 0; $i < $maxBabies; $i++): ?>
+        <?php $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'baby-form',
+        'action'=>$this->createUrl('profile/preview'),
+        'htmlOptions'=>array(
+            'enctype'=>'multipart/form-data'
+        ))); ?>
+
+        <?php for ($i = 0; $i < $maxBabies; $i++): ?>
 			<?php
 				$baby_model = $baby_models[$i];
 			?>
-			<div class="child">
+			<div class="child" id="child<?php echo $baby_model->id ?>">
                 <?php echo CHtml::hiddenField('Baby['.$i.'][isset]', 1, array('class' => 'isset_child')) ?>
 				<div class="age-box">
-					<img src="/images/profile_age_img_01.png" /><br/>
-					<span>0 - 1</span>
+					<img src="<?php echo $baby_model->getAgeImageUrl() ?>" /><br/>
+					<span><?php echo isset($baby_model->birthday)?$baby_model->getAge():'0-1' ?></span>
 				</div>
 				<div class="child-in">
 					<a href="javascript:void(0);" class="fill-form" onclick="toggleChildForm(this);">Заполнить данные <?php echo (! empty($baby_model->name)) ? 'ребенка по имени ' . $baby_model->name : ($i + 1) . '-го ребенка' ?></a>
@@ -108,6 +138,13 @@ $this->user->refresh();
 								<?php echo CHtml::textField('Baby['.$i.'][name]', $baby_model->name, array('maxlength' => 255)) ?>
 							</div>
 						</div>
+
+                        <div class="row-title">Заметка:</div>
+                        <div class="row-elements">
+                            <div class="col">
+                                <?php echo CHtml::textField('Baby['.$i.'][notice]', $baby_model->notice, array('maxlength' => 1024)) ?>
+                            </div>
+                        </div>
 		
 					</div>
 					<div class="row row-inline">
@@ -122,7 +159,7 @@ $this->user->refresh();
                                 <?php echo CHtml::dropDownList('Baby['.$i.'][year]', date('Y', strtotime($baby_model->birthday)), $years); ?>
 							</div>
 							<div class="col age">
-								Возраст: <b>29</b> лет
+								Возраст: <b><?php echo $baby_model->getAge() ?></b> лет
 							</div>
 				
 						</div>
@@ -133,35 +170,49 @@ $this->user->refresh();
 	
 						<div class="row-title">Пол:</div>
 						<div class="row-elements">
-                            <?php echo CHtml::radioButtonList('Baby['.$i.'][sex]', $baby_model->sex, array(0 => 'Мальчик', 1 => 'Девочка')); ?>
+                            <?php echo CHtml::radioButtonList('Baby['.$i.'][sex]', $baby_model->sex,
+                                array(0 => 'Мальчик', 1 => 'Девочка')); ?>
 						</div>
 		
 					</div>
 		
 					<div class="photo-upload">
-			
+
 						<div class="left">
 							<div class="img-box noimg">
-								<img src="/images/ava_noimg_female.png" />
-					
+                                <?php $url = isset($baby_model->photo)?$baby_model->photo->getUrl():'' ?>
+                                <?php if (!empty($url))
+                                    echo CHtml::image($baby_model->photo->getUrl('ava'),'', array('id'=>'babyImg-'.$i));
+                                else
+                                    echo CHtml::image($baby_model->getAgeImageUrl(), '',array('id'=>'babyImg-'.$i)); ?>
+                                <a href="" class="remove">Удалить</a>
 							</div>
 							<p>Вы можете загрузить сюда только фотографию Вашего ребенка.</p>
 						</div>
-			
-						<div class="upload-btn">
-							<div class="file-fake">
-								<button class="btn btn-orange"><span><span>Загрузить фото</span></span></button>
-								<input type="file" />
-							</div>
-							<br/>
-							Загрузите файл (jpg, gif, png не более 4 МБ)
-						</div>
+
+                        <div class="upload-btn">
+                            <div class="file-fake">
+                                <button class="btn btn-orange"><span><span>Загрузить фото</span></span></button>
+                                <?php echo CHtml::activeFileField(new Baby(), 'photo', array(
+                                'id'=>'baby-photo-'.$i,
+                                'name'=>'Baby['.$i.'][photo]',
+                                'class'=> 'baby-photo-file')); ?>
+                            </div>
+                            <br/>
+                            Загрузите файл (jpg, gif, png не более 4 МБ)
+                        </div>
 			
 					</div>
 				</div>
 	
 			</div>
 		<?php endfor; ?>
+
+        <input type="hidden" id="active_baby_num" name="baby_num">
+        <input type="hidden" id="user_partner_name" name="User[partner_name]">
+        <input type="hidden" id="user_partner_notice" name="User[partner_notice]">
+        <input type="hidden" id="user_relationship_status" name="User[relationship_status]">
+
 		<?php $this->endWidget(); ?>
 	
 		<a href="" class="btn btn-yellow-medium" id="addBaby"><span><span>Добавить ребенка</span></span></a>
@@ -169,9 +220,25 @@ $this->user->refresh();
 	</div>
 </div>
 <div class="bottom">
-	<button class="btn btn-green-medium btn-arrow-right" onclick="$('#baby-form').submit();"><span><span>Сохранить<img src="/images/arrow_r.png" /></span></span></button>
+	<button id="submit-btn" class="btn btn-green-medium btn-arrow-right"><span><span>Сохранить<img src="/images/arrow_r.png" /></span></span></button>
 </div>
+
+<script id="photo-tmpl" type="text/x-jquery-tmpl">
+    <?php echo CHtml::image('${url}', '${title}'); ?>
+    <a href="" class="remove">Удалить</a>
+</script>
 <script type="text/javascript">
+    var baby_num = null;
+    $('#submit-btn').click(function(){
+        $('#baby-form').attr('action', '<?php echo CController::createUrl('profile/family') ?>').removeAttr('target');
+        $('#user_partner_name').val($('#partner_name').val());
+        $('#user_partner_notice').val($('#partner_notice').val());
+        $('#user_relationship_status').val($('#relationship_status').val());
+        $('#baby-form').submit();
+
+        return false;
+    });
+
     $('#relationship_status').change(function(){
         if ($(this).val() == 1 || $(this).val() == 4 || $(this).val() == 5){
             if ($(this).val() == 1)
@@ -186,5 +253,62 @@ $this->user->refresh();
             $('#partner_name_bl').hide();
             $('#partner_name').val('');
         }
+    });
+
+    $('#partner_photo_upload').iframePostForm({
+        json:true,
+        complete:function (response) {
+            if (response.status == '1') {
+                $('#partner_photo_upload .img-box').html(
+                    $('#photo-tmpl').tmpl({url:response.url, title:response.title})
+                );
+            }
+        }
+    });
+
+    $('body').delegate('#UserPartnerPhotoFile', 'change', function () {
+        $(this).parents('form').submit();
+    });
+
+    $('#baby-form').iframePostForm({
+        complete:function (response) {
+            $('#babyImg-'+baby_num).attr('src', response);
+        }
+    });
+
+    $('body').delegate('.child .baby-photo-file', 'change', function () {
+        baby_num = $('.child').index($(this).parents('div.child'));
+        $('input#active_baby_num').val(baby_num);
+        $(this).parents('form').submit();
+    });
+
+    $('body').delegate('.child .photo-upload a.remove', 'click', function(){
+        var id = $(this).parents('.child').attr('id').replace(/child/, '');
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl("profile/RemoveBabyPhoto") ?>',
+            data: {id:id},
+            type: 'POST',
+            dataType:'JSON',
+            success: function(response) {
+                if (response.status)
+                    $(this).prev().attr('src', response.img);
+            },
+            context: $(this)
+        });
+        return false;
+    });
+
+    $('body').delegate('#partner_photo_upload  a.remove', 'click', function(){
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl("profile/RemovePartnerPhoto") ?>',
+            type: 'POST',
+            dataType:'JSON',
+            success: function(response) {
+                if (response.status)
+                    $(this).prev().attr('src', response.img);
+            },
+            context: $(this)
+        });
+        return false;
     });
 </script>

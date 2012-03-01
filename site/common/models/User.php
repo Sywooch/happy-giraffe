@@ -31,7 +31,6 @@
  * @property string $house
  * @property string $last_ip
  * @property string $relationship_status
- * @property string $partner_name
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -63,6 +62,8 @@
  * @property GeoRusStreet $street
  * @property Album[] $albums
  * @property Interest[] interests
+ * @property UserPartner partner
+ * @property Baby[] babies
  */
 class User extends CActiveRecord
 {
@@ -220,6 +221,7 @@ class User extends CActiveRecord
             'albums' => array(self::HAS_MANY, 'Album', 'user_id'),
             'interests' => array(self::MANY_MANY, 'Interest', 'user_interest(interest_id, user_id)'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
+            'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
         );
     }
 
@@ -330,6 +332,13 @@ class User extends CActiveRecord
                                 'accurate_resize' => array(
                                     'width' => 38,
                                     'height' => 37,
+                                ),
+                            ),
+                            'bigAva' => array(
+                                'fileHandler' => array('FileHandler', 'run'),
+                                'accurate_resize' => array(
+                                    'width' => 241,
+                                    'height' => 225,
                                 ),
                             ),
                             'original' => array(
@@ -451,6 +460,21 @@ class User extends CActiveRecord
                 return '/images/ava_noimg_female.png';
             else
                 return '/images/ava_noimg.png';
+        }
+        else
+            return $url;
+    }
+
+    public function getPartnerPhotoUrl()
+    {
+        $url = '';
+        if (isset($this->partner))
+            $url = $this->partner->photo->getUrl('ava');
+        if (empty($url)) {
+            if ($this->gender == 1)
+                return '/images/ava_noimg_female.png';
+            else
+                return '/images/ava_noimg_male.png';
         }
         else
             return $url;
@@ -716,5 +740,12 @@ class User extends CActiveRecord
         }
 
         return '';
+    }
+
+    public static function relationshipStatusHasPartner($status_id)
+    {
+        if (in_array($status_id, array(1,4,5)))
+            return true;
+        return false;
     }
 }

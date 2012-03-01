@@ -79,7 +79,6 @@ class UFileBehavior extends CActiveRecordBehavior {
 	{
 		$model = $this->getOwner();
 		if (!$model->hasErrors()) return;
-
 		$update = array();
 		foreach($this->getAttributes() as $name=>$params) {
 			if (!$model->hasErrors($name)) {

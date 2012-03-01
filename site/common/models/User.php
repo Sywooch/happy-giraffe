@@ -63,6 +63,7 @@
  * @property Album[] $albums
  * @property Interest[] interests
  * @property UserPartner partner
+ * @property Baby[] babies
  */
 class User extends CActiveRecord
 {

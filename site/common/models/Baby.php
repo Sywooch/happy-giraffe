@@ -18,34 +18,6 @@
  */
 class Baby extends CActiveRecord
 {
-    public function getAge()
-    {
-        if ($this->birthday === null) return null;
-
-        $date1 = new DateTime($this->birthday);
-        $date2 = new DateTime(date('Y-m-d'));
-        $interval = $date1->diff($date2);
-        return $interval->y;
-    }
-
-    public function getAgeImageUrl()
-    {
-        if ($this->birthday === null) return '/images/age_02.gif';
-        $age = $this->getAge();
-        if ($age <= 1)
-            return '/images/age_02.gif';
-        if ($age <= 3)
-            return '/images/age_03.gif';
-        if ($age <= 7)
-            return '/images/age_04.gif';
-        return '/images/age_05.gif';
-    }
-
-    public function getBirthdayDates()
-    {
-
-    }
-
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -120,5 +92,70 @@ class Baby extends CActiveRecord
                 ),
             ),
         );
+    }
+
+    public function getAge()
+    {
+        if ($this->birthday === null) return null;
+
+        $date1 = new DateTime($this->birthday);
+        $date2 = new DateTime(date('Y-m-d'));
+        $interval = $date1->diff($date2);
+        return $interval->y;
+    }
+
+    public function getAgeString()
+    {
+        $age = $this->getAge();
+
+        return $age.' '. $this->GetWordForm($age, array('год','года','лет'));
+    }
+
+    public function getAgeImageUrl()
+    {
+        if ($this->birthday === null)
+            return '/images/age_02.gif';
+        $age = $this->getAge();
+        if ($age <= 1)
+            return '/images/age_02.gif';
+        if ($age <= 3)
+            return '/images/age_03.gif';
+        if ($age <= 7)
+            return '/images/age_04.gif';
+
+        return '/images/age_05.gif';
+    }
+
+    public function getGenderString(){
+        if ($this->sex = 0)
+            return 'Моя дочь';
+        return 'Мой сын';
+    }
+
+    public function getImageUrl()
+    {
+        $ava = $this->photo->getUrl('ava');
+        if (!empty($ava))
+            return $ava;
+        else
+            return $this->getAgeImageUrl();
+    }
+
+    public function getBirthdayDates()
+    {
+        return null;
+    }
+
+    public function GetWordForm($n, $forms)
+    {
+        if ($n>0)
+        {
+            $n = abs($n) % 100;
+            $n1 = $n % 10;
+            if ($n > 10 && $n < 20) return $forms[2];
+            if ($n1 > 1 && $n1 < 5) return $forms[1];
+            if ($n1 == 1) return $forms[0];
+        }
+        return $forms[2];
     }
 }

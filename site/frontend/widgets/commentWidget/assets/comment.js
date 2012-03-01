@@ -34,7 +34,7 @@ var Comment = {
             var h = new AjaxHistory('comment_list');
             h.load('comment_list', url).changeBrowserUrl(url);
         } else {
-            document.location.hash = '#comment_' + index.toString();
+            document.location.hash = '#cp_' + index.toString();
         }
         return false;
     }

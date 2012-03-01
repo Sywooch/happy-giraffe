@@ -4,7 +4,7 @@
     $js = "
         $('div.user-purpose').delegate('a.pseudo', 'click', function(e) {
             e.preventDefault();
-            $('div.user-purpose').append($('#user-purpose-form').html());
+            $('div.user-purpose > form').toggle();
         });
 
         $('div.user-purpose').delegate('form', 'submit', function(e) {
@@ -14,14 +14,15 @@
                 url: $(this).attr('action'),
                 data: $(this).serialize(),
                 success: function(response) {
-                    $('div.user-purpose').html(response);
+                    $('div.purpose-container').html(response);
+                    $('div.user-purpose > form').hide();
                 }
             });
         });
     ";
 
     $css = "
-        #user-purpose-form {
+        div.user-purpose > form {
             display: none;
         }
     ";
@@ -33,27 +34,28 @@
 
 <div class="user-purpose">
     <i class="icon"></i>
-    <?php if ($isMyProfile): ?>
-        <?php if ($user->purpose === null): ?>
-            <span>&nbsp;</span>
-            <p><a href="" class="pseudo">Какая Ваша самая главная цель в<br/>настоящее время?</a></p>
+    <div class="purpose-container">
+        <?php if ($isMyProfile): ?>
+            <?php if ($user->purpose === null): ?>
+                <span>&nbsp;</span>
+                <p><a href="" class="pseudo">Какая Ваша самая главная цель в<br/>настоящее время?</a></p>
+            <?php else: ?>
+                <?php $this->render('_purpose', array(
+                    'purpose' => $user->purpose,
+                    'canUpdate' => true,
+                )); ?>
+            <?php endif; ?>
         <?php else: ?>
             <?php $this->render('_purpose', array(
                 'purpose' => $user->purpose,
-                'canUpdate' => true,
+                'canUpdate' => false,
             )); ?>
         <?php endif; ?>
-    <?php else: ?>
-        <?php $this->render('_purpose', array(
-            'purpose' => $user->purpose,
-            'canUpdate' => false,
-        )); ?>
+    </div>
+    <?php if ($isMyProfile): ?>
+        <?php echo CHtml::beginForm(array('user/createRelated', 'relation' => 'purpose')); ?>
+        <?php echo CHtml::textArea('text'); ?><br/>
+        <button class="btn btn-green-small"><span><span>Ок</span></span></button>
+        <?php echo CHtml::endForm(); ?>
     <?php endif; ?>
-</div>
-
-<div id="user-purpose-form">
-    <?php echo CHtml::beginForm(array('user/createRelated', 'relation' => 'purpose')); ?>
-    <?php echo CHtml::textArea('text'); ?><br/>
-    <button class="btn btn-green-small"><span><span>Ок</span></span></button>
-    <?php echo CHtml::endForm(); ?>
 </div>

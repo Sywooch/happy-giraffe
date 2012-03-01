@@ -84,9 +84,12 @@ class ProfileController extends Controller
 
         if (isset($_POST['relationship_status'])) {
             $this->user->relationship_status = $_POST['relationship_status'];
-            if (isset($_POST['relationship_status']))
-                $this->user->partner_name = $_POST['partner_name'];
-            $this->user->update(array('relationship_status', 'partner_name'));
+            if (User::relationshipStatusHasPartner($_POST['relationship_status'])){
+                UserPartner::savePartner($this->user->id);
+            }else
+                UserPartner::model()->deleteAll('user_id='.$this->user->id);
+
+            $this->user->update(array('relationship_status'));
         }
 
         if (isset($_POST['Baby'])) {
@@ -159,5 +162,44 @@ class ProfileController extends Controller
         $this->user->save();
         Yii::app()->user->logout();
         $this->redirect(array('/site/index'));
+    }
+
+    public function actionUploadPartnerPhoto(){
+        if (isset($_POST['UserPartner'])) {
+            $user = $this->loadUser($_POST['User']['id']);
+            if (empty($user->partner)){
+                $partner = new UserPartner;
+                $partner->user_id = $user->id;
+            }
+            else
+                $partner = $user->partner;
+            $partner->photo = $_POST['UserPartner']['photo'];
+            if ($partner->save()) {
+                $response = array(
+                    'status' => true,
+                    'url' => $partner->photo->getUrl('ava'),
+                    'title' => '',
+                );
+            }
+            else
+            {
+                $response = array(
+                    'status' => false,
+                );
+            }
+            echo CJSON::encode($response);
+        }
+    }
+
+    /**
+     * @param int $id model id
+     * @return User
+     * @throws CHttpException
+     */
+    public function loadUser($id){
+        $model = User::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

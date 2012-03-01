@@ -55,4 +55,37 @@ class Baby extends CActiveRecord
             'sex' => 'Пол',
 		);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'behavior_ufiles' => array(
+                'class' => 'site.frontend.extensions.ufile.UFileBehavior',
+                'fileAttributes' => array(
+                    'photo' => array(
+                        'fileName' => 'upload/partner/*/<date>-{id}-<name>.<ext>',
+                        'fileItems' => array(
+                            'ava' => array(
+                                'fileHandler' => array('FileHandler', 'run'),
+                                'accurate_resize' => array(
+                                    'width' => 76,
+                                    'height' => 79,
+                                ),
+                            ),
+                            'mini' => array(
+                                'fileHandler' => array('FileHandler', 'run'),
+                                'accurate_resize' => array(
+                                    'width' => 38,
+                                    'height' => 37,
+                                ),
+                            ),
+                            'original' => array(
+                                'fileHandler' => array('FileHandler', 'run'),
+                            ),
+                        )
+                    ),
+                ),
+            ),
+        );
+    }
 }

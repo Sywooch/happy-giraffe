@@ -228,7 +228,7 @@ class SImageUploadBehavior extends CActiveRecordBehavior {
 
 	}
 
-	public function beforeDelete(){
+	public function beforeDelete($event){
 		$this->deleteImages();
 	}
 

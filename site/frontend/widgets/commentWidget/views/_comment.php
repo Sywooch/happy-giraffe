@@ -1,4 +1,4 @@
-<li class="clearfix item" id="comment_<?php echo $data->position; ?>">
+<li class="clearfix item" id="comment_<?php echo $data->id; ?>">
     <div class="user">
         <?php $this->widget('AvatarWidget', array('user' => $data->author, 'withMail' => false)); ?>
         <div class="details">
@@ -14,7 +14,7 @@
     </div>
     <div class="content">
         <div class="meta">
-            <span class="num"><?php echo $data->position; ?></span>
+            <span class="num" id="cp_<?php echo $data->id; ?>"><?php echo $data->position; ?></span>
             <span class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></span>
             <?php if(($data->response_id !== 0 && $response = $data->response) || ($data->quote_id !== 0 && $response = $data->quote)): ?>
                 <div class="answer">

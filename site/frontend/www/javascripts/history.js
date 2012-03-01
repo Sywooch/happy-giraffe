@@ -60,7 +60,7 @@ AjaxHistory.prototype.load = function (id, url) {
         success:function (data) {
             id = '#' + id;
             $(id).replaceWith($(id, '<div>' + data + '</div>'));
-            document.location.hash = document.location.hash;
+            /*document.location.hash = document.location.hash;*/
         }
     });
     return this;

@@ -1,15 +1,11 @@
-<div class="comments">
-    <div class="c-header">
-        <div class="left-s">
-            <span>Комментарии</span>
-            <span class="col"><?php echo $dataProvider->totalItemCount; ?></span>
-        </div>
-        <div class="right-s">
-            <!--<b><a href="">Подписаться</a></b>-->
-            <a class="btn btn-orange" href="#add_comment"><span><span>Добавить комментарий</span></span></a>
-        </div>
-        <div class="clear"></div>
-    </div>
+<div class="steps steps-comments">
+    <a class="btn btn-orange a-right" href="#add_comment"><span><span>Добавить запись</span></span></a>
+    <ul>
+        <li class="active"><a>Гостевая</a></li>
+    </ul>
+    <div class="comment-count"><?php echo $dataProvider->totalItemCount; ?></div>
+</div>
+<div class="default-comments">
     <?php
     $this->widget('MyListView', array(
         'dataProvider' => $dataProvider,
@@ -21,7 +17,7 @@
             'header' => 'Страницы',
         ),
         'id' => 'comment_list',
-        'template' => '{items}
+        'template' => '<ul>{items}</ul>
                 <div class="pagination pagination-center clearfix">
                     {summary}
                     {pager}

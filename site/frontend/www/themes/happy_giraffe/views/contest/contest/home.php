@@ -50,7 +50,7 @@
 					</div>
 					<div class="item-title"><?php echo $w->work_title; ?></div>
 					<div class="mark">
-						<span>x</span> баллов
+						<span><?php echo Rating::model()->countByEntity($w); ?></span> баллов
 					</div>
 				</li>
 			<?php endforeach; ?>

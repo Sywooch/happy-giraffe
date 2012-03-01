@@ -29,7 +29,9 @@ $this->user->refresh();
 		});
 	";
 	
-	$cs->registerScript('travel_add', $js);
+	$cs->registerScript('travel_add', $js)
+    ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
+    ->registerScriptFile('/javascripts/jquery.tmpl.min.js');
 ?>
 
 <?php $this->breadcrumbs = array(
@@ -39,9 +41,14 @@ $this->user->refresh();
 
 	<div class="profile-form-in">
 
-     <?php $form = $this->beginWidget('CActiveForm', array('id' => 'baby-form')); ?>
 		<div class="subtitle">Семейное положение:</div>
-	
+
+        <div class="photo-upload">
+            <?php $form = $this->beginWidget('CActiveForm', array(
+            'id' => 'partner_form',
+            'action' => $this->createUrl('family'),
+        )); ?>
+
 		<div class="row">
             <?php echo CHtml::dropDownList('relationship_status', $this->user->relationship_status,
             array('' => 'нет ответа') + $this->user->getRelashionshipList(),
@@ -56,18 +63,36 @@ $this->user->refresh();
 			<div class="row-title"><?php echo $this->user->getPartnerTitle($this->user->relationship_status) ?></div>
 			<div class="row-elements">
 				<div class="col">
-                    <?php echo CHtml::textField('partner_name', $this->user->partner_name) ?>
+                    <?php echo CHtml::textField('partner_name', empty($this->user->partner)?'':$this->user->partner->name) ?>
 				</div>									
 			</div>
 	
 		</div>
-	
+
+            <?php $this->endWidget(); ?>
+
+
 		<div class="photo-upload">
-		
+            <?php $form = $this->beginWidget('CActiveForm', array(
+            'id' => 'partner_photo_upload',
+            'action' => $this->createUrl('uploadPartnerPhoto'),
+            'htmlOptions' => array(
+                'enctype' => 'multipart/form-data',
+            ),
+        )); ?>
+            <?php echo $form->hiddenField($this->user, 'id'); ?>
+
 			<div class="left">
 				<div class="img-box">
-					<img src="/images/ava.png" />
-					<a href="" class="remove">Удалить</a>
+                    <?php if (isset($this->user->partner))
+                        echo CHtml::image($this->user->partner->photo->getUrl('ava')); ?>
+                    <?php
+//                    $this->widget('DeleteWidget', array(
+//                        'model' => $this->user->partner,
+//                        'selector' => 'li',
+//                    ));
+                    ?>
+
 				</div>
 				<p>Вы можете загрузить сюда только фотографию Вашего мужа.</p>
 			</div>
@@ -75,15 +100,22 @@ $this->user->refresh();
 			<div class="upload-btn">
 				<div class="file-fake">
 					<button class="btn btn-orange"><span><span>Загрузить фото</span></span></button>
-					<input type="file" />
+                    <?php echo CHtml::activeFileField(new UserPartner(), 'photo'); ?>
 				</div>
 				<br/>
 				Загрузите файл (jpg, gif, png не более 4 МБ)
 			</div>
-		
+            <?php $this->endWidget(); ?>
+
 		</div>
 		<br/>
-		<?php for ($i = 0; $i < $maxBabies; $i++): ?>
+        <?php $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'baby-form',
+        'htmlOptions'=>array(
+            'enctype'=>'multipart/form-data'
+        ))); ?>
+
+        <?php for ($i = 0; $i < $maxBabies; $i++): ?>
 			<?php
 				$baby_model = $baby_models[$i];
 			?>
@@ -171,6 +203,9 @@ $this->user->refresh();
 <div class="bottom">
 	<button class="btn btn-green-medium btn-arrow-right" onclick="$('#baby-form').submit();"><span><span>Сохранить<img src="/images/arrow_r.png" /></span></span></button>
 </div>
+<script id="photo-tmpl" type="text/x-jquery-tmpl">
+    <?php echo CHtml::image('${url}', '${title}'); ?>
+</script>
 <script type="text/javascript">
     $('#relationship_status').change(function(){
         if ($(this).val() == 1 || $(this).val() == 4 || $(this).val() == 5){
@@ -186,5 +221,20 @@ $this->user->refresh();
             $('#partner_name_bl').hide();
             $('#partner_name').val('');
         }
+    });
+
+    $('#partner_photo_upload').iframePostForm({
+        json:true,
+        complete:function (response) {
+            if (response.status == '1') {
+                $('#partner_photo_upload .img-box').html(
+                    $('#photo-tmpl').tmpl({url:response.url, title:response.title})
+                );
+            }
+        }
+    });
+
+    $('body').delegate('#UserPartner_photo', 'change', function () {
+        $(this).parents('form').submit();
     });
 </script>

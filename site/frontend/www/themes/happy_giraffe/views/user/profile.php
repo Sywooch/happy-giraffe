@@ -144,22 +144,9 @@
 
         <div class="col-3">
 
-            <div class="user-friends clearfix">
-
-                <div class="box-title">Друзья <a href="">Все друзья (105)</a></div>
-
-                <ul>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-                    <li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-                </ul>
-
-            </div>
+            <?php $this->widget('UserFriendsWidget', array(
+                'user' => $user,
+            )); ?>
 
             <?php $this->widget('application.widgets.user.LocationWidget',array(
             'user'=>$user)) ?>

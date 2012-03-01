@@ -300,6 +300,12 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .popup .form .row {width:344px;}
 .popup .form input[type=text], .popup .form input[type=password] {width:320px;}
 .popup .form {overflow:hidden;}
+.popup .bottom {text-align:center;padding-top:8px;border-top:1px solid #caf3f8;margin-top:20px;}
+.popup .bottom .btn {margin:0 5px;}
+
+.popup-confirm {width:400px;padding-top:40px;}
+.popup-confirm .confirm-question {font-size:16px;text-align:center;}
+.popup-confirm .confirm-question p {color:#4c4d4d;line-height:24px;}
 
 /* form */
 
@@ -967,12 +973,12 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* */
 
-.default-comments {padding-bottom:20px;}
+.default-comments {padding-bottom:20px;margin-top:20px;}
 .default-comments .add, .default-comments .all {padding-top:10px;text-align:right;}
 .default-comments ul {padding-top:10px;}
 .default-comments li {padding:10px;}
 .default-comments li.even {background:#f6fdfe;}
-.default-comments li .user {float:left;font:11px tahoma, arial, sans-serif;line-height:normal;}
+.default-comments li .user {float:left;font:11px tahoma, arial, sans-serif;line-height:normal;max-width:190px;overflow:hidden;}
 .default-comments li .user .ava {float:left;margin-right:8px;}
 .default-comments li .user .ava img {display:block;border:1px solid #dddddd;}
 .default-comments li .user .details {margin-left:90px;}

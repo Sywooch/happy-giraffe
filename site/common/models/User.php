@@ -334,6 +334,13 @@ class User extends CActiveRecord
                                     'height' => 37,
                                 ),
                             ),
+                            'bigAva' => array(
+                                'fileHandler' => array('FileHandler', 'run'),
+                                'accurate_resize' => array(
+                                    'width' => 241,
+                                    'height' => 225,
+                                ),
+                            ),
                             'original' => array(
                                 'fileHandler' => array('FileHandler', 'run'),
                             ),

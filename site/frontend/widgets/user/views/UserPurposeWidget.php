@@ -44,12 +44,10 @@
             )); ?>
         <?php endif; ?>
     <?php else: ?>
-        <?php if ($user->purpose): ?>
-            <?php $this->render('_purpose', array(
-                'purpose' => $user->purpose,
-                'canUpdate' => false,
-            )); ?>
-        <?php endif; ?>
+        <?php $this->render('_purpose', array(
+            'purpose' => $user->purpose,
+            'canUpdate' => false,
+        )); ?>
     <?php endif; ?>
 </div>
 

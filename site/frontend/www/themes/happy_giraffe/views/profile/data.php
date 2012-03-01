@@ -50,9 +50,11 @@ $this->breadcrumbs = array(
             ));
             ?>
         </div>
-        <div class="col age">
-            Возраст: <b><?php echo $this->user->age; ?></b> лет
-        </div>
+        <?php if ($this->user->birthday): ?>
+            <div class="col age">
+                Возраст: <b><?php echo $this->user->age; ?></b> <?php echo $this->user->ageSuffix; ?>
+            </div>
+        <?php endif; ?>
 
     </div>
 

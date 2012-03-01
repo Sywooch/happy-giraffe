@@ -6,7 +6,6 @@ var Comment = {
         var text = $(link).parents('.item:eq(0)').find('.user .username').text();
         $('#add_comment').find('.response input').val(id);
         $('#add_comment').find('.response .text').html(text);
-        return false;
     },
     clearResponse : function() {
         $('#add_comment').find('.response input').val('');
@@ -16,10 +15,9 @@ var Comment = {
         Comment.clearResponse();
         Comment.clearQuote();
         var id = $(link).parents('.item:eq(0)').attr('id').split('_')[1];
-        var text = $(link).parents('.item:eq(0)').find('.comment-content').html();
+        var text = $(link).parents('.item:eq(0)').find('.content-in').html();
         $('#add_comment').find('.quote input').val(id);
         $('#add_comment').find('.quote .text').html(text);
-        return false;
     },
     clearQuote : function() {
         $('#add_comment').find('.quote input').val('');
@@ -28,7 +26,6 @@ var Comment = {
     goTo : function(index, currentPage) {
         var page = Math.ceil(index / 10);
         if(page != currentPage) {
-            console.log(page);
             var pager = $('#comment_list .yiiPager .page:eq(' + (page - 1) + ')');
             var url = false;
             if(pager.size() > 0)
@@ -39,5 +36,6 @@ var Comment = {
         } else {
             document.location.hash = '#comment_' + index.toString();
         }
+        return false;
     }
 }

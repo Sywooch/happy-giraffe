@@ -1,40 +1,4 @@
-<?php
-	$cs = Yii::app()->getClientScript();
-	$ilike = "
-function rate(count)
-{
-	$.ajax({
-		type: 'POST',
-		dataType: 'json',
-		data: {
-			modelName: 'ContestWork',
-			objectId: " . $work->work_id . ",
-			attributeName: 'work_rate',
-			r: count,
-		},
-		url: '" . CController::createUrl('/ajax/rate') . "',
-		success: function(response) {
-			$('div.rate').text(response);
-		}
-	});
-}
-VK.init({
-	apiId: 2450198, 
-	onlyWidgets: true
-});
-VK.Observer.subscribe('widgets.like.liked', function(count){
-	rate(count);
-});
-VK.Observer.subscribe('widgets.like.unliked', function(count){
-	rate(count);
-});
-	";
-
-	$cs
-        ->registerCssFile('/stylesheets/carusel.css')
-        ->registerScriptFile('http://vkontakte.ru/js/api/openapi.js', CClientScript::POS_HEAD)
-        ->registerScript('ilike', $ilike, CClientScript::POS_HEAD);
-?>
+<?php Yii::app()->clientScript->registerCssFile('/stylesheets/carusel.css'); ?>
 
 <?php $this->breadcrumbs = array(
 		'Конкурсы' => array('/contest'),
@@ -57,23 +21,15 @@ VK.Observer.subscribe('widgets.like.unliked', function(count){
 		</div>
 	</div>
 
-	<div class="like-block">
-		<div class="block">
-			<div class="rate"><?php echo $work->work_rate; ?></div>
-			рейтинг
-		</div>
-		<big>Тебе нравится? Проголосуй!</big>
-		<div class="like">
-			<span style="width:150px;">
-				<div id="vk_like" style="height: 22px; width: 180px; position: relative; clear: both; background-image: none; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: initial; background-position: initial initial; background-repeat: initial initial; "></div>
-					<script type="text/javascript">
-					VK.Widgets.Like("vk_like", {type: "button"});
-				</script>
-			</span>
-			<div class="clear"></div>
-		</div>
-		<div class="clear"></div>
-	</div>
+    <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+        'title' => 'Вам понравилось фото?',
+        'model' => $work,
+        'options' => array(
+            'title' => $work->work_title,
+            'image' => $work->work_image->getUrl('big'),
+            'description' => false,
+        ),
+    )); ?>
 	<br/>
 	<div class="photo-block">
 		<big class="title">
@@ -88,7 +44,7 @@ VK.Observer.subscribe('widgets.like.unliked', function(count){
 					</div>
 					<div class="item-title"><?php echo $w->work_title; ?></div>
 					<div class="mark">
-						<span><?php echo $w->work_rate; ?></span> баллов
+						<span><?php echo Rating::model()->countByEntity($w); ?></span> баллов
 					</div>
 				</li>
 			<?php endforeach; ?>
@@ -98,7 +54,7 @@ VK.Observer.subscribe('widgets.like.unliked', function(count){
 		
 	</div>
 	
-	<?php $this->widget('CommentWidget', array(
+	<?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
 		'model' => $work,
 	)); ?>
 	

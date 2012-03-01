@@ -25,6 +25,7 @@ var Report = {
     closeForm : function(button)
     {
         $(button).parents('.report-block').remove();
+        return false;
     },
     sendForm : function(form) {
         var report_block = $(form).parents('.report-block');

@@ -42,15 +42,14 @@ class SiteController extends Controller
         $videoSearch = Yii::app()->search->select('*')->from('communityVideo')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
         $videoCount = count($videoSearch['matches']);
 
-
         $criteria = new CDbCriteria;
-        $criteria->addInCondition('t.id', array_keys($resIterator->getRawData()));
         $criteria->with = array('travel', 'video', 'post');
-        $dataProvider = new CActiveDataProvider('CommunityContent', array(
-            'criteria' => $criteria,
+
+        $dataProvider = new CArrayDataProvider($resIterator->getRawData(), array(
+            'keyField' => 'id',
         ));
 
-        $viewData = compact('dataProvider', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
+        $viewData = compact('dataProvider', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
 
         $this->render('search', $viewData);
     }

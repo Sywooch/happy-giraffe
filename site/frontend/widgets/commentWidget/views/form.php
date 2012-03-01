@@ -6,6 +6,7 @@ $('button.cancel').live('click', function(e) {
     Comment.clearQuote();
 	e.preventDefault();
 	var editor = CKEDITOR.instances['Comment[text]'];
+	$('#add_comment .button_panel .btn-green-medium span span').text('Добавить');
     editor.setData('');
     edit_comment = null;
     endEdit();
@@ -32,6 +33,7 @@ $('#add_comment').live('submit', function(e) {
                 editor.setData('');
                 Comment.clearResponse();
                 Comment.clearQuote();
+                $('#add_comment .button_panel .btn-green-medium span span').text('Добавить');
 			}
 		},
 	});
@@ -39,7 +41,7 @@ $('#add_comment').live('submit', function(e) {
 
 $('body').delegate('a.remove-comment', 'click', function () {
         if (confirm('Вы точно хотите удалить комментарий?')) {
-            var id = $(this).parents('.item').attr('id').replace(/CommunityComment_/g, '');
+            var id = $(this).parents('.item').attr('id').replace(/comment_/g, '');
             $.ajax({
                 url:'" . Yii::app()->createUrl("ajax/deleteComment") . "',
                 data:{id:id},
@@ -61,10 +63,10 @@ $('body').delegate('a.remove-comment', 'click', function () {
     });
 
     $('body').delegate('a.edit-comment', 'click', function () {
-        var id = $(this).parents('.item').attr('id').replace(/CommunityComment_/g, '');
+        var id = $(this).parents('.item').attr('id').replace(/comment_/g, '');
         $('#edit-id').val(id);
         var editor = CKEDITOR.instances['Comment[text]'];
-        editor.setData($(this).parents('.item').find('.comment-content').html());
+        editor.setData($(this).parents('.item').find('.content-in').html());
         $('#add_comment .button_panel .btn-green-medium span span').text('Редактировать');
 
         $('html,body').animate({scrollTop: $('#add_comment').offset().top - 100},'fast');

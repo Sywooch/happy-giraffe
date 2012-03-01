@@ -1,4 +1,8 @@
-<?php $c = $data; ?>
+<?php
+$criteria->addCondition('t.id = :id');
+$criteria->params[':id'] = $data->id;
+$c = CommunityContent::model()->find($criteria);
+?>
 <div class="entry">
 	<div class="entry-header">
         <?php $name = Yii::app()->search->buildExcerpts(array($c->name), $search_index, $search_text); ?>

@@ -451,6 +451,21 @@ class User extends CActiveRecord
             return $url;
     }
 
+    public function getPartnerPhotoUrl()
+    {
+        $url = '';
+        if (isset($this->partner))
+            $url = $this->partner->photo->getUrl('ava');
+        if (empty($url)) {
+            if ($this->gender == 1)
+                return '/images/ava_noimg_female.png';
+            else
+                return '/images/ava_noimg_male.png';
+        }
+        else
+            return $url;
+    }
+
     public function getDialogLink()
     {
         if (Yii::app()->user->isGuest)

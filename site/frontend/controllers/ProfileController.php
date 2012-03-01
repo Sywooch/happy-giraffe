@@ -56,7 +56,7 @@ class ProfileController extends Controller
             $address->saveAddress($this->user);
             $this->user->attributes = $_POST['User'];
             $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'settlement_id', 'birthday',
-            'country_id', 'street_id', 'house', 'room'));
+                'country_id', 'street_id', 'house', 'room'));
         }
 
         $this->render('data', array(
@@ -82,23 +82,34 @@ class ProfileController extends Controller
             $baby_models[] = (isset($this->user->babies[$i]) && $this->user->babies[$i] instanceof Baby) ? $this->user->babies[$i] : new Baby;
         }
 
-        if (isset($_POST['relationship_status'])) {
-            $this->user->relationship_status = $_POST['relationship_status'];
-            if (User::relationshipStatusHasPartner($_POST['relationship_status'])){
+        if (isset($_POST['User']['relationship_status'])) {
+            $this->user->relationship_status = $_POST['User']['relationship_status'];
+            if (User::relationshipStatusHasPartner($_POST['User']['relationship_status'])) {
                 UserPartner::savePartner($this->user->id);
-            }else
-                UserPartner::model()->deleteAll('user_id='.$this->user->id);
+            } else
+                UserPartner::model()->deleteAll('user_id=' . $this->user->id);
 
             $this->user->update(array('relationship_status'));
         }
 
         if (isset($_POST['Baby'])) {
+            $files_copy = $_FILES;
             for ($i = 0; $i < $maxBabies; $i++)
             {
-                if($_POST['Baby'][$i]['isset'] == 0)
+                if ($_POST['Baby'][$i]['isset'] == 0)
                     continue;
+
+                $_FILES['Baby']['tmp_name']['photo'] = $files_copy['Baby']['tmp_name'][$i]['photo'];
+                $_FILES['Baby']['name']['photo'] = $files_copy['Baby']['name'][$i]['photo'];
+                $_FILES['Baby']['type']['photo'] = $files_copy['Baby']['type'][$i]['photo'];
+                $_FILES['Baby']['error']['photo'] = $files_copy['Baby']['error'][$i]['photo'];
+                $_FILES['Baby']['size']['photo'] = $files_copy['Baby']['size'][$i]['photo'];
+                UFiles::prefetchFiles();
+
                 $baby_models[$i]->attributes = $_POST['Baby'][$i];
-                $baby_models[$i]->birthday = $_POST['Baby'][$i]['year'] . '-' . (mb_strlen($_POST['Baby'][$i]['month']) > 1 ? $_POST['Baby'][$i]['month'] : '0'.$_POST['Baby'][$i]['month']) . '-' . (mb_strlen($_POST['Baby'][$i]['day']) > 1 ? $_POST['Baby'][$i]['day'] : '0'.$_POST['Baby'][$i]['day']);
+                if (isset($_POST['Baby'][$i]['photo']) && !empty($_POST['Baby'][$i]['photo']))
+                    $baby_models[$i]->photo = $_POST['Baby'][$i]['photo'];
+                $baby_models[$i]->birthday = $_POST['Baby'][$i]['year'] . '-' . (mb_strlen($_POST['Baby'][$i]['month']) > 1 ? $_POST['Baby'][$i]['month'] : '0' . $_POST['Baby'][$i]['month']) . '-' . (mb_strlen($_POST['Baby'][$i]['day']) > 1 ? $_POST['Baby'][$i]['day'] : '0' . $_POST['Baby'][$i]['day']);
                 $baby_models[$i]->parent_id = Yii::app()->user->id;
                 $baby_models[$i]->save();
             }
@@ -111,8 +122,7 @@ class ProfileController extends Controller
 
     public function actionRemoveBaby($id)
     {
-        if(isset($this->user->babies[$id]))
-        {
+        if (isset($this->user->babies[$id])) {
             $model = $this->user->babies[$id];
             $model->delete();
         }
@@ -164,10 +174,11 @@ class ProfileController extends Controller
         $this->redirect(array('/site/index'));
     }
 
-    public function actionUploadPartnerPhoto(){
+    public function actionUploadPartnerPhoto()
+    {
         if (isset($_POST['UserPartner'])) {
             $user = $this->loadUser($_POST['User']['id']);
-            if (empty($user->partner)){
+            if (empty($user->partner)) {
                 $partner = new UserPartner;
                 $partner->user_id = $user->id;
             }
@@ -196,10 +207,65 @@ class ProfileController extends Controller
      * @return User
      * @throws CHttpException
      */
-    public function loadUser($id){
+    public function loadUser($id)
+    {
         $model = User::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return Baby
+     * @throws CHttpException
+     */
+    public function loadBaby($id)
+    {
+        $model = Baby::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    public function actionPreview()
+    {
+        $dst = '/upload/preview/' . time() . '_' . $_FILES['Baby']['name'][$_POST['baby_num']]['photo'];
+        FileHandler::run($_FILES['Baby']['tmp_name'][$_POST['baby_num']]['photo'], Yii::getPathOfAlias('webroot') . $dst, array(
+            'accurate_resize' => array(
+                'width' => 76,
+                'height' => 79,
+            ),
+        ));
+        echo Yii::app()->baseUrl . $dst;
+    }
+
+    public function actionRemoveBabyPhoto()
+    {
+        $baby = $this->loadBaby($_POST['id']);
+        if ($baby->parent_id == Yii::app()->user->getId()) {
+            $baby->photo = null;
+            if ($baby->save()) {
+                $response = array(
+                    'status' => true,
+                    'img' => '/images/profile_age_img_01.png'
+                );
+                echo CJSON::encode($response);
+            }
+        }
+    }
+
+    public function actionRemovePartnerPhoto()
+    {
+        $user = $this->loadUser(Yii::app()->user->getId());
+        $user->partner->photo = null;
+        if ($user->partner->save()) {
+
+            $response = array(
+                'status' => true,
+                'img' => $user->getPartnerPhotoUrl()
+            );
+            echo CJSON::encode($response);
+        }
     }
 }

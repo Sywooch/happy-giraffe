@@ -40,12 +40,12 @@
                 $this->endWidget();
             }
             ?>
-            <?php if (($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())) || ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId()))): ?>
+            <?php if (($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId())) || ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('removeComment', Yii::app()->user->getId()))): ?>
                 <div class="admin-actions">
-                    <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())): ?>
+                    <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId())): ?>
                         <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit edit-comment')); ?>
                     <?php endif; ?>
-                    <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId())): ?>
+                    <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('removeComment', Yii::app()->user->getId())): ?>
                         <?php echo CHtml::link('<i class="icon"></i>', Yii::app()->createUrl('#', array('id' => $data->id)), array(
                             'class' => 'remove remove-comment',
                         )); ?>

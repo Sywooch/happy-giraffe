@@ -2,7 +2,7 @@
 	'Профиль' => array('/profile'),
 	'<b>Доступ</b>',
 ); ?>
-
+<?php $form = $this->beginWidget('CActiveForm'); ?>
 	<div class="profile-form-in">
 
 		<div class="access-list">
@@ -11,23 +11,19 @@
 				<li>
 					<p class="line-title">Мою анкету могут смотреть:</p>
 					<div class="radiogroup">
-						<label><input type="radio" name="radio" /> все пользователи</label><br/>
-						<label><input type="radio" name="radio" /> только друзья</label><br/>
+						<?php echo $form->radioButtonList($this->user, 'profile_access', $this->user->accessLabels); ?>
 					</div>
-					<label><input type="checkbox" />разрешить неавторизованным пользователям просматривать мою страницу</label>
 				</li>
 				<li>
 					<p class="line-title">В мою гостевую книгу могут писать:</p>
 					<div class="radiogroup">
-						<label><input type="radio" name="radio" /> все пользователи</label><br/>
-						<label><input type="radio" name="radio" /> только друзья</label><br/>
+                        <?php echo $form->radioButtonList($this->user, 'guestbook_access', $this->user->accessLabels); ?>
 					</div>
 				</li>
 				<li>
 					<p class="line-title">Диалоги со мной могут начинать:</p>
 					<div class="radiogroup">
-						<label><input type="radio" name="radio" /> все пользователи</label><br/>
-						<label><input type="radio" name="radio" /> только друзья</label><br/>
+                        <?php echo $form->radioButtonList($this->user, 'im_access', $this->user->accessLabels); ?>
 					</div>
 				</li>
 		
@@ -39,3 +35,4 @@
 <div class="bottom">
 	<button class="btn btn-green-medium btn-arrow-right"><span><span>Сохранить<img src="/images/arrow_r.png" /></span></span></button>
 </div>
+<?php $this->endWidget(); ?>

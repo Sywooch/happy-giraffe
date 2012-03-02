@@ -93,6 +93,17 @@ class User extends CActiveRecord
         '7'=>'В поиске',
     );
 
+    public $accessLabels = array(
+        'all' => 'гости',
+        'registered' => 'зарегистрированные пользователи',
+        'friends' => 'только друзья',
+    );
+
+    public function getAccessLabel()
+    {
+        return $this->accessLabels[$this->access];
+    }
+
     public function getAge()
     {
         if ($this->birthday === null) return null;
@@ -145,6 +156,7 @@ class User extends CActiveRecord
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
             array('blocked, login_date, register_date', 'safe'),
             array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
+            array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -747,5 +759,20 @@ class User extends CActiveRecord
         if (in_array($status_id, array(1,4,5)))
             return true;
         return false;
+    }
+
+    public function calculateAccess($attribute, $user_id)
+    {
+        switch ($this->$attribute) {
+            case 'all':
+                return true;
+            break;
+            case 'registered':
+                return $user_id !== null;
+            break;
+            case 'friends':
+                return $this->isFriend($user_id) || $user_id == $this->id;
+            break;
+        }
     }
 }

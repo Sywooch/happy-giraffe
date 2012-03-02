@@ -2,6 +2,8 @@
 /**
  * MailRuOAuthService class file.
  *
+ * Register application: http://api.mail.ru/sites/my/add
+ * 
  * @author ChooJoy <choojoy.work@gmail.com>
  * @link http://code.google.com/p/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
@@ -28,12 +30,12 @@ class MailruOAuthService extends EOAuth2Service {
 		'access_token' => 'https://connect.mail.ru/oauth/token',
 	);
 	
-	protected $access_token = '';
-	
+	protected $uid = null;
+		
 	protected function fetchAttributes() {
 		$info = (array)$this->makeSignedRequest('http://www.appsmail.ru/platform/api', array(
 			'query' => array(
-				'uids' => $this->getUid(),
+				'uids' => $this->uid,
 				'method' => 'users.getInfo',
 				'app_id' => $this->client_id,
 			),
@@ -46,11 +48,21 @@ class MailruOAuthService extends EOAuth2Service {
 		$this->attributes['url'] = $info->link;
 	}
 	
-	protected function getTokenUrl($code = null) {
+	protected function getCodeUrl($redirect_uri) {
+		$this->setState('redirect_uri', $redirect_uri);
+		
+		$url = parent::getCodeUrl($redirect_uri);
+		if (isset($_GET['js']))
+			$url .= '&display=popup';
+		
+		return $url;
+	}
+	
+	protected function getTokenUrl($code) {
 		return $this->providerOptions['access_token'];
 	}
 	
-	protected function getAccessToken($code) {	
+	protected function getAccessToken($code) {
 		$params = array(
 			'client_id' => $this->client_id,
 			'client_secret' => $this->client_secret,
@@ -58,40 +70,52 @@ class MailruOAuthService extends EOAuth2Service {
 			'code' => $code,
 			'redirect_uri' => $this->getState('redirect_uri'),
 		);
-		$result = $this->makeRequest($this->getTokenUrl(), array('data' => $params));
-		$this->setState('uid', $result->x_mailru_vid);
-		return $result->access_token;
+		return $this->makeRequest($this->getTokenUrl($code), array('data' => $params));
 	}
 	
-	protected function getCodeUrl($redirect_uri) {
-		$this->setState('redirect_uri', $redirect_uri);
-		$url = parent::getCodeUrl($redirect_uri);
-		if (isset($_GET['js']))
-			$url .= '&display=popup';
-		
-		return $url;
+	/**
+	 * Save access token to the session.
+	 * @param stdClass $token access token object.
+	 */
+	protected function saveAccessToken($token) {
+		$this->setState('auth_token', $token->access_token);
+		$this->setState('uid', $token->x_mailru_vid);
+		$this->setState('expires', time() + $token->expires_in - 60);
+		$this->uid = $token->x_mailru_vid;
+		$this->access_token = $token->access_token;
 	}
-		
-	public function makeSignedRequest($url, $params = array(), $parseJson = true) {
+	
+	/**
+	 * Restore access token from the session.
+	 * @return boolean whether the access token was successfuly restored.
+	 */
+	protected function restoreAccessToken() {
+		if ($this->hasState('uid') && parent::restoreAccessToken()) {
+			$this->uid = $this->getState('uid');
+			return true;
+		}
+		else {
+			$this->uid = null;
+			return false;
+		}
+	}
+	
+	public function makeSignedRequest($url, $options = array(), $parseJson = true) {
 		if (!$this->getIsAuthenticated())
 				throw new CHttpException(401, Yii::t('eauth', 'Unable to complete the authentication because the required data was not received.', array('{provider}' => ucfirst($this->serviceName))));
-		
-		$params['query']['secure'] = 1;
-		$params['query']['session_key'] = $this->access_token;
+	
+		$options['query']['secure'] = 1;
+		$options['query']['session_key'] = $this->access_token;
 		$_params = '';
-		ksort($params['query']);
-		foreach ($params['query'] as $k => $v) $_params .= $k . '=' . $v;
-		$params['query']['sig'] = md5($_params . $this->client_secret);
-		$result = $this->makeRequest($url, $params);
+		ksort($options['query']);
+		foreach ($options['query'] as $k => $v) 
+			$_params .= $k . '=' . $v;
+		$options['query']['sig'] = md5($_params . $this->client_secret);
+		
+		$result = $this->makeRequest($url, $options);
 		return $result;
 	}
-	
-	protected function getUid() {
-		if (!$this->hasState('uid'))
-			throw new EAuthException('Unable to get mailru user id.', 500);
-		return $this->getState('uid');
-	}
-	
+		
 	/**
 	 * Returns the error info from json.
 	 * @param stdClass $json the json response.

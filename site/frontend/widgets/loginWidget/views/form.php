@@ -49,7 +49,7 @@
             <div class="row row-social">
                 Быстрый вход:
                 &nbsp;
-                <?php Yii::app()->eauth->renderWidget(array('mode' => 'login', 'action' => 'site/login')); ?>
+                <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login')); ?>
             </div>
 
             <div class="reg-link">

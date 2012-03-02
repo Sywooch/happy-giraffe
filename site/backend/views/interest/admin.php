@@ -5,8 +5,9 @@
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
+        'id',
 		'name',
-		'category_id',
+		'category.name',
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}{delete}'

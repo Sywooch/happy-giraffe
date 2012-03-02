@@ -42,20 +42,20 @@ $js = <<<EOD
         year = d.getFullYear();
 
         $('body').delegate('#prev', 'click', function () {
-            var mother_y = $('#mam_yr_cal').val();
+            var mother_y = $('#ChinaCalendarForm_mother_y').val();
             var age = year - mother_y - 1;
-            if (age < 18 || (age == 18 && $('#mam_mn_cal').val() == 12))
+            if (age < 18 || (age == 18 && $('#ChinaCalendarForm_mother_m').val() == 12))
                 return false;
             year--;
             ShowCalendar();
-            if (age == 18 || (age == 19 && $('#mam_mn_cal').val() == 12))
+            if (age == 18 || (age == 19 && $('#ChinaCalendarForm_mother_m').val() == 12))
                 $('#prev').addClass('disabled');
 
             return false;
         });
 
         $('body').delegate('#next', 'click', function () {
-            var mother_y = $('#mam_yr_cal').val();
+            var mother_y = $('#ChinaCalendarForm_mother_y').val();
             var age = year - mother_y;
             if (age > 45)
                 return false;
@@ -71,10 +71,10 @@ $js = <<<EOD
 
     function StartCalc(){
         var d = new Date();
-        var baby_y = parseInt($('#child_yr_cal').val());
-        var mother_m = parseInt($('#mam_mn_cal').val());
-        var baby_m = parseInt($('#ch_mn_cal').val());
-        var mother_y = parseInt($('#mam_yr_cal').val());
+        var baby_y = parseInt($('#ChinaCalendarForm_baby_y').val());
+        var mother_m = parseInt($('#ChinaCalendarForm_mother_m').val());
+        var baby_m = parseInt($('#ChinaCalendarForm_baby_m').val());
+        var mother_y = parseInt($('#ChinaCalendarForm_mother_y').val());
         year = baby_y;
 
         var age = baby_y - mother_y;
@@ -107,8 +107,8 @@ $js = <<<EOD
             '<th>Июн</th><th>Июл</th><th>Авг</th><th>Сен</th><th>Окт</th><th>Ноя</th><th>Дек</th></tr><tr>';
 
         //calc mother age
-        var mother_m = parseInt($('#mam_mn_cal').val());
-        var mother_y = parseInt($('#mam_yr_cal').val());
+        var mother_m = parseInt($('#ChinaCalendarForm_mother_m').val());
+        var mother_y = parseInt($('#ChinaCalendarForm_mother_y').val());
 
         for (var i = 1; i <= 12; i++) {
             var age = year - mother_y;
@@ -121,7 +121,7 @@ $js = <<<EOD
                 cell_class = "cal_item boy_day";
             if (gender == 2)
                 cell_class = "cal_item girl_day";
-            if (year == $('#child_yr_cal').val() && i == $('#ch_mn_cal').val())
+            if (year == $('#ChinaCalendarForm_baby_y').val() && i == $('#ChinaCalendarForm_baby_m').val())
                 cell_class += ' active_item';
 
             calendar2_html += "<td><div class='" + cell_class + "'><i class='icon'></i></div></td>";
@@ -153,7 +153,6 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
         'validateOnType' => false,
         'validationUrl' => $this->createUrl('/babySex/default/china'),
         'afterValidate' => "js:function(form, data, hasError) {
-            console.log(hasError);
                                 if (!hasError)
                                     StartCalc();
                                 return false;
@@ -164,11 +163,11 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
         <span class="title_pt_bn">Месяц и год рождения матери:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('id' => 'mam_mn_cal', 'class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>' ')); ?>
                 <?php echo $form->error($model, 'mother_m'); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'mam_yr_cal', 'class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'ChinaCalendarForm_mother_y', 'class' => 'chzn', 'empty'=>' ')); ?>
                 <?php echo $form->error($model, 'mother_y'); ?>
             </li>
         </ul>
@@ -178,11 +177,11 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
         <span class="title_pt_bn"><ins>Месяц и год зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('id' => 'ch_mn_cal', 'class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>' ')); ?>
                 <?php echo $form->error($model, 'baby_m'); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 10, $year + 20), array('id' => 'child_yr_cal', 'class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 10, $year + 20), array('class' => 'chzn', 'empty'=>' ')); ?>
                 <?php echo $form->error($model, 'baby_y'); ?>
             </li>
         </ul>

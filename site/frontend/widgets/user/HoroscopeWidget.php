@@ -13,7 +13,8 @@ class HoroscopeWidget extends UserCoreWidget
 
     public function run()
     {
-        if ($this->visible) {
+        if (!$this->visible)
+            return ;
 
             Yii::import('application.modules.horoscope.models.*');
 
@@ -36,6 +37,6 @@ class HoroscopeWidget extends UserCoreWidget
 
 //                CController::endCache();
 //            }
-        }
+
     }
 }

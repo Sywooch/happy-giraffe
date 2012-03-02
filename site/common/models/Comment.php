@@ -13,6 +13,7 @@
  * @property string $response_id
  * @property string $quote_id
  * @property string $position
+ * @property string $removed
  *
  * @property User author
  */
@@ -47,6 +48,7 @@ class Comment extends CActiveRecord
 			array('author_id, entity_id, response_id, quote_id', 'length', 'max'=>11),
 			array('entity', 'length', 'max'=>255),
             array('position', 'safe'),
+            array('removed', 'boolean'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, text, created, author_id, entity, entity_id', 'safe', 'on'=>'search'),
@@ -64,6 +66,7 @@ class Comment extends CActiveRecord
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
+            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
 		);
 	}
 
@@ -82,6 +85,7 @@ class Comment extends CActiveRecord
             'response_id' => 'Response id',
             'quote_id' => 'Quote id',
             'position' => 'Позиция',
+            'removed' => 'Удален',
 		);
 	}
 
@@ -104,6 +108,7 @@ class Comment extends CActiveRecord
 		$criteria->compare('entity_id',$this->entity_id,true);
         $criteria->compare('response_id',$this->response_id,true);
         $criteria->compare('quote_id',$this->quote_id,true);
+        $criteria->compare('removed',$this->removed,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

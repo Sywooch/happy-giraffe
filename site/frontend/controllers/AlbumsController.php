@@ -22,9 +22,23 @@ class AlbumsController extends Controller
 
     public function actionIndex()
     {
+        $user = Yii::app()->user->model;
         $dataProvider = Album::model()->findByUser(Yii::app()->user->id);
         $this->render('index', array(
             'dataProvider' => $dataProvider,
+            'user' => $user,
+        ));
+    }
+
+    public function actionUser($id)
+    {
+        $user = User::model()->findByPk($id);
+        if(!$user)
+            throw new CHttpException(404, 'Пользователь не найден');
+        $dataProvider = Album::model()->findByUser($id);
+        $this->render('index', array(
+            'dataProvider' => $dataProvider,
+            'user' => $user,
         ));
     }
 

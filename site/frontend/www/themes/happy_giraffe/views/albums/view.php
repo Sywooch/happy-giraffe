@@ -2,10 +2,13 @@
     <div class="header">
         <div class="clearfix">
             <div class="user">
-                <div class="ava"><img src="/images/ava.png"/></div>
-                <p><span>Анастасия</span><br/>Россия, Ярославль</p>
+                <?php $this->widget('AvatarWidget', array('user' => $model->user, 'withMail' => false)); ?>
+                <p><span><?php echo $model->user->fullName; ?></span>
+                    <?php if($model->user->country): ?>
+                        <br><?php echo $model->user->country->name; ?></p>
+                    <?php endif; ?>
             </div>
-            <div class="back-link">&larr; <a href="">В анкету</a></div>
+            <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $model->user->id)) ?></div>
         </div>
         <div class="title">
             <big>

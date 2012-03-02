@@ -122,7 +122,12 @@ class AjaxController extends Controller
 
     public function actionRemoveEntity()
     {
-
+        if(!Yii::app()->request->isAjaxRequest || !isset($_POST['Removed']))
+            Yii::app()->end();
+        $removed = new Removed;
+        $removed->user_id = Yii::app()->user->id;
+        $removed->attributes = $_POST['Removed'];
+        $removed->save();
     }
 
 	public function actionAcceptReport()

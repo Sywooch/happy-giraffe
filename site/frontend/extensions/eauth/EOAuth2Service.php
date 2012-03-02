@@ -57,7 +57,6 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 		
 		// Get the access_token and save them to the session.
 		if (isset($_GET['code'])) {
-            echo 123;Yii::app()->end();
             $code = $_GET['code'];
 			$token = $this->getAccessToken($code);
 			if (isset($token)) {
@@ -67,7 +66,6 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
         }
 		// Redirect to the authorization page
 		else if (!$this->restoreAccessToken()) {
-            echo 456;Yii::app()->end();
 			// Use the URL of the current page as the callback URL.
 			if (isset($_GET['redirect_uri'])) {
 				$redirect_uri = $_GET['redirect_uri'];
@@ -124,6 +122,9 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	 * @return boolean whether the access token was successfuly restored.
 	 */
 	protected function restoreAccessToken() {
+        var_dump($this->hasState('auth_token'));
+        var_dump($this->getState('expires', 0));
+        Yii::app()->end();
 		if ($this->hasState('auth_token') && $this->getState('expires', 0) > time()) {
 			$this->access_token = $this->getState('auth_token');
 			$this->authenticated = true;

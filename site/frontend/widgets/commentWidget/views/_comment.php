@@ -40,7 +40,8 @@
                 $this->endWidget();
             }
             ?>
-            <?php if (($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId())) || ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('removeComment', Yii::app()->user->getId()))): ?>
+            <?php if ((Yii::app()->user->checkAccess('removeComment',array('user_id'=>$data->author->id))) ||
+            Yii::app()->user->checkAccess('editComment', array('user_id'=>$data->author->id))): ?>
                 <div class="admin-actions">
                     <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId())): ?>
                         <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit edit-comment')); ?>

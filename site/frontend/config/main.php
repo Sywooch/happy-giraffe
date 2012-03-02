@@ -167,7 +167,7 @@ return array(
             'itemTable'=>'auth_item',
             'itemChildTable'=>'auth_item_child',
             'assignmentTable'=>'auth_assignment',
-			'defaultRoles' => array('guest'),
+			'defaultRoles' => array('user'),
 		),
 		'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
 		'db'=>require_once(dirname(__FILE__).'/db.php'),

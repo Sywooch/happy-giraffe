@@ -51,9 +51,9 @@
 
     <a href="#" id="today-link" style="display: none;">Прогноз на неделю</a>
 
-</div>
-<script type="text/javascript">
-    $('#forecast-link').click(function(){
+</div><?php
+Yii::app()->clientScript->registerScript('WeatherWidget',
+    "$('#forecast-link').click(function(){
         $(this).hide();
         $(this).prev().hide();
         $(this).next().show()
@@ -67,5 +67,5 @@
         $(this).prev().prev().show()
         $(this).prev().prev().prev().show()
         return false;
-    });
-</script>
+    });");
+?>

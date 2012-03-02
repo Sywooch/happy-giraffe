@@ -21,11 +21,11 @@
 
         <div class="user-nav">
             <ul>
-                <li class="active"><a href="">Анкета</a></li>
-                <li><a href="">Блог</a></li>
-                <li><a href="">Фото</a></li>
-                <li><a href="">Друзья</a></li>
-                <li><a href="">Клубы</a></li>
+                <li class="active"><?php echo CHtml::link('Анкета', array('user/profile', 'user_id' => $user->id)); ?></li>
+                <!--<li><a href="">Блог</a></li>-->
+                <li><?php echo CHtml::link('Фото', array('albums/user', 'id' => $user->id)); ?></li>
+                <!--<li><a href="">Друзья</a></li>-->
+                <!--<li><a href="">Клубы</a></li>-->
             </ul>
         </div>
     </div>
@@ -78,7 +78,7 @@
                         'user' => $user,
                     )); ?>
 
-                    <div class="user-blog">
+                    <!--<div class="user-blog">
 
                         <div class="box-title">Блог <a href="">Все записи (25)</a></div>
 
@@ -106,21 +106,18 @@
 
                         </ul>
 
-                    </div>
+                    </div>-->
 
                     <div class="user-clubs clearfix">
 
-                        <div class="box-title">Клубы <a href="">Все клубы (105)</a></div>
+                        <div class="box-title">Клубы <a href="">Все клубы (6)</a></div>
+
+                        <?php $clubs = Community::model()->findAll(array('order' => 'id DESC', 'limit' => 6, 'offset' => 1)); ?>
 
                         <ul>
-                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход Дети до года</a></li>
-                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим до года</a></li>
-                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Дети до года</a></li>
-                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход Дети до и уход Дети до года</a></li>
-                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим</a></li>
-                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Дети</a></li>
-                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход</a></li>
-                            <li><a href=""><img src="/images/user_friends_img.jpg" /></a><a href="">Режим и уход Дети до года</a></li>
+                            <?php foreach ($clubs as $c): ?>
+                                <li><?php echo CHtml::link(CHtml::image('/images/community/' . $c->id . '_small.png'), array('community/list', 'community_id' => $c->id)); ?><?php echo CHtml::link($c->name, array('community/list', 'community_id' => $c->id)); ?></li>
+                            <?php endforeach; ?>
                         </ul>
 
                     </div>
@@ -138,7 +135,7 @@
                     <?php $this->widget('application.widgets.user.LocationWidget',array(
                     'user'=>$user)) ?>
 
-                    <div class="user-weather">
+                    <!--<div class="user-weather">
 
                         <div class="location">
                             <div class="flag flag-ru"></div>Россия<br/>
@@ -159,7 +156,7 @@
 
                         <a href="">Прогноз на неделю</a>
 
-                    </div>
+                    </div>-->
 
                     <?php $this->widget('application.widgets.user.HoroscopeWidget',array('user'=>$user)) ?>
 

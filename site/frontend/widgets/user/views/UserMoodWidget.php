@@ -6,6 +6,20 @@
             e.preventDefault();
             $('div.moods-list').toggle();
         });
+
+        $('div.user-mood').delegate('#userMood', {
+            'mousemove':function(e){
+				$('#userMoodTooltip').css({
+					left: e.pageX - $('#userMoodTooltip').parents('div.user-mood').offset().left - ($('#userMoodTooltip').innerWidth() / 2), top: e.pageY - $('#userMoodTooltip').parents('div.user-mood').offset().top - ($('#userMoodTooltip').innerHeight() + 10)
+				});
+			},
+			'mouseenter': function(e){
+				$('#userMoodTooltip').fadeIn(200);
+			},
+			'mouseleave': function(e){
+				$('#userMoodTooltip').fadeOut(200);
+			}
+        });
     ";
 
     $js_head = "
@@ -50,7 +64,7 @@
         <?php else: ?>
             <?php $this->render('_mood', array(
                 'mood' => $user->mood,
-                'canUpdate' => true,
+                'canUpdate' => false,
             )); ?>
         <?php endif; ?>
     </div>

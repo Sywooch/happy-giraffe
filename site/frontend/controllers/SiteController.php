@@ -188,13 +188,10 @@ class SiteController extends Controller
                 }
             }
             $authIdentity->redirectUrl = $redirectUrl;
-
+var_dump($authIdentity->authenticate());Yii::app()->end();Yii::app()->end();
 			if ($authIdentity->authenticate()) {
 				$name = $authIdentity->getServiceName();
 				$id = $authIdentity->getAttribute('id');
-                echo $id;
-                echo $name;
-                Yii::app()->end();
 				$check = UserSocialService::model()->findByAttributes(array(
 					'service' => $name,
 					'service_id' => $id,

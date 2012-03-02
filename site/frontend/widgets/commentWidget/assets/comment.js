@@ -52,7 +52,7 @@ var Comment = {
     },
     remove : function(el) {
         var form = $(el).parents('form');
-        $.post(form.attr('action'), form.serialize(), function() {
+        $.post(form.attr('action'), form.serialize(), function(data) {
             $.fn.yiiListView.update('comment_list');
         })
     }

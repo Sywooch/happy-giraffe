@@ -10,8 +10,9 @@
  */
 class Community extends CActiveRecord
 {
+    const USERS_COMMUNITY = 999999;
 	private $_typeCounts = null;
-	
+
 	public function getCount($type_id = null)
 	{
 		if ($this->_typeCounts === null)

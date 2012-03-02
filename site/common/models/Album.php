@@ -64,6 +64,15 @@ class Album extends CActiveRecord
 		);
 	}
 
+    public function scopes()
+    {
+        return array(
+            'full' => array(
+                'join' => 'inner join album_photos p on ' . $this->tableAlias . '.id = p.album_id'
+            )
+        );
+    }
+
     public function behaviors()
     {
         return array(

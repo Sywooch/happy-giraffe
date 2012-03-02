@@ -66,7 +66,6 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
         }
 		// Redirect to the authorization page
 		else if (!$this->restoreAccessToken()) {
-            echo 456;exit;
 			// Use the URL of the current page as the callback URL.
 			if (isset($_GET['redirect_uri'])) {
 				$redirect_uri = $_GET['redirect_uri'];

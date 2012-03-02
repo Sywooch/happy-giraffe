@@ -42,7 +42,6 @@
     ->registerScriptFile('/javascripts/dklab_realplexor.js')
     ->registerScript('Realplexor-reg', '
         var user_cache = "' . MessageCache::GetCurrentUserCache() . '";
-        var last_dialog = "' . ActiveDialogs::model()->getLastDialogId() . '";
         var realplexor = new Dklab_Realplexor(
             "http://' . Yii::app()->comet->host . '",
             "' . Yii::app()->comet->namespace . '"

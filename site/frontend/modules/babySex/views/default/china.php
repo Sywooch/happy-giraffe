@@ -41,37 +41,6 @@ $js = <<<EOD
         var d = new Date();
         year = d.getFullYear();
 
-        $('.calc_bt').click(function () {
-            var d = new Date();
-            var baby_y = parseInt($('#child_yr_cal').val());
-            var mother_m = parseInt($('#mam_mn_cal').val());
-            var baby_m = parseInt($('#ch_mn_cal').val());
-            var mother_y = parseInt($('#mam_yr_cal').val());
-            year = baby_y;
-
-            var age = baby_y - mother_y;
-            if (baby_m <= mother_m)
-                var age = baby_y - mother_y - 1;
-            if (age < 18 || age > 45) {
-                $('#china-calendar-result').html('');
-                $('.wh_wait').hide();
-                return false;
-            }
-
-            ShowCalendar();
-
-            var gender = GetGenderFromAge(age, baby_m);
-            $('.wh_wait').hide();
-            if (gender == 1) {
-                $('.wh_son').show();
-            }
-            if (gender == 2) {
-                $('.wh_daughter').show();
-            }
-
-            return false;
-        });
-
         $('body').delegate('#prev', 'click', function () {
             var mother_y = $('#mam_yr_cal').val();
             var age = year - mother_y - 1;
@@ -99,6 +68,35 @@ $js = <<<EOD
             return false;
         });
     });
+
+    function StartCalc(){
+        var d = new Date();
+        var baby_y = parseInt($('#child_yr_cal').val());
+        var mother_m = parseInt($('#mam_mn_cal').val());
+        var baby_m = parseInt($('#ch_mn_cal').val());
+        var mother_y = parseInt($('#mam_yr_cal').val());
+        year = baby_y;
+
+        var age = baby_y - mother_y;
+        if (baby_m <= mother_m)
+            var age = baby_y - mother_y - 1;
+        if (age < 18 || age > 45) {
+            $('#china-calendar-result').html('');
+            $('.wh_wait').hide();
+            return false;
+        }
+
+        ShowCalendar();
+
+        var gender = GetGenderFromAge(age, baby_m);
+        $('.wh_wait').hide();
+        if (gender == 1) {
+            $('.wh_son').show();
+        }
+        if (gender == 2) {
+            $('.wh_daughter').show();
+        }
+    }
 
     function ShowCalendar() {
         var calendar2_html = '<div class="month_calendar"><div class="choice_month">' +
@@ -147,16 +145,31 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
 <div class="child_sex_china_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'china-calendar-form',
-    'enableAjaxValidation' => false,
-));?>
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => false,
+        'validateOnType' => false,
+        'validationUrl' => $this->createUrl('/babySex/default/china'),
+        'afterValidate' => "js:function(form, data, hasError) {
+            console.log(hasError);
+                                if (!hasError)
+                                    StartCalc();
+                                return false;
+                              }",
+    ))); ?>
+
     <div class="mam_bd">
         <span class="title_pt_bn">Месяц и год рождения матери:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('id' => 'mam_mn_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('id' => 'mam_mn_cal', 'class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->error($model, 'mother_m'); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'mam_yr_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'mam_yr_cal', 'class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->error($model, 'mother_y'); ?>
             </li>
         </ul>
     </div>
@@ -165,16 +178,18 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
         <span class="title_pt_bn"><ins>Месяц и год зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('id' => 'ch_mn_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('id' => 'ch_mn_cal', 'class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->error($model, 'baby_m'); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 10, $year + 20), array('id' => 'child_yr_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 10, $year + 20), array('id' => 'child_yr_cal', 'class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->error($model, 'baby_y'); ?>
             </li>
         </ul>
     </div>
     <!-- .child_bd -->
     <?php echo $form->hiddenField($model, 'review_year', array('id' => 'china_review_year')) ?>
-    <input type="button" class="calc_bt" value="Рассчитать"/>
+    <input type="submit" class="calc_bt" value="Рассчитать"/>
     <?php $this->endWidget(); ?>
 </div><!-- .child_sex_china_banner -->
 

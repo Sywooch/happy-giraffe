@@ -38,7 +38,10 @@
 
 	</script>
 
-    <?php Yii::app()->clientScript
+    <?php
+
+    if (!Yii::app()->user->isGuest){
+    Yii::app()->clientScript
     ->registerScriptFile('/javascripts/dklab_realplexor.js')
     ->registerScript('Realplexor-reg', '
         var user_cache = "' . MessageCache::GetCurrentUserCache() . '";
@@ -64,10 +67,9 @@
             }
         });
         realplexor.execute();
-')
-    ->registerScript('im_script', '
-
-    '); ?>
+');
+    }
+    ?>
 </head>
 <body class="body-club">
 	<div class="page">

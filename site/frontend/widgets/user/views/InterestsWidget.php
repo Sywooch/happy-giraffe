@@ -10,7 +10,7 @@
     .yellow{
         background:#fff9bc;
     }
-    .green{
+    .light-green{
         background:#bef2b9;
     }
     .blue{

@@ -9,7 +9,7 @@
                         <br><?php echo $user->country->name; ?></p>
                     <?php endif; ?>
             </div>
-            <div class="back-link">← <a href="">В анкету</a></div>
+            <div class="back-link">← <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $user->id)) ?></div>
         </div>
         <div class="title">
             <big><span>Фотоальбомы</span></big>

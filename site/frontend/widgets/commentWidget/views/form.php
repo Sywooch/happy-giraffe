@@ -39,7 +39,7 @@ $('#add_comment').live('submit', function(e) {
 	});
 });
 
-$('body').delegate('a.remove-comment', 'click', function () {
+/*$('body').delegate('a.remove-comment', 'click', function () {
         if (confirm('Вы точно хотите удалить комментарий?')) {
             var id = $(this).parents('.item').attr('id').replace(/comment_/g, '');
             $.ajax({
@@ -60,7 +60,7 @@ $('body').delegate('a.remove-comment', 'click', function () {
             });
         }
         return false;
-    });
+    });*/
 
     $('body').delegate('a.edit-comment', 'click', function () {
         var id = $(this).parents('.item').attr('id').replace(/comment_/g, '');

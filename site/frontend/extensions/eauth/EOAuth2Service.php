@@ -122,9 +122,6 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	 * @return boolean whether the access token was successfuly restored.
 	 */
 	protected function restoreAccessToken() {
-        var_dump($this->hasState('auth_token'));
-        var_dump($this->getState('expires', 0));
-        Yii::app()->end();
 		if ($this->hasState('auth_token') && $this->getState('expires', 0) > time()) {
 			$this->access_token = $this->getState('auth_token');
 			$this->authenticated = true;

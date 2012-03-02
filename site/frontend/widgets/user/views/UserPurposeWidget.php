@@ -16,6 +16,7 @@
                 success: function(response) {
                     $('div.purpose-container').html(response);
                     $('div.user-purpose > form').hide();
+                    $('div.user-purpose > form > textarea[name=text]').val('');
                 }
             });
         });

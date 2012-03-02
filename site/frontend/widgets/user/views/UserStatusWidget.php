@@ -17,6 +17,7 @@
                 success: function(response) {
                     $('div.status-container').html(response);
                     $('div.user-status > form').hide();
+                    $('div.user-status > form > textarea[name=text]').val('');
                     $('div.status-container').show();
                 }
             });

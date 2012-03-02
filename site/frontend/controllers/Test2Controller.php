@@ -175,9 +175,6 @@ class Test2Controller extends Controller
 
     public function actionFriends()
     {
-        $user = User::model()->findByPk(38);
-        foreach ($user->getFriends('email = :email', array(':email' => 'mira.smurkov@gmail.com'))->data as $f) {
-            echo $f->first_name . '<br />';
-        }
+
     }
 }

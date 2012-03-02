@@ -268,7 +268,7 @@ class UserSignal extends EMongoDocument
     public static function CheckComment($comment)
     {
         if (Yii::app()->user->checkAccess('moderator')){
-            self::CheckTask($comment->model, $comment->object_id, Yii::app()->user->getId());
+            self::CheckTask($comment->entity, $comment->entity_id, Yii::app()->user->getId());
         }
     }
 

@@ -1,4 +1,10 @@
 <?php $this->beginContent('//layouts/club'); ?>
+<?php
+Yii::app()->clientScript
+    ->registerScript('Realplexor-module', '
+        var last_dialog = "' . ActiveDialogs::model()->getLastDialogId() . '";
+');
+?>
 <div class="main">
 
     <div class="main-right">

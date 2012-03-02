@@ -41,7 +41,12 @@ class DefaultController extends Controller
     {
         $this->pageTitle = 'Пол ребенка по китайской таблице. Китайский метод определения пола ребенка';
 
-        $this->render('china');
+        if (Yii::app()->request->isAjaxRequest){
+            $model = new ChinaCalendarForm;
+            $model->attributes = $_POST['ChinaCalendarForm'];
+            echo CActiveForm::validate($model);
+        }else
+            $this->render('china');
     }
 
     public function actionOvulation()

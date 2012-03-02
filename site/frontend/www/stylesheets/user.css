@@ -142,12 +142,17 @@
 #user .user-weather .location {font-size:12px;color:#929292;}
 #user .user-weather .location .flag {display:inline-block;margin-right:5px;border:1px solid #eeeeee;position:relative;top:1px;}
 #user .user-weather .location big {font-size:22px;color:#484747;}
+#user .user-weather .clearfix {border-top:1px solid #c2e7f7;width:260px;margin:7px auto 0;}
 #user .user-weather .img {display:inline-block;padding:10px;vertical-align:top;}
 #user .user-weather .text {display:inline-block;padding:10px;width:95px;vertical-align:top;}
 #user .user-weather .text big {line-height:55px;font-size:55px;color:#2997e3;}
 #user .user-weather .text .row {padding:3px 10px;font-size:12px;color:#4d9fd5;text-align:left;}
 #user .user-weather .text .row span {float:left;width:55px;color:#484747;}
 #user .user-weather .text .row.hl {background:#e1f3fe;} 
+#user .user-weather table {margin:7px 0 15px;width:100%;text-align:center;}
+#user .user-weather table td {padding:6px 5px;font-size:12px;color:#2997e3;}
+#user .user-weather table thead td {border-top:1px solid #c2e7f7;border-bottom:1px solid #c2e7f7;height:23px;line-height:23px;color:#868788;font-size:11px;padding:0 5px;}
+#user .user-weather table .hl td {background:#e8f6ff;}
 
 #user .user-horoscope {padding:10px 14px;border:1px solid #efefef;}
 #user .user-horoscope {/*css3*/ border-radius:10px;}

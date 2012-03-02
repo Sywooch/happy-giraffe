@@ -1,37 +1,4 @@
 <?php $this->beginContent('//layouts/club'); ?>
-<?php
-Yii::app()->clientScript
-    ->registerScriptFile('/javascripts/dklab_realplexor.js')
-    ->registerScript('Realplexor-reg', '
-        var user_cache = "' . MessageCache::GetCurrentUserCache() . '";
-        var last_dialog = "' . ActiveDialogs::model()->getLastDialogId() . '";
-        var realplexor = new Dklab_Realplexor(
-            "http://' . Yii::app()->comet->host . '",
-            "' . Yii::app()->comet->namespace . '"
-        );
-
-        realplexor.subscribe(user_cache, function (result, id) {
-            console.log(result);
-            if (result.type == ' . MessageLog::TYPE_NEW_MESSAGE . ') {
-                if(window.ShowNewMessage)
-                    ShowNewMessage(result);
-            } else if (result.type == ' . MessageLog::TYPE_READ . ') {
-                if(window.ShowAsRead)
-                    ShowAsRead(result);
-            } else if (result.type == ' . MessageLog::TYPE_STATUS_CHANGE . ') {
-                if(window.StatusChanged)
-                    StatusChanged(result);
-            } else if (result.type == ' . MessageLog::TYPE_USER_WRITE . ') {
-                if(window.ShowUserTyping)
-                    ShowUserTyping(result);
-            }
-        });
-        realplexor.execute();
-')
-    ->registerScript('im_script', '
-
-    ');
-?>
 <div class="main">
 
     <div class="main-right">

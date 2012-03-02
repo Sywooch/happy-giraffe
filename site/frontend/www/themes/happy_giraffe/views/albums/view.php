@@ -8,7 +8,7 @@
                         <br><?php echo $model->user->country->name; ?></p>
                     <?php endif; ?>
             </div>
-            <div class="back-link">&larr; <a href="">В анкету</a></div>
+            <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $model->user->id)) ?></div>
         </div>
         <div class="title">
             <big>

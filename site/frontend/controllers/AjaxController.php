@@ -120,6 +120,11 @@ class AjaxController extends Controller
 		$user->saveRelated('communities');
 	}
 
+    public function actionRemoveEntity()
+    {
+
+    }
+
 	public function actionAcceptReport()
 	{
         if ($_POST['Report'])

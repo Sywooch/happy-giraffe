@@ -46,8 +46,9 @@
                         <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit edit-comment')); ?>
                     <?php endif; ?>
                     <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId())): ?>
-                        <?php echo CHtml::link('<i class="icon"></i>', Yii::app()->createUrl('#', array('id' => $data->id)), array(
-                            'class' => 'remove remove-comment',
+                        <?php echo CHtml::link('<i class="icon"></i>', '#', array(
+                            'class' => 'remove',
+                            'onclick' => 'return Comment.removeConfirm(this, ' . ($data->author->id == Yii::app()->user->id ? 'true' : 'false') . ');'
                         )); ?>
                     <?php endif; ?>
                 </div>

@@ -210,17 +210,17 @@ function initSelects(block){
 			
 		});
 	}
-	
-	//alert(block);
 }
-
- function confirmMessage(el){
+function confirmMessage(el, callback){
+    callback(el);
 	var box =  $(el).parents('.popup');
 	box.find('.confirm-after').fadeIn();
 	box.find('.confirm-before').hide();
-	setTimeout(function(){$.fancybox.close()}, 2000)
- }
+	setTimeout(function(){$.fancybox.close()}, 1000)
+}
 
 function cl(value) {
     console.log(value);
 }
+
+$.fancybox.open = function(content) {$('<a></a>').fancybox({content:content}).trigger('click');}

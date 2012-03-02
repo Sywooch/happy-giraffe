@@ -146,7 +146,7 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'china-calendar-form',
     'enableAjaxValidation' => true,
-    'enableClientValidation' => false,
+    'enableClientValidation' => true,
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,

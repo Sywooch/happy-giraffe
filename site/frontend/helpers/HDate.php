@@ -293,4 +293,28 @@ class HDate
 
         return $result;
     }
+
+    /**
+     * Возвращает список $num дней недели начиная с завтра в виде
+     * Завтра, Пт, Сб, Вс.....
+     *
+     * @static
+     * @param $num кол-во дней
+     * @return array
+     */
+    public static  function getDaysList($num)
+    {
+        $days = array('Пн','Вт','Ср','Чт','Пт','Сб','Вс');
+
+        $today = date('N');
+        $res = array('Завтра');
+        $i = 1;
+        while($i < $num){
+            $res [] = $days[($i+$today) % 7];
+
+            $i++;
+        }
+
+        return $res;
+    }
 }

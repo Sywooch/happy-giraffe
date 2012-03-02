@@ -6,6 +6,7 @@ var Social = {
     model_name : false,
     model_id : false,
     api_url : false,
+    ajax_url : false,
     elem : null,
     wait : function() {
         if (this.window && this.window.closed) {
@@ -16,12 +17,13 @@ var Social = {
     open : function(key, url, title, width, height, elem) {
         this.key = key;
         this.elem = elem;
-        this.window = window.open(url, title, 'width='+width+',height='+height);
+        this.window = window.open(this.ajax_url + '?key=' + key + '&surl=' + url, title, 'width='+width+',height='+height);
+        /*this.window = window.open(url, title, 'width='+width+',height='+height);
         if(this.timer) {
             clearInterval(this.timer);
             this.timer = false;
         }
-        this.timer = setInterval('Social.wait();', 100);
+        this.timer = setInterval('Social.wait();', 100);*/
         return false;
     },
     update : function(value, update) {

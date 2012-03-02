@@ -28,7 +28,7 @@ $('.close').click(function () {
         ->registerScript('add_video', $js_add_video)->registerCss('add_video', $css_add_video);
 ?>
 
-	<?php if ($content_model->isNewRecord || (Yii::app()->user->checkAccess('edit post',
+	<?php if ($content_model->isNewRecord || (Yii::app()->user->checkAccess('editCommunityContent',
     array('community_id'=>$content_model->rubric->community_id)) ||
     $content_model->author_id == Yii::app()->user->getId())):?>
 	    <div class="">

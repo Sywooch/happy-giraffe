@@ -119,8 +119,8 @@ class MessageLog extends CActiveRecord
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)
-            $this->created = date("Y-m-d H:i:s");
+//        if ($this->isNewRecord)
+//            $this->created = date("Y-m-d H:i:s");
         return parent::beforeSave();
     }
 

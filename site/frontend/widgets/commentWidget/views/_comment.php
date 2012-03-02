@@ -14,7 +14,7 @@
     </div>
     <div class="content">
         <div class="meta">
-            <span class="num" id="cp_<?php echo $data->id; ?>"><?php echo $data->position; ?></span>
+            <span class="num" id="cp_<?php echo $data->position; ?>"><?php echo $data->position; ?></span>
             <span class="date"><?php echo HDate::GetFormattedTime($data->created, ', '); ?></span>
             <?php if(($data->response_id !== 0 && $response = $data->response) || ($data->quote_id !== 0 && $response = $data->quote)): ?>
                 <div class="answer">
@@ -42,7 +42,6 @@
                 }
                 ?>
                 <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId()) || Yii::app()->authManager->checkAccess('removeComment', Yii::app()->user->getId())): ?>
-                123
                     <div class="admin-actions">
                         <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId())): ?>
                             <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit edit-comment')); ?>
@@ -65,7 +64,7 @@
                 <?php if($data->remove->type == 0): ?>
                     Комментарий удален автором.
                 <?php else: ?>
-                    Комментарий удален. Причина: <?php echo Removed::$types[$data->remove->type]; ?>
+                    Комментарий удален. Причина: <?php echo $data->remove->type == 4 ? $data->remove->text : Removed::$types[$data->remove->type]; ?>
                 <?php endif; ?>
             </div>
         <?php endif; ?>

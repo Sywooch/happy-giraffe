@@ -44,7 +44,7 @@ var Comment = {
             entity_id : $(el).parents('.item:eq(0)').attr('id').split('_')[1]
         }
         if(author)
-            var tmpl_id = 'comment_delete_tmpl';
+            var tmpl_id = 'comment_delete_by_author_tmpl';
         else
             var tmpl_id = 'comment_delete_tmpl';
         $.fancybox.open($('#' + tmpl_id).tmpl([options]));

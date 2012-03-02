@@ -223,4 +223,6 @@ function cl(value) {
     console.log(value);
 }
 
-$.fancybox.open = function(content) {$('<a></a>').fancybox({content:content}).trigger('click');}
+$.fancybox.open = function(content) {
+    $('<a></a>').fancybox({content:content, showCloseButton : false}).trigger('click');
+}

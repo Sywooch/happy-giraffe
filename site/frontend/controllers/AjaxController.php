@@ -70,7 +70,7 @@ class AjaxController extends Controller
             $comment = $this->loadComment($_POST['edit-id']);
             //check access
             if ($comment->author_id != Yii::app()->user->getId() &&
-                !Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())
+                !Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId())
             )
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
             $comment->attributes = $_POST['Comment'];
@@ -96,7 +96,7 @@ class AjaxController extends Controller
         $comment = Comment::model()->findByPk($id);
         //check user is author or moderator
         if ($comment->author_id == Yii::app()->user->getId() ||
-            Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId())) {
+            Yii::app()->authManager->checkAccess('removeComment', Yii::app()->user->getId())) {
             echo CJSON::encode(array(
                 'status' => $comment->delete(),
             ));

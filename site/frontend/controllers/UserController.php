@@ -14,6 +14,8 @@ class UserController extends Controller
         ))->findByPk($user_id);
         if ($user === null)
             throw new CHttpException(404, 'Пользователь не найден');
+        if (! $user->calculateAccess('profile_access', Yii::app()->user->id))
+            throw new CHttpException(403, 'Вы не можете просматривать страницу этого пользователя');
 
         $this->render('profile', array(
             'user' => $user,

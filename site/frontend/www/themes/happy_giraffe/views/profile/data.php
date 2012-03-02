@@ -161,6 +161,17 @@ $this->breadcrumbs = array(
 </div>
 
 <div class="row row-inline">
+
+    <div class="row-title">Дата регистрации:</div>
+    <div class="row-elements">
+        <div class="col">
+            <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date); ?>
+        </div>
+    </div>
+
+</div>
+
+<div class="row row-inline">
     <div class="row-title">Удалить анкету:</div>
     <div class="row-elements">
         <div class="text">Да, я

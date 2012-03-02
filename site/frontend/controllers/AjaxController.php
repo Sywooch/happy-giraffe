@@ -120,6 +120,26 @@ class AjaxController extends Controller
 		$user->saveRelated('communities');
 	}
 
+    public function actionRemoveEntity()
+    {
+        if(!Yii::app()->request->isAjaxRequest || !isset($_POST['Removed']))
+            Yii::app()->end();
+        $model = call_user_func(array($_POST['Removed']['entity'], 'model'));
+        $model->findByPk($_POST['Removed']['entity_id']);
+        if(!$model)
+            Yii::app()->end();
+
+        if ($model->author_id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('removeComment', Yii::app()->user->id));
+        else
+            Yii::app()->end();
+        $removed = new Removed;
+        $removed->user_id = Yii::app()->user->id;
+        $removed->attributes = $_POST['Removed'];
+        if($model->author_id == Yii::app()->user->id)
+            $removed->type = 0;
+        $removed->save();
+    }
+
 	public function actionAcceptReport()
 	{
         if ($_POST['Report'])

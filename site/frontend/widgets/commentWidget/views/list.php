@@ -59,12 +59,8 @@
                 <div class="confirm-question clearfix">
                     <div class="reason">
                         <div class="title">Причина удаления:</div>
-                        <?php echo CHtml::radioButtonList('Removed[type]', '', Removed::$types); ?>
-                        <label><input type="radio" name="radio">Спам</label>
-                        <label><input type="radio" name="radio">Оскорбление пользователей</label>
-                        <label><input type="radio" name="radio">Разжигание межнациональной розни</label>
-                        <label><input type="radio" name="radio">Другая причина</label>
-                        <input type="text" class="other-reason">
+                        <?php echo CHtml::radioButtonList('Removed[type]', 1, Removed::$types); ?>
+                        <input type="text" name="Removed[text]" class="other-reason">
                     </div>
 
                     <div class="question-in">
@@ -73,7 +69,7 @@
                 </div>
                 <div class="bottom">
                     <a onclick="$.fancybox.close();" class="btn btn-gray-medium" href="javascript:void(0);"><span><span>Отменить</span></span></a>
-                    <button onclick="confirmMessage(this);return false;" class="btn btn-red-medium"><span><span>Удалить</span></span></button>
+                    <button onclick="confirmMessage(this, Comment.remove);return false;" class="btn btn-red-medium"><span><span>Удалить</span></span></button>
                 </div>
             </form>
         </div>

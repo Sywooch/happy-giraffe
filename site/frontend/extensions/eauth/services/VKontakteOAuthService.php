@@ -94,7 +94,6 @@ class VKontakteOAuthService extends EOAuth2Service {
 	 * @return boolean whether the access token was successfuly restored.
 	 */
 	protected function restoreAccessToken() {
-        var_dump($this->hasState('uid'));exit;
 		if ($this->hasState('uid') && parent::restoreAccessToken()) {
 			$this->uid = $this->getState('uid');
 			return true;

@@ -192,6 +192,9 @@ class SiteController extends Controller
 			if ($authIdentity->authenticate()) {
 				$name = $authIdentity->getServiceName();
 				$id = $authIdentity->getAttribute('id');
+                echo $id;
+                echo $name;
+                Yii::app()->end();
 				$check = UserSocialService::model()->findByAttributes(array(
 					'service' => $name,
 					'service_id' => $id,

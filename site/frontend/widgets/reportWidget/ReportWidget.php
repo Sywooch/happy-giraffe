@@ -17,6 +17,8 @@ class ReportWidget extends CWidget
 
     public function button($selector)
     {
+        if(Yii::app()->user->isGuest)
+            return false;
         if(!Yii::app()->request->isAjaxRequest)
             $this->registerScripts();
         $this->render('button', array(

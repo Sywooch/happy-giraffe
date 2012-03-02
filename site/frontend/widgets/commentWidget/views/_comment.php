@@ -29,33 +29,44 @@
                 <?php echo $data->quote->text; ?>
             </div>
         <?php endif; ?>
-        <div class="content-in">
-            <?php echo $data->text; ?>
-        </div>
-        <div class="actions">
-            <?php
-            if ($data->author->id != Yii::app()->user->id) {
-                $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
-                $report->button("$(this).parents('.content:eq(0)')");
-                $this->endWidget();
-            }
-            ?>
-            <?php if (($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())) || ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId()))): ?>
-                <div class="admin-actions">
-                    <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())): ?>
-                        <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit edit-comment')); ?>
-                    <?php endif; ?>
-                    <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId())): ?>
-                        <?php echo CHtml::link('<i class="icon"></i>', '#', array(
-                            'class' => 'remove',
-                            'onclick' => 'return Comment.removeConfirm(this, ' . ($data->author->id == Yii::app()->user->id ? 'true' : 'false') . ');'
-                        )); ?>
-                    <?php endif; ?>
-                </div>
-            <?php endif; ?>
-            <a href="#add_comment" onclick="return Comment.response(this);">Ответить</a>
-            &nbsp;
-            <a href="#add_comment" onclick="return Comment.quote(this);">С цитатой</a>
-        </div>
+        <?php if($data->removed == 0): ?>
+            <div class="content-in">
+                <?php echo $data->text; ?>
+            </div>
+            <div class="actions">
+                <?php
+                if ($data->author->id != Yii::app()->user->id) {
+                    $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
+                    $report->button("$(this).parents('.content:eq(0)')");
+                    $this->endWidget();
+                }
+                ?>
+                <?php if (($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())) || ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId()))): ?>
+                    <div class="admin-actions">
+                        <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('edit comment',Yii::app()->user->getId())): ?>
+                            <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit edit-comment')); ?>
+                        <?php endif; ?>
+                        <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('delete comment', Yii::app()->user->getId())): ?>
+                            <?php echo CHtml::link('<i class="icon"></i>', '#', array(
+                                'class' => 'remove',
+                                'onclick' => 'return Comment.removeConfirm(this, ' . ($data->author->id == Yii::app()->user->id ? 'true' : 'false') . ');'
+                            )); ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+                <a href="#add_comment" onclick="return Comment.response(this);">Ответить</a>
+                &nbsp;
+                <a href="#add_comment" onclick="return Comment.quote(this);">С цитатой</a>
+            </div>
+        <?php endif; ?>
+        <?php if($data->removed == 1): ?>
+            <div class="content-in">
+                <?php if($data->remove->type == 0): ?>
+                    Комментарий удален автором.
+                <?php else: ?>
+                    Комментарий удален. Причина: <?php echo Removed::$types[$data->remove->type]; ?>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
     </div>
 </li>

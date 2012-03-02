@@ -59,6 +59,7 @@
                 <div class="confirm-question clearfix">
                     <div class="reason">
                         <div class="title">Причина удаления:</div>
+                        <?php echo CHtml::radioButtonList('Removed[type]', '', Removed::$types); ?>
                         <label><input type="radio" name="radio">Спам</label>
                         <label><input type="radio" name="radio">Оскорбление пользователей</label>
                         <label><input type="radio" name="radio">Разжигание межнациональной розни</label>

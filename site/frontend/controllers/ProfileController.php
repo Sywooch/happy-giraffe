@@ -136,6 +136,11 @@ class ProfileController extends Controller
 
     public function actionAccess()
     {
+        if (isset($_POST['User'])) {
+            $this->user->attributes = $_POST['User'];
+            $this->user->save(true, array('profile_access', 'guestbook_access', 'im_access'));
+        }
+
         $this->render('access');
     }
 

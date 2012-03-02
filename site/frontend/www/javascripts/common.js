@@ -32,25 +32,6 @@ $(document).ready(function() {
 	}
 
     if ($('input[placeholder], textarea[placeholder]').size() > 0 ) $('input[placeholder], textarea[placeholder]').placeholder();
-	
-	if ($('#userMood').size() > 0) {
-		
-		$('#userMood').bind({
-			'mousemove':function(e){
-				$('#userMoodTooltip').css({
-					left: e.pageX - $('#userMoodTooltip').parents('.user-mood').offset().left - ($('#userMoodTooltip').innerWidth() / 2), top: e.pageY - $('#userMoodTooltip').parents('.user-mood').offset().top - ($('#userMoodTooltip').innerHeight() + 10)
-				});
-			},
-			'mouseenter': function(e){
-				$('#userMoodTooltip').fadeIn(200);
-			},
-			'mouseleave': function(e){
-				$('#userMoodTooltip').fadeOut(200);
-			}
-		})
-		
-	}
-	
 });
 
 function addAttributesToCart(form, update) {

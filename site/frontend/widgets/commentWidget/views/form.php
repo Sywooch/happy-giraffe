@@ -23,10 +23,12 @@ $('#add_comment').live('submit', function(e) {
 			{
 			    var pager = $('#comment_list .yiiPager .page:last');
 			    var url = false;
-			    if(pager.size() > 0)
+			    if(pager.size() > 0 && $('#add_comment .button_panel .btn-green-medium span span').text() != 'Редактировать')
 			        url = pager.children('a').attr('href');
 			    if(url !== false)
 			        $.fn.yiiListView.update('comment_list', {url : url, data : {lastPage : true}});
+			    else if($('#add_comment .button_panel .btn-green-medium span span').text() == 'Редактировать')
+			        $.fn.yiiListView.update('comment_list');
                 else
                     $.fn.yiiListView.update('comment_list', {data : {lastPage : true}});
 				var editor = CKEDITOR.instances['Comment[text]'];
@@ -39,7 +41,7 @@ $('#add_comment').live('submit', function(e) {
 	});
 });
 
-$('body').delegate('a.remove-comment', 'click', function () {
+/*$('body').delegate('a.remove-comment', 'click', function () {
         if (confirm('Вы точно хотите удалить комментарий?')) {
             var id = $(this).parents('.item').attr('id').replace(/comment_/g, '');
             $.ajax({
@@ -60,7 +62,7 @@ $('body').delegate('a.remove-comment', 'click', function () {
             });
         }
         return false;
-    });
+    });*/
 
     $('body').delegate('a.edit-comment', 'click', function () {
         var id = $(this).parents('.item').attr('id').replace(/comment_/g, '');

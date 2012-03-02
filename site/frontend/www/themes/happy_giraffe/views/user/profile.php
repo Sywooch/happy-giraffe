@@ -15,7 +15,7 @@
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>
-                <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $user->login_date); ?></span></div>
+                <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
             <?php endif; ?>
         </div>
 

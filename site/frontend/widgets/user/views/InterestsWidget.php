@@ -5,8 +5,25 @@
  *
  * @var $user User
  */
-if ($this->visible){
-?><div class="user-interests">
+?>
+<style type="text/css">
+    .yellow{
+        background:#fff9bc;
+    }
+    .light-green{
+        background:#bef2b9;
+    }
+    .blue{
+        background:#bfddff;
+    }
+    .orange{
+        background:#ffe4b5;
+    }
+    .purple{
+        background:#e5d2f7;
+    }
+</style>
+<div class="user-interests">
 
     <div class="box-title">Интересы</div>
 
@@ -15,4 +32,4 @@ if ($this->visible){
             <li><a href="#" class="<?php echo $interest->category->css_class ?>"><?php echo $interest->name ?></a></li>
         <?php endforeach; ?>
     </ul>
-</div><?php }
+</div>

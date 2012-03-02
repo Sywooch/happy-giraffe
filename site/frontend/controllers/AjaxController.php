@@ -30,6 +30,30 @@ class AjaxController extends Controller
         Yii::app()->end();
 	}
 
+    public function actionSocialApi()
+    {
+        $key = Yii::app()->request->getQuery('key');
+        if($key)
+        {
+            switch($key)
+            {
+                case 'vk' : $service = 'vkontakte'; break;
+                case 'fb' : $service = 'facebook'; break;
+            }
+            $authIdentity = Yii::app()->eauth->getIdentity($service);
+            $authIdentity->redirectUrl = $this->createAbsoluteUrl('ajax/socialApi');
+            if ($authIdentity->authenticate()) {
+                $name = $authIdentity->getServiceName();
+                $id = $authIdentity->getAttribute('id');
+                $url = Yii::app()->request->getQuery('surl');
+                if(!$url)
+                    echo '<script type="text/javascript">window.close();</script>';
+                else
+                    $this->redirect($url);
+            }
+        }
+    }
+
 	public function actionImageUpload()
 	{
 		$dir = Yii::getPathOfAlias('webroot') . '/upload/images/';

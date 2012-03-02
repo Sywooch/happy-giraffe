@@ -175,6 +175,7 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+        Yii::app()->end();
 		$service = Yii::app()->request->getQuery('service');
 		if (isset($service)) {
 			$authIdentity = Yii::app()->eauth->getIdentity($service);

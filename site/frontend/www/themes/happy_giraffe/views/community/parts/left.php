@@ -65,14 +65,13 @@
                 if ($content_type !== null)
                     $params['content_type_slug'] = $content_type->slug;
                 echo CHtml::link($r->name, CController::createUrl('community/list', $params), $r->id == $current_rubric ? array('class' => 'current') : array());
-                if (Yii::app()->authManager->checkAccess('edit rubrics', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
+                if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
                     echo '<br>'.CHtml::hiddenField('rubric-'.$r->id, $r->id,array('class'=>'rubric-id'));
-                    echo CHtml::link('удалить', '#', array('class'=>'remove-rubric')).' ';
                     echo CHtml::link('редактировать', '#', array('class'=>'edit-rubric'));
                 }?>
             </li>
             <? endforeach; ?>
-            <?php if (Yii::app()->authManager->checkAccess('edit rubrics', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
+            <?php if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
                 echo CHtml::link('добавить', '#', array('class'=>'add-rubric'));
         } ?>
         </ul>
@@ -83,26 +82,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('a.remove-rubric').click(function () {
-        if (confirm('Вы точно хотите удалить рубрику?')) {
-            var id = $(this).parent().find('input.rubric-id').val();
-            $.ajax({
-                url: '<?php echo Yii::app()->createUrl("communityRubric/delete") ?>',
-                data: {id:id},
-                type: 'POST',
-                dataType:'JSON',
-                success: function(response) {
-                    if (response.status)
-                        $(this).parent().remove();
-                    else
-                        alert('Рубрика должна быть пустой');
-                },
-                context: $(this)
-            });
-        }
-        return false;
-    });
-
     $('.edit-rubric').click(function(){
         var text = $(this).parent().find('a:first').text();
         $(this).parent().append('<input type="text" class="edit-field" value="'+text+'"><a href="#" class="send-edit-rubric">OK</a>');
@@ -131,8 +110,3 @@
         return false;
     });
 </script>
-<style type="text/css">
-    .edit-field{
-        background: #fff;
-    }
-</style>

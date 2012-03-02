@@ -97,6 +97,8 @@ class MessageCache extends CActiveRecord
      */
     public static function GetCurrentUserCache()
     {
+        if (Yii::app()->user->isGuest)
+            return null;
         return self::GetUserCache(Yii::app()->user->getId());
     }
 

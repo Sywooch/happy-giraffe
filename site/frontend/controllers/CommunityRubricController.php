@@ -47,7 +47,7 @@ class CommunityRubricController extends Controller
         if (Yii::app()->request->isAjaxRequest) {
             $id = Yii::app()->request->getPost('id');
             $model = $this->loadModel($id);
-            if (Yii::app()->authManager->checkAccess('edit rubrics', Yii::app()->user->getId(), array(
+            if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array(
                 'community_id'=>$model->community_id
             ))) {
                 $model->name = Yii::app()->request->getPost('text');
@@ -69,7 +69,7 @@ class CommunityRubricController extends Controller
         if (Yii::app()->request->isAjaxRequest) {
             $id = Yii::app()->request->getPost('id');
             $model = $this->loadModel($id);
-            if (Yii::app()->authManager->checkAccess('edit rubrics', Yii::app()->user->getId(), array(
+            if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array(
                 'community_id'=>$model->community_id
             ))) {
                 $themesCount = $model->getCount();

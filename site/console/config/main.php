@@ -14,6 +14,7 @@ return array(
 //        'site.frontend.components.*',
 //        'site.frontend.models.*',
 //        'site.frontend.modules.names.models.*',
+        'site.common.models.*',
         'site.console.models.*',
     ),
     'components' => array(

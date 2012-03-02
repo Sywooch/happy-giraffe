@@ -1,41 +1,16 @@
+<div class="services">
+  <ul class="auth-services clear">
   <?php
-	switch ($this->mode)
-	{
-		case 'signup':
-			foreach ($services as $service) {
-				echo '<li>';
-				echo CHtml::link(CHtml::image('/images/btn_social_' . $service->id . '.png'), array($action, 'service' => $service->id), array(
-					'class' => 'auth-service ' . $service->id,
-				));
-				echo '</li>';
-			}
-			break;
-		case 'login':
-			foreach ($services as $service) {
-				echo CHtml::link(CHtml::image('/images/icon_social_' . $service->id . '.png'), array($action, 'service' => $service->id), array(
-					'class' => 'auth-service ' . $service->id,
-				));
-			}
-			break;
+	foreach ($services as $name => $service) {
+		echo '<li class="auth-service '.$service->id.'">';
+		$html = '<span class="auth-icon '.$service->id.'"><i></i></span>';
+		$html .= '<span class="auth-title">'.$service->title.'</span>';
+		$html = CHtml::link($html, array($action, 'service' => $name), array(
+			'class' => 'auth-link '.$service->id,
+		));
+		echo $html;
+		echo '</li>';
 	}
   ?>
-
-  <?php
-    $cs = Yii::app()->clientScript;
-	$cs->registerCoreScript('jquery');
-	
-	$url = Yii::app()->assetManager->publish($assets_path, false, -1, YII_DEBUG);
-	$cs->registerCssFile($url.'/css/auth.css');
-
-	// Open the authorization dilalog in popup window.
-	if ($popup) {
-		$cs->registerScriptFile($url.'/js/auth.js', CClientScript::POS_HEAD);
-		$js = '';
-		foreach ($services as $service) {
-			$args = $service->jsArguments;
-			$args['id'] = $service->id;
-			$js .= '$("a.auth-service.'.$service->id.'").eauth('.json_encode($args).');'."\n";
-		}
-		$cs->registerScript('eauth-services', $js, CClientScript::POS_READY);
-	}
-  ?>
+  </ul>
+</div>

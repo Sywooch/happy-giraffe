@@ -175,7 +175,6 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-        Yii::app()->end();
 		$service = Yii::app()->request->getQuery('service');
 		if (isset($service)) {
 			$authIdentity = Yii::app()->eauth->getIdentity($service);
@@ -189,7 +188,6 @@ class SiteController extends Controller
                 }
             }
             $authIdentity->redirectUrl = $redirectUrl;
-var_dump($authIdentity->authenticate());Yii::app()->end();Yii::app()->end();
 			if ($authIdentity->authenticate()) {
 				$name = $authIdentity->getServiceName();
 				$id = $authIdentity->getAttribute('id');

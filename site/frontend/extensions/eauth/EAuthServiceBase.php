@@ -52,7 +52,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	/**
 	 * @var boolean whether is attributes was fetched.
 	 */
-	protected $fetched = false;
+	private $fetched = false;
 	
 	/**
 	 * @var EAuth the {@link EAuth} application component.
@@ -268,9 +268,16 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 		if (curl_errno($ch) > 0)
 			throw new EAuthException(curl_error($ch), curl_errno($ch));
 		
-		if ($headers['http_code'] != 200)
-			throw new EAuthException('Invalid response http code: '.$headers['http_code'].'.', $headers['http_code']);
-			//throw new EAuthException('Unable to complete the authentication because the required data was not received.', $headers['http_code']);
+		if ($headers['http_code'] != 200) {
+			Yii::log(
+				'Invalid response http code: '.$headers['http_code'].'.'.PHP_EOL.
+				'URL: '.$url.PHP_EOL.
+				'Options: '.var_export($options, true).PHP_EOL.
+				'Result: '.$result,
+				CLogger::LEVEL_ERROR, 'application.extensions.eauth'
+			);
+			throw new EAuthException(Yii::t('eauth', 'Invalid response http code: {code}.', array('{code}' => $headers['http_code']), 'en'), $headers['http_code']);
+		}
 		
 		curl_close($ch);
 				
@@ -307,7 +314,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 			$result = json_decode($response);
 			$error = $this->fetchJsonError($result);
 			if (!isset($result)) {
-				throw new EAuthException('Invalid response format.', 500);
+				throw new EAuthException(Yii::t('eauth', 'Invalid response format.', array(), 'en'), 500);
 			}
 			else if (isset($error)) {
 				throw new EAuthException($error['message'], $error['code']);
@@ -387,9 +394,23 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	
 	/**
 	 * Fetch attributes array.
+	 * @return boolean whether the attributes was successfully fetched.
 	 */
 	protected function fetchAttributes() {
-		
+		return true;
+	}
+	
+	/**
+	 * Fetch attributes array.
+	 * This function is internally used to handle fetched state.
+	 */
+	protected function _fetchAttributes() {
+		if (!$this->fetched) {
+			$this->fetched = true;
+			$result = $this->fetchAttributes();
+			if (isset($result))
+				$this->fetched = $result;
+		}
 	}
 	
 	/**
@@ -397,6 +418,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @return mixed the user id.
 	 */
 	public function getId() {
+		$this->_fetchAttributes();
 		return $this->attributes['id'];
 	}
 	
@@ -405,11 +427,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @return array the attributes.
 	 */
 	public function getAttributes() {
-		if (!$this->fetched) {
-			$this->fetchAttributes();
-			$this->fetched = true;
-		}
-		
+		$this->_fetchAttributes();
 		$attributes = array();
 		foreach ($this->attributes as $key => $val) {
 			$attributes[$key] = $this->getAttribute($key);
@@ -424,11 +442,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @return mixed the attribute value.
 	 */
 	public function getAttribute($key, $default = null) {
-		if (!$this->fetched) {
-			$this->fetchAttributes();
-			$this->fetched = true;
-		}
-		
+		$this->_fetchAttributes();
 		$getter = 'get'.$key;
 		if (method_exists($this, $getter))
 			return $this->$getter();
@@ -442,6 +456,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @return boolean true if attribute exists, false otherwise.
 	 */
 	public function hasAttribute($key) {
+		$this->_fetchAttributes();
 		return isset($this->attributes[$key]);
 	}
 	

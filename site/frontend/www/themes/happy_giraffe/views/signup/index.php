@@ -132,7 +132,7 @@ function choose(val)
 						
 									<ul>
 
-										<?php Yii::app()->eauth->renderWidget(array('mode' => 'signup', 'action' => 'signup/index')); ?>
+										<?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index')); ?>
 							
 									</ul>
 						
@@ -168,11 +168,11 @@ function choose(val)
 								
 							<? else: ?>
 							
-								<?php echo $form->hiddenField($model, 'first_name', array('value' => $regdata['first_name'])); ?>
+								<?php echo $form->hiddenField($model, 'first_name', array('value' => $regdata['name'])); ?>
 							
 								<div class="user-box">
 									<div class="ava"><?php echo CHtml::image($regdata['photo']); ?></div>
-									<?php echo $regdata['first_name']; ?>
+									<?php echo $regdata['name']; ?>
 								</div>
 					
 								<div style="margin-left:300px;">

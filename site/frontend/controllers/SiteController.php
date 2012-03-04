@@ -188,7 +188,6 @@ class SiteController extends Controller
                 }
             }
             $authIdentity->redirectUrl = $redirectUrl;
-
 			if ($authIdentity->authenticate()) {
 				$name = $authIdentity->getServiceName();
 				$id = $authIdentity->getAttribute('id');
@@ -251,7 +250,7 @@ class SiteController extends Controller
 	 */
 	public function actionLogout()
 	{
-		Yii::app()->user->logout();
+		Yii::app()->user->logout(false);
 		$this->redirect(Yii::app()->request->urlReferrer);
 	}
 

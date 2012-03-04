@@ -13,8 +13,13 @@ class AlbumsController extends Controller
         return array(
             array('allow',
                 'users' => array('@'),
+                'actions' => array('index'),
             ),
             array('deny',
+                'users' => array('*'),
+                'actions' => array('index'),
+            ),
+            array('allow',
                 'users' => array('*'),
             ),
         );

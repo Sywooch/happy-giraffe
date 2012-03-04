@@ -39,9 +39,6 @@ var Comment = {
         return false;
     },
     remove : function(el) {
-        var form = $(el).parents('form');
-        $.post(form.attr('action'), form.serialize(), function() {
-            $.fn.yiiListView.update('comment_list');
-        })
+        $.fn.yiiListView.update('comment_list');
     }
 }

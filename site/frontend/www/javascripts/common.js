@@ -212,7 +212,8 @@ function initSelects(block){
 	}
 }
 function confirmMessage(el, callback){
-    callback(el);
+    if(callback)
+        callback(el);
 	var box =  $(el).parents('.popup');
 	box.find('.confirm-after').fadeIn();
 	box.find('.confirm-before').hide();

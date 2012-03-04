@@ -33,32 +33,34 @@
             <div class="content-in">
                 <?php echo $data->text; ?>
             </div>
-            <div class="actions">
-                <?php
-                if ($data->author->id != Yii::app()->user->id) {
-                    $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
-                    $report->button("$(this).parents('.content:eq(0)')");
-                    $this->endWidget();
-                }
-                ?>
-                <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId()) || Yii::app()->authManager->checkAccess('removeComment', Yii::app()->user->getId())): ?>
-                    <div class="admin-actions">
-                        <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId())): ?>
-                            <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit edit-comment')); ?>
-                        <?php endif; ?>
-                        <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('removeComment', Yii::app()->user->getId())): ?>
-                            <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
-                            'model' => $data,
-                            'callback' => 'Comment.remove',
-                            'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $data->author->id
-                        )); ?>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
-                <a href="#add_comment" onclick="return Comment.response(this);">Ответить</a>
-                &nbsp;
-                <a href="#add_comment" onclick="return Comment.quote(this);">С цитатой</a>
-            </div>
+            <?php if(!Yii::app()->user->isGuest): ?>
+                <div class="actions">
+                    <?php
+                    if ($data->author->id != Yii::app()->user->id) {
+                        $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
+                        $report->button("$(this).parents('.content:eq(0)')");
+                        $this->endWidget();
+                    }
+                    ?>
+                    <?php if (Yii::app()->user->checkAccess('editComment',array('user_id'=>$data->author->id)) || Yii::app()->user->checkAccess('removeComment',array('user_id'=>$data->author->id))): ?>
+                        <div class="admin-actions">
+                            <?php if (Yii::app()->user->checkAccess('editComment',array('user_id'=>$data->author->id))): ?>
+                                <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit edit-comment')); ?>
+                            <?php endif; ?>
+                            <?php if (Yii::app()->user->checkAccess('removeComment',array('user_id'=>$data->author->id))): ?>
+                                <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
+                                    'model' => $data,
+                                    'callback' => 'Comment.remove',
+                                    'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $data->author->id
+                                )); ?>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                    <a href="#add_comment" onclick="return Comment.response(this);">Ответить</a>
+                    &nbsp;
+                    <a href="#add_comment" onclick="return Comment.quote(this);">С цитатой</a>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
         <?php if($data->removed == 1): ?>
             <div class="content-in">

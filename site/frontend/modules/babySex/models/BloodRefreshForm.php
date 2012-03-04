@@ -96,11 +96,11 @@ class BloodRefreshForm extends CFormModel
     {
         $data = array();
 
-        $skip = date("w", mktime(0, 0, 0, $this->review_month, 1, $this->review_year)) - 1; // узнаем номер дня недели
+        $skip = date("w", mktime(0, 0, 0, (int)$this->review_month, 1, (int)$this->review_year)) - 1; // узнаем номер дня недели
         if ($skip < 0)
             $skip = 6;
 
-        $daysInMonth = date("t", mktime(0, 0, 0, $this->review_month, 1, $this->review_year)); // узнаем число дней в месяце
+        $daysInMonth = date("t", mktime(0, 0, 0, (int)$this->review_month, 1, (int)$this->review_year)); // узнаем число дней в месяце
         $day = 1; // для цикла далее будем увеличивать значение
         $num = 1;
         for ($i = 0; $i < 6; $i++) { // Внешний цикл для недель 6 с неполыми
@@ -146,7 +146,7 @@ class BloodRefreshForm extends CFormModel
                     $month = 12;
                     $year--;
                 }
-                $daysInMonth = date("t", mktime(0, 0, 0, $month, 1, $year)); // узнаем число дней в месяце
+                $daysInMonth = date("t", mktime(0, 0, 0, (int)$month, 1, (int)$year)); // узнаем число дней в месяце
                 $day = $daysInMonth - $skip + 1;
             } else {
                 //set month to next

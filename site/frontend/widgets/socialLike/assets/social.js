@@ -11,20 +11,32 @@ var Social = {
     wait : function() {
         if (this.window && this.window.closed) {
             clearInterval(this.timer);
-            this.update(1, true);
+            this.getRate();
         }
     },
     open : function(key, url, title, width, height, elem) {
         this.key = key;
         this.elem = elem;
-        this.window = window.open(this.ajax_url + '?key=' + key + '&surl=' + url, title, 'width='+width+',height='+height);
-        /*this.window = window.open(url, title, 'width='+width+',height='+height);
+        var url = this.ajax_url + '?key=' + key + '&entity=' + this.model_name + '&entity_id=' + this.model_id + '&surl=' + url;
+        this.window = window.open(url, title, 'width='+width+',height='+height);
         if(this.timer) {
             clearInterval(this.timer);
             this.timer = false;
         }
-        this.timer = setInterval('Social.wait();', 100);*/
+        this.timer = setInterval('Social.wait();', 100);
         return false;
+    },
+    getRate : function() {
+        var params = {
+            modelName : this.model_name,
+            objectId : this.model_id,
+            key : this.key
+        };
+        $.post(this.update_url.replace('rate', 'getRate'), params, function(response) {
+            $(".like-block div.rating span").text(response.count);
+            $(Social.elem).parent().find('.count').text(response.entity);
+        },
+        "json");
     },
     update : function(value, update) {
         var params = {

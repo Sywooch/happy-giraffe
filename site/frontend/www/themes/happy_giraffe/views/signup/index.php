@@ -169,11 +169,14 @@ function choose(val)
 							<? else: ?>
 							
 								<?php echo $form->hiddenField($model, 'first_name', array('value' => $regdata['name'])); ?>
-							
-								<div class="user-box">
-									<div class="ava"><?php echo CHtml::image($regdata['photo']); ?></div>
-									<?php echo $regdata['name']; ?>
-								</div>
+
+
+                                <div class="user-box">
+                                    <?php if(isset($regdata['photo'])): ?>
+                                        <div class="ava"><?php echo CHtml::image($regdata['photo']); ?></div>
+                                    <?php endif; ?>
+                                    <?php echo $regdata['name']; ?>
+                                </div>
 					
 								<div style="margin-left:300px;">
 									<div class="row">

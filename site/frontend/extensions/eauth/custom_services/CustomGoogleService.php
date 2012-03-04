@@ -9,7 +9,7 @@
 
 require_once dirname(dirname(__FILE__)).'/services/GoogleOpenIDService.php';
 
-class CustomGoogleService extends GoogleOpenIDService {
+class CustomGoogleService extends GoogleOAuthService {
 	
 	//protected $jsArguments = array('popup' => array('width' => 450, 'height' => 450));
 	

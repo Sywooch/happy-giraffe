@@ -208,7 +208,14 @@ class SiteController extends Controller
                         $rediret_url = Yii::app()->user->getState('social_redirect');
 						$authIdentity->redirect($rediret_url);
 					}
-				}
+				} elseif(!Yii::app()->user->isGuest)
+                {
+                    $social_service = new UserSocialService;
+                    $social_service->user_id = Yii::app()->user->id;
+                    $social_service->service = $name;
+                    $social_service->service_id = $id;
+                    $social_service->save();
+                }
 			}
 
 			$authIdentity->redirect();

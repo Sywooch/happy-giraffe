@@ -13,7 +13,7 @@
     -->
 
     <div class="clearfix">
-        <div class="img"><img src="/images/user_horoscope_01.png"></div>
+        <div class="img"><img src="/images/widget/horoscope/<?php echo $forecast->zodiac ?>.png"></div>
         <div class="date"><big><?php echo $forecast->zodiacText() ?></big>(<?php echo $forecast->zodiacDates() ?>)</div>
     </div>
 

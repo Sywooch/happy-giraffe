@@ -28,14 +28,14 @@ class EAuth extends CApplicationComponent {
 	 * For perfomance reasons it uses Yii::app()->cache to store settings array.
 	 * @return array services settings.
 	 */
-	protected function getServices() {
+	public function getServices() {
 		if (Yii::app()->hasComponent('cache'))
 			$services = Yii::app()->cache->get('EAuth.services');
 		if (!isset($services) || !is_array($services)) {
 			$services = array();
 			foreach ($this->services as $service => $options) {
 				$class = $this->getIdentity($service);
-				$services[$class->getServiceName()] = (object) array(
+				$services[$service] = (object) array(
 					'id' => $class->getServiceName(),
 					'title' => $class->getServiceTitle(),
 					'type' => $class->getServiceType(),
@@ -57,7 +57,7 @@ class EAuth extends CApplicationComponent {
 		$service = strtolower($service);
 		$services = $this->getServices();
 		if (!isset($services[$service]))
-			throw new EAuthException(Yii::t('eauth', 'Undefined service name: {service}', array('{service}' => $service)), 500);
+			throw new EAuthException(Yii::t('eauth', 'Undefined service name: {service}.', array('{service}' => $service), 'en'), 500);
 		return $services[$service];
 	}
 	
@@ -79,7 +79,7 @@ class EAuth extends CApplicationComponent {
 	public function getIdentity($service) {
 		$service = strtolower($service);
 		if (!isset($this->services[$service]))
-			throw new EAuthException(Yii::t('eauth', 'Undefined service name: {service}', array('{service}' => $service)), 500);
+			throw new EAuthException(Yii::t('eauth', 'Undefined service name: {service}.', array('{service}' => $service), 'en'), 500);
 		$service = $this->services[$service];
 		
 		$class = $service['class'];
@@ -102,7 +102,7 @@ class EAuth extends CApplicationComponent {
 	 * @param mixed $url url to redirect. Can be route or normal url. See {@link CHtml::normalizeUrl}.
 	 * @param boolean $jsRedirect whether to use redirect while popup window is used. Defaults to true.
 	 */
-	public function redirect($url, $jsRedirect = true) {
+	public function redirect($url, $jsRedirect = true) {		
 		require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'EAuthRedirectWidget.php';				
 		$widget = Yii::app()->getWidgetFactory()->createWidget($this, 'EAuthRedirectWidget', array(
 			'url' => CHtml::normalizeUrl($url),
@@ -115,17 +115,10 @@ class EAuth extends CApplicationComponent {
 	/**
 	 * Simple wrapper for {@link CController::widget} function for render the {@link EAuthWidget} widget.
 	 * @param array $properties the widget properties.
+	 * @deprecated use CComponent->widget('ext.eauth.EAuthWidget', $properties) instead.
 	 */
 	public function renderWidget($properties = array()) {
 		require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'EAuthWidget.php';
-		
-		$properties = CMap::mergeArray(array(
-			'popup' => $this->popup
-		), $properties);
-		
-		if (!isset($properties['services'])) 
-			$properties['services'] = $this->getServices();
-				
 		$widget = Yii::app()->getWidgetFactory()->createWidget($this, 'EAuthWidget', $properties);
 		$widget->init();
 		$widget->run();

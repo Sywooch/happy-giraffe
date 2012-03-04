@@ -5,7 +5,6 @@
 $year = date('Y');
 $model = new BloodRefreshForm();
 $js = "
-$(function () {
         //blood refresh
         $('body').delegate('#blood-refresh-prev-month', 'click', function () {
             var month = $('#blood_refr_review_month').val();
@@ -49,9 +48,9 @@ $(function () {
             return false;
         });
 
-        $('input.calc_bt').click(function () {
-            $('#blood_refr_review_year').val($('#ch_yr_cal').val());
-            $('#blood_refr_review_month').val($('#ch_mn_cal').val());
+        function StartCalc() {
+            $('#blood_refr_review_year').val($('#BloodRefreshForm_baby_y').val());
+            $('#blood_refr_review_month').val($('#BloodRefreshForm_baby_m').val());
             $.ajax({
                 url:'" . Yii::app()->createUrl("/babySex/default/bloodUpdate") . "',
                 data:$('#blood-refresh-form').serialize(),
@@ -60,7 +59,7 @@ $(function () {
                     ShowResult(data);
                 }
             });
-        });
+        }
 
         function ShowResult(data) {
             $('#blood-update-result').html(data);
@@ -81,63 +80,82 @@ $(function () {
                 $(this).find('.hint').stop(true, true).fadeOut();
             }
         });
-    });
 ";
 Yii::app()->clientScript->registerScript('blood-update', $js);
 ?>
 <div class="child_sex_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'blood-refresh-form',
-    'enableAjaxValidation' => false,
-));?>
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => true,
+        'validateOnType' => false,
+        'validationUrl' => $this->createUrl('/babySex/default/BloodUpdate'),
+        'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    StartCalc();
+                                return false;
+                              }",
+    ))); ?>
     <div class="dad_bd">
         <span class="title_pt_bn">День рождения отца:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'father_d', HDate::Days(), array('id' => 'dad_num_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'father_d', HDate::Days(), array('class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('id' => 'dad_mn_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 65, $year - 15), array('id' => 'dad_yr_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn')); ?>
             </li>
         </ul>
+        <?php echo $form->error($model, 'father_d'); ?>
+        <?php echo $form->error($model, 'father_m'); ?>
+        <?php echo $form->error($model, 'father_y'); ?>
     </div>
     <!-- .dad_bd -->
     <div class="mam_bd">
         <span class="title_pt_bn">День рождения матери:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'mother_d', HDate::Days(), array('id' => 'mam_num_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'mother_d', HDate::Days(), array('class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('id' => 'mam_mn_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 65, $year - 15), array('id' => 'mam_yr_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn')); ?>
             </li>
         </ul>
+        <?php echo $form->error($model, 'mother_d'); ?>
+        <?php echo $form->error($model, 'mother_m'); ?>
+        <?php echo $form->error($model, 'mother_y'); ?>
     </div>
     <!-- .mam_bd -->
     <div class="child_bd">
         <span class="title_pt_bn"><ins>День зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('id' => 'ch_num_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('id' => 'ch_mn_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range(1950, $year), array('id' => 'ch_yr_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range(1950, $year), array('class' => 'chzn')); ?>
             </li>
         </ul>
+        <?php echo $form->error($model, 'baby_d'); ?>
+        <?php echo $form->error($model, 'baby_m'); ?>
+        <?php echo $form->error($model, 'baby_y'); ?>
     </div>
     <!-- .child_bd -->
     <?php echo $form->hiddenField($model, 'review_month', array('id' => 'blood_refr_review_month')) ?>
     <?php echo $form->hiddenField($model, 'review_year', array('id' => 'blood_refr_review_year')) ?>
-    <input type="button" class="calc_bt" value="Рассчитать"/>
+    <input type="submit" class="calc_bt" value="Рассчитать"/>
     <?php $this->endWidget(); ?>
 </div><!-- .child_sex_banner -->
 <div id="blood-update-result">

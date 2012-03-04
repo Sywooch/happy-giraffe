@@ -2,6 +2,8 @@
 /**
  * TwitterOAuthService class file.
  *
+ * Register application: https://dev.twitter.com/apps/new
+ * 
  * @author Maxim Zemskov <nodge@yandex.ru>
  * @link http://code.google.com/p/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
@@ -39,5 +41,16 @@ class TwitterOAuthService extends EOAuthService {
 		$this->attributes['language'] = $info->lang;
 		$this->attributes['timezone'] = timezone_name_from_abbr('', $info->utc_offset, date('I'));
 		$this->attributes['photo'] = $info->profile_image_url;*/
+	}
+	
+	/**
+	 * Authenticate the user.
+	 * @return boolean whether user was successfuly authenticated.
+	 */
+	public function authenticate() {
+		if (isset($_GET['denied']))
+			$this->cancel();
+			
+		return parent::authenticate();
 	}
 }

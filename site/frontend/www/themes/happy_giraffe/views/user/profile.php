@@ -15,7 +15,7 @@
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>
-                <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $user->login_date); ?></span></div>
+                <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
             <?php endif; ?>
         </div>
 
@@ -67,8 +67,8 @@
                 <div class="col-2">
 
                     <?php $this->widget('UserMoodWidget', array(
-                        'user' => $user,
-                    )); ?>
+                    'user' => $user,
+                )); ?>
 
                     <?php $this->widget('UserStatusWidget', array(
                         'user' => $user,
@@ -122,7 +122,7 @@
 
                     </div>
 
-                    <?php $this->widget('site.frontend.widgets.user.UserAlbumWidget', array('user' => $user,)); ?>
+                    <?php $this->widget('UserAlbumWidget', array('user' => $user,)); ?>
 
                 </div>
 
@@ -132,33 +132,13 @@
                         'user' => $user,
                     )); ?>
 
-                    <?php $this->widget('application.widgets.user.LocationWidget',array(
+                    <?php $this->widget('LocationWidget',array(
                     'user'=>$user)) ?>
 
-                    <!--<div class="user-weather">
+                    <?php $this->widget('WeatherWidget',array(
+                    'user'=>$user)) ?>
 
-                        <div class="location">
-                            <div class="flag flag-ru"></div>Россия<br/>
-                            <big>Гаврилов-Ям</big>
-                        </div>
-
-                        <div class="clearfix">
-
-                            <div class="img"><img src="/images/user_weather_01.png" /></div>
-
-                            <div class="text">
-                                <big>-16</big>
-                                <div class="row hl"><span>Ночью</span>-22</div>
-                                <div class="row"><span>Завтра</span>-17</div>
-                            </div>
-
-                        </div>
-
-                        <a href="">Прогноз на неделю</a>
-
-                    </div>-->
-
-                    <?php $this->widget('application.widgets.user.HoroscopeWidget',array('user'=>$user)) ?>
+                    <?php $this->widget('HoroscopeWidget',array('user'=>$user)) ?>
 
                 </div>
             </div>

@@ -47,10 +47,11 @@
                             <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit edit-comment')); ?>
                         <?php endif; ?>
                         <?php if ($data->author->id == Yii::app()->user->id || Yii::app()->authManager->checkAccess('removeComment', Yii::app()->user->getId())): ?>
-                            <?php echo CHtml::link('<i class="icon"></i>', '#', array(
-                                'class' => 'remove',
-                                'onclick' => 'return Comment.removeConfirm(this, ' . ($data->author->id == Yii::app()->user->id ? 'true' : 'false') . ');'
-                            )); ?>
+                            <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
+                            'model' => $data,
+                            'callback' => 'Comment.remove',
+                            'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $data->author->id
+                        )); ?>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>

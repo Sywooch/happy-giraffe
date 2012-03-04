@@ -57,7 +57,12 @@ class RatingUsers extends EMongoDocument
     public function saveByUser($uid, $key, $entity, $entity_id)
     {
         $model = $this->findByUser($uid, $key);
-        $model->entity[$entity . '_' . $entity_id] = true;
-        $model->save();
+        if(!$this->checkByUser($uid, $key, $entity, $entity_id))
+        {
+            $model->entity[$entity . '_' . $entity_id] = true;
+            return $model->save();
+        }
+        else
+            return false;
     }
 }

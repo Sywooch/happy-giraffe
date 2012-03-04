@@ -30,6 +30,20 @@ class AjaxController extends Controller
         Yii::app()->end();
 	}
 
+    public function actionGetRate()
+    {
+        Yii::import('contest.models.*');
+        $modelName = $_POST['modelName'];
+        $objectId = $_POST['objectId'];
+        $social_key = $_POST['key'];
+        $model = $modelName::model()->findByPk($objectId);
+        echo CJSON::encode(array(
+            'entity' => Rating::model()->countByEntity($model, $social_key),
+            'count' => Rating::model()->countByEntity($model),
+        ));
+        Yii::app()->end();
+    }
+
     public function actionSocialApi()
     {
         $key = Yii::app()->request->getQuery('key');
@@ -42,14 +56,23 @@ class AjaxController extends Controller
             }
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $authIdentity->redirectUrl = $this->createAbsoluteUrl('ajax/socialApi');
-            if ($authIdentity->authenticate()) {
+            if ($authIdentity->authenticate())
+            {
                 $name = $authIdentity->getServiceName();
                 $id = $authIdentity->getAttribute('id');
                 $url = Yii::app()->request->getQuery('surl');
                 if(!$url)
                     echo '<script type="text/javascript">window.close();</script>';
                 else
+                {
+                    $entity_name = Yii::app()->request->getQuery('entity');
+                    $entity_id = Yii::app()->request->getQuery('entity_id');
+                    $entity = call_user_func(array($entity_name, 'model'))->findByPk($entity_id);
+                    // Если пользователя нет в списке голосовавших - увеличиваем рейтинг
+                    if(RatingUsers::model()->saveByUser($id, $name, $entity_name, $entity_id))
+                        Rating::model()->saveByEntity($entity, $key, 1, true);
                     $this->redirect($url);
+                }
             }
         }
     }

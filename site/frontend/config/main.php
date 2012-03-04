@@ -135,6 +135,16 @@ return array(
 					'client_id' => '2450198',
 					'client_secret' => 'yUpyEwys04uWtVfFVBLp',
 				),
+                'facebook' => array(
+                    'class' => 'CustomFacebookService',
+                    'client_id' => '286095468071491',
+                    'client_secret' => '4fb2de0e3f5d91437f3edd269a9f5efc',
+                ),
+                'twitter' => array(
+                    'class' => 'CustomTwitterService',
+                    'key' => '8XSq0ZrPgGXrcQmcKDIuJw',
+                    'secret' => 'QZrBRgZiEe0gYBftZSqg19Qxk2IeubsOkxLoFTbKJc',
+                ),
 				'mailru' => array(
 					'class' => 'CustomMailruService',
 					'client_id' => '642108',

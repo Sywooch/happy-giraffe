@@ -57,8 +57,7 @@
 ?>
 
 <?php if ($content_model->isNewRecord || (Yii::app()->user->checkAccess('editCommunityContent',
-    array('community_id'=>$content_model->rubric->community_id)) ||
-    $content_model->author_id == Yii::app()->user->getId())):?>
+    array('community_id'=>$content_model->rubric->community_id, 'user_id' => Yii::app()->user->getId())))):?>
 	<div class="">
 		<div class="inner-title">Заголовок статьи</div>
 

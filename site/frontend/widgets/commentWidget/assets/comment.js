@@ -38,22 +38,7 @@ var Comment = {
         }
         return false;
     },
-    removeConfirm : function(el, author) {
-        var options = {
-            entity : 'Comment',
-            entity_id : $(el).parents('.item:eq(0)').attr('id').split('_')[1]
-        }
-        if(author)
-            var tmpl_id = 'comment_delete_by_author_tmpl';
-        else
-            var tmpl_id = 'comment_delete_tmpl';
-        $.fancybox.open($('#' + tmpl_id).tmpl([options]));
-        return false;
-    },
     remove : function(el) {
-        var form = $(el).parents('form');
-        $.post(form.attr('action'), form.serialize(), function(data) {
-            $.fn.yiiListView.update('comment_list');
-        })
+        $.fn.yiiListView.update('comment_list');
     }
 }

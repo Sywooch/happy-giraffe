@@ -25,7 +25,7 @@
 					array('label' => 'Доступ', 'url' => array('/profile/access'), 'active' => $this->action->id == 'access'),
 					//array('label' => 'Черный список', 'url' => array('/profile/blacklist'), 'active' => $this->action->id == 'blacklist'),
 					//array('label' => 'Подписка', 'url' => array('/profile/subscription'), 'active' => $this->action->id == 'subscription'),
-					//array('label' => 'Социальные сети', 'url' => array('/profile/socials'), 'active' => $this->action->id == 'socials'),
+					array('label' => 'Социальные сети', 'url' => array('/profile/socials'), 'active' => $this->action->id == 'socials'),
 					array('label' => 'Изменить пароль', 'url' => array('/profile/password'), 'active' => $this->action->id == 'password'),
 				)));
 			?>

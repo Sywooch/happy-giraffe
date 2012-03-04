@@ -69,6 +69,14 @@ class UserSocialService extends CActiveRecord
 		);
 	}
 
+    public function findByUser($service_name, $user_id)
+    {
+        return UserSocialService::model()->findByAttributes(array(
+                'service' => $service_name,
+                'user_id' => $user_id,
+            ));
+    }
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

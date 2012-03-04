@@ -277,4 +277,12 @@ class ProfileController extends Controller
             echo CJSON::encode($response);
         }
     }
+
+    public function actionDisableSocialService($name)
+    {
+        $check = UserSocialService::model()->findByUser($name, Yii::app()->user->id);
+        if($check)
+            $check->delete();
+        $this->redirect($_SERVER['HTTP_REFERER']);
+    }
 }

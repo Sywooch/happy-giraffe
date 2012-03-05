@@ -27,8 +27,19 @@ class MenstrualCycleForm extends CFormModel
     public function rules()
     {
         return array(
-            array('day, month, year, cycle, critical_period', 'required'),
+            array('day, month, year', 'required', 'message'=>'Укажите {attribute} первого дня менструации предыдущего цикла'),
+            array('cycle', 'required', 'message'=>'Укажите среднюю длительность вашего менструального цикла'),
+            array('critical_period', 'required', 'message'=>'Укажите среднюю длительно менструации'),
             array('review_month, review_year', 'safe'),
+        );
+    }
+
+    public function AttributeLabels()
+    {
+        return array(
+            'day'=>'день',
+            'month'=>'месяц',
+            'year'=>'год',
         );
     }
 
@@ -49,7 +60,7 @@ class MenstrualCycleForm extends CFormModel
 
     public function beforeValidate()
     {
-        $this->start_date = strtotime($this->day . '-' . $this->month . '-' . $this->year);
+        $this->start_date = strtotime($this->year . '-' . $this->month . '-' . $this->day);
         if (empty($this->review_month))
             $this->review_month = date('m');
         if (empty($this->review_year))

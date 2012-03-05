@@ -65,6 +65,20 @@ class BloodRefreshForm extends CFormModel
         return parent::beforeValidate();
     }
 
+    public function afterValidate()
+    {
+        if ($this->hasErrors('father_d') || $this->hasErrors('father_m') || $this->hasErrors('father_y'))
+            $this->addError('father_born_date', 'Укажите дату рождения отца полностью');
+
+        if ($this->hasErrors('mother_d') || $this->hasErrors('mother_m') || $this->hasErrors('mother_y'))
+            $this->addError('mother_born_date', 'Укажите дату рождения матери полностью');
+
+        if ($this->hasErrors('baby_d') || $this->hasErrors('baby_m') || $this->hasErrors('baby_y'))
+            $this->addError('baby_born_date', 'Укажите дату зачатия ребенка полностью');
+
+        return parent::afterValidate();
+    }
+
     /**
      * Calculate data for baby conception month
      * Result array include arrays like

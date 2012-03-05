@@ -777,4 +777,9 @@ class User extends CActiveRecord
             break;
         }
     }
+
+    public function getProfileUrl()
+    {
+        return Yii::app()->createUrl('user/profile', array('user_id' => $this->id));
+    }
 }

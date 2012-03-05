@@ -25,8 +25,9 @@
             <?php endif; ?>
         </div>
         <?php if(($data->quote_id !== 0 && $data->quote)): ?>
-            <div class="quote">
-                <?php echo $data->quote->text; ?>
+            <input type="hidden" name="selectable_quote" value="<?php echo $data->quote_text != '' ? 1 : 0; ?>" />
+            <div class="quote" id="commentQuote_<?php echo $data->quote->id; ?>">
+                <?php echo $data->quote_text != '' ? $data->quote_text : $data->quote->text; ?>
             </div>
         <?php endif; ?>
         <?php if($data->removed == 0): ?>
@@ -67,7 +68,11 @@
                 <?php if($data->remove->type == 0): ?>
                     Комментарий удален автором.
                 <?php else: ?>
-                    Комментарий удален. Причина: <?php echo $data->remove->type == 4 ? $data->remove->text : Removed::$types[$data->remove->type]; ?>
+                    <?php if($data->remove->type != 4): ?>
+                        Комментарий удален. Причина: <?php echo Removed::$types[$data->remove->type]; ?>
+                    <?php else: ?>
+                        Комментарий удален модератором.
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         <?php endif; ?>

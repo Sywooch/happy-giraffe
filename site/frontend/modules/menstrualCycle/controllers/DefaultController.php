@@ -28,6 +28,7 @@ class DefaultController extends Controller
             $modelForm->attributes = $_POST['MenstrualCycleForm'];
             $this->performAjaxValidation($modelForm);
 
+            $modelForm->validate();
             $data = $modelForm->CalculateData();
             $this->renderPartial('data', array(
                 'data' => $data,

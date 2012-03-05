@@ -178,3 +178,28 @@
         <div class="clear"></div>
     </div>
 </div>
+
+<?php if ($full): ?>
+    <?php
+        switch ($data->type->slug) {
+            case 'travel':
+                $like_title = 'Интересное путешествие?';
+                break;
+            case 'post':
+                $like_title = 'Вам понравилась статья? Отметьте!';
+                break;
+            case 'video':
+                $like_title = 'Вам понравилось видео? Отметьте!';
+                break;
+        }
+    ?>
+<?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+    'title' => $like_title,
+    'model' => $data,
+    'options' => array(
+        'title' => $data->name,
+        'image' => $data_image,
+        'description' => $data_text,
+    ),
+)); ?>
+<php endif; ?>

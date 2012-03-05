@@ -105,7 +105,7 @@ class CommunityController extends Controller
         $this->pageTitle = (! empty($content->meta_title)) ? $content->meta_title : $this->pageTitle = $content->name;
 
         $this->render('view', array(
-            'data' => $data,
+            'data' => $content,
         ));
     }
 

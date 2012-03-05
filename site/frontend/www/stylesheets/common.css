@@ -1042,6 +1042,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments li:hover {background:#f0fafd;}
 .default-comments li:hover .content .actions {visibility:visible;}
 
+.default-comments .comment-action {padding-top:15px;}
 
 .default-comments .comments-meta {overflow:hidden;padding-bottom:3px;border-bottom:1px solid #caf3f8;}
 .default-comments .comments-meta .btn {margin-top:5px;}

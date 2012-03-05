@@ -46,7 +46,7 @@
                     <?php if (Yii::app()->user->checkAccess('editComment',array('user_id'=>$data->author->id)) || Yii::app()->user->checkAccess('removeComment',array('user_id'=>$data->author->id))): ?>
                         <div class="admin-actions">
                             <?php if (Yii::app()->user->checkAccess('editComment',array('user_id'=>$data->author->id))): ?>
-                                <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit edit-comment')); ?>
+                                <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit', 'onclick' => 'return Comment.edit(this);')); ?>
                             <?php endif; ?>
                             <?php if (Yii::app()->user->checkAccess('removeComment',array('user_id'=>$data->author->id))): ?>
                                 <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
@@ -57,9 +57,9 @@
                             <?php endif; ?>
                         </div>
                     <?php endif; ?>
-                    <a href="#add_comment" onclick="return Comment.response(this);">Ответить</a>
+                    <a href="javascript:void(0);" onclick="return Comment.response(this);">Ответить</a>
                     &nbsp;
-                    <a href="#add_comment" onclick="return Comment.quote(this);">С цитатой</a>
+                    <a href="javascript:void(0);" onclick="return Comment.quote(this);">С цитатой</a>
                 </div>
             <?php endif; ?>
         <?php endif; ?>

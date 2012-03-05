@@ -1,9 +1,24 @@
 var selected_keydown = null;
 var Comment = {
     seleted_text : null,
-    response : function(link) {
+    save_url : null,
+    moveForm : function(container) {
+        $('#add_comment').appendTo(container).show();
+    },
+    newComment : function()
+    {
+        this.cancel();
+        this.moveForm($('#new_comment_wrapper'));
+    },
+    clearVariables : function() {
+        CKEDITOR.instances['Comment[text]'].setData('');
         Comment.clearResponse();
         Comment.clearQuote();
+    },
+    response : function(link) {
+        this.clearVariables();
+        this.selected_text = null;
+        this.moveForm($(link).parents('.item'));
         var id = $(link).parents('.item:eq(0)').attr('id').split('_')[1];
         var text = $(link).parents('.item:eq(0)').find('.user .username').text();
         $('#add_comment').find('.response input').val(id);
@@ -12,8 +27,8 @@ var Comment = {
         $('#add_comment').find('.response input').val('');
     },
     quote : function(link) {
-        Comment.clearResponse();
-        Comment.clearQuote();
+        this.clearVariables();
+        this.moveForm($(link).parents('.item'));
         var id = $(link).parents('.item:eq(0)').attr('id').split('_')[1];
         if(!this.selected_text) {
             var text = $(link).parents('.item:eq(0)').find('.content-in').html();
@@ -46,6 +61,73 @@ var Comment = {
     },
     remove : function(el) {
         $.fn.yiiListView.update('comment_list');
+    },
+    edit : function(button) {
+        this.clearVariables();
+        this.selected_text = null;
+
+        this.moveForm($(button).parents('.item'));
+
+        var id = $(button).parents('.item').attr('id').replace(/comment_/g, '');
+        $('#edit-id').val(id);
+        var editor = CKEDITOR.instances['Comment[text]'];
+
+        if($(button).parents('.item').find('.quote').size() > 0)
+        {
+            var html = '';
+            html += '<div class="quote">'+$(button).parents('.item').find('.quote').html()+'</div>';
+            html += $(button).parents('.item').find('.content-in').html();
+            editor.setData(html);
+            $('#add_comment').find('.quote #Comment_quote_id').val($(button).parents('.item').find('.quote').attr('id').split('_')[1]);
+            $('#add_comment').find('.quote #Comment_selectable_quote').val($(button).parents('.item').find('input[name=selectable_quote]').val());
+        }
+        else
+            editor.setData($(button).parents('.item').find('.content-in').html());
+        $('#add_comment .button_panel .btn-green-medium span span').text('Редактировать');
+
+        $('html,body').animate({scrollTop: $('#add_comment').offset().top - 100},'fast');
+        return false;
+    },
+    send : function(form, e) {
+        $(form).find('textarea').val(CKEDITOR.instances['Comment[text]'].getData());
+        e = e ? e : window.event;
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            data: $(form).serialize(),
+            dataType: 'json',
+            url: Comment.save_url,
+            success: function(response) {
+                if (response.status == 'ok')
+                {
+                    var pager = $('#comment_list .yiiPager .page:last');
+                    var url = false;
+                    if(pager.size() > 0 && $('#add_comment .button_panel .btn-green-medium span span').text() != 'Редактировать')
+                        url = pager.children('a').attr('href');
+                    if(url !== false)
+                        $.fn.yiiListView.update('comment_list', {url : url, data : {lastPage : true}});
+                    else if($('#add_comment .button_panel .btn-green-medium span span').text() == 'Редактировать')
+                        $.fn.yiiListView.update('comment_list');
+                    else
+                        $.fn.yiiListView.update('comment_list', {data : {lastPage : true}});
+                    var editor = CKEDITOR.instances['Comment[text]'];
+                    editor.setData('');
+                    Comment.cancel();
+                }
+            }
+        });
+        return false;
+    },
+    cancel : function(e) {
+        e = e ? e : window.event;
+        if(e)
+            e.preventDefault();
+        this.clearVariables();
+        this.selected_text = null;
+        $('#add_comment .button_panel .btn-green-medium span span').text('Добавить');
+        $('#edit-id').val('');
+        $('#add_comment').hide().appendTo('#new_comment_wrapper');
+        return false;
     },
     getText : function()
     {

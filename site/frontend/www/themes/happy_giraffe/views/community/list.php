@@ -76,6 +76,10 @@
 	<?php endif; ?>
 
 </div>
+<?php if (!empty($contents))
+    $this->renderPartial('parts/move_post_popup',array('c'=>$contents[0])); ?>
+<?php Yii::app()->clientScript->registerScript('register_after_removeContent','
+function CommunityContentRemove() {window.location.reload();}', CClientScript::POS_HEAD); ?>
 
 <!--
 Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> с.

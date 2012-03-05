@@ -42,12 +42,6 @@
 					break;
 			}
 		?>
-        <?php if (Yii::app()->user->checkAccess('editCommunityContent', array('community_id'=>$c->rubric->community->id,'user_id'=>$c->contentAuthor->id))): ?>
-        <?php echo CHtml::link('редактировать', ($c->type->slug == 'travel') ? $this->createUrl('community/editTravel', array('id' => $c->id)) : $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
-        <?php endif; ?>
-        <?php if (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id'=>$c->rubric->community->id,'user_id'=>$c->contentAuthor->id))): ?>
-        <?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('id' => 'CommunityContent_delete_' . $c->id, 'submit' => array('community/delete', 'id' => $c->id), 'confirm' => 'Вы точно хотите удалить тему?')); ?>
-        <?php endif; ?>
 		<div class="clear"></div>
 	</div>
 
@@ -69,6 +63,14 @@
 			</div>
 		<?php endif; ?>
 		<a class="comm">Комментарии: <span><?php echo $c->commentsCount; ?></span></a>
-		<div class="clear"></div>
+        <?php $this->renderPartial('admin_actions',array(
+            'c'=>$c,
+            'communities'=>Community::model()->findAll(),
+        )); ?>
+        <div class="clear"></div>
 	</div>
+    <?php $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+    $remove_tmpl->registerTemplates();
+    $this->endWidget();
+    ?>
 </div>

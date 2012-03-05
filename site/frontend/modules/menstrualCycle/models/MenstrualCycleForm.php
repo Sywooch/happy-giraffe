@@ -38,19 +38,13 @@ class MenstrualCycleForm extends CFormModel
             $user_cycle = MenstrualCycle::GetUserCycle(Yii::app()->user->getId());
             if ($user_cycle !== null) {
                 $this->day = date('j', strtotime($user_cycle['date']));
-                $this->month = date('m', strtotime($user_cycle['date']));
+                $this->month = date('n', strtotime($user_cycle['date']));
                 $this->year = date('Y', strtotime($user_cycle['date']));
                 $this->cycle = $user_cycle['cycle'];
                 $this->critical_period = $user_cycle['menstruation'];
                 return;
             }
         }
-        $this->day = date('j');
-        $this->month = date('m');
-        $this->year = date('Y');
-        $this->cycle = 25;
-        $this->critical_period = 5;
-
     }
 
     public function beforeValidate()

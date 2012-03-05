@@ -3,43 +3,14 @@
  * @var $models UserSignal[]
  */
 
-Yii::app()->clientScript
-    ->registerScriptFile('/js/dklab_realplexor.js')
-    ->registerCssFile('/css/jquery.ui/theme.css');
-?>
-<?php $this->renderPartial('_style',array()); ?>
+$this->renderPartial('_style',array()); ?>
 <script type="text/javascript">
-    var user_cache = "<?php echo MessageCache::GetCurrentUserCache() ?>";
-    var realplexor;
     var filter = null;
-
     $(function () {
-        realplexor = new Dklab_Realplexor(
-            "http://<?php echo Yii::app()->comet->host ?>",
-            "<?php echo Yii::app()->comet->namespace ?>"
-        );
-
-        realplexor.subscribe(user_cache, function (result, id) {
-            console.log(result);
-            if (result.type == <?php echo UserSignal::SIGNAL_TAKEN ?>) {
-                AddExecutor(result.id.$id);
-            }
-            if (result.type == <?php echo UserSignal::SIGNAL_DECLINE ?>) {
-                RemoveExecutor(result.id.$id);
-            }
-            if (result.type == <?php echo UserSignal::SIGNAL_UPDATE ?>) {
-                UpdateTable();
-            }
-            if (result.type == <?php echo UserSignal::SIGNAL_EXECUTED ?>) {
-                TaskExecuted(result.id.$id);
-            }
-        });
-        realplexor.execute();
-
         $('body').delegate('a.take-task', 'click', function () {
             var id = $(this).prev().val();
             $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/club/signals/take") ?>',
+                url:'<?php echo Yii::app()->createUrl("/signal/default/take") ?>',
                 data:{id:id},
                 type:'POST',
                 dataType:'JSON',
@@ -48,16 +19,10 @@ Yii::app()->clientScript
                         var id = $(this).prev().val();
                         $(this).hide();
                         $(this).next().show();
-                        $.pnotify({
-                            pnotify_text: 'Вы взяли задание. Приступите к его выполнению.'
-                        });
+
                     } else {
                         if (response.status == 2) {
-                            $.pnotify({
-                                pnotify_title:'<?php echo Yii::t('app', 'Ошибка');?>',
-                                pnotify_type:'error',
-                                pnotify_text:'Уже достаточно человек на задание'
-                            });
+
                         }
                     }
                 },
@@ -68,7 +33,7 @@ Yii::app()->clientScript
 
         $('body').delegate('a.decline-task', 'click', function () {
             $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/club/signals/decline") ?>',
+                url:'<?php echo Yii::app()->createUrl("/signal/default/decline") ?>',
                 data:{id:$(this).parents('td.actions').find('input').val()},
                 type:'POST',
                 dataType:'JSON',
@@ -112,7 +77,7 @@ Yii::app()->clientScript
 
     function UpdateTable() {
         $.ajax({
-            url: '<?php echo Yii::app()->createUrl("/club/signals/index") ?>',
+            url: '<?php echo Yii::app()->createUrl("/signal/default/index") ?>',
             type: 'POST',
             data:{filter:filter},
             success: function(response) {
@@ -132,9 +97,8 @@ Yii::app()->clientScript
         <td class="active"><a href="#" obj="">все события</a></td>
         <td><a href="#" obj="<?php echo UserSignal::TYPE_NEW_USER_POST ?>">только посты</a></td>
         <td><a href="#" obj="<?php echo UserSignal::TYPE_NEW_USER_VIDEO ?>">только видео</a></td>
-        <td><a href="#" obj="<?php echo UserSignal::TYPE_NEW_USER_TRAVEL ?>">только путешествия</a></td>
     </tr>
 </table>
 <div class="grid-view">
-    <?php $this->renderPartial('_data', array('models' => $models)); ?>
+    <?php $this->renderPartial('_data', array('models' => $models,'history'=> $history)); ?>
 </div>

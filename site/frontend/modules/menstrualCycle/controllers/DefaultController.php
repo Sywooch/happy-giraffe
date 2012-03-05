@@ -26,8 +26,7 @@ class DefaultController extends Controller
         if (isset($_POST['MenstrualCycleForm'])) {
             $modelForm = new MenstrualCycleForm();
             $modelForm->attributes = $_POST['MenstrualCycleForm'];
-            if (!$modelForm->validate())
-                Yii::app()->end();
+            $this->performAjaxValidation($modelForm);
 
             $data = $modelForm->CalculateData();
             $this->renderPartial('data', array(
@@ -35,6 +34,14 @@ class DefaultController extends Controller
                 'model' => $modelForm,
                 'next_data' => $modelForm->CalculateDataForNextMonth()
             ));
+        }
+    }
+
+    public function performAjaxValidation($model)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax'] == 'menstrual-cycle-form'){
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
         }
     }
 

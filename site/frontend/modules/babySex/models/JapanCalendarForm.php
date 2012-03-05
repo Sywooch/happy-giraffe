@@ -72,18 +72,9 @@ class JapanCalendarForm extends CFormModel
     public function rules()
     {
         return array(
-            array('father_m, mother_m, baby_m', 'required'),
+            array('father_m, mother_m, baby_m, baby_d', 'required'),
             array('review_month, baby_d, baby_m', 'safe'),
         );
-    }
-
-    public function init()
-    {
-        $this->father_m = 1;
-        $this->mother_m = 1;
-
-        $this->baby_m = date('m');
-        $this->baby_d = date('d');
     }
 
     public function beforeValidate()

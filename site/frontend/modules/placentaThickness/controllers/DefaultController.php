@@ -27,8 +27,7 @@ class DefaultController extends Controller
         if (isset($_POST['PlacentaThicknessForm'])) {
             $model = new PlacentaThicknessForm;
             $model->attributes = $_POST['PlacentaThicknessForm'];
-            if (!$model->validate())
-                Yii::app()->end();
+            $this->performAjaxValidation($model);
 
             $placentaThickness = PlacentaThickness::model()->cache(3600)->find(array(
                 'condition' => 'week=' . $model->week,
@@ -38,6 +37,14 @@ class DefaultController extends Controller
                 'placentaThickness' => $placentaThickness,
                 'model' => $model
             ));
+        }
+    }
+
+    public function performAjaxValidation($model)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax'] == 'placenta-thickness-form') {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
         }
     }
 }

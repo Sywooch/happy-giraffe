@@ -11,7 +11,7 @@
         <a href="<?php echo CHtml::normalizeUrl($this->getUrl(array('content_type_slug' => null))); ?>" class="btn btn-blue-small"><span><span>Показать все</span></span></a>
     </big>
     <?php
-    foreach ($data->related as $rc)
+    foreach ($data->relatedPosts as $rc)
     {
         $content = '';
         switch ($rc->type->slug)

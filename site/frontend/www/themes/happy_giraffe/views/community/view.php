@@ -1,6 +1,6 @@
 <?php
-    Yii::app()->clientScript->registerMetaTag($content->meta_description, 'description');
-    Yii::app()->clientScript->registerMetaTag($content->meta_keywords, 'keywords');
+    Yii::app()->clientScript->registerMetaTag($data->meta_description, 'description');
+    Yii::app()->clientScript->registerMetaTag($data->meta_keywords, 'keywords');
 ?>
 
 <?php $this->renderPartial('_post', array('data' => $data, 'full' => true)); ?>

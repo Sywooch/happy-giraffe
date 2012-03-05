@@ -72,6 +72,7 @@ class User extends CActiveRecord
     public $new_password;
     public $new_password_repeat;
     public $remember;
+    public $photo;
 
     public $women_rel = array(
         '1'=>'Замужем',
@@ -165,6 +166,7 @@ class User extends CActiveRecord
             array('first_name, email, password, gender', 'required', 'on' => 'signup'),
             array('verifyCode', 'captcha', 'on' => 'signup', 'allowEmpty' => Yii::app()->session->get('service') !== NULL),
             array('email', 'unique', 'on' => 'signup'),
+            array('photo', 'safe', 'on' => 'signup'),
 
             //change_password
             array('new_password', 'required', 'on' => 'change_password'),

@@ -30,6 +30,14 @@ class SignupController extends CController
 				Yii::app()->user->setFlash('regdata', $authIdentity->getItemAttributes());
 				$name = $authIdentity->getServiceName();
 				$id = $authIdentity->getAttribute('id');
+                $check = UserSocialService::model()->findByAttributes(array(
+                    'service' => $name,
+                    'service_id' => $id,
+                ));
+                if($check)
+                {
+                    $this->redirect(array('/site/login', 'service' => $service, 'register' => true));
+                }
 				$session['service'] = array(
 					'name' => $name,
 					'id' => $id,

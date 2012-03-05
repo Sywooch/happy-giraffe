@@ -41,24 +41,6 @@ $js =    "$(function () {
             return false;
         });
 
-        $('.child_sex_japan_banner .calc_bt').click(function () {
-            $('#japan_review_month').val($('#ch_mn_cal').val());
-            $.ajax({
-                url:'".Yii::app()->createUrl("/babySex/default/japanCalc")."',
-                data:jQuery(this).parents('form').serialize(),
-                type:'POST',
-                success:function (data) {
-                    ShowResult(data);
-                }
-            });
-            return false;
-        });
-
-        function ShowResult(data) {
-            $('#japan-result').html(data);
-            $('html,body').animate({scrollTop: $('#japan-result').offset().top},'fast');
-        }
-
         $('body').delegate('.cal_item', 'hover', function (event) {
             if (event.type == 'mouseenter') {
                 $(this).find('.hint').stop(true, true).fadeIn();
@@ -74,20 +56,51 @@ $js =    "$(function () {
                 $(this).find('.hint').stop(true, true).fadeOut();
             }
         });
-    });";
+    });
+
+        function StartCalc() {
+            $('#japan_review_month').val($('#JapanCalendarForm_baby_m').val());
+            $.ajax({
+                url:'".Yii::app()->createUrl("/babySex/default/japanCalc")."',
+                data:$('#japan-form').serialize(),
+                type:'POST',
+                success:function (data) {
+                    ShowResult(data);
+                }
+            });
+            return false;
+        }
+
+        function ShowResult(data) {
+            $('#japan-result').html(data);
+            $('html,body').animate({scrollTop: $('#japan-result').offset().top},'fast');
+        }
+    ";
     Yii::app()->clientScript
         ->registerScript('japan-baby-gender',$js);
 ?>
 <div class="child_sex_japan_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'japan-form',
-    'enableAjaxValidation' => false,
-));?>
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => true,
+        'validateOnType' => false,
+        'validationUrl' => $this->createUrl('/babySex/default/japanCalc'),
+        'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    StartCalc();
+                                return false;
+                              }",
+    ))); ?>
     <div class="dad_bd">
         <span class="title_pt_bn">Месяц рождения отца:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('id' => 'dad_mn_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <?php echo $form->error($model, 'father_m'); ?>
             </li>
         </ul>
     </div>
@@ -96,7 +109,8 @@ $js =    "$(function () {
         <span class="title_pt_bn">Месяц рождения матери:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('id' => 'mam_mn_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <?php echo $form->error($model, 'mother_m'); ?>
             </li>
         </ul>
     </div>
@@ -105,16 +119,18 @@ $js =    "$(function () {
         <span class="title_pt_bn"><ins>День и месяц зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('id' => 'ch_num_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('id' => 'ch_mn_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
         </ul>
+        <?php echo $form->error($model, 'baby_d'); ?>
+        <?php echo $form->error($model, 'baby_m'); ?>
     </div>
     <!-- .child_bd -->
     <?php echo $form->hiddenField($model, 'review_month', array('id' => 'japan_review_month')) ?>
-    <input type="button" class="calc_bt" value="Рассчитать"/>
+    <input type="submit" class="calc_bt" value="Рассчитать"/>
     <?php $this->endWidget(); ?>
 </div><!-- .child_sex_banner -->
 <div id="japan-result">

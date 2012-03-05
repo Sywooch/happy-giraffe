@@ -103,13 +103,13 @@ Yii::app()->clientScript->registerScript('blood-update', $js);
         <span class="title_pt_bn">День рождения отца:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'father_d', HDate::Days(), array('class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'father_d', HDate::Days(), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
         </ul>
         <?php echo $form->error($model, 'father_d'); ?>
@@ -121,13 +121,13 @@ Yii::app()->clientScript->registerScript('blood-update', $js);
         <span class="title_pt_bn">День рождения матери:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'mother_d', HDate::Days(), array('class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'mother_d', HDate::Days(), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
         </ul>
         <?php echo $form->error($model, 'mother_d'); ?>
@@ -139,13 +139,13 @@ Yii::app()->clientScript->registerScript('blood-update', $js);
         <span class="title_pt_bn"><ins>День зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range(1950, $year), array('class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range(1950, $year), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
         </ul>
         <?php echo $form->error($model, 'baby_d'); ?>

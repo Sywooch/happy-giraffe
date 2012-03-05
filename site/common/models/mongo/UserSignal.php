@@ -2,12 +2,11 @@
 
 class UserSignal extends EMongoDocument
 {
-    const TYPE_NEW_USER_COMMENT = 1;
     const TYPE_NEW_USER_POST = 2;
     const TYPE_NEW_USER_VIDEO = 3;
-    const TYPE_NEW_USER_TRAVEL = 4;
     const TYPE_NEW_USER_PHOTO = 5;
     const TYPE_NEW_USER_REGISTER = 6;
+    const TYPE_NEW_BLOG_POST = 2;
 
     const SIGNAL_UPDATE = 20;
     const SIGNAL_TAKEN = 21;
@@ -25,7 +24,9 @@ class UserSignal extends EMongoDocument
     public $status;
     public $executors = array();
     public $success = array();
+    public $all_success = array();
     public $limits = array();
+    public $created;
 
     public static function model($className = __CLASS__)
     {
@@ -35,18 +36,34 @@ class UserSignal extends EMongoDocument
     public function signalTypes()
     {
         return array(
-            self::TYPE_NEW_USER_COMMENT => 'Новый коммент',
-            self::TYPE_NEW_USER_POST => 'Новый пост в сообществе. Нужно прокомментировать.',
-            self::TYPE_NEW_USER_VIDEO => 'Новое видео в сообществе. Нужно прокомментировать.',
-            self::TYPE_NEW_USER_TRAVEL => 'Новое путешествие в сообществе. Нужно прокомментировать.',
-            self::TYPE_NEW_USER_PHOTO => 'Новое фото',
-            self::TYPE_NEW_USER_REGISTER => 'Зарегистрировался',
+            self::TYPE_NEW_USER_POST => 'Запись в клубе',
+            self::TYPE_NEW_USER_VIDEO => 'Видео в клубе',
+            self::TYPE_NEW_USER_PHOTO => 'Фото в анкете',
+            self::TYPE_NEW_USER_REGISTER => 'Новый пользователь',
+            self::TYPE_NEW_BLOG_POST => 'Запись в блоге',
+        );
+    }
+
+    public function signalWants()
+    {
+        return array(
+            self::TYPE_NEW_USER_POST => 'Прокомментировать',
+            self::TYPE_NEW_USER_VIDEO => 'Прокомментировать',
+            self::TYPE_NEW_USER_PHOTO => 'Прокомментировать',
+            self::TYPE_NEW_USER_REGISTER => 'Написать в гостевую',
+            self::TYPE_NEW_BLOG_POST => 'Прокомментировать',
         );
     }
 
     public function signalType()
     {
         $types = $this->signalTypes();
+        return $types[$this->signal_type];
+    }
+
+    public function signalWant()
+    {
+        $types = $this->signalWants();
         return $types[$this->signal_type];
     }
 
@@ -60,12 +77,15 @@ class UserSignal extends EMongoDocument
         if ($this->isNewRecord) {
             $this->priority = 1;
             $this->status = self::STATUS_OPEN;
+            $this->created = date("Y-m-d");
             if ($this->signal_type == self::TYPE_NEW_USER_POST) {
                 $this->limits = array(rand(4, 6), rand(8, 12));
-            }elseif ($this->signal_type == self::TYPE_NEW_USER_VIDEO) {
+            } elseif ($this->signal_type == self::TYPE_NEW_USER_VIDEO) {
                 $this->limits = array(rand(4, 6), rand(8, 12));
-            }elseif ($this->signal_type == self::TYPE_NEW_USER_TRAVEL) {
+            } elseif ($this->signal_type == self::TYPE_NEW_USER_PHOTO) {
                 $this->limits = array(rand(4, 6), rand(8, 12));
+            } elseif ($this->signal_type == self::TYPE_NEW_USER_REGISTER) {
+                $this->limits = array(rand(1, 4));
             }
         }
         return parent::beforeSave();
@@ -223,12 +243,16 @@ class UserSignal extends EMongoDocument
                 unset($this->executors[$key]);
 
         $this->success [] = $user_id;
-        if (count($this->success) >= $this->currentLimit()){
+        if (!in_array($user_id, $this->all_success))
+            $this->all_success [] = $user_id;
+
+        if (count($this->success) >= $this->currentLimit()) {
             $this->success = array();
             $this->priority++;
             if ($this->priority > count($this->limits))
                 $this->status = self::STATUS_CLOSED;
             $this->save();
+
             //send signal to moderators
             $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
             foreach ($moderators as $moderator) {
@@ -236,11 +260,11 @@ class UserSignal extends EMongoDocument
                     'type' => self::SIGNAL_UPDATE
                 ));
             }
-        }else{
+        } else {
             $this->save();
             Yii::app()->comet->send(MessageCache::GetUserCache($user_id), array(
                 'type' => self::SIGNAL_EXECUTED,
-                'id'=>$this->_id,
+                'id' => $this->_id,
             ));
         }
     }
@@ -257,7 +281,7 @@ class UserSignal extends EMongoDocument
         $criteria->item_id('==', $item_id);
 
         $model = self::model()->find($criteria);
-        if (isset($model)){
+        if (isset($model)) {
             $model->TaskExecuted($user_id);
         }
     }
@@ -267,7 +291,7 @@ class UserSignal extends EMongoDocument
      */
     public static function CheckComment($comment)
     {
-        if (Yii::app()->user->checkAccess('moderator')){
+        if (Yii::app()->user->checkAccess('moderator')) {
             self::CheckTask($comment->entity, $comment->entity_id, Yii::app()->user->getId());
         }
     }
@@ -281,5 +305,47 @@ class UserSignal extends EMongoDocument
         // 1. приоритета пользователя
         // 2. приоритета типа сигнала
         // 3. особенностей конкретного действия
+    }
+
+    /**
+     * @param int $user_id
+     * @param string $date
+     * @param int $limit
+     * @return array
+     */
+    public function getHistory($user_id, $date, $limit = null)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->addCond('all_success', 'all', array($user_id));
+        $criteria->created('==', $date);
+        //$criteria->status('==', self::STATUS_CLOSED);
+        if ($limit !== null)
+            $criteria->limit($limit);
+        $criteria->sort('_id', EMongoCriteria::SORT_DESC);
+
+        return self::model()->findAll($criteria);
+    }
+
+    public function getHistoryText()
+    {
+        $text = 'Прокомментировал ';
+        if ($this->signal_type == self::TYPE_NEW_USER_POST) {
+            $text .= CHtml::link('Запись в клубе', CommunityContent::getLink($this->item_id));
+        } elseif ($this->signal_type == self::TYPE_NEW_BLOG_POST) {
+            $text .= CHtml::link('Запись в блоге', '#');
+        } elseif ($this->signal_type == self::TYPE_NEW_USER_VIDEO) {
+            $text .= CHtml::link('Видео в клубе', CommunityContent::getLink($this->item_id));
+        } elseif ($this->signal_type == self::TYPE_NEW_USER_PHOTO) {
+            $text .= CHtml::link('Фото в анкете', '#');
+        } elseif ($this->signal_type == self::TYPE_NEW_USER_REGISTER) {
+            $text = 'Написал в гостевую ' . CHtml::link('Анкета пользователя',
+                Yii::app()->createUrl('user/profile', array('user_id' => $this->user_id)));
+        }
+
+        $user = $this->getUser();
+        if ($user !== null)
+            $text .= ' от ' . CHtml::link($user->getFullName(), Yii::app()->createUrl('user/profile', array('user_id' => $user->id)));
+
+        return $text;
     }
 }

@@ -51,21 +51,6 @@ class BloodRefreshForm extends CFormModel
         );
     }
 
-    public function init()
-    {
-        $this->mother_d = 1;
-        $this->mother_m = 1;
-        $this->mother_y = date('Y') - 30;
-
-        $this->father_d = 1;
-        $this->father_m = 1;
-        $this->father_y = date('Y') - 30;
-
-        $this->baby_d = date('j');
-        $this->baby_m = date('m');
-        $this->baby_y = date('Y');
-    }
-
     public function beforeValidate()
     {
         $this->mother_born_date = strtotime($this->mother_d . '-' . $this->mother_m . '-' . $this->mother_y);

@@ -1,6 +1,6 @@
 <div class="default-comments">
     <div class="comments-meta">
-        <a href="#add_comment" class="btn btn-orange a-right"><span><span>Добавить запись</span></span></a>
+        <a href="#add_comment" onclick="Comment.newComment();" class="btn btn-orange a-right"><span><span>Добавить запись</span></span></a>
         <div class="title"><?php echo $this->title; ?></div>
         <div class="count"><?php echo $dataProvider->totalItemCount; ?></div>
     </div>

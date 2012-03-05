@@ -343,7 +343,7 @@ class CommunityContent extends CActiveRecord
         ));
     }
 
-    public function getRelated()
+    public function getRelatedPosts()
     {
         $next = $this->full()->findAll(
             array(

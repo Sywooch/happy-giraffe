@@ -77,15 +77,6 @@ class CommunityController extends Controller
 
     public function getUrl($overwrite = array(), $route = 'community/list')
     {
-        var_dump(CMap::mergeArray(
-            array($route),
-            array(
-                'community_id' => $this->community->id,
-                'rubric_id' => $this->rubric_id,
-                'content_type_slug' => $this->content_type_slug,
-            ),
-            $overwrite
-        ));
         return array_filter(CMap::mergeArray(
             array($route),
             array(

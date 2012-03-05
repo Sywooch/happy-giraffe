@@ -21,6 +21,7 @@ AjaxHistory.prototype.changeBrowserUrl = function (url) {
     var url = url.split("?");
     if (url[1]) {
         var query = new Array();
+        var hash = url[1].split('#');
         var params = url[1].split("&");
         for (i in params) {
             var param = params[i].split("=");
@@ -32,6 +33,8 @@ AjaxHistory.prototype.changeBrowserUrl = function (url) {
         }
     }
     var path = this.buildUrl(url[0], query);
+    if(hash.length > 1)
+        path += '#' + hash[1];
     if (typeof(window.history.pushState) == 'function') {
         window.history.pushState({path : path}, "", path);
     } else {
@@ -60,7 +63,8 @@ AjaxHistory.prototype.load = function (id, url) {
         success:function (data) {
             id = '#' + id;
             $(id).replaceWith($(id, '<div>' + data + '</div>'));
-            /*document.location.hash = document.location.hash;*/
+            if(/#/.test(document.location.hash))
+                document.location.hash = document.location.hash;
         }
     });
     return this;

@@ -52,7 +52,7 @@ var Comment = {
             var url = false;
             if(pager.size() > 0)
                 url = pager.children('a').attr('href');
-            url += '#comment_' + index.toString();
+            url += '#cp_' + index.toString();
             var h = new AjaxHistory('comment_list');
             h.load('comment_list', url).changeBrowserUrl(url);
         } else {

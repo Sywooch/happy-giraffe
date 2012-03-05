@@ -123,9 +123,7 @@ class Removed extends CActiveRecord
     public function afterSave()
     {
         $model = call_user_func(array($this->entity, 'model'));
-        $model = $model->findByPk($this->entity_id);
-        $model->removed = 1;
-        $model->save();
+        $model->updateByPk($this->entity_id, array('removed' => 1));
         return parent::afterSave();
     }
 }

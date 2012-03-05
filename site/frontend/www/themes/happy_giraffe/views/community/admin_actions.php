@@ -23,12 +23,13 @@ $js = '
     $(".admin-actions .move").click(function () {
         $.fancybox.open($("#transfer_post").tmpl());
         $("#active_post_id").val($(this).prev().val());
+        $("#movePost select").chosen();
         return false;
     });
 
     $("body").delegate("#movePost button.btn-green-medium", "click", function () {
         $.ajax({
-            url:"'. Yii::app()->createUrl("community/transfer") .'",
+            url:"' . Yii::app()->createUrl("community/transfer") . '",
             data:{
                 id:$("#active_post_id").val(),
                 CommunityContent:{
@@ -48,5 +49,5 @@ $js = '
         });
         return false;
     });';
-Yii::app()->clientScript->registerScript('move-post',$js);
+Yii::app()->clientScript->registerScript('move-post', $js);
 ?>

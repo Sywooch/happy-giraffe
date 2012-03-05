@@ -61,10 +61,7 @@ class DefaultController extends Controller
         if (isset($_POST['BloodRefreshForm'])) {
             $model = new BloodRefreshForm();
             $model->attributes = $_POST['BloodRefreshForm'];
-            if (isset($_POST['ajax']) && $_POST['ajax'] == 'blood-refresh-form'){
-                echo CActiveForm::validate($model);
-                Yii::app()->end();
-            }
+            $this->performAjaxValidation($model, 'blood-refresh-form');
 
             $data = $model->CalculateMonthData();
             $gender = $model->GetGender();
@@ -123,8 +120,7 @@ class DefaultController extends Controller
         if (isset($_POST['JapanCalendarForm'])) {
             $model = new JapanCalendarForm();
             $model->attributes = $_POST['JapanCalendarForm'];
-            if (!$model->validate())
-                Yii::app()->end();
+            $this->performAjaxValidation($model, 'japan-form');
 
             $data = $model->CalculateData();
             $gender = $model->GetGender();
@@ -143,8 +139,7 @@ class DefaultController extends Controller
         if (isset($_POST['OvulationForm'])) {
             $modelForm = new OvulationForm();
             $modelForm->attributes = $_POST['OvulationForm'];
-            if (!$modelForm->validate())
-                Yii::app()->end();
+            $this->performAjaxValidation($modelForm, 'ovulation-form');
 
             $data = $modelForm->CalculateData();
             $gender = $modelForm->GetGender();
@@ -161,5 +156,13 @@ class DefaultController extends Controller
     public function roundOpacity($op)
     {
         return round($op/20)*20;
+    }
+
+    public function performAjaxValidation($model, $formName)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax'] == $formName){
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
     }
 }

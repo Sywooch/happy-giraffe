@@ -3,7 +3,7 @@
  * @var $form CActiveForm
  */
 
-$js = '$("#placenta-thickness-form input.placenta_submit").click(function(){
+$js = 'function StartCalc(){
             $.ajax({
                 url: "' . Yii::app()->createUrl("/placentaThickness/default/calculate") . '",
                 data: $("#placenta-thickness-form").serialize(),
@@ -13,7 +13,7 @@ $js = '$("#placenta-thickness-form input.placenta_submit").click(function(){
                 }
             });
             return false;
-        });';
+        }';
 Yii::app()->clientScript->registerScript('placenta-thickness', $js);
 ?>
 
@@ -43,8 +43,19 @@ Yii::app()->clientScript->registerScript('placenta-thickness', $js);
     <div class="placenta_calculation">
         <?php $form = $this->beginWidget('CActiveForm', array(
         'id' => 'placenta-thickness-form',
-        'enableAjaxValidation' => false,
-    ));?>
+        'enableAjaxValidation' => true,
+        'enableClientValidation' => false,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+            'validateOnChange' => true,
+            'validateOnType' => false,
+            'validationUrl' => $this->createUrl('/placentaThickness/default/calculate'),
+            'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    StartCalc();
+                                return false;
+                              }",
+        )));?>
 
         <div class="row">
             <span>Мой срок беременности:</span>
@@ -107,7 +118,7 @@ Yii::app()->clientScript->registerScript('placenta-thickness', $js);
             <div><?php echo $form->error($model, 'thickness') ?></div>
             <span class="comm_to">Введите целое или дробное число,<br/>например 25 или 25,37</span>
         </div>
-        <input type="button" class="placenta_submit" value="Определить"/>
+        <input type="submit" class="placenta_submit" value="Определить"/>
         <?php $this->endWidget(); ?>
     </div>
     <!-- .placenta_calculation -->

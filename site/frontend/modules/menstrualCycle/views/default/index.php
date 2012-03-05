@@ -5,14 +5,6 @@
 $model = new MenstrualCycleForm();
 $js = "var started = false;
     $(function () {
-        $('#menstrual-cycle-form button.btn').click(function () {
-            var d = new Date();
-            $('#review_month').val($('#mn_cal').val());
-            $('#review_year').val($('#yr_cal').val());
-            LoadCalendar();
-            return false;
-        });
-
         $('body').delegate('div.choice_month a#next-month', 'click', function () {
             var month = $('#review_month').val();
             if (month == '')
@@ -63,20 +55,32 @@ $js = "var started = false;
             }
         });
 
-        function LoadCalendar() {
-            $.ajax({
-                url:'".Yii::app()->createUrl("/menstrualCycle/default/calculate")."',
-                data:$('#menstrual-cycle-form').serialize(),
-                type:'POST',
-                success:function (data) {
-                    $('#result').fadeOut(100,function(){ $('#result').html(data);$('#result').fadeIn(100);});
-                    $('html,body').animate({scrollTop: $('#result').offset().top},'fast');
-                    started = true;
-                }
-            });
+        $('.btn-yellow-medium').click(function(){
+             $('#menstrual-cycle-form').submit();
+        });
+    });
+
+function StartCalc() {
+    var d = new Date();
+    $('#review_month').val($('#MenstrualCycleForm_month').val());
+    $('#review_year').val($('#MenstrualCycleForm_year').val());
+    LoadCalendar();
+    return false;
+}
+function LoadCalendar() {
+    $.ajax({
+        url:'" . Yii::app()->createUrl("/menstrualCycle/default/calculate") . "',
+        data:$('#menstrual-cycle-form').serialize(),
+        type:'POST',
+        success:function (data) {
+            $('#result').fadeOut(100,function(){ $('#result').html(data);$('#result').fadeIn(100);});
+            $('html,body').animate({scrollTop: $('#result').offset().top},'fast');
+            started = true;
         }
-    });";
-Yii::app()->clientScript->registerScript('woman_cycle',$js);
+    });
+}
+    ";
+Yii::app()->clientScript->registerScript('woman_cycle', $js);
 ?>
 <div class="mother_cal_banner">
     <span>Менструальный цикл – это биологические часы женщины, запущенные самой природой. Составьте свой женский календарь и проверьте – правильно ли идут ваши часы, а также узнайте массу другой полезной информации.</span>
@@ -84,8 +88,19 @@ Yii::app()->clientScript->registerScript('woman_cycle',$js);
 <div class="calculate_tb">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'menstrual-cycle-form',
-    'enableAjaxValidation' => false,
-));
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => false,
+        'validateOnType' => false,
+        'validationUrl' => $this->createUrl('/menstrualCycle/default/calculate'),
+        'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    StartCalc();
+                                return false;
+                              }",
+    )));
     echo $form->hiddenField($model, 'review_month', array('id' => 'review_month'));
     echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
     <table>
@@ -96,27 +111,38 @@ Yii::app()->clientScript->registerScript('woman_cycle',$js);
         </tr>
         <tr>
             <td>
-                <ul class="lists_td">
-                    <li>
-                        <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_cal', 'class' => 'chzn')); ?>
-                    </li>
-                    <li>
-                        <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_cal', 'class' => 'chzn')); ?>
-                    </li>
-                    <li>
-                        <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_cal', 'class' => 'chzn')); ?>
-                    </li>
-                </ul>
+                <div class="lists_td clearfix">
+                    <div class="row">
+                        <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('class' => 'chzn', 'empty' => '--')); ?>
+                        <?php echo $form->error($model, 'day'); ?>
+                    </div>
+                    <div class="row">
+                        <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '--')); ?>
+                        <?php echo $form->error($model, 'month'); ?>
+                    </div>
+                    <div class="row">
+                        <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 5, date('Y')), array('class' => 'chzn', 'empty' => '--')); ?>
+                        <?php echo $form->error($model, 'year'); ?>
+                    </div>
+                </div>
             </td>
             <td>
-                <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('id' => 'cl_cal', 'class' => 'chzn')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'cycle'); ?>
+                </div>
             </td>
             <td>
-                <?php echo $form->dropDownList($model, 'critical_period', HDate::Range(3, 7), array('id' => 'men_cal', 'class' => 'chzn')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'critical_period', HDate::Range(3, 7), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'critical_period'); ?>
+                </div>
             </td>
         </tr>
     </table>
-    <button class="btn btn-yellow-medium"><span><span>Рассчитать</span></span></button>
+    <button class="btn btn-yellow-medium" onclick="return false;"><span><span>Рассчитать</span></span></button>
+    <?php echo $form->errorSummary($model); ?>
+
     <?php $this->endWidget(); ?>
     <div class="clear"></div>
     <!-- .clear -->
@@ -140,7 +166,7 @@ Yii::app()->clientScript->registerScript('woman_cycle',$js);
                 <th>Вс</th>
             </tr>
             <?php
-            $skip = date("w")+1;
+            $skip = date("w") + 1;
             if ($skip > 6)
                 $skip = 0;
 
@@ -216,20 +242,22 @@ Yii::app()->clientScript->registerScript('woman_cycle',$js);
         календари, в которых отмечают начало и продолжительность каждой менструации.</p>
 
     <div class="brushed">
-    <p style="margin-top:0;">Наш сервис предлагает завести себе электронный календарь, при помощи которого можно:</p>
-    <ul>
-        <li>составить индивидуальный график менструального цикла за любой промежуток времени (при этом все данные
-            сохраняются, и их легко проанализировать);
-        </li>
-        <li>узнать вероятную дату овуляции;</li>
-        <li>определить опасные и безопасные дни для наступления беременности;</li>
-        <li>спрогнозировать начало ПМС и вовремя принять меры.</li>
-    </ul>
-    <p>Для этого нужно ввести все данные в специальные окошки. Нажать кнопку &laquo;рассчитать&raquo; и посмотреть
-        результат, который наглядно покажет именно ваш менструальный цикл со всеми его особенностями, что, несомненно,
-        поможет правильно спланировать свою личную жизнь. Кстати, вам не придётся повторять ввод данных &ndash; ваш
-        женский календарь сохранится в вашем личном кабинете и будет постоянно доступен для пользования и занесения
-        данных нового месяца.</p>
+        <p style="margin-top:0;">Наш сервис предлагает завести себе электронный календарь, при помощи которого
+            можно:</p>
+        <ul>
+            <li>составить индивидуальный график менструального цикла за любой промежуток времени (при этом все данные
+                сохраняются, и их легко проанализировать);
+            </li>
+            <li>узнать вероятную дату овуляции;</li>
+            <li>определить опасные и безопасные дни для наступления беременности;</li>
+            <li>спрогнозировать начало ПМС и вовремя принять меры.</li>
+        </ul>
+        <p>Для этого нужно ввести все данные в специальные окошки. Нажать кнопку &laquo;рассчитать&raquo; и посмотреть
+            результат, который наглядно покажет именно ваш менструальный цикл со всеми его особенностями, что,
+            несомненно,
+            поможет правильно спланировать свою личную жизнь. Кстати, вам не придётся повторять ввод данных &ndash; ваш
+            женский календарь сохранится в вашем личном кабинете и будет постоянно доступен для пользования и занесения
+            данных нового месяца.</p>
     </div>
 
 </div><!-- .placenta_article -->

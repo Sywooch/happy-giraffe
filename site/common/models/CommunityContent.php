@@ -81,6 +81,7 @@ class CommunityContent extends CActiveRecord
             'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => "slug = 'post'"),
 			'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this)))
 		);
 	}
 
@@ -228,6 +229,9 @@ class CommunityContent extends CActiveRecord
 					),
 				),
 			),
+            'active'=>array(
+                'condition'=>'removed=0'
+            )
 		);
 	}*/
 
@@ -240,9 +244,9 @@ class CommunityContent extends CActiveRecord
 
         $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
         foreach ($moderators as $moderator) {
-//            Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
-//                'type' => self::SIGNAL_UPDATE
-//            ));
+            Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
+                'type' => self::SIGNAL_UPDATE
+            ));
         }
 
         return true;
@@ -257,8 +261,6 @@ class CommunityContent extends CActiveRecord
             $signal->item_name = 'CommunityContent';
             if ($this->type->slug == 'video')
                 $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
-            elseif ($this->type->slug == 'travel')
-                $signal->signal_type = UserSignal::TYPE_NEW_USER_TRAVEL;
             else
                 $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
 

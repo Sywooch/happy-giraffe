@@ -244,14 +244,14 @@
             }
         ?>
     </div>
+
+    <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
+        'model' => $data,
+    )); ?>
+
+    <?php
+        $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+        $remove_tmpl->registerTemplates();
+        $this->endWidget();
+    ?>
 <?php endif; ?>
-
-<?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
-    'model' => $data,
-)); ?>
-
-<?php
-    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-    $remove_tmpl->registerTemplates();
-    $this->endWidget();
-?>

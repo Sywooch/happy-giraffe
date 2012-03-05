@@ -7,8 +7,10 @@
         $this->createUrl('community/edit', array('content_id' => $c->id)), array('class' => 'edit')); ?>
     <?php endif; ?>
 
+    <?php if (Yii::app()->user->checkAccess('transfer post')): ?>
     <input type="hidden" value="<?php echo $c->id ?>">
     <a href="#movePost" class="move fancy">Переместить</a>
+    <?php endif; ?>
 
     <?php if (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))): ?>
     <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(

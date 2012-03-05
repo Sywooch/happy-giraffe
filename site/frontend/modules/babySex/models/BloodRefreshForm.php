@@ -51,21 +51,6 @@ class BloodRefreshForm extends CFormModel
         );
     }
 
-    public function init()
-    {
-        $this->mother_d = 1;
-        $this->mother_m = 1;
-        $this->mother_y = date('Y') - 30;
-
-        $this->father_d = 1;
-        $this->father_m = 1;
-        $this->father_y = date('Y') - 30;
-
-        $this->baby_d = date('j');
-        $this->baby_m = date('m');
-        $this->baby_y = date('Y');
-    }
-
     public function beforeValidate()
     {
         $this->mother_born_date = strtotime($this->mother_d . '-' . $this->mother_m . '-' . $this->mother_y);
@@ -78,6 +63,20 @@ class BloodRefreshForm extends CFormModel
             $this->review_year = $this->baby_y;
 
         return parent::beforeValidate();
+    }
+
+    public function afterValidate()
+    {
+        if ($this->hasErrors('father_d') || $this->hasErrors('father_m') || $this->hasErrors('father_y'))
+            $this->addError('father_born_date', 'Укажите дату рождения отца полностью');
+
+        if ($this->hasErrors('mother_d') || $this->hasErrors('mother_m') || $this->hasErrors('mother_y'))
+            $this->addError('mother_born_date', 'Укажите дату рождения матери полностью');
+
+        if ($this->hasErrors('baby_d') || $this->hasErrors('baby_m') || $this->hasErrors('baby_y'))
+            $this->addError('baby_born_date', 'Укажите дату зачатия ребенка полностью');
+
+        return parent::afterValidate();
     }
 
     /**

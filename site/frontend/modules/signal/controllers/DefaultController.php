@@ -1,31 +1,50 @@
 <?php
 
-class SignalsController extends BController
+class DefaultController extends Controller
 {
-    public $section = 'club';
-    public $layout = '//layouts/club';
+    public $layout = 'main';
+
+    public function filters()
+    {
+        return array(
+            'ajaxOnly + take, decline, history',
+        );
+    }
+
+    public function beforeAction()
+    {
+        if (!Yii::app()->user->checkAccess('user_signals'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        return true;
+    }
 
     public function actionIndex()
     {
         $filter = Yii::app()->request->getPost('filter');
         $criteria = new EMongoCriteria;
         $criteria->addCond('status', '==', UserSignal::STATUS_OPEN);
+        $criteria->limit(5);
 
         $criteria->setSort(array(
             'priority' => EMongoCriteria::SORT_ASC,
-            '_id' => EMongoCriteria::SORT_ASC,
+            '_id' => EMongoCriteria::SORT_DESC,
         ));
         if (!empty($filter))
             $criteria->addCond('signal_type', '==', (int)$filter);
 
         $models = UserSignal::model()->findAll($criteria);
+        $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), date("Y-m-d"));
+
         if (Yii::app()->request->isAjaxRequest) {
             $this->renderPartial('_data', array(
-                'models' => $models
+                'models' => $models,
+                'history'=> $history
             ));
         } else {
             $this->render('index', array(
-                'models' => $models
+                'models' => $models,
+                'history'=> $history
             ));
         }
     }
@@ -57,6 +76,14 @@ class SignalsController extends BController
         );
 
         echo CJSON::encode($response);
+    }
+
+    public function actionHistory()
+    {
+        $date = Yii::app()->request->getPost('date');
+        $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), $date);
+
+        $this->renderPartial('_history', array('history' => $history));
     }
 
     /**

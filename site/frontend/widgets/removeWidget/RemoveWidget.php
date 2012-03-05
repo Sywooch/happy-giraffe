@@ -52,7 +52,7 @@ class RemoveWidget extends CWidget
                                     <input type="hidden" name="Removed[entity_id]" value="${entity_id}" />
                                     <input type="hidden" name="Removed[type]" value="0" />
                                     <div class="confirm-question">
-                                        <p>Вы уверены, что<br>хотите удалить этот<br>комментарий?</p>
+                                        <p>Вы уверены, что<br>хотите удалить <span class="title0"></span>?</p>
                                     </div>
                                     <div class="bottom  bottom-center">
                                         <a onclick="$.fancybox.close();" class="btn btn-gray-medium" href="javascript:void(0);"><span><span>Отменить</span></span></a>
@@ -61,7 +61,7 @@ class RemoveWidget extends CWidget
                                 </form>
                             </div>
                             <div class="confirm-after">
-                                <p>Комментарий успешно удален!</p>
+                                <p><span class="title1"></span>!</p>
                             </div>
                         </div>
                     </script>
@@ -80,7 +80,7 @@ class RemoveWidget extends CWidget
                                         </div>
 
                                         <div class="question-in">
-                                            <p>Вы уверены, что<br>хотите удалить эту<br>запись?</p>
+                                            <p>Вы уверены, что<br>хотите удалить <span class="title0"></span>?</p>
                                         </div>
                                     </div>
                                     <div class="bottom">
@@ -90,9 +90,18 @@ class RemoveWidget extends CWidget
                                 </form>
                             </div>
                             <div class="confirm-after">
-                                <p>Запись успешно удалена!</p>
+                                <p><span class="title1"></span>!</p>
                             </div>
                         </div>
                     </script>';
+    }
+
+    public function getTitle($entity)
+    {
+        if ($entity == 'Comment')
+            return array('этот<br>комментарий','Комментарий успешно удален');
+        if ($entity == 'CommunityContent')
+            return array('эту<br>статью', 'Статья успешно удалена');
+        return array('эту<br>запись', 'Запись успешно удалена');
     }
 }

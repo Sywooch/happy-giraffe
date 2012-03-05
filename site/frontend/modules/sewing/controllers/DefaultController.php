@@ -6,6 +6,8 @@ class DefaultController extends Controller
 
     public function actionEmbroideryCost()
     {
+        //if (Yii::app()->request->isAjaxRequest)
+            //$this->performAjaxValidation();
         $this->render('embroideryCost');
     }
 
@@ -42,6 +44,14 @@ class DefaultController extends Controller
             }
         } else
             $this->render('yarnCalculator');
+    }
+
+    public function performAjaxValidation($model, $formName)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax'] == $formName){
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
     }
 
     /**

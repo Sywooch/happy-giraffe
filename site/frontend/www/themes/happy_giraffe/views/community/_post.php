@@ -138,13 +138,7 @@
                     break;
             }
             ?>
-    
-            <?php if (Yii::app()->user->checkAccess('editCommunityContent', array('community_id'=>$data->rubric->community->id,'user_id'=>$data->contentAuthor->id))): ?>
-            <?php echo CHtml::link('редактировать', ($data->type->slug == 'travel') ? $this->createUrl('community/editTravel', array('id' => $data->id)) : $this->createUrl('community/edit', array('content_id' => $data->id))); ?>
-            <?php endif; ?>
-            <?php if (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id'=>$data->rubric->community->id,'user_id'=>$data->contentAuthor->id))): ?>
-            <?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $data->id)), array('id' => 'CommunityContent_delete_' . $data->id, 'submit' => array('community/delete', 'id' => $data->id), 'confirm' => 'Вы точно хотите удалить тему?')); ?>
-            <?php endif; ?>
+
             <div class="clear"></div>
         </div>
     <?php endif; ?>
@@ -152,11 +146,11 @@
     <div class="entry-footer">
         <span class="comm">Комментариев: <span><?php echo $data->commentsCount; ?></span></span>
 
-        <div class="admin-actions">
-            <a href="" class="edit"><i class="icon"></i></a>
-            <a href="#movePost" class="move fancy">Переместить</a>
-            <a href="#deletePost" class="remove fancy"><i class="icon"></i></a>
-        </div>
+        <?php $this->renderPartial('admin_actions',array(
+        'c'=>$data,
+        'communities'=>Community::model()->findAll(),
+    )); ?>
+        <?php $this->renderPartial('parts/move_post_popup',array('c'=>$data)); ?>
 
         <?php if (($data->type->slug == 'post' AND in_array($data->post->source_type, array('book', 'internet'))) OR $data->by_happy_giraffe): ?>
             <div class="source">Источник:&nbsp;

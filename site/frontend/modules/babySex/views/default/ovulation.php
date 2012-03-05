@@ -5,13 +5,13 @@
 $model = new OvulationForm();
 $js = "var started = false;
     $(function () {
-        $('#ovulation-form input.calc_bt').click(function () {
+        function StartCalc() {
             var d = new Date();
-            $('#review_month').val($('#mn_con').val());
-            $('#review_year').val($('#yr_con').val());
+            $('#review_month').val($('#OvulationForm_con_month').val());
+            $('#review_year').val($('#OvulationForm_con_year').val());
             LoadCalendar();
             return false;
-        });
+        }
 
         $('body').delegate('div.choice_month a#next-month', 'click', function () {
             var month = $('#review_month').val();
@@ -80,50 +80,64 @@ Yii::app()->clientScript->registerScript('baby-gender-ovulation',$js);
 <div class="child_sex_ovulyaciya_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'ovulation-form',
-    'enableAjaxValidation' => false,
-));
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => true,
+        'validateOnType' => false,
+        'validationUrl' => $this->createUrl('/babySex/default/ovulationCalc'),
+        'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    StartCalc();
+                                return false;
+                              }",
+    )));
     echo $form->hiddenField($model, 'review_month', array('id' => 'review_month'));
     echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
     <div class="dad_bd">
         <span class="title_pt_bn">Длительность цикла:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21,35), array('id' => 'cl_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21,35), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
         </ul>
+        <?php echo $form->error($model, 'cycle'); ?>
     </div>
     <!-- .dad_bd -->
     <div class="mam_bd">
         <span class="title_pt_bn">Дата первого дня менструации<br/> предыдущего цикла:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('id' => 'num_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('id' => 'mn_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_cal', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array( 'class' => 'chzn', 'empty'=>'--')); ?>
             </li>
         </ul>
+        <?php echo $form->error($model, 'month'); ?>
     </div>
     <!-- .mam_bd -->
     <div class="child_bd">
         <span class="title_pt_bn"><ins>День зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('id' => 'num_con', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array('id' => 'mn_con', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array( 'class' => 'chzn', 'empty'=>'--')); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('id' => 'yr_con', 'class' => 'chzn')); ?>
+                <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn', 'empty'=>'--')); ?>
             </li>
         </ul>
+        <?php echo $form->error($model, 'con_day'); ?>
     </div>
     <!-- .child_bd -->
-    <input type="button" class="calc_bt" value="Рассчитать"/>
+    <input type="submit" class="calc_bt" value="Рассчитать"/>
     <?php $this->endWidget(); ?>
 </div><!-- .child_sex_banner -->
 

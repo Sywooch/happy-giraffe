@@ -38,21 +38,11 @@ class OvulationForm extends CFormModel
             $user_cycle = MenstrualCycle::GetUserCycle(Yii::app()->user->getId());
             if ($user_cycle !== null) {
                 $this->day = date('j', strtotime($user_cycle['date']));
-                $this->month = date('m', strtotime($user_cycle['date']));
+                $this->month = date('n', strtotime($user_cycle['date']));
                 $this->year = date('Y', strtotime($user_cycle['date']));
                 $this->cycle = $user_cycle['cycle'];
             }
         }
-        $this->day = date('j');
-        $this->month = date('m');
-        $this->year = date('Y');
-
-        $this->con_day = date('j');
-        $this->con_month = date('m');
-        $this->con_year = date('Y');
-
-        $this->cycle = 25;
-
     }
 
     public function beforeValidate()

@@ -225,6 +225,7 @@ function cl(value) {
 }
 
 $.fancybox.open = function(content) {
-    var onComplete_function = function() {$('.popup .chzn').chosen();};
-    $('<a></a>').fancybox({content:content, showCloseButton : false, scrolling: false, onComplete : onComplete_function}).trigger('click');
+    var fancy = $('<a></a>').fancybox({content:content, showCloseButton : false, scrolling: false});
+    fancy.trigger('click');
+    $('#fancybox-wrap .chzn').chosen();
 }

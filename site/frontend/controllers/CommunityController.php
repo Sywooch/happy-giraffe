@@ -103,11 +103,9 @@ class CommunityController extends Controller
         $this->content_type_slug = $content_type_slug;
 
         $this->pageTitle = (! empty($content->meta_title)) ? $content->meta_title : $this->pageTitle = $content->name;
-        Yii::app()->clientScript->registerMetaTag($content->meta_description, 'description');
-        Yii::app()->clientScript->registerMetaTag($content->meta_keywords, 'keywords');
 
         $this->render('view', array(
-            'content' => $content,
+            'data' => $content,
         ));
     }
 

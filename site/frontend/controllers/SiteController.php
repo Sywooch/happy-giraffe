@@ -145,6 +145,8 @@ class SiteController extends Controller
                         $user->login_date = date('Y-m-d H:i:s');
                         $user->save(false);
                         $rediret_url = Yii::app()->user->getState('social_redirect');
+                        if(Yii::app()->request->getQuery('register'))
+                            $authIdentity->redirect('/site/index');
 						$authIdentity->redirect($rediret_url);
 					}
 				} elseif(!Yii::app()->user->isGuest)

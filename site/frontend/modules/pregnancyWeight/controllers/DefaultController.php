@@ -7,7 +7,7 @@ class DefaultController extends Controller
     public function filters()
     {
         return array(
-            'ajaxOnly + GetData',
+            'ajaxOnly + Calculate',
         );
     }
 
@@ -21,19 +21,26 @@ class DefaultController extends Controller
         $this->render('index');
     }
 
-    public function actionGetData()
+    public function actionCalculate()
     {
         if (isset($_POST['PregnantParamsForm'])) {
             $model = new PregnantParamsForm();
             $model->attributes = $_POST['PregnantParamsForm'];
-            if (!$model->validate())
-                Yii::app()->end();
+            $this->performAjaxValidation($model);
 
             $model->CalculateData();
 
             $this->renderPartial('data', array(
                 'model' => $model,
             ));
+        }
+    }
+
+    public function performAjaxValidation($model)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax'] == 'pregnant-params-form'){
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
         }
     }
 }

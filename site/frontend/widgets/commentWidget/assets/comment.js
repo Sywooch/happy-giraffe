@@ -14,6 +14,7 @@ var Comment = {
         CKEDITOR.instances['Comment[text]'].setData('');
         Comment.clearResponse();
         Comment.clearQuote();
+        $('#edit-id').val('');
     },
     response : function(link) {
         this.clearVariables();

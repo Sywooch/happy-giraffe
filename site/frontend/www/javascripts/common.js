@@ -2,7 +2,7 @@ var socwin;
 $(document).ready(function() {
 	if ($('a.fancy').size() > 0) {
         $('body').delegate('a.fancy', 'click', function() {
-            var onComplete_function = function() {};
+            var onComplete_function = function() {$('.popup .chzn').chosen();};
             if($(this).hasClass('attach_link')) {
                 onComplete_function = function() {Attach.init();};
             }
@@ -225,5 +225,6 @@ function cl(value) {
 }
 
 $.fancybox.open = function(content) {
-    $('<a></a>').fancybox({content:content, showCloseButton : false}).trigger('click');
+    var onComplete_function = function() {$('.popup .chzn').chosen();};
+    $('<a></a>').fancybox({content:content, showCloseButton : false, scrolling: false, onComplete : onComplete_function}).trigger('click');
 }

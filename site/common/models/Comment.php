@@ -12,6 +12,7 @@
  * @property string $entity_id
  * @property string $response_id
  * @property string $quote_id
+ * @property string $quote_text
  * @property string $position
  * @property string $removed
  *
@@ -19,6 +20,7 @@
  */
 class Comment extends CActiveRecord
 {
+    public $selectable_quote = false;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Comment the static model class
@@ -47,7 +49,7 @@ class Comment extends CActiveRecord
 			array('text, author_id, entity, entity_id', 'required'),
 			array('author_id, entity_id, response_id, quote_id', 'length', 'max'=>11),
 			array('entity', 'length', 'max'=>255),
-            array('position', 'safe'),
+            array('position, quote_text, selectable_quote', 'safe'),
             array('removed', 'boolean'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -84,6 +86,7 @@ class Comment extends CActiveRecord
 			'entity_id' => 'Entity PK',
             'response_id' => 'Response id',
             'quote_id' => 'Quote id',
+            'quote_text' => 'Quote text',
             'position' => 'Позиция',
             'removed' => 'Удален',
 		);
@@ -162,6 +165,24 @@ class Comment extends CActiveRecord
 
     public function beforeSave()
     {
+        /* Вырезка цитаты */
+        $find = '/<div class="quote">(.*)<\/div>/ims';
+        preg_match($find, $this->text, $matches);
+        if(count($matches) > 0)
+        {
+            $this->text = preg_replace($find, '', $this->text);
+            if($this->selectable_quote == 1)
+            {
+                $this->quote_text = $matches[1];
+            }
+        }
+        else
+        {
+            $this->quote_text = '';
+            $this->quote_id = '';
+        }
+
+
         if($this->isNewRecord)
         {
             $criteria = new CDbCriteria(array(

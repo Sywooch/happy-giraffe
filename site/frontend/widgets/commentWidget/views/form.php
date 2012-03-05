@@ -4,6 +4,7 @@ $js = "
 $('button.cancel').live('click', function(e) {
     Comment.clearResponse();
     Comment.clearQuote();
+    Comment.selected_text = null;
 	e.preventDefault();
 	var editor = CKEDITOR.instances['Comment[text]'];
 	$('#add_comment .button_panel .btn-green-medium span span').text('Добавить');
@@ -35,45 +36,38 @@ $('#add_comment').live('submit', function(e) {
                 editor.setData('');
                 Comment.clearResponse();
                 Comment.clearQuote();
+                Comment.selected_text = null;
                 $('#add_comment .button_panel .btn-green-medium span span').text('Добавить');
 			}
 		},
 	});
 });
 
-/*$('body').delegate('a.remove-comment', 'click', function () {
-        if (confirm('Вы точно хотите удалить комментарий?')) {
-            var id = $(this).parents('.item').attr('id').replace(/comment_/g, '');
-            $.ajax({
-                url:'" . Yii::app()->createUrl("ajax/deleteComment") . "',
-                data:{id:id},
-                type:'POST',
-                dataType:'JSON',
-                success:function (response) {
-                    if (response.status) {
-                        $(this).parents('.item').fadeOut(300, function(){
-                            $(this).undelegate('click');
-                            $(this).remove();
-                            $('.left-s .col').html(parseInt($('.left-s .col').html()) - 1);
-                        });
-                    }
-                },
-                context:$(this)
-            });
-        }
-        return false;
-    });*/
 
-    $('body').delegate('a.edit-comment', 'click', function () {
-        var id = $(this).parents('.item').attr('id').replace(/comment_/g, '');
-        $('#edit-id').val(id);
-        var editor = CKEDITOR.instances['Comment[text]'];
+$('body').delegate('a.edit-comment', 'click', function () {
+    Comment.clearResponse();
+    Comment.clearQuote();
+    Comment.selected_text = null;
+    var id = $(this).parents('.item').attr('id').replace(/comment_/g, '');
+    $('#edit-id').val(id);
+    var editor = CKEDITOR.instances['Comment[text]'];
+
+    if($(this).parents('.item').find('.quote').size() > 0)
+    {
+        var html = '';
+        html += '<div class=\"quote\">'+$(this).parents('.item').find('.quote').html()+'</div>';
+        html += $(this).parents('.item').find('.content-in').html();
+        editor.setData(html);
+        $('#add_comment').find('.quote #Comment_quote_id').val($(this).parents('.item').find('.quote').attr('id').split('_')[1]);
+        $('#add_comment').find('.quote #Comment_selectable_quote').val($(this).parents('.item').find('input[name=selectable_quote]').val());
+    }
+    else
         editor.setData($(this).parents('.item').find('.content-in').html());
-        $('#add_comment .button_panel .btn-green-medium span span').text('Редактировать');
+    $('#add_comment .button_panel .btn-green-medium span span').text('Редактировать');
 
-        $('html,body').animate({scrollTop: $('#add_comment').offset().top - 100},'fast');
-        return false;
-    });
+    $('html,body').animate({scrollTop: $('#add_comment').offset().top - 100},'fast');
+    return false;
+});
 
 function endEdit(){
     $('#add_comment .button_panel .btn-green-medium span span').text('Добавить');
@@ -90,11 +84,10 @@ $cs->registerScript('comment_widget_form', $js);
 )); ?>
     <div class="response">
         <input type="hidden" id="Comment_response_id" name="Comment[response_id]" value="" />
-        <div class="text"></div>
     </div>
     <div class="quote">
         <input type="hidden" id="Comment_quote_id" name="Comment[quote_id]" value="" />
-        <div class="text"></div>
+        <input type="hidden" id="Comment_selectable_quote" name="Comment[selectable_quote]" value="" />
     </div>
     <?php echo $form->hiddenField($comment_model, 'entity', array('value' => $this->entity)); ?>
     <?php echo $form->hiddenField($comment_model, 'entity_id', array('value' => $this->entity_id)); ?>
@@ -105,6 +98,7 @@ $cs->registerScript('comment_widget_form', $js);
         'attribute' => 'text',
         'config' => array(
             'toolbar' => 'Nocut',
+            'protectedSource' => '<blockquote>'
         ),
     ));
     ?>

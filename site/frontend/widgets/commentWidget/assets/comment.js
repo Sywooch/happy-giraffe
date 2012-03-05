@@ -73,13 +73,13 @@ var Comment = {
         $('#edit-id').val(id);
         var editor = CKEDITOR.instances['Comment[text]'];
 
-        if($(button).parents('.item').find('.quote').size() > 0)
+        if($(button).parents('.item').find('.content .quote').size() > 0)
         {
             var html = '';
-            html += '<div class="quote">'+$(button).parents('.item').find('.quote').html()+'</div>';
+            html += '<div class="quote">'+$(button).parents('.item').find('.content .quote').html()+'</div>';
             html += $(button).parents('.item').find('.content-in').html();
             editor.setData(html);
-            $('#add_comment').find('.quote #Comment_quote_id').val($(button).parents('.item').find('.quote').attr('id').split('_')[1]);
+            $('#add_comment').find('.quote #Comment_quote_id').val($(button).parents('.item').find('.content .quote').attr('id').split('_')[1]);
             $('#add_comment').find('.quote #Comment_selectable_quote').val($(button).parents('.item').find('input[name=selectable_quote]').val());
         }
         else

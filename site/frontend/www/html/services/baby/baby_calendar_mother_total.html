@@ -85,11 +85,13 @@
 											<td>
 												<ul class="lists_td">
 													<li>
-														<select id="num_cal" class="num_cal chzn">
-															<option value="1000" selected="selected">1</option>
-															<option value="1">2</option>
-															<option value="2">3</option>
-														</select>
+														<div class="error">
+															<select id="num_cal" class="num_cal chzn">
+																<option value="1000" selected="selected">1</option>
+																<option value="1">2</option>
+																<option value="2">3</option>
+															</select>
+														</div>
 													</li>
 													<li>
 														<select id="mn_cal" class="mn_cal chzn">
@@ -124,6 +126,10 @@
 										</tr>
 									</table>
 									<button class="btn btn-yellow-medium"><span><span>Рассчитать</span></span></button>
+									<br/>
+									<div class="errorSummary">
+										Текст ошибок
+									</div>
 								</form>	
 								<div class="clear"></div><!-- .clear -->
 							</div><!-- .calculate_tb -->

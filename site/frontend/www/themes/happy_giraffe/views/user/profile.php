@@ -12,7 +12,7 @@
     <div class="header clearfix">
         <div class="user-name">
             <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
-            <?php if($this->withMail) echo $user->getDialogLink(); ?>
+            <?php echo $user->getDialogLink(); ?>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>

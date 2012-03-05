@@ -6,6 +6,10 @@ class CommunityController extends Controller
 
     public $layout = '//layouts/main';
 
+    public $community;
+    public $rubric_id;
+    public $content_type_slug;
+
     public function filters()
     {
         return array(
@@ -48,42 +52,49 @@ class CommunityController extends Controller
      */
     public function actionList($community_id, $rubric_id = null, $content_type_slug = null)
     {
-        $community_id = (int) $community_id;
-        if (!is_null($rubric_id)) $rubric_id = (int) $rubric_id;
-        if ($community = Community::model()->with('rubrics')->findByPk($community_id))
-        {
-            $content_types = CommunityContentType::model()->findAll();
-            $current_rubric = CommunityRubric::model()->findByPk($rubric_id);
-            $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
+        $this->layout = '//layouts/community';
+        $this->community = Community::model()->with('rubrics')->findByPk($community_id);
+        if ($this->community === null)
+            throw CHttpException(404, 'Клуб не найден');
+        $this->rubric_id = $rubric_id;
+        $this->content_type_slug = $content_type_slug;
 
-            if ($rubric_id === null) {
-                $this->pageTitle = 'Клуб «' . $community->name . '» - общение с Веселым Жирафом';
-            }
-            else {
-                $this->pageTitle = 'Клуб «' . $community->name . '» – рубрика «' . $current_rubric->name . '» у Веселого Жирафа';
-            }
-
-            $criteria = CommunityContent::model()->community($community_id)->type($content_type ? $content_type->id : null)->rubric($rubric_id)->getDbCriteria();
-            $count = CommunityContent::model()->count($criteria);
-            $pages = new CPagination($count);
-            $pages->pageSize = 10;
-            $pages->applyLimit($criteria);
-            $contents = CommunityContent::model()->findAll($criteria);
-
-            $this->render('list', array(
-                'community' => $community,
-                'contents' => $contents,
-                'content_type' => $content_type,
-                'content_types' => $content_types,
-                'current_rubric' => $current_rubric,
-                'rubric_id' => $rubric_id,
-                'pages' => $pages,
-            ));
+        if ($rubric_id !== null) {
+            $rubric = CommunityRubric::model()->findByPk($rubric_id);
+            if ($rubric === null)
+                throw CHttpException(404, 'Рубрика не найдена');
+            $this->pageTitle = 'Клуб «' . $this->community->name . '» – рубрика «' . $rubric->name . '» у Веселого Жирафа';
+        } else {
+            $this->pageTitle = 'Клуб «' . $this->community->name . '» - общение с Веселым Жирафом';
         }
-        else
-        {
-            throw new CHttpException(404, 'Такого сообщества не существует.');
-        }
+
+        $contents = CommunityContent::model()->getContents($community_id, $rubric_id, $content_type_slug);
+
+        $this->render('list', array(
+            'contents' => $contents,
+        ));
+    }
+
+    public function getUrl($overwrite = array(), $route = 'community/list')
+    {
+        var_dump(CMap::mergeArray(
+            array($route),
+            array(
+                'community_id' => $this->community->id,
+                'rubric_id' => $this->rubric_id,
+                'content_type_slug' => $this->content_type_slug,
+            ),
+            $overwrite
+        ));
+        return array_filter(CMap::mergeArray(
+            array($route),
+            array(
+                'community_id' => $this->community->id,
+                'rubric_id' => $this->rubric_id,
+                'content_type_slug' => $this->content_type_slug,
+            ),
+            $overwrite
+        ));
     }
 
     /**
@@ -91,59 +102,22 @@ class CommunityController extends Controller
      */
     public function actionView($community_id, $content_type_slug, $content_id)
     {
-        $content_id = (int) $content_id;
-        if ($content = CommunityContent::model()->view()->findByPk($content_id))
-        {
-            $meta_title = $content->meta_title;
-            if (! empty($meta_title))
-            {
-                $this->pageTitle = $meta_title;
-            }
-            else
-            {
-                $this->pageTitle = $content->name;
-            }
-            Yii::app()->clientScript->registerMetaTag($content->meta_description, 'description');
-            Yii::app()->clientScript->registerMetaTag($content->meta_keywords, 'keywords');
-            $content_types = CommunityContentType::model()->findAll();
+        $this->layout = '//layouts/community';
+        $content = CommunityContent::model()->full()->findByPk($content_id);
+        if ($content === null)
+            throw new CHttpException(404, 'Такой записи не существует');
 
-            $next = CommunityContent::model()->with('type', 'post', 'video')->find(array(
-                'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
-                'params' => array(':rubric_id' => $content->rubric_id, ':current_id' => $content->id),
-                'limit' => 1,
-                'order' => 't.id',
-            ));
+        $this->community = Community::model()->with('rubrics')->findByPk($community_id);
+        $this->rubric_id = $content->rubric->id;
+        $this->content_type_slug = $content_type_slug;
 
-            $prev = CommunityContent::model()->with('type', 'post', 'video')->findAll(array(
-                'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
-                'params' => array(':rubric_id' => $content->rubric_id, ':current_id' => $content->id),
-                'limit' => 2,
-                'order' => 't.id DESC',
-            ));
+        $this->pageTitle = (! empty($content->meta_title)) ? $content->meta_title : $this->pageTitle = $content->name;
+        Yii::app()->clientScript->registerMetaTag($content->meta_description, 'description');
+        Yii::app()->clientScript->registerMetaTag($content->meta_keywords, 'keywords');
 
-            $related = array();
-            if ($next !== null)
-            {
-                $related[] = $next;
-            }
-            if ($prev !== null)
-            {
-                foreach ($prev as $p)
-                {
-                    $related[] = $p;
-                }
-            }
-
-            $this->render('content', array(
-                'c' => $content,
-                'related' => $related,
-                'content_types' => $content_types,
-            ));
-        }
-        else
-        {
-            throw new CHttpException(404, 'Такой записи не существует.');
-        }
+        $this->render('view', array(
+            'content' => $content,
+        ));
     }
 
     public function actionEdit($content_id)
@@ -205,7 +179,7 @@ class CommunityController extends Controller
         }
     }
 
-    public function actionAdd($community_id, $content_type_slug = 'post', $rubric_id = null)
+    public function actionAdd($community_id, $rubric_id = null, $content_type_slug = 'post')
     {
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
         if (! $content_type)

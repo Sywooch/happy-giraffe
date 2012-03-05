@@ -30,7 +30,7 @@ class CommunityController extends Controller
                 'users'=>array('*'),
             ),
             array('allow',
-                'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete'),
+                'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete', 'transfer'),
                 'users' => array('@'),
             ),
             array('deny',
@@ -154,18 +154,33 @@ class CommunityController extends Controller
         ));
     }
 
-    public function actionDelete($id){
-        $post = CommunityContent::model()->findByPk($id);
-        //check user is author or moderator
-        if ($post->author_id == Yii::app()->user->getId() ||
-            Yii::app()->authManager->checkAccess('removeCommunityContent', Yii::app()->user->getId(),
-                array('community_id'=>$post->rubric->community_id))) {
-            $redirect_url = array('community/list', 'community_id' => $post->rubric->community->id, 'content_type_slug' => $post->type->slug);
-            $post->delete();
-            $this->redirect($redirect_url);
-        } else {
+    public function actionTransfer()
+    {
+        if (!Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->getId()))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $model = CommunityContent::model()->findByPk(Yii::app()->request->getPost('id'));
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $model->attributes = $_POST['CommunityContent'];
+        if ($model->save()) {
+            $url = $this->createUrl('community/view', array(
+                'community_id' => $model->rubric->community->id,
+                'content_type_slug' => $model->type->slug,
+                'content_id' => $model->id));
+
+            $response = array(
+                'status' => true,
+                'url' => $url
+            );
+        } else {
+            $response = array(
+                'status' => false,
+            );
         }
+
+        echo CJSON::encode($response);
     }
 
     public function actionAdd($community_id, $rubric_id = null, $content_type_slug = 'post')

@@ -6,6 +6,12 @@ $js = "
         $('.lol').fancybox();
     });";
 
+Yii::app()->clientScript->registerScript('register_after_removeContent','
+function CommunityContentRemove() {
+    window.location = "'. Yii::app()->createUrl('community/list', array(
+    'community_id' => $c->rubric->community->id,
+    'content_type_slug' => $c->type->slug)) . '";}', CClientScript::POS_HEAD);
+
 $cs
     ->registerCssFile('/stylesheets/wym.css')
     ->registerScriptFile('/fancybox/lib/jquery.mousewheel-3.0.6.pack.js')
@@ -144,13 +150,6 @@ $cs
                 break;
         }
         ?>
-
-        <?php if (Yii::app()->user->checkAccess('editCommunityContent', array('community_id'=>$c->rubric->community->id,'user_id'=>$c->contentAuthor->id))): ?>
-        <?php echo CHtml::link('редактировать', ($c->type->slug == 'travel') ? $this->createUrl('community/editTravel', array('id' => $c->id)) : $this->createUrl('community/edit', array('content_id' => $c->id))); ?>
-        <?php endif; ?>
-        <?php if (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id'=>$c->rubric->community->id,'user_id'=>$c->contentAuthor->id))): ?>
-        <?php echo CHtml::link('удалить', $this->createUrl('#', array('id' => $c->id)), array('id' => 'CommunityContent_delete_' . $c->id, 'submit' => array('community/delete', 'id' => $c->id), 'confirm' => 'Вы точно хотите удалить тему?')); ?>
-        <?php endif; ?>
         <div class="clear"></div>
     </div>
 
@@ -182,6 +181,12 @@ $cs
             $report->button("$(this).parents('.entry')");
             $this->endWidget(); ?>
         </div>
+
+        <?php $this->renderPartial('admin_actions',array(
+            'c'=>$c,
+            'communities'=>Community::model()->findAll(),
+        )); ?>
+        <?php $this->renderPartial('parts/move_post_popup',array('c'=>$c)); ?>
         <div class="clear"></div>
     </div>
 </div>

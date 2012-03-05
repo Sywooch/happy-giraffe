@@ -109,7 +109,7 @@ class RecipeBookRecipe extends CActiveRecord
             'ingredients' => array(self::HAS_MANY, 'RecipeBookIngredient', 'recipe_id'),
             'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
             'purposes' => array(self::MANY_MANY, 'RecipeBookPurpose', 'recipeBook_recipe_via_purpose(recipe_id, purpose_id)'),
-            'commentsCount' => array(self::STAT, 'Comment', 'object_id', 'condition' => 'model=:modelName', 'params' => array(':modelName' => 'RecipeBookRecipe')),
+            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => 'RecipeBookRecipe')),
         );
     }
 

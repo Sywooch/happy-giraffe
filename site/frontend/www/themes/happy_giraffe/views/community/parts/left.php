@@ -55,58 +55,13 @@
         </ul>
     </div>
 
-    <div class="themes">
-        <div class="theme-pic">Рубрики</div>
-        <ul class="leftlist">
-            <? foreach ($community->rubrics as $r): ?>
-            <li>
-                <?php
-                $params = array('community_id' => $community->id, 'rubric_id' => $r->id);
-                if ($content_type !== null)
-                    $params['content_type_slug'] = $content_type->slug;
-                echo CHtml::link($r->name, CController::createUrl('community/list', $params), $r->id == $current_rubric ? array('class' => 'current') : array());
-                if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
-                    echo '<br>'.CHtml::hiddenField('rubric-'.$r->id, $r->id,array('class'=>'rubric-id'));
-                    echo CHtml::link('редактировать', '#', array('class'=>'edit-rubric'));
-                }?>
-            </li>
-            <? endforeach; ?>
-            <?php if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array('community_id'=>$community->id))) {
-                echo CHtml::link('добавить', '#', array('class'=>'add-rubric'));
-        } ?>
-        </ul>
-    </div>
+    <?php $this->renderPartial('parts/rubrics',array(
+    'community'=>$community,
+    'content_type'=>$content_type,
+    'current_rubric'=>$current_rubric
+)); ?>
 
     <div class="leftbanner">
         <a href=""><img src="/images/leftban.png"></a>
     </div>
 </div>
-<script type="text/javascript">
-    $('.edit-rubric').click(function(){
-        var text = $(this).parent().find('a:first').text();
-        $(this).parent().append('<input type="text" class="edit-field" value="'+text+'"><a href="#" class="send-edit-rubric">OK</a>');
-        return false;
-    });
-
-    $('body').delegate('a.send-edit-rubric', 'click', function(){
-        var id = $(this).parent().find('input.rubric-id').val();
-        var text = $(this).prev().val();
-        $.ajax({
-            url: '<?php echo Yii::app()->createUrl("communityRubric/update") ?>',
-            data: {id:id,text:text},
-            type: 'POST',
-            dataType:'JSON',
-            success: function(response) {
-                if (response.status){
-                    $(this).parent().parent().find('a:first').text(text);
-                    $(this).prev().remove();
-                    $(this).remove();
-                }else{
-                    alert('Ошибка, обратитесь к разработчикам');
-                }
-            },
-            context: $(this)
-        });
-        return false;
-    });
-</script>

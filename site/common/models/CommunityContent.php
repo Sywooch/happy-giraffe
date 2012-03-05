@@ -322,7 +322,9 @@ class CommunityContent extends CActiveRecord
 
     public function getContents($community_id, $rubric_id, $content_type_slug)
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria(array(
+            'order' => 't.created DESC'
+        ));
 
         $criteria->compare('community_id', $community_id);
 

@@ -22,29 +22,27 @@
     <?php if (! $full): ?>
         <div class="entry-content">
             <?php
-            switch ($data->type->slug)
-            {
-                case 'post':
-                    if ($data->post === null)
-                        $data->post = new CommunityPost();
-                    $pos = strpos($data->post->text, '<!--more-->');
-                    echo '<noindex>';
-                    echo $pos === false ? $data->post->text : substr($data->post->text, 0, $pos);
-                    echo '</noindex>';
-                    break;
-                case 'travel':
-                    $pos = strpos($data->travel->text, '<!--more-->');
-                    echo '<noindex>';
-                    echo $pos === false ? $data->travel->text : substr($data->travel->text, 0, $pos);
-                    echo '</noindex>';
-                    break;
-                case 'video':
-                    $video = new Video($data->video->link);
-                    echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
-                    echo $data->video->text;
-                    break;
-            }
+                switch ($data->type->slug)
+                {
+                    case 'post':
+                        $pos = strpos($data->post->text, '<!--more-->');
+                        $text = $pos === false ? $data->post->text : substr($data->post->text, 0, $pos);
+                        break;
+                    case 'travel':
+                        $pos = strpos($data->travel->text, '<!--more-->');
+                        $text = $pos === false ? $data->travel->text : substr($data->travel->text, 0, $pos);
+                        break;
+                    case 'video':
+                        $video = new Video($data->video->link);
+                        $text = '<div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div>' . $data->video->text;
+                        break;
+                }
             ?>
+            <?php
+                $p = new CHtmlPurifier();
+                $text = $p->purify($text);
+            ?>
+            <?php echo $text; ?>
             <div class="clear"></div>
         </div>
     <?php else: ?>

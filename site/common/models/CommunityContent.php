@@ -319,6 +319,9 @@ class CommunityContent extends CActiveRecord
                     ),
                 ),
             ),
+            'active' => array(
+                'condition' => 't.removed = 0',
+            ),
         );
     }
 
@@ -340,7 +343,7 @@ class CommunityContent extends CActiveRecord
             $criteria->compare('slug', $content_type_slug);
         }
 
-        return new CActiveDataProvider($this->full(), array(
+        return new CActiveDataProvider($this->active()->full(), array(
             'criteria' => $criteria,
         ));
     }

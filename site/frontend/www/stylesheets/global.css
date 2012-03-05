@@ -591,10 +591,6 @@ p {
     width: auto;
 }
 
-.user .icon-status {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;position:relative;top:1px;margin-right:5px;}
-.user .icon-status.status-online {background-position:-44px -180px;}
-.user .icon-status.status-offline {background-position:-55px -180px;}
-
 .user .avatar {
     float: left;
     display: inline-block;

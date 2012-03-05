@@ -145,6 +145,18 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
     min-height: 100px;
 }
 
+
+/* errors */
+
+.error {}
+.error input[type=text], .error input[type=password], .error textarea, .error .chzn-single {border:1px solid #ff6767 !important;}
+
+.errorMessage, .errorSummary {color:#fe5757 !important;font-size:11px !important;line-height:normal !important;padding:5px 0;overflow:hidden;clear:both;}
+
+
+/* errors */
+
+
 .btn {cursor:pointer;width:auto;overflow:visible;margin:0;border-width:0;background:none;white-space:nowrap;cursor:pointer;display:inline-block;padding:0;text-decoration:none;font-family:arial, sans-serif;}
 .btn::-moz-focus-inner {border:0;padding:0;}
 .btn:-moz-focus-inner {padding:0; border:none;}
@@ -271,6 +283,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
     background: url(../images/radio.png) no-repeat;
     background-position: 0 -24px;
 }
+
+
+
 
 .pagination {font-size:11px;padding:15px 0;color:#ababab;}
 .pagination .summary {display:inline-block;padding-right:15px;}
@@ -814,10 +829,10 @@ a {color:#51afc3;}
 
 /* ------------- pregnancy term select -------------- */
 
-select.pregnancy_term {width:148px;}
+select.pregnancy_term {width:140px;}
 
-select.pregnancy_term + .chzn-container-single .chzn-single {height:64px;}
-select.pregnancy_term + .chzn-container-single .chzn-single span {line-height:64px;font-size:40px;}
+select.pregnancy_term + .chzn-container-single .chzn-single {height:60px;}
+select.pregnancy_term + .chzn-container-single .chzn-single span {line-height:60px;font-size:40px;}
 select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-size:20px;}
 
 /* */

@@ -83,6 +83,11 @@ $js = "
 ";
 Yii::app()->clientScript->registerScript('blood-update', $js);
 ?>
+<style type="text/css">
+    .lists_td .errorMessage {
+        display: none !important;
+    }
+</style>
 <div class="child_sex_banner">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'blood-refresh-form',
@@ -90,7 +95,7 @@ Yii::app()->clientScript->registerScript('blood-update', $js);
     'enableClientValidation' => false,
     'clientOptions' => array(
         'validateOnSubmit' => true,
-        'validateOnChange' => true,
+        'validateOnChange' => false,
         'validateOnType' => false,
         'validationUrl' => $this->createUrl('/babySex/default/BloodUpdate'),
         'afterValidate' => "js:function(form, data, hasError) {
@@ -103,54 +108,84 @@ Yii::app()->clientScript->registerScript('blood-update', $js);
         <span class="title_pt_bn">День рождения отца:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'father_d', HDate::Days(), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'father_d', HDate::Days(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'father_d'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'father_m'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'father_y'); ?>
+                </div>
             </li>
         </ul>
-        <?php echo $form->error($model, 'father_d'); ?>
-        <?php echo $form->error($model, 'father_m'); ?>
-        <?php echo $form->error($model, 'father_y'); ?>
+        <div>
+            <?php echo $form->hiddenField($model, 'father_born_date') ?>
+            <?php echo $form->error($model, 'father_born_date'); ?>
+        </div>
     </div>
     <!-- .dad_bd -->
     <div class="mam_bd">
         <span class="title_pt_bn">День рождения матери:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'mother_d', HDate::Days(), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'mother_d', HDate::Days(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'mother_d'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'mother_m'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'mother_y'); ?>
+                </div>
             </li>
         </ul>
-        <?php echo $form->error($model, 'mother_d'); ?>
-        <?php echo $form->error($model, 'mother_m'); ?>
-        <?php echo $form->error($model, 'mother_y'); ?>
+        <div>
+            <?php echo $form->hiddenField($model, 'mother_born_date') ?>
+            <?php echo $form->error($model, 'mother_born_date'); ?>
+        </div>
     </div>
     <!-- .mam_bd -->
     <div class="child_bd">
         <span class="title_pt_bn"><ins>День зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'baby_d'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'baby_m'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range(1950, $year), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range(1950, $year), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'baby_y'); ?>
+                </div>
             </li>
         </ul>
-        <?php echo $form->error($model, 'baby_d'); ?>
-        <?php echo $form->error($model, 'baby_m'); ?>
-        <?php echo $form->error($model, 'baby_y'); ?>
+        <div>
+            <?php echo $form->hiddenField($model, 'baby_born_date') ?>
+            <?php echo $form->error($model, 'baby_born_date'); ?>
+        </div>
     </div>
     <!-- .child_bd -->
     <?php echo $form->hiddenField($model, 'review_month', array('id' => 'blood_refr_review_month')) ?>

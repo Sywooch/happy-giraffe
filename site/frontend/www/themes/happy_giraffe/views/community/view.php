@@ -1,0 +1,1 @@
+<?php $this->renderPartial('_post', array('data' => $content, 'full' => true)); ?>

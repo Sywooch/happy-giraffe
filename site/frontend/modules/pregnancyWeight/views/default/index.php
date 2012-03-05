@@ -43,7 +43,7 @@ Yii::app()->clientScript->registerScript('pregnancy-weight', $js);
         'enableClientValidation' => false,
         'clientOptions' => array(
             'validateOnSubmit' => true,
-            'validateOnChange' => true,
+            'validateOnChange' => false,
             'validateOnType' => false,
             'validationUrl' => $this->createUrl('/pregnancyWeight/default/calculate'),
             'afterValidate' => "js:function(form, data, hasError) {
@@ -78,23 +78,15 @@ Yii::app()->clientScript->registerScript('pregnancy-weight', $js);
             <span>Мой срок беременности:</span>
 
             <div class="input-box">
-                <div class="select-box">
-                    <div class="select-value" onclick="toggleSelectBox(this);">
-                        <span>1</span>
-                        <input type="hidden" value="1" name="PregnantParamsForm[week]" id="week"/>
-                    </div>
-                    <div class="select-list">
-                        <ul>
-                            <?php for ($i = 1; $i <= 40; $i++): ?>
-                            <li onclick="setSelectBoxValue(this);"><span><?php echo $i ?></span><input type="hidden"
-                                                                                                       value="<?php echo $i ?>"/>
-                            </li>
-                            <?php endfor; ?>
-                        </ul>
-                    </div>
-                </div>
+                <?php echo $form->dropDownList($model, 'week',
+                HDate::Range(1, 40),
+                array(
+                    'class'=>'chzn pregnancy_term',
+                    'empty'=>'-'
+                )); ?>
                 <span class="units">нед</span>
             </div>
+            <?php echo $form->error($model, 'week'); ?>
         </div>
         <div class="row">
             <span>Сейчас мой вес:</span>

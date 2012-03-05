@@ -35,7 +35,10 @@ class PregnantParamsForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-
+            'height'=>'Рост',
+            'weight'=>'Сейчас мой вес',
+            'week'=>'Неделя беременности',
+            'weight_before'=>'Вес до беременности',
         );
     }
 

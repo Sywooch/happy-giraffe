@@ -76,9 +76,9 @@ class CommunityContent extends CActiveRecord
 			'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
 			'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
 			'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => 'CommunityContent')),
-			'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id'),
-			'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id'),
-			'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id'),
+            'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id', 'on' => "slug = 'travel'"),
+            'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => "slug = 'video'"),
+            'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => "slug = 'post'"),
 			'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this)))
@@ -199,7 +199,7 @@ class CommunityContent extends CActiveRecord
 		return $this;
 	}
 	
-	public function scopes()
+	/*public function scopes()
 	{
 		return array(
 			'view' => array(
@@ -233,7 +233,7 @@ class CommunityContent extends CActiveRecord
                 'condition'=>'removed=0'
             )
 		);
-	}
+	}*/
 
     public function beforeDelete()
     {
@@ -273,14 +273,95 @@ class CommunityContent extends CActiveRecord
 
     public static function getLink($id)
     {
+        return '123';
         $model = self::model()->with(array(
             'type'=>array(
-                'select'=>'slug'
+                //'select'=>'slug'
             ),'rubric'=>array(
-                'select'=>'community_id'
+                //'select'=>'community_id'
             )
         ))->findByPk($id);
         return Yii::app()->createUrl('community/view', array('community_id' => $model->rubric->community_id,
             'content_type_slug' => $model->type->slug, 'content_id' => $model->id));
+    }
+
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('community/view', array(
+            'community_id' => $this->rubric->community->id,
+            'content_type_slug' => $this->type->slug,
+            'content_id' => $this->id,
+        ));
+    }
+
+    public function scopes()
+    {
+        return array(
+            'full' => array(
+                'with' => array(
+                    'rubric' => array(
+                        'select' => 'id',
+                        'with' => array(
+                            'community' => array(
+                                'select' => 'id',
+                            )
+                        ),
+                    ),
+                    'type' => array(
+                        'select' => 'slug',
+                    ),
+                    'post',
+                    'video',
+                    'travel',
+                    'commentsCount',
+                    'contentAuthor' => array(
+                        'select' => 'id, first_name, last_name, pic_small',
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public function getContents($community_id, $rubric_id, $content_type_slug)
+    {
+        $criteria = new CDbCriteria;
+
+        $criteria->compare('community_id', $community_id);
+
+        if ($rubric_id !== null)
+        {
+            $criteria->compare('rubric_id', $rubric_id);
+        }
+
+        if ($content_type_slug !== null)
+        {
+            $criteria->compare('slug', $content_type_slug);
+        }
+
+        return new CActiveDataProvider($this->full(), array(
+            'criteria' => $criteria,
+        ));
+    }
+
+    public function getRelated()
+    {
+        $next = $this->full()->findAll(
+            array(
+                'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
+                'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
+                'limit' => 1,
+                'order' => 't.id',
+            )
+        );
+        $prev = $this->full()->findAll(
+            array(
+                'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
+                'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
+                'limit' => 2,
+                'order' => 't.id DESC',
+            )
+        );
+
+        return $next + $prev;
     }
 }

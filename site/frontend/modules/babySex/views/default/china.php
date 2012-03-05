@@ -139,7 +139,7 @@ $js = <<<EOD
         return result;
     }
 EOD;
-Yii::app()->clientScript->registerScript('baby-sex-china',$js);
+Yii::app()->clientScript->registerScript('baby-sex-china', $js);
 ?>
 
 <div class="child_sex_china_banner">
@@ -163,11 +163,11 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
         <span class="title_pt_bn">Месяц и год рождения матери:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => ' ')); ?>
                 <?php echo $form->error($model, 'mother_m'); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'ChinaCalendarForm_mother_y', 'class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'ChinaCalendarForm_mother_y', 'class' => 'chzn', 'empty' => ' ')); ?>
                 <?php echo $form->error($model, 'mother_y'); ?>
             </li>
         </ul>
@@ -177,11 +177,11 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
         <span class="title_pt_bn"><ins>Месяц и год зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => ' ')); ?>
                 <?php echo $form->error($model, 'baby_m'); ?>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 10, $year + 20), array('class' => 'chzn', 'empty'=>' ')); ?>
+                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 10, $year + 20), array('class' => 'chzn', 'empty' => ' ')); ?>
                 <?php echo $form->error($model, 'baby_y'); ?>
             </li>
         </ul>
@@ -202,21 +202,24 @@ Yii::app()->clientScript->registerScript('baby-sex-china',$js);
         <img src="/images/baby_girl.jpg">
     </div>
     <div class="text">
-    <span class="title_wh_wait">Поздравляем! У вас будет девочка!</span>
+        <span class="title_wh_wait">Поздравляем! У вас будет девочка!</span>
 
-    <p>ООб этом говорит древнекитайская таблица, точность результатов которой составляет 60%. Конечно, надо понимать,
-        что это не 100%-я гарантия рождения девочки.</p>
-</div></div>
+        <p>ООб этом говорит древнекитайская таблица, точность результатов которой составляет 60%. Конечно, надо
+            понимать,
+            что это не 100%-я гарантия рождения девочки.</p>
+    </div>
+</div>
 <div class="wh_wait wh_son" style="display: none;">
     <div class="img-box">
         <img src="/images/baby_boy.jpg">
     </div>
     <div class="text">
-    <span class="title_wh_wait">Поздравляем! У вас будет мальчик!</span>
+        <span class="title_wh_wait">Поздравляем! У вас будет мальчик!</span>
 
-    <p>Так получается, исходя из данных древнекитайской таблицы. Её точность составляет 60%, она не даёт гарантии
-        рождения мальчика, но почему бы и не попробовать?</p>
-</div></div>
+        <p>Так получается, исходя из данных древнекитайской таблицы. Её точность составляет 60%, она не даёт гарантии
+            рождения мальчика, но почему бы и не попробовать?</p>
+    </div>
+</div>
 
 <div class="seo-text">
     <div class="summary-title">Китайский метод определения</div>

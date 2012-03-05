@@ -326,7 +326,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .popup-confirm .confirm-question p {color:#595959;line-height:24px;}
 .popup-confirm .reason {width:220px;padding-right:10px;float:left;text-align:left;font-size:12px;color:#575757;}
 .popup-confirm .reason .title {color:#424141;font-size:16px;margin-bottom:8px;}
-.popup-confirm .reason label {display:block;padding:2px 0;color:#575757;}
+.popup-confirm .reason label {padding:2px 0;color:#575757;display:inline-block;vertical-align:top;width:180px;}
 .popup-confirm .reason label input {margin:0 5px 0 0;margin-right:5px;position:relative;top:1px;}
 .popup-confirm .reason input.other-reason {height:16px;line-height:16px;padding:3px 5px;border:1px solid #c9eaf1;background:#fff;color:#202121;font-size:13px;font-family:tahoma, arial, sans-serif;margin-left:15px;margin-top:5px;width:200px;}
 .popup-confirm .question-in {width:230px;float:left;padding-top:1.5em;}
@@ -1015,6 +1015,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments li .user .details {margin-left:90px;}
 .default-comments li .user .details .flag {display:inline-block;position:relative;top:1px;}
 .default-comments li .user .details .location {font-size:9px;margin:5px 0;}
+.default-comments li .user .details .username {vertical-align:top;width:80px;margin:0;padding:0;}
 .default-comments li .user a {text-decoration:none;}
 .default-comments li .content {margin-left:200px;font-size:12px;}
 .default-comments li .content p {color:#3f3e3e;margin:5px 0;}
@@ -1146,9 +1147,9 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #signals .fast-calendar table {width:175px;}
 #signals .fast-calendar table  td {text-align:center;}
 #signals .fast-calendar thead td {padding:4px 0;}
-#signals .fast-calendar .prev {}
-#signals .fast-calendar .next {}
-#signals .fast-calendar .date {color:#4b4949;font-size:11px;text-transform:uppercase;text-align:center;}
+#signals .fast-calendar .nav .prev {display:block;width:10px;height:13px;background:url(/images/common.png) no-repeat -266px -178px;float:left;margin-top:3px;}
+#signals .fast-calendar .nav .next {display:block;width:10px;height:13px;background:url(/images/common.png) no-repeat -278px -178px;float:right;margin-top:3px;}
+#signals .fast-calendar .nav .date {color:#4b4949;font-size:11px;text-transform:uppercase;text-align:center;}
 #signals .fast-calendar tbody td {height:14px;font-size:10px;color:#c6c7c7;}
 #signals .fast-calendar th {background:#fcf8c7;color:#fb7136;font-size:9px;text-transform:uppercase;border-bottom:4px solid #fff;}
 #signals .fast-calendar .active {color:#242424;}

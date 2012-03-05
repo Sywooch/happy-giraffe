@@ -1,3 +1,6 @@
+<?php if (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))
+    || Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))
+): ?>
 <div class="admin-actions">
 
     <?php if (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))): ?>
@@ -17,15 +20,23 @@
         'model' => $c,
         'callback' => 'CommunityContentRemove',
         'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $c->author_id
-    )); ?>
+    ));
+    Yii::app()->clientScript->registerScript('register_after_removeContent', '
+        function CommunityContentRemove() {window.location.reload();}
+        function CommunityContentRemove() {
+            window.location = "' . Yii::app()->createUrl('community/list', array(
+        'community_id' => $c->rubric->community->id,
+        'content_type_slug' => $c->type->slug)) . '";}', CClientScript::POS_HEAD);
+    ?>
     <?php endif; ?>
 </div>
+<?php endif; ?>
 <?php
 $js = '
     $(".admin-actions .move").click(function () {
         $.fancybox.open($("#transfer_post").tmpl());
         $("#active_post_id").val($(this).prev().val());
-        $("#movePost select").chosen();
+        //$("#movePost select").chosen();
         return false;
     });
 

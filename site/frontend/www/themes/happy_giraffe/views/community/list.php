@@ -19,8 +19,7 @@ $this->widget('zii.widgets.CListView', array(
     ),
 ));
 
-if (!empty($contents)) {
-//    $this->renderPartial('parts/move_post_popup', array('c' => $contents[0]));
-//    Yii::app()->clientScript->registerScript('register_after_removeContent', '
-//        function CommunityContentRemove() {window.location.reload();}', CClientScript::POS_HEAD);
-}
+$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+$remove_tmpl->registerTemplates();
+$this->endWidget();
+

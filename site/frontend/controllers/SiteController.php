@@ -54,67 +54,6 @@ class SiteController extends Controller
         $this->render('search', $viewData);
     }
 
-	public function actionRegister()
-	{
-		$session = Yii::app()->session;
-		$service = Yii::app()->request->getQuery('service');
-		if (isset($service)) {
-			$authIdentity = Yii::app()->eauth->getIdentity($service);
-			$authIdentity->redirectUrl = $this->createAbsoluteUrl('site/register');
-
-			if ($authIdentity->authenticate()) {
-				Yii::app()->user->setFlash('regdata', $authIdentity->getItemAttributes());
-				$name = $authIdentity->getServiceName();
-				$id = $authIdentity->getAttribute('id');
-				$session['service'] = array(
-					'name' => $name,
-					'id' => $id,
-				);
-			}
-
-			$authIdentity->redirect();
-		}
-		$regdata = Yii::app()->user->getFlash('regdata');
-
-		$model=new User(User::SCENARIO_SIGNUP);
-
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
-			$current_service = $session['service'];
-			if ($current_service)
-			{
-				$model->password = '123456';
-				$service = new UserSocialService;
-				$service->setAttributes(array(
-					'service' => $current_service['name'],
-					'service_id' => $current_service['id'],
-				));
-				$model->social_services = array($service);
-			}
-
-			if($model->save())
-			{
-				foreach ($_POST['age_group'] as $k => $q)
-				{
-					for ($j = 0; $j < $q; $j++)
-					{
-						$baby = new Baby;
-						$baby->age_group = $k;
-						$baby->parent_id = $model->id;
-						$baby->save();
-					}
-				}
-				$this->redirect(array('site/index'));
-			}
-		}
-
-		$this->render('register',array(
-			'model'=>$model,
-			'regdata' => $regdata,
-		));
-	}
-
 	/**
 	 * @sitemap
 	 */

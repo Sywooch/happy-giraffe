@@ -36,7 +36,7 @@ class SignupController extends CController
                 ));
                 if($check)
                 {
-                    $this->redirect(array('/site/login', 'service' => $service));
+                    $this->redirect(array('/site/login', 'service' => $service, 'register' => true));
                 }
 				$session['service'] = array(
 					'name' => $name,

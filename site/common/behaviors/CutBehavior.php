@@ -14,6 +14,24 @@ class CutBehavior extends CActiveRecordBehavior
 		foreach ($this->attributes as $a)
 		{
 			$this->owner->$a = str_replace($this->visible_html, $this->hidden_html, $this->owner->$a);
+            $p = new CHtmlPurifier();
+            $p->options = array(
+                'URI.AllowedSchemes'=>array(
+                    'http' => true,
+                    'https' => true,
+                ),
+                'HTML.Nofollow' => true,
+                'HTML.TargetBlank' => true,
+                'HTML.AllowedComments' => array('more' => true),
+
+            );
+            $text = $p->purify($this->owner->$a);
+            $pos = strpos($text, '<!--more-->');
+            $preview = $pos === false ? $text : substr($text, 0, $pos);
+            $preview = $p->purify($preview);
+            $this->owner->content->preview = $preview;
+            $this->owner->content->save(false);
+            $this->owner->$a = $text;
 		}
 	}
 	

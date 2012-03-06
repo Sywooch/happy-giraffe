@@ -10,6 +10,7 @@
  * @property string $author_id
  * @property string $rubric_id
  * @property string $type_id
+ * @property string $preview
  * @property string $meta_title
  * @property string $meta_keywords
  * @property string $meta_description
@@ -60,6 +61,7 @@ class CommunityContent extends CActiveRecord
 			array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
 			array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
 			array('by_happy_giraffe', 'boolean'),
+            array('preview', 'safe'),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

@@ -1,3 +1,11 @@
+<?php
+$p = new CHtmlPurifier();
+$p->options = array('URI.AllowedSchemes'=>array(
+  'http' => true,
+  'https' => true,
+));
+$data->content->text = $p->purify($data->content->text);
+?>
 <div class="entry<?php if ($full): ?> entry-full<?php endif; ?>">
 
     <div class="entry-header">

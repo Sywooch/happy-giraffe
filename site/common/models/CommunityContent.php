@@ -369,4 +369,9 @@ class CommunityContent extends CActiveRecord
 
         return $next + $prev;
     }
+
+    public function getContent()
+    {
+        return $this->{$this->type->slug};
+    }
 }

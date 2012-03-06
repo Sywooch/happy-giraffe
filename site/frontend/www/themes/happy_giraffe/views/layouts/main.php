@@ -137,7 +137,6 @@
 				'links' => $this->breadcrumbs,
 			));*/
 		?>
-		<br /> <br />
 		
 		<div id="content" class="clearfix">
 

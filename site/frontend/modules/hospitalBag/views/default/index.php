@@ -154,8 +154,10 @@
                         <?php echo $form->error($item, 'name'); ?>
 					</div>
 
+                <div class="row">
 					<?php echo $form->textArea($item, 'description', array('placeholder'=>'Напишите для чего может пригодиться этот предмет в роддоме.')); ?>
                     <?php echo $form->error($item, 'description'); ?>
+                </div>
 					<button class="btn btn-gray-medium cancel"><span><span>Отменить</span></span></button>
 					<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
 				<?php $this->endWidget(); ?>
@@ -163,10 +165,3 @@
 		</div>
 	<?php endif; ?>
 </div>
-<script type="text/javascript">
-	$(' .item-box').hover(function(){
-		$(this).find('.hint').stop(true, true).fadeIn();
-	}, function(){
-		$(this).find('.hint').stop(true, true).fadeOut();
-	})
-</script>

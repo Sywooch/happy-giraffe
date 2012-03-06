@@ -1,7 +1,7 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
 <div class="section-banner">
-    <img src="/images/section_banner_01.png"/>
+    <img src="/images/community/<?php echo $this->community->id; ?>.jpg"/>
 </div>
 
 <div class="clearfix">

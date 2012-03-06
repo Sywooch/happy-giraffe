@@ -1,3 +1,11 @@
+<?php
+$p = new CHtmlPurifier();
+$p->options = array('URI.AllowedSchemes'=>array(
+  'http' => true,
+  'https' => true,
+));
+$data->content->text = $p->purify($data->content->text);
+?>
 <div class="entry<?php if ($full): ?> entry-full<?php endif; ?>">
 
     <div class="entry-header">
@@ -12,9 +20,12 @@
         <div class="meta">
 
             <div class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></div>
-            <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php echo PageView::model()->viewsByPath($this->url, true); ?></span></div>
-            <?php if (! $full): ?><div class="rate"><?php echo Rating::model()->countByEntity($data); ?></div>
-            рейтинг<?php endif; ?>
+            <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = PageView::model()->viewsByPath($data->url, true); echo $views; ?></span></div>
+            <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
+            <?php if (! $full): ?>
+                <div class="rate"><?php echo Rating::model()->countByEntity($data); ?></div>
+                рейтинг
+            <?php endif; ?>
         </div>
         <div class="clear"></div>
     </div>
@@ -66,7 +77,7 @@
                     if ($data->travel->waypoints) {
                         $icon = new EGMapMarkerImage('/images/map_marker.png');
                         $icon->setSize(20, 32);
-    
+
                         $gMap = new EGMap();
                         $gMap->width = '100%';
                         $gMap->height = '325';
@@ -87,7 +98,7 @@
                         $dataenterLat = $incLat / count($data->travel->waypoints);
                         $dataenterLng = $incLng / count($data->travel->waypoints);
                         $gMap->setCenter($dataenterLat, $dataenterLng);
-    
+
                         $gMap->renderMap();
                         ?>
                         <ul class="tr_map">
@@ -107,7 +118,7 @@
                     }
                     ?>
                         <div class="clear"></div>
-    
+
                         <?php
                     echo $data->travel->text;
                     ?>
@@ -140,11 +151,11 @@
     <div class="entry-footer">
         <span class="comm">Комментариев: <span><?php echo $data->commentsCount; ?></span></span>
 
-        <?php $this->renderPartial('admin_actions',array(
+        <?php $this->renderPartial('//community/admin_actions',array(
         'c'=>$data,
         'communities'=>Community::model()->findAll(),
     )); ?>
-        <?php $this->renderPartial('parts/move_post_popup',array('c'=>$data)); ?>
+        <?php $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data)); ?>
 
         <?php if (($data->type->slug == 'post' AND in_array($data->post->source_type, array('book', 'internet'))) OR $data->by_happy_giraffe): ?>
             <div class="source">Источник:&nbsp;
@@ -170,19 +181,23 @@
 <?php if ($full): ?>
     <?php
         switch ($data->type->slug) {
-            case 'travel':
-                $like_title = 'Интересное путешествие?';
-                break;
             case 'post':
                 $like_title = 'Вам понравилась статья? Отметьте!';
+                $like_notice = '<big>Рейтинг статьи</big><p>Он показывает, насколько нравится ваша статья другим пользователям. Если статья интересная, то пользователи её читают, комментируют, увеличивают лайки социальных сетей.</p>';
                 break;
             case 'video':
-                $like_title = 'Вам понравилось видео? Отметьте!';
+                $like_title = 'Вам полезно видео? Отметьте!';
+                $like_notice = '<big>Рейтинг видео</big><p>Он показывает, насколько нравится ваше видео другим пользователям. Если видео интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>';
+                break;
+            case 'travel':
+                $like_title = 'Вам полезен рассказ?';
+                $like_notice = '<big>Рейтинг путешествия</big><p>Он показывает, насколько нравится ваш рассказ другим пользователям. Если рассказ интересен, то пользователи его читают, комментируют, увеличивают лайки социальных сетей.</p>';
                 break;
         }
     ?>
 <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
     'title' => $like_title,
+    'notice' => $like_notice,
     'model' => $data,
     'options' => array(
         'title' => $data->name,

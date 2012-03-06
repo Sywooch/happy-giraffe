@@ -192,8 +192,11 @@ $this->breadcrumbs = array(
     var geocoder;
     var map;
     var placemark;
+    var s;
 
     $(function () {
+        BalloonStyle();
+
         // Создание экземпляра карты и его привязка к созданному контейнеру
         map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);
         // Добавление элементов управления
@@ -264,11 +267,25 @@ $this->breadcrumbs = array(
         YMaps.Events.observe(geocoder, geocoder.Events.Load, function (geocoder) {
             if (geocoder.length()) {
                 map.setBounds(geocoder.get(0).getBounds());
+                console.log(geocoder.get(0));
                 map.removeOverlay(placemark);
-                placemark = new YMaps.Placemark(map.getCenter());
+                placemark = new YMaps.Placemark(geocoder.get(0).getCoordPoint(), {style: s});
+                placemark.name = geocoder.request;
                 map.addOverlay(placemark);
             }
         });
+    }
+
+    function BalloonStyle(){
+        // Создает стиль
+        s = new YMaps.Style();
+        // Создает стиль значка метки
+        s.iconStyle = new YMaps.IconStyle();
+
+        //стиль метки
+        s.iconStyle.href = "/images/map_marker2.png";
+        s.iconStyle.size = new YMaps.Point(34, 46);
+        s.iconStyle.offset = new YMaps.Point(-17, -46);
     }
 </script>
 <?php $this->endWidget(); ?>

@@ -18,12 +18,12 @@ function AjaxHistory(id) {
 }
 
 AjaxHistory.prototype.changeBrowserUrl = function (url) {
-    var url = url.split("?");
+    url = url.split("?");
     if (url[1]) {
         var query = new Array();
         var hash = url[1].split('#');
         var params = url[1].split("&");
-        for (i in params) {
+        for (var i in params) {
             var param = params[i].split("=");
             // удаляем параметр ajax, т. к. он не должен передаваться в ссылке
             if (param[0] == "ajax" || param[0] == 'lastPage') {
@@ -33,14 +33,14 @@ AjaxHistory.prototype.changeBrowserUrl = function (url) {
         }
     }
     var path = this.buildUrl(url[0], query);
-    if(hash.length > 1)
+    if (hash.length > 1)
         path += '#' + hash[1];
     if (typeof(window.history.pushState) == 'function') {
-        window.history.pushState({path : path}, "", path);
+        window.history.pushState({path:path}, "", path);
     } else {
         document.location.href = path;
     }
-}
+};
 
 // функция-аналог http_build_query в PHP
 AjaxHistory.prototype.buildUrl = function (url, parameters) {
@@ -54,18 +54,20 @@ AjaxHistory.prototype.buildUrl = function (url, parameters) {
         url = url + "?" + qs;
     }
     return url;
-}
+};
 
-AjaxHistory.prototype.load = function (id, url) {
+AjaxHistory.prototype.load = function (id, url, callback) {
     $.ajax({
         type:'GET',
         url:url,
         success:function (data) {
             id = '#' + id;
             $(id).replaceWith($(id, '<div>' + data + '</div>'));
-            if(/#/.test(document.location.hash))
+            if (/#/.test(document.location.hash))
                 document.location.hash = document.location.hash;
+            if (callback)
+                callback();
         }
     });
     return this;
-}
+};

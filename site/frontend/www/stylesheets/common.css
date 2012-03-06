@@ -224,8 +224,11 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .btn.btn-yellow-medium > span {padding-right:10px;height:34px;background-position:100% -934px;color:#c37d19;font-size:16px;font-weight:bold;}
 .btn.btn-yellow-medium > span > span {padding-left:18px;height:34px;line-height:34px;background-position:0 -900px;padding-right:8px;}
 
-.btn.btn-blue-small > span {padding-right:10px;height:17px;background-position:100% -817px;color:#fff;font-size:11px;font-family:tahoma, arial, sans-serif;}
-.btn.btn-blue-small > span > span {padding-left:10px;height:17px;line-height:17px;background-position:0 -800px;}
+.btn.btn-blue-small > span {padding-right:7px;height:17px;background-position:100% -1067px;color:#fff;font-size:11px;font-family:tahoma, arial, sans-serif;}
+.btn.btn-blue-small > span > span {padding-left:7px;height:17px;line-height:16px;background-position:0 -1050px;}
+
+.btn.btn-green-ssmall > span {padding-right:7px;height:17px;background-position:100% -867px;color:#fff;font-size:11px;font-family:tahoma, arial, sans-serif;}
+.btn.btn-green-ssmall > span > span {padding-left:7px;height:17px;line-height:16px;background-position:0 -850px;}
 
 .btn.btn-green-small > span {padding-right:10px;height:20px;background-position:100% -1020px;color:#fff;font-size:11px;font-family:arial, sans-serif;font-weight:bold;}
 .btn.btn-green-small > span > span {padding-left:10px;height:20px;line-height:20px;background-position:0 -1000px;}
@@ -1042,7 +1045,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments li:hover {background:#f0fafd;}
 .default-comments li:hover .content .actions {visibility:visible;}
 
-.default-comments .comment-action {padding-top:15px;}
+.default-comments .comment-action {padding-top:5px;}
 
 .default-comments .comments-meta {overflow:hidden;padding-bottom:3px;border-bottom:1px solid #caf3f8;}
 .default-comments .comments-meta .btn {margin-top:5px;}

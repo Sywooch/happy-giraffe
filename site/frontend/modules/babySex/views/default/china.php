@@ -141,9 +141,15 @@ $js = <<<EOD
 EOD;
 Yii::app()->clientScript->registerScript('baby-sex-china', $js);
 ?>
-
-<div class="child_sex_china_banner">
-    <?php $form = $this->beginWidget('CActiveForm', array(
+<style type="text/css">
+    .child_sex_china_banner div.row{
+        display: inline;
+    }
+    .child_sex_china_banner .errorMessage{
+        display: none !important;
+    }
+</style>
+<?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'china-calendar-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
@@ -155,20 +161,28 @@ Yii::app()->clientScript->registerScript('baby-sex-china', $js);
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     StartCalc();
+                                else{
+                                    $('#china-calendar-result').hide();
+                                    $('.wh_wait').hide();
+                                }
                                 return false;
                               }",
     ))); ?>
-
+<div class="child_sex_china_banner">
     <div class="mam_bd">
         <span class="title_pt_bn">Месяц и год рождения матери:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => ' ')); ?>
-                <?php echo $form->error($model, 'mother_m'); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->error($model, 'mother_m'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'ChinaCalendarForm_mother_y', 'class' => 'chzn', 'empty' => ' ')); ?>
-                <?php echo $form->error($model, 'mother_y'); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'ChinaCalendarForm_mother_y', 'class' => 'chzn', 'empty' => 'год')); ?>
+                    <?php echo $form->error($model, 'mother_y'); ?>
+                </div>
             </li>
         </ul>
     </div>
@@ -177,20 +191,28 @@ Yii::app()->clientScript->registerScript('baby-sex-china', $js);
         <span class="title_pt_bn"><ins>Месяц и год зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => ' ')); ?>
-                <?php echo $form->error($model, 'baby_m'); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->error($model, 'baby_m'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 10, $year + 20), array('class' => 'chzn', 'empty' => ' ')); ?>
-                <?php echo $form->error($model, 'baby_y'); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 5, $year), array('class' => 'chzn', 'empty' => 'год')); ?>
+                    <?php echo $form->error($model, 'baby_y'); ?>
+                </div>
             </li>
         </ul>
     </div>
     <!-- .child_bd -->
     <?php echo $form->hiddenField($model, 'review_year', array('id' => 'china_review_year')) ?>
     <input type="submit" class="calc_bt" value="Рассчитать"/>
-    <?php $this->endWidget(); ?>
+
 </div><!-- .child_sex_china_banner -->
+<div class="clear"></div>
+
+<?php echo $form->errorSummary($model) ?>
+<?php $this->endWidget(); ?>
 
 <div id="china-calendar-result">
 

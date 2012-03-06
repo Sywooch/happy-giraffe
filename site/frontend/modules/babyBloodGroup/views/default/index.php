@@ -14,8 +14,13 @@
         $('.baby_blood_parent_group_u input[type=button]').click(function () {
             if (father_group !== null && mother_group !== null) {
                 baby_group = arr[father_group - 1][mother_group - 1];
-            } else
+            } else{
+                if (father_group == null)
+                    $('#man_bl_em_').show();
+                if (mother_group == null)
+                    $('#woman_bl_em_').show();
                 return false;
+            }
             ShowBabyBlood();
             return false;
         });
@@ -24,6 +29,7 @@
             $('.man_bl ul li a').removeClass('active');
             $(this).addClass('active');
             father_group = $('.man_bl ul li a').index($(this)) + 1;
+            $('#man_bl_em_').hide();
             CheckButtonEnable();
             return false;
         });
@@ -32,6 +38,7 @@
             $('.woman_bl ul li a').removeClass('active');
             $(this).addClass('active');
             mother_group = $('.woman_bl ul li a').index($(this)) + 1;
+            $('#woman_bl_em_').hide();
             CheckButtonEnable();
             return false;
         });
@@ -76,7 +83,6 @@
         return result;
     }
 </script>
-
 <div class="baby_blood_parent_group">
     <form action="">
         <ul class="baby_blood_parent_group_u">
@@ -90,6 +96,7 @@
                             <li><a href="#">III</a></li>
                             <li><a href="#">IV</a></li>
                         </ul>
+                        <div style="display: none;" id="man_bl_em_" class="errorMessage">Укажите группу крови отца.</div>
                     </div>
                     <!-- .ch_group -->
                 </div>
@@ -105,6 +112,7 @@
                             <li><a href="#">III</a></li>
                             <li><a href="#">IV</a></li>
                         </ul>
+                        <div style="display: none;" id="woman_bl_em_" class="errorMessage">Укажите группу крови матери.</div>
                     </div>
                     <!-- .ch_group -->
                 </div>

@@ -19,6 +19,14 @@
 #user .header .user-name .online-status.offline .icon {background-position:-55px -180px;}
 #user .header .user-name .online-status .date {font-size:9px;color:#a6a6a6;background:#fffeea;padding:0 5px;}
 
+#user .header .user-fast {font-size:9px;line-height:12px;float:left;}
+#user .header .user-fast .ava {float:left;}
+#user .header .user-fast .details {width:130px;margin-left:90px;}
+#user .header .user-fast .username {font-size:11px;line-height:1;}
+#user .header .user-fast .location {margin:3px 0;}
+#user .header .user-fast .flag {border:1px solid #eeeeee;display:inline-block;margin-right:5px;position:relative;top:1px;}
+#user .header .user-fast .birthday span {color:#aeaeae;}
+
 #user .header .user-nav {margin-left:450px;padding-top:20px;font-size:13px;}
 #user .header .user-nav ul {overflow:hidden;list-style:none;}
 #user .header .user-nav ul li {float:left;padding:0 10px;height:20px;margin:0 10px;}
@@ -26,6 +34,17 @@
 #user .header .user-nav ul li a:hover {border:0;}
 #user .header .user-nav ul li.active {background:#cdecff;}
 #user .header .user-nav ul li.active a {border:0;cursor:default;}
+
+#user .side-filter {font-size:13px;padding-bottom:20px;padding-top:60px;}
+#user .side-filter ul {list-style:none;padding:0 10px;}
+#user .side-filter ul li {padding:3px 10px 4px;text-align:right;line-height:1.2;margin:5px 0;}
+#user .side-filter ul li a {text-decoration:none;display:block;}
+#user .side-filter ul li a span {border-bottom:1px dashed #51AFC3;float:left;}
+#user .side-filter ul li a:hover span {border:0;}
+#user .side-filter ul li.active {background:#e9f6fe;font-weight:bold;}
+#user .side-filter ul li.active a span {border:0;}
+
+#user .content-title {font:bold 25px arial, helvetica, sans-serif;color:#0281b0;margin-bottom:30px;}
 
 #user .user-cols {padding-bottom:20px;}
 #user .user-cols .col-1 {float:left;width:240px;padding-right:20px;}
@@ -69,10 +88,8 @@
 #user #userMoodTooltip {position:absolute;display:none;z-index:99;background:#fffeea;padding:3px 6px;border:1px solid #e7e395;font-size:14px;}
 #user #userMoodTooltip {/*css3*/ -moz-box-shadow:0px 0px 10px #e7e395;-webkit-box-shadow:0px 0px 10px #e7e395;box-shadow:0px 0px 10px #e7e395;}
 
-
-
 #user .user-status {background:#cdecff;padding:10px 15px;position:relative;margin-bottom:10px;}
-#user .user-status {/*css3*/ border-radius:10px;}
+#user .user-status {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
 #user .user-status:after {display:block;content:'';width:45px;height:44px;background:url(/images/common.png) no-repeat -557px -152px;position:absolute;right:100%;top:25px;}
 #user .user-status .date {color:#908e8e;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;padding-bottom:8px;}
 #user .user-status p {color:#0281b0;font:italic 20px 'times new roman', 'times', arial, helvetica, sans-serif;}
@@ -155,7 +172,7 @@
 #user .user-weather table .hl td {background:#e8f6ff;}
 
 #user .user-horoscope {padding:10px 14px;border:1px solid #efefef;}
-#user .user-horoscope {/*css3*/ border-radius:10px;}
+#user .user-horoscope {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
 #user .user-horoscope .actions {float:right;}
 #user .user-horoscope .actions a {display:block;float:right;width:12px;height:11px;background:url(/images/common.png) no-repeat;}
 #user .user-horoscope .actions a.close {background-position:-314px -136px;margin-left:2px;}
@@ -167,5 +184,13 @@
 #user .user-horoscope .date big {font-size:22px;color:#3d3c3c;display:block;}
 #user .user-horoscope p {font-size:12px;margin:1em 0;color:#404040;}
 #user .user-horoscope b {color:#f05d6e;}
+
+#user .friends {}
+#user .friends ul {list-style:none;}
+#user .friends ul li {float:left;width:32%;padding-bottom:30px;font-size:11px;padding-right:1%;}
+#user .friends ul li .ava {float:left;}
+#user .friends ul li .details {margin-left:90px;}
+#user .friends ul li a {text-decoration:none;}
+#user .friends .actions {padding-top:8px;}
 
 /* /user.css */

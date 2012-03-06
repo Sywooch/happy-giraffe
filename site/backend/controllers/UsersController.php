@@ -11,6 +11,13 @@ class UsersController extends BController
             {
                 case 'delete' :
                     Yii::app()->db->createCommand()->update('user', array('deleted' => 1), 'id in (' . implode(',', Yii::app()->request->getQuery('user-list-check')) . ')');
+                    break;
+                case 'block' :
+                    Yii::app()->db->createCommand()->update('user', array('blocked' => 1), 'id in (' . implode(',', Yii::app()->request->getQuery('user-list-check')) . ')');
+                    break;
+                case 'unblock' :
+                    Yii::app()->db->createCommand()->update('user', array('blocked' => 0), 'id in (' . implode(',', Yii::app()->request->getQuery('user-list-check')) . ')');
+                    break;
             }
         }
 

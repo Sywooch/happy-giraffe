@@ -26,6 +26,8 @@
  */
 class CommunityContent extends CActiveRecord
 {
+    const USERS_COMMUNITY = 999999;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return CommunityContent the static model class
@@ -348,6 +350,30 @@ class CommunityContent extends CActiveRecord
         ));
     }
 
+    public function getBlogContents($user_id, $rubric_id, $content_type_slug)
+    {
+        $criteria = new CDbCriteria(array(
+            'order' => 't.created DESC',
+        ));
+
+        $criteria->compare('community_id', self::USERS_COMMUNITY);
+        $criteria->compare('user_id', $user_id);
+
+        if ($rubric_id !== null)
+        {
+            $criteria->compare('rubric_id', $rubric_id);
+        }
+
+        if ($content_type_slug !== null)
+        {
+            $criteria->compare('slug', $content_type_slug);
+        }
+
+        return new CActiveDataProvider($this->active()->full(), array(
+            'criteria' => $criteria,
+        ));
+    }
+
     public function getRelatedPosts()
     {
         $next = $this->full()->findAll(
@@ -368,5 +394,10 @@ class CommunityContent extends CActiveRecord
         );
 
         return $next + $prev;
+    }
+
+    public function getContent()
+    {
+        return $this->{$this->type->slug};
     }
 }

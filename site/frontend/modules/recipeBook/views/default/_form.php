@@ -73,6 +73,7 @@
 <div>
 	<?php echo $model->getAttributeLabel('name'); ?>:
 	<?php echo $form->textField($model, 'name'); ?>
+    <?php echo $form->error($model, 'name'); ?>
 </div>
 
 <div>
@@ -84,6 +85,8 @@
 	<?php echo $form->dropDownList($model, 'disease_id', $model->isNewRecord ? array() : CHtml::listData($model->disease->category->diseases, 'id', 'name'), array(
 		'prompt' => 'Выберите болезнь',
 	)); ?>
+    <?php echo $form->error($model, 'disease_category'); ?>
+    <?php echo $form->error($model, 'disease_id'); ?>
 </div>
 
 <div>

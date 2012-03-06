@@ -112,7 +112,7 @@ class CommunityController extends Controller
     public function actionEdit($content_id)
     {
         $content_id = (int) $content_id;
-        $content_model = CommunityContent::model()->with(array('type', 'post', 'video', 'rubric.community'))->findByPk($content_id);
+        $content_model = CommunityContent::model()->full()->findByPk($content_id);
         if ($content_model === null)
         {
             throw new CHttpException(404, 'Такой записи не существует.');

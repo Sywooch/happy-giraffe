@@ -3,7 +3,9 @@ var Report = {
     form : null,
     forms:{},
     getForm:function (entity, entity_id, selector) {
-        if (selector.next().attr('class') != 'report-block') {
+        if($('.report-block').size() > 0)
+            $('.report-block').remove();
+        if (selector.find('.report-block').size() == 0) {
             $.ajax({
                 type:'POST',
                 data:{
@@ -14,12 +16,12 @@ var Report = {
                 },
                 url:this.url,
                 success:function (response) {
-                    selector.after(response);
+                    selector.prepend(response);
                 }
             });
         }
         else {
-            selector.next().remove();
+            selector.find('.report-block').remove();
         }
     },
     closeForm : function(button)
@@ -29,6 +31,13 @@ var Report = {
     },
     sendForm : function(form) {
         var report_block = $(form).parents('.report-block');
+        var text = $(form).find('#Report_text').val();
+        if(text == '') {
+            $(form).find('.errorSummary').text('Опишите нарушение');
+            return false;
+        } else {
+            $(form).find('.errorSummary').text('');
+        }
         $.ajax({
             type: 'POST',
             data: $(form).serialize(),

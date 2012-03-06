@@ -38,7 +38,7 @@ var Social = {
         },
         "json");
     },
-    update : function(value, update) {
+    update : function(value, update, callback) {
         var params = {
             modelName : this.model_name,
             objectId : this.model_id,
@@ -50,7 +50,17 @@ var Social = {
         $.post(this.update_url, params, function(response) {
             $(".like-block div.rating span").text(response.count);
             $(Social.elem).parent().find('.count').text(response.entity);
+            if(callback)
+                callback();
         },
         "json");
     }
 }
+$(function() {
+    $('body').delegate('.yohoho_guest', 'click', function() {
+        $.fancybox.open('<div class="popup-confirm popup">' +
+            '<a class="popup-close" onclick="$.fancybox.close();" href="javascript:void(0);">Закрыть</a>' +
+            '<div class="confirm-before">Чтобы проголосовать, вам нужно авторизоваться</div>' +
+        '</div>');
+    })
+})

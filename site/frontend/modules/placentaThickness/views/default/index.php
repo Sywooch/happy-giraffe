@@ -47,7 +47,7 @@ Yii::app()->clientScript->registerScript('placenta-thickness', $js);
         'enableClientValidation' => false,
         'clientOptions' => array(
             'validateOnSubmit' => true,
-            'validateOnChange' => true,
+            'validateOnChange' => false,
             'validateOnType' => false,
             'validationUrl' => $this->createUrl('/placentaThickness/default/calculate'),
             'afterValidate' => "js:function(form, data, hasError) {
@@ -61,52 +61,10 @@ Yii::app()->clientScript->registerScript('placenta-thickness', $js);
             <span>Мой срок беременности:</span>
 
             <div class="input-box">
-                <div class="select-box">
-                    <div class="select-value" onclick="toggleSelectBox(this);"><span>20</span>
-                        <input name="PlacentaThicknessForm[week]" type="hidden" value="20"/>
-                    </div>
-                    <div class="select-list">
-                        <ul>
-                            <li onclick="setSelectBoxValue(this);"><span>7</span><input type="hidden" value="7"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>8</span><input type="hidden" value="8"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>9</span><input type="hidden" value="9"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>10</span><input type="hidden" value="10"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>11</span><input type="hidden" value="11"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>12</span><input type="hidden" value="12"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>13</span><input type="hidden" value="13"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>14</span><input type="hidden" value="14"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>15</span><input type="hidden" value="15"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>16</span><input type="hidden" value="16"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>17</span><input type="hidden" value="17"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>18</span><input type="hidden" value="18"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>19</span><input type="hidden" value="19"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>20</span><input type="hidden" value="20"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>21</span><input type="hidden" value="21"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>22</span><input type="hidden" value="22"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>23</span><input type="hidden" value="23"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>24</span><input type="hidden" value="24"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>25</span><input type="hidden" value="25"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>26</span><input type="hidden" value="26"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>27</span><input type="hidden" value="27"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>28</span><input type="hidden" value="28"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>29</span><input type="hidden" value="29"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>30</span><input type="hidden" value="30"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>31</span><input type="hidden" value="31"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>32</span><input type="hidden" value="32"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>33</span><input type="hidden" value="33"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>34</span><input type="hidden" value="34"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>35</span><input type="hidden" value="35"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>36</span><input type="hidden" value="36"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>37</span><input type="hidden" value="37"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>38</span><input type="hidden" value="38"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>39</span><input type="hidden" value="39"/></li>
-                            <li onclick="setSelectBoxValue(this);"><span>40</span><input type="hidden" value="40"/></li>
-                        </ul>
-                    </div>
-                </div>
+                <?php echo $form->dropDownList($model, 'week', HDate::Range(7, 40), array('class' => 'chzn pregnancy_term', 'empty'=>'-')) ?>
                 <span class="units">нед</span>
+                <?php echo $form->error($model, 'week'); ?>
             </div>
-            <span class="comm_to">Укажите срок беременности<br/>(диапазон 7-40 недель)</span>
         </div>
         <div class="row">
             <span>Толщина плаценты:</span>
@@ -116,7 +74,6 @@ Yii::app()->clientScript->registerScript('placenta-thickness', $js);
                 <span class="units">мм</span>
             </div>
             <div><?php echo $form->error($model, 'thickness') ?></div>
-            <span class="comm_to">Введите целое или дробное число,<br/>например 25 или 25,37</span>
         </div>
         <input type="submit" class="placenta_submit" value="Определить"/>
         <?php $this->endWidget(); ?>

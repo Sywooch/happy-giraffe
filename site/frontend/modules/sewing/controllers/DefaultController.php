@@ -6,24 +6,54 @@ class DefaultController extends Controller
 
     public function actionEmbroideryCost()
     {
-        //if (Yii::app()->request->isAjaxRequest)
-            //$this->performAjaxValidation();
-        $this->render('embroideryCost');
+        $model = new EmbroideryCostForm();
+        if (Yii::app()->request->isAjaxRequest) {
+            if (isset($_POST['EmbroideryCostForm'])) {
+                $model->attributes = $_POST['EmbroideryCostForm'];
+                $this->performAjaxValidation($model, 'embroideryCost-form');
+            }
+        } else
+            $this->render('embroideryCost');
     }
 
     public function actionFabricCalculator()
     {
-        $this->render('fabricCalculator');
+        $model = new FabricCalculatorForm1();
+        $model2 = new FabricCalculatorForm2();
+        if (Yii::app()->request->isAjaxRequest) {
+            if (isset($_POST['FabricCalculatorForm1'])) {
+                $model->attributes = $_POST['FabricCalculatorForm1'];
+                $this->performAjaxValidation($model, 'fabric-calculator-form1');
+            } elseif (isset($_POST['FabricCalculatorForm2'])) {
+                $model2->attributes = $_POST['FabricCalculatorForm2'];
+                $this->performAjaxValidation($model2, 'fabric-calculator-form2');
+            }
+        } else
+            $this->render('fabricCalculator');
     }
 
     public function actionThreadCalculation()
     {
-        $this->render('threadCalculation');
+        $model = new ThreadCalculationForm();
+        if (Yii::app()->request->isAjaxRequest) {
+            if (isset($_POST['ThreadCalculationForm'])) {
+                $model->attributes = $_POST['ThreadCalculationForm'];
+                $this->performAjaxValidation($model, 'threads-calculator-form');
+            }
+        } else
+            $this->render('threadCalculation');
     }
 
     public function actionLoopCalculator()
     {
-        $this->render('loopCalculator');
+        $model = new LoopCalculationForm();
+        if (Yii::app()->request->isAjaxRequest) {
+            if (isset($_POST['LoopCalculationForm'])) {
+                $model->attributes = $_POST['LoopCalculationForm'];
+                $this->performAjaxValidation($model, 'loop-calculator-form');
+            }
+        } else
+            $this->render('loopCalculator');
     }
 
     public function actionYarnCalculator()
@@ -34,12 +64,15 @@ class DefaultController extends Controller
                 $model->LoadYarnProject($_POST['id']);
 
                 echo CJSON::encode(array(
-                    'size'=>CHtml::activeDropDownList($model, 'size', YarnProjects::model()->sizes[$model->model->sizes_id], array('id'=>'size')),
-                    'gauge'=>CHtml::activeDropDownList($model, 'gauge', YarnProjects::model()->gauges[$model->model->loop_type_id], array('id'=>'gauge'))));
+                    'size' => CHtml::listOptions('', array(''=>'Выберите размер')+YarnProjects::model()->sizes[$model->model->sizes_id], $null),
+                    'gauge' => CHtml::listOptions(' ', array(''=>'Выберите количество петель')+YarnProjects::model()->gauges[$model->model->loop_type_id], $null)
+                ));
             }
             if (isset($_POST['YarnCalcForm'])) {
                 $model = new YarnCalcForm();
                 $model->attributes = $_POST['YarnCalcForm'];
+                $this->performAjaxValidation($model, 'yarn-calculator-form');
+
                 echo $model->GetResult();
             }
         } else
@@ -48,7 +81,7 @@ class DefaultController extends Controller
 
     public function performAjaxValidation($model, $formName)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] == $formName){
+        if (isset($_POST['ajax']) && $_POST['ajax'] == $formName) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

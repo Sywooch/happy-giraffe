@@ -20,6 +20,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'name' => 'created',
             'header' => 'Последняя жалоба',
+            'type' => 'raw',
+            'value' => 'HDate::GetFormattedTime($data->created, \', \')',
         ),
         array(
             'header' => '',

@@ -105,6 +105,10 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .ava.male {background-position:-334px -1px;}
 .ava img {border:1px solid #dddddd;display:block;width:79px;height:75px;}
 
+.icon-status {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;position:relative;top:1px;margin-right:5px;}
+.icon-status.status-online {background-position:-44px -180px;}
+.icon-status.status-offline {background-position:-55px -180px;}
+
 .section-banner {margin:-40px 0 10px;position:relative;z-index:3;}
 .section-banner img {display:block;}
 .section-banner .section-nav {position:absolute;}
@@ -148,9 +152,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 /* errors */
 
-.error {}
 .error input[type=text], .error input[type=password], .error textarea, .error .chzn-single {border:1px solid #ff6767 !important;}
-
 .errorMessage, .errorSummary {color:#fe5757 !important;font-size:11px !important;line-height:normal !important;padding:5px 0;overflow:hidden;clear:both;}
 
 
@@ -222,8 +224,11 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .btn.btn-yellow-medium > span {padding-right:10px;height:34px;background-position:100% -934px;color:#c37d19;font-size:16px;font-weight:bold;}
 .btn.btn-yellow-medium > span > span {padding-left:18px;height:34px;line-height:34px;background-position:0 -900px;padding-right:8px;}
 
-.btn.btn-blue-small > span {padding-right:10px;height:17px;background-position:100% -817px;color:#fff;font-size:11px;font-family:tahoma, arial, sans-serif;}
-.btn.btn-blue-small > span > span {padding-left:10px;height:17px;line-height:17px;background-position:0 -800px;}
+.btn.btn-blue-small > span {padding-right:7px;height:17px;background-position:100% -1067px;color:#fff;font-size:11px;font-family:tahoma, arial, sans-serif;}
+.btn.btn-blue-small > span > span {padding-left:7px;height:17px;line-height:16px;background-position:0 -1050px;}
+
+.btn.btn-green-ssmall > span {padding-right:7px;height:17px;background-position:100% -867px;color:#fff;font-size:11px;font-family:tahoma, arial, sans-serif;}
+.btn.btn-green-ssmall > span > span {padding-left:7px;height:17px;line-height:16px;background-position:0 -850px;}
 
 .btn.btn-green-small > span {padding-right:10px;height:20px;background-position:100% -1020px;color:#fff;font-size:11px;font-family:arial, sans-serif;font-weight:bold;}
 .btn.btn-green-small > span > span {padding-left:10px;height:20px;line-height:20px;background-position:0 -1000px;}
@@ -240,8 +245,11 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .btn.btn-red-transparent > span {padding-right:20px;height:50px;background-position:100% -2450px;color:#fff;font-size:30px;font-family:arial, sans-serif;}
 .btn.btn-red-transparent > span > span {padding-left:20px;height:50px;line-height:50px;background-position:0 -2400px;}
 
-.btn.btn-green-smedium > span {padding-right:6px;height:25px;background-position:100% -2925px;color:#fff;font-weight:bold;font-size:11px;}
-.btn.btn-green-smedium > span > span {padding-left:10px;height:25px;line-height:25px;background-position:0 -2900px;padding-right:4px;}
+.btn.btn-green-smedium > span {padding-right:6px;height:24px;background-position:100% -2924px;color:#fff;font-weight:bold;font-size:11px;}
+.btn.btn-green-smedium > span > span {padding-left:10px;height:24px;line-height:22px;background-position:0 -2900px;padding-right:4px;}
+
+.btn.btn-purple-smedium > span {padding-right:6px;height:24px;background-position:100% -2974px;color:#fff;font-weight:bold;font-size:11px;}
+.btn.btn-purple-smedium > span > span {padding-left:10px;height:24px;line-height:23px;background-position:0 -2950px;padding-right:4px;}
 
 
 .btn-wish-list .icon-wish-list {margin-right:-5px;position:relative;top:-2px;}
@@ -324,7 +332,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .popup-confirm .confirm-question p {color:#595959;line-height:24px;}
 .popup-confirm .reason {width:220px;padding-right:10px;float:left;text-align:left;font-size:12px;color:#575757;}
 .popup-confirm .reason .title {color:#424141;font-size:16px;margin-bottom:8px;}
-.popup-confirm .reason label {display:block;padding:2px 0;color:#575757;}
+.popup-confirm .reason label {padding:2px 0;color:#575757;display:inline-block;vertical-align:top;width:180px;}
 .popup-confirm .reason label input {margin:0 5px 0 0;margin-right:5px;position:relative;top:1px;}
 .popup-confirm .reason input.other-reason {height:16px;line-height:16px;padding:3px 5px;border:1px solid #c9eaf1;background:#fff;color:#202121;font-size:13px;font-family:tahoma, arial, sans-serif;margin-left:15px;margin-top:5px;width:200px;}
 .popup-confirm .question-in {width:230px;float:left;padding-top:1.5em;}
@@ -982,7 +990,6 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .hg-like .btn > span > span {font:bold italic 18px/25px arial, sans-serif;min-width:45px;}
 .hg-like .btn {vertical-align:middle;}
 
-
 .like-btn .count {background:#fff;border:1px solid #c8b2dd;display:inline-block;padding:0 7px;height:19px;line-height:19px;vertical-align:middle;margin-left:10px;position:relative;cursor:default;}
 .like-btn .count {border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
 .like-btn .count:before {display:block;width:8px;height:10px;background:url(/images/common.png) no-repeat -62px -101px;content:'';position:absolute;left:-8px;top:4px;}
@@ -1013,6 +1020,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments li .user .details {margin-left:90px;}
 .default-comments li .user .details .flag {display:inline-block;position:relative;top:1px;}
 .default-comments li .user .details .location {font-size:9px;margin:5px 0;}
+.default-comments li .user .details .username {vertical-align:top;width:80px;margin:0;padding:0;}
 .default-comments li .user a {text-decoration:none;}
 .default-comments li .content {margin-left:200px;font-size:12px;}
 .default-comments li .content p {color:#3f3e3e;margin:5px 0;}
@@ -1039,6 +1047,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments li:hover {background:#f0fafd;}
 .default-comments li:hover .content .actions {visibility:visible;}
 
+.default-comments .comment-action {padding-top:5px;}
 
 .default-comments .comments-meta {overflow:hidden;padding-bottom:3px;border-bottom:1px solid #caf3f8;}
 .default-comments .comments-meta .btn {margin-top:5px;}
@@ -1120,7 +1129,64 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-topics-list .add {display:block;width:33px;height:33px;background:#d8f3f7;overflow:hidden;}
 #content .club-topics-list .add .icon {display:block;width:15px;height:15px;background:url(../images/common.png) no-repeat -341px -156px;margin:9px auto 0;}
 
+#content .club-topics-all-link {background:#cdecff;padding:12px 0;text-align:center;margin-bottom:2px;}
+
 /* */
+
+
+/* signals */
+
+#signals {width:780px;margin:0 auto;padding-bottom:20px;}
+
+#signals .title {color:#494949;font-size:25px;font-weight:bold;display:inline-block;margin-right:20px;margin-top:10px;}
+#signals .title .icon {display:inline-block;vertical-align:middle;width:84px;height:64px;background:url(/images/signals.png) no-repeat right top;margin-right:6px;}
+
+#signals .username {color:#0493c7;display:inline-block;}
+
+#signals .nav {padding-bottom:20px;font-size:13px;margin-top:60px;}
+#signals .nav ul {overflow:hidden;list-style:none;display:inline-block;}
+#signals .nav ul li {display:inline-block;padding:0 10px;height:20px;margin:0 10px;}
+#signals .nav ul li a {border-bottom:1px dashed #51afc3;text-decoration:none;height:16px;line-height:16px;margin:2px 0;display:block;}
+#signals .nav ul li a:hover {border:0;}
+#signals .nav ul li.active {background:#cdecff;}
+#signals .nav ul li.active a {border:0;cursor:default;}
+
+#signals .fast-calendar {float:right;}
+#signals .fast-calendar table {width:175px;}
+#signals .fast-calendar table  td {text-align:center;}
+#signals .fast-calendar thead td {padding:4px 0;}
+#signals .fast-calendar .nav .prev {display:block;width:10px;height:13px;background:url(/images/common.png) no-repeat -266px -178px;float:left;margin-top:3px;}
+#signals .fast-calendar .nav .next {display:block;width:10px;height:13px;background:url(/images/common.png) no-repeat -278px -178px;float:right;margin-top:3px;}
+#signals .fast-calendar .nav .date {color:#4b4949;font-size:11px;text-transform:uppercase;text-align:center;}
+#signals .fast-calendar tbody td {height:14px;font-size:10px;color:#c6c7c7;}
+#signals .fast-calendar th {background:#fcf8c7;color:#fb7136;font-size:9px;text-transform:uppercase;border-bottom:4px solid #fff;}
+#signals .fast-calendar .active {color:#242424;}
+
+#signals .main-list {margin-bottom:40px;}
+#signals .main-list table {width:100%;}
+#signals .main-list table td {text-align:center;padding:5px 10px;border:2px solid #fff;border-top:0;border-bottom:0;vertical-align:middle;}
+#signals .main-list thead td {background:#f4e8fe;color:#9770bb;font-size:13px;padding:10px;border-bottom:10px solid #fff;}
+#signals .main-list td.icon {width:35px;padding-right:0;}
+#signals .main-list td.name {text-align:left;}
+#signals .main-list .signal-icon {display:block;width:33px;height:30px;background:url(/images/signals.png) no-repeat 33px 30px;}
+#signals .main-list .signal-icon.icon-cpost {background-position:-1px -1px;}
+#signals .main-list .signal-icon.icon-bpost {background-position:-36px -1px;}
+#signals .main-list .signal-icon.icon-video {background-position:-71px -1px;}
+#signals .main-list .signal-icon.icon-photo {background-position:-1px -33px;}
+#signals .main-list .signal-icon.icon-user {background-position:-36px -33px;}
+#signals .main-list .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
+#signals .main-list .remove:hover {background-position:-314px -148px;}
+
+#signals .fast-list {color:#494949;font-size:13px;}
+#signals .fast-list ol {list-style:decimal outside;}
+#signals .fast-list ol li {padding:5px 0;}
+#signals .fast-list ol li .text {display:inline-block;width:450px;vertical-align:top;}
+#signals .fast-list ol li .date {font-size:9px;color:#a7a7a7;display:inline-block;}
+
+
+/* signals */
+
+
 
 
 /* flags */

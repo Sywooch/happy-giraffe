@@ -1,34 +1,35 @@
 <script type="text/javascript">
     $(function () {
-        $('#project').change(function () {
+        $('#YarnCalcForm_project').change(function () {
             $.ajax({
                 url:'#',
-                data:{id:$('#project').val()},
+                data:{id:$('#YarnCalcForm_project').val()},
                 dataType:'JSON',
                 type:'POST',
                 success:function (data) {
-                    $('#cuselFrame-size').replaceWith(data.size);
-                    $('#cuselFrame-gauge').replaceWith(data.gauge);
-                    cuSel({changedEl:'select', visRows:8, scrollArrows:true});
+                    $('#YarnCalcForm_size').html(data.size).trigger("liszt:updated");
+                    $('#YarnCalcForm_gauge').html(data.gauge).trigger("liszt:updated");
+                    $('#YarnCalcForm_size_chzn').trigger("liszt:updated");
+                    $('#YarnCalcForm_gauge_chzn').trigger("liszt:updated");
                 }
             });
-        });
-
-        $('.calc_bt').click(function () {
-            $.ajax({
-                url:'#',
-                data:$('#yarn-form').serialize(),
-                type:'POST',
-                success:function (data) {
-                    $('#result').html('<div class="yarn_result"><span class="result_sp">' +
-                        data + PluralNumber(data, ' метр', '', 'а', 'ов') + '</span> пряжи потребуется ' +
-                        '<ins>Результаты расчета приблизительные*</ins></div>');
-                }
-            });
-
-            return false;
         });
     });
+
+    function StartCalc() {
+        $.ajax({
+            url:'#',
+            data:$('#yarn-calculator-form').serialize(),
+            type:'POST',
+            success:function (data) {
+                $('#result').html('<div class="yarn_result"><span class="result_sp">' +
+                    data + PluralNumber(data, ' метр', '', 'а', 'ов') + '</span> пряжи потребуется ' +
+                    '<ins>Результаты расчета приблизительные*</ins></div>');
+            }
+        });
+
+        return false;
+    }
 
     function PluralNumber(count, arg0, arg1, arg2, arg3) {
         var result = arg0;
@@ -44,42 +45,84 @@
         return result;
     }
 </script>
+<style type="text/css">
+    .errorSummary {
+        background: url("/images/wh_trans.png") repeat scroll 0 0 transparent;
+        border-radius: 10px 10px 10px 10px;
+        box-shadow: 0 0 3px 1px #A1A1A1;
+        display: block;
+        left: 25px;
+        padding: 20px 0 40px;
+        position: absolute;
+        text-align: center;
+        top: 558px;
+        width: 350px;
+    }
+</style>
 <?php $model = new YarnCalcForm ?>
 <div class="embroidery_service">
     <img src="/images/service_much_yarn.jpg" alt="" title=""/>
-
+    <?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'yarn-calculator-form',
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => true,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => false,
+        'validateOnType' => false,
+        'validationUrl' => $this->createUrl('/sewing/default/YarnCalculator'),
+        'afterValidate' => "js:function(form, data, hasError) {
+                                    if (!hasError)
+                                        StartCalc();
+                                    else{
+                                        $('#result').html('');
+                                    }
+                                    return false;
+                                  }",
+    )));?>
     <div class="list_yarn">
-        <form id="yarn-form" action="">
-            <ul>
-                <li>
-                    <ins>Что вяжем?</ins>
+        <ul>
+            <li>
+                <div class="row">
+                <ins>Что вяжем?</ins>
 								<span class="title_h">
-                                    <?php echo CHtml::activeDropDownList($model, 'project', CHtml::listData(YarnProjects::model()->cache(60)->findAll(), 'id', 'name'), array('id' => 'project', 'class' => 'mn_cal')) ?>
+                                    <?php echo $form->dropDownList($model, 'project', CHtml::listData(YarnProjects::model()->cache(60)->findAll(), 'id', 'name'), array('class' => 'mn_cal chzn', 'empty' => 'Выберите проект')) ?>
+                                    <?php echo $form->error($model, 'project'); ?>
 								</span>
-                </li>
-                <li>
-                    <ins>Размер</ins>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                <ins>Размер</ins>
 								<span class="title_h">
-                                    <?php echo CHtml::activeDropDownList($model, 'size', YarnProjects::model()->sizes[$model->size], array('id' => 'size', 'class' => "num_cal")) ?>
+                                    <?php echo $form->dropDownList($model, 'size', array(), array('class' => "num_cal chzn", 'empty' => 'Выберите размер')) ?>
+                                    <?php echo $form->error($model, 'size'); ?>
                                     <br>
 								</span>
-                </li>
-                <li>
-                    <ins>Количество</ins>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                <ins>Количество петель</ins>
 								<span class="title_h">
-                                    <?php echo CHtml::activeDropDownList($model, 'gauge', YarnProjects::model()->gauges[$model->gauge], array('id' => 'gauge', 'class' => "yr_cal")) ?>
+                                    <?php echo $form->dropDownList($model, 'gauge', array(), array('class' => "yr_cal chzn", 'empty' => 'Выберите количество петель')) ?>
+                                    <?php echo $form->error($model, 'gauge'); ?>
 								</span>
-                </li>
-                <li>
-                    <input type="button" class="calc_bt" value="Рассчитать"/>
-                </li>
-            </ul>
-        </form>
+                </div>
+            </li>
+            <li>
+                <input type="submit" class="calc_bt" value="Рассчитать"/>
+            </li>
+        </ul>
     </div>
     <!-- .list_yarn -->
     <div id="result">
 
     </div>
+
+    <?php echo $form->errorSummary($model) ?>
+
+    <?php $this->endWidget(); ?>
 </div><!-- .embroidery_service -->
 <div class="seo-text">
     <h1 class="summary-title">Сколько пряжи для вязания нужно?</h1>

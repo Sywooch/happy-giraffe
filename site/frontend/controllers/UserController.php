@@ -2,8 +2,11 @@
 
 class UserController extends Controller
 {
+    public $layout = '//layouts/user';
+
     public function actionProfile($user_id)
     {
+        $this->layout = '//layouts/main';
         Yii::import('application.widgets.user.*');
         Yii::import('application.modules.Interests.models.*');
         Yii::import('application.modules.geo.models.*');
@@ -19,6 +22,14 @@ class UserController extends Controller
 
         $this->render('profile', array(
             'user' => $user,
+        ));
+    }
+
+    public function actionBlog($user_id, $rubric_id = null, $content_type_slug = null)
+    {
+        $contents = CommunityContent::model()->getBlogContents($user_id, $rubric_id, $content_type_slug);
+        $this->render('blog', array(
+            'content' => $contents,
         ));
     }
 

@@ -3,7 +3,8 @@ var Report = {
     form : null,
     forms:{},
     getForm:function (entity, entity_id, selector) {
-        if (selector.next().attr('class') != 'report-block') {
+        console.log(selector);
+        if (selector.find('.report-block').size() == 0) {
             $.ajax({
                 type:'POST',
                 data:{
@@ -14,12 +15,12 @@ var Report = {
                 },
                 url:this.url,
                 success:function (response) {
-                    selector.after(response);
+                    selector.prepend(response);
                 }
             });
         }
         else {
-            selector.next().remove();
+            selector.find('.report-block').remove();
         }
     },
     closeForm : function(button)

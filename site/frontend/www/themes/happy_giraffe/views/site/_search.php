@@ -1,7 +1,14 @@
 <?php
 $criteria->addCondition('t.id = :id');
 $criteria->params[':id'] = $data->id;
-$c = CommunityContent::model()->find($criteria);
+$c = CommunityContent::model()->full()->find($criteria);
+/*$name = Yii::app()->search->buildExcerpts(array($c->name), $search_index, $search_text);
+$c->name = $name[0];
+
+$this->renderPartial('//comunity/_post', array(
+    'full' => 'false',
+    'data' => $c
+));*/
 ?>
 <div class="entry">
 	<div class="entry-header">

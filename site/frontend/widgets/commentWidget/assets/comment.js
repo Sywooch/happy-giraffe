@@ -19,7 +19,7 @@ Comment = {
     response:function (link) {
         this.clearVariables();
         this.selected_text = null;
-        this.moveForm($(link).parents('.item'));
+        this.moveForm($(link).parents('.item').find('.comment-action'));
         var id = $(link).parents('.item:eq(0)').attr('id').split('_')[1];
         $('#add_comment').find('.response input').val(id);
     },
@@ -28,7 +28,7 @@ Comment = {
     },
     quote:function (link) {
         this.clearVariables();
-        this.moveForm($(link).parents('.item'));
+        this.moveForm($(link).parents('.item').find('.comment-action'));
         var id = $(link).parents('.item:eq(0)').attr('id').split('_')[1];
         var text = '';
         if (!this.selected_text) {
@@ -73,7 +73,7 @@ Comment = {
         this.clearVariables();
         this.selected_text = null;
 
-        this.moveForm($(button).parents('.item'));
+        this.moveForm($(button).parents('.item').find('.comment-action'));
 
         var id = $(button).parents('.item').attr('id').replace(/comment_/g, '');
         $('#edit-id').val(id);

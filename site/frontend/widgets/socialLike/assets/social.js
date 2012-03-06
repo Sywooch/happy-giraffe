@@ -38,7 +38,7 @@ var Social = {
         },
         "json");
     },
-    update : function(value, update) {
+    update : function(value, update, callback) {
         var params = {
             modelName : this.model_name,
             objectId : this.model_id,
@@ -50,6 +50,8 @@ var Social = {
         $.post(this.update_url, params, function(response) {
             $(".like-block div.rating span").text(response.count);
             $(Social.elem).parent().find('.count').text(response.entity);
+            if(callback)
+                callback();
         },
         "json");
     }

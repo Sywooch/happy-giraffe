@@ -13,8 +13,13 @@
         'id',
         'email',
         array(
+            'name'=>'blocked',
+            'value'=>'($data->blocked == 0)? "Нет" : "Да"',
+            'header'=>'Заблокирован'
+        ),
+        array(
             'name'=>'deleted',
-            'value'=>'($data->deleted == 0)?"":"Да"',
+            'value'=>'($data->deleted == 0)? "Нет" : "Да"',
             'header'=>'Удален'
         ),
     )

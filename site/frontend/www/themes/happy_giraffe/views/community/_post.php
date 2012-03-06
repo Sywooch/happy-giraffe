@@ -12,9 +12,12 @@
         <div class="meta">
 
             <div class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></div>
-            <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php echo PageView::model()->viewsByPath($data->url, true); ?></span></div>
-            <?php if (! $full): ?><div class="rate"><?php echo Rating::model()->countByEntity($data); ?></div>
-            рейтинг<?php endif; ?>
+            <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = PageView::model()->viewsByPath($data->url, true); echo $views; ?></span></div>
+            <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
+            <?php if (! $full): ?>
+                <div class="rate"><?php echo Rating::model()->countByEntity($data); ?></div>
+                рейтинг
+            <?php endif; ?>
         </div>
         <div class="clear"></div>
     </div>
@@ -66,7 +69,7 @@
                     if ($data->travel->waypoints) {
                         $icon = new EGMapMarkerImage('/images/map_marker.png');
                         $icon->setSize(20, 32);
-    
+
                         $gMap = new EGMap();
                         $gMap->width = '100%';
                         $gMap->height = '325';
@@ -87,7 +90,7 @@
                         $dataenterLat = $incLat / count($data->travel->waypoints);
                         $dataenterLng = $incLng / count($data->travel->waypoints);
                         $gMap->setCenter($dataenterLat, $dataenterLng);
-    
+
                         $gMap->renderMap();
                         ?>
                         <ul class="tr_map">
@@ -107,7 +110,7 @@
                     }
                     ?>
                         <div class="clear"></div>
-    
+
                         <?php
                     echo $data->travel->text;
                     ?>
@@ -170,19 +173,23 @@
 <?php if ($full): ?>
     <?php
         switch ($data->type->slug) {
-            case 'travel':
-                $like_title = 'Интересное путешествие?';
-                break;
             case 'post':
                 $like_title = 'Вам понравилась статья? Отметьте!';
+                $like_notice = '<big>Рейтинг статьи</big><p>Он показывает, насколько нравится ваша статья другим пользователям. Если статья интересная, то пользователи её читают, комментируют, увеличивают лайки социальных сетей.</p>';
                 break;
             case 'video':
-                $like_title = 'Вам понравилось видео? Отметьте!';
+                $like_title = 'Вам полезно видео? Отметьте!';
+                $like_notice = '<big>Рейтинг видео</big><p>Он показывает, насколько нравится ваше видео другим пользователям. Если видео интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>';
+                break;
+            case 'travel':
+                $like_title = 'Вам полезен рассказ?';
+                $like_notice = '<big>Рейтинг путешествия</big><p>Он показывает, насколько нравится ваш рассказ другим пользователям. Если рассказ интересен, то пользователи его читают, комментируют, увеличивают лайки социальных сетей.</p>';
                 break;
         }
     ?>
 <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
     'title' => $like_title,
+    'notice' => $like_notice,
     'model' => $data,
     'options' => array(
         'title' => $data->name,

@@ -242,7 +242,9 @@ class User extends CActiveRecord
     public function scopes()
     {
         return array(
-            'active' => $this->getTableAlias(false, false) . '.deleted = 0'
+            'active' => array(
+                'condition' => $this->getTableAlias(false, false) . '.deleted = 0 and ' . $this->getTableAlias(false, false) . '.blocked = 0'
+            ),
         );
     }
 

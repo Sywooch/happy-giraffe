@@ -38,6 +38,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'value' => 'Str::truncate(trim(strip_tags($data->text)), 100, "...");'
         ),
         array(
+            'name' => 'created',
+            'type' => 'raw',
+            'value' => 'HDate::GetFormattedTime($data->created, \', \')',
+        ),
+        array(
             'class' => 'CButtonColumn',
             'template' => '{accept}',
             'buttons' => array(

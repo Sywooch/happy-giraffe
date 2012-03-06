@@ -56,3 +56,11 @@ var Social = {
         "json");
     }
 }
+$(function() {
+    $('body').delegate('.yohoho_guest', 'click', function() {
+        $.fancybox.open('<div class="popup-confirm popup">' +
+            '<a class="popup-close" onclick="$.fancybox.close();" href="javascript:void(0);">Закрыть</a>' +
+            '<div class="confirm-before">Чтобы проголосовать, вам нужно авторизоваться</div>' +
+        '</div>');
+    })
+})

@@ -38,10 +38,6 @@
                         break;
                 }
             ?>
-            <?php
-                $p = new CHtmlPurifier();
-                $text = $p->purify($text);
-            ?>
             <?php echo $text; ?>
             <div class="clear"></div>
         </div>

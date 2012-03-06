@@ -109,7 +109,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .icon-status.status-online {background-position:-44px -180px;}
 .icon-status.status-offline {background-position:-55px -180px;}
 
-.section-banner {margin:-40px 0 10px;position:relative;z-index:3;}
+.section-banner {margin:0px 0 10px;position:relative;z-index:3;}
 .section-banner img {display:block;}
 .section-banner .section-nav {position:absolute;}
 .section-banner .section-nav ul {list-style:none;}

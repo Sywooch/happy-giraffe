@@ -52,7 +52,7 @@
         </div>
     <?php endif ?>
 
-    <?php $this->widget('CommentWidget', array(
+    <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
         'model' => $model,
     )); ?>
 </div>

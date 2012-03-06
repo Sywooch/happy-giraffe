@@ -29,10 +29,8 @@ class CommentWidget extends CWidget
             unset($_GET['lastPage']);
         }
         // Если комментарии поста - считаем рейтинг
-        if($this->entity == 'CommunityContent')
-        {
-            Rating::model()->saveByEntity(CommunityContent::model()->findByPk($this->entity_id), 'cm', floor($dataProvider->itemCount / 10));
-        }
+        Rating::model()->saveByEntity(CommunityContent::model()->findByPk($this->entity_id), 'cm', floor($dataProvider->itemCount / 10));
+
         $this->registerScripts();
 		if ($this->onlyList)
 		{

@@ -64,9 +64,7 @@ class ReportsController extends BController
 
     public function actionBlockUser($id)
     {
-        $user = User::model()->findByPk($id);
-        $user->blocked = 1;
-        $user->save(false);
+        User::model()->updateByPk($id, array('blocked' => 1));
         $this->redirect(array('club/reports/spamView', 'id' => $id));
     }
 }

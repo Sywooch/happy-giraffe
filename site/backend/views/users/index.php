@@ -30,7 +30,7 @@
     <input type="checkbox" id="user-list-select-all" onchange="selectAllUsers(this)"; />
     <label for="user-list-select-all">Выделить все</label>&nbsp;&nbsp;
     С
-    отмеченными: <?=CHtml::dropDownList('workWithItemsSelected', null, array('delete' => 'Удалить'), array('empty' => '--')); ?>
+    отмеченными: <?=CHtml::dropDownList('workWithItemsSelected', null, array('delete' => 'Удалить', 'block' => 'Заблокировать', 'unblock' => 'Разблокирвоать'), array('empty' => '--')); ?>
     <?=CHtml::submitButton('Выполнить'); ?>
 </form>
 <script type="text/javascript">

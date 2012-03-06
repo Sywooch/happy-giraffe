@@ -20,6 +20,12 @@ $js = "var father_group = null;
                     $('.wh_son').fadeOut(100, ShowGender);
                 else
                     $('.wh_daughter').fadeOut(100, ShowGender);
+            } else{
+                if (father_group == null)
+                    $('#man_bl_em_').show();
+                if (mother_group == null)
+                    $('#woman_bl_em_').show();
+                return false;
             }
             return false;
         });
@@ -27,6 +33,7 @@ $js = "var father_group = null;
         $('.man_bl ul li a').click(function () {
             $('.man_bl ul li a').removeClass('active');
             $(this).addClass('active');
+            $('#man_bl_em_').hide();
             father_group = $('.man_bl ul li a').index($(this)) + 1;
             CheckButtonEnable();
             return false;
@@ -35,6 +42,7 @@ $js = "var father_group = null;
         $('.woman_bl ul li a').click(function () {
             $('.woman_bl ul li a').removeClass('active');
             $(this).addClass('active');
+            $('#woman_bl_em_').hide();
             mother_group = $('.woman_bl ul li a').index($(this)) + 1;
             CheckButtonEnable();
             return false;
@@ -77,6 +85,7 @@ Yii::app()->clientScript->registerScript('babyGender-blood-group', $js);
                 </ul>
                 <?php echo CHtml::hiddenField('father_blood_group', '', array('id' => 'father_blood_group')) ?>
             </div>
+            <div style="display: none;" id="man_bl_em_" class="errorMessage">Укажите группу крови отца.</div>
             <!-- .ch_group -->
         </div>
         <!-- .gr_bl -->
@@ -92,6 +101,7 @@ Yii::app()->clientScript->registerScript('babyGender-blood-group', $js);
                 </ul>
                 <?php echo CHtml::hiddenField('mother_blood_group', '', array('id' => 'mother_blood_group')) ?>
             </div>
+            <div style="display: none;" id="woman_bl_em_" class="errorMessage">Укажите группу крови матери.</div>
             <!-- .ch_group -->
         </div>
         <!-- .gr_bl -->

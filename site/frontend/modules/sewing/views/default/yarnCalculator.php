@@ -65,7 +65,7 @@
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'yarn-calculator-form',
     'enableAjaxValidation' => true,
-    'enableClientValidation' => false,
+    'enableClientValidation' => true,
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,

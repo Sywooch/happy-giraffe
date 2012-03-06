@@ -3270,9 +3270,8 @@ big.title ins.clr_bl {
 
 .cost_calculation .errorSummary{
     background: url("/images/wh_tr_form.png");
-    height: 107px;
     margin: 0 auto;
-    padding: 13px 0 0;
+    padding: 13px 0;
     text-align: center;
     width: 419px;
     border-radius: 15px;

@@ -136,7 +136,7 @@ class SiteController extends Controller
 				));
 				if ($check)
 				{
-					$user = User::model()->findByPk($check->user_id);
+					$user = User::model()->active()->findByPk($check->user_id);
 					$identity = new UserIdentity($user->getAttributes());
 					$identity->authenticate();
 					if ($identity->errorCode == UserIdentity::ERROR_NONE)
@@ -169,7 +169,7 @@ class SiteController extends Controller
 		if (isset($_POST['User']))
 		{
 			$userModel = $userModel->find(array(
-				'condition' => 'email=:email AND password=:password',
+				'condition' => 'email=:email AND password=:password and blocked = 0 and deleted = 0',
 				'params'=>array(
 					':email'=>$_POST['User']['email'],
 					':password'=>$userModel->hashPassword($_POST['User']['password']),

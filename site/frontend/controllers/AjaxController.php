@@ -4,6 +4,8 @@ class AjaxController extends Controller
 {
     public function actionRate()
     {
+        if(Yii::app()->user->isGuest)
+            Yii::app()->end();
         Yii::import('contest.models.*');
         $modelName = $_POST['modelName'];
         $objectId = $_POST['objectId'];

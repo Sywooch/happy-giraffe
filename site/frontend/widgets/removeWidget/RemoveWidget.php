@@ -43,6 +43,8 @@ class RemoveWidget extends CWidget
 
     public function registerTemplates()
     {
+        if(Yii::app()->user->isGuest)
+            return false;
         echo '<script id="comment_delete_by_author_tmpl" type="text/x-jquery-tmpl">
                         <div class="popup-confirm popup" id="deleteComment">
                             <a class="popup-close" onclick="$.fancybox.close();" href="javascript:void(0);">Закрыть</a>

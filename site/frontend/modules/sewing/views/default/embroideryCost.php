@@ -1,10 +1,15 @@
 <?php
+/* @var $this Controller
+ * @var $form CActiveForm
+ */
+?>
+<?php
 $js = <<<EOD
-    function calculate(stitchcount) {
-        var w = parseInt(document.getElementById("w").value);
-        var h = parseInt(document.getElementById("h").value);
-        var crossprice = (document.getElementById("crossprice").value).replace(',', '.');
-        var pricematerals = parseInt(document.getElementById("pricematerals").value);
+    function StartCalc(stitchcount) {
+        var w = parseInt(document.getElementById("EmbroideryCostForm_width").value);
+        var h = parseInt(document.getElementById("EmbroideryCostForm_height").value);
+        var crossprice = (document.getElementById("EmbroideryCostForm_cross_price").value).replace(',', '.');
+        var pricematerals = parseInt(document.getElementById("EmbroideryCostForm_material_price").value);
 
         if (isNaN(w) || isNaN(h) || isNaN(crossprice) || isNaN(pricematerals) || crossprice === '' || pricematerals === ''){
             $('#result').html('');
@@ -82,127 +87,157 @@ $js = <<<EOD
     function activate(par) {
         if (par.checked) {
             document.getElementById(par.name + 'f').disabled = false;
-            $('#cuselFrame-' + par.name + 'f').removeClass("classDisCusel");
+            $('#'+par.name + 'f').trigger("liszt:updated");
         }
         else {
             document.getElementById(par.name + 'f').disabled = true;
-            $('#cuselFrame-' + par.name + 'f').addClass("classDisCusel");
+            $('#'+par.name + 'f').trigger("liszt:updated");
         }
     }
 EOD;
 
 Yii::app()->clientScript->registerScript('embroideryCost', $js, CClientScript::POS_HEAD);
+$model = new EmbroideryCostForm();
 ?>
 <div class="right_block">
     <div class="cost_calculation">
         <h1>Расчет стоимости <span>вышитой картины</span></h1>
 
-        <form action="#">
-            <p class="form_header">Базовая стоимость</p>
+        <?php $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'embroideryCost-form',
+        'enableAjaxValidation' => true,
+        'enableClientValidation' => true,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+            'validateOnChange' => false,
+            'validateOnType' => false,
+            'validationUrl' => $this->createUrl('/sewing/default/EmbroideryCost'),
+            'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    StartCalc(document.getElementById('embroideryCost-form'));
+                                else
+                                    $('#result').html('');
+                                return false;
+                              }",
+        )));?>
+        <p class="form_header">Базовая стоимость</p>
 
-            <div class="form_block first">
-                <p>Введите размер картины в "крестиках":</p>
-                <label>Ширина</label><input type="text" id="w" value=""/>
-                <label>Высота</label><input type="text" id="h" value=""/>
+        <div class="form_block first clearfix">
+            <p>Введите размер картины в "крестиках":</p>
+
+            <div>
+                <label>Ширина</label>
+                <?php echo $form->textField($model, 'width') ?>
+                <?php echo $form->error($model, 'width'); ?>
             </div>
-            <div class="form_block">
-                <p>Цена одного "крестика"<span>обычно это 0,01-0,5 руб</span></p>
-                <input type="text" id="crossprice" value="0,01"/><label>руб</label>
+            <div>
+                <label>Высота</label>
+                <?php echo $form->textField($model, 'height') ?>
+                <?php echo $form->error($model, 'height'); ?>
             </div>
-            <div class="form_block">
-                <p>Стоимость материалов:<span>канва, нитки, рамка и т.д.</span></p>
-                <input type="text" id="pricematerals" value=""/><label>руб</label>
-            </div>
-            <div class="clear"></div>
-            <p class="form_header" id="form-header">
-                <ins>+</ins>
-                Дополнительная стоимость
-                <span>(усложняющие элементы)</span>
+        </div>
+        <div class="form_block">
+            <p>Цена одного "крестика"<span>обычно это 0,01-0,5 руб</span></p>
+            <?php echo $form->textField($model, 'cross_price') ?><label>руб</label>
+            <?php echo $form->error($model, 'cross_price'); ?>
+        </div>
+        <div class="form_block">
+            <p>Стоимость материалов:<span>канва, нитки, рамка и т.д.</span></p>
+            <?php echo $form->textField($model, 'material_price') ?><label>руб</label>
+            <?php echo $form->error($model, 'material_price'); ?>
+        </div>
+        <div class="clear"></div>
+        <p class="form_header" id="form-header">
+            <ins>+</ins>
+            Дополнительная стоимость
+            <span>(усложняющие элементы)</span>
+        </p>
+        <div class="form_big_block">
+            <p class="children">Отметьте условия работы, которые будут входить в стоимость</p>
+
+            <p>
+                <input type="checkbox" onclick="activate(this)" name="ch1" id="ch1" class="CheckBoxClass"/>
+                <label for="ch1" class="CheckBoxLabelClass">
+                    Если в схеме более 25 цветов, добавляем <span>1%</span> за каждый цвет
+                </label>
             </p>
-            <div class="form_big_block">
-                <p class="children">Отметьте условия работы, которые будут входить в стоимость</p>
 
-                <p>
-                    <input type="checkbox" onclick="activate(this)" name="ch1" id="ch1" class="CheckBoxClass"/>
-                    <label for="ch1" class="CheckBoxLabelClass">
-                        Если в схеме более 25 цветов, добавляем <span>1%</span> за каждый цвет
-                    </label>
-                </p>
+            <p class="children">
+                <label>Количество цветов в схеме:</label>
+                <?php echo $form->textField($model, 'colors_count', array('disabled' => 'disabled','id'=>'ch1f')) ?>
+            </p>
 
-                <p class="children">
-                    <label>Количество цветов в схеме:</label>
-                    <input type="text" value="25" id="ch1f" disabled="disabled"/>
-                </p>
+            <p>
+                <input type="checkbox" id="ch2" name="ch2" class="CheckBoxClass"/>
+                <label for="ch2" class="CheckBoxLabelClass">
+                    Большое количество одиночных “крестиков” значительно усложняет процесс вышивки,
+                    добавляем <span>20%</span>
+                </label>
+            </p>
 
-                <p>
-                    <input type="checkbox" id="ch2" name="ch2" class="CheckBoxClass"/>
-                    <label for="ch2" class="CheckBoxLabelClass">
-                        Большое количество одиночных “крестиков” значительно усложняет процесс вышивки,
-                        добавляем <span>20%</span>
-                    </label>
-                </p>
+            <p>
+                <input type="checkbox" id="ch3" name="ch3" class="CheckBoxClass"/>
+                <label for="ch3" class="CheckBoxLabelClass">
+                    Темная канва, вышивка по которой значительно сложнее, добавляем <span>25%</span>
+                </label>
+            </p>
 
-                <p>
-                    <input type="checkbox" id="ch3" name="ch3" class="CheckBoxClass"/>
-                    <label for="ch3" class="CheckBoxLabelClass">
-                        Темная канва, вышивка по которой значительно сложнее, добавляем <span>25%</span>
-                    </label>
-                </p>
+            <p>
+                <input type="checkbox" id="ch4" name="ch4" onclick="activate(this)" class="CheckBoxClass"/>
+                <label for="ch4" class="CheckBoxLabelClass">
+                    Мелкая канва, добавляем <span>5-20%</span>
+                    <ins>Аида 14 считается нормальным размером</ins>
+                </label>
+            </p>
+            <div class="input-box">
+                <span class="units">Размер канвы в схеме:</span>
 
-                <p>
-                    <input type="checkbox" id="ch4" name="ch4" onclick="activate(this)" class="CheckBoxClass"/>
-                    <label for="ch4" class="CheckBoxLabelClass">
-                        Мелкая канва, добавляем <span>5-20%</span>
-                        <ins>Аида 14 считается нормальным размером</ins>
-                    </label>
-                </p>
-                <div class="input-box">
-                    <span class="units">Размер канвы в схеме:</span>
+                <select id="ch4f" disabled="disabled" name="ch4f" class="chzn">
+                    <option value="0">7</option>
+                    <option value="0">11</option>
+                    <option selected="" value="0">14</option>
+                    <option value="5">16</option>
+                    <option value="10">18</option>
+                    <option value="15">20</option>
+                    <option value="20">22</option>
+                    <option value="25">25</option>
+                </select>
 
-                    <select id="ch4f" disabled="disabled" name="ch4f">
-                        <option value="0">7</option>
-                        <option value="0">11</option>
-                        <option selected="" value="0">14</option>
-                        <option value="5">16</option>
-                        <option value="10">18</option>
-                        <option value="15">20</option>
-                        <option value="20">22</option>
-                        <option value="25">25</option>
-                    </select>
-
-                    <div class="clear"></div>
-                </div>
-                <p>
-                    <input type="checkbox" id="ch5" name="ch5" class="CheckBoxClass"/>
-                    <label for="ch5" class="CheckBoxLabelClass">
-                        Срочный заказ, добавляем <span>25%</span>
-                    </label>
-                </p>
-
-                <p>
-                    <input type="checkbox" id="ch6" name="ch6" class="CheckBoxClass"/>
-                    <label for="ch6" class="CheckBoxLabelClass">
-                        Наличие дополнительных элементов, добавляем <span>25%</span>
-                        <ins>(бекстич, французские узелки, коучинг, бисер, ленты)</ins>
-                    </label>
-                </p>
-                <p>
-                    <input type="checkbox" id="ch7" onclick="activate(this)" name="ch7" class="CheckBoxClass"/>
-                    <label for="ch7" class="CheckBoxLabelClass">
-                        Сами разрабатывали схему? Добавьте стоимость её разработки
-                    </label>
-                </p>
-
-                <p class="children">
-                    <label>Стоимость вашего дизайна:</label>
-                    <input type="text" id="ch7f" value="0" disabled="disabled" name="ch7f"/>
-                </p>
+                <div class="clear"></div>
             </div>
+            <p>
+                <input type="checkbox" id="ch5" name="ch5" class="CheckBoxClass"/>
+                <label for="ch5" class="CheckBoxLabelClass">
+                    Срочный заказ, добавляем <span>25%</span>
+                </label>
+            </p>
 
-            <input type="submit" value="Рассчитать" onclick="return calculate(this.form)"/>
-        </form>
+            <p>
+                <input type="checkbox" id="ch6" name="ch6" class="CheckBoxClass"/>
+                <label for="ch6" class="CheckBoxLabelClass">
+                    Наличие дополнительных элементов, добавляем <span>25%</span>
+                    <ins>(бекстич, французские узелки, коучинг, бисер, ленты)</ins>
+                </label>
+            </p>
+            <p>
+                <input type="checkbox" id="ch7" onclick="activate(this)" name="ch7" class="CheckBoxClass"/>
+                <label for="ch7" class="CheckBoxLabelClass">
+                    Сами разрабатывали схему? Добавьте стоимость её разработки
+                </label>
+            </p>
+
+            <p class="children">
+                <label>Стоимость вашего дизайна:</label>
+                <input type="text" id="ch7f" value="0" disabled="disabled" name="ch7f"/>
+            </p>
+        </div>
+
+        <input type="submit" value="Рассчитать"/>
+
+        <?php echo $form->errorSummary($model) ?>
         <div id="result">
         </div>
+        <?php $this->endWidget(); ?>
     </div>
 </div>
 <div class="seo-text">
@@ -229,7 +264,8 @@ Yii::app()->clientScript->registerScript('embroideryCost', $js, CClientScript::P
             <li>от 5 до 20% за вышивку на мелкой канве (менее 14 размера),</li>
             <li>25% за срочность выполнения работы,</li>
             <li>15% за украшение вышивки узелками, бисером, лентами и другими декоративными элементами,</li>
-            <li>Если вы являетесь автором использованной схемы вышивки – прибавьте стоимость её разработки в рублях.</li>
+            <li>Если вы являетесь автором использованной схемы вышивки – прибавьте стоимость её разработки в рублях.
+            </li>
         </ul>
         <p>После того как всё учтено – смело нажимайте на кнопку «рассчитать», и вы получите:</p>
         <ul>

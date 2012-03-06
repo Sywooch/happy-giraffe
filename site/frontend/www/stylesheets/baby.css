@@ -340,7 +340,7 @@
 #baby .placenta_about span.title_part_placent ins {background:#fcfab2;padding:0 5px;}
 #baby .placenta_about .placenta_calculation {display:block;position:relative;padding:40px 380px 0 60px;background: url(../images/placenta_view.jpg) 100% 0 no-repeat;}
 
-#baby .placenta_calculation .row {padding:12px 0;line-height:30px;color:#532276;font-size:16px;}
+#baby .placenta_calculation .row {padding:12px 0;line-height:30px;color:#532276;font-size:16px;height: 120px;}
 #baby .placenta_calculation input[type=text] {width:128px;height:34px;padding:20px 15px;text-align:center;background:url(../images/input_pregnancy_weight_form.png) no-repeat;color:#ef80c9;font-size:40px;line-height:34px;}
 #baby .placenta_calculation .input-box {position:relative;width:158px;text-align:center;}
 #baby .placenta_calculation .input-box span.units {position:absolute;left:105%;top:18px;color:#3c3b3b;font-size:40px;line-height:1;}
@@ -651,7 +651,7 @@
 #baby .baby_blood_parent_group .gr_bl span {display:block;text-align:center;padding:0 0 10px 0;font:15px/15px tahoma, sans-serif;color:#111110;}
 #baby .baby_blood_parent_group ul.baby_blood_parent_group_u {width:230px;display:block;position:absolute;left:110px;bottom:40px;}
 #baby .baby_blood_parent_group ul.baby_blood_parent_group_u li {display:block;margin:0 0 10px 0;}
-#baby .baby_blood_parent_group .ch_group {display:block;background:#f9ebf5;padding:10px 0 10px 0;}
+#baby .baby_blood_parent_group .ch_group {display:block;background:#f9ebf5;padding:10px 0 10px 0;height: 55px;}
 #baby .baby_blood_parent_group span.baby_blood_result {font:bold 30px/20px times new roman, sans-serif;color:#fa0354;display:block;text-align:center;}
 #baby .baby_blood_parent_group span.baby_blood_result ins {font-size:20px;}
 #baby .baby_blood_parent_group .ch_group ul li {display:inline;padding:0 3px;}

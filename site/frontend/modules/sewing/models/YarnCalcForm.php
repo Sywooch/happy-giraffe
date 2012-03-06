@@ -2,9 +2,9 @@
 
 class YarnCalcForm extends CFormModel
 {
-    public $project = 1;
-    public $size = 1;
-    public $gauge = 1;
+    public $project;
+    public $size;
+    public $gauge;
 
     /**
      * @var YarnProjects
@@ -16,6 +16,15 @@ class YarnCalcForm extends CFormModel
         return array(
             array('project, size, gauge', 'required'),
             array('project, size, gauge', 'numerical', 'integerOnly' => true),
+        );
+    }
+
+    public function AttributeLabels()
+    {
+        return array(
+            'project'=>'Проект',
+            'size'=>'Размер',
+            'gauge'=>'Количество петель',
         );
     }
 

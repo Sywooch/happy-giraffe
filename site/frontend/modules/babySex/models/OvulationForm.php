@@ -27,8 +27,21 @@ class OvulationForm extends CFormModel
     public function rules()
     {
         return array(
-            array('day, month, year, cycle', 'required'),
+            array('day, month, year, cycle, con_day, con_month, con_year', 'required'),
             array('review_month, review_year, con_day, con_month, con_year', 'safe'),
+        );
+    }
+
+    public function AttributeLabels()
+    {
+        return array(
+            'cycle'=>'Длительность менструального цикла',
+            'day'=>'День первого дня менструации предыдущего цикла',
+            'month'=>'Месяц первого дня менструации предыдущего цикла',
+            'year'=>'Год первого дня менструации предыдущего цикла',
+            'con_day'=>'День зачатия ребенка',
+            'con_month'=>'Месяц зачатия ребенка',
+            'con_year'=>'Год зачатия ребенка',
         );
     }
 

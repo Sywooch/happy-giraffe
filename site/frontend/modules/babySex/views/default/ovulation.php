@@ -4,84 +4,91 @@
  */
 $model = new OvulationForm();
 $js = "var started = false;
-    $(function () {
-        function StartCalc() {
-            var d = new Date();
-            $('#review_month').val($('#OvulationForm_con_month').val());
-            $('#review_year').val($('#OvulationForm_con_year').val());
-            LoadCalendar();
+    function StartCalc() {
+        var d = new Date();
+        $('#review_month').val($('#OvulationForm_con_month').val());
+        $('#review_year').val($('#OvulationForm_con_year').val());
+        LoadCalendar();
+        return false;
+    }
+
+    $('body').delegate('div.choice_month a#next-month', 'click', function () {
+        var month = $('#review_month').val();
+        if (month == '')
             return false;
+        var year = $('#review_year').val();
+
+        month++;
+        if (month == 13) {
+            month = 1;
+            year++;
+            $('#review_year').val(year);
+        }
+        $('#review_month').val(month);
+        LoadCalendar();
+        return false;
+    });
+
+    $('body').delegate('div.choice_month a#prev-month', 'click', function () {
+        var month = $('#review_month').val();
+        if (month == '')
+            return false;
+        var year = $('#review_year').val();
+
+        month--;
+        if (month == 0) {
+            month = 12;
+            year--;
+            $('#review_year').val(year);
         }
 
-        $('body').delegate('div.choice_month a#next-month', 'click', function () {
-            var month = $('#review_month').val();
-            if (month == '')
-                return false;
-            var year = $('#review_year').val();
+        $('#review_month').val(month);
+        LoadCalendar();
+        return false;
+    });
 
-            month++;
-            if (month == 13) {
-                month = 1;
-                year++;
-                $('#review_year').val(year);
-            }
-            $('#review_month').val(month);
-            LoadCalendar();
-            return false;
-        });
-
-        $('body').delegate('div.choice_month a#prev-month', 'click', function () {
-            var month = $('#review_month').val();
-            if (month == '')
-                return false;
-            var year = $('#review_year').val();
-
-            month--;
-            if (month == 0) {
-                month = 12;
-                year--;
-                $('#review_year').val(year);
-            }
-
-            $('#review_month').val(month);
-            LoadCalendar();
-            return false;
-        });
-
-        $('body').delegate('.cal_item', 'hover', function (event) {
-            if (event.type == 'mouseenter') {
-                $(this).find('.hint').stop(true, true).fadeIn();
-            } else {
-                $(this).find('.hint').stop(true, true).fadeOut();
-            }
-        });
-        $('body').delegate('.cal_item_default', 'hover', function (event) {
-            if (event.type == 'mouseenter') {
-                $(this).find('.hint').stop(true, true).fadeIn();
-            } else {
-                $(this).find('.hint').stop(true, true).fadeOut();
-            }
-        });
-
-        function LoadCalendar() {
-            $.ajax({
-                url:'".Yii::app()->createUrl("/babySex/default/ovulationCalc") ."',
-                data:$('#ovulation-form').serialize(),
-                type:'POST',
-                success:function (data) {
-                    $('#result').html(data);
-                    $('html,body').animate({scrollTop: $('#result .calendar_body').offset().top},'fast');
-                }
-            });
+    $('body').delegate('.cal_item', 'hover', function (event) {
+        if (event.type == 'mouseenter') {
+            $(this).find('.hint').stop(true, true).fadeIn();
+        } else {
+            $(this).find('.hint').stop(true, true).fadeOut();
         }
-    });";
-Yii::app()->clientScript->registerScript('baby-gender-ovulation',$js);
+    });
+    $('body').delegate('.cal_item_default', 'hover', function (event) {
+        if (event.type == 'mouseenter') {
+            $(this).find('.hint').stop(true, true).fadeIn();
+        } else {
+            $(this).find('.hint').stop(true, true).fadeOut();
+        }
+    });
+
+    function LoadCalendar() {
+        $.ajax({
+            url:'" . Yii::app()->createUrl("/babySex/default/ovulationCalc") . "',
+            data:$('#ovulation-form').serialize(),
+            type:'POST',
+            success:function (data) {
+                $('#result').html(data);
+                $('html,body').animate({scrollTop: $('#result .calendar_body').offset().top},'fast');
+            }
+        });
+    }
+";
+Yii::app()->clientScript->registerScript('baby-gender-ovulation', $js);
 ?>
-<div class="child_sex_ovulyaciya_banner">
-    <?php $form = $this->beginWidget('CActiveForm', array(
+<style type="text/css">
+    .child_sex_ovulyaciya_banner div.row {
+        display: inline;
+    }
+
+    .child_sex_ovulyaciya_banner .errorMessage {
+        display: none !important;
+    }
+</style>
+<?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'ovulation-form',
     'enableAjaxValidation' => true,
-    'enableClientValidation' => false,
+    'enableClientValidation' => true,
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => true,
@@ -93,53 +100,73 @@ Yii::app()->clientScript->registerScript('baby-gender-ovulation',$js);
                                 return false;
                               }",
     )));
-    echo $form->hiddenField($model, 'review_month', array('id' => 'review_month'));
-    echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
+echo $form->hiddenField($model, 'review_month', array('id' => 'review_month'));
+echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
+<div class="child_sex_ovulyaciya_banner">
     <div class="dad_bd">
         <span class="title_pt_bn">Длительность цикла:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21,35), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->error($model, 'cycle'); ?>
+                </div>
             </li>
         </ul>
-        <?php echo $form->error($model, 'cycle'); ?>
     </div>
     <!-- .dad_bd -->
     <div class="mam_bd">
         <span class="title_pt_bn">Дата первого дня менструации<br/> предыдущего цикла:</span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('class' => 'chzn', 'empty' => 'день')); ?>
+                    <?php echo $form->error($model, 'day'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->error($model, 'month'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array( 'class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn', 'empty' => 'год')); ?>
+                    <?php echo $form->error($model, 'year'); ?>
+                </div>
             </li>
         </ul>
-        <?php echo $form->error($model, 'month'); ?>
     </div>
     <!-- .mam_bd -->
     <div class="child_bd">
         <span class="title_pt_bn"><ins>День зачатия ребенка:</ins></span>
         <ul class="lists_td">
             <li>
-                <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('class' => 'chzn', 'empty' => 'день')); ?>
+                    <?php echo $form->error($model, 'con_day'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array( 'class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->error($model, 'con_month'); ?>
+                </div>
             </li>
             <li>
-                <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn', 'empty'=>'--')); ?>
+                <div class="row">
+                    <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn', 'empty' => 'год')); ?>
+                    <?php echo $form->error($model, 'con_year'); ?>
+                </div>
             </li>
         </ul>
-        <?php echo $form->error($model, 'con_day'); ?>
     </div>
     <!-- .child_bd -->
     <input type="submit" class="calc_bt" value="Рассчитать"/>
-    <?php $this->endWidget(); ?>
 </div><!-- .child_sex_banner -->
+<?php echo $form->errorSummary($model) ?>
+<?php $this->endWidget(); ?>
 
 <div id="result">
     <div class="mother_calendar">
@@ -211,14 +238,14 @@ Yii::app()->clientScript->registerScript('baby-gender-ovulation',$js);
         возможность взять усреднённые данные за 6 - 12 предыдущих циклов.</p>
 
     <div class="brushed">
-    <p><b>Итак, вы вводите:</b></p>
-    <ul>
-        <li>дату начала менструации</li>
-        <li>длительность менструации</li>
-        <li>продолжительность менструального цикла</li>
-    </ul>
-    <p>Через несколько секунд вы получите результат и узнаете, кто же у вас появится – мальчик или девочка. Метод,
-        конечно, не даёт 100% гарантии рождения ребёнка необходимого пола, однако он точнее прочих.</p>
+        <p><b>Итак, вы вводите:</b></p>
+        <ul>
+            <li>дату начала менструации</li>
+            <li>длительность менструации</li>
+            <li>продолжительность менструального цикла</li>
+        </ul>
+        <p>Через несколько секунд вы получите результат и узнаете, кто же у вас появится – мальчик или девочка. Метод,
+            конечно, не даёт 100% гарантии рождения ребёнка необходимого пола, однако он точнее прочих.</p>
     </div>
 
     <p><i><b>Важно!</b> Женщины, которым больше тридцати лет автоматически попадают в группу риска по рождению ребёнка с

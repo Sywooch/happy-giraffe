@@ -19,19 +19,13 @@ class ChinaCalendarForm extends CFormModel
         );
     }
 
-    public function init()
+    public function AttributeLabels()
     {
-        $this->mother_y = date('Y')-25;
-//        $this->mother_m = date('m');
-
-        $this->baby_y = date('Y');
-//        $this->baby_m = date('m');
-    }
-
-    public function beforeValidate()
-    {
-
-
-        return parent::beforeValidate();
+        return array(
+            'mother_y'=>'Год рождения матери',
+            'mother_m'=>'Месяц рождения матери',
+            'baby_y'=>'Год зачатия ребенка',
+            'baby_m'=>'Месяц зачатия ребенка',
+        );
     }
 }

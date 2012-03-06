@@ -1,87 +1,113 @@
-<script type="text/javascript">
-    $(function () {
-        $('.calculator_loops input[type=submit]').click(function (e) {
-            e.preventDefault();
-            var c1 = parseInt($('#c1').val());
-            var c2 = parseInt($('#c2').val());
-            var p1 = parseInt($('#p1').val());
-            var p2 = parseInt($('#p2').val());
+<?php Yii::app()->clientScript->registerScript('LoopCalculation',
+    "function StartCalc() {
+        var c1 = parseInt($('#LoopCalculationForm_sample_width_sm').val());
+        var c2 = parseInt($('#LoopCalculationForm_sample_height_sm').val());
+        var p1 = parseInt($('#LoopCalculationForm_sample_width_p').val());
+        var p2 = parseInt($('#LoopCalculationForm_sample_height_p').val());
 
-            var c3 = parseInt($('#c3').val());
-            var c4 = parseInt($('#c4').val());
+        var c3 = parseInt($('#LoopCalculationForm_width').val());
+        var c4 = parseInt($('#LoopCalculationForm_height').val());
 
-            Validate(c1, 'c1');
-            Validate(c2, 'c2');
-            Validate(c3, 'c3');
-            Validate(c4, 'c4');
-            Validate(p1, 'p1');
-            Validate(p2, 'p2');
+        var p3 = Math.round(p1 * (c3 / c1));
+        var p4 = Math.round(p2 * (c4 / c2));
 
-            if ((c1 <= 0 || isNaN(c1)) || (c2 <= 0 || isNaN(c2)) || (c3 <= 0 || isNaN(c3)) || (c4 <= 0 || isNaN(c4)) ||
-                (p1 <= 0 || isNaN(p1)) || (p2 <= 0 || isNaN(p2)))
-                return false;
+        $('#result').html('<div class=\"form_block pink clearfix\">' +
+            '<p><span>' + p3 + '</span> петель</p>' +
+            '<p><span>' + p4 + '</span> рядов</p>' +
+            '</div>');
 
-            var p3 = Math.round(p1 * (c3 / c1));
-            var p4 = Math.round(p2 * (c4 / c2));
+        return false;
+    }");
 
-            $('#result').html('<div class="form_block pink">' +
-                '<p><span>' + p3 + '</span> петель</p>' +
-                '<p><span>' + p4 + '</span> рядов</p>' +
-                '<div class="clear"></div></div>');
-        });
-    });
-
-    function Validate(p, str) {
-        if (p <= 0 || isNaN(p)) {
-            $('#result').html('');
-        }
-    }
-</script>
+$model = new LoopCalculationForm();
+?>
 <div class="right_block">
     <div class="calculator_loops">
         <h1>Калькулятор петель</h1>
 
-        <form action="#">
+        <?php $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'loop-calculator-form',
+        'enableAjaxValidation' => true,
+        'enableClientValidation' => true,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+            'validateOnChange' => false,
+            'validateOnType' => false,
+            'validationUrl' => $this->createUrl('/sewing/default/LoopCalculator'),
+            'afterValidate' => "js:function(form, data, hasError) {
+                                    if (!hasError)
+                                        StartCalc();
+                                    else{
+                                        $('#result').html('');
+                                    }
+                                    return false;
+                                  }",
+        )));?>
 
-            <div class="form_block green">
-                <p class="form_header">Размер образца</p>
+        <div class="form_block green">
+            <p class="form_header">Размер образца</p>
 
-                <p>Введите размер образца и количество рядов и петель в нем:</p>
+            <p>Введите размер образца и количество рядов и петель в нем:</p>
 
-                <div class="left_column">
-                    <p>Ширина</p>
-                    <input type="text" id="c1" value="10"/><label>см</label>
-                    <input type="text" id="p1" value=""/><label>петель</label>
+            <div class="left_column">
+                <p>Ширина</p>
+
+                <div class="row">
+                    <?php echo $form->textField($model, 'sample_width_sm') ?>
+                    <?php echo $form->error($model, 'sample_width_sm'); ?><label>см</label>
                 </div>
-                <div class="right_column">
-                    <p>Длина</p>
-                    <input type="text" id="c2" value="10"/><label>см</label>
-                    <input type="text" id="p2" value=""/><label>рядов</label>
+                <div class="row">
+                    <?php echo $form->textField($model, 'sample_width_p') ?>
+                    <?php echo $form->error($model, 'sample_width_p'); ?><label>петель</label>
                 </div>
-                <div class="clear"></div>
             </div>
-            <div class="form_block blue">
-                <p class="form_header">Размер изделия</p>
+            <div class="right_column">
+                <p>Длина</p>
 
-                <p>Введите размер изделия</p>
-
-                <div class="left_column">
-                    <p>Ширина</p>
-                    <input type="text" id="c3" value=""/><label>см</label>
+                <div class="row">
+                    <?php echo $form->textField($model, 'sample_height_sm') ?>
+                    <?php echo $form->error($model, 'sample_height_sm'); ?><label>см</label>
                 </div>
-                <div class="right_column">
-                    <p>Длина</p>
-                    <input type="text" id="c4" value=""/><label>см</label>
+                <div class="row">
+                    <?php echo $form->textField($model, 'sample_height_p') ?>
+                    <?php echo $form->error($model, 'sample_height_p'); ?><label>рядов</label>
                 </div>
-                <div class="clear"></div>
             </div>
-            <input type="submit" value="Рассчитать"/>
-
-            <div id="result">
-            </div>
-
             <div class="clear"></div>
-        </form>
+        </div>
+        <div class="form_block blue">
+            <p class="form_header">Размер изделия</p>
+
+            <p>Введите размер изделия</p>
+
+            <div class="left_column">
+                <p>Ширина</p>
+
+                <div class="row">
+                    <?php echo $form->textField($model, 'width') ?>
+                    <?php echo $form->error($model, 'width'); ?><label>см</label>
+                </div>
+            </div>
+            <div class="right_column">
+                <p>Длина</p>
+
+                <div class="row">
+                    <?php echo $form->textField($model, 'height') ?>
+                    <?php echo $form->error($model, 'height'); ?><label>см</label>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <input type="submit" value="Рассчитать"/>
+
+        <div id="result">
+        </div>
+
+        <?php echo $form->errorSummary($model) ?>
+
+        <div class="clear"></div>
+
+        <?php $this->endWidget(); ?>
     </div>
 </div>
 

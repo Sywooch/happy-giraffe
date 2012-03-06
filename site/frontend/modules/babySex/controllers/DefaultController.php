@@ -44,7 +44,7 @@ class DefaultController extends Controller
         if (Yii::app()->request->isAjaxRequest){
             $model = new ChinaCalendarForm;
             $model->attributes = $_POST['ChinaCalendarForm'];
-            echo CActiveForm::validate($model);
+            $this->performAjaxValidation($model, 'china-calendar-form');
         }else
             $this->render('china');
     }

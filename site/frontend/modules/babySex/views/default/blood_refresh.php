@@ -88,8 +88,7 @@ Yii::app()->clientScript->registerScript('blood-update', $js);
         display: none !important;
     }
 </style>
-<div class="child_sex_banner">
-    <?php $form = $this->beginWidget('CActiveForm', array(
+<?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'blood-refresh-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => false,
@@ -104,6 +103,7 @@ Yii::app()->clientScript->registerScript('blood-update', $js);
                                 return false;
                               }",
     ))); ?>
+<div class="child_sex_banner">
     <div class="dad_bd">
         <span class="title_pt_bn">День рождения отца:</span>
         <ul class="lists_td">
@@ -191,8 +191,8 @@ Yii::app()->clientScript->registerScript('blood-update', $js);
     <?php echo $form->hiddenField($model, 'review_month', array('id' => 'blood_refr_review_month')) ?>
     <?php echo $form->hiddenField($model, 'review_year', array('id' => 'blood_refr_review_year')) ?>
     <input type="submit" class="calc_bt" value="Рассчитать"/>
-    <?php $this->endWidget(); ?>
 </div><!-- .child_sex_banner -->
+<?php $this->endWidget(); ?>
 <div id="blood-update-result">
 
 </div>

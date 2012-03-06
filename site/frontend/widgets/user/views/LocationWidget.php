@@ -46,7 +46,7 @@ $js = 'var geocoder;
         //стиль метки
         s.iconStyle.href = "/images/map_marker2.png";
         s.iconStyle.size = new YMaps.Point(34, 46);
-        s.iconStyle.offset = new YMaps.Point(-17, -23);
+        s.iconStyle.offset = new YMaps.Point(-17, -46);
     }';
 
 Yii::app()->clientScript

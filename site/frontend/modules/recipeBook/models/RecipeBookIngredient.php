@@ -95,9 +95,9 @@ class RecipeBookIngredient extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'amount' => 'Amount',
-			'unit' => 'Unit',
+			'name' => 'Название ингридиента',
+			'amount' => 'Количество ингридиента',
+			'unit' => 'Единица измерения ингридиента',
 			'recipe_id' => 'Recipe',
 		);
 	}

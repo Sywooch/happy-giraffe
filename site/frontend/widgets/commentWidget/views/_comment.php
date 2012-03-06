@@ -42,7 +42,7 @@
                     <?php
                     if ($data->author->id != Yii::app()->user->id) {
                         $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
-                        $report->button("$(this).parents('.content:eq(0)')");
+                        $report->button("$(this).parents('.item').find('.comment-action')");
                         $this->endWidget();
                     }
                     ?>
@@ -80,5 +80,8 @@
             </div>
             <?php endif; ?>
         </div>
+    </div>
+    <div class="comment-action">
+
     </div>
 </li>

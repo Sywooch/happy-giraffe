@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var CActiveDataProvider $dataProvider
+ */
+?>
 <div class="default-comments">
     <div class="comments-meta">
         <a href="#add_comment" onclick="Comment.newComment();" class="btn btn-orange a-right"><span><span>Добавить запись</span></span></a>
@@ -10,6 +15,7 @@
         //'summaryText' => 'Показано',
         'itemView' => '_comment', // refers to the partial view named '_post'
         'summaryText' => 'показано: {start} - {end} из {count}',
+        'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast');",
         'pager' => array(
             'class' => 'MyLinkPager',
             'header' => 'Страницы',

@@ -15,7 +15,25 @@ class CommunityCommand extends CConsoleCommand
         $community = CommunityContent::model()->full()->findAll();
         foreach($community as $model)
         {
+            $p = new CHtmlPurifier();
+            $p->options = array(
+                'URI.AllowedSchemes'=>array(
+                    'http' => true,
+                    'https' => true,
+                ),
+                'HTML.Nofollow' => true,
+                'HTML.TargetBlank' => true,
+                'HTML.AllowedComments' => array('more' => true),
+
+            );
+            $text = $p->purify($model->content->text);
+            $pos = strpos($text, '<!--more-->');
+            $preview = $pos === false ? $text : substr($text, 0, $pos);
+            $preview = $p->purify($preview);
+            $model->preview = $preview;
             $model->save(false);
+            $model->content->text = $text;
+            $model->content->save(false);
         }
     }
 }

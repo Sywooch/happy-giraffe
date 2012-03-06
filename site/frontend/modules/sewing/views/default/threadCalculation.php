@@ -8,41 +8,41 @@
         conf[18] = 0.0014689;
         conf[20] = 0.001272;
         conf[22] = 0.0010958;
-
-        $('.calc_bt').click(function () {
-            var krestikov = parseInt($('#krestikov').val());
-            if (isNaN(krestikov)) {
-                $('#result').html('');
-                return false;
-            }
-            var kanva = parseInt($('#kanva').val());
-            var s = parseInt($('#sl').val());
-
-            var threads = krestikov * conf[kanva] * s;
-            var str = threads.toFixed(1) + ' метров или ';
-            var bundles = Math.ceil(threads / 8);
-            str += bundles + ' ';
-            var last_digit = bundles.toString();
-
-            var last_2digit = last_digit.substring(last_digit.length - 2, last_digit.length);
-            last_digit = last_digit.substring(last_digit.length - 1, last_digit.length);
-            var bundle_word = 'мотков';
-            if (last_digit == 1)
-                bundle_word = 'моток';
-            if (last_digit > 1 && last_digit < 5)
-                bundle_word = 'мотка';
-
-            if (last_2digit > 4 && last_2digit < 20)
-                bundle_word = 'мотков';
-
-            $('#result').html('<div class="thread_result"><span class="result_sp">' + threads.toFixed(1)
-                + PluralNumber(threads.toFixed(1), ' метр', '', 'а', 'ов') + '</span> или<b>'
-                + bundles + PluralNumber(bundles, ' мот', 'ок', 'ка', 'ков')
-                + '</b> <ins>Результаты расчета приблизительные*</ins></div>');
-            //var r = '<span class="result_sp">234 метра</span> или<b>30 мотков</b> <ins>Результаты расчета приблизительные*</ins>';
-            return false;
-        });
     });
+
+    function StartCalc() {
+        var krestikov = parseInt($('#ThreadCalculationForm_cross_count').val());
+        if (isNaN(krestikov)) {
+            $('#result').html('');
+            return false;
+        }
+        var kanva = parseInt($('#ThreadCalculationForm_canva').val());
+        var s = parseInt($('#ThreadCalculationForm_threads_num').val());
+
+        var threads = krestikov * conf[kanva] * s;
+        var str = threads.toFixed(1) + ' метров или ';
+        var bundles = Math.ceil(threads / 8);
+        str += bundles + ' ';
+        var last_digit = bundles.toString();
+
+        var last_2digit = last_digit.substring(last_digit.length - 2, last_digit.length);
+        last_digit = last_digit.substring(last_digit.length - 1, last_digit.length);
+        var bundle_word = 'мотков';
+        if (last_digit == 1)
+            bundle_word = 'моток';
+        if (last_digit > 1 && last_digit < 5)
+            bundle_word = 'мотка';
+
+        if (last_2digit > 4 && last_2digit < 20)
+            bundle_word = 'мотков';
+
+        $('#result').html('<div class="thread_result"><span class="result_sp">' + threads.toFixed(1)
+            + PluralNumber(threads.toFixed(1), ' метр', '', 'а', 'ов') + '</span> или<b>'
+            + bundles + PluralNumber(bundles, ' мот', 'ок', 'ка', 'ков')
+            + '</b> <ins>Результаты расчета приблизительные*</ins></div>');
+        //var r = '<span class="result_sp">234 метра</span> или<b>30 мотков</b> <ins>Результаты расчета приблизительные*</ins>';
+        return false;
+    }
 
     function PluralNumber(count, arg0, arg1, arg2, arg3) {
         var result = arg0;
@@ -58,54 +58,68 @@
         return result;
     }
 </script>
-
+<?php $model = new ThreadCalculationForm(); ?>
 <div class="embroidery_service">
     <img src="/images/service_much_thread.jpg" alt="" title=""/>
-
+    <?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'threads-calculator-form',
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => false,
+        'validateOnType' => false,
+        'validationUrl' => $this->createUrl('/sewing/default/ThreadCalculation'),
+        'afterValidate' => "js:function(form, data, hasError) {
+                                    if (!hasError)
+                                        StartCalc();
+                                    else{
+                                        $('#result').html('');
+                                    }
+                                    return false;
+                                  }",
+    )));?>
     <div class="list_thread">
-        <form action="">
-            <ul>
-                <li>
+        <ul>
+            <li>
+                <div>
                     <ins>Количество крестиков:</ins>
 								<span class="title_h">
-									<input id="krestikov" type="text"/>
+									<?php echo $form->textField($model, 'cross_count') ?>
+                                    <?php echo $form->error($model, 'cross_count'); ?>
 								</span>
-                </li>
-                <li>
+                </div>
+            </li>
+            <li>
+                <div>
                     <ins>Номер канвы Aida:</ins>
 								<span class="title_h">
-									<select id="kanva" class="num_cal">
-                                        <option selected="true" value="11">11</option>
-                                        <option value="14">14</option>
-                                        <option value="16">16</option>
-                                        <option value="18">18</option>
-                                        <option value="20">20</option>
-                                        <option value="22">22</option>
-                                    </select>
+                                    <?php echo $form->dropDownList($model, 'canva', array(11 => 11, 14 => 14, 16 => 16, 18 => 18, 22 => 22), array('class' => "chzn yr_cal", 'empty' => '--')) ?>
+                                    <?php echo $form->error($model, 'canva'); ?>
 								</span>
-                </li>
-                <li>
-                    <ins>Сложений нити</ins>
+                </div>
+            </li>
+            <li>
+                <div>
+                <ins>Сложений нити</ins>
 								<span class="title_h">
-									<select id="sl" class="yr_cal">
-                                        <option selected="true" value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                    </select>
+                                    <?php echo $form->dropDownList($model, 'threads_num', HDate::Range(1,6), array('class' => "chzn yr_cal", 'empty' => '--')) ?>
+                                    <?php echo $form->error($model, 'threads_num'); ?>
 								</span>
-                </li>
-                <li>
-                    <input type="button" class="calc_bt" value="Рассчитать"/>
-                </li>
-            </ul>
-        </form>
+                </div>
+            </li>
+            <li>
+                <input type="submit" class="calc_bt" value="Рассчитать"/>
+            </li>
+        </ul>
     </div>
     <div id="result">
 
     </div>
+
+    <?php echo $form->errorSummary($model) ?>
+
+    <?php $this->endWidget(); ?>
 </div><!-- .embroidery_service -->
 
 <div class="seo-text">

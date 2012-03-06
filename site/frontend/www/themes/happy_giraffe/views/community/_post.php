@@ -12,7 +12,7 @@
         <div class="meta">
 
             <div class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></div>
-            <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php echo PageView::model()->viewsByPath($this->url, true); ?></span></div>
+            <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php echo PageView::model()->viewsByPath($data->url, true); ?></span></div>
             <?php if (! $full): ?><div class="rate"><?php echo Rating::model()->countByEntity($data); ?></div>
             рейтинг<?php endif; ?>
         </div>
@@ -140,11 +140,11 @@
     <div class="entry-footer">
         <span class="comm">Комментариев: <span><?php echo $data->commentsCount; ?></span></span>
 
-        <?php $this->renderPartial('admin_actions',array(
+        <?php $this->renderPartial('//community/admin_actions',array(
         'c'=>$data,
         'communities'=>Community::model()->findAll(),
     )); ?>
-        <?php $this->renderPartial('parts/move_post_popup',array('c'=>$data)); ?>
+        <?php $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data)); ?>
 
         <?php if (($data->type->slug == 'post' AND in_array($data->post->source_type, array('book', 'internet'))) OR $data->by_happy_giraffe): ?>
             <div class="source">Источник:&nbsp;

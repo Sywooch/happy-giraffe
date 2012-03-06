@@ -26,7 +26,7 @@ class CommunityVideo extends CActiveRecord
 	{
 		return array(
 			'cut' => array(
-				'class' => 'application.components.CutBehavior',
+                'class' => 'site.common.behaviors.CutBehavior',
 				'attributes' => array('text'),
 				'edit_routes' => array('community/edit'),
 			),

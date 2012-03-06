@@ -256,8 +256,33 @@ class CommunityContent extends CActiveRecord
         return true;
     }
 
+    public function beforeSave()
+    {
+        $this->purify();
+        return parent::beforeSave();
+    }
+
+    public function purify()
+    {
+        $p = new CHtmlPurifier();
+        $p->options = array('URI.AllowedSchemes'=>array(
+          'http' => true,
+          'https' => true,
+        ));
+        $text = $p->purify($this->content->text);
+        $pos = strpos($text, '<!--more-->');
+        $preview = $pos === false ? $text : substr($text, 0, $pos);
+        $preview = $p->purify($preview);
+        $this->preview = $preview;
+        $this->content->text = $text;
+        $this->content->save(false);
+        unset($p);
+    }
+
     public function afterSave()
     {
+        if(get_class(Yii::app()) == 'CConsoleApplication')
+            return parent::afterSave();
         if ($this->contentAuthor->isNewComer() && $this->isNewRecord){
             $signal = new UserSignal();
             $signal->user_id = $this->author_id;
@@ -273,20 +298,6 @@ class CommunityContent extends CActiveRecord
             }
         }
         return parent::afterSave();
-    }
-
-    public static function getLink($id)
-    {
-        return '123';
-        $model = self::model()->with(array(
-            'type'=>array(
-                //'select'=>'slug'
-            ),'rubric'=>array(
-                //'select'=>'community_id'
-            )
-        ))->findByPk($id);
-        return Yii::app()->createUrl('community/view', array('community_id' => $model->rubric->community_id,
-            'content_type_slug' => $model->type->slug, 'content_id' => $model->id));
     }
 
     public function getUrl()

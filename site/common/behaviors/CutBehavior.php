@@ -21,7 +21,7 @@ class CutBehavior extends CActiveRecordBehavior
 	{
 		parent::afterFind($event);
 		
-		if (in_array(Yii::app()->controller->route, $this->edit_routes))
+		if (isset(Yii::app()->controller->route) && in_array(Yii::app()->controller->route, $this->edit_routes))
 		{
 			foreach ($this->attributes as $a)
 			{

@@ -245,8 +245,11 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .btn.btn-red-transparent > span {padding-right:20px;height:50px;background-position:100% -2450px;color:#fff;font-size:30px;font-family:arial, sans-serif;}
 .btn.btn-red-transparent > span > span {padding-left:20px;height:50px;line-height:50px;background-position:0 -2400px;}
 
-.btn.btn-green-smedium > span {padding-right:6px;height:25px;background-position:100% -2925px;color:#fff;font-weight:bold;font-size:11px;}
-.btn.btn-green-smedium > span > span {padding-left:10px;height:25px;line-height:25px;background-position:0 -2900px;padding-right:4px;}
+.btn.btn-green-smedium > span {padding-right:6px;height:24px;background-position:100% -2924px;color:#fff;font-weight:bold;font-size:11px;}
+.btn.btn-green-smedium > span > span {padding-left:10px;height:24px;line-height:22px;background-position:0 -2900px;padding-right:4px;}
+
+.btn.btn-green-spurple > span {padding-right:6px;height:24px;background-position:100% -2974px;color:#fff;font-weight:bold;font-size:11px;}
+.btn.btn-green-spurple > span > span {padding-left:10px;height:24px;line-height:23px;background-position:0 -2950px;padding-right:4px;}
 
 
 .btn-wish-list .icon-wish-list {margin-right:-5px;position:relative;top:-2px;}
@@ -987,6 +990,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .hg-like .btn > span > span {font:bold italic 18px/25px arial, sans-serif;min-width:45px;}
 .hg-like .btn {vertical-align:middle;}
 
+.hg-like-voted .btn > span {background-position:100% -2974px;}
+.hg-like-voted .btn > span > span {background-position:0 -2950px;}
 
 .like-btn .count {background:#fff;border:1px solid #c8b2dd;display:inline-block;padding:0 7px;height:19px;line-height:19px;vertical-align:middle;margin-left:10px;position:relative;cursor:default;}
 .like-btn .count {border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}

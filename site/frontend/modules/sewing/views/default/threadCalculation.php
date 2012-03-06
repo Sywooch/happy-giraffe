@@ -64,7 +64,7 @@
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'threads-calculator-form',
     'enableAjaxValidation' => true,
-    'enableClientValidation' => false,
+    'enableClientValidation' => true,
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,

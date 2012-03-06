@@ -8,7 +8,7 @@
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'date-form',
     'enableAjaxValidation' => true,
-    'enableClientValidation' => false,
+    'enableClientValidation' => true,
     'action' => $this->createUrl('/vaccineCalendar/default/validateDate'),
     'clientOptions' => array(
         'validateOnSubmit' => true,

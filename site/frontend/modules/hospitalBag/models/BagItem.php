@@ -72,8 +72,8 @@ class BagItem extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'description' => 'Description',
+			'name' => 'Название предмета',
+			'description' => 'Описание предмета',
 			'approved' => 'Approved',
 			'for' => 'For',
 			'category_id' => 'Category',

@@ -89,7 +89,7 @@ Yii::app()->clientScript->registerScript('woman_cycle', $js);
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'menstrual-cycle-form',
     'enableAjaxValidation' => true,
-    'enableClientValidation' => false,
+    'enableClientValidation' => true,
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,

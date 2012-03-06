@@ -132,6 +132,7 @@ class RecipeBookRecipe extends CActiveRecord
             'book_name' => 'Book Name',
             'create_time' => 'Create Time',
             'views_amount' => 'Views Amount',
+            'purposeIds'=>'Назначение рецепта',
         );
     }
 

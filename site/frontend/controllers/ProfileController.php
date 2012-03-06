@@ -59,9 +59,7 @@ class ProfileController extends Controller
                 'country_id', 'street_id', 'house', 'room'));
         }
 
-        $this->render('data', array(
-
-        ));
+        $this->render('data', array());
     }
 
     public function actionPhoto($returnUrl = null)

@@ -31,21 +31,14 @@
             <?php
                 switch ($data->type->slug)
                 {
-                    case 'post':
-                        $pos = strpos($data->post->text, '<!--more-->');
-                        $text = $pos === false ? $data->post->text : substr($data->post->text, 0, $pos);
-                        break;
-                    case 'travel':
-                        $pos = strpos($data->travel->text, '<!--more-->');
-                        $text = $pos === false ? $data->travel->text : substr($data->travel->text, 0, $pos);
-                        break;
                     case 'video':
                         $video = new Video($data->video->link);
-                        $text = '<div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div>' . $data->video->text;
+                        echo $data->preview . '<div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div>';
                         break;
+                    default:
+                        echo $data->preview;
                 }
             ?>
-            <?php echo $text; ?>
             <div class="clear"></div>
         </div>
     <?php else: ?>

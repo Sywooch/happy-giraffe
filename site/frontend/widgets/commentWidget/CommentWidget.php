@@ -7,6 +7,7 @@ class CommentWidget extends CWidget
     public $entity;
 	public $entity_id;
     public $title = 'Комментарии';
+    public $actions = true;
 
     public function init()
     {
@@ -14,6 +15,9 @@ class CommentWidget extends CWidget
         {
             $this->entity = get_class($this->model);
             $this->entity_id = $this->model->primaryKey;
+        } else {
+            $model = call_user_func(array($this->entity, 'model'));
+            $this->model = $model->findByPk($this->entity_id);
         }
     }
 	
@@ -28,8 +32,8 @@ class CommentWidget extends CWidget
             $dataProvider->data = null;
             unset($_GET['lastPage']);
         }
-        // Если комментарии поста - считаем рейтинг
-        Rating::model()->saveByEntity(CommunityContent::model()->findByPk($this->entity_id), 'cm', floor($dataProvider->itemCount / 10));
+
+        Rating::model()->saveByEntity($this->model, 'cm', floor($dataProvider->itemCount / 10));
 
         $this->registerScripts();
 		if ($this->onlyList)

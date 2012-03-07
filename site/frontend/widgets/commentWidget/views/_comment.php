@@ -60,9 +60,11 @@
                         <?php endif; ?>
                     </div>
                     <?php endif; ?>
-                    <a href="javascript:void(0);" onclick="return Comment.response(this);">Ответить</a>
-                    &nbsp;
-                    <a href="javascript:void(0);" onclick="return Comment.quote(this);">С цитатой</a>
+                    <?php if($this->actions): ?>
+                        <a href="javascript:void(0);" onclick="return Comment.response(this);">Ответить</a>
+                        &nbsp;
+                        <a href="javascript:void(0);" onclick="return Comment.quote(this);">С цитатой</a>
+                    <?php endif; ?>
                 </div>
                 <?php endif; ?>
             <?php endif; ?>

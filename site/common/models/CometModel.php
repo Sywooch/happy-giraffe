@@ -18,7 +18,19 @@ class CometModel extends CComponent
     public $attributes = array();
     public $type;
 
-    public function Send($user_id){
+    /**
+     * Send message to user channel across comet server
+     *
+     * @param int $user_id user id who receive this message
+     * @param array $attributes
+     * @param int $type signal type constant from CometModel
+     */
+    public function send($user_id, $attributes = null, $type = null){
+        if ($attributes !== null)
+            $this->attributes = $attributes;
+        if ($type !== null)
+            $this->type = $type;
+
         $channel_id = MessageCache::GetUserCache($user_id);
         $this->attributes['type'] = $this->type;
         Yii::app()->comet->send($channel_id, $this->attributes);

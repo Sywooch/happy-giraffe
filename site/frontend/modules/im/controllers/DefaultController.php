@@ -223,7 +223,7 @@ class DefaultController extends Controller
         $comet = new CometModel();
         $comet->type = CometModel::TYPE_USER_WRITE_MESSAGE;
         $comet->attributes = array('dialog_id' => $dialog_id);
-        $comet->Send($user_to->id);
+        $comet->send($user_to->id);
     }
 
     public function actionOpenedDialog()

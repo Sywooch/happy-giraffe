@@ -319,7 +319,8 @@ function ShowNewMessage(result) {
 }
 
 function ShowAsRead(result) {
-    $(".dialog-message-new-out").each(function (index) {
+    console.log('read!');
+    $(".dialog-message-new-in").each(function (index) {
         var id = $(this).attr("id").replace(/MessageLog_/g, "");
         if (id <= result.message_id) {
             $(this).find("td.content").css('background-color', '#EBF5FF');
@@ -328,7 +329,7 @@ function ShowAsRead(result) {
             $(this).find("td.meta").animate({ backgroundColor:"#fff" }, 2000);
             $(this).find("td.actions").css('background-color', '#EBF5FF');
             $(this).find("td.actions").animate({ backgroundColor:"#fff" }, 2000);
-            $(this).removeClass("dialog-message-new-out");
+            $(this).removeClass("dialog-message-new-in");
 
         }
     });

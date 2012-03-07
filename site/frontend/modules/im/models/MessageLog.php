@@ -157,7 +157,7 @@ class MessageLog extends CActiveRecord
                         'class'=>'dialog-message-new-in'
                     ), true)
                 );
-                $comet->Send($user->user_id);
+                $comet->send($user->user_id);
             }
 //            Im::clearCache($user->user_id);
         }

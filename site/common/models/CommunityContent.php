@@ -245,7 +245,7 @@ class CommunityContent extends CActiveRecord
         $criteria->item_name = 'CommunityContent';
         $criteria->item_id = $this->id;
         UserSignal::model()->deleteAll($criteria);
-        UserSignal::SignalUpdate();
+        UserSignal::SendUpdateSignal();
 
         return true;
     }

@@ -34,14 +34,13 @@ class DefaultController extends Controller
             $criteria->addCond('signal_type', '==', (int)$filter);
 
         $models = UserSignal::model()->findAll($criteria);
-        $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), date("Y-m-d"));
 
         if (Yii::app()->request->isAjaxRequest) {
             $this->renderPartial('_data', array(
                 'models' => $models,
-                'history'=> $history
             ));
         } else {
+            $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), date("Y-m-d"));
             $this->render('index', array(
                 'models' => $models,
                 'history'=> $history

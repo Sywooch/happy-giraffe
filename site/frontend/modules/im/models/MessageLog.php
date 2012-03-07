@@ -145,19 +145,21 @@ class MessageLog extends CActiveRecord
         $users = MessageUser::model()->findAll('dialog_id=' . $dialog_id);
         foreach ($users as $user) {
             if ($user->user_id !== Yii::app()->user->getId()) {
-                Yii::app()->comet->send(MessageCache::GetUserCache($user->user_id), array(
+                $comet = new CometModel;
+                $comet->type = CometModel::TYPE_NEW_MESSAGE;
+                $comet->attributes =array(
                     'message_id' => $message->id,
                     'unread_count'=>Im::getUnreadMessagesCount($user->user_id),
                     'dialog_id' => $dialog_id,
-                    'type' => MessageLog::TYPE_NEW_MESSAGE,
                     'html' => Yii::app()->controller->renderPartial('_message', array(
                         'message' => $message->attributes,
                         'read' => 1,
                         'class'=>'dialog-message-new-in'
                     ), true)
-                ));
+                );
+                $comet->Send($user->user_id);
             }
-            Im::clearCache($user->user_id);
+//            Im::clearCache($user->user_id);
         }
 
         return $message;

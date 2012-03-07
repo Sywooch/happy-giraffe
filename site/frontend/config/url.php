@@ -59,6 +59,8 @@ return array(
         'menstrualCycle' => 'menstrualCycle/default/index',
         'babyBloodGroup' => 'babyBloodGroup/default/index',
 
+        'signal' => 'signal/default/index',
+
         array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 
 	),

@@ -1,4 +1,4 @@
-<?php $this->beginContent('//layouts/club'); ?>
+<?php $this->beginContent('//layouts/main'); ?>
 <?php
 Yii::app()->clientScript
     ->registerScript('Realplexor-module', '

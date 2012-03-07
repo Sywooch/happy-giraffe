@@ -27,6 +27,7 @@ class UserSignal extends EMongoDocument
     public $all_success = array();
     public $limits = array();
     public $created;
+    public $created_time;
 
     public static function model($className = __CLASS__)
     {
@@ -78,6 +79,7 @@ class UserSignal extends EMongoDocument
             $this->priority = 1;
             $this->status = self::STATUS_OPEN;
             $this->created = date("Y-m-d");
+            $this->created_time = date("H:i");
             if ($this->signal_type == self::TYPE_NEW_USER_POST) {
                 $this->limits = array(rand(4, 6), rand(8, 12));
             } elseif ($this->signal_type == self::TYPE_NEW_USER_VIDEO) {
@@ -94,13 +96,7 @@ class UserSignal extends EMongoDocument
     public function afterSave()
     {
         if ($this->isNewRecord) {
-            //send signal to moderators
-            $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
-            foreach ($moderators as $moderator) {
-                Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
-                    'type' => self::SIGNAL_UPDATE
-                ));
-            }
+            UserSignal::SignalUpdate();
         }
         return parent::afterSave();
     }
@@ -199,11 +195,13 @@ class UserSignal extends EMongoDocument
         if ($this->save()) {
             //send signal to moderators
             $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
+
+            $comet = new CometModel();
+            $comet->type = CometModel::TYPE_SIGNAL_TAKEN;
+            $comet->attributes = array('id' => $this->_id);
+
             foreach ($moderators as $moderator) {
-                Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
-                    'type' => self::SIGNAL_TAKEN,
-                    'id' => $this->_id,
-                ));
+                $comet->Send($moderator->userid);
             }
         }
     }
@@ -223,12 +221,15 @@ class UserSignal extends EMongoDocument
             if ($this->save()) {
                 //send signal to moderators
                 $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
+
+                $comet = new CometModel();
+                $comet->type = CometModel::TYPE_SIGNAL_DECLINE;
+                $comet->attributes = array('id' => $this->_id);
+
                 foreach ($moderators as $moderator) {
-                    Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
-                        'type' => self::SIGNAL_DECLINE,
-                        'id' => $this->_id,
-                    ));
+                    $comet->Send($moderator->userid);
                 }
+
                 return true;
             }
         }
@@ -241,13 +242,21 @@ class UserSignal extends EMongoDocument
      */
     public function TaskExecuted($user_id)
     {
+        $has_task = false;
         foreach ($this->executors as $key => $value)
-            if ($value == $user_id)
+            if ($value == $user_id){
                 unset($this->executors[$key]);
+                $has_task = true;
+            }
+
+        if (!$has_task)
+            return ;
 
         $this->success [] = $user_id;
         if (!in_array($user_id, $this->all_success))
             $this->all_success [] = $user_id;
+
+        UserSignalHistory::TaskSuccess($this, $user_id);
 
         if (count($this->success) >= $this->currentLimit()) {
             $this->success = array();
@@ -256,25 +265,14 @@ class UserSignal extends EMongoDocument
                 $this->status = self::STATUS_CLOSED;
             $this->save();
 
-            //send signal to moderators
-            $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
-            foreach ($moderators as $moderator) {
-                Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
-                    'type' => self::SIGNAL_UPDATE
-                ));
-            }
-            $moderators = AuthAssignment::model()->findAll('itemname="administrator"');
-            foreach ($moderators as $moderator) {
-                Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
-                    'type' => self::SIGNAL_UPDATE
-                ));
-            }
+            UserSignal::SignalUpdate();
         } else {
             $this->save();
-            Yii::app()->comet->send(MessageCache::GetUserCache($user_id), array(
-                'type' => self::SIGNAL_EXECUTED,
-                'id' => $this->_id,
-            ));
+
+            $comet = new CometModel();
+            $comet->type = CometModel::TYPE_SIGNAL_EXECUTED;
+            $comet->attributes = array('id' => $this->_id);
+            $comet->Send($user_id);
         }
     }
 
@@ -356,5 +354,33 @@ class UserSignal extends EMongoDocument
             $text .= ' от ' . CHtml::link($user->getFullName(), Yii::app()->createUrl('user/profile', array('user_id' => $user->id)));
 
         return $text;
+    }
+
+    public function getIcon()
+    {
+        if ($this->signal_type == self::TYPE_NEW_USER_POST) {
+            return 'icon-cpost';
+        } elseif ($this->signal_type == self::TYPE_NEW_BLOG_POST) {
+            return 'icon-bpost';
+        } elseif ($this->signal_type == self::TYPE_NEW_USER_VIDEO) {
+            return 'icon-video';
+        } elseif ($this->signal_type == self::TYPE_NEW_USER_PHOTO) {
+            return 'icon-photo';
+        } elseif ($this->signal_type == self::TYPE_NEW_USER_REGISTER) {
+            return 'icon-user';
+        }
+
+        return '';
+    }
+
+    public static function SignalUpdate()
+    {
+        $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
+
+        $comet = new CometModel();
+        $comet->type = CometModel::TYPE_SIGNAL_UPDATE;
+        foreach ($moderators as $moderator) {
+            $comet->Send($moderator->userid);
+        }
     }
 }

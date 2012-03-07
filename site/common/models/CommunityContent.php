@@ -62,7 +62,7 @@ class CommunityContent extends CActiveRecord
 			array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
 			array('by_happy_giraffe', 'boolean'),
             array('preview', 'safe'),
-			
+
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, by_happy_giraffe, name, meta_title, meta_description, meta_keywords, created, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
@@ -170,7 +170,7 @@ class CommunityContent extends CActiveRecord
 		));
 		return $this;
 	}
-	
+
 	public function type($type_id)
 	{
 		if ($type_id !== null)
@@ -186,7 +186,7 @@ class CommunityContent extends CActiveRecord
 		}
 		return $this;
 	}
-	
+
 	public function rubric($rubric_id)
 	{
 		if ($rubric_id !== null)
@@ -202,7 +202,7 @@ class CommunityContent extends CActiveRecord
 		}
 		return $this;
 	}
-	
+
 	/*public function scopes()
 	{
 		return array(
@@ -245,13 +245,7 @@ class CommunityContent extends CActiveRecord
         $criteria->item_name = 'CommunityContent';
         $criteria->item_id = $this->id;
         UserSignal::model()->deleteAll($criteria);
-
-        $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
-        foreach ($moderators as $moderator) {
-            Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
-                'type' => self::SIGNAL_UPDATE
-            ));
-        }
+        UserSignal::SignalUpdate();
 
         return true;
     }

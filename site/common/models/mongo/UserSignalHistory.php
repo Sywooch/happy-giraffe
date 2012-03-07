@@ -26,4 +26,41 @@ class UserSignalHistory extends EMongoDocument
         return null;
     }
 
+    /**
+     * @param UserSignal $signal
+     */
+    public static function TaskSuccess($signal, $user_id){
+        $criteria = new EMongoCriteria;
+        $criteria->user_id('==', (int)$user_id);
+        $criteria->date('==', $signal->created);
+
+        $model = self::model()->find($criteria);
+        if ($model === null){
+            $model = new UserSignalHistory();
+            $model->date = $signal->created;
+            $model->user_id = (int)$user_id;
+        }
+        $model->numberTaskSuccess++;
+        $model->save();
+    }
+
+    /**
+     * @param int $month
+     * @return array
+     */
+    public static function getCalendarData($year, $month)
+    {
+        $data = array();
+        $criteria = new EMongoCriteria;
+        $criteria->user_id('==', (int)Yii::app()->user->getId());
+        $criteria->date =  new MongoRegex('/'.$year.'-'.$month.'/');
+
+        $models = self::model()->findAll($criteria);
+        foreach($models as $model){
+            $day = date('j', strtotime($model->date));
+            $data[$day] = CHtml::link($day, '');
+        }
+
+        return $data;
+    }
 }

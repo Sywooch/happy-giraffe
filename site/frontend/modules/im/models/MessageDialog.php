@@ -124,10 +124,10 @@ class MessageDialog extends CActiveRecord
         MessageLog::model()->updateAll(array('read_status' => '1'), 'dialog_id=' . $dialog_id
             . ' AND read_status=0 AND user_id != ' . $user_id . ' AND id <= ' . $last_message_id);
 
-        Yii::app()->comet->send(MessageCache::GetUserCache($last_message->user_id), array(
-            'message_id' => $last_message_id,
-            'type' => MessageLog::TYPE_READ
-        ));
+        $comet = new CometModel();
+        $comet->type = CometModel::TYPE_MESSAGE_READ;
+        $comet->attributes = array('message_id' => $last_message_id);
+        $comet->Send($last_message->user_id);
     }
 
     /**

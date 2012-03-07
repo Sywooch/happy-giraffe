@@ -36,14 +36,20 @@ class DefaultController extends Controller
         $models = UserSignal::model()->findAll($criteria);
 
         if (Yii::app()->request->isAjaxRequest) {
-            $this->renderPartial('_data', array(
-                'models' => $models,
-            ));
+            $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), date("Y-m-d"), 5);
+                $response = array(
+                    'status' => true,
+                    'html'=>            $this->renderPartial('_data', array(
+                        'models' => $models,
+                    ), true)
+                );
+
+            echo CJSON::encode($response);
         } else {
-            $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), date("Y-m-d"));
+            $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), date("Y-m-d"), 5);
             $this->render('index', array(
                 'models' => $models,
-                'history'=> $history
+                'history' => $history
             ));
         }
     }
@@ -83,6 +89,15 @@ class DefaultController extends Controller
         $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), $date);
 
         $this->renderPartial('_history', array('history' => $history));
+    }
+
+    public function actionCalendar()
+    {
+        $this->renderPartial('_calendar', array(
+            'month' => Yii::app()->request->getPost('month'),
+            'year' => Yii::app()->request->getPost('year'),
+            'activeDate' => Yii::app()->request->getPost('current_date'),
+        ));
     }
 
     /**

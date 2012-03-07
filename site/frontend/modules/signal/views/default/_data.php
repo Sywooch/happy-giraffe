@@ -3,48 +3,39 @@
  * @var $models UserSignal[]
  */
 ?>
-<table class="items">
-    <thead>
-    <tr>
-        <th>Сигнал</th>
-        <th>Что просит?</th>
-        <th>Пользователь</th>
-        <th>Ссылка</th>
-        <th>Действие</th>
-        <th style="display: none;">Выполняют</th>
-        <th style="display: none;">Нужно исполнителей</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($models as $model): ?>
-    <tr id="signal<?php echo $model->_id ?>" class="<?php
-        if (count($model->executors) + count($model->success) >= $model->currentLimit()) echo 'full' ?>">
-        <td><?php echo $model->signalType() ?></td>
-        <td><?php echo $model->signalWant() ?></td>
-        <td><?php echo $model->getUser()->getFullName() ?></td>
-        <td><?php echo $model->getLink() ?></td>
-        <td class="actions">
-            <input type="hidden" value="<?php echo $model->_id ?>">
-            <a href="#" class="take-task"<?php if (!$model->CurrentUserFree()) echo ' style="display:none;"' ?>>
-                Взять на выполнение</a>
-
-            <div class="taken"<?php if (!$model->CurrentUserIsExecutor()) echo ' style="display:none;"' ?>>
-                <span>Взято вами на выполнение</span>
-                <br>
-                <a href="#" class="decline-task">Отказаться</a>
-            </div>
-            <div class="executed"<?php if (!$model->CurrentUserSuccessExecutor()) echo ' style="display:none;"' ?>>
-                <span>Выполнено</span>
-            </div>
-        </td>
-        <td class="executors"
-            style="display: none;"><?php echo count($model->executors) + count($model->success) ?></td>
-        <td class="need" style="display: none;"><?php echo $model->currentLimit() ?></td>
-    </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-
-<div class="log">
-    <?php $this->renderPartial('_history', array('history' => $history)); ?>
+<div class="main-list">
+    <table>
+        <thead>
+        <tr>
+            <td colspan=2>Сигнал</td>
+            <td>Что происходит?</td>
+            <td>От кого</td>
+            <td>Поймать</td>
+            <td style="display: none;">Выполняют</td>
+            <td style="display: none;">Нужно исполнителей</td>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($models as $model): ?>
+        <tr id="signal<?php echo $model->_id ?>" class="<?php
+            if (count($model->executors) + count($model->success) >= $model->currentLimit()) echo 'full' ?>">
+            <td class="icon"><i class="signal-icon icon-cpost"></td>
+            <td class="name"><?php echo $model->signalType() ?></td>
+            <td><?php echo $model->signalWant() ?></td>
+            <td><?php echo $model->getUser()->getFullName() ?></td>
+            <td class="actions">
+                <input type="hidden" value="<?php echo $model->_id ?>">
+                <a href="#" class="take-task btn btn-green-small"<?php
+                    if (!$model->CurrentUserFree()) echo ' style="display:none;"' ?>><span><span>Ок</span></span></a>
+                <div class="taken"<?php if (!$model->CurrentUserIsExecutor()) echo ' style="display:none;"' ?>>
+                    <?php echo $model->getLink() ?> | <a href="" class="remove"></a>
+                </div>
+            </td>
+            <td class="executors"
+                style="display: none;"><?php echo count($model->executors) + count($model->success) ?></td>
+            <td class="need" style="display: none;"><?php echo $model->currentLimit() ?></td>
+        </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>

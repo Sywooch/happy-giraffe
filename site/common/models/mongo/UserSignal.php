@@ -120,13 +120,16 @@ class UserSignal extends EMongoDocument
      */
     public function getLink()
     {
+        return CHtml::link('перейти', $this->getUrl(), array('target' => '_blank'));
+    }
+
+    public function getUrl()
+    {
         $class_name = $this->item_name;
-        if (method_exists($class_name::model(), 'getLink'))
-            return CHtml::link('перейти', Yii::app()->params['frontend_url'] . $class_name::getLink($this->item_id), array(
-                'target' => '_blank'
-            ));
+        if (method_exists($class_name::model(), 'getUrl'))
+            return $class_name::model()->findByPk($this->item_id)->getUrl();
         else
-            return 'нет метода для вывода url';
+            return 'error';
     }
 
     /**
@@ -260,6 +263,12 @@ class UserSignal extends EMongoDocument
                     'type' => self::SIGNAL_UPDATE
                 ));
             }
+            $moderators = AuthAssignment::model()->findAll('itemname="administrator"');
+            foreach ($moderators as $moderator) {
+                Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
+                    'type' => self::SIGNAL_UPDATE
+                ));
+            }
         } else {
             $this->save();
             Yii::app()->comet->send(MessageCache::GetUserCache($user_id), array(
@@ -291,7 +300,7 @@ class UserSignal extends EMongoDocument
      */
     public static function CheckComment($comment)
     {
-        if (Yii::app()->user->checkAccess('moderator')) {
+        if (Yii::app()->user->checkAccess('user_signals')) {
             self::CheckTask($comment->entity, $comment->entity_id, Yii::app()->user->getId());
         }
     }
@@ -330,11 +339,11 @@ class UserSignal extends EMongoDocument
     {
         $text = 'Прокомментировал ';
         if ($this->signal_type == self::TYPE_NEW_USER_POST) {
-            $text .= CHtml::link('Запись в клубе', CommunityContent::getLink($this->item_id));
+            $text .= CHtml::link('Запись в клубе', $this->getUrl());
         } elseif ($this->signal_type == self::TYPE_NEW_BLOG_POST) {
             $text .= CHtml::link('Запись в блоге', '#');
         } elseif ($this->signal_type == self::TYPE_NEW_USER_VIDEO) {
-            $text .= CHtml::link('Видео в клубе', CommunityContent::getLink($this->item_id));
+            $text .= CHtml::link('Видео в клубе', $this->getLink());
         } elseif ($this->signal_type == self::TYPE_NEW_USER_PHOTO) {
             $text .= CHtml::link('Фото в анкете', '#');
         } elseif ($this->signal_type == self::TYPE_NEW_USER_REGISTER) {

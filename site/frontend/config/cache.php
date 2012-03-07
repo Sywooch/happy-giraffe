@@ -1,7 +1,7 @@
 <?php
 
 return array(
-//	'class' => 'CMemCache',
+//	'class' => 'CFileCache',
     'class' => 'CDummyCache',
 //	'servers' => array(
 //		array(

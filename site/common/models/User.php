@@ -75,23 +75,23 @@ class User extends CActiveRecord
     public $photo;
 
     public $women_rel = array(
-        '1'=>'Замужем',
-        '2'=>'Не замужем',
-        '3'=>'Вдова',
-        '4'=>'Есть друг',
-        '5'=>'Невеста',
-        '6'=>'Влюблена',
-        '7'=>'В поиске',
+        '1' => 'Замужем',
+        '2' => 'Не замужем',
+        '3' => 'Вдова',
+        '4' => 'Есть друг',
+        '5' => 'Невеста',
+        '6' => 'Влюблена',
+        '7' => 'В поиске',
     );
 
     public $men_rel = array(
-        '1'=>'Женат',
-        '2'=>'Не женат',
-        '3'=>'Вдовец',
-        '4'=>'Есть подруга',
-        '5'=>'Жених',
-        '6'=>'Влюблен',
-        '7'=>'В поиске',
+        '1' => 'Женат',
+        '2' => 'Не женат',
+        '3' => 'Вдовец',
+        '4' => 'Есть подруга',
+        '5' => 'Жених',
+        '6' => 'Влюблен',
+        '7' => 'В поиске',
     );
 
     public $accessLabels = array(
@@ -267,9 +267,9 @@ class User extends CActiveRecord
             'new_password' => 'Новый пароль',
             'new_password_repeat' => 'Новый пароль ещё раз',
             'remember' => 'Запомнить меня',
-            'role'=>'Роль',
+            'role' => 'Роль',
             'fullName' => 'Имя пользователя',
-            'last_name'=>'Фамилия',
+            'last_name' => 'Фамилия',
         );
     }
 
@@ -449,31 +449,21 @@ class User extends CActiveRecord
             Yii::app()->cache->delete($cacheKey);
     }
 
-    public function getMiniAva()
+    public function getAva($size = 'ava')
     {
-        $url = $this->pic_small->getUrl('mini');
+        $url = $this->pic_small->getUrl($size);
         if (empty($url)) {
+            $pic_urls = array(
+                'mini' => '-blue_b.png',
+                'ava' => '-blue_a.png',
+                'bigAva' => '-blue.png',
+            );
             if ($this->gender == 1)
-                return '/images/mini_noimg_male.png';
+                return '/images/1'.$pic_urls[$size];
             elseif ($this->gender == 0)
-                return '/images/mini_noimg_female.png';
+                return '/images/2'.$pic_urls[$size];
             else
-                return '/images/mini_noimg.png';
-        }
-        else
-            return $url;
-    }
-
-    public function getAva()
-    {
-        $url = $this->pic_small->getUrl('ava');
-        if (empty($url)) {
-            if ($this->gender == 1)
-                return '/images/ava_noimg_male.png';
-            elseif ($this->gender == 0)
-                return '/images/ava_noimg_female.png';
-            else
-                return '/images/ava_noimg.png';
+                return '/images/3'.$pic_urls[$size];
         }
         else
             return $url;
@@ -717,7 +707,7 @@ class User extends CActiveRecord
     public function getFriendRequests()
     {
         return new CActiveDataProvider('FriendRequest', array(
-            'criteria'=>array(
+            'criteria' => array(
                 'condition' => 'from_id = :user_id OR to_id = :user_id',
                 'params' => array(':user_id' => Yii::app()->user->id),
                 'with' => array('from', 'to'),
@@ -728,7 +718,8 @@ class User extends CActiveRecord
         ));
     }
 
-    public function getRelashionshipList(){
+    public function getRelashionshipList()
+    {
         if ($this->gender == 0)
             return $this->women_rel;
         if ($this->gender == 1)
@@ -736,15 +727,16 @@ class User extends CActiveRecord
         return array();
     }
 
-    public function getPartnerTitle($id){
-        if ($this->gender == 1){
+    public function getPartnerTitle($id)
+    {
+        if ($this->gender == 1) {
             if ($id == 1)
                 return 'Моя жена:';
             if ($id == 4)
                 return 'Моя подруга:';
             if ($id == 5)
                 return 'Моя невеста:';
-        }else{
+        } else {
             if ($id == 1)
                 return 'Мой муж:';
             if ($id == 4)
@@ -758,7 +750,7 @@ class User extends CActiveRecord
 
     public static function relationshipStatusHasPartner($status_id)
     {
-        if (in_array($status_id, array(1,4,5)))
+        if (in_array($status_id, array(1, 4, 5)))
             return true;
         return false;
     }
@@ -768,13 +760,13 @@ class User extends CActiveRecord
         switch ($this->$attribute) {
             case 'all':
                 return true;
-            break;
+                break;
             case 'registered':
                 return $user_id !== null;
-            break;
+                break;
             case 'friends':
                 return $this->isFriend($user_id) || $user_id == $this->id;
-            break;
+                break;
         }
     }
 

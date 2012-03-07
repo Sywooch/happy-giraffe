@@ -53,7 +53,7 @@
         <span class="comm">Отзывов: <span><?php echo $data->commentsCount;  ?></span></span>
         <div class="spam">
             <?php $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
-            $report->button("$(this).parents('.entry-footer')");
+            $report->button("$(this).parents('.spam')");
             $this->endWidget(); ?>
         </div>
         <div class="clear"></div>

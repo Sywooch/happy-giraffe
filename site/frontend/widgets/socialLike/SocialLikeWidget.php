@@ -7,13 +7,14 @@
  */
 class SocialLikeWidget extends CWidget
 {
-
     /**
      * @var CActiveRecord
      */
     public $model;
 
     public $title;
+
+    public $notice;
 
     public $options;
 

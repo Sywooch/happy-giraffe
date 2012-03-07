@@ -1,7 +1,11 @@
 <div class="entry<?php if ($full): ?> entry-full<?php endif; ?>">
 
     <div class="entry-header">
-        <?php echo CHtml::link($data->name, $data->url, array('class' => 'entry-title')); ?>
+        <?php if ($full): ?>
+            <h1><?php echo $data->name; ?></h1>
+        <?php else: ?>
+            <?php echo CHtml::link($data->name, $data->url, array('class' => 'entry-title')); ?>
+        <?php endif; ?>
         <?php if (! $data->by_happy_giraffe): ?>
             <div class="user">
                 <?php $this->widget('AvatarWidget', array('user' => $data->contentAuthor)); ?>

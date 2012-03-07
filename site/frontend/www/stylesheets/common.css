@@ -825,9 +825,9 @@ a {color:#51afc3;}
 
 /* ------------- profile form select -------------- */
 
-#profile .profile-form-in .chzn-container-single .chzn-single {height:44px;}
-#profile .profile-form-in .chzn-container-single .chzn-single span {line-height:44px;font-size:14px;}
-#profile .profile-form-in .chzn-container .chzn-results li {line-height:18px;font-size:14px;}
+#profile .chzn-container-single .chzn-single {height:44px;}
+#profile  .chzn-container-single .chzn-single span {line-height:44px;font-size:14px;}
+#profile  .chzn-container .chzn-results li {line-height:18px;font-size:14px;}
 
 /* ------------- store cart form select -------------- */
 
@@ -875,6 +875,9 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #gallery .header .back-link {color:#51AFC3;margin-left:260px;font-size:16px;padding-top:15px;}
 
+#gallery .all-link {float:right;line-height:35px;height:35px;padding-right:60px;}
+#gallery .all-link a {margin-left:20px;}
+
 #gallery .header .title {}
 #gallery .header .title big {display:block;color:#3b3b3b;font-weight:bold;font-size:25px;line-height:normal;margin-bottom:10px;}
 #gallery .header .title big span {color:#21a4c1;}
@@ -919,7 +922,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .service-header .title .note {background:#fff2e7;border:0;}
 #gallery .service-header .title .note:after {display:none;}
 
-#gallery #photo {}
+#gallery #photo {clear:both;}
 
 #gallery #photo .title {text-align:center;font-weight:bold;font-size:25px;line-height:normal;color:#0297b8;margin-bottom:10px;}
 
@@ -1187,6 +1190,58 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 /* signals */
 
 
+/* */
+
+.report-block {
+    background: #fed6d6;
+    padding: 15px 20px;
+    margin: 10px 0 0;
+    display: block;
+}
+
+.report-block .left-b {
+    float: left;
+    width: 280px;
+}
+
+label {
+    font: 12px Arial, Helvetica, sans-serif;
+    color: #575757;
+}
+
+.report-block .right-b {
+    float: left;
+    width: 370px;
+}
+
+.report-block .left-b big {
+    margin: 10px 0 !important;
+    font: bold 16px/25px Arial, Tahoma, sans-serif !important;
+    float: none !important;
+    background: none !important;
+    display: block;
+    text-align: left;
+}
+
+.report-block .right-b big {
+    margin: 10px 0;
+    color: #575757;
+    font: italic 18px/25px Arial, Helvetica, sans-serif;
+    display: block;
+    text-align: left;
+}
+
+.report-block textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    margin: 0 0 10px 0;
+    border: 1px solid #fdb5b5;
+    min-height: 100px;
+}
+
+
+/* */
 
 
 /* flags */

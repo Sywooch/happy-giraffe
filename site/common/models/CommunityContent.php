@@ -363,7 +363,7 @@ class CommunityContent extends CActiveRecord
         ));
     }
 
-    public function getBlogContents($user_id, $rubric_id, $content_type_slug)
+    public function getBlogContents($user_id, $rubric_id)
     {
         $criteria = new CDbCriteria(array(
             'order' => 't.created DESC',
@@ -371,15 +371,11 @@ class CommunityContent extends CActiveRecord
 
         $criteria->compare('community_id', self::USERS_COMMUNITY);
         $criteria->compare('user_id', $user_id);
+        $criteria->compare('slug', 'post');
 
         if ($rubric_id !== null)
         {
             $criteria->compare('rubric_id', $rubric_id);
-        }
-
-        if ($content_type_slug !== null)
-        {
-            $criteria->compare('slug', $content_type_slug);
         }
 
         return new CActiveDataProvider($this->active()->full(), array(

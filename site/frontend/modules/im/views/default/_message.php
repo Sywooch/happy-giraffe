@@ -10,7 +10,7 @@ if (!isset($class))
     <table>
         <tr>
             <td class="user">
-                <div class="img"><img src="<?php echo $user->getMiniAva() ?>" /></div>
+                <div class="img"><img src="<?php echo $user->getAva('mini') ?>" /></div>
             </td>
             <td class="content">
                 <div class="name"><?php echo $user->first_name ?></div>

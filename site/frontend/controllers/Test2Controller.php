@@ -173,8 +173,9 @@ class Test2Controller extends Controller
         ));
     }
 
-    public function actionFriends()
+    public function actionAttach()
     {
-
+        $user = User::model()->findByPk(38);
+        var_dump($user->delCommunity(7));
     }
 }

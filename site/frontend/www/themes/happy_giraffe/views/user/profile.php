@@ -109,19 +109,9 @@
 
                     </div>-->
 
-                    <div class="user-clubs clearfix">
-
-                        <div class="box-title">Клубы <a href="">Все клубы (6)</a></div>
-
-                        <?php $clubs = Community::model()->findAll(array('order' => 'id DESC', 'limit' => 6, 'offset' => 1)); ?>
-
-                        <ul>
-                            <?php foreach ($clubs as $c): ?>
-                                <li><?php echo CHtml::link(CHtml::image('/images/community/' . $c->id . '_small.png'), array('community/list', 'community_id' => $c->id)); ?><?php echo CHtml::link($c->name, array('community/list', 'community_id' => $c->id)); ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-
-                    </div>
+                    <?php $this->widget('UserCommunitiesWidget', array(
+                        'user' => $user
+                    )); ?>
 
                     <?php $this->widget('UserAlbumWidget', array('user' => $user,)); ?>
 

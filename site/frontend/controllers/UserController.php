@@ -3,6 +3,9 @@
 class UserController extends Controller
 {
     public $layout = '//layouts/user';
+    public $user;
+    public $rubric_id;
+    public $content_type_slug;
 
     public function actionProfile($user_id)
     {
@@ -25,11 +28,29 @@ class UserController extends Controller
         ));
     }
 
-    public function actionBlog($user_id, $rubric_id = null, $content_type_slug = null)
+    public function actionBlog($user_id, $rubric_id = null)
     {
-        $contents = CommunityContent::model()->getBlogContents($user_id, $rubric_id, $content_type_slug);
+        $this->layout = '//layouts/user_blog';
+        $this->user = User::model()->with('blog_rubrics')->findByPk($user_id);
+        if ($this->user === null)
+            throw CHttpException(404, 'Клуб не найден');
+        $this->rubric_id = $rubric_id;
+
+        $contents = CommunityContent::model()->getBlogContents($user_id, $rubric_id);
         $this->render('blog', array(
-            'content' => $contents,
+            'contents' => $contents,
+        ));
+    }
+
+    public function getUrl($overwrite = array(), $route = 'user/blog')
+    {
+        return array_filter(CMap::mergeArray(
+            array($route),
+            array(
+                'user_id' => $this->user->id,
+                'rubric_id' => $this->rubric_id,
+            ),
+            $overwrite
         ));
     }
 

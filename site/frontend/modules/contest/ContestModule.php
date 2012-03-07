@@ -2,7 +2,7 @@
 
 class ContestModule extends CWebModule
 {
-	public $defaultController = 'contest';
+	public $defaultController = 'default';
 
 	public function init()
 	{

@@ -256,27 +256,27 @@ class CommunityContent extends CActiveRecord
         return true;
     }
 
-    public function beforeSave()
-    {
-        $this->purify();
-        return parent::beforeSave();
-    }
-
-    public function purify()
+    public function purify($t)
     {
         $p = new CHtmlPurifier();
-        $p->options = array('URI.AllowedSchemes'=>array(
-          'http' => true,
-          'https' => true,
-        ));
-        $text = $p->purify($this->content->text);
+        $p->options = array(
+            'URI.AllowedSchemes'=>array(
+                'http' => true,
+                'https' => true,
+            ),
+            'HTML.Nofollow' => true,
+            'HTML.TargetBlank' => true,
+            'HTML.AllowedComments' => array('more' => true),
+
+        );
+        $text = $p->purify($t);
         $pos = strpos($text, '<!--more-->');
         $preview = $pos === false ? $text : substr($text, 0, $pos);
         $preview = $p->purify($preview);
         $this->preview = $preview;
-        $this->content->text = $text;
-        $this->content->save(false);
+        $this->save();
         unset($p);
+        return $text;
     }
 
     public function afterSave()

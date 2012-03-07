@@ -127,7 +127,7 @@ class MessageDialog extends CActiveRecord
         $comet = new CometModel();
         $comet->type = CometModel::TYPE_MESSAGE_READ;
         $comet->attributes = array('message_id' => $last_message_id);
-        $comet->Send($last_message->user_id);
+        $comet->send($last_message->user_id);
     }
 
     /**

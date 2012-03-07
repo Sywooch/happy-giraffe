@@ -203,7 +203,7 @@ class User extends CActiveRecord
             'settlement' => array(self::BELONGS_TO, 'GeoRusSettlement', 'settlement_id'),
             'country' => array(self::BELONGS_TO, 'GeoCountry', 'country_id'),
             'street' => array(self::BELONGS_TO, 'GeoRusStreet', 'street_id'),
-            'communities' => array(self::MANY_MANY, 'User', 'user_via_community(user_id, community_id)'),
+            'communities' => array(self::MANY_MANY, 'Community', 'user_community(user_id, community_id)'),
 
             'clubCommunityComments' => array(self::HAS_MANY, 'ClubCommunityComment', 'author_id'),
             'clubCommunityContents' => array(self::HAS_MANY, 'ClubCommunityContent', 'author_id'),
@@ -236,6 +236,10 @@ class User extends CActiveRecord
             'interests' => array(self::MANY_MANY, 'Interest', 'user_interest(interest_id, user_id)'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
+
+            'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
+
+            'communitiesCount'=>array(self::STAT, 'Community', 'user_community(user_id, community_id)'),
         );
     }
 
@@ -390,16 +394,10 @@ class User extends CActiveRecord
             'ESaveRelatedBehavior' => array(
                 'class' => 'ESaveRelatedBehavior'
             ),
+            'ManyManyLinkBehavior' => array(
+                'class' => 'site.common.behaviors.ManyManyLinkBehavior',
+            ),
         );
-    }
-
-    public function hasCommunity($id)
-    {
-        foreach ($this->communities as $c)
-        {
-            if ($c->id == $id) return TRUE;
-        }
-        return FALSE;
     }
 
     /**
@@ -488,7 +486,7 @@ class User extends CActiveRecord
 
     public function getDialogLink()
     {
-        if (Yii::app()->user->isGuest)
+        if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->getId())
             return '';
 
         Yii::import('site.frontend.modules.im.models.*');
@@ -775,5 +773,26 @@ class User extends CActiveRecord
     public function getProfileUrl()
     {
         return Yii::app()->createUrl('user/profile', array('user_id' => $this->id));
+    }
+
+    public function addCommunity($community_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->insert('user_community', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
+    }
+
+    public function delCommunity($community_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->delete('user_community', 'user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id)) != 0;
+    }
+
+    public function isInCommunity($community_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('count(*)')
+            ->from('user_community')
+            ->where('user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id))
+            ->queryScalar() != 0;
     }
 }

@@ -76,6 +76,9 @@
             window.location = url;
         });
     });
+    function ShowNewMessage(result) {
+        ShowNewMessagesCount(result.unread_count);
+    }
 </script>
 
 

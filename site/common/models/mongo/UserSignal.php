@@ -96,7 +96,7 @@ class UserSignal extends EMongoDocument
     public function afterSave()
     {
         if ($this->isNewRecord) {
-            UserSignal::SignalUpdate();
+            UserSignal::SendUpdateSignal();
         }
         return parent::afterSave();
     }
@@ -193,16 +193,7 @@ class UserSignal extends EMongoDocument
     {
         $this->executors[] = $user_id;
         if ($this->save()) {
-            //send signal to moderators
-            $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
-
-            $comet = new CometModel();
-            $comet->type = CometModel::TYPE_SIGNAL_TAKEN;
-            $comet->attributes = array('id' => $this->_id);
-
-            foreach ($moderators as $moderator) {
-                $comet->Send($moderator->userid);
-            }
+            $this->sendTakeSignal();
         }
     }
 
@@ -219,16 +210,7 @@ class UserSignal extends EMongoDocument
                     unset($this->executors[$key]);
 
             if ($this->save()) {
-                //send signal to moderators
-                $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
-
-                $comet = new CometModel();
-                $comet->type = CometModel::TYPE_SIGNAL_DECLINE;
-                $comet->attributes = array('id' => $this->_id);
-
-                foreach ($moderators as $moderator) {
-                    $comet->Send($moderator->userid);
-                }
+                $this->sendDeclineSignal();
 
                 return true;
             }
@@ -244,13 +226,13 @@ class UserSignal extends EMongoDocument
     {
         $has_task = false;
         foreach ($this->executors as $key => $value)
-            if ($value == $user_id){
+            if ($value == $user_id) {
                 unset($this->executors[$key]);
                 $has_task = true;
             }
 
         if (!$has_task)
-            return ;
+            return;
 
         $this->success [] = $user_id;
         if (!in_array($user_id, $this->all_success))
@@ -265,14 +247,14 @@ class UserSignal extends EMongoDocument
                 $this->status = self::STATUS_CLOSED;
             $this->save();
 
-            UserSignal::SignalUpdate();
+            UserSignal::SendUpdateSignal();
         } else {
             $this->save();
 
             $comet = new CometModel();
             $comet->type = CometModel::TYPE_SIGNAL_EXECUTED;
             $comet->attributes = array('id' => $this->_id);
-            $comet->Send($user_id);
+            $comet->send($user_id);
         }
     }
 
@@ -373,14 +355,38 @@ class UserSignal extends EMongoDocument
         return '';
     }
 
-    public static function SignalUpdate()
+    public static function SendUpdateSignal()
     {
         $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
 
         $comet = new CometModel();
         $comet->type = CometModel::TYPE_SIGNAL_UPDATE;
         foreach ($moderators as $moderator) {
-            $comet->Send($moderator->userid);
+            $comet->send($moderator->userid);
+        }
+    }
+
+    public function sendDeclineSignal()
+    {
+        $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
+
+        $comet = new CometModel();
+        $comet->type = CometModel::TYPE_SIGNAL_DECLINE;
+        $comet->attributes = array('id' => $this->_id);
+        foreach ($moderators as $moderator) {
+            $comet->send($moderator->userid);
+        }
+    }
+
+    public function sendTakeSignal()
+    {
+        $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
+
+        $comet = new CometModel();
+        $comet->type = CometModel::TYPE_SIGNAL_TAKEN;
+        $comet->attributes = array('id' => $this->_id);
+        foreach ($moderators as $moderator) {
+            $comet->send($moderator->userid);
         }
     }
 }

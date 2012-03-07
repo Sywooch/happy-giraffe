@@ -8,11 +8,6 @@ class UserSignal extends EMongoDocument
     const TYPE_NEW_USER_REGISTER = 6;
     const TYPE_NEW_BLOG_POST = 7;
 
-    const SIGNAL_UPDATE = 20;
-    const SIGNAL_TAKEN = 21;
-    const SIGNAL_DECLINE = 22;
-    const SIGNAL_EXECUTED = 23;
-
     const STATUS_OPEN = 1;
     const STATUS_CLOSED = 2;
 

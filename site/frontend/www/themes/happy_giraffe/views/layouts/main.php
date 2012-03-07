@@ -45,29 +45,8 @@
     Yii::app()->clientScript
     ->registerScriptFile('/javascripts/dklab_realplexor.js')
     ->registerScript('Realplexor-reg', '
-        var user_cache = "' . MessageCache::GetCurrentUserCache() . '";
-        var realplexor = new Dklab_Realplexor(
-            "http://' . Yii::app()->comet->host . '",
-            "' . Yii::app()->comet->namespace . '"
-        );
-
-        realplexor.subscribe(user_cache, function (result, id) {
-            console.log(result);
-            if (result.type == ' . CometModel::TYPE_NEW_MESSAGE . ') {
-                if(window.ShowNewMessage)
-                    ShowNewMessage(result);
-            } else if (result.type == ' . CometModel::TYPE_MESSAGE_READ . ') {
-                if(window.ShowAsRead)
-                    ShowAsRead(result);
-            } else if (result.type == ' . CometModel::TYPE_STATUS_CHANGE . ') {
-                if(window.StatusChanged)
-                    StatusChanged(result);
-            } else if (result.type == ' . CometModel::TYPE_USER_WRITE_MESSAGE . ') {
-                if(window.ShowUserTyping)
-                    ShowUserTyping(result);
-            }
-        });
-        realplexor.execute();
+    comet.connect("http://' . Yii::app()->comet->host . '", "' . Yii::app()->comet->namespace . '",
+                  "' . MessageCache::GetCurrentUserCache() . '");
 ');
     }
     ?>

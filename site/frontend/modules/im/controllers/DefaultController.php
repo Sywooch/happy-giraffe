@@ -221,7 +221,7 @@ class DefaultController extends Controller
         $user_to = Im::model()->GetDialogUser($dialog_id);
 
         $comet = new CometModel();
-        $comet->type = CometModel::TYPE_USER_WRITE_MESSAGE;
+        $comet->type = CometModel::TYPE_USER_TYPING;
         $comet->attributes = array('dialog_id' => $dialog_id);
         $comet->send($user_to->id);
     }

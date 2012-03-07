@@ -16,11 +16,6 @@
  */
 class MessageLog extends CActiveRecord
 {
-    const TYPE_NEW_MESSAGE = 1;
-    const TYPE_READ = 2;
-    const TYPE_USER_WRITE = 3;
-    const TYPE_STATUS_CHANGE = 5;
-
     /**
      * Returns the static model of the specified AR class.
      * @return MessageLog the static model class
@@ -140,6 +135,8 @@ class MessageLog extends CActiveRecord
         $message->text = $text;
         $message->user_id = $user_id;
         $message->save();
+        //костыль для CTimestampBehavior
+        $message->created = date("Y-m-d H:i:s");
 
         //send to dialog users
         $users = MessageUser::model()->findAll('dialog_id=' . $dialog_id);

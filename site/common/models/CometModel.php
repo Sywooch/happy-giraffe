@@ -7,8 +7,8 @@ class CometModel extends CComponent
 {
     const TYPE_NEW_MESSAGE = 1;
     const TYPE_MESSAGE_READ = 2;
-    const TYPE_STATUS_CHANGE = 3;
-    const TYPE_USER_WRITE_MESSAGE = 4;
+    const TYPE_ONLINE_STATUS_CHANGE = 3;
+    const TYPE_USER_TYPING = 4;
 
     const TYPE_SIGNAL_UPDATE = 5;
     const TYPE_SIGNAL_DECLINE = 6;

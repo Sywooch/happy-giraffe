@@ -10,6 +10,7 @@
  * @property string $author_id
  * @property string $rubric_id
  * @property string $type_id
+ * @property string $preview
  * @property string $meta_title
  * @property string $meta_keywords
  * @property string $meta_description
@@ -60,6 +61,7 @@ class CommunityContent extends CActiveRecord
 			array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
 			array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
 			array('by_happy_giraffe', 'boolean'),
+            array('preview', 'safe'),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -254,8 +256,33 @@ class CommunityContent extends CActiveRecord
         return true;
     }
 
+    public function purify($t)
+    {
+        $p = new CHtmlPurifier();
+        $p->options = array(
+            'URI.AllowedSchemes'=>array(
+                'http' => true,
+                'https' => true,
+            ),
+            'HTML.Nofollow' => true,
+            'HTML.TargetBlank' => true,
+            'HTML.AllowedComments' => array('more' => true),
+
+        );
+        $text = $p->purify($t);
+        $pos = strpos($text, '<!--more-->');
+        $preview = $pos === false ? $text : substr($text, 0, $pos);
+        $preview = $p->purify($preview);
+        $this->preview = $preview;
+        $this->save();
+        unset($p);
+        return $text;
+    }
+
     public function afterSave()
     {
+        if(get_class(Yii::app()) == 'CConsoleApplication')
+            return parent::afterSave();
         if ($this->contentAuthor->isNewComer() && $this->isNewRecord){
             $signal = new UserSignal();
             $signal->user_id = $this->author_id;

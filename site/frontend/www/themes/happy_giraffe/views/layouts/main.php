@@ -52,16 +52,16 @@
 
         realplexor.subscribe(user_cache, function (result, id) {
             console.log(result);
-            if (result.type == ' . MessageLog::TYPE_NEW_MESSAGE . ') {
+            if (result.type == ' . CometModel::TYPE_NEW_MESSAGE . ') {
                 if(window.ShowNewMessage)
                     ShowNewMessage(result);
-            } else if (result.type == ' . MessageLog::TYPE_READ . ') {
+            } else if (result.type == ' . CometModel::TYPE_MESSAGE_READ . ') {
                 if(window.ShowAsRead)
                     ShowAsRead(result);
-            } else if (result.type == ' . MessageLog::TYPE_STATUS_CHANGE . ') {
+            } else if (result.type == ' . CometModel::TYPE_STATUS_CHANGE . ') {
                 if(window.StatusChanged)
                     StatusChanged(result);
-            } else if (result.type == ' . MessageLog::TYPE_USER_WRITE . ') {
+            } else if (result.type == ' . CometModel::TYPE_USER_WRITE_MESSAGE . ') {
                 if(window.ShowUserTyping)
                     ShowUserTyping(result);
             }

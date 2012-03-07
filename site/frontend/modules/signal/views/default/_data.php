@@ -18,7 +18,7 @@
     <?php foreach ($models as $model): ?>
     <tr id="signal<?php echo $model->_id ?>" class="<?php
         if (count($model->executors) + count($model->success) >= $model->currentLimit()) echo 'full' ?>">
-        <td class="icon"><i class="signal-icon icon-cpost"></td>
+        <td class="icon"><i class="signal-icon <?php echo $model->getIcon() ?>"></td>
         <td class="name"><?php echo $model->signalType() ?></td>
         <td><?php echo $model->signalWant() ?></td>
         <td><?php echo $model->getUser()->getFullName() ?></td>

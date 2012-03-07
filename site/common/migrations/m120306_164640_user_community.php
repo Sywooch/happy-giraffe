@@ -4,7 +4,7 @@ class m120306_164640_user_community extends CDbMigration
 {
 	public function up()
 	{
-        $this->execute("RENAME TABLE `happy_giraffe`.`user_communitysdd` TO `happy_giraffe`.`user_community` ;");
+        $this->execute("RENAME TABLE `happy_giraffe`.`user_via_community` TO `happy_giraffe`.`user_community` ;");
         $this->execute("ALTER TABLE `user_community` ADD UNIQUE (
 `user_id` ,
 `community_id`

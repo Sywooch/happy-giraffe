@@ -273,20 +273,6 @@ class CommunityContent extends CActiveRecord
         return parent::afterSave();
     }
 
-    public static function getLink($id)
-    {
-        return '123';
-        $model = self::model()->with(array(
-            'type'=>array(
-                //'select'=>'slug'
-            ),'rubric'=>array(
-                //'select'=>'community_id'
-            )
-        ))->findByPk($id);
-        return Yii::app()->createUrl('community/view', array('community_id' => $model->rubric->community_id,
-            'content_type_slug' => $model->type->slug, 'content_id' => $model->id));
-    }
-
     public function getUrl()
     {
         return Yii::app()->createUrl('community/view', array(

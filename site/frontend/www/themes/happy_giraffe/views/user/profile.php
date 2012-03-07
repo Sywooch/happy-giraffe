@@ -13,6 +13,13 @@
         <div class="user-name">
             <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
             <?php echo $user->getDialogLink(); ?>
+            <?php if (! Yii::app()->user->isGuest && $user->id != Yii::app()->user->id): ?>
+                <?php if ($user->isFriend(Yii::app()->user->id)): ?>
+                    Вы друзья.
+                <?php else: ?>
+                    <?php echo CHtml::link('добавить', array('friendRequests/send', 'to_id' => $user->id)); ?>
+                <?php endif; ?>
+            <?php endif; ?>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>

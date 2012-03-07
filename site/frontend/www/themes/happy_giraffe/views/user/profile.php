@@ -13,6 +13,13 @@
         <div class="user-name">
             <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
             <?php echo $user->getDialogLink(); ?>
+            <?php if (! Yii::app()->user->isGuest && $user->id != Yii::app()->user->id): ?>
+                <?php if ($user->isFriend(Yii::app()->user->id)): ?>
+                    Вы друзья.
+                <?php else: ?>
+                    <?php echo CHtml::link('добавить', array('friendRequests/send', 'to_id' => $user->id)); ?>
+                <?php endif; ?>
+            <?php endif; ?>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>
@@ -38,10 +45,10 @@
             <div class="user-photo">
                 <?php if ($user->id == Yii::app()->user->getId()):?>
                 <a href="<?php echo Yii::app()->createUrl('profile/photo', array('returnUrl'=>urlencode(Yii::app()->createUrl('user/profile', array('user_id'=>Yii::app()->user->getId()))))) ?>">
-                    <img src="<?php echo $user->pic_small->getUrl('bigAva'); ?>" />
+                    <img src="<?php echo $user->getAva('bigAva'); ?>" />
                 </a>
                 <?php else: ?>
-                    <img src="<?php echo $user->pic_small->getUrl('bigAva'); ?>" />
+                    <img src="<?php echo $user->getAva('bigAva'); ?>" />
                 <?php endif ?>
             </div>
 
@@ -109,19 +116,9 @@
 
                     </div>-->
 
-                    <div class="user-clubs clearfix">
-
-                        <div class="box-title">Клубы <a href="">Все клубы (6)</a></div>
-
-                        <?php $clubs = Community::model()->findAll(array('order' => 'id DESC', 'limit' => 6, 'offset' => 1)); ?>
-
-                        <ul>
-                            <?php foreach ($clubs as $c): ?>
-                                <li><?php echo CHtml::link(CHtml::image('/images/community/' . $c->id . '_small.png'), array('community/list', 'community_id' => $c->id)); ?><?php echo CHtml::link($c->name, array('community/list', 'community_id' => $c->id)); ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-
-                    </div>
+                    <?php $this->widget('UserCommunitiesWidget', array(
+                        'user' => $user
+                    )); ?>
 
                     <?php $this->widget('UserAlbumWidget', array('user' => $user,)); ?>
 

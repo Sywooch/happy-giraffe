@@ -26,7 +26,7 @@ class CommunityController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave'),
                 'users'=>array('*'),
             ),
             array('allow',
@@ -514,6 +514,31 @@ class CommunityController extends Controller
                 'content_type_slug' => $c->type->slug,
                 'content_id' => $c->id,
             )));
+        }
+    }
+
+    public function actionJoin($action, $community_id)
+    {
+        $result = ($action == 'join') ? Yii::app()->user->model->addCommunity($community_id) : Yii::app()->user->model->delCommunity($community_id);
+
+        if (Yii::app()->request->isAjaxRequest) {
+            if ($result) {
+                $response = array(
+                    'status' => true,
+                    'button' => $this->renderPartial('_joinButton', array(
+                        'community_id' => $community_id,
+                    ), true),
+                );
+            }
+            else {
+                $response = array(
+                    'status' => false,
+                );
+            }
+
+            echo CJSON::encode($response);
+        } else {
+            $this->redirect(Yii::app()->request->urlReferrer);
         }
     }
 }

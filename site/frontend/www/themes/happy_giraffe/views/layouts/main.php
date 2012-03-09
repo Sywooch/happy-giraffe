@@ -151,5 +151,7 @@
 	<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
 	<noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 	<!-- /Yandex.Metrika counter -->
+
+    Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> с. Скушано памяти: <?=round(memory_get_peak_usage()/(1024*1024),2)."MB"?>
 </body>
 </html>

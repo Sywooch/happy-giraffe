@@ -211,7 +211,7 @@ class Order extends CActiveRecord
 				));
 		}
 
-		return parent::afterSave();
+		parent::afterSave();
 	}
 	
 	public function getPrice()

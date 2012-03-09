@@ -279,8 +279,8 @@ class CommunityContent extends CActiveRecord
             return parent::afterSave();
         if ($this->contentAuthor->isNewComer() && $this->isNewRecord){
             $signal = new UserSignal();
-            $signal->user_id = $this->author_id;
-            $signal->item_id = $this->id;
+            $signal->user_id = (int)$this->author_id;
+            $signal->item_id = (int)$this->id;
             $signal->item_name = 'CommunityContent';
             if ($this->type->slug == 'video')
                 $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
@@ -291,7 +291,12 @@ class CommunityContent extends CActiveRecord
                 Yii::log('NewComers signal not saved', 'warning', 'application');
             }
         }
-        return parent::afterSave();
+        parent::afterSave();
+    }
+
+    public function getPageUrl()
+    {
+        return $this->getUrl();
     }
 
     public function getUrl()

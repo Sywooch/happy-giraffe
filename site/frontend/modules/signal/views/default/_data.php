@@ -10,8 +10,6 @@
         <td>Что происходит?</td>
         <td>От кого</td>
         <td>Поймать</td>
-        <td style="display: none;">Выполняют</td>
-        <td style="display: none;">Нужно исполнителей</td>
     </tr>
     </thead>
     <tbody>
@@ -31,9 +29,6 @@
                 <?php echo $model->getLink() ?> | <a href="" class="remove"></a>
             </div>
         </td>
-        <td class="executors"
-            style="display: none;"><?php echo count($model->executors) + count($model->success) ?></td>
-        <td class="need" style="display: none;"><?php echo $model->currentLimit() ?></td>
     </tr>
         <?php endforeach; ?>
     </tbody>

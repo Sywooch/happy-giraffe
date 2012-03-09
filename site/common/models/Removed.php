@@ -124,6 +124,6 @@ class Removed extends CActiveRecord
     {
         $model = call_user_func(array($this->entity, 'model'));
         $model->updateByPk($this->entity_id, array('removed' => 1));
-        return parent::afterSave();
+        parent::afterSave();
     }
 }

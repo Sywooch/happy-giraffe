@@ -60,9 +60,7 @@
                         $(this).next().show();
 
                     } else {
-                        if (response.status == 2) {
-
-                        }
+                        UpdateSignalData();
                     }
                 },
                 context:$(this)
@@ -77,9 +75,8 @@
                 type:'POST',
                 dataType:'JSON',
                 success:function (response) {
-                    if (response.status == 1) {
-                        $(this).parent().hide();
-                        $(this).parent().prev().show();
+                    if (response.status) {
+                        UpdateSignalData();
                     }
                 },
                 context:$(this)
@@ -91,7 +88,7 @@
             filter = $(this).attr('obj');
             $('.nav li').removeClass('active');
             $(this).parent().addClass('active');
-            UpdateTable();
+            UpdateSignalData();
             return false;
         });
 
@@ -150,41 +147,17 @@
                 context:$(this)
             });
         });
+
+        comet.addEvent(<?php echo CometModel::TYPE_SIGNAL_UPDATE ?>, 'UpdateTable');
+        comet.addEvent(<?php echo CometModel::TYPE_SIGNAL_EXECUTED ?>, 'TaskExecuted');
     });
 
-    function AddExecutor(id) {
-        var count = parseInt($('#signal' + id + ' .executors').html()) + 1;
-        var max = parseInt($('#signal' + id + ' .need').html());
-        $('#signal' + id + ' .executors').html(count);
-        if (count >= max) {
-            $('#signal' + id).addClass('full');
-        }
+    Comet.prototype.UpdateTable = function (result, id) {
+        UpdateSignalData();
     }
 
-    function RemoveExecutor(id) {
-        var count = parseInt($('#signal' + id + ' .executors').html()) - 1;
-        var max = parseInt($('#signal' + id + ' .need').html());
-        $('#signal' + id + ' .executors').html(count);
-        if (count < max) {
-            $('#signal' + id).removeClass('full');
-        }
-    }
-
-    function UpdateTable() {
-        $.ajax({
-            url:'<?php echo Yii::app()->createUrl("/signal/default/index") ?>',
-            type:'POST',
-            data:{filter:filter},
-            success:function (response) {
-                $('.main-list').html(response);
-            }
-        });
-    }
-
-    function TaskExecuted(id) {
-        $('#signal' + id + ' .taken').hide();
-        $('#signal' + id + ' .take-task').hide();
-        $('#signal' + id + ' .executed').show();
+    Comet.prototype.TaskExecuted = function (result, id) {
+        UpdateSignalData();
     }
 
     function AddZero(num) {
@@ -193,5 +166,18 @@
             return '0' + num.toString();
         else
             return num.toString();
+    }
+
+    function UpdateSignalData() {
+        $.ajax({
+            url:'<?php echo Yii::app()->createUrl("/signal/default/index") ?>',
+            type:'POST',
+            data:{filter:filter},
+            dataType:'JSON',
+            success:function (response) {
+                $('div.main-list').html(response.tasks);
+                $('div.fast-list').html(response.history);
+            }
+        });
     }
 </script>

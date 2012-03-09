@@ -216,7 +216,7 @@ class Contest extends CActiveRecord
 		$this->contest_from_time = preg_replace('/(\d{4})-(\d{2})-(\d{2})/', '$3.$2.$1', $this->contest_from_time);
 		$this->contest_till_time = preg_replace('/(\d{4})-(\d{2})-(\d{2})/', '$3.$2.$1', $this->contest_till_time);
 
-		return parent::afterSave();
+		parent::afterSave();
 	}
 
 	protected function afterFind()

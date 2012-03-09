@@ -22,8 +22,32 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $filter = Yii::app()->request->getPost('filter');
+        if ($filter == 'null')
+            $filter = null;
+
+        //5 новых статей
         $criteria = new EMongoCriteria;
         $criteria->addCond('status', '==', UserSignal::STATUS_OPEN);
+        $criteria->addCond('success', '<>', (int)Yii::app()->user->getId());
+        $criteria->addCond('executors', '<>', (int)Yii::app()->user->getId());
+        $criteria->addCond('full', '==', false);
+        $criteria->limit(5);
+
+        $criteria->setSort(array(
+            'priority' => EMongoCriteria::SORT_ASC,
+            'user_priority' => EMongoCriteria::SORT_ASC,
+            '_id' => EMongoCriteria::SORT_DESC,
+        ));
+        if (!empty($filter))
+            $criteria->addCond('signal_type', '==', (int)$filter);
+
+        $models = UserSignal::model()->findAll($criteria);
+
+        //плюс те, которые он выполняет
+        $criteria = new EMongoCriteria;
+        $criteria->addCond('status', '==', UserSignal::STATUS_OPEN);
+        $criteria->addCond('executors', '==', (int)Yii::app()->user->getId());
+        $criteria->addCond('success', '<>', (int)Yii::app()->user->getId());
         $criteria->limit(5);
 
         $criteria->setSort(array(
@@ -33,15 +57,15 @@ class DefaultController extends Controller
         if (!empty($filter))
             $criteria->addCond('signal_type', '==', (int)$filter);
 
-        $models = UserSignal::model()->findAll($criteria);
+        $models2 = UserSignal::model()->findAll($criteria);
 
+        $models = array_merge($models2, $models);
         if (Yii::app()->request->isAjaxRequest) {
             $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), date("Y-m-d"), 5);
                 $response = array(
                     'status' => true,
-                    'html'=>            $this->renderPartial('_data', array(
-                        'models' => $models,
-                    ), true)
+                    'tasks'=> $this->renderPartial('_data', array('models' => $models), true),
+                    'history'=> $this->renderPartial('_history', array('history' => $history), true)
                 );
 
             echo CJSON::encode($response);
@@ -58,7 +82,7 @@ class DefaultController extends Controller
     {
         $signal_id = Yii::app()->request->getPost('id');
         $signal = $this->loadModel($signal_id);
-        if ($signal->UserCanTake(Yii::app()->user->getId())) {
+        if (!$signal->full) {
             $signal->AddExecutor(Yii::app()->user->getId());
             $response = array(
                 'status' => 1,
@@ -111,5 +135,12 @@ class DefaultController extends Controller
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
+    }
+
+    public function actionTest()
+    {
+        $r1 = array(1,4,5,6,7);
+        array_shift($r1);
+        var_dump($r1);
     }
 }

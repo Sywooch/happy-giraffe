@@ -72,17 +72,17 @@ class JapanCalendarForm extends CFormModel
     public function AttributeLabels()
     {
         return array(
-            'father_m'=>'Месяц рождения отца',
-            'mother_m'=>'Месяц рождения матери',
-            'baby_d'=>'День зачатия ребенка',
-            'baby_m'=>'Месяц зачатия ребенка',
+            'father_m'=>'месяц рождения отца ребенка',
+            'mother_m'=>'месяц рождения матери',
+            'baby_d'=>'день зачатия ребенка',
+            'baby_m'=>'месяц зачатия ребенка',
         );
     }
 
     public function rules()
     {
         return array(
-            array('father_m, mother_m, baby_m, baby_d', 'required'),
+            array('father_m, mother_m, baby_m, baby_d', 'required', 'message'=>'Выберите из списка {attribute}'),
             array('review_month, baby_d, baby_m', 'safe'),
         );
     }

@@ -162,10 +162,14 @@ $model = new EmbroideryCostForm();
                 </label>
             </p>
 
+            <div>
             <p class="children">
+
                 <label>Количество цветов в схеме:</label>
                 <?php echo $form->textField($model, 'colors_count', array('disabled' => 'disabled','id'=>'ch1f')) ?>
+                <?php echo $form->error($model, 'colors_count'); ?>
             </p>
+            </div>
 
             <p>
                 <input type="checkbox" id="ch2" name="ch2" class="CheckBoxClass"/>
@@ -229,6 +233,7 @@ $model = new EmbroideryCostForm();
             <p class="children">
                 <label>Стоимость вашего дизайна:</label>
                 <input type="text" id="ch7f" value="0" disabled="disabled" name="ch7f"/>
+                <?php echo $form->error($model, 'colors_count'); ?>
             </p>
         </div>
 

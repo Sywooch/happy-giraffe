@@ -41,7 +41,9 @@ class BagItem extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, description, for, category_id', 'required'),
+			array('for, category_id', 'required'),
+            array('name', 'required', 'message'=>'Напишите, что ещё нужно взять в роддом'),
+            array('description', 'required', 'message'=>'А для чего это нужно?'),
 			array('name', 'length', 'max' => 255),
 			array('approved, for', 'boolean'),
 			array('category_id', 'numerical', 'integerOnly' => true),

@@ -51,16 +51,19 @@
             <?php echo ($name->gender == 1)?'мужское':'женское' ?></span></p>
 
         <div class="plashka">
-<!--            <p class="variants">Варианты имени --><?php //echo $name->name; ?><!--, ласковое обращение</p>-->
             <?php if (!empty($name->options)):?>
                 <p><span>Варианты имени <?php echo $name->name; ?>:</span> <?php echo $name->options; ?></p>
             <?php endif ?>
-            <p><span>Ласковое обращение <?php echo $name->name; ?>:</span> <?php echo $name->sweet; ?></p>
+            <?php if (!empty($name->sweet)):?>
+                <p><span>Ласковое обращение <?php echo $name->name; ?>:</span> <?php echo $name->sweet; ?></p>
+            <?php endif ?>
         </div>
 
-        <h2>Характеристика имени <?php echo $name->name; ?></h2>
+        <?php if (!empty($name->description)):?>
+            <h2>Характеристика имени <?php echo $name->name; ?></h2>
 
-        <p><?php echo $name->description ?></p>
+            <p><?php echo $name->description ?></p>
+        <?php endif ?>
 
         <?php if (!empty($name->middle_names)):?>
             <h2>Подходящие отчества к имени <?php echo $name->name; ?></h2>

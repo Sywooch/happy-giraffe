@@ -11,8 +11,6 @@ class CometModel extends CComponent
     const TYPE_USER_TYPING = 4;
 
     const TYPE_SIGNAL_UPDATE = 5;
-    const TYPE_SIGNAL_DECLINE = 6;
-    const TYPE_SIGNAL_TAKEN = 7;
     const TYPE_SIGNAL_EXECUTED = 8;
 
     public $attributes = array();

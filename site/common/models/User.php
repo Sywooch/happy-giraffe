@@ -239,7 +239,7 @@ class User extends CActiveRecord
 
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
 
-            'communitiesCount'=>array(self::STAT, 'Community', 'user_community(user_id, community_id)'),
+            'communitiesCount' => array(self::STAT, 'Community', 'user_community(user_id, community_id)'),
         );
     }
 
@@ -320,10 +320,16 @@ class User extends CActiveRecord
         }
         if (!$this->isNewRecord) {
             $this->register_date = date("Y-m-d H:i:s");
-            //            User::model()->cache(0)->findByPk($this->id);
-            //            Yii::app()->cache->delete('User_' . $this->id);
             self::clearCache($this->id);
+        } else {
+            $signal = new UserSignal();
+            $signal->user_id = (int)$this->id;
+            $signal->signal_type = UserSignal::TYPE_NEW_USER_REGISTER;
+            $signal->item_name = 'User';
+            $signal->item_id = (int)$this->id;
+            $signal->save();
         }
+        return true;
     }
 
     public function hashPassword($password)
@@ -459,11 +465,11 @@ class User extends CActiveRecord
                 'big' => '-blue.png',
             );
             if ($this->gender == 1)
-                return '/images/1'.$pic_urls[$size];
+                return '/images/1' . $pic_urls[$size];
             elseif ($this->gender == 0)
-                return '/images/2'.$pic_urls[$size];
+                return '/images/2' . $pic_urls[$size];
             else
-                return '/images/3'.$pic_urls[$size];
+                return '/images/3' . $pic_urls[$size];
         }
         else
             return $url;
@@ -599,24 +605,11 @@ class User extends CActiveRecord
     {
         //если много пишет, то наивысший приоритет 6
         if (Comment::getUserAvarageCommentsCount($this) > 10)
-            return 6;
+            return 1;
 
         //с каждой неделей пребывания на сервере приоритет уменьшается
         $weeks_gone = floor((strtotime(date("Y-m-d H:i:s")) - strtotime($this->register_date)) / 604800);
-        switch ($weeks_gone) {
-            case 0:
-                return 5;
-            case 1:
-                return 4;
-            case 2:
-                return 3;
-            case 3:
-                return 2;
-            case 4:
-                return 1;
-            default:
-                return 0;
-        }
+        return $weeks_gone + 2;
     }
 
     public function isNewComer()
@@ -768,6 +761,11 @@ class User extends CActiveRecord
                 return $this->isFriend($user_id) || $user_id == $this->id;
                 break;
         }
+    }
+
+    public function getPageUrl()
+    {
+        return Yii::app()->createUrl('user/profile', array('user_id' => $this->id));
     }
 
     public function getProfileUrl()

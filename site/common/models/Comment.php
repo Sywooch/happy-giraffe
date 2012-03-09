@@ -150,7 +150,7 @@ class Comment extends CActiveRecord
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
         }
-        return parent::afterSave();
+        parent::afterSave();
     }
 
     public function beforeSave()

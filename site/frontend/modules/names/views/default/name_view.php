@@ -50,6 +50,7 @@
         <p class="name">Имя: <span class="<?php echo ($name->gender == 1)?'boy':'girl' ?>">
             <?php echo ($name->gender == 1)?'мужское':'женское' ?></span></p>
 
+    <?php if (!empty($name->options) || !empty($name->sweet)):?>
         <div class="plashka">
             <?php if (!empty($name->options)):?>
                 <p><span>Варианты имени <?php echo $name->name; ?>:</span> <?php echo $name->options; ?></p>
@@ -58,6 +59,7 @@
                 <p><span>Ласковое обращение <?php echo $name->name; ?>:</span> <?php echo $name->sweet; ?></p>
             <?php endif ?>
         </div>
+    <?php endif ?>
 
         <?php if (!empty($name->description)):?>
             <h2>Характеристика имени <?php echo $name->name; ?></h2>

@@ -27,7 +27,7 @@ class OvulationForm extends CFormModel
     public function rules()
     {
         return array(
-            array('day, month, year, cycle, con_day, con_month, con_year', 'required'),
+            array('day, month, year, cycle, con_day, con_month, con_year', 'required', 'message'=>'Выберите из списка {attribute}'),
             array('review_month, review_year, con_day, con_month, con_year', 'safe'),
         );
     }
@@ -35,13 +35,13 @@ class OvulationForm extends CFormModel
     public function AttributeLabels()
     {
         return array(
-            'cycle'=>'Длительность менструального цикла',
-            'day'=>'День первого дня менструации предыдущего цикла',
-            'month'=>'Месяц первого дня менструации предыдущего цикла',
-            'year'=>'Год первого дня менструации предыдущего цикла',
-            'con_day'=>'День зачатия ребенка',
-            'con_month'=>'Месяц зачатия ребенка',
-            'con_year'=>'Год зачатия ребенка',
+            'cycle'=>'среднюю длительность своего менструального цикла',
+            'day'=>'день начала последней менструации',
+            'month'=>'месяц начала последней менструации',
+            'year'=>'год начала последней менструации',
+            'con_day'=>'день зачатия ребенка',
+            'con_month'=>'месяц зачатия ребенка',
+            'con_year'=>'год зачатия ребенка',
         );
     }
 

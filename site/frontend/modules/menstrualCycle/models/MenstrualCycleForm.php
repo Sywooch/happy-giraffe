@@ -27,9 +27,7 @@ class MenstrualCycleForm extends CFormModel
     public function rules()
     {
         return array(
-            array('day, month, year', 'required', 'message'=>'Укажите {attribute} первого дня менструации предыдущего цикла'),
-            array('cycle', 'required', 'message'=>'Укажите среднюю длительность вашего менструального цикла'),
-            array('critical_period', 'required', 'message'=>'Укажите среднюю длительно менструации'),
+            array('day, month, year, cycle, critical_period', 'required', 'message'=>'Выберите из списка {attribute}'),
             array('review_month, review_year', 'safe'),
         );
     }
@@ -37,9 +35,11 @@ class MenstrualCycleForm extends CFormModel
     public function AttributeLabels()
     {
         return array(
-            'day'=>'день',
-            'month'=>'месяц',
-            'year'=>'год',
+            'critical_period'=>'среднюю длительность вашей менструации',
+            'cycle'=>'среднюю длительность вашего менструального цикла',
+            'day'=>'день начала менструации предыдущего цикла',
+            'month'=>'месяц, в котором началась менструация предыдущего цикла',
+            'year'=>'год, в котором началась менструация предыдущего цикла',
         );
     }
 

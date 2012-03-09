@@ -21,19 +21,19 @@ class EmbroideryCostForm extends CFormModel
     public function rules()
     {
         return array(
-            array('width, height, cross_price, material_price', 'required'),
-            array('width, height, canva, colors_count', 'numerical', 'integerOnly' => true),
-            array('cross_price, material_price, design_price', 'numerical'),
+            array('width, height, cross_price, material_price', 'required', 'message'=>'Введите {attribute}'),
+            array('width, height, canva, colors_count', 'numerical', 'integerOnly' => true, 'message'=>'Вводите только цифры'),
+            array('cross_price, material_price, design_price', 'numerical', 'message'=>'Вводите только цифры'),
         );
     }
 
     public function AttributeLabels()
     {
         return array(
-            'width'=>'Ширина картины в "крестиках"',
-            'height'=>'Высота картины в "крестиках"',
-            'cross_price'=>'Стоимость одного "крестика"',
-            'material_price'=>'Стоимость материала',
+            'width'=>'ширину картины в крестиках',
+            'height'=>'высоту картины в крестиках',
+            'cross_price'=>'стоимость одного крестика в рублях',
+            'material_price'=>'стоимость материалов в рублях',
             'design_price'=>'Стоимость дизайна',
             'colors_count'=>'Количество цветов',
             'canva'=>'Размер канвы',

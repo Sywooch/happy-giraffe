@@ -14,17 +14,17 @@ class YarnCalcForm extends CFormModel
     public function rules()
     {
         return array(
-            array('project, size, gauge', 'required'),
-            array('project, size, gauge', 'numerical', 'integerOnly' => true),
+            array('project, size, gauge', 'required', 'message' => 'Выберите из списка {attribute}'),
+            array('project, size, gauge', 'numerical', 'integerOnly' => true, 'message' => 'Вводите только цифры'),
         );
     }
 
     public function AttributeLabels()
     {
         return array(
-            'project'=>'Проект',
-            'size'=>'Размер',
-            'gauge'=>'Количество петель',
+            'project' => 'то изделие, которое Вы хотите связать',
+            'size' => 'нужный размер изделия',
+            'gauge' => 'сколько петель умещается в 10 сантиметрах изделия',
         );
     }
 
@@ -40,7 +40,8 @@ class YarnCalcForm extends CFormModel
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
     }
 
-    public function GetResult(){
+    public function GetResult()
+    {
         $result = Yii::app()->db->createCommand()
             ->select('value')
             ->from('yarn')

@@ -72,8 +72,8 @@ Yii::app()->clientScript->registerScript('placenta-thickness', $js);
             <div class="input-box">
                 <?php echo $form->textField($model, 'thickness') ?>
                 <span class="units">мм</span>
+                <div><?php echo $form->error($model, 'thickness') ?></div>
             </div>
-            <div><?php echo $form->error($model, 'thickness') ?></div>
         </div>
         <input type="submit" class="placenta_submit" value="Определить"/>
         <?php $this->endWidget(); ?>

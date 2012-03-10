@@ -37,6 +37,12 @@
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
 
+      Comet.prototype.testfunc = function(result, id) {
+          alert(result.text);
+      }
+
+      comet.addEvent(100, 'testfunc');
+
 	</script>
 
     <?php

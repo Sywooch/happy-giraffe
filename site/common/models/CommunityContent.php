@@ -275,19 +275,23 @@ class CommunityContent extends CActiveRecord
 
     public function afterSave()
     {
-        if(get_class(Yii::app()) == 'CConsoleApplication')
+        if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();
-        if ($this->contentAuthor->isNewComer() && $this->isNewRecord){
+        if ($this->contentAuthor->isNewComer() && $this->isNewRecord) {
             $signal = new UserSignal();
             $signal->user_id = (int)$this->author_id;
             $signal->item_id = (int)$this->id;
             $signal->item_name = 'CommunityContent';
-            if ($this->type->slug == 'video')
-                $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
-            else
-                $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
 
-            if (!$signal->save()){
+            if ($this->rubric->user_id != null) {
+                if ($this->type->slug == 'video')
+                    $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
+                else
+                    $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
+            } else
+                $signal->signal_type = UserSignal::TYPE_NEW_BLOG_POST;
+
+            if (!$signal->save()) {
                 Yii::log('NewComers signal not saved', 'warning', 'application');
             }
         }

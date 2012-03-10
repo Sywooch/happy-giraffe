@@ -119,6 +119,8 @@ class UserSignal extends EMongoDocument
                     $this->limits = array(rand(4, 6), rand(4, 6));
                 } elseif ($this->signal_type == self::TYPE_NEW_USER_VIDEO) {
                     $this->limits = array(rand(4, 6), rand(4, 6));
+                } elseif ($this->signal_type == self::TYPE_NEW_BLOG_POST) {
+                    $this->limits = array(rand(4, 6), rand(4, 6));
                 } elseif ($this->signal_type == self::TYPE_NEW_USER_PHOTO) {
                     $this->limits = array(rand(4, 6), rand(4, 6));
                 } elseif ($this->signal_type == self::TYPE_NEW_USER_REGISTER) {
@@ -369,11 +371,11 @@ class UserSignal extends EMongoDocument
         if ($this->signal_type == self::TYPE_NEW_USER_POST) {
             $text .= CHtml::link('Запись в клубе', $this->getUrl());
         } elseif ($this->signal_type == self::TYPE_NEW_BLOG_POST) {
-            $text .= CHtml::link('Запись в блоге', '#');
+            $text .= CHtml::link('Запись в блоге', $this->getUrl());
         } elseif ($this->signal_type == self::TYPE_NEW_USER_VIDEO) {
             $text .= CHtml::link('Видео в клубе', $this->getUrl());
         } elseif ($this->signal_type == self::TYPE_NEW_USER_PHOTO) {
-            $text .= CHtml::link('Фото в анкете', '#');
+            $text .= CHtml::link('Фото в анкете', $this->getUrl());
         } elseif ($this->signal_type == self::TYPE_NEW_USER_REGISTER) {
             $text = 'Написал в гостевую ' . CHtml::link('Анкета пользователя',
                 Yii::app()->createUrl('user/profile', array('user_id' => $this->user_id)));

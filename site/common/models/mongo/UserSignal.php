@@ -222,6 +222,11 @@ class UserSignal extends EMongoDocument
             if ($this->full)
                 $this->SendUpdateSignal();
         }
+
+        $response = new UserSignalResponse;
+        $response->user_id = (int)$user_id;
+        $response->task_id = $this->_id;
+        $response->save();
     }
 
     /**
@@ -397,14 +402,19 @@ class UserSignal extends EMongoDocument
         return '';
     }
 
-    public static function SendUpdateSignal()
+    public static function SendUpdateSignal($user_id = null)
     {
-        $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
-
         $comet = new CometModel();
         $comet->type = CometModel::TYPE_SIGNAL_UPDATE;
-        foreach ($moderators as $moderator) {
-            $comet->send($moderator->userid);
+        if ($user_id === null) {
+            $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
+
+            foreach ($moderators as $moderator) {
+                $comet->send($moderator->userid);
+            }
+        } else {
+            $comet->send($user_id);
         }
     }
+
 }

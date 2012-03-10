@@ -401,8 +401,7 @@ class CommunityController extends Controller
 
     public function getContentUrls()
     {
-        Yii::app()->log->routes[0]->enabled = false;
-        $models = CommunityContent::model()->findAll();
+        $models = CommunityContent::model()->with(array('rubric.community'))->findAll();
         $data = array();
         foreach ($models as $model)
         {
@@ -412,9 +411,10 @@ class CommunityController extends Controller
                     'content_type_slug' => $model->type->slug,
                     'content_id' => $model->id,
                 ),
+
+                'lastmod' => $model->created,
             );
         }
-
         return $data;
     }
 
@@ -424,10 +424,17 @@ class CommunityController extends Controller
         $data = array();
         foreach ($models as $model)
         {
+            $lastmod = CommunityContent::model()->with('rubric.community')->find(array(
+                'condition' => 'community_id = :community_id',
+                'params' => array(':community_id' => $model->id),
+                'order' => 'created DESC',
+            ));
             $data[] = array(
                 'params'=>array(
                     'community_id' => $model->id,
                 ),
+
+                'lastmod' => $lastmod->created,
             );
         }
         return $data;

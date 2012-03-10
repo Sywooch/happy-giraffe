@@ -13,7 +13,7 @@ class UserSignalHistory extends EMongoDocument
 
     public function getCollectionName()
     {
-        return 'userSignalsHistory';
+        return 'user_signals_history';
     }
 
     /**

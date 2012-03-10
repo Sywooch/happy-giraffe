@@ -14,12 +14,12 @@ class UserSignalResponse extends EMongoDocument
 
     public function getCollectionName()
     {
-        return 'UserSignalResponse';
+        return 'user_signal_response';
     }
 
     public function beforeSave()
     {
-        $this->time = strtotime(date("Y-m-d H:i:s") );
+        $this->time = time();
         return parent::beforeSave();
     }
 
@@ -32,7 +32,7 @@ class UserSignalResponse extends EMongoDocument
     public static function CheckLate()
     {
         $criteria = new EMongoCriteria;
-        $criteria->addCond('time', '<', strtotime(date("Y-m-d H:i:s") )- self::EXECUTE_LIMIT_TIME);
+        $criteria->addCond('time', '<', time()- self::EXECUTE_LIMIT_TIME);
 
         $models = self::model()->findAll($criteria);
         foreach($models as $model){

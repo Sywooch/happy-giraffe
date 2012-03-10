@@ -2,7 +2,7 @@
 
 return array(
 	'schemaCachingDuration' => 3600,
-	'enableProfiling' => true,
+	'enableProfiling' => false,
 	'enableParamLogging' => true,
 	'tablePrefix'=> '',
 );

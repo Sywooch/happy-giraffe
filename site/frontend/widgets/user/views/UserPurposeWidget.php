@@ -10,13 +10,19 @@
         $('div.user-purpose').delegate('form', 'submit', function(e) {
             e.preventDefault();
             $.ajax({
+                dataType: 'JSON',
                 type: 'POST',
                 url: $(this).attr('action'),
                 data: $(this).serialize(),
                 success: function(response) {
-                    $('div.purpose-container').html(response);
-                    $('div.user-purpose > form').hide();
-                    $('div.user-purpose > form > textarea[name=text]').val('');
+                    if (response.status) {
+                        $('div.purpose-container').html(response.html);
+                        $('div.user-purpose > form').hide();
+                        $('div.user-purpose > form > textarea[name=text]').val('');
+                        $('div.user-purpose').removeClass('error');
+                    } else {
+                        $('div.user-purpose').addClass('error');
+                    }
                 }
             });
         });

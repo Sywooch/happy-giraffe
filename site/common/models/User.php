@@ -793,4 +793,17 @@ class User extends CActiveRecord
             ->where('user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id))
             ->queryScalar() != 0;
     }
+
+    public function getScores()
+    {
+        Yii::import('site.frontend.modules.scores.models.*');
+        $model = UserScores::model()->findByPk($this->id);
+        if ($model === null){
+            $model = new UserScores;
+            $model->user_id = $this->id;
+            $model->save();
+        }
+
+        return $model;
+    }
 }

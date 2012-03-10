@@ -254,12 +254,12 @@ return array(
                     'sitemap.xml' => array(
                         'aliases' => array(
                             'application.controllers',
-                            //'application.modules.pregnancyWeight.controllers',
-                            //'application.modules.contractionsTime.controllers',
-                            //'application.modules.placentaThickness.controllers',
-                            //'application.modules.vaccineCalendar.controllers',
-                            //'application.modules.menstrualCycle.controllers',
-                            //'application.modules.babyBloodGroup.controllers',
+                            'application.modules.pregnancyWeight.controllers',
+                            'application.modules.contractionsTime.controllers',
+                            'application.modules.placentaThickness.controllers',
+                            'application.modules.vaccineCalendar.controllers',
+                            'application.modules.menstrualCycle.controllers',
+                            'application.modules.babyBloodGroup.controllers',
                         ),
                     ),
                 ),

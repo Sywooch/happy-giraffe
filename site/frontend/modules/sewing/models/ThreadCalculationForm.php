@@ -12,17 +12,18 @@ class ThreadCalculationForm extends CFormModel
     public function rules()
     {
         return array(
-            array('cross_count, threads_num, canva', 'required'),
-            array('cross_count, threads_num, canva', 'numerical', 'integerOnly' => true),
+            array('cross_count', 'required', 'message' => 'Укажите {attribute}'),
+            array('threads_num, canva', 'required', 'message' => 'Выберите из списка {attribute}'),
+            array('cross_count, threads_num, canva', 'numerical', 'integerOnly' => true, 'message' => 'Вводите только цифры'),
         );
     }
 
     public function AttributeLabels()
     {
         return array(
-            'cross_count' => 'Количество крестиков',
-            'threads_num' => 'Сложений нити',
-            'canva' => 'Номер канвы Aida',
+            'cross_count' => 'общее количество крестиков в работе',
+            'threads_num' => 'сколько сложений нити Вы будете использовать для вышивки',
+            'canva' => 'номер канвы, планируемой для вышивания',
         );
     }
 }

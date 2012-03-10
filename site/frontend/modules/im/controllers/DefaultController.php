@@ -219,10 +219,11 @@ class DefaultController extends Controller
     {
         $dialog_id = Yii::app()->request->getPost('dialog_id');
         $user_to = Im::model()->GetDialogUser($dialog_id);
-        Yii::app()->comet->send(MessageCache::GetUserCache($user_to->id), array(
-            'type' => MessageLog::TYPE_USER_WRITE,
-            'dialog_id' => $dialog_id
-        ));
+
+        $comet = new CometModel();
+        $comet->type = CometModel::TYPE_USER_TYPING;
+        $comet->attributes = array('dialog_id' => $dialog_id);
+        $comet->send($user_to->id);
     }
 
     public function actionOpenedDialog()

@@ -413,6 +413,8 @@ class CommunityController extends Controller
                 ),
             );
         }
+        print_r($data);
+        die;
         return $data;
     }
 

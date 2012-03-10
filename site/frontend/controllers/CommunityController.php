@@ -401,6 +401,7 @@ class CommunityController extends Controller
 
     public function getContentUrls()
     {
+        Yii::app()->log->routes[0]->enabled = false;
         $models = CommunityContent::model()->findAll();
         $data = array();
         foreach ($models as $model)

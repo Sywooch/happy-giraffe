@@ -401,30 +401,17 @@ class CommunityController extends Controller
 
     public function getContentUrls()
     {
-        $models = CommunityContent::model()->findAll(array(
-            'with' => array(
-                'rubric' => array(
-                    'select' => 'id',
-                    'with' => array(
-                        'community' => array(
-                            'select' => 'id',
-                        ),
-                    ),
-                ),
-                'type' => array(
-                    'select' => 'slug',
-                )
-            ),
-        ));
-        $data = array();
+        $models = Yii::app()->db->createCommand()
+            ->select('club_community_content.id AS content_id, club_community_rubric.community_id AS community_id, club_community_content_type.slug AS content_type_slug')
+            ->from('club_community_content')
+            ->join('club_community_rubric', 'club_community_content.rubric_id = club_community_rubric.id')
+            ->join('club_community_content_type', 'club_community_content.type_id = club_community_content_type.id')
+            ->order('club_community_content.id ASC')
+            ->queryAll();
         foreach ($models as $model)
         {
             $data[] = array(
-                'params'=>array(
-                    'community_id' => $model->rubric->community->id,
-                    'content_type_slug' => $model->type->slug,
-                    'content_id' => $model->id,
-                ),
+                'params' => $model,
             );
         }
         return $data;
@@ -432,21 +419,15 @@ class CommunityController extends Controller
 
     public function getCommunityUrls()
     {
-        $models = Community::model()->findAll();
-        $data = array();
+        $models = Yii::app()->db->createCommand()
+            ->select('club_community.id AS community_id')
+            ->from('club_community')
+            ->order('club_community.id ASC')
+            ->queryAll();
         foreach ($models as $model)
         {
-            $lastmod = CommunityContent::model()->with('rubric.community')->find(array(
-                'condition' => 'community_id = :community_id',
-                'params' => array(':community_id' => $model->id),
-                'order' => 'created DESC',
-            ));
             $data[] = array(
-                'params'=>array(
-                    'community_id' => $model->id,
-                ),
-
-                'lastmod' => $lastmod->created,
+                'params' => $model,
             );
         }
         return $data;

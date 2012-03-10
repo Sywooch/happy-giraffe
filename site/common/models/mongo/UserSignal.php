@@ -103,7 +103,7 @@ class UserSignal extends EMongoDocument
 
     public function getCollectionName()
     {
-        return 'userSignals';
+        return 'user_signals';
     }
 
     public function beforeSave()
@@ -328,6 +328,7 @@ class UserSignal extends EMongoDocument
     public static function CheckComment($comment)
     {
         if (Yii::app()->user->checkAccess('user_signals')) {
+            Yii::import('site.frontend.modules.signal.models.*');
             self::CheckTask($comment->entity, $comment->entity_id, Yii::app()->user->getId());
         }
     }

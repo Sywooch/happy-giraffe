@@ -97,6 +97,7 @@ return array(
         'im',
         'geo',
         'signal',
+        'scores',
 	),
 
 	// application components

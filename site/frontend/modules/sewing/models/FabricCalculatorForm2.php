@@ -14,9 +14,10 @@ class FabricCalculatorForm2 extends CFormModel
     public function rules()
     {
         return array(
-            array('width, height, additional, canva', 'required'),
-            array('width, height, threads_num, canva', 'numerical', 'integerOnly' => true),
-            array('additional', 'numerical'),
+            array('width, height', 'required', 'message'=>'Укажите {attribute}'),
+            array('canva', 'required', 'message'=>'Выберите из списка {attribute}'),
+            array('canva', 'numerical', 'integerOnly' => true, 'message'=>'Вводите только цифры'),
+            array('additional', 'numerical', 'message' => 'Вводите только цифры (допустимы дробные числа)'),
         );
     }
 
@@ -29,11 +30,10 @@ class FabricCalculatorForm2 extends CFormModel
     public function AttributeLabels()
     {
         return array(
-            'width' => 'Ширина схемы в стяжках',
-            'height' => 'Высота схемы в стяжках',
-            'threads_num' => 'Количество нитей для одного "креста"',
-            'additional' => 'Припуски',
-            'canva' => 'Номер ткани',
+            'width' => 'ширину изделия в стежках',
+            'height' => 'высоту изделия в стежках',
+            'additional' => 'сколько сантиметров будет от края вышивки до края изделия',
+            'canva' => 'номер ткани, на которой Вы планируете вышивать',
         );
     }
 }

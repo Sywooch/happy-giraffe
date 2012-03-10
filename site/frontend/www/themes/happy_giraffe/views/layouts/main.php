@@ -45,29 +45,8 @@
     Yii::app()->clientScript
     ->registerScriptFile('/javascripts/dklab_realplexor.js')
     ->registerScript('Realplexor-reg', '
-        var user_cache = "' . MessageCache::GetCurrentUserCache() . '";
-        var realplexor = new Dklab_Realplexor(
-            "http://' . Yii::app()->comet->host . '",
-            "' . Yii::app()->comet->namespace . '"
-        );
-
-        realplexor.subscribe(user_cache, function (result, id) {
-            console.log(result);
-            if (result.type == ' . MessageLog::TYPE_NEW_MESSAGE . ') {
-                if(window.ShowNewMessage)
-                    ShowNewMessage(result);
-            } else if (result.type == ' . MessageLog::TYPE_READ . ') {
-                if(window.ShowAsRead)
-                    ShowAsRead(result);
-            } else if (result.type == ' . MessageLog::TYPE_STATUS_CHANGE . ') {
-                if(window.StatusChanged)
-                    StatusChanged(result);
-            } else if (result.type == ' . MessageLog::TYPE_USER_WRITE . ') {
-                if(window.ShowUserTyping)
-                    ShowUserTyping(result);
-            }
-        });
-        realplexor.execute();
+    comet.connect("http://' . Yii::app()->comet->host . '", "' . Yii::app()->comet->namespace . '",
+                  "' . MessageCache::GetCurrentUserCache() . '");
 ');
     }
     ?>
@@ -172,5 +151,7 @@
 	<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
 	<noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 	<!-- /Yandex.Metrika counter -->
+
+    Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> с. Скушано памяти: <?=round(memory_get_peak_usage()/(1024*1024),2)."MB"?>
 </body>
 </html>

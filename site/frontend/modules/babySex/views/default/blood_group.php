@@ -85,7 +85,7 @@ Yii::app()->clientScript->registerScript('babyGender-blood-group', $js);
                 </ul>
                 <?php echo CHtml::hiddenField('father_blood_group', '', array('id' => 'father_blood_group')) ?>
             </div>
-            <div style="display: none;" id="man_bl_em_" class="errorMessage">Укажите группу крови отца.</div>
+            <div style="display: none;" id="man_bl_em_" class="errorMessage">Выберите группу крови отца</div>
             <!-- .ch_group -->
         </div>
         <!-- .gr_bl -->
@@ -101,7 +101,7 @@ Yii::app()->clientScript->registerScript('babyGender-blood-group', $js);
                 </ul>
                 <?php echo CHtml::hiddenField('mother_blood_group', '', array('id' => 'mother_blood_group')) ?>
             </div>
-            <div style="display: none;" id="woman_bl_em_" class="errorMessage">Укажите группу крови матери.</div>
+            <div style="display: none;" id="woman_bl_em_" class="errorMessage">Выберите группу крови матери</div>
             <!-- .ch_group -->
         </div>
         <!-- .gr_bl -->

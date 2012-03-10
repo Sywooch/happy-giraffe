@@ -62,7 +62,7 @@ class CommunityContent extends CActiveRecord
 			array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
 			array('by_happy_giraffe', 'boolean'),
             array('preview', 'safe'),
-			
+
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, by_happy_giraffe, name, meta_title, meta_description, meta_keywords, created, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
@@ -170,7 +170,7 @@ class CommunityContent extends CActiveRecord
 		));
 		return $this;
 	}
-	
+
 	public function type($type_id)
 	{
 		if ($type_id !== null)
@@ -186,7 +186,7 @@ class CommunityContent extends CActiveRecord
 		}
 		return $this;
 	}
-	
+
 	public function rubric($rubric_id)
 	{
 		if ($rubric_id !== null)
@@ -202,7 +202,7 @@ class CommunityContent extends CActiveRecord
 		}
 		return $this;
 	}
-	
+
 	/*public function scopes()
 	{
 		return array(
@@ -245,13 +245,7 @@ class CommunityContent extends CActiveRecord
         $criteria->item_name = 'CommunityContent';
         $criteria->item_id = $this->id;
         UserSignal::model()->deleteAll($criteria);
-
-        $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
-        foreach ($moderators as $moderator) {
-            Yii::app()->comet->send(MessageCache::GetUserCache($moderator->userid), array(
-                'type' => self::SIGNAL_UPDATE
-            ));
-        }
+        UserSignal::SendUpdateSignal();
 
         return true;
     }
@@ -285,8 +279,8 @@ class CommunityContent extends CActiveRecord
             return parent::afterSave();
         if ($this->contentAuthor->isNewComer() && $this->isNewRecord){
             $signal = new UserSignal();
-            $signal->user_id = $this->author_id;
-            $signal->item_id = $this->id;
+            $signal->user_id = (int)$this->author_id;
+            $signal->item_id = (int)$this->id;
             $signal->item_name = 'CommunityContent';
             if ($this->type->slug == 'video')
                 $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
@@ -297,7 +291,12 @@ class CommunityContent extends CActiveRecord
                 Yii::log('NewComers signal not saved', 'warning', 'application');
             }
         }
-        return parent::afterSave();
+        parent::afterSave();
+    }
+
+    public function getPageUrl()
+    {
+        return $this->getUrl();
     }
 
     public function getUrl()

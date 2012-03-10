@@ -66,11 +66,19 @@ class UserController extends Controller
             $model->text = Yii::app()->request->getPost('text');
             if ($model->save()) {
                 $model->refresh();
-                echo $this->renderPartial('application.widgets.user.views._' . $relation, array(
-                    $relation => $model,
-                    'canUpdate' => true,
-                ));
+                $response = array(
+                    'status' => true,
+                    'html' => $this->renderPartial('application.widgets.user.views._' . $relation, array(
+                        $relation => $model,
+                        'canUpdate' => true,
+                    ), true),
+                );
+            } else {
+                $response = array(
+                    'status' => false,
+                );
             }
+            echo CJSON::encode($response);
         }
     }
 

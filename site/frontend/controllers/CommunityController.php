@@ -185,6 +185,11 @@ class CommunityController extends Controller
 
     public function actionAdd($community_id, $rubric_id = null, $content_type_slug = 'post')
     {
+        if (!Yii::app()->user->checkAccess('createClubPost', array(
+            'user'=>Yii::app()->user->getModel(),
+            'community_id'=>$community_id)))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
         if (! $content_type)
         {

@@ -11,14 +11,20 @@
         $('div.user-status').delegate('form', 'submit', function(e) {
             e.preventDefault();
             $.ajax({
+                dataType: 'JSON',
                 type: 'POST',
                 url: $(this).attr('action'),
                 data: $(this).serialize(),
                 success: function(response) {
-                    $('div.status-container').html(response);
-                    $('div.user-status > form').hide();
-                    $('div.user-status > form > textarea[name=text]').val('');
-                    $('div.status-container').show();
+                    if (response.status) {
+                        $('div.status-container').html(response.html);
+                        $('div.user-status > form').hide();
+                        $('div.user-status > form > textarea[name=text]').val('');
+                        $('div.status-container').show();
+                        $('div.user-status').removeClass('error');
+                    } else {
+                        $('div.user-status').addClass('error');
+                    }
                 }
             });
         });

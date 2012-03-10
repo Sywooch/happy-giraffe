@@ -379,7 +379,21 @@ class CommunityController extends Controller
 
     public function getContentUrls()
     {
-        $models = CommunityContent::model()->with(array('rubric.community'))->findAll();
+        $models = CommunityContent::model()->findAll(array(
+            'with' => array(
+                'rubric' => array(
+                    'select' => 'id',
+                    'with' => array(
+                        'community' => array(
+                            'select' => 'id',
+                        ),
+                    ),
+                ),
+                'type' => array(
+                    'select' => 'slug',
+                )
+            ),
+        ));
         $data = array();
         foreach ($models as $model)
         {
@@ -389,8 +403,6 @@ class CommunityController extends Controller
                     'content_type_slug' => $model->type->slug,
                     'content_id' => $model->id,
                 ),
-
-                'lastmod' => $model->created,
             );
         }
         return $data;

@@ -401,7 +401,7 @@ class CommunityController extends Controller
 
     public function getContentUrls()
     {
-        $models = CommunityContent::model()->findAll(array('limit' => 100));
+        $models = CommunityContent::model()->findAll(array('limit' => 5000));
         $data = array();
         foreach ($models as $model)
         {

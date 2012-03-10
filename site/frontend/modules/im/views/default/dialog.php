@@ -62,6 +62,9 @@ var last_typing_time = 0;
 var scrollBar = null;
 
 $(function () {
+    if(history.replaceState)
+        history.replaceState({ path:window.location.href }, '');
+
     GoTop();
 
     $(window).focus(function () {
@@ -169,6 +172,12 @@ function ChangeDialog(id) {
         $('#dialog-' + id + ' div.meta').hide();
         $('#dialog-' + id + ' div.meta').html('0');
         $('#dialog-' + id).removeClass('new-messages');
+
+        if (typeof(window.history.pushState) == 'function'){
+            var url = "<?php echo $this->createUrl('/im/default/dialog', array('id'=>'')) ?>"+id;
+            window.history.pushState({ path: url },'',url);
+        }
+
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("im/default/ajaxDialog") ?>',
             data:{id:id},

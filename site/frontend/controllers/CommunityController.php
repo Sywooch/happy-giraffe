@@ -43,6 +43,9 @@ class CommunityController extends Controller
         ));
     }
 
+    /**
+     * @sitemap dataSource=getCommunityUrls
+     */
     public function actionList($community_id, $rubric_id = null, $content_type_slug = null)
     {
         $community_id = (int) $community_id;

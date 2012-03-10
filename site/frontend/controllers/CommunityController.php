@@ -411,8 +411,6 @@ class CommunityController extends Controller
                     'content_type_slug' => $model->type->slug,
                     'content_id' => $model->id,
                 ),
-
-                'lastmod' => $model->created,
             );
         }
         return $data;
@@ -424,17 +422,10 @@ class CommunityController extends Controller
         $data = array();
         foreach ($models as $model)
         {
-            $lastmod = CommunityContent::model()->with('rubric.community')->find(array(
-                'condition' => 'community_id = :community_id',
-                'params' => array(':community_id' => $model->id),
-                'order' => 'created DESC',
-            ));
             $data[] = array(
                 'params'=>array(
                     'community_id' => $model->id,
                 ),
-
-                //'lastmod' => $lastmod->created,
             );
         }
         return $data;

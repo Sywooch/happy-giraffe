@@ -434,7 +434,7 @@ class CommunityController extends Controller
                     'community_id' => $model->id,
                 ),
 
-                'lastmod' => $lastmod->created,
+                //'lastmod' => $lastmod->created,
             );
         }
         return $data;

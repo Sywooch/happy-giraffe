@@ -86,6 +86,9 @@ class CommunityController extends Controller
         }
     }
 
+    /**
+     * @sitemap dataSource=getContentUrls
+     */
     public function actionView($community_id, $content_type_slug, $content_id)
     {
         $content_id = (int) $content_id;
@@ -398,7 +401,7 @@ class CommunityController extends Controller
 
     public function getContentUrls()
     {
-        $models = CommunityContent::model()->with(array('rubric.community'))->findAll();
+        $models = CommunityContent::model()->findAll();
         $data = array();
         foreach ($models as $model)
         {

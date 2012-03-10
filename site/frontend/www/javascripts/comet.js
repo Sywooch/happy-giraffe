@@ -5,8 +5,9 @@ function Comet() {
 
 Comet.prototype.connect = function(host, namespace, cache) {
     this.server = new Dklab_Realplexor(host, namespace);
+    var $this = this;
     this.server.subscribe(cache, function(result, id) {
-        this.call(result.type, result, id);
+        $this.call(result.type, result, id);
     });
     this.server.execute();
 }
@@ -40,7 +41,3 @@ Comet.prototype.testfunc2 = function(result, id) {
     cl(456);
 }
 comet.addEvent(0, 'testfunc2');
-
-
-
-

@@ -3,8 +3,6 @@ function Comet() {
 }
 
 Comet.prototype.call = function(type, result, id) {
-    if(this.events[type] == undefined)
-        this.events[type] = new Array();
     for(var i in this.events[type]) {
         var func = this.events[type][i];
         if(this[func] != 'undefined')
@@ -22,6 +20,8 @@ Comet.prototype.connect = function(host, namespace, cache) {
 }
 
 Comet.prototype.addEvent = function(type, event) {
+    if(this.events[type] == undefined)
+        this.events[type] = new Array();
     this.events[type][this.events[type].length] = event;
 }
 

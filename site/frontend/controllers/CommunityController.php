@@ -401,7 +401,7 @@ class CommunityController extends Controller
 
     public function getContentUrls()
     {
-        $models = CommunityContent::model()->findAll();
+        $models = CommunityContent::model()->findAll(array('limit' => 100));
         $data = array();
         foreach ($models as $model)
         {
@@ -413,8 +413,7 @@ class CommunityController extends Controller
                 ),
             );
         }
-        print_r($data);
-        die;
+
         return $data;
     }
 

@@ -21,8 +21,11 @@
 	
 	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.iframe-post-form.js'); ?>
     <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.placeholder.min.js'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.tmpl.min.js'); ?>
     <?php Yii::app()->clientScript->registerScriptFile('/javascripts/chosen.jquery.min.js'); ?>
     <?php Yii::app()->clientScript->registerScriptFile('/javascripts/comet.js'); ?>
+
+    <?php if (! Yii::app()->user->isGuest) Yii::app()->clientScript->registerScriptFile('/javascripts/user_common.js'); ?>
 
 	<script type="text/javascript">
 
@@ -36,12 +39,6 @@
 	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
-
-      Comet.prototype.testfunc = function(result, id) {
-          alert(result.text);
-      }
-
-      comet.addEvent(100, 'testfunc');
 
 	</script>
 
@@ -157,6 +154,12 @@
 	<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
 	<noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 	<!-- /Yandex.Metrika counter -->
+
+    <script id="notificationTmpl" type="text/x-jquery-tmpl">
+        <li><?php echo CHtml::link('${text}', '${url}', array(
+            'id' => '{$_id}',
+        )) ;?></li>
+    </script>
 
     Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> с. Скушано памяти: <?=round(memory_get_peak_usage()/(1024*1024),2)."MB"?>
 </body>

@@ -15,6 +15,11 @@ class ScoreOutput extends EMongoDocument
     public $scores_spent;
     public $created;
 
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
+
     public function getCollectionName()
     {
         return 'score_output';

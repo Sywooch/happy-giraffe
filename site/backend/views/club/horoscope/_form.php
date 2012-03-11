@@ -4,7 +4,7 @@
  * @var $model Horoscope
  */
 ?>
-<?php echo CHtml::link('К таблице', array('horoscope/admin')) ?>
+<?php echo CHtml::link('К таблице', array('/club/horoscope/admin')) ?>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(

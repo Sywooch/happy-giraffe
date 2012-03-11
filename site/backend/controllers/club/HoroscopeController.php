@@ -2,7 +2,16 @@
 
 class HoroscopeController extends BController
 {
+    public $section = 'club';
+    public $layout = '//layouts/club';
     public $defaultAction = 'admin';
+
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('horoscope'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
 
     /**
      * Creates a new model.

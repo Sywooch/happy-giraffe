@@ -11,6 +11,7 @@ $cs->registerScript('comment_widget_form', $js);
     'id' => 'add_comment',
     'htmlOptions' => array(
         'onsubmit' => "return Comment.send(this, event);",
+        'style' => 'display:none;',
     ),
 )); ?>
     <div class="response">
@@ -23,15 +24,16 @@ $cs->registerScript('comment_widget_form', $js);
     <?php echo $form->hiddenField($comment_model, 'entity', array('value' => $this->entity)); ?>
     <?php echo $form->hiddenField($comment_model, 'entity_id', array('value' => $this->entity_id)); ?>
     <?php echo CHtml::hiddenField('edit-id', ''); ?>
+    <?php echo $form->textArea($comment_model, 'text'); ?>
     <?php
-    $this->widget('ext.ckeditor.CKEditorWidget', array(
+    /*$this->widget('ext.ckeditor.CKEditorWidget', array(
         'model' => $comment_model,
         'attribute' => 'text',
         'config' => array(
             'toolbar' => 'Nocut',
             'protectedSource' => '<blockquote>'
         ),
-    ));
+    ));*/
     ?>
     <div class="button_panel">
         <button class="btn btn-gray-medium cancel" onclick="return Comment.cancel(event);"><span><span>Отмена</span></span></button>

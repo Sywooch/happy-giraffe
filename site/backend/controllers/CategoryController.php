@@ -4,6 +4,13 @@ class CategoryController extends BController
 {
     public $layout = 'shop';
 
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('shop'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
     public function actionIndex()
     {
         $m = Category::model()->findByPk(1);

@@ -93,9 +93,9 @@ class Horoscope extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'zodiac' => 'Zodiac',
-            'date' => 'Date',
-            'text' => 'Text',
+            'zodiac' => 'Знак зодиака',
+            'date' => 'Дата',
+            'text' => 'Прогноз',
         );
     }
 

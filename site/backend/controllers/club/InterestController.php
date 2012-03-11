@@ -1,8 +1,17 @@
 <?php
 
-class InterestCategoryController extends BController
+class InterestController extends BController
 {
+    public $section = 'club';
+    public $layout = '//layouts/club';
 	public $defaultAction='admin';
+
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('interests'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
 
 	/**
 	 * Creates a new model.
@@ -10,14 +19,14 @@ class InterestCategoryController extends BController
 	 */
 	public function actionCreate()
 	{
-		$model=new InterestCategory;
+		$model=new Interest;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['InterestCategory']))
+		if(isset($_POST['Interest']))
 		{
-			$model->attributes=$_POST['InterestCategory'];
+			$model->attributes=$_POST['Interest'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -39,9 +48,9 @@ class InterestCategoryController extends BController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['InterestCategory']))
+		if(isset($_POST['Interest']))
 		{
-			$model->attributes=$_POST['InterestCategory'];
+			$model->attributes=$_POST['Interest'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -76,10 +85,10 @@ class InterestCategoryController extends BController
 	 */
 	public function actionAdmin()
 	{
-		$model=new InterestCategory('search');
+		$model=new Interest('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['InterestCategory']))
-			$model->attributes=$_GET['InterestCategory'];
+		if(isset($_GET['Interest']))
+			$model->attributes=$_GET['Interest'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -93,7 +102,7 @@ class InterestCategoryController extends BController
 	 */
 	public function loadModel($id)
 	{
-		$model=InterestCategory::model()->findByPk((int)$id);
+		$model=Interest::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -105,7 +114,7 @@ class InterestCategoryController extends BController
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='interest-category-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='interest-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

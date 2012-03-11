@@ -30,6 +30,14 @@ class ScoreInput extends EMongoDocument
         return parent::beforeSave();
     }
 
+    public function afterSave()
+    {
+        parent::afterSave();
+
+        if ($this->amount == 0)
+            $this->delete();
+    }
+
     public function defaultScope()
     {
         return array(

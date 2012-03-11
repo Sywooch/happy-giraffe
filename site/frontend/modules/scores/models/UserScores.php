@@ -7,6 +7,7 @@
  * @property string $user_id
  * @property string $scores
  * @property string $level_id
+ * @property integer $full
  *
  * The followings are the available model relations:
  * @property ScoreLevels $level
@@ -41,10 +42,11 @@ class UserScores extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id', 'required'),
+			array('full', 'numerical', 'integerOnly'=>true),
 			array('user_id, scores, level_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('user_id, scores, level_id', 'safe', 'on'=>'search'),
+			array('user_id, scores, level_id, full', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,6 +72,7 @@ class UserScores extends CActiveRecord
 			'user_id' => 'User',
 			'scores' => 'Scores',
 			'level_id' => 'Level',
+			'full' => 'Full',
 		);
 	}
 
@@ -87,6 +90,7 @@ class UserScores extends CActiveRecord
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('scores',$this->scores,true);
 		$criteria->compare('level_id',$this->level_id,true);
+		$criteria->compare('full',$this->full);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -99,6 +103,7 @@ class UserScores extends CActiveRecord
         if ($model === null){
             $model = new UserScores;
             $model->scores = 0;
+            $model->user_id = $user_id;
         }
 
         //проверяем не нужно ли инкрементировать предыдущее событие
@@ -111,6 +116,7 @@ class UserScores extends CActiveRecord
         }else{
             $input = new ScoreInput();
             $input->action_id = $action_id;
+            $input->user_id = $user_id;
             $input->scores_earned = $score_value;
             $input->save();
         }
@@ -125,6 +131,7 @@ class UserScores extends CActiveRecord
         if ($model === null){
             $model = new UserScores;
             $model->scores = 0;
+            $model->user_id = $user_id;
         }
 
         //проверяем не нужно ли дискриминтировать предыдущее событие
@@ -137,6 +144,7 @@ class UserScores extends CActiveRecord
         }else{
             $input = new ScoreInput();
             $input->action_id = $action_id;
+            $input->user_id = $user_id;
             $input->scores_earned = -$score_value;
             $input->save();
         }

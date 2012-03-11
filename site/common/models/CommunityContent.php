@@ -247,6 +247,10 @@ class CommunityContent extends CActiveRecord
         UserSignal::model()->deleteAll($criteria);
         UserSignal::SendUpdateSignal();
 
+        //вычитаем баллы
+        Yii::import('site.frontend.modules.scores.models.*');
+        UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD);
+
         return true;
     }
 
@@ -294,6 +298,11 @@ class CommunityContent extends CActiveRecord
             if (!$signal->save()) {
                 Yii::log('NewComers signal not saved', 'warning', 'application');
             }
+        }
+        if ($this->isNewRecord){
+            //добавляем баллы
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD);
         }
         parent::afterSave();
     }

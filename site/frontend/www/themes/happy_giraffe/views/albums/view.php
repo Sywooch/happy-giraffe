@@ -20,16 +20,21 @@
             <?php if ($model->description): ?>
             <div class="note">
                 <?php if($model->checkAccess === true): ?>
-                <div class="fast-actions">
-                    <a href="" class="edit"></a>
-                    <a href="" class="remove"></a>
-                </div>
+                    <div class="fast-actions">
+                        <a href="" class="edit"></a>
+                        <a href="" class="remove"></a>
+                    </div>
                 <?php endif; ?>
                 <p><?php echo $model->description; ?></p>
             </div>
             <?php endif; ?>
         </div>
         <?php if($model->checkAccess === true): ?>
+            <?php
+            $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
+            $file_upload->loadScripts();
+            $this->endWidget();
+            ?>
             <div class="actions">
                 <?php echo CHtml::link('<span><span>Добавить фото</span></span>', array('addPhoto', 'a' => $model->primaryKey), array('class' => 'fancy btn btn-green-medium')); ?>
                 <button class="btn btn-gray-medium"><span><span>Удалить альбом</span></span></button>

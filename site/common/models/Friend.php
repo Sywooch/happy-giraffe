@@ -65,4 +65,16 @@ class Friend extends CActiveRecord
 			'user2_id' => 'Пользователь 2',
 		);
 	}
+
+    public function afterSave()
+    {
+        parent::afterSave();
+
+        if ($this->isNewRecord){
+            //добавляем баллы
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::addScores($this->user1_id, ScoreActions::ACTION_FRIEND);
+            UserScores::addScores($this->user2_id, ScoreActions::ACTION_FRIEND);
+        }
+    }
 }

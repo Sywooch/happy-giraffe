@@ -30,6 +30,24 @@ class RatingUsers extends EMongoDocument
         );
     }
 
+    public function afterSave()
+    {
+        parent::afterSave();
+
+        if ($this->isNewRecord){
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::addScores($this->user_id, ScoreActions::ACTION_LIKE);
+        }
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        Yii::import('site.frontend.modules.scores.models.*');
+        UserScores::removeScores($this->user_id, ScoreActions::ACTION_LIKE);
+    }
+
     public function findByUser($uid, $key)
     {
         $model = RatingUsers::model()->findByAttributes(array(

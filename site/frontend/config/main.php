@@ -182,7 +182,10 @@ return array(
 			'defaultRoles' => array('user'),
 		),
 		'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
-		'db'=>require_once(dirname(__FILE__).'/db.php'),
+		'db' => array(
+            'schemaCachingDuration' => 180,
+            'tablePrefix'=> '',
+        ),
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

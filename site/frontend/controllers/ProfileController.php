@@ -55,6 +55,16 @@ class ProfileController extends Controller
             $address->attributes = $_POST;
             $address->saveAddress($this->user);
             $this->user->attributes = $_POST['User'];
+
+            if (isset($_POST['User']['last_name']) && isset($_POST['User']['first_name']) &&
+                isset($_POST['User']['gender']) && isset($_POST['city_id']) &&
+                isset($_POST['User']['birthday'])
+            ) {
+                //add scores to user
+                Yii::import('site.frontend.modules.scores.models.*');
+                UserScores::checkProfileScores(Yii::app()->user->getId(), ScoreActions::ACTION_PROFILE_MAIN);
+            }
+
             $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'settlement_id', 'birthday',
                 'country_id', 'street_id', 'house', 'room'));
         }
@@ -66,13 +76,17 @@ class ProfileController extends Controller
     {
         if (isset($_POST['User'])) {
             $this->user->attributes = $_POST['User'];
-            $this->user->save(true, array('pic_small'));
+            if ($this->user->save(true, array('pic_small'))){
+                //add scores to user
+                Yii::import('site.frontend.modules.scores.models.*');
+                UserScores::checkProfileScores(Yii::app()->user->getId(), ScoreActions::ACTION_PROFILE_PHOTO);
+            }
             if (isset($_POST['returnUrl']) && !empty($_POST['returnUrl']))
                 $this->redirect(urldecode($_POST['returnUrl']));
         }
 
-        $this->render('photo',array(
-            'returnUrl'=>$returnUrl
+        $this->render('photo', array(
+            'returnUrl' => $returnUrl
         ));
     }
 
@@ -88,8 +102,13 @@ class ProfileController extends Controller
             $this->user->relationship_status = $_POST['User']['relationship_status'];
             if (User::relationshipStatusHasPartner($_POST['User']['relationship_status'])) {
                 UserPartner::savePartner($this->user->id);
-            } else
+            } else{
                 UserPartner::model()->deleteAll('user_id=' . $this->user->id);
+
+                //add scores to user
+                Yii::import('site.frontend.modules.scores.models.*');
+                UserScores::checkProfileScores(Yii::app()->user->getId(), ScoreActions::ACTION_PROFILE_FAMILY);
+            }
 
             $this->user->update(array('relationship_status'));
         }
@@ -279,7 +298,7 @@ class ProfileController extends Controller
     public function actionDisableSocialService($name)
     {
         $check = UserSocialService::model()->findByUser($name, Yii::app()->user->id);
-        if($check)
+        if ($check)
             $check->delete();
         $this->redirect($_SERVER['HTTP_REFERER']);
     }

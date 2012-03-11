@@ -136,8 +136,18 @@ class UserPartner extends CActiveRecord
             $model = new UserPartner();
             $model->user_id = $user_id;
         }
-        $model->name = $_POST['User']['partner_name'];
-        $model->notice = $_POST['User']['partner_notice'];
+        if (isset($_POST['User']['partner_name'])){
+            $model->name = $_POST['User']['partner_name'];
+            if (!empty($_POST['User']['partner_name'])){
+                //add scores to user
+                Yii::import('site.frontend.modules.scores.models.*');
+                UserScores::addScores(Yii::app()->user->getId(), ScoreActions::ACTION_PROFILE_FAMILY);
+            }
+        }
+        if (isset($_POST['User']['partner_notice'])){
+            $model->notice = $_POST['User']['partner_notice'];
+        }
         $model->save();
+
     }
 }

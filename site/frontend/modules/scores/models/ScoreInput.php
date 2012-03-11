@@ -57,15 +57,15 @@ class ScoreInput extends EMongoDocument
         return $this->find($criteria);
     }
 
-    public function inc($score_value)
+    public function inc($score_value, $count = 1)
     {
-        $this->amount++;
-        $this->scores_earned += $score_value;
+        $this->amount = $this->amount + $count;
+        $this->scores_earned += $score_value*$count;
     }
 
-    public function dec($score_value)
+    public function dec($score_value, $count = 1)
     {
-        $this->amount--;
-        $this->scores_earned -= $score_value;
+        $this->amount = $this->amount - $count;
+        $this->scores_earned -= $score_value*$count;
     }
 }

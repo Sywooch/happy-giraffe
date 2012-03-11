@@ -55,8 +55,8 @@ table {
     border-spacing: 0;
 }
 html, body {
+    
     min-height: 100%;
-    height:100%;
     margin: 0;
     padding: 0;
     position:relative;
@@ -510,6 +510,8 @@ a {color:#51afc3;}
 #header .fast-cart a {color:#2c9ab2;}
 #header .fast-cart .count {display:inline-block;width:35px;height:26px;background:url(../images/bg_fast_cart_count.gif) no-repeat;vertical-align:middle;line-height:26px;font-size:14px;border:1px solid #8dccdc;}
 #header .fast-cart .btn {vertical-align:middle;}
+
+
 
 #nav {margin:3px 20px 13px;}
 #nav ul {float:left;}
@@ -1043,6 +1045,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments li .user a {text-decoration:none;}
 .default-comments li .content {margin-left:200px;font-size:12px;}
 .default-comments li .content p {color:#3f3e3e;margin:5px 0;}
+.default-comments li.deleted .content, .default-comments li.deleted .content p {color:#aaa;}
 .default-comments li .content .rating {margin-bottom:5px;height:12px;display:inline-block;overflow:hidden}
 .default-comments li .content .rating .s1 {width:13px;height:12px;display:block;float:left;background:url(../images/common.png) no-repeat -68px -128px;}
 .default-comments li .content .meta {font-size:9px;color:#b6b9ba;margin-bottom:5px;font-family:tahoma, arial, helvetica, sans-serif;}
@@ -1065,6 +1068,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments li .content .actions .admin-actions .remove .icon {display:block;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;}
 .default-comments li:hover {background:#f0fafd;}
 .default-comments li:hover .content .actions {visibility:visible;}
+.default-comments li.deleted .actions {display:none !important;}
 
 .default-comments .comment-action {padding-top:5px;}
 

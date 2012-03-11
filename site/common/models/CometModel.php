@@ -13,7 +13,7 @@ class CometModel extends CComponent
     const TYPE_SIGNAL_UPDATE = 5;
     const TYPE_SIGNAL_EXECUTED = 8;
 
-    const TYPE_NEW_WARNING = 100;
+    const TYPE_UPDATE_NOTIFICATIONS = 100;
 
     public $attributes = array();
     public $type;

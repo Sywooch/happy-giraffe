@@ -662,7 +662,16 @@ class User extends CActiveRecord
      */
     public function delFriend($friend_id)
     {
-        return Friend::model()->deleteAll($this->getFriendCriteria($friend_id)) != 0;
+        $res = Friend::model()->deleteAll($this->getFriendCriteria($friend_id));
+        if ($res != 0) {
+            //вычитаем баллы
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::removeScores($friend_id, ScoreActions::ACTION_FRIEND);
+            UserScores::removeScores($this->id, ScoreActions::ACTION_FRIEND);
+            return true;
+        }
+
+        return false;
     }
 
     public function getFriendSelectCriteria()

@@ -34,6 +34,7 @@ class RatingYohoho extends EMongoDocument
         parent::afterSave();
 
         if ($this->isNewRecord){
+            //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
             UserScores::addScores($this->user_id, ScoreActions::ACTION_YOHOHO_LIKE);
         }
@@ -43,6 +44,7 @@ class RatingYohoho extends EMongoDocument
     {
         parent::afterDelete();
 
+        //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
         UserScores::removeScores($this->user_id, ScoreActions::ACTION_YOHOHO_LIKE);
     }

@@ -458,21 +458,7 @@ class User extends CActiveRecord
     public function getAva($size = 'ava')
     {
         $url = $this->pic_small->getUrl($size);
-        if (empty($url)) {
-            $pic_urls = array(
-                'small' => '-blue_b.png',
-                'ava' => '-blue_a.png',
-                'big' => '-blue.png',
-            );
-            if ($this->gender == 1)
-                return '/images/1' . $pic_urls[$size];
-            elseif ($this->gender == 0)
-                return '/images/2' . $pic_urls[$size];
-            else
-                return '/images/3' . $pic_urls[$size];
-        }
-        else
-            return $url;
+        return $url;
     }
 
     public function getPartnerPhotoUrl()
@@ -662,7 +648,16 @@ class User extends CActiveRecord
      */
     public function delFriend($friend_id)
     {
-        return Friend::model()->deleteAll($this->getFriendCriteria($friend_id)) != 0;
+        $res = Friend::model()->deleteAll($this->getFriendCriteria($friend_id));
+        if ($res != 0) {
+            //вычитаем баллы
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::removeScores($friend_id, ScoreActions::ACTION_FRIEND);
+            UserScores::removeScores($this->id, ScoreActions::ACTION_FRIEND);
+            return true;
+        }
+
+        return false;
     }
 
     public function getFriendSelectCriteria()

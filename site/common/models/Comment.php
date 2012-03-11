@@ -161,6 +161,10 @@ class Comment extends CActiveRecord
                 $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
                 UserNotification::model()->create(UserNotification::CLUB_NEW_COMMENT, $entity);
             }
+
+            //добавляем баллы
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT);
         }
         parent::afterSave();
     }
@@ -206,6 +210,10 @@ class Comment extends CActiveRecord
 
     public function afterDelete()
     {
+        //вычитаем баллы
+        Yii::import('site.frontend.modules.scores.models.*');
+        UserScores::removeScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT);
+
         $this->renewPosition();
         return parent::afterDelete();
     }

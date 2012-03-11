@@ -31,7 +31,7 @@
 
     <b>Действия</b><br>
 
-    <div>
+    <div class="r-list">
         <?php echo CHtml::checkBox('check-all-oper') ?> отметить все <br><br>
         <?php $am = Yii::app()->authManager;  ?>
         <?php $items = $am->getOperations(); ?>
@@ -48,6 +48,26 @@
 
     <?php $this->endWidget(); ?>
 
+    <div id="moder-rights" style="display: none;">
+        <input type="checkbox" id="check-all-oper" name="check-all-oper" value="1"> отметить все <br><br>
+        <input type="checkbox" id="Operation_createClubPost" name="Operation[createClubPost]" value="1">
+        <label for="Operation_createClubPost" style="display:inline">Создание постов в сообществах</label>        <br>
+        <input type="checkbox" id="Operation_editComment" name="Operation[editComment]" value="1">
+        <label for="Operation_editComment" style="display:inline">редактирование комментариев</label>        <br>
+        <input type="checkbox" id="Operation_editCommunityContent" name="Operation[editCommunityContent]" value="1">
+        <label for="Operation_editCommunityContent" style="display:inline">редактирование тем в сообществах (название темы, текст)</label>        <br>
+        <input type="checkbox" id="Operation_editCommunityRubric" name="Operation[editCommunityRubric]" value="1">
+        <label for="Operation_editCommunityRubric" style="display:inline">изменение рубрик в темах</label>        <br>
+        <input type="checkbox" id="Operation_editUser" name="Operation[editUser]" value="1">
+        <label for="Operation_editUser" style="display:inline">полное редактирование страницы пользователей</label>        <br>
+        <input type="checkbox" id="Operation_removeComment" name="Operation[removeComment]" value="1">
+        <label for="Operation_removeComment" style="display:inline">удаление комментариев</label>        <br>
+        <input type="checkbox" id="Operation_removeCommunityContent" name="Operation[removeCommunityContent]" value="1">
+        <label for="Operation_removeCommunityContent" style="display:inline">Удаление тем в сообществах</label>        <br>
+        <input type="checkbox" id="Operation_transfer post" name="Operation[transfer post]" value="1">
+        <label for="Operation_transfer post" style="display:inline">перенос темы из сообщества в сообщество</label>        <br>
+    </div>
+
 </div><!-- form -->
 <script type="text/javascript">
     $('#check-all-oper').click(function(){
@@ -57,5 +77,10 @@
             $(this).parent().find('input[type=checkbox]').attr('checked', false);
 
         return true;
+    });
+
+    $('#User_role').change(function(){
+        if ($(this).val() == 'moderator')
+            $('.r-list').html($('#moder-rights').html());
     });
 </script>

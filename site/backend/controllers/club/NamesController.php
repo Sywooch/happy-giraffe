@@ -6,6 +6,13 @@ class NamesController extends BController
     public $section = 'club';
     public $layout = '//layouts/club';
 
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('names'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
     public function actionIndex($letter = null, $gender = null)
     {
         $criteria = new CDbCriteria;

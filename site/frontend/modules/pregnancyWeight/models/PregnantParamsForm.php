@@ -23,11 +23,18 @@ class PregnantParamsForm extends CFormModel
     public function rules()
     {
         return array(
-            array('height, weight, week, weight_before', 'required'),
+            array('height', 'required', 'message' => 'Укажите рост в сантиметрах'),
+            array('weight', 'required', 'message' => 'Укажите вес в килограммах в настоящее время'),
+            array('week', 'required', 'message' => 'Выберите свой срок беременности из списка'),
+            array('weight_before', 'required', 'message' => 'Укажите вес до беременности в килограммах'),
             array('week', 'numerical', 'integerOnly' => true),
-            array('height', 'numerical', 'max' => 250, 'min'=>80),
-            array('weight, weight_before', 'numerical', 'max' => 1000, 'min'=>20),
-            array('week', 'numerical', 'max' => 40, 'min'=>1),
+            array('height', 'numerical', 'max' => 250, 'min' => 80, 'message' => 'Вводите только цифры',
+                'tooBig' => 'Проверьте, правильно ли введён рост (допустимо менее 250)',
+                'tooSmall' => 'Проверьте, правильно ли введён рост (допустимо более 80)'),
+            array('weight, weight_before', 'numerical', 'max' => 1000, 'min' => 20, 'message' => 'Вводите только цифры',
+                'tooBig' => 'Проверьте, правильно ли введён вес (допустимо менее 1000)',
+                'tooSmall' => 'Проверьте, правильно ли введён вес (допустимо более 20)'),
+            array('week', 'numerical', 'max' => 40, 'min' => 1),
             array('height, weight, week, weight_before', 'safe')
         );
     }
@@ -35,25 +42,28 @@ class PregnantParamsForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'height'=>'Рост',
-            'weight'=>'Сейчас мой вес',
-            'week'=>'Неделя беременности',
-            'weight_before'=>'Вес до беременности',
+            'height' => 'Рост',
+            'weight' => 'Сейчас мой вес',
+            'week' => 'Неделя беременности',
+            'weight_before' => 'Вес до беременности',
         );
     }
 
-    public function beforeValidate(){
-        $this->height = str_replace(',','.',$this->height);
-        $this->weight = str_replace(',','.',$this->weight);
-        $this->weight_before = str_replace(',','.',$this->weight_before);
+    public function beforeValidate()
+    {
+        $this->height = str_replace(',', '.', $this->height);
+        $this->weight = str_replace(',', '.', $this->weight);
+        $this->weight_before = str_replace(',', '.', $this->weight_before);
         return parent::beforeValidate();
     }
 
-    public function afterValidate(){
+    public function afterValidate()
+    {
         return parent::afterValidate();
     }
 
-    public function CalculateData(){
+    public function CalculateData()
+    {
         //height in meters
         $this->height = $this->height / 100;
         $this->bmi = $this->weight_before / ($this->height * $this->height);
@@ -64,11 +74,12 @@ class PregnantParamsForm extends CFormModel
         $this->normal_weight = $this->GetNormalWeight();
     }
 
-    public function GetNormalWeight(){
-        $this->min_weight = round($this->recommend_weight - $this->recommend_gain*0.1,1);
-        $this->max_weight = round($this->recommend_weight + $this->recommend_gain*0.1,1);
+    public function GetNormalWeight()
+    {
+        $this->min_weight = round($this->recommend_weight - $this->recommend_gain * 0.1, 1);
+        $this->max_weight = round($this->recommend_weight + $this->recommend_gain * 0.1, 1);
         if ($this->min_weight == $this->max_weight)
             return $this->max_weight;
-        return $this->min_weight.'-'.$this->max_weight;
+        return $this->min_weight . '-' . $this->max_weight;
     }
 }

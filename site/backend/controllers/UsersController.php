@@ -3,6 +3,13 @@ class UsersController extends BController
 {
     public $layout = 'shop';
 
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('user access'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
     public function actionIndex()
     {
         if(Yii::app()->request->getQuery('user-list-check') && Yii::app()->request->getQuery('workWithItemsSelected'))

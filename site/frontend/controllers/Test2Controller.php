@@ -178,4 +178,10 @@ class Test2Controller extends Controller
         $user = User::model()->findByPk(38);
         var_dump($user->delCommunity(7));
     }
+
+    public function actionRp($text)
+    {
+        $comet = new CometModel();
+        $comet->send(38, array('text' => $text), CometModel::TYPE_NEW_WARNING);
+    }
 }

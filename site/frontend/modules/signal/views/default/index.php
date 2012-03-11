@@ -6,10 +6,9 @@
 ?>
 <div class="fast-calendar">
     <?php $this->renderPartial('_calendar', array(
-    'month' => date("m"),
+    'month' => date("n"),
     'year' => date("Y"),
-    'activeDay'=>date('d'),
-    'data'=>array()
+    'activeDate' => date("Y-m-d"),
 )); ?>
 </div>
 <div class="title"><i class="icon"></i>Сигналы</div>
@@ -42,6 +41,9 @@
 
 <script type="text/javascript">
     var filter = null;
+    var year = <?php echo date('Y') ?>;
+    var month = <?php echo date('n') ?>;
+    var current_date = '<?php echo date("Y-m-d")  ?>';
 
     $(function () {
         $('body').delegate('a.take-task', 'click', function () {
@@ -58,9 +60,7 @@
                         $(this).next().show();
 
                     } else {
-                        if (response.status == 2) {
-
-                        }
+                        UpdateSignalData();
                     }
                 },
                 context:$(this)
@@ -75,9 +75,8 @@
                 type:'POST',
                 dataType:'JSON',
                 success:function (response) {
-                    if (response.status == 1) {
-                        $(this).parent().hide();
-                        $(this).parent().prev().show();
+                    if (response.status) {
+                        UpdateSignalData();
                     }
                 },
                 context:$(this)
@@ -89,51 +88,96 @@
             filter = $(this).attr('obj');
             $('.nav li').removeClass('active');
             $(this).parent().addClass('active');
-            UpdateTable();
+            UpdateSignalData();
             return false;
         });
 
-        $('body').delegate('.fast-calendar .prev', 'click', function () {
+        $('body').delegate('.fast-calendar .prev', 'click', function (e) {
             e.preventDefault();
+            month--;
+            if (month == 0) {
+                year--;
+                month = 12;
+            }
+
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("/signal/default/calendar") ?>',
+                data:{month:month, year:year, current_date:current_date},
+                type:'POST',
+                success:function (response) {
+                    $('div.fast-calendar').html(response);
+                },
+                context:$(this)
+            });
         });
 
-        $('body').delegate('.fast-calendar .next', 'click', function () {
+        $('body').delegate('.fast-calendar .next', 'click', function (e) {
             e.preventDefault();
+            month++;
+            if (month == 13) {
+                year++;
+                month = 1;
+            }
+
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("/signal/default/calendar") ?>',
+                data:{month:month, year:year, current_date:current_date},
+                type:'POST',
+                success:function (response) {
+                    $('div.fast-calendar').html(response);
+                },
+                context:$(this)
+            });
         });
+
+        $('body').delegate('.fast-calendar tbody a', 'click', function (e) {
+            e.preventDefault();
+
+            current_date = year.toString() + '-' + AddZero(month) + '-' + AddZero($(this).text());
+
+            $.ajax({
+                url:'<?php echo Yii::app()->createUrl("/signal/default/history") ?>',
+                data:{date:current_date},
+                type:'POST',
+                success:function (response) {
+                    $('.fast-list').html(response);
+                    $('.fast-calendar tbody td').removeClass('active');
+                    $(this).parent().addClass('active');
+                },
+                context:$(this)
+            });
+        });
+
+        comet.addEvent(<?php echo CometModel::TYPE_SIGNAL_UPDATE ?>, 'UpdateTable');
+        comet.addEvent(<?php echo CometModel::TYPE_SIGNAL_EXECUTED ?>, 'TaskExecuted');
     });
 
-    function AddExecutor(id) {
-        var count = parseInt($('#signal' + id + ' .executors').html()) + 1;
-        var max = parseInt($('#signal' + id + ' .need').html());
-        $('#signal' + id + ' .executors').html(count);
-        if (count >= max) {
-            $('#signal' + id).addClass('full');
-        }
+    Comet.prototype.UpdateTable = function (result, id) {
+        UpdateSignalData();
     }
 
-    function RemoveExecutor(id) {
-        var count = parseInt($('#signal' + id + ' .executors').html()) - 1;
-        var max = parseInt($('#signal' + id + ' .need').html());
-        $('#signal' + id + ' .executors').html(count);
-        if (count < max) {
-            $('#signal' + id).removeClass('full');
-        }
+    Comet.prototype.TaskExecuted = function (result, id) {
+        UpdateSignalData();
     }
 
-    function UpdateTable() {
+    function AddZero(num) {
+        num = parseInt(num);
+        if (num < 10)
+            return '0' + num.toString();
+        else
+            return num.toString();
+    }
+
+    function UpdateSignalData() {
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("/signal/default/index") ?>',
             type:'POST',
             data:{filter:filter},
+            dataType:'JSON',
             success:function (response) {
-                $('.main-list').html(response);
+                $('div.main-list').html(response.tasks);
+                $('div.fast-list').html(response.history);
             }
         });
-    }
-
-    function TaskExecuted(id) {
-        $('#signal' + id + ' .taken').hide();
-        $('#signal' + id + ' .take-task').hide();
-        $('#signal' + id + ' .executed').show();
     }
 </script>

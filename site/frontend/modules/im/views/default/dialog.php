@@ -62,6 +62,9 @@ var last_typing_time = 0;
 var scrollBar = null;
 
 $(function () {
+    if(history.replaceState)
+        history.replaceState({ path:window.location.href }, '');
+
     GoTop();
 
     $(window).focus(function () {
@@ -151,6 +154,11 @@ $(function () {
     editor.on('mouseup', function () {
         SetReadStatusForIframe();
     });
+
+    comet.addEvent(<?php echo CometModel::TYPE_MESSAGE_READ ?>, 'ShowAsRead');
+    comet.addEvent(<?php echo CometModel::TYPE_ONLINE_STATUS_CHANGE ?>, 'StatusChanged');
+    comet.addEvent(<?php echo CometModel::TYPE_USER_TYPING ?>, 'ShowUserTyping');
+    comet.addEvent(<?php echo CometModel::TYPE_NEW_MESSAGE ?>, 'ShowNewMessage');
 });
 
 function ChangeDialog(id) {
@@ -164,6 +172,12 @@ function ChangeDialog(id) {
         $('#dialog-' + id + ' div.meta').hide();
         $('#dialog-' + id + ' div.meta').html('0');
         $('#dialog-' + id).removeClass('new-messages');
+
+        if (typeof(window.history.pushState) == 'function'){
+            var url = "<?php echo $this->createUrl('/im/default/dialog', array('id'=>'')) ?>"+id;
+            window.history.pushState({ path: url },'',url);
+        }
+
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("im/default/ajaxDialog") ?>',
             data:{id:id},
@@ -281,7 +295,7 @@ function SetReadStatusForIframe() {
     }
 }
 
-function ShowNewMessage(result) {
+Comet.prototype.ShowNewMessage = function(result, id) {
     if (result.dialog_id == dialog) {
         //message recieved in current dialog
         last_massage = result.message_id;
@@ -318,8 +332,9 @@ function ShowNewMessage(result) {
     }
 }
 
-function ShowAsRead(result) {
-    $(".dialog-message-new-out").each(function (index) {
+Comet.prototype.ShowAsRead = function(result, id) {
+    console.log('read!');
+    $(".dialog-message-new-in").each(function (index) {
         var id = $(this).attr("id").replace(/MessageLog_/g, "");
         if (id <= result.message_id) {
             $(this).find("td.content").css('background-color', '#EBF5FF');
@@ -328,13 +343,14 @@ function ShowAsRead(result) {
             $(this).find("td.meta").animate({ backgroundColor:"#fff" }, 2000);
             $(this).find("td.actions").css('background-color', '#EBF5FF');
             $(this).find("td.actions").animate({ backgroundColor:"#fff" }, 2000);
-            $(this).removeClass("dialog-message-new-out");
+            $(this).removeClass("dialog-message-new-in");
 
         }
     });
 }
 
-function StatusChanged(result) {
+
+Comet.prototype.StatusChanged = function(result, id) {
     if (dialog == result.dialog_id) {
         if (result.online == 1) {
             $('.user-details span.status-offline').removeClass('status-offline').addClass('status-online');
@@ -351,7 +367,7 @@ function StatusChanged(result) {
     }
 }
 
-function ShowUserTyping(result) {
+Comet.prototype.ShowUserTyping = function(result, id) {
     $('#dialog-' + result.dialog_id).append('<div class="meta"><i class="editing"></i></div>')
         .find('div.meta:last').delay(5000).fadeOut(300, function () {
             $(this).remove()

@@ -23,7 +23,8 @@
                         'label' => 'Пакеты свойств',
                         'url' => array('#'),
                     ),
-                )
+                ),
+                'visible' => Yii::app()->user->checkAccess('shop')
             ),
             array('label' => 'Товары',
                 'url' => array('product/index'),
@@ -38,50 +39,55 @@
                         'label' => 'Бренды',
                         'url' => array('brand/index'),
                     ),
-                )
+                ),
+                'visible' => Yii::app()->user->checkAccess('shop')
             ),
             array(
                 'label' => 'Скидки',
                 'url' => array('#'),
+                'visible' => Yii::app()->user->checkAccess('shop')
             ),
             array(
                 'label' => 'Оплата',
                 'url' => array('#'),
+                'visible' => Yii::app()->user->checkAccess('shop')
             ),
             array(
                 'label' => 'Доставка',
                 'url' => array('#'),
+                'visible' => Yii::app()->user->checkAccess('shop')
             ),
             array(
                 'label' => 'Заказы',
                 'url' => array('#'),
+                'visible' => Yii::app()->user->checkAccess('shop')
             ),
             array(
                 'label' => 'Пользователи',
                 'url' => array('users/index'),
                 'itemOptions' => array('class' => 'submenu'),
-                'visible'=> (Yii::app()->user->checkAccess('user access') ||
-                     Yii::app()->user->checkAccess('удаление пользователей')),
+                'visible' => (Yii::app()->user->checkAccess('user access') ||
+                    Yii::app()->user->checkAccess('удаление пользователей')),
                 'items' => array(
                     array(
                         'label' => 'Назначения',
                         'url' => array('UserRoles/admin'),
-                        'visible'=> Yii::app()->user->checkAccess('user access'),
+                        'visible' => Yii::app()->user->checkAccess('user access'),
                     ),
                     array(
                         'label' => 'Роли',
                         'url' => array('roles/admin'),
-                        'visible'=> Yii::app()->user->checkAccess('user access'),
+                        'visible' => Yii::app()->user->checkAccess('user access'),
                     ),
                     array(
                         'label' => 'Группы действий',
                         'url' => array('operationGroups/admin'),
-                        'visible'=> Yii::app()->user->checkAccess('user access'),
+                        'visible' => Yii::app()->user->checkAccess('user access'),
                     ),
                     array(
                         'label' => 'Действия',
                         'url' => array('operations/admin'),
-                        'visible'=> Yii::app()->user->checkAccess('user access'),
+                        'visible' => Yii::app()->user->checkAccess('user access'),
                     ),
                 )
             ),

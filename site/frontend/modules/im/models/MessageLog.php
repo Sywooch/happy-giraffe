@@ -16,11 +16,6 @@
  */
 class MessageLog extends CActiveRecord
 {
-    const TYPE_NEW_MESSAGE = 1;
-    const TYPE_READ = 2;
-    const TYPE_USER_WRITE = 3;
-    const TYPE_STATUS_CHANGE = 5;
-
     /**
      * Returns the static model of the specified AR class.
      * @return MessageLog the static model class
@@ -140,24 +135,28 @@ class MessageLog extends CActiveRecord
         $message->text = $text;
         $message->user_id = $user_id;
         $message->save();
+        //костыль для CTimestampBehavior
+        $message->created = date("Y-m-d H:i:s");
 
         //send to dialog users
         $users = MessageUser::model()->findAll('dialog_id=' . $dialog_id);
         foreach ($users as $user) {
             if ($user->user_id !== Yii::app()->user->getId()) {
-                Yii::app()->comet->send(MessageCache::GetUserCache($user->user_id), array(
+                $comet = new CometModel;
+                $comet->type = CometModel::TYPE_NEW_MESSAGE;
+                $comet->attributes =array(
                     'message_id' => $message->id,
                     'unread_count'=>Im::getUnreadMessagesCount($user->user_id),
                     'dialog_id' => $dialog_id,
-                    'type' => MessageLog::TYPE_NEW_MESSAGE,
                     'html' => Yii::app()->controller->renderPartial('_message', array(
                         'message' => $message->attributes,
                         'read' => 1,
                         'class'=>'dialog-message-new-in'
                     ), true)
-                ));
+                );
+                $comet->send($user->user_id);
             }
-            Im::clearCache($user->user_id);
+//            Im::clearCache($user->user_id);
         }
 
         return $message;

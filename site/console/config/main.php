@@ -28,6 +28,14 @@ return array(
             'class' => 'CDummyCache',
 //            'class' => 'CMemCache',
         ),
+        'mongodb' => array(
+            'class'            => 'EMongoDB',
+            'connectionString' => 'mongodb://localhost',
+            'dbName'           => 'happy_giraffe_db',
+            'fsyncFlag'        => true,
+            'safeFlag'         => true,
+            'useCursor'        => false
+        ),
         'db'=>require_once(dirname(__FILE__).'/db.php'),
     ),
 );

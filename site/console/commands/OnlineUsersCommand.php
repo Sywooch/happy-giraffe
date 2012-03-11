@@ -83,7 +83,7 @@ class OnlineUsersCommand extends CConsoleCommand
         foreach ($dialogs as $dialog) {
             $rpl->send(MessageCache::GetUserCache($dialog['users'][0]), array(
                 'dialog_id' => $dialog['id'],
-                'type' => MessageLog::TYPE_STATUS_CHANGE,
+                'type' => MessageLog::TYPE_ONLINE_STATUS_CHANGE,
                 'online' => $online
             ));
         }

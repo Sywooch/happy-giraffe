@@ -15,20 +15,20 @@ class LoopCalculationForm extends CFormModel
     public function rules()
     {
         return array(
-            array('sample_width_sm, sample_height_sm, sample_width_p, sample_height_p, width, height', 'required'),
-            array('sample_width_sm, sample_height_sm, sample_width_p, sample_height_p, width, height', 'numerical', 'integerOnly' => true),
+            array('sample_width_sm, sample_height_sm, sample_width_p, sample_height_p, width, height', 'required', 'message'=>'Введите {attribute}'),
+            array('sample_width_sm, sample_height_sm, sample_width_p, sample_height_p, width, height', 'numerical', 'integerOnly' => true, 'message'=>'Вводите только цифры'),
         );
     }
 
     public function AttributeLabels()
     {
         return array(
-            'sample_width_sm'=>'Ширина образца в сантиметрах',
-            'sample_height_sm'=>'Длина образца в сантиметрах',
-            'sample_width_p'=>'Ширина образца в петлях',
-            'sample_height_p'=>'Длина образца в петлях',
-            'width'=>'Ширина изделия',
-            'height'=>'Длина изделия',
+            'sample_width_sm'=>'ширину образца в сантиметрах',
+            'sample_height_sm'=>'длину образца в сантиметрах',
+            'sample_width_p'=>'ширину образца в петлях',
+            'sample_height_p'=>'длину образца в петлях',
+            'width'=>'ширину изделия в сантиметрах',
+            'height'=>'длину изделия в сантиметрах',
         );
     }
 }

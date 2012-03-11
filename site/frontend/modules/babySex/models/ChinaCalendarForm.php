@@ -14,7 +14,7 @@ class ChinaCalendarForm extends CFormModel
     public function rules()
     {
         return array(
-            array('mother_y, mother_m, baby_y, baby_m', 'required'),
+            array('mother_y, mother_m, baby_y, baby_m', 'required', 'message'=>'Выберите из списка {attribute}'),
             array('mother_y, mother_m, baby_y, baby_m', 'safe'),
         );
     }
@@ -22,10 +22,10 @@ class ChinaCalendarForm extends CFormModel
     public function AttributeLabels()
     {
         return array(
-            'mother_y'=>'Год рождения матери',
-            'mother_m'=>'Месяц рождения матери',
-            'baby_y'=>'Год зачатия ребенка',
-            'baby_m'=>'Месяц зачатия ребенка',
+            'mother_y'=>'год рождения матери',
+            'mother_m'=>'месяц рождения матери ребенка',
+            'baby_y'=>'год зачатия ребенка',
+            'baby_m'=>'месяц зачатия ребенка',
         );
     }
 }

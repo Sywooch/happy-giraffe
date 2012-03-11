@@ -16,9 +16,9 @@ $js = <<<EOD
             return false;
         }
 
-        var ch1f = document.getElementById("ch1f").value;
-        var ch4f = document.getElementById("ch4f").value;
-        var ch7f = document.getElementById("ch7f").value;
+        var ch1f = document.getElementById("EmbroideryCostForm_colors_count").value;
+        var ch4f = document.getElementById("EmbroideryCostForm_canva").value;
+        var ch7f = document.getElementById("EmbroideryCostForm_design_price").value;
 
         if (isNaN(ch1f) || ch1f === "") ch1f = 0;
         if (isNaN(ch4f) || ch4f === "") ch4f = 0;
@@ -54,6 +54,7 @@ $js = <<<EOD
         ch2f = parseInt(ch2f);
         ch3f = parseInt(ch3f);
         ch4f = parseInt(ch4f);
+        if (ch4f < 5) ch4f = 0;
         ch5f = parseInt(ch5f);
         ch6f = parseInt(ch6f);
         ch7f = parseInt(ch7f);
@@ -84,14 +85,14 @@ $js = <<<EOD
         return false;
     }
 
-    function activate(par) {
+    function activate(par, related_id) {
         if (par.checked) {
-            document.getElementById(par.name + 'f').disabled = false;
-            $('#'+par.name + 'f').trigger("liszt:updated");
+            document.getElementById(related_id).disabled = false;
+            $('#'+related_id).trigger("liszt:updated");
         }
         else {
-            document.getElementById(par.name + 'f').disabled = true;
-            $('#'+par.name + 'f').trigger("liszt:updated");
+            document.getElementById(related_id).disabled = true;
+            $('#'+related_id).trigger("liszt:updated");
         }
     }
 EOD;
@@ -106,7 +107,7 @@ $model = new EmbroideryCostForm();
         <?php $form = $this->beginWidget('CActiveForm', array(
         'id' => 'embroideryCost-form',
         'enableAjaxValidation' => true,
-        'enableClientValidation' => true,
+        'enableClientValidation' => false,
         'clientOptions' => array(
             'validateOnSubmit' => true,
             'validateOnChange' => false,
@@ -155,17 +156,23 @@ $model = new EmbroideryCostForm();
         <div class="form_big_block">
             <p class="children">Отметьте условия работы, которые будут входить в стоимость</p>
 
+            <div>
             <p>
-                <input type="checkbox" onclick="activate(this)" name="ch1" id="ch1" class="CheckBoxClass"/>
+                <input type="checkbox" onclick="activate(this, 'EmbroideryCostForm_colors_count')" name="EmbroideryCostForm[more_colors]" id="ch1" class="CheckBoxClass"/>
                 <label for="ch1" class="CheckBoxLabelClass">
                     Если в схеме более 25 цветов, добавляем <span>1%</span> за каждый цвет
                 </label>
             </p>
+            </div>
 
+            <div>
             <p class="children">
+
                 <label>Количество цветов в схеме:</label>
-                <?php echo $form->textField($model, 'colors_count', array('disabled' => 'disabled','id'=>'ch1f')) ?>
+                <?php echo $form->textField($model, 'colors_count', array('disabled' => 'disabled')) ?>
+                <?php echo $form->error($model, 'colors_count'); ?>
             </p>
+            </div>
 
             <p>
                 <input type="checkbox" id="ch2" name="ch2" class="CheckBoxClass"/>
@@ -183,7 +190,7 @@ $model = new EmbroideryCostForm();
             </p>
 
             <p>
-                <input type="checkbox" id="ch4" name="ch4" onclick="activate(this)" class="CheckBoxClass"/>
+                <input type="checkbox" id="ch4" name="EmbroideryCostForm[small_canva]" onclick="activate(this, 'EmbroideryCostForm_canva')" class="CheckBoxClass"/>
                 <label for="ch4" class="CheckBoxLabelClass">
                     Мелкая канва, добавляем <span>5-20%</span>
                     <ins>Аида 14 считается нормальным размером</ins>
@@ -192,16 +199,9 @@ $model = new EmbroideryCostForm();
             <div class="input-box">
                 <span class="units">Размер канвы в схеме:</span>
 
-                <select id="ch4f" disabled="disabled" name="ch4f" class="chzn">
-                    <option value="0">7</option>
-                    <option value="0">11</option>
-                    <option selected="" value="0">14</option>
-                    <option value="5">16</option>
-                    <option value="10">18</option>
-                    <option value="15">20</option>
-                    <option value="20">22</option>
-                    <option value="25">25</option>
-                </select>
+                <?php echo $form->dropDownList($model, 'canva', array('0' => '7','1' => '11','2' => '14','5' => '16',
+                '10' => '18','15' => '20','20' => '22','25' => '25'), array('class'=>'chzn','empty'=>'-', 'disabled'=>'disabled')) ?>
+                <?php echo $form->error($model, 'canva'); ?>
 
                 <div class="clear"></div>
             </div>
@@ -220,16 +220,19 @@ $model = new EmbroideryCostForm();
                 </label>
             </p>
             <p>
-                <input type="checkbox" id="ch7" onclick="activate(this)" name="ch7" class="CheckBoxClass"/>
+                <input type="checkbox" id="ch7" onclick="activate(this, 'EmbroideryCostForm_design_price')" name="EmbroideryCostForm[user_design]" class="CheckBoxClass"/>
                 <label for="ch7" class="CheckBoxLabelClass">
                     Сами разрабатывали схему? Добавьте стоимость её разработки
                 </label>
             </p>
 
+            <div>
             <p class="children">
                 <label>Стоимость вашего дизайна:</label>
-                <input type="text" id="ch7f" value="0" disabled="disabled" name="ch7f"/>
+                <?php echo $form->textField($model, 'design_price', array('disabled' => 'disabled')) ?>
+                <?php echo $form->error($model, 'design_price'); ?>
             </p>
+            </div>
         </div>
 
         <input type="submit" value="Рассчитать"/>

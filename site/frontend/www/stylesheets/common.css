@@ -1219,7 +1219,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #signals .fast-calendar .nav .date {color:#4b4949;font-size:11px;text-transform:uppercase;text-align:center;}
 #signals .fast-calendar tbody td {height:14px;font-size:10px;color:#c6c7c7;}
 #signals .fast-calendar th {background:#fcf8c7;color:#fb7136;font-size:9px;text-transform:uppercase;border-bottom:4px solid #fff;}
-#signals .fast-calendar .active {color:#242424;}
+#signals .fast-calendar .active a {color:#242424;}
 
 #signals .main-list {margin-bottom:40px;}
 #signals .main-list table {width:100%;}

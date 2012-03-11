@@ -1,84 +1,70 @@
-$(document).ready(function () {
-    var fileInput = $('#upload-input');
-    var form = $('#upload-form');
-    // проверка html5
-    if (window.File && window.FileReader && window.FileList && window.Blob && ('draggable' in document.createElement('span'))) {
-        HTML5Upload.init(fileInput, form);
-    } else {
-        /*fileInput.attr('multiple', false);
-         form.iframePostForm({
-         post: function() {
-
-         },
-         complete: function(response) {
-         ajax_upload_success(response);
-         }
-         });*/
-
-        $('#upload-input').hide();
-        $(document).ready(function() {
-            $('#upload-control').swfupload({
-                upload_url:upload_ajax_url,
-                file_size_limit:"10240",
-                file_types:"*.*",
-                file_types_description:"All Files",
-                file_upload_limit:"0",
-                flash_url:upload_base_url + "/swfupload.swf",
-                button_width:61,
-                button_height:22,
-                button_text:1123,
-                button_placeholder:$('#upload-button')[0],
-                debug:false,
-                custom_settings:{something:"here"}
-            })
-                .bind('swfuploadLoaded', function (event) {
-                    $('#log').append('<li>Loaded</li>');
-                })
-                .bind('fileQueued', function (event, file) {
-                    $('#log').append('<li>File queued - ' + file.name + '</li>');
-                    // start the upload since it's queued
-                    $(this).swfupload('startUpload');
-                })
-                .bind('fileQueueError', function (event, file, errorCode, message) {
-                    $('#log').append('<li>File queue error - ' + message + '</li>');
-                })
-                .bind('fileDialogStart', function (event) {
-                    $('#log').append('<li>File dialog start</li>');
-                })
-                .bind('fileDialogComplete', function (event, numFilesSelected, numFilesQueued) {
-                    $('#log').append('<li>File dialog complete</li>');
-                })
-                .bind('uploadStart', function (event, file) {
-                    $('#log').append('<li>Upload start - ' + file.name + '</li>');
-                })
-                .bind('uploadProgress', function (event, file, bytesLoaded) {
-                    $('#log').append('<li>Upload progress - ' + bytesLoaded + '</li>');
-                })
-                .bind('uploadSuccess', function (event, file, serverData) {
-                    $('#log').append('<li>Upload success - ' + file.name + '</li>');
-                })
-                .bind('uploadComplete', function (event, file) {
-                    $('#log').append('<li>Upload complete - ' + file.name + '</li>');
-                    // upload has completed, lets try the next one in the queue
-                    $(this).swfupload('startUpload');
-                })
-                .bind('uploadError', function (event, file, errorCode, message) {
-                    $('#log').append('<li>Upload error - ' + message + '</li>');
-                });
+function initForm() {
+    $('#upload-control').swfupload({
+        upload_url:upload_ajax_url,
+        file_size_limit:"10240",
+        file_types:"*.*",
+        file_types_description:"All Files",
+        file_upload_limit:"0",
+        flash_url:upload_base_url + "/swfupload.swf",
+        button_text:'Upload',
+        button_width:100,
+        button_width:61,
+        button_height:22,
+        button_placeholder:$('#upload-button')[0],
+        debug:true,
+        custom_settings:{something:"here"}
+    })
+        .bind('fileQueued', function (event, file) {
+            var listitem = '<li id="' + file.id + '" >' +
+                'File: <em>' + file.name + '</em> (' + Math.round(file.size / 1024) + ' KB) <span class="progressvalue" ></span>' +
+                '<div class="progressbar" ><div class="progress" ></div></div>' +
+                '<p class="status" >Pending</p>' +
+                '<span class="cancel" >&nbsp;</span>' +
+                '</li>';
+            $('#log').append(listitem);
+            $('li#' + file.id + ' .cancel').bind('click', function () { //Remove from queue on cancel click
+                var swfu = $.swfupload.getInstance('#upload-control');
+                swfu.cancelUpload(file.id);
+                $('li#' + file.id).slideUp('fast');
+            });
+            // start the upload since it's queued
+            $(this).swfupload('startUpload');
+        })
+        .bind('fileQueueError', function (event, file, errorCode, message) {
+            alert('Size of the file ' + file.name + ' is greater than limit');
+        })
+        .bind('fileDialogComplete', function (event, numFilesSelected, numFilesQueued) {
+            $('#queuestatus').text('Files Selected: ' + numFilesSelected + ' / Queued Files: ' + numFilesQueued);
+        })
+        .bind('uploadStart', function (event, file) {
+            $('#log li#' + file.id).find('p.status').text('Uploading...');
+            $('#log li#' + file.id).find('span.progressvalue').text('0%');
+            $('#log li#' + file.id).find('span.cancel').hide();
+        })
+        .bind('uploadProgress', function (event, file, bytesLoaded) {
+            //Show Progress
+            var percentage = Math.round((bytesLoaded / file.size) * 100);
+            $('#log li#' + file.id).find('div.progress').css('width', percentage + '%');
+            $('#log li#' + file.id).find('span.progressvalue').text(percentage + '%');
+        })
+        .bind('uploadSuccess', function (event, file, serverData) {
+            cl(serverData);
+            var item = $('#log li#' + file.id);
+            item.find('div.progress').css('width', '100%');
+            item.find('span.progressvalue').text('100%');
+            var pathtofile = '<a href="uploads/' + file.name + '" target="_blank" >view &raquo;</a>';
+            item.addClass('success').find('p.status').html('Done!!! | ' + pathtofile);
+        })
+        .bind('uploadComplete', function (event, file) {
+            // upload has completed, try the next one in the queue
+            $(this).swfupload('startUpload');
+        })
+        .bind('uploadError', function(file, errorCode, message) {
+            cl(message);
+            cl(errorCode);
         });
-    }
-});
-
-var ProgressBar = {
-    create:function (parent) {
-        $('<div/>').addClass('progress').attr('rel', '0').text('0%').appendTo(parent);
-    },
-    update:function (bar, value) {
-        var width = bar.width();
-        var bgrValue = -width + (value * (width / 100));
-        bar.attr('rel', value).css('background-position', bgrValue + 'px center').text(value + '%');
-    }
 }
+
 
 var ru2en = {
     ru_str:"АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя",

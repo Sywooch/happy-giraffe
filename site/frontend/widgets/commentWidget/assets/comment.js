@@ -3,15 +3,32 @@ var Comment;
 Comment = {
     seleted_text:null,
     save_url:null,
+    getInstance : function() {
+        var instance = CKEDITOR.instances['Comment_text'];
+        if(instance)
+            return instance;
+        return false;
+    },
+    createInstance : function() {
+        var instance = this.getInstance();
+        if(instance)
+            instance.destroy(true);
+        CKEDITOR.replace('Comment_text');
+    },
     moveForm:function (container) {
-        $('#add_comment').appendTo(container).show();
+        var instance = this.getInstance();
+        if(instance)
+            instance.destroy(true);
+        var form = $('#add_comment').clone(true);
+        $('#add_comment').remove();
+        form.appendTo(container).show();
+        this.createInstance();
     },
     newComment:function () {
         this.cancel();
         this.moveForm($('#new_comment_wrapper'));
     },
     clearVariables:function () {
-        CKEDITOR.instances['Comment[text]'].setData('');
         Comment.clearResponse();
         Comment.clearQuote();
         $('#edit-id').val('');
@@ -38,7 +55,7 @@ Comment = {
             text = this.selected_text;
         }
         $('#add_comment').find('.quote #Comment_quote_id').val(id);
-        CKEDITOR.instances['Comment[text]'].setData('<div class="quote">' + text + '</div><p></p>');
+        this.getInstance().setData('<div class="quote">' + text + '</div><p></p>');
         this.selected_text = null;
     },
     clearQuote:function () {
@@ -77,7 +94,7 @@ Comment = {
 
         var id = $(button).parents('.item').attr('id').replace(/comment_/g, '');
         $('#edit-id').val(id);
-        var editor = CKEDITOR.instances['Comment[text]'];
+        var editor = this.getInstance();
 
         if ($(button).parents('.item').find('.content .quote').size() > 0) {
             var html = '';
@@ -95,7 +112,7 @@ Comment = {
         return false;
     },
     send:function (form, e) {
-        $(form).find('textarea').val(CKEDITOR.instances['Comment[text]'].getData());
+        $(form).find('textarea').val(this.getInstance().getData());
         e = e ? e : window.event;
         e.preventDefault();
         $.ajax({
@@ -115,7 +132,7 @@ Comment = {
                         $.fn.yiiListView.update('comment_list');
                     else
                         $.fn.yiiListView.update('comment_list', {data:{lastPage:true}});
-                    var editor = CKEDITOR.instances['Comment[text]'];
+                    var editor = Comment.getInstance();
                     editor.setData('');
                     Comment.cancel();
                 }

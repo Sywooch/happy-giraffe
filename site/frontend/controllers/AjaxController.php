@@ -80,6 +80,13 @@ class AjaxController extends Controller
         }
     }
 
+    public function actionSavePhoto()
+    {
+        if(!isset($_FILES))
+            Yii::app()->end();
+        $model = new AlbumPhoto();
+    }
+
 	public function actionImageUpload()
 	{
 		$dir = Yii::getPathOfAlias('webroot') . '/upload/images/';

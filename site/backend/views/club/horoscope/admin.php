@@ -21,7 +21,7 @@
                 'attribute'=>'date',
                 //'htmlOptions'=>array('class'=>'input date', 'placeholder'=>'Date from', 'id'=>'date_from'),
                 'options'=>array(
-                    'dateFormat'=> 'dd-mm-yy',
+                    'dateFormat'=> 'yy-mm-dd',
                 )
             ),  true)
         ),

@@ -22,9 +22,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
     line-height: 1;
 }
-ul {
-    list-style: none;
-}
+
 blockquote, q {
     quotes: none;
 }
@@ -65,13 +63,16 @@ html, body {
     font-family:arial;
     font-size:12px;
     line-height:18px;
+	background:#fff;
 }
 
 #layout {min-height:100%;background:#fff;}
-#layout .push {height:145px;}
+#layout .push {height:80px;}
 #layout .layout-in {}
 
-#footer {height:145px;margin-top:-145px;}
+#footer {height:70px;margin-top:-80px;padding-top:10px;font:normal 11px tahoma, arial, helvetica, sens-serif;}
+#footer .copy {margin-left:20px;color:#9e9d9e;}
+#footer .a-right {color:#0498b8;}
 
 .clear { width: 99%; clear: both;}
 
@@ -159,6 +160,8 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
     min-height: 100px;
 }
 
+.content-title {text-align: left;float: none;margin-bottom:20px;position: static;color: #2296b0;font: bold 25px Arial, Helvetica, sans-serif;}
+.content-title .btn {vertical-align:top;}
 
 /* errors */
 
@@ -261,9 +264,9 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .btn.btn-purple-smedium > span {padding-right:6px;height:24px;background-position:100% -2974px;color:#fff;font-weight:bold;font-size:11px;}
 .btn.btn-purple-smedium > span > span {padding-left:10px;height:24px;line-height:23px;background-position:0 -2950px;padding-right:4px;}
 
-
 .btn-wish-list .icon-wish-list {margin-right:-5px;position:relative;top:-2px;}
 
+.btn .arr-r {display:inline-block;width:10px;height:13px;background:url(/images/arrow_r.png) no-repeat;margin-left:8px;position:relative;top:2px;margin-right:-5px;}
 
 .g-button.photo-name {float: left; height: 42px; padding: 0 7px 0 15px; position: relative; display: block; text-decoration: none;}
 .g-button.photo-name .left { background-position: left -1033px; width: 15px;}
@@ -444,7 +447,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 /* body-store */
 
-body {background:#f5f5f5;}
+body.body-club, body.body-store {background:#f5f5f5;}
 a {color:#51afc3;}
 
 #header {margin:0 20px 2px;padding:20px 30px 15px;color:#f6e596;}
@@ -485,6 +488,7 @@ a {color:#51afc3;}
 
 
 #header .nav {overflow:hidden;height:50px;padding-top:25px;float:left;}
+#header .nav ul {list-style:none;}
 #header .nav li {float:left;height:50px;padding-right:14px;}
 #header .nav li a {background:url(../images/btn.png) no-repeat;height:50px;display:block;padding-right:13px;text-decoration:none;}
 #header .nav li a span {background:url(../images/btn.png) no-repeat;height:50px;display:block;font:bold 22px/50px arial, sans-serif;color:#fff;padding:0 23px 0 36px;}
@@ -922,6 +926,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .gallery-photos ul li table tr.title.editing td input[type=text] {width:50%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:middle;background:#fff}
 #gallery .gallery-photos ul li table tr.title.editing td .btn {vertical-align:middle;}
 #gallery .gallery-photos ul li:hover table tr.title td .edit, #gallery .gallery-photos ul li:hover table tr td.img .remove {display:block;}
+#gallery .gallery-photos ul li table tr.rank td {background:#fffedf;padding:1px 15px;text-align:right;color:#7a7b7b;font-size:10px;}
+#gallery .gallery-photos ul li table tr.rank td span {color:#fb7a03;font:normal 11px tahoma, arial, helvetica, sans-serif;font-weight:bold;}
 
 #gallery .fast-album {padding-bottom:20px;}
 
@@ -1024,7 +1030,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .default-comments {padding-bottom:20px;margin-top:20px;}
 .default-comments .add, .default-comments .all {padding-top:10px;text-align:right;}
-.default-comments ul {padding-top:10px;}
+.default-comments ul {padding-top:10px;list-style:none;}
 .default-comments li {padding:10px;}
 .default-comments li.even {background:#f6fdfe;}
 .default-comments li .user {float:left;font:11px tahoma, arial, sans-serif;line-height:normal;max-width:190px;overflow:hidden;}
@@ -1145,6 +1151,46 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-topics-all-link {background:#cdecff;padding:12px 0;text-align:center;margin-bottom:2px;}
 
 /* */
+
+
+/* start */
+	
+#start {padding-bottom:20px;background:url(/images/bg_start.png);}
+#start .wrapper {height:705px;background:url(/images/start.png) no-repeat;}
+
+#start-form {width:290px;padding:25px;float:right;margin:95px 25px 0 0;background:url(/images/bg_start_form.gif);}
+#start-form {/*css3*/ -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;}
+#start-form .form-title {color:#060606;font-weight:bold;font-size:25px;text-align:center;margin-bottom:20px;}
+#start-form .row {margin:10px 0;}
+#start-form .row .row-title {font-style:italic;color:#050505;font-size:14px;padding-left:11px;}
+#start-form .row .row-elements {}
+#start-form .row input[type=text], #start-form .row input[type=password] {background:#ffffff;border:1px solid #ebd5fe;width:268px;padding:8px 10px;font:normal 15px arial, helvetica, sans-serif;color:#333;}
+#start-form .row label input {position:relative;top:1px;}
+#start-form .row label {line-height:40px;}
+
+#start-form .fast-login {color:#9fa0a0;margin:10px 0;}
+#start-form .fast-login a {display:inline-block;width:24px;height:24px;vertical-align:middle;background:url(../images/common.png) no-repeat 24px 24px;margin-left:6px;}
+
+#start-form .question {background:#fefeda;border:1px solid #fdfacc;padding:5px 10px;text-align:center;font-style:italic;color:#575757;font-size:14px;margin:10px 0;}
+
+#start-form .fast-login a.vk {background-position:-561px -101px;}
+#start-form .fast-login a.gp {background-position:-587px -101px;}
+#start-form .fast-login a.mm {background-position:-613px -101px;}
+#start-form .fast-login a.fb {background-position:-561px -127px;}
+#start-form .fast-login a.twt {background-position:-587px -127px;}
+#start-form .fast-login a.ok {background-position:-613px -127px;}
+
+#start-teasers {padding:20px 0;color:#3c3c3c;}
+#start-teasers ul {list-style:none;padding:0 20px;}
+#start-teasers ul li {width:22%;float:left;padding-right:3%;}
+#start-teasers ul li big {display:block;padding-bottom:5px;font-size:15px;font-weight:bold;}
+#start-teasers ul li big span {color:#9473b7;}
+#start-teasers ul li .img {float:left;}
+#start-teasers ul li .text {margin-left:65px;}
+
+
+	
+/* start */
 
 
 /* signals */

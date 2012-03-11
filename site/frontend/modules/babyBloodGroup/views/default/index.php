@@ -96,7 +96,7 @@
                             <li><a href="#">III</a></li>
                             <li><a href="#">IV</a></li>
                         </ul>
-                        <div style="display: none;" id="man_bl_em_" class="errorMessage">Укажите группу крови отца.</div>
+                        <div style="display: none;" id="man_bl_em_" class="errorMessage">Выберите группу крови отца</div>
                     </div>
                     <!-- .ch_group -->
                 </div>
@@ -112,7 +112,7 @@
                             <li><a href="#">III</a></li>
                             <li><a href="#">IV</a></li>
                         </ul>
-                        <div style="display: none;" id="woman_bl_em_" class="errorMessage">Укажите группу крови матери.</div>
+                        <div style="display: none;" id="woman_bl_em_" class="errorMessage">Выберите группу крови матери</div>
                     </div>
                     <!-- .ch_group -->
                 </div>

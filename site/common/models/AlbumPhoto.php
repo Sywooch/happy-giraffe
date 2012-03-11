@@ -110,6 +110,19 @@ class AlbumPhoto extends CActiveRecord
         );
     }
 
+    public function afterSave()
+    {
+        if ($this->isNewRecord){
+            $signal = new UserSignal();
+            $signal->user_id = (int)$this->album->user_id;
+            $signal->item_id = (int)$this->id;
+            $signal->item_name = get_class($this);
+            $signal->signal_type = UserSignal::TYPE_NEW_USER_PHOTO;
+            $signal->save();
+        }
+        parent::afterSave();
+    }
+
     /**
      * Save entity and save image in the file system
      * @return bool
@@ -218,6 +231,11 @@ class AlbumPhoto extends CActiveRecord
             $this->primaryKey,
             $this->fs_name,
         ));
+    }
+
+    public function getPageUrl()
+    {
+        return Yii::app()->createUrl('/albums/photo', array('id'=>$this->id));
     }
 
     public function getCheckAccess()

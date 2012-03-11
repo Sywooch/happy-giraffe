@@ -4,6 +4,13 @@ class ProductController extends BController
 {
     public $layout = 'shop';
 
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('shop'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
     public function actionIndex($category_id = null, $brand_id = null)
     {
         $dataProvider = Product::model()->getAll($category_id, $brand_id);

@@ -11,10 +11,10 @@ return array(
 		'community/<community_id:\d+>/forum' => 'community/list',
 		'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
 
-		'contest/<id:\d+>' => 'contest/contest/view',
-		'contest/work/<id:\d+>' => 'contest/contestWork/view',
-		'contest/list/<id:\d+>/<sort:\w+>' => 'contest/contest/list',
-		'contest/<action:\w+>/<id:\d+>' => 'contest/contest/<action>',
+		'contest/<id:\d+>' => 'contest/default/view',
+		'contest/work/<id:\d+>' => 'contest/default/work',
+		'contest/list/<id:\d+>/<sort:\w+>' => 'contest/default/list',
+		'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
 
 		'/' => 'site/index',
 		'admin/' => 'admin/site/index',
@@ -58,6 +58,8 @@ return array(
         'vaccineCalendar' => 'vaccineCalendar/default/index',
         'menstrualCycle' => 'menstrualCycle/default/index',
         'babyBloodGroup' => 'babyBloodGroup/default/index',
+
+        'signal' => 'signal/default/index',
 
         array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 

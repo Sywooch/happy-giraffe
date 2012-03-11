@@ -2,9 +2,10 @@
 /* @var $this CController
  * @var $month int
  * @var $year int
- * @var $data array
- * @var $activeDay int
+ * @var $activeDate date
  */
+
+$data = UserSignalHistory::getCalendarData($year, sprintf("%02d", $month));
 ?>
 <table>
     <thead>
@@ -13,7 +14,7 @@
             <a href="" class="prev"></a>
             <a href="" class="next"></a>
 
-            <div class="date">МАРТ 2012</div>
+            <div class="date"><?php echo HDate::ruMonth($month) . ' ' . $year  ?></div>
         </td>
     </tr>
     <tr>
@@ -48,8 +49,8 @@
                 $skip--;
             }
             else {
-                if ($activeDay == $day) {
-                    echo '<td class="active">' . $day . '</td>';
+                if ($year . '-' . sprintf("%02d", $month) . '-' . sprintf("%02d", $day) == $activeDate) {
+                    echo '<td class="active"><a>' . $day . '</a></td>';
                 }
                 else {
                     if (isset($data[$day]))

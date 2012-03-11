@@ -19,7 +19,7 @@ class ScoreInput extends EMongoDocument
 
     public function getCollectionName()
     {
-        return 'score_output';
+        return 'score_input';
     }
 
     public function beforeSave()

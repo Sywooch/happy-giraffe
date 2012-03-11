@@ -588,7 +588,7 @@ p {
 
 
 .user {
-    float: left;
+    /*float: left;*/
     width: auto;
 }
 

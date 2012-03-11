@@ -12,5 +12,4 @@
 #log li .progress{ background:#999; width:0%; height:5px; }
 #log li p{ margin:0; line-height:18px; }
 #log li.success{ border:1px solid #339933; background:#ccf9b9; }
-#log li span.cancel{ position:absolute; top:5px; rightright:5px; width:20px; height:20px;
-    background:url('js/swfupload/cancel.png') no-repeat; cursor:pointer; }
+#log li span.cancel{ position:absolute; top:5px; rightright:5px; width:20px; height:20px; cursor:pointer; }

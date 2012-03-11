@@ -1,12 +1,7 @@
-<?php
-/* @var $this Controller
- * @var $form CActiveForm
- */
-?>
-<?php echo CHtml::link('К таблице', array('interest/admin')) ?><div class="form">
+ <?php echo CHtml::link('К таблице', array('/club/interestCategory/admin')) ?><div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'interest-form',
+	'id'=>'interest-category-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
@@ -21,10 +16,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'category_id'); ?>
-		<?php echo $form->dropDownList($model,'category_id',
-            CHtml::listData(InterestCategory::model()->findAll(), 'id', 'name')); ?>
-		<?php echo $form->error($model,'category_id'); ?>
+		<?php echo $form->labelEx($model,'css_class'); ?>
+		<?php echo $form->textField($model,'css_class',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'css_class'); ?>
 	</div>
 
 	<div class="row buttons">

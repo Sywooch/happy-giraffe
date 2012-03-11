@@ -1,6 +1,6 @@
-<h1>Manage Interests</h1>
+<h1>Интересы</h1>
 
- <?php echo CHtml::link('создать', array('interest/create')) ?><?php $this->widget('zii.widgets.grid.CGridView', array(
+ <?php echo CHtml::link('создать', array('/club/interest/create')) ?><?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'interest-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,

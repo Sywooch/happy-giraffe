@@ -5,6 +5,13 @@ class AttributeMeasureOptionController extends BController
 	public $layout='shop';
     public $defaultAction = 'admin';
 
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('shop'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
 	/**
 	 * @return array action filters
 	 */

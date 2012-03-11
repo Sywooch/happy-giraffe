@@ -119,8 +119,21 @@ class AlbumPhoto extends CActiveRecord
             $signal->item_name = get_class($this);
             $signal->signal_type = UserSignal::TYPE_NEW_USER_PHOTO;
             $signal->save();
+
+            //добавляем баллы
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::addScores($this->user_id, ScoreActions::ACTION_PHOTO);
         }
         parent::afterSave();
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        //вычитаем баллы
+        Yii::import('site.frontend.modules.scores.models.*');
+        UserScores::removeScores($this->user_id, ScoreActions::ACTION_PHOTO);
     }
 
     /**

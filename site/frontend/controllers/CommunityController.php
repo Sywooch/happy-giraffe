@@ -104,6 +104,10 @@ class CommunityController extends Controller
 
         $this->pageTitle = (! empty($content->meta_title)) ? $content->meta_title : $this->pageTitle = $content->name;
 
+        if ($content->author_id == Yii::app()->user->id) {
+            UserNotification::model()->deleteByEntity(UserNotification::CLUB_NEW_COMMENT, $content);
+        }
+
         $this->render('view', array(
             'data' => $content,
         ));

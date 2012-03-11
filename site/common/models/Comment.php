@@ -146,9 +146,21 @@ class Comment extends CActiveRecord
 
     public function afterSave()
     {
-        if ($this->isNewRecord){
+        if ($this->isNewRecord) {
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
+
+            //запись в гостевую
+            if ($this->entity == 'User') {
+                $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+                UserNotification::model()->create(UserNotification::GUESTBOOK_NEW_RECORD, $entity);
+            }
+
+            //коммент к посту
+            if ($this->entity == 'CommunityContent') {
+                $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+                UserNotification::model()->create(UserNotification::CLUB_NEW_COMMENT, $entity);
+            }
         }
         parent::afterSave();
     }

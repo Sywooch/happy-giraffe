@@ -184,4 +184,16 @@ class Test2Controller extends Controller
         $comet = new CometModel();
         $comet->send(38, array('text' => $text), CometModel::TYPE_NEW_WARNING);
     }
+
+    public function actionNotifications()
+    {
+        $notifications = array(
+            'count' => UserNotification::model()->getCount(Yii::app()->user->id),
+            'data' => UserNotification::model()->getLast(Yii::app()->user->id),
+        );
+
+        $this->render('notifications', array(
+            'notifications' => $notifications,
+        ));
+    }
 }

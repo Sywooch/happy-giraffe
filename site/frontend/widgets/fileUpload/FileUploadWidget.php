@@ -2,6 +2,7 @@
 class FileUploadWidget extends CWidget
 {
     protected $input_id;
+    public $album_id;
 
     public function form()
     {
@@ -15,7 +16,7 @@ class FileUploadWidget extends CWidget
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
-        $js = "var upload_ajax_url = '" . Yii::app()->createUrl('/ajax/imageUpload') . "';
+        $js = "var upload_ajax_url = '" . Yii::app()->createUrl('/albums/addPhoto', array('a' => $this->album_id)) . "';
         var upload_base_url = '" . $baseUrl . "'";
 
         $cs = Yii::app()->clientScript;

@@ -48,6 +48,7 @@ function initForm() {
             $('#log li#' + file.id).find('span.progressvalue').text(percentage + '%');
         })
         .bind('uploadSuccess', function (event, file, serverData) {
+            cl(serverData);
             var item = $('#log li#' + file.id);
             item.find('div.progress').css('width', '100%');
             item.find('span.progressvalue').text('100%');

@@ -86,12 +86,19 @@ class AlbumsController extends Controller
                 $model->album_id = $a;
                 $model->user_id = $album->user_id;
                 $model->file = $file;
-                if($model->create())
-                    echo 1;
-                else
-                    echo 0;
-                Yii::app()->end();
+                $model->create();
             }
+        }
+        // SWF Upload
+        if(isset($_FILES['Filedata']))
+        {
+            $file = CUploadedFile::getInstanceByName('Filedata');
+            $model = new AlbumPhoto();
+            $model->album_id = $a;
+            $model->user_id = $album->user_id;
+            $model->file = $file;
+            $model->create();
+            Yii::app()->end();
         }
 
         if (Yii::app()->request->isAjaxRequest) {

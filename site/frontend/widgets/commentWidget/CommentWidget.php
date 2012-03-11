@@ -44,6 +44,8 @@ class CommentWidget extends CWidget
 		}
 		else
 		{
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/ckeditor/ckeditor.js')
+                ->registerScriptFile(Yii::app()->baseUrl . '/ckeditor/adapters/jquery.js');
 			$this->render('form', array(
 				'comment_model' => $comment_model,
 				'dataProvider' => $dataProvider,

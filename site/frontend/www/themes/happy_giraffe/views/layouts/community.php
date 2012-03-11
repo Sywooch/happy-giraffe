@@ -91,7 +91,7 @@
 
     <div class="side-left">
 
-        <?php if (Yii::app()->user->checkAccess('createClubPost', array('user'=>Yii::app()->user->getModel(),'community_id'=>$this->community->id))):?>
+        <?php if (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('createClubPost', array('user'=>Yii::app()->user->getModel(),'community_id'=>$this->community->id))):?>
             <div class="club-fast-add">
                 <a href="" class="btn btn-green"><span><span>Добавить</span></span></a>
                 <?php

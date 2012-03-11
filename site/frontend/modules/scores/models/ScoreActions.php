@@ -10,6 +10,22 @@
  */
 class ScoreActions extends CActiveRecord
 {
+    const ACTION_RECORD = 1;
+    const ACTION_YOHOHO_LIKE = 2;
+    const ACTION_LIKE = 3;
+    const ACTION_100_VIEWS = 4;
+    const ACTION_10_COMMENTS = 5;
+    const ACTION_OWN_COMMENT = 6;
+    const ACTION_PROFILE_MAIN = 7;
+    const ACTION_PROFILE_PHOTO = 8;
+    const ACTION_PROFILE_FAMILY = 9;
+    const ACTION_PROFILE_INTERESTS = 10;
+    const ACTION_ATTEND = 11;
+    const ACTION_5_DAYS_ATTEND = 12;
+    const ACTION_20_DAYS_ATTEND = 13;
+    const ACTION_PHOTO = 14;
+    const ACTION_FRIEND = 15;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -94,7 +110,7 @@ class ScoreActions extends CActiveRecord
         $cache_id = 'ScoreActions' . $id;
         $value = Yii::app()->cache->get($cache_id);
         if ($value === false) {
-            $model = self::findByPk($id);
+            $model = self::model()->findByPk($id);
             $value = $model->attributes;
             Yii::app()->cache->set($cache_id, $value, 3600);
         }

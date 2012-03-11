@@ -12,6 +12,11 @@ class ScoreInput extends EMongoDocument
     public $created;
     public $updated;
 
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
+
     public function getCollectionName()
     {
         return 'score_output';
@@ -41,13 +46,18 @@ class ScoreInput extends EMongoDocument
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', $user_id);
 
-
         return $this->find($criteria);
     }
 
-    public function inc()
+    public function inc($score_value)
     {
         $this->amount++;
-        $this->scores_earned += ScoreActions::getActionInfo($this->action_id)['scores'];
+        $this->scores_earned += $score_value;
+    }
+
+    public function dec($score_value)
+    {
+        $this->amount--;
+        $this->scores_earned -= $score_value;
     }
 }

@@ -1,6 +1,6 @@
-<h1>Manage Horoscopes</h1>
+<h1>Гороскоп</h1>
 
-<?php echo CHtml::link('создать', array('horoscope/create')) ?>
+<?php echo CHtml::link('создать', array('/club/horoscope/create')) ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'horoscope-grid',
 	'dataProvider'=>$model->search(),

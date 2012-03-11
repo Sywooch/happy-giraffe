@@ -95,17 +95,53 @@ class UserScores extends CActiveRecord
 
     public static function addScores($user_id, $action_id)
     {
+        $model = UserScores::model()->findByPk($user_id);
+        if ($model === null){
+            $model = new UserScores;
+            $model->scores = 0;
+        }
+
         //проверяем не нужно ли инкрементировать предыдущее событие
         $last_action = ScoreInput::model()->getLastAction($user_id);
-        if ($last_action->action_id == $action_id && ($last_action->created + 3600 > time())){
+        $score_value = ScoreActions::getActionScores($action_id);
+        if ($last_action !== null && $last_action->action_id == $action_id && ($last_action->created + 3600 > time())){
             //инкрементируем
-            $last_action->inc();
+            $last_action->inc($score_value);
             $last_action->save();
         }else{
             $input = new ScoreInput();
             $input->action_id = $action_id;
-            $input->scores_earned = ScoreActions::getActionScores($action_id);
+            $input->scores_earned = $score_value;
             $input->save();
         }
+
+        $model->scores += $score_value;
+        $model->save();
+    }
+
+    public static function removeScores($user_id, $action_id)
+    {
+        $model = UserScores::model()->findByPk($user_id);
+        if ($model === null){
+            $model = new UserScores;
+            $model->scores = 0;
+        }
+
+        //проверяем не нужно ли дискриминтировать предыдущее событие
+        $last_action = ScoreInput::model()->getLastAction($user_id);
+        $score_value = ScoreActions::getActionScores($action_id);
+        if ($last_action !== null && $last_action->action_id == $action_id && ($last_action->created + 3600 > time())){
+            //инкрементируем
+            $last_action->dec($score_value);
+            $last_action->save();
+        }else{
+            $input = new ScoreInput();
+            $input->action_id = $action_id;
+            $input->scores_earned = -$score_value;
+            $input->save();
+        }
+
+        $model->scores -= $score_value;
+        $model->save();
     }
 }

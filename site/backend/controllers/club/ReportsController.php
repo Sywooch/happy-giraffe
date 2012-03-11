@@ -11,6 +11,15 @@ class ReportsController extends BController
     public $section = 'club';
     public $layout = '//layouts/club';
 
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('report'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        Yii::import('site.frontend.modules.recipeBook.models.*');
+        return true;
+    }
+
     public function actionIndex()
     {
         $model = new Report('search');

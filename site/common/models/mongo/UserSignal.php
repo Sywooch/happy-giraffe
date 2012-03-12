@@ -411,10 +411,12 @@ class UserSignal extends EMongoDocument
         $comet->type = CometModel::TYPE_SIGNAL_UPDATE;
         if ($user_id === null) {
             $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
-
-            foreach ($moderators as $moderator) {
+            foreach ($moderators as $moderator)
                 $comet->send($moderator->userid);
-            }
+
+            $super_m = AuthAssignment::model()->findAll('itemname="supermoderator"');
+            foreach ($super_m as $moderator)
+                $comet->send($moderator->userid);
         } else {
             $comet->send($user_id);
         }

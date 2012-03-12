@@ -460,8 +460,7 @@ class User extends CActiveRecord
 
     public function getAva($size = 'ava')
     {
-        $url = $this->pic_small->getUrl($size);
-        return $url;
+        return $this->pic_small->getUrl($size);
     }
 
     public function getPartnerPhotoUrl()
@@ -681,32 +680,49 @@ class User extends CActiveRecord
         $criteria = $this->getFriendSelectCriteria();
         $criteria->mergeWith($this->getCommandBuilder()->createCriteria($condition, $params));
 
-        return self::model()->findAll($criteria);
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
     }
 
     /**
      * @return int
      */
-    public function getFriendsCount()
+    public function getFriendsCount($onlineOnly = false)
     {
-        return self::model()->count($this->getFriendSelectCriteria());
+        $criteria = $this->getFriendSelectCriteria();
+        if ($onlineOnly) $criteria->compare('online', true);
+        return self::model()->count($criteria);
+    }
+
+    public function getFriendRequestsCriteria($direction)
+    {
+        $criteria = new CDbCriteria;
+
+        if ($direction == 'incoming') {
+            $criteria->compare('to_id', $this->id);
+            $criteria->with = 'from';
+        } else {
+            $criteria->compare('from_id', $this->id);
+            $criteria->with = 'to';
+        }
+
+        return $criteria;
     }
 
     /**
      * @return CActiveDataProvider
      */
-    public function getFriendRequests()
+    public function getFriendRequests($direction)
     {
         return new CActiveDataProvider('FriendRequest', array(
-            'criteria' => array(
-                'condition' => 'from_id = :user_id OR to_id = :user_id',
-                'params' => array(':user_id' => Yii::app()->user->id),
-                'with' => array('from', 'to'),
-            ),
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
+            'criteria' => $this->getFriendRequestsCriteria($direction),
         ));
+    }
+
+    public function getFriendRequestsCount($direction)
+    {
+        return FriendRequest::model()->count($this->getFriendRequestsCriteria($direction));
     }
 
     public function getRelashionshipList()

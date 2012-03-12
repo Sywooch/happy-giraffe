@@ -1,11 +1,15 @@
 var Album = {};
-Album.editDescription = function (link) {
+Album.editDescription = function (link, tmp) {
     var note = $(link).parents('.note:eq(0)');
     $('.fast-actions', note).hide();
-    var html = $('<form><textarea placeholder="Введите комментарий к альбому не более 140 символов"></textarea><button class="btn btn-green-small"><span><span>Ок</span></span></button></form>');
-    $('textarea', html).val($('p', note).text());
-    $('p', note).remove();
-    html.appendTo(note);
+    if(!tmp) {
+        var html = $('<form><textarea placeholder="Введите комментарий к альбому не более 140 символов"></textarea><button class="btn btn-green-small"><span><span>Ок</span></span></button></form>');
+        $('textarea', html).val($('p', note).text());
+        $('p', note).remove();
+        html.appendTo(note);
+    } else {
+        $('form', note).show();
+    }
     $('form', note).bind('submit', function () {
         Album.saveDescription(this);
         return false;
@@ -13,13 +17,17 @@ Album.editDescription = function (link) {
     return false;
 };
 
-Album.saveDescription = function (button) {
+Album.saveDescription = function (button, tmp) {
     var note = $(button).parents('.note:eq(0)');
     var text = $('textarea', note).val();
     $('<p></p>').text(text).appendTo(note);
-    $('form', note).remove();
     $('.fast-actions', note).show();
-    $.post($('.fast-actions a.edit', note).attr('href'), {text : text})
+    if(tmp) {
+        $('form', note).hide();
+    } else {
+        $('form', note).remove();
+        $.post($('.fast-actions a.edit', note).attr('href'), {text : text});
+    }
 };
 
 Album.removeDescription = function(link) {

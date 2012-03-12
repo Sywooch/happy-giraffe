@@ -35,6 +35,7 @@ textarea {overflow:auto;font-family:arial,sans-serif;}
 a {cursor:pointer;}
 
 .a-right {float:right;}
+.a-left {float:left;}
 
 /* remember to define focus styles! */
 :focus {
@@ -439,7 +440,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 
 #galleryUploadPhotos {width:550px;}
+
 #galleryUploadPhotos .title {font-size:20px;font-weight:bold;color:#0281b0;margin-bottom:20px;}
+
 #galleryUploadPhotos .teasers {color:#646565;font-size:11px;line-height:normal;}
 #galleryUploadPhotos .teasers ul {list-style:none;}
 #galleryUploadPhotos .teasers ul li {float:left;width:48%;padding-right:2%;}
@@ -448,6 +451,29 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #galleryUploadPhotos .teasers .max-size {border:1px solid #dbdcdc;padding:2px 2px 12px 2px;}
 #galleryUploadPhotos .teasers .max-size .in {width:56px;height:30px;background:#d4d4d4;text-align:center;padding:5px 0;font-size:12px;color:#7f7e7e;}
 
+#galleryUploadPhotos .upload-files-list {line-height:23px;max-height:200px;}
+#galleryUploadPhotos .upload-files-list ul {list-style:none;}
+#galleryUploadPhotos .upload-files-list li {padding:2px 0;}
+#galleryUploadPhotos .upload-files-list li .img {width:25px;height:23px;float:left;margin-right:10px;margin-top:-2px;}
+#galleryUploadPhotos .upload-files-list li .icon-error {display:none;width:21px;height:19px;background:url(/images/common.png) no-repeat -114px -100px;margin:0 auto;}
+#galleryUploadPhotos .upload-files-list li .icon-done {display:none;width:12px;height:10px;float:left;background:url(/images/common.png) no-repeat -66px -185px;margin-right:8px;margin-top:3px;}
+#galleryUploadPhotos .upload-files-list li span {float:left;}
+#galleryUploadPhotos .upload-files-list li .remove {display:block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;float:left;margin-top:2px;margin-left:10px;}
+#galleryUploadPhotos .upload-files-list li .remove:hover {background-position:-314px -148px;}
+#galleryUploadPhotos .upload-files-list li .progress {background:#dedfde;width:125px;height:10px;float:left;margin-top:4px;}
+#galleryUploadPhotos .upload-files-list li .progress .in {background:#8bcf9a;height:10px;}
+#galleryUploadPhotos .upload-files-list li .progress, #galleryUploadPhotos .upload-files-list li .progress .in {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+#galleryUploadPhotos .upload-files-list li .progress-value {float:left;color:#6f6e6e;margin-left:5px;font-size:11px;}
+
+
+#galleryUploadPhotos .upload-files-list li.upload-error .icon-error {display:block;}
+#galleryUploadPhotos .upload-files-list li.upload-error span {color:#ff5656;}
+#galleryUploadPhotos .upload-files-list li.upload-error .remove {display:none;}
+
+#galleryUploadPhotos .upload-files-list li.upload-done .icon-done {display:block;}
+#galleryUploadPhotos .upload-files-list li.upload-done span {color:#32a94c;}
+
+#galleryUploadPhotos  .bottom {line-height:34px;}
 
 
 /* steps */
@@ -1039,7 +1065,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .header .title .note .fast-actions {float:right;padding-left:10px;}
 #gallery .header .title .note .fast-actions .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -341px -136px;margin:0 auto;}
 #gallery .header .title .note .fast-actions .remove {display:inline-block;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;margin:0 auto;}
-#gallery .header .title .note textarea {vertical-align:bottom;overflow:auto;width:640px;margin-right:5px;height:40px;padding:2px 5px;border:1px solid #c5e8ef;}
+#gallery .header .title .note textarea {vertical-align:bottom;overflow:auto;width:440px;margin-right:5px;height:40px;padding:2px 5px;border:1px solid #c5e8ef;}
 #gallery .fast-album .header .title big {font-size:20px;font-weight:normal;}
 
 #gallery .header .actions {padding:20px 0 6px;border-bottom:1px solid #d7f0f5;}

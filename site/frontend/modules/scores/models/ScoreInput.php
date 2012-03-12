@@ -22,6 +22,25 @@ class ScoreInput extends EMongoDocument
         return 'score_input';
     }
 
+    public function indexes()
+    {
+        return array(
+            'user_id_index' => array(
+                'key' => array(
+                    'user_id' => EMongoCriteria::SORT_DESC,
+                ),
+                'unique' => false,
+            ),
+            'created_index' => array(
+                'key' => array(
+                    'user_id' => EMongoCriteria::SORT_DESC,
+                    'created' => EMongoCriteria::SORT_DESC,
+                ),
+                'unique' => false,
+            ),
+        );
+    }
+
     public function beforeSave()
     {
         if ($this->isNewRecord)

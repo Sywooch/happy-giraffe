@@ -39,9 +39,9 @@ class EmbroideryCostForm extends CFormModel
             'height'=>'высоту картины в крестиках',
             'cross_price'=>'стоимость одного крестика в рублях',
             'material_price'=>'стоимость материалов в рублях',
-            'design_price'=>'Стоимость дизайна',
-            'colors_count'=>'Количество цветов',
-            'canva'=>'Размер канвы',
+            'design_price'=>'стоимость дизайна',
+            'colors_count'=>'количество цветов',
+            'canva'=>'размер канвы',
         );
     }
 

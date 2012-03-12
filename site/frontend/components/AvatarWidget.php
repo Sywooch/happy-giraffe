@@ -4,6 +4,7 @@ class AvatarWidget extends CWidget
 {
 	public $user;
     public $size = 'ava';
+    public $withMail;
 	
 	public function run()
 	{

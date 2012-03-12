@@ -1,9 +1,15 @@
 <div class="section-banner">
     <div class="section-nav" style="left:130px;top:30px;">
         <ul>
-            <li class="active"><a href="" class="btn btn-blue-shadow"><span><span>О конкурсе</span></span></a></li>
-            <li><a href="" class="btn btn-blue-shadow"><span><span>Правила</span></span></a></li>
-            <li><a href="" class="btn btn-blue-shadow"><span><span>Участники</span></span></a></li>
+            <li class="active">
+                <?php echo CHtml::link('<span><span>О конкурсе</span></span>', array('/contest/default/view', 'id' => $contest->contest_id), array('class' => 'btn btn-blue-shadow')); ?>
+            </li>
+            <li>
+                <?php echo CHtml::link('<span><span>Правила</span></span>', array('/contest/default/rules', 'id' => $contest->contest_id), array('class' => 'btn btn-blue-shadow')); ?>
+            </li>
+            <li>
+                <?php echo CHtml::link('<span><span>Участники</span></span>', array('/contest/default/list', 'id' => $contest->contest_id), array('class' => 'btn btn-blue-shadow')); ?>
+            </li>
         </ul>
     </div>
     <a href="" class="btn btn-red-transparent" style="position:absolute;z-index:5;right:20px;bottom:28px;"><span><span>Участвовать</span></span></a>

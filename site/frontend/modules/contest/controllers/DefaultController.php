@@ -45,7 +45,6 @@ class DefaultController extends Controller
 
     public function actionView($id)
     {
-        $this->layout = '//layouts/main';
         $contest = Contest::model()->with(array(
             'prizes' => array('with' => 'product'),
             'works' => array('limit' => 15),

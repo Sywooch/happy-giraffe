@@ -103,7 +103,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 :-moz-placeholder {color: grey !important;font-weight: normal !important;}
 .placeholder { color: grey !important;font-weight: normal !important;}
 
-.ava {width:79px;height:75px;background:url(../images/avatar.png) no-repeat -240px 0px;}
+.ava {width:79px;height:75px;background:url(../images/avatar.png) no-repeat -240px 0px;display:block;}
 .ava.female {background-position:-240px -225px;}
 .ava.male {background-position:-240px -450px;}
 

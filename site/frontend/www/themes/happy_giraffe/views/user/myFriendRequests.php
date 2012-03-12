@@ -12,7 +12,33 @@
 
         <div class="content-title">Друзья</div>
 
-
+        <?php
+            $this->widget('zii.widgets.CListView', array(
+                'ajaxUpdate' => false,
+                'dataProvider' => $dataProvider,
+                'itemView' => '_friendRequest',
+                'summaryText' => 'Показано: {start}-{end} из {count}',
+                'template' =>
+                '
+                        <div class="friends clearfix">
+                            <ul>
+                                {items}
+                            </ul>
+                        </div>
+                        <div class="pagination pagination-center clearfix">
+                            {summary}
+                            {pager}
+                        </div>
+                    ',
+                'pager' => array(
+                    'class' => 'MyLinkPager',
+                    'header' => 'Страницы:',
+                ),
+                'viewData' => array(
+                    'direction' => $direction,
+                ),
+            ));
+        ?>
 
     </div>
 

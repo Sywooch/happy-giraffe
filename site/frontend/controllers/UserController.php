@@ -101,6 +101,7 @@ class UserController extends Controller
         );
         $this->render('myFriendRequests', array(
             'dataProvider' => $dataProvider,
+            'direction' => $direction,
         ));
     }
 

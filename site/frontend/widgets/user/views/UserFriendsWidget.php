@@ -4,7 +4,7 @@
 
     <ul>
         <?php foreach ($friends->data as $f): ?>
-            <li><?php echo CHtml::link(CHtml::image($f->pic_small->getUrl('ava')), array('user/profile', 'user_id' => $f->id)); ?></li>
+            <li><?php $this->widget('AvatarWidget', array('user' => $f)); ?></li>
         <?php endforeach; ?>
     </ul>
 

@@ -699,6 +699,8 @@ class User extends CActiveRecord
     {
         $criteria = new CDbCriteria;
 
+        $criteria->compare('status', 'pending');
+
         if ($direction == 'incoming') {
             $criteria->compare('to_id', $this->id);
             $criteria->with = 'from';

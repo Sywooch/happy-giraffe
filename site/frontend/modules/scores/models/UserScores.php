@@ -109,49 +109,55 @@ class UserScores extends CActiveRecord
         return $model;
     }
 
-    public static function addScores($user_id, $action_id, $count = 1)
+    /**
+     * @static
+     * @param int $user_id
+     * @param int $action_id
+     * @param int $count
+     * @param CActiveRecord $entity
+     */
+    public static function addScores($user_id, $action_id, $count = 1, $entity = null)
     {
         $model = self::getModel($user_id);
 
-        //проверяем не нужно ли инкрементировать предыдущее событие
-        $last_action = ScoreInput::model()->getLastAction($user_id);
+        //проверяем нужно ли добавить действие к существующему такому же, которое было недавно
+        $input = ScoreInput::model()->getLastAction($user_id);
         $score_value = ScoreActions::getActionScores($action_id);
-        if ($last_action !== null && $last_action->action_id == $action_id && ($last_action->created + 3600 > time())) {
-            //инкрементируем
-            $last_action->inc($score_value, $count);
-            $last_action->save();
-        } else {
+
+        if ($input === null || $input->action_id != $action_id || ($input->created + 3600 < time())) {
             $input = new ScoreInput();
             $input->action_id = $action_id;
-            $input->amount = $count;
             $input->user_id = $user_id;
-            $input->scores_earned = $score_value * $count;
-            $input->save();
         }
+        $input->addItem($score_value, $count, $entity);
+        $input->save();
 
         $model->scores += $score_value * $count;
         $model->save();
     }
 
-    public static function removeScores($user_id, $action_id, $count = 1)
+    /**
+     * @static
+     * @param int $user_id
+     * @param int $action_id
+     * @param int $count
+     * @param CActiveRecord $entity
+     */
+    public static function removeScores($user_id, $action_id, $count = 1, $entity = null)
     {
         $model = self::getModel($user_id);
 
-        //проверяем не нужно ли дискриминтировать предыдущее событие
-        $last_action = ScoreInput::model()->getLastAction($user_id);
+        //проверяем нужно ли удалить действие из существующего такого же, которое было недавно
+        $input = ScoreInput::model()->getLastAction($user_id);
         $score_value = ScoreActions::getActionScores($action_id);
-        if ($last_action !== null && $last_action->action_id == $action_id && ($last_action->created + 3600 > time())) {
-            //инкрементируем
-            $last_action->dec($score_value, $count);
-            $last_action->save();
-        } else {
+
+        if ($input === null || $input->action_id != $action_id || ($input->created + 3600 < time())) {
             $input = new ScoreInput();
             $input->action_id = $action_id;
-            $input->amount = $count;
             $input->user_id = $user_id;
-            $input->scores_earned = -$score_value * $count;
-            $input->save();
         }
+        $input->removeItem($score_value, $count, $entity);
+        $input->save();
 
         $model->scores -= $score_value;
         $model->save();
@@ -175,10 +181,10 @@ class UserScores extends CActiveRecord
 
                 $diff = floor($value / 10) - floor($prev / 10);
                 if ($diff >= 1) {
-                    self::addScores($entity->author_id, ScoreActions::ACTION_10_COMMENTS, $diff);
+                    self::addScores($entity->author_id, ScoreActions::ACTION_10_COMMENTS, $diff, $entity);
                 }
                 if ($diff <= -1) {
-                    self::removeScores($entity->author_id, ScoreActions::ACTION_10_COMMENTS, abs($diff));
+                    self::removeScores($entity->author_id, ScoreActions::ACTION_10_COMMENTS, abs($diff), $entity);
                 }
             } elseif ($social_key == 'vw') {
                 if (isset($model->ratings[$social_key]))
@@ -188,10 +194,10 @@ class UserScores extends CActiveRecord
 
                 $diff = floor($value / 100) - floor($prev / 100);
                 if ($diff >= 1) {
-                    self::addScores($entity->author_id, ScoreActions::ACTION_100_VIEWS, $diff);
+                    self::addScores($entity->author_id, ScoreActions::ACTION_100_VIEWS, $diff, $entity);
                 }
                 if ($diff <= -1) {
-                    self::removeScores($entity->author_id, ScoreActions::ACTION_100_VIEWS, abs($diff));
+                    self::removeScores($entity->author_id, ScoreActions::ACTION_100_VIEWS, abs($diff), $entity);
                 }
             }
         }

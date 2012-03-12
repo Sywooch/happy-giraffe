@@ -12,6 +12,9 @@ class ScoreInput extends EMongoDocument
     public $created;
     public $updated;
 
+    public $added_items = array();
+    public $removed_items = array();
+
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
@@ -76,15 +79,44 @@ class ScoreInput extends EMongoDocument
         return $this->find($criteria);
     }
 
-    public function inc($score_value, $count = 1)
+    /**
+     * @param $score_value
+     * @param int $count
+     * @param CActiveRecord $entity
+     */
+    public function addItem($score_value, $count = 1, $entity)
     {
         $this->amount = $this->amount + $count;
         $this->scores_earned += $score_value*$count;
+        if ($entity !== null){
+            $this->added_items [] = array(
+                'id'=>$entity->primaryKey,
+                'name'=>get_class($entity),
+            );
+        }
     }
 
-    public function dec($score_value, $count = 1)
+    /**
+     * @param $score_value
+     * @param int $count
+     * @param CActiveRecord $entity
+     */
+    public function removeItem($score_value, $count = 1, $entity)
     {
         $this->amount = $this->amount - $count;
         $this->scores_earned -= $score_value*$count;
+        if ($entity !== null){
+            foreach($this->added_items as $key => $added_item){
+                if ($added_item['id'] == $entity->primaryKey &&
+                    $added_item['name'] == get_class($entity)){
+                    unset($this->added_items[$key]);
+                    return ;
+                }
+            }
+            $this->removed_items [] = array(
+                'id'=>$entity->primaryKey,
+                'name'=>get_class($entity),
+            );
+        }
     }
 }

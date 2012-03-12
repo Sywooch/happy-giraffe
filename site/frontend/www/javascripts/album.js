@@ -1,4 +1,6 @@
-var Album = {};
+var Album = {
+    editMode : false
+};
 Album.editDescription = function (link, tmp) {
     var note = $(link).parents('.note:eq(0)');
     $('.fast-actions', note).hide();
@@ -34,4 +36,22 @@ Album.removeDescription = function(link) {
     $.post(link.href, {text : ''});
     $(link).parents('.note:eq(0)').remove();
     return false;
-}
+};
+
+/* Изменение названия фотографии */
+Album.editPhoto = function(link) {
+    var text = $(link).siblings('span').text();
+    if(this.editMode) {
+        $(link).parent().hide().siblings('div').show().find('input[type=text]').val(text);
+    }
+    return false;
+};
+
+/* Сохранение названия фотографии */
+Album.savePhoto = function(button) {
+    var text = $(button).siblings('input[type=text]').val();
+    if(this.editMode) {
+        $(button).parent().hide().siblings('div').show().find('span').text(text);
+    }
+    return false;
+};

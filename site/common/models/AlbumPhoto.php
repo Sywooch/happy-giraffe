@@ -31,6 +31,10 @@ class AlbumPhoto extends CActiveRecord
      */
     private $thumb_folder = 'thumbs';
     /**
+     * @var string template image folder
+     */
+    private $tmp_folder = 'temp';
+    /**
      * @var CUploadedFile
      */
     public $file;
@@ -63,6 +67,7 @@ class AlbumPhoto extends CActiveRecord
             array('user_id, album_id, file_name', 'required'),
             array('user_id, album_id', 'length', 'max' => 10),
             array('file_name, fs_name', 'length', 'max' => 100),
+            array('title', 'length', 'max' => 50),
             array('created, updated', 'safe'),
         );
     }
@@ -105,6 +110,7 @@ class AlbumPhoto extends CActiveRecord
             'user_id' => 'User',
             'album_id' => 'Album',
             'file_name' => 'File Name',
+            'title' => 'Название',
             'created' => 'Дата создания',
             'updated' => 'Дата последнего обновления',
         );
@@ -140,13 +146,20 @@ class AlbumPhoto extends CActiveRecord
      * Save entity and save image in the file system
      * @return bool
      */
-    public function create()
+    public function create($temp = false)
     {
-        $this->file_name = $this->file;
-        $this->fs_name = md5($this->file_name) . '.' . $this->file->extensionName;
+        if(!$temp)
+        {
+            $this->file_name = $this->file;
+            $this->fs_name = md5($this->file_name) . '.' . $this->file->extensionName;
+        }
+        else
+        {
+            $this->fs_name = $this->file_name;
+        }
         if ($this->save())
         {
-            $this->saveFile();
+            $this->saveFile(false, $temp);
             return true;
         }
         return false;
@@ -156,13 +169,25 @@ class AlbumPhoto extends CActiveRecord
      * Save file in the file system
      * @return bool
      */
-    public function saveFile()
+    public function saveFile($temp = false, $move_temp = false)
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
-        $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->primaryKey;
-        mkdir($model_dir);
+        if(!$temp)
+        {
+            $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->primaryKey;
+            mkdir($model_dir);
+        }
+        else
+        {
+            $model_dir = $dir . DIRECTORY_SEPARATOR . $this->tmp_folder;
+            $this->file_name = $this->file;
+            $this->fs_name = md5($this->file_name . time()) . '.' . $this->file->extensionName;
+        }
         $file_name = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
-        return $this->file->saveAs($file_name);
+        if(!$move_temp)
+            return $this->file->saveAs($file_name);
+        else
+            rename($this->templatePath, $file_name);
     }
 
     /**
@@ -197,7 +222,8 @@ class AlbumPhoto extends CActiveRecord
      * @param int $height
      *
      * @return string
-     */public function getPreviewPath($width = 100, $height = 100, $master = false)
+     */
+    public function getPreviewPath($width = 100, $height = 100, $master = false)
     {
         // Uload root
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
@@ -244,6 +270,16 @@ class AlbumPhoto extends CActiveRecord
             $this->primaryKey,
             $this->fs_name,
         ));
+    }
+
+    public function  getTemplatePath()
+    {
+        return Yii::getPathOfAlias('site.common.uploads.photos') . DIRECTORY_SEPARATOR . $this->tmp_folder . DIRECTORY_SEPARATOR . $this->fs_name;
+    }
+
+    public function getTemplateUrl()
+    {
+        return Yii::app()->params['photos_url'] . '/' . $this->tmp_folder . '/' . $this->fs_name;
     }
 
     public function getPageUrl()

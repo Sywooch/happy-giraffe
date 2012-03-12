@@ -60,7 +60,7 @@ class Album extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'photos_relation' => array(self::HAS_MANY, 'AlbumPhoto', 'album_id'),
+            'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'album_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
@@ -115,11 +115,29 @@ class Album extends CActiveRecord
         return true;
     }
 
-    public function getPhotos()
+    public function getAlbumPhotos()
     {
         if($this->isNewRecord)
             return $this->files;
         else
-            return $this->photos_relation;
+            return $this->photos;
+    }
+
+    public function afterSave()
+    {
+        foreach($this->files['id'] as $i => $id)
+        {
+            if($id != '')
+                AlbumPhoto::model()->updateByPk($id, array('title' => $this->files['title'][$i]));
+            else
+            {
+                $model = new AlbumPhoto;
+                $model->album_id = $this->id;
+                $model->user_id = $this->user_id;
+                $model->title = $this->files['title'][$i];
+                $model->file_name = $this->files['fsn'][$i];
+                $model->create(true);
+            }
+        }
     }
 }

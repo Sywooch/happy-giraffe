@@ -460,8 +460,7 @@ class User extends CActiveRecord
 
     public function getAva($size = 'ava')
     {
-        $url = $this->pic_small->getUrl($size);
-        return $url;
+        return $this->pic_small->getUrl($size);
     }
 
     public function getPartnerPhotoUrl()
@@ -681,15 +680,19 @@ class User extends CActiveRecord
         $criteria = $this->getFriendSelectCriteria();
         $criteria->mergeWith($this->getCommandBuilder()->createCriteria($condition, $params));
 
-        return self::model()->findAll($criteria);
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
     }
 
     /**
      * @return int
      */
-    public function getFriendsCount()
+    public function getFriendsCount($onlineOnly = false)
     {
-        return self::model()->count($this->getFriendSelectCriteria());
+        $criteria = $this->getFriendSelectCriteria();
+        if ($onlineOnly) $criteria->compare('online', true);
+        return self::model()->count($criteria);
     }
 
     /**

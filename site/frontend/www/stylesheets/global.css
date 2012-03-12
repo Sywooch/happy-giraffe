@@ -1402,6 +1402,8 @@ p {
 #contest .photo-rank.place-2 .cup {background-position:-64px -154px;}
 #contest .photo-rank.place-3 .cup {background-position:-127px -154px;}
 
+.contest-takeapart {position:absolute;z-index:5;right:20px;bottom:28px;}
+
 
 .inner.contest .content-title {
     text-align: left;

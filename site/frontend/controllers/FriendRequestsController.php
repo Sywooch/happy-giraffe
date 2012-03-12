@@ -64,9 +64,9 @@ class FriendRequestsController extends Controller
         if ($request->to_id != Yii::app()->user->id)
             throw new CHttpException(403, 'Это не ваше приглашение');
         $request->status = $new_status;
-        if ($request->save()) {
+        if ($request->save() && $new_status == 'accepted') {
             Yii::app()->user->model->addFriend($request->from_id);
         }
-        $this->redirect(array('friendRequests/list'));
+        $this->redirect(array('user/myFriendRequests', 'direction' => 'incoming'));
     }
 }

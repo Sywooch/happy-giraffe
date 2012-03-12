@@ -3,6 +3,6 @@
         'user' => $data,
     )); ?>
     <div class="details">
-        <?php echo CHtml::link($data->fullName, array('user/profile'), array('class' => 'username')); ?>
+        <?php echo CHtml::link($data->fullName, $data->profileUrl, array('class' => 'username')); ?>
     </div>
 </li>

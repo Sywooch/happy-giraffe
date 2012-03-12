@@ -124,10 +124,12 @@ class UserScores extends CActiveRecord
         $input = ScoreInput::model()->getLastAction($user_id);
         $score_value = ScoreActions::getActionScores($action_id);
 
-        if ($input === null || $input->action_id != $action_id || ($input->created + 3600 < time())) {
+        if ($input === null || $input->action_id != $action_id || ($input->created + 3600 < time())
+            || !in_array($action_id, array(ScoreActions::ACTION_PHOTO))
+        ) {
             $input = new ScoreInput();
-            $input->action_id = $action_id;
-            $input->user_id = $user_id;
+            $input->action_id = (int)$action_id;
+            $input->user_id = (int)$user_id;
         }
         $input->addItem($score_value, $count, $entity);
         $input->save();
@@ -151,10 +153,12 @@ class UserScores extends CActiveRecord
         $input = ScoreInput::model()->getLastAction($user_id);
         $score_value = ScoreActions::getActionScores($action_id);
 
-        if ($input === null || $input->action_id != $action_id || ($input->created + 3600 < time())) {
+        if ($input === null || $input->action_id != $action_id || ($input->created + 3600 < time())
+            || !in_array($action_id, array(ScoreActions::ACTION_PHOTO))
+        ) {
             $input = new ScoreInput();
-            $input->action_id = $action_id;
-            $input->user_id = $user_id;
+            $input->action_id = (int)$action_id;
+            $input->user_id = (int)$user_id;
         }
         $input->removeItem($score_value, $count, $entity);
         $input->save();
@@ -214,7 +218,7 @@ class UserScores extends CActiveRecord
         if (!$model->full) {
             $score = ScoreInput::model()->findByAttributes(array(
                 'action_id' => $action_id,
-                'user_id'=>$user_id
+                'user_id' => $user_id
             ));
             if ($score === null)
                 self::addScores($user_id, $action_id);
@@ -225,7 +229,7 @@ class UserScores extends CActiveRecord
                 ScoreActions::ACTION_PROFILE_PHOTO, ScoreActions::ACTION_PROFILE_FAMILY,
                 ScoreActions::ACTION_PROFILE_INTERESTS));
             $profile_count = $score = ScoreInput::model()->count($criteria);
-            if ($profile_count == 4){
+            if ($profile_count == 4) {
                 $model->full = 1;
                 $model->save();
             }

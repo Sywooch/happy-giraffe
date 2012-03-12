@@ -164,7 +164,7 @@ class Comment extends CActiveRecord
 
             //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT);
+            UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, $this);
         }
         parent::afterSave();
     }
@@ -210,12 +210,15 @@ class Comment extends CActiveRecord
 
     public function afterDelete()
     {
-        //вычитаем баллы
-        Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT);
-
         $this->renewPosition();
         return parent::afterDelete();
+    }
+
+    public function afterRemove()
+    {
+        //вычитаем баллы
+        Yii::import('site.frontend.modules.scores.models.*');
+        UserScores::removeScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, $this);
     }
 
     public static function getUserAvarageCommentsCount($user)

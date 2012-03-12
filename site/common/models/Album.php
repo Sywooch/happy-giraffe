@@ -17,6 +17,7 @@
 class Album extends CActiveRecord
 {
     private $_check_access = null;
+    public $files = array();
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -45,9 +46,9 @@ class Album extends CActiveRecord
 		return array(
 			array('title, user_id', 'required'),
             array('title', 'length', 'max' => 100),
-            array('description', 'length', 'max' => 255),
+            array('description', 'length', 'max' => 140),
 			array('user_id', 'length', 'max'=>10),
-            array('created, updated', 'safe'),
+            array('created, updated, files', 'safe'),
 		);
 	}
 
@@ -59,7 +60,7 @@ class Album extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'album_id'),
+            'photos_relation' => array(self::HAS_MANY, 'AlbumPhoto', 'album_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
@@ -91,7 +92,7 @@ class Album extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Название',
+			'title' => 'Название альбома',
 			'description' => 'Описание',
 			'user_id' => 'User',
             'created' => 'Дата создания',
@@ -112,5 +113,13 @@ class Album extends CActiveRecord
     public function getCheckAccess()
     {
         return true;
+    }
+
+    public function getPhotos()
+    {
+        if($this->isNewRecord)
+            return $this->files;
+        else
+            return $this->photos_relation;
     }
 }

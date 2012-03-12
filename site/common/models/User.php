@@ -196,8 +196,8 @@ class User extends CActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
+        Yii::import('site.frontend.modules.geo.models.GeoCountry');
+
         return array(
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),

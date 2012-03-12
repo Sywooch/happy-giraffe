@@ -7,6 +7,15 @@ class UserController extends Controller
     public $rubric_id;
     public $content_type_slug;
 
+    protected function beforeAction($action)
+    {
+        $user_id = $this->actionParams['user_id'];
+        $this->user = User::model()->getUserById($user_id);
+        if ($this->user === null)
+            throw CHttpException(404, 'Пользователь не найден');
+        return parent::beforeAction($action);
+    }
+
     public function actionProfile($user_id)
     {
         $this->layout = '//layouts/main';
@@ -43,6 +52,21 @@ class UserController extends Controller
         $contents = CommunityContent::model()->getBlogContents($user_id, $rubric_id);
         $this->render('blog', array(
             'contents' => $contents,
+        ));
+    }
+
+    public function actionFriends($user_id, $show = 'all')
+    {
+        switch ($show) {
+            case 'all':
+                $dataProvider = $this->user->getFriends();
+                break;
+            case 'onlineOnly':
+                $dataProvider = $this->user->getFriends('online = 1');
+                break;
+        }
+        $this->render('friends', array(
+            'dataProvider' => $dataProvider,
         ));
     }
 

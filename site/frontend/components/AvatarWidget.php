@@ -7,10 +7,7 @@ class AvatarWidget extends CWidget
 	
 	public function run()
 	{
-		$this->render('AvatarWidget', array(
-			'user' => $this->user,
-            'size' => $this->size,
-		));
+		$this->render('AvatarWidget');
 	}
 
 }

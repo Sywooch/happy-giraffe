@@ -166,5 +166,21 @@ class RecipeBookRecipe extends CActiveRecord
         ));
     }
 
+    public function afterSave()
+    {
+        parent::afterSave();
 
+        if ($this->isNewRecord){
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD);
+        }
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        Yii::import('site.frontend.modules.scores.models.*');
+        UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD);
+    }
 }

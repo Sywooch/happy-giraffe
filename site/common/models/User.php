@@ -695,21 +695,34 @@ class User extends CActiveRecord
         return self::model()->count($criteria);
     }
 
+    public function getFriendRequestsCriteria($direction)
+    {
+        $criteria = new CDbCriteria;
+
+        if ($direction == 'incoming') {
+            $criteria->compare('to_id', $this->id);
+            $criteria->with = 'from';
+        } else {
+            $criteria->compare('from_id', $this->id);
+            $criteria->with = 'to';
+        }
+
+        return $criteria;
+    }
+
     /**
      * @return CActiveDataProvider
      */
-    public function getFriendRequests()
+    public function getFriendRequests($direction)
     {
         return new CActiveDataProvider('FriendRequest', array(
-            'criteria' => array(
-                'condition' => 'from_id = :user_id OR to_id = :user_id',
-                'params' => array(':user_id' => Yii::app()->user->id),
-                'with' => array('from', 'to'),
-            ),
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
+            'criteria' => $this->getFriendRequestsCriteria($direction),
         ));
+    }
+
+    public function getFriendRequestsCount($direction)
+    {
+        return FriendRequest::model()->count($this->getFriendRequestsCriteria($direction));
     }
 
     public function getRelashionshipList()

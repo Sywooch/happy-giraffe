@@ -32,14 +32,37 @@
     <b>Действия</b><br>
 
     <div class="r-list">
-        <?php echo CHtml::checkBox('check-all-oper') ?> отметить все <br><br>
-        <?php $am = Yii::app()->authManager;  ?>
+        <?php echo CHtml::checkBox('check-all-oper', false, array('class' => 'check-all-oper')) ?> отметить все <br><br>
+        <?php if ($model->getRole() != 'moderator'): ?>
+        <?php $am = Yii::app()->authManager; ?>
         <?php $items = $am->getOperations(); ?>
         <?php foreach ($items as $item): ?>
-        <?php echo CHtml::checkBox('Operation[' . $item->name . ']', $am->isAssigned($item->name, $model->id)) ?>
-        <?php echo CHtml::label($item->description, 'Operation_' . $item->name, array('style' => 'display:inline')) ?>
+            <?php echo CHtml::checkBox('Operation[' . $item->name . ']', $am->isAssigned($item->name, $model->id)) ?>
+            <?php echo CHtml::label($item->description, 'Operation_' . $item->name, array('style' => 'display:inline')) ?>
+            <br>
+            <?php endforeach; ?>
+        <?php else: ?>
+        <input type="checkbox" id="Operation_createClubPost" name="Operation[createClubPost]" value="1">
+        <label for="Operation_createClubPost" style="display:inline">Создание постов в сообществах</label>        <br>
+        <input type="checkbox" id="Operation_editComment" name="Operation[editComment]" value="1">
+        <label for="Operation_editComment" style="display:inline">редактирование комментариев</label>        <br>
+        <input type="checkbox" id="Operation_editCommunityContent" name="Operation[editCommunityContent]" value="1">
+        <label for="Operation_editCommunityContent" style="display:inline">редактирование тем в сообществах (название
+            темы, текст)</label>        <br>
+        <input type="checkbox" id="Operation_editCommunityRubric" name="Operation[editCommunityRubric]" value="1">
+        <label for="Operation_editCommunityRubric" style="display:inline">изменение рубрик в темах</label>        <br>
+        <input type="checkbox" id="Operation_editUser" name="Operation[editUser]" value="1">
+        <label for="Operation_editUser" style="display:inline">полное редактирование страницы пользователей</label>
         <br>
-        <?php endforeach; ?>
+        <input type="checkbox" id="Operation_removeComment" name="Operation[removeComment]" value="1">
+        <label for="Operation_removeComment" style="display:inline">удаление комментариев</label>        <br>
+        <input type="checkbox" id="Operation_removeCommunityContent" name="Operation[removeCommunityContent]" value="1">
+        <label for="Operation_removeCommunityContent" style="display:inline">Удаление тем в сообществах</label>
+        <br>
+        <input type="checkbox" id="Operation_transfer post" name="Operation[transfer post]" value="1">
+        <label for="Operation_transfer post" style="display:inline">перенос темы из сообщества в сообщество</label>
+        <br>
+        <?php endif ?>
     </div>
 
     <div class="row buttons">
@@ -49,38 +72,50 @@
     <?php $this->endWidget(); ?>
 
     <div id="moder-rights" style="display: none;">
-        <input type="checkbox" id="check-all-oper" name="check-all-oper" value="1"> отметить все <br><br>
+        <input type="checkbox" class="check-all-oper" name="check-all-oper" value="1"> отметить все <br><br>
         <input type="checkbox" id="Operation_createClubPost" name="Operation[createClubPost]" value="1">
-        <label for="Operation_createClubPost" style="display:inline">Создание постов в сообществах</label>        <br>
+        <label for="Operation_createClubPost" style="display:inline">Создание постов в сообществах</label> <br>
         <input type="checkbox" id="Operation_editComment" name="Operation[editComment]" value="1">
-        <label for="Operation_editComment" style="display:inline">редактирование комментариев</label>        <br>
+        <label for="Operation_editComment" style="display:inline">редактирование комментариев</label> <br>
         <input type="checkbox" id="Operation_editCommunityContent" name="Operation[editCommunityContent]" value="1">
-        <label for="Operation_editCommunityContent" style="display:inline">редактирование тем в сообществах (название темы, текст)</label>        <br>
+        <label for="Operation_editCommunityContent" style="display:inline">редактирование тем в сообществах (название
+            темы, текст)</label> <br>
         <input type="checkbox" id="Operation_editCommunityRubric" name="Operation[editCommunityRubric]" value="1">
-        <label for="Operation_editCommunityRubric" style="display:inline">изменение рубрик в темах</label>        <br>
+        <label for="Operation_editCommunityRubric" style="display:inline">изменение рубрик в темах</label> <br>
         <input type="checkbox" id="Operation_editUser" name="Operation[editUser]" value="1">
-        <label for="Operation_editUser" style="display:inline">полное редактирование страницы пользователей</label>        <br>
+        <label for="Operation_editUser" style="display:inline">полное редактирование страницы пользователей</label> <br>
         <input type="checkbox" id="Operation_removeComment" name="Operation[removeComment]" value="1">
-        <label for="Operation_removeComment" style="display:inline">удаление комментариев</label>        <br>
+        <label for="Operation_removeComment" style="display:inline">удаление комментариев</label> <br>
         <input type="checkbox" id="Operation_removeCommunityContent" name="Operation[removeCommunityContent]" value="1">
-        <label for="Operation_removeCommunityContent" style="display:inline">Удаление тем в сообществах</label>        <br>
+        <label for="Operation_removeCommunityContent" style="display:inline">Удаление тем в сообществах</label> <br>
         <input type="checkbox" id="Operation_transfer post" name="Operation[transfer post]" value="1">
-        <label for="Operation_transfer post" style="display:inline">перенос темы из сообщества в сообщество</label>        <br>
+        <label for="Operation_transfer post" style="display:inline">перенос темы из сообщества в сообщество</label> <br>
+    </div>
+
+    <div id="all-rights" style="display: none;">
+        <?php echo CHtml::checkBox('check-all-oper', false, array('class' => 'check-all-oper')) ?> отметить все <br><br>
+        <?php $am = Yii::app()->authManager;  ?>
+        <?php $items = $am->getOperations(); ?>
+        <?php foreach ($items as $item): ?>
+        <?php echo CHtml::checkBox('Operation[' . $item->name . ']', $am->isAssigned($item->name, $model->id)) ?>
+        <?php echo CHtml::label($item->description, 'Operation_' . $item->name, array('style' => 'display:inline')) ?>
+        <br>
+        <?php endforeach; ?>
     </div>
 
 </div><!-- form -->
 <script type="text/javascript">
-    $('#check-all-oper').click(function(){
+    $('body').delegate('.check-all-oper', 'click', function () {
         if ($(this).is(':checked'))
             $(this).parent().find('input[type=checkbox]').attr('checked', true);
         else
             $(this).parent().find('input[type=checkbox]').attr('checked', false);
-
-        return true;
     });
 
-    $('#User_role').change(function(){
+    $('#User_role').change(function () {
         if ($(this).val() == 'moderator')
             $('.r-list').html($('#moder-rights').html());
+        else
+            $('.r-list').html($('#all-rights').html());
     });
 </script>

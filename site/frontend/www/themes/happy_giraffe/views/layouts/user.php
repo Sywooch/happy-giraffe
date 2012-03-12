@@ -21,13 +21,32 @@
         </div>
 
         <div class="user-nav">
-            <ul>
-                <li><a href="">Анкета</a></li>
-                <li class="active"><a href="">Блог</a></li>
-                <li><a href="">Фото</a></li>
-                <li><a href="">Друзья</a></li>
-                <li><a href="">Клубы</a></li>
-            </ul>
+            <?php
+                $this->widget('zii.widgets.CMenu', array(
+                    'items' => array(
+                        array(
+                            'label' => 'Анкета',
+                            'url' => array('user/profile', 'user_id' => $this->user->id),
+                        ),
+                        array(
+                            'label' => 'Блог',
+                            'url' => array('user/blog', 'user_id' => $this->user->id),
+                        ),
+                        array(
+                            'label' => 'Фото',
+                            'url' => array('albums/user', 'id' => $this->user->id),
+                        ),
+                        array(
+                            'label' => 'Друзья',
+                            'url' => array('user/friends', 'user_id' => $this->user->id),
+                        ),
+                        array(
+                            'label' => 'Клубы',
+                            'url' => array('user/clubs', 'user_id' => $this->user->id),
+                        ),
+                    ),
+                ));
+            ?>
         </div>
 
     </div>

@@ -53,6 +53,9 @@
 ');
     }
     ?>
+    <script type="text/javascript">
+        var base_url = '<?php echo Yii::app()->baseUrl; ?>';
+    </script>
 </head>
 <body class="body-club">
 	<div class="page">

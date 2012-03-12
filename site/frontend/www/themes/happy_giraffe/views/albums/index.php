@@ -3,13 +3,13 @@
     <div class="header">
         <div class="clearfix">
             <div class="user">
-                <?php $this->widget('AvatarWidget', array('user' => $user, 'withMail' => false)); ?>
+                <?php $this->widget('AvatarWidget', array('user' => $user)); ?>
                 <p><span><?php echo $user->fullName; ?></span>
                     <?php if($user->country): ?>
                         <br><?php echo $user->country->name; ?></p>
                     <?php endif; ?>
             </div>
-            <div class="back-link">← <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $user->id)) ?></div>
+            <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $user->id)) ?></div>
         </div>
         <div class="title">
             <big><span>Фотоальбомы</span></big>
@@ -22,15 +22,15 @@
                 <big>
                     Альбом <span>&laquo;<?php echo CHtml::link($model->title, array('albums/view', 'id' => $model->id)); ?>&raquo;</span>
                     <?php if($model->checkAccess === true): ?>
-                        <a href="" class="edit"></a>
+                        <?php echo CHtml::link('', array('albums/create', 'id' => $model->id), array('class' => 'edit')); ?>
                     <?php endif; ?>
                 </big>
                 <?php if ($model->description): ?>
                 <div class="note">
                     <?php if($model->checkAccess === true): ?>
                     <div class="fast-actions">
-                        <a href="" class="edit"></a>
-                        <a href="" class="remove"></a>
+                        <?php echo CHtml::link('', array('/albums/editDescription', 'id' => $model->id), array('class' => 'edit', 'onclick' => 'return Album.editDescription(this);')); ?>
+                        <?php echo CHtml::link('', array('/albums/editDescription', 'id' => $model->id), array('class' => 'remove', 'onclick' => 'return Album.removeDescription(this);')); ?>
                     </div>
                     <?php endif; ?>
                     <p><?php echo $model->description; ?></p>

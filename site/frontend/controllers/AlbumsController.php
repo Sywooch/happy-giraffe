@@ -1,6 +1,12 @@
 <?php
 class AlbumsController extends Controller
 {
+    public function beforeAction($action)
+    {
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js');
+        return parent::beforeAction($action);
+    }
+
     public function filters()
     {
         return array(
@@ -57,17 +63,15 @@ class AlbumsController extends Controller
         ));
     }
 
-    public function actionCreate()
+    public function actionCreate($id = false)
     {
-        $model = new Album;
+        $model = $id ? Album::model()->findByPk($id) : new Album;
         if(isset($_POST['Album']))
         {
             $model->attributes = $_POST['Album'];
             $model->user_id = Yii::app()->user->id;
             if($model->save())
-                $this->redirect(array('albums/index'));
-            else
-                print_r($model->errors);
+                $this->redirect($id === false ? array('albums/index') : array('albums/view', 'id' => $id));
         }
         $this->render('form', array('model' => $model));
     }
@@ -159,5 +163,14 @@ class AlbumsController extends Controller
                 'attaches' => AttachPhoto::model()->findByEntity($_POST['entity'], $_POST['entity_id']),
             ));
         }
+    }
+
+    public function actionEditDescription($id)
+    {
+        $model = Album::model()->findByPk($id);
+        if(!Yii::app()->request->isAjaxRequest || Yii::app()->user->id != $model->user_id || ($text = Yii::app()->request->getPost('text')) === false)
+            Yii::app()->end();
+        $model->description = $text;
+        $model->save();
     }
 }

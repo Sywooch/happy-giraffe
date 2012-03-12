@@ -9,16 +9,22 @@
 		'email',
 		'first_name',
 		'last_name',
-		array(
-		    'name'=>'role',
-		    'value'=>'$data->getAssigns()',
+        array(
+            'name'=>'role',
+            'value'=>'$data->getRole()',
             //'filter'=>CHtml::listData(Yii::app()->authManager->getRoles(), 'name', 'name')
             'filter'=>false
+        ),
+        array(
+            'name'=>'assigns',
+            'type'=>'html',
+            'value'=>'$data->getAssigns()',
+            'filter'=>false
+        ),
+		array(
+		    'name'=>'last_active',
+            'filter'=>false
 		),
-//		'last_active',
-//		'register_date',
-//		'login_date',
-//		'last_ip',
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}'

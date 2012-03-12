@@ -43,10 +43,10 @@
             <div class="user-photo">
                 <?php if ($user->id == Yii::app()->user->getId()):?>
                 <a href="<?php echo Yii::app()->createUrl('profile/photo', array('returnUrl'=>urlencode(Yii::app()->createUrl('user/profile', array('user_id'=>Yii::app()->user->getId()))))) ?>">
-                    <img src="<?php echo $user->getAva('big'); ?>" />
+                    <?php $this->widget('AvatarWidget', array('user' => $user, 'size'=>'big')); ?>
                 </a>
                 <?php else: ?>
-                    <img src="<?php echo $user->getAva('big'); ?>" />
+                    <?php $this->widget('AvatarWidget', array('user' => $user, 'size'=>'big')); ?>
                 <?php endif ?>
             </div>
 

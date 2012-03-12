@@ -7,6 +7,41 @@ class UserController extends Controller
     public $rubric_id;
     public $content_type_slug;
 
+    private $_publicActions = array('profile', 'blog', 'friends');
+
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'actions' => $this->_publicActions,
+                'users'=>array('*'),
+            ),
+            array('allow',
+                'actions' => array('myFriendRequests', 'createRelated', 'updateMood'),
+                'users' => array('@'),
+            ),
+            array('deny',
+                'users'=>array('*'),
+            ),
+        );
+    }
+
+    protected function beforeAction($action)
+    {
+        $user_id = (in_array($this->action->id, $this->_publicActions)) ? $this->actionParams['user_id'] : Yii::app()->user->id;
+        $this->user = User::model()->getUserById($user_id);
+        if ($this->user === null)
+            throw CHttpException(404, 'Пользователь не найден');
+        return parent::beforeAction($action);
+    }
+
     public function actionProfile($user_id)
     {
         $this->layout = '//layouts/main';
@@ -43,6 +78,29 @@ class UserController extends Controller
         $contents = CommunityContent::model()->getBlogContents($user_id, $rubric_id);
         $this->render('blog', array(
             'contents' => $contents,
+        ));
+    }
+
+    public function actionFriends($user_id, $show = 'all')
+    {
+        $dataProvider = ($show == 'online') ? $this->user->getFriends('online = 1') : $this->user->getFriends();
+        $dataProvider->pagination = array(
+            'pageSize' => 12,
+        );
+        $this->render('friends', array(
+            'dataProvider' => $dataProvider,
+            'show' => $show,
+        ));
+    }
+
+    public function actionMyFriendRequests($direction)
+    {
+        $dataProvider = Yii::app()->user->model->getFriendRequests($direction);
+        $dataProvider->pagination = array(
+            'pageSize' => 12,
+        );
+        $this->render('myFriendRequests', array(
+            'dataProvider' => $dataProvider,
         ));
     }
 

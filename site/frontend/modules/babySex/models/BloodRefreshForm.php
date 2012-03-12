@@ -76,7 +76,7 @@ class BloodRefreshForm extends CFormModel
         if ($this->hasErrors('baby_d') || $this->hasErrors('baby_m') || $this->hasErrors('baby_y'))
             $this->addError('baby_born_date', 'Укажите дату зачатия ребенка полностью');
 
-        return parent::afterValidate();
+        parent::afterValidate();
     }
 
     /**

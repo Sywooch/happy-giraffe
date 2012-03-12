@@ -7,7 +7,6 @@
         ->registerCssFile('/stylesheets/user.css');
 ?>
 <div id="user">
-    <?php echo Yii::app()->user->getModel()->getScores()->scores ?>
     <div class="header clearfix">
         <div class="user-name">
             <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>

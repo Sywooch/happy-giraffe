@@ -20,7 +20,7 @@ class ScoreActions extends CActiveRecord
     const ACTION_PROFILE_PHOTO = 8;
     const ACTION_PROFILE_FAMILY = 9;
     const ACTION_PROFILE_INTERESTS = 10;
-    const ACTION_ATTEND = 11;
+    const ACTION_VISIT = 11;
     const ACTION_5_DAYS_ATTEND = 12;
     const ACTION_20_DAYS_ATTEND = 13;
     const ACTION_PHOTO = 14;

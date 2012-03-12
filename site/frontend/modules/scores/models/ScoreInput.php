@@ -56,7 +56,7 @@ class ScoreInput extends EMongoDocument
     {
         parent::afterSave();
 
-        if ($this->amount == 0)
+        if ($this->amount == 0 && !$this->isNewRecord)
             $this->delete();
     }
 
@@ -90,8 +90,8 @@ class ScoreInput extends EMongoDocument
         $this->scores_earned += $score_value*$count;
         if ($entity !== null){
             $this->added_items [] = array(
-                'id'=>$entity->primaryKey,
-                'name'=>get_class($entity),
+                'id'=>(int)$entity->primaryKey,
+                'entity'=>get_class($entity),
             );
         }
     }
@@ -108,14 +108,14 @@ class ScoreInput extends EMongoDocument
         if ($entity !== null){
             foreach($this->added_items as $key => $added_item){
                 if ($added_item['id'] == $entity->primaryKey &&
-                    $added_item['name'] == get_class($entity)){
+                    $added_item['entity'] == get_class($entity)){
                     unset($this->added_items[$key]);
                     return ;
                 }
             }
             $this->removed_items [] = array(
-                'id'=>$entity->primaryKey,
-                'name'=>get_class($entity),
+                'id'=>(int)$entity->primaryKey,
+                'entity'=>get_class($entity),
             );
         }
     }

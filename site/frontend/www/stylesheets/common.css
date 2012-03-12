@@ -269,6 +269,8 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .btn .arr-r {display:inline-block;width:10px;height:13px;background:url(/images/arrow_r.png) no-repeat;margin-left:8px;position:relative;top:2px;margin-right:-5px;}
 
+.btn i.add {display:inline-block;width:17px;height:18px;background:url(/images/common.png) no-repeat -139px -173px;margin:0 6px 0 -10px;position:relative;top:4px;}
+
 .g-button.photo-name {float: left; height: 42px; padding: 0 7px 0 15px; position: relative; display: block; text-decoration: none;}
 .g-button.photo-name .left { background-position: left -1033px; width: 15px;}
 .g-button.photo-name .right { background-position: right -1069px; width: 7px; }
@@ -434,6 +436,19 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #contestPhotoPick .photo-upload .photo {position:relative;float:left;margin-right:15px;}
 #contestPhotoPick .photo-upload .photo .in {text-align:center;width:170px;height:200px;background:#c7ebf8;display:table-cell;vertical-align:middle;}
 #contestPhotoPick .photo-upload .remove {display:block;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;position:absolute;top:0;right:0;}
+
+
+#galleryUploadPhotos {width:550px;}
+#galleryUploadPhotos .title {font-size:20px;font-weight:bold;color:#0281b0;margin-bottom:20px;}
+#galleryUploadPhotos .teasers {color:#646565;font-size:11px;line-height:normal;}
+#galleryUploadPhotos .teasers ul {list-style:none;}
+#galleryUploadPhotos .teasers ul li {float:left;width:48%;padding-right:2%;}
+#galleryUploadPhotos .teasers ul li .img {float:left;}
+#galleryUploadPhotos .teasers ul li .text {margin-left:80px;}
+#galleryUploadPhotos .teasers .max-size {border:1px solid #dbdcdc;padding:2px 2px 12px 2px;}
+#galleryUploadPhotos .teasers .max-size .in {width:56px;height:30px;background:#d4d4d4;text-align:center;padding:5px 0;font-size:12px;color:#7f7e7e;}
+
+
 
 /* steps */
 
@@ -1007,7 +1022,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #gallery .header .back-link {color:#51AFC3;margin-left:260px;font-size:16px;padding-top:15px;}
 
-#gallery .all-link {float:right;line-height:35px;height:35px;padding-right:60px;}
+#gallery .all-link {float:right;line-height:35px;height:35px;padding-right:60px;text-align:right;}
 #gallery .all-link a {margin-left:20px;}
 
 #gallery .header .title {}
@@ -1017,7 +1032,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .header .title big input[type=text] {width:200px;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:middle;}
 #gallery .header .title big .btn {vertical-align:middle;margin-left:5px;}
 #gallery .header .title big .btn span {color:#fff;}
-#gallery .header .title .note {background:#fffcdb;padding:8px 10px 8px 10px;width:700px;font-size:13px;border:1px solid #fff3bd;min-height:24px;position:relative;}
+#gallery .header .title .note {background:#fffcdb;padding:8px 10px 8px 10px;width:500px;font-size:13px;border:1px solid #fff3bd;min-height:24px;position:relative;}
 #gallery .header .title .note {/*css3*/ border-radius:9px;-moz-border-radius:9px;-webkit-border-radius:9px;}
 #gallery .header .title .note:after {display:block;content:'';width:12px;height:40px;background:url(../images/common.png) no-repeat -327px -136px;position:absolute;top:-6px;left:-12px;}
 #gallery .header .title .note p {color:#424242;}
@@ -1051,6 +1066,11 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #gallery .gallery-photos ul li.more {color:#b9b9b9;font-size:13px;padding-top:90px;}
 #gallery .gallery-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
+
+#gallery .gallery-photos ul li.add {text-align:center;margin-top:100px;line-height:normal;}
+#gallery .gallery-photos ul li.add a {position:relative;display:block;padding-top:25px;}
+#gallery .gallery-photos ul li.add a:hover {text-decoration:none;}
+#gallery .gallery-photos ul li.add a .icon {display:block;width:17px;height:18px;background:url(/images/common.png) no-repeat -139px -173px;top:0;left:50%;margin-left:-9px;position:absolute;}
 
 #gallery .service-header .title big {color:#bb4825;}
 #gallery .service-header .title .note {background:#fff2e7;border:0;}
@@ -1268,7 +1288,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-topics-list .add {display:block;width:33px;height:33px;background:#d8f3f7;overflow:hidden;}
 #content .club-topics-list .add .icon {display:block;width:15px;height:15px;background:url(../images/common.png) no-repeat -341px -156px;margin:9px auto 0;}
 
-#content .club-topics-all-link {background:#cdecff;padding:12px 0;text-align:center;margin-bottom:2px;}
+#content .club-topics-all-link {background:#cdecff;padding:12px 0;text-align:center;margin-bottom:2px;font-size:13px;}
 
 /* */
 

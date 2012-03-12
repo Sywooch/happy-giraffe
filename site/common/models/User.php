@@ -73,6 +73,7 @@ class User extends CActiveRecord
     public $new_password_repeat;
     public $remember;
     public $photo;
+    public $assigns;
 
     public $women_rel = array(
         '1' => 'Замужем',
@@ -270,6 +271,8 @@ class User extends CActiveRecord
             'role' => 'Роль',
             'fullName' => 'Имя пользователя',
             'last_name' => 'Фамилия',
+            'assigns'=>'Права',
+            'last_active'=>'Последняя активность'
         );
     }
 
@@ -457,8 +460,7 @@ class User extends CActiveRecord
 
     public function getAva($size = 'ava')
     {
-        $url = $this->pic_small->getUrl($size);
-        return $url;
+        return $this->pic_small->getUrl($size);
     }
 
     public function getPartnerPhotoUrl()
@@ -561,26 +563,26 @@ class User extends CActiveRecord
 
     public function getAssigns()
     {
-        $assigns = Yii::app()->authManager->getAuthAssignments($this->id);
+        $assigns = Yii::app()->authManager->getAuthItems(0, $this->id);
         if (empty($assigns))
             return 'user';
-        $roles = '';
+        $res = '';
         foreach ($assigns as $assign) {
-            $roles .= $assign->itemName . ', ';
+            $res .= $assign->description . '<br>';
         }
-        return trim($roles, ', ');
+        return trim($res, '<br>');
     }
 
     public function getRole()
     {
-        $assigns = Yii::app()->authManager->getAuthAssignments($this->id);
-        if (empty($assigns))
+        $roles = Yii::app()->authManager->getRoles($this->id);
+        if (empty($roles))
             return 'user';
-        foreach (Yii::app()->authManager->getRoles() as $name => $item) {
-            if (Yii::app()->authManager->checkAccess($name, $this->id))
-                return $name;
+        $res = '';
+        foreach ($roles as $name=>$item) {
+            $res .= $name . ', ';
         }
-        return 'user';
+        return trim($res, ', ');
     }
 
     /**
@@ -678,15 +680,19 @@ class User extends CActiveRecord
         $criteria = $this->getFriendSelectCriteria();
         $criteria->mergeWith($this->getCommandBuilder()->createCriteria($condition, $params));
 
-        return self::model()->findAll($criteria);
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
     }
 
     /**
      * @return int
      */
-    public function getFriendsCount()
+    public function getFriendsCount($onlineOnly = false)
     {
-        return self::model()->count($this->getFriendSelectCriteria());
+        $criteria = $this->getFriendSelectCriteria();
+        if ($onlineOnly) $criteria->compare('online', true);
+        return self::model()->count($criteria);
     }
 
     /**

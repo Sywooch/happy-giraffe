@@ -126,8 +126,38 @@
 
 #user .user-interests {}
 #user .user-interests ul {list-style:none;}
-#user .user-interests ul li {display:inline;margin-right:5px;line-height:1.5;}
-#user .user-interests ul li a {white-space:nowrap;text-decoration:none;color:#404040;}
+#user .user-interests ul li {display:inline-block;margin-right:5px;padding:6px 0;}
+
+#user .user-interests .interest-add {display:inline-block;width:17px;height:18px;background:url(/images/common.png) no-repeat -139px -173px;}
+
+.interest {display:inline-block;height:17px;line-height:17px;padding:2px 8px;border:2px solid transparent;font-size:13px;white-space:nowrap;text-decoration:none;}
+.interest {/*css3*/ -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;}
+.interest.kids {border-color:#bfddff;color:#689dc9;}
+.interest.kids.selected {background:#bfddff;color:#1762a2;}
+.interest.manwoman {border-color:#bef2b9;color:#5acd75;}
+.interest.manwoman.selected {background:#bef2b9;color:#219e3e;}
+.interest.beauty {border-color:#fff9bc;color:#cca342;}
+.interest.beauty.selected {background:#fff9bc;color:#d19507;}
+.interest.home {border-color:#dcc7ee;color:#a77eca;}
+.interest.home.selected {background:#dcc7ee;color:#8056a3;}
+.interest.hobbies {border-color:#ffdda7;color:#e19959;}
+.interest.hobbies.selected {background:#ffdda7;color:#c17029;}
+.interest.rest {border-color:#c5effe;color:#66c8eb;}
+.interest.rest.selected {background:#c5effe;color:#039cd3;}
+
+#interestsEdit {width:360px;}
+#interestsEdit .title {font-size:22px;font-weight:bold;color:#0281b0;margin-bottom:20px;}
+
+#interestsEdit .nav {font-size:13px;padding-bottom:20px;width:178px;border-right:1px solid #daebfe;margin-right:-1px;float:left;}
+#interestsEdit .nav ul {overflow:hidden;list-style:none;display:inline-block;}
+#interestsEdit .nav ul li {display:block;margin-bottom:5px;height:20px;line-height:20px;}
+#interestsEdit .nav ul li a {display:inline-block;border-bottom:1px dashed #51afc3;text-decoration:none;height:16px;line-height:16px;margin:2px 5px;}
+#interestsEdit .nav ul li a:hover {border:0;}
+#interestsEdit .nav ul li.active a {border:0;cursor:default;background:#cdecff;padding:2px 5px;margin:0;}
+
+#interestsEdit .interests-list {float:left;width:160px;padding-left:20px;border-left:1px solid #daebfe;}
+#interestsEdit .interests-list ul {list-style:none;}
+#interestsEdit .interests-list ul li {margin-bottom:12px;}
 
 #user .user-clubs {padding-bottom:20px;padding-left:15px;}
 #user .user-clubs ul {list-style:none;}
@@ -137,7 +167,7 @@
 
 #user .user-albums {padding:15px;border:1px solid #f3f3f3;margin-bottom:20px;}
 #user .user-albums .box-title .btn {margin-right:0;}
-#user .user-albums ul {}
+#user .user-albums ul {list-style:none;}
 #user .user-albums ul li {padding-bottom:20px;}
 #user .user-albums ul li big {color:#4c4d4d;display:block;margin:0px 0 15px;font-size:14px;}
 #user .user-albums ul li .preview {position:relative;width:210px;height:180px;float:left;}

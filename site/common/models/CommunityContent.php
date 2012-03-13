@@ -241,11 +241,7 @@ class CommunityContent extends CActiveRecord
 
     public function beforeDelete()
     {
-        $criteria = new EMongoCriteria();
-        $criteria->item_name = 'CommunityContent';
-        $criteria->item_id = $this->id;
-        UserSignal::model()->deleteAll($criteria);
-        UserSignal::SendUpdateSignal();
+        UserSignal::close($this->id, get_class($this));
 
         //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
@@ -287,13 +283,14 @@ class CommunityContent extends CActiveRecord
             $signal->item_id = (int)$this->id;
             $signal->item_name = 'CommunityContent';
 
-            if (empty($this->rubric->user_id)) {
+            if ($this->isFromBlog)
+                $signal->signal_type = UserSignal::TYPE_NEW_BLOG_POST;
+            else{
                 if ($this->type->slug == 'video')
                     $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
                 else
                     $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
-            } else
-                $signal->signal_type = UserSignal::TYPE_NEW_BLOG_POST;
+            }
 
             if (!$signal->save()) {
                 Yii::log('NewComers signal not saved', 'warning', 'application');

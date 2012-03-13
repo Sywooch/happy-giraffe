@@ -1,169 +1,251 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
+<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
+<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
-	<?php echo CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type'); ?>
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-    <?php //Yii::app()->clientScript->registerCssFile('/stylesheets/wym.css'); ?>
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/global.css?r=112'); ?>
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/common.css?r=112'); ?>
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css?r=112'); ?>
-	
-
-	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/checkbox.js?r=111'); ?>
-	
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css'); ?>
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js'); ?>
-	
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/common.js?r=112'); ?>
-
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css?r=112', 'screen'); ?>
-	
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.iframe-post-form.js'); ?>
-    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.placeholder.min.js'); ?>
-    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.tmpl.min.js'); ?>
-    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/chosen.jquery.min.js'); ?>
-    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/comet.js'); ?>
-
-    <?php if (! Yii::app()->user->isGuest) Yii::app()->clientScript->registerScriptFile('/javascripts/user_common.js'); ?>
-
-	<script type="text/javascript">
-
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-27545132-1']);
-	  _gaq.push(['_trackPageview']);
-      var ga;
-
-	  (function() {
-	    ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-
-	</script>
+    <?php echo CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type'); ?>
+    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
     <?php
+    $cs = Yii::app()->clientScript;
 
-    if (!Yii::app()->user->isGuest){
-    Yii::app()->clientScript
-    ->registerScriptFile('/javascripts/dklab_realplexor.js')
-    ->registerScript('Realplexor-reg', '
-    comet.connect("http://' . Yii::app()->comet->host . '", "' . Yii::app()->comet->namespace . '",
-                  "' . MessageCache::GetCurrentUserCache() . '");
-');
+    $cs
+        ->registerCssFile('/stylesheets/common.css')
+        ->registerCssFile('/stylesheets/ie.css', 'screen')
+        ->registerCoreScript('jquery')
+        ->registerScriptFile('/javascripts/common.js')
+        ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
+        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js')
+        ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
+        ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
+        ->registerScriptFile('/javascripts/chosen.jquery.min.js')
+        ->registerScriptFile('/javascripts/checkbox.js')
+        ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
+    ;
+
+    if (! Yii::app()->user->isGuest) {
+        $cs
+            ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
+            ->registerScriptFile('/javascripts/comet.js')
+            ->registerScriptFile('/javascripts/user_common.js')
+            ->registerScriptFile('/javascripts/dklab_realplexor.js')
+            ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . MessageCache::GetCurrentUserCache() . '\');')
+        ;
     }
     ?>
-    <script type="text/javascript">
-        var base_url = '<?php echo Yii::app()->baseUrl; ?>';
-    </script>
 </head>
 <body class="body-club">
-	<div class="page">
-	
-		<div id="header" class="clearfix">
-			
-			<div class="logo-box">
-				<a href="/" class="logo"></a>
-			</div>
-			
-			<div class="header-in">
-								
-				<div class="search-box">
-                    <form action="<?php echo $this->createUrl('site/search'); ?>">
-                        <button class="btn"><span><span>Поиск</span></span></button>
-                        <div class="text">
-                            <input type="text" name="text" />
+
+    <div id="layout" class="wrapper">
+
+        <div id="header-new" class="clearfix">
+
+            <div class="top-line clearfix">
+
+                <?php if (! Yii::app()->user->isGuest): ?>
+                    <div class="user-nav">
+
+                        <ul>
+                            <li><a href=""><i class="icon icon-home"></i></a></li>
+                            <li>
+                                <a href=""><i class="icon icon-messages"></i><span class="count">5</span></a>
+                                <div class="drp">
+                                    <div class="drp-title">Диалоги</div>
+                                    <ul class="list">
+                                        <li>
+                                            <a href="">
+                                                <span class="name">Александр  Богоявленский</span>
+                                                <span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
+                                                <span class="date">Сегодня 10:45</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <span class="name">Александр  Богоявленский</span>
+                                                <span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
+                                                <span class="date">Сегодня 10:45</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <span class="name">Александр  Богоявленский</span>
+                                                <span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
+                                                <span class="date">Сегодня 10:45</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="actions">
+                                        <ul>
+                                            <li><a href="">Все диалоги (156)</a></li>
+                                            <li><a href="">Новых</a> <a href="" class="count">5</a></li>
+                                            <li><a href="">Кто онлайн</a> <span>8</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href=""><i class="icon icon-friends"></i><span class="count">777</span></a>
+                                <div class="drp drp-closable">
+                                    <div class="drp-title">Друзья</div>
+                                    <ul class="list">
+                                        <li>
+                                            <a href=""><span class="red">ОГО!</span>&nbsp;&nbsp;<span class="name">Александр Богоявленский</span> предлагает подружиться<i class="close"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href=""><span class="yellow">УРА!</span>&nbsp;&nbsp;<span class="name">Ирина Гусева</span> ответила согласием на Вашу дружбу<i class="close"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href=""><span class="green">ЖАЛЬ!</span>&nbsp;&nbsp;<span class="name">Иван захаров</span> ответил отказом на Вашу дружбу<i class="close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="actions">
+                                        <ul>
+                                            <li><a href="">Все друзья (18)</a></li>
+                                            <li><a href="">Кто онлайн</a> <span>8</span></li>
+                                            <li><a href="">Предложения дружбы</a> <a href="" class="count count-gray">0</a></li>
+                                            <li><a href="">Мои предложения</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href=""><i class="icon icon-notifications"></i><span class="count">44</span></a>
+                                <div class="drp drp-icons">
+                                    <div class="drp-title">Уведомления</div>
+                                    <ul class="list">
+                                        <li>
+                                            <a href="">2 новых комментария  к Вашей записи <span class="black">Я боюсь рожать</span>  в клубе <span class="black">Роды</span><i class="icon icon-settings"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="actions">
+                                        <ul>
+                                            <li><a href="">Все уведомления (43)</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="user">
+                                <a href="">
+                                    <span class="ava small male"></span>
+                                    <span class="username">Ден<i class="arr"></i></span>
+                                </a>
+                                <div class="drp">
+                                    <div class="actions">
+                                        <ul>
+                                            <li><a href="">Мой профайл<i class="icon icon-profile"></i></a></li>
+                                            <li><a href="">Мои настройки<i class="icon icon-settings"></i></a></li>
+                                            <li><a href="">Выйти<i class="icon icon-logout"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                <?php else: ?>
+                    <?php $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
+                <?php endif; ?>
+
+                <ul class="fast-links clearfix">
+                    <li><a href="">Главная</a></li>
+                    <li><a href="">Клубы</a></li>
+                    <li><a href="">Сервисы</a></li>
+                    <li><a href="">Конкурсы</a></li>
+                </ul>
+
+            </div>
+
+            <div class="header-in">
+                <div class="clearfix">
+
+                    <div class="search-box clearfix">
+                        <div class="input">
+                            <input type="text" />
                         </div>
-                    </form>
-				</div>
-				<?php $this->widget('site.frontend.widgets.loginWidget.LoginWidget'); ?>
-				<div class="nav">
-					<?php 
-						$this->widget('zii.widgets.CMenu', array(
-							'encodeLabel' => false,
-							'items' => array(
-								array(
-									'label' => '<span>Клубы</span>',
-									'url' => array('/community'),
-									'itemOptions' => array(
-										'class' => 'green',
-									),
-								),
-								/*array(
-									'label' => '<span>Конкурсы</span>',
-									'url' => Yii::app()->createUrl('/contest/contest/view', array('id'=>1)),
-									'itemOptions' => array(
-										'class' => 'yellow',
-									),
-								),
-								array(
-									'label' => '<span>Календарь малыша</span>',
-									'url' => array('/calendar'),
-									'itemOptions' => array(
-										'class' => 'orange',
-									),
-								),*/
-							),
-						));
-					?>
-				</div>
-				
-			</div>
-			
-		</div>
-		
-		<?php
-			/*$this->widget('zii.widgets.CBreadcrumbs', array(
-				'separator' => ' &nbsp;>&nbsp; ',
-				'encodeLabel' => false,
-				'htmlOptions' => array(
-					'class' => null,
-					'id' => 'crumbs',
-				),
-				'links' => $this->breadcrumbs,
-			));*/
-		?>
-		
-		<div id="content" class="clearfix">
+                        <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>
+                    </div>
 
-			<?php echo $content; ?>
+                    <div class="logo-box">
+                        <a href="/" class="logo" title="hg.ru – Домашняя страница">Ключевые слова сайта</a>
+                        <span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
+                    </div>
 
-		</div>
-		<div class="clear"></div>
-		<div class="empty"></div>
-	
-		<div class="footer">
-			<div class="violett">
-				<?php echo CHtml::link('Веселый Жираф', '/'); ?>
-				<?php echo CHtml::link('Клубы', Yii::app()->controller->createUrl('/community')); ?>
-				<?php echo CHtml::link('Карта', Yii::app()->controller->createUrl('site/map')); ?>
-			</div>
-		</div>
-	
+                    <div class="banner-box">
+                        <a href=""><img src="/images/banner_01.png" />
+                    </div>
 
-	</div>
+                </div>
 
-	<!-- Yandex.Metrika counter -->
-	<div style="display:none;"><script type="text/javascript">
-	(function(w, c) {
-	    (w[c] = w[c] || []).push(function() {
-		try {
-		    w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true});
-		}
-		catch(e) { }
-	    });
-	})(window, "yandex_metrika_callbacks");
-	</script></div>
-	<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-	<noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-	<!-- /Yandex.Metrika counter -->
+                <div class="nav">
+                    <ul class="clearfix">
+                        <li><a href=""><img src="/images/nav_tab_01.png" style="margin:-34px 0 -6px 0;" /></a></li>
+                        <li><a href=""><img src="/images/nav_tab_02.png" /></a></li>
+                        <li><a href=""><img src="/images/nav_tab_03.png" /></a></li>
+                        <li><a href=""><img src="/images/nav_tab_04.png" /></a></li>
+                        <li><a href=""><img src="/images/nav_tab_05.png" /></a></li>
+                        <li><a href=""><img src="/images/nav_tab_06.png" /></a></li>
+                        <li><a href=""><img src="/images/nav_tab_07.png" /></a></li>
+                    </ul>
+                </div>
+            </div>
 
-    <script id="notificationTmpl" type="text/x-jquery-tmpl">
-        <li><?php echo CHtml::link('${text}', '${url}', array(
-            'id' => '{$_id}',
-        )) ;?></li>
+        </div>
+
+        <div id="content" class="clearfix">
+            <?php echo $content; ?>
+        </div>
+
+        <div class="push"></div>
+
+    </div>
+
+    <div id="footer" class="wrapper clearfix">
+
+        <div class="a-right">
+            <a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
+        </div>
+
+        <div class="copy">
+            <p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены</p>
+        </div>
+
+    </div>
+
+    <?php if (! Yii::app()->user->isGuest): ?>
+        <script id="notificationTmpl" type="text/x-jquery-tmpl">
+            <li><?php echo CHtml::link('${text}', '${url}', array(
+                'id' => '{$_id}',
+            )) ;?></li>
+        </script>
+    <?php endif; ?>
+
+    <!-- Yandex.Metrika counter -->
+    <div style="display:none;"><script type="text/javascript">
+        (function(w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true});
+                }
+                catch(e) { }
+            });
+        })(window, "yandex_metrika_callbacks");
+    </script></div>
+    <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+    <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-27545132-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
     </script>
-
-    Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> с. Скушано памяти: <?=round(memory_get_peak_usage()/(1024*1024),2)."MB"?>
 </body>
 </html>

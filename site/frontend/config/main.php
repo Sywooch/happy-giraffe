@@ -50,6 +50,7 @@ return array(
         'application.modules.test.models.*',
         'application.modules.attribute.models.*',
         'application.modules.im.models.*',
+        'application.modules.geo.models.*',
 	),
 
 	'sourceLanguage' => 'en',

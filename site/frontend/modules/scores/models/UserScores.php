@@ -121,7 +121,7 @@ class UserScores extends CActiveRecord
         $model = self::getModel($user_id);
 
         //проверяем нужно ли добавить действие к существующему такому же, которое было недавно
-        $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id);
+        $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
         $score_value = ScoreActions::getActionScores($action_id);
 
         if ($input === null) {
@@ -148,7 +148,7 @@ class UserScores extends CActiveRecord
         $model = self::getModel($user_id);
 
         //проверяем нужно ли удалить действие из существующего такого же, которое было недавно
-        $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id);
+        $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
         $score_value = ScoreActions::getActionScores($action_id);
 
         if ($input === null) {

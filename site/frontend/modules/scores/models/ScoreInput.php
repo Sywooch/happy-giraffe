@@ -10,7 +10,7 @@ class ScoreInput extends EMongoDocument
 
     public $user_id;
     public $action_id;
-    public $amount = 1;
+    public $amount = 0;
     public $scores_earned;
     public $created;
     public $updated;
@@ -79,9 +79,10 @@ class ScoreInput extends EMongoDocument
      *
      * @param $user_id
      * @param $action_id
+     * @param CActiveRecord $entity
      * @return ScoreInput
      */
-    public function getActiveScoreInput($user_id, $action_id)
+    public function getActiveScoreInput($user_id, $action_id, $entity)
     {
         //check can we continue active task
         $action_info = ScoreActions::getActionInfo($action_id);
@@ -89,9 +90,19 @@ class ScoreInput extends EMongoDocument
             return null;
 
         $criteria = new EMongoCriteria;
-        $criteria->user_id('==', $user_id);
-        $criteria->action_id('==', $action_id);
+        $criteria->user_id('==', (int)$user_id);
+        $criteria->action_id('==', (int)$action_id);
         $criteria->status('==', self::STATUS_OPEN);
+
+        if ($action_id == ScoreActions::ACTION_100_VIEWS || $action_id == ScoreActions::ACTION_10_COMMENTS){
+            $criteria->addCond('added_items.0.id', '==', (int)$entity->primaryKey);
+            $criteria->addCond('added_items.0.entity', '==', get_class($entity));
+        }
+
+        if ($action_id == ScoreActions::ACTION_OWN_COMMENT){
+            $criteria->addCond('added_items.0.id', '==', (int)$entity['id']);
+            $criteria->addCond('added_items.0.entity', '==', $entity['name']);
+        }
 
         return $this->find($criteria);
     }
@@ -107,17 +118,24 @@ class ScoreInput extends EMongoDocument
         $this->scores_earned += $score_value * $count;
         if ($entity !== null) {
             if (is_array($entity)) {
-                $this->added_items [] = array(
-                    'id' => (int)$entity['id'],
-                    'entity' => $entity['name'],
-                );
+                $this->addItemsInAdded($entity['id'], $entity['name']);
             } else {
-                $this->added_items [] = array(
-                    'id' => (int)$entity->primaryKey,
-                    'entity' => get_class($entity),
-                );
+                $this->addItemsInAdded($entity->primaryKey, get_class($entity));
             }
         }
+    }
+
+    public function addItemsInAdded($entity_id, $entity)
+    {
+        foreach($this->added_items as $item){
+            if ($item['id'] == $entity_id && $item['entity'] == $entity)
+                return ;
+        }
+
+        $this->added_items [] = array(
+            'id' => (int)$entity_id,
+            'entity' => $entity,
+        );
     }
 
     /**
@@ -155,7 +173,7 @@ class ScoreInput extends EMongoDocument
     /**
      * @static
      * Пользователю отображаются только закрытые события. Проверяем прошло ли время максимальной длительности
-     * открытости события
+     * открытости события. Если прошло, закрываем
      */
     public static function CheckOnClose()
     {
@@ -164,7 +182,7 @@ class ScoreInput extends EMongoDocument
             $criteria = new EMongoCriteria;
             $criteria->status('==', self::STATUS_OPEN);
             $criteria->action_id('==', (int)$action->id);
-            $criteria->created('>', time() + $action->wait_time * 60);
+            $criteria->created('<', (int)(time() + $action->wait_time * 60));
 
             $modifier = new EMongoModifier();
             $modifier->addModifier('status', 'set', self::STATUS_CLOSED);

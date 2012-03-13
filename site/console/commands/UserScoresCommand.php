@@ -16,7 +16,7 @@ class UserScoresCommand extends CConsoleCommand
      * Нужно для объдинения в группы оповещений о набранных баллах. Просматриваем все открытые записи о начислении
      * баллов и если время закрывать, то закрываем. После закрытия оно отобразиться в статистике
      */
-    public function actionRemoveLate()
+    public function actionIndex()
     {
         Yii::import('site.frontend.modules.scores.models.*');
         ScoreInput::CheckOnClose();

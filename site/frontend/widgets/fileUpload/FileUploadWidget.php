@@ -3,12 +3,16 @@ class FileUploadWidget extends CWidget
 {
     protected $input_id;
     public $album_id;
+    public $mode = 'full';
 
     public function form()
     {
         parent::init();
         $this->registerScripts();
-        $this->render('index');
+        if($this->mode == 'full')
+            $this->render('index');
+        elseif($this->mode == 'attach')
+            $this->render('attach');
     }
 
     public function registerScripts()
@@ -21,8 +25,7 @@ class FileUploadWidget extends CWidget
 
         $cs = Yii::app()->clientScript;
         $cs->registerCoreScript('jquery')
-            ->registerScript('upload_ajax_url', $js, CClientScript::POS_HEAD)
-            ->registerScriptFile($baseUrl . '/' . 'file_upload.js');
+            ->registerScript('upload_ajax_url', $js, CClientScript::POS_HEAD);
     }
 
     public function loadScripts()
@@ -32,6 +35,7 @@ class FileUploadWidget extends CWidget
         Yii::app()->clientScript->registerCoreScript('jquery')
             ->registerScriptFile($baseUrl . '/' . 'swfupload.js')
             ->registerScriptFile($baseUrl . '/' . 'jquery.swfupload.js')
+            ->registerScriptFile($baseUrl . '/' . 'file_upload.js')
             ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/scrollbarpaper.js');
     }
 }

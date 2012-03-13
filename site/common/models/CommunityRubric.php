@@ -88,6 +88,7 @@ class CommunityRubric extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'community' => array(self::BELONGS_TO, 'Community', 'community_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'contents' => array(self::HAS_MANY, 'CommunityContent', 'rubric_id'),
 		);
 	}

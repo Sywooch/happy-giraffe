@@ -28,7 +28,7 @@
         <div class="user-nav">
             <ul>
                 <li class="active"><?php echo CHtml::link('Анкета', array('user/profile', 'user_id' => $user->id)); ?></li>
-                <!--<li><a href="">Блог</a></li>-->
+                <li><?php echo CHtml::link('Блог', array('user/blog', 'user_id' => $user->id)); ?></li>
                 <li><?php echo CHtml::link('Фото', array('albums/user', 'id' => $user->id)); ?></li>
                 <li><?php echo CHtml::link('Друзья', array('user/friends', 'user_id' => $user->id)); ?></li>
                 <!--<li><a href="">Клубы</a></li>-->

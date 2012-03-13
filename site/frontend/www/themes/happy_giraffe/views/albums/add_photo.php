@@ -17,7 +17,7 @@
         </ul>
     </div>
 
-    <div class="bottom">
+    <div class="bottom" id="upload_button_wrapper">
         <?php
         $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget', array(
             'album_id' => $album ? $album->id : false,
@@ -25,34 +25,18 @@
         $file_upload->form();
         $this->endWidget();
         ?>
-
-        <div class="file-fake">
-            <a href="" class="btn btn-green-medium"><span><span>Обзор...</span></span></a>
-            <input type="file" />
-        </div>
     </div>
 
     <br/>
     <br/>
-
-    <div class="title">Загружено  78%</div>
 
     <div class="upload-files-list scroll">
         <ul id="log"></ul>
     </div>
 
-    <div class="bottom">
-
-        <a href="" class="a-left">Добавить еще фотографий</a>
-        <a href="" class="btn btn-gray-medium"><span><span>Завершить</span></span></a>
-
-    </div>
-
-    <div class="bottom">
-
-        <a href="" class="a-left">Добавить еще фотографий</a>
-        <a href="" class="btn btn-green-medium"><span><span>Завершить</span></span></a>
-
+    <div class="bottom" style="display: none;" id="upload_finish_wrapper">
+        <a href="" class="a-left" id="upload-link">Добавить еще фотографий</a>
+        <a href="" class="btn btn-green-medium" onclick="return savePhotos();"><span><span>Завершить</span></span></a>
     </div>
 
 </div>

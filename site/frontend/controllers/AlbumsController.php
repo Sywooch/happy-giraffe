@@ -163,13 +163,16 @@ class AlbumsController extends Controller
         ));
     }
 
-    public function actionAttach()
+    public function actionAttach($entity, $entity_id)
     {
-        $dataProvider = Album::model()->findByUser(Yii::app()->user->id);
-        $this->renderPartial('attach_index', array(
-            'dataProvider' => $dataProvider,
-            'attach' => true,
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
+        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+            'entity' => $entity,
+            'entity_id' => $entity_id
         ));
+        $fileAttach->window('browse');
+        $this->endWidget();
     }
 
     public function actionAttachView($id)

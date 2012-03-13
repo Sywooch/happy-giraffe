@@ -39,10 +39,11 @@
                 <?php echo CHtml::link('<span><span>Добавить фото</span></span>', array('addPhoto', 'a' => $model->primaryKey), array('class' => 'fancy btn btn-green-medium')); ?>
                 <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
                     'model' => $model,
-                    'callback' => 'Album.removePhoto',
-                    'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $model->author_id
+                    'callback' => 'Album.removeAlbum',
+                    'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $model->author_id,
+                    'template' => '<span><span>Удалить альбом</span></span>',
+                    'cssClass' => 'btn btn-gray-medium',
                 )); ?>
-                <button class="btn btn-gray-medium"><span><span>Удалить альбом</span></span></button>
             </div>
         <?php endif; ?>
     </div>

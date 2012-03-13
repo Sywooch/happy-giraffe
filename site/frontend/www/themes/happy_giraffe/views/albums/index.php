@@ -10,7 +10,7 @@
             </div>
             <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $user->id)) ?></div>
         </div>
-        <?php if(true): ?>
+        <?php if(!Yii::app()->user->isGuest && Yii::app()->user->id == $user->id): ?>
             <div class="all-link">
                 <?php echo CHtml::link('<span><span><i class="add"></i>Добавить альбом</span></span>', array('albums/create'), array('class' => 'btn btn-green-medium')); ?>
             </div>
@@ -45,22 +45,7 @@
         <div class="gallery-photos clearfix">
             <ul>
                 <?php foreach ($model->getRelated('photos', true, array('limit' => 3)) as $photo): ?>
-                <li>
-                    <table>
-                        <tr>
-                            <td class="img">
-                                <div>
-                                    <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180)), array('photo', 'id' => $photo->id)); ?>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="title">
-                            <td align="center">
-                                <div><?php echo $photo->file_name ?></div>
-                            </td>
-                        </tr>
-                    </table>
-                </li>
+                    <?php $this->renderPartial('_photo', array('data' => $photo)); ?>
                 <?php endforeach; ?>
                 <?php if (($count = count($model->photos)) > 3): ?>
                 <li class="more">

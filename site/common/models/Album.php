@@ -112,13 +112,16 @@ class Album extends CActiveRecord
             'criteria' => array(
                 'condition' => 't.author_id = :author_id',
                 'params' => array(':author_id' => $author_id),
+                'scopes' => array('active')
             ),
         ));
     }
 
     public function getCheckAccess()
     {
-        return true;
+        if(!Yii::app()->user->isGuest && Yii::app()->user->id == $this->author_id)
+            return true;
+        return false;
     }
 
     public function getAlbumPhotos()

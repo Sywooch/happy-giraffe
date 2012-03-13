@@ -13,7 +13,6 @@
         ->registerCssFile('/stylesheets/common.css')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')
-        ->registerScriptFile('/javascripts/common.js')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
         ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js')
         ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
@@ -21,6 +20,7 @@
         ->registerScriptFile('/javascripts/chosen.jquery.min.js')
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
+        ->registerScriptFile('/javascripts/common.js')
     ;
 
     if (! Yii::app()->user->isGuest) {
@@ -47,7 +47,7 @@
 
                         <ul>
                             <li><a href=""><i class="icon icon-home"></i></a></li>
-                            <li>
+                            <li id="user-nav-messages">
                                 <a href=""><i class="icon icon-messages"></i><span class="count">5</span></a>
                                 <div class="drp">
                                     <div class="drp-title">Диалоги</div>
@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li>
+                            <li id="user-nav-friends">
                                 <a href=""><i class="icon icon-friends"></i><span class="count">777</span></a>
                                 <div class="drp drp-closable">
                                     <div class="drp-title">Друзья</div>
@@ -108,15 +108,11 @@
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <a href=""><i class="icon icon-notifications"></i><span class="count">44</span></a>
+                            <li id="user-nav-notifications">
+                                <a href=""><i class="icon icon-notifications"></i><span class="count">0</span></a>
                                 <div class="drp drp-icons">
                                     <div class="drp-title">Уведомления</div>
-                                    <ul class="list">
-                                        <li>
-                                            <a href="">2 новых комментария  к Вашей записи <span class="black">Я боюсь рожать</span>  в клубе <span class="black">Роды</span><i class="icon icon-settings"></i></a>
-                                        </li>
-                                    </ul>
+                                    <ul class="list"></ul>
                                     <div class="actions">
                                         <ul>
                                             <li><a href="">Все уведомления (43)</a></li>
@@ -213,8 +209,9 @@
 
     <?php if (! Yii::app()->user->isGuest): ?>
         <script id="notificationTmpl" type="text/x-jquery-tmpl">
-            <li><?php echo CHtml::link('${text}', '${url}', array(
+            <li><?php echo CHtml::link('{{html text}}<i class="icon icon-settings"></i>', '${url}', array(
                 'id' => '{$_id}',
+                'encode' => false,
             )) ;?></li>
         </script>
     <?php endif; ?>

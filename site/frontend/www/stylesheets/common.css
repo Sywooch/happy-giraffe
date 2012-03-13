@@ -1109,7 +1109,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #gallery #photo .title {text-align:center;font-weight:bold;font-size:25px;line-height:normal;color:#0297b8;margin-bottom:10px;}
 
-#gallery #photo .big-photo {width:800px;margin:0 auto;padding:10px;background:#fff;border:1px solid #eaeae8;position:relative;}
+#gallery #photo .big-photo {width:800px;margin:0 auto 20px;padding:10px;background:#fff;border:1px solid #eaeae8;position:relative;}
 #gallery #photo .big-photo .img {background:#c7ebf8;}
 #gallery #photo .big-photo img {display:block;margin:auto;}
 #gallery #photo .big-photo .prev {display:block;width:25px;height:35px;background:url(../images/common.png) no-repeat -159px -164px;position:absolute;top:50%;left:-45px;margin-top:-18px;}
@@ -1119,13 +1119,13 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery #photo .big-photo .next.disabled {background-position:-213px -164px;cursor:default;}
 
 
-#gallery #photo #photo-thumbs {height:250px;width:820px;}
+#gallery #photo #photo-thumbs, #gallery #photo #photo-thumbs-2 {height:250px;width:820px;}
 #gallery #photo .gallery-photos {position:relative;width:820px;margin:0 auto;}
 #gallery #photo .gallery-photos .prev {display:block;width:12px;height:17px;background:url(../images/common.png) no-repeat -42px -114px;position:absolute;top:50%;left:-45px;margin-top:-9px;}
-#gallery #photo .gallery-photos .prev.disabled {background-position:-42px -131px;cursor:default;}
+#gallery #photo .gallery-photos .prev.jcarousel-control-inactive {background-position:-42px -131px;cursor:default;}
 
 #gallery #photo .gallery-photos .next {display:block;width:12px;height:17px;background:url(../images/common.png) no-repeat -54px -114px;position:absolute;top:50%;right:-45px;margin-top:-9px;}
-#gallery #photo .gallery-photos .next.disabled {background-position:-54px -131px;cursor:default;}
+#gallery #photo .gallery-photos .next.jcarousel-control-inactive {background-position:-54px -131px;cursor:default;}
 #gallery #photo .ad-thumb-list li {margin:0;float:left;}
 #gallery #photo .ad-thumb-list li a {padding:10px;display:block;margin:0;text-decoration:none;}
 #gallery #photo .ad-thumb-list li a.ad-active {padding:0;margin:10px 0;}

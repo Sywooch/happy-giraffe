@@ -10,6 +10,7 @@ class UserNotification extends EMongoDocument
 {
     const GUESTBOOK_NEW_RECORD = 0;
     const CLUB_NEW_COMMENT = 1;
+    const RECIPEBOOK_NEW_COMMENT = 2;
 
     public $user_id;
     public $type;
@@ -28,10 +29,15 @@ class UserNotification extends EMongoDocument
             'noun' => Notification::NOTIFICATION_RECORD,
         ),
         self::CLUB_NEW_COMMENT => array(
-            'method' => 'newComment',
+            'method' => 'clubNewComment',
             'tmpl' => '{n} к вашей записи {post} в клубе {club}',
             'noun' => Notification::NOTIFICATION_COMMENT,
         ),
+        self::RECIPEBOOK_NEW_COMMENT => array(
+            'method' => 'recipeBookNewComment',
+            'tmpl' => '{n} к вашей записи {post} в сервисе {recipeBook}',
+            'noun' => Notification::NOTIFICATION_COMMENT,
+        )
     );
 
     public function getCollectionName()
@@ -137,7 +143,6 @@ class UserNotification extends EMongoDocument
         $data = array();
         foreach ($notifications as $m) {
             $data[] = array(
-                '_id' => $m->_id,
                 'text' => $m->text,
                 'url' => $m->url,
             );
@@ -181,6 +186,18 @@ class UserNotification extends EMongoDocument
         $this->params = array(
             '{post}' => $entity->name,
             '{club}' => $entity->rubric->community->name,
+        );
+    }
+
+    public function addRecipeBookNewComment($entity)
+    {
+        $this->user_id = (int) $entity->author_id;
+        $this->url = Yii::app()->createUrl('recipebook/default/view', array(
+            'id' => $entity->id,
+        ));
+        $this->params = array(
+            '{post}' => $entity->name,
+            '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
         );
     }
 

@@ -272,6 +272,10 @@ class ScoreInput extends EMongoDocument
                 $text = $this->getOwnCommentText();
                 break;
 
+            case ScoreActions::ACTION_FRIEND:
+                $text = $this->getFriendsText();
+                break;
+
             case ScoreActions::ACTION_10_COMMENTS:
                 $text = '';
                 break;
@@ -388,11 +392,11 @@ class ScoreInput extends EMongoDocument
             return '';
 
         if (count($friends) == 1)
-            return 'У вас новый друг ' . $friends[0]->getAva('small') . ' <span>' . $friends[0]->first_name . '</span>';
+            return 'У вас новый друг ' . CHtml::image($friends[0]->getAva('small')) . ' <span>' . $friends[0]->first_name . '</span>';
         else {
             $text = 'У вас ' . count($friends) . ' ' . HDate::GenerateNoun(array('новый друг', 'новых друга', 'новых друзей'), $this->amount);
             foreach ($friends as $friend) {
-                $text .= ' ' . $friend->getAva('small') . ' <span>' . $friend->first_name . '</span>';
+                $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . $friend->first_name . '</span>';
             }
             $text .= '<br>';
         }
@@ -409,11 +413,11 @@ class ScoreInput extends EMongoDocument
             }
 
             if (count($friends) == 1)
-                return 'Вы потеряли друга ' . $friends[0]->getAva('small') . ' <span>' . $friends[0]->first_name . '</span>';
+                return 'Вы потеряли друга ' . CHtml::image($friends[0]->getAva('small')) . ' <span>' . $friends[0]->first_name . '</span>';
             elseif (count($friends) > 1) {
                 $text .= 'Вы потеряли ' . count($friends) . ' ' . HDate::GenerateNoun(array('друга', 'друзей', 'друзей'), $this->amount);
                 foreach ($friends as $friend) {
-                    $text .= ' ' . $friend->getAva('small') . ' <span>' . $friend->first_name . '</span>';
+                    $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . $friend->first_name . '</span>';
                 }
             }
         }

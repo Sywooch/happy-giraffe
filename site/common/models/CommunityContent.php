@@ -299,7 +299,7 @@ class CommunityContent extends CActiveRecord
         if ($this->isNewRecord){
             //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD);
+            UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
         }
         parent::afterSave();
     }

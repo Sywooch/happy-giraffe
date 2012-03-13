@@ -1,4 +1,3 @@
-<p><?php echo CHtml::link('Создать альбом', array('albums/create')); ?></p>
 <div id="gallery">
     <div class="header">
         <div class="clearfix">
@@ -11,6 +10,11 @@
             </div>
             <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $user->id)) ?></div>
         </div>
+        <?php if(true): ?>
+            <div class="all-link">
+                <?php echo CHtml::link('<span><span><i class="add"></i>Добавить альбом</span></span>', array('albums/create'), array('class' => 'btn btn-green-medium')); ?>
+            </div>
+        <?php endif; ?>
         <div class="title">
             <big><span>Фотоальбомы</span></big>
         </div>

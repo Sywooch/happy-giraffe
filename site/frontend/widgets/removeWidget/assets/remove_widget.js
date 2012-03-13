@@ -19,7 +19,7 @@ var RemoveWidget = {
         var form = $(el).parents('form');
 
         $.post(form.attr('action'), form.serialize(), function(data) {
-            confirmMessage(el, callback);
+            confirmMessage(el, form.serializeArray(), callback);
         });
     }
 }

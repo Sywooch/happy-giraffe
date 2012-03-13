@@ -1,9 +1,7 @@
-<div class="login-box">
-    <span class="lk">Личный кабинет</span>
-    <?php echo CHtml::link('Вход', '#login', array('class' => 'fancy')); ?>
-    |
-    <?php echo CHtml::link('Регистрация', Yii::app()->createUrl('signup')); ?>
-</div>
+<ul class="fast-links clearfix a-right">
+    <li><?php echo CHtml::link('Вход', '#login', array('class' => 'fancy')); ?></li>
+    <li><?php echo CHtml::link('Регистрация', Yii::app()->createUrl('/signup')); ?></li>
+</ul>
 <div style="display:none">
     <div id="login" class="popup">
 

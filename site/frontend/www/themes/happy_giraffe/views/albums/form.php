@@ -8,7 +8,11 @@ $this->endWidget();
 <div id="gallery">
     <?php $form=$this->beginWidget('CActiveForm', array(
         'id'=>'album-form',
-        'enableAjaxValidation'=>false,
+        'enableClientValidation' => false,
+        'enableAjaxValidation' => true,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+        ),
     )); ?>
     <div class="header">
         <div class="clearfix">
@@ -53,7 +57,11 @@ $this->endWidget();
                             <td class="img">
                                 <div>
                                     <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180)), array('/albums/photo', 'id' => $photo->id)); ?>
-                                    <a href="" class="remove"></a>
+                                    <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
+                                        'model' => $photo,
+                                        'callback' => 'Album.removePhoto',
+                                        'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $photo->author_id
+                                    )); ?>
                                 </div>
                             </td>
                         </tr>
@@ -76,6 +84,8 @@ $this->endWidget();
             <?php endforeach; ?>
         </ul>
     </div>
+    <br/>
+    <center><button class="btn btn-green-medium"><span><span>Сохранить</span></span></button></center>
     <?php $this->endWidget(); ?>
 </div>
 <script type="text/x-jquery-tmpl" id="new_photo_template">
@@ -85,7 +95,7 @@ $this->endWidget();
                 <td class="img">
                     <div>
                         <img alt="" src="${src}" style="width:180px;" /></a>
-                        <a class="remove" href=""></a>
+                        <a class="remove" href="" onclick="$(this).parents('li:eq(0)').remove();return false;"></a>
                     </div>
                 </td>
             </tr>
@@ -106,3 +116,8 @@ $this->endWidget();
         </tbody></table>
     </li>
 </script>
+<?php
+$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+$remove_tmpl->registerTemplates();
+$this->endWidget();
+?>

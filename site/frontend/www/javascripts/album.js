@@ -55,3 +55,8 @@ Album.savePhoto = function(button) {
     }
     return false;
 };
+
+
+Album.removePhoto = function(button) {
+    $(button).parents('li:eq(0)').remove();
+}

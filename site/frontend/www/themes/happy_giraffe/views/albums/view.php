@@ -51,7 +51,11 @@
                             <div>
                                 <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180)), array('/albums/photo', 'id' => $photo->id)); ?>
                                 <?php if($photo->checkAccess): ?>
-                                    <a href="" class="remove"></a>
+                                    <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
+                                        'model' => $photo,
+                                        'callback' => 'Album.removePhoto',
+                                        'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $photo->author_id
+                                    )); ?>
                                 <?php endif; ?>
                             </div>
                         </td>
@@ -59,7 +63,7 @@
                     <tr class="title">
                         <td align="center">
                             <div>
-                                <?php echo $photo->file_name ?>
+                                <?php echo $photo->title ?>
                                 <?php if($photo->checkAccess): ?>
                                     <a href="" class="edit"></a>
                                 <?php endif; ?>

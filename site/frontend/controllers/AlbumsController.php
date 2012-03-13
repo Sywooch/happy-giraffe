@@ -69,6 +69,11 @@ class AlbumsController extends Controller
         $model = $id ? Album::model()->findByPk($id) : new Album;
         if($model->isNewRecord)
             $model->user_id = Yii::app()->user->id;
+        if(isset($_POST['ajax']) && $_POST['ajax']==='album-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
         if(isset($_POST['Album']))
         {
             $model->attributes = $_POST['Album'];
@@ -82,7 +87,6 @@ class AlbumsController extends Controller
 
     public function actionAddPhoto($a = false)
     {
-        $instanse = isset($_FILES['Filedata']) ? 'Filedata' : 'file';
         if($a && $a != 'false')
         {
             $album = Album::model()->findByPk($a);
@@ -92,9 +96,9 @@ class AlbumsController extends Controller
         else
             $album = false;
 
-        if (isset($_FILES[$instanse]))
+        if (isset($_FILES['Filedata']))
         {
-            $file = CUploadedFile::getInstanceByName($instanse);
+            $file = CUploadedFile::getInstanceByName('Filedata');
             $model = new AlbumPhoto();
 
             // Загрузка в новый альбом
@@ -107,7 +111,7 @@ class AlbumsController extends Controller
             }
 
             $model->album_id = $a;
-            $model->user_id = $album->user_id;
+            $model->author_id = $album->user_id;
             $model->file = $file;
             $model->create();
 

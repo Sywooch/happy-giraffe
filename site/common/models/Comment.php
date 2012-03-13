@@ -208,17 +208,20 @@ class Comment extends CActiveRecord
         return parent::beforeSave();
     }
 
-    public function afterDelete()
+    public function beforeDelete()
     {
-        $this->renewPosition();
-        return parent::afterDelete();
-    }
-
-    public function afterRemove()
-    {
+        Comment::model()->updateByPk($this->id, array('removed' => 1));
         //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
         UserScores::removeScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, $this);
+
+        return false;
+    }
+
+    public function afterDelete()
+    {
+        $this->renewPosition();
+        parent::afterDelete();
     }
 
     public static function getUserAvarageCommentsCount($user)

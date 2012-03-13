@@ -114,19 +114,17 @@ class UserScores extends CActiveRecord
      * @param int $user_id
      * @param int $action_id
      * @param int $count
-     * @param CActiveRecord $entity
+     * @param CActiveRecord|array $entity
      */
     public static function addScores($user_id, $action_id, $count = 1, $entity = null)
     {
         $model = self::getModel($user_id);
 
         //проверяем нужно ли добавить действие к существующему такому же, которое было недавно
-        $input = ScoreInput::model()->getLastAction($user_id);
+        $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id);
         $score_value = ScoreActions::getActionScores($action_id);
 
-        if ($input === null || $input->action_id != $action_id || ($input->created + 3600 < time())
-            || !in_array($action_id, array(ScoreActions::ACTION_PHOTO))
-        ) {
+        if ($input === null) {
             $input = new ScoreInput();
             $input->action_id = (int)$action_id;
             $input->user_id = (int)$user_id;
@@ -143,19 +141,17 @@ class UserScores extends CActiveRecord
      * @param int $user_id
      * @param int $action_id
      * @param int $count
-     * @param CActiveRecord $entity
+     * @param CActiveRecord|array $entity
      */
     public static function removeScores($user_id, $action_id, $count = 1, $entity = null)
     {
         $model = self::getModel($user_id);
 
         //проверяем нужно ли удалить действие из существующего такого же, которое было недавно
-        $input = ScoreInput::model()->getLastAction($user_id);
+        $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id);
         $score_value = ScoreActions::getActionScores($action_id);
 
-        if ($input === null || $input->action_id != $action_id || ($input->created + 3600 < time())
-            || !in_array($action_id, array(ScoreActions::ACTION_PHOTO))
-        ) {
+        if ($input === null) {
             $input = new ScoreInput();
             $input->action_id = (int)$action_id;
             $input->user_id = (int)$user_id;

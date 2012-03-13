@@ -367,6 +367,7 @@ class UserSignal extends EMongoDocument
         $criteria->user_id('==', (int)$user_id);
         $criteria->status('==', 2);
         $criteria->date('==', $date);
+        $criteria->sort('_id', EMongoCriteria::SORT_DESC);
         if ($limit !== null)
             $criteria->limit($limit);
 

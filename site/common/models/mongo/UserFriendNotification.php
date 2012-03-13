@@ -10,9 +10,9 @@ class UserFriendNotification extends EMongoDocument
     const FRIEND_DECLINE = 2;
 
     public static $_types = array(
-        self::FRIEND_INVITE => 'ОГО! {user} предлагает подружиться',
-        self::FRIEND_ACCEPT => 'УРА! {user} ответил согласием на вашу дружбу',
-        self::FRIEND_DECLINE => 'ЖАЛЬ! {user} ответил отказом на вашу дружбу',
+        self::FRIEND_INVITE => '<span class="red">ОГО!</span>&nbsp;&nbsp;{user} предлагает подружиться',
+        self::FRIEND_ACCEPT => '<span class="yellow">УРА!</span>&nbsp;&nbsp;{user} ответил согласием на вашу дружбу',
+        self::FRIEND_DECLINE => '<span class="green">ЖАЛЬ!</span>&nbsp;&nbsp;{user} ответил отказом на вашу дружбу',
     );
 
     public $type;
@@ -31,6 +31,13 @@ class UserFriendNotification extends EMongoDocument
         return parent::model($className);
     }
 
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        $this->sendUpdate($this->user_id);
+    }
+
     public function createByRequest($type, $request)
     {
         $notification = new self;
@@ -44,7 +51,7 @@ class UserFriendNotification extends EMongoDocument
         }
         $notification->user_id = (int) $recipient->id;
         $notification->url = $sender->profileUrl;
-        $notification->text = strtr(self::$_types[$type], array('{user}' => $sender->fullName));
+        $notification->text = strtr(self::$_types[$type], array('{user}' => CHtml::tag('span', array('class' => 'name'), $sender->fullName)));
         $notification->created = time();
         $notification->save();
     }
@@ -71,7 +78,6 @@ class UserFriendNotification extends EMongoDocument
         $data = array();
         foreach ($notifications as $m) {
             $data[] = array(
-                '_id' => $m->_id,
                 'text' => $m->text,
                 'url' => $m->url,
             );

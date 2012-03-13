@@ -28,6 +28,7 @@
             ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
             ->registerScriptFile('/javascripts/comet.js')
             ->registerScriptFile('/javascripts/user_common.js')
+            ->registerCssFile('/stylesheets/user_common.css')
             ->registerScriptFile('/javascripts/dklab_realplexor.js')
             ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . MessageCache::GetCurrentUserCache() . '\');')
         ;
@@ -84,20 +85,10 @@
                                 </div>
                             </li>
                             <li id="user-nav-friends">
-                                <a href=""><i class="icon icon-friends"></i><span class="count">777</span></a>
+                                <a href=""><i class="icon icon-friends"></i><span class="count">0</span></a>
                                 <div class="drp drp-closable">
                                     <div class="drp-title">Друзья</div>
-                                    <ul class="list">
-                                        <li>
-                                            <a href=""><span class="red">ОГО!</span>&nbsp;&nbsp;<span class="name">Александр Богоявленский</span> предлагает подружиться<i class="close"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href=""><span class="yellow">УРА!</span>&nbsp;&nbsp;<span class="name">Ирина Гусева</span> ответила согласием на Вашу дружбу<i class="close"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href=""><span class="green">ЖАЛЬ!</span>&nbsp;&nbsp;<span class="name">Иван захаров</span> ответил отказом на Вашу дружбу<i class="close"></i></a>
-                                        </li>
-                                    </ul>
+                                    <ul class="list"></ul>
                                     <div class="actions">
                                         <ul>
                                             <li><a href="">Все друзья (18)</a></li>
@@ -115,7 +106,7 @@
                                     <ul class="list"></ul>
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="">Все уведомления (43)</a></li>
+                                            <li><a href="">Все уведомления (<span>0</span>)</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -209,11 +200,12 @@
 
     <?php if (! Yii::app()->user->isGuest): ?>
         <script id="notificationTmpl" type="text/x-jquery-tmpl">
-            <li><?php echo CHtml::link('{{html text}}<i class="icon icon-settings"></i>', '${url}', array(
-                'id' => '{$_id}',
-                'encode' => false,
-            )) ;?></li>
+            <li><?php echo CHtml::link('{{html text}}<i class="icon icon-settings"></i>', '${url}') ;?></li>
         </script>
+
+    <script id="friendNotificationTmpl" type="text/x-jquery-tmpl">
+        <li><?php echo CHtml::link('{{html text}}<i class="close"></i>', '${url}') ;?></li>
+    </script>
     <?php endif; ?>
 
     <!-- Yandex.Metrika counter -->

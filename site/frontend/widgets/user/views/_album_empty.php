@@ -6,7 +6,7 @@ if(count($this->user->albums) == 0)
 else
 {
     $album = Album::model()->find(new CDbCriteria(array(
-        'condition' => 'user_id = :user_id',
+        'condition' => 'author_id = :user_id',
         'order' => 'created desc',
         'params' => array(':user_id' => $this->user->id),
     )));

@@ -422,4 +422,16 @@ class UserSignal extends EMongoDocument
         }
     }
 
+    public static function close($item_id, $item_name)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->item_id('==', (int)$item_id);
+        $criteria->item_name('==', $item_name);
+
+        $models = self::model()->findAll($criteria);
+        foreach($models as $model){
+            $model->status = self::STATUS_CLOSED;
+            $model->save();
+        }
+    }
 }

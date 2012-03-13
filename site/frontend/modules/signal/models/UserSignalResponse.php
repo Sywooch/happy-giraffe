@@ -7,6 +7,8 @@ class UserSignalResponse extends EMongoDocument
     public $task_id;
     public $time;
 
+    public $status = 0;
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -33,15 +35,20 @@ class UserSignalResponse extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->addCond('time', '<', time()- self::EXECUTE_LIMIT_TIME);
+        $criteria->addCond('status', '==', 0);
 
         $models = self::model()->findAll($criteria);
         foreach($models as $model){
             $signal = UserSignal::model()->findByPk(new MongoId($model->task_id));
             if (in_array($model->user_id, $signal->executors)){
                 $signal->DeclineExecutor($model->user_id);
-                //UserSignal::SendUpdateSignal($model->user_id);
             }
-            $model->delete();
+            $model->status = 1;
+            $model->save();
         }
+    }
+
+    public function signal(){
+        return UserSignal::model()->findByPk(new MongoId($this->task_id));
     }
 }

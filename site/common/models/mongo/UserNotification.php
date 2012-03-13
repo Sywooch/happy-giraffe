@@ -137,7 +137,6 @@ class UserNotification extends EMongoDocument
         $data = array();
         foreach ($notifications as $m) {
             $data[] = array(
-                '_id' => $m->_id,
                 'text' => $m->text,
                 'url' => $m->url,
             );

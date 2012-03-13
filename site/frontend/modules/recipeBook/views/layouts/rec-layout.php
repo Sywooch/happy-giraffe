@@ -1,5 +1,8 @@
 <?php $this->beginContent('//layouts/main'); ?>
-<?php Yii::app()->clientScript->registerScript('chilred-dizzy-2', "
+<?php
+    $cs = Yii::app()->clientScript;
+
+    $js = "
         $('#disease-alphabet').mouseover(function () {
             if ($(this).parent('li').hasClass('current_t')) {
                 still_out = false;
@@ -87,7 +90,14 @@
                 clearTimeout(closetimer);
             }
         }
-"); ?>
+    ";
+
+    $cs
+        ->registerScript('chilred-dizzy-2', $js)
+        ->registerCssFile('/stylesheets/global.css')
+        ->registerCssFile('/stylesheets/baby.css')
+    ;
+?>
 <div id="baby">
     <div class="inner">
     <div class="content-box clearfix">

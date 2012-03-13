@@ -162,6 +162,12 @@ class Comment extends CActiveRecord
                 UserNotification::model()->create(UserNotification::CLUB_NEW_COMMENT, $entity);
             }
 
+            //коммент к рецепту
+            if ($this->entity == 'RecipeBookRecipe') {
+                $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+                UserNotification::model()->create(UserNotification::RECIPEBOOK_NEW_COMMENT, $entity);
+            }
+
             //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
             UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(

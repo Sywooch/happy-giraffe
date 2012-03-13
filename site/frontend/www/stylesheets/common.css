@@ -642,6 +642,7 @@ a {color:#51afc3;}
 #header-new .user-nav .drp-icons .actions a {padding-left:16px;position:relative;}
 #header-new .user-nav .drp .actions li {padding:3px 0;}
 #header-new .user-nav .drp .actions span {color:#3ca331;}
+#header-new .user-nav .drp .actions a span {color:#a17dc4;}
 #header-new .user-nav .drp .actions .count {background:#75bb6e;color:#fff;text-decoration:none;font:bold 10px/12px arial, helvetica, sans-serif;height:13px;padding:0 5px;}
 #header-new .user-nav .drp .actions .count-gray {background:#c9c9c9;}
 #header-new .user-nav .drp .actions .count {/*css3*/ -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}

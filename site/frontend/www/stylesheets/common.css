@@ -454,7 +454,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #galleryUploadPhotos .upload-files-list {line-height:23px;max-height:200px;}
 #galleryUploadPhotos .upload-files-list ul {list-style:none;}
 #galleryUploadPhotos .upload-files-list li {padding:2px 0;}
-#galleryUploadPhotos .upload-files-list li .img {width:25px;height:23px;float:left;margin-right:10px;margin-top:-2px;}
+#galleryUploadPhotos .upload-files-list li .img {width:25px;float:left;margin-right:10px;margin-top:-2px;}
+#galleryUploadPhotos .upload-files-list li .img img {max-width:25px;}
 #galleryUploadPhotos .upload-files-list li .icon-error {display:none;width:21px;height:19px;background:url(/images/common.png) no-repeat -114px -100px;margin:0 auto;}
 #galleryUploadPhotos .upload-files-list li .icon-done {display:none;width:12px;height:10px;float:left;background:url(/images/common.png) no-repeat -66px -185px;margin-right:8px;margin-top:3px;}
 #galleryUploadPhotos .upload-files-list li span {float:left;}
@@ -1351,12 +1352,25 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #start-teasers ul li {width:22%;float:left;padding-right:3%;}
 #start-teasers ul li big {display:block;padding-bottom:5px;font-size:15px;font-weight:bold;}
 #start-teasers ul li big span {color:#9473b7;}
+#start-teasers ul li big span.green {color:#01b616;}
+#start-teasers ul li big span.blue {color:#3d9afd;}
+#start-teasers ul li big span.orange {color:#fb8a23;}
 #start-teasers ul li .img {float:left;}
-#start-teasers ul li .text {margin-left:65px;}
+#start-teasers ul li .text {margin-left:70px;}
 
 
 	
 /* start */
+
+
+
+/* 404 */
+
+#page-404 {text-align:center;width:800px;margin:0 auto 0;padding:150px 0 150px;font-size:20px;color:#333333;}
+#page-404 p {margin:0.5em 0;}
+#page-404 p.gray {color:#969696;font-size:13px;}
+
+/* 404 */
 
 
 /* signals */

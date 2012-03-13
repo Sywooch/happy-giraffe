@@ -54,7 +54,7 @@ class DefaultController extends Controller
 
         $this->contest = $contest;
 
-        $this->render('home', array(
+        $this->render('view', array(
             'contest' => $contest,
         ));
     }

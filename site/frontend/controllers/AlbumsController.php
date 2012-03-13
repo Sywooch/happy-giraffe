@@ -1,6 +1,13 @@
 <?php
 class AlbumsController extends Controller
 {
+    public function beforeAction($action)
+    {
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js');
+        return parent::beforeAction($action);
+    }
+
     public function filters()
     {
         return array(
@@ -57,48 +64,56 @@ class AlbumsController extends Controller
         ));
     }
 
-    public function actionCreate()
+    public function actionCreate($id = false)
     {
-        $model = new Album;
+        $model = $id ? Album::model()->findByPk($id) : new Album;
+        if($model->isNewRecord)
+            $model->user_id = Yii::app()->user->id;
         if(isset($_POST['Album']))
         {
             $model->attributes = $_POST['Album'];
-            $model->user_id = Yii::app()->user->id;
+            if(isset($_POST['Photo']))
+                $model->files = $_POST['Photo'];
             if($model->save())
-                $this->redirect(array('albums/index'));
-            else
-                print_r($model->errors);
+                $this->redirect($id === false ? array('albums/index') : array('albums/view', 'id' => $id));
         }
         $this->render('form', array('model' => $model));
     }
 
-    public function actionAddPhoto($a)
+    public function actionAddPhoto($a = false)
     {
-        $album = Album::model()->findByPk($a);
-        if (!$album)
-            throw new CHttpException(404, 'Альбом не найден');
-
-        if (isset($_FILES['file'])) {
-            // HTML5 upload
-            if (Yii::app()->request->isPostRequest) {
-                $file = CUploadedFile::getInstanceByName('file');
-                $model = new AlbumPhoto();
-                $model->album_id = $a;
-                $model->user_id = $album->user_id;
-                $model->file = $file;
-                $model->create();
-            }
-        }
-        // SWF Upload
-        if(isset($_FILES['Filedata']))
+        $instanse = isset($_FILES['Filedata']) ? 'Filedata' : 'file';
+        if($a && $a != 'false')
         {
-            $file = CUploadedFile::getInstanceByName('Filedata');
+            $album = Album::model()->findByPk($a);
+            if (!$album)
+                throw new CHttpException(404, 'Альбом не найден');
+        }
+        else
+            $album = false;
+
+        if (isset($_FILES[$instanse]))
+        {
+            $file = CUploadedFile::getInstanceByName($instanse);
             $model = new AlbumPhoto();
+
+            // Загрузка в новый альбом
+            if(!$a || $a == 'false')
+            {
+                $model->file = $file;
+                $model->saveFile(true);
+                echo $model->templateUrl;
+                Yii::app()->end();
+            }
+
             $model->album_id = $a;
             $model->user_id = $album->user_id;
             $model->file = $file;
             $model->create();
-            Yii::app()->end();
+
+            // SWF upload
+            if (!Yii::app()->request->isPostRequest)
+                Yii::app()->end();
         }
 
         if (Yii::app()->request->isAjaxRequest) {
@@ -116,9 +131,11 @@ class AlbumsController extends Controller
             ), false, true);
         }
         else
+        {
             $this->render('add_photo', array(
                 'album' => $album
             ));
+        }
     }
 
     public function actionPhoto($id)
@@ -159,5 +176,14 @@ class AlbumsController extends Controller
                 'attaches' => AttachPhoto::model()->findByEntity($_POST['entity'], $_POST['entity_id']),
             ));
         }
+    }
+
+    public function actionEditDescription($id)
+    {
+        $model = Album::model()->findByPk($id);
+        if(!Yii::app()->request->isAjaxRequest || Yii::app()->user->id != $model->user_id || ($text = Yii::app()->request->getPost('text')) === false)
+            Yii::app()->end();
+        $model->description = $text;
+        $model->save();
     }
 }

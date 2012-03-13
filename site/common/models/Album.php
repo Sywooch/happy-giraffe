@@ -17,6 +17,7 @@
 class Album extends CActiveRecord
 {
     private $_check_access = null;
+    public $files = array();
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -45,9 +46,9 @@ class Album extends CActiveRecord
 		return array(
 			array('title, user_id', 'required'),
             array('title', 'length', 'max' => 100),
-            array('description', 'length', 'max' => 255),
+            array('description', 'length', 'max' => 140),
 			array('user_id', 'length', 'max'=>10),
-            array('created, updated', 'safe'),
+            array('created, updated, files', 'safe'),
 		);
 	}
 
@@ -91,7 +92,7 @@ class Album extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Название',
+			'title' => 'Название альбома',
 			'description' => 'Описание',
 			'user_id' => 'User',
             'created' => 'Дата создания',
@@ -112,5 +113,31 @@ class Album extends CActiveRecord
     public function getCheckAccess()
     {
         return true;
+    }
+
+    public function getAlbumPhotos()
+    {
+        if($this->isNewRecord)
+            return $this->files;
+        else
+            return $this->photos;
+    }
+
+    public function afterSave()
+    {
+        foreach($this->files['id'] as $i => $id)
+        {
+            if($id != '')
+                AlbumPhoto::model()->updateByPk($id, array('title' => $this->files['title'][$i]));
+            else
+            {
+                $model = new AlbumPhoto;
+                $model->album_id = $this->id;
+                $model->user_id = $this->user_id;
+                $model->title = $this->files['title'][$i];
+                $model->file_name = $this->files['fsn'][$i];
+                $model->create(true);
+            }
+        }
     }
 }

@@ -24,8 +24,16 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
             <div class="in">
                 <?php $neighboringPhotos = $photo->neighboringPhotos; ?>
                 <div class="img"><?php echo CHtml::image($photo->getPreviewUrl(400, 400, Image::HEIGHT)) ?></div>
-                <a href="" class="prev"></a>
-                <a href="" class="next"></a>
+                <?php if($neighboringPhotos['prev']): ?>
+                    <?php echo CHtml::link('', array('/albums/photo', 'id' => $neighboringPhotos['prev']), array('class' => 'prev')); ?>
+                <?php else: ?>
+                    <a href="#" class="prev disabled" onclick="return false;"></a>
+                <?php endif; ?>
+                <?php if($neighboringPhotos['next']): ?>
+                    <?php echo CHtml::link('', array('/albums/photo', 'id' => $neighboringPhotos['next']), array('class' => 'next')); ?>
+                <?php else: ?>
+                    <a href="#" class="next disabled" onclick="return false;"></a>
+                <?php endif; ?>
             </div>
         </div>
 
@@ -63,16 +71,18 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
 
 <script type="text/javascript">
     $(function() {
-        $('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
-            var count = $('#photo-thumbs li').size();
-            var ready = 0;
-            $('#photo-thumbs img').each(function(){
-                $(this).bind('load', function(){
-                    ready++;
-                    if (ready == count) $('#photo-thumbs').jcarousel('scroll', <?php echo $selected_item; ?>);
+        <?php if(isset($selected_item)): ?>
+            $('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
+                var count = $('#photo-thumbs li').size();
+                var ready = 0;
+                $('#photo-thumbs img').each(function(){
+                    $(this).bind('load', function(){
+                        ready++;
+                        if (ready == count) $('#photo-thumbs').jcarousel('scroll', <?php echo $selected_item; ?>);
+                    });
                 });
             });
-        });
+        <?php endif; ?>
         var carousel = $('#photo-thumbs').jcarousel();
         $('#photo-thumbs-prev').jcarouselControl({target: '-=1',carousel: carousel});
         $('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});

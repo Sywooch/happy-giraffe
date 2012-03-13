@@ -13,7 +13,6 @@
         ->registerCssFile('/stylesheets/common.css')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')
-        ->registerScriptFile('/javascripts/common.js')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
         ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js')
         ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
@@ -21,6 +20,7 @@
         ->registerScriptFile('/javascripts/chosen.jquery.min.js')
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
+        ->registerScriptFile('/javascripts/common.js')
     ;
 
     if (! Yii::app()->user->isGuest) {

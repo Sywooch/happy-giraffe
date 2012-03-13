@@ -3,7 +3,7 @@ function initForm() {
     $('#upload-control').swfupload({
         upload_url:upload_ajax_url,
         file_size_limit:"4096",
-        file_types:"*.*",
+        file_types:"*.jpg;*.png;*.gif;*.jpeg",
         file_upload_limit:"0",
         flash_url:upload_base_url + "/swfupload.swf",
 
@@ -51,10 +51,16 @@ function registerUploadEvents(elem)
         $(this).swfupload('startUpload');
     })
     .bind('fileQueueError', function (event, file, errorCode, message) {
+        var error = '';
+        if(errorCode == '-130')  {
+            error = 'Загружать можно только изображения';
+        } else if(errorCode == '-110') {
+            error = 'Слишком большой размер';
+        }
         var listitem = '<li class="clearfix upload-error" id="' + file.id + '" >' +
-            '<div class="img"><i class="icon-error"></i></div>' +
-            '<span>'+file.name+' не был загружен. Слишком большой размер.</span>' +
-            '</li>'
+                    '<div class="img"><i class="icon-error"></i></div>' +
+                    '<span>'+file.name+' не был загружен. '+error+'.</span>' +
+                    '</li>'
         $('#log').append(listitem);
     })
     .bind('fileDialogComplete', function (event, numFilesSelected, numFilesQueued) {

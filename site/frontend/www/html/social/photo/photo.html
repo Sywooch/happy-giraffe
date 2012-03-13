@@ -20,15 +20,36 @@
 	
 	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.ad-gallery.css" />
-	<script type="text/javascript" src="/javascripts/jquery.ad-gallery.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.jcarousel.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.jcarousel.control.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 	<script type="text/javascript">
+	
 		$(function() {
-			var galleries = $('.ad-gallery').adGallery({effect:'fade', description_wrapper: false, slideshow:{enable:false}, thumb_opacity: 1});
+    
+			$('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
+				
+				var count = $('#photo-thumbs li').size();
+				var ready = 0;
+				
+				$('#photo-thumbs img').each(function(){
+					$(this).bind('load', function(){
+						ready++;
+						if (ready == count) $('#photo-thumbs').jcarousel('scroll', 4);
+					});
+				});			
+				
+			});
+			
+			var carousel = $('#photo-thumbs').jcarousel();		
+		
+			$('#photo-thumbs-prev').jcarouselControl({target: '-=1',carousel: carousel});
+			$('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});
+					
 		});
+		
 	</script>
 	
 	
@@ -95,118 +116,179 @@
 					
 					<div class="title">Первые шаги</div>
 					
-					<div class="ad-gallery">
-						<div class="ad-image-container">
-							<div class="ad-image-wrapper">
-							</div>
-						</div>
-						<div class="ad-controls">
-						</div>
-						<div class="ad-nav">
-							<div class="ad-thumbs gallery-photos">
-								<ul class="ad-thumb-list">
-									<li>
-										<a href="/images/example/14.jpg">
-										<table>
-											<tr>
-												<td class="img"><div><img src="/images/example/ex1.png"></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>										
-										</table>
-										</a>
-									</li>
-									<li>
-										<a href="/images/example/2.jpg">
-										<table>
-											<tr>
-												<td class="img"><div><img src="/images/example/ex2.png"></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>										
-										</table>
-										</a>
-									</li>
-									<li>
-										<a href="/images/example/3.jpg">
-										<table>
-											<tr>
-												<td class="img"><div><img src="/images/example/thumbs/t3.jpg"></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>										
-										</table>
-										</a>
-									</li>
-									<li>
-										<a href="/images/example/4.jpg">
-										<table>
-											<tr>
-												<td class="img"><div><img src="/images/example/thumbs/t4.jpg"></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>										
-										</table>
-										</a>
-									</li>
-									<li>
-										<a href="/images/example/5.jpg">
-										<table>
-											<tr>
-												<td class="img"><div><img src="/images/example/ex3.jpg"></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>										
-										</table>
-										</a>
-									</li>
-									<li>
-										<a href="/images/example/6.jpg">
-										<table>
-											<tr>
-												<td class="img"><div><img src="/images/example/ex4.jpg"></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>										
-										</table>
-										</a>
-									</li>
-									<li>
-										<a href="/images/example/7.jpg">
-										<table>
-											<tr>
-												<td class="img"><div><img src="/images/example/thumbs/t3.jpg"></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>										
-										</table>
-										</a>
-									</li>
-									<li>
-										<a href="/images/example/8.jpg">
-										<table>
-											<tr>
-												<td class="img"><div><img src="/images/example/thumbs/t4.jpg"></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>										
-										</table>
-										</a>
-									</li>
-									
-								</ul>
-							</div>
+					<div class="big-photo">
+						<div class="in">
+							<div class="img"><img src="/images/example/6.jpg"></div>
+							<a href="" class="prev"></a>
+							<a href="" class="next"></a>
 						</div>
 					</div>
-
+					
+					<div class="jcarousel-container gallery-photos">
+						<div id="photo-thumbs" class="jcarousel">
+							<ul>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex1.png" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center"><div>Наш дайвинг</div></td>
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex4.jpg" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center"><div>Наш дайвинг</div></td>
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex3.jpg" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center"><div>Наш дайвинг</div></td>
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex1.png" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center"><div>Наш дайвинг</div></td>
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex4.jpg" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center"><div>Наш дайвинг</div></td>
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex3.jpg" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center"><div>Наш дайвинг</div></td>
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex3.jpg" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center"><div>Наш дайвинг</div></td>
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex3.jpg" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center"><div>Наш дайвинг</div></td>
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
+										</tr>
+										
+									</table>
+								</li>
+								<li>
+									<table>
+										<tr>
+											<td class="img"><div><a href=""><img src="/images/example/ex3.jpg" /></a></div></td>
+										</tr>
+										<tr class="title">
+											<td align="center"><div>Наш дайвинг</div></td>
+										</tr>
+										
+									</table>
+								</li>
+								
+							</ul>
+						</div>
+						
+						<a id="photo-thumbs-prev" class="prev" href="#"></a>
+						<a id="photo-thumbs-next" class="next" href="#"></a>
+						
+					</div>
 					
 				</div>
 				

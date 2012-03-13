@@ -239,6 +239,9 @@ class UserSignal extends EMongoDocument
     public function DeclineExecutor($user_id)
     {
         if (in_array($user_id, $this->executors)) {
+            UserSignalResponse::Decline($this, $user_id);
+
+            $wasFull = $this->full;
             foreach ($this->executors as $key => $value)
                 if ($value == $user_id)
                     unset($this->executors[$key]);
@@ -247,7 +250,7 @@ class UserSignal extends EMongoDocument
                 $this->full = false;
 
             if ($this->save()) {
-                if (!$this->full)
+                if ($wasFull && !$this->full)
                     $this->SendUpdateSignal();
 
                 return true;
@@ -357,7 +360,7 @@ class UserSignal extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', (int)$user_id);
-        $criteria->status('==', 2);
+        $criteria->status('==', UserSignalResponse::STATUS_SUCCESS_CLOSE);
         $criteria->date('==', $date);
         $criteria->sort('_id', EMongoCriteria::SORT_DESC);
         if ($limit !== null)

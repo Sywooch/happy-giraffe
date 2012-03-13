@@ -21,14 +21,14 @@ class UserController extends Controller
         return array(
             array('allow',
                 'actions' => $this->_publicActions,
-                'users'=>array('*'),
+                'users' => array('*'),
             ),
             array('allow',
-                'actions' => array('myFriendRequests', 'createRelated', 'updateMood'),
+                'actions' => array('myFriendRequests', 'createRelated', 'updateMood', 'score'),
                 'users' => array('@'),
             ),
             array('deny',
-                'users'=>array('*'),
+                'users' => array('*'),
             ),
         );
     }
@@ -55,7 +55,7 @@ class UserController extends Controller
         ))->findByPk($user_id);
         if ($user === null)
             throw new CHttpException(404, 'Пользователь не найден');
-        if (! $user->calculateAccess('profile_access', Yii::app()->user->id))
+        if (!$user->calculateAccess('profile_access', Yii::app()->user->id))
             throw new CHttpException(403, 'Вы не можете просматривать страницу этого пользователя');
 
         if ($user->id == Yii::app()->user->id) {
@@ -160,5 +160,16 @@ class UserController extends Controller
                 print_r($user->errors);
             }
         }
+    }
+
+    public function actionScore()
+    {
+        Yii::import('site.frontend.modules.scores.models.*');
+        $userScores = UserScores::getModel(Yii::app()->user->getId());
+        $dataProvider = $userScores->getUserHistory();
+        $this->render('score', array(
+            'userScores' => $userScores,
+            'dataProvider' => $dataProvider
+        ));
     }
 }

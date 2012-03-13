@@ -10,15 +10,15 @@
         <?php echo CHtml::link($user->fullName, $user->profileUrl, array('class' => 'username')); ?>
         <?php if ($direction == 'incoming'): ?>
             <div class="actions">
-                <a href="<?php echo $this->createUrl('friendRequests/reply', array('request_id' => $data->id, 'new_status' => 'accepted')); ?>" class="btn btn-green-ssmall"><span><span>Дружить</span></span></a>
+                <a href="<?php echo $this->createUrl('friendRequests/update', array('request_id' => $data->id, 'action' => 'accept')); ?>" class="btn btn-green-ssmall"><span><span>Дружить</span></span></a>
                 &nbsp;
-                <a href="<?php echo $this->createUrl('friendRequests/reply', array('request_id' => $data->id, 'new_status' => 'declined')); ?>" class="pseudo">Отклонить</a>
+                <a href="<?php echo $this->createUrl('friendRequests/update', array('request_id' => $data->id, 'action' => 'decline')); ?>" class="pseudo">Отклонить</a>
             </div>
         <?php else: ?>
             <div class="actions">
-                <a href="" class="btn btn-blue-small"><span><span>Повторить</span></span></a>
+                <a href="<?php echo $this->createUrl('friendRequests/update', array('request_id' => $data->id, 'action' => 'retry')); ?>" class="btn btn-blue-small"><span><span>Повторить</span></span></a>
                 &nbsp;
-                <a href="" class="pseudo">Отменить</a>
+                <a href="<?php echo $this->createUrl('friendRequests/update', array('request_id' => $data->id, 'action' => 'cancel')); ?>" class="pseudo">Отменить</a>
             </div>
         <?php endif; ?>
     </div>

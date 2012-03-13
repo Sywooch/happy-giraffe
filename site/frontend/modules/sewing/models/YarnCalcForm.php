@@ -22,7 +22,7 @@ class YarnCalcForm extends CFormModel
     public function AttributeLabels()
     {
         return array(
-            'project' => 'то изделие, которое Вы хотите связать',
+            'project' => 'то изделие, которое вы хотите связать',
             'size' => 'нужный размер изделия',
             'gauge' => 'сколько петель умещается в 10 сантиметрах изделия',
         );

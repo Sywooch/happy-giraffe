@@ -122,7 +122,7 @@ class AlbumPhoto extends CActiveRecord
 
             //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->user_id, ScoreActions::ACTION_PHOTO);
+            UserScores::addScores($this->user_id, ScoreActions::ACTION_PHOTO, 1, $this);
         }
         parent::afterSave();
     }
@@ -133,7 +133,7 @@ class AlbumPhoto extends CActiveRecord
 
         //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->user_id, ScoreActions::ACTION_PHOTO);
+        UserScores::removeScores($this->user_id, ScoreActions::ACTION_PHOTO, 1, $this);
     }
 
     /**

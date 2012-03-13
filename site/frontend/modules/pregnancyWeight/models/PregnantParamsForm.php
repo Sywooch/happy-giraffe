@@ -29,11 +29,11 @@ class PregnantParamsForm extends CFormModel
             array('weight_before', 'required', 'message' => 'Укажите вес до беременности в килограммах'),
             array('week', 'numerical', 'integerOnly' => true),
             array('height', 'numerical', 'max' => 250, 'min' => 80, 'message' => 'Вводите только цифры',
-                'tooBig' => 'Проверьте, правильно ли введён рост (допустимо менее 250)',
-                'tooSmall' => 'Проверьте, правильно ли введён рост (допустимо более 80)'),
+                'tooBig' => 'Проверьте, правильно ли введён рост (допустимо менее 250 см)',
+                'tooSmall' => 'Проверьте, правильно ли введён рост (допустимо более 80 см)'),
             array('weight, weight_before', 'numerical', 'max' => 1000, 'min' => 20, 'message' => 'Вводите только цифры',
-                'tooBig' => 'Проверьте, правильно ли введён вес (допустимо менее 1000)',
-                'tooSmall' => 'Проверьте, правильно ли введён вес (допустимо более 20)'),
+                'tooBig' => 'Проверьте, правильно ли введён вес (допустимо менее 300 кг)',
+                'tooSmall' => 'Проверьте, правильно ли введён вес (допустимо более 20 кг)'),
             array('week', 'numerical', 'max' => 40, 'min' => 1),
             array('height, weight, week, weight_before', 'safe')
         );

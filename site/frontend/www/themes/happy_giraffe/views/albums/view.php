@@ -2,7 +2,7 @@
     <div class="header">
         <div class="clearfix">
             <div class="user">
-                <?php $this->widget('AvatarWidget', array('user' => $model->user, 'withMail' => false)); ?>
+                <?php $this->widget('AvatarWidget', array('user' => $model->user)); ?>
                 <p><span><?php echo $model->user->fullName; ?></span>
                     <?php if($model->user->country): ?>
                         <br><?php echo $model->user->country->name; ?></p>

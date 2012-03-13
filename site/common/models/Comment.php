@@ -128,7 +128,7 @@ class Comment extends CActiveRecord
             )
         );
     }
-	
+
 	public function get($entity, $entity_id)
 	{
 		return new CActiveDataProvider(get_class(), array(
@@ -164,7 +164,8 @@ class Comment extends CActiveRecord
 
             //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT);
+            UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
+                'id'=>$this->entity_id, 'name'=>$this->entity));
         }
         parent::afterSave();
     }
@@ -208,14 +209,21 @@ class Comment extends CActiveRecord
         return parent::beforeSave();
     }
 
-    public function afterDelete()
+    public function beforeDelete()
     {
+        Comment::model()->updateByPk($this->id, array('removed' => 1));
         //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT);
+        UserScores::removeScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
+            'id'=>$this->entity_id, 'name'=>$this->entity));
 
+        return false;
+    }
+
+    public function afterDelete()
+    {
         $this->renewPosition();
-        return parent::afterDelete();
+        parent::afterDelete();
     }
 
     public static function getUserAvarageCommentsCount($user)

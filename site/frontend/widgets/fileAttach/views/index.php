@@ -1,8 +1,5 @@
-<div id="entity_attaches">
-<?php echo CHtml::link(
-    'Добавить фото',
-    array('/albums/album/attach'),
-    array('class' => 'fancy attach_link')
-); ?>
-<?php $this->render('_list', array('attaches' => AttachPhoto::model()->findByEntity($this->model_name, $this->model_id))) ?>
+<div class="photo">
+    <?php echo CHtml::link('<span><span>Загрузить фото</span></span>', array('/albums/attach'), array(
+        'class' => 'btn btn-orange fancy',
+    )); ?>
 </div>

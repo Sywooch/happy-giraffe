@@ -137,6 +137,8 @@ class AlbumPhoto extends CActiveRecord
     {
         parent::afterDelete();
 
+        UserSignal::close($this->id, get_class($this));
+
         //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
         UserScores::removeScores($this->user_id, ScoreActions::ACTION_PHOTO, 1, $this);

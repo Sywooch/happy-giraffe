@@ -3,6 +3,8 @@
  * @var $models UserSignal[]
  * @var $history UserSignal[]
  */
+
+Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
 ?>
 <div class="fast-calendar">
     <?php $this->renderPartial('_calendar', array(
@@ -39,11 +41,14 @@
     <?php $this->renderPartial('_history', array('history' => $history)); ?>
 </div>
 
+<a href="#" onclick="Play();">sfafh</a>
 <script type="text/javascript">
     var filter = null;
     var year = <?php echo date('Y') ?>;
     var month = <?php echo date('n') ?>;
     var current_date = '<?php echo date("Y-m-d")  ?>';
+
+    soundManager.url = '/swf/soundmanager2.swf';
 
     $(function () {
         $('body').delegate('a.take-task', 'click', function () {
@@ -169,6 +174,8 @@
     }
 
     function UpdateSignalData() {
+        Play();
+
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("/signal/default/index") ?>',
             type:'POST',
@@ -179,5 +186,15 @@
                 $('div.fast-list').html(response.history);
             }
         });
+    }
+
+    function Play(){
+        // создание объекта "звук"
+        soundManager.createSound('myNewSound','/audio/notify.wav');
+
+        // установка громкости и воспроизведение
+        soundManager.play('myNewSound');
+        soundManager.setVolume('myNewSound',50);
+        soundManager.setPan('myNewSound',-100);;
     }
 </script>

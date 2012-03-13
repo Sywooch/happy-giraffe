@@ -1,7 +1,4 @@
 $(function() {
-    $('#notifications').delegate('a', 'click', function() {
-        $('#notifications > ul').toggle();
-    });
     $.ajax({
         dataType: 'json',
         url: '/notification/getLast/',
@@ -13,8 +10,8 @@ $(function() {
 
 function updateNotifications(count, data)
 {
-    $('#notifications > span').text(count);
-    $('#notifications > ul').html($('#notificationTmpl').tmpl(data));
+    $('#user-nav-notifications span.count').text(count);
+    $('#user-nav-notifications ul.list').html($('#notificationTmpl').tmpl(data));
 }
 
 Comet.prototype.updateNotifications = function(result, id) {

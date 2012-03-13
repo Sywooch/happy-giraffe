@@ -275,6 +275,7 @@ class UserSignal extends EMongoDocument
 
         $this->success [] = (int)$user_id;
         UserSignalHistory::TaskSuccess($this, $user_id);
+        UserSignalResponse::TaskSuccess($this, $user_id);
 
         if (count($this->success) >= $this->currentLimit() && empty($this->executors)) {
             //если больше лимита, закрываем это задание и формируем новое с пониженным приоритетом если необходимо
@@ -354,36 +355,43 @@ class UserSignal extends EMongoDocument
      */
     public function getHistory($user_id, $date, $limit = null)
     {
+//        $criteria = new EMongoCriteria;
+//        $criteria->addCond('success', 'all', array((int)$user_id));
+//        $criteria->created('==', $date);
+//        if ($limit !== null)
+//            $criteria->limit($limit);
+//        $criteria->sort('_id', EMongoCriteria::SORT_DESC);
+//
+//        return self::model()->findAll($criteria);
         $criteria = new EMongoCriteria;
-        $criteria->addCond('success', 'all', array((int)$user_id));
-        $criteria->created('==', $date);
-        //$criteria->status('==', self::STATUS_CLOSED);
+        $criteria->user_id('==', (int)$user_id);
+        $criteria->status('==', 2);
+        $criteria->date('==', $date);
         if ($limit !== null)
             $criteria->limit($limit);
-        $criteria->sort('_id', EMongoCriteria::SORT_DESC);
 
-        return self::model()->findAll($criteria);
+        return UserSignalResponse::model()->findAll($criteria);
     }
 
     public function getHistoryText()
     {
         $text = 'Прокомментировал ';
         if ($this->signal_type == self::TYPE_NEW_USER_POST) {
-            $text .= CHtml::link('Запись в клубе', $this->getUrl());
+            $text .= CHtml::link('Запись в клубе', $this->getUrl(), array('target' => '_blank'));
         } elseif ($this->signal_type == self::TYPE_NEW_BLOG_POST) {
-            $text .= CHtml::link('Запись в блоге', $this->getUrl());
+            $text .= CHtml::link('Запись в блоге', $this->getUrl(), array('target' => '_blank'));
         } elseif ($this->signal_type == self::TYPE_NEW_USER_VIDEO) {
-            $text .= CHtml::link('Видео в клубе', $this->getUrl());
+            $text .= CHtml::link('Видео в клубе', $this->getUrl(), array('target' => '_blank'));
         } elseif ($this->signal_type == self::TYPE_NEW_USER_PHOTO) {
-            $text .= CHtml::link('Фото в анкете', $this->getUrl());
+            $text .= CHtml::link('Фото в анкете', $this->getUrl(), array('target' => '_blank'));
         } elseif ($this->signal_type == self::TYPE_NEW_USER_REGISTER) {
             $text = 'Написал в гостевую ' . CHtml::link('Анкета пользователя',
-                Yii::app()->createUrl('user/profile', array('user_id' => $this->user_id)));
+                Yii::app()->createUrl('user/profile', array('user_id' => $this->user_id)), array('target' => '_blank'));
         }
 
         $user = $this->getUser();
         if ($user !== null)
-            $text .= ' от ' . CHtml::link($user->getFullName(), $user->getProfileUrl());
+            $text .= ' от ' . CHtml::link($user->getFullName(), $user->getProfileUrl(), array('target' => '_blank'));
 
         return $text;
     }

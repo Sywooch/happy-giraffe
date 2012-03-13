@@ -335,6 +335,12 @@ class User extends CActiveRecord
         return true;
     }
 
+    public function beforeDelete()
+    {
+        UserSignal::close($this->id, get_class($this));
+        return parent::beforeDelete();
+    }
+
     public function hashPassword($password)
     {
         return md5($password);

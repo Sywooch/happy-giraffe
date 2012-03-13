@@ -7,6 +7,7 @@ class CommunityController extends Controller
     public $layout = '//layouts/main';
 
     public $community;
+    public $user;
     public $rubric_id;
     public $content_type_slug;
 
@@ -97,6 +98,10 @@ class CommunityController extends Controller
         $content = CommunityContent::model()->active()->full()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
+        if ($content->isFromBlog) {
+            $this->layout = '//layouts/user_blog';
+            $this->user = $content->rubric->user;
+        }
 
         $this->community = Community::model()->with('rubrics')->findByPk($community_id);
         $this->rubric_id = $content->rubric->id;
@@ -187,9 +192,9 @@ class CommunityController extends Controller
         echo CJSON::encode($response);
     }
 
-    public function actionAdd($community_id, $rubric_id = null, $content_type_slug = 'post')
+    public function actionAdd($community_id, $rubric_id = null, $content_type_slug = 'post', $blog = false)
     {
-        if (!Yii::app()->user->checkAccess('createClubPost', array(
+        if (!$blog && !Yii::app()->user->checkAccess('createClubPost', array(
             'user'=>Yii::app()->user->getModel(),
             'community_id'=>$community_id)))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
@@ -229,14 +234,17 @@ class CommunityController extends Controller
             }
         }
 
+        $rubrics = $blog ? Yii::app()->user->model->blog_rubrics : $community->rubrics;
+
         $this->render('add', array(
             'content_model' => $content_model,
             'slave_model' => $slave_model,
-            'community' => $community,
+            'rubrics' => $rubrics,
             'content_types' => $content_types,
             'content_type' => $content_type,
             'community_id' => $community_id,
             'rubric_id' => $rubric_id,
+            'blog' => $blog,
         ));
     }
 

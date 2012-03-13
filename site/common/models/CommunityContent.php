@@ -327,7 +327,6 @@ class CommunityContent extends CActiveRecord
             'full' => array(
                 'with' => array(
                     'rubric' => array(
-                        'select' => 'id',
                         'with' => array(
                             'community' => array(
                                 'select' => 'id',
@@ -420,5 +419,10 @@ class CommunityContent extends CActiveRecord
     public function getContent()
     {
         return $this->{$this->type->slug};
+    }
+
+    public function getIsFromBlog()
+    {
+        return $this->getRelated('rubric')->user_id !== null;
     }
 }

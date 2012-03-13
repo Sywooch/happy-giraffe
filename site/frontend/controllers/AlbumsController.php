@@ -59,8 +59,21 @@ class AlbumsController extends Controller
         $model = Album::model()->findByPk($id);
         if(!$model)
             throw new CHttpException(404, 'Альбом не найден');
-        $this->render('view', array(
+
+        $dataProvider = new CActiveDataProvider('AlbumPhoto', array(
+            'criteria' => array(
+                'condition' => 'removed = 0 and album_id = :album_id',
+                'params' => array(':album_id' => $model->id),
+            ),
+            'pagination' => array(
+                'pageSize' => Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 1000 : 20
+            )
+        ));
+
+        $view = !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 'view_author' : 'view';
+        $this->render($view, array(
             'model' => $model,
+            'dataProvider' => $dataProvider,
         ));
     }
 
@@ -68,7 +81,7 @@ class AlbumsController extends Controller
     {
         $model = $id ? Album::model()->findByPk($id) : new Album;
         if($model->isNewRecord)
-            $model->user_id = Yii::app()->user->id;
+            $model->author_id = Yii::app()->user->id;
         if(isset($_POST['ajax']) && $_POST['ajax']==='album-form')
         {
             echo CActiveForm::validate($model);
@@ -106,18 +119,18 @@ class AlbumsController extends Controller
             {
                 $model->file = $file;
                 $model->saveFile(true);
-                echo $model->templateUrl;
+                echo $model->templateUrl . '||' . $model->fs_name;
                 Yii::app()->end();
             }
 
             $model->album_id = $a;
-            $model->author_id = $album->user_id;
+            $model->author_id = $album->author_id;
             $model->file = $file;
             $model->create();
 
-            // SWF upload
-            if (!Yii::app()->request->isPostRequest)
-                Yii::app()->end();
+            echo $model->originalUrl . '||' . $model->fs_name . '||' . $model->id;
+
+            Yii::app()->end();
         }
 
         if (Yii::app()->request->isAjaxRequest) {
@@ -185,9 +198,18 @@ class AlbumsController extends Controller
     public function actionEditDescription($id)
     {
         $model = Album::model()->findByPk($id);
-        if(!Yii::app()->request->isAjaxRequest || Yii::app()->user->id != $model->user_id || ($text = Yii::app()->request->getPost('text')) === false)
+        if(!Yii::app()->request->isAjaxRequest || Yii::app()->user->id != $model->author_id || ($text = Yii::app()->request->getPost('text')) === false)
             Yii::app()->end();
         $model->description = $text;
+        $model->save();
+    }
+
+    public function actionEditPhotoTitle($id)
+    {
+        $model = AlbumPhoto::model()->findByPk($id);
+        if(!Yii::app()->request->isAjaxRequest || Yii::app()->user->id != $model->author_id || ($title = Yii::app()->request->getPost('title')) === false)
+            Yii::app()->end();
+        $model->title = $title;
         $model->save();
     }
 }

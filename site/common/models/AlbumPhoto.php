@@ -145,13 +145,13 @@ class AlbumPhoto extends CActiveRecord
         parent::afterSave();
     }
 
-    public function afterDelete()
+    public function beforeDelete()
     {
-        parent::afterDelete();
-
-        //вычитаем баллы
+        $this->removed = 1;
+        $this->save();
         Yii::import('site.frontend.modules.scores.models.*');
         UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+        return false;
     }
 
     /**
@@ -187,7 +187,8 @@ class AlbumPhoto extends CActiveRecord
         if(!$temp)
         {
             $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->primaryKey;
-            mkdir($model_dir);
+            if(!file_exists($model_dir))
+                mkdir($model_dir);
         }
         else
         {

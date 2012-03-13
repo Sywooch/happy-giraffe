@@ -11,6 +11,7 @@ class UserNotification extends EMongoDocument
     const GUESTBOOK_NEW_RECORD = 0;
     const CLUB_NEW_COMMENT = 1;
     const RECIPEBOOK_NEW_COMMENT = 2;
+    const PHOTO_NEW_COMMENT = 3;
 
     public $user_id;
     public $type;
@@ -37,7 +38,11 @@ class UserNotification extends EMongoDocument
             'method' => 'recipeBookNewComment',
             'tmpl' => '{n} к вашей записи {post} в сервисе {recipeBook}',
             'noun' => Notification::NOTIFICATION_COMMENT,
-        )
+        ),
+        self::PHOTO_NEW_COMMENT => array(
+            'method' => 'photoNewComment',
+            'tmpl' => '{n} к фотографии {photo} в альбомe {album}',
+        ),
     );
 
     public function getCollectionName()
@@ -175,7 +180,7 @@ class UserNotification extends EMongoDocument
         return strtr(self::$types[$this->type]['tmpl'], $params);
     }
 
-    public function addNewComment($entity)
+    public function addClubNewComment($entity)
     {
         $this->user_id = (int) $entity->author_id;
         $this->url = Yii::app()->createUrl('community/view', array(
@@ -205,5 +210,16 @@ class UserNotification extends EMongoDocument
     {
         $this->user_id = (int) $entity->id;
         $this->url = Yii::app()->createUrl('user/profile', array('user_id' => $entity->id));
+    }
+
+    public function addPhotoNewComment($entity)
+    {
+        $this->user_id = (int) $entity->author_id;
+        $this->url = Yii::app()->createUrl('albums/photo', array(
+            'id' => $entity->id,
+        ));
+        $this->params = array(
+            '{photo}' =>
+        );
     }
 }

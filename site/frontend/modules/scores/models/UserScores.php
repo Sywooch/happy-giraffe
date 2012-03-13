@@ -224,11 +224,21 @@ class UserScores extends CActiveRecord
             $criteria->addCond('action_id', 'in', array(ScoreActions::ACTION_PROFILE_MAIN,
                 ScoreActions::ACTION_PROFILE_PHOTO, ScoreActions::ACTION_PROFILE_FAMILY,
                 ScoreActions::ACTION_PROFILE_INTERESTS));
-            $profile_count = $score = ScoreInput::model()->count($criteria);
+            $profile_count = ScoreInput::model()->count($criteria);
             if ($profile_count == 4) {
                 $model->full = 1;
                 $model->save();
             }
         }
+    }
+
+    public function getUserHistory(){
+        $criteria = new EMongoCriteria;
+        $criteria->addCond('user_id', '==', (int)$this->user_id);
+        $criteria->addCond('status', '==', ScoreInput::STATUS_CLOSED);
+        $criteria->sort('updated', EMongoCriteria::SORT_DESC);
+        $dataProvider = new EMongoDocumentDataProvider('ScoreInput',array('criteria'=> $criteria));
+
+        return $dataProvider;
     }
 }

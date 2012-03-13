@@ -4,8 +4,6 @@
     <div class="row-btn-left">
         <button class="btn btn-orange" id="upload-button"><span><span>Загрузить</span></span>
     </div>
-    <p id="queuestatus" ></p>
-    <ol id="log"></ol>
 </div>
 <?php echo CHtml::endForm(); ?>
 <script type="text/javascript">initForm();</script>

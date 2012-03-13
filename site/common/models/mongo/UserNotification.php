@@ -16,6 +16,7 @@ class UserNotification extends EMongoDocument
     public $url;
     public $created;
     public $updated;
+    public $text;
 
     public $entity = null;
     public $params = array();
@@ -55,6 +56,13 @@ class UserNotification extends EMongoDocument
         parent::afterDelete();
 
         $this->sendUpdate($this->user_id);
+    }
+
+    protected function beforeValidate()
+    {
+        $this->text = $this->generateText();
+
+        return parent::beforeValidate();
     }
 
     public function sendUpdate($user_id)
@@ -153,11 +161,11 @@ class UserNotification extends EMongoDocument
         return $count;
     }
 
-    public function getText()
+    public function generateText()
     {
-        return strtr(self::$types[$this->type]['tmpl'], array(
-            '{n}' => Notification::parse($this->entity['quantity'], self::$types[$this->type]['noun']),
-        ) + $this->params);
+        $params = $this->params;
+        if ($this->entity !== null) $params['{n}'] = Notification::parse($this->entity['quantity'], self::$types[$this->type]['noun']);
+        return strtr(self::$types[$this->type]['tmpl'], $params);
     }
 
     public function addNewComment($entity)

@@ -13,7 +13,7 @@ class UserFriendsWidget extends UserCoreWidget
             'order' => 'RAND()',
             'condition' => 'pic_small != \'\'',
         ));
-        $this->visible = !empty($this->_friends);
+        $this->visible = ! empty($this->_friends->data);
     }
 
     public function run()

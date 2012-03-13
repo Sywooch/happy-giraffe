@@ -196,4 +196,10 @@ class Test2Controller extends Controller
             'notifications' => $notifications,
         ));
     }
+
+    public function actionLol()
+    {
+        $notifications = UserFriendNotification::model()->getUserData(Yii::app()->user->id);
+        print_r($notifications);
+    }
 }

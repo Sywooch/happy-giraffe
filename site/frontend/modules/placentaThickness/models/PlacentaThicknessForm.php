@@ -12,7 +12,7 @@ class PlacentaThicknessForm extends CFormModel
             array('thickness', 'required', 'message' => 'Укажите толщину плаценты в миллиметрах'),
             array('week', 'numerical', 'integerOnly' => true, 'max' => 40, 'min' => 7),
             array('thickness', 'numerical', 'message' => 'Вводите цифры, допустимы дробные числа с запятой'),
-            array('thickness', 'numerical', 'max' => 500, 'min' => 0, 'message' => 'Проверьте, правильно ли введена толщина плаценты в миллиметрах (допустимо менее 500)'),
+            array('thickness', 'numerical', 'max' => 500, 'min' => 0, 'message' => 'Проверьте, правильно ли введена толщина плаценты в миллиметрах (допустимо менее 300 мм)'),
             array('week, thickness', 'safe')
         );
     }

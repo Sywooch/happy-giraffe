@@ -15,141 +15,220 @@
  */
 class UserScores extends CActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return UserScores the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
+     * @return UserScores the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'user_scores';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'user_scores';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('user_id', 'required'),
-			array('full', 'numerical', 'integerOnly'=>true),
-			array('user_id, scores, level_id', 'length', 'max'=>10),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('user_id, scores, level_id, full', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('user_id', 'required'),
+            array('full', 'numerical', 'integerOnly' => true),
+            array('user_id, scores, level_id', 'length', 'max' => 10),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('user_id, scores, level_id, full', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'level' => array(self::BELONGS_TO, 'ScoreLevels', 'level_id'),
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'level' => array(self::BELONGS_TO, 'ScoreLevels', 'level_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'user_id' => 'User',
-			'scores' => 'Scores',
-			'level_id' => 'Level',
-			'full' => 'Full',
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'user_id' => 'User',
+            'scores' => 'Scores',
+            'level_id' => 'Level',
+            'full' => 'Full',
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('scores',$this->scores,true);
-		$criteria->compare('level_id',$this->level_id,true);
-		$criteria->compare('full',$this->full);
+        $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('scores', $this->scores, true);
+        $criteria->compare('level_id', $this->level_id, true);
+        $criteria->compare('full', $this->full);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
 
-    public static function addScores($user_id, $action_id)
+    public static function getModel($user_id)
     {
         $model = UserScores::model()->findByPk($user_id);
-        if ($model === null){
+        if ($model === null) {
             $model = new UserScores;
             $model->scores = 0;
             $model->user_id = $user_id;
         }
 
-        //проверяем не нужно ли инкрементировать предыдущее событие
-        $last_action = ScoreInput::model()->getLastAction($user_id);
-        $score_value = ScoreActions::getActionScores($action_id);
-        if ($last_action !== null && $last_action->action_id == $action_id && ($last_action->created + 3600 > time())){
-            //инкрементируем
-            $last_action->inc($score_value);
-            $last_action->save();
-        }else{
-            $input = new ScoreInput();
-            $input->action_id = $action_id;
-            $input->user_id = $user_id;
-            $input->scores_earned = $score_value;
-            $input->save();
-        }
+        return $model;
+    }
 
-        $model->scores += $score_value;
+    /**
+     * @static
+     * @param int $user_id
+     * @param int $action_id
+     * @param int $count
+     * @param CActiveRecord|array $entity
+     */
+    public static function addScores($user_id, $action_id, $count = 1, $entity = null)
+    {
+        $model = self::getModel($user_id);
+
+        //проверяем нужно ли добавить действие к существующему такому же, которое было недавно
+        $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
+        $score_value = ScoreActions::getActionScores($action_id);
+
+        if ($input === null) {
+            $input = new ScoreInput();
+            $input->action_id = (int)$action_id;
+            $input->user_id = (int)$user_id;
+        }
+        $input->addItem($score_value, $count, $entity);
+        $input->save();
+
+        $model->scores += $score_value * $count;
         $model->save();
     }
 
-    public static function removeScores($user_id, $action_id)
+    /**
+     * @static
+     * @param int $user_id
+     * @param int $action_id
+     * @param int $count
+     * @param CActiveRecord|array $entity
+     */
+    public static function removeScores($user_id, $action_id, $count = 1, $entity = null)
     {
-        $model = UserScores::model()->findByPk($user_id);
-        if ($model === null){
-            $model = new UserScores;
-            $model->scores = 0;
-            $model->user_id = $user_id;
-        }
+        $model = self::getModel($user_id);
 
-        //проверяем не нужно ли дискриминтировать предыдущее событие
-        $last_action = ScoreInput::model()->getLastAction($user_id);
+        //проверяем нужно ли удалить действие из существующего такого же, которое было недавно
+        $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
         $score_value = ScoreActions::getActionScores($action_id);
-        if ($last_action !== null && $last_action->action_id == $action_id && ($last_action->created + 3600 > time())){
-            //инкрементируем
-            $last_action->dec($score_value);
-            $last_action->save();
-        }else{
+
+        if ($input === null) {
             $input = new ScoreInput();
-            $input->action_id = $action_id;
-            $input->user_id = $user_id;
-            $input->scores_earned = -$score_value;
-            $input->save();
+            $input->action_id = (int)$action_id;
+            $input->user_id = (int)$user_id;
         }
+        $input->removeItem($score_value, $count, $entity);
+        $input->save();
 
         $model->scores -= $score_value;
         $model->save();
+    }
+
+    /**
+     * @static
+     * @param Rating $model
+     * @param $entity
+     * @param $social_key
+     * @param $value
+     */
+    public static function checkViewsAndComments($model, $entity, $social_key, $value)
+    {
+        if (isset($entity->author_id)) {
+            if ($social_key == 'cm') {
+                if (isset($model->ratings[$social_key]))
+                    $prev = $model->ratings[$social_key];
+                else
+                    $prev = 0;
+
+                $diff = floor($value / 10) - floor($prev / 10);
+                if ($diff >= 1) {
+                    self::addScores($entity->author_id, ScoreActions::ACTION_10_COMMENTS, $diff, $entity);
+                }
+                if ($diff <= -1) {
+                    self::removeScores($entity->author_id, ScoreActions::ACTION_10_COMMENTS, abs($diff), $entity);
+                }
+            } elseif ($social_key == 'vw') {
+                if (isset($model->ratings[$social_key]))
+                    $prev = $model->ratings[$social_key];
+                else
+                    $prev = 0;
+
+                $diff = floor($value / 100) - floor($prev / 100);
+                if ($diff >= 1) {
+                    self::addScores($entity->author_id, ScoreActions::ACTION_100_VIEWS, $diff, $entity);
+                }
+                if ($diff <= -1) {
+                    self::removeScores($entity->author_id, ScoreActions::ACTION_100_VIEWS, abs($diff), $entity);
+                }
+            }
+        }
+    }
+
+    /**
+     * @static
+     * @param int $user_id
+     * @param int $action_id
+     */
+    public static function checkProfileScores($user_id, $action_id)
+    {
+        $model = self::getModel($user_id);
+        if (!$model->full) {
+            $score = ScoreInput::model()->findByAttributes(array(
+                'action_id' => $action_id,
+                'user_id' => $user_id
+            ));
+            if ($score === null)
+                self::addScores($user_id, $action_id);
+
+            $criteria = new EMongoCriteria;
+            $criteria->addCond('user_id', '==', $user_id);
+            $criteria->addCond('action_id', 'in', array(ScoreActions::ACTION_PROFILE_MAIN,
+                ScoreActions::ACTION_PROFILE_PHOTO, ScoreActions::ACTION_PROFILE_FAMILY,
+                ScoreActions::ACTION_PROFILE_INTERESTS));
+            $profile_count = $score = ScoreInput::model()->count($criteria);
+            if ($profile_count == 4) {
+                $model->full = 1;
+                $model->save();
+            }
+        }
     }
 }

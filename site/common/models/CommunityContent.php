@@ -287,7 +287,7 @@ class CommunityContent extends CActiveRecord
             $signal->item_id = (int)$this->id;
             $signal->item_name = 'CommunityContent';
 
-            if ($this->rubric->user_id != null) {
+            if (empty($this->rubric->user_id)) {
                 if ($this->type->slug == 'video')
                     $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
                 else

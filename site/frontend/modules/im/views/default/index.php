@@ -19,11 +19,8 @@
         <table>
             <tr>
                 <td class="user">
-
-                    <div class="ava"><img src="<?php echo Im::model()->GetDialogUser($dialog->id)->getAva(); ?>" alt="">
-                    </div>
+                    <?php $this->widget('AvatarWidget', array('user' => Im::model()->GetDialogUser($dialog->id))); ?>
                     <span><?php echo Im::model()->GetDialogUser($dialog->id)->getFullName() ?></span>
-
                 </td>
                 <td class="message-icon">
                     <div class="icon"></div>

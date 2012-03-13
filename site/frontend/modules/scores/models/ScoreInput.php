@@ -19,6 +19,9 @@ class ScoreInput extends EMongoDocument
     public $added_items = array();
     public $removed_items = array();
 
+    public $entity;
+    public $entity_id;
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -41,7 +44,7 @@ class ScoreInput extends EMongoDocument
             'created_index' => array(
                 'key' => array(
                     'user_id' => EMongoCriteria::SORT_DESC,
-                    'created' => EMongoCriteria::SORT_DESC,
+                    'updated' => EMongoCriteria::SORT_DESC,
                 ),
                 'unique' => false,
             ),
@@ -229,7 +232,7 @@ class ScoreInput extends EMongoDocument
     public function getPoints()
     {
         if ($this->scores_earned > 0)
-            return '+'.$this->scores_earned;
+            return '+' . $this->scores_earned;
         else
             return $this->scores_earned;
     }
@@ -251,6 +254,10 @@ class ScoreInput extends EMongoDocument
                 $text = 'Вы заполнили данные <span>Личная информация</span> в личной анкете';
                 break;
 
+            case ScoreActions::ACTION_RECORD:
+                $text = $this->getArticleText();
+                break;
+
             case ScoreActions::ACTION_VISIT:
                 $text = 'За посещение сайта сегодня';
                 break;
@@ -263,6 +270,13 @@ class ScoreInput extends EMongoDocument
 
             case ScoreActions::ACTION_OWN_COMMENT:
                 $text = $this->getOwnCommentText();
+                break;
+
+            case ScoreActions::ACTION_10_COMMENTS:
+                $text = '';
+                break;
+            case ScoreActions::ACTION_100_VIEWS:
+                $text = '100 новых просмотров вашей записи ' . $this->getViewsArticleText();
                 break;
 
             case ScoreActions::ACTION_PHOTO:
@@ -284,11 +298,37 @@ class ScoreInput extends EMongoDocument
         if ($model === null)
             return '';
 
+        if ($this->amount > 0)
+            if ($class == 'CommunityContent') {
+                if ($model->isFromBlog)
+                    return 'Вы добавили запись ' . $model->name . ' в блог';
+                else
+                    return 'Вы добавили запись <span>' . $model->name . '</span> в клуб <span>' . $model->rubric->community->name . '</span>';
+            }
+        if ($this->amount < 0) {
+            if ($model->isFromBlog)
+                return 'Ваша запись  ' . $model->name . ' в блоге удалена';
+            else
+                return 'Ваша запись  <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span> удалена';
+        }
+    }
+
+    public function getViewsArticleText()
+    {
+        if (empty($this->added_items))
+            return '';
+        $class = $this->added_items[0]['entity'];
+        $id = $this->added_items[0]['id'];
+
+        $model = $class::model()->findByPk($id);
+        if ($model === null)
+            return '';
+
         if ($class == 'CommunityContent') {
             if ($model->isFromBlog)
-                return 'Вы добавили запись ' . $model->name . ' в блог';
+                return '100 новых просмотров вашей записи <span>' . $model->name . '</span> в блоге';
             else
-                return 'Вы добавили запись <span>' . $model->name . '</span> в клуб <span>'.$model->rubric->community->name.'</span>';
+                return '100 новых просмотров вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span>';
         }
     }
 
@@ -303,7 +343,12 @@ class ScoreInput extends EMongoDocument
         if ($model === null)
             return '';
 
-        return 'Добавлено фото <span>' . $model->title.'</span> в фотоальбом <span>' . $model->album->title.'</span>';
+        if ($this->amount == 1)
+            return 'Добавлено фото <span>' . $model->title . '</span> в фотоальбом <span>' . $model->album->title . '</span>';
+        elseif ($this->amount > 1)
+            return 'Добавлено ' . $this->amount . ' фото в фотоальбом <span>' . $model->album->title . '</span>';
+        else
+            return 'Вы удалили фото из альмоба <span>' . $model->album->title . '</span>';
     }
 
     public function getOwnCommentText()
@@ -317,6 +362,62 @@ class ScoreInput extends EMongoDocument
         if ($model === null)
             return '';
 
-        return 'Вы добавили комментарий к записи <span>' . $model->name.'</span>';
+        if ($this->amount == 1)
+            return 'Вы добавили комментарий к записи <span>' . $model->name . '</span>';
+        elseif ($this->amount > 1)
+            return 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к записи <span>' . $model->name . '</span>';
+        else
+            return 'Вы удалили ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к записи <span>' . $model->name . '</span>';
+    }
+
+    public function getFriendsText()
+    {
+        if (empty($this->added_items))
+            return '';
+        $friends = array();
+        foreach ($this->added_items as $item) {
+            $class = $item['entity'];
+            $id = $item['id'];
+
+            $model = $class::model()->findByPk($id);
+            if ($model !== null)
+                $friends[] = $model;
+        }
+
+        if (empty($friends))
+            return '';
+
+        if (count($friends) == 1)
+            return 'У вас новый друг ' . $friends[0]->getAva('small') . ' <span>' . $friends[0]->first_name . '</span>';
+        else {
+            $text = 'У вас ' . count($friends) . ' ' . HDate::GenerateNoun(array('новый друг', 'новых друга', 'новых друзей'), $this->amount);
+            foreach ($friends as $friend) {
+                $text .= ' ' . $friend->getAva('small') . ' <span>' . $friend->first_name . '</span>';
+            }
+            $text .= '<br>';
+        }
+
+        if (!empty($this->removed_items)) {
+            $removed_friends = array();
+            foreach ($this->removed_items as $item) {
+                $class = $item['entity'];
+                $id = $item['id'];
+
+                $model = $class::model()->findByPk($id);
+                if ($model !== null)
+                    $removed_friends[] = $model;
+            }
+
+            if (count($friends) == 1)
+                return 'Вы потеряли друга ' . $friends[0]->getAva('small') . ' <span>' . $friends[0]->first_name . '</span>';
+            elseif (count($friends) > 1) {
+                $text .= 'Вы потеряли ' . count($friends) . ' ' . HDate::GenerateNoun(array('друга', 'друзей', 'друзей'), $this->amount);
+                foreach ($friends as $friend) {
+                    $text .= ' ' . $friend->getAva('small') . ' <span>' . $friend->first_name . '</span>';
+                }
+            }
+        }
+
+        return $text;
     }
 }

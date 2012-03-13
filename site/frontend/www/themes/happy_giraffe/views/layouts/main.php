@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
@@ -132,9 +132,9 @@
                                 <div class="drp">
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="">Мой профайл<i class="icon icon-profile"></i></a></li>
-                                            <li><a href="">Мои настройки<i class="icon icon-settings"></i></a></li>
-                                            <li><a href="">Выйти<i class="icon icon-logout"></i></a></li>
+                                            <li><a href="<?php echo $this->createUrl('user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">Мой профайл<i class="icon icon-profile"></i></a></li>
+                                            <li><a href="<?php echo $this->createUrl('profile/index') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
+                                            <li><a href="<?php echo $this->createUrl('site/logout') ?>">Выйти<i class="icon icon-logout"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
 
                 <ul class="fast-links clearfix">
                     <li><a href="">Главная</a></li>
-                    <li><a href="">Клубы</a></li>
+                    <li><a href="<?php echo $this->createUrl('community/') ?>">Клубы</a></li>
                     <li><a href="">Сервисы</a></li>
                     <li><a href="">Конкурсы</a></li>
                 </ul>

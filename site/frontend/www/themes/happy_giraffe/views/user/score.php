@@ -36,7 +36,15 @@
 
             $this->widget('zii.widgets.grid.CGridView', array(
                 'dataProvider'=>$dataProvider,
-                'template'=>'{items}{pager}',
+                'template'=>'{items}
+                        <div class="pagination pagination-center clearfix">
+                            {summary}
+                            {pager}
+                        </div>',
+                'pager' => array(
+                    'class' => 'MyLinkPager',
+                    'header' => 'Страницы',
+                ),
                 'hideHeader'=>true,
                 'cssFile'=>false,
                 'columns'=>array(

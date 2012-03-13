@@ -204,8 +204,11 @@ class Comment extends CActiveRecord
         else
         {
             $this->quote_text = '';
-            $this->quote_id = '';
+            $this->quote_id = null;
         }
+
+        if($this->response_id == '')
+            $this->response_id = null;
 
 
         if($this->isNewRecord)

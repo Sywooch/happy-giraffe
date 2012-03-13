@@ -94,12 +94,12 @@ class ScoreInput extends EMongoDocument
         $criteria->action_id('==', (int)$action_id);
         $criteria->status('==', self::STATUS_OPEN);
 
-        if ($action_id == ScoreActions::ACTION_100_VIEWS || $action_id == ScoreActions::ACTION_10_COMMENTS){
+        if ($action_id == ScoreActions::ACTION_100_VIEWS || $action_id == ScoreActions::ACTION_10_COMMENTS) {
             $criteria->addCond('added_items.0.id', '==', (int)$entity->primaryKey);
             $criteria->addCond('added_items.0.entity', '==', get_class($entity));
         }
 
-        if ($action_id == ScoreActions::ACTION_OWN_COMMENT){
+        if ($action_id == ScoreActions::ACTION_OWN_COMMENT) {
             $criteria->addCond('added_items.0.id', '==', (int)$entity['id']);
             $criteria->addCond('added_items.0.entity', '==', $entity['name']);
         }
@@ -127,9 +127,9 @@ class ScoreInput extends EMongoDocument
 
     public function addItemsInAdded($entity_id, $entity)
     {
-        foreach($this->added_items as $item){
+        foreach ($this->added_items as $item) {
             if ($item['id'] == $entity_id && $item['entity'] == $entity)
-                return ;
+                return;
         }
 
         $this->added_items [] = array(
@@ -188,5 +188,135 @@ class ScoreInput extends EMongoDocument
             $modifier->addModifier('status', 'set', self::STATUS_CLOSED);
             ScoreInput::model()->updateAll($modifier, $criteria);
         }
+    }
+
+    public function getIcon()
+    {
+        $icon = $this->getIconName();
+        if (empty($icon))
+            return '';
+        return '<i class="' . $icon . '"></i>';
+    }
+
+    public function getIconName()
+    {
+        switch ($this->action_id) {
+            case ScoreActions::ACTION_RECORD:
+                if ($this->amount > 0)
+                    return 'icon-post';
+                return 'icon-post-d';
+            case ScoreActions::ACTION_10_COMMENTS:
+            case ScoreActions::ACTION_OWN_COMMENT:
+                if ($this->amount > 0)
+                    return 'icon-comments';
+                return 'icon-comments-d';
+            case ScoreActions::ACTION_100_VIEWS:
+                return 'icon-views';
+            case ScoreActions::ACTION_PROFILE_PHOTO:
+            case ScoreActions::ACTION_PROFILE_FAMILY:
+            case ScoreActions::ACTION_PROFILE_INTERESTS:
+            case ScoreActions::ACTION_PROFILE_MAIN:
+                return 'icon-ava';
+            case ScoreActions::ACTION_PHOTO:
+                return 'icon-photo';
+            case ScoreActions::ACTION_FRIEND:
+                return 'icon-friends';
+        }
+
+        return '';
+    }
+
+    public function getPoints()
+    {
+        if ($this->scores_earned > 0)
+            return '+'.$this->scores_earned;
+        else
+            return $this->scores_earned;
+    }
+
+    public function getText()
+    {
+        $text = '';
+        switch ($this->action_id) {
+            case ScoreActions::ACTION_PROFILE_PHOTO:
+                $text = 'Вы <span>Добавили фото</span> в личной анкете';
+                break;
+            case ScoreActions::ACTION_PROFILE_FAMILY:
+                $text = 'Вы заполнили данные <span>Семья</span> в личной анкете';
+                break;
+            case ScoreActions::ACTION_PROFILE_INTERESTS:
+                $text = 'Вы заполнили данные <span>Интересы</span> в личной анкете';
+                break;
+            case ScoreActions::ACTION_PROFILE_MAIN:
+                $text = 'Вы заполнили данные <span>Личная информация</span> в личной анкете';
+                break;
+
+            case ScoreActions::ACTION_VISIT:
+                $text = 'За посещение сайта сегодня';
+                break;
+            case ScoreActions::ACTION_5_DAYS_ATTEND:
+                $text = 'За посещение сайта в течение 5 дней подряд';
+                break;
+            case ScoreActions::ACTION_20_DAYS_ATTEND:
+                $text = 'За посещение сайта в течение 20 дней подряд';
+                break;
+
+            case ScoreActions::ACTION_OWN_COMMENT:
+                $text = $this->getOwnCommentText();
+                break;
+
+            case ScoreActions::ACTION_PHOTO:
+                $text = $this->getPhotoText();
+                break;
+        }
+
+        return $text;
+    }
+
+    public function getArticleText()
+    {
+        if (empty($this->added_items))
+            return '';
+        $class = $this->added_items[0]['entity'];
+        $id = $this->added_items[0]['id'];
+
+        $model = $class::model()->findByPk($id);
+        if ($model === null)
+            return '';
+
+        if ($class == 'CommunityContent') {
+            if ($model->isFromBlog)
+                return 'Вы добавили запись ' . $model->name . ' в блог';
+            else
+                return 'Вы добавили запись <span>' . $model->name . '</span> в клуб <span>'.$model->rubric->community->name.'</span>';
+        }
+    }
+
+    public function getPhotoText()
+    {
+        if (empty($this->added_items))
+            return '';
+        $class = $this->added_items[0]['entity'];
+        $id = $this->added_items[0]['id'];
+
+        $model = $class::model()->findByPk($id);
+        if ($model === null)
+            return '';
+
+        return 'Добавлено фото <span>' . $model->title.'</span> в фотоальбом <span>' . $model->album->title.'</span>';
+    }
+
+    public function getOwnCommentText()
+    {
+        if (empty($this->added_items))
+            return '';
+        $class = $this->added_items[0]['entity'];
+        $id = $this->added_items[0]['id'];
+
+        $model = $class::model()->findByPk($id);
+        if ($model === null)
+            return '';
+
+        return 'Вы добавили комментарий к записи <span>' . $model->name.'</span>';
     }
 }

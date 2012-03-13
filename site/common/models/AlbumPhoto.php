@@ -313,8 +313,11 @@ class AlbumPhoto extends CActiveRecord
 
     public function getNeighboringPhotos()
     {
-        $prev = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where album_id = ' . $this->album_id . ' and id < ' . $this->id . ' limit 1')->queryRow();
-        $next = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where album_id = ' . $this->album_id . ' and id > ' . $this->id . ' limit 1')->queryRow();
-        return compact('prev', 'next');
+        $prev = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where removed = 0 and album_id = ' . $this->album_id . ' and id < ' . $this->id . ' limit 1')->queryRow();
+        $next = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where removed = 0 and album_id = ' . $this->album_id . ' and id > ' . $this->id . ' limit 1')->queryRow();
+        return array(
+            'prev' => $prev ? $prev['id'] : false,
+            'next' => $next ? $next['id'] : false
+        );
     }
 }

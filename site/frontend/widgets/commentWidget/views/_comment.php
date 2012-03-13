@@ -18,7 +18,7 @@
             <div class="meta">
                 <span class="num" id="cp_<?php echo $data->position; ?>"><?php echo $data->position; ?></span>
                 <span class="date"><?php echo HDate::GetFormattedTime($data->created, ', '); ?></span>
-                <?php if (($data->response_id !== 0 && $response = $data->response) || ($data->quote_id !== 0 && $response = $data->quote)): ?>
+                <?php if (($data->response_id !== null && $response = $data->response) || ($data->quote_id !== null && $response = $data->quote)): ?>
                 <div class="answer">
                     Ответ для
                     <?php $this->widget('AvatarWidget', array('user' => $response->author)); ?>
@@ -28,7 +28,7 @@
                 <?php endif; ?>
             </div>
             <?php if ($data->removed == 0): ?>
-                <?php if (($data->quote_id !== 0 && $data->quote)): ?>
+                <?php if (($data->quote_id !== null && $data->quote)): ?>
                     <input type="hidden" name="selectable_quote" value="<?php echo $data->quote_text != '' ? 1 : 0; ?>"/>
                     <div class="quote" id="commentQuote_<?php echo $data->quote->id; ?>">
                         <?php echo $data->quote_text != '' ? $data->quote_text : $data->quote->text; ?>

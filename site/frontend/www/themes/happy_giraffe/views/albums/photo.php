@@ -1,3 +1,7 @@
+<?php
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jcarousel.js');
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jcarousel.control.js');
+?>
 <div id="gallery">
     <div class="header">
         <div class="clearfix">
@@ -12,63 +16,68 @@
         </div>
     </div>
     <div id="photo">
-        <div class="title"><?php echo $photo->description; ?></div>
+        <?php if($photo->title != ''): ?>
+            <div class="title"><?php echo $photo->title; ?></div>
+        <?php endif; ?>
 
-        <div class="ad-gallery">
-            <div class="ad-image-container">
-                <div class="ad-image-wrapper">
-                </div>
+        <div class="big-photo">
+            <div class="in">
+                <?php $neighboringPhotos = $photo->neighboringPhotos; ?>
+                <div class="img"><?php echo CHtml::image($photo->getPreviewUrl(400, 400, Image::HEIGHT)) ?></div>
+                <a href="" class="prev"></a>
+                <a href="" class="next"></a>
             </div>
-            <div class="ad-controls">
+        </div>
+
+        <div class="jcarousel-container gallery-photos">
+            <div id="photo-thumbs" class="jcarousel">
+                <ul>
+                    <?php foreach($photo->album->photos as $i => $item): ?>
+                        <?php if($photo->id == $item->id) {$selected_item = $i;} ?>
+                        <li>
+                            <table>
+                                <tr>
+                                    <td class="img">
+                                        <div>
+                                            <?php echo CHtml::link(CHtml::image($item->getPreviewUrl(180, 180)), array('/albums/photo', 'id' => $item->id)); ?>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="title">
+                                    <td align="center">
+                                        <div><?php echo $item->title; ?></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
-            <div class="ad-nav">
-                <div class="ad-thumbs gallery-photos">
-                    <ul class="ad-thumb-list">
-                        <?php foreach($photo->album->photos as $i => $item): ?>
-                            <?php if($photo->id == $item->id) {$selected_item = $i;} ?>
-                            <li>
-                                <a href="<?php echo $item->getPreviewUrl(400, 400, Image::HEIGHT); ?>">
-                                    <table>
-                                        <tr>
-                                            <td class="img">
-                                                <div>
-                                                    <?php echo CHtml::image($item->getPreviewUrl(180, 180)); ?>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="title">
-                                            <td align="center">
-                                                <div><?php echo $item->description ?></div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </a>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            </div>
+
+            <a id="photo-thumbs-prev" class="prev" href="#"></a>
+            <a id="photo-thumbs-next" class="next" href="#"></a>
+
         </div>
     </div>
 </div>
 
-<?php
-$js = "var galleries = $('.ad-gallery').adGallery({
-    effect:'fade',
-    description_wrapper: false,
-    slideshow:{enable:false},
-    thumb_opacity: 1,
-    start_at_index : " . $selected_item . ",
-    callbacks : {
-        afterImageVisible : function() {
-            $('#photo > div.title').text(this.thumbs_wrapper.find('li:eq('+this.current_index+') tr.title div').text());
-        }
-    }
-});";
-Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.ad-gallery.js')
-->registerCssFile(Yii::app()->baseUrl . '/stylesheets/jquery.ad-gallery.css')
-->registerScript('init_ad_gallery', $js, CClientScript::POS_READY);
-?>
+<script type="text/javascript">
+    $(function() {
+        $('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
+            var count = $('#photo-thumbs li').size();
+            var ready = 0;
+            $('#photo-thumbs img').each(function(){
+                $(this).bind('load', function(){
+                    ready++;
+                    if (ready == count) $('#photo-thumbs').jcarousel('scroll', <?php echo $selected_item; ?>);
+                });
+            });
+        });
+        var carousel = $('#photo-thumbs').jcarousel();
+        $('#photo-thumbs-prev').jcarouselControl({target: '-=1',carousel: carousel});
+        $('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});
+    });
+</script>
 
 <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
     'title' => 'Вам понравилось фото?',

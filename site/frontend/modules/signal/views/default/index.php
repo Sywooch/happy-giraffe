@@ -32,6 +32,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
 </div>
 
 <div class="clear"></div>
+<input type="checkbox" id="play_sound" checked /> <label for="play_sound">Проигрывать звук</label>
 
 <div class="main-list">
     <?php $this->renderPartial('_data', array('models' => $models)); ?>
@@ -41,7 +42,8 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
     <?php $this->renderPartial('_history', array('history' => $history)); ?>
 </div>
 
-<a href="#" onclick="Play();">sfafh</a>
+<!--<a href="#" onclick="Play();">play</a>-->
+
 <script type="text/javascript">
     var filter = null;
     var year = <?php echo date('Y') ?>;
@@ -189,6 +191,8 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
     }
 
     function Play(){
+        if ($('#play_sound').attr("checked") != 'checked')
+            return ;
         // создание объекта "звук"
         soundManager.createSound('myNewSound','/audio/notify.wav');
 

@@ -355,14 +355,6 @@ class UserSignal extends EMongoDocument
      */
     public function getHistory($user_id, $date, $limit = null)
     {
-//        $criteria = new EMongoCriteria;
-//        $criteria->addCond('success', 'all', array((int)$user_id));
-//        $criteria->created('==', $date);
-//        if ($limit !== null)
-//            $criteria->limit($limit);
-//        $criteria->sort('_id', EMongoCriteria::SORT_DESC);
-//
-//        return self::model()->findAll($criteria);
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', (int)$user_id);
         $criteria->status('==', 2);

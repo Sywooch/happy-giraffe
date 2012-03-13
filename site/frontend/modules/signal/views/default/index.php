@@ -3,6 +3,8 @@
  * @var $models UserSignal[]
  * @var $history UserSignal[]
  */
+
+Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
 ?>
 <div class="fast-calendar">
     <?php $this->renderPartial('_calendar', array(
@@ -30,6 +32,10 @@
 </div>
 
 <div class="clear"></div>
+<input type="checkbox" id="play_sound" checked /> <label for="play_sound">Проигрывать звук</label>
+<?php if (Yii::app()->user->checkAccess('administrator')):?>
+<br><a href="#" onclick="removeHistory()">Очистить всё</a>
+<?php endif ?>
 
 <div class="main-list">
     <?php $this->renderPartial('_data', array('models' => $models)); ?>
@@ -39,11 +45,15 @@
     <?php $this->renderPartial('_history', array('history' => $history)); ?>
 </div>
 
+<!--<a href="#" onclick="Play();">play</a>-->
+
 <script type="text/javascript">
     var filter = null;
     var year = <?php echo date('Y') ?>;
     var month = <?php echo date('n') ?>;
     var current_date = '<?php echo date("Y-m-d")  ?>';
+
+    soundManager.url = '/swf/soundmanager2.swf';
 
     $(function () {
         $('body').delegate('a.take-task', 'click', function () {
@@ -169,6 +179,8 @@
     }
 
     function UpdateSignalData() {
+        Play();
+
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("/signal/default/index") ?>',
             type:'POST',
@@ -178,6 +190,25 @@
                 $('div.main-list').html(response.tasks);
                 $('div.fast-list').html(response.history);
             }
+        });
+    }
+
+    function Play(){
+        if ($('#play_sound').attr("checked") != 'checked')
+            return ;
+        // создание объекта "звук"
+        soundManager.createSound('myNewSound','/audio/notify.wav');
+
+        // установка громкости и воспроизведение
+        soundManager.play('myNewSound');
+        soundManager.setVolume('myNewSound',50);
+        soundManager.setPan('myNewSound',-100);;
+    }
+
+    function removeHistory(){
+        $.ajax({
+            url:'<?php echo Yii::app()->createUrl("/signal/default/removeAll") ?>',
+            type:'POST'
         });
     }
 </script>

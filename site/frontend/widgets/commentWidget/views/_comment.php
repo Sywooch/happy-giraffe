@@ -1,7 +1,7 @@
 <li class="clearfix item" id="comment_<?php echo $data->id; ?>">
     <div class="clearfix">
         <div class="user">
-            <?php $this->widget('AvatarWidget', array('user' => $data->author, 'withMail' => false)); ?>
+            <?php $this->widget('AvatarWidget', array('user' => $data->author)); ?>
             <div class="details">
                 <span
                     class="icon-status status-<?php echo $data->author->online == 1 ? 'online' : 'offline'; ?>"></span>
@@ -21,7 +21,7 @@
                 <?php if (($data->response_id !== 0 && $response = $data->response) || ($data->quote_id !== 0 && $response = $data->quote)): ?>
                 <div class="answer">
                     Ответ для
-                    <?php $this->widget('AvatarWidget', array('user' => $response->author, 'withMail' => false)); ?>
+                    <?php $this->widget('AvatarWidget', array('user' => $response->author)); ?>
                     на <span class="num"><a href="#"
                                             onclick="return Comment.goTo(<?php echo $response->position; ?>, <?php echo $currentPage + 1; ?>);"><?php echo $response->position; ?></a></span>
                 </div>

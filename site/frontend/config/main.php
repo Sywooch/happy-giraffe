@@ -51,7 +51,7 @@ return array(
         'application.modules.attribute.models.*',
         'application.modules.im.models.*',
         'application.modules.geo.models.*',
-    ),
+	),
 
 	'sourceLanguage' => 'en',
 	'language' => 'ru',

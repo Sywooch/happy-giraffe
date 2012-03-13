@@ -17,7 +17,7 @@ class RatingYohoho extends EMongoDocument
         return 'ratings_yohoho';
     }
 
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -33,10 +33,11 @@ class RatingYohoho extends EMongoDocument
     {
         parent::afterSave();
 
-        if ($this->isNewRecord){
+        if ($this->isNewRecord) {
             //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->user_id, ScoreActions::ACTION_YOHOHO_LIKE);
+            UserScores::addScores($this->user_id, ScoreActions::ACTION_YOHOHO_LIKE, 1, array(
+                'id' => $this->entity_id, 'name' => $this->entity_name));
         }
     }
 
@@ -46,7 +47,8 @@ class RatingYohoho extends EMongoDocument
 
         //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->user_id, ScoreActions::ACTION_YOHOHO_LIKE);
+        UserScores::removeScores($this->user_id, ScoreActions::ACTION_YOHOHO_LIKE, 1, array(
+            'id' => $this->entity_id, 'name' => $this->entity_name));
     }
 
     public function findByEntity($entity)
@@ -60,7 +62,7 @@ class RatingYohoho extends EMongoDocument
         $criteria->user_id('==', (int)Yii::app()->user->id);
 
         $model = $this->find($criteria);
-        if($model)
+        if ($model)
             return $model;
         return false;
     }
@@ -68,7 +70,7 @@ class RatingYohoho extends EMongoDocument
     public function saveByEntity($entity)
     {
         $model = $this->findByEntity($entity);
-        if($model)
+        if ($model)
             $model->delete();
         else
         {

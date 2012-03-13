@@ -654,8 +654,8 @@ class User extends CActiveRecord
         if ($res != 0) {
             //вычитаем баллы
             Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::removeScores($friend_id, ScoreActions::ACTION_FRIEND);
-            UserScores::removeScores($this->id, ScoreActions::ACTION_FRIEND);
+            UserScores::removeScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
+            UserScores::removeScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::model()->findByPk($friend_id));
             return true;
         }
 

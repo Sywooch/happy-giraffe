@@ -7,10 +7,13 @@ class NotificationController extends Controller
 {
     public function actionGetLast()
     {
-        if (Yii::app()->user->isGuest)
-            throw CHttpException(403, 'Вы не авторизованы');
         if (Yii::app()->request->isAjaxRequest) {
-            $response = UserNotification::model()->getUserData(Yii::app()->user->id);
+            $notifications = UserNotification::model()->getUserData(Yii::app()->user->id);
+            $friends = UserFriendNotification::model()->getUserData(Yii::app()->user->id);
+            $response = array(
+                'notifications' => $notifications,
+                'friends' => $friends,
+            );
             echo CJSON::encode($response);
         }
     }

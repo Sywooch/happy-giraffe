@@ -124,6 +124,15 @@ class DefaultController extends Controller
         ));
     }
 
+    public function actionRemoveAll()
+    {
+        if (Yii::app()->user->checkAccess('administrator')){
+            UserSignal::model()->deleteAll();
+            UserSignalHistory::model()->deleteAll();
+            UserSignalResponse::model()->deleteAll();
+        }
+    }
+
     /**
      * @param int $id model id
      * @return UserSignal

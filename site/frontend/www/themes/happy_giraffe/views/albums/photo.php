@@ -2,13 +2,13 @@
     <div class="header">
         <div class="clearfix">
             <div class="user">
-                <?php $this->widget('AvatarWidget', array('user' => $photo->user)); ?>
-                <p><span><?php echo $photo->user->fullName; ?></span>
-                    <?php if($photo->user->country): ?>
-                        <br><?php echo $photo->user->country->name; ?></p>
+                <?php $this->widget('AvatarWidget', array('user' => $photo->author)); ?>
+                <p><span><?php echo $photo->author->fullName; ?></span>
+                    <?php if($photo->author->country): ?>
+                        <br><?php echo $photo->author->country->name; ?></p>
                     <?php endif; ?>
             </div>
-            <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $photo->user->id)) ?></div>
+            <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $photo->author->id)) ?></div>
         </div>
     </div>
     <div id="photo">

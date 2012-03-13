@@ -1,10 +1,10 @@
 var Album = {
-    editMode : false
+    editMode:false
 };
 Album.editDescription = function (link, tmp) {
     var note = $(link).parents('.note:eq(0)');
     $('.fast-actions', note).hide();
-    if(!tmp) {
+    if (!tmp) {
         var html = $('<form><textarea placeholder="Введите комментарий к альбому не более 140 символов"></textarea><button class="btn btn-green-small"><span><span>Ок</span></span></button></form>');
         $('textarea', html).val($('p', note).text());
         $('p', note).remove();
@@ -24,45 +24,48 @@ Album.saveDescription = function (button, tmp) {
     var text = $('textarea', note).val();
     $('<p></p>').text(text).appendTo(note);
     $('.fast-actions', note).show();
-    if(tmp) {
+    if (tmp) {
         $('form', note).hide();
     } else {
         $('form', note).remove();
-        $.post($('.fast-actions a.edit', note).attr('href'), {text : text});
+        $.post($('.fast-actions a.edit', note).attr('href'), {text:text});
     }
 };
 
-Album.removeDescription = function(link) {
-    $.post(link.href, {text : ''});
+Album.removeDescription = function (link) {
+    $.post(link.href, {text:''});
     $(link).parents('.note:eq(0)').remove();
     return false;
 };
 
 /* Изменение названия фотографии */
-Album.editPhoto = function(link) {
+Album.editPhoto = function (link) {
     var text = $(link).siblings('span').text();
     $(link).parent().hide().siblings('div').show().find('input[type=text]').val(text);
     return false;
 };
 
 /* Сохранение названия фотографии */
-Album.savePhoto = function(button) {
+Album.savePhoto = function (button) {
     var text = $(button).siblings('input[type=text]').val();
     $(button).parent().hide().siblings('div').show().find('span').text(text);
-    if(!this.editMode) {
+    if (!this.editMode) {
         var url = $(button).parent().hide().siblings('div').find('a.edit').attr('href');
         $.post(
             url,
-            {title : text}
+            {title:text}
         );
     }
     return false;
 };
 
-
-Album.removePhoto = function(button, data) {
+Album.removePhoto = function (button, data) {
     $('#album_photo_' + data['Removed[entity_id]']).remove();
-    if(!this.editMode) {
+    if (!this.editMode) {
         $.fn.yiiListView.update('comment_list_view');
     }
+};
+
+Album.removeAlbum = function () {
+    document.location.href = base_url + '/albums';
 }

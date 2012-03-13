@@ -11,7 +11,6 @@ function initForm() {
         button_width:61,
         button_height:22,
         button_placeholder:$('#upload-button')[0],
-        debug:true,
         custom_settings:{something:"here"}
     })
         .bind('fileQueued', function (event, file) {
@@ -48,12 +47,17 @@ function initForm() {
             $('#log li#' + file.id).find('span.progressvalue').text(percentage + '%');
         })
         .bind('uploadSuccess', function (event, file, serverData) {
-            cl(serverData);
             var item = $('#log li#' + file.id);
             item.find('div.progress').css('width', '100%');
             item.find('span.progressvalue').text('100%');
             var pathtofile = '<a href="uploads/' + file.name + '" target="_blank" >view &raquo;</a>';
             item.addClass('success').find('p.status').html('Done!!! | ' + pathtofile);
+
+            var fsn = serverData.split('/')[serverData.split('/').length - 1];
+            $('#photos_list').append($('#new_photo_template').tmpl([{
+                src : serverData,
+                fsn : fsn
+            }]));
         })
         .bind('uploadComplete', function (event, file) {
             // upload has completed, try the next one in the queue

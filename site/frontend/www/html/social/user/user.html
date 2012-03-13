@@ -131,17 +131,18 @@
 						
 						<div class="user-interests">
 							
-							<div class="box-title">Интересы</div>
+							<div class="box-title">Интересы<a href="#interestsEdit" class="interest-add fancy"></a></div>
 							
 							<ul>
-								<li><a href="" style="background:#fff9bc;">Спорт</a></li>
-								<li><a href="" style="background:#bef2b9;">Семья</a></li>
-								<li><a href="" style="background:#bfddff;">Игры</a></li>
-								<li><a href="" style="background:#e5d2f7;">Кулинария</a></li>
-								<li><a href="" style="background:#bfddff;">Педагогика</a></li>
-								<li><a href="" style="background:#ffe4b5;">Авто</a></li>
-								<li><a href="" style="background:#ffe4b5;">Рыбалка</a></li>
-								<li><a href="" style="background:#ccf7ff;">Туризм</a></li>
+								<li><a href="" class="interest kids selected">Планирование</a></li>
+								<li><a href="" class="interest kids selected">Беременность</a></li>
+								<li><a href="" class="interest manwoman selected">Свадьба</a></li>
+								<li><a href="" class="interest beauty selected">Красота</a></li>
+								<li><a href="" class="interest beauty selected">Мода</a></li>
+								<li><a href="" class="interest home selected">Кухня</a></li>
+								<li><a href="" class="interest hobbies selected">Спорт</a></li>
+								<li><a href="" class="interest rest selected">Праздники</a></li>
+								<li><a href="" class="interest rest selected">Путешествия</a></li>
 							</ul>
 							
 						</div>
@@ -495,6 +496,48 @@
 		</form>
 		
 	</div>
+	
+	<div id="interestsEdit" class="popup">
+		
+		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
+		
+		<div class="title">Ваши интересы</div>
+		
+		<div class="clearfix">
+			
+			<div class="nav">
+				<ul>
+					<li class="active"><a href="">Дети</a></li>
+					<li><a href="">Мужчина и женщина</a></li>
+					<li><a href="">Красота и здоровье</a></li>
+					<li><a href="">Дом</a></li>
+					<li><a href="">Интересы и увлечения</a></li>
+					<li><a href="">Отдых</a></li>
+				</ul>
+			</div>
+			
+			<div class="interests-list">
+				<ul>
+					<li><a href="" class="interest kids selected">Планирование</a></li>
+					<li><a href="" class="interest kids">Беременность</a></li>
+					<li><a href="" class="interest manwoman selected">Свадьба</a></li>
+					<li><a href="" class="interest beauty">Красота</a></li>
+					<li><a href="" class="interest beauty selected">Мода</a></li>
+					<li><a href="" class="interest home">Кухня</a></li>
+					<li><a href="" class="interest hobbies selected">Спорт</a></li>
+					<li><a href="" class="interest rest">Праздники</a></li>
+					<li><a href="" class="interest rest selected">Путешествия</a></li>
+				</ul>
+			</div>
+			
+		</div>
+		
+		<div class="bottom">
+			<button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
+		</div>
+		
+	</div>
+	
 </div>
 </body>
 </html>

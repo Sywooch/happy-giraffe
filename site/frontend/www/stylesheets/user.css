@@ -70,6 +70,32 @@
 #user .user-meta .details .rating {color:#fb7a03;font-weight:bold;font-size:15px;}
 #user .user-meta .details .rang {color:#484747;font-size:14px;}
 
+.user-points {margin-bottom:20px;}
+.user-points .rank {background:url(/images/user_rank.png) no-repeat;width:240px;height:117px;padding-top:17px;color:#fdf9b9;font-size:13px;font-weight:bold;text-align:center;margin-bottom:20px;}
+.user-points .points {text-align:center;font-size:13px;color:#969696;}
+.user-points .points .in {display:inline-block;text-align:right;font:normal 9px tahoma, arial, helvetica, sans-serif;color:#59595a;text-transform:uppercase;margin-top:6px;}
+.user-points .points .in span {color:#fd5d17;font:bold 25px/1.2 arial black, arial, helvetica, sans-serif;}
+
+#user .user-points-list {}
+#user .user-points-list table {width:100%}
+#user .user-points-list table td {padding:10px;color:#898889;font-size:13px;vertical-align:middle;}
+#user .user-points-list table td span {color:#070707;}
+#user .user-points-list table .even td {background:#f5faff;}
+#user .user-points-list table .icon {vertical-align:top;text-align:center;}
+#user .user-points-list table .count {color:#fd5d17;font-weight:bold;font-size:15px;text-align:right;vertical-align:top}
+#user .user-points-list table .minus .count {color:#029ad2;}
+#user .user-points-list table .icon i {display:block;background:url(/images/user_points.png);margin:auto;}
+#user .user-points-list table .icon i.icon-post {width:16px;height:16px;background-position:0 0;}
+#user .user-points-list table .icon i.icon-views {width:22px;height:14px;background-position:-109px 0;}
+#user .user-points-list table .icon i.icon-comments {width:21px;height:20px;background-position:-37px 0;}
+#user .user-points-list table .icon i.icon-ava {width:18px;height:19px;background-position:-157px 0;}
+#user .user-points-list table .icon i.icon-photo {width:26px;height:20px;background-position:-83px 0;}
+#user .user-points-list table .icon i.icon-friends {width:25px;height:26px;background-position:-131px 0;}
+#user .user-points-list table .icon i.icon-post-d {width:21px;height:20px;background-position:-16px 0;}
+#user .user-points-list table .icon i.icon-comment-d {width:25px;height:23px;background-position:-58px 0;}
+
+
+
 #user .user-friends {padding-bottom:20px;padding-left:15px;}
 #user .user-friends ul {list-style:none;}
 #user .user-friends ul li {float:left;margin:0 15px 15px 0;}

@@ -8,7 +8,11 @@ $this->endWidget();
 <div id="gallery">
     <?php $form=$this->beginWidget('CActiveForm', array(
         'id'=>'album-form',
-        'enableAjaxValidation'=>false,
+        'enableClientValidation' => false,
+        'enableAjaxValidation' => true,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+        ),
     )); ?>
     <div class="header">
         <div class="clearfix">
@@ -47,35 +51,12 @@ $this->endWidget();
     <div class="gallery-photos clearfix">
         <ul id="photos_list">
             <?php foreach($model->albumPhotos as $i => $photo): ?>
-                <li>
-                    <table>
-                        <tr>
-                            <td class="img">
-                                <div>
-                                    <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180)), array('/albums/photo', 'id' => $photo->id)); ?>
-                                    <a href="" class="remove"></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="title editing">
-                            <td align="center">
-                                <div<?php echo !$photo->isNewRecord && $photo->title != '' ? ' style="display:none;"' : ''; ?>>
-                                    <input type="hidden" name="Photo[fsn][]" value="<?php echo $photo->fs_name; ?>" />
-                                    <input type="hidden" name="Photo[id][]" value="<?php echo $photo->id; ?>" />
-                                    <input type="text" name="Photo[title][]" value="<?php echo $photo->title; ?>" />
-                                    <button class="btn btn-green-small" onclick="return Album.savePhoto(this);"><span><span>Ок</span></span></button>
-                                </div>
-                                <div<?php echo $photo->isNewRecord && $photo->title == '' ? ' style="display:none;"' : ''; ?>>
-                                    <span><?php echo $photo->title; ?></span>
-                                    <a class="edit" href="" onclick="return Album.editPhoto(this);"></a>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </li>
+                <?php $this->renderPartial('_photo_author', array('data' => $photo)); ?>
             <?php endforeach; ?>
         </ul>
     </div>
+    <br/>
+    <center><button class="btn btn-green-medium"><span><span>Сохранить</span></span></button></center>
     <?php $this->endWidget(); ?>
 </div>
 <script type="text/x-jquery-tmpl" id="new_photo_template">
@@ -85,7 +66,7 @@ $this->endWidget();
                 <td class="img">
                     <div>
                         <img alt="" src="${src}" style="width:180px;" /></a>
-                        <a class="remove" href=""></a>
+                        <a class="remove" href="" onclick="$(this).parents('li:eq(0)').remove();return false;"></a>
                     </div>
                 </td>
             </tr>
@@ -106,3 +87,8 @@ $this->endWidget();
         </tbody></table>
     </li>
 </script>
+<?php
+$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+$remove_tmpl->registerTemplates();
+$this->endWidget();
+?>

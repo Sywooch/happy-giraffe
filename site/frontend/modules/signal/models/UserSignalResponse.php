@@ -2,13 +2,17 @@
 
 class UserSignalResponse extends EMongoDocument
 {
+    const STATUS_OPEN = 1;
+    const STATUS_SUCCESS_CLOSE = 2;
+    const STATUS_FAIL_CLOSE = 3;
+
     const EXECUTE_LIMIT_TIME = 900;
     public $user_id;
     public $task_id;
     public $date;
     public $time;
 
-    public $status = 1;
+    public $status = self::STATUS_OPEN;
 
     public static function model($className = __CLASS__)
     {
@@ -37,7 +41,7 @@ class UserSignalResponse extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->addCond('time', '<', time()- self::EXECUTE_LIMIT_TIME);
-        $criteria->addCond('status', '==', 1);
+        $criteria->addCond('status', '==', self::STATUS_OPEN);
 
         $models = self::model()->findAll($criteria);
         foreach($models as $model){
@@ -45,22 +49,39 @@ class UserSignalResponse extends EMongoDocument
             if (in_array($model->user_id, $signal->executors)){
                 $signal->DeclineExecutor($model->user_id);
             }
-            $model->status = 1;
+            $model->status = self::STATUS_FAIL_CLOSE;
             $model->save();
         }
+    }
+
+    public static function Decline($signal, $user_id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->user_id('==', (int)$user_id);
+        $criteria->task_id('==', $signal->_id);
+        $criteria->status('==', self::STATUS_OPEN);
+
+        $model = self::model()->find($criteria);
+        if ($model === null){
+            Yii::log('fail when search signal response 1');
+            return ;
+        }
+        $model->status = self::STATUS_FAIL_CLOSE;
+        $model->save();
     }
 
     public static function TaskSuccess($signal, $user_id){
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', (int)$user_id);
         $criteria->task_id('==', $signal->_id);
+        $criteria->status('==', self::STATUS_OPEN);
 
         $model = self::model()->find($criteria);
         if ($model === null){
-            Yii::log('fail when search signal response');
+            Yii::log('fail when search signal response 2');
             return ;
         }
-        $model->status = 2;
+        $model->status = self::STATUS_SUCCESS_CLOSE;
         $model->save();
     }
 

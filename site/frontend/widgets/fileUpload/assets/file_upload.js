@@ -78,9 +78,12 @@ function registerUploadEvents(elem)
         item.find('.progress-value').text('100%');
         var pathtofile = '<a href="uploads/' + file.name + '" target="_blank" >view &raquo;</a>';
 
-        var fsn = serverData.split('/')[serverData.split('/').length - 1];
-        item.find('.file-params').append('<span class="src">'+serverData+'</span><span class="fsn">'+fsn+'</span>');
-        item.find('.img').append('<img src="'+serverData+'" />')
+        var params = serverData.split('||');
+        item.find('.file-params').append('<span class="src">'+params[0]+'</span>');
+        item.find('.file-params').append('<span class="fsn">'+params[1]+'</span>');
+        if(params[2] != undefined)
+            item.find('.file-params').append('<span class="fid">'+params[2]+'</span>');
+        item.find('.img').append('<img src="'+params[0]+'" />')
     })
     .bind('uploadComplete', function (event, file) {
         $(this).swfupload('startUpload');
@@ -92,36 +95,16 @@ function registerUploadEvents(elem)
 }
 
 function savePhotos() {
-    if($('#galleryUploadPhotos #log li .file-params').size() == 0)
+    if($('#galleryUploadPhotos #log li.upload-done').size() == 0)
         return false;
+    $('#galleryUploadPhotos #log li.upload-done').each(function() {
+        $('#photos_list').append($('#new_photo_template').tmpl([{
+            src : $('.file-params .src', this).text(),
+            fsn : $('.file-params .fsn', this).text()
+        }]));
+    });
+    if($('#comment_list_view').size() > 0)
+        $.fn.yiiListView.update('comment_list_view');
+    $.fancybox.close();
     return false;
-}
-
-
-var ru2en = {
-    ru_str:"АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя",
-    en_str:['A', 'B', 'V', 'G', 'D', 'E', 'JO', 'ZH', 'Z', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T',
-        'U', 'F', 'H', 'C', 'CH', 'SH', 'SHH', String.fromCharCode(35), 'I', String.fromCharCode(39), 'JE', 'JU',
-        'JA', 'a', 'b', 'v', 'g', 'd', 'e', 'jo', 'zh', 'z', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f',
-        'h', 'c', 'ch', 'sh', 'shh', String.fromCharCode(35), 'i', String.fromCharCode(39), 'je', 'ju', 'ja'],
-    translit:function (org_str) {
-        var tmp_str = "";
-        for (var i = 0, l = org_str.length; i < l; i++) {
-            var s = org_str.charAt(i), n = this.ru_str.indexOf(s);
-            if (n >= 0) {
-                tmp_str += this.en_str[n];
-            }
-            else {
-                tmp_str += s;
-            }
-        }
-        return tmp_str;
-    }
-}
-
-function ajax_upload_success(response) {
-    if (response == 1) {
-        $.fancybox.close();
-        document.location.reload();
-    }
 }

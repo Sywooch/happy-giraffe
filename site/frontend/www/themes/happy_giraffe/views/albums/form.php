@@ -51,36 +51,7 @@ $this->endWidget();
     <div class="gallery-photos clearfix">
         <ul id="photos_list">
             <?php foreach($model->albumPhotos as $i => $photo): ?>
-                <li>
-                    <table>
-                        <tr>
-                            <td class="img">
-                                <div>
-                                    <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180)), array('/albums/photo', 'id' => $photo->id)); ?>
-                                    <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
-                                        'model' => $photo,
-                                        'callback' => 'Album.removePhoto',
-                                        'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $photo->author_id
-                                    )); ?>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="title editing">
-                            <td align="center">
-                                <div<?php echo !$photo->isNewRecord && $photo->title != '' ? ' style="display:none;"' : ''; ?>>
-                                    <input type="hidden" name="Photo[fsn][]" value="<?php echo $photo->fs_name; ?>" />
-                                    <input type="hidden" name="Photo[id][]" value="<?php echo $photo->id; ?>" />
-                                    <input type="text" name="Photo[title][]" value="<?php echo $photo->title; ?>" />
-                                    <button class="btn btn-green-small" onclick="return Album.savePhoto(this);"><span><span>Ок</span></span></button>
-                                </div>
-                                <div<?php echo $photo->isNewRecord && $photo->title == '' ? ' style="display:none;"' : ''; ?>>
-                                    <span><?php echo $photo->title; ?></span>
-                                    <a class="edit" href="" onclick="return Album.editPhoto(this);"></a>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </li>
+                <?php $this->renderPartial('_photo_author', array('data' => $photo)); ?>
             <?php endforeach; ?>
         </ul>
     </div>

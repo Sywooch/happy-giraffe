@@ -41,22 +41,28 @@ Album.removeDescription = function(link) {
 /* Изменение названия фотографии */
 Album.editPhoto = function(link) {
     var text = $(link).siblings('span').text();
-    if(this.editMode) {
-        $(link).parent().hide().siblings('div').show().find('input[type=text]').val(text);
-    }
+    $(link).parent().hide().siblings('div').show().find('input[type=text]').val(text);
     return false;
 };
 
 /* Сохранение названия фотографии */
 Album.savePhoto = function(button) {
     var text = $(button).siblings('input[type=text]').val();
-    if(this.editMode) {
-        $(button).parent().hide().siblings('div').show().find('span').text(text);
+    $(button).parent().hide().siblings('div').show().find('span').text(text);
+    if(!this.editMode) {
+        var url = $(button).parent().hide().siblings('div').find('a.edit').attr('href');
+        $.post(
+            url,
+            {title : text}
+        );
     }
     return false;
 };
 
 
-Album.removePhoto = function(button) {
-    $(button).parents('li:eq(0)').remove();
+Album.removePhoto = function(button, data) {
+    $('#album_photo_' + data['Removed[entity_id]']).remove();
+    if(!this.editMode) {
+        $.fn.yiiListView.update('comment_list_view');
+    }
 }

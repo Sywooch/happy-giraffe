@@ -8,6 +8,11 @@ class m120313_060518_change_albums extends CDbMigration
         $this->execute("ALTER TABLE album_photos DROP FOREIGN KEY fk_photo_user;");
         $this->execute("ALTER TABLE `album_photos` CHANGE `user_id` `author_id` INT( 10 ) UNSIGNED NOT NULL;");
         $this->execute("alter table `album_photos` add FOREIGN KEY fk_photo_user (author_id) REFERENCES user(id) ON DELETE cascade on update cascade");
+        $this->execute("ALTER TABLE `albums` ADD `removed` BOOLEAN NOT NULL DEFAULT '0'");
+        $this->execute("ALTER TABLE albums DROP FOREIGN KEY fk_albums_user;");
+        $this->execute("ALTER TABLE `albums` CHANGE `user_id` `author_id` INT( 10 ) UNSIGNED NOT NULL;");
+        $this->execute("alter table `albums` add FOREIGN KEY fk_albums_user (author_id) REFERENCES user(id) ON DELETE cascade on update cascade");
+
 	}
 
 	public function down()

@@ -211,9 +211,14 @@ function initSelects(block){
 		});
 	}
 }
-function confirmMessage(el, callback){
+function confirmMessage(el, data, callback){
+    var d = {};
+    for(var n in data)
+    {
+        d[data[n]['name']] = data[n]['value'];
+    }
     if(callback)
-        callback(el);
+        callback(el, d);
 	var box =  $(el).parents('.popup');
 	box.find('.confirm-after').fadeIn();
 	box.find('.confirm-before').hide();

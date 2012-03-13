@@ -236,6 +236,7 @@ class UserScores extends CActiveRecord
         $criteria = new EMongoCriteria;
         $criteria->addCond('user_id', '==', (int)$this->user_id);
         $criteria->addCond('status', '==', ScoreInput::STATUS_CLOSED);
+        $criteria->sort('updated', EMongoCriteria::SORT_DESC);
         $dataProvider = new EMongoDocumentDataProvider('ScoreInput',array('criteria'=> $criteria));
 
         return $dataProvider;

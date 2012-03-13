@@ -60,7 +60,7 @@ class Album extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'album_id'),
+            'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'album_id', 'scopes' => array('active')),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
@@ -133,7 +133,7 @@ class Album extends CActiveRecord
             {
                 $model = new AlbumPhoto;
                 $model->album_id = $this->id;
-                $model->user_id = $this->user_id;
+                $model->author_id = $this->user_id;
                 $model->title = $this->files['title'][$i];
                 $model->file_name = $this->files['fsn'][$i];
                 $model->create(true);

@@ -1,55 +1,69 @@
 function initForm() {
+    $('#upload-input').hide();
     $('#upload-control').swfupload({
         upload_url:upload_ajax_url,
-        file_size_limit:"10240",
+        file_size_limit:"4096",
         file_types:"*.*",
         file_types_description:"All Files",
         file_upload_limit:"0",
         flash_url:upload_base_url + "/swfupload.swf",
-        button_text:'Upload',
-        button_width:100,
-        button_width:61,
-        button_height:22,
+        button_text:'<span class="btnText">Обзор...</span>',
+        button_width:91,
+        button_height:34,
+        button_image_url : "/images/btn_browse.png",
+        button_text_style:'.btnText {width:91px;height:34px;text-align:center;color:#fff;font:bold 16px arial, helvetica, sans-serif;border:0;margin:0;padding:0;background:url(/images/btn_browse.png) no-repeat;cursor:pointer;}',
         button_placeholder:$('#upload-button')[0],
         custom_settings:{something:"here"}
     })
         .bind('fileQueued', function (event, file) {
-            var listitem = '<li id="' + file.id + '" >' +
+            /*var listitem = '<li id="' + file.id + '" >' +
                 'File: <em>' + file.name + '</em> (' + Math.round(file.size / 1024) + ' KB) <span class="progressvalue" ></span>' +
                 '<div class="progressbar" ><div class="progress" ></div></div>' +
                 '<p class="status" >Pending</p>' +
                 '<span class="cancel" >&nbsp;</span>' +
-                '</li>';
+                '</li>';*/
+            var listitem = '<li class="clearfix" id="' + file.id + '" >' +
+                '<div class="img"><i class="icon-error"></i></div>' +
+                '<i class="icon-done"></i>' +
+                '<div class="progress"><div class="in"></div></div>' +
+                '<div class="progress-value"></div>' +
+                '<a class="remove" href="" onclick="$(this).parent().remove();return false;"></a>' +
+                '</li>'
             $('#log').append(listitem);
-            $('li#' + file.id + ' .cancel').bind('click', function () { //Remove from queue on cancel click
+            $('li#' + file.id + ' .remove').bind('click', function () { //Remove from queue on cancel click
                 var swfu = $.swfupload.getInstance('#upload-control');
                 swfu.cancelUpload(file.id);
-                $('li#' + file.id).slideUp('fast');
+                /*$('li#' + file.id).slideUp('fast');*/
             });
             // start the upload since it's queued
             $(this).swfupload('startUpload');
         })
         .bind('fileQueueError', function (event, file, errorCode, message) {
-            alert('Size of the file ' + file.name + ' is greater than limit');
+            var listitem = '<li class="clearfix upload-error" id="' + file.id + '" >' +
+                '<div class="img"><i class="icon-error"></i></div>' +
+                '<span>'+file.name+' не был загружен. Слишком большой размер.</span>' +
+                '</li>'
+            $('#log').append(listitem);
         })
         .bind('fileDialogComplete', function (event, numFilesSelected, numFilesQueued) {
-            $('#queuestatus').text('Files Selected: ' + numFilesSelected + ' / Queued Files: ' + numFilesQueued);
+            /*$('#queuestatus').text('Files Selected: ' + numFilesSelected + ' / Queued Files: ' + numFilesQueued);*/
         })
         .bind('uploadStart', function (event, file) {
-            $('#log li#' + file.id).find('p.status').text('Uploading...');
-            $('#log li#' + file.id).find('span.progressvalue').text('0%');
-            $('#log li#' + file.id).find('span.cancel').hide();
+            /*$('#log li#' + file.id).find('p.status').text('Uploading...');*/
+            $('#log li#' + file.id).find('.progress-value').text('0%');
+            /*$('#log li#' + file.id).find('span.cancel').hide();*/
         })
         .bind('uploadProgress', function (event, file, bytesLoaded) {
             //Show Progress
             var percentage = Math.round((bytesLoaded / file.size) * 100);
-            $('#log li#' + file.id).find('div.progress').css('width', percentage + '%');
-            $('#log li#' + file.id).find('span.progressvalue').text(percentage + '%');
+            $('#log li#' + file.id).find('div.progress .in').css('width', percentage + '%');
+            $('#log li#' + file.id).find('.progress-value').text(percentage + '%');
         })
         .bind('uploadSuccess', function (event, file, serverData) {
             var item = $('#log li#' + file.id);
-            item.find('div.progress').css('width', '100%');
-            item.find('span.progressvalue').text('100%');
+            item.addClass('upload-done');
+            item.find('div.progress .in').css('width', '100%');
+            item.find('.progress-value').text('100%');
             var pathtofile = '<a href="uploads/' + file.name + '" target="_blank" >view &raquo;</a>';
             item.addClass('success').find('p.status').html('Done!!! | ' + pathtofile);
 

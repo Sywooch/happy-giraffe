@@ -22,8 +22,7 @@ class FileUploadWidget extends CWidget
         $cs = Yii::app()->clientScript;
         $cs->registerCoreScript('jquery')
             ->registerScript('upload_ajax_url', $js, CClientScript::POS_HEAD)
-            ->registerScriptFile($baseUrl . '/' . 'file_upload.js')
-            ->registerCssFile($baseUrl . '/' . 'file_upload.css');
+            ->registerScriptFile($baseUrl . '/' . 'file_upload.js');
     }
 
     public function loadScripts()
@@ -32,6 +31,7 @@ class FileUploadWidget extends CWidget
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerCoreScript('jquery')
             ->registerScriptFile($baseUrl . '/' . 'swfupload.js')
-            ->registerScriptFile($baseUrl . '/' . 'jquery.swfupload.js');
+            ->registerScriptFile($baseUrl . '/' . 'jquery.swfupload.js')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/scrollbarpaper.js');
     }
 }

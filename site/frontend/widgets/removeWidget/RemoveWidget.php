@@ -21,6 +21,10 @@ class RemoveWidget extends CWidget
      */
     public $author = false;
 
+    public $template = '<i class="icon"></i>';
+
+    public $cssClass = 'remove';
+
     public function init()
     {
         if($this->model && !Yii::app()->request->isAjaxRequest)
@@ -104,6 +108,10 @@ class RemoveWidget extends CWidget
             return array('этот<br>комментарий','Комментарий успешно удален');
         if ($entity == 'CommunityContent')
             return array('эту<br>статью', 'Статья успешно удалена');
+        if ($entity == 'Album')
+            return array('этот<br>альбом', 'Альбом успешно удален');
+        if ($entity == 'AlbumPhoto')
+            return array('эту<br>фотографию', 'Фотография успешно удалена');
         return array('эту<br>запись', 'Запись успешно удалена');
     }
 }

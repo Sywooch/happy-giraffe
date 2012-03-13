@@ -164,6 +164,8 @@ class UserNotification extends EMongoDocument
     public function generateText()
     {
         $params = $this->params;
+        $add_span = create_function('&$item, $key', '$item = CHtml::tag("span", array("class" => "black"), $item);');
+        array_walk($params, $add_span);
         if ($this->entity !== null) $params['{n}'] = Notification::parse($this->entity['quantity'], self::$types[$this->type]['noun']);
         return strtr(self::$types[$this->type]['tmpl'], $params);
     }

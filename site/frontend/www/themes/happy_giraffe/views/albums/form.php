@@ -17,14 +17,14 @@ $this->endWidget();
     <div class="header">
         <div class="clearfix">
             <div class="user">
-                <?php $this->widget('AvatarWidget', array('user' => $model->user)); ?>
-                <p><span><?php echo $model->user->fullName; ?></span>
-                    <?php if($model->user->country): ?>
-                        <br><?php echo $model->user->country->name; ?>
+                <?php $this->widget('AvatarWidget', array('user' => $model->author)); ?>
+                <p><span><?php echo $model->author->fullName; ?></span>
+                    <?php if($model->author->country): ?>
+                        <br><?php echo $model->author->country->name; ?>
                     <?php endif; ?>
                 </p>
             </div>
-            <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $model->user->id)) ?></div>
+            <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $model->author->id)) ?></div>
         </div>
 
         <div class="title">

@@ -19,7 +19,9 @@ $this->widget('zii.widgets.CListView', array(
     ),
 ));
 
-$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-$remove_tmpl->registerTemplates();
-$this->endWidget();
+if (!Yii::app()->user->isGuest) {
+    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+    $remove_tmpl->registerTemplates();
+    $this->endWidget();
+}
 

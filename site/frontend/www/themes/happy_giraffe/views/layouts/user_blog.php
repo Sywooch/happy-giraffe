@@ -4,6 +4,8 @@
 
         <div class="col-1">
 
+            <?php echo CHtml::link('Добавить', array('user/blog/add')); ?>
+
             <div class="club-topics-all-link">
                 <?php echo CHtml::link('Все записи', array('user/blog', 'user_id' => $this->user->id)); ?>
             </div>

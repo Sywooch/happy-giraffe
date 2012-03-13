@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'album_photos':
  * @property integer $id
- * @property string $user_id
+ * @property string $author_id
  * @property string $album_id
  * @property string $file_name
  * @property string $fs_name
@@ -39,6 +39,8 @@ class AlbumPhoto extends CActiveRecord
      */
     public $file;
 
+    public $isTemplate = false;
+
     /**
      * Returns the static model of the specified AR class.
      * @return AlbumPhoto the static model class
@@ -64,8 +66,8 @@ class AlbumPhoto extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, album_id, file_name', 'required'),
-            array('user_id, album_id', 'length', 'max' => 10),
+            array('author_id, album_id, file_name', 'required'),
+            array('author_id, album_id', 'length', 'max' => 10),
             array('file_name, fs_name', 'length', 'max' => 100),
             array('title', 'length', 'max' => 50),
             array('created, updated', 'safe'),
@@ -81,8 +83,9 @@ class AlbumPhoto extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'attach' => array(self::HAS_MANY, 'AttachPhoto', 'photo_id'),
+            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
         );
     }
 
@@ -100,6 +103,15 @@ class AlbumPhoto extends CActiveRecord
         );
     }
 
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => $this->tableAlias . '.removed = 0',
+            ),
+        );
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -107,7 +119,7 @@ class AlbumPhoto extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'user_id' => 'User',
+            'author_id' => 'User',
             'album_id' => 'Album',
             'file_name' => 'File Name',
             'title' => 'Название',
@@ -120,7 +132,7 @@ class AlbumPhoto extends CActiveRecord
     {
         if ($this->isNewRecord){
             $signal = new UserSignal();
-            $signal->user_id = (int)$this->album->user_id;
+            $signal->user_id = (int)$this->author_id;
             $signal->item_id = (int)$this->id;
             $signal->item_name = get_class($this);
             $signal->signal_type = UserSignal::TYPE_NEW_USER_PHOTO;
@@ -128,20 +140,19 @@ class AlbumPhoto extends CActiveRecord
 
             //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->user_id, ScoreActions::ACTION_PHOTO, 1, $this);
+            UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
         }
         parent::afterSave();
     }
 
-    public function afterDelete()
+    public function beforeDelete()
     {
-        parent::afterDelete();
-
+        $this->removed = 1;
+        $this->save();
         UserSignal::close($this->id, get_class($this));
-
-        //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->user_id, ScoreActions::ACTION_PHOTO, 1, $this);
+        UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+        return false;
     }
 
     /**
@@ -177,7 +188,8 @@ class AlbumPhoto extends CActiveRecord
         if(!$temp)
         {
             $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->primaryKey;
-            mkdir($model_dir);
+            if(!file_exists($model_dir))
+                mkdir($model_dir);
         }
         else
         {

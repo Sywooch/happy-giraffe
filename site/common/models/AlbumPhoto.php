@@ -107,7 +107,7 @@ class AlbumPhoto extends CActiveRecord
     {
         return array(
             'active' => array(
-                'condition' => 'removed = 0',
+                'condition' => $this->tableAlias . '.removed = 0',
             ),
         );
     }

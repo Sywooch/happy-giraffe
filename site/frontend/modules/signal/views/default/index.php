@@ -33,6 +33,9 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
 
 <div class="clear"></div>
 <input type="checkbox" id="play_sound" checked /> <label for="play_sound">Проигрывать звук</label>
+<?php if (Yii::app()->user->checkAccess('administrator')):?>
+<br><a href="#" onclick="removeHistory()">Очистить всё</a>
+<?php endif ?>
 
 <div class="main-list">
     <?php $this->renderPartial('_data', array('models' => $models)); ?>
@@ -200,5 +203,12 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
         soundManager.play('myNewSound');
         soundManager.setVolume('myNewSound',50);
         soundManager.setPan('myNewSound',-100);;
+    }
+
+    function removeHistory(){
+        $.ajax({
+            url:'<?php echo Yii::app()->createUrl("/signal/default/removeAll") ?>',
+            type:'POST'
+        });
     }
 </script>

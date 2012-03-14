@@ -151,7 +151,7 @@ class User extends CActiveRecord
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
-            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
+            //array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
             array('gender', 'boolean'),
             array('phone', 'safe'),
             array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
@@ -474,14 +474,7 @@ class User extends CActiveRecord
         $url = '';
         if (isset($this->partner))
             $url = $this->partner->photo->getUrl('ava');
-        if (empty($url)) {
-            if ($this->gender == 1)
-                return '/images/ava_noimg_female.png';
-            else
-                return '/images/ava_noimg_male.png';
-        }
-        else
-            return $url;
+        return $url;
     }
 
     public function getDialogLink()

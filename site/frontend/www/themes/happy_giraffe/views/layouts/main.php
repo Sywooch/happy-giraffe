@@ -334,7 +334,7 @@
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 28))?>">
                                         <span class="title">Домашние хлопоты</span>
-                                        <span class="text">Ghtdhfoftv самую тяжелую домашнюю работу в приятные хлопоты</span>
+                                        <span class="text">Превращаем самую тяжелую домашнюю работу в приятные хлопоты</span>
                                         <span class="img"><img src="/images/nav_home_img_04.jpg"></span>
                                     </a>
                                 </li>

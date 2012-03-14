@@ -28,6 +28,8 @@
         $cs
             ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
             ->registerScriptFile('/javascripts/comet.js')
+            ->registerScriptFile('/javascripts/im.js')
+            ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').'"')
             ->registerScriptFile('/javascripts/user_common.js')
             ->registerCssFile('/stylesheets/user_common.css')
             ->registerScriptFile('/javascripts/dklab_realplexor.js')
@@ -194,7 +196,7 @@
         </script>
 
         <script id="imNotificationTmpl" type="text/x-jquery-tmpl">
-            <li><?php echo CHtml::link('{{html text}}<i class="close"></i>', '${url}') ;?></li>
+            <li><?php echo CHtml::link('{{html text}}', '${url}') ;?></li>
         </script>
     <?php endif; ?>
 

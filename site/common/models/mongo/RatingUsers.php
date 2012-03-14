@@ -32,8 +32,8 @@ class RatingUsers extends EMongoDocument
         parent::afterSave();
 
         if ($this->isNewRecord){
-            Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->user_id, ScoreActions::ACTION_LIKE);
+            //Yii::import('site.frontend.modules.scores.models.*');
+            //UserScores::addScores($this->user_id, ScoreActions::ACTION_LIKE);
         }
     }
 
@@ -41,8 +41,8 @@ class RatingUsers extends EMongoDocument
     {
         parent::afterDelete();
 
-        Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->user_id, ScoreActions::ACTION_LIKE);
+        //Yii::import('site.frontend.modules.scores.models.*');
+        //UserScores::removeScores($this->user_id, ScoreActions::ACTION_LIKE);
     }
 
     public function findByUser($uid, $key)

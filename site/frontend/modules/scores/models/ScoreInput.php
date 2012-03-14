@@ -205,6 +205,10 @@ class ScoreInput extends EMongoDocument
                         'entity' => get_class($entity),
                     );
                 }
+
+                if ($this->action_id == ScoreActions::ACTION_PHOTO) {
+                    $this->entity_id = (int)$entity->album_id;
+                }
             }
         }
     }
@@ -455,9 +459,17 @@ class ScoreInput extends EMongoDocument
      */
     public function getPhotoText()
     {
-        if (empty($this->added_items))
+        if (empty($this->added_items) && empty($this->removed_items))
             return '';
-        $model = CActiveRecord::model($this->added_items[0]['entity'])->findByPk($this->added_items[0]['id']);
+        if ($this->amount > 0) {
+            $class = $this->added_items[0]['entity'];
+            $id = $this->added_items[0]['id'];
+        } else {
+            $class = $this->removed_items[0]['entity'];
+            $id = $this->removed_items[0]['id'];
+        }
+
+        $model = CActiveRecord::model($class)->findByPk($id);
         if ($model === null)
             return '';
         if ($model->album === null)
@@ -467,8 +479,10 @@ class ScoreInput extends EMongoDocument
             return 'Добавлено фото <span>' . $model->title . '</span> в фотоальбом <span>' . $model->album->title . '</span>';
         elseif ($this->amount > 1)
             return 'Добавлено ' . $this->amount . ' фото в фотоальбом <span>' . $model->album->title . '</span>';
-        else
+        elseif ($this->amount == 1)
             return 'Вы удалили фото из альмоба <span>' . $model->album->title . '</span>';
+        else
+            return 'Вы удалили ' . abs($this->amount) . ' фото из альмоба <span>' . $model->album->title . '</span>';
     }
 
     /**
@@ -588,8 +602,9 @@ class ScoreInput extends EMongoDocument
             elseif (count($friends) > 1) {
                 $text .= 'Вы потеряли ' . count($friends) . ' ' . HDate::GenerateNoun(array('друга', 'друзей', 'друзей'), $this->amount);
                 foreach ($friends as $friend) {
-                    $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . $friend->first_name . '</span>';
+                    $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . $friend->first_name . '</span>, ';
                 }
+                $text = rtrim($text, ', ');
             }
         }
 

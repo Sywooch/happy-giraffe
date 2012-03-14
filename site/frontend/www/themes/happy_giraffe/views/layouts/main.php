@@ -53,37 +53,17 @@
                         <ul>
                             <li><a href=""><i class="icon icon-home"></i></a></li>
                             <li id="user-nav-messages">
-                                <a href="/im/"><i class="icon icon-messages"></i><span class="count">5</span></a>
+                                <a href="/im/"><i class="icon icon-messages"></i><span class="count"></span></a>
                                 <div class="drp">
                                     <div class="drp-title">Диалоги</div>
                                     <ul class="list">
-                                        <li>
-                                            <a href="">
-                                                <span class="name">Александр  Богоявленский</span>
-                                                <span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-                                                <span class="date">Сегодня 10:45</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <span class="name">Александр  Богоявленский</span>
-                                                <span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-                                                <span class="date">Сегодня 10:45</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <span class="name">Александр  Богоявленский</span>
-                                                <span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-                                                <span class="date">Сегодня 10:45</span>
-                                            </a>
-                                        </li>
+
                                     </ul>
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="<?php echo $this->createUrl('/im/dialogs') ?>">Все диалоги (<?php //echo Im::model(Yii::app()->user->id)->getDialogsCount() ?>)</a></li>
-                                            <li><a href="<?php echo $this->createUrl('/im/dialogs/new') ?>">Новых</a> <a href="" class="count"><?php //echo count(MessageDialog::GetUserNewDialogs()) ?></a></li>
-                                            <li><a href="<?php echo $this->createUrl('/im/dialogs/online') ?>">Кто онлайн</a> <span><?php //echo count(MessageDialog::GetUserOnlineDialogs()) ?></span></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/') ?>">Все диалоги (<?php echo Im::model(Yii::app()->user->id)->getDialogsCount() ?>)</a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/new') ?>">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count"><?php echo count(MessageDialog::GetUserNewDialogs()) ?></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/online') ?>">Кто онлайн</a> <span><?php echo count(MessageDialog::GetUserOnlineDialogs()) ?></span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -230,6 +210,10 @@
     <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
     <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
+
+    <?php
+    $sql_stats = YII::app()->db->getStats();
+    echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>
 
     <script type="text/javascript">
 

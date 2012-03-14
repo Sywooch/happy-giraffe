@@ -156,20 +156,6 @@
 
 #user .user-interests .interest-add {display:inline-block;width:17px;height:18px;background:url(/images/common.png) no-repeat -139px -173px;}
 
-.interest {display:inline-block;height:17px;line-height:17px;padding:2px 8px;border:2px solid transparent;font-size:13px;white-space:nowrap;text-decoration:none;}
-.interest {/*css3*/ -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;}
-.interest.kids {border-color:#bfddff;color:#689dc9;}
-.interest.kids.selected {background:#bfddff;color:#1762a2;}
-.interest.manwoman {border-color:#bef2b9;color:#5acd75;}
-.interest.manwoman.selected {background:#bef2b9;color:#219e3e;}
-.interest.beauty {border-color:#fff9bc;color:#cca342;}
-.interest.beauty.selected {background:#fff9bc;color:#d19507;}
-.interest.home {border-color:#dcc7ee;color:#a77eca;}
-.interest.home.selected {background:#dcc7ee;color:#8056a3;}
-.interest.hobbies {border-color:#ffdda7;color:#e19959;}
-.interest.hobbies.selected {background:#ffdda7;color:#c17029;}
-.interest.rest {border-color:#c5effe;color:#66c8eb;}
-.interest.rest.selected {background:#c5effe;color:#039cd3;}
 
 #interestsEdit {width:360px;}
 #interestsEdit .title {font-size:22px;font-weight:bold;color:#0281b0;margin-bottom:20px;}
@@ -187,9 +173,7 @@
 
 #user .user-clubs {padding-bottom:20px;padding-left:15px;}
 #user .user-clubs ul {list-style:none;}
-#user .user-clubs ul li {float:left;margin:0 15px 0px 0;width:76px;height:130px;}
-#user .user-clubs ul li img {display:block;margin-bottom:2px;}
-#user .user-clubs ul li a {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;line-height:11px;text-decoration:none;font-weight:bold;}
+#user .user-clubs ul li {float:left;margin:0 15px 0px 0;}
 
 #user .user-albums {padding:15px;border:1px solid #f3f3f3;margin-bottom:20px;}
 #user .user-albums .box-title .btn {margin-right:0;}

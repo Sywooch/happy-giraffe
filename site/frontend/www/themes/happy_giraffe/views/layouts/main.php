@@ -139,7 +139,7 @@
 
                 <ul class="fast-links clearfix">
                     <li><a href="/">Главная</a></li>
-                    <li><a href="<?php echo $this->createUrl('/community/') ?>">Клубы</a></li>
+                    <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
                     <li><a href="">Сервисы</a></li>
                     <li><a href="">Конкурсы</a></li>
                 </ul>

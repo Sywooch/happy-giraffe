@@ -76,9 +76,25 @@ class SiteController extends Controller
 	    	if(Yii::app()->request->isAjaxRequest)
 	    		echo $error['message'];
 	    	else
-	        	$this->render('error', $error);
+            {
+                if(file_exists(Yii::getPathOfAlias('application.www.themes.happy_giraffe.views.system.' . $error['code']) . '.php'))
+                {
+                    $this->layout = '//system/layout';
+                    Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/common.css');
+                    $this->render('//system/' . $error['code'], $error);
+                }
+                else
+                    $this->render('error', $error);
+            }
 	    }
 	}
+
+    public function actionMaintenance()
+    {
+        $this->layout = '//system/layout';
+        Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/maintenance.css');
+        $this->render('//system/maintenance');
+    }
 
 	/**
 	 * Displays the contact page

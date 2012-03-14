@@ -278,21 +278,21 @@
 
                             <ul class="cols cols-3">
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 29))?>">
                                         <span class="title">Красота</span>
                                         <span class="text">Как сохранить красоту и продлить молодость - проверенные рецепты, советы экспертов и новые технологии</span>
                                         <span class="img"><img src="/images/nav_beauty_img_01.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 30))?>">
                                         <span class="title">Мода и шоппинг</span>
                                         <span class="text">Что нужно купить в этом сезоне? Где это продаётся? Есть ли скидки и акции? Для женщин, мужчин и детей – всё интересное о моде и покупках</span>
                                         <span class="img"><img src="/images/nav_beauty_img_02.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 33))?>">
                                         <span class="title">Здоровье родителей</span>
                                         <span class="text">Вся информация о заболеваниях, их лечении и профилактике, народные советы и адреса клиник</span>
                                         <span class="img"><img src="/images/nav_beauty_img_03.jpg"></span>
@@ -339,7 +339,7 @@
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 34))?>">
                                         <span class="title">Загородная жизнь</span>
                                         <span class="text">Как рационально использовать свой загородный участок: посадки, строительство, отдых</span>
                                         <span class="img"><img src="/images/nav_home_img_05.jpg"></span>

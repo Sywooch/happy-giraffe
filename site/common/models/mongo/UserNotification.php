@@ -9,6 +9,7 @@
 class UserNotification extends EMongoDocument
 {
     const NEW_COMMENT = 0;
+    const NEW_REPLY = 1;
 
     public $user_id;
     public $type;
@@ -24,10 +25,18 @@ class UserNotification extends EMongoDocument
         self::NEW_COMMENT => array(
             'method' => 'newComment',
             'templates' => array(
-                'CommunityContent' => '{c} к вашей записи {post} в клубе {club}',
-                'RecipeBookRecipe' => '{c} к вашей записи {post} в сервисе {recipeBook}',
-                'User' => '{r} в гостевой книге',
-                'AlbumPhoto' => '{c} к фотографии {photo} в альбомe {album}',
+                'CommunityContent' => '{comments} к вашей записи {post} в клубе {club}',
+                'RecipeBookRecipe' => '{comments} к вашей записи {post} в сервисе {recipeBook}',
+                'User' => '{records} в гостевой книге',
+                'AlbumPhoto' => '{comments} к фотографии {photo} в альбомe {album}',
+            ),
+        ),
+        self::NEW_REPLY => array(
+            'method' => 'newReply',
+            'templates' => array(
+                'CommunityContent' => '{replies} на ваш комментарий к записи {post} в клубе {club}',
+                'RecipeBookRecipe' => '{replies} на ваш комментарий к записи {post} в сервисе {recipeBook}',
+                'AlbumPhoto' => '{replies} на ваш комментарий к фотографии {photo} в альбоме {album}',
             ),
         ),
     );
@@ -160,33 +169,62 @@ class UserNotification extends EMongoDocument
                     'id' => (int) $entity->id,
                     'quantity' => 1,
                 );
-                switch ($entity_name) {
-                    case 'CommunityContent':
-                        $notification->params = array(
-                            '{post}' => $entity->name,
-                            '{club}' => $entity->rubric->community->name,
-                        );
-                        break;
-                    case 'RecipeBookRecipe':
-                        $notification->params = array(
-                            '{post}' => $entity->name,
-                            '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
-                        );
-                        break;
-                    case 'User':
-                        break;
-                    case 'AlbumPhoto':
-                        $notification->params = array(
-                            '{photo}' => $entity->title,
-                            '{album}' => $entity->album->title,
-                        );
-                        break;
-                }
+                $notification->params = $this->getParamsByEntity($entity);
             } else {
                 $notification->entity['quantity']++;
                 $notification->updated = time();
             }
             $notification->save();
+        }
+    }
+
+    public function newReply($type, $attributes)
+    {
+        $entity_name = $attributes['comment']['entity'];
+        $entity = CActiveRecord::model($entity_name)->findByPk($attributes['comment']['entity_id']);
+        $recipient = $attributes['comment']->response->author_id;
+        if ($recipient != Yii::app()->user->id) {
+            $notification = $this->findByEntity($type, $entity);
+            if ($notification === null) {
+                $notification = new self;
+                $notification->user_id = (int) $recipient;
+                $notification->url = $entity->url;
+                $notification->type = $type;
+                $notification->created = $notification->updated = time();
+                $notification->entity = array(
+                    'name' => $entity_name,
+                    'id' => (int) $entity->id,
+                    'quantity' => 1,
+                );
+                $notification->params = $this->getParamsByEntity($entity);
+            } else {
+                $notification->entity['quantity']++;
+                $notification->updated = time();
+            }
+            $notification->save();
+        }
+    }
+
+    public function getParamsByEntity($entity)
+    {
+        switch (get_class($entity)) {
+            case 'CommunityContent':
+                return array(
+                    '{post}' => $entity->name,
+                    '{club}' => $entity->rubric->community->name,
+                );
+            case 'AlbumPhoto':
+                return array(
+                    '{photo}' => $entity->title,
+                    '{album}' => $entity->album->title,
+                );
+            case 'RecipeBookRecipe':
+                return array(
+                    '{post}' => $entity->name,
+                    '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
+                );
+            default:
+                return array();
         }
     }
 
@@ -201,8 +239,9 @@ class UserNotification extends EMongoDocument
         $add_span = create_function('&$item, $key', '$item = CHtml::tag("span", array("class" => "black"), $item);');
         array_walk($params, $add_span);
         if ($this->entity !== null) {
-            $params['{c}'] = Notification::parse($this->entity['quantity'], Notification::NOTIFICATION_COMMENT);
-            $params['{r}'] = Notification::parse($this->entity['quantity'], Notification::NOTIFICATION_RECORD);
+            $params['{comments}'] = Notification::parse($this->entity['quantity'], Notification::NOTIFICATION_COMMENT);
+            $params['{records}'] = Notification::parse($this->entity['quantity'], Notification::NOTIFICATION_RECORD);
+            $params['{replies}'] = Notification::parse($this->entity['quantity'], Notification::NOTIFICATION_REPLY);
         }
         return strtr($this->template, $params);
     }

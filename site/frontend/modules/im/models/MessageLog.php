@@ -281,7 +281,7 @@ class MessageLog extends CActiveRecord
     {
         if (count(Im::model($user_id)->getDialogIds()) == 0)
             return array('data' => array(), 'count' => 0);
-        echo '1';
+
         $models = Yii::app()->db->createCommand()
             ->select(array('id', 'user_id', 'text', 'created', 'read_status', 'dialog_id'))
             ->from('message_log')
@@ -300,7 +300,6 @@ class MessageLog extends CActiveRecord
                 'text' => self::getNotificationText($m),
                 'url' => Yii::app()->createUrl('/im/default/dialog', array('id' => $m['dialog_id'])),
             );
-            echo '2';
         }
 
         $new_count = Im::getUnreadMessagesCount($user_id);

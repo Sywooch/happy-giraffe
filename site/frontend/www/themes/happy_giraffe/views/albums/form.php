@@ -15,18 +15,6 @@ $this->endWidget();
         ),
     )); ?>
     <div class="header">
-        <div class="clearfix">
-            <div class="user">
-                <?php $this->widget('AvatarWidget', array('user' => $model->author)); ?>
-                <p><span><?php echo $model->author->fullName; ?></span>
-                    <?php if($model->author->country): ?>
-                        <br><?php echo $model->author->country->name; ?>
-                    <?php endif; ?>
-                </p>
-            </div>
-            <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $model->author->id)) ?></div>
-        </div>
-
         <div class="title">
             <big>
                 Альбом
@@ -43,7 +31,13 @@ $this->endWidget();
         <div class="actions">
             <?php echo CHtml::link('<span><span>Добавить фото</span></span>', array('addPhoto'), array('class' => 'fancy btn btn-green-medium')); ?>
             <?php if($model->isNewRecord === false): ?>
-                <button class="btn btn-gray-medium"><span><span>Удалить альбом</span></span></button>
+                <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
+                    'model' => $model,
+                    'callback' => 'Album.removeAlbum',
+                    'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $model->author_id,
+                    'template' => '<span><span>Удалить альбом</span></span>',
+                    'cssClass' => 'btn btn-gray-medium',
+                )); ?>
             <?php endif; ?>
         </div>
     </div>
@@ -88,7 +82,10 @@ $this->endWidget();
     </li>
 </script>
 <?php
-$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-$remove_tmpl->registerTemplates();
-$this->endWidget();
+if($model->isNewRecord === false)
+{
+    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+    $remove_tmpl->registerTemplates();
+    $this->endWidget();
+}
 ?>

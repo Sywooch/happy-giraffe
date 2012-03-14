@@ -199,7 +199,7 @@ class Test2Controller extends Controller
 
     public function actionLol()
     {
-        $notifications = UserFriendNotification::model()->getUserData(Yii::app()->user->id);
-        print_r($notifications);
+        $n = CommunityContent::model()->find();
+        $n->delete();
     }
 }

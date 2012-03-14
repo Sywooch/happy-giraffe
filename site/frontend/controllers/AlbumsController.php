@@ -163,16 +163,20 @@ class AlbumsController extends Controller
         ));
     }
 
-    public function actionAttach($entity, $entity_id)
+    public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)
     {
         if(!Yii::app()->request->isAjaxRequest)
             Yii::app()->end();
-        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-            'entity' => $entity,
-            'entity_id' => $entity_id
-        ));
-        $fileAttach->window('browse');
-        $this->endWidget();
+        Yii::app()->clientScript->scriptMap=array(
+            'jquery.js'=>false,
+            'jquery.min.js'=>false,
+            'history.js'=>false,
+            'jquery-ui.js'=>false,
+            'jquery-ui.min.js'=>false,
+            'jquery.ba-bbq.js' => false,
+            'jquery-ui.css' => false,
+        );
+        $this->renderPartial('attach_widget', compact('entity', 'entity_id', 'mode', 'a'), false, true);
     }
 
     public function actionAttachView($id)

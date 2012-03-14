@@ -108,6 +108,7 @@ function initAttachForm() {
                 '<a class="remove" href="" onclick="return removeAttachPhoto();"></a>';
             $('#upload_photo_container').html(html);
             $('#attach_form').hide();
+            $('#save_attach_button').show();
         }
     });
 }
@@ -115,6 +116,7 @@ function initAttachForm() {
 function removeAttachPhoto() {
     $('#upload_photo_container').html('');
     $('#attach_form').show();
+    $('#save_attach_button').hide();
     return false;
 }
 

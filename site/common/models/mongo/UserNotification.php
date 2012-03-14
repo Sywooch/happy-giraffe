@@ -21,7 +21,15 @@ class UserNotification extends EMongoDocument
     public $params = array();
 
     private $_types = array(
-        self::NEW_COMMENT => 'newComment',
+        self::NEW_COMMENT => array(
+            'method' => 'newComment',
+            'templates' => array(
+                'CommunityContent' => '{c} к вашей записи {post} в клубе {club}',
+                'RecipeBookRecipe' => '{c} к вашей записи {post} в сервисе {recipeBook}',
+                'User' => '{r} в гостевой книге',
+                'AlbumPhoto' => '{c} к фотографии {photo} в альбомe {album}',
+            ),
+        ),
     );
 
     public function getCollectionName()
@@ -128,18 +136,19 @@ class UserNotification extends EMongoDocument
         return $count;
     }
 
-    public function create($type, $attributes = array())
+    public function create($type, $recipient, $attributes = array())
     {
-        $method = $this->_types[$type];
-        $this->$method($type, $attributes);
+        $method = $this->_types[$type]['method'];
+        $this->$method($type, $recipient, $attributes);
     }
 
-    public function newComment($type, $attributes)
+    public function newComment($type, $recipient, $attributes)
     {
         $entity_name = get_class($attributes['entity']);
         $notification = $this->findByEntity($type, $attributes['entity']);
         if ($notification === null) {
             $notification = new self;
+            $notification->user_id = (int) $recipient;
             $notification->type = $type;
             $notification->created = time();
             $notification->entity = array(
@@ -148,8 +157,7 @@ class UserNotification extends EMongoDocument
                 'quantity' => 1,
             );
             switch ($entity_name) {
-                case 'CommunityComment':
-                    $notification->user_id = (int) $attributes['entity']->author_id;
+                case 'CommunityContent':
                     $notification->url = Yii::app()->createUrl('community/view', array(
                         'community_id' => $attributes['entity']->rubric->community->id,
                         'content_type_slug' => $attributes['entity']->type->slug,
@@ -161,8 +169,7 @@ class UserNotification extends EMongoDocument
                     );
                     break;
                 case 'RecipeBookRecipe':
-                    $notification->user_id = (int) $attributes['entity']->author_id;
-                    $notification->url = Yii::app()->createUrl('recipebook/default/view', array(
+                    $notification->url = Yii::app()->createUrl('recipeBook/default/view', array(
                         'id' => $attributes['entity']->id,
                     ));
                     $notification->params = array(
@@ -171,8 +178,14 @@ class UserNotification extends EMongoDocument
                     );
                     break;
                 case 'User':
-                    $notification->user_id = (int) $attributes['entity']->id;
                     $notification->url = Yii::app()->createUrl('user/profile', array('user_id' => $attributes['entity']->id));
+                    break;
+                case 'AlbumPhoto':
+                    $notification->url = Yii::app()->createUrl('albums/photo', array('id' => $attributes['entity']->id));
+                    $notification->params = array(
+                        '{photo}' => $attributes['entity']->title,
+                        '{album}' => $attributes['entity']->album->title,
+                    );
                     break;
             }
         } else {
@@ -182,12 +195,20 @@ class UserNotification extends EMongoDocument
         $notification->save();
     }
 
+    public function getTemplate()
+    {
+        return $this->_types[$this->type]['templates'][$this->entity['name']];
+    }
+
     public function generateText()
     {
         $params = $this->params;
         $add_span = create_function('&$item, $key', '$item = CHtml::tag("span", array("class" => "black"), $item);');
         array_walk($params, $add_span);
-        if ($this->entity !== null) $params['{n}'] = Notification::parse($this->entity['quantity'], self::$types[$this->type]['noun']);
-        return strtr(self::$types[$this->type]['tmpl'], $params);
+        if ($this->entity !== null) {
+            $params['{c}'] = Notification::parse($this->entity['quantity'], Notification::NOTIFICATION_COMMENT);
+            $params['{r}'] = Notification::parse($this->entity['quantity'], Notification::NOTIFICATION_RECORD);
+        }
+        return strtr($this->template, $params);
     }
 }

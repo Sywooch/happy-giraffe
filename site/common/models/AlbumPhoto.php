@@ -298,7 +298,7 @@ class AlbumPhoto extends CActiveRecord
 
     public function getUrl()
     {
-        return Yii::app()->createUrl('/albums/photo', array('id'=>$this->id));
+        return Yii::app()->createUrl('albums/photo', array('id' => $this->id));
     }
 
     public function getCheckAccess()

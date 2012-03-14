@@ -25,7 +25,7 @@ return array(
         'site.frontend.helpers.*',
         'site.common.helpers.*',
         'site.frontend.modules.horoscope.models.*',
-        'site.frontend.modules.interests.models.*',
+        'site.common.models.interest.*',
     ),
     'modules'=>array(
         'seo'

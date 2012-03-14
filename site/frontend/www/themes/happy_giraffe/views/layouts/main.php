@@ -90,11 +90,11 @@
                                 <div class="drp drp-icons">
                                     <div class="drp-title">Уведомления</div>
                                     <ul class="list"></ul>
-                                    <div class="actions">
+                                    <!--<div class="actions">
                                         <ul>
                                             <li><a href="">Все уведомления (<span>0</span>)</a></li>
                                         </ul>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </li>
                             <li class="user">

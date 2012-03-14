@@ -5,7 +5,7 @@ $(function() {
         success: function(response) {
             updateNotifications(response.notifications.count, response.notifications.data);
             updateFriends(response.friends.count, response.friends.data);
-            //updateFriends(response.im.count, response.im.data);
+            updateIm(response.im.count, response.im.data);
         }
     });
 });

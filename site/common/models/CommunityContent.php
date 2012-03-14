@@ -305,11 +305,6 @@ class CommunityContent extends CActiveRecord
         parent::afterSave();
     }
 
-    public function getPageUrl()
-    {
-        return $this->getUrl();
-    }
-
     public function getUrl()
     {
         return Yii::app()->createUrl('community/view', array(

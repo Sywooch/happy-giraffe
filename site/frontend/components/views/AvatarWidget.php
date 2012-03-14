@@ -4,6 +4,6 @@
     if ($this->size !== 'ava') $class .= ' ' . $this->size;
 ?>
 
-<a class="<?=$class?>" href="<?=$this->user->profileUrl?>">
+<a class="<?=$class?>" href="<?=$this->user->url?>">
     <?php echo CHtml::image($this->user->getAva($this->size)); ?>
 </a>

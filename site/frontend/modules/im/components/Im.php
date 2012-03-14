@@ -129,6 +129,11 @@ class Im
         return $res;
     }
 
+    public function getDialogsCount()
+    {
+        return count($this->_dialogs);
+    }
+
     /**
      * @param $id
      * @return array ('id', 'user')
@@ -259,8 +264,6 @@ class Im
 
     public static function getUnreadMessagesCount($user_id)
     {
-        Yii::import('site.frontend.modules.im.models.*');
-
         $criteria = new CDbCriteria;
         $criteria->condition = 't.id IN (SELECT dialog_id FROM message_user WHERE user_id = ' . $user_id . ')';
         $criteria->select = 'id';

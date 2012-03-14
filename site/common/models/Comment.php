@@ -218,6 +218,8 @@ class Comment extends CActiveRecord
         UserScores::removeScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
             'id'=>$this->entity_id, 'name'=>$this->entity));
 
+        UserNotification::model()->create(UserNotification::DELETED, array('entity' => $this));
+
         return false;
     }
 
@@ -284,5 +286,11 @@ class Comment extends CActiveRecord
                 $km->save();
             }
         }
+    }
+
+    public function getUrl()
+    {
+        $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        return $entity->url;
     }
 }

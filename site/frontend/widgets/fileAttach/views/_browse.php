@@ -16,7 +16,7 @@
         </div>
         <div class="note">Загрузите файл<br>(jpg, gif, png не более 4 МБ)</div>
     </div>
-    <div class="form-bottom">
+    <div class="form-bottom" id="save_attach_button" style="display:none;">
         <button class="btn btn-green-medium"><span><span>Добавить на конкурс</span></span></button>
     </div>
 </div>

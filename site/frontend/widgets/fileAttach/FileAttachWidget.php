@@ -21,11 +21,28 @@ class FileAttachWidget extends CWidget
         $this->render('button');
     }
 
-    public function window($view_type = 'browse')
+    public function window($view_type, $a = false)
     {
-        $this->render('window', array(
-            'view_type' => $view_type
-        ));
+        if($view_type == 'window')
+            $this->render('window');
+        elseif($view_type == 'browse')
+            $this->render('_browse');
+        elseif($view_type == 'albums')
+        {
+            if($a)
+                $model = Album::model()->findByPk($a);
+            else
+                $model = Album::model()->find(array(
+                    'condition' => 'author_id = :author_id',
+                    'params' => array(':author_id' => Yii::app()->user->id),
+                    'limit' => 1,
+                ));
+            $albums = Album::model()->findByUser(Yii::app()->user->id);
+            $this->render('_albums', array(
+                'model' => $model,
+                'albums' => $albums,
+            ));
+        }
     }
 
     public function registerScripts()
@@ -39,7 +56,7 @@ class FileAttachWidget extends CWidget
             Attach.entity_id = "' . $this->entity_id. '";
             Attach.base_url = "' . Yii::app()->createUrl('/albums/album/saveAttach') . '"
         ');
-
+        $cs->registerCoreScript('bbq');
         $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
         $file_upload->loadScripts();
         $this->endWidget();

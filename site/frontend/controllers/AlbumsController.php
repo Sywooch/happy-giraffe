@@ -158,6 +158,11 @@ class AlbumsController extends Controller
     public function actionPhoto($id)
     {
         $photo = AlbumPhoto::model()->findByPk($id);
+
+        if ($photo->author_id == Yii::app()->user->id) {
+            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $photo);
+        }
+
         $this->render('photo', array(
             'photo' => $photo,
         ));

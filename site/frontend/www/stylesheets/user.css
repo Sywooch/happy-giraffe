@@ -170,6 +170,9 @@
 #interestsEdit .interests-list {float:left;width:160px;padding-left:20px;border-left:1px solid #daebfe;}
 #interestsEdit .interests-list ul {list-style:none;}
 #interestsEdit .interests-list ul li {margin-bottom:12px;}
+#interestsEdit .interests-list {overflow:hidden;}
+#interestsEdit .interests-list label {cursor:pointer;}
+#interestsEdit .interests-list input {visibility:hidden;}
 
 #user .user-clubs {padding-bottom:20px;padding-left:15px;}
 #user .user-clubs ul {list-style:none;}

@@ -313,7 +313,7 @@
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 22))?>">
                                         <span class="title">Кулинарные рецепты</span>
-                                        <span class="text">Рецепты на все случаи жизни: простые и сложные, современные и старинные, диетические и многие другие.</span>
+                                        <span class="text">Рецепты на все случаи жизни: простые и сложные, диетические и многие другие.</span>
                                         <span class="img"><img src="/images/nav_home_img_01.jpg"></span>
                                     </a>
                                 </li>

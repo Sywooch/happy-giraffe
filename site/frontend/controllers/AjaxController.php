@@ -124,7 +124,9 @@ class AjaxController extends Controller
             $comment->attributes = $_POST['Comment'];
             $comment->author_id = Yii::app()->user->id;
         }else{
-            $comment = $this->loadComment($_POST['edit-id']);
+            $comment = Comment::model()->findByPk($_POST['edit-id']);
+            if ($comment === null)
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
             //check access
             if ($comment->author_id != Yii::app()->user->getId() &&
                 !Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId())
@@ -338,15 +340,10 @@ class AjaxController extends Controller
         }
     }
 
-    /**
-     * @param int $id model id
-     * @return Comment
-     * @throws CHttpException
-     */
-    public function loadComment($id){
-        $model = Comment::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return $model;
+    public function actionInterests()
+    {
+        Yii::import('site.common.models.interest.*');
+        $categories = InterestCategory::model()->findAll();
+        $this->renderPartial('interests', compact('categories'), false, true);
     }
 }

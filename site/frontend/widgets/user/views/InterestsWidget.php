@@ -1,35 +1,13 @@
-<?php
-/**
- * Author: alexk984
- * Date: 29.02.12
- *
- * @var $user User
- */
-?>
-<style type="text/css">
-    .yellow{
-        background:#fff9bc;
-    }
-    .light-green{
-        background:#bef2b9;
-    }
-    .blue{
-        background:#bfddff;
-    }
-    .orange{
-        background:#ffe4b5;
-    }
-    .purple{
-        background:#e5d2f7;
-    }
-</style>
 <div class="user-interests">
-
-    <div class="box-title">Интересы</div>
-
-    <ul>
+    <div class="box-title">
+        Интересы
+        <?php if(!Yii::app()->user->isGuest && Yii::app()->user->id == $this->user->id): ?>
+            <?php echo CHtml::link('', array('/ajax/interestsForm'), array('class' => 'interest-add fancy')); ?>
+        <?php endif; ?>
+    </div>
+    <ul id="user_interests_list">
         <?php foreach ($user->interests as $interest): ?>
-            <li><a href="#" class="<?php echo $interest->category->css_class ?>"><?php echo $interest->name ?></a></li>
+            <li><span class="interest selected <?php echo $interest->category->css_class ?>"><?php echo $interest->name ?></span></li>
         <?php endforeach; ?>
     </ul>
 </div>

@@ -93,4 +93,35 @@ class Interest extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public static function findAllByUser($user_id)
+    {
+        $list = Yii::app()->db->createCommand('select interest_id from interest_users where user_id = :user_id')
+            ->bindParam(":user_id", $user_id, PDO::PARAM_INT)
+            ->queryAll();
+        $interests = array();
+        foreach($list as $item)
+        {
+            $interests[$item['interest_id']] = $user_id;
+        }
+        return $interests;
+    }
+
+    public static function saveByUser($user_id, $interests)
+    {
+        $command = Yii::app()->db->createCommand('delete from interest_users where user_id = :user_id');
+        $command->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+        $command->execute();
+
+        if($interests)
+        {
+            foreach($interests as $interest_id => $value)
+            {
+                Yii::app()->db->createCommand()->insert('interest_users', array(
+                    'interest_id' => $interest_id,
+                    'user_id' => $user_id,
+                ));
+            }
+        }
+    }
 }

@@ -124,7 +124,9 @@ class AjaxController extends Controller
             $comment->attributes = $_POST['Comment'];
             $comment->author_id = Yii::app()->user->id;
         }else{
-            $comment = $this->loadComment($_POST['edit-id']);
+            $comment = Comment::model()->findByPk($_POST['edit-id']);
+            if ($comment === null)
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
             //check access
             if ($comment->author_id != Yii::app()->user->getId() &&
                 !Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId())
@@ -338,15 +340,28 @@ class AjaxController extends Controller
         }
     }
 
-    /**
-     * @param int $id model id
-     * @return Comment
-     * @throws CHttpException
-     */
-    public function loadComment($id){
-        $model = Comment::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return $model;
+    public function actionInterestsForm()
+    {
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
+        Yii::import('site.common.models.interest.*');
+        $categories = InterestCategory::model()->findAll();
+        $user_interests = Interest::findAllByUser(Yii::app()->user->id);
+        $this->renderPartial('interests', compact('categories', 'user_interests'), false, true);
+    }
+
+    public function actionSaveInterests()
+    {
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
+        Yii::import('site.common.models.interest.*');
+        Interest::saveByUser(Yii::app()->user->id, Yii::app()->request->getPost('Interest'));
+
+        $interests = Yii::app()->user->model->interests;
+        $html = CHtml::openTag('ul', array('id' => 'user_interests_list'));
+        foreach($interests as $interest)
+            $html .= CHtml::tag('li', array('class' => 'interest selected ' . $interest->category->css_class), $interest->name);
+        $html .= CHtml::closeTag('ul');
+        echo $html;
     }
 }

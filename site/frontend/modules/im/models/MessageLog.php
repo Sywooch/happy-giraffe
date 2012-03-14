@@ -284,8 +284,8 @@ class MessageLog extends CActiveRecord
 
         $models = Yii::app()->db->createCommand()
             ->select(array('id', 'user_id', 'text', 'created', 'read_status', 'dialog_id'))
-            ->from('message_log')
-            ->where('dialog_id IN (:dialogs) AND user_id != :user_id AND
+            ->from('message_log')                //user_id != :user_id AND
+            ->where('dialog_id IN (:dialogs) AND
                 id not in (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
             ':user_id' => Yii::app()->user->getId(),
             ':dialogs' => implode(',', Im::model($user_id)->getDialogIds())
@@ -293,7 +293,7 @@ class MessageLog extends CActiveRecord
             ->order('id desc')
             ->limit(3)
             ->queryAll();
-        echo implode(',', Im::model($user_id)->getDialogIds());
+
         $data = array();
         foreach ($models as $m) {
             $data[] = array(

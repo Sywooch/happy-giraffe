@@ -3,18 +3,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jcarousel.control.js');
 ?>
 <div id="gallery">
-    <div class="header">
-        <div class="clearfix">
-            <div class="user">
-                <?php $this->widget('AvatarWidget', array('user' => $photo->author)); ?>
-                <p><span><?php echo $photo->author->fullName; ?></span>
-                    <?php if($photo->author->country): ?>
-                        <br><?php echo $photo->author->country->name; ?></p>
-                    <?php endif; ?>
-            </div>
-            <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $photo->author->id)) ?></div>
-        </div>
-    </div>
     <div id="photo">
         <?php if($photo->title != ''): ?>
             <div class="title"><?php echo $photo->title; ?></div>

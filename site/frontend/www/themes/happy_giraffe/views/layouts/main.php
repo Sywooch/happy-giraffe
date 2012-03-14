@@ -116,7 +116,7 @@
                                 </div>
                             </li>
                             <li class="user">
-                                <a href="">
+                                <a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">
                                     <span class="ava small male"></span>
                                     <span class="username"><?php echo $user->first_name ?><i class="arr"></i></span>
                                 </a>
@@ -210,7 +210,11 @@
     <script id="friendNotificationTmpl" type="text/x-jquery-tmpl">
         <li><?php echo CHtml::link('{{html text}}<i class="close"></i>', '${url}') ;?></li>
     </script>
-    <?php endif; ?>
+
+    <script id="imNotificationTmpl" type="text/x-jquery-tmpl">
+        <li><?php echo CHtml::link('{{html text}}<i class="close"></i>', '${url}') ;?></li>
+    </script>
+        <?php endif; ?>
 
     <!-- Yandex.Metrika counter -->
     <div style="display:none;"><script type="text/javascript">

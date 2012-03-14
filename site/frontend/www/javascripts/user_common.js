@@ -5,6 +5,7 @@ $(function() {
         success: function(response) {
             updateNotifications(response.notifications.count, response.notifications.data);
             updateFriends(response.friends.count, response.friends.data);
+            //updateFriends(response.im.count, response.im.data);
         }
     });
 });
@@ -20,6 +21,12 @@ function updateFriends(count, data)
 {
     $('#user-nav-friends span.count').text(count).toggle(count != 0);
     $('#user-nav-friends ul.list').html($('#friendNotificationTmpl').tmpl(data));
+}
+
+function updateIm(count, data)
+{
+    $('#user-nav-messages span.count').text(count).toggle(count != 0);
+    $('#user-nav-messages ul.list').html($('#imNotificationTmpl').tmpl(data));
 }
 
 Comet.prototype.updateNotifications = function(result, id) {

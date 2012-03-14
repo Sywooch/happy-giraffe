@@ -73,12 +73,6 @@
             window.location = url;
         });
     });
-
-    comet.addEvent('<?php echo CometModel::TYPE_NEW_MESSAGE ?>', 'ShowNewMessage');
-
-    function ShowNewMessage(result, id) {
-        ShowNewMessagesCount(result.unread_count);
-    }
 </script>
 
 

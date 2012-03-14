@@ -255,4 +255,9 @@ class DefaultController extends Controller
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
     }
+
+    public function actionGetLast(){
+        $im = MessageLog::getNotificationMessages(Yii::app()->user->id);
+        echo CJSON::encode($im);
+    }
 }

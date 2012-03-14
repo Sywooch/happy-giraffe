@@ -3,7 +3,7 @@
         <div class="content-search clearfix">
             <span>Я ищу</span>
 
-            <form method="get" action="">
+            <form method="get" action="<?php echo $this->createUrl('site/search'); ?>">
                 <div class="clearfix">
                     <input type="text" name="text" value="<?php echo $text; ?>"/>
                     <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>

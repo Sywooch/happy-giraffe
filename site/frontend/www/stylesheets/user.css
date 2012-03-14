@@ -187,9 +187,7 @@
 
 #user .user-clubs {padding-bottom:20px;padding-left:15px;}
 #user .user-clubs ul {list-style:none;}
-#user .user-clubs ul li {float:left;margin:0 15px 0px 0;width:76px;height:130px;}
-#user .user-clubs ul li img {display:block;margin-bottom:2px;}
-#user .user-clubs ul li a {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;line-height:11px;text-decoration:none;font-weight:bold;}
+#user .user-clubs ul li {float:left;margin:0 15px 0px 0;}
 
 #user .user-albums {padding:15px;border:1px solid #f3f3f3;margin-bottom:20px;}
 #user .user-albums .box-title .btn {margin-right:0;}

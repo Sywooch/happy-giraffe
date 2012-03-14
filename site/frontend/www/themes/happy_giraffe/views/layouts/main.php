@@ -132,10 +132,12 @@
                 <div class="clearfix">
 
                     <div class="search-box clearfix">
-                        <div class="input">
-                            <input type="text" />
-                        </div>
-                        <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>
+                        <form action="<?php echo $this->createUrl('site/search'); ?>">
+                            <div class="input">
+                                <input type="text" name="text" />
+                            </div>
+                            <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>
+                        </form>
                     </div>
 
                     <div class="logo-box">

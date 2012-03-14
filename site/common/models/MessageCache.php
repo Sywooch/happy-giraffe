@@ -109,8 +109,8 @@ class MessageCache extends CActiveRecord
      */
     public static function GetUserCache($user_id)
     {
-        $value = Yii::app()->cache->get(self::CACHE_ID . $user_id);
-        if ($value === false) {
+//        $value = Yii::app()->cache->get(self::CACHE_ID . $user_id);
+//        if ($value === false) {
             $model = self::model()->find('user_id=' . $user_id);
             if (isset($model))
                 $value = $model->cache;
@@ -121,8 +121,8 @@ class MessageCache extends CActiveRecord
                 $model->save();
                 $value = $model->cache;
             }
-            Yii::app()->cache->set(self::CACHE_ID . $user_id, $value);
-        }
+//            Yii::app()->cache->set(self::CACHE_ID . $user_id, $value);
+//        }
         return $value;
     }
 

@@ -42,9 +42,7 @@
 
             <div class="user-photo">
                 <?php if ($user->id == Yii::app()->user->getId()):?>
-                <a href="<?php echo Yii::app()->createUrl('profile/photo', array('returnUrl'=>urlencode(Yii::app()->createUrl('user/profile', array('user_id'=>Yii::app()->user->getId()))))) ?>">
                     <?php $this->widget('AvatarWidget', array('user' => $user, 'size'=>'big')); ?>
-                </a>
                 <?php else: ?>
                     <?php $this->widget('AvatarWidget', array('user' => $user, 'size'=>'big')); ?>
                 <?php endif ?>

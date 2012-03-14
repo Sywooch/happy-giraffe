@@ -3,7 +3,7 @@
  * User: alexk984
  * Date: 10.03.12
  *
- * Если модератор за 15 имнут не выполнил задание, отменяем его.
+ * Если модератор за 5 имнут не выполнил задание, отменяем его.
  */
 class SignalCommand extends CConsoleCommand
 {
@@ -14,7 +14,7 @@ class SignalCommand extends CConsoleCommand
         return true;
     }
 
-    public function actionRemoveLate()
+    public function actionIndex()
     {
         Yii::import('site.frontend.modules.signal.models.*');
         UserSignalResponse::CheckLate();

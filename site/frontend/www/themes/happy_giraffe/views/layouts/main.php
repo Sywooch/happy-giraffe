@@ -286,7 +286,7 @@
                                 </li>
                                 <li class="col">
                                     <a class="big-link" href="">
-                                        <span class="title">Мода и шопинг</span>
+                                        <span class="title">Мода и шоппинг</span>
                                         <span class="text">Что нужно купить в этом сезоне? Где это продаётся? Есть ли скидки и акции? Для женщин, мужчин и детей – всё интересное о моде и покупках</span>
                                         <span class="img"><img src="/images/nav_beauty_img_02.jpg"></span>
                                     </a>
@@ -320,7 +320,7 @@
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 23))?>">
                                         <span class="title">Детские рецепты</span>
-                                        <span class="text">По нашим рецептам можно приготовить блюда, которые придутся по вкусу даже самому большому привереде</span>
+                                        <span class="text">Готовим блюда, которые придутся по вкусу даже самому большому привереде</span>
                                         <span class="img"><img src="/images/nav_home_img_02.jpg"></span>
                                     </a>
                                 </li>
@@ -334,7 +334,7 @@
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 28))?>">
                                         <span class="title">Домашние хлопоты</span>
-                                        <span class="text">Полезная информация о том, как даже самую тяжелую домашнюю работу превратить в приятные хлопоты</span>
+                                        <span class="text">Информация о том, как даже самую тяжелую домашнюю работу превратить в приятные хлопоты</span>
                                         <span class="img"><img src="/images/nav_home_img_04.jpg"></span>
                                     </a>
                                 </li>

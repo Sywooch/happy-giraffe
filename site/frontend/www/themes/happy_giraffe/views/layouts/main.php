@@ -81,9 +81,9 @@
                                     </ul>
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="<?php echo $this->createUrl('/im/dialogs') ?>">Все диалоги (<?php echo Im::model(Yii::app()->user->id)->getDialogsCount() ?>)</a></li>
-                                            <li><a href="<?php echo $this->createUrl('/im/dialogs/new') ?>">Новых</a> <a href="<?php echo $this->createUrl('/im/dialogs/new') ?>" class="count"><?php echo count(MessageDialog::GetUserNewDialogs()) ?></a></li>
-                                            <li><a href="<?php echo $this->createUrl('/im/dialogs/online') ?>">Кто онлайн</a> <span><?php echo count(MessageDialog::GetUserOnlineDialogs()) ?></span></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/') ?>">Все диалоги (<?php echo Im::model(Yii::app()->user->id)->getDialogsCount() ?>)</a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/new') ?>">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count"><?php echo count(MessageDialog::GetUserNewDialogs()) ?></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/online') ?>">Кто онлайн</a> <span><?php echo count(MessageDialog::GetUserOnlineDialogs()) ?></span></li>
                                         </ul>
                                     </div>
                                 </div>

@@ -64,7 +64,6 @@ $cs->registerScript('travel_add', $js)
             <?php echo CHtml::textField('partner_notice', empty($this->user->partner) ? '' : $this->user->partner->notice) ?>
         </div>
     </div>
-</div>
 
 <div class="photo-upload">
     <?php $form = $this->beginWidget('CActiveForm', array(
@@ -97,9 +96,9 @@ $cs->registerScript('travel_add', $js)
         Загрузите файл (jpg, gif, png не более 4 МБ)
     </div>
     <?php $this->endWidget(); ?>
-
 </div>
-<br/>
+</div>
+
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'baby-form',
     'action' => $this->createUrl('profile/preview'),

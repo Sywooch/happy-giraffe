@@ -87,7 +87,7 @@ class DefaultController extends Controller
     public function actionCreate($id)
     {
         if ($id == Yii::app()->user->getId())
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            throw new CHttpException(404, 'Вы не можете создать диалог с собой.');
 
         $user = Im::model()->getUser($id);
         //find if dialog with this user exist
@@ -163,7 +163,7 @@ class DefaultController extends Controller
     {
         $id = Im::model()->findDialog($dialog_name);
         if (empty($id))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            throw new CHttpException(404, 'Диалог не найден.');
         else
             $this->redirect($this->createUrl('dialog', array('id' => $id)));
     }

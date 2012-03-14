@@ -53,7 +53,7 @@ class DefaultController extends Controller
             'questionsCount'
         ))->findByAttributes(array('slug' => $slug));
         if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            throw new CHttpException(404, 'Такого теста не существует.');
         return $model;
     }
 

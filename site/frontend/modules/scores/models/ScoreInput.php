@@ -97,7 +97,9 @@ class ScoreInput extends EMongoDocument
         $criteria->action_id('==', (int)$action_id);
         $criteria->status('==', self::STATUS_OPEN);
 
-        if ($action_id == ScoreActions::ACTION_100_VIEWS || $action_id == ScoreActions::ACTION_10_COMMENTS) {
+        if ($action_id == ScoreActions::ACTION_100_VIEWS || $action_id == ScoreActions::ACTION_10_COMMENTS
+            || $action_id == ScoreActions::ACTION_LIKE || $action_id == ScoreActions::ACTION_PHOTO
+        ) {
             $criteria->addCond('added_items.0.id', '==', (int)$entity->primaryKey);
             $criteria->addCond('added_items.0.entity', '==', get_class($entity));
         }
@@ -107,7 +109,27 @@ class ScoreInput extends EMongoDocument
             $criteria->addCond('added_items.0.entity', '==', $entity['name']);
         }
 
-        return $this->find($criteria);
+        $model = $this->find($criteria);
+        if ($model === null) {
+            $criteria = new EMongoCriteria;
+            $criteria->user_id('==', (int)$user_id);
+            $criteria->action_id('==', (int)$action_id);
+            $criteria->status('==', self::STATUS_OPEN);
+
+            if ($action_id == ScoreActions::ACTION_100_VIEWS || $action_id == ScoreActions::ACTION_10_COMMENTS
+                || $action_id == ScoreActions::ACTION_LIKE || $action_id == ScoreActions::ACTION_PHOTO
+            ) {
+                $criteria->addCond('removed_items.0.id', '==', (int)$entity->primaryKey);
+                $criteria->addCond('removed_items.0.entity', '==', get_class($entity));
+            }
+
+            if ($action_id == ScoreActions::ACTION_OWN_COMMENT) {
+                $criteria->addCond('removed_items.0.id', '==', (int)$entity['id']);
+                $criteria->addCond('removed_items.0.entity', '==', $entity['name']);
+            }
+            $model = $this->find($criteria);
+        }
+        return $model;
     }
 
     /**
@@ -130,15 +152,19 @@ class ScoreInput extends EMongoDocument
 
     public function addItemsInAdded($entity_id, $entity)
     {
-        foreach ($this->added_items as $item) {
-            if ($item['id'] == $entity_id && $item['entity'] == $entity)
-                return;
-        }
+        if (in_array($this->action_id, array(ScoreActions::ACTION_FRIEND, ScoreActions::ACTION_PHOTO))
+            || (empty($this->added_items) && empty($this->removed_items))
+        ) {
+            foreach ($this->added_items as $item) {
+                if ($item['id'] == $entity_id && $item['entity'] == $entity)
+                    return;
+            }
 
-        $this->added_items [] = array(
-            'id' => (int)$entity_id,
-            'entity' => $entity,
-        );
+            $this->added_items [] = array(
+                'id' => (int)$entity_id,
+                'entity' => $entity,
+            );
+        }
     }
 
     /**
@@ -157,18 +183,22 @@ class ScoreInput extends EMongoDocument
                     'entity' => $entity['name'],
                 );
             } else {
-                foreach ($this->added_items as $key => $added_item) {
-                    if ($added_item['id'] == $entity->primaryKey &&
-                        $added_item['entity'] == get_class($entity)
-                    ) {
-                        unset($this->added_items[$key]);
-                        return;
+                if (in_array($this->action_id, array(ScoreActions::ACTION_FRIEND, ScoreActions::ACTION_PHOTO))
+                    || (empty($this->added_items) && empty($this->removed_items))
+                ) {
+                    foreach ($this->added_items as $key => $added_item) {
+                        if ($added_item['id'] == $entity->primaryKey &&
+                            $added_item['entity'] == get_class($entity)
+                        ) {
+                            unset($this->added_items[$key]);
+                            return;
+                        }
                     }
+                    $this->removed_items [] = array(
+                        'id' => (int)$entity->primaryKey,
+                        'entity' => get_class($entity),
+                    );
                 }
-                $this->removed_items [] = array(
-                    'id' => (int)$entity->primaryKey,
-                    'entity' => get_class($entity),
-                );
             }
         }
     }
@@ -212,7 +242,7 @@ class ScoreInput extends EMongoDocument
             case ScoreActions::ACTION_OWN_COMMENT:
                 if ($this->amount > 0)
                     return 'icon-comments';
-                return 'icon-comments-d';
+                return 'icon-comment-d';
             case ScoreActions::ACTION_100_VIEWS:
                 return 'icon-views';
             case ScoreActions::ACTION_PROFILE_PHOTO:
@@ -237,6 +267,11 @@ class ScoreInput extends EMongoDocument
             return $this->scores_earned;
     }
 
+    /**
+     * Получить текст события
+     *
+     * @return string
+     */
     public function getText()
     {
         $text = '';
@@ -280,70 +315,143 @@ class ScoreInput extends EMongoDocument
                 $text = '';
                 break;
             case ScoreActions::ACTION_100_VIEWS:
-                $text = '100 новых просмотров вашей записи ' . $this->getViewsArticleText();
+                $text = $this->getViewsArticleText();
                 break;
 
             case ScoreActions::ACTION_PHOTO:
                 $text = $this->getPhotoText();
+                break;
+
+            case ScoreActions::ACTION_LIKE:
+                $text = $this->getRatingText();
                 break;
         }
 
         return $text;
     }
 
+    /**
+     * Получить текст если добавлена/удалена статья
+     * @return string
+     */
     public function getArticleText()
     {
-        if (empty($this->added_items))
+        $text = '';
+        if (empty($this->added_items) && empty($this->removed_items))
             return '';
+        if ($this->amount > 0) {
+            $class = $this->added_items[0]['entity'];
+            $id = $this->added_items[0]['id'];
+        } else {
+            $class = $this->removed_items[0]['entity'];
+            $id = $this->removed_items[0]['id'];
+        }
+
+        $model = $class::model()->findByPk($id);
+
+        if ($model === null)
+            return '';
+
+        if ($class == 'CommunityContent') {
+            if ($this->amount > 0)
+                if ($model->isFromBlog)
+                    $text = 'Вы добавили запись ' . $model->name . ' в блог';
+                else
+                    $text = 'Вы добавили запись <span>' . $model->name . '</span> в клуб <span>' . $model->rubric->community->name . '</span>';
+            if ($this->amount < 0) {
+                if ($model->isFromBlog)
+                    $text = 'Ваша запись  ' . $model->name . ' в блоге удалена';
+                else
+                    $text = 'Ваша запись  <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span> удалена';
+            }
+        }
+        if ($class == 'RecipeBookRecipe') {
+            if ($this->amount > 0)
+                $text = 'Вы добавили запись <span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span>';
+            if ($this->amount < 0) {
+                $text = 'Ваша запись  <span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span> удалена';
+            }
+        }
+
+        return $text;
+    }
+
+    /**
+     * Получить текст для 100 просмотров статьи юзера
+     * @return string
+     */
+    public function getViewsArticleText()
+    {
+        $text = '';
+        if (empty($this->added_items))
+            return $text;
         $class = $this->added_items[0]['entity'];
         $id = $this->added_items[0]['id'];
 
         $model = $class::model()->findByPk($id);
         if ($model === null)
-            return '';
+            return $text;
 
-        if ($this->amount > 0)
-            if ($class == 'CommunityContent') {
-                if ($model->isFromBlog)
-                    return 'Вы добавили запись ' . $model->name . ' в блог';
-                else
-                    return 'Вы добавили запись <span>' . $model->name . '</span> в клуб <span>' . $model->rubric->community->name . '</span>';
-            }
-        if ($this->amount < 0) {
+        if ($class == 'CommunityContent') {
             if ($model->isFromBlog)
-                return 'Ваша запись  ' . $model->name . ' в блоге удалена';
+                $text = 100 * $this->amount . ' новых просмотров вашей записи <span>' . $model->name . '</span> в блоге';
             else
-                return 'Ваша запись  <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span> удалена';
+                $text = 100 * $this->amount . ' новых просмотров вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span>';
         }
+
+        return $text;
     }
 
-    public function getViewsArticleText()
+    /**
+     * Получить текст для 100 просмотров статьи юзера
+     * @return string
+     */
+    public function get10CommentsText()
     {
-        if (empty($this->added_items))
+        if (empty($this->added_items) && empty($this->removed_items))
             return '';
-        $class = $this->added_items[0]['entity'];
-        $id = $this->added_items[0]['id'];
+
+        $text = '';
+        if ($this->amount > 0) {
+            $class = $this->added_items[0]['entity'];
+            $id = $this->added_items[0]['id'];
+        } else {
+            $class = $this->removed_items[0]['entity'];
+            $id = $this->removed_items[0]['id'];
+        }
 
         $model = $class::model()->findByPk($id);
         if ($model === null)
             return '';
 
         if ($class == 'CommunityContent') {
-            if ($model->isFromBlog)
-                return '100 новых просмотров вашей записи <span>' . $model->name . '</span> в блоге';
-            else
-                return '100 новых просмотров вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span>';
+            if ($this->amount > 0) {
+                if ($model->isFromBlog)
+                    $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->name . '</span> в блоге';
+                else
+                    $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span>';
+            } else
+                $text = abs(10 * $this->amount) . ' комментариев к вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span> были удалены';
         }
+        if ($class == 'RecipeBookRecipe') {
+            if ($this->amount > 0) {
+                $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->name . '</span> в сервисе <span>Книга народных рецептов</span>';
+            } else
+                $text = abs(10 * $this->amount) . ' комментариев к вашей записи <span>' . $model->name . '</span> в сервисе <span>Книга народных рецептов</span> были удалены';
+        }
+
+        return $text;
     }
 
+    /**
+     * Получить текст для добавления/удаления фото
+     * @return string
+     */
     public function getPhotoText()
     {
         if (empty($this->added_items))
             return '';
-        $class = $this->added_items[0]['entity'];
-        $id = $this->added_items[0]['id'];
-
-        $model = $class::model()->findByPk($id);
+        $model = CActiveRecord::model($this->added_items[0]['entity'])->findByPk($this->added_items[0]['id']);
         if ($model === null)
             return '';
 
@@ -355,29 +463,85 @@ class ScoreInput extends EMongoDocument
             return 'Вы удалили фото из альмоба <span>' . $model->album->title . '</span>';
     }
 
+    /**
+     * Получить текст для Созданных/удаленных юзером комментариев
+     * @return string
+     */
     public function getOwnCommentText()
     {
-        if (empty($this->added_items))
+        if (empty($this->added_items) && empty($this->removed_items))
             return '';
-        $class = $this->added_items[0]['entity'];
-        $id = $this->added_items[0]['id'];
+        if ($this->amount > 0) {
+            $class = $this->added_items[0]['entity'];
+            $id = $this->added_items[0]['id'];
+        } else {
+            $class = $this->removed_items[0]['entity'];
+            $id = $this->removed_items[0]['id'];
+        }
 
         $model = $class::model()->findByPk($id);
         if ($model === null)
             return '';
 
+        if ($class == 'User') {
+            if ($this->amount == 1)
+                $text = 'Вы добавили запись';
+            elseif ($this->amount > 1)
+                $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('запись', 'записи', 'записей'), $this->amount);
+            elseif ($this->amount == -1)
+                $text = 'Удалена ваша запись';
+            else
+                $text = 'Удалены ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('запись', 'записи', 'записей'), abs($this->amount));
+            if ($this->user_id == $id)
+                $text .= ' в гостевой книге';
+            else
+                $text .= ' в гостевой книге <span>' . $model->fullName . '</span> ';
+            return $text;
+        }
+
+
         if ($this->amount == 1)
-            return 'Вы добавили комментарий к записи <span>' . $model->name . '</span>';
+            $text = 'Вы добавили комментарий к записи <span>' . $model->name . '</span> ';
         elseif ($this->amount > 1)
-            return 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к записи <span>' . $model->name . '</span>';
+            $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к записи <span>' . $model->name . '</span> ';
+        elseif ($this->amount == -1)
+            $text = 'Ваш комментарий к записи <span>' . $model->name . '</span> ';
         else
-            return 'Вы удалили ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к записи <span>' . $model->name . '</span>';
+            $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к записи <span>' . $model->name . '</span> ';
+
+        if ($class == 'CommunityContent') {
+            if ($model->isFromBlog) {
+                if ($model->author_id == $this->user_id)
+                    $text .= ($this->amount > 0) ? 'в блог' : 'в блоге';
+                else {
+                    $text .= ($this->amount > 0) ? 'в блог' : 'в блоге';
+                    $text .= ' <span>' . $model->author->fullName . '</span>';
+                }
+            } else {
+                $text .= ($this->amount > 0) ? 'в клуб' : 'в клубе';
+                $text .= ' <span>' . $model->rubric->community->name . '</span>';
+            }
+        }
+        if ($class == 'RecipeBookRecipe') {
+            $text .= ($this->amount > 0) ? 'в сервис ' : 'в сервисе';
+            $text .= ' <span>Книга народных рецептов</span>';
+        }
+        if ($this->amount < -1) $text .= ' удалены';
+        if ($this->amount == -1) $text .= ' удален';
+
+        return $text;
     }
 
+    /**
+     * Получить текст о новом друге или потере друга
+     * @return string
+     */
     public function getFriendsText()
     {
-        if (empty($this->added_items))
+        if (empty($this->added_items) && empty($this->removed_items))
             return '';
+        $text = '';
+
         $friends = array();
         foreach ($this->added_items as $item) {
             $class = $item['entity'];
@@ -388,12 +552,9 @@ class ScoreInput extends EMongoDocument
                 $friends[] = $model;
         }
 
-        if (empty($friends))
-            return '';
-
         if (count($friends) == 1)
-            return 'У вас новый друг ' . CHtml::image($friends[0]->getAva('small')) . ' <span>' . $friends[0]->first_name . '</span>';
-        else {
+            $text = 'У вас новый друг ' . CHtml::image($friends[0]->getAva('small')) . ' <span>' . $friends[0]->first_name . '</span>';
+        elseif (count($friends) > 1) {
             $text = 'У вас ' . count($friends) . ' ' . HDate::GenerateNoun(array('новый друг', 'новых друга', 'новых друзей'), $this->amount);
             foreach ($friends as $friend) {
                 $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . $friend->first_name . '</span>';
@@ -413,12 +574,54 @@ class ScoreInput extends EMongoDocument
             }
 
             if (count($friends) == 1)
-                return 'Вы потеряли друга ' . CHtml::image($friends[0]->getAva('small')) . ' <span>' . $friends[0]->first_name . '</span>';
+                $text .= 'Вы потеряли друга ' . CHtml::image($friends[0]->getAva('small')) . ' <span>' . $friends[0]->first_name . '</span>';
             elseif (count($friends) > 1) {
                 $text .= 'Вы потеряли ' . count($friends) . ' ' . HDate::GenerateNoun(array('друга', 'друзей', 'друзей'), $this->amount);
                 foreach ($friends as $friend) {
                     $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . $friend->first_name . '</span>';
                 }
+            }
+        }
+
+        return $text;
+    }
+
+    public function getRatingText()
+    {
+        $text = '';
+        if (empty($this->added_items) && empty($this->removed_items))
+            return '';
+        if (!empty($this->added_items)) {
+            $class = $this->added_items[0]['entity'];
+            $id = $this->added_items[0]['id'];
+        } else {
+            $class = $this->removed_items[0]['entity'];
+            $id = $this->removed_items[0]['id'];
+        }
+
+        $model = $class::model()->findByPk($id);
+
+        if ($model === null)
+            return '';
+
+        if ($class == 'CommunityContent') {
+            if ($this->amount > 0)
+                if ($model->isFromBlog)
+                    $text = 'Увеличен рейтинг вашей записи <span>' . $model->name . '</span> в блоге';
+                else
+                    $text = 'Увеличен рейтинг вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span>';
+            if ($this->amount < 0) {
+                if ($model->isFromBlog)
+                    $text = 'Понижен рейтинг вашей записи <span>' . $model->name . '</span> в блоге';
+                else
+                    $text = 'Понижен рейтинг вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span>';
+            }
+        }
+        if ($class == 'RecipeBookRecipe') {
+            if ($this->amount > 0)
+                $text = 'Увеличен рейтинг вашей записи <span>' . $model->name . '</span> в сервисе <span>Книга народных рецептов</span>';
+            if ($this->amount < 0) {
+                $text = 'Понижен рейтинг вашей записи <span>' . $model->name . '</span> в сервисе <span>Книга народных рецептов</span>';
             }
         }
 

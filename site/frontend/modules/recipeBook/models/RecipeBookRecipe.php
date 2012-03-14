@@ -171,8 +171,9 @@ class RecipeBookRecipe extends CActiveRecord
         parent::afterSave();
 
         if ($this->isNewRecord){
+            //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD);
+            UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
         }
     }
 
@@ -181,6 +182,6 @@ class RecipeBookRecipe extends CActiveRecord
         parent::afterDelete();
 
         Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD);
+        UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
     }
 }

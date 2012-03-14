@@ -44,6 +44,7 @@ class DefaultController extends Controller
         $ingredients = array();
         if (isset($_POST['RecipeBookRecipe'], $_POST['RecipeBookIngredient'])) {
             $model->attributes = $_POST['RecipeBookRecipe'];
+            $model->author_id = Yii::app()->user->getId();
             $model->purposes = $model->purposeIds;
             $valid = $model->validate();
 

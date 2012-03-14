@@ -87,7 +87,9 @@
                 clearTimeout(closetimer);
             }
         }
-"); ?>
+");
+Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css');
+?>
 <div id="baby">
 
     <div class="content-box clearfix">

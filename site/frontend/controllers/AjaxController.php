@@ -147,23 +147,6 @@ class AjaxController extends Controller
         echo CJSON::encode($response);
     }
 
-    public function actionDeleteComment()
-    {
-        $id = Yii::app()->request->getPost('id');
-        $comment = Comment::model()->findByPk($id);
-        //check user is author or moderator
-        if ($comment->author_id == Yii::app()->user->getId() ||
-            Yii::app()->authManager->checkAccess('removeComment', Yii::app()->user->getId())) {
-            echo CJSON::encode(array(
-                'status' => $comment->delete(),
-            ));
-        } else {
-            echo CJSON::encode(array(
-                'status' => false,
-            ));
-        }
-    }
-
 	public function actionUserViaCommunity()
 	{
 		$user = User::model()->with('communities')->findByPk(Yii::app()->user->id);
@@ -185,7 +168,7 @@ class AjaxController extends Controller
         $model = $model->findByPk($_POST['Removed']['entity_id']);
         if(!$model)
             Yii::app()->end();
-        if (!Yii::app()->user->checkAccess('removeComment',array('user_id'=>$model->author_id)))
+        if (!Yii::app()->user->checkAccess('remove'.get_class($model),array('user_id'=>$model->author_id)))
             Yii::app()->end();
 
         $removed = new Removed;

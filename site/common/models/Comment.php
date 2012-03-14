@@ -153,10 +153,7 @@ class Comment extends CActiveRecord
             if (in_array($this->entity, array('CommunityContent', 'RecipeBookRecipe', 'User')))
             {
                 $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-                $recipient = ($this->entity == 'User') ? $entity->id : $entity->author_id;
-                if ($recipient != Yii::app()->user->id) {
-                    UserNotification::model()->create(UserNotification::NEW_COMMENT, $recipient, array('entity' => $entity));
-                }
+                UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
             }
 
             //добавляем баллы

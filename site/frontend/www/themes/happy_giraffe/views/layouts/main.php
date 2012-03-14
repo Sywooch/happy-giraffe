@@ -247,7 +247,7 @@
                                 <li class="col wedding">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 32))?>">
                                         <span class="title">Свадьба</span>
-                                        <span class="text">Всё об этом важном событии – от планов и составления списка гостей до проведения торжества</span>
+                                        <span class="text">Всё об этом важном событии – от планов и составления списка гостей до проведения торжества.</span>
                                         <span class="img"><img src="/images/nav_manwoman_img_01.jpg"></span>
                                     </a>
                                 </li>
@@ -313,35 +313,35 @@
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 22))?>">
                                         <span class="title">Кулинарные рецепты</span>
-                                        <span class="text">Рецепты на все случаи жизни: простые и сложные, современные и старинные, диетические и многие другие</span>
+                                        <span class="text">Рецепты на все случаи жизни: простые и сложные, современные и старинные, диетические и многие другие.</span>
                                         <span class="img"><img src="/images/nav_home_img_01.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 23))?>">
                                         <span class="title">Детские рецепты</span>
-                                        <span class="text">Готовим блюда, которые придутся по вкусу даже самому большому привереде</span>
+                                        <span class="text">Готовим блюда, которые придутся по вкусу даже самому большому привереде.</span>
                                         <span class="img"><img src="/images/nav_home_img_02.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 26))?>">
                                         <span class="title">Интерьер и дизайн</span>
-                                        <span class="text">Советы о том, как превратить свое жилье в уютное гнездышко</span>
+                                        <span class="text">Советы о том, как превратить свое жилье в уютное гнездышко.</span>
                                         <span class="img"><img src="/images/nav_home_img_03.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 28))?>">
                                         <span class="title">Домашние хлопоты</span>
-                                        <span class="text">Превращаем самую тяжелую домашнюю работу в приятные хлопоты</span>
+                                        <span class="text">Превращаем самую тяжелую домашнюю работу в приятные хлопоты.</span>
                                         <span class="img"><img src="/images/nav_home_img_04.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 34))?>">
                                         <span class="title">Загородная жизнь</span>
-                                        <span class="text">Как рационально использовать загородный участок: посадки, строительство, отдых</span>
+                                        <span class="text">Как рационально использовать загородный участок: посадки, строительство, отдых.</span>
                                         <span class="img"><img src="/images/nav_home_img_05.jpg"></span>
                                     </a>
                                 </li>
@@ -360,28 +360,28 @@
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 24))?>">
                                         <span class="title">Своими руками</span>
-                                        <span class="text">Здесь всегда можно найти нужную информацию и поделиться своими идеями по  рукоделию и творчеству</span>
+                                        <span class="text">Здесь всегда можно найти нужную информацию и поделиться своими идеями по  рукоделию и творчеству.</span>
                                         <span class="img"><img src="/images/nav_hobbies_img_01.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 25))?>">
                                         <span class="title">Мастерим детям</span>
-                                        <span class="text">Мастер-классы и схемы по вязанию и шитью, для создания удивительных вещей вашими руками для детей</span>
+                                        <span class="text">Мастер-классы и схемы по вязанию и шитью, для создания удивительных вещей вашими руками для детей.</span>
                                         <span class="img"><img src="/images/nav_hobbies_img_02.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 27))?>">
                                         <span class="title">За рулем</span>
-                                        <span class="text">Здесь вы узнаете все тонкости покупки и содержания авто, а также оформления на него документов</span>
+                                        <span class="text">Здесь вы узнаете все тонкости покупки и содержания авто, а также оформления на него документов.</span>
                                         <span class="img"><img src="/images/nav_hobbies_img_03.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 35))?>">
                                         <span class="title">Цветоводство</span>
-                                        <span class="text">Как выбрать комнатные цветы, куда поставить и что с ними делать – читайте в этом разделе</span>
+                                        <span class="text">Как выбрать комнатные цветы, куда поставить и что с ними делать – читайте в этом разделе.</span>
                                         <span class="img"><img src="/images/nav_hobbies_img_04.jpg"></span>
                                     </a>
                                 </li>
@@ -401,21 +401,21 @@
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 19))?>">
                                         <span class="title">Выходные с ребенком</span>
-                                        <span class="text">Информация о том, где происходят самые интересные события, которые можно посетить вместе с ребенком. Отзывы тех, кто там уже был</span>
+                                        <span class="text">Информация о том, где происходят самые интересные события, которые можно посетить вместе с ребенком. Отзывы тех, кто там уже был.</span>
                                         <span class="img"><img src="/images/nav_rest_img_01.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 21))?>">
                                         <span class="title">Путешествия семьей</span>
-                                        <span class="text">Планируем путешествие для всей семьи: выбираем маршрут, оформляем документы, едем, а потом делимся впечатлениями и фотографиями</span>
+                                        <span class="text">Планируем путешествие для всей семьи: выбираем маршрут, оформляем документы, едем, а потом делимся впечатлениями и фотографиями.</span>
                                         <span class="img"><img src="/images/nav_rest_img_02.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 20))?>">
                                         <span class="title">Праздники</span>
-                                        <span class="text">Как устроить потрясающий праздник для детей и взрослых. Как правильно выбирать подарки. Особенности религиозных праздников</span>
+                                        <span class="text">Как устроить потрясающий праздник для детей и взрослых. Как правильно выбирать подарки. Особенности религиозных праздников.</span>
                                         <span class="img"><img src="/images/nav_rest_img_03.jpg"></span>
                                     </a>
                                 </li>

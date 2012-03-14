@@ -43,7 +43,5 @@ Yii::app()->clientScript
 
 <div class="side-right">
 
-    <?php echo User::GetCurrentUserWithBabies()->getUserPriority() ?>
-
 </div>
 <?php $this->endContent(); ?>

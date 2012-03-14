@@ -150,34 +150,10 @@ class Comment extends CActiveRecord
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
 
-            switch ($this->entity) {
-                //запись в гостевую
-                case 'User':
-                    $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-                    if ($entity->id == $this->author_id) {
-                        UserNotification::model()->create(UserNotification::GUESTBOOK_NEW_RECORD, $entity);
-                    }
-                    break;
-                //коммент к посту
-                case 'CommunityConent':
-                    $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-                    if ($entity->author_id != $this->author_id) {
-                        UserNotification::model()->create(UserNotification::CLUB_NEW_COMMENT, $entity);
-                    }
-                    break;
-                //коммент к рецепту
-                case 'RecipeBookRecipe':
-                    $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-                    if ($entity->author_id != $this->author_id) {
-                        UserNotification::model()->create(UserNotification::RECIPEBOOK_NEW_COMMENT, $entity);
-                    }
-                    break;
-                case 'AlbumPhoto':
-                    $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-                    if ($entity->author_id != $this->author_id) {
-                        UserNotification::model()->create(UserNotification::PHOTO_NEW_COMMENT, $entity);
-                    }
-                    break;
+            if (in_array($this->entity, array('CommunityContent', 'RecipeBookRecipe', 'User')))
+            {
+                $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+                UserNotification::create(UserNotification::NEW_COMMENT, array('comment' => $this, 'entity' => $entity));
             }
 
             //добавляем баллы

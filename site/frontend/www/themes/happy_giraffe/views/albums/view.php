@@ -10,6 +10,9 @@
             </div>
             <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $model->author->id)) ?></div>
         </div>
+        <div class="all-link">
+            <?php echo CHtml::link('Все альбомы ('.count($model->author->albums).')', array('/albums/user', 'id' => $model->author_id)) . '<br/>'; ?>
+        </div>
         <div class="title">
             <big>
                 Альбом <span>&laquo;<?php echo $model->title; ?>&raquo;</span>

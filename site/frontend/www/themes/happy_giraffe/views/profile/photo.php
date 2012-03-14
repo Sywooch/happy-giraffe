@@ -42,12 +42,12 @@ $cs->registerScript('profile_photo', $js);
 
     <div class="left">
         <?php if ($ava = $this->user->pic_small->getUrl('ava')): ?>
-        <div class="img-box <?php echo ($this->user->gender == 1) ? 'female' : 'male' ?> ava">
+        <div class="img-box <?php echo ($this->user->gender == 0) ? 'female' : 'male' ?> ava">
             <?php echo CHtml::image($ava, $this->user->first_name); ?>
             <a href="" class="remove"></a>
         </div>
         <?php else: ?>
-        <div class="img-box <?php echo ($this->user->gender == 1) ? 'female' : 'male' ?> ava"></div>
+        <div class="img-box <?php echo ($this->user->gender == 0) ? 'female' : 'male' ?> ava"></div>
         <?php endif; ?>
         <p>Лучше добавить свою настоящую фотографию, чтобы ваши друзья смогли найти вас на «Веселом жирафе».</p>
     </div>

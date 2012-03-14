@@ -77,7 +77,7 @@ $cs->registerScript('travel_add', $js)
     <?php echo $form->hiddenField($this->user, 'id'); ?>
 
     <div class="left">
-        <div class="img-box <?php echo ($this->user->gender == 0) ? 'female' : 'male' ?> ava">
+        <div class="img-box <?php echo ($this->user->gender == 1) ? 'female' : 'male' ?> ava">
             <?php $url = isset($this->user->partner)?$this->user->partner->photo->getUrl('ava'):''; ?>
             <?php if (!empty($url)): ?>
                 <?php echo CHtml::image($url) ?>

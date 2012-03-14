@@ -3,6 +3,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jcarousel.control.js');
 ?>
 <div id="gallery">
+    <div class="all-link">
+        <?php echo CHtml::link('Альбом &quot;' . $photo->album->title . '&quot;', array('/albums/view', 'id' => $photo->album->id)); ?>
+        <?php echo CHtml::link('Все альбомы ('.count($photo->author->albums).')', array('/albums/user', 'id' => $photo->author_id)) . '<br/>'; ?>
+    </div>
     <div id="photo">
         <?php if($photo->title != ''): ?>
             <div class="title"><?php echo $photo->title; ?></div>

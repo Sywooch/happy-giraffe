@@ -145,9 +145,7 @@ class UserNotification extends EMongoDocument
     public function newComment($type, $attributes)
     {
         $entity_name = $attributes['comment']['entity'];
-        $entity = new $entity_name;
-        $entity->findByPk($attributes['comment']['entity_id']);
-
+        $entity = CActiveRecord::model($entity_name)->findByPk($attributes['comment']['entity_id']);
         $recipient = ($entity_name == 'User') ? $entity->id : $entity->author_id;
         if ($recipient != Yii::app()->user->id) {
             $notification = $this->findByEntity($type, $entity);
@@ -156,7 +154,7 @@ class UserNotification extends EMongoDocument
                 $notification->user_id = (int) $recipient;
                 $notification->url = $entity->url;
                 $notification->type = $type;
-                $notification->created = time();
+                $notification->created = $notification->updated = time();
                 $notification->entity = array(
                     'name' => $entity_name,
                     'id' => (int) $entity->id,

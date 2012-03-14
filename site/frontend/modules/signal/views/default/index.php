@@ -33,7 +33,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
 
 <div class="clear"></div>
 <input type="checkbox" id="play_sound" checked /> <label for="play_sound">Проигрывать звук</label>
-<?php if (Yii::app()->user->checkAccess('administrator')):?>
+<?php if (Yii::app()->user->getId() == 9987):?>
 <br><a href="#" onclick="removeHistory()">Очистить всё</a>
 <?php endif ?>
 

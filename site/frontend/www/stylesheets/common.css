@@ -588,7 +588,7 @@ a {color:#51afc3;}
 
 #header-new {margin-bottom:20px;position:relative;z-index:4;}
 #header-new .header-in {background:url(/images/bg_header.gif) no-repeat;}
-#header-new .top-line {background:#a17dc4;border-bottom:1px solid #fff;}
+#header-new .top-line {background:#a17dc4;border-bottom:1px solid #fff;position:relative;z-index:6;}
 
 #header-new .top-line .fast-links {list-style:none;font:normal 11px/14px tahoma, arial, helvetica, sans-serif;padding:8px 15px 6px 15px;height:16px;}
 #header-new .top-line .fast-links li {float:left;border-left:1px solid #c5a7e2;margin-left:8px;padding-left:8px;padding-bottom:2px;height:14px;}
@@ -668,9 +668,69 @@ a {color:#51afc3;}
 
 #header-new .banner-box {width:360px;float:left;padding-top:36px;text-align:center;}
 
-#header-new .nav {padding:7px 0 0 18px;margin-bottom:-5px;}
+#header-new .nav {padding:7px 0 0 18px;height:37px;position:relative;z-index:5;line-height:normal;}
 #header-new .nav ul {list-style:none;}
-#header-new .nav ul li {float:left;margin:0 1px;}
+#header-new .nav > ul > li {float:left;margin:0 1px;height:37px;}
+
+#header-new .nav > ul > li > a {display:block;height:37px;padding:0 11px 0 14px;}
+#header-new .nav > ul > li > a {/*css3*/ border-radius:10px 10px 0 0;}
+
+#header-new .nav ul li i.text {display:block;height:37px;}
+
+#header-new .nav ul li.morning i.text {height:74px;position:relative;top:-34px;width:109px;background:url(/images/nav_text_morning.png) no-repeat;}
+#header-new .nav ul li.morning > a {background:url(/images/bg_nav_morning.gif) repeat-x;padding:0;}
+
+#header-new .nav ul li.kids i.text {width:55px;background:url(/images/nav_text_kids.png) no-repeat;}
+#header-new .nav ul li.kids > a {background:#5488d0;}
+#header-new .nav ul li.kids:hover > a {background:#97bbea;padding-bottom:3px;}
+
+#header-new .nav ul li.manwoman i.text {width:179px;background:url(/images/nav_text_manwoman.png) no-repeat;}
+#header-new .nav ul li.manwoman > a {background:#6bc545;}
+#header-new .nav ul li.manwoman:hover > a {background:#9adf7c;padding-bottom:3px;}
+
+#header-new .nav ul li.beauty i.text {width:159px;background:url(/images/nav_text_beauty.png) no-repeat;}
+#header-new .nav ul li.beauty > a {background:#f8cb30;}
+#header-new .nav ul li.beauty:hover > a {background:#ffe478;padding-bottom:3px;}
+
+#header-new .nav ul li.home i.text {width:48px;background:url(/images/nav_text_home.png) no-repeat;}
+#header-new .nav ul li.home > a {background:#a582c7;}
+#header-new .nav ul li.home:hover > a {background:#c7ade0;padding-bottom:3px;}
+
+#header-new .nav ul li.hobbies i.text {width:184px;background:url(/images/nav_text_hobbies.png) no-repeat;}
+#header-new .nav ul li.hobbies > a {background:#f18b2f;}
+#header-new .nav ul li.hobbies:hover > a {background:#ffc05e;padding-bottom:3px;}
+
+#header-new .nav ul li.rest i.text {width:62px;background:url(/images/nav_text_rest.png) no-repeat;}
+#header-new .nav ul li.rest > a {background:#40b2dc;}
+#header-new .nav ul li.rest:hover > a {background:#7dd7f8;padding-bottom:3px;}
+
+#header-new .nav .drp {position:absolute;top:47px;left:0;display:none;width:100%;padding:4px 0;background-image:url(/images/bg_nav_drp.png);}
+#header-new .nav .drp .in {background:#fff;height:245px;}
+#header-new .nav ul li:hover .drp {display:block;}
+
+#header-new .nav .kids .drp {background-color:#97bbea;}
+#header-new .nav .manwoman .drp {background-color:#9adf7c;}
+#header-new .nav .beauty .drp {background-color:#ffe478;}
+#header-new .nav .home .drp {background-color:#c7ade0;}
+#header-new .nav .hobbies .drp {background-color:#ffc05e;}
+#header-new .nav .rest .drp {background-color:#7dd7f8;}
+
+#header-new .nav .cols {}
+#header-new .nav .cols .col {float:left;}
+#header-new .nav .cols-5 .col {width:20%;height:245px;}
+#header-new .nav .cols .col:first-child {background:none !important;} 
+
+#header-new .nav .home .cols .col {background:url(/images/bg_nav_home_sep.gif) no-repeat left;}
+
+#header-new .nav .big-link {display:block;height:215px;padding:15px 24px;position:relative;text-decoration:none;}
+#header-new .nav .big-link:hover * {text-decoration:underline;}
+
+#header-new .nav .big-link .img {position:absolute;bottom:0;left:1px;}
+#header-new .nav .big-link .title {display:block;font-size:13px;margin-bottom:10px;}
+#header-new .nav .big-link .text {display:block;font-size:11px;line-height:20px;color:#585757;}
+
+#header-new .nav .home .title {color:#7a4aa9;}
+
 
 /* header 2.0 */
 

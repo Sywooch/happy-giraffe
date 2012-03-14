@@ -56,6 +56,11 @@ class FileAttachWidget extends CWidget
             Attach.entity_id = "' . $this->entity_id. '";
             Attach.base_url = "' . Yii::app()->createUrl('/albums/album/saveAttach') . '"
         ');
+
+        $path = Yii::getPathOfAlias('zii.widgets.assets.listview');
+        $assets = Yii::app()->assetManager->publish($path);
+        $cs->registerScriptFile($assets.'/jquery.yiilistview.js');
+
         $cs->registerCoreScript('bbq');
         $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
         $file_upload->loadScripts();

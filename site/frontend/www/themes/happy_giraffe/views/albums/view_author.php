@@ -10,42 +10,28 @@
             </div>
             <div class="back-link">&larr; <?php echo CHtml::link('В анкету', array('/user/profile', 'user_id' => $model->author->id)) ?></div>
         </div>
+        <div class="all-link">
+            <?php
+            echo CHtml::link('Все альбомы ('.count($model->author->albums).')', array('/albums/')) . '<br/>';
+            $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
+            $file_upload->loadScripts();
+            $this->endWidget();
+            echo CHtml::link('<span><span><i class="add"></i>Добавить фото</span></span>', array('addPhoto', 'a' => $model->primaryKey), array('class' => 'fancy btn btn-green-medium'));
+            ?>
+        </div>
         <div class="title">
             <big>
                 Альбом <span>&laquo;<?php echo $model->title; ?>&raquo;</span>
-                <?php if($model->checkAccess === true): ?>
-                    <?php echo CHtml::link('', array('albums/create', 'id' => $model->id), array('class' => 'edit')); ?>
-                <?php endif; ?>
+                <?php echo CHtml::link('', array('albums/create', 'id' => $model->id), array('class' => 'edit')); ?>
             </big>
-            <?php if ($model->description): ?>
             <div class="note">
-                <?php if($model->checkAccess === true): ?>
                     <div class="fast-actions">
                         <?php echo CHtml::link('', array('/albums/editDescription', 'id' => $model->id), array('class' => 'edit', 'onclick' => 'return Album.editDescription(this);')); ?>
                         <?php echo CHtml::link('', array('/albums/editDescription', 'id' => $model->id), array('class' => 'remove', 'onclick' => 'return Album.removeDescription(this);')); ?>
                     </div>
-                <?php endif; ?>
                 <p><?php echo $model->description; ?></p>
             </div>
-            <?php endif; ?>
         </div>
-        <?php if($model->checkAccess === true): ?>
-            <?php
-            $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
-            $file_upload->loadScripts();
-            $this->endWidget();
-            ?>
-            <div class="actions">
-                <?php echo CHtml::link('<span><span>Добавить фото</span></span>', array('addPhoto', 'a' => $model->primaryKey), array('class' => 'fancy btn btn-green-medium')); ?>
-                <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
-                    'model' => $model,
-                    'callback' => 'Album.removeAlbum',
-                    'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $model->author_id,
-                    'template' => '<span><span>Удалить альбом</span></span>',
-                    'cssClass' => 'btn btn-gray-medium',
-                )); ?>
-            </div>
-        <?php endif; ?>
     </div>
     <div class="gallery-photos clearfix">
         <?php

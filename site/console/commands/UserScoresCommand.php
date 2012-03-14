@@ -19,10 +19,8 @@ class UserScoresCommand extends CConsoleCommand
      */
     public function actionIndex()
     {
-        while (1) {
-            Yii::import('site.frontend.modules.scores.models.*');
-            ScoreInput::CheckOnClose();
-        }
+        Yii::import('site.frontend.modules.scores.models.*');
+        ScoreInput::CheckOnClose();
     }
 }
 

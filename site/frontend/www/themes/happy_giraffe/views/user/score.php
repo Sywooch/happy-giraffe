@@ -8,7 +8,7 @@ Yii::app()->clientScript->registerScript('remove_all-scores' ,'function removeHi
             url:"'. Yii::app()->createUrl("/scores/default/removeAll"). '",
             type:"POST"
         });
-    }');
+    }', CClientScript::POS_HEAD);
 ?>
 <div class="user-cols clearfix">
 
@@ -36,7 +36,7 @@ Yii::app()->clientScript->registerScript('remove_all-scores' ,'function removeHi
         <div class="content-title">Мои баллы</div>
 
         <?php if (Yii::app()->user->getId() == 9987):?>
-        <br><a href="#" onclick="removeHistory()">Очистить всё</a>
+        <br><a href="#" onclick="removeHistory();">Очистить всё</a>
         <?php endif ?>
 
 

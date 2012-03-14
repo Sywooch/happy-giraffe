@@ -62,12 +62,14 @@ class Rating extends EMongoDocument
             if(($e = RatingYohoho::model()->saveByEntity($entity)) === false)
                 $value = $value * -1;
 
+        $model->ratings[$social_key] = $plus && isset($model->ratings[$social_key]) ? $model->ratings[$social_key] + $value : $value;
+        $old_sum = $model->sum;
+        $model->sum = array_sum($model->ratings);
+
         //add scores to author
         Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::checkViewsAndComments($model, $entity, $social_key, $value);
+        UserScores::addScores($entity->author_id, ScoreActions::ACTION_LIKE, $model->sum - $old_sum, $entity);
 
-        $model->ratings[$social_key] = $plus && isset($model->ratings[$social_key]) ? $model->ratings[$social_key] + $value : $value;
-        $model->sum = array_sum($model->ratings);
         $model->save();
     }
 

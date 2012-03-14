@@ -53,31 +53,11 @@
                         <ul>
                             <li><a href=""><i class="icon icon-home"></i></a></li>
                             <li id="user-nav-messages">
-                                <a href="/im/"><i class="icon icon-messages"></i><span class="count">5</span></a>
+                                <a href="/im/"><i class="icon icon-messages"></i><span class="count"></span></a>
                                 <div class="drp">
                                     <div class="drp-title">Диалоги</div>
                                     <ul class="list">
-                                        <li>
-                                            <a href="">
-                                                <span class="name">Александр  Богоявленский</span>
-                                                <span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-                                                <span class="date">Сегодня 10:45</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <span class="name">Александр  Богоявленский</span>
-                                                <span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-                                                <span class="date">Сегодня 10:45</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <span class="name">Александр  Богоявленский</span>
-                                                <span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-                                                <span class="date">Сегодня 10:45</span>
-                                            </a>
-                                        </li>
+
                                     </ul>
                                     <div class="actions">
                                         <ul>

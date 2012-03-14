@@ -34,6 +34,9 @@
             ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . MessageCache::GetCurrentUserCache() . '\');')
         ;
     }
+
+    if (!Yii::app()->user->isGuest)
+        $user = User::getUserById(Yii::app()->user->getId());
     ?>
 </head>
 <body class="body-club">
@@ -50,7 +53,7 @@
                         <ul>
                             <li><a href=""><i class="icon icon-home"></i></a></li>
                             <li id="user-nav-messages">
-                                <a href=""><i class="icon icon-messages"></i><span class="count">5</span></a>
+                                <a href="/im/"><i class="icon icon-messages"></i><span class="count">5</span></a>
                                 <div class="drp">
                                     <div class="drp-title">Диалоги</div>
                                     <ul class="list">
@@ -115,14 +118,14 @@
                             <li class="user">
                                 <a href="">
                                     <span class="ava small male"></span>
-                                    <span class="username">Ден<i class="arr"></i></span>
+                                    <span class="username"><?php echo $user->first_name ?><i class="arr"></i></span>
                                 </a>
                                 <div class="drp">
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="<?php echo $this->createUrl('user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">Мой профайл<i class="icon icon-profile"></i></a></li>
-                                            <li><a href="<?php echo $this->createUrl('profile/index') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
-                                            <li><a href="<?php echo $this->createUrl('site/logout') ?>">Выйти<i class="icon icon-logout"></i></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">Мой профайл<i class="icon icon-profile"></i></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/profile/index') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/site/logout') ?>">Выйти<i class="icon icon-logout"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -136,7 +139,7 @@
 
                 <ul class="fast-links clearfix">
                     <li><a href="/">Главная</a></li>
-                    <li><a href="<?php echo $this->createUrl('community/') ?>">Клубы</a></li>
+                    <li><a href="<?php echo $this->createUrl('/community/') ?>">Клубы</a></li>
                     <li><a href="">Сервисы</a></li>
                     <li><a href="">Конкурсы</a></li>
                 </ul>

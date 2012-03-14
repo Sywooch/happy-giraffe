@@ -167,15 +167,8 @@ class AlbumsController extends Controller
     {
         if(!Yii::app()->request->isAjaxRequest)
             Yii::app()->end();
-        Yii::app()->clientScript->scriptMap=array(
-            'jquery.js'=>false,
-            'jquery.min.js'=>false,
-            'history.js'=>false,
-            'jquery-ui.js'=>false,
-            'jquery-ui.min.js'=>false,
-            'jquery.ba-bbq.js' => false,
-            'jquery-ui.css' => false,
-        );
+        Yii::app()->clientScript->scriptMap['*.js'] = false;
+        Yii::app()->clientScript->scriptMap['*.css'] = false;
         $this->renderPartial('attach_widget', compact('entity', 'entity_id', 'mode', 'a'), false, true);
     }
 

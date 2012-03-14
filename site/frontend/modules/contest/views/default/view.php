@@ -1,6 +1,10 @@
-<?php $this->widget('application.widgets.fileAttach.FileAttachWidget', array(
+<?php
+$fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
     'model' => $contest,
-)); ?>
+));
+    $fileAttach->button();
+$this->endWidget();
+?>
 <div id="contest">
     <div class="contest-about clearfix">
         <div class="sticker">

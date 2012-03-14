@@ -150,10 +150,14 @@ class Comment extends CActiveRecord
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
 
-            if (in_array($this->entity, array('CommunityContent', 'RecipeBookRecipe', 'User')))
+            if (in_array($this->entity, array('CommunityContent', 'RecipeBookRecipe', 'User', 'AlbumPhoto')))
             {
-                $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
                 UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
+            }
+
+            if (in_array($this->entity, array('CommunityContent', 'RecipeBookRecipe', 'AlbumPhoto')) && $this->response_id !== null)
+            {
+                UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
             }
 
             //добавляем баллы

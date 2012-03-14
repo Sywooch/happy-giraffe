@@ -28,7 +28,7 @@ class Notification
         ),
     );
 
-    public function parse($int, $noun)
+    public static function parse($int, $noun)
     {
         $a = $int % 10;
         $b = $int % 100;

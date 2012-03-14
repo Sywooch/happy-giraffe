@@ -1,10 +1,7 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
  * User: Eugene
  * Date: 02.03.12
- * Time: 16:42
- * To change this template use File | Settings | File Templates.
  */
 class RatingUsers extends EMongoDocument
 {

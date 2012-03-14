@@ -112,7 +112,7 @@ $('.close').click(function () {
 			
 
 			    <?php if ($content_model->isNewRecord): ?>
-    				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
+    				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($rubrics, 'id', 'name'),
                     array(
                         'prompt' => 'Выберите рубрику',
                         'class'=>'chzn',

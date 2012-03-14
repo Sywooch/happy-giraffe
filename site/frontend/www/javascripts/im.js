@@ -18,7 +18,7 @@ Comet.prototype.NewMessage = function(result, id) {
 Comet.prototype.ShowChangeStatus = function(result, id) {
     if(window.StatusChanged)
         StatusChanged(result);
-    im.ShowChangeStatus(result);
+    im.OnlineCount(result);
 }
 
 comet.addEvent(1, 'NewMessage');
@@ -55,8 +55,8 @@ Im.prototype.ShowNewMessagesCount = function(id){
     $("#user-nav-messages > a > span.count").html(id);
     $("#user-nav-messages .drp .actions a.count").html(id);
 }
-Im.prototype.ShowChangeStatus = function(result) {
-    console.log('ShowChangeStatus');
+Im.prototype.OnlineCount = function(result) {
+    console.log('OnlineCount');
     var comment_count = $('#user-nav-messages .drp .actions li:last span').text();
     console.log(comment_count);
     var current_count = parseInt(comment_count);
@@ -67,4 +67,5 @@ Im.prototype.ShowChangeStatus = function(result) {
         current_count -= 1;
     }
     $('#user-nav-messages .drp .actions li:last span').text(current_count);
+    $('#user-nav-friends .drp .actions li span').text(current_count);
 }

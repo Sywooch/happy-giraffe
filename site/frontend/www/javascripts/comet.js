@@ -1,5 +1,5 @@
 function Comet() {
-    this.events = new Array();
+    this.events = new Array(1,2,3,4,5,6,7);
 }
 
 Comet.prototype.call = function(type, result, id) {
@@ -8,6 +8,7 @@ Comet.prototype.call = function(type, result, id) {
         if(this[func] != 'undefined')
             this[func](result, id);
     }
+
 }
 
 Comet.prototype.connect = function(host, namespace, cache) {

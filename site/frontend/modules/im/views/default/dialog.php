@@ -156,9 +156,7 @@ $(function () {
     });
 
     comet.addEvent(<?php echo CometModel::TYPE_MESSAGE_READ ?>, 'ShowAsRead');
-    comet.addEvent(<?php echo CometModel::TYPE_ONLINE_STATUS_CHANGE ?>, 'StatusChanged');
     comet.addEvent(<?php echo CometModel::TYPE_USER_TYPING ?>, 'ShowUserTyping');
-    comet.addEvent(<?php echo CometModel::TYPE_NEW_MESSAGE ?>, 'ShowNewMessage');
 });
 
 function ChangeDialog(id) {
@@ -295,7 +293,7 @@ function SetReadStatusForIframe() {
     }
 }
 
-Comet.prototype.ShowNewMessage = function(result, id) {
+function ShowNewMessage(result, id) {
     if (result.dialog_id == dialog) {
         //message recieved in current dialog
         last_massage = result.message_id;
@@ -350,7 +348,7 @@ Comet.prototype.ShowAsRead = function(result, id) {
 }
 
 
-Comet.prototype.StatusChanged = function(result, id) {
+function StatusChanged(result) {
     if (dialog == result.dialog_id) {
         if (result.online == 1) {
             $('.user-details span.status-offline').removeClass('status-offline').addClass('status-online');

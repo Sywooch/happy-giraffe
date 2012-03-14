@@ -2,17 +2,7 @@
 <?php
 Yii::app()->clientScript
     ->registerScript('Realplexor-module', '
-
     var last_dialog = "' . ActiveDialogs::model()->getLastDialogId() . '";
-    function ShowNewMessagesCount(id){
-        if (id > 0){
-            $(".header .count").show();
-        }
-        else{
-            $(".header .count").hide();
-        }
-        $(".header .count").html(id);
-    }
 ', CClientScript::POS_HEAD);
 ?>
 <div class="main">

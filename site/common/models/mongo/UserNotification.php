@@ -136,63 +136,60 @@ class UserNotification extends EMongoDocument
         return $count;
     }
 
-    public function create($type, $recipient, $attributes = array())
+    public function create($type, $attributes = array())
     {
         $method = $this->_types[$type]['method'];
-        $this->$method($type, $recipient, $attributes);
+        $this->$method($type, $attributes);
     }
 
-    public function newComment($type, $recipient, $attributes)
+    public function newComment($type, $attributes)
     {
-        $entity_name = get_class($attributes['entity']);
-        $notification = $this->findByEntity($type, $attributes['entity']);
-        if ($notification === null) {
-            $notification = new self;
-            $notification->user_id = (int) $recipient;
-            $notification->type = $type;
-            $notification->created = time();
-            $notification->entity = array(
-                'name' => $entity_name,
-                'id' => (int) $attributes['entity']->id,
-                'quantity' => 1,
-            );
-            switch ($entity_name) {
-                case 'CommunityContent':
-                    $notification->url = Yii::app()->createUrl('community/view', array(
-                        'community_id' => $attributes['entity']->rubric->community->id,
-                        'content_type_slug' => $attributes['entity']->type->slug,
-                        'content_id' => $attributes['entity']->id,
-                    ));
-                    $notification->params = array(
-                        '{post}' => $attributes['entity']->name,
-                        '{club}' => $attributes['entity']->rubric->community->name,
-                    );
-                    break;
-                case 'RecipeBookRecipe':
-                    $notification->url = Yii::app()->createUrl('recipeBook/default/view', array(
-                        'id' => $attributes['entity']->id,
-                    ));
-                    $notification->params = array(
-                        '{post}' => $attributes['entity']->name,
-                        '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
-                    );
-                    break;
-                case 'User':
-                    $notification->url = Yii::app()->createUrl('user/profile', array('user_id' => $attributes['entity']->id));
-                    break;
-                case 'AlbumPhoto':
-                    $notification->url = Yii::app()->createUrl('albums/photo', array('id' => $attributes['entity']->id));
-                    $notification->params = array(
-                        '{photo}' => $attributes['entity']->title,
-                        '{album}' => $attributes['entity']->album->title,
-                    );
-                    break;
+        $entity_name = $attributes['comment']['entity'];
+        $entity = new $entity_name;
+        $entity->findByPk($attributes['comment']['entity_id']);
+
+        $recipient = ($entity_name == 'User') ? $entity->id : $entity->author_id;
+        if ($recipient != Yii::app()->user->id) {
+            $notification = $this->findByEntity($type, $entity);
+            if ($notification === null) {
+                $notification = new self;
+                $notification->user_id = (int) $recipient;
+                $notification->url = $entity->url;
+                $notification->type = $type;
+                $notification->created = time();
+                $notification->entity = array(
+                    'name' => $entity_name,
+                    'id' => (int) $entity->id,
+                    'quantity' => 1,
+                );
+                switch ($entity_name) {
+                    case 'CommunityContent':
+                        $notification->params = array(
+                            '{post}' => $entity->name,
+                            '{club}' => $entity->rubric->community->name,
+                        );
+                        break;
+                    case 'RecipeBookRecipe':
+                        $notification->params = array(
+                            '{post}' => $entity->name,
+                            '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
+                        );
+                        break;
+                    case 'User':
+                        break;
+                    case 'AlbumPhoto':
+                        $notification->params = array(
+                            '{photo}' => $entity->title,
+                            '{album}' => $entity->album->title,
+                        );
+                        break;
+                }
+            } else {
+                $notification->entity['quantity']++;
+                $notification->updated = time();
             }
-        } else {
-            $notification->entity['quantity']++;
-            $notification->updated = time();
+            $notification->save();
         }
-        $notification->save();
     }
 
     public function getTemplate()

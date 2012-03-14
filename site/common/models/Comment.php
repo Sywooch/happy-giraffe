@@ -150,28 +150,40 @@ class Comment extends CActiveRecord
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
 
+            switch ($this->entity) {
+                //запись в гостевую
+                case 'User':
+                    $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+                    if ($entity->id == $this->author_id) {
+                        UserNotification::model()->create(UserNotification::GUESTBOOK_NEW_RECORD, $entity);
+                    }
+                    break;
+                //коммент к посту
+                case 'CommunityConent':
+                    $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+                    if ($entity->author_id != $this->author_id) {
+                        UserNotification::model()->create(UserNotification::CLUB_NEW_COMMENT, $entity);
+                    }
+                    break;
+                //коммент к рецепту
+                case 'RecipeBookRecipe':
+                    $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+                    if ($entity->author_id != $this->author_id) {
+                        UserNotification::model()->create(UserNotification::RECIPEBOOK_NEW_COMMENT, $entity);
+                    }
+                    break;
+                case 'AlbumPhoto':
+                    $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+                    if ($entity->author_id != $this->author_id) {
+                        UserNotification::model()->create(UserNotification::PHOTO_NEW_COMMENT, $entity);
+                    }
+                    break;
+            }
+
             //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
             UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
                 'id'=>$this->entity_id, 'name'=>$this->entity));
-
-            //запись в гостевую
-            if ($this->entity == 'User') {
-                $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-                UserNotification::model()->create(UserNotification::GUESTBOOK_NEW_RECORD, $entity);
-            }
-
-            //коммент к посту
-            if ($this->entity == 'CommunityContent') {
-                $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-                UserNotification::model()->create(UserNotification::CLUB_NEW_COMMENT, $entity);
-            }
-
-            //коммент к рецепту
-            if ($this->entity == 'RecipeBookRecipe') {
-                $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-                UserNotification::model()->create(UserNotification::RECIPEBOOK_NEW_COMMENT, $entity);
-            }
         }
         parent::afterSave();
     }
@@ -192,8 +204,11 @@ class Comment extends CActiveRecord
         else
         {
             $this->quote_text = '';
-            $this->quote_id = '';
+            $this->quote_id = null;
         }
+
+        if($this->response_id == '')
+            $this->response_id = null;
 
 
         if($this->isNewRecord)

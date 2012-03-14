@@ -187,7 +187,7 @@ class AlbumPhoto extends CActiveRecord
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
         if(!$temp)
         {
-            $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->primaryKey;
+            $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id;
             if(!file_exists($model_dir))
                 mkdir($model_dir);
         }
@@ -211,7 +211,7 @@ class AlbumPhoto extends CActiveRecord
     public function getOriginalPath()
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
-        return $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->primaryKey .
+        return $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id .
             DIRECTORY_SEPARATOR . $this->fs_name;
     }
 
@@ -224,7 +224,7 @@ class AlbumPhoto extends CActiveRecord
         return implode('/', array(
             Yii::app()->params['photos_url'],
             $this->original_folder,
-            $this->primaryKey,
+            $this->author_id,
             $this->fs_name,
         ));
     }
@@ -246,7 +246,7 @@ class AlbumPhoto extends CActiveRecord
         // Thumb file system path
         $thumb_path = $dir . DIRECTORY_SEPARATOR . $thumb_dir;
         // Entity file system path
-        $model_dir = $thumb_path . DIRECTORY_SEPARATOR . $this->primaryKey;
+        $model_dir = $thumb_path . DIRECTORY_SEPARATOR . $this->author_id;
         // Image file system path
         $thumb = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
         if(!file_exists($thumb))
@@ -281,7 +281,7 @@ class AlbumPhoto extends CActiveRecord
             Yii::app()->params['photos_url'],
             $this->thumb_folder,
             $width . 'x' . $height,
-            $this->primaryKey,
+            $this->author_id,
             $this->fs_name,
         ));
     }
@@ -309,5 +309,15 @@ class AlbumPhoto extends CActiveRecord
     public function getDescription()
     {
         return $this->file_name;
+    }
+
+    public function getNeighboringPhotos()
+    {
+        $prev = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where removed = 0 and album_id = ' . $this->album_id . ' and id < ' . $this->id . ' limit 1')->queryRow();
+        $next = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where removed = 0 and album_id = ' . $this->album_id . ' and id > ' . $this->id . ' limit 1')->queryRow();
+        return array(
+            'prev' => $prev ? $prev['id'] : false,
+            'next' => $next ? $next['id'] : false
+        );
     }
 }

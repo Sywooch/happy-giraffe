@@ -203,6 +203,10 @@ class DefaultController extends Controller
             'with'=>'ingredients'
         ));
 
+        if ($model->author_id == Yii::app()->user->id) {
+            UserNotification::model()->deleteByEntity(UserNotification::RECIPEBOOK_NEW_COMMENT, $model);
+        }
+
         $this->render('view', array(
             'model' => $model,
             'active_disease' => $model->disease,

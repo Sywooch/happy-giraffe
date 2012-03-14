@@ -245,7 +245,7 @@
 
                             <ul class="cols cols-2">
                                 <li class="col wedding">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 32))?>">
                                         <span class="title">Свадьба</span>
                                         <span class="text">Всё об этом важном событии – от планов и составления списка гостей до проведения торжества</span>
                                         <span class="img"><img src="/images/nav_manwoman_img_01.jpg"></span>
@@ -255,12 +255,12 @@
                                     <div class="col-in">
                                         <div class="title">Отношения</div>
                                         <ul>
-                                            <li><a href="">Отношения мужчины и женщины</a></li>
-                                            <li><a href="">Непонимание в семье</a></li>
-                                            <li><a href="">Ревность и измена</a></li>
-                                            <li><a href="">Развод</a></li>
-                                            <li><a href="">Психология мужчин</a></li>
-                                            <li><a href="">Психология женщин</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>239))?>">Отношения мужчины и женщины</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>242))?>">Непонимание в семье</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>243))?>">Ревность и измена</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>246))?>">Развод</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>248))?>">Психология мужчин</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>249))?>">Психология женщин</a></li>
                                         </ul>
                                         <span class="img"><img src="/images/nav_manwoman_img_02.jpg"></span>
                                     </div>
@@ -341,7 +341,7 @@
                                 <li class="col">
                                     <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 34))?>">
                                         <span class="title">Загородная жизнь</span>
-                                        <span class="text">Как рационально использовать свой загородный участок: посадки, строительство, отдых</span>
+                                        <span class="text">Как рационально использовать загородный участок: посадки, строительство, отдых</span>
                                         <span class="img"><img src="/images/nav_home_img_05.jpg"></span>
                                     </a>
                                 </li>
@@ -379,7 +379,7 @@
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 35))?>">
                                         <span class="title">Цветоводство</span>
                                         <span class="text">Как выбрать комнатные цветы, куда поставить и что с ними делать – читайте в этом разделе</span>
                                         <span class="img"><img src="/images/nav_hobbies_img_04.jpg"></span>

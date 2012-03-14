@@ -10,6 +10,7 @@
     $cs = Yii::app()->clientScript;
 
     $cs
+        ->registerCssFile('/stylesheets/global.css')
         ->registerCssFile('/stylesheets/common.css')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')

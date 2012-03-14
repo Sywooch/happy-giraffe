@@ -150,6 +150,11 @@ class Comment extends CActiveRecord
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
 
+            //добавляем баллы
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
+                'id'=>$this->entity_id, 'name'=>$this->entity));
+
             //запись в гостевую
             if ($this->entity == 'User') {
                 $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
@@ -167,11 +172,6 @@ class Comment extends CActiveRecord
                 $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
                 UserNotification::model()->create(UserNotification::RECIPEBOOK_NEW_COMMENT, $entity);
             }
-
-            //добавляем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
-                'id'=>$this->entity_id, 'name'=>$this->entity));
         }
         parent::afterSave();
     }

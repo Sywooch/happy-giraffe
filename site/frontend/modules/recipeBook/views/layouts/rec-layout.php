@@ -94,7 +94,6 @@
 
     $cs
         ->registerScript('chilred-dizzy-2', $js)
-        ->registerCssFile('/stylesheets/global.css')
         ->registerCssFile('/stylesheets/baby.css')
     ;
 ?>

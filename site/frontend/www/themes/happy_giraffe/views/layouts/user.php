@@ -11,12 +11,12 @@
     <div class="header clearfix">
 
         <div class="user-fast">
-            <div class="ava"></div>
+            <?php $this->widget('AvatarWidget', array('user' => $this->user)); ?>
             <div class="details">
                 <span class="icon-status status-online"></span>
-                <a href="" class="username">Александр Богоявленский</a><br/>
-                <div class="location"><div class="flag flag-ru"></div>Гаврилов-Ям</div>
-                <div class="birthday"><span>Д.р.</span> 15 декабря (39 лет)</div>
+                <a href="" class="username"><?php echo $this->user->fullName ?></a><br/>
+                <div class="location"><?php echo $this->user->getFlag() ?> <?php echo isset($this->user->settlement)?$this->user->settlement->name:'' ?></div>
+                <?php if ($this->user->birthday): ?><span>Д.р.</span> <?php echo Yii::app()->dateFormatter->format("dd MMMM", $this->user->birthday); ?> (<?php echo $this->user->age . ' ' . $this->user->ageSuffix; ?>)<?php endif; ?>
             </div>
         </div>
 

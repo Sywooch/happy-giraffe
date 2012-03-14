@@ -207,9 +207,9 @@
             <li><?php echo CHtml::link('{{html text}}<i class="icon icon-settings"></i>', '${url}') ;?></li>
         </script>
 
-    <script id="friendNotificationTmpl" type="text/x-jquery-tmpl">
-        <li><?php echo CHtml::link('{{html text}}<i class="close"></i>', '${url}') ;?></li>
-    </script>
+        <script id="friendNotificationTmpl" type="text/x-jquery-tmpl">
+            <li><?php echo CHtml::link('{{html text}}<i class="close"></i>', '${url}') ;?></li>
+        </script>
     <?php endif; ?>
 
     <!-- Yandex.Metrika counter -->

@@ -35,9 +35,9 @@ class RatingYohoho extends EMongoDocument
 
         if ($this->isNewRecord) {
             //добавляем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->user_id, ScoreActions::ACTION_YOHOHO_LIKE, 1, array(
-                'id' => $this->entity_id, 'name' => $this->entity_name));
+//            Yii::import('site.frontend.modules.scores.models.*');
+//            UserScores::addScores($this->user_id, ScoreActions::ACTION_YOHOHO_LIKE, 1, array(
+//                'id' => $this->entity_id, 'name' => $this->entity_name));
         }
     }
 
@@ -46,9 +46,9 @@ class RatingYohoho extends EMongoDocument
         parent::afterDelete();
 
         //вычитаем баллы
-        Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->user_id, ScoreActions::ACTION_YOHOHO_LIKE, 1, array(
-            'id' => $this->entity_id, 'name' => $this->entity_name));
+//        Yii::import('site.frontend.modules.scores.models.*');
+//        UserScores::removeScores($this->user_id, ScoreActions::ACTION_YOHOHO_LIKE, 1, array(
+//            'id' => $this->entity_id, 'name' => $this->entity_name));
     }
 
     public function findByEntity($entity)

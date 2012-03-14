@@ -5,6 +5,7 @@ class Notification
 
     const NOTIFICATION_RECORD = 0;
     const NOTIFICATION_COMMENT = 1;
+    const NOTIFICATION_REPLY = 2;
 
     public static $nouns = array(
         self::NOTIFICATION_RECORD => array(
@@ -18,6 +19,12 @@ class Notification
             'новый комментарий',
             'новых комментария',
             'новых комментариев',
+        ),
+        self::NOTIFICATION_REPLY => array(
+            'Новый ответ',
+            'новый ответ',
+            'новых ответа',
+            'новых ответов',
         ),
     );
 

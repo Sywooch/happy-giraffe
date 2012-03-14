@@ -130,7 +130,6 @@ class UserNotification extends EMongoDocument
 
     public function create($type, $attributes = array())
     {
-        return;
         $method = $this->_types[$type];
         $this->$method($type, $attributes);
     }
@@ -138,7 +137,8 @@ class UserNotification extends EMongoDocument
     public function newComment($type, $attributes)
     {
         $entity_name = get_class($attributes['entity']);
-        if (! $this->findByEntity($type, $attributes['entity'])) {
+        $notification = $this->findByEntity($type, $attributes['entity']);
+        if ($notification === null) {
             $notification = new self;
             $notification->type = $type;
             $notification->created = time();
@@ -175,7 +175,11 @@ class UserNotification extends EMongoDocument
                     $notification->url = Yii::app()->createUrl('user/profile', array('user_id' => $attributes['entity']->id));
                     break;
             }
+        } else {
+            $notification->entity['quantity']++;
+            $notification->updated = time();
         }
+        $notification->save();
     }
 
     public function generateText()

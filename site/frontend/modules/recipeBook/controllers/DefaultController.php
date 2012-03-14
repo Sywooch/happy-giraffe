@@ -204,7 +204,7 @@ class DefaultController extends Controller
         ));
 
         if ($model->author_id == Yii::app()->user->id) {
-            UserNotification::model()->deleteByEntity(UserNotification::RECIPEBOOK_NEW_COMMENT, $model);
+            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $model);
         }
 
         $this->render('view', array(

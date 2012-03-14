@@ -63,6 +63,7 @@ class Album extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
             'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'album_id', 'scopes' => array('active')),
+            'photoCount' => array(self::STAT, 'AlbumPhoto', 'album_id', 'condition'=>'removed = 0'),
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
 		);
@@ -157,6 +158,11 @@ class Album extends CActiveRecord
     {
         $this->removed = 1;
         $this->save();
+        if ($this->photoCount > 0 ){
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, $this->photoCount, $this->photos[0]);
+        }
+
         return false;
     }
 }

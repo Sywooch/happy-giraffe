@@ -454,6 +454,8 @@ class ScoreInput extends EMongoDocument
         $model = CActiveRecord::model($this->added_items[0]['entity'])->findByPk($this->added_items[0]['id']);
         if ($model === null)
             return '';
+        if ($model->album === null)
+            return '';
 
         if ($this->amount == 1)
             return 'Добавлено фото <span>' . $model->title . '</span> в фотоальбом <span>' . $model->album->title . '</span>';

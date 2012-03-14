@@ -6,17 +6,15 @@
                 if(($check = UserSocialService::model()->findByUser($name, Yii::app()->user->id)) != null)
                 {
                     echo '<li>';
-                    $html = '<div class="line-title">' . $service->title . '</div>';
-                    $html .= '<span class="auth-icon ' . $service->id . '"><i></i></span>';
-                    $html .= '<p>' . CHtml::link('Отключить', array('/profile/disableSocialService', 'name' => $name)) . '</p>';
-                    $html = '<li class="clearfix">
-                            <div class="img-box">
-                                <img src="/images/ava.png">
-                                <label class="vk"></label>
-                                <a class="remove" href=""></a>
-                            </div>
-                            <span class="name">Дарья Петрова</span>
-                        </li>';
+                    echo '<li class="clearfix">
+                            <div class="img-box">';
+                    $this->widget('AvatarWidget', array('user' => Yii::app()->user->model));
+                    echo '<label class="' . $service->id . '"></label>
+                            ' . CHtml::link('', array('/profile/disableSocialService', 'name' => $name), array('class' => 'remove')) . '
+                        </div>
+                        <span class="name">' . Yii::app()->user->model->fullName . '</span>
+                    </li>';
+                    $html = '';
                 }
                 else
                 {

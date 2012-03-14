@@ -8,10 +8,7 @@
  */
 class UserNotification extends EMongoDocument
 {
-    const GUESTBOOK_NEW_RECORD = 0;
-    const CLUB_NEW_COMMENT = 1;
-    const RECIPEBOOK_NEW_COMMENT = 2;
-    const PHOTO_NEW_COMMENT = 3;
+    const NEW_COMMENT = 0;
 
     public $user_id;
     public $type;
@@ -23,26 +20,8 @@ class UserNotification extends EMongoDocument
     public $entity = null;
     public $params = array();
 
-    public static $types = array(
-        self::GUESTBOOK_NEW_RECORD => array(
-            'method' => 'guestBookNewRecord',
-            'tmpl' => '{n} в гостевой книге',
-            'noun' => Notification::NOTIFICATION_RECORD,
-        ),
-        self::CLUB_NEW_COMMENT => array(
-            'method' => 'clubNewComment',
-            'tmpl' => '{n} к вашей записи {post} в клубе {club}',
-            'noun' => Notification::NOTIFICATION_COMMENT,
-        ),
-        self::RECIPEBOOK_NEW_COMMENT => array(
-            'method' => 'recipeBookNewComment',
-            'tmpl' => '{n} к вашей записи {post} в сервисе {recipeBook}',
-            'noun' => Notification::NOTIFICATION_COMMENT,
-        ),
-        self::PHOTO_NEW_COMMENT => array(
-            'method' => 'photoNewComment',
-            'tmpl' => '{n} к фотографии {photo} в альбомe {album}',
-        ),
+    private $_types = array(
+        self::NEW_COMMENT => 'newComment',
     );
 
     public function getCollectionName()
@@ -83,37 +62,6 @@ class UserNotification extends EMongoDocument
         $comet->send($user_id, $this->getUserData($user_id));
     }
 
-    public function create($type, $entity = null)
-    {
-        if ($entity !== null) {
-            $notification = self:: model()->findByAttributes(array(
-                'type' => $type,
-                'entity.name' => get_class($entity),
-                'entity.id' => (int) $entity->id,
-            ));
-        }
-        if ($notification !== null) {
-            $notification->entity['quantity']++;
-            $notification->updated = time();
-        } else {
-            $notification = new UserNotification;
-            $notification->type = $type;
-            $notification->created = $notification->updated = time();
-
-            if ($entity !== null) {
-                $notification->entity = array(
-                    'name' => get_class($entity),
-                    'id' => (int) $entity->id,
-                    'quantity' => 1,
-                );
-            }
-
-            $method = 'add' . self::$types[$type]['method'];
-            $notification->$method($entity);
-        }
-        $notification->save();
-    }
-
     public function deleteByEntity($type, $entity)
     {
         $notification = $this->findByAttributes(array(
@@ -124,6 +72,15 @@ class UserNotification extends EMongoDocument
         if ($notification !== null) {
             $notification->delete();
         }
+    }
+
+    public function findByEntity($type, $entity)
+    {
+        return $this->findByAttributes(array(
+            'type' => $type,
+            'entity.name' => get_class($entity),
+            'entity.id' => (int) $entity->id,
+        ));
     }
 
     public function getUserData($user_id)
@@ -171,6 +128,56 @@ class UserNotification extends EMongoDocument
         return $count;
     }
 
+    public function create($type, $attributes = array())
+    {
+        return;
+        $method = $this->_types[$type];
+        $this->$method($type, $attributes);
+    }
+
+    public function newComment($type, $attributes)
+    {
+        $entity_name = get_class($attributes['entity']);
+        if (! $this->findByEntity($type, $attributes['entity'])) {
+            $notification = new self;
+            $notification->type = $type;
+            $notification->created = time();
+            $notification->entity = array(
+                'name' => $entity_name,
+                'id' => (int) $attributes['entity']->id,
+                'quantity' => 1,
+            );
+            switch ($entity_name) {
+                case 'CommunityComment':
+                    $notification->user_id = (int) $attributes['entity']->author_id;
+                    $notification->url = Yii::app()->createUrl('community/view', array(
+                        'community_id' => $attributes['entity']->rubric->community->id,
+                        'content_type_slug' => $attributes['entity']->type->slug,
+                        'content_id' => $attributes['entity']->id,
+                    ));
+                    $notification->params = array(
+                        '{post}' => $attributes['entity']->name,
+                        '{club}' => $attributes['entity']->rubric->community->name,
+                    );
+                    break;
+                case 'RecipeBookRecipe':
+                    $notification->user_id = (int) $attributes['entity']->author_id;
+                    $notification->url = Yii::app()->createUrl('recipebook/default/view', array(
+                        'id' => $attributes['entity']->id,
+                    ));
+                    $notification->params = array(
+                        '{post}' => $attributes['entity']->name,
+                        '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
+                    );
+                    break;
+                case 'User':
+                    $notification->user_id = (int) $attributes['entity']->id;
+                    $notification->url = Yii::app()->createUrl('user/profile', array('user_id' => $attributes['entity']->id));
+                    break;
+            }
+        }
+    }
+
     public function generateText()
     {
         $params = $this->params;
@@ -178,48 +185,5 @@ class UserNotification extends EMongoDocument
         array_walk($params, $add_span);
         if ($this->entity !== null) $params['{n}'] = Notification::parse($this->entity['quantity'], self::$types[$this->type]['noun']);
         return strtr(self::$types[$this->type]['tmpl'], $params);
-    }
-
-    public function addClubNewComment($entity)
-    {
-        $this->user_id = (int) $entity->author_id;
-        $this->url = Yii::app()->createUrl('community/view', array(
-            'community_id' => $entity->rubric->community->id,
-            'content_type_slug' => $entity->type->slug,
-            'content_id' => $entity->id,
-        ));
-        $this->params = array(
-            '{post}' => $entity->name,
-            '{club}' => $entity->rubric->community->name,
-        );
-    }
-
-    public function addRecipeBookNewComment($entity)
-    {
-        $this->user_id = (int) $entity->author_id;
-        $this->url = Yii::app()->createUrl('recipebook/default/view', array(
-            'id' => $entity->id,
-        ));
-        $this->params = array(
-            '{post}' => $entity->name,
-            '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
-        );
-    }
-
-    public function addGuestBookNewRecord($entity)
-    {
-        $this->user_id = (int) $entity->id;
-        $this->url = Yii::app()->createUrl('user/profile', array('user_id' => $entity->id));
-    }
-
-    public function addPhotoNewComment($entity)
-    {
-        $this->user_id = (int) $entity->author_id;
-        $this->url = Yii::app()->createUrl('albums/photo', array(
-            'id' => $entity->id,
-        ));
-        $this->params = array(
-            '{photo}' =>
-        );
     }
 }

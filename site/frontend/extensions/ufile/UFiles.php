@@ -124,16 +124,16 @@ class UFiles
 
 		$info ='';
 		if ($url=$ufile->url) {
-			$info .= CHtml::link($ufile->name, $url, array('target'=>'_blank'));
+			//$info .= CHtml::link($ufile->name, $url, array('target'=>'_blank'));
 		} else
 		if ($name=$ufile->name) {
 			$info .= $name;
 		}
 		if ($ufile->id() && $ufile->isNew()!=1 && !$model->isAttributeRequired($attribute)) {
 			if ($info && $ufile->toDelete()) {
-				$info = '<span style="text-decoration: line-through;">'.$info.'</span>';
+				//$info = '<span style="text-decoration: line-through;">'.$info.'</span>';
 			}
-			$info .= '&nbsp;'.CHtml::checkBox(get_class($model).'['.$attribute.'-delete]',$ufile->toDelete()).v::get($htmlOptions,'delete_title','delete');
+			//$info .= '&nbsp;'.CHtml::checkBox(get_class($model).'['.$attribute.'-delete]',$ufile->toDelete()).v::get($htmlOptions,'delete_title','delete');
 		}
 
 		$out = preg_replace(

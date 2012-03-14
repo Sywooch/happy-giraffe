@@ -243,11 +243,12 @@ class CommunityContent extends CActiveRecord
     {
         UserSignal::close($this->id, get_class($this));
 
+        self::model()->updateByPk($this->id, array('removed' => 1));
         //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD);
+        UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
 
-        return true;
+        return false;
     }
 
     public function purify($t)

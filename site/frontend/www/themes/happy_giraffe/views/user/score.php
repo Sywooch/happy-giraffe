@@ -3,7 +3,12 @@
  * @var $userScores UserScores
  */
 
-//$dataProvider = $userScores->getUserHistory();
+Yii::app()->clientScript->registerScript('remove_all-scores' ,'function removeHistory(){
+        $.ajax({
+            url:"'. Yii::app()->createUrl("/scores/default/removeAll"). '",
+            type:"POST"
+        });
+    }');
 ?>
 <div class="user-cols clearfix">
 
@@ -29,6 +34,11 @@
     <div class="col-23 clearfix">
 
         <div class="content-title">Мои баллы</div>
+
+        <?php if (Yii::app()->user->getId() == 9987):?>
+        <br><a href="#" onclick="removeHistory()">Очистить всё</a>
+        <?php endif ?>
+
 
         <div class="user-points-list">
 

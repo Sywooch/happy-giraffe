@@ -59,7 +59,7 @@ class UserController extends Controller
             throw new CHttpException(403, 'Вы не можете просматривать страницу этого пользователя');
 
         if ($user->id == Yii::app()->user->id) {
-            UserNotification::model()->deleteByEntity(UserNotification::GUESTBOOK_NEW_RECORD, $user);
+            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $user);
         }
 
         $this->render('profile', array(

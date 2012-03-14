@@ -247,6 +247,7 @@ class CommunityContent extends CActiveRecord
         //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
         UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+        UserNotification::model()->create(UserNotification::DELETED, array('entity' => $this));
 
         return false;
     }

@@ -10,6 +10,7 @@ class UserNotification extends EMongoDocument
 {
     const NEW_COMMENT = 0;
     const NEW_REPLY = 1;
+    const DELETED = 2;
 
     public $user_id;
     public $type;
@@ -37,6 +38,13 @@ class UserNotification extends EMongoDocument
                 'CommunityContent' => '{replies} на ваш комментарий к записи {post} в клубе {club}',
                 'RecipeBookRecipe' => '{replies} на ваш комментарий к записи {post} в сервисе {recipeBook}',
                 'AlbumPhoto' => '{replies} на ваш комментарий к фотографии {photo} в альбоме {album}',
+            ),
+        ),
+        self::DELETED => array(
+            'method' => 'deleted',
+            'templates' => array(
+                'CommunityContent' => 'Ваша запись {post} в клубе {club} удалена по причине {deleteReason}',
+                'Comment' => 'Ваш комментарий к записи {post} в клубе {club} по причине {deleteReason}',
             ),
         ),
     );
@@ -139,7 +147,7 @@ class UserNotification extends EMongoDocument
         $models = $this->findAll($criteria);
         $count = 0;
         foreach ($models as $m) {
-            $count += ($m['entity'] != null) ? $m['entity']['quantity'] : 1;
+            $count += (isset($m['entity']['quantity'])) ? $m['entity']['quantity'] : 1;
         }
 
         return $count;
@@ -205,27 +213,53 @@ class UserNotification extends EMongoDocument
         }
     }
 
+    public function deleted($type, $attributes)
+    {
+        $entity_name = get_class($attributes['entity']);
+        $entity = $attributes['entity'];
+        $recipient = $entity->author_id;
+        if ($recipient != Yii::app()->user->id) {
+            $notification = new self;
+            $notification->user_id = (int) $recipient;
+            $notification->url = $entity->url;
+            $notification->type = $type;
+            $notification->created = $notification->updated = time();
+            $notification->entity = array(
+                'name' => $entity_name,
+                'id' => (int) $entity->id,
+            );
+            $notification->params = $notification->getParamsByEntity($entity);
+        }
+        $notification->save();
+    }
+
     public function getParamsByEntity($entity)
     {
+        $params = array();
         switch (get_class($entity)) {
             case 'CommunityContent':
-                return array(
+                $params += array(
                     '{post}' => $entity->name,
                     '{club}' => $entity->rubric->community->name,
                 );
+                break;
             case 'AlbumPhoto':
-                return array(
+                $params += array(
                     '{photo}' => $entity->title,
                     '{album}' => $entity->album->title,
                 );
+                break;
             case 'RecipeBookRecipe':
-                return array(
+                $params += array(
                     '{post}' => $entity->name,
                     '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
                 );
-            default:
-                return array();
+                break;
         }
+        if ($this->type == self::DELETED) {
+            $params['{deleteReason}'] = Removed::$types[$entity->remove->type];
+        }
+        return $params;
     }
 
     public function getTemplate()
@@ -238,7 +272,7 @@ class UserNotification extends EMongoDocument
         $params = $this->params;
         $add_span = create_function('&$item, $key', '$item = CHtml::tag("span", array("class" => "black"), $item);');
         array_walk($params, $add_span);
-        if ($this->entity !== null) {
+        if (isset($this->entity['quantity'])) {
             $params['{comments}'] = Notification::parse($this->entity['quantity'], Notification::NOTIFICATION_COMMENT);
             $params['{records}'] = Notification::parse($this->entity['quantity'], Notification::NOTIFICATION_RECORD);
             $params['{replies}'] = Notification::parse($this->entity['quantity'], Notification::NOTIFICATION_REPLY);

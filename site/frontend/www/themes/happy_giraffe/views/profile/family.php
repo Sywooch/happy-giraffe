@@ -220,8 +220,6 @@ $cs->registerScript('travel_add', $js)
         src="/images/arrow_r.png"/></span></span></button>
 </div>
 
-
-
 <script id="photo-tmpl" type="text/x-jquery-tmpl">
     <?php echo CHtml::image('${url}', '${title}'); ?>
     <a href="" class="remove"></a>

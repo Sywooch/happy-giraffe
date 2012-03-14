@@ -12,7 +12,7 @@
         </div>
         <div class="all-link">
             <?php
-            echo CHtml::link('Все альбомы ('.count($model->author->albums).')', array('/albums/user', 'id' => $model->author_id)) . '<br/>';
+            echo CHtml::link('Все альбомы ('.count($model->author->albums).')', array('/albums/')) . '<br/>';
             $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
             $file_upload->loadScripts();
             $this->endWidget();
@@ -24,7 +24,6 @@
                 Альбом <span>&laquo;<?php echo $model->title; ?>&raquo;</span>
                 <?php echo CHtml::link('', array('albums/create', 'id' => $model->id), array('class' => 'edit')); ?>
             </big>
-            <?php if ($model->description): ?>
             <div class="note">
                     <div class="fast-actions">
                         <?php echo CHtml::link('', array('/albums/editDescription', 'id' => $model->id), array('class' => 'edit', 'onclick' => 'return Album.editDescription(this);')); ?>
@@ -32,7 +31,6 @@
                     </div>
                 <p><?php echo $model->description; ?></p>
             </div>
-            <?php endif; ?>
         </div>
     </div>
     <div class="gallery-photos clearfix">

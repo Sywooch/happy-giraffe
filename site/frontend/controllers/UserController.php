@@ -46,7 +46,6 @@ class UserController extends Controller
     {
         $this->layout = '//layouts/main';
         Yii::import('application.widgets.user.*');
-        Yii::import('site.common.models.interest.*');
         Yii::import('application.modules.geo.models.*');
 
         $user = User::model()->with(array(

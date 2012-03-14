@@ -283,7 +283,7 @@ class MessageLog extends CActiveRecord
             return array('data' => array(), 'count' => 0);
 
         $models = Yii::app()->db->createCommand()
-            ->select(array('id', 'user_id', 'text', 'created', 'read_status', 'dialog_id'))
+            ->select(array('t.id', 't.user_id', 't.text', 't.created', 't.read_status', 't.dialog_id'))
             ->from('message_log as t')
             ->where(' t.dialog_id IN (:dialogs) AND t.user_id != :user_id AND t.id not in (SELECT message_id FROM message_deleted WHERE user_id = :user_id) ', array(
             ':user_id' => $user_id,

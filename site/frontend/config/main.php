@@ -42,7 +42,6 @@ return array(
 		'ext.EGMap.*',
         'ext.YiiMongoDbSuite.*',
 		'application.modules.vaccineCalendar.models.*',
-        'application.modules.pregnancyWeight.models.*',
 	    'application.modules.hospitalBag.models.*',
         'application.modules.placentaThickness.models.*',
 	    'application.modules.recipeBook.models.*',
@@ -50,6 +49,7 @@ return array(
         'application.modules.test.models.*',
         'application.modules.attribute.models.*',
         'application.modules.im.models.*',
+        'application.modules.im.components.*',
         'application.modules.geo.models.*',
 	),
 

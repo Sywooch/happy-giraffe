@@ -160,11 +160,11 @@ class UserSignal extends EMongoDocument
     public function getUrl()
     {
         if ($this->signal_type == self::TYPE_NEW_USER_REGISTER) {
-            return $this->getUser()->getProfileUrl();
+            return $this->getUser()->getUrl();
         } else {
             $class_name = $this->item_name;
-            if (method_exists($class_name::model(), 'getPageUrl'))
-                return $class_name::model()->findByPk($this->item_id)->getPageUrl();
+            if (method_exists($class_name::model(), 'getUrl'))
+                return $class_name::model()->findByPk($this->item_id)->getUrl();
             else
                 return 'error';
         }
@@ -387,7 +387,7 @@ class UserSignal extends EMongoDocument
 
         $user = $this->getUser();
         if ($user !== null)
-            $text .= ' от ' . CHtml::link($user->getFullName(), $user->getProfileUrl(), array('target' => '_blank'));
+            $text .= ' от ' . CHtml::link($user->getFullName(), $user->getUrl(), array('target' => '_blank'));
 
         return $text;
     }

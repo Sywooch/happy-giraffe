@@ -144,14 +144,14 @@ class MessageLog extends CActiveRecord
             if ($user->user_id !== Yii::app()->user->getId()) {
                 $comet = new CometModel;
                 $comet->type = CometModel::TYPE_NEW_MESSAGE;
-                $comet->attributes =array(
+                $comet->attributes = array(
                     'message_id' => $message->id,
-                    'unread_count'=>Im::getUnreadMessagesCount($user->user_id),
+                    'unread_count' => Im::getUnreadMessagesCount($user->user_id),
                     'dialog_id' => $dialog_id,
                     'html' => Yii::app()->controller->renderPartial('_message', array(
                         'message' => $message->attributes,
                         'read' => 1,
-                        'class'=>'dialog-message-new-in'
+                        'class' => 'dialog-message-new-in'
                     ), true)
                 );
                 $comet->send($user->user_id);
@@ -184,7 +184,7 @@ class MessageLog extends CActiveRecord
                 (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
                 ':dialog_id' => $dialog_id,
                 ':user_id' => Yii::app()->user->getId(),
-                ':deleted_id'=>$last_deleted
+                ':deleted_id' => $last_deleted
             ));
 
         $models = $models->order('id desc')
@@ -213,17 +213,17 @@ class MessageLog extends CActiveRecord
         if (empty($last_deleted))
             $models = $models->where('dialog_id=:dialog_id AND id < :message_id AND id not in
                 (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
-            ':dialog_id' => $dialog_id,
-            ':user_id' => Yii::app()->user->getId(),
-            ':message_id' => $message_id
-        ));
+                ':dialog_id' => $dialog_id,
+                ':user_id' => Yii::app()->user->getId(),
+                ':message_id' => $message_id
+            ));
         else
             $models = $models->where('dialog_id=:dialog_id AND id < :message_id AND id > :deleted_id AND id not in
                 (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
                 ':dialog_id' => $dialog_id,
                 ':user_id' => Yii::app()->user->getId(),
                 ':message_id' => $message_id,
-                ':deleted_id'=>$last_deleted
+                ':deleted_id' => $last_deleted
             ));
 
         $models = $models->order('id desc')
@@ -232,7 +232,7 @@ class MessageLog extends CActiveRecord
 
         return array_reverse($models);
     }
-    
+
     /**
      * Last deleted Message id
      * @static
@@ -276,4 +276,40 @@ class MessageLog extends CActiveRecord
         ))
             ->execute();
     }
+
+    public static function getNotificationMessages($user_id)
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select(array('id', 'user_id', 'text', 'created', 'read_status', 'dialog_id'))
+            ->from('message_log')
+            ->where('dialog_id IN (:dialogs) AND user_id != :user_id AND
+                id not in (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
+            ':user_id' => Yii::app()->user->getId(),
+            ':dialogs' => implode(',', Im::model($user_id)->getDialogIds())
+        ))
+            ->order('id desc')
+            ->limit(3)
+            ->queryAll();
+
+        $data = array();
+        foreach ($models as $m) {
+            $data[] = array(
+                'text' => self::getNotificationText($m),
+                'url' => Yii::app()->createUrl('/im/default/dialog', array('id' => $m['dialog_id'])),
+            );
+        }
+
+        $new_count = Im::getUnreadMessagesCount($user_id);
+
+        return array('data' => $data, 'count' => $new_count);
+    }
+
+    public static function getNotificationText($message)
+    {
+        $user = User::getUserById($message['user_id']);
+        return '<span class="name">' . $user->fullName . '</span><span class="text">'
+            . strip_tags($message['text']) . '</span><span class="date">'
+            . HDate::GetFormattedTime($message['created']) . '</span>';
+    }
+
 }

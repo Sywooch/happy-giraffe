@@ -289,7 +289,7 @@ class MessageLog extends CActiveRecord
             ':user_id' => $user_id,
             ':dialogs' => implode(',', Im::model($user_id)->getDialogIds())
         ))
-            ->order('id desc')
+            ->order('t.id desc')
             ->limit(3)
             ->queryAll();
 

@@ -184,4 +184,9 @@ class RecipeBookRecipe extends CActiveRecord
         Yii::import('site.frontend.modules.scores.models.*');
         UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
     }
+
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('recipeBook/default/view', array('id' => $this->id));
+    }
 }

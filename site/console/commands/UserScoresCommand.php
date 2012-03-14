@@ -22,7 +22,6 @@ class UserScoresCommand extends CConsoleCommand
         while (1) {
             Yii::import('site.frontend.modules.scores.models.*');
             ScoreInput::CheckOnClose();
-            sleep(60);
         }
     }
 }

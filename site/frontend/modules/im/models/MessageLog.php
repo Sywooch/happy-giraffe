@@ -293,6 +293,7 @@ class MessageLog extends CActiveRecord
             ->limit(3)
             ->queryAll();
 
+        echo implode(',', Im::model($user_id)->getDialogIds());
         $data = array();
         foreach ($models as $m) {
             $data[] = array(

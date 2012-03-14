@@ -501,6 +501,8 @@ class ScoreInput extends EMongoDocument
             return $text;
         }
 
+        if (!isset($model->name))
+            return '';
 
         if ($this->amount == 1)
             $text = 'Вы добавили комментарий к записи <span>' . $model->name . '</span> ';

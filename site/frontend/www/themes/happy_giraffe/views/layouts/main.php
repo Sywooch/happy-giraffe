@@ -215,10 +215,6 @@
     <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
 
-    <?php
-    $sql_stats = YII::app()->db->getStats();
-    echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>
-
     <script type="text/javascript">
 
         var _gaq = _gaq || [];

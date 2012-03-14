@@ -46,6 +46,12 @@
 #profile .socials ul li .img-box label.twt {background-position:-587px -127px;}
 #profile .socials ul li .img-box label.ok {background-position:-613px -127px;}
 
+#profile .auth-link {display:block;width:177px;height:34px;}
+#profile .auth-link .auth-icon {display:block;width:177px;height:34px;background:url(/images/btn_social.png) no-repeat 177px 34px;}
+#profile .auth-link .auth-icon.vkontakte {background-position:0 0;}
+#profile .auth-link .auth-icon.mailru {background-position:0 -34px;}
+#profile .auth-link .auth-icon.odnoklassniki {background-position:0 -68px;}
+
 #profile .row {padding-bottom:15px;font-family:tahoma;color:#878787;font-size:11px;line-height:normal;}
 #profile .row .row-title {font-size:16px;color:#4c4d4d;margin-bottom:5px;}
 #profile .row .col {display:inline-block;vertical-align:top;margin-right:10px;}

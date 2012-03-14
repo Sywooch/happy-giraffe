@@ -296,7 +296,7 @@ class AlbumPhoto extends CActiveRecord
         return Yii::app()->params['photos_url'] . '/' . $this->tmp_folder . '/' . $this->fs_name;
     }
 
-    public function getPageUrl()
+    public function getUrl()
     {
         return Yii::app()->createUrl('/albums/photo', array('id'=>$this->id));
     }

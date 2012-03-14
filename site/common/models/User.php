@@ -489,9 +489,6 @@ class User extends CActiveRecord
         if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->getId())
             return '';
 
-        Yii::import('site.frontend.modules.im.models.*');
-        Yii::import('site.frontend.modules.im.components.*');
-
         $dialog_id = Im::model()->getDialogIdByUser($this->id);
         if (isset($dialog_id)) {
             $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
@@ -785,12 +782,7 @@ class User extends CActiveRecord
         }
     }
 
-    public function getPageUrl()
-    {
-        return Yii::app()->createUrl('user/profile', array('user_id' => $this->id));
-    }
-
-    public function getProfileUrl()
+    public function getUrl()
     {
         return Yii::app()->createUrl('user/profile', array('user_id' => $this->id));
     }

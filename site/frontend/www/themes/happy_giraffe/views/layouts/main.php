@@ -81,9 +81,9 @@
                                     </ul>
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="">Все диалоги (156)</a></li>
-                                            <li><a href="">Новых</a> <a href="" class="count">5</a></li>
-                                            <li><a href="">Кто онлайн</a> <span>8</span></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/dialogs') ?>">Все диалоги (<?php echo Im::model(Yii::app()->user->id)->getDialogsCount() ?>)</a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/dialogs/new') ?>">Новых</a> <a href="" class="count"><?php echo count(MessageDialog::GetUserNewDialogs()) ?></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/dialogs/online') ?>">Кто онлайн</a> <span><?php echo count(MessageDialog::GetUserOnlineDialogs()) ?></span></li>
                                         </ul>
                                     </div>
                                 </div>

@@ -50,7 +50,7 @@ class UserFriendNotification extends EMongoDocument
             $sender = $request->to;
         }
         $notification->user_id = (int) $recipient->id;
-        $notification->url = $sender->profileUrl;
+        $notification->url = $sender->url;
         $notification->text = strtr(self::$_types[$type], array('{user}' => CHtml::tag('span', array('class' => 'name'), $sender->fullName)));
         $notification->created = time();
         $notification->save();

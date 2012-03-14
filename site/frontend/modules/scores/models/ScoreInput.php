@@ -19,7 +19,6 @@ class ScoreInput extends EMongoDocument
     public $added_items = array();
     public $removed_items = array();
 
-    public $entity;
     public $entity_id;
 
     public static function model($className = __CLASS__)
@@ -98,7 +97,7 @@ class ScoreInput extends EMongoDocument
         $criteria->status('==', self::STATUS_OPEN);
 
         if ($action_id == ScoreActions::ACTION_100_VIEWS || $action_id == ScoreActions::ACTION_10_COMMENTS
-            || $action_id == ScoreActions::ACTION_LIKE || $action_id == ScoreActions::ACTION_PHOTO
+            || $action_id == ScoreActions::ACTION_LIKE
         ) {
             $criteria->addCond('added_items.0.id', '==', (int)$entity->primaryKey);
             $criteria->addCond('added_items.0.entity', '==', get_class($entity));
@@ -107,6 +106,10 @@ class ScoreInput extends EMongoDocument
         if ($action_id == ScoreActions::ACTION_OWN_COMMENT) {
             $criteria->addCond('added_items.0.id', '==', (int)$entity['id']);
             $criteria->addCond('added_items.0.entity', '==', $entity['name']);
+        }
+
+        if ($action_id == ScoreActions::ACTION_PHOTO) {
+            $criteria->addCond('entity_id', '==', (int)$entity->album_id);
         }
 
         $model = $this->find($criteria);
@@ -146,6 +149,9 @@ class ScoreInput extends EMongoDocument
                 $this->addItemsInAdded($entity['id'], $entity['name']);
             } else {
                 $this->addItemsInAdded($entity->primaryKey, get_class($entity));
+                if ($this->action_id == ScoreActions::ACTION_PHOTO) {
+                    $this->entity_id = (int)$entity->album_id;
+                }
             }
         }
     }

@@ -6,7 +6,8 @@
 class UserScoresCommand extends CConsoleCommand
 {
 
-    public function beforeAction(){
+    public function beforeAction()
+    {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
         return true;
@@ -18,8 +19,11 @@ class UserScoresCommand extends CConsoleCommand
      */
     public function actionIndex()
     {
-        Yii::import('site.frontend.modules.scores.models.*');
-        ScoreInput::CheckOnClose();
+        while (1) {
+            Yii::import('site.frontend.modules.scores.models.*');
+            ScoreInput::CheckOnClose();
+            sleep(60);
+        }
     }
 }
 

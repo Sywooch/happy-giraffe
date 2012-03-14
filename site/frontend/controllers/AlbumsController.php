@@ -1,6 +1,10 @@
 <?php
 class AlbumsController extends Controller
 {
+    public $layout = '//layouts/user';
+
+    public $user;
+
     public function beforeAction($action)
     {
         if(!Yii::app()->request->isAjaxRequest)
@@ -35,6 +39,7 @@ class AlbumsController extends Controller
     public function actionIndex()
     {
         $user = Yii::app()->user->model;
+        $this->user = $user;
         $dataProvider = Album::model()->findByUser(Yii::app()->user->id);
         $this->render('index', array(
             'dataProvider' => $dataProvider,
@@ -45,6 +50,7 @@ class AlbumsController extends Controller
     public function actionUser($id)
     {
         $user = User::model()->findByPk($id);
+        $this->user = $user;
         if(!$user)
             throw new CHttpException(404, 'Пользователь не найден');
         $dataProvider = Album::model()->findByUser($id);
@@ -57,6 +63,7 @@ class AlbumsController extends Controller
     public function actionView($id)
     {
         $model = Album::model()->findByPk($id);
+        $this->user = $model->author;
         if(!$model)
             throw new CHttpException(404, 'Альбом не найден');
 
@@ -79,6 +86,7 @@ class AlbumsController extends Controller
 
     public function actionCreate($id = false)
     {
+        $this->user = Yii::app()->user->model;
         $model = $id ? Album::model()->findByPk($id) : new Album;
         if($model->isNewRecord)
             $model->author_id = Yii::app()->user->id;
@@ -158,6 +166,7 @@ class AlbumsController extends Controller
     public function actionPhoto($id)
     {
         $photo = AlbumPhoto::model()->findByPk($id);
+        $this->user = $photo->author;
         $this->render('photo', array(
             'photo' => $photo,
         ));

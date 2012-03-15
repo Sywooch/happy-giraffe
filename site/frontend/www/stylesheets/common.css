@@ -1607,11 +1607,12 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 */
 
 .socials-inline {}
-.socials-inline .services {display:inline-block;}
+.socials-inline .services {display:inline-block;vertical-align:middle;}
 .socials-inline .services ul {list-style:none;}
 .socials-inline .services .auth-service {display:inline-block;margin-left:6px;}
 .socials-inline .services .auth-service .auth-link {display:block;width:24px;height:24px;}
 .socials-inline .services .auth-service .auth-link .auth-icon {display:block;width:24px;height:24px;background:url(/images/common.png) no-repeat 24px 24px;}
+.socials-inline .services .auth-service .auth-link .auth-icon i {display:none !important;}
 .socials-inline .services .auth-service .auth-link .auth-title {display:none;}
 .socials-inline .services .auth-service .auth-link .auth-icon.vkontakte {background-position:-561px -101px;}
 .socials-inline .services .auth-service .auth-link .auth-icon.mailru {background-position:-613px -101px;}

@@ -88,7 +88,12 @@ class SignupController extends CController
 					}
 				}
 				unset($session['service']);
-				$this->render('finish');
+                $identity = new UserIdentity($model->getAttributes());
+                $identity->authenticate();
+                Yii::app()->user->login($identity);
+                $model->login_date = date('Y-m-d H:i:s');
+                $model->save(false);
+                $this->redirect(array('/user/profile', 'user_id' => $model->id));
 			}
 		}
 	}

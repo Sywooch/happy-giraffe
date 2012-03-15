@@ -11,7 +11,7 @@
 					<div class="side-left">
 
 						<div class="banner-box">
-							<a href="#"><img src="/images/leftban.png"></a>
+
 						</div>
 						
 					</div>

@@ -225,10 +225,11 @@ class ScoreInput extends EMongoDocument
             $criteria = new EMongoCriteria;
             $criteria->status('==', self::STATUS_OPEN);
             $criteria->action_id('==', (int)$action->id);
-            $criteria->created('>', (int)(time() - $action->wait_time * 60));
+            $criteria->created('<', (int)(time() - $action->wait_time * 60));
 
             $modifier = new EMongoModifier();
             $modifier->addModifier('status', 'set', self::STATUS_CLOSED);
+            $modifier->addModifier('updated', 'set', time());
             ScoreInput::model()->updateAll($modifier, $criteria);
         }
     }

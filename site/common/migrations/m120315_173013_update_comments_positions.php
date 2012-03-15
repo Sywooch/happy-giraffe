@@ -5,7 +5,7 @@ class m120315_173013_update_comments_positions extends CDbMigration
 	public function up()
 	{
         Yii::import('site.common.models.*');
-        Comment::updateComments();
+//        Comment::updateComments();
 	}
 
 	public function down()

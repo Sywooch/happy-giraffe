@@ -42,7 +42,7 @@ class Interest extends CActiveRecord
 		return array(
 			array('name, category_id', 'required'),
 			array('name', 'length', 'max'=>255),
-			array('category_id', 'length', 'max'=>1),
+			array('category_id', 'length', 'max'=>2),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, category_id', 'safe', 'on'=>'search'),

@@ -167,7 +167,7 @@ function ChangeDialog(id) {
     if (id == null) {
         window.location = "<?php echo $this->createUrl('/im/default/index', array()) ?>";
     } else {
-        var new_dialog_unread_messages_count = $('#dialog-' + id + ' div.meta').html();
+        var new_dialog_unread_messages_count = parseInt($('#dialog-' + id + ' div.meta').html());
         $('.opened-dialogs-list li').removeClass('active');
         $('#dialog-' + id).addClass('active');
         $('#dialog-' + id + ' div.meta').hide();
@@ -193,7 +193,8 @@ function ChangeDialog(id) {
                 GoTop();
                 $('#messages').bind('scroll', MoreMessages);
 
-                im.ShowNewMessagesCount($('#dialogs .header .count').html() - new_dialog_unread_messages_count);
+                console.log($('#dialogs .header .count').html(), new_dialog_unread_messages_count);
+                im.ShowNewMessagesCount(parseInt($('#dialogs .header .count').html()) - new_dialog_unread_messages_count);
             },
             context:$(this)
         });

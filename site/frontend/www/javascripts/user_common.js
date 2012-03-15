@@ -62,3 +62,37 @@ Comet.prototype.updateFriends = function(result, id) {
 
 comet.addEvent(100, 'updateNotifications');
 comet.addEvent(101, 'updateFriends');
+
+function sendInvite(el, user_id) {
+    $.ajax({
+        dataType: 'json',
+        type: 'post',
+        url: '/friendRequests/send/',
+        data: {
+            to_id: user_id
+        },
+        success: function (response) {
+            if (response.status) {
+                $(el).replaceWith(response.html);
+            }
+        }
+    });
+
+}
+
+function deleteFriend(el, user_id) {
+    $.ajax({
+        dataType: 'json',
+        type: 'post',
+        url: '/friendRequests/delete/',
+        data: {
+            friend_id: user_id
+        },
+        success: function (response) {
+            if (response.status) {
+                $(el).replaceWith(response.html);
+            }
+        }
+    });
+
+}

@@ -446,9 +446,6 @@ class User extends CActiveRecord
         //        $value = Yii::app()->cache->get('User_' . $id);
         //        if ($value === false) {
         //            $value = User::model()->findByPk($id);
-        //            if ($value === null)
-        //                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        //
         //            Yii::app()->cache->set('User_' . $id, $value, 5184000);
         //        }
         //        return $value;

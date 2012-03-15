@@ -236,8 +236,8 @@ class UserNotification extends EMongoDocument
                 'id' => (int) $entity->id,
             );
             $notification->params = $notification->getParamsByEntity($entity);
+            $notification->save();
         }
-        $notification->save();
     }
 
     public function transferred($type, $attributes)
@@ -256,8 +256,8 @@ class UserNotification extends EMongoDocument
                 'id' => (int) $entity->id,
             );
             $notification->params = $notification->getParamsByEntity($entity);
+            $notification->save();
         }
-        $notification->save();
     }
 
     public function getParamsByEntity($entity, $direct = true)

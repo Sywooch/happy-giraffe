@@ -16,7 +16,10 @@ class CommunityCommand extends CConsoleCommand
         foreach($community as $model)
         {
             if(!$model->content || !$model->content->text)
+            {
+                echo 'Беда!!!11 ID: ' . $model->id . ' --- '
                 continue;
+            }
             $p = new CHtmlPurifier();
             $p->options = array(
                 'URI.AllowedSchemes'=>array(

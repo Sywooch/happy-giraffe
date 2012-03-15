@@ -16,7 +16,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
 <div class="title"><i class="icon"></i>Сигналы</div>
 
 <div class="username">
-    <i class="icon-status status-online"></i><span><?= Yii::app()->user->getModel()->getFullName() ?></span>
+    <i class="icon-status status-online"></i><span><?= User::getUserById(Yii::app()->user->id)->getFullName() ?></span>
 </div>
 
 <div class="nav">

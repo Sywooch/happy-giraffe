@@ -35,6 +35,7 @@
     <div class="clear"></div>
 
     <div class="list_names" id="likes-all">
+        <div class="clearfix">
         <?php $i=1;
             foreach ($data as $name){
                        $this->renderPartial('__name', array(
@@ -46,10 +47,11 @@
                            'like_ids' => $like_ids,
                            'num'=>$i
                        ));$i++; }?>
-        <div class="clear"></div>
+    </div>
     </div>
 
     <div class="list_names" id="likes-man" style="display: none;">
+        <div class="clearfix">
         <?php $i=1;
         foreach ($man as $name){
                        $this->renderPartial('__name', array(
@@ -61,10 +63,11 @@
                            'like_ids' => $like_ids,
                            'num'=>$i
                        ));$i++;} ?>
-        <div class="clear"></div>
+        </div>
     </div>
 
     <div class="list_names" id="likes-woman" style="display: none;">
+        <div class="clearfix">
         <?php $i=1;
         foreach ($woman as $name){
                        $this->renderPartial('__name', array(
@@ -76,6 +79,6 @@
                            'like_ids' => $like_ids,
                            'num'=>$i
                        ));$i++;} ?>
-        <div class="clear"></div>
+        </div>
     </div>
 </div>

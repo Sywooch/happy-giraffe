@@ -365,8 +365,8 @@ class User extends CActiveRecord
                             'small' => array(
                                 'fileHandler' => array('FileHandler', 'run'),
                                 'accurate_resize' => array(
-                                    'width' => 38,
-                                    'height' => 37,
+                                    'width' => 25,
+                                    'height' => 23,
                                 ),
                             ),
                             'big' => array(

@@ -619,7 +619,7 @@
 
 /*===== Baby handbook illness recipes =====*/
 #baby .baby_recipes_service {display:block;height:296px;background: url(../images/service_recipes_illness.jpg) 0 0 no-repeat;position:relative;margin:0 0 0px 0;}
-#baby .baby_recipes_service ul.handbook_changes_u {position:absolute;bottom:0px;left:200px;}
+#baby .baby_recipes_service ul.handbook_changes_u {position:absolute;bottom:0px;left:200px;list-style:none;}
 #baby .baby_recipes_service ul.handbook_changes_u li {float:left;margin:0 3px 0 0;}
 #baby .baby_recipes_service ul.handbook_changes_u li a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background: url(../images/vio_transparent.png) 0 0 repeat;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
 #baby .baby_recipes_service ul.handbook_changes_u li a span {display:inline-block;padding:0 20px 0 0;background: url(../images/down_wh_arr.png) 100% 27px no-repeat;}

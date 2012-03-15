@@ -66,6 +66,7 @@ class CommunityController extends Controller
         $criteria->entity_name('==', 'CommunityContent');
         $criteria->limit(5);
         $ratings = Rating::model()->findAll($criteria);
+        Rating::model()->deleteAll();
         $top5 = array();
         foreach($ratings as $rate)
         {

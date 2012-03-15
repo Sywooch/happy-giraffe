@@ -61,10 +61,6 @@ class CommunityController extends Controller
         );
         $communities = Community::model()->public()->findAll();
 
-        Rating::model()->deleteAll();
-        RatingUsers::model()->deleteAll();
-        RatingYohoho::model()->deleteAll();
-
         $criteria = new EMongoCriteria;
         $criteria->sort('sum', EMongoCriteria::SORT_DESC);
         $criteria->entity_name('==', 'CommunityContent');

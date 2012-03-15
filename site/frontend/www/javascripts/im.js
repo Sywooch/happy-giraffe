@@ -49,7 +49,7 @@ Im.prototype.ShowNewMessagesCount = function(id){
     }
     else{
         $("#dialogs .header .count").hide();
-        $("#user-nav-messages > a > span.count").show();
+        $("#user-nav-messages > a > span.count").hide();
     }
     $("#dialogs .header .count").html(id);
     $("#user-nav-messages > a > span.count").html(id);

@@ -57,8 +57,8 @@ Im.prototype.ShowNewMessagesCount = function (id) {
 }
 Im.prototype.OnlineCount = function (result) {
     cl('user status change');
-    if (result.type == 0 || result.type == 2) {
-        var comment_count = $('#user-nav-messages .drp .actions li:last span').text();
+    if (result.user_type == 0 || result.user_type == 2) {
+        var comment_count = $('#user-nav-messages span.online-count').text();
         var current_count = parseInt(comment_count);
 
         if (result.online == 1) {
@@ -66,10 +66,10 @@ Im.prototype.OnlineCount = function (result) {
         } else {
             current_count -= 1;
         }
-        $('#user-nav-messages .drp .actions li:last span').text(current_count);
+        $('#user-nav-messages span.online-count').text(current_count);
     }
-    if (result.type == 1 || result.type == 2) {
-        var comment_count = $('#user-nav-messages .drp .actions li:last span').text();
+    if (result.user_type == 1 || result.user_type == 2) {
+        var comment_count = $('#user-nav-friends span.online-count').text();
         var current_count = parseInt(comment_count);
 
         if (result.online == 1) {
@@ -78,6 +78,6 @@ Im.prototype.OnlineCount = function (result) {
             current_count -= 1;
         }
 
-        $('#user-nav-friends .drp .actions li span').text(current_count);
+        $('#user-nav-friends span.online-count').text(current_count);
     }
 }

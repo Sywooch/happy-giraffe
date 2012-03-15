@@ -68,7 +68,7 @@ class OnlineUsersCommand extends CConsoleCommand
                     $user->online = 0;
                     $user->last_active = date("Y-m-d H:i:s", strtotime(' - 15 minutes'));
                     $user->save();
-                    //$this->SendOnlineNotice($user->id, 0);
+                    $this->SendOnlineNotice($user->id, 0);
 
                     echo "user offline: {$user->id}\n";
                 }
@@ -100,7 +100,6 @@ class OnlineUsersCommand extends CConsoleCommand
     private function SendOnlineNotice($user_id, $online)
     {
         $dialogs = Im::model($user_id)->getDialogs();
-        $dialog_ids = Im::model($user_id)->getDialogIds();
 
         //id пользователей из диалогов
         $dialog_user_ids = array();
@@ -108,14 +107,17 @@ class OnlineUsersCommand extends CConsoleCommand
             if (isset($dialog['users'][0]))
                 $dialog_user_ids[] = $dialog['users'][0];
         }
-        
-        $friends = User::getUserById($user_id)->getFriends();
+        $dialog_user_ids = array_unique($dialog_user_ids);
+
+        $friends = User::model()->findAll(User::getUserById($user_id)->getFriendSelectCriteria());
         //id друзей
         $friend_ids = array();
         foreach ($friends as $friend) {
-            if (!in_array($friend->id, $dialog_ids))
+            if (!in_array($friend->id, $dialog_user_ids))
                 $friend_ids [] = $friend->id;
         }
+
+        $friend_ids = array_unique($friend_ids);
 
         $comet = new CometModel;
         $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
@@ -123,15 +125,15 @@ class OnlineUsersCommand extends CConsoleCommand
         foreach ($dialogs as $dialog) {
             if (isset($dialog['users'][0])){
                 $u_id =$dialog['users'][0];
-                if (in_array($friend_ids, $u_id))
-                    $comet->attributes = array('dialog_id' => $dialog['id'], 'online' => $online, 'type' => 2);
+                if (in_array($u_id, $friend_ids))
+                    $comet->attributes = array('dialog_id' => $dialog['id'], 'online' => $online, 'user_type' => 2);
                 else
-                    $comet->attributes = array('dialog_id' => $dialog['id'], 'online' => $online, 'type' => 0);
+                    $comet->attributes = array('dialog_id' => $dialog['id'], 'online' => $online, 'user_type' => 0);
                 $comet->send($dialog['users'][0]);
             }
         }
         foreach ($friend_ids as $friend_id) {
-            $comet->attributes = array('online' => $online, 'type' => 1);
+            $comet->attributes = array('online' => $online, 'user_type' => 1);
             $comet->send($friend_id);
         }
     }

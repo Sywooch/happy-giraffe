@@ -9,8 +9,7 @@
         <a href="<?php echo $this->createUrl('/recipeBook/default/view', array('id'=>$data->id))
             ?>"><h1><?php echo $data->name ?></h1></a>
         <div class="user">
-            <?php $this->widget('AvatarWidget', array('user' => $data->author)); ?>
-            <a class="username"><?php echo $data->author->first_name.' '.$data->author->last_name ?></a>
+            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->author)); ?>
         </div>
 
         <div class="meta">

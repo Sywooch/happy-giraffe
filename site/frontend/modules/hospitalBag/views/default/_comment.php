@@ -1,7 +1,6 @@
 <li class="clearfix<?php if ($i % 2 == 0) echo ' even' ?>">
     <div class="user">
-        <?php $this->widget('AvatarWidget', array('user' => $model->author)); ?>
-        <a class="username"><?php echo $model->author->first_name; ?></a>
+        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $model->author)); ?>
     </div>
     <div class="content">
         <div class="hospital-bag-item-fast">

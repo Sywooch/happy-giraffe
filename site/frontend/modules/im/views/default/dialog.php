@@ -193,7 +193,7 @@ function ChangeDialog(id) {
                 GoTop();
                 $('#messages').bind('scroll', MoreMessages);
 
-                console.log($('#dialogs .header .count').html(), new_dialog_unread_messages_count);
+                //console.log($('#dialogs .header .count').html(), new_dialog_unread_messages_count);
                 im.ShowNewMessagesCount(parseInt($('#dialogs .header .count').html()) - new_dialog_unread_messages_count);
             },
             context:$(this)

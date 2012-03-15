@@ -4,7 +4,9 @@ class m120315_170516_fix_user_mood_relation extends CDbMigration
 {
 	public function up()
 	{
-        $this->execute("ALTER TABLE  `user` DROP FOREIGN KEY  `user_ibfk_8` ;
+        $this->execute("
+SET foreign_key_checks = 0;
+ALTER TABLE  `user` DROP FOREIGN KEY  `user_ibfk_8` ;
 
 ALTER TABLE  `user` ADD FOREIGN KEY (  `country_id` ) REFERENCES  `happy_giraffe`.`geo_country` (
 `id`
@@ -26,7 +28,9 @@ ALTER TABLE  `user` DROP FOREIGN KEY  `user_ibfk_2` ;
 
 ALTER TABLE  `user` ADD FOREIGN KEY (  `mood_id` ) REFERENCES  `happy_giraffe`.`user_moods` (
 `id`
-) ON DELETE SET NULL ON UPDATE SET NULL ;");
+) ON DELETE SET NULL ON UPDATE SET NULL ;
+SET foreign_key_checks = 1;
+");
 	}
 
 	public function down()

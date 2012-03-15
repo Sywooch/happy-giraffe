@@ -24,7 +24,7 @@
                         'user' => $this->user,
                     )); ?>
                 <?php endif; ?>
-                <?php echo CHtml::link('<span class="tip">Написать сообщение</span>', array('/im/create', 'id' => $this->user->id), array('class' => 'new-message')); ?>
+                <?php echo CHtml::link('<span class="tip">Написать сообщение</span>', $this->user->getDialogUrl(), array('class' => 'new-message')); ?>
             </div>
         </div>
     <?php endif; ?>

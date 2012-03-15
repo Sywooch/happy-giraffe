@@ -474,10 +474,10 @@ class User extends CActiveRecord
         return $url;
     }
 
-    public function getDialogLink()
+    public function getDialogUrl()
     {
         if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->getId())
-            return '';
+            return '#';
 
         $dialog_id = Im::model()->getDialogIdByUser($this->id);
         if (isset($dialog_id)) {
@@ -486,7 +486,7 @@ class User extends CActiveRecord
             $url = Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
         }
 
-        return CHtml::link('написать', $url);
+        return $url;
     }
 
     public function getFlag()

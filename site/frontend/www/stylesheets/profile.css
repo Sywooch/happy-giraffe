@@ -85,7 +85,7 @@
 #profile .photo-upload .upload-btn .file-fake {margin-bottom:5px;}
 
 #profile .access-list {}
-#profile .access-list ul {}
+#profile .access-list ul {list-style:none;}
 #profile .access-list ul li {}
 #profile .access-list ul li .radiogroup {display:inline-block;vertical-align:top;padding-right:30px;}
 #profile .access-list ul li input[type=checkbox], #profile .access-list ul li input[type=radio] {position:relative;top:2px;}

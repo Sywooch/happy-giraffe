@@ -6,7 +6,7 @@
 <div class="default-comments">
     <div class="comments-meta">
         <?php if(!Yii::app()->user->isGuest): ?>
-            <a href="#add_comment" onclick="Comment.newComment();" class="btn btn-orange a-right"><span><span>Добавить запись</span></span></a>
+            <a href="javascript:;" onclick="Comment.newComment(event);" class="btn btn-orange a-right"><span><span>Добавить запись</span></span></a>
         <?php endif; ?>
         <div class="title"><?php echo $this->title; ?></div>
         <div class="count"><?php echo $dataProvider->totalItemCount; ?></div>

@@ -21,22 +21,48 @@ class FriendRequestsController extends Controller
         );
     }
 
-    public function actionSend($to_id)
+    public function actionSend()
     {
-        $model = new FriendRequest;
-
-        if (isset($_POST['FriendRequest'])) {
-            $model->attributes = $_POST['FriendRequest'];
+        if (Yii::app()->request->isAjaxRequest) {
+            $to_id = Yii::app()->request->getPost('to_id');
+            $model = new FriendRequest;
             $model->from_id = Yii::app()->user->id;
             $model->to_id = $to_id;
             if ($model->save()) {
-                $this->redirect(array('friendRequests/list'));
+                $response = array(
+                    'status' => true,
+                    'html' => $this->renderPartial('webroot.themes.happy_giraffe.views.user._friend_button', array(
+                        'user' => $model->to,
+                    ), true),
+                );
+            } else {
+                $response = array(
+                    'status' => false,
+                );
             }
+            echo CJSON::encode($response);
         }
+    }
 
-        $this->render('send', array(
-            'model' => $model,
-        ));
+    public function actionDelete()
+    {
+        if (Yii::app()->request->isAjaxRequest) {
+            $friend_id = Yii::app()->request->getPost('friend_id');
+            if (Yii::app()->user->model->delFriend($friend_id)) {
+                $model = User::model()->findByPk($friend_id);
+                $response = array(
+                    'status' => true,
+                    'html' => $this->renderPartial('webroot.themes.happy_giraffe.views.user._friend_button', array(
+                        'user' => $model,
+                    ), true),
+                );
+            } else {
+                $response = array(
+                    'status' => false,
+                );
+            }
+            echo CJSON::encode($response);
+        }
     }
 
     public function actionList()

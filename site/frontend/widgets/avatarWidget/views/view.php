@@ -19,9 +19,11 @@
                 </div>
             <?php endif; ?>
             <div class="user-fast-buttons clearfix">
-                <a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
-                <a class="remove-friend" href=""><span class="tip">Удалить из друзей</span></a>
-                <a class="pending-friend" href=""><span class="tip">Приглашение выслано</span></a>
+                <?php if($this->friendButton): ?>
+                    <a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
+                    <a class="remove-friend" href=""><span class="tip">Удалить из друзей</span></a>
+                    <a class="pending-friend" href=""><span class="tip">Приглашение выслано</span></a>
+                <?php endif; ?>
                 <?php echo CHtml::link('<span class="tip">Написать сообщение</span>', array('/im/create', 'id' => $this->user->id), array('class' => 'new-message')); ?>
             </div>
         </div>

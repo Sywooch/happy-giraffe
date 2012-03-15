@@ -123,21 +123,4 @@ class CommunityPost extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-
-    public function cutPost($count_words = 10, $sep = ' ') {
-
-        $this->text =strip_tags($this->text);
-        $text = $this->text;
-        $words = explode($sep, $text);
-        if ( count($words) > $count_words )
-            $text = join($sep, array_slice($words, 0, $count_words));
-        else
-            return ;
-        $text = ltrim($text, ' ');
-        $text = ltrim($text, ',');
-        $text = ltrim($text, '?');
-        $text = ltrim($text, '.');
-
-        $this->text = $text.'...';
-    }
 }

@@ -16,7 +16,7 @@
     </div>
 
     <div class="leftbanner">
-        <a href="/"><img src="/images/leftban.png"></a>
+
     </div>
 
 </div>

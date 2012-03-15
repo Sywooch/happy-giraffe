@@ -578,7 +578,7 @@ class ScoreInput extends EMongoDocument
         }
 
         if (count($friends) == 1)
-            $text = 'У вас новый друг ' . CHtml::image($friends[0]->getAva('small')) . ' <span>' . $friends[0]->first_name . '</span>';
+            $text = 'У вас новый друг ' . CHtml::image($friends[0]->getAva('small')) . '&nbsp;<span>' . $friends[0]->first_name . '</span>';
         elseif (count($friends) > 1) {
             $text = 'У вас ' . count($friends) . ' ' . HDate::GenerateNoun(array('новый друг', 'новых друга', 'новых друзей'), $this->amount);
             foreach ($friends as $friend) {

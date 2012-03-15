@@ -109,7 +109,7 @@
 #user .user-map .box-title {margin-left:6px;padding-bottom:15px;}
 
 
-#user .user-mood {font-size:22px;color:#484747;padding-left:15px;position:relative;}
+#user .user-mood {font-size:20px;color:#484747;padding-left:15px;position:relative;}
 #user .user-mood img {vertical-align:middle;position:relative;top:-8px;}
 
 #user .user-mood .moods-list {position:absolute;left:0;top:100%;background:#fffeea;z-index:4;padding:5px;width:470px;font-size:9px;border:1px solid #e7e395;}
@@ -120,7 +120,7 @@
 #user .user-mood .moods-list li a {display:block;width:92px;height:95px;text-decoration:none;color:#918b1a;padding-top:5px;line-height:1;}
 #user .user-mood .moods-list li img {display:block;}
 #user .user-mood .moods-list li:hover {border-color:#e7e395;}
-#user .user-mood .moods-list:before {display:block;content:'';width:19px;height:16px;background:url(/images/common.png) no-repeat -557px -198px;position:absolute;bottom:100%;right:45px;}
+#user .user-mood .moods-list:before {display:block;content:'';width:19px;height:16px;background:url(/images/common.png) no-repeat -557px -198px;position:absolute;bottom:100%;right:200px;}
 #user .user-mood a.small {font-size:11px;}
 
 #user #userMoodTooltip {position:absolute;display:none;z-index:99;background:#fffeea;padding:3px 6px;border:1px solid #e7e395;font-size:14px;}

@@ -4,6 +4,10 @@ class m120315_200755_data_transfer extends CDbMigration
 {
 	public function up()
 	{
+        $this->truncateTable('horoscope');
+        $this->truncateTable('interest');
+        $this->truncateTable('interest_category');
+
         $sql = <<<EOD
         INSERT INTO `horoscope` (`id`, `zodiac`, `date`, `text`) VALUES
 (15, 1, '2012-03-15', 'Прекрасный день для крупных покупок. Любые дела будут идти стремительно и успешно. Вам предстоит разговор по душам с семьей по поводу совместных целей. Сегодня вы сможете кого угодно вывести на чистую воду, разоблачить любое лукавство. Но стоит быть осторожнее в словах, т. к. излишняя жесткость может привести к затяжным конфликтам и обидам. Можно устроить романтический вечер с любимым человеком, он придаст новый позитивный импульс отношениям.'),
@@ -90,7 +94,7 @@ INSERT INTO `interest` (`id`, `name`, `category_id`) VALUES
 
 EOD;
 
-
+        $this->execute($sql);
 
 	}
 

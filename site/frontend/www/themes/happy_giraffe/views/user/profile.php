@@ -31,7 +31,7 @@
                 <li><?php echo CHtml::link('Блог', array('user/blog', 'user_id' => $user->id)); ?></li>
                 <li><?php echo CHtml::link('Фото', array('albums/user', 'id' => $user->id)); ?></li>
                 <li><?php echo CHtml::link('Друзья', array('user/friends', 'user_id' => $user->id)); ?></li>
-                <!--<li><a href="">Клубы</a></li>-->
+                <li><?php echo CHtml::link('Клубы', array('user/clubs', 'user_id' => $user->id)); ?></li>
             </ul>
         </div>
     </div>
@@ -55,8 +55,8 @@
 
                 <div class="details">
                     Зарегистрирован  <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date); ?><br/>
-                    <!--Баллов: <span class="rating">12 867</span><br/>
-                    Уровень: <span class="rang">Ветеран</span><br/>-->
+                    Баллов: <span class="rating"><?= $user->getScores()->scores ?></span><br/>
+                    Уровень: <span class="rang">Новичок</span><br/>
                 </div>
 
             </div>
@@ -85,36 +85,6 @@
                     <?php $this->widget('BlogWidget', array(
                         'user' => $user,
                     )); ?>
-
-                    <!--<div class="user-blog">
-
-                        <div class="box-title">Блог <a href="">Все записи (25)</a></div>
-
-                        <ul>
-                            <li>
-                                <a href="">Профилактика атопического дерматита</a>
-                                <div class="date">3 сентября 2011, 08:25</div>
-                                <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке...</p>
-                            </li>
-                            <li>
-                                <a href="">Профилактика атопического дерматита</a>
-                                <div class="date">3 сентября 2011, 08:25</div>
-                                <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке...</p>
-                            </li>
-                            <li>
-                                <a href="">Профилактика атопического дерматита</a>
-                                <div class="date">3 сентября 2011, 08:25</div>
-                                <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке...</p>
-                            </li>
-                            <li>
-                                <a href="">Профилактика атопического дерматита</a>
-                                <div class="date">3 сентября 2011, 08:25</div>
-                                <p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке...</p>
-                            </li>
-
-                        </ul>
-
-                    </div>-->
 
                     <?php $this->widget('UserCommunitiesWidget', array(
                         'user' => $user

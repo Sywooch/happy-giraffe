@@ -37,6 +37,12 @@ class FriendRequest extends CActiveRecord
 		return parent::model($className);
 	}
 
+    protected function afterSave()
+    {
+        UserFriendNotification::model()->createByRequest($this);
+        if ($this->status != 'pending') UserFriendNotification::model()->deleteInvitation($this->id);
+    }
+
 	/**
 	 * @return string the associated database table name
 	 */

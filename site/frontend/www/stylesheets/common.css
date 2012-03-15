@@ -1583,6 +1583,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #profile .socials .auth-link {display:block;width:177px;height:34px;}
 #profile .socials .auth-link .auth-icon {display:block;width:177px;height:34px;background:url(/images/btn_social.png) no-repeat 177px 34px;}
+#profile .socials .auth-link .auth-icon i {display:none !important;}
 #profile .socials .auth-link .auth-icon.vkontakte {background-position:0 0;}
 #profile .socials .auth-link .auth-icon.mailru {background-position:0 -34px;}
 #profile .socials .auth-link .auth-icon.odnoklassniki {background-position:0 -68px;}

@@ -625,7 +625,14 @@ class User extends CActiveRecord
         $friend = new Friend;
         $friend->user1_id = $this->id;
         $friend->user2_id = $friend_id;
-        return $friend->save();
+        if ($friend->save()){
+            //добавляем баллы
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::addScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::getUserById($friend_id));
+            UserScores::addScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
+            return true;
+        }
+        return false;
     }
 
     /**

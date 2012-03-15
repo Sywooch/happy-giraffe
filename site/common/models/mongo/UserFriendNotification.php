@@ -125,6 +125,6 @@ class UserFriendNotification extends EMongoDocument
     {
         $comet = new CometModel;
         $comet->type = CometModel::TYPE_UPDATE_FRIEND_NOTIFICATIONS;
-        $comet->send($user_id, $this->getUserData($user_id));
+        $comet->send($user_id);
     }
 }

@@ -17,9 +17,11 @@ Yii::app()->clientScript->registerScript('remove_all-scores' ,'function removeHi
 
         <div class="user-points">
 
-            <div class="rank">
-                Новичок
-            </div>
+            <?php if (!empty($userScores->level_id)):?>
+                <div class="rank">
+                    <?=$userScores->level->name ?>
+                </div>
+            <?php endif ?>
 
             <div class="points">
                 У вас сейчас:<br>
@@ -44,7 +46,6 @@ Yii::app()->clientScript->registerScript('remove_all-scores' ,'function removeHi
         <div class="user-points-list">
 
             <?php
-
             $this->widget('zii.widgets.grid.CGridView', array(
                 'dataProvider'=>$dataProvider,
                 'template'=>'{items}

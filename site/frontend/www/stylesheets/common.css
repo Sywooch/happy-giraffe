@@ -630,6 +630,7 @@ a {color:#51afc3;}
 #header-new .user-nav > ul > li > a .icon-messages {width:17px;background-position:-219px -200px;}
 #header-new .user-nav > ul > li > a .icon-friends {width:20px;background-position:-238px -200px;}
 #header-new .user-nav > ul > li > a .icon-notifications {width:21px;background-position:-260px -200px;}
+#header-new .user-nav > ul > li > a .icon-points {width:20px;background-position:-282px -202px;}
 #header-new .user-nav ul li > a .count {background:#75bb6e;color:#fff;text-decoration:none;font:bold 10px/12px arial, helvetica, sans-serif;height:13px;padding:0 5px;margin:4px 0 0 2px;float:left;}
 #header-new .user-nav ul li > a .count {/*css3*/ -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}
 
@@ -1623,6 +1624,14 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 
 /* */
+
+
+/* */
+
+.contest-promo {text-align:center;padding:20px 0;}
+
+/* */
+
 
 /* signals */
 

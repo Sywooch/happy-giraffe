@@ -1,5 +1,5 @@
 <div class="services">
-    <ul class="auth-services clear">
+    <ul class="auth-services">
         <?php
         foreach ($services as $name => $service) {
             if ($this->mode && $this->mode == 'profile') {
@@ -8,7 +8,7 @@
                     echo '<li>';
                     echo '<li class="clearfix">
                             <div class="img-box">';
-                    $this->widget('AvatarWidget', array('user' => Yii::app()->user->model));
+                    $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'small' => true));
                     echo '<label class="' . $service->id . '"></label>
                             ' . CHtml::link('', array('/profile/disableSocialService', 'name' => $name), array('class' => 'remove')) . '
                         </div>

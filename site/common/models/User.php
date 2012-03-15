@@ -637,6 +637,15 @@ class User extends CActiveRecord
         return Friend::model()->count($this->getFriendCriteria($friend_id)) != 0;
     }
 
+    public function isInvitedBy($user_id)
+    {
+        return FriendRequest::model()->findByAttributes(array(
+            'from_id' => $user_id,
+            'to_id' => $this->id,
+            'status' => 'pending',
+        )) !== null;
+    }
+
     /**
      * @param $friend_id
      * @return bool

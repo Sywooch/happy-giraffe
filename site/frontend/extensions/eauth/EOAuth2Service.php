@@ -14,7 +14,7 @@ require_once 'EAuthServiceBase.php';
  * @package application.extensions.eauth
  */
 abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
-
+    public $redirectUri;
 	/**
 	 * @var string OAuth2 client id. 
 	 */
@@ -69,8 +69,9 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 			// Use the URL of the current page as the callback URL.
 			if (isset($_GET['redirect_uri'])) {
 				$redirect_uri = $_GET['redirect_uri'];
-			}
-			else {
+			} elseif($this->redirectUri) {
+                $redirect_uri = $this->redirectUri;
+            } else {
 				$server = Yii::app()->request->getHostInfo();
 				$path = Yii::app()->request->getUrl();
 				$redirect_uri = $server.$path;

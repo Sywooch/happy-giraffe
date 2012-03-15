@@ -108,14 +108,6 @@ function choose(val)
 			
 				<div class="title">Регистрация</div>
 				
-				<div class="steps">
-					<ul class="clearfix">
-						<li class="active"><a>Шаг 1</a></li>
-						<li><a>Шаг 2</a></li>
-						<li><a>Финиш</a></li>
-					</ul>
-				</div>
-				
 				<?php $form = $this->beginWidget('CActiveForm', array('id' => 'signup', 'action' => CController::createUrl('signup/finish'))); ?>
 			
 					<div class="form" id="step_1">
@@ -129,12 +121,9 @@ function choose(val)
 								<div class="a-right login-social">
 						
 									<span>Войти с помощью<br/>социальной сети</span>
-						
-									<ul>
-
+                                        <div class="socials socials-rect">
 										<?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index')); ?>
-							
-									</ul>
+                                        </div>
 						
 								</div>
 					

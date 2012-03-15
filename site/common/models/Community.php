@@ -149,4 +149,10 @@ class Community extends CActiveRecord
 		);
 	}
 
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('community/list', array(
+            'community_id' => $this->id,
+        ));
+    }
 }

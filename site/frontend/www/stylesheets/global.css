@@ -586,37 +586,6 @@ p {
     text-decoration: none;
 }
 
-
-
-.user {
-    float: left;
-    width: auto;	
-}
-
-.user .avatar, .user .ava {
-    float: left;
-    display: inline-block;
-	margin-right:8px;
-}
-
-.user .details {margin-left:90px;width:100px;}
-
-.user a.username {
-    display: inline-block;
-    width: auto;
-    font: 11px tahoma, sans-serif;
-    color: #2296b0;
-    max-width: 200px;
-}
-
-.user .details {margin-left:90px;width:100px;}
-.user .details a.username {max-width:80px;vertical-align:top;text-decoration:none;}
-.user .details .location {font-size:9px;font-family:tahoma, arial, sans-serif;}
-.user .details .flag {display:inline-block;margin-right:3px;position:relative;top:1px;}
-.user .details .status-text {font-size:10px;font-family:tahoma, arial, sans-serif;color:#027089;line-height:1.1;margin-top:10px;}
-
-
-
 .entry .entry-footer {
     padding-top: 10px;
 }

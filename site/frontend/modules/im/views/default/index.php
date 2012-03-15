@@ -19,7 +19,7 @@
         <table>
             <tr>
                 <td class="user">
-                    <?php $this->widget('AvatarWidget', array('user' => Im::model()->GetDialogUser($dialog->id))); ?>
+                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Im::model()->GetDialogUser($dialog->id))); ?>
                     <span><?php echo Im::model()->GetDialogUser($dialog->id)->getFullName() ?></span>
                 </td>
                 <td class="message-icon">

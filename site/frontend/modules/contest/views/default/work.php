@@ -11,8 +11,7 @@
 	<div id="contest-photo">
 		<div class="top">
 			<div class="user-box clearfix">
-				<?php $this->widget('AvatarWidget', array('user' => $work->author)); ?>
-				<?php echo $work->author->first_name; ?>
+				<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $work->author)); ?>
 			</div>
 		</div>
 		<div class="img-box">

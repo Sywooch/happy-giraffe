@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $name
  * @property string $pic
+ * @property string $position
  */
 class Community extends CActiveRecord
 {
@@ -74,6 +75,7 @@ class Community extends CActiveRecord
 		return array(
 			array('name, pic', 'required'),
 			array('name, pic', 'length', 'max'=>255),
+            array('position', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, pic', 'safe', 'on'=>'search'),
@@ -92,6 +94,22 @@ class Community extends CActiveRecord
 			'users' => array(self::MANY_MANY, 'User', 'user_via_community(user_id, community_id)'),
 		);
 	}
+
+    public function defaultScope()
+    {
+        return array(
+            'order' => 'position asc',
+        );
+    }
+
+    public function scopes()
+    {
+        return array(
+            'public' => array(
+                'condition' => 'id != 999999',
+            ),
+        );
+    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)

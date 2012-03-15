@@ -63,9 +63,14 @@ class RecipeBookRecipe extends CActiveRecord
             'VoteBehavior' => array(
                 'class' => 'VoteBehavior',
                 'vote_attributes' => array(
-                '0' => 'votes_con',
-                '1' => 'votes_pro',
-            )),
+                    '0' => 'votes_con',
+                    '1' => 'votes_pro',
+                )),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'create_time',
+                'updateAttribute' => null,
+            )
         );
     }
 
@@ -132,7 +137,7 @@ class RecipeBookRecipe extends CActiveRecord
             'book_name' => 'Book Name',
             'create_time' => 'Create Time',
             'views_amount' => 'Views Amount',
-            'purposeIds'=>'Назначение рецепта',
+            'purposeIds' => 'Назначение рецепта',
         );
     }
 
@@ -166,11 +171,18 @@ class RecipeBookRecipe extends CActiveRecord
         ));
     }
 
+    public function defaultScope()
+    {
+        return array(
+            'order' => $this->getTableAlias(false, false).'.id desc',
+        );
+    }
+
     public function afterSave()
     {
         parent::afterSave();
 
-        if ($this->isNewRecord){
+        if ($this->isNewRecord) {
             //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
             UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);

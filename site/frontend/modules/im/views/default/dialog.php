@@ -51,9 +51,6 @@ Yii::app()->clientScript
     .cke_bottom {
         display: none;
     }
-    .opened-dialogs-list .img a.ava{
-        display: inline;
-    }
 </style>
 <script type="text/javascript">
 var window_active = 1;

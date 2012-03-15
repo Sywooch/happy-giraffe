@@ -42,9 +42,27 @@ class CommunityController extends Controller
 
     public function actionIndex()
     {
-        $communities = Community::model()->findAll();
+        $categories = array(
+            'Дети' => array(
+                'items' => array(
+                    'Беременность и роды' => 3,
+                    'Дети до года' => 4,
+                    'Дети старше года' => 4,
+                    'Дошкольники' => 3,
+                    'Школьники' => 4
+                ),
+                'css' => 'kids',
+            ),
+            'Мужчина & Женщина' => array('css' => 'manwoman', 'count' => 2),
+            'Красота и здоровье' => array('css' => 'beauty', 'count' => 3),
+            'Дом' => array('css' => 'home', 'count' => 5),
+            'Интересы и увлечения' => array('css' => 'hobbies', 'count' => 4),
+            'Отдых' => array('css' => 'rest', 'count' => 4),
+        );
+        $communities = Community::model()->public()->findAll();
         $this->render('index', array(
             'communities' => $communities,
+            'categories' => $categories,
         ));
     }
 

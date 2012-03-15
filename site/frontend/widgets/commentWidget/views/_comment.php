@@ -1,18 +1,7 @@
 <li class="clearfix item" id="comment_<?php echo $data->id; ?>">
     <div class="clearfix">
         <div class="user">
-            <?php $this->widget('AvatarWidget', array('user' => $data->author)); ?>
-            <div class="details">
-                <span
-                    class="icon-status status-<?php echo $data->author->online == 1 ? 'online' : 'offline'; ?>"></span>
-                <a href="javascript:void(0);" class="username"><?php echo $data->author->fullName; ?></a>
-                <?php if ($data->author->country !== null): ?>
-                <div class="location">
-                    <div class="flag flag-<?php echo $data->author->country->iso_code; ?>"></div>
-                    <?php echo $data->author->country->name; ?>
-                </div>
-                <?php endif; ?>
-            </div>
+            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->author)); ?>
         </div>
         <div class="content">
             <div class="meta">
@@ -21,7 +10,7 @@
                 <?php if (($data->response_id !== null && $response = $data->response) || ($data->quote_id !== null && $response = $data->quote)): ?>
                 <div class="answer">
                     Ответ для
-                    <?php $this->widget('AvatarWidget', array('user' => $response->author)); ?>
+                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $response->author)); ?>
                     на <span class="num"><a href="#"
                                             onclick="return Comment.goTo(<?php echo $response->position; ?>, <?php echo $currentPage + 1; ?>);"><?php echo $response->position; ?></a></span>
                 </div>

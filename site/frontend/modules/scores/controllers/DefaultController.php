@@ -2,9 +2,23 @@
 
 class DefaultController extends Controller
 {
-	public function actionIndex()
+    public $user;
+    public $layout = '//layouts/main';
+
+	public function actionIndex($user_id = null)
 	{
-		$this->render('index');
+        if ($user_id === null)
+            $user_id = Yii::app()->user->getId();
+        $this->user = User::getUserById($user_id);
+
+        Yii::import('site.frontend.modules.scores.models.*');
+        $userScores = UserScores::getModel($user_id);
+        $dataProvider = $userScores->getUserHistory();
+
+        $this->render('index', array(
+            'userScores' => $userScores,
+            'dataProvider' => $dataProvider
+        ));
 	}
 
     public function actionRemoveAll()

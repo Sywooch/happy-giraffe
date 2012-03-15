@@ -1443,7 +1443,6 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #start-form .row label {line-height:40px;}
 
 #start-form .fast-login {color:#9fa0a0;margin:10px 0;}
-#start-form .fast-login a {display:inline-block;width:24px;height:24px;vertical-align:middle;background:url(../images/common.png) no-repeat 24px 24px;margin-left:6px;}
 
 #start-form .question {background:#fefeda;border:1px solid #fdfacc;padding:5px 10px;text-align:center;font-style:italic;color:#575757;font-size:14px;margin:10px 0;}
 
@@ -1581,6 +1580,50 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .services-list ul li .text p {font-size:12px;color:#1f1f1f;}
 
 /* services-list */
+
+
+/* */
+
+.socials .auth-link {display:block;width:177px;height:34px;}
+.socials .auth-link .auth-icon {display:block;width:177px;height:34px;background:url(/images/btn_social.png) no-repeat 177px 34px;}
+.socials .auth-link .auth-icon.vkontakte {background-position:0 0;}
+.socials .auth-link .auth-icon.mailru {background-position:0 -34px;}
+.socials .auth-link .auth-icon.odnoklassniki {background-position:0 -68px;}
+.socials .auth-link .auth-icon.google {background-position:0 -102px;}
+.socials .auth-link .auth-icon.facebook {background-position:0 -136px;}
+.socials .auth-link .auth-icon.twitter {background-position:0 -170px;}
+
+/*
+.socials-inline ul {display:inline-block;vertical-align:middle;}
+.socials-inline .auth-link {display:block;width:24px;height:24px;}
+.socials-inline li {display:inline-block;margin-left:6px;}
+.socials-inline .auth-link .auth-icon {display:block;width:24px;height:24px;background:url(/images/common.png) no-repeat 24px 24px;}
+.socials-inline .auth-link .auth-icon.vkontakte {background-position:-561px -101px;}
+.socials-inline .auth-link .auth-icon.mailru {background-position:-613px -101px;}
+.socials-inline .auth-link .auth-icon.odnoklassniki {background-position:-613px -127px;}
+.socials-inline .auth-link .auth-icon.google {background-position:-587px -101px;}
+.socials-inline .auth-link .auth-icon.facebook {background-position:-561px -127px;}
+.socials-inline .auth-link .auth-icon.twitter {background-position:-587px -127px;}
+*/
+
+.socials-inline {}
+.socials-inline .services {display:inline-block;vertical-align:middle;}
+.socials-inline .services ul.auth-services {list-style:none;margin:0;}
+.socials-inline .services .auth-service {display:inline-block;margin:0 0 0 6px;float:none;}
+.socials-inline .services .auth-service .auth-link {display:block;width:24px;height:24px;}
+.socials-inline .services .auth-service .auth-link .auth-icon {display:block;width:24px;height:24px;background:url(/images/common.png) no-repeat 24px 24px;}
+.socials-inline .services .auth-service .auth-link .auth-icon i {display:none !important;}
+.socials-inline .services .auth-service .auth-link .auth-title {display:none;}
+.socials-inline .services .auth-service .auth-link .auth-icon.vkontakte {background-position:-561px -101px;}
+.socials-inline .services .auth-service .auth-link .auth-icon.mailru {background-position:-613px -101px;}
+.socials-inline .services .auth-service .auth-link .auth-icon.odnoklassniki {background-position:-613px -127px;}
+.socials-inline .services .auth-service .auth-link .auth-icon.google {background-position:-587px -101px;}
+.socials-inline .services .auth-service .auth-link .auth-icon.facebook {background-position:-561px -127px;}
+.socials-inline .services .auth-service .auth-link .auth-icon.twitter {background-position:-587px -127px;}
+
+
+
+/* */
 
 /* signals */
 

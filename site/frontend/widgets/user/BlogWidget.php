@@ -22,6 +22,7 @@ class BlogWidget extends UserCoreWidget
             $this->articles = CommunityContent::model()->full()->findAll($criteria);
             $this->visible = true;
         }
+        $this->viewFile = '_blog_empty';
         parent::init();
     }
 }

@@ -40,13 +40,7 @@ class FriendRequest extends CActiveRecord
     protected function afterSave()
     {
         UserFriendNotification::model()->createByRequest($this);
-        if ($this->status != 'pending') {
-            UserFriendNotification::model()->deleteInvitation($this->id);
-        } else {
-            $comet = new CometModel;
-            $comet->type = CometModel::TYPE_INVITES_PLUS_ONE;
-            $comet->send($this->to_id);
-        }
+        if ($this->status != 'pending') UserFriendNotification::model()->deleteInvitation($this->id);
     }
 
 	/**

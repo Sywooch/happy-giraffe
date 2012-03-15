@@ -81,6 +81,7 @@ class UserFriendNotification extends EMongoDocument
         return array(
             'count' => $this->getCount($user_id),
             'data' => $this->getLast($user_id),
+            'invite' => $this->type == self::FRIEND_INVITE,
         );
     }
 
@@ -125,6 +126,6 @@ class UserFriendNotification extends EMongoDocument
     {
         $comet = new CometModel;
         $comet->type = CometModel::TYPE_UPDATE_FRIEND_NOTIFICATIONS;
-        $comet->send($user_id);
+        $comet->send($user_id, $this->getUserData($user_id));
     }
 }

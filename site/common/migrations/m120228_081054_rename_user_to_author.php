@@ -6,11 +6,7 @@ class m120228_081054_rename_user_to_author extends CDbMigration
 
     public function up()
     {
-        $this->execute('SET foreign_key_checks = 0;
-        ALTER TABLE  `recipeBook_recipe` DROP FOREIGN KEY  `recipeBook_recipe_user_fk` ;
-        SET foreign_key_checks = 1;
-        ');
-        //$this->dropForeignKey('recipeBook_recipe_user_fk', $this->_table);
+        $this->dropForeignKey('recipeBook_recipe_user_fk', $this->_table);
         $this->renameColumn($this->_table, 'user_id', 'author_id');
         $this->addForeignKey($this->_table.'_user_fk', $this->_table, 'author_id', 'user', 'id','CASCADE',"CASCADE");
     }

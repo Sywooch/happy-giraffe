@@ -6,6 +6,7 @@ class m120314_130353_saint_fix extends CDbMigration
 	{
         $this->truncateTable('name_saint_date');
         $this->execute("
+        SET foreign_key_checks = 0;
         INSERT INTO `name_saint_date` (`id`, `name_id`, `day`, `month`) VALUES
 (3387, 1, 1, 1),
 (3388, 2, 1, 1),
@@ -2909,8 +2910,7 @@ class m120314_130353_saint_fix extends CDbMigration
 (6287, 20, 5, 12),
 (6288, 182, 5, 12),
 (6289, 13, 5, 12),
-(6290, 110, 5, 12);
-INSERT INTO `name_saint_date` (`id`, `name_id`, `day`, `month`) VALUES
+(6290, 110, 5, 12),
 (6291, 57, 5, 12),
 (6292, 17, 5, 12),
 (6293, 86, 5, 12),
@@ -3163,6 +3163,7 @@ INSERT INTO `name_saint_date` (`id`, `name_id`, `day`, `month`) VALUES
 (6540, 57, 31, 12),
 (6541, 17, 31, 12),
 (6544, 1, 5, 6);
+SET foreign_key_checks = 1;
         ");
 	}
 

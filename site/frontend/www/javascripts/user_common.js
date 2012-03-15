@@ -32,14 +32,18 @@ $(function() {
 function updateNotifications(count, data)
 {
     $('#user-nav-notifications span.count').text(count).toggle(count != 0);
-    $('#user-nav-notifications div.actions ul li:first-child a span').text(count);
     $('#user-nav-notifications ul.list').html($('#notificationTmpl').tmpl(data));
 }
 
-function updateFriends(count, data)
+function updateFriends(count, data, invite)
 {
     $('#user-nav-friends span.count').text(count).toggle(count != 0);
     $('#user-nav-friends ul.list').html($('#friendNotificationTmpl').tmpl(data));
+    if (invite) {
+        var el = $('#user-nav-friends a.count');
+        var c = parseInt(el.text()) + 1;
+        el.text(c).toggleClass('count-gray', c == 0);
+    }
 }
 
 function updateIm(count, data)
@@ -53,8 +57,42 @@ Comet.prototype.updateNotifications = function(result, id) {
 }
 
 Comet.prototype.updateFriends = function(result, id) {
-    updateFriends(result.count, result.data);
+    updateFriends(result.count, result.data, result.invite);
 }
 
 comet.addEvent(100, 'updateNotifications');
 comet.addEvent(101, 'updateFriends');
+
+function sendInvite(el, user_id) {
+    $.ajax({
+        dataType: 'json',
+        type: 'post',
+        url: '/friendRequests/send/',
+        data: {
+            to_id: user_id
+        },
+        success: function (response) {
+            if (response.status) {
+                $(el).replaceWith(response.html);
+            }
+        }
+    });
+
+}
+
+function deleteFriend(el, user_id) {
+    $.ajax({
+        dataType: 'json',
+        type: 'post',
+        url: '/friendRequests/delete/',
+        data: {
+            friend_id: user_id
+        },
+        success: function (response) {
+            if (response.status) {
+                $(el).replaceWith(response.html);
+            }
+        }
+    });
+
+}

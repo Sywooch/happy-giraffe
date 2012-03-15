@@ -199,7 +199,6 @@ class Test2Controller extends Controller
 
     public function actionLol()
     {
-        $n = CommunityContent::model()->find();
-        $n->delete();
+        echo Yii::app()->user->model->delFriend(10097);
     }
 }

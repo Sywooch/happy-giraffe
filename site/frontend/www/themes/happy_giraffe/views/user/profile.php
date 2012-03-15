@@ -10,20 +10,21 @@
     <div class="header clearfix">
         <div class="user-name">
             <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
-            <?php echo $user->getDialogLink(); ?>
-            <?php if (! Yii::app()->user->isGuest && $user->id != Yii::app()->user->id): ?>
-                <?php if ($user->isFriend(Yii::app()->user->id)): ?>
-                    Вы друзья.
-                <?php else: ?>
-                    <?php echo CHtml::link('добавить', array('friendRequests/send', 'to_id' => $user->id)); ?>
-                <?php endif; ?>
-            <?php endif; ?>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>
                 <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
             <?php endif; ?>
         </div>
+
+        <?php if ($user->id != Yii::app()->user->id): ?>
+            <div class="user-buttons clearfix">
+                <?php $this->renderPartial('_friend_button', array(
+                    'user' => $user,
+                )); ?>
+                <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+            </div>
+        <?php endif; ?>
 
         <div class="user-nav">
             <ul>
@@ -41,11 +42,7 @@
         <div class="col-1">
 
             <div class="user-photo">
-                <?php if ($user->id == Yii::app()->user->getId()):?>
-                    <?php $this->widget('AvatarWidget', array('user' => $user, 'size'=>'big')); ?>
-                <?php else: ?>
-                    <?php $this->widget('AvatarWidget', array('user' => $user, 'size'=>'big')); ?>
-                <?php endif ?>
+                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $user, 'size'=>'big', 'small' => true)); ?>
             </div>
 
             <div class="user-meta">

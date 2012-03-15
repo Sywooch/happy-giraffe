@@ -7,7 +7,7 @@ class NotificationController extends Controller
 {
     public function actionGetLast()
     {
-        if (Yii::app()->request->isAjaxRequest) {
+        //if (Yii::app()->request->isAjaxRequest) {
             $notifications = UserNotification::model()->getUserData(Yii::app()->user->id);
             $friends = UserFriendNotification::model()->getUserData(Yii::app()->user->id);
             $im = MessageLog::getNotificationMessages(Yii::app()->user->id);
@@ -17,7 +17,7 @@ class NotificationController extends Controller
                 'im' => $im
             );
             echo CJSON::encode($response);
-        }
+        //}
     }
 
     public function actionDelete()

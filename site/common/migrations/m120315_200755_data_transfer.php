@@ -101,8 +101,8 @@ EOD;
 
 	public function down()
 	{
-		echo "m120315_200755_data_transfer does not support migration down.\n";
-		return false;
+//		echo "m120315_200755_data_transfer does not support migration down.\n";
+//		return false;
 	}
 
 	/*

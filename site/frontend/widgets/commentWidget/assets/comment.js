@@ -111,10 +111,8 @@ Comment = {
         $('html,body').animate({scrollTop:$('#add_comment').offset().top - 100}, 'fast');
         return false;
     },
-    send:function (form, e) {
+    send:function (form) {
         $(form).find('textarea').val(this.getInstance().getData());
-        e = e ? e : window.event;
-        e.preventDefault();
         $.ajax({
             type:'POST',
             data:$(form).serialize(),
@@ -140,10 +138,7 @@ Comment = {
         });
         return false;
     },
-    cancel:function (e) {
-        e = e ? e : window.event;
-        if (e)
-            e.preventDefault();
+    cancel:function () {
         this.clearVariables();
         this.selected_text = null;
         $('#add_comment .button_panel .btn-green-medium span span').text('Добавить');

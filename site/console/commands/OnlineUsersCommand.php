@@ -68,7 +68,7 @@ class OnlineUsersCommand extends CConsoleCommand
                     $user->online = 0;
                     $user->last_active = date("Y-m-d H:i:s", strtotime(' - 15 minutes'));
                     $user->save();
-                    $this->SendOnlineNotice($user->id, 0);
+                    //$this->SendOnlineNotice($user->id, 0);
 
                     echo "user offline: {$user->id}\n";
                 }
@@ -100,15 +100,39 @@ class OnlineUsersCommand extends CConsoleCommand
     private function SendOnlineNotice($user_id, $online)
     {
         $dialogs = Im::model($user_id)->getDialogs();
-        //$friends = User::getUserById($user_id)->getFriends();
+        $dialog_ids = Im::model($user_id)->getDialogIds();
+
+        //id пользователей из диалогов
+        $dialog_user_ids = array();
+        foreach ($dialogs as $dialog) {
+            if (isset($dialog['users'][0]))
+                $dialog_user_ids[] = $dialog['users'][0];
+        }
+        
+        $friends = User::getUserById($user_id)->getFriends();
+        //id друзей
+        $friend_ids = array();
+        foreach ($friends as $friend) {
+            if (!in_array($friend->id, $dialog_ids))
+                $friend_ids [] = $friend->id;
+        }
 
         $comet = new CometModel;
         $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
 
         foreach ($dialogs as $dialog) {
-            $comet->attributes = array('dialog_id' => $dialog['id'], 'online' => $online);
-            if (isset($dialog['users'][0]))
+            if (isset($dialog['users'][0])){
+                $u_id =$dialog['users'][0];
+                if (in_array($friend_ids, $u_id))
+                    $comet->attributes = array('dialog_id' => $dialog['id'], 'online' => $online, 'type' => 2);
+                else
+                    $comet->attributes = array('dialog_id' => $dialog['id'], 'online' => $online, 'type' => 0);
                 $comet->send($dialog['users'][0]);
+            }
+        }
+        foreach ($friend_ids as $friend_id) {
+            $comet->attributes = array('online' => $online, 'type' => 1);
+            $comet->send($friend_id);
         }
     }
 
@@ -117,19 +141,19 @@ class OnlineUsersCommand extends CConsoleCommand
      */
     public function checkScoresForNewDay($rpl)
     {
-         if ($this->current_day != date("Y-m-d") && date("i") >= 15 ){
-             $list = $rpl->cmdOnline();
-             echo "Add scores for ".count($list)." users \n";
+        if ($this->current_day != date("Y-m-d") && date("i") >= 15) {
+            $list = $rpl->cmdOnline();
+            echo "Add scores for " . count($list) . " users \n";
 
-             foreach ($list as $user) {
-                 $user = $this->getUserByCache($user);
-                 if (empty($user))
-                     continue;
-                 ScoreVisits::addTodayVisit($user->id);
-             }
+            foreach ($list as $user) {
+                $user = $this->getUserByCache($user);
+                if (empty($user))
+                    continue;
+                ScoreVisits::addTodayVisit($user->id);
+            }
 
-             $this->current_day = date("Y-m-d");
-         }
+            $this->current_day = date("Y-m-d");
+        }
     }
 }
 

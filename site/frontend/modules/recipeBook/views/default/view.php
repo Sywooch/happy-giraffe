@@ -27,7 +27,7 @@
     </div>
 
     <?php if (!empty($more_recipes)):?>
-        <div class="more">
+        <div class="content-more clearfix">
             <big class="title">
                 Еще рецепты - <ins class="clr_bl"><?php echo $model->disease->name ?></ins>
                 <a href="<?php echo $this->createUrl('/recipeBook/default/disease', array('url'=>$model->disease->slug))
@@ -41,7 +41,7 @@
                     <span>Ингредиенты:</span>
                     <ul>
                         <?php foreach ($recipe->ingredients as $ingredient): ?>
-                        <li><a href="#"><?php echo $ingredient->name ?></a> <?php echo 'x '.(int)$ingredient->amount.' '.$ingredient->unitValue; ?></li>
+                        <li><a href="#" onclick="return false;"><?php echo $ingredient->name ?></a> <?php echo 'x '.(int)$ingredient->amount.' '.$ingredient->unitValue; ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>

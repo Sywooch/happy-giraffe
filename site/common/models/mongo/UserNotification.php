@@ -285,6 +285,9 @@ class UserNotification extends EMongoDocument
             case 'Comment':
                 $params = $this->getParamsByEntity(CActiveRecord::model($entity->entity)->findByPk($entity->entity_id), false);
                 break;
+            case 'User':
+                $params = array();
+                break;
         }
         if ($this->type == self::DELETED && $direct) {
             $params['{deleteReason}'] = Removed::$types[$entity->remove->type];

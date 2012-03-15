@@ -787,7 +787,7 @@ a {color:#51afc3;}
 #crumbs {height:28px;margin:0 40px;color:#51afc3;font:11px/18px tahoma, arial, sans-serif;position:relative;z-index:5;}
 #crumbs b {background:#fffedf;padding:0 5px;display:inline-block;}
 
-#content {margin:0px 20px 0;padding-top:10px;}
+#content {margin:0px 20px 0;padding-top:10px;position:relative;z-index:3;}
 #content .content-box {padding-bottom:20px;}
 
 #content .side-left {width:240px;float:left;margin-left:-100%;}
@@ -1375,6 +1375,15 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .search-highlight {background:#e0f5dc;color:#4bb23a;}
 
+.content-side-filter {margin:50px 0 0 20px;font-size:13px;padding-bottom:20px;}
+.content-side-filter ul {list-style:none;}
+.content-side-filter ul li {padding:3px 10px 4px;text-align:right;line-height:1.2;margin:5px 0;}
+.content-side-filter ul li a {text-decoration:none;display:block;}
+.content-side-filter ul li a span {border-bottom:1px dashed #51AFC3;float:left;}
+.content-side-filter ul li a:hover span {border:0;}
+.content-side-filter ul li.active {background:#e9f6fe;font-weight:bold;}
+.content-side-filter ul li.active a span {border:0;}
+
 /* */
 
 
@@ -1552,6 +1561,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .popular-topics ul li.odd {background:#f6ecff;}
 .popular-topics .date {color:#a2a2a2;margin:5px 0;}
 .popular-topics .content {color:#010101;margin:5px 0 10px;line-height:16px;}
+.popular-topics .content img {max-width:200px;}
 .popular-topics .meta {color:#737575;}
 .popular-topics .meta .fast-rank {text-align:right;float:right;color:#535353;line-height:1;}
 .popular-topics .meta .fast-rank span {color:#fb7a03;font-size:20px;font-weight:bold;display:block;line-height:1;padding:0;}
@@ -1559,6 +1569,18 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .popular-topics .meta span.views {background:#fff7b8;margin-bottom:4px;display:inline-block;}
 
 /* popular topics */
+
+/* services-list */
+
+.services-list {}
+.services-list ul {list-style:none;}
+.services-list ul li {padding-bottom:40px;}
+.services-list ul li .img {float:left;}
+.services-list ul li .text {margin-left:200px;}
+.services-list ul li .title {font-size:18px;margin-bottom:10px;}
+.services-list ul li .text p {font-size:12px;color:#1f1f1f;}
+
+/* services-list */
 
 /* signals */
 

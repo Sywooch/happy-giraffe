@@ -258,4 +258,8 @@
 #user .friends ul li a {text-decoration:none;}
 #user .friends .actions {padding-top:8px;}
 
+#user .clubs {}
+#user .clubs ul {list-style:none;}
+#user .clubs ul li {float:left;margin:0 20px 15px 0;}
+
 /* /user.css */

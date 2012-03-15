@@ -81,6 +81,7 @@ class UserFriendNotification extends EMongoDocument
         return array(
             'count' => $this->getCount($user_id),
             'data' => $this->getLast($user_id),
+            'invite' => $this->type == self::FRIEND_INVITE,
         );
     }
 

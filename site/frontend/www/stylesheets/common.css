@@ -630,8 +630,8 @@ a {color:#51afc3;}
 #header-new .user-nav .drp .list li .yellow {font-weight:bold;color:#ffdc63;}
 #header-new .user-nav .drp .list li .green {font-weight:bold;color:#92d277;}
 #header-new .user-nav .drp .list li .black {color:#111;}
-#header-new .user-nav .drp .list .close {display:block;width:10px;height:12px;background:url(/images/common.png) no-repeat -315px -136px;position:absolute;top:5px;right:9px;}
-#header-new .user-nav .drp .list .close:hover {background-position:-315px -149px}
+#header-new .user-nav .drp .list li:hover  .close {display:block;width:10px;height:12px;background:url(/images/common.png) no-repeat -315px -136px;position:absolute;top:5px;right:9px;}
+#header-new .user-nav .drp .list li .close:hover {background-position:-315px -149px}
 #header-new .user-nav .drp-icons .icon {position:absolute;top:7px;left:11px;background:url(/images/common.png) no-repeat;display:block;}
 #header-new .user-nav .drp-icons .icon-settings {width:12px;height:12px;background-position:-314px -176px;}
 

@@ -42,11 +42,7 @@
         <div class="col-1">
 
             <div class="user-photo">
-                <?php if ($user->id == Yii::app()->user->getId()):?>
-                    <?php $this->widget('AvatarWidget', array('user' => $user, 'size'=>'big')); ?>
-                <?php else: ?>
-                    <?php $this->widget('AvatarWidget', array('user' => $user, 'size'=>'big')); ?>
-                <?php endif ?>
+                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $user, 'size'=>'big', 'small' => true)); ?>
             </div>
 
             <div class="user-meta">

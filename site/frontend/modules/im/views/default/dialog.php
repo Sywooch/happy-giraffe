@@ -51,6 +51,9 @@ Yii::app()->clientScript
     .cke_bottom {
         display: none;
     }
+    .opened-dialogs-list .img a.ava{
+        display: inline;
+    }
 </style>
 <script type="text/javascript">
 var window_active = 1;
@@ -164,7 +167,7 @@ function ChangeDialog(id) {
     if (id == null) {
         window.location = "<?php echo $this->createUrl('/im/default/index', array()) ?>";
     } else {
-        var new_dialog_unread_messages_count = $('#dialog-' + id + ' div.meta').html();
+        var new_dialog_unread_messages_count = parseInt($('#dialog-' + id + ' div.meta').html());
         $('.opened-dialogs-list li').removeClass('active');
         $('#dialog-' + id).addClass('active');
         $('#dialog-' + id + ' div.meta').hide();
@@ -190,7 +193,8 @@ function ChangeDialog(id) {
                 GoTop();
                 $('#messages').bind('scroll', MoreMessages);
 
-                ShowNewMessagesCount($('#dialogs .header .count').html() - new_dialog_unread_messages_count);
+                console.log($('#dialogs .header .count').html(), new_dialog_unread_messages_count);
+                im.ShowNewMessagesCount(parseInt($('#dialogs .header .count').html()) - new_dialog_unread_messages_count);
             },
             context:$(this)
         });
@@ -226,7 +230,6 @@ function SendMessage() {
 
 function MoreMessages() {
     if (no_more_messages == 0 && $('#messages').scrollTop() < 10) {
-//        no_scroll = 1;
         var first_id = $('#messages .dialog-message:first').attr('id').replace(/MessageLog_/g, "");
         $('#messages').unbind('scroll');
         $.ajax({
@@ -243,7 +246,6 @@ function MoreMessages() {
                         h += $("#messages .dialog-message:eq(" + i + ")").outerHeight(true);
 
                     SetScrollPosition(h);
-//                    no_scroll = 0;
                     $('#messages').bind('scroll', MoreMessages);
                 } else {
                     no_more_messages = 1;
@@ -326,7 +328,7 @@ function ShowNewMessage(result, id) {
                 context: $(this)
             });
         }
-        ShowNewMessagesCount(result.unread_count);
+        im.ShowNewMessagesCount(result.unread_count);
     }
 }
 
@@ -380,15 +382,5 @@ function GoTop() {
 
 function SetScrollPosition(yPos) {
     $("#messages").scrollTop(yPos);
-}
-
-function ShowNewMessagesCount(id){
-    if (id > 0){
-        $('.header .count').show();
-    }
-    else{
-        $('.header .count').hide();
-    }
-    $('.header .count').html(id);
 }
 </script>

@@ -279,15 +279,17 @@ class MessageLog extends CActiveRecord
 
     public static function getNotificationMessages($user_id)
     {
+        if (count(Im::model($user_id)->getDialogIds()) == 0)
+            return array('data' => array(), 'count' => 0);
+
         $models = Yii::app()->db->createCommand()
-            ->select(array('id', 'user_id', 'text', 'created', 'read_status', 'dialog_id'))
-            ->from('message_log')
-            ->where('dialog_id IN (:dialogs) AND user_id != :user_id AND
-                id not in (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
-            ':user_id' => Yii::app()->user->getId(),
+            ->select(array('t.id', 't.user_id', 't.text', 't.created', 't.read_status', 't.dialog_id'))
+            ->from('message_log as t')
+            ->where(' t.dialog_id IN (:dialogs) AND t.user_id != :user_id AND t.id not in (SELECT message_id FROM message_deleted WHERE user_id = :user_id) ', array(
+            ':user_id' => $user_id,
             ':dialogs' => implode(',', Im::model($user_id)->getDialogIds())
         ))
-            ->order('id desc')
+            ->order('t.id desc')
             ->limit(3)
             ->queryAll();
 

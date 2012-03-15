@@ -142,7 +142,7 @@ class DefaultController extends Controller
     {
         $model = UserSignal::model()->findByPk(new MongoId($id));
         if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            throw new CHttpException(404, 'Ошибка, обратитесь к разработчикам.');
         return $model;
     }
 

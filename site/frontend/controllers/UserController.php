@@ -38,7 +38,7 @@ class UserController extends Controller
         $user_id = (in_array($this->action->id, $this->_publicActions)) ? $this->actionParams['user_id'] : Yii::app()->user->id;
         $this->user = User::model()->getUserById($user_id);
         if ($this->user === null)
-            throw CHttpException(404, 'Пользователь не найден');
+            throw new CHttpException(404, 'Пользователь не найден');
         return parent::beforeAction($action);
     }
 
@@ -72,7 +72,7 @@ class UserController extends Controller
         $this->layout = '//layouts/user_blog';
         $this->user = User::model()->with('blog_rubrics')->findByPk($user_id);
         if ($this->user === null)
-            throw CHttpException(404, 'Клуб не найден');
+            throw new CHttpException(404, 'Клуб не найден');
         $this->rubric_id = $rubric_id;
 
         $contents = CommunityContent::model()->getBlogContents($user_id, $rubric_id);

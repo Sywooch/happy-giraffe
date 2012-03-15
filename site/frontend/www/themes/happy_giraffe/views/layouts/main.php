@@ -168,9 +168,9 @@
                                     <div class="col-in">
                                         <div class="title">Беременность и роды</div>
                                         <ul>
-                                            <li><a href="">Планирование</a></li>
-                                            <li><a href="">Беременность</a></li>
-                                            <li><a href="">Подготовка и роды</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 1))?>">Планирование</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 2))?>">Беременность</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 3))?>">Подготовка и роды</a></li>
                                         </ul>
                                         <span class="img"><img src="/images/nav_kids_img_01.jpg"></span>
                                     </div>
@@ -181,10 +181,10 @@
                                     <div class="col-in">
                                         <div class="title">Дети до года</div>
                                         <ul>
-                                            <li><a href="">Здоровье</a></li>
-                                            <li><a href="">Питание малыша</a></li>
-                                            <li><a href="">Развитие ребенка</a></li>
-                                            <li><a href="">Режим и уход</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 4))?>">Здоровье</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 5))?>">Питание малыша</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 6))?>">Развитие ребенка</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 7))?>">Режим и уход</a></li>
                                         </ul>
                                         <span class="img"><img src="/images/nav_kids_img_02.jpg"></span>
                                     </div>
@@ -195,10 +195,10 @@
                                     <div class="col-in">
                                         <div class="title">Дети старше года</div>
                                         <ul>
-                                            <li><a href="">Здоровье и питание</a></li>
-                                            <li><a href="">Ясли и няни</a></li>
-                                            <li><a href="">Раннее развитие и обучение</a></li>
-                                            <li><a href="">Психология и воспитание</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 8))?>">Здоровье и питание</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 9))?>">Ясли и няни</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 10))?>">Раннее развитие и обучение</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 11))?>">Психология и воспитание</a></li>
                                         </ul>
                                         <span class="img"><img src="/images/nav_kids_img_03.jpg"></span>
                                     </div>
@@ -209,9 +209,9 @@
                                     <div class="col-in">
                                         <div class="title">Дошкольники</div>
                                         <ul>
-                                            <li><a href="">Детский сад</a></li>
-                                            <li><a href="">Игры и развлечения</a></li>
-                                            <li><a href="">Готовимся к школе</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 12))?>">Детский сад</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 13))?>">Игры и развлечения</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 14))?>">Готовимся к школе</a></li>
                                         </ul>
                                         <span class="img"><img src="/images/nav_kids_img_04.jpg"></span>
                                     </div>
@@ -222,10 +222,10 @@
                                     <div class="col-in">
                                         <div class="title">Школьники</div>
                                         <ul>
-                                            <li><a href="">Здоровье и питание</a></li>
-                                            <li><a href="">Учимся в школе</a></li>
-                                            <li><a href="">Спорт и досуг</a></li>
-                                            <li><a href="">Подростковая психология</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 15))?>">Здоровье и питание</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 16))?>">Учимся в школе</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 17))?>">Спорт и досуг</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 18))?>">Подростковая психология</a></li>
                                         </ul>
                                         <span class="img"><img src="/images/nav_kids_img_05.jpg"></span>
                                     </div>
@@ -245,9 +245,9 @@
 
                             <ul class="cols cols-2">
                                 <li class="col wedding">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 32))?>">
                                         <span class="title">Свадьба</span>
-                                        <span class="text">Всё об этом важном событии – от планов и составления списка гостей до проведения торжества</span>
+                                        <span class="text">Всё об этом важном событии – от планов и составления списка гостей до проведения торжества.</span>
                                         <span class="img"><img src="/images/nav_manwoman_img_01.jpg"></span>
                                     </a>
                                 </li>
@@ -255,12 +255,12 @@
                                     <div class="col-in">
                                         <div class="title">Отношения</div>
                                         <ul>
-                                            <li><a href="">Отношения мужчины и женщины</a></li>
-                                            <li><a href="">Непонимание в семье</a></li>
-                                            <li><a href="">Ревность и измена</a></li>
-                                            <li><a href="">Развод</a></li>
-                                            <li><a href="">Психология мужчин</a></li>
-                                            <li><a href="">Психология женщин</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>239))?>">Отношения мужчины и женщины</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>242))?>">Непонимание в семье</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>243))?>">Ревность и измена</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>246))?>">Развод</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>248))?>">Психология мужчин</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('community/list', array('community_id' => 31, 'rubric_id'=>249))?>">Психология женщин</a></li>
                                         </ul>
                                         <span class="img"><img src="/images/nav_manwoman_img_02.jpg"></span>
                                     </div>
@@ -278,24 +278,24 @@
 
                             <ul class="cols cols-3">
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 29))?>">
                                         <span class="title">Красота</span>
-                                        <span class="text">Как стать сохранить красоту и продлить молодость - проверенные рецепты, советы экспертов и новые технологии</span>
-                                        <span class="img"><img src="/images/nav_hobbies_img_01.jpg"></span>
+                                        <span class="text">Как сохранить красоту и продлить молодость - проверенные рецепты, советы экспертов и новые технологии.</span>
+                                        <span class="img"><img src="/images/nav_beauty_img_01.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
-                                        <span class="title">Мода и шопинг</span>
-                                        <span class="text">Что нужно купить в этом сезоне? Где это продаётся? Есть ли скидки и акции? Для женщин, мужчин и детей – всё интересное о моде и покупках</span>
-                                        <span class="img"><img src="/images/nav_hobbies_img_02.jpg"></span>
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 30))?>">
+                                        <span class="title">Мода и шоппинг</span>
+                                        <span class="text">Что нужно купить в этом сезоне? Где это продаётся? Есть ли скидки и акции? Для женщин, мужчин и детей – всё интересное о моде и покупках.</span>
+                                        <span class="img"><img src="/images/nav_beauty_img_02.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 33))?>">
                                         <span class="title">Здоровье родителей</span>
-                                        <span class="text">Вся информация о заболеваниях, их лечении и профилактике, народные советы и адреса клиник</span>
-                                        <span class="img"><img src="/images/nav_hobbies_img_03.jpg"></span>
+                                        <span class="text">Вся информация о заболеваниях, их лечении и профилактике, народные советы и адреса клиник.</span>
+                                        <span class="img"><img src="/images/nav_beauty_img_03.jpg"></span>
                                     </a>
                                 </li>
                             </ul>
@@ -311,37 +311,37 @@
 
                             <ul class="cols cols-5">
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 22))?>">
                                         <span class="title">Кулинарные рецепты</span>
-                                        <span class="text">Рецепты на все случаи жизни: простые и сложные, современные и старинные, диетические и многие другие</span>
+                                        <span class="text">Рецепты на все случаи жизни: простые и сложные, диетические и многие другие.</span>
                                         <span class="img"><img src="/images/nav_home_img_01.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 23))?>">
                                         <span class="title">Детские рецепты</span>
-                                        <span class="text">По нашим рецептам можно приготовить блюда, которые придутся по вкусу даже самому большому привереде</span>
+                                        <span class="text">Готовим блюда, которые придутся по вкусу даже самому большому привереде.</span>
                                         <span class="img"><img src="/images/nav_home_img_02.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 26))?>">
                                         <span class="title">Интерьер и дизайн</span>
-                                        <span class="text">Советы о том, как превратить свое жилье в уютное гнездышко</span>
+                                        <span class="text">Советы о том, как превратить свое жилье в уютное гнездышко.</span>
                                         <span class="img"><img src="/images/nav_home_img_03.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 28))?>">
                                         <span class="title">Домашние хлопоты</span>
-                                        <span class="text">Полезная информация о том, как даже самую тяжелую домашнюю работу превратить в приятные хлопоты</span>
+                                        <span class="text">Превращаем самую тяжелую домашнюю работу в приятные хлопоты.</span>
                                         <span class="img"><img src="/images/nav_home_img_04.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 34))?>">
                                         <span class="title">Загородная жизнь</span>
-                                        <span class="text">Как рационально использовать свой загородный участок: посадки, строительство, отдых</span>
+                                        <span class="text">Как рационально использовать загородный участок: посадки, строительство, отдых.</span>
                                         <span class="img"><img src="/images/nav_home_img_05.jpg"></span>
                                     </a>
                                 </li>
@@ -358,30 +358,30 @@
 
                             <ul class="cols cols-4">
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 24))?>">
                                         <span class="title">Своими руками</span>
-                                        <span class="text">Здесь всегда можно найти нужную информацию и поделиться своими идеями по  рукоделию и творчеству</span>
+                                        <span class="text">Здесь всегда можно найти нужную информацию и поделиться своими идеями по  рукоделию и творчеству.</span>
                                         <span class="img"><img src="/images/nav_hobbies_img_01.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 25))?>">
                                         <span class="title">Мастерим детям</span>
-                                        <span class="text">Мастер-классы и схемы по вязанию и шитью, для создания удивительных вещей вашими руками для детей</span>
+                                        <span class="text">Мастер-классы и схемы по вязанию и шитью, для создания удивительных вещей вашими руками для детей.</span>
                                         <span class="img"><img src="/images/nav_hobbies_img_02.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 27))?>">
                                         <span class="title">За рулем</span>
-                                        <span class="text">Здесь вы узнаете все тонкости покупки и содержания авто, а также оформления на него документов</span>
+                                        <span class="text">Здесь вы узнаете все тонкости покупки и содержания авто, а также оформления на него документов.</span>
                                         <span class="img"><img src="/images/nav_hobbies_img_03.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 35))?>">
                                         <span class="title">Цветоводство</span>
-                                        <span class="text">Как выбрать комнатные цветы, куда поставить и что с ними делать – читайте в этом разделе</span>
+                                        <span class="text">Как выбрать комнатные цветы, куда поставить и что с ними делать – читайте в этом разделе.</span>
                                         <span class="img"><img src="/images/nav_hobbies_img_04.jpg"></span>
                                     </a>
                                 </li>
@@ -399,23 +399,23 @@
 
                             <ul class="cols cols-3">
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 19))?>">
                                         <span class="title">Выходные с ребенком</span>
-                                        <span class="text">Информация о том, где происходят самые интересные события, которые можно посетить вместе с ребенком. Отзывы тех, кто там уже был</span>
+                                        <span class="text">Информация о том, где происходят самые интересные события, которые можно посетить вместе с ребенком. Отзывы тех, кто там уже был.</span>
                                         <span class="img"><img src="/images/nav_rest_img_01.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 21))?>">
                                         <span class="title">Путешествия семьей</span>
-                                        <span class="text">Планируем путешествие для всей семьи: выбираем маршрут, оформляем документы, едем, а потом делимся впечатлениями и фотографиями</span>
+                                        <span class="text">Планируем путешествие для всей семьи: выбираем маршрут, оформляем документы, едем, а потом делимся впечатлениями и фотографиями.</span>
                                         <span class="img"><img src="/images/nav_rest_img_02.jpg"></span>
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" href="">
+                                    <a class="big-link" href="<?= Yii::app()->createUrl('community/list', array('community_id' => 20))?>">
                                         <span class="title">Праздники</span>
-                                        <span class="text">Как устроить потрясающий праздник для детей и взрослых. Как правильно выбирать подарки. Особенности религиозных праздников</span>
+                                        <span class="text">Как устроить потрясающий праздник для детей и взрослых. Как правильно выбирать подарки. Особенности религиозных праздников.</span>
                                         <span class="img"><img src="/images/nav_rest_img_03.jpg"></span>
                                     </a>
                                 </li>

@@ -274,4 +274,8 @@ class SiteController extends Controller
 			'contents' => $contents,
 		));
 	}
+
+    public function actionContest(){
+         $this->render('contest');
+    }
 }

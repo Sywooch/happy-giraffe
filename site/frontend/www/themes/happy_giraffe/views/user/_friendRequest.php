@@ -3,11 +3,10 @@
 ?>
 
 <li class="clearfix">
-    <?php $this->widget('AvatarWidget', array(
+    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
         'user' => $user,
     )); ?>
     <div class="details">
-        <?php echo CHtml::link($user->fullName, $user->url, array('class' => 'username')); ?>
         <?php if ($direction == 'incoming'): ?>
             <div class="actions">
                 <a href="<?php echo $this->createUrl('friendRequests/update', array('request_id' => $data->id, 'action' => 'accept')); ?>" class="btn btn-green-ssmall"><span><span>Дружить</span></span></a>

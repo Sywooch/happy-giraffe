@@ -11,13 +11,7 @@
     <div class="header clearfix">
 
         <div class="user-fast">
-            <?php $this->widget('AvatarWidget', array('user' => $this->user)); ?>
-            <div class="details">
-                <span class="icon-status status-online"></span>
-                <a href="" class="username"><?php echo $this->user->fullName ?></a><br/>
-                <div class="location"><?php echo $this->user->getFlag() ?> <?php echo isset($this->user->settlement)?$this->user->settlement->name:'' ?></div>
-                <?php if ($this->user->birthday): ?><span>Д.р.</span> <?php echo Yii::app()->dateFormatter->format("dd MMMM", $this->user->birthday); ?> (<?php echo $this->user->age . ' ' . $this->user->ageSuffix; ?>)<?php endif; ?>
-            </div>
+            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $this->user)); ?>
         </div>
 
         <div class="user-nav">

@@ -42,11 +42,14 @@ class DateWidget extends CWidget
 		if ($this->model->{$this->attribute} !== null)
 		{
 			$pieces = explode('-', $this->model->{$this->attribute});
-			$this->_current = array(
-				'd' => $pieces[2],
-				'm' => $pieces[1],
-				'y' => $pieces[0],
-			);
+            if(count($pieces) != 3)
+                $this->_current = null;
+            else
+                $this->_current = array(
+                    'd' => $pieces[2],
+                    'm' => $pieces[1],
+                    'y' => $pieces[0],
+                );
 		}
 		else
 		{
@@ -81,7 +84,7 @@ class DateWidget extends CWidget
 			var d = $('#" . CHtml::activeId($this->model, $this->attribute . '_d') . "');
 			var m = $('#" . CHtml::activeId($this->model, $this->attribute . '_m') . "');
 			var y = $('#" . CHtml::activeId($this->model, $this->attribute . '_y') . "');
-			$('#" . CHtml::activeId($this->model, $this->attribute . '_d') . ", #" . CHtml::activeId($this->model, $this->attribute . '_m') . ", #" . CHtml::activeId($this->model, $this->attribute . '_y') . "').change(function ()
+			$(d, m, y).change(function ()
 			{
 				if (d.val() != '' && m.val() != '' && y.val() != '')
 				{

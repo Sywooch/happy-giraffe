@@ -19,16 +19,12 @@ $(document).ready(function() {
     }
 	
 	if ($('.chzn').size() > 0) {
-		
 		$('.chzn').each(function(){
-			
 			var s = $(this);
 			s.chosen({
 				allow_single_deselect: s.hasClass('chzn-deselect')
 			})
-			
 		});
-		
 	}
 
     if ($('input[placeholder], textarea[placeholder]').size() > 0 ) $('input[placeholder], textarea[placeholder]').placeholder();

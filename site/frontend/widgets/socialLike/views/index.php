@@ -28,7 +28,7 @@
                 <div class="other-likes">
                     <ul class="">
                         <li><div class="like-btn"><?php $this->render('_vk', array($this->providers['vk'])); ?></div></li>
-                        <li><div class="like-btn"><?php $this->render('_gp', array($this->providers['gp'])); ?></div></li>
+                        <!--<li><div class="like-btn"><?php /*$this->render('_gp', array($this->providers['gp'])); */?></div></li>-->
                         <li><div class="like-btn"><?php $this->render('_mr', array($this->providers['mr'])); ?></div></li>
                         <li><div class="like-btn"><?php $this->render('_fb', array($this->providers['fb'])); ?></div></li>
                         <!--<li><div class="like-btn"><?php /*$this->render('_tw', array($this->providers['tw'])); */?></div></li>

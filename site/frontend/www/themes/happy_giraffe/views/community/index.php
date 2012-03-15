@@ -39,3 +39,48 @@
         </div>
     </div>
 </div>
+<div class="side-right">
+    <div class="popular-topics">
+        <div class="block-in">
+            <div class="top-count">ТОР <b>5</b></div>
+            <div class="title">Популярные темы</div>
+            <ul>
+                <?php foreach($top5 as $data): ?>
+                <li>
+                    <?php echo CHtml::link(CHtml::tag('b', array(), $data->name), $data->url); ?>
+                    <div class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></div>
+                    <div class="content">
+                        <?php
+                            $p = new CHtmlPurifier();
+                            $p->options = array(
+                                'URI.AllowedSchemes'=>array(
+                                    'http' => true,
+                                    'https' => true,
+                                ),
+                                'HTML.Nofollow' => true,
+                                'HTML.TargetBlank' => true,
+                                'HTML.AllowedComments' => array('more' => true),
+
+                            );
+                            echo $p->purify(Str::truncate($data->preview, 300));
+                            if($data->type->slug == 'video')
+                            {
+                                $video = new Video($data->video->link);
+                                echo CHtml::image($video->preview);
+                            }
+                        ?>
+                    </div>
+                    <div class="meta">
+                        <div class="fast-rank">
+                            <span><?php echo Rating::model()->countByEntity($data); ?></span>
+                            рейтинг
+                        </div>
+                        <span class="views">Просмотров: <?php echo PageView::model()->viewsByPath($data->url, true); ?></span><br>
+                        <span>Комментариев: <?php echo $data->commentsCount; ?></span>
+                    </div>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+</div>

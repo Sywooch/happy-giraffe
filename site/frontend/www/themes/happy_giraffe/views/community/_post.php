@@ -8,8 +8,7 @@
         <?php endif; ?>
         <?php if (! $data->by_happy_giraffe): ?>
             <div class="user">
-                <?php $this->widget('AvatarWidget', array('user' => $data->contentAuthor)); ?>
-                <a class="username" href="<?php echo $data->contentAuthor->url; ?>"><span class="icon-status status-online"></span><?php echo $data->contentAuthor->fullName; ?></a>
+                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor)); ?>
             </div>
         <?php endif; ?>
 

@@ -2,8 +2,7 @@
 	<?php $i = 0; foreach ($comments as $cm): ?>
 		<li class="clearfix<?php if(++$i % 2 == 1) echo ' even';?>">
 			<div class="user">
-				<?php $this->widget('AvatarWidget', array('user' => $cm->author)); ?>
-				<?php echo $cm->author->first_name; ?>
+				<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $cm->author)); ?>
 			</div>
 			<div class="content">
 				<div class="rating rating-<?php echo $cm->rating; ?>"></div>

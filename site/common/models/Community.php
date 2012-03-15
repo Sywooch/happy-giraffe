@@ -102,6 +102,15 @@ class Community extends CActiveRecord
         );
     }
 
+    public function scopes()
+    {
+        return array(
+            'public' => array(
+                'condition' => 'id != 999999',
+            ),
+        );
+    }
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

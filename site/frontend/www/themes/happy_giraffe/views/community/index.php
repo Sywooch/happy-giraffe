@@ -12,7 +12,7 @@
                             <?php for($i = 0;$i < $subcount; $i++): ?>
                                 <li class="club-img <?php echo $category['css'] ?>">
                                     <a href="<?php echo $this->createUrl('community/list', array('community_id' => $communities[$n]->id)); ?>">
-                                        <img src="/images/club_img_<?php echo $communities[$n]->id; ?>.png">
+                                        <img src="/images/club_img_<?php echo $communities[$n]->position; ?>.png">
                                         <?php echo $communities[$n]->name; ?>
                                     </a>
                                 </li>
@@ -27,7 +27,7 @@
                             <?php if(!isset($communities[$n])) continue; ?>
                             <li class="club-img <?php echo $category['css'] ?>">
                                 <a href="<?php echo $this->createUrl('community/list', array('community_id' => $communities[$n]->id)); ?>">
-                                    <img src="/images/club_img_<?php echo $communities[$n]->id; ?>.png">
+                                    <img src="/images/club_img_<?php echo $communities[$n]->position; ?>.png">
                                     <?php echo $communities[$n]->name; ?>
                                 </a>
                             </li>

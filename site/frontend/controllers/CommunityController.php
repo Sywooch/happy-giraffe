@@ -59,7 +59,7 @@ class CommunityController extends Controller
             'Интересы и увлечения' => array('css' => 'hobbies', 'count' => 4),
             'Отдых' => array('css' => 'rest', 'count' => 4),
         );
-        $communities = Community::model()->findAll();
+        $communities = Community::model()->public()->findAll();
         $this->render('index', array(
             'communities' => $communities,
             'categories' => $categories,

@@ -17,7 +17,7 @@ class CommunityCommand extends CConsoleCommand
         {
             if(!$model->content || !$model->content->text)
             {
-                echo 'Беда!!!11 ID: ' . $model->id . ' --- '
+                echo 'Беда!!!11 ID: ' . $model->id . ' --- ';
                 continue;
             }
             $p = new CHtmlPurifier();

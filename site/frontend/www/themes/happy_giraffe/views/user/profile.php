@@ -114,7 +114,11 @@
                 'actions' => false,
             )); ?>
         </div>
-
     </div>
-
 </div>
+
+<?php
+$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+$remove_tmpl->registerTemplates();
+$this->endWidget();
+?>

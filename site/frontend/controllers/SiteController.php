@@ -151,13 +151,24 @@ class SiteController extends Controller
                             $authIdentity->redirect('/site/index');
 						$authIdentity->redirect($rediret_url);
 					}
-				} elseif(!Yii::app()->user->isGuest)
+				}
+                elseif(!Yii::app()->user->isGuest)
                 {
                     $social_service = new UserSocialService;
                     $social_service->user_id = Yii::app()->user->id;
                     $social_service->service = $name;
                     $social_service->service_id = $id;
                     $social_service->save();
+                }
+                else
+                {
+                    $session = Yii::app()->session;
+                    $session['service'] = array(
+                        'name' => $authIdentity->getServiceName(),
+                        'id' => $authIdentity->getAttribute('id'),
+                    );
+                    Yii::app()->user->setFlash('regdata', $authIdentity->getItemAttributes());
+                    $authIdentity->redirect(array('/signup'));
                 }
 			}
 

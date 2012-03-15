@@ -82,6 +82,10 @@
                         'user' => $user,
                     )); ?>
 
+                    <?php $this->widget('BlogWidget', array(
+                        'user' => $user,
+                    )); ?>
+
                     <!--<div class="user-blog">
 
                         <div class="box-title">Блог <a href="">Все записи (25)</a></div>

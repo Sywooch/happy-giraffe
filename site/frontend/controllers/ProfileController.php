@@ -94,9 +94,7 @@ class ProfileController extends Controller
     {
         $maxBabies = 10;
         for ($i = 0; $i < $maxBabies; $i++)
-        {
             $baby_models[] = (isset($this->user->babies[$i]) && $this->user->babies[$i] instanceof Baby) ? $this->user->babies[$i] : new Baby;
-        }
 
         if (isset($_POST['User']['relationship_status'])) {
             $this->user->relationship_status = $_POST['User']['relationship_status'];
@@ -111,6 +109,7 @@ class ProfileController extends Controller
             }
 
             $this->user->update(array('relationship_status'));
+            $this->user->refresh();
         }
 
         if (isset($_POST['Baby'])) {
@@ -130,7 +129,9 @@ class ProfileController extends Controller
                 $baby_models[$i]->attributes = $_POST['Baby'][$i];
                 if (isset($_POST['Baby'][$i]['photo']) && !empty($_POST['Baby'][$i]['photo']))
                     $baby_models[$i]->photo = $_POST['Baby'][$i]['photo'];
-                $baby_models[$i]->birthday = $_POST['Baby'][$i]['year'] . '-' . (mb_strlen($_POST['Baby'][$i]['month']) > 1 ? $_POST['Baby'][$i]['month'] : '0' . $_POST['Baby'][$i]['month']) . '-' . (mb_strlen($_POST['Baby'][$i]['day']) > 1 ? $_POST['Baby'][$i]['day'] : '0' . $_POST['Baby'][$i]['day']);
+                $baby_models[$i]->birthday = $_POST['Baby'][$i]['year'] . '-'
+                    . (mb_strlen($_POST['Baby'][$i]['month']) > 1 ? $_POST['Baby'][$i]['month'] : '0' . $_POST['Baby'][$i]['month']) . '-'
+                    . (mb_strlen($_POST['Baby'][$i]['day']) > 1 ? $_POST['Baby'][$i]['day'] : '0' . $_POST['Baby'][$i]['day']);
                 $baby_models[$i]->parent_id = Yii::app()->user->id;
                 $baby_models[$i]->save();
             }
@@ -289,7 +290,17 @@ class ProfileController extends Controller
 
             $response = array(
                 'status' => true,
-                'img' => $user->getPartnerPhotoUrl()
+            );
+            echo CJSON::encode($response);
+        }
+    }
+
+    public function actionRemovePhoto()
+    {
+        $res = Yii::app()->db->createCommand('update user set pic_small = null WHERE id = '.Yii::app()->user->getId())->execute();
+        if ($res > 0) {
+            $response = array(
+                'status' => true,
             );
             echo CJSON::encode($response);
         }

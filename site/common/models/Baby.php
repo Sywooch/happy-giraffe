@@ -104,6 +104,18 @@ class Baby extends CActiveRecord
         return $interval->y;
     }
 
+    public function getTextAge()
+    {
+        if ($this->birthday === null) return null;
+
+        $date1 = new DateTime($this->birthday);
+        $date2 = new DateTime(date('Y-m-d'));
+        $interval = $date1->diff($date2);
+        if ($interval->y == 0)
+            return '<b>'.$interval->m.'</b> '.HDate::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
+        return '<b>'.$interval->y.'</b> '.HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
+    }
+
     public function getAgeImageUrl()
     {
         if ($this->birthday === null)

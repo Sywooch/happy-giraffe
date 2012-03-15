@@ -210,7 +210,7 @@ class DefaultController extends Controller
 //            'nameSweets'=>array('select'=>'value'),
         ))->findByAttributes(array('slug' => $name));
         if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            throw new CHttpException(404, 'Такое имя не найдено.');
         return $model;
     }
 
@@ -223,7 +223,7 @@ class DefaultController extends Controller
     {
         $model = Name::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            throw new CHttpException(404, 'Такое имя не найдено.');
         return $model;
     }
 

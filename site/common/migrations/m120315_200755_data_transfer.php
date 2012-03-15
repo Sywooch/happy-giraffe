@@ -7,6 +7,7 @@ class m120315_200755_data_transfer extends CDbMigration
         $this->truncateTable('horoscope');
         $this->truncateTable('interest');
         $this->truncateTable('interest_category');
+        $this->truncateTable('interest_users');
 
         $sql = <<<EOD
         INSERT INTO `horoscope` (`id`, `zodiac`, `date`, `text`) VALUES

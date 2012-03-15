@@ -175,6 +175,8 @@ class CommunityController extends Controller
 
         $model->attributes = $_POST['CommunityContent'];
         if ($model->save()) {
+            UserNotification::model()->create(UserNotification::TRANSFERRED, array('entity' => $model));
+
             $url = $this->createUrl('community/view', array(
                 'community_id' => $model->rubric->community->id,
                 'content_type_slug' => $model->type->slug,

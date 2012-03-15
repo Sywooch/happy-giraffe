@@ -11,6 +11,7 @@ class UserNotification extends EMongoDocument
     const NEW_COMMENT = 0;
     const NEW_REPLY = 1;
     const DELETED = 2;
+    const TRANSFERRED = 3;
 
     public $user_id;
     public $type;
@@ -45,6 +46,12 @@ class UserNotification extends EMongoDocument
             'templates' => array(
                 'CommunityContent' => 'Ваша запись {post} в клубе {club} удалена по причине {deleteReason}',
                 'Comment' => 'Ваш комментарий к записи {post} в клубе {club} по причине {deleteReason}',
+            ),
+        ),
+        self::TRANSFERRED => array(
+            'method' => 'transferred',
+            'templates' => array(
+                'CommunityContent' => 'Ваша запись {post} перенесена в рубрику {rubric} клуба {club}',
             ),
         ),
     );
@@ -233,30 +240,53 @@ class UserNotification extends EMongoDocument
         $notification->save();
     }
 
-    public function getParamsByEntity($entity)
+    public function transferred($type, $attributes)
     {
-        $params = array();
+        $entity_name = get_class($attributes['entity']);
+        $entity = $attributes['entity'];
+        $recipient = $entity->author_id;
+        if ($recipient != Yii::app()->user->id) {
+            $notification = new self;
+            $notification->user_id = (int) $recipient;
+            $notification->url = $entity->url;
+            $notification->type = $type;
+            $notification->created = $notification->updated = time();
+            $notification->entity = array(
+                'name' => $entity_name,
+                'id' => (int) $entity->id,
+            );
+            $notification->params = $notification->getParamsByEntity($entity);
+        }
+        $notification->save();
+    }
+
+    public function getParamsByEntity($entity, $direct = true)
+    {
         switch (get_class($entity)) {
             case 'CommunityContent':
-                $params += array(
+                $params = array(
                     '{post}' => $entity->name,
                     '{club}' => $entity->rubric->community->name,
+                    '{rubric}' => $entity->rubric->name,
                 );
                 break;
             case 'AlbumPhoto':
-                $params += array(
+                $params = array(
                     '{photo}' => $entity->title,
                     '{album}' => $entity->album->title,
                 );
                 break;
             case 'RecipeBookRecipe':
-                $params += array(
+                $params = array(
                     '{post}' => $entity->name,
                     '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
                 );
                 break;
+            case 'Comment':
+                $params = $this->getParamsByEntity(CActiveRecord::model($entity->entity)->findByPk($entity->entity_id), false);
+                break;
         }
-        if ($this->type == self::DELETED) {
+        if ($this->type == self::DELETED && $direct) {
             $params['{deleteReason}'] = Removed::$types[$entity->remove->type];
         }
         return $params;

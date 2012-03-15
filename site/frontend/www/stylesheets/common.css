@@ -117,6 +117,16 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .ava img {display:block;}
 
+.user-fast-buttons {padding-top:2px;}
+.user-fast-buttons a {display:block;float:left;position:relative;margin-right:4px;text-decoration:none;}
+.user-fast-buttons a .tip {display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;}
+.user-fast-buttons a .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}
+.user-fast-buttons a:hover .tip {display:block;}
+.user-fast-buttons .add-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -256px -271px;}
+.user-fast-buttons .remove-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -283px -271px;}
+.user-fast-buttons .add-friend .tip, #user .header .user-buttons .remove-friend  .tip {right:50%;}
+.user-fast-buttons .new-message {width:19px;height:14px;background:url(/images/common.png) no-repeat -235px -270px;margin-top:5px;}
+.user-fast-buttons .new-message .tip {left:50%;margin-top:10px;}
 
 .icon-status {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;position:relative;top:1px;margin-right:5px;}
 .icon-status.status-online {background-position:-44px -180px;}
@@ -1286,13 +1296,13 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments ul {padding-top:10px;list-style:none;}
 .default-comments li {padding:10px;}
 .default-comments li.even {background:#f6fdfe;}
-.default-comments li .user {float:left;font:11px tahoma, arial, sans-serif;line-height:normal;max-width:190px;overflow:hidden;}
+.default-comments li .user {float:left;font:11px tahoma, arial, sans-serif;line-height:normal;max-width:190px;}
 .default-comments li .user .ava {float:left;margin-right:8px;}
 .default-comments li .user .ava img {display:block;border:1px solid #dddddd;}
 .default-comments li .user .details {margin-left:90px;}
 .default-comments li .user .details .flag {display:inline-block;position:relative;top:1px;}
 .default-comments li .user .details .location {font-size:9px;margin:5px 0;}
-.default-comments li .user .details .username {vertical-align:top;width:80px;margin:0;padding:0;}
+.default-comments li .user .details .username {vertical-align:top;width:80px;margin:0;padding:0;overflow:hidden;}
 .default-comments li .user a {text-decoration:none;}
 .default-comments li .content {margin-left:200px;font-size:12px;}
 .default-comments li .content p {color:#3f3e3e;margin:5px 0;}

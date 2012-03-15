@@ -140,24 +140,24 @@ return array(
 			'services' => array( // You can change the providers and their classes.
 				'vkontakte' => array(
 					'class' => 'CustomVKontakteService',
-					'client_id' => '2450198',
-					'client_secret' => 'yUpyEwys04uWtVfFVBLp',
+					'client_id' => '2855330',
+					'client_secret' => 'T9pHwkodkssoEjswy2fw',
 				),
                 'facebook' => array(
                     'class' => 'CustomFacebookService',
-                    'client_id' => '286095468071491',
-                    'client_secret' => '4fb2de0e3f5d91437f3edd269a9f5efc',
-                ),
-                'twitter' => array(
-                    'class' => 'CustomTwitterService',
-                    'key' => '8XSq0ZrPgGXrcQmcKDIuJw',
-                    'secret' => 'QZrBRgZiEe0gYBftZSqg19Qxk2IeubsOkxLoFTbKJc',
+                    'client_id' => '412497558776154',
+                    'client_secret' => 'dc98234daa8c7a0d943a92423793590d',
                 ),
 				'mailru' => array(
 					'class' => 'CustomMailruService',
-					'client_id' => '642108',
-					'client_secret' => 'f1061f6f1b46c2784ffa55cac268ecb7',
+					'client_id' => '667969',
+					'client_secret' => '3a0e2674098641394a8e5e0b4328e594',
 				),
+                'google' => array(
+                    'class' => 'CustomGoogleService',
+                    'client_id' => '999100941078.apps.googleusercontent.com',
+                    'client_secret' => '6fDvpI0FO0lmhdDTMCl-I8gD',
+                )
 			),
 		),
 		'format' => array(

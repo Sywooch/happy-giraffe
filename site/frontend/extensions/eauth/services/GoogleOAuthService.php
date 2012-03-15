@@ -17,7 +17,7 @@ require_once dirname(dirname(__FILE__)).'/EOAuth2Service.php';
  */
 class GoogleOAuthService extends EOAuth2Service {	
 	
-	protected $name = 'google_oauth';
+	protected $name = 'google';
 	protected $title = 'Google';
 	protected $type = 'OAuth';
 	protected $jsArguments = array('popup' => array('width' => 500, 'height' => 450));

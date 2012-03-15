@@ -77,10 +77,10 @@
                                     <ul class="list"></ul>
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="">Все друзья (18)</a></li>
-                                            <li><a href="">Кто онлайн</a> <span>8</span></li>
-                                            <li><a href="">Предложения дружбы</a> <a href="" class="count count-gray">0</a></li>
-                                            <li><a href="">Мои предложения</a></li>
+                                            <li><a href="<?php echo $this->createUrl(array('user/friends', 'user_id' => $this->user->id)); ?>">Все друзья (<?php echo $user->getFriendsCount(false); ?>)</a></li>
+                                            <li><a href="<?php echo $this->createUrl(array('user/friends', 'user_id' => $this->user->id, 'show' => 'online')); ?>">Кто онлайн</a> <span><?php echo $user->getFriendsCount(true); ?></span></li>
+                                            <li><a href="<?php echo $this->createUrl(array('user/myFriendRequests', 'direction' => 'incoming')); ?>">Предложения дружбы</a> <a href="" class="count count-gray"><?php echo $user->getFriendRequestsCount('incoming'); ?></a></li>
+                                            <li><a href="<?php echo $this->createUrl(array('user/myFriendRequests', 'direction' => 'outgoing')); ?>">Мои предложения</a></li>
                                         </ul>
                                     </div>
                                 </div>

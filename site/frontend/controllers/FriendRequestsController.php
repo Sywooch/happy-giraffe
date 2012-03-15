@@ -30,7 +30,6 @@ class FriendRequestsController extends Controller
             $model->from_id = Yii::app()->user->id;
             $model->to_id = $to_id;
             if ($model->save()) {
-                UserFriendNotification::model()->createByRequest(UserFriendNotification::FRIEND_INVITE, $model);
                 $this->redirect(array('friendRequests/list'));
             }
         }

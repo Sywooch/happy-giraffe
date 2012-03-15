@@ -14,9 +14,18 @@ class NotificationController extends Controller
             $response = array(
                 'notifications' => $notifications,
                 'friends' => $friends,
-                'im'=>$im
+                'im' => $im
             );
             echo CJSON::encode($response);
+        }
+    }
+
+    public function actionDelete()
+    {
+        if (Yii::app()->request->isAjaxRequest) {
+            $id = Yii::app()->request->getPost('id');
+            $model = UserFriendNotification::model()->findByPk(new MongoID($id));
+            echo $model->delete();
         }
     }
 }

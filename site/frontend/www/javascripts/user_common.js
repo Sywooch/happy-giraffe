@@ -8,6 +8,25 @@ $(function() {
             updateIm(response.im.count, response.im.data);
         }
     });
+
+    $('#user-nav-friends').delegate('i.close', 'click', function(e) {
+        e.preventDefault();
+        var el = $(this).closest('li');
+        var id = el.attr('id');
+        $.ajax({
+            type: 'post',
+            url: '/notification/delete/',
+            data: {
+                id: id
+            },
+            success: function(response) {
+                if (response) {
+                    el.remove();
+
+                }
+            }
+        })
+    });
 });
 
 function updateNotifications(count, data)

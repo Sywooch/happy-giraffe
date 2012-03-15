@@ -17,6 +17,7 @@ class UserFriendNotification extends EMongoDocument
 
     public $type;
     public $user_id;
+    public $request_id;
     public $text;
     public $url;
     public $created;
@@ -38,9 +39,27 @@ class UserFriendNotification extends EMongoDocument
         $this->sendUpdate($this->user_id);
     }
 
-    public function createByRequest($type, $request)
+    protected function afterDelete()
+    {
+        parent::afterDelete();
+
+        $this->sendUpdate($this->user_id);
+    }
+
+    public function createByRequest($request)
     {
         $notification = new self;
+        switch ($request->status) {
+            case 'pending':
+                $type = self::FRIEND_INVITE;
+                break;
+            case 'accepted':
+                $type = self::FRIEND_ACCEPT;
+                break;
+            case 'declined':
+                $type = self::FRIEND_DECLINE;
+                break;
+        }
         $notification->type = $type;
         if ($type == self::FRIEND_INVITE) {
             $recipient = $request->to;
@@ -50,6 +69,7 @@ class UserFriendNotification extends EMongoDocument
             $sender = $request->to;
         }
         $notification->user_id = (int) $recipient->id;
+        $notification->request_id = (int) $request->id;
         $notification->url = $sender->url;
         $notification->text = strtr(self::$_types[$type], array('{user}' => CHtml::tag('span', array('class' => 'name'), $sender->fullName)));
         $notification->created = time();
@@ -62,6 +82,15 @@ class UserFriendNotification extends EMongoDocument
             'count' => $this->getCount($user_id),
             'data' => $this->getLast($user_id),
         );
+    }
+
+    public function deleteInvitation($request_id)
+    {
+        $model = $this->findByAttributes(array(
+            'type' => self::FRIEND_INVITE,
+            'request_id' => (int) $request_id,
+        ));
+        return $model->delete();
     }
 
     public function getLast($user_id)
@@ -78,6 +107,7 @@ class UserFriendNotification extends EMongoDocument
         $data = array();
         foreach ($notifications as $m) {
             $data[] = array(
+                '_id' => (string) $m->_id,
                 'text' => $m->text,
                 'url' => $m->url,
             );

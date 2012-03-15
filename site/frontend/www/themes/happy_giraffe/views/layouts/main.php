@@ -457,7 +457,7 @@
         </script>
 
         <script id="friendNotificationTmpl" type="text/x-jquery-tmpl">
-            <li><?php echo CHtml::link('{{html text}}<i class="close"></i>', '${url}') ;?></li>
+            <li id="${_id}"><?php echo CHtml::link('{{html text}}<i class="close"></i>', '${url}') ;?></li>
         </script>
 
         <script id="imNotificationTmpl" type="text/x-jquery-tmpl">

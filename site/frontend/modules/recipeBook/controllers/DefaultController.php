@@ -71,7 +71,7 @@ class DefaultController extends Controller
                     $model->refresh();
                 }
 
-                $this->redirect('/recipeBook');
+                $this->redirect($this->createUrl('/recipeBook/default/view', array('id' => $model->id)));
             }
         }
 

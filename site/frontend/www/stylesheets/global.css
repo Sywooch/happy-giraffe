@@ -32,6 +32,7 @@ html > body .page {
 ul.topmenu, .kon_menu, .leftlist {
     display: list-item;
     list-style-image: none;
+	list-style:none;
 }
 
 body > .page {
@@ -588,14 +589,17 @@ p {
 
 
 .user {
-    /*float: left;*/
-    width: auto;
+    float: left;
+    width: auto;	
 }
 
 .user .avatar, .user .ava {
     float: left;
     display: inline-block;
+	margin-right:8px;
 }
+
+.user .details {margin-left:90px;width:100px;}
 
 .user a.username {
     display: inline-block;

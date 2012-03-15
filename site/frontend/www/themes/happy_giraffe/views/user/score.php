@@ -9,6 +9,7 @@ Yii::app()->clientScript->registerScript('remove_all-scores' ,'function removeHi
             type:"POST"
         });
     }', CClientScript::POS_HEAD);
+
 ?>
 <div class="user-cols clearfix">
 

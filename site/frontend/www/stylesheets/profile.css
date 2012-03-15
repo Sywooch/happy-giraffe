@@ -51,6 +51,9 @@
 #profile .auth-link .auth-icon.vkontakte {background-position:0 0;}
 #profile .auth-link .auth-icon.mailru {background-position:0 -34px;}
 #profile .auth-link .auth-icon.odnoklassniki {background-position:0 -68px;}
+#profile .auth-link .auth-icon.google {background-position:0 -102px;}
+#profile .auth-link .auth-icon.facebook {background-position:0 -136px;}
+#profile .auth-link .auth-icon.twitter {background-position:0 -170px;}
 
 #profile .row {padding-bottom:15px;font-family:tahoma;color:#878787;font-size:11px;line-height:normal;}
 #profile .row .row-title {font-size:16px;color:#4c4d4d;margin-bottom:5px;}

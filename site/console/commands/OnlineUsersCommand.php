@@ -100,6 +100,7 @@ class OnlineUsersCommand extends CConsoleCommand
     private function SendOnlineNotice($user_id, $online)
     {
         $dialogs = Im::model($user_id)->getDialogs();
+        //$friends = User::getUserById($user_id)->getFriends();
 
         $comet = new CometModel;
         $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;

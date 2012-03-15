@@ -27,7 +27,7 @@
                 <span>Ингредиенты:</span>
                 <ul>
                     <?php foreach ($data->ingredients as $ingredient): ?>
-                        <li><a href="#"><?php echo $ingredient->name ?></a> <?php echo 'x '.(int)$ingredient->amount.' '.$ingredient->unitValue; ?></li>
+                        <li><a href="#" onclick="return false;"><?php echo $ingredient->name ?></a> <?php echo 'x '.(int)$ingredient->amount.' '.$ingredient->unitValue; ?></li>
                     <?php endforeach; ?>
                 </ul>
             </div>

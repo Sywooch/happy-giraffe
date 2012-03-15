@@ -4,7 +4,7 @@ $user = User::getUserById(Yii::app()->user->getId());
 $region_id = empty($user->settlement_id) ? null : $user->settlement->region_id;
 //$district_id = empty($user->settlement_id) ? null : $user->settlement->district_id;
 //$districts = empty($region_id) ? array() : CHtml::listData(
-    //GeoRusDistrict::model()->findAll('region_id = ' . $region_id), 'id', 'name');
+//GeoRusDistrict::model()->findAll('region_id = ' . $region_id), 'id', 'name');
 $city_id = empty($user->settlement_id) ? null : $user->settlement_id;
 $city_name = empty($user->settlement_id) ? null : $user->settlement->name;
 
@@ -12,99 +12,104 @@ $this->breadcrumbs = array(
     'Профиль' => array('/profile'),
     '<b>Личная информация</b>',
 ); ?>
-<?php $form = $this->beginWidget('CActiveForm',array(
-    'id'=>'profile-form'
+<?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'profile-form'
 )); ?>
 <div class="profile-form-in">
 
-<?php echo $form->errorSummary($this->user); ?>
+    <?php echo $form->errorSummary($this->user); ?>
 
-<div class="row row-inline">
+    <div class="row row-inline clearfix">
 
-    <div class="row-title">Персональные данные:</div>
-    <div class="row-elements">
-        <div class="col">
-            <?php echo $form->textField($this->user, 'last_name', array(
-            'placeholder' => 'Фамилия',
-        )); ?>
-        </div>
-        <div class="col">
-            <?php echo $form->textField($this->user, 'first_name', array(
-            'placeholder' => 'Имя',
-        )); ?>
+        <div class="row-title">Персональные данные:</div>
+        <div class="row-elements">
+            <div class="col">
+                <?php echo $form->textField($this->user, 'last_name', array(
+                'placeholder' => 'Фамилия',
+            )); ?>
+            </div>
+            <div class="col">
+                <?php echo $form->textField($this->user, 'first_name', array(
+                'placeholder' => 'Имя',
+            )); ?>
+            </div>
+
         </div>
 
     </div>
 
-</div>
+    <div class="row row-inline clearfix">
 
-<div class="row row-inline">
-
-    <div class="row-title">Дата рождения:</div>
-    <div class="row-elements">
-        <div class="col">
-            <?php
-            $this->widget('DateWidget', array(
-                'model' => $this->user,
-                'attribute' => 'birthday',
-            ));
-            ?>
-        </div>
-        <?php if ($this->user->birthday): ?>
+        <div class="row-title">Дата рождения:</div>
+        <div class="row-elements">
+            <div class="col">
+                <?php
+                $this->widget('DateWidget', array(
+                    'model' => $this->user,
+                    'attribute' => 'birthday',
+                ));
+                ?>
+            </div>
+            <?php if ($this->user->birthday): ?>
             <div class="col age">
                 Возраст: <b><?php echo $this->user->age; ?></b> <?php echo $this->user->ageSuffix; ?>
             </div>
-        <?php endif; ?>
+            <?php endif; ?>
 
-    </div>
-
-</div>
-
-<div class="row row-inline">
-
-    <div class="row-title">Пол:</div>
-    <div class="row-elements">
-        <div class="col">
-            <label><?php echo $form->radioButton($this->user, 'gender', array('value' => 0)); ?> Женщина</label>
-
-        </div>
-        <div class="col">
-            <label><?php echo $form->radioButton($this->user, 'gender', array('value' => 1)); ?> Мужчина</label>
         </div>
 
     </div>
 
-</div>
+    <div class="row row-inline clearfix">
 
-<div class="row row-inline">
+        <div class="row-title">Пол:</div>
+        <div class="row-elements">
+            <div class="col">
+                <label><?php echo $form->radioButton($this->user, 'gender', array('value' => 0)); ?> Женщина</label>
 
-    <div class="row-title">Место жительства:</div>
-    <div class="row-elements">
-        <div class="col">
-            <ul>
-                <li class="with-search">
-                    <?php echo CHtml::dropDownList('country_id', $user->country_id,
-                    array('' => '') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
-                    array(
-                        'class' => 'chzn chzn-deselect',
-                        'data-placeholder' => 'Выберите страну',
-                    )); ?>
-                </li>
-                <li class="with-search">
-                    <?php echo CHtml::dropDownList('region_id', $region_id,
-                    array('' => '') + CHtml::listData(GeoRusRegion::model()->findAll(array('order' => 'pos,id', 'select' => 'id,name')), 'id', 'name'),
-                    array(
-                        'class' => 'chzn chzn-deselect',
-                        'data-placeholder' => 'Выберите регион',
-                    )); ?>
-                </li>
-                <li>
-                    <?php
-                    $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                        'id' => 'city_name',
-                        'name' => 'city_name',
-                        'value' => $city_name,
-                        'source' => "js: function(request, response)
+            </div>
+            <div class="col">
+                <label><?php echo $form->radioButton($this->user, 'gender', array('value' => 1)); ?> Мужчина</label>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row row-inline clearfix">
+
+        <div class="row-title">Место жительства:</div>
+        <div class="row-elements">
+            <div class="col">
+                <?php echo CHtml::dropDownList('country_id', $user->country_id,
+                array('' => '') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
+                array(
+                    'class' => 'chzn',
+                    'data-placeholder' => 'Выберите страну',
+                    'style' => 'width:170px'
+                )); ?>
+            </div>
+            <div class="col">
+                <?php echo CHtml::dropDownList('region_id', $region_id,
+                array('' => '') + CHtml::listData(GeoRusRegion::model()->findAll(array('order' => 'pos,id', 'select' => 'id,name')), 'id', 'name'),
+                array(
+                    'class' => 'chzn',
+                    'data-placeholder' => 'Выберите регион',
+                    'style' => 'width:230px'
+                )); ?>
+            </div>
+        </div>
+    </div>
+    <div class="row row-inline clearfix">
+
+        <div class="row-title">Населенный пункт:</div>
+        <div class="row-elements">
+            <?php
+            $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                'id' => 'city_name',
+                'name' => 'city_name',
+                'value' => $city_name,
+                'source' => "js: function(request, response)
 					{
 						$.ajax({
 							url: '" . $this->createUrl('/geo/geo/cities') . "',
@@ -120,8 +125,8 @@ $this->breadcrumbs = array(
 							}
 						})
 					}",
-                        'options' => array(
-                            'select' => "js:function (event, ui)
+                'options' => array(
+                    'select' => "js:function (event, ui)
 						{
 							$('#city_id').val(ui.item.id);
                             console.log(ui.item.value);
@@ -132,24 +137,24 @@ $this->breadcrumbs = array(
 						}
 					",
 
-                        ),
-                        'htmlOptions' => array(
-                            'style' => (empty($region_id) || $region_id == 42 || $region_id == 59) ? 'display: none;' : '',
-                            'placeholder' => 'город',
+                ),
+                'htmlOptions' => array(
+                    'style' => (empty($region_id) || $region_id == 42 || $region_id == 59) ? 'display: none;' : '',
+                    'placeholder' => 'город',
 //                            'class' => (empty($region_id)) ? "placeholder" : '',
-                        )
-                    ));
-                    ?>
-                    <?php echo CHtml::hiddenField('city_id', $city_id); ?>
-                </li>
-            </ul>
+                )
+            ));
+            ?>
+            <?php echo CHtml::hiddenField('city_id', $city_id); ?>
+            <div class="text-inline">Введите свой город, поселок, село<br>или деревню</div>
         </div>
     </div>
 </div>
+
 <div id="YMapsID" style="width:600px;height:400px;margin-bottom: 20px;"></div>
 
 
-<div class="row row-inline">
+<div class="row row-inline clearfix">
 
     <div class="row-title">E-mail:</div>
     <div class="row-elements">
@@ -160,18 +165,18 @@ $this->breadcrumbs = array(
 
 </div>
 
-<div class="row row-inline">
+<div class="row row-inline clearfix">
 
-    <div class="row-title">Дата регистрации:</div>
+    <div class="row-title">Участник с:</div>
     <div class="row-elements">
-        <div class="col">
+        <div class="text small">
             <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date); ?>
         </div>
     </div>
 
 </div>
 
-<div class="row row-inline">
+<div class="row row-inline clearfix">
     <div class="row-title">Удалить анкету:</div>
     <div class="row-elements">
         <div class="text">Да, я
@@ -181,8 +186,6 @@ $this->breadcrumbs = array(
     </div>
 </div>
 
-</div>
-</div>
 <div class="bottom">
     <button class="btn btn-green-medium btn-arrow-right"><span><span>Сохранить<img
         src="/images/arrow_r.png"/></span></span></button>
@@ -257,7 +260,7 @@ $this->breadcrumbs = array(
             $('#city_name').hide();
         }
 
-        $('form#profile-form').submit(function(){
+        $('form#profile-form').submit(function () {
             unsetPlaceholder(document.getElementById('city_name'));
             return true;
         });
@@ -269,14 +272,14 @@ $this->breadcrumbs = array(
                 map.setBounds(geocoder.get(0).getBounds());
                 console.log(geocoder.get(0));
                 map.removeOverlay(placemark);
-                placemark = new YMaps.Placemark(geocoder.get(0).getCoordPoint(), {style: s});
+                placemark = new YMaps.Placemark(geocoder.get(0).getCoordPoint(), {style:s});
                 placemark.name = geocoder.request;
                 map.addOverlay(placemark);
             }
         });
     }
 
-    function BalloonStyle(){
+    function BalloonStyle() {
         // Создает стиль
         s = new YMaps.Style();
         // Создает стиль значка метки

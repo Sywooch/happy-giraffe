@@ -151,7 +151,7 @@ class User extends CActiveRecord
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
-            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
+            //array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
             array('gender', 'boolean'),
             array('phone', 'safe'),
             array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
@@ -365,8 +365,8 @@ class User extends CActiveRecord
                             'small' => array(
                                 'fileHandler' => array('FileHandler', 'run'),
                                 'accurate_resize' => array(
-                                    'width' => 38,
-                                    'height' => 37,
+                                    'width' => 25,
+                                    'height' => 23,
                                 ),
                             ),
                             'big' => array(
@@ -446,9 +446,6 @@ class User extends CActiveRecord
         //        $value = Yii::app()->cache->get('User_' . $id);
         //        if ($value === false) {
         //            $value = User::model()->findByPk($id);
-        //            if ($value === null)
-        //                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        //
         //            Yii::app()->cache->set('User_' . $id, $value, 5184000);
         //        }
         //        return $value;
@@ -474,14 +471,7 @@ class User extends CActiveRecord
         $url = '';
         if (isset($this->partner))
             $url = $this->partner->photo->getUrl('ava');
-        if (empty($url)) {
-            if ($this->gender == 1)
-                return '/images/ava_noimg_female.png';
-            else
-                return '/images/ava_noimg_male.png';
-        }
-        else
-            return $url;
+        return $url;
     }
 
     public function getDialogLink()

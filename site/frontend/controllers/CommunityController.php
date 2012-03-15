@@ -74,14 +74,14 @@ class CommunityController extends Controller
         $this->layout = '//layouts/community';
         $this->community = Community::model()->with('rubrics')->findByPk($community_id);
         if ($this->community === null)
-            throw CHttpException(404, 'Клуб не найден');
+            throw new CHttpException(404, 'Клуб не найден');
         $this->rubric_id = $rubric_id;
         $this->content_type_slug = $content_type_slug;
 
         if ($rubric_id !== null) {
             $rubric = CommunityRubric::model()->findByPk($rubric_id);
             if ($rubric === null)
-                throw CHttpException(404, 'Рубрика не найдена');
+                throw new CHttpException(404, 'Рубрика не найдена');
             $this->pageTitle = 'Клуб «' . $this->community->name . '» – рубрика «' . $rubric->name . '» у Веселого Жирафа';
         } else {
             $this->pageTitle = 'Клуб «' . $this->community->name . '» - общение с Веселым Жирафом';
@@ -129,6 +129,7 @@ class CommunityController extends Controller
 
         if ($content->author_id == Yii::app()->user->id) {
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
+            UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
         }
 
         $this->render('view', array(
@@ -192,6 +193,8 @@ class CommunityController extends Controller
 
         $model->attributes = $_POST['CommunityContent'];
         if ($model->save()) {
+            UserNotification::model()->create(UserNotification::TRANSFERRED, array('entity' => $model));
+
             $url = $this->createUrl('community/view', array(
                 'community_id' => $model->rubric->community->id,
                 'content_type_slug' => $model->type->slug,

@@ -213,14 +213,14 @@ class UserScores extends CActiveRecord
         $model = self::getModel($user_id);
         if (!$model->full) {
             $score = ScoreInput::model()->findByAttributes(array(
-                'action_id' => $action_id,
-                'user_id' => $user_id
+                'action_id' => (int)$action_id,
+                'user_id' => (int)$user_id
             ));
             if ($score === null)
                 self::addScores($user_id, $action_id);
 
             $criteria = new EMongoCriteria;
-            $criteria->addCond('user_id', '==', $user_id);
+            $criteria->addCond('user_id', '==', (int)$user_id);
             $criteria->addCond('action_id', 'in', array(ScoreActions::ACTION_PROFILE_MAIN,
                 ScoreActions::ACTION_PROFILE_PHOTO, ScoreActions::ACTION_PROFILE_FAMILY,
                 ScoreActions::ACTION_PROFILE_INTERESTS));

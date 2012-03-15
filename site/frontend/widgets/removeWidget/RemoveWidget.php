@@ -25,30 +25,20 @@ class RemoveWidget extends CWidget
 
     public $cssClass = 'remove';
 
-    public function init()
-    {
-        if($this->model && !Yii::app()->request->isAjaxRequest)
-            $this->registerScripts();
-    }
-
     public function run()
     {
         if($this->model)
             $this->render('index');
     }
 
-    public function registerScripts()
-    {
-        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/remove_widget.js')
-        ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.tmpl.min.js');
-    }
-
     public function registerTemplates()
     {
         if(Yii::app()->user->isGuest)
             return false;
+        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+            $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+            Yii::app()->clientScript->registerScriptFile($baseUrl . '/remove_widget.js')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.tmpl.min.js');
         echo '<script id="comment_delete_by_author_tmpl" type="text/x-jquery-tmpl">
                         <div class="popup-confirm popup" id="deleteComment">
                             <a class="popup-close" onclick="$.fancybox.close();" href="javascript:void(0);">Закрыть</a>

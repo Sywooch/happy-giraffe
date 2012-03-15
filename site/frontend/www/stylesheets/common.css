@@ -117,6 +117,15 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .ava img {display:block;}
 
+.user-info {font-size:9px;line-height:12px;float:left;}
+.user-info .ava {float:left;}
+.user-info .details {margin-left:90px;}
+.user-info .details .username {font-size:11px;line-height:1;text-decoration:none;vertical-align:top;width:80px;margin:0;padding:0;overflow:hidden;display:inline-block;}
+.user-info .details .location {margin:3px 0;}
+.user-info .details .location .flag {display:inline-block;margin-right:5px;position:relative;top:1px;}
+.user-info .details .birthday span {color:#aeaeae;}		
+
+
 .user-fast-buttons {padding-top:2px;}
 .user-fast-buttons a {display:block;float:left;position:relative;margin-right:4px;text-decoration:none;}
 .user-fast-buttons a .tip {display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;}
@@ -1141,11 +1150,6 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #gallery .header {padding-bottom:20px;}
 
-#gallery .header .user {width:250px;padding-right:10px;float:left;padding-bottom:30px;}
-#gallery .header .user .ava {float:left;margin-right:8px;}
-#gallery .header .user p {margin-left:88px;color:#5d5c5c;font:normal 11px/15px tahoma, arial, sans-serif;}
-#gallery .header .user p span {color:#1ba3c4;}
-
 #gallery .header .back-link {color:#51AFC3;margin-left:260px;font-size:16px;padding-top:15px;}
 
 #gallery .all-link {float:right;line-height:35px;height:35px;padding-right:60px;text-align:right;}
@@ -1297,14 +1301,6 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments ul {padding-top:10px;list-style:none;}
 .default-comments li {padding:10px;}
 .default-comments li.even {background:#f6fdfe;}
-.default-comments li .user {float:left;font:11px tahoma, arial, sans-serif;line-height:normal;max-width:190px;}
-.default-comments li .user .ava {float:left;margin-right:8px;}
-.default-comments li .user .ava img {display:block;border:1px solid #dddddd;}
-.default-comments li .user .details {margin-left:90px;}
-.default-comments li .user .details .flag {display:inline-block;position:relative;top:1px;}
-.default-comments li .user .details .location {font-size:9px;margin:5px 0;}
-.default-comments li .user .details .username {vertical-align:top;width:80px;margin:0;padding:0;overflow:hidden;}
-.default-comments li .user a {text-decoration:none;}
 .default-comments li .content {margin-left:200px;font-size:12px;}
 .default-comments li .content p {color:#3f3e3e;margin:5px 0;}
 .default-comments li.deleted .content, .default-comments li.deleted .content p {color:#aaa;}

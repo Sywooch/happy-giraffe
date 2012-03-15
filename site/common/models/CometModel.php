@@ -15,6 +15,7 @@ class CometModel extends CComponent
 
     const TYPE_UPDATE_NOTIFICATIONS = 100;
     const TYPE_UPDATE_FRIEND_NOTIFICATIONS = 101;
+    const TYPE_INVITES_PLUS_ONE = 102;
 
     public $attributes = array();
     public $type;

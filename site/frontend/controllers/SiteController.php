@@ -60,10 +60,16 @@ class SiteController extends Controller
 
 	public function actionIndex()
 	{
+        if(!Yii::app()->user->isGuest)
+            $this->redirect(array('/user/profile', 'user_id' => Yii::app()->user->id));
+        $this->layout = '//site/index_layout';
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
 		Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
 		Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
-		$this->render('index');
+        $model = new User;
+		$this->render('index', array(
+            'model' => $model
+        ));
 	}
 
 	/**

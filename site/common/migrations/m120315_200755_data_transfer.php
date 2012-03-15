@@ -4,10 +4,10 @@ class m120315_200755_data_transfer extends CDbMigration
 {
 	public function up()
 	{
-//        $this->truncateTable('horoscope');
-//        $this->truncateTable('interest_users');
-//        $this->truncateTable('interest');
-//        $this->truncateTable('interest_category');
+        $this->truncateTable('horoscope');
+        $this->truncateTable('interest_users');
+        $this->truncateTable('interest');
+        $this->truncateTable('interest_category');
 
         $sql = <<<EOD
         INSERT INTO `horoscope` (`id`, `zodiac`, `date`, `text`) VALUES

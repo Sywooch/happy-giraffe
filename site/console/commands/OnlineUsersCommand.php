@@ -99,34 +99,27 @@ class OnlineUsersCommand extends CConsoleCommand
      */
     private function SendOnlineNotice($user_id, $online)
     {
-        $dialogs = Im::model($user_id)->getDialogs();
-
-        //id пользователей из диалогов
-        $dialog_user_ids = array();
-        foreach ($dialogs as $dialog) {
-            if (isset($dialog['users'][0]))
-                $dialog_user_ids[] = $dialog['users'][0];
-        }
-        $dialog_user_ids = array_unique($dialog_user_ids);
-
         $friends = User::model()->findAll(User::getUserById($user_id)->getFriendSelectCriteria());
         //id друзей
         $friend_ids = array();
         foreach ($friends as $friend) {
-            if (!in_array($friend->id, $dialog_user_ids))
-                $friend_ids [] = $friend->id;
+            $friend_ids [] = $friend->id;
         }
-
         $friend_ids = array_unique($friend_ids);
 
         $comet = new CometModel;
         $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
 
+        $dialogs = Im::model($user_id)->getDialogs();
         foreach ($dialogs as $dialog) {
-            if (isset($dialog['users'][0])){
-                $u_id =$dialog['users'][0];
-                if (in_array($u_id, $friend_ids))
+            if (isset($dialog['users'][0])) {
+                $u_id = $dialog['users'][0];
+                if (in_array($u_id, $friend_ids)){
                     $comet->attributes = array('dialog_id' => $dialog['id'], 'online' => $online, 'user_type' => 2);
+                    foreach($friend_ids as $key => $friend_id)
+                        if ($friend_id == $u_id)
+                            unset($friend_ids[$key]);
+                }
                 else
                     $comet->attributes = array('dialog_id' => $dialog['id'], 'online' => $online, 'user_type' => 0);
                 $comet->send($dialog['users'][0]);

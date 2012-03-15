@@ -60,10 +60,16 @@ class SiteController extends Controller
 
 	public function actionIndex()
 	{
+        if(!Yii::app()->user->isGuest)
+            $this->redirect(array('/user/profile', 'user_id' => Yii::app()->user->id));
+        $this->layout = '//site/index_layout';
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
 		Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
 		Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
-		$this->render('index');
+        $model = new User;
+		$this->render('index', array(
+            'model' => $model
+        ));
 	}
 
 	/**
@@ -145,13 +151,24 @@ class SiteController extends Controller
                             $authIdentity->redirect('/site/index');
 						$authIdentity->redirect($rediret_url);
 					}
-				} elseif(!Yii::app()->user->isGuest)
+				}
+                elseif(!Yii::app()->user->isGuest)
                 {
                     $social_service = new UserSocialService;
                     $social_service->user_id = Yii::app()->user->id;
                     $social_service->service = $name;
                     $social_service->service_id = $id;
                     $social_service->save();
+                }
+                else
+                {
+                    $session = Yii::app()->session;
+                    $session['service'] = array(
+                        'name' => $authIdentity->getServiceName(),
+                        'id' => $authIdentity->getAttribute('id'),
+                    );
+                    Yii::app()->user->setFlash('regdata', $authIdentity->getItemAttributes());
+                    $authIdentity->redirect(array('/signup'));
                 }
 			}
 

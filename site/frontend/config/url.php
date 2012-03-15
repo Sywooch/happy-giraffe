@@ -61,6 +61,7 @@ return array(
         'babyBloodGroup' => 'babyBloodGroup/default/index',
 
         'signal' => 'signal/default/index',
+        'score' => 'scores/default/index',
 
         array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 

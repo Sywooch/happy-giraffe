@@ -474,10 +474,10 @@ class User extends CActiveRecord
         return $url;
     }
 
-    public function getDialogLink()
+    public function getDialogUrl()
     {
         if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->getId())
-            return '';
+            return '#';
 
         $dialog_id = Im::model()->getDialogIdByUser($this->id);
         if (isset($dialog_id)) {
@@ -486,7 +486,7 @@ class User extends CActiveRecord
             $url = Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
         }
 
-        return CHtml::link('написать', $url);
+        return $url;
     }
 
     public function getFlag()
@@ -625,7 +625,14 @@ class User extends CActiveRecord
         $friend = new Friend;
         $friend->user1_id = $this->id;
         $friend->user2_id = $friend_id;
-        return $friend->save();
+        if ($friend->save()){
+            //добавляем баллы
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::addScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::getUserById($friend_id));
+            UserScores::addScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -97,6 +97,13 @@ class UserScores extends CActiveRecord
         ));
     }
 
+    public function beforeSave()
+    {
+        if ($this->scores >= 100 && empty($this->level_id))
+            $this->level_id = 1;
+        return parent::beforeSave();
+    }
+
     public static function getModel($user_id)
     {
         $model = UserScores::model()->findByPk($user_id);

@@ -22,7 +22,7 @@
                 <?php $this->renderPartial('_friend_button', array(
                     'user' => $user,
                 )); ?>
-                <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+                <a href="<?=$user->getDialogUrl() ?>" class="new-message"><span class="tip">Написать сообщение</span></a>
             </div>
         <?php endif; ?>
 

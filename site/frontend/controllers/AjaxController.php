@@ -56,9 +56,12 @@ class AjaxController extends Controller
                 case 'vk' : $service = 'vkontakte'; break;
                 case 'fb' : $service = 'facebook'; break;
                 case 'tw' : $service = 'twitter'; break;
+                case 'mr' : $service = 'mailru'; break;
+                case 'gp' : $service = 'google'; break;
             }
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $authIdentity->redirectUrl = $this->createAbsoluteUrl('ajax/socialApi');
+            //$authIdentity->redirectUri = $this->createAbsoluteUrl('ajax/socialApi');
             if ($authIdentity->authenticate())
             {
                 $name = $authIdentity->getServiceName();

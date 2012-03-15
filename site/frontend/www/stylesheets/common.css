@@ -1608,8 +1608,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .socials-inline {}
 .socials-inline .services {display:inline-block;vertical-align:middle;}
-.socials-inline .services ul {list-style:none;}
-.socials-inline .services .auth-service {display:inline-block;margin-left:6px;}
+.socials-inline .services ul.auth-services {list-style:none;margin:0;}
+.socials-inline .services .auth-service {display:inline-block;margin-left:6px;float:none;margin:0;}
 .socials-inline .services .auth-service .auth-link {display:block;width:24px;height:24px;}
 .socials-inline .services .auth-service .auth-link .auth-icon {display:block;width:24px;height:24px;background:url(/images/common.png) no-repeat 24px 24px;}
 .socials-inline .services .auth-service .auth-link .auth-icon i {display:none !important;}

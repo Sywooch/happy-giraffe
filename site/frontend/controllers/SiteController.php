@@ -97,6 +97,7 @@ class SiteController extends Controller
 
     public function actionMaintenance()
     {
+        header('HTTP/1.1 503 Service Temporarily Unavailable');
         $this->layout = '//system/layout';
         Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/maintenance.css');
         $this->render('//system/maintenance');

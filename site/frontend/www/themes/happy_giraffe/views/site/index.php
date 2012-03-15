@@ -32,7 +32,7 @@
                     <label><?php echo $form->checkBox($model, 'remember'); ?> Запомнить меня</label>
                 </div>
                 <br/>
-                <div class="fast-login">
+                <div class="fast-login socials socials-inline">
                     Быстрый вход:&nbsp;
                     &nbsp;
                     <?php Yii::app()->eauth->renderWidget(array('action' => '/site/login')); ?>

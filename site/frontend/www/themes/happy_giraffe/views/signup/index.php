@@ -121,7 +121,7 @@ function choose(val)
 								<div class="a-right login-social">
 						
 									<span>Войти с помощью<br/>социальной сети</span>
-                                        <div class="socials">
+                                        <div class="socials socials-rect">
 										<?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index')); ?>
                                         </div>
 						

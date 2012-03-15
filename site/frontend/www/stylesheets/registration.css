@@ -30,9 +30,9 @@ body, html {height:100%;}
 #registration .highlight {background:#effdff;}
 #registration .highlight {padding:20px 45px 45px;}
 
-#registration .login-social {padding:30px;margin-top:42px;background:#e2f8fb;color:#55b8ce;text-align:center;}
+#registration .login-social {padding:20px 30px;margin-top:42px;background:#e2f8fb;color:#55b8ce;text-align:center;}
 #registration .login-social li {padding:7px 0;}
-#registration .login-social ul {padding:10px 0;}
+#registration .login-social ul {padding:10px 0;list-style:none;}
 
 #registration .user-box {float:left;margin-left:55px;width:245px;margin-top:80px;color:#1ba3c4;font-size:11px;}
 #registration .user-box .ava {float:left;margin-right:8px;}

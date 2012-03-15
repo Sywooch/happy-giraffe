@@ -2720,11 +2720,15 @@ big.title ins.clr_bl {
     margin: 0 0 10px 0;
 }
 
+
+
 .more_ing span {
     font: 15px/15px arial, sans-serif;
     color: #515151;
     display: block;
 }
+
+.more_ing ul {list-style:none;}
 
 .more_ing ul li {
     margin: 5px 0 0 0;

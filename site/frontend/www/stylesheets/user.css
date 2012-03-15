@@ -26,17 +26,10 @@
 #user .header .user-buttons a:hover .tip {display:block;}
 #user .header .user-buttons .add-friend {width:47px;height:47px;background:url(/images/common.png) no-repeat -200px -222px;}
 #user .header .user-buttons .remove-friend {width:47px;height:47px;background:url(/images/common.png) no-repeat -249px -222px;}
-#user .header .user-buttons .add-friend .tip, #user .header .user-buttons .remove-friend  .tip {right:50%;}
+#user .header .user-buttons .pending-friend {width:47px;height:47px;background:url(/images/common.png) no-repeat -298px -222px;}
+#user .header .user-buttons .add-friend .tip, #user .header .user-buttons .remove-friend  .tip, #user .header .user-buttons .pending-friend  .tip {right:50%;}
 #user .header .user-buttons .new-message {width:33px;height:23px;background:url(/images/common.png) no-repeat -200px -271px;margin-top:12px;}
 #user .header .user-buttons .new-message .tip {left:50%;margin-top:15px;}
-
-#user .header .user-fast {font-size:9px;line-height:12px;float:left;}
-#user .header .user-fast .ava {float:left;}
-#user .header .user-fast .details {width:130px;margin-left:90px;}
-#user .header .user-fast .username {font-size:11px;line-height:1;text-decoration:none;}
-#user .header .user-fast .location {margin:3px 0;}
-#user .header .user-fast .flag {border:1px solid #eeeeee;display:inline-block;margin-right:5px;position:relative;top:1px;}
-#user .header .user-fast .birthday span {color:#aeaeae;}
 
 #user .header .user-nav {margin-left:450px;padding-top:20px;font-size:13px;}
 #user .header .user-nav ul {overflow:hidden;list-style:none;}

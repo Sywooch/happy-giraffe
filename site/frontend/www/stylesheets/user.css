@@ -26,7 +26,8 @@
 #user .header .user-buttons a:hover .tip {display:block;}
 #user .header .user-buttons .add-friend {width:47px;height:47px;background:url(/images/common.png) no-repeat -200px -222px;}
 #user .header .user-buttons .remove-friend {width:47px;height:47px;background:url(/images/common.png) no-repeat -249px -222px;}
-#user .header .user-buttons .add-friend .tip, #user .header .user-buttons .remove-friend  .tip {right:50%;}
+#user .header .user-buttons .pending-friend {width:47px;height:47px;background:url(/images/common.png) no-repeat -298px -222px;}
+#user .header .user-buttons .add-friend .tip, #user .header .user-buttons .remove-friend  .tip, #user .header .user-buttons .pending-friend  .tip {right:50%;}
 #user .header .user-buttons .new-message {width:33px;height:23px;background:url(/images/common.png) no-repeat -200px -271px;margin-top:12px;}
 #user .header .user-buttons .new-message .tip {left:50%;margin-top:15px;}
 

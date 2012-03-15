@@ -124,7 +124,8 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-fast-buttons a:hover .tip {display:block;}
 .user-fast-buttons .add-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -256px -271px;}
 .user-fast-buttons .remove-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -283px -271px;}
-.user-fast-buttons .add-friend .tip, #user .header .user-buttons .remove-friend  .tip {right:50%;}
+.user-fast-buttons .pending-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -310px -271px;}
+.user-fast-buttons .add-friend .tip, .user-fast-buttons .remove-friend .tip, .user-fast-buttons .pending-friend .tip {right:50%;}
 .user-fast-buttons .new-message {width:19px;height:14px;background:url(/images/common.png) no-repeat -235px -270px;margin-top:5px;}
 .user-fast-buttons .new-message .tip {left:50%;margin-top:10px;}
 

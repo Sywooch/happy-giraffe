@@ -283,7 +283,7 @@ class Comment extends CActiveRecord
             {
                 $index++;
                 $km->position = $index;
-                $km->save();
+                $km->save(false);
             }
         }
     }

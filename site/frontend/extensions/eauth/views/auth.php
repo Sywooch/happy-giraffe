@@ -1,5 +1,5 @@
 <div class="services">
-    <ul class="auth-services clear">
+    <ul class="auth-services">
         <?php
         foreach ($services as $name => $service) {
             if ($this->mode && $this->mode == 'profile') {

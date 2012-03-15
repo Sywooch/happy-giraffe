@@ -97,6 +97,9 @@
                                     </div>-->
                                 </div>
                             </li>
+                            <li>
+                                <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->getScores()->scores ?></span></a>
+                            </li>
                             <li class="user">
                                 <a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">
                                     <span class="ava small male"></span>
@@ -123,7 +126,7 @@
                     <li><a href="/">Главная</a></li>
                     <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
 <!--                    <li><a href="">Сервисы</a></li>-->
-<!--                    <li><a href="">Конкурсы</a></li>-->
+                    <li><a href="<?=$this->createUrl('/site/contest') ?>">Конкурсы</a></li>
                 </ul>
 
             </div>

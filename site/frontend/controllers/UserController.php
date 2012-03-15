@@ -7,7 +7,7 @@ class UserController extends Controller
     public $rubric_id;
     public $content_type_slug;
 
-    private $_publicActions = array('profile', 'blog', 'friends');
+    private $_publicActions = array('profile', 'blog', 'friends', 'clubs');
 
     public function filters()
     {
@@ -65,6 +65,11 @@ class UserController extends Controller
         $this->render('profile', array(
             'user' => $user,
         ));
+    }
+
+    public function actionClubs($user_id)
+    {
+        $this->render('clubs');
     }
 
     public function actionBlog($user_id, $rubric_id = null)

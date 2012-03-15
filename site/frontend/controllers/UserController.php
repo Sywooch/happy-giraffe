@@ -161,20 +161,4 @@ class UserController extends Controller
             }
         }
     }
-
-    public function actionScore($user_id = null)
-    {
-        if ($user_id === null)
-            $user_id = Yii::app()->user->getId();
-        $this->user = User::getUserById($user_id);
-
-        Yii::import('site.frontend.modules.scores.models.*');
-        $userScores = UserScores::getModel($user_id);
-        $dataProvider = $userScores->getUserHistory();
-
-        $this->render('score', array(
-            'userScores' => $userScores,
-            'dataProvider' => $dataProvider
-        ));
-    }
 }

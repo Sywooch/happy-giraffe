@@ -4,10 +4,10 @@
  */
 
 var im = new Im;
-Comet.prototype.NewMessage = function(result, id) {
-    if(window.ShowNewMessage){
+Comet.prototype.NewMessage = function (result, id) {
+    if (window.ShowNewMessage) {
         ShowNewMessage(result);
-        if (result.dialog_id != dialog){
+        if (result.dialog_id != dialog) {
             im.ShowMiniMessage(result);
         }
     }
@@ -15,8 +15,8 @@ Comet.prototype.NewMessage = function(result, id) {
         im.ShowMiniMessage(result);
     }
 }
-Comet.prototype.ShowChangeStatus = function(result, id) {
-    if(window.StatusChanged)
+Comet.prototype.ShowChangeStatus = function (result, id) {
+    if (window.StatusChanged)
         StatusChanged(result);
     im.OnlineCount(result);
 }
@@ -29,25 +29,25 @@ function Im() {
     this.GetLastUrl = '';
 }
 
-Im.prototype.ShowMiniMessage = function(result) {
+Im.prototype.ShowMiniMessage = function (result) {
     im.ShowNewMessagesCount(result.unread_count);
 
     $.ajax({
-        url: this.GetLastUrl,
-        type: 'POST',
+        url:this.GetLastUrl,
+        type:'POST',
         dataType:'JSON',
-        success: function(response) {
+        success:function (response) {
             $('#user-nav-messages ul.list').html($('#imNotificationTmpl').tmpl(response.data));
         },
-        context: $(this)
+        context:$(this)
     });
 }
-Im.prototype.ShowNewMessagesCount = function(id){
-    if (id > 0){
+Im.prototype.ShowNewMessagesCount = function (id) {
+    if (id > 0) {
         $("#dialogs .header .count").show();
         $("#user-nav-messages > a > span.count").show();
     }
-    else{
+    else {
         $("#dialogs .header .count").hide();
         $("#user-nav-messages > a > span.count").hide();
     }
@@ -55,17 +55,29 @@ Im.prototype.ShowNewMessagesCount = function(id){
     $("#user-nav-messages > a > span.count").html(id);
     $("#user-nav-messages .drp .actions a.count").html(id);
 }
-Im.prototype.OnlineCount = function(result) {
-    console.log('OnlineCount');
-    var comment_count = $('#user-nav-messages .drp .actions li:last span').text();
-    console.log(comment_count);
-    var current_count = parseInt(comment_count);
+Im.prototype.OnlineCount = function (result) {
+    cl('user status change');
+    if (result.type == 0 || result.type == 2) {
+        var comment_count = $('#user-nav-messages .drp .actions li:last span').text();
+        var current_count = parseInt(comment_count);
 
-    if (result.online == 1) {
-        current_count += 1;
-    } else {
-        current_count -= 1;
+        if (result.online == 1) {
+            current_count += 1;
+        } else {
+            current_count -= 1;
+        }
+        $('#user-nav-messages .drp .actions li:last span').text(current_count);
     }
-    $('#user-nav-messages .drp .actions li:last span').text(current_count);
-    $('#user-nav-friends .drp .actions li span').text(current_count);
+    if (result.type == 1 || result.type == 2) {
+        var comment_count = $('#user-nav-messages .drp .actions li:last span').text();
+        var current_count = parseInt(comment_count);
+
+        if (result.online == 1) {
+            current_count += 1;
+        } else {
+            current_count -= 1;
+        }
+
+        $('#user-nav-friends .drp .actions li span').text(current_count);
+    }
 }

@@ -79,7 +79,8 @@
                                         <ul>
                                             <li><a href="<?php echo $this->createUrl('user/friends', array('user_id' => $user->id)); ?>">Все друзья (<?php echo $user->getFriendsCount(false); ?>)</a></li>
                                             <li><a href="<?php echo $this->createUrl('user/friends', array('user_id' => $user->id, 'show' => 'online')); ?>">Кто онлайн</a> <span><?php echo $user->getFriendsCount(true); ?></span></li>
-                                            <li><a href="<?php echo $this->createUrl('user/myFriendRequests', array('direction' => 'incoming')); ?>">Предложения дружбы</a> <a href="" class="count<?php if (($incoming_count = $user->getFriendRequestsCount('incoming')) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count; ?></a></li>
+                                            <li><a href="<?php echo $this->createUrl('user/myFriendRequests', array('direction' => 'incoming')); ?>">Предложения дружбы</a> <a href="<?php echo $this->createUrl('user/myFriendRequests', array('direction' => 'incoming')); ?>
+                                            " class="count<?php if (($incoming_count = $user->getFriendRequestsCount('incoming')) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count; ?></a></li>
                                             <li><a href="<?php echo $this->createUrl('user/myFriendRequests', array('direction' => 'outgoing')); ?>">Мои предложения</a></li>
                                         </ul>
                                     </div>

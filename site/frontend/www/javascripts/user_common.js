@@ -56,5 +56,13 @@ Comet.prototype.updateFriends = function(result, id) {
     updateFriends(result.count, result.data);
 }
 
+//Comet.prototype.invitesPlusOne = function(result, id) {
+//    var el = $('#user-nav-friends div.actions ul li:nth-child(3) span.count');
+//    var c = parseInt(el.text()) + 1;
+//    el.text(c);
+//    el.toggleClass('count-gray', c == 0);
+//}
+
 comet.addEvent(100, 'updateNotifications');
 comet.addEvent(101, 'updateFriends');
+//comet.addEvent(102, 'invitesPlusOne');

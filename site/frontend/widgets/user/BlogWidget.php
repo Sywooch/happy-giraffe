@@ -10,6 +10,11 @@ class BlogWidget extends UserCoreWidget
 
     public function init()
     {
+        if(Yii::app()->user->isGuest || Yii::app()->user->id != $this->user->id)
+        {
+            $this->visible = false;
+            return;
+        }
         $criteria = new CDbCriteria;
         $criteria->compare('type_id', 1);
         $criteria->order = 't.id desc';

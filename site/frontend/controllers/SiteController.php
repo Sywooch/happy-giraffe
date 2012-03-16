@@ -21,6 +21,40 @@ class SiteController extends Controller
 		);
 	}
 
+    public function actionRss()
+    {
+        Yii::import('ext.EFeed.*');
+        $feed = new EFeed();
+
+        $feed->title= 'Веселый Жираф - сайт для всей семьи';
+        $feed->description = 'Социальная сеть для родителей и их детей';
+        $feed->setImage('Веселый Жираф - сайт для всей семьи', 'http://www.happy-giraffe.ru/rss/', 'http://www.happy-giraffe.ru/images/logo_2.0.png');
+        $feed->addChannelTag('language', 'ru-ru');
+        $feed->addChannelTag('pubDate', date(DATE_RSS, time()));
+        $feed->addChannelTag('link', 'http://www.happy-giraffe.ru/rss/' );
+        //$feed->addChannelTag('atom:link','http://www.happy-giraffe.ru/rss/');
+
+        $contents = CommunityContent::model()->full()->findAll(array(
+            'condition' => 'community.id != :blog_id',
+            'params' => array(':blog_id' => CommunityContent::USERS_COMMUNITY),
+            'limit' => 20,
+            'order' => 'created DESC',
+        ));
+
+        foreach ($contents as $c) {
+            $item = $feed->createNewItem();
+            $item->title = $c->name;
+            $item->link = $c->url;
+            $item->date = $c->created;
+            $item->description = $c->preview;
+            $item->addTag('author', $c->author->email);
+            $feed->addItem($item);
+        }
+
+        $feed->generateFeed();
+        Yii::app()->end();
+    }
+
     public function actionSearch($text = false, $index = false)
     {
         $index = $index ? $index : 'community';

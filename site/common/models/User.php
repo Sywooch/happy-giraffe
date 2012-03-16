@@ -370,7 +370,7 @@ class User extends CActiveRecord
     public function beforeDelete()
     {
         UserSignal::close($this->id, get_class($this));
-        return parent::beforeDelete();
+        return false;
     }
 
     public function hashPassword($password)

@@ -72,13 +72,16 @@ class GeoController extends Controller
             $term = trim($term);
 
             $cities = GeoRusSettlement::model()->findAll(array(
-                'condition' => 'name LIKE :term AND region_id = :region_id',
+                'condition' => 't.name LIKE :term AND t.region_id = :region_id',
                 'params' => array(
                     ':term' => $term . '%',
                     ':region_id' => $_GET['region_id'],
                 ),
                 'limit' => 10,
                 'order' => 'population desc',
+                'with' => array(
+                    'district'
+                )
             ));
             /*else
                 $cities = GeoRusSettlement::model()->findAll(array(
@@ -95,8 +98,9 @@ class GeoController extends Controller
             $_cities = array();
             foreach ($cities as $city)
             {
+                $label = $city->district ? $city->name . ' (' . $city->district->name . ')' : $city->name;
                 $_cities[] = array(
-                    'label' => $city->name,
+                    'label' => $label,
                     'value' => $city->name,
                     'id' => $city->id,
                 );

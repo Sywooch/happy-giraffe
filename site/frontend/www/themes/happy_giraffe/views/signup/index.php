@@ -95,10 +95,10 @@ function choose(val)
 			
 			<div class="header">
 				
-				<div class="a-right login-link">
+				<!--<div class="a-right login-link">
 					<span class="login-q">&mdash; Если Вы уже зарегистрированы?</span>
 					<a href="#login" class="btn btn-orange fancy"><span><span>Вход на сайт</span></span></a>
-				</div>
+				</div>-->
 				
 				<div class="logo-box"><a class="logo"></a></div>
 				

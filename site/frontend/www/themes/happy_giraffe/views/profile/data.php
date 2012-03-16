@@ -89,7 +89,7 @@ $this->breadcrumbs = array(
                     'style' => 'width:170px'
                 )); ?>
             </div>
-            <div class="col">
+            <div class="col" <?php if ($user->country_id !== 174) echo 'style="display:none;"' ?>>
                 <?php echo CHtml::dropDownList('region_id', $region_id,
                 array('' => '') + CHtml::listData(GeoRusRegion::model()->findAll(array('order' => 'pos,id', 'select' => 'id,name')), 'id', 'name'),
                 array(

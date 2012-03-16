@@ -125,7 +125,7 @@ class UserScores extends CActiveRecord
      */
     public static function addScores($user_id, $action_id, $count = 1, $entity = null)
     {
-        $model = self::getModel($user_id);
+//        $model = self::getModel($user_id);
 
         //проверяем нужно ли добавить действие к существующему такому же, которое было недавно
         $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
@@ -139,8 +139,8 @@ class UserScores extends CActiveRecord
         $input->addItem($score_value, $count, $entity);
         $input->save();
 
-        $model->scores += $score_value * $count;
-        $model->save();
+//        $model->scores += $score_value * $count;
+//        $model->save();
     }
 
     /**
@@ -152,7 +152,7 @@ class UserScores extends CActiveRecord
      */
     public static function removeScores($user_id, $action_id, $count = 1, $entity = null)
     {
-        $model = self::getModel($user_id);
+//        $model = self::getModel($user_id);
 
         //проверяем нужно ли удалить действие из существующего такого же, которое было недавно
         $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
@@ -166,8 +166,8 @@ class UserScores extends CActiveRecord
         $input->removeItem($score_value, $count, $entity);
         $input->save();
 
-        $model->scores -= $score_value;
-        $model->save();
+//        $model->scores -= $score_value;
+//        $model->save();
     }
 
     /**

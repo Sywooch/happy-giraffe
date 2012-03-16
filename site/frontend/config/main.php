@@ -57,7 +57,7 @@ return array(
 	'language' => 'ru',
 
     /* Техническое обслуживание */
-    'catchAllRequest' => array(
+    'catchAllRequest' => (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '88.87.70.93', '88.87.70.93')))?null:array(
         '/site/maintenance',
     ),
 

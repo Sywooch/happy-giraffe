@@ -47,7 +47,7 @@ class SiteController extends Controller
             $item->date = $c->updated;
             $item->description = $c->preview;
             $item->addTag('author', $c->author->email);
-            $item->addTag('guid', $c->url, array('isPermaLink' => 'true'));
+            $item->addTag('category', $c->community->name);
             $feed->addItem($item);
         }
 

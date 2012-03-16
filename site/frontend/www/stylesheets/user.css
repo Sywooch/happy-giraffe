@@ -11,7 +11,7 @@
 #user .header {padding-bottom:10px;}
 
 #user .header .user-name {float:left;padding-left:12px;}
-#user .header .user-name h1 {line-height:1;margin:0 0 7px 0;}
+#user .header .user-name h1 {line-height:1;margin:0 0 7px 0;color:#0281B0;}
 
 #user .header .user-name .online-status {color:#a6a6a6;font-size:13px;}
 #user .header .user-name .online-status  .icon {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;margin-right:5px;}
@@ -53,7 +53,7 @@
 #user .side-nav ul li {padding:3px 10px 4px;line-height:1.2;margin:5px 0;}
 #user .side-nav ul li a {text-decoration:none;border-bottom:1px dashed #51AFC3;margin:0 5px;}
 #user .side-nav ul li a:hover {border:0;}
-#user .side-nav ul li.active a {background:#e9f6fe;border:0;padding:3px 5px;margin:0;font-weight:bold;}
+#user .side-nav ul li.active a {background:#e9f6fe;border:0;padding:3px 5px;margin:0;}
 
 #user .content-title {font:bold 25px arial, helvetica, sans-serif;color:#0281b0;margin-bottom:30px;}
 

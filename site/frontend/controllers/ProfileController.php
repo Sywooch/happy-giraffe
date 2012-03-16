@@ -258,8 +258,12 @@ class ProfileController extends Controller
 
     public function actionPreview()
     {
-        $dst = '/upload/preview/' . time() . '_' . $_FILES['Baby']['name'][$_POST['baby_num']]['photo'];
-        FileHandler::run($_FILES['Baby']['tmp_name'][$_POST['baby_num']]['photo'], Yii::getPathOfAlias('webroot') . $dst, array(
+        $preview_dir = '/upload/preview/';
+        if(!file_exists(Yii::getPathOfAlias('webroot').$preview_dir))
+            mkdir(Yii::getPathOfAlias('webroot').$preview_dir);
+
+        $dst = $preview_dir . time() . '_' . $_FILES['Baby']['name'][$_POST['baby_num']]['photo'];
+        FileHandler::run($_FILES['Baby']['tmp_name'][$_POST['baby_num']]['photo'], Yii::getPathOfAlias('webroot').$dst, array(
             'accurate_resize' => array(
                 'width' => 76,
                 'height' => 79,

@@ -133,8 +133,8 @@ class Baby extends CActiveRecord
 
     public function getGenderString(){
         if ($this->sex == 1)
-            return 'Моя дочь';
-        return 'Мой сын';
+            return 'Мой сын';
+        return 'Моя дочь';
     }
 
     public function getImageUrl()

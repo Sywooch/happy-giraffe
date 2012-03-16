@@ -28,6 +28,11 @@ $(document).ready(function() {
 	}
 
     if ($('input[placeholder], textarea[placeholder]').size() > 0 ) $('input[placeholder], textarea[placeholder]').placeholder();
+	
+	$('body').click(function(e){		
+		if (!$(e.target).parents().hasClass('navdrp')) navDrpClose();
+	})
+	
 });
 
 function addAttributesToCart(form, update) {
@@ -231,3 +236,11 @@ $.fancybox.open = function(content) {
     $('#fancybox-wrap .chzn').chosen();
 }
 
+function navDrpOpen(el){
+	navDrpClose();
+	$(el).parent().addClass('active');
+}
+
+function navDrpClose(el){
+	$('.navdrp.active').removeClass('active');
+}

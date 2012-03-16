@@ -51,21 +51,20 @@ class ProfileController extends Controller
     public function actionIndex()
     {
         if (isset($_POST['User'])) {
-            $address = new AddressForm();
-            $address->attributes = $_POST;
-            $address->saveAddress($this->user);
-            $this->user->attributes = $_POST['User'];
-
             if (isset($_POST['User']['last_name']) && isset($_POST['User']['first_name']) &&
-                isset($_POST['User']['gender']) && isset($_POST['city_id']) &&
-                isset($_POST['User']['birthday']) && !empty($_POST['User']['last_name'])
-                && !empty($_POST['User']['first_name']) && !empty($_POST['User']['gender'])
-                && !empty($_POST['User']['city_id']) && !empty($_POST['User']['birthday'])
+                isset($_POST['User']['gender']) && isset($_POST['User']['birthday'])
+                && !empty($_POST['User']['last_name']) && !empty($_POST['User']['first_name'])
+                && !empty($_POST['User']['birthday'])
             ) {
                 //add scores to user
                 Yii::import('site.frontend.modules.scores.models.*');
                 UserScores::checkProfileScores(Yii::app()->user->getId(), ScoreActions::ACTION_PROFILE_MAIN);
             }
+
+            $address = new AddressForm();
+            $address->attributes = $_POST;
+            $address->saveAddress($this->user);
+            $this->user->attributes = $_POST['User'];
 
             $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'settlement_id', 'birthday',
                 'country_id', 'street_id', 'house', 'room'));

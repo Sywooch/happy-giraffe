@@ -749,7 +749,7 @@ a {color:#51afc3;}
 #header-new .nav .cols .col:first-child {background:none !important;} 
 
 #header-new .nav .cols .col .col-in {padding:15px 0 15px 19px;height:215px;position:relative;background-repeat:no-repeat;background-position:50% 100%;}
-#header-new .nav .cols .col ul {list-style:none;}
+#header-new .nav .cols .col ul {list-style:none;font-size:11px;}
 #header-new .nav .cols .col ul li {padding:3px 0;}
 #header-new .nav .cols .col ul li a {color:#6e9fe3;text-decoration:none;}
 #header-new .nav .cols .col ul li a:hover {text-decoration:underline;}

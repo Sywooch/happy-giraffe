@@ -32,7 +32,7 @@ class SiteController extends Controller
         $feed->addChannelTag('language', 'ru-ru');
         $feed->addChannelTag('pubDate', date(DATE_RSS, time()));
         $feed->addChannelTag('link', 'http://www.happy-giraffe.ru/rss/' );
-        $feed->addChannelTag('atom:link','http://www.happy-giraffe.ru/rss/');
+        //$feed->addChannelTag('atom:link','http://www.happy-giraffe.ru/rss/');
 
         $contents = CommunityContent::model()->full()->findAll(array(
             'condition' => 'community.id != :blog_id',

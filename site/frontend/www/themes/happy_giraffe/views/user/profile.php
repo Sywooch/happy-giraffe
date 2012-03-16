@@ -96,7 +96,6 @@
 
                     <?php $this->widget('UserFriendsWidget', array(
                         'user' => $user,
-                        'limit' => 8,
                     )); ?>
 
                     <?php $this->widget('LocationWidget',array(

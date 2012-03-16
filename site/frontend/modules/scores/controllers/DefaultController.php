@@ -39,6 +39,8 @@ class DefaultController extends Controller
             ScoreInput::model()->deleteAll();
             ScoreOutput::model()->deleteAll();
             ScoreVisits::model()->deleteAll();
+            Yii::app()->db->createCommand()
+                ->update('user_scores', array('full'=>0));
         }
     }
 }

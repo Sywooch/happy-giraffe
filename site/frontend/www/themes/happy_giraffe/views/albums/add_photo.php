@@ -12,7 +12,7 @@
             </li>
             <li>
                 <div class="img"><div class="max-size"><div class="in">jpeg<br/>6 Мб</div></div></div>
-                <div class="text">Загрузите файл (jpeg, png, gif не более 4 Мб)</div>
+                <div class="text">Загрузите файл (jpeg, png, gif не более 6 Мб)</div>
             </li>
         </ul>
     </div>

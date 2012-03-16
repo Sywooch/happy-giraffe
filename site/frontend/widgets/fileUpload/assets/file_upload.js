@@ -2,7 +2,7 @@ function initForm() {
     $('#upload-input').hide();
     $('#upload-control').swfupload({
         upload_url:upload_ajax_url,
-        file_size_limit:"4096",
+        file_size_limit:"6144",
         file_types:"*.jpg;*.png;*.gif;*.jpeg",
         file_upload_limit:"0",
         flash_url:upload_base_url + "/swfupload.swf",
@@ -15,7 +15,7 @@ function initForm() {
     });
     $('#upload_finish_wrapper').swfupload({
         upload_url:upload_ajax_url,
-        file_size_limit:"4096",
+        file_size_limit:"6144",
         file_types:"*.*",
         file_upload_limit:"0",
         flash_url:upload_base_url + "/swfupload.swf",

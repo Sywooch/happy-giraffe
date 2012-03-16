@@ -57,9 +57,9 @@ return array(
 	'language' => 'ru',
 
     /* Техническое обслуживание */
-    'catchAllRequest' => array(
+    /*'catchAllRequest' => array(
         '/site/maintenance',
-    ),
+    ),*/
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool

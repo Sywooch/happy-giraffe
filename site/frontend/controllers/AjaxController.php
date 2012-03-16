@@ -60,7 +60,7 @@ class AjaxController extends Controller
                 case 'gp' : $service = 'google'; break;
             }
             $authIdentity = Yii::app()->eauth->getIdentity($service);
-            $authIdentity->redirectUrl = $this->createAbsoluteUrl('ajax/socialApi');
+            $authIdentity->redirectUrl = $this->createAbsoluteUrl('/ajax/socialApi');
             //$authIdentity->redirectUri = $this->createAbsoluteUrl('ajax/socialApi');
             if ($authIdentity->authenticate())
             {

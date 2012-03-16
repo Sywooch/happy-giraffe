@@ -1443,12 +1443,12 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #content .club-topics-list {background:#f3e7fe;margin-bottom:20px;padding:10px 15px;}
 #content .club-topics-list ul {list-style:none;}
-#content .club-topics-list ul li {margin:6px 0;}
-#content .club-topics-list ul li a {display:inline-block;padding:2px 5px;color:#885eb2;font-weight:bold;font-size:13px;max-width:160px;}
+#content .club-topics-list ul li {margin:6px 0;overflow:hidden;}
+#content .club-topics-list ul li a {display:block;padding:2px 5px;color:#885eb2;font-weight:bold;font-size:13px;line-height:1.2;overflow:hidden;}
 #content .club-topics-list ul li.active a {background:#fefdcd;text-decoration:none;}
-#content .club-topics-list .edit {display:none;width:20px;height:22px;background:#ffcdcd !important;position:relative;float:right;}
+#content .club-topics-list .edit {width:20px;height:22px;background:#ffcdcd !important;position:relative;float:right;visibility:hidden;margin-left:5px;}
 #content .club-topics-list .edit .icon {display:block;width:14px;height:18px;background:url(../images/common.png) no-repeat -341px -136px;margin:2px auto 0;}
-#content .club-topics-list  ul li:hover .edit {display:block;}
+#content .club-topics-list  ul li:hover .edit {visibility:visible;}
 #content .club-topics-list  form {margin:10px 0 10px -1px;}
 #content .club-topics-list  form input[type=text] {height:16px;line-height:16px;padding:3px 5px;border:1px solid #c9eaf1;background:#fff;color:#202121;font-size:13px;font-family:arial, helvetica, sans-serif;margin:0;vertical-align:middle;width:158px;}
 #content .club-topics-list  form .btn {vertical-align:middle;}

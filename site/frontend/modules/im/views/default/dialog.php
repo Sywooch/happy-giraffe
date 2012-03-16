@@ -54,7 +54,7 @@ Yii::app()->clientScript
         display: none;
     }
     .dialog-inn{
-        min-height: 400px;
+        min-height: 200px;
     }
 </style>
 <script type="text/javascript">

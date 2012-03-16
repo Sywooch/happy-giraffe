@@ -81,14 +81,15 @@ class DateWidget extends CWidget
 		
 		$js = "
 			var el = $('#" . CHtml::activeId($this->model, $this->attribute) . "');
-			var d = $('#" . CHtml::activeId($this->model, $this->attribute . '_d') . "');
-			var m = $('#" . CHtml::activeId($this->model, $this->attribute . '_m') . "');
-			var y = $('#" . CHtml::activeId($this->model, $this->attribute . '_y') . "');
-			$(d, m, y).change(function ()
+			var d = '#" . CHtml::activeId($this->model, $this->attribute . '_d') . "';
+			var m = '#" . CHtml::activeId($this->model, $this->attribute . '_m') . "';
+			var y = '#" . CHtml::activeId($this->model, $this->attribute . '_y') . "';
+
+			$(d+', '+m+', '+y).change(function ()
 			{
-				if (d.val() != '' && m.val() != '' && y.val() != '')
+				if ($(d).val() != '' && $(m).val() != '' && $(y).val() != '')
 				{
-					el.val(y.val() + '-' + m.val() + '-' + d.val());
+					el.val($(y).val() + '-' + $(m).val() + '-' + $(d).val());
 				}
 			});	
 		";

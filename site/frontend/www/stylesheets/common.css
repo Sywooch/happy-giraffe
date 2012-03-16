@@ -703,31 +703,32 @@ a {color:#51afc3;}
 
 #header-new .nav ul li.kids i.text {width:55px;background:url(/images/nav_text_kids.png) no-repeat;}
 #header-new .nav ul li.kids > a {background:#5488d0;}
-#header-new .nav ul li.kids:hover > a {background:#97bbea;padding-bottom:3px;}
+#header-new .nav ul li.kids:hover > a, #header-new .nav ul li.kids.active > a {background:#97bbea;}
 
 #header-new .nav ul li.manwoman i.text {width:179px;background:url(/images/nav_text_manwoman.png) no-repeat;}
 #header-new .nav ul li.manwoman > a {background:#6bc545;}
-#header-new .nav ul li.manwoman:hover > a {background:#9adf7c;padding-bottom:3px;}
+#header-new .nav ul li.manwoman:hover > a, #header-new .nav ul li.manwoman.active > a {background:#9adf7c;}
 
 #header-new .nav ul li.beauty i.text {width:159px;background:url(/images/nav_text_beauty.png) no-repeat;}
 #header-new .nav ul li.beauty > a {background:#f8cb30;}
-#header-new .nav ul li.beauty:hover > a {background:#ffe478;padding-bottom:3px;}
+#header-new .nav ul li.beauty:hover > a, #header-new .nav ul li.beauty.active > a {background:#ffe478;}
 
 #header-new .nav ul li.home i.text {width:48px;background:url(/images/nav_text_home.png) no-repeat;}
 #header-new .nav ul li.home > a {background:#a582c7;}
-#header-new .nav ul li.home:hover > a {background:#c7ade0;padding-bottom:3px;}
+#header-new .nav ul li.home:hover > a, #header-new .nav ul li.home.active > a {background:#c7ade0;}
 
 #header-new .nav ul li.hobbies i.text {width:184px;background:url(/images/nav_text_hobbies.png) no-repeat;}
 #header-new .nav ul li.hobbies > a {background:#f18b2f;}
-#header-new .nav ul li.hobbies:hover > a {background:#ffc05e;padding-bottom:3px;}
+#header-new .nav ul li.hobbies:hover > a, #header-new .nav ul li.hobbies.active > a {background:#ffc05e;}
 
 #header-new .nav ul li.rest i.text {width:62px;background:url(/images/nav_text_rest.png) no-repeat;}
 #header-new .nav ul li.rest > a {background:#40b2dc;}
-#header-new .nav ul li.rest:hover > a {background:#7dd7f8;padding-bottom:3px;}
+#header-new .nav ul li.rest:hover > a, #header-new .nav ul li.rest.active > a {background:#7dd7f8;}
 
 #header-new .nav .drp {position:absolute;top:47px;left:0;display:none;width:100%;padding:4px 0;background-image:url(/images/bg_nav_drp.png);}
 #header-new .nav .drp .in {background:#fff;height:245px;}
-#header-new .nav ul li:hover .drp {display:block;}
+#header-new .nav ul li.active .drp {display:block;}
+#header-new .nav ul li.active > a {padding-bottom:3px;}
 
 #header-new .nav .kids .drp {background-color:#97bbea;}
 #header-new .nav .manwoman .drp {background-color:#9adf7c;}

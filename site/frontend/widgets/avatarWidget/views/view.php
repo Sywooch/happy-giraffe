@@ -10,7 +10,7 @@
         <?php echo CHtml::image($this->user->getAva($this->size)); ?>
     </a>
     <?php else: ?>
-    <a onclick="return false;" class="<?=$class?>" href="<?=($this->user->id == Yii::app()->user->id && $this->size == 'big')? Yii::app()->createUrl('profile/photo', array('returnUrl'=>urlencode(Yii::app()->createUrl('user/profile', array('user_id'=>Yii::app()->user->getId()))))):'#'//$this->user->url?>">
+    <a <?php if ($this->size != 'big') echo 'onclick="return false;"';?> class="<?=$class?>" href="<?=($this->user->id == Yii::app()->user->id && $this->size == 'big')? Yii::app()->createUrl('profile/photo', array('returnUrl'=>urlencode(Yii::app()->createUrl('user/profile', array('user_id'=>Yii::app()->user->getId()))))):'#'//$this->user->url?>">
         <?php echo CHtml::image($this->user->getAva($this->size)); ?>
     </a>
     <?php endif ?>

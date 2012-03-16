@@ -149,16 +149,13 @@
                     </div>
 
                     <div class="banner-box">
-                        <a href=""><img src="/images/banner_01.png" /></a>
+                        <a href="<?=$this->createUrl('/site/contest') ?>"><img src="/images/banner_02.png" /></a>
                     </div>
 
                 </div>
 
                 <div class="nav">
                 <ul class="clearfix">
-                <li class="morning">
-                    <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-                </li>
                 <li class="kids navdrp">
                     <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 

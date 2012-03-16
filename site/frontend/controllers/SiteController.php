@@ -182,29 +182,10 @@ class SiteController extends Controller
 
 		if (isset($_POST['User']))
 		{
-			$userModel = $userModel->find(array(
-				'condition' => 'email=:email AND password=:password and blocked = 0 and deleted = 0',
-				'params'=>array(
-					':email'=>$_POST['User']['email'],
-					':password'=>$userModel->hashPassword($_POST['User']['password']),
-				)));
-
-			if ($userModel)
-			{
-				$identity=new UserIdentity($userModel->getAttributes());
-				$identity->authenticate();
-				if ($identity->errorCode == UserIdentity::ERROR_NONE)
-				{
-                    $duration = $_POST['User']['remember'] == 1 ? 2592000 : 0;
-					Yii::app()->user->login($identity);
-                    $userModel->login_date = date('Y-m-d H:i:s');
-                    $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
-                    $userModel->save(false);
-				}
-			}
+            $userModel->attributes = $_POST['User'];
+			if($userModel->validate())
+                $this->redirect(Yii::app()->request->urlReferrer);
 		}
-
-		$this->redirect(Yii::app()->request->urlReferrer);
 	}
 
 	/**

@@ -159,7 +159,7 @@
                 <li class="morning">
                     <a href=""><i class="text"></i></a>
                 </li>
-                <li class="kids">
+                <li class="kids navdrp">
                     <a href=""><i class="text"></i></a>
 
                     <div class="drp">
@@ -240,7 +240,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="manwoman">
+                <li class="manwoman navdrp">
                     <a href=""><i class="text"></i></a>
 
                     <div class="drp">
@@ -273,7 +273,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="beauty">
+                <li class="beauty navdrp">
                     <a href=""><i class="text"></i></a>
 
                     <div class="drp">
@@ -306,7 +306,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="home">
+                <li class="home navdrp">
                     <a href=""><i class="text"></i></a>
 
                     <div class="drp">
@@ -353,7 +353,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="hobbies">
+                <li class="hobbies navdrp">
                     <a href=""><i class="text"></i></a>
 
                     <div class="drp">
@@ -394,7 +394,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="rest">
+                <li class="rest navdrp">
                     <a href=""><i class="text"></i></a>
 
                     <div class="drp">

@@ -27,21 +27,23 @@ Yii::app()->clientScript
         </div>
 
         <div class="new-message">
-            <?php
-            $message = new MessageLog();
-            $this->widget('ext.ckeditor.CKEditorWidget', array(
-                'id' => 'message',
-                'model' => $message,
-                'attribute' => 'text',
-                'config' => array(
-                    'toolbar' => 'Chat',
-                    'width' => 410,
-                    'height' => 100,
-                ),
-            ));
-            ?>
-            <div class="buttons">
-                <button class="btn btn-green-smedium"><span><span>Отправить</span></span></button>
+            <div class="editor-box">
+                <?php
+                $message = new MessageLog();
+                $this->widget('ext.ckeditor.CKEditorWidget', array(
+                    'id' => 'message',
+                    'model' => $message,
+                    'attribute' => 'text',
+                    'config' => array(
+                        'toolbar' => 'Chat',
+                        'width' => 410,
+                        'height' => 100,
+                    ),
+                ));
+                ?>
+                <div class="buttons">
+                    <button class="btn btn-green-smedium"><span><span>Отправить</span></span></button>
+                </div>
             </div>
         </div>
 
@@ -50,6 +52,9 @@ Yii::app()->clientScript
 <style type="text/css">
     .cke_bottom {
         display: none;
+    }
+    .dialog-inn{
+        min-height: 400px;
     }
 </style>
 <script type="text/javascript">

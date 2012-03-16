@@ -58,7 +58,9 @@ class ProfileController extends Controller
 
             if (isset($_POST['User']['last_name']) && isset($_POST['User']['first_name']) &&
                 isset($_POST['User']['gender']) && isset($_POST['city_id']) &&
-                isset($_POST['User']['birthday'])
+                isset($_POST['User']['birthday']) && !empty($_POST['User']['last_name'])
+                && !empty($_POST['User']['first_name']) && !empty($_POST['User']['gender'])
+                && !empty($_POST['User']['city_id']) && !empty($_POST['User']['birthday'])
             ) {
                 //add scores to user
                 Yii::import('site.frontend.modules.scores.models.*');

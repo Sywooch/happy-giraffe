@@ -106,7 +106,7 @@ class ProfileController extends Controller
 
                 //add scores to user
                 Yii::import('site.frontend.modules.scores.models.*');
-                UserScores::checkProfileScores(Yii::app()->user->getId(), ScoreActions::ACTION_PROFILE_FAMILY);
+                UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_FAMILY);
             }
 
             $this->user->update(array('relationship_status'));

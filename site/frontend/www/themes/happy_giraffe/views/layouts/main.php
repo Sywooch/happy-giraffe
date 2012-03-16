@@ -101,7 +101,7 @@
                                 <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->getScores()->scores ?></span></a>
                             </li>
                             <li class="user">
-                                <div class=".link">
+                                <div class="link">
                                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>
                                     <a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">
                                         <span class="username"><?php echo $user->first_name ?><i class="arr"></i></span>
@@ -425,7 +425,7 @@
     <div id="footer" class="wrapper clearfix">
 
         <div class="a-right">
-            <a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
+            <a href="">Политика конфиденциальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
         </div>
 
         <div class="copy">

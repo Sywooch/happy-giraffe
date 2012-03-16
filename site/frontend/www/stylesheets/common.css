@@ -625,7 +625,7 @@ a {color:#51afc3;}
 
 #header-new .user-nav ul li.user {min-width:150px;}
 #header-new .user-nav ul li.user .ava {display:block;float:left;margin-top:3px;}
-#header-new .user-nav ul li.user .username {color:#fff;padding-right:14px;position:relative;padding-left:7px;}
+#header-new .user-nav ul li.user .username {color:#fff;padding-right:14px;position:relative;padding-left:7px;white-space:nowrap;}
 #header-new .user-nav ul li.user .username .arr {display:block;width:11px;height:9px;background:url(/images/common.png) no-repeat -286px -178px;position:absolute;top:4px;right:0;}
 #header-new .user-nav > ul > li > a .icon {display:block;height:20px;margin:5px 0;background:url(/images/common.png) no-repeat 20px 20px;float:left;}
 #header-new .user-nav > ul > li > a .icon-home {width:17px;background-position:-200px -200px;}
@@ -781,7 +781,7 @@ a {color:#51afc3;}
 #header-new .nav .hobbies .title {color:#bd6600;}
 #header-new .nav .rest .title {color:#0995c8;}
 
-/* фоновые изображения */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 
 #header-new .nav .bg-img-11 {background-image:url(/images/nav_kids_img_01.jpg);} 
 #header-new .nav .bg-img-12 {background-image:url(/images/nav_kids_img_02.jpg);} 

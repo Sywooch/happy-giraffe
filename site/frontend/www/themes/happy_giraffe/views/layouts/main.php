@@ -156,9 +156,6 @@
 
                 <div class="nav">
                 <ul class="clearfix">
-                <li class="morning">
-                    <a href=""><i class="text"></i></a>
-                </li>
                 <li class="kids navdrp">
                     <a href=""><i class="text"></i></a>
 

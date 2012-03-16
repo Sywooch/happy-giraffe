@@ -156,8 +156,11 @@
 
                 <div class="nav">
                 <ul class="clearfix">
+                <li class="morning">
+                    <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+                </li>
                 <li class="kids navdrp">
-                    <a href=""><i class="text"></i></a>
+                    <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
                     <div class="drp">
                         <div class="in">
@@ -238,7 +241,7 @@
                     </div>
                 </li>
                 <li class="manwoman navdrp">
-                    <a href=""><i class="text"></i></a>
+                    <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
                     <div class="drp">
                         <div class="in">
@@ -271,7 +274,7 @@
                     </div>
                 </li>
                 <li class="beauty navdrp">
-                    <a href=""><i class="text"></i></a>
+                    <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
                     <div class="drp">
                         <div class="in">
@@ -304,7 +307,7 @@
                     </div>
                 </li>
                 <li class="home navdrp">
-                    <a href=""><i class="text"></i></a>
+                    <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
                     <div class="drp">
                         <div class="in">
@@ -351,7 +354,7 @@
                     </div>
                 </li>
                 <li class="hobbies navdrp">
-                    <a href=""><i class="text"></i></a>
+                    <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
                     <div class="drp">
                         <div class="in">
@@ -392,7 +395,7 @@
                     </div>
                 </li>
                 <li class="rest navdrp">
-                    <a href=""><i class="text"></i></a>
+                    <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
                     <div class="drp">
                         <div class="in">

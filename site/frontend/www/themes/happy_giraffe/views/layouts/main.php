@@ -101,10 +101,12 @@
                                 <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->getScores()->scores ?></span></a>
                             </li>
                             <li class="user">
-                                <a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">
-                                    <span class="ava small male"></span>
-                                    <span class="username"><?php echo $user->first_name ?><i class="arr"></i></span>
-                                </a>
+                                <div class=".link">
+                                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>
+                                    <a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">
+                                        <span class="username"><?php echo $user->first_name ?><i class="arr"></i></span>
+                                    </a>
+                                </div>
                                 <div class="drp">
                                     <div class="actions">
                                         <ul>

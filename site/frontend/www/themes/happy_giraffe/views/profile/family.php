@@ -182,7 +182,10 @@ $cs->registerScript('travel_add', $js)
                 <div class="img-box <?= ($this->user->gender == 0) ? 'female' : 'male' ?> ava">
                     <?php $url = isset($baby_model->photo) ? $baby_model->photo->getUrl() : '' ?>
                     <?php if (!empty($url))
-                    echo CHtml::image($baby_model->photo->getUrl('ava'), '', array('id' => 'babyImg-' . $i)).'<a href="" class="remove"></a>';?>
+                    echo CHtml::image($baby_model->photo->getUrl('ava'), '', array('id' => 'babyImg-' . $i)).'<a href="" class="remove"></a>';
+                    else
+                        echo CHtml::image('', '', array('id' => 'babyImg-' . $i));
+                    ?>
                 </div>
                 <p>Вы можете загрузить сюда только фотографию Вашего ребенка.</p>
             </div>

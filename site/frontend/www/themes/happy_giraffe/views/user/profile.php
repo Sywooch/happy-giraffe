@@ -51,9 +51,10 @@
                 <?php if ($user->birthday): ?><span>День рождения:</span> <?php echo Yii::app()->dateFormatter->format("dd MMMM", $user->birthday); ?> (<?php echo $user->age . ' ' . $user->ageSuffix; ?>)<?php endif; ?>
 
                 <div class="details">
+                    <?php $score = $user->getScores() ?>
                     Зарегистрирован  <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date); ?><br/>
-                    Баллов: <span class="rating"><?= $user->getScores()->scores ?></span><br/>
-                    Уровень: <span class="rang">Новичок</span><br/>
+                    Баллов: <span class="rating"><?= $score->scores ?></span><br/>
+                    Уровень: <span class="rang"><?= empty($score->level_id)?'Новичок':$score->level->name ?></span><br/>
                 </div>
 
             </div>

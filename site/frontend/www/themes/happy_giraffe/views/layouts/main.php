@@ -64,7 +64,7 @@
                                     <div class="actions">
                                         <ul>
                                             <li><a href="<?php echo $this->createUrl('/im/') ?>">Все диалоги (<?php echo MessageDialog::GetUserDialogsCount(Yii::app()->user->getId()) ?>)</a></li>
-                                            <li><a href="<?php echo $this->createUrl('/im/new') ?>">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count"><?php echo count(MessageDialog::GetUserNewDialogs()) ?></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/new') ?>">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count<?php if (($incoming_count = count(MessageDialog::GetUserNewDialogs())) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count ?></a></li>
                                             <li><a href="<?php echo $this->createUrl('/im/online') ?>">Кто онлайн</a> <span class="online-count"><?php echo count(MessageDialog::GetUserOnlineDialogs()) ?></span></li>
                                         </ul>
                                     </div>

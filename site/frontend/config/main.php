@@ -57,9 +57,9 @@ return array(
 	'language' => 'ru',
 
     /* Техническое обслуживание */
-    'catchAllRequest' => (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '88.87.70.93', '178.35.209.102', '91.205.122.228')))?null:array(
+    /*'catchAllRequest' => (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '88.87.70.93', '178.35.209.102', '91.205.122.228')))?null:array(
         '/site/maintenance',
-    ),
+    ),*/
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool

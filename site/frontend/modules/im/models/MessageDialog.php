@@ -151,7 +151,7 @@ class MessageDialog extends CActiveRecord
      */
     public static function GetUserOnlineDialogs()
     {
-        $dialogs = self::GetUserDialogs();
+        $dialogs = self::GetUserDialogsWithoutStatus(Yii::app()->user->getId());
         $online = array();
         foreach ($dialogs as $dialog) {
             if ($dialog->GetInterlocutor()->online)
@@ -166,7 +166,17 @@ class MessageDialog extends CActiveRecord
      */
     public static function GetUserDialogs()
     {
-        $dialogs = Im::model()->getDialogIds();
+        return self::CheckReadStatus(self::GetUserDialogsWithoutStatus(Yii::app()->user->getId()));
+    }
+
+    public static function GetUserDialogsCount($user_id)
+    {
+        return count(self::GetUserDialogsWithoutStatus($user_id));
+    }
+
+    public static function GetUserDialogsWithoutStatus($user_id)
+    {
+        $dialogs = Im::model($user_id)->getDialogIds();
 
         if (empty($dialogs))
             return array();
@@ -192,7 +202,7 @@ class MessageDialog extends CActiveRecord
             }
         }
 
-        return self::CheckReadStatus($notEmptyDialogs);
+        return $notEmptyDialogs;
     }
 
     /**

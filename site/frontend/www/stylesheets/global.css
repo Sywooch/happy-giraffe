@@ -515,10 +515,6 @@ p {
     background: #fff;
 }
 
-.entry .entry-header h1 {
-    text-decoration: underline;
-}
-
 .entry .entry-header a.entry-title, .entry .entry-header h1 {
     display: block;
     font: bold 25px Arial, Tahoma, sans-serif;

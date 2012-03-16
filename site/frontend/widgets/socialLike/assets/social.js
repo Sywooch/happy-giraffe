@@ -17,7 +17,7 @@ var Social = {
     open : function(key, url, title, width, height, elem) {
         this.key = key;
         this.elem = elem;
-        var url = this.ajax_url + '?key=' + key + '&entity=' + this.model_name + '&entity_id=' + this.model_id + '&surl=' + url;
+        var url = this.ajax_url + '?key=' + key + '&entity=' + this.model_name + '&entity_id=' + this.model_id + '&surl=' + encodeURIComponent(url);
         this.window = window.open(url, title, 'width='+width+',height='+height);
         if(this.timer) {
             clearInterval(this.timer);

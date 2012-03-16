@@ -31,17 +31,24 @@ class AddressForm extends CFormModel
             if (!empty($this->city_id) && !empty($this->region_id)) {
                 $user->settlement_id = $this->city_id;
             } elseif (!empty($this->city_name) && !empty($this->region_id)) {
-                //add new city
-                $city = new GeoRusSettlement();
-                $city->name = CHtml::encode($this->city_name);
-                $city->region_id = $this->region_id;
-                if (!empty($this->district_id))
-                    $city->district_id = $this->district_id;
-                $city->by_user = 1;
-                if (!$city->save()) {
-                    throw new CHttpException(404, 'Ошибка при добавлении населенного пункта.');
+                // check city
+                $city = GeoRusSettlement::model()->findByAttributes(array('name' => trim($this->city_name)));
+                if($city)
+                    $user->settlement_id = $city->id;
+                else
+                {
+                    //add new city
+                    $city = new GeoRusSettlement();
+                    $city->name = CHtml::encode($this->city_name);
+                    $city->region_id = $this->region_id;
+                    if (!empty($this->district_id))
+                        $city->district_id = $this->district_id;
+                    $city->by_user = 1;
+                    if (!$city->save()) {
+                        throw new CHttpException(404, 'Ошибка при добавлении населенного пункта.');
+                    }
+                    $user->settlement_id = $city->id;
                 }
-                $user->settlement_id = $city->id;
             } else {
                 $user->settlement_id = null;
                 $user->street_id = null;

@@ -38,13 +38,14 @@ class SiteController extends Controller
             'condition' => 'community.id != :blog_id',
             'params' => array(':blog_id' => CommunityContent::USERS_COMMUNITY),
             'limit' => 20,
+            'order' => 'created DESC',
         ));
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->title = $c->name;
             $item->link = $c->url;
-            $item->date = $c->updated;
+            $item->date = $c->created;
             $item->description = $c->preview;
             $item->addTag('author', $c->author->email);
             $feed->addItem($item);

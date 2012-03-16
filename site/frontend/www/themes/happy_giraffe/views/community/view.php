@@ -45,7 +45,7 @@
             }
         ?>
             <div class="block">
-                <b><?php echo CHtml::link($rc->name, $this->createUrl('community/view', array('community_id' => $c->rubric->community->id, 'content_type_slug' => $rc->type->slug, 'content_id' => $rc->id))); ?></b>
+                <b><?php echo CHtml::link($rc->name, $this->createUrl('community/view', array('community_id' => $data->rubric->community->id, 'content_type_slug' => $rc->type->slug, 'content_id' => $rc->id))); ?></b>
                 <p><?php echo $content; ?></p>
             </div>
         <?php

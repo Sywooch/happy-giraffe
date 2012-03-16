@@ -44,10 +44,12 @@
                 <div class="row-bottom"><a href="">Забыли пароль?</a></div>
             </div>
 
-            <div class="row row-social">
+            <div class="row row-social socials socials-inline">
                 Быстрый вход:
                 &nbsp;
+                <div class="services">
                 <?php Yii::app()->eauth->renderWidget(array('action' => '/site/login')); ?>
+                </div>
             </div>
 
             <div class="reg-link">

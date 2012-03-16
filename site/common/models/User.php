@@ -353,16 +353,16 @@ class User extends CActiveRecord
             $service->user_id = $this->id;
             $service->save();
         }
-        if (!$this->isNewRecord) {
+        if ($this->isNewRecord) {
             $this->register_date = date("Y-m-d H:i:s");
-            self::clearCache($this->id);
-        } else {
             $signal = new UserSignal();
             $signal->user_id = (int)$this->id;
             $signal->signal_type = UserSignal::TYPE_NEW_USER_REGISTER;
             $signal->item_name = 'User';
             $signal->item_id = (int)$this->id;
             $signal->save();
+        } else {
+            self::clearCache($this->id);
         }
         return true;
     }

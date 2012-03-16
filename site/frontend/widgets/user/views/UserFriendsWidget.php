@@ -4,7 +4,7 @@
 
     <ul>
         <?php foreach ($friends->data as $f): ?>
-            <li><?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $f, 'friendButton' => false, 'sendButton' => false)); ?></li>
+            <li><?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $f, 'small' => true)); ?></li>
         <?php endforeach; ?>
     </ul>
 

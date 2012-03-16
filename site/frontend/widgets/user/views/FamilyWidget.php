@@ -31,7 +31,7 @@
     <div class="b"></div>
 </div>
 <?php else: ?>
-<?php if ($this->user->relationship_status == 0): ?>
+<?php if ($this->user->relationship_status == 0 && $this->user->id == Yii::app()->user->id): ?>
     <div class="user-family user-family-cap">
         <div class="t"></div>
         <div class="c">

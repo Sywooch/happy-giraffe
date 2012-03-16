@@ -13,7 +13,6 @@
     <?php
     foreach ($data->relatedPosts as $rc)
     {
-        echo 123;
         $content = '';
         switch ($rc->type->slug)
         {

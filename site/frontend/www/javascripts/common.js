@@ -237,8 +237,16 @@ $.fancybox.open = function(content) {
 }
 
 function navDrpOpen(el){
-	navDrpClose();
-	$(el).parent().addClass('active');
+	
+	var li = $(el).parent();
+	
+	if (!li.hasClass('active')){
+		navDrpClose();
+		li.addClass('active');
+	} else {
+		li.removeClass('active');
+	}
+	
 }
 
 function navDrpClose(el){

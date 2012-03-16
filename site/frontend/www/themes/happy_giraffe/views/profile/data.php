@@ -89,7 +89,7 @@ $this->breadcrumbs = array(
                     'style' => 'width:170px'
                 )); ?>
             </div>
-            <div class="col" <?php if ($user->country_id !== 174) echo 'style="display:none;"' ?>>
+            <div class="col" <?php if ($user->country_id != 174) echo 'style="display:none;"' ?>>
                 <?php echo CHtml::dropDownList('region_id', $region_id,
                 array('' => '') + CHtml::listData(GeoRusRegion::model()->findAll(array('order' => 'pos,id', 'select' => 'id,name')), 'id', 'name'),
                 array(
@@ -220,23 +220,26 @@ $this->breadcrumbs = array(
         });
 
         $("#country_id").chosen({allow_single_deselect:true}).change(function () {
-            console.log($("#country_id option:selected").text());
+            //console.log($("#country_id option:selected").text());
             geocoder = new YMaps.Geocoder($("#country_id option:selected").text());
             ShowNewLoc();
 
             if ($(this).val() == 174) {
                 $('#region_id_chzn').show();
+                $('#region_id_chzn').parents('div.col').show();
                 if ($('#region_id').val() != '' && $('#region_id').val() != 42 && $('#region_id').val() != 59) {
                     $('#city_name').show();
                 }
             } else {
                 $('#region_id_chzn').hide();
                 $('#city_name').hide();
+                $('#city_name').val('');
+                $('#city_id').val('');
             }
         });
 
         $('#region_id').chosen({allow_single_deselect:true}).change(function () {
-            console.log($("#region_id option:selected").text());
+            //console.log($("#region_id option:selected").text());
             geocoder = new YMaps.Geocoder($("#country_id option:selected").text() + ", " + $("#region_id option:selected").text());
             ShowNewLoc();
 
@@ -270,7 +273,7 @@ $this->breadcrumbs = array(
         YMaps.Events.observe(geocoder, geocoder.Events.Load, function (geocoder) {
             if (geocoder.length()) {
                 map.setBounds(geocoder.get(0).getBounds());
-                console.log(geocoder.get(0));
+                //console.log(geocoder.get(0));
                 map.removeOverlay(placemark);
                 placemark = new YMaps.Placemark(geocoder.get(0).getCoordPoint(), {style:s});
                 placemark.name = geocoder.request;

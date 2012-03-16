@@ -425,7 +425,7 @@
     <div id="footer" class="wrapper clearfix">
 
         <div class="a-right">
-            <a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
+            <a href="">Политика конфиденциальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
         </div>
 
         <div class="copy">

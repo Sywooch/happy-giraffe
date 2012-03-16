@@ -189,6 +189,8 @@ class Im
      */
     public function GetDialogUser($dialog_id)
     {
+        if (!isset($this->_dialogs[$dialog_id]['users'][0]))
+            return null;
         $id = $this->_dialogs[$dialog_id]['users'][0];
         return $this->getUser($id);
     }

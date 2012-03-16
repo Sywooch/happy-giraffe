@@ -100,7 +100,7 @@ $this->breadcrumbs = array(
             </div>
         </div>
     </div>
-    <div class="row row-inline clearfix">
+    <div class="row row-inline clearfix" <?php if (empty($region_id) || $region_id == 42 || $region_id == 59) echo 'style="display: none;"' ?>>
 
         <div class="row-title">Населенный пункт:</div>
         <div class="row-elements">
@@ -139,9 +139,7 @@ $this->breadcrumbs = array(
 
                 ),
                 'htmlOptions' => array(
-                    'style' => (empty($region_id) || $region_id == 42 || $region_id == 59) ? 'display: none;' : '',
                     'placeholder' => 'город',
-//                            'class' => (empty($region_id)) ? "placeholder" : '',
                 )
             ));
             ?>
@@ -220,9 +218,9 @@ $this->breadcrumbs = array(
         });
 
         $("#country_id").chosen({allow_single_deselect:true}).change(function () {
-            //console.log($("#country_id option:selected").text());
             geocoder = new YMaps.Geocoder($("#country_id option:selected").text());
             ShowNewLoc();
+            $('#profile-form div.row:eq(4)').hide();
 
             if ($(this).val() == 174) {
                 $('#region_id_chzn').show();
@@ -244,7 +242,9 @@ $this->breadcrumbs = array(
             ShowNewLoc();
 
             if ($(this).val() == '' || $(this).val() == 42 || $(this).val() == 59) {
-                $('#city_name').hide();
+                //$('#city_name').hide();
+                $('#profile-form div.row:eq(4)').hide();
+
                 if ($(this).val() == '') {
                 } else {
                     if ($(this).val() == 42)
@@ -253,7 +253,8 @@ $this->breadcrumbs = array(
                         $('#city_id').val(148316);
                 }
             } else {
-                $('#city_name').show();
+                $('#profile-form div.row:eq(4)').show();
+                //$('#city_name').show();
                 $('#city_id').val('');
                 $('#city_name').val('');
             }

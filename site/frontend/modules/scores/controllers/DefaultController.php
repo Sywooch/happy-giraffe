@@ -5,6 +5,18 @@ class DefaultController extends Controller
     public $user;
     public $layout = '//layouts/main';
 
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'users' => array('@'),
+            ),
+            array('allow',
+                'users' => array('*'),
+            ),
+        );
+    }
+
 	public function actionIndex($user_id = null)
 	{
         if ($user_id === null)

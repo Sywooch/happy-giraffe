@@ -22,7 +22,7 @@
 
                 <div class="img"><a href="" onclick="return false;"><img src="<?php echo $baby->getImageUrl() ?>"></a>
                     <span><?php echo $baby->name ?>
-                        , <span><?php echo HDate::normallizeAge($baby->getAge()) ?></span></span></div>
+                        , <span><?php echo $baby->getTextAge() ?></span></span></div>
                 <p><?php echo $baby->notice ?></p>
             </li>
             <?php endforeach; ?>

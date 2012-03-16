@@ -162,6 +162,7 @@ class User extends CActiveRecord
 
             //login
             array('email, password', 'required', 'on' => 'login'),
+            array('password', 'passwordValidator', 'on' => 'login'),
 
             //signup
             array('first_name, email, password, gender', 'required', 'on' => 'signup'),
@@ -181,6 +182,37 @@ class User extends CActiveRecord
     {
         if ($this->password !== $this->hashPassword($this->current_password)) $this->addError('password', 'Текущий пароль введён неверно.');
 
+    }
+
+    public function passwordValidator($attribute, $params)
+    {
+        $userModel = $this->find(array(
+            'condition' => 'email=:email AND password=:password and blocked = 0 and deleted = 0',
+            'params'=>array(
+                ':email'=>$_POST['User']['email'],
+                ':password'=>$this->hashPassword($_POST['User']['password']),
+            )));
+        if ($userModel)
+        {
+            $identity=new UserIdentity($userModel->getAttributes());
+            $identity->authenticate();
+            if ($identity->errorCode == UserIdentity::ERROR_NONE)
+            {
+                $duration = $_POST['User']['remember'] == 1 ? 2592000 : 0;
+                Yii::app()->user->login($identity);
+                $userModel->login_date = date('Y-m-d H:i:s');
+                $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
+                $userModel->save(false);
+            }
+            else
+            {
+                $this->addError('password', 'Ошибка авторизации');
+            }
+        }
+        else
+        {
+            $this->addError('password', 'Ошибка авторизации');
+        }
     }
 
     public function checkUserPassword($attribute, $params)
@@ -321,16 +353,16 @@ class User extends CActiveRecord
             $service->user_id = $this->id;
             $service->save();
         }
-        if (!$this->isNewRecord) {
+        if ($this->isNewRecord) {
             $this->register_date = date("Y-m-d H:i:s");
-            self::clearCache($this->id);
-        } else {
             $signal = new UserSignal();
             $signal->user_id = (int)$this->id;
             $signal->signal_type = UserSignal::TYPE_NEW_USER_REGISTER;
             $signal->item_name = 'User';
             $signal->item_id = (int)$this->id;
             $signal->save();
+        } else {
+            self::clearCache($this->id);
         }
         return true;
     }

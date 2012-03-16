@@ -163,8 +163,13 @@ class UserSignal extends EMongoDocument
             return $this->getUser()->getUrl();
         } else {
             $class_name = $this->item_name;
-            if (method_exists($class_name::model(), 'getUrl'))
-                return $class_name::model()->findByPk($this->item_id)->getUrl();
+            if (method_exists($class_name::model(), 'getUrl')){
+                $user = $class_name::model()->findByPk($this->item_id);
+                if ($user === null)
+                    return 'error';
+                else
+                    return $user->getUrl();
+            }
             else
                 return 'error';
         }
@@ -419,6 +424,10 @@ class UserSignal extends EMongoDocument
                 $comet->send($moderator->userid);
 
             $super_m = AuthAssignment::model()->findAll('itemname="supermoderator"');
+            foreach ($super_m as $moderator)
+                $comet->send($moderator->userid);
+
+            $super_m = AuthAssignment::model()->findAll('itemname="administrator"');
             foreach ($super_m as $moderator)
                 $comet->send($moderator->userid);
         } else {

@@ -48,9 +48,14 @@ class ActiveDialogs
     {
         $dialogs = array();
         foreach($this->_ids as $id){
+            $user = Im::model()->GetDialogUser($id);
+            if ($user === null){
+                Yii::app()->user->setState($this->_cache_id, array());
+                return array();
+            }
             $dialogs[] = array(
                 'id'=>$id,
-                'user'=>Im::model()->GetDialogUser($id)
+                'user'=>$user
             );
         }
 

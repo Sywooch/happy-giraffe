@@ -149,7 +149,7 @@
                     </div>
 
                     <div class="banner-box">
-                        <a href=""><img src="/images/banner_01.png" /></a>
+                        <a href=""><img src="/images/banner_02.png" /></a>
                     </div>
 
                 </div>

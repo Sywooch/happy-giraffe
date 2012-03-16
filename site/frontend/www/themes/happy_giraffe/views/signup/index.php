@@ -161,7 +161,7 @@ function choose(val)
 
 
                                 <div class="user-box">
-                                    <?php if(isset($regdata['photo'])): ?>
+                                    <?php if(isset($regdata['photo']) && 0 == 1): ?>
                                         <?php echo $form->hiddenField($model, 'photo', array('value' => $regdata['photo'])); ?>
                                         <div class="ava"><?php echo CHtml::image($regdata['photo']); ?></div>
                                     <?php endif; ?>

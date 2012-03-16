@@ -162,7 +162,7 @@ class User extends CActiveRecord
 
             //login
             array('email, password', 'required', 'on' => 'login'),
-            array('password', 'passwordValidator'),
+            array('password', 'passwordValidator', 'on' => 'login'),
 
             //signup
             array('first_name, email, password, gender', 'required', 'on' => 'signup'),

@@ -2,7 +2,7 @@
 
 class UserFriendsWidget extends UserCoreWidget
 {
-    public $limit;
+    public $limit = 8;
     private $_friends;
 
     public function init()

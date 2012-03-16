@@ -2,7 +2,7 @@
 
 class UserCommunitiesWidget extends UserCoreWidget
 {
-    public $limit;
+    public $limit = 8;
     private $_communities = array();
     private $_count = 0;
 

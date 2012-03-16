@@ -21,8 +21,12 @@
                 <big><?php echo $baby->getGenderString() ?></big>
 
                 <div class="img"><a href="" onclick="return false;"><img src="<?php echo $baby->getImageUrl() ?>"></a>
-                    <span><?php echo $baby->name ?>
-                        , <span><?php echo $baby->getTextAge() ?></span></span></div>
+                    <?php if (!empty($baby->name)):?>
+                        <span><?php echo $baby->name ?>
+                            , <span><?php echo $baby->getTextAge() ?></span></span>
+
+                <?php endif ?>
+                </div>
                 <p><?php echo $baby->notice ?></p>
             </li>
             <?php endforeach; ?>

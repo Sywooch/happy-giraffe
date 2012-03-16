@@ -230,3 +230,4 @@ $.fancybox.open = function(content) {
     fancy.trigger('click');
     $('#fancybox-wrap .chzn').chosen();
 }
+

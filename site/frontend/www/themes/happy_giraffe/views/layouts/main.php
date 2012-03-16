@@ -149,7 +149,7 @@
                     </div>
 
                     <div class="banner-box">
-                        <a href=""><img src="/images/banner_02.png" /></a>
+                        <a href="<?=$this->createUrl('/site/contest') ?>"><img src="/images/banner_02.png" /></a>
                     </div>
 
                 </div>

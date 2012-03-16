@@ -31,7 +31,10 @@ class DefaultController extends Controller
         $criteria->addCond('success', '<>', (int)Yii::app()->user->getId());
         $criteria->addCond('executors', '<>', (int)Yii::app()->user->getId());
         $criteria->addCond('full', '==', false);
-        $criteria->limit(5);
+        if (Yii::app()->user->checkAccess('administrator'))
+            $criteria->limit(15);
+        else
+            $criteria->limit(5);
 
         $criteria->setSort(array(
             'priority' => EMongoCriteria::SORT_ASC,

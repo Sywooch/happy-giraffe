@@ -66,6 +66,12 @@ class ScoreInput extends EMongoDocument
         if ($action_info['wait_time'] == 0)
             $this->status = self::STATUS_CLOSED;
 
+        if ($this->status == self::STATUS_CLOSED){
+            $model = UserScores::getModel($this->user_id);
+            $model->scores += $this->scores_earned;
+            $model->save();
+        }
+
         return parent::beforeSave();
     }
 
@@ -227,10 +233,15 @@ class ScoreInput extends EMongoDocument
             $criteria->action_id('==', (int)$action->id);
             $criteria->created('<', (int)(time() - $action->wait_time * 60));
 
-            $modifier = new EMongoModifier();
-            $modifier->addModifier('status', 'set', self::STATUS_CLOSED);
-            $modifier->addModifier('updated', 'set', time());
-            ScoreInput::model()->updateAll($modifier, $criteria);
+            $need_close = ScoreInput::model()->findAll($criteria);
+            foreach($need_close as $model){
+                $model->status = self::STATUS_CLOSED;
+                $model->save();
+            }
+//            $modifier = new EMongoModifier();
+//            $modifier->addModifier('status', 'set', self::STATUS_CLOSED);
+//            $modifier->addModifier('updated', 'set', time());
+//            ScoreInput::model()->updateAll($modifier, $criteria);
         }
     }
 

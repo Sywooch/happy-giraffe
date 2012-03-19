@@ -20,12 +20,7 @@ class DefaultController extends Controller
                 'users'=>array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions'=>array('create','update'),
-                'users'=>array('@'),
-            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions'=>array('admin','delete'),
-//				'roles'=>array('admin'),
+                'actions'=>array('statement'),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -48,7 +43,6 @@ class DefaultController extends Controller
         $contest = Contest::model()->with(array(
             'prizes' => array('with' => 'product'),
             'works' => array('limit' => 15),
-            'winners',
         ))->findByPk($id);
         if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
 
@@ -116,5 +110,18 @@ class DefaultController extends Controller
             ),
         ));
         echo Yii::app()->baseUrl . $dst;
+    }
+
+    public function actionStatement($id)
+    {
+        $this->contest = Contest::model()->findByPk($id);
+        $model = new ContestWork;
+        if(isset($_POST['ContestUser']))
+        {
+            $model->contest_id = $id;
+            $model->user_id = Yii::app()->user->id;
+            $model->save();
+        }
+        $this->render('statement', array('model' => $model));
     }
 }

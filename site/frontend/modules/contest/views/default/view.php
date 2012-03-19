@@ -14,7 +14,7 @@ $this->endWidget();
                 <li>Добавить информацию о ребенке (возраст и имя);</li>
                 <li>Написать хотя бы один пост в блоге/сообществе.</li>
             </ul>
-            <a href="#takeapartPhotoContest" class="btn btn-green-arrow-big fancy"><span><span>Участвовать</span></span></a>
+            <?php echo CHtml::link('<span><span>Участвовать</span></span>', array('/contest/statement', 'id' => $contest->primaryKey), array('class' => 'btn btn-green-arrow-big')) ?>
         </div>
         <div class="content-title">О конкурсе</div>
         <p>Каждая мама считает, что ее ребенок самый лучший, и мы не можем предлагать вам выбирать лучшего ребенка. Но вот выбирать лучшую фотографию вашего ребенка мы как раз можем!</p>

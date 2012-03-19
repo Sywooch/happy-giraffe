@@ -126,9 +126,7 @@ class Contest extends CActiveRecord
 		return array(
 			'prizes' => array(self::HAS_MANY, 'ContestPrize', 'prize_contest_id'),
 			'users' => array(self::HAS_MANY, 'ContestUser', 'user_contest_id'),
-			'winners' => array(self::HAS_MANY, 'ContestWinner', 'winner_contest_id'),
-			'works' => array(self::HAS_MANY, 'ContestWork', 'work_contest_id'),
-
+			'works' => array(self::HAS_MANY, 'ContestWork', 'contest_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'contest_user_id'),
 		);
 	}

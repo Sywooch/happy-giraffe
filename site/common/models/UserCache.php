@@ -11,13 +11,13 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class MessageCache extends CActiveRecord
+class UserCache extends CActiveRecord
 {
     CONST CACHE_ID = 'user_cache_';
 
     /**
      * Returns the static model of the specified AR class.
-     * @return MessageCache the static model class
+     * @return UserCache the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -29,7 +29,7 @@ class MessageCache extends CActiveRecord
      */
     public function tableName()
     {
-        return 'message_cache';
+        return 'user_cache';
     }
 
     /**
@@ -115,7 +115,7 @@ class MessageCache extends CActiveRecord
             if (isset($model))
                 $value = $model->cache;
             else {
-                $model = new MessageCache();
+                $model = new UserCache();
                 $model->user_id = $user_id;
                 $model->UpdateCache();
                 $model->save();
@@ -126,30 +126,11 @@ class MessageCache extends CActiveRecord
         return $value;
     }
 
-    /**
-     * @static
-     * @param int $user_id
-     */
-    static public function UpdateUserCache($user_id)
-    {
-        $model = self::model()->findByAttributes(array('user_id' => $user_id));
-        if (isset($model)) {
-            $model->UpdateCache();
-            $model->save();
-            //self::model()->updateAll(array('cache' => $model->cache), 'user_id=' . $user_id);
-        } else {
-            $model = new MessageCache();
-            $model->user_id = $user_id;
-            $model->UpdateCache();
-            $model->save();
-        }
-    }
-
     public function UpdateCache()
     {
         do {
             $cache = substr(md5(time() . $this->user_id), 0, 5);
-        } while (MessageCache::model()->count('cache="' . $cache . '"') != 0);
+        } while (UserCache::model()->count('cache="' . $cache . '"') != 0);
         $this->cache = $cache;
         Yii::app()->cache->set(self::CACHE_ID . $this->user_id, $cache);
     }

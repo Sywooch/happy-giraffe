@@ -20,7 +20,7 @@ class DefaultController extends Controller
 	public function actionIndex($user_id = null)
 	{
         if ($user_id === null)
-            $user_id = Yii::app()->user->getId();
+            $user_id = Yii::app()->user->id;
         $this->user = User::getUserById($user_id);
 
         Yii::import('site.frontend.modules.scores.models.*');

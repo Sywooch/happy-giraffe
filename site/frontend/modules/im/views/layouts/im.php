@@ -19,7 +19,7 @@ Yii::app()->clientScript
 
                     <li<?php if (Yii::app()->controller->action->id == 'new') echo ' class="active"'?>>
                         <a href="<?php echo $this->createUrl('/im/default/new', array()) ?>"><span>Новые</span>
-                            <?php $count = Im::getUnreadMessagesCount(Yii::app()->user->getId()); ?>
+                            <?php $count = Im::getUnreadMessagesCount(Yii::app()->user->id); ?>
                             <div
                                 class="count"<?php if ($count == 0) echo ' style="display:none;"' ?>><?php echo $count ?></div>
                         </a></li>

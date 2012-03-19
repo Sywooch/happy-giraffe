@@ -118,7 +118,7 @@
 
         <div class="club-topics-list">
             <?php
-                if (!Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId())) {
+                if (!Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id)) {
                     $items = array();
                     foreach ($this->community->rubrics as $r) {
                         $items[] = array(

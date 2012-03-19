@@ -1240,6 +1240,9 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .service-header .title .note {background:#fff2e7;border:0;}
 #gallery .service-header .title .note:after {display:none;}
 
+
+#gallery .album-empty {padding:100px 0;text-align:center;color:#fc5353;font-size:18px;}
+
 #gallery #photo {clear:both;}
 
 #gallery #photo .title {text-align:center;font-weight:bold;font-size:25px;line-height:normal;color:#0297b8;margin-bottom:10px;}

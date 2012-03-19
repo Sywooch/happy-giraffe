@@ -86,7 +86,7 @@ class DefaultController extends Controller
 
     public function actionCreate($id)
     {
-        if ($id == Yii::app()->user->getId())
+        if ($id == Yii::app()->user->id)
             throw new CHttpException(404, 'Вы не можете создать диалог с собой.');
 
         $user = Im::model()->getUser($id);
@@ -107,7 +107,7 @@ class DefaultController extends Controller
 
             $um = new MessageUser;
             $um->dialog_id = $dialog->id;
-            $um->user_id = Yii::app()->user->getId();
+            $um->user_id = Yii::app()->user->id;
             if (!$um->save())
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
@@ -128,7 +128,7 @@ class DefaultController extends Controller
     {
         $dialog = Yii::app()->request->getPost('dialog');
         $text = Yii::app()->request->getPost('text');
-        $message = MessageLog::NewMessage($dialog, Yii::app()->user->getId(), $text);
+        $message = MessageLog::NewMessage($dialog, Yii::app()->user->id, $text);
 
         $response = array(
             'id' => $message->id,

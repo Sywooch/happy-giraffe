@@ -34,7 +34,7 @@ class Im
     private function __construct($user_id = null)
     {
         if ($user_id === null)
-            $this->_user_id = Yii::app()->user->getId();
+            $this->_user_id = Yii::app()->user->id;
         else
             $this->_user_id = $user_id;
 
@@ -49,7 +49,7 @@ class Im
     public static function model($user_id = null)
     {
         if ($user_id === null)
-            $user_id = Yii::app()->user->getId();
+            $user_id = Yii::app()->user->id;
 
         if (!isset(self::$instances[$user_id])) {
             self::$instances[$user_id] = new Im($user_id);
@@ -244,7 +244,7 @@ class Im
     static function clearCache($user_id = null)
     {
         if ($user_id === null)
-            $user_id = Yii::app()->user->getId();
+            $user_id = Yii::app()->user->id;
         Yii::app()->cache->delete(self::USER_CACHE_ID . $user_id);
     }
 

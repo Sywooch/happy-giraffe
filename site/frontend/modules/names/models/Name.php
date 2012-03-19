@@ -244,7 +244,7 @@ class Name extends CActiveRecord
     {
         if (Yii::app()->user->isGuest)
             return array();
-        $user_id = Yii::app()->user->getId();
+        $user_id = Yii::app()->user->id;
         $data = Yii::app()->db->createCommand()
             ->select('name_id')
             ->from('name_likes')

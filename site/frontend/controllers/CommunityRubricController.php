@@ -32,7 +32,7 @@ class CommunityRubricController extends Controller
         $model->name = Yii::app()->request->getPost('name');
         $model->community_id = Yii::app()->request->getPost('community_id');
 
-        if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array(
+        if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array(
             'community_id' => $model->community_id
         ))
         ) {
@@ -58,7 +58,7 @@ class CommunityRubricController extends Controller
     {
         $id = Yii::app()->request->getPost('id');
         $model = $this->loadModel($id);
-        if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array(
+        if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array(
             'community_id' => $model->community_id
         ))
         ) {
@@ -80,7 +80,7 @@ class CommunityRubricController extends Controller
         if (Yii::app()->request->isAjaxRequest) {
             $id = Yii::app()->request->getPost('id');
             $model = $this->loadModel($id);
-            if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array(
+            if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array(
                 'community_id' => $model->community_id
             ))
             ) {

@@ -1,7 +1,7 @@
 <?php Yii::app()->clientScript
 //    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?sensor=false&language=ru&region=ru')
     ->registerScriptFile('http://api-maps.yandex.ru/1.1/index.xml?key=' . Yii::app()->params['yandex_map_key']);
-$user = User::getUserById(Yii::app()->user->getId());
+$user = User::getUserById(Yii::app()->user->id);
 $region_id = empty($user->settlement_id) ? null : $user->settlement->region_id;
 $district_id = empty($user->settlement_id) ? null : $user->settlement->district_id;
 $districts = empty($region_id) ? array() : CHtml::listData(

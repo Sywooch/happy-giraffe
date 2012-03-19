@@ -48,7 +48,7 @@
                             ),
                         ),
                         array(
-                            'label' => 'Статью',
+                            'label' => 'Статьи',
                             'url' => $this->getUrl(array('content_type_slug' => 'post')),
                             'active' => $this->content_type_slug == 'post',
                             'linkOptions' => array(
@@ -56,7 +56,7 @@
                             ),
                         ),
                         array(
-                            'label' => 'Путешествие',
+                            'label' => 'Путешествия',
                             'url' => $this->getUrl(array('content_type_slug' => 'travel')),
                             'active' => $this->content_type_slug == 'travel',
                             'visible' => $this->community->id == 21,
@@ -118,7 +118,7 @@
 
         <div class="club-topics-list">
             <?php
-                if (!Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId())) {
+                if (!Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id)) {
                     $items = array();
                     foreach ($this->community->rubrics as $r) {
                         $items[] = array(

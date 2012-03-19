@@ -251,7 +251,7 @@ class SiteController extends Controller
 			$authIdentity->redirect();
 		}
 
-		$user = User::model()->with('babies', 'settlement', 'social_services')->findByPk(Yii::app()->user->getId());
+		$user = User::model()->with('babies', 'settlement', 'social_services')->findByPk(Yii::app()->user->id);
 		$babies = array(
 			array('label' => 'Ждем ребенка', 'content' => array()),
 			array('label' => 'Дети в возрасте от 0 до 1', 'content' => array()),

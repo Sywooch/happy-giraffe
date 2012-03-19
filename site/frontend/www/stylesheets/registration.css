@@ -56,7 +56,7 @@ body, html {height:100%;}
 #registration .members-count .subtitle {color:#575757;}
 #registration .members-count .subtitle span {font:bold italic 14px arial, sans-serif;display:block;margin-bottom:6px;}
 #registration .members-count .subtitle p {padding:0 8px;margin-left:-8px;background:#ffffd9;display:inline-block;line-height:22px;font-size:11px;color:#575757;}
-#registration .members-count ul {}
+#registration .members-count ul {list-style:none;}
 #registration .members-count ul li {float:left;text-align:center;padding-right:21px;}
 #registration .members-count ul li a {}
 #registration .members-count ul .controls input[type=text] {width:26px;height:16px;padding:0;font-size:12px;font-weight:bold;text-align:center;line-height:16px;margin:0 6px;vertical-align:middle;}

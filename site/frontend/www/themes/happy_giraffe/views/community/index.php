@@ -50,8 +50,42 @@
                     <?php echo CHtml::link(CHtml::tag('b', array(), $data->name), $data->url); ?>
                     <div class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></div>
                     <div class="content">
+                    <?php
+                        $content = '';
+                        switch ($data->type->slug)
+                        {
+                            case 'post':
+                                if (preg_match('/src="([^"]+)"/', $data->post->text, $matches)) {
+                                    $content = '<img src="' . $matches[1] . '" alt="' . $data->name . '" width="150" />';
+                                }
+                                else
+                                {
+                                    if (preg_match('/<p>(.+)<\/p>/Uis', $data->post->text, $matches2)) {
+                                        $content = strip_tags($matches2[1]);
+                                    }
+                                }
+                                break;
+                            case 'travel':
+                                if (preg_match('/src="([^"]+)"/', $data->travel->text, $matches)) {
+                                    $content = '<img src="' . $matches[1] . '" alt="' . $data->name . '" width="150" />';
+                                }
+                                else
+                                {
+                                    if (preg_match('/<p>(.+)<\/p>/Uis', $data->travel->text, $matches2)) {
+                                        $content = strip_tags($matches2[1]);
+                                    }
+                                }
+                                break;
+                            case 'video':
+                                $video = new Video($data->video->link);
+                                $content = '<img src="' . $video->preview . '" alt="' . $video->title . '" />';
+                                break;
+                        }
+                        echo $content;
+                    ?>
+
                         <?php
-                            $p = new CHtmlPurifier();
+                            /*$p = new CHtmlPurifier();
                             $p->options = array(
                                 'URI.AllowedSchemes'=>array(
                                     'http' => true,
@@ -67,7 +101,7 @@
                             {
                                 $video = new Video($data->video->link);
                                 echo CHtml::image($video->preview);
-                            }
+                            }*/
                         ?>
                     </div>
                     <div class="meta">

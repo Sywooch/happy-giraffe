@@ -2,8 +2,9 @@
 
 <?php
     $cs = Yii::app()->clientScript;
-
+    $inCommunity = (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('createClubPost', array('user'=>Yii::app()->user->getModel(),'community_id'=>$this->community->id)))?1:0;
     $js = "
+        var inClub = {$inCommunity};
         $('body').delegate('a.joinButton', 'click', function(e) {
             e.preventDefault();
 
@@ -13,11 +14,30 @@
                 success: function(response) {
                     if (response.status) {
                         $('a.club-join-btn').replaceWith(response.button);
+                        inClub = response.inClub;
                         $.fancybox.close();
                     }
                 },
                 context: $(this)
             });
+        });
+
+        $('body').delegate('div.side-left div.club-fast-add a', 'click', function(e) {
+            if (inClub)
+                return true;
+            else {
+                $('a.club-join-btn').trigger('click');
+                return false;
+            }
+        });
+
+        $('body').delegate('div.default-comments .comments-meta a.btn', 'click', function(e) {
+            if (inClub)
+                return true;
+            else {
+                $('a.club-join-btn').trigger('click');
+                return false;
+            }
         });
     ";
 
@@ -91,30 +111,28 @@
 
     <div class="side-left">
 
-        <?php if (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('createClubPost', array('user'=>Yii::app()->user->getModel(),'community_id'=>$this->community->id))):?>
-            <div class="club-fast-add">
-                <a href="" class="btn btn-green"><span><span>Добавить</span></span></a>
-                <?php
-                $this->widget('zii.widgets.CMenu', array(
-                    'items' => array(
-                        array(
-                            'label' => 'Статью',
-                            'url' => $this->getUrl(array('content_type_slug' => 'post'), 'community/add'),
-                        ),
-                        array(
-                            'label' => 'Путешествие',
-                            'url' => array('community/addTravel'),
-                            'visible' => $this->community->id == 21,
-                        ),
-                        array(
-                            'label' => 'Видео',
-                            'url' => $this->getUrl(array('content_type_slug' => 'video'), 'community/add'),
-                        ),
+        <div class="club-fast-add">
+            <a href="" class="btn btn-green"><span><span>Добавить</span></span></a>
+            <?php
+            $this->widget('zii.widgets.CMenu', array(
+                'items' => array(
+                    array(
+                        'label' => 'Статью',
+                        'url' => $this->getUrl(array('content_type_slug' => 'post'), 'community/add'),
                     ),
-                ));
-                ?>
-            </div>
-        <?php endif ?>
+                    array(
+                        'label' => 'Путешествие',
+                        'url' => array('community/addTravel'),
+                        'visible' => $this->community->id == 21,
+                    ),
+                    array(
+                        'label' => 'Видео',
+                        'url' => $this->getUrl(array('content_type_slug' => 'video'), 'community/add'),
+                    ),
+                ),
+            ));
+            ?>
+        </div>
 
         <div class="club-topics-list">
             <?php

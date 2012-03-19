@@ -5,14 +5,6 @@
  */
 class AssignsCommand extends CConsoleCommand
 {
-
-    public function beforeAction()
-    {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-
-        return true;
-    }
-
     /**
      * Удаление в назначениях прав несуществующих юзеров
      */

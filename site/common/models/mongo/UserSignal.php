@@ -180,7 +180,7 @@ class UserSignal extends EMongoDocument
      */
     public function CurrentUserIsExecutor()
     {
-        if (in_array(Yii::app()->user->getId(), $this->executors))
+        if (in_array(Yii::app()->user->id, $this->executors))
             return true;
         return false;
     }
@@ -190,7 +190,7 @@ class UserSignal extends EMongoDocument
      */
     public function CurrentUserSuccessExecutor()
     {
-        if (in_array(Yii::app()->user->getId(), $this->success))
+        if (in_array(Yii::app()->user->id, $this->success))
             return true;
         return false;
     }
@@ -201,7 +201,7 @@ class UserSignal extends EMongoDocument
      */
     public function CurrentUserFree()
     {
-        if (!in_array(Yii::app()->user->getId(), $this->success) && !in_array(Yii::app()->user->getId(), $this->executors))
+        if (!in_array(Yii::app()->user->id, $this->success) && !in_array(Yii::app()->user->id, $this->executors))
             return true;
         return false;
     }
@@ -340,7 +340,7 @@ class UserSignal extends EMongoDocument
     {
         if (Yii::app()->user->checkAccess('user_signals')) {
             Yii::import('site.frontend.modules.signal.models.*');
-            self::CheckTask($comment->entity, $comment->entity_id, Yii::app()->user->getId());
+            self::CheckTask($comment->entity, $comment->entity_id, Yii::app()->user->id);
         }
     }
 

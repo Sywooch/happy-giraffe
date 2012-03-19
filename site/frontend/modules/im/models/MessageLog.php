@@ -119,6 +119,22 @@ class MessageLog extends CActiveRecord
         return parent::beforeSave();
     }
 
+    public static function allDialogMessagesForUser($dialog_id, $user_id)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = ' message_log.dialog_id = :dialog_id
+            AND message_log.user_id != :user_id
+            AND message_log.id NOT IN (SELECT message_id FROM message_deleted WHERE user_id = :user_id)
+            AND message_log.id > COALESCE((SELECT message_id FROM message_dialog_deleted WHERE dialog_id = :dialog_id AND user_id = :user_id LIMIT 1), 0)
+        ';
+        $criteria->params = array(
+            ':dialog_id' => $dialog_id,
+            ':user_id' => $user_id,
+        );
+
+        return $criteria;
+    }
+
     /**
      * Create new message
      *
@@ -141,7 +157,7 @@ class MessageLog extends CActiveRecord
         //send to dialog users
         $users = MessageUser::model()->findAll('dialog_id=' . $dialog_id);
         foreach ($users as $user) {
-            if ($user->user_id !== Yii::app()->user->getId()) {
+            if ($user->user_id !== Yii::app()->user->id) {
                 $comet = new CometModel;
                 $comet->type = CometModel::TYPE_NEW_MESSAGE;
                 $comet->attributes = array(
@@ -177,13 +193,13 @@ class MessageLog extends CActiveRecord
             $models = $models->where('dialog_id=:dialog_id AND id not in
                 (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
                 ':dialog_id' => $dialog_id,
-                ':user_id' => Yii::app()->user->getId()
+                ':user_id' => Yii::app()->user->id
             ));
         else
             $models = $models->where('dialog_id=:dialog_id AND id > :deleted_id AND id not in
                 (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
                 ':dialog_id' => $dialog_id,
-                ':user_id' => Yii::app()->user->getId(),
+                ':user_id' => Yii::app()->user->id,
                 ':deleted_id' => $last_deleted
             ));
 
@@ -214,14 +230,14 @@ class MessageLog extends CActiveRecord
             $models = $models->where('dialog_id=:dialog_id AND id < :message_id AND id not in
                 (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
                 ':dialog_id' => $dialog_id,
-                ':user_id' => Yii::app()->user->getId(),
+                ':user_id' => Yii::app()->user->id,
                 ':message_id' => $message_id
             ));
         else
             $models = $models->where('dialog_id=:dialog_id AND id < :message_id AND id > :deleted_id AND id not in
                 (SELECT message_id FROM message_deleted WHERE user_id = :user_id)', array(
                 ':dialog_id' => $dialog_id,
-                ':user_id' => Yii::app()->user->getId(),
+                ':user_id' => Yii::app()->user->id,
                 ':message_id' => $message_id,
                 ':deleted_id' => $last_deleted
             ));
@@ -246,7 +262,7 @@ class MessageLog extends CActiveRecord
             ->from('message_dialog_deleted')
             ->where('dialog_id = :dialog_id AND user_id = :user_id', array(
             ':dialog_id' => $dialog_id,
-            ':user_id' => Yii::app()->user->getId()
+            ':user_id' => Yii::app()->user->id
         ))
             ->queryScalar();
 
@@ -258,7 +274,7 @@ class MessageLog extends CActiveRecord
      */
     public function isMessageSentByUser()
     {
-        if ($this->user_id == Yii::app()->user->getId())
+        if ($this->user_id == Yii::app()->user->id)
             return true;
         return false;
     }
@@ -272,7 +288,7 @@ class MessageLog extends CActiveRecord
         Yii::app()->db->createCommand()
             ->insert('message_deleted', array(
             'message_id' => $id,
-            'user_id' => Yii::app()->user->getId(),
+            'user_id' => Yii::app()->user->id,
         ))
             ->execute();
     }
@@ -285,7 +301,9 @@ class MessageLog extends CActiveRecord
         $models = Yii::app()->db->createCommand()
             ->select(array('t.id', 't.user_id', 't.text', 't.created', 't.read_status', 't.dialog_id'))
             ->from('message_log as t')
-            ->where(' t.dialog_id IN (:dialogs) AND t.user_id != :user_id AND t.id not in (SELECT message_id FROM message_deleted WHERE user_id = :user_id) ', array(
+            ->where(' t.dialog_id IN (:dialogs) AND t.user_id != :user_id
+                        AND t.id NOT IN (SELECT message_id FROM message_deleted WHERE user_id = :user_id)
+                        ', array(
             ':user_id' => $user_id,
             ':dialogs' => implode(',', Im::model($user_id)->getDialogIds())
         ))

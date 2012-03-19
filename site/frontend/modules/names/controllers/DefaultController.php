@@ -123,7 +123,7 @@ class DefaultController extends Controller
     {
         $this->pageTitle = 'Мне нравится';
         $this->SetLikes();
-        $data = Name::model()->GetLikes(Yii::app()->user->getId());
+        $data = Name::model()->GetLikes(Yii::app()->user->id);
         $man = array();
         $woman = array();
         foreach ($data as $name) {
@@ -159,8 +159,8 @@ class DefaultController extends Controller
         }
         $name = $this->LoadModelById($id);
         echo CJSON::encode(array(
-            'success' => $name->like(Yii::app()->user->getId()),
-            'count' => Name::GetLikesCount(Yii::app()->user->getId()),
+            'success' => $name->like(Yii::app()->user->id),
+            'count' => Name::GetLikesCount(Yii::app()->user->id),
             'likes' => $name->likes,
         ));
     }
@@ -230,7 +230,7 @@ class DefaultController extends Controller
     public function SetLikes()
     {
         if (!Yii::app()->user->isGuest)
-            $this->likes = Name::GetLikesCount(Yii::app()->user->getId());
+            $this->likes = Name::GetLikesCount(Yii::app()->user->id);
     }
 
     public function actionImg()

@@ -41,7 +41,7 @@ Yii::app()->clientScript
 
         <div class="content-title">Мои баллы</div>
 
-        <?php if (Yii::app()->user->getId() == 10):?>
+        <?php if (Yii::app()->user->id == 10):?>
         <br><a href="#" onclick="removeHistory();">Очистить всё</a>
         <?php endif ?>
 

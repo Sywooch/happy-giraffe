@@ -65,7 +65,7 @@ class VaccineData
      * @param $baby_id
      */
     public function LoadUserVotes($baby_id){
-        $votes = $this->GetUserVotes(Yii::app()->user->getId(), $baby_id);
+        $votes = $this->GetUserVotes(Yii::app()->user->id, $baby_id);
         foreach($votes as $row){
             $this->user_votes[$row['object_id']] = $row['vote'];
         }

@@ -38,7 +38,7 @@
     }
 
     if (!Yii::app()->user->isGuest)
-        $user = User::getUserById(Yii::app()->user->getId());
+        $user = User::getUserById(Yii::app()->user->id);
     ?>
 </head>
 <body class="body-club">
@@ -63,7 +63,7 @@
                                     </ul>
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="<?php echo $this->createUrl('/im/') ?>">Все диалоги (<?php echo MessageDialog::GetUserDialogsCount(Yii::app()->user->getId()) ?>)</a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/') ?>">Все диалоги (<?php echo MessageDialog::GetUserDialogsCount(Yii::app()->user->id) ?>)</a></li>
                                             <li><a href="<?php echo $this->createUrl('/im/new') ?>">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count<?php if (($incoming_count = count(MessageDialog::GetUserNewDialogs())) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count ?></a></li>
                                             <li><a href="<?php echo $this->createUrl('/im/online') ?>">Кто онлайн</a> <span class="online-count"><?php echo count(MessageDialog::GetUserOnlineDialogs()) ?></span></li>
                                         </ul>
@@ -103,14 +103,14 @@
                             <li class="user">
                                 <div class="link">
                                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>
-                                    <a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">
+                                    <a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>">
                                         <span class="username"><?php echo $user->first_name ?><i class="arr"></i></span>
                                     </a>
                                 </div>
                                 <div class="drp">
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">Мой профайл<i class="icon icon-profile"></i></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>">Мой профайл<i class="icon icon-profile"></i></a></li>
                                             <li><a href="<?php echo $this->createUrl('/profile/index') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
                                             <li><a href="<?php echo $this->createUrl('/site/logout') ?>">Выйти<i class="icon icon-logout"></i></a></li>
                                         </ul>

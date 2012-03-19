@@ -50,7 +50,7 @@ class VoteWidget extends CWidget
     private function GenerateTemplate()
     {
         if ($this->all_votes === null)
-            $vote = $this->model->getCurrentVote(Yii::app()->user->getId());
+            $vote = $this->model->getCurrentVote(Yii::app()->user->id);
         else{
             if (isset($this->all_votes[$this->model->owner->id]))
                 $vote = $this->all_votes[$this->model->owner->id];

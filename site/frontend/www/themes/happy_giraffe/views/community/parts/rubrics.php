@@ -14,7 +14,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.tmpl.min.js');
     )); ?>
     <? endforeach; ?>
 </ul>
-<?php if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array('community_id' => $community->id)))
+<?php if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array('community_id' => $community->id)))
     echo CHtml::link('<i class="icon"></i>', '', array('class' => 'add'));?>
 
 <script id="edit_rubric_tmpl" type="text/x-jquery-tmpl">

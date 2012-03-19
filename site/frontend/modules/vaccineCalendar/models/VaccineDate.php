@@ -418,7 +418,7 @@ class VaccineDate extends CActiveRecord
     {
         if (Yii::app()->user->isGuest || $baby === null)
             return self::VOTE_EMPTY;
-        $user_vote = $this->GetUserVoteFromDb(Yii::app()->user->getId(), $baby->id);
+        $user_vote = $this->GetUserVoteFromDb(Yii::app()->user->id, $baby->id);
         if (empty($user_vote))
             return self::VOTE_EMPTY;
         return $user_vote;

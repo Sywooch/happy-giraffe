@@ -131,8 +131,8 @@ class AjaxController extends Controller
             if ($comment === null)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
             //check access
-            if ($comment->author_id != Yii::app()->user->getId() &&
-                !Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->getId())
+            if ($comment->author_id != Yii::app()->user->id &&
+                !Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->id)
             )
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
             $comment->attributes = $_POST['Comment'];
@@ -173,7 +173,12 @@ class AjaxController extends Controller
         $model = $model->findByPk($_POST['Removed']['entity_id']);
         if(!$model)
             Yii::app()->end();
-        if (!Yii::app()->user->checkAccess('remove'.get_class($model),array('user_id'=>$model->author_id)))
+
+        $is_entity_author = false;
+        if (method_exists($model, 'isEntityAuthor') && $model->isEntityAuthor(Yii::app()->user->id))
+            $is_entity_author = true;
+
+        if (!Yii::app()->user->checkAccess('remove'.get_class($model),array('user_id'=>$model->author_id)) && !$is_entity_author)
             Yii::app()->end();
 
         $removed = new Removed;
@@ -181,6 +186,8 @@ class AjaxController extends Controller
         $removed->attributes = $_POST['Removed'];
         if($model->author_id == Yii::app()->user->id)
             $removed->type = 0;
+        elseif ($is_entity_author)
+            $removed->type = 5;
         $removed->save();
     }
 
@@ -276,7 +283,7 @@ class AjaxController extends Controller
 	public function actionSave()
 	{
 		print_r($_POST);
-		$user = User::model()->findByPk(Yii::app()->user->getId());
+		$user = User::model()->findByPk(Yii::app()->user->id);
 		$user->setAttributes($_POST['User']);
 		$user->save(TRUE, array('first_name', 'last_name', 'nick', 'birthday', 'settlement_id'));
 	}

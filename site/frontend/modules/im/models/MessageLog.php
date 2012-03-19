@@ -119,6 +119,22 @@ class MessageLog extends CActiveRecord
         return parent::beforeSave();
     }
 
+    public static function allDialogMessagesForUser($dialog_id, $user_id)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = ' message_log.dialog_id = :dialog_id
+            AND message_log.user_id != :user_id
+            AND message_log.id NOT IN (SELECT message_id FROM message_deleted WHERE user_id = :user_id)
+            AND message_log.id > COALESCE((SELECT message_id FROM message_dialog_deleted WHERE dialog_id = :dialog_id AND user_id = :user_id LIMIT 1), 0)
+        ';
+        $criteria->params = array(
+            ':dialog_id' => $dialog_id,
+            ':user_id' => $user_id,
+        );
+
+        return $criteria;
+    }
+
     /**
      * Create new message
      *
@@ -285,7 +301,9 @@ class MessageLog extends CActiveRecord
         $models = Yii::app()->db->createCommand()
             ->select(array('t.id', 't.user_id', 't.text', 't.created', 't.read_status', 't.dialog_id'))
             ->from('message_log as t')
-            ->where(' t.dialog_id IN (:dialogs) AND t.user_id != :user_id AND t.id not in (SELECT message_id FROM message_deleted WHERE user_id = :user_id) ', array(
+            ->where(' t.dialog_id IN (:dialogs) AND t.user_id != :user_id
+                        AND t.id NOT IN (SELECT message_id FROM message_deleted WHERE user_id = :user_id)
+                        ', array(
             ':user_id' => $user_id,
             ':dialogs' => implode(',', Im::model($user_id)->getDialogIds())
         ))

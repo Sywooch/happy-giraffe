@@ -6,7 +6,7 @@ $user = Im::model()->getUser($message['user_id']);
 if (!isset($class))
     $class = '';
 ?><div class="dialog-message<?php if ($message['read_status'] == 0 && !$read) echo ' dialog-message-new-in'
-?> <?php echo $class ?>" id="MessageLog_<?php echo $message['id'] ?>">
+?> <?php echo $class ?>" id="Message_<?php echo $message['id'] ?>">
     <table>
         <tr>
             <td class="user">

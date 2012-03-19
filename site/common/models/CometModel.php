@@ -33,7 +33,7 @@ class CometModel extends CComponent
         if ($type !== null)
             $this->type = $type;
 
-        $channel_id = MessageCache::GetUserCache($user_id);
+        $channel_id = UserCache::GetUserCache($user_id);
         $this->attributes['type'] = $this->type;
         Yii::app()->comet->send($channel_id, $this->attributes);
     }

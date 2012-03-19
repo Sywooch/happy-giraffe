@@ -80,9 +80,9 @@ class Im
     public function refreshDialogUsers()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 't.id IN (SELECT dialog_id FROM message_user WHERE user_id = ' . $this->_user_id . ')';
-        $dialogs = MessageDialog::model()->with(array(
-            'messageUsers'
+        $criteria->condition = 't.id IN (SELECT dialog_id FROM im__dialog_users WHERE user_id = ' . $this->_user_id . ')';
+        $dialogs = Dialog::model()->with(array(
+            'dialogUsers'
         ))->findAll($criteria);
 
         $users = array();
@@ -95,7 +95,7 @@ class Im
                 'users' => array(),
             );
 
-            foreach ($dialog->messageUsers as $user) {
+            foreach ($dialog->dialogUsers as $user) {
                 if ($user->user_id !== $this->_user_id) {
                     $users [] = $user->user_id;
                     $new_dialog['name'] = $this->getUser($user->user_id)->getFullName();
@@ -104,7 +104,7 @@ class Im
             }
             if (empty($new_dialog['users'])){
                 //remove dialog where no users
-                MessageDialog::model()->deleteByPk($dialog->id);
+                Dialog::model()->deleteByPk($dialog->id);
             }
             $this->_dialogs[$dialog->id] = $new_dialog;
         }
@@ -267,13 +267,13 @@ class Im
     public static function getUnreadMessagesCount($user_id)
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 't.id IN (SELECT dialog_id FROM message_user WHERE user_id = ' . $user_id . ')';
+        $criteria->condition = 't.id IN (SELECT dialog_id FROM im__dialog_users WHERE user_id = ' . $user_id . ')';
         $criteria->select = 'id';
-        $dialogs = MessageDialog::model()->findAll($criteria);
+        $dialogs = Dialog::model()->findAll($criteria);
 
         $unread = 0;
         foreach ($dialogs as $dialog) {
-            $unread += MessageDialog::getUnreadMessagesCount($dialog->id, $user_id);
+            $unread += Dialog::getUnreadMessagesCount($dialog->id, $user_id);
         }
 
         return $unread;

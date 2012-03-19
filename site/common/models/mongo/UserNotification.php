@@ -45,7 +45,7 @@ class UserNotification extends EMongoDocument
             'method' => 'deleted',
             'templates' => array(
                 'CommunityContent' => 'Ваша запись {post} в клубе {club} удалена по причине {deleteReason}',
-                'Comment' => 'Ваш комментарий к записи {post} в клубе {club} по причине {deleteReason}',
+                'Comment' => 'Ваш комментарий к записи {post} в клубе {club} удален по причине {deleteReason}',
             ),
         ),
         self::TRANSFERRED => array(

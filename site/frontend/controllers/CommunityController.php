@@ -363,6 +363,7 @@ class CommunityController extends Controller
             'community_id' => $community_id,
             'rubric_id' => $rubric_id,
             'waypoints' => $waypoints,
+            'blog' => false,
         ));
     }
 

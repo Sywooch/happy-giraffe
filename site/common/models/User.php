@@ -522,13 +522,18 @@ class User extends CActiveRecord
         return $url;
     }
 
-    public function getFlag()
+    public function getFlag($big = false)
     {
         Yii::import('site.frontend.modules.geo.models.*');
 
-        if (!empty($this->country_id))
-            return '<div class="flag flag-' . strtolower($this->country->iso_code) . '" title="'
-                . $this->country->name . '"></div>';
+        if (!empty($this->country_id)) {
+            if ($big)
+                return '<div class="flag-big flag-big-' . strtolower($this->country->iso_code) . '" title="'
+                    . $this->country->name . '"></div>';
+            else
+                return '<div class="flag flag-' . strtolower($this->country->iso_code) . '" title="'
+                    . $this->country->name . '"></div>';
+        }
         else
             return '';
     }

@@ -1,7 +1,7 @@
 <li class="clearfix item" id="comment_<?php echo $data->id; ?>">
     <div class="clearfix">
         <div class="user">
-            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->author)); ?>
+            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->author, 'friendButton' => true)); ?>
         </div>
         <div class="content">
             <div class="meta">

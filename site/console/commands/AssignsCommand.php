@@ -23,6 +23,7 @@ class AssignsCommand extends CConsoleCommand
             $count = User::model()->countByAttributes(array('id'=>$model->userid));
             if ($count == 0){
                 echo "id = {$model->userid} user not exist \n\r";
+                $model->delete();
             }
         }
     }

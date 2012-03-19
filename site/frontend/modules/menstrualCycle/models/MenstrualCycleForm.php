@@ -46,7 +46,7 @@ class MenstrualCycleForm extends CFormModel
     public function init()
     {
         if (!Yii::app()->user->isGuest) {
-            $user_cycle = MenstrualCycle::GetUserCycle(Yii::app()->user->getId());
+            $user_cycle = MenstrualCycle::GetUserCycle(Yii::app()->user->id);
             if ($user_cycle !== null) {
                 $this->day = date('j', strtotime($user_cycle['date']));
                 $this->month = date('n', strtotime($user_cycle['date']));

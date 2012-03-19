@@ -44,7 +44,7 @@ class ProfileController extends Controller
     protected function beforeAction($action)
     {
         Yii::import('site.frontend.modules.geo.models.*');
-        $this->user = User::model()->with('settlement')->findByPk(Yii::app()->user->getId());
+        $this->user = User::model()->with('settlement')->findByPk(Yii::app()->user->id);
         return true;
     }
 
@@ -58,7 +58,7 @@ class ProfileController extends Controller
             ) {
                 //add scores to user
                 Yii::import('site.frontend.modules.scores.models.*');
-                UserScores::checkProfileScores(Yii::app()->user->getId(), ScoreActions::ACTION_PROFILE_MAIN);
+                UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_MAIN);
             }
 
             $address = new AddressForm();
@@ -80,7 +80,7 @@ class ProfileController extends Controller
             if ($this->user->save(true, array('pic_small'))){
                 //add scores to user
                 Yii::import('site.frontend.modules.scores.models.*');
-                UserScores::checkProfileScores(Yii::app()->user->getId(), ScoreActions::ACTION_PROFILE_PHOTO);
+                UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_PHOTO);
             }
             if (isset($_POST['returnUrl']) && !empty($_POST['returnUrl']))
                 $this->redirect(urldecode($_POST['returnUrl']));
@@ -275,7 +275,7 @@ class ProfileController extends Controller
     public function actionRemoveBabyPhoto()
     {
         $baby = $this->loadBaby($_POST['id']);
-        if ($baby->parent_id == Yii::app()->user->getId()) {
+        if ($baby->parent_id == Yii::app()->user->id) {
             $baby->photo = null;
             if ($baby->save()) {
                 $response = array(
@@ -289,7 +289,7 @@ class ProfileController extends Controller
 
     public function actionRemovePartnerPhoto()
     {
-        $user = $this->loadUser(Yii::app()->user->getId());
+        $user = $this->loadUser(Yii::app()->user->id);
         $user->partner->photo = null;
         if ($user->partner->save()) {
 
@@ -302,7 +302,7 @@ class ProfileController extends Controller
 
     public function actionRemovePhoto()
     {
-        $res = Yii::app()->db->createCommand('update user set pic_small = null WHERE id = '.Yii::app()->user->getId())->execute();
+        $res = Yii::app()->db->createCommand('update user set pic_small = null WHERE id = '.Yii::app()->user->id)->execute();
         if ($res > 0) {
             $response = array(
                 'status' => true,

@@ -52,7 +52,7 @@ class UserSignalHistory extends EMongoDocument
     {
         $data = array();
         $criteria = new EMongoCriteria;
-        $criteria->user_id('==', (int)Yii::app()->user->getId());
+        $criteria->user_id('==', (int)Yii::app()->user->id);
         $criteria->date =  new MongoRegex('/'.$year.'-'.$month.'/');
 
         $models = self::model()->findAll($criteria);

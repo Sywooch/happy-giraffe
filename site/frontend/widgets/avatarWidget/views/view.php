@@ -8,7 +8,7 @@ if ($this->user->role == 'virtual user' || $this->user->role == 'moderator')
     $show_link_to_profile = false;
 
 $link_to_profile = $this->user->url;
-if ($this->size == 'big' && $this->user->id == Yii::app()->user->getId())
+if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
     $link_to_profile = Yii::app()->createUrl('profile/photo', array('returnUrl'=>urlencode(Yii::app()->createUrl('user/profile', array('user_id'=>$this->user->id)))));
 
 ?>

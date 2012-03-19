@@ -158,10 +158,10 @@ class CommunityController extends Controller
         {
             throw new CHttpException(404, 'Такой записи не существует.');
         }
-        if ($content_model->author_id != Yii::app()->user->getId() &&
-            !Yii::app()->authManager->checkAccess('removeCommunityContent', Yii::app()->user->getId(),
+        if ($content_model->author_id != Yii::app()->user->id &&
+            !Yii::app()->authManager->checkAccess('removeCommunityContent', Yii::app()->user->id,
                 array('community_id'=>$content_model->rubric->community_id)) &&
-            !Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->getId())
+            !Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->id)
         ) {
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         }
@@ -197,7 +197,7 @@ class CommunityController extends Controller
 
     public function actionTransfer()
     {
-        if (!Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->getId()))
+        if (!Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->id))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $model = CommunityContent::model()->findByPk(Yii::app()->request->getPost('id'));

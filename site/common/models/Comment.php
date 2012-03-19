@@ -293,4 +293,18 @@ class Comment extends CActiveRecord
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         return $entity->url;
     }
+
+    public function isEntityAuthor($user_id)
+    {
+        $class = $this->entity;
+        $pk = $this->entity_id;
+        $model = $class::model()->cache(1)->findByPk($pk);
+        if ($model !== null){
+            if (isset($model->author_id) && $model->author_id == $user_id)
+                return true;
+            if ($this->entity == 'User' && $model->id == $user_id)
+                return true;
+        }
+        return false;
+    }
 }

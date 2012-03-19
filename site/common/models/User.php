@@ -453,7 +453,7 @@ class User extends CActiveRecord
      */
     public static function GetCurrentUserWithBabies()
     {
-        $user = User::model()->with(array('babies'))->findByPk(Yii::app()->user->getId());
+        $user = User::model()->with(array('babies'))->findByPk(Yii::app()->user->id);
         return $user;
     }
 
@@ -508,7 +508,7 @@ class User extends CActiveRecord
 
     public function getDialogUrl()
     {
-        if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->getId())
+        if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->id)
             return '#';
 
         $dialog_id = Im::model()->getDialogIdByUser($this->id);

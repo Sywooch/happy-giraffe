@@ -63,7 +63,7 @@
 
 		<?php echo $form->textField($content_model, 'name'); ?>
 	
-		<?php if(Yii::app()->user->checkAccess('edit meta')): ?>
+		<?php if(Yii::app()->user->checkAccess('editMeta')): ?>
 			<div class="inner-title">Title</div>
 			<?php echo $form->textField($content_model, 'meta_title'); ?>
 	

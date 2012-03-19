@@ -850,7 +850,7 @@ class User extends CActiveRecord
     public function getScores()
     {
         Yii::import('site.frontend.modules.scores.models.*');
-        $model = UserScores::model()->findByPk($this->id);
+        $model = UserScores::model()->with(array('level'=>array('select'=>array('name'))))->findByPk($this->id);
         if ($model === null){
             $model = new UserScores;
             $model->user_id = $this->id;

@@ -93,3 +93,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
 <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
     'model' => $photo,
 )); ?>
+
+<?php
+$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+$remove_tmpl->registerTemplates();
+$this->endWidget();
+?>

@@ -66,7 +66,7 @@ class AlbumPhoto extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('author_id, album_id, file_name', 'required'),
+            array('author_id, file_name', 'required'),
             array('author_id, album_id', 'length', 'max' => 10),
             array('file_name, fs_name', 'length', 'max' => 100),
             array('title', 'length', 'max' => 50),

@@ -148,11 +148,4 @@ class DefaultController extends Controller
             throw new CHttpException(404, 'Ошибка, обратитесь к разработчикам.');
         return $model;
     }
-
-    public function actionTest()
-    {
-        $r1 = array(1,4,5,6,7);
-        array_shift($r1);
-        var_dump($r1);
-    }
 }

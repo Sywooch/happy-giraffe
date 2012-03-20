@@ -34,7 +34,9 @@
 			));
 		?>
 	</div>
-    <a href="" class="btn btn-red-transparent contest-takeapart"><span><span>Участвовать</span></span></a>
+    <?php if($this->contest->isStatement): ?>
+        <?php echo CHtml::link('<span><span>Участвовать</span></span>', array('/contest/statement', 'id' => $this->contest->primaryKey), array('class' => 'btn btn-red-transparent contest-takeapart')) ?>
+    <?php endif; ?>
 	<img src="/images/section_banner_02.jpg" />
 </div>
 <?php echo $content; ?>

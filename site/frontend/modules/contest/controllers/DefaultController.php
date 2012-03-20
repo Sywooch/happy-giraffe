@@ -20,12 +20,7 @@ class DefaultController extends Controller
                 'users'=>array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions'=>array('create','update'),
-                'users'=>array('@'),
-            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions'=>array('admin','delete'),
-//				'roles'=>array('admin'),
+                'actions'=>array('statement'),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -48,7 +43,6 @@ class DefaultController extends Controller
         $contest = Contest::model()->with(array(
             'prizes' => array('with' => 'product'),
             'works' => array('limit' => 15),
-            'winners',
         ))->findByPk($id);
         if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
 
@@ -59,14 +53,17 @@ class DefaultController extends Controller
         ));
     }
 
-    public function actionList($id, $sort = 'work_time')
+    public function actionList($id, $sort = 'created')
     {
-        $contest = Contest::model()->with('winners')->findByPk($id);
+        $contest = Contest::model()->findByPk($id);
         if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
 
-        $works = ContestWork::model()->get($id, $sort);
-
         $this->contest = $contest;
+
+        $works = new ContestWork('search');
+        $works->unsetAttributes();
+        $works->contest_id = $this->contest->primaryKey;
+        $works = $works->search($sort);
 
         $this->render('list', array(
             'contest' => $contest,
@@ -78,7 +75,7 @@ class DefaultController extends Controller
 
     public function actionRules($id)
     {
-        $contest = Contest::model()->with('winners')->findByPk($id);
+        $contest = Contest::model()->findByPk($id);
         if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
 
         $this->contest = $contest;
@@ -93,7 +90,7 @@ class DefaultController extends Controller
         $work = ContestWork::model()->findByPk($id);
         $others = ContestWork::model()->findAll(array(
             'limit' => 5,
-            'condition' => 'work_id!=:current',
+            'condition' => 'id != :current',
             'params' => array(':current' => $id),
         ));
         if ($work === null) throw new CHttpException(404, 'Такой работы не существует.');
@@ -116,5 +113,47 @@ class DefaultController extends Controller
             ),
         ));
         echo Yii::app()->baseUrl . $dst;
+    }
+
+    public function actionStatement($id)
+    {
+        $this->contest = Contest::model()->findByPk($id);
+
+        if(!$this->contest->isStatement)
+            throw new CHttpException(404, 'Вы уже участвуете в этом конкурсе');
+
+        $model = new ContestWork('upload');
+        if(isset($_POST['ContestWork']))
+        {
+            if(isset($_POST['ajax']) && $_POST['ajax']==='attach-form')
+            {
+                echo CActiveForm::validate($model);
+                Yii::app()->end();
+            }
+
+            $model->attributes = $_POST['ContestWork'];
+            $model->contest_id = $id;
+            $model->user_id = Yii::app()->user->id;
+            if($model->save())
+            {
+                $attach = new AttachPhoto;
+                $attach->entity = get_class($model);
+                $attach->entity_id = $model->primaryKey;
+                if(isset($_POST['photo_id']))
+                    $attach->photo_id = $_POST['photo_id'];
+                else if(isset($_POST['photo_fsn']))
+                {
+                    $photo = new AlbumPhoto;
+                    $photo->author_id = $model->user_id;
+                    $photo->title = $model->title;
+                    $photo->file_name = $_POST['photo_fsn'];
+                    if($photo->create(true))
+                        $attach->photo_id = $photo->id;
+                }
+                $attach->save();
+                $this->redirect(array('/contest/view', 'id' => $this->contest->primaryKey));
+            }
+        }
+        $this->render('statement', array('model' => $model));
     }
 }

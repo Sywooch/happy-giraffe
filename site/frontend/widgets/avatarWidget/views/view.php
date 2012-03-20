@@ -12,7 +12,9 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
     $link_to_profile = Yii::app()->createUrl('profile/photo', array('returnUrl'=>urlencode(Yii::app()->createUrl('user/profile', array('user_id'=>$this->user->id)))));
 
 ?>
-<div class="user-info clearfix">
+<?php if(!$this->small): ?>
+    <div class="user-info clearfix">
+<?php endif; ?>
     <a <?php //if (!$show_link_to_profile) echo 'onclick="return false;"';?> class="<?=$class?>"
         href="<?=$link_to_profile?>">
         <?php echo CHtml::image($this->user->getAva($this->size)); ?>
@@ -39,4 +41,6 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
             </div>
         </div>
     <?php endif; ?>
-</div>
+<?php if(!$this->small): ?>
+    </div>
+<?php endif; ?>

@@ -33,7 +33,10 @@ class CommentWidget extends CWidget
             unset($_GET['lastPage']);
         }
 
-        Rating::model()->saveByEntity($this->model, 'cm', floor($dataProvider->itemCount / 10));
+        if($this->entity != 'ContestWork')
+        {
+            Rating::model()->saveByEntity($this->model, 'cm', floor($dataProvider->itemCount / 10));
+        }
 
         $this->registerScripts();
 		if ($this->onlyList)

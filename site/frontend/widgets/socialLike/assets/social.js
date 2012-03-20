@@ -62,5 +62,11 @@ $(function() {
             '<a class="popup-close" onclick="$.fancybox.close();" href="javascript:void(0);">Закрыть</a>' +
             '<div class="confirm-before">Чтобы проголосовать, вам нужно авторизоваться</div>' +
         '</div>');
-    })
+    });
+    $('body').delegate('.yohoho_me', 'click', function() {
+        $.fancybox.open('<div class="popup-confirm popup">' +
+            '<a class="popup-close" onclick="$.fancybox.close();" href="javascript:void(0);">Закрыть</a>' +
+            '<div class="confirm-before">Вы не можете голосовать сами за себя</div>' +
+        '</div>');
+    });
 })

@@ -107,7 +107,7 @@ class ContestWork extends CActiveRecord
 		$criteria->compare('title',$this->title);
 		$criteria->compare('created',$this->created,true);
 
-        if($sort && isset($this->{$sort}))
+        if($sort)
         {
             $criteria->order = $sort . ' desc';
         }

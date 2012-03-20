@@ -22,7 +22,7 @@
             <?php if ($user->country !== null): ?>
                 <div class="location"><?=$user->getFlag(true)?><?php if ($user->settlement !== null): ?> <?=$user->settlement->name?><?php endif; ?></div>
             <?php endif; ?>
-            <div class="birthday"><span>День рождения:</span> 15 декабря (39 лет)</div>
+            <?php if ($user->birthday): ?><div class="birthday"><span>День рождения:</span> <?php echo Yii::app()->dateFormatter->format("d MMMM", $user->birthday); ?> (<?php echo $user->age . ' ' . $user->ageSuffix; ?>)</div><?php endif; ?>
 
         </div>
 

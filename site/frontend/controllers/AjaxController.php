@@ -48,6 +48,7 @@ class AjaxController extends Controller
 
     public function actionSocialApi()
     {
+        Yii::import('contest.models.*');
         $key = Yii::app()->request->getQuery('key');
         if($key)
         {

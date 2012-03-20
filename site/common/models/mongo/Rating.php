@@ -66,6 +66,12 @@ class Rating extends EMongoDocument
         $old_sum = $model->sum;
         $model->sum = array_sum($model->ratings);
 
+        if(isset($entity->rate))
+        {
+            $entity->rate = $model->sum;
+            $entity->save(false);
+        }
+
         if (isset($entity->author_id)){
             //add scores to author
             Yii::import('site.frontend.modules.scores.models.*');

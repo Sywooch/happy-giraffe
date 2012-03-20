@@ -68,9 +68,9 @@ class RecipeBookRecipe extends CActiveRecord
                 )),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
-                'createAttribute' => 'create_time',
-                'updateAttribute' => null,
-            )
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            ),
         );
     }
 

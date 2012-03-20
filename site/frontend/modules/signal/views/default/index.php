@@ -32,11 +32,11 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
 </div>
 
 <div class="clear"></div>
-<input type="checkbox" id="play_sound" checked /> <label for="play_sound">Проигрывать звук</label>
-<?php if (Yii::app()->user->id == 10):?>
+<input type="checkbox" id="play_sound" checked/> <label for="play_sound">Проигрывать звук</label>
+<?php if (Yii::app()->user->id == 10): ?>
 <br><a href="#" onclick="removeHistory()">Очистить всё</a>
 <?php endif ?>
-
+<a href="#" onclick="Play();return false;" style="display: none;">Play</a>
 <div class="main-list">
     <?php $this->renderPartial('_data', array('models' => $models)); ?>
 </div>
@@ -53,7 +53,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
     var month = <?php echo date('n') ?>;
     var current_date = '<?php echo date("Y-m-d")  ?>';
 
-    soundManager.url = '/swf/soundmanager2.swf';
+    soundManager.url = '/swf/';
 
     $(function () {
         $('body').delegate('a.take-task', 'click', function () {
@@ -193,19 +193,19 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
         });
     }
 
-    function Play(){
+    function Play() {
         if ($('#play_sound').attr("checked") != 'checked')
-            return ;
+            return;
         // создание объекта "звук"
-        soundManager.createSound('myNewSound','/audio/notify.wav');
+        soundManager.createSound({id:'s', url:'/audio/1.mp3'});
 
         // установка громкости и воспроизведение
-        soundManager.play('myNewSound');
-        soundManager.setVolume('myNewSound',50);
-        soundManager.setPan('myNewSound',-100);;
+        soundManager.play('s');
+//        soundManager.setVolume('s', 50);
+//        soundManager.setPan('s', -100);
     }
 
-    function removeHistory(){
+    function removeHistory() {
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("/signal/default/removeAll") ?>',
             type:'POST'

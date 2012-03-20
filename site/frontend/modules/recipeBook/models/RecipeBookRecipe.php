@@ -94,11 +94,12 @@ class RecipeBookRecipe extends CActiveRecord
             array('views_amount', 'numerical', 'integerOnly' => true),
             array('name, internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max' => 255),
             array('disease_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDisease'),
+            array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
             array('purposeIds', 'safe'),
             array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, disease_id, author_id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, create_time, views_amount', 'safe', 'on' => 'search'),
+            array('id, name, disease_id, author_id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, views_amount', 'safe', 'on' => 'search'),
         );
     }
 

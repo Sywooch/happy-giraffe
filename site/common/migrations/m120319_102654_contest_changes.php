@@ -5,7 +5,7 @@ class m120319_102654_contest_changes extends CDbMigration
 	public function up()
 	{
         $this->execute("DROP TABLE `club_contest_winner`, `club_contest_work_comment`, `club_contest_work`;");
-        $this->execute("CREATE TABLE `happy_giraffe`.`club_contest_work` (
+        $this->execute("CREATE TABLE `club_contest_work` (
         `id` INT( 10 ) UNSIGNED NULL ,
         `contest_id` INT( 10 ) UNSIGNED NOT NULL ,
         `user_id` INT( 10 ) UNSIGNED NOT NULL ,

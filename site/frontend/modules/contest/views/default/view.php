@@ -1,6 +1,6 @@
 <div id="contest">
     <div class="contest-about clearfix">
-        <?php if(!Yii::app()->user->isGuest && !ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id))): ?>
+        <?php if($this->contest->isStatement): ?>
             <div class="sticker">
                 <big>Для участия в конкурсе Вам необходимо</big>
                 <ul>

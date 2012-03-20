@@ -11,7 +11,7 @@
         <?php endforeach; ?>
     </ul>
 </div>
-<div id="gallery">
+<div id="gallery"<?php echo !$model ? ' class="nomargin"' : '' ?>>
     <?php if($model): ?>
         <div class="gallery-photos clearfix">
         <?php

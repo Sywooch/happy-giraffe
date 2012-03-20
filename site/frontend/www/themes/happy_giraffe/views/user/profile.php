@@ -5,38 +5,64 @@
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/user.css');
+
+    $score = $user->scores;
 ?>
 <div id="user">
 
     <div class="header clearfix">
+
         <div class="user-name">
-            <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
+            <h1><?=$user->first_name?><br/><?=$user->last_name?></h1>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>
                 <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
             <?php endif; ?>
-            <div class="location"><?php echo $user->getFlag(true) ?> <?php echo isset($user->settlement)?$user->settlement->name:'' ?></div>
-            <?php if ($user->birthday): ?><span>День рождения:</span> <?php echo Yii::app()->dateFormatter->format("dd MMMM", $user->birthday); ?> (<?php echo $user->age . ' ' . $user->ageSuffix; ?>)<?php endif; ?>
+            <?php if ($user->country !== null): ?>
+                <div class="location"><?=$user->getFlag(true)?><?php if ($user->settlement !== null): ?> <?=$user->settlement->name?><?php endif; ?></div>
+            <?php endif; ?>
+            <div class="birthday"><span>День рождения:</span> 15 декабря (39 лет)</div>
+
         </div>
 
-        <?php if ($user->id != Yii::app()->user->id): ?>
+        <?php if (! Yii::app()->user->isGuest && $user->id != Yii::app()->user->id): ?>
             <div class="user-buttons clearfix">
                 <?php $this->renderPartial('_friend_button', array(
                     'user' => $user,
                 )); ?>
-                <a href="<?=$user->getDialogUrl() ?>" class="new-message"><span class="tip">Написать сообщение</span></a>
+                <a href="<?=$user->dialogUrl?>" class="new-message"><span class="tip">Написать сообщение</span></a>
             </div>
         <?php endif; ?>
 
         <div class="user-nav">
-            <ul>
-                <li class="active"><?php echo CHtml::link('Анкета', array('user/profile', 'user_id' => $user->id)); ?></li>
-                <li><?php echo CHtml::link('Блог', array('user/blog', 'user_id' => $user->id)); ?></li>
-                <li><?php echo CHtml::link('Фото', array('albums/user', 'id' => $user->id)); ?></li>
-                <li><?php echo CHtml::link('Друзья', array('user/friends', 'user_id' => $user->id)); ?></li>
-                <li><?php echo CHtml::link('Клубы', array('user/clubs', 'user_id' => $user->id)); ?></li>
-            </ul>
+            <?php
+                $this->widget('zii.widgets.CMenu', array(
+                    'items' => array(
+                        array(
+                            'label' => 'Анкета',
+                            'url' => array('user/profile', 'user_id' => $this->user->id),
+                        ),
+                        array(
+                            'label' => 'Блог',
+                            'url' => array('user/blog', 'user_id' => $this->user->id),
+                        ),
+                        array(
+                            'label' => 'Фото',
+                            'url' => array('albums/user', 'id' => $this->user->id),
+                        ),
+                        array(
+                            'label' => 'Друзья',
+                            'url' => array('user/friends', 'user_id' => $this->user->id),
+                            'active' => $this->action->id == 'friends' || $this->action->id == 'myFriendRequests',
+                        ),
+                        array(
+                            'label' => 'Клубы',
+                            'url' => array('user/clubs', 'user_id' => $this->user->id),
+                        ),
+                    ),
+                ));
+            ?>
         </div>
     </div>
 
@@ -44,35 +70,40 @@
 
         <div class="col-1">
 
-            <div class="user-photo">
-                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $user, 'size'=>'big', 'small' => true)); ?>
+            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                'user' => $user,
+                'size'=>'big',
+                'small' => true,
+            )); ?>
+
+            <div class="details">
+                Зарегистрирван <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>
             </div>
 
-            <div class="user-meta">
-                <div class="details">
-                    Зарегистрирован  <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date); ?><br/>
+            <?php if (! empty($score->level_id)): ?>
+                <div class="user-lvl user-lvl-<?=$score->level_id?>">
+                    <span><?=$score->level->name?></span>
                 </div>
-                <?php $score = $user->getScores() ?>
-                <?php if (!empty($score->level_id)):?>
-                    <div class="user-lvl user-lvl-<?=$score->level_id ?>">
-                        <span><?=$score->level->name ?></span>
-                    </div>
+            <?php endif ?>
 
-                <?php endif ?>
-            </div>
+            <?php $this->widget('FamilyWidget', array(
+                'user' => $user,
+            )); ?>
 
-            <?php $this->widget('application.widgets.user.FamilyWidget',array('user'=>$user)) ?>
-
-            <?php $this->widget('application.widgets.user.InterestsWidget',array('user'=>$user)) ?>
+            <?php $this->widget('InterestsWidget', array(
+                'user' => $user,
+            )); ?>
 
         </div>
+
         <div class="col-23 clearfix">
+
             <div class="clearfix">
                 <div class="col-2">
 
                     <?php $this->widget('UserMoodWidget', array(
-                    'user' => $user,
-                )); ?>
+                        'user' => $user,
+                    )); ?>
 
                     <?php $this->widget('UserStatusWidget', array(
                         'user' => $user,
@@ -90,7 +121,9 @@
                         'user' => $user
                     )); ?>
 
-                    <?php $this->widget('UserAlbumWidget', array('user' => $user,)); ?>
+                    <?php $this->widget('UserAlbumWidget', array(
+                        'user' => $user,
+                    )); ?>
 
                 </div>
 
@@ -100,27 +133,40 @@
                         'user' => $user,
                     )); ?>
 
-                    <?php $this->widget('LocationWidget',array(
-                    'user'=>$user)) ?>
+                    <?php $this->widget('LocationWidget', array(
+                        'user' => $user,
+                    )); ?>
 
-                    <?php $this->widget('WeatherWidget',array(
-                    'user'=>$user)) ?>
+                    <?php $this->widget('WeatherWidget', array(
+                        'user' => $user,
+                    )); ?>
 
-                    <?php $this->widget('HoroscopeWidget',array('user'=>$user)) ?>
+                    <?php $this->widget('HoroscopeWidget', array(
+                        'user' => $user,
+                    )); ?>
 
                 </div>
+
             </div>
+
             <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
                 'model' => $user,
                 'title' => 'Гостевая',
                 'actions' => false,
             )); ?>
+
+
+
         </div>
+
     </div>
+
+
+
 </div>
 
 <?php
-$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-$remove_tmpl->registerTemplates();
-$this->endWidget();
+    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+    $remove_tmpl->registerTemplates();
+    $this->endWidget();
 ?>

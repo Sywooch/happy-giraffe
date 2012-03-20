@@ -29,7 +29,7 @@ $(document).ready(function() {
 
     if ($('input[placeholder], textarea[placeholder]').size() > 0 ) $('input[placeholder], textarea[placeholder]').placeholder();
 	
-	$('body').click(function(e){		
+	$('body').click(function(e){
 		if (!$(e.target).parents().hasClass('navdrp')) navDrpClose();
 	})
 	

@@ -118,6 +118,10 @@ class DefaultController extends Controller
     public function actionStatement($id)
     {
         $this->contest = Contest::model()->findByPk($id);
+
+        if(!$this->contest->isStatement)
+            throw new CHttpException(404, 'Вы уже участвуете в этом конкурсе');
+
         $model = new ContestWork('upload');
         if(isset($_POST['ContestWork']))
         {

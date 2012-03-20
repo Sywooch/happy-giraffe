@@ -116,4 +116,14 @@ class ContestWork extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getNeighboringWorks()
+    {
+        $prev = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where contest_id = ' . $this->contest_id . ' and id < ' . $this->id . ' limit 1')->queryRow();
+        $next = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where contest_id = ' . $this->contest_id . ' and id > ' . $this->id . ' limit 1')->queryRow();
+        return array(
+            'prev' => $prev ? $prev['id'] : false,
+            'next' => $next ? $next['id'] : false
+        );
+    }
 }

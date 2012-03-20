@@ -419,4 +419,11 @@ class CommunityContent extends CActiveRecord
     {
         return $this->getRelated('rubric')->user_id !== null;
     }
+
+    public function defaultScope()
+    {
+        return array(
+            'condition' => 'removed = 0',
+        );
+    }
 }

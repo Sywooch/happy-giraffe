@@ -573,11 +573,13 @@ class CommunityController extends Controller
                     'button' => $this->renderPartial('_joinButton', array(
                         'community_id' => $community_id,
                     ), true),
+                    'inClub' => ($action == 'join')
                 );
             }
             else {
                 $response = array(
                     'status' => false,
+                    'inClub' => ($action == 'join')
                 );
             }
 

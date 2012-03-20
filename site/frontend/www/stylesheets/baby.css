@@ -597,7 +597,7 @@
 
 #handbook_article_ill {display:block;margin:-40px 0 0 0;}
 #handbook_article_ill h1 {padding:30px 0 20px 0;}
-#handbook_article_ill h2 {display:block;font:italic bold 18px/18px arial,  sans-serif;color:#2296b0;padding:20px 0;}
+#handbook_article_ill h2 {display:block;font:italic bold 18px/18px arial,  sans-serif;color:#0281b0;padding:20px 0;}
 #handbook_article_ill .about_ill p {font:italic 14px/25px arial, sans-serif;color:#068eac;}
 #handbook_article_ill p {padding:0 0 20px 0;}
 #handbook_article_ill p ins {color:#5fad4c;}
@@ -631,7 +631,7 @@
 #baby .about_recipes_book ul {padding:0 0 20px 0;}
 #baby .about_recipes_book ul  ins {padding:0 0 0 10px;}
 
-#baby .handbook_alfa_popup {display:block;padding:40px;margin:20px 0 40px 0;background:#fffde8;width:880px;border-bottom:15px solid #fff;position:absolute;left:0;top:296px;}
+#baby .handbook_alfa_popup {display:block;padding:40px;margin:20px 0 40px 0;background:#fffde8;width:880px;border-bottom:15px solid #fff;position:absolute;left:0;top:296px;z-index:10;}
 #baby .handbook_alfa_popup span.handbook_title {float:left;font:bold 25px/25px arial, sans-serif;color:#4a4a4a;padding:0 0 35px 0;}
 #baby .handbook_alfa_popup ul.sortable_u {float:right;padding:0 0 35px 0;font:13px/18px arial, sans-serif;color:#5e5f60;}
 #baby .handbook_alfa_popup ul.sortable_u li {display:inline;}

@@ -7,6 +7,7 @@
         ->registerCssFile('/stylesheets/user.css');
 ?>
 <div id="user">
+
     <div class="header clearfix">
         <div class="user-name">
             <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
@@ -15,6 +16,8 @@
             <?php else: ?>
                 <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
             <?php endif; ?>
+            <div class="location"><?php echo $user->getFlag(true) ?> <?php echo isset($user->settlement)?$user->settlement->name:'' ?></div>
+            <?php if ($user->birthday): ?><span>День рождения:</span> <?php echo Yii::app()->dateFormatter->format("dd MMMM", $user->birthday); ?> (<?php echo $user->age . ' ' . $user->ageSuffix; ?>)<?php endif; ?>
         </div>
 
         <?php if ($user->id != Yii::app()->user->id): ?>
@@ -46,17 +49,16 @@
             </div>
 
             <div class="user-meta">
-
-                <div class="location"><?php echo $user->getFlag() ?> <?php echo isset($user->settlement)?$user->settlement->name:'' ?></div>
-                <?php if ($user->birthday): ?><span>День рождения:</span> <?php echo Yii::app()->dateFormatter->format("dd MMMM", $user->birthday); ?> (<?php echo $user->age . ' ' . $user->ageSuffix; ?>)<?php endif; ?>
-
                 <div class="details">
-                    <?php $score = $user->getScores() ?>
                     Зарегистрирован  <?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date); ?><br/>
-                    Баллов: <span class="rating"><?= $score->scores ?></span><br/>
-                    Уровень: <span class="rang"><?= empty($score->level_id)?'Новичок':$score->level->name ?></span><br/>
                 </div>
+                <?php $score = $user->getScores() ?>
+                <?php if (!empty($score->level_id)):?>
+                    <div class="user-lvl user-lvl-<?=$score->level_id ?>">
+                        <span><?=$score->level->name ?></span>
+                    </div>
 
+                <?php endif ?>
             </div>
 
             <?php $this->widget('application.widgets.user.FamilyWidget',array('user'=>$user)) ?>

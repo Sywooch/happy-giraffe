@@ -10,16 +10,21 @@
 
 #user .header {padding-bottom:10px;}
 
-#user .header .user-name {float:left;padding-left:12px;}
+#user .header .user-name {float:left;padding-left:12px;width:240px;}
 #user .header .user-name h1 {line-height:1;margin:0 0 7px 0;color:#0281B0;}
+
 
 #user .header .user-name .online-status {color:#a6a6a6;font-size:13px;}
 #user .header .user-name .online-status  .icon {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;margin-right:5px;}
 #user .header .user-name .online-status.online .icon {background-position:-44px -180px;}
 #user .header .user-name .online-status.offline .icon {background-position:-55px -180px;}
 #user .header .user-name .online-status .date {font-size:9px;color:#a6a6a6;background:#fffeea;padding:0 5px;}
+#user .header .user-name .location {font-size:13px;line-height:32px;}
+#user .header .user-name .location .flag-big {display:inline-block;margin-right:5px;position:relative;vertical-align:top;}
+#user .header .user-name .birthday {color:#4c4d4d;}
+#user .header .user-name .birthday span {color:#bbbaba;}
 
-#user .header .user-buttons {margin-left:260px;position:relative;top:5px;width:150px;}
+#user .header .user-buttons {position:relative;top:5px;width:150px;float:left;padding-left:20px;padding-bottom:20px;}
 #user .header .user-buttons a {display:block;float:left;position:relative;margin-right:6px;text-decoration:none;}
 #user .header .user-buttons a .tip {display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;}
 #user .header .user-buttons a .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}
@@ -31,7 +36,7 @@
 #user .header .user-buttons .new-message {width:33px;height:23px;background:url(/images/common.png) no-repeat -200px -271px;margin-top:12px;}
 #user .header .user-buttons .new-message .tip {left:50%;margin-top:15px;}
 
-#user .header .user-nav {margin-left:450px;padding-top:20px;font-size:13px;}
+#user .header .user-nav {margin-left:450px;padding-top:20px;font-size:13px;padding-bottom:20px;}
 #user .header .user-nav ul {overflow:hidden;list-style:none;}
 #user .header .user-nav ul li {float:left;padding:0 10px;height:20px;margin:0 10px;}
 #user .header .user-nav ul li a {border-bottom:1px dashed #51afc3;text-decoration:none;height:16px;line-height:16px;margin:2px 0;display:block;}
@@ -63,16 +68,16 @@
 #user .user-cols .col-3 {float:left;width:340px;}
 #user .user-cols .col-23 {float:left;width:700px;}
 
-#user .user-photo {margin-bottom:10px;}
+#user .user-photo {}
 #user .user-photo img {display:block;}
 
-#user .user-meta {font-size:13px;color:#4c4d4d;padding-left:10px;margin-bottom:20px;}
-#user .user-meta span {color:#bbbaba;}
-#user .user-meta .location {font-size:14px;}
-#user .user-meta .location .flag {border:1px solid #eeeeee;display:inline-block;margin-right:5px;position:relative;top:1px;}
-#user .user-meta .details {color:#afafb0;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;background:#fffeea;text-indent:0;margin-top:5px;margin-left:-10px;}
-#user .user-meta .details .rating {color:#fb7a03;font-weight:bold;font-size:15px;}
-#user .user-meta .details .rang {color:#484747;font-size:14px;}
+#user  .details {color:#afafb0;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;text-indent:0;text-align:center;}
+
+.user-lvl {width:240px;height:146px;}
+.user-lvl-1 {background:url(/images/user_lvl_1.png) no-repeat;}
+.user-lvl-1 span {display:block;padding:80px 0 0;font-size:22px;color:#fff;text-align:center;}
+
+#user .user-lvl {margin-bottom:20px;}
 
 .user-points {margin-bottom:20px;}
 .user-points .rank {background:url(/images/user_rank.png) no-repeat;width:240px;height:117px;padding-top:17px;color:#fdf9b9;font-size:13px;font-weight:bold;text-align:center;margin-bottom:20px;}
@@ -109,8 +114,8 @@
 #user .user-map .box-title {margin-left:6px;padding-bottom:15px;}
 
 
-#user .user-mood {font-size:20px;color:#484747;padding-left:15px;position:relative;margin-bottom:10px;}
-#user .user-mood img {vertical-align:middle;position:relative;top:-8px;}
+#user .user-mood {font-size:22px;color:#484747;padding-left:15px;position:relative;margin-bottom:5px;}
+#user .user-mood img {vertical-align:middle;position:relative;margin-top:-41px;}
 
 #user .user-mood .moods-list {position:absolute;left:0;top:100%;background:#fffeea;z-index:4;padding:5px;width:470px;font-size:9px;border:1px solid #e7e395;}
 #user .user-mood .moods-list {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
@@ -118,7 +123,7 @@
 #user .user-mood .moods-list li {width:92px;float:left;text-align:center;border:1px solid #fffeea;height:90px;}
 #user .user-mood .moods-list li {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:5px;}
 #user .user-mood .moods-list li a {display:block;width:92px;height:95px;text-decoration:none;color:#918b1a;padding-top:5px;line-height:1;padding:3px 0;}
-#user .user-mood .moods-list li img {display:block;top:auto;margin-bottom:4px;}
+#user .user-mood .moods-list li img {display:block;top:auto;margin:0 0 4px;}
 #user .user-mood .moods-list li:hover {border-color:#e7e395;}
 #user .user-mood .moods-list:before {display:block;content:'';width:19px;height:16px;background:url(/images/common.png) no-repeat -557px -198px;position:absolute;bottom:100%;right:200px;}
 #user .user-mood a.small {font-size:11px;}
@@ -129,7 +134,7 @@
 #user .user-status {background:#cdecff;padding:10px 15px;position:relative;margin-bottom:10px;}
 #user .user-status {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
 #user .user-status:after {display:block;content:'';width:45px;height:44px;background:url(/images/common.png) no-repeat -557px -152px;position:absolute;right:100%;top:25px;}
-#user .user-status .date {color:#908e8e;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;padding-bottom:8px;}
+#user .user-status .date {color:#908e8e;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding-bottom:8px;}
 #user .user-status p {color:#0281b0;font:italic 20px 'times new roman', 'times', arial, helvetica, sans-serif;}
 #user .user-status form {text-align:right;}
 #user .user-status textarea {vertical-align:bottom;overflow:auto;width:300px;max-width:300px;margin-right:5px;height:90px;padding:2px 5px;border:1px solid #c5e8ef;margin-bottom:5px;}
@@ -151,7 +156,7 @@
 #user .user-blog-add {padding:5px;background:#e0ffda;}
 #user .user-photo-add {padding:5px;border:1px solid #f7f7f7;}
 
-#user .user-add a {vertical-align:middle;display:inline-block;font:italic 30px/1 'timew new roman', times, sans;}
+#user .user-add a {vertical-align:middle;display:inline-block;font:italic 20px/1 'timew new roman', times, sans;}
 #user .user-add img {margin-right:20px;}
 
 
@@ -206,6 +211,7 @@
 #user .user-family ul li big {font-size:14px;color:#4c4d4d;display:block;margin-bottom:5px;}
 #user .user-family ul li .img {float:left;width:80px;}
 #user .user-family ul li .img img {display:block;margin-bottom:5px;}
+#user .user-family ul li .img .ava {margin-bottom:5px;}
 #user .user-family ul li p {margin-left:85px;font-family:tahoma, arial, helvetica, sans-serif;color:#939697;line-height:1.3;}
 #user .user-family ul li span {font-family:tahoma, arial, helvetica, sans-serif;color:#3fa0c3;font-size:11px;}
 #user .user-family ul li span span {color:#585959;}
@@ -216,7 +222,7 @@
 
 #user .user-weather {margin-bottom:20px;text-align:center;}
 #user .user-weather .location {font-size:12px;color:#929292;}
-#user .user-weather .location .flag {display:inline-block;margin-right:5px;border:1px solid #eeeeee;position:relative;top:1px;}
+#user .user-weather .location .flag {display:inline-block;margin-right:5px;position:relative;top:1px;}
 #user .user-weather .location big {font-size:22px;color:#484747;}
 #user .user-weather .clearfix {border-top:1px solid #c2e7f7;width:260px;margin:7px auto 0;}
 #user .user-weather .img {display:inline-block;padding:10px;vertical-align:top;}

@@ -273,6 +273,7 @@ class User extends CActiveRecord
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user_community(user_id, community_id)'),
+            'userDialogs' => array(self::HAS_MANY, 'MessageUser', 'user_id'),
         );
     }
 
@@ -521,13 +522,18 @@ class User extends CActiveRecord
         return $url;
     }
 
-    public function getFlag()
+    public function getFlag($big = false)
     {
         Yii::import('site.frontend.modules.geo.models.*');
 
-        if (!empty($this->country_id))
-            return '<div class="flag flag-' . strtolower($this->country->iso_code) . '" title="'
-                . $this->country->name . '"></div>';
+        if (!empty($this->country_id)) {
+            if ($big)
+                return '<div class="flag-big flag-big-' . strtolower($this->country->iso_code) . '" title="'
+                    . $this->country->name . '"></div>';
+            else
+                return '<div class="flag flag-' . strtolower($this->country->iso_code) . '" title="'
+                    . $this->country->name . '"></div>';
+        }
         else
             return '';
     }
@@ -849,7 +855,7 @@ class User extends CActiveRecord
     public function getScores()
     {
         Yii::import('site.frontend.modules.scores.models.*');
-        $model = UserScores::model()->findByPk($this->id);
+        $model = UserScores::model()->with(array('level'=>array('select'=>array('name'))))->findByPk($this->id);
         if ($model === null){
             $model = new UserScores;
             $model->user_id = $this->id;

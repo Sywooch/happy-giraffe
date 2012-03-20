@@ -127,6 +127,9 @@ class AlbumsController extends Controller
             {
                 $model->file = $file;
                 $model->saveFile(true);
+                echo "<script type='text/javascript'>
+                document.domain = document.location.host;
+                </script>";
                 echo $model->templateUrl . '||' . $model->fs_name;
                 Yii::app()->end();
             }

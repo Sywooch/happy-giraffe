@@ -112,11 +112,20 @@ class MessageLog extends CActiveRecord
         );
     }
 
-    public function beforeSave()
+    public static function allDialogMessagesForUser($dialog_id, $user_id)
     {
-//        if ($this->isNewRecord)
-//            $this->created = date("Y-m-d H:i:s");
-        return parent::beforeSave();
+        $criteria = new CDbCriteria;
+        $criteria->condition = ' message_log.dialog_id = :dialog_id
+            AND message_log.user_id != :user_id
+            AND message_log.id NOT IN (SELECT message_id FROM message_deleted WHERE user_id = :user_id)
+            AND message_log.id > COALESCE((SELECT message_id FROM message_dialog_deleted WHERE dialog_id = :dialog_id AND user_id = :user_id LIMIT 1), 0)
+        ';
+        $criteria->params = array(
+            ':dialog_id' => $dialog_id,
+            ':user_id' => $user_id,
+        );
+
+        return $criteria;
     }
 
     /**
@@ -279,17 +288,22 @@ class MessageLog extends CActiveRecord
 
     public static function getNotificationMessages($user_id)
     {
-        if (count(Im::model($user_id)->getDialogIds()) == 0)
+        $dialogs = User::getUserById($user_id)->userDialogs;
+        $dialog_ids = array();
+        foreach($dialogs as $dialogs)
+            $dialog_ids[]=$dialogs->dialog_id;
+        if (count($dialog_ids) == 0)
             return array('data' => array(), 'count' => 0);
 
         $models = Yii::app()->db->createCommand()
-            ->select(array('t.id', 't.user_id', 't.text', 't.created', 't.read_status', 't.dialog_id'))
-            ->from('message_log as t')
-            ->where(' t.dialog_id IN (:dialogs) AND t.user_id != :user_id AND t.id not in (SELECT message_id FROM message_deleted WHERE user_id = :user_id) ', array(
+            ->from('message_log')
+            ->where('message_log.dialog_id IN (:dialogs) AND message_log.user_id != :user_id
+                        AND message_log.id NOT IN (SELECT message_id FROM message_deleted WHERE user_id = :user_id)
+                        ', array(
             ':user_id' => $user_id,
-            ':dialogs' => implode(',', Im::model($user_id)->getDialogIds())
+            ':dialogs' => implode(',', $dialog_ids)
         ))
-            ->order('t.id desc')
+            ->order('message_log.id desc')
             ->limit(3)
             ->queryAll();
 
@@ -304,6 +318,11 @@ class MessageLog extends CActiveRecord
         $new_count = Im::getUnreadMessagesCount($user_id);
 
         return array('data' => $data, 'count' => $new_count);
+    }
+
+    public static function sortMessages($a, $b)
+    {
+        return ($a->id < $b->id) ? -1 : 1;
     }
 
     public static function getNotificationText($message)

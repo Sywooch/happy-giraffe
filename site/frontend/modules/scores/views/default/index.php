@@ -21,8 +21,8 @@ Yii::app()->clientScript
         <div class="user-points">
 
             <?php if (!empty($userScores->level_id)):?>
-            <div class="rank">
-                <?=$userScores->level->name ?>
+            <div class="user-lvl user-lvl-<?=$userScores->level_id ?>">
+                <span><?=$userScores->level->name ?></span>
             </div>
             <?php endif ?>
 

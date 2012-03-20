@@ -12,14 +12,15 @@
     </ul>
 </div>
 <div id="gallery">
-    <div class="gallery-photos clearfix">
+    <?php if($model): ?>
+        <div class="gallery-photos clearfix">
         <?php
         $dataProvider = new CActiveDataProvider('AlbumPhoto', array(
             'criteria' => array(
                 'condition' => 'removed = 0 and album_id = :album_id',
                 'params' => array(':album_id' => $model->id)
             ),
-            'pagination' => array('pageSize' => 2),
+            'pagination' => array('pageSize' => 9),
         ));
         $this->widget('zii.widgets.CListView', array(
             'dataProvider'=>$dataProvider,
@@ -29,6 +30,7 @@
                 'class' => 'MyLinkPager',
                 'header' => 'Страницы',
             ),
+            'emptyText' => 'У Вас нет фото в альбоме',
             'id' => 'comment_list_view',
             'template' => '<ul id="photos_list">{items}</ul>
                     <div class="pagination pagination-center clearfix">
@@ -42,4 +44,7 @@
         ));
         ?>
     </div>
+    <?php else: ?>
+        <div class="album-empty">У Вас нет альбомов</div>
+    <?php endif; ?>
 </div>

@@ -9,6 +9,7 @@
  * @property string $user_id
  * @property integer $title
  * @property string $created
+ * @property integer $rate
  *
  * The followings are the available model relations:
  * @property User $user
@@ -16,6 +17,8 @@
  */
 class ContestWork extends CActiveRecord
 {
+    public $file;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -42,9 +45,9 @@ class ContestWork extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('contest_id, user_id, title, created', 'required'),
-			array('title', 'numerical', 'integerOnly'=>true),
-			array('id, contest_id, user_id', 'length', 'max'=>10),
+			array('contest_id, user_id, title', 'required'),
+			array('id, contest_id, user_id, rate', 'length', 'max'=>10),
+            array('file', 'required', 'on' => 'upload'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, contest_id, user_id, title, created', 'safe', 'on'=>'search'),
@@ -59,9 +62,9 @@ class ContestWork extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'author' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'contest' => array(self::BELONGS_TO, 'Contest', 'contest_id'),
-            'photo' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => '`album_photos_attaches`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
+            'photo' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => '`photo`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
 		);
 	}
 
@@ -94,7 +97,7 @@ class ContestWork extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($sort = false)
 	{
 		$criteria=new CDbCriteria;
 
@@ -103,6 +106,11 @@ class ContestWork extends CActiveRecord
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('title',$this->title);
 		$criteria->compare('created',$this->created,true);
+
+        if($sort && isset($this->{$sort}))
+        {
+            $criteria->order = $sort . ' desc';
+        }
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

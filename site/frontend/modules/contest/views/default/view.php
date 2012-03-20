@@ -1,21 +1,16 @@
-<?php
-$fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-    'model' => $contest,
-));
-    $fileAttach->button();
-$this->endWidget();
-?>
 <div id="contest">
     <div class="contest-about clearfix">
-        <div class="sticker">
-            <big>Для участия в конкурсе Вам необходимо</big>
-            <ul>
-                <li>Заполнить профиль;</li>
-                <li>Добавить информацию о ребенке (возраст и имя);</li>
-                <li>Написать хотя бы один пост в блоге/сообществе.</li>
-            </ul>
-            <?php echo CHtml::link('<span><span>Участвовать</span></span>', array('/contest/statement', 'id' => $contest->primaryKey), array('class' => 'btn btn-green-arrow-big')) ?>
-        </div>
+        <?php if(!Yii::app()->user->isGuest && !ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id))): ?>
+            <div class="sticker">
+                <big>Для участия в конкурсе Вам необходимо</big>
+                <ul>
+                    <li>Заполнить профиль;</li>
+                    <li>Добавить информацию о ребенке (возраст и имя);</li>
+                    <li>Написать хотя бы один пост в блоге/сообществе.</li>
+                </ul>
+                <?php echo CHtml::link('<span><span>Участвовать</span></span>', array('/contest/statement', 'id' => $contest->primaryKey), array('class' => 'btn btn-green-arrow-big')) ?>
+            </div>
+        <?php endif; ?>
         <div class="content-title">О конкурсе</div>
         <p>Каждая мама считает, что ее ребенок самый лучший, и мы не можем предлагать вам выбирать лучшего ребенка. Но вот выбирать лучшую фотографию вашего ребенка мы как раз можем!</p>
         <p>I этап. В течение месяца пользователи глосуют за понравившиеся фото. Чем больше ваших друзей проголосует за вашу фотографию, тем больше 	шансов у вас победить!</p>
@@ -44,15 +39,15 @@ $this->endWidget();
         <div id="gallery">
             <div class="gallery-photos clearfix">
                 <ul>
-                    <?php foreach ($contest->getRelated('works', false, array('limit' => 3, 'order' => 'work_id desc')) as $w): ?>
+                    <?php foreach ($contest->getRelated('works', false, array('limit' => 3, 'order' => 'id desc')) as $w): ?>
                         <li>
                             <table>
                                 <tr>
-                                    <td class="img"><div><?php echo CHtml::link(CHtml::image($w->work_image->getUrl('thumb'), $w->work_title), $this->createUrl('/contest/work/' . $w->work_id)); ?></div></td>
+                                    <td class="img"><div><?php echo CHtml::link(CHtml::image($w->photo->photo->getPreviewUrl(150, 150), $w->title), $this->createUrl('/contest/work/' . $w->id)); ?></div></td>
                                 </tr>
-                                <tr class="rank"><td><span><?php echo Rating::model()->countByEntity($w); ?></span> баллов</td></tr>
+                                <tr class="rank"><td><span><?php echo $w->rate; ?></span> баллов</td></tr>
                                 <tr class="title">
-                                    <td align="center"><div><?php echo $w->work_title; ?></div></td>
+                                    <td align="center"><div><?php echo $w->title; ?></div></td>
                                 </tr>
                             </table>
                         </li>

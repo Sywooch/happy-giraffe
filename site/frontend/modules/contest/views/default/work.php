@@ -1,11 +1,5 @@
 <?php Yii::app()->clientScript->registerCssFile('/stylesheets/carusel.css'); ?>
 
-<?php $this->breadcrumbs = array(
-		'Конкурсы' => array('/contest'),
-		$work->contest->contest_title => array('/contest/view', 'id' => $work->contest->contest_id),
-		$work->work_title => array('/contestWork/view', 'id' => $work->work_id),
-	); ?>
-
 <div class="inner contest">
 
 	<div id="contest-photo">
@@ -15,8 +9,8 @@
 			</div>
 		</div>
 		<div class="img-box">
-			<div class="img-in"><?php echo CHtml::image($work->work_image->getUrl('big'), $work->work_title); ?></div>
-			<div class="img-title"><?php echo $work->work_title; ?></div>
+			<div class="img-in"><?php echo CHtml::image($work->photo->photo->getPreviewUrl(600, 400), $work->title); ?></div>
+			<div class="img-title"><?php echo $work->title; ?></div>
 		</div>
 	</div>
 
@@ -24,8 +18,8 @@
         'title' => 'Вам понравилось фото?',
         'model' => $work,
         'options' => array(
-            'title' => $work->work_title,
-            'image' => $work->work_image->getUrl('big'),
+            'title' => $work->title,
+            'image' => $work->photo->photo->getPreviewUrl(150, 150),
             'description' => false,
         ),
     )); ?>
@@ -39,11 +33,11 @@
 			<?php foreach ($others as $w): ?>
 				<li>
 					<div class="img-box">							
-						<?php echo CHtml::link(CHtml::image($w->work_image->getUrl('thumb'), $w->work_title), $this->createUrl('/contest/work/' . $w->work_id)); ?>
+						<?php echo CHtml::link(CHtml::image($w->photo->photo->getPreviewUrl(150, 150), $w->title), $this->createUrl('/contest/work/' . $w->id)); ?>
 					</div>
-					<div class="item-title"><?php echo $w->work_title; ?></div>
+					<div class="item-title"><?php echo $w->title; ?></div>
 					<div class="mark">
-						<span><?php echo Rating::model()->countByEntity($w); ?></span> баллов
+						<span><?php echo $w->rate; ?></span> баллов
 					</div>
 				</li>
 			<?php endforeach; ?>

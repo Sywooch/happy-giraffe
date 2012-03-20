@@ -4,6 +4,8 @@ class FileAttachWidget extends CWidget
     public $model;
     public $entity;
     public $entity_id;
+    public $container;
+    public $afterSelect;
 
     public function init()
     {
@@ -33,7 +35,7 @@ class FileAttachWidget extends CWidget
                 $model = Album::model()->findByPk($a);
             else
                 $model = Album::model()->find(array(
-                    'condition' => 'author_id = :author_id',
+                    'condition' => 'author_id = :author_id and removed = 0',
                     'params' => array(':author_id' => Yii::app()->user->id),
                     'limit' => 1,
                 ));
@@ -54,7 +56,7 @@ class FileAttachWidget extends CWidget
         $cs->registerScript('attaches_entity', '
             Attach.entity = "' . $this->entity . '";
             Attach.entity_id = "' . $this->entity_id. '";
-            Attach.base_url = "' . Yii::app()->createUrl('/albums/album/saveAttach') . '"
+            Attach.base_url = "' . Yii::app()->createUrl('/albums/album/saveAttach') . '";
         ');
 
         $path = Yii::getPathOfAlias('zii.widgets.assets.listview');

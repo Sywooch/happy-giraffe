@@ -20,6 +20,7 @@
  * @property integer $m11
  * @property integer $m12
  * @property integer $sum
+ * @property integer $year
  *
  * The followings are the available model relations:
  * @property SeoKeywords $keyword
@@ -57,11 +58,11 @@ class SeoKeyStats extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, keyword_id, sum', 'required'),
-            array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum', 'numerical', 'integerOnly' => true),
+            array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, keyword_id, sum, year', 'required'),
+            array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, year', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, key_name', 'safe'),
+            array('id, site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, key_name, year', 'safe'),
         );
     }
 
@@ -101,7 +102,8 @@ class SeoKeyStats extends CActiveRecord
             'm10' => 'Окт',
             'mll' => 'Ноя',
             'ml2' => 'Дек',
-            'sum' => 'Всего'
+            'sum' => 'Всего',
+            'year'=>'Год'
         );
     }
 
@@ -109,6 +111,10 @@ class SeoKeyStats extends CActiveRecord
     {
         $this->sum = $this->m1 + $this->m2 + $this->m3 + $this->m4 + $this->m5 + $this->m6 + $this->m7 + $this->m8 +
             $this->m9 + $this->m10 + $this->m11 + $this->m12;
+
+        if ($this->sum == 0)
+            return false;
+
         return parent::beforeSave();
     }
 
@@ -125,6 +131,7 @@ class SeoKeyStats extends CActiveRecord
 
         $criteria->compare('id', $this->id);
         $criteria->compare('site_id', $this->site_id);
+        $criteria->compare('year', $this->year);
         $criteria->compare('t2.name', $this->key_name, true);
         $criteria->join = ' LEFT JOIN '.SeoKeywords::model()->tableName().' as t2 ON keyword_id = t2.id ';
         $criteria->with = array('keyword');

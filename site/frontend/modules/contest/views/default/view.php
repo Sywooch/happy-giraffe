@@ -16,18 +16,52 @@
         <p>I этап. В течение месяца пользователи глосуют за понравившиеся фото. Чем больше ваших друзей проголосует за вашу фотографию, тем больше 	шансов у вас победить!</p>
         <p>II этап. Из 30 победителей I тура жюри выбирает победителя конкурса, который получает главный приз — набор подгузников.</p>
     </div>
-    <?php if(count($contest->prizes) > 0): ?>
+
+    <div class="content-title">Вас ждут замечательные призы!</div>
+    <div class="prise-block clearfix">
+
+        <div class="item">
+            <img src="/images/example/prize.png">
+            <span>1 место</span>
+            <p>Описание приза</p>
+        </div>
+
+        <div class="item">
+            <img src="/images/example/prize.png">
+            <span>2 место</span>
+            <p>Описание приза</p>
+        </div>
+
+        <div class="item">
+            <img src="/images/example/prize.png">
+            <span>3 место</span>
+            <p>Держатель для стаканов Phil and Teds ( Фил энд Тедс)</p>
+        </div>
+
+        <div class="item">
+            <img src="/images/example/prize.png">
+            <span>3 место</span>
+            <p>Держатель для стаканов Phil and Teds ( Фил энд Тедс)</p>
+        </div>
+
+        <div class="item">
+            <img src="/images/example/prize.png">
+            <span>3 место</span>
+            <p>Держатель для стаканов Phil and Teds ( Фил энд Тедс)</p>
+        </div>
+    </div>
+    <?php /*if(count($contest->prizes) > 0): */?><!--
         <div class="content-title">Вас ждут замечательные призы!</div>
         <div class="prise-block clearfix">
-            <?php foreach ($contest->prizes as $p): ?>
+            <?php /*foreach ($contest->prizes as $p): */?>
                 <div class="item">
-                    <?php echo CHtml::image(str_replace('club', 'shop', $p->product->product_image->getUrl('product_contest')), $p->product->product_title); ?>
-                    <span><?php echo $p->prize_place; ?> место</span>
-                    <p><?php echo $p->prize_text; ?></p>
+                    <?php /*echo CHtml::image(str_replace('club', 'shop', $p->product->product_image->getUrl('product_contest')), $p->product->product_title); */?>
+                    <span><?php /*echo $p->prize_place; */?> место</span>
+                    <p><?php /*echo $p->prize_text; */?></p>
                 </div>
-            <?php endforeach; ?>
+            <?php /*endforeach; */?>
         </div>
-    <?php endif; ?>
+    --><?php /*endif;*/ ?>
 
     <?php if(count($contest->works) > 0): ?>
         <div class="content-title">

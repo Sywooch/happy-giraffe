@@ -80,7 +80,7 @@ Dklab_Realplexor.prototype.setCursor = function(id, cursor) {
 // To apply changes and reconnect to the server, call execute()
 // after a sequence of subscribe() calls.
 Dklab_Realplexor.prototype.subscribe = function(id, callback) {
-	if (!this._map[id]) this._map[id] = { cursor: null, callbacks: [] };
+    if (!this._map[id]) this._map[id] = { cursor: null, callbacks: [] };
 	var chain = this._map[id].callbacks;
 	for (var i = 0; i < chain.length; i++) {
 		if (chain[i] === callback) return this;

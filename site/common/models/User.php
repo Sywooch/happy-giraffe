@@ -117,9 +117,9 @@ class User extends CActiveRecord
         return $age;
     }
 
-    public function getAgeSuffix()
+    public function getNormalizedAge()
     {
-        return HDate::normallizeAge($this->age);
+        return HDate::normalizeAge($this->age);
     }
 
     /**
@@ -186,6 +186,8 @@ class User extends CActiveRecord
 
     public function passwordValidator($attribute, $params)
     {
+        if($this->password == '' || $this->email == '')
+            return false;
         $userModel = $this->find(array(
             'condition' => 'email=:email AND password=:password and blocked = 0 and deleted = 0',
             'params'=>array(

@@ -13,7 +13,7 @@
     <div class="header clearfix">
 
         <div class="user-name">
-            <h1><?=$user->last_name?> <?=$user->first_name?></h1>
+            <h1><?=$user->last_name?><br/><?=$user->first_name?></h1>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>
@@ -22,7 +22,7 @@
             <?php if ($user->country !== null): ?>
                 <div class="location"><?=$user->getFlag(true)?><?php if ($user->settlement !== null): ?> <?=$user->settlement->name?><?php endif; ?></div>
             <?php endif; ?>
-            <?php if ($user->birthday): ?><div class="birthday"><span>День рождения:</span> <?php echo Yii::app()->dateFormatter->format("d MMMM", $user->birthday); ?> (<?php echo $user->age . ' ' . $user->ageSuffix; ?>)</div><?php endif; ?>
+            <?php if ($user->birthday): ?><div class="birthday"><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)</div><?php endif; ?>
 
         </div>
 

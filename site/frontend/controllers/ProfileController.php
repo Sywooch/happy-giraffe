@@ -226,7 +226,7 @@ class ProfileController extends Controller
                     'status' => false,
                 );
             }
-            echo CJSON::encode($response);
+            echo '<script type="text/javascript">document.domain = document.location.host;</script>'.CJSON::encode($response);
         }
     }
 
@@ -269,7 +269,7 @@ class ProfileController extends Controller
                 'height' => 79,
             ),
         ));
-        echo Yii::app()->baseUrl . $dst;
+        echo '<script type="text/javascript">document.domain = document.location.host;</script>'.CJSON::encode(array('url'=>Yii::app()->baseUrl . $dst));
     }
 
     public function actionRemoveBabyPhoto()

@@ -29,7 +29,7 @@
             ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
             ->registerScriptFile('/javascripts/comet.js')
             ->registerScriptFile('/javascripts/im.js')
-            ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').'"')
+            ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
             ->registerScriptFile('/javascripts/user_common.js')
             ->registerCssFile('/stylesheets/user_common.css')
             ->registerScriptFile('/javascripts/dklab_realplexor.js')
@@ -42,7 +42,6 @@
     ?>
 </head>
 <body class="body-club">
-
     <div id="layout" class="wrapper">
 
         <div id="header-new" class="clearfix">

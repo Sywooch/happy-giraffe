@@ -269,8 +269,9 @@ $cs->registerScript('travel_add', $js)
     });
 
     $('#baby-form').iframePostForm({
+        json:true,
         complete:function (response) {
-            $('#babyImg-' + baby_num).attr('src', response);
+            $('#babyImg-' + baby_num).attr('src', response.url);
         }
     });
 

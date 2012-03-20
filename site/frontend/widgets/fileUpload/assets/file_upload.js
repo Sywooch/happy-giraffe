@@ -102,6 +102,8 @@ function registerUploadEvents(elem) {
 function initAttachForm() {
     $('#attach_form').iframePostForm({
         complete:function (response) {
+            if(!response)
+                return false;
             var params = response.split('||');
             var html = '<img src="' + params[0] + '" width="170" alt="" />' +
                 '<input type="hidden" name="fsn" value="' + params[1] + '" />' +

@@ -1,5 +1,7 @@
 function Comet() {
     this.events = new Array();
+    this.cache = null;
+    this.load = true;
 }
 
 Comet.prototype.call = function(type, result, id) {
@@ -14,6 +16,7 @@ Comet.prototype.call = function(type, result, id) {
 Comet.prototype.connect = function(host, namespace, cache) {
     this.server = new Dklab_Realplexor(host, namespace);
     var $this = this;
+    this.cache = cache;
     this.server.subscribe(cache, function(result, id) {
         $this.call(result.type, result, id);
     });

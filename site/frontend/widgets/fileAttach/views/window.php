@@ -1,6 +1,6 @@
 <div class="popup" id="photoPick">
     <a onclick="$.fancybox.close();" class="popup-close" href="javascript:void(0);">закрыть</a>
-    <div class="title">Фотография для конкурса «Осенние прогулки»</div>
+    <div class="title">Фотография для конкурса «Веселая семейка»</div>
     <div class="nav">
         <ul id="file_attach_menu">
             <li class="active">

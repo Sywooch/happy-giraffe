@@ -127,7 +127,7 @@
                     <li><a href="/">Главная</a></li>
                     <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
 <!--                    <li><a href="">Сервисы</a></li>-->
-                    <li><a href="<?=$this->createUrl('/contest') ?>">Конкурсы</a></li>
+                    <li><a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>">Конкурсы</a></li>
                 </ul>
 
             </div>

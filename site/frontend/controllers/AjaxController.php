@@ -65,7 +65,6 @@ class AjaxController extends Controller
             //$authIdentity->redirectUri = $this->createAbsoluteUrl('ajax/socialApi');
             if ($authIdentity->authenticate())
             {
-                echo 123;exit;
                 $name = $authIdentity->getServiceName();
                 $id = $authIdentity->getAttribute('id');
                 $url = Yii::app()->request->getQuery('surl');

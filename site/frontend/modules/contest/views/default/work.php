@@ -3,6 +3,27 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jcarousel.control.js');
 ?>
 
+<script type="text/javascript">
+    $(function() {
+    <?php if(isset($selected_item)): ?>
+        $('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
+            var count = $('#photo-thumbs li').size();
+            var ready = 0;
+            $('#photo-thumbs img').each(function(){
+                $(this).bind('load', function(){
+                    ready++;
+                    if (ready == count) $('#photo-thumbs').jcarousel('scroll', <?php echo $selected_item; ?>);
+                });
+            });
+        });
+        <?php endif; ?>
+        var carousel = $('#photo-thumbs').jcarousel();
+        $('#photo-thumbs-prev').jcarouselControl({target: '-=1',carousel: carousel});
+        $('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});
+    });
+</script>
+
+
 <div id="gallery">
     <div class="header clearfix">
         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $work->author)); ?>
@@ -78,26 +99,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
 
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        <?php if(isset($selected_item)): ?>
-            $('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
-                var count = $('#photo-thumbs li').size();
-                var ready = 0;
-                $('#photo-thumbs img').each(function(){
-                    $(this).bind('load', function(){
-                        ready++;
-                        if (ready == count) $('#photo-thumbs').jcarousel('scroll', <?php echo $selected_item; ?>);
-                    });
-                });
-            });
-        <?php endif; ?>
-        var carousel = $('#photo-thumbs').jcarousel();
-        $('#photo-thumbs-prev').jcarouselControl({target: '-=1',carousel: carousel});
-        $('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});
-    });
-</script>
 
 <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
     'model' => $work,

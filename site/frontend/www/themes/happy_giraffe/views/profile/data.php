@@ -129,7 +129,6 @@ $this->breadcrumbs = array(
                     'select' => "js:function (event, ui)
 						{
 							$('#city_id').val(ui.item.id);
-                            console.log(ui.item.value);
                             geocoder = new YMaps.Geocoder($('#country_id option:selected').text()
                                 + ', ' + $('#region_id option:selected').text()
                                 + ', ' + ui.item.value);
@@ -254,7 +253,7 @@ $this->breadcrumbs = array(
                 }
             } else {
                 $('#profile-form div.row:eq(4)').show();
-                //$('#city_name').show();
+                $('#city_name').show();
                 $('#city_id').val('');
                 $('#city_name').val('');
             }

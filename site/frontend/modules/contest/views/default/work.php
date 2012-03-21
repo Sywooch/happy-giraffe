@@ -4,7 +4,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
 ?>
 
 <div id="gallery">
-    <div class="header">
+    <div class="header clearfix">
         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $work->author)); ?>
     </div>
 

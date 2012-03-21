@@ -134,7 +134,7 @@ class UserSignal extends EMongoDocument
     public function afterSave()
     {
         if ($this->isNewRecord) {
-            UserSignal::SendUpdateSignal();
+            UserSignal::SendUpdateSignal(null, true);
         }
         parent::afterSave();
     }
@@ -163,7 +163,7 @@ class UserSignal extends EMongoDocument
             return $this->getUser()->getUrl();
         } else {
             $class_name = $this->item_name;
-            if (method_exists($class_name::model(), 'getUrl')){
+            if (method_exists($class_name::model(), 'getUrl')) {
                 $user = $class_name::model()->findByPk($this->item_id);
                 if ($user === null)
                     return 'error';
@@ -414,10 +414,11 @@ class UserSignal extends EMongoDocument
         return '';
     }
 
-    public static function SendUpdateSignal($user_id = null)
+    public static function SendUpdateSignal($user_id = null, $sound = false)
     {
         $comet = new CometModel();
         $comet->type = CometModel::TYPE_SIGNAL_UPDATE;
+        $comet->attributes = array('sound' => $sound);
         if ($user_id === null) {
             $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
             foreach ($moderators as $moderator)
@@ -442,7 +443,7 @@ class UserSignal extends EMongoDocument
         $criteria->item_name('==', $item_name);
 
         $models = self::model()->findAll($criteria);
-        foreach($models as $model){
+        foreach ($models as $model) {
             $model->status = self::STATUS_CLOSED;
             $model->save();
         }

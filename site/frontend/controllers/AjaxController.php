@@ -26,7 +26,7 @@ class AjaxController extends Controller
         }
 
         echo CJSON::encode(array(
-            'entity' => Rating::model()->countByEntity($model, $social_key),
+            'entity' => $social_key == 'yh' ? Rating::model()->countByEntity($model, $social_key) / 2 : Rating::model()->countByEntity($model, $social_key),
             'count' => Rating::model()->countByEntity($model),
         ));
         Yii::app()->end();

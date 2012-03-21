@@ -29,36 +29,53 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                 <?php endif; ?>
             </div>
         </div>
+    </div>
 
-        <div class="jcarousel-container gallery-photos">
-            <div id="photo-thumbs" class="jcarousel">
-                <ul>
-                    <?php foreach($work->contest->works as $i => $item): ?>
-                        <?php if($work->id == $item->id) {$selected_item = $i;} ?>
-                        <li>
-                            <table>
-                                <tr>
-                                    <td class="img">
-                                        <div>
-                                            <?php echo CHtml::link(CHtml::image($item->photo->photo->getPreviewUrl(180, 180)), array('/contest/work', 'id' => $item->id)); ?>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="title">
-                                    <td align="center">
-                                        <div><?php echo $item->title; ?></div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+    <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+    'title' => 'Вам понравилось фото?',
+    'model' => $work,
+    'options' => array(
+        'title' => $work->title,
+        'image' => $work->photo->photo->getPreviewUrl(180, 180),
+        'description' => false,
+    ),
+    )); ?>
 
-            <a id="photo-thumbs-prev" class="prev" href="#"></a>
-            <a id="photo-thumbs-next" class="next" href="#"></a>
+    <div class="content-title">
+        Последние добавленные работы
+        <?php echo CHtml::link('<span><span>Показать все</span></span>', array('/contest/list/' . $this->contest->contest_id), array(
+        'class' => 'btn btn-blue-small'
+    )); ?>
+    </div>
 
+    <div class="jcarousel-container gallery-photos">
+        <div id="photo-thumbs" class="jcarousel">
+            <ul>
+                <?php foreach($work->contest->works as $i => $item): ?>
+                    <?php if($work->id == $item->id) {$selected_item = $i;} ?>
+                    <li>
+                        <table>
+                            <tr>
+                                <td class="img">
+                                    <div>
+                                        <?php echo CHtml::link(CHtml::image($item->photo->photo->getPreviewUrl(180, 180)), array('/contest/work', 'id' => $item->id)); ?>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="title">
+                                <td align="center">
+                                    <div><?php echo $item->title; ?></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
+
+        <a id="photo-thumbs-prev" class="prev" href="#"></a>
+        <a id="photo-thumbs-next" class="next" href="#"></a>
+
     </div>
 </div>
 
@@ -82,15 +99,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
     });
 </script>
 
-<?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-    'title' => 'Вам понравилось фото?',
-    'model' => $work,
-    'options' => array(
-        'title' => $work->title,
-        'image' => $work->photo->photo->getPreviewUrl(180, 180),
-        'description' => false,
-    ),
-)); ?>
 <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
     'model' => $work,
 )); ?>

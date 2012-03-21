@@ -32,7 +32,7 @@ class DefaultController extends Controller
         $criteria->addCond('executors', '<>', (int)Yii::app()->user->id);
         $criteria->addCond('full', '==', false);
         if (Yii::app()->user->checkAccess('administrator'))
-            $criteria->limit(15);
+            $criteria->limit(5);
         else
             $criteria->limit(5);
 

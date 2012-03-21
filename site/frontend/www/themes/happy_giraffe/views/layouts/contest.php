@@ -30,5 +30,7 @@
     <?php endif; ?>
     <img src="/images/contest_banner_01.png" />
 </div>
-<?php echo $content; ?>
+<div id="contest">
+    <?php echo $content; ?>
+</div>
 <?php $this->endContent(); ?>

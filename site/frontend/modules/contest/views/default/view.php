@@ -90,7 +90,7 @@
 
     <?php if(count($contest->works) > 0): ?>
         <div class="content-title">
-            Последние добавленные фото
+            Последние добавленные работы
             <?php echo CHtml::link('<span><span>Показать все</span></span>', array('/contest/list/' . $contest->contest_id), array(
                 'class' => 'btn btn-blue-small'
             )); ?>
@@ -98,7 +98,7 @@
         <div id="gallery">
             <div class="gallery-photos clearfix">
                 <ul>
-                    <?php foreach ($contest->getRelated('works', false, array('limit' => 3, 'order' => 'id desc')) as $w): ?>
+                    <?php foreach ($contest->getRelated('works', false, array('limit' => 10, 'order' => 'id desc')) as $w): ?>
                         <li>
                             <table>
                                 <tr>

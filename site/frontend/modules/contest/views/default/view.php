@@ -2,7 +2,12 @@
     <div class="contest-about clearfix">
 
         <div class="sticker">
-            <big>Для того, чтобы принять участие в конкурсе, вы должны заполнить свой профиль и информацию о членах своей семьи!</big>
+            <big>Для того, чтобы принять участие в конкурсе, вы должны</big>
+            <ul>
+                <li>Заполнить свой профиль;</li>
+
+                <li>Добавить информацию о членах своей семьи.</li>
+            </ul>
             <?php if($this->contest->isStatement): ?>
                 <center><a href="<?=$this->createUrl('/contest/statement', array('id' => $this->contest->primaryKey))?>" class="btn btn-green-medium"><span><span>Участвовать<i class="arr-r"></i></span></span></a></center>
             <?php endif; ?>

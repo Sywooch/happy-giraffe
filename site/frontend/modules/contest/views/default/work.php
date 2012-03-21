@@ -30,6 +30,16 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
             </div>
         </div>
 
+        <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+        'title' => 'Вам понравилось фото?',
+        'model' => $work,
+        'options' => array(
+            'title' => $work->title,
+            'image' => $work->photo->photo->getPreviewUrl(180, 180),
+            'description' => false,
+        ),
+    )); ?>
+
         <div class="jcarousel-container gallery-photos">
             <div id="photo-thumbs" class="jcarousel">
                 <ul>
@@ -82,15 +92,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
     });
 </script>
 
-<?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-    'title' => 'Вам понравилось фото?',
-    'model' => $work,
-    'options' => array(
-        'title' => $work->title,
-        'image' => $work->photo->photo->getPreviewUrl(180, 180),
-        'description' => false,
-    ),
-)); ?>
+
 <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
     'model' => $work,
 )); ?>

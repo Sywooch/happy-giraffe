@@ -1330,7 +1330,7 @@ p {
 #contest .sticker big {color: #03a12a;background: none;display: block;float: none;width: 200px;margin: 20px 20px 0px 30px;font: italic 16px Arial, Helvetica, sans-serif;}
 #contest .sticker ul {width: 200px;margin: 0px 15px 10px 30px;}
 #contest .sticker ul li {list-style-image: url(../images/list.png);text-indent: 0;padding: 3px 0;}
-#contest .sticker .btn {margin: 0px 0 0 20px}
+#contest .sticker .btn {margin-right:30px;}
 
 #contest .winners-list {width:880px;margin:0 auto;padding-bottom:20px;}
 #contest .winners-list .winner-box {margin:0 30px;background:#f9fafa;padding:10px 25px;float:left;width:183px;}
@@ -1407,34 +1407,23 @@ p {
 
 
 
-.prise-block {
-    
-    width: 609px;
-    margin-bottom: 40px;
-	background: #edfdff;
-}
+.contest-prizes-list {margin-bottom: 40px;}
+.contest-prizes-list ul {list-style:none;}
+.contest-prizes-list ul li {text-align:center;float:left;width:20%;}
+.contest-prizes-list ul li .img {height:180px;}
+.contest-prizes-list ul li .img img {display:block;margin:auto;}
+.contest-prizes-list ul li .place {display:block;width:143px;height:34px;margin:5px auto;}
+.contest-prizes-list ul li .place-1 {background:url(/images/contest_prize_place_1.png) no-repeat;}
+.contest-prizes-list ul li .place-2 {background:url(/images/contest_prize_place_2.png) no-repeat;}
+.contest-prizes-list ul li .place-3 {background:url(/images/contest_prize_place_3.png) no-repeat;}
+.contest-prizes-list ul li .place-4 {background:url(/images/contest_prize_place_4.png) no-repeat;}
+.contest-prizes-list ul li .place-5 {background:url(/images/contest_prize_place_5.png) no-repeat;}
+.contest-prizes-list ul li .title {font-size:13px;padding:0 10px;}
+.contest-prizes-list ul li .title a {color:#0575ca;text-decoration:none;}
 
-.prise-block .item {
-    float: left;
-	
-    padding: 20px;
-    width: 160px;
-    text-align: center;
-	border-right:3px solid #fff;
-}
 
-.prise-block .item span {
-    color: #fe5004;
-    font: bold 25px Arial, Helvetica, sans-serif;
-    text-align: center;
-    display: block;
-    margin-top: 8px;
-}
 
-.prise-block .item  p {
-    color: #0281b0;
-    font-size: 12px;
-}
+
 
 .photo-block {
     position: relative;

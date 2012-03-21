@@ -402,7 +402,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .form .row .row-bottom {font-size:10px;line-height:1.2;}
 .form .form-bottom {text-align:right;padding-top:40px;color:#808282;}
 .form .form-bottom .btn {margin-left:20px;vertical-align:middle;}
-.form input[type=text], .form input[type=password] {height:24px;line-height:24px;padding:11px;border:1px solid #c9eaf1;background:#fff;color:#202121;font-size:16px;font-family:tahoma, arial, sans-serif;}
+.form input[type=text], .form input[type=password] {height:24px;line-height:24px;padding:11px;border:1px solid #c9eaf1;background:#fff;color:#0281B0;font-size:16px;font-family:arial, sans-serif;}
 .form .captcha img {border:1px solid #c9eaf1;}
 .form .refresh {display:inline-block;padding-right:22px;line-height:17px;color:#575757;text-decoration:none;margin-top:4px;position:relative;}
 .form .refresh .icon {width:18px;height:19px;display:block;position:absolute;right:0;top:50%;margin-top:-9px;background:url(../images/common.png) no-repeat -23px -100px;}
@@ -630,13 +630,14 @@ a {color:#51afc3;}
 #header-new .user-nav {float:right;height:30px;padding-right:15px;}
 #header-new .user-nav ul {list-style:none;}
 #header-new .user-nav > ul > li {height:30px;float:left;position:relative;}
-#header-new .user-nav > ul > li > a {padding:0 10px;height:30px;line-height:30px;color:#fff;text-decoration:none;display:block;white-space:wrap;}
-#header-new .user-nav > ul > li > .link > a {display:block;height:30px;line-height:30px;text-decoration:none;position:relative;overflow:hidden;color:#fff;padding:0 10px 0 0;}
-#header-new .user-nav > ul > li > .link .user-info {padding-left:10px;}
+#header-new .user-nav > ul > li > a {padding:0 10px;height:30px;line-height:30px;color:#fff;text-decoration:none;display:block;white-space:wrap;float:left;}
+#header-new .user-nav > ul > li > .link {height:30px;}
+#header-new .user-nav > ul > li > .link > a {display:block;height:30px;line-height:30px;text-decoration:none;position:relative;color:#fff;padding:0 10px 0 0;float:left;overflow:hidden;}
+#header-new .user-nav > ul > li > .link .ava {margin-left:10px;position:relative;top:3px;padding:0;}
 #header-new .user-nav > ul > li > .link:hover, #header-new .user-nav > ul > li > a:hover {background:#c7aae3;}
 
+
 #header-new .user-nav ul li.user {min-width:150px;}
-#header-new .user-nav ul li.user .ava {display:block;float:left;margin-top:3px;}
 #header-new .user-nav ul li.user .username {color:#fff;padding-right:14px;position:relative;padding-left:7px;white-space:nowrap;}
 #header-new .user-nav ul li.user .username .arr {display:block;width:11px;height:9px;background:url(/images/common.png) no-repeat -286px -178px;position:absolute;top:4px;right:0;}
 #header-new .user-nav > ul > li > a .icon {display:block;height:20px;margin:5px 0;background:url(/images/common.png) no-repeat 20px 20px;float:left;}

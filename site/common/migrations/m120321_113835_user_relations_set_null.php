@@ -26,7 +26,7 @@ ALTER TABLE  `user` ADD FOREIGN KEY user_street_fk (  `street_id` ) REFERENCES  
 
 ALTER TABLE  `user` DROP FOREIGN KEY  `mood_id` ;
 
-ALTER TABLE  `user` ADD FOREIGN KEY user_mood_fk (  `mood_id` ) REFERENCES  `user_moods` (
+ALTER TABLE  `user` ADD FOREIGN KEY mood_id (  `mood_id` ) REFERENCES  `user_moods` (
 `id`
 ) ON DELETE SET NULL ON UPDATE SET NULL ;
 SET foreign_key_checks = 1;
@@ -35,8 +35,7 @@ SET foreign_key_checks = 1;
 
 	public function down()
 	{
-		echo "m120321_113835_user_relations_set_null does not support migration down.\n";
-		return false;
+
 	}
 
 	/*

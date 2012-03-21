@@ -117,9 +117,14 @@ class User extends CActiveRecord
         return $age;
     }
 
+    public function getAgeSuffix()
+    {
+        return HDate::ageSuffix($this->age);
+    }
+
     public function getNormalizedAge()
     {
-        return HDate::normalizeAge($this->age);
+        return $this->age . ' ' . $this->ageSuffix;
     }
 
     /**

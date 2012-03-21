@@ -6,7 +6,7 @@ class m120316_145013_user_relations extends CDbMigration
 	{
         $this->execute('
         SET foreign_key_checks = 0;
-LTER TABLE  `user` DROP FOREIGN KEY  `user_country_fk` ;
+ALTER TABLE  `user` DROP FOREIGN KEY  `user_country_fk` ;
 
 ALTER TABLE  `user` ADD FOREIGN KEY (  `country_id` ) REFERENCES  `happy_giraffe`.`geo_country` (
 `id`

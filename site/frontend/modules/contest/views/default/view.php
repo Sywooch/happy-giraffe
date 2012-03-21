@@ -2,7 +2,7 @@
     <div class="contest-about clearfix">
 
         <div class="sticker">
-            Для того, чтобы принять участие в конкурсе, вы должны заполнить свой профиль и информацию о членах своей семьи!
+            <big>Для того, чтобы принять участие в конкурсе, вы должны заполнить свой профиль и информацию о членах своей семьи!</big>
             <?php if($this->contest->isStatement): ?>
                 <center><a href="<?=$this->createUrl('/contest/statement', array('id' => $this->contest->primaryKey))?>" class="btn btn-green-medium"><span><span>Участвовать<i class="arr-r"></i></span></span></a></center>
             <?php endif; ?>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="place place-1"></div>
                 <div class="title">
-                    <a href="">Мультиварка<br/><b>Land Life YBW60-100A1</b></a>
+                    <a href="">Мультиварка<br/><b>Land Life YBW60-100A1 </b></a>
                 </div>
             </li>
             <li>

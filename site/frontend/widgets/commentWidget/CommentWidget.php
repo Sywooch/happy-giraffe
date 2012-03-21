@@ -8,6 +8,7 @@ class CommentWidget extends CWidget
 	public $entity_id;
     public $title = 'Комментарии';
     public $actions = true;
+    public $button = 'Добавить комментарий';
 
     public function init()
     {

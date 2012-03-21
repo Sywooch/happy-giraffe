@@ -4,13 +4,6 @@
  */
 ?>
 <div class="default-comments">
-    <div class="comments-meta">
-        <?php if(!Yii::app()->user->isGuest): ?>
-            <a href="#new_comment_wrapper" onclick="Comment.newComment(event);" class="btn btn-orange a-right"><span><span>Добавить запись</span></span></a>
-        <?php endif; ?>
-        <div class="title"><?php echo $this->title; ?></div>
-        <div class="count"><?php echo $dataProvider->totalItemCount; ?></div>
-    </div>
     <?php
     $this->widget('MyListView', array(
         'dataProvider' => $dataProvider,
@@ -23,7 +16,13 @@
             'header' => 'Страницы',
         ),
         'id' => 'comment_list',
-        'template' => '<ul>{items}</ul>
+        'template' => '
+            <div class="comments-meta">
+                    ' . (!Yii::app()->user->isGuest ? '<a href="#new_comment_wrapper" onclick="Comment.newComment(event);" class="btn btn-orange a-right"><span><span>' . $this->button . '</span></span></a>' : '') . '
+                    <div class="title">' . $this->title . '</div>
+                    <div class="count">' . $dataProvider->totalItemCount . '</div>
+                </div>
+                <ul>{items}</ul>
                 <div class="pagination pagination-center clearfix">
                     {summary}
                     {pager}

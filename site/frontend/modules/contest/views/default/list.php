@@ -8,22 +8,21 @@ $('#sort').change(function() {
 	$cs->registerScript('contest_list', $js);
 ?>
 
-<div class="a-right fast-sort">
-    Сортировать по:
-    <?php echo CHtml::dropDownList('sort', $sort,
-    array(
-        'created' => 'Дате',
-        'rate' => 'Рейтингу',
-    ),
-    array(
-        'id' => 'sort',
-        'class' => 'chzn'
-    )); ?>
-</div>
-
-<div class="content-title">Участники конкурса</div>
-
 <div id="gallery">
+    <div class="a-right fast-sort">
+        Сортировать по:
+        <?php echo CHtml::dropDownList('sort', $sort,
+        array(
+            'created' => 'Дате',
+            'rate' => 'Рейтингу',
+        ),
+        array(
+            'id' => 'sort',
+            'class' => 'chzn'
+        )); ?>
+    </div>
+
+    <div class="content-title">Участники конкурса</div>
 
     <div class="gallery-photos clearfix">
         <ul>

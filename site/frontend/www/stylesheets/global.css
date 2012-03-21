@@ -1370,7 +1370,7 @@ p {
 #contest .photo-rank.place-2 .cup {background-position:-64px -154px;}
 #contest .photo-rank.place-3 .cup {background-position:-127px -154px;}
 
-.contest-takeapart {position:absolute;z-index:5;right:20px;bottom:28px;}
+.contest-takeapart {position:absolute;z-index:5;right:100px;bottom:28px;width:228px;height:59px;background:url(/images/btn_contest_takeapart.png) no-repeat;text-indent:-9999px;}
 
 
 .inner.contest .content-title {

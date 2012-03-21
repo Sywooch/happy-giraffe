@@ -19,7 +19,7 @@
             <?php if ($full): ?>
                 <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = $this->views; echo $views; ?></span></div>
             <?php else: ?>
-                <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = PageView::model()->viewsByPath($data->url, true); echo $views; ?></span></div>
+                <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true); echo $views; ?></span></div>
             <?php endif; ?>
             <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
             <?php if (! $full): ?>

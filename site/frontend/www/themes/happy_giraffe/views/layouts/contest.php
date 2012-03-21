@@ -25,9 +25,9 @@
 			));
 		?>
 	</div>
-    <?php if($this->contest->isStatement): ?>
-        <?php echo CHtml::link('Участвовать', array('/contest/statement', 'id' => $this->contest->primaryKey), array('class' => 'contest-takeapart')); ?>
-    <?php endif; ?>
+    <?php //if($this->contest->isStatement): ?>
+        <?php echo CHtml::link('Участвовать', (Yii::app()->user->isGuest) ? '#login' : array('/contest/statement', 'id' => $this->contest->primaryKey), array('class' => 'contest-takeapart fancy')); ?>
+    <?php //endif; ?>
     <img src="/images/contest_banner_01.png" />
 </div>
 <?php echo $content; ?>

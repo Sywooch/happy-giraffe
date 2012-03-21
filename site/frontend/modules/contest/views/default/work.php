@@ -40,6 +40,13 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
         ),
     )); ?>
 
+        <div class="content-title">
+            Последние добавленные работы
+            <?php echo CHtml::link('<span><span>Показать все</span></span>', array('/contest/list/' . $this->contest->contest_id), array(
+            'class' => 'btn btn-blue-small'
+        )); ?>
+        </div>
+
         <div class="jcarousel-container gallery-photos">
             <div id="photo-thumbs" class="jcarousel">
                 <ul>

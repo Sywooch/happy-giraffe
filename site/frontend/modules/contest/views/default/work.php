@@ -29,7 +29,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                 <?php endif; ?>
             </div>
         </div>
-    </div>
 
         <div class="jcarousel-container gallery-photos">
             <div id="photo-thumbs" class="jcarousel">
@@ -60,6 +59,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
             <a id="photo-thumbs-next" class="next" href="#"></a>
 
         </div>
+    </div>
 </div>
 
 <script type="text/javascript">

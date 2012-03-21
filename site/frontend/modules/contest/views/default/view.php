@@ -1,50 +1,81 @@
 <div id="contest">
     <div class="contest-about clearfix">
-        <?php if($this->contest->isStatement): ?>
-            <div class="sticker">
-                <big>Для того, чтобы принять участие в конкурсе, вы должны заполнить свой профиль и информацию о членах своей семьи!</big>
-                <?php echo CHtml::link('<span><span>Участвовать</span></span>', array('/contest/statement', 'id' => $contest->primaryKey), array('class' => 'btn btn-green-arrow-big')) ?>
-            </div>
-        <?php endif; ?>
+
+        <div class="sticker">
+            <big>Для участия в конкурсе Вам необходимо</big>
+            <ul>
+                <li>Заполнить профиль;</li>
+
+                <li>Добавить информацию о ребенке (возраст и имя);</li>
+
+                <li>Написать хотя бы один пост в блоге/сообществе.</li>
+            </ul>
+            <?php if($this->contest->isStatement): ?>
+                <center><a href="<?=$this->createUrl(array('/contest/statement', 'id' => $this->contest->primaryKey))?>" class="btn btn-green-medium"><span><span>Участвовать<i class="arr-r"></i></span></span></a></center>
+            <?php endif; ?>
+        </div>
+
         <div class="content-title">О конкурсе</div>
-        <p>
-            Весёлый жираф предлагает познакомиться! Ваша семья самая весёлая, самая интересная  – в общем, самая-самая? Тогда приглашаем вас принять участие в конкурсе семейной фотографии. Присылайте фото себя и своих близких на катке, на море или даже на рыбалке. Не важно, где сделан снимок, главное, чтобы он вызывал улыбку!
-             Обратите внимание: к участию допускается только одно фото от одного пользователя! Победителей выберут пользователи путём голосования – поэтому смело приглашайте голосовать своих друзей и знакомых. Удачи!
-        </p>
+
+        <p><b>Весёлый жираф предлагает познакомиться!</b></p>
+        <p>Ваша семья самая весёлая, самая интересная  – в общем, самая-самая? Тогда приглашаем вас принять участие в конкурсе семейной фотографии. Присылайте фото себя и своих близких на катке, на море или даже на рыбалке. Не важно, где сделан снимок, главное, чтобы он вызывал улыбку!</p>
+        <p><b>Обратите внимание:</b> к участию допускается только одно фото от одного пользователя! Победителей выберут пользователи путём голосования – поэтому смело приглашайте голосовать своих друзей и знакомых. Удачи!</p>
+
     </div>
 
     <div class="content-title">Вас ждут замечательные призы!</div>
-    <div class="prise-block clearfix">
 
-        <div class="item">
-            <img src="/images/example/prize.png">
-            <span>1 место</span>
-            <p>Описание приза</p>
-        </div>
+    <div class="contest-prizes-list clearfix">
 
-        <div class="item">
-            <img src="/images/example/prize.png">
-            <span>2 место</span>
-            <p>Описание приза</p>
-        </div>
+        <ul>
+            <li>
+                <div class="img">
+                    <a href=""><img src="/images/prize_1.jpg" /></a>
+                </div>
+                <div class="place place-1"></div>
+                <div class="title">
+                    <a href="">Мультиварка<br/><b>Land Life YBW60-100A1 </b></a>
+                </div>
+            </li>
+            <li>
+                <div class="img">
+                    <a href=""><img src="/images/prize_2.jpg" /></a>
+                </div>
+                <div class="place place-2"></div>
+                <div class="title">
+                    <a href="">Мультиварка<br/><b>BRAND 37501</b></a>
+                </div>
+            </li>
+            <li>
+                <div class="img">
+                    <a href=""><img src="/images/prize_3.jpg" /></a>
+                </div>
+                <div class="place place-3"></div>
+                <div class="title">
+                    <a href="">Мультиварка<br/><b>Land Life YBD60-100A </b></a>
+                </div>
+            </li>
+            <li>
+                <div class="img">
+                    <a href=""><img src="/images/prize_4.jpg" /></a>
+                </div>
+                <div class="place place-4"></div>
+                <div class="title">
+                    <a href="">Мультиварка<br/><b>Polaris PMC 0506AD</b></a>
+                </div>
+            </li>
+            <li>
+                <div class="img">
+                    <a href=""><img src="/images/prize_5.jpg" /></a>
+                </div>
+                <div class="place place-5"></div>
+                <div class="title">
+                    <a href="">Мультиварка<br/><b>SUPRA MCS-4501</b></a>
+                </div>
+            </li>
 
-        <div class="item">
-            <img src="/images/example/prize.png">
-            <span>3 место</span>
-            <p>Держатель для стаканов Phil and Teds ( Фил энд Тедс)</p>
-        </div>
+        </ul>
 
-        <div class="item">
-            <img src="/images/example/prize.png">
-            <span>3 место</span>
-            <p>Держатель для стаканов Phil and Teds ( Фил энд Тедс)</p>
-        </div>
-
-        <div class="item">
-            <img src="/images/example/prize.png">
-            <span>3 место</span>
-            <p>Держатель для стаканов Phil and Teds ( Фил энд Тедс)</p>
-        </div>
     </div>
     <?php /*if(count($contest->prizes) > 0): */?><!--
         <div class="content-title">Вас ждут замечательные призы!</div>

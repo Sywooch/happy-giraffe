@@ -11,7 +11,7 @@
                 <li>Написать хотя бы один пост в блоге/сообществе.</li>
             </ul>
             <?php if($this->contest->isStatement): ?>
-                <center><a href="<?=$this->createUrl(array('/contest/statement', 'id' => $this->contest->primaryKey))?>" class="btn btn-green-medium"><span><span>Участвовать<i class="arr-r"></i></span></span></a></center>
+                <center><a href="<?=$this->createUrl('/contest/statement', array('id' => $this->contest->primaryKey))?>" class="btn btn-green-medium"><span><span>Участвовать<i class="arr-r"></i></span></span></a></center>
             <?php endif; ?>
         </div>
 

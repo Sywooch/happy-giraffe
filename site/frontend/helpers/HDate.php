@@ -262,12 +262,12 @@ class HDate
         }
     }
 
-    public static function normalizeAge($year)
+    public static function ageSuffix($year)
     {
         $year = abs($year);
         $t1 = $year % 10;
         $t2 = $year % 100;
-        return $year . ' ' . ($t1 == 1 && $t2 != 11 ? "год" : ($t1 >= 2 && $t1 <= 4 && ($t2 < 10 || $t2 >= 20) ? "года" : "лет"));
+        return ($t1 == 1 && $t2 != 11 ? "год" : ($t1 >= 2 && $t1 <= 4 && ($t2 < 10 || $t2 >= 20) ? "года" : "лет"));
     }
 
     /**

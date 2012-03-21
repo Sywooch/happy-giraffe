@@ -23,22 +23,26 @@ $('#sort').change(function() {
         </div>
 		
 		<div class="content-title">Участники конкурса</div>
-		
-		<div class="clear"></div>
-		
-		<ul class="photo-list">
-			<?php foreach ($works as $w): ?>
-				<li>
-					<div class="img-box">							
-						<?php echo CHtml::link(CHtml::image($w->photo->photo->getPreviewUrl(150, 150), $w->title), $this->createUrl('/contest/work/' . $w->id)); ?>
-					</div>
-					<div class="item-title"><?php echo $w->title; ?></div>
-					<div class="mark">
-						<span><?php echo $w->rate; ?></span> баллов
-					</div>
-				</li>
-			<?php endforeach; ?>
-		</ul>
+
+        <div id="gallery">
+            <div class="gallery-photos clearfix">
+                <ul>
+                    <?php foreach ($contest->getRelated('works', false, array('limit' => 3, 'order' => 'id desc')) as $w): ?>
+                    <li>
+                        <table>
+                            <tr>
+                                <td class="img"><div><?php echo CHtml::link(CHtml::image($w->photo->photo->getPreviewUrl(150, 150), $w->title), $this->createUrl('/contest/work/' . $w->id)); ?></div></td>
+                            </tr>
+                            <tr class="rank"><td><span><?php echo $w->rate; ?></span> баллов</td></tr>
+                            <tr class="title">
+                                <td align="center"><div><?php echo $w->title; ?></div></td>
+                            </tr>
+                        </table>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
 		
 		<div class="clear"></div>
 		<?php if ($pages->pageCount > 1): ?>

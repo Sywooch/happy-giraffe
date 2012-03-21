@@ -7,28 +7,19 @@
 				'encodeLabel' => false,
 				'items' => array(
 					array(
-						'label' => '<span><span>О конкурсе</span></span>',
+						'label' => 'О конкурсе',
 						'url' => array('/contest/' . $this->contest->contest_id),
 						'active' => $this->action->id == 'view',
-						'linkOptions' => array(
-							'class' => 'btn btn-blue-shadow',
-						),
 					),
 					array(
-						'label' => '<span><span>Правила</span></span>',
+						'label' => 'Правила',
 						'url' => array('/contest/rules/' . $this->contest->contest_id),
 						'active' => $this->action->id == 'rules',
-						'linkOptions' => array(
-							'class' => 'btn btn-blue-shadow',
-						),
 					),
 					array(
-						'label' => '<span><span>Участники</span></span>',
+						'label' => 'Участники',
 						'url' => array('/contest/list/' . $this->contest->contest_id),
 						'active' => $this->action->id == 'list',
-						'linkOptions' => array(
-							'class' => 'btn btn-blue-shadow',
-						),
 					),
 				),
 			));

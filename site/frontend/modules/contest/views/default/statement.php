@@ -34,7 +34,7 @@
 
             <div style="text-align:left;" class="form-bottom">
                 <label><input type="checkbox" onchange="$('#finish_button').toggleClass('disabled').toggleDisabled();"> Я согласен с</label> <?php echo CHtml::link('Правилами конкурса', array('/contest/rules', 'id' => $this->contest->primaryKey)); ?>
-                <button class="btn btn-green-medium disabled" id="finish_button"><span><span>Участвовать<i class="arr-r"></i></span></span></button>
+                <button class="btn btn-green-medium disabled" id="finish_button" disabled="disabled"><span><span>Участвовать<i class="arr-r"></i></span></span></button>
             </div>
 
         </div>

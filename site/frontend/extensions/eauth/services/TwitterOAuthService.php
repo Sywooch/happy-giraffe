@@ -15,7 +15,7 @@ require_once dirname(dirname(__FILE__)).'/EOAuthService.php';
  * Twitter provider class.
  * @package application.extensions.eauth.services
  */
-class TwitterOAuthService extends EOAuthService {	
+class TwitterOAuthService extends EOAuthService {
 	
 	protected $name = 'twitter';
 	protected $title = 'Twitter';

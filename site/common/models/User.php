@@ -282,6 +282,7 @@ class User extends CActiveRecord
 
             'communitiesCount' => array(self::STAT, 'Community', 'user_community(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'MessageUser', 'user_id'),
+            'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with'=>'rubric', 'condition'=>'rubric.user_id IS NOT null', 'select'=>'id'),
         );
     }
 

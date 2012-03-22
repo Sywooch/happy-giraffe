@@ -1,8 +1,99 @@
+<?php
+$cs = Yii::app()->clientScript;
+$url = CController::createUrl('signup/validate', array('step' => '1'));
+$js_step_1 = "
+$('#next_1').click(function() {
+	$.ajax({
+		type: 'POST',
+		dataType: 'json',
+		url: " . CJSON::encode($url) . ",
+		data: $('#signup').serialize(),
+		success: function(response) {
+			if (response.status == 'ok')
+			{
+				$('#step_1 .errors').html('');
+
+				$('#step_1').hide();
+				$('#step_2').show();
+				$('.steps li.active').removeClass('active');
+				$('.steps li:nth-child(2)').addClass('active');
+				$('div.title').hide();
+				$('div.header > div.login-link').hide();
+			}
+			else
+			{
+				$('#step_1 .errors').html(response.errors);
+			}
+		}
+	});
+	return false;
+});";
+$url = CController::createUrl('signup/validate', array('step' => '2'));
+$js_step_2 = "
+$('#next_2').click(function() {
+	$.ajax({
+		type: 'POST',
+		dataType: 'json',
+		url: " . CJSON::encode($url) . ",
+		data: $('#signup').serialize(),
+		success: function(response) {
+			if (response.status == 'ok')
+			{
+				$('#step_2 .errors').html('');
+
+				$('#signup').submit();
+			}
+			else
+			{
+				$('#step_2 .errors').html(response.errors);
+			}
+		}
+	});
+	return false;
+});
+$('.inc').click(function() {
+	var input = $(this).prev();
+	var old_val = parseInt(input.val());
+	input.val(old_val + 1);
+});
+$('.dec').click(function() {
+	var input = $(this).next();
+	var old_val = parseInt(input.val());
+	if (old_val > 0) input.val(parseInt(input.val()) - 1);
+});
+$('#agree').change(function() {
+	$('#next_2').toggleClass('disabled').toggleDisabled();
+});";
+$js_functions = "
+(function($) {
+    $.fn.toggleDisabled = function(){
+        return this.each(function(){
+            this.disabled = !this.disabled;
+        });
+    };
+})(jQuery);
+function choose(val)
+{
+	$('#User_gender').val(val);
+
+	$('.gender-select li.active').removeClass('active');
+	$('.gender-select li:nth-child(' + (val + 1) + ')').addClass('active');
+	$('.members-count').show();
+}";
+$css_signup = "
+#step_2, .members-count {
+	display: none;
+}";
+$cs->registerScript('step_1', $js_step_1)->registerScript('step_2', $js_step_2)->registerScript('choose', $js_functions, CClientScript::POS_HEAD)->registerCss('signup', $css_signup);
+?>
+
 <div class="title">Регистрация</div>
 
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'signup', 'action' => CController::createUrl('signup/finish'))); ?>
 
     <div class="form" id="step_1">
+
+        <div class="errors"></div>
 
         <div class="clearfix">
             <?php if ($regdata === null): ?>
@@ -94,11 +185,14 @@
         </div>
 
         <div class="form-bottom">
-            <button class="btn btn-green-medium disabled"><span><span>Продолжить<i class="arr-r"></i></span></span></button>
+            <button class="btn btn-green-medium" id="next_1"><span><span>Продолжить<i class="arr-r"></i></span></span></button>
         </div>
     </div>
 
     <div class="form" id="step_2">
+
+        <div class="errors"></div>
+
         <div class="clearfix">
             <div class="gender-select">
                 <big>Вы:</big>
@@ -163,8 +257,8 @@
         </div>
 
         <div class="form-bottom">
-            <label><input type="checkbox" /> Я принимаю условия, изложенные в</label> <a href="">Пользовательском соглашении</a>
-            <button class="btn btn-green-medium disabled"><span><span>Продолжить<i class="arr-r"></i></span></span></button>
+            <label><input type="checkbox" id="agree" /> Я принимаю условия, изложенные в</label> <a href="">Пользовательском соглашении</a>
+            <button class="btn btn-green-medium disabled" disabled="disabled" id="next_2"><span><span>Продолжить<i class="arr-r"></i></span></span></button>
         </div>
     </div>
 

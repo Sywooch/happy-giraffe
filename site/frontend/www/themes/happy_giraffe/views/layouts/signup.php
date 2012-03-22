@@ -47,5 +47,9 @@
 
     </div>
 
+    <?php $this->widget('application.widgets.loginWidget.LoginWidget', array(
+        'onlyForm' => true,
+    )); ?>
+
 </body>
 </html>

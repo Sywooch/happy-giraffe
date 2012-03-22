@@ -4,7 +4,7 @@ class m120322_124124_drop_geo_fk extends CDbMigration
 {
 	public function up()
 	{
-        $this->execute('SET foreign_key_checks = 0; alter table user DROP FOREIGN KEY user_settlement_fk;');
+        $this->execute('SET foreign_key_checks = 0; alter table user DROP FOREIGN KEY user_ibfk_13;');
 	}
 
 	public function down()

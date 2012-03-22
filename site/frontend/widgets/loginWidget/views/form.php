@@ -1,7 +1,9 @@
-<ul class="fast-links clearfix a-right">
-    <li><?php echo CHtml::link('Вход', '#login', array('class' => 'fancy')); ?></li>
-    <li><?php echo CHtml::link('Регистрация', Yii::app()->createUrl('/signup')); ?></li>
-</ul>
+<?php if ($this->onlyForm === false): ?>
+    <ul class="fast-links clearfix a-right">
+        <li><?php echo CHtml::link('Вход', '#login', array('class' => 'fancy')); ?></li>
+        <li><?php echo CHtml::link('Регистрация', Yii::app()->createUrl('/signup')); ?></li>
+    </ul>
+<?php endif; ?>
 <div style="display:none">
     <div id="login" class="popup">
 

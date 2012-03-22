@@ -1,6 +1,8 @@
 <?php
 class LoginWidget extends CWidget
 {
+    public $onlyForm;
+
     public function run()
     {
         if(Yii::app()->user->isGuest)

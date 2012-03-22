@@ -32,9 +32,10 @@
 
 #registration .form-bottom {border-top:1px solid #caf3f8;}
 
-#registration .login-social {padding:20px 10px;border:1px solid #C9EAF1;color:#559cce;text-align:center;}
+#registration .login-social {padding:20px 10px 3px;border:1px solid #C9EAF1;color:#559cce;text-align:center;width:200px;}
 #registration .login-social li {padding:7px 0;}
-#registration .login-social ul {padding:10px 0;list-style:none;}
+#registration .login-social ul {padding:10px 0;list-style:none;text-align:center;}
+#registration .login-social li:first-child {margin-left:0;}
 
 #registration .user-info {margin-top:15px;}
 
@@ -51,7 +52,7 @@
 #registration .gender-select.selected .btn {display:none;}
 
 #registration .members-count {float:left;width:500px;padding-left:40px;padding-top:50px;}
-#registration .members-count big {display:block;margin:50px 0 90px;font:bold italic 20px arial, sans-serif;color:#2296b0;}
+#registration .members-count big {display:block;margin:50px 0 90px;font:bold italic 20px arial, sans-serif;color:#0281B0;}
 #registration .members-count big span {color:#79c2ca;font-size:20px;}
 #registration .members-count .subtitle {color:#575757;}
 #registration .members-count .subtitle span {font:bold italic 14px arial, sans-serif;display:block;margin-bottom:6px;}

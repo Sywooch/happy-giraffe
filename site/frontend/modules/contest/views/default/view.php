@@ -103,10 +103,10 @@
                             <tr>
                                 <td class="img"><div><?php echo CHtml::link(CHtml::image($w->photo->photo->getPreviewUrl(150, 150), $w->title), $this->createUrl('/contest/work/' . $w->id)); ?></div></td>
                             </tr>
-                            <tr class="rank"><td><span><?php echo $w->rate; ?></span> баллов</td></tr>
                             <tr class="title">
                                 <td align="center"><div><?php echo $w->title; ?></div></td>
                             </tr>
+                            <tr class="rank"><td><span><?php echo $w->rate; ?></span> баллов</td></tr>
                         </table>
                     </li>
                 <?php endforeach; ?>

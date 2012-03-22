@@ -28,7 +28,7 @@ class GeoRegion extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'geo_region';
+		return 'geo__region';
 	}
 
 	/**

@@ -89,7 +89,7 @@ $cs->registerScript('step_1', $js_step_1)->registerScript('step_2', $js_step_2)-
 
 <div class="title">Регистрация</div>
 
-<?php $form = $this->beginWidget('CActiveForm', array('id' => 'signup', 'action' => CController::createUrl('signup/finish'))); ?>
+<?php $form = $this->beginWidget('CActiveForm', array('id' => 'signup', 'action' => CController::createUrl('signup/finish', array('redirectUrl' => Yii::app()->request->getQuery('redirectUrl') ? Yii::app()->request->getQuery('redirectUrl') : '')))); ?>
 
     <div class="form" id="step_1">
 

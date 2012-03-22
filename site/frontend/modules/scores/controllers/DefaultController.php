@@ -5,13 +5,19 @@ class DefaultController extends Controller
     public $user;
     public $layout = '//layouts/main';
 
+    public function filters() {
+        return array(
+            'accessControl',
+        );
+    }
+
     public function accessRules()
     {
         return array(
             array('allow',
                 'users' => array('@'),
             ),
-            array('allow',
+            array('deny',
                 'users' => array('*'),
             ),
         );

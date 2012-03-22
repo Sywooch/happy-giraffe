@@ -57,7 +57,7 @@
             <div class="reg-link">
 
                 <div class="a-right">
-                    <a class="btn btn-orange" href="<?php echo Yii::app()->createUrl('signup'); ?>"><span><span>Зарегистрироваться</span></span></a>
+                    <a class="btn btn-orange" href="<?php echo Yii::app()->createUrl('signup/index', array('redirectUrl' => $this->controller->module && $this->controller->module->id == 'contest' ? urlencode(Yii::app()->request->pathInfo) : '')); ?>"><span><span>Зарегистрироваться</span></span></a>
                 </div>
 
                 <div class="row"><span>Еще нет учетной записи?</span></div>

@@ -46,7 +46,6 @@
             <div class="title">Популярные темы</div>
             <ul>
                 <?php foreach($top5 as $data): ?>
-                <?php if(!$data) continue; ?>
                 <li>
                     <?php echo CHtml::link(CHtml::tag('b', array(), $data->name), $data->url); ?>
                     <div class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></div>

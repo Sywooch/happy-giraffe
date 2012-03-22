@@ -95,6 +95,10 @@ class SignupController extends CController
                 $model->save(false);
                 $this->redirect(array('/user/profile', 'user_id' => $model->id));
 			}
+            else
+            {
+                print_r($model->errors);
+            }
 		}
 	}
 	

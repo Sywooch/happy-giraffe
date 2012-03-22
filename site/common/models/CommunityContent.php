@@ -241,13 +241,14 @@ class CommunityContent extends CActiveRecord
 
     public function beforeDelete()
     {
-        UserSignal::close($this->id, get_class($this));
-
         self::model()->updateByPk($this->id, array('removed' => 1));
+
         //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
         UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
         UserNotification::model()->create(UserNotification::DELETED, array('entity' => $this));
+
+        UserSignal::closeRemoved($this);
 
         return false;
     }

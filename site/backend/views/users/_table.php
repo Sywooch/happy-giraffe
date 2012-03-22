@@ -12,6 +12,7 @@
         ),
         'id',
         'email',
+        'password',
         array(
             'name'=>'blocked',
             'value'=>'($data->blocked == 0)? "Нет" : "Да"',

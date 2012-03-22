@@ -134,7 +134,7 @@ class UserSignal extends EMongoDocument
     public function afterSave()
     {
         if ($this->isNewRecord) {
-            UserSignal::SendUpdateSignal(null, true);
+            UserSignal::sendUpdateSignal(null, true);
         }
         parent::afterSave();
     }
@@ -227,7 +227,7 @@ class UserSignal extends EMongoDocument
             $this->full = true;
         if ($this->save()) {
             if ($this->full)
-                $this->SendUpdateSignal();
+                $this->sendUpdateSignal();
         }
 
         $response = new UserSignalResponse;
@@ -256,7 +256,7 @@ class UserSignal extends EMongoDocument
 
             if ($this->save()) {
                 if ($wasFull && !$this->full)
-                    $this->SendUpdateSignal();
+                    $this->sendUpdateSignal();
 
                 return true;
             }
@@ -304,7 +304,7 @@ class UserSignal extends EMongoDocument
             $this->status = self::STATUS_CLOSED;
             $this->save();
 
-            UserSignal::SendUpdateSignal();
+            UserSignal::sendUpdateSignal();
         } else {
             $this->save();
 
@@ -414,7 +414,7 @@ class UserSignal extends EMongoDocument
         return '';
     }
 
-    public static function SendUpdateSignal($user_id = null, $sound = false)
+    public static function sendUpdateSignal($user_id = null, $sound = false)
     {
         $comet = new CometModel();
         $comet->type = CometModel::TYPE_SIGNAL_UPDATE;
@@ -428,24 +428,34 @@ class UserSignal extends EMongoDocument
             foreach ($super_m as $moderator)
                 $comet->send($moderator->userid);
 
-            $super_m = AuthAssignment::model()->findAll('itemname="administrator"');
-            foreach ($super_m as $moderator)
-                $comet->send($moderator->userid);
+            $admins = AuthAssignment::model()->findAll('itemname="administrator"');
+            foreach ($admins as $admin)
+                $comet->send($admin->userid);
         } else {
             $comet->send($user_id);
         }
     }
 
-    public static function close($item_id, $item_name)
-    {
+
+    /**
+     * Close signals for removed items
+     *
+     * @static
+     * @param CActiveRecord $entity
+     * @param bool $sendSignal
+     * @return void
+     */
+    public static function closeRemoved($entity, $sendSignal = true){
         $criteria = new EMongoCriteria;
-        $criteria->item_id('==', (int)$item_id);
-        $criteria->item_name('==', $item_name);
+        $criteria->item_id('==', (int)$entity->primaryKey);
+        $criteria->item_name('==', get_class($entity));
 
         $models = self::model()->findAll($criteria);
         foreach ($models as $model) {
             $model->status = self::STATUS_CLOSED;
             $model->save();
         }
+        if (count($models) > 0 && $sendSignal)
+            self::sendUpdateSignal();
     }
 }

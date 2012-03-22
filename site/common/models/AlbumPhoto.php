@@ -149,7 +149,7 @@ class AlbumPhoto extends CActiveRecord
     {
         $this->removed = 1;
         $this->save();
-        UserSignal::close($this->id, get_class($this));
+        UserSignal::closeRemoved($this);
         Yii::import('site.frontend.modules.scores.models.*');
         UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
         return false;

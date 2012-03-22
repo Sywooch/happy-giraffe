@@ -75,7 +75,7 @@ class SignupController extends CController
 				$model->social_services = array($service);
 			}
 			$model->register_date = date('Y-m-d H:i:s');
-			if($model->save())
+			if($model->save(true, array('first_name', 'password', 'email', 'gender')))
 			{	
 				foreach ($_POST['age_group'] as $k => $q)
 				{

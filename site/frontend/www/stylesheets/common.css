@@ -93,6 +93,13 @@ h4 { font-size: 12px}
 .opacity-60 {opacity:0.6;filter: alpha(opacity = 60);}
 .opacity-80 {opacity:0.8;filter: alpha(opacity = 80);}
 
+.w-200 {width:200px;}
+input.w-200, textarea.w-200 {width:176px;}
+.w-400 {width:400px;}
+input.w-400, textarea.w-400 {width:376px;}
+.w-500 {width:500px;}
+input.w-500, textarea.w-500 {width:476px;}
+
 .file-fake {display:inline-block;position:relative;cursor:pointer;height:32px;overflow:hidden;}
 .file-fake input {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)}
 .file-fake .btn {position:relative;z-index:2;}
@@ -396,16 +403,22 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 .form {color:#575757;}
 .form a {color:#54afc3;}
-.form .row {padding-top:15px;}
+.form .row {padding-bottom:15px;}
 .form .row .row-title {color:#0d8ca3;font:italic 16px arial, sans-serif;}
-.form .row .row-elements {padding:3px 0;}
+.form .row .row-elements {}
 .form .row .row-bottom {font-size:10px;line-height:1.2;}
 .form .form-bottom {text-align:right;padding-top:40px;color:#808282;}
 .form .form-bottom .btn {margin-left:20px;vertical-align:middle;}
-.form input[type=text], .form input[type=password] {height:24px;line-height:24px;padding:11px;border:1px solid #c9eaf1;background:#fff;color:#0281B0;font-size:16px;font-family:arial, sans-serif;}
+.form input[type=text], .form input[type=password] {height:24px;line-height:24px;padding:11px;border:1px solid #c9eaf1;background:#fff;color:#0281B0;font-size:16px;font-family:arial, sans-serif;font-weight:bold;margin:0;}
 .form .captcha img {border:1px solid #c9eaf1;}
 .form .refresh {display:inline-block;padding-right:22px;line-height:17px;color:#575757;text-decoration:none;margin-top:4px;position:relative;}
 .form .refresh .icon {width:18px;height:19px;display:block;position:absolute;right:0;top:50%;margin-top:-9px;background:url(../images/common.png) no-repeat -23px -100px;}
+
+.row-form .row-title {padding:5px 0 5px 12px;}
+
+.form .row-buttons {text-align:center;padding-top:30px;}
+.form .row-buttons .btn {margin:0 3px;}
+
 .form .form-error-summary {padding:15px 20px;background:#fff;border:2px solid #ff8686;margin-bottom:20px;}
 .form .form-error-summary big {display:block;font:bold 24px arial, sans-serif;margin-bottom:10px;color:#e40000;letter-spacing:-1px;}
 .form .form-error-summary ul {font:13px/1 arial, sans-serif;list-style:none;}
@@ -848,7 +861,7 @@ a {color:#51afc3;}
 #crumbs {height:28px;margin:0 40px;color:#51afc3;font:11px/18px tahoma, arial, sans-serif;position:relative;z-index:5;}
 #crumbs b {background:#fffedf;padding:0 5px;display:inline-block;}
 
-#content {margin:0px 20px 0;padding-top:10px;position:relative;z-index:3;}
+#content {margin:0px 20px 0;padding-top:10px;position:relative;z-index:3;padding-bottom:40px;}
 #content .content-box {padding-bottom:20px;}
 
 #content .side-left {width:240px;float:left;margin-left:-100%;}
@@ -1671,6 +1684,30 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .socials-inline .services .auth-service .auth-link .auth-icon.twitter {background-position:-587px -127px;}
 
 
+
+/* */
+
+
+/* */
+
+.add-nav {padding-bottom:20px;}
+.add-nav .content-title {float:left;width:240px;margin:0;}
+.add-nav ul {margin-left:260px;padding-top:10px;}
+
+
+.default-nav ul {overflow:hidden;list-style:none;}
+.default-nav ul li {display:inline-block;padding:0 10px;height:20px;}
+.default-nav ul li a {border-bottom:1px dashed #51afc3;text-decoration:none;height:16px;line-height:16px;margin:2px 0;display:block;}
+.default-nav ul li a:hover {border:0;}
+.default-nav ul li.active {background:#cdecff;}
+.default-nav ul li.active a {border:0;cursor:default;}
+
+
+.test-video {}
+.test-video .small {font:normal 11px tahoma, arial, helvetica, sans-serif;color:#939598;margin-top:10px;}
+.test-video .img {float:right;position:relative;}
+.test-video .img img {display:block;margin:auto;}
+.test-video .img .remove {display:block;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;position:absolute;top:0;right:0;}
 
 /* */
 

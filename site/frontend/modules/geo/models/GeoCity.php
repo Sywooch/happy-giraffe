@@ -29,7 +29,7 @@ class GeoCity extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'geo_city';
+		return 'geo__city';
 	}
 
 	/**

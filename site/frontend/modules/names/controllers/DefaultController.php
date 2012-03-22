@@ -316,7 +316,7 @@ class DefaultController extends Controller
         return 30 + ($max - $value) * 85 / $diff;
     }
 
-    public function ParsePage2()
+    /*public function ParsePage2()
     {
         Yii::import('ext.phpQuery.phpQuery.phpQuery');
         $urls = array(
@@ -449,6 +449,6 @@ class DefaultController extends Controller
 
             sleep(1);
         }
-    }
+    }*/
 
 }

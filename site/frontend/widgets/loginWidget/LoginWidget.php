@@ -1,7 +1,7 @@
 <?php
 class LoginWidget extends CWidget
 {
-    public $onlyForm;
+    public $onlyForm = false;
 
     public function run()
     {

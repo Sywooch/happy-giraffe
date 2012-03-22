@@ -49,7 +49,7 @@ class AjaxController extends Controller
     public function actionSocialApi()
     {
         Yii::import('contest.models.*');
-        if(($params = Yii::app()->user->getFlash('google')) != false);
+        if(!isset($_GET['key']) && ($params = Yii::app()->user->getFlash('google')) != false);
         else
             $params = $_GET;
         if(isset($params['key']))

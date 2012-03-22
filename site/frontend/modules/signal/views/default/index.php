@@ -14,8 +14,8 @@ $js = "Signal.takeSignalUrl = '". Yii::app()->createUrl("/signal/default/take") 
         Signal.signalUrl = '". Yii::app()->createUrl("/signal/default/index") ."';
         Signal.removeUrl = '". Yii::app()->createUrl("/signal/default/removeAll") ."';
 
-        Signal.TYPE_SIGNAL_UPDATE = ".CometModel::TYPE_SIGNAL_UPDATE .";
-        Signal.TYPE_SIGNAL_EXECUTED = ".CometModel::TYPE_SIGNAL_EXECUTED .";
+        comet.addEvent(".CometModel::TYPE_SIGNAL_UPDATE.", 'UpdateTable');
+        comet.addEvent(".CometModel::TYPE_SIGNAL_EXECUTED.", 'TaskExecuted');
 
         Signal.year = ". date('Y') .";
         Signal.month = ". date('n') .";
@@ -24,7 +24,7 @@ $js = "Signal.takeSignalUrl = '". Yii::app()->createUrl("/signal/default/take") 
 $cs = Yii::app()->clientScript;
 $cs
     ->registerScriptFile('/javascripts/soundmanager2.js', CClientScript::POS_HEAD)
-    ->registerScriptFile($baseUrl . '/signal.js', CClientScript::POS_HEAD)
+    ->registerScriptFile($baseUrl . '/signal.js', CClientScript::POS_END)
     ->registerScript('SignalInit', $js);
 
 ?>

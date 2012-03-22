@@ -44,7 +44,8 @@ var Signal = {
         return false;
     },
     UpdateSignalData:function (play) {
-        this.Play(play);
+        if (play != false)
+            this.Play();
 
         $.ajax({
             url:this.signalUrl,
@@ -135,7 +136,7 @@ var Signal = {
             return num.toString();
     },
     Play:function (play) {
-        if ($('#play_sound').attr("checked") != 'checked' || play == undefined)
+        if ($('#play_sound').attr("checked") != 'checked')
             return;
         soundManager.createSound({id:'s', url:'/audio/1.mp3'});
         soundManager.play('s');
@@ -156,15 +157,13 @@ $(function () {
         Signal.LoadHistory($(this));
         return false;
     });
-
-    Comet.prototype.UpdateTable = function (result, id) {
-        Signal.UpdateSignalData(result.sound);
-    }
-
-    Comet.prototype.TaskExecuted = function (result, id) {
-        Signal.UpdateSignalData();
-    }
-
-    comet.addEvent(Signal.TYPE_SIGNAL_UPDATE, 'UpdateTable');
-    comet.addEvent(Signal.TYPE_SIGNAL_EXECUTED, 'TaskExecuted');
 });
+
+Comet.prototype.UpdateTable = function (result, id) {
+    console.log('update signal');
+    Signal.UpdateSignalData(result.sound);
+}
+
+Comet.prototype.TaskExecuted = function (result, id) {
+    Signal.UpdateSignalData();
+}

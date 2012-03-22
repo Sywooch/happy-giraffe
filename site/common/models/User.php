@@ -378,7 +378,7 @@ class User extends CActiveRecord
 
     public function beforeDelete()
     {
-        UserSignal::close($this->id, get_class($this));
+        UserSignal::closeRemoved($this);
         return false;
     }
 

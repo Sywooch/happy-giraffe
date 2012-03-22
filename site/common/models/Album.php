@@ -156,12 +156,17 @@ class Album extends CActiveRecord
 
     public function beforeDelete()
     {
+        if (count($this->photos) > 0 ){
+            foreach($this->photos as $photo)
+                UserSignal::closeRemoved($photo, false);
+            UserSignal::sendUpdateSignal();
+
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, count($this->photos), $this->photos[0]);
+        }
+
         $this->removed = 1;
         $this->save();
-        if ($this->photoCount > 0 ){
-            Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, $this->photoCount, $this->photos[0]);
-        }
 
         return false;
     }

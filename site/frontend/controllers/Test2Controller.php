@@ -201,14 +201,4 @@ class Test2Controller extends Controller
     {
         echo Yii::app()->user->model->delFriend(10097);
     }
-
-    public function actionTt()
-    {
-        $res = Yii::app()->db->createCommand()
-            ->select('id')
-            ->from('club_community_content')
-            ->where('`author_id` IN ( 10064, 10019, 10186, 10265, 10159 ) ')
-            ->queryColumn();
-        echo implode(',', $res);
-    }
 }

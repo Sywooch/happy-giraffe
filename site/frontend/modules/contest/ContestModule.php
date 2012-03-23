@@ -3,7 +3,6 @@
 class ContestModule extends CWebModule
 {
 	public $defaultController = 'default';
-    public $pageTitle = 'Фотоконкурс "Веселый Жираф"';
 
 	public function init()
 	{

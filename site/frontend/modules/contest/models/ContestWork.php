@@ -129,4 +129,12 @@ class ContestWork extends CActiveRecord
             'next' => $next ? $next['id'] : false
         );
     }
+
+    public function getParedDownTitle()
+    {
+        $photo_size = getimagesize($this->photo->photo->getPreviewUrl(150, 150));
+        $width = $photo_size[0];
+        $text = Str::truncate($this->title, 0.54*$width);
+        return $text;
+    }
 }

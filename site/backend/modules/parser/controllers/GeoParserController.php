@@ -7,18 +7,18 @@ class GeoParserController extends BController
     public function actionIndex()
     {
         Yii::import('site.frontend.modules.geo.models.*');
-        $models = GeoCity::model()->findAll('country_id='.$this->country_id);
-        foreach($models as $model){
+        $models = GeoCity::model()->findAll('country_id=' . $this->country_id);
+        foreach ($models as $model) {
             $model->name = $this->utf8_to_cp1251($model->name);
             $model->save();
         }
-        $models = GeoRegion::model()->findAll('country_id='.$this->country_id);
-        foreach($models as $model){
+        $models = GeoRegion::model()->findAll('country_id=' . $this->country_id);
+        foreach ($models as $model) {
             $model->name = $this->utf8_to_cp1251($model->name);
             $model->save();
         }
         $models = GeoDistrict::model()->findAll();
-        foreach($models as $model){
+        foreach ($models as $model) {
             $model->name = $this->utf8_to_cp1251($model->name);
             $model->save();
         }
@@ -32,7 +32,7 @@ class GeoParserController extends BController
         //for($obl = 1; $obl < 25; $obl++)
         $obl = 1;
 
-        $url = 'http://weather-in.by/search.html?oblast='.$obl.'&region=&town=';
+        $url = 'http://weather-in.by/search.html?oblast=' . $obl . '&region=&town=';
         $html = $this->loadPage($url);
         $document = phpQuery::newDocument($html);
         foreach ($document->find('#oblast option') as $option) {
@@ -71,7 +71,7 @@ class GeoParserController extends BController
 
 //                            sleep(2);
 
-                            $url = 'http://weather-in.by/search.html?oblast=' . $r_val . '&region=' . $d_val.'&town=';
+                            $url = 'http://weather-in.by/search.html?oblast=' . $r_val . '&region=' . $d_val . '&town=';
                             $html = $this->loadPage($url);
                             $document = phpQuery::newDocument($html);
 
@@ -204,26 +204,33 @@ class GeoParserController extends BController
         return $out;
     }
 
-    function utf8_to_cp1251($utf8) {
+    function utf8_to_cp1251($utf8)
+    {
 
         $windows1251 = "";
-        $chars = preg_split("//",$utf8);
+        $chars = preg_split("//", $utf8);
 
-        for ($i=1; $i < count($chars)-1; $i++) {
+        for ($i = 1; $i < count($chars) - 1; $i++) {
             $prefix = ord($chars[$i]);
-            $suffix = ord($chars[$i+1]);
+            $suffix = ord($chars[$i + 1]);
 
-            if ($prefix==215) {
-                $windows1251 .= chr($suffix+80);
+            if ($prefix == 215) {
+                $windows1251 .= chr($suffix + 80);
                 $i++;
-            } elseif ($prefix==214) {
-                $windows1251 .= chr($suffix+16);
+            } elseif ($prefix == 214) {
+                $windows1251 .= chr($suffix + 16);
                 $i++;
             } else {
                 $windows1251 .= $chars[$i];
             }
         }
 
-    return $windows1251;
-}
+        return $windows1251;
+    }
+
+    public function actionFias()
+    {
+        $xml = simplexml_load_file(Yii::app()->getBasePath().'/fias_xml/AS_ADDROBJ_20120307_ed70af27-1091-4bff-98fc-8030bcb87d22.XML');
+
+    }
 }

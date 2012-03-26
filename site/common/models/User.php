@@ -359,8 +359,9 @@ class User extends CActiveRecord
             $signal->save();
 
             $rubric = new CommunityRubric;
+            $rubric->name = 'Обо всём';
             $rubric->user_id = $this->id;
-            $rubric->save(false);
+            $rubric->save();
         } else {
             self::clearCache($this->id);
         }

@@ -20,7 +20,7 @@ if ($user->getUserAddress()->country_id !== null) {
                 <div class="row-title">Страна</div>
                 <div class="row-elements">
                     <?php echo CHtml::dropDownList('country_id', $user->getUserAddress()->country_id,
-                    array('' => '') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
+                    CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
                     array(
                         'class' => 'chzn w-300',
                         'data-placeholder' => 'Выберите страну',

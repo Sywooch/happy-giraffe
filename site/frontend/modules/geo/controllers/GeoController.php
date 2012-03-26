@@ -26,7 +26,7 @@ class GeoController extends Controller
             foreach ($regions as $region) {
                 $_regions[] = array($region->id, $region->name);
             }
-            echo CHtml::listOptions(null, CHtml::listData($regions, 'id', 'name'), $null);
+            echo CHtml::listOptions(null, array(''=>'Выберите регион')+CHtml::listData($regions, 'id', 'name'), $null);
         } else
             echo '';
     }
@@ -134,11 +134,16 @@ class GeoController extends Controller
         $address->region_id = empty($region_id)?null:$region_id;
         $address->city_id = empty($city_id)?null:$city_id;
 
-        echo CJSON::encode(array('status' => $address->save()));
+        echo CJSON::encode(array(
+            'status' => $address->save(),
+            'location'=>$address->getLocationString()
+        ));
     }
 
     public function actionRegionIsCity(){
         $id = Yii::app()->request->getPost('id');
+        if (empty($id))
+            Yii::app()->end();
         $region = GeoRegion::model()->findByPk($id);
         echo CJSON::encode(array('status' => $region->isCity()));
     }

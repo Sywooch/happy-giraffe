@@ -11,53 +11,55 @@ var UserLocation = {
     SelectCounty:function (elem) {
         this.clearCity();
         $.ajax({
-            url: this.regionUrl,
-            data: {id:elem.val()},
-            type: 'POST',
-            success: function(response) {
+            url:this.regionUrl,
+            data:{id:elem.val()},
+            type:'POST',
+            success:function (response) {
                 $('#region_id').html(response);
                 $("#region_id").trigger("liszt:updated");
             }
         });
     },
-    RegionChanged:function(elem){
+    RegionChanged:function (elem) {
         this.clearCity();
         $.ajax({
-            url: this.regionIsCityUrl,
-            data: {id:elem.val()},
-            type: 'POST',
+            url:this.regionIsCityUrl,
+            data:{id:elem.val()},
+            type:'POST',
             dataType:'JSON',
-            success: function(response) {
-                if (response.status)
-                    $('div.settlement').hide();
-                else
-                    $('div.settlement').show();
+            success:function (response) {
+                if (response != null) {
+                    if (response.status)
+                        $('div.settlement').hide();
+                    else
+                        $('div.settlement').show();
+                }
             }
         });
     },
-    clearCity:function(){
+    clearCity:function () {
         $("#city_name").val('');
         $("#city_id").val('');
     },
-    saveLocation:function(){
+    saveLocation:function () {
         $.ajax({
-            url: this.saveUrl,
-            data: {
+            url:this.saveUrl,
+            data:{
                 country_id:$('#country_id').val(),
                 city_id:$('#city_id').val(),
                 region_id:$('#region_id').val()
             },
-            type: 'POST',
+            type:'POST',
             dataType:'JSON',
-            success: function(response) {
-                if (response.status){
+            success:function (response) {
+                if (response.status) {
                     $.fancybox.close();
                     UserLocation.refreshWidget();
                 }
             }
         });
     },
-    refreshWidget:function(){
+    refreshWidget:function () {
         window.location.reload();
     }
 }

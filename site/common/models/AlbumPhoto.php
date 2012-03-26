@@ -261,7 +261,12 @@ class AlbumPhoto extends CActiveRecord
                 mkdir($model_dir);
             Yii::import('ext.image.Image');
             $image = new Image($this->originalPath);
-            $image->resize($width, $height, $master ? $master : Image::AUTO);
+            if($master && $master == Image::WIDTH && $image->width < $width)
+                $image->resize($image->width, $height, Image::WIDTH);
+            elseif($master && $master == Image::HEIGHT && $image->height < $height)
+                $image->resize($width, $image->height, Image::HEIGHT);
+            else
+                $image->resize($width, $height, $master ? $master : Image::AUTO);
             $image->save($thumb);
         }
         return $thumb;

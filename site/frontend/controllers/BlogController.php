@@ -5,6 +5,8 @@
  */
 class BlogController extends Controller
 {
+    public $user;
+
     public function actionAdd($content_type_slug = 'post')
     {
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
@@ -18,6 +20,26 @@ class BlogController extends Controller
             'slave_model' => $slave_model,
             'rubrics' => $rubrics,
             'content_type_slug' => $content_type_slug,
+        ));
+    }
+
+    public function actionList($user_id, $rubric_id = null)
+    {
+        $this->user = User::model()->findByPk($user_id);
+        if ($this->user === null)
+            throw new CHttpException(404, 'Пользователь не найден');
+
+        $this->layout = '//layouts/user_blog';
+        $this->render('list', array(
+
+        ));
+    }
+
+    public function actionView()
+    {
+        $this->layout = '//layouts/user_blog';
+        $this->render('view', array(
+
         ));
     }
 }

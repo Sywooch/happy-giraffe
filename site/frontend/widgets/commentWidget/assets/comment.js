@@ -11,8 +11,9 @@ Comment = {
     },
     createInstance : function() {
         var instance = this.getInstance();
-        if(instance)
+        if(instance) {
             instance.destroy(true);
+        }
         CKEDITOR.replace('Comment_text');
     },
     moveForm:function (container) {
@@ -132,6 +133,7 @@ Comment = {
                         $.fn.yiiListView.update('comment_list', {data:{lastPage:true}});
                     var editor = Comment.getInstance();
                     editor.setData('');
+                    editor.destroy();
                     Comment.cancel();
                 }
             }

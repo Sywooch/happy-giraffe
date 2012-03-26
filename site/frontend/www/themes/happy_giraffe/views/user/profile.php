@@ -35,7 +35,7 @@
             </div>
         <?php endif; ?>
 
-        <div class="user-nav">
+        <div class="user-nav default-nav"">
             <?php
                 $this->widget('zii.widgets.CMenu', array(
                     'items' => array(

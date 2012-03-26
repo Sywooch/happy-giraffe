@@ -44,7 +44,7 @@ $js = 'var geocoder;
         s.iconStyle = new YMaps.IconStyle();
 
         //стиль метки
-        s.iconStyle.href = "/images/map_marker2.png";
+        s.iconStyle.href = "/images/map_marker.png";
         s.iconStyle.size = new YMaps.Point(34, 46);
         s.iconStyle.offset = new YMaps.Point(-17, -46);
     }';

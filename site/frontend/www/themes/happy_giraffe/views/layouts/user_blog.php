@@ -4,8 +4,28 @@
 
     <div class="col-1">
 
+        <?php if ($this->user->id == Yii::app()->user->id): ?>
+            <div class="club-fast-add">
+                <a href="" class="btn btn-green"><span><span>Добавить</span></span></a>
+                <?php
+                    $this->widget('zii.widgets.CMenu', array(
+                        'items' => array(
+                            array(
+                                'label' => 'Статью',
+                                'url' => array('/user/blog', 'content_type_slug' => 'post'),
+                            ),
+                            array(
+                                'label' => 'Видео',
+                                'url' => array('/user/blog', 'content_type_slug' => 'video'),
+                            ),
+                        ),
+                    ));
+                ?>
+            </div>
+        <?php endif; ?>
+
         <div class="club-topics-all-link">
-            <a href="">Все записи</a> <span class="count">458</span>
+            <a href="<?=$this->createUrl('/blog/list', array('user_id' => $this->user->id))?>">Все записи</a> <span class="count"><?=$this->user->blogPostsCount?></span>
         </div>
 
         <div class="club-topics-list">

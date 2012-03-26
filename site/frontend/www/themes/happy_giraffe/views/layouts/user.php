@@ -24,12 +24,13 @@
                         ),
                         array(
                             'label' => 'Блог',
-                            'url' => array('user/blog', 'user_id' => $this->user->id),
+                            'url' => $this->user->blogPostsCount > 0 ? array('user/blog', 'user_id' => $this->user->id) : array('/blog/empty'),
+                            'active' => Yii::app()->controller->id == 'blog',
                         ),
                         array(
                             'label' => 'Фото',
                             'url' => array('albums/user', 'id' => $this->user->id),
-                            'active'=>Yii::app()->controller->id == 'albums'
+                            'active' => Yii::app()->controller->id == 'albums'
                         ),
                         array(
                             'label' => 'Друзья',

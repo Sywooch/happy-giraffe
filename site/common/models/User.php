@@ -265,6 +265,7 @@ class User extends CActiveRecord
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
 
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
+            'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user_community(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'MessageUser', 'user_id'),
@@ -804,5 +805,21 @@ class User extends CActiveRecord
             $this->userAddress = $address;
         }
         return $this->userAddress;
+    }
+
+    public function getBlogWidget()
+    {
+        $criteria = new CDbCriteria(array(
+            'order' => new CDbExpression('RAND()'),
+            'limit' => 4,
+            'with' => array(
+                'rubric' => array(
+                    'condition' => 'user_id = :user_id',
+                    'params' => array(':user_id' => $this->id),
+                ),
+            ),
+        ));
+
+        return CommunityContent::model()->full()->findAll($criteria);
     }
 }

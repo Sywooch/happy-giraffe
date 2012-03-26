@@ -23,6 +23,13 @@ class m120326_100325_user_address extends CDbMigration
         $this->addForeignKey('fk_' . $this->_table . '_region', $this->_table, 'region_id', 'geo__region', 'id', 'SET NULL', "SET NULL");
         $this->addForeignKey('fk_' . $this->_table . '_city', $this->_table, 'city_id', 'geo__city', 'id', 'SET NULL', "SET NULL");
 
+        $this->update('user', array(
+            'country_id'=>null,
+            'settlement_id'=>null,
+            'street_id'=>null,
+            'house'=>null,
+            'room'=>null,
+        ));
         $this->_table = 'user';
         $this->execute('
         SET foreign_key_checks = 0;

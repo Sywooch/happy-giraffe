@@ -50,7 +50,7 @@
 
     <ul class="clearfix">
         <li>
-            <a href="<?=$this->createUrl('/community')?>"></a>
+            <a href="<?=$this->createUrl('/community')?>">
                 <big>Общайся в <span>Клубах</span></big>
                 <div class="img"><img src="/images/teaser_img_01.png" /></div>
                 <div class="text">Вступай в клубы, находи друзей и общайся на различные темы</div>
@@ -58,7 +58,7 @@
         </li>
 
         <li>
-            <a href="<?=$this->createUrl('/contest/view', array('id' => 1))?>"></a>
+            <a href="<?=$this->createUrl('/contest/view', array('id' => 1))?>">
                 <big>Участвуй в <span class="green">Конкурсах</span></big>
                 <div class="img"><img src="/images/teaser_img_02.png" /></div>
                 <div class="text">Используй возможность выиграть отличные призы</div>

@@ -6,7 +6,7 @@ class m120326_100325_user_address extends CDbMigration
 
     public function up()
     {
-        $this->createTable($this->_table, array(
+        /*$this->createTable($this->_table, array(
             'user_id' => 'int(10) unsigned NOT NULL',
             'country_id' => 'int(11) unsigned',
             'region_id' => 'int(11) unsigned',
@@ -21,7 +21,7 @@ class m120326_100325_user_address extends CDbMigration
         $this->addForeignKey('fk_' . $this->_table . '_user', $this->_table, 'user_id', 'user', 'id', 'CASCADE', "CASCADE");
         $this->addForeignKey('fk_' . $this->_table . '_country', $this->_table, 'country_id', 'geo__country', 'id', 'SET NULL', "SET NULL");
         $this->addForeignKey('fk_' . $this->_table . '_region', $this->_table, 'region_id', 'geo__region', 'id', 'SET NULL', "SET NULL");
-        $this->addForeignKey('fk_' . $this->_table . '_city', $this->_table, 'city_id', 'geo__city', 'id', 'SET NULL', "SET NULL");
+        $this->addForeignKey('fk_' . $this->_table . '_city', $this->_table, 'city_id', 'geo__city', 'id', 'SET NULL', "SET NULL");*/
 
         $this->update('user', array(
             'country_id'=>null,

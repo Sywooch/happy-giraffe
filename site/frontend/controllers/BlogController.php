@@ -3,7 +3,7 @@
  * Author: choo
  * Date: 26.03.2012
  */
-class Blog extends Controller
+class BlogController extends Controller
 {
     public function actionAdd($content_type_slug = 'post')
     {

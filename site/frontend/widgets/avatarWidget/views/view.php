@@ -17,16 +17,18 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
 <?php endif; ?>
     <a <?php //if (!$show_link_to_profile) echo 'onclick="return false;"';?> class="<?=$class?>"
         href="<?=$link_to_profile?>">
-        <?php echo CHtml::image($this->user->getAva($this->size)); ?>
+        <?php if($this->user->getAva($this->size)): ?>
+            <?php echo CHtml::image($this->user->getAva($this->size)); ?>
+        <?php endif; ?>
     </a>
     <?php if(!$this->small): ?>
         <div class="details">
             <span class="icon-status status-<?php echo $this->user->online == 1 ? 'online' : 'offline'; ?>"></span>
             <a href="<?=$this->user->url ?>"><?php echo $this->user->fullName ?></a>
-            <?php if ($this->user->country !== null): ?>
+            <?php if ($this->user->getUserAddress()->country !== null): ?>
                 <div class="location">
-                    <div class="flag flag-<?php echo $this->user->country->iso_code; ?>"></div>
-                    <?php echo $this->user->country->name; ?>
+                    <div class="flag flag-<?php echo $this->user->getUserAddress()->country->iso_code; ?>"></div>
+                    <?php echo $this->user->getUserAddress()->country->name; ?>
                 </div>
             <?php endif; ?>
             <div class="user-fast-buttons clearfix">

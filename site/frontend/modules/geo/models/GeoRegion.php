@@ -93,4 +93,9 @@ class GeoRegion extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function isCity()
+    {
+        return $this->type == 'г';
+    }
 }

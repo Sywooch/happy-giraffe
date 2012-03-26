@@ -17,6 +17,7 @@ class BlogController extends Controller
             'model' => $model,
             'slave_model' => $slave_model,
             'rubrics' => $rubrics,
+            'content_type_slug' => $content_type_slug,
         ));
     }
 }

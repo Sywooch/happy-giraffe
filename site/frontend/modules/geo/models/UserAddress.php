@@ -134,24 +134,17 @@ class UserAddress extends CActiveRecord
             return '';
 
         $str = $this->country->name;
-        if (!empty($this->city_id)) {
-            if (empty($this->city->region_id)) {
-                $str .= ', ' . $this->city->name;
-            } elseif (empty($this->city->district_id)) {
-                $type = empty($this->city->type_id) ? '' : $this->city->type->name;
-                $str .= ', ' . str_replace('респ.', '', $this->city->region->name) . ', ' . $type . ' ' . $this->city->name;
-            } else {
-                $type = empty($this->city->type_id) ? '' : $this->city->type->name;
-                $str .= ', ' . str_replace('респ.', '', $this->city->region->name) . ', ' . $this->city->district->name . ', ' . $type . ' ' . $this->city->name;
+        if (!empty($this->region_id)) {
+            $str .= ', ' . $this->region->name;
+            if (!empty($this->city_id)) {
+                if (empty($this->city->district_id)) {
+                  $str .= ', ' . $this->city->type . ' ' . $this->city->name;
+                } else {
+                    $str .= ', ' . $this->city->district->name . ', ' . $this->city->type . ' ' . $this->city->name;
+                }
             }
-
-            if (!empty($this->street_id))
-                $str .= ', ' . $this->street->name;
-            if (!empty($this->house))
-                $str .= ', д. ' . $this->house;
-
-            return $str;
         }
+
         return $str;
     }
 

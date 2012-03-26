@@ -15,6 +15,7 @@
                     $items[] = array(
                         'label' => $r->name . CHtml::tag('span', array('class' => 'count'), $r->contentsCount),
                         'url' => array('/blog/list', 'user_id' => $this->user->id, 'rubric_id' => $r->id),
+                        'encodeLabel' => false,
                     );
                 }
 

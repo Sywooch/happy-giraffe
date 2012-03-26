@@ -265,7 +265,7 @@ class User extends CActiveRecord
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
 
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
-            'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id'),
+            'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN club_community_rubric ON t.rubric_id = club_community_rubric.id', 'condition' => 'club_community_rubric.user_id = t.author_id'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user_community(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'MessageUser', 'user_id'),

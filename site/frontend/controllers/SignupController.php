@@ -92,6 +92,7 @@ class SignupController extends CController
                 $identity->authenticate();
                 Yii::app()->user->login($identity);
                 $model->login_date = date('Y-m-d H:i:s');
+                $model->last_ip = $_SERVER['REMOTE_ADDR'];
                 $model->save(false);
                 if(!Yii::app()->request->getQuery('redirectUrl') || Yii::app()->request->getQuery('redirectUrl') == '')
                     $this->redirect(array('/user/profile', 'user_id' => $model->id));

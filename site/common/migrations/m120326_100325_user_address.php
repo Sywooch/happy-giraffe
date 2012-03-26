@@ -44,7 +44,7 @@ class m120326_100325_user_address extends CDbMigration
 
     public function down()
     {
-        echo "m120326_100325_user_address does not support migration down.\n";
-        return false;
+//        echo "m120326_100325_user_address does not support migration down.\n";
+//        return false;
     }
 }

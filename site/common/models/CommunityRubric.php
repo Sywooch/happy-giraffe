@@ -70,12 +70,10 @@ class CommunityRubric extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, community_id', 'required'),
+			array('name', 'required'),
 			array('name', 'length', 'max'=>255),
-			array('community_id', 'length', 'max'=>11),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, name, community_id', 'safe', 'on'=>'search'),
+            array('community_id', 'exist', 'attributeName' => 'id', 'className' => 'Community'),
+            array('user_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
 		);
 	}
 

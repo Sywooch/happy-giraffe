@@ -6,21 +6,7 @@
 
         <?php if ($this->user->id == Yii::app()->user->id): ?>
             <div class="club-fast-add">
-                <a href="" class="btn btn-green"><span><span>Добавить</span></span></a>
-                <?php
-                    $this->widget('zii.widgets.CMenu', array(
-                        'items' => array(
-                            array(
-                                'label' => 'Статью',
-                                'url' => array('/user/blog', 'content_type_slug' => 'post'),
-                            ),
-                            array(
-                                'label' => 'Видео',
-                                'url' => array('/user/blog', 'content_type_slug' => 'video'),
-                            ),
-                        ),
-                    ));
-                ?>
+                <a href="<?=$this->createUrl('/blog/add')?>" class="btn btn-green"><span><span>Добавить запись</span></span></a>
             </div>
         <?php endif; ?>
 

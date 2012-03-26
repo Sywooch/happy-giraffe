@@ -40,6 +40,7 @@ class DefaultController extends Controller
 
     public function actionView($id)
     {
+        $this->pageTitle = 'Фотоконкурс "Веселая семейка"';
         $contest = Contest::model()->with(array(
             'prizes' => array('with' => 'product'),
             'works' => array('limit' => 15),
@@ -55,6 +56,7 @@ class DefaultController extends Controller
 
     public function actionList($id, $sort = 'created')
     {
+        $this->pageTitle = 'Участники фотоконкурса "Веселая семейка"';
         $contest = Contest::model()->findByPk($id);
         if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
 
@@ -75,6 +77,7 @@ class DefaultController extends Controller
 
     public function actionRules($id)
     {
+        $this->pageTitle = 'Правила фотоконкурса "Веселая семейка"';
         $contest = Contest::model()->findByPk($id);
         if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
 
@@ -88,6 +91,7 @@ class DefaultController extends Controller
     public function actionWork($id)
     {
         $work = ContestWork::model()->findByPk($id);
+        $this->pageTitle = '"' . $work->title . '" на фотоконкурсе "Веселая семейка"';
         $others = ContestWork::model()->findAll(array(
             'limit' => 5,
             'condition' => 'id != :current',
@@ -117,6 +121,7 @@ class DefaultController extends Controller
 
     public function actionStatement($id)
     {
+        $this->pageTitle = 'Участвовать в фотоконкурсе "Веселая семейка"';
         $this->contest = Contest::model()->findByPk($id);
 
         if(!$this->contest->isStatement)

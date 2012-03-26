@@ -33,6 +33,10 @@ class m120326_100325_user_address extends CDbMigration
         $this->_table = 'user';
         $this->execute('
         SET foreign_key_checks = 0;
+        ALTER TABLE user DROP FOREIGN KEY user_country_fk;
+        ALTER TABLE user DROP FOREIGN KEY user_settlement_fk;
+        ALTER TABLE user DROP FOREIGN KEY user_street_fk;
+
         ALTER TABLE user DROP country_id;
         ALTER TABLE user DROP settlement_id;
         ALTER TABLE user DROP street_id;

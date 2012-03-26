@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $country_id
  * @property string $name
+ * @property string $type
  *
  * The followings are the available model relations:
  * @property GeoCity[] $geoCities

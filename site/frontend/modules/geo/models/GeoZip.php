@@ -1,28 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "geo_city".
+ * This is the model class for table "geo__zip".
  *
- * The followings are the available columns in table 'geo_city':
+ * The followings are the available columns in table 'geo__zip':
  * @property string $id
- * @property string $district_id
- * @property string $region_id
- * @property string $country_id
- * @property string $name
- * @property string $type
+ * @property string $code
+ * @property string $city_id
  *
  * The followings are the available model relations:
- * @property GeoCountry $country
- * @property GeoDistrict $district
- * @property GeoRegion $region
- * @property GeoDistrict[] $geoDistricts
- * @property GeoZip[] $zips
+ * @property GeoCity $city
  */
-class GeoCity extends CActiveRecord
+class GeoZip extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return GeoCity the static model class
+	 * @param string $className active record class name.
+	 * @return GeoZip the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -34,7 +28,7 @@ class GeoCity extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'geo__city';
+		return 'geo__zip';
 	}
 
 	/**
@@ -45,12 +39,12 @@ class GeoCity extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('region_id, country_id, name', 'required'),
-			array('region_id, country_id, district_id', 'length', 'max'=>11),
-			array('name', 'length', 'max'=>255),
+			array('code, city_id', 'required'),
+			array('code', 'length', 'max'=>50),
+			array('city_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, region_id, country_id, name', 'safe', 'on'=>'search'),
+			array('id, code, city_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,10 +56,7 @@ class GeoCity extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'country' => array(self::BELONGS_TO, 'GeoCountry', 'country_id'),
-			'region' => array(self::BELONGS_TO, 'GeoRegion', 'region_id'),
-            'district' => array(self::BELONGS_TO, 'GeoDistrict', 'district_id'),
-            'zips' => array(self::HAS_MANY, 'GeoZip', 'city_id'),
+			'city' => array(self::BELONGS_TO, 'GeoCity', 'city_id'),
 		);
 	}
 
@@ -76,9 +67,8 @@ class GeoCity extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'region_id' => 'Region',
-			'country_id' => 'Country',
-			'name' => 'Name',
+			'code' => 'Code',
+			'city_id' => 'City',
 		);
 	}
 
@@ -94,9 +84,8 @@ class GeoCity extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('region_id',$this->region_id,true);
-		$criteria->compare('country_id',$this->country_id,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('code',$this->code,true);
+		$criteria->compare('city_id',$this->city_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

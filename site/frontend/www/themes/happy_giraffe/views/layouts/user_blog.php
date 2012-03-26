@@ -11,7 +11,7 @@
         <div class="club-topics-list">
             <?php
                 $items = array();
-                foreach ($this->rubrics as $r) {
+                foreach ($this->user->blog_rubrics as $r) {
                     $items[] = array(
                         'label' => $r->name,
                         'url' => array('/blog/list', 'user_id' => $this->user->id, 'rubric_id' => $r->id),

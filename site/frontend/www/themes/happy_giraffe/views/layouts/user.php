@@ -8,13 +8,13 @@
 
 <div id="user">
 
-    <div class="header clearfix">
+    <div class="header clearfix<?php if (Yii::app()->controller->action->id == 'profile') echo ' user-home' ?>">
 
         <div class="user-fast">
             <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $this->user)); ?>
         </div>
 
-        <div class="user-nav">
+        <div class="user-nav default-nav"">
             <?php
                 $this->widget('zii.widgets.CMenu', array(
                     'items' => array(
@@ -29,6 +29,7 @@
                         array(
                             'label' => 'Фото',
                             'url' => array('albums/user', 'id' => $this->user->id),
+                            'active'=>Yii::app()->controller->id == 'albums'
                         ),
                         array(
                             'label' => 'Друзья',

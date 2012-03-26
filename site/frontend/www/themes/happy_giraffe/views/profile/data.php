@@ -43,12 +43,14 @@ $this->breadcrumbs = array(
         <div class="row-title">Дата рождения:</div>
         <div class="row-elements">
             <div class="col">
-                <?php
-                $this->widget('DateWidget', array(
-                    'model' => $this->user,
-                    'attribute' => 'birthday',
-                ));
-                ?>
+                <div class="select-box">
+                    <?php
+                    $this->widget('DateWidget', array(
+                        'model' => $this->user,
+                        'attribute' => 'birthday',
+                    ));
+                    ?>
+                </div>
             </div>
             <?php if ($this->user->birthday): ?>
             <div class="col age">
@@ -81,26 +83,29 @@ $this->breadcrumbs = array(
         <div class="row-title">Место жительства:</div>
         <div class="row-elements">
             <div class="col">
-                <?php echo CHtml::dropDownList('country_id', $user->country_id,
-                array('' => '') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
-                array(
-                    'class' => 'chzn',
-                    'data-placeholder' => 'Выберите страну',
-                    'style' => 'width:170px'
-                )); ?>
-            </div>
-            <div class="col" <?php if ($user->country_id != 174) echo 'style="display:none;"' ?>>
-                <?php echo CHtml::dropDownList('region_id', $region_id,
-                array('' => '') + CHtml::listData(GeoRusRegion::model()->findAll(array('order' => 'pos,id', 'select' => 'id,name')), 'id', 'name'),
-                array(
-                    'class' => 'chzn',
-                    'data-placeholder' => 'Выберите регион',
-                    'style' => 'width:230px'
-                )); ?>
+                <div class="select-box">
+                    <?php echo CHtml::dropDownList('country_id', $user->country_id,
+                    array('' => '') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
+                    array(
+                        'class' => 'chzn',
+                        'data-placeholder' => 'Выберите страну',
+                        'style' => 'width:170px'
+                    )).'&nbsp;&nbsp;'; ?>
+                    <div class="col" <?php if ($user->country_id != 174) echo 'style="display:none;"' ?>>
+                        <?php echo CHtml::dropDownList('region_id', $region_id,
+                        array('' => '') + CHtml::listData(GeoRusRegion::model()->findAll(array('order' => 'pos,id', 'select' => 'id,name')), 'id', 'name'),
+                        array(
+                            'class' => 'chzn',
+                            'data-placeholder' => 'Выберите регион',
+                            'style' => 'width:230px'
+                        )); ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row row-inline clearfix" <?php if (empty($region_id) || $region_id == 42 || $region_id == 59) echo 'style="display: none;"' ?>>
+    <div
+        class="row row-inline clearfix" <?php if (empty($region_id) || $region_id == 42 || $region_id == 59) echo 'style="display: none;"' ?>>
 
         <div class="row-title">Населенный пункт:</div>
         <div class="row-elements">
@@ -138,12 +143,12 @@ $this->breadcrumbs = array(
 
                 ),
                 'htmlOptions' => array(
-                    'placeholder' => 'город',
+//                    'placeholder' => 'город',
                 )
             ));
             ?>
-            <?php echo CHtml::hiddenField('city_id', $city_id); ?>
-            <div class="text-inline">Введите свой город, поселок, село<br>или деревню</div>
+            <?php echo CHtml::hiddenField('city_id', $city_id); ?>&nbsp;&nbsp;
+            <div class="text-inline"> Введите свой город, поселок, село<br>или деревню</div>
         </div>
     </div>
 </div>
@@ -157,6 +162,7 @@ $this->breadcrumbs = array(
     <div class="row-elements">
         <div class="col">
             <?php echo $form->textField($this->user, 'email', array('placeholder' => 'Ваш e-mail')); ?>
+            <div class="row-bottom">Укажите реальный и действующий e-mail адрес.</div>
         </div>
     </div>
 
@@ -289,7 +295,7 @@ $this->breadcrumbs = array(
         s.iconStyle = new YMaps.IconStyle();
 
         //стиль метки
-        s.iconStyle.href = "/images/map_marker2.png";
+        s.iconStyle.href = "/images/map_marker.png";
         s.iconStyle.size = new YMaps.Point(34, 46);
         s.iconStyle.offset = new YMaps.Point(-17, -46);
     }

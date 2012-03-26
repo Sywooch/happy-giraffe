@@ -43,8 +43,7 @@ class ProfileController extends Controller
 
     protected function beforeAction($action)
     {
-        Yii::import('site.frontend.modules.geo.models.*');
-        $this->user = User::model()->with('settlement')->findByPk(Yii::app()->user->id);
+        $this->user = User::model()->findByPk(Yii::app()->user->id);
         return true;
     }
 

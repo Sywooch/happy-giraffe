@@ -23,10 +23,10 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
         <div class="details">
             <span class="icon-status status-<?php echo $this->user->online == 1 ? 'online' : 'offline'; ?>"></span>
             <a href="<?=$this->user->url ?>"><?php echo $this->user->fullName ?></a>
-            <?php if ($this->user->country !== null): ?>
+            <?php if ($this->user->getUserAddress()->country !== null): ?>
                 <div class="location">
-                    <div class="flag flag-<?php echo $this->user->country->iso_code; ?>"></div>
-                    <?php echo $this->user->country->name; ?>
+                    <div class="flag flag-<?php echo $this->user->getUserAddress()->country->iso_code; ?>"></div>
+                    <?php echo $this->user->getUserAddress()->country->name; ?>
                 </div>
             <?php endif; ?>
             <div class="user-fast-buttons clearfix">

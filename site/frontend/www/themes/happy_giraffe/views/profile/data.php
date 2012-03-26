@@ -214,7 +214,7 @@ $this->breadcrumbs = array(
         //map.addControl(new YMaps.SearchControl());
 
         // Создание объекта геокодера
-        var user_loc = "<?php echo $user->getLocationString() ?>";
+        var user_loc = "<?php echo $user->getUserAddress()->getLocationString() ?>";
         geocoder = new YMaps.Geocoder(user_loc);
         ShowNewLoc();
 

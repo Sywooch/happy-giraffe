@@ -12,9 +12,11 @@ class BlogController extends Controller
         $model->type_id = $content_type->id;
         $slave_model_name = 'Community' . ucfirst($content_type->slug);
         $slave_model = new $slave_model_name;
+        $rubrics = Yii::app()->user->model->blog_rubrics;
         $this->render('form', array(
             'model' => $model,
             'slave_model' => $slave_model,
+            'rubrics' => $rubrics,
         ));
     }
 }

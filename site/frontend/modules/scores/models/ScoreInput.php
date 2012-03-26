@@ -21,6 +21,8 @@ class ScoreInput extends EMongoDocument
 
     public $entity_id;
 
+    private $_entity = null;
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -66,8 +68,16 @@ class ScoreInput extends EMongoDocument
         if ($action_info['wait_time'] == 0)
             $this->status = self::STATUS_CLOSED;
 
-        if ($this->status == self::STATUS_CLOSED){
+        if ($this->status == self::STATUS_CLOSED) {
             $model = UserScores::getModel($this->user_id);
+            if ($this->action_id == ScoreActions::ACTION_RECORD
+                && $this->_entity !== null
+                && get_class($this->_entity) == 'CommunityContent'
+                && $this->_entity->isFromBlog
+                && count($this->_entity->contentAuthor->blogPosts) <= 1
+            ) {
+                $this->scores_earned = $this->scores_earned*3;
+            }
             $model->scores += $this->scores_earned;
             $model->save();
         }
@@ -154,6 +164,7 @@ class ScoreInput extends EMongoDocument
             if (is_array($entity)) {
                 $this->addItemsInAdded($entity['id'], $entity['name']);
             } else {
+                $this->_entity = $entity;
                 $this->addItemsInAdded($entity->primaryKey, get_class($entity));
                 if ($this->action_id == ScoreActions::ACTION_PHOTO) {
                     $this->entity_id = (int)$entity->album_id;
@@ -234,7 +245,7 @@ class ScoreInput extends EMongoDocument
             $criteria->created('<', (int)(time() - $action->wait_time * 60));
 
             $need_close = ScoreInput::model()->findAll($criteria);
-            foreach($need_close as $model){
+            foreach ($need_close as $model) {
                 $model->status = self::STATUS_CLOSED;
                 $model->save();
             }

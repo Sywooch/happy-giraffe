@@ -127,4 +127,32 @@ class Rating extends EMongoDocument
         }
         Rating::model()->saveByEntity($entity, $social_key, $count);
     }
+
+    public function findTopWithEntity($entity, $limit)
+    {
+        $models = array();
+        $criteria = new EMongoCriteria;
+        $criteria->entity_name('==', 'CommunityContent');
+        $criteria->sort('sum', EMongoCriteria::SORT_DESC);
+
+        $ratings = $this->findAll($criteria);
+
+        $i = 0;
+        foreach($ratings as $rating)
+        {
+            if($i == $limit)
+                break;
+
+            $model = call_user_func(array($entity, 'model'));
+            if($entity == 'CommunityContent')
+                $model->full();
+            $m = $model->findByPk($rating->entity_id);
+            if(!$m)
+                continue;
+            array_push($models, $m);
+
+            $i++;
+        }
+        return $models;
+    }
 }

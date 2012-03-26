@@ -1,3 +1,33 @@
+<?php
+    $cs = Yii::app()->clientScript;
+    $url = $this->createUrl('ajax/video');
+    $js = "
+        $('#preview').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: " . CJSON::encode($url) . ",
+                type: 'POST',
+                data: {
+                    url: $('#CommunityVideo_link').val(),
+                },
+                success: function(response) {
+                    $('div.test-video div.img').html(response);
+                },
+            });
+        });
+        $('.close').click(function () {
+            $('.validate .right-v').hide();
+            $('#preview_container').html('');
+        });
+    ";
+    $css = "
+    .validate .right-v {
+        display: none;
+    }";
+    $cs
+        ->registerScript('add_video', $js)->registerCss('add_video', $css);
+?>
+
 <div class="add-nav default-nav clearfix">
     <div class="content-title">Добавить в блог:</div>
     <?php
@@ -73,10 +103,9 @@
                     <div class="row clearfix test-video w-400">
                         <div class="row-title">
                             <div class="img">
-                                <img src="http://i2.ytimg.com/vi/1H8s0Xthr-8/default.jpg" />
-                                <a href="" class="remove"></a>
+
                             </div>
-                            Проверить ролик? <a href="" class="btn btn-green-small"><span><span>ДА</span></span></a>
+                            Проверить ролик? <a href="" class="btn btn-green-small" id="preview"><span><span>ДА</span></span></a>
                             <p class="small w-200">В случае, если ссылка добавилась некорректно, вы сможете изменить ее до добавления</p>
                         </div>
                     </div>

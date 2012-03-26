@@ -6,10 +6,12 @@
                 array(
                     'label' => 'Запись',
                     'url' => array('/blog/add', 'content_type_slug' => 'post'),
+                    'active' => $content_type_slug == 'post',
                 ),
                 array(
                     'label' => 'Видео',
                     'url' => array('/blog/add', 'content_type_slug' => 'video'),
+                    'active' => $content_type_slug == 'video',
                 ),
             ),
         ));
@@ -59,7 +61,7 @@
                     <div class="row clearfix">
                         <div class="row-title">Ссылка на видео:</div>
                         <div class="row-elements">
-                            <?php echo $form->textField($model, 'link', array('class' => 'w-400')); ?>
+                            <?php echo $form->textField($slave_model, 'link', array('class' => 'w-400')); ?>
                             <div class="row-note">
                                 <div class="tale"></div>
                                 <p><span class="mdash">&mdash;</span>Вы можете разместить видео с YouTube и RuTube</p>

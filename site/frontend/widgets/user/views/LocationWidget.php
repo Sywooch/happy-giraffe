@@ -70,7 +70,9 @@ if ($this->isMyProfile && empty($user->getUserAddress()->country_id)):?>
 <?php else: ?>
 <div class="user-map">
     <div class="header">
-        <a href="<?=Yii::app()->createUrl('/geo/geo/locationForm') ?>" class="edit fancy"><span class="tip">Изменить</span></a>
+        <?php if ($this->isMyProfile):?>
+            <a href="<?=Yii::app()->createUrl('/geo/geo/locationForm') ?>" class="edit fancy"><span class="tip">Изменить</span></a>
+        <?php endif ?>
         <div class="box-title">Я здесь</div>
         <div class="sep"><img src="/images/map_marker.png"></div>
         <div class="location">

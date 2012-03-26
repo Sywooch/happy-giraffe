@@ -41,9 +41,8 @@ class AddressForm extends CFormModel
                 $city->country_id = $this->country_id;
                 $city->region_id = $this->region_id;
 
-                if (!$city->save()) {
+                if (!$city->save())
                     throw new CHttpException(404, 'Ошибка при добавлении населенного пункта.');
-                }
                 $user->userAddress->city_id = $city->id;
             }
         } else {

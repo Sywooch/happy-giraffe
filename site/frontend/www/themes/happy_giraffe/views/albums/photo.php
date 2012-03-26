@@ -15,7 +15,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
         <div class="big-photo">
             <div class="in">
                 <?php $neighboringPhotos = $photo->neighboringPhotos; ?>
-                <div class="img"><?php echo CHtml::image($photo->getPreviewUrl(400, 400, Image::HEIGHT)) ?></div>
+                <div class="img"><?php echo CHtml::image($photo->getPreviewUrl(800, 400, Image::WIDTH)) ?></div>
                 <?php if($neighboringPhotos['prev']): ?>
                     <?php echo CHtml::link('', array('/albums/photo', 'id' => $neighboringPhotos['prev']), array('class' => 'prev')); ?>
                 <?php else: ?>

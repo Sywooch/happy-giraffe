@@ -2,11 +2,11 @@
 
 class GeoParserController extends BController
 {
-    private $country_id = 20;
+    private $country_id = 109;
 
     public function actionIndex()
     {
-        Yii::import('site.frontend.modules.geo.models.*');
+        /*Yii::import('site.frontend.modules.geo.models.*');
         $models = GeoCity::model()->findAll('country_id=' . $this->country_id);
         foreach ($models as $model) {
             $model->name = $this->utf8_to_cp1251($model->name);
@@ -21,76 +21,188 @@ class GeoParserController extends BController
         foreach ($models as $model) {
             $model->name = $this->utf8_to_cp1251($model->name);
             $model->save();
-        }
+        }*/
     }
 
-    public function actionParse()
+    public function actionKaz()
     {
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.extensions.phpQuery.phpQuery.phpQuery');
 
-        //for($obl = 1; $obl < 25; $obl++)
-        $obl = 1;
+        $host = 'http://kazindex.ru/';
+        $html = $this->loadPage($host);
+        $document = phpQuery::newDocument(trim($html));
+        foreach ($document->find('body center table center table a') as $link) {
+            $main_url = pq($link)->attr('href');
+            $name = pq($link)->text();
+            echo "{$main_url} - {$name} <br>";
 
-        $url = 'http://weather-in.by/search.html?oblast=' . $obl . '&region=&town=';
-        $html = $this->loadPage($url);
-        $document = phpQuery::newDocument($html);
-        foreach ($document->find('#oblast option') as $option) {
-            $r_val = pq($option)->attr('value');
-            $name = pq($option)->text();
-            if (!empty($r_val)) {
-                echo $r_val . ' - ' . $name . '<br>';
-                $region = new GeoRegion();
-                $region->country_id = $this->country_id;
-                $region->name = trim($name);
-                $region->save();
+            $region = new GeoRegion();
+            $region->country_id = $this->country_id;
+            $region->name = trim($name);
+            $region->save();
 
-//                sleep(2);
-                $url = 'http://weather-in.by/cgi-bin/weather.fcgi?module=search&action=getregions&lang=ru&oblast=' . $r_val;
-                $html = $this->loadPage($url);
+            $html = $this->loadPage($host . $main_url);
+            $document2 = phpQuery::newDocument(trim($html));
+            $title = $document2->find('h1:first')->text();
+            if (strstr($title, 'Город')) {
+                echo $title;
+                $city = new GeoCity();
+                $city->country_id = $this->country_id;
+                $city->name = $name;
+                $city->region_id = $region->id;
+                $city->save();
 
-                preg_match_all('/([\d]+)[\s*\t*](.*)/', $html, $matches);
-                for ($i = 0; $i < count($matches[0]); $i++) {
-                    $d_val = trim($matches[1][$i]);
-                    $name = trim($matches[2][$i]);
-                    echo $d_val . ' - ' . $name . '<br>';
+                foreach ($document2->find('body center table center table tr td') as $elem) {
+                    preg_match('/(\d{6})/', pq($elem)->text(), $match);
+                    if (isset($match[1])) {
+                        $zip = $match[1];
+                        echo $zip . '<br>';
 
-                    if (!empty($d_val)) {
-                        if ($this->startsWith($name, 'г.')) {
-                            $city = new GeoCity();
-                            $city->country_id = $this->country_id;
-                            $city->region_id = $region->id;
-                            $name = trim($name, 'г.');
-                            $city->name = trim($name);
-                            $city->save();
-                        } else {
-                            $district = new GeoDistrict();
-                            $district->region_id = $region->id;
-                            $district->name = $name;
-                            $district->save();
+                        $geoZip = new GeoZip();
+                        $geoZip->city_id = $city->id;
+                        $geoZip->code = trim($zip);
+                        $geoZip->save();
+                    }
+                }
+            } else {
+                foreach ($document2->find('body center table center table a') as $distr_link) {
+                    $url = pq($distr_link)->attr('href');
+                    $name = pq($distr_link)->text();
+                    echo "{$url} - {$name} <br>";
 
-//                            sleep(2);
+                    $district = new GeoDistrict();
+                    $district->name = $name;
+                    $district->region_id = $region->id;
+                    $district->save();
 
-                            $url = 'http://weather-in.by/search.html?oblast=' . $r_val . '&region=' . $d_val . '&town=';
-                            $html = $this->loadPage($url);
-                            $document = phpQuery::newDocument($html);
+                    $html = $this->loadPage($host . str_replace('0.html', $url, $main_url));
+                    $document3 = phpQuery::newDocument(trim($html));
+                    foreach ($document3->find('body center table center table tr td') as $elem) {
+                        preg_match('/([^\s^\d^-]+)/', pq($elem)->text(), $match);
+                        if (isset($match[0])) {
+                            echo $match[0].'<br>';
+                            $city_name = trim($match[0]);
 
-                            foreach ($document->find('div.listfield div.column div.list ul.list li a') as $city_el) {
-                                $name = pq($city_el)->text();
-
+                            if (!empty($city_name)){
+                            $city = GeoCity::model()->findByAttributes(array(
+                                'name' => $city_name,
+                                'region_id' => $region->id,
+                                'district_id' => $district->id,
+                            ));
+                            if ($city === null) {
                                 $city = new GeoCity();
                                 $city->country_id = $this->country_id;
+                                $city->name = $city_name;
                                 $city->region_id = $region->id;
                                 $city->district_id = $district->id;
-                                $city->name = trim($name);
                                 $city->save();
                             }
 
+                            preg_match('/(\d{6})/', pq($elem)->text(), $match);
+                            if (isset($match[1])) {
+                                $zip = $match[1];
+                                echo $zip . '<br>';
+
+                                $geoZip = new GeoZip();
+                                $geoZip->city_id = $city->id;
+                                $geoZip->code = trim($zip);
+                                $geoZip->save();
+                            }
+                        }
                         }
                     }
                 }
-                flush();
             }
+        }
+    }
+
+    public function actionParseBelarus()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery.phpQuery');
+
+        $host = 'http://zip.belpost.by/';
+        $html = $this->loadPage($host);
+        $document = phpQuery::newDocument(trim($html));
+        foreach ($document->find('.name_obj a') as $option) {
+            $url = pq($option)->attr('href');
+            $name = pq($option)->text();
+
+            $obl = pq($option)->parent()->parent()->prev('strong')->text();
+            if (empty($obl))
+                $obl = pq($option)->parent()->parent()->prev()->prev('strong')->text();
+            $obl = mb_strtolower($obl, 'UTF-8');
+            $obl = mb_convert_case($obl, MB_CASE_TITLE, 'UTF-8');
+            $obl = trim(str_replace('Область', 'обл.', $obl));
+
+            echo "{$url} - {$name}  {$obl} <br>";
+
+            $region = GeoRegion::model()->find('name="' . $obl . '"');
+            if ($region === null) {
+                $region = new GeoRegion();
+                $region->country_id = $this->country_id;
+                $region->name = $obl;
+                $region->save();
+            }
+
+            if ($this->startsWith($url, '/city/')) {
+                $city = new GeoCity();
+                $city->country_id = $this->country_id;
+                $city->name = $name;
+                $city->region_id = $region->id;
+                $city->save();
+
+                $html = $this->loadPage($host . $url);
+                $document = phpQuery::newDocument(trim($html));
+                foreach ($document->find('.tblcity a') as $link) {
+                    $zip_url = pq($link)->attr('href');
+                    $zip = pq($link)->text();
+
+                    if (strstr($zip_url, 'zip_code')) {
+                        $geoZip = new GeoZip();
+                        $geoZip->city_id = $city->id;
+                        $geoZip->code = trim($zip);
+                        $geoZip->save();
+                    }
+                }
+            } else {
+                $district = new GeoDistrict();
+                $district->name = $name;
+                $district->region_id = $region->id;
+                $district->save();
+
+                $html = $this->loadPage($host . $url);
+                $document = phpQuery::newDocument(trim($html));
+                foreach ($document->find('.tblcity tr') as $tr) {
+                    $name = trim(pq($tr)->find('td:first a')->attr('title'));
+                    $zip = trim(pq($tr)->find('td:eq(1) a')->text());
+
+                    if (!empty($name)) {
+                        $city = GeoCity::model()->findByAttributes(array(
+                            'name' => $name,
+                            'region_id' => $region->id,
+                            'district_id' => $district->id,
+                        ));
+                        if ($city === null) {
+                            $city = new GeoCity();
+                            $city->country_id = $this->country_id;
+                            $city->name = $name;
+                            $city->region_id = $region->id;
+                            $city->district_id = $district->id;
+                            $city->save();
+                        }
+
+                        if (!empty($zip)) {
+                            $geoZip = new GeoZip();
+                            $geoZip->city_id = $city->id;
+                            $geoZip->code = trim($zip);
+                            $geoZip->save();
+                        }
+                    }
+                }
+            }
+            flush();
         }
     }
 
@@ -121,13 +233,14 @@ class GeoParserController extends BController
         curl_setopt($curl, CURLOPT_ENCODING, 'gzip,deflate');
         curl_setopt($curl, CURLOPT_AUTOREFERER, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+//        curl_setopt($curl, CURLOPT_PROXY, '176.196.169.3:8080');
 
         $html = curl_exec($curl); // execute the curl command
         curl_close($curl); // close the connection
 
-        return $html;
-        //return $this->CP1251toUTF8($html);
+//        return $html;
+        return $this->CP1251toUTF8($html);
     }
 
     function CP1251toUTF8($string)
@@ -230,7 +343,6 @@ class GeoParserController extends BController
 
     public function actionFias()
     {
-        $xml = simplexml_load_file(Yii::app()->getBasePath().'/fias_xml/AS_ADDROBJ_20120307_ed70af27-1091-4bff-98fc-8030bcb87d22.XML');
-
+        $xml = simplexml_load_file(Yii::app()->getBasePath() . '/fias_xml/AS_ADDROBJ_20120307_ed70af27-1091-4bff-98fc-8030bcb87d22.XML');
     }
 }

@@ -43,7 +43,7 @@ class ProfileController extends Controller
 
     protected function beforeAction($action)
     {
-        $this->user = User::model()->with('settlement')->findByPk(Yii::app()->user->id);
+        $this->user = User::model()->findByPk(Yii::app()->user->id);
         return true;
     }
 

@@ -114,6 +114,9 @@ class ContestWork extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination' => array(
+                'pageSize' => 25,
+            ),
 		));
 	}
 
@@ -125,5 +128,13 @@ class ContestWork extends CActiveRecord
             'prev' => $prev ? $prev['id'] : false,
             'next' => $next ? $next['id'] : false
         );
+    }
+
+    public function getParedDownTitle()
+    {
+        $photo_size = getimagesize($this->photo->photo->getPreviewUrl(150, 150));
+        $width = $photo_size[0];
+        $text = Str::truncate($this->title, 0.54*$width);
+        return $text;
     }
 }

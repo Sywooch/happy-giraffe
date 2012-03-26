@@ -22,6 +22,8 @@ class AddressForm extends CFormModel
 
     /**
      * @param User $user
+     * @throws CHttpException
+     * @return void
      */
     public function saveAddress($user)
     {

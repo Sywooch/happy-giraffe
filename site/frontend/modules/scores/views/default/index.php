@@ -11,7 +11,6 @@ Yii::app()->clientScript
         });
     }', CClientScript::POS_HEAD)
     ->registerCssFile('/stylesheets/user.css');
-
 ?>
 <div id="user">
 <div class="user-cols clearfix">

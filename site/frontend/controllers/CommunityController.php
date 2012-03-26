@@ -61,17 +61,7 @@ class CommunityController extends Controller
         );
         $communities = Community::model()->public()->findAll();
 
-        $criteria = new EMongoCriteria;
-        $criteria->sort('sum', EMongoCriteria::SORT_DESC);
-        $criteria->entity_name('==', 'CommunityContent');
-        $criteria->limit(5);
-        $ratings = Rating::model()->findAll($criteria);
-        $top5 = array();
-        foreach($ratings as $rate)
-        {
-            array_push($top5, CommunityContent::model()->full()->findByPk($rate->entity_id));
-        }
-
+        $top5 = Rating::model()->findTopWithEntity('CommunityContent', 5);
         $this->render('index', array(
             'communities' => $communities,
             'categories' => $categories,

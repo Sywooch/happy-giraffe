@@ -157,7 +157,12 @@ return array(
                     'class' => 'CustomGoogleService',
                     'client_id' => '999100941078.apps.googleusercontent.com',
                     'client_secret' => '6fDvpI0FO0lmhdDTMCl-I8gD',
-                )
+                ),
+                'twitter' => array(
+                    'class' => 'CustomTwitterService',
+                    'key' => '19JgB2MpN6VgOVBrR1zrqQ',
+                    'secret' => 'lIVhQhUeKV9TYRH2DFT70Bxu5EIlqipTM8uD0nw',
+                ),
 			),
 		),
 		'format' => array(

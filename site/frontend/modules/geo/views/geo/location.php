@@ -39,7 +39,7 @@ if ($user->getUserAddress()->country_id !== null) {
                     )); ?>
                 </div>
             </div>
-            <div class="row clearfix settlement"<?php if ($user->getUserAddress()->region->isCity()) echo ' style="display:none;"' ?>>
+            <div class="row clearfix settlement"<?php if ($user->getUserAddress()->region !== null && $user->getUserAddress()->region->isCity()) echo ' style="display:none;"' ?>>
                 <div class="row-title">Населенный пункт</div>
                 <div class="row-elements">
                     <?php

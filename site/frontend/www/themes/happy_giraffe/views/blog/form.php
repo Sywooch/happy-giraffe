@@ -5,11 +5,11 @@
             'items'=>array(
                 array(
                     'label' => 'Запись',
-                    'url' => array('/blog/add', array('content_type_slug' => 'post')),
+                    'url' => array('/blog/add', 'content_type_slug' => 'post'),
                 ),
                 array(
                     'label' => 'Видео',
-                    'url' => array('/blog/add', array('content_type_slug' => 'video')),
+                    'url' => array('/blog/add', 'content_type_slug' => 'video'),
                 ),
             ),
         ));

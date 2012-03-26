@@ -9,7 +9,7 @@
 <div class="main">
     <div class="main-in">
 
-        <?php $form = $this->widget('CActiveForm'); ?>
+        <?php $form = $this->beginWidget('CActiveForm'); ?>
             <div class="form row-form clearfix">
 
                 <?php if ($model->type_id == 1): ?>

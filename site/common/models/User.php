@@ -16,21 +16,17 @@
  * @property string $pic_small
  * @property string $role
  * @property string $link
- * @property string $country_id
  * @property int $deleted
  * @property integer $gender
  * @property string $birthday
- * @property string $settlement_id
  * @property string $mail_id
  * @property string $last_active
  * @property integer $online
  * @property string $register_date
  * @property string $login_date
- * @property integer $street_id
- * @property string $room
- * @property string $house
  * @property string $last_ip
  * @property string $relationship_status
+ * @property UserAddress $userAddress
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -57,9 +53,6 @@
  * @property UserSocialService[] $userSocialServices
  * @property UserViaCommunity[] $userViaCommunities
  * @property VaccineDateVote[] $vaccineDateVotes
- * @property GeoCountry $country
- * @property GeoRusSettlement $settlement
- * @property GeoRusStreet $street
  * @property Album[] $albums
  * @property Interest[] interests
  * @property UserPartner partner
@@ -192,33 +185,29 @@ class User extends CActiveRecord
 
     public function passwordValidator($attribute, $params)
     {
-        if($this->password == '' || $this->email == '')
+        if ($this->password == '' || $this->email == '')
             return false;
         $userModel = $this->find(array(
             'condition' => 'email=:email AND password=:password and blocked = 0 and deleted = 0',
-            'params'=>array(
-                ':email'=>$_POST['User']['email'],
-                ':password'=>$this->hashPassword($_POST['User']['password']),
+            'params' => array(
+                ':email' => $_POST['User']['email'],
+                ':password' => $this->hashPassword($_POST['User']['password']),
             )));
-        if ($userModel)
-        {
-            $identity=new UserIdentity($userModel->getAttributes());
+        if ($userModel) {
+            $identity = new UserIdentity($userModel->getAttributes());
             $identity->authenticate();
-            if ($identity->errorCode == UserIdentity::ERROR_NONE)
-            {
+            if ($identity->errorCode == UserIdentity::ERROR_NONE) {
                 $duration = $_POST['User']['remember'] == 1 ? 2592000 : 0;
                 Yii::app()->user->login($identity);
                 $userModel->login_date = date('Y-m-d H:i:s');
                 $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
                 $userModel->save(false);
             }
-            else
-            {
+            else {
                 $this->addError('password', 'Ошибка авторизации');
             }
         }
-        else
-        {
+        else {
             $this->addError('password', 'Ошибка авторизации');
         }
     }
@@ -241,9 +230,6 @@ class User extends CActiveRecord
         return array(
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
-            'settlement' => array(self::BELONGS_TO, 'GeoRusSettlement', 'settlement_id'),
-            'country' => array(self::BELONGS_TO, 'GeoCountry', 'country_id'),
-            'street' => array(self::BELONGS_TO, 'GeoRusStreet', 'street_id'),
             'communities' => array(self::MANY_MANY, 'Community', 'user_community(user_id, community_id)'),
 
             'clubCommunityComments' => array(self::HAS_MANY, 'ClubCommunityComment', 'author_id'),
@@ -282,7 +268,8 @@ class User extends CActiveRecord
 
             'communitiesCount' => array(self::STAT, 'Community', 'user_community(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'MessageUser', 'user_id'),
-            'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with'=>'rubric', 'condition'=>'rubric.user_id IS NOT null', 'select'=>'id'),
+            'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
+            'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
         );
     }
 
@@ -313,8 +300,8 @@ class User extends CActiveRecord
             'role' => 'Роль',
             'fullName' => 'Имя пользователя',
             'last_name' => 'Фамилия',
-            'assigns'=>'Права',
-            'last_active'=>'Последняя активность'
+            'assigns' => 'Права',
+            'last_active' => 'Последняя активность'
         );
     }
 
@@ -358,8 +345,7 @@ class User extends CActiveRecord
     {
         parent::afterSave();
 
-        foreach ($this->social_services as $service)
-        {
+        foreach ($this->social_services as $service) {
             $service->user_id = $this->id;
             $service->save();
         }
@@ -531,76 +517,6 @@ class User extends CActiveRecord
         return $url;
     }
 
-    public function getFlag($big = false)
-    {
-        Yii::import('site.frontend.modules.geo.models.*');
-
-        if (!empty($this->country_id)) {
-            if ($big)
-                return '<div class="flag-big flag-big-' . strtolower($this->country->iso_code) . '" title="'
-                    . $this->country->name . '"></div>';
-            else
-                return '<div class="flag flag-' . strtolower($this->country->iso_code) . '" title="'
-                    . $this->country->name . '"></div>';
-        }
-        else
-            return '';
-    }
-
-    public function getLocationString()
-    {
-        Yii::import('site.frontend.modules.geo.models.*');
-
-        if (empty($this->country_id))
-            return '';
-
-        $str = $this->country->name;
-        if (!empty($this->settlement_id)) {
-            if (empty($this->settlement->region_id)) {
-                $str .= ', ' . $this->settlement->name;
-            } elseif (empty($this->settlement->district_id)) {
-                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
-                $str .= ', ' . str_replace('респ.', '', $this->settlement->region->name) . ', ' . $type . ' ' . $this->settlement->name;
-            } else {
-                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
-                $str .= ', ' . str_replace('респ.', '', $this->settlement->region->name) . ', ' . $this->settlement->district->name . ', ' . $type . ' ' . $this->settlement->name;
-            }
-
-            if (!empty($this->street_id))
-                $str .= ', ' . $this->street->name;
-            if (!empty($this->house))
-                $str .= ', д. ' . $this->house;
-
-            return $str;
-        }
-        return $str;
-    }
-
-    public function getPublicLocation()
-    {
-        Yii::import('site.frontend.modules.geo.models.*');
-
-        if (empty($this->country_id))
-            return '';
-
-        $str = $this->country->name;
-        if (!empty($this->settlement_id)) {
-            if (empty($this->settlement->region_id)) {
-                $str .= '<br>' . $this->settlement->name;
-            } elseif ($this->settlement->region_id == 42) {
-                $str .= '<br>' . $this->settlement->name;
-            } elseif ($this->settlement->region_id == 59) {
-                $str .= '<br>' . $this->settlement->name;
-            } else {
-                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
-                $str .= '<br>' . $this->settlement->region->name . '<br>' . $type . ' ' . $this->settlement->name;
-            }
-
-            return $str;
-        }
-        return $str;
-    }
-
     public function getAssigns()
     {
         $assigns = Yii::app()->authManager->getAuthItems(0, $this->id);
@@ -619,7 +535,7 @@ class User extends CActiveRecord
         if (empty($roles))
             return 'user';
         $res = '';
-        foreach ($roles as $name=>$item) {
+        foreach ($roles as $name => $item) {
             $res .= $name . ', ';
         }
         return trim($res, ', ');
@@ -672,7 +588,7 @@ class User extends CActiveRecord
         $friend = new Friend;
         $friend->user1_id = $this->id;
         $friend->user2_id = $friend_id;
-        if ($friend->save()){
+        if ($friend->save()) {
             //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
             UserScores::addScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::getUserById($friend_id));
@@ -864,13 +780,24 @@ class User extends CActiveRecord
     public function getScores()
     {
         Yii::import('site.frontend.modules.scores.models.*');
-        $model = UserScores::model()->with(array('level'=>array('select'=>array('name'))))->findByPk($this->id);
-        if ($model === null){
+        $model = UserScores::model()->with(array('level' => array('select' => array('name'))))->findByPk($this->id);
+        if ($model === null) {
             $model = new UserScores;
             $model->user_id = $this->id;
             $model->save();
         }
 
         return $model;
+    }
+
+    public function getUserAddress()
+    {
+        if ($this->userAddress === null) {
+            $address = new UserAddress();
+            $address->user_id = $this->id;
+            $address->save();
+            $this->userAddress = $address;
+        }
+        return $this->userAddress;
     }
 }

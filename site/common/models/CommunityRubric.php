@@ -88,6 +88,7 @@ class CommunityRubric extends CActiveRecord
 			'community' => array(self::BELONGS_TO, 'Community', 'community_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'contents' => array(self::HAS_MANY, 'CommunityContent', 'rubric_id'),
+            'contentsCount' => array(self::STAT, 'CommunityContent', 'rubric_id'),
 		);
 	}
 

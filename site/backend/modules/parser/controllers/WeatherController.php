@@ -14,24 +14,70 @@ class WeatherController extends BController
         Yii::import('site.frontend.extensions.phpQuery.phpQuery.phpQuery');
 
         $country = GeoCountry::model()->findByPk($this->country_id);
-        echo $country->name.'<br><br>';
-        $host = 'http://rp5.ru/';
-        $html = $this->loadPage('http://rp5.ru/stat/0/ru');
+        $html = $this->loadPage('http://rp5.ru/map/3/0/0/ru');
+        $host = 'http://rp5.ru';
         $document = phpQuery::newDocument($html);
-        foreach ($document->find('.statTable tr') as $row) {
-            $country_text = pq($row)->find('td.country span')->text();
-            if ($country_text == $country->name) {
-                $region_link = pq($row)->find('td.region a')->attr('href');
-                $region_name = pq($row)->find('td.region a')->text();
-                echo "{$country_text} - {$region_link}, {$region_name} <br>";
 
-                $html = $this->loadPage('http://rp5.ru'.$region_link);
+        $all_links = array();
+        $not_cities = array();
+        foreach ($document->find('table.countryMap a') as $link) {
+            $item_href = pq($link)->attr('href');
+            $item_name = pq($link)->text();
+            $dop_info = $document->find('h1')->text();
+
+            if (substr_count($item_href, '/') == 2) {
+                $this->AddCity(array($item_href, $item_name, $dop_info));
+            } else
+                $not_cities [] = $item_href;
+
+
+            /*                echo "{$country_text} - {$region_link}, {$region_name} <br>";
+
+            $criteria = new CDbCriteria;
+            $criteria->compare('name', $region_name . '%', true);
+            $region = GeoRegion::model()->find($criteria);
+            if ($region !== null) {
+                $html = $this->loadPage('http://rp5.ru' . $region_link);
                 $region_document = phpQuery::newDocument($html);
-                foreach ($document->find('.statTable tr') as $region_row) {
+                foreach ($region_document->find('.statTable tr') as $region_row) {
 
                 }
-            }
+            } else {
+                echo 'Регион не найден ' . $region_name;
+            }*/
         }
+        //var_dump($all_links);
+
+        $i = 0;
+        while(isset($not_cities[$i])){
+            $current = $not_cities[$i];
+            //sleep(rand(3,5));
+            $html = $this->loadPage($host.$current);
+            $document = phpQuery::newDocument($html);
+            foreach ($document->find('table.countryMap a') as $link) {
+                $item_href = pq($link)->attr('href');
+                $item_name = pq($link)->text();
+                $dop_info = $document->find('h1')->text();
+
+                if (substr_count($item_href, '/') == 2) {
+                    $this->AddCity(array($item_href, $item_name, $dop_info));
+                    //echo $item_name.'<br>';
+                } else
+                    $not_cities [] = $item_href;
+            }
+
+            $i++;
+        }
+    }
+
+    public function AddCity($data)
+    {
+        Yii::app()->db->createCommand()
+            ->insert('_weather_temp', array(
+            'link'=>$data[0],
+            'name'=>$data[1],
+            'text'=>$data[2],
+        ));
     }
 
     public function loadPage($url)

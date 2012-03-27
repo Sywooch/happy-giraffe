@@ -12,9 +12,9 @@ class WeatherWidget extends UserCoreWidget
 
     public function run()
     {
-        $data = Yii::app()->cache->get('WeatherWidget_' . date("Y-m-d") . $this->user->getLocationString());
+        $data = Yii::app()->cache->get('WeatherWidget_' . date("Y-m-d") . $this->user->getUserAddress()->getLocationString());
         if ($data == false) {
-            $gw = new SimpleGoogleWeather(urlencode($this->user->getLocationString()));
+            $gw = new SimpleGoogleWeather(urlencode($this->user->getUserAddress()->getLocationString()));
             $gw_today = $gw->getCurrentWeather();
             if ($gw_today === false)
                 return;
@@ -26,7 +26,7 @@ class WeatherWidget extends UserCoreWidget
                 'data' => $gw->getForecastData()
             ), true);
 
-            Yii::app()->cache->set('WeatherWidget_' . date("Y-m-d") . $this->user->getLocationString(), $data, 12000);
+            Yii::app()->cache->set('WeatherWidget_' . date("Y-m-d") . $this->user->getUserAddress()->getLocationString(), $data, 12000);
         }
 
         echo $data;

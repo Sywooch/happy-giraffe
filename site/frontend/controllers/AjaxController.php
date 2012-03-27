@@ -74,13 +74,13 @@ class AjaxController extends Controller
             {
                 $name = $authIdentity->getServiceName();
                 $id = $authIdentity->getAttribute('id');
-                $url = Yii::app()->request->getQuery('surl');
-                if(!$url)
+                $url = $params['surl'];
+                if(!isset($url))
                     echo '<script type="text/javascript">window.close();</script>';
                 else
                 {
-                    $entity_name = Yii::app()->request->getQuery('entity');
-                    $entity_id = Yii::app()->request->getQuery('entity_id');
+                    $entity_name = $params['entity'];
+                    $entity_id = $params['entity_id'];
                     $entity = call_user_func(array($entity_name, 'model'))->findByPk($entity_id);
                     // Если пользователя нет в списке голосовавших - увеличиваем рейтинг
                     if(RatingUsers::model()->saveByUser($id, $name, $entity_name, $entity_id))

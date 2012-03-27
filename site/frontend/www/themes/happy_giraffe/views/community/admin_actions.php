@@ -1,6 +1,6 @@
-<?php if (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))
+<?php if (! $c->isFromBlog && (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))
     || Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))
-): ?>
+)): ?>
 <div class="admin-actions">
 
     <?php if (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))): ?>

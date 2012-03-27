@@ -1,8 +1,8 @@
 <div class="user-weather">
 
     <div class="location">
-        <?php echo $this->user->getFlag() ?><?php echo $this->user->country->name ?><br/>
-        <big><?php echo $this->user->settlement->name ?></big>
+        <?php echo $this->user->getUserAddress()->getFlag() ?><?php echo $this->user->getUserAddress()->country->name ?><br/>
+        <big><?php echo $this->user->getUserAddress()->city->name ?></big>
     </div>
 
     <div class="clearfix" id="today-weather">

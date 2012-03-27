@@ -1,6 +1,4 @@
 <?php
-Yii::import('site.frontend.modules.geo.models.*');
-
 class CommunityController extends Controller
 {
 

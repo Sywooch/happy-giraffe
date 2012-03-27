@@ -107,8 +107,10 @@ $form = $this->beginWidget('CActiveForm', array(
             </div>
         </div>
     </div>
-    <div
-        class="row row-inline clearfix settlement" <?php if ($this->user->getUserAddress()->region->isCity()) echo ' style="display:none;"' ?>>
+    <div class="row row-inline clearfix settlement" <?php
+        if ($this->user->getUserAddress()->region !== null
+            && $this->user->getUserAddress()->region->isCity()
+        ) echo ' style="display:none;"' ?>>
 
         <div class="row-title">Населенный пункт:</div>
         <div class="row-elements">

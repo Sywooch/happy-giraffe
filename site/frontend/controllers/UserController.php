@@ -13,6 +13,7 @@ class UserController extends Controller
     {
         return array(
             'accessControl',
+            'locationForm, saveLocation + ajaxOnly'
         );
     }
 
@@ -24,7 +25,7 @@ class UserController extends Controller
                 'users' => array('*'),
             ),
             array('allow',
-                'actions' => array('myFriendRequests', 'createRelated', 'updateMood', 'score'),
+                'actions' => array('myFriendRequests', 'createRelated', 'updateMood', 'score', 'locationForm', 'saveLocation'),
                 'users' => array('@'),
             ),
             array('deny',

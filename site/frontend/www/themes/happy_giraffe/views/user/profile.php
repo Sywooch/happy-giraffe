@@ -19,8 +19,8 @@
             <?php else: ?>
                 <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
             <?php endif; ?>
-            <?php if ($user->country !== null): ?>
-                <div class="location"><?=$user->getFlag(true)?><?php if ($user->settlement !== null): ?> <?=$user->settlement->name?><?php endif; ?></div>
+            <?php if ($user->getUserAddress()->city !== null): ?>
+                <div class="location"><?=$user->getUserAddress()->getFlag(true)?><?php if ($user->getUserAddress()->city !== null): ?> <?=$user->getUserAddress()->city->name?><?php endif; ?></div>
             <?php endif; ?>
             <?php if ($user->birthday): ?><div class="birthday"><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)</div><?php endif; ?>
 
@@ -45,7 +45,8 @@
                         ),
                         array(
                             'label' => 'Блог',
-                            'url' => array('user/blog', 'user_id' => $this->user->id),
+                            'url' => $this->user->blogPostsCount > 0 ? array('user/blog', 'user_id' => $this->user->id) : array('/blog/empty'),
+                            'visible' => $this->user->blogPostsCount > 0 || $this->user->id == Yii::app()->user->id,
                         ),
                         array(
                             'label' => 'Фото',

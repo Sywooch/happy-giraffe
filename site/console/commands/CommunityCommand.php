@@ -41,4 +41,15 @@ class CommunityCommand extends CConsoleCommand
             $model->content->save(false);
         }
     }
+
+    public function actionBlogRubric()
+    {
+        $users = User::model()->findAll();
+        foreach ($users as $u) {
+            $r = new CommunityRubric;
+            $r->name = 'Обо всём';
+            $r->user_id = $u->id;
+            $r->save();
+        }
+    }
 }

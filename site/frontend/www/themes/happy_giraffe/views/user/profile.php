@@ -10,7 +10,7 @@
 ?>
 <div id="user">
 
-    <div class="header clearfix">
+    <div class="header clearfix user-home">
 
         <div class="user-name">
             <h1><?=$user->last_name?><br/><?=$user->first_name?></h1>
@@ -78,7 +78,7 @@
             )); ?>
 
             <div class="details">
-                Зарегистрирван <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>
+                Зарегистрирован <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>
             </div>
 
             <?php if (! empty($score->level_id)): ?>

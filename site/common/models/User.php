@@ -158,6 +158,7 @@ class User extends CActiveRecord
             array('blocked, login_date, register_date', 'safe'),
             array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
+            array('avatar', 'numerical', 'allowEmpty' => true),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -197,7 +198,7 @@ class User extends CActiveRecord
             $identity = new UserIdentity($userModel->getAttributes());
             $identity->authenticate();
             if ($identity->errorCode == UserIdentity::ERROR_NONE) {
-                $duration = $_POST['User']['remember'] == 1 ? 2592000 : 0;
+                $duration = $this->remember == 1 ? 2592000 : 0;
                 Yii::app()->user->login($identity);
                 $userModel->login_date = date('Y-m-d H:i:s');
                 $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
@@ -497,7 +498,15 @@ class User extends CActiveRecord
 
     public function getAva($size = 'ava')
     {
-        return $this->pic_small->getUrl($size);
+        if(!$this->avatar)
+            return false;
+        switch($size)
+        {
+            case 'ava' : $sizes = array(76, 79); break;
+            case 'small' : $sizes = array(25, 23); break;
+            case 'big' : $sizes = array(241, 225); break;
+        }
+        return AlbumPhoto::model()->findByPk($this->avatar)->getPreviewUrl($sizes[0], $sizes[1]);
     }
 
     public function getPartnerPhotoUrl()

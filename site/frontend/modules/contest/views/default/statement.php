@@ -1,7 +1,6 @@
 <div id="contest"></div>
 
 <div id="takeapartPhotoContest">
-					
     <div class="content-title">Я хочу участвовать в фотоконкурсе</div>
 
     <?php $form = $this->beginWidget('CActiveForm', array(

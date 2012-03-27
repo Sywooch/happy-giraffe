@@ -68,7 +68,9 @@ class FileAttachWidget extends CWidget
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         $cs = Yii::app()->clientScript;
-        $cs->registerScriptFile($baseUrl . '/attaches.js', CClientScript::POS_HEAD);
+        $cs->registerScriptFile($baseUrl . '/attaches.js', CClientScript::POS_HEAD)
+            ->registerScriptFile($baseUrl . '/jquery.Jcrop.js')
+            ->registerCssFile($baseUrl . '/jquery.Jcrop.css');
         $cs->registerScript('attaches_entity', '
             Attach.entity = "' . $this->entity . '";
             Attach.entity_id = "' . $this->entity_id. '";

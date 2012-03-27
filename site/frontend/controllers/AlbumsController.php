@@ -230,4 +230,34 @@ class AlbumsController extends Controller
         $model->title = $title;
         $model->save();
     }
+
+    public function actionChangeAvatar()
+    {
+        if(!isset($_POST['val']))
+            Yii::app()->end();
+        $val = $_POST['val'];
+
+        $attach = new AttachPhoto;
+        $attach->entity = 'User';
+        $attach->entity_id = Yii::app()->user->id;
+
+        if(is_numeric($val))
+        {
+            $photo = AlbumPhoto::model()->findByPk($val);
+            $attach->photo_id = $photo->id;
+        }
+        else
+        {
+            $photo = new AlbumPhoto;
+            $photo->author_id = Yii::app()->user->id;
+            $photo->title = '';
+            $photo->file_name = $val;
+            if($photo->create(true))
+                $attach->photo_id = $photo->id;
+        }
+
+        $attach->save();
+        User::model()->updateByPk(Yii::app()->user->id, array('avatar' => $photo->id));
+        echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
+    }
 }

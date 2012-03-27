@@ -6,11 +6,9 @@
 Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.tmpl.min.js');
 ?>
 <ul>
-    <? foreach ($community->rubrics as $r): ?>
+    <? foreach ($rubrics as $r): ?>
     <?php $this->renderPartial('parts/rubric_item', array(
         'r' => $r,
-        'current_rubric' => $current_rubric,
-        'content_type_slug' => $content_type_slug
     )); ?>
     <? endforeach; ?>
 </ul>

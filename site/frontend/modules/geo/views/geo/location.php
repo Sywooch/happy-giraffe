@@ -5,7 +5,7 @@
 $regions = array('' => '');
 if ($user->getUserAddress()->country_id !== null) {
     $regions = array('' => '') + CHtml::listData(GeoRegion::model()->findAll(array(
-        'order' => 'id', 'select' => 'id,name', 'condition' => 'country_id = ' . $user->getUserAddress()->country_id)), 'id', 'name');
+        'order' => 'name', 'select' => 'id,name', 'condition' => 'country_id = ' . $user->getUserAddress()->country_id)), 'id', 'name');
 }
 ?>
 <div id="locationEdit" class="popup">

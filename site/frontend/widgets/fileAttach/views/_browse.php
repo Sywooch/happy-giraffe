@@ -17,6 +17,6 @@
         <div class="note">Загрузите файл<br>(jpg, gif, png не более 4 МБ)</div>
     </div>
     <div class="form-bottom" id="save_attach_button" style="display:none;">
-        <button class="btn btn-green-medium" onclick="return Attach.selectBrowsePhoto(this);"><span><span>Добавить на конкурс</span></span></button>
+        <button class="btn btn-green-medium" onclick="return Attach.selectBrowsePhoto(this);"><span><span><?php echo $this->button_title; ?></span></span></button>
     </div>
 </div>

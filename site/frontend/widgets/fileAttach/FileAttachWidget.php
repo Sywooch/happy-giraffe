@@ -7,6 +7,9 @@ class FileAttachWidget extends CWidget
     public $container;
     public $afterSelect;
 
+    public $title;
+    public $button_title;
+
     public function init()
     {
         parent::init();
@@ -25,6 +28,19 @@ class FileAttachWidget extends CWidget
 
     public function window($view_type, $a = false)
     {
+        if($this->entity == 'Contest')
+        {
+            $this->title = 'Фотография для конкурса «Веселая семейка»';
+            $this->button_title = 'Добавить на конкурс';
+        }
+        elseif($this->entity == 'User')
+        {
+            $this->title = 'Главное фото';
+            $this->button_title = 'Выбрать';
+        }
+
+
+
         if($view_type == 'window')
             $this->render('window');
         elseif($view_type == 'browse')

@@ -6,7 +6,7 @@
                     <div>
                         <?php echo CHtml::link(CHtml::image($data->getPreviewUrl(150, 150)), array('/albums/photo', 'id' => $data->id)); ?>
                         <div class="contest-send">
-                            <a class="btn btn-green-medium" href="javascript:;" onclick="Attach.selectPhoto(this, <?php echo $data->id ?>);"><span><span>Добавить<br>на конкурс</span></span></a>
+                            <a class="btn btn-green-medium" href="javascript:;" onclick="Attach.selectPhoto(this, <?php echo $data->id ?>);"><span><span><?php echo $this->button_title; ?></span></span></a>
                         </div>
                     </div>
                 </td>

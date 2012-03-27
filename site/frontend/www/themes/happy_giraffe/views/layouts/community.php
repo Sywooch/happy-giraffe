@@ -138,6 +138,7 @@
             <?php
                 $this->renderPartial('parts/rubrics',array(
                     'rubrics' => $this->community->rubrics,
+                    'type' => 'community',
                 ));
             ?>
         </div>

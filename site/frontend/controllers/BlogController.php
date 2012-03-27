@@ -38,7 +38,43 @@ class BlogController extends Controller
             'model' => $model,
             'slave_model' => $slave_model,
             'rubrics' => $rubrics,
-            'content_type_slug' => $content_type_slug,
+            'content_type_slug' => $content_type->slug,
+        ));
+    }
+
+    public function actionEdit($content_id)
+    {
+        $model = CommunityContent::model()->full()->findByPk($content_id);
+        if ($model === null)
+            throw CHttpException(404, 'Запись не найдена');
+
+        $content_type = $model->type;
+        $slave_model = $model->content;
+        $slave_model_name = get_class($slave_model);
+        $rubrics = Yii::app()->user->model->blog_rubrics;
+
+        if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
+        {
+            $model->attributes = $_POST['CommunityContent'];
+            $slave_model->attributes = $_POST[$slave_model_name];
+
+            $valid = $model->validate();
+            $valid = $slave_model->validate() && $valid;
+
+            if ($valid)
+            {
+                $model->save(false);
+                $slave_model->content_id = $model->id;
+                $slave_model->save(false);
+                $this->redirect(array('/blog/view', 'content_id' => $model->id));
+            }
+        }
+
+        $this->render('form', array(
+            'model' => $model,
+            'slave_model' => $slave_model,
+            'rubrics' => $rubrics,
+            'content_type_slug' => $content_type->slug,
         ));
     }
 

@@ -121,7 +121,7 @@
 #user .user-map .header {position:relative;}
 #user .user-map .header .box-title {display:inline-block;width:100px;vertical-align:middle;padding-left:10px;}
 #user .user-map .header .sep {display:inline-block;width:50px;vertical-align:middle;}
-#user .user-map .header .location {display:inline-block;width:110px;vertical-align:middle;padding-left:20px;}
+#user .user-map .header .location {display:inline-block;width:120px;vertical-align:middle;padding-left:20px;}
 #user .user-map .header .location .flag {display:inline-block;}
 #user .user-map .header .location p {font-size:9px;color:#9ba0a0;margin-top:5px;}
 #user .user-map .header .edit {display:block;width:15px;height:15px;background:url(/images/common.png) no-repeat -313px -190px;position:absolute;right:0px;top:0px;text-decoration:none;}

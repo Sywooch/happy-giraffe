@@ -35,6 +35,20 @@ class BlogController extends Controller
             $model->attributes = $_POST['BlogContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
 
+            if (empty($_POST['BlogContent']['rubric_id'])) {
+                $rubric = CommunityRubric::model()->findByAttributes(array(
+                    'name' => $_POST['rubricName'],
+                ));
+
+                if ($rubric === null)  {
+                    $rubric = new CommunityRubric;
+                    $rubric->name = $_POST['rubricName'];
+                    $rubric->user_id = Yii::app()->user->id;
+                    $rubric->save();
+                }
+                $model->rubric_id = $rubric->id;
+            }
+
             $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
 

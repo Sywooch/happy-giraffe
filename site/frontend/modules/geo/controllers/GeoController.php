@@ -34,7 +34,11 @@ class GeoController extends Controller
         $id = Yii::app()->request->getPost('id');
         $_regions = array();
         if (!empty($id)) {
-            $regions = GeoRegion::model()->findAll('country_id=' . $id);
+            $criteria = new CDbCriteria;
+            $criteria->compare('country_id', $id);
+            $criteria->order = 'position asc, name asc';
+            $regions = GeoRegion::model()->findAll($criteria);
+
             foreach ($regions as $region) {
                 $_regions[] = array($region->id, $region->name);
             }

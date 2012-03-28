@@ -654,52 +654,36 @@
 		
 		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
 		
-		<div class="title">Главное фото</div>
-		
-		<div class="nav">
-			<ul>
-				<li class="active"><a href="">С компьютера</a></li>
-				<li><a href="">Из моих альбомов</a></li>
-			</ul>
-		</div>
+		<div class="title">Настройка главного фото</div>
 		
 		<form>
 			<div class="form">
-				<div class="photo-upload clearfix">
+				
+				<div class="photo-crop clearfix">
 					
-					<div class="text">Фото</div>
+					<div class="note">Выберите область на основной фотографии, которая будет<br/>отображаться в трех вариантах на сайте</div>
 					
-					<div class="photo">
-						<div class="in">
-							<div class="file-fake">
-								<button class="btn btn-orange"><span><span>Обзор...</span></span></button>
-								<input type="file" />
-							</div>
-						</div>
+					<div class="clearfix">
+						
+						<table>
+							<tr>
+								<td class="crop">
+									<img src="/images/example/ex3.jpg" width="300" />
+								</td>
+								<td class="preview">
+									<div class="img"><img src="/images/example/ex3.jpg" width="76" height="79" /></div>
+									<div class="note">Так увидят Ваше фото другие посетители сайта</div>										
+								</td>
+							</tr>
+						</table>
+						
 					</div>
-					
-					<div class="note">Загрузите файл<br/>(jpg, gif, png не более 4 МБ)</div>
 					
 				</div>
 				
-				<div class="photo-upload clearfix">
-					
-					<div class="text">Фото</div>
-					
-					<div class="photo">
-						<div class="in">
-							<img src="/images/example/ex3.jpg" width="170" />
-						</div>
-						<a href="" class="remove"></a>
-					</div>
-					
-					<div class="note">Загрузите файл<br/>(jpg, gif, png не более 4 МБ)</div>
-					
-				</div>
-				
-				<div class="form-bottom">
-					
-					<button class="btn btn-green-medium"><span><span>Выбрать</span></span></button>
+				<div class="form-bottom">					
+					<button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
+					<button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
 				</div>
 				
 			</div>

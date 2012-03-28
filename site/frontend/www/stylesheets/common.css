@@ -495,7 +495,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-crop .note {color:#161616;font-size:13px;line-height:16px;margin-bottom:15px;}
 #photoPick .photo-crop table td {vertical-align:middle;}
 #photoPick .photo-crop table td.crop {width:300px;}
-#photoPick .photo-crop table td.crop img {max-width:300px;max-height:230px;}
+#photoPick .photo-crop table td.crop img {max-width:300px;}
 #photoPick .photo-crop table td.preview {text-align:center;width:400px;padding-left:30px;}
 #photoPick .photo-crop table td.preview .img {margin-bottom:10px;width:72px;height:72px;overflow:hidden;}
 

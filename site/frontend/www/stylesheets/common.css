@@ -93,6 +93,8 @@ h4 { font-size: 12px}
 .opacity-60 {opacity:0.6;filter: alpha(opacity = 60);}
 .opacity-80 {opacity:0.8;filter: alpha(opacity = 80);}
 
+.w-100 {width:100px;}
+input.w-100, textarea.1-200 {width:76px;}
 .w-200 {width:200px;}
 input.w-200, textarea.w-200 {width:176px;}
 .w-300 {width:300px;}
@@ -1022,7 +1024,7 @@ a {color:#51afc3;}
 .chzn-container-single .chzn-single div {position: absolute;right: -1px;top: -1px;display: block;height: 100%;width: 18px;background:#1b9bcb;padding:1px;}
 .chzn-container-single .chzn-single div b {background: url(/images/common.png) no-repeat -244px -101px;display: block;width: 10px;height: 8px;margin:-4px auto 0;position:relative;top:50%;}
 .chzn-container-single .chzn-search {padding: 2px 3px;position: relative;margin: 0;white-space: nowrap;z-index: 1010;display:none;}
-.chzn-container-single .chzn-search input {background: #fff;margin: 1px 0;padding: 2px 5px 2px 5px;outline: 0;border: 1px solid #aaa;font-family: sans-serif;font-size: 1em;}
+.chzn-container-single .chzn-search input {background: #fff;margin: 1px 0;outline: 0;font-family: arial, sans-serif;padding:3px 5px;border:1px solid #c9eaf1;font-family:arial, sans-serif;}
 /* @end */
 
 .chzn-container-single-nosearch .chzn-search input {position: absolute;left: -9000px;}

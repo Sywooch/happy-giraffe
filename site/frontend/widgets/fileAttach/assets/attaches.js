@@ -23,8 +23,10 @@ Attach.selectPhoto = function(button, id) {
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="photo_id" />').val(id));
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="ContestWork[file]" />').val(1));
     $('<a class="remove" href="javascript:;" onclick="Attach.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
-    this.changeAvatar(id);
-    $.fancybox.close();
+    if($('#change_ava').size() > 0)
+        this.crop(id);
+    else
+        $.fancybox.close();
 };
 
 Attach.selectBrowsePhoto = function(button) {
@@ -35,8 +37,11 @@ Attach.selectBrowsePhoto = function(button) {
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="photo_fsn" />').val(fsn));
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="ContestWork[file]" />').val(1));
     $('<a class="remove" href="javascript:;" onclick="Attach.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
-    $.fancybox.close();
-    this.changeAvatar(fsn);
+
+    if($('#change_ava').size() > 0)
+        this.crop(fsn);
+    else
+        $.fancybox.close();
     return false;
 };
 
@@ -46,10 +51,14 @@ Attach.closeUpload = function(link) {
     $(link).remove();
 };
 
+Attach.crop = function(val) {
+    $.post(base_url + '/albums/crop/', {val : val}, function(data) {
+
+    });
+};
+
 Attach.changeAvatar = function(val) {
-    if($('#change_ava').size() == 0)
-        return false;
     $.post(base_url + '/albums/changeAvatar/', {val : val}, function(data) {
         $('#change_ava').empty().append($('<img />').attr('src', data));
     });
-}
+};

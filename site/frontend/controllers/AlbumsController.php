@@ -231,6 +231,25 @@ class AlbumsController extends Controller
         $model->save();
     }
 
+    public function actionCrop()
+    {
+        if(!isset($_POST['val']))
+            Yii::app()->end();
+        $val = $_POST['val'];
+
+        if(is_numeric($val))
+            $src = AlbumPhoto::model()->findByPk($val)->getPreviewUrl(300, 185, Image::WIDTH);
+        else
+        {
+            $model = new AlbumPhoto;
+            $model->fs_name = $val;
+            $src = $model->templateUrl;
+        }
+
+        echo $src;
+        Yii::app()->end();
+    }
+
     public function actionChangeAvatar()
     {
         if(!isset($_POST['val']))

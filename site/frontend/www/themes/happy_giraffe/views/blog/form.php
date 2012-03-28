@@ -69,11 +69,6 @@
                                 $this->widget('ext.ckeditor.CKEditorWidget', array(
                                     'model' => $slave_model,
                                     'attribute' => 'text',
-                                    'config' => array(
-                                        'toolbar' => 'Chat',
-                                        'width' => 410,
-                                        'height' => 100,
-                                    ),
                                 ));
                             ?>
                         </div>

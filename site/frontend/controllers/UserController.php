@@ -54,7 +54,7 @@ class UserController extends Controller
         Yii::import('site.common.models.interest.*');
         Yii::import('application.modules.geo.models.*');
 
-        $user = User::model()->with(array(
+        $user = User::model()->active()->with(array(
             'status',
             'purpose',
         ))->findByPk($user_id);

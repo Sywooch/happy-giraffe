@@ -135,6 +135,7 @@
 #user .user-map form label {display:block;margin-bottom:5px;font-size:16px;}
 #user .user-map form input[type=text] {width:310px;padding:3px 5px;border:1px solid #c9eaf1;font-family:arial, sans-serif;margin-bottom:2px;}
 #user .user-map form small {font-size:11px;color:#a3a3a3;}
+#user .user-map .w-200 {width:208px;}
 
 
 #locationEdit {width:400px;}
@@ -193,6 +194,7 @@
 #user .user-map.user-add big {position:relative;z-index:2;margin-left:10px;display:block;}
 #user .user-map.user-add a {font-size:45px;line-height:35px;text-decoration:none;}
 #user .user-map.user-add img {margin-top:-45px;margin-left:1px;}
+
 
 
 #user .user-interests {}

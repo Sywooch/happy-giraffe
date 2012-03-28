@@ -28,7 +28,7 @@
         <table>
             <thead>
             <tr>
-                <?php $days = HDate::getDaysList(4); ?>
+                <?php $days = HDate::getDaysList(3); ?>
                 <?php foreach ($days as $day): ?>
                 <td><?php echo $day ?></td>
                 <?php endforeach; ?>

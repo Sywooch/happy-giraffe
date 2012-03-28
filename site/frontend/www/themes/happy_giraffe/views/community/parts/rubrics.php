@@ -31,7 +31,7 @@ $attr = ($type == 'blog') ? 'user_id' : 'community_id';
 $attr_value = ($type == 'blog') ? $this->user->id : $this->community->id;
 Yii::app()->clientScript->registerScript('edit_rubrics_main', "
     $('body').delegate('.club-topics-list ul li a.edit', 'click', function () {
-        var name = $(this).next().text();
+        var name = $(this).parent().find('div.in a').text();
         $(this).hide();
         $(this).next().hide();
         $(this).parent().append($('#edit_rubric_tmpl').tmpl({name:name}));

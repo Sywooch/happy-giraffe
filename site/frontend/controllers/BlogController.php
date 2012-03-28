@@ -22,7 +22,7 @@ class BlogController extends Controller
 
     public function actionAdd($content_type_slug = 'post')
     {
-        $content_type = BlogContentType::model()->findByAttributes(array('slug' => $content_type_slug));
+        $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
         $model = new BlogContent;
         $model->author_id = Yii::app()->user->id;
         $model->type_id = $content_type->id;

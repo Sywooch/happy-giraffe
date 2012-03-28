@@ -32,7 +32,7 @@ $js = 'var geocoder;
                 map.setBounds(geocoder.get(0).getBounds());
                 map.removeOverlay(placemark);
                 placemark = new YMaps.Placemark(map.getCenter(), {style: s});
-                placemark.name = "' . $this->user->getUserAddress()->getLocationString() . '";
+                //placemark.name = "' . $this->user->getUserAddress()->getLocationString() . '";
                 map.addOverlay(placemark);
             }
         });
@@ -47,7 +47,7 @@ $js = 'var geocoder;
         //стиль метки
         s.iconStyle.href = "/images/map_marker.png";
         s.iconStyle.size = new YMaps.Point(31, 35);
-        s.iconStyle.offset = new YMaps.Point(-17, -40);
+        s.iconStyle.offset = new YMaps.Point(-10, -35);
     }
 
     UserLocation.regionUrl = "'.Yii::app()->createUrl('geo/geo/regions').'";

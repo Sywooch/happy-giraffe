@@ -59,7 +59,7 @@ var UserLocation = {
                     $('div.user-name div.location').html(response.location);
                     $("#loc-flipbox").flip({
                         direction:'rl',
-                        speed:300,
+                        speed:400,
                         color:'#fff',
                         content:response.main,
                         onEnd: function(){
@@ -80,7 +80,7 @@ var UserLocation = {
             success: function(response) {
                 $("#loc-flipbox").flip({
                     direction:'rl',
-                    speed:300,
+                    speed:400,
                     color:'#fff',
                     content:response,
                     onEnd: function(){

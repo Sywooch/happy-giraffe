@@ -63,12 +63,13 @@ Attach.crop = function(val) {
 };
 
 Attach.showPreview = function(coords) {
-    var rx = 79 / coords.w;
-    var ry = 76 / coords.h;
-
+    $('#photoPick .form-bottom').show();
+    var rx = 72 / coords.w;
+    var ry = 72 / coords.h;
+    $('#coords_value').val(JSON.stringify(coords));
     $('#preview').css({
-        width: Math.round(rx * 300) + 'px',
-        height: Math.round(ry * 225) + 'px',
+        width: Math.round(rx * $('#crop_target').width()) + 'px',
+        height: Math.round(ry * $('#crop_target').height()) + 'px',
         marginLeft: '-' + Math.round(rx * coords.x) + 'px',
         marginTop: '-' + Math.round(ry * coords.y) + 'px'
     });

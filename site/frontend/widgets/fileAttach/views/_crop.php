@@ -19,7 +19,8 @@
                     </tbody></table>
                 </div>
             </div>
-            <div class="form-bottom">
+            <input type="hidden" id="coords_value" name="coords" value="" />
+            <div class="form-bottom" style="display:none;">
                 <button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
                 <button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
             </div>

@@ -354,6 +354,10 @@ class ScoreInput extends EMongoDocument
             case ScoreActions::ACTION_LIKE:
                 $text = $this->getRatingText();
                 break;
+
+            case ScoreActions::ACTION_CONTEST_PARTICIPATION:
+                $text = 'Вы приняли участие в конкурсе';
+                break;
         }
 
         return $text;
@@ -376,28 +380,28 @@ class ScoreInput extends EMongoDocument
             $id = $this->removed_items[0]['id'];
         }
 
-        $model = $class::model()->findByPk($id);
+        $model = $class::model()->resetScope()->findByPk($id);
 
         if ($model === null)
             return '';
         if ($this->action_id == ScoreActions::ACTION_FIRST_BLOG_RECORD)
-            $record_title = 'запись ';
-        else {
             if ($this->amount > 0)
                 $record_title = 'первую запись ';
             else
                 $record_title = 'единственная запись ';
+        else {
+            $record_title = 'запись ';
         }
 
         if ($class == 'CommunityContent') {
             if ($this->amount > 0)
                 if ($model->isFromBlog)
-                    $text = 'Вы добавили ' . $record_title . $model->name . ' в блог';
+                    $text = 'Вы добавили ' . $record_title . '<span>' . $model->name . '</span> в блог';
                 else
                     $text = 'Вы добавили ' . $record_title . '<span>' . $model->name . '</span> в клуб <span>' . $model->rubric->community->name . '</span>';
             if ($this->amount < 0) {
                 if ($model->isFromBlog)
-                    $text = 'Ваша ' . $record_title . $model->name . ' в блоге удалена';
+                    $text = 'Ваша ' . $record_title . '<span>' . $model->name . '</span> в блоге удалена';
                 else
                     $text = 'Ваша ' . $record_title . '<span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span> удалена';
             }
@@ -425,7 +429,7 @@ class ScoreInput extends EMongoDocument
         $class = $this->added_items[0]['entity'];
         $id = $this->added_items[0]['id'];
 
-        $model = $class::model()->findByPk($id);
+        $model = $class::model()->resetScope()->findByPk($id);
         if ($model === null)
             return $text;
 
@@ -457,7 +461,7 @@ class ScoreInput extends EMongoDocument
             $id = $this->removed_items[0]['id'];
         }
 
-        $model = $class::model()->findByPk($id);
+        $model = $class::model()->resetScope()->findByPk($id);
         if ($model === null)
             return '';
 
@@ -528,7 +532,7 @@ class ScoreInput extends EMongoDocument
             $id = $this->removed_items[0]['id'];
         }
 
-        $model = $class::model()->findByPk($id);
+        $model = $class::model()->resetScope()->findByPk($id);
         if ($model === null)
             return '';
 
@@ -598,7 +602,7 @@ class ScoreInput extends EMongoDocument
             $class = $item['entity'];
             $id = $item['id'];
 
-            $model = $class::model()->findByPk($id);
+            $model = $class::model()->resetScope()->findByPk($id);
             if ($model !== null)
                 $friends[] = $model;
         }
@@ -620,7 +624,7 @@ class ScoreInput extends EMongoDocument
                 $class = $item['entity'];
                 $id = $item['id'];
 
-                $model = $class::model()->findByPk($id);
+                $model = $class::model()->resetScope()->findByPk($id);
                 if ($model !== null)
                     $removed_friends[] = $model;
             }
@@ -652,7 +656,7 @@ class ScoreInput extends EMongoDocument
             $id = $this->removed_items[0]['id'];
         }
 
-        $model = $class::model()->findByPk($id);
+        $model = $class::model()->resetScope()->findByPk($id);
 
         if ($model === null)
             return '';

@@ -259,8 +259,8 @@ $form = $this->beginWidget('CActiveForm', array(
 
         //стиль метки
         s.iconStyle.href = "/images/map_marker.png";
-        s.iconStyle.size = new YMaps.Point(34, 46);
-        s.iconStyle.offset = new YMaps.Point(-17, -46);
+        s.iconStyle.size = new YMaps.Point(31, 35);
+        s.iconStyle.offset = new YMaps.Point(-17, -40);
     }
 </script>
 <?php $this->endWidget(); ?>

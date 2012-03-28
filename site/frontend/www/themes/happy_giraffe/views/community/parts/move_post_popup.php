@@ -23,7 +23,7 @@
                         )
                     ); ?>
 
-                        <?php echo CHtml::dropDownList('rubric_id', $c->rubric_id, CHtml::listData($c->rubric->community->rubrics, 'id', 'name'),
+                        <?php echo CHtml::dropDownList('rubric_id', $c->rubric_id, CHtml::listData(($c->rubric->community!== null)?$c->rubric->community->rubrics:array(), 'id', 'name'),
                         array(
                             'prompt' => 'Выберите рубрику',
                             'disabled' => Yii::app()->user->checkAccess('transfer post') ? '' : 'disabled',

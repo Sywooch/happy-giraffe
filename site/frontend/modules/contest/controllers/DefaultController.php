@@ -91,13 +91,14 @@ class DefaultController extends Controller
     public function actionWork($id)
     {
         $work = ContestWork::model()->findByPk($id);
+        if ($work === null)
+            throw new CHttpException(404, 'Такой работы не существует.');
         $this->pageTitle = '"' . $work->title . '" на фотоконкурсе "Веселая семейка"';
         $others = ContestWork::model()->findAll(array(
             'limit' => 5,
             'condition' => 'id != :current',
             'params' => array(':current' => $id),
         ));
-        if ($work === null) throw new CHttpException(404, 'Такой работы не существует.');
 
         $this->contest = $work->contest;
 

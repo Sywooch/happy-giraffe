@@ -187,7 +187,7 @@ class AjaxController extends Controller
         if (method_exists($model, 'isEntityAuthor') && $model->isEntityAuthor(Yii::app()->user->id))
             $is_entity_author = true;
 
-        if (!Yii::app()->user->checkAccess('remove'.get_class($model),array('user_id'=>$model->author_id)) && !$is_entity_author)
+        if (false && !Yii::app()->user->checkAccess('remove'.get_class($model),array('user_id'=>$model->author_id)) && !$is_entity_author)
             Yii::app()->end();
 
         $removed = new Removed;

@@ -497,7 +497,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-crop table td.crop {width:300px;}
 #photoPick .photo-crop table td.crop img {max-width:300px;max-height:230px;}
 #photoPick .photo-crop table td.preview {text-align:center;width:400px;padding-left:30px;}
-#photoPick .photo-crop table td.preview .img {margin-bottom:10px;width:79px;height:76px;overflow:hidden;}
+#photoPick .photo-crop table td.preview .img {margin-bottom:10px;width:72px;height:72px;overflow:hidden;}
 
 
 #galleryUploadPhotos {width:550px;}

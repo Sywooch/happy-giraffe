@@ -38,7 +38,7 @@ class DefaultController extends Controller
 
         $criteria->setSort(array(
             'priority' => EMongoCriteria::SORT_ASC,
-            'user_priority' => EMongoCriteria::SORT_ASC,
+            //'user_priority' => EMongoCriteria::SORT_ASC,
             '_id' => EMongoCriteria::SORT_DESC,
         ));
         if (!empty($filter))

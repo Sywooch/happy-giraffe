@@ -27,6 +27,22 @@ $(function() {
             }
         })
     });
+
+    $('body').delegate('div.user-weather #forecast-link', 'click', function(){
+        $(this).hide();
+        $(this).prev().hide();
+        $(this).next().show();
+        $(this).next().next().show();
+        return false;
+    });
+
+    $('body').delegate('div.user-weather #today-link', 'click', function(){
+        $(this).hide();
+        $(this).prev().hide();
+        $(this).prev().prev().show();
+        $(this).prev().prev().prev().show();
+        return false;
+    });
 });
 
 function updateNotifications(count, data)

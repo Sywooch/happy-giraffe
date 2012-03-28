@@ -10,8 +10,6 @@ if ($user->getUserAddress()->country_id !== null) {
 ?>
 <div id="locationEdit" class="popup">
 
-    <a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
-
     <div class="popup-title">Место жительства</div>
 
     <form method="post" action="<?php echo Yii::app()->createUrl('/user/saveLocation'); ?>" class="clearfix">
@@ -20,7 +18,7 @@ if ($user->getUserAddress()->country_id !== null) {
                 <div class="row-title">Страна</div>
                 <div class="row-elements">
                     <?php echo CHtml::dropDownList('country_id', $user->getUserAddress()->country_id,
-                    CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
+                    array('' => '') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
                     array(
                         'class' => 'chzn w-300',
                         'data-placeholder' => 'Выберите страну',
@@ -39,7 +37,8 @@ if ($user->getUserAddress()->country_id !== null) {
                     )); ?>
                 </div>
             </div>
-            <div class="row clearfix settlement"<?php if ($user->getUserAddress()->region !== null && $user->getUserAddress()->region->isCity()) echo ' style="display:none;"' ?>>
+            <div
+                class="row clearfix settlement"<?php if ($user->getUserAddress()->region !== null && $user->getUserAddress()->region->isCity()) echo ' style="display:none;"' ?>>
                 <div class="row-title">Населенный пункт</div>
                 <div class="row-elements">
                     <?php
@@ -80,7 +79,8 @@ if ($user->getUserAddress()->country_id !== null) {
                 </div>
             </div>
             <div class="row">
-                <button class="btn btn-green-medium" onclick="UserLocation.saveLocation();return false;"><span><span>Сохранить</span></span></button>
+                <button class="btn btn-green-medium" onclick="UserLocation.saveLocation();return false;"><span><span>Сохранить</span></span>
+                </button>
             </div>
         </div>
     </form>

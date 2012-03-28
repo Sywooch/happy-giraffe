@@ -245,9 +245,13 @@ class CommunityContent extends CActiveRecord
 
         //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+        if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {
+            UserScores::removeScores($this->author_id, ScoreActions::ACTION_FIRST_BLOG_RECORD, 1, $this);
+        }else
+            UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+        //сообщаем пользователю
         UserNotification::model()->create(UserNotification::DELETED, array('entity' => $this));
-
+        //закрываем сигнал
         UserSignal::closeRemoved($this);
 
         return false;
@@ -302,7 +306,10 @@ class CommunityContent extends CActiveRecord
         if ($this->isNewRecord){
             //добавляем баллы
             Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+            if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {
+                UserScores::addScores($this->author_id, ScoreActions::ACTION_FIRST_BLOG_RECORD, 1, $this);
+            }else
+                UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
         }
         parent::afterSave();
     }

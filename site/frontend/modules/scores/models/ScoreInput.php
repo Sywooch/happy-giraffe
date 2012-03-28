@@ -70,14 +70,6 @@ class ScoreInput extends EMongoDocument
 
         if ($this->status == self::STATUS_CLOSED) {
             $model = UserScores::getModel($this->user_id);
-            if ($this->action_id == ScoreActions::ACTION_RECORD
-                && $this->_entity !== null
-                && get_class($this->_entity) == 'CommunityContent'
-                && $this->_entity->isFromBlog
-                && count($this->_entity->contentAuthor->blogPosts) <= 1
-            ) {
-                $this->scores_earned = $this->scores_earned*3;
-            }
             $model->scores += $this->scores_earned;
             $model->save();
         }
@@ -267,6 +259,7 @@ class ScoreInput extends EMongoDocument
     public function getIconName()
     {
         switch ($this->action_id) {
+            case ScoreActions::ACTION_FIRST_BLOG_RECORD:
             case ScoreActions::ACTION_RECORD:
                 if ($this->amount > 0)
                     return 'icon-post';
@@ -323,6 +316,9 @@ class ScoreInput extends EMongoDocument
                 break;
 
             case ScoreActions::ACTION_RECORD:
+                $text = $this->getArticleText();
+                break;
+            case ScoreActions::ACTION_FIRST_BLOG_RECORD:
                 $text = $this->getArticleText();
                 break;
 
@@ -384,25 +380,33 @@ class ScoreInput extends EMongoDocument
 
         if ($model === null)
             return '';
+        if ($this->action_id == ScoreActions::ACTION_FIRST_BLOG_RECORD)
+            $record_title = 'запись ';
+        else {
+            if ($this->amount > 0)
+                $record_title = 'первую запись ';
+            else
+                $record_title = 'единственная запись ';
+        }
 
         if ($class == 'CommunityContent') {
             if ($this->amount > 0)
                 if ($model->isFromBlog)
-                    $text = 'Вы добавили запись ' . $model->name . ' в блог';
+                    $text = 'Вы добавили ' . $record_title . $model->name . ' в блог';
                 else
-                    $text = 'Вы добавили запись <span>' . $model->name . '</span> в клуб <span>' . $model->rubric->community->name . '</span>';
+                    $text = 'Вы добавили ' . $record_title . '<span>' . $model->name . '</span> в клуб <span>' . $model->rubric->community->name . '</span>';
             if ($this->amount < 0) {
                 if ($model->isFromBlog)
-                    $text = 'Ваша запись  ' . $model->name . ' в блоге удалена';
+                    $text = 'Ваша ' . $record_title . $model->name . ' в блоге удалена';
                 else
-                    $text = 'Ваша запись  <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span> удалена';
+                    $text = 'Ваша ' . $record_title . '<span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span> удалена';
             }
         }
         if ($class == 'RecipeBookRecipe') {
             if ($this->amount > 0)
-                $text = 'Вы добавили запись <span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span>';
+                $text = 'Вы добавили ' . $record_title . ' <span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span>';
             if ($this->amount < 0) {
-                $text = 'Ваша запись  <span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span> удалена';
+                $text = 'Ваша ' . $record_title . '<span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span> удалена';
             }
         }
 

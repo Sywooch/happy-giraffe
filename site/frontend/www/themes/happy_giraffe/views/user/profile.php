@@ -10,7 +10,7 @@
 ?>
 <div id="user">
 
-    <div class="header clearfix">
+    <div class="header clearfix user-home">
 
         <div class="user-name">
             <h1><?=$user->last_name?><br/><?=$user->first_name?></h1>
@@ -45,7 +45,7 @@
                         ),
                         array(
                             'label' => 'Блог',
-                            'url' => $this->user->blogPostsCount > 0 ? array('user/blog', 'user_id' => $this->user->id) : array('/blog/empty'),
+                            'url' => $this->user->blogPostsCount > 0 ? array('/blog/list', 'user_id' => $this->user->id) : array('/blog/empty'),
                             'visible' => $this->user->blogPostsCount > 0 || $this->user->id == Yii::app()->user->id,
                         ),
                         array(
@@ -92,7 +92,7 @@
             ?>
 
             <div class="details">
-                Зарегистрирван <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>
+                Зарегистрирован <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>
             </div>
 
             <?php if (! empty($score->level_id)): ?>

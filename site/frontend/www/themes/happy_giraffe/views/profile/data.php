@@ -87,7 +87,7 @@ $form = $this->beginWidget('CActiveForm', array(
         <div class="row-title">Место жительства:</div>
         <div class="row-elements">
             <div class="col">
-                <div class="select-box">
+                <div class="select-box with-search">
                     <?php echo CHtml::dropDownList('country_id', $this->user->getUserAddress()->country_id,
                     array('' => '') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
                     array(

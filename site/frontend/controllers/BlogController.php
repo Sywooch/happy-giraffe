@@ -6,6 +6,19 @@
 class BlogController extends Controller
 {
     public $user;
+    public $rubric_id;
+
+    public function getUrl($overwrite = array(), $route = 'blog/list')
+    {
+        return array_filter(CMap::mergeArray(
+            array($route),
+            array(
+                'user_id' => $this->user->id,
+                'rubric_id' => $this->rubric_id,
+            ),
+            $overwrite
+        ));
+    }
 
     public function actionAdd($content_type_slug = 'post')
     {
@@ -38,7 +51,43 @@ class BlogController extends Controller
             'model' => $model,
             'slave_model' => $slave_model,
             'rubrics' => $rubrics,
-            'content_type_slug' => $content_type_slug,
+            'content_type_slug' => $content_type->slug,
+        ));
+    }
+
+    public function actionEdit($content_id)
+    {
+        $model = CommunityContent::model()->full()->findByPk($content_id);
+        if ($model === null)
+            throw CHttpException(404, 'Запись не найдена');
+
+        $content_type = $model->type;
+        $slave_model = $model->content;
+        $slave_model_name = get_class($slave_model);
+        $rubrics = Yii::app()->user->model->blog_rubrics;
+
+        if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
+        {
+            $model->attributes = $_POST['CommunityContent'];
+            $slave_model->attributes = $_POST[$slave_model_name];
+
+            $valid = $model->validate();
+            $valid = $slave_model->validate() && $valid;
+
+            if ($valid)
+            {
+                $model->save(false);
+                $slave_model->content_id = $model->id;
+                $slave_model->save(false);
+                $this->redirect(array('/blog/view', 'content_id' => $model->id));
+            }
+        }
+
+        $this->render('form', array(
+            'model' => $model,
+            'slave_model' => $slave_model,
+            'rubrics' => $rubrics,
+            'content_type_slug' => $content_type->slug,
         ));
     }
 
@@ -51,6 +100,8 @@ class BlogController extends Controller
             throw new CHttpException(404, 'Пользователь не найден');
 
         $contents = CommunityContent::model()->getBlogContents($user_id, $rubric_id);
+
+        $this->rubric_id = $rubric_id;
 
         $this->render('list', array(
             'contents' => $contents,
@@ -66,6 +117,7 @@ class BlogController extends Controller
             throw new CHttpException(404, 'Такой записи не существует');
 
         $this->user = $content->author;
+        $this->rubric_id = $content->rubric->id;
 
         $this->render('view', array(
             'data' => $content,

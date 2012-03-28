@@ -136,28 +136,10 @@
 
         <div class="club-topics-list">
             <?php
-                if (!Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id)) {
-                    $items = array();
-                    foreach ($this->community->rubrics as $r) {
-                        $items[] = array(
-                            'label' => $r->name,
-                            'url' => $this->getUrl(array('rubric_id' => $r->id)),
-                            'active' => $r->id == $this->rubric_id,
-                        );
-                    }
-
-                    $this->widget('zii.widgets.CMenu', array(
-                            'items' => $items,
-                        )
-                    );
-                } else {
-                    //for moderators
-                    $this->renderPartial('parts/rubrics',array(
-                        'community'=>$this->community,
-                        'content_type_slug'=>$this->content_type_slug,
-                        'current_rubric'=>$this->rubric_id
-                    ));
-                }
+                $this->renderPartial('parts/rubrics',array(
+                    'rubrics' => $this->community->rubrics,
+                    'type' => 'community',
+                ));
             ?>
         </div>
     </div>

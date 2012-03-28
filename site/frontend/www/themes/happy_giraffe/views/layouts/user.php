@@ -24,7 +24,7 @@
                         ),
                         array(
                             'label' => 'Блог',
-                            'url' => $this->user->blogPostsCount > 0 ? array('user/blog', 'user_id' => $this->user->id) : array('/blog/empty'),
+                            'url' => $this->user->blogPostsCount > 0 ? array('/blog/list', 'user_id' => $this->user->id) : array('/blog/empty'),
                             'active' => Yii::app()->controller->id == 'blog',
                             'visible' => $this->user->blogPostsCount > 0 || $this->user->id == Yii::app()->user->id,
                         ),

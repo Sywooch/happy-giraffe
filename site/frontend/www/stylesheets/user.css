@@ -116,7 +116,7 @@
 #user .user-friends ul li {float:left;margin:0 15px 15px 0;}
 #user .user-friends ul li img {display:block;}
 
-#user .user-map {padding:10px 8px 7px;border:1px solid #f7f7f7;margin-bottom:20px;}
+#user .user-map {padding:10px 8px 7px;border:1px solid #f7f7f7;margin-bottom:20px;height:268px;}
 
 #user .user-map .header {position:relative;}
 #user .user-map .header .box-title {display:inline-block;width:100px;vertical-align:middle;padding-left:10px;}
@@ -254,7 +254,7 @@
 #user .user-family .cap {display:block;width:100%;background:#f9f5ef url(/images/bg_user_family_cap.gif) no-repeat bottom;text-align:center;padding:15px 0 215px;font-size:15px;}
 #user .user-family .cap:hover {text-decoration:none;}
 
-#user .user-weather {margin-bottom:20px;padding:10px 14px;border:1px solid #f3f3f3;}
+#user .user-weather {margin-bottom:20px;padding:10px 14px;border:1px solid #f3f3f3;height: 185px;}
 #user .user-weather .box-title a.pseudo {margin-top:7px;}
 #user .user-weather .location {font-size:12px;color:#929292;}
 #user .user-weather .location .flag {display:inline-block;margin-right:5px;position:relative;top:1px;}

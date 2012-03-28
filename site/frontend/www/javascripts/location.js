@@ -55,14 +55,13 @@ var UserLocation = {
             success:function (response) {
                 if (response.status) {
                     $.fancybox.close();
-                    $('div.user-weather').html(response.weather);
+                    $('div.weather-wrapper').html(response.weather);
                     $('div.user-name div.location').html(response.location);
                     $("#loc-flipbox").flip({
                         direction:'tb',
                         color:'#fff',
                         content:response.main,
                         onEnd: function(){
-                            cl(response.mapsLocation);
                             map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);
                             map.enableScrollZoom();
                             geocoder = new YMaps.Geocoder(response.mapsLocation);

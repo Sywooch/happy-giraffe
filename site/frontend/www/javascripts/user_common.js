@@ -29,18 +29,16 @@ $(function() {
     });
 
     $('body').delegate('div.user-weather #forecast-link', 'click', function(){
-        $(this).hide();
-        $(this).prev().hide();
-        $(this).next().show();
-        $(this).next().next().show();
+        $('#today-weather').fadeOut(250, function(){
+            $('#forecast').fadeIn(250);
+        });
         return false;
     });
 
     $('body').delegate('div.user-weather #today-link', 'click', function(){
-        $(this).hide();
-        $(this).prev().hide();
-        $(this).prev().prev().show();
-        $(this).prev().prev().prev().show();
+        $('#forecast').fadeOut(250, function(){
+            $('#today-weather').fadeIn(250);
+        });
         return false;
     });
 });

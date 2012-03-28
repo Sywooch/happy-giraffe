@@ -411,7 +411,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .form .row .row-elements {}
 .form .row .row-bottom {font-size:10px;line-height:1.2;}
 .form .form-bottom {text-align:right;padding-top:40px;color:#808282;}
-.form .form-bottom .btn {margin-left:20px;vertical-align:middle;}
+.form .form-bottom .btn {margin-left:5px;vertical-align:middle;}
 .form input[type=text], .form input[type=password] {height:24px;line-height:24px;padding:11px;border:1px solid #c9eaf1;background:#fff;color:#0281B0;font-size:16px;font-family:arial, sans-serif;font-weight:bold;margin:0;}
 .form .captcha img {border:1px solid #c9eaf1;}
 .form .refresh {display:inline-block;padding-right:22px;line-height:17px;color:#575757;text-decoration:none;margin-top:4px;position:relative;}
@@ -481,7 +481,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 #photoPick #gallery .gallery-photos .img .contest-send {position:absolute;width:100%;height:100%;background:#e0f2ff;background:rgba(224, 242, 255 ,0.7);top:0;left:0;text-align:center;display:none;}
 #photoPick #gallery .gallery-photos .img:hover .contest-send {display:block;}
-#photoPick #gallery .gallery-photos .img .btn {position:relative;top:50%;margin-top:-17px;}
+#photoPick #gallery .gallery-photos .img .btn {position:relative;top:50%;margin-top:-17px;white-space:normal;}
 #photoPick #gallery .gallery-photos .img .btn span {line-height:13px;font-size:13px;text-align:center;vertical-align:top;}
 #photoPick #gallery .gallery-photos .img .btn span span {padding-top:3px;height:31px;}
 
@@ -491,6 +491,13 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-upload .photo {position:relative;float:left;margin-right:15px;}
 #photoPick .photo-upload .photo .in {text-align:center;width:170px;height:200px;background:#c7ebf8;display:table-cell;vertical-align:middle;}
 #photoPick .photo-upload .remove {display:block;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;position:absolute;top:0;right:0;}
+
+#photoPick .photo-crop .note {color:#161616;font-size:13px;line-height:16px;margin-bottom:15px;}
+#photoPick .photo-crop table td {vertical-align:middle;}
+#photoPick .photo-crop table td.crop {width:300px;}
+#photoPick .photo-crop table td.crop img {max-width:300px;max-height:230px;}
+#photoPick .photo-crop table td.preview {text-align:center;width:400px;padding-left:30px;}
+#photoPick .photo-crop table td.preview .img {margin-bottom:10px;width:72px;height:72px;overflow:hidden;}
 
 
 #galleryUploadPhotos {width:550px;}

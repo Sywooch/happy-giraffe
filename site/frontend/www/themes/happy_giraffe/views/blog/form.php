@@ -69,11 +69,6 @@
                                 $this->widget('ext.ckeditor.CKEditorWidget', array(
                                     'model' => $slave_model,
                                     'attribute' => 'text',
-                                    'config' => array(
-                                        'toolbar' => 'Chat',
-                                        'width' => 410,
-                                        'height' => 100,
-                                    ),
                                 ));
                             ?>
                         </div>
@@ -140,7 +135,7 @@
                 <div class="row row-buttons">
                     <button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
                     <!--<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>-->
-                    <button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
+                    <button class="btn btn-green-medium"><span><span><?php echo ($model->isNewRecord) ? 'Добавить' : 'Сохранить' ; ?></span></span></button>
                 </div>
 
             </div>

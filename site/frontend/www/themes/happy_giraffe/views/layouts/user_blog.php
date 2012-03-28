@@ -16,19 +16,10 @@
 
         <div class="club-topics-list">
             <?php
-                $items = array();
-                foreach ($this->user->blog_rubrics as $r) {
-                    $items[] = array(
-                        'label' => $r->name . CHtml::tag('span', array('class' => 'count'), $r->contentsCount),
-                        'url' => array('/blog/list', 'user_id' => $this->user->id, 'rubric_id' => $r->id),
-                    );
-                }
-
-                $this->widget('zii.widgets.CMenu', array(
-                        'items' => $items,
-                        'encodeLabel' => false,
-                    )
-                );
+                $this->renderPartial('/community/parts/rubrics',array(
+                    'rubrics' => $this->user->blog_rubrics,
+                    'type' => 'blog',
+                ));
             ?>
         </div>
 

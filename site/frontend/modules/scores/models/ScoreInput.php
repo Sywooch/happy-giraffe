@@ -393,7 +393,7 @@ class ScoreInput extends EMongoDocument
             $record_title = 'запись ';
         }
 
-        if ($class == 'CommunityContent') {
+        if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($this->amount > 0)
                 if ($model->isFromBlog)
                     $text = 'Вы добавили ' . $record_title . '<span>' . $model->name . '</span> в блог';
@@ -433,7 +433,7 @@ class ScoreInput extends EMongoDocument
         if ($model === null)
             return $text;
 
-        if ($class == 'CommunityContent') {
+        if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($model->isFromBlog)
                 $text = 100 * $this->amount . ' новых просмотров вашей записи <span>' . $model->name . '</span> в блоге';
             else
@@ -465,7 +465,7 @@ class ScoreInput extends EMongoDocument
         if ($model === null)
             return '';
 
-        if ($class == 'CommunityContent') {
+        if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($this->amount > 0) {
                 if ($model->isFromBlog)
                     $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->name . '</span> в блоге';
@@ -564,7 +564,7 @@ class ScoreInput extends EMongoDocument
         else
             $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к записи <span>' . $model->name . '</span> ';
 
-        if ($class == 'CommunityContent') {
+        if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($model->isFromBlog) {
                 if ($model->author_id == $this->user_id)
                     $text .= ($this->amount > 0) ? 'в блог' : 'в блоге';
@@ -661,7 +661,7 @@ class ScoreInput extends EMongoDocument
         if ($model === null)
             return '';
 
-        if ($class == 'CommunityContent') {
+        if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($this->amount > 0)
                 if ($model->isFromBlog)
                     $text = 'Увеличен рейтинг вашей записи <span>' . $model->name . '</span> в блоге';

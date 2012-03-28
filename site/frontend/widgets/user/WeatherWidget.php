@@ -151,6 +151,8 @@ class SimpleGoogleWeather
             $day_res['condition'] = $this->conditionToImage($attr['data']);
             $day_res['condition_title'] = $attr['data'];
             $res [] = $day_res;
+            if (count($res) >= 3)
+                break;
         }
 
         return $res;

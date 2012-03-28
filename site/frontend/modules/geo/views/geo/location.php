@@ -5,7 +5,7 @@
 $regions = array('' => '');
 if ($user->getUserAddress()->country_id !== null) {
     $regions = array('' => '') + CHtml::listData(GeoRegion::model()->findAll(array(
-        'order' => 'id', 'select' => 'id,name', 'condition' => 'country_id = ' . $user->getUserAddress()->country_id)), 'id', 'name');
+        'order' => 'name', 'select' => 'id,name', 'condition' => 'country_id = ' . $user->getUserAddress()->country_id)), 'id', 'name');
 }
 ?>
 <div id="locationEdit" class="popup">
@@ -16,7 +16,7 @@ if ($user->getUserAddress()->country_id !== null) {
 
     <form method="post" action="<?php echo Yii::app()->createUrl('/user/saveLocation'); ?>" class="clearfix">
         <div class="form">
-            <div class="row clearfix">
+            <div class="row clearfix with-search">
                 <div class="row-title">Страна</div>
                 <div class="row-elements">
                     <?php echo CHtml::dropDownList('country_id', $user->getUserAddress()->country_id,
@@ -28,7 +28,7 @@ if ($user->getUserAddress()->country_id !== null) {
                     )) ?>
                 </div>
             </div>
-            <div class="row clearfix">
+            <div class="row clearfix with-search">
                 <div class="row-title">Регион</div>
                 <div class="row-elements">
                     <?php echo CHtml::dropDownList('region_id', $user->getUserAddress()->region_id, $regions,

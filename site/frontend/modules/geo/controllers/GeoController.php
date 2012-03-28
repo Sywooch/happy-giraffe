@@ -8,7 +8,19 @@ class GeoController extends Controller
     {
         return array(
             'accessControl',
-            'countries,regions,cities,street,saveLocation + ajaxOnly'
+            'countries,regions,cities,street,saveLocation,regionIsCity + ajaxOnly'
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'users' => array('@'),
+            ),
+            array('deny',
+                'users'=>array('*'),
+            ),
         );
     }
 

@@ -22,7 +22,7 @@ class Community extends CActiveRecord
 				->select('type_id, count(*)')
 				->from('club_community_content c')
 				->join('club_community_rubric r', 'r.id=c.rubric_id')
-				->where('r.community_id = :community_id', array(':community_id' => $this->id))
+				->where('r.community_id = :community_id AND c.removed = 0', array(':community_id' => $this->id))
 				->group('c.type_id')
 				->queryAll();
 				

@@ -502,11 +502,11 @@ class User extends CActiveRecord
             return false;
         switch($size)
         {
-            case 'ava' : $sizes = array(76, 79); break;
-            case 'small' : $sizes = array(25, 23); break;
-            case 'big' : $sizes = array(241, 225); break;
+            case 'small' : $sizes = array(24, 24); break;
+            case 'ava' : $sizes = array(75, 75); break;
+            case 'big' : $sizes = array(240, 240, Image::WIDTH); break;
         }
-        return AlbumPhoto::model()->findByPk($this->avatar)->getPreviewUrl($sizes[0], $sizes[1]);
+        return AlbumPhoto::model()->findByPk($this->avatar)->getPreviewUrl($sizes[0], $sizes[1], (isset($sizes[2]) ? $sizes[2] : false));
     }
 
     public function getPartnerPhotoUrl()

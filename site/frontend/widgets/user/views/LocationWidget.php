@@ -60,7 +60,7 @@ $js = 'var geocoder;
 Yii::app()->clientScript
     ->registerScriptFile('/javascripts/location.js')
     ->registerScript('LocaionWidget', $js, CClientScript::POS_HEAD)
-    ->registerScriptFile('/javascripts/jquery.flip.min.js')
+    ->registerScriptFile('/javascripts/jquery.flip.js')
     ->registerCoreScript('jquery.ui')
     ->registerScriptFile('http://api-maps.yandex.ru/1.1/index.xml?key=' . Yii::app()->params['yandex_map_key']);
 

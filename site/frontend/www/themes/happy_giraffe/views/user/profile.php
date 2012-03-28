@@ -19,9 +19,11 @@
             <?php else: ?>
                 <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
             <?php endif; ?>
-            <?php if ($user->getUserAddress()->city !== null): ?>
-                <div class="location"><?=$user->getUserAddress()->getFlag(true)?><?php if ($user->getUserAddress()->city !== null): ?> <?=$user->getUserAddress()->city->name?><?php endif; ?></div>
-            <?php endif; ?>
+            <div class="location">
+                <?php if ($user->getUserAddress()->hasCity()): ?>
+                    <?=$user->getUserAddress()->getFlag(true)?><?= $user->getUserAddress()->cityName ?>
+                <?php endif; ?>
+            </div>
             <?php if ($user->birthday): ?><div class="birthday"><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)</div><?php endif; ?>
 
         </div>
@@ -134,13 +136,17 @@
                         'user' => $user,
                     )); ?>
 
-                    <?php $this->widget('LocationWidget', array(
-                        'user' => $user,
-                    )); ?>
+                    <div id="loc-flipbox">
+                        <?php $this->widget('LocationWidget', array(
+                            'user' => $user,
+                        )); ?>
+                    </div>
 
-                    <?php $this->widget('WeatherWidget', array(
-                        'user' => $user,
-                    )); ?>
+                    <div class="user-weather">
+                        <?php $this->widget('WeatherWidget', array(
+                            'user' => $user,
+                        )); ?>
+                    </div>
 
                     <?php $this->widget('HoroscopeWidget', array(
                         'user' => $user,

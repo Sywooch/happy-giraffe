@@ -1,8 +1,6 @@
-<div class="user-weather">
-
     <div class="location">
         <?php echo $this->user->getUserAddress()->getFlag() ?><?php echo $this->user->getUserAddress()->country->name ?><br/>
-        <big><?php echo $this->user->getUserAddress()->city->name ?></big>
+        <big><?php echo $this->user->getUserAddress()->cityName ?></big>
     </div>
 
     <div class="clearfix" id="today-weather">
@@ -50,22 +48,3 @@
     </div>
 
     <a href="#" id="today-link" style="display: none;">Прогноз на неделю</a>
-
-</div><?php
-Yii::app()->clientScript->registerScript('WeatherWidget',
-    "$('#forecast-link').click(function(){
-        $(this).hide();
-        $(this).prev().hide();
-        $(this).next().show()
-        $(this).next().next().show()
-        return false;
-    });
-
-    $('#today-link').click(function(){
-        $(this).hide();
-        $(this).prev().hide();
-        $(this).prev().prev().show()
-        $(this).prev().prev().prev().show()
-        return false;
-    });");
-?>

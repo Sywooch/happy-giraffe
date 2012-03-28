@@ -38,8 +38,7 @@
 
         Yii::app()->clientScript->registerScript('register_after_removeContent', '
             function CommunityContentRemove() {window.location.reload();}
-            function CommunityContentRemove() {
-                window.location = "' . $delete_redirect_url . '";}', CClientScript::POS_HEAD);
+            function CommunityContentRemove() {}', CClientScript::POS_HEAD);
         ?>
     <?php endif; ?>
 </div>

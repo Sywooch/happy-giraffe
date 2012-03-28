@@ -22,7 +22,7 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $filter = Yii::app()->request->getPost('filter');
-        if ($filter == 'null')
+        if ($filter == 'null' || empty($filter))
             $filter = null;
 
         //5 новых статей

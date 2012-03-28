@@ -138,9 +138,9 @@ class UserAddress extends CActiveRecord
             $str .= ', ' . $this->region->name;
             if (!empty($this->city_id)) {
                 if (empty($this->city->district_id)) {
-                  $str .= ', ' . $this->city->type . ' ' . $this->city->name;
+                    $str .= ', ' . $this->city->type . ' ' . $this->city->name;
                 } else {
-                    $str .= ', ' . $this->city->district->name . ', ' . $this->city->type . ' ' . $this->city->name;
+                    $str .= ', ' . $this->city->district->name . ' район, ' . $this->city->type . ' ' . $this->city->name;
                 }
             }
         }
@@ -148,40 +148,36 @@ class UserAddress extends CActiveRecord
         return $str;
     }
 
-    public function getPublicLocation()
-    {
-        if (empty($this->country_id))
-            return '';
-
-        $str = $this->country->name;
-        if (!empty($this->city_id)) {
-            if (empty($this->city->region_id)) {
-                $str .= '<br>' . $this->city->name;
-            } else {
-                $str .= '<br>' . $this->city->region->name . '<br>' . $this->city->type . ' ' . $this->city->name;
-            }
-
-            return $str;
-        }
-        return $str;
-    }
-
     public function getLocationWithoutCountry()
     {
         $str = '';
         if (!empty($this->city_id)) {
-            $city_string = (empty($this->city->type)) ? $this->city->name : $this->city->type . '. ' . $this->city->name;
+            $city_string = (empty($this->city->type)) ? $this->city->name : $this->city->type . ' ' . $this->city->name;
             if (empty($this->region_id)) {
                 $str = $city_string;
             } elseif (empty($this->city->district_id)) {
-                $str = $this->region->name . '<br>' . $city_string;
+                $str = $this->region->name . ' ' . $city_string;
             } else {
-                $str = $this->region->name . '<br>' . $this->city->district->name . ' р-н<br>'
+                $str = $this->region->name . ' ' . $this->city->district->name . ' р-н '
                     . $city_string;
             }
         } elseif (!empty($this->region_id)) {
             $str = $this->region->name;
         }
         return $str;
+    }
+
+    public function hasCity()
+    {
+        return !empty($this->city_id) || ($this->region !== null && $this->region->isCity());
+    }
+
+    public function getCityName()
+    {
+        if (!empty($this->city_id))
+            return $this->city->name;
+        if ($this->region !== null && $this->region->isCity())
+            return $this->region->name;
+        return '';
     }
 }

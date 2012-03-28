@@ -112,7 +112,7 @@ class UserSignal extends EMongoDocument
             $this->status = self::STATUS_OPEN;
             $this->created = date("Y-m-d");
             $this->created_time = date("H:i");
-            $this->user_priority = $this->getUser()->getUserPriority();
+            $this->user_priority = (int)$this->getUser()->getUserPriority();
 
             if (!$this->repeat_task) {
                 if ($this->signal_type == self::TYPE_NEW_USER_POST) {

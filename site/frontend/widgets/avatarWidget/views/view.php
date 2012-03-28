@@ -28,7 +28,7 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
             <?php if ($this->user->getUserAddress()->country !== null): ?>
                 <div class="location">
                     <div class="flag flag-<?php echo $this->user->getUserAddress()->country->iso_code; ?>"></div>
-                    <?php echo $this->user->getUserAddress()->country->name; ?>
+                    <?php echo $this->user->getUserAddress()->cityName; ?>
                 </div>
             <?php endif; ?>
             <div class="user-fast-buttons clearfix">

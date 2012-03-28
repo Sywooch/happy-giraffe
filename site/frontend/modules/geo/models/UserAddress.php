@@ -156,9 +156,9 @@ class UserAddress extends CActiveRecord
             if (empty($this->region_id)) {
                 $str = $city_string;
             } elseif (empty($this->city->district_id)) {
-                $str = $this->region->name . ' ' . $city_string;
+                $str = str_replace('область', 'обл', $this->region->name) . '<br> ' . $city_string;
             } else {
-                $str = $this->region->name . ' ' . $this->city->district->name . ' р-н '
+                $str = str_replace('область', 'обл', $this->region->name) . '<br> ' . $this->city->district->name . ' р-н '
                     . $city_string;
             }
         } elseif (!empty($this->region_id)) {

@@ -111,18 +111,6 @@ class UserController extends Controller
         ));
     }
 
-    public function getUrl($overwrite = array(), $route = 'user/blog')
-    {
-        return array_filter(CMap::mergeArray(
-            array($route),
-            array(
-                'user_id' => $this->user->id,
-                'rubric_id' => $this->rubric_id,
-            ),
-            $overwrite
-        ));
-    }
-
     /*
      * @todo убрать $model->refresh()
      */

@@ -58,7 +58,8 @@ var UserLocation = {
                     $('div.weather-wrapper').html(response.weather);
                     $('div.user-name div.location').html(response.location);
                     $("#loc-flipbox").flip({
-                        direction:'tb',
+                        direction:'rl',
+                        speed:300,
                         color:'#fff',
                         content:response.main,
                         onEnd: function(){
@@ -78,7 +79,8 @@ var UserLocation = {
             type: 'POST',
             success: function(response) {
                 $("#loc-flipbox").flip({
-                    direction:'tb',
+                    direction:'rl',
+                    speed:300,
                     color:'#fff',
                     content:response,
                     onEnd: function(){
@@ -87,8 +89,5 @@ var UserLocation = {
                 })
             }
         });
-    },
-    refreshWidget:function () {
-        window.location.reload();
     }
 }

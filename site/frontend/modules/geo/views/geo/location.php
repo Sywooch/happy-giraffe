@@ -25,7 +25,7 @@ if ($user->getUserAddress()->country_id !== null) {
                 'data-placeholder' => 'Страна',
                 'onchange' => 'UserLocation.SelectCounty($(this));'
             )) ?>
-            </span>
+            </span>&nbsp;&nbsp;
         <span class="with-search">
                 <?php echo CHtml::dropDownList('region_id', $user->getUserAddress()->region_id, $regions,
             array(

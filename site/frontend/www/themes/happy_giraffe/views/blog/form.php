@@ -126,7 +126,7 @@
                 <div class="row clearfix">
                     <div class="row-title">Рубрика:</div>
                     <div class="row-elements">
-                        <div class="select-box">
+                        <div class="select-box with-search">
                             <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'name'), array('class' => 'chzn w-200')); ?>
                         </div>
                     </div>

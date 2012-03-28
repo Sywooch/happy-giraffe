@@ -552,6 +552,22 @@ class ScoreInput extends EMongoDocument
             return $text;
         }
 
+        if ($class == 'AlbumPhoto') {
+            if ($this->amount == 1)
+                $text = 'Вы добавили комментарий к фото <img src="' . $model->getPreviewUrl(30,30) . '">';
+            elseif ($this->amount > 1)
+                $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к фото <img src="' . $model->getPreviewUrl(30,30) . '">';
+            elseif ($this->amount == -1)
+                $text = 'Ваш комментарий к фото <img src="' . $model->getPreviewUrl(30,30) . '">';
+            else
+                $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к фото <img src="' . $model->getPreviewUrl(30,30) . '">';
+
+            if ($this->amount < -1) $text .= ' удалены';
+            if ($this->amount == -1) $text .= ' удален';
+
+            return $text;
+        }
+
         if (!isset($model->name))
             return '';
 

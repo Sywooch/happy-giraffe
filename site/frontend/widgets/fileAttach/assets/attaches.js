@@ -53,9 +53,26 @@ Attach.closeUpload = function(link) {
 
 Attach.crop = function(val) {
     $.post(base_url + '/albums/crop/', {val : val}, function(data) {
-
+        $('#photoPick').replaceWith($(data));
+        $('#crop_target').Jcrop({
+            onChange: Attach.showPreview,
+            onSelect: Attach.showPreview,
+            aspectRatio: 1
+        });
     });
 };
+
+Attach.showPreview = function(coords) {
+    var rx = 79 / coords.w;
+    var ry = 76 / coords.h;
+
+    $('#preview').css({
+        width: Math.round(rx * 300) + 'px',
+        height: Math.round(ry * 225) + 'px',
+        marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+        marginTop: '-' + Math.round(ry * coords.y) + 'px'
+    });
+}
 
 Attach.changeAvatar = function(val) {
     $.post(base_url + '/albums/changeAvatar/', {val : val}, function(data) {

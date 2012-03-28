@@ -238,7 +238,12 @@ class AlbumsController extends Controller
         $val = $_POST['val'];
 
         if(is_numeric($val))
-            $src = AlbumPhoto::model()->findByPk($val)->getPreviewUrl(300, 185, Image::WIDTH);
+        {
+            $model = AlbumPhoto::model()->findByPk($val);
+            if(!$model)
+                Yii::app()->end();
+            $src = $model->getPreviewUrl(300, 185, Image::WIDTH);
+        }
         else
         {
             $model = new AlbumPhoto;
@@ -246,7 +251,10 @@ class AlbumsController extends Controller
             $src = $model->templateUrl;
         }
 
-        echo $src;
+        $this->renderPartial('site.frontend.widgets.fileAttach.views._crop', array(
+            'src' => $src,
+            'val' => $val,
+        ));
         Yii::app()->end();
     }
 

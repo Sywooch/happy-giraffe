@@ -6,6 +6,19 @@
 class BlogController extends Controller
 {
     public $user;
+    public $rubric_id;
+
+    public function getUrl($overwrite = array(), $route = 'blog/list')
+    {
+        return array_filter(CMap::mergeArray(
+            array($route),
+            array(
+                'user_id' => $this->user->id,
+                'rubric_id' => $this->rubric_id,
+            ),
+            $overwrite
+        ));
+    }
 
     public function actionAdd($content_type_slug = 'post')
     {
@@ -88,6 +101,8 @@ class BlogController extends Controller
 
         $contents = CommunityContent::model()->getBlogContents($user_id, $rubric_id);
 
+        $this->rubric_id = $rubric_id;
+
         $this->render('list', array(
             'contents' => $contents,
         ));
@@ -102,6 +117,7 @@ class BlogController extends Controller
             throw new CHttpException(404, 'Такой записи не существует');
 
         $this->user = $content->author;
+        $this->rubric_id = $content->rubric->id;
 
         $this->render('view', array(
             'data' => $content,

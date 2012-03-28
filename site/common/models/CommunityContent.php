@@ -245,7 +245,7 @@ class CommunityContent extends CActiveRecord
 
         //вычитаем баллы
         Yii::import('site.frontend.modules.scores.models.*');
-        if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {
+        if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 0) {
             UserScores::removeScores($this->author_id, ScoreActions::ACTION_FIRST_BLOG_RECORD, 1, $this);
         }else
             UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);

@@ -46,8 +46,8 @@ $js = 'var geocoder;
 
         //стиль метки
         s.iconStyle.href = "/images/map_marker.png";
-        s.iconStyle.size = new YMaps.Point(34, 46);
-        s.iconStyle.offset = new YMaps.Point(-17, -46);
+        s.iconStyle.size = new YMaps.Point(31, 35);
+        s.iconStyle.offset = new YMaps.Point(-17, -40);
     }
 
     UserLocation.regionUrl = "'.Yii::app()->createUrl('geo/geo/regions').'";

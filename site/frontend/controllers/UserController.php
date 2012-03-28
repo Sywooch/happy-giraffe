@@ -36,6 +36,10 @@ class UserController extends Controller
 
     protected function beforeAction($action)
     {
+        Yii::app()->clientScript->scriptMap = array(
+            'global.css' => false,
+        );
+
         $user_id = (in_array($this->action->id, $this->_publicActions)) ? $this->actionParams['user_id'] : Yii::app()->user->id;
         $this->user = User::model()->getUserById($user_id);
         if ($this->user === null)

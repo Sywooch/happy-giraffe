@@ -12,7 +12,7 @@ class WeatherWidget extends UserCoreWidget
 
     public function run()
     {
-        if (empty($this->user->getUserAddress()->city_id))
+        if (!$this->user->getUserAddress()->hasCity())
             return ;
         $data = Yii::app()->cache->get('WeatherWidget_' . date("Y-m-d") . $this->user->getUserAddress()->getLocationString());
         if ($data == false) {
@@ -23,6 +23,7 @@ class WeatherWidget extends UserCoreWidget
 
             $data = $this->render('WeatherWidget', array(
                 'now_temp' => $gw->getNowTemp(),
+                'now_condition' => $gw->getNowCondition(),
                 'night' => $gw->getNightTemp(),
                 'yesterday' => $gw->GetYesterdayTemp(),
                 'data' => $gw->getForecastData()
@@ -108,6 +109,18 @@ class SimpleGoogleWeather
 
         $attr = $gw_today->temp_c->attributes();
         return $attr['data'][0];
+    }
+
+    function getNowCondition()
+    {
+        $gw_today = $this->getCurrentWeather();
+
+        $day_res = array();
+        $attr = $gw_today->condition->attributes();
+        $day_res['condition'] = $this->conditionToImage($attr['data']);
+        $day_res['condition_title'] = $attr['data'];
+
+        return $day_res;
     }
 
     function getNightTemp()

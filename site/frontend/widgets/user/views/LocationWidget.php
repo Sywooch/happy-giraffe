@@ -32,7 +32,7 @@ $js = 'var geocoder;
                 map.setBounds(geocoder.get(0).getBounds());
                 map.removeOverlay(placemark);
                 placemark = new YMaps.Placemark(map.getCenter(), {style: s});
-                placemark.name = "' . $this->user->getUserAddress()->getPublicLocation() . '";
+                //placemark.name = "' . $this->user->getUserAddress()->getLocationString() . '";
                 map.addOverlay(placemark);
             }
         });
@@ -46,32 +46,34 @@ $js = 'var geocoder;
 
         //стиль метки
         s.iconStyle.href = "/images/map_marker.png";
-        s.iconStyle.size = new YMaps.Point(34, 46);
-        s.iconStyle.offset = new YMaps.Point(-17, -46);
+        s.iconStyle.size = new YMaps.Point(31, 35);
+        s.iconStyle.offset = new YMaps.Point(-10, -35);
     }
 
     UserLocation.regionUrl = "'.Yii::app()->createUrl('geo/geo/regions').'";
     UserLocation.cityUrl = "'.Yii::app()->createUrl('geo/geo/cities').'";
     UserLocation.saveUrl = "'.Yii::app()->createUrl('geo/geo/saveLocation').'";
     UserLocation.regionIsCityUrl = "'.Yii::app()->createUrl('geo/geo/regionIsCity').'";
+    UserLocation.editFormUrl = "'.Yii::app()->createUrl('/geo/geo/locationForm').'";
     ';
 
 Yii::app()->clientScript
     ->registerScriptFile('/javascripts/location.js')
-    ->registerScript('LocaionWidget', $js)
+    ->registerScript('LocaionWidget', $js, CClientScript::POS_HEAD)
+    ->registerScriptFile('/javascripts/jquery.flip.min.js')
     ->registerCoreScript('jquery.ui')
     ->registerScriptFile('http://api-maps.yandex.ru/1.1/index.xml?key=' . Yii::app()->params['yandex_map_key']);
 
 if ($this->isMyProfile && empty($user->getUserAddress()->country_id)):?>
 <div class="user-map user-add">
-    <a href="<?=Yii::app()->createUrl('/geo/geo/locationForm') ?>" class="fancy"><big>Я живу<br>здесь</big><img src="/images/user_map_cap.png"></a>
+    <a href="#" onclick="UserLocation.OpenEdit();return false;"><big>Я живу<br>здесь</big><img src="/images/user_map_cap.png"></a>
     <div id="YMapsID" style="width:322px;height:199px;display:none;"></div>
 </div>
 <?php else: ?>
 <div class="user-map">
     <div class="header">
         <?php if ($this->isMyProfile):?>
-            <a href="<?=Yii::app()->createUrl('/geo/geo/locationForm') ?>" class="edit fancy"><span class="tip">Изменить</span></a>
+            <a href="<?=Yii::app()->createUrl('/geo/geo/locationForm') ?>" class="edit" onclick="UserLocation.OpenEdit();return false;"><span class="tip">Изменить</span></a>
         <?php endif ?>
         <div class="box-title">Я здесь</div>
         <div class="sep"><img src="/images/map_marker.png"></div>

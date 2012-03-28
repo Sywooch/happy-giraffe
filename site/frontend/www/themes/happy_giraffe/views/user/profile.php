@@ -142,7 +142,7 @@
                         )); ?>
                     </div>
 
-                    <div class="user-weather">
+                    <div class="weather-wrapper">
                         <?php $this->widget('WeatherWidget', array(
                             'user' => $user,
                         )); ?>

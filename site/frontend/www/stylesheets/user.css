@@ -111,12 +111,12 @@
 
 
 
-#user .user-friends {padding-bottom:20px;padding-left:15px;}
+#user .user-friends {padding-bottom:20px;padding-left:15px;margin-top:-36px;}
 #user .user-friends ul {list-style:none;}
 #user .user-friends ul li {float:left;margin:0 15px 15px 0;}
 #user .user-friends ul li img {display:block;}
 
-#user .user-map {padding:10px 8px 7px;border:1px solid #f7f7f7;margin-bottom:20px;}
+#user .user-map {padding:10px 8px 7px;border:1px solid #f7f7f7;margin-bottom:20px;height:268px;}
 
 #user .user-map .header {position:relative;}
 #user .user-map .header .box-title {display:inline-block;width:100px;vertical-align:middle;padding-left:10px;}
@@ -129,6 +129,12 @@
 #user .user-map .header .edit .tip {display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;left:50%;}
 #user .user-map .header .edit:hover .tip {display:block;}
 #user .user-map .header .edit:hover .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}
+
+#user .user-map form {}
+#user .user-map form .row {padding:5px 0;}
+#user .user-map form label {display:block;margin-bottom:5px;font-size:16px;}
+#user .user-map form input[type=text] {width:310px;padding:3px 5px;border:1px solid #c9eaf1;font-family:arial, sans-serif;margin-bottom:2px;}
+#user .user-map form small {font-size:11px;color:#a3a3a3;}
 
 
 #locationEdit {width:400px;}
@@ -248,11 +254,12 @@
 #user .user-family .cap {display:block;width:100%;background:#f9f5ef url(/images/bg_user_family_cap.gif) no-repeat bottom;text-align:center;padding:15px 0 215px;font-size:15px;}
 #user .user-family .cap:hover {text-decoration:none;}
 
-#user .user-weather {margin-bottom:20px;text-align:center;}
+#user .user-weather {margin-bottom:20px;padding:10px 14px;border:1px solid #f3f3f3;height: 185px;}
+#user .user-weather .box-title a.pseudo {margin-top:7px;}
 #user .user-weather .location {font-size:12px;color:#929292;}
 #user .user-weather .location .flag {display:inline-block;margin-right:5px;position:relative;top:1px;}
 #user .user-weather .location big {font-size:22px;color:#484747;}
-#user .user-weather .clearfix {border-top:1px solid #c2e7f7;width:260px;margin:7px auto 0;}
+#user .user-weather .clearfix {width:260px;margin:7px auto 0;text-align:center;}
 #user .user-weather .img {display:inline-block;padding:10px;vertical-align:top;}
 #user .user-weather .text {display:inline-block;padding:10px;width:95px;vertical-align:top;}
 #user .user-weather .text big {line-height:55px;font-size:55px;color:#2997e3;}
@@ -260,22 +267,17 @@
 #user .user-weather .text .row span {float:left;width:55px;color:#484747;}
 #user .user-weather .text .row.hl {background:#e1f3fe;} 
 #user .user-weather table {margin:7px 0 15px;width:100%;text-align:center;}
-#user .user-weather table td {padding:6px 5px;font-size:12px;color:#2997e3;width:1%;}
-#user .user-weather table thead td {border-top:1px solid #c2e7f7;border-bottom:1px solid #c2e7f7;height:23px;line-height:23px;color:#868788;font-size:11px;padding:0 5px;}
+#user .user-weather table td {padding:6px 5px;font-size:13px;color:#2997e3;width:1%;}
+#user .user-weather table thead td {border-top:1px solid #c2e7f7;border-bottom:1px solid #c2e7f7;height:23px;line-height:23px;color:#868788;font-size:12px;padding:0 5px;}
 #user .user-weather table .hl td {background:#e8f6ff;}
 
 #user .user-horoscope {padding:10px 14px;border:1px solid #efefef;}
-#user .user-horoscope {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
-#user .user-horoscope .actions {float:right;}
-#user .user-horoscope .actions a {display:block;float:right;width:12px;height:11px;background:url(/images/common.png) no-repeat;}
-#user .user-horoscope .actions a.close {background-position:-314px -136px;margin-left:2px;}
-#user .user-horoscope .actions a.close:hover {background-position:-314px -149px;}
-#user .user-horoscope .actions a.settings {background-position:-314px -163px;margin-left:2px;}
-#user .user-horoscope .actions a.settings:hover {background-position:-300px -163px;}
-#user .user-horoscope .img {float:left;width:120px;margin-right:10px;height:90px;background:url(/images/widget/horoscope/bg.png) no-repeat;}
-#user .user-horoscope .date {display:inline-block;text-align:center;font-size:13px;color:#565655;margin-top:20px;}
-#user .user-horoscope .date big {font-size:22px;color:#3d3c3c;display:block;}
-#user .user-horoscope p {font-size:12px;margin:1em 0;color:#404040;}
+#user .user-horoscope .clearfix {text-align:center;}
+#user .user-horoscope .title {font-size:28px;color:#2d87be;display:inline-block;vertical-align:middle;font-family:times new roman, serif;font-style:italic;}
+#user .user-horoscope .img {width:120px;margin:0 5px;height:90px;background:url(/images/widget/horoscope/bg.png) no-repeat;display:inline-block;vertical-align:middle;}
+#user .user-horoscope .date {display:inline-block;text-align:center;font-size:13px;color:#565655;vertical-align:middle;font-size:32px;color:#fa717c;line-height:25px;font-weight:bold;text-transform:uppercase;}
+#user .user-horoscope .date span {display:block;font-size:18px;line-height:1;}
+#user .user-horoscope p {font-size:12px;line-height:19px;margin:0 0 1em 0;color:#404040;}
 #user .user-horoscope b {color:#f05d6e;}
 
 #user .friends {}

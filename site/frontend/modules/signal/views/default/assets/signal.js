@@ -4,6 +4,12 @@
  * Time: 16:31
  */
 
+$(function() {
+    $('.nav li a').click(function () {
+        Signal.Navigate($(this));
+        return false;
+    });
+});
 soundManager.url = '/swf/';
 
 var Signal = {
@@ -78,7 +84,7 @@ var Signal = {
         this.filter = elem.attr('obj');
         $('.nav li').removeClass('active');
         elem.parent().addClass('active');
-        this.UpdateSignalData();
+        this.UpdateSignalData(false);
         return false;
     },
     LoadPrevMonth:function () {

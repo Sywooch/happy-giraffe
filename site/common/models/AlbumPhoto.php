@@ -130,7 +130,7 @@ class AlbumPhoto extends CActiveRecord
 
     public function afterSave()
     {
-        if ($this->isNewRecord){
+        if ($this->isNewRecord) {
             $signal = new UserSignal();
             $signal->user_id = (int)$this->author_id;
             $signal->item_id = (int)$this->id;
@@ -138,9 +138,11 @@ class AlbumPhoto extends CActiveRecord
             $signal->signal_type = UserSignal::TYPE_NEW_USER_PHOTO;
             $signal->save();
 
-            //добавляем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+            if (!empty($this->album_id)) {
+                //добавляем баллы
+                Yii::import('site.frontend.modules.scores.models.*');
+                UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+            }
         }
         parent::afterSave();
     }
@@ -150,8 +152,10 @@ class AlbumPhoto extends CActiveRecord
         $this->removed = 1;
         $this->save();
         UserSignal::closeRemoved($this);
-        Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+        if (!empty($this->album_id)) {
+            Yii::import('site.frontend.modules.scores.models.*');
+            UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+        }
         return false;
     }
 
@@ -161,17 +165,14 @@ class AlbumPhoto extends CActiveRecord
      */
     public function create($temp = false)
     {
-        if(!$temp)
-        {
+        if (!$temp) {
             $this->file_name = $this->file;
             $this->fs_name = md5($this->file_name) . '.' . $this->file->extensionName;
         }
-        else
-        {
+        else {
             $this->fs_name = $this->file_name;
         }
-        if ($this->save())
-        {
+        if ($this->save()) {
             $this->saveFile(false, $temp);
             return true;
         }
@@ -185,20 +186,18 @@ class AlbumPhoto extends CActiveRecord
     public function saveFile($temp = false, $move_temp = false)
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
-        if(!$temp)
-        {
+        if (!$temp) {
             $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id;
-            if(!file_exists($model_dir))
+            if (!file_exists($model_dir))
                 mkdir($model_dir);
         }
-        else
-        {
+        else {
             $model_dir = $dir . DIRECTORY_SEPARATOR . $this->tmp_folder;
             $this->file_name = $this->file;
             $this->fs_name = md5($this->file_name . time()) . '.' . $this->file->extensionName;
         }
         $file_name = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
-        if(!$move_temp)
+        if (!$move_temp)
             return $this->file->saveAs($file_name);
         else
             rename($this->templatePath, $file_name);
@@ -249,21 +248,19 @@ class AlbumPhoto extends CActiveRecord
         $model_dir = $thumb_path . DIRECTORY_SEPARATOR . $this->author_id;
         // Image file system path
         $thumb = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
-        if(!file_exists($thumb))
-        {
-            if(!file_exists($thumb_path))
-            {
+        if (!file_exists($thumb)) {
+            if (!file_exists($thumb_path)) {
                 mkdir($thumb_path);
                 $handle = fopen($thumb_path . DIRECTORY_SEPARATOR . 'index.html', 'x+');
                 fclose($handle);
             }
-            if(!file_exists($model_dir))
+            if (!file_exists($model_dir))
                 mkdir($model_dir);
             Yii::import('ext.image.Image');
             $image = new Image($this->originalPath);
-            if($master && $master == Image::WIDTH && $image->width < $width)
+            if ($master && $master == Image::WIDTH && $image->width < $width)
                 $image->resize($image->width, $height, Image::WIDTH);
-            elseif($master && $master == Image::HEIGHT && $image->height < $height)
+            elseif ($master && $master == Image::HEIGHT && $image->height < $height)
                 $image->resize($width, $image->height, Image::HEIGHT);
             else
                 $image->resize($width, $height, $master ? $master : Image::AUTO);

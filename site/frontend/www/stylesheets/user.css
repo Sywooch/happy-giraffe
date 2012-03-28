@@ -14,7 +14,7 @@
 #user .header .user-name h1 {line-height:1;margin:0 0 7px 0;color:#0281B0;}
 
 
-#user .header .user-name .online-status {color:#a6a6a6;font-size:13px;}
+#user .header .user-name .online-status {color:#a6a6a6;font-size:13px;margin-bottom:8px;}
 #user .header .user-name .online-status  .icon {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;margin-right:5px;}
 #user .header .user-name .online-status.online .icon {background-position:-44px -180px;}
 #user .header .user-name .online-status.offline .icon {background-position:-55px -180px;}
@@ -111,7 +111,7 @@
 
 
 
-#user .user-friends {padding-bottom:20px;padding-left:15px;margin-top:-36px;}
+#user .user-friends {padding-bottom:20px;padding-left:15px;margin-top:-34px;}
 #user .user-friends ul {list-style:none;}
 #user .user-friends ul li {float:left;margin:0 15px 15px 0;}
 #user .user-friends ul li img {display:block;}
@@ -143,7 +143,7 @@
 
 
 #user .user-mood {font-size:22px;color:#484747;padding-left:15px;position:relative;margin-bottom:8px;margin-top:-34px;}
-#user .user-mood img {vertical-align:middle;position:relative;margin-top:-46px;}
+#user .user-mood img {vertical-align:top;position:relative;margin-top:-28px;}
 
 #user .user-mood .moods-list {position:absolute;left:0;top:100%;background:#fffeea;z-index:4;padding:5px;width:470px;font-size:9px;border:1px solid #e7e395;}
 #user .user-mood .moods-list {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}

@@ -5,7 +5,11 @@
 
         <div class="clearfix">
 
-            <div class="img"><img src="/images/user_weather_01.png"></div>
+            <div class="img">
+                <img src="/images/user_weather_01.png">
+<!--                <img title="--><?//= $now_condition['condition_title'] ?><!--"-->
+<!--                                  src="/images/widget/weather/small/--><?//=$now_condition['condition'] ?><!--.png">-->
+            </div>
 
             <div class="text">
                 <big><?= $now_temp ?></big>

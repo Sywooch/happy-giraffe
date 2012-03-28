@@ -111,7 +111,7 @@
 
 
 
-#user .user-friends {padding-bottom:20px;padding-left:15px;}
+#user .user-friends {padding-bottom:20px;padding-left:15px;margin-top:-36px;}
 #user .user-friends ul {list-style:none;}
 #user .user-friends ul li {float:left;margin:0 15px 15px 0;}
 #user .user-friends ul li img {display:block;}

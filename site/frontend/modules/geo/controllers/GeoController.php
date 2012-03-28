@@ -38,7 +38,7 @@ class GeoController extends Controller
             foreach ($regions as $region) {
                 $_regions[] = array($region->id, $region->name);
             }
-            echo CHtml::listOptions(null, array('' => 'Выберите регион') + CHtml::listData($regions, 'id', 'name'), $null);
+            echo CHtml::listOptions(null, array('' => 'Регион') + CHtml::listData($regions, 'id', 'name'), $null);
         } else
             echo '';
     }

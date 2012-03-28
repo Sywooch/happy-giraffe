@@ -4,7 +4,7 @@
  */
 $regions = array('' => '');
 if ($user->getUserAddress()->country_id !== null) {
-    $regions = array('' => '') + CHtml::listData(GeoRegion::model()->findAll(array(
+    $regions = array('' => ' ') + CHtml::listData(GeoRegion::model()->findAll(array(
         'order' => 'name', 'select' => 'id,name', 'condition' => 'country_id = ' . $user->getUserAddress()->country_id)), 'id', 'name');
 }
 ?>
@@ -19,10 +19,10 @@ if ($user->getUserAddress()->country_id !== null) {
             <label>Место жительства</label>
         <span class="with-search">
         <?php echo CHtml::dropDownList('country_id', $user->getUserAddress()->country_id,
-            array('' => '') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
+            array('' => ' ') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
             array(
                 'class' => 'chzn w-100',
-                'data-placeholder' => 'Выберите страну',
+                'data-placeholder' => 'Страна',
                 'onchange' => 'UserLocation.SelectCounty($(this));'
             )) ?>
             </span>
@@ -30,7 +30,7 @@ if ($user->getUserAddress()->country_id !== null) {
                 <?php echo CHtml::dropDownList('region_id', $user->getUserAddress()->region_id, $regions,
             array(
                 'class' => 'chzn w-200',
-                'data-placeholder' => 'Выберите регион',
+                'data-placeholder' => 'Регион',
                 'onchange' => 'UserLocation.RegionChanged($(this));'
             )); ?>
         </span>

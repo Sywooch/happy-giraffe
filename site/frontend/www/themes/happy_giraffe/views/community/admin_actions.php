@@ -29,7 +29,7 @@
             'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $c->author_id
         ));
         if ($c->isFromBlog) {
-            $delete_redirect_url = $this->createUrl('/user/blog', array('user_id' => $c->author_id));
+            $delete_redirect_url = $this->createUrl('/blog/list', array('user_id' => $c->author_id));
         } else {
             $delete_redirect_url = $this->createUrl('community/list', array(
                 'community_id' => $c->rubric->community->id,

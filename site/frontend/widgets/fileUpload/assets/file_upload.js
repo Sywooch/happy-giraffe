@@ -126,7 +126,7 @@ function savePhotos() {
     if ($('#galleryUploadPhotos #log li.upload-done').size() == 0)
         return false;
     $('#galleryUploadPhotos #log li.upload-done').each(function () {
-        $('#photos_list').append($('#new_photo_template').tmpl([
+        $('#comment_list_view ul, #photos_list').append($('#new_photo_template').tmpl([
             {
                 src:$('.file-params .src', this).text(),
                 fsn:$('.file-params .fsn', this).text()

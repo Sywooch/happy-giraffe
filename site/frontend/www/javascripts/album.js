@@ -28,7 +28,11 @@ Album.saveDescription = function (button, tmp) {
         $('form', note).hide();
     } else {
         $('form', note).remove();
-        $.post($('.fast-actions a.edit', note).attr('href'), {text:text});
+        $.post($('.fast-actions a', note).attr('href'), {text:text});
+        if(text == '')
+            $('.fast-actions a', note).removeClass('edit').addClass('add');
+        else
+            $('.fast-actions a', note).removeClass('add').addClass('edit');
     }
 };
 

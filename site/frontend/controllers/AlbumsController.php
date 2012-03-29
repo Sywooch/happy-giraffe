@@ -315,4 +315,14 @@ class AlbumsController extends Controller
         User::model()->updateByPk(Yii::app()->user->id, array('avatar' => $photo->id));
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
     }
+
+    public function actionChangePermission()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $num = Yii::app()->request->getPost('num');
+        $model = Album::model()->findByPk($id);
+        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+            Yii::app()->end();
+        $model->updateByPk($id, array('permission' => $num));
+    }
 }

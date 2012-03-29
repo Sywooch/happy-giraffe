@@ -6,9 +6,8 @@
         <div class="clearfix">
 
             <div class="img">
-                <img src="/images/user_weather_01.png">
-<!--                <img title="--><?//= $now_condition['condition_title'] ?><!--"-->
-<!--                                  src="/images/widget/weather/small/--><?//=$now_condition['condition'] ?><!--.png">-->
+                <img title="<?= $now_condition['condition_title'] ?>"
+                                  src="/images/widget/weather/big/<?=$now_condition['condition'] ?>.png">
             </div>
 
             <div class="text">
@@ -29,7 +28,7 @@
         <table>
             <thead>
             <tr>
-                <?php $days = HDate::getDaysList(4); ?>
+                <?php $days = HDate::getDaysList(3); ?>
                 <?php foreach ($days as $day): ?>
                 <td><?php echo $day ?></td>
                 <?php endforeach; ?>

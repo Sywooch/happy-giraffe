@@ -21,6 +21,7 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
+        $this->pageTitle = 'Сигналы';
         $filter = Yii::app()->request->getPost('filter');
         if ($filter == 'null' || empty($filter))
             $filter = null;

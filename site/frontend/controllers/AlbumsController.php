@@ -7,8 +7,10 @@ class AlbumsController extends Controller
 
     public function beforeAction($action)
     {
-        if(!Yii::app()->request->isAjaxRequest)
+        if(!Yii::app()->request->isAjaxRequest){
+            $this->pageTitle = 'Фотоальбомы';
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js');
+        }
         return parent::beforeAction($action);
     }
 

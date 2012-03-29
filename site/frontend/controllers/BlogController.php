@@ -8,6 +8,29 @@ class BlogController extends Controller
     public $user;
     public $rubric_id;
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'actions'=>array('list', 'view'),
+                'users' => array('*'),
+            ),
+            array('allow',
+                'users' => array('@'),
+            ),
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function getUrl($overwrite = array(), $route = 'blog/list')
     {
         return array_filter(CMap::mergeArray(
@@ -34,6 +57,20 @@ class BlogController extends Controller
         {
             $model->attributes = $_POST['BlogContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
+
+            if (empty($_POST['BlogContent']['rubric_id'])) {
+                $rubric = CommunityRubric::model()->findByAttributes(array(
+                    'name' => $_POST['rubricName'],
+                ));
+
+                if ($rubric === null)  {
+                    $rubric = new CommunityRubric;
+                    $rubric->name = $_POST['rubricName'];
+                    $rubric->user_id = Yii::app()->user->id;
+                    $rubric->save();
+                }
+                $model->rubric_id = $rubric->id;
+            }
 
             $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
@@ -118,6 +155,11 @@ class BlogController extends Controller
 
         $this->user = $content->author;
         $this->rubric_id = $content->rubric->id;
+
+        if ($content->author_id == Yii::app()->user->id) {
+            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
+            UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
+        }
 
         $this->render('view', array(
             'data' => $content,

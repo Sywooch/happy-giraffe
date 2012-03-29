@@ -35,6 +35,10 @@ class AlbumPhoto extends CActiveRecord
      */
     private $tmp_folder = 'temp';
     /**
+     * @var string avatars image folder
+     */
+    private $avatars_folder = 'avatars';
+    /**
      * @var CUploadedFile
      */
     public $file;
@@ -296,6 +300,34 @@ class AlbumPhoto extends CActiveRecord
     public function getTemplateUrl()
     {
         return Yii::app()->params['photos_url'] . '/' . $this->tmp_folder . '/' . $this->fs_name;
+    }
+
+    public function getAvatarPath($size)
+    {
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        if(!file_exists($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id))
+            mkdir($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id);
+
+        if(!file_exists($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id . DIRECTORY_SEPARATOR . $size))
+            mkdir($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id . DIRECTORY_SEPARATOR . $size);
+
+        return $dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id .
+            DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $this->fs_name;
+    }
+
+    /**
+     * Get url to the original image
+     * @return string
+     */
+    public function getAvatarUrl($size)
+    {
+        return implode('/', array(
+            Yii::app()->params['photos_url'],
+            $this->avatars_folder,
+            $this->author_id,
+            $size,
+            $this->fs_name
+        ));
     }
 
     public function getUrl()

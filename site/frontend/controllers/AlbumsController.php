@@ -232,4 +232,82 @@ class AlbumsController extends Controller
         $model->title = $title;
         $model->save();
     }
+
+    public function actionCrop()
+    {
+        if(!isset($_POST['val']))
+            Yii::app()->end();
+        $val = $_POST['val'];
+
+        if(is_numeric($val))
+        {
+            $model = AlbumPhoto::model()->findByPk($val);
+            if(!$model)
+                Yii::app()->end();
+            $src = $model->getPreviewUrl(300, 185, Image::WIDTH);
+            $path = $model->originalPath;
+        }
+        else
+        {
+            $model = new AlbumPhoto;
+            $model->fs_name = $val;
+            $src = $model->templateUrl;
+            $path = $model->templatePath;
+        }
+
+        $error = false;
+        $image = new Imagick($path);
+        /*if($image->getimagewidth() < 240 || $image->getimageheight() < 240)
+            $*/
+
+
+        $this->renderPartial('site.frontend.widgets.fileAttach.views._crop', array(
+            'src' => $src,
+            'val' => $val,
+        ));
+        Yii::app()->end();
+    }
+
+    public function actionChangeAvatar()
+    {
+        if(!isset($_POST['val']))
+            Yii::app()->end();
+        $val = $_POST['val'];
+
+        if(is_numeric($val))
+        {
+            $photo = AlbumPhoto::model()->findByPk($val);
+        }
+        else
+        {
+            $photo = new AlbumPhoto;
+            $photo->file_name = $val;
+            $photo->author_id = Yii::app()->user->id;
+            if(!$photo->create(true))
+                Yii::app()->end();
+        }
+        $src = $photo->originalPath;
+
+        $params = CJSON::decode($_POST['coords']);
+        $picture = new Imagick($src);
+        $picture->resizeimage($_POST['width'], $_POST['height'], imagick::COLOR_OPACITY, 1);
+        $picture->cropimage($params['w'], $params['h'], $params['x'], $params['y']);
+
+        $a1 = clone $picture;
+        $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);
+        $a1->writeImage($photo->getAvatarPath('small'));
+
+        $a2 = clone $picture;
+        $a2->resizeimage(72, 72, imagick::COLOR_OPACITY, 1);
+        $a2->writeImage($photo->getAvatarPath('ava'));
+
+        $attach = new AttachPhoto;
+        $attach->entity = 'User';
+        $attach->entity_id = Yii::app()->user->id;
+        $attach->photo_id = $photo->id;
+
+        $attach->save();
+        User::model()->updateByPk(Yii::app()->user->id, array('avatar' => $photo->id));
+        echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
+    }
 }

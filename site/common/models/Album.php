@@ -9,6 +9,7 @@
  * @property string $description
  * @property string $author_id
  * @property integer $type
+ * @property integer $permission
  * @property string $created
  * @property string $updated
  * @property integer $removed
@@ -23,6 +24,12 @@ class Album extends CActiveRecord
 
     public static $systems = array(
         1 => 'Личные фотографии'
+    );
+
+    public static $permissions = array(
+        'для всех',
+        'для друзей',
+        'для меня одного',
     );
 
 	/**
@@ -54,7 +61,7 @@ class Album extends CActiveRecord
             array('title', 'length', 'max' => 100),
             array('description', 'length', 'max' => 140),
 			array('author_id', 'length', 'max'=>10),
-            array('type', 'numerical'),
+            array('type, permission', 'numerical'),
             array('created, updated, files', 'safe'),
             array('removed', 'boolean'),
 		);

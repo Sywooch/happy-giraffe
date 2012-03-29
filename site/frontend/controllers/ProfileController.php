@@ -62,13 +62,7 @@ class ProfileController extends Controller
                 UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_MAIN);
             }
 
-            $address = new AddressForm();
-            $address->attributes = $_POST;
-            $address->saveAddress($this->user);
-            $this->user->attributes = $_POST['User'];
-
-            $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'settlement_id', 'birthday',
-                'country_id', 'street_id', 'house', 'room'));
+            $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'birthday'));
         }
 
         $this->render('data', array());

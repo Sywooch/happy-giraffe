@@ -79,7 +79,7 @@ Attach.changeAvatar = function(form) {
     var data = $(form).serialize();
     data += '&width=' + $('#crop_target').width() + '&height=' + $('#crop_target').height();
     $.post(base_url + '/albums/changeAvatar/', data, function(data) {
-        $('#change_ava').empty().append($('<img />').attr('src', data));
+        $('#change_ava').addClass('filled').empty().append($('<img />').attr('src', data));
     });
     $.fancybox.close();
     if($('#refresh_upload').size() > 0)

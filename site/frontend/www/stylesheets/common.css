@@ -129,6 +129,8 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .ava.small.female {background-position:-240px -456px;}
 .ava.small.male {background-position:-240px -216px;}
 
+.ava.filled {background:none;height:auto;}
+
 .ava img {display:block;}
 
 .user-info {font-size:9px;line-height:12px;float:left;}
@@ -1240,7 +1242,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .header .title {}
 #gallery .header .title big {display:block;color:#3b3b3b;font-weight:bold;font-size:25px;line-height:normal;margin-bottom:10px;}
 #gallery .header .title big span {color:#0281b0;}
-#gallery .header .title big  .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -268px -199px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;}
+#gallery .header .title big  .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;}
 #gallery .header .title big  .edit .tip {display:block;position:absolute;top:-2px;left:130%;white-space:nowrap;background:#fffac8;color:#929292;padding:4px 10px;border:1px solid #f3eca9;display:none;font-size:12px;z-index:3;}
 #gallery .header .title big  .edit .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
 #gallery .header .title big  .edit:hover {background-position:-341px -136px;}
@@ -1259,7 +1261,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .header .title .note:after {display:block;content:'';width:12px;height:40px;background:url(../images/common.png) no-repeat -327px -136px;position:absolute;top:-6px;left:-12px;}
 #gallery .header .title .note p {color:#424242;}
 #gallery .header .title .note .fast-actions {float:right;padding-left:10px;}
-#gallery .header .title .note .fast-actions .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -268px -199px;margin:0 auto;position:relative;text-decoration:none;}
+#gallery .header .title .note .fast-actions .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;}
 #gallery .header .title .note .fast-actions .edit .tip {display:block;position:absolute;top:-2px;left:130%;white-space:nowrap;background:#fffac8;color:#929292;padding:4px 10px;border:1px solid #f3eca9;display:none;font-size:12px;z-index:3;}
 #gallery .header .title .note .fast-actions .edit .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
 #gallery .header .title .note .fast-actions .edit:hover {background-position:-341px -136px;}
@@ -1307,11 +1309,11 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .service-header .title .note:after {display:none;}
 
 #gallery .album-visibility {display:inline-block;vertical-align:middle;position:relative;z-index:2;}
-#gallery .album-visibility > span {display:block;width:15px;height:17px;background:url(/images/common.png) no-repeat -206px -200px;float:left;}
-#gallery .album-visibility.small > span {display:block;width:12px;height:13px;background:url(/images/common.png) no-repeat -238px -204px;float:left;}
-#gallery .album-visibility.small.hl > span {background-position:-224px -204px;}
+#gallery .album-visibility > span {display:block;width:15px;height:17px;background:url(/images/common.png) no-repeat -338px -205px;float:left;}
+#gallery .album-visibility.small > span {display:block;width:12px;height:13px;background:url(/images/common.png) no-repeat -369px -209px;float:left;}
+#gallery .album-visibility.small.hl > span {background-position:-355px -209px;}
 #gallery a.album-visibility {text-decoration:none;color:#929292;}
-#gallery a.album-visibility:hover > span {background-position:-188px -200px;}
+#gallery a.album-visibility:hover > span {background-position:-321px -205px;}
 
 #gallery .visibility-picker {display:inline-block;position:relative;}
 #gallery .visibility-picker .visibility-list {position:absolute;font-size:11px;color:#6a6c6d;font-weight:normal;background:#fff;padding:6px 0;border:1px solid #eae3f1;top:26px;right:-100px;z-index:5;display:none;}
@@ -1323,7 +1325,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .visibility-picker .visibility-list ul li .album-visibility {text-align:center;width:45px;white-space:nowrap;}
 #gallery .visibility-picker .visibility-list ul li .album-visibility span {display:inline-block;float:none;}
 #gallery .visibility-picker .visibility-list ul li:hover {background:#f9f2ff;}
-#gallery .visibility-picker .visibility-list ul li:hover .album-visibility span {background-position:-224px -204px;}
+#gallery .visibility-picker .visibility-list ul li:hover .album-visibility span {background-position:-355px -209px;}
 
 #gallery a.album-visibility .tip {display:block;position:absolute;top:-2px;left:130%;white-space:nowrap;background:#fffac8;color:#929292 !important;padding:4px 10px;border:1px solid #f3eca9;display:none;font-size:12px;width:auto;height:auto;z-index:3;font-weight:normal;}
 #gallery a.album-visibility .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}

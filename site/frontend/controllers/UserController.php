@@ -50,9 +50,10 @@ class UserController extends Controller
     public function actionProfile($user_id)
     {
         $this->layout = '//layouts/main';
+        $this->pageTitle = 'Анкета';
+
         Yii::import('application.widgets.user.*');
         Yii::import('site.common.models.interest.*');
-        Yii::import('application.modules.geo.models.*');
 
         $user = User::model()->active()->with(array(
             'status',
@@ -74,6 +75,7 @@ class UserController extends Controller
 
     public function actionClubs($user_id)
     {
+        $this->pageTitle = 'Клубы';
         $this->render('clubs');
     }
 
@@ -93,6 +95,7 @@ class UserController extends Controller
 
     public function actionFriends($user_id, $show = 'all')
     {
+        $this->pageTitle = 'Друзья';
         $dataProvider = ($show == 'online') ? $this->user->getFriends('online = 1') : $this->user->getFriends();
         $dataProvider->pagination = array(
             'pageSize' => 12,

@@ -43,6 +43,8 @@ class ProfileController extends Controller
 
     protected function beforeAction($action)
     {
+        $this->pageTitle = 'Мои настройки';
+
         $this->user = User::model()->findByPk(Yii::app()->user->id);
         return true;
     }

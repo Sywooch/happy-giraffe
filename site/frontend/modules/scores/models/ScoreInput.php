@@ -323,7 +323,7 @@ class ScoreInput extends EMongoDocument
                 break;
 
             case ScoreActions::ACTION_VISIT:
-                $text = 'За посещение сайта сегодня';
+                $text = $this->getVisitText();
                 break;
             case ScoreActions::ACTION_5_DAYS_ATTEND:
                 $text = 'За посещение сайта в течение 5 дней подряд';
@@ -359,6 +359,16 @@ class ScoreInput extends EMongoDocument
                 $text = 'Вы приняли участие в конкурсе';
                 break;
         }
+
+        return $text;
+    }
+
+    public function getVisitText()
+    {
+        if (date("Y-m-d", $this->created) == date("Y-m-d"))
+            $text = 'За посещение сайта сегодня';
+        else
+            $text = 'За посещение сайта <span>' . Yii::app()->dateFormatter->format("dd MMMM", $this->created).'</span>';
 
         return $text;
     }
@@ -545,10 +555,27 @@ class ScoreInput extends EMongoDocument
                 $text = 'Удалена ваша запись';
             else
                 $text = 'Удалены ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('запись', 'записи', 'записей'), abs($this->amount));
+
             if ($this->user_id == $id)
                 $text .= ' в гостевой книге';
             else
-                $text .= ' в гостевой книге <span>' . $model->fullName . '</span> ';
+                $text .= ' в гостевой книге пользователя <span>' . $model->fullName . '</span> ';
+            return $text;
+        }
+
+        if ($class == 'AlbumPhoto') {
+            if ($this->amount == 1)
+                $text = 'Вы добавили комментарий к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+            elseif ($this->amount > 1)
+                $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+            elseif ($this->amount == -1)
+                $text = 'Ваш комментарий к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+            else
+                $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+
+            if ($this->amount < -1) $text .= ' удалены';
+            if ($this->amount == -1) $text .= ' удален';
+
             return $text;
         }
 

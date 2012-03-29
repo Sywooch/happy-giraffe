@@ -545,10 +545,11 @@ class ScoreInput extends EMongoDocument
                 $text = 'Удалена ваша запись';
             else
                 $text = 'Удалены ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('запись', 'записи', 'записей'), abs($this->amount));
+
             if ($this->user_id == $id)
                 $text .= ' в гостевой книге';
             else
-                $text .= ' в гостевой книге <span>' . $model->fullName . '</span> ';
+                $text .= ' в гостевой книге пользователя <span>' . $model->fullName . '</span> ';
             return $text;
         }
 

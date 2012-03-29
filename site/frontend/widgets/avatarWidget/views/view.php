@@ -28,7 +28,7 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
             <?php if ($this->user->getUserAddress()->country !== null): ?>
                 <div class="location">
                     <div class="flag flag-<?php echo $this->user->getUserAddress()->country->iso_code; ?>"></div>
-                    <?php echo $this->user->getUserAddress()->country->name; ?>
+                    <?php echo $this->user->getUserAddress()->cityName; ?>
                 </div>
             <?php endif; ?>
             <div class="user-fast-buttons clearfix">
@@ -37,7 +37,7 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
                         'user' => $this->user,
                     )); ?>
                 <?php endif; ?>
-                <?php if($this->sendButton): ?>
+                <?php if($this->sendButton && $this->user->id != Yii::app()->user->id): ?>
                     <?php echo CHtml::link('<span class="tip">Написать сообщение</span>', $this->user->getDialogUrl(), array('class' => 'new-message')); ?>
                 <?php endif; ?>
             </div>

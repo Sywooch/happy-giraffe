@@ -134,6 +134,10 @@
             ?>
         </div>
 
+        <div class="club-topics-all-link">
+            <a href="<?=$this->createUrl('/community/list', array('community_id' => $this->community->id))?>">Все записи</a> <span class="count"><?=$this->community->getCount()?></span>
+        </div>
+
         <div class="club-topics-list">
             <?php
                 $this->renderPartial('parts/rubrics',array(

@@ -21,8 +21,9 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
+        $this->pageTitle = 'Сигналы';
         $filter = Yii::app()->request->getPost('filter');
-        if ($filter == 'null')
+        if ($filter == 'null' || empty($filter))
             $filter = null;
 
         //5 новых статей
@@ -38,7 +39,7 @@ class DefaultController extends Controller
 
         $criteria->setSort(array(
             'priority' => EMongoCriteria::SORT_ASC,
-            'user_priority' => EMongoCriteria::SORT_ASC,
+            //'user_priority' => EMongoCriteria::SORT_ASC,
             '_id' => EMongoCriteria::SORT_DESC,
         ));
         if (!empty($filter))

@@ -150,12 +150,12 @@ class Comment extends CActiveRecord
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
 
-            if (in_array($this->entity, array('CommunityContent', 'RecipeBookRecipe', 'User', 'AlbumPhoto')))
+            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'User', 'AlbumPhoto')))
             {
                 UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
             }
 
-            if (in_array($this->entity, array('CommunityContent', 'RecipeBookRecipe', 'AlbumPhoto')) && $this->response_id !== null)
+            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'AlbumPhoto')) && $this->response_id !== null)
             {
                 UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
             }
@@ -232,6 +232,8 @@ class Comment extends CActiveRecord
     public static function getUserAvarageCommentsCount($user)
     {
         $comments_count = Comment::model()->count('author_id='.$user->id);
+        if ($comments_count == 0)
+            return 0;
         $days = ceil(strtotime(date("Y-m-d H:i:s")) - strtotime($user->register_date)/86400);
         if ($days == 0)
             $days = 1;

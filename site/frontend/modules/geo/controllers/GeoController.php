@@ -19,7 +19,7 @@ class GeoController extends Controller
                 'users' => array('@'),
             ),
             array('deny',
-                'users'=>array('*'),
+                'users' => array('*'),
             ),
         );
     }
@@ -34,11 +34,15 @@ class GeoController extends Controller
         $id = Yii::app()->request->getPost('id');
         $_regions = array();
         if (!empty($id)) {
-            $regions = GeoRegion::model()->findAll('country_id=' . $id);
+            $criteria = new CDbCriteria;
+            $criteria->compare('country_id', $id);
+            $criteria->order = 'position asc, name asc';
+            $regions = GeoRegion::model()->findAll($criteria);
+
             foreach ($regions as $region) {
                 $_regions[] = array($region->id, $region->name);
             }
-            echo CHtml::listOptions(null, array(''=>'Выберите регион')+CHtml::listData($regions, 'id', 'name'), $null);
+            echo CHtml::listOptions(null, array('' => 'Регион') + CHtml::listData($regions, 'id', 'name'), $null);
         } else
             echo '';
     }
@@ -142,17 +146,22 @@ class GeoController extends Controller
 
         $user = Yii::app()->user->getModel();
         $address = $user->getUserAddress();
-        $address->country_id = empty($country_id)?null:$country_id;
-        $address->region_id = empty($region_id)?null:$region_id;
-        $address->city_id = empty($city_id)?null:$city_id;
+        $address->country_id = empty($country_id) ? null : $country_id;
+        $address->region_id = empty($region_id) ? null : $region_id;
+        $address->city_id = empty($city_id) ? null : $city_id;
 
+        Yii::import('site.frontend.widgets.user.*');
         echo CJSON::encode(array(
             'status' => $address->save(),
-            'location'=>$address->getLocationString()
+            'weather' => $this->widget('WeatherWidget', array('user' => $user), true),
+            'main' => $this->widget('LocationWidget', array('user' => $user), true),
+            'location' => $user->getUserAddress()->getFlag(true) . $user->getUserAddress()->cityName,
+            'mapsLocation' => $address->getLocationString()
         ));
     }
 
-    public function actionRegionIsCity(){
+    public function actionRegionIsCity()
+    {
         $id = Yii::app()->request->getPost('id');
         if (empty($id))
             Yii::app()->end();

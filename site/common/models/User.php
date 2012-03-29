@@ -564,14 +564,17 @@ class User extends CActiveRecord
             return 1;
 
         //с каждой неделей пребывания на сервере приоритет уменьшается
-        $weeks_gone = floor((strtotime(date("Y-m-d H:i:s")) - strtotime($this->register_date)) / 604800);
-        return $weeks_gone + 2;
+        $weeks_gone = floor((time() - strtotime($this->register_date)) / 604800);
+        if ($weeks_gone < 5)
+            return $weeks_gone + 2;
+        else
+            return 1;
     }
 
     public function isNewComer()
     {
         //с каждой неделей пребывания на сервере приоритет уменьшается
-        $weeks_gone = floor((strtotime(date("Y-m-d H:i:s")) - strtotime($this->register_date)) / 604800);
+        $weeks_gone = floor((time() - strtotime($this->register_date)) / 604800);
 
         if ($this->getRole() == 'user' && $weeks_gone < 5)
             return true;

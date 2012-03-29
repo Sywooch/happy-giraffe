@@ -47,7 +47,7 @@ class ContestWork extends CActiveRecord
 		return array(
 			array('contest_id, user_id, title', 'required'),
 			array('id, contest_id, user_id, rate', 'length', 'max'=>10),
-            array('file', 'required', 'on' => 'upload'),
+            array('file', 'required', 'on' => 'upload', 'message'=>'Необходимо загрузить фото'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, contest_id, user_id, title, created', 'safe', 'on'=>'search'),
@@ -88,7 +88,7 @@ class ContestWork extends CActiveRecord
 			'id' => 'ID',
 			'contest_id' => 'Contest',
 			'user_id' => 'User',
-			'title' => 'Title',
+			'title' => '"Название фото"',
 			'created' => 'Created',
 		);
 	}

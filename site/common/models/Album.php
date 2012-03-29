@@ -6,8 +6,9 @@
  * The followings are the available columns in table 'albums':
  * @property string $id
  * @property integer $title
- * @property integer $description
+ * @property string $description
  * @property string $author_id
+ * @property integer $type
  * @property string $created
  * @property string $updated
  * @property integer $removed
@@ -19,6 +20,10 @@ class Album extends CActiveRecord
 {
     private $_check_access = null;
     public $files = array();
+
+    public static $systems = array(
+        1 => 'Личные фотографии'
+    );
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -49,6 +54,7 @@ class Album extends CActiveRecord
             array('title', 'length', 'max' => 100),
             array('description', 'length', 'max' => 140),
 			array('author_id', 'length', 'max'=>10),
+            array('type', 'numerical'),
             array('created, updated, files', 'safe'),
             array('removed', 'boolean'),
 		);
@@ -131,6 +137,13 @@ class Album extends CActiveRecord
             return $this->files;
         else
             return $this->photos;
+    }
+
+    public function getSystemAlbums()
+    {
+        $albums = array();
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('album_id is null');
     }
 
     public function afterSave()

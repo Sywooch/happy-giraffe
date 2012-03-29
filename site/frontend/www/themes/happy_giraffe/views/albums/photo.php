@@ -56,6 +56,18 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                 </div>
             </div>
         </div>
+        <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+            'title' => 'Вам понравилось фото?',
+            'model' => $photo,
+            'options' => array(
+                'title' => $photo->description,
+                'image' => $item->getPreviewUrl(180, 180),
+                'description' => false,
+            ),
+        )); ?>
+        <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
+            'model' => $photo,
+        )); ?>
     </div>
 </div>
 
@@ -64,55 +76,15 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
     <div class="default-v-nav">
         <div class="title">Мои альбомы </div>
         <ul>
-            <li>
-                <div class="in">
-                    <a href="">Личные</a>
-                    <span class="count">2</span>
-                    <span class="tale"><img src="/images/default_v_nav_active.png"></span>
-                </div>
-            </li>
-            <li>
-                <div class="in">
-                    <a href="">Моя семья</a>
-                    <span class="count">22</span>
-                    <span class="tale"><img src="/images/default_v_nav_active.png"></span>
-                </div>
-            </li>
-            <li class="active">
-                <div class="in">
-                    <a href="">Поездка в Турцию</a>
-                    <span class="count">222</span>
-                    <span class="tale"><img src="/images/default_v_nav_active.png"></span>
-                </div>
-            </li>
-            <li>
-                <div class="in">
-                    <a href="">Наша свадьба</a>
-                    <span class="count">2</span>
-                    <span class="tale"><img src="/images/default_v_nav_active.png"></span>
-                </div>
-            </li>
-            <li class="active">
-                <div class="in">
-                    <a href="">Дача и все связанное с огородом</a>
-                    <span class="count">22</span>
-                    <span class="tale"><img src="/images/default_v_nav_active.png"></span>
-                </div>
-            </li>
-            <li>
-                <div class="in">
-                    <a href="">Моя работа</a>
-                    <span class="count">22</span>
-                    <span class="tale"><img src="/images/default_v_nav_active.png"></span>
-                </div>
-            </li>
-            <li>
-                <div class="in">
-                    <a href="">Мое творчество</a>
-                    <span class="count">2</span>
-                    <span class="tale"><img src="/images/default_v_nav_active.png"></span>
-                </div>
-            </li>
+            <?php foreach($photo->album->author->albums as $album): ?>
+                <li<?php echo $photo->album->id == $album->id ? ' class="active"' : ''; ?>>
+                    <div class="in">
+                        <?php echo CHtml::link($album->title, array('/albums/view', 'id' => $album->id)); ?>
+                        <span class="count"><?php echo count($album->photos); ?></span>
+                        <span class="tale"><img src="/images/default_v_nav_active.png"></span>
+                    </div>
+                </li>
+            <?php endforeach; ?>
         </ul>
 
     </div>
@@ -138,19 +110,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
         $('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});
     });
 </script>
-
-<?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-    'title' => 'Вам понравилось фото?',
-    'model' => $photo,
-    'options' => array(
-        'title' => $photo->description,
-        'image' => $item->getPreviewUrl(180, 180),
-        'description' => false,
-    ),
-)); ?>
-<?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-    'model' => $photo,
-)); ?>
 
 <?php
 $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');

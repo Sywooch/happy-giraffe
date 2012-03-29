@@ -368,7 +368,7 @@ class ScoreInput extends EMongoDocument
         if (date("Y-m-d", $this->created) == date("Y-m-d"))
             $text = 'За посещение сайта сегодня';
         else
-            $text = 'За посещение сайта ' . Yii::app()->dateFormatter->format("dd MMMM yyyy", $this->created);
+            $text = 'За посещение сайта <span>' . Yii::app()->dateFormatter->format("dd MMMM yyyy", $this->created).'</span>';
 
         return $text;
     }

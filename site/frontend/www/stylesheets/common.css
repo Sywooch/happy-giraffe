@@ -315,7 +315,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .btn .arr-r {display:inline-block;width:10px;height:13px;background:url(/images/arrow_r.png) no-repeat;margin-left:8px;position:relative;top:2px;margin-right:-5px;}
 
-.btn i.add {display:inline-block;width:17px;height:18px;background:url(/images/common.png) no-repeat -139px -173px;margin:0 6px 0 -10px;position:relative;top:4px;}
+.btn i.add {display:inline-block;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;margin:0 6px 0 -10px;position:relative;top:4px;}
 
 .g-button.photo-name {float: left; height: 42px; padding: 0 7px 0 15px; position: relative; display: block; text-decoration: none;}
 .g-button.photo-name .left { background-position: left -1033px; width: 15px;}
@@ -1249,8 +1249,13 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .header .title big input[type=text] {width:200px;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:middle;}
 #gallery .header .title big .btn {vertical-align:middle;margin-left:5px;}
 #gallery .header .title big .btn span {color:#fff;}
-#gallery .header .title .note {background:#fffcdb;padding:8px 10px 8px 10px;width:500px;font-size:13px;border:1px solid #fff3bd;min-height:24px;position:relative;}
+#gallery .header .title .note {background:#fffcdb;padding:8px 10px 8px 10px;max-width:500px;font-size:13px;border:1px solid #fff3bd;min-height:22px;position:relative;display:inline-block;}
 #gallery .header .title .note {/*css3*/ border-radius:9px;-moz-border-radius:9px;-webkit-border-radius:9px;}
+#gallery .header .title .note .add {display:block;width:16px;height:16px;background:url(/images/common.png) no-repeat -303px -206px;text-decoration:none;position:relative;}
+#gallery .header .title .note .add:hover {background-position:-139px -174px;}
+#gallery .header .title .note .add .tip {display:block;position:absolute;top:-2px;left:130%;white-space:nowrap;background:#fffac8;color:#929292;padding:4px 10px;border:1px solid #f3eca9;display:none;font-size:12px;z-index:3;}
+#gallery .header .title .note .add .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
+#gallery .header .title .note .add:hover .tip {display:block;}
 #gallery .header .title .note:after {display:block;content:'';width:12px;height:40px;background:url(../images/common.png) no-repeat -327px -136px;position:absolute;top:-6px;left:-12px;}
 #gallery .header .title .note p {color:#424242;}
 #gallery .header .title .note .fast-actions {float:right;padding-left:10px;}
@@ -1289,10 +1294,13 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .gallery-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
 #gallery .gallery-photos ul li.more .icon:hover {background-position:-499px -193px;}
 
-#gallery .gallery-photos ul li.add {text-align:center;margin-top:100px;line-height:normal;}
-#gallery .gallery-photos ul li.add a {position:relative;display:block;padding-top:25px;}
-#gallery .gallery-photos ul li.add a:hover {text-decoration:none;}
-#gallery .gallery-photos ul li.add a .icon {display:block;width:17px;height:18px;background:url(/images/common.png) no-repeat -139px -173px;top:0;left:50%;margin-left:-9px;position:absolute;}
+#gallery .gallery-photos ul li.add {text-align:center;margin-top:40px;line-height:normal;vertical-align:top;}
+#gallery .gallery-photos ul li.add a {position:relative;display:block;width:148px;height:50px;background:url(/images/gallery_photos_add.png) no-repeat;text-decoration:none;padding-top:60px;}
+#gallery .gallery-photos ul li.add a:hover .icon {background-position:-429px -191px;}
+#gallery .gallery-photos ul li.add a .icon {display:block;width:33px;height:33px;background:url(/images/common.png) no-repeat -464px -191px;top:20px;left:50%;margin-left:-16px;position:absolute;}
+#gallery .gallery-photos ul li.add a span {margin-top:60px;border-bottom:1px dashed #1b98c5;}
+#gallery .gallery-photos ul li.add a:hover span {border:0;}
+
 
 #gallery .service-header .title big {color:#bb4825;}
 #gallery .service-header .title .note {background:#fff2e7;border:0;}
@@ -1306,10 +1314,10 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery a.album-visibility:hover > span {background-position:-188px -200px;}
 
 #gallery .visibility-picker {display:inline-block;position:relative;}
-#gallery .visibility-picker .visibility-list {position:absolute;font-size:11px;color:#6a6c6d;font-weight:normal;background:#fff;padding:6px 0;border:1px solid #eae3f1;top:26px;right:-90px;z-index:5;display:none;}
+#gallery .visibility-picker .visibility-list {position:absolute;font-size:11px;color:#6a6c6d;font-weight:normal;background:#fff;padding:6px 0;border:1px solid #eae3f1;top:26px;right:-100px;z-index:5;display:none;}
 #gallery .visibility-picker .visibility-list {/*css3*/ -moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;}
 #gallery .visibility-picker .visibility-list ul {list-style:none;}
-#gallery .visibility-picker .visibility-list ul li {padding:2px 10px;cursor:pointer;}
+#gallery .visibility-picker .visibility-list ul li {padding:2px 10px;cursor:pointer;white-space:nowrap;}
 #gallery .visibility-picker .visibility-list ul li .text {float:left;width:65px;}
 #gallery .visibility-picker .visibility-list .tale {display:block;width:14px;height:10px;background:url(/images/common.png) no-repeat -578px -198px;position:absolute;top:-10px;left:35px;}
 #gallery .visibility-picker .visibility-list ul li .album-visibility {text-align:center;width:45px;white-space:nowrap;}

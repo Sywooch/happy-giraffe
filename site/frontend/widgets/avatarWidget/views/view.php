@@ -2,6 +2,7 @@
     $class = 'ava';
     if ($this->user->gender !== null) $class .= ' ' . (($this->user->gender) ? 'male' : 'female');
     if ($this->size !== 'ava') $class .= ' ' . $this->size;
+    if($this->filled) $class .= ' filled';
 
 //$show_link_to_profile = true;
 //if ($this->user->role == 'virtual user' || $this->user->role == 'moderator')

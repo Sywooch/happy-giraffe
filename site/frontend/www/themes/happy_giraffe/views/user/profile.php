@@ -89,6 +89,7 @@
                     'user' => $user,
                     'size'=>'big',
                     'small' => true,
+                    'filled' => true,
                 ));
             }
             ?>

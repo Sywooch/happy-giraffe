@@ -472,7 +472,7 @@
 										<big>Альбом <span>«Поездка в Турцию»</span>
 											<a href="" class="edit"><span class="tip">Редактировать</span></a>
 											<div class="visibility-picker">
-												<a href="javascript:void(0);" class="album-visibility" onclick="">
+												<a href="javascript:void(0);" class="album-visibility" onclick="albumVisibilityListToggle(this)">
 													<span></span>
 													<span></span>
 													<span></span>
@@ -481,19 +481,19 @@
 												<div class="visibility-list">
 													<div class="tale"></div>
 													<ul>
-														<li>
+														<li onclick="albumVisibilitySet(this, 3)">
 															<div class="text">для всех</div>
 															<div class="album-visibility small">
 																<span></span><span></span><span></span>
 															</div>
 														</li>
-														<li>
+														<li onclick="albumVisibilitySet(this, 2)">
 															<div class="text">для друзей</div>
 															<div class="album-visibility small">
 																<span></span><span></span>
 															</div>
 														</li>
-														<li>
+														<li onclick="albumVisibilitySet(this, 1)">
 															<div class="text">для меня</div>
 															<div class="album-visibility small">
 																<span></span>
@@ -509,6 +509,10 @@
 											</div>
 											<p>Бархатная осень, жаркое лето на золотистых пляжах и ночи, приправленные капелькой страсти. Словом, перефразируя одного сказочного героя ...</p>
 										</div>
+										<br/>
+										<div class="note">
+											<a href="" class="add"><span class="tip">Написать комментарий</span></a>
+										</div>										
 									</div>
 								
 							</div>
@@ -637,6 +641,10 @@
 											
 										</table>
 									</li>
+									<li class="add">
+										<a href=""><i class="icon"></i><span>Загрузить еще<br/>фотографий</span></a>
+									</li>
+									
 								</ul>
 							</div>
 							

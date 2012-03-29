@@ -35,6 +35,7 @@ $(document).ready(function () {
 
     $('body').click(function (e) {
         if (!$(e.target).parents().hasClass('navdrp')) navDrpClose();
+		if (!$(e.target).parents().hasClass('visibility-picker')) albumVisibilityListToggle($('.visibility-list:visible'));
     })
 
 });
@@ -280,3 +281,25 @@ $.fn.toggleDisabled = function () {
         this.disabled = !this.disabled;
     });
 };
+
+function albumVisibilityListToggle(el){
+	var box = $(el).parents('.visibility-picker');
+	box.find('.visibility-list').toggle();
+}
+
+function albumVisibilitySet(el, num){
+	
+	var box = $(el).parents('.visibility-picker');
+	
+	box.find('> .album-visibility > span').each(function(){
+		if ($(this).html() == '') $(this).remove();
+	})
+	
+	while (num > 0) {
+		box.find('> .album-visibility').prepend('<span></span>');
+		num--;
+	}
+	
+	albumVisibilityListToggle(el);
+	
+}

@@ -469,10 +469,50 @@
 							<div class="header">
 								
 								<div class="title">
-										<big>Альбом <span>«Поездка в Турцию»</span></big>
-										<div class="note">								
+										<big>Альбом <span>«Поездка в Турцию»</span>
+											<a href="" class="edit"><span class="tip">Редактировать</span></a>
+											<div class="visibility-picker">
+												<a href="javascript:void(0);" class="album-visibility" onclick="albumVisibilityListToggle(this)">
+													<span></span>
+													<span></span>
+													<span></span>
+													<span class="tip">Кому показывать</span>
+												</a>
+												<div class="visibility-list">
+													<div class="tale"></div>
+													<ul>
+														<li onclick="albumVisibilitySet(this, 3)">
+															<div class="text">для всех</div>
+															<div class="album-visibility small">
+																<span></span><span></span><span></span>
+															</div>
+														</li>
+														<li onclick="albumVisibilitySet(this, 2)">
+															<div class="text">для друзей</div>
+															<div class="album-visibility small">
+																<span></span><span></span>
+															</div>
+														</li>
+														<li onclick="albumVisibilitySet(this, 1)">
+															<div class="text">для меня</div>
+															<div class="album-visibility small">
+																<span></span>
+															</div>
+														</li>														
+													</ul>
+												</div>
+											</div>
+										</big>
+										<div class="note">
+											<div class="fast-actions">
+												<a href="" class="edit"><span class="tip">Редактировать</span></a>
+											</div>
 											<p>Бархатная осень, жаркое лето на золотистых пляжах и ночи, приправленные капелькой страсти. Словом, перефразируя одного сказочного героя ...</p>
 										</div>
+										<br/>
+										<div class="note">
+											<a href="" class="add"><span class="tip">Написать комментарий</span></a>
+										</div>										
 									</div>
 								
 							</div>
@@ -601,6 +641,10 @@
 											
 										</table>
 									</li>
+									<li class="add">
+										<a href=""><i class="icon"></i><span>Загрузить еще<br/>фотографий</span></a>
+									</li>
+									
 								</ul>
 							</div>
 							
@@ -611,6 +655,10 @@
 				</div>
 				
 				<div class="side-left gallery-sidebar">
+					
+					<div class="fast-add">
+						<a href="" class="btn btn-green"><span><span>Загрузить фото</span></span></a>
+					</div>
 					
 					<div class="default-v-nav">
 						<div class="title">Мои альбомы </div>
@@ -661,6 +709,30 @@
 								<div class="in">
 									<a href="">Мое творчество</a>
 									<span class="count">2</span>
+									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
+								</div>
+							</li>
+						</ul>
+						<div class="title service">Служебные альбомы </div>
+						<ul>
+							<li>
+								<div class="in">
+									<a href="">Альбом для диалогов</a>
+									<span class="count">2</span>
+									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
+								</div>
+							</li>
+							<li>
+								<div class="in">
+									<a href="">Альбом для форумов</a>
+									<span class="count">22</span>
+									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
+								</div>
+							</li>
+							<li class="active">
+								<div class="in">
+									<a href="">Альбом для блогов</a>
+									<span class="count">222</span>
 									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
 								</div>
 							</li>

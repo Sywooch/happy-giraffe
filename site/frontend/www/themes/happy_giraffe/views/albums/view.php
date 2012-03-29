@@ -1,6 +1,6 @@
 <div class="main">
     <div class="main-in">
-        <div id="gallery">
+        <div id="gallery" class="nopadding">
             <div class="header">
                 <div class="all-link">
                     <?php echo CHtml::link('Все альбомы ('.count($model->author->albums).')', array('/albums/user', 'id' => $model->author_id)) . '<br/>'; ?>

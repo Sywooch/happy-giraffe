@@ -590,6 +590,8 @@ p {
     padding: 12px 0
 }
 
+.entry-content ul, .entry-content ol {padding-left:30px}
+
 .entry p {
     line-height: 17px;
     margin: 0 0 1em;

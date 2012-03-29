@@ -287,18 +287,19 @@ function albumVisibilityListToggle(el){
 	box.find('.visibility-list').toggle();
 }
 
-function albumVisibilitySet(el, num){
+function albumVisibilitySet(el, num, id){
 	
 	var box = $(el).parents('.visibility-picker');
 	
 	box.find('> .album-visibility > span').each(function(){
 		if ($(this).html() == '') $(this).remove();
-	})
+	});
 	
-	while (num > 0) {
+	for(var i = 3; i > num; i--) {
 		box.find('> .album-visibility').prepend('<span></span>');
-		num--;
 	}
+
+    $.post(base_url + '/albums/changePermission/', {id : id, num : num});
 	
 	albumVisibilityListToggle(el);
 	

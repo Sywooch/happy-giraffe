@@ -1366,6 +1366,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery #photo .ad-thumb-list li a.ad-active table tr.title td div {border:10px solid #88cad8;border-top:0;margin:-7px -25px;padding:7px 25px;}
 
 #content .main #gallery #photo .big-photo {width:678px;}
+#content .main #gallery #photo .gallery-photos {width:600px;}
+#content .main #gallery #photo #photo-thumbs {width:600px;}
 
 #content .gallery-sidebar {width:220px;}
 

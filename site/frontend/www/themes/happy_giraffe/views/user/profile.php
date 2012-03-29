@@ -173,6 +173,7 @@
 
             <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
                 'model' => $user,
+                'type' => 'guestBook',
                 'title' => 'Гостевая',
                 'button' => 'Добавить запись',
                 'actions' => false,

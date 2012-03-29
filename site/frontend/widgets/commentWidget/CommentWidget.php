@@ -9,6 +9,7 @@ class CommentWidget extends CWidget
     public $title = 'Комментарии';
     public $actions = true;
     public $button = 'Добавить комментарий';
+    public $type = 'default';
 
     public function init()
     {
@@ -21,7 +22,7 @@ class CommentWidget extends CWidget
             $this->model = $model->findByPk($this->entity_id);
         }
     }
-	
+
 	public function run()
 	{
 		$comment_model = Comment::model();
@@ -44,6 +45,7 @@ class CommentWidget extends CWidget
 		{
 			$this->render('list', array(
 				'dataProvider' => $dataProvider,
+                'type'=>$this->type,
 			));
 		}
 		else
@@ -53,6 +55,7 @@ class CommentWidget extends CWidget
 			$this->render('form', array(
 				'comment_model' => $comment_model,
 				'dataProvider' => $dataProvider,
+                'type'=>$this->type,
 			));
 		}
 	}
@@ -63,5 +66,11 @@ class CommentWidget extends CWidget
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/comment.js')
         ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.tmpl.min.js');
+
+        if ($this->type == 'default')
+            $script = 'Comment.toolbar = "Main"';
+        if ($this->type == 'guestBook')
+            $script = 'Comment.toolbar = "Simple"';
+        Yii::app()->clientScript->registerScript('Comment register script', $script);
     }
 }

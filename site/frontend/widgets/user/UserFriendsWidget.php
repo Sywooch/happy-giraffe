@@ -2,7 +2,7 @@
 
 class UserFriendsWidget extends UserCoreWidget
 {
-    public $limit = 8;
+    public $limit = 9;
     private $_friends;
 
     public function init()
@@ -13,7 +13,7 @@ class UserFriendsWidget extends UserCoreWidget
             'order' => 'RAND()',
             'condition' => 'pic_small != \'\'',
         ));
-        $this->visible = ! empty($this->_friends->data);
+        $this->visible = ($this->isMyProfile && !empty($this->_friends->data)) || count($this->_friends) >= $this->limit;
     }
 
     public function run()

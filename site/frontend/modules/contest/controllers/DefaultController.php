@@ -99,6 +99,7 @@ class DefaultController extends Controller
             'condition' => 'id != :current',
             'params' => array(':current' => $id),
         ));
+        if ($work === null) throw new CHttpException(404, 'Такой работы не существует.');
 
         $this->contest = $work->contest;
 

@@ -72,12 +72,26 @@
     <div class="user-cols clearfix">
 
         <div class="col-1">
-
-            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $user,
-                'size'=>'big',
-                'small' => true,
-            )); ?>
+            <?php
+            if(!$user->getAva('big'))
+            {
+                echo '<div class="ava big male" id="change_ava">';
+                $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                    'model' => $user,
+                ));
+                    $fileAttach->button();
+                $this->endWidget();
+                echo '</div>';
+            }
+            else
+            {
+                $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                    'user' => $user,
+                    'size'=>'big',
+                    'small' => true,
+                ));
+            }
+            ?>
 
             <div class="details">
                 Зарегистрирован <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>

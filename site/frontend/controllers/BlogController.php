@@ -8,6 +8,29 @@ class BlogController extends Controller
     public $user;
     public $rubric_id;
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'actions'=>array('list', 'view'),
+                'users' => array('*'),
+            ),
+            array('allow',
+                'users' => array('@'),
+            ),
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function getUrl($overwrite = array(), $route = 'blog/list')
     {
         return array_filter(CMap::mergeArray(

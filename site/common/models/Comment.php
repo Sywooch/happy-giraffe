@@ -16,11 +16,17 @@
  * @property string $position
  * @property string $removed
  *
+ * The followings are the available model relations:
  * @property User author
+ * @property CommentAttaches[] $commentAttaches
  */
 class Comment extends CActiveRecord
 {
     public $selectable_quote = false;
+    const CONTENT_TYPE_DEFAULT = 1;
+    const CONTENT_TYPE_PHOTO = 2;
+    const CONTENT_TYPE_ONLY_TEXT = 3;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Comment the static model class
@@ -68,7 +74,8 @@ class Comment extends CActiveRecord
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
-            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
+            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
+            'commentAttaches' => array(self::HAS_MANY, 'CommentAttaches', 'comment_id'),
 		);
 	}
 
@@ -308,5 +315,16 @@ class Comment extends CActiveRecord
                 return true;
         }
         return false;
+    }
+
+    public function getContentType()
+    {
+        if ($this->entity == 'User')
+            return self::CONTENT_TYPE_ONLY_TEXT;
+        elseif (empty($this->commentAttaches))
+            return self::CONTENT_TYPE_DEFAULT;
+        elseif($this->commentAttaches[0]->entity == 'AlbumPhoto')
+            return self::CONTENT_TYPE_PHOTO;
+        return self::CONTENT_TYPE_DEFAULT;
     }
 }

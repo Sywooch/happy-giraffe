@@ -3,6 +3,7 @@ var Comment;
 Comment = {
     seleted_text:null,
     save_url:null,
+    toolbar:toolbar,
     getInstance : function() {
         var instance = CKEDITOR.instances['Comment_text'];
         if(instance)
@@ -14,7 +15,7 @@ Comment = {
         if(instance) {
             instance.destroy(true);
         }
-        CKEDITOR.replace('Comment_text');
+        CKEDITOR.replace('Comment_text',{"toolbar":this.toolbar});
     },
     moveForm:function (container) {
         var instance = this.getInstance();
@@ -25,9 +26,16 @@ Comment = {
         form.appendTo(container).show();
         this.createInstance();
     },
+    movePhoto:function (container) {
+        $('.upload-btn a').trigger('click');
+    },
     newComment:function () {
         this.cancel();
         this.moveForm($('#new_comment_wrapper'));
+    },
+    newPhotoComment:function () {
+        this.cancel();
+        this.movePhoto($('#new_photo_comment_wrapper'));
     },
     clearVariables:function () {
         Comment.clearResponse();

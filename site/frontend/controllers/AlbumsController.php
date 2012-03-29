@@ -18,6 +18,7 @@ class AlbumsController extends Controller
     {
         return array(
             'accessControl',
+            'attach + ajaxOnly'
         );
     }
 
@@ -185,8 +186,12 @@ class AlbumsController extends Controller
 
     public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)
     {
-        if(!Yii::app()->request->isAjaxRequest)
-            Yii::app()->end();
+        if (empty($entity_id)){
+            $model = new $entity;
+            $model->text = '';
+            $model->save();
+            $entity_id = $model->id;
+        }
         Yii::app()->clientScript->scriptMap['*.js'] = false;
         Yii::app()->clientScript->scriptMap['*.css'] = false;
         $this->renderPartial('attach_widget', compact('entity', 'entity_id', 'mode', 'a'), false, true);

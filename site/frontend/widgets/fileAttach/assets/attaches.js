@@ -75,8 +75,14 @@ Attach.showPreview = function(coords) {
     });
 }
 
-Attach.changeAvatar = function(val) {
-    $.post(base_url + '/albums/changeAvatar/', {val : val}, function(data) {
+Attach.changeAvatar = function(form) {
+    var data = $(form).serialize();
+    data += '&width=' + $('#crop_target').width() + '&height=' + $('#crop_target').height();
+    $.post(base_url + '/albums/changeAvatar/', data, function(data) {
         $('#change_ava').empty().append($('<img />').attr('src', data));
     });
+    $.fancybox.close();
+    if($('#refresh_upload').size() > 0)
+        document.location.reload();
+    return false;
 };

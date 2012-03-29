@@ -1,3 +1,5 @@
+<?php Yii::app()->clientScript->registerMetaTag('noindex', 'robots'); ?>
+
 <?php
 
 $this->widget('zii.widgets.CListView', array(

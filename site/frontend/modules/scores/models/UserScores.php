@@ -227,7 +227,7 @@ class UserScores extends CActiveRecord
             $profile_count = ScoreInput::model()->count($criteria);
             if ($profile_count == 4) {
                 $model->full = 1;
-                $model->save();
+                $model->update(array('full'));
             }
         }
     }

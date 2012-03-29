@@ -70,14 +70,6 @@ class ScoreInput extends EMongoDocument
 
         if ($this->status == self::STATUS_CLOSED) {
             $model = UserScores::getModel($this->user_id);
-            if ($this->action_id == ScoreActions::ACTION_RECORD
-                && $this->_entity !== null
-                && get_class($this->_entity) == 'CommunityContent'
-                && $this->_entity->isFromBlog
-                && count($this->_entity->contentAuthor->blogPosts) <= 1
-            ) {
-                $this->scores_earned = $this->scores_earned*3;
-            }
             $model->scores += $this->scores_earned;
             $model->save();
         }
@@ -267,6 +259,7 @@ class ScoreInput extends EMongoDocument
     public function getIconName()
     {
         switch ($this->action_id) {
+            case ScoreActions::ACTION_FIRST_BLOG_RECORD:
             case ScoreActions::ACTION_RECORD:
                 if ($this->amount > 0)
                     return 'icon-post';
@@ -325,9 +318,12 @@ class ScoreInput extends EMongoDocument
             case ScoreActions::ACTION_RECORD:
                 $text = $this->getArticleText();
                 break;
+            case ScoreActions::ACTION_FIRST_BLOG_RECORD:
+                $text = $this->getArticleText();
+                break;
 
             case ScoreActions::ACTION_VISIT:
-                $text = 'За посещение сайта сегодня';
+                $text = $this->getVisitText();
                 break;
             case ScoreActions::ACTION_5_DAYS_ATTEND:
                 $text = 'За посещение сайта в течение 5 дней подряд';
@@ -358,7 +354,21 @@ class ScoreInput extends EMongoDocument
             case ScoreActions::ACTION_LIKE:
                 $text = $this->getRatingText();
                 break;
+
+            case ScoreActions::ACTION_CONTEST_PARTICIPATION:
+                $text = 'Вы приняли участие в конкурсе';
+                break;
         }
+
+        return $text;
+    }
+
+    public function getVisitText()
+    {
+        if (date("Y-m-d", $this->created) == date("Y-m-d"))
+            $text = 'За посещение сайта сегодня';
+        else
+            $text = 'За посещение сайта <span>' . Yii::app()->dateFormatter->format("dd MMMM", $this->created).'</span>';
 
         return $text;
     }
@@ -380,29 +390,37 @@ class ScoreInput extends EMongoDocument
             $id = $this->removed_items[0]['id'];
         }
 
-        $model = $class::model()->findByPk($id);
+        $model = $class::model()->resetScope()->findByPk($id);
 
         if ($model === null)
             return '';
+        if ($this->action_id == ScoreActions::ACTION_FIRST_BLOG_RECORD)
+            if ($this->amount > 0)
+                $record_title = 'первую запись ';
+            else
+                $record_title = 'единственная запись ';
+        else {
+            $record_title = 'запись ';
+        }
 
-        if ($class == 'CommunityContent') {
+        if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($this->amount > 0)
                 if ($model->isFromBlog)
-                    $text = 'Вы добавили запись ' . $model->name . ' в блог';
+                    $text = 'Вы добавили ' . $record_title . '<span>' . $model->name . '</span> в блог';
                 else
-                    $text = 'Вы добавили запись <span>' . $model->name . '</span> в клуб <span>' . $model->rubric->community->name . '</span>';
+                    $text = 'Вы добавили ' . $record_title . '<span>' . $model->name . '</span> в клуб <span>' . $model->rubric->community->name . '</span>';
             if ($this->amount < 0) {
                 if ($model->isFromBlog)
-                    $text = 'Ваша запись  ' . $model->name . ' в блоге удалена';
+                    $text = 'Ваша ' . $record_title . '<span>' . $model->name . '</span> в блоге удалена';
                 else
-                    $text = 'Ваша запись  <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span> удалена';
+                    $text = 'Ваша ' . $record_title . '<span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span> удалена';
             }
         }
         if ($class == 'RecipeBookRecipe') {
             if ($this->amount > 0)
-                $text = 'Вы добавили запись <span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span>';
+                $text = 'Вы добавили ' . $record_title . ' <span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span>';
             if ($this->amount < 0) {
-                $text = 'Ваша запись  <span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span> удалена';
+                $text = 'Ваша ' . $record_title . '<span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span> удалена';
             }
         }
 
@@ -421,11 +439,11 @@ class ScoreInput extends EMongoDocument
         $class = $this->added_items[0]['entity'];
         $id = $this->added_items[0]['id'];
 
-        $model = $class::model()->findByPk($id);
+        $model = $class::model()->resetScope()->findByPk($id);
         if ($model === null)
             return $text;
 
-        if ($class == 'CommunityContent') {
+        if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($model->isFromBlog)
                 $text = 100 * $this->amount . ' новых просмотров вашей записи <span>' . $model->name . '</span> в блоге';
             else
@@ -453,11 +471,11 @@ class ScoreInput extends EMongoDocument
             $id = $this->removed_items[0]['id'];
         }
 
-        $model = $class::model()->findByPk($id);
+        $model = $class::model()->resetScope()->findByPk($id);
         if ($model === null)
             return '';
 
-        if ($class == 'CommunityContent') {
+        if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($this->amount > 0) {
                 if ($model->isFromBlog)
                     $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->name . '</span> в блоге';
@@ -524,7 +542,7 @@ class ScoreInput extends EMongoDocument
             $id = $this->removed_items[0]['id'];
         }
 
-        $model = $class::model()->findByPk($id);
+        $model = $class::model()->resetScope()->findByPk($id);
         if ($model === null)
             return '';
 
@@ -537,10 +555,27 @@ class ScoreInput extends EMongoDocument
                 $text = 'Удалена ваша запись';
             else
                 $text = 'Удалены ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('запись', 'записи', 'записей'), abs($this->amount));
+
             if ($this->user_id == $id)
                 $text .= ' в гостевой книге';
             else
-                $text .= ' в гостевой книге <span>' . $model->fullName . '</span> ';
+                $text .= ' в гостевой книге пользователя <span>' . $model->fullName . '</span> ';
+            return $text;
+        }
+
+        if ($class == 'AlbumPhoto') {
+            if ($this->amount == 1)
+                $text = 'Вы добавили комментарий к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+            elseif ($this->amount > 1)
+                $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+            elseif ($this->amount == -1)
+                $text = 'Ваш комментарий к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+            else
+                $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+
+            if ($this->amount < -1) $text .= ' удалены';
+            if ($this->amount == -1) $text .= ' удален';
+
             return $text;
         }
 
@@ -556,7 +591,7 @@ class ScoreInput extends EMongoDocument
         else
             $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к записи <span>' . $model->name . '</span> ';
 
-        if ($class == 'CommunityContent') {
+        if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($model->isFromBlog) {
                 if ($model->author_id == $this->user_id)
                     $text .= ($this->amount > 0) ? 'в блог' : 'в блоге';
@@ -594,7 +629,7 @@ class ScoreInput extends EMongoDocument
             $class = $item['entity'];
             $id = $item['id'];
 
-            $model = $class::model()->findByPk($id);
+            $model = $class::model()->resetScope()->findByPk($id);
             if ($model !== null)
                 $friends[] = $model;
         }
@@ -616,7 +651,7 @@ class ScoreInput extends EMongoDocument
                 $class = $item['entity'];
                 $id = $item['id'];
 
-                $model = $class::model()->findByPk($id);
+                $model = $class::model()->resetScope()->findByPk($id);
                 if ($model !== null)
                     $removed_friends[] = $model;
             }
@@ -648,12 +683,12 @@ class ScoreInput extends EMongoDocument
             $id = $this->removed_items[0]['id'];
         }
 
-        $model = $class::model()->findByPk($id);
+        $model = $class::model()->resetScope()->findByPk($id);
 
         if ($model === null)
             return '';
 
-        if ($class == 'CommunityContent') {
+        if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($this->amount > 0)
                 if ($model->isFromBlog)
                     $text = 'Увеличен рейтинг вашей записи <span>' . $model->name . '</span> в блоге';

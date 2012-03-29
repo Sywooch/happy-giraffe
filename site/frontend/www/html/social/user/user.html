@@ -70,11 +70,12 @@
 				<div class="header clearfix user-home">
 					
 					<div class="user-name">
-						<h1>Богоявленский<br/>Александр</h1>
-						<div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
-						<div class="location"><div class="flag-big flag-big-ru"></div> Гаврилов-Ям</div>
-						<div class="birthday"><span>День рождения:</span> 15 декабря (39 лет)</div>
-							
+						<h1>Ижецкий Денис Владимирович</h1>
+						<div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date">Сегодня 16:39</span></div>
+						<div class="location">
+							<div class="flag-big flag-big-ua" title="Украина"></div>Хмельницкий
+						</div>
+						<div class="birthday"><span>День рождения:</span> 27 апреля (21 год)</div>
 					</div>
 					
 					<div class="user-buttons clearfix">
@@ -172,7 +173,7 @@
 							<div class="col-2">
 								
 								<div class="user-mood">
-									<a href="" class="pseudo">Какое у Вас настоение?</a>
+									Мое настроение<img id="userMood" src="/images/widget/mood/1.png" /> <a href="" class="pseudo small">Изменить</a>
 								</div>
 								
 								<div class="user-status">
@@ -281,7 +282,7 @@
 								
 								<div class="user-albums user-add">
 								
-									<div class="box-title">Фотоальбомы</div>
+									<div class="box-title">Фото</div>
 									
 									<a href=""><img src="/images/user_photo_add.png" /></a>
 									<a href="">Загрузить<br/>фото</a>
@@ -343,6 +344,39 @@
 								
 								<div class="user-map">
 									<div class="header">
+										<div class="box-title">Я здесь</div>
+										<div class="sep"><img src="/images/map_marker.png" /></div>
+									</div>
+									<form>
+										<div class="row">
+											<label>Место жительства</label>
+											<select class="chzn w-100" data-placeholder="Страна">
+												<option></option>
+												<option>Россия</option>
+												<option>Украина</option>
+											</select>
+											&nbsp;&nbsp;
+											<span class="with-search">
+												<select class="chzn w-200" data-placeholder="Регион">
+													<option></option>
+													<option>Россия</option>
+													<option>Украина</option>
+												</select>
+											</span>
+										</div>
+										<div class="row">
+											<label>Населенный пункт</label>
+											<input type="text" /><br/>
+											<small>Введите свой город, поселок, село или деревню</small>
+										</div>
+										<div class="row" style="text-align:right;">
+											<button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
+										</div>
+									</form>
+								</div>
+								
+								<div class="user-map">
+									<div class="header">
 										<a href="#locationEdit" class="edit fancy"><span class="tip">Изменить</span></a>
 										<div class="box-title">Я здесь</div>
 										<div class="sep"><img src="/images/map_marker.png" /></div>
@@ -355,15 +389,12 @@
 								</div>
 								
 								<div class="user-map user-add">
-									<a href="#locationEdit" class="fancy"><big>Я живу<br/>здесь</big><img src="/images/user_map_cap.png" /></a>
+									<a href="javascript:void(0);" class="flip('#userMapForm);"><big>Я живу<br/>здесь</big><img src="/images/user_map_cap.png" /></a>
 								</div>
 								
 								<div class="user-weather">
 									
-									<div class="location">
-										<div class="flag flag-ru"></div>Россия<br/>
-										<big>Гаврилов-Ям</big>
-									</div>
+									<div class="box-title"><a href="" class="a-right pseudo">Еще на три дня</a>Моя погода</div>
 									
 									<div class="clearfix">
 										
@@ -377,16 +408,11 @@
 
 									</div>
 									
-									<a href="">Прогноз на неделю</a>
-									
 								</div>
 								
 								<div class="user-weather">
 									
-									<div class="location">
-										<div class="flag flag-ru"></div>Россия<br/>
-										<big>Гаврилов-Ям</big>
-									</div>
+									<div class="box-title"><a href="" class="a-right pseudo">Погода сейчас</a>Моя погода</div>
 									
 									<table>
 										<thead>
@@ -394,10 +420,6 @@
 												<td>Завтра</td>
 												<td>Пн</td>
 												<td>Вт</td>
-												<td>Ср</td>
-												<td>Чт</td>
-												<td>Пт</td>
-												<td>Сб</td>
 											</tr>
 										</thead>
 										<tbody>
@@ -405,54 +427,32 @@
 												<td><img src="/images/widget/weather/small/1.png" /></td>
 												<td><img src="/images/widget/weather/small/2.png" /></td>
 												<td><img src="/images/widget/weather/small/3.png" /></td>
-												<td><img src="/images/widget/weather/small/4.png" /></td>
-												<td><img src="/images/widget/weather/small/5.png" /></td>
-												<td><img src="/images/widget/weather/small/6.png" /></td>
-												<td><img src="/images/widget/weather/small/7.png" /></td>
 											</tr>
 											<tr>
 												<td>-16</td>
 												<td>-19</td>
-												<td>-25</td>
-												<td>-21</td>
-												<td>-19</td>
-												<td>-15</td>
-												<td>-12</td>												
+												<td>-25</td>												
 											</tr>
 											<tr class="hl">
 												<td>-16</td>
 												<td>-19</td>
-												<td>-25</td>
-												<td>-21</td>
-												<td>-19</td>
-												<td>-15</td>
-												<td>-12</td>												
+												<td>-25</td>											
 											</tr>											
 										</tbody>
 									</table>
-									
-									<a href="">Прогноз на неделю</a>
 									
 								</div>
 								
 								<div class="user-horoscope">
 									
-									<div class="actions">
-										<a href="" class="close"></a>
-										<a href="" class="settings"></a>
-									</div>
-									
 									<div class="clearfix">
+										<div class="title">Близнецы</div>
 										<div class="img"><img src="/images/widget/horoscope/12.png" /></div>
-										<div class="date"><big>Близнецы</big>(24.12-23.01)</div>
+										<div class="date">2<span>апр</span></div>
 									</div>
 									
-									<p><b>21 февраля</b> -  Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью – дела стоят на месте, приходится возвращаться к, казалось бы, уже решенным вопросам и переделывать многое  
-									Вам хотелось бы организовать эффективное взаимодействие в совместных проектах. Однако идеи, которые придут к Вам сегодня, могут оказаться не слишком продуманными. Возможно, Вы еще не владеете всей необходимой информацией, поэтому не торопитесь делиться своими мыслями.s</p>
-
-									<p>Вас могут не правильно понять.
-									Так же торопливы сегодня будут и Ваши чувства. Бурные эмоции могут нахлынуть внезапно. Но не рассчитывайте на полное взаимопонимание партнеров. 
-									Вечер лучше провести в одиночестве, посвятив его только себе.</p>
+									<p>Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью – дела стоят на месте, приходится возвращаться к, казалось бы, уже решенным вопросам и переделывать многое  
+									Вам хотелось бы организовать эффективное взаимодействие в совместных проектах. Однако идеи, которые придут к Вам сегодня, могут оказаться не слишком продуманными.</p>
 									
 								</div>
 								
@@ -631,6 +631,33 @@
 						<select class="chzn w-300">
 							<option>Украина</option>
 							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							
 						</select>
 					</div>
 				</div>
@@ -640,6 +667,39 @@
 						<select class="chzn w-300">
 							<option>Украина</option>
 							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							
 						</select>
 					</div>
 				</div>

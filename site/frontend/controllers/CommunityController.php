@@ -40,6 +40,8 @@ class CommunityController extends Controller
 
     public function actionIndex()
     {
+        $this->pageTitle = 'Клубы';
+
         $categories = array(
             'Дети' => array(
                 'items' => array(

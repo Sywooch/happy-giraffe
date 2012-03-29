@@ -14,7 +14,7 @@
 #user .header .user-name h1 {line-height:1;margin:0 0 7px 0;color:#0281B0;}
 
 
-#user .header .user-name .online-status {color:#a6a6a6;font-size:13px;}
+#user .header .user-name .online-status {color:#a6a6a6;font-size:13px;margin-bottom:8px;}
 #user .header .user-name .online-status  .icon {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;margin-right:5px;}
 #user .header .user-name .online-status.online .icon {background-position:-44px -180px;}
 #user .header .user-name .online-status.offline .icon {background-position:-55px -180px;}
@@ -111,17 +111,17 @@
 
 
 
-#user .user-friends {padding-bottom:20px;padding-left:15px;}
+#user .user-friends {padding-bottom:20px;padding-left:15px;margin-top:-34px;}
 #user .user-friends ul {list-style:none;}
 #user .user-friends ul li {float:left;margin:0 15px 15px 0;}
 #user .user-friends ul li img {display:block;}
 
-#user .user-map {padding:10px 8px 7px;border:1px solid #f7f7f7;margin-bottom:20px;}
+#user .user-map {padding:10px 8px 7px;border:1px solid #f7f7f7;margin-bottom:20px;height:268px;}
 
 #user .user-map .header {position:relative;}
 #user .user-map .header .box-title {display:inline-block;width:100px;vertical-align:middle;padding-left:10px;}
 #user .user-map .header .sep {display:inline-block;width:50px;vertical-align:middle;}
-#user .user-map .header .location {display:inline-block;width:110px;vertical-align:middle;padding-left:20px;}
+#user .user-map .header .location {display:inline-block;width:120px;vertical-align:middle;padding-left:20px;}
 #user .user-map .header .location .flag {display:inline-block;}
 #user .user-map .header .location p {font-size:9px;color:#9ba0a0;margin-top:5px;}
 #user .user-map .header .edit {display:block;width:15px;height:15px;background:url(/images/common.png) no-repeat -313px -190px;position:absolute;right:0px;top:0px;text-decoration:none;}
@@ -130,13 +130,20 @@
 #user .user-map .header .edit:hover .tip {display:block;}
 #user .user-map .header .edit:hover .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}
 
+#user .user-map form {}
+#user .user-map form .row {padding:5px 0;}
+#user .user-map form label {display:block;margin-bottom:5px;font-size:16px;}
+#user .user-map form input[type=text] {width:310px;padding:3px 5px;border:1px solid #c9eaf1;font-family:arial, sans-serif;margin-bottom:2px;}
+#user .user-map form small {font-size:11px;color:#a3a3a3;}
+#user .user-map .w-200 {width:208px;}
+
 
 #locationEdit {width:400px;}
 
 
 
 #user .user-mood {font-size:22px;color:#484747;padding-left:15px;position:relative;margin-bottom:8px;margin-top:-34px;}
-#user .user-mood img {vertical-align:middle;position:relative;margin-top:-46px;}
+#user .user-mood img {vertical-align:top;position:relative;margin-top:-28px;}
 
 #user .user-mood .moods-list {position:absolute;left:0;top:100%;background:#fffeea;z-index:4;padding:5px;width:470px;font-size:9px;border:1px solid #e7e395;}
 #user .user-mood .moods-list {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
@@ -167,6 +174,7 @@
 #user .user-purpose .icon {display:block;width:78px;height:65px;background:url(/images/common.png) no-repeat -604px -153px;position:absolute;top:0;left:11px;}
 #user .user-purpose form {text-align:right;margin:10px 0 0 -6px;}
 #user .user-purpose textarea {vertical-align:bottom;overflow:auto;width:228px;max-width:228px;margin-right:5px;height:90px;padding:2px 5px;border:1px solid #c5e8ef;margin-bottom:5px;}
+#user .user-purpose span {font-size:12px;}
 
 #user .user-blog {padding:15px;margin-bottom:20px;border:1px solid #f5f5f5;}
 #user .user-blog ul {list-style:none;}
@@ -174,11 +182,12 @@
 #user .user-blog ul li a {font-weight:bold;}
 #user .user-blog ul li .date {color:#AFAFB0;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin:6px 0 8px;}
 #user .user-blog ul li img {max-width:150px;}
+#user .user-blog ul li p {font-size:11px;}
 
 #user .user-photo-add {padding:5px;border:1px solid #f7f7f7;}
 
 #user .user-add {margin-bottom:20px;text-align:center;}
-#user .user-add a {vertical-align:middle;display:inline-block;font:italic 20px/1 'timew new roman', times, sans;}
+#user .user-add a {vertical-align:middle;display:inline-block;font:italic 20px/1 'timew new roman', times, sans;color:#2D87BE;}
 #user .user-add img {margin-right:20px;}
 
 #user .user-blog.user-add img {margin-right:-20px;}
@@ -186,6 +195,7 @@
 #user .user-map.user-add big {position:relative;z-index:2;margin-left:10px;display:block;}
 #user .user-map.user-add a {font-size:45px;line-height:35px;text-decoration:none;}
 #user .user-map.user-add img {margin-top:-45px;margin-left:1px;}
+
 
 
 #user .user-interests {}
@@ -240,7 +250,7 @@
 #user .user-family ul li .img {float:left;width:80px;}
 #user .user-family ul li .img img {display:block;margin-bottom:5px;}
 #user .user-family ul li .img .ava {margin-bottom:5px;}
-#user .user-family ul li p {margin-left:85px;font-family:tahoma, arial, helvetica, sans-serif;color:#939697;line-height:1.3;width:80px;overflow:hidden;}
+#user .user-family ul li p {margin-left:85px;font-family:tahoma, arial, helvetica, sans-serif;color:#939697;line-height:1.3;width:80px;overflow:hidden;font-size:11px;}
 #user .user-family ul li span {font-family:tahoma, arial, helvetica, sans-serif;color:#3fa0c3;font-size:11px;}
 #user .user-family ul li span span {color:#585959;}
 
@@ -248,11 +258,12 @@
 #user .user-family .cap {display:block;width:100%;background:#f9f5ef url(/images/bg_user_family_cap.gif) no-repeat bottom;text-align:center;padding:15px 0 215px;font-size:15px;}
 #user .user-family .cap:hover {text-decoration:none;}
 
-#user .user-weather {margin-bottom:20px;text-align:center;}
+#user .user-weather {margin-bottom:20px;padding:10px 14px;border:1px solid #f3f3f3;height: 185px;}
+#user .user-weather .box-title a.pseudo {margin-top:7px;}
 #user .user-weather .location {font-size:12px;color:#929292;}
 #user .user-weather .location .flag {display:inline-block;margin-right:5px;position:relative;top:1px;}
 #user .user-weather .location big {font-size:22px;color:#484747;}
-#user .user-weather .clearfix {border-top:1px solid #c2e7f7;width:260px;margin:7px auto 0;}
+#user .user-weather .clearfix {width:260px;margin:7px auto 0;text-align:center;}
 #user .user-weather .img {display:inline-block;padding:10px;vertical-align:top;}
 #user .user-weather .text {display:inline-block;padding:10px;width:95px;vertical-align:top;}
 #user .user-weather .text big {line-height:55px;font-size:55px;color:#2997e3;}
@@ -260,22 +271,17 @@
 #user .user-weather .text .row span {float:left;width:55px;color:#484747;}
 #user .user-weather .text .row.hl {background:#e1f3fe;} 
 #user .user-weather table {margin:7px 0 15px;width:100%;text-align:center;}
-#user .user-weather table td {padding:6px 5px;font-size:12px;color:#2997e3;width:1%;}
-#user .user-weather table thead td {border-top:1px solid #c2e7f7;border-bottom:1px solid #c2e7f7;height:23px;line-height:23px;color:#868788;font-size:11px;padding:0 5px;}
+#user .user-weather table td {padding:6px 5px;font-size:13px;color:#2997e3;width:1%;}
+#user .user-weather table thead td {border-top:1px solid #c2e7f7;border-bottom:1px solid #c2e7f7;height:23px;line-height:23px;color:#868788;font-size:12px;padding:0 5px;}
 #user .user-weather table .hl td {background:#e8f6ff;}
 
 #user .user-horoscope {padding:10px 14px;border:1px solid #efefef;}
-#user .user-horoscope {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
-#user .user-horoscope .actions {float:right;}
-#user .user-horoscope .actions a {display:block;float:right;width:12px;height:11px;background:url(/images/common.png) no-repeat;}
-#user .user-horoscope .actions a.close {background-position:-314px -136px;margin-left:2px;}
-#user .user-horoscope .actions a.close:hover {background-position:-314px -149px;}
-#user .user-horoscope .actions a.settings {background-position:-314px -163px;margin-left:2px;}
-#user .user-horoscope .actions a.settings:hover {background-position:-300px -163px;}
-#user .user-horoscope .img {float:left;width:120px;margin-right:10px;height:90px;background:url(/images/widget/horoscope/bg.png) no-repeat;}
-#user .user-horoscope .date {display:inline-block;text-align:center;font-size:13px;color:#565655;margin-top:20px;}
-#user .user-horoscope .date big {font-size:22px;color:#3d3c3c;display:block;}
-#user .user-horoscope p {font-size:12px;margin:1em 0;color:#404040;}
+#user .user-horoscope .clearfix {text-align:center;}
+#user .user-horoscope .title {font-size:28px;color:#2d87be;display:inline-block;vertical-align:middle;font-family:times new roman, serif;font-style:italic;}
+#user .user-horoscope .img {width:120px;margin:0 5px;height:90px;background:url(/images/widget/horoscope/bg.png) no-repeat;display:inline-block;vertical-align:middle;}
+#user .user-horoscope .date {display:inline-block;text-align:center;font-size:13px;color:#565655;vertical-align:middle;font-size:32px;color:#fa717c;line-height:25px;font-weight:bold;text-transform:uppercase;}
+#user .user-horoscope .date span {display:block;font-size:18px;line-height:1;}
+#user .user-horoscope p {font-size:12px;line-height:19px;margin:0 0 1em 0;color:#404040;}
 #user .user-horoscope b {color:#f05d6e;}
 
 #user .friends {}

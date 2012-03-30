@@ -2,38 +2,38 @@
     $cs = Yii::app()->clientScript;
 
     $js = "
-        $('#preview').click(function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: '/ajax/video/',
-                type: 'POST',
-                data: {
-                    url: $('#CommunityVideo_link').val(),
-                },
-                success: function(response) {
-                    $('div.test-video div.img').html(response);
-                },
+            $('#preview').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/ajax/video/',
+                    type: 'POST',
+                    data: {
+                        url: $('#CommunityVideo_link').val(),
+                    },
+                    success: function(response) {
+                        $('div.test-video div.img').html(response);
+                    },
+                });
             });
-        });
-    ";
+        ";
 
     $cs
         ->registerScript('add_video', $js);
 ?>
 
 <div class="add-nav default-nav clearfix">
-    <div class="content-title">Добавить в блог:</div>
+    <div class="content-title">Добавить в клуб:</div>
     <?php
         $this->widget('zii.widgets.CMenu', array(
             'items'=>array(
                 array(
                     'label' => 'Запись',
-                    'url' => array('/blog/add', 'content_type_slug' => 'post'),
+                    'url' => $this->getUrl(array('content_type_slug' => 'post'), 'community/add'),
                     'active' => $content_type_slug == 'post',
                 ),
                 array(
                     'label' => 'Видео',
-                    'url' => array('/blog/add', 'content_type_slug' => 'video'),
+                    'url' => $this->getUrl(array('content_type_slug' => 'video'), 'community/add'),
                     'active' => $content_type_slug == 'video',
                 ),
             ),
@@ -117,13 +117,25 @@
                 <?php endif; ?>
 
                 <div class="row clearfix">
-                    <div class="row-title">Рубрика:</div>
+                    <div class="row-title">Где разместить:</div>
                     <div class="row-elements">
                         <div class="select-box">
-                            <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'name'), array('class' => 'chzn w-200')); ?>
+                            <span class="subtitle">Клуб</span>
+                            <?php echo CHtml::dropDownList('community_id', $community_id, CHtml::listData($communities, 'id', 'name'), array('prompt' => 'Выберите клуб', 'class' => 'chzn w-200',
+                                'ajax' => array(
+                                    'type' => 'POST',
+                                    'url' => $this->createUrl('ajax/rubrics'),
+                                    'success' => 'function(data) {
+                                            $("#CommunityContent_rubric_id").html(data);
+                                            $("#CommunityContent_rubric_id").trigger("liszt:updated");
+                                        }',
+                                ),
+                            )); ?>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="subtitle">Рубрика</span>
+                            <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'name'), array('prompt' => 'Выберите рубрику', 'class' => 'chzn w-200')); ?>
                         </div>
                     </div>
-                    <a class="add"><i class="icon"></i></a>
                 </div>
 
                 <div class="row row-buttons">
@@ -140,6 +152,6 @@
 
 <div class="side-left">
 
-    <center><img src="/images/img_blog_add.png" /></center>
+
 
 </div>

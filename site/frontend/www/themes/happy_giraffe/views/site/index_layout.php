@@ -3,8 +3,10 @@
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title><?php echo $this->pageTitle; ?></title>
+    <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
+    <?=CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type')?>
+    <title><?=CHtml::encode($this->pageTitle)?></title>
+
 	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/common.css'); ?>
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
 </head>

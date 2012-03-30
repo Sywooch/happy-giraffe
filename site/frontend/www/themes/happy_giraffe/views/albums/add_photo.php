@@ -3,7 +3,7 @@
 
     <div class="popup-title">Загрузка фотографий</div>
 
-    <div class="album_upload_step_1">
+    <div id="album_upload_step_1">
         <div class="title">Шаг 1</div>
         <table>
             <tbody>
@@ -21,11 +21,9 @@
                 </tr>
             </tbody>
         </table>
-    </div>
 
-    <br/><br/>
+        <br/><br/>
 
-    <div class="album_upload_step_2">
         <div class="title">Шаг 2</div>
 
         <div class="teasers clearfix">
@@ -50,9 +48,9 @@
             $this->endWidget();
             ?>
         </div>
+    </div>
 
-        <br/>
-        <br/>
+    <div id="album_upload_step_2" style="display: none;">
 
         <div class="upload-files-list scroll">
             <ul id="log"></ul>

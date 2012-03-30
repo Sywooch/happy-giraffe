@@ -1305,7 +1305,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #gallery .fast-album {padding-bottom:20px;}
 
-#gallery .gallery-photos ul li.more {color:#b9b9b9;font-size:13px;padding-top:90px;}
+#gallery .gallery-photos ul li.more {color:#b9b9b9;font-size:13px;padding-top:90px;text-align:center;}
 #gallery .gallery-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
 #gallery .gallery-photos ul li.more .icon:hover {background-position:-499px -193px;}
 

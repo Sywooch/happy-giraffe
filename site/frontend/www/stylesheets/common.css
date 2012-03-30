@@ -1501,7 +1501,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments .comments-meta .add-menu ul li {padding:2px 15px;}
 .default-comments .comments-meta .add-menu ul li:hover {background:none;}
 .default-comments .comments-meta .add-menu ul li a {color:#767575}
-.default-comments .comments-meta .add-menu ul li a:hover {}
+.default-comments .comments-meta .add-menu ul li a:hover {text-decoration:none;}
 
 .default-comments .new-comment {text-align:center;font-size:14px;color:#c2c4c4;line-height:27px;font-family:tahoma, arial, sans-serif;}
 .default-comments .new-comment .rating {width:135px;height:25px;display:inline-block;vertical-align:top;margin-left:5px;margin-bottom:10px;}

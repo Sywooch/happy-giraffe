@@ -27,7 +27,7 @@
 	<script type="text/javascript">
 		
 		function setFamilyRadiogroup(el){
-			$(el).parents('.family-radiogroup').find('.radio-label').removeClass('checked');
+			$(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
 			$(el).addClass('checked').find('input').attr('checked', 'checked');
 		}
 		
@@ -528,10 +528,12 @@
 							
 							<div class="family-radiogroup">
 								<div class="title">Семейное положение</div>
-								<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>Женат</span><input type="radio" name="radio-1" /></div>
-								<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>Не женат</span><input type="radio" name="radio-1" /></div>
-								<div class="radio-label checked" onclick="setFamilyRadiogroup(this);"><span>Жених</span><input type="radio" name="radio-1" /></div>
-								<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>Есть подруга</span><input type="radio" name="radio-1" /></div>
+								<div class="radiogroup">
+									<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>Женат</span><input type="radio" name="radio-1" /></div>
+									<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>Не женат</span><input type="radio" name="radio-1" /></div>
+									<div class="radio-label checked" onclick="setFamilyRadiogroup(this);"><span>Жених</span><input type="radio" name="radio-1" /></div>
+									<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>Есть подруга</span><input type="radio" name="radio-1" /></div>
+								</div>
 							</div>							
 							
 							<div class="family-member">
@@ -613,11 +615,16 @@
 							
 							<div class="family-radiogroup">
 								<div class="title">Мои дети</div>
-								<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>Планируем</span><input type="radio" name="radio-1" /></div>
-								<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>Ждем</span><input type="radio" name="radio-1" /></div>
-								<div class="radio-label checked" onclick="setFamilyRadiogroup(this);"><span>1 ребенок</span><input type="radio" name="radio-1" /></div>
-								<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>2 ребенка</span><input type="radio" name="radio-1" /></div>
-								<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>3 ребенка</span><input type="radio" name="radio-1" /></div>
+								<div class="radiogroup">
+									<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>Планируем</span><input type="radio" name="radio-1" /></div>
+									<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>Ждем</span><input type="radio" name="radio-1" /></div>
+								</div>
+								&nbsp;
+								<div class="radiogroup">
+									<div class="radio-label checked" onclick="setFamilyRadiogroup(this);"><span>1 ребенок</span><input type="radio" name="radio-1" /></div>
+									<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>2 ребенка</span><input type="radio" name="radio-1" /></div>
+									<div class="radio-label" onclick="setFamilyRadiogroup(this);"><span>3 ребенка</span><input type="radio" name="radio-1" /></div>
+								</div>
 							</div>							
 							
 							

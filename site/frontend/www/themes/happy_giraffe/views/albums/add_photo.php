@@ -16,6 +16,7 @@
                     <td>
                         <big>Создайте новый</big>
                         <input type="text" placeholder="Введите название нового альбома" id="new_album_title" class="album-name" onkeyup="Album.changeAlbumTitle(this);" />
+                        <input type="hidden" id="author_id" value="<?php echo Yii::app()->user->id ?>" />
                     </td>
                 </tr>
             </tbody>
@@ -40,7 +41,7 @@
             </ul>
         </div>
 
-        <div class="bottom" id="upload_button_wrapper" style="display: none;">
+        <div class="bottom" id="upload_button_wrapper"<?php echo !$album ? ' style="display: none;"' : '' ?>>
             <?php
             $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget', array(
                 'album_id' => $album ? $album->id : false,

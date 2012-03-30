@@ -108,7 +108,7 @@
                                     'model' => $slave_model,
                                     'attribute' => 'text',
                                     'config' => array(
-                                        'toolbar' => 'Lite',
+                                        'toolbar' => 'Simple',
                                     ),
                                 ));
                             ?>

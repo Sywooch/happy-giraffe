@@ -49,6 +49,7 @@ class BlogController extends Controller
         $model->type_id = $content_type->id;
         $slave_model_name = 'Community' . ucfirst($content_type->slug);
         $slave_model = new $slave_model_name;
+        $rubric_model = new CommunityRubric;
 
         $rubrics = Yii::app()->user->model->blog_rubrics;
 
@@ -56,6 +57,13 @@ class BlogController extends Controller
         {
             $model->attributes = $_POST['BlogContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
+
+            if ($_POST['CommunityRubric']['name'] != '') {
+                $rubric_model->user_id = Yii::app()->user->id;
+                $rubric_model->name = $_POST['CommunityRubric']['name'];
+                $rubric_model->save();
+                $model->rubric_id = $rubric_model->id;
+            }
 
             $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
@@ -72,6 +80,7 @@ class BlogController extends Controller
         $this->render('form', array(
             'model' => $model,
             'slave_model' => $slave_model,
+            'rubric_model' => $rubric_model,
             'rubrics' => $rubrics,
             'content_type_slug' => $content_type->slug,
         ));

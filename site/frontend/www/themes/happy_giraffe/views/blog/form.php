@@ -15,6 +15,13 @@
                 },
             });
         });
+
+        $('#CommunityRubric_name').keyup(function() {
+            if ($('#BlogContent_rubric_id').val() != '' && $(this).val() != '') {
+                $('#BlogContent_rubric_id').val('');
+                $('#BlogContent_rubric_id').trigger('liszt:updated');
+            }
+        });
     ";
 
     $cs
@@ -108,7 +115,7 @@
                                     'model' => $slave_model,
                                     'attribute' => 'text',
                                     'config' => array(
-                                        'toolbar' => 'Lite',
+                                        'toolbar' => 'Simple',
                                     ),
                                 ));
                             ?>
@@ -116,14 +123,38 @@
                     </div>
                 <?php endif; ?>
 
-                <div class="row clearfix">
-                    <div class="row-title">Рубрика:</div>
-                    <div class="row-elements">
-                        <div class="select-box">
-                            <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'name'), array('class' => 'chzn w-200')); ?>
+                <div class="row clearfix select-box">
+                    <?php if ($model->isNewRecord): ?>
+                        <table>
+                            <tr>
+                                <td align="right">
+                                    <div class="row-title">Выберите рубрику</div>
+                                    <div class="row-elements">
+                                        <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'name'), array('prompt' => 'Выберите рубрику', 'class' => 'chzn w-200')); ?>
+                                    </div>
+                                </td>
+                                <td width="120" align="center">
+                                    <div class="row-title">или</div>
+                                </td>
+                                <td>
+                                    <div class="row-title">Создайте новую</div>
+                                    <div class="row-elements">
+                                        <?php echo $form->textField($rubric_model, 'name', array('class' => 'new-rubric')); ?>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    <?php else: ?>
+                        <div class="row clearfix">
+                            <div class="row-title">Рубрика:</div>
+                            <div class="row-elements">
+                                <div class="select-box">
+                                    <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'name'), array('class' => 'chzn w-200')); ?>
+                                </div>
+                            </div>
+                            <a class="add"><i class="icon"></i></a>
                         </div>
-                    </div>
-                    <a class="add"><i class="icon"></i></a>
+                    <?php endif; ?>
                 </div>
 
                 <div class="row row-buttons">

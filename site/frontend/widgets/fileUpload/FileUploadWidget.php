@@ -21,7 +21,9 @@ class FileUploadWidget extends CWidget
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
         $js = "var upload_ajax_url = '" . Yii::app()->createUrl('/albums/addPhoto', array('a' => $this->album_id)) . "';
-        var upload_base_url = '" . $baseUrl . "'";
+        var upload_base_url = '" . $baseUrl . "';";
+        if($this->album_id)
+            $js .= "Album.album_id = " . $this->album_id . ";";
 
         $cs = Yii::app()->clientScript;
         $cs->registerCoreScript('jquery')

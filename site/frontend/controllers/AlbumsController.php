@@ -39,14 +39,15 @@ class AlbumsController extends Controller
         );
     }
 
-    public function actionIndex()
+    public function actionIndex($permission = false)
     {
         $user = Yii::app()->user->model;
         $this->user = $user;
-        $dataProvider = Album::model()->findByUser(Yii::app()->user->id);
+        $dataProvider = Album::model()->findByUser(Yii::app()->user->id, $permission);
         $this->render('index', array(
             'dataProvider' => $dataProvider,
             'user' => $user,
+            'access' => true,
         ));
     }
 
@@ -60,6 +61,7 @@ class AlbumsController extends Controller
         $this->render('index', array(
             'dataProvider' => $dataProvider,
             'user' => $user,
+            'access' => $id == Yii::app()->user->id
         ));
     }
 
@@ -76,7 +78,7 @@ class AlbumsController extends Controller
                 'params' => array(':album_id' => $model->id),
             ),
             'pagination' => array(
-                'pageSize' => Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 1000 : 20
+                'pageSize' => !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 1000 : 20
             )
         ));
 
@@ -87,35 +89,21 @@ class AlbumsController extends Controller
         ));
     }
 
-    public function actionCreate($id = false)
+    public function actionAddPhoto($a = false, $text = false, $u = false)
     {
-        $this->user = Yii::app()->user->model;
-        $model = $id ? Album::model()->findByPk($id) : new Album;
-        if($model->isNewRecord)
-            $model->author_id = Yii::app()->user->id;
-        if(isset($_POST['ajax']) && $_POST['ajax']==='album-form')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-        if(isset($_POST['Album']))
-        {
-            $model->attributes = $_POST['Album'];
-            if(isset($_POST['Photo']))
-                $model->files = $_POST['Photo'];
-            if($model->save())
-                $this->redirect($id === false ? array('albums/index') : array('albums/view', 'id' => $id));
-        }
-        $this->render('form', array('model' => $model));
-    }
-
-    public function actionAddPhoto($a = false)
-    {
-        if($a && $a != 'false')
+        if($a && $a != 'false' && $a != 0)
         {
             $album = Album::model()->findByPk($a);
             if (!$album)
                 throw new CHttpException(404, 'Альбом не найден');
+        }
+        else if($text && $u)
+        {
+            $album = new Album();
+            $album->title = $text;
+            $album->author_id = $u;
+            $album->save();
+            $a = $album->id;
         }
         else
             $album = false;
@@ -125,6 +113,7 @@ class AlbumsController extends Controller
             $file = CUploadedFile::getInstanceByName('Filedata');
             $model = new AlbumPhoto();
 
+            echo '<div id="serverData">';
             // Загрузка в новый альбом
             if(!$a || $a == 'false')
             {
@@ -133,7 +122,7 @@ class AlbumsController extends Controller
                 echo "<script type='text/javascript'>
                 document.domain = document.location.host;
                 </script>";
-                echo $model->templateUrl . '||' . $model->fs_name;
+                echo '<p id="params">' . $model->templateUrl . '||' . $model->fs_name . '</p>';
                 Yii::app()->end();
             }
 
@@ -142,8 +131,9 @@ class AlbumsController extends Controller
             $model->file = $file;
             $model->create();
 
-            echo $model->originalUrl . '||' . $model->fs_name . '||' . $model->id;
-
+            echo '<p id="params">' . $model->originalUrl . '||' . $model->fs_name . '||' . $model->id . '</p>';
+            echo CHtml::dropDownList('album_id', $album ? $album->id : false, CHtml::listData(Album::model()->findAllByAttributes(array('author_id' => $album->author_id)), 'id', 'title'), array('class' => 'chzn chzn-deselect w-200', 'id' => 'album_select', 'data-placeholder' => 'Выбрать альбом', 'empty' => '', 'onchange' => 'Album.changeAlbum(this);'));
+            echo '</div>';
             Yii::app()->end();
         }
 
@@ -346,5 +336,27 @@ class AlbumsController extends Controller
         $attach->entity = 'AlbumPhoto';
         $attach->entity_id = $photo->id;
         $attach->save();
+    }
+
+    public function actionChangeTitle()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $title = Yii::app()->request->getPost('title');
+        if(!$id || !$title)
+            Yii::app()->end();
+        $model = Album::model()->findByPk($id);
+        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+            Yii::app()->end();
+        $model->updateByPk($id, array('title' => $title));
+    }
+
+    public function actionChangePermission()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $num = Yii::app()->request->getPost('num');
+        $model = Album::model()->findByPk($id);
+        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+            Yii::app()->end();
+        $model->updateByPk($id, array('permission' => $num));
     }
 }

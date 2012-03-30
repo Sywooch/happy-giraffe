@@ -1,5 +1,6 @@
 var Album = {
-    editMode:false
+    editMode : false,
+    album_id : false
 };
 Album.editDescription = function (link, tmp) {
     var note = $(link).parents('.note:eq(0)');
@@ -72,4 +73,47 @@ Album.removePhoto = function (button, data) {
 
 Album.removeAlbum = function () {
     document.location.href = base_url + '/albums';
+};
+
+Album.changeAlbum = function(select) {
+    if($(select).val() == '') {
+        this.album_id = null;
+        if($('#new_album_title').val() == '')
+            $('#upload_button_wrapper').hide();
+        return false;
+    }
+    this.album_id = $(select).val();
+
+    upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/' + $(select).val() + '/');
+    initForm();
+    $('#new_album_title').val('');
+    $('#upload_button_wrapper').show();
+};
+
+Album.changeAlbumTitle = function(input) {
+    if($(input).val() != '') {
+        $('#upload_button_wrapper').show();
+        $('#album_select_chzn .search-choice-close').trigger('mouseup');
+        upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/0/text/' + $(input).val() + '/u/' + $('#author_id').val() + '/');
+        initForm();
+    } else {
+        $('#upload_button_wrapper').hide();
+    }
+
+};
+
+Album.changeTitle = function(link, id) {
+    var span = $(link).parent().find('.album_title');
+    var text = span.text();
+    cl(text);
+    span.empty().append($('<input type="text" name="title_input" value="'+text+'" /><input type="hidden" name="album_id" value="'+id+'" /><button class="btn btn-green-small" onclick="return Album.appendTitle(this);"><span><span>Ок</span></span></button>'))
+    return false;
+};
+Album.appendTitle = function(button) {
+    var span = $(button).parent();
+    var text = span.find('input[name=title_input]').val();
+    var id = span.find('input[name=album_id]').val();
+    span.empty().text(text);
+    $.post(base_url + '/albums/changeTitle/', {title : text, id : id});
+    return false;
 }

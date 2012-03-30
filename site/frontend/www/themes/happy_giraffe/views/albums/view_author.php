@@ -4,8 +4,8 @@
             <div class="header">
                 <div class="title">
                     <big>
-                        Альбом <span>&laquo;<?php echo $model->title; ?>&raquo;</span>
-                        <?php echo CHtml::link('<span class="tip">Редактировать</span>', array('albums/create', 'id' => $model->id), array('class' => 'edit')); ?>
+                        Альбом <span>&laquo;<span class="album_title"><?php echo CHtml::encode($model->title); ?></span>&raquo;</span>
+                        <?php echo CHtml::link('<span class="tip">Редактировать</span>', 'javascript:;', array('class' => 'edit', 'onclick' => 'return Album.changeTitle(this, ' . $model->id . ');')); ?>
                         <div class="visibility-picker">
                             <a onclick="albumVisibilityListToggle(this)" class="album-visibility" href="javascript:void(0);">
                                 <?php

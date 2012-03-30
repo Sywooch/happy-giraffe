@@ -23,13 +23,11 @@
                     'itemView'=>'_photo',
                     'summaryText' => 'показано: {start} - {end} из {count}',
                     'pager' => array(
-                        'class' => 'MyLinkPager',
-                        'header' => 'Страницы',
+                        'class' => 'AlbumLinkPager',
                     ),
                     'id' => 'comment_list_view',
                     'template' => '<ul id="photos_list">{items}</ul>
                             <div class="pagination pagination-center clearfix">
-                                {summary}
                                 {pager}
                             </div>
                         ',

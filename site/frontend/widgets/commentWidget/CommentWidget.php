@@ -64,7 +64,7 @@ class CommentWidget extends CWidget
     {
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/comment.js')
+        Yii::app()->clientScript->registerScriptFile($baseUrl . '/comment.js', CClientScript::POS_HEAD)
         ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.tmpl.min.js');
 
         if ($this->type == 'guestBook')
@@ -74,7 +74,7 @@ class CommentWidget extends CWidget
         $script.= '
         Comment.saveCommentUrl="'.Yii::app()->createUrl('/albums/saveCommentPhoto').'";
         Comment.entity="'.$this->entity.'";
-        Comment.entity_id="'.$this->entity_id.'";
+        Comment.entity_id='.$this->entity_id.';
         ';
         Yii::app()->clientScript->registerScript('Comment register script', $script);
     }

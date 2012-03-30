@@ -17,7 +17,7 @@
                     <ul<?php echo $index == 0 ? ' class="active"' : '' ?>>
                         <?php foreach($category->interests as $interest): ?>
                             <li>
-                                <label onclick="Interest.checkItem(this);" class="interest <?php echo $category->css_class; ?><?php echo isset($user_interests[$interest->id]) ? ' selected' : '' ?>" for="<?php echo 'InterestItem_' . $interest->id . ''; ?>">
+                                <label onclick="Interest.checkItem(this);return false;" class="interest <?php echo $category->css_class; ?><?php echo isset($user_interests[$interest->id]) ? ' selected' : '' ?>" for="<?php echo 'InterestItem_' . $interest->id . ''; ?>">
                                     <?php echo $interest->name; ?>
                                 </label>
                                 <?php echo CHtml::checkBox('Interest[' . $interest->id . ']', isset($user_interests[$interest->id]), array('id' => 'InterestItem_' . $interest->id)); ?>

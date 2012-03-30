@@ -1,5 +1,17 @@
 function initForm() {
     $('#upload-input').hide();
+    var binding = true;
+    if($('#upload-control').data('__swfu') != undefined) {
+        $($('#upload-control').data('__swfu').movieElement).replaceWith($($('#upload-control').data('__swfu').settings.button_placeholder));
+        $('#upload-control').data('__swfu').destroy();
+        $('#upload-control').data('__swfu', null);
+        $($('#upload_finish_wrapper').data('__swfu').movieElement).replaceWith($($('#upload_finish_wrapper').data('__swfu').settings.button_placeholder));
+        $('#upload_finish_wrapper').data('__swfu').destroy();
+        $('#upload_finish_wrapper').data('__swfu', null);
+        binding = false;
+    }
+
+
     $('#upload-control').swfupload({
         upload_url:upload_ajax_url,
         file_size_limit:"6144",
@@ -7,31 +19,34 @@ function initForm() {
         file_upload_limit:"0",
         flash_url:upload_base_url + "/swfupload.swf",
 
-        button_text:'',
-        button_width:91,
-        button_height:34,
+        button_text: '',
+        button_width: 91,
+        button_height: 34,
         button_image_url:"/images/btn_browse.png",
         button_placeholder:$('#upload-button')[0]
     });
     $('#upload_finish_wrapper').swfupload({
         upload_url:upload_ajax_url,
         file_size_limit:"6144",
-        file_types:"*.*",
+        file_types:"*.jpg;*.png;*.gif;*.jpeg",
         file_upload_limit:"0",
         flash_url:upload_base_url + "/swfupload.swf",
 
         button_text:'<span class="moreButton">Добавить еще фотографий</span>',
         button_text_style:'.moreButton {color: #54AFC3;display:block;height:34px;line-height:34px;font-size:12px;font-family:arial;}',
-        button_width:152,
+        button_width:178,
         button_height:34,
         button_placeholder:$('#upload-link')[0]
     });
-    registerUploadEvents($('#upload-control'));
-    registerUploadEvents($('#upload_finish_wrapper'));
+    if(binding) {
+        registerUploadEvents($('#upload-control'));
+        registerUploadEvents($('#upload_finish_wrapper'));
+    }
 }
 
 function registerUploadEvents(elem) {
     elem.bind('fileQueued', function (event, file) {
+        $('#log').empty();
         var listitem = '<li class="clearfix" id="' + file.id + '" >' +
             '<div class="img"><i class="icon-error"></i></div>' +
             '<i class="icon-done"></i>' +
@@ -77,13 +92,23 @@ function registerUploadEvents(elem) {
             $('#log li#' + file.id).find('.progress-value').text(percentage + '%');
         })
         .bind('uploadSuccess', function (event, file, serverData) {
+            $('#album_select').replaceWith($(serverData).find('#album_select'));
+            $('#album_select_chzn').remove();
+            $('#album_select').chosen({
+                allow_single_deselect:true
+            });
+
+            $('#new_album_title').val('');
+            Album.changeAlbum($('#album_select'));
+
+
             var item = $('#log li#' + file.id);
             item.addClass('upload-done');
             item.find('div.progress .in').css('width', '100%');
             item.find('.progress-value').text('100%');
             var pathtofile = '<a href="uploads/' + file.name + '" target="_blank" >view &raquo;</a>';
 
-            var params = serverData.split('||');
+            var params = $(serverData).find('#params').text().split('||');
             item.find('.file-params').append('<span class="src">' + params[0] + '</span>');
             item.find('.file-params').append('<span class="fsn">' + params[1] + '</span>');
             if (params[2] != undefined)
@@ -104,7 +129,7 @@ function initAttachForm() {
         complete:function (response) {
             if(!response)
                 return false;
-            var params = response.split('||');
+            var params = $(response).find('#params').text().split('||');
             var html = '<img src="' + params[0] + '" width="170" alt="" />' +
                 '<input type="hidden" name="fsn" value="' + params[1] + '" />' +
                 '<a class="remove" href="" onclick="return removeAttachPhoto();"></a>';
@@ -123,16 +148,6 @@ function removeAttachPhoto() {
 }
 
 function savePhotos() {
-    if ($('#galleryUploadPhotos #log li.upload-done').size() == 0)
-        return false;
-    $('#galleryUploadPhotos #log li.upload-done').each(function () {
-        $('#comment_list_view ul, #photos_list').append($('#new_photo_template').tmpl([
-            {
-                src:$('.file-params .src', this).text(),
-                fsn:$('.file-params .fsn', this).text()
-            }
-        ]));
-    });
     if ($('#comment_list_view').size() > 0)
         $.fn.yiiListView.update('comment_list_view');
     $.fancybox.close();

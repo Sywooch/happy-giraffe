@@ -5,14 +5,24 @@
 
     <div class="album_upload_step_1">
         <div class="title">Шаг 1</div>
-        <big>Выберите альбом</big>
-        <?php echo CHtml::dropDownList('album_id', $album ? $album->id : false, CHtml::listData(Yii::app()->user->model->albums, 'id', 'title'), array('class' => 'chzn w-300', 'id' => 'album_select')) ?>
-        <button class="btn btn-green-small"><span><span>Выбрать</span></span></button>
-        <br/><br/>
-        <big>или создайте новый</big>
-        <input type="text" class="album-name w-300">
-        <button class="btn btn-green-small"><span><span>Создать</span></span></button>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <big>Выберите альбом</big>
+                        <?php echo CHtml::dropDownList('album_id', $album ? $album->id : false, CHtml::listData(Yii::app()->user->model->albums, 'id', 'title'), array('class' => 'chzn chzn-deselect w-200', 'id' => 'album_select', 'data-placeholder' => 'Выбрать альбом', 'empty' => '', 'onchange' => 'Album.changeAlbum(this);')) ?>
+                    </td>
+                    <td width="120" align="center"><big>или</big></td>
+                    <td>
+                        <big>Создайте новый</big>
+                        <input type="text" placeholder="Введите название нового альбома" id="new_album_title" class="album-name" onkeyup="Album.changeAlbumTitle(this);" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+
+    <br/><br/>
 
     <div class="album_upload_step_2">
         <div class="title">Шаг 2</div>
@@ -30,7 +40,7 @@
             </ul>
         </div>
 
-        <div class="bottom" id="upload_button_wrapper">
+        <div class="bottom" id="upload_button_wrapper" style="display: none;">
             <?php
             $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget', array(
                 'album_id' => $album ? $album->id : false,

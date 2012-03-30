@@ -3,7 +3,13 @@ $(document).ready(function () {
     if ($('a.fancy').size() > 0) {
         $('body').delegate('a.fancy', 'click', function () {
             var onComplete_function = function () {
-                if ($('.popup .chzn').size() > 0) $('.popup .chzn').chosen();
+                if ($('.popup .chzn').size() > 0)
+                    $('.popup .chzn').each(function() {
+                        var s = $(this);
+                        s.chosen({
+                            allow_single_deselect:s.hasClass('chzn-deselect')
+                        });
+                    });
             };
             if ($(this).hasClass('attach_link')) {
                 onComplete_function = function () {
@@ -225,7 +231,6 @@ function initSelects(block) {
     var chzns = block.find('.chzn-done');
     if (chzns.size() > 0) {
         chzns.each(function () {
-
             var s = $(this);
             s.removeClass('chzn-done').chosen({
                 allow_single_deselect:s.hasClass('chzn-deselect')
@@ -256,7 +261,12 @@ function cl(value) {
 $.fancybox.open = function (content) {
     var fancy = $('<a></a>').fancybox({content:content, showCloseButton:false, scrolling:false});
     fancy.trigger('click');
-    $('#fancybox-wrap .chzn').chosen();
+    $('#fancybox-wrap .chzn').each(function() {
+        var s = $(this);
+        s.chosen({
+            allow_single_deselect:s.hasClass('chzn-deselect')
+        });
+    });
 }
 
 function navDrpOpen(el) {

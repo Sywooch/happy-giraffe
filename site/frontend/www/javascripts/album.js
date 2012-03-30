@@ -1,5 +1,6 @@
 var Album = {
-    editMode:false
+    editMode : false,
+    album_id : false
 };
 Album.editDescription = function (link, tmp) {
     var note = $(link).parents('.note:eq(0)');

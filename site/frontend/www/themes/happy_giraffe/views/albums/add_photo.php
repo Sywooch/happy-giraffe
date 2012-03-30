@@ -1,5 +1,5 @@
 <div id="galleryUploadPhotos" class="popup">
-
+    <?php echo CHtml::form('', 'post', array('id' => 'upload-form', 'enctype' => 'multipart/form-data')); ?>
     <a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
 
     <div class="title">Добавьте Ваши фото</div>
@@ -38,6 +38,9 @@
         <a href="" class="a-left" id="upload-link">Добавить еще фотографий</a>
         <a href="" class="btn btn-green-medium" onclick="return savePhotos();"><span><span>Завершить</span></span></a>
     </div>
+
+    <?php echo CHtml::endForm(); ?>
+    <script type="text/javascript">initForm();</script>
 
 </div>
     <script type="text/javascript">

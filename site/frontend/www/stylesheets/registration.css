@@ -39,7 +39,7 @@
 
 #registration .user-info {margin-top:15px;}
 
-#registration .gender-select {width:280px;float:left;padding-top:50px;}
+#registration .gender-select {width:280px;margin:0 auto;padding-top:50px;}
 #registration .gender-select big {display:block;margin:50px 0 40px 60px;font:bold italic 20px arial, sans-serif;color:#2296b0;}
 #registration .gender-select ul {list-style:none;}
 #registration .gender-select ul li {padding:0 10px 20px;width:120px;text-align:center;float:left;color:#62b2bb;font-size:11px;position:relative;}

@@ -24,6 +24,7 @@ class Album extends CActiveRecord
 
     public static $systems = array(
         1 => 'Личные фотографии',
+        2 => 'Диалоги',
     );
 
     public static $permissions = array(

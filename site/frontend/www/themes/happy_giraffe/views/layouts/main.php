@@ -3,8 +3,9 @@
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
-    <?php echo CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type'); ?>
-    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
+    <?=CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type')?>
+    <title><?=CHtml::encode($this->pageTitle)?></title>
 
     <?php
     $cs = Yii::app()->clientScript;
@@ -145,7 +146,7 @@
                     </div>
 
                     <div class="logo-box">
-                        <a href="/" class="logo" title="hg.ru – Домашняя страница">Ключевые слова сайта</a>
+                        <a href="/" class="logo" title="Веселый Жираф - сайт для всей семьи">Ключевые слова сайта</a>
                         <span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
                     </div>
 
@@ -424,7 +425,7 @@
     <div id="footer" class="wrapper clearfix">
 
         <div class="a-right">
-            <a href="">Политика конфиденциальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
+            <a>Политика конфиденциальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a>
         </div>
 
         <div class="copy">

@@ -84,7 +84,7 @@
 <div id="footer" class="wrapper clearfix" style="margin-top:0;">
 
     <div class="a-right">
-        <a href="javascript:;">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="javascript:;">Пользовательское соглашение</a>
+        <a>Политика конфедециальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a>
 
     </div>
 

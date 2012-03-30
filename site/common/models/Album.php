@@ -121,14 +121,20 @@ class Album extends CActiveRecord
 		);
 	}
 
-    public function findByUser($author_id)
+    public function findByUser($author_id, $permission = false)
     {
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('t.author_id = :author_id');
+        $criteria->params[':author_id'] = $author_id;
+        if($permission !== false)
+        {
+            $criteria->addCondition('permission = :permission');
+            $criteria->params[':permission'] = $permission;
+        }
+        $criteria->scopes = array('active');
+
         return new CActiveDataProvider($this, array(
-            'criteria' => array(
-                'condition' => 't.author_id = :author_id',
-                'params' => array(':author_id' => $author_id),
-                'scopes' => array('active')
-            ),
+            'criteria' => $criteria,
         ));
     }
 

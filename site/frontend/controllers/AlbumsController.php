@@ -39,14 +39,15 @@ class AlbumsController extends Controller
         );
     }
 
-    public function actionIndex()
+    public function actionIndex($permission = false)
     {
         $user = Yii::app()->user->model;
         $this->user = $user;
-        $dataProvider = Album::model()->findByUser(Yii::app()->user->id);
+        $dataProvider = Album::model()->findByUser(Yii::app()->user->id, $permission);
         $this->render('index', array(
             'dataProvider' => $dataProvider,
             'user' => $user,
+            'access' => true,
         ));
     }
 
@@ -60,6 +61,7 @@ class AlbumsController extends Controller
         $this->render('index', array(
             'dataProvider' => $dataProvider,
             'user' => $user,
+            'access' => $id == Yii::app()->user->id
         ));
     }
 
@@ -334,5 +336,15 @@ class AlbumsController extends Controller
         $attach->entity = 'AlbumPhoto';
         $attach->entity_id = $photo->id;
         $attach->save();
+    }
+
+    public function actionChangePermission()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $num = Yii::app()->request->getPost('num');
+        $model = Album::model()->findByPk($id);
+        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+            Yii::app()->end();
+        $model->updateByPk($id, array('permission' => $num));
     }
 }

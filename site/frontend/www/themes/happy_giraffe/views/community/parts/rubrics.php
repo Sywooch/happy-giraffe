@@ -48,7 +48,7 @@ Yii::app()->clientScript->registerScript('edit_rubrics_main', "
             dataType:'JSON',
             success:function (response) {
                 if (response.status) {
-                    $(this).parent().prev().text(text);
+                    $(this).parent().prev().find('a').text(text);
                     $(this).parent().prev().show();
                     $(this).parent().prev().prev().show().removeAttr('style');
                     $(this).parent().remove();

@@ -4,27 +4,44 @@ class AjaxController extends Controller
 {
     public function actionSetValue()
     {
-        $modelName = Yii::app()->request->getPost('modelName');
-        $modelPk = Yii::app()->request->getPost('modelPk');
+        $modelName = Yii::app()->request->getPost('entity');
+        $modelPk = Yii::app()->request->getPost('entity_id');
         $attribute = Yii::app()->request->getPost('attribute');
         $value = Yii::app()->request->getPost('value');
 
-        /**
-         * @var CActiveRecord $model
-         */
-        $model = new $modelName;
-        $res = Yii::app()->db->createCommand()
-            ->update($model->tableName(),
-            array($attribute => $value),
-            $model->getTableSchema()->primaryKey.' = '.$modelPk);
-
-        if ($res >= 0)
+        $model = $modelName::model()->findByPk($modelPk);
+        $model->setAttribute($attribute, $value);
+        if ($model->save())
             echo '1';
+    }
+
+    public function actionSetDate()
+    {
+        $modelName = Yii::app()->request->getPost('entity');
+        $modelPk = Yii::app()->request->getPost('entity_id');
+        $attribute = Yii::app()->request->getPost('attribute');
+        $d = Yii::app()->request->getPost('d');
+        $m = Yii::app()->request->getPost('m');
+        $y = Yii::app()->request->getPost('y');
+
+        $model = $modelName::model()->findByPk($modelPk);
+        $model->setAttribute($attribute, HDate::getStringDate($d, $m, $y));
+        if ($model->save()) {
+            $response = array(
+                'status' => true,
+                'age' => $model->getAge()
+            );
+        } else {
+            $response = array(
+                'status' => false,
+            );
+        }
+        echo CJSON::encode($response);
     }
 
     public function actionRate()
     {
-        if(Yii::app()->user->isGuest)
+        if (Yii::app()->user->isGuest)
             Yii::app()->end();
         Yii::import('contest.models.*');
         $modelName = $_POST['modelName'];
@@ -33,15 +50,13 @@ class AjaxController extends Controller
         $value = $_POST['r'];
 
         $model = $modelName::model()->findByPk($objectId);
-        if(!$model)
+        if (!$model)
             Yii::app()->end();
 
-        if($url = Yii::app()->request->getPost('url'))
-        {
+        if ($url = Yii::app()->request->getPost('url')) {
             Rating::model()->updateByApi($model, $social_key, $url);
         }
-        else
-        {
+        else {
             Rating::model()->saveByEntity($model, $social_key, $value, true);
         }
 
@@ -50,7 +65,7 @@ class AjaxController extends Controller
             'count' => Rating::model()->countByEntity($model),
         ));
         Yii::app()->end();
-	}
+    }
 
     public function actionGetRate()
     {
@@ -69,41 +84,46 @@ class AjaxController extends Controller
     public function actionSocialApi()
     {
         Yii::import('contest.models.*');
-        if(!isset($_GET['key']) && ($params = Yii::app()->user->getFlash('google')) != false);
+        if (!isset($_GET['key']) && ($params = Yii::app()->user->getFlash('google')) != false) ;
         else
             $params = $_GET;
-        if(isset($params['key']))
-        {
+        if (isset($params['key'])) {
             $key = $params['key'];
-            switch($key)
-            {
-                case 'vk' : $service = 'vkontakte'; break;
-                case 'fb' : $service = 'facebook'; break;
-                case 'tw' : $service = 'twitter'; break;
-                case 'mr' : $service = 'mailru'; break;
-                case 'gp' : $service = 'google'; break;
+            switch ($key) {
+                case 'vk' :
+                    $service = 'vkontakte';
+                    break;
+                case 'fb' :
+                    $service = 'facebook';
+                    break;
+                case 'tw' :
+                    $service = 'twitter';
+                    break;
+                case 'mr' :
+                    $service = 'mailru';
+                    break;
+                case 'gp' :
+                    $service = 'google';
+                    break;
             }
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $authIdentity->redirectUrl = $this->createAbsoluteUrl('/ajax/socialApi');
-            if($service == 'google')
-            {
+            if ($service == 'google') {
                 Yii::app()->user->setFlash('google', $_GET);
                 $authIdentity->redirectUri = $this->createAbsoluteUrl('/ajax/socialApi');
             }
-            if ($authIdentity->authenticate())
-            {
+            if ($authIdentity->authenticate()) {
                 $name = $authIdentity->getServiceName();
                 $id = $authIdentity->getAttribute('id');
                 $url = $params['surl'];
-                if(!isset($url))
+                if (!isset($url))
                     echo '<script type="text/javascript">window.close();</script>';
-                else
-                {
+                else {
                     $entity_name = $params['entity'];
                     $entity_id = $params['entity_id'];
                     $entity = call_user_func(array($entity_name, 'model'))->findByPk($entity_id);
                     // Если пользователя нет в списке голосовавших - увеличиваем рейтинг
-                    if(RatingUsers::model()->saveByUser($id, $name, $entity_name, $entity_id))
+                    if (RatingUsers::model()->saveByUser($id, $name, $entity_name, $entity_id))
                         Rating::model()->saveByEntity($entity, $key, 1, true);
                     $this->redirect($url);
                 }
@@ -113,35 +133,35 @@ class AjaxController extends Controller
 
     public function actionSavePhoto()
     {
-        if(!isset($_FILES))
+        if (!isset($_FILES))
             Yii::app()->end();
         $model = new AlbumPhoto();
     }
 
-	public function actionImageUpload()
-	{
-		$dir = Yii::getPathOfAlias('webroot') . '/upload/images/';
+    public function actionImageUpload()
+    {
+        $dir = Yii::getPathOfAlias('webroot') . '/upload/images/';
 
-		$_FILES['file']['type'] = strtolower($_FILES['file']['type']);
+        $_FILES['file']['type'] = strtolower($_FILES['file']['type']);
 
-		if ($_FILES['file']['type'] == 'image/png'
-		|| $_FILES['file']['type'] == 'image/jpg'
-		|| $_FILES['file']['type'] == 'image/gif'
-		|| $_FILES['file']['type'] == 'image/jpeg'
-		|| $_FILES['file']['type'] == 'image/pjpeg')
-		{
-			copy($_FILES['file']['tmp_name'], $dir . time() . $_FILES['file']['name']);
+        if ($_FILES['file']['type'] == 'image/png'
+            || $_FILES['file']['type'] == 'image/jpg'
+            || $_FILES['file']['type'] == 'image/gif'
+            || $_FILES['file']['type'] == 'image/jpeg'
+            || $_FILES['file']['type'] == 'image/pjpeg'
+        ) {
+            copy($_FILES['file']['tmp_name'], $dir . time() . $_FILES['file']['name']);
 
-			echo Yii::app()->baseUrl . '/upload/images/' . time() . $_FILES['file']['name'];
-		}
-	}
+            echo Yii::app()->baseUrl . '/upload/images/' . time() . $_FILES['file']['name'];
+        }
+    }
 
     public function actionPageView()
     {
-        if(!Yii::app()->request->isAjaxRequest || false === ($path = Yii::app()->request->getPost('path')))
+        if (!Yii::app()->request->isAjaxRequest || false === ($path = Yii::app()->request->getPost('path')))
             Yii::app()->end();
         $count = 1;
-        if($model = PageView::model()->updateByPath($path))
+        if ($model = PageView::model()->updateByPath($path))
             $count = $model->views + 1;
         echo CJSON::encode(array(
             'count' => (int)$count,
@@ -150,29 +170,27 @@ class AjaxController extends Controller
 
     public function actionSendComment()
     {
-        if (empty($_POST['edit-id'])){
+        if (empty($_POST['edit-id'])) {
             $comment = new Comment('default');
             $comment->attributes = $_POST['Comment'];
             $comment->author_id = Yii::app()->user->id;
-        }else{
+        } else {
             $comment = Comment::model()->findByPk($_POST['edit-id']);
             if ($comment === null)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
             //check access
             if ($comment->author_id != Yii::app()->user->id &&
-                !Yii::app()->authManager->checkAccess('editComment',Yii::app()->user->id)
+                !Yii::app()->authManager->checkAccess('editComment', Yii::app()->user->id)
             )
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
             $comment->attributes = $_POST['Comment'];
         }
-        if ($comment->save())
-        {
+        if ($comment->save()) {
             $response = array(
                 'status' => 'ok',
             );
         }
-        else
-        {
+        else {
             $response = array(
                 'status' => 'error',
             );
@@ -180,50 +198,48 @@ class AjaxController extends Controller
         echo CJSON::encode($response);
     }
 
-	public function actionUserViaCommunity()
-	{
-		$user = User::model()->with('communities')->findByPk(Yii::app()->user->id);
-		$communities = $user->communities;
-		$_communities = array();
-		foreach ($communities as $c)
-		{
-			if ($c->id != 2) $_communities[] = $c->id;
-		}
-		$user->communities = $_communities;
-		$user->saveRelated('communities');
-	}
+    public function actionUserViaCommunity()
+    {
+        $user = User::model()->with('communities')->findByPk(Yii::app()->user->id);
+        $communities = $user->communities;
+        $_communities = array();
+        foreach ($communities as $c) {
+            if ($c->id != 2) $_communities[] = $c->id;
+        }
+        $user->communities = $_communities;
+        $user->saveRelated('communities');
+    }
 
     public function actionRemoveEntity()
     {
         Yii::import('application.modules.contest.models.*');
-        if(!Yii::app()->request->isAjaxRequest || !isset($_POST['Removed']))
+        if (!Yii::app()->request->isAjaxRequest || !isset($_POST['Removed']))
             Yii::app()->end();
         $model = call_user_func(array($_POST['Removed']['entity'], 'model'));
         $model = $model->findByPk($_POST['Removed']['entity_id']);
-        if(!$model)
+        if (!$model)
             Yii::app()->end();
 
         $is_entity_author = false;
         if (method_exists($model, 'isEntityAuthor') && $model->isEntityAuthor(Yii::app()->user->id))
             $is_entity_author = true;
 
-        if (!Yii::app()->user->checkAccess('remove'.get_class($model),array('user_id'=>$model->author_id)) && !$is_entity_author)
+        if (!Yii::app()->user->checkAccess('remove' . get_class($model), array('user_id' => $model->author_id)) && !$is_entity_author)
             Yii::app()->end();
 
         $removed = new Removed;
         $removed->user_id = Yii::app()->user->id;
         $removed->attributes = $_POST['Removed'];
-        if($model->author_id == Yii::app()->user->id)
+        if ($model->author_id == Yii::app()->user->id)
             $removed->type = 0;
         elseif ($is_entity_author)
             $removed->type = 5;
         $removed->save();
     }
 
-	public function actionAcceptReport()
-	{
-        if ($_POST['Report'])
-        {
+    public function actionAcceptReport()
+    {
+        if ($_POST['Report']) {
             $path = parse_url($_SERVER['HTTP_REFERER']);
             $report = new Report;
             $report->setAttributes($_POST['Report'], FALSE);
@@ -231,11 +247,11 @@ class AjaxController extends Controller
             $report->path = $path['path'];
             $report->save();
         }
-	}
+    }
 
     public function actionShowReport()
     {
-        if(!Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->request->isAjaxRequest)
             Yii::app()->end();
         $accepted_models = array(
             'Comment',
@@ -245,8 +261,7 @@ class AjaxController extends Controller
             'MessageLog'
         );
         $source_data = $_POST['source_data'];
-        if (in_array($source_data['model'], $accepted_models))
-        {
+        if (in_array($source_data['model'], $accepted_models)) {
             $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array(
                 'entity_name' => $source_data['model'],
                 'entity_id' => $source_data['object_id'],
@@ -256,108 +271,104 @@ class AjaxController extends Controller
         }
     }
 
-	public function actionView($path)
-	{
-		$this->renderPartial($path);
-	}
+    public function actionView($path)
+    {
+        $this->renderPartial($path);
+    }
 
-	public function actionVideo()
-	{
-		$link = $_POST['url'];
+    public function actionVideo()
+    {
+        $link = $_POST['url'];
 
-		$video = new Video($link);
+        $video = new Video($link);
 
-		$host = parse_url($link, PHP_URL_HOST);
-		$favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
-		$favicon = strtr($host, array('.' => '_')) . '.png';
-		$favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' .  $favicon;
-		file_put_contents($favicon_path, file_get_contents($favicon_url));
+        $host = parse_url($link, PHP_URL_HOST);
+        $favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
+        $favicon = strtr($host, array('.' => '_')) . '.png';
+        $favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' . $favicon;
+        file_put_contents($favicon_path, file_get_contents($favicon_url));
 
-		$this->renderPartial('video_preview', array(
-			'video' => $video,
-			'favicon' => $favicon,
-		));
-	}
+        $this->renderPartial('video_preview', array(
+            'video' => $video,
+            'favicon' => $favicon,
+        ));
+    }
 
-	public function actionSource()
-	{
-		switch ($_POST['source_type'])
-		{
-			case 'book':
-				$this->renderPartial('source_type/preview/book', array(
-					'author' => $_POST['book_author'],
-					'name' => $_POST['book_name'],
-				));
-				break;
-			case 'internet':
-				$link = $_POST['internet_link'];
-				$html = file_get_contents($link);
-				$title = preg_match('/<title>(.+)<\/title>/', $html, $matches) ? $matches[1] : $link;
-				$title = mb_convert_encoding($title, 'UTF-8', 'cp1251');
+    public function actionSource()
+    {
+        switch ($_POST['source_type']) {
+            case 'book':
+                $this->renderPartial('source_type/preview/book', array(
+                    'author' => $_POST['book_author'],
+                    'name' => $_POST['book_name'],
+                ));
+                break;
+            case 'internet':
+                $link = $_POST['internet_link'];
+                $html = file_get_contents($link);
+                $title = preg_match('/<title>(.+)<\/title>/', $html, $matches) ? $matches[1] : $link;
+                $title = mb_convert_encoding($title, 'UTF-8', 'cp1251');
 
-				$host = parse_url($link, PHP_URL_HOST);
-				$favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
-				$favicon = strtr($host, array('.' => '_')) . '.png';
-				$favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' .  $favicon;
-				file_put_contents($favicon_path, file_get_contents($favicon_url));
+                $host = parse_url($link, PHP_URL_HOST);
+                $favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
+                $favicon = strtr($host, array('.' => '_')) . '.png';
+                $favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' . $favicon;
+                file_put_contents($favicon_path, file_get_contents($favicon_url));
 
-				$this->renderPartial('source_type/preview/internet', array(
-					'title' => $title,
-					'favicon' => $favicon,
-				));
-				break;
-		}
-	}
+                $this->renderPartial('source_type/preview/internet', array(
+                    'title' => $title,
+                    'favicon' => $favicon,
+                ));
+                break;
+        }
+    }
 
-	public function actionSave()
-	{
-		print_r($_POST);
-		$user = User::model()->findByPk(Yii::app()->user->id);
-		$user->setAttributes($_POST['User']);
-		$user->save(TRUE, array('first_name', 'last_name', 'nick', 'birthday', 'settlement_id'));
-	}
+    public function actionSave()
+    {
+        print_r($_POST);
+        $user = User::model()->findByPk(Yii::app()->user->id);
+        $user->setAttributes($_POST['User']);
+        $user->save(TRUE, array('first_name', 'last_name', 'nick', 'birthday', 'settlement_id'));
+    }
 
-	public function actionSaveChild()
-	{
-		//sleep(2);
-		$baby = Baby::model()->findByPk($_POST['Baby']['id']);
-		$baby->setAttributes($_POST['Baby']);
-		$baby->save(TRUE, array('name', 'birthday'));
-		echo json_encode($baby->getAttributes());
-	}
+    public function actionSaveChild()
+    {
+        //sleep(2);
+        $baby = Baby::model()->findByPk($_POST['Baby']['id']);
+        $baby->setAttributes($_POST['Baby']);
+        $baby->save(TRUE, array('name', 'birthday'));
+        echo json_encode($baby->getAttributes());
+    }
 
-	public function actionSettlements()
-	{
-		$data = GeoRusSettlement::model()->findAll('region_id=:region_id', array(':region_id'=>(int) $_POST['region_id']));
+    public function actionSettlements()
+    {
+        $data = GeoRusSettlement::model()->findAll('region_id=:region_id', array(':region_id' => (int)$_POST['region_id']));
 
-		$data = CHtml::listData($data,'id','name');
-		foreach($data as $value=>$name)
-		{
-			echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), TRUE);
-		}
-	}
+        $data = CHtml::listData($data, 'id', 'name');
+        foreach ($data as $value => $name) {
+            echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), TRUE);
+        }
+    }
 
-	public function actionRubrics()
-	{
+    public function actionRubrics()
+    {
         $rubrics = CommunityRubric::model()->findAllByAttributes(array('community_id' => Yii::app()->request->getPost('community_id')));
         $htmlOptions = array('prompt' => 'Выберите рубрику');
         echo CHtml::listOptions('', CHtml::listData($rubrics, 'id', 'name'), $htmlOptions);
-	}
+    }
 
     public function actionVote()
     {
-        if (Yii::app()->request->isAjaxRequest && ! Yii::app()->user->isGuest)
-        {
+        if (Yii::app()->request->isAjaxRequest && !Yii::app()->user->isGuest) {
             $object_id = $_POST['object_id'];
             $vote = $_POST['vote'];
             $model = $_POST['model']::model()->findByPk($object_id);
 
-            if ($model)
-            {
+            if ($model) {
                 $depends = Yii::app()->user->id;
-                if (isset($_POST['depends'])){
-                    $depends = array('user_id'=>Yii::app()->user->id);
-                    foreach($_POST['depends'] as $key=>$value)
+                if (isset($_POST['depends'])) {
+                    $depends = array('user_id' => Yii::app()->user->id);
+                    foreach ($_POST['depends'] as $key => $value)
                         $depends[$key] = $value;
                 }
 
@@ -367,9 +378,9 @@ class AjaxController extends Controller
                 $response = array('success' => true);
                 foreach ($model->vote_attributes as $key => $value) {
                     $response[$value] = $model->$value;
-                    $response[$value.'_percent'] = $model->getPercent($key);
+                    $response[$value . '_percent'] = $model->getPercent($key);
                 }
-                if (isset($model->vote_attributes[0]) && isset($model->vote_attributes[1])){
+                if (isset($model->vote_attributes[0]) && isset($model->vote_attributes[1])) {
                     $response['rating'] = $model->{$model->vote_attributes[1]} - $model->{$model->vote_attributes[0]};
                 }
             }
@@ -382,7 +393,7 @@ class AjaxController extends Controller
 
     public function actionInterestsForm()
     {
-        if(!Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->request->isAjaxRequest)
             Yii::app()->end();
         Yii::import('site.common.models.interest.*');
         $categories = InterestCategory::model()->findAll();
@@ -392,14 +403,14 @@ class AjaxController extends Controller
 
     public function actionSaveInterests()
     {
-        if(!Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->request->isAjaxRequest)
             Yii::app()->end();
         Yii::import('site.common.models.interest.*');
         Interest::saveByUser(Yii::app()->user->id, Yii::app()->request->getPost('Interest'));
 
         $interests = Yii::app()->user->model->interests;
         $html = CHtml::openTag('ul', array('id' => 'user_interests_list'));
-        foreach($interests as $interest)
+        foreach ($interests as $interest)
             $html .= CHtml::tag('li', array(), CHtml::tag('span', array('class' => 'interest selected ' . $interest->category->css_class), $interest->name));
         $html .= CHtml::closeTag('ul');
         echo $html;

@@ -79,15 +79,18 @@ Album.changeAlbum = function(select) {
     if($(select).val() == '') {
         this.album_id = null;
         if($('#new_album_title').val() == '')
-            $('#upload_button_wrapper').hide();
+            $('#upload_button_wrapper').css('visibility', 'hidden');
         return false;
     }
     this.album_id = $(select).val();
 
     upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/' + $(select).val() + '/');
-    Album.initUploadForm();
     $('#new_album_title').val('');
-    $('#upload_button_wrapper').show();
+    if(!$('#upload_finish_wrapper').is('.is_visible')) {
+        $('#upload_button_wrapper').show();
+        $('#upload_button_wrapper').css('visibility', 'visible');
+    }
+    Album.initUploadForm();
 };
 
 Album.initUploadForm = function() {
@@ -100,12 +103,15 @@ Album.initUploadForm = function() {
 
 Album.changeAlbumTitle = function(input) {
     if($(input).val() != '') {
-        $('#upload_button_wrapper').show();
+        if($('#upload_finish_wrapper').not('.is_visible')) {
+            $('#upload_button_wrapper').show();
+            $('#upload_button_wrapper').css('visibility', 'visible');
+        }
         $('#album_select_chzn .search-choice-close').trigger('mouseup');
         upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/0/text/' + $(input).val() + '/u/' + $('#author_id').val() + '/');
         Album.initUploadForm();
     } else {
-        $('#upload_button_wrapper').hide();
+        $('#upload_button_wrapper').css('visibility', 'hidden');
     }
 
 };
@@ -113,7 +119,6 @@ Album.changeAlbumTitle = function(input) {
 Album.changeTitle = function(link, id) {
     var span = $(link).parent().find('.album_title');
     var text = span.text();
-    cl(text);
     span.empty().append($('<input type="text" name="title_input" value="'+text+'" /><input type="hidden" name="album_id" value="'+id+'" /><button class="btn btn-green-small" onclick="return Album.appendTitle(this);"><span><span>Ок</span></span></button>'))
     return false;
 };

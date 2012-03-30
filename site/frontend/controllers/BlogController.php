@@ -33,14 +33,12 @@ class BlogController extends Controller
 
     public function getUrl($overwrite = array(), $route = 'blog/list')
     {
-        return array_filter(CMap::mergeArray(
-            array($route),
-            array(
-                'user_id' => $this->user->id,
-                'rubric_id' => $this->rubric_id,
-            ),
+        $params = array_filter(CMap::mergeArray(
+            $this->actionParams,
             $overwrite
         ));
+
+        return $this->createUrl($route, $params);
     }
 
     public function actionAdd($content_type_slug = 'post')
@@ -51,26 +49,13 @@ class BlogController extends Controller
         $model->type_id = $content_type->id;
         $slave_model_name = 'Community' . ucfirst($content_type->slug);
         $slave_model = new $slave_model_name;
+
         $rubrics = Yii::app()->user->model->blog_rubrics;
 
         if (isset($_POST['BlogContent'], $_POST[$slave_model_name]))
         {
             $model->attributes = $_POST['BlogContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
-
-            if (empty($_POST['BlogContent']['rubric_id'])) {
-                $rubric = CommunityRubric::model()->findByAttributes(array(
-                    'name' => $_POST['rubricName'],
-                ));
-
-                if ($rubric === null)  {
-                    $rubric = new CommunityRubric;
-                    $rubric->name = $_POST['rubricName'];
-                    $rubric->user_id = Yii::app()->user->id;
-                    $rubric->save();
-                }
-                $model->rubric_id = $rubric->id;
-            }
 
             $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;

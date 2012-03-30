@@ -131,7 +131,7 @@ class AjaxController extends Controller
     public function actionSendComment()
     {
         if (empty($_POST['edit-id'])){
-            $comment = new Comment;
+            $comment = new Comment('default');
             $comment->attributes = $_POST['Comment'];
             $comment->author_id = Yii::app()->user->id;
         }else{
@@ -319,8 +319,9 @@ class AjaxController extends Controller
 
 	public function actionRubrics()
 	{
-		$rubrics = CommunityRubric::model()->findAll('community_id=:community_id', array(':community_id'=>(int) $_POST['community_id']));
-        echo CHtml::listOptions('', array('' => 'Выберите рубрику') + CHtml::listData($rubrics, 'id', 'name'), $null);
+        $rubrics = CommunityRubric::model()->findAllByAttributes(array('community_id' => Yii::app()->request->getPost('community_id')));
+        $htmlOptions = array('prompt' => 'Выберите рубрику');
+        echo CHtml::listOptions('', CHtml::listData($rubrics, 'id', 'name'), $htmlOptions);
 	}
 
     public function actionVote()

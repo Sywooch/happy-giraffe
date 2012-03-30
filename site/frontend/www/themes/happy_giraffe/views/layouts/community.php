@@ -54,7 +54,7 @@
     <div class="main">
         <div class="main-in">
 
-            <div class="club-fast-nav">
+            <div class="club-fast-nav default-nav">
 
                 <?php
                 $this->widget('zii.widgets.CMenu', array(
@@ -112,30 +112,11 @@
     <div class="side-left">
 
         <div class="club-fast-add">
-            <a href="" class="btn btn-green"><span><span>Добавить</span></span></a>
-            <?php
-            $this->widget('zii.widgets.CMenu', array(
-                'items' => array(
-                    array(
-                        'label' => 'Статью',
-                        'url' => $this->getUrl(array('content_type_slug' => 'post'), 'community/add'),
-                    ),
-                    array(
-                        'label' => 'Путешествие',
-                        'url' => array('community/addTravel'),
-                        'visible' => $this->community->id == 21,
-                    ),
-                    array(
-                        'label' => 'Видео',
-                        'url' => $this->getUrl(array('content_type_slug' => 'video'), 'community/add'),
-                    ),
-                ),
-            ));
-            ?>
+            <a href="<?=$this->getUrl(array('content_type_slug' => null), 'community/add')?>" class="btn btn-green"><span><span>Добавить</span></span></a>
         </div>
 
         <div class="club-topics-all-link">
-            <a href="<?=$this->createUrl('/community/list', array('community_id' => $this->community->id))?>">Все записи</a> <span class="count"><?=$this->community->getCount()?></span>
+            <a href="<?=$this->getUrl(array('rubric_id' => null))?>">Все записи</a> <span class="count"><?=$this->community->getCount()?></span>
         </div>
 
         <div class="club-topics-list">

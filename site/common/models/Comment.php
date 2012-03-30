@@ -16,11 +16,17 @@
  * @property string $position
  * @property string $removed
  *
+ * The followings are the available model relations:
  * @property User author
+ * @property CommentAttach[] $commentAttaches
  */
 class Comment extends CActiveRecord
 {
     public $selectable_quote = false;
+    const CONTENT_TYPE_DEFAULT = 1;
+    const CONTENT_TYPE_PHOTO = 2;
+    const CONTENT_TYPE_ONLY_TEXT = 3;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Comment the static model class
@@ -46,7 +52,8 @@ class Comment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('text, author_id, entity, entity_id', 'required'),
+			array('author_id, entity, entity_id', 'required'),
+            array('text', 'required', 'on'=>'default'),
 			array('author_id, entity_id, response_id, quote_id', 'length', 'max'=>11),
 			array('entity', 'length', 'max'=>255),
             array('position, quote_text, selectable_quote', 'safe'),
@@ -68,7 +75,8 @@ class Comment extends CActiveRecord
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
-            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
+            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
+            'commentAttaches' => array(self::HAS_MANY, 'CommentAttach', 'comment_id'),
 		);
 	}
 
@@ -308,5 +316,40 @@ class Comment extends CActiveRecord
                 return true;
         }
         return false;
+    }
+
+    public function getContentType()
+    {
+        if ($this->entity == 'User')
+            return self::CONTENT_TYPE_ONLY_TEXT;
+        elseif (empty($this->commentAttaches))
+            return self::CONTENT_TYPE_DEFAULT;
+        elseif($this->commentAttaches[0]->entity == 'AlbumPhoto')
+            return self::CONTENT_TYPE_PHOTO;
+        return self::CONTENT_TYPE_DEFAULT;
+    }
+
+    public function getRemoveDescription()
+    {
+        switch ($this->remove->type) {
+            case 0 :
+                $text = 'Комментарий удален автором.';
+                break;
+            case 5 :
+                $text = 'Комментарий удален владельцем страницы.';
+                break;
+            case 4 :
+                $text = 'Комментарий удален модератором.';
+                break;
+            default:
+                $text = 'Комментарий удален. Причина: ' . Removed::$types[$this->remove->type];
+                break;
+        }
+        return $text;
+    }
+
+    public function isTextComment()
+    {
+        return empty($this->commentAttaches);
     }
 }

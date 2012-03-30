@@ -4,10 +4,6 @@
     if ($this->size !== 'ava') $class .= ' ' . $this->size;
     if($this->filled) $class .= ' filled';
 
-//$show_link_to_profile = true;
-//if ($this->user->role == 'virtual user' || $this->user->role == 'moderator')
-//    $show_link_to_profile = false;
-
 $link_to_profile = $this->user->url;
 if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
     $link_to_profile = Yii::app()->createUrl('profile/photo', array('returnUrl'=>urlencode(Yii::app()->createUrl('user/profile', array('user_id'=>$this->user->id)))));
@@ -16,7 +12,7 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
 <?php if(!$this->small): ?>
     <div class="user-info clearfix">
 <?php endif; ?>
-    <a <?php //if (!$show_link_to_profile) echo 'onclick="return false;"';?> class="<?=$class?>"
+    <a class="<?=$class?>"
         href="<?=$link_to_profile?>">
         <?php if($this->user->getAva($this->size)): ?>
             <?php echo CHtml::image($this->user->getAva($this->size)); ?>
@@ -33,7 +29,7 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
                 </div>
             <?php endif; ?>
             <div class="user-fast-buttons clearfix">
-                <?php if($this->friendButton): ?>
+                <?php if($this->friendButton && $this->user->id != Yii::app()->user->id): ?>
                     <?php $this->render('webroot.themes.happy_giraffe.views.user._friend_button', array(
                         'user' => $this->user,
                     )); ?>

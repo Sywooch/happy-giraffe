@@ -76,6 +76,7 @@ class AttachPhoto extends CActiveRecord
                 switch($this->entity)
                 {
                     case 'User' : $type = 1; break;
+                    case 'Comment' : $type = 2; break;
                     default : $type = 0;
                 }
                 if($type != 0)

@@ -18,6 +18,7 @@ class AlbumsController extends Controller
     {
         return array(
             'accessControl',
+            'attach + ajaxOnly'
         );
     }
 
@@ -185,8 +186,6 @@ class AlbumsController extends Controller
 
     public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)
     {
-        if(!Yii::app()->request->isAjaxRequest)
-            Yii::app()->end();
         Yii::app()->clientScript->scriptMap['*.js'] = false;
         Yii::app()->clientScript->scriptMap['*.css'] = false;
         $this->renderPartial('attach_widget', compact('entity', 'entity_id', 'mode', 'a'), false, true);
@@ -311,13 +310,41 @@ class AlbumsController extends Controller
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
     }
 
-    public function actionChangePermission()
-    {
-        $id = Yii::app()->request->getPost('id');
-        $num = Yii::app()->request->getPost('num');
-        $model = Album::model()->findByPk($id);
-        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+    public function actionSaveCommentPhoto(){
+        if(!isset($_POST['file']))
             Yii::app()->end();
-        $model->updateByPk($id, array('permission' => $num));
+
+        $comment = new Comment;
+        $comment->entity = $_POST['entity'];
+        $comment->entity_id = $_POST['entity_id'];
+        $comment->author_id = Yii::app()->user->id;
+        $comment->save();
+
+        $val = $_POST['file'];
+
+        if(is_numeric($val))
+        {
+            $photo = AlbumPhoto::model()->findByPk($val);
+        }
+        else
+        {
+            $photo = new AlbumPhoto;
+            $photo->file_name = $val;
+            $photo->author_id = Yii::app()->user->id;
+            if(!$photo->create(true))
+                Yii::app()->end();
+        }
+
+        $attach = new AttachPhoto;
+        $attach->entity = 'Comment';
+        $attach->entity_id = $comment->id;
+        $attach->photo_id = $photo->id;
+        $attach->save();
+
+        $attach = new CommentAttach;
+        $attach->comment_id = $comment->id;
+        $attach->entity = 'AlbumPhoto';
+        $attach->entity_id = $photo->id;
+        $attach->save();
     }
 }

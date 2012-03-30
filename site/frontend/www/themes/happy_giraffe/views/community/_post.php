@@ -150,20 +150,9 @@
     )); ?>
         <?php $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data)); ?>
 
-        <?php if (($data->type->slug == 'post' AND in_array($data->post->source_type, array('book', 'internet'))) OR $data->by_happy_giraffe): ?>
+        <?php if ($data->by_happy_giraffe): ?>
             <div class="source">Источник:&nbsp;
-                <?php if ($data->by_happy_giraffe): ?>
-                    Весёлый Жираф
-                    <?php else: ?>
-                    <?php switch($data->post->source_type):
-                        case 'book': ?>
-                            <?php echo $data->post->book_author?>&nbsp;<?=$data->post->book_name; ?>
-                            <?php break; ?>
-                            <?php case 'internet': ?>
-                            <?php echo CHtml::image(Yii::app()->request->baseUrl . '/upload/favicons/' . $data->post->internet_favicon, $data->post->internet_title); ?>&nbsp;<?php echo CHtml::link($data->post->internet_title, $data->post->internet_link, array('class' => 'link')); ?>
-                            <?php break; ?>
-                            <?php endswitch; ?>
-                    <?php endif; ?>
+                Весёлый Жираф
             </div>
         <?php endif; ?>
 

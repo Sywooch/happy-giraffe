@@ -2,32 +2,42 @@
     User::relationshipStatusHasPartner($this->user->relationship_status)
         && isset($this->user->partner))
 ):?>
+
 <div class="user-family">
     <div class="t"></div>
     <div class="c">
         <ul>
             <?php if (User::relationshipStatusHasPartner($user->relationship_status) && isset($user->partner)): ?>
-            <li class="clearfix">
-                <big><?php echo $user->getPartnerTitle($user->relationship_status) ?></big>
-
-                <div class="img"><a href="" onclick="return false;"><img
-                    src="<?php echo $user->getPartnerPhotoUrl() ?>"></a><span><?php echo $user->partner->name ?></span>
+            <li>
+                <big><?= $user->partner->name ?> &nbsp; <small><?php echo $user->getPartnerTitle($user->relationship_status) ?></small></big>
+                <?php if (!empty($user->partner->notice)):?>
+                    <div class="comment purple">
+                        <?= $user->partner->notice ?>
+                        <span class="tale"></span>
+                    </div>
+                <?php endif ?>
+                <?php if (false):?>
+                <div class="img">
+                    <img src="<?php echo $user->getPartnerPhotoUrl() ?>">
                 </div>
-                <p><?php echo $user->partner->notice ?></p>
+                <?php endif ?>
             </li>
             <?php endif ?>
             <?php foreach ($user->babies as $baby): ?>
-            <li class="clearfix">
-                <big><?php echo $baby->getGenderString() ?></big>
-
-                <div class="img"><a href="" onclick="return false;"><img src="<?php echo $baby->getImageUrl() ?>"></a>
-                    <?php if (!empty($baby->name)):?>
-                        <span><?php echo $baby->name ?>
-                            , <span><?php echo $baby->getTextAge() ?></span></span>
-
-                <?php endif ?>
+            <li>
+                <big><?php echo $baby->name ?>, <span><?php echo $baby->getTextAge(false) ?></span></big>
+                <?php if (!empty($baby->notice)):?>
+                <div class="comment purple">
+                    <?= $baby->notice ?>
+                    <span class="tale"></span>
                 </div>
-                <p><?php echo $baby->notice ?></p>
+                <?php endif ?>
+
+                <?php if (!empty($baby->imageUrl)):?>
+                    <div class="img">
+                        <img src="<?php echo $baby->getImageUrl() ?>">
+                    </div>
+                <?php endif ?>
             </li>
             <?php endforeach; ?>
         </ul>
@@ -39,8 +49,7 @@
     <div class="user-family user-family-cap">
         <div class="t"></div>
         <div class="c">
-            <a href="<?=Yii::app()->createUrl('/profile/family') ?>"
-               class="cap"><span>Расскажите<br>о своей семье</span></a>
+            <a href="<?=Yii::app()->createUrl('/family') ?>" class="cap"><span>Расскажите<br>о своей семье</span></a>
         </div>
         <div class="b"></div>
     </div>

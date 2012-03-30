@@ -737,18 +737,18 @@ class User extends CActiveRecord
     {
         if ($this->gender == 1) {
             if ($id == 1)
-                return 'Моя жена:';
+                return 'Моя жена';
             if ($id == 4)
-                return 'Моя подруга:';
+                return 'Моя подруга';
             if ($id == 5)
-                return 'Моя невеста:';
+                return 'Моя невеста';
         } else {
             if ($id == 1)
-                return 'Мой муж:';
+                return 'Мой муж';
             if ($id == 4)
-                return 'Мой друг:';
+                return 'Мой друг';
             if ($id == 5)
-                return 'Мой жених:';
+                return 'Мой жених';
         }
 
         return '';

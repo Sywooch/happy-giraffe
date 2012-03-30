@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'user_partner':
  * @property string $user_id
  * @property string $name
- * @property string $photo
  * @property string $notice
  *
  * The followings are the available model relations:
@@ -42,11 +41,11 @@ class UserPartner extends CActiveRecord
 		return array(
 			array('user_id', 'required'),
 			array('user_id', 'length', 'max'=>11),
-			array('name, photo', 'length', 'max'=>255),
+			array('name', 'length', 'max'=>255),
 			array('notice', 'length', 'max'=>1024),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('user_id, name, photo, notice', 'safe', 'on'=>'search'),
+			array('user_id, name, notice', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,7 +69,6 @@ class UserPartner extends CActiveRecord
 		return array(
 			'user_id' => 'User',
 			'name' => 'Name',
-			'photo' => 'Photo',
 			'notice' => 'Notice',
 		);
 	}
@@ -88,46 +86,12 @@ class UserPartner extends CActiveRecord
 
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('photo',$this->photo,true);
 		$criteria->compare('notice',$this->notice,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
-    public function behaviors()
-    {
-        return array(
-            'behavior_ufiles' => array(
-                'class' => 'site.frontend.extensions.ufile.UFileBehavior',
-                'fileAttributes' => array(
-                    'photo' => array(
-                        'fileName' => 'upload/partner/*/<date>-{id}-<name>.<ext>',
-                        'fileItems' => array(
-                            'ava' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 76,
-                                    'height' => 79,
-                                ),
-                            ),
-                            'mini' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 38,
-                                    'height' => 37,
-                                ),
-                            ),
-                            'original' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                            ),
-                        )
-                    ),
-                ),
-            ),
-        );
-    }
 
     public static function savePartner($user_id)
     {

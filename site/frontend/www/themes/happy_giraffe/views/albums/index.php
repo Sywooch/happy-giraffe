@@ -12,40 +12,11 @@
                     <div class="title">
                         <big>
                             Альбом <span>&laquo;<?php echo CHtml::link($model->title, array('albums/view', 'id' => $model->id)); ?>&raquo;</span>
-                            <?php if($model->checkAccess === true): ?>
-                            <div class="visibility-picker">
-                                <a onclick="albumVisibilityListToggle(this)" class="album-visibility" href="javascript:void(0);">
-                                    <?php
-                                    for($i = 3; $i > $model->permission; $i--)
-                                        echo '<span></span>';
-                                    ?>
-                                    <span class="tip">Кому показывать</span>
-                                </a>
-                                <div class="visibility-list">
-                                    <div class="tale"></div>
-                                    <ul>
-                                        <li onclick="albumVisibilitySet(this, 0, <?php echo $model->id; ?>)">
-                                            <div class="text">для всех</div>
-                                            <div class="album-visibility small">
-                                                <span></span><span></span><span></span>
-                                            </div>
-                                        </li>
-                                        <li onclick="albumVisibilitySet(this, 1, <?php echo $model->id; ?>)">
-                                            <div class="text">для друзей</div>
-                                            <div class="album-visibility small">
-                                                <span></span><span></span>
-                                            </div>
-                                        </li>
-                                        <li onclick="albumVisibilitySet(this, 2, <?php echo $model->id; ?>)">
-                                            <div class="text">для меня</div>
-                                            <div class="album-visibility small">
-                                                <span></span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div class="album-visibility small hl">
+                                <?php for ($i = 0; $i < $model->permission; $i++): ?>
+                                    <span></span>
+                                <?php endfor; ?>
                             </div>
-                            <?php endif; ?>
                         </big>
                         <?php if ($model->description): ?>
                         <div class="note">
@@ -84,7 +55,7 @@
         $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
         $file_upload->loadScripts();
         $this->endWidget();
-        echo CHtml::link('<span><span><i class="add"></i>Загрузить фото</span></span>', array('addPhoto'), array('class' => 'fancy btn btn-green'));
+        echo CHtml::link('<span><span>Загрузить фото</span></span>', array('addPhoto'), array('class' => 'fancy btn btn-green'));
         ?>
     </div>
 

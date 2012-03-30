@@ -11,7 +11,6 @@ function initForm() {
         binding = false;
     }
 
-
     $('#upload-control').swfupload({
         upload_url:upload_ajax_url,
         file_size_limit:"6144",
@@ -85,7 +84,7 @@ function registerUploadEvents(elem) {
         })
         .bind('uploadStart', function (event, file) {
             $('#upload_button_wrapper').css({visibility:'hidden', height:0});
-            $('#upload_finish_wrapper').show();
+            $('#upload_finish_wrapper').show().addClass('is_visible');
             $('#log li#' + file.id).find('.progress-value').text('0%');
         })
         .bind('uploadProgress', function (event, file, bytesLoaded) {

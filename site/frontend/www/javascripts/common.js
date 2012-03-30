@@ -234,8 +234,7 @@ function initSelects(block) {
             var s = $(this);
             s.removeClass('chzn-done').chosen({
                 allow_single_deselect:s.hasClass('chzn-deselect')
-            })
-
+            });
         });
     }
 }

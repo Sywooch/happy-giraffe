@@ -359,18 +359,15 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 
 
-.pagination {font-size:11px;padding:15px 0;color:#ababab;}
-.pagination .summary {display:inline-block;padding-right:15px;}
+.pagination {font-size:23px;padding:15px 0;color:#ababab;font-family:times new roman, serif;font-style:italic;line-height:1;}
 .pagination.pagination-center {text-align:center;}
-.pagination.pagination-center .summary {margin-left:-180px;}
-.pagination .pager {display:inline;}
-.pagination ul {display:inline-block;margin-left:8px;list-style:none;}
-.pagination ul li {display:inline-block;padding:0 3px;text-indent:0 !important;margin:0 !important;}
-.pagination ul li a {padding:0 3px;text-decoration:none;display:block;color:#0281b0;}
-.pagination ul li.selected a {padding:0;padding-right:11px;background:url(../images/common.png) no-repeat right -101px;font-weight:bold;}
-.pagination ul li.selected a span {display:block;height:24px;line-height:24px;padding-left:11px;background:url(../images/common.png) no-repeat -178px -101px;}
-.pagination ul li.previous a, .pagination ul li.next a {padding:0;width:19px;height:19px;background:url(../images/common.png) no-repeat;position:relative;top:5px;}
-.pagination ul li.previous a {background-position:-136px -101px;}
+.pagination ul {list-style:none;}
+.pagination ul li {display:inline-block;padding:6px 8px;text-indent:0 !important;margin:0 !important;position:relative;}
+.pagination ul li a {padding:0 3px;display:block;color:#45a5c9;}
+.pagination ul li.selected {background:#f1e4fd;}
+.pagination ul li.selected img {position:absolute;top:-9px;width:100%;left:0;height:9px;}
+.pagination ul li.selected a {color:#7f8181;text-decoration:none;}
+.pagination ul li.previous a, .pagination ul li.next a {}
 .pagination ul li.next a {background-position:-157px -101px;}
 .pagination .hidden {display:none;}
 
@@ -509,7 +506,15 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 #galleryUploadPhotos {width:550px;}
 
-#galleryUploadPhotos .title {font-size:20px;font-weight:bold;color:#0281b0;margin-bottom:20px;}
+#galleryUploadPhotos .popup-title {text-align:left;margin-bottom:30px;}
+
+#galleryUploadPhotos .title {font-size:20px;font-weight:bold;color:#5a5858;margin-bottom:20px;}
+
+#galleryUploadPhotos big {display:block;color:#898888;font-size:16px;font-style:italic;margin-bottom:6px;}
+
+#galleryUploadPhotos .album-name {background:#fff;padding:2px 7px;border:1px solid #C9EAF1;width:286px;vertical-align:middle;}
+#galleryUploadPhotos .btn {vertical-align:middle;}
+
 
 #galleryUploadPhotos .teasers {color:#646565;font-size:11px;line-height:normal;}
 #galleryUploadPhotos .teasers ul {list-style:none;}

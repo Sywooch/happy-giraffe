@@ -14,6 +14,9 @@ $cs->registerScript('comment_widget_form', $js);
         'style' => 'display:none;',
     ),
 )); ?>
+    <style type="text/css">
+        #cke_bottom_Comment_text{display: none;}
+    </style>
     <div class="response">
         <input type="hidden" id="Comment_response_id" name="Comment[response_id]" value="" />
     </div>

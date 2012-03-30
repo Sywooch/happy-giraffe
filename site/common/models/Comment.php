@@ -18,7 +18,7 @@
  *
  * The followings are the available model relations:
  * @property User author
- * @property CommentAttaches[] $commentAttaches
+ * @property CommentAttach[] $commentAttaches
  */
 class Comment extends CActiveRecord
 {
@@ -52,7 +52,8 @@ class Comment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('text, author_id, entity, entity_id', 'required'),
+			array('author_id, entity, entity_id', 'required'),
+            array('text', 'required', 'on'=>'default'),
 			array('author_id, entity_id, response_id, quote_id', 'length', 'max'=>11),
 			array('entity', 'length', 'max'=>255),
             array('position, quote_text, selectable_quote', 'safe'),
@@ -75,7 +76,7 @@ class Comment extends CActiveRecord
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
-            'commentAttaches' => array(self::HAS_MANY, 'CommentAttaches', 'comment_id'),
+            'commentAttaches' => array(self::HAS_MANY, 'CommentAttach', 'comment_id'),
 		);
 	}
 
@@ -345,5 +346,10 @@ class Comment extends CActiveRecord
                 break;
         }
         return $text;
+    }
+
+    public function isTextComment()
+    {
+        return empty($this->commentAttaches);
     }
 }

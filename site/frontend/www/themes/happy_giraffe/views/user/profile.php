@@ -77,7 +77,7 @@
             {
                 echo '<div class="ava big male" id="change_ava">';
                 $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                    'model' => $user,
+                    'model' => $user
                 ));
                     $fileAttach->button();
                 $this->endWidget();

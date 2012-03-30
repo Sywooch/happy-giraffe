@@ -68,7 +68,7 @@ class CommentWidget extends CWidget
         ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.tmpl.min.js');
 
         if ($this->type == 'guestBook')
-            $script = 'Comment.toolbar = "Main";';
+            $script = 'Comment.toolbar = "GuestBook";';
         else
             $script = 'Comment.toolbar = "Main";';
         $script.= '

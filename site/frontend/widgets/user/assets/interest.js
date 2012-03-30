@@ -12,6 +12,8 @@ Interest.changeCategory = function(link) {
 
 Interest.checkItem = function(elem) {
     $(elem).toggleClass('selected');
+    var id = $(elem).attr('for');
+    $('#'+id).click();
 };
 
 Interest.save = function(form) {

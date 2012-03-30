@@ -77,7 +77,7 @@ class SignupController extends CController
 			$model->register_date = date('Y-m-d H:i:s');
 			if($model->save(true, array('first_name', 'password', 'email', 'gender')))
 			{	
-				foreach ($_POST['age_group'] as $k => $q)
+				/*foreach ($_POST['age_group'] as $k => $q)
 				{
 					for ($j = 0; $j < $q; $j++)
 					{
@@ -86,7 +86,7 @@ class SignupController extends CController
 						$baby->parent_id = $model->id;
 						$baby->save();
 					}
-				}
+				}*/
 				unset($session['service']);
                 $identity = new UserIdentity($model->getAttributes());
                 $identity->authenticate();

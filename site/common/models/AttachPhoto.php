@@ -78,16 +78,19 @@ class AttachPhoto extends CActiveRecord
                     case 'User' : $type = 1; break;
                     default : $type = 0;
                 }
-                $album = Album::model()->findByAttributes(array('author_id' => Yii::app()->user->id, 'type' => $type));
-                if(!$album)
+                if($type != 0)
                 {
-                    $album = new Album;
-                    $album->author_id = Yii::app()->user->id;
-                    $album->type = $type;
-                    $album->title = Album::$systems[$type];
-                    $album->save();
+                    $album = Album::model()->findByAttributes(array('author_id' => Yii::app()->user->id, 'type' => $type));
+                    if(!$album)
+                    {
+                        $album = new Album;
+                        $album->author_id = Yii::app()->user->id;
+                        $album->type = $type;
+                        $album->title = Album::$systems[$type];
+                        $album->save();
+                    }
+                    $this->photo->album_id = $album->primaryKey;
                 }
-                $this->photo->album_id = $album->primaryKey;
                 $this->photo->save(false);
             }
         }

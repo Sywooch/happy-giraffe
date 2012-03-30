@@ -4,7 +4,7 @@
         <div class="user">
             <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->author, 'friendButton' => true)); ?>
         </div>
-        <?php $this->render($this->type . '_comment', array('type' => $this->type, 'data' => $data)); ?>
+        <?php $this->render($this->type . '_comment', array('type' => $this->type, 'data' => $data, 'currentPage'=>$currentPage)); ?>
     </div>
     <div class="comment-action">
 

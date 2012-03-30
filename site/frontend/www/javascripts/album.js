@@ -73,4 +73,12 @@ Album.removePhoto = function (button, data) {
 
 Album.removeAlbum = function () {
     document.location.href = base_url + '/albums';
+};
+
+Album.changeAlbum = function() {
+    this.album_id = $('#album_select').val();
+};
+
+Album.createAlbum = function() {
+
 }

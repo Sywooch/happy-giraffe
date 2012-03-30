@@ -327,4 +327,23 @@ class Comment extends CActiveRecord
             return self::CONTENT_TYPE_PHOTO;
         return self::CONTENT_TYPE_DEFAULT;
     }
+
+    public function getRemoveDescription()
+    {
+        switch ($this->remove->type) {
+            case 0 :
+                $text = 'Комментарий удален автором.';
+                break;
+            case 5 :
+                $text = 'Комментарий удален владельцем страницы.';
+                break;
+            case 4 :
+                $text = 'Комментарий удален модератором.';
+                break;
+            default:
+                $text = 'Комментарий удален. Причина: ' . Removed::$types[$this->remove->type];
+                break;
+        }
+        return $text;
+    }
 }

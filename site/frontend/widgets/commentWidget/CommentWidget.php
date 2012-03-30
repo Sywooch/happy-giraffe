@@ -74,7 +74,7 @@ class CommentWidget extends CWidget
         $script.= '
         Comment.saveCommentUrl="'.Yii::app()->createUrl('/albums/saveCommentPhoto').'";
         Comment.entity="'.$this->entity.'";
-        Comment.entity_id="'.$this->entity_id.'";
+        Comment.entity_id=0;
         ';
         Yii::app()->clientScript->registerScript('Comment register script', $script);
     }

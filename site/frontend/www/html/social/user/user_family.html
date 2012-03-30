@@ -3,25 +3,33 @@
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
-	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Untitled Document</title>
 	
 	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css" />
 	
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/common.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/common.js"></script>	
+	
+	<!--[if IE 7]>
+		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
+	<![endif]-->
 	
 </head>
 <body class="body-club">
-	
 	<div id="layout" class="wrapper">
-	
+		
 		<div id="header-new" class="clearfix">
 			
 			<div class="top-line clearfix">
@@ -152,7 +160,7 @@
 						<div class="input">
 							<input type="text" />
 						</div>
-						<button class="btn btn-green-medium"><span><span>Поиск</span></span></button>					
+						<button class="btn btn-green-medium disabled"><span><span>Поиск</span></span></button>					
 					</div>
 					
 					<div class="logo-box">
@@ -421,76 +429,52 @@
 		
 		<div id="content" class="clearfix">
 			
-			<div class="add-nav default-nav clearfix">
-				<div class="content-title">Добавить в блог:</div>
-				<ul>
-					<li class="active"><a href="">Запись</a></li>
-					<li><a href="">Видео</a></li>
-				</ul>
-			</div>
-			
-			<div class="main">
-				<div class="main-in">
+			<div id="user">
+				
+				<div class="header clearfix">
 					
-					<form>
-						<div class="form row-form clearfix">
-							
-							<div class="row clearfix">
-								<div class="row-title">Заголовок:</div>
-								<div class="row-elements">
-									<input type="text" class="w-500"/>
-								</div>								
+					<div class="user-info clearfix">
+						<div class="ava"><img src="/images/ava.png"></div>
+						<div class="details">
+							<span class="icon-status status-online"></span><a href="" class="username">Дарья</a>
+							<div class="location">
+								<div class="flag flag-ru"></div>
+								Гаврилов-Ям
 							</div>
-							
-							<div class="row clearfix">
-								<div class="row-title">Текст:</div>
-								<div class="row-elements">
-									<img src="/images/editor.gif" />
-								</div>								
+							<div class="user-fast-buttons clearfix">
+								<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+								<a href="" class="remove-friend"><span class="tip">Удалить из друзей</span></a>
+								<a href="" class="pending-friend"><span class="tip">Приглашение выслано</span></a>
+								<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
 							</div>
-							
-							<div class="row clearfix select-box">
-								<table>
-									<tr>
-										<td align="right">
-											<div class="row-title">Выберите рубрику</div>
-											<div class="row-elements">												
-												<select class="chzn w-200">
-													<option>Рубрика 1</option>
-													<option>Рубрика 2</option>
-													<option>Рубрика 3</option>
-												</select>											
-											</div>
-										</td>
-										<td width="120" align="center">
-											<div class="row-title">или</div>
-										</td>
-										<td>
-											<div class="row-title">Создайте новую</div>
-											<div class="row-elements">
-												<input type="text" class="new-rubric" />
-											</div>	
-										</td>
-									</tr>
-									
-								</table>
-							</div>
-							
-							<div class="row row-buttons">								
-								<button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
-								<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>
-								<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>								
-							</div>
-							
 						</div>
-					</form>
+					</div>
+					
+					<div class="user-nav default-nav">
+						<ul>
+							<li><a href="">Анкета</a></li>
+							<li class="active"><a href="">Блог</a></li>
+							<li><a href="">Фото</a></li>
+							<li><a href="">Друзья</a></li>
+							<li><a href="">Клубы</a></li>
+						</ul>
+					</div>
 					
 				</div>
-			</div>
-			
-			<div class="side-left">
 				
-				<center><img src="/images/img_blog_add.png" /></center>
+				<div class="user-cols clearfix">
+					
+					<div class="col-1">
+						sidebar
+					</div>
+					
+					<div class="col-23 clearfix">
+						<a href=""><img src="/images/user_blog_cap.png" /></a>
+					</div>
+					
+				</div>
+				
+				
 				
 			</div>
 			
@@ -499,19 +483,9 @@
 		<div class="push"></div>
 		
 	</div>
-
-	<div id="footer" class="wrapper clearfix">
-		
-		<div class="a-right">
-			<a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
-		</div>
-		
-		<div class="copy">
-			<p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены</p>
-		</div>
-		
+	<div id="footer" class="wrapper">
+		f
 	</div>
-	
 <div style="display:none">
 	<div id="login" class="popup">
 		
@@ -565,7 +539,6 @@
 		</form>
 		
 	</div>
-	
 </div>
 </body>
 </html>

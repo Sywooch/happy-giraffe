@@ -53,7 +53,6 @@ CKEDITOR.editorConfig = function (config) {
     config.toolbar_Simple =
         [
             { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline' ] },
-            { name:'colors', items:[ 'TextColor', 'BGColor' ] },
             '/',
             { name:'insert', items:[ 'Smiley' ] }
         ];

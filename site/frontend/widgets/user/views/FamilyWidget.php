@@ -33,7 +33,7 @@
                 </div>
                 <?php endif ?>
 
-                <?php if (!empty($baby->imageUrl)):?>
+                <?php if (false):?>
                     <div class="img">
                         <img src="<?php echo $baby->getImageUrl() ?>">
                     </div>

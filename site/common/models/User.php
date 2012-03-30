@@ -71,21 +71,15 @@ class User extends CActiveRecord
     public $women_rel = array(
         '1' => 'Замужем',
         '2' => 'Не замужем',
-        '3' => 'Вдова',
+        '3' => 'Невеста',
         '4' => 'Есть друг',
-        '5' => 'Невеста',
-        '6' => 'Влюблена',
-        '7' => 'В поиске',
     );
 
     public $men_rel = array(
         '1' => 'Женат',
         '2' => 'Не женат',
-        '3' => 'Вдовец',
+        '3' => 'Жених',
         '4' => 'Есть подруга',
-        '5' => 'Жених',
-        '6' => 'Влюблен',
-        '7' => 'В поиске',
     );
 
     public $accessLabels = array(
@@ -498,8 +492,6 @@ class User extends CActiveRecord
 
     public static function clearCache($id)
     {
-        //        $dep = new CDbCacheDependency('SELECT NOW()');
-        //        return User::model()->cache(3600*24, $dep)->findByPk($id);
         $cacheKey = 'yii:dbquery' . Yii::app()->db->connectionString . ':' . Yii::app()->db->username;
         $cacheKey .= ':' . 'SELECT * FROM `user` `t` WHERE `t`.`id`=\'' . $id . '\' LIMIT 1:a:0:{}';
         if (isset(Yii::app()->cache))
@@ -519,8 +511,6 @@ class User extends CActiveRecord
     public function getPartnerPhotoUrl()
     {
         $url = '';
-        if (isset($this->partner))
-            $url = $this->partner->photo->getUrl('ava');
         return $url;
     }
 
@@ -738,17 +728,41 @@ class User extends CActiveRecord
         if ($this->gender == 1) {
             if ($id == 1)
                 return 'Моя жена';
+            if ($id == 3)
+                return 'Моя невеста';
             if ($id == 4)
                 return 'Моя подруга';
-            if ($id == 5)
-                return 'Моя невеста';
         } else {
             if ($id == 1)
                 return 'Мой муж';
+            if ($id == 3)
+                return 'Мой жених';
             if ($id == 4)
                 return 'Мой друг';
-            if ($id == 5)
-                return 'Мой жених';
+        }
+
+        return '';
+    }
+
+    public function getPartnerTitleForName($id = null)
+    {
+        if ($id === null)
+            $id = $this->relationship_status;
+
+        if ($this->gender == 1) {
+            if ($id == 1)
+                return 'Имя жены';
+            if ($id == 3)
+                return 'Имя невесты';
+            if ($id == 4)
+                return 'Имя подруги';
+        } else {
+            if ($id == 1)
+                return 'Имя мужа';
+            if ($id == 3)
+                return 'Имя жениха';
+            if ($id == 4)
+                return 'Имя друга';
         }
 
         return '';
@@ -756,7 +770,14 @@ class User extends CActiveRecord
 
     public static function relationshipStatusHasPartner($status_id)
     {
-        if (in_array($status_id, array(1, 4, 5)))
+        if (in_array($status_id, array(1, 3, 4)))
+            return true;
+        return false;
+    }
+
+    public function hasPartner()
+    {
+        if (in_array($this->relationship_status, array(1, 3, 4)))
             return true;
         return false;
     }

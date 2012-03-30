@@ -1,7 +1,8 @@
 var Attach = {
     entity : null,
     entity_id : null,
-    base_url : null
+    base_url : null,
+    params : new Array()
 };
 
 Attach.changeView = function(link) {
@@ -23,10 +24,14 @@ Attach.selectPhoto = function(button, id) {
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="photo_id" />').val(id));
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="ContestWork[file]" />').val(1));
     $('<a class="remove" href="javascript:;" onclick="Attach.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
-    if($('#change_ava').size() > 0)
+    if($('#change_ava').size() > 0 && this.entity != 'Comment')
         this.crop(id);
-    else
-        $.fancybox.close();
+    else{
+        if (this.entity == 'Comment'){
+            this.saveCommentPhoto(fsn);
+        }else
+            $.fancybox.close();
+    }
 };
 
 Attach.selectBrowsePhoto = function(button) {
@@ -38,10 +43,14 @@ Attach.selectBrowsePhoto = function(button) {
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="ContestWork[file]" />').val(1));
     $('<a class="remove" href="javascript:;" onclick="Attach.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
 
-    if($('#change_ava').size() > 0)
+    if($('#change_ava').size() > 0 && this.entity != 'Comment')
         this.crop(fsn);
-    else
-        $.fancybox.close();
+    else{
+        if (this.entity == 'Comment'){
+            this.saveCommentPhoto(fsn);
+        }else
+            $.fancybox.close();
+    }
     return false;
 };
 
@@ -49,6 +58,31 @@ Attach.closeUpload = function(link) {
     $(link).siblings('.photo').find('.upload-container').empty();
     $(link).siblings('.photo').find('a').show();
     $(link).remove();
+};
+
+Attach.saveCommentPhoto = function(fsn){
+   $.ajax({
+       url: Comment.saveCommentUrl,
+       data: {entity:Comment.entity, entity_id:Comment.entity_id, file:fsn},
+       type: 'POST',
+       success: function() {
+           $.fancybox.close();
+           var pager = $('#comment_list .yiiPager .page:last');
+           var url = false;
+           if (pager.size() > 0 && $('#add_comment .button_panel .btn-green-medium span span').text() != 'Редактировать')
+               url = pager.children('a').attr('href');
+           if (url !== false)
+               $.fn.yiiListView.update('comment_list', {url:url, data:{lastPage:true}});
+           else if ($('#add_comment .button_panel .btn-green-medium span span').text() == 'Редактировать')
+               $.fn.yiiListView.update('comment_list');
+           else
+               $.fn.yiiListView.update('comment_list', {data:{lastPage:true}});
+           var editor = Comment.getInstance();
+           editor.setData('');
+           editor.destroy();
+           Comment.cancel();
+       }
+   });
 };
 
 Attach.crop = function(val) {
@@ -79,7 +113,7 @@ Attach.changeAvatar = function(form) {
     var data = $(form).serialize();
     data += '&width=' + $('#crop_target').width() + '&height=' + $('#crop_target').height();
     $.post(base_url + '/albums/changeAvatar/', data, function(data) {
-        $('#change_ava').empty().append($('<img />').attr('src', data));
+        $('#change_ava').addClass('filled').empty().append($('<img />').attr('src', data));
     });
     $.fancybox.close();
     if($('#refresh_upload').size() > 0)

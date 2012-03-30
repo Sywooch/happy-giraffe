@@ -41,7 +41,7 @@
             </ul>
         </div>
 
-        <div class="bottom" id="upload_button_wrapper"<?php echo !$album ? ' style="display: none;"' : '' ?>>
+        <div class="bottom" id="upload_button_wrapper"<?php echo !$album ? ' style="visibility: hidden;"' : '' ?>>
             <?php
             $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget', array(
                 'album_id' => $album ? $album->id : false,
@@ -58,7 +58,7 @@
             <ul id="log"></ul>
         </div>
 
-        <div class="bottom" style="display: none;" id="upload_finish_wrapper">
+        <div class="bottom" id="upload_finish_wrapper">
             <a href="" class="a-left" id="upload-link">Добавить еще фотографий</a>
             <a href="" class="btn btn-green-medium" onclick="return savePhotos();"><span><span>Завершить</span></span></a>
         </div>

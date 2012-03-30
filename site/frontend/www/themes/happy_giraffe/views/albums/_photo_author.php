@@ -12,7 +12,7 @@
                 </div>
             </td>
         </tr>
-        <tr class="title editing">
+        <tr class="title<?php echo $data->title == '' ? ' editing' : ''; ?>">
             <td align="center">
                 <div<?php echo !$data->isNewRecord && $data->title != '' ? ' style="display:none;"' : ''; ?>>
                     <input type="hidden" name="Photo[fsn][]" value="<?php echo $data->fs_name; ?>" />

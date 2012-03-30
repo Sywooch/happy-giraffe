@@ -52,9 +52,16 @@ CKEDITOR.editorConfig = function (config) {
 
     config.toolbar_Simple =
         [
-            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline' ] },
+            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike' ] },
+            { name:'styles', items:[ 'Format', 'Font' ] },
+            { name:'colors', items:[ 'TextColor', 'BGColor' ] },
+            { name:'clipboard', items:[ 'Copy', 'Paste', '-', 'Undo', 'Redo' ] },
             '/',
-            { name:'insert', items:[ 'Smiley' ] }
+            { name:'paragraph', items:[ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ] },
+            { name:'links', items:[ 'Link', 'Unlink' ] },
+            { name:'insert', items:[ 'Image' ] },
+            { name:'document', items:[ 'Source' ] },
+            { name:'cut', items:[ 'Cuttable' ] }
         ];
 
     config.toolbar_Nocut =

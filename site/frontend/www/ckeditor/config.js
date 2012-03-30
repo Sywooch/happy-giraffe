@@ -53,15 +53,7 @@ CKEDITOR.editorConfig = function (config) {
     config.toolbar_Simple =
         [
             { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline' ] },
-            { name:'colors', items:[ 'TextColor', 'BGColor' ] },
-            { name:'insert', items:[ 'Smiley' ] }
-        ];
-
-    config.toolbar_GuestBook =
-        [
-            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline' ] },
-            { name:'colors', items:[ 'TextColor', 'BGColor' ] },
-            { name:'insert', items:[ 'Smiley' ] }
+            { name:'colors', items:[ 'TextColor', 'BGColor' ] }
         ];
 
     config.toolbar_Nocut =

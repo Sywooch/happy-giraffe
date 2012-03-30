@@ -77,8 +77,6 @@ function registerUploadEvents(elem) {
             $('#log').append(listitem);
         })
         .bind('fileDialogComplete', function (event, numFilesSelected, numFilesQueued) {
-            $('#album_upload_step_1').hide();
-            $('#album_upload_step_1').show();
             /*$('#queuestatus').text('Files Selected: ' + numFilesSelected + ' / Queued Files: ' + numFilesQueued);*/
         })
         .bind('fileDialogStart', function() {
@@ -88,6 +86,8 @@ function registerUploadEvents(elem) {
             $('#upload_button_wrapper').css({visibility:'hidden', height:0});
             $('#upload_finish_wrapper').show().addClass('is_visible');
             $('#log li#' + file.id).find('.progress-value').text('0%');
+            $('#album_upload_step_1').hide();
+            $('#album_upload_step_2').show();
         })
         .bind('uploadProgress', function (event, file, bytesLoaded) {
             //Show Progress

@@ -75,7 +75,7 @@ class AlbumsController extends Controller
                 'params' => array(':album_id' => $model->id),
             ),
             'pagination' => array(
-                'pageSize' => Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 1000 : 20
+                'pageSize' => Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 1000 : 2
             )
         ));
 

@@ -338,6 +338,18 @@ class AlbumsController extends Controller
         $attach->save();
     }
 
+    public function actionChangeTitle()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $title = Yii::app()->request->getPost('title');
+        if(!$id || !$title)
+            Yii::app()->end();
+        $model = Album::model()->findByPk($id);
+        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+            Yii::app()->end();
+        $model->updateByPk($id, array('title' => $title));
+    }
+
     public function actionChangePermission()
     {
         $id = Yii::app()->request->getPost('id');

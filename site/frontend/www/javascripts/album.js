@@ -102,10 +102,18 @@ Album.changeAlbumTitle = function(input) {
 
 };
 
-Album.changeTitle = function(link)
-{
-    var span = $(link).parent().find('album_title');
+Album.changeTitle = function(link, id) {
+    var span = $(link).parent().find('.album_title');
     var text = span.text();
-    //span.empty().append()
+    cl(text);
+    span.empty().append($('<input type="text" name="title_input" value="'+text+'" /><input type="hidden" name="album_id" value="'+id+'" /><button class="btn btn-green-small" onclick="return Album.appendTitle(this);"><span><span>Ок</span></span></button>'))
+    return false;
+};
+Album.appendTitle = function(button) {
+    var span = $(button).parent();
+    var text = span.find('input[name=title_input]').val();
+    var id = span.find('input[name=album_id]').val();
+    span.empty().text(text);
+    $.post(base_url + '/albums/changeTitle/', {title : text, id : id});
     return false;
 }

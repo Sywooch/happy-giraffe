@@ -11,7 +11,7 @@
         <?php endif; ?>
 
         <div class="club-topics-all-link">
-            <a href="<?=$this->createUrl('/blog/list', array('user_id' => $this->user->id))?>">Все записи</a> <span class="count"><?=$this->user->blogPostsCount?></span>
+            <a href="<?=$this->getUrl(array('rubric_id' => null))?>">Все записи</a> <span class="count"><?=$this->user->blogPostsCount?></span>
         </div>
 
         <div class="club-topics-list">

@@ -99,15 +99,12 @@ class CommunityController extends Controller
 
     public function getUrl($overwrite = array(), $route = 'community/list')
     {
-        return array_filter(CMap::mergeArray(
-            array($route),
-            array(
-                'community_id' => $this->community->id,
-                'rubric_id' => $this->rubric_id,
-                'content_type_slug' => $this->content_type_slug,
-            ),
+        $params = array_filter(CMap::mergeArray(
+            $this->actionParams,
             $overwrite
         ));
+
+        return $this->createUrl($route, $params);
     }
 
     /**
@@ -142,46 +139,52 @@ class CommunityController extends Controller
 
     public function actionEdit($content_id)
     {
-        $content_id = (int) $content_id;
-        $content_model = CommunityContent::model()->full()->findByPk($content_id);
-        if ($content_model === null)
-        {
-            throw new CHttpException(404, 'Такой записи не существует.');
-        }
-        if ($content_model->author_id != Yii::app()->user->id &&
-            !Yii::app()->authManager->checkAccess('removeCommunityContent', Yii::app()->user->id,
-                array('community_id'=>$content_model->rubric->community_id)) &&
-            !Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->id)
-        ) {
+        $model = CommunityContent::model()->full()->findByPk($content_id);
+        if ($model === null)
+            throw CHttpException(404, 'Запись не найдена');
+
+        $community_id = $model->rubric->community->id;
+        $rubric_id = $model->rubric->id;
+
+        if (
+            $model->author_id != Yii::app()->user->id &&
+            ! Yii::app()->authManager->checkAccess('removeCommunityContent', Yii::app()->user->id, array('community_id' => $community_id)) &&
+            ! Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->id)
+        )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        }
-        $communities = Community::model()->findAll();
-        $slave_model = $content_model->{$content_model->type->slug};
+
+        $content_type = $model->type;
+        $slave_model = $model->content;
         $slave_model_name = get_class($slave_model);
+
+        $communities = Community::model()->findAll();
+        $rubrics = ($community_id == '') ? array() : CommunityRubric::model()->findAllByAttributes(array('community_id' => $community_id));
 
         if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
         {
-            $content_model->attributes = $_POST['CommunityContent'];
+            $model->attributes = $_POST['CommunityContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
-            //$slave_model->attributes = $_POST;
-            $valid = $content_model->validate();
+
+            $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
 
             if ($valid)
             {
-                $content_model->save();
-                $slave_model->save();
-                $this->redirect(array('community/view', 'community_id' => $content_model->rubric->community->id,
-                    'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
+                $model->save(false);
+                $slave_model->content_id = $model->id;
+                $slave_model->save(false);
+                $this->redirect($model->url);
             }
         }
 
-        $this->render('edit', array(
-            'communities' => $communities,
-            'content_model' => $content_model,
+        $this->render('form', array(
+            'model' => $model,
             'slave_model' => $slave_model,
-            'community' => $content_model->rubric->community,
-            'content_type' => $content_model->type,
+            'communities' => $communities,
+            'rubrics' => $rubrics,
+            'community_id' => $community_id,
+            'rubric_id' => $rubric_id,
+            'content_type_slug' => $content_type->slug,
         ));
     }
 
@@ -216,59 +219,50 @@ class CommunityController extends Controller
         echo CJSON::encode($response);
     }
 
-    public function actionAdd($community_id, $rubric_id = null, $content_type_slug = 'post', $blog = false)
+    public function actionAdd($community_id = null, $rubric_id = null, $content_type_slug = 'post')
     {
-        if (!$blog && !Yii::app()->user->checkAccess('createClubPost', array(
-            'user'=>Yii::app()->user->getModel(),
-            'community_id'=>$community_id)))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        if (! Yii::app()->user->checkAccess('createClubPost', array(
+            'user' => Yii::app()->user->model,
+            'community_id' => $community_id,
+        )))
+            throw new CHttpException(403, 'Запрашиваемая вами страница не найдена.');
 
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
-        if (! $content_type)
-        {
-            throw new CHttpException(404, 'Такого раздела не существует.');
-        }
-        $community = Community::model()->with('rubrics')->findByPk($community_id);
-        if (! $community)
-        {
-            throw new CHttpException(404, 'Такого сообщества не существует.');
-        }
-        $content_types = CommunityContentType::model()->findAll();
-        $content_model = new CommunityContent;
-        $content_model->rubric_id = $rubric_id;
-        $content_model->author_id = Yii::app()->user->id;
+        $model = new CommunityContent;
+        $model->author_id = Yii::app()->user->id;
+        $model->type_id = $content_type->id;
+        $model->rubric_id = $rubric_id;
         $slave_model_name = 'Community' . ucfirst($content_type->slug);
         $slave_model = new $slave_model_name;
 
+        $communities = Community::model()->findAll();
+        $rubrics = ($community_id === null) ? array() : CommunityRubric::model()->findAllByAttributes(array('community_id' => $community_id));
+
         if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
         {
-            $content_model->attributes = $_POST['CommunityContent'];
+            $model->attributes = $_POST['CommunityContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
-            //$slave_model->attributes = $_POST;
 
-            $valid = $content_model->validate();
+            $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
 
             if ($valid)
             {
-                $content_model->save(false);
-                $slave_model->content_id = $content_model->id;
+                $model->save(false);
+                $slave_model->content_id = $model->id;
                 $slave_model->save(false);
-                $this->redirect(array('community/view', 'community_id' => $community_id, 'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
+                $this->redirect($model->url);
             }
         }
 
-        $rubrics = $blog ? Yii::app()->user->model->blog_rubrics : $community->rubrics;
-
-        $this->render('add', array(
-            'content_model' => $content_model,
+        $this->render('form', array(
+            'model' => $model,
             'slave_model' => $slave_model,
+            'communities' => $communities,
             'rubrics' => $rubrics,
-            'content_types' => $content_types,
-            'content_type' => $content_type,
             'community_id' => $community_id,
             'rubric_id' => $rubric_id,
-            'blog' => $blog,
+            'content_type_slug' => $content_type->slug,
         ));
     }
 

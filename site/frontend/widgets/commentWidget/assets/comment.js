@@ -18,7 +18,7 @@ Comment = {
         if(instance) {
             instance.destroy(true);
         }
-        CKEDITOR.replace('Comment_text',{"toolbar":this.toolbar});
+        CKEDITOR.replace('Comment_text',{toolbar:this.toolbar});
     },
     moveForm:function (container) {
         var instance = this.getInstance();

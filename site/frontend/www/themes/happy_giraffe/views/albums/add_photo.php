@@ -58,7 +58,7 @@
             <ul id="log"></ul>
         </div>
 
-        <div class="bottom" id="upload_finish_wrapper">
+        <div class="bottom" style="visibility:hidden;" id="upload_finish_wrapper">
             <a href="" class="a-left" id="upload-link">Добавить еще фотографий</a>
             <a href="" class="btn btn-green-medium" onclick="return savePhotos();"><span><span>Завершить</span></span></a>
         </div>

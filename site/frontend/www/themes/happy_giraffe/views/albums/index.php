@@ -82,7 +82,7 @@
     </div>
 </div>
 
-<?php if($model->checkAccess === true): ?>
+<?php if($access === true): ?>
 <div class="side-left gallery-sidebar">
     <div class="fast-add">
         <?php

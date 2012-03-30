@@ -131,7 +131,7 @@ class AjaxController extends Controller
     public function actionSendComment()
     {
         if (empty($_POST['edit-id'])){
-            $comment = new Comment;
+            $comment = new Comment('default');
             $comment->attributes = $_POST['Comment'];
             $comment->author_id = Yii::app()->user->id;
         }else{

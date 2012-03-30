@@ -354,4 +354,9 @@ class AlbumPhoto extends CActiveRecord
             'next' => $next ? $next['id'] : false
         );
     }
+
+    public function getCommentContent()
+    {
+        return CHtml::image($this->getPreviewUrl(460,600));
+    }
 }

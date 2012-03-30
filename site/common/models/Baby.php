@@ -83,7 +83,7 @@ class Baby extends CActiveRecord
 
     public function getAgeImageUrl()
     {
-        if ($this->birthday === null)
+        /*if ($this->birthday === null)
             return '/images/age_02.gif';
         $age = $this->getAge();
         if ($age <= 1)
@@ -93,18 +93,14 @@ class Baby extends CActiveRecord
         if ($age <= 7)
             return '/images/age_04.gif';
 
-        return '/images/age_05.gif';
+        return '/images/age_05.gif';*/
+        return '';
     }
 
     public function getGenderString(){
         if ($this->sex == 1)
             return 'Мой сын';
         return 'Моя дочь';
-    }
-
-    public function getImageUrl()
-    {
-        return $this->getAgeImageUrl();
     }
 
     public function getBirthdayDates()

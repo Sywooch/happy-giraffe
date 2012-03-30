@@ -28,14 +28,20 @@
                 <div class="family-member">
 
                     <div class="data clearfix">
+
                         <div class="d-text"><?=$user->getPartnerTitleForName() ?>:</div>
-                        <?php if (!empty($user->partner->name)):?>
-                            <div class="name">
-                                <div class="text"><?=$user->partner->name ?></div>
-                                <div class="input" style="display:none;"><input type="text"></div>
-                                <a href="javascript:void(0);" class="edit"><span class="tip">Редактировать имя</span></a>
+
+                        <div class="name">
+                            <div class="text"<?php if (empty($user->partner->name)) echo ' style="display:none;"' ?>><?=$user->partner->name ?></div>
+                            <div class="input"<?php if (!empty($user->partner->name)) echo ' style="display:none;"' ?>>
+                                <input type="text">
+                                <button class="btn btn-green-small"><span><span>Ok</span></span></button>
                             </div>
-                            <div class="date" style="display:none;">
+                            <a href="javascript:void(0);" class="edit"<?php if (empty($user->partner->name)) echo ' style="display:none;"' ?>><span class="tip">Редактировать имя</span></a>
+                        </div>
+
+                        <div<?php if (empty($user->partner->name)) echo ' style="display:none;"' ?>>
+                            <div class="date">
                                 <a href="javascript:void(0);" class="date"><span class="tip">Укажите дату рождения</span></a>
                                 <div class="datepicker">
                                     <div class="tale"></div>
@@ -62,13 +68,7 @@
                             </div>
                             <a href="javascript:void(0);" class="comment"><span class="tip">Расскажите о нем</span></a>
                             <a href="javascript:void(0);" class="photo"><span class="tip">Добавить 2 фото</span></a>
-                        <?php else: ?>
-                            <div class="name">
-                                <div class="text" style="display:none;">Катя</div>
-                                <div class="input"><input type="text"></div>
-                                <a href="javascript:void(0);" class="edit"><span class="tip">Редактировать имя</span></a>
-                            </div>
-                        <?php endif ?>
+                        </div>
                     </div>
 
                     <div class="comment">

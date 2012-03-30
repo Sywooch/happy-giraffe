@@ -2,6 +2,26 @@
 
 class AjaxController extends Controller
 {
+    public function actionSetValue()
+    {
+        $modelName = Yii::app()->request->getPost('modelName');
+        $modelPk = Yii::app()->request->getPost('modelPk');
+        $attribute = Yii::app()->request->getPost('attribute');
+        $value = Yii::app()->request->getPost('value');
+
+        /**
+         * @var CActiveRecord $model
+         */
+        $model = new $modelName;
+        $res = Yii::app()->db->createCommand()
+            ->update($model->tableName(),
+            array($attribute => $value),
+            $model->getTableSchema()->primaryKey.' = '.$modelPk);
+
+        if ($res >= 0)
+            echo '1';
+    }
+
     public function actionRate()
     {
         if(Yii::app()->user->isGuest)

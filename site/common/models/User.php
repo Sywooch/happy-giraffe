@@ -69,17 +69,28 @@ class User extends CActiveRecord
     public $assigns;
 
     public $women_rel = array(
-        '1' => 'Замужем',
-        '2' => 'Не замужем',
-        '3' => 'Невеста',
-        '4' => 'Есть друг',
+        1 => 'Замужем',
+        2 => 'Не замужем',
+        3 => 'Невеста',
+        4 => 'Есть друг',
     );
-
     public $men_rel = array(
-        '1' => 'Женат',
-        '2' => 'Не женат',
-        '3' => 'Жених',
-        '4' => 'Есть подруга',
+        1 => 'Женат',
+        2 => 'Не женат',
+        3 => 'Жених',
+        4 => 'Есть подруга',
+    );
+    public $women_of = array(
+        1 => 'жены',
+        2 => '',
+        3 => 'невесты',
+        4 => 'подруги',
+    );
+    public $men_of = array(
+        1 => 'мужа',
+        2 => '',
+        3 => 'жениха',
+        4 => 'друга',
     );
 
     public $accessLabels = array(
@@ -744,28 +755,21 @@ class User extends CActiveRecord
         return '';
     }
 
-    public function getPartnerTitleForName($id = null)
+    public function getPartnerTitleOf($id = null)
     {
         if ($id === null)
             $id = $this->relationship_status;
 
-        if ($this->gender == 1) {
-            if ($id == 1)
-                return 'Имя жены';
-            if ($id == 3)
-                return 'Имя невесты';
-            if ($id == 4)
-                return 'Имя подруги';
-        } else {
-            if ($id == 1)
-                return 'Имя мужа';
-            if ($id == 3)
-                return 'Имя жениха';
-            if ($id == 4)
-                return 'Имя друга';
-        }
+        $list = $this->getPartnerTitlesOf();
+        return $list[$id];
+    }
 
-        return '';
+    public function getPartnerTitlesOf()
+    {
+        if ($this->gender == 1)
+            return $this->women_of;
+        else
+            return $this->men_of;
     }
 
     public static function relationshipStatusHasPartner($status_id)

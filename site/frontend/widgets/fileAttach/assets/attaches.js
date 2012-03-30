@@ -12,6 +12,12 @@ Attach.changeView = function(link) {
     return false;
 };
 
+Attach.updateEntity = function(entity, entity_id) {
+    this.entity = entity;
+    this.entity_id = entity_id;
+    return true;
+};
+
 Attach.changeAlbum = function(link) {
     $('#attach_content').load(link.href);
     return false;

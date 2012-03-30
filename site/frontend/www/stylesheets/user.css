@@ -325,7 +325,7 @@
 #user .family .family-member .comment .text .edit:hover {background-position:-341px -136px;}
 #user .family .family-member .comment .input {position:relative;}
 #user .family .family-member .comment .input .tale {display:block;content:'';width:18px;height:17px;background:url(/images/common.png) no-repeat -536px -251px;position:absolute;top:-19px;left:110px;}
-#user .family .family-member .comment .input textarea {font-size:15px;line-height:1;padding:2px 7px;margin:-3px 0 0 -8px;font-size:15px;overflow:auto;width:350px;height:30px;font-size:13px;color:#484747;vertical-align:bottom;border:1px solid #badef1;max-width:350px;}
+#user .family .family-member .comment .input textarea {font-size:15px;line-height:1;padding:2px 7px;margin:-3px 0 0 -8px;font-size:15px;overflow:auto;width:350px;height:30px;font-size:13px;color:#484747;vertical-align:bottom;border:1px solid #badef1;max-width:350px;resize:none;}
 
 #user .family .family-member .photos {margin-top:10px;}
 #user .family .family-member .photos ul {overflow:hidden;}

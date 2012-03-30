@@ -1,6 +1,6 @@
 <div class="main">
     <div class="main-in">
-        <div id="gallery">
+        <div id="gallery" class="nopadding">
             <div class="header">
                 <div class="title">
                     <big>

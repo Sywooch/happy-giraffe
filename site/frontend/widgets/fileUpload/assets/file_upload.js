@@ -25,6 +25,7 @@ function initForm() {
         button_image_url:"/images/btn_browse.png",
         button_placeholder:$('#upload-button')[0]
     });
+
     $('#upload_finish_wrapper').swfupload({
         upload_url:upload_ajax_url,
         file_size_limit:"6144",
@@ -46,7 +47,6 @@ function initForm() {
 
 function registerUploadEvents(elem) {
     elem.bind('fileQueued', function (event, file) {
-        $('#log').empty();
         var listitem = '<li class="clearfix" id="' + file.id + '" >' +
             '<div class="img"><i class="icon-error"></i></div>' +
             '<i class="icon-done"></i>' +
@@ -79,6 +79,9 @@ function registerUploadEvents(elem) {
         })
         .bind('fileDialogComplete', function (event, numFilesSelected, numFilesQueued) {
             /*$('#queuestatus').text('Files Selected: ' + numFilesSelected + ' / Queued Files: ' + numFilesQueued);*/
+        })
+        .bind('fileDialogStart', function() {
+            $('#log').empty();
         })
         .bind('uploadStart', function (event, file) {
             $('#upload_button_wrapper').css({visibility:'hidden', height:0});

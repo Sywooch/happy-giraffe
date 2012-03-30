@@ -512,7 +512,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 #galleryUploadPhotos big {display:block;color:#898888;font-size:16px;font-style:italic;margin-bottom:6px;}
 
-#galleryUploadPhotos .album-name {background:#fff;padding:2px 7px;border:1px solid #C9EAF1;width:286px;vertical-align:middle;}
+#galleryUploadPhotos .album-name {background:#fff;padding:2px 7px;border:1px solid #C9EAF1;width:186px;vertical-align:middle;font-size:11px;margin:0;}
 #galleryUploadPhotos .btn {vertical-align:middle;}
 
 

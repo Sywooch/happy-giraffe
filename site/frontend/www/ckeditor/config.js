@@ -1,4 +1,4 @@
-﻿﻿/*
+﻿/*
  Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
  For licensing, see LICENSE.html or http://ckeditor.com/license
  */
@@ -33,7 +33,7 @@ CKEDITOR.editorConfig = function (config) {
 
     config.toolbar_Main =
         [
-            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike', ] },
+            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike' ] },
             { name:'styles', items:[ 'Format', 'Font' ] },
             { name:'colors', items:[ 'TextColor', 'BGColor' ] },
             { name:'clipboard', items:[ 'Copy', 'Paste', '-', 'Undo', 'Redo' ] },
@@ -42,24 +42,24 @@ CKEDITOR.editorConfig = function (config) {
             { name:'links', items:[ 'Link', 'Unlink' ] },
             { name:'insert', items:[ 'Image' ] },
             { name:'document', items:[ 'Source' ] },
-            { name:'cut', items:[ 'Cuttable' ] },
+            { name:'cut', items:[ 'Cuttable' ] }
         ];
 
     config.toolbar_Chat =
         [
-            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline' ] },
+            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline' ] }
         ];
 
     config.toolbar_Simple =
         [
             { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline' ] },
             { name:'colors', items:[ 'TextColor', 'BGColor' ] },
-            { name:'insert', items:[ 'Smiley' ] },
+            { name:'insert', items:[ 'Smiley' ] }
         ];
 
     config.toolbar_Nocut =
         [
-            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike', ] },
+            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike' ] },
             { name:'styles', items:[ 'Format', 'Font' ] },
             { name:'colors', items:[ 'TextColor', 'BGColor' ] },
             { name:'clipboard', items:[ 'Copy', 'Paste', '-', 'Undo', 'Redo' ] },
@@ -67,7 +67,7 @@ CKEDITOR.editorConfig = function (config) {
             { name:'paragraph', items:[ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ] },
             { name:'links', items:[ 'Link', 'Unlink' ] },
             { name:'insert', items:[ 'Image' ] },
-            { name:'document', items:[ 'Source' ] },
+            { name:'document', items:[ 'Source' ] }
         ];
 
     CKEDITOR.config.format_tags = 'psmall;p;pbig;h2;h3';

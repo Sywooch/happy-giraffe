@@ -433,6 +433,12 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 .select-box {background:#edf9ff;display:inline-block;padding:15px 11px;line-height:1;vertical-align:middle;}
 
+.form input.new-rubric {padding:2px 7px;font-size:11px;line-height:normal;font-weight:normal;height:auto;width:200px;}
+.form .row.select-box .row-title {padding:0 0 10px 0;}
+.form .row.select-box {width:678px;}
+.form .row.select-box table {width:540px;margin:auto;}
+.form .row.select-box table td {vertical-align:top;}
+
 .form .form-error-summary {padding:15px 20px;background:#fff;border:2px solid #ff8686;margin-bottom:20px;}
 .form .form-error-summary big {display:block;font:bold 24px arial, sans-serif;margin-bottom:10px;color:#e40000;letter-spacing:-1px;}
 .form .form-error-summary ul {font:13px/1 arial, sans-serif;list-style:none;}
@@ -1217,6 +1223,8 @@ select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-
 /* */
 
 .with-search .chzn-container-single .chzn-search {display:block;}
+
+#album_select_chzn .search-choice-close {display:none;}
 
 /* select */
 

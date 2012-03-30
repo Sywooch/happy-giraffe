@@ -353,6 +353,8 @@ class User extends CActiveRecord
         }
         if ($this->isNewRecord) {
             $this->register_date = date("Y-m-d H:i:s");
+
+            //силнал о новом юзере
             $signal = new UserSignal();
             $signal->user_id = (int)$this->id;
             $signal->signal_type = UserSignal::TYPE_NEW_USER_REGISTER;
@@ -360,10 +362,18 @@ class User extends CActiveRecord
             $signal->item_id = (int)$this->id;
             $signal->save();
 
+            //рубрика для блога
             $rubric = new CommunityRubric;
             $rubric->name = 'Обо всём';
             $rubric->user_id = $this->id;
             $rubric->save();
+
+            //коммент от веселого жирафа
+            $comment = new Comment('giraffe');
+            $comment->author_id = 1;
+            $comment->entity = get_class($this);
+            $comment->entity_id = $this->id;
+            $comment->save();
         } else {
             self::clearCache($this->id);
         }

@@ -75,10 +75,23 @@ Album.removeAlbum = function () {
     document.location.href = base_url + '/albums';
 };
 
-Album.changeAlbum = function() {
-    this.album_id = $('#album_select').val();
+Album.changeAlbum = function(select) {
+    if($(select).val() == '') {
+        this.album_id = null;
+        $('#upload_button_wrapper').hide();
+        return false;
+    }
+    this.album_id = $(select).val();
+    $('#new_album_title').val('');
+    $('#upload_button_wrapper').show();
 };
 
-Album.createAlbum = function() {
+Album.changeAlbumTitle = function(input) {
+    if($(input).val() != '') {
+        $('#upload_button_wrapper').show();
+        $('#album_select_chzn .search-choice-close').trigger('mouseup');
+    } else {
+        $('#upload_button_wrapper').hide();
+    }
 
 }

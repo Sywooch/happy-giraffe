@@ -22,7 +22,7 @@ function initForm() {
 
         button_text:'<span class="moreButton">Добавить еще фотографий</span>',
         button_text_style:'.moreButton {color: #54AFC3;display:block;height:34px;line-height:34px;font-size:12px;font-family:arial;}',
-        button_width:152,
+        button_width:178,
         button_height:34,
         button_placeholder:$('#upload-link')[0]
     });

@@ -1479,6 +1479,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments .new-comment .rating.hover span.active {background-position:-128px -125px;}
 .default-comments .new-comment textarea {border:1px solid #c9eaf1;width:680px;padding:15px 14px;}
 .default-comments .new-comment .btn {margin:10px 5px;}
+.default-comments .removed-comment {color: #aaa;font-style: italic;}
 
 /* */
 

@@ -186,12 +186,6 @@ class AlbumsController extends Controller
 
     public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)
     {
-        if (empty($entity_id)){
-            $model = new $entity;
-            $model->text = '';
-            $model->save();
-            $entity_id = $model->id;
-        }
         Yii::app()->clientScript->scriptMap['*.js'] = false;
         Yii::app()->clientScript->scriptMap['*.css'] = false;
         $this->renderPartial('attach_widget', compact('entity', 'entity_id', 'mode', 'a'), false, true);
@@ -314,15 +308,5 @@ class AlbumsController extends Controller
         $attach->save();
         User::model()->updateByPk(Yii::app()->user->id, array('avatar' => $photo->id));
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
-    }
-
-    public function actionChangePermission()
-    {
-        $id = Yii::app()->request->getPost('id');
-        $num = Yii::app()->request->getPost('num');
-        $model = Album::model()->findByPk($id);
-        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
-            Yii::app()->end();
-        $model->updateByPk($id, array('permission' => $num));
     }
 }

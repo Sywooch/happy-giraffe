@@ -9,10 +9,10 @@
         $template = '
             <div class="comments-meta clearfix">
                     <div class="add-menu">
-                         ' . (!Yii::app()->user->isGuest ? '<a href="" class="btn btn-orange a-right"><span><span>Добавить запись<i class="arr-t"></i></span></span></a>
-                            <ul>
-                                <li><a href="#new_comment_wrapper" onclick="Comment.newComment(event);">Текст</a></li>
-                                <li><a  href="#new_photo_comment_wrapper" onclick="Comment.newPhotoComment(event);">Картинка</a></li>
+                         ' . (!Yii::app()->user->isGuest ? '<a href="javascript:void(0);" class="btn btn-orange a-right" onclick="addMenuToggle(this);"><span><span>Добавить запись<i class="arr-b"></i></span></span></a>
+                            <ul style="display: none; ">
+                                <li><a href="#new_comment_wrapper" onclick="Comment.newComment(event);addMenuToggle(this);">Текст</a></li>
+                                <li><a  href="#new_photo_comment_wrapper" onclick="Comment.newPhotoComment(event);addMenuToggle(this);">Картинка</a></li>
                             </ul>
                         </div>' : '') . '
                     <div class="title">' . $this->title . '</div>

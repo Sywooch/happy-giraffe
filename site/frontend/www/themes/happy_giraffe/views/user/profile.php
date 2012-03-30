@@ -77,7 +77,7 @@
             {
                 echo '<div class="ava big male" id="change_ava">';
                 $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                    'model' => $user,
+                    'model' => $user
                 ));
                     $fileAttach->button();
                 $this->endWidget();
@@ -173,6 +173,7 @@
 
             <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
                 'model' => $user,
+                'type' => 'guestBook',
                 'title' => 'Гостевая',
                 'button' => 'Добавить запись',
                 'actions' => false,
@@ -183,8 +184,6 @@
         </div>
 
     </div>
-
-
 
 </div>
 

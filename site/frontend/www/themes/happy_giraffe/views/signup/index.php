@@ -78,7 +78,7 @@ function choose(val)
 
 	$('.gender-select li.active').removeClass('active');
 	$('.gender-select li:nth-child(' + (val + 1) + ')').addClass('active');
-	$('.members-count').show();
+	//$('.members-count').show();
 }";
 $css_signup = "
 #step_2, .members-count {
@@ -221,14 +221,14 @@ $cs->registerScript('step_1', $js_step_1)->registerScript('step_2', $js_step_2)-
                 </ul>
                 <?php echo $form->hiddenField($model, 'gender'); ?>
             </div>
-            <div class="members-count">
+            <!--<div class="members-count">
                 <big>У Вас есть дети?</big>
 
                 <ul>
                     <li>
                         <div class="img"><span class="valign"></span><img src="/images/age_01.gif" /></div>
                         <div class="age-title">ждем ребенка</div>
-                        <div class="controls"><?php echo CHtml::checkBox('age_group[0]', TRUE, array('value' => 1, 'uncheckValue' => 0)); ?></div>
+                        <div class="controls"><?php echo CHtml::checkBox('age_group[0]', false, array('value' => 1, 'uncheckValue' => 0)); ?></div>
                     </li>
                     <li>
                         <div class="img"><span class="valign"></span><img src="/images/age_02.gif" /></div>
@@ -253,7 +253,7 @@ $cs->registerScript('step_1', $js_step_1)->registerScript('step_2', $js_step_2)-
 
 
                 </ul>
-            </div>
+            </div>-->
         </div>
 
         <div class="form-bottom">

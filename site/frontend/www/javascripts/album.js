@@ -45,6 +45,7 @@ Album.removeDescription = function (link) {
 
 /* Изменение названия фотографии */
 Album.editPhoto = function (link) {
+    $(link).parents('tr:eq(0)').addClass('editing');
     var text = $(link).siblings('span').text();
     $(link).parent().hide().siblings('div').show().find('input[type=text]').val(text);
     return false;
@@ -52,6 +53,7 @@ Album.editPhoto = function (link) {
 
 /* Сохранение названия фотографии */
 Album.savePhoto = function (button) {
+    $(button).parents('tr:eq(0)').removeClass('editing');
     var text = $(button).siblings('input[type=text]').val();
     $(button).parent().hide().siblings('div').show().find('span').text(text);
     if (!this.editMode) {

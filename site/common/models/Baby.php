@@ -10,7 +10,6 @@
  * @property string $name
  * @property string $birthday
  * @property integer $sex
- * @property string $photo
  * @property string $notice
  *
  * The followings are the available model relations:
@@ -42,10 +41,9 @@ class Baby extends CActiveRecord
             array('birthday', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
             array('parent_id, age_group', 'numerical', 'integerOnly'=>true),
             array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 1),
-            array('name, photo', 'length', 'max'=>255),
+            array('name', 'length', 'max'=>255),
             array('notice', 'length', 'max'=>1024),
             array('birthday', 'safe'),
-            array('photo', 'unsafe'),
         );
     }
 
@@ -61,39 +59,6 @@ class Baby extends CActiveRecord
         );
     }
 
-    public function behaviors()
-    {
-        return array(
-            'behavior_ufiles' => array(
-                'class' => 'site.frontend.extensions.ufile.UFileBehavior',
-                'fileAttributes' => array(
-                    'photo' => array(
-                        'fileName' => 'upload/baby/*/<date>-{id}-<name>.<ext>',
-                        'fileItems' => array(
-                            'ava' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 76,
-                                    'height' => 79,
-                                ),
-                            ),
-                            'mini' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 38,
-                                    'height' => 37,
-                                ),
-                            ),
-                            'original' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                            ),
-                        )
-                    ),
-                ),
-            ),
-        );
-    }
-
     public function getAge()
     {
         if ($this->birthday === null) return null;
@@ -104,7 +69,7 @@ class Baby extends CActiveRecord
         return $interval->y;
     }
 
-    public function getTextAge()
+    public function getTextAge($bold = true)
     {
         if ($this->birthday === null) return null;
 
@@ -112,8 +77,8 @@ class Baby extends CActiveRecord
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
         if ($interval->y == 0)
-            return '<b>'.$interval->m.'</b> '.HDate::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
-        return '<b>'.$interval->y.'</b> '.HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
+            return ($bold?'<b>'.$interval->m.'</b> ':$interval->m.' ').HDate::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
+        return ($bold?'<b>'.$interval->y.'</b> ':$interval->y.' ').HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
     }
 
     public function getAgeImageUrl()
@@ -139,11 +104,7 @@ class Baby extends CActiveRecord
 
     public function getImageUrl()
     {
-        $ava = $this->photo->getUrl('ava');
-        if (!empty($ava))
-            return $ava;
-        else
-            return $this->getAgeImageUrl();
+        return $this->getAgeImageUrl();
     }
 
     public function getBirthdayDates()

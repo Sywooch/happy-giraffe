@@ -8,7 +8,7 @@
 #user .box-title a {font-size:13px;margin-left:10px;}
 #user .box-title .btn {position:relative;top:4px;margin-right:15px;margin-left:0;}
 
-#user .header {padding-bottom:10px;}
+#user .header {padding-bottom:15px;}
 
 #user .header .user-name {float:left;padding-left:12px;width:240px;}
 #user .header .user-name h1 {line-height:1;margin:0 0 7px 0;color:#0281B0;}
@@ -36,7 +36,7 @@
 #user .header .user-buttons .new-message {width:33px;height:23px;background:url(/images/common.png) no-repeat -200px -271px;margin-top:12px;}
 #user .header .user-buttons .new-message .tip {left:50%;margin-top:15px;}
 
-#user .header .user-nav {margin-left:420px;padding-top:10px;font-size:13px;padding-bottom:20px;}
+#user .header .user-nav {margin-left:360px;padding-top:10px;font-size:13px;padding-bottom:20px;}
 #user .user-home .user-nav {padding-bottom:70px;}
 
 
@@ -239,24 +239,108 @@
 #user .user-albums ul li .more {color:#b9b9b9;font-size:13px;padding-top:50px;float:left;text-decoration:none;margin-left:10px;max-width:80px;text-align:center}
 #user .user-albums ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
 
-#user .user-family {margin-bottom:20px;}
+#user .user-family {margin-bottom:20px;margin-top:3px;}
 #user .user-family .t {height:39px;background:url(/images/bg_user_family.png) no-repeat 0 0;}
-#user .user-family .c {background:url(/images/bg_user_family.png) repeat-y 100% 0;padding:15px 35px 15px;}
+#user .user-family .c {background:url(/images/bg_user_family.png) repeat-y 100% 0;padding:10px 30px 10px;}
 #user .user-family .b {height:18px;background:url(/images/bg_user_family.png) no-repeat 0 100%;}
 #user .user-family ul {list-style:none;}
 #user .user-family ul li {list-style:none;margin-top:15px;}
 #user .user-family ul li:first-child {margin-top:0;}
-#user .user-family ul li big {font-size:14px;color:#4c4d4d;display:block;margin-bottom:5px;}
-#user .user-family ul li .img {float:left;width:80px;}
-#user .user-family ul li .img img {display:block;margin-bottom:5px;}
-#user .user-family ul li .img .ava {margin-bottom:5px;}
-#user .user-family ul li p {margin-left:85px;font-family:tahoma, arial, helvetica, sans-serif;color:#939697;line-height:1.3;width:80px;overflow:hidden;font-size:11px;}
-#user .user-family ul li span {font-family:tahoma, arial, helvetica, sans-serif;color:#3fa0c3;font-size:11px;}
-#user .user-family ul li span span {color:#585959;}
+#user .user-family ul li big {font-size:18px;color:#4c4d4d;display:block;line-height:1;margin-bottom:5px;}
+#user .user-family ul li big small {font-size:11px;color:#939697;}
+#user .user-family ul li big span {font-size:14px;}
+#user .user-family ul li .img {margin-bottom:5px;}
+#user .user-family ul li .img img {display:block;margin:auto;max-width:180px;}
+#user .user-family ul li .comment {margin-bottom:8px;position:relative;color:#3c93bc;font-size:13px;font-family:times new roman, serif;font-style:italic;padding:8px 10px;line-height:14px;position:relative;}
+#user .user-family ul li .comment {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
+#user .user-family ul li .comment.purple {background:#f3e8fe;}
+#user .user-family ul li .comment.blue {background:#dbeefc;}
+#user .user-family ul li .comment .tale {position:absolute;display:block;width:30px;height:23px;right:65px;top:100%;}
+#user .user-family ul li .comment.purple .tale {background:url(/images/common.png) no-repeat -472px -251px;}
+#user .user-family ul li .comment.blue .tale {background:url(/images/common.png) no-repeat -504px -251px;}
+
 
 #user .user-family.user-family-cap .c {padding:0 17px;}
 #user .user-family .cap {display:block;width:100%;background:#f9f5ef url(/images/bg_user_family_cap.gif) no-repeat bottom;text-align:center;padding:15px 0 215px;font-size:15px;}
 #user .user-family .cap:hover {text-decoration:none;}
+
+
+#user .family {padding-left:30px;}
+#user .family .content-title {margin-bottom:20px;}
+
+#user .family .family-radiogroup {background:#f1e4fd;display:inline-block;margin-left:-15px;padding:10px 15px;margin-bottom:15px;}
+#user .family .family-radiogroup .title {font-size:22px;color:#484747;line-height:1;margin-bottom:10px;}
+#user .family .family-radiogroup .radio-label {height:19px;display:inline-block;line-height:19px;width:100px;text-align:center;background:#fff;border:1px solid #dcc7ee;font-size:13px;color:#aeadad;cursor:pointer;}
+#user .family .family-radiogroup .radio-label {/*css3*/ border-radius:10px;}
+#user .family .family-radiogroup .radio-label.checked {background:#dcc7ee;color:#714399;}
+#user .family .family-radiogroup .radio-label input {display:none;}
+
+#user .family .family-member {font-size:13px;padding-bottom:20px;}
+
+#user .family .family-member .tip {display:block;position:absolute;bottom:100%;left:100%;white-space:nowrap;background:#fffac8;color:#929292;padding:4px 10px;border:1px solid #f3eca9;display:none;font-size:12px;z-index:3;}
+#user .family .family-member .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
+#user .family .family-member a:hover .tip {display:block;}
+
+
+#user .family .family-member .data {margin-bottom:10px;}
+
+#user .family .family-member .data .d-text {color:#929292;float:left;margin-right:10px;}
+
+#user .family .family-member .data .name {float:left;margin-right:10px;}
+#user .family .family-member .data .name .text {font-size:15px;color:#2584b0;font-weight:bold;float:left;}
+#user .family .family-member .data .name .input {float:left;}
+#user .family .family-member .data .name .input input {border:1px solid #badef1;font-size:15px;line-height:1;padding:2px 7px;margin:-2px 0 0 0;font-size:15px;font-weight:bold;color:#2584b0;}
+#user .family .family-member .data .name .edit {display:block;width:14px;height:18px;background:url(/images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;float:left;margin-left:5px;}
+#user .family .family-member .data .name .edit:hover {background-position:-341px -136px;}
+
+#user .family .family-member .data .gender {display:block;width:22px;height:21px;background:url(/images/common.png) no-repeat 22px 21px;float:left;margin-right:3px;position:relative;margin-top:-2px;}
+#user .family .family-member .data .gender.male {background-position:-556px -244px}
+#user .family .family-member .data .gender.male:hover, #user .family .family-member .data .gender.male.active {background-position:-556px -221px;}
+#user .family .family-member .data .gender.female {background-position:-580px -244px}
+#user .family .family-member .data .gender.female:hover, #user .family .family-member .data .gender.female.active {background-position:-580px -221px}
+#user .family .family-member .data .gender.question {width:11px;background-position:-623px -244px}
+#user .family .family-member .data .gender.question:hover, #user .family .family-member .data .gender.question.active {width:11px;background-position:-623px -221px}
+
+#user .family .family-member .data .age {float:left;color:#2584b0;font-size:15px;margin-left:5px;}
+
+#user .family .family-member .data div.date {display:block;width:18px;height:17px;float:left;margin-left:8px;position:relative;}
+#user .family .family-member .data div.date a.date {display:block;width:18px;height:17px;background:url(/images/common.png) no-repeat -603px -244px;}
+#user .family .family-member .data div.date .datepicker {position:absolute;top:30px;left:-115px;border:1px solid #badef1;width:360px;padding:10px 0;background:#fff;padding-top:50;text-align:center;z-index:5;}
+#user .family .family-member .data div.date .datepicker .tale {display:block;content:'';width:18px;height:17px;background:url(/images/common.png) no-repeat -536px -251px;position:absolute;top:-17px;left:93px;}
+#user .family .family-member .data div.date .datepicker .w-1 {width:60px;}
+#user .family .family-member .data div.date .datepicker .w-2 {width:120px;}
+#user .family .family-member .data div.date .datepicker .w-3 {width:80px;}
+#user .family .family-member .data div.date a.date:hover {background-position:-603px -221px;}
+
+#user .family .family-member .data .comment {display:block;width:25px;height:19px;background:url(/images/common.png) no-repeat -636px -244px;float:left;margin-left:8px;position:relative;}
+#user .family .family-member .data .comment:hover {background-position:-636px -221px;}
+
+#user .family .family-member .data .photo {display:block;width:22px;height:16px;background:url(/images/common.png) no-repeat -663px -244px;float:left;margin-left:8px;position:relative;}
+#user .family .family-member .data .photo:hover {background-position:-663px -221px;}
+
+
+#user .family .family-member .comment {}
+#user .family .family-member .comment .text {font-size:13px;color:#484747;width:350px;}
+#user .family .family-member .comment .text .edit {display:inline-block;width:14px;height:18px;background:url(/images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;}
+#user .family .family-member .comment .text .edit:hover {background-position:-341px -136px;}
+#user .family .family-member .comment .input {position:relative;}
+#user .family .family-member .comment .input .tale {display:block;content:'';width:18px;height:17px;background:url(/images/common.png) no-repeat -536px -251px;position:absolute;top:-18px;left:110px;}
+#user .family .family-member .comment .input textarea {font-size:15px;line-height:1;padding:2px 7px;margin:-3px 0 0 -8px;font-size:15px;overflow:auto;width:350px;height:30px;font-size:13px;color:#484747;vertical-align:bottom;border:1px solid #badef1;max-width:350px;}
+
+#user .family .family-member .photos {margin-top:10px;}
+#user .family .family-member .photos ul {overflow:hidden;}
+#user .family .family-member .photos ul li {position:relative;display:inline-block;margin-left:10px;vertical-align:bottom;}
+#user .family .family-member .photos ul li:first-child {margin-left:0;}
+#user .family .family-member .photos ul li img {display:block;}
+#user .family .family-member .photos ul li .remove {display:none;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;position:absolute;top:0;right:0;}
+#user .family .family-member .photos ul li:hover .remove {display:block;}
+#user .family .family-member .photos ul li.add {text-align:center;line-height:normal;}
+#user .family .family-member .photos ul li.add a {position:relative;display:block;width:148px;height:50px;background:url(/images/gallery_photos_add.png) no-repeat;text-decoration:none;padding-top:60px;}
+#user .family .family-member .photos ul li.add a:hover .icon {background-position:-429px -191px;}
+#user .family .family-member .photos ul li.add a .icon {display:block;width:33px;height:33px;background:url(/images/common.png) no-repeat -464px -191px;top:20px;left:50%;margin-left:-16px;position:absolute;}
+#user .family .family-member .photos ul li.add a span {margin-top:60px;border-bottom:1px dashed #1b98c5;}
+#user .family .family-member .photos ul li.add a:hover span {border:0;}
+
 
 #user .user-weather {margin-bottom:20px;padding:10px 14px;border:1px solid #f3f3f3;height: 185px;}
 #user .user-weather .box-title a.pseudo {margin-top:7px;}

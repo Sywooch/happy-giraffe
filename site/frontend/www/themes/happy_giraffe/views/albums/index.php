@@ -2,11 +2,6 @@
     <div class="main-in">
         <div id="gallery" class="nopadding">
             <div class="header">
-                <?php if(!Yii::app()->user->isGuest && Yii::app()->user->id == $user->id): ?>
-                    <div class="all-link">
-                        <?php echo CHtml::link('<span><span><i class="add"></i>Добавить альбом</span></span>', array('albums/create'), array('class' => 'btn btn-green-medium')); ?>
-                    </div>
-                <?php endif; ?>
                 <div class="title">
                     <big><span>Фотоальбомы</span></big>
                 </div>

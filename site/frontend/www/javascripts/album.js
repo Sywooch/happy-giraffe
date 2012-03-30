@@ -100,4 +100,12 @@ Album.changeAlbumTitle = function(input) {
         $('#upload_button_wrapper').hide();
     }
 
+};
+
+Album.changeTitle = function(link)
+{
+    var span = $(link).parent().find('album_title');
+    var text = span.text();
+    //span.empty().append()
+    return false;
 }

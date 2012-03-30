@@ -30,13 +30,19 @@ CKEDITOR.editorConfig = function( config )
 		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'insert', items : [ 'Image' ] },
 		{ name: 'document', items : [ 'Source' ] },
-		{ name: 'cut', items : [ 'Cuttable' ] },
+		{ name: 'cut', items : [ 'Cuttable' ] }
 	];
 
+    config.toolbar_Lite =
+    [
+        { name: 'basicstyles', items : [ 'Bold','Italic','Underline' ] },
+        { name: 'colors', items : [ 'TextColor','BGColor' ] }
+    ];
+
     config.toolbar_Chat =
-        [
-            { name: 'basicstyles', items : [ 'Bold','Italic','Underline' ] },
-        ];
+    [
+        { name: 'basicstyles', items : [ 'Bold','Italic','Underline' ] }
+    ];
 	
 	config.toolbar_Nocut =
 	[
@@ -48,7 +54,7 @@ CKEDITOR.editorConfig = function( config )
 		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent' ] },
 		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'insert', items : [ 'Image' ] },
-		{ name: 'document', items : [ 'Source' ] },
+		{ name: 'document', items : [ 'Source' ] }
 	];
 	
 	CKEDITOR.config.format_tags = 'psmall;p;pbig;h2;h3';

@@ -175,6 +175,11 @@ Comment = {
     }
 };
 
+function addMenuToggle(el){
+    $(el).parents('.add-menu').find('ul').toggle();
+    $(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
+}
+
 $(function () {
     $('.default-comments').delegate('.content-in', 'mousedown', function () {
         selected_keydown = $(this);

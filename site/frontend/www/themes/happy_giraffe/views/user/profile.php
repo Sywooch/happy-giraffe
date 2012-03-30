@@ -46,6 +46,11 @@
                             'url' => array('user/profile', 'user_id' => $this->user->id),
                         ),
                         array(
+                            'label' => 'Семья',
+                            'visible' => $this->user->id == Yii::app()->user->id,
+                            'url' => array('/family'),
+                        ),
+                        array(
                             'label' => 'Блог',
                             'url' => $this->user->blogPostsCount > 0 ? array('/blog/list', 'user_id' => $this->user->id) : array('/blog/empty'),
                             'visible' => $this->user->blogPostsCount > 0 || $this->user->id == Yii::app()->user->id,

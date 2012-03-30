@@ -108,5 +108,4 @@ function deleteFriend(el, user_id) {
             }
         }
     });
-
 }

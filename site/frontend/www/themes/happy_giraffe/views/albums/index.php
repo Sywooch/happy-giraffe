@@ -13,7 +13,7 @@
                         <big>
                             Альбом <span>&laquo;<?php echo CHtml::link($model->title, array('albums/view', 'id' => $model->id)); ?>&raquo;</span>
                             <div class="album-visibility small hl">
-                                <?php for ($i = 2; $i > $model->permission; $i--): ?>
+                                <?php for ($i = 3; $i > $model->permission; $i--): ?>
                                     <span></span>
                                 <?php endfor; ?>
                             </div>

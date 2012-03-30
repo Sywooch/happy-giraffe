@@ -4,6 +4,9 @@ Comment = {
     seleted_text:null,
     save_url:null,
     toolbar:toolbar,
+    saveCommentUrl : null,
+    entity : null,
+    entity_id : null,
     getInstance : function() {
         var instance = CKEDITOR.instances['Comment_text'];
         if(instance)
@@ -27,7 +30,7 @@ Comment = {
         this.createInstance();
     },
     movePhoto:function (container) {
-        $('.upload-btn a').trigger('click');
+        $('.upload-btn .photo.Comment a').trigger('click');
     },
     newComment:function () {
         this.cancel();

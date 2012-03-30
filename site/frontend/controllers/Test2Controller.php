@@ -201,4 +201,17 @@ class Test2Controller extends Controller
     {
         echo Yii::app()->user->model->delFriend(10097);
     }
+
+    public function actionSmiles(){
+        if ($handle = opendir('C:/WebServers/happy-giraffe/site/frontend/www/images/widget/smiles')) {
+            while (false !== ($entry = readdir($handle))) {
+                echo "'$entry',";
+            }
+            while ($entry = readdir($handle)) {
+                echo "'$entry',\n";
+            }
+
+            closedir($handle);
+        }
+    }
 }

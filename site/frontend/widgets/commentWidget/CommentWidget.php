@@ -67,10 +67,15 @@ class CommentWidget extends CWidget
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/comment.js')
         ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.tmpl.min.js');
 
-        if ($this->type == 'default')
-            $script = 'Comment.toolbar = "Main"';
         if ($this->type == 'guestBook')
-            $script = 'Comment.toolbar = "Simple"';
+            $script = 'Comment.toolbar = "Simple";';
+        else
+            $script = 'Comment.toolbar = "Main";';
+        $script.= '
+        Comment.saveCommentUrl="'.Yii::app()->createUrl('/albums/saveCommentPhoto').'";
+        Comment.entity="'.$this->entity.'";
+        Comment.entity_id="'.$this->entity_id.'";
+        ';
         Yii::app()->clientScript->registerScript('Comment register script', $script);
     }
 }

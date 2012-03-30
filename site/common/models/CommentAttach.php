@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property Comment $comment
  */
-class CommentAttache extends CActiveRecord
+class CommentAttach extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -94,4 +94,9 @@ class CommentAttache extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getContent(){
+        $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        return $model->getCommentContent();
+    }
 }

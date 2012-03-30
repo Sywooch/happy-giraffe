@@ -23,6 +23,13 @@
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
 	
+	<script type="text/javascript">
+		function addMenuToggle(el){
+			$(el).parents('.add-menu').find('ul').toggle();
+			$(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
+		}
+	</script>
+	
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
 	<![endif]-->
@@ -829,10 +836,10 @@
 							
 							<div class="comments-meta clearfix">
 								<div class="add-menu">
-									<a href="" class="btn btn-orange a-right"><span><span>Добавить запись<i class="arr-t"></i></span></span></a>
-									<ul>
-										<li><a href="">Текст</a></li>
-										<li><a href="">Картинка</a></li>
+									<a href="javascript:void(0);" class="btn btn-orange a-right" onclick="addMenuToggle(this);"><span><span>Добавить запись<i class="arr-b"></i></span></span></a>
+									<ul style="display:none;">
+										<li><a href="javascript:void(0);" onclick="addMenuToggle(this);">Текст</a></li>
+										<li><a href="javascript:void(0);" onclick="addMenuToggle(this);">Картинка</a></li>
 									</ul>
 								</div>
 								<div class="title">Гостевая</div>

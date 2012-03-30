@@ -317,9 +317,10 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .btn .arr-r {display:inline-block;width:10px;height:13px;background:url(/images/arrow_r.png) no-repeat;margin-left:8px;position:relative;top:2px;margin-right:-5px;}
 
+.btn .arr-b {display:inline-block;width:8px;height:5px;background:url(/images/common.png) no-repeat -401px -208px;margin-left:8px;position:relative;top:-1px;margin-right:0px;vertical-align:middle;}
+
 .btn .arr-t {display:inline-block;width:8px;height:5px;background:url(/images/common.png) no-repeat -401px -201px;margin-left:8px;position:relative;top:-1px;margin-right:0px;vertical-align:middle;}
 
-.btn .arr-b {display:inline-block;width:8px;height:5px;background:url(/images/common.png) no-repeat -401px -208px;margin-left:8px;position:relative;top:-1px;margin-right:0px;vertical-align:middle;}
 
 .btn i.add {display:inline-block;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;margin:0 6px 0 -10px;position:relative;top:4px;}
 
@@ -1304,6 +1305,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .gallery-photos ul li table tr.title.editing td input[type=text] {width:50%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:middle;background:#fff}
 #gallery .gallery-photos ul li table tr.title.editing td .btn {vertical-align:middle;}
 #gallery .gallery-photos ul li:hover table tr.title td .edit, #gallery .gallery-photos ul li:hover table tr td.img .remove {display:block;}
+#gallery .gallery-photos ul li table tr.title.editing td .edit {display:none !important;}
 #gallery .gallery-photos ul li table tr.rank td {background:#fffedf;padding:1px 15px;text-align:right;color:#7a7b7b;font-size:10px;}
 #gallery .gallery-photos ul li table tr.rank td span {color:#fb7a03;font:normal 11px tahoma, arial, helvetica, sans-serif;font-weight:bold;}
 

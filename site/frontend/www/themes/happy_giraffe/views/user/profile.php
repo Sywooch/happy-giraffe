@@ -106,7 +106,7 @@
 
             <?php if (! empty($score->level_id)): ?>
                 <div class="user-lvl user-lvl-<?=$score->level_id?>">
-                    <span><?=$score->level->name?></span>
+
                 </div>
             <?php endif ?>
 

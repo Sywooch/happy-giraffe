@@ -563,6 +563,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 #upload_finish_wrapper .swfupload {float:left;}
 
+#upload_button_wrapper {overflow:hidden;}
+
 /* steps */
 
 .steps {padding-bottom:4px;border-bottom:1px solid #caf3f8;}

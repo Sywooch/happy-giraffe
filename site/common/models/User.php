@@ -761,7 +761,9 @@ class User extends CActiveRecord
             $id = $this->relationship_status;
 
         $list = $this->getPartnerTitlesOf();
-        return $list[$id];
+        if (isset($list[$id]))
+            return $list[$id];
+        return '';
     }
 
     public function getPartnerTitlesOf()

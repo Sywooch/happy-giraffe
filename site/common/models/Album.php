@@ -83,6 +83,15 @@ class Album extends CActiveRecord
 		);
 	}
 
+    public function defaultScope()
+    {
+        return array(
+            'order' => 'type asc',
+            'condition' => 'permission = 0 OR permission = 1 OR (permission = 2 AND author_id = :user_id)',
+            'params' => array(':user_id' => Yii::app()->user->id),
+        );
+    }
+
     public function scopes()
     {
         return array(
@@ -91,6 +100,9 @@ class Album extends CActiveRecord
             ),
             'active' => array(
                 'condition' => $this->tableAlias . '.removed = 0',
+            ),
+            'noSystem' => array(
+                'condition' => $this->tableAlias . '.type = 0 or ' . $this->tableAlias . '.type = 1',
             ),
         );
     }
@@ -128,7 +140,7 @@ class Album extends CActiveRecord
         $criteria->params[':author_id'] = $author_id;
         if($permission !== false)
         {
-            $criteria->addCondition('permission = :permission');
+            $criteria->addCondition('permission = :permission and (type = 0 || type = 1)');
             $criteria->params[':permission'] = $permission;
         }
         $criteria->scopes = array('active');
@@ -158,6 +170,13 @@ class Album extends CActiveRecord
         $albums = array();
         $criteria = new CDbCriteria;
         $criteria->addCondition('album_id is null');
+    }
+
+    public function getIsNotSystem()
+    {
+        if($this->type == 0 || $this->type == 1)
+            return true;
+        return false;
     }
 
     public function afterSave()

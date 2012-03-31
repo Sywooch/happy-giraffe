@@ -12,11 +12,13 @@
                     <div class="title">
                         <big>
                             Альбом <span>&laquo;<?php echo CHtml::link($model->title, array('albums/view', 'id' => $model->id)); ?>&raquo;</span>
-                            <div class="album-visibility small hl">
-                                <?php for ($i = 3; $i > $model->permission; $i--): ?>
-                                    <span></span>
-                                <?php endfor; ?>
-                            </div>
+                            <?php if($model->isNotSystem): ?>
+                                <div class="album-visibility small hl">
+                                    <?php for ($i = 3; $i > $model->permission; $i--): ?>
+                                        <span></span>
+                                    <?php endfor; ?>
+                                </div>
+                            <?php endif; ?>
                         </big>
                         <?php if ($model->description): ?>
                         <div class="note">

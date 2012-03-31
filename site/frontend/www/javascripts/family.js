@@ -4,6 +4,7 @@ var Family = {
     partner_id:null,
     baby_count:null,
     tmp:null,
+    future_baby_type:null,
     setStatusRadio:function (el, status_id) {
         $.ajax({
             url:'/ajax/setValue/',
@@ -143,6 +144,7 @@ var Family = {
         $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
         $(el).addClass('checked').find('input').attr('checked', 'checked');
 
+        Family.future_baby_type = type;
         if (type == 1)
             $('#future-baby div.d-text').html('Кого ждем:');
         else
@@ -297,7 +299,7 @@ var Family = {
         if (this.getBabyId(el) == '') {
             $.ajax({
                 url:'/family/addBaby/',
-                data:{name:'', sex:gender},
+                data:{name:'', sex:gender, type:Family.future_baby_type},
                 type:'POST',
                 dataType:'JSON',
                 success:function (response) {
@@ -345,8 +347,7 @@ var Family = {
 
                     $(el).parents('div.name').next().show();
                     $(el).parents('div.family-member').find('input.baby-id').val(response.id);
-                    $(el).parents('div.family-member')..find('li.add input[name=baby_id]').val(response.id);
-
+                    $(el).parents('div.family-member').find('li.add input[name=baby_id]').val(response.id);
                 }
             },
             context:el
@@ -391,22 +392,25 @@ $(function () {
                     $('#user-partner .photos ul li.add span span').html('фотографию');
                 if (count == 4)
                     $('#user-partner .photos ul li.add').hide();
+                $('#user-partner .photos').show();
             }
         }
     });
 
-    $('#baby_photo_upload').iframePostForm({
+    $('.baby_photo_upload').iframePostForm({
         json:true,
         complete:function (response) {
             if (response.status) {
                 var block = $(Family.tmp).parents('div.family-member');
                 block.find('ul li.add').before('<li><img src="' + response.url + '"><input type="hidden" value="' + response.id + '"><a href="" class="remove"></a></li>');
-                var count = block.find(' li').length - 1;
+                var count = block.find('div.photos ul li').length - 1;
                 block.find('ul li.add span ins').html(4 - count);
                 if (count == 3)
                     block.find('ul li.add span span').html('фотографию');
                 if (count >= 4)
                     block.find('li.add').hide();
+
+                block.find('div.photos').show();
             }
         }
     });
@@ -415,7 +419,7 @@ $(function () {
         $(this).parents('form').submit();
     });
 
-    $('body').delegate('#baby-photo', 'change', function () {
+    $('body').delegate('.baby-photo-file', 'change', function () {
         Family.tmp = this;
         $(this).parents('form').submit();
     });
@@ -428,9 +432,10 @@ $(function () {
     $('body').delegate('a.photo', 'click', function (e) {
         e.preventDefault();
 
-        var count = $(this).parents('div.family-member').find('.photos li').length - 1;
+        var count = $(this).parents('div.family-member').find('div.photos li').length - 1;
         if (count < 4) {
-            $(this).parents('div.family-member').find('li.add form input[type=file]').trigger('click');
+            cl('true');
+            $(this).parents('div.family-member').find('div.photos input[type=file]').trigger('click');
         }
     });
 

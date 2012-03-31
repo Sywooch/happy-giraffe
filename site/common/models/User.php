@@ -866,4 +866,21 @@ class User extends CActiveRecord
 
         return CommunityContent::model()->full()->findAll($criteria);
     }
+
+    public function hasBaby($type = null)
+    {
+        foreach($this->babies as $baby)
+            if ($baby->type == $type)
+                return true;
+        return false;
+    }
+
+    public function babyCount()
+    {
+        $i = 0;
+        foreach($this->babies as $baby)
+            if (empty($baby->type))
+                $i++;
+        return $i;
+    }
 }

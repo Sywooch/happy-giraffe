@@ -44,8 +44,7 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                 </div>
             </div>
 
-            <?php if ($user->hasPartner()):?>
-                <div class="family-member" id="user-partner">
+                <div class="family-member" id="user-partner"<?php if (!$user->hasPartner()) echo ' style="display:none;"' ?>>
 
                     <div class="data clearfix">
 
@@ -100,7 +99,7 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                         <div class="text"><span class="text"><?=$user->partner->notice ?></span> <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this)" class="edit"><span class="tip">Редактировать комментарий</span></a></div>
                     </div>
 
-                    <div class="photos">
+                    <div class="photos"<?php if (count($user->partner->photos) == 0) echo ' style="display:none;"' ?>>
 
                         <ul>
                             <?php foreach ($user->partner->photos as $photo): ?>
@@ -134,7 +133,6 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
 
                     </div>
                 </div>
-            <?php endif ?>
 
             <br>
 

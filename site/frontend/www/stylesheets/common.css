@@ -1280,7 +1280,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .header .title .note .add .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
 #gallery .header .title .note .add:hover .tip {display:block;}
 #gallery .header .title .note:after {display:block;content:'';width:12px;height:40px;background:url(../images/common.png) no-repeat -327px -136px;position:absolute;top:-6px;left:-12px;}
-#gallery .header .title .note p {color:#424242;float:left;}
+#gallery .header .title .note p {color:#424242;float:left;max-width:480px;}
 #gallery .header .title .note .fast-actions {float:right;padding-left:10px;}
 #gallery .header .title .note .fast-actions .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;}
 #gallery .header .title .note .fast-actions .edit .tip {display:block;position:absolute;top:-2px;left:130%;white-space:nowrap;background:#fffac8;color:#929292;padding:4px 10px;border:1px solid #f3eca9;display:none;font-size:12px;z-index:3;}

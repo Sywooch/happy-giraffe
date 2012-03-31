@@ -19,7 +19,7 @@ function initForm() {
         flash_url:upload_base_url + "/swfupload.swf",
 
         button_text: '',
-        button_width: 91,
+        button_width: 178,
         button_height: 34,
         button_image_url:"/images/btn_browse.png",
         button_placeholder:$('#upload-button')[0]
@@ -86,6 +86,8 @@ function registerUploadEvents(elem) {
             $('#upload_button_wrapper').css({visibility:'hidden', height:0});
             $('#upload_finish_wrapper').show().addClass('is_visible');
             $('#log li#' + file.id).find('.progress-value').text('0%');
+            $('#album_upload_step_1').hide();
+            $('#album_upload_step_2').show();
         })
         .bind('uploadProgress', function (event, file, bytesLoaded) {
             //Show Progress

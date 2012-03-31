@@ -77,27 +77,23 @@
     <div class="user-cols clearfix">
 
         <div class="col-1">
-            <?php
-            if(!$user->getAva('big'))
-            {
-                echo '<div class="ava big male" id="change_ava">';
-                $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                    'model' => $user
-                ));
-                    $fileAttach->button();
-                $this->endWidget();
-                echo '</div>';
-            }
-            else
-            {
-                $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                    'user' => $user,
-                    'size'=>'big',
-                    'small' => true,
-                    'filled' => true,
-                ));
-            }
-            ?>
+            <div class="ava big <?=($user->gender == 1) ? 'male' : 'female'?><?=($user->getAva('big')) ? ' filled' : ''?>"<?=($user->id == Yii::app()->user->id) ? ' id="change_ava"' : ''?>>
+                <?php if ($user->id == Yii::app()->user->id): ?>
+                    <?php
+                        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                            'model' => $user
+                        ));
+                        $fileAttach->button();
+                        $this->endWidget();
+                    ?>
+                <?php endif; ?>
+                <?php if ($user->getAva('big')): ?>
+                    <?=CHtml::image($user->getAva('big'), $user->fullName)?>
+                    <?php if ($user->id == Yii::app()->user->id): ?>
+                        <a class="renew">Обновить<br>фото</a>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
 
             <div class="details">
                 Зарегистрирован <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>

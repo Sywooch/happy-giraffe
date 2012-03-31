@@ -200,11 +200,15 @@ class Album extends CActiveRecord
 
     public function defaultScope()
     {
-        if ($this->permission == 2) {
-            return array(
-                'condition' => 't.author_id = :user_id',
-                'params' => array(':user_id', Yii::app()->user->id),
-            );
+        switch ($this->permission) {
+            case 2:
+                return array(
+                    'condition' => 't.author_id = :user_id',
+                    'params' => array(':user_id', Yii::app()->user->id),
+                );
+                break;
+            default:
+                return array();
         }
     }
 }

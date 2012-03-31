@@ -4,6 +4,7 @@ var Family = {
     partner_id:null,
     baby_count:null,
     tmp:null,
+    future_baby_type:null,
     setStatusRadio:function (el, status_id) {
         $.ajax({
             url:'/ajax/setValue/',
@@ -143,6 +144,7 @@ var Family = {
         $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
         $(el).addClass('checked').find('input').attr('checked', 'checked');
 
+        Family.future_baby_type = type;
         if (type == 1)
             $('#future-baby div.d-text').html('Кого ждем:');
         else
@@ -297,7 +299,7 @@ var Family = {
         if (this.getBabyId(el) == '') {
             $.ajax({
                 url:'/family/addBaby/',
-                data:{name:'', sex:gender},
+                data:{name:'', sex:gender, type:Family.future_baby_type},
                 type:'POST',
                 dataType:'JSON',
                 success:function (response) {

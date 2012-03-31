@@ -71,8 +71,10 @@ class FamilyController extends Controller
 
         $model->parent_id = Yii::app()->user->id;
         $model->name = $name;
-        if (!empty($sex))
+        if (!empty($sex)){
             $model->sex = $sex;
+            $model->type = $_POST['type'];
+        }
 
         if ($model->save()) {
             $response = array(

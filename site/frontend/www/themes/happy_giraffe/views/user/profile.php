@@ -78,7 +78,7 @@
 
         <div class="col-1">
             <?php
-                $htmlOptions['class'] = 'ava big ' . ($user->gender == 1) ? 'male' : 'female';
+                $htmlOptions['class'] = 'ava big ' . (($user->gender == 1) ? 'male' : 'female');
                 if ($user->getAva('big')) $htmlOptions['class'] .= ' filled';
                 if ($user->id == Yii::app()->user->id) $htmlOptions['id'] = 'change_ava';
             ?>

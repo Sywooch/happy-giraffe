@@ -3,7 +3,7 @@
     $file_upload->loadScripts();
     $this->endWidget();
 
-    $link = $this->createUrl('/albums/addPhoto')
+    $link = Yii::app()->createUrl('/albums/addPhoto')
 ?>
 <div class="user-photo-add user-add">
     <a href="<?php echo $link; ?>" class="fancy"><img src="/images/user_photo_add.png"></a>

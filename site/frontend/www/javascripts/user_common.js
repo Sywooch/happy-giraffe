@@ -41,6 +41,10 @@ $(function() {
         });
         return false;
     });
+
+    $('body').delegate('#photoPick', 'click', function() {
+        $('#change_ava > div.photo').trigger('click');
+    });
 });
 
 function updateNotifications(count, data)

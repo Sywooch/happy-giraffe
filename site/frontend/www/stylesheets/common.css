@@ -1304,7 +1304,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .gallery-photos ul li table {width:1px;}
 #gallery .gallery-photos ul li table td div {position:relative;}
 #gallery .gallery-photos ul li table td.img {vertical-align:bottom;height:170px;}
-#gallery .gallery-photos ul li table td.img img {display:block;}
+#gallery .gallery-photos ul li table td.img img {display:block;max-height:170px;}
 #gallery .gallery-photos ul li table td.img .remove {display:none;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;margin:0 auto;position:absolute;top:0;right:0;}
 #gallery .gallery-photos ul li table tr.title td  {background:#ededed;font:italic 10px/1 arial, sans-serif;color:#626161;padding:7px 7px;}
 #gallery .gallery-photos ul li table tr.title td .edit {display:none;width:14px;height:18px;background:url(../images/common.png) no-repeat -341px -136px;margin:0 auto;position:absolute;top:50%;right:5px;margin:-9px 0px;}

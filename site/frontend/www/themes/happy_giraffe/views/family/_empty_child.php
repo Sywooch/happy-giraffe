@@ -60,19 +60,24 @@
 
 <div class="photos" style="display:none;">
     <ul>
-        <li>
-            <img src="/images/example/ex3.jpg">
-            <a href="" class="remove"></a>
-        </li>
-        <li>
-            <img src="/images/example/ex4.jpg">
-            <a href="" class="remove"></a>
-        </li>
         <li class="add">
-            <a href="">
+            <a href="javascript:void(0);" class="fake_file">
+
+                <?php $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'baby_photo_upload',
+                'action' => $this->createUrl('uploadBabyPhoto'),
+                'htmlOptions' => array(
+                    'enctype' => 'multipart/form-data',
+                ),
+            )); ?>
+                <?php echo CHtml::hiddenField('baby_id', ''); ?>
+                <?php echo CHtml::fileField('baby-photo'); ?>
+                <?php $this->endWidget(); ?>
+
                 <i class="icon"></i>
-                <span>Загрузить еще<br> 2 фотографии</span>
+                <span>Загрузить еще<br> <ins>4</ins> <span>фотографии</span></span>
             </a>
+
         </li>
     </ul>
 </div>

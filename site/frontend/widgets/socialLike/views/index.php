@@ -1,15 +1,17 @@
 <noindex>
     <div class="like-block clearfix">
         <div class="block-in">
-            <div class="tip">
-                <div class="container">
-                    <i class="icon-question"></i>
+            <?php if($this->notice != ''): ?>
+                <div class="tip">
+                    <div class="container">
+                        <i class="icon-question"></i>
 
-                    <div class="text">
-                        <?php echo $this->notice; ?>
+                        <div class="text">
+                            <?php echo $this->notice; ?>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
 
             <div class="clearfix">
                 <div class="title"><?php echo $this->title; ?></div>

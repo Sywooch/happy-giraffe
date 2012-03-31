@@ -35,7 +35,7 @@ class FileUploadWidget extends CWidget
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerCoreScript('jquery')
-            ->registerScriptFile($baseUrl . '/' . 'album.js')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js')
             ->registerScriptFile($baseUrl . '/' . 'swfupload.js')
             ->registerScriptFile($baseUrl . '/' . 'jquery.swfupload.js')
             ->registerScriptFile($baseUrl . '/' . 'file_upload.js')

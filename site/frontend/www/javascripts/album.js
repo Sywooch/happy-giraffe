@@ -132,3 +132,22 @@ Album.appendTitle = function(button) {
     $.post(base_url + '/albums/changeTitle/', {title : text, id : id});
     return false;
 }
+
+Album.changePhotoTitle = function(link, id) {
+    var span = $(link).parent().find('.album_title');
+    var text = span.text();
+    if(text == '...')
+        text = '';
+    span.empty().append($('<input type="text" name="title_input" value="'+text+'" /><input type="hidden" name="album_id" value="'+id+'" /><button class="btn btn-green-small" onclick="return Album.appendPhotoTitle(this);"><span><span>Ок</span></span></button>'))
+    return false;
+};
+Album.appendPhotoTitle = function(button) {
+    var span = $(button).parent();
+    var text = span.find('input[name=title_input]').val();
+    var id = span.find('input[name=album_id]').val();
+    $.post(base_url + '/albums/editPhotoTitle/', {title : text, id : id});
+    if(text == '')
+        text = '...';
+    span.empty().text(text);
+    return false;
+}

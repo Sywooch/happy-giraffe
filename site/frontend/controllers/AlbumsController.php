@@ -216,8 +216,9 @@ class AlbumsController extends Controller
         $model->save();
     }
 
-    public function actionEditPhotoTitle($id)
+    public function actionEditPhotoTitle()
     {
+        $id = Yii::app()->request->getPost('id');
         $model = AlbumPhoto::model()->findByPk($id);
         if(!Yii::app()->request->isAjaxRequest || Yii::app()->user->id != $model->author_id || ($title = Yii::app()->request->getPost('title')) === false)
             Yii::app()->end();

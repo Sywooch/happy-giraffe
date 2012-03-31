@@ -2,10 +2,11 @@ function initForm() {
     $('#upload-input').hide();
     var binding = true;
     if($('#upload-control').data('__swfu') != undefined) {
-        $($('#upload-control').data('__swfu').movieElement).replaceWith($($('#upload-control').data('__swfu').settings.button_placeholder));
+        if($('#upload-control').find('.swfupload').size() > 0)
+            $($('#upload-control').find('.swfupload')).replaceWith($('<button id="upload-button" class="btn btn-orange"><span><span>Загрузить</span></span></button>'));
         $('#upload-control').data('__swfu').destroy();
         $('#upload-control').data('__swfu', null);
-        $($('#upload_finish_wrapper').data('__swfu').movieElement).replaceWith($($('#upload_finish_wrapper').data('__swfu').settings.button_placeholder));
+        $($('#upload_finish_wrapper').find('.swfupload')).replaceWith($('<a id="upload-link" class="a-left" href="">Добавить еще фотографий</a>'));
         $('#upload_finish_wrapper').data('__swfu').destroy();
         $('#upload_finish_wrapper').data('__swfu', null);
         binding = false;
@@ -17,6 +18,7 @@ function initForm() {
         file_types:"*.jpg;*.png;*.gif;*.jpeg",
         file_upload_limit:"0",
         flash_url:upload_base_url + "/swfupload.swf",
+        flash9_url:upload_base_url + "/swfupload_fp9.swf",
 
         button_text: '',
         button_width: 178,
@@ -31,6 +33,7 @@ function initForm() {
         file_types:"*.jpg;*.png;*.gif;*.jpeg",
         file_upload_limit:"0",
         flash_url:upload_base_url + "/swfupload.swf",
+        flash9_url:upload_base_url + "/swfupload_fp9.swf",
 
         button_text:'<span class="moreButton">Добавить еще фотографий</span>',
         button_text_style:'.moreButton {color: #54AFC3;display:block;height:34px;line-height:34px;font-size:12px;font-family:arial;}',
@@ -41,6 +44,7 @@ function initForm() {
     if(binding) {
         registerUploadEvents($('#upload-control'));
         registerUploadEvents($('#upload_finish_wrapper'));
+        initForm();
     }
 }
 
@@ -83,11 +87,11 @@ function registerUploadEvents(elem) {
             $('#log').empty();
         })
         .bind('uploadStart', function (event, file) {
-            $('#upload_button_wrapper').css({visibility:'hidden', height:0});
+            $('#upload_button_wrapper').css({height:1});
             $('#upload_finish_wrapper').css('visibility', 'visible').addClass('is_visible');
             $('#log li#' + file.id).find('.progress-value').text('0%');
-            $('#album_upload_step_1').css('visibility', 'hidden');
-            $('#album_upload_step_1').css('height', '1');
+            /*$('#album_upload_step_1').css('visibility', 'hidden');
+            $('#album_upload_step_1').css('height', '1');*/
             $('#album_upload_step_2').css('visibility', 'show');
         })
         .bind('uploadProgress', function (event, file, bytesLoaded) {
@@ -156,5 +160,6 @@ function savePhotos() {
     if ($('#comment_list_view').size() > 0)
         $.fn.yiiListView.update('comment_list_view');
     $.fancybox.close();
+    window.location.reload();
     return false;
 }

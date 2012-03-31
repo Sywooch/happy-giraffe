@@ -26,7 +26,7 @@
             ';
     }else{
         $template = '
-            <div class="comments-meta">
+            <div class="comments-meta clearfix">
                     ' . (!Yii::app()->user->isGuest ? '<a href="#new_comment_wrapper" onclick="Comment.newComment(event);" class="btn btn-orange a-right"><span><span>' . $this->button . '</span></span></a>' : '') . '
                     <div class="title">' . $this->title . '</div>
                     <div class="count">' . $dataProvider->totalItemCount . '</div>

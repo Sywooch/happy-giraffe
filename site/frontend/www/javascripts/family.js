@@ -113,7 +113,39 @@ var Family = {
         });
     },
     setFutureBaby:function (el, type) {
+        $('#future-baby').show();
+        var id = $('#future-baby input.baby-id').val();
 
+        if (id != ''){
+            $.ajax({
+                url:'/ajax/setValue/',
+                data:{
+                    entity:'Baby',
+                    entity_id:id,
+                    attribute:'type',
+                    value:type
+                },
+                type:'POST',
+                success:function (response) {
+                    if (response == '1') {
+                        Family.showTypeTitle(el, type);
+                    }
+                },
+                context:el
+            });
+        }
+        else
+            this.showTypeTitle(el, type);
+
+    },
+    showTypeTitle:function(el, type){
+        $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
+        $(el).addClass('checked').find('input').attr('checked', 'checked');
+
+        if (type == 1)
+            $('#future-baby div.d-text').html('Кого ждем:');
+        else
+            $('#future-baby div.d-text').html('Кого планируем:');
     },
     setBaby:function (el, num) {
         if (this.baby_count > num) {
@@ -261,6 +293,24 @@ var Family = {
         return $(el).parents('.family-member').find('input.baby-id').val();
     },
     saveBabyGender:function (el, gender) {
+        if (this.getBabyId(el) == ''){
+            $.ajax({
+                url:'/family/addBaby/',
+                data:{name:'',sex:gender},
+                type:'POST',
+                dataType:'JSON',
+                success:function (response) {
+                    if (response.status) {
+                        $(el).parent().children('a').removeClass('active');
+                        $(el).addClass('active');
+                        $(el).parent('div').children('div').show();
+                        $(el).parents('div.family-member').find('input.baby-id').val(response.id);
+                    }
+                },
+                context:el
+            });
+        }
+        else
         $.ajax({
             url:'/ajax/setValue/',
             data:{

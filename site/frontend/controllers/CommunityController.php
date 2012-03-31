@@ -100,7 +100,11 @@ class CommunityController extends Controller
     public function getUrl($overwrite = array(), $route = 'community/list')
     {
         $params = array_filter(CMap::mergeArray(
-            $this->actionParams,
+            array(
+                'community_id' => $this->community->id,
+                'rubric_id' => isset($this->actionParams['rubric_id']) ? $this->actionParams['rubric_id'] : null,
+                'content_type_slug' => isset($this->actionParams['content_type_slug']) ? $this->actionParams['content_type_slug'] : null,
+            ),
             $overwrite
         ));
 

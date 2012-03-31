@@ -367,7 +367,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 
 .pagination {font-size:23px;padding:15px 0;color:#ababab;font-family:times new roman, serif;font-style:italic;line-height:1;}
-.pagination.pagination-center {text-align:right;}
+.pagination.pagination-center {text-align:center;}
 .pagination ul {list-style:none;}
 .pagination ul li {display:inline-block;padding:6px 8px;text-indent:0 !important;margin:0 !important;position:relative;}
 .pagination ul li a {padding:0 3px;display:block;color:#45a5c9;}

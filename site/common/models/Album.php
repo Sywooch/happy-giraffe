@@ -87,6 +87,8 @@ class Album extends CActiveRecord
     {
         return array(
             'order' => 'type asc',
+            'condition' => 'permission = 0 OR permission = 1 OR (permission = 2 AND author_id = :user_id)',
+            'params' => array(':user_id' => Yii::app()->user->id),
         );
     }
 
@@ -213,19 +215,5 @@ class Album extends CActiveRecord
         $this->save();
 
         return false;
-    }
-
-    public function defaultScope()
-    {
-        switch ($this->permission) {
-            case 2:
-                return array(
-                    'condition' => 't.author_id = :user_id',
-                    'params' => array(':user_id' => Yii::app()->user->id),
-                );
-                break;
-            default:
-                return array();
-        }
     }
 }

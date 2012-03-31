@@ -116,6 +116,7 @@ $this->endWidget();
 
 <script type="text/javascript">
 function appendAddLi() {
+    <?php if(!$model->isNotSystem) echo 'return false;'; ?>
     $('#comment_list_view ul').append('<li class="add"><a href="<?php echo Yii::app()->createUrl('/albums/addPhoto', array('a' => $model->id)) ?>" class="fancy"><i class="icon"></i><span>Загрузить еще<br>фотографий</span></a></li>');
 }
 appendAddLi();

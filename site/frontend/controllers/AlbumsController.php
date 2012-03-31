@@ -39,11 +39,11 @@ class AlbumsController extends Controller
         );
     }
 
-    public function actionIndex($permission = false)
+    public function actionIndex($permission = false, $system = false)
     {
         $user = Yii::app()->user->model;
         $this->user = $user;
-        $dataProvider = Album::model()->findByUser(Yii::app()->user->id, $permission);
+        $dataProvider = Album::model()->findByUser(Yii::app()->user->id, $permission, $system);
         $this->render('index', array(
             'dataProvider' => $dataProvider,
             'user' => $user,

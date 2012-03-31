@@ -664,6 +664,7 @@ class User extends CActiveRecord
     {
         return new CDbCriteria(array(
             'join' => 'JOIN ' . Friend::model()->tableName() . ' ON (t.id = friends.user1_id AND friends.user2_id = :user_id) OR (t.id = friends.user2_id AND friends.user1_id = :user_id)',
+            'scopes'=>array('active'),
             'params' => array(':user_id' => $this->id),
         ));
     }

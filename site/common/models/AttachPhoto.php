@@ -77,6 +77,8 @@ class AttachPhoto extends CActiveRecord
                 {
                     case 'User' : $type = 1; break;
                     case 'Comment' : $type = 2; break;
+                    case 'Baby' : $type = 3; break;
+                    case 'UserPartner' : $type = 3; break;
                     default : $type = 0;
                 }
                 if($type != 0)

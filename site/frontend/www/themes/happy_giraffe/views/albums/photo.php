@@ -6,8 +6,13 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
     <div class="main-in">
         <div id="gallery" class="nopadding">
             <div id="photo">
-                <?php if($photo->title != ''): ?>
+                <?php if((Yii::app()->user->isGuest || $photo->author_id != Yii::app()->user->id) && $photo->title != ''): ?>
                     <div class="title"><?php echo $photo->title; ?></div>
+                <?php elseif(!Yii::app()->user->isGuest && $photo->author_id == Yii::app()->user->id): ?>
+                    <div class="title">
+                        <span class="album_title"><?php echo $photo->title != '' ? $photo->title : '...'; ?></span>
+                        <?php echo CHtml::link('<span class="tip">Редактировать</span>', 'javascript:;', array('class' => 'edit', 'onclick' => 'return Album.changePhotoTitle(this, ' . $photo->id . ');')); ?>
+                    </div>
                 <?php endif; ?>
 
                 <div class="big-photo">
@@ -43,7 +48,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                                         </tr>
                                         <tr class="title">
                                             <td align="center">
-                                                <div><?php echo $item->title; ?></div>
+                                                <div><?php echo $item->title != '' ? $item->title : '&nbsp;' ?></div>
                                             </td>
                                         </tr>
                                     </table>

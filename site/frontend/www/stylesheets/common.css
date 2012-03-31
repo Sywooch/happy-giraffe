@@ -1371,6 +1371,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery #photo .title .edit .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
 #gallery #photo .title .edit:hover .tip {display:block;}
 #gallery #photo .title input {border:1px solid #badef1;font-size:15px;line-height:1;padding:2px 7px;vertical-align:middle;font-size:15px;font-weight:bold;color:#2584b0;}
+#gallery #photo .title .btn {vertical-align:middle;}
 
 #gallery #photo .big-photo {width:800px;margin:0 auto 20px;padding:10px;background:#fff;border:1px solid #eaeae8;position:relative;}
 #gallery #photo .big-photo .img {background:#f0eff0;}

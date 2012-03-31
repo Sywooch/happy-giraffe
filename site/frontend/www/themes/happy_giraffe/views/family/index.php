@@ -86,7 +86,9 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                                 </div>
                             </div>
                             <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this)" class="comment"><span class="tip">Расскажите о <?= ($user->gender == 1)?'ней':'нем' ?></span></a>
-                            <a href="javascript:void(0);" class="photo"><span class="tip">Добавить 4 фото</span></a>
+                            <a href="javascript:void(0);" class="photo"><span class="tip">Добавить 4 фото</span>
+
+                            </a>
                         </div>
                     </div>
 
@@ -219,7 +221,10 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                                     </div>
 
                                     <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="comment"><span class="tip">Расскажите о нем</span></a>
-                                    <a href="javascript:void(0);" class="photo"><span class="tip">Добавить 4 фото</span></a>
+                                    <a href="javascript:void(0);" class="photo"><span class="tip">Добавить 4 фото</span>
+
+
+                                    </a>
 
                                 </div>
                             </div>

@@ -23,6 +23,10 @@
 	
 	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.jscrollpane.css" />
+	<script type="text/javascript" src="/javascripts/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.mousewheel.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
 	
 	<!--[if IE 7]>
@@ -677,7 +681,7 @@
 				<div class="side-left gallery-sidebar">
 					
 					<div class="fast-add">
-						<a href="#galleryUploadPhotos" class="btn btn-green fancy" onclick="setTimeout(function(){$('.scroll').scrollbarPaper();}, 500)"><span><span>Загрузить фото</span></span></a>
+						<a href="#galleryUploadPhotos" class="btn btn-green fancy" onclick="setTimeout(function(){$('.scroll').jScrollPane({showArrows: true})}, 500)"><span><span>Загрузить фото</span></span></a>
 					</div>
 					
 					<div class="default-v-nav">
@@ -829,7 +833,7 @@
 	</div>
 	
 	
-	<div id="galleryUploadPhotos" class="popup">
+	<div id="galleryUploadPhotos" class="popup popup-purple">
 		
 		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
 		

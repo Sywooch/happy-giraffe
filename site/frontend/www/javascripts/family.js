@@ -390,22 +390,25 @@ $(function () {
                     $('#user-partner .photos ul li.add span span').html('фотографию');
                 if (count == 4)
                     $('#user-partner .photos ul li.add').hide();
+                $('#user-partner .photos').show();
             }
         }
     });
 
-    $('#baby_photo_upload').iframePostForm({
+    $('.baby_photo_upload').iframePostForm({
         json:true,
         complete:function (response) {
             if (response.status) {
                 var block = $(Family.tmp).parents('div.family-member');
                 block.find('ul li.add').before('<li><img src="' + response.url + '"><input type="hidden" value="' + response.id + '"><a href="" class="remove"></a></li>');
-                var count = block.find(' li').length - 1;
+                var count = block.find('div.photos ul li').length - 1;
                 block.find('ul li.add span ins').html(4 - count);
                 if (count == 3)
                     block.find('ul li.add span span').html('фотографию');
                 if (count >= 4)
                     block.find('li.add').hide();
+
+                block.find('div.photos').show();
             }
         }
     });
@@ -414,7 +417,7 @@ $(function () {
         $(this).parents('form').submit();
     });
 
-    $('body').delegate('#baby-photo', 'change', function () {
+    $('body').delegate('.baby-photo-file', 'change', function () {
         Family.tmp = this;
         $(this).parents('form').submit();
     });

@@ -94,7 +94,7 @@
             <?php endif; ?>
 
 
-            <?php
+            <?php if (false) {
             if(!$user->getAva('big'))
             {
                 echo '<div class="ava big male" id="change_ava">';
@@ -113,6 +113,7 @@
                     'small' => true,
                     'filled' => true,
                 ));
+            }
             }
             ?>
 

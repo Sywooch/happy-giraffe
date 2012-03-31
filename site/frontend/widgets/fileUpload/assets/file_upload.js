@@ -161,6 +161,10 @@ function savePhotos() {
     if ($('#comment_list_view').size() > 0)
         $.fn.yiiListView.update('comment_list_view');
     $.fancybox.close();
-    window.location.reload();
+    if(Album.album_id) {
+        document.location.href = base_url + '/albums/' + Album.album_id + '/';
+    } else {
+        window.location.reload();
+    }
     return false;
 }

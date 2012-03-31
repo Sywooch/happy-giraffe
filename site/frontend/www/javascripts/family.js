@@ -427,9 +427,10 @@ $(function () {
     $('body').delegate('a.photo', 'click', function (e) {
         e.preventDefault();
 
-        var count = $(this).parents('div.family-member').find('.photos li').length - 1;
+        var count = $(this).parents('div.family-member').find('div.photos li').length - 1;
         if (count < 4) {
-            $(this).parents('div.family-member').find('li.add form input[type=file]').trigger('click');
+            cl('true');
+            $(this).parents('div.family-member').find('div.photos input[type=file]').trigger('click');
         }
     });
 

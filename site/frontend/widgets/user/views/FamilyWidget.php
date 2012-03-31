@@ -16,9 +16,9 @@
                         <span class="tale"></span>
                     </div>
                 <?php endif ?>
-                <?php if (false):?>
+                <?php if (count($user->partner->photos) != 0):?>
                 <div class="img">
-                    <img src="<?php echo $user->getPartnerPhotoUrl() ?>">
+                    <img src="<?php echo $user->partner->getRandomPhotoUrl() ?>">
                 </div>
                 <?php endif ?>
             </li>
@@ -34,9 +34,9 @@
                     </div>
                     <?php endif ?>
 
-                    <?php if (false):?>
+                    <?php if (count($baby->photos) != 0):?>
                         <div class="img">
-                            <img src="<?php echo $baby->getImageUrl() ?>">
+                            <img src="<?php echo $baby->getRandomPhotoUrl() ?>">
                         </div>
                     <?php endif ?>
                 </li>

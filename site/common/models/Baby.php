@@ -15,6 +15,7 @@
  *
  * The followings are the available model relations:
  * @property VaccineDateVote[] $vaccineDateVotes
+ * @property AttachPhoto $photos
  */
 class Baby extends CActiveRecord
 {
@@ -35,6 +36,7 @@ class Baby extends CActiveRecord
     {
         return array(
             'parent' => array(self::BELONGS_TO, 'User', 'id'),
+            'photos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
         );
     }
 
@@ -134,5 +136,14 @@ class Baby extends CActiveRecord
         if (empty($this->birthday))
             return '';
         return date($part, strtotime($this->birthday));
+    }
+
+    public function getRandomPhotoUrl()
+    {
+        if (count($this->photos) == 0)
+            return '';
+
+        $i = rand(0, count($this->photos)-1);
+        return $this->photos[$i]->photo->getPreviewUrl(180, 180);
     }
 }

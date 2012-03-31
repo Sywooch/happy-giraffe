@@ -43,7 +43,7 @@ $(function() {
     });
 
     $('body').delegate('#photoPick', 'click', function() {
-        $('#change_ava > div.photo').trigger('click');
+        alert('123');
     });
 });
 

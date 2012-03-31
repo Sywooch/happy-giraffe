@@ -88,7 +88,7 @@
                     ?>
                     <?php if ($user->getAva('big')): ?>
                         <?=CHtml::image($user->getAva('big'), $user->fullName)?>
-                        <a href="#photoPick" class="fancy renew">Обновить<br>фото</a>
+                        <a href="#photoPick" class="renew">Обновить<br>фото</a>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>

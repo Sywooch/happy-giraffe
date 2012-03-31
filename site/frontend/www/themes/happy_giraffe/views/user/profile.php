@@ -77,7 +77,12 @@
     <div class="user-cols clearfix">
 
         <div class="col-1">
-            <div class="ava big <?=($user->gender == 1) ? 'male' : 'female'?><?=($user->getAva('big')) ? ' filled' : ''?>"<?=($user->id == Yii::app()->user->id) ? ' id="change_ava"' : ''?>>
+            <?php
+                $htmlOptions['class'] = 'ava big ' . ($user->gender == 1) ? 'male' : 'female';
+                if ($user->getAva('big')) $htmlOptions['class'] .= ' filled';
+                if ($user->id == Yii::app()->user->id) $htmlOptions['id'] = 'change_ava';
+            ?>
+            <?=CHtml::openTag('div', $htmlOptions)?>
                 <?php if ($user->id == Yii::app()->user->id): ?>
                     <?php
                         $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
@@ -93,7 +98,7 @@
                         <a class="renew">Обновить<br>фото</a>
                     <?php endif; ?>
                 <?php endif; ?>
-            </div>
+            <?=CHtml::closeTag('div')?>
 
             <div class="details">
                 Зарегистрирован <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>

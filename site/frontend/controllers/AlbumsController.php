@@ -99,12 +99,13 @@ class AlbumsController extends Controller
         }
         else if($text && $u)
         {
-
+            if(!$album = Album::model()->findByAttributes(array('author_id' => $u, 'title' => $text)))
+            {
                 $album = new Album();
                 $album->title = $text;
                 $album->author_id = $u;
                 $album->save();
-            
+            }
             $a = $album->id;
         }
         else

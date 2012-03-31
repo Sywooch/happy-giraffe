@@ -26,7 +26,7 @@ class AjaxController extends Controller
 
         $model = $modelName::model()->findByPk($modelPk);
         $model->setAttribute($attribute, HDate::getStringDate($d, $m, $y));
-        if ($model->save()) {
+        if ($model->save($attribute)) {
             $response = array(
                 'status' => true,
                 'age' => $model->getAge()

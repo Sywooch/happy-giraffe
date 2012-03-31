@@ -10,7 +10,7 @@
                 <tr>
                     <td>
                         <big>Выберите альбом</big>
-                        <?php echo CHtml::dropDownList('album_id', $album ? $album->id : false, CHtml::listData(Yii::app()->user->model->albums, 'id', 'title'), array('class' => 'chzn chzn-deselect w-200', 'id' => 'album_select', 'data-placeholder' => 'Выбрать альбом', 'empty' => '', 'onchange' => 'Album.changeAlbum(this);')) ?>
+                        <?php echo CHtml::dropDownList('album_id', $album ? $album->id : false, CHtml::listData(Yii::app()->user->model->albums('albums:noSystem'), 'id', 'title'), array('class' => 'chzn chzn-deselect w-200', 'id' => 'album_select', 'data-placeholder' => 'Выбрать альбом', 'empty' => '', 'onchange' => 'Album.changeAlbum(this);')) ?>
                     </td>
                     <td width="120" align="center"><big>или</big></td>
                     <td>
@@ -56,7 +56,7 @@
             <ul id="log"></ul>
         </div>
 
-        <div class="bottom" style="visibility:hidden;" id="upload_finish_wrapper">
+        <div class="bottom" style="overflow:hidden;height:0;" id="upload_finish_wrapper">
             <a href="" class="a-left" id="upload-link">Добавить еще фотографий</a>
             <a href="" class="btn btn-green-medium" onclick="return savePhotos();"><span><span>Завершить</span></span></a>
         </div>

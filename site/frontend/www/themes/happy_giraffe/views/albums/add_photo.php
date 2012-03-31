@@ -33,7 +33,7 @@
                     <div class="text">Чтобы загрузить сразу несколько фото, нажмите и удерживайте кнопку Control при выборе фото.</div>
                 </li>
                 <li>
-                    <div class="img"><div class="max-size"><div class="in">jpeg<br/>6 Мб</div></div></div>
+                    <div class="img"><div class="max-size"><div class="in">6 Мб</div></div></div>
                     <div class="text">Загрузите файл (jpeg, png, gif не более 6 Мб)</div>
                 </li>
             </ul>
@@ -50,13 +50,13 @@
         </div>
     </div>
 
-    <div id="album_upload_step_2" style="display: none;">
+    <div id="album_upload_step_2">
 
         <div class="upload-files-list scroll">
             <ul id="log"></ul>
         </div>
 
-        <div class="bottom" id="upload_finish_wrapper">
+        <div class="bottom" style="visibility:hidden;" id="upload_finish_wrapper">
             <a href="" class="a-left" id="upload-link">Добавить еще фотографий</a>
             <a href="" class="btn btn-green-medium" onclick="return savePhotos();"><span><span>Завершить</span></span></a>
         </div>

@@ -131,6 +131,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .ava.small.male {background-position:-240px -216px;}
 
 .ava.filled {background:none;height:auto;}
+.ava.filled .photo {display:none;}
 
 .ava img {display:block;}
 

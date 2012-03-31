@@ -41,6 +41,10 @@ $(function() {
         });
         return false;
     });
+
+    $('#change_ava').delegate('a.renew', 'click', function() {
+        $('#change_ava > div.photo > a').trigger('click');
+    });
 });
 
 function updateNotifications(count, data)

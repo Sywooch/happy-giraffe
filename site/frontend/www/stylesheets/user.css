@@ -331,7 +331,7 @@
 
 #user .family .family-member .photos {margin-top:10px;}
 #user .family .family-member .photos ul {overflow:hidden;}
-#user .family .family-member .photos ul li {position:relative;display:inline-block;margin-left:10px;vertical-align:bottom;}
+#user .family .family-member .photos ul li {position:relative;display:inline-block;margin:0 10px 10px 0;vertical-align:bottom;}
 #user .family .family-member .photos ul li:first-child {margin-left:0;}
 #user .family .family-member .photos ul li img {display:block;}
 #user .family .family-member .photos ul li .remove {display:none;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;position:absolute;top:0;right:0;}

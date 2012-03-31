@@ -204,7 +204,7 @@ class Album extends CActiveRecord
             case 2:
                 return array(
                     'condition' => 't.author_id = :user_id',
-                    'params' => array(':user_id', Yii::app()->user->id),
+                    'params' => array(':user_id' => Yii::app()->user->id),
                 );
                 break;
             default:

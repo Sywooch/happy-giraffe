@@ -11,7 +11,7 @@ class UserFriendsWidget extends UserCoreWidget
         $this->_friends = $this->user->getFriends(array(
             'limit' => $this->limit,
             'order' => 'RAND()',
-            'condition' => 'pic_small != \'\'',
+            'condition' => 'avatar IS NOT NULL',
         ));
         $this->visible = ($this->isMyProfile && !empty($this->_friends->data)) || count($this->_friends) >= $this->limit;
     }

@@ -11,7 +11,7 @@ class AjaxController extends Controller
 
         $model = $modelName::model()->findByPk($modelPk);
         $model->setAttribute($attribute, $value);
-        if ($model->save())
+        if ($model->update($attribute))
             echo '1';
     }
 

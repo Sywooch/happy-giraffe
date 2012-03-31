@@ -44,8 +44,7 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                 </div>
             </div>
 
-            <?php if ($user->hasPartner()):?>
-                <div class="family-member" id="user-partner">
+                <div class="family-member" id="user-partner"<?php if (!$user->hasPartner()) echo ' style="display:none;"' ?>>
 
                     <div class="data clearfix">
 
@@ -100,7 +99,7 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                         <div class="text"><span class="text"><?=$user->partner->notice ?></span> <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this)" class="edit"><span class="tip">Редактировать комментарий</span></a></div>
                     </div>
 
-                    <div class="photos">
+                    <div class="photos"<?php if (count($user->partner->photos) == 0) echo ' style="display:none;"' ?>>
 
                         <ul>
                             <?php foreach ($user->partner->photos as $photo): ?>
@@ -134,7 +133,6 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
 
                     </div>
                 </div>
-            <?php endif ?>
 
             <br>
 
@@ -236,7 +234,7 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                             <div class="text"><span class="text"><?=$baby->notice ?></span> <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="edit"><span class="tip">Редактировать комментарий</span></a></div>
                         </div>
 
-                        <div class="photos">
+                        <div class="photos"<?php if (count($baby->photos) == 0) echo ' style="display:none;"' ?>>
 
                             <ul>
                                 <?php foreach ($baby->photos as $photo): ?>
@@ -251,14 +249,15 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                                     <a href="javascript:void(0);" class="fake_file">
 
                                         <?php $form = $this->beginWidget('CActiveForm', array(
-                                        'id' => 'baby_photo_upload',
+                                        'id' => 'baby_photo_upload'.$i,
                                         'action' => $this->createUrl('uploadBabyPhoto'),
                                         'htmlOptions' => array(
                                             'enctype' => 'multipart/form-data',
+                                            'class'=>'baby_photo_upload'
                                         ),
                                     )); ?>
-                                        <?php echo CHtml::hiddenField('baby_id', $baby->id); ?>
-                                        <?php echo CHtml::fileField('baby-photo'); ?>
+                                        <?php echo CHtml::hiddenField('baby_id', $baby->id,array('id'=>'baby_id'.$i, 'class'=>'baby_id_2')); ?>
+                                        <?php echo CHtml::fileField('baby-photo','', array('id'=>'baby-photo'.$i, 'class'=>'baby-photo-file')); ?>
                                         <?php $this->endWidget(); ?>
 
                                         <i class="icon"></i>

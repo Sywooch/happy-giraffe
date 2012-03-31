@@ -33,8 +33,8 @@
                     'data-placeholder'=>' '
                 )) ?>
                     &nbsp;
-                    <?php echo CHtml::dropDownList('Baby_y_'.$i, '', array(''=>' ')+HDate::Range(date('Y')-16, date('Y') - 100), array(
-                    'class'=>'chzn w-50 year',
+                    <?php echo CHtml::dropDownList('Baby_y_'.$i, '', array(''=>' ')+HDate::Range(date('Y'), date('Y') - 60), array(
+                    'class'=>'chzn w-100 year',
                     'data-placeholder'=>' '
                 )) ?>
                     &nbsp;

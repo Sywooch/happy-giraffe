@@ -345,8 +345,7 @@ var Family = {
 
                     $(el).parents('div.name').next().show();
                     $(el).parents('div.family-member').find('input.baby-id').val(response.id);
-                    $(el).parents('div.family-member')..find('li.add input[name=baby_id]').val(response.id);
-
+                    $(el).parents('div.family-member').find('li.add input[name=baby_id]').val(response.id);
                 }
             },
             context:el

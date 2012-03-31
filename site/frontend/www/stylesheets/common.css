@@ -566,6 +566,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 #upload_button_wrapper {overflow:hidden;}
 
+#album_upload_step_1 {overflow:hidden;}
+#album_upload_step_2 {overflow:hidden;}
+
 /* steps */
 
 .steps {padding-bottom:4px;border-bottom:1px solid #caf3f8;}

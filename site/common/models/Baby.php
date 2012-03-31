@@ -11,12 +11,16 @@
  * @property string $birthday
  * @property integer $sex
  * @property string $notice
+ * @property string $type
  *
  * The followings are the available model relations:
  * @property VaccineDateVote[] $vaccineDateVotes
  */
 class Baby extends CActiveRecord
 {
+    const TYPE_WAIT = 1;
+    const TYPE_PLANNING = 2;
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -37,10 +41,11 @@ class Baby extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, sex, birthday, parent_id', 'required'),
+            array('parent_id', 'required'),
+            array('name', 'required', 'on'=>'realBaby'),
             array('birthday', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
             array('parent_id, age_group', 'numerical', 'integerOnly'=>true),
-            array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 1),
+            array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 2),
             array('name', 'length', 'max'=>255),
             array('notice', 'length', 'max'=>1024),
             array('birthday', 'safe'),
@@ -59,7 +64,7 @@ class Baby extends CActiveRecord
         );
     }
 
-    public function getAge()
+    /*public function getAge()
     {
         if ($this->birthday === null) return null;
 
@@ -67,7 +72,7 @@ class Baby extends CActiveRecord
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
         return $interval->y;
-    }
+    }*/
 
     public function getTextAge($bold = true)
     {
@@ -76,9 +81,14 @@ class Baby extends CActiveRecord
         $date1 = new DateTime($this->birthday);
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
+
+        $years_text = ($bold?'<b>'.$interval->y.'</b> ':$interval->y.' ').HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
+        $month_text = ($bold?'<b>'.$interval->m.'</b> ':$interval->m.' ').HDate::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
         if ($interval->y == 0)
-            return ($bold?'<b>'.$interval->m.'</b> ':$interval->m.' ').HDate::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
-        return ($bold?'<b>'.$interval->y.'</b> ':$interval->y.' ').HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
+            return $month_text;
+        if ($interval->y <= 3)
+            return $years_text.' '.$month_text;
+        return $years_text;
     }
 
     public function getAgeImageUrl()
@@ -106,5 +116,23 @@ class Baby extends CActiveRecord
     public function getBirthdayDates()
     {
         return null;
+    }
+
+    public function getAge()
+    {
+        /*if ($this->birthday === null) return '';
+
+        $date1 = new DateTime($this->birthday);
+        $date2 = new DateTime(date('Y-m-d'));
+        $interval = $date1->diff($date2);
+        return $interval->y.' '.HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);*/
+        return $this->getTextAge();
+    }
+
+    public function getBDatePart($part)
+    {
+        if (empty($this->birthday))
+            return '';
+        return date($part, strtotime($this->birthday));
     }
 }

@@ -88,6 +88,8 @@ class Album extends CActiveRecord
     {
         return array(
             'order' => 'type asc',
+            //'condition' => 'permission = 0 OR permission = 1 OR (permission = 2 AND author_id = :user_id)',
+            //'params' => array(':user_id' => Yii::app()->user->id),
         );
     }
 

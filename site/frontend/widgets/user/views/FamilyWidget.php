@@ -24,21 +24,23 @@
             </li>
             <?php endif ?>
             <?php foreach ($user->babies as $baby): ?>
-            <li>
-                <big><?php echo $baby->name ?>, <span><?php echo $baby->getTextAge(false) ?></span></big>
-                <?php if (!empty($baby->notice)):?>
-                <div class="comment purple">
-                    <?= $baby->notice ?>
-                    <span class="tale"></span>
-                </div>
-                <?php endif ?>
-
-                <?php if (false):?>
-                    <div class="img">
-                        <img src="<?php echo $baby->getImageUrl() ?>">
+            <?php if (empty($baby->type)):?>
+                <li>
+                    <big><?php echo $baby->name ?>, <span><?php echo $baby->getTextAge(false) ?></span></big>
+                    <?php if (!empty($baby->notice)):?>
+                    <div class="comment purple">
+                        <?= $baby->notice ?>
+                        <span class="tale"></span>
                     </div>
-                <?php endif ?>
-            </li>
+                    <?php endif ?>
+
+                    <?php if (false):?>
+                        <div class="img">
+                            <img src="<?php echo $baby->getImageUrl() ?>">
+                        </div>
+                    <?php endif ?>
+                </li>
+            <?php endif ?>
             <?php endforeach; ?>
         </ul>
     </div>

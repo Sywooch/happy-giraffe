@@ -34,19 +34,23 @@ class BlogController extends Controller
     public function getUrl($overwrite = array(), $route = 'blog/list')
     {
         $params = array_filter(CMap::mergeArray(
-            $this->actionParams,
+            array(
+                'rubric_id' => $this->actionParams['rubric_id'],
+                'content_type_slug' => $this->actionParams['content_type_slug'],
+            ),
             $overwrite
         ));
 
         return $this->createUrl($route, $params);
     }
 
-    public function actionAdd($content_type_slug = 'post')
+    public function actionAdd($content_type_slug = 'post', $rubric_id = null)
     {
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
         $model = new BlogContent;
         $model->author_id = Yii::app()->user->id;
         $model->type_id = $content_type->id;
+        $model->rubric_id = $rubric_id;
         $slave_model_name = 'Community' . ucfirst($content_type->slug);
         $slave_model = new $slave_model_name;
         $rubric_model = new CommunityRubric;

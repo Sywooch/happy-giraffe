@@ -87,6 +87,7 @@ function registerUploadEvents(elem) {
             $('#upload_finish_wrapper').css('visibility', 'visible').addClass('is_visible');
             $('#log li#' + file.id).find('.progress-value').text('0%');
             $('#album_upload_step_1').css('visibility', 'hidden');
+            $('#album_upload_step_1').css('height', '1');
             $('#album_upload_step_2').css('visibility', 'show');
         })
         .bind('uploadProgress', function (event, file, bytesLoaded) {

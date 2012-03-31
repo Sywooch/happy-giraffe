@@ -77,6 +77,23 @@
     <div class="user-cols clearfix">
 
         <div class="col-1">
+            <?php if ($user->id == Yii::app()->user->id): ?>
+                <div class="ava big <?=($user->gender == 1) ? 'male' : 'female'?> <?=($user->getAva('big')) ? 'filled' : ''?>" id="change_ava">
+                    <?php
+                        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                            'model' => $user
+                        ));
+                        $fileAttach->button();
+                        $this->endWidget();
+                    ?>
+                    <?php if ($user->getAva('big')): ?>
+                        <?=CHtml::image($user->getAva('big'), $user->fullName)?>
+                        <a href="#photoPick" class="fancy renew">Обновить<br>фото</a>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+
             <?php
             if(!$user->getAva('big'))
             {

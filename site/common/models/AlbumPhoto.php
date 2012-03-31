@@ -203,8 +203,10 @@ class AlbumPhoto extends CActiveRecord
         $file_name = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
         if (!$move_temp)
             return $this->file->saveAs($file_name);
-        else
+        else{
+            //echo $this->templatePath;Yii::app()->end();
             rename($this->templatePath, $file_name);
+        }
     }
 
     /**

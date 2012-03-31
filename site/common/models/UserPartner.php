@@ -11,6 +11,7 @@
  *
  * The followings are the available model relations:
  * @property User $user
+ * @property AttachPhoto $photos
  */
 class UserPartner extends CActiveRecord
 {
@@ -59,7 +60,8 @@ class UserPartner extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-		);
+            'photos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+        );
 	}
 
 	/**
@@ -129,5 +131,14 @@ class UserPartner extends CActiveRecord
         if (empty($this->birthday))
             return '';
         return date($part, strtotime($this->birthday));
+    }
+
+    public function getRandomPhotoUrl()
+    {
+        if (count($this->photos) == 0)
+            return '';
+
+        $i = rand(0, count($this->photos)-1);
+        return $this->photos[$i]->photo->getPreviewUrl(180, 180);
     }
 }

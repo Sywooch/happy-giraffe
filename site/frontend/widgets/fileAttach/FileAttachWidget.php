@@ -36,7 +36,7 @@ class FileAttachWidget extends CWidget
         elseif($this->entity == 'User')
         {
             $this->title = 'Главное фото';
-            $this->button_title = 'Продолжить';
+            $this->button_title = 'Выбор';
         }
         elseif($this->entity == 'Comment')
         {

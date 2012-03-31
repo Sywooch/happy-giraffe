@@ -102,6 +102,9 @@ class Album extends CActiveRecord
             'noSystem' => array(
                 'condition' => $this->tableAlias . '.type = 0 or ' . $this->tableAlias . '.type = 1',
             ),
+            'system' => array(
+                'condition' => $this->tableAlias . '.type != 0 and ' . $this->tableAlias . '.type != 1',
+            ),
         );
     }
 
@@ -131,9 +134,10 @@ class Album extends CActiveRecord
 		);
 	}
 
-    public function findByUser($author_id, $permission = false)
+    public function findByUser($author_id, $permission = false, $system = false)
     {
         $criteria = new CDbCriteria;
+        $criteria->scopes = array();
         $criteria->addCondition('t.author_id = :author_id');
         $criteria->params[':author_id'] = $author_id;
         if($permission !== false)
@@ -141,7 +145,14 @@ class Album extends CActiveRecord
             $criteria->addCondition('permission = :permission and (type = 0 || type = 1)');
             $criteria->params[':permission'] = $permission;
         }
-        $criteria->scopes = array('active');
+        if($system !== false)
+        {
+            if($system == 1)
+                array_push($criteria->scopes, 'system');
+            else
+                array_push($criteria->scopes, 'noSystem');
+        }
+        array_push($criteria->scopes, 'active');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

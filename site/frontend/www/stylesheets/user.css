@@ -79,7 +79,7 @@
 
 #user  .details {color:#afafb0;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;text-indent:0;text-align:center;}
 
-.user-lvl {width:240px;height:146px;}
+.user-lvl {width:240px;height:160px;}
 .user-lvl-1 {background:url(/images/user_lvl_1.png) no-repeat;}
 .user-lvl-1 span {display:block;padding:80px 0 0;font-size:22px;color:#fff;text-align:center;}
 

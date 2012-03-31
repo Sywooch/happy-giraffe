@@ -50,16 +50,30 @@ class FamilyController extends Controller
             $this->user->partner = $partner;
         }
 
+        $future_baby = null;
+        foreach($this->user->babies as $baby){
+            if (!empty($baby->type))
+                $future_baby = $baby;
+        }
+
         Yii::import('application.widgets.user.UserCoreWidget');
-        $this->render('index', array('user' => $this->user));
+        $this->render('index', array('user' => $this->user, 'future_baby'=>$future_baby));
     }
 
     public function actionAddBaby()
     {
         $name = Yii::app()->request->getPost('name');
-        $model = new Baby();
+        $sex = Yii::app()->request->getPost('sex');
+        if (!empty($sex))
+            $model = new Baby();
+        else
+            $model = new Baby('realBaby');
+
         $model->parent_id = Yii::app()->user->id;
         $model->name = $name;
+        if (!empty($sex))
+            $model->sex = $sex;
+
         if ($model->save()) {
             $response = array(
                 'status' => true,
@@ -68,6 +82,7 @@ class FamilyController extends Controller
         } else {
             $response = array(
                 'status' => false,
+                'error'=>$model->getErrors()
             );
         }
         echo CJSON::encode($response);

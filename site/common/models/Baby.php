@@ -41,10 +41,11 @@ class Baby extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, parent_id', 'required'),
+            array('parent_id', 'required'),
+            array('name', 'required', 'on'=>'realBaby'),
             array('birthday', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
             array('parent_id, age_group', 'numerical', 'integerOnly'=>true),
-            array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 1),
+            array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 2),
             array('name', 'length', 'max'=>255),
             array('notice', 'length', 'max'=>1024),
             array('birthday', 'safe'),

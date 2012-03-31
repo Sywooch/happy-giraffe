@@ -42,8 +42,8 @@ $(function() {
         return false;
     });
 
-    $('body').delegate('#photoPick', 'click', function() {
-        alert('123');
+    $('#change_ava').delegate('a.renew', 'click', function() {
+        $('#change_ava > div.photo').trigger('click');
     });
 });
 

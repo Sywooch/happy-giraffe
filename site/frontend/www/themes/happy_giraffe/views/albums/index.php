@@ -1,9 +1,12 @@
 <div class="main">
     <div class="main-in">
         <div id="gallery" class="nopadding">
-            <div class="header">
+            <div class="header<?php echo isset($_GET['system']) && $_GET['system'] == 1 ? ' service-header' : '' ?>">
                 <div class="title">
-                    <big><span>Фотоальбомы</span></big>
+                    <big><?php echo isset($_GET['system']) && $_GET['system'] == 1 ? 'Служебные фотоальбомы' : '<span>Фотоальбомы</span>' ?></big>
+                    <div class="note">
+                        <p>Примечание: Бархатная осень, жаркое лето на золотистых пляжах и ночи, приправленные капелькой страсти. Словом, перефразируя одного сказочного героя ...</p>
+                    </div>
                 </div>
             </div>
             <?php foreach ($dataProvider->getData() as $model): ?>
@@ -63,7 +66,7 @@
 
     <div class="default-v-nav">
         <ul>
-            <li<?php echo !isset($_GET['permission']) ? ' class="active"' : '' ?>>
+            <li<?php echo !isset($_GET['permission']) && !isset($_GET['system']) ? ' class="active"' : '' ?>>
                 <div class="in">
                     <?php echo CHtml::link('Все альбомы', array('/albums/index')); ?>
                     <span class="tale"><img src="/images/default_v_nav_active.png"></span>
@@ -71,7 +74,7 @@
             </li>
             <li>
                 <div class="in">
-                    <a href="">Альбомы для просмотра</a>
+                    <?php echo CHtml::link('Альбомы для просмотра', array('/albums/index', 'system' => 0)); ?>
                     <span class="tale"><img src="/images/default_v_nav_active.png"></span>
                 </div>
                 <ul>
@@ -85,9 +88,9 @@
                     <?php endforeach; ?>
                 </ul>
             </li>
-            <li class="service">
+            <li class="service<?php echo isset($_GET['system']) && $_GET['system'] == 1 ? ' active' : '' ?>">
                 <div class="in">
-                    <a href="">Служебные альбомы</a>
+                    <?php echo CHtml::link('Служебные альбомы', array('/albums/index', 'system' => 1)); ?>
                     <span class="tale"><img src="/images/default_v_nav_active.png"></span>
                 </div>
             </li>

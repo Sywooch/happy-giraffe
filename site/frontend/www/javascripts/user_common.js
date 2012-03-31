@@ -43,7 +43,7 @@ $(function() {
     });
 
     $('#change_ava').delegate('a.renew', 'click', function() {
-        $('#change_ava > div.photo').trigger('click');
+        alert('123');
     });
 });
 

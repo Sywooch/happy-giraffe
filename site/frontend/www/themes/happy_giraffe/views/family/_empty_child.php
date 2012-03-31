@@ -33,8 +33,8 @@
                     'data-placeholder'=>' '
                 )) ?>
                     &nbsp;
-                    <?php echo CHtml::dropDownList('Baby_y_'.$i, '', array(''=>' ')+HDate::Range(date('Y')-16, date('Y') - 100), array(
-                    'class'=>'chzn w-50 year',
+                    <?php echo CHtml::dropDownList('Baby_y_'.$i, '', array(''=>' ')+HDate::Range(date('Y'), date('Y') - 60), array(
+                    'class'=>'chzn w-100 year',
                     'data-placeholder'=>' '
                 )) ?>
                     &nbsp;
@@ -64,14 +64,15 @@
             <a href="javascript:void(0);" class="fake_file">
 
                 <?php $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'baby_photo_upload',
+                'id' => 'baby_photo_upload'.$i,
                 'action' => $this->createUrl('uploadBabyPhoto'),
                 'htmlOptions' => array(
                     'enctype' => 'multipart/form-data',
+                    'class'=>'baby_photo_upload'
                 ),
             )); ?>
-                <?php echo CHtml::hiddenField('baby_id', ''); ?>
-                <?php echo CHtml::fileField('baby-photo'); ?>
+                <?php echo CHtml::hiddenField('baby_id', '', array('id'=>'baby_id'.$i, 'class'=>'baby_id_2')); ?>
+                <?php echo CHtml::fileField('baby-photo', '', array('id'=>'baby-photo'.$i, 'class'=>'baby-photo-file')); ?>
                 <?php $this->endWidget(); ?>
 
                 <i class="icon"></i>

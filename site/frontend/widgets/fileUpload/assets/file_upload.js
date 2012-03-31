@@ -87,9 +87,10 @@ function registerUploadEvents(elem) {
             $('#log').empty();
         })
         .bind('uploadStart', function (event, file) {
-            $('#upload_button_wrapper').css({height:1});
-            $('#upload_finish_wrapper').css('visibility', 'visible').addClass('is_visible');
+            $('#upload_button_wrapper').css({height:0});
+            $('#upload_finish_wrapper').css('height', 'auto').addClass('is_visible');
             $('#log li#' + file.id).find('.progress-value').text('0%');
+            $('#album_upload_step_1').css('height', 0);
             /*$('#album_upload_step_1').css('visibility', 'hidden');
             $('#album_upload_step_1').css('height', '1');*/
             $('#album_upload_step_2').css('visibility', 'show');
@@ -160,6 +161,10 @@ function savePhotos() {
     if ($('#comment_list_view').size() > 0)
         $.fn.yiiListView.update('comment_list_view');
     $.fancybox.close();
-    window.location.reload();
+    if(Album.album_id) {
+        document.location.href = base_url + '/albums/' + Album.album_id + '/';
+    } else {
+        window.location.reload();
+    }
     return false;
 }

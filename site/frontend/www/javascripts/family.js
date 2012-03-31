@@ -345,8 +345,7 @@ var Family = {
 
                     $(el).parents('div.name').next().show();
                     $(el).parents('div.family-member').find('input.baby-id').val(response.id);
-                    $(el).parents('div.family-member')..find('li.add input[name=baby_id]').val(response.id);
-
+                    $(el).parents('div.family-member').find('li.add input[name=baby_id]').val(response.id);
                 }
             },
             context:el
@@ -428,9 +427,10 @@ $(function () {
     $('body').delegate('a.photo', 'click', function (e) {
         e.preventDefault();
 
-        var count = $(this).parents('div.family-member').find('.photos li').length - 1;
+        var count = $(this).parents('div.family-member').find('div.photos li').length - 1;
         if (count < 4) {
-            $(this).parents('div.family-member').find('li.add form input[type=file]').trigger('click');
+            cl('true');
+            $(this).parents('div.family-member').find('div.photos input[type=file]').trigger('click');
         }
     });
 

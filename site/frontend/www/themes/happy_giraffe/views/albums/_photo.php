@@ -7,14 +7,12 @@
                 </div>
             </td>
         </tr>
-        <?php if($data->title != ''): ?>
-            <tr class="title">
-                <td align="center">
-                    <div>
-                        <?php echo $data->title ?>
-                    </div>
-                </td>
-            </tr>
-        <?php endif; ?>
+        <tr class="title">
+            <td align="center">
+                <div>
+                    <?php echo $data->title != '' ? $data->title : '&nbsp;' ?>
+                </div>
+            </td>
+        </tr>
     </table>
 </li>

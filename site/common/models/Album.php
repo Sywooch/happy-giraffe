@@ -25,6 +25,7 @@ class Album extends CActiveRecord
     public static $systems = array(
         1 => 'Личные фотографии',
         2 => 'Диалоги',
+        3 => 'Семейные'
     );
 
     public static $permissions = array(
@@ -87,6 +88,8 @@ class Album extends CActiveRecord
     {
         return array(
             'order' => 'type asc',
+            //'condition' => 'permission = 0 OR permission = 1 OR (permission = 2 AND author_id = :user_id)',
+            //'params' => array(':user_id' => Yii::app()->user->id),
         );
     }
 

@@ -93,7 +93,6 @@ class FamilyController extends Controller
     public function actionRemoveBaby()
     {
         $ids = Yii::app()->request->getPost('ids');
-//        $nums = Yii::app()->request->getPost('nums');
 
         foreach ($ids as $id)
             if (!empty($id)) {
@@ -120,7 +119,6 @@ class FamilyController extends Controller
             $photo = new AlbumPhoto;
             $photo->file = CUploadedFile::getInstanceByName('partner-photo');
             $photo->author_id = Yii::app()->user->id;
-            //$photo->saveFile();
             if (!$photo->create()) {
                 var_dump($photo->getErrors());
                 Yii::app()->end();

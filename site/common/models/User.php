@@ -381,6 +381,12 @@ class User extends CActiveRecord
             $comment->save();
         } else {
             self::clearCache($this->id);
+
+            if (!empty($this->relationship_status))
+                UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_FAMILY);
+            if (!empty($this->avatar))
+                UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_PHOTO);
+
         }
         return true;
     }
@@ -615,8 +621,6 @@ class User extends CActiveRecord
         $friend->user1_id = $this->id;
         $friend->user2_id = $friend_id;
         if ($friend->save()) {
-            //добавляем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
             UserScores::addScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::getUserById($friend_id));
             UserScores::addScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
             return true;
@@ -650,8 +654,6 @@ class User extends CActiveRecord
     {
         $res = Friend::model()->deleteAll($this->getFriendCriteria($friend_id));
         if ($res != 0) {
-            //вычитаем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
             UserScores::removeScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
             UserScores::removeScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::model()->findByPk($friend_id));
             return true;
@@ -832,7 +834,6 @@ class User extends CActiveRecord
 
     public function getScores()
     {
-        Yii::import('site.frontend.modules.scores.models.*');
         $model = UserScores::model()->with(array('level' => array('select' => array('name'))))->findByPk($this->id);
         if ($model === null) {
             $model = new UserScores;

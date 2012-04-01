@@ -51,6 +51,7 @@ return array(
         'application.modules.im.models.*',
         'application.modules.im.components.*',
         'application.modules.geo.models.*',
+        'application.modules.scores.models.*'
 	),
 
 	'sourceLanguage' => 'en',

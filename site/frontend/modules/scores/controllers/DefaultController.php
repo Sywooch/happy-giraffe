@@ -32,7 +32,6 @@ class DefaultController extends Controller
             $user_id = Yii::app()->user->id;
         $this->user = User::getUserById($user_id);
 
-        Yii::import('site.frontend.modules.scores.models.*');
         $userScores = UserScores::getModel($user_id);
         $dataProvider = $userScores->getUserHistory();
 

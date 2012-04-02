@@ -11,18 +11,6 @@ $js = '
 ';
 Yii::app()->clientScript->registerScript('family-edit',$js);
 ?>
-<style type="text/css">
-    .fake_file input {
-        font-size: 999px;
-        left: 0;
-        opacity: 0;
-        position: absolute;
-        top: 0;
-    }
-    .fake_file{
-        overflow: hidden;
-    }
-</style>
 <div class="user-cols clearfix">
 
     <div class="col-1">

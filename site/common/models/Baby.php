@@ -16,6 +16,7 @@
  * The followings are the available model relations:
  * @property VaccineDateVote[] $vaccineDateVotes
  * @property AttachPhoto $photos
+ * @property int $photosCount
  */
 class Baby extends CActiveRecord
 {
@@ -37,6 +38,7 @@ class Baby extends CActiveRecord
         return array(
             'parent' => array(self::BELONGS_TO, 'User', 'id'),
             'photos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+            'photosCount' => array(self::STAT, 'AttachPhoto', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
         );
     }
 

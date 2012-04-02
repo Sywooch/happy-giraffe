@@ -865,7 +865,7 @@ class User extends CActiveRecord
             ),
         ));
 
-        return CommunityContent::model()->full()->findAll($criteria);
+        return BlogContent::model()->full()->findAll($criteria);
     }
 
     public function hasBaby($type = null)

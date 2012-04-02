@@ -14,7 +14,7 @@ class FamilyController extends Controller
     {
         return array(
             'accessControl',
-            'addBaby,removeBaby + onlyAjax'
+            'addBaby,removeBaby,removePhoto,removeFutureBaby + onlyAjax'
         );
     }
 
@@ -30,18 +30,11 @@ class FamilyController extends Controller
         );
     }
 
-    public function beforeAction($action)
-    {
-        Yii::app()->clientScript->registerScriptFile('/javascripts/family.js');
-
-        return parent::beforeAction($action);
-    }
-
     public function actionIndex()
     {
-        $this->user = User::model()->with(array(
-            'babies', 'partner'
-        ))->findByPk(Yii::app()->user->id);
+        $this->loadUser();
+        Yii::app()->clientScript->registerScriptFile('/javascripts/family.js');
+        $this->pageTitle = 'Семья';
 
         if ($this->user->partner == null) {
             $partner = new UserPartner();
@@ -64,22 +57,22 @@ class FamilyController extends Controller
     {
         $name = Yii::app()->request->getPost('name');
         $sex = Yii::app()->request->getPost('sex');
-        if (!empty($sex))
+        $type = Yii::app()->request->getPost('type');
+
+        if ($type == 1 || $type == 2) {
             $model = new Baby();
-        else
+            $model->sex = $sex;
+            $model->type = $type;
+        } else
             $model = new Baby('realBaby');
 
         $model->parent_id = Yii::app()->user->id;
         $model->name = $name;
-        if (!empty($sex)){
-            $model->sex = $sex;
-            $model->type = $_POST['type'];
-        }
 
         if ($model->save()) {
             $response = array(
                 'status' => true,
-                'id' => $model->id
+                'id' => $model->id,
             );
         } else {
             $response = array(
@@ -115,56 +108,63 @@ class FamilyController extends Controller
 
     public function actionUploadPhoto()
     {
-        if (isset($_POST['user_id'])) {
-            $photo = new AlbumPhoto;
-            $photo->file = CUploadedFile::getInstanceByName('partner-photo');
-            $photo->author_id = Yii::app()->user->id;
-            if (!$photo->create()) {
-                var_dump($photo->getErrors());
-                Yii::app()->end();
-            }
+        //check limit 4 photo
+        $this->user = User::model()->with(array(
+            'partner', 'partner.photosCount'
+        ))->findByPk(Yii::app()->user->id);
+        if ($this->user->partner->photosCount >= 4) {
+            Yii::app()->end();
+        }
 
-            $attach = new AttachPhoto;
-            $attach->entity = 'UserPartner';
-            $attach->entity_id = Yii::app()->user->getModel()->partner->id;
-            $attach->photo_id = $photo->id;
-            $attach->save();
+        $photo = new AlbumPhoto;
+        $photo->file = CUploadedFile::getInstanceByName('partner-photo');
+        $photo->author_id = Yii::app()->user->id;
+        if (!$photo->create()) {
+            var_dump($photo->getErrors());
+            Yii::app()->end();
+        }
 
-            if ($attach->save()) {
-                $response = array(
-                    'status' => true,
-                    'url' => $photo->getPreviewUrl(180, 180),
-                    'id' => $attach->id
-                );
-            }
-            else {
-                $response = array(
-                    'status' => false,
-                );
-            }
-            echo "<script type='text/javascript'>
+        $attach = new AttachPhoto;
+        $attach->entity = 'UserPartner';
+        $attach->entity_id = Yii::app()->user->getModel()->partner->id;
+        $attach->photo_id = $photo->id;
+        $attach->save();
+
+        if ($attach->save()) {
+            $response = array(
+                'status' => true,
+                'url' => $photo->getPreviewUrl(180, 180),
+                'id' => $attach->id
+            );
+        }
+        else {
+            $response = array(
+                'status' => false,
+            );
+        }
+        echo "<script type='text/javascript'>
                 document.domain = document.location.host;
                 </script>";
 
-            echo CJSON::encode($response);
-        }
+        echo CJSON::encode($response);
     }
 
     public function actionUploadBabyPhoto()
     {
         if (isset($_POST['baby_id'])) {
-            $baby = Baby::model()->findByPk($_POST['baby_id']);
-            if ($baby->parent_id != Yii::app()->user->id){
+            $baby = Baby::model()->with(array('photosCount'))->findByPk($_POST['baby_id']);
+            if ($baby->parent_id != Yii::app()->user->id)
                 Yii::app()->end();
-            }
+
+            //check limit 4 photo
+            if ($baby->photosCount >= 4)
+                Yii::app()->end();
 
             $photo = new AlbumPhoto;
             $photo->file = CUploadedFile::getInstanceByName('baby-photo');
             $photo->author_id = Yii::app()->user->id;
-            if (!$photo->create()) {
-                var_dump($photo->getErrors());
+            if (!$photo->create())
                 Yii::app()->end();
-            }
 
             $attach = new AttachPhoto;
             $attach->entity = 'Baby';
@@ -192,15 +192,61 @@ class FamilyController extends Controller
         }
     }
 
-    public function actionRemovePhoto(){
+    public function actionRemovePhoto()
+    {
         $id = Yii::app()->request->getPost('id');
         $attach = AttachPhoto::model()->findByPk($id);
-        if ($attach !== null && $attach->photo->author_id == Yii::app()->user->id){
-            if ($attach->delete()){
+        if ($attach !== null && $attach->photo->author_id == Yii::app()->user->id) {
+            if ($attach->delete()) {
                 echo CJSON::encode(array('status' => true));
                 Yii::app()->end();
             }
         }
         echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionRemoveFutureBaby()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('parent_id', Yii::app()->user->id);
+        $criteria->compare('type', array(Baby::TYPE_PLANNING, Baby::TYPE_WAIT));
+        $baby = Baby::model()->find($criteria);
+        if ($baby !== null) {
+            if ($baby->delete()) {
+                $response = array('status' => true);
+            } else
+                $response = array('status' => false);
+        } else
+            $response = array('status' => false);
+
+        echo CJSON::encode($response);
+    }
+
+    public function actionRemoveAllBabies()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('parent_id', Yii::app()->user->id);
+        $criteria->condition = ' type IS NULL ';
+        $count = Baby::model()->deleteAll($criteria);
+        if ($count > 0) {
+            $response = array('status' => true);
+        } else
+            $response = array('status' => false);
+
+        echo CJSON::encode($response);
+    }
+
+    public function actionUpdateWidget(){
+        $this->loadUser();
+        Yii::import('application.widgets.user.UserCoreWidget');
+        $this->widget('application.widgets.user.FamilyWidget', array(
+            'user' => $this->user,
+        ));
+    }
+
+    public function loadUser(){
+        $this->user = User::model()->with(array('partner', 'babies'))->findByPk(Yii::app()->user->id);
+        if ($this->user === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
     }
 }

@@ -115,17 +115,6 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                             <li class="add"<?php if (count($user->partner->photos) == 4) echo ' style="display:none;"' ?>>
                                 <a href="javascript:void(0);" class="fake_file">
 
-                                    <?php $form = $this->beginWidget('CActiveForm', array(
-                                        'id' => 'partner_photo_upload',
-                                        'action' => $this->createUrl('uploadPhoto'),
-                                        'htmlOptions' => array(
-                                            'enctype' => 'multipart/form-data',
-                                            ),
-                                    )); ?>
-                                    <?php echo CHtml::hiddenField('user_id', $user->id); ?>
-                                    <?php echo CHtml::fileField('partner-photo'); ?>
-                                    <?php $this->endWidget(); ?>
-
                                     <i class="icon"></i>
                                     <span>Загрузить еще<br> <ins><?=4 - count($user->partner->photos) ?></ins> <span>фотографи<?= (count($user->partner->photos) == 3)?'ю':'и' ?></span></span>
                                 </a>
@@ -134,6 +123,18 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                         </ul>
 
                     </div>
+
+                    <?php $form = $this->beginWidget('CActiveForm', array(
+                    'id' => 'partner_photo_upload',
+                    'action' => $this->createUrl('uploadPhoto'),
+                    'htmlOptions' => array(
+                        'enctype' => 'multipart/form-data',
+                        'style'=>'width:0;height:0;overflow: hidden;'
+                    ),
+                )); ?>
+                    <?php echo CHtml::fileField('partner-photo', '', array('class'=>'partner-photo-file')); ?>
+                    <?php $this->endWidget(); ?>
+
                 </div>
 
             <br>
@@ -163,9 +164,9 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                     ?>
                     <div class="d-text"><?=$text ?></div>
 
-                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 1)" class="gender male<?=($future_baby === null || $future_baby->sex != 1)?'':' active' ?>"><span class="tip">Мальчик</span></a>
-                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 0)" class="gender female<?=($future_baby === null || $future_baby->sex !== 0)?'':' active' ?>"><span class="tip">Девочка</span></a>
-                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 2)" class="gender question<?=($future_baby === null || $future_baby->sex != 2)?'':' active' ?>"><span class="tip">Не знаем</span></a>
+                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 1)" class="gender male<?=($future_baby !== null && $future_baby->sex == 1)?' active':'' ?>"><span class="tip">Мальчик</span></a>
+                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 0)" class="gender female<?=($future_baby !== null && $future_baby->sex == 0)?' active':'' ?>"><span class="tip">Девочка</span></a>
+                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 2)" class="gender question<?=($future_baby !== null && $future_baby->sex == 2)?' active':'' ?>"><span class="tip">Не знаем</span></a>
 
                 </div>
 
@@ -253,18 +254,6 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                                 <li class="add"<?php if (count($baby->photos) == 4) echo ' style="display:none;"' ?>>
                                     <a href="javascript:void(0);" class="fake_file">
 
-                                        <?php $form = $this->beginWidget('CActiveForm', array(
-                                        'id' => 'baby_photo_upload'.$i,
-                                        'action' => $this->createUrl('uploadBabyPhoto'),
-                                        'htmlOptions' => array(
-                                            'enctype' => 'multipart/form-data',
-                                            'class'=>'baby_photo_upload'
-                                        ),
-                                    )); ?>
-                                        <?php echo CHtml::hiddenField('baby_id', $baby->id,array('id'=>'baby_id'.$i, 'class'=>'baby_id_2')); ?>
-                                        <?php echo CHtml::fileField('baby-photo','', array('id'=>'baby-photo'.$i, 'class'=>'baby-photo-file')); ?>
-                                        <?php $this->endWidget(); ?>
-
                                         <i class="icon"></i>
                                         <span>Загрузить еще<br> <ins><?=4 - count($baby->photos) ?></ins> <span>фотографи<?= (count($baby->photos) == 3)?'ю':'и' ?></span></span>
                                     </a>
@@ -273,6 +262,19 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                             </ul>
 
                         </div>
+
+                        <?php $form = $this->beginWidget('CActiveForm', array(
+                        'id' => 'baby_photo_upload'.$i,
+                        'action' => $this->createUrl('uploadBabyPhoto'),
+                        'htmlOptions' => array(
+                            'enctype' => 'multipart/form-data',
+                            'class'=>'baby_photo_upload',
+                            'style'=>'width:0;height:0;overflow: hidden;'
+                        ),
+                    )); ?>
+                        <?php echo CHtml::hiddenField('baby_id', $baby->id,array('id'=>'baby_id'.$i, 'class'=>'baby_id_2')); ?>
+                        <?php echo CHtml::fileField('baby-photo','', array('id'=>'baby-photo'.$i, 'class'=>'baby-photo-file')); ?>
+                        <?php $this->endWidget(); ?>
 
                     </div>
                     <?php $i++; ?>

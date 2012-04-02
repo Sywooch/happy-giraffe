@@ -1,4 +1,4 @@
-<a onclick="return Social.open('vk', this.href, 'Опубликовать ссылку во Вконтакте', 800, 300, this);"
+<a onclick="return Social.open('vk', this.href, 'vkontakte', 800, 300, this);"
    rel="nofollow"
    href="http://vk.com/share.php<?php echo $this->arrayToUrl($this->options); ?>"
    class="btn-icon vk"

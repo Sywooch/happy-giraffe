@@ -2,11 +2,14 @@ function initForm() {
     $('#upload-input').hide();
     var binding = true;
     if($('#upload-control').data('__swfu') != undefined) {
-        if($('#upload-control').find('.swfupload').size() > 0)
-            $($('#upload-control').find('.swfupload')).replaceWith($('<button id="upload-button" class="btn btn-orange"><span><span>Загрузить</span></span></button>'));
+        if($('#upload-control').find('.swfupload').size() > 0) {
+            $('#upload-control .swfupload').get(0).parentNode.removeChild($('#upload-control .swfupload').get(0));
+            $('<button id="upload-button" class="btn btn-orange"><span><span>Загрузить</span></span></button>').appendTo('#upload-control .row-btn-left');
+        }
         $('#upload-control').data('__swfu').destroy();
         $('#upload-control').data('__swfu', null);
-        $($('#upload_finish_wrapper').find('.swfupload')).replaceWith($('<a id="upload-link" class="a-left" href="">Добавить еще фотографий</a>'));
+        $('#upload_finish_wrapper .swfupload').get(0).parentNode.removeChild($('#upload_finish_wrapper .swfupload').get(0));
+        $('#upload_finish_wrapper').prepend('<a id="upload-link" class="a-left" href="">Добавить еще фотографий</a>')
         $('#upload_finish_wrapper').data('__swfu').destroy();
         $('#upload_finish_wrapper').data('__swfu', null);
         binding = false;

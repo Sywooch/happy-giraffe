@@ -384,9 +384,6 @@ class User extends CActiveRecord
 
             if (!empty($this->relationship_status))
                 UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_FAMILY);
-            if (!empty($this->avatar))
-                UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_PHOTO);
-
         }
         return true;
     }

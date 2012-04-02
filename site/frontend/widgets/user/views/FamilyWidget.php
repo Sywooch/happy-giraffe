@@ -26,7 +26,7 @@
             <?php foreach ($user->babies as $baby): ?>
             <?php if (empty($baby->type)):?>
                 <li>
-                    <big><?php echo $baby->name ?>, <span><?php echo $baby->getTextAge(false) ?></span></big>
+                    <big><?php echo $baby->name ?><span><?php if (!empty($baby->birthday)) echo ', '.$baby->getTextAge(false) ?></span></big>
                     <?php if (!empty($baby->notice)):?>
                     <div class="comment purple">
                         <?= $baby->notice ?>

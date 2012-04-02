@@ -683,6 +683,14 @@ class User extends CActiveRecord
         ));
     }
 
+    public function getFriendsCriteria($additional_criteria)
+    {
+        $criteria = $this->getFriendSelectCriteria();
+        $criteria->mergeWith($additional_criteria);
+
+        return $criteria;
+    }
+
     /**
      * @return int
      */

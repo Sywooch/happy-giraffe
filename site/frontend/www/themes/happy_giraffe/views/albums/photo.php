@@ -66,7 +66,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
             'model' => $photo,
             'options' => array(
                 'title' => $photo->description,
-                'image' => $item->getPreviewUrl(180, 180),
+                'image' => $photo->getPreviewUrl(180, 180),
                 'description' => false,
             ),
         )); ?>

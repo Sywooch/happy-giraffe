@@ -13,7 +13,8 @@ class UserFriendsWidget extends UserCoreWidget
             'order' => 'RAND()',
             'condition' => 'avatar IS NOT NULL',
         ));
-        $this->visible = ($this->isMyProfile && !empty($this->_friends->data)) || count($this->_friends) >= $this->limit;
+
+        $this->visible = ($this->isMyProfile && !empty($this->_friends->data)) || (User::model()->count($this->_friends->criteria) >= $this->limit);
     }
 
     public function run()

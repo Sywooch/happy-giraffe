@@ -10,7 +10,7 @@ foreach ($this->options as $key => $value)
 }
 ?>
 <a
-    onclick="return Social.open('mr', this.href, 'Опубликовать ссылку в Mail.ru', 626, 436, this);"
+    onclick="return Social.open('mr', this.href, 'mailru', 626, 436, this);"
     href="http://connect.mail.ru/share<?php echo $this->arrayToUrl($options); ?>"
     title="Поделиться с друзьями Моего Мира на Mail.ru"
     rel="nofollow"

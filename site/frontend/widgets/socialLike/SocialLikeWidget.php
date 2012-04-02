@@ -46,7 +46,7 @@ class SocialLikeWidget extends CWidget
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/social.js');
         Yii::app()->clientScript->registerScript('social_update_url', '
-            Social.ajax_url = "' . Yii::app()->createUrl('/ajax/socialApi') . '";
+            Social.ajax_url = "' . Yii::app()->createAbsoluteUrl('/ajax/socialApi') . '";
             Social.update_url = "' . Yii::app()->createUrl('/ajax/rate') . '";
             Social.model_name = "' . get_class($this->model) . '";
             Social.model_id = "' . $this->model->primaryKey . '";

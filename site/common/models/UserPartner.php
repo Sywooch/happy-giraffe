@@ -12,6 +12,7 @@
  * The followings are the available model relations:
  * @property User $user
  * @property AttachPhoto $photos
+ * @property int photosCount
  */
 class UserPartner extends CActiveRecord
 {
@@ -61,6 +62,7 @@ class UserPartner extends CActiveRecord
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             'photos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+            'photosCount' => array(self::STAT, 'AttachPhoto', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
         );
 	}
 
@@ -95,24 +97,6 @@ class UserPartner extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-
-    public static function savePartner($user_id)
-    {
-        $model = self::model()->find('user_id='.$user_id);
-        if (!isset($model)){
-            $model = new UserPartner();
-            $model->user_id = $user_id;
-        }
-        if (isset($_POST['User']['partner_name']))
-            $model->name = $_POST['User']['partner_name'];
-        if (isset($_POST['User']['partner_notice']))
-            $model->notice = $_POST['User']['partner_notice'];
-        if (!empty($model->name)){
-            UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_FAMILY);
-        }
-
-        $model->save();
-    }
 
     public function getAge()
     {

@@ -5,6 +5,7 @@ var Family = {
     baby_count:null,
     tmp:null,
     future_baby_type:null,
+
     setStatusRadio:function (el, status_id) {
         $.ajax({
             url:'/ajax/setValue/',
@@ -26,6 +27,8 @@ var Family = {
                         $('#user-partner .d-text span').text(Family.partnerOf[status_id]);
                         $('#user-partner').show();
                     }
+
+                    Family.updateWidget();
                 }
             },
             context:el
@@ -53,8 +56,8 @@ var Family = {
                     $(el).parent().hide();
                     $(el).parent().prev().text(name).show();
                     $(el).parent().next().show();
-
                     $(el).parents('div.name').next().show();
+                    Family.updateWidget();
                 }
             },
             context:el
@@ -83,6 +86,7 @@ var Family = {
                 if (response.status) {
                     $(el).parent().hide();
                     $(el).parents('div.date').prev().html(response.age).show();
+                    Family.updateWidget();
                 }
             },
             context:el
@@ -109,36 +113,48 @@ var Family = {
                     $(el).parent().hide();
                     $(el).parent().next().find('span.text').text(notice).show();
                     $(el).parent().next().show();
+                    Family.updateWidget();
                 }
             },
             context:el
         });
     },
     setFutureBaby:function (el, type) {
-        $('#future-baby').show();
-        var id = $('#future-baby input.baby-id').val();
+        if ($(el).hasClass('checked')) {
+            $.post('/family/removeFutureBaby/', function (response) {
+                if (response.status) {
+                    $(el).removeClass('checked');
+                    $(el).parents('.radiogroup').find('input').removeAttr('checked');
+                    $('#future-baby').hide();
+                    $('#future-baby .baby-id').val('');
+                    $('#future-baby a.gender').removeClass('active');
+                }
+            }, 'json');
+        } else {
+            $('#future-baby').show();
+            var id = $('#future-baby input.baby-id').val();
 
-        if (id != '') {
-            $.ajax({
-                url:'/ajax/setValue/',
-                data:{
-                    entity:'Baby',
-                    entity_id:id,
-                    attribute:'type',
-                    value:type
-                },
-                type:'POST',
-                success:function (response) {
-                    if (response == '1') {
-                        Family.showTypeTitle(el, type);
-                    }
-                },
-                context:el
-            });
+            if (id != '') {
+                $.ajax({
+                    url:'/ajax/setValue/',
+                    data:{
+                        entity:'Baby',
+                        entity_id:id,
+                        attribute:'type',
+                        value:type
+                    },
+                    type:'POST',
+                    success:function (response) {
+                        if (response == '1') {
+                            Family.showTypeTitle(el, type);
+                        }
+                    },
+                    context:el
+                });
+            }
+            else
+                this.showTypeTitle(el, type);
         }
-        else
-            this.showTypeTitle(el, type);
-
     },
     showTypeTitle:function (el, type) {
         $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
@@ -151,57 +167,93 @@ var Family = {
             $('#future-baby div.d-text').html('Кого планируем:');
     },
     setBaby:function (el, num) {
-        if (this.baby_count > num) {
-            if ($('#baby-' + (num + 1) + ' input.baby-id').val() != '') {
-                var Ids = new Array();
-                for (var i = num + 1; i <= 3; i++) {
-                    Ids.push($('#baby-' + i + ' input.baby-id').val());
-                }
-
+        if ($(el).hasClass('checked')) {
+            if ($('#baby-1 input.baby-id').val() != '') {
                 if (confirm("Вы действительно хотите удалить детей?")) {
-                    $.ajax({
-                        url:'/family/removeBaby/',
-                        data:{ids:Ids},
-                        type:'POST',
-                        dataType:'JSON',
-                        success:function (response) {
+                    if (checked) {
+                        $.post('/family/removeAllBabies/', function (response) {
                             if (response.status) {
-                                for (var i = num + 1; i <= 3; i++) {
-                                    $('#baby-' + i).hide();
+                                $(el).removeClass('checked');
+                                $(el).parents('.radiogroup').find('input').removeAttr('checked');
+                                Family.clearBaby(1);
+                                Family.clearBaby(2);
+                                Family.clearBaby(3);
 
-                                    $('#baby-' + i + ' .baby-id').val('');
-                                    $('#baby-' + i + ' div.comment').hide();
-                                    $('#baby-' + i + ' div.comment textarea').val('');
-                                    $('#baby-' + i + ' .photos').hide();
-                                    $('#baby-' + i + ' .name .text').html('').hide();
-                                    $('#baby-' + i + ' .name .edit').hide();
-                                    $('#baby-' + i + ' .name .input').show();
-                                    $('#baby-' + i + ' .name .input input').val('');
-                                    $('#baby-' + i + ' .hide-on-start').hide();
-                                    $('#baby-' + i + ' .age').html('');
-                                    $('#baby-' + i + ' .gender').removeClass('active');
-                                }
-                                Family.refreshBabyRadio(el);
+                                Family.baby_count = 0;
+                                Family.updateWidget();
                             }
-                        },
-                        context:el
-                    });
+                        }, 'json');
+                    }
                 }
-            } else {
-                for (var i = num + 1; i <= 3; i++) {
+            }else {
+                $(el).removeClass('checked');
+                $(el).parents('.radiogroup').find('input').removeAttr('checked');
+
+                for (var i = 1; i <= 3; i++) {
                     $('#baby-' + i).hide();
+                }
+                Family.baby_count = 0;
+            }
+        } else {
+            if (this.baby_count > num) {
+                if ($('#baby-' + (num + 1) + ' input.baby-id').val() != '') {
+                    var Ids = new Array();
+                    for (var i = num + 1; i <= 3; i++) {
+                        Ids.push($('#baby-' + i + ' input.baby-id').val());
+                    }
+
+                    if (confirm("Вы действительно хотите удалить детей?")) {
+                        $.ajax({
+                            url:'/family/removeBaby/',
+                            data:{ids:Ids},
+                            type:'POST',
+                            dataType:'JSON',
+                            success:function (response) {
+                                if (response.status) {
+                                    for (var i = num + 1; i <= 3; i++)
+                                        Family.clearBaby(i);
+                                    Family.refreshBabyRadio(el);
+                                    Family.updateWidget();
+                                }
+                            },
+                            context:el
+                        });
+                    }
+                } else {
+                    for (var i = num + 1; i <= 3; i++) {
+                        $('#baby-' + i).hide();
+                    }
+                    this.refreshBabyRadio(el);
+                }
+            }
+            if (this.baby_count < num) {
+                for (var i = 1; i <= num; i++) {
+                    $('#baby-' + i).show();
                 }
                 this.refreshBabyRadio(el);
             }
-        }
-        if (this.baby_count < num) {
-            for (var i = 1; i <= num; i++) {
-                $('#baby-' + i).show();
-            }
-            this.refreshBabyRadio(el);
-        }
 
-        this.baby_count = num;
+            this.baby_count = num;
+        }
+    },
+    clearBaby:function (i) {
+        $('#baby-' + i).hide();
+
+        $('#baby-' + i + ' .baby-id').val('');
+        $('#baby-' + i + ' div.comment').hide();
+        $('#baby-' + i + ' div.comment textarea').val('');
+        $('#baby-' + i + ' .photos').hide();
+        $('#baby-' + i + ' .photos li').each(function(index, Element){
+            if (!$(this).hasClass('add'))
+                $(this).remove();
+        });
+        $('#baby-' + i + ' .name .text').html('').hide();
+        $('#baby-' + i + ' .name .edit').hide();
+        $('#baby-' + i + ' .name .input').show();
+        $('#baby-' + i + ' .name .input input').val('');
+        $('#baby-' + i + ' .hide-on-start').hide();
+        $('#baby-' + i + ' .age').html('');
+        $('#baby-' + i + ' .gender').removeClass('active');
     },
     refreshBabyRadio:function (el) {
         $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
@@ -235,6 +287,7 @@ var Family = {
                         $(el).parent().next().show();
 
                         $(el).parents('div.name').next().show();
+                        Family.updateWidget();
                     }
                 },
                 context:el
@@ -260,6 +313,7 @@ var Family = {
                 if (response.status) {
                     $(el).parent().hide();
                     $(el).parents('div.date').prev().html(response.age).show();
+                    Family.updateWidget();
                 }
             },
             context:el
@@ -287,6 +341,7 @@ var Family = {
                     $(el).parent().hide();
                     $(el).parent().next().find('span.text').text(notice).show();
                     $(el).parent().next().show();
+                    Family.updateWidget();
                 }
             },
             context:el
@@ -347,7 +402,9 @@ var Family = {
 
                     $(el).parents('div.name').next().show();
                     $(el).parents('div.family-member').find('input.baby-id').val(response.id);
-                    $(el).parents('div.family-member').find('li.add input[name=baby_id]').val(response.id);
+                    $(el).parents('div.family-member').find('input.baby_id_2').val(response.id);
+
+                    Family.updateWidget();
                 }
             },
             context:el
@@ -363,11 +420,12 @@ var Family = {
                 if (response.status) {
                     var count = $(el).parents('ul').find('li').length - 1;
                     count = count - 1;
-                    console.log(count);
                     $(el).parents('ul').find('li.add span ins').html(4 - count);
                     if (count == 3) {
                         $(el).parents('ul').find('li.add span span').html('фотографию');
                         $(el).parents('ul').find('li.add').show();
+                    } else {
+                        $(el).parents('ul').find('li.add span span').html('фотографии');
                     }
                     if (count == 4)
                         $(el).parents('ul').find('li.add span ins').hide();
@@ -377,6 +435,30 @@ var Family = {
             },
             context:el
         });
+    },
+    updateWidget:function () {
+        $.post('/family/updateWidget/', function (response) {
+            $('.user-cols .col-1').html(response);
+        });
+    },
+    addPhotoClick:function (el) {
+        var count = $(el).parents('div.family-member').find('.photos li').length - 1;
+        if (count < 4) {
+            $(el).parents('div.family-member').find('form input[type=file]').trigger('click');
+        }
+    },
+    addPhoto:function (el, url, id) {
+        var block = $(el).parents('div.family-member');
+        block.find('ul li.add').before('<li><img src="' + url + '"><input type="hidden" value="' + id + '"><a href="" class="remove"></a></li>');
+        var count = block.find('div.photos ul li').length - 1;
+        block.find('ul li.add span ins').html(4 - count);
+        if (count == 3)
+            block.find('ul li.add span span').html('фотографию');
+        if (count >= 4)
+            block.find('li.add').hide();
+
+        block.find('div.photos').show();
+        Family.updateWidget();
     }
 }
 
@@ -385,65 +467,41 @@ $(function () {
         json:true,
         complete:function (response) {
             if (response.status) {
-                $('#user-partner .photos ul li.add').before('<li><img src="' + response.url + '"><input type="hidden" value="' + response.id + '"><a href="" class="remove"></a></li>');
-                var count = $('#user-partner .photos li').length - 1;
-                $('#user-partner .photos ul li.add span ins').html(4 - count);
-                if (count == 3)
-                    $('#user-partner .photos ul li.add span span').html('фотографию');
-                if (count == 4)
-                    $('#user-partner .photos ul li.add').hide();
-                $('#user-partner .photos').show();
+                Family.addPhoto($('#user-partner .photos').get(), response.url, response.id);
             }
         }
     });
 
-    $('.baby_photo_upload').iframePostForm({
+    $('.family .baby_photo_upload').iframePostForm({
         json:true,
         complete:function (response) {
             if (response.status) {
-                var block = $(Family.tmp).parents('div.family-member');
-                block.find('ul li.add').before('<li><img src="' + response.url + '"><input type="hidden" value="' + response.id + '"><a href="" class="remove"></a></li>');
-                var count = block.find('div.photos ul li').length - 1;
-                block.find('ul li.add span ins').html(4 - count);
-                if (count == 3)
-                    block.find('ul li.add span span').html('фотографию');
-                if (count >= 4)
-                    block.find('li.add').hide();
-
-                block.find('div.photos').show();
+                Family.addPhoto(Family.tmp, response.url, response.id);
             }
         }
     });
 
-    $('body').delegate('#partner-photo', 'change', function () {
+    $('body').delegate('.family input.partner-photo-file', 'change', function () {
         $(this).parents('form').submit();
     });
 
-    $('body').delegate('.baby-photo-file', 'change', function () {
+    $('body').delegate('.family .baby-photo-file', 'change', function () {
         Family.tmp = this;
         $(this).parents('form').submit();
     });
 
-    $('body').delegate('a.remove', 'click', function (e) {
+    $('body').delegate('.family a.remove', 'click', function (e) {
         e.preventDefault();
         Family.removePhoto(this);
     });
 
-    $('body').delegate('a.photo', 'click', function (e) {
+    $('body').delegate('.family a.photo', 'click', function (e) {
         e.preventDefault();
-
-        var count = $(this).parents('div.family-member').find('div.photos li').length - 1;
-        if (count < 4) {
-            cl('true');
-            $(this).parents('div.family-member').find('div.photos input[type=file]').trigger('click');
-        }
+        Family.addPhotoClick(this);
     });
 
-    $('body').delegate('li.add i.icon', 'click', function (e) {
+    $('body').delegate('.family li.add', 'click', function (e) {
         e.preventDefault();
-        var count = $(this).parents('div.family-member').find('.photos li').length - 1;
-        if (count < 4) {
-            $(this).parents('div.family-member').find('li.add form input[type=file]').trigger('click');
-        }
+        Family.addPhotoClick(this);
     });
 });

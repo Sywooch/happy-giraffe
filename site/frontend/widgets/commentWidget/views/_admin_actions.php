@@ -19,7 +19,15 @@
             'author' => Yii::app()->user->id == $data->author->id || $data->isEntityAuthor(Yii::app()->user->id)
         )); ?>
         <?php endif; ?>
+
     </div>
     <?php endif; ?>
+
+    <?php if($this->actions): ?>
+    <a href="javascript:void(0);" onclick="return Comment.response(this);">Ответить</a>
+    &nbsp;
+    <a href="javascript:void(0);" class="quote" onclick="return Comment.quote(this);">С цитатой</a>
+    <?php endif; ?>
+
 </div>
 <?php endif; ?>

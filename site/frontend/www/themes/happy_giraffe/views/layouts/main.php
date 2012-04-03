@@ -137,7 +137,7 @@
                 <div class="clearfix">
 
                     <div class="search-box clearfix">
-                        <form action="<?php echo $this->createUrl('/site/search'); ?>">
+                        <form action="<?php echo $this->createUrl('/search'); ?>">
                             <div class="input">
                                 <input type="text" name="text" />
                             </div>

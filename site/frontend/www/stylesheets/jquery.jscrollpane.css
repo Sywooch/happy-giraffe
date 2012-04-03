@@ -63,6 +63,8 @@
 	
 }
 
+.popup .jspTrack {background:#e5d7ef;}
+
 .jspDrag
 {
 	background: #b3cfed;
@@ -80,7 +82,11 @@
 	margin-top:-1px;
 }
 
+.popup .jspDrag {background:#c5a7e2;border-color:#ad8acf;}
+
 .jspDrag:after {display:block;content:'';width:7px;height:7px;background:url(../images/common.png) no-repeat -257px -102px;position:absolute;top:50%;left:50%;margin:-3px -3px;}
+
+.popup .jspDrag:after {background-position:-640px -119px;}
 
 .jspHorizontalBar .jspTrack,
 .jspHorizontalBar .jspDrag
@@ -99,7 +105,11 @@
 
 .jspArrowUp {background-position:-255px -110px;}
 
+.popup .jspArrowUp {background-position:-638px -101px;}
+
 .jspArrowDown {background-position:-255px -118px;margin-top:1px;}
+
+.popup .jspArrowDown {background-position:-638px -109px;}
 
 .jspArrow.jspDisabled
 {

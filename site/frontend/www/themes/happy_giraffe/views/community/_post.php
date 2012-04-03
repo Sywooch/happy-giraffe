@@ -113,6 +113,7 @@
                         <div class="clear"></div>
 
                         <?php
+                        $data_text = $data->travel->text;
                     echo $data->travel->text;
                     ?>
                         <div class="clear"></div>

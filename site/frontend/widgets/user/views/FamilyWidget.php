@@ -1,12 +1,9 @@
-<?php if ((count($user->realBabies) > 0) || (
-    User::relationshipStatusHasPartner($user->relationship_status)
-        && !empty($user->partner->name))
-):?>
+<?php if (($user->babyCount() > 0) || ($user->hasPartner() && !empty($user->partner->name))):?>
 <div class="user-family">
     <div class="t"></div>
     <div class="c">
         <ul>
-            <?php if (User::relationshipStatusHasPartner($user->relationship_status) && isset($user->partner)): ?>
+            <?php if ($user->hasPartner()): ?>
             <li>
                 <big><?= $user->partner->name ?> &nbsp; <small><?php echo $user->getPartnerTitle($user->relationship_status) ?></small></big>
                 <?php if (!empty($user->partner->notice)):?>
@@ -46,7 +43,7 @@
     <div class="b"></div>
 </div>
 <?php else: ?>
-<?php if ($this->user->relationship_status == 0 && $this->user->id == Yii::app()->user->id): ?>
+<?php if ($this->user->relationship_status == 0 && $this->isMyProfile && $user->babyCount() == 0): ?>
     <div class="user-family user-family-cap">
         <div class="t"></div>
         <div class="c">

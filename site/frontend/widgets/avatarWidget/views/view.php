@@ -12,7 +12,7 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
 <?php if(!$this->small): ?>
     <div class="user-info clearfix">
 <?php endif; ?>
-    <a class="<?=$class?>"
+    <a class="username <?=$class?>"
         href="<?=$link_to_profile?>">
         <?php if($this->user->getAva($this->size)): ?>
             <?php echo CHtml::image($this->user->getAva($this->size)); ?>

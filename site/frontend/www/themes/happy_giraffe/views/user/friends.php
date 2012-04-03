@@ -17,7 +17,7 @@
                 'ajaxUpdate' => false,
                 'dataProvider' => $dataProvider,
                 'itemView' => '_friend',
-                'summaryText' => 'Показано: {start}-{end} из {count}',
+                //'summaryText' => 'Показано: {start}-{end} из {count}',
                 'template' =>
                 '
                     <div class="friends clearfix">
@@ -26,13 +26,12 @@
                         </ul>
                     </div>
                     <div class="pagination pagination-center clearfix">
-                        {summary}
                         {pager}
                     </div>
                 ',
                 'pager' => array(
                     'class' => 'MyLinkPager',
-                    'header' => 'Страницы:',
+                    'header' => '',
                 ),
             ));
         ?>

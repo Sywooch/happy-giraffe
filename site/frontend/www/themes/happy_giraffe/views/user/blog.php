@@ -3,14 +3,13 @@
 $this->widget('zii.widgets.CListView', array(
     'dataProvider' => $contents,
     'itemView' => 'webroot.themes.happy_giraffe.views.community._post',
-    'summaryText' => 'Показано: {start}-{end} из {count}',
+    //'summaryText' => 'Показано: {start}-{end} из {count}',
     'pager' => array(
         'class' => 'MyLinkPager',
-        'header' => 'Страницы',
+        'header' => '',
     ),
     'template' => '{items}
         <div class="pagination pagination-center clearfix">
-            {summary}
             {pager}
         </div>
     ',

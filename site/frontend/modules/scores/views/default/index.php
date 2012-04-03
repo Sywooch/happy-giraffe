@@ -52,7 +52,6 @@ Yii::app()->clientScript
                 'dataProvider'=>$dataProvider,
                 'template'=>'{items}
                         <div class="pagination pagination-center clearfix">
-                            {summary}
                             {pager}
                         </div>',
                 'summaryText' => 'показано: {start} - {end} из {count}',

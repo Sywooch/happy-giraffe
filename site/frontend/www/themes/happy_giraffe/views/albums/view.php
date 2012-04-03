@@ -45,7 +45,7 @@
     <div class="default-v-nav">
         <div class="title">Мои альбомы </div>
         <ul>
-        <?php foreach($model->author->albums as $album): ?>
+        <?php foreach($model->author->albums('albums:noSystem') as $album): ?>
             <li<?php echo $model->id == $album->id ? ' class="active"' : ''; ?>>
                 <div class="in">
                     <?php echo CHtml::link($album->title, array('/albums/view', 'id' => $album->id)); ?>

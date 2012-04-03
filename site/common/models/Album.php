@@ -87,14 +87,23 @@ class Album extends CActiveRecord
     public function defaultScope()
     {
         return array(
-            'order' => 'type asc',
-            //'condition' => 'permission = 0 OR permission = 1 OR (permission = 2 AND author_id = :user_id)',
-            //'params' => array(':user_id' => Yii::app()->user->id),
+            'order' => 'type asc'
         );
     }
 
     public function scopes()
     {
+        $permission = new CDbCriteria;
+        $permission->order = 'type asc';
+        $permission->addCondition($this->tableAlias . '.author_id = :user_id
+            OR permission = 0
+            OR (permission = 1 and (f1.id is not null or f2.id is not null))
+            OR (permission = 2 AND ' . $this->tableAlias . '.author_id = :user_id)');
+        $permission->join = 'left join friends f1 on f1.user1_id = ' . $this->tableAlias . '.author_id and f1.user2_id = :user_id
+                        left join friends f2 on f2.user1_id = :user_id and f2.user2_id = ' . $this->tableAlias . '.author_id';
+        $permission->params[':user_id'] = Yii::app()->user->id;
+
+
         return array(
             'full' => array(
                 'join' => 'inner join album_photos p on ' . $this->tableAlias . '.id = p.album_id'
@@ -108,6 +117,7 @@ class Album extends CActiveRecord
             'system' => array(
                 'condition' => $this->tableAlias . '.type != 0 and ' . $this->tableAlias . '.type != 1',
             ),
+            'permission' => $permission->toArray(),
         );
     }
 
@@ -137,7 +147,7 @@ class Album extends CActiveRecord
 		);
 	}
 
-    public function findByUser($author_id, $permission = false, $system = false)
+    public function findByUser($author_id, $permission = false, $system = false, $scopes = array())
     {
         $criteria = new CDbCriteria;
         $criteria->scopes = array();
@@ -156,6 +166,8 @@ class Album extends CActiveRecord
                 array_push($criteria->scopes, 'noSystem');
         }
         array_push($criteria->scopes, 'active');
+        array_push($criteria->scopes, 'permission');
+        $criteria->scopes = array_merge($criteria->scopes, $scopes);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

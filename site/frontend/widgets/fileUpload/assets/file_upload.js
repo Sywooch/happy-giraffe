@@ -55,7 +55,6 @@ function registerUploadEvents(elem) {
     elem.bind('fileQueued', function (event, file) {
         var listitem = '<li class="clearfix" id="' + file.id + '" >' +
             '<div class="img"><i class="icon-error"></i></div>' +
-            '<i class="icon-done"></i>' +
             '<div class="progress"><div class="in"></div></div>' +
             '<div class="progress-value"></div>' +
             '<div class="file-params" style="display:none;"></div>' +
@@ -79,7 +78,7 @@ function registerUploadEvents(elem) {
             }
             var listitem = '<li class="clearfix upload-error" id="' + file.id + '" >' +
                 '<div class="img"><i class="icon-error"></i></div>' +
-                '<span>' + file.name + ' не был загружен. ' + error + '.</span>' +
+                '<span>Файл ' + file.name + ' не был загружен. ' + error + '.</span>' +
                 '</li>'
             $('#log').append(listitem);
         })

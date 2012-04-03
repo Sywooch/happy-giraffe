@@ -204,7 +204,7 @@ class User extends CActiveRecord
             $identity->authenticate();
             if ($identity->errorCode == UserIdentity::ERROR_NONE) {
                 $duration = $this->remember == 1 ? 2592000 : 0;
-                Yii::app()->user->login($identity);
+                Yii::app()->user->login($identity, $duration);
                 $userModel->login_date = date('Y-m-d H:i:s');
                 $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
                 $userModel->save(false);

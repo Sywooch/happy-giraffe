@@ -127,6 +127,18 @@
                 ));
             ?>
         </div>
+
+        <div class="recent-topics">
+
+            <div class="title">Последние темы</div>
+
+            <ul>
+                <?php foreach ($this->community->last as $c): ?>
+                    <li><?=CHtml::link($c->name, $c->url)?></li>
+                <?php endforeach; ?>
+            </ul>
+
+        </div>
     </div>
 </div>
 

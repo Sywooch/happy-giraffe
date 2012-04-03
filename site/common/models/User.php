@@ -235,6 +235,7 @@ class User extends CActiveRecord
 
         return array(
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
+            'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
             'communities' => array(self::MANY_MANY, 'Community', 'user_community(user_id, community_id)'),
 

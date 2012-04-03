@@ -1628,6 +1628,13 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-topics-all-link {background:#cdecff;padding:12px 20px;margin-bottom:2px;font-size:13px;}
 #content .club-topics-all-link .count {font-size:20px;color:#6d6d6d;font-family:tahoma, arial, helvetica, sans-serif;position:relative;top:-3px;}
 
+#content .recent-topics {padding:15px 20px;border:1px solid #d8f1ff;}
+#content .recent-topics .title {font-weight:bold;color:#666666;font-size:16px;}
+#content .recent-topics ul {list-style:none;}
+#content .recent-topics ul li {margin-top:15px;}
+#content .recent-topics ul li a {}
+#content .recent-topics ul li a:hover {text-decoration:none;}
+
 /* */
 
 

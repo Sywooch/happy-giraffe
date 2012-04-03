@@ -3,7 +3,7 @@ $albums = $this->user->getRelated('albums', true, array('limit' => 2, 'scopes' =
 Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/user.css');
 ?>
 <div class="user-albums">
-    <div class="box-title">Фотоальбомы <?php echo CHtml::link('Все альбомы (' . count($this->user->albums('albums:noSystem')) . ')', array('/albums/user', 'id' => $this->user->id)); ?></div>
+    <div class="box-title">Фотоальбомы <?php echo CHtml::link('Все альбомы (' . count($albums) . ')', array('/albums/user', 'id' => $this->user->id)); ?></div>
     <ul>
         <?php foreach($albums as $album): ?>
             <?php if(count($album->photos) == 0) continue; ?>

@@ -319,7 +319,7 @@
 
 #user .family .family-member .data .photo {display:block;width:22px;height:16px;background:url(/images/common.png) no-repeat -663px -244px;float:left;margin-left:8px;position:relative;overflow:hidden;}
 #user .family .family-member .data .photo:hover {background-position:-663px -221px;}
-#user .family .family-member .data .photo input[type=file] {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);width:300px;}
+#user .family .family-member .data .photo input[type=file] {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);width:210px;}
 
 
 #user .family .family-member .comment {}
@@ -343,7 +343,7 @@
 #user .family .family-member .photos ul li.add a .icon {display:block;width:33px;height:33px;background:url(/images/common.png) no-repeat -464px -191px;top:20px;left:50%;margin-left:-16px;position:absolute;}
 #user .family .family-member .photos ul li.add a span {margin-top:60px;border-bottom:1px dashed #1b98c5;}
 #user .family .family-member .photos ul li.add a:hover span {border:0;}
-#user .family .family-member .photos ul li.add a input[type=file] {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);width:300px;}
+#user .family .family-member .photos ul li.add a input[type=file] {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);width:210px;}
 
 
 #user .user-weather {margin-bottom:20px;padding:10px 14px;border:1px solid #f3f3f3;height: 185px;}

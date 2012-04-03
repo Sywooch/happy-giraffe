@@ -8,12 +8,10 @@
         'itemView' => '/community/_post',
         'summaryText' => 'Показано: {start}-{end} из {count}',
         'pager' => array(
-            'class' => 'MyLinkPager',
-            'header' => 'Страницы',
+            'class' => 'AlbumLinkPager',
         ),
         'template' => '{items}
             <div class="pagination pagination-center clearfix">
-                {summary}
                 {pager}
             </div>
         ',

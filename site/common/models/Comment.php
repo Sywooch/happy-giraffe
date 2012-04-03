@@ -168,8 +168,6 @@ class Comment extends CActiveRecord
                 UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
             }
 
-            //добавляем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
             UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
                 'id'=>$this->entity_id, 'name'=>$this->entity));
         }
@@ -221,8 +219,7 @@ class Comment extends CActiveRecord
     public function beforeDelete()
     {
         Comment::model()->updateByPk($this->id, array('removed' => 1));
-        //вычитаем баллы
-        Yii::import('site.frontend.modules.scores.models.*');
+
         UserScores::removeScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
             'id'=>$this->entity_id, 'name'=>$this->entity));
 

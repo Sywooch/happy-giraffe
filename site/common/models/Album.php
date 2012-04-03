@@ -218,8 +218,6 @@ class Album extends CActiveRecord
             foreach($this->photos as $photo)
                 UserSignal::closeRemoved($photo, false);
             UserSignal::sendUpdateSignal();
-
-            Yii::import('site.frontend.modules.scores.models.*');
             UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, count($this->photos), $this->photos[0]);
         }
 

@@ -120,9 +120,9 @@ Attach.changeAvatar = function(form) {
     data += '&width=' + $('#crop_target').width() + '&height=' + $('#crop_target').height();
     $.post(base_url + '/albums/changeAvatar/', data, function(data) {
         $('#change_ava').addClass('filled').empty().append($('<img />').attr('src', data));
+        if($('#refresh_upload').size() > 0)
+            document.location.reload();
     });
     $.fancybox.close();
-    if($('#refresh_upload').size() > 0)
-        document.location.reload();
     return false;
 };

@@ -11,6 +11,7 @@ class ScoresModule extends CWebModule
 		$this->setImport(array(
 			'scores.models.*',
 			'scores.components.*',
+            'contest.models.*',
 		));
 	}
 

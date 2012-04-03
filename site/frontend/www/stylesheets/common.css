@@ -558,7 +558,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 
 #galleryUploadPhotos .upload-files-list li.upload-error .icon-error {display:block;}
-#galleryUploadPhotos .upload-files-list li.upload-error span {color:#ff5656;}
+#galleryUploadPhotos .upload-files-list li.upload-error span {color:#ff8b8b;}
 #galleryUploadPhotos .upload-files-list li.upload-error .remove {display:none;}
 
 #galleryUploadPhotos .upload-files-list li.upload-done .icon-done {display:block;}

@@ -84,7 +84,8 @@ class AjaxController extends Controller
     public function actionSocialApi()
     {
         Yii::import('contest.models.*');
-        if (!isset($_GET['key']) && ($params = Yii::app()->user->getFlash('google')) != false) ;
+        if (!isset($_GET['key']) && isset(Yii::app()->session['google']))
+            $params = Yii::app()->session['google'];
         else
             $params = $_GET;
         if (isset($params['key'])) {
@@ -109,7 +110,7 @@ class AjaxController extends Controller
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $authIdentity->redirectUrl = $this->createAbsoluteUrl('/ajax/socialApi');
             if ($service == 'google') {
-                Yii::app()->user->setFlash('google', $_GET);
+                Yii::app()->session[$service] = $_GET;
                 $authIdentity->redirectUri = $this->createAbsoluteUrl('/ajax/socialApi');
             }
             if ($authIdentity->authenticate()) {

@@ -204,7 +204,7 @@ class User extends CActiveRecord
             $identity->authenticate();
             if ($identity->errorCode == UserIdentity::ERROR_NONE) {
                 $duration = $this->remember == 1 ? 2592000 : 0;
-                Yii::app()->user->login($identity);
+                Yii::app()->user->login($identity, $duration);
                 $userModel->login_date = date('Y-m-d H:i:s');
                 $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
                 $userModel->save(false);
@@ -235,6 +235,7 @@ class User extends CActiveRecord
 
         return array(
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
+            'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
             'communities' => array(self::MANY_MANY, 'Community', 'user_community(user_id, community_id)'),
 

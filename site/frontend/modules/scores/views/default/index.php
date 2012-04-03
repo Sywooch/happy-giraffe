@@ -54,7 +54,7 @@ Yii::app()->clientScript
                         <div class="pagination pagination-center clearfix">
                             {pager}
                         </div>',
-                'summaryText' => 'показано: {start} - {end} из {count}',
+                //'summaryText' => 'показано: {start} - {end} из {count}',
                 'pager' => array(
                     'class' => 'MyLinkPager',
                     'header' => '',

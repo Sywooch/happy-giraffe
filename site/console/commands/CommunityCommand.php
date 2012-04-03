@@ -52,4 +52,61 @@ class CommunityCommand extends CConsoleCommand
             $r->save();
         }
     }
+
+    public function actionPurify()
+    {
+        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
+        Yii::import('site.frontend.helpers.*');
+        require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
+
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('t.id', array(
+            13569,
+        ));
+
+        $contents = CommunityContent::model()->full()->findAll($criteria);
+
+        foreach ($contents as $c) {
+            $c->content->text = $this->_purify($c->content->text);
+            $c->content->save();
+        }
+    }
+
+    private function _purify($text)
+    {
+        $html = new simple_html_dom();
+        $html->load($text);
+
+        //убираем спаны
+        $spans = $html->find('span');
+        foreach ($spans as $s) {
+            $s->outertext = $s->innertext;
+        }
+
+        //обнуляем стили параграфов
+        $paragraphs = $html->find('p');
+        foreach ($paragraphs as $p) {
+            $p->style = null;
+        }
+
+        //чистим заголовки
+        $headers = $html->find('h2, h3');
+        foreach ($headers as $h) {
+            $h->innertext = $h->plaintext;
+            if (strlen($h->innertext) > 64) {
+                $h->tag = 'em';
+            }
+        }
+
+        /*$elements = $html->find('*');
+        foreach ($elements as $e) {
+            $e->innertext = trim($e->innertext);
+
+            if ($e->innertext == '') {
+                $e->outertext = '';
+            }
+        }*/
+
+        return $html->save();
+    }
 }

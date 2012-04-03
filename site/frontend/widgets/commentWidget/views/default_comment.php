@@ -21,5 +21,10 @@
         <?php echo $data->text; ?>
     </div>
     <?php $this->render('_admin_actions', compact('data')) ?>
+    <?php if($this->actions): ?>
+    <a href="javascript:void(0);" onclick="return Comment.response(this);">Ответить</a>
+    &nbsp;
+    <a href="javascript:void(0);" onclick="return Comment.quote(this);">С цитатой</a>
+    <?php endif; ?>
 </div>
 

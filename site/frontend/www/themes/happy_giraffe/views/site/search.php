@@ -22,11 +22,10 @@
             'summaryText' => 'показано: {start} - {end} из {count}',
             'pager' => array(
                 'class' => 'MyLinkPager',
-                'header' => 'Страницы',
+                'header' => '',
             ),
             'template' => '{items}
                 <div class="pagination pagination-center clearfix">
-                    {summary}
                     {pager}
                 </div>
             ',

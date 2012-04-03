@@ -570,7 +570,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 #upload_button_wrapper {overflow:hidden;}
 
-#upload-form .row-btn-left {height:34px;background:url(/images/btn_browse.png) no-repeat;}
+#upload-form .row-btn-left {height:34px;background:url(/images/btn_browse.png) no-repeat right top;}
 
 #album_upload_step_1 {overflow:hidden;}
 #album_upload_step_2 {overflow:hidden;}

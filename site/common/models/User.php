@@ -266,7 +266,7 @@ class User extends CActiveRecord
 
             'status' => array(self::HAS_ONE, 'UserStatus', 'user_id', 'order' => 'status.created DESC'),
             'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
-            'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active')),
+            'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active', 'permission')),
             'interests' => array(self::MANY_MANY, 'Interest', 'interest_users(interest_id, user_id)'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),

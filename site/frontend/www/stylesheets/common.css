@@ -389,7 +389,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .popup {padding:20px;width:540px;color:#0281b0;font-size:12px;}
 .popup label {color:#808282;font-family:tahoma, arial, sans-serif;}
 .popup a {color:#54afc3;}
-.popup .popup-close {position:absolute;top:0px;right:0px;background:url(../images/bg_popup_close.gif) no-repeat right;padding-right:25px;font:11px/18px tahoma, arial, sans-serif;color:#575757;text-decoration:none;}
+.popup .popup-close {position:absolute;top:0px;right:0px;width:10px;height:12px;background:url(../images/common.png) no-repeat -315px -136px;text-indent:-9999px;}
+.popup .popup-close:hover {background-position:-315px -150px;}
 .popup .popup-title {color:#784ba4;font:bold 25px arial, sans-serif;text-align:center;margin-bottom:12px;}
 .popup .form .row {width:344px;}
 .popup .form input[type=text], .popup .form input[type=password] {width:340px;}

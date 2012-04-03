@@ -25,16 +25,15 @@
         $this->widget('zii.widgets.CListView', array(
             'dataProvider'=>$dataProvider,
             'itemView'=>'_photo',
-            'summaryText' => 'показано: {start} - {end} из {count}',
+            //'summaryText' => 'показано: {start} - {end} из {count}',
             'pager' => array(
                 'class' => 'MyLinkPager',
-                'header' => 'Страницы',
+                'header' => '',
             ),
             'emptyText' => 'У Вас нет фото в альбоме',
             'id' => 'comment_list_view',
             'template' => '<ul id="photos_list">{items}</ul>
                     <div class="pagination pagination-center clearfix">
-                        {summary}
                         {pager}
                     </div>
                 ',

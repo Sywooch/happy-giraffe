@@ -147,7 +147,7 @@ class Album extends CActiveRecord
 		);
 	}
 
-    public function findByUser($author_id, $permission = false, $system = false)
+    public function findByUser($author_id, $permission = false, $system = false, $scopes = array())
     {
         $criteria = new CDbCriteria;
         $criteria->scopes = array();
@@ -167,6 +167,7 @@ class Album extends CActiveRecord
         }
         array_push($criteria->scopes, 'active');
         array_push($criteria->scopes, 'permission');
+        $criteria->scopes = array_merge($criteria->scopes, $scopes);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

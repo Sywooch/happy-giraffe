@@ -177,6 +177,7 @@ class AjaxController extends Controller
             $comment->author_id = Yii::app()->user->id;
         } else {
             $comment = Comment::model()->findByPk($_POST['edit-id']);
+            $comment->scenario = 'default';
             if ($comment === null)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
             //check access

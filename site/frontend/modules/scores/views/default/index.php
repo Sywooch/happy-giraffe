@@ -57,7 +57,7 @@ Yii::app()->clientScript
                 'summaryText' => 'показано: {start} - {end} из {count}',
                 'pager' => array(
                     'class' => 'MyLinkPager',
-                    'header' => 'Страницы',
+                    'header' => '',
                 ),
                 'hideHeader'=>true,
                 'cssFile'=>false,

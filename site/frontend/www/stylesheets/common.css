@@ -390,12 +390,12 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .popup label {color:#808282;font-family:tahoma, arial, sans-serif;}
 .popup a {color:#54afc3;}
 .popup .popup-close {position:absolute;top:0px;right:0px;width:10px;height:12px;background:url(../images/common.png) no-repeat -315px -136px;text-indent:-9999px;}
-.popup .popup-close:hover {background-position:-315px -150px;}
+.popup .popup-close:hover {background-position:-315px -149px;}
 .popup .popup-title {color:#784ba4;font:bold 25px arial, sans-serif;text-align:center;margin-bottom:12px;}
 .popup .form .row {width:344px;}
 .popup .form input[type=text], .popup .form input[type=password] {width:340px;}
 .popup .form {overflow:hidden;}
-.popup .bottom {text-align:right;padding-top:8px;border-top:1px solid #caf3f8;margin-top:20px;}
+.popup .bottom {text-align:right;padding-top:8px;margin-top:20px;}
 .popup .bottom .btn {margin:0 5px;}
 .popup .bottom.bottom-center {text-align:center;}
 
@@ -548,13 +548,13 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #galleryUploadPhotos .upload-files-list li .img img {max-width:25px;}
 #galleryUploadPhotos .upload-files-list li .icon-error {display:none;width:21px;height:19px;background:url(/images/common.png) no-repeat -114px -100px;margin:0 auto;}
 #galleryUploadPhotos .upload-files-list li .icon-done {display:none;width:12px;height:10px;float:left;background:url(/images/common.png) no-repeat -66px -185px;margin-right:8px;margin-top:3px;}
-#galleryUploadPhotos .upload-files-list li span {float:left;}
+#galleryUploadPhotos .upload-files-list li span {float:left;line-height:16px;}
 #galleryUploadPhotos .upload-files-list li .remove {display:block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;float:left;margin-top:2px;margin-left:10px;}
 #galleryUploadPhotos .upload-files-list li .remove:hover {background-position:-314px -148px;}
-#galleryUploadPhotos .upload-files-list li .progress {background:#dedfde;width:125px;height:10px;float:left;margin-top:4px;}
+#galleryUploadPhotos .upload-files-list li .progress {background:#dedfde;width:125px;height:10px;float:left;margin-top:2px;}
 #galleryUploadPhotos .upload-files-list li .progress .in {background:#c5a7e2;height:10px;}
 #galleryUploadPhotos .upload-files-list li .progress, #galleryUploadPhotos .upload-files-list li .progress .in {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
-#galleryUploadPhotos .upload-files-list li .progress-value {float:left;color:#6f6e6e;margin-left:5px;font-size:11px;}
+#galleryUploadPhotos .upload-files-list li .progress-value {float:left;color:#6f6e6e;margin-left:5px;font-size:11px;line-height:16px;}
 
 
 #galleryUploadPhotos .upload-files-list li.upload-error .icon-error {display:block;}
@@ -569,6 +569,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #upload_finish_wrapper .swfupload {float:left;}
 
 #upload_button_wrapper {overflow:hidden;}
+
+#upload-form .row-btn-left {height:34px;background:url(/images/btn_browse.png) no-repeat;}
 
 #album_upload_step_1 {overflow:hidden;}
 #album_upload_step_2 {overflow:hidden;}

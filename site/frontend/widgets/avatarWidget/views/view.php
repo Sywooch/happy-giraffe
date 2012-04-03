@@ -12,7 +12,7 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
 <?php if(!$this->small): ?>
     <div class="user-info clearfix">
 <?php endif; ?>
-    <a class="username <?=$class?>"
+    <a class="<?=$class?>"
         href="<?=$link_to_profile?>">
         <?php if($this->user->getAva($this->size)): ?>
             <?php echo CHtml::image($this->user->getAva($this->size)); ?>
@@ -21,7 +21,7 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
     <?php if(!$this->small): ?>
         <div class="details">
             <span class="icon-status status-<?php echo $this->user->online == 1 ? 'online' : 'offline'; ?>"></span>
-            <a href="<?=$this->user->url ?>"><?php echo $this->user->fullName ?></a>
+            <a class="username" href="<?=$this->user->url ?>"><?php echo $this->user->fullName ?></a>
             <?php if ($this->user->getUserAddress()->country !== null): ?>
                 <div class="location">
                     <div class="flag flag-<?php echo $this->user->getUserAddress()->country->iso_code; ?>"></div>

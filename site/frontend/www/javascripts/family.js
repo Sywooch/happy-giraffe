@@ -170,22 +170,20 @@ var Family = {
         if ($(el).hasClass('checked')) {
             if ($('#baby-1 input.baby-id').val() != '') {
                 if (confirm("Вы действительно хотите удалить детей?")) {
-                    if (checked) {
-                        $.post('/family/removeAllBabies/', function (response) {
-                            if (response.status) {
-                                $(el).removeClass('checked');
-                                $(el).parents('.radiogroup').find('input').removeAttr('checked');
-                                Family.clearBaby(1);
-                                Family.clearBaby(2);
-                                Family.clearBaby(3);
+                    $.post('/family/removeAllBabies/', function (response) {
+                        if (response.status) {
+                            $(el).removeClass('checked');
+                            $(el).parents('.radiogroup').find('input').removeAttr('checked');
+                            Family.clearBaby(1);
+                            Family.clearBaby(2);
+                            Family.clearBaby(3);
 
-                                Family.baby_count = 0;
-                                Family.updateWidget();
-                            }
-                        }, 'json');
-                    }
+                            Family.baby_count = 0;
+                            Family.updateWidget();
+                        }
+                    }, 'json');
                 }
-            }else {
+            } else {
                 $(el).removeClass('checked');
                 $(el).parents('.radiogroup').find('input').removeAttr('checked');
 
@@ -243,7 +241,7 @@ var Family = {
         $('#baby-' + i + ' div.comment').hide();
         $('#baby-' + i + ' div.comment textarea').val('');
         $('#baby-' + i + ' .photos').hide();
-        $('#baby-' + i + ' .photos li').each(function(index, Element){
+        $('#baby-' + i + ' .photos li').each(function (index, Element) {
             if (!$(this).hasClass('add'))
                 $(this).remove();
         });

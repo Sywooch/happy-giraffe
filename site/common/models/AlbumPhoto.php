@@ -143,8 +143,6 @@ class AlbumPhoto extends CActiveRecord
             $signal->save();
 
             if (!empty($this->album_id)) {
-                //добавляем баллы
-                Yii::import('site.frontend.modules.scores.models.*');
                 UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
             }
         }
@@ -157,7 +155,6 @@ class AlbumPhoto extends CActiveRecord
         $this->save();
         UserSignal::closeRemoved($this);
         if (!empty($this->album_id)) {
-            Yii::import('site.frontend.modules.scores.models.*');
             UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
         }
         return false;

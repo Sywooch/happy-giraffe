@@ -243,8 +243,6 @@ class CommunityContent extends CActiveRecord
     {
         self::model()->updateByPk($this->id, array('removed' => 1));
 
-        //вычитаем баллы
-        Yii::import('site.frontend.modules.scores.models.*');
         if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 0) {
             UserScores::removeScores($this->author_id, ScoreActions::ACTION_FIRST_BLOG_RECORD, 1, $this);
         }else
@@ -304,8 +302,6 @@ class CommunityContent extends CActiveRecord
             }
         }
         if ($this->isNewRecord){
-            //добавляем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
             if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {
                 UserScores::addScores($this->author_id, ScoreActions::ACTION_FIRST_BLOG_RECORD, 1, $this);
             }else
@@ -316,17 +312,11 @@ class CommunityContent extends CActiveRecord
 
     public function getUrl()
     {
-        if (! $this->isFromBlog) {
-            return Yii::app()->createAbsoluteUrl('community/view', array(
-                'community_id' => $this->rubric->community->id,
-                'content_type_slug' => $this->type->slug,
-                'content_id' => $this->id,
-            ));
-        } else {
-            return Yii::app()->createAbsoluteUrl('/blog/view', array(
-                'content_id' => $this->id,
-            ));
-        }
+        return Yii::app()->createAbsoluteUrl('community/view', array(
+            'community_id' => $this->rubric->community->id,
+            'content_type_slug' => $this->type->slug,
+            'content_id' => $this->id,
+        ));
     }
 
     public function scopes()

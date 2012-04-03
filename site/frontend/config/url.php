@@ -62,8 +62,9 @@ return array(
 
         'signal' => 'signal/default/index',
         'score' => 'scores/default/index',
-        'rss' => '/site/rss',
+        'rss' => 'site/rss',
         '/contest' => '/site/contest',
+        'search' => 'site/search',
 
         array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 

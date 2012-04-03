@@ -123,8 +123,6 @@ class ContestWork extends CActiveRecord
     public function afterSave()
     {
         if ($this->isNewRecord){
-            //добавляем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
             UserScores::addScores($this->user_id, ScoreActions::ACTION_CONTEST_PARTICIPATION, 1, $this);
         }
 

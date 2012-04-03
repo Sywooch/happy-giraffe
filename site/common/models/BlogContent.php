@@ -9,4 +9,11 @@ class BlogContent extends CommunityContent
     {
         return parent::model($className);
     }
+
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('/blog/view', array(
+            'content_id' => $this->id,
+        ));
+    }
 }

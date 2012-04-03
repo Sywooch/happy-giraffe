@@ -1,8 +1,7 @@
-<?php if ((count($this->user->babies) > 0) || (
-    User::relationshipStatusHasPartner($this->user->relationship_status)
-        && isset($this->user->partner))
+<?php if ((count($user->realBabies) > 0) || (
+    User::relationshipStatusHasPartner($user->relationship_status)
+        && !empty($user->partner->name))
 ):?>
-
 <div class="user-family">
     <div class="t"></div>
     <div class="c">
@@ -26,7 +25,7 @@
             <?php foreach ($user->babies as $baby): ?>
             <?php if (empty($baby->type)):?>
                 <li>
-                    <big><?php echo $baby->name ?>, <span><?php echo $baby->getTextAge(false) ?></span></big>
+                    <big><?php echo $baby->name ?><span><?php if (!empty($baby->birthday)) echo ', '.$baby->getTextAge(false) ?></span></big>
                     <?php if (!empty($baby->notice)):?>
                     <div class="comment purple">
                         <?= $baby->notice ?>

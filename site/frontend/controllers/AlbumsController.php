@@ -227,36 +227,45 @@ class AlbumsController extends Controller
         $model->save();
     }
 
-    public function actionCrop()
+    private function saveImage($val)
     {
-        if(!isset($_POST['val']))
-            Yii::app()->end();
-        $val = $_POST['val'];
-
         if(is_numeric($val))
         {
             $model = AlbumPhoto::model()->findByPk($val);
             if(!$model)
                 Yii::app()->end();
             $src = $model->getPreviewUrl(300, 185, Image::WIDTH);
-            $path = $model->originalPath;
         }
         else
         {
             $model = new AlbumPhoto;
             $model->fs_name = $val;
             $src = $model->templateUrl;
-            $path = $model->templatePath;
         }
+        return array(
+            'src' => $src,
+            'id' => $model->primaryKey,
+        );
+    }
 
-        $error = false;
-        $image = new Imagick($path);
-        /*if($image->getimagewidth() < 240 || $image->getimageheight() < 240)
-            $*/
+    public function actionCommentPhoto()
+    {
+        if(!$val = Yii::app()->request->getPost('val'))
+            Yii::app()->end();
+        $params = $this->saveImage($val);
+        echo CJSON::encode($params);
+        Yii::app()->end();
+    }
 
+    public function actionCrop()
+    {
+        if(!$val = Yii::app()->request->getPost('val'))
+            Yii::app()->end();
+
+        $params = $this->saveImage($val);
 
         $this->renderPartial('site.frontend.widgets.fileAttach.views._crop', array(
-            'src' => $src,
+            'src' => $params['src'],
             'val' => $val,
         ));
         Yii::app()->end();

@@ -60,9 +60,10 @@ class CommunityCommand extends CConsoleCommand
         require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
 
         $criteria = new CDbCriteria;
-        $criteria->addInCondition('t.id', array(
-            13569,
-        ));
+        $criteria->compare('by_happy_giraffe', true);
+        //$criteria->addInCondition('t.id', array(
+        //    910,
+        //));
 
         $contents = CommunityContent::model()->full()->findAll($criteria);
 
@@ -77,35 +78,58 @@ class CommunityCommand extends CConsoleCommand
         $html = new simple_html_dom();
         $html->load($text);
 
-        //убираем спаны
+        //заменяем крупные спаны на заголовки
         $spans = $html->find('span');
         foreach ($spans as $s) {
-            $s->outertext = $s->innertext;
+            if (preg_match('/font-size:\s?(\d+)px;/', $s->style, $matches)) {
+                $fontSize = $matches[1];
+                if ($fontSize >= 18) {
+                    $s->tag = 'h2';
+                }
+            }
         }
 
-        //обнуляем стили параграфов
-        $paragraphs = $html->find('p');
-        foreach ($paragraphs as $p) {
-            $p->style = null;
+        //убираем длинные заголовки
+        $headers = $html->find('h2, h3');
+        foreach ($headers as $h) {
+            if (mb_strlen($h->plaintext, 'utf-8') > 64) {
+                $h->tag = 'p';
+            }
         }
 
-        //чистим заголовки
+        //вычищаем всё из заголовков
         $headers = $html->find('h2, h3');
         foreach ($headers as $h) {
             $h->innertext = $h->plaintext;
-            if (strlen($h->innertext) > 64) {
-                $h->tag = 'em';
+        }
+
+        //убираем спаны
+        for ($i = 0; $i < 5; $i++) {
+            $spans = $html->find('span');
+            foreach ($spans as $s) {
+                $s->outertext = $s->innertext;
             }
         }
 
-        /*$elements = $html->find('*');
-        foreach ($elements as $e) {
-            $e->innertext = trim($e->innertext);
+        //убираем фонты
+        $fonts = $html->find('font');
+        foreach ($fonts as $s) {
+            $s->outertext = $s->innertext;
+        }
 
-            if ($e->innertext == '') {
-                $e->outertext = '';
+        //чистим оставшееся
+        for ($i = 0; $i < 5; $i++) {
+            $elements = $html->find('*');
+            foreach ($elements as $e) {
+                if ($e->tag != 'img') {
+                    $e->style = null;
+                    $e->innertext = trim($e->innertext);
+                    if ($e->plaintext == '') {
+                        $e->outertext = '';
+                    }
+                }
             }
-        }*/
+        }
 
         return $html->save();
     }

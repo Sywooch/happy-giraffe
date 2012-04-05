@@ -11,8 +11,8 @@
 
     <div class="row">
         <label>Название ссылки</label><br>
-        <input class="link-name" type="text" placeholder="Введите название">
+        <input class="link-name" type="text" placeholder="Введите название" value="<?=$text ?>">
     </div>
-    <div class="bottom"><a href="" class="btn btn-green-medium" id="add-mylink"><span><span>Ok</span></span></a></div>
+    <div class="bottom"><a href="" class="btn btn-green-medium" id="add-mylink" onclick="epic_func_mylink(this);return false;"><span><span>Ok</span></span></a></div>
 
 </div>

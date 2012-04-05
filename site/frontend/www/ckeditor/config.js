@@ -14,7 +14,7 @@ CKEDITOR.editorConfig = function (config) {
     config.filebrowserImageUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
     config.filebrowserFlashUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
 
-    config.extraPlugins = 'cuttable,attach,avarageheader,smallheader';
+    config.extraPlugins = 'cuttable,attach,avarageheader,smallheader,mylink';
 
     config.smiley_path = '/images/widget/smiles/';
     config.smiley_images = ['acute (1).gif', 'acute.gif', 'air_kiss.gif', 'angel.gif', 'bad.gif', 'beach.gif',
@@ -68,4 +68,6 @@ CKEDITOR.editorConfig = function (config) {
         ];
 
     CKEDITOR.config.format_tags = 'p;h2;h3';
+
+    config.removePlugins = 'elementspath';
 };

@@ -25,7 +25,17 @@ CKEDITOR.plugins.add('smallheader', {
 
         editor.ui.addButton('SmallHeader', {
 			label : 'Средний заголовок',
-			command : 'smallheader'
+			command : 'smallheader',
+            onRender:function () {
+                editor.on('selectionChange', function (ev) {
+                    if (ev.data.element.getName() == 'h3') {
+                        editor.getCommand('smallheader').setState(CKEDITOR.TRISTATE_ON);
+                        return;
+                    }
+
+                    editor.getCommand('smallheader').setState(CKEDITOR.TRISTATE_OFF);
+                });
+            }
 		});
 	}
 });

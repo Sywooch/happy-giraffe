@@ -6,7 +6,7 @@
 CKEDITOR.editorConfig = function (config) {
     CKEDITOR.lang.languages['ru-hg'] = 1;
     config.language = 'ru-hg';
-
+    config.skin = 'hgru';
     config.filebrowserBrowseUrl = '/ckfinder/ckfinder.html';
     config.filebrowserImageBrowseUrl = '/ckfinder/ckfinder.html?Type=Images';
     config.filebrowserFlashBrowseUrl = '/ckfinder/ckfinder.html?Type=Flash';
@@ -14,7 +14,8 @@ CKEDITOR.editorConfig = function (config) {
     config.filebrowserImageUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
     config.filebrowserFlashUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
 
-    config.extraPlugins = 'cuttable';
+    config.extraPlugins = 'cuttable,attach,avarageheader,smallheader,mylink';
+    config.toolbarCanCollapse = false;
 
     config.smiley_path = '/images/widget/smiles/';
     config.smiley_images = ['acute (1).gif', 'acute.gif', 'air_kiss.gif', 'angel.gif', 'bad.gif', 'beach.gif',
@@ -33,16 +34,13 @@ CKEDITOR.editorConfig = function (config) {
 
     config.toolbar_Main =
         [
-            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike' ] },
-            { name:'styles', items:[ 'Format', 'Font' ] },
-            { name:'colors', items:[ 'TextColor', 'BGColor' ] },
-            { name:'clipboard', items:[ 'Copy', 'Paste', '-', 'Undo', 'Redo' ] },
-            '/',
-            { name:'paragraph', items:[ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ] },
-            { name:'links', items:[ 'Link', 'Unlink' ] },
-            { name:'insert', items:[ 'Image' ] },
-            { name:'document', items:[ 'Source' ] },
-            { name:'cut', items:[ 'Cuttable' ] }
+            { name:'clipboard', items:[ 'Undo', 'Redo', '-' ] },
+            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'Avarageheader', 'SmallHeader' ] },
+            { name:'paragraph', items:[ 'NumberedList', 'BulletedList', '-' ] },
+            { name:'insert', items:[ 'Attach', 'Smiley', '-' ] },
+            { name:'links', items:[ 'MyLink', 'Unlink', '-' ] },
+            { name:'cut', items:[ 'Cuttable' ] },
+            { name:'document', items:[ 'Source' ] }
         ];
 
     config.toolbar_Chat =
@@ -70,7 +68,7 @@ CKEDITOR.editorConfig = function (config) {
             { name:'document', items:[ 'Source' ] }
         ];
 
-    CKEDITOR.config.format_tags = 'psmall;p;pbig;h2;h3';
-    config.format_psmall = { element:'p', attributes:{ 'style':'font-size: 10px;' } };
-    config.format_pbig = { element:'p', attributes:{ 'style':'font-size: 14px;' } };
+    CKEDITOR.config.format_tags = 'p;h2;h3';
+
+    config.removePlugins = 'elementspath';
 };

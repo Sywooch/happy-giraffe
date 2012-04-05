@@ -6,9 +6,10 @@
  * The followings are the available columns in table 'album_photos':
  * @property integer $id
  * @property string $author_id
- * @property string $album_id
+ * @property integer $album_id
  * @property string $file_name
  * @property string $fs_name
+ * @property string $title
  * @property string $previewUrl
  * @property string $originalUrl
  * @property string $created
@@ -152,7 +153,7 @@ class AlbumPhoto extends CActiveRecord
     public function beforeDelete()
     {
         $this->removed = 1;
-        $this->save();
+        $this->save(false);
         UserSignal::closeRemoved($this);
         if (!empty($this->album_id)) {
             UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
@@ -173,7 +174,7 @@ class AlbumPhoto extends CActiveRecord
         else {
             $this->fs_name = $this->file_name;
         }
-        if ($this->save()) {
+        if ($this->save(false)) {
             $this->saveFile(false, $temp);
             return true;
         }

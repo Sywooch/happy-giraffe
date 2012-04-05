@@ -49,6 +49,10 @@
 <?php
     $this->widget('zii.widgets.CBreadcrumbs', array(
         'links' => $this->breadcrumbs,
+        'htmlOptions' => array(
+            'id' => 'crumbs',
+            'class' => null,
+        ),
     ));
 ?>
 

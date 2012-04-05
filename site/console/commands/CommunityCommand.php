@@ -62,9 +62,11 @@ class CommunityCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria;
         $criteria->compare('by_happy_giraffe', true);
-        //$criteria->addInCondition('t.id', array(
-        //    973,
-        //));
+        /*$criteria->addInCondition('t.id', array(
+            //912,
+            965,
+            //974,
+        ));*/
 
         $contents = CommunityContent::model()->full()->findAll($criteria);
 
@@ -78,32 +80,37 @@ class CommunityCommand extends CConsoleCommand
     {
         $doc = phpQuery::newDocumentXHTML($html, $charset = 'utf-8');
 
+        $maxFontSize = 18;
+        foreach (pq('span[style]') as $s) {
+            if (preg_match('/font-size:?(\d+)px;/', pq($s)->attr('style'), $matches)) {
+                $fontSize = $matches[1];
+                if ($fontSize > $maxFontSize) {
+                    $maxFontSize = $fontSize;
+                }
+            }
+        }
+
         //проставляем заголовки
         foreach (pq('span') as $s) {
             if (preg_match('/font-size:?(\d+)px;/', pq($s)->attr('style'), $matches)) {
                 $fontSize = $matches[1];
-                if ($fontSize >= 18 && mb_strlen(pq($s)->text(), 'utf-8') <= 70) {
+                if ($fontSize == $maxFontSize && mb_strlen(pq($s)->text(), 'utf-8') <= 70 && count(pq($s)->find('img')) == 0) {
                     pq($s)->replaceWith('<h2>'. pq($s)->html() . '</h2>');
                 }
             }
         }
 
-        foreach (pq(':header, p, strong, em, u, s, li') as $e) {
+        //чистим атрибуты
+        foreach (pq('h2, h3, p, strong, em, u, s, li') as $e) {
             pq($e)->removeAttr('style');
         }
 
+        //чистим маркированные списки
         foreach (pq('li') as $l) {
             pq($l)->text(preg_replace('/^\s*-\s?/', '', pq($l)->text()));
         }
 
-        //убираем длинные заголовки
-        //foreach (pq(':header') as $h) {
-        //    if (mb_strlen(pq($h)->text(), 'utf-8') > 80) {
-        //        pq($h)->replaceWith('<p>' . pq($h)->html() . '</p>');
-        //    }
-        //}
-
-        //вычищаем всё из заголовков
+        //вычищаем всё из заголовков - РАБОТАЕТ ЧЕРЕЗ ЖОПУ
         foreach (pq('h2, h3') as $h) {
             pq($h)->html(pq($h)->text());
             if (count(pq($h)->parents()) > 0) {
@@ -118,6 +125,7 @@ class CommunityCommand extends CConsoleCommand
             }
         }
 
+        //убираем фонты
         foreach (pq('font') as $s) {
             pq($s)->replaceWith(pq($s)->html());
         }

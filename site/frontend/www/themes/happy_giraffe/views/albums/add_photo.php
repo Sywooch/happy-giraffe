@@ -39,12 +39,12 @@
             </ul>
         </div>
 
-        <div class="bottom" id="upload_button_wrapper"<?php echo !$album ? ' style="visibility: hidden;"' : '' ?>>
+        <div class="bottom<?php echo !$album ? ' disabled' : '' ?>" id="upload_button_wrapper">
             <?php
             $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget', array(
                 'album_id' => $album ? $album->id : false,
             ));
-            $file_upload->form();
+            $file_upload->form(false);
             $this->endWidget();
             ?>
         </div>

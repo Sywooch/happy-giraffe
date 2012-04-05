@@ -145,6 +145,10 @@ function initAttachForm() {
             var html = '<img src="' + params[0] + '" width="170" alt="" />' +
                 '<input type="hidden" name="fsn" value="' + params[1] + '" />' +
                 '<a class="remove" href="" onclick="return removeAttachPhoto();"></a>';
+
+            $('#attach_content div.note').hide();
+            $('#attach_content div.photo_title').show();
+
             $('#upload_photo_container').html(html);
             $('#attach_form').hide();
             $('#save_attach_button').show();
@@ -156,6 +160,10 @@ function removeAttachPhoto() {
     $('#upload_photo_container').html('');
     $('#attach_form').show();
     $('#save_attach_button').hide();
+
+    $('#attach_content div.note').show();
+    $('#attach_content div.photo_title').hide();
+
     return false;
 }
 

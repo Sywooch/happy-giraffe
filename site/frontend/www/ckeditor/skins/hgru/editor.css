@@ -20,7 +20,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 .cke_skin_hgru .cke_browser_opera .cke_editor{display:table;}
 .cke_skin_hgru .cke_top,.cke_skin_hgru .cke_bottom,.cke_shared .cke_skin_hgru{padding:5px 7px;background-color:#cdecff;border:1px solid #cdecff;border-top:0;border-bottom:0;}
 .cke_skin_hgru .cke_rtl .cke_top{border-left:solid 1px #696969;border-right:solid 1px #fafaf5;}
-.cke_skin_hgru .cke_bottom {}
+.cke_skin_hgru .cke_bottom {display:none !important;}
 .cke_skin_hgru .cke_contents{background-color:white;padding:0 1px;}
 .cke_skin_hgru .cke_focus{outline:auto 5px -webkit-focus-ring-color;}
 .cke_skin_hgru textarea.cke_source{font-family:'Courier New',Monospace;font-size:small;background-color:#fff;white-space:pre;}

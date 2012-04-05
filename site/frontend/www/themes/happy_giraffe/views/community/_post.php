@@ -31,7 +31,7 @@
     </div>
 
     <?php if (! $full): ?>
-        <div class="entry-content">
+        <div class="entry-content wysiwyg-content">
             <?php
                 switch ($data->type->slug)
                 {
@@ -46,7 +46,7 @@
             <div class="clear"></div>
         </div>
     <?php else: ?>
-        <div class="entry-content">
+        <div class="entry-content wysiwyg-content">
             <?
             switch ($data->type->slug)
             {

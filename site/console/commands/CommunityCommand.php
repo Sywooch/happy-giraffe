@@ -100,7 +100,7 @@ class CommunityCommand extends CConsoleCommand
         }
 
         //чистим атрибуты
-        foreach (pq('h2, h3, p, strong, em, u, s, li') as $e) {
+        foreach (pq('h2, h3, p, strong, b, em, u, s, li') as $e) {
             pq($e)->removeAttr('style');
         }
 
@@ -130,8 +130,7 @@ class CommunityCommand extends CConsoleCommand
         }
 
         //убираем длинные стронги
-        foreach (pq('strong') as $s) {
-            echo pq($s)->text() . "\n" . mb_strlen(trim(pq($s)->parent('p')->text()), 'utf-8') . "\n" . mb_strlen(trim(pq($s)->text()), 'utf-8');
+        foreach (pq('strong, b') as $s) {
             if (mb_strlen(pq($s)->text(), 'utf-8') > 70 || mb_strlen(trim(pq($s)->parent('p')->text()), 'utf-8') == mb_strlen(trim(pq($s)->text()), 'utf-8')) {
                 pq($s)->replaceWith(pq($s)->html());
             }

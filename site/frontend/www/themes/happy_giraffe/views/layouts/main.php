@@ -156,7 +156,7 @@
 
                 </div>
 
-                <div class="nav">
+                <div class="nav"><noindex>
                 <ul class="clearfix width-2">
                 <!--<li class="morning">
 							<a href=""><i class="text"></i></a>
@@ -408,7 +408,7 @@
                     </div>
                 </li>
                 </ul>
-                </div>
+                </div></noindex>
 
             </div>
 
@@ -425,7 +425,7 @@
     <div id="footer" class="wrapper clearfix">
 
         <div class="a-right">
-            <a>Политика конфиденциальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a>
+            <a>Политика конфиденциальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a> &nbsp; | &nbsp; <?=CHtml::link('Map', array('/community/map'))?>
         </div>
 
         <div class="copy">

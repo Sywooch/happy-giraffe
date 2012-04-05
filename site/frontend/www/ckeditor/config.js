@@ -6,7 +6,7 @@
 CKEDITOR.editorConfig = function (config) {
     CKEDITOR.lang.languages['ru-hg'] = 1;
     config.language = 'ru-hg';
-
+    config.skin = 'hgru';
     config.filebrowserBrowseUrl = '/ckfinder/ckfinder.html';
     config.filebrowserImageBrowseUrl = '/ckfinder/ckfinder.html?Type=Images';
     config.filebrowserFlashBrowseUrl = '/ckfinder/ckfinder.html?Type=Flash';
@@ -15,6 +15,7 @@ CKEDITOR.editorConfig = function (config) {
     config.filebrowserFlashUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
 
     config.extraPlugins = 'cuttable';
+    config.extraPlugins = 'avarageheader';
 
     config.smiley_path = '/images/widget/smiles/';
     config.smiley_images = ['acute (1).gif', 'acute.gif', 'air_kiss.gif', 'angel.gif', 'bad.gif', 'beach.gif',
@@ -33,16 +34,13 @@ CKEDITOR.editorConfig = function (config) {
 
     config.toolbar_Main =
         [
-            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike' ] },
-            { name:'styles', items:[ 'Format', 'Font' ] },
-            { name:'colors', items:[ 'TextColor', 'BGColor' ] },
-            { name:'clipboard', items:[ 'Copy', 'Paste', '-', 'Undo', 'Redo' ] },
-            '/',
-            { name:'paragraph', items:[ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ] },
-            { name:'links', items:[ 'Link', 'Unlink' ] },
-            { name:'insert', items:[ 'Image' ] },
-            { name:'document', items:[ 'Source' ] },
-            { name:'cut', items:[ 'Cuttable' ] }
+            { name:'clipboard', items:[ 'Undo', 'Redo', '-' ] },
+            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'avarageheader' ] },
+            { name:'paragraph', items:[ 'NumberedList', 'BulletedList', '-' ] },
+            { name:'insert', items:[ 'Image', 'Smiley', '-' ] },
+            { name:'links', items:[ 'Link', 'Unlink', '-' ] },
+            { name:'cut', items:[ 'Cuttable' ] },
+            { name:'document', items:[ 'Source' ] }
         ];
 
     config.toolbar_Chat =

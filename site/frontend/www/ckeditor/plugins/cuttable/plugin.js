@@ -14,7 +14,7 @@ CKEDITOR.plugins.add('cuttable', {
 		editor.ui.addButton('Cuttable', {
 			label : 'Создать Cut',
 			command : 'cuttable',
-			icon: '/ckeditor/plugins/cuttable/images/cuttable.gif'
+			icon: '/ckeditor/plugins/cuttable/images/cuttable.png'
 		});
 
 		CKEDITOR.dialog.add('cuttable', this.path + 'dialogs/cuttable.js');

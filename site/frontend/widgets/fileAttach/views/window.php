@@ -1,7 +1,7 @@
 <div class="popup" id="photoPick">
     <a onclick="$.fancybox.close();" class="popup-close" href="javascript:void(0);">закрыть</a>
     <div class="title"><?php echo $this->title; ?></div>
-    <div class="nav">
+    <div class="nav default-nav ajax-nav">
         <ul id="file_attach_menu">
             <li class="active">
                 <?php echo CHtml::link('С компьютера', array('/albums/attach', 'entity' => $this->entity, 'entity_id' => $this->entity_id, 'mode' => 'browse'), array(

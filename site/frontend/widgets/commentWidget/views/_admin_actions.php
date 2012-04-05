@@ -26,7 +26,7 @@
     <?php if($this->actions): ?>
     <a href="javascript:void(0);" onclick="return Comment.response(this);">Ответить</a>
     &nbsp;
-    <a href="javascript:void(0);" class="quote" onclick="return Comment.quote(this);">С цитатой</a>
+    <a href="javascript:void(0);" class="quote-link" onclick="return Comment.quote(this);">С цитатой</a>
     <?php endif; ?>
 
 </div>

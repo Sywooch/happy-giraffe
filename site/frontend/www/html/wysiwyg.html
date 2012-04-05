@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
@@ -13,11 +13,14 @@
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
 	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 	<script type="text/javascript">
 	//<![CDATA[
@@ -37,6 +40,7 @@
 
 	//]]>
 	</script>
+	
 	
 </head>
 <body class="body-club">
@@ -173,7 +177,7 @@
 						<div class="input">
 							<input type="text" />
 						</div>
-						<button class="btn btn-green-medium"><span><span>Поиск</span></span></button>					
+						<button class="btn btn-green-medium disabled"><span><span>Поиск</span></span></button>					
 					</div>
 					
 					<div class="logo-box">
@@ -442,72 +446,15 @@
 		
 		<div id="content" class="clearfix">
 			
-			<div class="add-nav default-nav clearfix">
-				<div class="content-title">Добавить в клуб:</div>
-				<ul>
-					<li class="active"><a href="">Статью</a></li>
-					<li><a href="">Видео</a></li>
-				</ul>
-			</div>
+			<textarea cols="80" id="editor" name="editor" rows="10"></textarea>
 			
-			<div class="main">
-				<div class="main-in">
-					
-					<form>
-						<div class="form row-form clearfix">
-							
-							<div class="row clearfix">
-								<div class="row-title">Заголовок:</div>
-								<div class="row-elements">
-									<input type="text" class="w-500"/>
-								</div>								
-							</div>
-							
-							<div class="row clearfix">
-								<div class="row-title">Текст:</div>
-								<div class="row-elements">
-									<textarea cols="80" id="editor" name="editor" rows="10"></textarea>
-								</div>								
-							</div>
-							
-							<div class="row clearfix">
-								<div class="row-title">Гре разместить:</div>
-								<div class="row-elements">
-									<div class="select-box">
-										<span class="subtitle">Клуб</span>
-										<select class="chzn w-200">
-											<option>Клуб 1</option>
-											<option>Клуб 2</option>
-											<option>Клуб 3</option>
-										</select>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<span class="subtitle">Рубрика</span>
-										<select class="chzn w-200">
-											<option>Рубрика 1</option>
-											<option>Рубрика 2</option>
-											<option>Рубрика 3</option>
-										</select>										
-									</div>
-								</div>
-							</div>
-							
-							<div class="row row-buttons">								
-								<button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
-								<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>
-								<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>								
-							</div>
-							
-						</div>
-					</form>
-					
-				</div>
-			</div>
+			<a href="#wysiwygAddLink" class="fancy">Визивиг: создание ссылки</a><br/>
 			
-			<div class="side-left">
+			<a href="#wysiwygRemoveLink" class="fancy">Визивиг: удаление ссылки</a><br/>
 			
-				sidebar
-				
-			</div>
+			<a href="#photoPick" class="fancy">Визивиг: вставка изображения, шаг 1</a><br/>
+			
+			<a href="#photoPick.v2" class="fancy">Визивиг: вставка изображения, шаг 2</a><br/>
 			
 		</div>  	
 		
@@ -528,6 +475,7 @@
 	</div>
 	
 <div style="display:none">
+	
 	<div id="login" class="popup">
 		
 		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
@@ -580,6 +528,202 @@
 		</form>
 		
 	</div>
+	
+	<div id="wysiwygAddLink" class="popup">
+			
+		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
+		
+		<div class="title">Вставить ссылку</div>
+		
+		<div class="row">
+			<label>Адрес ссылки</label><br/>
+			<input type="text" placeholder="Вставьте ссылку" />
+		</div>
+		
+		<div class="row">
+			<label>Название ссылки</label><br/>
+			<input type="text" placeholder="Введите название" />
+		</div>	
+		<div class="bottom"><a href="" class="btn btn-green-medium"><span><span>Ok</span></span></a></div>
+			
+	</div>
+	
+	<div id="wysiwygRemoveLink" class="popup">
+			
+		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
+		
+		
+		<br/>
+		
+		<div class="title">Удалить ссылку?</div>		
+		
+		<div class="bottom"><a href="" class="btn btn-green-medium"><span><span>Ok</span></span></a></div>
+			
+	</div>
+	
+	<div id="photoPick" class="popup">
+		
+		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
+		
+		<div class="title">Загрузить изображение</div>
+		
+		<div class="nav default-nav ajax-nav">
+			<ul>
+				<li class="active"><a href="">С компьютера</a></li>
+				<li><a href="">Из моих альбомов</a></li>
+			</ul>
+		</div>
+		
+		<form>
+			<div class="form">
+				<div class="photo-upload clearfix">
+					
+					<div class="photo">
+						<div class="in">
+							<div class="file-fake">
+								<button class="btn btn-orange"><span><span>Обзор...</span></span></button>
+								<input type="file" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="note">Загрузите файл<br/>(jpg, gif, png не более 4 МБ)</div>
+					
+				</div>
+				
+				<div class="photo-upload clearfix">
+					
+					<div class="photo">
+						<div class="in">
+							<img src="/images/example/ex3.jpg" />
+						</div>
+						<a href="" class="remove"></a>
+					</div>
+					
+					<div class="note">
+						
+						<label>Название изображения</label><br/>
+						<input type="text" placeholder="Введите название" />
+						
+					</div>
+					
+				</div>
+				
+				<div class="form-bottom">
+					
+					<button class="btn btn-green-medium"><span><span>Продолжить</span></span></button>
+				</div>
+				
+			</div>
+		</form>
+		
+	</div>
+	
+	<div id="photoPick" class="popup v2">
+		
+		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
+		
+		<div class="title">Загрузить изображение</div>
+		
+		<div class="nav default-nav ajax-nav">
+			<ul>
+				<li><a href="">С компьютера</a></li>
+				<li class="active"><a href="">Из моих альбомов</a></li>
+			</ul>
+		</div>
+		
+		<div class="nav v-nav default-v-nav">
+			<ul>
+				<li class="active">
+					<div class="in">
+						<a href="">Отдых в Турции</a>
+						<span class="tale"><img src="/images/default_v_nav_active.png"></span>
+					</div>
+				</li>
+				<li>
+					<div class="in">
+						<a href="">Поездка на Алтай</a>
+					</div>
+				</li>
+				<li>
+					<div class="in">
+						<a href="">Домашние фото</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+		<div id="gallery">
+
+			<div class="gallery-photos clearfix">
+
+				<ul>
+					<li>
+						<table>
+							<tr>
+								<td class="img">
+									<div>
+										<a href=""><img src="/images/example/ex1.png" /></a>
+										<div class="contest-send">
+											<a href="" class="btn btn-green-medium"><span><span>Выбрать</span></span></a>
+										</div>
+									</div>									
+								</td>
+							</tr>
+							<tr class="rank"><td><span>117</span> баллов</td></tr>
+							<tr class="title">
+								<td align="center"><div>Наш дайвинг</div></td>
+							</tr>
+
+						</table>
+					</li>
+					<li>
+						<table>
+							<tr>
+								<td class="img">
+									<div>
+										<a href=""><img src="/images/example/ex2.png" /></a>
+										<div class="contest-send">
+											<a href="" class="btn btn-green-medium"><span><span>Выбрать</span></span></a>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr class="rank"><td><span>7</span> баллов</td></tr>
+							<tr class="title">
+								<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
+							</tr>
+
+						</table>
+					</li>
+					<li>
+						<table>
+							<tr>
+								<td class="img">
+									<div>
+										<a href=""><img src="/images/example/ex3.jpg" /></a>
+										<div class="contest-send">
+											<a href="" class="btn btn-green-medium"><span><span>Выбрать</span></span></a>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr class="rank"><td><span>17</span> баллов</td></tr>
+							<tr class="title">
+								<td align="center"><div>Наш дайвинг</div></td>
+							</tr>
+
+						</table>
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+	</div>
+	
 	
 </div>
 </body>

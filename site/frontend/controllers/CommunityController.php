@@ -25,7 +25,7 @@ class CommunityController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify'),
                 'users'=>array('*'),
             ),
             array('allow',
@@ -98,7 +98,7 @@ class CommunityController extends Controller
     {
         $params = array_filter(CMap::mergeArray(
             array(
-                'community_id' => $this->community->id,
+                'community_id' => $this->actionParams['community_id'],
                 'rubric_id' => isset($this->actionParams['rubric_id']) ? $this->actionParams['rubric_id'] : null,
                 'content_type_slug' => isset($this->actionParams['content_type_slug']) ? $this->actionParams['content_type_slug'] : null,
             ),
@@ -126,7 +126,7 @@ class CommunityController extends Controller
         $this->rubric_id = $content->rubric->id;
         $this->content_type_slug = $content_type_slug;
 
-        $this->pageTitle = (! empty($content->meta_title)) ? $content->meta_title : $this->pageTitle = $content->name;
+        $this->pageTitle = (empty($content->meta_title)) ? $content->name : $content->name . ' \\ ' . $content->meta_title;
 
         if ($content->author_id == Yii::app()->user->id) {
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
@@ -572,5 +572,18 @@ class CommunityController extends Controller
         } else {
             $this->redirect(Yii::app()->request->urlReferrer);
         }
+    }
+
+    public function actionPurify()
+    {
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 'by_happy_giraffe = 1',
+            ),
+        ));
+
+        $this->render('purify', array(
+            'dp' => $dp,
+        ));
     }
 }

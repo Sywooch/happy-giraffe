@@ -56,13 +56,15 @@ class CommunityCommand extends CConsoleCommand
     public function actionPurify()
     {
         Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery.phpQuery');
         Yii::import('site.frontend.helpers.*');
         require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
 
         $criteria = new CDbCriteria;
-        $criteria->addInCondition('t.id', array(
-            13569,
-        ));
+        $criteria->compare('by_happy_giraffe', true);
+        //$criteria->addInCondition('t.id', array(
+        //    973,
+        //));
 
         $contents = CommunityContent::model()->full()->findAll($criteria);
 
@@ -72,40 +74,114 @@ class CommunityCommand extends CConsoleCommand
         }
     }
 
-    private function _purify($text)
+    private function _purify($html)
+    {
+        $doc = phpQuery::newDocumentXHTML($html, $charset = 'utf-8');
+
+        //проставляем заголовки
+        foreach (pq('span') as $s) {
+            if (preg_match('/font-size:?(\d+)px;/', pq($s)->attr('style'), $matches)) {
+                $fontSize = $matches[1];
+                if ($fontSize >= 18 && mb_strlen(pq($s)->text(), 'utf-8') <= 70) {
+                    pq($s)->replaceWith('<h2>'. pq($s)->html() . '</h2>');
+                }
+            }
+        }
+
+        foreach (pq(':header, p, strong, em, u, s, li') as $e) {
+            pq($e)->removeAttr('style');
+        }
+
+        foreach (pq('li') as $l) {
+            pq($l)->text(preg_replace('/^\s?-\s?/', '', pq($l)->text()));
+        }
+
+        //убираем длинные заголовки
+        //foreach (pq(':header') as $h) {
+        //    if (mb_strlen(pq($h)->text(), 'utf-8') > 80) {
+        //        pq($h)->replaceWith('<p>' . pq($h)->html() . '</p>');
+        //    }
+        //}
+
+        //вычищаем всё из заголовков
+        foreach (pq('h2, h3') as $h) {
+            pq($h)->html(pq($h)->text());
+            if (count(pq($h)->parents()) > 0) {
+                pq($h)->parent(':first')->replaceWith(pq($h));
+            }
+        }
+
+        //убираем спаны
+        while (count(pq('span')) > 0) {
+            foreach (pq('span') as $s) {
+                pq($s)->replaceWith(pq($s)->html());
+            }
+        }
+
+        foreach (pq('font') as $s) {
+            pq($s)->replaceWith(pq($s)->html());
+        }
+
+        return $doc;
+    }
+
+    private function _purifyOld($text)
     {
         $html = new simple_html_dom();
         $html->load($text);
 
-        //убираем спаны
+        //заменяем крупные спаны на заголовки
         $spans = $html->find('span');
         foreach ($spans as $s) {
-            $s->outertext = $s->innertext;
+            if (preg_match('/font-size:\s?(\d+)px;/', $s->style, $matches)) {
+                $fontSize = $matches[1];
+                if ($fontSize >= 18) {
+                    $s->tag = 'h2';
+                }
+            }
         }
 
-        //обнуляем стили параграфов
-        $paragraphs = $html->find('p');
-        foreach ($paragraphs as $p) {
-            $p->style = null;
+        //убираем длинные заголовки
+        $headers = $html->find('h2, h3');
+        foreach ($headers as $h) {
+            if (mb_strlen($h->plaintext, 'utf-8') > 64) {
+                $h->tag = 'p';
+            }
         }
 
-        //чистим заголовки
+        //вычищаем всё из заголовков
         $headers = $html->find('h2, h3');
         foreach ($headers as $h) {
             $h->innertext = $h->plaintext;
-            if (strlen($h->innertext) > 64) {
-                $h->tag = 'em';
+        }
+
+        //убираем спаны
+        for ($i = 0; $i < 5; $i++) {
+            $spans = $html->find('span');
+            foreach ($spans as $s) {
+                $s->outertext = $s->innertext;
             }
         }
 
-        /*$elements = $html->find('*');
-        foreach ($elements as $e) {
-            $e->innertext = trim($e->innertext);
+        //убираем фонты
+        $fonts = $html->find('font');
+        foreach ($fonts as $s) {
+            $s->outertext = $s->innertext;
+        }
 
-            if ($e->innertext == '') {
-                $e->outertext = '';
+        //чистим оставшееся
+        for ($i = 0; $i < 5; $i++) {
+            $elements = $html->find('*');
+            foreach ($elements as $e) {
+                if ($e->tag != 'img') {
+                    $e->style = null;
+                    $e->innertext = trim($e->innertext);
+                    if ($e->plaintext == '') {
+                        $e->outertext = '';
+                    }
+                }
             }
-        }*/
+        }
 
         return $html->save();
     }

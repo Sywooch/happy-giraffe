@@ -2,7 +2,6 @@ var AverageHeaderCommand = {
     exec:function (editor) {
         editor.focus();
         editor.fire('saveSnapshot');
-        console.log('111');
 
         var config = editor.config;
         var style = new CKEDITOR.style(config[ 'format_h2' ]),
@@ -27,25 +26,15 @@ CKEDITOR.plugins.add('avarageheader', {
         editor.ui.addButton('Avarageheader', {
             label:'Средний заголовок',
             command:'avarageheader',
-
             onRender:function () {
                 editor.on('selectionChange', function (ev) {
-                        var currentTag = this.getValue();
-                        var elementPath = ev.data.path;
-                        var style = new CKEDITOR.style(config[ 'format_h2' ])
-                        style._.enterMode = editor.config.enterMode;
-                        console.log('222');
+                    if (ev.data.element.getName() == 'h2') {
+                        editor.getCommand('avarageheader').setState(CKEDITOR.TRISTATE_ON);
+                        return;
+                    }
 
-                        if (style.checkActive(elementPath)) {
-                            if ('h2' != currentTag)
-                                this.setValue('h2', editor.lang.format[ 'tag_' + 'h2' ]);
-                            return;
-                        }
-
-                        // If no styles match, just empty it.
-                        this.setValue('');
-                    },
-                    this);
+                    editor.getCommand('avarageheader').setState(CKEDITOR.TRISTATE_OFF);
+                });
             }
         });
     }

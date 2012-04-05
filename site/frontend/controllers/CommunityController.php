@@ -98,7 +98,7 @@ class CommunityController extends Controller
     {
         $params = array_filter(CMap::mergeArray(
             array(
-                'community_id' => $this->community->id,
+                'community_id' => $this->actionParams['community_id'],
                 'rubric_id' => isset($this->actionParams['rubric_id']) ? $this->actionParams['rubric_id'] : null,
                 'content_type_slug' => isset($this->actionParams['content_type_slug']) ? $this->actionParams['content_type_slug'] : null,
             ),

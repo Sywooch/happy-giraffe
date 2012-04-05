@@ -23,5 +23,8 @@ CKEDITOR.plugins.add('attach', {
             command : 'attach',
             icon: '/ckeditor/plugins/cuttable/images/cuttable.gif'
         });
+    },
+    afterInit : function(editor) {
+        delete editor._.menuItems.image;
     }
 });

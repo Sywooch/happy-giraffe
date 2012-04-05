@@ -294,4 +294,12 @@ class SiteController extends Controller
     public function actionContest(){
          $this->render('contest');
     }
+
+    public function actionLink($text){
+        $this->renderPartial('link', compact('text'));
+    }
+
+    public function actionSmiles(){
+        $this->renderPartial('smiles');
+    }
 }

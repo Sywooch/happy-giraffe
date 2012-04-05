@@ -4,25 +4,25 @@ Comment = {
     seleted_text:null,
     save_url:null,
     toolbar:null,
-    saveCommentUrl : null,
-    entity : null,
-    entity_id : null,
-    getInstance : function() {
+    saveCommentUrl:null,
+    entity:null,
+    entity_id:null,
+    getInstance:function () {
         var instance = CKEDITOR.instances['Comment_text'];
-        if(instance)
+        if (instance)
             return instance;
         return false;
     },
-    createInstance : function() {
+    createInstance:function () {
         var instance = this.getInstance();
-        if(instance) {
+        if (instance) {
             instance.destroy(true);
         }
-        CKEDITOR.replace('Comment_text',{toolbar:this.toolbar});
+        CKEDITOR.replace('Comment_text', {toolbar:this.toolbar});
     },
     moveForm:function (container) {
         var instance = this.getInstance();
-        if(instance)
+        if (instance)
             instance.destroy(true);
         var form = $('#add_comment').clone(true);
         $('#add_comment').remove();
@@ -174,7 +174,7 @@ Comment = {
     }
 };
 
-function addMenuToggle(el){
+function addMenuToggle(el) {
     $(el).parents('.add-menu').find('ul').toggle();
     $(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
 }

@@ -25,7 +25,7 @@ class CommunityController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map'),
                 'users'=>array('*'),
             ),
             array('allow',
@@ -604,7 +604,7 @@ class CommunityController extends Controller
         ));
     }
 
-    public function actionPing()
+    public function actionPing2()
     {
         $key = '';
         $login = '';
@@ -628,5 +628,34 @@ class CommunityController extends Controller
         $ch = curl_init("http://site.yandex.ru/ping.xml");
         curl_setopt($ch, CURLOPT_POST, true);
 
+    }
+
+    public function actionPing()
+    {
+        $contents = CommunityContent::model()->findAllByAttributes(array(
+            'by_happy_giraffe' => true,
+        ), array(
+            'limit' => 100,
+            'order' => 'id ASC',
+        ));
+
+        foreach ($contents as $c) {
+            echo $c->url . '<br />';
+        }
+    }
+
+    public function actionMap()
+    {
+        $contents = CommunityContent::model()->findAllByAttributes(array(
+            'by_happy_giraffe' => true,
+        ), array(
+            'limit' => 100,
+            'offset' => 100,
+            'order' => 'id ASC',
+        ));
+
+        $this->render('map', array(
+            'contents' => $contents,
+        ));
     }
 }

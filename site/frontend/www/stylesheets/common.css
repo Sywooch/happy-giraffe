@@ -574,6 +574,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #upload-form #upload_button_wrapper.disabled .row-btn-left {background-image:url(/images/btn_browse_disabled.png);}
 #upload_button_wrapper.disabled .row-btn-left {background-image:url(/images/btn_browse_disabled.png);}
 
+#upload_button_wrapper #upload-button {display:none;}
+
 
 #album_upload_step_1 {overflow:hidden;}
 #album_upload_step_2 {overflow:hidden;}

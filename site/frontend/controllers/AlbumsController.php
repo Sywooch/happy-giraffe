@@ -264,6 +264,8 @@ class AlbumsController extends Controller
             $model = new AlbumPhoto;
             $model->file_name = $val;
             $model->author_id = Yii::app()->user->id;
+            if($title = Yii::app()->request->getPost('title'))
+                $model->title = CHtml::encode($title);
             $model->create(true);
         }
 
@@ -276,6 +278,7 @@ class AlbumsController extends Controller
         echo CJSON::encode(array(
             'src' => $model->getPreviewUrl(300, 185, Image::WIDTH),
             'id' => $model->primaryKey,
+            'title' => $model->title,
         ));
         Yii::app()->end();
     }

@@ -89,6 +89,11 @@ class CommunityController extends Controller
 
         $contents = CommunityContent::model()->getContents($community_id, $rubric_id, $content_type_slug);
 
+        $this->breadcrumbs = array(
+            'Клубы' => array('/community'),
+            $this->community->name,
+        );
+
         $this->render('list', array(
             'contents' => $contents,
         ));

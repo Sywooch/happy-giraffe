@@ -77,5 +77,11 @@ class CommentWidget extends CWidget
         Comment.entity_id='.$this->entity_id.';
         ';
         Yii::app()->clientScript->registerScript('Comment register script', $script);
+
+        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+            'model' => new Comment
+        ));
+        $fileAttach->registerScripts();
+        $this->endWidget();
     }
 }

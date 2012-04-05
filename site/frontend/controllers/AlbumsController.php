@@ -227,36 +227,68 @@ class AlbumsController extends Controller
         $model->save();
     }
 
-    public function actionCrop()
+    private function saveImage($val)
     {
-        if(!isset($_POST['val']))
-            Yii::app()->end();
-        $val = $_POST['val'];
-
         if(is_numeric($val))
         {
             $model = AlbumPhoto::model()->findByPk($val);
             if(!$model)
                 Yii::app()->end();
             $src = $model->getPreviewUrl(300, 185, Image::WIDTH);
-            $path = $model->originalPath;
         }
         else
         {
             $model = new AlbumPhoto;
             $model->fs_name = $val;
             $src = $model->templateUrl;
-            $path = $model->templatePath;
+        }
+        return array(
+            'src' => $src,
+            'id' => $model->primaryKey,
+        );
+    }
+
+    public function actionCommentPhoto()
+    {
+        if(!$val = Yii::app()->request->getPost('val'))
+            Yii::app()->end();
+
+        if(is_numeric($val))
+        {
+            $model = AlbumPhoto::model()->findByPk($val);
+            if(!$model)
+                Yii::app()->end();
+        }
+        else
+        {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            $model->create(true);
         }
 
-        $error = false;
-        $image = new Imagick($path);
-        /*if($image->getimagewidth() < 240 || $image->getimageheight() < 240)
-            $*/
+        $attach = new AttachPhoto;
+        $attach->entity = 'Comment';
+        $attach->entity_id = 0;
+        $attach->photo_id = $model->id;
+        $attach->save();
 
+        echo CJSON::encode(array(
+            'src' => $model->getPreviewUrl(300, 185, Image::WIDTH),
+            'id' => $model->primaryKey,
+        ));
+        Yii::app()->end();
+    }
+
+    public function actionCrop()
+    {
+        if(!$val = Yii::app()->request->getPost('val'))
+            Yii::app()->end();
+
+        $params = $this->saveImage($val);
 
         $this->renderPartial('site.frontend.widgets.fileAttach.views._crop', array(
-            'src' => $src,
+            'src' => $params['src'],
             'val' => $val,
         ));
         Yii::app()->end();
@@ -299,8 +331,8 @@ class AlbumsController extends Controller
         $attach->entity = 'User';
         $attach->entity_id = Yii::app()->user->id;
         $attach->photo_id = $photo->id;
-
         $attach->save();
+
         User::model()->updateByPk(Yii::app()->user->id, array('avatar' => $photo->id));
         UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_PHOTO);
 

@@ -34,7 +34,7 @@ Attach.selectPhoto = function(button, id) {
         this.crop(id);
     else{
         if (this.entity == 'Comment'){
-            this.saveCommentPhoto(fsn);
+            this.insertToComment(id);
         }else
             $.fancybox.close();
     }
@@ -53,7 +53,7 @@ Attach.selectBrowsePhoto = function(button) {
         this.crop(fsn);
     else{
         if (this.entity == 'Comment'){
-            this.saveCommentPhoto(fsn);
+            this.insertToComment(fsn);
         }else
             $.fancybox.close();
     }
@@ -64,6 +64,13 @@ Attach.closeUpload = function(link) {
     $(link).siblings('.photo').find('.upload-container').empty();
     $(link).siblings('.photo').find('a').show();
     $(link).remove();
+};
+
+Attach.insertToComment = function(val) {
+    $.post(base_url + '/albums/commentPhoto/', {val : val}, function(data) {
+        CKEDITOR.instances['Comment_text'].insertHtml('<img src="' + data.src + '" class="attach_image" id="attach_image_' + data.id + '" />');
+        $.fancybox.close();
+    }, 'json');
 };
 
 Attach.saveCommentPhoto = function(fsn){

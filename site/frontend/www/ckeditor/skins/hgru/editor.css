@@ -322,3 +322,6 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 
 html .cke_skin_hgru{visibility:inherit;}
 html.cke_skin_hgru_container{visibility:visible;}
+
+.cke_button_source {position: absolute;right: 0;top: 0;}
+.cke_toolbox {position: relative;}

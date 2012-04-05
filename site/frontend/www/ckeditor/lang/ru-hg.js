@@ -57,7 +57,7 @@ CKEDITOR.lang['ru-hg'] =
 	horizontalrule	: 'Вставить горизонтальную линию',
 	pagebreak		: 'Вставить разрыв страницы для печати',
 	pagebreakAlt		: 'Разрыв страницы',
-	unlink			: 'Убрать ссылку',
+	unlink			: 'Удалить ссылку',
 	undo			: 'Отменить',
 	redo			: 'Повторить',
 
@@ -511,8 +511,8 @@ CKEDITOR.lang['ru-hg'] =
 		eleTitle : 'Элемент %1'
 	},
 
-	numberedlist	: 'Вставить / удалить нумерованный список',
-	bulletedlist	: 'Вставить / удалить маркированный список',
+	numberedlist	: 'Нумерация',
+	bulletedlist	: 'Маркеры',
 	indent			: 'Увеличить отступ',
 	outdent			: 'Уменьшить отступ',
 

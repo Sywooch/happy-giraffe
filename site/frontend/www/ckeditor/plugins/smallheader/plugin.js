@@ -24,7 +24,7 @@ CKEDITOR.plugins.add('smallheader', {
         command.canUndo = true;
 
         editor.ui.addButton('SmallHeader', {
-			label : 'Средний заголовок',
+			label : 'Малый заголовок',
 			command : 'smallheader',
             onRender:function () {
                 editor.on('selectionChange', function (ev) {

@@ -570,6 +570,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #upload_button_wrapper {overflow:hidden;}
 
 #upload-form .row-btn-left {height:34px;background:url(/images/btn_browse.png) no-repeat right top;}
+#upload-form #upload_button_wrapper.disabled .row-btn-left {background-image:url(/images/btn_browse_disabled.png);}
 
 #album_upload_step_1 {overflow:hidden;}
 #album_upload_step_2 {overflow:hidden;}
@@ -1947,6 +1948,10 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 
 /* wysiwyg */
+
+#wysiwygAddSmile {width:320px;}
+#wysiwygAddSmile table {width:100%;}
+#wysiwygAddSmile table td {width:20%;padding:10px 0;text-align:center;vertical-align:middle;}
 
 #wysiwygAddLink {width:260px;}
 #wysiwygAddLink .row {padding-bottom:10px;}

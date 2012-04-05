@@ -93,7 +93,7 @@ class CommunityCommand extends CConsoleCommand
         }
 
         foreach (pq('li') as $l) {
-            pq($l)->text(preg_replace('/^\s?-\s?/', '', pq($l)->text()));
+            pq($l)->text(preg_replace('/^\s*-\s?/', '', pq($l)->text()));
         }
 
         //убираем длинные заголовки

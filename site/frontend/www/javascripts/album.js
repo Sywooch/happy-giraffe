@@ -80,8 +80,10 @@ Album.removeAlbum = function () {
 Album.changeAlbum = function(select) {
     if($(select).val() == '') {
         this.album_id = null;
-        if($('#new_album_title').val() == '')
-            $('#upload_button_wrapper').css('visibility', 'hidden');
+        if($('#new_album_title').val() == '') {
+            clearFlash();
+            $('#upload_button_wrapper').addClass('disabled');
+        }
         return false;
     }
     this.album_id = $(select).val();
@@ -89,8 +91,7 @@ Album.changeAlbum = function(select) {
     upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/' + $(select).val() + '/');
     $('#new_album_title').val('');
     if(!$('#upload_finish_wrapper').is('.is_visible')) {
-        $('#upload_button_wrapper').show();
-        $('#upload_button_wrapper').css('visibility', 'visible');
+        $('#upload_button_wrapper').removeClass('disabled');
     }
     Album.initUploadForm();
 };
@@ -106,14 +107,14 @@ Album.initUploadForm = function() {
 Album.changeAlbumTitle = function(input) {
     if($(input).val() != '') {
         if($('#upload_finish_wrapper').not('.is_visible')) {
-            $('#upload_button_wrapper').show();
-            $('#upload_button_wrapper').css('visibility', 'visible');
+            $('#upload_button_wrapper').removeClass('disabled');
         }
         $('#album_select_chzn .search-choice-close').trigger('mouseup');
         upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/0/text/' + $(input).val() + '/u/' + $('#author_id').val() + '/');
         Album.initUploadForm();
     } else {
-        $('#upload_button_wrapper').css('visibility', 'hidden');
+        clearFlash();
+        $('#upload_button_wrapper').addClass('disabled');
     }
 
 };

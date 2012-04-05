@@ -25,7 +25,7 @@ class CommunityController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify'),
                 'users'=>array('*'),
             ),
             array('allow',
@@ -572,5 +572,18 @@ class CommunityController extends Controller
         } else {
             $this->redirect(Yii::app()->request->urlReferrer);
         }
+    }
+
+    public function actionPurify()
+    {
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 'by_happy_giraffe = 1',
+            ),
+        ));
+
+        $this->render('purify', array(
+            'dp' => $dp,
+        ));
     }
 }

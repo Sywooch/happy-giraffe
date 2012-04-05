@@ -7,7 +7,7 @@
     <div class="clearfix">
         <div class="title"><?= $forecast->zodiac_list[$forecast->zodiac] ?></div>
         <div class="img"><img src="/images/widget/horoscope/<?= $forecast->zodiac ?>.png"></div>
-        <div class="date"><?=date('d')?><span class="date"><?=Yii::app()->dateFormatter->format('MMM', time())?></span></div>
+        <div class="date"><?=date('j')?><span class="date"><?=Yii::app()->dateFormatter->format('MMM', time())?></span></div>
     </div>
 
     <p><?= str_replace("\n", '</p><p>', $forecast->text) ?></p>

@@ -1,6 +1,6 @@
 <?php
 
-require_once('../vendor/simplehtmldom_1_5/simple_html_dom.php');
+require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
 
 class Filters
 {

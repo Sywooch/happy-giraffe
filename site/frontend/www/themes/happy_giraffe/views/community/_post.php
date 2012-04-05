@@ -113,6 +113,7 @@
                         <div class="clear"></div>
 
                         <?php
+                        $data_text = $data->travel->text;
                     echo $data->travel->text;
                     ?>
                         <div class="clear"></div>
@@ -183,7 +184,7 @@
     'model' => $data,
     'options' => array(
         'title' => $data->name,
-        'image' => $data_image,
+        'image' => isset($data_image) ? $data_image : false,
         'description' => $data_text,
     ),
 )); ?>

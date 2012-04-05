@@ -57,7 +57,8 @@ class AlbumsController extends Controller
         $this->user = $user;
         if(!$user)
             throw new CHttpException(404, 'Пользователь не найден');
-        $dataProvider = Album::model()->findByUser($id);
+        $scopes = !Yii::app()->user->isGuest && Yii::app()->user->id == $id ? array() : array('noSystem');
+        $dataProvider = Album::model()->findByUser($id, false, false, $scopes);
         $this->render('index', array(
             'dataProvider' => $dataProvider,
             'user' => $user,

@@ -216,6 +216,7 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 .cke_skin_hgru .cke_path .cke_label{display:none;}
 
 .cke_skin_hgru .cke_button_source .cke_icon {width:43px;background-position:-253px 0;}
+.cke_skin_hgru .cke_button_source .cke_label {display:none;}
 
 .cke_skin_hgru .cke_button_docProps .cke_icon{background-position:0 -16px;}
 .cke_skin_hgru .cke_button_newpage .cke_icon{background-position:0 -48px;}

@@ -90,7 +90,6 @@ class CommunityCommand extends CConsoleCommand
 
         foreach (pq(':header, p, strong, em, u, s, li') as $e) {
             pq($e)->removeAttr('style');
-            pq($e)->html(trim(pq($e)->html()));
         }
 
         foreach (pq('li') as $l) {

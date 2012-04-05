@@ -62,13 +62,14 @@ class CommunityCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria;
         $criteria->compare('by_happy_giraffe', true);
-        //$criteria->addInCondition('t.id', array(
-        //    6019,
-        //));
+        $criteria->addInCondition('t.id', array(
+            9657,
+        ));
 
         $contents = CommunityContent::model()->full()->findAll($criteria);
 
         foreach ($contents as $c) {
+            echo $c->id . "\n";
             $c->content->text = $this->_purify($c->content->text);
             $c->content->save();
         }
@@ -132,12 +133,17 @@ class CommunityCommand extends CConsoleCommand
         //убираем длинные стронги
         foreach (pq('strong, b') as $s) {
             if (mb_strlen(pq($s)->text(), 'utf-8') > 70 || mb_strlen(trim(pq($s)->parent('p')->text()), 'utf-8') == mb_strlen(trim(pq($s)->text()), 'utf-8')) {
-                pq($s)->replaceWith(pq($s)->html());
+                if (mb_strlen(pq($s)->html(), 'utf-8') > 0) {
+                    pq($s)->replaceWith(pq($s)->html());
+                } else {
+                    pq($s)->remove();
+                }
             }
         }
 
         foreach (pq('em') as $e) {
             if (count(pq($e)->parent('strong')) > 0 || count(pq($e)->children('strong')) > 0) {
+
                 pq($e)->replaceWith(pq($e)->html());
             }
         }

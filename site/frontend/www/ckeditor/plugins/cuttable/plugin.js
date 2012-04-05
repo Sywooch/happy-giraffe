@@ -12,9 +12,9 @@ CKEDITOR.plugins.add('cuttable', {
 		command.canUndo = true;
 
 		editor.ui.addButton('Cuttable', {
-			label : 'Создать Cut',
+			label : 'Убрать под Cut',
 			command : 'cuttable',
-			icon: '/ckeditor/plugins/cuttable/images/cuttable.gif'
+			icon: '/ckeditor/plugins/cuttable/images/cuttable.png'
 		});
 
 		CKEDITOR.dialog.add('cuttable', this.path + 'dialogs/cuttable.js');

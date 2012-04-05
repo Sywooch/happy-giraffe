@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content wysiwyg-content">
     <div class="meta">
         <span class="num" id="cp_<?php echo $data->position; ?>"><?php echo $data->position; ?></span>
         <span class="date"><?php echo HDate::GetFormattedTime($data->created, ', '); ?></span>

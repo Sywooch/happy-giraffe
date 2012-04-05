@@ -20,7 +20,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 .cke_skin_hgru .cke_browser_opera .cke_editor{display:table;}
 .cke_skin_hgru .cke_top,.cke_skin_hgru .cke_bottom,.cke_shared .cke_skin_hgru{padding:5px 7px;background-color:#cdecff;border:1px solid #cdecff;border-top:0;border-bottom:0;}
 .cke_skin_hgru .cke_rtl .cke_top{border-left:solid 1px #696969;border-right:solid 1px #fafaf5;}
-.cke_skin_hgru .cke_bottom {}
+.cke_skin_hgru .cke_bottom {display:none !important;}
 .cke_skin_hgru .cke_contents{background-color:white;padding:0 1px;}
 .cke_skin_hgru .cke_focus{outline:auto 5px -webkit-focus-ring-color;}
 .cke_skin_hgru textarea.cke_source{font-family:'Courier New',Monospace;font-size:small;background-color:#fff;white-space:pre;}
@@ -216,6 +216,7 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 .cke_skin_hgru .cke_path .cke_label{display:none;}
 
 .cke_skin_hgru .cke_button_source .cke_icon {width:43px;background-position:-253px 0;}
+.cke_skin_hgru .cke_button_source .cke_label {display:none;}
 
 .cke_skin_hgru .cke_button_docProps .cke_icon{background-position:0 -16px;}
 .cke_skin_hgru .cke_button_newpage .cke_icon{background-position:0 -48px;}
@@ -237,16 +238,16 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 
 .cke_skin_hgru .cke_button_strike .cke_icon{width:19px;background-position:-74px 0;}
 
-.cke_skin_hgru .cke_button_subscript .cke_icon{width:16px;background-position:-95px 0;}
+.cke_skin_hgru .cke_button_avarageheader .cke_icon{width:16px;background-position:-95px 0;}
 
-.cke_skin_hgru .cke_button_superscript .cke_icon{width:18px;background-position:-113px 0;}
+.cke_skin_hgru .cke_button_smallheader .cke_icon{width:18px;background-position:-113px 0;}
 
 .cke_skin_hgru .cke_button_table .cke_icon{background-position:0 -608px;}
 .cke_skin_hgru .cke_button_horizontalrule .cke_icon{background-position:0 -624px;}
 
-.cke_skin_hgru .cke_button_smiley .cke_icon {width:16px;background-position:-184px 0;}
+.cke_skin_hgru .cke_button_smiles .cke_icon {width:16px;background-position:-184px 0;}
 
-.cke_skin_hgru .cke_button_link .cke_icon{background-position:-202px 0;}
+.cke_skin_hgru .cke_button_mylink .cke_icon{background-position:-202px 0;}
 
 .cke_skin_hgru .cke_button_unlink .cke_icon {background-position:-219px 0;}
 
@@ -312,7 +313,7 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 .cke_skin_hgru .cke_button_bidirtl .cke_icon{background-position:0 -1072px;}
 .cke_skin_hgru .cke_button_bidiltr .cke_icon{background-position:0 -1056px;}
 .cke_skin_hgru .cke_button_iframe .cke_icon{background-position:0 -1279px;}
-.cke_skin_hgru .cke_button_source .cke_label{display:inline;display:inline-block;}
+.cke_skin_hgru .cke_button_source .cke_label{display:none;}
 .cke_skin_hgru .cke_styles_panel{width:150px;height:170px;}
 .cke_skin_hgru .cke_format_panel{width:150px;height:170px;}
 .cke_skin_hgru .cke_font_panel{width:150px;height:170px;}
@@ -322,3 +323,6 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 
 html .cke_skin_hgru{visibility:inherit;}
 html.cke_skin_hgru_container{visibility:visible;}
+
+.cke_button_source {position: absolute;right: 0;top: 0;}
+.cke_toolbox {position: relative;}

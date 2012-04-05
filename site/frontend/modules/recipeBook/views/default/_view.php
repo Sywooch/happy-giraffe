@@ -20,7 +20,7 @@
         <div class="clear"></div>
     </div>
 
-    <div class="entry-content">
+    <div class="entry-content wysiwyg-content">
         <div class="rec_in">
             <div>
                 <span>Ингредиенты:</span>

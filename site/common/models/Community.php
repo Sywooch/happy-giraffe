@@ -155,4 +155,14 @@ class Community extends CActiveRecord
             'community_id' => $this->id,
         ));
     }
+
+    public function getLast()
+    {
+        return CommunityContent::model()->full()->findAll(array(
+            'limit' => 10,
+            'order' => 'created DESC',
+            'condition' => 'community.id = :community_id',
+            'params' => array(':community_id' => $this->id),
+        ));
+    }
 }

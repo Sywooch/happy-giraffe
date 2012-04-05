@@ -103,4 +103,12 @@ class CommunityRubric extends CActiveRecord
 			'community_id' => 'Community',
 		);
 	}
+
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('community/list', array(
+            'community_id' => $this->community_id,
+            'rubric_id' => $this->id,
+        ));
+    }
 }

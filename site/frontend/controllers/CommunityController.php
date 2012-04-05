@@ -89,6 +89,16 @@ class CommunityController extends Controller
 
         $contents = CommunityContent::model()->getContents($community_id, $rubric_id, $content_type_slug);
 
+        $crumbs = array();
+        $crumbs['Клубы'] = array('/community');
+        if ($rubric_id !== null) {
+            $crumbs[$this->community->name] = $this->community->url;
+            $crumbs[] = $rubric->name;
+        } else {
+            $crumbs[] = $this->community->name;
+        }
+        $this->breadcrumbs = $crumbs;
+
         $this->render('list', array(
             'contents' => $contents,
         ));
@@ -132,6 +142,13 @@ class CommunityController extends Controller
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
             UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
         }
+
+        $this->breadcrumbs = array(
+            'Клубы' => array('/community'),
+            $this->community->name => $this->community->url,
+            $content->rubric->name => $content->rubric->url,
+            $content->name,
+        );
 
         $this->render('view', array(
             'data' => $content,

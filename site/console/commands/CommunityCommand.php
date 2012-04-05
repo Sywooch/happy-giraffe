@@ -62,15 +62,14 @@ class CommunityCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria;
         $criteria->compare('by_happy_giraffe', true);
-        /*$criteria->addInCondition('t.id', array(
-            //912,
-            965,
-            //974,
-        ));*/
+        //$criteria->addInCondition('t.id', array(
+        //    938,
+        //));
 
         $contents = CommunityContent::model()->full()->findAll($criteria);
 
         foreach ($contents as $c) {
+            echo $c->id . "\n";
             $c->content->text = $this->_purify($c->content->text);
             $c->content->save();
         }
@@ -80,6 +79,7 @@ class CommunityCommand extends CConsoleCommand
     {
         $doc = phpQuery::newDocumentXHTML($html, $charset = 'utf-8');
 
+        //вычисляем максимальный размер шрифта
         $maxFontSize = 18;
         foreach (pq('span[style]') as $s) {
             if (preg_match('/font-size:?(\d+)px;/', pq($s)->attr('style'), $matches)) {
@@ -101,7 +101,7 @@ class CommunityCommand extends CConsoleCommand
         }
 
         //чистим атрибуты
-        foreach (pq('h2, h3, p, strong, em, u, s, li') as $e) {
+        foreach (pq('h2, h3, p, strong, b, em, u, s, li') as $e) {
             pq($e)->removeAttr('style');
         }
 
@@ -128,6 +128,24 @@ class CommunityCommand extends CConsoleCommand
         //убираем фонты
         foreach (pq('font') as $s) {
             pq($s)->replaceWith(pq($s)->html());
+        }
+
+        //убираем длинные стронги
+        foreach (pq('strong, b') as $s) {
+            if (mb_strlen(pq($s)->text(), 'utf-8') > 35 || mb_strlen(trim(pq($s)->parent('p')->text()), 'utf-8') == mb_strlen(trim(pq($s)->text()), 'utf-8')) {
+                if (mb_strlen(pq($s)->html(), 'utf-8') > 0) {
+                    pq($s)->replaceWith(pq($s)->html());
+                } else {
+                    pq($s)->remove();
+                }
+            }
+        }
+
+        foreach (pq('em') as $e) {
+            if (count(pq($e)->parent('strong')) > 0 || count(pq($e)->children('strong')) > 0) {
+
+                pq($e)->replaceWith(pq($e)->html());
+            }
         }
 
         return $doc;

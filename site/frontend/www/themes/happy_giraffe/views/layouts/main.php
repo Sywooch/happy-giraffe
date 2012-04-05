@@ -156,7 +156,7 @@
 
                 </div>
 
-                <div class="nav"><noindex>
+                <div class="nav">
                 <ul class="clearfix width-2">
                 <!--<li class="morning">
 							<a href=""><i class="text"></i></a>
@@ -408,7 +408,7 @@
                     </div>
                 </li>
                 </ul>
-                </noindex></div>
+                </div>
 
             </div>
 

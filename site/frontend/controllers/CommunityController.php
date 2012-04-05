@@ -603,4 +603,30 @@ class CommunityController extends Controller
             'dp' => $dp,
         ));
     }
+
+    public function actionPing()
+    {
+        $key = '';
+        $login = '';
+        $search_id = '';
+
+        $urls = '';
+        $contents = CommunityContent::model()->findByAttributes(array(
+            'by_happy_giraffe' => true,
+        ));
+        foreach ($contents as $c) {
+            $urls .= $c->url . "%0A";
+        }
+
+        $data = array(
+            'key' => $key,
+            'login' => $login,
+            'search_id' => $search_id,
+            'urls' => $urls,
+        );
+
+        $ch = curl_init("http://site.yandex.ru/ping.xml");
+        curl_setopt($ch, CURLOPT_POST, true);
+
+    }
 }

@@ -408,7 +408,7 @@
                     </div>
                 </li>
                 </ul>
-                </div></noindex>
+                </noindex></div>
 
             </div>
 

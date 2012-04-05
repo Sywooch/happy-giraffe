@@ -1,12 +1,15 @@
-<div class="nav v-nav">
+<div class="nav v-nav default-v-nav">
     <ul>
         <?php foreach($albums->getData() as $album): ?>
             <li<?php echo $album->id == $model->id ? ' class="active"' : ''; ?>>
-                <?php echo CHtml::link(
+                <div class="in">
+                    <?php echo CHtml::link(
                     $album->title,
                     array('/albums/attach', 'entity' => $this->entity, 'entity_id' => $this->entity_id, 'mode' => 'albums', 'a' => $album->id), array(
                         'onclick' => 'return Attach.changeAlbum(this);'
                     )); ?>
+                    <span class="tale"><img src="<?php echo Yii::app()->baseUrl; ?>/images/default_v_nav_active.png"></span>
+                </div>
             </li>
         <?php endforeach; ?>
     </ul>

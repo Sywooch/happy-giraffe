@@ -56,7 +56,7 @@ class CommunityCommand extends CConsoleCommand
     public function actionPurify()
     {
         Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery.phpQuery');
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         Yii::import('site.frontend.helpers.*');
         require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
 

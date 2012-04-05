@@ -917,8 +917,8 @@ a {color:#029AD2;}
 #nav .fast-cart a {color:#41b3cc;}
 #nav .fast-cart .count {display:inline-block;width:35px;height:26px;background:url(../images/bg_fast_cart_count.gif) no-repeat;vertical-align:top;line-height:26px;font-size:14px;}
 
-#crumbs {height:28px;margin:0 40px;color:#51afc3;font:11px/18px tahoma, arial, sans-serif;position:relative;z-index:5;}
-#crumbs b {background:#fffedf;padding:0 5px;display:inline-block;}
+#crumbs {color:#51afc3;font:11px/18px tahoma, arial, sans-serif;position:relative;z-index:5;margin-bottom:15px;}
+#crumbs span {background:#fffedf;padding:0px 5px;display:inline-block;}
 
 #content {margin:0px 20px 0;position:relative;z-index:3;padding-bottom:40px;}
 #content .content-box {padding-bottom:20px;}

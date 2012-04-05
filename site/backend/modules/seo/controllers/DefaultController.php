@@ -19,48 +19,56 @@ class DefaultController extends BController
 
         $this->render('index', array(
             'model' => $model,
-            'site_id'=>$site_id,
-            'year'=>$year
+            'site_id' => $site_id,
+            'year' => $year
         ));
     }
 
     public function actionCalc()
     {
-        $keywords = SeoKeywords::model()->with(array('seoStats'))->findAll();
-        $sites = SeoSite::model()->findAll();
-        $year = 2012;
-        foreach ($sites as $site) {
-            foreach ($keywords as $keyword) {
-                $models = SeoStats::model()->findAll('site_id = ' . $site->id . ' AND keyword_id = ' . $keyword->id.' AND year = '.$year);
+        $i = 0;
+        $count = SeoKeywords::model()->count();
+        while ($i * 1000 < $count) {
+            $criteria = new CDbCriteria;
+            $criteria->offset = $i * 1000;
+            $criteria->limit = 1000;
+            $keywords = SeoKeywords::model()->with(array('seoStats'))->findAll($criteria);
+            $sites = SeoSite::model()->findAll();
+            $year = 2012;
+            foreach ($sites as $site) {
+                foreach ($keywords as $keyword) {
+                    $models = SeoStats::model()->findAll('site_id = ' . $site->id . ' AND keyword_id = ' . $keyword->id . ' AND year = ' . $year);
 
-                $stat = SeoKeyStats::model()->find('site_id = ' . $site->id . ' AND keyword_id = ' . $keyword->id.' AND year = '.$year);
-                if ($stat === null) {
-                    $stat = new SeoKeyStats;
-                    $stat->keyword_id = $keyword->id;
-                    $stat->site_id = $site->id;
-                    $stat->year = $year;
-                }
-                foreach ($models as $model) {
-                    $stat->setAttribute('m' . $model->month, $model->value);
-                }
+                    $stat = SeoKeyStats::model()->find('site_id = ' . $site->id . ' AND keyword_id = ' . $keyword->id . ' AND year = ' . $year);
+                    if ($stat === null) {
+                        $stat = new SeoKeyStats;
+                        $stat->keyword_id = $keyword->id;
+                        $stat->site_id = $site->id;
+                        $stat->year = $year;
+                    }
+                    foreach ($models as $model) {
+                        $stat->setAttribute('m' . $model->month, $model->value);
+                    }
 
-                $stat->save();
+                    $stat->save();
+                }
             }
+            $i++;
         }
     }
 
     public function actionParseStats()
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery.phpQuery');
-        $site_id = 2;
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $site_id = 1;
         $year = 2012;
 
         $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
         $site = 'baby.ru';
         ob_start();
 
-        for ($month = 3; $month > 0; $month--) {
-            $url = 'http://www.liveinternet.ru/stat/'.$site.'/queries.html?date='.$year.'-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
+        for ($month = 4; $month > 2; $month--) {
+            $url = 'http://www.liveinternet.ru/stat/' . $site . '/queries.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
@@ -109,7 +117,7 @@ class DefaultController extends BController
 
     public function actionParseStats2()
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery.phpQuery');
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $site_id = 3;
         $year = 2012;
 
@@ -117,7 +125,7 @@ class DefaultController extends BController
         $url = 'http://www.liveinternet.ru/stat/shkolazhizni/queries.html?date=2011-12-31;period=month;';
         for ($month = 3; $month > 0; $month--) {
             $last_url = $url;
-            $url = 'http://www.liveinternet.ru/stat/shkolazhizni/queries.html?date='.$year.'-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;page=';
+            $url = 'http://www.liveinternet.ru/stat/shkolazhizni/queries.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;page=';
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
@@ -179,7 +187,7 @@ class DefaultController extends BController
                     if ($i < 2)
                         continue;
                     $keyword = trim(pq($tr)->find('td:eq(1)')->text());
-                    if (empty($keyword))
+                    if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие')
                         break;
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
                     $res[] = array($keyword, $stats);
@@ -194,7 +202,7 @@ class DefaultController extends BController
                     $model->SaveOrUpdate();
                 }
 
-                echo $i.'<br>';
+                echo $i . '<br>';
             }
         }
 

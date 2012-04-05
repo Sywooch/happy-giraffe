@@ -62,11 +62,9 @@ class CommunityCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria;
         $criteria->compare('by_happy_giraffe', true);
-        /*$criteria->addInCondition('t.id', array(
-            //912,
-            965,
-            //974,
-        ));*/
+        $criteria->addInCondition('t.id', array(
+            6019,
+        ));
 
         $contents = CommunityContent::model()->full()->findAll($criteria);
 
@@ -80,6 +78,7 @@ class CommunityCommand extends CConsoleCommand
     {
         $doc = phpQuery::newDocumentXHTML($html, $charset = 'utf-8');
 
+        //вычисляем максимальный размер шрифта
         $maxFontSize = 18;
         foreach (pq('span[style]') as $s) {
             if (preg_match('/font-size:?(\d+)px;/', pq($s)->attr('style'), $matches)) {
@@ -128,6 +127,20 @@ class CommunityCommand extends CConsoleCommand
         //убираем фонты
         foreach (pq('font') as $s) {
             pq($s)->replaceWith(pq($s)->html());
+        }
+
+        //убираем длинные стронги
+        foreach (pq('strong') as $s) {
+            echo pq($s)->text() . "\n" . mb_strlen(trim(pq($s)->parent('p')->text()), 'utf-8') . "\n" . mb_strlen(trim(pq($s)->text()), 'utf-8');
+            if (mb_strlen(pq($s)->text(), 'utf-8') > 70 || mb_strlen(trim(pq($s)->parent('p')->text()), 'utf-8') == mb_strlen(trim(pq($s)->text()), 'utf-8')) {
+                pq($s)->replaceWith(pq($s)->html());
+            }
+        }
+
+        foreach (pq('em') as $e) {
+            if (count(pq($e)->parent('strong')) > 0 || count(pq($e)->children('strong')) > 0) {
+                pq($e)->replaceWith(pq($e)->html());
+            }
         }
 
         return $doc;

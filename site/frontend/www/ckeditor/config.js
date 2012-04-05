@@ -14,8 +14,7 @@ CKEDITOR.editorConfig = function (config) {
     config.filebrowserImageUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
     config.filebrowserFlashUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
 
-    config.extraPlugins = 'cuttable';
-    config.extraPlugins = 'avarageheader';
+    config.extraPlugins = 'cuttable,attach,avarageheader,smallheader';
 
     config.smiley_path = '/images/widget/smiles/';
     config.smiley_images = ['acute (1).gif', 'acute.gif', 'air_kiss.gif', 'angel.gif', 'bad.gif', 'beach.gif',
@@ -35,9 +34,9 @@ CKEDITOR.editorConfig = function (config) {
     config.toolbar_Main =
         [
             { name:'clipboard', items:[ 'Undo', 'Redo', '-' ] },
-            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'avarageheader' ] },
+            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'Avarageheader', 'SmallHeader' ] },
             { name:'paragraph', items:[ 'NumberedList', 'BulletedList', '-' ] },
-            { name:'insert', items:[ 'Image', 'Smiley', '-' ] },
+            { name:'insert', items:[ 'Attach', 'Smiley', '-' ] },
             { name:'links', items:[ 'Link', 'Unlink', '-' ] },
             { name:'cut', items:[ 'Cuttable' ] },
             { name:'document', items:[ 'Source' ] }
@@ -68,7 +67,5 @@ CKEDITOR.editorConfig = function (config) {
             { name:'document', items:[ 'Source' ] }
         ];
 
-    CKEDITOR.config.format_tags = 'psmall;p;pbig;h2;h3';
-    config.format_psmall = { element:'p', attributes:{ 'style':'font-size: 10px;' } };
-    config.format_pbig = { element:'p', attributes:{ 'style':'font-size: 14px;' } };
+    CKEDITOR.config.format_tags = 'p;h2;h3';
 };

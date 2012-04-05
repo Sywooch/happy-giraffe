@@ -19,9 +19,12 @@ CKEDITOR.plugins.add('attach', {
         CKEDITOR.dialog.add( 'attach', this.path + 'dialog.js' );
 
         editor.ui.addButton('Attach', {
-            label : 'Вставить фото',
+            label : 'Вставить изображение',
             command : 'attach',
-            icon: '/ckeditor/plugins/cuttable/images/cuttable.gif'
+            icon: '/ckeditor/plugins/attach/images/attach.png'
         });
+    },
+    afterInit : function(editor) {
+        delete editor._.menuItems.image;
     }
 });

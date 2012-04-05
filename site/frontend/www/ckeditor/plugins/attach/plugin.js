@@ -23,5 +23,8 @@ CKEDITOR.plugins.add('attach', {
             command : 'attach',
             icon: '/ckeditor/plugins/attach/images/attach.png'
         });
+    },
+    afterInit : function(editor) {
+        delete editor._.menuItems.image;
     }
 });

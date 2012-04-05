@@ -501,7 +501,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick #gallery .gallery-photos .img:hover .contest-send {display:block;}
 #photoPick #gallery .gallery-photos .img .btn {position:relative;top:50%;margin-top:-17px;white-space:normal;}
 #photoPick #gallery .gallery-photos .img .btn span {line-height:13px;font-size:13px;text-align:center;vertical-align:top;}
-#photoPick #gallery .gallery-photos .img .btn span span {padding-top:3px;height:31px;}
+#photoPick #gallery .gallery-photos .img .btn span span {height:34px;display:table-cell;vertical-align:middle;}
 
 #photoPick .photo-upload {}
 #photoPick .photo-upload .note {float:left;padding-right:30px;color:#949696;font-size:11px;line-height:normal;}
@@ -1501,7 +1501,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments li .content .content-in .quote {margin-left:20px;}
 .default-comments li.author-comment .content .content-in {background:#faf4ff;padding:5px 10px;margin:0 -10px;}
 .default-comments li .content .actions {visibility:hidden;line-height:1.2;padding-top:5px;font-size:12px;}
-.default-comments li .content .actions .quote {color:#75d16d;}
+.default-comments li .content .actions .quote-link {color:#75d16d;}
 .default-comments li .content .actions .claim {float:right;color:#f56b95;text-decoration:none;border-bottom:1px dashed #f56b95;}
 .default-comments li .content .actions .admin-actions {float:right;margin-right:15px;background:#ffcdcd;padding:3px 9px;margin-top:-5px;}
 .default-comments li .content .actions .admin-actions .edit {display:inline-block;vertical-align:middle;margin-right:5px;}

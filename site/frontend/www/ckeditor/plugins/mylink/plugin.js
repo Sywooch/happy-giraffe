@@ -30,7 +30,7 @@ CKEDITOR.plugins.add('mylink', {
             command : 'mylink',
             onRender:function () {
                 editor.on('selectionChange', function (ev) {
-                     if (ev.data.element.getName() == 'a') {
+                    if (ev.data.element.getName() == 'a') {
                         editor.getCommand('mylink').setState(CKEDITOR.TRISTATE_DISABLED);
                         return;
                     }

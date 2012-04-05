@@ -1,33 +1,41 @@
 var MyLinkCommand = {
-    exec : function(editor) {
+    exec:function (editor) {
         var mySelection = editor.getSelection().getSelectedText();
         $.ajax({
-            type : 'GET',
-            url: base_url + '/site/link/',
+            type:'GET',
+            url:base_url + '/site/link/',
             data:{text:mySelection},
-            success : function(data) {
+            success:function (data) {
                 $.fancybox.open(data);
             },
-            async : false
+            async:false
         });
     }
 }
 
-function epic_func_mylink(el){
+function epic_func_mylink(el) {
     var title = $(el).parents('.popup').find('.link-name').val();
     var href = $(el).parents('.popup').find('.link-address').val();
-    CKEDITOR.instances['Comment_text'].insertHtml('<a href="' + href + '">'+ $.trim(title)+'</a> ');
-    $.fancybox.close();
+    var urlRegex = /^((?:http|https):\/\/)?(.*)$/;
+
+    if (href.substring(0, href.length) != 'http://' && href.substring(0, href.length) != 'https://')
+        href = 'http://' + href;
+
+    var urlMatch;
+    if (href && ( urlMatch = href.match(urlRegex) )) {
+        CKEDITOR.instances['Comment_text'].insertHtml('<a href="' + href + '">' + $.trim(title) + '</a> ');
+        $.fancybox.close();
+    }
 }
 
 CKEDITOR.plugins.add('mylink', {
-    init : function(editor) {
+    init:function (editor) {
         var command = editor.addCommand('mylink', MyLinkCommand);
         command.canUndo = true;
 
         editor.ui.addButton('MyLink', {
-            label : 'Вставить ссылку',
-            command : 'mylink',
+            label:'Вставить ссылку',
+            command:'mylink',
             onRender:function () {
                 editor.on('selectionChange', function (ev) {
                     if (ev.data.element.getName() == 'a') {

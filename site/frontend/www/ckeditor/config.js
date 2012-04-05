@@ -37,7 +37,7 @@ CKEDITOR.editorConfig = function (config) {
             { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'Avarageheader', 'SmallHeader' ] },
             { name:'paragraph', items:[ 'NumberedList', 'BulletedList', '-' ] },
             { name:'insert', items:[ 'Attach', 'Smiley', '-' ] },
-            { name:'links', items:[ 'Link', 'Unlink', '-' ] },
+            { name:'links', items:[ 'MyLink', 'Unlink', '-' ] },
             { name:'cut', items:[ 'Cuttable' ] },
             { name:'document', items:[ 'Source' ] }
         ];

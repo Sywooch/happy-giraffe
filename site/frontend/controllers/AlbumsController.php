@@ -252,8 +252,31 @@ class AlbumsController extends Controller
     {
         if(!$val = Yii::app()->request->getPost('val'))
             Yii::app()->end();
-        $params = $this->saveImage($val);
-        echo CJSON::encode($params);
+
+        if(is_numeric($val))
+        {
+            $model = AlbumPhoto::model()->findByPk($val);
+            if(!$model)
+                Yii::app()->end();
+        }
+        else
+        {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            $model->create(true);
+        }
+
+        $attach = new AttachPhoto;
+        $attach->entity = 'Comment';
+        $attach->entity_id = 0;
+        $attach->photo_id = $model->id;
+        $attach->save();
+
+        echo CJSON::encode(array(
+            'src' => $model->getPreviewUrl(300, 185, Image::WIDTH),
+            'id' => $model->primaryKey,
+        ));
         Yii::app()->end();
     }
 
@@ -308,8 +331,8 @@ class AlbumsController extends Controller
         $attach->entity = 'User';
         $attach->entity_id = Yii::app()->user->id;
         $attach->photo_id = $photo->id;
-
         $attach->save();
+
         User::model()->updateByPk(Yii::app()->user->id, array('avatar' => $photo->id));
         UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_PHOTO);
 

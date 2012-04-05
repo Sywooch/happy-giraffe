@@ -62,9 +62,9 @@ class CommunityCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria;
         $criteria->compare('by_happy_giraffe', true);
-        $criteria->addInCondition('t.id', array(
-            938,
-        ));
+        //$criteria->addInCondition('t.id', array(
+        //    938,
+        //));
 
         $contents = CommunityContent::model()->full()->findAll($criteria);
 

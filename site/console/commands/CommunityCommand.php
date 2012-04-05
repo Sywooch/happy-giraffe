@@ -132,7 +132,7 @@ class CommunityCommand extends CConsoleCommand
 
         //убираем длинные стронги
         foreach (pq('strong, b') as $s) {
-            if (mb_strlen(pq($s)->text(), 'utf-8') > 35 || mb_strlen(trim(pq($s)->parent('p')->text()), 'utf-8') == mb_strlen(trim(pq($s)->text()), 'utf-8')) {
+            if (mb_strlen(pq($s)->text(), 'utf-8') > 25 || mb_strlen(trim(pq($s)->parent('p')->text()), 'utf-8') == mb_strlen(trim(pq($s)->text()), 'utf-8')) {
                 if (mb_strlen(pq($s)->html(), 'utf-8') > 0) {
                     pq($s)->replaceWith(pq($s)->html());
                 } else {

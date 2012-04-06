@@ -29,16 +29,14 @@ Comment = {
         form.appendTo(container).show();
         this.createInstance();
     },
-    movePhoto:function (container) {
-        $('.upload-btn .photo.Comment a').trigger('click');
-    },
     newComment:function (event) {
         this.cancel();
         this.moveForm($('#new_comment_wrapper'));
     },
     newPhotoComment:function (event) {
         this.cancel();
-        this.movePhoto($('#new_photo_comment_wrapper'));
+        Attach.attachGuestPhoto = true;
+        $('.upload-btn .photo.Comment a').trigger('click');
     },
     clearVariables:function () {
         Comment.clearResponse();

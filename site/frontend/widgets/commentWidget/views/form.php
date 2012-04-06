@@ -54,3 +54,6 @@ $cs->registerScript('comment_widget_form', $js);
         </div>
     </div>
 <?php endif; ?>
+<script type="text/javascript">
+    var cke_instance = 'Comment_text';
+</script>

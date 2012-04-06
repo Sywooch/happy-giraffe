@@ -13,7 +13,9 @@ function initForm() {
         button_text: '',
         button_width: 178,
         button_height: 34,
-        button_image_url:"/images/btn_browse.png",
+        /*button_image_url:"/images/btn_browse.png",*/
+        button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+        button_cursor: SWFUpload.CURSOR.HAND,
         button_placeholder:$('#upload-button')[0]
     });
 

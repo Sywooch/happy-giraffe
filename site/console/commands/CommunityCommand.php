@@ -62,9 +62,6 @@ class CommunityCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria;
         $criteria->compare('by_happy_giraffe', true);
-        //$criteria->addInCondition('t.id', array(
-        //    938,
-        //));
 
         $contents = CommunityContent::model()->full()->findAll($criteria);
 
@@ -73,6 +70,53 @@ class CommunityCommand extends CConsoleCommand
             $c->content->text = $this->_purify($c->content->text);
             $c->content->save();
         }
+    }
+
+    public function actionPurifyNonGiraffe()
+    {
+        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        Yii::import('site.frontend.helpers.*');
+        require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
+
+        $criteria = new CDbCriteria;
+        $criteria->compare('by_happy_giraffe', false);
+
+        $contents = CommunityContent::model()->full()->findAll($criteria);
+
+        foreach ($contents as $c) {
+            echo $c->id . "\n";
+            $c->content->text = $this->_purifyNonGiraffe($c->content->text);
+            $c->content->save();
+        }
+    }
+
+    private function _purifyNonGiraffe($html)
+    {
+        $doc = phpQuery::newDocumentXHTML($html, $charset = 'utf-8');
+
+        $allowedTags = 'h2, h3, p, ul, ol, li, img, div';
+
+        //убираем лишние заголовки
+        foreach (pq('h2, h3') as $e) {
+            if (mb_strlen(pq($e)->text(), 'utf-8') > 70) {
+                pq($e)->replaceWith('<p>' . pq($e)->html() . '</p>');
+            }
+        }
+
+        //убираем лишние теги
+        while (count(pq(':not(' . $allowedTags .')')) > 0) {
+            foreach (pq(':not(' . $allowedTags .')') as $s) {
+                pq($s)->replaceWith(pq($s)->html());
+            }
+        }
+
+        //чистим атрибуты
+        foreach (pq(':not(img, div)') as $e) {
+            pq($e)->removeAttr('style');
+        }
+
+        return $doc;
     }
 
     private function _purify($html)

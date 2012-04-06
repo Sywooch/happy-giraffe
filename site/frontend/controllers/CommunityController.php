@@ -593,11 +593,12 @@ class CommunityController extends Controller
         }
     }
 
-    public function actionPurify()
+    public function actionPurify($by_happy_giraffe)
     {
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
-                'condition' => 'by_happy_giraffe = 1',
+                'condition' => 'by_happy_giraffe = :by_happy_giraffe',
+                'params' => array(':by_happy_giraffe' => $by_happy_giraffe),
             ),
         ));
 

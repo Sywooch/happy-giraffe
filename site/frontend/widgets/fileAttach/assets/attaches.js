@@ -67,7 +67,6 @@ Attach.closeUpload = function(link) {
 };
 
 Attach.insertToComment = function(val) {
-    cl(123);
     var title = $('#photo_title').size() > 0 ? $('#photo_title').val() : null;
     $.post(base_url + '/albums/commentPhoto/', {val : val, title : title}, function(data) {
         if(CKEDITOR.instances[cke_instance] != undefined)

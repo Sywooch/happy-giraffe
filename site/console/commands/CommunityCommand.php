@@ -62,24 +62,68 @@ class CommunityCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria;
         $criteria->compare('by_happy_giraffe', true);
-        /*$criteria->addInCondition('t.id', array(
-            //912,
-            965,
-            //974,
-        ));*/
 
         $contents = CommunityContent::model()->full()->findAll($criteria);
 
         foreach ($contents as $c) {
+            echo $c->id . "\n";
             $c->content->text = $this->_purify($c->content->text);
             $c->content->save();
         }
+    }
+
+    public function actionPurifyNonGiraffe()
+    {
+        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        Yii::import('site.frontend.helpers.*');
+        require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
+
+        $criteria = new CDbCriteria;
+        $criteria->compare('by_happy_giraffe', false);
+
+        $contents = CommunityContent::model()->full()->findAll($criteria);
+
+        foreach ($contents as $c) {
+            echo $c->id . "\n";
+            $c->content->text = $this->_purifyNonGiraffe($c->content->text);
+            $c->content->save();
+        }
+    }
+
+    private function _purifyNonGiraffe($html)
+    {
+        $doc = phpQuery::newDocumentXHTML($html, $charset = 'utf-8');
+
+        $allowedTags = 'h2, h3, p, ul, ol, li, img, div';
+
+        //убираем лишние заголовки
+        foreach (pq('h2, h3') as $e) {
+            if (mb_strlen(pq($e)->text(), 'utf-8') > 70) {
+                pq($e)->replaceWith('<p>' . pq($e)->html() . '</p>');
+            }
+        }
+
+        //убираем лишние теги
+        while (count(pq(':not(' . $allowedTags .')')) > 0) {
+            foreach (pq(':not(' . $allowedTags .')') as $s) {
+                pq($s)->replaceWith(pq($s)->html());
+            }
+        }
+
+        //чистим атрибуты
+        foreach (pq(':not(img, div)') as $e) {
+            pq($e)->removeAttr('style');
+        }
+
+        return $doc;
     }
 
     private function _purify($html)
     {
         $doc = phpQuery::newDocumentXHTML($html, $charset = 'utf-8');
 
+        //вычисляем максимальный размер шрифта
         $maxFontSize = 18;
         foreach (pq('span[style]') as $s) {
             if (preg_match('/font-size:?(\d+)px;/', pq($s)->attr('style'), $matches)) {
@@ -101,7 +145,7 @@ class CommunityCommand extends CConsoleCommand
         }
 
         //чистим атрибуты
-        foreach (pq('h2, h3, p, strong, em, u, s, li') as $e) {
+        foreach (pq('h2, h3, p, strong, b, em, u, s, li') as $e) {
             pq($e)->removeAttr('style');
         }
 
@@ -128,6 +172,24 @@ class CommunityCommand extends CConsoleCommand
         //убираем фонты
         foreach (pq('font') as $s) {
             pq($s)->replaceWith(pq($s)->html());
+        }
+
+        //убираем длинные стронги
+        foreach (pq('strong, b') as $s) {
+            if (mb_strlen(pq($s)->text(), 'utf-8') > 25 || mb_strlen(trim(pq($s)->parent('p')->text()), 'utf-8') == mb_strlen(trim(pq($s)->text()), 'utf-8')) {
+                if (mb_strlen(pq($s)->html(), 'utf-8') > 0) {
+                    pq($s)->replaceWith(pq($s)->html());
+                } else {
+                    pq($s)->remove();
+                }
+            }
+        }
+
+        foreach (pq('em') as $e) {
+            if (count(pq($e)->parent('strong')) > 0 || count(pq($e)->children('strong')) > 0) {
+
+                pq($e)->replaceWith(pq($e)->html());
+            }
         }
 
         return $doc;

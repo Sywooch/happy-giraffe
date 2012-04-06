@@ -204,12 +204,27 @@ class Test2Controller extends Controller
 
     public function actionSmiles(){
         if ($handle = opendir('C:/WebServers/happy-giraffe/site/frontend/www/images/widget/smiles')) {
-            while (false !== ($entry = readdir($handle))) {
-                echo "'$entry',";
+
+            //
+            //'<td><a onclick="epic_func_smile(this);return false;" href=""><img src="/images/widget/smiles/acute.gif"></a></td>'+
+            echo '<table>';
+            echo "<tr>";
+            $i=1;
+            while (false !== ($entry = readdir($handle))) if ($entry !== '.' && $entry!='..'){
+                echo "<td>";
+                echo "<a onclick=\"epic_func_smile(this);return false;\" href=\"\"><img src=\"/images/widget/smiles/".$entry."\"></a></td>";
+                echo "</td>";
+                if ($i % 8 == 0)
+                    echo "</tr><tr>";
+
+                $i++;
             }
             while ($entry = readdir($handle)) {
                 echo "'$entry',\n";
             }
+
+            echo "</tr>";
+            echo '</table>';
 
             closedir($handle);
         }

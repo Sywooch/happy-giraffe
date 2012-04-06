@@ -43,6 +43,11 @@ class FileAttachWidget extends CWidget
             $this->title = 'Отправить фото на стену';
             $this->button_title = 'Продолжить';
         }
+        elseif($this->entity == 'CommunityPost' || $this->entity == 'CommunityVideo')
+        {
+            $this->title = 'Вставить изображение';
+            $this->button_title = 'Продолжить';
+        }
 
         if($view_type == 'window')
             $this->render('window');

@@ -9,6 +9,7 @@
  * @property integer $visit_name_id
  * @property integer $year
  * @property integer $month
+ * @property integer $day
  * @property integer $value
  */
 class SeoVisits extends CActiveRecord
@@ -40,7 +41,7 @@ class SeoVisits extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('site_id, visit_name_id, year, month, value', 'required'),
-			array('site_id, visit_name_id, year, month', 'numerical', 'integerOnly'=>true),
+			array('site_id, visit_name_id, year, month, day', 'numerical', 'integerOnly'=>true),
             array('value', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -103,6 +104,7 @@ class SeoVisits extends CActiveRecord
             'visit_name_id'=>$this->visit_name_id,
             'year'=>$this->year,
             'month'=>$this->month,
+            'day'=>$this->day,
             'site_id'=>$this->site_id
         ));
 
@@ -113,6 +115,5 @@ class SeoVisits extends CActiveRecord
                 var_dump($this->getErrors());
                 Yii::app()->end();
             }
-
     }
 }

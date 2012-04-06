@@ -44,7 +44,7 @@
             $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget', array(
                 'album_id' => $album ? $album->id : false,
             ));
-            $file_upload->form(false);
+            $file_upload->form($album ? true : false);
             $this->endWidget();
             ?>
         </div>

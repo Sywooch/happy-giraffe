@@ -79,15 +79,21 @@ class CommunityCommand extends CConsoleCommand
         Yii::import('site.frontend.helpers.*');
         require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
 
+        $perIteraion = 1000;
+
         $criteria = new CDbCriteria;
         $criteria->compare('by_happy_giraffe', false);
+        $criteria->limit = $perIteraion;
+        $criteria->order = 't.id ASC';
 
-        $contents = CommunityContent::model()->full()->findAll($criteria);
+        while ($contents = CommunityContent::model()->full()->findAll($criteria)) {
+            foreach ($contents as $c) {
+                echo $c->id . "\n";
+                $c->content->text = $this->_purifyNonGiraffe($c->content->text);
+                $c->content->save();
+            }
 
-        foreach ($contents as $c) {
-            echo $c->id . "\n";
-            $c->content->text = $this->_purifyNonGiraffe($c->content->text);
-            $c->content->save();
+            $criteria->offset += $perIteraion;
         }
     }
 
@@ -95,7 +101,7 @@ class CommunityCommand extends CConsoleCommand
     {
         $doc = phpQuery::newDocumentXHTML($html, $charset = 'utf-8');
 
-        $allowedTags = 'h2, h3, p, ul, ol, li, img, div';
+        $allowedTags = 'h2, h3, p, a, ul, ol, li, img, div';
 
         //убираем лишние заголовки
         foreach (pq('h2, h3') as $e) {
@@ -107,7 +113,7 @@ class CommunityCommand extends CConsoleCommand
         //убираем лишние теги
         while (count(pq(':not(' . $allowedTags .')')) > 0) {
             foreach (pq(':not(' . $allowedTags .')') as $s) {
-                pq($s)->replaceWith(pq($s)->html());
+                pq($s)->replaceWith((string) pq($s)->html());
             }
         }
 
@@ -254,5 +260,25 @@ class CommunityCommand extends CConsoleCommand
         }
 
         return $html->save();
+    }
+
+    public function actionDistribute(array $editors, $limit = 500)
+    {
+        $offset = 0;
+
+        foreach ($editors as $e) {
+            $contents = CommunityContent::model()->findAll(array(
+                'condition' => 'rubric.community_id != 22 AND rubric.community_id != 23',
+                'limit' => $limit,
+                'offset' => $offset,
+            ));
+
+            foreach ($contents as $c) {
+                $c->editor_id = $e;
+                $c->save();
+            }
+
+            $offset += $limit;
+        }
     }
 }

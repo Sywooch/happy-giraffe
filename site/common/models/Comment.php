@@ -76,7 +76,7 @@ class Comment extends CActiveRecord
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
-            'commentAttaches' => array(self::HAS_MANY, 'CommentAttach', 'comment_id'),
+            'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
 		);
 	}
 

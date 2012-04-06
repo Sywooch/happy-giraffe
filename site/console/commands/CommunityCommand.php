@@ -101,7 +101,7 @@ class CommunityCommand extends CConsoleCommand
     {
         $doc = phpQuery::newDocumentXHTML($html, $charset = 'utf-8');
 
-        $allowedTags = 'h2, h3, p, ul, ol, li, img, div';
+        $allowedTags = 'h2, h3, p, a, ul, ol, li, img, div';
 
         //убираем лишние заголовки
         foreach (pq('h2, h3') as $e) {
@@ -260,5 +260,25 @@ class CommunityCommand extends CConsoleCommand
         }
 
         return $html->save();
+    }
+
+    public function actionDistribute(array $editors, $limit = 500)
+    {
+        $offset = 0;
+
+        foreach ($editors as $e) {
+            $contents = CommunityContent::model()->findAll(array(
+                'condition' => 'rubric.community_id != 22 AND rubric.community_id != 23',
+                'limit' => $limit,
+                'offset' => $offset,
+            ));
+
+            foreach ($contents as $c) {
+                $c->editor_id = $e;
+                $c->save();
+            }
+
+            $offset += $limit;
+        }
     }
 }

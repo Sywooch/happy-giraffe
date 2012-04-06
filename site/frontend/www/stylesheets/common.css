@@ -1601,7 +1601,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 /* */
 
 #content .club-fast-nav {padding-bottom:50px;}
-#content .club-fast-nav {padding-top:5px;font-size:13px;margin-left:100px;}
+#content .club-fast-nav {padding-top:5px;font-size:13px;margin-left:150px;}
 #content .club-fast-nav ul {overflow:hidden;list-style:none;display:inline-block;}
 #content .club-fast-nav .club-join-btn {display:inline-block;height:36px;padding:0 24px;background:#59b4dd;color:#fff;line-height:36px;font-size:16px;font-weight:bold;text-decoration:none;vertical-align:top;position:relative;top:-3px;}
 #content .club-fast-nav .club-join-btn {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;margin-left:40px;}
@@ -2005,7 +2005,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #homepage .homepage-clubs > ul > li .category-title {font-size:18px;color:#fff;padding:6px 10px;background:#fff;}
 #homepage .homepage-clubs > ul > li ul {list-style:none;padding:5px 0 10px;}
 #homepage .homepage-clubs > ul > li ul li {padding:4px 10px;}
-#homepage .homepage-clubs > ul > li ul li a {text-decoration:none;}
+#homepage .homepage-clubs > ul > li ul li a {text-decoration:none;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
 #homepage .homepage-clubs > ul > li ul li a .club-img {display:inline-block;vertical-align:middle;width:28px;height:30px;border:1px solid #fff;}
 #homepage .homepage-clubs > ul > li ul li a .club-img img {width:28px;height:30px;display:block;border:0;}
 #homepage .homepage-clubs > ul > li ul li a .club-title {display:inline-block;vertical-align:middle;width:150px;padding-left:8px;font-weight:bold;}

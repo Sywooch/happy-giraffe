@@ -18,6 +18,6 @@ class CommunityArticlesWidget extends CWidget
         $articles = CommunityContent::model()->findAll($criteria);
         $count = CommunityContent::model()->count($criteria);
 
-        $this->render('CommunitiesWidget', compact('articles', 'count'));
+        $this->render('CommunityArticlesWidget', compact('articles', 'count'));
     }
 }

@@ -6,8 +6,7 @@
 
     <?php $n = 0; ?>
     <?php foreach($categories as $title => $category): ?>
-        <li class="<?php echo $category['css'] ?>">
-    <div class="category-title"><?php echo $title; ?></div>
+    <div class="category-title <?php echo $category['css'] ?>"><?php echo $title; ?></div>
         <?php if(isset($category['items'])): ?>
             <?php foreach($category['items'] as $subtitle => $subcount): ?>
             <div class="subcategory <?php echo $category['css'] ?>">

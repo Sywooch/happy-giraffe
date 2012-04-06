@@ -22,7 +22,8 @@ $(document).ready(function () {
                 padding:0,
                 showCloseButton:false,
                 scrolling:false,
-                onComplete:onComplete_function
+                onComplete:onComplete_function,
+                onClosed:function(){if (Attach != undefined) Attach.attachGuestPhoto = false;}
             }).trigger('click');
             return false;
         });
@@ -312,4 +313,15 @@ function albumVisibilitySet(el, num, id){
 	
 	albumVisibilityListToggle(el);
 	
+}
+
+function ToggleFavourites(el){
+    var entity = $(el).prev().val();
+    var entity_id = $(el).prev().prev().val();
+
+    $.post('/ajax/toggleFavourites/', {entity:entity, entity_id:entity_id}, function (response) {
+        if (response.status) {
+            $(el).toggleClass('active')
+        }
+    }, 'json');
 }

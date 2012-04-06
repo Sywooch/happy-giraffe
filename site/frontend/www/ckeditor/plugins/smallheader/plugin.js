@@ -28,9 +28,12 @@ CKEDITOR.plugins.add('smallheader', {
 			command : 'smallheader',
             onRender:function () {
                 editor.on('selectionChange', function (ev) {
-                    if (ev.data.element.getName() == 'h3') {
-                        editor.getCommand('smallheader').setState(CKEDITOR.TRISTATE_ON);
-                        return;
+                    for(var i = 0; i < ev.data.path.elements.length; i++){
+                        var tag = ev.data.path.elements[i].getName();
+                        if (tag == 'h3') {
+                            editor.getCommand('smallheader').setState(CKEDITOR.TRISTATE_ON);
+                            return;
+                        }
                     }
 
                     editor.getCommand('smallheader').setState(CKEDITOR.TRISTATE_OFF);

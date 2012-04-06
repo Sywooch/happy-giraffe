@@ -14,7 +14,7 @@
 
         <div class="user-name">
             <h1><?=$user->last_name?><br/><?=$user->first_name?></h1>
-            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavoritesWidget', array('model' => $user)); ?>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>

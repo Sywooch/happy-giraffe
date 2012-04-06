@@ -3,10 +3,10 @@
     <div class="entry-header">
         <?php if ($full): ?>
             <h1><?php echo $data->name; ?></h1>
-            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavoritesWidget', array('model' => $data)); ?>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
         <?php else: ?>
             <?php echo CHtml::link($data->name, $data->url, array('class' => 'entry-title')); ?>
-            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavoritesWidget', array('model' => $data)); ?>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
         <?php endif; ?>
         <?php if (! $data->by_happy_giraffe): ?>
             <div class="user">

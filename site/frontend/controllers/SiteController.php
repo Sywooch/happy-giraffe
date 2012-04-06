@@ -299,7 +299,10 @@ class SiteController extends Controller
         $this->renderPartial('link', compact('text'));
     }
 
-    public function actionSmiles(){
-        $this->renderPartial('smiles');
+    public function actionHome(){
+        Yii::import('site.frontend.widgets.*');
+        Yii::import('site.frontend.widgets.home.*');
+        $user = Yii::app()->user->getModel();
+        $this->render('home', compact('user'));
     }
 }

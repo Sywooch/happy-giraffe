@@ -14,6 +14,7 @@
 
         <div class="user-name">
             <h1><?=$user->last_name?><br/><?=$user->first_name?></h1>
+            <?php $this->widget('application.widgets.favoritesWidget.FavoritesWidget', array('model' => $user)); ?>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>
@@ -25,7 +26,6 @@
                 <?php endif; ?>
             </div>
             <?php if ($user->birthday): ?><div class="birthday"><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)</div><?php endif; ?>
-
         </div>
 
         <?php if (! Yii::app()->user->isGuest && $user->id != Yii::app()->user->id): ?>

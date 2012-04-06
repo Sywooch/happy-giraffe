@@ -9,7 +9,7 @@
     <ul>
         <?php foreach ($users as $user): ?>
             <li><a href="<?=Yii::app()->createUrl('/user/profile', array('user_id' => $user->id))
-                ?>" class="ava"><?php echo CHtml::image($user->getAva()); ?></a></li>
+                ?>" class="ava <?=$user->gender == '1'?'male':'female' ?>"><?php echo CHtml::image($user->getAva()); ?></a></li>
         <?php endforeach; ?>
     </ul>
 

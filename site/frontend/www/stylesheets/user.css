@@ -260,6 +260,8 @@
 #user .user-family ul li .comment .tale {position:absolute;display:block;width:30px;height:23px;right:65px;top:100%;}
 #user .user-family ul li .comment.purple .tale {background:url(/images/common.png) no-repeat -472px -251px;}
 #user .user-family ul li .comment.blue .tale {background:url(/images/common.png) no-repeat -504px -251px;}
+#user .user-family ul li .comment.pink .tale {background:url(/images/common.png) no-repeat -472px -276px;}
+
 
 
 #user .user-family.user-family-cap .c {padding:0 17px;}

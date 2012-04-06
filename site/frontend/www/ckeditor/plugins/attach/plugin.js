@@ -2,7 +2,7 @@ var AttachCommand = {
     exec : function(editor) {
         $.ajax({
             type : 'GET',
-            url: base_url + '/albums/attach/entity/Comment/entity_id/',
+            url: $('.upload-btn a.btn').attr('href'),
             success : function(data) {
                 $.fancybox.open(data);
             },

@@ -1,6 +1,6 @@
 function initForm() {
     $('#upload-input').hide();
-    var binding = clearFlash();
+    clearFlash();
 
     $('#upload-control').swfupload({
         upload_url:upload_ajax_url,
@@ -31,11 +31,10 @@ function initForm() {
         button_height:34,
         button_placeholder:$('#upload-link')[0]
     });
-    if(binding) {
+
         registerUploadEvents($('#upload-control'));
         registerUploadEvents($('#upload_finish_wrapper'));
-        initForm();
-    }
+
 }
 
 function clearFlash() {
@@ -56,7 +55,7 @@ function clearFlash() {
 }
 
 function registerUploadEvents(elem) {
-    elem.bind('fileQueued', function (event, file) {
+    elem.unbind('fileQueued').bind('fileQueued', function (event, file) {
         var listitem = '<li class="clearfix" id="' + file.id + '" >' +
             '<div class="img"><i class="icon-error"></i></div>' +
             '<div class="progress"><div class="in"></div></div>' +
@@ -73,7 +72,7 @@ function registerUploadEvents(elem) {
         // start the upload since it's queued
         $(this).swfupload('startUpload');
     })
-        .bind('fileQueueError', function (event, file, errorCode, message) {
+        .unbind('fileQueueError').bind('fileQueueError', function (event, file, errorCode, message) {
             var error = '';
             if (errorCode == '-130') {
                 error = 'Загружать можно только изображения';
@@ -86,13 +85,13 @@ function registerUploadEvents(elem) {
                 '</li>'
             $('#log').append(listitem);
         })
-        .bind('fileDialogComplete', function (event, numFilesSelected, numFilesQueued) {
+        .unbind('fileDialogComplete').bind('fileDialogComplete', function (event, numFilesSelected, numFilesQueued) {
             /*$('#queuestatus').text('Files Selected: ' + numFilesSelected + ' / Queued Files: ' + numFilesQueued);*/
         })
-        .bind('fileDialogStart', function() {
+        .unbind('fileDialogStart').bind('fileDialogStart', function() {
             $('#log').empty();
         })
-        .bind('uploadStart', function (event, file) {
+        .unbind('uploadStart').bind('uploadStart', function (event, file) {
             $('#upload_button_wrapper').css({height:0});
             $('#upload_finish_wrapper').css('height', 'auto').addClass('is_visible');
             $('#log li#' + file.id).find('.progress-value').text('0%');
@@ -101,13 +100,13 @@ function registerUploadEvents(elem) {
             $('#album_upload_step_1').css('height', '1');*/
             $('#album_upload_step_2').css('visibility', 'show');
         })
-        .bind('uploadProgress', function (event, file, bytesLoaded) {
+        .unbind('uploadProgress').bind('uploadProgress', function (event, file, bytesLoaded) {
             //Show Progress
             var percentage = Math.round((bytesLoaded / file.size) * 100);
             $('#log li#' + file.id).find('div.progress .in').css('width', percentage + '%');
             $('#log li#' + file.id).find('.progress-value').text(percentage + '%');
         })
-        .bind('uploadSuccess', function (event, file, serverData) {
+        .unbind('uploadSuccess').bind('uploadSuccess', function (event, file, serverData) {
             $('#album_select').replaceWith($(serverData).find('#album_select'));
             $('#album_select_chzn').remove();
             $('#album_select').chosen({
@@ -131,10 +130,10 @@ function registerUploadEvents(elem) {
                 item.find('.file-params').append('<span class="fid">' + params[2] + '</span>');
             item.find('.img').append('<img src="' + params[0] + '" />')
         })
-        .bind('uploadComplete', function (event, file) {
+        .unbind('uploadComplete').bind('uploadComplete', function (event, file) {
             $(this).swfupload('startUpload');
         })
-        .bind('uploadError', function (file, errorCode, message) {
+        .unbind('uploadError').bind('uploadError', function (file, errorCode, message) {
             cl(message);
             cl(errorCode);
         });

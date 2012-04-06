@@ -181,7 +181,7 @@
 #user .user-blog ul li {width:140px;display:inline-block;vertical-align:top;padding-right:10px;padding-bottom:15px;line-height:1.4;}
 #user .user-blog ul li a {font-weight:bold;}
 #user .user-blog ul li .date {color:#AFAFB0;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin:6px 0 8px;}
-#user .user-blog ul li img {max-width:150px;}
+#user .user-blog ul li img {max-width:140px;}
 #user .user-blog ul li p {font-size:11px;}
 
 #user .user-photo-add {padding:5px;border:1px solid #f7f7f7;}

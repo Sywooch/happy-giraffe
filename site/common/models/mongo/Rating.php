@@ -23,6 +23,28 @@ class Rating extends EMongoDocument
         );
     }
 
+    public function clearSocials()
+    {
+        $models = $this->findAll();
+        foreach($models as $item)
+        {
+            if($item->entity_name == 'ContestWork')
+                continue;
+            if(isset($item->ratings['fb']))
+                unset($item->ratings['fb']);
+            if(isset($item->ratings['vk']))
+                unset($item->ratings['vk']);
+            if(isset($item->ratings['tw']))
+                unset($item->ratings['tw']);
+            if(isset($item->ratings['mr']))
+                unset($item->ratings['mr']);
+            if(isset($item->ratings['gp']))
+                unset($item->ratings['gp']);
+            $item->sum = array_sum($item->ratings);
+            $item->save();
+        }
+    }
+
     public function findByEntity($entity)
     {
         $entity_id = (int)$entity->primaryKey;

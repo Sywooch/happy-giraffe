@@ -84,7 +84,7 @@
 <div id="footer" class="wrapper clearfix" style="margin-top:0;">
 
     <div class="a-right">
-        <a>Политика конфедециальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a>
+        <a>Политика конфедециальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a> &nbsp; | &nbsp; <?=CHtml::link('Map', array('/community/map'))?>
 
     </div>
 

@@ -590,7 +590,6 @@ p {
     padding: 12px 0
 }
 
-.entry-content ul, .entry-content ol {padding-left:30px}
 
 .entry p {
     line-height: 17px;
@@ -669,19 +668,6 @@ p {
 .entry .entry-footer a {
     text-decoration: underline;
     color: #41b3cc;
-}
-
-.entry h2 {
-    font: italic 18px Arial, Tahoma, sans-serif;
-    color: #0d8ca3;
-    margin: 20px 0 20px 0px;
-}
-
-.entry h3 {
-    color: #d4423f;
-    font-weight: normal;
-    text-decoration: underline;
-    font-size: 12px;
 }
 
 .entry .entry-footer .source {

@@ -260,7 +260,7 @@ class DefaultController extends BController
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $site_id = 1;
-        $year = 2009;
+        $year = 2012;
         $month = 3;
 
         $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
@@ -268,7 +268,7 @@ class DefaultController extends BController
         ob_start();
 
         for ($day = 5; $day <= 31; $day++) {
-            $url = 'http://www.liveinternet.ru/stat/' . $site . '/index.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=day;total=yes;page=';
+            $url = 'http://www.liveinternet.ru/stat/' . $site . '/index.html?date=' . $year . '-' . $month . '-' . $day . ';period=day;page=';
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
@@ -280,23 +280,23 @@ class DefaultController extends BController
             curl_close($ch);
 
             $document = phpQuery::newDocument($result);
-            $this->SaveVisits($document, $month, $year, $site_id);
+            $this->SaveVisits($document, $month, $year, $site_id, $day);
         }
     }
 
-    private function SaveVisits($document, $month, $year, $site_id)
+    private function SaveVisits($document, $month, $year, $site_id, $day)
     {
         $res = array();
         foreach ($document->find('table table') as $table) {
-            $text = pq($table)->find('td:first')->text();
-            if (strstr($text, 'значения:суммарные') !== FALSE) {
+            $text = pq($table)->find('tr:eq(1) td:eq(1)')->text();
+            if (strstr($text, 'Просмотры') !== FALSE) {
                 $i = 0;
                 foreach (pq($table)->find('tr') as $tr) {
                     $i++;
                     if ($i < 2)
                         continue;
                     $keyword = trim(pq($tr)->find('td:eq(1)')->text());
-                    //echo $keyword.'<br>';
+                    echo $keyword.'<br>';
                     if (empty($keyword))
                         continue;
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
@@ -306,6 +306,7 @@ class DefaultController extends BController
                     $model->value = str_replace(',', '', $stats);
                     $model->year = $year;
                     $model->month = $month;
+                    $model->day = $day;
                     $model->visit_name_id = $page->id;
                     $model->site_id = $site_id;
                     $model->SaveOrUpdate();

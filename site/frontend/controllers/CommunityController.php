@@ -593,24 +593,12 @@ class CommunityController extends Controller
         }
     }
 
-    public function actionPurify()
+    public function actionPurify($by_happy_giraffe = 1)
     {
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
-                'condition' => 'by_happy_giraffe = 1',
-            ),
-        ));
-
-        $this->render('purify', array(
-            'dp' => $dp,
-        ));
-    }
-
-    public function actionPurifyNonHappyGiraffe()
-    {
-        $dp = new CActiveDataProvider('CommunityContent', array(
-            'criteria' => array(
-                'condition' => 'by_happy_giraffe = 0',
+                'condition' => 'by_happy_giraffe = :by',
+                'params' => array(':by' => $by_happy_giraffe),
             ),
         ));
 

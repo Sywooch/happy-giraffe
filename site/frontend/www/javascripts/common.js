@@ -22,7 +22,8 @@ $(document).ready(function () {
                 padding:0,
                 showCloseButton:false,
                 scrolling:false,
-                onComplete:onComplete_function
+                onComplete:onComplete_function,
+                onClosed:function(){if (Attach != undefined) Attach.attachGuestPhoto = false;}
             }).trigger('click');
             return false;
         });

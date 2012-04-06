@@ -79,15 +79,21 @@ class CommunityCommand extends CConsoleCommand
         Yii::import('site.frontend.helpers.*');
         require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
 
+        $perIteraion = 1000;
+
         $criteria = new CDbCriteria;
         $criteria->compare('by_happy_giraffe', false);
+        $criteria->limit = $perIteraion;
+        $criteria->order = 't.id ASC';
 
-        $contents = CommunityContent::model()->full()->findAll($criteria);
+        while ($contents = CommunityContent::model()->full()->findAll($criteria)) {
+            foreach ($contents as $c) {
+                echo $c->id . "\n";
+                $c->content->text = $this->_purifyNonGiraffe($c->content->text);
+                $c->content->save();
+            }
 
-        foreach ($contents as $c) {
-            echo $c->id . "\n";
-            $c->content->text = $this->_purifyNonGiraffe($c->content->text);
-            $c->content->save();
+            $criteria->offset += $perIteraion;
         }
     }
 
@@ -107,7 +113,7 @@ class CommunityCommand extends CConsoleCommand
         //убираем лишние теги
         while (count(pq(':not(' . $allowedTags .')')) > 0) {
             foreach (pq(':not(' . $allowedTags .')') as $s) {
-                pq($s)->replaceWith(pq($s)->html());
+                pq($s)->replaceWith((string) pq($s)->html());
             }
         }
 

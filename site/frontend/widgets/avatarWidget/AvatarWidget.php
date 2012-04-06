@@ -9,6 +9,7 @@ class AvatarWidget extends CWidget
     public $friendButton = false;
     public $sendButton = true;
     public $filled = false;
+    public $location = true;
 	
 	public function run()
 	{

@@ -465,7 +465,7 @@ class CommunityContent extends CActiveRecord
         switch ($this->type_id) {
             case 1:
                 if (preg_match('/src="([^"]+)"/', $this->post->text, $matches)) {
-                    return '<img src="' . $matches[1] . '" alt="' . $this->name . '" width="140" />';
+                    return '<img src="' . $matches[1] . '" alt="' . $this->name . '" />';
                 } else {
                     return Str::truncate(strip_tags($this->post->text));
                 }

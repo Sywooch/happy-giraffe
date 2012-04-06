@@ -171,7 +171,7 @@ class AjaxController extends Controller
 
     public function actionSendComment()
     {
-        if(!isset($_POST['Comment']) || !isset($_POST['Comment']['text']))
+        if (!isset($_POST['Comment']) || !isset($_POST['Comment']['text']))
             Yii::app()->end();
 
         if (empty($_POST['edit-id'])) {
@@ -419,5 +419,23 @@ class AjaxController extends Controller
             $html .= CHtml::tag('li', array(), CHtml::tag('span', array('class' => 'interest selected ' . $interest->category->css_class), $interest->name));
         $html .= CHtml::closeTag('ul');
         echo $html;
+    }
+
+    public function actionToggleFavourites()
+    {
+        if (Yii::app()->user->checkAccess('manageFavourites')) {
+            $modelName = Yii::app()->request->getPost('entity');
+            $modelPk = Yii::app()->request->getPost('entity_id');
+
+            $model = $modelName::model()->findByPk($modelPk);
+            if ($model->in_favourites)
+                $model->in_favourites = false;
+            else
+                $model->in_favourites = true;
+            if ($model->update('in_favourites'))
+                echo CJSON::encode(array('status' => true));
+            else
+                echo CJSON::encode(array('status' => false));
+        }
     }
 }

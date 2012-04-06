@@ -10,7 +10,7 @@ var SmilesCommand = {
 
 function epic_func_smile(el){
     var pic = $(el).find('img').attr('src');
-    CKEDITOR.currentInstance.insertHtml('<img src="' + pic + '" />');
+    CKEDITOR.instances[cke_instance].insertHtml('<img src="' + pic + '" />');
     $.fancybox.close();
 }
 

@@ -260,14 +260,15 @@ class DefaultController extends BController
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $site_id = 1;
-        $year = 2012;
+        $year = 2009;
+        $month = 3;
 
         $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
         $site = 'baby.ru';
         ob_start();
 
-        for ($month = 3; $month > 0; $month--) {
-            $url = 'http://www.liveinternet.ru/stat/' . $site . '/first_pages.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
+        for ($day = 5; $day <= 31; $day++) {
+            $url = 'http://www.liveinternet.ru/stat/' . $site . '/index.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=day;total=yes;page=';
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
@@ -279,11 +280,11 @@ class DefaultController extends BController
             curl_close($ch);
 
             $document = phpQuery::newDocument($result);
-            $this->SaveVisits($document, $month, $year, $site_id, 1);
+            $this->SaveVisits($document, $month, $year, $site_id);
         }
     }
 
-    private function SaveVisits($document, $month, $year, $site_id, $first_page = 0)
+    private function SaveVisits($document, $month, $year, $site_id)
     {
         $res = array();
         foreach ($document->find('table table') as $table) {
@@ -300,14 +301,75 @@ class DefaultController extends BController
                         continue;
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
                     $res[] = array($keyword, $stats);
-                    $page = SeoSitePages::GetPage($keyword);
-                    $model = new SeoPagesStats();
-                    $model->setAttribute('m'.$month, str_replace(',', '', $stats));
+                    $page = SeoVisitsNames::GetVisitName($keyword);
+                    $model = new SeoVisits();
+                    $model->value = str_replace(',', '', $stats);
                     $model->year = $year;
-                    $model->page_id = $page->id;
-                    $model->first_page = $first_page;
+                    $model->month = $month;
+                    $model->visit_name_id = $page->id;
                     $model->site_id = $site_id;
-                    $model->SaveOrUpdate($month);
+                    $model->SaveOrUpdate();
+                }
+
+                echo $i . '<br>';
+            }
+        }
+
+        return $res;
+    }
+
+    public function actionParseBrowsers()
+    {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $site_id = 1;
+        $year = 2012;
+
+        $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
+        $site = 'baby.ru';
+        ob_start();
+
+        for ($month = 2; $month <= 3; $month++) {
+            $url = 'http://www.liveinternet.ru/stat/' . $site . '/browsers.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;page=';
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
+            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+            curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
+            curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
+            $result = curl_exec($ch); // run the whole process
+            curl_close($ch);
+
+            $document = phpQuery::newDocument($result);
+            $this->SaveBrowsers($document, $month, $year, $site_id);
+        }
+    }
+
+    private function SaveBrowsers($document, $month, $year, $site_id)
+    {
+        $res = array();
+        foreach ($document->find('table table') as $table) {
+            $text = pq($table)->find('td:first')->text();
+            if (strstr($text, 'значения:среднесуточные') !== FALSE) {
+                $i = 0;
+                foreach (pq($table)->find('tr') as $tr) {
+                    $i++;
+                    if ($i < 2)
+                        continue;
+                    $keyword = trim(pq($tr)->find('td:eq(1)')->text());
+                    //echo $keyword.'<br>';
+                    if (empty($keyword))
+                        continue;
+                    $stats = trim(pq($tr)->find('td:eq(2)')->text());
+                    $res[] = array($keyword, $stats);
+                    $page = SeoBrowser::GetModelName($keyword);
+                    $model = new SeoBrowserStats();
+                    $model->value = str_replace(',', '', $stats);
+                    $model->year = $year;
+                    $model->month = $month;
+                    $model->browser_id = $page->id;
+                    $model->site_id = $site_id;
+                    $model->SaveOrUpdate();
                 }
 
                 echo $i . '<br>';

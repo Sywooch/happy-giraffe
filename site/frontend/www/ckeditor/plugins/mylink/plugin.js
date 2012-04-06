@@ -23,7 +23,7 @@ function epic_func_mylink(el) {
 
     var urlMatch;
     if (href && ( urlMatch = href.match(urlRegex) )) {
-        CKEDITOR.currentInstance.insertHtml('<a href="' + href + '">' + $.trim(title) + '</a> ');
+        CKEDITOR.instances[cke_instance].insertHtml('<a href="' + href + '">' + $.trim(title) + '</a> ');
         $.fancybox.close();
     }
 }

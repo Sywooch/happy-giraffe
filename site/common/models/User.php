@@ -26,6 +26,7 @@
  * @property string $login_date
  * @property string $last_ip
  * @property string $relationship_status
+ * @property string $in_favourites
  * @property UserAddress $userAddress
  *
  * The followings are the available model relations:
@@ -155,7 +156,7 @@ class User extends CActiveRecord
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
             //array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
-            array('gender', 'boolean'),
+            array('gender, in_favourites', 'boolean'),
             array('phone', 'safe'),
             array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),

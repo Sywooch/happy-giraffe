@@ -9,7 +9,7 @@ class OurUsersWidget extends SimpleWidget
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 12;
-        $criteria->condition = ' avatar IS NOT NULL AND avatar != "" ';
+        $criteria->condition = ' in_favourites = 1 ';
         $criteria->order = ' RAND() ';
         $users = User::model()->findAll($criteria);
 

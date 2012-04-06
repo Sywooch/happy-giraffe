@@ -6,6 +6,8 @@
 class CommunityArticlesWidget extends CWidget
 {
     public $community_id;
+    public $title;
+    public $image;
 
     public function run()
     {
@@ -14,10 +16,17 @@ class CommunityArticlesWidget extends CWidget
         $criteria->limit = 2;
         $criteria->order = ' RAND() ';
         $criteria->with = array('rubric');
-
-        $articles = CommunityContent::model()->findAll($criteria);
         $count = CommunityContent::model()->count($criteria);
 
-        $this->render('CommunityArticlesWidget', compact('articles', 'count'));
+        $criteria->compare('in_favourites', 1);
+        $articles = CommunityContent::model()->findAll($criteria);
+
+        $this->render('CommunityArticlesWidget', array(
+            'articles'=>$articles,
+            'count'=>$count,
+            'title'=>$this->title,
+            'image'=>$this->image,
+            'community_id'=>$this->community_id
+        ));
     }
 }

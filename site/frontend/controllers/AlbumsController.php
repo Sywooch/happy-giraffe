@@ -269,18 +269,33 @@ class AlbumsController extends Controller
             $model->create(true);
         }
 
-        $attach = new AttachPhoto;
-        $attach->entity = 'Comment';
-        $attach->entity_id = 0;
-        $attach->photo_id = $model->id;
-        $attach->save();
+        if ($entity_id = Yii::app()->request->getPost('entity_id')){
+            $comment = new Comment;
+            $comment->entity = Yii::app()->request->getPost('entity');;
+            $comment->entity_id = $entity_id;
+            $comment->author_id = Yii::app()->user->id;
+            if ($comment->save()){
+                $attach = new AttachPhoto;
+                $attach->entity = 'Comment';
+                $attach->entity_id = $comment->id;
+                $attach->photo_id = $model->id;
+                if ($attach->save())
+                    echo CJSON::encode(array('status' => true));
+            }
+        }else{
+            $attach = new AttachPhoto;
+            $attach->entity = 'Comment';
+            $attach->entity_id = 0;
+            $attach->photo_id = $model->id;
+            $attach->save();
 
-        echo CJSON::encode(array(
-            'src' => $model->getPreviewUrl(300, 185, Image::WIDTH),
-            'id' => $model->primaryKey,
-            'title' => $model->title,
-        ));
-        Yii::app()->end();
+            echo CJSON::encode(array(
+                'src' => $model->getPreviewUrl(300, 185, Image::WIDTH),
+                'id' => $model->primaryKey,
+                'title' => $model->title,
+            ));
+            Yii::app()->end();
+        }
     }
 
     public function actionCrop()
@@ -340,44 +355,6 @@ class AlbumsController extends Controller
         UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_PHOTO);
 
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
-    }
-
-    public function actionSaveCommentPhoto(){
-        if(!isset($_POST['file']))
-            Yii::app()->end();
-
-        $comment = new Comment;
-        $comment->entity = $_POST['entity'];
-        $comment->entity_id = $_POST['entity_id'];
-        $comment->author_id = Yii::app()->user->id;
-        $comment->save();
-
-        $val = $_POST['file'];
-
-        if(is_numeric($val))
-        {
-            $photo = AlbumPhoto::model()->findByPk($val);
-        }
-        else
-        {
-            $photo = new AlbumPhoto;
-            $photo->file_name = $val;
-            $photo->author_id = Yii::app()->user->id;
-            if(!$photo->create(true))
-                Yii::app()->end();
-        }
-
-        $attach = new AttachPhoto;
-        $attach->entity = 'Comment';
-        $attach->entity_id = $comment->id;
-        $attach->photo_id = $photo->id;
-        $attach->save();
-
-        $attach = new CommentAttach;
-        $attach->comment_id = $comment->id;
-        $attach->entity = 'AlbumPhoto';
-        $attach->entity_id = $photo->id;
-        $attach->save();
     }
 
     public function actionChangeTitle()

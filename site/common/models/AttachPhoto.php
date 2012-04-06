@@ -98,4 +98,8 @@ class AttachPhoto extends CActiveRecord
             }
         }
     }
+
+    public function getContent(){
+        return $this->photo->getCommentContent();
+    }
 }

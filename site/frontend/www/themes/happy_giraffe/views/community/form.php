@@ -151,7 +151,20 @@
 </div>
 
 <div class="side-left">
-
-
-
 </div>
+
+<div style="display: none;">
+    <div class="upload-btn">
+        <?php
+        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+            'model' => $slave_model,
+        ));
+        $fileAttach->button();
+        $this->endWidget();
+        ?>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var cke_instance = '<?php echo get_class($slave_model); ?>[text]';
+</script>

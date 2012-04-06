@@ -30,10 +30,10 @@ Attach.selectPhoto = function(button, id) {
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="photo_id" />').val(id));
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="ContestWork[file]" />').val(1));
     $('<a class="remove" href="javascript:;" onclick="Attach.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
-    if($('#change_ava').size() > 0 && this.entity != 'Comment')
+    if($('#change_ava').size() > 0 && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo')
         this.crop(id);
     else{
-        if (this.entity == 'Comment'){
+        if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo'){
             this.insertToComment(id);
         }else
             $.fancybox.close();
@@ -49,10 +49,10 @@ Attach.selectBrowsePhoto = function(button) {
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="ContestWork[file]" />').val(1));
     $('<a class="remove" href="javascript:;" onclick="Attach.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
 
-    if($('#change_ava').size() > 0 && this.entity != 'Comment')
+    if($('#change_ava').size() > 0 && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo')
         this.crop(fsn);
     else{
-        if (this.entity == 'Comment'){
+        if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo'){
             this.insertToComment(fsn);
         }else
             $.fancybox.close();
@@ -69,7 +69,7 @@ Attach.closeUpload = function(link) {
 Attach.insertToComment = function(val) {
     var title = $('#photo_title').size() > 0 ? $('#photo_title').val() : null;
     $.post(base_url + '/albums/commentPhoto/', {val : val, title : title}, function(data) {
-        CKEDITOR.instances['Comment_text'].insertHtml('<img src="' + data.src + '" alt="' + data.title + '" title="' + data.title + '" />');
+        CKEDITOR.instances[cke_instance].insertHtml('<img src="' + data.src + '" class="content-img" alt="' + data.title + '" title="' + data.title + '" />');
         $.fancybox.close();
     }, 'json');
 };

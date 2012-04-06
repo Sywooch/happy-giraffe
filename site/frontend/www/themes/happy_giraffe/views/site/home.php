@@ -4,7 +4,7 @@
 
 <div class="col-1">
 
-    <?php $this->widget('CommunitiesWidget'); ?>
+    <?php //$this->widget('CommunitiesWidget'); ?>
 
     <div class="box">
         <a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>"><img src="/images/banner_03.png"></a>

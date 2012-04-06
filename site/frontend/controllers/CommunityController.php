@@ -254,7 +254,7 @@ class CommunityController extends Controller
         $slave_model_name = 'Community' . ucfirst($content_type->slug);
         $slave_model = new $slave_model_name;
 
-        $this->community = $model->rubric->community;
+        $this->community = Community::model()->findByPk($community_id);
         $communities = Community::model()->findAll();
         $rubrics = ($community_id === null) ? array() : CommunityRubric::model()->findAllByAttributes(array('community_id' => $community_id));
 

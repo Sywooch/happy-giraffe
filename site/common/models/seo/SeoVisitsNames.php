@@ -83,4 +83,21 @@ class SeoVisitsNames extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function GetVisitName($word)
+    {
+        $word = trim($word);
+        $model = self::model()->findByAttributes(array(
+            'name' => $word,
+        ));
+        if (isset($model))
+            return $model;
+
+        $model = new SeoVisitsNames();
+        $model->name = $word;
+        if (!$model->save())
+            throw new CHttpException(404, 'Страница не сохранена. ' . $word);
+
+        return $model;
+    }
 }

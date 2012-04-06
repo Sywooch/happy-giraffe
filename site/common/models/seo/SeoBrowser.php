@@ -1,22 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "seo__visits".
+ * This is the model class for table "seo__browser".
  *
- * The followings are the available columns in table 'seo__visits':
- * @property string $id
- * @property integer $site_id
- * @property integer $visit_name_id
- * @property integer $year
- * @property integer $month
- * @property integer $value
+ * The followings are the available columns in table 'seo__browser':
+ * @property integer $id
+ * @property string $name
+ *
+ * The followings are the available model relations:
+ * @property SeoBrowserStats[] $seoBrowserStats
  */
-class SeoVisits extends CActiveRecord
+class SeoBrowser extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SeoVisits the static model class
+	 * @return SeoBrowser the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,7 +27,7 @@ class SeoVisits extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'seo__visits';
+		return 'seo__browser';
 	}
 
 	/**
@@ -39,12 +38,11 @@ class SeoVisits extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('site_id, visit_name_id, year, month, value', 'required'),
-			array('site_id, visit_name_id, year, month', 'numerical', 'integerOnly'=>true),
-            array('value', 'numerical'),
+			array('name', 'required'),
+			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, site_id, visit_name_id, year, month, value', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +54,7 @@ class SeoVisits extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'seoBrowserStats' => array(self::HAS_MANY, 'SeoBrowserStats', 'browser_id'),
 		);
 	}
 
@@ -66,11 +65,7 @@ class SeoVisits extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'site_id' => 'Site',
-			'visit_name_id' => 'Visit Name',
-			'year' => 'Year',
-			'month' => 'Month',
-			'value' => 'Value',
+			'name' => 'Name',
 		);
 	}
 
@@ -85,34 +80,28 @@ class SeoVisits extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('site_id',$this->site_id);
-		$criteria->compare('visit_name_id',$this->visit_name_id);
-		$criteria->compare('year',$this->year);
-		$criteria->compare('month',$this->month);
-		$criteria->compare('value',$this->value);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
 
-    public function SaveOrUpdate()
+    public function GetModelName($word)
     {
+        $word = trim($word);
         $model = self::model()->findByAttributes(array(
-            'visit_name_id'=>$this->visit_name_id,
-            'year'=>$this->year,
-            'month'=>$this->month,
-            'site_id'=>$this->site_id
+            'name' => $word,
         ));
+        if (isset($model))
+            return $model;
 
-        if (isset($model)){
-            echo 'Пропущена статистика '.$this->visit_name_id.' - '.$model->value.' - '.$this->value.'<br>';
-        }else
-            if (!$this->save()){
-                var_dump($this->getErrors());
-                Yii::app()->end();
-            }
+        $model = new self();
+        $model->name = $word;
+        if (!$model->save())
+            throw new CHttpException(404, 'Страница не сохранена. ' . $word);
 
+        return $model;
     }
 }

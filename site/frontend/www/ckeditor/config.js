@@ -70,5 +70,5 @@ CKEDITOR.editorConfig = function (config) {
 
     CKEDITOR.config.format_tags = 'p;h2;h3';
 
-    config.removePlugins = 'elementspath,clipboard, smiley';
+    config.removePlugins = 'elementspath,clipboard,smiley,contextmenu';
 };

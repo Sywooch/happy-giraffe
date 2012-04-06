@@ -180,7 +180,7 @@
                 break;
         }
     ?>
-<?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+<?php /*$this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
     'title' => $like_title,
     'notice' => $like_notice,
     'model' => $data,
@@ -189,5 +189,5 @@
         'image' => isset($data_image) ? $data_image : false,
         'description' => $data_text,
     ),
-)); ?>
+));*/ ?>
 <?php endif; ?>

@@ -108,7 +108,7 @@ class CommunityController extends Controller
     {
         $params = array_filter(CMap::mergeArray(
             array(
-                'community_id' => $this->actionParams['community_id'],
+                'community_id' => $this->community->id,
                 'rubric_id' => isset($this->actionParams['rubric_id']) ? $this->actionParams['rubric_id'] : null,
                 'content_type_slug' => isset($this->actionParams['content_type_slug']) ? $this->actionParams['content_type_slug'] : null,
             ),
@@ -161,6 +161,7 @@ class CommunityController extends Controller
         if ($model === null)
             throw CHttpException(404, 'Запись не найдена');
 
+        $this->community = $model->rubric->community;
         $community_id = $model->rubric->community->id;
         $rubric_id = $model->rubric->id;
 
@@ -253,6 +254,7 @@ class CommunityController extends Controller
         $slave_model_name = 'Community' . ucfirst($content_type->slug);
         $slave_model = new $slave_model_name;
 
+        $this->community = $model->rubric->community;
         $communities = Community::model()->findAll();
         $rubrics = ($community_id === null) ? array() : CommunityRubric::model()->findAllByAttributes(array('community_id' => $community_id));
 

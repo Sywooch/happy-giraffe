@@ -118,19 +118,27 @@
 
     <?php $this->widget('OurUsersWidget'); ?>
 
-    <?php $this->widget('CommunityArticlesWidget',array('community_id'=>26)); ?>
+    <div class="box homepage-articles">
+
+        <div class="title">Интерьер и дизайн <span>- сделаем все красиво!</span></div>
+
+        <?php $this->widget('CommunityArticlesWidget',array(
+        'community_id'=>26,
+        'title'=>'статьи',
+        'image'=>'homepage_articles_img.jpg',
+    )); ?>
+
+    </div>
 
     <div class="box homepage-articles homepage-recipes">
 
         <div class="title">Кулинарные рецепты <span>- <b>1000</b> рецептов</span></div>
 
-        <ul>
-            <li><a href=""><img src="/images/homepage_recipes_img.jpg"></a></li>
-            <li><a href="">Как приготовить в домашних условиях суши</a></li>
-            <li><a href="">У меня очень придирчивые мои любимые дети. Все им не вкусно!</a></li>
-        </ul>
-
-        <div class="all-link"><a href="">Все рецепты (2589)</a></div>
+        <?php $this->widget('CommunityArticlesWidget',array(
+        'community_id'=>22,
+        'title'=>'рецепты',
+        'image'=>'homepage_recipes_img.jpg',
+    )); ?>
 
     </div>
 

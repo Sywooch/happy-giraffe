@@ -6,6 +6,8 @@
 class CommunityArticlesWidget extends CWidget
 {
     public $community_id;
+    public $title;
+    public $image;
 
     public function run()
     {
@@ -18,6 +20,11 @@ class CommunityArticlesWidget extends CWidget
         $articles = CommunityContent::model()->findAll($criteria);
         $count = CommunityContent::model()->count($criteria);
 
-        $this->render('CommunityArticlesWidget', compact('articles', 'count'));
+        $this->render('CommunityArticlesWidget', array(
+            'articles'=>$articles,
+            'count'=>$count,
+            'title'=>$this->title,
+            'image'=>$this->image
+        ));
     }
 }

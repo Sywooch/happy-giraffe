@@ -180,7 +180,7 @@
     </div>
 
     <div class="box">
-        <a href=""><img src="/images/banner_03.png"></a>
+        <a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>"><img src="/images/banner_03.png"></a>
     </div>
 
 </div>
@@ -193,89 +193,9 @@
 
 <div class="col-2">
 
-    <div class="box homepage-most">
+    <?php $this->widget('MostPopularWidget'); ?>
 
-        <div class="title"><span>Самое-самое</span> интересное</div>
-
-        <ul>
-            <li>
-                <a href="">Самые красивые девушки мира 2012</a>
-                <a href=""><img src="/images/homepage_most_img_01.jpg"></a>
-            </li>
-            <li>
-                <a href="">25 самых красивых мест планеты</a>
-                <a href=""><img src="/images/homepage_most_img_02.jpg"></a>
-            </li>
-        </ul>
-
-    </div>
-
-    <div class="box homepage-services">
-
-        <div class="title"><span>Сервисы</span> попробуй!</div>
-
-        <div class="clearfix">
-
-            <div class="fast-service child-gender">
-
-                <div class="img"><img src="/images/homepage_service_img_01.png"></div>
-
-                <big>Определение пола ребенка</big>
-
-                <ul>
-                    <li><a href="">Китайский метод</a></li>
-                    <li><a href="">Японский метод</a></li>
-                    <li><a href="">По дням рождения</a></li>
-                    <li><a href="">По группе крови</a></li>
-                    <li><a href="">По овуляции</a></li>
-                </ul>
-
-            </div>
-
-            <div class="fast-service child-name">
-
-                <div class="img"><img src="/images/homepage_service_img_02.png"></div>
-
-                <big><a href="">Выбираем имя</a></big>
-
-            </div>
-
-        </div>
-
-        <div class="list clearfix">
-
-            <big>Еще сервисы</big>
-
-            <ul>
-                <li>
-                    <ul>
-                        <li><a href="">Календарь прививок ребенка</a></li>
-                        <li><a href="">Вес при беременности</a></li>
-                        <li><a href="">Толщина плаценты</a></li>
-                        <li><a href="">Женский календарь</a></li>
-                        <li><a href="">Сумка в роддом</a></li>
-                        <li><a href="">Определение пола ребенка</a></li>
-                        <li><a href="">Расчет ниток для вышивания</a></li>
-                        <li><a href="">Сколько пряжи для вязания нужно?</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <ul>
-                        <li><a href="">Тест. Определение типа волос</a></li>
-                        <li><a href="">Справочник детских болезней</a></li>
-                        <li><a href="">Книга народных рецептов от детских болезней</a></li>
-                        <li><a href="">Женский календарь</a></li>
-                        <li><a href="">Калькулятор петель</a></li>
-                        <li><a href="">Расчет стоимости вышивки</a></li>
-                        <li><a href="">Калькулятор ткани</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-
-        </div>
-
-    </div>
+    <?php $this->widget('OurServicesWidget'); ?>
 
     <div class="box homepage-blogs">
 
@@ -369,30 +289,7 @@
 
 <div class="col-3">
 
-    <div class="box homepage-parents clearfix">
-
-        <div class="title"><span>Наши</span> мамы и папы</div>
-
-        <ul>
-            <li><a href="" class="ava"></a></li>
-            <li><a href="" class="ava male"></a></li>
-            <li><a href="" class="ava"></a></li>
-            <li><a href="" class="ava female"></a></li>
-            <li><a href="" class="ava male"></a></li>
-            <li><a href="" class="ava female"></a></li>
-            <li><a href="" class="ava"></a></li>
-            <li><a href="" class="ava female"></a></li>
-            <li><a href="" class="ava"></a></li>
-            <li><a href="" class="ava male"></a></li>
-            <li><a href="" class="ava"></a></li>
-            <li><a href="" class="ava female"></a></li>
-        </ul>
-
-        <div class="join">
-            <a href="">Присоединяйтесь!</a>
-        </div>
-
-    </div>
+    <?php $this->widget('OurUsersWidget'); ?>
 
     <div class="box homepage-articles">
 

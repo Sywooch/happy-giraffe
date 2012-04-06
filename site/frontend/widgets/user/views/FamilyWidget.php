@@ -24,7 +24,7 @@
                 <li>
                     <big><?php echo $baby->name ?><span><?php if (!empty($baby->birthday)) echo ', '.$baby->getTextAge(false) ?></span></big>
                     <?php if (!empty($baby->notice)):?>
-                    <div class="comment purple">
+                    <div class="comment <?= ($baby->sex == 1)?'blue':'pink' ?>">
                         <?= $baby->notice ?>
                         <span class="tale"></span>
                     </div>

@@ -25,7 +25,7 @@ class CommunityController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map'),
                 'users'=>array('*'),
             ),
             array('allow',
@@ -89,6 +89,16 @@ class CommunityController extends Controller
 
         $contents = CommunityContent::model()->getContents($community_id, $rubric_id, $content_type_slug);
 
+        $crumbs = array();
+        $crumbs['Клубы'] = array('/community');
+        if ($rubric_id !== null) {
+            $crumbs[$this->community->name] = $this->community->url;
+            $crumbs[] = $rubric->name;
+        } else {
+            $crumbs[] = $this->community->name;
+        }
+        $this->breadcrumbs = $crumbs;
+
         $this->render('list', array(
             'contents' => $contents,
         ));
@@ -98,7 +108,7 @@ class CommunityController extends Controller
     {
         $params = array_filter(CMap::mergeArray(
             array(
-                'community_id' => $this->actionParams['community_id'],
+                'community_id' => $this->community->id,
                 'rubric_id' => isset($this->actionParams['rubric_id']) ? $this->actionParams['rubric_id'] : null,
                 'content_type_slug' => isset($this->actionParams['content_type_slug']) ? $this->actionParams['content_type_slug'] : null,
             ),
@@ -133,6 +143,13 @@ class CommunityController extends Controller
             UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
         }
 
+        $this->breadcrumbs = array(
+            'Клубы' => array('/community'),
+            $this->community->name => $this->community->url,
+            $content->rubric->name => $content->rubric->url,
+            $content->name,
+        );
+
         $this->render('view', array(
             'data' => $content,
         ));
@@ -144,6 +161,7 @@ class CommunityController extends Controller
         if ($model === null)
             throw CHttpException(404, 'Запись не найдена');
 
+        $this->community = $model->rubric->community;
         $community_id = $model->rubric->community->id;
         $rubric_id = $model->rubric->id;
 
@@ -236,6 +254,7 @@ class CommunityController extends Controller
         $slave_model_name = 'Community' . ucfirst($content_type->slug);
         $slave_model = new $slave_model_name;
 
+        $this->community = Community::model()->findByPk($community_id);
         $communities = Community::model()->findAll();
         $rubrics = ($community_id === null) ? array() : CommunityRubric::model()->findAllByAttributes(array('community_id' => $community_id));
 
@@ -584,6 +603,61 @@ class CommunityController extends Controller
 
         $this->render('purify', array(
             'dp' => $dp,
+        ));
+    }
+
+    public function actionPing2()
+    {
+        $key = '';
+        $login = '';
+        $search_id = '';
+
+        $urls = '';
+        $contents = CommunityContent::model()->findByAttributes(array(
+            'by_happy_giraffe' => true,
+        ));
+        foreach ($contents as $c) {
+            $urls .= $c->url . "%0A";
+        }
+
+        $data = array(
+            'key' => $key,
+            'login' => $login,
+            'search_id' => $search_id,
+            'urls' => $urls,
+        );
+
+        $ch = curl_init("http://site.yandex.ru/ping.xml");
+        curl_setopt($ch, CURLOPT_POST, true);
+
+    }
+
+    public function actionPing()
+    {
+        $contents = CommunityContent::model()->findAllByAttributes(array(
+            'by_happy_giraffe' => true,
+        ), array(
+            'limit' => 100,
+            'order' => 'id ASC',
+        ));
+
+        foreach ($contents as $c) {
+            echo $c->url . '<br />';
+        }
+    }
+
+    public function actionMap()
+    {
+        $contents = CommunityContent::model()->findAllByAttributes(array(
+            'by_happy_giraffe' => true,
+        ), array(
+            'limit' => 100,
+            'offset' => 100,
+            'order' => 'id ASC',
+        ));
+
+        $this->render('map', array(
+            'contents' => $contents,
         ));
     }
 }

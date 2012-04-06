@@ -16,7 +16,7 @@
 		<div class="clear"></div>
 	</div>
 
-	<div class="entry-content">
+	<div class="entry-content wysiwyg-content">
 		<?php
 			switch ($c->type->slug)
 			{

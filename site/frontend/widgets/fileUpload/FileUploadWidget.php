@@ -5,14 +5,14 @@ class FileUploadWidget extends CWidget
     public $album_id;
     public $mode = 'full';
 
-    public function form()
+    public function form($init = true)
     {
         parent::init();
         $this->registerScripts();
         if($this->mode == 'full')
-            $this->render('index');
+            $this->render('index', array('init' => $init));
         elseif($this->mode == 'attach')
-            $this->render('attach');
+            $this->render('attach', array('init' => $init));
     }
 
     public function registerScripts()

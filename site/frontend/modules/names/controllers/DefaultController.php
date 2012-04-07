@@ -2,6 +2,10 @@
 
 class DefaultController extends Controller
 {
+    /**
+     * @todo имена
+     */
+
     public $layout = 'names';
     public $likes = 0;
 

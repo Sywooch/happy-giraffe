@@ -2,6 +2,9 @@
 
 class DefaultController extends Controller
 {
+    /**
+     * @todo добавить в sitemap
+     */
     public $layout = '//layouts/new2';
 
     public function filters()

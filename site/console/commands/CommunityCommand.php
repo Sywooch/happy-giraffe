@@ -82,7 +82,7 @@ class CommunityCommand extends CConsoleCommand
         $perIteraion = 1000;
 
         $criteria = new CDbCriteria;
-        $criteria->compare('by_happy_giraffe', false);
+        $criteria->condition = 'by_happy_giraffe = 0 AND t.id > 12265';
         $criteria->limit = $perIteraion;
         $criteria->order = 't.id ASC';
 

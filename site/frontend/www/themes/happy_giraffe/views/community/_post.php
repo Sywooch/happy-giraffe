@@ -3,10 +3,10 @@
     <div class="entry-header">
         <?php if ($full): ?>
             <h1><?php echo $data->name; ?></h1>
-            <?php $this->widget('application.widgets.favoritesWidget.FavoritesWidget', array('model' => $data)); ?>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
         <?php else: ?>
             <?php echo CHtml::link($data->name, $data->url, array('class' => 'entry-title')); ?>
-            <?php $this->widget('application.widgets.favoritesWidget.FavoritesWidget', array('model' => $data)); ?>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
         <?php endif; ?>
         <?php if (! $data->by_happy_giraffe): ?>
             <div class="user">
@@ -180,7 +180,7 @@
                 break;
         }
     ?>
-<?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+<?php /*$this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
     'title' => $like_title,
     'notice' => $like_notice,
     'model' => $data,
@@ -189,5 +189,5 @@
         'image' => isset($data_image) ? $data_image : false,
         'description' => $data_text,
     ),
-)); ?>
+));*/ ?>
 <?php endif; ?>

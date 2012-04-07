@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 06.04.12
  */
-class FavoritesWidget extends CWidget
+class FavouritesWidget extends CWidget
 {
     public $model;
 

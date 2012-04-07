@@ -502,7 +502,7 @@ p {
     border-bottom: 1px solid #caf3f8;
     width: 100%;
     padding: 0px 0 10px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .entry.entry-full {
@@ -523,40 +523,12 @@ p {
 }
 
 .entry-footer {
-    font-size: 11px;
-}
-
-.entry .meta {
-    margin: -5px 0 0px;
-    padding: 0px;
-    float: right;
-    display: block;
-    width: auto;
-    color: #737575;
-    text-align: right;
-    font-size: 11px;
-    overflow: hidden;
-}
-
-.entry .meta .seen {
-    display: inline-block;
-    margin-bottom: 3px;
-    margin-top: 2px;
-    background: #FFDE51;
-    padding-right: 0px;
-    padding-left: 0px;
-    padding-bottom: 3px;
-    padding-top: 1px;
-    width: auto;
-    text-align: center;
-    padding: 0 15px;
-    height: 17px;
-    line-height: 17px;
-}
-
-.entry .meta .seen span {
     font-size: 12px;
 }
+
+.entry .meta {float:right;color:#737575;text-align:right;font-size:13px;overflow:hidden;padding-top:15px;}
+
+.entry .meta .seen {background:#fdfccc;width:auto;display:inline-block;text-align:center;padding:0 8px;height:21px;line-height:21px;}
 
 .entry .meta .rate {
     zoom: 1;
@@ -569,51 +541,12 @@ p {
     font: bold 24px tahoma, sans-serif;
 }
 
-.entry .meta  .time {
-    padding-right: 0px;
-    margin-bottom: 1px;
-    color: #0281b0;
-}
+.entry .meta  .time {font-size:9px;color:#b3b3b3;padding:0 8px;}
 
-.entry  a.username, .source a.link, .entry-footer a.comm, .entry .meta  .time {
-    margin-bottom: 2px;
-    font: 11px tahoma, sans-serif;
-    color: #0281b0;
-    text-decoration: none;
-}
-
-.entry .entry-footer {
-    padding-top: 10px;
-}
+.entry .meta  a {padding:0 8px;}
 
 .entry-content {
-    padding: 12px 0
-}
-
-
-.entry p {
-    line-height: 17px;
-    margin: 0 0 1em;
-}
-
-.entry p.image {
-    display: block;
-    text-align: center;
-    margin: 1.4em 0;
-}
-
-.entry p.image img {
-    display: block;
-    margin: 0 auto;
-}
-
-.entry p.image .under-img {
-    text-align: center;
-    margin: 3px auto 0;
-    font: 11px tahoma, sans-serif;
-    color: #34a0b7;
-    display: block;
-    max-width: 90%;
+    margin:20px 0 10px;
 }
 
 .entry-content ul.tr_map {
@@ -719,13 +652,21 @@ p {
 
 .entry .entry-footer span.comm {float:right;padding-top:4px;}
 
-.entry .entry-footer .admin-actions {float:right;margin-right:35px;background:#ffcdcd;padding:3px 9px;}
+.entry .entry-footer .admin-actions {float:right;margin-right:35px;background:#f7f7f7;padding:3px 9px;margin-top:-2px;}
+
 .entry .entry-footer .admin-actions .edit {display:inline-block;vertical-align:middle;margin-right:5px;}
-.entry .entry-footer .admin-actions .edit .icon {display:block;width:14px;height:18px;background:url(../images/common.png) no-repeat -341px -136px;margin:2px auto 0;}
-.entry .entry-footer .admin-actions .move {color:#1db4ec;text-decoration:none;border-bottom:1px dashed #1db4ec;}
-.entry .entry-footer .admin-actions .move:hover {border:0;}
+.entry .entry-footer .admin-actions .edit .icon {display:block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:2px auto 0;}
+.entry .entry-footer .admin-actions .edit:hover .icon {background-position: -341px -136px;}
+
+.entry .entry-footer .admin-actions .move {color:#bebdbd;text-decoration:none;border-bottom:1px dashed #bebdbd;}
+.entry .entry-footer .admin-actions .move:hover {color:#029ad2;border-color:#029ad2;}
+
 .entry .entry-footer .admin-actions .remove {display:inline-block;vertical-align:middle;margin-left:5px;}
-.entry .entry-footer .admin-actions .remove .icon {display:block;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;}
+.entry .entry-footer .admin-actions .remove .icon {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
+.entry .entry-footer .admin-actions .remove:hover .icon {background-position:-314px -148px;}
+
+.entry .entry-footer .claim {color:#f56b95;font-size:13px;text-decoration:none;border-bottom:1px dashed #f56b95;margin-right:25px;}
+.entry .entry-footer .claim:hover {border:0;}
 
 .entry .entry-footer .comm span {
     font-size: 12px;

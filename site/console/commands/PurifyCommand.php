@@ -26,7 +26,7 @@ class PurifyCommand extends CConsoleCommand
             echo $c->id . "\n";
             $method = $c->by_happy_giraffe ? '_giraffe' : '_nonGiraffe';
             $text = $this->$method($c->content->text);
-            $text = str_replace('/upload', 'http://www.happy-giraffe.ru/upload', $text);
+            //$text = str_replace('/upload', 'http://www.happy-giraffe.ru/upload', $text);
             if ($cli) {
                 echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n" . $text . "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n";
             } else {

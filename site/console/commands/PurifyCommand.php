@@ -9,6 +9,7 @@ class PurifyCommand extends CConsoleCommand
     {
         Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        Yii::import('site.frontend.helpers.*');
 
         $criteria = new CDbCriteria;
         if ($id !== null) {

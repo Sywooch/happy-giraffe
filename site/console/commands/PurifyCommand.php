@@ -21,17 +21,20 @@ class PurifyCommand extends CConsoleCommand
         }
 
         $contents = CommunityContent::model()->full()->findAll($criteria);
+        $count = count($contents);
 
-        foreach ($contents as $c) {
-            echo $c->id . "\n";
-            $method = $c->by_happy_giraffe ? '_giraffe' : '_nonGiraffe';
-            $text = $this->$method($c->content->text);
-            $text = str_replace('/upload', 'http://www.happy-giraffe.ru/upload', $text);
-            if ($cli) {
-                echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n" . $text . "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n";
-            } else {
-                $c->content->text = $text;
-                $c->content->save();
+        foreach ($contents as $k => $c) {
+            if ($c->content) {
+                system('clear');
+                echo $c->id . ' [' . $k . '/' . $count . ']' . "\n";
+                $method = $c->by_happy_giraffe ? '_giraffe' : '_nonGiraffe';
+                $text = $this->$method($c->content->text);
+                if ($cli) {
+                    echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n" . $text . "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n";
+                } else {
+                    $c->content->text = $text;
+                    $c->content->save();
+                }
             }
         }
     }
@@ -83,11 +86,11 @@ class PurifyCommand extends CConsoleCommand
         //чистим стили
         $this->_clearStyle();
 
-        //удаляем пустые параграфы
-        $this->_emptyParagraphs();
-
         //правим картинки
         $this->_images();
+
+        //удаляем пустые параграфы
+        $this->_emptyParagraphs();
 
         //выделяем лид
         foreach (pq(':header:first')->prevAll('p') as $e) {
@@ -111,7 +114,9 @@ class PurifyCommand extends CConsoleCommand
             }
         }
 
-        return $doc;
+        $result = $doc->htmlOuter();
+        $doc->unloadDocument();
+        return $result;
     }
 
     private function _nonGiraffe($html)
@@ -136,16 +141,18 @@ class PurifyCommand extends CConsoleCommand
         //чистим стили
         $this->_clearStyle();
 
-        //удаляем пустые параграфы
-        $this->_emptyParagraphs();
-
         //правим картинки
         $this->_images();
+
+        //удаляем пустые параграфы
+        $this->_emptyParagraphs();
 
         //чистим маркированные списки
         $this->_lists();
 
-        return $doc;
+        $result = $doc->htmlOuter();
+        $doc->unloadDocument();
+        return $result;
     }
 
     private function _htmltrim($string)

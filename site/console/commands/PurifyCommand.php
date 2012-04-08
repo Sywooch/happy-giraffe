@@ -155,19 +155,18 @@ class PurifyCommand extends CConsoleCommand
     private function _images()
     {
         foreach (pq('img') as $e) {
-            //убираем margin
             $style = pq($e)->attr('style');
-            preg_match('/float:\s*(\w+)/', $style, $matches);
-            $float = $matches[1];
-            $style = preg_replace('/(?:margin|float):[^;]*;\s*/', '', $style);
-            pq($e)->attr('class', 'content-img-' . $float);
-            pq($e)->attr('style', $style);
-            if (pq($e)->attr('style') == '') {
-                pq($e)->removeAttr('style');
-            }
+            if (preg_match('/float:\s*(\w+)/', $style, $matches)) {
+                $float = $matches[1];
+                $style = preg_replace('/(?:margin|float):[^;]*;\s*/', '', $style);
+                pq($e)->attr('class', 'content-img-' . $float);
+                pq($e)->attr('style', $style);
+                if (pq($e)->attr('style') == '') {
+                    pq($e)->removeAttr('style');
+                }
 
-            //выносим
-            pq($e)->insertBefore(pq($e)->parents(':last'));
+                pq($e)->insertBefore(pq($e)->parents(':last'));
+            }
         }
     }
 

@@ -2015,7 +2015,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .wysiwyg-content ol li, .wysiwyg-content ul li {margin-bottom:9px;}
 .wysiwyg-content a {text-decoration:none;}
 .wysiwyg-content a:hover {text-decoration:underline;}
-
+.wysiwyg-content img.content-img-left {margin-right:20px;float:left;margin-bottom:10px;}
+.wysiwyg-content img.content-img-right {margin-left:20px;float:right;margin-bottom:10px;}
 
 
 /* homepage */

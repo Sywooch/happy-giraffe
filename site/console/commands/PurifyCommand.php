@@ -13,6 +13,7 @@ class PurifyCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria;
         $criteria->compare('type_id', 1);
+        $criteria->addCondition('rubric.community_id IS NOT NULL');
         $criteria->order = 't.id ASC';
         if ($id !== null) {
             $criteria->compare('t.id', $id);

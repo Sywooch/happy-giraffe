@@ -86,11 +86,11 @@ class PurifyCommand extends CConsoleCommand
         //чистим стили
         $this->_clearStyle();
 
-        //удаляем пустые параграфы
-        $this->_emptyParagraphs();
-
         //правим картинки
         $this->_images();
+
+        //удаляем пустые параграфы
+        $this->_emptyParagraphs();
 
         //выделяем лид
         foreach (pq(':header:first')->prevAll('p') as $e) {
@@ -141,11 +141,11 @@ class PurifyCommand extends CConsoleCommand
         //чистим стили
         $this->_clearStyle();
 
-        //удаляем пустые параграфы
-        $this->_emptyParagraphs();
-
         //правим картинки
         $this->_images();
+
+        //удаляем пустые параграфы
+        $this->_emptyParagraphs();
 
         //чистим маркированные списки
         $this->_lists();

@@ -12,6 +12,7 @@ class PurifyCommand extends CConsoleCommand
         Yii::import('site.frontend.helpers.*');
 
         $criteria = new CDbCriteria;
+        $criteria->compare('type_id', 1);
         if ($id !== null) {
             $criteria->compare('t.id', $id);
         } else {
@@ -24,8 +25,8 @@ class PurifyCommand extends CConsoleCommand
             echo $c->id . "\n";
             $method = $c->by_happy_giraffe ? '_giraffe' : '_nonGiraffe';
             $text = $this->$method($c->content->text);
+            $text = str_replace('/upload', 'http://www.happy-giraffe.ru/upload', $text);
             if ($cli) {
-                $text = str_replace('/upload', 'http://www.happy-giraffe.ru/upload', $text);
                 echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n" . $text . "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n";
             } else {
                 $c->content->text = $text;

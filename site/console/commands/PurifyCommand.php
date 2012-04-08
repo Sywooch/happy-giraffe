@@ -21,9 +21,11 @@ class PurifyCommand extends CConsoleCommand
         }
 
         $contents = CommunityContent::model()->full()->findAll($criteria);
+        $count = count($contents);
 
-        foreach ($contents as $c) {
-            echo $c->id . "\n";
+        foreach ($contents as $k => $c) {
+            system('clear');
+            echo $c->id . ' [' . $k . '/' . $count . ']' . "\n";
             $method = $c->by_happy_giraffe ? '_giraffe' : '_nonGiraffe';
             $text = $this->$method($c->content->text);
             //$text = str_replace('/upload', 'http://www.happy-giraffe.ru/upload', $text);

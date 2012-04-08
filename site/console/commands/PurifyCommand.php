@@ -20,6 +20,7 @@ class PurifyCommand extends CConsoleCommand
         $contents = CommunityContent::model()->full()->findAll($criteria);
 
         foreach ($contents as $c) {
+            echo $c->id . "\n";
             $method = $c->by_happy_giraffe ? '_giraffe' : '_nonGiraffe';
             $text = $this->$method($c->content->text);
             if ($cli) {
@@ -103,7 +104,6 @@ class PurifyCommand extends CConsoleCommand
         //убираем курсив с выделенного жирным
         foreach (pq('em') as $e) {
             if (count(pq($e)->parent('strong')) > 0 || count(pq($e)->children('strong')) > 0) {
-
                 pq($e)->replaceWith(pq($e)->html());
             }
         }

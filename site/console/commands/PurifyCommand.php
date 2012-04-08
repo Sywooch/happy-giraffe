@@ -111,7 +111,9 @@ class PurifyCommand extends CConsoleCommand
             }
         }
 
-        return $doc;
+        $result = $doc->htmlOuter();
+        $doc->unloadDocument();
+        return $result;
     }
 
     private function _nonGiraffe($html)
@@ -145,7 +147,9 @@ class PurifyCommand extends CConsoleCommand
         //чистим маркированные списки
         $this->_lists();
 
-        return $doc;
+        $result = $doc->htmlOuter();
+        $doc->unloadDocument();
+        return $result;
     }
 
     private function _htmltrim($string)

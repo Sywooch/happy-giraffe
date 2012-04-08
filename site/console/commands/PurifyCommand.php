@@ -24,16 +24,17 @@ class PurifyCommand extends CConsoleCommand
         $count = count($contents);
 
         foreach ($contents as $k => $c) {
-            system('clear');
-            echo $c->id . ' [' . $k . '/' . $count . ']' . "\n";
-            $method = $c->by_happy_giraffe ? '_giraffe' : '_nonGiraffe';
-            $text = $this->$method($c->content->text);
-            //$text = str_replace('/upload', 'http://www.happy-giraffe.ru/upload', $text);
-            if ($cli) {
-                echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n" . $text . "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n";
-            } else {
-                $c->content->text = $text;
-                $c->content->save();
+            if ($c->content) {
+                system('clear');
+                echo $c->id . ' [' . $k . '/' . $count . ']' . "\n";
+                $method = $c->by_happy_giraffe ? '_giraffe' : '_nonGiraffe';
+                $text = $this->$method($c->content->text);
+                if ($cli) {
+                    echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n" . $text . "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n";
+                } else {
+                    $c->content->text = $text;
+                    $c->content->save();
+                }
             }
         }
     }

@@ -174,10 +174,10 @@ class PurifyCommand extends CConsoleCommand
     private function _deprecated()
     {
         foreach (pq('b') as $e) {
-            $e->replaceWith('<strong>' . $e->html() . '</strong>');
+            pq($e)->replaceWith('<strong>' . pq($e)->html() . '</strong>');
         }
         foreach (pq('i') as $e) {
-            $e->replaceWith('<em>' . $e->html() . '</em>');
+            pq($e)->replaceWith('<em>' . pq($e)->html() . '</em>');
         }
     }
 

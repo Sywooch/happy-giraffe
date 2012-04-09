@@ -73,33 +73,37 @@ Attach.closeUpload = function(link) {
 Attach.insertToComment = function(val) {
     var title = $('#photo_title').size() > 0 ? $('#photo_title').val() : null;
     $.post(base_url + '/albums/commentPhoto/', {val : val, title : title}, function(data) {
-        if(CKEDITOR.instances[cke_instance] != undefined)
-            CKEDITOR.instances[cke_instance].insertHtml('<img src="' + data.src + '" class="content-img" alt="' + data.title + '" title="' + data.title + '" />');
+        if(CKEDITOR.instances[cke_instance] != undefined){
+            if (data.title != null && data.title != 'null')
+                CKEDITOR.instances[cke_instance].insertHtml('<p><img src="' + data.src + '" alt="' + data.title + '" title="' + data.title + '" /></p>');
+            else
+                CKEDITOR.instances[cke_instance].insertHtml('<p><img src="' + data.src + '" /></p>');
+        }
         $.fancybox.close();
     }, 'json');
 };
 
-Attach.saveCommentPhoto = function(fsn){
+Attach.saveCommentPhoto = function (fsn) {
     $.post(base_url + '/albums/commentPhoto/', {entity:Comment.entity, entity_id:Comment.entity_id, val:fsn},
-        function(response) {
-                    if (response.status){
-                        $.fancybox.close();
-                        var pager = $('#comment_list .yiiPager .page:last');
-                        var url = false;
-                        if (pager.size() > 0 && $('#add_comment .button_panel .btn-green-medium span span').text() != 'Редактировать')
-                            url = pager.children('a').attr('href');
-                        if (url !== false)
-                            $.fn.yiiListView.update('comment_list', {url:url, data:{lastPage:true}});
-                        else if ($('#add_comment .button_panel .btn-green-medium span span').text() == 'Редактировать')
-                            $.fn.yiiListView.update('comment_list');
-                        else
-                            $.fn.yiiListView.update('comment_list', {data:{lastPage:true}});
-                        var editor = Comment.getInstance();
-                        editor.setData('');
-                        editor.destroy();
-                        Comment.cancel();
-                    }
-                }, 'json');
+        function (response) {
+            if (response.status) {
+                $.fancybox.close();
+                var pager = $('#comment_list .yiiPager .page:last');
+                var url = false;
+                if (pager.size() > 0 && $('#add_comment .button_panel .btn-green-medium span span').text() != 'Редактировать')
+                    url = pager.children('a').attr('href');
+                if (url !== false)
+                    $.fn.yiiListView.update('comment_list', {url:url, data:{lastPage:true}});
+                else if ($('#add_comment .button_panel .btn-green-medium span span').text() == 'Редактировать')
+                    $.fn.yiiListView.update('comment_list');
+                else
+                    $.fn.yiiListView.update('comment_list', {data:{lastPage:true}});
+                var editor = Comment.getInstance();
+                editor.setData('');
+                editor.destroy();
+                Comment.cancel();
+            }
+        }, 'json');
 };
 
 Attach.crop = function(val) {

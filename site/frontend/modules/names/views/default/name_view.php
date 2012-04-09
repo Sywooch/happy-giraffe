@@ -37,7 +37,7 @@
         <p class="heart_like"><?php echo $name->likes; ?></p>
 
         <div class="clear"></div>
-        <?php $this->renderPartial('_stats',array()); ?>
+        <?php //$this->renderPartial('_stats',array()); ?>
     </div>
 </div>
 

@@ -595,10 +595,11 @@ class CommunityController extends Controller
 
     public function actionPurify($by_happy_giraffe = 1)
     {
-        $dp = new CActiveDataProvider('CommunityContent', array(
+        $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
             'criteria' => array(
-                'condition' => 'by_happy_giraffe = :by',
+                'condition' => 'by_happy_giraffe = :by AND type_id = 1 AND rubric.community_id IS NOT NULL',
                 'params' => array(':by' => $by_happy_giraffe),
+                'order' => 't.id ASC',
             ),
         ));
 

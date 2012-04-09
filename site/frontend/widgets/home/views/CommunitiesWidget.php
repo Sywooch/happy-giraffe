@@ -4,7 +4,7 @@
 
     <ul>
 
-        <li class="kids">
+        <li class="kids" style="display: none;">
             <div class="category-title">Дети и беременность</div>
             <ul>
                 <li>

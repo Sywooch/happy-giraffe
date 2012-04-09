@@ -44,7 +44,7 @@ $('#sort').change(function() {
 
     <?php if ($pages->pageCount > 1): ?>
     <div class="pagination pagination-center clearfix">
-        <?php $this->widget('LinkPager', array(
+        <?php $this->widget('AlbumLinkPager', array(
         'pages' => $pages,
     )); ?>
     </div>

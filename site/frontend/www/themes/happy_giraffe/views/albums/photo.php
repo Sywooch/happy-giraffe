@@ -63,6 +63,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
         </div>
         <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
             'title' => 'Вам понравилось фото?',
+            'type' => 'minimize',
             'model' => $photo,
             'options' => array(
                 'title' => $photo->description,

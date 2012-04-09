@@ -37,12 +37,12 @@
         <ul>
             <li>
                 <ul>
-                    <li><a href="<?=Yii::app()->createUrl('/vaccineCalendar/') ?>">Календарь прививок ребенка</a></li>
+<!--                    <li><a href="--><?//=Yii::app()->createUrl('/vaccineCalendar/') ?><!--">Календарь прививок ребенка</a></li>-->
                     <li><a href="<?=Yii::app()->createUrl('/pregnancyWeight/') ?>">Вес при беременности</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/placentaThickness/') ?>">Толщина плаценты</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/menstrualCycle/') ?>">Женский календарь</a></li>
-                    <li><a href="<?=Yii::app()->createUrl('/hospitalBag/') ?>">Сумка в роддом</a></li>
-                    <li><a href="<?=Yii::app()->createUrl('/babySex/') ?>">Определение пола ребенка</a></li>
+<!--                    <li><a href="--><?//=Yii::app()->createUrl('/hospitalBag/') ?><!--">Сумка в роддом</a></li>-->
+                    <li><a href="<?=Yii::app()->createUrl('/babyBloodGroup/') ?>">Определение группы крови ребенка</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/threadCalculation/') ?>">Расчет ниток для вышивания</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/yarnCalculator/') ?>">Сколько пряжи для вязания нужно?</a></li>
                 </ul>
@@ -51,7 +51,7 @@
                 <ul>
                     <li><a href="<?=Yii::app()->createUrl('/test/hair-type/') ?>">Тест. Определение типа волос</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/childrenDiseases/') ?>">Справочник детских болезней</a></li>
-                    <li><a href="<?=Yii::app()->createUrl('/recipeBook/') ?>">Книга народных рецептов от детских болезней</a></li>
+<!--                    <li><a href="--><?//=Yii::app()->createUrl('/recipeBook/') ?><!--">Книга народных рецептов от детских болезней</a></li>-->
                     <li><a href="<?=Yii::app()->createUrl('/test/prikorm/') ?>">Тест: Готов ли ребенок к первому прикорму</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/loopCalculator/') ?>">Калькулятор петель</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/embroideryCost/') ?>">Расчет стоимости вышивки</a></li>

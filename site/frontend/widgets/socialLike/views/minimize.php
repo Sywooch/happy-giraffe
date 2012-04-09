@@ -4,7 +4,20 @@
         <script charset="utf-8" src="//yandex.st/share/share.js" type="text/javascript"></script>
         Поделиться
         <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"></div>
+        <div id="ya_share1"></div>
+        <script type="text/javascript">
+            new Ya.share({
+                element: 'ya_share1',
+                l10n : 'ru',
+                title : '<?php echo $this->options['title'] ?>',
+                description : '<?php echo $this->options['description'] ?>',
+                image : '<?php echo $this->options['image'] ?>',
+                elementStyle : {
+                    'type': 'none',
+                    'quickServices' : ['vkontakte', 'facebook', 'twitter', 'odnoklassniki', 'moimir', 'gplus']
+                }
+            });
+        </script>
     </div>
 
     <div class="col-2">

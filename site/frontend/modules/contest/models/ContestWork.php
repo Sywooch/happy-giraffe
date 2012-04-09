@@ -141,6 +141,8 @@ class ContestWork extends CActiveRecord
 
     public function getParedDownTitle()
     {
+        if(!file_exists($this->photo->photo->getPreviewPath(150, 150)))
+            return false;
         $photo_size = getimagesize($this->photo->photo->getPreviewUrl(150, 150));
         $width = $photo_size[0];
         $text = Str::truncate($this->title, 0.54*$width);

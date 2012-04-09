@@ -157,7 +157,7 @@ class User extends CActiveRecord
             array('email', 'unique', 'on' => 'signup'),
             //array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
             array('gender, in_favourites', 'boolean'),
-            array('phone', 'safe'),
+            array('id, phone', 'safe'),
             array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
             array('birthday', 'default', 'value' => NULL),
@@ -310,7 +310,8 @@ class User extends CActiveRecord
             'fullName' => 'Имя пользователя',
             'last_name' => 'Фамилия',
             'assigns' => 'Права',
-            'last_active' => 'Последняя активность'
+            'last_active' => 'Последняя активность',
+            'url'=>'Профиль'
         );
     }
 

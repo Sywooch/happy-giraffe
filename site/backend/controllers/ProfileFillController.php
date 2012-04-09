@@ -26,9 +26,9 @@ class ProfileFillController extends BController
         }
 
         $criteria = new CDbCriteria;
+        $criteria->condition = ' profile_check IS NULL ';
         $criteria->compare('id', $ids);
         $criteria->mergeWith($model->search()->getCriteria());
-        $criteria->condition = 'profile_check IS NULL ';
 
         $dataProvider = new CActiveDataProvider('User', array(
             'criteria' => $criteria,

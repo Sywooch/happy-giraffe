@@ -124,7 +124,7 @@ class PurifyCommand extends CConsoleCommand
     {
         $doc = phpQuery::newDocumentXHTML($html, $charset = 'utf-8');
 
-        $allowedTags = ':header, p, a, ul, ol, li, img, div';
+        $allowedTags = ':header, p, a, ul, ol, li, img, div, br';
 
         //заменяем устаревшие теги
         $this->_deprecated();
@@ -168,15 +168,23 @@ class PurifyCommand extends CConsoleCommand
             $style = pq($e)->attr('style');
             if (preg_match('/float:\s*(\w+)/', $style, $matches)) {
                 $float = $matches[1];
-                $style = preg_replace('/(?:margin|float):[^;]*;\s*/', '', $style);
                 pq($e)->attr('class', 'content-img-' . $float);
-                pq($e)->attr('style', $style);
-                if (pq($e)->attr('style') == '') {
-                    pq($e)->removeAttr('style');
-                }
-
-                pq($e)->insertBefore(pq($e)->parents(':last'));
             }
+            $style = preg_replace('/(?:margin|float|width|height):[^;]*;\s*/', '', $style);
+
+            if (empty($style)) {
+                pq($e)->removeAttr('style');
+            } else {
+                pq($e)->attr('style', $style);
+            }
+
+            $class = pq($e)->attr('class');
+            if ($class == 'img_right') {
+                pq($e)->attr('class', 'content-img-right');
+            }
+
+
+            pq($e)->insertBefore(pq($e)->parents(':last'));
         }
     }
 
@@ -201,7 +209,7 @@ class PurifyCommand extends CConsoleCommand
 
     private function _emptyParagraphs()
     {
-        foreach (pq('p') as $e) {
+        foreach (pq('p, :header') as $e) {
             if ($this->_htmltrim(pq($e)->text()) == '') {
                 pq($e)->remove();
             }

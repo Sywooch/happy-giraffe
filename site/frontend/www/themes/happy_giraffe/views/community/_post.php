@@ -53,7 +53,6 @@
             switch ($data->type->slug)
             {
                 case 'post':
-                    echo str_replace('/upload', 'http://happy-giraffe.ru/upload', $data->post->text);
                     $data_text = $data->post->text;
                     preg_match('!<img.*?src="(.*?)"!', $data_text, $matches);
                     if (count($matches) > 0)

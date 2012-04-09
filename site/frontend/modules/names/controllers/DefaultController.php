@@ -2,6 +2,10 @@
 
 class DefaultController extends Controller
 {
+    /**
+     * @todo имена
+     */
+
     public $layout = 'names';
     public $likes = 0;
 
@@ -26,6 +30,7 @@ class DefaultController extends Controller
         }
         if (!empty($gender))
             $criteria->compare('gender', $gender);
+        $criteria->scopes = 'filled';
 
         if (!$show_all) {
             $count = Name::model()->count($criteria);

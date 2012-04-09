@@ -100,7 +100,7 @@ class BlogController extends Controller
         $content_type = $model->type;
         $slave_model = $model->content;
         $slave_model_name = get_class($slave_model);
-        $rubrics = Yii::app()->user->model->blog_rubrics;
+        $rubrics = $model->author->blog_rubrics;
 
         if (isset($_POST['BlogContent'], $_POST[$slave_model_name]))
         {

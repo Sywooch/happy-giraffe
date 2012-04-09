@@ -89,6 +89,11 @@
                         'url' => array('operations/admin'),
                         'visible' => Yii::app()->user->checkAccess('user access'),
                     ),
+                    array(
+                        'label' => 'Проверка Профилей',
+                        'url' => array('profileFill/'),
+                        'visible' => Yii::app()->user->checkAccess('user access'),
+                    ),
                 )
             ),
         ),

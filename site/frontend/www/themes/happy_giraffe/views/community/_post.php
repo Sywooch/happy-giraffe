@@ -53,7 +53,7 @@
             switch ($data->type->slug)
             {
                 case 'post':
-                    echo str_replace('/upload', 'http://happy-giraffe.ru/upload', $data->post->text);
+                    echo $data->post->text;
                     $data_text = $data->post->text;
                     preg_match('!<img.*?src="(.*?)"!', $data_text, $matches);
                     if (count($matches) > 0)
@@ -180,15 +180,14 @@
                 break;
         }
     ?>
-<?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+<?php /*$this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
     'title' => $like_title,
     'notice' => $like_notice,
     'model' => $data,
-    'type' => 'minimize',
     'options' => array(
         'title' => $data->name,
         'image' => isset($data_image) ? $data_image : false,
         'description' => $data_text,
     ),
-)); ?>
+));*/ ?>
 <?php endif; ?>

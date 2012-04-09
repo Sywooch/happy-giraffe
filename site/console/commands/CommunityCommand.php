@@ -200,4 +200,77 @@ class CommunityCommand extends CConsoleCommand
 
         return $doc;
     }
+
+    public $junk_parts = array(' alt="null"', ' title="null"', 'http://img.happy-giraffe.ru/thumbs/300x185/');
+
+    public function actionCleanImages(){
+        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
+        Yii::import('site.frontend.extensions.image.Image');
+        Yii::import('site.frontend.helpers.*');
+
+        $community = CommunityContent::model()->full()->findAll();
+        foreach($community as $model)
+        {
+            if(!$model->content || !$model->content->text)
+            {
+                echo 'Беда!!!11 ID: ' . $model->id . ' --- ';
+                continue;
+            }
+
+            if ($this->containsJunk($model->preview)){
+                $model->preview = $this->cleanAttributes($model->preview);
+                $model->preview = $this->fixImage($model->preview);
+                $model->update('preview');
+            }
+            if($this->containsJunk($model->content->text)){
+                $model->content->text = $this->cleanAttributes($model->content->text);
+                $model->content->text = $this->fixImage($model->content->text);
+                $model->content->update('text');
+            }
+        }
+    }
+
+    public function containsJunk($attr)
+    {
+        foreach($this->junk_parts as $part)
+            if (strpos($attr, $part))
+                return true;
+        return false;
+    }
+
+    public function cleanAttributes($attr)
+    {
+        $attr = $this->cleanAttribute($attr, ' alt="null"');
+        $attr = $this->cleanAttribute($attr, ' title="null"');
+        return $attr;
+    }
+
+    public function cleanAttribute($attr, $part)
+    {
+        if (strpos($attr, $part))
+            return str_replace($part, '', $attr);
+        else
+            return $attr;
+    }
+
+    public function fixImage($attr)
+    {
+        preg_match_all("|src=\"http://img.happy-giraffe.ru/thumbs/300x185/([\d]+)/([\w\.]+)\"|", $attr, $matches);
+        for ($i=0; $i < count($matches[0]); $i++) {
+            $user_id = $matches[1][$i];
+            $pic_name = $matches[2][$i];
+
+            $model = AlbumPhoto::model()->findByAttributes(array('author_id' => $user_id, 'fs_name' => $pic_name));
+            if ($model) {
+                $model->getPreviewUrl(650, 650);
+
+                return str_replace('src="http://img.happy-giraffe.ru/thumbs/300x185/',
+                    'src="http://img.happy-giraffe.ru/thumbs/650x650/', $attr);
+            }else{
+                echo 'picture not found';
+            }
+        }
+
+        return $attr;
+    }
 }

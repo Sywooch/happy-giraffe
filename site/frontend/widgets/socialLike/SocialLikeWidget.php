@@ -18,6 +18,8 @@ class SocialLikeWidget extends CWidget
 
     public $options;
 
+    public $type;
+
     public $providers = array(
         'yh' => array(),
         'fb' => array(),
@@ -53,7 +55,10 @@ class SocialLikeWidget extends CWidget
             Social.api_url = "' . $this->options['url'] . '"'
         );
 
-        $this->render('index');
+        if($this->type)
+            $this->render($this->type);
+        else
+            $this->render('index');
     }
 
     public function arrayToUrl($array)

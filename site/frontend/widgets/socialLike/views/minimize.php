@@ -1,4 +1,4 @@
-<div class="fast-like-block">
+<div class="like-block fast-like-block">
 
     <div class="col-1">
         <script charset="utf-8" src="//yandex.st/share/share.js" type="text/javascript"></script>

@@ -697,6 +697,8 @@ p {
     line-height: 16px;
 }
 
+.content-more img {max-width:180px;}
+
 .content-more .block h3 {
     font: 11px tahoma, sans-serif;
     line-height: 17px;

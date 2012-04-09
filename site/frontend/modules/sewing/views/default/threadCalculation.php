@@ -94,7 +94,7 @@
                 <div>
                     <ins>Номер канвы Aida:</ins>
 								<span class="title_h">
-                                    <?php echo $form->dropDownList($model, 'canva', array(11 => 11, 14 => 14, 16 => 16, 18 => 18, 22 => 22), array('class' => "chzn yr_cal", 'empty' => '--')) ?>
+                                    <?php echo $form->dropDownList($model, 'canva', array(11 => 11, 14 => 14, 16 => 16, 18 => 18, 22 => 22), array('class' => "chzn yr_cal", 'empty' => '-')) ?>
                                     <?php echo $form->error($model, 'canva'); ?>
 								</span>
                 </div>
@@ -103,7 +103,7 @@
                 <div>
                 <ins>Сложений нити</ins>
 								<span class="title_h">
-                                    <?php echo $form->dropDownList($model, 'threads_num', HDate::Range(1,6), array('class' => "chzn yr_cal", 'empty' => '--')) ?>
+                                    <?php echo $form->dropDownList($model, 'threads_num', HDate::Range(1,6), array('class' => "chzn yr_cal", 'empty' => '-')) ?>
                                     <?php echo $form->error($model, 'threads_num'); ?>
 								</span>
                 </div>

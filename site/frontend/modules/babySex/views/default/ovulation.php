@@ -108,7 +108,7 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'cycle'); ?>
                 </div>
             </li>

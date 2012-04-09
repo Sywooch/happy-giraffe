@@ -330,7 +330,7 @@
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" style="background-image:url(/images/nav_home_img_05.jpg);" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 34))?>">
+                                    <a class="big-link bg-img-45"  href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 34))?>">
                                         <span class="title">Загородная жизнь</span>
                                         <span class="text">Как рационально использовать загородный участок: посадки, строительство, отдых.</span>
                                     </a>
@@ -484,7 +484,6 @@
                 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
-
         </script>
     </noindex>
 

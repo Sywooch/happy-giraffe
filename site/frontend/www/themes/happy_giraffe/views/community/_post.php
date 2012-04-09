@@ -20,8 +20,6 @@
 
             <?php if ($full): ?>
                 <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = $this->views; echo $views; ?></span></div>
-                <br/>
-                <a href="#comment_list">Комментариев: <?php echo $data->commentsCount; ?></a>
             <?php else: ?>
                 <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true); echo $views; ?></span></div>
             <?php endif; ?>
@@ -55,6 +53,7 @@
             switch ($data->type->slug)
             {
                 case 'post':
+                    echo $data->post->text;
                     $data_text = $data->post->text;
                     preg_match('!<img.*?src="(.*?)"!', $data_text, $matches);
                     if (count($matches) > 0)
@@ -145,14 +144,9 @@
         </div>
     <?php endif; ?>
 
-    <div class="entry-footer clearfix">
-        <?php if(!Yii::app()->user->isGuest): ?>
-        <?php
-        $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
-        $report->button("$('.report-container')");
-        $this->endWidget();
-        ?>
-        <?php endif; ?>
+    <div class="entry-footer">
+        <span class="comm">Комментариев: <span><?php echo $data->commentsCount; ?></span></span>
+
         <?php $this->renderPartial('//community/admin_actions',array(
         'c'=>$data,
         'communities'=>Community::model()->findAll(),
@@ -167,7 +161,6 @@
 
         <div class="clear"></div>
     </div>
-    <div class="report-container"></div>
 </div>
 
 <?php if ($full): ?>
@@ -187,15 +180,14 @@
                 break;
         }
     ?>
-<?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+<?php /*$this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
     'title' => $like_title,
     'notice' => $like_notice,
     'model' => $data,
-    'type' => 'minimize',
     'options' => array(
         'title' => $data->name,
         'image' => isset($data_image) ? $data_image : false,
         'description' => $data_text,
     ),
-)); ?>
+));*/ ?>
 <?php endif; ?>

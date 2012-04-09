@@ -6,9 +6,9 @@
         </div>
 
         <div class="b">
-            <a href="" class="register"></a>
+            <a href="/" class="register "></a>
             <br>
-            <small>Уже зарегистрированы?</small> &nbsp; <a href="">Войти</a>
+            <small>Уже зарегистрированы?</small> &nbsp; <a class="fancy" rel="nofollow" href="#login">Войти</a>
         </div>
     <?php else: ?>
         <div class="t">

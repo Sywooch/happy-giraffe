@@ -150,6 +150,15 @@ class Name extends CActiveRecord
         );
     }
 
+    public function scopes()
+    {
+        return array(
+            'filled'=>array(
+                'condition'=>' description IS NOT NULL '
+            )
+        );
+    }
+
     public function GetShort($attribute){
         $len = 80;
         if (strlen($this->getAttribute($attribute)) > $len){

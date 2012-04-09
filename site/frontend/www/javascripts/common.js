@@ -23,7 +23,7 @@ $(document).ready(function () {
                 showCloseButton:false,
                 scrolling:false,
                 onComplete:onComplete_function,
-                onClosed:function(){if (Attach != undefined) Attach.attachGuestPhoto = false;}
+                onClosed:function(){if (typeof Attach != 'undefined') Attach.attachGuestPhoto = false;}
             }).trigger('click');
             return false;
         });

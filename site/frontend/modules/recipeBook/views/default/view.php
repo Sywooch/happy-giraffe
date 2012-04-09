@@ -1,3 +1,5 @@
+<?php Yii::app()->clientScript->registerMetaTag('noindex', 'robots'); ?>
+
 <?php $this->renderPartial('_left_col',array(
     'cat_diseases' => $cat_diseases,
     'active_disease'=>$active_disease

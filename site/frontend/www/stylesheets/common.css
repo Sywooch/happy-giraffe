@@ -921,7 +921,7 @@ a {color:#029AD2;}
 #nav .fast-cart .count {display:inline-block;width:35px;height:26px;background:url(../images/bg_fast_cart_count.gif) no-repeat;vertical-align:top;line-height:26px;font-size:14px;}
 
 #crumbs {color:#51afc3;font:11px/18px tahoma, arial, sans-serif;position:relative;z-index:5;margin-bottom:15px;}
-#crumbs span {background:#fffedf;padding:0px 5px;display:inline-block;}
+#crumbs span {background:#fffedf;padding:0px 5px;display:inline-block;color:#0a87bb;}
 
 #content {margin:0px 20px 0;position:relative;z-index:3;padding-bottom:40px;}
 #content .content-box {padding-bottom:20px;}
@@ -2016,7 +2016,6 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .wysiwyg-content ol li, .wysiwyg-content ul li {margin-bottom:9px;}
 .wysiwyg-content a {text-decoration:none;}
 .wysiwyg-content a:hover {text-decoration:underline;}
-.wysiwyg-content img {margin-bottom:10px;}
 .wysiwyg-content img.content-img-left {margin-right:20px;float:left;max-width:300px;}
 .wysiwyg-content img.content-img-right {margin-left:20px;float:right;max-width:300px;}
 

@@ -8981,7 +8981,7 @@
             C.on('editingBlockReady', function () {
                 var L, M, N, O, P, Q, R = b.isCustomDomain(), S = function (V) {
                     if (M)M.remove();
-                    if(IE='\v'=='v')
+                    if($.browser.webkit == undefined || $.browser.webkit == false)
                         var W = 'document.open();' + ('document.domain="' + document.domain + '";') + 'document.close();';
                     else
                         var W = '';

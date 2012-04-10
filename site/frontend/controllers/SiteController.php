@@ -302,6 +302,7 @@ class SiteController extends Controller
     public function actionHome(){
         Yii::import('site.frontend.widgets.*');
         Yii::import('site.frontend.widgets.home.*');
+        $this->pageTitle = 'Веселый жираф - Главная страница';
         $user = Yii::app()->user->getModel();
         $this->render('home', compact('user'));
     }

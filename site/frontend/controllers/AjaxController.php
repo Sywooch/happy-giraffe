@@ -426,16 +426,14 @@ class AjaxController extends Controller
         if (Yii::app()->user->checkAccess('manageFavourites')) {
             $modelName = Yii::app()->request->getPost('entity');
             $modelPk = Yii::app()->request->getPost('entity_id');
+            $index = Yii::app()->request->getPost('num');
 
             $model = $modelName::model()->findByPk($modelPk);
-            if ($model->in_favourites)
-                $model->in_favourites = false;
-            else
-                $model->in_favourites = true;
-            if ($model->update('in_favourites'))
-                echo CJSON::encode(array('status' => true));
-            else
-                echo CJSON::encode(array('status' => false));
+            $success = false;
+            if ($model){
+                $success = Favourites::toggle($model, $index);
+            }
+            echo CJSON::encode(array('status' => $success));
         }
     }
 }

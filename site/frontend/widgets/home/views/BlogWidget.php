@@ -14,7 +14,7 @@
                     )); ?>
                 </div>
                 <b><?=CHtml::link($c->name, $c->url)?></b>
-                <div class="img"><?=$c->short?></div>
+                <a href="<?=$c->url ?>"><div class="img"><?=$c->short?></div></a>
             </li>
         <?php endforeach; ?>
     </ul>

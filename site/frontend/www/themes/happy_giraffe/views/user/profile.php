@@ -14,7 +14,6 @@
 
         <div class="user-name">
             <h1><?=$user->last_name?><br/><?=$user->first_name?></h1>
-            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>
@@ -34,6 +33,11 @@
                     'user' => $user,
                 )); ?>
                 <a href="<?=$user->dialogUrl?>" class="new-message"><span class="tip">Написать сообщение</span></a>
+                <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
+            </div>
+        <?php elseif(Yii::app()->user->checkAccess('manageFavourites')): ?>
+            <div class="user-buttons clearfix">
+                <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
             </div>
         <?php endif; ?>
 

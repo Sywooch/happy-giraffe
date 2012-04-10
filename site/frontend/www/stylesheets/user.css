@@ -239,6 +239,7 @@
 #user .user-albums ul li .more {color:#b9b9b9;font-size:13px;padding-top:50px;float:left;text-decoration:none;margin-left:10px;max-width:80px;text-align:center}
 #user .user-albums ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
 #user .user-albums ul li .more:hover .icon {background-position:-499px -193px;}
+#user .user-albums ul li .more:hover {color:#7abc2e;text-decoration:underline;}
 
 #user .user-family {margin-bottom:20px;margin-top:3px;}
 #user .user-family .t {height:39px;background:url(/images/bg_user_family.png) no-repeat 0 0;}

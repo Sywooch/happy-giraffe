@@ -284,7 +284,7 @@ class CommunityCommand extends CConsoleCommand
                 SELECT `content`.`id`
                 FROM `club_community_content` `content`
                 JOIN `club_community_rubric` `rubric` ON  `content`.`rubric_id` = `rubric`.`id`
-                WHERE `rubric`.`community_id` != 22 AND `rubric`.`community_id` != 23 AND `content`.`editor_id` IS NULL AND `rubric`.`community_id` IS NOT NULL
+                WHERE `rubric`.`community_id` != 22 AND `rubric`.`community_id` != 23 AND `content`.`editor_id` IS NULL AND `rubric`.`community_id` IS NOT NULL AND `content`.`by_happy_giraffe` = 0
                 ORDER BY `content`.`id` ASC
                 LIMIT :offset, 500
                 ) `t2` ON `t1`.`id` = `t2`.`id`

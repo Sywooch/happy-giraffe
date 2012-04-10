@@ -26,7 +26,6 @@
  * @property string $login_date
  * @property string $last_ip
  * @property string $relationship_status
- * @property string $in_favourites
  * @property UserAddress $userAddress
  *
  * The followings are the available model relations:
@@ -156,7 +155,7 @@ class User extends CActiveRecord
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
             //array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
-            array('gender, in_favourites', 'boolean'),
+            array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
@@ -868,12 +867,8 @@ class User extends CActiveRecord
         $criteria = new CDbCriteria(array(
             'order' => new CDbExpression('RAND()'),
             'limit' => 4,
-            'with' => array(
-                'rubric' => array(
-                    'condition' => 'user_id = :user_id',
-                    'params' => array(':user_id' => $this->id),
-                ),
-            ),
+            'condition' => 't.author_id = :user_id',
+            'params' => array(':user_id' => $this->id),
         ));
 
         return BlogContent::model()->full()->findAll($criteria);

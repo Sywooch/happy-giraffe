@@ -312,16 +312,4 @@ function albumVisibilitySet(el, num, id){
     $.post(base_url + '/albums/changePermission/', {id : id, num : num});
 	
 	albumVisibilityListToggle(el);
-	
-}
-
-function ToggleFavourites(el){
-    var entity = $(el).prev().val();
-    var entity_id = $(el).prev().prev().val();
-
-    $.post('/ajax/toggleFavourites/', {entity:entity, entity_id:entity_id}, function (response) {
-        if (response.status) {
-            $(el).toggleClass('active')
-        }
-    }, 'json');
 }

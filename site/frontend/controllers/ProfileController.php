@@ -66,22 +66,6 @@ class ProfileController extends Controller
         $this->render('data', array());
     }
 
-    public function actionPhoto($returnUrl = null)
-    {
-        if (isset($_POST['User'])) {
-            $this->user->attributes = $_POST['User'];
-            if ($this->user->save(true, array('pic_small'))){
-                UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_PHOTO);
-            }
-            if (isset($_POST['returnUrl']) && !empty($_POST['returnUrl']))
-                $this->redirect(urldecode($_POST['returnUrl']));
-        }
-
-        $this->render('photo', array(
-            'returnUrl' => $returnUrl
-        ));
-    }
-
     public function actionAccess()
     {
         if (isset($_POST['User'])) {
@@ -143,17 +127,6 @@ class ProfileController extends Controller
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
-    }
-
-    public function actionRemovePhoto()
-    {
-        $res = Yii::app()->db->createCommand('update user set pic_small = null WHERE id = '.Yii::app()->user->id)->execute();
-        if ($res > 0) {
-            $response = array(
-                'status' => true,
-            );
-            echo CJSON::encode($response);
-        }
     }
 
     public function actionDisableSocialService($name)

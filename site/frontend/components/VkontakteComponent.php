@@ -38,7 +38,7 @@ class VkontakteComponent extends CComponent
 		$profile['last_name'] = $arr['response'][0]['last_name'];
 		if (empty($profile['nick']))
 			$profile['nick'] = $profile['first_name'].' '.$profile['last_name'];
-		$profile['pic_small'] = $arr['response'][0]['photo_medium'];
+		$profile['avatar'] = $arr['response'][0]['photo_medium'];
 		$profile['link'] = 'http://vkontakte.ru/id'.$profile['vk_id'];
 		return $profile;
 	}

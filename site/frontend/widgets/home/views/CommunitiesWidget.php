@@ -4,7 +4,7 @@
 
     <ul>
 
-        <li class="kids" style="display: none;">
+        <li class="kids">
             <div class="category-title">Дети и беременность</div>
             <ul>
                 <li>
@@ -14,37 +14,24 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 1))?>">
-                        <span class="club-img"><img src="/images/club_img_4.png"></span>
+                    <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 2))?>">
+                        <span class="club-img"><img src="/images/club_img_2.png"></span>
                         <span class="club-title">Дети до года</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 1))?>">
-                        <span class="club-img"><img src="/images/club_img_8.png"></span>
+                    <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 3))?>">
+                        <span class="club-img"><img src="/images/club_img_3.png"></span>
                         <span class="club-title">Дети старше года</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 1))?>">
-                        <span class="club-img"><img src="/images/club_img_12.png"></span>
-                        <span class="club-title">Дошкольники</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 1))?>">
-                        <span class="club-img"><img src="/images/club_img_15.png"></span>
-                        <span class="club-title">Школьники</span>
-                    </a>
-                </li>
-
             </ul>
         </li>
         <li class="manwoman">
             <div class="category-title">Мужчина <span>&amp;</span> женщина</div>
             <ul>
                 <li>
-                    <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 239))?>">
+                    <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 31))?>">
                         <span class="club-img"><img src="/images/club_img_19.png"></span>
                         <span class="club-title">Отношения</span>
                     </a>

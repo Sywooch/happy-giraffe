@@ -378,7 +378,7 @@ class CommunityContent extends CActiveRecord
             'order' => 't.created DESC',
         ));
 
-        $criteria->compare('rubric.user_id', $user_id);
+        $criteria->compare('t.user_id', $user_id);
 
         if ($rubric_id !== null)
         {

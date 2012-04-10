@@ -276,7 +276,7 @@ class MailruComponent extends CComponent
 		$profile['email'] = $arr['email'];
 		$profile['first_name'] = $arr['first_name'];
 		$profile['last_name'] = $arr['last_name'];
-		$profile['pic_small'] = $arr['pic'];
+		$profile['avatar'] = $arr['pic'];
 		$profile['link'] = $arr['link'];
 		$profile['country'] = $arr['location']['country']['name'];
 		$profile['city'] = $arr['location']['city']['name'];

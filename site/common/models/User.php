@@ -13,7 +13,6 @@
  * @property string $password
  * @property string $first_name
  * @property string $last_name
- * @property string $pic_small
  * @property string $role
  * @property string $link
  * @property int $deleted
@@ -331,7 +330,6 @@ class User extends CActiveRecord
         $criteria->compare('email', $this->email, true);
         $criteria->compare('first_name', $this->first_name, true);
         $criteria->compare('last_name', $this->last_name, true);
-        $criteria->compare('pic_small', $this->pic_small, true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
@@ -404,40 +402,6 @@ class User extends CActiveRecord
     public function behaviors()
     {
         return array(
-            'behavior_ufiles' => array(
-                'class' => 'site.frontend.extensions.ufile.UFileBehavior',
-                'fileAttributes' => array(
-                    'pic_small' => array(
-                        'fileName' => 'upload/avatars/*/<date>-{id}-<name>.<ext>',
-                        'fileItems' => array(
-                            'ava' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 76,
-                                    'height' => 79,
-                                ),
-                            ),
-                            'small' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 25,
-                                    'height' => 23,
-                                ),
-                            ),
-                            'big' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 241,
-                                    'height' => 225,
-                                ),
-                            ),
-                            'original' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                            ),
-                        )
-                    ),
-                ),
-            ),
 //			'attribute_set' => array(
 //				'class'=>'attribute.AttributeSetBehavior',
 //				'table'=>'shop_product_attribute_set',

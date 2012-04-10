@@ -15,7 +15,6 @@
  * @property string $meta_keywords
  * @property string $meta_description
  * @property integer $by_happy_giraffe
- * @property integer $in_favourites
  *
  * The followings are the available model relations:
  *
@@ -61,7 +60,7 @@ class CommunityContent extends CActiveRecord
 			array('author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
 			array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
 			array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
-			array('by_happy_giraffe, in_favourites', 'boolean'),
+			array('by_happy_giraffe', 'boolean'),
             array('preview', 'safe'),
 
 			// The following rule is used by search().
@@ -313,11 +312,17 @@ class CommunityContent extends CActiveRecord
 
     public function getUrl()
     {
-        return Yii::app()->createAbsoluteUrl('community/view', array(
-            'community_id' => $this->rubric->community->id,
-            'content_type_slug' => $this->type->slug,
-            'content_id' => $this->id,
-        ));
+        if ($this->isFromBlog) {
+            return Yii::app()->createUrl('/blog/view', array(
+                'content_id' => $this->id,
+            ));
+        } else {
+            return Yii::app()->createAbsoluteUrl('community/view', array(
+                'community_id' => $this->rubric->community->id,
+                'content_type_slug' => $this->type->slug,
+                'content_id' => $this->id,
+            ));
+        }
     }
 
     public function scopes()
@@ -379,7 +384,7 @@ class CommunityContent extends CActiveRecord
             'order' => 't.created DESC',
         ));
 
-        $criteria->compare('rubric.user_id', $user_id);
+        $criteria->compare('t.author_id', $user_id);
 
         if ($rubric_id !== null)
         {

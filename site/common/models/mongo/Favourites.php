@@ -33,7 +33,7 @@ class Favourites extends EMongoDocument
         $criteria->block('==', $block);
 
         $fav = self::model()->find($criteria);
-        if ($fav) {
+        if ($fav !== null) {
             if ($fav->block == $block) {
                 return $fav->delete();
             } else {

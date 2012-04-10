@@ -2187,6 +2187,22 @@ label {
 
 /* */
 
+.admin-buttons {}
+.admin-buttons a {display:block;width:22px;height:22px;line-height:22px;text-align:center;border:1px solid #bdbcbc;float:left;margin-right:6px;text-decoration:none;color:#8f8d8d;font-size:15px;position:relative;}
+.admin-buttons a {/*css3*/ -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;}
+.admin-buttons a:hover,.admin-buttons a.active {color:#fff;}
+.admin-buttons a.purple:hover,.admin-buttons a.purple.active {background:#a582c7;border-color:#a582c7;}
+.admin-buttons a.orange:hover,.admin-buttons a.orange.active {background:#f18b2f;border-color:#f18b2f;}
+.admin-buttons a.green:hover,.admin-buttons a.green.active {background:#6bc545;border-color:#6bc545;}
+.admin-buttons a.yellow:hover,.admin-buttons a.yellow.active {background:#f8cb30;border-color:#f8cb30;}
+.admin-buttons a.blue:hover,.admin-buttons a.blue.active {background:#5488d0;border-color:#5488d0;}
+.admin-buttons a .tip {font-size:11px;line-height:normal;bottom:100%;left:100%;display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;top:auto !important;margin:0 0 2px 0;}
+.admin-buttons a:hover .tip {display:block;}
+.admin-buttons a .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}
+
+
+/* */
+
 
 .flag {
     width: 18px;

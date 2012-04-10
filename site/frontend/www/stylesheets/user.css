@@ -26,14 +26,12 @@
 
 #user .header .user-buttons {position:relative;top:5px;width:100px;float:left;padding-left:10px;padding-bottom:20px;z-index:2;}
 #user .header .user-buttons a {display:block;float:left;position:relative;margin-right:6px;text-decoration:none;margin-top:10px;}
-#user .header .user-buttons a .tip {display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;}
+#user .header .user-buttons a .tip {display:block;position:absolute;bottom:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;z-index:5;font-size:11px;left:100%;margin:0 0 2px 0;}
 #user .header .user-buttons a .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}
 #user .header .user-buttons a:hover .tip {display:block;}
 #user .header .user-buttons .add-friend {width:26px;height:22px;background:url(/images/common.png) no-repeat -200px -220px;}
-#user .header .user-buttons .add-friend .tip {right:50%;}
 #user .header .user-buttons .friend {float:left;color:#22af16;margin-right:5px;font-size:13px;margin-top:10px;line-height:20px;}
 #user .header .user-buttons .new-message {width:27px;height:21px;background:url(/images/common.png) no-repeat -228px -220px;}
-#user .header .user-buttons .new-message .tip {left:50%;}
 
 #user .header .user-nav {margin-left:360px;padding-top:10px;font-size:13px;padding-bottom:20px;}
 #user .user-home .user-nav {padding-bottom:70px;}

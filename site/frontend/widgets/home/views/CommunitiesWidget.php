@@ -5,7 +5,7 @@
     <ul>
 
         <li class="kids">
-            <div class="category-title">Дети и беременность</div>
+            <div class="category-title">Беременность и роды</div>
             <ul>
                 <li>
                     <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 1))?>">
@@ -16,13 +16,13 @@
                 <li>
                     <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 2))?>">
                         <span class="club-img"><img src="/images/club_img_2.png"></span>
-                        <span class="club-title">Дети до года</span>
+                        <span class="club-title">Беременность</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 3))?>">
                         <span class="club-img"><img src="/images/club_img_3.png"></span>
-                        <span class="club-title">Дети старше года</span>
+                        <span class="club-title">Подготовка и роды</span>
                     </a>
                 </li>
             </ul>

@@ -867,7 +867,7 @@ class User extends CActiveRecord
         $criteria = new CDbCriteria(array(
             'order' => new CDbExpression('RAND()'),
             'limit' => 4,
-            'condition' => 't.user_id = :user_id',
+            'condition' => 't.author_id = :user_id',
             'params' => array(':user_id' => $this->id),
         ));
 

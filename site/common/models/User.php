@@ -866,9 +866,9 @@ class User extends CActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'order' => new CDbExpression('RAND()'),
-            'limit' => 4,
-            'condition' => 't.author_id = :user_id',
+            'condition' => 'rubric.user_id IS NOT NULL AND t.author_id = :user_id',
             'params' => array(':user_id' => $this->id),
+            'limit' => 4,
         ));
 
         return BlogContent::model()->full()->findAll($criteria);

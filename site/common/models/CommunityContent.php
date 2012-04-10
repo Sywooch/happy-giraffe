@@ -382,9 +382,9 @@ class CommunityContent extends CActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'order' => 't.created DESC',
+            'condition' => 'rubric.user_id IS NOT NULL AND t.author_id = :user_id',
+            'params' => array(':user_id' => $user_id),
         ));
-
-        $criteria->compare('t.author_id', $user_id);
 
         if ($rubric_id !== null)
         {

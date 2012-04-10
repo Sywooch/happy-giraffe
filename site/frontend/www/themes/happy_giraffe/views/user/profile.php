@@ -33,7 +33,10 @@
                     'user' => $user,
                 )); ?>
                 <a href="<?=$user->dialogUrl?>" class="new-message"><span class="tip">Написать сообщение</span></a>
-
+                <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
+            </div>
+        <?php elseif(Yii::app()->user->checkAccess('manageFavourites')): ?>
+            <div class="user-buttons clearfix">
                 <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
             </div>
         <?php endif; ?>

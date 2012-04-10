@@ -8981,7 +8981,10 @@
             C.on('editingBlockReady', function () {
                 var L, M, N, O, P, Q, R = b.isCustomDomain(), S = function (V) {
                     if (M)M.remove();
-                    var W = 'document.open();' + ('document.domain="' + document.domain + '";') + 'document.close();';
+                    if(IE='\v'=='v')
+                        var W = 'document.open();' + ('document.domain="' + document.domain + '";') + 'document.close();';
+                    else
+                        var W = '';
                     W = b.air ? 'javascript:void(0)' : 'javascript:void(function(){' + encodeURIComponent(W) + '}())';
                     M = h.createFromHtml('<iframe style="width:100%;height:100%" frameBorder="0" title="' + E + '"' + ' src="' + W + '"' + ' tabIndex="' + (b.webkit ? -1 : C.tabIndex) + '"' + ' allowTransparency="true"' + '></iframe>');
                     //M.$.src = "javascript:'<script>window.onload=function(){document.write(\\'<script>document.domain=\\\"" + document.domain + "\\\";<\\\\/script>\\');document.close();};<\/script>'";

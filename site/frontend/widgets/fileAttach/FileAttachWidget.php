@@ -40,7 +40,7 @@ class FileAttachWidget extends CWidget
         }
         elseif($this->entity == 'Comment')
         {
-            $this->title = 'Отправить фото на стену';
+            $this->title = 'Отправить фото в гостевую';
             $this->button_title = 'Продолжить';
         }
         elseif($this->entity == 'CommunityPost' || $this->entity == 'CommunityVideo')

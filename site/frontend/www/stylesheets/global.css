@@ -1645,6 +1645,8 @@ p {
     text-align: center;
 }
 
+.hair_type_bl ul {list-style:none;}
+
 .hair_type_bl ul li, .hair_type_bl p {
     margin: 0 0 6px 0;
 }
@@ -1954,6 +1956,8 @@ p {
     -webkit-border-radius: 10px;
 }
 
+.embroidery_service .list_yarn ul {list-style:none;}
+
 .embroidery_service .list_yarn ul li {
     margin: 0 0 7px 0;
 }
@@ -2092,6 +2096,8 @@ p {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
 }
+
+.embroidery_service .list_thread ul {list-style:none;}
 
 .embroidery_service .list_thread ul li {
     margin: 0 0 7px 0;

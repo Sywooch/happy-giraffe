@@ -25,7 +25,7 @@ class UserController extends Controller
                 'users' => array('*'),
             ),
             array('allow',
-                'actions' => array('myFriendRequests', 'createRelated', 'updateMood', 'score', 'locationForm', 'saveLocation'),
+                'actions' => array('myFriendRequests', 'createRelated', 'updateMood', 'score', 'locationForm', 'saveLocation', 'clubs'),
                 'users' => array('@'),
             ),
             array('deny',

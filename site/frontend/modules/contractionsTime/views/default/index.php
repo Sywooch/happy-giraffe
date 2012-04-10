@@ -1,4 +1,4 @@
-а<?php
+<?php
 $js = <<<EOD
     //Timer
     var mins,secs,TimerRunning,TimerID;

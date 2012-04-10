@@ -116,6 +116,11 @@ input.w-500, textarea.w-500 {width:476px;}
 
 a.info {display:inline-block;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
 
+.tip {font-size:11px;line-height:normal;bottom:100%;left:100%;display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;top:auto !important;margin:0 0 2px 0;}
+.tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}
+*:hover > .tip {display:block;}
+
+
 ::-webkit-input-placeholder {color: #ccc !important;font-weight: normal !important;}
 :-moz-placeholder {color: #ccc !important;font-weight: normal !important;}
 .placeholder { color: #ccc !important;font-weight: normal !important;}
@@ -220,7 +225,8 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 /* errors */
 
 .error input[type=text], .error input[type=password], .error textarea, .error .chzn-single {border:1px solid #ff6767 !important;}
-.errorMessage, .errorSummary {color:#fe5757 !important;font-size:11px !important;line-height:normal !important;padding:5px 0;overflow:hidden;}
+.errorMessage, .errorSummary {color:#fe5757 !important;font-size:11px !important;line-height:normal !important;padding:5px 0;overflow:hidden;text-align:left;}
+.errorSummary ul, .errorSummary ol {list-style:none;}
 
 
 /* errors */
@@ -523,7 +529,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-crop table td.crop {width:300px;}
 #photoPick .photo-crop table td.crop img {max-width:300px;}
 #photoPick .photo-crop table td.preview {text-align:center;width:400px;padding-left:30px;}
-#photoPick .photo-crop table td.preview .img {margin-bottom:10px;width:72px;height:72px;overflow:hidden;}
+#photoPick .photo-crop table td.preview .img {margin-bottom:10px;height:72px;overflow:hidden;}
+#photoPick .photo-crop table td.preview .img, #photoPick .photo-crop table td.preview .img img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;}
+
 
 
 #galleryUploadPhotos {width:550px;}

@@ -47,7 +47,7 @@
 
                     <div class="box homepage-articles homepage-recipes">
 
-                        <div class="title">Кулинарные рецепты <span>- <b>1000</b> рецептов</span></div>
+                        <div class="title">Кулинарные рецепты <span>- <b>3000</b> рецептов</span></div>
 
                         <?php $this->widget('CommunityArticlesWidget', array(
                             'community_id' => 22,

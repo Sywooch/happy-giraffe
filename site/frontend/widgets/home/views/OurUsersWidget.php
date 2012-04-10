@@ -13,8 +13,10 @@
         <?php endforeach; ?>
     </ul>
 
-    <div class="join">
-        <a href="">Присоединяйтесь!</a>
-    </div>
+    <?php if (Yii::app()->user->isGuest):?>
+        <div class="join">
+            <a href="/">Присоединяйтесь!</a>
+        </div>
+    <?php endif ?>
 
 </div>

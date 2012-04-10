@@ -15,7 +15,6 @@
  * @property string $meta_keywords
  * @property string $meta_description
  * @property integer $by_happy_giraffe
- * @property integer $in_favourites
  *
  * The followings are the available model relations:
  *
@@ -61,7 +60,7 @@ class CommunityContent extends CActiveRecord
 			array('author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
 			array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
 			array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
-			array('by_happy_giraffe, in_favourites', 'boolean'),
+			array('by_happy_giraffe', 'boolean'),
             array('preview', 'safe'),
 
 			// The following rule is used by search().

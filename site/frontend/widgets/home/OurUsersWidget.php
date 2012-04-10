@@ -9,8 +9,8 @@ class OurUsersWidget extends SimpleWidget
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 12;
-        $criteria->condition = ' in_favourites = 1 ';
         $criteria->order = ' RAND() ';
+        $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_SIMPLE));
         $users = User::model()->findAll($criteria);
 
         $this->render('OurUsersWidget', compact('users'));

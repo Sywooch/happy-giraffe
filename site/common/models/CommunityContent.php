@@ -345,7 +345,7 @@ class CommunityContent extends CActiveRecord
                     'travel',
                     'commentsCount',
                     'contentAuthor' => array(
-                        'select' => 'id, first_name, last_name, avatar',
+                        'select' => 'id, first_name, last_name, avatar, online',
                     ),
                 ),
             ),

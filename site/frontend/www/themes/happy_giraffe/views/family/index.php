@@ -75,7 +75,15 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                             </div>
                             <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this)" class="comment"><span class="tip">Расскажите о <?= ($user->gender == 1)?'ней':'нем' ?></span></a>
                             <a href="javascript:void(0);" class="photo"><span class="tip">Добавить 4 фото</span>
-
+                                <?php $form = $this->beginWidget('CActiveForm', array(
+                                    'id' => 'partner_photo_upload2',
+                                    'action' => $this->createUrl('uploadPhoto'),
+                                    'htmlOptions' => array(
+                                        'enctype' => 'multipart/form-data',
+                                    ),
+                                )); ?>
+                                <?php echo CHtml::fileField('partner-photo', '', array('class'=>'partner-photo-file')); ?>
+                                <?php $this->endWidget(); ?>
                             </a>
                         </div>
                     </div>
@@ -105,23 +113,21 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
 
                                     <i class="icon"></i>
                                     <span>Загрузить еще<br> <ins><?=4 - count($user->partner->photos) ?></ins> <span>фотографи<?= (count($user->partner->photos) == 3)?'ю':'и' ?></span></span>
+                                    <?php $form = $this->beginWidget('CActiveForm', array(
+                                    'id' => 'partner_photo_upload1',
+                                    'action' => $this->createUrl('uploadPhoto'),
+                                    'htmlOptions' => array(
+                                        'enctype' => 'multipart/form-data',
+                                    ),
+                                )); ?>
+                                    <?php echo CHtml::fileField('partner-photo', '', array('class'=>'partner-photo-file')); ?>
+                                    <?php $this->endWidget(); ?>
                                 </a>
 
                             </li>
                         </ul>
 
                     </div>
-
-                    <?php $form = $this->beginWidget('CActiveForm', array(
-                    'id' => 'partner_photo_upload',
-                    'action' => $this->createUrl('uploadPhoto'),
-                    'htmlOptions' => array(
-                        'enctype' => 'multipart/form-data',
-                        'style'=>'width:0;height:0;overflow: hidden;'
-                    ),
-                )); ?>
-                    <?php echo CHtml::fileField('partner-photo', '', array('class'=>'partner-photo-file')); ?>
-                    <?php $this->endWidget(); ?>
 
                 </div>
 
@@ -211,7 +217,17 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
 
                                     <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="comment"><span class="tip">Расскажите о нем</span></a>
                                     <a href="javascript:void(0);" class="photo"><span class="tip">Добавить 4 фото</span>
-
+                                        <?php $form = $this->beginWidget('CActiveForm', array(
+                                            'id' => 'baby_photo_upload2'.$i,
+                                            'action' => $this->createUrl('uploadBabyPhoto'),
+                                            'htmlOptions' => array(
+                                                'enctype' => 'multipart/form-data',
+                                                'class'=>'baby_photo_upload',
+                                            ),
+                                        )); ?>
+                                        <?php echo CHtml::hiddenField('baby_id', $baby->id,array('id'=>'baby_id'.$i, 'class'=>'baby_id_2')); ?>
+                                        <?php echo CHtml::fileField('baby-photo','', array('id'=>'baby-photo'.$i, 'class'=>'baby-photo-file')); ?>
+                                        <?php $this->endWidget(); ?>
 
                                     </a>
 
@@ -244,25 +260,24 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
 
                                         <i class="icon"></i>
                                         <span>Загрузить еще<br> <ins><?=4 - count($baby->photos) ?></ins> <span>фотографи<?= (count($baby->photos) == 3)?'ю':'и' ?></span></span>
+
+                                        <?php $form = $this->beginWidget('CActiveForm', array(
+                                        'id' => 'baby_photo_upload1'.$i,
+                                        'action' => $this->createUrl('uploadBabyPhoto'),
+                                        'htmlOptions' => array(
+                                            'enctype' => 'multipart/form-data',
+                                            'class'=>'baby_photo_upload',
+                                        ),
+                                    )); ?>
+                                        <?php echo CHtml::hiddenField('baby_id', $baby->id,array('id'=>'baby_id'.$i, 'class'=>'baby_id_2')); ?>
+                                        <?php echo CHtml::fileField('baby-photo','', array('id'=>'baby-photo'.$i, 'class'=>'baby-photo-file')); ?>
+                                        <?php $this->endWidget(); ?>
                                     </a>
 
                                 </li>
                             </ul>
 
                         </div>
-
-                        <?php $form = $this->beginWidget('CActiveForm', array(
-                        'id' => 'baby_photo_upload'.$i,
-                        'action' => $this->createUrl('uploadBabyPhoto'),
-                        'htmlOptions' => array(
-                            'enctype' => 'multipart/form-data',
-                            'class'=>'baby_photo_upload',
-                            'style'=>'width:0;height:0;overflow: hidden;'
-                        ),
-                    )); ?>
-                        <?php echo CHtml::hiddenField('baby_id', $baby->id,array('id'=>'baby_id'.$i, 'class'=>'baby_id_2')); ?>
-                        <?php echo CHtml::fileField('baby-photo','', array('id'=>'baby-photo'.$i, 'class'=>'baby-photo-file')); ?>
-                        <?php $this->endWidget(); ?>
 
                     </div>
                     <?php $i++; ?>

@@ -24,17 +24,14 @@
 #user .header .user-name .birthday {color:#4c4d4d;}
 #user .header .user-name .birthday span {color:#bbbaba;}
 
-#user .header .user-buttons {position:relative;top:5px;width:100px;float:left;padding-left:20px;padding-bottom:20px;z-index:2;}
-#user .header .user-buttons a {display:block;float:left;position:relative;margin-right:6px;text-decoration:none;}
-#user .header .user-buttons a .tip {display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;}
+#user .header .user-buttons {position:relative;top:5px;width:100px;float:left;padding-left:10px;padding-bottom:20px;z-index:2;}
+#user .header .user-buttons a {display:block;float:left;position:relative;margin-right:6px;text-decoration:none;margin-top:10px;}
+#user .header .user-buttons a .tip {display:block;position:absolute;bottom:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;z-index:5;font-size:11px;left:100%;margin:0 0 2px 0;}
 #user .header .user-buttons a .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}
 #user .header .user-buttons a:hover .tip {display:block;}
-#user .header .user-buttons .add-friend {width:47px;height:47px;background:url(/images/common.png) no-repeat -200px -222px;}
-#user .header .user-buttons .remove-friend {width:47px;height:47px;background:url(/images/common.png) no-repeat -249px -222px;}
-#user .header .user-buttons .pending-friend {width:47px;height:47px;background:url(/images/common.png) no-repeat -298px -222px;}
-#user .header .user-buttons .add-friend .tip, #user .header .user-buttons .remove-friend  .tip, #user .header .user-buttons .pending-friend  .tip {right:50%;}
-#user .header .user-buttons .new-message {width:33px;height:23px;background:url(/images/common.png) no-repeat -200px -271px;margin-top:12px;}
-#user .header .user-buttons .new-message .tip {left:50%;margin-top:15px;}
+#user .header .user-buttons .add-friend {width:26px;height:22px;background:url(/images/common.png) no-repeat -200px -220px;}
+#user .header .user-buttons .friend {float:left;color:#22af16;margin-right:5px;font-size:13px;margin-top:10px;line-height:20px;}
+#user .header .user-buttons .new-message {width:27px;height:21px;background:url(/images/common.png) no-repeat -228px -220px;}
 
 #user .header .user-nav {margin-left:360px;padding-top:10px;font-size:13px;padding-bottom:20px;}
 #user .user-home .user-nav {padding-bottom:70px;}
@@ -79,7 +76,8 @@
 
 #user  .details {color:#afafb0;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;text-indent:0;text-align:center;}
 
-.user-lvl {width:240px;height:160px;}
+.user-lvl {width:240px;height:160px;margin-top:10px;}
+.user-lvl-0 {height:142px;background:url(/images/user_lvl_0.png) center no-repeat;}
 .user-lvl-1 {background:url(/images/user_lvl_1.png) no-repeat;}
 .user-lvl-1 span {display:block;padding:80px 0 0;font-size:22px;color:#fff;text-align:center;}
 
@@ -238,7 +236,8 @@
 #user .user-albums ul li .preview img.img-3 {left:20px;bottom:0;}
 #user .user-albums ul li .more {color:#b9b9b9;font-size:13px;padding-top:50px;float:left;text-decoration:none;margin-left:10px;max-width:80px;text-align:center}
 #user .user-albums ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
-#user .user-albums ul li .more .icon:hover {background-position:-499px -193px;}
+#user .user-albums ul li .more:hover .icon {background-position:-499px -193px;}
+#user .user-albums ul li .more:hover {color:#7abc2e;text-decoration:underline;}
 
 #user .user-family {margin-bottom:20px;margin-top:3px;}
 #user .user-family .t {height:39px;background:url(/images/bg_user_family.png) no-repeat 0 0;}

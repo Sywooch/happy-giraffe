@@ -461,7 +461,7 @@ var Family = {
 }
 
 $(function () {
-    $('#partner_photo_upload').iframePostForm({
+    $('#partner_photo_upload1, #partner_photo_upload2').iframePostForm({
         json:true,
         complete:function (response) {
             if (response.status) {
@@ -479,21 +479,37 @@ $(function () {
         }
     });
 
-    $('body').delegate('.family input.partner-photo-file', 'change', function () {
+    $('.family-member input[type=file]').click(function(){
+        var count = $(this).parents('div.family-member').find('.photos li').length - 1;
+        return count < 4;
+    });
+
+    $('#partner_photo_upload1 input, #partner_photo_upload2 input').change(function(){
+        $(this).parents('form').submit();
+        return false;
+    });
+
+    $('.baby_photo_upload input').change(function(){
+        Family.tmp = this;
+        $(this).parents('form').submit();
+        return false;
+    });
+
+    /*$('body').delegate('.family input.partner-photo-file', 'change', function () {
         $(this).parents('form').submit();
     });
 
     $('body').delegate('.family .baby-photo-file', 'change', function () {
         Family.tmp = this;
         $(this).parents('form').submit();
-    });
+    });*/
 
     $('body').delegate('.family a.remove', 'click', function (e) {
         e.preventDefault();
         Family.removePhoto(this);
     });
 
-    $('body').delegate('.family a.photo', 'click', function (e) {
+    /*$('body').delegate('.family a.photo', 'click', function (e) {
         e.preventDefault();
         Family.addPhotoClick(this);
     });
@@ -501,5 +517,5 @@ $(function () {
     $('body').delegate('.family li.add', 'click', function (e) {
         e.preventDefault();
         Family.addPhotoClick(this);
-    });
+    });*/
 });

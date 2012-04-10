@@ -312,11 +312,17 @@ class CommunityContent extends CActiveRecord
 
     public function getUrl()
     {
-        return Yii::app()->createAbsoluteUrl('community/view', array(
-            'community_id' => $this->rubric->community->id,
-            'content_type_slug' => $this->type->slug,
-            'content_id' => $this->id,
-        ));
+        if ($this->isFromBlog) {
+            return Yii::app()->createUrl('/blog/view', array(
+                'content_id' => $this->id,
+            ));
+        } else {
+            return Yii::app()->createAbsoluteUrl('community/view', array(
+                'community_id' => $this->rubric->community->id,
+                'content_type_slug' => $this->type->slug,
+                'content_id' => $this->id,
+            ));
+        }
     }
 
     public function scopes()

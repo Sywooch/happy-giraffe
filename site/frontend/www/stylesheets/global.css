@@ -549,6 +549,7 @@ p {
 .entry .morning-images .thumbs ul li .more {color:#b9b9b9;font-size:13px;padding-top:30px;float:left;text-decoration:none;margin-left:10px;max-width:100px;text-align:center;width:100px;}
 .entry .morning-images .thumbs ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
 .entry .morning-images .thumbs ul li .more:hover .icon {background-position:-499px -193px;}
+.entry .morning-images .thumbs ul li .more:hover {color:#7abc2e;text-decoration:underline;}
 
 .morning-sidebar {border:1px solid #f0eaf6;float:left;width:238px;margin-right:20px;}
 
@@ -739,13 +740,13 @@ p {
 
 .content-more .block {
     float: left;
-    padding: 10px 50px 0 0;
-    width: 180px;
+    padding: 10px 15px 0 0;
+    width: 215px;
     font-size: 11px;
     line-height: 16px;
 }
 
-.content-more img {max-width:180px;}
+.content-more img {max-width:215px;}
 
 .content-more .block h3 {
     font: 11px tahoma, sans-serif;
@@ -753,9 +754,8 @@ p {
 }
 
 .content-more .block  a {
-    color: #34a0b7;
     display: inline-block;
-    min-height: 3.5em;
+	margin-bottom:5px;
 }
 
 .comments {

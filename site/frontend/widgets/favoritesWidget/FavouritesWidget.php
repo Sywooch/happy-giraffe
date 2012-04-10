@@ -9,11 +9,13 @@ class FavouritesWidget extends CWidget
 
     public function run()
     {
-        if (Yii::app()->user->checkAccess('manageFavourites'))
+        if (Yii::app()->user->checkAccess('manageFavourites')) {
+
             $this->registerScripts();
             $this->render('view', array(
                 'model' => $this->model
             ));
+        }
     }
 
     public function registerScripts()

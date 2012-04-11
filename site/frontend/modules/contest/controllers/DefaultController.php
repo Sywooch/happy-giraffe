@@ -41,17 +41,10 @@ class DefaultController extends Controller
     public function actionView($id)
     {
         $this->pageTitle = 'Фотоконкурс "Веселая семейка"';
-
-        $criteria=new CDbCriteria;
-        /*$criteria->compare('blocked',0);
-        $criteria->compare('deleted',0);*/
-        $criteria->compare('t.contest_id',$id);
-
         $contest = Contest::model()->with(array(
             'prizes' => array('with' => 'product'),
             'works' => array('limit' => 15),
-            'works.author'
-        ))->find($criteria);
+        ))->findByPk($id);
         if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
 
         $this->contest = $contest;

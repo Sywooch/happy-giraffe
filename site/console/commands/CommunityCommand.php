@@ -273,4 +273,29 @@ class CommunityCommand extends CConsoleCommand
 
         return $attr;
     }
+
+    public function actionDistribute(array $editors)
+    {
+        $offset = 0;
+        foreach ($editors as $e) {
+            $sql = "UPDATE `club_community_content` `t1`
+                LEFT OUTER JOIN
+                (
+                SELECT `content`.`id`
+                FROM `club_community_content` `content`
+                JOIN `club_community_rubric` `rubric` ON  `content`.`rubric_id` = `rubric`.`id`
+                WHERE `content`.`type_id` = 1 AND `rubric`.`community_id` != 22 AND `rubric`.`community_id` != 23 AND `content`.`editor_id` IS NULL AND `rubric`.`community_id` IS NOT NULL AND `content`.`by_happy_giraffe` = 0
+                ORDER BY `content`.`id` ASC
+                LIMIT :offset, 500
+                ) `t2` ON `t1`.`id` = `t2`.`id`
+                SET `t1`.`editor_id` = :editor_id
+                WHERE `t2`.`id` IS NOT NULL";
+            $connection = Yii::app()->db;
+            $command = $connection->createCommand($sql);
+            $command->bindParam(":editor_id", $e, PDO::PARAM_INT);
+            $command->bindParam(":offset", $offset, PDO::PARAM_INT);
+            $command->execute();
+            $offset += 500;
+        }
+    }
 }

@@ -53,7 +53,7 @@
                     <div class="user-nav">
 
                         <ul>
-                            <li><a href=""><i class="icon icon-home"></i></a></li>
+                            <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>"><i class="icon icon-home"></i></a></li>
                             <li id="user-nav-messages">
                                 <a href="/im/"><i class="icon icon-messages"></i><span class="count"></span></a>
                                 <div class="drp">

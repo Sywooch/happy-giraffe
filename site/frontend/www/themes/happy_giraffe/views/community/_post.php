@@ -15,7 +15,7 @@
 
         <div class="meta">
 
-            <div class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></div>
+            <div class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created); ?></div>
 
             <?php if ($full): ?>
                 <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = $this->views; echo $views; ?></span></div>

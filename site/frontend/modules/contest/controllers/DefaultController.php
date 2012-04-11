@@ -46,7 +46,7 @@ class DefaultController extends Controller
         //$criteria->with = array('works', 'works.author');
         $criteria->compare('blocked',0);
         $criteria->compare('deleted',0);
-        $criteria->compare('t.id',$id);
+        $criteria->compare('t.contest_id',$id);
 
         $contest = Contest::model()->with(array(
             'prizes' => array('with' => 'product'),

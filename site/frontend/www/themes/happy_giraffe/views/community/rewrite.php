@@ -25,7 +25,7 @@
                         }
                     }
 
-                     $(element).attr('onclick', 'check(this, ' + id + ', ' + !mark + ')');
+                     $(element).attr('onclick', 'check(this, ' + id + ', ' + ((mark + 1) % 2) + ')');
                 }
             });
             return false;
@@ -57,7 +57,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             ),
         ),
         array(
-            'value' => '$data->edited ? CHtml::link(CHtml::image("/images/cross.png"), "#", array("onclick" => "check(this, $data->id, false)")) : CHtml::link(CHtml::image("/images/tick.png"), "#", array("onclick" => "check(this, $data->id, true)"))',
+            'value' => '$data->edited ? CHtml::link(CHtml::image("/images/cross.png"), "#", array("onclick" => "check(this, $data->id, 0)")) : CHtml::link(CHtml::image("/images/tick.png"), "#", array("onclick" => "check(this, $data->id, 1)"))',
             'type' => 'raw',
         ),
     ),

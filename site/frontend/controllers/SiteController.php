@@ -94,16 +94,20 @@ class SiteController extends Controller
 
 	public function actionIndex()
 	{
-        if(!Yii::app()->user->isGuest)
+/*        if(!Yii::app()->user->isGuest)
             $this->redirect(array('/user/profile', 'user_id' => Yii::app()->user->id));
-        $this->layout = '//site/index_layout';
+        $this->layout = '//site/index_layout';*/
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-		Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
+/*		Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
 		Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
         $model = new User;
 		$this->render('index', array(
             'model' => $model
-        ));
+        ));*/
+        Yii::import('site.frontend.widgets.*');
+        Yii::import('site.frontend.widgets.home.*');
+        $user = Yii::app()->user->getModel();
+        $this->render('home', compact('user'));
 	}
 
 	/**
@@ -297,13 +301,5 @@ class SiteController extends Controller
 
     public function actionLink($text){
         $this->renderPartial('link', compact('text'));
-    }
-
-    public function actionHome(){
-        Yii::import('site.frontend.widgets.*');
-        Yii::import('site.frontend.widgets.home.*');
-        $this->pageTitle = 'Веселый жираф - Главная страница';
-        $user = Yii::app()->user->getModel();
-        $this->render('home', compact('user'));
     }
 }

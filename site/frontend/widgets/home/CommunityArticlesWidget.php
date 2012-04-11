@@ -17,7 +17,7 @@ class CommunityArticlesWidget extends CWidget
         $count = CommunityContent::model()->count($criteria);
 
         $criteria->limit = 2;
-        $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_THEME, 2));
+        $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_THEME));
         $articles = CommunityContent::model()->full()->findAll($criteria);
 
         $this->render('CommunityArticlesWidget', array(

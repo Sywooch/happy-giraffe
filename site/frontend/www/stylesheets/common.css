@@ -529,8 +529,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-crop table td.crop {width:300px;}
 #photoPick .photo-crop table td.crop img {max-width:300px;}
 #photoPick .photo-crop table td.preview {text-align:center;width:400px;padding-left:30px;}
-#photoPick .photo-crop table td.preview .img {margin-bottom:10px;height:72px;overflow:hidden;}
-#photoPick .photo-crop table td.preview .img, #photoPick .photo-crop table td.preview .img img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;}
+#photoPick .photo-crop table td.preview .img {height:72px;overflow:hidden;width:72px;margin:0 auto 10px;}
+#photoPick .photo-crop table td.preview .img  {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;}
 
 
 

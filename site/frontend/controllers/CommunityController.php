@@ -667,7 +667,7 @@ class CommunityController extends Controller
     {
         $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
             'criteria' => array(
-                'condition' => 'editor_id = :editor_id',
+                'condition' => 'editor_id = :editor_id OR (editor_id = 18 AND edited = 1)',
                 'params' => array(':editor_id' => Yii::app()->user->id),
                 'order' => 't.id ASC',
             ),

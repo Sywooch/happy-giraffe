@@ -665,7 +665,7 @@ class CommunityController extends Controller
 
     public function actionRewrite()
     {
-        $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
+        $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
                 'condition' => 'editor_id = :editor_id',
                 'params' => array(':editor_id' => Yii::app()->user->id),
@@ -683,7 +683,7 @@ class CommunityController extends Controller
 
     public function actionPostRewrite()
     {
-        if (Yii::app()->user->id == 18) {
+        if (Yii::app()->user->id == 18 || Yii::app()->user->id == 23) {
             $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
                 'criteria' => array(
                     'condition' => 'edited = 1',

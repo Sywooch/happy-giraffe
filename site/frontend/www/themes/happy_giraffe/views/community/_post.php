@@ -180,14 +180,14 @@
         }
     ?>
 <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-        'title' => $like_title,
-        'notice' => $like_notice,
-        'model' => $data,
-        'type' => 'minimize',
-        'options' => array(
-            'title' => $data->name,
-            'image' => isset($data_image) ? $data_image : false,
-            'description' => $data_text,
-        ),
-    )); ?>
+    'title' => $like_title,
+    'notice' => $like_notice,
+    'model' => $data,
+    'type' => 'minimize',
+    'options' => array(
+        'title' => $data->name,
+        'image' => isset($data_image) ? $data_image : false,
+        'description' => $data_text,
+    ),
+)); ?>
 <?php endif; ?>

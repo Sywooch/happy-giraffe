@@ -190,6 +190,7 @@
 #baby .pregnancy-weight-form .select-box .select-list ul {width:60px;text-align:center;overflow:auto;height:160px;background:#fff;}
 #baby .pregnancy-weight-form .select-box .select-list ul li {height:20px;line-height:20px;cursor:pointer;color:#fc48be;font-size:14px;}
 #baby .pregnancy-weight-form .select-box .select-list ul li:hover {background:#f0f0f0;}
+#baby .pregnancy-weight-form .errorMessage {text-align: center;}
 
 #baby .pregnancy-weight-summary {background:url(../images/bg_pregnancy_weight_summary.gif) repeat-y;line-height:normal;font-size:13px;}
 #baby .pregnancy-weight-summary .block-in {padding:25px 25px 25px 45px;background:url(../images/bg_pregnancy_weight_summary_b.gif) no-repeat bottom;}
@@ -356,7 +357,7 @@
 
 #baby .placenta_recomendation {display:block;padding:30px 25px 45px 295px;position:relative;background:#fff2fb;font-size:13px;margin:0 0 40px 0;}
 #baby .placenta_recomendation span.title_p {font:25px/25px arial, sans-serif;color:#dd72b9;display:block;padding:0 0 15px 0;}
-#baby .placenta_recomendation ul.placent_norm {display:block;width:200px;text-align:center;position:absolute;left:55px;top:85px;}
+#baby .placenta_recomendation ul.placent_norm {display:block;width:200px;text-align:center;position:absolute;left:55px;top:85px;list-style: none;}
 #baby .placenta_recomendation ul.placent_norm li {padding:0 0 20px 0;}
 #baby .placenta_recomendation ul.placent_norm li.your_w {font:40px/40px tahoma, sans-serif;color:#ef80c9;}
 #baby .placenta_recomendation ul.placent_norm li.your_w ins {color:#c6c5c5;}

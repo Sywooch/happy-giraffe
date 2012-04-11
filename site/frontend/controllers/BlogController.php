@@ -134,6 +134,7 @@ class BlogController extends Controller
         $this->user = User::model()->findByPk($user_id);
         if ($this->user === null)
             throw new CHttpException(404, 'Пользователь не найден');
+        $this->pageTitle = 'Блог';
 
         $contents = BlogContent::model()->getBlogContents($user_id, $rubric_id);
 
@@ -151,6 +152,8 @@ class BlogController extends Controller
         $content = BlogContent::model()->active()->full()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
+
+        $this->pageTitle = $content->name;
 
         $this->user = $content->author;
         $this->rubric_id = $content->rubric->id;

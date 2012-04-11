@@ -8,8 +8,7 @@ class MostPopularWidget extends SimpleWidget
     public function run(){
         $criteria = new CDbCriteria;
         $criteria->limit = 2;
-        $criteria->order = ' t.id DESC ';
-        $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_INTERESTING));
+        $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_INTERESTING, 2));
 
         $models = CommunityContent::model()->full()->findAll($criteria);
         $this->render('MostPopularWidget', compact('models'));

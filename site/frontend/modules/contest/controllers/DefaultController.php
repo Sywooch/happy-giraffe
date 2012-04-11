@@ -44,8 +44,8 @@ class DefaultController extends Controller
 
         $criteria=new CDbCriteria;
         //$criteria->with = array('works', 'works.author');
-        $criteria->compare('works.author.blocked',0);
-        $criteria->compare('works.author.deleted',0);
+        $criteria->compare('blocked',0);
+        $criteria->compare('deleted',0);
         $criteria->compare('t.id',$id);
 
         $contest = Contest::model()->with(array(

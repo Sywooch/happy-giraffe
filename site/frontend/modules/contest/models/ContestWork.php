@@ -106,9 +106,9 @@ class ContestWork extends CActiveRecord
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('title',$this->title);
 		$criteria->compare('created',$this->created,true);
-        $criteria->with = array('user');
-        $criteria->compare('user.blocked',0);
-        $criteria->compare('user.deleted',0);
+        $criteria->with = array('author');
+        $criteria->compare('author.blocked',0);
+        $criteria->compare('author.deleted',0);
 
         if($sort)
         {

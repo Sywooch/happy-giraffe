@@ -11,8 +11,8 @@
     $cs = Yii::app()->clientScript;
 
     $cs
-        ->registerCssFile('/stylesheets/global.css')
-        ->registerCssFile('/stylesheets/common.css')
+        ->registerCssFile('/stylesheets/global.css?r=349')
+        ->registerCssFile('/stylesheets/common.css?r=349')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')

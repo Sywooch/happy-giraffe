@@ -665,7 +665,7 @@ class CommunityController extends Controller
 
     public function actionRewrite()
     {
-        $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
+        $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
                 'condition' => 'editor_id = :editor_id',
                 'params' => array(':editor_id' => Yii::app()->user->id),

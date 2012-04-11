@@ -59,10 +59,16 @@ class Favourites extends EMongoDocument
         return $fav !== null;
     }
 
-    public static function getIdList($index)
+    public static function getIdList($index, $limit = null, $random = false)
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
+        if (!$random)
+            $criteria->sort('_id', EMongoCriteria::SORT_DESC);
+        else
+            $criteria->sort('_id', EMongoCriteria::SORT_DESC);
+        if ($limit !== null)
+            $criteria->limit($limit);
 
         $models = self::model()->findAll($criteria);
         $ids = array();

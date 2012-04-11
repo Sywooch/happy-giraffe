@@ -386,7 +386,7 @@ p {
     display: block;
     background: #fff;
     padding-top: 25px;
-    width: 225px;
+    width: 240px;
     min-height: 100%;
     float: left;
 }
@@ -481,7 +481,7 @@ p {
 .right-inner {
     display: block;
     background: #FFFFFF;
-    padding: 25px 0 0 25px;
+    padding: 25px 0 0 15px;
     margin: 0;
     width: 700px;
     float: left;

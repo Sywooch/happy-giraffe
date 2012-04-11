@@ -13,11 +13,10 @@ class CommunityArticlesWidget extends CWidget
     {
         $criteria = new CDbCriteria;
         $criteria->compare('rubric.community_id', $this->community_id);
-        $criteria->limit = 2;
         $criteria->with = array('rubric');
-        $criteria->order = ' RAND() ';
         $count = CommunityContent::model()->count($criteria);
 
+        $criteria->limit = 2;
         $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_THEME));
         $articles = CommunityContent::model()->full()->findAll($criteria);
 

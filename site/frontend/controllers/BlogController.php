@@ -152,6 +152,8 @@ class BlogController extends Controller
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
 
+        $this->pageTitle = $content->name;
+
         $this->user = $content->author;
         $this->rubric_id = $content->rubric->id;
 

@@ -25,7 +25,7 @@ class CommunityController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map', 'rewrite'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map', 'rewrite', 'postRewrite'),
                 'users'=>array('*'),
             ),
             array('allow',
@@ -667,7 +667,7 @@ class CommunityController extends Controller
     {
         $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
             'criteria' => array(
-                'condition' => 'editor_id = :editor_id OR (editor_id = 18 AND edited = 1)',
+                'condition' => 'editor_id = :editor_id',
                 'params' => array(':editor_id' => Yii::app()->user->id),
                 'order' => 't.id ASC',
             ),
@@ -679,5 +679,24 @@ class CommunityController extends Controller
         $this->render('rewrite', array(
             'dp' => $dp,
         ));
+    }
+
+    public function actionPostRewrite()
+    {
+        if (Yii::app()->user->id == 18) {
+            $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
+                'criteria' => array(
+                    'condition' => 'edited = 1',
+                    'order' => 't.id ASC',
+                ),
+                'pagination' => array(
+                    'pageSize' => 100,
+                ),
+            ));
+
+            $this->render('rewrite', array(
+                'dp' => $dp,
+            ));
+        }
     }
 }

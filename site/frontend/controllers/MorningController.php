@@ -37,7 +37,11 @@ class MorningController extends Controller
         if ($date === null || empty($date))
             $date = date("Y-m-d");
 
-        $this->pageTitle = 'Утро с Вёселым жирафом';
+        if (strtotime($date) == strtotime(date("Y-m-d")))
+            $this->pageTitle = 'Утро с Вёселым жирафом';
+        else
+            $this->pageTitle = 'Утро '. Yii::app()->dateFormatter->format("d MMMM yyyy", $date)
+                . ' с Вёселым жирафом';
 
         $this->time = strtotime($date . ' 00:00:00');
         $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
@@ -57,7 +61,7 @@ class MorningController extends Controller
         if ($article === null || ($article->photoPost->is_published != 1 && !Yii::app()->user->checkAccess('editMorning') ))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->pageTitle = 'Утро с Вёселым жирафом - '.CHtml::encode($article->name);
+        $this->pageTitle = CHtml::encode($article->name);
         $this->time = strtotime(date("Y-m-d", strtotime($article->created)) . ' 00:00:00');
         $this->breadcrumbs = array(
             'Утро с Вёселым жирафом' => array('morning/'),

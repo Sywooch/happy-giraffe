@@ -38,7 +38,6 @@ class FileUploadWidget extends CWidget
             ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js')
             ->registerScriptFile($baseUrl . '/' . 'swfupload.js')
             ->registerScriptFile($baseUrl . '/' . 'jquery.swfupload.js')
-            ->registerScriptFile($baseUrl . '/' . 'file_upload.js')
             ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/scrollbarpaper.js');
     }
 }

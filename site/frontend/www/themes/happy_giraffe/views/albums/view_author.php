@@ -86,9 +86,9 @@
         if($model->isNotSystem)
         {
             $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
-                $file_upload->loadScripts();
-                $this->endWidget();
-                echo CHtml::link('<span><span>Загрузить фото</span></span>', array('addPhoto', 'a' => $model->primaryKey), array('class' => 'fancy btn btn-green'));
+            $file_upload->loadScripts();
+            $this->endWidget();
+            echo CHtml::link('<span><span>Загрузить фото</span></span>', array('addPhoto', 'a' => $model->primaryKey), array('class' => 'fancy btn btn-green'));
         }
         ?>
     </div>

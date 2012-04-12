@@ -4,6 +4,6 @@
         <input type="file" name="Filedata" onchange="$(this).parent().trigger('submit');" />
     </form>
 </div>
-    <script type="text/javascript">
-        initAttachForm();
-    </script>
+<script type="text/javascript">
+    initAttachForm();
+</script>

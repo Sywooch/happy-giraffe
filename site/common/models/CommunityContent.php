@@ -24,6 +24,7 @@
  * @property CommunityContentType $type
  * @property CommunityPost $post
  * @property CommunityVideo $video
+ * @property CommunityPhotoPost $photoPost
  */
 class CommunityContent extends CActiveRecord
 {
@@ -54,7 +55,8 @@ class CommunityContent extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, author_id, rubric_id, type_id', 'required'),
+			array('name, author_id, type_id', 'required'),
+            array('rubric_id', 'required', 'on' => 'default'),
 			array('name, meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
 			array('author_id, rubric_id, type_id', 'length', 'max' => 11),
 			array('author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
@@ -85,7 +87,8 @@ class CommunityContent extends CActiveRecord
             'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => "slug = 'post'"),
 			'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
-            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this)))
+            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
+            'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
 		);
 	}
 
@@ -301,7 +304,7 @@ class CommunityContent extends CActiveRecord
                 Yii::log('NewComers signal not saved', 'warning', 'application');
             }
         }
-        if ($this->isNewRecord){
+        if ($this->isNewRecord && $this->rubric_id !== null){
             if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {
                 UserScores::addScores($this->author_id, ScoreActions::ACTION_FIRST_BLOG_RECORD, 1, $this);
             }else
@@ -312,7 +315,11 @@ class CommunityContent extends CActiveRecord
 
     public function getUrl()
     {
-        if ($this->isFromBlog) {
+        if ($this->rubric_id === null){
+            return Yii::app()->createUrl('/morning/view', array(
+                'id' => $this->id,
+            ));
+        }elseif ($this->isFromBlog) {
             return Yii::app()->createUrl('/blog/view', array(
                 'content_id' => $this->id,
             ));

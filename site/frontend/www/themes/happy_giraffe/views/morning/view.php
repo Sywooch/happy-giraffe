@@ -131,7 +131,7 @@
                 <div class="fb-like" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-action="recommend"></div>
             </td>
             <td>
-                <a class="odkl-klass-stat" href="" onclick="ODKL.Share(this);return false;" ><span>0</span></a>
+                <a class="odkl-klass-stat" href="<?= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"] ?>" onclick="ODKL.Share(this);return false;" ><span>0</span></a>
             </td>
             <td>
                 <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a>

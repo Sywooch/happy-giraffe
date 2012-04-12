@@ -378,4 +378,14 @@ class AlbumsController extends Controller
             Yii::app()->end();
         $model->updateByPk($id, array('permission' => $num));
     }
+
+    public static function loadUploadScritps()
+    {
+        $baseUrl = Yii::app()->baseUrl . '/javascripts/file_upload/';
+        Yii::app()->clientScript->registerCoreScript('jquery')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js')
+            ->registerScriptFile($baseUrl . '/' . 'swfupload.js')
+            ->registerScriptFile($baseUrl . '/' . 'jquery.swfupload.js')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/scrollbarpaper.js');
+    }
 }

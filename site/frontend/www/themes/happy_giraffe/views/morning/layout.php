@@ -8,14 +8,6 @@
     ),
 )); ?>
 <div id="morning" class="clearfix">
-    <?php if (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('editMorning')):?>
-    <div class="club-fast-add clearfix">
-        <a class="btn btn-green" href="<?=$this->createUrl('/morning/edit') ?>"><span><span>Добавить</span></span></a>
-    </div>
-    <div class="club-fast-add clearfix">
-        <a class="btn btn-green" href="<?=$this->createUrl('/morning/publicAll') ?>"><span><span>Опублликовать все</span></span></a>
-    </div>
-    <?php endif ?>
 
     <div class="main-right morning-main">
 

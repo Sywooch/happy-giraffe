@@ -91,8 +91,6 @@
     Yii::app()->clientScript
         ->registerScriptFile('http://userapi.com/js/api/openapi.js?49')
         ->registerScript('vk-init', "VK.init({apiId: ".Yii::app()->params['social']['vk']['api_id'].", onlyWidgets: true});", CClientScript::POS_HEAD)
-//        ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
-//        ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
     ;
 
     ?>

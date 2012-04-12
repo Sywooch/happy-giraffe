@@ -247,7 +247,7 @@ class CommunityController extends Controller
             throw new CHttpException(403, 'Запрашиваемая вами страница не найдена.');
 
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
-        $model = new CommunityContent;
+        $model = new CommunityContent('default');
         $model->author_id = Yii::app()->user->id;
         $model->type_id = $content_type->id;
         $model->rubric_id = $rubric_id;
@@ -294,7 +294,7 @@ class CommunityController extends Controller
         $content_types = CommunityContentType::model()->findAll();
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => 'travel'));
 
-        $content_model = new CommunityContent;
+        $content_model = new CommunityContent('default');
         $content_model->rubric_id = $rubric_id;
         $content_model->author_id = Yii::app()->user->id;
         $slave_model = new CommunityTravel;

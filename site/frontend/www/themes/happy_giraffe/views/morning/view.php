@@ -89,7 +89,8 @@
 
     <?php
     Yii::app()->clientScript
-        ->registerScriptFile('http://vk.com/js/api/share.js?11')
+        ->registerScriptFile('http://userapi.com/js/api/openapi.js?49')
+        ->registerScript('vk-init', ' VK.init({apiId: API_ID, onlyWidgets: true});')
 //        ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
 //        ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
     ;
@@ -119,7 +120,10 @@
     <table>
         <tr>
             <td>
-                <script type="text/javascript">document.write(VK.Share.button(false,{type: "round", text: "Сохранить"}));</script>
+                <div id="vk_like"></div>
+                <script type="text/javascript">
+                    VK.Widgets.Like("vk_like", {type: "button", height: 20});
+                </script>
             </td>
             <td>
                 <div class="fb-like" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-action="recommend"></div>

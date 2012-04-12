@@ -198,7 +198,13 @@ class MorningController extends Controller
     }
 
     public function actionPublicAll(){
-        CommunityPhotoPost::model()->updateAll(array('is_published'=>'1'), 'is_published = 0');
+        $posts = CommunityPhotoPost::model()->findAll('is_published = 0');
+        foreach($posts as $post){
+            $post->is_published = 1;
+            $post->save(false);
+            $post->content->created = date("Y-m-d H:i:s");
+            $post->content->save(false);
+        }
         $this->redirect(Yii::app()->request->urlReferrer);
     }
 }

@@ -41,12 +41,24 @@
 
         <div class="bottom<?php echo !$album ? ' disabled' : '' ?>" id="upload_button_wrapper">
             <?php
-            $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget', array(
-                'album_id' => $album ? $album->id : false,
-            ));
-            $file_upload->form($album ? true : false);
-            $this->endWidget();
+            $js = "var upload_ajax_url = '" . Yii::app()->createUrl('/albums/addPhoto', array('a' => $album ? $album->id : false)) . "';";
+            if($album)
+                $js .= "Album.album_id = " . $album->id . ";";
+            Yii::app()->clientScript->registerScript('upload_ajax_url', $js, CClientScript::POS_HEAD);
             ?>
+            <?php echo CHtml::form('', 'post', array('id' => 'upload-form', 'enctype' => 'multipart/form-data')); ?>
+
+            <div class="profile-form-in" id="upload-control">
+                <p><?php echo CHtml::fileField('file', '', array('id' => 'upload-input', 'multiple' => 'multiple', 'style' => 'display:none;')); ?></p>
+                <div class="row-btn-left">
+                    <button class="btn btn-orange" id="upload-button" style="display: none;"><span><span>Загрузить</span></span></button>
+                </div>
+            </div>
+            <?php echo CHtml::endForm(); ?>
+            <?php if($album): ?>
+                <script type="text/javascript">Album.initUForm();</script>
+            <?php endif; ?>
+
         </div>
     </div>
 

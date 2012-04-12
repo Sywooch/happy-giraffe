@@ -166,8 +166,8 @@ Album.initUForm = function() {
         file_size_limit:"6144",
         file_types:"*.jpg;*.png;*.gif;*.jpeg",
         file_upload_limit:"0",
-        flash_url:upload_base_url + "/swfupload.swf",
-        flash9_url:upload_base_url + "/swfupload_fp9.swf",
+        flash_url:"/javascripts/file_upload/swfupload.swf",
+        flash9_url:"/javascripts/file_upload/swfupload_fp9.swf",
 
         button_text: '',
         button_width: 178,
@@ -183,8 +183,8 @@ Album.initUForm = function() {
         file_size_limit:"6144",
         file_types:"*.jpg;*.png;*.gif;*.jpeg",
         file_upload_limit:"0",
-        flash_url:upload_base_url + "/swfupload.swf",
-        flash9_url:upload_base_url + "/swfupload_fp9.swf",
+        flash_url:"/javascripts/file_upload/swfupload.swf",
+        flash9_url:"/javascripts/file_upload/swfupload_fp9.swf",
 
         button_text:'<span class="moreButton">Добавить еще фотографий</span>',
         button_text_style:'.moreButton {color: #54AFC3;display:block;height:34px;line-height:34px;font-size:12px;font-family:arial;}',

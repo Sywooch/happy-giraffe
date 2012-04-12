@@ -85,9 +85,7 @@
         <?php
         if($model->isNotSystem)
         {
-            $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
-            $file_upload->loadScripts();
-            $this->endWidget();
+            AlbumsController::loadUploadScritps();
             echo CHtml::link('<span><span>Загрузить фото</span></span>', array('addPhoto', 'a' => $model->primaryKey), array('class' => 'fancy btn btn-green'));
         }
         ?>

@@ -88,10 +88,6 @@ class FileAttachWidget extends CWidget
         $path = Yii::getPathOfAlias('zii.widgets.assets.listview');
         $assets = Yii::app()->assetManager->publish($path);
         $cs->registerScriptFile($assets.'/jquery.yiilistview.js');
-
         $cs->registerCoreScript('bbq');
-        $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
-        $file_upload->loadScripts();
-        $this->endWidget();
     }
 }

@@ -59,9 +59,7 @@
 <div class="side-left gallery-sidebar">
     <div class="fast-add">
         <?php
-        $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
-        $file_upload->loadScripts();
-        $this->endWidget();
+        AlbumsController::loadUploadScritps();
         echo CHtml::link('<span><span>Загрузить фото</span></span>', array('addPhoto'), array('class' => 'fancy btn btn-green'));
         ?>
     </div>

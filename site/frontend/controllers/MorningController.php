@@ -68,6 +68,10 @@ class MorningController extends Controller
     {
         if (Yii::app()->user->checkAccess('editMorning')) {
             if ($id === null) {
+                $this->breadcrumbs = array(
+                    'Утро с Вёселым жирафом' => array('morning/'),
+                    'Создание записи'
+                );
                 if (isset($_POST['name'])) {
                     $post = new CommunityContent();
                     $post->name = $_POST['name'];
@@ -83,6 +87,11 @@ class MorningController extends Controller
                 $this->render('_create', compact('post'));
             }
             else {
+                $this->breadcrumbs = array(
+                    'Утро с Вёселым жирафом' => array('morning/'),
+                    'Редактирование записи'
+                );
+
                 Yii::app()->clientScript->registerScriptFile('/javascripts/morning.js');
                 $post = CommunityContent::model()->findByPk($id);
                 $this->render('form', compact('post'));

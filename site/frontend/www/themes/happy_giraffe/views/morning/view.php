@@ -91,6 +91,8 @@
     Yii::app()->clientScript
         ->registerScriptFile('http://userapi.com/js/api/openapi.js?49')
         ->registerScript('vk-init', "VK.init({apiId: ".Yii::app()->params['social']['vk']['api_id'].", onlyWidgets: true});", CClientScript::POS_HEAD)
+        ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
+        ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
     ;
 
     ?>
@@ -109,13 +111,15 @@
         window.___gcfg = {lang: 'ru'};
 
         (function() {
+            ODKL.init();
+
             var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
             po.src = 'https://apis.google.com/js/plusone.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
         })();
     </script>
 
-    <table>
+    <table width="100%">
         <tr>
             <td>
                 <div id="vk_like"></div>
@@ -127,7 +131,7 @@
                 <div class="fb-like" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-action="recommend"></div>
             </td>
             <td>
-
+                <a class="odkl-klass-stat" href="" onclick="ODKL.Share(this);return false;" ><span>0</span></a>
             </td>
             <td>
                 <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a>

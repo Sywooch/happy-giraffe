@@ -7,5 +7,5 @@
 </div>
 <?php echo CHtml::endForm(); ?>
 <?php if($init === true): ?>
-    <script type="text/javascript">initForm();</script>
+    <script type="text/javascript">Album.initUForm();</script>
 <?php endif; ?>

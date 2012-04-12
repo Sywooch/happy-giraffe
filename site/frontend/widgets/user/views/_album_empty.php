@@ -1,8 +1,6 @@
 <?php
-    $file_upload = $this->beginWidget('site.frontend.widgets.fileUpload.FileUploadWidget');
-    $file_upload->loadScripts();
-    $this->endWidget();
-
+    Yii::import('application.controllers.AlbumsController');
+    AlbumsController::loadUploadScritps();
     $link = Yii::app()->createUrl('/albums/addPhoto')
 ?>
 <div class="user-photo-add user-add">

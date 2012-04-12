@@ -37,6 +37,8 @@ class MorningController extends Controller
         if ($date === null || empty($date))
             $date = date("Y-m-d");
 
+        $this->pageTitle = 'Утро с Вёселым жирафом';
+
         $this->time = strtotime($date . ' 00:00:00');
         $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
         if (!Yii::app()->user->checkAccess('editMorning'))
@@ -55,6 +57,7 @@ class MorningController extends Controller
         if ($article === null || ($article->photoPost->is_published != 1 && !Yii::app()->user->checkAccess('editMorning') ))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        $this->pageTitle = 'Утро с Вёселым жирафом - '.CHtml::encode($article->name);
         $this->time = strtotime(date("Y-m-d", strtotime($article->created)) . ' 00:00:00');
         $this->breadcrumbs = array(
             'Утро с Вёселым жирафом' => array('morning/'),
@@ -67,6 +70,7 @@ class MorningController extends Controller
     public function actionEdit($id = null)
     {
         if (Yii::app()->user->checkAccess('editMorning')) {
+            $this->pageTitle = 'Утро с Вёселым жирафом - Редактирование';
             if ($id === null) {
                 $this->breadcrumbs = array(
                     'Утро с Вёселым жирафом' => array('morning/'),
@@ -96,7 +100,8 @@ class MorningController extends Controller
                 $post = CommunityContent::model()->findByPk($id);
                 $this->render('form', compact('post'));
             }
-        }
+        }else
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
     }
 
     public function saveImage($lat, $lon, $zoom)

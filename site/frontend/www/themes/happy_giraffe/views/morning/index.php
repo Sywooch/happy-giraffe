@@ -2,7 +2,16 @@
 /* @var $this Controller
  * @var $articles CommunityContent[]
  */
-?><?php foreach ($articles as $article): ?>
+?>
+<?php if (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('editMorning')):?>
+<div class="club-fast-add clearfix">
+    <a class="btn btn-green" href="<?=$this->createUrl('/morning/edit') ?>"><span><span>Добавить</span></span></a>
+</div>
+<div class="club-fast-add clearfix">
+    <a class="btn btn-green" href="<?=$this->createUrl('/morning/publicAll') ?>"><span><span>Опублликовать все</span></span></a>
+</div>
+<?php endif ?>
+<?php foreach ($articles as $article): ?>
 <div class="entry">
 
     <div class="entry-header clearfix">

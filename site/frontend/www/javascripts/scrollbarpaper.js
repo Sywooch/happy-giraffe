@@ -77,7 +77,7 @@
                     var offsetTop = e.pageY - data.drag.offset().top;
                     $("html").bind("mousemove.scrollbarPaper",
                         function (e) {
-                            console.log(e.pageY, $this.offset().top ,offsetTop, state.ratio);
+                            //console.log(e.pageY, $this.offset().top ,offsetTop, state.ratio);
                             $this.scrollTop((e.pageY - $this.offset().top - offsetTop) / state.ratio);
                             return false
                         }).bind("mouseup.scrollbarPaper", unbindMousemove);

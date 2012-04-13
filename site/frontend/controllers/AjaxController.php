@@ -427,11 +427,12 @@ class AjaxController extends Controller
             $modelName = Yii::app()->request->getPost('entity');
             $modelPk = Yii::app()->request->getPost('entity_id');
             $index = Yii::app()->request->getPost('num');
+            $param = Yii::app()->request->getPost('param');
 
             $model = $modelName::model()->findByPk($modelPk);
             $success = false;
             if ($model){
-                $success = Favourites::toggle($model, $index);
+                $success = Favourites::toggle($model, $index, $param);
             }
             echo CJSON::encode(array('status' => $success));
         }

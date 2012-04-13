@@ -119,23 +119,23 @@
 
     <table width="100%">
         <tr>
-            <td>
+            <td style="vertical-align:top;width:20%">
                 <div id="vk_like"></div>
                 <script type="text/javascript">
                     VK.Widgets.Like("vk_like", {type: "button", height: 20});
                 </script>
             </td>
-            <td>
+            <td style="vertical-align:top;width:20%">
                 <div class="fb-like" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-action="recommend"></div>
             </td>
-            <td>
+            <td style="vertical-align:top;width:20%">
                 <a class="odkl-klass-stat" href="http://<?= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"] ?>" onclick="ODKL.Share(this);return false;" ><span>0</span></a>
             </td>
-            <td>
+            <td style="vertical-align:top;width:20%">
                 <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a>
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             </td>
-            <td>
+            <td style="vertical-align:top;width:20%">
                 <g:plusone size="medium" annotation="inline" width="120"></g:plusone>
             </td>
         </tr>

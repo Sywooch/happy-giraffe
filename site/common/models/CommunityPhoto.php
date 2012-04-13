@@ -96,6 +96,14 @@ class CommunityPhoto extends CActiveRecord
 		));
 	}
 
+    public function afterDelete()
+    {
+        $file = Yii::getPathOfAlias('site.common.uploads.photos.morning.originals') .
+            DIRECTORY_SEPARATOR . $this->post_id . DIRECTORY_SEPARATOR . $this->image;
+        if (file_exists($file))
+            unlink($file);
+    }
+
     public function getUrl()
     {
         return implode('/', array(

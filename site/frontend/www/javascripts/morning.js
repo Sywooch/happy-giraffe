@@ -43,7 +43,7 @@ var Morniing = {
             dataType:'JSON',
             success:function (response) {
                 if (response.status) {
-                    $(el).parent().remove();
+                    $(el).parent().parent().remove();
                 }
             },
             context:el

@@ -216,4 +216,11 @@ class MorningController extends Controller
         }
         $this->redirect(Yii::app()->request->urlReferrer);
     }
+
+    public function actionRemove($id)
+    {
+        if (Yii::app()->user->checkAccess('editMorning')) {
+            CommunityPhoto::model()->deleteByPk($id);
+        }
+    }
 }

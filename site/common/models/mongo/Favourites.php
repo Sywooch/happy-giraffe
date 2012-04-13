@@ -13,6 +13,8 @@ class Favourites extends EMongoDocument
     public $block;
     public $entity;
     public $entity_id;
+    public $created;
+    public $param;
 
     public static function model($className = __CLASS__)
     {
@@ -24,7 +26,14 @@ class Favourites extends EMongoDocument
         return 'favourites';
     }
 
-    public static function toggle($model, $block)
+    public function beforeSave()
+    {
+        if ($this->isNewRecord)
+            $this->created = time();
+        return parent::beforeSave();
+    }
+
+    public static function toggle($model, $block, $param)
     {
         $block = (int)$block;
         $criteria = new EMongoCriteria;
@@ -45,6 +54,9 @@ class Favourites extends EMongoDocument
             $fav->entity = get_class($model);
             $fav->entity_id = (int)$model->primaryKey;
             $fav->block = $block;
+            if (!empty($param))
+                $fav->param = (int)$param;
+
             return $fav->save();
         }
     }
@@ -59,16 +71,18 @@ class Favourites extends EMongoDocument
         return $fav !== null;
     }
 
-    public static function getIdList($index, $limit = null, $random = false)
+    public static function getIdList($index, $limit = null, $random = false, $param = null)
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
         if (!$random)
-            $criteria->sort('_id', EMongoCriteria::SORT_DESC);
+            $criteria->sort('created', EMongoCriteria::SORT_DESC);
         else
-            $criteria->sort('_id', EMongoCriteria::SORT_DESC);
+            $criteria->sort('created', EMongoCriteria::SORT_DESC);
         if ($limit !== null)
             $criteria->limit($limit);
+        if ($param !== null)
+            $criteria->param('==', $param);
 
         $models = self::model()->findAll($criteria);
         $ids = array();
@@ -76,5 +90,14 @@ class Favourites extends EMongoDocument
             $ids [] = $model->entity_id;
 
         return $ids;
+    }
+
+    public static function updateCreatedTime()
+    {
+        $models = Favourites::model()->findAll();
+        foreach($models as $model){
+            $model->created = time();
+            $model->save();
+        }
     }
 }

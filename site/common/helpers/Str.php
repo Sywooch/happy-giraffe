@@ -84,6 +84,11 @@ class Str
             return $string;
         }
     }
+
+    public static function strToParagraph($str)
+    {
+        return '<p>'.str_replace("\n", '</p><p>', $str).'</p>';
+    }
 }
 
 ?>

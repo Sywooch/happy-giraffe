@@ -109,10 +109,8 @@
 
     <script type="text/javascript">
         window.___gcfg = {lang: 'ru'};
-
         (function() {
             ODKL.init();
-
             var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
             po.src = 'https://apis.google.com/js/plusone.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
@@ -138,7 +136,7 @@
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             </td>
             <td>
-                <g:plusone annotation="inline" width="120"></g:plusone>
+                <g:plusone size="medium" annotation="inline" width="120"></g:plusone>
             </td>
         </tr>
     </table>

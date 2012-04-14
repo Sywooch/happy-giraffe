@@ -220,7 +220,7 @@ class MorningController extends Controller
     public function actionRemove($id)
     {
         if (Yii::app()->user->checkAccess('editMorning')) {
-            CommunityContent::model()->deleteByPk($id);
+            CommunityContent::model()->deleteByPk($id, 'type_id = 4');
         }
     }
 }

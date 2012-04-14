@@ -115,6 +115,8 @@ class AlbumsController extends Controller
         if (isset($_FILES['Filedata']))
         {
             $file = CUploadedFile::getInstanceByName('Filedata');
+            if (!in_array($file->extensionName, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
+                Yii::app()->end();
             $model = new AlbumPhoto();
 
             echo '<div id="serverData">';

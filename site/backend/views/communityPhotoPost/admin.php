@@ -10,11 +10,11 @@
 		'location_image',
 		'content_id',
 		'is_published',
-		'lat',
-		/*
-		'long',
-		'zoom',
-		*/
+        /*
+          'lat',
+          'long',
+          'zoom',
+          */
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}{delete}'

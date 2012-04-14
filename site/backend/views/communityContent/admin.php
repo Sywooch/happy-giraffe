@@ -9,6 +9,7 @@
 		'name',
 		'author_id',
 		'rubric_id',
+        'created',
         array(
             'name'=>'type_id',
             'value'=>'($data->type !== null)?$data->type->name:""',

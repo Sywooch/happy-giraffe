@@ -4,8 +4,8 @@ class m120416_115105_remove_seo_tables extends CDbMigration
 {
 	public function up()
 	{
-        $this->execute('DROP TABLE IF EXISTS seo_keywords');
         $this->execute('DROP TABLE IF EXISTS seo_stats');
+        $this->execute('DROP TABLE IF EXISTS seo_keywords');
 
         $this->execute('DROP TABLE IF EXISTS seo__stats');
         $this->execute('DROP TABLE IF EXISTS seo__key_stats');

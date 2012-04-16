@@ -158,9 +158,9 @@
 
                 <div class="nav">
                 <ul class="clearfix width-2">
-                <!--<li class="morning">
-							<a href=""><i class="text"></i></a>
-						</li>-->
+                <li class="morning">
+                    <a href="<?=$this->createUrl('morning/index') ?>"><i class="text"></i></a>
+                </li>
                 <li class="kids navdrp">
                     <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 

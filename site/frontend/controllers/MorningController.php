@@ -88,8 +88,12 @@ class MorningController extends Controller
                     if ($post->save()) {
                         $photoPost = new CommunityPhotoPost();
                         $photoPost->content_id = $post->id;
-                        $photoPost->save();
-                        $this->redirect($this->createUrl('morning/edit', array('id' => $post->id)));
+                        if ($photoPost->save())
+                            $this->redirect($this->createUrl('morning/edit', array('id' => $post->id)));
+                        else{
+                            $post->delete();
+                            throw new CHttpException(402, 'Ошибка, обратитесь к разработчикам.');
+                        }
                     }
                 }
                 $this->render('_create', compact('post'));
@@ -215,5 +219,12 @@ class MorningController extends Controller
             $post->content->save(false);
         }
         $this->redirect(Yii::app()->request->urlReferrer);
+    }
+
+    public function actionRemove($id)
+    {
+        if (Yii::app()->user->checkAccess('editMorning')) {
+            CommunityContent::model()->deleteByPk($id, 'type_id = 4');
+        }
     }
 }

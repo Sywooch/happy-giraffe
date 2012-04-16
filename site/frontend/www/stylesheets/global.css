@@ -577,6 +577,8 @@ p {
 #morning.morning-wide .morning-main {width:960px;}
 #morning.morning-wide .morning-sidebar {display:none;}
 
+#morning.morning-wide .morning-main .entry .entry-content img {width: 1000px;}
+
 
 .entry .meta {float:right;color:#737575;text-align:right;font-size:13px;overflow:hidden;padding-top:10px;}
 

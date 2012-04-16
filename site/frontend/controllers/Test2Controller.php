@@ -229,4 +229,8 @@ class Test2Controller extends Controller
             closedir($handle);
         }
     }
+
+    public function actionLol2(){
+        Favourites::updateCreatedTime();
+    }
 }

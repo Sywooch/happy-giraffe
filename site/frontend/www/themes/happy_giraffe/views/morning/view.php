@@ -3,30 +3,6 @@
  * @var $article CommunityContent
  */
 ?>
-<script type="text/javascript">
-    var cpo = 0;
-
-    $(window).scroll(function(){
-
-        var cp = $('#checkpoint').offset().top;
-        var st = $(window).scrollTop();
-
-        if (!$('#morning').hasClass('morning-wide')) {
-
-            if (st>=cp){
-                $('#morning').addClass('morning-wide')
-                cpo = cp;
-            }
-
-        } else {
-
-            if (st < cpo-100){
-                $('#morning').removeClass('morning-wide')
-            }
-
-        }
-    });
-</script>
 <div class="entry">
 
     <div class="entry-header clearfix">
@@ -119,23 +95,23 @@
 
     <table width="100%">
         <tr>
-            <td>
+            <td style="vertical-align:top;width:20%">
                 <div id="vk_like"></div>
                 <script type="text/javascript">
                     VK.Widgets.Like("vk_like", {type: "button", height: 20});
                 </script>
             </td>
-            <td>
+            <td style="vertical-align:top;width:20%">
                 <div class="fb-like" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-action="recommend"></div>
             </td>
-            <td>
+            <td style="vertical-align:top;width:20%">
                 <a class="odkl-klass-stat" href="http://<?= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"] ?>" onclick="ODKL.Share(this);return false;" ><span>0</span></a>
             </td>
-            <td>
+            <td style="vertical-align:top;width:20%">
                 <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a>
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             </td>
-            <td>
+            <td style="vertical-align:top;width:20%">
                 <g:plusone size="medium" annotation="inline" width="120"></g:plusone>
             </td>
         </tr>
@@ -145,3 +121,33 @@
 <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
     'model' => $article,
 )); ?>
+<?php
+$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+$remove_tmpl->registerTemplates();
+$this->endWidget();
+?>
+
+<script type="text/javascript">
+    var cpo = 0;
+
+    $(window).scroll(function(){
+
+        var cp = $('#checkpoint').offset().top;
+        var st = $(window).scrollTop();
+
+        if (!$('#morning').hasClass('morning-wide')) {
+
+            if (st>=cp){
+                $('#morning').addClass('morning-wide')
+                cpo = cp;
+            }
+
+        } else {
+
+            if (st < cpo-100){
+                $('#morning').removeClass('morning-wide')
+            }
+
+        }
+    });
+</script>

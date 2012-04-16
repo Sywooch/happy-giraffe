@@ -1,9 +1,8 @@
 <?php
 
-class ContestWorkController extends BController
+class CommunityPhotoPostController extends BController
 {
 	public $defaultAction='admin';
-    public $layout = 'shop';
 
     public function beforeAction($action){
         if (!Yii::app()->user->checkAccess('administrator'))
@@ -18,14 +17,14 @@ class ContestWorkController extends BController
 	 */
 	public function actionCreate()
 	{
-		$model=new ContestWork;
+		$model=new CommunityPhotoPost;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ContestWork']))
+		if(isset($_POST['CommunityPhotoPost']))
 		{
-			$model->attributes=$_POST['ContestWork'];
+			$model->attributes=$_POST['CommunityPhotoPost'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -47,9 +46,9 @@ class ContestWorkController extends BController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ContestWork']))
+		if(isset($_POST['CommunityPhotoPost']))
 		{
-			$model->attributes=$_POST['ContestWork'];
+			$model->attributes=$_POST['CommunityPhotoPost'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -84,10 +83,10 @@ class ContestWorkController extends BController
 	 */
 	public function actionAdmin()
 	{
-		$model=new ContestWork('search');
+		$model=new CommunityPhotoPost('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['ContestWork']))
-			$model->attributes=$_GET['ContestWork'];
+		if(isset($_GET['CommunityPhotoPost']))
+			$model->attributes=$_GET['CommunityPhotoPost'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -101,7 +100,7 @@ class ContestWorkController extends BController
 	 */
 	public function loadModel($id)
 	{
-		$model=ContestWork::model()->findByPk((int)$id);
+		$model=CommunityPhotoPost::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -113,7 +112,7 @@ class ContestWorkController extends BController
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='contest-work-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='community-photo-post-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

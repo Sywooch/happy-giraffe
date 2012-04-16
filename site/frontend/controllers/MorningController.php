@@ -49,7 +49,7 @@ class MorningController extends Controller
             $cond .= ' AND is_published = 1';
         $articles = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findAll($cond);
         $this->breadcrumbs = array(
-            'Утро с Вёселым жирафом',
+            'Утро с Весёлым жирафом',
         );
 
         $this->render('index', compact('articles'));

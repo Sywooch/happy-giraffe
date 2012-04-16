@@ -157,7 +157,7 @@
                 </div>
 
                 <div class="nav">
-                <ul class="clearfix width-2">
+                <ul class="clearfix">
                 <li class="morning">
                     <a href="<?=$this->createUrl('morning/index') ?>"><i class="text"></i></a>
                 </li>

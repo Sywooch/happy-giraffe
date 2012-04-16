@@ -233,6 +233,6 @@ class MorningController extends Controller
         $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59" AND removed = 0';
         if (!Yii::app()->user->checkAccess('editMorning'))
             $cond .= ' AND is_published = 1';
-        return CommunityContent::model()->count($cond) != 0;
+        return CommunityContent::model()->with('photoPost')->count($cond) != 0;
     }
 }

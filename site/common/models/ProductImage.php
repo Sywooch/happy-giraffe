@@ -75,7 +75,7 @@ class ProductImage extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_product_image}}';
+		return '{{shop__product_image}}';
 	}
 
 	/**

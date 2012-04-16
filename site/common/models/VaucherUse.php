@@ -25,7 +25,7 @@ class VaucherUse extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_vaucher_use}}';
+		return '{{shop__vaucher_use}}';
 	}
 
 	/**

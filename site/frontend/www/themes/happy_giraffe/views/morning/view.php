@@ -118,15 +118,20 @@
     </table>
 </div>
 
-<?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
-    'model' => $article,
-)); ?>
-<?php
-$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-$remove_tmpl->registerTemplates();
-$this->endWidget();
-?>
 
+<div class="main">
+    <div class="main-in">
+        <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
+        'model' => $article,
+        )); ?>
+        <?php
+        $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+        $remove_tmpl->registerTemplates();
+        $this->endWidget();
+        ?>
+
+    </div>
+</div>
 <script type="text/javascript">
     var cpo = 0;
 

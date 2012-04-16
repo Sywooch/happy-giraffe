@@ -38,10 +38,10 @@ class MorningController extends Controller
             $date = date("Y-m-d");
 
         if (strtotime($date) == strtotime(date("Y-m-d")))
-            $this->pageTitle = 'Утро с Вёселым жирафом';
+            $this->pageTitle = 'Утро с Весёлым жирафом';
         else
             $this->pageTitle = 'Утро '. Yii::app()->dateFormatter->format("d MMMM yyyy", $date)
-                . ' с Вёселым жирафом';
+                . ' с Весёлым жирафом';
 
         $this->time = strtotime($date . ' 00:00:00');
         $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
@@ -64,7 +64,7 @@ class MorningController extends Controller
         $this->pageTitle = CHtml::encode($article->name);
         $this->time = strtotime(date("Y-m-d", strtotime($article->created)) . ' 00:00:00');
         $this->breadcrumbs = array(
-            'Утро с Вёселым жирафом' => array('morning/'),
+            'Утро с Весёлым жирафом' => array('morning/'),
             $article->name
         );
 
@@ -74,10 +74,10 @@ class MorningController extends Controller
     public function actionEdit($id = null)
     {
         if (Yii::app()->user->checkAccess('editMorning')) {
-            $this->pageTitle = 'Утро с Вёселым жирафом - Редактирование';
+            $this->pageTitle = 'Утро с Весёлым жирафом - Редактирование';
             if ($id === null) {
                 $this->breadcrumbs = array(
-                    'Утро с Вёселым жирафом' => array('morning/'),
+                    'Утро с Весёлым жирафом' => array('morning/'),
                     'Создание записи'
                 );
                 if (isset($_POST['name'])) {
@@ -100,7 +100,7 @@ class MorningController extends Controller
             }
             else {
                 $this->breadcrumbs = array(
-                    'Утро с Вёселым жирафом' => array('morning/'),
+                    'Утро с Весёлым жирафом' => array('morning/'),
                     'Редактирование записи'
                 );
 

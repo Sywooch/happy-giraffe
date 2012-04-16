@@ -159,7 +159,7 @@
                 <div class="nav">
                 <ul class="clearfix">
                 <li class="morning">
-                    <a href="<?=$this->createUrl('morning/index') ?>"><i class="text"></i></a>
+                    <a href="<?=$this->createUrl('/morning/index') ?>"><i class="text"></i></a>
                 </li>
                 <li class="kids navdrp">
                     <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>

@@ -31,7 +31,7 @@ class TestQuestion extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'test_question';
+		return 'test__questions';
 	}
 
 	/**

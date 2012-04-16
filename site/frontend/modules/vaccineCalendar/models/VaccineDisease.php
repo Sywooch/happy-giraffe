@@ -30,7 +30,7 @@ class VaccineDisease extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'vaccine_disease';
+		return 'vaccine__diseases';
 	}
 
 	/**
@@ -59,7 +59,7 @@ class VaccineDisease extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'vaccineDates' => array(self::MANY_MANY, 'VaccineDate', 'vaccine_date_disease(vaccine_disease_id, vaccine_date_id)'),
+			'vaccineDates' => array(self::MANY_MANY, 'VaccineDate', 'vaccine__dates_diseases(vaccine_disease_id, vaccine_date_id)'),
 			'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
 		);
 	}

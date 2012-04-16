@@ -79,7 +79,7 @@ class RecipeBookRecipe extends CActiveRecord
      */
     public function tableName()
     {
-        return 'recipeBook_recipe';
+        return 'recipe_book__recipes';
     }
 
     /**
@@ -114,7 +114,7 @@ class RecipeBookRecipe extends CActiveRecord
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'ingredients' => array(self::HAS_MANY, 'RecipeBookIngredient', 'recipe_id'),
             'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
-            'purposes' => array(self::MANY_MANY, 'RecipeBookPurpose', 'recipeBook_recipe_via_purpose(recipe_id, purpose_id)'),
+            'purposes' => array(self::MANY_MANY, 'RecipeBookPurpose', 'recipe_book__recipes_purposes(recipe_id, purpose_id)'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => 'RecipeBookRecipe')),
         );
     }

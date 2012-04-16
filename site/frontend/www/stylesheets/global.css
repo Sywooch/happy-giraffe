@@ -561,6 +561,7 @@ p {
 .morning-sidebar .calendar .days table thead td {color:#4c4c4c;font-size:22px;text-align:center;}
 .morning-sidebar .calendar .days table tbody td {width:34px;text-align:center;height:28px;font-size:16px;line-height:28px;}
 .morning-sidebar .calendar .days table tbody td a {color:#a3a3a2;}
+.morning-sidebar .calendar .days table tbody td {color:#a3a3a2;}
 .morning-sidebar .calendar .days table tbody td a:hover {text-decoration:none;}
 .morning-sidebar .calendar .days table tbody td.active {background:#fff3a0;}
 .morning-sidebar .calendar .days table tbody td.active a {color:#5d5c5c;font-weight:bold;text-decoration:none;}

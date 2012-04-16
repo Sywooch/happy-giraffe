@@ -3,30 +3,6 @@
  * @var $article CommunityContent
  */
 ?>
-<script type="text/javascript">
-    var cpo = 0;
-
-    $(window).scroll(function(){
-
-        var cp = $('#checkpoint').offset().top;
-        var st = $(window).scrollTop();
-
-        if (!$('#morning').hasClass('morning-wide')) {
-
-            if (st>=cp){
-                $('#morning').addClass('morning-wide')
-                cpo = cp;
-            }
-
-        } else {
-
-            if (st < cpo-100){
-                $('#morning').removeClass('morning-wide')
-            }
-
-        }
-    });
-</script>
 <div class="entry">
 
     <div class="entry-header clearfix">
@@ -145,3 +121,33 @@
 <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
     'model' => $article,
 )); ?>
+<?php
+$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+$remove_tmpl->registerTemplates();
+$this->endWidget();
+?>
+
+<script type="text/javascript">
+    var cpo = 0;
+
+    $(window).scroll(function(){
+
+        var cp = $('#checkpoint').offset().top;
+        var st = $(window).scrollTop();
+
+        if (!$('#morning').hasClass('morning-wide')) {
+
+            if (st>=cp){
+                $('#morning').addClass('morning-wide')
+                cpo = cp;
+            }
+
+        } else {
+
+            if (st < cpo-100){
+                $('#morning').removeClass('morning-wide')
+            }
+
+        }
+    });
+</script>

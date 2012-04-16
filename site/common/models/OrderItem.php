@@ -28,7 +28,7 @@ class OrderItem extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_order_item}}';
+		return '{{shop__order_item}}';
 	}
 	
 	/**

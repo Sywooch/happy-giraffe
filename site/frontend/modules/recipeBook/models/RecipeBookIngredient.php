@@ -54,7 +54,7 @@ class RecipeBookIngredient extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'recipeBook_ingredient';
+		return 'recipe_book__ingredients';
 	}
 
 	/**

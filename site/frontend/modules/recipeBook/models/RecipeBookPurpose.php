@@ -26,7 +26,7 @@ class RecipeBookPurpose extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'recipeBook_purpose';
+		return 'recipe_book__purposes';
 	}
 
 	/**
@@ -53,7 +53,7 @@ class RecipeBookPurpose extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'recipes' => array(self::MANY_MANY, 'RecipeBookRecipe', 'recipeBook_recipe_via_purpose(purpose_id, recipe_id)'),
+			'recipes' => array(self::MANY_MANY, 'RecipeBookRecipe', 'recipe_book__recipes_purposes(purpose_id, recipe_id)'),
 		);
 	}
 

@@ -44,7 +44,7 @@ class YarnCalcForm extends CFormModel
     {
         $result = Yii::app()->db->createCommand()
             ->select('value')
-            ->from('yarn')
+            ->from('sewing__yarn_data')
             ->where('project = :project AND size = :size AND gauge = :gauge', array(
             ':project' => $this->project,
             ':gauge' => $this->gauge,

@@ -23,7 +23,7 @@ class Vaccine extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'vaccine';
+		return 'vaccine__vaccines';
 	}
 
 	/**

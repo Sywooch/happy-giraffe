@@ -79,7 +79,7 @@ class VaccineDate extends CActiveRecord
      */
     public function tableName()
     {
-        return 'vaccine_date';
+        return 'vaccine__dates';
     }
 
     /**
@@ -107,7 +107,7 @@ class VaccineDate extends CActiveRecord
     {
         return array(
             'vaccine' => array(self::BELONGS_TO, 'Vaccine', 'vaccine_id'),
-            'diseases' => array(self::MANY_MANY, 'VaccineDisease', 'vaccine_date_disease(vaccine_date_id, vaccine_disease_id)'),
+            'diseases' => array(self::MANY_MANY, 'VaccineDisease', 'vaccine__dates_diseases(vaccine_date_id, vaccine_disease_id)'),
         );
     }
 
@@ -427,7 +427,7 @@ class VaccineDate extends CActiveRecord
     private function GetUserVoteFromDb($user_id, $baby_id)
     {
         $connection = Yii::app()->db;
-        $command = $connection->createCommand("SELECT vote FROM {{vaccine_date_vote}}
+        $command = $connection->createCommand("SELECT vote FROM vaccine__dates_votes
             WHERE user_id = :user_id AND object_id=" . $this->id . " AND baby_id=" . $baby_id);
         $command->bindParam(":user_id", $user_id);
         return $command->queryScalar();

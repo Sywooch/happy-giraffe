@@ -416,7 +416,7 @@ class AjaxController extends Controller
         $interests = Yii::app()->user->model->interests;
         $html = CHtml::openTag('ul', array('id' => 'user_interests_list'));
         foreach ($interests as $interest)
-            $html .= CHtml::tag('li', array(), CHtml::tag('span', array('class' => 'interest selected ' . $interest->category->css_class), $interest->name));
+            $html .= CHtml::tag('li', array(), CHtml::tag('span', array('class' => 'interest selected ' . $interest->category->css_class), $interest->title));
         $html .= CHtml::closeTag('ul');
         echo $html;
     }

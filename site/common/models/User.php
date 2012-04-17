@@ -262,15 +262,15 @@ class User extends CActiveRecord
             'status' => array(self::HAS_ONE, 'UserStatus', 'user_id', 'order' => 'status.created DESC'),
             'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
             'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active', 'permission')),
-            'interests' => array(self::MANY_MANY, 'Interest', 'interest_users(interest_id, user_id)'),
+            'interests' => array(self::MANY_MANY, 'Interest', 'interest__users_interests(interest_id, user_id)'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
 
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
-            'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN club_community_rubric ON t.rubric_id = club_community_rubric.id', 'condition' => 'club_community_rubric.user_id = t.author_id'),
+            'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id = t.author_id'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'users_communities(user_id, community_id)'),
-            'userDialogs' => array(self::HAS_MANY, 'MessageUser', 'user_id'),
+            'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
             'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
         );
@@ -801,7 +801,7 @@ class User extends CActiveRecord
 
     public function getScores()
     {
-        $model = UserScores::model()->with(array('level' => array('select' => array('name'))))->findByPk($this->id);
+        $model = UserScores::model()->with(array('level' => array('select' => array('title'))))->findByPk($this->id);
         if ($model === null) {
             $model = new UserScores;
             $model->user_id = $this->id;

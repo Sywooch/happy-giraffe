@@ -32,8 +32,6 @@ class OnlineUsersCommand extends CConsoleCommand
             $user->last_active = date("Y-m-d H:i:s");
             $user->save();
             ScoreVisits::addTodayVisit($user->id);
-//            Yii::app()->db->createCommand()
-//                ->update('user', array('online' => '1'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$user}\")");
         }
 
         $pos = 0;

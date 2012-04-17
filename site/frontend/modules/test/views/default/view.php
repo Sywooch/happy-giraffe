@@ -157,7 +157,7 @@ foreach ($test->testQuestions as $question): ?>
 
     <div class="inner_bl">
         <form action="">
-            <span class="question_title"><?php echo $question->name ?></span>
+            <span class="question_title"><?php echo $question->title ?></span>
             <ul>
                 <?php if ($test->yes_no):?>
                     <a href="#" class="yes_button">Да</a>
@@ -196,7 +196,7 @@ foreach ($test->testQuestions as $question): ?>
         echo empty($result->image)?$test->result_image:$result->image ?>" alt="" title="" />
     <div class="result_bl">
 
-        <div class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->name ?></ins></div>
+        <div class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->title ?></ins></div>
         <span class="your_rec">Рекомендации</span>
         <?php echo $result->text ?>
         
@@ -206,6 +206,6 @@ foreach ($test->testQuestions as $question): ?>
 </div>
 
 <div class="seo-text">
-    <h1 class="summary-title"><?php echo $test->name ?></h1>
+    <h1 class="summary-title"><?php echo $test->title ?></h1>
     <?php echo $test->text ?>
 </div>

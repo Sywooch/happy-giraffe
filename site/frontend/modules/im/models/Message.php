@@ -311,7 +311,7 @@ class Message extends CActiveRecord
             ':user_id' => $user_id,
             ':dialogs' => implode(',', $dialog_ids)
         ))
-            ->order('message_log.id desc')
+            ->order('t.id desc')
             ->limit(3)
             ->queryAll();
 

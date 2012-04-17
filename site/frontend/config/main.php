@@ -188,9 +188,9 @@ return array(
         'authManager'=>array(
             'class'=>'CDbAuthManager',
             'connectionID'=>'db',
-            'itemTable'=>'auth_item',
-            'itemChildTable'=>'auth_item_child',
-            'assignmentTable'=>'auth_assignment',
+            'itemTable'=>'auth__items',
+            'itemChildTable'=>'auth__items_childs',
+            'assignmentTable'=>'auth__assignments',
 			'defaultRoles' => array('user'),
 		),
 		'urlManager'=>require_once(dirname(__FILE__).'/url.php'),

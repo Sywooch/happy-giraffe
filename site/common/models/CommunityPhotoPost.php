@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "club_community_photo_post".
+ * This is the model class for table "community__photo_posts".
  *
- * The followings are the available columns in table 'club_community_photo_post':
+ * The followings are the available columns in table 'community__photo_posts':
  * @property string $id
  * @property string $location
  * @property string $location_image
@@ -34,7 +34,7 @@ class CommunityPhotoPost extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'club_community_photo_post';
+		return 'community__photo_posts';
 	}
 
 	/**

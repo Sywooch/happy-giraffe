@@ -13,7 +13,7 @@ class Test2Controller extends Controller
         $contents = CommunityContent::model()->findAll(array('select' => 'id, author_id', 'order' => 'id DESC'));
         foreach ($contents as $c)
         {
-            echo 'UPDATE `club_community_content` SET `author_id`=' . $c->author_id . ' WHERE `id`=' . $c->id . ';' . "\n";
+            echo 'UPDATE `community__contents` SET `author_id`=' . $c->author_id . ' WHERE `id`=' . $c->id . ';' . "\n";
         }
     }
 
@@ -29,12 +29,6 @@ class Test2Controller extends Controller
                 ),
             ),
         ));
-    }
-
-    public function actionTest()
-    {
-        //var_dump(Yii::app()->user->settlement_id);
-        var_dump(Yii::app()->db->createCommand('SHOW INDEX FROM bag_offer_vote')->queryAll());
     }
 
     public function actionVideo()

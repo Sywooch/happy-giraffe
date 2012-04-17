@@ -1,6 +1,6 @@
 <?php
 
-class RepearModule extends CWebModule
+class RepairModule extends CWebModule
 {
 	public function init()
 	{
@@ -9,8 +9,8 @@ class RepearModule extends CWebModule
 
 		// import the module-level models and components
 		$this->setImport(array(
-			'repear.models.*',
-			'repear.components.*',
+			'repair.models.*',
+			'repair.components.*',
 		));
 	}
 

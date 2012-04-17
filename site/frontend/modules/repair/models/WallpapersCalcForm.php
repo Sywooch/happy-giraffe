@@ -43,15 +43,29 @@ class WallpapersCalcForm extends CFormModel
         $this->$attribute = preg_replace('#[^0-9\.]+#', '', $this->$attribute);
     }
 
-    public function normalizeLengths()
+    public function calculate()
     {
-        foreach ($this->rules() as $key => $rule) {
-            if ($rule[1] == "normalizeLength") {
-                $attributes = preg_split('/[\s,]+/', $rule[0], 0, PREG_SPLIT_NO_EMPTY);
-                foreach ($attributes as $attr)
-                    $this->normalizeLength($attr, array());
+        $session = new CHttpSession;
+        $session->open();
+        $areas = $session['wallpapersCalcAreas'];
+        $perimeter = ($this->room_length + $this->room_width) * 2;
+        $lines = ceil($perimeter / $this->wp_width);
+        if ($this->repeat) {
+            $tiles = (ceil($this->room_height / $this->repeat)) * $lines;
+            if (count($areas)) {
+                foreach ($areas as $area) {
+                    $tiles -= (floor($area['width'] / $this->wp_width) * floor($area['height'] / $this->repeat));
+                }
             }
+            return ceil($tiles / (floor($this->wp_length / $this->repeat)));
+        } else {
+            $length = $lines * ($this->room_height + 0.1);
+            if (count($areas)) {
+                foreach ($areas as $area) {
+                    $length -= (floor($area['width'] / $this->wp_width) * $area['height']);
+                }
+            }
+            return ceil($length / $this->wp_length);
         }
-
     }
 }

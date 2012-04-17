@@ -145,7 +145,7 @@
 
             <ul>
                 <?php foreach ($this->community->last as $c): ?>
-                    <li><?=CHtml::link($c->name, $c->url)?></li>
+                    <li><?=CHtml::link($c->title, $c->url)?></li>
                 <?php endforeach; ?>
             </ul>
 

@@ -8,7 +8,7 @@
         <?=CHtml::link('<i class="icon"></i>', '', array('class' => 'edit'))?>
     <?php endif; ?>
     <div class="in">
-        <?=CHtml::link($r->name, $this->getUrl(array('rubric_id' => $r->id)))?>
+        <?=CHtml::link($r->title, $this->getUrl(array('rubric_id' => $r->id)))?>
         <span class="count"><?=$r->contentsCount?></span>
     </div>
 </li>

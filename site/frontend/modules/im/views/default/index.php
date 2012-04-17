@@ -42,7 +42,6 @@
     </div>
     <?php endforeach; ?>
 
-    <?php echo count(Message::allMessagesForUser(3, 10)); ?>
 </div>
 
 <script type="text/javascript">

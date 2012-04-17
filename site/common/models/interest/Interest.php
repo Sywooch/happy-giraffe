@@ -29,7 +29,7 @@ class Interest extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'interest';
+		return 'interest__interests';
 	}
 
 	/**
@@ -40,12 +40,12 @@ class Interest extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, category_id', 'required'),
-			array('name', 'length', 'max'=>255),
+			array('title, category_id', 'required'),
+			array('title', 'length', 'max'=>255),
 			array('category_id', 'length', 'max'=>2),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, category_id', 'safe', 'on'=>'search'),
+			array('id, title, category_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,7 +69,7 @@ class Interest extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'title' => 'Name',
 			'category_id' => 'Category',
 		);
 	}
@@ -86,7 +86,7 @@ class Interest extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->title,true);
 		$criteria->compare('category_id',$this->category_id,true);
 
 		return new CActiveDataProvider($this, array(
@@ -96,7 +96,7 @@ class Interest extends CActiveRecord
 
     public static function findAllByUser($user_id)
     {
-        $list = Yii::app()->db->createCommand('select interest_id from interest_users where user_id = :user_id')
+        $list = Yii::app()->db->createCommand('select interest_id from interest__users_interests where user_id = :user_id')
             ->bindParam(":user_id", $user_id, PDO::PARAM_INT)
             ->queryAll();
         $interests = array();
@@ -109,7 +109,7 @@ class Interest extends CActiveRecord
 
     public static function saveByUser($user_id, $interests)
     {
-        $command = Yii::app()->db->createCommand('delete from interest_users where user_id = :user_id');
+        $command = Yii::app()->db->createCommand('delete from interest__users_interests where user_id = :user_id');
         $command->bindParam(":user_id", $user_id, PDO::PARAM_INT);
         $command->execute();
 
@@ -117,7 +117,7 @@ class Interest extends CActiveRecord
         {
             foreach($interests as $interest_id => $value)
             {
-                Yii::app()->db->createCommand()->insert('interest_users', array(
+                Yii::app()->db->createCommand()->insert('interest__users_interests', array(
                     'interest_id' => $interest_id,
                     'user_id' => $user_id,
                 ));

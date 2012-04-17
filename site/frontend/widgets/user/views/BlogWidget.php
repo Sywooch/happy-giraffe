@@ -3,7 +3,7 @@
     <ul>
         <?php foreach ($this->user->blogWidget as $post): ?>
             <li>
-                <a href="<?=$post->getUrl() ?>"><?=$post->name ?></a>
+                <a href="<?=$post->getUrl() ?>"><?=$post->title ?></a>
                 <div class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $post->created); ?></div>
                 <p><?=$post->short?></p>
             </li>

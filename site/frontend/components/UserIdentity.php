@@ -29,14 +29,14 @@ class UserIdentity extends CUserIdentity {
 				$this->_id = $user->id;
 				$this->saveParams($user);
 			}
-            MessageCache::UpdateUserCache($this->_id);
+            //UserCache::UpdateUserCache($this->_id);
 			return $this->errorCode = self::ERROR_NONE;
 		} 
 		else {
 			$this->_id = $user->id;
 			$this->saveParams($user);
 		}
-        MessageCache::UpdateUserCache($this->_id);
+        //UserCache::UpdateUserCache($this->_id);
 		return $this->errorCode = self::ERROR_NONE;
 	}
 

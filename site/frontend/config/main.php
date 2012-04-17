@@ -215,11 +215,11 @@ return array(
 //					'levels'=>'error, warning',
 //					'emails'=>'choojoy.work@gmail.com',
 //				),
-				/*array(
+				array(
 					'class'=>'CWebLogRoute',
 					'categories'=>'system.db.CDbCommand',
-					'showInFireBug'=>true,
-				),*/
+					'showInFireBug'=>false,
+				),
 
 				// uncomment the following to show log messages on web pages
 				/*

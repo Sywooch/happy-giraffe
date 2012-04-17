@@ -40,9 +40,9 @@
  * @property ClubPost[] $clubPosts
  * @property Comment[] $comments
  * @property MenstrualUserCycle[] $menstrualUserCycles
- * @property MessageCache[] $messageCaches
- * @property MessageLog[] $messageLogs
- * @property MessageUser[] $messageUsers
+ * @property UserCache[] $UserCaches
+ * @property Message[] $Messages
+ * @property DialogUser[] $DialogUsers
  * @property Name[] $names
  * @property RecipeBookRecipe[] $recipeBookRecipes
  * @property RecipeBookRecipeVote[] $recipeBookRecipeVotes
@@ -246,9 +246,9 @@ class User extends CActiveRecord
             'clubPosts' => array(self::HAS_MANY, 'ClubPost', 'author_id'),
             'comments' => array(self::HAS_MANY, 'Comment', 'author_id'),
             'menstrualUserCycles' => array(self::HAS_MANY, 'MenstrualUserCycle', 'user_id'),
-            'messageCaches' => array(self::HAS_MANY, 'MessageCache', 'user_id'),
-            'messageLogs' => array(self::HAS_MANY, 'MessageLog', 'user_id'),
-            'messageUsers' => array(self::HAS_MANY, 'MessageUser', 'user_id'),
+            'UserCaches' => array(self::HAS_MANY, 'UserCache', 'user_id'),
+            'Messages' => array(self::HAS_MANY, 'Message', 'user_id'),
+            'dialogUsers' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
             'names' => array(self::MANY_MANY, 'Name', 'name_likes(user_id, name_id)'),
             'recipeBookRecipes' => array(self::HAS_MANY, 'RecipeBookRecipe', 'user_id'),
             'recipeBookRecipeVotes' => array(self::HAS_MANY, 'RecipeBookRecipeVote', 'user_id'),

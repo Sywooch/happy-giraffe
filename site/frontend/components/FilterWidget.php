@@ -64,19 +64,6 @@ class FilterWidget extends CWidget
 	protected function registerScript()
 	{
 		$script = '
-//		$("#categoryFilter input[name=submit]").bind("click", function(){
-//			oldData = $("#categoryFilter").serialize() + "&submit=1";
-//			submitForm();
-//			return false;
-//		})
-//		
-//		$("#categoryFilter input[name=resetFilter]").bind("click", function(){
-//			this.form.reset();
-//			oldData = $("#categoryFilter").serialize() + "&resetFilter=1";
-//			submitForm();
-//			return false;
-//		});
-		
 		$("#categoryFilter").mouseenter(function(){
 			isInForm = true;
 		}).mouseleave(function(){

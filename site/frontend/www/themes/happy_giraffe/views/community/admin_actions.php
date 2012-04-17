@@ -37,43 +37,8 @@
         }
 
         Yii::app()->clientScript->registerScript('register_after_removeContent', '
-            function CommunityContentRemove() {window.location.reload();}
-            function CommunityContentRemove() {
-                window.location = "' . $delete_redirect_url . '";}', CClientScript::POS_HEAD);
+            function CommunityContentRemove() {window.location = "' . $delete_redirect_url . '";}', CClientScript::POS_HEAD);
         ?>
     <?php endif; ?>
 </div>
 <?php endif; ?>
-<?php
-$js = '
-    $(".admin-actions .move").click(function () {
-        $.fancybox.open($("#transfer_post").tmpl());
-        $("#active_post_id").val($(this).prev().val());
-        //$("#movePost select").chosen();
-        return false;
-    });
-
-    $("body").delegate("#movePost button.btn-green-medium", "click", function () {
-        $.ajax({
-            url:"' . Yii::app()->createUrl("community/transfer") . '",
-            data:{
-                id:$("#active_post_id").val(),
-                CommunityContent:{
-                    community_id:$("#community_id").val(),
-                    rubric_id:$("#rubric_id").val()
-                }
-            },
-            type:"POST",
-            dataType:"JSON",
-            success:function (response) {
-                if (response.status) {
-                    //confirmMessage(this);
-                    window.location = response.url;
-                }
-            },
-            context:$(this)
-        });
-        return false;
-    });';
-Yii::app()->clientScript->registerScript('move-post', $js);
-?>

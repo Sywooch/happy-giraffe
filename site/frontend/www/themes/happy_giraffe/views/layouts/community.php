@@ -7,7 +7,6 @@
         var inClub = {$inCommunity};
         $('body').delegate('a.joinButton', 'click', function(e) {
             e.preventDefault();
-
             $.ajax({
                 dataType: 'JSON',
                 url: $(this).attr('href'),

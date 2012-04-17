@@ -18,7 +18,7 @@
     ->registerScriptFile('/javascripts/dklab_realplexor.js')
     ->registerScript('Realplexor-reg', '
     comet.connect("http://' . Yii::app()->comet->host . '", "' . Yii::app()->comet->namespace . '",
-                  "' . MessageCache::GetCurrentUserCache() . '");
+                  "' . UserCache::GetCurrentUserCache() . '");
 ');
     ?>
 </head>

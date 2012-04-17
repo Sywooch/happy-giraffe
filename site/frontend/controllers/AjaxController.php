@@ -262,8 +262,8 @@ class AjaxController extends Controller
             'Comment',
             'CommunityContent',
             'RecipeBookRecipe',
-            'MessageDialog',
-            'MessageLog'
+            'Dialog',
+            'Message'
         );
         $source_data = $_POST['source_data'];
         if (in_array($source_data['model'], $accepted_models)) {

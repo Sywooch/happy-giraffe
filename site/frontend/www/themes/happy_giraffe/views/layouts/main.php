@@ -34,7 +34,7 @@
             ->registerScriptFile('/javascripts/user_common.js')
             ->registerCssFile('/stylesheets/user_common.css')
             ->registerScriptFile('/javascripts/dklab_realplexor.js')
-            ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . MessageCache::GetCurrentUserCache() . '\');')
+            ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
         ;
     }
 

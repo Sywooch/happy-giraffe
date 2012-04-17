@@ -14,7 +14,7 @@ class OnlineUsersCommand extends CConsoleCommand
         $rpl = Yii::app()->comet;
         $list = $rpl->cmdOnline();
         Yii::app()->db->createCommand()
-            ->update('user', array('online' => '0'));
+            ->update('users', array('online' => '0'));
 
         $users = User::model()->findAll(array('select' => 'id', 'condition' => 'online=1'));
         foreach ($users as $user) {

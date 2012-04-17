@@ -31,7 +31,7 @@ class UserPartner extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'user_partner';
+		return 'users_partners';
 	}
 
 	/**

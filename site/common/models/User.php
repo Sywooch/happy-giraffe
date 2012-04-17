@@ -136,7 +136,7 @@ class User extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{user}}';
+        return '{{users}}';
     }
 
     /**
@@ -232,7 +232,7 @@ class User extends CActiveRecord
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
             'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
-            'communities' => array(self::MANY_MANY, 'Community', 'user_community(user_id, community_id)'),
+            'communities' => array(self::MANY_MANY, 'Community', 'users_communities(user_id, community_id)'),
 
             'clubCommunityComments' => array(self::HAS_MANY, 'ClubCommunityComment', 'author_id'),
             'clubCommunityContents' => array(self::HAS_MANY, 'ClubCommunityContent', 'author_id'),
@@ -269,7 +269,7 @@ class User extends CActiveRecord
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
             'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN club_community_rubric ON t.rubric_id = club_community_rubric.id', 'condition' => 'club_community_rubric.user_id = t.author_id'),
 
-            'communitiesCount' => array(self::STAT, 'Community', 'user_community(user_id, community_id)'),
+            'communitiesCount' => array(self::STAT, 'Community', 'users_communities(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'MessageUser', 'user_id'),
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
             'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
@@ -469,7 +469,7 @@ class User extends CActiveRecord
     public static function clearCache($id)
     {
         $cacheKey = 'yii:dbquery' . Yii::app()->db->connectionString . ':' . Yii::app()->db->username;
-        $cacheKey .= ':' . 'SELECT * FROM `user` `t` WHERE `t`.`id`=\'' . $id . '\' LIMIT 1:a:0:{}';
+        $cacheKey .= ':' . 'SELECT * FROM `users` `t` WHERE `t`.`id`=\'' . $id . '\' LIMIT 1:a:0:{}';
         if (isset(Yii::app()->cache))
             Yii::app()->cache->delete($cacheKey);
     }
@@ -781,20 +781,20 @@ class User extends CActiveRecord
     public function addCommunity($community_id)
     {
         return Yii::app()->db->createCommand()
-            ->insert('user_community', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
+            ->insert('users_communities', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
     }
 
     public function delCommunity($community_id)
     {
         return Yii::app()->db->createCommand()
-            ->delete('user_community', 'user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id)) != 0;
+            ->delete('users_communities', 'user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id)) != 0;
     }
 
     public function isInCommunity($community_id)
     {
         return Yii::app()->db->createCommand()
             ->select('count(*)')
-            ->from('user_community')
+            ->from('users_communities')
             ->where('user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id))
             ->queryScalar() != 0;
     }

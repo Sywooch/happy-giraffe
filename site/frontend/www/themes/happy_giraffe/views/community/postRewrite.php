@@ -25,7 +25,7 @@
                         }
                     }
 
-                    $(element).attr('onclick', 'check(this, ' + id + ', ' + ((mark + 1) % 2) + ')');
+                    $(element).parents('tr').remove();
                 }
             });
             return false;
@@ -42,7 +42,12 @@
         'columns' => array(
             array(
                 'header' => 'Статья',
-                'value' => '$data->edited ? CHtml::link("<s>" . $data->name . "</s>", $data->url, array("target" => "_blank")) : CHtml::link($data->name, $data->url, array("target" => "_blank"))',
+                'value' => 'CHtml::link($data->name, $data->url, array("target" => "_blank"))',
+                'type' => 'raw',
+            ),
+            array(
+                'header' => 'Ответственный',
+                'value' => 'CHtml::link($data->editor->fullName, $data->editor->url, array("target" => "_blank"))',
                 'type' => 'raw',
             ),
             array(
@@ -56,7 +61,7 @@
                 ),
             ),
             array(
-                'value' => '$data->edited ? CHtml::link(CHtml::image("/images/cross.png"), "#", array("onclick" => "check(this, $data->id, 0)")) : CHtml::link(CHtml::image("/images/tick.png"), "#", array("onclick" => "check(this, $data->id, 1)"))',
+                'value' => 'CHtml::link(CHtml::image("/images/tick.png"), "#", array("onclick" => "check(this, $data->id, 2)")) . " " . CHtml::link(CHtml::image("/images/cross.png"), "#", array("onclick" => "check(this, $data->id, 0)"))',
                 'type' => 'raw',
             ),
         ),

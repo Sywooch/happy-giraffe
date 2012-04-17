@@ -2,22 +2,14 @@
 /* @var $this Controller
  * @var $forecast Horoscope
  */
-?>
-<div class="user-horoscope">
-
-    <!--
-    <div class="actions">
-        <a href="" class="close"></a>
-        <a href="" class="settings"></a>
-    </div>
-    -->
+?><div class="user-horoscope">
 
     <div class="clearfix">
-        <div class="img"><img src="/images/widget/horoscope/<?php echo $forecast->zodiac ?>.png"></div>
-        <div class="date"><big><?php echo $forecast->zodiacText() ?></big>(<?php echo $forecast->zodiacDates() ?>)</div>
+        <div class="title"><?= $forecast->zodiac_list[$forecast->zodiac] ?></div>
+        <div class="img"><img src="/images/widget/horoscope/<?= $forecast->zodiac ?>.png"></div>
+        <div class="date"><?=date('j')?><span class="date"><?=Yii::app()->dateFormatter->format('MMM', time())?></span></div>
     </div>
 
-    <p><b><?php echo Yii::app()->dateFormatter->format('d MMMM', time());  ?></b> - <?php
-        echo str_replace("\n", '</p><p>', $forecast->text) ?></p>
+    <p><?= str_replace("\n", '</p><p>', $forecast->text) ?></p>
 
 </div>

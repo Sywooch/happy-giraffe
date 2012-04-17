@@ -37,7 +37,7 @@
         <p class="heart_like"><?php echo $name->likes; ?></p>
 
         <div class="clear"></div>
-        <?php $this->renderPartial('_stats',array()); ?>
+        <?php //$this->renderPartial('_stats',array()); ?>
     </div>
 </div>
 
@@ -45,7 +45,7 @@
     <div class="name_info">
         <h1 class="<?php echo ($name->gender == 1)?'boy':'girl' ?>"><?php echo $name->name; ?></h1>
         <a rel="<?php echo $name->id ?>" href="#"
-           class="like_name heart <?php if (!$name->isUserLike(Yii::app()->user->getId())) echo 'empty_heart' ?>"></a>
+           class="like_name heart <?php if (!$name->isUserLike(Yii::app()->user->id)) echo 'empty_heart' ?>"></a>
 
         <p class="name">Имя: <span class="<?php echo ($name->gender == 1)?'boy':'girl' ?>">
             <?php echo ($name->gender == 1)?'мужское':'женское' ?></span></p>

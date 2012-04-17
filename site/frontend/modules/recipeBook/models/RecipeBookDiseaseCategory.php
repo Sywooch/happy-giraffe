@@ -26,7 +26,7 @@ class RecipeBookDiseaseCategory extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'recipeBook_disease_category';
+		return 'recipe_book__disease_categories';
 	}
 
 	/**

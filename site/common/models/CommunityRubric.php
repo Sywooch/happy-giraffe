@@ -70,12 +70,10 @@ class CommunityRubric extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, community_id', 'required'),
+			array('name', 'required'),
 			array('name', 'length', 'max'=>255),
-			array('community_id', 'length', 'max'=>11),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, name, community_id', 'safe', 'on'=>'search'),
+            array('community_id', 'exist', 'attributeName' => 'id', 'className' => 'Community'),
+            array('user_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
 		);
 	}
 
@@ -90,6 +88,7 @@ class CommunityRubric extends CActiveRecord
 			'community' => array(self::BELONGS_TO, 'Community', 'community_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'contents' => array(self::HAS_MANY, 'CommunityContent', 'rubric_id'),
+            'contentsCount' => array(self::STAT, 'CommunityContent', 'rubric_id'),
 		);
 	}
 
@@ -105,23 +104,11 @@ class CommunityRubric extends CActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('community_id',$this->community_id,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('community/list', array(
+            'community_id' => $this->community_id,
+            'rubric_id' => $this->id,
+        ));
+    }
 }

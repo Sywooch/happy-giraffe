@@ -54,7 +54,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 			$this->cancel();
 			return false;
 		}
-		
+
 		// Get the access_token and save them to the session.
 		if (isset($_GET['code'])) {
             $code = $_GET['code'];

@@ -4,8 +4,13 @@ class DefaultController extends Controller
 {
     public $layout = '//layouts/new2';
 
+    /**
+     * @sitemap
+     */
     public function actionEmbroideryCost()
     {
+        $this->pageTitle = 'Расчёт стоимости вышивки';
+
         $model = new EmbroideryCostForm();
         if (Yii::app()->request->isAjaxRequest) {
             if (isset($_POST['EmbroideryCostForm'])) {
@@ -16,8 +21,13 @@ class DefaultController extends Controller
             $this->render('embroideryCost');
     }
 
+    /**
+     * @sitemap
+     */
     public function actionFabricCalculator()
     {
+        $this->pageTitle = 'Сколько ткани нужно? Рассчитай!';
+
         $model = new FabricCalculatorForm1();
         $model2 = new FabricCalculatorForm2();
         if (Yii::app()->request->isAjaxRequest) {
@@ -32,8 +42,13 @@ class DefaultController extends Controller
             $this->render('fabricCalculator');
     }
 
+    /**
+     * @sitemap
+     */
     public function actionThreadCalculation()
     {
+        $this->pageTitle = 'Нитки для вышивания. Сколько нужно?';
+
         $model = new ThreadCalculationForm();
         if (Yii::app()->request->isAjaxRequest) {
             if (isset($_POST['ThreadCalculationForm'])) {
@@ -44,8 +59,13 @@ class DefaultController extends Controller
             $this->render('threadCalculation');
     }
 
+    /**
+     * @sitemap
+     */
     public function actionLoopCalculator()
     {
+        $this->pageTitle = 'Сколько набирать петель';
+
         $model = new LoopCalculationForm();
         if (Yii::app()->request->isAjaxRequest) {
             if (isset($_POST['LoopCalculationForm'])) {
@@ -56,8 +76,13 @@ class DefaultController extends Controller
             $this->render('loopCalculator');
     }
 
+    /**
+     * @sitemap
+     */
     public function actionYarnCalculator()
     {
+        $this->pageTitle = 'Сколько нужно пряжи';
+
         if (Yii::app()->request->isAjaxRequest) {
             if (isset($_POST['id'])) {
                 $model = new YarnCalcForm();

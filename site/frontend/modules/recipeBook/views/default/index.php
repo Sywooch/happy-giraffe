@@ -1,3 +1,5 @@
+<?php Yii::app()->clientScript->registerMetaTag('noindex', 'robots'); ?>
+
 <?php Yii::app()->clientScript->registerScript('children-dizzy', "
         $('#disease-alphabet2 a').click(function () {
             if (!$(this).hasClass('current_t')) {

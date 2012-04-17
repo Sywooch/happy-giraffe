@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $country_id
  * @property string $name
+ * @property string $type
  *
  * The followings are the available model relations:
  * @property GeoCity[] $geoCities
@@ -28,7 +29,7 @@ class GeoRegion extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'geo_region';
+		return 'geo__region';
 	}
 
 	/**
@@ -92,4 +93,9 @@ class GeoRegion extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function isCity()
+    {
+        return $this->type == 'г';
+    }
 }

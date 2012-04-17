@@ -6,15 +6,18 @@
 Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.tmpl.min.js');
 ?>
 <ul>
-    <? foreach ($community->rubrics as $r): ?>
-    <?php $this->renderPartial('parts/rubric_item', array(
+    <? foreach ($rubrics as $r): ?>
+    <?php $this->renderPartial('/community/parts/rubric_item', array(
         'r' => $r,
-        'current_rubric' => $current_rubric,
-        'content_type_slug' => $content_type_slug
+        'type' => $type,
     )); ?>
     <? endforeach; ?>
 </ul>
-<?php if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array('community_id' => $community->id)))
+<?php if (
+    ($type == 'community' && Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array('community_id' => $this->community->id)))
+    ||
+    ($type == 'blog' && $this->user->id == Yii::app()->user->id)
+)
     echo CHtml::link('<i class="icon"></i>', '', array('class' => 'add'));?>
 
 <script id="edit_rubric_tmpl" type="text/x-jquery-tmpl">
@@ -24,9 +27,11 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.tmpl.min.js');
     </form>
 </script>
 <?php
+$attr = ($type == 'blog') ? 'user_id' : 'community_id';
+$attr_value = ($type == 'blog') ? $this->user->id : $this->community->id;
 Yii::app()->clientScript->registerScript('edit_rubrics_main', "
     $('body').delegate('.club-topics-list ul li a.edit', 'click', function () {
-        var name = $(this).next().text();
+        var name = $(this).parent().find('div.in a').text();
         $(this).hide();
         $(this).next().hide();
         $(this).parent().append($('#edit_rubric_tmpl').tmpl({name:name}));
@@ -43,7 +48,7 @@ Yii::app()->clientScript->registerScript('edit_rubrics_main', "
             dataType:'JSON',
             success:function (response) {
                 if (response.status) {
-                    $(this).parent().prev().text(text);
+                    $(this).parent().prev().find('a').text(text);
                     $(this).parent().prev().show();
                     $(this).parent().prev().prev().show().removeAttr('style');
                     $(this).parent().remove();
@@ -66,15 +71,21 @@ Yii::app()->clientScript->registerScript('edit_rubrics_main', "
         var text = $(this).prev().val();
         $.ajax({
             url:'" . Yii::app()->createUrl("communityRubric/create") . "',
-            data:{name:text, community_id:'" . $this->community->id . "', content_type_slug:'" . $this->content_type_slug . "'},
+            data: {
+                name: text,
+                attr: '" . $attr . "',
+                attr_value: '" . $attr_value . "',
+                type: '" . $type . "',
+            },
             type:'POST',
             dataType:'JSON',
             success:function (response) {
                 if (response.status) {
-                    $(this).parent().parent().find('ul').append(response.html);
-                    $(this).parent().prev().show();
-                    $(this).parent().prev().prev().show();
-                    $(this).parent().remove();
+                    //$(this).parent().parent().find('ul').append(response.html);
+                    //$(this).parent().prev().show();
+                    //$(this).parent().prev().prev().show();
+                    //$(this).parent().remove();
+                    window.location.reload();
                 } else {
                     alert('Ошибка, обратитесь к разработчикам');
                 }

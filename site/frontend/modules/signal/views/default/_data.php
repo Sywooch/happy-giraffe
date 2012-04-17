@@ -25,11 +25,11 @@
             <td><?php echo $user->getFullName() ?></td>
             <td class="actions">
                 <input type="hidden" value="<?php echo $model->_id ?>">
-                <a href="#" class="take-task btn btn-green-small"<?php
+                <a onclick="return Signal.TakeSignal($(this));" href="#" class="take-task btn btn-green-small"<?php
                     if (!$model->CurrentUserFree()) echo ' style="display:none;"' ?>><span><span>Ок</span></span></a>
 
                 <div class="taken"<?php if (!$model->CurrentUserIsExecutor()) echo ' style="display:none;"' ?>>
-                    <?php echo $model->getLink() ?> | <a href="" class="remove"></a>
+                    <?php echo $model->getLink() ?> | <a href="" class="remove" onclick="return Signal.DeclineSignal($(this));"></a>
                 </div>
             </td>
         </tr>

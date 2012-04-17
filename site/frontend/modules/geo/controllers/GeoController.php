@@ -4,163 +4,169 @@ class GeoController extends Controller
 {
     public $layout = '//layouts/main';
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'countries,regions,cities,street,saveLocation,regionIsCity + ajaxOnly'
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'users' => array('@'),
+            ),
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function actionIndex()
     {
         $this->render('index');
     }
 
-    /*public function actionP()
+    public function actionRegions()
     {
-        $ountries = Countries::model()->findAll();
-        foreach($ountries as $country){
-            $c = new GeoCountry;
-            $c->name = $country->rus_name;
-            $c->pos = $country->population;
-            if (!$c->save()){
-                throw new CHttpException(404, 'Not saved!');
-            }
-        }
-        $countries = GeoCountry::model()->findAll(array('order'=>'pos DESC'));
-        $i = 100;
-        foreach($countries as $c){
-            $c->pos = $i;
-            if (!$c->save()){
-                throw new CHttpException(404, 'Not saved!');
-            }
-            $i++;
-        }
-        $countries = Countries::model()->findAll();
-        foreach ($countries as $country) {
-            $c = GeoCountry::model()->find('name="' . $country->rus_name . '"');
-            $c->iso_code = $country->iso_code;
-            if (!$c->save()) {
-                throw new CHttpException(404, 'Not saved!');
-            }
-        }
-    }*/
+        $id = Yii::app()->request->getPost('id');
+        $_regions = array();
+        if (!empty($id)) {
+            $criteria = new CDbCriteria;
+            $criteria->compare('country_id', $id);
+            $criteria->order = 'position asc, name asc';
+            $regions = GeoRegion::model()->findAll($criteria);
 
-    public function actionCountries()
-    {
-        if (Yii::app()->request->isAjaxRequest) {
-            $countries = GeoCountry::model()->findAll(array(
-                'condition' => 'name LIKE :term',
-                'params' => array(':term' => $_GET['term'] . '%'),
-            ));
-
-            $_countries = array();
-            foreach ($countries as $country)
-            {
-                $_countries[] = array(
-                    'label' => $country->name,
-                    'value' => $country->name,
-                    'id' => $country->id,
-                );
+            foreach ($regions as $region) {
+                $_regions[] = array($region->id, $region->name);
             }
-            echo CJSON::encode($_countries);
-        }
+            echo CHtml::listOptions(null, array('' => 'Регион') + CHtml::listData($regions, 'id', 'name'), $null);
+        } else
+            echo '';
     }
 
     public function actionCities()
     {
-        if (Yii::app()->request->isAjaxRequest) {
-            //if (empty($_GET['district_id']))
-            $term = $_GET['term'];
-            $filter_parts = FilterParts::model()->findAll();
-            foreach($filter_parts as $filter_part){
-                $term = str_replace($filter_part->part.' ', '',$term);
-            }
-            $term = trim($term);
-
-            $cities = GeoRusSettlement::model()->findAll(array(
-                'condition' => 't.name LIKE :term AND t.region_id = :region_id',
-                'params' => array(
-                    ':term' => $term . '%',
-                    ':region_id' => $_GET['region_id'],
-                ),
-                'limit' => 10,
-                'order' => 'population desc',
-                'with' => array(
-                    'district'
-                )
-            ));
-            /*else
-                $cities = GeoRusSettlement::model()->findAll(array(
-                    'condition' => 'name LIKE :term AND region_id = :region_id AND district_id = :district_id',
-                    'params' => array(
-                        ':term' => $term . '%',
-                        ':region_id' => $_GET['region_id'],
-                        ':district_id' => $_GET['district_id']
-                    ),
-                    'limit' => 10,
-                    'order' => 'population, id',
-                ));*/
-
-            $_cities = array();
-            foreach ($cities as $city)
-            {
-                $label = $city->district ? $city->name . ' (' . $city->district->name . ')' : $city->name;
-                $_cities[] = array(
-                    'label' => $label,
-                    'value' => $city->name,
-                    'id' => $city->id,
-                );
-            }
-            echo CJSON::encode($_cities);
+        $term = $_GET['term'];
+        $filter_parts = FilterParts::model()->findAll();
+        foreach ($filter_parts as $filter_part) {
+            $term = str_replace($filter_part->part . ' ', '', $term);
         }
+        $term = trim($term);
+
+        $cities = GeoCity::model()->findAll(array(
+            'condition' => 't.name LIKE :term AND t.region_id = :region_id',
+            'params' => array(
+                ':term' => $term . '%',
+                ':region_id' => $_GET['region_id'],
+            ),
+            'limit' => 10,
+            'with' => array(
+                'district'
+            )
+        ));
+
+        $_cities = array();
+        foreach ($cities as $city) {
+            $showDistrict = false;
+            foreach ($cities as $city2) {
+                if ($city2->name == $city->name && $city2->id != $city->id)
+                    $showDistrict = true;
+            }
+            if ($showDistrict)
+                $label = $city->district ? $city->name . ' (' . $city->district->name . ' р-н)' : $city->name;
+            else
+                $label = $city->name;
+
+            $_cities[] = array(
+                'label' => $label,
+                'value' => $city->name,
+                'id' => $city->id,
+            );
+        }
+        echo CJSON::encode($_cities);
     }
 
     public function actionStreet()
     {
-        if (Yii::app()->request->isAjaxRequest) {
-            if ($_GET['city_id'] == 148315 || $_GET['city_id'] == 148316) {
-                $city = $this->loadSettlment($_GET['city_id']);
-                $settlement_ids = Yii::app()->db->createCommand()
-                    ->select('id')
-                    ->from('geo_rus_settlement')
-                    ->where('region_id = :region_id', array(':region_id' => $city->region_id))
-                    ->queryColumn();
+        if ($_GET['city_id'] == 148315 || $_GET['city_id'] == 148316) {
+            $city = $this->loadSettlment($_GET['city_id']);
+            $settlement_ids = Yii::app()->db->createCommand()
+                ->select('id')
+                ->from('geo_rus_settlement')
+                ->where('region_id = :region_id', array(':region_id' => $city->region_id))
+                ->queryColumn();
 
-                $criteria = new CDbCriteria;
-                $criteria->compare('settlement_id', $settlement_ids);
-                $criteria->compare('name', $_GET['term'] . '%', true, 'AND', false);
-                $criteria->limit = 10;
-                $models = GeoRusStreet::model()->findAll($criteria);
-            }
-            else
-                $models = GeoRusStreet::model()->findAll(array(
-                    'condition' => 'name LIKE :term AND settlement_id = :settlement_id',
-                    'params' => array(
-                        ':term' => $_GET['term'] . '%',
-                        ':settlement_id' => $_GET['city_id'],
-                    ),
-                    'limit' => 10,
-                ));
-
-            $_cities = array();
-            foreach ($models as $model)
-            {
-                $_cities[] = array(
-                    'label' => $model->name,
-                    'value' => $model->name,
-                    'id' => $model->id,
-                );
-            }
-            echo CJSON::encode($_cities);
+            $criteria = new CDbCriteria;
+            $criteria->compare('settlement_id', $settlement_ids);
+            $criteria->compare('name', $_GET['term'] . '%', true, 'AND', false);
+            $criteria->limit = 10;
+            $models = GeoRusStreet::model()->findAll($criteria);
         }
-    }
-
-    public function actionDistricts()
-    {
-        if (Yii::app()->request->isAjaxRequest) {
-            $cities = GeoRusDistrict::model()->findAll(array(
-                'condition' => 'region_id = :region_id',
+        else
+            $models = GeoRusStreet::model()->findAll(array(
+                'condition' => 'name LIKE :term AND settlement_id = :settlement_id',
                 'params' => array(
-                    ':region_id' => Yii::app()->request->getPost('region_id'),
+                    ':term' => $_GET['term'] . '%',
+                    ':settlement_id' => $_GET['city_id'],
                 ),
+                'limit' => 10,
             ));
 
-            echo CHtml::listOptions('', array('' => '') + CHtml::listData($cities, 'id', 'name'), $null);
+        $_cities = array();
+        foreach ($models as $model) {
+            $_cities[] = array(
+                'label' => $model->name,
+                'value' => $model->name,
+                'id' => $model->id,
+            );
         }
+        echo CJSON::encode($_cities);
+    }
+
+    public function actionLocationForm()
+    {
+        $user = Yii::app()->user->getModel();
+        Yii::app()->clientScript->scriptMap = array(
+            'jquery.js' => false,
+            'jquery.min.js' => false,
+            'jquery-ui.js' => false,
+            'jquery-ui.min.js' => false,
+        );
+        $this->renderPartial('location', compact('user'), false, true);
+    }
+
+    public function actionSaveLocation()
+    {
+        $country_id = Yii::app()->request->getPost('country_id');
+        $city_id = Yii::app()->request->getPost('city_id');
+        $region_id = Yii::app()->request->getPost('region_id');
+
+        $user = Yii::app()->user->getModel();
+        $address = $user->getUserAddress();
+        $address->country_id = empty($country_id) ? null : $country_id;
+        $address->region_id = empty($region_id) ? null : $region_id;
+        $address->city_id = empty($city_id) ? null : $city_id;
+
+        Yii::import('site.frontend.widgets.user.*');
+        echo CJSON::encode(array(
+            'status' => $address->save(),
+            'weather' => $this->widget('WeatherWidget', array('user' => $user), true),
+            'main' => $this->widget('LocationWidget', array('user' => $user), true),
+            'location' => $user->getUserAddress()->getFlag(true) . $user->getUserAddress()->cityName,
+            'mapsLocation' => $address->getLocationString()
+        ));
+    }
+
+    public function actionRegionIsCity()
+    {
+        $id = Yii::app()->request->getPost('id');
+        if (empty($id))
+            Yii::app()->end();
+        $region = GeoRegion::model()->findByPk($id);
+        echo CJSON::encode(array('status' => $region->isCity()));
     }
 
     /**

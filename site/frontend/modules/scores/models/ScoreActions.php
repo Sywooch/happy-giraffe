@@ -26,6 +26,9 @@ class ScoreActions extends CActiveRecord
     const ACTION_20_DAYS_ATTEND = 13;
     const ACTION_PHOTO = 14;
     const ACTION_FRIEND = 15;
+    const ACTION_FIRST_BLOG_RECORD = 16;
+    const ACTION_CONTEST_PARTICIPATION = 17;
+    const ACTION_CONTEST_WIN = 18;
 
 	/**
 	 * Returns the static model of the specified AR class.

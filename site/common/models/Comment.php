@@ -16,11 +16,17 @@
  * @property string $position
  * @property string $removed
  *
+ * The followings are the available model relations:
  * @property User author
+ * @property AttachPhoto[] $photoAttaches
  */
 class Comment extends CActiveRecord
 {
     public $selectable_quote = false;
+    const CONTENT_TYPE_DEFAULT = 1;
+    const CONTENT_TYPE_PHOTO = 2;
+    const CONTENT_TYPE_ONLY_TEXT = 3;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Comment the static model class
@@ -46,7 +52,8 @@ class Comment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('text, author_id, entity, entity_id', 'required'),
+			array('author_id, entity, entity_id', 'required'),
+            array('text', 'required', 'on'=>'default'),
 			array('author_id, entity_id, response_id, quote_id', 'length', 'max'=>11),
 			array('entity', 'length', 'max'=>255),
             array('position, quote_text, selectable_quote', 'safe'),
@@ -68,7 +75,8 @@ class Comment extends CActiveRecord
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
-            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
+            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
+            'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
 		);
 	}
 
@@ -150,18 +158,16 @@ class Comment extends CActiveRecord
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
 
-            if (in_array($this->entity, array('CommunityContent', 'RecipeBookRecipe', 'User', 'AlbumPhoto')))
+            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'User', 'AlbumPhoto')))
             {
                 UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
             }
 
-            if (in_array($this->entity, array('CommunityContent', 'RecipeBookRecipe', 'AlbumPhoto')) && $this->response_id !== null)
+            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'AlbumPhoto')) && $this->response_id !== null)
             {
                 UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
             }
 
-            //добавляем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
             UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
                 'id'=>$this->entity_id, 'name'=>$this->entity));
         }
@@ -213,8 +219,7 @@ class Comment extends CActiveRecord
     public function beforeDelete()
     {
         Comment::model()->updateByPk($this->id, array('removed' => 1));
-        //вычитаем баллы
-        Yii::import('site.frontend.modules.scores.models.*');
+
         UserScores::removeScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
             'id'=>$this->entity_id, 'name'=>$this->entity));
 
@@ -232,6 +237,8 @@ class Comment extends CActiveRecord
     public static function getUserAvarageCommentsCount($user)
     {
         $comments_count = Comment::model()->count('author_id='.$user->id);
+        if ($comments_count == 0)
+            return 0;
         $days = ceil(strtotime(date("Y-m-d H:i:s")) - strtotime($user->register_date)/86400);
         if ($days == 0)
             $days = 1;
@@ -292,5 +299,53 @@ class Comment extends CActiveRecord
     {
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         return $entity->url;
+    }
+
+    public function isEntityAuthor($user_id)
+    {
+        $class = $this->entity;
+        $pk = $this->entity_id;
+        $model = $class::model()->cache(1)->findByPk($pk);
+        if ($model !== null){
+            if (isset($model->author_id) && $model->author_id == $user_id)
+                return true;
+            if ($this->entity == 'User' && $model->id == $user_id)
+                return true;
+        }
+        return false;
+    }
+
+    public function getContentType()
+    {
+        if ($this->entity == 'User')
+            return self::CONTENT_TYPE_ONLY_TEXT;
+        elseif (empty($this->photoAttaches))
+            return self::CONTENT_TYPE_DEFAULT;
+        else
+            return self::CONTENT_TYPE_PHOTO;
+    }
+
+    public function getRemoveDescription()
+    {
+        switch ($this->remove->type) {
+            case 0 :
+                $text = 'Комментарий удален автором.';
+                break;
+            case 5 :
+                $text = 'Комментарий удален владельцем страницы.';
+                break;
+            case 4 :
+                $text = 'Комментарий удален модератором.';
+                break;
+            default:
+                $text = 'Комментарий удален. Причина: ' . Removed::$types[$this->remove->type];
+                break;
+        }
+        return $text;
+    }
+
+    public function isTextComment()
+    {
+        return empty($this->photoAttaches);
     }
 }

@@ -50,15 +50,19 @@
 
     <ul class="clearfix">
         <li>
-            <big>Общайся в <span>Клубах</span></big>
-            <div class="img"><img src="/images/teaser_img_01.png" /></div>
-            <div class="text">Вступай в клубы, находи друзей и общайся на различные темы</div>
+            <a href="<?=$this->createUrl('/community')?>">
+                <big>Общайся в <span>Клубах</span></big>
+                <div class="img"><img src="/images/teaser_img_01.png" /></div>
+                <div class="text">Вступай в клубы, находи друзей и общайся на различные темы</div>
+            </a>
         </li>
 
         <li>
-            <big>Участвуй в <span class="green">Конкурсах</span></big>
-            <div class="img"><img src="/images/teaser_img_02.png" /></div>
-            <div class="text">Используй возможность выиграть отличные призы</div>
+            <a href="<?=$this->createUrl('/contest/view', array('id' => 1))?>">
+                <big>Участвуй в <span class="green">Конкурсах</span></big>
+                <div class="img"><img src="/images/teaser_img_02.png" /></div>
+                <div class="text">Используй возможность выиграть отличные призы</div>
+            </a>
         </li>
         <li>
             <big>Пользуйся <span class="blue">Сервисами</span></big>
@@ -80,7 +84,7 @@
 <div id="footer" class="wrapper clearfix" style="margin-top:0;">
 
     <div class="a-right">
-        <a href="javascript:;">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="javascript:;">Пользовательское соглашение</a>
+        <a>Политика конфедециальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a> &nbsp; | &nbsp; <?=CHtml::link('Map', array('/community/map'))?>
 
     </div>
 

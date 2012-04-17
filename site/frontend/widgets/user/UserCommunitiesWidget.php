@@ -2,7 +2,7 @@
 
 class UserCommunitiesWidget extends UserCoreWidget
 {
-    public $limit = 8;
+    public $limit = 9;
     private $_communities = array();
     private $_count = 0;
 
@@ -16,7 +16,7 @@ class UserCommunitiesWidget extends UserCoreWidget
                 'order' => 'RAND()',
             ));
         }
-        $this->visible = !empty($this->_communities);
+        $this->visible = ($this->isMyProfile && !empty($this->_communities)) || $this->_count >= $this->limit;
     }
 
     public function run()

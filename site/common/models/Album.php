@@ -6,8 +6,10 @@
  * The followings are the available columns in table 'albums':
  * @property string $id
  * @property integer $title
- * @property integer $description
+ * @property string $description
  * @property string $author_id
+ * @property integer $type
+ * @property integer $permission
  * @property string $created
  * @property string $updated
  * @property integer $removed
@@ -19,6 +21,18 @@ class Album extends CActiveRecord
 {
     private $_check_access = null;
     public $files = array();
+
+    public static $systems = array(
+        1 => 'Личные фотографии',
+        2 => 'Диалоги',
+        3 => 'Семейные'
+    );
+
+    public static $permissions = array(
+        'для всех',
+        'для друзей',
+        'для меня одного',
+    );
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -49,6 +63,7 @@ class Album extends CActiveRecord
             array('title', 'length', 'max' => 100),
             array('description', 'length', 'max' => 140),
 			array('author_id', 'length', 'max'=>10),
+            array('type, permission', 'numerical'),
             array('created, updated, files', 'safe'),
             array('removed', 'boolean'),
 		);
@@ -69,8 +84,26 @@ class Album extends CActiveRecord
 		);
 	}
 
+    public function defaultScope()
+    {
+        return array(
+            'order' => 'type asc'
+        );
+    }
+
     public function scopes()
     {
+        $permission = new CDbCriteria;
+        $permission->order = 'type asc';
+        $permission->addCondition($this->tableAlias . '.author_id = :user_id
+            OR permission = 0
+            OR (permission = 1 and (f1.id is not null or f2.id is not null))
+            OR (permission = 2 AND ' . $this->tableAlias . '.author_id = :user_id)');
+        $permission->join = 'left join friends f1 on f1.user1_id = ' . $this->tableAlias . '.author_id and f1.user2_id = :user_id
+                        left join friends f2 on f2.user1_id = :user_id and f2.user2_id = ' . $this->tableAlias . '.author_id';
+        $permission->params[':user_id'] = Yii::app()->user->id;
+
+
         return array(
             'full' => array(
                 'join' => 'inner join album_photos p on ' . $this->tableAlias . '.id = p.album_id'
@@ -78,6 +111,13 @@ class Album extends CActiveRecord
             'active' => array(
                 'condition' => $this->tableAlias . '.removed = 0',
             ),
+            'noSystem' => array(
+                'condition' => $this->tableAlias . '.type = 0 or ' . $this->tableAlias . '.type = 1',
+            ),
+            'system' => array(
+                'condition' => $this->tableAlias . '.type != 0 and ' . $this->tableAlias . '.type != 1',
+            ),
+            'permission' => $permission->toArray(),
         );
     }
 
@@ -107,14 +147,30 @@ class Album extends CActiveRecord
 		);
 	}
 
-    public function findByUser($author_id)
+    public function findByUser($author_id, $permission = false, $system = false, $scopes = array())
     {
+        $criteria = new CDbCriteria;
+        $criteria->scopes = array();
+        $criteria->addCondition('t.author_id = :author_id');
+        $criteria->params[':author_id'] = $author_id;
+        if($permission !== false)
+        {
+            $criteria->addCondition('permission = :permission and (type = 0 || type = 1)');
+            $criteria->params[':permission'] = $permission;
+        }
+        if($system !== false)
+        {
+            if($system == 1)
+                array_push($criteria->scopes, 'system');
+            else
+                array_push($criteria->scopes, 'noSystem');
+        }
+        array_push($criteria->scopes, 'active');
+        array_push($criteria->scopes, 'permission');
+        $criteria->scopes = array_merge($criteria->scopes, $scopes);
+
         return new CActiveDataProvider($this, array(
-            'criteria' => array(
-                'condition' => 't.author_id = :author_id',
-                'params' => array(':author_id' => $author_id),
-                'scopes' => array('active')
-            ),
+            'criteria' => $criteria,
         ));
     }
 
@@ -131,6 +187,20 @@ class Album extends CActiveRecord
             return $this->files;
         else
             return $this->photos;
+    }
+
+    public function getSystemAlbums()
+    {
+        $albums = array();
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('album_id is null');
+    }
+
+    public function getIsNotSystem()
+    {
+        if($this->type == 0 || $this->type == 1)
+            return true;
+        return false;
     }
 
     public function afterSave()
@@ -156,12 +226,15 @@ class Album extends CActiveRecord
 
     public function beforeDelete()
     {
+        if (count($this->photos) > 0 ){
+            foreach($this->photos as $photo)
+                UserSignal::closeRemoved($photo, false);
+            UserSignal::sendUpdateSignal();
+            UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, count($this->photos), $this->photos[0]);
+        }
+
         $this->removed = 1;
         $this->save();
-        if ($this->photoCount > 0 ){
-            Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, $this->photoCount, $this->photos[0]);
-        }
 
         return false;
     }

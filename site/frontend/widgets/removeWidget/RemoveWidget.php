@@ -98,6 +98,8 @@ class RemoveWidget extends CWidget
             return array('этот<br>комментарий','Комментарий успешно удален');
         if ($entity == 'CommunityContent')
             return array('эту<br>статью', 'Статья успешно удалена');
+        if ($entity == 'BlogContent')
+            return array('эту<br>запись', 'Запись успешно удалена');
         if ($entity == 'Album')
             return array('этот<br>альбом', 'Альбом успешно удален');
         if ($entity == 'AlbumPhoto')

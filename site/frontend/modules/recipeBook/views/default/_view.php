@@ -13,14 +13,14 @@
         </div>
 
         <div class="meta">
-            <div class="time"><?php echo Yii::app()->dateFormatter->format('d MMMM yyyy, HH:mm', strtotime($data->create_time)) ?></div>
+            <div class="time"><?php echo Yii::app()->dateFormatter->format('d MMMM yyyy, H:mm', $data->created) ?></div>
             <div class="seen">Просмотров:&nbsp;<span><?php echo $data->views_amount ?></span></div>
 
         </div>
         <div class="clear"></div>
     </div>
 
-    <div class="entry-content">
+    <div class="entry-content wysiwyg-content">
         <div class="rec_in">
             <div>
                 <span>Ингредиенты:</span>

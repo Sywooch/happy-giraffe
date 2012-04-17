@@ -9,7 +9,7 @@ class m120302_074019_change_auth_rules extends CDbMigration
             'name'=>'isAuthor',
             'type'=>0,
             'description'=>'Если автор статьи/комментария',
-            'bizrule'=>'return !Yii::app()->user->isGuest && Yii::app()->user->getId() == $params["user_id"];'
+            'bizrule'=>'return !Yii::app()->user->isGuest && Yii::app()->user->id == $params["user_id"];'
         ));
 
         $this->insert($this->_table, array(

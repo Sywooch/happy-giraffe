@@ -29,7 +29,7 @@ class TestQuestionAnswer extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'test_question_answer';
+		return 'test__question_answers';
 	}
 
 	/**

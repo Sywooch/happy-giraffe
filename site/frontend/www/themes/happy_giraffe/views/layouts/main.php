@@ -3,15 +3,16 @@
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
-    <?php echo CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type'); ?>
-    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
+    <?=CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type')?>
+    <title><?=CHtml::encode($this->pageTitle)?></title>
 
     <?php
     $cs = Yii::app()->clientScript;
 
     $cs
-        ->registerCssFile('/stylesheets/global.css')
-        ->registerCssFile('/stylesheets/common.css')
+        ->registerCssFile('/stylesheets/global.css?r=349')
+        ->registerCssFile('/stylesheets/common.css?r=349')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
@@ -29,7 +30,7 @@
             ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
             ->registerScriptFile('/javascripts/comet.js')
             ->registerScriptFile('/javascripts/im.js')
-            ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').'"')
+            ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
             ->registerScriptFile('/javascripts/user_common.js')
             ->registerCssFile('/stylesheets/user_common.css')
             ->registerScriptFile('/javascripts/dklab_realplexor.js')
@@ -38,11 +39,10 @@
     }
 
     if (!Yii::app()->user->isGuest)
-        $user = User::getUserById(Yii::app()->user->getId());
+        $user = User::getUserById(Yii::app()->user->id);
     ?>
 </head>
 <body class="body-club">
-
     <div id="layout" class="wrapper">
 
         <div id="header-new" class="clearfix">
@@ -53,7 +53,7 @@
                     <div class="user-nav">
 
                         <ul>
-                            <li><a href=""><i class="icon icon-home"></i></a></li>
+                            <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>"><i class="icon icon-home"></i></a></li>
                             <li id="user-nav-messages">
                                 <a href="/im/"><i class="icon icon-messages"></i><span class="count"></span></a>
                                 <div class="drp">
@@ -63,9 +63,9 @@
                                     </ul>
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="<?php echo $this->createUrl('/im/') ?>">Все диалоги (<?php echo Dialog::GetUserDialogsCount(Yii::app()->user->getId()) ?>)</a></li>
-                                            <li><a href="<?php echo $this->createUrl('/im/new') ?>">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count<?php if (($incoming_count = count(Dialog::GetUserNewDialogs())) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count ?></a></li>
-                                            <li><a href="<?php echo $this->createUrl('/im/online') ?>">Кто онлайн</a> <span class="online-count"><?php echo count(Dialog::GetUserOnlineDialogs()) ?></span></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/') ?>">Все диалоги (<?php echo MessageDialog::GetUserDialogsCount(Yii::app()->user->id) ?>)</a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/new') ?>">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count<?php if (($incoming_count = count(MessageDialog::GetUserNewDialogs())) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count ?></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/online') ?>">Кто онлайн</a> <span class="online-count"><?php echo count(MessageDialog::GetUserOnlineDialogs()) ?></span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -103,14 +103,14 @@
                             <li class="user">
                                 <div class="link">
                                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>
-                                    <a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">
+                                    <a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>">
                                         <span class="username"><?php echo $user->first_name ?><i class="arr"></i></span>
                                     </a>
                                 </div>
                                 <div class="drp">
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->getId())) ?>">Мой профайл<i class="icon icon-profile"></i></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>">Мой профайл<i class="icon icon-profile"></i></a></li>
                                             <li><a href="<?php echo $this->createUrl('/profile/index') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
                                             <li><a href="<?php echo $this->createUrl('/site/logout') ?>">Выйти<i class="icon icon-logout"></i></a></li>
                                         </ul>
@@ -128,7 +128,7 @@
                     <li><a href="/">Главная</a></li>
                     <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
 <!--                    <li><a href="">Сервисы</a></li>-->
-                    <li><a href="<?=$this->createUrl('/site/contest') ?>">Конкурсы</a></li>
+                    <li><a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>">Конкурсы</a></li>
                 </ul>
 
             </div>
@@ -137,7 +137,7 @@
                 <div class="clearfix">
 
                     <div class="search-box clearfix">
-                        <form action="<?php echo $this->createUrl('/site/search'); ?>">
+                        <form action="<?php echo $this->createUrl('/search'); ?>">
                             <div class="input">
                                 <input type="text" name="text" />
                             </div>
@@ -146,21 +146,21 @@
                     </div>
 
                     <div class="logo-box">
-                        <a href="/" class="logo" title="hg.ru – Домашняя страница">Ключевые слова сайта</a>
+                        <a href="/" class="logo" title="Веселый Жираф - сайт для всей семьи">Ключевые слова сайта</a>
                         <span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
                     </div>
 
                     <div class="banner-box">
-                        <a href="<?=$this->createUrl('/site/contest') ?>"><img src="/images/banner_02.png" /></a>
+                        <a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
                     </div>
 
                 </div>
 
                 <div class="nav">
-                <ul class="clearfix width-2">
-                <!--<li class="morning">
-							<a href=""><i class="text"></i></a>
-						</li>-->
+                <ul class="clearfix">
+                <li class="morning">
+                    <a href="<?=$this->createUrl('/morning/index') ?>"><i class="text"></i></a>
+                </li>
                 <li class="kids navdrp">
                     <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
@@ -330,7 +330,7 @@
                                     </a>
                                 </li>
                                 <li class="col">
-                                    <a class="big-link" style="background-image:url(/images/nav_home_img_05.jpg);" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 34))?>">
+                                    <a class="big-link bg-img-45"  href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 34))?>">
                                         <span class="title">Загородная жизнь</span>
                                         <span class="text">Как рационально использовать загородный участок: посадки, строительство, отдых.</span>
                                     </a>
@@ -425,7 +425,7 @@
     <div id="footer" class="wrapper clearfix">
 
         <div class="a-right">
-            <a href="">Политика конфиденциальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
+            <a>Политика конфиденциальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a> &nbsp; | &nbsp; <?=CHtml::link('Map', array('/community/map'))?>
         </div>
 
         <div class="copy">
@@ -448,33 +448,45 @@
         </script>
     <?php endif; ?>
 
-    <!-- Yandex.Metrika counter -->
-    <div style="display:none;"><script type="text/javascript">
-        (function(w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true});
-                }
-                catch(e) { }
-            });
-        })(window, "yandex_metrika_callbacks");
-    </script></div>
-    <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-    <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
+    <noindex>
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            (function (d, w, c) {
+                (w[c] = w[c] || []).push(function() {
+                    try {
+                        w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true, webvisor:true});
+                    } catch(e) {}
+                });
 
-    <script type="text/javascript">
+                var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () { n.parentNode.insertBefore(s, n); };
+                s.type = "text/javascript";
+                s.async = true;
+                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
 
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-27545132-1']);
-        _gaq.push(['_trackPageview']);
+                if (w.opera == "[object Opera]") {
+                    d.addEventListener("DOMContentLoaded", f);
+                } else { f(); }
+            })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
 
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
+        <script type="text/javascript">
 
-    </script>
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-27545132-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </noindex>
+
+    <!--Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> с. Скушано памяти: <?=round(memory_get_peak_usage()/(1024*1024),2)."MB"?>-->
 </body>
 </html>

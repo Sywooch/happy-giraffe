@@ -11,8 +11,8 @@ $data = UserSignalHistory::getCalendarData($year, sprintf("%02d", $month));
     <thead>
     <tr class="nav">
         <td colspan="7">
-            <a href="" class="prev"></a>
-            <a href="" class="next"></a>
+            <a href="" class="prev" onclick="Signal.LoadPrevMonth();return false;"></a>
+            <a href="" class="next" onclick="Signal.LoadNextMonth();return false;"></a>
 
             <div class="date"><?php echo HDate::ruMonth($month) . ' ' . $year  ?></div>
         </td>

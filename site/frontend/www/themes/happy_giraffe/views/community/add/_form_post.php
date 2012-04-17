@@ -57,13 +57,13 @@
 ?>
 
 <?php if ($content_model->isNewRecord || (Yii::app()->user->checkAccess('editCommunityContent',
-    array('community_id'=>$content_model->rubric->community_id, 'user_id' => Yii::app()->user->getId())))):?>
+    array('community_id'=>$content_model->rubric->community_id, 'user_id' => Yii::app()->user->id)))):?>
 	<div class="">
 		<div class="inner-title">Заголовок статьи</div>
 
 		<?php echo $form->textField($content_model, 'name'); ?>
 	
-		<?php if(Yii::app()->user->checkAccess('edit meta')): ?>
+		<?php if(Yii::app()->user->checkAccess('editMeta')): ?>
 			<div class="inner-title">Title</div>
 			<?php echo $form->textField($content_model, 'meta_title'); ?>
 	

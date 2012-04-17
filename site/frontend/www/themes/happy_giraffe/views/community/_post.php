@@ -11,15 +11,18 @@
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true)); ?>
             </div>
         <?php endif; ?>
+        <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
 
         <div class="meta">
 
-            <div class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></div>
+            <div class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created); ?></div>
 
             <?php if ($full): ?>
                 <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = $this->views; echo $views; ?></span></div>
+                <br/>
+                <a href="#comment_list">Комментариев: <?php echo $data->commentsCount; ?></a>
             <?php else: ?>
-                <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = PageView::model()->viewsByPath($data->url, true); echo $views; ?></span></div>
+                <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true); echo $views; ?></span></div>
             <?php endif; ?>
             <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
             <?php if (! $full): ?>
@@ -31,7 +34,7 @@
     </div>
 
     <?php if (! $full): ?>
-        <div class="entry-content">
+        <div class="entry-content wysiwyg-content">
             <?php
                 switch ($data->type->slug)
                 {
@@ -46,7 +49,7 @@
             <div class="clear"></div>
         </div>
     <?php else: ?>
-        <div class="entry-content">
+        <div class="entry-content wysiwyg-content">
             <?
             switch ($data->type->slug)
             {
@@ -113,6 +116,7 @@
                         <div class="clear"></div>
 
                         <?php
+                        $data_text = $data->travel->text;
                     echo $data->travel->text;
                     ?>
                         <div class="clear"></div>
@@ -142,33 +146,28 @@
     <?php endif; ?>
 
     <div class="entry-footer">
-        <span class="comm">Комментариев: <span><?php echo $data->commentsCount; ?></span></span>
-
+        <?php if(!Yii::app()->user->isGuest): ?>
+        <?php
+        $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
+        $report->button("$('.report-container')");
+        $this->endWidget();
+        ?>
+        <?php endif; ?>
         <?php $this->renderPartial('//community/admin_actions',array(
         'c'=>$data,
         'communities'=>Community::model()->findAll(),
     )); ?>
         <?php $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data)); ?>
 
-        <?php if (($data->type->slug == 'post' AND in_array($data->post->source_type, array('book', 'internet'))) OR $data->by_happy_giraffe): ?>
+        <?php if ($data->by_happy_giraffe): ?>
             <div class="source">Источник:&nbsp;
-                <?php if ($data->by_happy_giraffe): ?>
-                    Весёлый Жираф
-                    <?php else: ?>
-                    <?php switch($data->post->source_type):
-                        case 'book': ?>
-                            <?php echo $data->post->book_author?>&nbsp;<?=$data->post->book_name; ?>
-                            <?php break; ?>
-                            <?php case 'internet': ?>
-                            <?php echo CHtml::image(Yii::app()->request->baseUrl . '/upload/favicons/' . $data->post->internet_favicon, $data->post->internet_title); ?>&nbsp;<?php echo CHtml::link($data->post->internet_title, $data->post->internet_link, array('class' => 'link')); ?>
-                            <?php break; ?>
-                            <?php endswitch; ?>
-                    <?php endif; ?>
+                Весёлый Жираф
             </div>
         <?php endif; ?>
 
         <div class="clear"></div>
     </div>
+    <div class="report-container"></div>
 </div>
 
 <?php if ($full): ?>
@@ -192,9 +191,10 @@
     'title' => $like_title,
     'notice' => $like_notice,
     'model' => $data,
+    'type' => 'minimize',
     'options' => array(
         'title' => $data->name,
-        'image' => $data_image,
+        'image' => isset($data_image) ? $data_image : false,
         'description' => $data_text,
     ),
 )); ?>

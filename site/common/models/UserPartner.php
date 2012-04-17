@@ -6,11 +6,13 @@
  * The followings are the available columns in table 'user_partner':
  * @property string $user_id
  * @property string $name
- * @property string $photo
  * @property string $notice
+ * @property string $birthday
  *
  * The followings are the available model relations:
  * @property User $user
+ * @property AttachPhoto $photos
+ * @property int photosCount
  */
 class UserPartner extends CActiveRecord
 {
@@ -42,11 +44,11 @@ class UserPartner extends CActiveRecord
 		return array(
 			array('user_id', 'required'),
 			array('user_id', 'length', 'max'=>11),
-			array('name, photo', 'length', 'max'=>255),
+			array('name', 'length', 'max'=>255),
 			array('notice', 'length', 'max'=>1024),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('user_id, name, photo, notice', 'safe', 'on'=>'search'),
+			array('user_id, name, notice', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,7 +61,9 @@ class UserPartner extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-		);
+            'photos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+            'photosCount' => array(self::STAT, 'AttachPhoto', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+        );
 	}
 
 	/**
@@ -70,7 +74,6 @@ class UserPartner extends CActiveRecord
 		return array(
 			'user_id' => 'User',
 			'name' => 'Name',
-			'photo' => 'Photo',
 			'notice' => 'Notice',
 		);
 	}
@@ -88,7 +91,6 @@ class UserPartner extends CActiveRecord
 
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('photo',$this->photo,true);
 		$criteria->compare('notice',$this->notice,true);
 
 		return new CActiveDataProvider($this, array(
@@ -96,50 +98,29 @@ class UserPartner extends CActiveRecord
 		));
 	}
 
-    public function behaviors()
+    public function getAge()
     {
-        return array(
-            'behavior_ufiles' => array(
-                'class' => 'site.frontend.extensions.ufile.UFileBehavior',
-                'fileAttributes' => array(
-                    'photo' => array(
-                        'fileName' => 'upload/partner/*/<date>-{id}-<name>.<ext>',
-                        'fileItems' => array(
-                            'ava' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 76,
-                                    'height' => 79,
-                                ),
-                            ),
-                            'mini' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 38,
-                                    'height' => 37,
-                                ),
-                            ),
-                            'original' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                            ),
-                        )
-                    ),
-                ),
-            ),
-        );
+        if ($this->birthday === null) return '';
+
+        $date1 = new DateTime($this->birthday);
+        $date2 = new DateTime(date('Y-m-d'));
+        $interval = $date1->diff($date2);
+        return $interval->y.' '.HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
     }
 
-    public static function savePartner($user_id)
+    public function getBDatePart($part)
     {
-        $model = self::model()->find('user_id='.$user_id);
-        if (!isset($model)){
-            $model = new UserPartner();
-            $model->user_id = $user_id;
-        }
-        if (isset($_POST['User']['partner_name']))
-            $model->name = $_POST['User']['partner_name'];
-        if (isset($_POST['User']['partner_notice']))
-            $model->notice = $_POST['User']['partner_notice'];
-        $model->save();
+        if (empty($this->birthday))
+            return '';
+        return date($part, strtotime($this->birthday));
+    }
+
+    public function getRandomPhotoUrl()
+    {
+        if (count($this->photos) == 0)
+            return '';
+
+        $i = rand(0, count($this->photos)-1);
+        return $this->photos[$i]->photo->getPreviewUrl(180, 180);
     }
 }

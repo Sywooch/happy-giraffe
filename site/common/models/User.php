@@ -13,30 +13,23 @@
  * @property string $password
  * @property string $first_name
  * @property string $last_name
- * @property string $pic_small
- * @property string $role
- * @property string $link
- * @property string $country_id
  * @property int $deleted
  * @property integer $gender
  * @property string $birthday
- * @property string $settlement_id
  * @property string $mail_id
  * @property string $last_active
  * @property integer $online
  * @property string $register_date
  * @property string $login_date
- * @property integer $street_id
- * @property string $room
- * @property string $house
  * @property string $last_ip
  * @property string $relationship_status
+ * @property UserAddress $userAddress
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
  * @property BagOfferVote[] $bagOfferVotes
- * @property ClubCommunityComment[] $clubCommunityComments
- * @property ClubCommunityContent[] $clubCommunityContents
+ * @property CommunityComment[] $clubCommunityComments
+ * @property CommunityContent[] $clubCommunityContents
  * @property ClubContest[] $clubContests
  * @property ClubContestUser[] $clubContestUsers
  * @property ClubContestWinner[] $clubContestWinners
@@ -57,9 +50,6 @@
  * @property UserSocialService[] $userSocialServices
  * @property UserViaCommunity[] $userViaCommunities
  * @property VaccineDateVote[] $vaccineDateVotes
- * @property GeoCountry $country
- * @property GeoRusSettlement $settlement
- * @property GeoRusStreet $street
  * @property Album[] $albums
  * @property Interest[] interests
  * @property UserPartner partner
@@ -76,23 +66,28 @@ class User extends CActiveRecord
     public $assigns;
 
     public $women_rel = array(
-        '1' => 'Замужем',
-        '2' => 'Не замужем',
-        '3' => 'Вдова',
-        '4' => 'Есть друг',
-        '5' => 'Невеста',
-        '6' => 'Влюблена',
-        '7' => 'В поиске',
+        1 => 'Замужем',
+        2 => 'Не замужем',
+        3 => 'Невеста',
+        4 => 'Есть друг',
     );
-
     public $men_rel = array(
-        '1' => 'Женат',
-        '2' => 'Не женат',
-        '3' => 'Вдовец',
-        '4' => 'Есть подруга',
-        '5' => 'Жених',
-        '6' => 'Влюблен',
-        '7' => 'В поиске',
+        1 => 'Женат',
+        2 => 'Не женат',
+        3 => 'Жених',
+        4 => 'Есть подруга',
+    );
+    public $women_of = array(
+        1 => 'жены',
+        2 => '',
+        3 => 'невесты',
+        4 => 'подруги',
+    );
+    public $men_of = array(
+        1 => 'мужа',
+        2 => '',
+        3 => 'жениха',
+        4 => 'друга',
     );
 
     public $accessLabels = array(
@@ -119,7 +114,12 @@ class User extends CActiveRecord
 
     public function getAgeSuffix()
     {
-        return HDate::normallizeAge($this->age);
+        return HDate::ageSuffix($this->age);
+    }
+
+    public function getNormalizedAge()
+    {
+        return $this->age . ' ' . $this->ageSuffix;
     }
 
     /**
@@ -153,12 +153,14 @@ class User extends CActiveRecord
             array('email', 'unique', 'on' => 'signup'),
             //array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
             array('gender', 'boolean'),
-            array('phone', 'safe'),
-            array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
+            array('id, phone', 'safe'),
+            array('deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
+            array('birthday', 'default', 'value' => NULL),
             array('blocked, login_date, register_date', 'safe'),
             array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
+            array('avatar', 'numerical', 'allowEmpty' => true),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -186,31 +188,29 @@ class User extends CActiveRecord
 
     public function passwordValidator($attribute, $params)
     {
+        if ($this->password == '' || $this->email == '')
+            return false;
         $userModel = $this->find(array(
             'condition' => 'email=:email AND password=:password and blocked = 0 and deleted = 0',
-            'params'=>array(
-                ':email'=>$_POST['User']['email'],
-                ':password'=>$this->hashPassword($_POST['User']['password']),
+            'params' => array(
+                ':email' => $_POST['User']['email'],
+                ':password' => $this->hashPassword($_POST['User']['password']),
             )));
-        if ($userModel)
-        {
-            $identity=new UserIdentity($userModel->getAttributes());
+        if ($userModel) {
+            $identity = new UserIdentity($userModel->getAttributes());
             $identity->authenticate();
-            if ($identity->errorCode == UserIdentity::ERROR_NONE)
-            {
-                $duration = $_POST['User']['remember'] == 1 ? 2592000 : 0;
-                Yii::app()->user->login($identity);
+            if ($identity->errorCode == UserIdentity::ERROR_NONE) {
+                $duration = $this->remember == 1 ? 2592000 : 0;
+                Yii::app()->user->login($identity, $duration);
                 $userModel->login_date = date('Y-m-d H:i:s');
                 $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
                 $userModel->save(false);
             }
-            else
-            {
+            else {
                 $this->addError('password', 'Ошибка авторизации');
             }
         }
-        else
-        {
+        else {
             $this->addError('password', 'Ошибка авторизации');
         }
     }
@@ -228,14 +228,10 @@ class User extends CActiveRecord
      */
     public function relations()
     {
-        Yii::import('site.frontend.modules.geo.models.GeoCountry');
-
         return array(
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
+            'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
-            'settlement' => array(self::BELONGS_TO, 'GeoRusSettlement', 'settlement_id'),
-            'country' => array(self::BELONGS_TO, 'GeoCountry', 'country_id'),
-            'street' => array(self::BELONGS_TO, 'GeoRusStreet', 'street_id'),
             'communities' => array(self::MANY_MANY, 'Community', 'user_community(user_id, community_id)'),
 
             'clubCommunityComments' => array(self::HAS_MANY, 'ClubCommunityComment', 'author_id'),
@@ -265,14 +261,18 @@ class User extends CActiveRecord
 
             'status' => array(self::HAS_ONE, 'UserStatus', 'user_id', 'order' => 'status.created DESC'),
             'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
-            'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active')),
+            'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active', 'permission')),
             'interests' => array(self::MANY_MANY, 'Interest', 'interest_users(interest_id, user_id)'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
 
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
+            'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN club_community_rubric ON t.rubric_id = club_community_rubric.id', 'condition' => 'club_community_rubric.user_id = t.author_id'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user_community(user_id, community_id)'),
+            'userDialogs' => array(self::HAS_MANY, 'MessageUser', 'user_id'),
+            'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
+            'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
         );
     }
 
@@ -303,8 +303,9 @@ class User extends CActiveRecord
             'role' => 'Роль',
             'fullName' => 'Имя пользователя',
             'last_name' => 'Фамилия',
-            'assigns'=>'Права',
-            'last_active'=>'Последняя активность'
+            'assigns' => 'Права',
+            'last_active' => 'Последняя активность',
+            'url'=>'Профиль'
         );
     }
 
@@ -325,7 +326,6 @@ class User extends CActiveRecord
         $criteria->compare('email', $this->email, true);
         $criteria->compare('first_name', $this->first_name, true);
         $criteria->compare('last_name', $this->last_name, true);
-        $criteria->compare('pic_small', $this->pic_small, true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
@@ -348,28 +348,45 @@ class User extends CActiveRecord
     {
         parent::afterSave();
 
-        foreach ($this->social_services as $service)
-        {
+        foreach ($this->social_services as $service) {
             $service->user_id = $this->id;
             $service->save();
         }
         if ($this->isNewRecord) {
             $this->register_date = date("Y-m-d H:i:s");
+
+            //силнал о новом юзере
             $signal = new UserSignal();
             $signal->user_id = (int)$this->id;
             $signal->signal_type = UserSignal::TYPE_NEW_USER_REGISTER;
             $signal->item_name = 'User';
             $signal->item_id = (int)$this->id;
             $signal->save();
+
+            //рубрика для блога
+            $rubric = new CommunityRubric;
+            $rubric->name = 'Обо всём';
+            $rubric->user_id = $this->id;
+            $rubric->save();
+
+            //коммент от веселого жирафа
+            $comment = new Comment('giraffe');
+            $comment->author_id = 1;
+            $comment->entity = get_class($this);
+            $comment->entity_id = $this->id;
+            $comment->save();
         } else {
             self::clearCache($this->id);
+
+            if (!empty($this->relationship_status))
+                UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_FAMILY);
         }
         return true;
     }
 
     public function beforeDelete()
     {
-        UserSignal::close($this->id, get_class($this));
+        UserSignal::closeRemoved($this);
         return false;
     }
 
@@ -381,40 +398,6 @@ class User extends CActiveRecord
     public function behaviors()
     {
         return array(
-            'behavior_ufiles' => array(
-                'class' => 'site.frontend.extensions.ufile.UFileBehavior',
-                'fileAttributes' => array(
-                    'pic_small' => array(
-                        'fileName' => 'upload/avatars/*/<date>-{id}-<name>.<ext>',
-                        'fileItems' => array(
-                            'ava' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 76,
-                                    'height' => 79,
-                                ),
-                            ),
-                            'small' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 25,
-                                    'height' => 23,
-                                ),
-                            ),
-                            'big' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'accurate_resize' => array(
-                                    'width' => 241,
-                                    'height' => 225,
-                                ),
-                            ),
-                            'original' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                            ),
-                        )
-                    ),
-                ),
-            ),
 //			'attribute_set' => array(
 //				'class'=>'attribute.AttributeSetBehavior',
 //				'table'=>'shop_product_attribute_set',
@@ -453,7 +436,7 @@ class User extends CActiveRecord
      */
     public static function GetCurrentUserWithBabies()
     {
-        $user = User::model()->with(array('babies'))->findByPk(Yii::app()->user->getId());
+        $user = User::model()->with(array('babies'))->findByPk(Yii::app()->user->id);
         return $user;
     }
 
@@ -485,8 +468,6 @@ class User extends CActiveRecord
 
     public static function clearCache($id)
     {
-        //        $dep = new CDbCacheDependency('SELECT NOW()');
-        //        return User::model()->cache(3600*24, $dep)->findByPk($id);
         $cacheKey = 'yii:dbquery' . Yii::app()->db->connectionString . ':' . Yii::app()->db->username;
         $cacheKey .= ':' . 'SELECT * FROM `user` `t` WHERE `t`.`id`=\'' . $id . '\' LIMIT 1:a:0:{}';
         if (isset(Yii::app()->cache))
@@ -495,20 +476,23 @@ class User extends CActiveRecord
 
     public function getAva($size = 'ava')
     {
-        return $this->pic_small->getUrl($size);
+        if(!$this->avatar)
+            return false;
+        if($size != 'big')
+            return AlbumPhoto::model()->findByPk($this->avatar)->getAvatarUrl($size);
+        else
+            return AlbumPhoto::model()->findByPk($this->avatar)->getPreviewUrl(240, 400, Image::WIDTH);
     }
 
     public function getPartnerPhotoUrl()
     {
         $url = '';
-        if (isset($this->partner))
-            $url = $this->partner->photo->getUrl('ava');
         return $url;
     }
 
     public function getDialogUrl()
     {
-        if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->getId())
+        if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->id)
             return '#';
 
         $dialog_id = Im::model()->getDialogIdByUser($this->id);
@@ -519,71 +503,6 @@ class User extends CActiveRecord
         }
 
         return $url;
-    }
-
-    public function getFlag()
-    {
-        Yii::import('site.frontend.modules.geo.models.*');
-
-        if (!empty($this->country_id))
-            return '<div class="flag flag-' . strtolower($this->country->iso_code) . '" title="'
-                . $this->country->name . '"></div>';
-        else
-            return '';
-    }
-
-    public function getLocationString()
-    {
-        Yii::import('site.frontend.modules.geo.models.*');
-
-        if (empty($this->country_id))
-            return '';
-
-        $str = $this->country->name;
-        if (!empty($this->settlement_id)) {
-            if (empty($this->settlement->region_id)) {
-                $str .= ', ' . $this->settlement->name;
-            } elseif (empty($this->settlement->district_id)) {
-                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
-                $str .= ', ' . str_replace('респ.', '', $this->settlement->region->name) . ', ' . $type . ' ' . $this->settlement->name;
-            } else {
-                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
-                $str .= ', ' . str_replace('респ.', '', $this->settlement->region->name) . ', ' . $this->settlement->district->name . ', ' . $type . ' ' . $this->settlement->name;
-            }
-
-            if (!empty($this->street_id))
-                $str .= ', ' . $this->street->name;
-            if (!empty($this->house))
-                $str .= ', д. ' . $this->house;
-
-            return $str;
-        }
-        return $str;
-    }
-
-    public function getPublicLocation()
-    {
-        Yii::import('site.frontend.modules.geo.models.*');
-
-        if (empty($this->country_id))
-            return '';
-
-        $str = $this->country->name;
-        if (!empty($this->settlement_id)) {
-            if (empty($this->settlement->region_id)) {
-                $str .= '<br>' . $this->settlement->name;
-            } elseif ($this->settlement->region_id == 42) {
-                $str .= '<br>' . $this->settlement->name;
-            } elseif ($this->settlement->region_id == 59) {
-                $str .= '<br>' . $this->settlement->name;
-            } else {
-                $type = empty($this->settlement->type_id) ? '' : $this->settlement->type->name;
-                $str .= '<br>' . $this->settlement->region->name . '<br>' . $type . ' ' . $this->settlement->name;
-            }
-
-            return $str;
-        }
-        return $str;
     }
 
     public function getAssigns()
@@ -604,7 +523,7 @@ class User extends CActiveRecord
         if (empty($roles))
             return 'user';
         $res = '';
-        foreach ($roles as $name=>$item) {
+        foreach ($roles as $name => $item) {
             $res .= $name . ', ';
         }
         return trim($res, ', ');
@@ -621,14 +540,17 @@ class User extends CActiveRecord
             return 1;
 
         //с каждой неделей пребывания на сервере приоритет уменьшается
-        $weeks_gone = floor((strtotime(date("Y-m-d H:i:s")) - strtotime($this->register_date)) / 604800);
-        return $weeks_gone + 2;
+        $weeks_gone = floor((time() - strtotime($this->register_date)) / 604800);
+        if ($weeks_gone < 5)
+            return $weeks_gone + 2;
+        else
+            return 1;
     }
 
     public function isNewComer()
     {
         //с каждой неделей пребывания на сервере приоритет уменьшается
-        $weeks_gone = floor((strtotime(date("Y-m-d H:i:s")) - strtotime($this->register_date)) / 604800);
+        $weeks_gone = floor((time() - strtotime($this->register_date)) / 604800);
 
         if ($this->getRole() == 'user' && $weeks_gone < 5)
             return true;
@@ -657,9 +579,7 @@ class User extends CActiveRecord
         $friend = new Friend;
         $friend->user1_id = $this->id;
         $friend->user2_id = $friend_id;
-        if ($friend->save()){
-            //добавляем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
+        if ($friend->save()) {
             UserScores::addScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::getUserById($friend_id));
             UserScores::addScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
             return true;
@@ -693,8 +613,6 @@ class User extends CActiveRecord
     {
         $res = Friend::model()->deleteAll($this->getFriendCriteria($friend_id));
         if ($res != 0) {
-            //вычитаем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
             UserScores::removeScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
             UserScores::removeScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::model()->findByPk($friend_id));
             return true;
@@ -707,6 +625,7 @@ class User extends CActiveRecord
     {
         return new CDbCriteria(array(
             'join' => 'JOIN ' . Friend::model()->tableName() . ' ON (t.id = friends.user1_id AND friends.user2_id = :user_id) OR (t.id = friends.user2_id AND friends.user1_id = :user_id)',
+            'scopes'=>array('active'),
             'params' => array(':user_id' => $this->id),
         ));
     }
@@ -724,6 +643,14 @@ class User extends CActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function getFriendsCriteria($additional_criteria)
+    {
+        $criteria = $this->getFriendSelectCriteria();
+        $criteria->mergeWith($additional_criteria);
+
+        return $criteria;
     }
 
     /**
@@ -781,26 +708,52 @@ class User extends CActiveRecord
     {
         if ($this->gender == 1) {
             if ($id == 1)
-                return 'Моя жена:';
+                return 'Моя жена';
+            if ($id == 3)
+                return 'Моя невеста';
             if ($id == 4)
-                return 'Моя подруга:';
-            if ($id == 5)
-                return 'Моя невеста:';
+                return 'Моя подруга';
         } else {
             if ($id == 1)
-                return 'Мой муж:';
+                return 'Мой муж';
+            if ($id == 3)
+                return 'Мой жених';
             if ($id == 4)
-                return 'Мой друг:';
-            if ($id == 5)
-                return 'Мой жених:';
+                return 'Мой друг';
         }
 
         return '';
     }
 
+    public function getPartnerTitleOf($id = null)
+    {
+        if ($id === null)
+            $id = $this->relationship_status;
+
+        $list = $this->getPartnerTitlesOf();
+        if (isset($list[$id]))
+            return $list[$id];
+        return '';
+    }
+
+    public function getPartnerTitlesOf()
+    {
+        if ($this->gender == 1)
+            return $this->women_of;
+        else
+            return $this->men_of;
+    }
+
     public static function relationshipStatusHasPartner($status_id)
     {
-        if (in_array($status_id, array(1, 4, 5)))
+        if (in_array($status_id, array(1, 3, 4)))
+            return true;
+        return false;
+    }
+
+    public function hasPartner()
+    {
+        if (in_array($this->relationship_status, array(1, 3, 4)))
             return true;
         return false;
     }
@@ -848,14 +801,53 @@ class User extends CActiveRecord
 
     public function getScores()
     {
-        Yii::import('site.frontend.modules.scores.models.*');
-        $model = UserScores::model()->findByPk($this->id);
-        if ($model === null){
+        $model = UserScores::model()->with(array('level' => array('select' => array('name'))))->findByPk($this->id);
+        if ($model === null) {
             $model = new UserScores;
             $model->user_id = $this->id;
             $model->save();
         }
 
         return $model;
+    }
+
+    public function getUserAddress()
+    {
+        if ($this->userAddress === null) {
+            $address = new UserAddress();
+            $address->user_id = $this->id;
+            $address->save();
+            $this->userAddress = $address;
+        }
+        return $this->userAddress;
+    }
+
+    public function getBlogWidget()
+    {
+        $criteria = new CDbCriteria(array(
+            'order' => new CDbExpression('RAND()'),
+            'condition' => 'rubric.user_id IS NOT NULL AND t.author_id = :user_id',
+            'params' => array(':user_id' => $this->id),
+            'limit' => 4,
+        ));
+
+        return BlogContent::model()->full()->findAll($criteria);
+    }
+
+    public function hasBaby($type = null)
+    {
+        foreach($this->babies as $baby)
+            if ($baby->type == $type)
+                return true;
+        return false;
+    }
+
+    public function babyCount()
+    {
+        $i = 0;
+        foreach($this->babies as $baby)
+            if (empty($baby->type))
+                $i++;
+        return $i;
     }
 }

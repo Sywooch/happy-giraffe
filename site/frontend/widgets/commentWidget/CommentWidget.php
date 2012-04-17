@@ -8,6 +8,8 @@ class CommentWidget extends CWidget
 	public $entity_id;
     public $title = 'Комментарии';
     public $actions = true;
+    public $button = 'Добавить комментарий';
+    public $type = 'default';
 
     public function init()
     {
@@ -20,7 +22,7 @@ class CommentWidget extends CWidget
             $this->model = $model->findByPk($this->entity_id);
         }
     }
-	
+
 	public function run()
 	{
 		$comment_model = Comment::model();
@@ -33,13 +35,17 @@ class CommentWidget extends CWidget
             unset($_GET['lastPage']);
         }
 
-        Rating::model()->saveByEntity($this->model, 'cm', floor($dataProvider->itemCount / 10));
+        if($this->entity != 'ContestWork')
+        {
+            Rating::model()->saveByEntity($this->model, 'cm', floor($dataProvider->itemCount / 10));
+        }
 
         $this->registerScripts();
 		if ($this->onlyList)
 		{
 			$this->render('list', array(
 				'dataProvider' => $dataProvider,
+                'type'=>$this->type,
 			));
 		}
 		else
@@ -49,6 +55,7 @@ class CommentWidget extends CWidget
 			$this->render('form', array(
 				'comment_model' => $comment_model,
 				'dataProvider' => $dataProvider,
+                'type'=>$this->type,
 			));
 		}
 	}
@@ -57,7 +64,24 @@ class CommentWidget extends CWidget
     {
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/comment.js')
+        Yii::app()->clientScript->registerScriptFile($baseUrl . '/comment.js', CClientScript::POS_HEAD)
         ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.tmpl.min.js');
+
+        if ($this->type == 'guestBook')
+            $script = 'Comment.toolbar = "Simple";';
+        else
+            $script = 'Comment.toolbar = "Main";';
+        $script.= '
+        Comment.saveCommentUrl="'.Yii::app()->createUrl('/albums/saveCommentPhoto').'";
+        Comment.entity="'.$this->entity.'";
+        Comment.entity_id='.$this->entity_id.';
+        ';
+        Yii::app()->clientScript->registerScript('Comment register script', $script);
+
+        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+            'model' => new Comment
+        ));
+        $fileAttach->registerScripts();
+        $this->endWidget();
     }
 }

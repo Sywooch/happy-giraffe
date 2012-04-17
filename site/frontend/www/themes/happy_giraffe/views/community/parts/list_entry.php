@@ -9,14 +9,14 @@
 		<?php endif; ?>
 	
 		<div class="meta">
-			<div class="time"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", strtotime($c->created)); ?></div>
+			<div class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", strtotime($c->created)); ?></div>
 			<div class="seen">Просмотров:&nbsp <span id="page_views"><?php echo PageView::model()->viewsByPath(CController::createUrl('community/view', array('community_id' => $c->rubric->community->id, 'content_type_slug' => $c->type->slug, 'content_id' => $c->id)), true); ?></span></div>
 			<div class="rate"><?php echo Rating::model()->countByEntity($c); ?></div>рейтинг
 		</div>
 		<div class="clear"></div>
 	</div>
 
-	<div class="entry-content">
+	<div class="entry-content wysiwyg-content">
 		<?php
 			switch ($c->type->slug)
 			{

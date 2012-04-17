@@ -18,16 +18,27 @@
         color: #fff;
     }
 </style>
+
 <br><br>
 <?php $sites = SeoSite::model()->findAll(); ?>
 <table class="choose-type">
     <tr>
         <?php foreach ($sites as $site): ?>
-        <td<?php if ($site_id == $site->id) echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/seo/default/index', array('site_id'=>$site->id)) ?>"><?php echo $site->url ?></a></td>
+        <td<?php if ($site_id == $site->id) echo ' class="active"' ?>><a rel="<?=$site->id ?>" href="<?php echo $this->createUrl('/seo/default/index', array('site_id'=>$site->id)) ?>"><?php echo $site->url ?></a></td>
         <?php endforeach; ?>
     </tr>
 </table><br><br>
-перейти к странице <input type="text" id="page">
+перейти к странице <input type="text" id="page"><br>
+<?php $form=$this->beginWidget('CActiveForm', array(
+    'id'=>'seo-form',
+    'enableAjaxValidation'=>false,
+    'method'=>'GET',
+    'action'=>array('/seo/default')
+));?>
+<?php echo CHtml::hiddenField('site_id', $site_id) ?>
+<?php echo CHtml::dropDownList('year', $year, array('2011'=>2011, '2012'=>2012), array('onchange'=>'submit')) ?>
+<?php $this->endWidget(); ?>
+
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'keywords-grid',
     'dataProvider'=>$model->search(),
@@ -107,4 +118,19 @@
         console.log(url);
         $.fn.yiiGridView.update('keywords-grid', {url:url});
     });
+
+    $('#year').change(function(){
+        setTimeout('submitForm()',200);
+    });
+
+    $('.choose-type a').click(function(){
+        console.log($(this).attr('rel'));
+        $('#site_id').val($(this).attr('rel'));
+        setTimeout('submitForm()',200);
+        return false;
+    });
+
+    function submitForm(){
+        $('#seo-form').submit();
+    }
 </script>

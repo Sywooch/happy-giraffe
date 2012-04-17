@@ -6,7 +6,7 @@ foreach($this->options as $key => $value)
     ));
 }
 ?>
-<a onclick="return Social.open('fb', this.href, 'Опубликовать ссылку в Facebook', 800, 300, this);"
+<a onclick="return Social.open('fb', this.href, 'facebook', 800, 300, this);"
    href="http://www.facebook.com/sharer.php?u=<?php echo urlencode($this->options['url']); ?>"
    title="Опубликовать ссылку во Facebook"
    rel="nofollow"

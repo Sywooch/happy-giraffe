@@ -2,6 +2,9 @@
 
 class DefaultController extends Controller
 {
+    /**
+     * @todo добавить в sitemap
+     */
     public $layout = '//layouts/new2';
 
     public function filters()
@@ -21,6 +24,7 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
+        $this->pageTitle = 'Тесты';
         $tests = Test::model()->findAll(array(
             'select' => array('id', 'name', 'slug')
         ));
@@ -55,16 +59,5 @@ class DefaultController extends Controller
         if ($model === null)
             throw new CHttpException(404, 'Такого теста не существует.');
         return $model;
-    }
-
-    public function actionTitles()
-    {
-        $test = $this->LoadModel('hair-type');
-        $test->name = 'Какие типы волос бывают? Определить тип волос';
-        $test->save(false);
-
-        $test = $this->LoadModel('prikorm');
-        $test->name = 'Первый прикорм ребенка. Как вводить прикорм грудных детей? ';
-        $test->save(false);
     }
 }

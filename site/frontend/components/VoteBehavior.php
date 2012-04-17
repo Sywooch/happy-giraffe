@@ -27,7 +27,7 @@ class VoteBehavior extends CActiveRecordBehavior
     public function vote($user_id, $vote)
     {
         $current_vote = $this->getCurrentVote($user_id);
-        $vote_table = $this->owner->tableName() . '_vote';
+        $vote_table = $this->owner->tableName() . '_votes';
 
         $request = $this->GetRequest($user_id);
 
@@ -62,7 +62,7 @@ class VoteBehavior extends CActiveRecordBehavior
 
     public function getCurrentVote($user_id)
     {
-        $vote_table = $this->owner->tableName() . '_vote';
+        $vote_table = $this->owner->tableName() . '_votes';
 
         $request = $this->GetRequest($user_id);
         $vote = Yii::app()->db->createCommand()

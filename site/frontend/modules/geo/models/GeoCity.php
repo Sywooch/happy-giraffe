@@ -5,13 +5,18 @@
  *
  * The followings are the available columns in table 'geo_city':
  * @property string $id
+ * @property string $district_id
  * @property string $region_id
  * @property string $country_id
  * @property string $name
+ * @property string $type
  *
  * The followings are the available model relations:
  * @property GeoCountry $country
+ * @property GeoDistrict $district
  * @property GeoRegion $region
+ * @property GeoDistrict[] $geoDistricts
+ * @property GeoZip[] $zips
  */
 class GeoCity extends CActiveRecord
 {
@@ -29,7 +34,7 @@ class GeoCity extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'geo_city';
+		return 'geo__city';
 	}
 
 	/**
@@ -41,7 +46,7 @@ class GeoCity extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('region_id, country_id, name', 'required'),
-			array('region_id, country_id', 'length', 'max'=>11),
+			array('region_id, country_id, district_id', 'length', 'max'=>11),
 			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -59,6 +64,8 @@ class GeoCity extends CActiveRecord
 		return array(
 			'country' => array(self::BELONGS_TO, 'GeoCountry', 'country_id'),
 			'region' => array(self::BELONGS_TO, 'GeoRegion', 'region_id'),
+            'district' => array(self::BELONGS_TO, 'GeoDistrict', 'district_id'),
+            'zips' => array(self::HAS_MANY, 'GeoZip', 'city_id'),
 		);
 	}
 

@@ -14,7 +14,7 @@
                 <?php foreach ($this->user->communities as $c): ?>
                     <li class="club-img kids">
                         <a href="<?php echo $c->url; ?>">
-                            <img src="/images/club_img_<?php echo $c->id; ?>.png" />
+                            <img src="/images/club_img_<?php echo $c->position; ?>.png" />
                             <?php echo $c->name; ?>
                         </a>
                     </li>

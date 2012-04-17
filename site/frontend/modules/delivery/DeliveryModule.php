@@ -61,7 +61,6 @@ class DeliveryModule extends CWebModule
 		$this->setImport(array(
 			'delivery.models.*',
 			'delivery.controllers.*',
-            'geo.models.*'
 		));
 
 		if($this->returnUrl)

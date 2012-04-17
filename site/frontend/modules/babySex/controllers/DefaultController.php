@@ -16,6 +16,9 @@ class DefaultController extends Controller
         $this->render('index');
     }
 
+    /**
+     * @sitemap
+     */
     public function actionBloodRefresh()
     {
         $this->pageTitle = 'Пол ребенка по обновлению крови';
@@ -23,6 +26,9 @@ class DefaultController extends Controller
         $this->render('blood_refresh');
     }
 
+    /**
+     * @sitemap
+     */
     public function actionJapan()
     {
         $this->pageTitle = 'Будущий пол ребенка - японский метод';
@@ -30,6 +36,9 @@ class DefaultController extends Controller
         $this->render('japan');
     }
 
+    /**
+     * @sitemap
+     */
     public function actionBlood()
     {
         $this->pageTitle = 'Пол ребенка по группе крови';
@@ -37,6 +46,9 @@ class DefaultController extends Controller
         $this->render('blood_group');
     }
 
+    /**
+     * @sitemap
+     */
     public function actionChina()
     {
         $this->pageTitle = 'Пол ребенка по китайской таблице. Китайский метод определения пола ребенка';
@@ -49,6 +61,9 @@ class DefaultController extends Controller
             $this->render('china');
     }
 
+    /**
+     * @sitemap
+     */
     public function actionOvulation()
     {
         $this->pageTitle = 'Пол ребенка по овуляции';

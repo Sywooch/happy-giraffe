@@ -96,6 +96,7 @@ require_once CKFINDER_CONNECTOR_CONFIG_FILE_PATH;
 CKFinder_Connector_Core_Factory::initFactory();
 $connector =& CKFinder_Connector_Core_Factory::getInstance("Core_Connector");
 
+echo '<script type="text/javascript">document.domain = document.location.host;</script>';
 if(isset($_GET['command'])) {
     $connector->executeCommand($_GET['command']);
 }

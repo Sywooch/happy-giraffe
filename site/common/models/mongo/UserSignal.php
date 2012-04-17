@@ -112,7 +112,7 @@ class UserSignal extends EMongoDocument
             $this->status = self::STATUS_OPEN;
             $this->created = date("Y-m-d");
             $this->created_time = date("H:i");
-            $this->user_priority = $this->getUser()->getUserPriority();
+            $this->user_priority = (int)$this->getUser()->getUserPriority();
 
             if (!$this->repeat_task) {
                 if ($this->signal_type == self::TYPE_NEW_USER_POST) {
@@ -134,7 +134,7 @@ class UserSignal extends EMongoDocument
     public function afterSave()
     {
         if ($this->isNewRecord) {
-            UserSignal::SendUpdateSignal();
+            UserSignal::sendUpdateSignal(null, true);
         }
         parent::afterSave();
     }
@@ -163,7 +163,7 @@ class UserSignal extends EMongoDocument
             return $this->getUser()->getUrl();
         } else {
             $class_name = $this->item_name;
-            if (method_exists($class_name::model(), 'getUrl')){
+            if (method_exists($class_name::model(), 'getUrl')) {
                 $user = $class_name::model()->findByPk($this->item_id);
                 if ($user === null)
                     return 'error';
@@ -180,7 +180,7 @@ class UserSignal extends EMongoDocument
      */
     public function CurrentUserIsExecutor()
     {
-        if (in_array(Yii::app()->user->getId(), $this->executors))
+        if (in_array(Yii::app()->user->id, $this->executors))
             return true;
         return false;
     }
@@ -190,7 +190,7 @@ class UserSignal extends EMongoDocument
      */
     public function CurrentUserSuccessExecutor()
     {
-        if (in_array(Yii::app()->user->getId(), $this->success))
+        if (in_array(Yii::app()->user->id, $this->success))
             return true;
         return false;
     }
@@ -201,7 +201,7 @@ class UserSignal extends EMongoDocument
      */
     public function CurrentUserFree()
     {
-        if (!in_array(Yii::app()->user->getId(), $this->success) && !in_array(Yii::app()->user->getId(), $this->executors))
+        if (!in_array(Yii::app()->user->id, $this->success) && !in_array(Yii::app()->user->id, $this->executors))
             return true;
         return false;
     }
@@ -227,7 +227,7 @@ class UserSignal extends EMongoDocument
             $this->full = true;
         if ($this->save()) {
             if ($this->full)
-                $this->SendUpdateSignal();
+                $this->sendUpdateSignal();
         }
 
         $response = new UserSignalResponse;
@@ -256,7 +256,7 @@ class UserSignal extends EMongoDocument
 
             if ($this->save()) {
                 if ($wasFull && !$this->full)
-                    $this->SendUpdateSignal();
+                    $this->sendUpdateSignal();
 
                 return true;
             }
@@ -304,7 +304,7 @@ class UserSignal extends EMongoDocument
             $this->status = self::STATUS_CLOSED;
             $this->save();
 
-            UserSignal::SendUpdateSignal();
+            UserSignal::sendUpdateSignal();
         } else {
             $this->save();
 
@@ -340,7 +340,7 @@ class UserSignal extends EMongoDocument
     {
         if (Yii::app()->user->checkAccess('user_signals')) {
             Yii::import('site.frontend.modules.signal.models.*');
-            self::CheckTask($comment->entity, $comment->entity_id, Yii::app()->user->getId());
+            self::CheckTask($comment->entity, $comment->entity_id, Yii::app()->user->id);
         }
     }
 
@@ -414,10 +414,11 @@ class UserSignal extends EMongoDocument
         return '';
     }
 
-    public static function SendUpdateSignal($user_id = null)
+    public static function sendUpdateSignal($user_id = null, $sound = false)
     {
         $comet = new CometModel();
         $comet->type = CometModel::TYPE_SIGNAL_UPDATE;
+        $comet->attributes = array('sound' => $sound);
         if ($user_id === null) {
             $moderators = AuthAssignment::model()->findAll('itemname="moderator"');
             foreach ($moderators as $moderator)
@@ -427,24 +428,34 @@ class UserSignal extends EMongoDocument
             foreach ($super_m as $moderator)
                 $comet->send($moderator->userid);
 
-            $super_m = AuthAssignment::model()->findAll('itemname="administrator"');
-            foreach ($super_m as $moderator)
-                $comet->send($moderator->userid);
+            $admins = AuthAssignment::model()->findAll('itemname="administrator"');
+            foreach ($admins as $admin)
+                $comet->send($admin->userid);
         } else {
             $comet->send($user_id);
         }
     }
 
-    public static function close($item_id, $item_name)
-    {
+
+    /**
+     * Close signals for removed items
+     *
+     * @static
+     * @param CActiveRecord $entity
+     * @param bool $sendSignal
+     * @return void
+     */
+    public static function closeRemoved($entity, $sendSignal = true){
         $criteria = new EMongoCriteria;
-        $criteria->item_id('==', (int)$item_id);
-        $criteria->item_name('==', $item_name);
+        $criteria->item_id('==', (int)$entity->primaryKey);
+        $criteria->item_name('==', get_class($entity));
 
         $models = self::model()->findAll($criteria);
-        foreach($models as $model){
+        foreach ($models as $model) {
             $model->status = self::STATUS_CLOSED;
             $model->save();
         }
+        if (count($models) > 0 && $sendSignal)
+            self::sendUpdateSignal();
     }
 }

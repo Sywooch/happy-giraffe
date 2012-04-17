@@ -68,9 +68,9 @@ class RecipeBookRecipe extends CActiveRecord
                 )),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
-                'createAttribute' => 'create_time',
-                'updateAttribute' => null,
-            )
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            ),
         );
     }
 
@@ -79,7 +79,7 @@ class RecipeBookRecipe extends CActiveRecord
      */
     public function tableName()
     {
-        return 'recipeBook_recipe';
+        return 'recipe_book__recipes';
     }
 
     /**
@@ -94,11 +94,12 @@ class RecipeBookRecipe extends CActiveRecord
             array('views_amount', 'numerical', 'integerOnly' => true),
             array('name, internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max' => 255),
             array('disease_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDisease'),
+            array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
             array('purposeIds', 'safe'),
             array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, disease_id, author_id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, create_time, views_amount', 'safe', 'on' => 'search'),
+            array('id, name, disease_id, author_id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, views_amount', 'safe', 'on' => 'search'),
         );
     }
 
@@ -113,7 +114,7 @@ class RecipeBookRecipe extends CActiveRecord
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'ingredients' => array(self::HAS_MANY, 'RecipeBookIngredient', 'recipe_id'),
             'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
-            'purposes' => array(self::MANY_MANY, 'RecipeBookPurpose', 'recipeBook_recipe_via_purpose(recipe_id, purpose_id)'),
+            'purposes' => array(self::MANY_MANY, 'RecipeBookPurpose', 'recipe_book__recipes_purposes(recipe_id, purpose_id)'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => 'RecipeBookRecipe')),
         );
     }
@@ -183,8 +184,6 @@ class RecipeBookRecipe extends CActiveRecord
         parent::afterSave();
 
         if ($this->isNewRecord) {
-            //добавляем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
             UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
         }
     }
@@ -192,8 +191,6 @@ class RecipeBookRecipe extends CActiveRecord
     public function afterDelete()
     {
         parent::afterDelete();
-
-        Yii::import('site.frontend.modules.scores.models.*');
         UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
     }
 

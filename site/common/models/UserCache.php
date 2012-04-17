@@ -99,7 +99,7 @@ class UserCache extends CActiveRecord
     {
         if (Yii::app()->user->isGuest)
             return null;
-        return self::GetUserCache(Yii::app()->user->getId());
+        return self::GetUserCache(Yii::app()->user->id);
     }
 
     /**

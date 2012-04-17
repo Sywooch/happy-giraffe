@@ -1,3 +1,5 @@
+<?php Yii::app()->clientScript->registerMetaTag('noindex', 'robots'); ?>
+
 <?php
 /* @var $this Controller
  * @var $model RecipeBookDisease

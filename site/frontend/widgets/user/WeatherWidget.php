@@ -12,21 +12,24 @@ class WeatherWidget extends UserCoreWidget
 
     public function run()
     {
-        $data = Yii::app()->cache->get('WeatherWidget_' . date("Y-m-d") . $this->user->getLocationString());
+        if (!$this->user->getUserAddress()->hasCity())
+            return ;
+        $data = Yii::app()->cache->get('WeatherWidget_' . date("Y-m-d") . $this->user->getUserAddress()->getLocationString());
         if ($data == false) {
-            $gw = new SimpleGoogleWeather(urlencode($this->user->getLocationString()));
+            $gw = new SimpleGoogleWeather(urlencode($this->user->getUserAddress()->getLocationString()));
             $gw_today = $gw->getCurrentWeather();
             if ($gw_today === false)
                 return;
 
             $data = $this->render('WeatherWidget', array(
                 'now_temp' => $gw->getNowTemp(),
+                'now_condition' => $gw->getNowCondition(),
                 'night' => $gw->getNightTemp(),
                 'yesterday' => $gw->GetYesterdayTemp(),
                 'data' => $gw->getForecastData()
             ), true);
 
-            Yii::app()->cache->set('WeatherWidget_' . date("Y-m-d") . $this->user->getLocationString(), $data, 12000);
+            Yii::app()->cache->set('WeatherWidget_' . date("Y-m-d") . $this->user->getUserAddress()->getLocationString(), $data, 12000);
         }
 
         echo $data;
@@ -37,14 +40,14 @@ class SimpleGoogleWeather
 {
     public $xml;
     public $conditions = array(
-        'Ясно' => 2,
-        'Преимущественно солнечно' => 2,
-        'Местами солнечно' => 1,
-        'Переменная облачность' => 1,
-        'Преимущественно облачно' => 1,
-        'Облачно с прояснениями' => 2,
-        'Сплошная облачность' => 2,
-        'Переменная облачность' => 1,
+        'Ясно' => 1,
+        'Преимущественно солнечно' => 1,
+        'Местами солнечно' => 2,
+        'Переменная облачность' => 2,
+        'Преимущественно облачно' => 3,
+        'Облачно с прояснениями' => 3,
+        'Сплошная облачность' => 3,
+        'Переменная облачность' => 2,
         'Небольшой снег' => 4,
         'Возможен снег' => 4,
         'Снег' => 4,
@@ -52,11 +55,11 @@ class SimpleGoogleWeather
         'Небольшой дождь' => 5,
         'Возможен дождь' => 5,
         'Дождь со снегом'=>5,
-        'Дым' => 1,
-        'Туман' => 1,
+        'Дым' => 3,
+        'Туман' => 3,
         'Изморозь' => 1,
         'Морось' => 1,
-        'Дождь со снегом'=>1,
+        'Дождь со снегом'=>4,
         'Ветер'=>6,
         'Буря'=>6,
         'Возможен шторм'=>6,
@@ -108,6 +111,18 @@ class SimpleGoogleWeather
         return $attr['data'][0];
     }
 
+    function getNowCondition()
+    {
+        $gw_today = $this->getCurrentWeather();
+
+        $day_res = array();
+        $attr = $gw_today->condition->attributes();
+        $day_res['condition'] = $this->conditionToImage($attr['data']);
+        $day_res['condition_title'] = $attr['data'];
+
+        return $day_res;
+    }
+
     function getNightTemp()
     {
         $forecast = $this->getForecast();
@@ -136,6 +151,8 @@ class SimpleGoogleWeather
             $day_res['condition'] = $this->conditionToImage($attr['data']);
             $day_res['condition_title'] = $attr['data'];
             $res [] = $day_res;
+            if (count($res) >= 3)
+                break;
         }
 
         return $res;

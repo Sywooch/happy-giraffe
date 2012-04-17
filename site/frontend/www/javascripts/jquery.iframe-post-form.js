@@ -21,13 +21,13 @@
 			iframe;
 		
 		options = $.extend({}, $.fn.iframePostForm.defaults, options);
-		
-		
+
 		// Add the iframe.
 		if (!$('#' + options.iframeID).length)
 		{
 			$('body').append('<iframe id="' + options.iframeID + '" name="' + options.iframeID + '" style="display:none" />');
 		}
+
 		
 		
 		return $(this).each(function ()
@@ -49,8 +49,7 @@
 				{
 					return status;
 				}
-				
-				
+
 				iframe = $('#' + options.iframeID).load(function ()
 				{
 					response = iframe.contents().find('body');
@@ -65,7 +64,6 @@
 					{
 						returnReponse = response.html();
 					}
-					
 					
 					options.complete.apply(this, [returnReponse]);
 					

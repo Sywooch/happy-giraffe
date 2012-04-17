@@ -6,9 +6,10 @@
  * The followings are the available columns in table 'album_photos':
  * @property integer $id
  * @property string $author_id
- * @property string $album_id
+ * @property integer $album_id
  * @property string $file_name
  * @property string $fs_name
+ * @property string $title
  * @property string $previewUrl
  * @property string $originalUrl
  * @property string $created
@@ -34,6 +35,10 @@ class AlbumPhoto extends CActiveRecord
      * @var string template image folder
      */
     private $tmp_folder = 'temp';
+    /**
+     * @var string avatars image folder
+     */
+    private $avatars_folder = 'avatars';
     /**
      * @var CUploadedFile
      */
@@ -66,7 +71,7 @@ class AlbumPhoto extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('author_id, album_id, file_name', 'required'),
+            array('author_id, file_name', 'required'),
             array('author_id, album_id', 'length', 'max' => 10),
             array('file_name, fs_name', 'length', 'max' => 100),
             array('title', 'length', 'max' => 50),
@@ -130,7 +135,7 @@ class AlbumPhoto extends CActiveRecord
 
     public function afterSave()
     {
-        if ($this->isNewRecord){
+        if ($this->isNewRecord) {
             $signal = new UserSignal();
             $signal->user_id = (int)$this->author_id;
             $signal->item_id = (int)$this->id;
@@ -138,9 +143,9 @@ class AlbumPhoto extends CActiveRecord
             $signal->signal_type = UserSignal::TYPE_NEW_USER_PHOTO;
             $signal->save();
 
-            //добавляем баллы
-            Yii::import('site.frontend.modules.scores.models.*');
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+            if (!empty($this->album_id)) {
+                UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+            }
         }
         parent::afterSave();
     }
@@ -148,10 +153,11 @@ class AlbumPhoto extends CActiveRecord
     public function beforeDelete()
     {
         $this->removed = 1;
-        $this->save();
-        UserSignal::close($this->id, get_class($this));
-        Yii::import('site.frontend.modules.scores.models.*');
-        UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+        $this->save(false);
+        UserSignal::closeRemoved($this);
+        if (!empty($this->album_id)) {
+            UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+        }
         return false;
     }
 
@@ -161,17 +167,14 @@ class AlbumPhoto extends CActiveRecord
      */
     public function create($temp = false)
     {
-        if(!$temp)
-        {
+        if (!$temp) {
             $this->file_name = $this->file;
             $this->fs_name = md5($this->file_name) . '.' . $this->file->extensionName;
         }
-        else
-        {
+        else {
             $this->fs_name = $this->file_name;
         }
-        if ($this->save())
-        {
+        if ($this->save(false)) {
             $this->saveFile(false, $temp);
             return true;
         }
@@ -185,23 +188,23 @@ class AlbumPhoto extends CActiveRecord
     public function saveFile($temp = false, $move_temp = false)
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
-        if(!$temp)
-        {
+        if (!$temp) {
             $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id;
-            if(!file_exists($model_dir))
+            if (!file_exists($model_dir))
                 mkdir($model_dir);
         }
-        else
-        {
+        else {
             $model_dir = $dir . DIRECTORY_SEPARATOR . $this->tmp_folder;
             $this->file_name = $this->file;
             $this->fs_name = md5($this->file_name . time()) . '.' . $this->file->extensionName;
         }
         $file_name = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
-        if(!$move_temp)
+        if (!$move_temp)
             return $this->file->saveAs($file_name);
-        else
+        else{
+            //echo $this->templatePath;Yii::app()->end();
             rename($this->templatePath, $file_name);
+        }
     }
 
     /**
@@ -249,19 +252,28 @@ class AlbumPhoto extends CActiveRecord
         $model_dir = $thumb_path . DIRECTORY_SEPARATOR . $this->author_id;
         // Image file system path
         $thumb = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
-        if(!file_exists($thumb))
-        {
-            if(!file_exists($thumb_path))
-            {
+        if (!file_exists($thumb)) {
+            if (!file_exists($thumb_path)) {
                 mkdir($thumb_path);
                 $handle = fopen($thumb_path . DIRECTORY_SEPARATOR . 'index.html', 'x+');
                 fclose($handle);
             }
-            if(!file_exists($model_dir))
+            if (!file_exists($model_dir))
                 mkdir($model_dir);
-            Yii::import('ext.image.Image');
+            Yii::import('site.frontend.extensions.image.Image');
+            if(!file_exists($this->originalPath))
+                return false;
             $image = new Image($this->originalPath);
-            $image->resize($width, $height, $master ? $master : Image::AUTO);
+
+            if ($image->width <= $width && $image->height <= $height){
+
+            }
+            elseif ($master && $master == Image::WIDTH && $image->width < $width)
+                $image->resize($image->width, $height, Image::WIDTH);
+            elseif ($master && $master == Image::HEIGHT && $image->height < $height)
+                $image->resize($width, $image->height, Image::HEIGHT);
+            else
+                $image->resize($width, $height, $master ? $master : Image::AUTO);
             $image->save($thumb);
         }
         return $thumb;
@@ -296,6 +308,34 @@ class AlbumPhoto extends CActiveRecord
         return Yii::app()->params['photos_url'] . '/' . $this->tmp_folder . '/' . $this->fs_name;
     }
 
+    public function getAvatarPath($size)
+    {
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        if(!file_exists($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id))
+            mkdir($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id);
+
+        if(!file_exists($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id . DIRECTORY_SEPARATOR . $size))
+            mkdir($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id . DIRECTORY_SEPARATOR . $size);
+
+        return $dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id .
+            DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $this->fs_name;
+    }
+
+    /**
+     * Get url to the original image
+     * @return string
+     */
+    public function getAvatarUrl($size)
+    {
+        return implode('/', array(
+            Yii::app()->params['photos_url'],
+            $this->avatars_folder,
+            $this->author_id,
+            $size,
+            $this->fs_name
+        ));
+    }
+
     public function getUrl()
     {
         return Yii::app()->createUrl('albums/photo', array('id' => $this->id));
@@ -319,5 +359,10 @@ class AlbumPhoto extends CActiveRecord
             'prev' => $prev ? $prev['id'] : false,
             'next' => $next ? $next['id'] : false
         );
+    }
+
+    public function getCommentContent()
+    {
+        return CHtml::image($this->getPreviewUrl(460,600));
     }
 }

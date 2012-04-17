@@ -123,8 +123,6 @@ class Interest extends CActiveRecord
                 ));
             }
 
-            //add scores to user
-            Yii::import('site.frontend.modules.scores.models.*');
             UserScores::checkProfileScores($user_id, ScoreActions::ACTION_PROFILE_INTERESTS);
         }
     }

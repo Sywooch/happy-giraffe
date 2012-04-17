@@ -1,9 +1,4 @@
-<?php $this->breadcrumbs = array(
-    'Профиль' => array('/profile'),
-    '<b>Изменить пароль</b>',
-); ?>
-
-<?php $form = $this->beginWidget('CActiveForm'); ?>
+<?php $form = $this->beginWidget('CActiveForm');?>
 
 <?php echo $form->errorSummary($this->user); ?>
 

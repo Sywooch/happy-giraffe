@@ -19,7 +19,16 @@
 	
 	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	
+	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
+	
+	<script type="text/javascript">
+		function addMenuToggle(el){
+			$(el).parents('.add-menu').find('ul').toggle();
+			$(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
+		}
+	</script>
 	
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
@@ -29,34 +38,399 @@
 <body class="body-club">
 	<div id="layout" class="wrapper">
 		
-		<div id="header" class="clearfix">
+		<div id="header-new" class="clearfix">
 			
-			<div class="logo-box">
-				<a href="/" class="logo" title="hg.ru – Домашняя страница">Ключевые слова сайта</a>
+			<div class="top-line clearfix">
+				
+				<div class="user-nav">
+					
+					<ul>
+						<li><a href=""><i class="icon icon-home"></i></a></li>
+						<li>
+							<a href="">Прелоадер ;)</a>
+							<div class="drp">
+								<div class="drp-title"><img src="/images/loader_01.gif" /></div>
+							</div>
+						</li>
+						<li>
+							<a href=""><i class="icon icon-messages"></i><span class="count">5</span></a>
+							<div class="drp">
+								<div class="drp-title">Диалоги</div>
+								<ul class="list">
+									<li>
+										<a href="">
+											<span class="name">Александр  Богоявленский</span>
+											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
+											<span class="date">Сегодня 10:45</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<span class="name">Александр  Богоявленский</span>
+											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
+											<span class="date">Сегодня 10:45</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<span class="name">Александр  Богоявленский</span>
+											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
+											<span class="date">Сегодня 10:45</span>
+										</a>
+									</li>							
+								</ul>
+								<div class="actions">
+									<ul>
+										<li><a href="">Все диалоги <span>(156)</span></a></li>
+										<li><a href="">Новых</a> <a href="" class="count">5</a></li>
+										<li><a href="">Кто онлайн</a> <span>8</span></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li>
+							<a href=""><i class="icon icon-friends"></i><span class="count">777</span></a>
+							<div class="drp drp-closable">
+								<div class="drp-title">Друзья</div>
+								<ul class="list">
+									<li>
+										<a href=""><span class="red">ОГО!</span>&nbsp;&nbsp;<span class="name">Александр Богоявленский</span> предлагает подружиться<i class="close"></i></a>
+									</li>
+									<li>
+										<a href=""><span class="yellow">УРА!</span>&nbsp;&nbsp;<span class="name">Ирина Гусева</span> ответила согласием на Вашу дружбу<i class="close"></i></a>
+									</li>
+									<li>
+										<a href=""><span class="green">ЖАЛЬ!</span>&nbsp;&nbsp;<span class="name">Иван захаров</span> ответил отказом на Вашу дружбу<i class="close"></i></a>
+									</li>									
+								</ul>
+								<div class="actions">
+									<ul>
+										<li><a href="">Все друзья <span>(18)</span></a></li>
+										<li><a href="">Кто онлайн</a> <span>8</span></li>
+										<li><a href="">Предложения дружбы</a> <a href="" class="count count-gray">0</a></li>
+										<li><a href="">Мои предложения</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li>
+							<a href=""><i class="icon icon-notifications"></i><span class="count">44</span></a>
+							<div class="drp drp-icons">
+								<div class="drp-title">Уведомления</div>
+								<ul class="list">
+									<li>
+										<a href="">2 новых комментария  к Вашей записи <span class="black">Я боюсь рожать</span>  в клубе <span class="black">Роды</span><i class="icon icon-settings"></i></a>
+									</li>
+								</ul>
+								<div class="actions">
+									<ul>
+										<li><a href="">Все уведомления (43)</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li class="user">
+                                <div class="link">
+									<a class="ava male small" href="/user/profile/user_id/10020/">
+										<img src="" alt="">
+									</a>
+									<a href="/user/profile/user_id/10020/">
+                                        <span class="username">Ижецкий Денис Владимирович<i class="arr"></i></span>
+                                    </a>
+                                </div>
+                                <div class="drp">
+                                    <div class="actions">
+                                        <ul>
+                                            <li><a href="/user/profile/user_id/10020/">Мой профайл<i class="icon icon-profile"></i></a></li>
+                                            <li><a href="/profile/index/">Мои настройки<i class="icon icon-settings"></i></a></li>
+                                            <li><a href="/site/logout/">Выйти<i class="icon icon-logout"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+					</ul>
+					
+				</div>
+				
+				<ul class="fast-links clearfix">
+					<li><a href="">Главная</a></li>
+					<li><a href="">Клубы</a></li>
+					<li><a href="">Сервисы</a></li>
+					<li><a href="">Конкурсы</a></li>
+				</ul>
+				
 			</div>
 			
 			<div class="header-in">
-								
-				<div class="search-box">
-					<button class="btn"><span><span>Поиск</span></span></button>
-					<div class="text">
-						<input type="text" />
+				<div class="clearfix">
+					
+					<div class="search-box clearfix">
+						<div class="input">
+							<input type="text" />
+						</div>
+						<button class="btn btn-green-medium disabled"><span><span>Поиск</span></span></button>					
 					</div>
-				</div>
-				
-				<div class="login-box">
-					<span class="welcome"><b>Добро пожаловать,</b> <a href="">Анастасия Петрова!</a></span>
-					<a href="">Выйти</a>
+					
+					<div class="logo-box">
+						<a href="/" class="logo" title="hg.ru – Домашняя страница">Ключевые слова сайта</a>
+						<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
+					</div>
+					
+					<div class="banner-box">
+						<a href=""><img src="/images/banner_01.png" /></a>
+					</div>
+					
 				</div>
 				
 				<div class="nav">
-					<ul>
-						<li class="green"><a href=""><span>Форумы</span></a></li>
-						<li class="yellow"><a href=""><span>Конкурсы</span></a></li>
-						<li class="orange"><a href=""><span>Календарь малыша</span></a></li>
+					<ul class="clearfix">
+						<li class="morning">
+							<a href=""><i class="text"></i></a>
+						</li>
+						<li class="kids navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-5">
+										<li class="col">
+											
+											<div class="col-in bg-img-11">
+												<div class="title">Беременность и роды</div>
+												<ul>
+													<li><a href="">Планирование</a></li>
+													<li><a href="">Беременность</a></li>
+													<li><a href="">Подготовка и роды</a></li>
+												</ul>												
+											</div>
+											
+										</li>
+										<li class="col">
+											
+											<div class="col-in bg-img-12">
+												<div class="title">Дети до года</div>
+												<ul>
+													<li><a href="">Здоровье</a></li>
+													<li><a href="">Питание малыша</a></li>
+													<li><a href="">Развитие ребенка</a></li>
+													<li><a href="">Режим и уход</a></li>
+												</ul>
+											</div>
+											
+										</li>
+										<li class="col">
+											
+											<div class="col-in bg-img-13">
+												<div class="title">Дети старше года</div>
+												<ul>
+													<li><a href="">Здоровье и питание</a></li>
+													<li><a href="">Ясли и няни</a></li>
+													<li><a href="">Раннее развитие и обучение</a></li>
+													<li><a href="">Психология и воспитание</a></li>
+												</ul>
+											</div>
+											
+										</li>
+										<li class="col">
+											
+											<div class="col-in bg-img-14">
+												<div class="title">Дошкольники</div>
+												<ul>
+													<li><a href="">Детский сад</a></li>
+													<li><a href="">Игры и развлечения</a></li>
+													<li><a href="">Готовимся к школе</a></li>
+												</ul>
+											</div>
+											
+										</li>
+										<li class="col">
+											
+											<div class="col-in bg-img-15">
+												<div class="title">Школьники</div>
+												<ul>
+													<li><a href="">Здоровье и питание</a></li>
+													<li><a href="">Учимся в школе</a></li>
+													<li><a href="">Спорт и досуг</a></li>
+													<li><a href="">Подростковая психология</a></li>
+												</ul>
+											</div>
+											
+										</li>
+										
+									</ul>
+									
+								</div>
+							</div>
+						</li>
+						<li class="manwoman navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-2">
+										<li class="col wedding">
+											<a href="" class="big-link bg-img-21">
+												<span class="title">Свадьба! Го-рь-ко!</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать стоимость аренды места проведения свадьбы</span>
+												<span class="img"><img src="" /></span>
+											</a>
+										</li>
+										<li class="col relationships">
+											<div class="col-in bg-img-22">
+												<div class="title">Отношения</div>
+												<ul>
+													<li><a href="">Отношения мужчины и женщины</a></li>
+													<li><a href="">Непонимание в семье</a></li>
+													<li><a href="">Ревность и измена</a></li>
+													<li><a href="">Развод</a></li>
+													<li><a href="">Психология мужчин</a></li>
+													<li><a href="">Психология женщин</a></li>
+												</ul>
+											</div>
+										</li>
+									</ul>
+									
+								</div>
+							</div>
+						</li>							
+						<li class="beauty navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-3">
+										<li class="col">
+											<a href="" class="big-link bg-img-31">
+												<span class="title">Красота</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-32">
+												<span class="title">Мода и шопинг</span>
+												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-33">
+												<span class="title">Здоровье родителей</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
+											</a>
+										</li>
+									</ul>
+									
+								</div>
+							</div>
+						</li>
+						<li class="home navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-5">
+										<li class="col">
+											<a href="" class="big-link bg-img-41">
+												<span class="title">Кулинарные рецепты</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-42">
+												<span class="title">Детские рецепты</span>
+												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
+
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-43">
+												<span class="title">Интерьер и дизайн</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-44">
+												<span class="title">Домашние хлопоты</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-45">
+												<span class="title">Загородная жизнь</span>
+												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод Развод</span> 
+											</a>
+										</li>										
+									</ul>
+									
+								</div>
+							</div>
+						</li>
+						<li class="hobbies navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-4">
+										<li class="col">
+											<a href="" class="big-link bg-img-51">
+												<span class="title">Своими руками</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-52">
+												<span class="title">Мастерим детям</span>
+												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-53">
+												<span class="title">За рулем</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-54">
+												<span class="title">Цветоводство</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
+											</a>
+										</li>
+									</ul>
+									
+									
+								</div>
+							</div>
+						</li>
+						<li class="rest navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-3">
+										<li class="col">
+											<a href="" class="big-link bg-img-61">
+												<span class="title">Выходные с ребенком</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>												
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-62">
+												<span class="title">Путешествия семьей</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-63">
+												<span class="title">Праздники</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>
+											</a>
+										</li>
+									</ul>
+									
+								</div>
+							</div>
+						</li>
 					</ul>
 				</div>
-				
 			</div>
 			
 		</div>
@@ -65,22 +439,32 @@
 			
 			<div id="user">
 				
-				<div class="header clearfix">
+				<div class="header clearfix user-home">
 					
 					<div class="user-name">
-						<h1>Богоявленский<br/>Александр</h1>
-						<div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
-						<div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date">20 февраля 2012, 14:25</span></div>
+						<h1>Ижецкий Денис Владимирович</h1>
+						<div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date">Сегодня 16:39</span></div>
+						<div class="location">
+							<div class="flag-big flag-big-ua" title="Украина"></div>Хмельницкий
+						</div>
+						<div class="birthday"><span>День рождения:</span> 27 апреля (21 год)</div>
 					</div>
 					
 					<div class="user-buttons clearfix">
-						<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-						<a href="" class="pending-friend"><span class="tip">Приглашение выслано</span></a>
-						<a href="" class="remove-friend"><span class="tip">Удалить из друзей</span></a>
-						<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+						<div class="clearfix">
+							<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+							<span class="friend">друг</span>
+							<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+						</div>
+						<div class="admin-buttons">
+							<a href="" class="purple">Г<span class="tip">Поместить на главную страницу</span></a>
+							<a href="" class="purple active">Г<span class="tip">Снять с главной страницы</span></a>
+						</div>
 					</div>
 					
-					<div class="user-nav">
+					
+					
+					<div class="user-nav default-nav">
 						<ul>
 							<li class="active"><a href="">Анкета</a></li>
 							<li><a href="">Блог</a></li>
@@ -95,41 +479,61 @@
 					
 					<div class="col-1">
 						
-						<div class="user-photo">
-							<img src="/images/user_profile_img.jpg" />
+						<div class="ava big male">
+							<a href="#photoPick" class="fancy renew">Обновить<br/>фото</a>
 						</div>
 						
-						<div class="user-meta">
-							
-							<div class="location"><div class="flag flag-ru"></div> Гаврилов-Ям</div>
-							<span>День рождения:</span> 15 декабря (39 лет)
-							
-							<div class="details">
-								Зарегистрирван  25 февраля 2012<br/>
-								Баллов: <span class="rating">12 867</span><br/>
-								Уровень: <span class="rang">Ветеран</span><br/>
-							</div>
-							
+						<div class="details">
+							Зарегистрирван  25 февраля 2012
 						</div>
+						
+						<div class="user-lvl user-lvl-0">
+						</div>
+						
 						
 						<div class="user-family">
 							<div class="t"></div>
 							<div class="c">
 								<ul>
-									<li class="clearfix">
-										<big>Моя жена</big>
-										<div class="img"><a href=""><img src="/images/user_friends_img.jpg" /></a><span>Светлана</span></div>
-										<p>Очень любит готовить, заниматься с детьми</p>
+									<li>
+										<big>Катя &nbsp; <small>Моя&nbsp;невеста</small></big>
+										<div class="comment blue">
+											Очень любит готовить, заниматься с детьми, очень добрая и отзывчивая
+											<span class="tale"></span>
+										</div>
+										<div class="img">
+											<img src="/images/example/ex1.png" />
+										</div>
 									</li>
-									<li class="clearfix">
-										<big>Моя дочь</big>
-										<div class="img"><a href=""><img src="/images/user_friends_img.jpg" /></a><span>Иришка, <span>3 года</span></span></div>
-										<p>Очень любит готовить, заниматься с детьми</p>
+									<li>
+										<big>Вильгельмина &nbsp; <small>Моя&nbsp;невеста</small></big>
+										<div class="comment purple">
+											Очень любит готовить, заниматься с детьми, очень добрая и отзывчивая
+											<span class="tale"></span>
+										</div>
+										<div class="img">
+											<img src="/images/example/ex2.png" />
+										</div>
 									</li>
-									<li class="clearfix">
-										<big>Мой сын</big>
-										<div class="img"><a href=""><img src="/images/user_friends_img.jpg" /></a><span>Артем, <span>10 лет</span></span></div>
-										<p>Очень любит готовить, заниматься с детьми</p>
+									<li>
+										<big>Артем, <span>10 лет</span></big>
+										<div class="comment purple">
+											Очень любит готовить, заниматься с детьми, очень добрая и отзывчивая
+											<span class="tale"></span>
+										</div>
+										<div class="img">
+											<img src="/images/example/ex3.jpg" />
+										</div>
+									</li>
+									<li>
+										<big>Настенька, <span>7 лет</span></big>
+										<div class="comment pink">
+											Мелкая, веселая ;)
+											<span class="tale"></span>
+										</div>
+										<div class="img">
+											<img src="/images/example/ex3.jpg" />
+										</div>
 									</li>
 									
 								</ul>
@@ -173,7 +577,7 @@
 							<div class="col-2">
 								
 								<div class="user-mood">
-									Мое настроение &ndash; <img src="/images/widget/mood/1.png" />
+									Мое настроение<img id="userMood" src="/images/widget/mood/1.png" /> <a href="" class="pseudo small">Изменить</a>
 								</div>
 								
 								<div class="user-status">
@@ -224,13 +628,13 @@
 									<ul>
 										<li class="club-img kids">
 											<a href="">
-												<img src="/images/club_img_03.png" />
-												Подготовка и роды
+												<img src="/images/club_img_3.png" />
+												<span>Подготовка и роды</span>
 											</a>
 										</li>
 										<li class="club-img kids">
 											<a href="">
-												<img src="/images/club_img_07.png" />
+												<img src="/images/club_img_7.png" />
 												Режим и уход
 											</a>
 										</li>
@@ -280,6 +684,15 @@
 									
 								</div>
 								
+								<div class="user-albums user-add">
+								
+									<div class="box-title">Фото</div>
+									
+									<a href=""><img src="/images/user_photo_add.png" /></a>
+									<a href="">Загрузить<br/>фото</a>
+									
+								</div>
+								
 								<div class="user-albums">
 								
 									<div class="box-title">Фотоальбомы <a href="">Все альбомы (12)</a></div>
@@ -321,36 +734,75 @@
 									<div class="box-title">Друзья <a href="">Все друзья (105)</a></div>
 									
 									<ul>
-										<li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-										<li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-										<li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-										<li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-										<li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-										<li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-										<li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
-										<li><a href=""><img src="/images/user_friends_img.jpg" /></a></li>
+										<li><a href="" class="ava"></a></li>
+										<li><a href="" class="ava male"></a></li>
+										<li><a href="" class="ava"><img src="/images/user_friends_img.jpg" /></a></li>
+										<li><a href="" class="ava"><img src="/images/user_friends_img.jpg" /></a></li>
+										<li><a href="" class="ava female"></a></li>
+										<li><a href="" class="ava"><img src="/images/user_friends_img.jpg" /></a></li>
+										<li><a href="" class="ava male"></a></li>
+										<li><a href="" class="ava"></a></li>
 									</ul>
 									
 								</div>
 								
 								<div class="user-map">
-									
-									<div class="box-title">Я живу здесь</div>
-									
+									<div class="header">
+										<div class="box-title">Я здесь</div>
+										<div class="sep"><img src="/images/map_marker.png" /></div>
+									</div>
+									<form>
+										<div class="row">
+											<label>Место жительства</label>
+											<select class="chzn w-100" data-placeholder="Страна">
+												<option></option>
+												<option>Россия</option>
+												<option>Украина</option>
+											</select>
+											&nbsp;&nbsp;
+											<span class="with-search">
+												<select class="chzn w-200" data-placeholder="Регион">
+													<option></option>
+													<option>Россия</option>
+													<option>Украина</option>
+												</select>
+											</span>
+										</div>
+										<div class="row">
+											<label>Населенный пункт</label>
+											<input type="text" /><br/>
+											<small>Введите свой город, поселок, село или деревню</small>
+										</div>
+										<div class="row" style="text-align:right;">
+											<button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
+										</div>
+									</form>
+								</div>
+								
+								<div class="user-map">
+									<div class="header">
+										<a href="#locationEdit" class="edit fancy"><span class="tip">Изменить</span></a>
+										<div class="box-title">Я здесь</div>
+										<div class="sep"><img src="/images/map_marker.png" /></div>
+										<div class="location">
+											<div class="flag flag-ru"></div> Россия
+											<p>Ярославская облась Гаврилов-Ямский р-он п. Великое</p>
+										</div>
+									</div>
 									<img src="/images/user_map_img.jpg" />
-									
+								</div>
+								
+								<div class="user-map user-add">
+									<a href="javascript:void(0);" class="flip('#userMapForm);"><big>Я живу<br/>здесь</big><img src="/images/user_map_cap.png" /></a>
 								</div>
 								
 								<div class="user-weather">
 									
-									<div class="location">
-										<div class="flag flag-ru"></div>Россия<br/>
-										<big>Гаврилов-Ям</big>
-									</div>
+									<div class="box-title"><a href="" class="a-right pseudo">Еще на три дня</a>Моя погода</div>
 									
 									<div class="clearfix">
 										
-										<div class="img"><img src="/images/user_weather_01.png" /></div>
+										<div class="img"><img src="/images/widget/weather/big/3.png" /></div>
 										
 										<div class="text">
 											<big>-16</big>
@@ -360,16 +812,11 @@
 
 									</div>
 									
-									<a href="">Прогноз на неделю</a>
-									
 								</div>
 								
 								<div class="user-weather">
 									
-									<div class="location">
-										<div class="flag flag-ru"></div>Россия<br/>
-										<big>Гаврилов-Ям</big>
-									</div>
+									<div class="box-title"><a href="" class="a-right pseudo">Погода сейчас</a>Моя погода</div>
 									
 									<table>
 										<thead>
@@ -377,10 +824,6 @@
 												<td>Завтра</td>
 												<td>Пн</td>
 												<td>Вт</td>
-												<td>Ср</td>
-												<td>Чт</td>
-												<td>Пт</td>
-												<td>Сб</td>
 											</tr>
 										</thead>
 										<tbody>
@@ -388,54 +831,32 @@
 												<td><img src="/images/widget/weather/small/1.png" /></td>
 												<td><img src="/images/widget/weather/small/2.png" /></td>
 												<td><img src="/images/widget/weather/small/3.png" /></td>
-												<td><img src="/images/widget/weather/small/4.png" /></td>
-												<td><img src="/images/widget/weather/small/5.png" /></td>
-												<td><img src="/images/widget/weather/small/6.png" /></td>
-												<td><img src="/images/widget/weather/small/7.png" /></td>
 											</tr>
 											<tr>
 												<td>-16</td>
 												<td>-19</td>
-												<td>-25</td>
-												<td>-21</td>
-												<td>-19</td>
-												<td>-15</td>
-												<td>-12</td>												
+												<td>-25</td>												
 											</tr>
 											<tr class="hl">
 												<td>-16</td>
 												<td>-19</td>
-												<td>-25</td>
-												<td>-21</td>
-												<td>-19</td>
-												<td>-15</td>
-												<td>-12</td>												
+												<td>-25</td>											
 											</tr>											
 										</tbody>
 									</table>
-									
-									<a href="">Прогноз на неделю</a>
 									
 								</div>
 								
 								<div class="user-horoscope">
 									
-									<div class="actions">
-										<a href="" class="close"></a>
-										<a href="" class="settings"></a>
-									</div>
-									
 									<div class="clearfix">
+										<div class="title">Близнецы</div>
 										<div class="img"><img src="/images/widget/horoscope/12.png" /></div>
-										<div class="date"><big>Близнецы</big>(24.12-23.01)</div>
+										<div class="date">2<span>апр</span></div>
 									</div>
 									
-									<p><b>21 февраля</b> -  Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью – дела стоят на месте, приходится возвращаться к, казалось бы, уже решенным вопросам и переделывать многое  
-									Вам хотелось бы организовать эффективное взаимодействие в совместных проектах. Однако идеи, которые придут к Вам сегодня, могут оказаться не слишком продуманными. Возможно, Вы еще не владеете всей необходимой информацией, поэтому не торопитесь делиться своими мыслями.s</p>
-
-									<p>Вас могут не правильно понять.
-									Так же торопливы сегодня будут и Ваши чувства. Бурные эмоции могут нахлынуть внезапно. Но не рассчитывайте на полное взаимопонимание партнеров. 
-									Вечер лучше провести в одиночестве, посвятив его только себе.</p>
+									<p>Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью – дела стоят на месте, приходится возвращаться к, казалось бы, уже решенным вопросам и переделывать многое  
+									Вам хотелось бы организовать эффективное взаимодействие в совместных проектах. Однако идеи, которые придут к Вам сегодня, могут оказаться не слишком продуманными.</p>
 									
 								</div>
 								
@@ -445,45 +866,103 @@
 						
 						<div class="default-comments">
 							
-							<div class="comments-meta">
-								<a href="" class="btn btn-orange a-right"><span><span>Добавить запись</span></span></a>
+							<div class="comments-meta clearfix">
+								<div class="add-menu">
+									<a href="javascript:void(0);" class="btn btn-orange a-right" onclick="addMenuToggle(this);"><span><span>Добавить запись<i class="arr-b"></i></span></span></a>
+									<ul style="display:none;">
+										<li><a href="javascript:void(0);" onclick="addMenuToggle(this);">Текст</a></li>
+										<li><a href="javascript:void(0);" onclick="addMenuToggle(this);">Картинка</a></li>
+									</ul>
+								</div>
 								<div class="title">Гостевая</div>
 								<div class="count">55</div>
 							</div>
 							
 							<ul>
-								<li class="clearfix">
-									<div class="user">
-										<div class="ava"><img src="/images/ava.png"></div>
-										Дарья
-									</div>
-									<div class="content">
-										<div class="meta">Сегодня, 20:45</div>
-										<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>										
+								<li class="author-comment">
+									<div class="comment-in clearfix">
+										<div class="header clearfix">
+											<div class="user-info clearfix">
+												<div class="ava female"></div>
+												<div class="details">
+													<span class="icon-status status-online"></span>
+													<a href="" class="username">Дарья</a>
+													<div class="user-fast-buttons clearfix">
+														<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+														<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+										<div class="content">
+											<div class="meta">
+												<span class="date">Сегодня, 20:45</span>
+											</div>
+											<div class="content-in">
+												<div class="wysiwyg-content">
+													<h2>Как выбрать детскую коляску</h2>
+									
+													<p>Как правило, кроватку новорожденному приобретают незадолго до его появления на свет. При этом многие молодые <b>родители</b> обращают внимание главным <u>образом</u> на ее <strike>внешний</strike> вид. Но, прельстившись яркими красками, многие платят баснословные суммы, даже не поинтересовавшись, из чего сделано это покорившее вас чудо.</p>
+												</div>
+											</div>
+										</div>
 									</div>
 								</li>
-								<li class="clearfix">
-									<div class="user">
-										<div class="ava"><img src="/images/ava.png"></div>
-										Дарья
-									</div>
-									<div class="content">
-										<div class="meta">Сегодня, 20:45</div>
-										<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>										
+								<li>
+									<div class="comment-in clearfix">
+										<div class="header clearfix">
+											<div class="user-info clearfix">
+												<div class="ava female"></div>
+												<div class="details">
+													<span class="icon-status status-online"></span>
+													<a href="" class="username">Дарья</a>
+													<div class="user-fast-buttons clearfix">
+														<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+														<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+										<div class="content">
+											<div class="meta">
+												<span class="date">Сегодня, 20:45</span>
+											</div>
+											<div class="content-in">
+												<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
+											</div>
+										</div>
 									</div>
 								</li>
-								<li class="clearfix">
-									<div class="user">
-										<div class="ava"><img src="/images/ava.png"></div>
-										Дарья
+								<li>
+									<div class="comment-in clearfix">
+										<div class="header clearfix">
+											<div class="user-info clearfix">
+												<div class="ava female"></div>
+												<div class="details">
+													<span class="icon-status status-online"></span>
+													<a href="" class="username">Дарья</a>
+													<div class="user-fast-buttons clearfix">
+														<span class="friend">друг</span>
+														<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+										<div class="content">
+											<div class="meta">
+												<span class="date">Сегодня, 20:45</span>
+											</div>
+											<div class="content-in">
+												<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
+											</div>
+										</div>
 									</div>
-									<div class="content">
-										<div class="meta">Сегодня, 20:45</div>
-										<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>										
-									</div>
-								</li>										
+								</li>
+								
 							</ul>
-							
 							
 						</div>
 						
@@ -598,6 +1077,216 @@
 			<button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
 		</div>
 		
+	</div>
+	
+	<div id="locationEdit" class="popup">
+		
+		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
+		
+		<div class="popup-title">Место жительства</div>
+		
+		<form>
+			<div class="form">
+				<div class="row clearfix">
+					<div class="row-title">Страна</div>
+					<div class="row-elements">
+						<select class="chzn w-300">
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							
+						</select>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="row-title">Регион</div>
+					<div class="row-elements">
+						<select class="chzn w-300">
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							<option>Украина</option>
+							<option>Россия</option>
+							
+						</select>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="row-title">Населенный пункт</div>
+					<div class="row-elements">
+						<input type="text" class="w-300" /><br/>
+						Введите свой город, поселок, село или деревню
+					</div>
+				</div>
+				<div class="row">
+					<button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
+				</div>
+			</div>
+		</form>
+		
+	</div>
+	
+	<div id="photoPick" class="popup v2">
+
+		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
+
+		<div class="title">Фотография для конкурса «Осенние прогулки»</div>
+
+		<div class="nav">
+			<ul>
+				<li><a href="">С компьютера</a></li>
+				<li class="active"><a href="">Из моих альбомов</a></li>
+			</ul>
+		</div>
+
+		<div class="nav v-nav">
+			<ul>
+				<li class="active"><a href="">Отдых в Турции</a></li>
+				<li><a href="">Поездка на Алтай</a></li>
+				<li><a href="">Домашние фото</a></li>
+			</ul>
+		</div>
+
+		<div id="gallery">
+
+			<div class="gallery-photos clearfix">
+
+				<ul>
+					<li>
+						<table>
+							<tr>
+								<td class="img">
+									<div>
+										<a href=""><img src="/images/example/ex1.png" /></a>
+										<div class="contest-send">
+											<a href="" class="btn btn-green-medium"><span><span>Сделать<br/>главным</span></span></a>
+										</div>
+									</div>									
+								</td>
+							</tr>
+							<tr class="rank"><td><span>117</span> баллов</td></tr>
+							<tr class="title">
+								<td align="center"><div>Наш дайвинг</div></td>
+							</tr>
+
+						</table>
+					</li>
+					<li>
+						<table>
+							<tr>
+								<td class="img">
+									<div>
+										<a href=""><img src="/images/example/ex2.png" /></a>
+										<div class="contest-send">
+											<a href="" class="btn btn-green-medium"><span><span>Сделать<br/>главным</span></span></a>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr class="rank"><td><span>7</span> баллов</td></tr>
+							<tr class="title">
+								<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
+							</tr>
+
+						</table>
+					</li>
+					<li>
+						<table>
+							<tr>
+								<td class="img">
+									<div>
+										<a href=""><img src="/images/example/ex3.jpg" /></a>
+										<div class="contest-send">
+											<a href="" class="btn btn-green-medium"><span><span>Сделать<br/>главным</span></span></a>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr class="rank"><td><span>17</span> баллов</td></tr>
+							<tr class="title">
+								<td align="center"><div>Наш дайвинг</div></td>
+							</tr>
+
+						</table>
+					</li>
+
+				</ul>
+
+			</div>
+
+			<div class="pagination pagination-center clearfix">
+				<div class="pager">
+					Страницы:
+					<ul>
+						<li class="previous"><a href=""></a></li>
+						<li><a href=""><span>1</span></a></li>
+						<li><a href=""><span>2</span></a></li>
+						<li class="selected"><a href=""><span>321</span></a></li>
+						<li><a href=""><span>4</span></a></li>
+						<li><a href=""><span>5</span></a></li>
+						<li><a href=""><span>6</span></a></li>
+						<li><a href=""><span>7</span></a></li>
+						<li class="next"><a href=""></a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
 	</div>
 	
 </div>

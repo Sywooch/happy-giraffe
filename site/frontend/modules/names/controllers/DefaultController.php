@@ -2,6 +2,10 @@
 
 class DefaultController extends Controller
 {
+    /**
+     * @todo имена
+     */
+
     public $layout = 'names';
     public $likes = 0;
 
@@ -26,6 +30,7 @@ class DefaultController extends Controller
         }
         if (!empty($gender))
             $criteria->compare('gender', $gender);
+        $criteria->scopes = 'filled';
 
         if (!$show_all) {
             $count = Name::model()->count($criteria);
@@ -123,7 +128,7 @@ class DefaultController extends Controller
     {
         $this->pageTitle = 'Мне нравится';
         $this->SetLikes();
-        $data = Name::model()->GetLikes(Yii::app()->user->getId());
+        $data = Name::model()->GetLikes(Yii::app()->user->id);
         $man = array();
         $woman = array();
         foreach ($data as $name) {
@@ -159,8 +164,8 @@ class DefaultController extends Controller
         }
         $name = $this->LoadModelById($id);
         echo CJSON::encode(array(
-            'success' => $name->like(Yii::app()->user->getId()),
-            'count' => Name::GetLikesCount(Yii::app()->user->getId()),
+            'success' => $name->like(Yii::app()->user->id),
+            'count' => Name::GetLikesCount(Yii::app()->user->id),
             'likes' => $name->likes,
         ));
     }
@@ -230,7 +235,7 @@ class DefaultController extends Controller
     public function SetLikes()
     {
         if (!Yii::app()->user->isGuest)
-            $this->likes = Name::GetLikesCount(Yii::app()->user->getId());
+            $this->likes = Name::GetLikesCount(Yii::app()->user->id);
     }
 
     public function actionImg()
@@ -316,7 +321,7 @@ class DefaultController extends Controller
         return 30 + ($max - $value) * 85 / $diff;
     }
 
-    public function ParsePage2()
+    /*public function ParsePage2()
     {
         Yii::import('ext.phpQuery.phpQuery.phpQuery');
         $urls = array(
@@ -449,6 +454,6 @@ class DefaultController extends Controller
 
             sleep(1);
         }
-    }
+    }*/
 
 }

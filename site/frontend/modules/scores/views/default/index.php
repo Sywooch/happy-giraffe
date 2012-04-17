@@ -11,7 +11,6 @@ Yii::app()->clientScript
         });
     }', CClientScript::POS_HEAD)
     ->registerCssFile('/stylesheets/user.css');
-
 ?>
 <div id="user">
 <div class="user-cols clearfix">
@@ -21,8 +20,8 @@ Yii::app()->clientScript
         <div class="user-points">
 
             <?php if (!empty($userScores->level_id)):?>
-            <div class="rank">
-                <?=$userScores->level->name ?>
+            <div class="user-lvl user-lvl-<?=$userScores->level_id ?>">
+
             </div>
             <?php endif ?>
 
@@ -41,7 +40,7 @@ Yii::app()->clientScript
 
         <div class="content-title">Мои баллы</div>
 
-        <?php if (Yii::app()->user->getId() == 10):?>
+        <?php if (Yii::app()->user->id == 10):?>
         <br><a href="#" onclick="removeHistory();">Очистить всё</a>
         <?php endif ?>
 
@@ -53,12 +52,12 @@ Yii::app()->clientScript
                 'dataProvider'=>$dataProvider,
                 'template'=>'{items}
                         <div class="pagination pagination-center clearfix">
-                            {summary}
                             {pager}
                         </div>',
+                //'summaryText' => 'показано: {start} - {end} из {count}',
                 'pager' => array(
                     'class' => 'MyLinkPager',
-                    'header' => 'Страницы',
+                    'header' => '',
                 ),
                 'hideHeader'=>true,
                 'cssFile'=>false,

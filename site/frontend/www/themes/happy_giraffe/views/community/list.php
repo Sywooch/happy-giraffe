@@ -1,27 +1,28 @@
 <?php
 
-$this->widget('zii.widgets.CListView', array(
-    'dataProvider' => $contents,
-    'itemView' => '_post',
-    'summaryText' => 'Показано: {start}-{end} из {count}',
-    'pager' => array(
-        'class' => 'MyLinkPager',
-        'header' => 'Страницы',
-    ),
-    'template' => '{items}
-        <div class="pagination pagination-center clearfix">
-            {summary}
-            {pager}
-        </div>
-    ',
-    'viewData' => array(
-        'full' => false,
-    ),
-));
+    Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-if (!Yii::app()->user->isGuest) {
-    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-    $remove_tmpl->registerTemplates();
-    $this->endWidget();
-}
+    $this->widget('zii.widgets.CListView', array(
+        'ajaxUpdate' => false,
+        'dataProvider' => $contents,
+        'itemView' => '_post',
+        'summaryText' => 'Показано: {start}-{end} из {count}',
+        'pager' => array(
+            'class' => 'AlbumLinkPager',
+        ),
+        'template' => '{items}
+            <div class="pagination pagination-center clearfix">
+                {pager}
+            </div>
+        ',
+        'viewData' => array(
+            'full' => false,
+        ),
+    ));
+
+    if (!Yii::app()->user->isGuest) {
+        $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+        $remove_tmpl->registerTemplates();
+        $this->endWidget();
+    }
 

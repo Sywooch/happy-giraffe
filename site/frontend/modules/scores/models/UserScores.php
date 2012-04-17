@@ -125,8 +125,6 @@ class UserScores extends CActiveRecord
      */
     public static function addScores($user_id, $action_id, $count = 1, $entity = null)
     {
-//        $model = self::getModel($user_id);
-
         //проверяем нужно ли добавить действие к существующему такому же, которое было недавно
         $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
         $score_value = ScoreActions::getActionScores($action_id);
@@ -138,9 +136,6 @@ class UserScores extends CActiveRecord
         }
         $input->addItem($score_value, $count, $entity);
         $input->save();
-
-//        $model->scores += $score_value * $count;
-//        $model->save();
     }
 
     /**
@@ -149,11 +144,10 @@ class UserScores extends CActiveRecord
      * @param int $action_id
      * @param int $count
      * @param CActiveRecord|array $entity
+     * @return void
      */
     public static function removeScores($user_id, $action_id, $count = 1, $entity = null)
     {
-//        $model = self::getModel($user_id);
-
         //проверяем нужно ли удалить действие из существующего такого же, которое было недавно
         $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
         $score_value = ScoreActions::getActionScores($action_id);
@@ -165,9 +159,6 @@ class UserScores extends CActiveRecord
         }
         $input->removeItem($score_value, $count, $entity);
         $input->save();
-
-//        $model->scores -= $score_value;
-//        $model->save();
     }
 
     /**
@@ -176,6 +167,7 @@ class UserScores extends CActiveRecord
      * @param $entity
      * @param $social_key
      * @param $value
+     * @return void
      */
     public static function checkViewsAndComments($model, $entity, $social_key, $value)
     {
@@ -214,6 +206,7 @@ class UserScores extends CActiveRecord
      * @static
      * @param int $user_id
      * @param int $action_id
+     * @return void
      */
     public static function checkProfileScores($user_id, $action_id)
     {
@@ -234,7 +227,7 @@ class UserScores extends CActiveRecord
             $profile_count = ScoreInput::model()->count($criteria);
             if ($profile_count == 4) {
                 $model->full = 1;
-                $model->save();
+                $model->update(array('full'));
             }
         }
     }

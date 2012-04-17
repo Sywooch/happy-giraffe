@@ -21,24 +21,25 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
+        $this->pageTitle = 'Сигналы';
         $filter = Yii::app()->request->getPost('filter');
-        if ($filter == 'null')
+        if ($filter == 'null' || empty($filter))
             $filter = null;
 
         //5 новых статей
         $criteria = new EMongoCriteria;
         $criteria->addCond('status', '==', UserSignal::STATUS_OPEN);
-        $criteria->addCond('success', '<>', (int)Yii::app()->user->getId());
-        $criteria->addCond('executors', '<>', (int)Yii::app()->user->getId());
+        $criteria->addCond('success', '<>', (int)Yii::app()->user->id);
+        $criteria->addCond('executors', '<>', (int)Yii::app()->user->id);
         $criteria->addCond('full', '==', false);
         if (Yii::app()->user->checkAccess('administrator'))
-            $criteria->limit(15);
+            $criteria->limit(5);
         else
             $criteria->limit(5);
 
         $criteria->setSort(array(
             'priority' => EMongoCriteria::SORT_ASC,
-            'user_priority' => EMongoCriteria::SORT_ASC,
+            //'user_priority' => EMongoCriteria::SORT_ASC,
             '_id' => EMongoCriteria::SORT_DESC,
         ));
         if (!empty($filter))
@@ -49,8 +50,8 @@ class DefaultController extends Controller
         //плюс те, которые он выполняет
         $criteria = new EMongoCriteria;
         $criteria->addCond('status', '==', UserSignal::STATUS_OPEN);
-        $criteria->addCond('executors', '==', (int)Yii::app()->user->getId());
-        $criteria->addCond('success', '<>', (int)Yii::app()->user->getId());
+        $criteria->addCond('executors', '==', (int)Yii::app()->user->id);
+        $criteria->addCond('success', '<>', (int)Yii::app()->user->id);
         $criteria->limit(5);
 
         $criteria->setSort(array(
@@ -64,7 +65,7 @@ class DefaultController extends Controller
 
         $models = array_merge($models2, $models);
         if (Yii::app()->request->isAjaxRequest) {
-            $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), date("Y-m-d"), 5);
+            $history = UserSignal::model()->getHistory(Yii::app()->user->id, date("Y-m-d"), 5);
                 $response = array(
                     'status' => true,
                     'tasks'=> $this->renderPartial('_data', array('models' => $models), true),
@@ -73,7 +74,7 @@ class DefaultController extends Controller
 
             echo CJSON::encode($response);
         } else {
-            $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), date("Y-m-d"), 5);
+            $history = UserSignal::model()->getHistory(Yii::app()->user->id, date("Y-m-d"), 5);
             $this->render('index', array(
                 'models' => $models,
                 'history' => $history
@@ -86,7 +87,7 @@ class DefaultController extends Controller
         $signal_id = Yii::app()->request->getPost('id');
         $signal = $this->loadModel($signal_id);
         if (!$signal->full) {
-            $signal->AddExecutor(Yii::app()->user->getId());
+            $signal->AddExecutor(Yii::app()->user->id);
             $response = array(
                 'status' => 1,
             );
@@ -102,7 +103,7 @@ class DefaultController extends Controller
     {
         $signal_id = Yii::app()->request->getPost('id');
         $signal = $this->loadModel($signal_id);
-        $signal->DeclineExecutor(Yii::app()->user->getId());
+        $signal->DeclineExecutor(Yii::app()->user->id);
         $response = array(
             'status' => 1,
         );
@@ -113,7 +114,7 @@ class DefaultController extends Controller
     public function actionHistory()
     {
         $date = Yii::app()->request->getPost('date');
-        $history = UserSignal::model()->getHistory(Yii::app()->user->getId(), $date);
+        $history = UserSignal::model()->getHistory(Yii::app()->user->id, $date);
 
         $this->renderPartial('_history', array('history' => $history));
     }
@@ -147,12 +148,5 @@ class DefaultController extends Controller
         if ($model === null)
             throw new CHttpException(404, 'Ошибка, обратитесь к разработчикам.');
         return $model;
-    }
-
-    public function actionTest()
-    {
-        $r1 = array(1,4,5,6,7);
-        array_shift($r1);
-        var_dump($r1);
     }
 }

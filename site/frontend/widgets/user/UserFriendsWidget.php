@@ -2,18 +2,19 @@
 
 class UserFriendsWidget extends UserCoreWidget
 {
-    public $limit = 8;
+    public $limit = 9;
     private $_friends;
 
     public function init()
     {
         parent::init();
-        $this->_friends = $this->user->getFriends(array(
-            'limit' => $this->limit,
-            'order' => 'RAND()',
-            'condition' => 'pic_small != \'\'',
-        ));
-        $this->visible = ! empty($this->_friends->data);
+        $criteria = new CDbCriteria;
+        $criteria->limit = $this->limit;
+        $criteria->order = 'RAND()';
+        $criteria->condition = 'avatar IS NOT NULL';
+        $this->_friends = User::model()->findAll($this->user->getFriendsCriteria($criteria));
+
+        $this->visible = ($this->isMyProfile && !empty($this->_friends)) || (count($this->_friends) >= $this->limit);
     }
 
     public function run()

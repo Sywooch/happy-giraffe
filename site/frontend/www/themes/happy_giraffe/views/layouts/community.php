@@ -2,8 +2,9 @@
 
 <?php
     $cs = Yii::app()->clientScript;
-
+    $inCommunity = (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('createClubPost', array('user'=>Yii::app()->user->getModel(),'community_id'=>$this->community->id)))?1:0;
     $js = "
+        var inClub = {$inCommunity};
         $('body').delegate('a.joinButton', 'click', function(e) {
             e.preventDefault();
 
@@ -13,17 +14,47 @@
                 success: function(response) {
                     if (response.status) {
                         $('a.club-join-btn').replaceWith(response.button);
+                        inClub = response.inClub;
                         $.fancybox.close();
                     }
                 },
                 context: $(this)
             });
         });
+
+        $('body').delegate('div.side-left div.club-fast-add a', 'click', function(e) {
+            if (inClub)
+                return true;
+            else {
+                $('a.club-join-btn').trigger('click');
+                return false;
+            }
+        });
+
+        $('body').delegate('div.default-comments .comments-meta a.btn', 'click', function(e) {
+            if (inClub)
+                return true;
+            else {
+                $('a.club-join-btn').trigger('click');
+                return false;
+            }
+        });
     ";
 
     $cs
         ->registerCssFile('/stylesheets/user.css')
         ->registerScript('joinClub', $js);
+?>
+
+<?php
+    $this->widget('zii.widgets.CBreadcrumbs', array(
+        'links' => $this->breadcrumbs,
+        'separator' => ' &gt; ',
+        'htmlOptions' => array(
+            'id' => 'crumbs',
+            'class' => null,
+        ),
+    ));
 ?>
 
 <div class="section-banner">
@@ -34,7 +65,7 @@
     <div class="main">
         <div class="main-in">
 
-            <div class="club-fast-nav">
+            <div class="club-fast-nav default-nav">
 
                 <?php
                 $this->widget('zii.widgets.CMenu', array(
@@ -48,7 +79,7 @@
                             ),
                         ),
                         array(
-                            'label' => 'Статью',
+                            'label' => 'Статьи',
                             'url' => $this->getUrl(array('content_type_slug' => 'post')),
                             'active' => $this->content_type_slug == 'post',
                             'linkOptions' => array(
@@ -56,7 +87,7 @@
                             ),
                         ),
                         array(
-                            'label' => 'Путешествие',
+                            'label' => 'Путешествия',
                             'url' => $this->getUrl(array('content_type_slug' => 'travel')),
                             'active' => $this->content_type_slug == 'travel',
                             'visible' => $this->community->id == 21,
@@ -91,57 +122,67 @@
 
     <div class="side-left">
 
-        <?php if (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('createClubPost', array('user'=>Yii::app()->user->getModel(),'community_id'=>$this->community->id))):?>
-            <div class="club-fast-add">
-                <a href="" class="btn btn-green"><span><span>Добавить</span></span></a>
-                <?php
-                $this->widget('zii.widgets.CMenu', array(
-                    'items' => array(
-                        array(
-                            'label' => 'Статью',
-                            'url' => $this->getUrl(array('content_type_slug' => 'post'), 'community/add'),
-                        ),
-                        array(
-                            'label' => 'Путешествие',
-                            'url' => array('community/addTravel'),
-                            'visible' => $this->community->id == 21,
-                        ),
-                        array(
-                            'label' => 'Видео',
-                            'url' => $this->getUrl(array('content_type_slug' => 'video'), 'community/add'),
-                        ),
-                    ),
-                ));
-                ?>
-            </div>
-        <?php endif ?>
+        <div class="club-fast-add">
+            <a href="<?=$this->getUrl(array('content_type_slug' => null), 'community/add')?>" class="btn btn-green"><span><span>Добавить</span></span></a>
+        </div>
+
+        <div class="club-topics-all-link">
+            <a href="<?=$this->getUrl(array('rubric_id' => null))?>">Все записи</a> <span class="count"><?=$this->community->getCount()?></span>
+        </div>
 
         <div class="club-topics-list">
             <?php
-                if (!Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId())) {
-                    $items = array();
-                    foreach ($this->community->rubrics as $r) {
-                        $items[] = array(
-                            'label' => $r->name,
-                            'url' => $this->getUrl(array('rubric_id' => $r->id)),
-                            'active' => $r->id == $this->rubric_id,
-                        );
-                    }
-
-                    $this->widget('zii.widgets.CMenu', array(
-                            'items' => $items,
-                        )
-                    );
-                } else {
-                    //for moderators
-                    $this->renderPartial('parts/rubrics',array(
-                        'community'=>$this->community,
-                        'content_type_slug'=>$this->content_type_slug,
-                        'current_rubric'=>$this->rubric_id
-                    ));
-                }
+                $this->renderPartial('parts/rubrics',array(
+                    'rubrics' => $this->community->rubrics,
+                    'type' => 'community',
+                ));
             ?>
         </div>
+
+        <div class="recent-topics">
+
+            <div class="title">Последние темы</div>
+
+            <ul>
+                <?php foreach ($this->community->last as $c): ?>
+                    <li><?=CHtml::link($c->name, $c->url)?></li>
+                <?php endforeach; ?>
+            </ul>
+
+        </div>
+
+        <?php if ($this->action->id == 'view'): ?>
+            <div id="yandex_ad"></div>
+            <script type="text/javascript">
+                (function(w, d, n, s, t) {
+                    w[n] = w[n] || [];
+                    w[n].push(function() {
+                        Ya.Direct.insertInto(87026, "yandex_ad", {
+                            site_charset: "utf-8",
+                            ad_format: "direct",
+                            font_size: 1,
+                            type: "vertical",
+                            limit: 1,
+                            title_font_size: 2,
+                            site_bg_color: "FFFFFF",
+                            title_color: "006699",
+                            url_color: "006699",
+                            all_color: "000000",
+                            text_color: "000000",
+                            hover_color: "6699CC"
+                        });
+                    });
+                    t = d.documentElement.firstChild;
+                    s = d.createElement("script");
+                    s.type = "text/javascript";
+                    s.src = "http://an.yandex.ru/system/context.js";
+                    s.setAttribute("async", "true");
+                    t.insertBefore(s, t.firstChild);
+                })(window, document, "yandex_context_callbacks");
+            </script>
+
+        <div class="yandexform" onclick="return {'bg': '#ffcc00', 'language': 'ru', 'encoding': 'utf-8', 'suggest': false, 'tld': 'ru', 'site_suggest': false, 'webopt': false, 'fontsize': 12, 'arrow': false, 'fg': '#000000', 'logo': 'rb', 'websearch': false, 'type': 2}"><form action="http://yandex.ru/sitesearch" method="get" target="_blank"><input type="hidden" name="searchid" value="1883818"/><input name="text"/><input type="submit" value="Найти"/></form></div><script type="text/javascript" src="http://site.yandex.net/load/form/1/form.js" charset="utf-8"></script>
+        <?php endif; ?>
     </div>
 </div>
 

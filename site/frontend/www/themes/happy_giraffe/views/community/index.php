@@ -109,7 +109,7 @@
                             <span><?php echo Rating::model()->countByEntity($data); ?></span>
                             рейтинг
                         </div>
-                        <span class="views">Просмотров: <?php echo PageView::model()->viewsByPath($data->url, true); ?></span><br>
+                        <span class="views">Просмотров: <?php echo PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true); ?></span><br>
                         <span>Комментариев: <?php echo $data->commentsCount; ?></span>
                     </div>
                 </li>

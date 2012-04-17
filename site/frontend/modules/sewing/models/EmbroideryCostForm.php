@@ -17,9 +17,6 @@ class EmbroideryCostForm extends CFormModel
     public $small_canva;
     public $user_design;
 
-    /**
-     * @var YarnProjects
-     */
     public $model;
 
     public function rules()

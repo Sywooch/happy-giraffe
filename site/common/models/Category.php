@@ -97,7 +97,7 @@ class Category extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{shop_category}}';
+        return '{{shop__category}}';
     }
 
     /**

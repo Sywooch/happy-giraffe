@@ -26,7 +26,7 @@ class PlacentaThickness extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'placentaThickness';
+		return 'placenta_thickness';
 	}
 
 	/**

@@ -89,6 +89,8 @@ class CommunityContent extends CActiveRecord
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
+
+            'editor' => array(self::BELONGS_TO, 'User', 'editor_id'),
 		);
 	}
 

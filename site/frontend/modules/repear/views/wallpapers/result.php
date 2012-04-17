@@ -1,2 +1,2 @@
-<h2>Result</h2>
-<?php print_r($calcResult) ?>
+<h2>Результат</h2>
+    нужно рулонов: <?=$calcResult['rolls'];?>

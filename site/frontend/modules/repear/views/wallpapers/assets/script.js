@@ -1,3 +1,12 @@
+$(function(){
+    $('a.remove-area').live('click', function(event){
+        $.post($(this).attr('href'), function(data){
+            $("#emptyareas").fadeOut(100,function(){$("#emptyareas").html(data);$("#emptyareas").fadeIn(100);});
+        })
+        event.preventDefault();
+    })
+})
+
 function StartCalc(){
     $.ajax({
         url: "/repear/wallpapers/calculate/",
@@ -16,7 +25,7 @@ function AddEmptyArea(){
         data: $("#empty-area-form").serialize(),
         type: "POST",
         success: function(data) {
-        $("#result").fadeOut(100,function(){$("#emptyareas").html(data);$("#result").fadeIn(100);});
+        $("#emptyareas").fadeOut(100,function(){$("#emptyareas").html(data);$("#emptyareas").fadeIn(100);});
     }
 });
 return false;

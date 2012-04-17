@@ -40,7 +40,7 @@ class MorningController extends Controller
         if (strtotime($date) == strtotime(date("Y-m-d")))
             $this->pageTitle = 'Утро с Весёлым жирафом';
         else
-            $this->pageTitle = 'Утро '. Yii::app()->dateFormatter->format("d MMMM yyyy", $date)
+            $this->pageTitle = 'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", $date)
                 . ' с Весёлым жирафом';
 
         $this->time = strtotime($date . ' 00:00:00');
@@ -58,7 +58,7 @@ class MorningController extends Controller
     public function actionView($id)
     {
         $article = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findByPk($id);
-        if ($article === null || ($article->photoPost->is_published != 1 && !Yii::app()->user->checkAccess('editMorning') ))
+        if ($article === null || ($article->photoPost->is_published != 1 && !Yii::app()->user->checkAccess('editMorning')))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->pageTitle = CHtml::encode($article->name);
@@ -90,7 +90,7 @@ class MorningController extends Controller
                         $photoPost->content_id = $post->id;
                         if ($photoPost->save())
                             $this->redirect($this->createUrl('morning/edit', array('id' => $post->id)));
-                        else{
+                        else {
                             $post->delete();
                             throw new CHttpException(402, 'Ошибка, обратитесь к разработчикам.');
                         }
@@ -108,7 +108,7 @@ class MorningController extends Controller
                 $post = CommunityContent::model()->findByPk($id);
                 $this->render('form', compact('post'));
             }
-        }else
+        } else
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
     }
 
@@ -192,7 +192,8 @@ class MorningController extends Controller
         echo CJSON::encode($response);
     }
 
-    public function actionPhoto(){
+    public function actionPhoto()
+    {
         $photo = CommunityPhoto::model()->findByPk(Yii::app()->request->getPost('id'));
         $this->renderPartial('_photo', compact('photo'));
     }
@@ -210,13 +211,16 @@ class MorningController extends Controller
         echo CJSON::encode(array('status' => false));
     }
 
-    public function actionPublicAll(){
-        $posts = CommunityPhotoPost::model()->findAll('is_published = 0');
-        foreach($posts as $post){
+    public function actionPublicAll()
+    {
+        $posts = CommunityPhotoPost::model()->findAll('is_published = 0 AND content_id IS NOT NULL ');
+        foreach ($posts as $post) {
             $post->is_published = 1;
             $post->save(false);
-            $post->content->created = date("Y-m-d H:i:s");
-            $post->content->save(false);
+            if (isset($post->content)) {
+                $post->content->created = date("Y-m-d H:i:s");
+                $post->content->save(false);
+            }
         }
         $this->redirect(Yii::app()->request->urlReferrer);
     }

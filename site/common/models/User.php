@@ -156,7 +156,7 @@ class User extends CActiveRecord
             //array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
-            array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
+            array('deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
             array('birthday', 'default', 'value' => NULL),
             array('blocked, login_date, register_date', 'safe'),

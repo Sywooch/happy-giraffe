@@ -106,7 +106,7 @@ return array(
         'signal',
         'scores',
         'servicePages',
-        'repear'
+        'repair'
 	),
 
 	// application components

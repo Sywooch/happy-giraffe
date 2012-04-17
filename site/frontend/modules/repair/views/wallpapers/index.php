@@ -14,7 +14,7 @@ $form = $this->beginWidget('CActiveForm', array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/repear/wallpapers/calculate'),
+        'validationUrl' => $this->createUrl('/repair/wallpapers/calculate'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     StartCalc();
@@ -85,16 +85,16 @@ $form = $this->beginWidget('CActiveForm', array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/repear/wallpapers/addemptyarea'),
+        'validationUrl' => $this->createUrl('/repair/wallpapers/addemptyarea'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
-                                    AddEmptyArea();
+                                    Area.create();
                                 return false;
                               }",
     )));
 ?>
 
-<?php echo $form->errorSummary($emptyArea); ?>
+<?php //echo $form->errorSummary($emptyArea); ?>
 
 <table>
     <tr>

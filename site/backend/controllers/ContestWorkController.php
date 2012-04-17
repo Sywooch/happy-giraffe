@@ -5,6 +5,13 @@ class ContestWorkController extends BController
 	public $defaultAction='admin';
     public $layout = 'shop';
 
+    public function beforeAction($action){
+        if (!Yii::app()->user->checkAccess('administrator'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        return parent::beforeAction($action);
+    }
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.

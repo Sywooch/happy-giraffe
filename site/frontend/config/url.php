@@ -17,8 +17,8 @@ return array(
 		'contest/list/<id:\d+>/<sort:\w+>' => 'contest/default/list',
 		'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
 
+        'morning/<id:\d+>' => 'morning/view',
         'morning/saveLocation' => 'morning/saveLocation',
-        'morning/view/<id:\d+>' => 'morning/view',
         'morning/index/<date:[\w-]+>' => 'morning/index',
 
 		'/' => 'site/index',

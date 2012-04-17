@@ -561,6 +561,7 @@ p {
 .morning-sidebar .calendar .days table thead td {color:#4c4c4c;font-size:22px;text-align:center;}
 .morning-sidebar .calendar .days table tbody td {width:34px;text-align:center;height:28px;font-size:16px;line-height:28px;}
 .morning-sidebar .calendar .days table tbody td a {color:#a3a3a2;}
+.morning-sidebar .calendar .days table tbody td {color:#a3a3a2;}
 .morning-sidebar .calendar .days table tbody td a:hover {text-decoration:none;}
 .morning-sidebar .calendar .days table tbody td.active {background:#fff3a0;}
 .morning-sidebar .calendar .days table tbody td.active a {color:#5d5c5c;font-weight:bold;text-decoration:none;}
@@ -576,6 +577,8 @@ p {
 .morning-main {width:700px;float:right;}
 #morning.morning-wide .morning-main {width:960px;}
 #morning.morning-wide .morning-sidebar {display:none;}
+
+#morning.morning-wide .morning-main .entry .entry-content img {width: 1000px;}
 
 
 .entry .meta {float:right;color:#737575;text-align:right;font-size:13px;overflow:hidden;padding-top:10px;}

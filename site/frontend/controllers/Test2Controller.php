@@ -231,6 +231,17 @@ class Test2Controller extends Controller
     }
 
     public function actionLol2(){
-        Favourites::updateCreatedTime();
+        $county_fk = 'SELECT `CONSTRAINT_NAME`
+              FROM `information_schema`.`REFERENTIAL_CONSTRAINTS`
+              WHERE `TABLE_NAME` = "user" AND `REFERENCED_TABLE_NAME` = "geo__country" AND CONSTRAINT_SCHEMA = "happy_giraffe2"';
+        echo Yii::app()->db->createCommand($county_fk)->queryScalar();
+
+        $city_fk = 'SELECT `CONSTRAINT_NAME` FROM `information_schema`.`REFERENTIAL_CONSTRAINTS`
+              WHERE `TABLE_NAME` = "user" AND `REFERENCED_TABLE_NAME` = "geo__rus_settlement" AND CONSTRAINT_SCHEMA = "happy_giraffe2"';
+        echo Yii::app()->db->createCommand($city_fk)->queryScalar();
+
+        $street_fk = 'SELECT `CONSTRAINT_NAME` FROM `information_schema`.`REFERENTIAL_CONSTRAINTS`
+              WHERE `TABLE_NAME` = "user" AND `REFERENCED_TABLE_NAME` = "geo__rus_street" AND CONSTRAINT_SCHEMA = "happy_giraffe2"';
+        echo Yii::app()->db->createCommand($street_fk)->queryScalar();
     }
 }

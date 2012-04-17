@@ -105,6 +105,8 @@ return array(
         'geo',
         'signal',
         'scores',
+        'servicePages',
+        'repear'
 	),
 
 	// application components

@@ -13,8 +13,6 @@
  * @property string $password
  * @property string $first_name
  * @property string $last_name
- * @property string $role
- * @property string $link
  * @property int $deleted
  * @property integer $gender
  * @property string $birthday
@@ -30,8 +28,8 @@
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
  * @property BagOfferVote[] $bagOfferVotes
- * @property ClubCommunityComment[] $clubCommunityComments
- * @property ClubCommunityContent[] $clubCommunityContents
+ * @property CommunityComment[] $clubCommunityComments
+ * @property CommunityContent[] $clubCommunityContents
  * @property ClubContest[] $clubContests
  * @property ClubContestUser[] $clubContestUsers
  * @property ClubContestWinner[] $clubContestWinners
@@ -156,7 +154,7 @@ class User extends CActiveRecord
             //array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
-            array('settlement_id, deleted', 'numerical', 'integerOnly' => true),
+            array('deleted', 'numerical', 'integerOnly' => true),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
             array('birthday', 'default', 'value' => NULL),
             array('blocked, login_date, register_date', 'safe'),
@@ -230,8 +228,6 @@ class User extends CActiveRecord
      */
     public function relations()
     {
-        Yii::import('site.frontend.modules.geo.models.GeoCountry');
-
         return array(
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
             'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),

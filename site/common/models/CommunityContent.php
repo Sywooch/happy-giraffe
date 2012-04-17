@@ -138,6 +138,7 @@ class CommunityContent extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination' => array('pageSize' => 30),
 		));
 	}
 
@@ -463,7 +464,7 @@ class CommunityContent extends CActiveRecord
 
     public function getIsFromBlog()
     {
-        return $this->getRelated('rubric')->user_id !== null;
+        return ($this->rubric_id !== null) && ($this->getRelated('rubric')->user_id !== null);
     }
 
     public function defaultScope()

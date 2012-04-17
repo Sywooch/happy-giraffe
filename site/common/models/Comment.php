@@ -18,7 +18,7 @@
  *
  * The followings are the available model relations:
  * @property User author
- * @property CommentAttach[] $commentAttaches
+ * @property AttachPhoto[] $photoAttaches
  */
 class Comment extends CActiveRecord
 {
@@ -319,11 +319,10 @@ class Comment extends CActiveRecord
     {
         if ($this->entity == 'User')
             return self::CONTENT_TYPE_ONLY_TEXT;
-        elseif (empty($this->commentAttaches))
+        elseif (empty($this->photoAttaches))
             return self::CONTENT_TYPE_DEFAULT;
-        elseif($this->commentAttaches[0]->entity == 'AlbumPhoto')
+        else
             return self::CONTENT_TYPE_PHOTO;
-        return self::CONTENT_TYPE_DEFAULT;
     }
 
     public function getRemoveDescription()
@@ -347,6 +346,6 @@ class Comment extends CActiveRecord
 
     public function isTextComment()
     {
-        return empty($this->commentAttaches);
+        return empty($this->photoAttaches);
     }
 }

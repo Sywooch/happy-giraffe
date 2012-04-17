@@ -690,7 +690,7 @@ class CommunityController extends Controller
             $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
                 'criteria' => array(
                     'condition' => 'edited = 1',
-                    'order' => 't.id ASC',
+                    'order' => 't.updated DESC',
                 ),
                 'pagination' => array(
                     'pageSize' => 100,

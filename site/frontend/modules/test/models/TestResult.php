@@ -32,7 +32,7 @@ class TestResult extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'test_result';
+		return 'test__results';
 	}
 
 	/**

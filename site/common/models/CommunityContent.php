@@ -464,7 +464,7 @@ class CommunityContent extends CActiveRecord
 
     public function getIsFromBlog()
     {
-        return $this->getRelated('rubric')->user_id !== null;
+        return ($this->rubric_id !== null) && ($this->getRelated('rubric')->user_id !== null);
     }
 
     public function defaultScope()

@@ -51,6 +51,18 @@
                 <?php if (Yii::app()->user->checkAccess('editMorning')): ?>
                     <?php $edit_url = $this->createUrl('morning/edit', array('id' => $article->id)) ?>
                     <?php echo CHtml::link('<i class="icon"></i>', $edit_url, array('class' => 'edit')); ?>
+
+                <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
+                    'model' => $article,
+                    'callback' => 'NewsRemove',
+                    'author' => Yii::app()->user->id == $article->author_id
+                ));
+                    $delete_redirect_url = $this->createUrl('/morning/index');
+
+                Yii::app()->clientScript->registerScript('register_after_removeContent', '
+                function NewsRemove() {
+                    window.location = "' . $delete_redirect_url . '";}', CClientScript::POS_HEAD);
+                ?>
                 <?php endif; ?>
 
             </div>

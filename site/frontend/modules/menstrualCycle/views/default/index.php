@@ -113,28 +113,28 @@ Yii::app()->clientScript->registerScript('woman_cycle', $js);
             <td>
                 <div class="lists_td clearfix">
                     <div class="row">
-                        <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('class' => 'chzn', 'empty' => '--')); ?>
+                        <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('class' => 'chzn', 'empty' => '-')); ?>
                         <?php echo $form->error($model, 'day'); ?>
                     </div>
                     <div class="row">
-                        <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '--')); ?>
+                        <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '-')); ?>
                         <?php echo $form->error($model, 'month'); ?>
                     </div>
                     <div class="row">
-                        <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 5, date('Y')), array('class' => 'chzn', 'empty' => '--')); ?>
+                        <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 5, date('Y')), array('class' => 'chzn', 'empty' => '-')); ?>
                         <?php echo $form->error($model, 'year'); ?>
                     </div>
                 </div>
             </td>
             <td>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'cycle'); ?>
                 </div>
             </td>
             <td>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'critical_period', HDate::Range(3, 7), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'critical_period', HDate::Range(3, 7), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'critical_period'); ?>
                 </div>
             </td>

@@ -109,19 +109,19 @@ Yii::app()->clientScript->registerScript('blood-update', $js);
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'father_d', HDate::Days(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'father_d', HDate::Days(), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'father_d'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'father_m'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'father_y'); ?>
                 </div>
             </li>
@@ -137,19 +137,19 @@ Yii::app()->clientScript->registerScript('blood-update', $js);
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'mother_d', HDate::Days(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'mother_d', HDate::Days(), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'mother_d'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'mother_m'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'mother_y'); ?>
                 </div>
             </li>
@@ -165,19 +165,19 @@ Yii::app()->clientScript->registerScript('blood-update', $js);
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'baby_d'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'baby_m'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range(1950, $year), array('class' => 'chzn', 'empty' => '--')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range(1950, $year), array('class' => 'chzn', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'baby_y'); ?>
                 </div>
             </li>

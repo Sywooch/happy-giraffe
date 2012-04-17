@@ -94,16 +94,20 @@ class SiteController extends Controller
 
 	public function actionIndex()
 	{
-        if(!Yii::app()->user->isGuest)
+/*        if(!Yii::app()->user->isGuest)
             $this->redirect(array('/user/profile', 'user_id' => Yii::app()->user->id));
-        $this->layout = '//site/index_layout';
+        $this->layout = '//site/index_layout';*/
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-		Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
+/*		Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
 		Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
         $model = new User;
 		$this->render('index', array(
             'model' => $model
-        ));
+        ));*/
+        Yii::import('site.frontend.widgets.*');
+        Yii::import('site.frontend.widgets.home.*');
+        $user = Yii::app()->user->getModel();
+        $this->render('home', compact('user'));
 	}
 
 	/**
@@ -251,7 +255,7 @@ class SiteController extends Controller
 			$authIdentity->redirect();
 		}
 
-		$user = User::model()->with('babies', 'settlement', 'social_services')->findByPk(Yii::app()->user->getId());
+		$user = User::model()->with('babies', 'settlement', 'social_services')->findByPk(Yii::app()->user->id);
 		$babies = array(
 			array('label' => 'Ждем ребенка', 'content' => array()),
 			array('label' => 'Дети в возрасте от 0 до 1', 'content' => array()),
@@ -293,5 +297,9 @@ class SiteController extends Controller
 
     public function actionContest(){
          $this->render('contest');
+    }
+
+    public function actionLink($text){
+        $this->renderPartial('link', compact('text'));
     }
 }

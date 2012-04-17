@@ -13,6 +13,7 @@ class UserController extends Controller
     {
         return array(
             'accessControl',
+            'locationForm, saveLocation + ajaxOnly'
         );
     }
 
@@ -24,7 +25,7 @@ class UserController extends Controller
                 'users' => array('*'),
             ),
             array('allow',
-                'actions' => array('myFriendRequests', 'createRelated', 'updateMood', 'score'),
+                'actions' => array('myFriendRequests', 'createRelated', 'updateMood'),
                 'users' => array('@'),
             ),
             array('deny',
@@ -35,6 +36,10 @@ class UserController extends Controller
 
     protected function beforeAction($action)
     {
+        Yii::app()->clientScript->scriptMap = array(
+            'global.css' => false,
+        );
+
         $user_id = (in_array($this->action->id, $this->_publicActions)) ? $this->actionParams['user_id'] : Yii::app()->user->id;
         $this->user = User::model()->getUserById($user_id);
         if ($this->user === null)
@@ -45,11 +50,12 @@ class UserController extends Controller
     public function actionProfile($user_id)
     {
         $this->layout = '//layouts/main';
+        $this->pageTitle = 'Анкета';
+
         Yii::import('application.widgets.user.*');
         Yii::import('site.common.models.interest.*');
-        Yii::import('application.modules.geo.models.*');
 
-        $user = User::model()->with(array(
+        $user = User::model()->active()->with(array(
             'status',
             'purpose',
         ))->findByPk($user_id);
@@ -69,6 +75,7 @@ class UserController extends Controller
 
     public function actionClubs($user_id)
     {
+        $this->pageTitle = 'Клубы';
         $this->render('clubs');
     }
 
@@ -88,6 +95,7 @@ class UserController extends Controller
 
     public function actionFriends($user_id, $show = 'all')
     {
+        $this->pageTitle = 'Друзья';
         $dataProvider = ($show == 'online') ? $this->user->getFriends('online = 1') : $this->user->getFriends();
         $dataProvider->pagination = array(
             'pageSize' => 12,
@@ -107,18 +115,6 @@ class UserController extends Controller
         $this->render('myFriendRequests', array(
             'dataProvider' => $dataProvider,
             'direction' => $direction,
-        ));
-    }
-
-    public function getUrl($overwrite = array(), $route = 'user/blog')
-    {
-        return array_filter(CMap::mergeArray(
-            array($route),
-            array(
-                'user_id' => $this->user->id,
-                'rubric_id' => $this->rubric_id,
-            ),
-            $overwrite
         ));
     }
 

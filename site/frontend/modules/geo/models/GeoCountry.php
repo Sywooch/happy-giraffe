@@ -26,7 +26,7 @@ class GeoCountry extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'geo_country';
+		return 'geo__country';
 	}
 
 	/**

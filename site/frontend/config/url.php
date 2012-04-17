@@ -17,6 +17,10 @@ return array(
 		'contest/list/<id:\d+>/<sort:\w+>' => 'contest/default/list',
 		'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
 
+        'morning/<id:\d+>' => 'morning/view',
+        'morning/saveLocation' => 'morning/saveLocation',
+        'morning/index/<date:[\w-]+>' => 'morning/index',
+
 		'/' => 'site/index',
 		'admin/' => 'admin/site/index',
 		'<controller:\w+>/admin'=>'site/index',
@@ -62,8 +66,9 @@ return array(
 
         'signal' => 'signal/default/index',
         'score' => 'scores/default/index',
-        'contest' => '/site/contest',
-        'rss' => '/site/rss',
+        'rss' => 'site/rss',
+        '/contest' => '/site/contest',
+        'search' => 'site/search',
 
         array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 

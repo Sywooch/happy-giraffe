@@ -1,4 +1,4 @@
-<?php if (Yii::app()->user->checkAccess('transfer post')):?>
+<?php if (! $c->isFromBlog && Yii::app()->user->checkAccess('transfer post')):?>
     <script id="transfer_post" type="text/x-jquery-tmpl">
         <div id="movePost" class="popup-confirm popup">
             <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
@@ -23,7 +23,7 @@
                         )
                     ); ?>
 
-                        <?php echo CHtml::dropDownList('rubric_id', $c->rubric_id, CHtml::listData($c->rubric->community->rubrics, 'id', 'name'),
+                        <?php echo CHtml::dropDownList('rubric_id', $c->rubric_id, CHtml::listData(($c->rubric->community!== null)?$c->rubric->community->rubrics:array(), 'id', 'name'),
                         array(
                             'prompt' => 'Выберите рубрику',
                             'disabled' => Yii::app()->user->checkAccess('transfer post') ? '' : 'disabled',

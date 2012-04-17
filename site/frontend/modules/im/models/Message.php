@@ -48,6 +48,7 @@ class Message extends CActiveRecord
             array('dialog_id', 'required'),
             array('read_status', 'numerical', 'integerOnly' => true),
             array('dialog_id, user_id', 'length', 'max' => 10),
+            array('read_status', 'default', 'value' => 0),
             array('text, created', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -158,7 +159,7 @@ class Message extends CActiveRecord
         //send to dialog users
         $users = DialogUser::model()->findAll('dialog_id=' . $dialog_id);
         foreach ($users as $user) {
-            if ($user->user_id !== Yii::app()->user->getId()) {
+            if ($user->user_id !== Yii::app()->user->id) {
                 $comet = new CometModel;
                 $comet->type = CometModel::TYPE_NEW_MESSAGE;
                 $comet->attributes = array(
@@ -194,13 +195,13 @@ class Message extends CActiveRecord
             $models = $models->where('dialog_id=:dialog_id AND id not in
                 (SELECT message_id FROM im__deleted_messages WHERE user_id = :user_id)', array(
                 ':dialog_id' => $dialog_id,
-                ':user_id' => Yii::app()->user->getId()
+                ':user_id' => Yii::app()->user->id
             ));
         else
             $models = $models->where('dialog_id=:dialog_id AND id > :deleted_id AND id not in
                 (SELECT message_id FROM im__deleted_messages WHERE user_id = :user_id)', array(
                 ':dialog_id' => $dialog_id,
-                ':user_id' => Yii::app()->user->getId(),
+                ':user_id' => Yii::app()->user->id,
                 ':deleted_id' => $last_deleted
             ));
 
@@ -231,14 +232,14 @@ class Message extends CActiveRecord
             $models = $models->where('dialog_id=:dialog_id AND id < :message_id AND id not in
                 (SELECT message_id FROM im__deleted_messages WHERE user_id = :user_id)', array(
                 ':dialog_id' => $dialog_id,
-                ':user_id' => Yii::app()->user->getId(),
+                ':user_id' => Yii::app()->user->id,
                 ':message_id' => $message_id
             ));
         else
             $models = $models->where('dialog_id=:dialog_id AND id < :message_id AND id > :deleted_id AND id not in
                 (SELECT message_id FROM im__deleted_messages WHERE user_id = :user_id)', array(
                 ':dialog_id' => $dialog_id,
-                ':user_id' => Yii::app()->user->getId(),
+                ':user_id' => Yii::app()->user->id,
                 ':message_id' => $message_id,
                 ':deleted_id' => $last_deleted
             ));
@@ -263,7 +264,7 @@ class Message extends CActiveRecord
             ->from('im__dialog_deleted')
             ->where('dialog_id = :dialog_id AND user_id = :user_id', array(
             ':dialog_id' => $dialog_id,
-            ':user_id' => Yii::app()->user->getId()
+            ':user_id' => Yii::app()->user->id
         ))
             ->queryScalar();
 
@@ -275,7 +276,7 @@ class Message extends CActiveRecord
      */
     public function isMessageSentByUser()
     {
-        if ($this->user_id == Yii::app()->user->getId())
+        if ($this->user_id == Yii::app()->user->id)
             return true;
         return false;
     }
@@ -289,14 +290,18 @@ class Message extends CActiveRecord
         Yii::app()->db->createCommand()
             ->insert('im__deleted_messages', array(
             'message_id' => $id,
-            'user_id' => Yii::app()->user->getId(),
+            'user_id' => Yii::app()->user->id,
         ))
             ->execute();
     }
 
     public static function getNotificationMessages($user_id)
     {
-        if (count(Im::model($user_id)->getDialogIds()) == 0)
+        $dialogs = User::getUserById($user_id)->userDialogs;
+        $dialog_ids = array();
+        foreach($dialogs as $dialogs)
+            $dialog_ids[]=$dialogs->dialog_id;
+        if (count($dialog_ids) == 0)
             return array('data' => array(), 'count' => 0);
 
         $models = Yii::app()->db->createCommand()
@@ -304,9 +309,9 @@ class Message extends CActiveRecord
             ->from('im__messages as t')
             ->where(' t.dialog_id IN (:dialogs) AND t.user_id != :user_id AND t.id not in (SELECT message_id FROM im__deleted_messages WHERE user_id = :user_id) ', array(
             ':user_id' => $user_id,
-            ':dialogs' => implode(',', Im::model($user_id)->getDialogIds())
+            ':dialogs' => implode(',', $dialog_ids)
         ))
-            ->order('t.id desc')
+            ->order('message_log.id desc')
             ->limit(3)
             ->queryAll();
 
@@ -321,6 +326,11 @@ class Message extends CActiveRecord
         $new_count = Im::getUnreadMessagesCount($user_id);
 
         return array('data' => $data, 'count' => $new_count);
+    }
+
+    public static function sortMessages($a, $b)
+    {
+        return ($a->id < $b->id) ? -1 : 1;
     }
 
     public static function getNotificationText($message)

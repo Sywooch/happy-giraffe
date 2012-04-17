@@ -26,7 +26,7 @@ class ProductPricelistSetMap extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_product_pricelist_set_map}}';
+		return '{{shop__product_pricelist_set_map}}';
 	}
 
 	/**

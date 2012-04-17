@@ -75,9 +75,9 @@ class SignupController extends CController
 				$model->social_services = array($service);
 			}
 			$model->register_date = date('Y-m-d H:i:s');
-			if($model->save())
+			if($model->save(true, array('first_name', 'password', 'email', 'gender')))
 			{	
-				foreach ($_POST['age_group'] as $k => $q)
+				/*foreach ($_POST['age_group'] as $k => $q)
 				{
 					for ($j = 0; $j < $q; $j++)
 					{
@@ -86,14 +86,18 @@ class SignupController extends CController
 						$baby->parent_id = $model->id;
 						$baby->save();
 					}
-				}
+				}*/
 				unset($session['service']);
                 $identity = new UserIdentity($model->getAttributes());
                 $identity->authenticate();
                 Yii::app()->user->login($identity);
                 $model->login_date = date('Y-m-d H:i:s');
+                $model->last_ip = $_SERVER['REMOTE_ADDR'];
                 $model->save(false);
-                $this->redirect(array('/user/profile', 'user_id' => $model->id));
+                if(!Yii::app()->request->getQuery('redirectUrl') || Yii::app()->request->getQuery('redirectUrl') == '')
+                    $this->redirect(array('/user/profile', 'user_id' => $model->id));
+                else
+                    $this->redirect(array(urldecode(Yii::app()->request->getQuery('redirectUrl'))));
 			}
 		}
 	}

@@ -5,29 +5,10 @@
  */
 class BlogWidget extends UserCoreWidget
 {
-    public $articles;
-    public $count;
-
     public function init()
     {
-        if(Yii::app()->user->isGuest || Yii::app()->user->id != $this->user->id)
-        {
-            $this->visible = false;
-            return;
-        }
-        $criteria = new CDbCriteria;
-        $criteria->compare('type_id', 1);
-        $criteria->order = 't.id desc';
-        $criteria->limit = 4;
-        $this->count = CommunityContent::model()->count($criteria);
-
-        if ($this->count == 0){
-            $this->visible = false;
-        }else{
-            $this->articles = CommunityContent::model()->full()->findAll($criteria);
-            $this->visible = true;
-        }
-        $this->viewFile = '_blog_empty';
         parent::init();
+        $this->visible = $this->isMyProfile || $this->user->blogPostsCount > 0;
+        if ($this->isMyProfile && $this->user->blogPostsCount == 0) $this->viewFile = '_blog_empty';
     }
 }

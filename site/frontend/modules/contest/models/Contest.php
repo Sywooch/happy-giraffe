@@ -126,9 +126,7 @@ class Contest extends CActiveRecord
 		return array(
 			'prizes' => array(self::HAS_MANY, 'ContestPrize', 'prize_contest_id'),
 			'users' => array(self::HAS_MANY, 'ContestUser', 'user_contest_id'),
-			'winners' => array(self::HAS_MANY, 'ContestWinner', 'winner_contest_id'),
-			'works' => array(self::HAS_MANY, 'ContestWork', 'work_contest_id'),
-
+			'works' => array(self::HAS_MANY, 'ContestWork', 'contest_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'contest_user_id'),
 		);
 	}
@@ -179,6 +177,17 @@ class Contest extends CActiveRecord
 		));
 	}
 
+    public function getIsStatement()
+    {
+        if(Yii::app()->user->isGuest)
+            return false;
+        if(ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->primaryKey)))
+            return false;
+        if(time() > strtotime($this->contest_till_time))
+            return false;
+        return true;
+    }
+
 	public function getUserCount()
 	{
 		$contestUser = new ContestUser;
@@ -195,10 +204,10 @@ class Contest extends CActiveRecord
 	{
 		$contestWork = new ContestWork;
 		return Yii::app()->db->createCommand()
-			->select('COUNT(work_id)')
+			->select('COUNT(id)')
 			->from($contestWork->tableName())
-			->where('work_contest_id=:work_contest_id', array(
-				':work_contest_id'=>$this->contest_id,
+			->where('contest_id=:contest_id', array(
+				':contest_id'=>$this->contest_id,
 			))
 			->queryScalar();
 	}

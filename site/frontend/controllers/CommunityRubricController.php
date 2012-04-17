@@ -30,24 +30,25 @@ class CommunityRubricController extends Controller
     {
         $model = new CommunityRubric;
         $model->name = Yii::app()->request->getPost('name');
-        $model->community_id = Yii::app()->request->getPost('community_id');
+        $attr = Yii::app()->request->getPost('attr');
+        $model->$attr= Yii::app()->request->getPost('attr_value');
 
-        if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array(
-            'community_id' => $model->community_id
-        ))
-        ) {
+        //if ((Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array(
+        //    'community_id' => $model->community_id
+        //)))
+        //) {
             if ($model->save()) {
                 echo CJSON::encode(array(
                     'status' => true,
-                    'html' => $this->renderPartial('/community/parts/rubric_item', array(
-                        'r' => $model,
-                        'current_rubric' => null,
-                        'content_type' => Yii::app()->request->getPost('content_type')
-                    ), true)
+                    //'html' => $this->renderPartial('/community/parts/rubric_item', array(
+                    //    'r' => $model,
+                    //    'type' => Yii::app()->request->getPost('type'),
+                    //    'current_rubric' => null,
+                    //), true)
                 ));
                 Yii::app()->end();
             }
-        }
+        //}
 
         echo CJSON::encode(array(
             'status' => false,
@@ -58,10 +59,10 @@ class CommunityRubricController extends Controller
     {
         $id = Yii::app()->request->getPost('id');
         $model = $this->loadModel($id);
-        if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array(
-            'community_id' => $model->community_id
-        ))
-        ) {
+        //if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array(
+        //    'community_id' => $model->community_id
+        //))
+        //) {
             $model->name = Yii::app()->request->getPost('name');
             if ($model->save()) {
                 echo CJSON::encode(array(
@@ -69,7 +70,7 @@ class CommunityRubricController extends Controller
                 ));
                 Yii::app()->end();
             }
-        }
+        //}
         echo CJSON::encode(array(
             'status' => false,
         ));
@@ -80,7 +81,7 @@ class CommunityRubricController extends Controller
         if (Yii::app()->request->isAjaxRequest) {
             $id = Yii::app()->request->getPost('id');
             $model = $this->loadModel($id);
-            if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->getId(), array(
+            if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array(
                 'community_id' => $model->community_id
             ))
             ) {

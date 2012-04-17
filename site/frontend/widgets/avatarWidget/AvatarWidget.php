@@ -8,6 +8,8 @@ class AvatarWidget extends CWidget
     public $small = false;
     public $friendButton = false;
     public $sendButton = true;
+    public $filled = false;
+    public $location = true;
 	
 	public function run()
 	{

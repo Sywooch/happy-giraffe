@@ -112,20 +112,24 @@
 							</div>
 						</li>
 						<li class="user">
-							<a href="">
-								<span class="ava small male"></span>
-								<span class="username">Ден<i class="arr"></i></span>
-							</a>
-							<div class="drp">
-								<div class="actions">
-									<ul>
-										<li><a href="">Мой профайл<i class="icon icon-profile"></i></a></li>
-										<li><a href="">Мои настройки<i class="icon icon-settings"></i></a></li>
-										<li><a href="">Выйти<i class="icon icon-logout"></i></a></li>
-									</ul>
-								</div>
-							</div>
-						</li>
+                                <div class="link">
+									<a class="ava male small" href="/user/profile/user_id/10020/">
+										<img src="" alt="">
+									</a>
+									<a href="/user/profile/user_id/10020/">
+                                        <span class="username">Ижецкий Денис Владимирович<i class="arr"></i></span>
+                                    </a>
+                                </div>
+                                <div class="drp">
+                                    <div class="actions">
+                                        <ul>
+                                            <li><a href="/user/profile/user_id/10020/">Мой профайл<i class="icon icon-profile"></i></a></li>
+                                            <li><a href="/profile/index/">Мои настройки<i class="icon icon-settings"></i></a></li>
+                                            <li><a href="/site/logout/">Выйти<i class="icon icon-logout"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
 					</ul>
 					
 				</div>
@@ -146,7 +150,7 @@
 						<div class="input">
 							<input type="text" />
 						</div>
-						<button class="btn btn-green-medium"><span><span>Поиск</span></span></button>					
+						<button class="btn btn-green-medium disabled"><span><span>Поиск</span></span></button>					
 					</div>
 					
 					<div class="logo-box">
@@ -424,6 +428,10 @@
 			<div class="flag-big flag-big-ua"></div>
 			<br/>
 			<div class="flag-big flag-big-kz"></div>
+			
+			<a href="javascript:void(0)" onclick="$('#ffile').trigger('click');">тест <code>$('#ffile').trigger('click');</code></a>
+			
+			<input type="file" id="ffile" />
 			
 		</div>  	
 		

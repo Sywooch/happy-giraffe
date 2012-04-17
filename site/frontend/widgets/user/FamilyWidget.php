@@ -8,6 +8,8 @@ class FamilyWidget extends UserCoreWidget
     public function init()
     {
         parent::init();
-//        $this->visible = ();
+        $this->visible = ($this->user->babyCount() > 0)
+            || ($this->user->hasPartner() && !empty($this->user->partner->name))
+            || $this->isMyProfile;
     }
 }

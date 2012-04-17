@@ -66,6 +66,8 @@ var no_more_messages = 0;
 var last_typing_time = 0;
 var scrollBar = null;
 
+var cke_instance = '<?php echo get_class($message); ?>[text]';
+
 $(function () {
     if(history.replaceState)
         history.replaceState({ path:window.location.href }, '');

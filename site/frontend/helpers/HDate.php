@@ -262,7 +262,7 @@ class HDate
         }
     }
 
-    public static function normallizeAge($year)
+    public static function ageSuffix($year)
     {
         $year = abs($year);
         $t1 = $year % 10;
@@ -302,7 +302,7 @@ class HDate
      * @param $num кол-во дней
      * @return array
      */
-    public static  function getDaysList($num)
+    public static function getDaysList($num)
     {
         $days = array('Пн','Вт','Ср','Чт','Пт','Сб','Вс');
 
@@ -316,5 +316,10 @@ class HDate
         }
 
         return $res;
+    }
+
+    public static function getStringDate($d, $m, $y){
+        //1986-08-06
+        return $y.'-'.sprintf("%02d", $m).'-'.sprintf("%02d", $d);
     }
 }

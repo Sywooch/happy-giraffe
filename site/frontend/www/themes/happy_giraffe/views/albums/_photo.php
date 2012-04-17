@@ -3,14 +3,14 @@
         <tr>
             <td class="img">
                 <div>
-                    <?php echo CHtml::link(CHtml::image($data->getPreviewUrl(180, 180)), array('/albums/photo', 'id' => $data->id)); ?>
+                    <?php echo CHtml::link(CHtml::image($data->getPreviewUrl(150, 150, Image::WIDTH)), array('/albums/photo', 'id' => $data->id)); ?>
                 </div>
             </td>
         </tr>
         <tr class="title">
             <td align="center">
                 <div>
-                    <?php echo $data->title ?>
+                    <?php echo $data->title != '' ? $data->title : '&nbsp;' ?>
                 </div>
             </td>
         </tr>

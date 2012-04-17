@@ -3,7 +3,7 @@ $cs = Yii::app()->clientScript;
 $js = "Comment.save_url = " . CJavaScript::encode(Yii::app()->createUrl('ajax/sendcomment'));
 $cs->registerScript('comment_widget_form', $js);
 ?>
-<?php $this->render('list', array('dataProvider' => $dataProvider)); ?>
+<?php $this->render('list', array('dataProvider' => $dataProvider,'type'=>$type)); ?>
 
 <?php if (!Yii::app()->user->isGuest): ?>
 <div class="new_comment" id="new_comment_wrapper">
@@ -41,4 +41,19 @@ $cs->registerScript('comment_widget_form', $js);
     </div>
     <?php $this->endWidget(); ?>
 </div>
+
+    <div style="display: none;">
+        <div class="upload-btn" id="refresh_upload">
+            <?php
+            $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                'model' => new Comment(),
+            ));
+            $fileAttach->button();
+            $this->endWidget();
+            ?>
+        </div>
+    </div>
 <?php endif; ?>
+<script type="text/javascript">
+    var cke_instance = 'Comment_text';
+</script>

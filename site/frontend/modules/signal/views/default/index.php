@@ -4,7 +4,29 @@
  * @var $history UserSignal[]
  */
 
-Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+
+$js = "Signal.takeSignalUrl = '". Yii::app()->createUrl("/signal/default/take") ."';
+        Signal.declineSignalUrl = '". Yii::app()->createUrl("/signal/default/decline") ."';
+        Signal.calendarUrl = '". Yii::app()->createUrl("/signal/default/calendar") ."';
+        Signal.historyUrl = '". Yii::app()->createUrl("/signal/default/history") ."';
+        Signal.signalUrl = '". Yii::app()->createUrl("/signal/default/index") ."';
+        Signal.removeUrl = '". Yii::app()->createUrl("/signal/default/removeAll") ."';
+
+        comet.addEvent(".CometModel::TYPE_SIGNAL_UPDATE.", 'UpdateTable');
+        comet.addEvent(".CometModel::TYPE_SIGNAL_EXECUTED.", 'TaskExecuted');
+
+        Signal.year = ". date('Y') .";
+        Signal.month = ". date('n') .";
+        Signal.current_date = '". date("Y-m-d")  ."';";
+
+$cs = Yii::app()->clientScript;
+$cs
+    ->registerScriptFile('/javascripts/soundmanager2.js', CClientScript::POS_HEAD)
+    ->registerScriptFile($baseUrl . '/signal.js', CClientScript::POS_END)
+    ->registerScript('SignalInit', $js);
+
 ?>
 <div class="fast-calendar">
     <?php $this->renderPartial('_calendar', array(
@@ -23,7 +45,6 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
     <ul>
         <li class="active"><a href="" obj="">Все</a></li>
         <li><a href="" obj="<?php echo UserSignal::TYPE_NEW_USER_POST ?>">Посты</a></li>
-        <!--        <li><a href="" obj="--><?php //echo UserSignal::TYPE_NEW_USER_POST ?><!--">Клубы</a></li>-->
         <li><a href="" obj="<?php echo UserSignal::TYPE_NEW_USER_VIDEO ?>">Видео</a></li>
         <li><a href="" obj="<?php echo UserSignal::TYPE_NEW_BLOG_POST ?>">Блоги</a></li>
         <li><a href="" obj="<?php echo UserSignal::TYPE_NEW_USER_PHOTO ?>">Фото</a></li>
@@ -32,11 +53,11 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
 </div>
 
 <div class="clear"></div>
-<input type="checkbox" id="play_sound" checked /> <label for="play_sound">Проигрывать звук</label>
-<?php if (Yii::app()->user->getId() == 10):?>
-<br><a href="#" onclick="removeHistory()">Очистить всё</a>
+<input type="checkbox" id="play_sound" checked/> <label for="play_sound">Проигрывать звук</label>
+<?php if (Yii::app()->user->id == 10): ?>
+<br><a href="#" onclick="Signal.removeHistory();">Очистить всё</a>
 <?php endif ?>
-
+<a href="#" onclick="Signal.Play('yes');return false;" style="display: none;">Play</a>
 <div class="main-list">
     <?php $this->renderPartial('_data', array('models' => $models)); ?>
 </div>
@@ -46,169 +67,3 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/soundmanager2.js');
 </div>
 
 <!--<a href="#" onclick="Play();">play</a>-->
-
-<script type="text/javascript">
-    var filter = null;
-    var year = <?php echo date('Y') ?>;
-    var month = <?php echo date('n') ?>;
-    var current_date = '<?php echo date("Y-m-d")  ?>';
-
-    soundManager.url = '/swf/soundmanager2.swf';
-
-    $(function () {
-        $('body').delegate('a.take-task', 'click', function () {
-            var id = $(this).prev().val();
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/signal/default/take") ?>',
-                data:{id:id},
-                type:'POST',
-                dataType:'JSON',
-                success:function (response) {
-                    if (response.status == 1) {
-                        var id = $(this).prev().val();
-                        $(this).hide();
-                        $(this).next().show();
-
-                    } else {
-                        UpdateSignalData();
-                    }
-                },
-                context:$(this)
-            });
-            return false;
-        });
-
-        $('body').delegate('a.remove', 'click', function () {
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/signal/default/decline") ?>',
-                data:{id:$(this).parents('td.actions').find('input').val()},
-                type:'POST',
-                dataType:'JSON',
-                success:function (response) {
-                    if (response.status) {
-                        UpdateSignalData();
-                    }
-                },
-                context:$(this)
-            });
-            return false;
-        });
-
-        $('.nav li a').click(function () {
-            filter = $(this).attr('obj');
-            $('.nav li').removeClass('active');
-            $(this).parent().addClass('active');
-            UpdateSignalData();
-            return false;
-        });
-
-        $('body').delegate('.fast-calendar .prev', 'click', function (e) {
-            e.preventDefault();
-            month--;
-            if (month == 0) {
-                year--;
-                month = 12;
-            }
-
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/signal/default/calendar") ?>',
-                data:{month:month, year:year, current_date:current_date},
-                type:'POST',
-                success:function (response) {
-                    $('div.fast-calendar').html(response);
-                },
-                context:$(this)
-            });
-        });
-
-        $('body').delegate('.fast-calendar .next', 'click', function (e) {
-            e.preventDefault();
-            month++;
-            if (month == 13) {
-                year++;
-                month = 1;
-            }
-
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/signal/default/calendar") ?>',
-                data:{month:month, year:year, current_date:current_date},
-                type:'POST',
-                success:function (response) {
-                    $('div.fast-calendar').html(response);
-                },
-                context:$(this)
-            });
-        });
-
-        $('body').delegate('.fast-calendar tbody a', 'click', function (e) {
-            e.preventDefault();
-
-            current_date = year.toString() + '-' + AddZero(month) + '-' + AddZero($(this).text());
-
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/signal/default/history") ?>',
-                data:{date:current_date},
-                type:'POST',
-                success:function (response) {
-                    $('.fast-list').html(response);
-                    $('.fast-calendar tbody td').removeClass('active');
-                    $(this).parent().addClass('active');
-                },
-                context:$(this)
-            });
-        });
-
-        comet.addEvent(<?php echo CometModel::TYPE_SIGNAL_UPDATE ?>, 'UpdateTable');
-        comet.addEvent(<?php echo CometModel::TYPE_SIGNAL_EXECUTED ?>, 'TaskExecuted');
-    });
-
-    Comet.prototype.UpdateTable = function (result, id) {
-        UpdateSignalData();
-    }
-
-    Comet.prototype.TaskExecuted = function (result, id) {
-        UpdateSignalData();
-    }
-
-    function AddZero(num) {
-        num = parseInt(num);
-        if (num < 10)
-            return '0' + num.toString();
-        else
-            return num.toString();
-    }
-
-    function UpdateSignalData() {
-        Play();
-
-        $.ajax({
-            url:'<?php echo Yii::app()->createUrl("/signal/default/index") ?>',
-            type:'POST',
-            data:{filter:filter},
-            dataType:'JSON',
-            success:function (response) {
-                $('div.main-list').html(response.tasks);
-                $('div.fast-list').html(response.history);
-            }
-        });
-    }
-
-    function Play(){
-        if ($('#play_sound').attr("checked") != 'checked')
-            return ;
-        // создание объекта "звук"
-        soundManager.createSound('myNewSound','/audio/notify.wav');
-
-        // установка громкости и воспроизведение
-        soundManager.play('myNewSound');
-        soundManager.setVolume('myNewSound',50);
-        soundManager.setPan('myNewSound',-100);;
-    }
-
-    function removeHistory(){
-        $.ajax({
-            url:'<?php echo Yii::app()->createUrl("/signal/default/removeAll") ?>',
-            type:'POST'
-        });
-    }
-</script>

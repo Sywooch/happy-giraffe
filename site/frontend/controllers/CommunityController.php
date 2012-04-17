@@ -1,6 +1,4 @@
 <?php
-Yii::import('site.frontend.modules.geo.models.*');
-
 class CommunityController extends Controller
 {
 
@@ -27,7 +25,7 @@ class CommunityController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map', 'rewrite', 'postRewrite'),
                 'users'=>array('*'),
             ),
             array('allow',
@@ -42,6 +40,8 @@ class CommunityController extends Controller
 
     public function actionIndex()
     {
+        $this->pageTitle = 'Клубы';
+
         $categories = array(
             'Дети' => array(
                 'items' => array(
@@ -61,17 +61,7 @@ class CommunityController extends Controller
         );
         $communities = Community::model()->public()->findAll();
 
-        $criteria = new EMongoCriteria;
-        $criteria->sort('sum', EMongoCriteria::SORT_DESC);
-        $criteria->entity_name('==', 'CommunityContent');
-        $criteria->limit(5);
-        $ratings = Rating::model()->findAll($criteria);
-        $top5 = array();
-        foreach($ratings as $rate)
-        {
-            array_push($top5, CommunityContent::model()->full()->findByPk($rate->entity_id));
-        }
-
+        $top5 = Rating::model()->findTopWithEntity('CommunityContent', 5);
         $this->render('index', array(
             'communities' => $communities,
             'categories' => $categories,
@@ -79,9 +69,6 @@ class CommunityController extends Controller
         ));
     }
 
-    /**
-     * @sitemap dataSource=getCommunityUrls
-     */
     public function actionList($community_id, $rubric_id = null, $content_type_slug = null)
     {
         $this->layout = '//layouts/community';
@@ -102,6 +89,16 @@ class CommunityController extends Controller
 
         $contents = CommunityContent::model()->getContents($community_id, $rubric_id, $content_type_slug);
 
+        $crumbs = array();
+        $crumbs['Клубы'] = array('/community');
+        if ($rubric_id !== null) {
+            $crumbs[$this->community->name] = $this->community->url;
+            $crumbs[] = $rubric->name;
+        } else {
+            $crumbs[] = $this->community->name;
+        }
+        $this->breadcrumbs = $crumbs;
+
         $this->render('list', array(
             'contents' => $contents,
         ));
@@ -109,15 +106,16 @@ class CommunityController extends Controller
 
     public function getUrl($overwrite = array(), $route = 'community/list')
     {
-        return array_filter(CMap::mergeArray(
-            array($route),
+        $params = array_filter(CMap::mergeArray(
             array(
                 'community_id' => $this->community->id,
-                'rubric_id' => $this->rubric_id,
-                'content_type_slug' => $this->content_type_slug,
+                'rubric_id' => isset($this->actionParams['rubric_id']) ? $this->actionParams['rubric_id'] : null,
+                'content_type_slug' => isset($this->actionParams['content_type_slug']) ? $this->actionParams['content_type_slug'] : null,
             ),
             $overwrite
         ));
+
+        return $this->createUrl($route, $params);
     }
 
     /**
@@ -138,12 +136,19 @@ class CommunityController extends Controller
         $this->rubric_id = $content->rubric->id;
         $this->content_type_slug = $content_type_slug;
 
-        $this->pageTitle = (! empty($content->meta_title)) ? $content->meta_title : $this->pageTitle = $content->name;
+        $this->pageTitle = (empty($content->meta_title)) ? $content->name : $content->name . ' \\ ' . $content->meta_title;
 
         if ($content->author_id == Yii::app()->user->id) {
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
             UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
         }
+
+        $this->breadcrumbs = array(
+            'Клубы' => array('/community'),
+            $this->community->name => $this->community->url,
+            $content->rubric->name => $content->rubric->url,
+            $content->name,
+        );
 
         $this->render('view', array(
             'data' => $content,
@@ -152,52 +157,59 @@ class CommunityController extends Controller
 
     public function actionEdit($content_id)
     {
-        $content_id = (int) $content_id;
-        $content_model = CommunityContent::model()->full()->findByPk($content_id);
-        if ($content_model === null)
-        {
-            throw new CHttpException(404, 'Такой записи не существует.');
-        }
-        if ($content_model->author_id != Yii::app()->user->getId() &&
-            !Yii::app()->authManager->checkAccess('removeCommunityContent', Yii::app()->user->getId(),
-                array('community_id'=>$content_model->rubric->community_id)) &&
-            !Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->getId())
-        ) {
+        $model = CommunityContent::model()->full()->findByPk($content_id);
+        if ($model === null)
+            throw CHttpException(404, 'Запись не найдена');
+
+        $this->community = $model->rubric->community;
+        $community_id = $model->rubric->community->id;
+        $rubric_id = $model->rubric->id;
+
+        if (
+            $model->author_id != Yii::app()->user->id &&
+            ! Yii::app()->authManager->checkAccess('removeCommunityContent', Yii::app()->user->id, array('community_id' => $community_id)) &&
+            ! Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->id)
+        )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        }
-        $communities = Community::model()->findAll();
-        $slave_model = $content_model->{$content_model->type->slug};
+
+        $content_type = $model->type;
+        $slave_model = $model->content;
         $slave_model_name = get_class($slave_model);
+
+        $communities = Community::model()->findAll();
+        $rubrics = ($community_id == '') ? array() : CommunityRubric::model()->findAllByAttributes(array('community_id' => $community_id));
 
         if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
         {
-            $content_model->attributes = $_POST['CommunityContent'];
+            $model->attributes = $_POST['CommunityContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
-            //$slave_model->attributes = $_POST;
-            $valid = $content_model->validate();
+
+            $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
 
             if ($valid)
             {
-                $content_model->save();
-                $slave_model->save();
-                $this->redirect(array('community/view', 'community_id' => $content_model->rubric->community->id,
-                    'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
+                $model->save(false);
+                $slave_model->content_id = $model->id;
+                $slave_model->save(false);
+                $this->redirect($model->url);
             }
         }
 
-        $this->render('edit', array(
-            'communities' => $communities,
-            'content_model' => $content_model,
+        $this->render('form', array(
+            'model' => $model,
             'slave_model' => $slave_model,
-            'community' => $content_model->rubric->community,
-            'content_type' => $content_model->type,
+            'communities' => $communities,
+            'rubrics' => $rubrics,
+            'community_id' => $community_id,
+            'rubric_id' => $rubric_id,
+            'content_type_slug' => $content_type->slug,
         ));
     }
 
     public function actionTransfer()
     {
-        if (!Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->getId()))
+        if (!Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->id))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $model = CommunityContent::model()->findByPk(Yii::app()->request->getPost('id'));
@@ -226,59 +238,51 @@ class CommunityController extends Controller
         echo CJSON::encode($response);
     }
 
-    public function actionAdd($community_id, $rubric_id = null, $content_type_slug = 'post', $blog = false)
+    public function actionAdd($community_id = null, $rubric_id = null, $content_type_slug = 'post')
     {
-        if (!$blog && !Yii::app()->user->checkAccess('createClubPost', array(
-            'user'=>Yii::app()->user->getModel(),
-            'community_id'=>$community_id)))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        if (! Yii::app()->user->checkAccess('createClubPost', array(
+            'user' => Yii::app()->user->model,
+            'community_id' => $community_id,
+        )))
+            throw new CHttpException(403, 'Запрашиваемая вами страница не найдена.');
 
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
-        if (! $content_type)
-        {
-            throw new CHttpException(404, 'Такого раздела не существует.');
-        }
-        $community = Community::model()->with('rubrics')->findByPk($community_id);
-        if (! $community)
-        {
-            throw new CHttpException(404, 'Такого сообщества не существует.');
-        }
-        $content_types = CommunityContentType::model()->findAll();
-        $content_model = new CommunityContent;
-        $content_model->rubric_id = $rubric_id;
-        $content_model->author_id = Yii::app()->user->id;
+        $model = new CommunityContent('default');
+        $model->author_id = Yii::app()->user->id;
+        $model->type_id = $content_type->id;
+        $model->rubric_id = $rubric_id;
         $slave_model_name = 'Community' . ucfirst($content_type->slug);
         $slave_model = new $slave_model_name;
 
+        $this->community = Community::model()->findByPk($community_id);
+        $communities = Community::model()->findAll();
+        $rubrics = ($community_id === null) ? array() : CommunityRubric::model()->findAllByAttributes(array('community_id' => $community_id));
+
         if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
         {
-            $content_model->attributes = $_POST['CommunityContent'];
+            $model->attributes = $_POST['CommunityContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
-            //$slave_model->attributes = $_POST;
 
-            $valid = $content_model->validate();
+            $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
 
             if ($valid)
             {
-                $content_model->save(false);
-                $slave_model->content_id = $content_model->id;
+                $model->save(false);
+                $slave_model->content_id = $model->id;
                 $slave_model->save(false);
-                $this->redirect(array('community/view', 'community_id' => $community_id, 'content_type_slug' => $content_model->type->slug, 'content_id' => $content_model->id));
+                $this->redirect($model->url);
             }
         }
 
-        $rubrics = $blog ? Yii::app()->user->model->blog_rubrics : $community->rubrics;
-
-        $this->render('add', array(
-            'content_model' => $content_model,
+        $this->render('form', array(
+            'model' => $model,
             'slave_model' => $slave_model,
+            'communities' => $communities,
             'rubrics' => $rubrics,
-            'content_types' => $content_types,
-            'content_type' => $content_type,
             'community_id' => $community_id,
             'rubric_id' => $rubric_id,
-            'blog' => $blog,
+            'content_type_slug' => $content_type->slug,
         ));
     }
 
@@ -290,7 +294,7 @@ class CommunityController extends Controller
         $content_types = CommunityContentType::model()->findAll();
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => 'travel'));
 
-        $content_model = new CommunityContent;
+        $content_model = new CommunityContent('default');
         $content_model->rubric_id = $rubric_id;
         $content_model->author_id = Yii::app()->user->id;
         $slave_model = new CommunityTravel;
@@ -363,6 +367,7 @@ class CommunityController extends Controller
             'community_id' => $community_id,
             'rubric_id' => $rubric_id,
             'waypoints' => $waypoints,
+            'blog' => false,
         ));
     }
 
@@ -572,17 +577,126 @@ class CommunityController extends Controller
                     'button' => $this->renderPartial('_joinButton', array(
                         'community_id' => $community_id,
                     ), true),
+                    'inClub' => ($action == 'join')
                 );
             }
             else {
                 $response = array(
                     'status' => false,
+                    'inClub' => ($action == 'join')
                 );
             }
 
             echo CJSON::encode($response);
         } else {
             $this->redirect(Yii::app()->request->urlReferrer);
+        }
+    }
+
+    public function actionPurify($by_happy_giraffe = 1)
+    {
+        $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
+            'criteria' => array(
+                'condition' => 'by_happy_giraffe = :by AND type_id = 1 AND rubric.community_id IS NOT NULL',
+                'params' => array(':by' => $by_happy_giraffe),
+                'order' => 't.id ASC',
+            ),
+        ));
+
+        $this->render('purify', array(
+            'dp' => $dp,
+        ));
+    }
+
+    public function actionPing2()
+    {
+        $key = '';
+        $login = '';
+        $search_id = '';
+
+        $urls = '';
+        $contents = CommunityContent::model()->findByAttributes(array(
+            'by_happy_giraffe' => true,
+        ));
+        foreach ($contents as $c) {
+            $urls .= $c->url . "%0A";
+        }
+
+        $data = array(
+            'key' => $key,
+            'login' => $login,
+            'search_id' => $search_id,
+            'urls' => $urls,
+        );
+
+        $ch = curl_init("http://site.yandex.ru/ping.xml");
+        curl_setopt($ch, CURLOPT_POST, true);
+
+    }
+
+    public function actionPing()
+    {
+        $contents = CommunityContent::model()->findAllByAttributes(array(
+            'by_happy_giraffe' => true,
+        ), array(
+            'limit' => 100,
+            'order' => 'id ASC',
+        ));
+
+        foreach ($contents as $c) {
+            echo $c->url . '<br />';
+        }
+    }
+
+    public function actionMap()
+    {
+        $contents = CommunityContent::model()->findAllByAttributes(array(
+            'by_happy_giraffe' => true,
+        ), array(
+            'limit' => 100,
+            'offset' => 100,
+            'order' => 'id ASC',
+        ));
+
+        $this->render('map', array(
+            'contents' => $contents,
+        ));
+    }
+
+    public function actionRewrite()
+    {
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 'editor_id = :editor_id',
+                'params' => array(':editor_id' => Yii::app()->user->id),
+                'order' => 't.id ASC',
+            ),
+            'pagination' => array(
+                'pageSize' => 100,
+            ),
+        ));
+
+        $this->render('rewrite', array(
+            'dp' => $dp,
+        ));
+    }
+
+    public function actionPostRewrite()
+    {
+        if (Yii::app()->user->id == 18 || Yii::app()->user->id == 23) {
+            $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
+                'criteria' => array(
+                    'condition' => 'edited = 1',
+                    'order' => 't.id ASC',
+                ),
+                'pagination' => array(
+                    'pageSize' => 100,
+                ),
+            ));
+
+            $this->render('rewrite', array(
+                'dp' => $dp,
+            ));
         }
     }
 }

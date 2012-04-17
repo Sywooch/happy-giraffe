@@ -23,3 +23,5 @@ site/backend/www/upload/*/*
 /site/common/uploads/photos/originals
 /site/common/uploads/photos/thumbs
 /site/common/uploads/photos/temp
+/site/frontend/www/assets
+/site/common/uploads/photos/avatars

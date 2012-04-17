@@ -1,86 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "{{contest_work}}".
+ * This is the model class for table "club_contest_work".
  *
- * The followings are the available columns in table '{{contest_work}}':
- * @property string $work_id
- * @property string $work_user_id
- * @property string $work_contest_id
- * @property string $work_title
- * @property string $work_text
- * @property string $work_image
- * @property string $work_time
- * @property integer $work_status
+ * The followings are the available columns in table 'club_contest_work':
+ * @property string $id
+ * @property string $contest_id
+ * @property string $user_id
+ * @property integer $title
+ * @property string $created
+ * @property integer $rate
  *
- * rel
+ * The followings are the available model relations:
  * @property User $user
- * @property Contest $contest
- * @property array[int]ContestWorkComment $comments
- * @property int $commentCount
- *
+ * @property ClubContest $contest
  */
 class ContestWork extends CActiveRecord
 {
-	public function behaviors()
-	{
-		return array(
-			'behavior_ufiles' => array(
-				'class' => 'ext.ufile.UFileBehavior',
-				'fileAttributes'=>array(
-					'work_image'=>array(
-						'fileName'=>'upload/contest/*/<date>-{work_id}-<name>.<ext>',
-						'fileItems'=>array(
-							'thumb' => array(
-								'fileHandler' => array('FileHandler', 'run'),
-								'resize' => array(
-									'width' => 170,
-									'height' => 180,
-								),
-							),
-							'big' => array(
-								'fileHandler' => array('FileHandler', 'run'),
-								'resize' => array(
-									'width' => 700,
-									'height' => 9999,
-									'master' => Image::WIDTH,
-								),
-							),
-							'original' => array(
-								'fileHandler' => array('FileHandler', 'run'),
-							),
-						)
-					),
-				),
-			),
-//			'attribute_set' => array(
-//				'class'=>'attribute.AttributeSetBehavior',
-//				'table'=>'shop_product_attribute_set',
-//				'attribute'=>'product_attribute_set_id',
-//			),
-			'getUrl' => array(
-				'class' => 'ext.geturl.EGetUrlBehavior',
-				'route' => 'product/view',
-				'dataField' => array(
-					'id' => 'product_id',
-					'title' => 'product_slug',
-				),
-			),
-			'statuses' => array(
-				'class' => 'ext.status.EStatusBehavior',
-				// Поле зарезервированное для статуса
-				'statusField' => 'product_status',
-				'statuses' => array(
-					0 => 'deleted',
-					1 => 'published',
-					2 => 'view only',
-				),
-			),
-		);
-	}
+    public $file;
 
 	/**
 	 * Returns the static model of the specified AR class.
+	 * @param string $className active record class name.
 	 * @return ContestWork the static model class
 	 */
 	public static function model($className=__CLASS__)
@@ -93,7 +34,7 @@ class ContestWork extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{club_contest_work}}';
+		return 'club_contest_work';
 	}
 
 	/**
@@ -104,22 +45,12 @@ class ContestWork extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('work_title, work_image', 'required'),
-			array('work_status', 'numerical', 'integerOnly'=>true),
-			array('work_user_id, work_contest_id', 'length', 'max'=>10),
-			array('work_title, work_image', 'length', 'max'=>250),
-			array('work_text', 'safe'),
-
-			array('work_time', 'default', 'value' => time()),
-			array('work_status', 'default', 'value' => 1),
-			array('work_user_id', 'default', 'value' => Yii::app()->user->id),
-//----------------------SImageUploadBehavior------------------------
-			array('work_image', 'file', 'types'=>'jpg, gif, png'), //Опционально
-			array('work_image', 'unsafe'), //Обязательно
-//----------------------SImageUploadBehavior------------------------
+			array('contest_id, user_id, title', 'required'),
+			array('id, contest_id, user_id, rate', 'length', 'max'=>10),
+            array('file', 'required', 'on' => 'upload', 'message' => 'Необходимо выбрать фотографию'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('work_id, work_user_id, work_contest_id, work_title, work_text, work_image, work_time, work_status', 'safe', 'on'=>'search'),
+			array('id, contest_id, user_id, title, created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -131,10 +62,22 @@ class ContestWork extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'author' => array(self::BELONGS_TO, 'User', 'work_user_id'),
-			'contest' => array(self::BELONGS_TO, 'Contest', 'work_contest_id'),
+			'author' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'contest' => array(self::BELONGS_TO, 'Contest', 'contest_id'),
+            'photo' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => '`photo`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
 		);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => null,
+            )
+        );
+    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -142,14 +85,11 @@ class ContestWork extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'work_id' => 'Work',
-			'work_user_id' => 'Work User',
-			'work_contest_id' => 'Work Contest',
-			'work_title' => 'Work Title',
-			'work_text' => 'Work Text',
-			'work_image' => 'Work Image',
-			'work_time' => 'Work Time',
-			'work_status' => 'Work Status',
+			'id' => 'ID',
+			'contest_id' => 'Contest',
+			'user_id' => 'User',
+			'title' => 'Название фото',
+			'created' => 'Created',
 		);
 	}
 
@@ -157,57 +97,55 @@ class ContestWork extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($sort = false)
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('work_id',$this->work_id,true);
-		$criteria->compare('work_user_id',$this->work_user_id,true);
-		$criteria->compare('work_contest_id',$this->work_contest_id,true);
-		$criteria->compare('work_title',$this->work_title,true);
-		$criteria->compare('work_text',$this->work_text,true);
-		$criteria->compare('work_image',$this->work_image,true);
-		$criteria->compare('work_time',$this->work_time,true);
-		$criteria->compare('work_status',$this->work_status);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('contest_id',$this->contest_id,true);
+		$criteria->compare('user_id',$this->user_id,true);
+		$criteria->compare('title',$this->title);
+		$criteria->compare('created',$this->created,true);
+
+        if($sort)
+        {
+            $criteria->order = $sort . ' desc';
+        }
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination' => array(
+                'pageSize' => 25,
+            ),
 		));
 	}
 
-	protected function beforeSave()
-	{
-		if($this->getIsNewRecord())
-		{
-			$command = Yii::app()->db->createCommand();
+    public function afterSave()
+    {
+        if ($this->isNewRecord){
+            UserScores::addScores($this->user_id, ScoreActions::ACTION_CONTEST_PARTICIPATION, 1, $this);
+        }
 
-			$contestUser = new ContestUser;
+        parent::afterSave();
+    }
 
-			$contestUser = $command
-				->update($contestUser->tableName(), array(
-					'user_work_count'=>new CDbExpression('user_work_count+1'),
-				), 'user_user_id=:user_user_id AND user_contest_id=:user_contest_id',array(
-					':user_user_id'=>Yii::app()->user->id,
-					':user_contest_id'=>$this->work_contest_id,
-				));
-		}
-		return parent::beforeSave();
-	}
-	
-	public function get($contest_id, $sort)
-	{
-		return new CActiveDataProvider('ContestWork', array(
-			'criteria' => array(
-				'condition' => 'work_contest_id=:contest_id',
-				'params' => array(':contest_id' => $contest_id),
-				'order' => $sort . ' DESC',
-			),
-			'pagination' => array(
-				'pageSize' => 15,
-			),
-		));
-	}
+    public function getNeighboringWorks()
+    {
+        $prev = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where contest_id = ' . $this->contest_id . ' and id < ' . $this->id . ' limit 1')->queryRow();
+        $next = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where contest_id = ' . $this->contest_id . ' and id > ' . $this->id . ' limit 1')->queryRow();
+        return array(
+            'prev' => $prev ? $prev['id'] : false,
+            'next' => $next ? $next['id'] : false
+        );
+    }
+
+    public function getParedDownTitle()
+    {
+        if(!file_exists($this->photo->photo->getPreviewPath(150, 150)))
+            return false;
+        $photo_size = getimagesize($this->photo->photo->getPreviewUrl(150, 150));
+        $width = $photo_size[0];
+        $text = Str::truncate($this->title, 0.54*$width);
+        return $text;
+    }
 }

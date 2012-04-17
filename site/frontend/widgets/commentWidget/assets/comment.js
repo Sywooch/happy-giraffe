@@ -3,30 +3,40 @@ var Comment;
 Comment = {
     seleted_text:null,
     save_url:null,
-    getInstance : function() {
+    toolbar:null,
+    saveCommentUrl:null,
+    entity:null,
+    entity_id:null,
+    getInstance:function () {
         var instance = CKEDITOR.instances['Comment_text'];
-        if(instance)
+        if (instance)
             return instance;
         return false;
     },
-    createInstance : function() {
+    createInstance:function () {
         var instance = this.getInstance();
-        if(instance)
+        if (instance) {
             instance.destroy(true);
-        CKEDITOR.replace('Comment_text');
+        }
+        CKEDITOR.replace('Comment_text', {toolbar:this.toolbar});
     },
     moveForm:function (container) {
         var instance = this.getInstance();
-        if(instance)
+        if (instance)
             instance.destroy(true);
         var form = $('#add_comment').clone(true);
         $('#add_comment').remove();
         form.appendTo(container).show();
         this.createInstance();
     },
-    newComment:function () {
+    newComment:function (event) {
         this.cancel();
         this.moveForm($('#new_comment_wrapper'));
+    },
+    newPhotoComment:function (event) {
+        this.cancel();
+        Attach.attachGuestPhoto = true;
+        $('.upload-btn .photo.Comment a').trigger('click');
     },
     clearVariables:function () {
         Comment.clearResponse();
@@ -132,6 +142,7 @@ Comment = {
                         $.fn.yiiListView.update('comment_list', {data:{lastPage:true}});
                     var editor = Comment.getInstance();
                     editor.setData('');
+                    editor.destroy();
                     Comment.cancel();
                 }
             }
@@ -160,6 +171,11 @@ Comment = {
         this.selected_text = txt != '' ? txt : null;
     }
 };
+
+function addMenuToggle(el) {
+    $(el).parents('.add-menu').find('ul').toggle();
+    $(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
+}
 
 $(function () {
     $('.default-comments').delegate('.content-in', 'mousedown', function () {

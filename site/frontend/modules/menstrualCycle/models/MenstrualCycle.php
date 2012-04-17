@@ -181,7 +181,7 @@ class MenstrualCycle extends CActiveRecord
         if (Yii::app()->user->isGuest)
             return;
 
-        $user_id = Yii::app()->user->getId();
+        $user_id = Yii::app()->user->id;
         $user_cycle = self::GetUserCycle($user_id);
 
         if ($user_cycle === NULL) {

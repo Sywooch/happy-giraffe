@@ -201,4 +201,47 @@ class Test2Controller extends Controller
     {
         echo Yii::app()->user->model->delFriend(10097);
     }
+
+    public function actionSmiles(){
+        if ($handle = opendir('C:/WebServers/happy-giraffe/site/frontend/www/images/widget/smiles')) {
+
+            //
+            //'<td><a onclick="epic_func_smile(this);return false;" href=""><img src="/images/widget/smiles/acute.gif"></a></td>'+
+            echo '<table>';
+            echo "<tr>";
+            $i=1;
+            while (false !== ($entry = readdir($handle))) if ($entry !== '.' && $entry!='..'){
+                echo "<td>";
+                echo "<a onclick=\"epic_func_smile(this);return false;\" href=\"\"><img src=\"/images/widget/smiles/".$entry."\"></a></td>";
+                echo "</td>";
+                if ($i % 8 == 0)
+                    echo "</tr><tr>";
+
+                $i++;
+            }
+            while ($entry = readdir($handle)) {
+                echo "'$entry',\n";
+            }
+
+            echo "</tr>";
+            echo '</table>';
+
+            closedir($handle);
+        }
+    }
+
+    public function actionLol2(){
+        $county_fk = 'SELECT `CONSTRAINT_NAME`
+              FROM `information_schema`.`REFERENTIAL_CONSTRAINTS`
+              WHERE `TABLE_NAME` = "user" AND `REFERENCED_TABLE_NAME` = "geo__country" AND CONSTRAINT_SCHEMA = "happy_giraffe2"';
+        echo Yii::app()->db->createCommand($county_fk)->queryScalar();
+
+        $city_fk = 'SELECT `CONSTRAINT_NAME` FROM `information_schema`.`REFERENTIAL_CONSTRAINTS`
+              WHERE `TABLE_NAME` = "user" AND `REFERENCED_TABLE_NAME` = "geo__rus_settlement" AND CONSTRAINT_SCHEMA = "happy_giraffe2"';
+        echo Yii::app()->db->createCommand($city_fk)->queryScalar();
+
+        $street_fk = 'SELECT `CONSTRAINT_NAME` FROM `information_schema`.`REFERENTIAL_CONSTRAINTS`
+              WHERE `TABLE_NAME` = "user" AND `REFERENCED_TABLE_NAME` = "geo__rus_street" AND CONSTRAINT_SCHEMA = "happy_giraffe2"';
+        echo Yii::app()->db->createCommand($street_fk)->queryScalar();
+    }
 }

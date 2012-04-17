@@ -40,7 +40,7 @@ class RecipeBookDisease extends CActiveRecord
      */
     public function tableName()
     {
-        return 'recipeBook_disease';
+        return 'recipe_book__diseases';
     }
 
     /**

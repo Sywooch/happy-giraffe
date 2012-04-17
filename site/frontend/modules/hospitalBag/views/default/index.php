@@ -36,7 +36,8 @@
 
 	$cs
 		->registerCoreScript('jquery.ui')
-		->registerScript('service_bag', $js);
+		->registerScript('service_bag', $js)
+        ->registerMetaTag('noindex', 'robots');
 ?>
 
 <div class="section-banner" style="margin:0;">

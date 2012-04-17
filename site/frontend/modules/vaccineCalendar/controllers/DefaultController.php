@@ -60,7 +60,7 @@ class DefaultController extends Controller
             }
             $vaccineDate = $this->LoadVaccineDate($id);
             $vaccineDate->vote(array(
-                'user_id' => Yii::app()->user->getId(),
+                'user_id' => Yii::app()->user->id,
                 'baby_id' => $baby_id), $vote);
             $vaccineDate->refresh();
 

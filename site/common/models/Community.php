@@ -22,7 +22,7 @@ class Community extends CActiveRecord
 				->select('type_id, count(*)')
 				->from('club_community_content c')
 				->join('club_community_rubric r', 'r.id=c.rubric_id')
-				->where('r.community_id = :community_id', array(':community_id' => $this->id))
+				->where('r.community_id = :community_id AND c.removed = 0', array(':community_id' => $this->id))
 				->group('c.type_id')
 				->queryAll();
 				
@@ -153,6 +153,16 @@ class Community extends CActiveRecord
     {
         return Yii::app()->createUrl('community/list', array(
             'community_id' => $this->id,
+        ));
+    }
+
+    public function getLast()
+    {
+        return CommunityContent::model()->full()->findAll(array(
+            'limit' => 10,
+            'order' => 'created DESC',
+            'condition' => 'community.id = :community_id',
+            'params' => array(':community_id' => $this->id),
         ));
     }
 }

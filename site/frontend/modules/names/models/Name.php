@@ -150,6 +150,15 @@ class Name extends CActiveRecord
         );
     }
 
+    public function scopes()
+    {
+        return array(
+            'filled'=>array(
+                'condition'=>' description IS NOT NULL '
+            )
+        );
+    }
+
     public function GetShort($attribute){
         $len = 80;
         if (strlen($this->getAttribute($attribute)) > $len){
@@ -244,7 +253,7 @@ class Name extends CActiveRecord
     {
         if (Yii::app()->user->isGuest)
             return array();
-        $user_id = Yii::app()->user->getId();
+        $user_id = Yii::app()->user->id;
         $data = Yii::app()->db->createCommand()
             ->select('name_id')
             ->from('name_likes')

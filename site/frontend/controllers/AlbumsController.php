@@ -7,8 +7,10 @@ class AlbumsController extends Controller
 
     public function beforeAction($action)
     {
-        if(!Yii::app()->request->isAjaxRequest)
+        if(!Yii::app()->request->isAjaxRequest){
+            $this->pageTitle = 'Фотоальбомы';
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js');
+        }
         return parent::beforeAction($action);
     }
 
@@ -16,6 +18,7 @@ class AlbumsController extends Controller
     {
         return array(
             'accessControl',
+            'attach + ajaxOnly'
         );
     }
 
@@ -36,14 +39,15 @@ class AlbumsController extends Controller
         );
     }
 
-    public function actionIndex()
+    public function actionIndex($permission = false, $system = false)
     {
         $user = Yii::app()->user->model;
         $this->user = $user;
-        $dataProvider = Album::model()->findByUser(Yii::app()->user->id);
+        $dataProvider = Album::model()->findByUser(Yii::app()->user->id, $permission, $system);
         $this->render('index', array(
             'dataProvider' => $dataProvider,
             'user' => $user,
+            'access' => true,
         ));
     }
 
@@ -53,10 +57,12 @@ class AlbumsController extends Controller
         $this->user = $user;
         if(!$user)
             throw new CHttpException(404, 'Пользователь не найден');
-        $dataProvider = Album::model()->findByUser($id);
+        $scopes = !Yii::app()->user->isGuest && Yii::app()->user->id == $id ? array() : array('noSystem');
+        $dataProvider = Album::model()->findByUser($id, false, false, $scopes);
         $this->render('index', array(
             'dataProvider' => $dataProvider,
             'user' => $user,
+            'access' => $id == Yii::app()->user->id
         ));
     }
 
@@ -73,7 +79,7 @@ class AlbumsController extends Controller
                 'params' => array(':album_id' => $model->id),
             ),
             'pagination' => array(
-                'pageSize' => Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 1000 : 20
+                'pageSize' => !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 1000 : 20
             )
         ));
 
@@ -84,35 +90,24 @@ class AlbumsController extends Controller
         ));
     }
 
-    public function actionCreate($id = false)
+    public function actionAddPhoto($a = false, $text = false, $u = false)
     {
-        $this->user = Yii::app()->user->model;
-        $model = $id ? Album::model()->findByPk($id) : new Album;
-        if($model->isNewRecord)
-            $model->author_id = Yii::app()->user->id;
-        if(isset($_POST['ajax']) && $_POST['ajax']==='album-form')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-        if(isset($_POST['Album']))
-        {
-            $model->attributes = $_POST['Album'];
-            if(isset($_POST['Photo']))
-                $model->files = $_POST['Photo'];
-            if($model->save())
-                $this->redirect($id === false ? array('albums/index') : array('albums/view', 'id' => $id));
-        }
-        $this->render('form', array('model' => $model));
-    }
-
-    public function actionAddPhoto($a = false)
-    {
-        if($a && $a != 'false')
+        if($a && $a != 'false' && $a != 0)
         {
             $album = Album::model()->findByPk($a);
             if (!$album)
                 throw new CHttpException(404, 'Альбом не найден');
+        }
+        else if($text && $u)
+        {
+            if(!$album = Album::model()->findByAttributes(array('author_id' => $u, 'title' => $text)))
+            {
+                $album = new Album();
+                $album->title = $text;
+                $album->author_id = $u;
+                $album->save();
+            }
+            $a = $album->id;
         }
         else
             $album = false;
@@ -120,14 +115,20 @@ class AlbumsController extends Controller
         if (isset($_FILES['Filedata']))
         {
             $file = CUploadedFile::getInstanceByName('Filedata');
+            if (!in_array($file->extensionName, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
+                Yii::app()->end();
             $model = new AlbumPhoto();
 
+            echo '<div id="serverData">';
             // Загрузка в новый альбом
             if(!$a || $a == 'false')
             {
                 $model->file = $file;
                 $model->saveFile(true);
-                echo $model->templateUrl . '||' . $model->fs_name;
+                echo "<script type='text/javascript'>
+                document.domain = document.location.host;
+                </script>";
+                echo '<p id="params">' . $model->templateUrl . '||' . $model->fs_name . '</p>';
                 Yii::app()->end();
             }
 
@@ -136,8 +137,9 @@ class AlbumsController extends Controller
             $model->file = $file;
             $model->create();
 
-            echo $model->originalUrl . '||' . $model->fs_name . '||' . $model->id;
-
+            echo '<p id="params">' . $model->originalUrl . '||' . $model->fs_name . '||' . $model->id . '</p>';
+            echo CHtml::dropDownList('album_id', $album ? $album->id : false, CHtml::listData(Album::model()->findAllByAttributes(array('author_id' => $album->author_id)), 'id', 'title'), array('class' => 'chzn chzn-deselect w-200', 'id' => 'album_select', 'data-placeholder' => 'Выбрать альбом', 'empty' => '', 'onchange' => 'Album.changeAlbum(this);'));
+            echo '</div>';
             Yii::app()->end();
         }
 
@@ -180,8 +182,6 @@ class AlbumsController extends Controller
 
     public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)
     {
-        if(!Yii::app()->request->isAjaxRequest)
-            Yii::app()->end();
         Yii::app()->clientScript->scriptMap['*.js'] = false;
         Yii::app()->clientScript->scriptMap['*.css'] = false;
         $this->renderPartial('attach_widget', compact('entity', 'entity_id', 'mode', 'a'), false, true);
@@ -219,12 +219,175 @@ class AlbumsController extends Controller
         $model->save();
     }
 
-    public function actionEditPhotoTitle($id)
+    public function actionEditPhotoTitle()
     {
+        $id = Yii::app()->request->getPost('id');
         $model = AlbumPhoto::model()->findByPk($id);
         if(!Yii::app()->request->isAjaxRequest || Yii::app()->user->id != $model->author_id || ($title = Yii::app()->request->getPost('title')) === false)
             Yii::app()->end();
         $model->title = $title;
         $model->save();
+    }
+
+    private function saveImage($val)
+    {
+        if(is_numeric($val))
+        {
+            $model = AlbumPhoto::model()->findByPk($val);
+            if(!$model)
+                Yii::app()->end();
+            $src = $model->getPreviewUrl(300, 185, Image::WIDTH);
+        }
+        else
+        {
+            $model = new AlbumPhoto;
+            $model->fs_name = $val;
+            $src = $model->templateUrl;
+        }
+        return array(
+            'src' => $src,
+            'id' => $model->primaryKey,
+        );
+    }
+
+    public function actionCommentPhoto()
+    {
+        if(!$val = Yii::app()->request->getPost('val'))
+            Yii::app()->end();
+
+        if(is_numeric($val))
+        {
+            $model = AlbumPhoto::model()->findByPk($val);
+            if(!$model)
+                Yii::app()->end();
+        }
+        else
+        {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            if($title = Yii::app()->request->getPost('title'))
+                $model->title = CHtml::encode($title);
+            $model->create(true);
+        }
+
+        if ($entity_id = Yii::app()->request->getPost('entity_id')){
+            $comment = new Comment;
+            $comment->entity = Yii::app()->request->getPost('entity');;
+            $comment->entity_id = $entity_id;
+            $comment->author_id = Yii::app()->user->id;
+            if ($comment->save()){
+                $attach = new AttachPhoto;
+                $attach->entity = 'Comment';
+                $attach->entity_id = $comment->id;
+                $attach->photo_id = $model->id;
+                if ($attach->save())
+                    echo CJSON::encode(array('status' => true));
+            }
+        }else{
+            $attach = new AttachPhoto;
+            $attach->entity = 'Comment';
+            $attach->entity_id = 0;
+            $attach->photo_id = $model->id;
+            $attach->save();
+
+            echo CJSON::encode(array(
+                'src' => $model->getPreviewUrl(650, 650),
+                'id' => $model->primaryKey,
+                'title' => $model->title,
+            ));
+            Yii::app()->end();
+        }
+    }
+
+    public function actionCrop()
+    {
+        if(!$val = Yii::app()->request->getPost('val'))
+            Yii::app()->end();
+
+        $params = $this->saveImage($val);
+
+        $this->renderPartial('site.frontend.widgets.fileAttach.views._crop', array(
+            'src' => $params['src'],
+            'val' => $val,
+        ));
+        Yii::app()->end();
+    }
+
+    public function actionChangeAvatar()
+    {
+        if(!isset($_POST['val']))
+            Yii::app()->end();
+        $val = $_POST['val'];
+
+        if(is_numeric($val))
+        {
+            $photo = AlbumPhoto::model()->findByPk($val);
+        }
+        else
+        {
+            $photo = new AlbumPhoto;
+            $photo->file_name = $val;
+            $photo->author_id = Yii::app()->user->id;
+            if(!$photo->create(true))
+                Yii::app()->end();
+        }
+        $src = $photo->originalPath;
+
+        $params = CJSON::decode($_POST['coords']);
+        $picture = new Imagick($src);
+        $picture->resizeimage($_POST['width'], $_POST['height'], imagick::COLOR_OPACITY, 1);
+        $picture->cropimage($params['w'], $params['h'], $params['x'], $params['y']);
+
+        $a1 = clone $picture;
+        $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);
+        $a1->writeImage($photo->getAvatarPath('small'));
+
+        $a2 = clone $picture;
+        $a2->resizeimage(72, 72, imagick::COLOR_OPACITY, 1);
+        $a2->writeImage($photo->getAvatarPath('ava'));
+
+        $attach = new AttachPhoto;
+        $attach->entity = 'User';
+        $attach->entity_id = Yii::app()->user->id;
+        $attach->photo_id = $photo->id;
+        $attach->save();
+
+        User::model()->updateByPk(Yii::app()->user->id, array('avatar' => $photo->id));
+        UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_PHOTO);
+
+        echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
+    }
+
+    public function actionChangeTitle()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $title = Yii::app()->request->getPost('title');
+        if(!$id || !$title)
+            Yii::app()->end();
+        $model = Album::model()->findByPk($id);
+        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+            Yii::app()->end();
+        $model->updateByPk($id, array('title' => $title));
+    }
+
+    public function actionChangePermission()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $num = Yii::app()->request->getPost('num');
+        $model = Album::model()->findByPk($id);
+        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+            Yii::app()->end();
+        $model->updateByPk($id, array('permission' => $num));
+    }
+
+    public static function loadUploadScritps()
+    {
+        $baseUrl = Yii::app()->baseUrl . '/javascripts/file_upload/';
+        Yii::app()->clientScript->registerCoreScript('jquery')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js')
+            ->registerScriptFile($baseUrl . '/' . 'swfupload.js')
+            ->registerScriptFile($baseUrl . '/' . 'jquery.swfupload.js')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/scrollbarpaper.js');
     }
 }

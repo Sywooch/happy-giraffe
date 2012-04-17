@@ -152,7 +152,7 @@ class Dialog extends CActiveRecord
      */
     public static function GetUserOnlineDialogs()
     {
-        $dialogs = self::GetUserDialogsWithoutStatus(Yii::app()->user->getId());
+        $dialogs = self::GetUserDialogsWithoutStatus(Yii::app()->user->id);
         $online = array();
         foreach ($dialogs as $dialog) {
             if ($dialog->GetInterlocutor()->online)
@@ -167,7 +167,7 @@ class Dialog extends CActiveRecord
      */
     public static function GetUserDialogs()
     {
-        return self::CheckReadStatus(self::GetUserDialogsWithoutStatus(Yii::app()->user->getId()));
+        return self::CheckReadStatus(self::GetUserDialogsWithoutStatus(Yii::app()->user->id));
     }
 
     public static function GetUserDialogsCount($user_id)
@@ -267,7 +267,7 @@ class Dialog extends CActiveRecord
         Yii::app()->db->createCommand()
             ->delete('im__dialog_deleted', 'dialog_id = :dialog_id AND user_id =:user_id', array(
             'dialog_id' => $this->id,
-            'user_id' => Yii::app()->user->getId(),
+            'user_id' => Yii::app()->user->id,
         ));
 
         if (isset($this->lastMessage)) {
@@ -277,7 +277,7 @@ class Dialog extends CActiveRecord
                 ->insert('im__dialog_deleted', array(
                 'dialog_id' => $this->id,
                 'message_id' => $last_message,
-                'user_id' => Yii::app()->user->getId(),
+                'user_id' => Yii::app()->user->id,
             ));
             Yii::app()->db->createCommand()
                 ->update('im__messages', array(
@@ -285,7 +285,7 @@ class Dialog extends CActiveRecord
                 ),
                 'dialog_id =:dialog_id AND user_id != :user_id AND read_status=0', array(
                     ':dialog_id' => $this->id,
-                    ':user_id' => Yii::app()->user->getId(),
+                    ':user_id' => Yii::app()->user->id,
                 )
             );
         }
@@ -296,7 +296,7 @@ class Dialog extends CActiveRecord
     static function getUnreadMessagesCount($id, $user_id = null)
     {
         if ($user_id === null)
-            $user_id = Yii::app()->user->getId();
+            $user_id = Yii::app()->user->id;
 
         return Yii::app()->db->createCommand()
             ->select('count(t.id)')

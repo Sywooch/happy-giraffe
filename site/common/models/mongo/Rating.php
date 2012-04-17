@@ -23,6 +23,28 @@ class Rating extends EMongoDocument
         );
     }
 
+    public function clearSocials()
+    {
+        $models = $this->findAll();
+        foreach($models as $item)
+        {
+            if($item->entity_name == 'ContestWork')
+                continue;
+            if(isset($item->ratings['fb']))
+                unset($item->ratings['fb']);
+            if(isset($item->ratings['vk']))
+                unset($item->ratings['vk']);
+            if(isset($item->ratings['tw']))
+                unset($item->ratings['tw']);
+            if(isset($item->ratings['mr']))
+                unset($item->ratings['mr']);
+            if(isset($item->ratings['gp']))
+                unset($item->ratings['gp']);
+            $item->sum = array_sum($item->ratings);
+            $item->save();
+        }
+    }
+
     public function findByEntity($entity)
     {
         $entity_id = (int)$entity->primaryKey;
@@ -66,9 +88,13 @@ class Rating extends EMongoDocument
         $old_sum = $model->sum;
         $model->sum = array_sum($model->ratings);
 
+        if(isset($entity->rate))
+        {
+            $entity->rate = $model->sum;
+            $entity->save(false);
+        }
+
         if (isset($entity->author_id)){
-            //add scores to author
-            Yii::import('site.frontend.modules.scores.models.*');
             UserScores::addScores($entity->author_id, ScoreActions::ACTION_LIKE, $model->sum - $old_sum, $entity);
         }
 
@@ -120,5 +146,33 @@ class Rating extends EMongoDocument
             default : $count = 0;
         }
         Rating::model()->saveByEntity($entity, $social_key, $count);
+    }
+
+    public function findTopWithEntity($entity, $limit)
+    {
+        $models = array();
+        $criteria = new EMongoCriteria;
+        $criteria->entity_name('==', 'CommunityContent');
+        $criteria->sort('sum', EMongoCriteria::SORT_DESC);
+
+        $ratings = $this->findAll($criteria);
+
+        $i = 0;
+        foreach($ratings as $rating)
+        {
+            if($i == $limit)
+                break;
+
+            $model = call_user_func(array($entity, 'model'));
+            if($entity == 'CommunityContent')
+                $model->full();
+            $m = $model->findByPk($rating->entity_id);
+            if(!$m)
+                continue;
+            array_push($models, $m);
+
+            $i++;
+        }
+        return $models;
     }
 }

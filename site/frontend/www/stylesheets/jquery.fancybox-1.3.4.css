@@ -69,7 +69,7 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
-	background: #f8feff;
+	background: #fff;
 }
 
 #fancybox-content {
@@ -193,14 +193,14 @@
 	width: 20px;
 	height: 20px;
 	z-index: 1001;
-	background-image: url('../images/bg_popup_corner.png');
+	background-image: url('../images/bg_popup_2_corner.png');
 }
 
 #fancybox-bg-n {
 	top: -20px;
 	left: 0;
 	width: 100%;
-	background-image: url('../images/bg_popup_v.png');
+	background-image: url('../images/bg_popup_2_v.png');
 }
 
 #fancybox-bg-ne {
@@ -213,7 +213,7 @@
 	top: 0;
 	right: -20px;
 	height: 100%;
-	background-image: url('../images/bg_popup_h.png');
+	background-image: url('../images/bg_popup_2_h.png');
 	background-position: -20px 0px;
 }
 
@@ -227,7 +227,7 @@
 	bottom: -20px;
 	left: 0;
 	width: 100%;
-	background-image: url('../images/bg_popup_v.png');
+	background-image: url('../images/bg_popup_2_v.png');
 	background-position: 0px -20px;
 }
 
@@ -241,7 +241,7 @@
 	top: 0;
 	left: -20px;
 	height: 100%;
-	background-image: url('../images/bg_popup_h.png');
+	background-image: url('../images/bg_popup_2_h.png');
 }
 
 #fancybox-bg-nw {

@@ -2,8 +2,8 @@
  * User: alexk984
  * Date: 14.03.12
  */
-
 var im = new Im;
+
 Comet.prototype.NewMessage = function (result, id) {
     if (window.ShowNewMessage) {
         ShowNewMessage(result);
@@ -20,7 +20,6 @@ Comet.prototype.ShowChangeStatus = function (result, id) {
         StatusChanged(result);
     im.OnlineCount(result);
 }
-
 comet.addEvent(1, 'NewMessage');
 comet.addEvent(3, 'ShowChangeStatus');
 
@@ -28,7 +27,6 @@ comet.addEvent(3, 'ShowChangeStatus');
 function Im() {
     this.GetLastUrl = '';
 }
-
 Im.prototype.ShowMiniMessage = function (result) {
     im.ShowNewMessagesCount(result.unread_count);
 

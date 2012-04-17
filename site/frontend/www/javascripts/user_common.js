@@ -27,6 +27,24 @@ $(function() {
             }
         })
     });
+
+    $('body').delegate('div.user-weather #forecast-link', 'click', function(){
+        $('#today-weather').fadeOut(250, function(){
+            $('#forecast').fadeIn(250);
+        });
+        return false;
+    });
+
+    $('body').delegate('div.user-weather #today-link', 'click', function(){
+        $('#forecast').fadeOut(250, function(){
+            $('#today-weather').fadeIn(250);
+        });
+        return false;
+    });
+
+    $('#change_ava').delegate('a.renew', 'click', function() {
+        $('#change_ava > div.photo > a').trigger('click');
+    });
 });
 
 function updateNotifications(count, data)
@@ -94,5 +112,4 @@ function deleteFriend(el, user_id) {
             }
         }
     });
-
 }

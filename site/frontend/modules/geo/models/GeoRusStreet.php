@@ -24,7 +24,7 @@ class GeoRusStreet extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{geo_rus_street}}';
+		return '{{geo__rus_street}}';
 	}
 
 	/**

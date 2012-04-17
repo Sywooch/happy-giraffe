@@ -22,71 +22,35 @@ class AddressForm extends CFormModel
 
     /**
      * @param User $user
+     * @throws CHttpException
+     * @return void
      */
     public function saveAddress($user)
     {
-        if (!empty($this->country_id)) {
-            $user->country_id = $this->country_id;
-            //var_dump($this->city_id, $this->region_id);
-            if (!empty($this->city_id) && !empty($this->region_id)) {
-                $user->settlement_id = $this->city_id;
-            } elseif (!empty($this->city_name) && !empty($this->region_id)) {
-                // check city
-                $city = GeoRusSettlement::model()->findByAttributes(array('name' => trim($this->city_name)));
-                if($city)
-                    $user->settlement_id = $city->id;
-                else
-                {
-                    //add new city
-                    $city = new GeoRusSettlement();
-                    $city->name = CHtml::encode($this->city_name);
-                    $city->region_id = $this->region_id;
-                    if (!empty($this->district_id))
-                        $city->district_id = $this->district_id;
-                    $city->by_user = 1;
-                    if (!$city->save()) {
-                        throw new CHttpException(404, 'Ошибка при добавлении населенного пункта.');
-                    }
-                    $user->settlement_id = $city->id;
-                }
-            } else {
-                $user->settlement_id = null;
-                $user->street_id = null;
-                $user->house = null;
-                $user->room = null;
-                return;
-            }
+        $user->userAddress->country_id = (!empty($this->country_id)) ? $this->country_id : null;
+        $user->userAddress->region_id = (!empty($this->region_id)) ? $this->region_id : null;
+        if (empty($this->city_id) && !empty($this->city_name) && !empty($this->region_id)) {
+            // check city
+            $city = GeoCity::model()->findByAttributes(array('name' => trim($this->city_name)));
+            if ($city)
+                $user->userAddress->city_id = $city->id;
+            else {
+                //add new city
+                $city = new GeoCity();
+                $city->name = CHtml::encode($this->city_name);
+                $city->country_id = $this->country_id;
+                $city->region_id = $this->region_id;
 
-            if (!empty($this->street_id) && !empty($this->city_id)) {
-                if (empty($this->street_name))
-                    $user->street_id = null;
-                else
-                    $user->street_id = $this->street_id;
-            } elseif (!empty($this->street_name) && !empty($this->city_id)) {
-                //add new street
-                $street = new GeoRusStreet();
-                $street->name = $this->street_name;
-                $street->settlement_id = $this->city_id;
-                $street->by_user = 1;
-                if (!$street->save()) {
-                    throw new CHttpException(404, 'Ошибка при добавлении улицы.');
-                }
-                $user->street_id = $street->id;
-            } else {
-                $user->street_id = null;
-                $user->house = null;
-                $user->room = null;
-                return;
+                if (!$city->save())
+                    throw new CHttpException(404, 'Ошибка при добавлении населенного пункта.');
+                $user->userAddress->city_id = $city->id;
             }
-
-            $user->house = $this->house;
-            $user->room = $this->room;
         } else {
-            $user->country_id = null;
-            $user->settlement_id = null;
-            $user->street_id = null;
-            $user->house = null;
-            $user->room = null;
+            if (!empty($this->city_id))
+                $user->userAddress->city_id = $this->city_id;
+            else
+                $user->userAddress->city_id = null;
         }
+        $user->userAddress->save();
     }
 }

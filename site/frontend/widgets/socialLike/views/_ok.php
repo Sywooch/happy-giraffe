@@ -6,7 +6,7 @@ foreach($this->options as $key => $value)
     ));
 }
 ?>
-<a onclick="return Social.open('ok', this.href, 'Опубликовать ссылку в Одноклассниках', 800, 300, this);"
+<a onclick="return Social.open('ok', this.href, 'ok', 800, 300, this);"
    href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?php echo urlencode($this->options['url']); ?>"
    rel="nofollow"
    title="Поделиться с друзьями в Одноклассниках"

@@ -1,29 +1,55 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
+<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
+<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
-	
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/common.css'); ?>
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/registration.css'); ?>
-	
-	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-	
-	<?php Yii::app()->clientScript->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css'); ?>
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js'); ?>
-	
-	<?php Yii::app()->clientScript->registerScriptFile('/javascripts/common.js'); ?>
-    <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.placeholder.min.js'); ?>
-	
-	<!--[if IE 7]>
-		<?php Yii::app()->clientScript->registerCssFile('/stylesheets/ie.css'); ?>
-	<![endif]-->
-	
+    <?php echo CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type'); ?>
+
+    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+
+    <?php
+        $cs = Yii::app()->clientScript;
+
+        $cs
+            ->registerCssFile('/stylesheets/common.css')
+            ->registerCssFile('/stylesheets/registration.css')
+            ->registerCoreScript('jquery')
+            ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
+            ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js')
+            ->registerScriptFile('/javascripts/common.js')
+            ->registerCssFile('/stylesheets/ie.css', 'screen')
+        ;
+    ?>
 </head>
 <body>
 
-<?php echo $content; ?>
+<div>
+
+    <div id="registration">
+
+        <div class="header clearfix">
+
+            <div class="a-right login-link">
+                <span class="login-q">&mdash; Если Вы уже зарегистрированы?</span>
+                <a href="#login" class="btn btn-orange fancy"><span><span>Вход на сайт</span></span></a>
+            </div>
+
+            <div class="logo-box"><a title="hg.ru" class="logo">Ключевые слова сайта</a></div>
+
+        </div>
+
+        <div class="content">
+
+            <?php echo $content; ?>
+
+        </div>
+
+
+    </div>
+
+    <?php $this->widget('application.widgets.loginWidget.LoginWidget', array(
+        'onlyForm' => true,
+    )); ?>
+
 </body>
 </html>

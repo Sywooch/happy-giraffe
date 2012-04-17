@@ -29,8 +29,9 @@ class UserNotification extends EMongoDocument
             'templates' => array(
                 'CommunityContent' => '{comments} к вашей записи {post} в клубе {club}',
                 'RecipeBookRecipe' => '{comments} к вашей записи {post} в сервисе {recipeBook}',
-                'User' => '{records} в гостевой книге',
                 'AlbumPhoto' => '{comments} к фотографии {photo} в альбомe {album}',
+                'BlogContent' => '{comments} к вашей записи {post} в вашем блоге',
+                'User' => '{records} в гостевой книге',
             ),
         ),
         self::NEW_REPLY => array(
@@ -45,7 +46,7 @@ class UserNotification extends EMongoDocument
             'method' => 'deleted',
             'templates' => array(
                 'CommunityContent' => 'Ваша запись {post} в клубе {club} удалена по причине {deleteReason}',
-                'Comment' => 'Ваш комментарий к записи {post} в клубе {club} по причине {deleteReason}',
+                'Comment' => 'Ваш комментарий к записи {post} в клубе {club} удален по причине {deleteReason}',
             ),
         ),
         self::TRANSFERRED => array(
@@ -268,6 +269,12 @@ class UserNotification extends EMongoDocument
                     '{post}' => $entity->name,
                     '{club}' => $entity->rubric->community->name,
                     '{rubric}' => $entity->rubric->name,
+                );
+                break;
+            case 'BlogContent':
+                $params = array(
+                    '{post}' => $entity->name,
+
                 );
                 break;
             case 'AlbumPhoto':

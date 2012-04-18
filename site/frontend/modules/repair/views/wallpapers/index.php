@@ -14,7 +14,7 @@ $form = $this->beginWidget('CActiveForm', array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/repear/wallpapers/calculate'),
+        'validationUrl' => $this->createUrl('/repair/wallpapers/calculate'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     StartCalc();
@@ -24,7 +24,7 @@ $form = $this->beginWidget('CActiveForm', array(
 ?>
 
 
-<?php echo $form->errorSummary($model); ?>
+<?php //echo $form->errorSummary($model); ?>
 
 <table>
     <tr>
@@ -85,23 +85,29 @@ $form = $this->beginWidget('CActiveForm', array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/repear/wallpapers/addemptyarea'),
+        'validationUrl' => $this->createUrl('/repair/wallpapers/addemptyarea'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
-                                    AddEmptyArea();
+                                    Area.create();
                                 return false;
                               }",
     )));
 ?>
 
-<?php echo $form->errorSummary($emptyArea); ?>
+<?php //echo $form->errorSummary($emptyArea); ?>
 
 <table>
     <tr>
-        <td><?php echo $form->labelEx($emptyArea, 'length') ?></td>
-        <td><?php echo $form->textField($emptyArea, 'length') ?></td>
+        <td><?php echo $form->labelEx($emptyArea, 'title') ?></td>
+        <td><?php echo $form->textField($emptyArea, 'title') ?></td>
+        <td>&nbsp;</td>
+        <td><?php echo $form->error($emptyArea, 'title') ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $form->labelEx($emptyArea, 'height') ?></td>
+        <td><?php echo $form->textField($emptyArea, 'height') ?></td>
         <td>м</td>
-        <td><?php echo $form->error($emptyArea, 'length') ?></td>
+        <td><?php echo $form->error($emptyArea, 'height') ?></td>
     </tr>
     <tr>
         <td><?php echo $form->labelEx($emptyArea, 'width') ?></td>
@@ -109,12 +115,7 @@ $form = $this->beginWidget('CActiveForm', array(
         <td>м</td>
         <td><?php echo $form->error($emptyArea, 'width') ?></td>
     </tr>
-    <tr>
-        <td><?php echo $form->labelEx($emptyArea, 'title') ?></td>
-        <td><?php echo $form->textField($emptyArea, 'title') ?></td>
-        <td>&nbsp;</td>
-        <td><?php echo $form->error($emptyArea, 'title') ?></td>
-    </tr>
+
     <tr>
         <td>&nbsp;</td>
         <td><?php echo CHtml::submitButton('Добавить необклеиваемую область'); ?></td>

@@ -2,7 +2,7 @@
 	$cs = Yii::app()->getClientScript();
 	$js = "
 $('#sort').change(function() {
-	window.location.href = '" . $this->createAbsoluteUrl('/contest/list/' . $contest->contest_id) . "' + $(this).val() + '/';
+	window.location.href = '" . $this->createAbsoluteUrl('/contest/' . $contest->contest_id . '/list/') . "' + $(this).val() + '/';
 });
 	";
 	$cs->registerScript('contest_list', $js);

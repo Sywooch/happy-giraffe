@@ -1,16 +1,17 @@
 <?php
-session_start();
+
 class WallpapersController extends Controller
 {
     public function actionIndex()
     {
-        $basePath = Yii::getPathOfAlias('repear') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'wallpapers' . DIRECTORY_SEPARATOR . 'assets';
+        $basePath = Yii::getPathOfAlias('repair') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'wallpapers' . DIRECTORY_SEPARATOR . 'assets';
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
         Yii::app()->clientScript->registerCssFile($baseUrl . '/style.css', 'all');
-
-        if (isset($_SESSION['wallpapersCalc']['emptyAreas']))
-            unset($_SESSION['wallpapersCalc']['emptyAreas']);
+        $session = new CHttpSession;
+        $session->open();
+        if (isset($session['wallpapersCalcAreas']))
+            unset($session['wallpapersCalcAreas']);
         $this->pageTitle = 'Расчет обоев';
         $this->render('index', array('model' => new WallpapersCalcForm(), 'emptyArea' => new WallpapersAreaForm()));
     }
@@ -21,20 +22,15 @@ class WallpapersController extends Controller
             $model = new WallpapersCalcForm;
             $model->attributes = $_POST['WallpapersCalcForm'];
             $this->performAjaxValidation($model);
-
-            $result['perimeter'] = ($model->room_length + $model->room_width) * 2;
-
-            $this->renderPartial('result', array(
-                'calcResult' => $result,
-                'model' => $model
-            ));
+            $model->validate();
+            $this->renderPartial('result', array('result' => $model->calculate()));
         }
     }
 
     public function performAjaxValidation($model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] == 'wallpapers-calculate-form') {
-            echo CActiveForm::validate($model);
+            echo $model->validate();
             Yii::app()->end();
         }
     }
@@ -45,13 +41,28 @@ class WallpapersController extends Controller
             $model = new WallpapersAreaForm();
             $model->attributes = $_POST['WallpapersAreaForm'];
             if (isset($_POST['ajax']) && $_POST['ajax'] == 'empty-area-form') {
-                echo CActiveForm::validate($model);
+                echo $model->validate();
                 Yii::app()->end();
             }
-            $_SESSION['wallpapersCalc']['emptyAreas'][] = $_POST['WallpapersAreaForm'];
-            $this->renderPartial('emptyarea', array(
-                'model' => $model
-            ));
+            $model->validate();
+            $session = new CHttpSession;
+            $session->open();
+            $areas = $session['wallpapersCalcAreas'];
+            $areas[] = array('title' => $model->title, 'height' => $model->height, 'width' => $model->width);
+            $session['wallpapersCalcAreas'] = $areas;
+            $this->renderPartial('emptyarea', array('areas' => $areas));
         }
+    }
+
+    public
+    function actionRemovearea($id)
+    {
+        $session = new CHttpSession;
+        $session->open();
+        $areas = $session['wallpapersCalcAreas'];
+        if (isset($areas[$id]))
+            unset($areas[$id]);
+        $session['wallpapersCalcAreas'] = $areas;
+        $this->renderPartial('emptyarea', array('areas' => $areas));
     }
 }

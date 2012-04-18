@@ -38,6 +38,12 @@ class CommunityController extends Controller
         );
     }
 
+    public function beforeAction($action) {
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/community.js');
+        return parent::beforeAction($action);
+    }
+
     public function actionIndex()
     {
         $this->pageTitle = 'Клубы';
@@ -500,47 +506,44 @@ class CommunityController extends Controller
 
     public function actionFixUsers()
     {
-        if (Yii::app()->request->isAjaxRequest)
-        {
-            $users = User::model()->findAll(array(
-                'condition' => 'email LIKE :term',
-                'params' => array(':term' => $_GET['term'] . '%'),
-            ));
+        if (!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
+        $users = User::model()->findAll(array(
+            'condition' => 'email LIKE :term',
+            'params' => array(':term' => $_GET['term'] . '%'),
+        ));
 
-            $_users = array();
-            foreach ($users as $user)
-            {
-                $_users[] = array(
-                    'label' => $user->email,
-                    'value' => $user->email,
-                    'id' => $user->id,
-                );
-            }
-            echo CJSON::encode($_users);
+        $_users = array();
+        foreach ($users as $user)
+        {
+            $_users[] = array(
+                'label' => $user->email,
+                'value' => $user->email,
+                'id' => $user->id,
+            );
         }
+        echo CJSON::encode($_users);
     }
 
     public function actionFixSave()
     {
-        if (Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
+        $content = CommunityContent::model()->findByPk($_POST['content_id']);
+        $content->author_id = $_POST['author_id'];
+        if ($content->save())
         {
-            $content = CommunityContent::model()->findByPk($_POST['content_id']);
-            $content->author_id = $_POST['author_id'];
-            if ($content->save())
-            {
-                file_put_contents(Yii::getPathOfAlias('webroot') . '/fix.txt', $_POST['content_id'] . "\n", FILE_APPEND);
-            }
+            file_put_contents(Yii::getPathOfAlias('webroot') . '/fix.txt', $_POST['content_id'] . "\n", FILE_APPEND);
         }
     }
 
     public function actionFixUser()
     {
-        if (Yii::app()->request->isAjaxRequest)
-        {
-            $user = User::model()->findByPk($_POST['author_id']);
-            $response = $this->renderPartial('fixuser', array('user' => $user), true);
-            echo $response;
-        }
+        if (!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
+        $user = User::model()->findByPk($_POST['author_id']);
+        $response = $this->renderPartial('fixuser', array('user' => $user), true);
+        echo $response;
     }
 
     public function actionShortList()

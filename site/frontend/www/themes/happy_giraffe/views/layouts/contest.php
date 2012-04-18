@@ -8,17 +8,17 @@
 				'items' => array(
 					array(
 						'label' => 'О конкурсе',
-						'url' => array('/contest/' . $this->contest->contest_id),
+						'url' => array('/contest', 'id' => $this->contest->contest_id),
 						'active' => $this->action->id == 'view',
 					),
 					array(
 						'label' => 'Правила',
-						'url' => array('/contest/rules/' . $this->contest->contest_id),
+						'url' => array('/contest/rules', 'id' => $this->contest->contest_id),
 						'active' => $this->action->id == 'rules',
 					),
 					array(
 						'label' => 'Участники',
-						'url' => array('/contest/list/' . $this->contest->contest_id),
+						'url' => array('/contest/list', 'id' => $this->contest->contest_id),
 						'active' => $this->action->id == 'list',
 					),
 				),

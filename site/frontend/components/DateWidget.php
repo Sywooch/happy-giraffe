@@ -1,5 +1,4 @@
 <?php
-
 class DateWidget extends CWidget
 {
 	public $model;
@@ -76,25 +75,17 @@ class DateWidget extends CWidget
             'class' => 'chzn',
 		));
 		echo CHtml::activeHiddenField($this->model, $this->attribute);
-		
-		$cs = Yii::app()->clientScript;
-		
-		$js = "
-			var el = $('#" . CHtml::activeId($this->model, $this->attribute) . "');
-			var d = '#" . CHtml::activeId($this->model, $this->attribute . '_d') . "';
-			var m = '#" . CHtml::activeId($this->model, $this->attribute . '_m') . "';
-			var y = '#" . CHtml::activeId($this->model, $this->attribute . '_y') . "';
 
-			$(d+', '+m+', '+y).change(function ()
-			{
-				if ($(d).val() != '' && $(m).val() != '' && $(y).val() != '')
-				{
-					el.val($(y).val() + '-' + $(m).val() + '-' + $(d).val());
-				}
-			});	
-		";
+        $dateWidget = "function dateWidget(element, day, month, year) {
+            $('#' + day + ', #' + month + ', #' + year).change(function() {
+                if($('#' + day).val() != '' && $('#' + month).val() != '' && $('#' + year).val() != '') {
+                    $('#' + element).val($('#' + year).val() + '-' + $('#' + month).val() + '-' + $('#' + day).val());
+                }
+            });
+        }";
+        $js = "dateWidget('" . CHtml::activeId($this->model, $this->attribute) . "', '" . CHtml::activeId($this->model, $this->attribute . '_d') . "', '" . CHtml::activeId($this->model, $this->attribute . '_m') . "', '" . CHtml::activeId($this->model, $this->attribute . '_y') . "');";
 		
-		$cs
-			->registerScript(CHtml::activeId($this->model, $this->attribute) . '_dateWidget', $js);
+		Yii::app()->clientScript->registerScript('dateWidget', $dateWidget)
+        ->registerScript(CHtml::activeId($this->model, $this->attribute) . '_dateWidget', $js);
 	}
 }

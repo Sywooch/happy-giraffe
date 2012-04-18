@@ -113,7 +113,7 @@ class BagOffer extends CActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'select' => 't.*, bag__offers_votes.vote as vote',
-            'join' => 'LEFT JOIN bag__offers_votes ON t.id = bag__offers_votes.object_id AND bag__offers_votes.user_id = :user_id',
+            'join' => 'LEFT JOIN bag__offers_votes ON t.id = bag__offers_votes.entity_id AND bag__offers_votes.user_id = :user_id',
             'params' => array(':user_id' => $user_id),
             'with' => array('item', 'author'),
         ));

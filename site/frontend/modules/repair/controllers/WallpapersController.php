@@ -22,7 +22,7 @@ class WallpapersController extends Controller
             $model = new WallpapersCalcForm;
             $model->attributes = $_POST['WallpapersCalcForm'];
             $this->performAjaxValidation($model);
-            CActiveForm::validate($model);
+            $model->validate();
             $this->renderPartial('result', array('result' => $model->calculate()));
         }
     }
@@ -30,7 +30,7 @@ class WallpapersController extends Controller
     public function performAjaxValidation($model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] == 'wallpapers-calculate-form') {
-            echo CActiveForm::validate($model);
+            echo $model->validate();
             Yii::app()->end();
         }
     }
@@ -41,18 +41,16 @@ class WallpapersController extends Controller
             $model = new WallpapersAreaForm();
             $model->attributes = $_POST['WallpapersAreaForm'];
             if (isset($_POST['ajax']) && $_POST['ajax'] == 'empty-area-form') {
-                echo CActiveForm::validate($model);
+                echo $model->validate();
                 Yii::app()->end();
             }
-            CActiveForm::validate($model);
+            $model->validate();
             $session = new CHttpSession;
             $session->open();
             $areas = $session['wallpapersCalcAreas'];
             $areas[] = array('title' => $model->title, 'height' => $model->height, 'width' => $model->width);
             $session['wallpapersCalcAreas'] = $areas;
-            print_r($session['wallpapersCalc']);
             $this->renderPartial('emptyarea', array('areas' => $areas));
-            print_r(Yii::app()->session['wallpapersCalc']);
         }
     }
 

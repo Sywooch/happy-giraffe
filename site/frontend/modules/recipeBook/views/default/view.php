@@ -31,19 +31,19 @@
     <?php if (!empty($more_recipes)):?>
         <div class="content-more clearfix">
             <big class="title">
-                Еще рецепты - <ins class="clr_bl"><?php echo $model->disease->name ?></ins>
+                Еще рецепты - <ins class="clr_bl"><?php echo $model->disease->title ?></ins>
                 <a href="<?php echo $this->createUrl('/recipeBook/default/disease', array('url'=>$model->disease->slug))
                     ?>" class="btn btn-blue-small"><span><span>Показать все</span></span></a>
             </big>
             <?php foreach ($more_recipes as $recipe): ?>
             <div class="block">
                 <b><a href="<?php echo $this->createUrl('/recipeBook/default/view', array('id'=>$recipe->id))
-                    ?>"><?php echo $recipe->name ?></a></b>
+                    ?>"><?php echo $recipe->title ?></a></b>
                 <div class="more_ing">
                     <span>Ингредиенты:</span>
                     <ul>
                         <?php foreach ($recipe->ingredients as $ingredient): ?>
-                        <li><a href="#" onclick="return false;"><?php echo $ingredient->name ?></a> <?php echo 'x '.(int)$ingredient->amount.' '.$ingredient->unitValue; ?></li>
+                        <li><a href="#" onclick="return false;"><?php echo $ingredient->title ?></a> <?php echo 'x '.(int)$ingredient->amount.' '.$ingredient->unitValue; ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>

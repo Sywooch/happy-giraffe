@@ -90,16 +90,16 @@ class RecipeBookRecipe extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, disease_id, purposeIds, text', 'required'),
+            array('title, disease_id, purposeIds, text', 'required'),
             array('views_amount', 'numerical', 'integerOnly' => true),
-            array('name, internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max' => 255),
+            array('title, internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max' => 255),
             array('disease_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDisease'),
             array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
             array('purposeIds', 'safe'),
             array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, disease_id, author_id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, views_amount', 'safe', 'on' => 'search'),
+            array('id, title, disease_id, author_id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, views_amount', 'safe', 'on' => 'search'),
         );
     }
 
@@ -126,7 +126,7 @@ class RecipeBookRecipe extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'name' => 'Заголовок рецепта',
+            'title' => 'Заголовок рецепта',
             'disease_id' => 'Болезнь',
             'author_id' => 'Автор',
             'text' => 'Текст рецепта',
@@ -154,7 +154,7 @@ class RecipeBookRecipe extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('name', $this->name, true);
+        $criteria->compare('title', $this->title, true);
         $criteria->compare('disease_id', $this->disease_id, true);
         $criteria->compare('author_id', $this->author_id, true);
         $criteria->compare('text', $this->text, true);

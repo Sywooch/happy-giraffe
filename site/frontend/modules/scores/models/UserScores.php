@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "user_scores".
+ * This is the model class for table "score__user_scores".
  *
- * The followings are the available columns in table 'user_scores':
+ * The followings are the available columns in table 'score__user_scores':
  * @property string $user_id
  * @property string $scores
  * @property string $level_id
@@ -30,7 +30,7 @@ class UserScores extends CActiveRecord
      */
     public function tableName()
     {
-        return 'user_scores';
+        return 'score__user_scores';
     }
 
     /**

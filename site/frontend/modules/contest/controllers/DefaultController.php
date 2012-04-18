@@ -40,7 +40,7 @@ class DefaultController extends Controller
 
     public function actionView($id)
     {
-        $this->pageTitle = 'Фотоконкурс "Веселая семейка"';
+        $this->pageTitle = 'Фотоконкурс "Веселая семейка" на Веселом Жирафе';
         $contest = Contest::model()->with(array(
             'prizes' => array('with' => 'product'),
             'works' => array('limit' => 15),
@@ -56,7 +56,7 @@ class DefaultController extends Controller
 
     public function actionList($id, $sort = 'created')
     {
-        $this->pageTitle = 'Участники фотоконкурса "Веселая семейка"';
+        $this->pageTitle = 'Участники конкурса "Веселая семейка"';
         $contest = Contest::model()->findByPk($id);
         if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
 
@@ -77,7 +77,7 @@ class DefaultController extends Controller
 
     public function actionRules($id)
     {
-        $this->pageTitle = 'Правила фотоконкурса "Веселая семейка"';
+        $this->pageTitle = 'Правила конкурса "Веселая семейка"';
         $contest = Contest::model()->findByPk($id);
         if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
 

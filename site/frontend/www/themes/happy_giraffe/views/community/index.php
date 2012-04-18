@@ -13,7 +13,7 @@
                                 <li class="club-img <?php echo $category['css'] ?>">
                                     <a href="<?php echo $this->createUrl('community/list', array('community_id' => $communities[$n]->id)); ?>">
                                         <img src="/images/club_img_<?php echo $communities[$n]->position; ?>.png">
-                                        <?php echo $communities[$n]->name; ?>
+                                        <?php echo $communities[$n]->title; ?>
                                     </a>
                                 </li>
                                 <?php $n++; ?>
@@ -28,7 +28,7 @@
                             <li class="club-img <?php echo $category['css'] ?>">
                                 <a href="<?php echo $this->createUrl('community/list', array('community_id' => $communities[$n]->id)); ?>">
                                     <img src="/images/club_img_<?php echo $communities[$n]->position; ?>.png">
-                                    <?php echo $communities[$n]->name; ?>
+                                    <?php echo $communities[$n]->title; ?>
                                 </a>
                             </li>
                             <?php $n++; ?>
@@ -47,7 +47,7 @@
             <ul>
                 <?php foreach($top5 as $data): ?>
                 <li>
-                    <?php echo CHtml::link(CHtml::tag('b', array(), $data->name), $data->url); ?>
+                    <?php echo CHtml::link(CHtml::tag('b', array(), $data->title), $data->url); ?>
                     <div class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $data->created); ?></div>
                     <div class="content">
                     <?php
@@ -56,7 +56,7 @@
                         {
                             case 'post':
                                 if (preg_match('/src="([^"]+)"/', $data->post->text, $matches)) {
-                                    $content = '<img src="' . $matches[1] . '" alt="' . $data->name . '" width="150" />';
+                                    $content = '<img src="' . $matches[1] . '" alt="' . $data->title . '" width="150" />';
                                 }
                                 else
                                 {
@@ -67,7 +67,7 @@
                                 break;
                             case 'travel':
                                 if (preg_match('/src="([^"]+)"/', $data->travel->text, $matches)) {
-                                    $content = '<img src="' . $matches[1] . '" alt="' . $data->name . '" width="150" />';
+                                    $content = '<img src="' . $matches[1] . '" alt="' . $data->title . '" width="150" />';
                                 }
                                 else
                                 {

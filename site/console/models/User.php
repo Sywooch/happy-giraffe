@@ -17,7 +17,7 @@ class User extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{user}}';
+        return '{{users}}';
     }
 
     /**
@@ -51,7 +51,7 @@ class User extends CActiveRecord
     {
         //Yii::app()->cache->delete('User_' . $this->id);
         $cacheKey='yii:dbquery'.Yii::app()->db->connectionString.':'.Yii::app()->db->username;
-        $cacheKey.=':'.'SELECT * FROM `user` `t` WHERE `t`.`id`=\''.$this->id.'\' LIMIT 1:a:0:{}';
+        $cacheKey.=':'.'SELECT * FROM `users` `t` WHERE `t`.`id`=\''.$this->id.'\' LIMIT 1:a:0:{}';
         Yii::app()->cache->delete($cacheKey);
     }
 

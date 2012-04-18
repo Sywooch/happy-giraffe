@@ -14,7 +14,7 @@ class OnlineUsersCommand extends CConsoleCommand
         $rpl = Yii::app()->comet;
         $list = $rpl->cmdOnline();
         Yii::app()->db->createCommand()
-            ->update('user', array('online' => '0'));
+            ->update('users', array('online' => '0'));
 
         $users = User::model()->findAll(array('select' => 'id', 'condition' => 'online=1'));
         foreach ($users as $user) {
@@ -32,8 +32,6 @@ class OnlineUsersCommand extends CConsoleCommand
             $user->last_active = date("Y-m-d H:i:s");
             $user->save();
             ScoreVisits::addTodayVisit($user->id);
-//            Yii::app()->db->createCommand()
-//                ->update('user', array('online' => '1'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$user}\")");
         }
 
         $pos = 0;
@@ -44,7 +42,7 @@ class OnlineUsersCommand extends CConsoleCommand
                 if ($event['event'] == 'online') {
 //                    Yii::app()->db->createCommand()
 //                        ->update('user', array('online' => '1'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$event['id']}\")");
-//                    $userCache = MessageCache::model()->find('cache = "'.$event['id'].'"');
+//                    $userCache = UserCache::model()->find('cache = "'.$event['id'].'"');
                     $user = $this->getUserByCache($event['id']);
                     if (empty($user)) {
                         echo "user not found: {$event['id']}\n";
@@ -84,7 +82,7 @@ class OnlineUsersCommand extends CConsoleCommand
      */
     private function getUserByCache($cache)
     {
-        $userCache = MessageCache::model()->find('cache = "' . $cache . '"');
+        $userCache = UserCache::model()->find('cache = "' . $cache . '"');
         if (empty($userCache))
             return null;
         return User::model()->find(array(

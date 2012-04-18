@@ -7,7 +7,7 @@
             <li class="club-img kids">
                 <a href="<?php echo $c->url; ?>">
                     <img src="/images/club_img_<?php echo $c->position; ?>.png" />
-                    <?php echo $c->name; ?>
+                    <?php echo $c->title; ?>
                 </a>
             </li>
         <?php endforeach; ?>

@@ -26,7 +26,7 @@ class DefaultController extends Controller
     {
         $this->pageTitle = 'Тесты';
         $tests = Test::model()->findAll(array(
-            'select' => array('id', 'name', 'slug')
+            'select' => array('id', 'title', 'slug')
         ));
         $this->render('index', array(
             'tests' => $tests
@@ -36,7 +36,7 @@ class DefaultController extends Controller
     public function actionView($slug)
     {
         $test = $this->LoadModel($slug);
-        $this->pageTitle = $test->name;
+        $this->pageTitle = $test->title;
 
         $this->render('view', array(
             'test' => $test

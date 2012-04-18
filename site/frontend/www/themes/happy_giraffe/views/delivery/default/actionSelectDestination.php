@@ -8,7 +8,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <?php echo CHtml::hiddenField('OrderId', $OrderId);?>
 <?php echo $form->label($modelRegions, 'name'); ?>
-<br></br>
+<br/>
 <?php
 echo $form->dropDownList(
 	$modelRegions, 'id', $modelRegions->getRegions(), 
@@ -19,8 +19,7 @@ echo $form->dropDownList(
 		'data' => 'js:({regval : this.value})',
 		'dataType' => 'json',
 		'url' => $this->createUrl('/delivery/default/getDistrictNames'),
-		'success' => 'function(msg){			
-//			alert(msg.data);
+		'success' => 'function(msg){
 			if(msg.data!="empty"){
 				$("#seldist").html(msg.data);
 				$("#selcity").html("");
@@ -34,7 +33,7 @@ echo $form->dropDownList(
 	 )
 	);
 ?>
-<br></br>
+<br/>
 <?php
 echo $form->dropDownList(
 	$modelDistrict, 'id', 
@@ -47,7 +46,6 @@ echo $form->dropDownList(
 		'dataType' => 'json',
 		'url' => $this->createUrl('/delivery/default/getCityNames'),
 		'success' => 'function(msg){
-//			alert(msg.data);
 			if(msg.data!="empty"){
 				$("#selcity").html(msg.data);
 			};
@@ -57,7 +55,7 @@ echo $form->dropDownList(
 	 )
 	);
 ?>
-<br></br>
+<br/>
 <?php echo $form->dropDownList(
 	$modelCities, 'id', (isset($modelCities->id))
 		?$modelCities->getCity()

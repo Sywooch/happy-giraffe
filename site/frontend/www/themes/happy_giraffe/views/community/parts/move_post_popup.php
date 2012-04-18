@@ -8,7 +8,7 @@
                     <div class="move-post">
                         <?php echo CHtml::hiddenField('id', '', array('id' => 'active_post_id')) ?>
                         Выберите клуб и рубрику:<br>
-                        <?php echo CHtml::dropDownList('community_id', $c->rubric->community_id, CHtml::listData(Community::model()->findAll(), 'id', 'name'),
+                        <?php echo CHtml::dropDownList('community_id', $c->rubric->community_id, CHtml::listData(Community::model()->findAll(), 'id', 'title'),
                         array(
                             'class' => 'chzn',
                             'ajax' => array(
@@ -23,7 +23,7 @@
                         )
                     ); ?>
 
-                        <?php echo CHtml::dropDownList('rubric_id', $c->rubric_id, CHtml::listData(($c->rubric->community!== null)?$c->rubric->community->rubrics:array(), 'id', 'name'),
+                        <?php echo CHtml::dropDownList('rubric_id', $c->rubric_id, CHtml::listData(($c->rubric->community!== null)?$c->rubric->community->rubrics:array(), 'id', 'title'),
                         array(
                             'prompt' => 'Выберите рубрику',
                             'disabled' => Yii::app()->user->checkAccess('transfer post') ? '' : 'disabled',

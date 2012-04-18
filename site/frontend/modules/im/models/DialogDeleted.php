@@ -1,23 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "{{contest_map}}".
+ * This is the model class for table "im__dialog_deleted".
  *
- * The followings are the available columns in table '{{contest_map}}':
- * @property string $map_id
- * @property string $map_contest_id
- * @property integer $map_object
- * @property string $map_object_id
+ * The followings are the available columns in table 'im__dialog_deleted':
+ * @property string $id
+ * @property string $dialog_id
+ * @property string $message_id
+ * @property string $user_id
  *
- * rel
- * @property Contest $contest
- *
+ * The followings are the available model relations:
+ * @property Dialog $dialog
+ * @property Message $message
+ * @property User $user
  */
-class ContestMap extends CActiveRecord
+class DialogDeleted extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return ContestMap the static model class
+	 * @param string $className active record class name.
+	 * @return DialogDeleted the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,7 +31,7 @@ class ContestMap extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{club_contest_map}}';
+		return 'im__dialog_deleted';
 	}
 
 	/**
@@ -40,11 +42,11 @@ class ContestMap extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('map_object', 'numerical', 'integerOnly'=>true),
-			array('map_contest_id, map_object_id', 'length', 'max'=>10),
+			array('dialog_id, message_id, user_id', 'required'),
+			array('dialog_id, message_id, user_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('map_id, map_contest_id, map_object, map_object_id', 'safe', 'on'=>'search'),
+			array('id, dialog_id, message_id, user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +58,9 @@ class ContestMap extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'contest' => array(self::BELONGS_TO, 'Contest', 'map_contest_id'),
+			'dialog' => array(self::BELONGS_TO, 'Dialog', 'dialog_id'),
+			'message' => array(self::BELONGS_TO, 'Message', 'message_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -66,10 +70,10 @@ class ContestMap extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'map_id' => 'Map',
-			'map_contest_id' => 'Map Contest',
-			'map_object' => 'Map Object',
-			'map_object_id' => 'Map Object',
+			'id' => 'ID',
+			'dialog_id' => 'Dialog',
+			'message_id' => 'Message',
+			'user_id' => 'User',
 		);
 	}
 
@@ -84,10 +88,10 @@ class ContestMap extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('map_id',$this->map_id,true);
-		$criteria->compare('map_contest_id',$this->map_contest_id,true);
-		$criteria->compare('map_object',$this->map_object);
-		$criteria->compare('map_object_id',$this->map_object_id,true);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('dialog_id',$this->dialog_id,true);
+		$criteria->compare('message_id',$this->message_id,true);
+		$criteria->compare('user_id',$this->user_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

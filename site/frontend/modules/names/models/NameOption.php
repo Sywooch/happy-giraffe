@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "name_option".
+ * This is the model class for table "name__options".
  *
- * The followings are the available columns in table 'name_option':
+ * The followings are the available columns in table 'name__options':
  * @property integer $id
  * @property string $name_id
  * @property string $value
@@ -27,7 +27,7 @@ class NameOption extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'name_option';
+		return 'name__options';
 	}
 
 	/**

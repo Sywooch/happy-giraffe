@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "billing_system_BANK_requisite".
+ * This is the model class for table "billing__system_BANK_requisites".
  *
- * The followings are the available columns in table 'billing_system_BANK_requisite':
+ * The followings are the available columns in table 'billing__system_BANK_requisites':
  * @property integer $requisite_id
  * @property string $requisite_name
  * @property string $requisite_account
@@ -24,7 +24,7 @@ class BillingSystemBANKRequisite extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{billing_system_BANK_requisite}}';
+		return '{{billing__system_BANK_requisites}}';
 	}
 
 	/**

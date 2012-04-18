@@ -7,8 +7,8 @@
 
             <li>Добавить информацию о членах своей семьи.</li>
         </ul>
-        <?php if(!ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->contest->primaryKey))): ?>
-            <center><a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/contest/statement', array('id' => $this->contest->primaryKey))?>" class="btn btn-green-medium<?=(Yii::app()->user->isGuest) ? ' fancy' : ''?>"><span><span>Участвовать<i class="arr-r"></i></span></span></a></center>
+        <?php if(!ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->contest->id))): ?>
+            <center><a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" class="btn btn-green-medium<?=(Yii::app()->user->isGuest) ? ' fancy' : ''?>"><span><span>Участвовать<i class="arr-r"></i></span></span></a></center>
         <?php endif; ?>
     </div>
 
@@ -81,7 +81,7 @@
             <div class="item">
                 <?php /*echo CHtml::image(str_replace('club', 'shop', $p->product->product_image->getUrl('product_contest')), $p->product->product_title); */?>
                 <span><?php /*echo $p->prize_place; */?> место</span>
-                <p><?php /*echo $p->prize_text; */?></p>
+                <p><?php /*echo $p->text; */?></p>
             </div>
         <?php /*endforeach; */?>
     </div>
@@ -90,7 +90,7 @@
 <?php if(count($contest->works) > 0): ?>
     <div class="content-title">
         Последние добавленные работы
-        <?php echo CHtml::link('<span><span>Показать все</span></span>', array('/contest/default/list', 'id' => $this->contest->contest_id), array(
+        <?php echo CHtml::link('<span><span>Показать все</span></span>', array('/contest/default/list/' . $contest->id), array(
             'class' => 'btn btn-blue-small'
         )); ?>
     </div>

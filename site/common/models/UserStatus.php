@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "user_statuses".
+ * This is the model class for table "user__statuses".
  *
- * The followings are the available columns in table 'user_statuses':
+ * The followings are the available columns in table 'user__statuses':
  * @property string $id
  * @property string $text
  * @property string $user_id
@@ -29,7 +29,7 @@ class UserStatus extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'user_statuses';
+		return 'user__statuses';
 	}
 
 	/**

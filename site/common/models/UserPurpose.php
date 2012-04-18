@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "user_purposes".
+ * This is the model class for table "user__purposes".
  *
- * The followings are the available columns in table 'user_purposes':
+ * The followings are the available columns in table 'user__purposes':
  * @property string $id
  * @property string $text
  * @property string $user_id
@@ -29,7 +29,7 @@ class UserPurpose extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'user_purposes';
+		return 'user__purposes';
 	}
 
 	/**

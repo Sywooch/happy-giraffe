@@ -91,7 +91,7 @@ class Community extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'community_id'),
-			'users' => array(self::MANY_MANY, 'User', 'users_communities(user_id, community_id)'),
+			'users' => array(self::MANY_MANY, 'User', 'user__users_communities(user_id, community_id)'),
 		);
 	}
 

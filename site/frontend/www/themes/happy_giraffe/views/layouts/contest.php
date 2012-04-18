@@ -26,7 +26,7 @@
 		?>
 	</div>
     <?php if(!ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'id' => $this->contest->primaryKey))): ?>
-        <?php echo CHtml::link('Участвовать', (Yii::app()->user->isGuest) ? '#login' : array('/contest/statement', 'id' => $this->contest->primaryKey), array('class' => (Yii::app()->user->isGuest) ? 'contest-takeapart fancy' : 'contest-takeapart')); ?>
+        <?php echo CHtml::link('Участвовать', (Yii::app()->user->isGuest) ? '#login' : array('/contest/default/statement', 'id' => $this->contest->primaryKey), array('class' => (Yii::app()->user->isGuest) ? 'contest-takeapart fancy' : 'contest-takeapart')); ?>
     <?php endif; ?>
     <img src="/images/contest_banner_01.png" />
 </div>

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "user_partner".
+ * This is the model class for table "user__users_partners".
  *
- * The followings are the available columns in table 'user_partner':
+ * The followings are the available columns in table 'user__users_partners':
  * @property string $user_id
  * @property string $name
  * @property string $notice
@@ -31,7 +31,7 @@ class UserPartner extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'users_partners';
+		return 'user__users_partners';
 	}
 
 	/**

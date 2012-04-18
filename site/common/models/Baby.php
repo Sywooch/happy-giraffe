@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "users_babies".
+ * This is the model class for table "user__users_babies".
  *
- * The followings are the available columns in table 'users_babies':
+ * The followings are the available columns in table 'user__users_babies':
  * @property integer $id
  * @property integer $parent_id
  * @property integer $age_group
@@ -30,7 +30,7 @@ class Baby extends CActiveRecord
 
     public function tableName()
     {
-        return '{{users_babies}}';
+        return '{{user__users_babies}}';
     }
 
     public function relations()

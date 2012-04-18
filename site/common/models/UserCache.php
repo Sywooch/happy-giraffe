@@ -29,7 +29,7 @@ class UserCache extends CActiveRecord
      */
     public function tableName()
     {
-        return 'user_cache';
+        return 'im__user_cache';
     }
 
     /**

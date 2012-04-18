@@ -90,7 +90,7 @@
 <?php if(count($contest->works) > 0): ?>
     <div class="content-title">
         Последние добавленные работы
-        <?php echo CHtml::link('<span><span>Показать все</span></span>', array('/contest/list/' . $contest->contest_id), array(
+        <?php echo CHtml::link('<span><span>Показать все</span></span>', array('/contest/default/list', 'id' => $this->contest->contest_id), array(
             'class' => 'btn btn-blue-small'
         )); ?>
     </div>

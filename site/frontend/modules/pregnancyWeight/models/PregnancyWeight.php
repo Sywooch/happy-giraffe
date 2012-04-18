@@ -29,7 +29,7 @@ class PregnancyWeight extends CActiveRecord
      */
     public function tableName()
     {
-        return 'pregnancy_weight';
+        return 'services__pregnancy_weight';
     }
 
     /**

@@ -7,6 +7,12 @@ Comment = {
     saveCommentUrl:null,
     entity:null,
     entity_id:null,
+    setParams:function(params) {
+        for(var n in params) {
+            if(typeof(this[n]) != undefined)
+                this[n] = params[n];
+        }
+    },
     getInstance:function () {
         var instance = CKEDITOR.instances['Comment_text'];
         if (instance)

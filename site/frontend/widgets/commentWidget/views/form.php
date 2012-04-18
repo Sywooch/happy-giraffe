@@ -1,8 +1,3 @@
-<?php
-$cs = Yii::app()->clientScript;
-$js = "Comment.save_url = " . CJavaScript::encode(Yii::app()->createUrl('ajax/sendcomment'));
-$cs->registerScript('comment_widget_form', $js);
-?>
 <?php $this->render('list', array('dataProvider' => $dataProvider,'type'=>$type)); ?>
 
 <?php if (!Yii::app()->user->isGuest): ?>

@@ -45,9 +45,8 @@ class WallpapersCalcForm extends CFormModel
 
     public function calculate()
     {
-        $session = new CHttpSession;
-        $session->open();
-        $areas = $session['wallpapersCalcAreas'];
+
+        $areas = Yii::app()->user->getState('wallpapersCalcAreas');
         $perimeter = ($this->room_length + $this->room_width) * 2;
         $lines = ceil($perimeter / $this->wp_width);
         if ($this->repeat) {

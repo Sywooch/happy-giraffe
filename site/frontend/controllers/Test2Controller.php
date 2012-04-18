@@ -235,7 +235,7 @@ User';
         }
     }
 
-    public function actionLol2()
+    public function actionRemoveIds()
     {
         /*$county_fk = 'SELECT `CONSTRAINT_NAME`
               FROM `information_schema`.`REFERENTIAL_CONSTRAINTS`

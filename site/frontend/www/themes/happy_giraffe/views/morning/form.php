@@ -13,17 +13,17 @@
     <div class="inner-title">Заголовок статьи</div>
 
     <div class="name clearfix">
-        <div class="text"<?php if (empty($post->name)) echo ' style="display:none;"' ?>><?=$post->name ?></div>
-        <div class="input"<?php if (!empty($post->name)) echo ' style="display:none;"' ?>>
+        <div class="text"<?php if (empty($post->title)) echo ' style="display:none;"' ?>><?=$post->title ?></div>
+        <div class="input"<?php if (!empty($post->title)) echo ' style="display:none;"' ?>>
             <input type="text">
-            <button class="btn btn-green-small" onclick="Morniing.saveField(this, 'name');"><span><span>Ok</span></span>
+            <button class="btn btn-green-small" onclick="Morniing.saveField(this, 'title');"><span><span>Ok</span></span>
             </button>
         </div>
         <a href="javascript:void(0);" onclick="Morniing.editField(this)"
-           class="edit"<?php if (empty($post->name)) echo ' style="display:none;"' ?>><span class="tip">Редактировать название</span></a>
+           class="edit"<?php if (empty($post->title)) echo ' style="display:none;"' ?>><span class="tip">Редактировать название</span></a>
     </div>
     <br>
-    <div<?php if (empty($post->name)) echo ' style="display:none;"' ?>>
+    <div<?php if (empty($post->title)) echo ' style="display:none;"' ?>>
 
         <div class="inner-title">Превью</div>
 

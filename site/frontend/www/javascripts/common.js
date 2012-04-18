@@ -313,3 +313,21 @@ function albumVisibilitySet(el, num, id){
 	
 	albumVisibilityListToggle(el);
 }
+
+function initScrolledContent() {
+    var cpo = 0;
+    $(window).scroll(function(){
+        var cp = $('#checkpoint').offset().top;
+        var st = $(window).scrollTop();
+        if (!$('#morning').hasClass('morning-wide')) {
+            if (st>=cp){
+                $('#morning').addClass('morning-wide')
+                cpo = cp;
+            }
+        } else {
+            if (st < cpo-100){
+                $('#morning').removeClass('morning-wide')
+            }
+        }
+    });
+}

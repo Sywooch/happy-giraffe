@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "user_moods".
+ * This is the model class for table "user__moods".
  *
- * The followings are the available columns in table 'user_moods':
+ * The followings are the available columns in table 'user__moods':
  * @property string $id
  * @property string $name
  */
@@ -24,7 +24,7 @@ class UserMood extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'user_moods';
+		return 'user__moods';
 	}
 
 	/**

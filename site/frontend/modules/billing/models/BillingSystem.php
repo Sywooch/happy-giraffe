@@ -27,7 +27,7 @@ class BillingSystem extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{billing_system}}';
+		return '{{billing__systems}}';
 	}
 
 	/**
@@ -109,7 +109,7 @@ class BillingSystem extends CActiveRecord
 		$eid = $fields.'|'.(is_array($where) ?http_build_query($where) :$where);
 		if (!isset($enums[$eid]) || $reset) {
 			$enum = Yii::app()->db->createCommand()
-				->select($fields)->from('billing_system')->where($where)
+				->select($fields)->from('billing__systems')->where($where)
 				->queryAll(false);
 			$enums[$eid] = CHtml::listData($enum, 0, 1);
 		}
@@ -119,7 +119,7 @@ class BillingSystem extends CActiveRecord
 	public function select($fields="*",$where=null)
 	{
 		$recs = Yii::app()->db->createCommand()
-			->select($fields)->from('billing_system')->where($where)
+			->select($fields)->from('billing__systems')->where($where)
 			->queryAll();
 		
 		$sel = array();

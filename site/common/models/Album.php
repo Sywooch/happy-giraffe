@@ -48,7 +48,7 @@ class Album extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'albums';
+		return 'album__albums';
 	}
 
 	/**
@@ -106,7 +106,7 @@ class Album extends CActiveRecord
 
         return array(
             'full' => array(
-                'join' => 'inner join album_photos p on ' . $this->tableAlias . '.id = p.album_id'
+                'join' => 'inner join album__photos p on ' . $this->tableAlias . '.id = p.album_id'
             ),
             'active' => array(
                 'condition' => $this->tableAlias . '.removed = 0',

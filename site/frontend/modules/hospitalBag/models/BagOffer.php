@@ -28,7 +28,7 @@ class BagOffer extends CActiveRecord
      */
     public function tableName()
     {
-        return 'bag_offer';
+        return 'bag__offers';
     }
 
     /**
@@ -112,8 +112,8 @@ class BagOffer extends CActiveRecord
     public function getOffers($user_id)
     {
         $criteria = new CDbCriteria(array(
-            'select' => 't.*, bag_offer_vote.vote as vote',
-            'join' => 'LEFT JOIN bag_offer_vote ON t.id = bag_offer_vote.object_id AND bag_offer_vote.user_id = :user_id',
+            'select' => 't.*, bag__offers_votes.vote as vote',
+            'join' => 'LEFT JOIN bag__offers_votes ON t.id = bag__offers_votes.entity_id AND bag__offers_votes.user_id = :user_id',
             'params' => array(':user_id' => $user_id),
             'with' => array('item', 'author'),
         ));

@@ -82,8 +82,7 @@
                 ->registerScriptFile('http://userapi.com/js/api/openapi.js?49')
                 ->registerScript('vk-init', "VK.init({apiId: ".Yii::app()->params['social']['vk']['api_id'].", onlyWidgets: true});", CClientScript::POS_HEAD)
                 ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
-                ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
-            ;
+                ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js');
 
             ?>
 
@@ -143,27 +142,4 @@
 
     </div>
 </div>
-<script type="text/javascript">
-    var cpo = 0;
-
-    $(window).scroll(function(){
-
-        var cp = $('#checkpoint').offset().top;
-        var st = $(window).scrollTop();
-
-        if (!$('#morning').hasClass('morning-wide')) {
-
-            if (st>=cp){
-                $('#morning').addClass('morning-wide')
-                cpo = cp;
-            }
-
-        } else {
-
-            if (st < cpo-100){
-                $('#morning').removeClass('morning-wide')
-            }
-
-        }
-    });
-</script>
+<?php Yii::app()->clientScript->registerScript('scrolled_content', 'initScrolledContent();'); ?>

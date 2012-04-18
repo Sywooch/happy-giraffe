@@ -316,12 +316,12 @@ surikat_8@mail.ru';
                 //check if user already has role
                 $exist_right = Yii::app()->db->createCommand()
                     ->select('COUNT(*)')
-                    ->from('auth_assignment')
+                    ->from('auth__assignments')
                     ->where('userid = :userid AND itemname = "'.$role.'"', array(':userid' => $user->id))
                     ->queryScalar();
                 if ($exist_right == 0){
                     $success = Yii::app()->db->createCommand()
-                        ->insert('auth_assignment', array('userid'=>$user->id, 'itemname'=>$role, 'data'=>'N;'));
+                        ->insert('auth__assignments', array('userid'=>$user->id, 'itemname'=>$role, 'data'=>'N;'));
                     if (!$success)
                         echo $userMail." insert error \r\n";
                 }

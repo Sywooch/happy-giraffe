@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "billing_invoice_payment".
+ * This is the model class for table "billing__invoice_payments".
  *
- * The followings are the available columns in table 'billing_invoice_payment':
+ * The followings are the available columns in table 'billing__invoice_payments':
  * @property string $payment_id
  * @property string $payment_system_id
  * @property string $payment_invoice_id
@@ -39,7 +39,7 @@ class BillingPayment extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{billing_invoice_payment}}';
+		return '{{billing__invoice_payments}}';
 	}
 
 	/**

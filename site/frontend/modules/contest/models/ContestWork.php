@@ -34,7 +34,7 @@ class ContestWork extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'club_contest_work';
+		return 'contest__works';
 	}
 
 	/**

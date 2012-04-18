@@ -339,10 +339,10 @@ class VaccineDate extends CActiveRecord
         $result = '';
         foreach ($this->diseases as $disease){
             if (isset($disease->disease_id))
-                $result .= CHtml::link($disease->name_genitive,
+                $result .= CHtml::link($disease->title_genitive,
                     Yii::app()->createUrl('/childrenDiseases/default/view', array('url'=>$disease->disease->slug))) . ', ';
             else
-                $result .= $disease->name_genitive . ', ';
+                $result .= $disease->title_genitive . ', ';
         }
         return trim($result, ', ');
     }

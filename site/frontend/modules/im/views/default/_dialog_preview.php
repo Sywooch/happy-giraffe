@@ -1,4 +1,4 @@
-<?php $unread = MessageDialog::getUnreadMessagesCount($dialog['id']); ?>
+<?php $unread = Dialog::getUnreadMessagesCount($dialog['id']); ?>
 <li<?php
     $class = '';
     if ($unread > 0) $class = 'new-messages';

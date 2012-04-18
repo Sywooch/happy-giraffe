@@ -40,9 +40,9 @@
  * @property ClubPost[] $clubPosts
  * @property Comment[] $comments
  * @property MenstrualUserCycle[] $menstrualUserCycles
- * @property MessageCache[] $messageCaches
- * @property MessageLog[] $messageLogs
- * @property MessageUser[] $messageUsers
+ * @property UserCache[] $UserCaches
+ * @property Message[] $Messages
+ * @property DialogUser[] $DialogUsers
  * @property Name[] $names
  * @property RecipeBookRecipe[] $recipeBookRecipes
  * @property RecipeBookRecipeVote[] $recipeBookRecipeVotes
@@ -136,7 +136,7 @@ class User extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{user}}';
+        return '{{users}}';
     }
 
     /**
@@ -232,7 +232,7 @@ class User extends CActiveRecord
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
             'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
-            'communities' => array(self::MANY_MANY, 'Community', 'user_community(user_id, community_id)'),
+            'communities' => array(self::MANY_MANY, 'Community', 'user__users_communities(user_id, community_id)'),
 
             'clubCommunityComments' => array(self::HAS_MANY, 'ClubCommunityComment', 'author_id'),
             'clubCommunityContents' => array(self::HAS_MANY, 'ClubCommunityContent', 'author_id'),
@@ -246,9 +246,9 @@ class User extends CActiveRecord
             'clubPosts' => array(self::HAS_MANY, 'ClubPost', 'author_id'),
             'comments' => array(self::HAS_MANY, 'Comment', 'author_id'),
             'menstrualUserCycles' => array(self::HAS_MANY, 'MenstrualUserCycle', 'user_id'),
-            'messageCaches' => array(self::HAS_MANY, 'MessageCache', 'user_id'),
-            'messageLogs' => array(self::HAS_MANY, 'MessageLog', 'user_id'),
-            'messageUsers' => array(self::HAS_MANY, 'MessageUser', 'user_id'),
+            'UserCaches' => array(self::HAS_MANY, 'UserCache', 'user_id'),
+            'Messages' => array(self::HAS_MANY, 'Message', 'user_id'),
+            'dialogUsers' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
             'names' => array(self::MANY_MANY, 'Name', 'name_likes(user_id, name_id)'),
             'recipeBookRecipes' => array(self::HAS_MANY, 'RecipeBookRecipe', 'user_id'),
             'recipeBookRecipeVotes' => array(self::HAS_MANY, 'RecipeBookRecipeVote', 'user_id'),
@@ -262,15 +262,15 @@ class User extends CActiveRecord
             'status' => array(self::HAS_ONE, 'UserStatus', 'user_id', 'order' => 'status.created DESC'),
             'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
             'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active', 'permission')),
-            'interests' => array(self::MANY_MANY, 'Interest', 'interest_users(interest_id, user_id)'),
+            'interests' => array(self::MANY_MANY, 'Interest', 'interest__users_interests(interest_id, user_id)'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
 
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
-            'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN club_community_rubric ON t.rubric_id = club_community_rubric.id', 'condition' => 'club_community_rubric.user_id = t.author_id'),
+            'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id = t.author_id'),
 
-            'communitiesCount' => array(self::STAT, 'Community', 'user_community(user_id, community_id)'),
-            'userDialogs' => array(self::HAS_MANY, 'MessageUser', 'user_id'),
+            'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
+            'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
             'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
         );
@@ -469,7 +469,7 @@ class User extends CActiveRecord
     public static function clearCache($id)
     {
         $cacheKey = 'yii:dbquery' . Yii::app()->db->connectionString . ':' . Yii::app()->db->username;
-        $cacheKey .= ':' . 'SELECT * FROM `user` `t` WHERE `t`.`id`=\'' . $id . '\' LIMIT 1:a:0:{}';
+        $cacheKey .= ':' . 'SELECT * FROM `users` `t` WHERE `t`.`id`=\'' . $id . '\' LIMIT 1:a:0:{}';
         if (isset(Yii::app()->cache))
             Yii::app()->cache->delete($cacheKey);
     }
@@ -781,27 +781,27 @@ class User extends CActiveRecord
     public function addCommunity($community_id)
     {
         return Yii::app()->db->createCommand()
-            ->insert('user_community', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
+            ->insert('user__users_communities', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
     }
 
     public function delCommunity($community_id)
     {
         return Yii::app()->db->createCommand()
-            ->delete('user_community', 'user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id)) != 0;
+            ->delete('user__users_communities', 'user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id)) != 0;
     }
 
     public function isInCommunity($community_id)
     {
         return Yii::app()->db->createCommand()
             ->select('count(*)')
-            ->from('user_community')
+            ->from('user__users_communities')
             ->where('user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id))
             ->queryScalar() != 0;
     }
 
     public function getScores()
     {
-        $model = UserScores::model()->with(array('level' => array('select' => array('name'))))->findByPk($this->id);
+        $model = UserScores::model()->with(array('level' => array('select' => array('title'))))->findByPk($this->id);
         if ($model === null) {
             $model = new UserScores;
             $model->user_id = $this->id;

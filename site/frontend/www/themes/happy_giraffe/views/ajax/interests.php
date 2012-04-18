@@ -7,7 +7,7 @@
                 <ul>
                     <?php foreach($categories as $index => $category): ?>
                         <li<?php echo $index == 0 ? ' class="active"' : '' ?>>
-                            <a href="javascript:;" onclick="Interest.changeCategory(this);"><?php echo $category->name; ?></a>
+                            <a href="javascript:;" onclick="Interest.changeCategory(this);"><?php echo $category->title; ?></a>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -18,7 +18,7 @@
                         <?php foreach($category->interests as $interest): ?>
                             <li>
                                 <label onclick="Interest.checkItem(this);return false;" class="interest <?php echo $category->css_class; ?><?php echo isset($user_interests[$interest->id]) ? ' selected' : '' ?>" for="<?php echo 'InterestItem_' . $interest->id . ''; ?>">
-                                    <?php echo $interest->name; ?>
+                                    <?php echo $interest->title; ?>
                                 </label>
                                 <?php echo CHtml::checkBox('Interest[' . $interest->id . ']', isset($user_interests[$interest->id]), array('id' => 'InterestItem_' . $interest->id)); ?>
                             </li>

@@ -252,18 +252,21 @@ User';
 
         //check foreign keys
         $delete = true;
-        $this->checkKeys('name_saint_date', 'name_id', 'name', 'id', $delete);
-        $this->checkKeys('recipe_book__ingredients', 'recipe_id', 'recipe_book__recipes', 'id', $delete);
-        $this->checkKeys('recipe_book__recipes', 'author_id', 'user', 'id', $delete);
-        $this->checkKeys('recipe_book__recipes_purposes', 'recipe_id', 'recipe_book__recipes', 'id', $delete);
-        $this->checkKeys('recipe_book__recipes_purposes', 'purpose_id', 'recipe_book__purposes', 'id', $delete);
+//        $this->checkKeys('name_saint_date', 'name_id', 'name', 'id', $delete);
+//        $this->checkKeys('recipe_book__ingredients', 'recipe_id', 'recipe_book__recipes', 'id', $delete);
+//        $this->checkKeys('recipe_book__recipes', 'author_id', 'user', 'id', $delete);
+//        $this->checkKeys('recipe_book__recipes_purposes', 'recipe_id', 'recipe_book__recipes', 'id', $delete);
+//        $this->checkKeys('recipe_book__recipes_purposes', 'purpose_id', 'recipe_book__purposes', 'id', $delete);
+//
+//        $this->checkKeys('shop__product_eav', 'eav_product_id', 'shop__product', 'product_id', $delete);
+//        $this->checkKeys('shop__product_eav_text', 'eav_product_id', 'shop__product', 'product_id', $delete);
+//        $this->checkKeys('shop__product_image', 'image_product_id', 'shop__product', 'product_id', $delete);
+//        $this->checkKeys('shop__product_link', 'link_main_product_id', 'shop__product', 'product_id', $delete);
+//        $this->checkKeys('shop__product_link', 'link_sub_product_id', 'shop__product', 'product_id', $delete);
+//        $this->checkKeys('shop__product_type', 'type_attribute_set_id', 'shop__product_attribute_set', 'set_id', $delete);
 
-        $this->checkKeys('shop__product_eav', 'eav_product_id', 'shop__product', 'product_id', $delete);
-        $this->checkKeys('shop__product_eav_text', 'eav_product_id', 'shop__product', 'product_id', $delete);
-        $this->checkKeys('shop__product_image', 'image_product_id', 'shop__product', 'product_id', $delete);
-        $this->checkKeys('shop__product_link', 'link_main_product_id', 'shop__product', 'product_id', $delete);
-        $this->checkKeys('shop__product_link', 'link_sub_product_id', 'shop__product', 'product_id', $delete);
-        $this->checkKeys('shop__product_type', 'type_attribute_set_id', 'shop__product_attribute_set', 'set_id', $delete);
+        $this->checkKeys('community__travels', 'content_id', 'community__contents', 'id', $delete);
+        $this->checkKeys('community__travel_images', 'travel_id', 'community__travels', 'id', $delete);
     }
 
     function checkKeys($table1, $field1, $table2, $field2, $delete = false)

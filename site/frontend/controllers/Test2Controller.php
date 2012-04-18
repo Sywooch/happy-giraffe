@@ -269,6 +269,27 @@ User';
         $this->checkKeys('club_community_travel_image', 'travel_id', 'club_community_travel', 'id', $delete);
     }
 
+    public function actionRemoveIds2()
+    {
+        //check foreign keys
+        $delete = true;
+        $this->checkKeys('name_saint_date', 'name_id', 'name', 'id', $delete);
+        $this->checkKeys('recipe_book_ingredient', 'recipe_id', 'recipe_book_recipe', 'id', $delete);
+        $this->checkKeys('recipe_book_recipe', 'author_id', 'user', 'id', $delete);
+        $this->checkKeys('recipe_book_recipes_purpos', 'recipe_id', 'recipe_book_recipe', 'id', $delete);
+        $this->checkKeys('recipe_book_recipes_purpos', 'purpose_id', 'recipe_book_purpose', 'id', $delete);
+
+        $this->checkKeys('shop_product_eav', 'eav_product_id', 'shop_product', 'product_id', $delete);
+        $this->checkKeys('shop_product_eav_text', 'eav_product_id', 'shop_product', 'product_id', $delete);
+        $this->checkKeys('shop_product_image', 'image_product_id', 'shop_product', 'product_id', $delete);
+        $this->checkKeys('shop_product_link', 'link_main_product_id', 'shop_product', 'product_id', $delete);
+        $this->checkKeys('shop_product_link', 'link_sub_product_id', 'shop_product', 'product_id', $delete);
+        $this->checkKeys('shop_product_type', 'type_attribute_set_id', 'shop_product_attribute_set', 'set_id', $delete);
+
+        $this->checkKeys('club_community_travel', 'content_id', 'club_community_content', 'id', $delete);
+        $this->checkKeys('club_community_travel_image', 'travel_id', 'club_community_travel', 'id', $delete);
+    }
+
     function checkKeys($table1, $field1, $table2, $field2, $delete = false)
     {
         $keys = Yii::app()->db->createCommand("select $field1 from $table1 group by $field1;")->queryColumn();

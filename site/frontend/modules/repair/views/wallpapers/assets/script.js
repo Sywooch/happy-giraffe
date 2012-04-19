@@ -1,7 +1,8 @@
 var Wallpapers = {
     StartCalc:function () {
         $.ajax({
-            url:"/repair/wallpapers/calculate/",
+            //url:"/repair/wallpapers/calculate/",
+            url:$("#wallpapers-calculate-form").attr('action'),
             data:$("#wallpapers-calculate-form").serialize(),
             type:"POST",
             success:function (data) {
@@ -18,7 +19,7 @@ var Wallpapers = {
 var Area = {
     create:function () {
         $.ajax({
-            url:"/repair/wallpapers/addemptyarea/",
+            url:$("#empty-area-form").attr("action"),
             data:$("#empty-area-form").serialize(),
             type:"POST",
             success:function (data) {

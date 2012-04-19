@@ -40,14 +40,27 @@ class MorningController extends Controller
         if (strtotime($date) == strtotime(date("Y-m-d")))
             $this->pageTitle = 'Утро с Весёлым жирафом';
         else
-            $this->pageTitle = 'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", $date)
-                . ' с Весёлым жирафом';
+            $this->pageTitle = 'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", $date) . ' с Весёлым жирафом';
 
         $this->time = strtotime($date . ' 00:00:00');
+        $criteria = new CDbCriteria;
+        $criteria->order = 'title DESC';
         $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
         if (!Yii::app()->user->checkAccess('editMorning'))
             $cond .= ' AND is_published = 1';
-        $articles = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findAll($cond);
+
+        $criteria->condition = $cond;
+        $count = CommunityContent::model()->with('photoPost')->count($criteria);
+        if ($count == 0){
+            $this->time = strtotime(' - 1 day', strtotime($date . ' 00:00:00'));
+
+            $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
+            if (!Yii::app()->user->checkAccess('editMorning'))
+                $cond .= ' AND is_published = 1';
+            $criteria->condition = $cond;
+        }
+        $articles = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findAll($criteria);
+
         $this->breadcrumbs = array(
             'Утро с Весёлым жирафом',
         );
@@ -61,11 +74,11 @@ class MorningController extends Controller
         if ($article === null || ($article->photoPost->is_published != 1 && !Yii::app()->user->checkAccess('editMorning')))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->pageTitle = CHtml::encode($article->name);
+        $this->pageTitle = CHtml::encode($article->title);
         $this->time = strtotime(date("Y-m-d", strtotime($article->created)) . ' 00:00:00');
         $this->breadcrumbs = array(
             'Утро с Весёлым жирафом' => array('morning/'),
-            $article->name
+            $article->title
         );
 
         $this->render('view', compact('article'));
@@ -80,9 +93,9 @@ class MorningController extends Controller
                     'Утро с Весёлым жирафом' => array('morning/'),
                     'Создание записи'
                 );
-                if (isset($_POST['name'])) {
+                if (isset($_POST['title'])) {
                     $post = new CommunityContent();
-                    $post->name = $_POST['name'];
+                    $post->title = $_POST['title'];
                     $post->type_id = 4;
                     $post->author_id = Yii::app()->user->getId();
                     if ($post->save()) {

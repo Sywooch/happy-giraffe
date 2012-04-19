@@ -157,16 +157,11 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .user-fast-buttons {padding-top:2px;}
 .user-fast-buttons a {display:block;float:left;position:relative;margin-right:4px;text-decoration:none;}
-.user-fast-buttons a .tip {display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;z-index:4;}
-.user-fast-buttons a .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}
-.user-fast-buttons a:hover .tip {display:block;}
 .user-fast-buttons span.friend {float:left;color:#22af16;margin-right:5px;font-size:13px;margin-top:2px;}
 .user-fast-buttons .add-friend {width:22px;height:18px;background:url(/images/common.png) no-repeat -256px -298px;}
 .user-fast-buttons .remove-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -283px -271px;}
 .user-fast-buttons .pending-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -310px -271px;}
-.user-fast-buttons .add-friend .tip, .user-fast-buttons .remove-friend .tip, .user-fast-buttons .pending-friend .tip {right:50%;}
 .user-fast-buttons .new-message {width:22px;height:17px;background:url(/images/common.png) no-repeat -234px -298px;margin-top:1px;}
-.user-fast-buttons .new-message .tip {left:50%;}
 
 .icon-status {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;position:relative;top:1px;margin-right:5px;}
 .icon-status.status-online {background-position:-44px -180px;}
@@ -1418,10 +1413,16 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery #photo .title .btn {vertical-align:middle;}
 
 #gallery #photo .big-photo {width:800px;margin:0 auto 20px;padding:10px;background:#fff;border:1px solid #eaeae8;position:relative;}
-#gallery #photo .big-photo .img {background:#f0eff0;}
+#gallery #photo .big-photo .img {background:#f0eff0;position:relative;}
 #gallery #photo .big-photo img {display:block;margin:auto;}
-#gallery #photo .big-photo .prev {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -346px -226px;position:absolute;top:50%;left:50px;margin-top:-28px;display:none;}
-#gallery #photo .big-photo .next {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -404px -226px;position:absolute;top:50%;right:50px;margin-top:-28px;display:none;}
+
+#gallery #photo .big-photo .prev {display:none;width:45%;height:100%;position:absolute;left:0;top:0;}
+#gallery #photo .big-photo .prev .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -308px -224px;position:absolute;top:50%;left:20px;margin-top:-28px;}
+#gallery #photo .big-photo .prev:hover .icon {background-position:-308px -282px;}
+#gallery #photo .big-photo .next {display:none;width:45%;height:100%;position:absolute;right:0;top:0;}
+#gallery #photo .big-photo .next .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -366px -224px;position:absolute;top:50%;right:20px;margin-top:-28px;}
+#gallery #photo .big-photo .next:hover .icon {background-position:-366px -282px;}
+
 #gallery #photo .big-photo .in:hover .prev, #gallery #photo .big-photo .in:hover .next {display:block;} 
 
 

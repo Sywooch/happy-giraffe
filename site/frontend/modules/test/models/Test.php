@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'test':
  * @property integer $id
- * @property string $name
+ * @property string $title
  * @property string $start_image
  * @property string $css_class
  * @property string $text
@@ -36,7 +36,7 @@ class Test extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'test';
+		return 'test__tests';
 	}
 
 	/**
@@ -47,13 +47,13 @@ class Test extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, start_image, slug, result_image, result_title', 'required'),
-			array('name, start_image, slug, result_image, result_title, unknown_result_image', 'length', 'max'=>255),
+			array('title, start_image, slug, result_image, result_title', 'required'),
+			array('title, start_image, slug, result_image, result_title, unknown_result_image', 'length', 'max'=>255),
 			array('css_class', 'length', 'max'=>20),
 			array('text, unknown_result_text, yes_no', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, start_image, css_class, text, slug, result_image, result_title, unknown_result_image, unknown_result_text', 'safe', 'on'=>'search'),
+			array('id, title, start_image, css_class, text, slug, result_image, result_title, unknown_result_image, unknown_result_text', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,7 +78,7 @@ class Test extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'title' => 'Name',
 			'start_image' => 'Start Image',
 			'css_class' => 'Css Class',
 			'text' => 'Text',
@@ -103,7 +103,7 @@ class Test extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->title,true);
 		$criteria->compare('start_image',$this->start_image,true);
 		$criteria->compare('css_class',$this->css_class,true);
 		$criteria->compare('text',$this->text,true);

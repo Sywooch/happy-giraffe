@@ -27,7 +27,7 @@
 </script>
 <div class="right_block">
     <div class="choice_name">
-        <h1>Выбор имени ребенка</h1>
+        <h1>Выбор имени <span>ребенка</span></h1>
     </div>
     <ul class="choice_name_navi">
         <li<?php if ($this->action->id == 'index') echo ' class="active"' ?>><a href="<?php

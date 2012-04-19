@@ -406,21 +406,21 @@ class ScoreInput extends EMongoDocument
         if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($this->amount > 0)
                 if ($model->isFromBlog)
-                    $text = 'Вы добавили ' . $record_title . '<span>' . $model->name . '</span> в блог';
+                    $text = 'Вы добавили ' . $record_title . '<span>' . $model->title . '</span> в блог';
                 else
-                    $text = 'Вы добавили ' . $record_title . '<span>' . $model->name . '</span> в клуб <span>' . $model->rubric->community->name . '</span>';
+                    $text = 'Вы добавили ' . $record_title . '<span>' . $model->title . '</span> в клуб <span>' . $model->rubric->community->title . '</span>';
             if ($this->amount < 0) {
                 if ($model->isFromBlog)
-                    $text = 'Ваша ' . $record_title . '<span>' . $model->name . '</span> в блоге удалена';
+                    $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в блоге удалена';
                 else
-                    $text = 'Ваша ' . $record_title . '<span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span> удалена';
+                    $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span> удалена';
             }
         }
         if ($class == 'RecipeBookRecipe') {
             if ($this->amount > 0)
-                $text = 'Вы добавили ' . $record_title . ' <span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span>';
+                $text = 'Вы добавили ' . $record_title . ' <span>' . $model->title . '</span> в сервис <span>Книга народных рецептов</span>';
             if ($this->amount < 0) {
-                $text = 'Ваша ' . $record_title . '<span>' . $model->name . '</span> в сервис <span>Книга народных рецептов</span> удалена';
+                $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в сервис <span>Книга народных рецептов</span> удалена';
             }
         }
 
@@ -445,9 +445,9 @@ class ScoreInput extends EMongoDocument
 
         if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($model->isFromBlog)
-                $text = 100 * $this->amount . ' новых просмотров вашей записи <span>' . $model->name . '</span> в блоге';
+                $text = 100 * $this->amount . ' новых просмотров вашей записи <span>' . $model->title . '</span> в блоге';
             else
-                $text = 100 * $this->amount . ' новых просмотров вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span>';
+                $text = 100 * $this->amount . ' новых просмотров вашей записи <span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span>';
         }
 
         return $text;
@@ -478,17 +478,17 @@ class ScoreInput extends EMongoDocument
         if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($this->amount > 0) {
                 if ($model->isFromBlog)
-                    $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->name . '</span> в блоге';
+                    $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->title . '</span> в блоге';
                 else
-                    $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span>';
+                    $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span>';
             } else
-                $text = abs(10 * $this->amount) . ' комментариев к вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span> были удалены';
+                $text = abs(10 * $this->amount) . ' комментариев к вашей записи <span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span> были удалены';
         }
         if ($class == 'RecipeBookRecipe') {
             if ($this->amount > 0) {
-                $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->name . '</span> в сервисе <span>Книга народных рецептов</span>';
+                $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->title . '</span> в сервисе <span>Книга народных рецептов</span>';
             } else
-                $text = abs(10 * $this->amount) . ' комментариев к вашей записи <span>' . $model->name . '</span> в сервисе <span>Книга народных рецептов</span> были удалены';
+                $text = abs(10 * $this->amount) . ' комментариев к вашей записи <span>' . $model->title . '</span> в сервисе <span>Книга народных рецептов</span> были удалены';
         }
 
         return $text;
@@ -579,17 +579,17 @@ class ScoreInput extends EMongoDocument
             return $text;
         }
 
-        if (!isset($model->name))
+        if (!isset($model->title))
             return '';
 
         if ($this->amount == 1)
-            $text = 'Вы добавили комментарий к записи <span>' . $model->name . '</span> ';
+            $text = 'Вы добавили комментарий к записи <span>' . $model->title . '</span> ';
         elseif ($this->amount > 1)
-            $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к записи <span>' . $model->name . '</span> ';
+            $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к записи <span>' . $model->title . '</span> ';
         elseif ($this->amount == -1)
-            $text = 'Ваш комментарий к записи <span>' . $model->name . '</span> ';
+            $text = 'Ваш комментарий к записи <span>' . $model->title . '</span> ';
         else
-            $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к записи <span>' . $model->name . '</span> ';
+            $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к записи <span>' . $model->title . '</span> ';
 
         if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($model->isFromBlog) {
@@ -601,7 +601,7 @@ class ScoreInput extends EMongoDocument
                 }
             } else {
                 $text .= ($this->amount > 0) ? 'в клуб' : 'в клубе';
-                $text .= ' <span>' . $model->rubric->community->name . '</span>';
+                $text .= ' <span>' . $model->rubric->community->title . '</span>';
             }
         }
         if ($class == 'RecipeBookRecipe') {
@@ -691,21 +691,21 @@ class ScoreInput extends EMongoDocument
         if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($this->amount > 0)
                 if ($model->isFromBlog)
-                    $text = 'Увеличен рейтинг вашей записи <span>' . $model->name . '</span> в блоге';
+                    $text = 'Увеличен рейтинг вашей записи <span>' . $model->title . '</span> в блоге';
                 else
-                    $text = 'Увеличен рейтинг вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span>';
+                    $text = 'Увеличен рейтинг вашей записи <span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span>';
             if ($this->amount < 0) {
                 if ($model->isFromBlog)
-                    $text = 'Понижен рейтинг вашей записи <span>' . $model->name . '</span> в блоге';
+                    $text = 'Понижен рейтинг вашей записи <span>' . $model->title . '</span> в блоге';
                 else
-                    $text = 'Понижен рейтинг вашей записи <span>' . $model->name . '</span> в клубе <span>' . $model->rubric->community->name . '</span>';
+                    $text = 'Понижен рейтинг вашей записи <span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span>';
             }
         }
         if ($class == 'RecipeBookRecipe') {
             if ($this->amount > 0)
-                $text = 'Увеличен рейтинг вашей записи <span>' . $model->name . '</span> в сервисе <span>Книга народных рецептов</span>';
+                $text = 'Увеличен рейтинг вашей записи <span>' . $model->title . '</span> в сервисе <span>Книга народных рецептов</span>';
             if ($this->amount < 0) {
-                $text = 'Понижен рейтинг вашей записи <span>' . $model->name . '</span> в сервисе <span>Книга народных рецептов</span>';
+                $text = 'Понижен рейтинг вашей записи <span>' . $model->title . '</span> в сервисе <span>Книга народных рецептов</span>';
             }
         }
 

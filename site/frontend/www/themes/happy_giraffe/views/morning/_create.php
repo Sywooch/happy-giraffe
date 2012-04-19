@@ -3,7 +3,7 @@
         <h2>Заголовок статьи</h2><br>
 
         <div class="name clearfix">
-            <input type="text" name="name">
+            <input type="text" name="title">
         </div>
 
         <div class="row row-buttons">

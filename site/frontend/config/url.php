@@ -13,12 +13,14 @@ return array(
 		'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
 
 		'contest/<id:\d+>' => 'contest/default/view',
+        'contest/<id:\d+>/rules' => 'contest/default/rules',
+        'contest/<id:\d+>/list/<sort:\w+>' => 'contest/default/list',
+        'contest/<id:\d+>/list' => 'contest/default/list',
 		'contest/work/<id:\d+>' => 'contest/default/work',
-		'contest/list/<id:\d+>/<sort:\w+>' => 'contest/default/list',
 		'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
 
+        'morning/<id:\d+>' => 'morning/view',
         'morning/saveLocation' => 'morning/saveLocation',
-        'morning/view/<id:\d+>' => 'morning/view',
         'morning/index/<date:[\w-]+>' => 'morning/index',
 
 		'/' => 'site/index',

@@ -13,7 +13,7 @@ class Test2Controller extends Controller
         $contents = CommunityContent::model()->findAll(array('select' => 'id, author_id', 'order' => 'id DESC'));
         foreach ($contents as $c)
         {
-            echo 'UPDATE `club_community_content` SET `author_id`=' . $c->author_id . ' WHERE `id`=' . $c->id . ';' . "\n";
+            echo 'UPDATE `community__contents` SET `author_id`=' . $c->author_id . ' WHERE `id`=' . $c->id . ';' . "\n";
         }
     }
 
@@ -29,12 +29,6 @@ class Test2Controller extends Controller
                 ),
             ),
         ));
-    }
-
-    public function actionTest()
-    {
-        //var_dump(Yii::app()->user->settlement_id);
-        var_dump(Yii::app()->db->createCommand('SHOW INDEX FROM bag_offer_vote')->queryAll());
     }
 
     public function actionVideo()
@@ -199,20 +193,31 @@ class Test2Controller extends Controller
 
     public function actionLol()
     {
-        echo Yii::app()->user->model->delFriend(10097);
+        $a = 'Album
+AlbumPhoto
+BlogContent
+Comment
+CommunityContent
+ContestWork
+RecipeBookRecipe
+User';
+        $a = explode("\n", $a);
+        foreach ($a as $b)
+            echo "'" . $b . "', ";
     }
 
-    public function actionSmiles(){
+    public function actionSmiles()
+    {
         if ($handle = opendir('C:/WebServers/happy-giraffe/site/frontend/www/images/widget/smiles')) {
 
             //
             //'<td><a onclick="epic_func_smile(this);return false;" href=""><img src="/images/widget/smiles/acute.gif"></a></td>'+
             echo '<table>';
             echo "<tr>";
-            $i=1;
-            while (false !== ($entry = readdir($handle))) if ($entry !== '.' && $entry!='..'){
+            $i = 1;
+            while (false !== ($entry = readdir($handle))) if ($entry !== '.' && $entry != '..') {
                 echo "<td>";
-                echo "<a onclick=\"epic_func_smile(this);return false;\" href=\"\"><img src=\"/images/widget/smiles/".$entry."\"></a></td>";
+                echo "<a onclick=\"epic_func_smile(this);return false;\" href=\"\"><img src=\"/images/widget/smiles/" . $entry . "\"></a></td>";
                 echo "</td>";
                 if ($i % 8 == 0)
                     echo "</tr><tr>";
@@ -230,7 +235,72 @@ class Test2Controller extends Controller
         }
     }
 
-    public function actionLol2(){
-        Favourites::updateCreatedTime();
+    public function actionRemoveIds()
+    {
+        /*$county_fk = 'SELECT `CONSTRAINT_NAME`
+              FROM `information_schema`.`REFERENTIAL_CONSTRAINTS`
+              WHERE `TABLE_NAME` = "user" AND `REFERENCED_TABLE_NAME` = "geo__country" AND CONSTRAINT_SCHEMA = "happy_giraffe2"';
+        echo Yii::app()->db->createCommand($county_fk)->queryScalar();
+
+        $city_fk = 'SELECT `CONSTRAINT_NAME` FROM `information_schema`.`REFERENTIAL_CONSTRAINTS`
+              WHERE `TABLE_NAME` = "user" AND `REFERENCED_TABLE_NAME` = "geo__rus_settlement" AND CONSTRAINT_SCHEMA = "happy_giraffe2"';
+        echo Yii::app()->db->createCommand($city_fk)->queryScalar();
+
+        $street_fk = 'SELECT `CONSTRAINT_NAME` FROM `information_schema`.`REFERENTIAL_CONSTRAINTS`
+              WHERE `TABLE_NAME` = "user" AND `REFERENCED_TABLE_NAME` = "geo__rus_street" AND CONSTRAINT_SCHEMA = "happy_giraffe2"';
+        echo Yii::app()->db->createCommand($street_fk)->queryScalar();*/
+
+        //check foreign keys
+        $delete = true;
+        $this->checkKeys('name_saint_date', 'name_id', 'name', 'id', $delete);
+        $this->checkKeys('recipe_book__ingredients', 'recipe_id', 'recipe_book__recipes', 'id', $delete);
+        $this->checkKeys('recipe_book__recipes', 'author_id', 'user', 'id', $delete);
+        $this->checkKeys('recipe_book__recipes_purposes', 'recipe_id', 'recipe_book__recipes', 'id', $delete);
+        $this->checkKeys('recipe_book__recipes_purposes', 'purpose_id', 'recipe_book__purposes', 'id', $delete);
+
+        $this->checkKeys('shop__product_eav', 'eav_product_id', 'shop__product', 'product_id', $delete);
+        $this->checkKeys('shop__product_eav_text', 'eav_product_id', 'shop__product', 'product_id', $delete);
+        $this->checkKeys('shop__product_image', 'image_product_id', 'shop__product', 'product_id', $delete);
+        $this->checkKeys('shop__product_link', 'link_main_product_id', 'shop__product', 'product_id', $delete);
+        $this->checkKeys('shop__product_link', 'link_sub_product_id', 'shop__product', 'product_id', $delete);
+        $this->checkKeys('shop__product_type', 'type_attribute_set_id', 'shop__product_attribute_set', 'set_id', $delete);
+
+        $this->checkKeys('club_community_travel', 'content_id', 'club_community_content', 'id', $delete);
+        $this->checkKeys('club_community_travel_image', 'travel_id', 'club_community_travel', 'id', $delete);
+    }
+
+    public function actionRemoveIds2()
+    {
+        //check foreign keys
+        $delete = true;
+        $this->checkKeys('name__saint_dates', 'name_id', 'name__names', 'id', $delete);
+        $this->checkKeys('recipe_book__ingredients', 'recipe_id', 'recipe_book__recipes', 'id', $delete);
+        $this->checkKeys('recipe_book__recipes', 'author_id', 'users', 'id', $delete);
+        $this->checkKeys('recipe_book__recipes_purposes', 'recipe_id', 'recipe_book__recipes', 'id', $delete);
+        $this->checkKeys('recipe_book__recipes_purposes', 'purpose_id', 'recipe_book__purposes', 'id', $delete);
+
+        $this->checkKeys('shop__product_eav', 'eav_product_id', 'shop__product', 'product_id', $delete);
+        $this->checkKeys('shop__product_eav_text', 'eav_product_id', 'shop__product', 'product_id', $delete);
+        $this->checkKeys('shop__product_image', 'image_product_id', 'shop__product', 'product_id', $delete);
+        $this->checkKeys('shop__product_link', 'link_main_product_id', 'shop__product', 'product_id', $delete);
+        $this->checkKeys('shop__product_link', 'link_sub_product_id', 'shop__product', 'product_id', $delete);
+        $this->checkKeys('shop__product_type', 'type_attribute_set_id', 'shop__product_attribute_set', 'set_id', $delete);
+
+        $this->checkKeys('community__travels', 'content_id', 'community__contents', 'id', $delete);
+        $this->checkKeys('community__travel_images', 'travel_id', 'community__travels', 'id', $delete);
+    }
+
+    function checkKeys($table1, $field1, $table2, $field2, $delete = false)
+    {
+        $keys = Yii::app()->db->createCommand("select $field1 from $table1 group by $field1;")->queryColumn();
+
+        foreach ($keys as $key) {
+            $exist = Yii::app()->db->createCommand("select $field2 from $table2 WHERE $field2 = $key limit 1;")->queryScalar();
+            if ($exist == null) {
+                echo $table1 . ' - ' . $field1 . ' - ' . $key . ' - key failed<br>';
+                if ($delete)
+                    Yii::app()->db->createCommand("delete from $table1 WHERE $field1 = $key;")->execute();
+            }
+        }
     }
 }

@@ -113,7 +113,7 @@ class YarnProjects extends CActiveRecord
      */
     public function tableName()
     {
-        return 'yarn_project';
+        return 'sewing__yarn_projects';
     }
 
     /**

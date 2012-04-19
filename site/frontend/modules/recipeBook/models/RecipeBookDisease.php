@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'recipeBook_disease':
  * @property string $id
- * @property string $name
+ * @property string $title
  * @property string $category_id
  * @property integer $with_recipies
  * @property string $text
@@ -40,7 +40,7 @@ class RecipeBookDisease extends CActiveRecord
      */
     public function tableName()
     {
-        return 'recipeBook_disease';
+        return 'recipe_book__diseases';
     }
 
     /**
@@ -51,13 +51,13 @@ class RecipeBookDisease extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, slug, category_id, with_recipies, text, reasons_text, symptoms_text, diagnosis_text, treatment_text, prophylaxis_text', 'required'),
+            array('title, slug, category_id, with_recipies, text, reasons_text, symptoms_text, diagnosis_text, treatment_text, prophylaxis_text', 'required'),
             array('with_recipies', 'boolean'),
-            array('name, slug, reasons_name, symptoms_name, diagnosis_name, treatment_name, prophylaxis_name', 'length', 'max' => 255),
+            array('title, slug, reasons_name, symptoms_name, diagnosis_name, treatment_name, prophylaxis_name', 'length', 'max' => 255),
             array('category_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDiseaseCategory'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, slug, category_id, with_recipies, text, reasons_name, symptoms_name, diagnosis_name, treatment_name, prophylaxis_name, reasons_text, symptoms_text, treatment_text, prophylaxis_text', 'safe', 'on' => 'search'),
+            array('id, title, slug, category_id, with_recipies, text, reasons_name, symptoms_name, diagnosis_name, treatment_name, prophylaxis_name, reasons_text, symptoms_text, treatment_text, prophylaxis_text', 'safe', 'on' => 'search'),
         );
     }
 
@@ -81,7 +81,7 @@ class RecipeBookDisease extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'name' => 'Название',
+            'title' => 'Название',
             'slug' => 'Для урла',
             'category_id' => 'Раздел',
             'with_recipies' => 'Можно добавлять рецепты',
@@ -111,7 +111,7 @@ class RecipeBookDisease extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('name', $this->name, true);
+        $criteria->compare('title', $this->title, true);
         $criteria->compare('category_id', $this->category_id, true);
         $criteria->compare('with_recipies', $this->with_recipies);
         $criteria->compare('text', $this->text, true);
@@ -133,7 +133,7 @@ class RecipeBookDisease extends CActiveRecord
     {
         $result = array();
         foreach ($diseases as $disease) {
-            $first_letter = mb_substr($disease->name, 0, 1, 'UTF-8');
+            $first_letter = mb_substr($disease->title, 0, 1, 'UTF-8');
             if (isset($result[$first_letter]))
                 $result[$first_letter][] = $disease;
             else
@@ -147,7 +147,7 @@ class RecipeBookDisease extends CActiveRecord
     {
         $result = array();
         foreach ($diseases as $disease) {
-            $cat = $disease->category->name;
+            $cat = $disease->category->title;
             if (isset($result[$cat]))
                 $result[$cat][] = $disease;
             else

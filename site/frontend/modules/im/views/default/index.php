@@ -1,6 +1,6 @@
 <?php
 /* @var $this Controller
- * @var $dialogs MessageDialog[]
+ * @var $dialogs Dialog[]
  */
 ?>
 <div class="dialog-list">
@@ -11,7 +11,7 @@
         else {
             echo ($dialog->lastMessage->isMessageSentByUser()) ? 'out' : 'in';
         }
-        ?>" id="MessageDialog_<?php echo $dialog->id; ?>">
+        ?>" id="Dialog_<?php echo $dialog->id; ?>">
         <input type="hidden" value="<?php echo $this->createUrl('/im/default/dialog', array('id' => $dialog->id)) ?>"
                class="dialog_url">
         <input type="hidden" value="<?php echo $dialog->id ?>"
@@ -41,6 +41,7 @@
 
     </div>
     <?php endforeach; ?>
+
 </div>
 
 <script type="text/javascript">

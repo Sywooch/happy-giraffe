@@ -29,7 +29,7 @@ Yii::app()->clientScript
         <div class="new-message">
             <div class="editor-box">
                 <?php
-                $message = new MessageLog();
+                $message = new Message();
                 $this->widget('ext.ckeditor.CKEditorWidget', array(
                     'id' => 'message',
                     'model' => $message,
@@ -97,7 +97,7 @@ $(function () {
 
     //remove message
     $('body').delegate('div.dialog-message a.remove', 'click', function () {
-        var id = $(this).parents('div.dialog-message').attr("id").replace(/MessageLog_/g, "");
+        var id = $(this).parents('div.dialog-message').attr("id").replace(/Message_/g, "");
         $(this).parents('div.dialog-message').remove();
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("im/default/removeMessage") ?>',
@@ -143,7 +143,7 @@ $(function () {
     });
 
     //bind key press on CKEDITOR
-    var editor = CKEDITOR.instances['MessageLog[text]'];
+    var editor = CKEDITOR.instances['Message[text]'];
     editor.on('key', function (e) {
         if (last_typing_time + 10000 < new Date().getTime()) {
             last_typing_time = new Date().getTime();
@@ -206,7 +206,7 @@ function ChangeDialog(id) {
 }
 
 function SendMessage() {
-    var editor = CKEDITOR.instances['MessageLog[text]'];
+    var editor = CKEDITOR.instances['Message[text]'];
     var text = editor.getData();
     if (text == '')
         return false;
@@ -234,7 +234,7 @@ function SendMessage() {
 
 function MoreMessages() {
     if (no_more_messages == 0 && $('#messages').scrollTop() < 10) {
-        var first_id = $('#messages .dialog-message:first').attr('id').replace(/MessageLog_/g, "");
+        var first_id = $('#messages .dialog-message:first').attr('id').replace(/Message_/g, "");
         $('#messages').unbind('scroll');
         $.ajax({
             url:'<?php echo Yii::app()->createUrl("im/default/moreMessages") ?>',
@@ -339,7 +339,7 @@ function ShowNewMessage(result, id) {
 Comet.prototype.ShowAsRead = function(result, id) {
     console.log('read!');
     $(".dialog-message-new-in").each(function (index) {
-        var id = $(this).attr("id").replace(/MessageLog_/g, "");
+        var id = $(this).attr("id").replace(/Message_/g, "");
         if (id <= result.message_id) {
             $(this).find("td.content").css('background-color', '#EBF5FF');
             $(this).find("td.content").animate({ backgroundColor:"#fff" }, 2000);

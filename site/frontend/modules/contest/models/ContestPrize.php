@@ -4,11 +4,11 @@
  * This is the model class for table "{{contest_prize}}".
  *
  * The followings are the available columns in table '{{contest_prize}}':
- * @property string $prize_id
- * @property string $prize_contest_id
- * @property integer $prize_place
- * @property string $prize_item_id
- * @property string $prize_text
+ * @property string $id
+ * @property string $contest_id
+ * @property integer $place
+ * @property string $item_id
+ * @property string $text
  *
  * rel
  * @property Contest $contest
@@ -29,7 +29,7 @@ class ContestPrize extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{club_contest_prize}}';
+		return '{{contest__prizes}}';
 	}
 
 	/**
@@ -40,31 +40,31 @@ class ContestPrize extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('prize_place, prize_item_id', 'required'),
-			array('prize_place', 'numerical', 'integerOnly'=>true),
-			array('prize_contest_id, prize_item_id', 'length', 'max'=>10),
-			array('prize_text', 'safe'),
+			array('place, item_id', 'required'),
+			array('place', 'numerical', 'integerOnly'=>true),
+			array('contest_id, item_id', 'length', 'max'=>10),
+			array('text', 'safe'),
 
-			array('prize_place','placeExist'),
+			array('place','placeExist'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('prize_id, prize_contest_id, prize_place, prize_item_id, prize_text', 'safe', 'on'=>'search'),
+			array('id, contest_id, place, item_id, text', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function placeExist($attribute,$attributes)
 	{
-		if($this->prize_place)
+		if($this->place)
 		{
-			$where = 'prize_contest_id=:prize_contest_id AND prize_place=:prize_place';
+			$where = 'contest_id=:contest_id AND place=:place';
 			$params = array(
-				':prize_contest_id'=>$this->prize_contest_id,
+				':contest_id'=>$this->contest_id,
 				'prize_place'=>$this->prize_place,
 			);
 			if(!$this->getIsNewRecord())
 			{
-				$where .= ' AND prize_id<>:prize_id';
-				$params[':prize_id'] = $this->prize_id;
+				$where .= ' AND id<>:id';
+				$params[':id'] = $this->id;
 			}
 
 			$place = Yii::app()->db->createCommand()
@@ -88,8 +88,8 @@ class ContestPrize extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'contest' => array(self::BELONGS_TO, 'Contest', 'prize_contest_id'),
-			'product' => array(self::BELONGS_TO, 'Product', 'prize_item_id'),
+			'contest' => array(self::BELONGS_TO, 'Contest', 'contest_id'),
+			'product' => array(self::BELONGS_TO, 'Product', 'item_id'),
 		);
 	}
 
@@ -99,11 +99,11 @@ class ContestPrize extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'prize_id' => 'Prize',
-			'prize_contest_id' => 'Prize Contest',
+			'id' => 'Prize',
+			'contest_id' => 'Prize Contest',
 			'prize_place' => 'Prize Place',
-			'prize_item_id' => 'Prize Item',
-			'prize_text' => 'Prize Text',
+			'item_id' => 'Prize Item',
+			'text' => 'Prize Text',
 		);
 	}
 
@@ -118,11 +118,11 @@ class ContestPrize extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('prize_id',$this->prize_id,true);
-		$criteria->compare('prize_contest_id',$this->prize_contest_id,true);
+		$criteria->compare('id',$this->prize_id,true);
+		$criteria->compare('contest_id',$this->contest_id,true);
 		$criteria->compare('prize_place',$this->prize_place);
-		$criteria->compare('prize_item_id',$this->prize_item_id,true);
-		$criteria->compare('prize_text',$this->prize_text,true);
+		$criteria->compare('item_id',$this->item_id,true);
+		$criteria->compare('text',$this->text,true);
 		if(!isset($_GET[__CLASS__.'_sort']))
 			$criteria->order = 'prize_place';
 

@@ -57,7 +57,7 @@
 
 <script id="ingredientTmpl" type="text/x-jquery-tmpl">
 <div>
-	<?php echo CHtml::activeTextField($ingredient_model, '[${num}]name'); ?>
+	<?php echo CHtml::activeTextField($ingredient_model, '[${num}]title'); ?>
 	<?php echo CHtml::activeTextField($ingredient_model, '[${num}]amount'); ?>
 	<?php echo CHtml::activeDropDownList($ingredient_model, '[${num}]unit', RecipeBookIngredient::getUnitValues(), array(
 		'prompt' => 'не указано',
@@ -71,18 +71,18 @@
 <?php echo CHtml::errorSummary(array_merge(array($model), $ingredients)); ?>
 
 <div>
-	<?php echo $model->getAttributeLabel('name'); ?>:
-	<?php echo $form->textField($model, 'name'); ?>
-    <?php echo $form->error($model, 'name'); ?>
+	<?php echo $model->getAttributeLabel('title'); ?>:
+	<?php echo $form->textField($model, 'title'); ?>
+    <?php echo $form->error($model, 'title'); ?>
 </div>
 
 <div>
 	<?php echo $model->getAttributeLabel('disease_id'); ?>:
-	<?php echo CHtml::dropDownList('disease_category', $model->isNewRecord ? '' : $model->disease->category->id, CHtml::listData(RecipeBookDiseaseCategory::model()->findAll(), 'id', 'name'), array(
+	<?php echo CHtml::dropDownList('disease_category', $model->isNewRecord ? '' : $model->disease->category->id, CHtml::listData(RecipeBookDiseaseCategory::model()->findAll(), 'id', 'title'), array(
 		'prompt' => 'Выберите категорию',
 	)); ?>
 	
-	<?php echo $form->dropDownList($model, 'disease_id', $model->isNewRecord ? array() : CHtml::listData($model->disease->category->diseases, 'id', 'name'), array(
+	<?php echo $form->dropDownList($model, 'disease_id', $model->isNewRecord ? array() : CHtml::listData($model->disease->category->diseases, 'id', 'title'), array(
 		'prompt' => 'Выберите болезнь',
 	)); ?>
     <?php echo $form->error($model, 'disease_category'); ?>
@@ -91,14 +91,14 @@
 
 <div>
 	<?php echo $model->getAttributeLabel('purposes'); ?>:
-	<?php echo $form->checkBoxList($model, 'purposeIds', CHtml::listData(RecipeBookPurpose::model()->findAll(), 'id', 'name')); ?>
+	<?php echo $form->checkBoxList($model, 'purposeIds', CHtml::listData(RecipeBookPurpose::model()->findAll(), 'id', 'title')); ?>
 </div>
 
 <div id="ingredients">
 	<?php if (! $model->isNewRecord): ?>
 		<?php foreach ($model->ingredients as $i => $ingredient): ?>
 			<div>
-				<?php echo $form->textField($ingredient, '[' . $i . ']name'); ?>
+				<?php echo $form->textField($ingredient, '[' . $i . ']title'); ?>
 				<?php echo $form->textField($ingredient, '[' . $i . ']amount'); ?>
 				<?php echo $form->dropDownList($ingredient, '[' . $i . ']unit', RecipeBookIngredient::getUnitValues(), array(
 					'prompt' => 'не указано',

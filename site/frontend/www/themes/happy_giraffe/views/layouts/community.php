@@ -7,7 +7,6 @@
         var inClub = {$inCommunity};
         $('body').delegate('a.joinButton', 'click', function(e) {
             e.preventDefault();
-
             $.ajax({
                 dataType: 'JSON',
                 url: $(this).attr('href'),
@@ -145,7 +144,7 @@
 
             <ul>
                 <?php foreach ($this->community->last as $c): ?>
-                    <li><?=CHtml::link($c->name, $c->url)?></li>
+                    <li><?=CHtml::link($c->title, $c->url)?></li>
                 <?php endforeach; ?>
             </ul>
 

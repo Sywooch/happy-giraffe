@@ -1,25 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "name".
+ * This is the model class for table "name__names".
  *
- * The followings are the available columns in table 'name':
+ * The followings are the available columns in table 'name__names':
  * @property string $id
  * @property string $name
  * @property integer $gender
  * @property string $translate
  * @property string $origin
  * @property string $description
- * @property string $name_group_id
- * @property string $options
- * @property string $sweet
- * @property string $middle_names
  * @property integer $likes
  * @property string $saints
  * @property string $slug
  *
  * The followings are the available model relations:
- * @property NameGroup $nameGroup
  * @property NameMiddle[] $nameMiddles
  * @property NameOption[] $nameOptions
  * @property NameSweet[] $nameSweets
@@ -30,6 +25,10 @@
  */
 class Name extends CActiveRecord
 {
+    public $sweet;
+    public $options;
+    public $middle_names;
+
     const GENDER_MAN = 1;
     const GENDER_WOMAN = 2;
 
@@ -49,7 +48,7 @@ class Name extends CActiveRecord
      */
     public function tableName()
     {
-        return 'name';
+        return 'name__names';
     }
 
     /**
@@ -63,15 +62,13 @@ class Name extends CActiveRecord
             array('name, gender', 'required'),
             array('gender, likes', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 30),
-            array('translate, options, sweet', 'length', 'max' => 512),
+            array('translate', 'length', 'max' => 512),
             array('origin, saints', 'length', 'max' => 2048),
-            array('name_group_id', 'length', 'max' => 10),
-            array('middle_names', 'length', 'max' => 1024),
             array('description', 'safe'),
             array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'name', 'on' => self::SCENARIO_EDIT_NAME),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, gender, translate, description, saints, origin, name_group_id, options, sweet, middle_names, likes', 'safe', 'on' => 'search'),
+            array('id, name, gender, translate, description, saints, origin, likes', 'safe', 'on' => 'search'),
         );
     }
 
@@ -83,11 +80,10 @@ class Name extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-//            'nameGroup' => array(self::BELONGS_TO, 'NameGroup', 'name_group_id'),
             'nameFamouses' => array(self::HAS_MANY, 'NameFamous', 'name_id'),
             'nameSaintDates' => array(self::HAS_MANY, 'NameSaintDate', 'name_id'),
             'nameStats' => array(self::HAS_MANY, 'NameStats', 'name_id'),
-            'users' => array(self::MANY_MANY, 'User', 'name_likes(name_id, user_id)'),
+            'users' => array(self::MANY_MANY, 'User', 'name__likes(name_id, user_id)'),
             'nameMiddles' => array(self::HAS_MANY, 'NameMiddle', 'name_id'),
             'nameOptions' => array(self::HAS_MANY, 'NameOption', 'name_id'),
             'nameSweets' => array(self::HAS_MANY, 'NameSweet', 'name_id'),
@@ -106,7 +102,6 @@ class Name extends CActiveRecord
             'translate' => 'перевод, значение',
             'origin' => 'Происхождение',
             'description'=>'Характеристика',
-            'name_group_id' => 'Языковая группа',
             'options' => 'Варианты',
             'sweet' => 'Ласковые обращения',
             'middle_names' => 'Подходящие отчества',
@@ -132,10 +127,6 @@ class Name extends CActiveRecord
         $criteria->compare('gender', $this->gender);
         $criteria->compare('translate', $this->translate, true);
         $criteria->compare('origin', $this->origin, true);
-        $criteria->compare('name_group_id', $this->name_group_id, true);
-        $criteria->compare('options', $this->options, true);
-        $criteria->compare('sweet', $this->sweet, true);
-        $criteria->compare('middle_names', $this->middle_names, true);
         $criteria->compare('likes', $this->likes);
 
         return new CActiveDataProvider($this, array(
@@ -241,8 +232,8 @@ class Name extends CActiveRecord
     {
         $data = Yii::app()->db->createCommand()
             ->select(array('id', 'name', 'gender', 'translate', 'slug'))
-            ->from('name')
-            ->join('name_likes', 'name.id = name_likes.name_id AND name_likes.user_id = ' . $user_id)
+            ->from('name__names')
+            ->join('name__likes', 'name__names.id = name__likes.name_id AND name__likes.user_id = ' . $user_id)
             ->order('name')
             ->queryAll();
 
@@ -256,7 +247,7 @@ class Name extends CActiveRecord
         $user_id = Yii::app()->user->id;
         $data = Yii::app()->db->createCommand()
             ->select('name_id')
-            ->from('name_likes')
+            ->from('name__likes')
             ->where('user_id = ' . $user_id)
             ->queryColumn();
 
@@ -267,7 +258,7 @@ class Name extends CActiveRecord
     {
         $data = Yii::app()->db->createCommand()
             ->select('count(name_id)')
-            ->from('name_likes')
+            ->from('name__likes')
             ->where('user_id = ' . $user_id)
             ->queryScalar();
 
@@ -284,25 +275,21 @@ class Name extends CActiveRecord
 
         if ($current_vote === FALSE) {
             Yii::app()->db->createCommand()
-                ->insert('name_likes', array(
+                ->insert('name__likes', array(
                 'name_id' => $this->id,
                 'user_id' => $user_id,
             ));
 
             $this->likes++;
-//            Yii::app()->db->createCommand()
-//                ->update($this->tableName(), array('likes' => new CDbExpression('likes + 1')), 'id = :name_id', array(':name_id' => $this->id));
         }
         else
         {
             Yii::app()->db->createCommand()
-                ->delete('name_likes', 'user_id = :user_id AND name_id = :name_id', array(
+                ->delete('name__likes', 'user_id = :user_id AND name_id = :name_id', array(
                 ':user_id' => $user_id,
                 ':name_id' => $this->id,
             ));
 
-//            Yii::app()->db->createCommand()
-//                ->update($this->tableName(), array('likes' => new CDbExpression('likes - 1')), 'id = :name_id', array(':name_id' => $this->id));
             $this->likes--;
         }
 
@@ -313,7 +300,7 @@ class Name extends CActiveRecord
     {
         $vote = Yii::app()->db->createCommand()
             ->select('name_id')
-            ->from('name_likes')
+            ->from('name__likes')
             ->where('name_id = :name_id AND user_id = :user_id', array(':name_id' => $this->id, ':user_id' => $user_id))
             ->queryScalar();
 

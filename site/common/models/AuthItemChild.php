@@ -28,7 +28,7 @@ class AuthItemChild extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'auth_item_child';
+		return 'auth__items_childs';
 	}
 
 	/**

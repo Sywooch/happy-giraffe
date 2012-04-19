@@ -25,7 +25,7 @@
                         }
                     }
 
-                     $(element).attr('onclick', 'check(this, ' + id + ', ' + ((mark + 1) % 2) + ')');
+                    $(element).attr('onclick', 'check(this, ' + id + ', ' + ((mark + 1) % 2) + ')');
                 }
             });
             return false;
@@ -36,29 +36,28 @@
 ?>
 
 <?php
-$updateUrl = $this->createUrl('/ajax/setValue');
-$this->widget('zii.widgets.grid.CGridView', array(
-    'dataProvider' => $dp,
-    'selectableRows' => 0,
-    'columns' => array(
-        array(
-            'header' => 'Статья',
-            'value' => '$data->edited ? CHtml::link("<s>" . $data->name . "</s>", $data->url) : CHtml::link($data->name, $data->url)',
-            'type' => 'html',
-        ),
-        array(
-            'header' => 'Редактировать',
-            'class' =>'CButtonColumn',
-            'template' => '{update}',
-            'buttons'=>array(
-                'update' => array(
-                    'url' => 'Yii::app()->createUrl("community/edit", array("content_id" => $data->id))',
+    $this->widget('zii.widgets.grid.CGridView', array(
+        'dataProvider' => $dp,
+        'selectableRows' => 0,
+        'columns' => array(
+            array(
+                'header' => 'Статья',
+                'value' => '$data->edited ? CHtml::link("<s>" . $data->title . "</s>", $data->url, array("target" => "_blank")) : CHtml::link($data->title, $data->url, array("target" => "_blank"))',
+                'type' => 'raw',
+            ),
+            array(
+                'header' => 'Редактировать',
+                'class' =>'CButtonColumn',
+                'template' => '{update}',
+                'buttons'=>array(
+                    'update' => array(
+                        'url' => 'Yii::app()->createUrl("community/edit", array("content_id" => $data->id))',
+                    ),
                 ),
             ),
+            array(
+                'value' => '$data->edited ? CHtml::link(CHtml::image("/images/cross.png"), "#", array("onclick" => "check(this, $data->id, 0)")) : CHtml::link(CHtml::image("/images/tick.png"), "#", array("onclick" => "check(this, $data->id, 1)"))',
+                'type' => 'raw',
+            ),
         ),
-        array(
-            'value' => '$data->edited ? CHtml::link(CHtml::image("/images/cross.png"), "#", array("onclick" => "check(this, $data->id, 0)")) : CHtml::link(CHtml::image("/images/tick.png"), "#", array("onclick" => "check(this, $data->id, 1)"))',
-            'type' => 'raw',
-        ),
-    ),
-));
+    ));

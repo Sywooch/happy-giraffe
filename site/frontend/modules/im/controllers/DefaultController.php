@@ -26,7 +26,7 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $this->pageTitle = 'Диалоги';
-        $dialogs = MessageDialog::GetUserDialogs();
+        $dialogs = Dialog::GetUserDialogs();
 
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -36,7 +36,7 @@ class DefaultController extends Controller
     public function actionNew()
     {
         $this->pageTitle = 'Новые Сообщения';
-        $dialogs = MessageDialog::GetUserNewDialogs();
+        $dialogs = Dialog::GetUserNewDialogs();
 
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -46,7 +46,7 @@ class DefaultController extends Controller
     public function actionOnline()
     {
         $this->pageTitle = 'Кто онлайн';
-        $dialogs = MessageDialog::GetUserOnlineDialogs();
+        $dialogs = Dialog::GetUserOnlineDialogs();
 
         $this->render('index', array(
             'dialogs' => $dialogs
@@ -59,7 +59,7 @@ class DefaultController extends Controller
         $this->loadModel($id);
         ActiveDialogs::model()->addDialog($id);
         ActiveDialogs::model()->SetLastDialogId($id);
-        $messages = MessageLog::GetLastMessages($id);
+        $messages = Message::GetLastMessages($id);
 
         $this->render('dialog', array(
             'messages' => $messages,
@@ -71,7 +71,7 @@ class DefaultController extends Controller
     {
         $id = Yii::app()->request->getPost('id');
         $this->loadModel($id);
-        $messages = MessageLog::GetLastMessages($id);
+        $messages = Message::GetLastMessages($id);
         $response = array(
             'status' => true,
             'html' => $this->renderPartial('_dialog_content', array(
@@ -94,18 +94,18 @@ class DefaultController extends Controller
         //find if dialog with this user exist
         $dialog_id = Im::model()->getDialogIdByUser($id);
         if (empty($dialog_id)) {
-            $dialog = new MessageDialog;
+            $dialog = new Dialog;
             $dialog->title = $user->getFullName();
             if (!$dialog->save())
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            $um = new MessageUser;
+            $um = new DialogUser;
             $um->dialog_id = $dialog->id;
             $um->user_id = $id;
             if (!$um->save())
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            $um = new MessageUser;
+            $um = new DialogUser;
             $um->dialog_id = $dialog->id;
             $um->user_id = Yii::app()->user->id;
             if (!$um->save())
@@ -121,14 +121,14 @@ class DefaultController extends Controller
     {
         $dialog = Yii::app()->request->getPost('dialog');
         $last_message_id = Yii::app()->request->getPost('id');
-        MessageDialog::SetRead($dialog, $last_message_id);
+        Dialog::SetRead($dialog, $last_message_id);
     }
 
     public function actionCreateMessage()
     {
         $dialog = Yii::app()->request->getPost('dialog');
         $text = Yii::app()->request->getPost('text');
-        $message = MessageLog::NewMessage($dialog, Yii::app()->user->id, $text);
+        $message = Message::NewMessage($dialog, Yii::app()->user->getId(), $text);
 
         $response = array(
             'id' => $message->id,
@@ -142,7 +142,7 @@ class DefaultController extends Controller
     {
         $dialog_id = Yii::app()->request->getPost('dialog_id');
         $id = Yii::app()->request->getPost('id');
-        $messages = MessageLog::GetMessagesBefore($dialog_id, $id);
+        $messages = Message::GetMessagesBefore($dialog_id, $id);
 
         if (!empty($messages))
             $response = array(
@@ -171,7 +171,7 @@ class DefaultController extends Controller
 
     public function actionRemoveMessage()
     {
-        MessageLog::removeMessage(Yii::app()->request->getPost('id'));
+        Message::removeMessage(Yii::app()->request->getPost('id'));
     }
 
     public function actionRemoveActiveDialog()
@@ -246,19 +246,19 @@ class DefaultController extends Controller
 
     /**
      * @param int $id model id
-     * @return MessageDialog
+     * @return Dialog
      * @throws CHttpException
      */
     public function loadModel($id)
     {
-        $model = MessageDialog::model()->findByPk($id);
+        $model = Dialog::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
     }
 
     public function actionGetLast(){
-        $im = MessageLog::getNotificationMessages(Yii::app()->user->id);
+        $im = Message::getNotificationMessages(Yii::app()->user->id);
         echo CJSON::encode($im);
     }
 }

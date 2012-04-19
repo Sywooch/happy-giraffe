@@ -62,7 +62,7 @@ class AttributeSearchForm extends CFormModel
 		return array(
 			array('descendants', 'rangeValidator', 'allowEmpty' => true, 'range' => $this->_descendants, 'message' => 'Ошибка выбора подкатегории'),
 			array('sex', 'rangeValidator', 'allowEmpty' => true, 'range' => $this->sexList, 'message' => 'Ошибка выбора пола'),
-			array('ages', 'rangeValidator', 'allowEmpty' => true, 'range' => CHtml::listData($this->_ages, 'range_id', 'range_id'), 'message' => 'Ошибка выбора возвраста'),
+			array('ages', 'rangeValidator', 'allowEmpty' => true, 'range' => CHtml::listData($this->_ages, 'id', 'id'), 'message' => 'Ошибка выбора возвраста'),
 			array('brands', 'rangeValidator', 'allowEmpty' => true, 'range' => CHtml::listData($this->_brands, 'brand_id', 'brand_id'), 'message' => 'Ошибка выбора бренда'),
 			
 			array('priceMin, priceMax', 'numerical', 'allowEmpty' => true),
@@ -80,7 +80,7 @@ class AttributeSearchForm extends CFormModel
 			->createCommand()
 			->select()
 			->from(AgeRange::model()->tableName())
-			->order('range_order ASC, range_id DESC')
+			->order('position ASC, id DESC')
 			->queryAll();
 		
 		$usedBrands = Y::db()
@@ -215,7 +215,7 @@ class AttributeSearchForm extends CFormModel
         if($attributes->age_filter != 0)
             $fields['ages'] = array(
                             'type' => 'checkboxlist',
-                            'items' => CHtml::listData($this->_ages, 'range_id', 'range_title'),
+                            'items' => CHtml::listData($this->_ages, 'id', 'title'),
                         );
 		return array_merge($fields, array(
 			/*'descendants' => array(

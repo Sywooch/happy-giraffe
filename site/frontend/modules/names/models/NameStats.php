@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "name_stats".
+ * This is the model class for table "name__stats".
  *
- * The followings are the available columns in table 'name_stats':
+ * The followings are the available columns in table 'name__stats':
  * @property integer $id
  * @property string $name_id
  * @property integer $month
@@ -29,7 +29,7 @@ class NameStats extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'name_stats';
+		return 'name__stats';
 	}
 
 	/**

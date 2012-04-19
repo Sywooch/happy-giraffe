@@ -49,7 +49,7 @@ else
 				</td>
                 <td><?php echo $day->age ?></td>
                 <td><?php echo $day->GetText() ?></td>
-                <td><?php echo $day->vaccine->name ?></td>
+                <td><?php echo $day->vaccine->title ?></td>
 			</tr>
         <?php if (!empty($baby_id)):?>
 			<tr class="bottom">

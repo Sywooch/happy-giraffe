@@ -149,7 +149,7 @@ class Product extends CActiveRecord implements IECartPosition
      */
     public function tableName()
     {
-        return '{{shop_product}}';
+        return '{{shop__product}}';
     }
 
     public function primaryKey()
@@ -304,9 +304,9 @@ class Product extends CActiveRecord implements IECartPosition
 
         if (!$ranges)
             $ranges = Y::command()
-                ->select('range_id, range_title')
+                ->select('id, title')
                 ->from(AgeRange::model()->tableName())
-                ->order('range_order')
+                ->order('position')
                 ->queryAll(false);
         return CHtml::listData($ranges, 0, 1);
     }

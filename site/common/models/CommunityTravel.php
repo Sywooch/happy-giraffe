@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "club_community_travel".
+ * This is the model class for table "community__travels".
  *
- * The followings are the available columns in table 'club_community_travel':
+ * The followings are the available columns in table 'community__travels':
  * @property string $id
  * @property string $text
  * @property string $content_id
@@ -39,7 +39,7 @@ class CommunityTravel extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'club_community_travel';
+		return 'community__travels';
 	}
 
 	/**

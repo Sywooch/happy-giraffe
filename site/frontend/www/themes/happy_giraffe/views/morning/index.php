@@ -11,12 +11,13 @@
     <a class="btn btn-green" href="<?=$this->createUrl('/morning/publicAll') ?>"><span><span>Опублликовать все</span></span></a>
 </div>
 <?php endif ?>
-<?php foreach ($articles as $article): ?>
-<div class="entry">
+<?php foreach ($articles as $article)
+        if ($article->photoPost !== null){
+?><div class="entry">
 
     <div class="entry-header clearfix">
 
-        <h1><a href="<?=$article->url ?>"><?=$article->name ?></a></h1>
+        <h1><a href="<?=$article->url ?>"><?=$article->title ?></a></h1>
 
         <div class="where">
             <span>Где:</span>
@@ -63,4 +64,4 @@
     </div>
 
 </div>
-<?php endforeach; ?>
+<?php } ?>

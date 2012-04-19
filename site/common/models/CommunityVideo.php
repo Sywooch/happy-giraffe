@@ -38,7 +38,7 @@ class CommunityVideo extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{club_community_video}}';
+		return '{{community__videos}}';
 	}
 
 	/**

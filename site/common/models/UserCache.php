@@ -1,22 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "message_user".
+ * This is the model class for table "message_cache".
  *
- * The followings are the available columns in table 'message_user':
+ * The followings are the available columns in table 'message_cache':
  * @property string $id
- * @property string $dialog_id
  * @property string $user_id
+ * @property string $cache
  *
  * The followings are the available model relations:
- * @property MessageDialog $dialog
  * @property User $user
  */
-class MessageUser extends CActiveRecord
+class UserCache extends CActiveRecord
 {
+    CONST CACHE_ID = 'user_cache_';
+
     /**
      * Returns the static model of the specified AR class.
-     * @return MessageUser the static model class
+     * @return UserCache the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -28,7 +29,7 @@ class MessageUser extends CActiveRecord
      */
     public function tableName()
     {
-        return 'message_user';
+        return 'im__user_cache';
     }
 
     /**
@@ -39,11 +40,12 @@ class MessageUser extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('dialog_id', 'required'),
-            array('dialog_id, user_id', 'length', 'max' => 10),
+            array('user_id, cache', 'required'),
+            array('user_id', 'length', 'max' => 10),
+            array('cache', 'length', 'max' => 100),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('dialog_id, user_id', 'safe', 'on' => 'search'),
+            array('user_id, cache', 'safe', 'on' => 'search'),
         );
     }
 
@@ -55,7 +57,6 @@ class MessageUser extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'dialog' => array(self::BELONGS_TO, 'MessageDialog', 'dialog_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
@@ -66,8 +67,8 @@ class MessageUser extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'dialog_id' => 'Dialog',
             'user_id' => 'User',
+            'cache' => 'Cache',
         );
     }
 
@@ -82,8 +83,8 @@ class MessageUser extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('dialog_id', $this->dialog_id, true);
         $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('cache', $this->cache, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -91,10 +92,46 @@ class MessageUser extends CActiveRecord
     }
 
     /**
+     * @static
+     * @return string cache
+     */
+    public static function GetCurrentUserCache()
+    {
+        if (Yii::app()->user->isGuest)
+            return null;
+        return self::GetUserCache(Yii::app()->user->id);
+    }
+
+    /**
+     * @static
+     * @param $user_id
      * @return string
      */
-    public function UserCache()
+    public static function GetUserCache($user_id)
     {
-        return MessageCache::GetUserCache($this->user_id);
+        $value = Yii::app()->cache->get(self::CACHE_ID . $user_id);
+        if ($value === false) {
+            $model = self::model()->find('user_id=' . $user_id);
+            if (isset($model))
+                $value = $model->cache;
+            else {
+                $model = new UserCache();
+                $model->user_id = $user_id;
+                $model->UpdateCache();
+                $model->save();
+                $value = $model->cache;
+            }
+            Yii::app()->cache->set(self::CACHE_ID . $user_id, $value);
+        }
+        return $value;
+    }
+
+    public function UpdateCache()
+    {
+        do {
+            $cache = substr(md5(time() . $this->user_id), 0, 5);
+        } while (UserCache::model()->count('cache="' . $cache . '"') != 0);
+        $this->cache = $cache;
+        Yii::app()->cache->set(self::CACHE_ID . $this->user_id, $cache);
     }
 }

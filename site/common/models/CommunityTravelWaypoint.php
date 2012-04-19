@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "club_community_travel_waypoint".
+ * This is the model class for table "community__travel_waypoints".
  *
- * The followings are the available columns in table 'club_community_travel_waypoint':
+ * The followings are the available columns in table 'community__travel_waypoints':
  * @property string $id
  * @property string $city_id
  * @property string $country_id
@@ -41,7 +41,7 @@ class CommunityTravelWaypoint extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'club_community_travel_waypoint';
+		return 'community__travel_waypoints';
 	}
 
 	/**

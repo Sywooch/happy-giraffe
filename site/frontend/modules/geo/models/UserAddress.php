@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "user_address".
+ * This is the model class for table "geo__user_address".
  *
- * The followings are the available columns in table 'user_address':
+ * The followings are the available columns in table 'geo__user_address':
  * @property string $user_id
  * @property string $country_id
  * @property string $region_id
@@ -36,7 +36,7 @@ class UserAddress extends CActiveRecord
      */
     public function tableName()
     {
-        return 'user_address';
+        return 'geo__user_address';
     }
 
     /**

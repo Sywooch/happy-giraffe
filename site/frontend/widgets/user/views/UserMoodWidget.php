@@ -72,7 +72,7 @@
         <div class="moods-list">
             <ul>
                 <?php $moods = UserMood::model()->findAll(); foreach($moods as $m): ?>
-                    <li><a href="" onclick="return updateMood(<?php echo $m->id; ?>)"><img src="/images/widget/mood/<?php echo $m->id; ?>.png" /><?php echo $m->name; ?></a></li>
+                    <li><a href="" onclick="return updateMood(<?php echo $m->id; ?>)"><img src="/images/widget/mood/<?php echo $m->id; ?>.png" /><?php echo $m->title; ?></a></li>
                 <?php endforeach; ?>
             </ul>
         </div>

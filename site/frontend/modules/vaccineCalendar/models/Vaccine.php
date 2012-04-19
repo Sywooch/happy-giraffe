@@ -34,11 +34,11 @@ class Vaccine extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name', 'length', 'max'=>256),
+			array('title', 'required'),
+			array('title', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, title', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,7 +60,7 @@ class Vaccine extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Название',
+			'title' => 'Название',
 		);
 	}
 
@@ -76,7 +76,7 @@ class Vaccine extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->title,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

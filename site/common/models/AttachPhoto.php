@@ -28,7 +28,7 @@ class AttachPhoto extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'album_photos_attaches';
+		return 'album__photo_attaches';
 	}
 
 	/**

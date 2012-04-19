@@ -62,7 +62,6 @@ class DefaultController extends Controller
             $criteria->addCond('signal_type', '==', (int)$filter);
 
         $models2 = UserSignal::model()->findAll($criteria);
-
         $models = array_merge($models2, $models);
         if (Yii::app()->request->isAjaxRequest) {
             $history = UserSignal::model()->getHistory(Yii::app()->user->id, date("Y-m-d"), 5);

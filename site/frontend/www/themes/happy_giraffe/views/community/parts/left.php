@@ -50,7 +50,7 @@
 
             $htmlOptions['rel'] = 'nofollow';
             ?>
-            <?= CHtml::tag('li', array(), CHtml::link($ct->name_accusative, $url, $htmlOptions)) ?>
+            <?= CHtml::tag('li', array(), CHtml::link($ct->title_accusative, $url, $htmlOptions)) ?>
             <? endforeach; ?>
         </ul>
     </div>

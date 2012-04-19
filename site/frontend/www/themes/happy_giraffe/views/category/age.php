@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = array(
 	'Возраст и пол' => array('ages'),
-	'Возраст: ' . $age->range_title
+	'Возраст: ' . $age->title
 );
 
 $pages = $products->pagination;
@@ -36,7 +36,7 @@ $data = $products->data;
 
 				</div>
 
-				<h1>Возраст: <?php echo $age->range_title; ?></h1>
+				<h1>Возраст: <?php echo $age->title; ?></h1>
 
 			<?php endif; ?>
 

@@ -26,11 +26,11 @@ class AgeRange extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{age_range}}';
+		return '{{age_ranges}}';
 	}
 	
 	public function primaryKey() {
-		return 'range_id';
+		return 'id';
 	}
 
 	/**
@@ -40,13 +40,13 @@ class AgeRange extends CActiveRecord {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('range_title', 'required'),
-			array('range_title', 'length', 'max' => 50),
-			array('range_order', 'length', 'max' => 10),
-			array('range_order', 'default', 'value' => 0),
+			array('title', 'required'),
+			array('title', 'length', 'max' => 50),
+			array('position', 'length', 'max' => 10),
+			array('position', 'default', 'value' => 0),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('range_id, range_title, range_order', 'safe', 'on' => 'search'),
+			array('id, title, position', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -65,9 +65,9 @@ class AgeRange extends CActiveRecord {
 	 */
 	public function attributeLabels() {
 		return array(
-			'range_id' => '№',
-			'range_title' => 'Заголовок',
-			'range_order' => 'Порядок',
+			'id' => '№',
+			'title' => 'Заголовок',
+			'position' => 'Порядок',
 		);
 	}
 
@@ -81,12 +81,9 @@ class AgeRange extends CActiveRecord {
 
 		$criteria = new CDbCriteria;
 
-		$criteria->compare('range_id', $this->range_id, true);
-		$criteria->compare('range_title', $this->range_title, true);
-		$criteria->compare('range_order', $this->range_order, true);
-
-//		if(!isset($_GET[__CLASS__ . '_sort']))
-//			$criteria->order = 'range_order ASC, range_id DESC';
+		$criteria->compare('id', $this->range_id, true);
+		$criteria->compare('title', $this->range_title, true);
+		$criteria->compare('position', $this->range_order, true);
 
 		return new CActiveDataProvider($this, array(
 					'criteria' => $criteria,
@@ -95,7 +92,7 @@ class AgeRange extends CActiveRecord {
 
 	public function defaultScope() {
 		return array(
-			'order' => 'range_order ASC, range_id DESC',
+			'order' => 'position ASC, id DESC',
 		);
 	}
 	/**
@@ -104,7 +101,7 @@ class AgeRange extends CActiveRecord {
 	 */
 	public function getAgesArray() {
 		$criteria = new CDbCriteria();
-		$criteria->order = 'range_order ASC';
+		$criteria->order = 'position ASC';
 		$ages = $this->findAll($criteria);
 		$return = array();
 		foreach ($ages as $a) {

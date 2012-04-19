@@ -43,19 +43,23 @@ class MorningController extends Controller
             $this->pageTitle = 'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", $date) . ' с Весёлым жирафом';
 
         $this->time = strtotime($date . ' 00:00:00');
+        $criteria = new CDbCriteria;
+        $criteria->order = 'title DESC';
         $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
         if (!Yii::app()->user->checkAccess('editMorning'))
             $cond .= ' AND is_published = 1';
 
-        $count = CommunityContent::model()->with('photoPost')->count($cond);
+        $criteria->condition = $cond;
+        $count = CommunityContent::model()->with('photoPost')->count($criteria);
         if ($count == 0){
             $this->time = strtotime(' - 1 day', strtotime($date . ' 00:00:00'));
 
             $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
             if (!Yii::app()->user->checkAccess('editMorning'))
                 $cond .= ' AND is_published = 1';
+            $criteria->condition = $cond;
         }
-        $articles = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findAll($cond);
+        $articles = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findAll($criteria);
 
         $this->breadcrumbs = array(
             'Утро с Весёлым жирафом',

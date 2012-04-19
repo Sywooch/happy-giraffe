@@ -29,7 +29,7 @@ class CommunityRubricController extends Controller
     public function actionCreate()
     {
         $model = new CommunityRubric;
-        $model->name = Yii::app()->request->getPost('name');
+        $model->title = Yii::app()->request->getPost('name');
         $attr = Yii::app()->request->getPost('attr');
         $model->$attr= Yii::app()->request->getPost('attr_value');
 
@@ -63,7 +63,7 @@ class CommunityRubricController extends Controller
         //    'community_id' => $model->community_id
         //))
         //) {
-            $model->name = Yii::app()->request->getPost('name');
+            $model->title = Yii::app()->request->getPost('name');
             if ($model->save()) {
                 echo CJSON::encode(array(
                     'status' => true

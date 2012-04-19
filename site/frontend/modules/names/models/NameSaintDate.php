@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "name_saint_date".
+ * This is the model class for table "name__saint_dates".
  *
- * The followings are the available columns in table 'name_saint_date':
+ * The followings are the available columns in table 'name__saint_dates':
  * @property string $id
  * @property string $name_id
  * @property string $day
@@ -30,7 +30,7 @@ class NameSaintDate extends CActiveRecord
      */
     public function tableName()
     {
-        return 'name_saint_date';
+        return 'name__saint_dates';
     }
 
     /**

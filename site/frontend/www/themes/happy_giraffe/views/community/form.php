@@ -53,7 +53,7 @@
                     <div class="row clearfix">
                         <div class="row-title">Заголовок:</div>
                         <div class="row-elements">
-                            <?php echo $form->textField($model, 'name', array('class' => 'w-500')); ?>
+                            <?php echo $form->textField($model, 'title', array('class' => 'w-500')); ?>
                         </div>
                     </div>
 
@@ -74,7 +74,7 @@
                     <div class="row clearfix">
                         <div class="row-title">Заголовок:</div>
                         <div class="row-elements">
-                            <?php echo $form->textField($model, 'name', array('class' => 'w-400')); ?>
+                            <?php echo $form->textField($model, 'title', array('class' => 'w-400')); ?>
                         </div>
                     </div>
 
@@ -121,7 +121,7 @@
                     <div class="row-elements">
                         <div class="select-box">
                             <span class="subtitle">Клуб</span>
-                            <?php echo CHtml::dropDownList('community_id', $community_id, CHtml::listData($communities, 'id', 'name'), array('prompt' => 'Выберите клуб', 'class' => 'chzn w-200',
+                            <?php echo CHtml::dropDownList('community_id', $community_id, CHtml::listData($communities, 'id', 'title'), array('prompt' => 'Выберите клуб', 'class' => 'chzn w-200',
                                 'ajax' => array(
                                     'type' => 'POST',
                                     'url' => $this->createUrl('ajax/rubrics'),
@@ -133,7 +133,7 @@
                             )); ?>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <span class="subtitle">Рубрика</span>
-                            <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'name'), array('prompt' => 'Выберите рубрику', 'class' => 'chzn w-200')); ?>
+                            <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'title'), array('prompt' => 'Выберите рубрику', 'class' => 'chzn w-200')); ?>
                         </div>
                     </div>
                 </div>

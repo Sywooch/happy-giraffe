@@ -17,7 +17,7 @@ $form = $this->beginWidget('CActiveForm', array(
         'validationUrl' => $this->createUrl('/repair/wallpapers/calculate'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
-                                    StartCalc();
+                                    Wallpapers.StartCalc();
                                 return false;
                               }",
     )));

@@ -67,7 +67,7 @@ class VaccineData
     public function LoadUserVotes($baby_id){
         $votes = $this->GetUserVotes(Yii::app()->user->id, $baby_id);
         foreach($votes as $row){
-            $this->user_votes[$row['object_id']] = $row['vote'];
+            $this->user_votes[$row['entity_id']] = $row['vote'];
         }
     }
 
@@ -93,7 +93,7 @@ class VaccineData
      */
     private function GetUserVotes($user_id, $baby_id){
         $connection=Yii::app()->db;
-        $command=$connection->createCommand("SELECT object_id, vote FROM vaccine__dates_votes
+        $command=$connection->createCommand("SELECT entity_id, vote FROM vaccine__dates_votes
             WHERE user_id = :user_id AND baby_id=".$baby_id);
         $command->bindParam(":user_id",$user_id);
         return $command->queryAll();

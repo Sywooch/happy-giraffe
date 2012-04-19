@@ -37,7 +37,7 @@
                     <?php foreach ($diseases as $disease): ?>
                     <li><a
                         href="<?php echo $this->createUrl('/recipeBook/default/disease', array('url' => $disease->slug)) ?>"><?php
-                        echo $disease->name ?></a></li>
+                        echo $disease->title ?></a></li>
                     <?php endforeach; ?>
                 </ul>
                 <?php endforeach; ?>
@@ -51,7 +51,7 @@
                     <?php foreach ($diseases as $disease): ?>
                     <li><a
                         href="<?php echo $this->createUrl('/recipeBook/default/disease', array('url' => $disease->slug)) ?>"><?php
-                        echo $disease->name ?></a></li>
+                        echo $disease->title ?></a></li>
                     <?php endforeach; ?>
                 </ul>
                 <?php endforeach; ?>

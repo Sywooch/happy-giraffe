@@ -1,11 +1,11 @@
 <?php
 
 /**
- * This is the model class for table "{{community_content}}".
+ * This is the model class for table "{{community__contents}}".
  *
- * The followings are the available columns in table '{{community_content}}':
+ * The followings are the available columns in table '{{community__contents}}':
  * @property string $id
- * @property string $name
+ * @property string $title
  * @property string $created
  * @property string $author_id
  * @property string $rubric_id
@@ -44,7 +44,7 @@ class CommunityContent extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{club_community_content}}';
+		return '{{community__contents}}';
 	}
 
 	/**
@@ -55,9 +55,9 @@ class CommunityContent extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, author_id, type_id', 'required'),
+			array('title, author_id, type_id', 'required'),
             array('rubric_id', 'required', 'on' => 'default'),
-			array('name, meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
+			array('title, meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
 			array('author_id, rubric_id, type_id', 'length', 'max' => 11),
 			array('author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
 			array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
@@ -67,7 +67,7 @@ class CommunityContent extends CActiveRecord
 
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, by_happy_giraffe, name, meta_title, meta_description, meta_keywords, created, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
+			array('id, by_happy_giraffe, title, meta_title, meta_description, meta_keywords, created, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -101,7 +101,7 @@ class CommunityContent extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'title' => 'Name',
 			'created' => 'Created',
 			'author_id' => 'Author',
 			'rubric_id' => 'Rubric',
@@ -132,7 +132,7 @@ class CommunityContent extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->title,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('author_id',$this->author_id,true);
 		$criteria->compare('rubric_id',$this->rubric_id,true);
@@ -481,7 +481,7 @@ class CommunityContent extends CActiveRecord
         switch ($this->type_id) {
             case 1:
                 if (preg_match('/src="([^"]+)"/', $this->post->text, $matches)) {
-                    return '<img src="' . $matches[1] . '" alt="' . $this->name . '" />';
+                    return '<img src="' . $matches[1] . '" alt="' . $this->title . '" />';
                 } else {
                     return Str::truncate(strip_tags($this->post->text));
                 }

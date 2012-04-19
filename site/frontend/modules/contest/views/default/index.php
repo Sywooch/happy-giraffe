@@ -1,5 +1,5 @@
 <ul>
 	<? foreach ($contests as $c): ?>
-		<li><?=CHtml::link($c->contest_title, Yii::app()->urlManager->createUrl('/contest/' . $c->contest_id))?></li>
+		<li><?=CHtml::link($c->title, Yii::app()->urlManager->createUrl('/contest/' . $c->id))?></li>
 	<? endforeach; ?>
 </ul>

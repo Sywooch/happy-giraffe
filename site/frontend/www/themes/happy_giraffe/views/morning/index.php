@@ -17,7 +17,7 @@
 
     <div class="entry-header clearfix">
 
-        <h1><a href="<?=$article->url ?>"><?=$article->name ?></a></h1>
+        <h1><a href="<?=$article->url ?>"><?=$article->title ?></a></h1>
 
         <div class="where">
             <span>Где:</span>

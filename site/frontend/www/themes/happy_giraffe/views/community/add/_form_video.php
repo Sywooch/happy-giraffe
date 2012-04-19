@@ -33,7 +33,7 @@ $('.close').click(function () {
     $content_model->author_id == Yii::app()->user->id)):?>
 	    <div class="">
     		<div class="inner-title">Заголовок видео</div>
-    		<?php echo $form->textField($content_model, 'name'); ?>
+    		<?php echo $form->textField($content_model, 'title'); ?>
 
     		<?php if(Yii::app()->user->checkAccess('edit meta')): ?>
     			<div class="inner-title">Title</div>
@@ -112,13 +112,13 @@ $('.close').click(function () {
 			
 
 			    <?php if ($content_model->isNewRecord): ?>
-    				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($rubrics, 'id', 'name'),
+    				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($rubrics, 'id', 'title'),
                     array(
                         'prompt' => 'Выберите рубрику',
                         'class'=>'chzn',
                     )); ?>
     			<?php else: ?>
-    				<?php echo CHtml::dropDownList('community_id', $community->id, CHtml::listData($communities, 'id', 'name'),
+    				<?php echo CHtml::dropDownList('community_id', $community->id, CHtml::listData($communities, 'id', 'title'),
     					array(
     						'prompt' => 'Выберите сообщество',
                             'ajax' => array(
@@ -134,7 +134,7 @@ $('.close').click(function () {
     					)
     				); ?></p>
 
-    				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'name'),
+    				<?php echo $form->dropDownList($content_model, 'rubric_id', CHtml::listData($community->rubrics, 'id', 'title'),
     					array(
     						'prompt' => 'Выберите рубрику',
     						'disabled' => Yii::app()->user->checkAccess('transfer post') ? '' : 'disabled',

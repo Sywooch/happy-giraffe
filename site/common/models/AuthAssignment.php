@@ -29,7 +29,7 @@ class AuthAssignment extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'auth_assignment';
+		return 'auth__assignments';
 	}
 
 	/**

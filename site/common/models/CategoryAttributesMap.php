@@ -25,7 +25,7 @@ class CategoryAttributesMap extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_category_attributes_map}}';
+		return '{{shop__category_attributes_map}}';
 	}
 	
 	public function primaryKey() {

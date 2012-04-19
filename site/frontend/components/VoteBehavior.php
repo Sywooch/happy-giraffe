@@ -27,7 +27,7 @@ class VoteBehavior extends CActiveRecordBehavior
     public function vote($user_id, $vote)
     {
         $current_vote = $this->getCurrentVote($user_id);
-        $vote_table = $this->owner->tableName() . '_vote';
+        $vote_table = $this->owner->tableName() . '_votes';
 
         $request = $this->GetRequest($user_id);
 
@@ -38,7 +38,7 @@ class VoteBehavior extends CActiveRecordBehavior
 
             Yii::app()->db->createCommand()
                 ->update($this->owner->tableName(), array($this->columnByVote($vote) =>
-            new CDbExpression($this->columnByVote($vote) . ' + 1')), 'id = :object_id', array(':object_id' => $this->owner->id));
+            new CDbExpression($this->columnByVote($vote) . ' + 1')), 'id = :entity_id', array(':entity_id' => $this->owner->id));
         }
         elseif ($current_vote != $vote)
         {
@@ -47,11 +47,11 @@ class VoteBehavior extends CActiveRecordBehavior
 
             Yii::app()->db->createCommand()
                 ->update($this->owner->tableName(), array($this->columnByVote($vote) =>
-            new CDbExpression($this->columnByVote($vote) . ' + 1')), 'id = :object_id', array(':object_id' => $this->owner->id));
+            new CDbExpression($this->columnByVote($vote) . ' + 1')), 'id = :entity_id', array(':entity_id' => $this->owner->id));
 
             Yii::app()->db->createCommand()
                 ->update($this->owner->tableName(), array($this->columnByVote($current_vote) =>
-            new CDbExpression($this->columnByVote($current_vote) . ' - 1')), 'id = :object_id', array(':object_id' => $this->owner->id));
+            new CDbExpression($this->columnByVote($current_vote) . ' - 1')), 'id = :entity_id', array(':entity_id' => $this->owner->id));
         }
     }
 
@@ -62,7 +62,7 @@ class VoteBehavior extends CActiveRecordBehavior
 
     public function getCurrentVote($user_id)
     {
-        $vote_table = $this->owner->tableName() . '_vote';
+        $vote_table = $this->owner->tableName() . '_votes';
 
         $request = $this->GetRequest($user_id);
         $vote = Yii::app()->db->createCommand()
@@ -84,19 +84,19 @@ class VoteBehavior extends CActiveRecordBehavior
 
         if (is_array($user_id)) {
             $sql = '';
-            $args = array(':object_id' => $this->owner->id);
-            $cols = array('object_id' => $this->owner->id);
+            $args = array(':entity_id' => $this->owner->id);
+            $cols = array('entity_id' => $this->owner->id);
             foreach ($user_id as $key => $value) {
                 $sql .= $key . ' = :' . $key . ' AND ';
                 $args[':' . $key] = $value;
                 $cols[$key]=$value;
             }
-            $sql .= 'object_id = :object_id';
+            $sql .= 'entity_id = :entity_id';
         }
         else {
-            $sql = 'object_id = :object_id AND user_id = :user_id';
-            $args = array(':object_id' => $this->owner->id, ':user_id' => $user_id);
-            $cols = array('object_id' => $this->owner->id, 'user_id' => $user_id);
+            $sql = 'entity_id = :entity_id AND user_id = :user_id';
+            $args = array(':entity_id' => $this->owner->id, ':user_id' => $user_id);
+            $cols = array('entity_id' => $this->owner->id, 'user_id' => $user_id);
         }
 
         $this->_request = array($sql, $args, $cols);

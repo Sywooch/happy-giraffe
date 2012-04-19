@@ -45,7 +45,7 @@ class Report extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{report}}';
+		return '{{reports}}';
 	}
 
 	/**

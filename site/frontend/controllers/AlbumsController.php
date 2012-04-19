@@ -115,6 +115,8 @@ class AlbumsController extends Controller
         if (isset($_FILES['Filedata']))
         {
             $file = CUploadedFile::getInstanceByName('Filedata');
+            if (!in_array($file->extensionName, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
+                Yii::app()->end();
             $model = new AlbumPhoto();
 
             echo '<div id="serverData">';
@@ -381,11 +383,17 @@ class AlbumsController extends Controller
 
     public static function loadUploadScritps()
     {
-        $baseUrl = Yii::app()->baseUrl . '/javascripts/file_upload/';
+        $flashUrl = Yii::app()->baseUrl . '/javascripts/flash_upload/';
+        $jUrl = Yii::app()->baseUrl . '/javascripts/j_upload/';
         Yii::app()->clientScript->registerCoreScript('jquery')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/flash_detect_min.js')
             ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js')
-            ->registerScriptFile($baseUrl . '/' . 'swfupload.js')
-            ->registerScriptFile($baseUrl . '/' . 'jquery.swfupload.js')
-            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/scrollbarpaper.js');
+            ->registerScriptFile($flashUrl . '/' . 'swfupload.js')
+            ->registerScriptFile($flashUrl . '/' . 'jquery.swfupload.js')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/scrollbarpaper.js')
+
+            ->registerScriptFile($jUrl . '/jquery.ui.widget.js')
+            ->registerScriptFile($jUrl . '/jquery.iframe-transport.js')
+            ->registerScriptFile($jUrl . '/jquery.fileupload.js');
     }
 }

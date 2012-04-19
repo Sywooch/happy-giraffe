@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "name_sweet".
+ * This is the model class for table "name__sweets".
  *
- * The followings are the available columns in table 'name_sweet':
+ * The followings are the available columns in table 'name__sweets':
  * @property integer $id
  * @property string $name_id
  * @property string $value
@@ -27,7 +27,7 @@ class NameSweet extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'name_sweet';
+		return 'name__sweets';
 	}
 
 	/**

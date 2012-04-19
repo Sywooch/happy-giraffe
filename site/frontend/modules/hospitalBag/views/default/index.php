@@ -51,7 +51,7 @@
 				<li<?php if ($j == 0) echo ' class="active"'; ?>>
 					<a href="javascript:void(0);" onclick="setTab(this, <?php echo $c->id; ?>);">
 						<div class="box-in">
-							<span><?php echo $c->name; ?> </span>
+							<span><?php echo $c->title; ?> </span>
 						</div>
 					</a>
 				</li>
@@ -137,7 +137,7 @@
                                               $('div.comments li:last').hide();
                                               $('div.comments li:last').fadeIn(300);
 
-                                              $('#BagItem_name').val('');
+                                              $('#BagItem_title').val('');
                                               $('#BagItem_description').val('');
 
                                               $('.item-box').draggable({
@@ -151,8 +151,8 @@
                               }",
                         ))); ?>
 					<div class="new-hospital-bag-item">
-						Ваш предмет: <?php echo $form->textField($item, 'name'); ?> <span>Добавляйте только по одному предмету!</span>
-                        <?php echo $form->error($item, 'name'); ?>
+						Ваш предмет: <?php echo $form->textField($item, 'title'); ?> <span>Добавляйте только по одному предмету!</span>
+                        <?php echo $form->error($item, 'title'); ?>
 					</div>
 
                 <div class="row">

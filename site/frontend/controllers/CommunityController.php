@@ -38,6 +38,12 @@ class CommunityController extends Controller
         );
     }
 
+    public function beforeAction($action) {
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/community.js');
+        return parent::beforeAction($action);
+    }
+
     public function actionIndex()
     {
         $this->pageTitle = 'Клубы';
@@ -82,9 +88,9 @@ class CommunityController extends Controller
             $rubric = CommunityRubric::model()->findByPk($rubric_id);
             if ($rubric === null)
                 throw new CHttpException(404, 'Рубрика не найдена');
-            $this->pageTitle = 'Клуб «' . $this->community->name . '» – рубрика «' . $rubric->name . '» у Веселого Жирафа';
+            $this->pageTitle = 'Клуб «' . $this->community->title . '» – рубрика «' . $rubric->title . '» у Веселого Жирафа';
         } else {
-            $this->pageTitle = 'Клуб «' . $this->community->name . '» - общение с Веселым Жирафом';
+            $this->pageTitle = 'Клуб «' . $this->community->title . '» - общение с Веселым Жирафом';
         }
 
         $contents = CommunityContent::model()->getContents($community_id, $rubric_id, $content_type_slug);
@@ -92,10 +98,10 @@ class CommunityController extends Controller
         $crumbs = array();
         $crumbs['Клубы'] = array('/community');
         if ($rubric_id !== null) {
-            $crumbs[$this->community->name] = $this->community->url;
-            $crumbs[] = $rubric->name;
+            $crumbs[$this->community->title] = $this->community->url;
+            $crumbs[] = $rubric->title;
         } else {
-            $crumbs[] = $this->community->name;
+            $crumbs[] = $this->community->title;
         }
         $this->breadcrumbs = $crumbs;
 
@@ -136,7 +142,7 @@ class CommunityController extends Controller
         $this->rubric_id = $content->rubric->id;
         $this->content_type_slug = $content_type_slug;
 
-        $this->pageTitle = (empty($content->meta_title)) ? $content->name : $content->name . ' \\ ' . $content->meta_title;
+        $this->pageTitle = (empty($content->meta_title)) ? $content->title : $content->title . ' \\ ' . $content->meta_title;
 
         if ($content->author_id == Yii::app()->user->id) {
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
@@ -145,9 +151,9 @@ class CommunityController extends Controller
 
         $this->breadcrumbs = array(
             'Клубы' => array('/community'),
-            $this->community->name => $this->community->url,
-            $content->rubric->name => $content->rubric->url,
-            $content->name,
+            $this->community->title => $this->community->url,
+            $content->rubric->title => $content->rubric->url,
+            $content->title,
         );
 
         $this->render('view', array(
@@ -324,7 +330,7 @@ class CommunityController extends Controller
             foreach ($images as $i)
             {
                 $valid = (! $i->hasError) && $valid;
-                $slave_model->addError('name', 'Произошла ошибка при загрузке файла #' . ++$j . '.');
+                $slave_model->addError('title', 'Произошла ошибка при загрузке файла #' . ++$j . '.');
             }
 
             if ($valid)
@@ -436,11 +442,11 @@ class CommunityController extends Controller
     public function getContentUrls()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('club_community_content.id AS content_id, club_community_rubric.community_id AS community_id, club_community_content_type.slug AS content_type_slug')
-            ->from('club_community_content')
-            ->join('club_community_rubric', 'club_community_content.rubric_id = club_community_rubric.id')
-            ->join('club_community_content_type', 'club_community_content.type_id = club_community_content_type.id')
-            ->order('club_community_content.id ASC')
+            ->select('community__contents.id AS content_id, community__rubrics.community_id AS community_id, community__content_types.slug AS content_type_slug')
+            ->from('community__contents')
+            ->join('community__rubrics', 'community__contents.rubric_id = community__rubrics.id')
+            ->join('community__content_types', 'community__contents.type_id = community__content_types.id')
+            ->order('community__contents.id ASC')
             ->queryAll();
         foreach ($models as $model)
         {
@@ -454,9 +460,9 @@ class CommunityController extends Controller
     public function getCommunityUrls()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('club_community.id AS community_id')
-            ->from('club_community')
-            ->order('club_community.id ASC')
+            ->select('community__communities.id AS community_id')
+            ->from('community__communities')
+            ->order('community__communities.id ASC')
             ->queryAll();
         foreach ($models as $model)
         {
@@ -500,47 +506,44 @@ class CommunityController extends Controller
 
     public function actionFixUsers()
     {
-        if (Yii::app()->request->isAjaxRequest)
-        {
-            $users = User::model()->findAll(array(
-                'condition' => 'email LIKE :term',
-                'params' => array(':term' => $_GET['term'] . '%'),
-            ));
+        if (!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
+        $users = User::model()->findAll(array(
+            'condition' => 'email LIKE :term',
+            'params' => array(':term' => $_GET['term'] . '%'),
+        ));
 
-            $_users = array();
-            foreach ($users as $user)
-            {
-                $_users[] = array(
-                    'label' => $user->email,
-                    'value' => $user->email,
-                    'id' => $user->id,
-                );
-            }
-            echo CJSON::encode($_users);
+        $_users = array();
+        foreach ($users as $user)
+        {
+            $_users[] = array(
+                'label' => $user->email,
+                'value' => $user->email,
+                'id' => $user->id,
+            );
         }
+        echo CJSON::encode($_users);
     }
 
     public function actionFixSave()
     {
-        if (Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
+        $content = CommunityContent::model()->findByPk($_POST['content_id']);
+        $content->author_id = $_POST['author_id'];
+        if ($content->save())
         {
-            $content = CommunityContent::model()->findByPk($_POST['content_id']);
-            $content->author_id = $_POST['author_id'];
-            if ($content->save())
-            {
-                file_put_contents(Yii::getPathOfAlias('webroot') . '/fix.txt', $_POST['content_id'] . "\n", FILE_APPEND);
-            }
+            file_put_contents(Yii::getPathOfAlias('webroot') . '/fix.txt', $_POST['content_id'] . "\n", FILE_APPEND);
         }
     }
 
     public function actionFixUser()
     {
-        if (Yii::app()->request->isAjaxRequest)
-        {
-            $user = User::model()->findByPk($_POST['author_id']);
-            $response = $this->renderPartial('fixuser', array('user' => $user), true);
-            echo $response;
-        }
+        if (!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
+        $user = User::model()->findByPk($_POST['author_id']);
+        $response = $this->renderPartial('fixuser', array('user' => $user), true);
+        echo $response;
     }
 
     public function actionShortList()
@@ -557,7 +560,7 @@ class CommunityController extends Controller
         $model = CommunityRubric::model()->with(array('community', 'contents.type'))->findByPk($rubric_id);
         foreach ($model->contents as $c)
         {
-            echo CHtml::tag('li', array(), '&nbsp;&nbsp;&nbsp;&nbsp;' . CHtml::link($c->name, array(
+            echo CHtml::tag('li', array(), '&nbsp;&nbsp;&nbsp;&nbsp;' . CHtml::link($c->title, array(
                 'community/view',
                 'community_id' => $model->community->id,
                 'content_type_slug' => $c->type->slug,
@@ -667,7 +670,7 @@ class CommunityController extends Controller
     {
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
-                'condition' => 'editor_id = :editor_id',
+                'condition' => 'editor_id = :editor_id AND (edited = 0 OR edited = 1)',
                 'params' => array(':editor_id' => Yii::app()->user->id),
                 'order' => 't.id ASC',
             ),
@@ -683,7 +686,7 @@ class CommunityController extends Controller
 
     public function actionPostRewrite()
     {
-        if (Yii::app()->user->id == 18 || Yii::app()->user->id == 23) {
+        if (Yii::app()->user->id == 18 || Yii::app()->user->id == 23 || Yii::app()->user->id == 10454) {
             $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
                 'criteria' => array(
                     'condition' => 'edited = 1',
@@ -694,7 +697,7 @@ class CommunityController extends Controller
                 ),
             ));
 
-            $this->render('rewrite', array(
+            $this->render('postRewrite', array(
                 'dp' => $dp,
             ));
         }

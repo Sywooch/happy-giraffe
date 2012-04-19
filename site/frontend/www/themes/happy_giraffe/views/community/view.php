@@ -18,7 +18,7 @@
             {
                 case 'post':
                     if (preg_match('/src="([^"]+)"/', $rc->post->text, $matches)) {
-                        $content = '<img src="' . $matches[1] . '" alt="' . $rc->name . '" width="150" />';
+                        $content = '<img src="' . $matches[1] . '" alt="' . $rc->title . '" width="150" />';
                     }
                     else
                     {
@@ -29,7 +29,7 @@
                     break;
                 case 'travel':
                     if (preg_match('/src="([^"]+)"/', $rc->travel->text, $matches)) {
-                        $content = '<img src="' . $matches[1] . '" alt="' . $rc->name . '" width="150" />';
+                        $content = '<img src="' . $matches[1] . '" alt="' . $rc->title . '" width="150" />';
                     }
                     else
                     {
@@ -45,7 +45,7 @@
             }
         ?>
             <div class="block">
-                <b><?php echo CHtml::link($rc->name, $this->createUrl('community/view', array('community_id' => $data->rubric->community->id, 'content_type_slug' => $rc->type->slug, 'content_id' => $rc->id))); ?></b>
+                <b><?php echo CHtml::link($rc->title, $this->createUrl('community/view', array('community_id' => $data->rubric->community->id, 'content_type_slug' => $rc->type->slug, 'content_id' => $rc->id))); ?></b>
                 <p><?php echo $content; ?></p>
             </div>
         <?php

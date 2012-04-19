@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'recipeBook_disease_category':
  * @property string $id
- * @property string $name
+ * @property string $title
  *
  * The followings are the available model relations:
  * @property RecipeBookDisease[] $recipeBookDiseases
@@ -26,7 +26,7 @@ class RecipeBookDiseaseCategory extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'recipeBook_disease_category';
+		return 'recipe_book__disease_categories';
 	}
 
 	/**
@@ -37,11 +37,11 @@ class RecipeBookDiseaseCategory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, slug', 'required'),
-			array('name, slug', 'length', 'max' => 255),
+			array('title, slug', 'required'),
+			array('title, slug', 'length', 'max' => 255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, slug', 'safe', 'on'=>'search'),
+			array('id, title, slug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,7 +64,7 @@ class RecipeBookDiseaseCategory extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Название',
+			'title' => 'Название',
 			'slug' => 'Для урла',
 		);
 	}
@@ -81,7 +81,7 @@ class RecipeBookDiseaseCategory extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->title,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

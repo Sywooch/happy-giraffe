@@ -60,7 +60,7 @@ class AlbumPhoto extends CActiveRecord
      */
     public function tableName()
     {
-        return 'album_photos';
+        return 'album__photos';
     }
 
     /**

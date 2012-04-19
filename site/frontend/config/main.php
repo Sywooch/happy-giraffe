@@ -105,6 +105,8 @@ return array(
         'geo',
         'signal',
         'scores',
+        'servicePages',
+        'repair'
 	),
 
 	// application components
@@ -188,9 +190,9 @@ return array(
         'authManager'=>array(
             'class'=>'CDbAuthManager',
             'connectionID'=>'db',
-            'itemTable'=>'auth_item',
-            'itemChildTable'=>'auth_item_child',
-            'assignmentTable'=>'auth_assignment',
+            'itemTable'=>'auth__items',
+            'itemChildTable'=>'auth__items_childs',
+            'assignmentTable'=>'auth__assignments',
 			'defaultRoles' => array('user'),
 		),
 		'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
@@ -215,11 +217,11 @@ return array(
 //					'levels'=>'error, warning',
 //					'emails'=>'choojoy.work@gmail.com',
 //				),
-				/*array(
-					'class'=>'CWebLogRoute',
-					'categories'=>'system.db.CDbCommand',
-					'showInFireBug'=>true,
-				),*/
+//				array(
+//					'class'=>'CWebLogRoute',
+//					'categories'=>'system.db.CDbCommand',
+//					'showInFireBug'=>false,
+//				),
 
 				// uncomment the following to show log messages on web pages
 				/*

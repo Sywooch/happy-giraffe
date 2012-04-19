@@ -51,12 +51,18 @@
             <div class="profile-form-in" id="upload-control">
                 <p><?php echo CHtml::fileField('file', '', array('id' => 'upload-input', 'multiple' => 'multiple', 'style' => 'display:none;')); ?></p>
                 <div class="row-btn-left">
+                    <div class="file-fake" id="upload-file-fake" style="display:none;">
+                        <button class="btn btn-orange"><span><span>Загрузить фото</span></span></button>
+                        <input type="file" class="j-upload-input" id="j-upload-input1" name="Filedata" multiple="multiple" />
+                    </div>
                     <button class="btn btn-orange" id="upload-button" style="display: none;"><span><span>Загрузить</span></span></button>
                 </div>
             </div>
             <?php echo CHtml::endForm(); ?>
             <?php if($album): ?>
-                <script type="text/javascript">Album.initUForm();</script>
+                <script type="text/javascript">
+                    Album.initUploadForm();
+                </script>
             <?php endif; ?>
 
         </div>

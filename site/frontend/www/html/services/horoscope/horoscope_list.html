@@ -3,62 +3,22 @@
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
+	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Untitled Document</title>
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
 	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
-	<script>
-		$(function(){
-			
-			var cpo = 0;
-			
-			$(window).scroll(function(){
-				
-				var cp = $('#checkpoint').offset().top;
-				var st = $(window).scrollTop();
-				
-				if (!$('#morning').hasClass('morning-wide')) {
-					
-					if (st>=cp){
-						$('#morning').addClass('morning-wide')
-						cpo = cp;
-					}
-					
-				} else {
-					
-					if (st < cpo-100){
-						$('#morning').removeClass('morning-wide')
-					}
-					
-				}
-				
-				
-				
-			});
-		})
-	</script>
-	
-	<!--[if IE 7]>
-		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
-	<![endif]-->
+	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	
 </head>
 <body class="body-club">
-	
-	<div id="coords" style="position:fixed;left:5px;top:5px;"></div>
 	
 	<div id="layout" class="wrapper">
 	
@@ -192,7 +152,7 @@
 						<div class="input">
 							<input type="text" />
 						</div>
-						<button class="btn btn-green-medium disabled"><span><span>Поиск</span></span></button>					
+						<button class="btn btn-green-medium"><span><span>Поиск</span></span></button>					
 					</div>
 					
 					<div class="logo-box">
@@ -461,207 +421,137 @@
 		
 		<div id="content" class="clearfix">
 			
-			<div id="crumbs"><a href="">Главная</a> > <span>Утро с Вёселым жирафом</span></div>
+			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Гороскоп</span></div>
 			
-			<div id="morning" class="clearfix">
+			<div class="main">
+				<div class="main-in">
 				
-				<div class="main-right morning-main">
-					
-					<div class="entry entry-full morning-entry">
-			
-						<div class="entry-header">
-							
-							<h1>Засуха в Западной Африке – жизнь под угрозой </h1>
-							
-							<div class="where">
-								<span>Где:</span>
-								<div class="map-box"><img src="/images/morning_map.png" /></div>
-							</div>
+					<div id="horoscope">
 						
-							<div class="meta">
+						<div class="horoscope-list">
 								
-								<div class="time">3 сен, 08:25</div>
-								<div class="seen">Просмотров:&nbsp;<span>265</span></div><br/>						
-								<a href="">Комментариев: 2</a>
-								
-							</div>
+							<h1>Гороскоп на сегодня, 12 апреля</h1>
 							
-						</div>
-													
-						<div class="entry-content">
+							<p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким. К профессиональным разногласиям относитесь спокойно, сегодня они являются всего лишь частью нормального рабочего процесса. Даже с руководством можно поспорить от души – и без всяких далеко идущих последствий.</p>
 							
-							<div class="wysiwyg-content">
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p><img src="/images/example/morning/2.jpg" /></p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								<br/>
-								
-								<p><img src="/images/example/morning/1.jpg" /></p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								<br/>
-								
-								<p><img src="/images/example/morning/1.jpg" /></p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								<br/>
-								
-								<p><img src="/images/example/morning/4.jpg" /></p>
-								
-								<p>Кроме того, они оплачивают жителям работу, которая впоследствии поможет им поправить свое положение. К примеру, подготовку мини-запруд, которые во время будущего дождливого сезона задержат воду на некоторое время.</p>
-								
-							</div>
-							
-						</div>
-						
-					</div>
-					
-					<div>
-
-    
-
-						<div id="fb-root"></div>
-						<script>(function(d, s, id) {
-							var js, fjs = d.getElementsByTagName(s)[0];
-							if (d.getElementById(id)) return;
-							js = d.createElement(s); js.id = id;
-							js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
-							fjs.parentNode.insertBefore(js, fjs);
-						}(document, 'script', 'facebook-jssdk'));</script>
-
-						<script type="text/javascript">
-							window.___gcfg = {lang: 'ru'};
-							(function() {
-								ODKL.init();
-								var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-								po.src = 'https://apis.google.com/js/plusone.js';
-								var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-							})();
-						</script>
-
-						<table width="100%">
-							<tr>
-								<td style="vertical-align:top;width:20%">
-									<div id="vk_like"></div>
-									<script type="text/javascript">
-										VK.Widgets.Like("vk_like", {type: "button", height: 20});
-									</script>
-								</td>
-								<td style="vertical-align:top;width:20%">
-									<div class="fb-like" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-action="recommend"></div>
-								</td>
-								<td style="vertical-align:top;width:20%">
-									<a class="odkl-klass-stat" href="http://happy-giraffe.ru/morning/view/14358/" onclick="ODKL.Share(this);return false;" ><span>0</span></a>
-								</td>
-								<td style="vertical-align:top;width:20%">
-									<a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a>
-									<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-								</td>
-								<td style="vertical-align:top;width:20%">
-									<g:plusone size="medium" annotation="inline" width="120"></g:plusone>
-								</td>
-							</tr>
-						</table>
-					</div>
-
-					<div id="comment_list" class="list-view">
-
-								<div class="default-comments">
-									<div class="comments-meta clearfix">
-										
-										<div class="title">Комментарии</div>
-										<div class="count">0</div>
+							<ul>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/1.png" />
+										<div class="date"><span>Овен</span>22.01 - 3.02</div>
 									</div>
-									<ul><div class="items">
-					<span class="empty">Нет результатов.</span></div></ul>
-								</div>
-								<div class="pagination pagination-center clearfix">
-									
-								</div>
-								<div class="keys" style="display:none" title="/morning/view/14358/"></div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/2.png" />
+										<div class="date"><span>Телец</span>22.01 - 3.02</div>
+									</div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/3.png" />
+										<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+									</div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/4.png" />
+										<div class="date"><span>Рак</span>22.01 - 3.02</div>
+									</div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/5.png" />
+										<div class="date"><span>Лев</span>22.01 - 3.02</div>
+									</div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/6.png" />
+										<div class="date"><span>Дева</span>22.01 - 3.02</div>
+									</div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/7.png" />
+										<div class="date"><span>Весы</span>22.01 - 3.02</div>
+									</div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/8.png" />
+										<div class="date"><span>Скорпион</span>22.01 - 3.02</div>
+									</div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/9.png" />
+										<div class="date"><span>Стрелец</span>22.01 - 3.02</div>
+									</div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/10.png" />
+										<div class="date"><span>Козерог</span>22.01 - 3.02</div>
+									</div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/11.png" />
+										<div class="date"><span>Водолей</span>22.01 - 3.02</div>
+									</div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								<li>
+									<div class="img">
+										<img src="/images/widget/horoscope/small/12.png" />
+										<div class="date"><span>Рыбы</span>22.01 - 3.02</div>
+									</div>
+									<div class="text">Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью <a href="">далее</a></div>
+								</li>
+								
+							</ul>
+							
+						</div>
+						
+						<div class="wysiwyg-content">
+							
+							<h2>Заголовок (Н2)</h2>
+							
+							<p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким. К профессиональным разногласиям относитесь спокойно, сегодня они являются всего лишь частью нормального рабочего процесса. Даже с руководством можно поспорить от души – и без всяких далеко идущих последствий. </p>
+							
+							<p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким. К профессиональным разногласиям относитесь спокойно, сегодня они являются всего лишь частью нормального рабочего процесса. Даже с руководством можно поспорить от души – и без всяких далеко идущих последствий. </p>
+							
+							<p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким.</p>
+							
+						</div>
+						
 					</div>
-					
-				</div>
 				
-				<div class="morning-sidebar">
-					
-					<div class="banner">
-						<img src="/images/morning_sidebar_banner.png" />
-					</div>
-					
-					<div class="calendar">
-						<div class="clearfix">
-							<div class="days">
-								<table>
-									<thead>
-										<tr>
-											<td colspan="3">Апрель</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><a href="">4</a></td>
-											<td><a href="">5</a></td>
-											<td><a href="">6</a></td>
-										</tr>
-										<tr>
-											<td><a href="">7</a></td>
-											<td><a href="">8</a></td>
-											<td><a href="">9</a></td>
-										</tr>
-										<tr>
-											<td><a href="">10</a></td>
-											<td><a href="">11</a></td>
-											<td class="active"><a href="">12</a></td>
-										</tr>										
-									</tbody>
-									
-								</table>
-							</div>
-							<div class="date">
-								<span>12</span>апр
-							</div>
-						</div>
-						<div class="nav">
-							<a href="" class="prev"></a>
-							<a href="" class="next"></a>
-						</div>
-					</div>
-					
-					<div id="checkpoint"></div>
-					
+				</div>
+			</div>
+			
+			<div class="side-left">
+				
+				<div class="banner-box"><a href=""><img src="/images/horoscope_sidebar_banner.jpg" /></a></div>
+				
+				<div class="horoscope-subscribe">
+					<img src="/images/horoscope_subscribe_banner.jpg" />
+					<p>Этот день открывает массу возможностей,  пользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким.</p>
+					<a href="" class="btn-want">Хочу!</a>
 				</div>
 				
 			</div>
-			
-			
 			
 		</div>  	
 		
@@ -733,88 +623,6 @@
 			</div>
 		</form>
 		
-	</div>
-	
-	<div id="joinClub" class="popup-confirm popup">
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
-		<div class="confirm-before">
-			<div class="confirm-question">
-				<p>Чтобы размещать материалы и добавлять<br/>комментарии, Вы должны вступить в клуб!</p>
-			</div>
-			<div class="bottom">
-				<a href="javascript:void(0);" class="btn btn-gray-medium" onclick="$.fancybox.close();"><span><span>Отменить</span></span></a>
-				<a href="" class="btn btn-green-medium"><span><span>Вступить в клуб</span></span></a>
-			</div>
-		</div>
-		<div class="confirm-after">
-		</div>
-	</div>
-	
-	<div id="deleteComment" class="popup-confirm popup">
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
-		<div class="confirm-before">
-			<form>
-				<div class="confirm-question">
-					<p>Вы уверены, что<br/>хотите удалить этот<br/>комментарий?</p>
-				</div>
-				<div class="bottom  bottom-center">
-					<a href="javascript:void(0);" class="btn btn-gray-medium" onclick="$.fancybox.close();"><span><span>Отменить</span></span></a>
-					<button class="btn btn-red-medium" onclick="confirmMessage(this);return false;"><span><span>Удалить</span></span></button>
-				</div>
-			</form>
-		</div>
-		<div class="confirm-after">
-			<p>Комментарий успешно удален!</p>
-		</div>
-	</div>
-	
-	<div id="deletePost" class="popup-confirm popup">
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
-		<div class="confirm-before">
-			<form>
-				<div class="confirm-question clearfix">
-					<div class="reason">
-						<div class="title">Причина удаления:</div>
-						<input type="radio" name="radio" /> <label>Спам</label> <br/>
-						<input type="radio" name="radio" /> <label>Оскорбление пользователей</label> <br/>
-						<input type="radio" name="radio" /> <label>Разжигание межнациональной розни</label> <br/>
-						<input type="radio" name="radio" /> <label>Другая причина</label> <br/>
-						<input type="text" class="other-reason" />					
-					</div>
-					
-					<div class="question-in">
-						<p>Вы уверены, что<br/>хотите удалить эту<br/>запись?</p>
-					</div>
-				</div>
-				<div class="bottom">
-					<a href="javascript:void(0);" class="btn btn-gray-medium" onclick="$.fancybox.close();"><span><span>Отменить</span></span></a>
-					<button class="btn btn-red-medium" onclick="confirmMessage(this);return false;"><span><span>Удалить</span></span></button>
-				</div>
-			</form>
-		</div>
-		<div class="confirm-after">
-			<p>Запись успешно удалена!</p>
-		</div>
-	</div>
-	
-	<div id="movePost" class="popup-confirm popup">
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
-		<div class="confirm-before">
-			<form>
-				<div class="move-post">
-					Выберите клуб и рубрику:<br/>
-					<select class="chzn"><option>Название клуба</option></select>
-					<select class="chzn"><option>Название рубрики</option></select>
-				</div>
-				<div class="bottom">
-					<a href="javascript:void(0);" class="btn btn-gray-medium" onclick="$.fancybox.close();"><span><span>Отменить</span></span></a>
-					<button class="btn btn-green-medium" onclick="confirmMessage(this);return false;"><span><span>Переместить</span></span></button>
-				</div>
-			</form>
-		</div>
-		<div class="confirm-after">
-			<p>Запись успешно пермещена!</p>
-		</div>
 	</div>
 	
 </div>

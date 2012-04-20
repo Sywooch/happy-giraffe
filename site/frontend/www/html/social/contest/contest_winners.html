@@ -16,52 +16,17 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
-	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
-	
-	<script>
-		$(function(){
-			
-			var cpo = 0;
-			
-			$(window).scroll(function(){
-				
-				var cp = $('#checkpoint').offset().top;
-				var st = $(window).scrollTop();
-				
-				if (!$('#morning').hasClass('morning-wide')) {
-					
-					if (st>=cp){
-						$('#morning').addClass('morning-wide')
-						cpo = cp;
-					}
-					
-				} else {
-					
-					if (st < cpo-100){
-						$('#morning').removeClass('morning-wide')
-					}
-					
-				}
-				
-				
-				
-			});
-		})
-	</script>
 	
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
 	<![endif]-->
-	
+
 </head>
 <body class="body-club">
 	
-	<div id="coords" style="position:fixed;left:5px;top:5px;"></div>
-	
 	<div id="layout" class="wrapper">
-	
+		
 		<div id="header-new" class="clearfix">
 			
 			<div class="top-line clearfix">
@@ -192,7 +157,7 @@
 						<div class="input">
 							<input type="text" />
 						</div>
-						<button class="btn btn-green-medium disabled"><span><span>Поиск</span></span></button>					
+						<button class="btn btn-green-medium"><span><span>Поиск</span></span></button>					
 					</div>
 					
 					<div class="logo-box">
@@ -459,229 +424,325 @@
 			
 		</div>
 		
-		<div id="content" class="clearfix">
+		
+		<div id="content">
 			
-			<div id="crumbs"><a href="">Главная</a> > <span>Утро с Вёселым жирафом</span></div>
+			<div id="crumbs"><a href="">Главная</a> > <span>Конкурс</span></div>
 			
-			<div id="morning" class="clearfix">
+			<div class="section-banner section-banner-pattern">
+				<div class="section-nav" style="left:25px;top:30px;">
+					<ul>
+						<li><a href="">О конкурсе</a></li>
+						<li><a href="">Правила</a></li>
+						<li><a href="">Участники</a></li>
+						<li class="active"><a href="">Победители</a></li>
+					</ul>
+				</div>
+				<img src="/images/contest_banner_01.png" />
+			</div>
+			
+			<div id="contest">
 				
-				<div class="main-right morning-main">
+				<div class="content-title">Победители конкурса</div>
+				
+				<div class="wysiwyg-content">
+					<p><b>Весёлый жираф предлагает познакомиться!</b></p>
 					
-					<div class="entry entry-full morning-entry">
-			
-						<div class="entry-header">
-							
-							<h1>Засуха в Западной Африке – жизнь под угрозой </h1>
-							
-							<div class="where">
-								<span>Где:</span>
-								<div class="map-box"><img src="/images/morning_map.png" /></div>
-							</div>
-						
-							<div class="meta">
-								
-								<div class="time">3 сен, 08:25</div>
-								<div class="seen">Просмотров:&nbsp;<span>265</span></div><br/>						
-								<a href="">Комментариев: 2</a>
-								
-							</div>
-							
-						</div>
-													
-						<div class="entry-content">
-							
-							<div class="wysiwyg-content">
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								
-								<p><img src="/images/example/morning/2.jpg" /></p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								<br/>
-								
-								<p><img src="/images/example/morning/1.jpg" /></p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								<br/>
-								
-								<p><img src="/images/example/morning/1.jpg" /></p>
-								
-								<p>Агентства по оказанию помощи предупреждают, что засуха в Западной Африке, в частности в саванне Сахель, может привести к серьезному бедствию. Недоедание и болезни ставят под угрозу жизни тысячей людей в Мали, Чаде, Мавритании, Нигерии, Буркина-Фасо и северном Сенегале.</p>
-								<br/>
-								
-								<p><img src="/images/example/morning/4.jpg" /></p>
-								
-								<p>Кроме того, они оплачивают жителям работу, которая впоследствии поможет им поправить свое положение. К примеру, подготовку мини-запруд, которые во время будущего дождливого сезона задержат воду на некоторое время.</p>
-								
-							</div>
-							
-						</div>
-						
-					</div>
+					<p>Ваша семья самая весёлая, самая интересная  – в общем, самая-самая? Тогда приглашаем вас принять участие в конкурсе семейной фотографии. Присылайте фото себя и своих близких на катке, на море или даже на рыбалке. Не важно, где сделан снимок, главное, чтобы он вызывал улыбку!</p>
 					
-					<div>
-
-    
-
-						<div id="fb-root"></div>
-						<script>(function(d, s, id) {
-							var js, fjs = d.getElementsByTagName(s)[0];
-							if (d.getElementById(id)) return;
-							js = d.createElement(s); js.id = id;
-							js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
-							fjs.parentNode.insertBefore(js, fjs);
-						}(document, 'script', 'facebook-jssdk'));</script>
-
-						<script type="text/javascript">
-							window.___gcfg = {lang: 'ru'};
-							(function() {
-								ODKL.init();
-								var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-								po.src = 'https://apis.google.com/js/plusone.js';
-								var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-							})();
-						</script>
-
-						<table width="100%">
-							<tr>
-								<td style="vertical-align:top;width:20%">
-									<div id="vk_like"></div>
-									<script type="text/javascript">
-										VK.Widgets.Like("vk_like", {type: "button", height: 20});
-									</script>
-								</td>
-								<td style="vertical-align:top;width:20%">
-									<div class="fb-like" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-action="recommend"></div>
-								</td>
-								<td style="vertical-align:top;width:20%">
-									<a class="odkl-klass-stat" href="http://happy-giraffe.ru/morning/view/14358/" onclick="ODKL.Share(this);return false;" ><span>0</span></a>
-								</td>
-								<td style="vertical-align:top;width:20%">
-									<a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a>
-									<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-								</td>
-								<td style="vertical-align:top;width:20%">
-									<g:plusone size="medium" annotation="inline" width="120"></g:plusone>
-								</td>
-							</tr>
-						</table>
-					</div>
-
-					<div id="comment_list" class="list-view">
-
-								<div class="default-comments">
-									<div class="comments-meta clearfix">
-										
-										<div class="title">Комментарии</div>
-										<div class="count">0</div>
+					<p><b>Обратите внимание:</b> к участию допускается только одно фото от одного пользователя! Победителей выберут пользователи путём голосования – поэтому смело приглашайте голосовать своих друзей и знакомых. Удачи!</p>
+				</div>
+				
+				<br/>
+				<br/>
+				
+				<div class="contest-prizes-list clearfix">
+					
+					<ul>
+						<li class="place-1">
+							<div class="clearfix">
+								<div class="user-info clearfix">
+									<div class="ava female"></div>
+									<div class="details">
+										<a href="" class="username"><span class="icon-status status-online"></span>Дарья</a>
+										<div class="user-fast-buttons clearfix">
+											<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+										</div>
 									</div>
-									<ul><div class="items">
-					<span class="empty">Нет результатов.</span></div></ul>
 								</div>
-								<div class="pagination pagination-center clearfix">
-									
+							</div>
+							<div class="place place-1"></div>
+							<div class="title">
+								<a href="">Мультиварка<br/><b>Land Life YBW60-100A1 </b></a>
+							</div>
+						</li>
+						<li class="place-2">
+							<div class="clearfix">
+								<div class="user-info clearfix">
+									<div class="ava female"></div>
+									<div class="details">
+										<a href="" class="username"><span class="icon-status status-online"></span>Дарья</a>
+										<div class="user-fast-buttons clearfix">
+											<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+										</div>
+									</div>
 								</div>
-								<div class="keys" style="display:none" title="/morning/view/14358/"></div>
-					</div>
+							</div>
+							<div class="place place-2"></div>
+							<div class="title">
+								<a href="">Мультиварка<br/><b>BRAND 37501</b></a>
+							</div>
+						</li>
+						<li class="place-3">
+							<div class="clearfix">
+								<div class="user-info clearfix">
+									<div class="ava female"></div>
+									<div class="details">
+										<a href="" class="username"><span class="icon-status status-online"></span>Дарья</a>
+										<div class="user-fast-buttons clearfix">
+											<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="place place-3"></div>
+							<div class="title">
+								<a href="">Мультиварка<br/><b>Land Life YBD60-100A </b></a>
+							</div>
+						</li>
+						<li class="place-4">
+							<div class="clearfix">
+								<div class="user-info clearfix">
+									<div class="ava female"></div>
+									<div class="details">
+										<a href="" class="username"><span class="icon-status status-online"></span>Дарья</a>
+										<div class="user-fast-buttons clearfix">
+											<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="place place-4"></div>
+							<div class="title">
+								<a href="">Мультиварка<br/><b>Polaris PMC 0506AD</b></a>
+							</div>
+						</li>
+						<li class="place-5">
+							<div class="clearfix">
+								<div class="user-info clearfix">
+									<div class="ava female"></div>
+									<div class="details">
+										<a href="" class="username"><span class="icon-status status-online"></span>Дарья Фамилия</a>
+										<div class="user-fast-buttons clearfix">
+											<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="place place-5"></div>
+							<div class="title">
+								<a href="">Мультиварка<br/><b>SUPRA MCS-4501</b></a>
+							</div>
+						</li>
+						
+					</ul>
 					
 				</div>
 				
-				<div class="morning-sidebar">
-					
-					<div class="banner">
-						<img src="/images/morning_sidebar_banner.png" />
+				<div id="gallery">
+					<div id="photo">
+						
+						<div class="title">Вот нам и годик!!!</div>
+						
+						<div class="big-photo">
+							<div class="in">
+								<div class="img"><img src="/images/example/6.jpg"></div>
+								<a href="" class="prev"><i class="icon"></i></a>
+								<a href="" class="next"><i class="icon"></i></a>
+							</div>
+						</div>
+						
 					</div>
-					
-					<div class="calendar">
-						<div class="clearfix">
-							<div class="days">
-								<table>
-									<thead>
-										<tr>
-											<td colspan="3">Апрель</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><a href="">4</a></td>
-											<td><a href="">5</a></td>
-											<td><a href="">6</a></td>
-										</tr>
-										<tr>
-											<td><a href="">7</a></td>
-											<td><a href="">8</a></td>
-											<td><a href="">9</a></td>
-										</tr>
-										<tr>
-											<td><a href="">10</a></td>
-											<td><a href="">11</a></td>
-											<td class="active"><a href="">12</a></td>
-										</tr>										
-									</tbody>
+				</div>
+				
 									
-								</table>
-							</div>
-							<div class="date">
-								<span>12</span>апр
-							</div>
-						</div>
-						<div class="nav">
-							<a href="" class="prev"></a>
-							<a href="" class="next"></a>
-						</div>
+				<div class="default-comments">
+					
+					<div class="comments-meta clearfix">
+						<div class="title">Комментарии</div>
+						<div class="count">55</div>
 					</div>
 					
-					<div id="checkpoint"></div>
+					<ul>
+						<li class="author-comment">
+							<div class="comment-in clearfix">
+								<div class="header clearfix">
+									<div class="user-info clearfix">
+										<div class="ava female"></div>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Дарья</a>
+											<div class="user-fast-buttons clearfix">
+												<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+												<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+											</div>
+											<div class="location">
+												<div class="flag flag-ru"></div>
+												Гаврилов-Ям
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<div class="meta">
+										<span class="num">1</span>
+										<span class="date">Сегодня, 20:45</span>
+									</div>
+									<div class="content-in">
+										<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
+									</div>
+									<div class="actions">
+										<a href="" class="claim">Нарушение!</a>
+										<div class="admin-actions">
+											<a href="" class="edit"><i class="icon"></i></a>
+											<a href="#deleteComment" class="remove fancy"><i class="icon"></i></a>
+										</div>
+										<a href="">Ответить</a>
+										&nbsp;
+										<a href="" class="quote">С цитатой</a>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="comment-in clearfix">
+								<div class="header clearfix">
+									<div class="user-info clearfix">
+										<div class="ava female"></div>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Дарья</a>
+											<div class="user-fast-buttons clearfix">
+												<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+												<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+											</div>
+											<div class="location">
+												<div class="flag flag-ru"></div>
+												Гаврилов-Ям
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<div class="meta">
+										<span class="num">2</span>
+										<span class="date">Сегодня, 20:45</span>
+									</div>
+									<div class="content-in">
+										<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
+									</div>
+									<div class="actions">
+										<a href="" class="claim">Нарушение!</a>
+										<div class="admin-actions">
+											<a href="" class="edit"><i class="icon"></i></a>
+											<a href="#deleteComment" class="remove fancy"><i class="icon"></i></a>
+										</div>
+										<a href="">Ответить</a>
+										&nbsp;
+										<a href="" class="quote">С цитатой</a>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="comment-in clearfix">
+								<div class="header clearfix">
+									<div class="user-info clearfix">
+										<div class="ava female"></div>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Дарья</a>
+											<div class="user-fast-buttons clearfix">
+												<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+												<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+											</div>
+											<div class="location">
+												<div class="flag flag-ru"></div>
+												Гаврилов-Ям
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<div class="meta">
+										<span class="num">3</span>
+										<span class="date">Сегодня, 20:45</span>
+										<div class="answer">
+											Ответ для
+											<div class="user-info clearfix">
+												<a onclick="return false;" class="ava female small" href="#">
+													<img src="http://www.happy-giraffe.ru/upload/avatars/small/120316-10264-ya.jpg" alt="">
+												</a>
+											</div>
+											на <span class="num"><a href="#">2</a></span>
+										</div>
+									</div>
+									<div class="content-in">
+										<div class="quote">
+											<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
+										</div>
+										<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
+									</div>
+									<div class="actions">
+										<a href="" class="claim">Нарушение!</a>
+										<div class="admin-actions">
+											<a href="" class="edit"><i class="icon"></i></a>
+											<a href="#deleteComment" class="remove fancy"><i class="icon"></i></a>
+										</div>
+										<a href="">Ответить</a>
+										&nbsp;
+										<a href="" class="quote">С цитатой</a>
+									</div>
+								</div>
+							</div>
+						</li>
+						
+					</ul>
 					
 				</div>
+				
+				<div class="pagination pagination-center clearfix">
+					<div class="pager">
+						<ul>
+							<li class="previous"><a href="">...</a></li>
+							<li><a href="">1</a></li>
+							<li><a href="">2</a></li>
+							<li class="selected"><a href="">321</a><img src="/images/pagination_tale.png" /></li>
+							<li><a href="">4</a></li>
+							<li class="selected"><a href="">5</a><img src="/images/pagination_tale.png" /></li>
+							<li><a href="">6</a></li>
+							<li><a href="">7</a></li>
+							<li class="next"><a href="">...</a></li>
+						</ul>
+					</div>
+				</div>								
+				
 				
 			</div>
 			
-			
-			
-		</div>  	
+		</div>
 		
 		<div class="push"></div>
-		
-	</div>
-
-	<div id="footer" class="wrapper clearfix">
-		
-		<div class="a-right">
-			<a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
-		</div>
-		
-		<div class="copy">
-			<p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены</p>
-		</div>
-		
-	</div>
 	
+	</div>
+	<div id="footer" class="wrapper">f</div>
 <div style="display:none">
+	
 	<div id="login" class="popup">
 		
 		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
@@ -735,86 +796,44 @@
 		
 	</div>
 	
-	<div id="joinClub" class="popup-confirm popup">
+	<div id="takeapartPhotoContest" class="popup">
+		
 		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
-		<div class="confirm-before">
-			<div class="confirm-question">
-				<p>Чтобы размещать материалы и добавлять<br/>комментарии, Вы должны вступить в клуб!</p>
-			</div>
-			<div class="bottom">
-				<a href="javascript:void(0);" class="btn btn-gray-medium" onclick="$.fancybox.close();"><span><span>Отменить</span></span></a>
-				<a href="" class="btn btn-green-medium"><span><span>Вступить в клуб</span></span></a>
-			</div>
-		</div>
-		<div class="confirm-after">
-		</div>
-	</div>
-	
-	<div id="deleteComment" class="popup-confirm popup">
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
-		<div class="confirm-before">
-			<form>
-				<div class="confirm-question">
-					<p>Вы уверены, что<br/>хотите удалить этот<br/>комментарий?</p>
-				</div>
-				<div class="bottom  bottom-center">
-					<a href="javascript:void(0);" class="btn btn-gray-medium" onclick="$.fancybox.close();"><span><span>Отменить</span></span></a>
-					<button class="btn btn-red-medium" onclick="confirmMessage(this);return false;"><span><span>Удалить</span></span></button>
-				</div>
-			</form>
-		</div>
-		<div class="confirm-after">
-			<p>Комментарий успешно удален!</p>
-		</div>
-	</div>
-	
-	<div id="deletePost" class="popup-confirm popup">
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
-		<div class="confirm-before">
-			<form>
-				<div class="confirm-question clearfix">
-					<div class="reason">
-						<div class="title">Причина удаления:</div>
-						<input type="radio" name="radio" /> <label>Спам</label> <br/>
-						<input type="radio" name="radio" /> <label>Оскорбление пользователей</label> <br/>
-						<input type="radio" name="radio" /> <label>Разжигание межнациональной розни</label> <br/>
-						<input type="radio" name="radio" /> <label>Другая причина</label> <br/>
-						<input type="text" class="other-reason" />					
+		
+		<div class="popup-title">Я хочу участвовать в фотоконкурсе</div>
+		
+		<form>
+			<div class="form">
+				
+				<div class="a-right upload-file">
+					
+					<div class="photo">
+						<img src="/images/example/ex3.jpg" />
+						<a href="" class="remove">Удалить</a>
 					</div>
 					
-					<div class="question-in">
-						<p>Вы уверены, что<br/>хотите удалить эту<br/>запись?</p>
+					<div class="file-fake">
+						<button class="btn btn-orange"><span><span>Загрузить фото</span></span></button>
+						<input type="file" />
 					</div>
+					
 				</div>
-				<div class="bottom">
-					<a href="javascript:void(0);" class="btn btn-gray-medium" onclick="$.fancybox.close();"><span><span>Отменить</span></span></a>
-					<button class="btn btn-red-medium" onclick="confirmMessage(this);return false;"><span><span>Удалить</span></span></button>
+				
+				<div class="row">
+					<div class="row-title">Название фото</div>
+					<div class="row-elements"><input type="text" value="А Антошке я сплету другой..." /></div>
 				</div>
-			</form>
-		</div>
-		<div class="confirm-after">
-			<p>Запись успешно удалена!</p>
-		</div>
-	</div>
-	
-	<div id="movePost" class="popup-confirm popup">
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
-		<div class="confirm-before">
-			<form>
-				<div class="move-post">
-					Выберите клуб и рубрику:<br/>
-					<select class="chzn"><option>Название клуба</option></select>
-					<select class="chzn"><option>Название рубрики</option></select>
+				
+				<div class="clear"></div>
+				
+				<div class="form-bottom">
+					<label><input type="checkbox" /> Я согласен с</label> <a href="">Правилами конкурса</a>
+					<button class="btn btn-green-arrow-big"><span><span>Участвовать</span></span></button>
 				</div>
-				<div class="bottom">
-					<a href="javascript:void(0);" class="btn btn-gray-medium" onclick="$.fancybox.close();"><span><span>Отменить</span></span></a>
-					<button class="btn btn-green-medium" onclick="confirmMessage(this);return false;"><span><span>Переместить</span></span></button>
-				</div>
-			</form>
-		</div>
-		<div class="confirm-after">
-			<p>Запись успешно пермещена!</p>
-		</div>
+				
+			</div>
+		</form>
+		
 	</div>
 	
 </div>

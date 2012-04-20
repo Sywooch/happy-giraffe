@@ -1,11 +1,26 @@
 <?php
     $cs = Yii::app()->clientScript;
 
-    $js = "$('#CommunityRubric_name').keyup(function() {
+    $js = "
+        $('#CommunityRubric_name').keyup(function() {
             if ($('#BlogContent_rubric_id').val() != '' && $(this).val() != '') {
                 $('#BlogContent_rubric_id').val('');
                 $('#BlogContent_rubric_id').trigger('liszt:updated');
             }
+        });
+
+        $('#preview').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/ajax/video/',
+                type: 'POST',
+                data: {
+                    url: $('#CommunityVideo_link').val(),
+                },
+                success: function(response) {
+                    $('div.test-video div.img').html(response);
+                },
+            });
         });
     ";
 

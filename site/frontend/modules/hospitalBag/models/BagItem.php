@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'bag_item':
  * @property string $id
- * @property string $name
+ * @property string $title
  * @property string $description
  * @property integer $approved
  * @property integer $for
@@ -30,7 +30,7 @@ class BagItem extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'bag_item';
+		return 'bag__items';
 	}
 
 	/**
@@ -42,15 +42,15 @@ class BagItem extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('for, category_id', 'required'),
-            array('name', 'required', 'message'=>'Напишите, что ещё нужно взять в роддом'),
+            array('title', 'required', 'message'=>'Напишите, что ещё нужно взять в роддом'),
             array('description', 'required', 'message'=>'А для чего это нужно?'),
-			array('name', 'length', 'max' => 255),
+			array('title', 'length', 'max' => 255),
 			array('approved, for', 'boolean'),
 			array('category_id', 'numerical', 'integerOnly' => true),
 			array('category_id', 'length', 'max' => 11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, description, approved, for, category_id', 'safe', 'on'=>'search'),
+			array('id, title, description, approved, for, category_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,7 +74,7 @@ class BagItem extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Название предмета',
+			'title' => 'Название предмета',
 			'description' => 'Описание предмета',
 			'approved' => 'Approved',
 			'for' => 'For',
@@ -94,7 +94,7 @@ class BagItem extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->name,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('approved',$this->approved);
 		$criteria->compare('for',$this->for);

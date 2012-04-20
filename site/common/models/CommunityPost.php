@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "club_community_post".
+ * This is the model class for table "community__posts".
  *
- * The followings are the available columns in table 'club_community_post':
+ * The followings are the available columns in table 'community__posts':
  * @property string $id
  * @property string $text
  * @property string $source_type
@@ -41,7 +41,7 @@ class CommunityPost extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'club_community_post';
+		return 'community__posts';
 	}
 
 	/**

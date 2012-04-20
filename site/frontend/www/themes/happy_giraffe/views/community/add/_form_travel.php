@@ -54,7 +54,7 @@
 
 <div class="">
 	<div class="inner-title">Название путешествия:</div>
-	<?php echo $form->textField($content_model, 'name'); ?>
+	<?php echo $form->textField($content_model, 'title'); ?>
 	
 	<div class="inner-title">Какие страны и города посетили?</div>
 	<div class="viseted_it" id="waypoints">

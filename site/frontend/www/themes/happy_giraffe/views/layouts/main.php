@@ -34,7 +34,7 @@
             ->registerScriptFile('/javascripts/user_common.js')
             ->registerCssFile('/stylesheets/user_common.css')
             ->registerScriptFile('/javascripts/dklab_realplexor.js')
-            ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . MessageCache::GetCurrentUserCache() . '\');')
+            ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
         ;
     }
 
@@ -63,9 +63,9 @@
                                     </ul>
                                     <div class="actions">
                                         <ul>
-                                            <li><a href="<?php echo $this->createUrl('/im/') ?>">Все диалоги (<?php echo MessageDialog::GetUserDialogsCount(Yii::app()->user->id) ?>)</a></li>
-                                            <li><a href="<?php echo $this->createUrl('/im/new') ?>">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count<?php if (($incoming_count = count(MessageDialog::GetUserNewDialogs())) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count ?></a></li>
-                                            <li><a href="<?php echo $this->createUrl('/im/online') ?>">Кто онлайн</a> <span class="online-count"><?php echo count(MessageDialog::GetUserOnlineDialogs()) ?></span></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/') ?>">Все диалоги (<?php echo Dialog::GetUserDialogsCount(Yii::app()->user->id) ?>)</a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/new') ?>">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count<?php if (($incoming_count = count(Dialog::GetUserNewDialogs())) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count ?></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/im/online') ?>">Кто онлайн</a> <span class="online-count"><?php echo count(Dialog::GetUserOnlineDialogs()) ?></span></li>
                                         </ul>
                                     </div>
                                 </div>

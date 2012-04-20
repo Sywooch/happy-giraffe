@@ -24,8 +24,9 @@ $js = "Signal.takeSignalUrl = '". Yii::app()->createUrl("/signal/default/take") 
 $cs = Yii::app()->clientScript;
 $cs
     ->registerScriptFile('/javascripts/soundmanager2.js', CClientScript::POS_HEAD)
-    ->registerScriptFile($baseUrl . '/signal.js', CClientScript::POS_END)
-    ->registerScript('SignalInit', $js);
+    ->registerScriptFile('/javascripts/comet.js')
+    ->registerScriptFile($baseUrl . '/signal.js', CClientScript::POS_HEAD)
+    ->registerScript('SignalInit2', $js);
 
 ?>
 <div class="fast-calendar">

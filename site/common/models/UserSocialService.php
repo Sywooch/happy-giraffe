@@ -25,7 +25,7 @@ class UserSocialService extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{user_social_service}}';
+		return '{{user__social_services}}';
 	}
 
 	/**

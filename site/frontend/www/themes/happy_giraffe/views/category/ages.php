@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 <h3>Возраст</h3>
 <ul>
 	<?php foreach ($ages as $age): ?>
-    <li><?php echo CHtml::link($age['range_title'], array('age', 'id'=>$age['range_id'])); ?></li>
+    <li><?php echo CHtml::link($age['title'], array('age', 'id'=>$age['id'])); ?></li>
 	<?php endforeach; ?>
 </ul>
 

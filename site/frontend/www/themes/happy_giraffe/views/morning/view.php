@@ -7,7 +7,7 @@
 
     <div class="entry-header clearfix">
 
-        <h1><?=$article->name ?></h1>
+        <h1><?=$article->title ?></h1>
 
         <div class="where">
             <span>Где:</span>

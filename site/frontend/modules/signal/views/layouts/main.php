@@ -13,13 +13,14 @@
     <?php Yii::app()->clientScript
     ->registerCoreScript('jquery')
     ->registerScriptFile('/javascripts/common.js')
+    ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
     ->registerCssFile('/stylesheets/common.css')
-    ->registerScriptFile('/javascripts/comet.js')
     ->registerScriptFile('/javascripts/dklab_realplexor.js')
     ->registerScript('Realplexor-reg', '
     comet.connect("http://' . Yii::app()->comet->host . '", "' . Yii::app()->comet->namespace . '",
-                  "' . MessageCache::GetCurrentUserCache() . '");
+                  "' . UserCache::GetCurrentUserCache() . '");
 ');
+
     ?>
 </head>
 <body class="body-club">

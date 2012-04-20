@@ -1,11 +1,26 @@
 <?php
     $cs = Yii::app()->clientScript;
 
-    $js = "$('#CommunityRubric_name').keyup(function() {
+    $js = "
+        $('#CommunityRubric_name').keyup(function() {
             if ($('#BlogContent_rubric_id').val() != '' && $(this).val() != '') {
                 $('#BlogContent_rubric_id').val('');
                 $('#BlogContent_rubric_id').trigger('liszt:updated');
             }
+        });
+
+        $('#preview').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/ajax/video/',
+                type: 'POST',
+                data: {
+                    url: $('#CommunityVideo_link').val(),
+                },
+                success: function(response) {
+                    $('div.test-video div.img').html(response);
+                },
+            });
         });
     ";
 
@@ -44,7 +59,7 @@
                     <div class="row clearfix">
                         <div class="row-title">Заголовок:</div>
                         <div class="row-elements">
-                            <?php echo $form->textField($model, 'name', array('class' => 'w-500')); ?>
+                            <?php echo $form->textField($model, 'title', array('class' => 'w-500')); ?>
                         </div>
                     </div>
 
@@ -65,7 +80,7 @@
                     <div class="row clearfix">
                         <div class="row-title">Заголовок:</div>
                         <div class="row-elements">
-                            <?php echo $form->textField($model, 'name', array('class' => 'w-400')); ?>
+                            <?php echo $form->textField($model, 'title', array('class' => 'w-400')); ?>
                         </div>
                     </div>
 
@@ -114,7 +129,7 @@
                                 <td align="right">
                                     <div class="row-title">Выберите рубрику</div>
                                     <div class="row-elements">
-                                        <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'name'), array('prompt' => 'Выберите рубрику', 'class' => 'chzn w-200')); ?>
+                                        <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'title'), array('prompt' => 'Выберите рубрику', 'class' => 'chzn w-200')); ?>
                                     </div>
                                 </td>
                                 <td width="120" align="center">
@@ -123,7 +138,7 @@
                                 <td>
                                     <div class="row-title">Создайте новую</div>
                                     <div class="row-elements">
-                                        <?php echo $form->textField($rubric_model, 'name', array('class' => 'new-rubric')); ?>
+                                        <?php echo $form->textField($rubric_model, 'title', array('class' => 'new-rubric')); ?>
                                     </div>
                                 </td>
                             </tr>
@@ -133,7 +148,7 @@
                             <div class="row-title">Рубрика:</div>
                             <div class="row-elements">
                                 <div class="select-box">
-                                    <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'name'), array('class' => 'chzn w-200')); ?>
+                                    <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'title'), array('class' => 'chzn w-200')); ?>
                                 </div>
                             </div>
                             <a class="add"><i class="icon"></i></a>

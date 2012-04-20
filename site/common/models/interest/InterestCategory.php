@@ -1,11 +1,11 @@
 <?php
 
 /**
- * This is the model class for table "interest_category".
+ * This is the model class for table "interest__categories".
  *
- * The followings are the available columns in table 'interest_category':
+ * The followings are the available columns in table 'interest__categories':
  * @property string $id
- * @property string $name
+ * @property string $title
  * @property string $css_class
  *
  * The followings are the available model relations:
@@ -28,7 +28,7 @@ class InterestCategory extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'interest_category';
+		return 'interest__categories';
 	}
 
 	/**
@@ -39,11 +39,11 @@ class InterestCategory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name, css_class', 'length', 'max'=>255),
+			array('title', 'required'),
+			array('title, css_class', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, css_class', 'safe', 'on'=>'search'),
+			array('id, title, css_class', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,7 +66,7 @@ class InterestCategory extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'title' => 'Name',
 			'css_class' => 'Css Class',
 		);
 	}
@@ -83,7 +83,7 @@ class InterestCategory extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->title,true);
 		$criteria->compare('css_class',$this->css_class,true);
 
 		return new CActiveDataProvider($this, array(

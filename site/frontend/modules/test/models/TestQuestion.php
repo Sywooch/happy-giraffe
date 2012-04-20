@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'test_question':
  * @property integer $id
  * @property integer $test_id
- * @property string $name
+ * @property string $title
  * @property string $image
  * @property integer $number
  * @property string $text
@@ -42,12 +42,12 @@ class TestQuestion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('test_id, name, number', 'required'),
+			array('test_id, title, number', 'required'),
 			array('test_id, number', 'numerical', 'integerOnly'=>true),
-			array('name, image', 'length', 'max'=>255),
+			array('title, image', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, test_id, name, image, number, text', 'safe', 'on'=>'search'),
+			array('id, test_id, title, image, number, text', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,7 +72,7 @@ class TestQuestion extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'test_id' => 'Test',
-			'name' => 'Name',
+			'title' => 'Name',
 			'image' => 'Image',
 			'number' => 'Number',
 			'text' => 'Text',
@@ -92,7 +92,7 @@ class TestQuestion extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('test_id',$this->test_id);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->title,true);
 		$criteria->compare('image',$this->image,true);
 		$criteria->compare('number',$this->number);
 		$criteria->compare('text',$this->text,true);

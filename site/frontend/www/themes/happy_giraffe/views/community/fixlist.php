@@ -27,7 +27,7 @@
 	<?php foreach ($contents as $c): ?>
 		<tr>
 			<td>
-				<?php echo CHtml::link($c->name, $this->createUrl('view', array(
+				<?php echo CHtml::link($c->title, $this->createUrl('view', array(
 					'community_id' => $c->rubric->community->id,
 					'content_type_slug' => $c->type->slug,
 					'content_id' => $c->id,

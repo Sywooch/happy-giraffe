@@ -667,7 +667,6 @@
 #baby .baby_hanbook_names ul.handbook_changes_u {position:absolute;bottom:0px;left:200px;}
 #baby .baby_hanbook_names ul.handbook_changes_u li {float:left;margin:0 3px 0 0;}
 #baby .baby_hanbook_names ul.handbook_changes_u li a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background: url(../images/vio_transparent.png) 0 0 repeat;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
-#baby .baby_hanbook_names ul.handbook_changes_u li a span {border-bottom:1px dashed #fff;}
 #baby .baby_hanbook_names ul.handbook_changes_u li.current_t a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#724c99;text-decoration:none;background:#fff;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
 #baby .baby_hanbook_names ul.handbook_changes_u li.likes a {display:inline-block;padding:0 25px;font:18px/60px tahoma, sans-serif;color:#fff;text-decoration:none;background: url(../images/green_trans.png) 0 0 repeat;border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;}
 

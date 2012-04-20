@@ -60,7 +60,7 @@
                     <div class="row clearfix">
                         <div class="row-title">От Весёлого Жирафа:</div>
                         <div class="row-elements">
-                            <?php echo $form->textField($model, 'by_happy_giraffe'); ?>
+                            <?php echo $form->checkBox($model, 'by_happy_giraffe'); ?>
                         </div>
                     </div>
                 <?php endif; ?>

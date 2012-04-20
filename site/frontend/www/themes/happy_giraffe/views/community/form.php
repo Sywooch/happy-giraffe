@@ -53,14 +53,14 @@
                     <div class="row clearfix">
                         <div class="row-title">Title:</div>
                         <div class="row-elements">
-                            <?php echo $form->textField($content_model, 'meta_title', array('class' => 'w-500')); ?>
+                            <?php echo $form->textField($model, 'meta_title', array('class' => 'w-500')); ?>
                         </div>
                     </div>
 
                     <div class="row clearfix">
                         <div class="row-title">От Весёлого Жирафа:</div>
                         <div class="row-elements">
-                            <?php echo $form->textField($content_model, 'by_happy_giraffe'); ?>
+                            <?php echo $form->textField($model, 'by_happy_giraffe'); ?>
                         </div>
                     </div>
                 <?php endif; ?>

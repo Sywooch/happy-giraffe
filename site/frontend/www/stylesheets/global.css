@@ -3190,7 +3190,7 @@ big.title ins.clr_bl {
 }
 
 #content .right_block .choice_name h1 {
-    font-size:50px;color:#505152;position:relative;left:90px;top:25px;line-height:1;
+    font-size:50px;color:#505152;position:relative;left:90px;top:25px;line-height:1;background:none;
 }
 
 #content .right_block .choice_name h1 span {

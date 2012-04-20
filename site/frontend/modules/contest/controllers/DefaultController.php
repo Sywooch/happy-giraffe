@@ -126,6 +126,9 @@ class DefaultController extends Controller
         $this->pageTitle = 'Участвовать в фотоконкурсе "Веселая семейка"';
         $this->contest = Contest::model()->findByPk($id);
 
+        if(time() > strtotime($this->contest->till_time))
+            throw new CHttpException(404, 'Конкурс завершен');
+
         if(!$this->contest->isStatement)
             throw new CHttpException(404, 'Вы уже участвуете в этом конкурсе');
 

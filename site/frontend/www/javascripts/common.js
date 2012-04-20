@@ -1,4 +1,3 @@
-var socwin;
 $(document).ready(function () {
     $('body').delegate('a.fancy', 'click', function () {
         var onComplete_function = function () {

@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+#repearWallpapers input {
+    border: 1px solid #AAA;
+}
+
+#repearWallpapers table td {
+    padding: 5px 10px
+}
+
+#repearWallpapers h2{
+    margin: 15px 0
+}

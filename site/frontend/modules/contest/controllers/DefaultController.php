@@ -88,7 +88,7 @@ class DefaultController extends Controller
         ));
     }
 
-    public function actionWork($contest_id, $id)
+    public function actionWork($id)
     {
         $work = ContestWork::model()->findByPk($id);
         if ($work === null)

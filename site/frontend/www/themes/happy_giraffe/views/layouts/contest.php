@@ -6,21 +6,21 @@
 			$this->widget('zii.widgets.CMenu', array(
 				'encodeLabel' => false,
 				'items' => array(
-					array(
-						'label' => 'О конкурсе',
-						'url' => array('/contest/' . $this->contest->id),
-						'active' => $this->action->id == 'view',
-					),
-					array(
-						'label' => 'Правила',
-						'url' => array('/contest/rules/' . $this->contest->id),
-						'active' => $this->action->id == 'rules',
-					),
-					array(
-						'label' => 'Участники',
-						'url' => array('/contest/list/' . $this->contest->id),
-						'active' => $this->action->id == 'list',
-					),
+                    array(
+                        'label' => 'О конкурсе',
+                        'url' => array('/contest/default/view', 'id' => $this->contest->contest_id),
+                        'active' => $this->action->id == 'view',
+                    ),
+                    array(
+                        'label' => 'Правила',
+                        'url' => array('/contest/default/rules', 'id' => $this->contest->contest_id),
+                        'active' => $this->action->id == 'rules',
+                    ),
+                    array(
+                        'label' => 'Участники',
+                        'url' => array('/contest/default/list', 'id' => $this->contest->contest_id),
+                        'active' => $this->action->id == 'list',
+                    ),
 				),
 			));
 		?>

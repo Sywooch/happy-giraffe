@@ -6,9 +6,9 @@ Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
 Yii::import('site.frontend.extensions.status.EStatusBehavior');
 
 /**
- * This is the model class for table "name_famous".
+ * This is the model class for table "name__famous".
  *
- * The followings are the available columns in table 'name_famous':
+ * The followings are the available columns in table 'name__famous':
  * @property string $id
  * @property string $name_id
  * @property string $middle_name
@@ -39,7 +39,7 @@ class NameFamous extends CActiveRecord
      */
     public function tableName()
     {
-        return 'name_famous';
+        return 'name__famous';
     }
 
     /**

@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'score__levels':
  * @property string $id
- * @property string $name
+ * @property string $title
  * @property string $css_class
  * @property integer $score_cost
  *
@@ -42,10 +42,10 @@ class ScoreLevels extends CActiveRecord
         return array(
             array('score_cost', 'required'),
             array('score_cost', 'numerical', 'integerOnly' => true),
-            array('name, css_class', 'length', 'max' => 256),
+            array('title, css_class', 'length', 'max' => 256),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, css_class, score_cost', 'safe', 'on' => 'search'),
+            array('id, title, css_class, score_cost', 'safe', 'on' => 'search'),
         );
     }
 
@@ -68,7 +68,7 @@ class ScoreLevels extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'name' => 'Name',
+            'title' => 'Name',
             'css_class' => 'Css Class',
             'score_cost' => 'Score Cost',
         );
@@ -86,7 +86,7 @@ class ScoreLevels extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('name', $this->name, true);
+        $criteria->compare('title', $this->title, true);
         $criteria->compare('css_class', $this->css_class, true);
         $criteria->compare('score_cost', $this->score_cost);
 

@@ -1,11 +1,11 @@
 <?php
 
 /**
- * This is the model class for table "{{community_rubric}}".
+ * This is the model class for table "{{community__rubrics}}".
  *
- * The followings are the available columns in table '{{community_rubric}}':
+ * The followings are the available columns in table '{{community__rubrics}}':
  * @property string $id
- * @property string $name
+ * @property string $title
  * @property string $community_id
  */
 class CommunityRubric extends CActiveRecord
@@ -18,7 +18,7 @@ class CommunityRubric extends CActiveRecord
 		{
 			$raw = Yii::app()->db->createCommand()
 				->select('type_id, count(*)')
-				->from('club_community_content c')
+				->from('community__contents c')
 				->where('c.rubric_id = :rubric_id', array(':rubric_id' => $this->id))
 				->group('c.type_id')
 				->queryAll();
@@ -59,7 +59,7 @@ class CommunityRubric extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{club_community_rubric}}';
+		return '{{community__rubrics}}';
 	}
 
 	/**
@@ -70,8 +70,8 @@ class CommunityRubric extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name', 'length', 'max'=>255),
+			array('title', 'required'),
+			array('title', 'length', 'max'=>255),
             array('community_id', 'exist', 'attributeName' => 'id', 'className' => 'Community'),
             array('user_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
 		);
@@ -99,7 +99,7 @@ class CommunityRubric extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'title' => 'Name',
 			'community_id' => 'Community',
 		);
 	}

@@ -64,7 +64,7 @@ class DefaultController extends Controller
 
         $works = new ContestWork('search');
         $works->unsetAttributes();
-        $works->contest_id = $this->contest->primaryKey;
+        $works->contest_id = $this->contest->id;
         $works = $works->search($sort);
 
         $this->render('list', array(

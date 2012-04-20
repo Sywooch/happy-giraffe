@@ -6,27 +6,27 @@
 			$this->widget('zii.widgets.CMenu', array(
 				'encodeLabel' => false,
 				'items' => array(
-					array(
-						'label' => 'О конкурсе',
-						'url' => array('/contest/default/view', 'id' => $this->contest->contest_id),
-						'active' => $this->action->id == 'view',
-					),
-					array(
-						'label' => 'Правила',
-						'url' => array('/contest/default/rules', 'id' => $this->contest->contest_id),
-						'active' => $this->action->id == 'rules',
-					),
-					array(
-						'label' => 'Участники',
-						'url' => array('/contest/default/list', 'id' => $this->contest->contest_id),
-						'active' => $this->action->id == 'list',
-					),
+                    array(
+                        'label' => 'О конкурсе',
+                        'url' => array('/contest/default/view', 'id' => $this->contest->id),
+                        'active' => $this->action->id == 'view',
+                    ),
+                    array(
+                        'label' => 'Правила',
+                        'url' => array('/contest/default/rules', 'id' => $this->contest->id),
+                        'active' => $this->action->id == 'rules',
+                    ),
+                    array(
+                        'label' => 'Участники',
+                        'url' => array('/contest/default/list', 'id' => $this->contest->id),
+                        'active' => $this->action->id == 'list',
+                    ),
 				),
 			));
 		?>
 	</div>
-    <?php if(!ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->contest->primaryKey))): ?>
-        <?php echo CHtml::link('Участвовать', (Yii::app()->user->isGuest) ? '#login' : array('/contest/statement', 'id' => $this->contest->primaryKey), array('class' => (Yii::app()->user->isGuest) ? 'contest-takeapart fancy' : 'contest-takeapart')); ?>
+    <?php if(!ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'id' => $this->contest->primaryKey))): ?>
+        <?php echo CHtml::link('Участвовать', (Yii::app()->user->isGuest) ? '#login' : array('/contest/default/statement', 'id' => $this->contest->primaryKey), array('class' => (Yii::app()->user->isGuest) ? 'contest-takeapart fancy' : 'contest-takeapart')); ?>
     <?php endif; ?>
     <img src="/images/contest_banner_01.png" />
 </div>

@@ -29,7 +29,7 @@ class MenstrualCycle extends CActiveRecord
      */
     public function tableName()
     {
-        return 'menstrual_cycle';
+        return 'menstrual_cycle__cycles';
     }
 
     /**
@@ -186,7 +186,7 @@ class MenstrualCycle extends CActiveRecord
 
         if ($user_cycle === NULL) {
             Yii::app()->db->createCommand()
-                ->insert('menstrual_user_cycle',
+                ->insert('menstrual_cycle__user_cycles',
                 array(
                     'user_id' => $user_id,
                     'date' => date("Y-m-d", $date),
@@ -197,7 +197,7 @@ class MenstrualCycle extends CActiveRecord
         elseif ($user_cycle['cycle'] != $this->cycle || $user_cycle['date'] != date("Y-m-d", $date) || $user_cycle['menstruation'] != $this->menstruation)
         {
             Yii::app()->db->createCommand()
-                ->update('menstrual_user_cycle',
+                ->update('menstrual_cycle__user_cycles',
                 array(
                     'date' => date("Y-m-d", $date),
                     'cycle' => $this->cycle,
@@ -221,7 +221,7 @@ class MenstrualCycle extends CActiveRecord
     {
         $user_cycle = Yii::app()->db->createCommand()
             ->select('*')
-            ->from('menstrual_user_cycle')
+            ->from('menstrual_cycle__user_cycles')
             ->where('user_id = :user_id', array(':user_id' => $user_id))
             ->queryRow();
 

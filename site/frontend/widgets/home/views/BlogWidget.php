@@ -13,7 +13,7 @@
                         'location' => false,
                     )); ?>
                 </div>
-                <b><?=CHtml::link($c->name, $c->url)?></b>
+                <b><?=CHtml::link($c->title, $c->url)?></b>
                 <a href="<?=$c->url ?>"><div class="img"><?=$c->short?></div></a>
             </li>
         <?php endforeach; ?>

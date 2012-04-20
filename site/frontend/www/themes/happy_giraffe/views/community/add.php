@@ -15,7 +15,7 @@
             <?php else: ?>
                 <? foreach ($content_types as $cs): ?>
                     <? if ($cs->slug == $content_type->slug): ?>
-                        <span class="current"><?=$cs->name_accusative?></span>
+                        <span class="current"><?=$cs->title_accusative?></span>
                     <? else: ?>
                         <?
                             $add_params = array('content_type_slug' => $cs->slug);
@@ -23,7 +23,7 @@
                             if (!is_null($rubric_id)) $add_params['rubric_id'] = $rubric_id;
                             $url = ($cs->slug == 'travel') ? CController::createUrl('community/addTravel') : CController::createUrl('community/add', $add_params);
                         ?>
-                        <span><?=CHtml::link($cs->name_accusative, $url)?></span>
+                        <span><?=CHtml::link($cs->title_accusative, $url)?></span>
                     <? endif; ?>
                 <? endforeach; ?>
             <?php endif; ?>

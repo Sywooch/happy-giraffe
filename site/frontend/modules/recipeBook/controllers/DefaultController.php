@@ -10,11 +10,11 @@ class DefaultController extends Controller
         $this->index = true;
         $diseases = RecipeBookDisease::model()->with(array(
             'category' => array(
-                'select' => array('name')
+                'select' => array('title')
             )
         ))->findAll(array(
-                'order' => 't.name',
-                'select' => array('id', 'name', 'slug', 'category_id'))
+                'order' => 't.title',
+                'select' => array('id', 'title', 'slug', 'category_id'))
         );
         $alphabetList = RecipeBookDisease::GetDiseaseAlphabetList($diseases);
         $categoryList = RecipeBookDisease::GetDiseaseCategoryList($diseases);
@@ -96,13 +96,13 @@ class DefaultController extends Controller
             $category_id = $_POST['disease_category'];
 
             $diseases = RecipeBookDisease::model()->findAllByAttributes(array('category_id' => $category_id));
-            echo CHtml::listOptions('', array(''=>'Выберите болезнь')+CHtml::listData($diseases, 'id', 'name'), $null);
+            echo CHtml::listOptions('', array(''=>'Выберите болезнь')+CHtml::listData($diseases, 'id', 'title'), $null);
         }
     }
 
     public function actionGetAlphabetList()
     {
-        $diseases = RecipeBookDisease::model()->findAll(array('order' => 'name', 'select' => array('id', 'name', 'slug')));
+        $diseases = RecipeBookDisease::model()->findAll(array('order' => 'title', 'select' => array('id', 'title', 'slug')));
         $alphabetList = RecipeBookDisease::GetDiseaseAlphabetList($diseases);
 
         $this->renderPartial('alphabet_list', array(
@@ -114,12 +114,12 @@ class DefaultController extends Controller
     {
         $diseases = RecipeBookDisease::model()->with(array(
             'category' => array(
-                'select' => array('name')
+                'select' => array('title')
             )
         ))->findAll(
             array(
-                'order' => 't.name',
-                'select' => array('id', 'name', 'slug', 'category_id')
+                'order' => 't.title',
+                'select' => array('id', 'title', 'slug', 'category_id')
             )
         );
         $categoryList = RecipeBookDisease::GetDiseaseCategoryList($diseases);
@@ -133,10 +133,10 @@ class DefaultController extends Controller
     {
         $model = RecipeBookDisease::model()->with(array(
             'category' => array(
-                'select' => array('name')
+                'select' => array('title')
             )
         ))->find(array(
-            'select' => array('id', 'name', 'category_id'),
+            'select' => array('id', 'title', 'category_id'),
             'condition' => 't.slug = :slug',
             'params' => array(':slug' => $url)
         ));
@@ -144,8 +144,8 @@ class DefaultController extends Controller
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $cat_diseases = RecipeBookDisease::model()->findAll(array(
-            'order' => 'name',
-            'select' => array('id', 'name', 'slug'),
+            'order' => 'title',
+            'select' => array('id', 'title', 'slug'),
             'condition' => 'category_id=' . $model->category_id
         ));
 
@@ -173,10 +173,10 @@ class DefaultController extends Controller
     {
         $model = RecipeBookRecipe::model()->with(array(
             'disease' => array(
-                'select' => array('category_id', 'id', 'name', 'slug')
+                'select' => array('category_id', 'id', 'title', 'slug')
             ),
             'disease.category' => array(
-                'select' => array('name')
+                'select' => array('title')
             ),
             'ingredients',
             'commentsCount',
@@ -190,15 +190,15 @@ class DefaultController extends Controller
         $model->update(array('views_amount'));
 
         $cat_diseases = RecipeBookDisease::model()->findAll(array(
-            'order' => 't.name',
-            'select' => array('id', 'name', 'slug'),
+            'order' => 't.title',
+            'select' => array('id', 'title', 'slug'),
             'condition' => 'category_id=' . $model->disease->category_id
         ));
 
         $more_recipes = RecipeBookRecipe::model()->findAll(array(
             'order' => new CDbExpression('RAND()'),
             'limit' => 3,
-            'select' => array('id', 'name'),
+            'select' => array('id', 'title'),
             'condition' => 'disease_id=' . $model->disease_id . ' AND id != ' . $id,
             'with'=>'ingredients'
         ));

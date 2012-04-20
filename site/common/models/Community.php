@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table '{{community}}':
  * @property string $id
- * @property string $name
+ * @property string $title
  * @property string $pic
  * @property string $position
  */
@@ -20,8 +20,8 @@ class Community extends CActiveRecord
 		{
 			$raw = Yii::app()->db->createCommand()
 				->select('type_id, count(*)')
-				->from('club_community_content c')
-				->join('club_community_rubric r', 'r.id=c.rubric_id')
+				->from('community__contents c')
+				->join('community__rubrics r', 'r.id=c.rubric_id')
 				->where('r.community_id = :community_id AND c.removed = 0', array(':community_id' => $this->id))
 				->group('c.type_id')
 				->queryAll();
@@ -62,7 +62,7 @@ class Community extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{club_community}}';
+		return '{{community__communities}}';
 	}
 
 	/**
@@ -73,12 +73,12 @@ class Community extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, pic', 'required'),
-			array('name, pic', 'length', 'max'=>255),
+			array('title, pic', 'required'),
+			array('title, pic', 'length', 'max'=>255),
             array('position', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, pic', 'safe', 'on'=>'search'),
+			array('id, title, pic', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -91,7 +91,7 @@ class Community extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'community_id'),
-			'users' => array(self::MANY_MANY, 'User', 'user_via_community(user_id, community_id)'),
+			'users' => array(self::MANY_MANY, 'User', 'user__users_communities(user_id, community_id)'),
 		);
 	}
 
@@ -118,7 +118,7 @@ class Community extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'title' => 'Name',
 			'pic' => 'Pic',
 		);
 	}
@@ -135,7 +135,7 @@ class Community extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->title,true);
 		$criteria->compare('pic',$this->pic,true);
 
 		return new CActiveDataProvider($this, array(

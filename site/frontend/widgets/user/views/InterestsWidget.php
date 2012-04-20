@@ -7,7 +7,7 @@
     </div>
     <ul id="user_interests_list">
         <?php foreach ($user->interests as $interest): ?>
-            <li><span class="interest selected <?php echo $interest->category->css_class ?>"><?php echo $interest->name ?></span></li>
+            <li><span class="interest selected <?php echo $interest->category->css_class ?>"><?php echo $interest->title ?></span></li>
         <?php endforeach; ?>
     </ul>
 </div>

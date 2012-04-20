@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'bag_category':
  * @property string $id
- * @property string $name
+ * @property string $title
  */
 class BagCategory extends CActiveRecord
 {
@@ -23,7 +23,7 @@ class BagCategory extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'bag_category';
+		return 'bag__categories';
 	}
 
 	/**
@@ -34,11 +34,11 @@ class BagCategory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name', 'length', 'max' => 255),
+			array('title', 'required'),
+			array('title', 'length', 'max' => 255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on' => 'search'),
+			array('id, title', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -61,7 +61,7 @@ class BagCategory extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'title' => 'Name',
 		);
 	}
 
@@ -77,7 +77,7 @@ class BagCategory extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

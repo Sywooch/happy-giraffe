@@ -5,14 +5,14 @@
     <ul>
         <?php foreach ($models as $model): ?>
             <li>
-                <?php echo CHtml::link($model->name, $model->url); ?>
+                <?php echo CHtml::link($model->title, $model->url); ?>
                 <a href="<?=$model->url ?>"><?php
                 $content = '';
                 switch ($model->type->slug)
                 {
                     case 'post':
                         if (preg_match('/src="([^"]+)"/', $model->post->text, $matches)) {
-                            $content = '<img src="' . $matches[1] . '" alt="' . $model->name . '" width="200" />';
+                            $content = '<img src="' . $matches[1] . '" alt="' . $model->title . '" width="200" />';
                         }
                         else
                         {
@@ -23,7 +23,7 @@
                         break;
                     case 'travel':
                         if (preg_match('/src="([^"]+)"/', $model->travel->text, $matches)) {
-                            $content = '<img src="' . $matches[1] . '" alt="' . $model->name . '" width="200" />';
+                            $content = '<img src="' . $matches[1] . '" alt="' . $model->title . '" width="200" />';
                         }
                         else
                         {

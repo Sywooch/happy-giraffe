@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "horoscope".
+ * This is the model class for table "services__horoscope".
  *
- * The followings are the available columns in table 'horoscope':
+ * The followings are the available columns in table 'services__horoscope':
  * @property integer $id
  * @property integer $zodiac
  * @property string $date
@@ -56,7 +56,7 @@ class Horoscope extends CActiveRecord
      */
     public function tableName()
     {
-        return 'horoscope';
+        return 'services__horoscope';
     }
 
     /**

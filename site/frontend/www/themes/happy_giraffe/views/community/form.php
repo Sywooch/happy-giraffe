@@ -49,6 +49,22 @@
         <?php $form = $this->beginWidget('CActiveForm'); ?>
             <div class="form row-form clearfix">
 
+                <?php if(Yii::app()->user->checkAccess('editMeta')): ?>
+                    <div class="row clearfix">
+                        <div class="row-title">Title:</div>
+                        <div class="row-elements">
+                            <?php echo $form->textField($content_model, 'meta_title', array('class' => 'w-500')); ?>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="row-title">От Весёлого Жирафа:</div>
+                        <div class="row-elements">
+                            <?php echo $form->textField($content_model, 'by_happy_giraffe'); ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
                 <?php if ($model->type_id == 1): ?>
                     <div class="row clearfix">
                         <div class="row-title">Заголовок:</div>

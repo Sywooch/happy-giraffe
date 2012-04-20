@@ -47,10 +47,17 @@
                     // IE versions below IE8 cannot set the name property of
                     // elements that have already been added to the DOM,
                     // so we set the name along with the iframe HTML markup:
+                    if($.browser.webkit == undefined || $.browser.webkit == false)
+                        var W = 'document.open();document.domain="' + document.domain + '";document.close();';
+                    else
+                        W = 'javascript:false;';
                     iframe = $(
-                        '<iframe src="javascript:false;" name="iframe-transport-' +
+                        '<iframe src="' + W + '"  name="iframe-transport-' +
                             (counter += 1) + '"></iframe>'
-                    ).bind('load', function () {
+                    ).bind('load', function () {;
+                            cl(this);
+                            cl(this.src);
+                        this.document.domain = document.domain;
                         var fileInputClones,
                             paramNames = $.isArray(options.paramName) ?
                                     options.paramName : [options.paramName];
@@ -80,7 +87,7 @@
                                 );
                                 // Fix for IE endless progress bar activity bug
                                 // (happens on form submits to iframe targets):
-                                $('<iframe src="javascript:false;"></iframe>')
+                                $('<iframe src="'+W+'"></iframe>')
                                     .appendTo(form);
                                 form.remove();
                             });

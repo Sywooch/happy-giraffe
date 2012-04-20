@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+#repairFlooring input {
+    border: 1px solid #AAA;
+}
+
+#repairFlooring table td {
+    padding: 5px 10px
+}
+
+#repairFlooring h2{
+    margin: 15px 0
+}

@@ -268,7 +268,7 @@ class AjaxController extends Controller
         $source_data = $_POST['source_data'];
         if (in_array($source_data['model'], $accepted_models)) {
             $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array(
-                'entity_name' => $source_data['model'],
+                'entity' => $source_data['model'],
                 'entity_id' => $source_data['object_id'],
             ));
             $report->form();

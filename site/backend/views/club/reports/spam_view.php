@@ -26,7 +26,7 @@
             array(
                 'header' => 'Текст нарушения',
                 'type' => 'html',
-                'value' => '$data->entity->text',
+                'value' => '$data->model->text',
             ),
             array(
                 'name' => 'text',

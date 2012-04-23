@@ -266,26 +266,26 @@ class UserNotification extends EMongoDocument
         switch (get_class($entity)) {
             case 'CommunityContent':
                 $params = array(
-                    '{post}' => $entity->name,
-                    '{club}' => $entity->rubric->community->name,
-                    '{rubric}' => $entity->rubric->name,
+                    '{post}' => $entity->title,
+                    '{club}' => $entity->rubric->community->title,
+                    '{rubric}' => $entity->rubric->title,
                 );
                 break;
             case 'BlogContent':
                 $params = array(
-                    '{post}' => $entity->name,
+                    '{post}' => $entity->title,
 
                 );
                 break;
             case 'AlbumPhoto':
                 $params = array(
-                    '{photo}' => $entity->name,
-                    '{album}' => $entity->album->name,
+                    '{photo}' => $entity->title,
+                    '{album}' => $entity->album->title,
                 );
                 break;
             case 'RecipeBookRecipe':
                 $params = array(
-                    '{post}' => $entity->name,
+                    '{post}' => $entity->title,
                     '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
                 );
                 break;

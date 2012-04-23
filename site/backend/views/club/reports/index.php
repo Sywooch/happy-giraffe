@@ -20,7 +20,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'header' => 'Нарушитель',
             'type' => 'raw',
-            'value' => '$data->entity->author->fullName'
+            'value' => '$data->model->author->fullName'
         ),
         array(
             'name' => 'path',

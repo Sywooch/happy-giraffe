@@ -279,8 +279,8 @@ class UserNotification extends EMongoDocument
                 break;
             case 'AlbumPhoto':
                 $params = array(
-                    '{photo}' => $entity->title,
-                    '{album}' => $entity->album->title,
+                    '{photo}' => $entity->name,
+                    '{album}' => $entity->album->name,
                 );
                 break;
             case 'RecipeBookRecipe':

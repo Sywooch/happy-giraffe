@@ -27,7 +27,7 @@ class EDZPMZone extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop_delivery_edzpm_zone}}';
+		return 'shop_delivery_edzpm_zone';
 	}
 
 	/**

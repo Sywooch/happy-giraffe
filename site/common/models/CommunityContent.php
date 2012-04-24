@@ -44,7 +44,7 @@ class CommunityContent extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{community__contents}}';
+		return 'community__contents';
 	}
 
 	/**

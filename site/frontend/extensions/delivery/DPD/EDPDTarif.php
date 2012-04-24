@@ -19,7 +19,7 @@ class EDPDTarif extends CActiveRecord {
 	}
 	
 	public function tableName() {
-		return '{{shop_delivery_edpd_tarif}}';
+		return 'shop_delivery_edpd_tarif';
 	}
 	
 	public function primaryKey() {

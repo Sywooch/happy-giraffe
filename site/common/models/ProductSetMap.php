@@ -26,7 +26,7 @@ class ProductSetMap extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__product_set_map}}';
+		return 'shop__product_set_map';
 	}
 
 	/**

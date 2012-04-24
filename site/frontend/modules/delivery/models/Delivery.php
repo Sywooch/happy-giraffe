@@ -29,7 +29,7 @@ class Delivery extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_delivery}}';
+		return 'shop_delivery';
 	}
 
 	/**

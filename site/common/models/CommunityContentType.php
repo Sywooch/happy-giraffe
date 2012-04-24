@@ -23,7 +23,7 @@ class CommunityContentType extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{community__content_types}}';
+		return 'community__content_types';
 	}
 
 	/**

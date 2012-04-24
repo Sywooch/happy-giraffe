@@ -5,7 +5,7 @@
     $this->widget('zii.widgets.CListView', array(
         'ajaxUpdate' => false,
         'dataProvider' => $contents,
-        'itemView' => '/community/_post',
+        'itemView' => '//community/_post',
         'summaryText' => 'Показано: {start}-{end} из {count}',
         'pager' => array(
             'class' => 'AlbumLinkPager',

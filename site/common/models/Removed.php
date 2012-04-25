@@ -14,7 +14,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class Removed extends CActiveRecord
+class Removed extends HActiveRecord
 {
     public static $types = array(
         'Удалено автором',

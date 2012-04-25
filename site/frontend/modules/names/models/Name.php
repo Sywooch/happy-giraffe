@@ -23,7 +23,7 @@
  * @property NameStats $nameStats
  * @property User[] $users
  */
-class Name extends CActiveRecord
+class Name extends HActiveRecord
 {
     public $sweet;
     public $options;

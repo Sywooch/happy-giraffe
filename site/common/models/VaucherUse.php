@@ -9,7 +9,7 @@
  * @property string $use_vaucher_id
  * @property string $use_time
  */
-class VaucherUse extends CActiveRecord
+class VaucherUse extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -15,7 +15,7 @@
  * @property User $user
  * @property ClubContest $contest
  */
-class ContestWork extends CActiveRecord
+class ContestWork extends HActiveRecord
 {
     public $file;
 

@@ -3,89 +3,14 @@
  * @var $form CActiveForm
  */
 $model = new OvulationForm();
-$js = "var started = false;
-    function StartCalc() {
-        var d = new Date();
-        $('#review_month').val($('#OvulationForm_con_month').val());
-        $('#review_year').val($('#OvulationForm_con_year').val());
-        LoadCalendar();
-        return false;
-    }
 
-    $('body').delegate('div.choice_month a#next-month', 'click', function () {
-        var month = $('#review_month').val();
-        if (month == '')
-            return false;
-        var year = $('#review_year').val();
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/ovulation.js', CClientScript::POS_HEAD);
+Yii::app()->clientScript->registerCss('baby-gender-ovulation', '.child_sex_ovulyaciya_banner div.row {display: inline;}
+.child_sex_ovulyaciya_banner .errorMessage {display: none !important;}');
 
-        month++;
-        if (month == 13) {
-            month = 1;
-            year++;
-            $('#review_year').val(year);
-        }
-        $('#review_month').val(month);
-        LoadCalendar();
-        return false;
-    });
-
-    $('body').delegate('div.choice_month a#prev-month', 'click', function () {
-        var month = $('#review_month').val();
-        if (month == '')
-            return false;
-        var year = $('#review_year').val();
-
-        month--;
-        if (month == 0) {
-            month = 12;
-            year--;
-            $('#review_year').val(year);
-        }
-
-        $('#review_month').val(month);
-        LoadCalendar();
-        return false;
-    });
-
-    $('body').delegate('.cal_item', 'hover', function (event) {
-        if (event.type == 'mouseenter') {
-            $(this).find('.hint').stop(true, true).fadeIn();
-        } else {
-            $(this).find('.hint').stop(true, true).fadeOut();
-        }
-    });
-    $('body').delegate('.cal_item_default', 'hover', function (event) {
-        if (event.type == 'mouseenter') {
-            $(this).find('.hint').stop(true, true).fadeIn();
-        } else {
-            $(this).find('.hint').stop(true, true).fadeOut();
-        }
-    });
-
-    function LoadCalendar() {
-        $.ajax({
-            url:'" . Yii::app()->createUrl("/babySex/default/ovulationCalc") . "',
-            data:$('#ovulation-form').serialize(),
-            type:'POST',
-            success:function (data) {
-                $('#result').html(data);
-                $('html,body').animate({scrollTop: $('#result .calendar_body').offset().top},'fast');
-            }
-        });
-    }
-";
-Yii::app()->clientScript->registerScript('baby-gender-ovulation', $js);
-?>
-<style type="text/css">
-    .child_sex_ovulyaciya_banner div.row {
-        display: inline;
-    }
-
-    .child_sex_ovulyaciya_banner .errorMessage {
-        display: none !important;
-    }
-</style>
-<?php $form = $this->beginWidget('CActiveForm', array(
+$form = $this->beginWidget('CActiveForm', array(
     'id' => 'ovulation-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
@@ -93,7 +18,7 @@ Yii::app()->clientScript->registerScript('baby-gender-ovulation', $js);
         'validateOnSubmit' => true,
         'validateOnChange' => true,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/babySex/default/ovulationCalc'),
+        'validationUrl' => $this->createUrl('/babySex/default/ovulationCalc/'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     StartCalc();

@@ -1,6 +1,6 @@
 <?php
 
-class SystemController extends Controller
+class SystemController extends HController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

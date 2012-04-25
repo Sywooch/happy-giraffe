@@ -1,6 +1,6 @@
 <?php
 
-class ProductSetController extends Controller
+class ProductSetController extends HController
 {
 
 	/**

@@ -19,7 +19,7 @@
  * @property GeoRegion $region
  * @property User $user
  */
-class UserAddress extends CActiveRecord
+class UserAddress extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

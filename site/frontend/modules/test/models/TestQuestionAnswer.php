@@ -13,7 +13,7 @@
  * The followings are the available model relations:
  * @property TestQuestion $testQuestion
  */
-class TestQuestionAnswer extends CActiveRecord
+class TestQuestionAnswer extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

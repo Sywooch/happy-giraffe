@@ -13,7 +13,7 @@
  * @property GeoCity[] $geoCities
  * @property GeoCountry $country
  */
-class GeoRegion extends CActiveRecord
+class GeoRegion extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

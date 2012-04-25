@@ -3,7 +3,7 @@
  * Author: choo
  * Date: 26.03.2012
  */
-class BlogController extends Controller
+class BlogController extends HController
 {
     public $user;
     public $rubric_id;

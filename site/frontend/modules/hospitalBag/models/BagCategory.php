@@ -7,7 +7,7 @@
  * @property string $id
  * @property string $title
  */
-class BagCategory extends CActiveRecord
+class BagCategory extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

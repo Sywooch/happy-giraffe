@@ -1,6 +1,6 @@
 <?php
 
-class ProductPricelistController extends Controller
+class ProductPricelistController extends HController
 {
 
 	/**

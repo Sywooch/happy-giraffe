@@ -3,92 +3,14 @@
  * @var $form CActiveForm
  */
 $model = new JapanCalendarForm;
-$js = "$(function () {
-        //japan calendar
-        $('body').delegate('#japan-prev-month', 'click', function () {
-            var month = $('#japan_review_month').val();
-            month--;
-            if (month == 0) {
-                month = 12;
-            }
-            $('#japan_review_month').val(month);
-            $.ajax({
-                url:'" . Yii::app()->createUrl("/babySex/default/japanCalc") . "',
-                data:$('#japan-form').serialize(),
-                type:'POST',
-                success:function (data) {
-                    ShowResult(data);
-                }
-            });
-            return false;
-        });
 
-        $('body').delegate('#japan-next-month', 'click', function () {
-            var month = $('#japan_review_month').val();
-            month++;
-            if (month == 13) {
-                month = 1;
-            }
-            $('#japan_review_month').val(month);
-            $.ajax({
-                url:'" . Yii::app()->createUrl("/babySex/default/japanCalc") . "',
-                data:$('#japan-form').serialize(),
-                type:'POST',
-                success:function (data) {
-                    ShowResult(data);
-                }
-            });
-            return false;
-        });
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/japan.js', CClientScript::POS_HEAD);
+Yii::app()->clientScript->registerCss('japan-baby', '.child_sex_japan_banner div.row {display: inline;}
+    .child_sex_japan_banner .errorMessage {display: none !important;}');
 
-        $('body').delegate('.cal_item', 'hover', function (event) {
-            if (event.type == 'mouseenter') {
-                $(this).find('.hint').stop(true, true).fadeIn();
-            } else {
-                $(this).find('.hint').stop(true, true).fadeOut();
-            }
-        });
-
-        $('body').delegate('.cal_item_default', 'hover', function (event) {
-            if (event.type == 'mouseenter') {
-                $(this).find('.hint').stop(true, true).fadeIn();
-            } else {
-                $(this).find('.hint').stop(true, true).fadeOut();
-            }
-        });
-    });
-
-        function StartCalc() {
-            $('#japan_review_month').val($('#JapanCalendarForm_baby_m').val());
-            $.ajax({
-                url:'" . Yii::app()->createUrl("/babySex/default/japanCalc") . "',
-                data:$('#japan-form').serialize(),
-                type:'POST',
-                success:function (data) {
-                    ShowResult(data);
-                }
-            });
-            return false;
-        }
-
-        function ShowResult(data) {
-            $('#japan-result').html(data);
-            $('html,body').animate({scrollTop: $('#japan-result').offset().top},'fast');
-        }
-    ";
-Yii::app()->clientScript
-    ->registerScript('japan-baby-gender', $js);
-?>
-<style type="text/css">
-    .child_sex_japan_banner div.row {
-        display: inline;
-    }
-
-    .child_sex_japan_banner .errorMessage {
-        display: none !important;
-    }
-</style>
-<?php $form = $this->beginWidget('CActiveForm', array(
+$form = $this->beginWidget('CActiveForm', array(
     'id' => 'japan-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,

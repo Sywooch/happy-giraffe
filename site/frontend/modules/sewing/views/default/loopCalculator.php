@@ -1,27 +1,11 @@
-<?php Yii::app()->clientScript->registerScript('LoopCalculation',
-    "function StartCalc() {
-        var c1 = parseInt($('#LoopCalculationForm_sample_width_sm').val());
-        var c2 = parseInt($('#LoopCalculationForm_sample_height_sm').val());
-        var p1 = parseInt($('#LoopCalculationForm_sample_width_p').val());
-        var p2 = parseInt($('#LoopCalculationForm_sample_height_p').val());
+<?php
 
-        var c3 = parseInt($('#LoopCalculationForm_width').val());
-        var c4 = parseInt($('#LoopCalculationForm_height').val());
-
-        var p3 = Math.round(p1 * (c3 / c1));
-        var p4 = Math.round(p2 * (c4 / c2));
-
-        $('#result').html('<div class=\"form_block pink clearfix\">' +
-            '<p><span>' + p3 + '</span> петель</p>' +
-            '<p><span>' + p4 + '</span> рядов</p>' +
-            '</div>');
-
-        return false;
-    }");
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/loopCalculator.js', CClientScript::POS_HEAD);
 
 $model = new LoopCalculationForm();
-?>
-<div class="right_block">
+?><div class="right_block">
     <div class="calculator_loops">
         <h1>Калькулятор петель</h1>
 
@@ -36,7 +20,7 @@ $model = new LoopCalculationForm();
             'validationUrl' => $this->createUrl('/sewing/default/LoopCalculator'),
             'afterValidate' => "js:function(form, data, hasError) {
                                     if (!hasError)
-                                        StartCalc();
+                                        loopCalculator.calc();
                                     else{
                                         $('#result').html('');
                                     }

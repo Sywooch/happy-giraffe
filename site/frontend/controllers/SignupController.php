@@ -1,6 +1,6 @@
 <?php
 
-class SignupController extends CController
+class SignupController extends HController
 {
 
 	public $layout = 'signup';

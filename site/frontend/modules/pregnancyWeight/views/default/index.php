@@ -2,37 +2,11 @@
 /* @var $this Controller
  * @var $form CActiveForm
  */
-$js = "$('.pregnancy-weight-form button').click(function(data){
-            $('#pregnant-params-form').submit();
-            return false;
-        });
-        function StartCalc(){
-            $.ajax({
-                url: " . CJSON::encode(Yii::app()->createUrl("/pregnancyWeight/default/calculate")) . ",
-                data: $('#pregnant-params-form').serialize(),
-                type: 'POST',
-                success: function(data) {
-                    $('.intro-text').hide();
-                    $('#result').html(data);
-                    $('html,body').animate({scrollTop: $('#result').offset().top},'fast');
-                }
-            });
-        }
-        $('#baby').delegate('.go-weight-table', 'click', function () {
-            $('#recommend').hide();
-            $('#weight-table').show();
-            return false;
-        });
-        $('#baby').delegate('.go-recommend-table', 'click', function () {
-            $('#recommend').show();
-            $('#weight-table').hide();
-            return false;
-        });
-";
-Yii::app()->clientScript->registerScript('pregnancy-weight', $js);
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 
-?>
-<div class="section-banner" style="margin:0;">
+?><div class="section-banner" style="margin:0;">
 
     <img src="/images/section_banner_05.jpg"/>
 
@@ -48,7 +22,7 @@ Yii::app()->clientScript->registerScript('pregnancy-weight', $js);
             'validationUrl' => $this->createUrl('/pregnancyWeight/default/calculate'),
             'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
-                                    StartCalc();
+                                    pregnancyWeight.calc();
                                 return false;
                               }",
         )));

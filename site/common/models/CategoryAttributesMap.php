@@ -9,7 +9,7 @@
  * @property string $map_attribute_id
  * @property integer $map_in_search
  */
-class CategoryAttributesMap extends CActiveRecord
+class CategoryAttributesMap extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

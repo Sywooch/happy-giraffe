@@ -22,7 +22,6 @@ class WallpapersController extends Controller
             $model->attributes = $_POST['WallpapersCalcForm'];
             $this->performAjaxValidation($model);
             $model->validate();
-            //$this->renderPartial('result', array('result' => $model->calculate()));
             echo CJSON::encode($model->calculate());
         }
     }

@@ -8,7 +8,7 @@
  * @property integer $country_id
  * @property string $title
  */
-class Regions extends CActiveRecord
+class Regions extends HActiveRecord
 {
 
 	/**

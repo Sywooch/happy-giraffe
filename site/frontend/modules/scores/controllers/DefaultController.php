@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends Controller
+class DefaultController extends HController
 {
     public $user;
     public $layout = '//layouts/main';

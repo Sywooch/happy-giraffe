@@ -1,6 +1,6 @@
 <?php
 
-class Controller extends CController
+class HController extends CController
 {
 	public $menu=array();
 	public $breadcrumbs=array();

@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property SeoBrowserStats[] $seoBrowserStats
  */
-class SeoBrowser extends CActiveRecord
+class SeoBrowser extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

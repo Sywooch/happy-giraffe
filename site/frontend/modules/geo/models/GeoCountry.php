@@ -9,7 +9,7 @@
  * @property integer $iso_code
  * @property integer $pos
  */
-class GeoCountry extends CActiveRecord
+class GeoCountry extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

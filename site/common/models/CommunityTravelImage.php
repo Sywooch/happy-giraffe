@@ -8,7 +8,7 @@
  * @property string $image
  * @property string $travel_id
  */
-class CommunityTravelImage extends CActiveRecord
+class CommunityTravelImage extends HActiveRecord
 {
 	public function getUrl($size)
 	{

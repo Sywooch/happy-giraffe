@@ -12,7 +12,7 @@
  * @property integer $day
  * @property integer $value
  */
-class SeoVisits extends CActiveRecord
+class SeoVisits extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

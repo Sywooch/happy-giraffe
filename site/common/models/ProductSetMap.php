@@ -9,7 +9,7 @@
  * @property string $map_product_id
  * @property string $map_product_count
  */
-class ProductSetMap extends CActiveRecord
+class ProductSetMap extends HActiveRecord
 {
 
 	/**

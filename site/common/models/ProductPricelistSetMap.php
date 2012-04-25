@@ -10,7 +10,7 @@
  * @property string $map_pricelist_id
  * @property string $map_set_price
  */
-class ProductPricelistSetMap extends CActiveRecord
+class ProductPricelistSetMap extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

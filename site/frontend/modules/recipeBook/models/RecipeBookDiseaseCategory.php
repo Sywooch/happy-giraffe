@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property RecipeBookDisease[] $recipeBookDiseases
  */
-class RecipeBookDiseaseCategory extends CActiveRecord
+class RecipeBookDiseaseCategory extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

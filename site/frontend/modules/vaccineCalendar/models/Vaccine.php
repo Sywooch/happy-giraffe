@@ -7,7 +7,7 @@
  * @property integer $id
  * @property string $name
  */
-class Vaccine extends CActiveRecord
+class Vaccine extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

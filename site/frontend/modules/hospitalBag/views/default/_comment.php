@@ -13,7 +13,7 @@
         <?php if (! Yii::app()->user->isGuest): ?>
         <div class="item-useful">
             Предмет нужен?
-            <?php $this->widget('VoteWidget', array(
+            <?php $this->widget('application.widgets.voteWidget.VoteWidget', array(
             'model'=>$model,
             'template'=>'<div class="green">
                                 <a vote="1" class="btn btn-gray-small{active1}" href=""><span><span>Да</span></span></a>

@@ -8,7 +8,7 @@
  * @property string $set_title
  * @property string $set_text
  */
-class ProductSet extends CActiveRecord
+class ProductSet extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

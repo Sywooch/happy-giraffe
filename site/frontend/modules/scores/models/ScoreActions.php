@@ -9,7 +9,7 @@
  * @property integer $scores_weight
  * @property integer $wait_time
  */
-class ScoreActions extends CActiveRecord
+class ScoreActions extends HActiveRecord
 {
     const ACTION_RECORD = 1;
     const ACTION_YOHOHO_LIKE = 2;

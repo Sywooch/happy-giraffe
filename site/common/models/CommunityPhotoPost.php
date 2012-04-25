@@ -17,7 +17,7 @@
  * @property CommunityContent $content
  * @property CommunityPhoto[] $photos
  */
-class CommunityPhotoPost extends CActiveRecord
+class CommunityPhotoPost extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

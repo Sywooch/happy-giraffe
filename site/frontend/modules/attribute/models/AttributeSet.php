@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "shop_product_attribute_set".
+ * This is the model class for table "shop__product_attribute_set".
  *
- * The followings are the available columns in table 'shop_product_attribute_set':
+ * The followings are the available columns in table 'shop__product_attribute_set':
  * @property string $set_id
  * @property string $set_title
  * @property string $set_text
@@ -32,7 +32,7 @@ class AttributeSet extends CActiveRecord
      */
     public function tableName()
     {
-        return 'shop_product_attribute_set';
+        return 'shop__product_attribute_set';
     }
 
     /**
@@ -62,7 +62,7 @@ class AttributeSet extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'categories' => array(self::MANY_MANY, 'Category', 'shop_category_attribute_set_map(attribute_set_id, category_id)'),
+            'categories' => array(self::MANY_MANY, 'Category', 'shop__category_attribute_set_map(attribute_set_id, category_id)'),
             'types' => array(self::HAS_MANY, 'ProductType', 'type_attribute_set_id'),
             'set_map' => array(self::HAS_MANY, 'AttributeSetMap', 'map_set_id', 'order'=>'pos asc'),
         );
@@ -135,7 +135,7 @@ class AttributeSet extends CActiveRecord
 
         $command = Y::command()
             ->select(array_merge($val, array('set_id')))
-            ->from('shop_product_attribute_set');
+            ->from('shop__product_attribute_set');
 
         if ($term && is_string($term)) {
             $command->where(array('like', 'set_title', "%$term%"));

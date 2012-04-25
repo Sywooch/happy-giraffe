@@ -56,7 +56,7 @@ class Attribute extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_product_attribute}}';
+		return '{{shop__product_attribute}}';
 	}
 
 	/**
@@ -218,7 +218,7 @@ class Attribute extends CActiveRecord
 		
 		$command = Y::command()
 			->select(array_merge($val, array('attribute_id')))
-			->from('shop_product_attribute');
+			->from('shop__product_attribute');
 		
 		if($term && is_string($term))
 		{

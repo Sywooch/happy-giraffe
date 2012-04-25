@@ -388,7 +388,7 @@ class Product extends CActiveRecord implements IECartPosition
     {
         $eav = Y::command()
             ->select('attribute_id, attribute_title, eav_attribute_value, attribute_type')
-            ->from('shop_product_eav')
+            ->from('shop__product_eav')
             ->leftJoin('shop_product_attribute', 'eav_attribute_id=attribute_id')
             ->where('eav_product_id=:eav_product_id', array(
             ':eav_product_id' => $this->product_id,
@@ -441,7 +441,7 @@ class Product extends CActiveRecord implements IECartPosition
 
         $eav_text = Y::command()
             ->select('attribute_id, attribute_title, eav_attribute_value')
-            ->from('shop_product_eav_text')
+            ->from('shop__product_eav_text')
             ->leftJoin('shop_product_attribute', 'eav_attribute_id=attribute_id')
             ->where('eav_product_id=:eav_product_id', array(
             ':eav_product_id' => $this->product_id,
@@ -547,7 +547,7 @@ class Product extends CActiveRecord implements IECartPosition
 
             $eav_id = Y::command()
                 ->select('eav_attribute_value')
-                ->from('shop_product_eav')
+                ->from('shop__product_eav')
                 ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
                 ':eav_product_id' => $this->product_id,
                 ':eav_attribute_id' => $attr->attribute_id,
@@ -578,7 +578,7 @@ class Product extends CActiveRecord implements IECartPosition
         if ($attr->attribute_type == Attribute::TYPE_TEXT) {
             $eav_text = Y::command()
                 ->select('eav_attribute_value')
-                ->from('shop_product_eav_text')
+                ->from('shop__product_eav_text')
                 ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
                 ':eav_product_id' => $this->product_id,
                 ':eav_attribute_id' => $attr->attribute_id,
@@ -656,7 +656,7 @@ class Product extends CActiveRecord implements IECartPosition
     public function GetCardAttributeValues($attr_id){
         $eav_text = Y::command()
             ->select('eav_id, eav_attribute_value')
-            ->from('shop_product_eav_text')
+            ->from('shop__product_eav_text')
             ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
             ':eav_product_id' => $this->product_id,
             ':eav_attribute_id' => $attr_id,

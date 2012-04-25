@@ -1,15 +1,36 @@
 <?php
-$this->breadcrumbs=array(
-	$this->module->id,
-);
+/* @var $this Controller
+ * @var $models Horoscope[]
+ */
 ?>
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
+    <div class="horoscope-list">
 
-<p>
-This is the view content for action "<?php echo $this->action->id; ?>".
-The action belongs to the controller "<?php echo get_class($this); ?>"
-in the "<?php echo $this->module->id; ?>" module.
-</p>
-<p>
-You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
-</p>
+        <h1>Гороскоп на сегодня, <?=Yii::app()->dateFormatter->format('d MMMM', time()) ?></h1>
+
+        <p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким. К профессиональным разногласиям относитесь спокойно, сегодня они являются всего лишь частью нормального рабочего процесса. Даже с руководством можно поспорить от души – и без всяких далеко идущих последствий.</p>
+
+        <ul>
+            <?php foreach ($models as $model): ?>
+                <li>
+                    <div class="img">
+                        <img src="/images/widget/horoscope/small/<?=$model->zodiac ?>.png">
+                        <div class="date"><span><?=$model->zodiacText() ?></span><?=$model->zodiacDates() ?></div>
+                    </div>
+                    <div class="text"><?= Str::truncate($model->text, 230, '') ?> <a href="<?=$this->createUrl('/horoscope/default/view', array('zodiac'=>$model->zodiacText())) ?>">далее</a></div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+
+    </div>
+
+    <div class="wysiwyg-content">
+
+        <h2>Заголовок (Н2)</h2>
+
+        <p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким. К профессиональным разногласиям относитесь спокойно, сегодня они являются всего лишь частью нормального рабочего процесса. Даже с руководством можно поспорить от души – и без всяких далеко идущих последствий. </p>
+
+        <p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким. К профессиональным разногласиям относитесь спокойно, сегодня они являются всего лишь частью нормального рабочего процесса. Даже с руководством можно поспорить от души – и без всяких далеко идущих последствий. </p>
+
+        <p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким.</p>
+
+    </div>

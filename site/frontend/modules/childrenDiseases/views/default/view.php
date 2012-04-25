@@ -1,6 +1,4 @@
-<?php Yii::app()->clientScript->registerMetaTag('noindex', 'robots'); ?>
-
-<?php
+<?php Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 /* @var $this Controller
  * @var $model RecipeBookDisease
  */
@@ -8,12 +6,12 @@
 <div id="handbook_article_ill">
     <div class="left-inner">
         <div class="themes">
-            <div class="theme-pic"><?php echo $model->category->name; ?></div>
+            <div class="theme-pic"><?php echo $model->category->title; ?></div>
             <ul class="leftlist">
                 <?php foreach ($cat as $cat_disease): ?>
                 <li><a <?php if ($cat_disease->id == $model->id) echo 'class="current" ' ?>
                     href="<?php echo $this->createUrl('/childrenDiseases/default/view', array('url' => $cat_disease->slug)) ?>"><?php
-                    echo $cat_disease->name ?></a></li>
+                    echo $cat_disease->title ?></a></li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -26,7 +24,7 @@
 
     <div class="right-inner">
         <div class="about_ill">
-            <h1><?php echo $model->name ?></h1>
+            <h1><?php echo $model->title ?></h1>
             <?php echo $model->text ?>
             <div class="clear"></div><!-- .clear -->
             <ul class="list_ill_ab">

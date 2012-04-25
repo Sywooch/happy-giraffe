@@ -9,6 +9,13 @@ class DefaultController extends Controller
     public $layout = 'names';
     public $likes = 0;
 
+    public function filters()
+    {
+        return array(
+            'ajaxOnly + like',
+        );
+    }
+
     public function actionIndex($letter = null, $gender = null)
     {
         if (empty($letter))
@@ -156,12 +163,12 @@ class DefaultController extends Controller
         $this->render('name_view', array('name' => $name));
     }
 
-    public function actionLike($id)
+    public function actionLike()
     {
-        if (Yii::app()->user->isGuest) {
-            echo CJSON::encode(array('success' => false));
+        $id = Yii::app()->request->getPost('id');
+        if (Yii::app()->user->isGuest)
             Yii::app()->end();
-        }
+
         $name = $this->LoadModelById($id);
         echo CJSON::encode(array(
             'success' => $name->like(Yii::app()->user->id),

@@ -4,91 +4,13 @@
  */
 $year = date('Y');
 $model = new BloodRefreshForm();
-$js = "
-        //blood refresh
-        $('body').delegate('#blood-refresh-prev-month', 'click', function () {
-            var month = $('#blood_refr_review_month').val();
-            var year = $('#blood_refr_review_year').val();
-            month--;
-            if (month == 0) {
-                month = 12;
-                year--;
-                $('#blood_refr_review_year').val(year);
-            }
-            $('#blood_refr_review_month').val(month);
-            $.ajax({
-                url:'" . Yii::app()->createUrl("/babySex/default/bloodUpdate") . "',
-                data:$('#blood-refresh-form').serialize(),
-                type:'POST',
-                success:function (data) {
-                    ShowResult(data);
-                }
-            });
-            return false;
-        });
 
-        $('body').delegate('#blood-refresh-next-month', 'click', function () {
-            var month = $('#blood_refr_review_month').val();
-            var year = $('#blood_refr_review_year').val();
-            month++;
-            if (month == 13) {
-                month = 1;
-                year++;
-                $('#blood_refr_review_year').val(year);
-            }
-            $('#blood_refr_review_month').val(month);
-            $.ajax({
-                url:'" . Yii::app()->createUrl("/babySex/default/bloodUpdate") . "',
-                data:$('#blood-refresh-form').serialize(),
-                type:'POST',
-                success:function (data) {
-                    ShowResult(data);
-                }
-            });
-            return false;
-        });
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_refresh.js', CClientScript::POS_HEAD);
+Yii::app()->clientScript->registerCss('blood_refresh', '.lists_td .errorMessage {display: none !important;}');
 
-        function StartCalc() {
-            $('#blood_refr_review_year').val($('#BloodRefreshForm_baby_y').val());
-            $('#blood_refr_review_month').val($('#BloodRefreshForm_baby_m').val());
-            $.ajax({
-                url:'" . Yii::app()->createUrl("/babySex/default/bloodUpdate") . "',
-                data:$('#blood-refresh-form').serialize(),
-                type:'POST',
-                success:function (data) {
-                    ShowResult(data);
-                }
-            });
-        }
-
-        function ShowResult(data) {
-            $('#blood-update-result').html(data);
-            $('html,body').animate({scrollTop: $('#blood-update-result').offset().top},'fast');
-        }
-
-        $('body').delegate('.cal_item', 'hover', function (event) {
-            if (event.type == 'mouseenter') {
-                $(this).find('.hint').stop(true, true).fadeIn();
-            } else {
-                $(this).find('.hint').stop(true, true).fadeOut();
-            }
-        });
-        $('body').delegate('.cal_item_default', 'hover', function (event) {
-            if (event.type == 'mouseenter') {
-                $(this).find('.hint').stop(true, true).fadeIn();
-            } else {
-                $(this).find('.hint').stop(true, true).fadeOut();
-            }
-        });
-";
-Yii::app()->clientScript->registerScript('blood-update', $js);
-?>
-<style type="text/css">
-    .lists_td .errorMessage {
-        display: none !important;
-    }
-</style>
-<?php $form = $this->beginWidget('CActiveForm', array(
+$form = $this->beginWidget('CActiveForm', array(
     'id' => 'blood-refresh-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => false,

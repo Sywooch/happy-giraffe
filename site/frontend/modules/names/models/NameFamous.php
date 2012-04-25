@@ -150,8 +150,7 @@ class NameFamous extends CActiveRecord
     protected function afterDelete()
     {
         $this->DeletePhoto();
-
-        return parent::afterDelete();
+        parent::afterDelete();
     }
 
     public function DeletePhoto()

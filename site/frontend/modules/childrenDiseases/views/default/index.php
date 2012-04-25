@@ -1,26 +1,9 @@
-<?php Yii::app()->clientScript->registerMetaTag('noindex', 'robots'); ?>
+<?php Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-<?php Yii::app()->clientScript->registerScript('children-dizzy', "
-        $('#disease-alphabet2 a').click(function () {
-            if (!$(this).hasClass('current_t')) {
-                $('#category-list').hide();
-                $('#alphabet-list').show();
-                $('.sortable_u li').removeClass('current_t');
-                $(this).parent('li').addClass('current_t');
-            }
-            return false;
-        });
-
-        $('#disease-type2 a').click(function () {
-            if (!$(this).hasClass('current_t')) {
-                $('#category-list').show();
-                $('#alphabet-list').hide();
-                $('.sortable_u li').removeClass('current_t');
-                $(this).parent('li').addClass('current_t');
-            }
-            return false;
-        });
-"); ?>
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
+?>
 <div class="handbook_alfa">
     <span class="handbook_title">Выберите болезнь</span>
     <ul class="sortable_u">
@@ -37,7 +20,7 @@
             <?php foreach ($diseases as $disease): ?>
             <li><a
                 href="<?php echo $this->createUrl('/childrenDiseases/default/view', array('url' => $disease->slug)) ?>"><?php
-                echo $disease->name ?></a></li>
+                echo $disease->title ?></a></li>
             <?php endforeach; ?>
         </ul>
         <?php endforeach; ?>
@@ -51,7 +34,7 @@
             <?php foreach ($diseases as $disease): ?>
             <li><a
                 href="<?php echo $this->createUrl('/childrenDiseases/default/view', array('url' => $disease->slug)) ?>"><?php
-                echo $disease->name ?></a></li>
+                echo $disease->title ?></a></li>
             <?php endforeach; ?>
         </ul>
         <?php endforeach; ?>

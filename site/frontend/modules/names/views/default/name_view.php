@@ -6,7 +6,6 @@
 <script type="text/javascript">
     $(function() {
         $('.diagram_navi a').click(function(){
-
             return false;
         });
     });
@@ -44,7 +43,7 @@
 <div class="right-inner mirror">
     <div class="name_info">
         <h1 class="<?php echo ($name->gender == 1)?'boy':'girl' ?>"><?php echo $name->name; ?></h1>
-        <a rel="<?php echo $name->id ?>" href="#"
+        <a rel="<?php echo $name->id ?>" href="#" onclick="return NameModule.like(this);"
            class="like_name heart <?php if (!$name->isUserLike(Yii::app()->user->id)) echo 'empty_heart' ?>"></a>
 
         <p class="name">Имя: <span class="<?php echo ($name->gender == 1)?'boy':'girl' ?>">

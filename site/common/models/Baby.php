@@ -30,7 +30,7 @@ class Baby extends CActiveRecord
 
     public function tableName()
     {
-        return '{{user__users_babies}}';
+        return 'user__users_babies';
     }
 
     public function relations()

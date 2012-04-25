@@ -13,11 +13,8 @@ var Wallpapers = {
             }
         });
         return false;
-    }
-}
-
-var Area = {
-    create:function () {
+    },
+    AreaCreate:function () {
         $.ajax({
             url:$("#empty-area-form").attr("action"),
             data:$("#empty-area-form").serialize(),
@@ -31,7 +28,7 @@ var Area = {
         });
         return false;
     },
-    delete:function (url) {
+    AreaDelete:function (url) {
         $.post(url, function (data) {
             $("#emptyareas").fadeOut(100, function () {
                 $("#emptyareas").html(data);

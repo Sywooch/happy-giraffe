@@ -26,16 +26,10 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <table>
     <tr>
-        <td><?php echo $form->labelEx($tileModel, 'roomLength') ?></td>
-        <td><?php echo $form->textField($tileModel, 'roomLength') ?></td>
+        <td><?php echo $form->labelEx($tileModel, 'wallLength') ?></td>
+        <td><?php echo $form->textField($tileModel, 'wallLength') ?></td>
         <td>м</td>
-        <td><?php echo $form->error($tileModel, 'roomLength') ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $form->labelEx($tileModel, 'roomWidth') ?></td>
-        <td><?php echo $form->textField($tileModel, 'roomWidth') ?></td>
-        <td>м</td>
-        <td><?php echo $form->error($tileModel, 'roomWidth') ?></td>
+        <td><?php echo $form->error($tileModel, 'wallLength') ?></td>
     </tr>
     <tr>
         <td><?php echo $form->labelEx($tileModel, 'roomHeight') ?></td>
@@ -43,6 +37,33 @@ $form = $this->beginWidget('CActiveForm', array(
         <td>м</td>
         <td><?php echo $form->error($tileModel, 'roomHeight') ?></td>
     </tr>
+    <tr>
+        <td><?php echo $form->labelEx($tileModel, 'bathLength') ?></td>
+        <td><?php echo $form->textField($tileModel, 'bathLength') ?></td>
+        <td>м</td>
+        <td><?php echo $form->error($tileModel, 'bathLength') ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $form->labelEx($tileModel, 'bathHeight') ?></td>
+        <td><?php echo $form->textField($tileModel, 'bathHeight') ?></td>
+        <td>м</td>
+        <td><?php echo $form->error($tileModel, 'bathHeight') ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $form->labelEx($tileModel, 'doorHeight') ?></td>
+        <td><?php echo $form->textField($tileModel, 'doorHeight') ?></td>
+        <td>м</td>
+        <td><?php echo $form->error($tileModel, 'doorHeight') ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $form->labelEx($tileModel, 'doorWidth') ?></td>
+        <td><?php echo $form->textField($tileModel, 'doorWidth') ?></td>
+        <td>м</td>
+        <td><?php echo $form->error($tileModel, 'doorWidth') ?></td>
+    </tr>
+
+
+
     <tr>
         <td><?php echo $form->labelEx($tileModel, 'tileLength') ?></td>
         <td><?php echo $form->textField($tileModel, 'tileLength') ?></td>
@@ -58,60 +79,6 @@ $form = $this->beginWidget('CActiveForm', array(
     <tr>
         <td>&nbsp;</td>
         <td><?php echo CHtml::submitButton('Рассчитать'); ?></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-    </tr>
-
-
-</table>
-<?php $this->endWidget(); ?>
-
-<h2>Необкладываемык области</h2>
-<div id="emptyareas"></div>
-<?php
-$form = $this->beginWidget('CActiveForm', array(
-    'id' => 'area-form',
-    'action' => $this->createUrl('tile/areaAdd'),
-    'enableAjaxValidation' => true,
-    'enableClientValidation' => false,
-    'clientOptions' => array(
-        'validateOnSubmit' => true,
-        'validateOnChange' => false,
-        'validateOnType' => false,
-        'validationUrl' => $this->createUrl('tile/areaAdd'),
-        'afterValidate' => "js:function(form, data, hasError) {
-                                if (!hasError)
-                                    Tile.AreaCreate();
-                                return false;
-                              }",
-    )));
-?>
-
-<?php //echo $form->errorSummary($emptyArea); ?>
-
-<table>
-    <tr>
-        <td><?php echo $form->labelEx($area, 'title') ?></td>
-        <td><?php echo $form->textField($area, 'title') ?></td>
-        <td>&nbsp;</td>
-        <td><?php echo $form->error($area, 'title') ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $form->labelEx($area, 'height') ?></td>
-        <td><?php echo $form->textField($area, 'height') ?></td>
-        <td>м</td>
-        <td><?php echo $form->error($area, 'height') ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $form->labelEx($area, 'width') ?></td>
-        <td><?php echo $form->textField($area, 'width') ?></td>
-        <td>м</td>
-        <td><?php echo $form->error($area, 'width') ?></td>
-    </tr>
-
-    <tr>
-        <td>&nbsp;</td>
-        <td><?php echo CHtml::submitButton('Добавить необклеиваемую область'); ?></td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
     </tr>

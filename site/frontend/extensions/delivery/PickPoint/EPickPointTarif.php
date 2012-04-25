@@ -26,7 +26,7 @@ class EPickPointTarif extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop_delivery_epickpointtarif}}';
+		return 'shop_delivery_epickpointtarif';
 	}
 
 	/**

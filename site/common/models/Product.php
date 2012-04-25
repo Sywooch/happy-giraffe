@@ -149,7 +149,7 @@ class Product extends CActiveRecord implements IECartPosition
      */
     public function tableName()
     {
-        return '{{shop__product}}';
+        return 'shop__product';
     }
 
     public function primaryKey()

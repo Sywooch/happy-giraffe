@@ -29,7 +29,7 @@ class Post extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{club_post}}';
+		return 'club_post';
 	}
 
 	/**

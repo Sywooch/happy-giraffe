@@ -24,7 +24,7 @@ class ProductSet extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__product_set}}';
+		return 'shop__product_set';
 	}
 
 	/**

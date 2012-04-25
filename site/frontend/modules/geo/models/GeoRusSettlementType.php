@@ -24,7 +24,7 @@ class GeoRusSettlementType extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{geo__rus_settlement_type}}';
+		return 'geo__rus_settlement_type';
 	}
 
 	/**

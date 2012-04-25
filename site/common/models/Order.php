@@ -62,7 +62,7 @@ class Order extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__order}}';
+		return 'shop__order';
 	}
 
 	/**

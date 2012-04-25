@@ -37,7 +37,6 @@ class SuspendedCeilingForm extends CFormModel
             $S = 0.36 * ceil($this->area / 0.36);
             $r['Плитка потолочная '] = ceil($S / 0.36);
             $r['Подвес'] = ceil($S * 0.5);
-
         } else {
             $S = 0.3721 * ceil($this->area / 0.3721);
             $r['Плитка потолочная '] = ceil($S / 0.3721);

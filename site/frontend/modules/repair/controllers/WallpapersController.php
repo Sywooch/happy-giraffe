@@ -45,7 +45,7 @@ class WallpapersController extends Controller
             }
             $model->validate();
             $areas = Yii::app()->user->getState('wallpapersCalcAreas');
-            $areas[] = array('title' => $model->title, 'height' => $model->height, 'width' => $model->width);
+            $areas[] = array('title' => $model->title, 'height' => $model->height, 'width' => $model->width, 'qty' => $model->qty);
             Yii::app()->user->setState('wallpapersCalcAreas', $areas);
             $this->renderPartial('emptyarea', array('areas' => $areas));
         }

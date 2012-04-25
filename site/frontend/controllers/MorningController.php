@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 11.04.12
  */
-class MorningController extends Controller
+class MorningController extends HController
 {
     public $layout = '//morning/layout';
     public $time = null;

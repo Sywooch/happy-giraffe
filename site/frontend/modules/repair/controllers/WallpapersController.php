@@ -1,6 +1,6 @@
 <?php
 
-class WallpapersController extends Controller
+class WallpapersController extends HController
 {
 
     public $layout = '//layouts/new';

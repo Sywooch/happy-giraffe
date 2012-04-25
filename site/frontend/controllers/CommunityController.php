@@ -1,5 +1,5 @@
 <?php
-class CommunityController extends Controller
+class CommunityController extends HController
 {
 
     public $layout = '//layouts/main';

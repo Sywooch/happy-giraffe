@@ -1,6 +1,6 @@
 <?php
 
-class Test2Controller extends Controller
+class Test2Controller extends HController
 {
     public function actionCount()
     {

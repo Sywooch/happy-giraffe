@@ -1,6 +1,6 @@
 <?php
 
-class BsBankRequisiteController extends Controller
+class BsBankRequisiteController extends HController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

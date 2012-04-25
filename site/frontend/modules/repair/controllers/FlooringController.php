@@ -1,6 +1,6 @@
 <?php
 
-class FlooringController extends Controller
+class FlooringController extends HController
 {
 
     public function actionIndex()

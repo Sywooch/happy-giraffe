@@ -1,6 +1,6 @@
 <?php
 
-class SocialController extends Controller
+class SocialController extends HController
 {
 	public $regdata;
 

@@ -1,6 +1,6 @@
 <?php
 
-class ProductTypeController extends Controller
+class ProductTypeController extends HController
 {
 	public $defaultAction = 'admin';
 	/**

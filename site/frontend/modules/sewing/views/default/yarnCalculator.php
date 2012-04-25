@@ -1,66 +1,10 @@
-<script type="text/javascript">
-    $(function () {
-        $('#YarnCalcForm_project').change(function () {
-            $.ajax({
-                url:'#',
-                data:{id:$('#YarnCalcForm_project').val()},
-                dataType:'JSON',
-                type:'POST',
-                success:function (data) {
-                    $('#YarnCalcForm_size').html(data.size).trigger("liszt:updated");
-                    $('#YarnCalcForm_gauge').html(data.gauge).trigger("liszt:updated");
-                    $('#YarnCalcForm_size_chzn').trigger("liszt:updated");
-                    $('#YarnCalcForm_gauge_chzn').trigger("liszt:updated");
-                }
-            });
-        });
-    });
+<?php
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/yarnCalculator.js', CClientScript::POS_HEAD);
 
-    function StartCalc() {
-        $.ajax({
-            url:'#',
-            data:$('#yarn-calculator-form').serialize(),
-            type:'POST',
-            success:function (data) {
-                $('#result').html('<div class="yarn_result"><span class="result_sp">' +
-                    data + PluralNumber(data, ' метр', '', 'а', 'ов') + '</span> пряжи потребуется ' +
-                    '<ins>Результаты расчета приблизительные*</ins></div>');
-            }
-        });
-
-        return false;
-    }
-
-    function PluralNumber(count, arg0, arg1, arg2, arg3) {
-        var result = arg0;
-        var last_digit = count % 10;
-        var last_two_digits = count % 100;
-        if (last_digit == 1 && last_two_digits != 11) result += arg1;
-        else if ((last_digit == 2 && last_two_digits != 12)
-            || (last_digit == 3 && last_two_digits != 13)
-            || (last_digit == 4 && last_two_digits != 14))
-            result += arg2;
-        else
-            result += arg3;
-        return result;
-    }
-</script>
-<style type="text/css">
-    .errorSummary {
-        background: url("/images/wh_trans.png") repeat scroll 0 0 transparent;
-        border-radius: 10px 10px 10px 10px;
-        box-shadow: 0 0 3px 1px #A1A1A1;
-        display: block;
-        left: 25px;
-        padding: 20px 0 40px;
-        position: absolute;
-        text-align: center;
-        top: 558px;
-        width: 350px;
-    }
-</style>
-<?php $model = new YarnCalcForm ?>
-<div class="embroidery_service">
+$model = new YarnCalcForm;
+?><div class="embroidery_service">
     <img src="/images/service_much_yarn.jpg" alt="" title=""/>
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'yarn-calculator-form',

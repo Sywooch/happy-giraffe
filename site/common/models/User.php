@@ -331,6 +331,9 @@ class User extends CActiveRecord
     protected function beforeSave()
     {
         if (parent::beforeSave()) {
+            if ($this->isNewRecord) {
+                $this->register_date = date("Y-m-d H:i:s");
+            }
             if ($this->isNewRecord OR $this->scenario == 'change_password') {
                 $this->password = $this->hashPassword($this->password);
             }
@@ -349,8 +352,6 @@ class User extends CActiveRecord
             $service->save();
         }
         if ($this->isNewRecord) {
-            $this->register_date = date("Y-m-d H:i:s");
-
             //силнал о новом юзере
             $signal = new UserSignal();
             $signal->user_id = (int)$this->id;
@@ -453,13 +454,6 @@ class User extends CActiveRecord
     {
         $user = User::model()->cache(3600 * 24)->findByPk($id);
         return $user;
-
-        //        $value = Yii::app()->cache->get('User_' . $id);
-        //        if ($value === false) {
-        //            $value = User::model()->findByPk($id);
-        //            Yii::app()->cache->set('User_' . $id, $value, 5184000);
-        //        }
-        //        return $value;
     }
 
     public static function clearCache($id)

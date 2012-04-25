@@ -3,21 +3,11 @@
  * @var $form CActiveForm
  */
 
-$js = 'function StartCalc(){
-            $.ajax({
-                url: "' . Yii::app()->createUrl("/placentaThickness/default/calculate") . '",
-                data: $("#placenta-thickness-form").serialize(),
-                type: "POST",
-                success: function(data) {
-                    $("#result").fadeOut(100,function(){$("#result").html(data);$("#result").fadeIn(100);});
-                }
-            });
-            return false;
-        }';
-Yii::app()->clientScript->registerScript('placenta-thickness', $js);
-?>
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 
-<div class="placenta_about">
+?><div class="placenta_about">
     <span class="placenta_bann"><img src="/images/placenta_bann.jpg" alt="" title=""/></span>
 
     <div class="proff_say">
@@ -52,7 +42,7 @@ Yii::app()->clientScript->registerScript('placenta-thickness', $js);
             'validationUrl' => $this->createUrl('/placentaThickness/default/calculate'),
             'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
-                                    StartCalc();
+                                    placentaThickness.calc();
                                 return false;
                               }",
         )));?>

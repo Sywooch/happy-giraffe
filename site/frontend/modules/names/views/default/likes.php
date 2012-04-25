@@ -1,35 +1,10 @@
-<script type="text/javascript">
-    var gender;
-    $(function () {
-        $('.gender-link a').click(function () {
-            gender = $(this).attr('rel');
-            if (gender == 1) {
-                $('.list_names').hide();
-                $('#likes-man').show();
-
-                $('.gender-link a').removeClass('active');
-                $(this).addClass('active');
-                return false;
-            }
-            if (gender == 2) {
-                $('.list_names').hide();
-                $('#likes-woman').show();
-                $('.gender-link a').removeClass('active');
-                $(this).addClass('active');
-                return false;
-            }
-
-            $('.list_names').hide();
-            $('#likes-all').show();
-            $('.gender-link a').removeClass('active');
-            $(this).addClass('active');
-            return false;
-        });
-    });
-</script>
-
 <div class="content_block">
-    <?php $this->renderPartial('_gender'); ?>
+    <div class="view_name gender-link">
+        <p>Показывать</p>
+        <a class="all_names active" onclick="return NameModule.showAllLikes(this);" href="#">Все имена</a>
+        <a class="boy_names" onclick="return NameModule.showBoysLikes(this);" href="#">Мальчики</a>
+        <a class="girl_names" onclick="return NameModule.showGirlsLikes(this);" href="#">Девочки</a>
+    </div>
     <p class="names_header like">Мне нравятся</p>
 
     <div class="clear"></div>

@@ -7,6 +7,7 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
+        $this->pageTitle = 'Книга народных рецептов от детских болезней';
         $this->index = true;
         $diseases = RecipeBookDisease::model()->with(array(
             'category' => array(

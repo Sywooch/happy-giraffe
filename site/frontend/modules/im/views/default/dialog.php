@@ -49,14 +49,6 @@ Yii::app()->clientScript
 
     </div>
 </div>
-<style type="text/css">
-    .cke_bottom {
-        display: none;
-    }
-    .dialog-inn{
-        min-height: 200px;
-    }
-</style>
 <script type="text/javascript">
 var window_active = 1;
 

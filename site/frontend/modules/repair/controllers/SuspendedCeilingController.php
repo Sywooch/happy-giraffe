@@ -3,13 +3,15 @@
 class SuspendedCeilingController extends Controller
 {
 
+    public $layout = '//layouts/new';
+
     public function actionIndex()
     {
         $this->pageTitle = 'Расчет материалов для подвесного потолка';
         $basePath = Yii::getPathOfAlias('repair') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'suspendedCeiling' . DIRECTORY_SEPARATOR . 'assets';
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-        Yii::app()->clientScript->registerCssFile($baseUrl . '/style.css', 'all');
+        //Yii::app()->clientScript->registerCssFile($baseUrl . '/style.css', 'all');
         $this->render('index', array('SuspendedCeilingModel' => new SuspendedCeilingForm()));
     }
 

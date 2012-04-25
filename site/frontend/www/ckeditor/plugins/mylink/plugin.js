@@ -18,7 +18,7 @@ function epic_func_mylink(el) {
     var href = $(el).parents('.popup').find('.link-address').val();
     var urlRegex = /^((?:http|https):\/\/)?(.*)$/;
 
-    if (href.substring(0, href.length) != 'http://' && href.substring(0, href.length) != 'https://')
+    if (href.substring(0, 7) != 'http://' && href.substring(0, 8) != 'https://')
         href = 'http://' + href;
 
     var urlMatch;

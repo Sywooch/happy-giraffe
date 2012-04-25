@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "shop_product_eav_text".
+ * This is the model class for table "shop__product_eav_text".
  *
- * The followings are the available columns in table 'shop_product_eav_text':
+ * The followings are the available columns in table 'shop__product_eav_text':
  * @property string $eav_id
  * @property string $eav_product_id
  * @property string $eav_attribute_id
@@ -29,7 +29,7 @@ class ProductEavText extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'shop_product_eav_text';
+		return 'shop__product_eav_text';
 	}
 
 	/**

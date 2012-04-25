@@ -5,10 +5,13 @@ class WallpapersAreaForm extends CFormModel
     public $height;
     public $width;
     public $title;
+    public $qty;
 
     public function rules()
     {
         return array(
+            array('qty', 'default', 'value' => 1),
+            array('qty', 'numerical', 'integerOnly' => true),
             array('height', 'required', 'message' => 'Укажите высоту необклеиваемой области'),
             array('width', 'required', 'message' => 'Укажите ширину необклеиваемой области'),
             array('title', 'required', 'message' => 'Укажите название необклеиваемой области'),
@@ -22,7 +25,8 @@ class WallpapersAreaForm extends CFormModel
         return array(
             'height' => 'Высота',
             'width' => 'Ширина',
-            'title' => 'Название'
+            'title' => 'Название',
+            'qty' => 'Количество'
         );
     }
 

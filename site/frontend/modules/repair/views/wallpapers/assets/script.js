@@ -25,6 +25,7 @@ var Wallpapers = {
                     $("#emptyareas").html(data);
                     $("#emptyareas").fadeIn(100);
                 });
+                $('#empty-area-form').hide();
             }
         });
         return false;

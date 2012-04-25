@@ -33,7 +33,7 @@ class EDPM extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop__delivery_edpm}}';
+		return 'shop__delivery_edpm';
 	}
 
 	/**

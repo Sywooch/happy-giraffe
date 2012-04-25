@@ -21,7 +21,7 @@ class EDZPMCityZoneLink extends CActiveRecord {
 	}
 	
 	public function tableName() {
-		return '{{shop_delivery_edzpm_city_zone_link}}';
+		return 'shop_delivery_edzpm_city_zone_link';
 	}
 
 	public function rules() {

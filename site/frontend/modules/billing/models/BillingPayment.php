@@ -39,7 +39,7 @@ class BillingPayment extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{billing__invoice_payments}}';
+		return 'billing__invoice_payments';
 	}
 
 	/**

@@ -23,7 +23,7 @@ class Countries extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{_Countries}}';
+		return '_Countries';
 	}
 
 	/**

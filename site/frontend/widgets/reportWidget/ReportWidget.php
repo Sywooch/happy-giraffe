@@ -2,7 +2,7 @@
 class ReportWidget extends CWidget
 {
 
-    public $entity_name;
+    public $entity;
     public $entity_id;
     public $model = null;
 
@@ -10,7 +10,7 @@ class ReportWidget extends CWidget
     {
         if($this->model)
         {
-            $this->entity_name = get_class($this->model);
+            $this->entity = get_class($this->model);
             $this->entity_id = $this->model->primaryKey;
         }
     }
@@ -32,8 +32,8 @@ class ReportWidget extends CWidget
         $this->render('form', array(
             'report' => $report,
             'source_data' => array(
-                'model' => $this->entity_name,
-                'object_id' => $this->entity_id,
+                'entity' => $this->entity,
+                'entity_id' => $this->entity_id,
             ),
         ));
     }

@@ -30,7 +30,7 @@ class GeoRusRegion extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{geo__rus_region}}';
+		return 'geo__rus_region';
 	}
 
 	/**

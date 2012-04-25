@@ -30,7 +30,7 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
             <?php endif; ?>
             <div class="user-fast-buttons clearfix">
                 <?php if($this->friendButton && $this->user->id != Yii::app()->user->id): ?>
-                    <?php $this->render('webroot.themes.happy_giraffe.views.user._friend_button', array(
+                    <?php Yii::app()->controller->renderPartial('//user/_friend_button', array(
                         'user' => $this->user,
                     )); ?>
                 <?php endif; ?>

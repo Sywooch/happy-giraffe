@@ -266,14 +266,14 @@ class UserNotification extends EMongoDocument
         switch (get_class($entity)) {
             case 'CommunityContent':
                 $params = array(
-                    '{post}' => $entity->name,
-                    '{club}' => $entity->rubric->community->name,
-                    '{rubric}' => $entity->rubric->name,
+                    '{post}' => $entity->title,
+                    '{club}' => $entity->rubric->community->title,
+                    '{rubric}' => $entity->rubric->title,
                 );
                 break;
             case 'BlogContent':
                 $params = array(
-                    '{post}' => $entity->name,
+                    '{post}' => $entity->title,
 
                 );
                 break;
@@ -285,7 +285,7 @@ class UserNotification extends EMongoDocument
                 break;
             case 'RecipeBookRecipe':
                 $params = array(
-                    '{post}' => $entity->name,
+                    '{post}' => $entity->title,
                     '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
                 );
                 break;

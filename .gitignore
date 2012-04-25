@@ -25,3 +25,4 @@ site/backend/www/upload/*/*
 /site/common/uploads/photos/temp
 /site/frontend/www/assets
 /site/common/uploads/photos/avatars
+/site/common/uploads/*

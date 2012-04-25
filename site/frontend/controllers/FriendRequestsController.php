@@ -31,7 +31,7 @@ class FriendRequestsController extends Controller
             if ($model->save()) {
                 $response = array(
                     'status' => true,
-                    'html' => $this->renderPartial('webroot.themes.happy_giraffe.views.user._friend_button', array(
+                    'html' => $this->renderPartial('//user/_friend_button', array(
                         'user' => $model->to,
                     ), true),
                 );
@@ -52,7 +52,7 @@ class FriendRequestsController extends Controller
                 $model = User::model()->findByPk($friend_id);
                 $response = array(
                     'status' => true,
-                    'html' => $this->renderPartial('webroot.themes.happy_giraffe.views.user._friend_button', array(
+                    'html' => $this->renderPartial('//user/_friend_button', array(
                         'user' => $model,
                     ), true),
                 );

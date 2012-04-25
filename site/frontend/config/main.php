@@ -9,7 +9,6 @@ return array(
     'id' => 'happy-giraffe',
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Клуб',
-	'theme'=>'happy_giraffe',
 	'homeUrl' => 'http://happy-giraffe.ru',
 
 	// preloading 'log' component

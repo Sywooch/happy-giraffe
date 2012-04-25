@@ -24,7 +24,7 @@ class GeoRusDistrict extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{geo__rus_district}}';
+		return 'geo__rus_district';
 	}
 
 	/**

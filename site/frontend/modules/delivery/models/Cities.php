@@ -26,7 +26,7 @@ class Cities extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_delivery_cities}}';
+		return 'shop_delivery_cities';
 	}
 
 	/**

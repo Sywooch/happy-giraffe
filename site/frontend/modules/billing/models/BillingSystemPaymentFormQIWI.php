@@ -24,7 +24,7 @@ class BillingSystemPaymentFormQIWI extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{billing__system_payment_form_QIWI}}';
+		return 'billing__system_payment_form_QIWI';
 	}
 
 	/**

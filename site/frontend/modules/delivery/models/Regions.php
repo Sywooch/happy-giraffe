@@ -25,7 +25,7 @@ class Regions extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_delivery_regions}}';
+		return 'shop_delivery_regions';
 	}
 
 	/**

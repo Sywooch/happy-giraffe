@@ -30,7 +30,7 @@ class OrderAdress extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop__order_adress}}';
+		return 'shop__order_adress';
 	}
 
 	/**

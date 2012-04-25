@@ -24,7 +24,7 @@ class BillingSystemBANKRequisite extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{billing__system_BANK_requisites}}';
+		return 'billing__system_BANK_requisites';
 	}
 
 	/**

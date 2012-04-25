@@ -91,7 +91,7 @@ $this->breadcrumbs = array(
             'validationUrl' => $this->createUrl('wallpapers/addemptyarea'),
             'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
-                                    Area.create();
+                                    Wallpapers.AreaCreate();
                                 return false;
                               }",
         )));

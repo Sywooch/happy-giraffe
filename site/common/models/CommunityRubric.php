@@ -59,7 +59,7 @@ class CommunityRubric extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{community__rubrics}}';
+		return 'community__rubrics';
 	}
 
 	/**

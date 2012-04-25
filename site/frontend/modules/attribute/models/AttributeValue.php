@@ -23,7 +23,7 @@ class AttributeValue extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{shop__product_attribute_value}}';
+        return 'shop__product_attribute_value';
     }
 
     /**

@@ -26,7 +26,7 @@ class GeoRusSettlement extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{geo__rus_settlement}}';
+		return 'geo__rus_settlement';
 	}
 	
 	public function primaryKey() {

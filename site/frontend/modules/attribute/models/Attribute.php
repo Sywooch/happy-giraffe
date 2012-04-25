@@ -56,7 +56,7 @@ class Attribute extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__product_attribute}}';
+		return 'shop_product_attribute';
 	}
 
 	/**

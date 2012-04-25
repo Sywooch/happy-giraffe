@@ -51,7 +51,7 @@ class ProductType extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__product_type}}';
+		return 'shop__product_type';
 	}
 
 	/**

@@ -26,7 +26,7 @@ class AgeRange extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{age_ranges}}';
+		return 'age_ranges';
 	}
 	
 	public function primaryKey() {

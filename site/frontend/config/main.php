@@ -106,7 +106,8 @@ return array(
         'scores',
         'servicePages',
         'repair',
-        'maternityLeave'
+        'maternityLeave',
+        'horoscope'
 	),
 
 	// application components

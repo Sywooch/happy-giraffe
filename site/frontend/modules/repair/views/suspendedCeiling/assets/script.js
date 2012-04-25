@@ -5,9 +5,9 @@ var SuspendedCeiling = {
             data:$("#SuspendedCeiling-calculate-form").serialize(),
             type:"POST",
             success:function (data) {
-                $("#result").fadeOut(100, function () {
-                    $("#result").html(data);
-                    $("#result").fadeIn(100);
+                $(".row-result").fadeOut(100, function () {
+                    $(".row-result").html(data);
+                    $(".row-result").fadeIn(100);
                 });
             }
         });

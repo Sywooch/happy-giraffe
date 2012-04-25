@@ -9,7 +9,7 @@
  * @property string $pic
  * @property string $position
  */
-class Community extends CActiveRecord
+class Community extends HActiveRecord
 {
     const USERS_COMMUNITY = 999999;
 	private $_typeCounts = null;

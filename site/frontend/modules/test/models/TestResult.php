@@ -16,7 +16,7 @@
  * The followings are the available model relations:
  * @property Test $test
  */
-class TestResult extends CActiveRecord
+class TestResult extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

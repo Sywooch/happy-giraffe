@@ -2,7 +2,7 @@
 
 Yii::import('application.widgets.profile.*');
 
-class WidgetsController extends Controller
+class WidgetsController extends HController
 {
     public function actionIndex()
     {

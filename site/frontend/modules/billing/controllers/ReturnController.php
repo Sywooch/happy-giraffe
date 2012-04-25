@@ -1,6 +1,6 @@
 <?php
 
-class ReturnController extends Controller
+class ReturnController extends HController
 {
 	public function actionResult()
 	{

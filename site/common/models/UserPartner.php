@@ -14,7 +14,7 @@
  * @property AttachPhoto $photos
  * @property int photosCount
  */
-class UserPartner extends CActiveRecord
+class UserPartner extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

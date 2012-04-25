@@ -8,7 +8,7 @@
  * @property string $title
  * @property string $community_id
  */
-class CommunityRubric extends CActiveRecord
+class CommunityRubric extends HActiveRecord
 {
 	private $_typeCounts = null;
 	

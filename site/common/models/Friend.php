@@ -12,7 +12,7 @@
  * @property User $user2
  * @property User $user1
  */
-class Friend extends CActiveRecord
+class Friend extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

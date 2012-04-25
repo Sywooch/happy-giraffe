@@ -1,5 +1,5 @@
 <?php
-class AlbumsController extends Controller
+class AlbumsController extends HController
 {
     public $layout = '//layouts/user';
 

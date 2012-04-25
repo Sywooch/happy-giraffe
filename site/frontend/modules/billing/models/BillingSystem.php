@@ -11,7 +11,7 @@
  * @property string $system_params
  * @property integer $system_status
  */
-class BillingSystem extends CActiveRecord
+class BillingSystem extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

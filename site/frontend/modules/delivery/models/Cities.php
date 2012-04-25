@@ -9,7 +9,7 @@
  * @property integer $region_id
  * @property string $title
  */
-class Cities extends CActiveRecord
+class Cities extends HActiveRecord
 {
 
 	/**

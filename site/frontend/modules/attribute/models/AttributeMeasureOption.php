@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property AttributeMeasure $measure
  */
-class AttributeMeasureOption extends CActiveRecord
+class AttributeMeasureOption extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

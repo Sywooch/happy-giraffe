@@ -11,7 +11,7 @@
  * @property string $player_favicon
  * @property string $player_title
  */
-class CommunityVideo extends CActiveRecord
+class CommunityVideo extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

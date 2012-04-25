@@ -16,7 +16,7 @@
  * @property string $adress_porch
  * @property string $adress_floor
  */
-class OrderAdress extends CActiveRecord {
+class OrderAdress extends HActiveRecord {
 
 	/**
 	 * Returns the static model of the specified AR class.

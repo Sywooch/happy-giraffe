@@ -17,7 +17,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class Album extends CActiveRecord
+class Album extends HActiveRecord
 {
     private $_check_access = null;
     public $files = array();

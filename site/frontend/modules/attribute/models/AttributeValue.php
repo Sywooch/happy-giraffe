@@ -7,7 +7,7 @@
  * @property string $value_id
  * @property string $value_value
  */
-class AttributeValue extends CActiveRecord
+class AttributeValue extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

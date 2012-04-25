@@ -10,7 +10,7 @@
  * @property string $bizrule
  * @property string $data
  */
-class AuthItem extends CActiveRecord
+class AuthItem extends HActiveRecord
 {
     const TYPE_OPERATION = CAuthItem::TYPE_OPERATION;
     const TYPE_TASK = CAuthItem::TYPE_TASK;

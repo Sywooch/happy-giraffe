@@ -13,7 +13,7 @@
  * @property integer $ovulation_can
  * @property integer $pms
  */
-class MenstrualCycle extends CActiveRecord
+class MenstrualCycle extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

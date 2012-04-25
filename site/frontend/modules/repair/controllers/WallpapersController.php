@@ -1,13 +1,15 @@
 <?php
 
-class WallpapersController extends Controller
+class WallpapersController extends HController
 {
+
+    public $layout = '//layouts/new';
+
     public function actionIndex()
     {
         $basePath = Yii::getPathOfAlias('repair') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'wallpapers' . DIRECTORY_SEPARATOR . 'assets';
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-        Yii::app()->clientScript->registerCssFile($baseUrl . '/style.css', 'all');
         Yii::app()->user->setState('wallpapersCalcAreas', array());
         $this->pageTitle = 'Расчет обоев';
         $this->render('index', array('model' => new WallpapersCalcForm(), 'emptyArea' => new WallpapersAreaForm()));
@@ -20,7 +22,8 @@ class WallpapersController extends Controller
             $model->attributes = $_POST['WallpapersCalcForm'];
             $this->performAjaxValidation($model);
             $model->validate();
-            $this->renderPartial('result', array('result' => $model->calculate()));
+            //$this->renderPartial('result', array('result' => $model->calculate()));
+            echo CJSON::encode($model->calculate());
         }
     }
 

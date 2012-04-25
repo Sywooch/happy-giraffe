@@ -56,6 +56,13 @@ return array(
 		'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
 //		'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 
+        'гороскоп/'=>'horoscope/default/index',
+        'гороскоп/на-год/<zodiac:[\w]+>'=>'horoscope/default/year',
+        'гороскоп/на-месяц/<zodiac:[\w]+>'=>'horoscope/default/month',
+        'гороскоп/на-неделю/<zodiac:[\w]+>'=>'horoscope/default/week',
+        'гороскоп/<zodiac:[\w]+>/<date:[\w-]+>'=>'horoscope/default/view',
+        'гороскоп/на-сегодня/<zodiac:[\w]+>'=>'horoscope/default/view',
+
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 

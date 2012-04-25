@@ -6,11 +6,16 @@
  * The followings are the available columns in table 'services__horoscope':
  * @property integer $id
  * @property integer $zodiac
+ * @property integer $year
+ * @property integer $month
+ * @property integer $week
  * @property string $date
  * @property string $text
  */
 class Horoscope extends CActiveRecord
 {
+    public $type;
+
     public $zodiac_list = array(
         '1' => 'Овен',
         '2' => 'Телец',
@@ -67,11 +72,12 @@ class Horoscope extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('zodiac, date, text', 'required'),
-            array('zodiac', 'numerical', 'integerOnly' => true),
+            array('zodiac, text', 'required'),
+            array('zodiac, year, week, month', 'numerical', 'integerOnly' => true),
+            array('date, type', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, zodiac, date, text', 'safe', 'on' => 'search'),
+            array('id, zodiac, year, week, date, text', 'safe', 'on' => 'search'),
         );
     }
 
@@ -94,6 +100,9 @@ class Horoscope extends CActiveRecord
         return array(
             'id' => 'ID',
             'zodiac' => 'Знак зодиака',
+            'year' => 'Год',
+            'week' => 'Неделя',
+            'month' => 'Месяц',
             'date' => 'Дата',
             'text' => 'Прогноз',
         );
@@ -119,13 +128,44 @@ class Horoscope extends CActiveRecord
 
         $criteria->compare('id', $this->id);
         $criteria->compare('zodiac', $this->zodiac);
+        $criteria->compare('year', $this->year);
+        $criteria->compare('week', $this->week);
+        $criteria->compare('month', $this->month);
         $criteria->compare('date', $this->date, true);
         $criteria->compare('text', $this->text, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'pagination' => array('pageSize' => 12),
         ));
+    }
+
+    public function beforeSave()
+    {
+        if ($this->type == 1) {
+            $this->year = null;
+            $this->month = null;
+            $this->week = null;
+        } elseif ($this->type == 2) {
+            $this->month = null;
+            $this->date = null;
+        } elseif ($this->type == 3) {
+            $this->week = null;
+            $this->date = null;
+        } elseif ($this->type == 4) {
+            $this->month = null;
+            $this->week = null;
+            $this->date = null;
+        }
+
+        return parent::beforeSave();
+    }
+
+    public function getZodiacId($name)
+    {
+        foreach ($this->zodiac_list as $key => $zodiac)
+            if ($zodiac == $name)
+                return $key;
+        return null;
     }
 
     public function zodiacText()
@@ -143,6 +183,8 @@ class Horoscope extends CActiveRecord
 
     public function dateText()
     {
+        if (empty($this->date))
+            return '';
         return Yii::app()->dateFormatter->format("d MMMM, y", strtotime($this->date));
     }
 
@@ -163,5 +205,44 @@ class Horoscope extends CActiveRecord
         }
 
         return null;
+    }
+
+    public function getFormattedText()
+    {
+        return Str::strToParagraph($this->text);
+    }
+
+    public function onYear()
+    {
+        if (!empty($this->year) && empty($this->month) && empty($this->week))
+            return true;
+        return false;
+    }
+
+    public function onMonth()
+    {
+        if (!empty($this->month))
+            return true;
+        return false;
+    }
+
+    public function onWeek()
+    {
+        if (!empty($this->week))
+            return true;
+        return false;
+    }
+
+    public function getType()
+    {
+        if ($this->onYear())
+            return 'year';
+        if ($this->onMonth())
+            return 'month';
+        if ($this->onWeek())
+            return 'week';
+        if (!empty($this->date))
+            return 'view';
+        return '';
     }
 }

@@ -2,7 +2,7 @@
 Yii::import('application.modules.recipeBook.models.RecipeBookDisease.php');
 Yii::import('application.modules.recipeBook.models.RecipeBookDiseaseCategory.php');
 
-class DefaultController extends Controller
+class DefaultController extends HController
 {
     public $layout = 'desease';
     public $index = false;

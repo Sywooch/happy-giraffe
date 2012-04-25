@@ -26,7 +26,7 @@
  * @property CommunityVideo $video
  * @property CommunityPhotoPost $photoPost
  */
-class CommunityContent extends CActiveRecord
+class CommunityContent extends HActiveRecord
 {
     const USERS_COMMUNITY = 999999;
 

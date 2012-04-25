@@ -1,6 +1,6 @@
 <?php
 
-class FriendRequestsController extends Controller
+class FriendRequestsController extends HController
 {
     public function filters()
     {

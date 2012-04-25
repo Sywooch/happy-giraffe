@@ -20,7 +20,7 @@
  * @property TestQuestion[] $testQuestions
  * @property TestResult[] $testResults
  */
-class Test extends CActiveRecord
+class Test extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

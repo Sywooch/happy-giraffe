@@ -1,6 +1,6 @@
 <?php
 
-class TileController extends Controller
+class TileController extends HController
 {
     public function actionIndex()
     {

@@ -14,7 +14,7 @@
  * @property GeoCity $capital
  * @property GeoRegion $region
  */
-class GeoDistrict extends CActiveRecord
+class GeoDistrict extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

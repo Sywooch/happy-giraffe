@@ -22,7 +22,7 @@
  * @property VaccineDisease[] $diseases
  * @property Vaccine $vaccine
  */
-class VaccineDate extends CActiveRecord
+class VaccineDate extends HActiveRecord
 {
     const INTERVAL_HOUR = 1;
     const INTERVAL_DAY = 2;

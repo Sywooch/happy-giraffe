@@ -10,7 +10,7 @@
  * @property double $avg
  * @property double $max
  */
-class PlacentaThickness extends CActiveRecord
+class PlacentaThickness extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

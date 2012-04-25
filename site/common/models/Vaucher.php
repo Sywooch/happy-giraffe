@@ -12,7 +12,7 @@
  * @property string $vaucher_till_time
  * @property string $vaucher_text
  */
-class Vaucher extends CActiveRecord
+class Vaucher extends HActiveRecord
 {
 	public function behaviors()
 	{

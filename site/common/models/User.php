@@ -52,7 +52,7 @@
  * @property Baby[] babies
  * @property AlbumPhoto $avatar
  */
-class User extends CActiveRecord
+class User extends HActiveRecord
 {
     public $verifyCode;
     public $current_password;

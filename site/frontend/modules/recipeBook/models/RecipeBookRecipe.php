@@ -23,7 +23,7 @@
  * The followings are the available model relations:
  * @property User $author
  */
-class RecipeBookRecipe extends CActiveRecord
+class RecipeBookRecipe extends HActiveRecord
 {
     private $_purposeIds = null;
     public $vote;

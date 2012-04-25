@@ -11,7 +11,7 @@
  * @property integer $delivery_id
  * @property integer $delivery_cost
  */
-class Delivery extends CActiveRecord
+class Delivery extends HActiveRecord
 {
 	static $entitys = array();
 

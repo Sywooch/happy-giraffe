@@ -475,9 +475,9 @@ class User extends CActiveRecord
         if(!$this->avatar)
             return false;
         if($size != 'big')
-            return AlbumPhoto::model()->avatar->getAvatarUrl($size);
+            return $this->avatar->getAvatarUrl($size);
         else
-            return AlbumPhoto::model()->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
     }
 
     public function getPartnerPhotoUrl()

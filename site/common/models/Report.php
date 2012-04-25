@@ -9,13 +9,13 @@
  * @property string $text
  * @property string $author_id
  * @property string $breaker_id
- * @property string $model
- * @property string $object_id
+ * @property string $entity
+ * @property string $entity_id
  * @property string $path
  * @property int $accepted
  * @property string $created
  * @property string $updated
- * @property CActiveRecord $entity
+ * @property CActiveRecord $model
  */
 class Report extends CActiveRecord
 {
@@ -45,7 +45,7 @@ class Report extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{reports}}';
+		return 'reports';
 	}
 
 	/**
@@ -56,15 +56,15 @@ class Report extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, text, model, object_id', 'required'),
+			array('type, text, entity, entity_id', 'required'),
 			array('type', 'length', 'max'=>62),
-			array('author_id, object_id', 'length', 'max'=>11),
-			array('model', 'length', 'max'=>255),
+			array('author_id, entity_id', 'length', 'max'=>11),
+			array('entity', 'length', 'max'=>255),
             array('path, created, updated, breaker_id', 'safe'),
             array('accepted', 'boolean'),
             // The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, text, author_id, breaker_id, model, object_id, accepted', 'safe', 'on'=>'search'),
+			array('id, type, text, author_id, breaker_id, entity, entity_id, accepted', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -107,8 +107,8 @@ class Report extends CActiveRecord
 			'text' => 'Комментарий пользователя',
 			'author_id' => 'Автор',
             'breaker_id' => 'Нарушитель',
-			'model' => 'Model',
-			'object_id' => 'Object',
+			'entity' => 'Model',
+			'entity_id' => 'Object',
             'path' => 'Ссылка',
             'created' => 'Создана',
             'updated' => 'Изменена',
@@ -117,9 +117,9 @@ class Report extends CActiveRecord
 		);
 	}
 
-    public function getEntity()
+    public function getModel()
     {
-        return call_user_func(array($this->model, 'model'))->findByPk($this->object_id);
+        return call_user_func(array($this->entity, 'model'))->findByPk($this->entity_id);
     }
 
 	/**
@@ -141,8 +141,8 @@ class Report extends CActiveRecord
         $criteria->compare('text',$this->text,true);
         $criteria->compare('author_id',$this->author_id,true);
         $criteria->compare('breaker_id', $this->breaker_id, true);
-        $criteria->compare('model',$this->model,true);
-        $criteria->compare('object_id',$this->object_id,true);
+        $criteria->compare('entity',$this->model,true);
+        $criteria->compare('entity_id',$this->object_id,true);
         $criteria->compare('path',$this->path,true);
         $criteria->compare('accepted',$this->accepted,true);
 
@@ -167,7 +167,7 @@ class Report extends CActiveRecord
     public function beforeSave()
     {
         if($this->isNewRecord)
-            $this->breaker_id = $this->entity->author_id;
+            $this->breaker_id = $this->model->author_id;
         return parent::beforeSave();
     }
 }

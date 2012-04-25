@@ -55,7 +55,7 @@ class ProductBrand extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop__product_brand}}';
+		return 'shop__product_brand';
 	}
 	
 	public function primaryKey() {

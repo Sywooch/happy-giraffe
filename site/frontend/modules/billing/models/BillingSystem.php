@@ -27,7 +27,7 @@ class BillingSystem extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{billing__systems}}';
+		return 'billing__systems';
 	}
 
 	/**

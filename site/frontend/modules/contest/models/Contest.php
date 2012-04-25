@@ -86,7 +86,7 @@ class Contest extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{contest__contests}}';
+		return 'contest__contests';
 	}
 
 	/**

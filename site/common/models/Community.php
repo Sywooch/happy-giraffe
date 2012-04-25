@@ -62,7 +62,7 @@ class Community extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{community__communities}}';
+		return 'community__communities';
 	}
 
 	/**

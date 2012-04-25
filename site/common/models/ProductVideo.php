@@ -30,7 +30,7 @@ class ProductVideo extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__product_video}}';
+		return 'shop__product_video';
 	}
 
 	/**

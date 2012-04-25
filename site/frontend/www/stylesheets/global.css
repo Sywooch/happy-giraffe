@@ -3841,12 +3841,14 @@ ul.letters li a:hover {
 #repair-wallpapers .form .row.except .tale {display:block;content:'';width:18px;height:17px;background:url(/images/common.png) no-repeat -536px -251px;position:absolute;top:-17px;left:13px;}
 
 
-#repair-wallpapers .recommendation {padding:30px 20px;background:#fcf8ff;font-size:13px;line-height:19px;margin-bottom:30px;}
+#repair-wallpapers .recommendation {padding:30px 20px;background:#fcf8ff;font-size:13px;line-height:19px; display:none}
 #repair-wallpapers .recommendation .left {float:left;width:220px;text-align:center;font-size:14px;line-height:1;}
 #repair-wallpapers .recommendation .left img {margin-bottom:10px;}
 #repair-wallpapers .recommendation .left span {font-size:25px;display:block;color:#8761ab;font-weight:bold;}
 #repair-wallpapers .recommendation .right {float:left;width:420px;padding-left:20px;}
 #repair-wallpapers .recommendation .right big {font-size:20px;color:#906ab6;margin-bottom:15px;display:block;}
+
+#repair-wallpapers .wysiwyg-content{ margin-top:30px}
 
 
 #repair-ceiling {}

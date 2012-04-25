@@ -27,7 +27,7 @@
  * @property SeoSite $site
  * @property SeoSitePages $page
  */
-class SeoPagesStats extends CActiveRecord
+class SeoPagesStats extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

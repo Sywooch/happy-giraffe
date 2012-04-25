@@ -37,7 +37,7 @@ Yii::import('site.frontend.extensions.status.EStatusBehavior');
  * @property Category $category
  * @property ProductBrand $brand
  */
-class Product extends CActiveRecord implements IECartPosition
+class Product extends HActiveRecord implements IECartPosition
 {
     const SCENARIO_SELECT_CATEGORY = 1;
     const SCENARIO_FILL_PRODUCT = 2;

@@ -22,7 +22,7 @@
  * @method boolean moveAfter($category) moveAfter(Category $category)
  * @method boolean moveBefore($category) moveBefore(Category $category)
  */
-class Category extends CActiveRecord
+class Category extends HActiveRecord
 {
     public function getDescendatsIds()
     {

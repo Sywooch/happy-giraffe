@@ -8,7 +8,7 @@
  * @property string $range_title
  * @property string $range_order
  */
-class AgeRange extends CActiveRecord {
+class AgeRange extends HActiveRecord {
 
 	const GENDER_ALL	= 0;
 	const GENDER_MALE	= 1;

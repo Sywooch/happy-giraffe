@@ -24,7 +24,7 @@
  * @property RecipeBookDiseaseCategory $category
  * @property RecipeBookRecipe[] $recipeBookRecipes
  */
-class RecipeBookDisease extends CActiveRecord
+class RecipeBookDisease extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

@@ -11,7 +11,7 @@
  * @property integer $for
  * @property string $category_id
  */
-class BagItem extends CActiveRecord
+class BagItem extends HActiveRecord
 {
 	const FOR_MUM = 0;
 	const FOR_CHILD = 1;

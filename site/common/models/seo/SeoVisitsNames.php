@@ -7,7 +7,7 @@
  * @property string $id
  * @property string $name
  */
-class SeoVisitsNames extends CActiveRecord
+class SeoVisitsNames extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

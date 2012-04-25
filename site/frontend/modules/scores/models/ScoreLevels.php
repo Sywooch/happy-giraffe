@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property UserScores[] $userScores
  */
-class ScoreLevels extends CActiveRecord
+class ScoreLevels extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

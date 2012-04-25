@@ -12,7 +12,7 @@
  * @property InterestCategory $category
  * @property User[] $users
  */
-class Interest extends CActiveRecord
+class Interest extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

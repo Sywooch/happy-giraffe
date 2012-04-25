@@ -10,7 +10,7 @@
  * @property string $image_text
  * @property string $image_time
  */
-class ProductImage extends CActiveRecord
+class ProductImage extends HActiveRecord
 {
     public $accusativeName = 'изображение';
 

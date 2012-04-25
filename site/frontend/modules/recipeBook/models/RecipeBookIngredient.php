@@ -13,7 +13,7 @@
  * The followings are the available model relations:
  * @property RecipeBookRecipe $recipe
  */
-class RecipeBookIngredient extends CActiveRecord
+class RecipeBookIngredient extends HActiveRecord
 {
 	public static function getUnitValues()
 	{

@@ -10,7 +10,7 @@
  * @property string $item_id
  * @property string $user_id
  */
-class BagOffer extends CActiveRecord
+class BagOffer extends HActiveRecord
 {
     public $vote;
 

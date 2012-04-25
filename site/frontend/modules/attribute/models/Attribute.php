@@ -17,7 +17,7 @@
  * @property AttributeMeasureOption $measure_option
  * @property AttributeValueMap[] $value_map
  */
-class Attribute extends CActiveRecord
+class Attribute extends HActiveRecord
 {
 	const TYPE_ENUM = 1;
     const TYPE_INTG = 2;

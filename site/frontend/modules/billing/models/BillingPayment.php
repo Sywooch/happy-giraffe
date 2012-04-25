@@ -23,7 +23,7 @@
  * @property string $payment_status_reason
  * @property string $payment_status_admin_id
  */
-class BillingPayment extends CActiveRecord
+class BillingPayment extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

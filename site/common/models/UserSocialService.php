@@ -9,7 +9,7 @@
  * @property string $service_id
  * @property string $user_id
  */
-class UserSocialService extends CActiveRecord
+class UserSocialService extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

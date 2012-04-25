@@ -17,7 +17,7 @@
  * @property User $from
  * @property User $to
  */
-class FriendRequest extends CActiveRecord
+class FriendRequest extends HActiveRecord
 {
     private $_status = array(
         'pending' => 'В обработке',

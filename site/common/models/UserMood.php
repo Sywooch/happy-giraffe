@@ -7,7 +7,7 @@
  * @property string $id
  * @property string $name
  */
-class UserMood extends CActiveRecord
+class UserMood extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

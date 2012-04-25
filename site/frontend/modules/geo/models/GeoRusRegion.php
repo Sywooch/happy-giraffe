@@ -14,7 +14,7 @@
  * The followings are the available model relations:
  * @property GeoRusSettlement[] $settlement
  */
-class GeoRusRegion extends CActiveRecord
+class GeoRusRegion extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -9,7 +9,7 @@
  * @property string $brand_text
  * @property string $brand_image
  */
-class ProductBrand extends CActiveRecord {
+class ProductBrand extends HActiveRecord {
 
     public function getProductsCount()
     {

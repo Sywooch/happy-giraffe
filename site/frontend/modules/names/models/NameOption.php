@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property Name $name
  */
-class NameOption extends CActiveRecord
+class NameOption extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

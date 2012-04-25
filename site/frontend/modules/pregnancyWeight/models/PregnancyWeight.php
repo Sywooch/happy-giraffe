@@ -9,7 +9,7 @@
  * @property string $w2
  * @property string $w3
  */
-class PregnancyWeight extends CActiveRecord
+class PregnancyWeight extends HActiveRecord
 {
     const BMI1 = 19.8;
     const BMI2 = 26;

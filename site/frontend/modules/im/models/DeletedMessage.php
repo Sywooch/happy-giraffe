@@ -14,7 +14,7 @@
  * @property Message $message
  * @property User $user
  */
-class DeletedMessage extends CActiveRecord
+class DeletedMessage extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

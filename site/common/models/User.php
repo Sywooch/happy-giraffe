@@ -5,9 +5,6 @@
  *
  * The followings are the available columns in table 'user':
  * @property integer $id
- * @property integer $external_id
- * @property string $vk_id
- * @property string $nick
  * @property string $email
  * @property string $phone
  * @property string $password
@@ -16,7 +13,6 @@
  * @property int $deleted
  * @property integer $gender
  * @property string $birthday
- * @property string $mail_id
  * @property string $last_active
  * @property integer $online
  * @property string $register_date
@@ -54,6 +50,7 @@
  * @property Interest[] interests
  * @property UserPartner partner
  * @property Baby[] babies
+ * @property AlbumPhoto $avatar
  */
 class User extends CActiveRecord
 {
@@ -160,7 +157,7 @@ class User extends CActiveRecord
             array('blocked, login_date, register_date', 'safe'),
             array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
-            array('avatar', 'numerical', 'allowEmpty' => true),
+            array('avatar_id', 'numerical', 'allowEmpty' => true),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -229,6 +226,7 @@ class User extends CActiveRecord
     public function relations()
     {
         return array(
+            'avatar' => array(self::BELONGS_TO, 'AlbumPhoto', 'avatar_id'),
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
             'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
@@ -321,8 +319,6 @@ class User extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('external_id', $this->external_id);
-        $criteria->compare('nick', $this->nick, true);
         $criteria->compare('email', $this->email, true);
         $criteria->compare('first_name', $this->first_name, true);
         $criteria->compare('last_name', $this->last_name, true);
@@ -479,9 +475,9 @@ class User extends CActiveRecord
         if(!$this->avatar)
             return false;
         if($size != 'big')
-            return AlbumPhoto::model()->findByPk($this->avatar)->getAvatarUrl($size);
+            return AlbumPhoto::model()->avatar->getAvatarUrl($size);
         else
-            return AlbumPhoto::model()->findByPk($this->avatar)->getPreviewUrl(240, 400, Image::WIDTH);
+            return AlbumPhoto::model()->avatar->getPreviewUrl(240, 400, Image::WIDTH);
     }
 
     public function getPartnerPhotoUrl()

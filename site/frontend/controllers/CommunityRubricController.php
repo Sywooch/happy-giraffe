@@ -1,6 +1,6 @@
 <?php
 
-class CommunityRubricController extends Controller
+class CommunityRubricController extends HController
 {
     public $layout = '//layouts/column2';
     private $_model;

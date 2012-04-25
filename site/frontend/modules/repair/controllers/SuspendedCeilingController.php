@@ -1,6 +1,6 @@
 <?php
 
-class SuspendedCeilingController extends Controller
+class SuspendedCeilingController extends HController
 {
 
     public $layout = '//layouts/new';

@@ -5,7 +5,7 @@
  *
  * @property User $user
  */
-class FamilyController extends Controller
+class FamilyController extends HController
 {
     public $user;
     public $layout = 'user';

@@ -1,6 +1,6 @@
 <?php
 
-class PaintController extends Controller
+class PaintController extends HController
 {
     public $layout = '//layouts/new';
 

@@ -4,7 +4,7 @@
  * Description of ShopController
  *
  */
-class ShopController extends Controller {
+class ShopController extends HController {
 
 	public $layout = 'shop';
 

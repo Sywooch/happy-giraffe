@@ -362,7 +362,7 @@ class User extends HActiveRecord
 
             //рубрика для блога
             $rubric = new CommunityRubric;
-            $rubric->name = 'Обо всём';
+            $rubric->title = 'Обо всём';
             $rubric->user_id = $this->id;
             $rubric->save();
 

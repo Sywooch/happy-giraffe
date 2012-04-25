@@ -9,7 +9,6 @@ class AdminUserIdentity extends CUserIdentity
     public function __construct($profile)
     {
         $this->user = $profile;
-        $this->_name = $profile['nick'];
     }
 
     public function authenticate()

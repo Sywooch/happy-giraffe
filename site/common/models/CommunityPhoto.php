@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property CommunityPhotoPost $post
  */
-class CommunityPhoto extends CActiveRecord
+class CommunityPhoto extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

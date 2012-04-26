@@ -18,7 +18,7 @@
  * @property GeoDistrict[] $geoDistricts
  * @property GeoZip[] $zips
  */
-class GeoCity extends CActiveRecord
+class GeoCity extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

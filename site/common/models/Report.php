@@ -17,7 +17,7 @@
  * @property string $updated
  * @property CActiveRecord $model
  */
-class Report extends CActiveRecord
+class Report extends HActiveRecord
 {
     public $count;
     public $types = array(

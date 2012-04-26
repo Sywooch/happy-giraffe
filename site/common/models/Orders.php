@@ -24,7 +24,7 @@
  * @property string $email
  * @property string $special_instructions
  */
-class Orders extends CActiveRecord
+class Orders extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends Controller
+class UserController extends HController
 {
     public $layout = '//layouts/user';
     public $user;

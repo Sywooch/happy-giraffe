@@ -14,7 +14,7 @@
  * @method array getAllSets() getAllSets() return all attribute sets
  * @method string getSetTitle() getSetTitle() return attribute set title
  */
-class ProductType extends CActiveRecord
+class ProductType extends HActiveRecord
 {
 	public function behaviors()
 	{

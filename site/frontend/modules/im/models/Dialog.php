@@ -12,7 +12,7 @@
  * @property DialogUser[] $dialogUsers
  * @property Message[] $lastMessage
  */
-class Dialog extends CActiveRecord
+class Dialog extends HActiveRecord
 {
     public $unreadByMe = 0;
     public $unreadByPal = 0;

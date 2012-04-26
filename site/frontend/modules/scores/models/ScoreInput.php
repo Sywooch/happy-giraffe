@@ -592,6 +592,7 @@ class ScoreInput extends EMongoDocument
             $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к записи <span>' . $model->title . '</span> ';
 
         if ($class == 'CommunityContent' || $class == 'BlogContent') {
+
             if ($model->isFromBlog) {
                 if ($model->author_id == $this->user_id)
                     $text .= ($this->amount > 0) ? 'в блог' : 'в блоге';

@@ -1,14 +1,15 @@
 var Wallpapers = {
     StartCalc:function () {
         $.ajax({
-            //url:"/repair/wallpapers/calculate/",
             url:$("#wallpapers-calculate-form").attr('action'),
             data:$("#wallpapers-calculate-form").serialize(),
             type:"POST",
+            dataType:'json',
             success:function (data) {
-                $("#result").fadeOut(100, function () {
-                    $("#result").html(data);
-                    $("#result").fadeIn(100);
+                $("#repair-wallpapers div.recommendation").fadeOut(100, function () {
+                    $("#repair-wallpapers div.recommendation div.left span").text(data.qty+' '+data.noun);
+                    $("#repair-wallpapers div.recommendation div.right span").text(data.qty+' '+data.noun2);
+                    $("#repair-wallpapers div.recommendation").fadeIn(100);
                 });
             }
         });
@@ -24,6 +25,7 @@ var Wallpapers = {
                     $("#emptyareas").html(data);
                     $("#emptyareas").fadeIn(100);
                 });
+                $('#empty-area-form').hide();
             }
         });
         return false;

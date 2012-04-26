@@ -2,7 +2,7 @@
 Yii::import('application.modules.recipeBook.models.RecipeBookDisease.php');
 Yii::import('application.modules.recipeBook.models.RecipeBookDiseaseCategory.php');
 
-class DefaultController extends Controller
+class DefaultController extends HController
 {
     public $layout = 'desease';
     public $index = false;
@@ -13,11 +13,11 @@ class DefaultController extends Controller
         $this->index = true;
         $diseases = RecipeBookDisease::model()->with(array(
             'category' => array(
-                'select' => array('name')
+                'select' => array('title')
             )
         ))->findAll(array(
-                'order' => 't.name',
-                'select' => array('id', 'name', 'slug', 'category_id'))
+                'order' => 't.title',
+                'select' => array('id', 'title', 'slug', 'category_id'))
         );
         $alphabetList = RecipeBookDisease::GetDiseaseAlphabetList($diseases);
         $categoryList = RecipeBookDisease::GetDiseaseCategoryList($diseases);
@@ -32,16 +32,16 @@ class DefaultController extends Controller
     {
         $model = RecipeBookDisease::model()->with(array(
             'category' => array(
-                'select' => array('name'),
+                'select' => array('title'),
             )
         ))->findByAttributes(array('slug' => $url));
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->pageTitle = $model->name;
+        $this->pageTitle = $model->title;
         $cat = RecipeBookDisease::model()->findAll(array(
-            'order' => 't.name',
-            'select' => array('id', 'name', 'slug'),
+            'order' => 't.title',
+            'select' => array('id', 'title', 'slug'),
             'condition' => 'category_id=' . $model->category_id
         ));
 
@@ -54,10 +54,10 @@ class DefaultController extends Controller
     public function actionGetAlphabetList()
     {
         $diseases = RecipeBookDisease::model()->findAll(array(
-            'order' => 'name',
+            'order' => 'title',
             'select' => array(
                 'id',
-                'name',
+                'title',
                 'slug'
             ),
         ));
@@ -72,12 +72,12 @@ class DefaultController extends Controller
     {
         $diseases = RecipeBookDisease::model()->with(array(
             'category' => array(
-                'select' => array('name')
+                'select' => array('title')
             )
         ))->findAll(
             array(
-                'order' => 't.name',
-                'select' => array('id', 'name', 'slug', 'category_id')
+                'order' => 't.title',
+                'select' => array('id', 'title', 'slug', 'category_id')
             )
         );
         $categoryList = RecipeBookDisease::GetDiseaseCategoryList($diseases);

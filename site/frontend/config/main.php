@@ -16,6 +16,7 @@ return array(
 
 	// autoloading model and component classes
 	'import'=>array(
+        'site.common.components.*',
 		'site.common.models.*',
         'site.common.models.mongo.*',
         'site.common.helpers.*',
@@ -106,7 +107,8 @@ return array(
         'scores',
         'servicePages',
         'repair',
-        'maternityLeave'
+        'maternityLeave',
+        'horoscope'
 	),
 
 	// application components
@@ -184,7 +186,6 @@ return array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',
 			'allowAutoLogin'=>true,
-			'roleAttribute'=>'role',
 			'loginUrl'=>'/',
 		),
         'authManager'=>array(

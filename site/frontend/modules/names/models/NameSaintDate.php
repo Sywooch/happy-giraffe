@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property Name $name
  */
-class NameSaintDate extends CActiveRecord
+class NameSaintDate extends HActiveRecord
 {
     public $accusativeName = 'Дату';
 

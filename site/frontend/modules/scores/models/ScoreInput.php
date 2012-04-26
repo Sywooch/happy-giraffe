@@ -603,7 +603,7 @@ class ScoreInput extends EMongoDocument
                 }
             } else {
                 $text .= ($this->amount > 0) ? 'в клуб' : 'в клубе';
-                if ($model->rubric->community_id !== null)
+                if ($model->rubric_id !== null)
                     $text .= ' <span>' . $model->rubric->community->title . '</span>';
                 else
                     $text .= ' <span>Утро с Веселым Жирафом</span>';

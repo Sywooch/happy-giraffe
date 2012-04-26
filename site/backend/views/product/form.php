@@ -8,7 +8,8 @@ Yii::app()->clientScript
     ->registerCoreScript('jquery')
     ->registerCoreScript('jquery.ui')
     ->registerCssFile('/css/jquery.ui/slider.css');
-$image = $model->isNewRecord ? 0 : $model->product_image->getUrl('product');
+
+$image = $model->isNewRecord ? 0 : $model->main_image ? $model->main_image->photo->getPreviewUrl(329, 355, Image::WIDTH) : 0;
 ?>
 <script type="text/javascript">
 var model_id = <?php echo ($model->isNewRecord) ? 'null' : $model->product_id ?>;
@@ -195,23 +196,13 @@ $(function () {
         return false;
     });
 
-    $('#big_foto_upload').iframePostForm({
+    $('.photo-upload').iframePostForm({
         json:true,
         complete:function (response) {
             if (response.status == '1') {
                 $('.big_foto a').replaceWith($('#product_image').tmpl({url:response.url, title:response.title}));
                 if (!has_image) $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
                 has_image = 1;
-            }
-        }
-    });
-
-    $('#small_foto_upload').iframePostForm({
-        json:true,
-        complete:function (response) {
-            if (response.status == '1') {
-                $('#mycarousel li:eq(0)').after($('#product_small_image').tmpl({url:response.url, modelPk:response.modelPk}));
-                $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
             }
         }
     });
@@ -314,9 +305,10 @@ function SetGender(value, sender) {
                     <div class="big_foto fake_file">
                         <?php $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'big_foto_upload',
-                        'action' => $this->createUrl('uploadBigPhoto'),
+                        'action' => $this->createUrl('uploadPhoto'),
                         'htmlOptions' => array(
                             'enctype' => 'multipart/form-data',
+                            'class' => 'photo-upload'
                         ),
                     )); ?>
                         <?php echo $form->hiddenField($model, 'product_id'); ?>
@@ -334,20 +326,23 @@ function SetGender(value, sender) {
                         </a>
                         <?php endif; ?>
                         <?php echo CHtml::activeFileField($model, 'product_image'); ?>
+                        <?php echo CHtml::hiddenField('type', 1); ?>
                         <?php $this->endWidget(); ?>
                     </div>
                     <?php $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'small_foto_upload',
-                    'action' => $this->createUrl('uploadSmallPhoto'),
+                    'action' => $this->createUrl('uploadPhoto'),
                     'htmlOptions' => array(
                         'enctype' => 'multipart/form-data',
+                        'class' => 'photo-upload'
                     ),
                 )); ?>
                     <?php echo $form->hiddenField($model, 'product_id'); ?>
                     <ul id="mycarousel" class="small_foto">
                         <li class="fake_file">
                             <a href="#" class="add addValue" title="Добавить фото"></a>
-                            <?php echo CHtml::activeFileField(new ProductImage, 'image_file'); ?>
+                            <?php echo CHtml::activeFileField($model, 'product_image'); ?>
+                            <?php echo CHtml::hiddenField('type', 0); ?>
                         </li>
                         <?php foreach ($model->images as $i): ?>
                         <li>
@@ -361,7 +356,7 @@ function SetGender(value, sender) {
 
                             <p>
                                 <span>
-                                    <?php echo CHtml::image($i->image_file->getUrl('product_thumb')); ?>
+                                    <?php echo CHtml::image($i->photo->getPreviewUrl(76, 79, Image::WIDTH)); ?>
                                 </span>
                             </p>
                         </li>

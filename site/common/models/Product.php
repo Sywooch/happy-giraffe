@@ -1,7 +1,4 @@
 <?php
-
-Yii::import('site.frontend.extensions.ufile.UFiles', true);
-Yii::import('site.frontend.extensions.ufile.UFileBehavior');
 Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
 Yii::import('site.frontend.extensions.status.EStatusBehavior');
 
@@ -61,47 +58,6 @@ class Product extends CActiveRecord implements IECartPosition
     public function behaviors()
     {
         return array(
-            'behavior_ufiles' => array(
-                'class' => 'site.frontend.extensions.ufile.UFileBehavior',
-                'fileAttributes' => array(
-                    'product_image' => array(
-                        'fileName' => 'upload/product/*/<date>-{product_id}-<name>.<ext>',
-                        'fileItems' => array(
-                            'product' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'resize' => array(
-                                    'width' => 300,
-                                    'height' => 301,
-                                ),
-                            ),
-                            'product_thumb' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'product_resize' => array(
-                                    'width' => 76,
-                                    'height' => 79,
-                                ),
-                            ),
-                            'product_contest' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'product_resize' => array(
-                                    'width' => 127,
-                                    'height' => 132,
-                                ),
-                            ),
-                            'subproduct' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'product_resize' => array(
-                                    'width' => 200,
-                                    'height' => 160,
-                                ),
-                            ),
-                            'original' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                            ),
-                        )
-                    ),
-                ),
-            ),
             'getUrl' => array(
                 'class' => 'site.frontend.extensions.geturl.EGetUrlBehavior',
                 'route' => 'product/view',
@@ -179,10 +135,7 @@ class Product extends CActiveRecord implements IECartPosition
             array('product_sex', 'in', 'range' => array_keys(AgeRange::model()->getGenderList()), 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_text', 'safe', 'on' => self::SCENARIO_FILL_PRODUCT),
 
-            array('product_image', 'site.frontend.extensions.ufile.UFileValidator',
-                'allowedTypes' => 'jpg, gif, png, jpeg',
-//				'minWidth'=>621, 'minHeight'=>424,
-                'allowEmpty' => true,
+            array('product_image', 'safe',
                 'on' => self::SCENARIO_FILL_PRODUCT
             ),
 
@@ -206,7 +159,8 @@ class Product extends CActiveRecord implements IECartPosition
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'images' => array(self::HAS_MANY, 'ProductImage', 'image_product_id'),
+            'images' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'condition' => 'type = 0'),
+            'main_image' => array(self::HAS_ONE, 'ProductImage', 'product_id', 'condition' =>'type = 1'),
             'comments' => array(self::HAS_MANY, 'ProductComment', 'product_id'),
             'videos' => array(self::HAS_MANY, 'ProductVideo', 'product_id'),
             'brand' => array(self::BELONGS_TO, 'ProductBrand', 'product_brand_id'),

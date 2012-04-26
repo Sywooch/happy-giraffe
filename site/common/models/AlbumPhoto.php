@@ -135,7 +135,7 @@ class AlbumPhoto extends CActiveRecord
 
     public function afterSave()
     {
-        if ($this->isNewRecord) {
+        if ($this->isNewRecord && isset(Yii::app()->comet)) {
             $signal = new UserSignal();
             $signal->user_id = (int)$this->author_id;
             $signal->item_id = (int)$this->id;

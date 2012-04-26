@@ -189,6 +189,30 @@ class ProductController extends BController
         return $model;
     }
 
+    public function actionUploadPhoto()
+    {
+        if (!isset($_POST['Product']))
+            Yii::app()->end();
+        $product = $this->loadModel($_POST['Product']['product_id']);
+
+        $photo = new AlbumPhoto();
+        $photo->file = CUploadedFile::getInstanceByName('Product[product_image]');
+        $photo->author_id = Yii::app()->user->id;
+        $photo->create();
+
+        $attach = new AttachPhoto;
+        $attach->entity = 'Product';
+        $attach->entity_id = $product->primaryKey;
+        $attach->photo_id = $photo->id;
+        $attach->save();
+
+        $image = new ProductImage;
+        $image->product_id = $product->primaryKey;
+        $image->type = $_POST['type'];
+        $image->photo_id = $photo->id;
+        $image->save();
+    }
+
     public function actionUploadBigPhoto()
     {
         if (isset($_POST['Product'])) {

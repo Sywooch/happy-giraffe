@@ -2,7 +2,7 @@
 /* @var $this Controller
  * @var $c CommunityContent
  */
-if ($c->canEdit() || $c->canRemove()): ?>
+if (!Yii::app()->user->isGuest && ($c->canEdit() || $c->canRemove())): ?>
 <div class="admin-actions">
 
     <?php if ($c->canEdit()): ?>

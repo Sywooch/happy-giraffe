@@ -61,7 +61,7 @@ class WallpapersCalcForm extends CFormModel
             $length = $lines * ($this->room_height + 0.1);
             if (count($areas)) {
                 foreach ($areas as $area) {
-                    $length -= (floor($area['width'] / $this->wp_width) * $area['height']);
+                    $length -= (floor($area['width'] / $this->wp_width) * $area['height']) * $area['qty'];
                 }
             }
             $result['qty'] = ceil($length / $this->wp_length);

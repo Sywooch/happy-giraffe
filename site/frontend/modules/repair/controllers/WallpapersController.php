@@ -22,7 +22,6 @@ class WallpapersController extends HController
             $model->attributes = $_POST['WallpapersCalcForm'];
             $this->performAjaxValidation($model);
             $model->validate();
-            //$this->renderPartial('result', array('result' => $model->calculate()));
             echo CJSON::encode($model->calculate());
         }
     }
@@ -46,7 +45,7 @@ class WallpapersController extends HController
             }
             $model->validate();
             $areas = Yii::app()->user->getState('wallpapersCalcAreas');
-            $areas[] = array('title' => $model->title, 'height' => $model->height, 'width' => $model->width);
+            $areas[] = array('title' => $model->title, 'height' => $model->height, 'width' => $model->width, 'qty' => $model->qty);
             Yii::app()->user->setState('wallpapersCalcAreas', $areas);
             $this->renderPartial('emptyarea', array('areas' => $areas));
         }

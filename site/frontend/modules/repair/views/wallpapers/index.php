@@ -30,7 +30,6 @@
             ?>
             <?php echo $form->errorSummary($model) ?>
 
-            <!--
             <?php
             $form->error($model, 'room_length');
             $form->error($model, 'room_width');
@@ -39,7 +38,6 @@
             $form->error($model, 'wp_length');
             $form->error($model, 'repeat');
             ?>
-            -->
 
             <div class="row">
                 <div class="row-title">Помещение <span>(в метрах)</span></div>
@@ -69,20 +67,50 @@
                 <div class="in">
                     <div class="cut"></div>
                     <big>Вычтем участки, которые не нужно обклеивать <span>(Например дверь, окно и другие)</span></big>
-                    <a href="" class="pseudo">Указать участок</a>
+                    <a href="#" class="pseudo" onclick="$('#empty-area-form').toggle(); $('#empty-area-form')[0].reset(); event.preventDefault();">Указать участок</a>
+
+                    <?php
+                    $form = $this->beginWidget('CActiveForm', array(
+                        'id' => 'empty-area-form',
+                        'action' => $this->createUrl('wallpapers/addemptyarea'),
+                        'enableAjaxValidation' => true,
+                        'enableClientValidation' => false,
+                        'clientOptions' => array(
+                            'validateOnSubmit' => true,
+                            'validateOnChange' => false,
+                            'validateOnType' => false,
+                            'validationUrl' => $this->createUrl('wallpapers/addemptyarea'),
+                            'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    Wallpapers.AreaCreate();
+                                return false;
+                              }",
+                        )));
+                    ?>
+
+
+                    <?php
+                    $form->error($emptyArea, 'title');
+                    $form->error($emptyArea, 'height');
+                    $form->error($emptyArea, 'width');
+                    ?>
 
                     <div class="except-area">
                         <div class="tale"></div>
-                        <input type="text" placeholder="Введите название" style="width:95px;"/>
-                        <input type="text" placeholder="Шир." style="width:30px;"/>
-                        <input type="text" placeholder="Выс." style="width:30px;"/>
-                        <input type="text" placeholder="Кол-во" style="width:40px;"/>
-                        <a class="btn btn-green-small"><span><span>Ok</span></span></a>
+                        <?php echo $form->textField($emptyArea, 'title', array('placeholder' => 'Введите название')) ?>
+                        <?php echo $form->textField($emptyArea, 'height', array('placeholder' => 'Шир.')) ?>
+                        <?php echo $form->textField($emptyArea, 'width', array('placeholder' => 'Выс.')) ?>
+                        <?php echo $form->textField($emptyArea, 'qty', array('placeholder' => 'Кол-во')) ?>
+
+                        <a href="#" class="btn btn-green-small" onclick="$('#empty-area-form').submit(); return false;">
+                            <span><span>Ok</span></span>
+                        </a>
+                        <?php echo $form->errorSummary($emptyArea) ?>
                     </div>
-                    <ul>
-                        <li>Окно 1.8 х 1.8 -- 2 шт. <a href="" class="remove"><span class="tip">Убрать</span></a></li>
-                        <li>Окно 1.8 х 1.8 -- 2 шт. <a href="" class="remove"><span class="tip">Убрать</span></a></li>
-                        <li>Окно 1.8 х 1.8 -- 2 шт. <a href="" class="remove"><span class="tip">Убрать</span></a></li>
+
+                    <?php $this->endWidget(); ?>
+
+                    <ul id="emptyareas">
                     </ul>
                 </div>
             </div>
@@ -102,7 +130,7 @@
         </div>
 
         <div class="right">
-            <p>Чтобы оклеить это помещение выбранными вами обоями, потребуется <span></span> рулонов. Внимание: если в комнате
+            <p>Чтобы оклеить это помещение выбранными вами обоями, потребуется <span></span>. Внимание: если в комнате
                 много углов, сложных стыков и неоклеиваемых мест, заложите 10 – 15% материалов на подгонку.</p>
         </div>
 

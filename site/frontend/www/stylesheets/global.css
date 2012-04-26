@@ -3845,11 +3845,17 @@ ul.letters li a:hover {
 #repair-wallpapers .form .row.except a.pseudo:hover {border:0;}
 #repair-wallpapers .form .row.except .except-area {padding:8px 10px;background:#fff;border:1px solid #badef1;display:inline-block;margin-left:-15px;position:relative;margin-top:12px;margin-bottom:8px;}
 #repair-wallpapers .form .row.except .except-area input {height:16px;line-height:16px;border:1px solid #c9eaf1;padding:0 4px;font-size:11px;color:#464646;margin-right:3px;font-weight:normal;}
+#repair-wallpapers .form .row.except .except-area input:nth-child(2){width:95px}
+#repair-wallpapers .form .row.except .except-area input:nth-child(3){width:30px}
+#repair-wallpapers .form .row.except .except-area input:nth-child(4){width:30px}
+#repair-wallpapers .form .row.except .except-area input:nth-child(5){width:40px}
+
+#repair-wallpapers #empty-area-form{display:none;}
 #repair-wallpapers .form .row.except .cut {display:block;width:334px;height:21px;background:url(/images2/repair_wallpapers_cut.png) no-repeat;margin-top:-25px;margin-left:-15px;}
-#repair-wallpapers .form .row.except ul {list-style:none;}
-#repair-wallpapers .form .row.except ul li {width:45%;padding-right:4%;display:inline-block;vertical-align:top;padding:5px 0;}
-#repair-wallpapers .form .row.except ul li .remove {display:inline-block;width:12px;height:14px;background:url(/images2/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
-#repair-wallpapers .form .row.except ul li .remove:hover {background-position:-314px -148px;}
+#repair-wallpapers .form .row.except ul#emptyareas {list-style:none;}
+#repair-wallpapers .form .row.except ul#emptyareas li {width:45%;padding-right:4%;display:inline-block;vertical-align:top;padding:5px 0;}
+#repair-wallpapers .form .row.except ul#emptyareas li .remove {display:inline-block;width:12px;height:14px;background:url(/images2/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
+#repair-wallpapers .form .row.except ul#emptyareas li .remove:hover {background-position:-314px -148px;}
 
 #repair-wallpapers .form .row.except .tale {display:block;content:'';width:18px;height:17px;background:url(/images/common.png) no-repeat -536px -251px;position:absolute;top:-17px;left:13px;}
 

@@ -1,6 +1,6 @@
 <?php
 
-class ProfileController extends Controller
+class ProfileController extends HController
 {
     /**
      * @var User

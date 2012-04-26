@@ -1,6 +1,6 @@
 <?php
 
-class AjaxController extends Controller
+class AjaxController extends HController
 {
     public function actionSetValue()
     {
@@ -333,7 +333,7 @@ class AjaxController extends Controller
         print_r($_POST);
         $user = User::model()->findByPk(Yii::app()->user->id);
         $user->setAttributes($_POST['User']);
-        $user->save(TRUE, array('first_name', 'last_name', 'nick', 'birthday', 'settlement_id'));
+        $user->save(TRUE, array('first_name', 'last_name', 'birthday'));
     }
 
     public function actionSaveChild()

@@ -59,7 +59,7 @@
                 <p>Не забывайте употреблять достаточное количество овощей, фруктов, рыбы и мяса. Солонку можно отставить подальше, так как недосол при беременности является прекрасной профилактикой возможных отёков. И пусть каждый день приносит Вам радость!</p>
             <?php endif ?>
             <br/>
-            <?php echo CHtml::link('Таблица вашего веса при беременности', '#', array('class' => 'go-weight-table')); ?>
+            <a href="#" onclick="return pregnancyWeight.toWeight()">Таблица вашего веса при беременности</a>
         </div>
     </div>
 
@@ -89,7 +89,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <?php echo CHtml::link('Рекомендации для Вашего веса', '#', array('class' => 'go-recommend-table')); ?>
+                <a href="#" onclick="return pregnancyWeight.toRecommend()">Рекомендации для Вашего веса</a>
             </div>
         </div>
     </div>

@@ -31,7 +31,7 @@
  * @property User $user
  *
  */
-class Contest extends CActiveRecord
+class Contest extends HActiveRecord
 {
 
 	public function behaviors()

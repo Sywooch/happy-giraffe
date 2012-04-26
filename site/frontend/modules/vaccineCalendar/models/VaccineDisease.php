@@ -13,7 +13,7 @@
  * @property VaccineDate[] $vaccineDates
  * @property RecipebookDisease $disease
  */
-class VaccineDisease extends CActiveRecord
+class VaccineDisease extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

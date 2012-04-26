@@ -8,7 +8,7 @@
  * @property string $requisite_name
  * @property string $requisite_account
  */
-class BillingSystemBANKRequisite extends CActiveRecord
+class BillingSystemBANKRequisite extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

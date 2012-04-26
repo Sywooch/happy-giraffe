@@ -19,11 +19,13 @@
 
         <h1><a href="<?=$article->url ?>"><?=$article->title ?></a></h1>
 
+        <?php if (!empty($article->photoPost->location_image)):?>
         <div class="where">
             <span>Где:</span>
 
             <div class="map-box"><a target="_blank" href="<?=$article->photoPost->mapUrl ?>"><img src="<?=$article->photoPost->getImageUrl() ?>"></a></div>
         </div>
+        <?php endif ?>
 
         <div class="meta">
 

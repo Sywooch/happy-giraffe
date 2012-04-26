@@ -1,6 +1,6 @@
 <?php
 
-class PayController extends Controller
+class PayController extends HController
 {
 	function actions()
 	{

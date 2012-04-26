@@ -11,7 +11,7 @@ class UserFriendsWidget extends UserCoreWidget
         $criteria = new CDbCriteria;
         $criteria->limit = $this->limit;
         $criteria->order = 'RAND()';
-        $criteria->condition = 'avatar IS NOT NULL';
+        $criteria->condition = 'avatar_id IS NOT NULL';
         $this->_friends = User::model()->findAll($this->user->getFriendsCriteria($criteria));
 
         $this->visible = ($this->isMyProfile && !empty($this->_friends)) || (count($this->_friends) >= $this->limit);

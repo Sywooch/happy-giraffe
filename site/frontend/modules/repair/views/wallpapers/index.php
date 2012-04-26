@@ -1,135 +1,163 @@
-<?php
-$this->breadcrumbs = array(
-    $this->module->id,
-);
-?>
-<h1>Расчет обоев</h1>
-<div id="repearWallpapers">
-    <?php
-    $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'wallpapers-calculate-form',
-        'enableAjaxValidation' => true,
-        'enableClientValidation' => false,
-        'action' => $this->createUrl('wallpapers/calculate'),
-        'clientOptions' => array(
-            'validateOnSubmit' => true,
-            'validateOnChange' => false,
-            'validateOnType' => false,
-            'validationUrl' => $this->createUrl('wallpapers/calculate'),
-            'afterValidate' => "js:function(form, data, hasError) {
+<div id="repair-wallpapers">
+
+    <div class="form">
+
+        <div class="title">
+            <h1>Расчет количества обоев</h1>
+
+            <p>Онлайн калькулятор для расчета количества обоев. Предварительный расчет обоев для комнаты позволит Вам
+                сэкономить при их покупке. </p>
+        </div>
+
+        <div class="form-in">
+            <?php
+            $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'wallpapers-calculate-form',
+                'enableAjaxValidation' => true,
+                'enableClientValidation' => false,
+                'action' => $this->createUrl('wallpapers/calculate'),
+                'clientOptions' => array(
+                    'validateOnSubmit' => true,
+                    'validateOnChange' => false,
+                    'validateOnType' => false,
+                    'validationUrl' => $this->createUrl('wallpapers/calculate'),
+                    'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     Wallpapers.StartCalc();
                                 return false;
                               }",
-        )));
-    ?>
+                )));
+            ?>
+            <?php echo $form->errorSummary($model) ?>
+
+            <?php
+            $form->error($model, 'room_length');
+            $form->error($model, 'room_width');
+            $form->error($model, 'room_height');
+            $form->error($model, 'wp_width');
+            $form->error($model, 'wp_length');
+            $form->error($model, 'repeat');
+            ?>
+
+            <div class="row">
+                <div class="row-title">Помещение <span>(в метрах)</span></div>
+                <div class="row-elements">
+                    <div class="col">Ширина <?php echo $form->textField($model, 'room_width') ?></div>
+                    <div class="col">Длина <?php echo $form->textField($model, 'room_length') ?></div>
+                    <div class="col">Высота <?php echo $form->textField($model, 'room_height') ?></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="row-title">Обои <span>(в метрах)</span></div>
+                <div class="row-elements">
+                    <div class="col">Ширина <?php echo $form->textField($model, 'wp_width') ?></div>
+                    <div class="col">Длина <?php echo $form->textField($model, 'wp_length') ?></div>
+                    <div class="col">Раппорт <?php echo $form->textField($model, 'repeat') ?></div>
+                    <div class="col">
+                        <small>(раппорт - шаг рисунка<br/>на обоях)</small>
+                    </div>
+                </div>
+            </div>
+
+            <?php $this->endWidget(); ?>
 
 
-    <?php //echo $form->errorSummary($model); ?>
+            <div class="row except">
+                <div class="in">
+                    <div class="cut"></div>
+                    <big>Вычтем участки, которые не нужно обклеивать <span>(Например дверь, окно и другие)</span></big>
+                    <a href="#" class="pseudo" onclick="$('#empty-area-form').toggle(); $('#empty-area-form')[0].reset(); event.preventDefault();">Указать участок</a>
 
-    <table>
-        <tr>
-            <td><?php echo $form->labelEx($model, 'room_length') ?></td>
-            <td><?php echo $form->textField($model, 'room_length') ?></td>
-            <td>м</td>
-            <td><?php echo $form->error($model, 'room_length') ?></td>
-        </tr>
-        <tr>
-            <td><?php echo $form->labelEx($model, 'room_width') ?></td>
-            <td><?php echo $form->textField($model, 'room_width') ?></td>
-            <td>м</td>
-            <td><?php echo $form->error($model, 'room_width') ?></td>
-        </tr>
-        <tr>
-            <td><?php echo $form->labelEx($model, 'room_height') ?></td>
-            <td><?php echo $form->textField($model, 'room_height') ?></td>
-            <td>м</td>
-            <td><?php echo $form->error($model, 'room_height') ?></td>
-        </tr>
-        <tr>
-            <td><?php echo $form->labelEx($model, 'wp_width') ?></td>
-            <td><?php echo $form->textField($model, 'wp_width') ?></td>
-            <td>м</td>
-            <td><?php echo $form->error($model, 'wp_width') ?></td>
-        </tr>
-        <tr>
-            <td><?php echo $form->labelEx($model, 'wp_length') ?></td>
-            <td><?php echo $form->textField($model, 'wp_length') ?></td>
-            <td>м</td>
-            <td><?php echo $form->error($model, 'wp_length') ?></td>
-        </tr>
-        <tr>
-            <td><?php echo $form->labelEx($model, 'repeat') ?></td>
-            <td><?php echo $form->textField($model, 'repeat') ?></td>
-            <td>м</td>
-            <td><?php echo $form->error($model, 'repeat') ?></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><?php echo CHtml::submitButton('Рассчитать'); ?></td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-
-
-    </table>
-    <?php $this->endWidget(); ?>
-
-    <h2>Необклеиваемые области</h2>
-
-    <div id="emptyareas"></div>
-    <?php
-    $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'empty-area-form',
-        'action' => $this->createUrl('wallpapers/addemptyarea'),
-        'enableAjaxValidation' => true,
-        'enableClientValidation' => false,
-        'clientOptions' => array(
-            'validateOnSubmit' => true,
-            'validateOnChange' => false,
-            'validateOnType' => false,
-            'validationUrl' => $this->createUrl('wallpapers/addemptyarea'),
-            'afterValidate' => "js:function(form, data, hasError) {
+                    <?php
+                    $form = $this->beginWidget('CActiveForm', array(
+                        'id' => 'empty-area-form',
+                        'action' => $this->createUrl('wallpapers/addemptyarea'),
+                        'enableAjaxValidation' => true,
+                        'enableClientValidation' => false,
+                        'clientOptions' => array(
+                            'validateOnSubmit' => true,
+                            'validateOnChange' => false,
+                            'validateOnType' => false,
+                            'validationUrl' => $this->createUrl('wallpapers/addemptyarea'),
+                            'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     Wallpapers.AreaCreate();
                                 return false;
                               }",
-        )));
-    ?>
-
-    <?php //echo $form->errorSummary($emptyArea); ?>
-
-    <table>
-        <tr>
-            <td><?php echo $form->labelEx($emptyArea, 'title') ?></td>
-            <td><?php echo $form->textField($emptyArea, 'title') ?></td>
-            <td>&nbsp;</td>
-            <td><?php echo $form->error($emptyArea, 'title') ?></td>
-        </tr>
-        <tr>
-            <td><?php echo $form->labelEx($emptyArea, 'height') ?></td>
-            <td><?php echo $form->textField($emptyArea, 'height') ?></td>
-            <td>м</td>
-            <td><?php echo $form->error($emptyArea, 'height') ?></td>
-        </tr>
-        <tr>
-            <td><?php echo $form->labelEx($emptyArea, 'width') ?></td>
-            <td><?php echo $form->textField($emptyArea, 'width') ?></td>
-            <td>м</td>
-            <td><?php echo $form->error($emptyArea, 'width') ?></td>
-        </tr>
-
-        <tr>
-            <td>&nbsp;</td>
-            <td><?php echo CHtml::submitButton('Добавить необклеиваемую область'); ?></td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
+                        )));
+                    ?>
 
 
-    </table>
-    <?php $this->endWidget(); ?>
+                    <?php
+                    $form->error($emptyArea, 'title');
+                    $form->error($emptyArea, 'height');
+                    $form->error($emptyArea, 'width');
+                    ?>
 
-    <div id="result">
+                    <div class="except-area">
+                        <div class="tale"></div>
+                        <?php echo $form->textField($emptyArea, 'title', array('placeholder' => 'Введите название')) ?>
+                        <?php echo $form->textField($emptyArea, 'height', array('placeholder' => 'Шир.')) ?>
+                        <?php echo $form->textField($emptyArea, 'width', array('placeholder' => 'Выс.')) ?>
+                        <?php echo $form->textField($emptyArea, 'qty', array('placeholder' => 'Кол-во')) ?>
+
+                        <a href="#" class="btn btn-green-small" onclick="$('#empty-area-form').submit(); return false;">
+                            <span><span>Ok</span></span>
+                        </a>
+                        <?php echo $form->errorSummary($emptyArea) ?>
+                    </div>
+
+                    <?php $this->endWidget(); ?>
+
+                    <ul id="emptyareas">
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row row-btn">
+                <button onclick="$('#wallpapers-calculate-form').submit(); return false;">Рассчитать</button>
+            </div>
+
+        </div>
+
     </div>
+
+    <div class="recommendation clearfix">
+
+        <div class="left">
+            <img src="/images2/img_repair_wallpapers.png"/><br/>Нужно не менее <span>6 рулонов</span>
+        </div>
+
+        <div class="right">
+            <p>Чтобы оклеить это помещение выбранными вами обоями, потребуется <span></span>. Внимание: если в комнате
+                много углов, сложных стыков и неоклеиваемых мест, заложите 10 – 15% материалов на подгонку.</p>
+        </div>
+
+    </div>
+
+    <div class="wysiwyg-content">
+
+        <h3>Сервис «Расчет количества обоев»</h3>
+
+        <p>Каждый, кто хотя бы однажды сталкивался с необходимостью поменять обои в комнате, знает, что сама процедура
+            оклейки стен не такая уж сложная. Главное – правильно подготовиться, в том числе купить нужное количество
+            обоев.</p>
+
+        <p>Чтобы сделать правильный расчет обоев, нужно учесть все факторы. При этом даже если вы дружите с математикой,
+            всегда существует вероятность что-либо упустить. Если расчет обоев будет неточным – есть риск купить их
+            больше или меньше необходимого количества. Лишние обои – это лишние потраченные деньги, иногда немалые. А
+            вот недостаток обоев часто грозит серьёзными проблемами. Купленные обои могут оказаться не того оттенка, а
+            это часто обнаруживается только на стене. Нужный оттенок можно искать много дней и не найти. Придётся
+            выкручиваться, выдумывая новый дизайн комнаты, либо снимать уже наклеенные обои и заменять их теми, которые
+            есть в достаточном количестве.</p>
+
+        <p>Чтобы расчет количества обоев был верным, воспользуйтесь нашим сервисом. Просто введите длину, ширину и
+            высоту оклеиваемых стен, затем учтите ширину рулона обоев и места, ширину раппорта рисунка и наличие сдвига,
+            прибавьте запас на выравнивание. Учтите места, которые вы не будете оклеивать (например, окно, дверь).
+            Заполнив форму, нажмите кнопку «рассчитать». Через секунду вы получите точный расчет количества обоев,
+            которое вам понадобится.</p>
+
+    </div>
+
 </div>

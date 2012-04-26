@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property RecipeBookRecipeViaPurpose[] $recipeBookRecipeViaPurposes
  */
-class RecipeBookPurpose extends CActiveRecord
+class RecipeBookPurpose extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

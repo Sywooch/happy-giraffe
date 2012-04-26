@@ -8,7 +8,7 @@
  * @property string $requisite_name
  * @property string $requisite_account
  */
-class BillingSystemPaymentFormQIWI extends CActiveRecord
+class BillingSystemPaymentFormQIWI extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

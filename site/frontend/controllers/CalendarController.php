@@ -1,6 +1,6 @@
 <?php
 
-class CalendarController extends Controller
+class CalendarController extends HController
 {
 
 	public $layout = '//layouts/main';

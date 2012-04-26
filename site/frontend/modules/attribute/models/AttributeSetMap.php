@@ -13,7 +13,7 @@
  * @property AttributeSet $map_set
  * @property Attribute $map_attribute
  */
-class AttributeSetMap extends CActiveRecord
+class AttributeSetMap extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

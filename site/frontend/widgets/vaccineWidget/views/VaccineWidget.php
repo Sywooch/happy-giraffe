@@ -54,7 +54,7 @@ else
         <?php if (!empty($baby_id)):?>
 			<tr class="bottom">
 				<td colspan="4" class="vc-vote">
-                    <?php $w = $this->widget('VoteWidget', array(
+                    <?php $w = $this->widget('application.widgets.voteWidget.VoteWidget', array(
                         'model'=>$day,
                         'template'=>
                             '<div class="result-box red">

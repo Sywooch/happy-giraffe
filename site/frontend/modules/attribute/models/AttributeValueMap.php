@@ -10,7 +10,7 @@
  *
  * @property AttributeValue map_value
  */
-class AttributeValueMap extends CActiveRecord
+class AttributeValueMap extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

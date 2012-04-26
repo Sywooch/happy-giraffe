@@ -1,31 +1,10 @@
-<?php $this->beginContent('//layouts/baby_no_left_banner'); ?>
-<script type="text/javascript">
-    $(function() {
-        $('body').delegate('a.heart', 'click', function(){
-            var id = $(this).attr('rel');
-            $.ajax({
-                url:'<?php echo Yii::app()->createUrl("/names/default/like") ?>',
-                data:{
-                    id:id
-                },
-                type:'GET',
-                dataType: 'JSON',
-                success:function (data) {
-                    if (data.success){
-                        //$(this).toggleClass('empty_heart');
-                        $('a.heart[rel='+id+']').toggleClass('empty_heart');
-                        $('li.like ins ins').html(data.count);
-                        $(this).prev().prev('.heart_like').html(data.likes);
-                        $('.name_info_right p.heart_like').html(data.likes);
-                    }
-                },
-                context:$(this)
-            });
-            return false;
-        });
-    });
-</script>
-<div class="right_block">
+<?php $this->beginContent('//layouts/baby_no_left_banner');
+
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
+
+?><div class="right_block">
     <div class="choice_name">
         <h1>Выбор имени <span>ребенка</span></h1>
     </div>

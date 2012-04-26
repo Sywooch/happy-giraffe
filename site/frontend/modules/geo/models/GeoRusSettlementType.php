@@ -8,7 +8,7 @@
  * @property string $short_name
  * @property string $name
  */
-class GeoRusSettlementType extends CActiveRecord
+class GeoRusSettlementType extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

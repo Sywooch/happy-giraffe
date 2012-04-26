@@ -328,7 +328,7 @@ class CommunityContent extends HActiveRecord
             ));
         } else {
             return Yii::app()->createAbsoluteUrl('community/view', array(
-                'community_id' => $this->rubric->community->id,
+                'community_id' => $this->rubric->community_id,
                 'content_type_slug' => $this->type->slug,
                 'content_id' => $this->id,
             ));

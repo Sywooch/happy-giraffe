@@ -134,7 +134,7 @@ class CommunityController extends HController
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
 
-        header('Last-Modified: ' . date('r', $content->updated));
+        header('Last-Modified: ' . date('r', strtotime($content->updated)));
 
         if ($content->isFromBlog) {
             $this->layout = '//layouts/user_blog';

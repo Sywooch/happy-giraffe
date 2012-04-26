@@ -120,21 +120,10 @@ class Message extends HActiveRecord
         );
     }
 
-    public static function allMessagesForUser($dialog_id, $user_id)
+    public function afterSave()
     {
-        $criteria = new CDbCriteria;
-        $criteria->condition = ' t.dialog_id = :dialog_id
-            AND t.user_id != :user_id
-            AND t.id NOT IN (SELECT message_id FROM im__deleted_messages WHERE dialog_id = :dialog_id AND user_id = :user_id)
-            AND t.id > COALESCE((SELECT message_id FROM im__dialog_deleted WHERE dialog_id = :dialog_id AND user_id = :user_id LIMIT 1), 0)
-        ';
-        //AND t.id > COALESCE((SELECT message_id FROM im__dialog_deleted WHERE dialog_id = :dialog_id AND user_id = :user_id LIMIT 1), 0)
-        $criteria->params = array(
-            ':dialog_id' => $dialog_id,
-            ':user_id' => $user_id,
-        );
-
-        return Message::model()->findAll($criteria);
+        Dialog::model()->updateByPk($this->dialog_id, array('last_message_id' => $this->id));
+        parent::afterSave();
     }
 
     /**
@@ -164,7 +153,7 @@ class Message extends HActiveRecord
                 $comet->type = CometModel::TYPE_NEW_MESSAGE;
                 $comet->attributes = array(
                     'message_id' => $message->id,
-                    'unread_count' => Im::getUnreadMessagesCount($user->user_id),
+                    'unread_count' => Im::model()->getUnreadMessagesCount(),
                     'dialog_id' => $dialog_id,
                     'html' => Yii::app()->controller->renderPartial('_message', array(
                         'message' => $message->attributes,
@@ -174,7 +163,6 @@ class Message extends HActiveRecord
                 );
                 $comet->send($user->user_id);
             }
-//            Im::clearCache($user->user_id);
         }
 
         return $message;
@@ -274,7 +262,7 @@ class Message extends HActiveRecord
     /**
      * @return bool
      */
-    public function isMessageSentByUser()
+    public function sent()
     {
         if ($this->user_id == Yii::app()->user->id)
             return true;
@@ -295,50 +283,9 @@ class Message extends HActiveRecord
             ->execute();
     }
 
-    public static function getNotificationMessages($user_id)
-    {
-        $dialogs = User::getUserById($user_id)->userDialogs;
-        $dialog_ids = array();
-        foreach($dialogs as $dialogs)
-            $dialog_ids[]=$dialogs->dialog_id;
-        if (count($dialog_ids) == 0)
-            return array('data' => array(), 'count' => 0);
-
-        $models = Yii::app()->db->createCommand()
-            ->select(array('t.id', 't.user_id', 't.text', 't.created', 't.read_status', 't.dialog_id'))
-            ->from('im__messages as t')
-            ->where(' t.dialog_id IN (:dialogs) AND t.user_id != :user_id AND t.id not in (SELECT message_id FROM im__deleted_messages WHERE user_id = :user_id) ', array(
-            ':user_id' => $user_id,
-            ':dialogs' => implode(',', $dialog_ids)
-        ))
-            ->order('t.id desc')
-            ->limit(3)
-            ->queryAll();
-
-        $data = array();
-        foreach ($models as $m) {
-            $data[] = array(
-                'text' => self::getNotificationText($m),
-                'url' => Yii::app()->createUrl('/im/default/dialog', array('id' => $m['dialog_id'])),
-            );
-        }
-
-        $new_count = Im::getUnreadMessagesCount($user_id);
-
-        return array('data' => $data, 'count' => $new_count);
-    }
-
     public static function sortMessages($a, $b)
     {
         return ($a->id < $b->id) ? -1 : 1;
-    }
-
-    public static function getNotificationText($message)
-    {
-        $user = User::getUserById($message['user_id']);
-        return '<span class="name">' . $user->fullName . '</span><span class="text">'
-            . strip_tags($message['text']) . '</span><span class="date">'
-            . HDate::GetFormattedTime($message['created']) . '</span>';
     }
 
 }

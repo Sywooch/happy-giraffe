@@ -1,9 +1,11 @@
-<?php if ((Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $c->isFromBlog ? null : $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))
-    || Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $c->isFromBlog ? null : $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))
-)): ?>
+<?php
+/* @var $this Controller
+ * @var $c CommunityContent
+ */
+if ($c->canEdit() || $c->canRemove()): ?>
 <div class="admin-actions">
 
-    <?php if (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $c->isFromBlog ? null : $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))): ?>
+    <?php if ($c->canEdit()): ?>
         <?php
             if ($c->isFromBlog) {
                 $edit_url = $this->createUrl('/blog/edit', array('content_id' => $c->id));
@@ -17,12 +19,12 @@
         <?php echo CHtml::link('<i class="icon"></i>', $edit_url, array('class' => 'edit')); ?>
     <?php endif; ?>
 
-    <?php if (! $c->isFromBlog && Yii::app()->user->checkAccess('transfer post')): ?>
+    <?php if (!$c->isFromBlog && Yii::app()->user->model->checkAuthItem('transfer post')): ?>
     <input type="hidden" value="<?php echo $c->id ?>">
     <a href="#movePost" class="move fancy">Переместить</a>
     <?php endif; ?>
 
-    <?php if (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $c->isFromBlog ? null : $c->rubric->community->id, 'user_id' => $c->contentAuthor->id))): ?>
+    <?php if ($c->canRemove()): ?>
         <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
             'model' => $c,
             'callback' => 'CommunityContentRemove',

@@ -21,6 +21,8 @@ class WeatherWidget extends UserCoreWidget
             if ($gw_today === false)
                 return;
 
+            Yii::app()->clientScript->registerScriptFile('/javascripts/user_common.js');
+
             $data = $this->render('WeatherWidget', array(
                 'now_temp' => $gw->getNowTemp(),
                 'now_condition' => $gw->getNowCondition(),

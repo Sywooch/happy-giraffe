@@ -6,11 +6,19 @@ class BlogWidget extends CWidget
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 6;
-        //$criteria->order = ' created DESC ';
-        $criteria->condition = ' rubric.user_id IS NOT NULL ';
+        $criteria->with = array('rubric' => array(
+            'select' => array('community_id'),
+            'condition'=>'user_id IS NOT NULL'
+        ), 'type' => array(
+            'select' => array('slug')
+        ), 'post' => array(
+            'select' => array('text')
+        ),'video','travel');
+        $criteria->select = array('t.id', 't.title', 'rubric_id', 'author_id');
+//        $criteria->condition = ' rubric.user_id IS NOT NULL ';
         $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_BLOGS, 6));
 
-        $contents = BlogContent::model()->full()->findAll($criteria);
+        $contents = BlogContent::model()->findAll($criteria);
         $this->render('BlogWidget', compact('contents'));
     }
 }

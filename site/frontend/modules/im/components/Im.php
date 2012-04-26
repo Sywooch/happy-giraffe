@@ -190,7 +190,7 @@ class Im
     {
         $user = User::getUserById($message['user_id']);
         return '<span class="name">' . $user->fullName . '</span><span class="text">'
-            . strip_tags($message['text']) . '</span><span class="date">'
+            . strip_tags(Str::truncate($message['text'], 200)) . '</span><span class="date">'
             . HDate::GetFormattedTime($message['created']) . '</span>';
     }
 

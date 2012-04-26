@@ -279,8 +279,7 @@ class Message extends HActiveRecord
             ->insert('im__deleted_messages', array(
             'message_id' => $id,
             'user_id' => Yii::app()->user->id,
-        ))
-            ->execute();
+        ));
     }
 
     public static function sortMessages($a, $b)

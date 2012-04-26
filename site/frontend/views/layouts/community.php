@@ -2,7 +2,7 @@
 
 <?php
     $cs = Yii::app()->clientScript;
-    $inCommunity = (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('createClubPost', array('user'=>Yii::app()->user->getModel(),'community_id'=>$this->community->id)))?1:0;
+    $inCommunity = (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('createClubPost', array('user'=>Yii::app()->user->model,'community_id'=>$this->community->id)))?1:0;
     $js = "
         var inClub = {$inCommunity};
         $('body').delegate('a.joinButton', 'click', function(e) {

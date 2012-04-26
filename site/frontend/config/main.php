@@ -186,7 +186,6 @@ return array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',
 			'allowAutoLogin'=>true,
-			'roleAttribute'=>'role',
 			'loginUrl'=>'/',
 		),
         'authManager'=>array(

@@ -3829,10 +3829,11 @@ ul.letters li a:hover {
 #repair-wallpapers .form .form-in .row:first-child {padding-bottom:0;}
 #repair-wallpapers .form .form-in .row .row-title {font:normal 20px/1 arial, helvetica, sans-serif;color:#82649f;margin-bottom:5px;margin-left:15px;}
 #repair-wallpapers .form .form-in .row .row-title span {font-weight:normal;font-size:14px;}
-#repair-wallpapers .form .form-in .row .row-elements {background:#eadff2;padding:5px;}
+#repair-wallpapers .form .form-in .row .row-elements {background:#efdffb;padding:5px;}
 #repair-wallpapers .form .form-in .row .row-elements .col {width:32%;vertical-align:top;display:inline-block;font-size:16px;color:#3e3e3e;font-weight:bold;padding:5px 0;text-align:center;}
 #repair-wallpapers .form .form-in .row .row-elements .col small {font-size:11px;line-height:1;color:#7b6190;font-weight:normal;line-height:normal;}
 #repair-wallpapers .form .form-in .row .row-elements .col input[type=text] {padding:0px 12px;font-size:16px;color:#906ab6;width:45px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #dac8e7;vertical-align:top;margin-top:2px;}
+#repair-wallpapers .form .form-in .row .small {text-align:center;font-size:11px;line-height:1;color:#7b6190;font-weight:normal;line-height:normal;padding-top:5px;}
 #repair-wallpapers .form .form-in .row.row-btn {text-align:center;border-top:1px solid #f6e8ff;}
 
 #repair-wallpapers .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}

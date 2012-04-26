@@ -4,22 +4,21 @@
  * Date: 04.03.12
  */
 Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.tmpl.min.js');
+$edit_on = ($type == 'community' && Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array('community_id' => $this->community->id))) || ($type == 'blog' && $this->user->id == Yii::app()->user->id);
+
 ?>
 <ul>
     <? foreach ($rubrics as $r): ?>
     <?php $this->renderPartial('/community/parts/rubric_item', array(
         'r' => $r,
         'type' => $type,
+        'edit_on'=>$edit_on
     )); ?>
     <? endforeach; ?>
 </ul>
-<?php if (
-    ($type == 'community' && Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array('community_id' => $this->community->id)))
-    ||
-    ($type == 'blog' && $this->user->id == Yii::app()->user->id)
-)
-    echo CHtml::link('<i class="icon"></i>', '', array('class' => 'add'));?>
-
+<?php if ($edit_on){
+    echo CHtml::link('<i class="icon"></i>', '', array('class' => 'add'));
+?>
 <script id="edit_rubric_tmpl" type="text/x-jquery-tmpl">
     <form class="edit-form">
         <input type="text" value="${name}">
@@ -95,4 +94,5 @@ Yii::app()->clientScript->registerScript('edit_rubrics_main', "
         return false;
     });
 ");
+}
 ?>

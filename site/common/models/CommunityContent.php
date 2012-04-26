@@ -494,4 +494,24 @@ class CommunityContent extends HActiveRecord
                 return '';
         }
     }
+
+    public function canEdit()
+    {
+        if (Yii::app()->user->model->role == 'user'){
+            if ($this->author_id == Yii::app()->user->id)
+                return true;
+            return false;
+        }
+        return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->contentAuthor->id)));
+    }
+
+    public function canRemove()
+    {
+        if (Yii::app()->user->model->role == 'user'){
+            if ($this->author_id == Yii::app()->user->id)
+                return true;
+            return false;
+        }
+        return (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->contentAuthor->id)));
+    }
 }

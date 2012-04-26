@@ -61,6 +61,9 @@ class User extends HActiveRecord
     public $remember;
     public $photo;
     public $assigns;
+    private $_role = null;
+    private $_authItems = null;
+
 
     public $women_rel = array(
         1 => 'Замужем',
@@ -507,18 +510,6 @@ class User extends HActiveRecord
         return trim($res, '<br>');
     }
 
-    public function getRole()
-    {
-        $roles = Yii::app()->authManager->getRoles($this->id);
-        if (empty($roles))
-            return 'user';
-        $res = '';
-        foreach ($roles as $name => $item) {
-            $res .= $name . ', ';
-        }
-        return trim($res, ', ');
-    }
-
     /**
      * Возвращает приоритет пользователя для окучивания модераторами
      * @return int
@@ -791,7 +782,11 @@ class User extends HActiveRecord
 
     public function getScores()
     {
-        $model = UserScores::model()->with(array('level' => array('select' => array('title'))))->findByPk($this->id);
+        $criteria = new CDbCriteria;
+        $criteria->with =array('level' => array('select' => array('title')));
+        $criteria->compare('user_id', $this->id);
+        $criteria->select = array('scores');
+        $model = UserScores::model()->find($criteria);
         if ($model === null) {
             $model = new UserScores;
             $model->user_id = $this->id;
@@ -839,5 +834,30 @@ class User extends HActiveRecord
             if (empty($baby->type))
                 $i++;
         return $i;
+    }
+
+    function getRole()
+    {
+        if ($this->_role === null) {
+            $roles = Yii::app()->authManager->getRoles($this->id);
+            if (!empty($roles))
+                $this->_role = current($roles);
+            $this->_role = 'user';
+        }
+        return $this->_role;
+    }
+
+    function isUser()
+    {
+        return $this->role == 'user';
+    }
+
+    public function checkAuthItem($item)
+    {
+        if ($this->_authItems === null){
+            $this->_authItems = Yii::app()->authManager->getAuthAssignments($this->id);
+        }
+
+        return isset($this->_authItems[$item]);
     }
 }

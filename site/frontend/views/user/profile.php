@@ -109,10 +109,10 @@
             </div>
 
             <?php if (! empty($score->level_id)): ?>
-                <div class="user-lvl user-lvl-<?=$score->level_id?>">
-
-                </div>
-            <?php endif ?>
+                <div class="user-lvl user-lvl-<?=$score->level_id?>"></div>
+            <?php else: ?>
+                <div class="user-lvl user-lvl-0"></div>
+            <?php endif; ?>
 
             <?php $this->widget('FamilyWidget', array(
                 'user' => $user,

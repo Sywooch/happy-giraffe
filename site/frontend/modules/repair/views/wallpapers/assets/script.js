@@ -1,7 +1,6 @@
 var Wallpapers = {
     StartCalc:function () {
         $.ajax({
-            //url:"/repair/wallpapers/calculate/",
             url:$("#wallpapers-calculate-form").attr('action'),
             data:$("#wallpapers-calculate-form").serialize(),
             type:"POST",
@@ -26,6 +25,7 @@ var Wallpapers = {
                     $("#emptyareas").html(data);
                     $("#emptyareas").fadeIn(100);
                 });
+                $('#empty-area-form').hide();
             }
         });
         return false;

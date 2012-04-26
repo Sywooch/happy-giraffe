@@ -89,7 +89,7 @@ class DefaultController extends HController
         if ($id == Yii::app()->user->id)
             throw new CHttpException(404, 'Вы не можете создать диалог с собой.');
 
-        $user = Im::model()->getUser($id);
+        $user = User::getUserById($id);
 
         //find if dialog with this user exist
         $dialog_id = Im::model()->getDialogIdByUser($id);

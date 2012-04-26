@@ -14,7 +14,7 @@
  * @property string $book_name
  * @property string $content_id
  */
-class CommunityPost extends CActiveRecord
+class CommunityPost extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

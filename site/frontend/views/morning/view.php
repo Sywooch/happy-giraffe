@@ -9,11 +9,13 @@
 
         <h1><?=$article->title ?></h1>
 
-        <div class="where">
-            <span>Где:</span>
+        <?php if (!empty($article->photoPost->location_image)):?>
+            <div class="where">
+                <span>Где:</span>
 
-            <div class="map-box"><a target="_blank" href="<?=$article->photoPost->mapUrl ?>"><img src="<?=$article->photoPost->getImageUrl() ?>"></a></div>
-        </div>
+                <div class="map-box"><a target="_blank" href="<?=$article->photoPost->mapUrl ?>"><img src="<?=$article->photoPost->getImageUrl() ?>"></a></div>
+            </div>
+        <?php endif ?>
 
         <div class="meta">
 

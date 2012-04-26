@@ -13,7 +13,7 @@
  * @property ShopProductAttribute $eavAttribute
  * @property ShopProduct $eavProduct
  */
-class ShopProductEav extends CActiveRecord
+class ShopProductEav extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

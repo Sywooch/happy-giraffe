@@ -19,7 +19,7 @@
  * @property Album $album
  * @property User $user
  */
-class AlbumPhoto extends CActiveRecord
+class AlbumPhoto extends HActiveRecord
 {
     private $_check_access = null;
 

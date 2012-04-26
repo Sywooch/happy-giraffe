@@ -20,7 +20,7 @@
  * @property User author
  * @property AttachPhoto[] $photoAttaches
  */
-class Comment extends CActiveRecord
+class Comment extends HActiveRecord
 {
     public $selectable_quote = false;
     const CONTENT_TYPE_DEFAULT = 1;

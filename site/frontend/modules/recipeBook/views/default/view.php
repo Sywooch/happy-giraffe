@@ -14,7 +14,7 @@
             <div class="fast-rating"><span><?php echo $model->votes_pro - $model->votes_con ?></span> рейтинг</div>
         <div class="title">Рецепт полезен?</div>
         <div class="your_opinion">
-            <?php $this->widget('VoteWidget', array(
+            <?php $this->widget('application.widgets.voteWidget.VoteWidget', array(
                 'model'=>$model,
                 'template'=>
                 '<div class="green"><a vote="1" class="btn btn-green-medium" href="#"><span><span>Да</span></span></a> &nbsp; <span><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</span></div>

@@ -45,7 +45,7 @@ class WallpapersCalcForm extends CFormModel
 
     public function calculate()
     {
-
+        $result = array();
         $areas = Yii::app()->user->getState('wallpapersCalcAreas');
         $perimeter = ($this->room_length + $this->room_width) * 2;
         $lines = ceil($perimeter / $this->wp_width);
@@ -56,15 +56,20 @@ class WallpapersCalcForm extends CFormModel
                     $tiles -= (floor($area['width'] / $this->wp_width) * floor($area['height'] / $this->repeat));
                 }
             }
-            return ceil($tiles / (floor($this->wp_length / $this->repeat)));
+            $result['qty'] = ceil($tiles / (floor($this->wp_length / $this->repeat)));
         } else {
             $length = $lines * ($this->room_height + 0.1);
             if (count($areas)) {
                 foreach ($areas as $area) {
-                    $length -= (floor($area['width'] / $this->wp_width) * $area['height']);
+                    $length -= (floor($area['width'] / $this->wp_width) * $area['height']) * $area['qty'];
                 }
             }
-            return ceil($length / $this->wp_length);
+            $result['qty'] = ceil($length / $this->wp_length);
         }
+
+        $result['noun'] = HDate::GenerateNoun(array('рулона', 'рулонов', 'рулонов'), $result['qty']);
+        $result['noun2'] = HDate::GenerateNoun(array('рулон', 'рулона', 'рулонов'), $result['qty']);
+
+        return $result;
     }
 }

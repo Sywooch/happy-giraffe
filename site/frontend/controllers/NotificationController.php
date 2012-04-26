@@ -3,7 +3,7 @@
  * Author: choo
  * Date: 11.03.2012
  */
-class NotificationController extends Controller
+class NotificationController extends HController
 {
     public function actionGetLast()
     {

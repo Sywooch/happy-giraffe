@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property Interest[] $interests
  */
-class InterestCategory extends CActiveRecord
+class InterestCategory extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

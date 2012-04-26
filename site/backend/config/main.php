@@ -6,6 +6,7 @@ return array(
     'language'=>'ru',
     'preload'=>array('log'),
 	'import'=>array(
+        'site.common.components.*',
         'site.common.models.*',
         'site.common.models.mongo.*',
         'application.models.*',

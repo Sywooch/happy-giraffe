@@ -26,7 +26,7 @@
  * @property SeoKeywords $keyword
  * @property SeoSite $site
  */
-class SeoKeyStats extends CActiveRecord
+class SeoKeyStats extends HActiveRecord
 {
     public $all;
     public $avarage;

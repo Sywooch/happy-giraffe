@@ -289,6 +289,12 @@ class NamesController extends BController
         echo CJSON::encode(array_merge($model->attributes, array('url' => $model->GetUrl())));
     }
 
+    public function actionNotFilled(){
+        $names = Name::model()->findAll('description IS NULL OR description = "" ');
+
+        $this->render('not_filed',compact('names'));
+    }
+
 
     /**
      * @param int $id model id

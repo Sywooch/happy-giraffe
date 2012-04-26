@@ -16,7 +16,7 @@
  * @property AttributeSetMap[] $set_map
  * @property ProductType[] $types
  */
-class AttributeSet extends CActiveRecord
+class AttributeSet extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

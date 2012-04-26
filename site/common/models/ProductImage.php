@@ -9,7 +9,7 @@
  * @property integer $photo_id
  * @property boolean $type
  */
-class ProductImage extends CActiveRecord
+class ProductImage extends HActiveRecord
 {
     public $accusativeName = "Изображение";
 	/**

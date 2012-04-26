@@ -7,7 +7,7 @@
  * @property string $id
  * @property string $title
  */
-class CommunityContentType extends CActiveRecord
+class CommunityContentType extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -12,7 +12,7 @@
  * @property string $date
  * @property string $text
  */
-class Horoscope extends CActiveRecord
+class Horoscope extends HActiveRecord
 {
     public $type;
 

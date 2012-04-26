@@ -9,7 +9,7 @@
  * @property integer $sizes_id
  * @property integer $loop_type_id
  */
-class YarnProjects extends CActiveRecord
+class YarnProjects extends HActiveRecord
 {
     public $sizes = array(
         1 => array(1 => '50.5 см размер груди (6 месяцев)',

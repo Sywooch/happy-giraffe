@@ -1,0 +1,4 @@
+!.gitignore
+/console/yiic.php
+/*/www/index.php
+/*/config/main-local.php

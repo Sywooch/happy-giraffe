@@ -1,8 +1,14 @@
-Результат
+<div class="title">Материалов потребуется</div>
 
-<table>
-    <?php ?>
+<ul>
     <?php foreach($result as $title=>$value){ ?>
-    <tr><td><?=$title?></td><td><?=$value?></td></tr>
+        <li>
+            <span class="count"><?=$value?>&nbsp; шт.</span>
+            <span><?=$title?></span>
+        </li>
     <?php } ?>
-</table>
+</ul>
+
+<div style="text-align:right;"><a href="" class="pseudo">Прочитать рекомендации</a></div>
+
+</div>

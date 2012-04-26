@@ -26,7 +26,7 @@
  * @property CommunityVideo $video
  * @property CommunityPhotoPost $photoPost
  */
-class CommunityContent extends CActiveRecord
+class CommunityContent extends HActiveRecord
 {
     const USERS_COMMUNITY = 999999;
 
@@ -328,7 +328,7 @@ class CommunityContent extends CActiveRecord
             ));
         } else {
             return Yii::app()->createAbsoluteUrl('community/view', array(
-                'community_id' => $this->rubric->community->id,
+                'community_id' => $this->rubric->community_id,
                 'content_type_slug' => $this->type->slug,
                 'content_id' => $this->id,
             ));
@@ -355,7 +355,7 @@ class CommunityContent extends CActiveRecord
                     'travel',
                     'commentsCount',
                     'contentAuthor' => array(
-                        'select' => 'id, first_name, last_name, avatar, online',
+                        'select' => 'id, first_name, last_name, avatar_id, online',
                     ),
                 ),
             ),
@@ -493,5 +493,25 @@ class CommunityContent extends CActiveRecord
             default:
                 return '';
         }
+    }
+
+    public function canEdit()
+    {
+        if (Yii::app()->user->model->role == 'user'){
+            if ($this->author_id == Yii::app()->user->id)
+                return true;
+            return false;
+        }
+        return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->contentAuthor->id)));
+    }
+
+    public function canRemove()
+    {
+        if (Yii::app()->user->model->role == 'user'){
+            if ($this->author_id == Yii::app()->user->id)
+                return true;
+            return false;
+        }
+        return (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->contentAuthor->id)));
     }
 }

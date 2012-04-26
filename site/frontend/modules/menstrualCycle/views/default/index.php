@@ -3,84 +3,9 @@
  * @var $form CActiveForm
  */
 $model = new MenstrualCycleForm();
-$js = "var started = false;
-    $(function () {
-        $('body').delegate('div.choice_month a#next-month', 'click', function () {
-            var month = $('#review_month').val();
-            if (month == '')
-                return false;
-            var year = $('#review_year').val();
-
-            month++;
-            if (month == 13) {
-                month = 1;
-                year++;
-                $('#review_year').val(year);
-            }
-            $('#review_month').val(month);
-            LoadCalendar();
-            return false;
-        });
-
-        $('body').delegate('div.choice_month a#prev-month', 'click', function () {
-            var month = $('#review_month').val();
-            if (month == '')
-                return false;
-            var year = $('#review_year').val();
-
-            month--;
-            if (month == 0) {
-                month = 12;
-                year--;
-                $('#review_year').val(year);
-            }
-
-            $('#review_month').val(month);
-            LoadCalendar();
-            return false;
-        });
-
-        $('body').delegate('.cal_item', 'hover', function (event) {
-            if (event.type == 'mouseenter') {
-                $(this).find('.hint').stop(true, true).fadeIn();
-            } else {
-                $(this).find('.hint').stop(true, true).fadeOut();
-            }
-        });
-        $('body').delegate('.cal_item_default', 'hover', function (event) {
-            if (event.type == 'mouseenter') {
-                $(this).find('.hint').stop(true, true).fadeIn();
-            } else {
-                $(this).find('.hint').stop(true, true).fadeOut();
-            }
-        });
-
-        $('.btn-yellow-medium').click(function(){
-             $('#menstrual-cycle-form').submit();
-        });
-    });
-
-function StartCalc() {
-    var d = new Date();
-    $('#review_month').val($('#MenstrualCycleForm_month').val());
-    $('#review_year').val($('#MenstrualCycleForm_year').val());
-    LoadCalendar();
-    return false;
-}
-function LoadCalendar() {
-    $.ajax({
-        url:'" . Yii::app()->createUrl("/menstrualCycle/default/calculate") . "',
-        data:$('#menstrual-cycle-form').serialize(),
-        type:'POST',
-        success:function (data) {
-            $('#result').fadeOut(100,function(){ $('#result').html(data);$('#result').fadeIn(100);});
-            $('html,body').animate({scrollTop: $('#result').offset().top},'fast');
-            started = true;
-        }
-    });
-}
-    ";
-Yii::app()->clientScript->registerScript('woman_cycle', $js);
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 ?>
 <div class="mother_cal_banner">
     <span>Менструальный цикл – это биологические часы женщины, запущенные самой природой. Составьте свой женский календарь и проверьте – правильно ли идут ваши часы, а также узнайте массу другой полезной информации.</span>
@@ -141,6 +66,7 @@ Yii::app()->clientScript->registerScript('woman_cycle', $js);
         </tr>
     </table>
     <button class="btn btn-yellow-medium" onclick="return false;"><span><span>Рассчитать</span></span></button>
+    <div class="clear"></div>
     <?php echo $form->errorSummary($model); ?>
 
     <?php $this->endWidget(); ?>

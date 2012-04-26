@@ -1,45 +1,14 @@
 <?php
 	$cs = Yii::app()->clientScript;
 
-	$js = "
-		$('.item-box').draggable({
-			handle: '.drag',
-			revert: true,
-		});
-		
-		$('.items-storage, .item-storage').droppable({
-
-			drop: function(event, ui) {
-				$.ajax({
-					dataType: 'JSON',
-					type: 'POST',
-					url: " . CJSON::encode(Yii::app()->createUrl('hospitalBag/default/putIn')) . ",
-					data: {
-						id: ui.draggable.find('input[name=\"id\"]').val()
-					},
-					success: function(response) {
-						if (response.success)
-						{
-							ui.draggable.remove();
-							$('span.count').text(response.count);
-						}
-					}
-				});
-			}
-		});
-		
-		$('#addOffer').delegate('button.cancel', 'click', function(e) {
-			e.preventDefault();
-			$('#BagItem_description').val('');
-		});
-	";
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
 	$cs
 		->registerCoreScript('jquery.ui')
-		->registerScript('service_bag', $js)
+        ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
         ->registerMetaTag('noindex', 'robots');
 ?>
-
 <div class="section-banner" style="margin:0;">
 	<img src="/images/section_banner_07.jpg" />
 </div>
@@ -87,7 +56,7 @@
 	</ul>
 	<div class="comment-count"><?php echo $offers->totalItemCount; ?></div>
 </div>
-<?php $this->widget('VoteWidget', array(
+<?php $this->widget('application.widgets.voteWidget.VoteWidget', array(
     'model'=>new BagOffer,
     'init'=>true,
     'template'=>'<div class="green">

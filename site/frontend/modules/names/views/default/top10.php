@@ -10,7 +10,7 @@
         <a href="<?php echo $this->createUrl('/names/default/name', array('name' => $name->slug)) ?>" class="<?php
             echo ($name->gender == 1) ? 'man_names_lk' : 'woman_names_lk'  ?>"><?php
             echo $name->name ?></a>
-        <a rel="<?php echo $name->id ?>" href="#" class="heart<?php
+        <a rel="<?php echo $name->id ?>" href="#" onclick="return NameModule.like(this);" class="heart<?php
             if (!in_array($name->id, $like_ids)) echo ' empty_heart' ?>"></a>
         <p><?php echo $name->translate ?></p>
 
@@ -26,7 +26,7 @@
         <a href="<?php echo $this->createUrl('/names/default/name', array('name' => $name->slug)) ?>" class="<?php
             echo ($name->gender == 1) ? 'man_names_lk' : 'woman_names_lk'  ?>"><?php
             echo $name->name ?></a>
-        <a rel="<?php echo $name->id ?>" href="#" class="heart<?php
+        <a rel="<?php echo $name->id ?>" href="#" onclick="return NameModule.like(this);" class="heart<?php
             if (!in_array($name->id, $like_ids)) echo ' empty_heart' ?>"></a>
         <p><?php echo $name->translate ?></p>
 

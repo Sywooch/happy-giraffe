@@ -8,7 +8,7 @@
  * @property string $name
  * @property string $region_id
  */
-class GeoRusDistrict extends CActiveRecord
+class GeoRusDistrict extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

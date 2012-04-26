@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property SeoStats[] $seoStats
  */
-class SeoKeywords extends CActiveRecord
+class SeoKeywords extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

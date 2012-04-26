@@ -53,6 +53,7 @@
             step_result = $(this).attr('rel');
             result.push(step_result);
             NextStep();
+            console.log(result);
         });
 
         $('.inner_bl a.yes_button').click(function(){

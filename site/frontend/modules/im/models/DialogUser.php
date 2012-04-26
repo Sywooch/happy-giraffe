@@ -12,7 +12,7 @@
  * @property Dialog $dialog
  * @property User $user
  */
-class DialogUser extends CActiveRecord
+class DialogUser extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

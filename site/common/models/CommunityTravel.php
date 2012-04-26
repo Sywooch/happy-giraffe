@@ -12,7 +12,7 @@
  * @property ClubCommunityContent $content
  * @property ClubCommunityTravelWaypoint[] $clubCommunityTravelWaypoints
  */
-class CommunityTravel extends CActiveRecord
+class CommunityTravel extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

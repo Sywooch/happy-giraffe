@@ -1064,7 +1064,8 @@ a:hover {text-decoration:none;}
 #dialog .new-message {text-align:center;margin:0 auto;padding:6px 0 10px;margin-top:16px;border-top:1px solid #b9d3ef;}
 #dialog .new-message .editor-box {width:410px;margin:0 auto;}
 #dialog .new-message .buttons {padding-top:10px;text-align:right;}
-
+#dialog .cke_bottom {display: none;}
+#dialog .dialog-inn {min-height: 200px;}
 /* dialogs end */
 
 

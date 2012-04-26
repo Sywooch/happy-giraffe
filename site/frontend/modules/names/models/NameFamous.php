@@ -20,7 +20,7 @@ Yii::import('site.frontend.extensions.status.EStatusBehavior');
  * The followings are the available model relations:
  * @property Name $name
  */
-class NameFamous extends CActiveRecord
+class NameFamous extends HActiveRecord
 {
     public $image;
     public $accusativeName = 'Известную личность';
@@ -150,8 +150,7 @@ class NameFamous extends CActiveRecord
     protected function afterDelete()
     {
         $this->DeletePhoto();
-
-        return parent::afterDelete();
+        parent::afterDelete();
     }
 
     public function DeletePhoto()

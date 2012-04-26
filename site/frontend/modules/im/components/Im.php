@@ -136,6 +136,9 @@ class Im
         foreach ($dialogUsers as $dialogUser) {
             //check on deleted dialog
             if ($dialogUser->user_id == $this->_user_id) {
+                if ($dialogUser->dialog->lastMessage === null){
+                    continue;
+                }
                 $dialog = $dialogUser->dialog;
                 if (isset($dialog->lastDeleted) && $dialog->lastDeleted->user_id == $this->_user_id) {
                     if ($dialog->lastDeleted->message_id == $dialogUser->dialog->lastMessage->id)

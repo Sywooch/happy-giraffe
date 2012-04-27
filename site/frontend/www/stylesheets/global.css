@@ -4025,7 +4025,7 @@ ul.letters li a:hover {
     padding: 25px 15px 30px 18px;
     position: absolute;
     right: 13px;
-    top: 50px;
+    top: -50px;
     display: block;
     width: 305px;
     background: url(../images/pink2_trans.png) 0 0 repeat;
@@ -4033,24 +4033,24 @@ ul.letters li a:hover {
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
 }
-#prikorm.test .result_bl p {
+#prikorm.test .result p {
     padding-top: 6px;
 }
 
-#prikorm.test .result_bl span.rs_title {
+#prikorm.test .result span.rs_title {
     display: block;
     font: 25px/25px tahoma, sans-serif;
     color: #272526;
     padding: 0 0 15px 0;
 }
 
-#prikorm.test .result_bl div.your_res {
+#prikorm.test .result div.your_res {
     color: #D50101;
     font: 28px/20px tahoma,sans-serif;
     padding: 0;
 }
 
-#prikorm.test .result_bl div.your_res div {
+#prikorm.test .result div.your_res div {
     background: url(../images/pink3_trans.png) 0 0 repeat;
     font: bold 16px/18px tahoma, sans-serif;
     color: #ffffff;
@@ -4059,10 +4059,18 @@ ul.letters li a:hover {
     margin: 15px 0 17px;
 }
 
-#prikorm.test .result_bl span.your_rec {
+#prikorm.test .result span.your_rec {
     display: block;
     font: bold 20px/20px arial, sans-serif;
     color: #212022;
     font-weight: normal;
     padding: 0;
 }
+#prikorm .step .your_res{display: block;}
+#prikorm .step .your_rec{display: block;}
+#prikorm .r-title{display: none;}
+#prikorm .result btn {display: none;}
+
+
+.step .your_res{display: none;}
+.step .your_rec{display: none;}

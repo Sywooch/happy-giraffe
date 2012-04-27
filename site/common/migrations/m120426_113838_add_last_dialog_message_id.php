@@ -28,10 +28,20 @@ class m120426_113838_add_last_dialog_message_id extends CDbMigration
 
         $this->_table = 'im__deleted_messages';
         $columns = Yii::app()->db->createCommand('SHOW COLUMNS FROM ' . $this->_table)->queryColumn();
-        if (count($columns) > 2){
-            foreach($columns as $column)
-                if ($column != 'message_id' && $column != 'user_id')
-                    $this->dropColumn($this->_table,$column);
+        if (count($columns) > 2) {
+            foreach ($columns as $column) {
+                if ($column != 'message_id' && $column != 'user_id') {
+                    if ($column == 'dialog_id') {
+                        $fk = 'SELECT `CONSTRAINT_NAME`
+                        FROM `information_schema`.`REFERENTIAL_CONSTRAINTS`
+                      WHERE `TABLE_NAME` = "im__deleted_messages" AND `REFERENCED_TABLE_NAME` = "im__dialogs" AND CONSTRAINT_SCHEMA = "happy_giraffe"';
+                        $fk = Yii::app()->db->createCommand($fk)->queryScalar();
+                        if (!empty($fk))
+                            $this->dropForeignKey($fk, 'users');
+                    }
+                    $this->dropColumn($this->_table, $column);
+                }
+            }
         }
         $this->execute('ALTER TABLE  `im__deleted_messages` ADD PRIMARY KEY (  `message_id` ,  `user_id` ) ;');
     }

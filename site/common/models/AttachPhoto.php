@@ -79,6 +79,7 @@ class AttachPhoto extends HActiveRecord
                     case 'Comment' : $type = 2; break;
                     case 'Baby' : $type = 3; break;
                     case 'UserPartner' : $type = 3; break;
+                    case 'Product' : $type = 4; break;
                     default : $type = 0;
                 }
                 if($type != 0)

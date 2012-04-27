@@ -136,7 +136,14 @@ class ShopController extends HController {
 		));
 	}
 
-	public function actionPutIn($id, $count=1, $put = false) {
+
+    /**
+     * @param int  $id product primaryKey
+     * @param int  $count product count
+     * @param bool $put kakya to hren'
+     */
+    public function actionPutIn($id, $count=1, $put = false)
+    {
 		$product = $this->loadProduct($id);
 
         $attributes = array();

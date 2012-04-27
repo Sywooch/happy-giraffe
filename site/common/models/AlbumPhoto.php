@@ -135,13 +135,13 @@ class AlbumPhoto extends HActiveRecord
 
     public function afterSave()
     {
-        if ($this->isNewRecord) {
+        if ($this->isNewRecord && isset(Yii::app()->comet)) {
             $signal = new UserSignal();
             $signal->user_id = (int)$this->author_id;
             $signal->item_id = (int)$this->id;
             $signal->item_name = get_class($this);
             $signal->signal_type = UserSignal::TYPE_NEW_USER_PHOTO;
-            $signal->save();
+            //$signal->save();
 
             if (!empty($this->album_id)) {
                 UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);

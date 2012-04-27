@@ -67,66 +67,7 @@ function decL(el)
 
 Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 
-	$cs = Yii::app()->clientScript;
-	$js = "	
-$('button.cancel').live('click', function(e) {
-	e.preventDefault();
-	ProductComment_text_redactor.setHtml('<p>&nbsp;</p>');
-});
-
-$('div.comments ul:first li:gt(2)').hide();
-$('div.comments div.all a').live('click', function (e) {
-	e.preventDefault();
-	var lastShown = $('div.comments ul:first li:visible').length;
-	$('div.comments ul:first li:hidden:lt(10)').show();
-	$('html,body').animate({scrollTop: $('div.comments ul:first li:eq(' + lastShown + ')').offset().top},'slow',function() {
-		$('div.comments ul:first li:first').fadeIn(1000);
-	});
-	if ($('div.comments ul:first li:hidden').length == 0)
-	{
-		$('div.comments div.all').hide();
-	}
-});
-
-$('#add_comment').live('submit', function(e) {
-	e.preventDefault();
-	$.ajax({
-		type: 'POST',
-		data: $(this).serialize(),
-		dataType: 'json',
-		url: " . CJSON::encode(Yii::app()->createUrl('product/sendcomment')) . ",
-		success: function(response) {
-			if (response.status == 'ok')
-			{
-				var lastShown = $('div.comments ul:first li:visible').length - 1;
-				if (lastShown < 2) lastShown = 2;
-				$.ajax({
-					type: 'POST',
-					dataType: 'json',
-					data: {
-						product_id: $('#ProductComment_product_id').val()
-					},
-					url: " . CJSON::encode(Yii::app()->createUrl('product/showcomments')) . ",
-					success: function(response) {
-						$('div.comments div.add').hide();
-						$('div.comment-count').text(response.total);
-						$('#comments_list').html(response.list);
-						$('span.product_rate').html(response.rating);
-						$('div.comments ul:first li:gt(' + lastShown + ')').hide();
-						$('div.comments ul:first li:first').hide();
-						$('html,body').animate({scrollTop: $('.steps-comments').offset().top},'slow',function() {
-							$('div.comments ul:first li:first').fadeIn(1000);
-						});
-					}
-				});
-				ProductComment_text_redactor.setHtml('<p>&nbsp;</p>');
-			}
-		},
-	});
-});
-	";
-	$cs
-	 ->registerScript('product_comment', $js)
+    Yii::app()->clientScript
 	 ->registerCssFile('/stylesheets/cloud-zoom.css')
 	 ->registerScriptFile('/javascripts/cloud-zoom.1.0.2.min.js');
 	
@@ -142,7 +83,7 @@ $('#add_comment').live('submit', function(e) {
 				<div class="description-img">
 					
 					<div class="img-in">
-						<?php echo CHtml::link(CHtml::image($model->product_image->getUrl('product'), $model->product_title), $model->product_image->getUrl('original'), array(
+						<?php echo CHtml::link(CHtml::image(/*$model->product_image->getUrl('product')*/'', $model->product_title), /*$model->product_image->getUrl('original')*/'', array(
 							'class' => 'cloud-zoom',
 							'id' => 'zoom1',
 							'rel' => 'adjustX: 40, adjustY:-4',
@@ -152,23 +93,23 @@ $('#add_comment').live('submit', function(e) {
 					<div class="img-thumbs" class="jcarousel-container">
 						<div id="product-thumbs" class="jcarousel">
 							<?php
-								$imagesDP = $images->search($criteriaImage);
+								/*$imagesDP = $images->search($criteriaImage);*/
 							?>
 							<ul>
 								<li>
-									<?php echo CHtml::link(CHtml::image($model->product_image->getUrl('product_thumb'), $model->product_title), $model->product_image->getUrl('original'), array(
+									<?php echo CHtml::link(CHtml::image(/*$model->product_image->getUrl('product_thumb')*/'', $model->product_title), /*$model->product_image->getUrl('original')*/'', array(
 										'class' => 'cloud-zoom-gallery',
-										'rel' => 'useZoom: "zoom1", smallImage: "' . $model->product_image->getUrl('product') . '"',
+										'rel' => 'useZoom: "zoom1", smallImage: "' . /*$model->product_image->getUrl('product')*/'' . '"',
 									)); ?>
 								</li>
-								<?php foreach ($imagesDP->data as $i): ?>
+								<?php /*foreach ($imagesDP->data as $i): */?><!--
 									<li>
-										<?php echo CHtml::link(CHtml::image($i->image_file->getUrl('product_thumb'), $model->product_title), $i->image_file->getUrl('original'), array(
+										<?php /*echo CHtml::link(CHtml::image($i->image_file->getUrl('product_thumb'), $model->product_title), $i->image_file->getUrl('original'), array(
 											'class' => 'cloud-zoom-gallery',
 											'rel' => 'useZoom: "zoom1", smallImage: "' . $i->image_file->getUrl('product') . '"',
-										)); ?>
+										)); */?>
 									</li>
-								<?php endforeach; ?>
+								--><?php /*endforeach; */?>
 							</ul>
 						</div>
 						<a href="javascript:void(0);" class="jcarousel-prev prev disabled" onclick="$('#product-thumbs').jcarousel('scroll', '-=1');"></a>
@@ -357,51 +298,11 @@ $('#add_comment').live('submit', function(e) {
 				<ul>
 					<li class="active"><a>Отзывы о товаре</a></li>
 				</ul>
-				<div class="comment-count"><?php echo count($comments); ?></div>
 				<div class="avg-rating">
 					Средняя оценка:  <span class="product_rate"><?php $this->renderPartial('rating', array('rating' => $model->product_rate)); ?></span>
 				</div>
 			</div>
-			<div class="comments">
-				<div id="comments_list"><?php $this->renderPartial('list', array('comments' => $comments)); ?></div>						
-				<?php if(! Yii::app()->user->isGuest && ! $model->rated(Yii::app()->user->id)): ?>
-					<div class="add clearfix">
-						<div class="new-comment">
-							<?php $form = $this->beginWidget('CActiveForm', array(
-								'id' => 'add_comment',
-							)); ?>
-								<?php echo $form->hiddenField($comment_model, 'product_id', array('value' => $model->product_id)); ?>
-								<span>Ваша оценка:</span>
-								<div class="rating setRating" onmouseout="setRatingOut(this);">
-									<span onmouseover="setRatingHover(this, 1);" onclick="setRating(this,1);"></span>
-									<span onmouseover="setRatingHover(this, 2);" onclick="setRating(this,2);"></span>
-									<span onmouseover="setRatingHover(this, 3);" onclick="setRating(this,3);"></span>
-									<span onmouseover="setRatingHover(this, 4);" onclick="setRating(this,4);"></span>
-									<span onmouseover="setRatingHover(this, 5);" onclick="setRating(this,5);"></span>
-									<?php echo $form->hiddenField($comment_model, 'rating'); ?>
-								</div>
-								<br/>
-								<?php
-									$this->widget('ext.imperaviRedactor.EImperaviRedactorWidget', array(
-										'model' => $comment_model,
-										'attribute' => 'text',
-										'options' => array(
-											'toolbar' => 'main',
-										),
-										'htmlOptions' => array(
-											'rows' => 5,
-											'value' => '',
-										),
-									));
-								?>
-								<button class="btn btn-gray-medium cancel"><span><span>Отменить</span></span></button>
-								<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
-							<?php $this->endWidget(); ?>
-						</div>
-					</div>
-				<?php endif; ?>
-			</div>
-			
+
 		</div>
 		
 	</div>

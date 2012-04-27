@@ -400,7 +400,7 @@ class User extends HActiveRecord
         return array(
 //			'attribute_set' => array(
 //				'class'=>'attribute.AttributeSetBehavior',
-//				'table'=>'shop_product_attribute_set',
+//				'table'=>'shop__product_attribute_set',
 //				'attribute'=>'product_attribute_set_id',
 //			),
             'getUrl' => array(

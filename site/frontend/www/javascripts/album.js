@@ -357,7 +357,6 @@ Album.registerUploadEvents = function (elem) {
         })
         .unbind('uploadError').bind('uploadError', function (file, errorCode, message) {
             cl(message);
-            cl(errorCode);
         });
 }
 

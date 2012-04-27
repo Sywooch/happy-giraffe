@@ -280,7 +280,7 @@ class Product extends HActiveRecord implements IECartPosition
     {
         return Y::command()
             ->select('COUNT(link_id)')
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id=:link_main_product_id', array(
             ':link_main_product_id' => $this->product_id,
         ))
@@ -343,7 +343,7 @@ class Product extends HActiveRecord implements IECartPosition
         $eav = Y::command()
             ->select('attribute_id, attribute_title, eav_attribute_value, attribute_type')
             ->from('shop__product_eav')
-            ->leftJoin('shop_product_attribute', 'eav_attribute_id=attribute_id')
+            ->leftJoin('shop__product_attribute', 'eav_attribute_id=attribute_id')
             ->where('eav_product_id=:eav_product_id', array(
             ':eav_product_id' => $this->product_id,
         ))
@@ -361,7 +361,7 @@ class Product extends HActiveRecord implements IECartPosition
         if ($value_ids) {
             $enum = Y::command()
                 ->select('value_id, value_value')
-                ->from('shop_product_attribute_value')
+                ->from('shop__product_attribute_value')
                 ->where(array('in', 'value_id', $value_ids))
                 ->queryAll();
 
@@ -396,7 +396,7 @@ class Product extends HActiveRecord implements IECartPosition
         $eav_text = Y::command()
             ->select('attribute_id, attribute_title, eav_attribute_value')
             ->from('shop__product_eav_text')
-            ->leftJoin('shop_product_attribute', 'eav_attribute_id=attribute_id')
+            ->leftJoin('shop__product_attribute', 'eav_attribute_id=attribute_id')
             ->where('eav_product_id=:eav_product_id', array(
             ':eav_product_id' => $this->product_id,
         ))
@@ -419,7 +419,7 @@ class Product extends HActiveRecord implements IECartPosition
 
     public function rated($authorId)
     {
-        return ProductComment::model()->isRated($authorId, $this->product_id);
+
     }
 
     /**
@@ -431,7 +431,7 @@ class Product extends HActiveRecord implements IECartPosition
     public function addSubProduct($productId, $subProductId)
     {
         $command = Yii::app()->db->createCommand();
-        $command->insert('shop_product_link', array(
+        $command->insert('shop__product_link', array(
             'link_main_product_id' => $productId,
             'link_sub_product_id' => $subProductId,
         ));
@@ -447,7 +447,7 @@ class Product extends HActiveRecord implements IECartPosition
     {
         $command = Yii::app()->db->createCommand();
         $command->select()
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id = :link_main_product_id AND link_sub_product_id = :link_sub_product_id', array(
             'link_main_product_id' => (int)$_POST['main_product_id'],
             'link_sub_product_id' => (int)$_POST['product_id'],
@@ -465,7 +465,7 @@ class Product extends HActiveRecord implements IECartPosition
     {
         $command = Yii::app()->db->createCommand();
         $command->select()
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id = :link_main_product_i', array(
             ':link_main_product_id' => $productId,
         ));
@@ -482,7 +482,7 @@ class Product extends HActiveRecord implements IECartPosition
     {
         $command = Yii::app()->db->createCommand();
         $command->select('link_sub_product_id')
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id = :link_main_product_id');
         $command->params = array(
             ':link_main_product_id' => $productId

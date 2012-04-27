@@ -404,7 +404,7 @@ function SetGender(value, sender) {
                         <p>Количество на складе</p>
 
                         <p class="number"><span>0</span> шт.</p>
-                        <a href="#addQuantity" class="greenGradient fancy">Добавить на склад</a>
+                        <?php echo CHtml::link('Добавить на склад', array('/product/putIn', 'id' => $model->primaryKey), array('class' => 'greenGradient fancy')); ?>
                     </div>
                     <div class="right_quantity">
                     </div>

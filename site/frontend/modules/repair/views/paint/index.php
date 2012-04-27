@@ -11,7 +11,7 @@
         <div class="form-in">
             <?php
             $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'wallpapers-calculate-form',
+                'id' => 'paint-calculate-form',
                 'enableAjaxValidation' => true,
                 'enableClientValidation' => false,
                 'action' => $this->createUrl('paint/calculate'),
@@ -22,30 +22,42 @@
                     'validationUrl' => $this->createUrl('paint/calculate'),
                     'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
-                                    Wallpapers.StartCalc();
+                                    Paint.Calculate();
                                 return false;
                               }",
                 )));
             ?>
 
             <div class="row-switcher">
-                <div class="a-right">Посчитать для <a href="" class="pseudo">потолка</a> | <a href="" class="pseudo">пола</a></div>
+                <div class="a-right">Посчитать для
+                    <span data-title="Стены" style="display:none"><a href="" class="pseudo" onclick="Paint.SurfaceSwitch(this, event);">стен</a></span>
+                    <span data-title="Потолок"><a href="" class="pseudo" onclick="Paint.SurfaceSwitch(this, event);">потолка</a></span>
+                    <span data-title="Пол"><a href="" class="pseudo" onclick="Paint.SurfaceSwitch(this, event);">пола</a></span>
+                </div>
                 <big>Стены</big>
             </div>
 
             <div class="row">
                 <div class="row-title"><big>Тип краски</big>
-                    <?php echo $form->dropDownList($model, 'flooringType', $model->paints ) ?>
+                    <?php echo $form->dropDownList($model, 'paintType', $model->paints, array('class'=>'chzn') ) ?>
                 </div>
             </div>
 
             <div class="row">
 
+                <?php
+                $form->error($model, 'roomWidth');
+                $form->error($model, 'roomLength');
+                $form->error($model, 'roomHeight');
+                ?>
+
                 <div class="row-title">Размер помещения <span>(в метрах)</span></div>
                 <div class="row-elements">
-                    <div class="col">Ширина<br/><input type="text" /></div>
-                    <div class="col">Длина<br/><input type="text" /></div>
-                    <div class="col">Высота<br/><input type="text" /></div>
+                    <?php echo $form->hiddenField($model, 'surface', array('value'=>'Стены')) ?>
+                    <div class="col">Ширина<br/><?php echo $form->textField($model, 'roomWidth') ?></div>
+                    <div class="col">Длина<br/><?php echo $form->textField($model, 'roomLength') ?></div>
+                    <div class="col">Высота<br/><?php echo $form->textField($model, 'roomHeight') ?></div>
+                    <?php echo $form->errorSummary($model) ?>
                 </div>
             </div>
 
@@ -85,10 +97,6 @@
                         <?php echo $form->textField($emptyArea, 'height', array('placeholder' => 'Шир.')) ?>
                         <?php echo $form->textField($emptyArea, 'width', array('placeholder' => 'Выс.')) ?>
                         <?php echo $form->textField($emptyArea, 'qty', array('placeholder' => 'Кол-во')) ?>
-                        <!--<input type="text" placeholder="Введите название" style="width:95px;" />
-                        <input type="text" placeholder="Шир." style="width:30px;" />
-                        <input type="text" placeholder="Выс." style="width:30px;" />
-                        <input type="text" placeholder="Кол-во" style="width:40px;" />-->
                         <a class="btn btn-green-small" onclick="$('#empty-area-form').submit(); event.preventDefault();"><span><span>Ok</span></span></a>
                         <?php echo $form->errorSummary($emptyArea) ?>
                     </div>
@@ -101,17 +109,20 @@
             <?php $this->endWidget(); ?>
 
             <div class="row row-btn">
-                <button>Рассчитать</button>
+                <button onclick="$('#paint-calculate-form').submit(); event.preventDefault();">Рассчитать</button>
             </div>
 
         </div>
 
     </div>
 
-    <div class="recommendation clearfix">
+    <div class="recommendation clearfix" style="display:none">
 
         <div class="left">
-            <img src="/images/img_repair_paint_side.png" /><br/><img src="/images/img_repair_paint_up.png" /><br/><img src="/images/img_repair_paint_down.png" /><br/>Краски для стен нужно <span>9 литров</span>
+            <img src="/images/img_repair_paint_side.png" data-title="Стены" />
+            <img src="/images/img_repair_paint_up.png" data-title="Потолок" style="display: none;" />
+            <img src="/images/img_repair_paint_down.png" data-title="Пол" style="display: none;" />
+            <br/><div>Краски для стен нужно</div> <span>9 литров</span>
         </div>
 
         <div class="right">

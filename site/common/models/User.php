@@ -469,7 +469,7 @@ class User extends HActiveRecord
 
     public function getAva($size = 'ava')
     {
-        if(!$this->avatar)
+        if(empty($this->avatar_id))
             return false;
         if($size != 'big')
             return $this->avatar->getAvatarUrl($size);

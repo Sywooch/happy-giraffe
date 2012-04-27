@@ -4069,7 +4069,7 @@ ul.letters li a:hover {
 #prikorm .step .your_res{display: block;}
 #prikorm .step .your_rec{display: block;}
 #prikorm .r-title{display: none;}
-#prikorm .result btn {display: none;}
+#prikorm #result1 .btn, #prikorm #result2 .btn {display: none;}
 
 
 .step .your_res{display: none;}

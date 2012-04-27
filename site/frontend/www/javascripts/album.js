@@ -278,7 +278,7 @@ Album.appendUploadItem = function(id) {
 Album.removeUploadItem = function(link) {
     if($(link).siblings('.file-params').children('span.fid').size() > 0) {
         var id = $(link).siblings('.file-params').children('span.fid').text();
-        cl(id);
+        $.post('/albums/removeUploadPhoto/', {id : id});
     }
     $(link).parent().remove();return false;
 }

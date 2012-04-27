@@ -1,9 +1,11 @@
-User-agent: *
-Disallow: /admin
-Disallow: /contest
-Disallow: /calendar
-Disallow: /shop
+User-agent: Yandex
 Disallow: /search
-Disallow: /my
-Sitemap: http://www.happy-giraffe.ru/sitemap.xml
+Disallow: /user
+Disallow: /albums
 Host: www.happy-giraffe.ru
+
+User-agent: *
+Disallow: /search
+Disallow: /user
+Disallow: /albums
+Sitemap: http://www.happy-giraffe.ru/sitemap.xml

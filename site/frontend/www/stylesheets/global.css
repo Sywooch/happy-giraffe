@@ -4022,6 +4022,7 @@ ul.letters li a:hover {
 #repair-floor .form .form-in .row {padding:10px 15px 5px;background:#fcf8ff;background:rgba(249,244,254,0.75);}
 #repair-floor .form .form-in .row big {font-weight:bold;color:#3e3e3e;font-size:20px;margin-right:5px;margin-left:10px;}
 #repair-floor .form .form-in .row .chzn-container {position:relative;top:-2px;}
+#repair-floor .form .form-in div.row select#FlooringForm_flooringType{ width: 168px}
 #repair-floor .form .form-in .row .row-elements {background:#e9ddf2;padding:5px 10px;font-size:18px;color:#3e3e3e;font-weight:bold;margin-bottom:10px;}
 #repair-floor .form .form-in .row .row-elements .text {display:inline-block;line-height:24px;font-size:20px;width:200px;}
 #repair-floor .form .form-in .row .row-elements .row-line {padding:10px 0 10px;}

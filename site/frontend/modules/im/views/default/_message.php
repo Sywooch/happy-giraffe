@@ -10,7 +10,7 @@ if (!isset($class))
     <table>
         <tr>
             <td class="user">
-                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $user, 'small'=>'true', 'size'=>'small')); ?>
+                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $user, 'small'=>true, 'size'=>'small')); ?>
             </td>
             <td class="content">
                 <div class="name"><?php echo $user->first_name ?></div>

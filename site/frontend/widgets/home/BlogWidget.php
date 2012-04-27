@@ -14,7 +14,7 @@ class BlogWidget extends CWidget
         ), 'post' => array(
             'select' => array('text')
         ),'video','travel');
-        $criteria->select = array('t.id', 't.title', 'rubric_id', 'author_id');
+        $criteria->select = array('t.id', 't.title', 't.type_id', 'rubric_id', 'author_id');
 //        $criteria->condition = ' rubric.user_id IS NOT NULL ';
         $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_BLOGS, 6));
 

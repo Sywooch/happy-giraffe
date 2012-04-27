@@ -4010,7 +4010,8 @@ ul.letters li a:hover {
 #repair-paint .recommendation .right {float:left;width:420px;padding-left:20px;}
 #repair-paint .recommendation .right big {font-size:20px;color:#906ab6;margin-bottom:15px;display:block;}
 
-#repair-paint div.wysiwyg-content{ margin-top: 30px}
+#repair-paint .wysiwyg-content{ margin-top: 30px}
+
 #repair-floor {}
 #repair-floor .form {border:1px solid #fbefff;background:url(/images/bg_repair_floor.jpg) no-repeat right bottom;min-height:610px;padding:22px;}
 #repair-floor .form .title {}
@@ -4031,9 +4032,11 @@ ul.letters li a:hover {
 #repair-floor .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
 
 
-#repair-floor .recommendation {padding:30px 20px;background:#fcf8ff;font-size:13px;line-height:19px;margin-bottom:30px;}
+#repair-floor .recommendation {padding:30px 20px;background:#fcf8ff;font-size:13px;line-height:19px;}
 #repair-floor .recommendation .left {float:left;width:220px;text-align:center;font-size:14px;line-height:1;padding-top:1.5em;}
 #repair-floor .recommendation .left img {margin-bottom:10px;}
 #repair-floor .recommendation .left span {font-size:25px;display:block;color:#8761ab;font-weight:bold;}
 #repair-floor .recommendation .right {float:left;width:420px;padding-left:20px;}
 #repair-floor .recommendation .right big {font-size:20px;color:#906ab6;margin-bottom:15px;display:block;}
+
+#repair-floor .wysiwyg-content{ margin-top: 30px}

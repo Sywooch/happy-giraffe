@@ -151,64 +151,98 @@
     }
 </script>
 
-<div style="height: 520px;">
+<div id="<?php echo $test->css_class ?>">
 
-<div class="<?php echo $test->css_class ?>" id="step0">
-    <img src="/images/test/<?php echo $test->id . '/' . $test->start_image ?>" alt=""/>
-    <a href="#" class="test_begin">Пройти тест</a>
+<div class="step" id="step0">
+    
+	<img src="/images/test/<?php echo $test->id . '/' . $test->start_image ?>" alt=""/>
+    
+	<div class="step-in">
+	
+		<div class="btn"><button>ПРОЙТИ ТЕСТ</button></div>
+		
+	</div>
+	
 </div>
 
 <?php
 $i = 1;
 foreach ($test->testQuestions as $question): ?>
 
-<div class="<?php echo $test->css_class ?>" id="step<?php echo $i; $i++ ?>" style="display: none;">
-    <img src="/images/test/<?php echo $test->id . '/' . $question->image ?>" alt="" title=""/>
+<div class="step" id="step<?php echo $i; $i++ ?>" style="display: none;">
+    
+	<img src="/images/test/<?php echo $test->id . '/' . $question->image ?>" alt="" title=""/>
 
-    <div class="inner_bl">
-        <form action="">
-            <span class="question_title"><?php echo $question->title ?></span>
-            <ul>
-                <?php if ($test->yes_no):?>
-                    <a href="#" class="yes_button">Да</a>
-                    <a href="#" class="no_button">Нет</a>
-                <?php else: ?>
-
-                <?php foreach ($question->testQuestionAnswers as $answer): ?>
-                    <li>
-                        <input type="radio" name="v" rel="<?php echo $answer->number ?>" id="value<?php echo $i . $answer->number ?>" class="RadioClass" data-last="<?=$answer->islast?>"/>
-                        <label for="value<?php echo $i . $answer->number ?>" class="RadioLabelClass"><?php
-                            echo $answer->text ?></label>
-                    </li>
-                    <?php endforeach; ?>
-
-                <?php endif ?>
-            </ul>
-        </form>
+    <div class="step-in">
+		<div class="question">
+			<form action="">
+				<div class="q-title"><?php echo $question->title ?></div>
+				
+				<?php if ($test->yes_no):?>
+					<a href="#" class="yes_button">Да</a>
+					<a href="#" class="no_button">Нет</a>
+				<?php else: ?>
+				<ul class="q-options">
+				<?php foreach ($question->testQuestionAnswers as $answer): ?>
+					<li>
+						
+						<label for="value<?php echo $i . $answer->number ?>"><input type="radio" name="v" rel="<?php echo $answer->number ?>" id="value<?php echo $i . $answer->number ?>" data-last="<?=$answer->islast?>" /> <span><?php
+							echo $answer->text ?></span></label>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+				<?php endif ?>
+			
+			</form>
+		</div>
     </div>
 </div>
 <?php endforeach; ?>
 
-<div class="<?php echo $test->css_class ?>" id="unknown_result" style="display: none;">
+<div class="step" id="unknown_result" style="display: none;">
     <img src="/images/test/<?php echo $test->id ?>/<?php
         echo empty($test->unknown_result_image)?$test->result_image:$test->unknown_result_image ?>" alt="" title="" />
-    <div class="result_bl">
-
-        <div class="your_res"><?php echo $test->result_title ?>:<ins> <?php echo 'Неизвестен' ?></ins></div>
+    <div class="step-in">
+       
+		<div class="result">
+								
+			<div class="r-title">Результат</div>
+			
+			<div class="r-text">
+				
+				<?php echo $test->unknown_result_text ?>
+				
+			</div>
+		
+		</div>
+		
+		<div class="your_res"><?php echo $test->result_title ?>:<ins> <?php echo 'Неизвестен' ?></ins></div>
         <span class="your_rec">Рекомендации</span>
-        <?php echo $test->unknown_result_text ?>
+        
     </div>
 </div>
 
 <?php foreach ($test->testResults as $result): ?>
-<div class="<?php echo $test->css_class ?>" id="result<?php echo $result->number ?>" style="display: none;">
+<div class="step" id="result<?php echo $result->number ?>" style="display: none;">
     <img src="/images/test/<?php echo $test->id ?>/<?php
         echo empty($result->image)?$test->result_image:$result->image ?>" alt="" title="" />
-    <div class="result_bl">
+    <div class="step-in">
 
-        <div class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->title ?></ins></div>
+        <div class="result">
+								
+			<div class="r-title">Результат</div>
+			
+			<div class="r-text">
+				
+				<?php echo $result->text ?>
+				
+			</div>
+		
+		</div>
+		
+		<div class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->title ?></ins></div>
         <span class="your_rec">Рекомендации</span>
-        <?php echo $result->text ?>
+        
         
     </div>
 </div>

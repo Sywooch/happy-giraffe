@@ -151,7 +151,7 @@
     }
 </script>
 
-<div id="<?php echo $test->css_class ?>">
+<div class="test" id="<?php echo $test->css_class ?>">
 
 <div class="step" id="step0">
     
@@ -159,7 +159,7 @@
     
 	<div class="step-in">
 	
-		<div class="btn"><button>ПРОЙТИ ТЕСТ</button></div>
+		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
 		
 	</div>
 	

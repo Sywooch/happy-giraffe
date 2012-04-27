@@ -60,7 +60,6 @@ return array(
         'гороскоп/'=>'horoscope/default/index',
         'гороскоп/на-год/<zodiac:[\w]+>'=>'horoscope/default/year',
         'гороскоп/на-месяц/<zodiac:[\w]+>'=>'horoscope/default/month',
-        'гороскоп/на-неделю/<zodiac:[\w]+>'=>'horoscope/default/week',
         'гороскоп/<zodiac:[\w]+>/<date:[\w-]+>'=>'horoscope/default/view',
         'гороскоп/на-сегодня/<zodiac:[\w]+>'=>'horoscope/default/view',
 

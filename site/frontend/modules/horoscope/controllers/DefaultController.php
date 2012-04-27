@@ -8,9 +8,6 @@ class DefaultController extends HController
     public function actionIndex()
     {
         $models = Horoscope::model()->findAllByAttributes(array('date' => date("Y-m-d")));
-        if (empty($models))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп');
 
         $this->pageTitle = 'Гороскоп на сегодня, ' . Yii::app()->dateFormatter->format('d MMMM', strtotime(date("Y-m-d")));
@@ -32,20 +29,6 @@ class DefaultController extends HController
         $this->pageTitle = $this->title;
 
         $this->render('date', compact('model'));
-    }
-
-    public function actionWeek($zodiac)
-    {
-        $zodiac = Horoscope::model()->getZodiacId($zodiac);
-        $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => date('Y'), 'week' => date('W')));
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на неделю';
-        $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
-        $this->pageTitle = $this->title;
-
-        $this->render('week', compact('model'));
     }
 
     public function actionMonth($zodiac)

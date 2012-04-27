@@ -270,10 +270,18 @@ Album.appendUploadItem = function(id) {
                 '<div class="progress"><div class="in"></div></div>' +
                 '<div class="progress-value"></div>' +
                 '<div class="file-params" style="display:none;"></div>' +
-                '<a class="remove" href="" onclick="$(this).parent().remove();return false;"></a>' +
+                '<a class="remove" href="" onclick="return Album.removeUploadItem(this);"></a>' +
                 '</li>';
     $('#log').append(listitem);
 };
+
+Album.removeUploadItem = function(link) {
+    if($(link).siblings('.file-params').children('span.fid').size() > 0) {
+        var id = $(link).siblings('.file-params').children('span.fid').text();
+        $.post('/albums/removeUploadPhoto/', {id : id});
+    }
+    $(link).parent().remove();return false;
+}
 
 Album.appendUploadErrorItem = function(id, name, error) {
     var listitem = '<li class="clearfix upload-error" id="' + id + '" >' +
@@ -357,7 +365,6 @@ Album.registerUploadEvents = function (elem) {
         })
         .unbind('uploadError').bind('uploadError', function (file, errorCode, message) {
             cl(message);
-            cl(errorCode);
         });
 }
 

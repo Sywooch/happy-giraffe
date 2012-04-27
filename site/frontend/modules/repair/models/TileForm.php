@@ -50,8 +50,9 @@ class TileForm extends CFormModel
     public function calculate()
     {
         $tiles = ceil($this->wallLength / $this->tileLength) * ceil($this->roomHeight / $this->tileWidth);
-        $tiles -= floor($this->bathHeight/ $this->tileLength) * floor($this->bathLength / $this->tileWidth);
-        $tiles -= floor($this->doorHeight/ $this->tileLength) * floor($this->doorWidth / $this->tileWidth);
-        return $tiles;
+        $tiles -= floor($this->bathHeight / $this->tileLength) * floor($this->bathLength / $this->tileWidth);
+        $tiles -= floor($this->doorHeight / $this->tileLength) * floor($this->doorWidth / $this->tileWidth);
+
+        return array('qty' => $tiles, 'noun' => HDate::GenerateNoun(array('штука', 'штуки', 'штук'), $tiles));
     }
 }

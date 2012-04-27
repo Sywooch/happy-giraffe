@@ -3899,7 +3899,7 @@ ul.letters li a:hover {
 .test {border:1px solid #fff;}
 .test .step {position:relative;}
 .test .step > img {position:relative;z-index:1;}
-.test .step-in {position:absolute;z-index:2;top:0;left:0;}
+.test .step-in {position:absolute;z-index:2;}
 
 
 .test .step .question .q-options {list-style:none;}

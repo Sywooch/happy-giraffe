@@ -37,7 +37,7 @@ class m120426_113838_add_last_dialog_message_id extends CDbMigration
                       WHERE `TABLE_NAME` = "im__deleted_messages" AND `REFERENCED_TABLE_NAME` = "im__dialogs" AND CONSTRAINT_SCHEMA = "happy_giraffe"';
                         $fk = Yii::app()->db->createCommand($fk)->queryScalar();
                         if (!empty($fk))
-                            $this->dropForeignKey($fk, 'users');
+                            $this->dropForeignKey($fk, 'im__deleted_messages');
                     }
                     $this->dropColumn($this->_table, $column);
                 }

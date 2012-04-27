@@ -220,7 +220,7 @@ class CategoryAttributesMap extends HActiveRecord
 	{
 		$sql = "
 			INSERT IGNORE INTO shop_category_attributes_map (map_category_id, map_attribute_id)
-				SELECT $id, map_attribute_id FROM shop_product_attribute_set_map
+				SELECT $id, map_attribute_id FROM shop__product_attribute_set_map
 					WHERE map_set_id=:map_set_id";
 		Y::command($sql)->execute(array(
 			':map_set_id' => $setId,

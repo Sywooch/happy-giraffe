@@ -90,17 +90,13 @@ class ProductController extends HController
 		$subProducts = new Product('search');
 		$subProducts->unsetAttributes();
 		
-		$comment_model = ProductComment::model();
-		$comments = $comment_model->get($id);
-		
+
 		$this->render('view',array(
 			'model' => $model,
 			'criteriaImage' => $criteriaImage,
 			'images' => $images,
 			'criteriaSubProduct' => $criteriaSubProduct,
             'subProducts' => $subProducts,
-			'comment_model' => $comment_model,
-			'comments' => $comments,
 		));
 	}
 

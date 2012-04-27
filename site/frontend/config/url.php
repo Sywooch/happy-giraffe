@@ -19,6 +19,7 @@ return array(
 		'contest/work/<id:\d+>' => 'contest/default/work',
 		'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
 
+        'morning/' => 'morning/index',
         'morning/<id:\d+>' => 'morning/view',
         'morning/saveLocation' => 'morning/saveLocation',
         'morning/index/<date:[\w-]+>' => 'morning/index',
@@ -59,7 +60,6 @@ return array(
         'гороскоп/'=>'horoscope/default/index',
         'гороскоп/на-год/<zodiac:[\w]+>'=>'horoscope/default/year',
         'гороскоп/на-месяц/<zodiac:[\w]+>'=>'horoscope/default/month',
-        'гороскоп/на-неделю/<zodiac:[\w]+>'=>'horoscope/default/week',
         'гороскоп/<zodiac:[\w]+>/<date:[\w-]+>'=>'horoscope/default/view',
         'гороскоп/на-сегодня/<zodiac:[\w]+>'=>'horoscope/default/view',
 

@@ -4,9 +4,7 @@
 
         <div class="title">
             <h1>Расчет количества обоев</h1>
-
-            <p>Онлайн калькулятор для расчета количества обоев. Предварительный расчет обоев для комнаты позволит Вам
-                сэкономить при их покупке. </p>
+            <p>Онлайн калькулятор для расчета количества обоев. Предварительный расчет  обоев для комнаты позволит Вам сэкономить  при  их покупке. </p>
         </div>
 
         <div class="form-in">
@@ -40,7 +38,7 @@
             ?>
 
             <div class="row">
-                <div class="row-title">Помещение <span>(в метрах)</span></div>
+                <div class="row-title">Размер помещения <span>(в метрах)</span></div>
                 <div class="row-elements">
                     <div class="col">Ширина <?php echo $form->textField($model, 'room_width') ?></div>
                     <div class="col">Длина <?php echo $form->textField($model, 'room_length') ?></div>
@@ -49,15 +47,13 @@
             </div>
 
             <div class="row">
-                <div class="row-title">Обои <span>(в метрах)</span></div>
+                <div class="row-title">Размер обоев <span>(в метрах)</span></div>
                 <div class="row-elements">
                     <div class="col">Ширина <?php echo $form->textField($model, 'wp_width') ?></div>
                     <div class="col">Длина <?php echo $form->textField($model, 'wp_length') ?></div>
                     <div class="col">Раппорт <?php echo $form->textField($model, 'repeat') ?></div>
-                    <div class="col">
-                        <small>(раппорт - шаг рисунка<br/>на обоях)</small>
-                    </div>
                 </div>
+                <div class="small">Раппорт обоев - шаг  между отдельными элементами рисунка</div>
             </div>
 
             <?php $this->endWidget(); ?>
@@ -66,7 +62,7 @@
             <div class="row except">
                 <div class="in">
                     <div class="cut"></div>
-                    <big>Вычтем участки, которые не нужно обклеивать <span>(Например дверь, окно и другие)</span></big>
+                    <big>Участки, которые не нужно обклеивать</big>
                     <a href="#" class="pseudo" onclick="$('#empty-area-form').toggle(); $('#empty-area-form')[0].reset(); event.preventDefault();">Указать участок</a>
 
                     <?php
@@ -102,7 +98,7 @@
                         <?php echo $form->textField($emptyArea, 'width', array('placeholder' => 'Выс.')) ?>
                         <?php echo $form->textField($emptyArea, 'qty', array('placeholder' => 'Кол-во')) ?>
 
-                        <a href="#" class="btn btn-green-small" onclick="$('#empty-area-form').submit(); return false;">
+                        <a href="#" class="btn btn-green-small" onclick="$('#empty-area-form').submit(); event.preventDefault();">
                             <span><span>Ok</span></span>
                         </a>
                         <?php echo $form->errorSummary($emptyArea) ?>

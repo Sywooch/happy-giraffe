@@ -116,7 +116,7 @@ input.w-500, textarea.w-500 {width:476px;}
 
 a.info {display:inline-block;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
 
-.tip {font-size:11px;line-height:normal;bottom:100%;left:100%;display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;top:auto !important;margin:0 0 2px 0;}
+.tip {display:block;position:absolute;bottom:100%;left:100%;white-space:nowrap;background:#fffac8;color:#929292;padding:4px 10px;border:1px solid #f3eca9;display:none;font-size:12px;z-index:3;}
 .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}
 *:hover > .tip {display:block;}
 
@@ -148,7 +148,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-info {font-size:9px;line-height:12px;float:left;}
 .user-info .ava {float:left;}
 .user-info .details {margin-left:80px;text-align:left !important;padding:0 !important;}
-.user-info .details .username {font-size:11px;line-height:1.2;text-decoration:none;vertical-align:top;width:80px;margin:0;padding:0;overflow:hidden;display:inline-block;}
+.user-info .details .username {font-size:13px;line-height:1.2;text-decoration:none;vertical-align:top;width:80px;margin:0;padding:0;overflow:hidden;display:inline-block;}
 .user-info .details .username:hover {text-decoration:underline;}
 .user-info .details .location {margin:3px 0;}
 .user-info .details .location .flag {display:inline-block;margin-right:5px;position:relative;top:1px;}
@@ -163,7 +163,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-fast-buttons .pending-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -310px -271px;}
 .user-fast-buttons .new-message {width:22px;height:17px;background:url(/images/common.png) no-repeat -234px -298px;margin-top:1px;}
 
-.icon-status {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;position:relative;top:1px;margin-right:5px;}
+.icon-status {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;position:relative;top:2px;margin-right:2px;}
 .icon-status.status-online {background-position:-44px -180px;}
 .icon-status.status-offline {background-position:-55px -180px;}
 
@@ -313,6 +313,9 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .btn.btn-orange-small > span {padding-right:5px;height:23px;background-position:100% -2023px;color:#fff;font-size:11px;font-family:tahoma,arial, sans-serif;font-weight:bold;}
 .btn.btn-orange-small > span > span {padding-left:5px;height:23px;line-height:23px;background-position:0 -2000px;padding:0 5px 0 10px;}
 .btn.btn-orange-small.btn-arrow-right img {margin-left:5px;position:relative;top:2px;}
+
+.btn.btn-orange-smallest > span {padding-right:5px;height:17px;background-position:100% -2067px;color:#fff;font-size:11px;font-family:tahoma,arial, sans-serif;font-weight:bold;}
+.btn.btn-orange-smallest > span > span {padding-left:5px;height:17px;line-height:17px;background-position:0 -2050px;padding:0 5px 0 10px;}
 
 .btn.btn-red-transparent > span {padding-right:20px;height:50px;background-position:100% -2450px;color:#fff;font-size:30px;font-family:arial, sans-serif;}
 .btn.btn-red-transparent > span > span {padding-left:20px;height:50px;line-height:50px;background-position:0 -2400px;}
@@ -976,7 +979,7 @@ a:hover {text-decoration:none;}
 #dialogs .header ul li a {display:block;float:left;text-decoration:none;font-size:12px;height:14px;line-height:14px;padding:3px 10px;}
 #dialogs .header ul li a span {float:left;border-bottom:1px dashed #0498b8;display:block;}
 #dialogs .header ul li a:hover span {border:0;}
-#dialogs .header ul li a .count {background:#75bb6e;color:#fff;float:left;padding:0px 6px;height:13px;line-height:13px;font-size:10px;font-weight:bold;margin-left:5px;position:relative;top:-3px;}
+#dialogs .header ul li a .count {background:#75bb6e;color:#fff;float:left;padding:0px 6px;height:13px;line-height:13px;font-size:10px;font-weight:bold;margin-left:5px;position:relative;}
 #dialogs .header ul li a .count {/*css3*/ -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}
 #dialogs .header ul li.active a {background:#fef4c5;}
 #dialogs .header ul li.active a span {border:0;}

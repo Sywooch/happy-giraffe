@@ -3,9 +3,9 @@ var Flooring = {
         var t = parseInt($('input[name="t"]').val());
         var val = parseInt(select.val());
         if (val > t)
-            $('#FlooringForm_flooringLength').parent().parent().hide();
+            $('#FlooringForm_flooringLength').parent().fadeOut(200);
         else
-            $('#FlooringForm_flooringLength').parent().parent().show();
+            $('#FlooringForm_flooringLength').parent().fadeIn(200);
 
         return false;
     },
@@ -14,10 +14,11 @@ var Flooring = {
             url:$("#flooring-calculate-form").attr("action"),
             data:$("#flooring-calculate-form").serialize(),
             type:"POST",
+            dataType:'json',
             success:function (data) {
-                $("#result").fadeOut(100, function () {
-                    $("#result").html(data);
-                    $("#result").fadeIn(100);
+                $("#repair-floor div.recommendation").fadeOut(100, function () {
+                    $("#repair-floor div.recommendation div.left span").html(data.qty + ' ' + data.noun);
+                    $("#repair-floor div.recommendation").fadeIn(100);
                 });
             }
         });

@@ -26,7 +26,7 @@ class AttributeValueMap extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'shop_product_attribute_value_map';
+		return 'shop__product_attribute_value_map';
 	}
 
 	/**

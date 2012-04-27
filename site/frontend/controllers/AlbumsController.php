@@ -381,6 +381,16 @@ class AlbumsController extends HController
         $model->updateByPk($id, array('permission' => $num));
     }
 
+    public function actionRemoveUploadPhoto()
+    {
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
+        $model = AlbumPhoto::model()->findByPk(Yii::app()->request->getPost('id'));
+        if($model->author_id != Yii::app()->user->id)
+            Yii::app()->end();
+        $model->delete();
+    }
+
     public static function loadUploadScritps()
     {
         $flashUrl = Yii::app()->baseUrl . '/javascripts/flash_upload/';

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "shop_product_attribute_measure_option".
+ * This is the model class for table "shop__product_attribute_measure_option".
  *
- * The followings are the available columns in table 'shop_product_attribute_measure_option':
+ * The followings are the available columns in table 'shop__product_attribute_measure_option':
  * @property integer $id
  * @property integer $measure_id
  * @property string $title
@@ -27,7 +27,7 @@ class AttributeMeasureOption extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'shop_product_attribute_measure_option';
+		return 'shop__product_attribute_measure_option';
 	}
 
 	/**

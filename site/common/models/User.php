@@ -455,7 +455,7 @@ class User extends HActiveRecord
      */
     public static function getUserById($id)
     {
-        $user = User::model()->cache(60)->findByPk($id);
+        $user = User::model()->findByPk($id);
         return $user;
     }
 

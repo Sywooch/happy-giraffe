@@ -455,7 +455,7 @@ class User extends HActiveRecord
      */
     public static function getUserById($id)
     {
-        $user = User::model()->cache(3600 * 24)->findByPk($id);
+        $user = User::model()->findByPk($id);
         return $user;
     }
 
@@ -469,7 +469,7 @@ class User extends HActiveRecord
 
     public function getAva($size = 'ava')
     {
-        if(!$this->avatar)
+        if(empty($this->avatar_id))
             return false;
         if($size != 'big')
             return $this->avatar->getAvatarUrl($size);

@@ -1,13 +1,13 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
-    <?php $this->widget('zii.widgets.CBreadcrumbs', array(
+    <?php /*$this->widget('zii.widgets.CBreadcrumbs', array(
         'links' => $this->breadcrumbs,
         'separator' => ' &gt; ',
         'htmlOptions' => array(
             'id' => 'crumbs',
             'class' => null,
         ),
-    )); ?>
+    ));*/ ?>
 
     <div class="main">
         <div class="main-in">
@@ -27,7 +27,7 @@
 
         <div class="horoscope-subscribe">
             <img src="/images/horoscope_subscribe_banner.jpg">
-            <p>Этот день открывает массу возможностей,  пользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким.</p>
+            <p>Хочешь советоваться со звёздами ежедневно?</p>
             <a href="" class="btn-want">Хочу!</a>
         </div>
 

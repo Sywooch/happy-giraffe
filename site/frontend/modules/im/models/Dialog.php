@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'im__dialogs':
  * @property string $id
  * @property string $title
+ * @property int $last_message_id
  *
  * The followings are the available model relations:
  * @property DialogDeleted[] $lastDeleted
@@ -61,7 +62,7 @@ class Dialog extends HActiveRecord
 			'lastDeleted' => array(self::HAS_ONE, 'DialogDeleted', 'dialog_id'),
 			'dialogUsers' => array(self::HAS_MANY, 'DialogUser', 'dialog_id'),
 			'messages' => array(self::HAS_MANY, 'Message', 'dialog_id'),
-            'lastMessage' => array(self::HAS_ONE, 'Message', 'dialog_id', 'order' => 'lastMessage.id DESC'),
+            'lastMessage' => array(self::BELONGS_TO, 'Message', 'last_message_id'),
             'deletedMessages' => array(self::HAS_MANY, 'DeletedMessage', 'dialog_id'),
         );
 	}
@@ -104,7 +105,7 @@ class Dialog extends HActiveRecord
     public static function SetRead($dialog_id, $last_message_id = null)
     {
         $has_unread = Message::model()->find(array(
-            'condition' => 'dialog_id=' . $dialog_id . ' AND user_id != ' . Yii::app()->user->getId()
+            'condition' => 'dialog_id=' . $dialog_id . ' AND user_id != ' . Yii::app()->user->id
                 . ' AND read_status = 0',
         ));
         if ($has_unread === null)
@@ -112,7 +113,7 @@ class Dialog extends HActiveRecord
 
         if ($last_message_id === null) {
             $last_message = Message::model()->find(array(
-                'condition' => 'dialog_id=' . $dialog_id . ' AND user_id != ' . Yii::app()->user->getId(),
+                'condition' => 'dialog_id=' . $dialog_id . ' AND user_id != ' . Yii::app()->user->id,
                 'order' => 'id DESC',
             ));
             if (empty($last_message))
@@ -121,7 +122,7 @@ class Dialog extends HActiveRecord
         } else
             $last_message = Message::model()->findByPk($last_message_id);
 
-        $user_id = Yii::app()->user->getId();
+        $user_id = Yii::app()->user->id;
         Message::model()->updateAll(array('read_status' => '1'), 'dialog_id=' . $dialog_id
             . ' AND read_status=0 AND user_id != ' . $user_id . ' AND id <= ' . $last_message_id);
 
@@ -152,7 +153,7 @@ class Dialog extends HActiveRecord
      */
     public static function GetUserOnlineDialogs()
     {
-        $dialogs = self::GetUserDialogsWithoutStatus(Yii::app()->user->id);
+        $dialogs = self::GetUserDialogs();
         $online = array();
         foreach ($dialogs as $dialog) {
             if ($dialog->GetInterlocutor()->online)
@@ -167,17 +168,9 @@ class Dialog extends HActiveRecord
      */
     public static function GetUserDialogs()
     {
-        return self::CheckReadStatus(self::GetUserDialogsWithoutStatus(Yii::app()->user->id));
-    }
-
-    public static function GetUserDialogsCount($user_id)
-    {
-        return count(self::GetUserDialogsWithoutStatus($user_id));
-    }
-
-    public static function GetUserDialogsWithoutStatus($user_id)
-    {
-        $dialogs = Im::model($user_id)->getDialogIds();
+        $dialogs = Yii::app()->db->createCommand(
+            'SELECT distinct(dialog_id) FROM ' . DialogUser::model()->tableName() . ' WHERE user_id=' . Yii::app()->user->id . ''
+        )->queryColumn();
 
         if (empty($dialogs))
             return array();
@@ -185,16 +178,16 @@ class Dialog extends HActiveRecord
         //load last messages
         $criteria = new CDbCriteria;
         $criteria->compare('t.id', $dialogs);
-        $criteria->order = 'lastMessage.created desc';
+        $criteria->order = 'lastMessage.id desc';
         $dialogs = Dialog::model()->with(array(
-            'lastMessage', 'lastDeleted'
+            'lastMessage', 'lastDeleted', 'dialogUsers'
         ))->findAll($criteria);
 
         //remove empty dialogs
         $notEmptyDialogs = array();
         foreach ($dialogs as $dialog) {
-            if (isset($dialog->lastMessage)) {
-                if (isset($dialog->lastDeleted)) {
+            if (!empty($dialog->lastMessage)) {
+                if (!empty($dialog->lastDeleted)) {
                     if ($dialog->lastDeleted->message_id < $dialog->lastMessage->id)
                         $notEmptyDialogs [] = $dialog;
                 }
@@ -203,7 +196,7 @@ class Dialog extends HActiveRecord
             }
         }
 
-        return $notEmptyDialogs;
+        return self::CheckReadStatus($notEmptyDialogs);
     }
 
     /**
@@ -219,7 +212,8 @@ class Dialog extends HActiveRecord
         foreach ($dialogs as $dialog) {
             if (in_array($dialog->id, $unreadByPal)) {
                 $dialog->unreadByPal = 1;
-            } elseif (in_array($dialog->id, $unread)) {
+            }
+            if (in_array($dialog->id, $unread)) {
                 $dialog->unreadByMe = 1;
             }
         }
@@ -233,8 +227,8 @@ class Dialog extends HActiveRecord
             ->select('t.dialog_id')
             ->from(DialogUser::model()->tableName() . ' t')
             ->join(Message::model()->tableName() . ' t2', 't2.dialog_id = t.dialog_id')
-            ->where('t2.read_status = 0 AND t.user_id = ' . Yii::app()->user->getId()
-            . ' AND t2.user_id != ' . Yii::app()->user->getId())
+            ->where('t2.read_status = 0 AND t.user_id = ' . Yii::app()->user->id
+            . ' AND t2.user_id != ' . Yii::app()->user->id)
             ->queryColumn();
     }
 
@@ -244,8 +238,8 @@ class Dialog extends HActiveRecord
             ->select('t.dialog_id')
             ->from(DialogUser::model()->tableName() . ' t')
             ->join(Message::model()->tableName() . ' t2', 't2.dialog_id = t.dialog_id')
-            ->where('t2.read_status = 0 AND t.user_id = ' . Yii::app()->user->getId()
-            . ' AND t2.user_id = ' . Yii::app()->user->getId())
+            ->where('t2.read_status = 0 AND t.user_id = ' . Yii::app()->user->id
+            . ' AND t2.user_id = ' . Yii::app()->user->id)
             ->queryColumn();
     }
 
@@ -255,8 +249,8 @@ class Dialog extends HActiveRecord
     public function GetInterlocutor()
     {
         foreach ($this->dialogUsers as $DialogUser) {
-            if ($DialogUser->user_id !== Yii::app()->user->getId())
-                return $DialogUser->user;
+            if ($DialogUser->user_id !== Yii::app()->user->id)
+                return User::getUserById($DialogUser->user_id);
         }
 
         return null;
@@ -270,17 +264,17 @@ class Dialog extends HActiveRecord
             'user_id' => Yii::app()->user->id,
         ));
 
-        if (isset($this->lastMessage)) {
+        if ($this->lastMessage !== null) {
             $last_message = $this->lastMessage->id;
 
             Yii::app()->db->createCommand()
-                ->insert('im__dialog_deleted', array(
+                ->insert(DialogDeleted::model()->tableName(), array(
                 'dialog_id' => $this->id,
                 'message_id' => $last_message,
                 'user_id' => Yii::app()->user->id,
             ));
             Yii::app()->db->createCommand()
-                ->update('im__messages', array(
+                ->update(Message::model()->tableName(), array(
                     'read_status' => 1
                 ),
                 'dialog_id =:dialog_id AND user_id != :user_id AND read_status=0', array(
@@ -288,6 +282,13 @@ class Dialog extends HActiveRecord
                     ':user_id' => Yii::app()->user->id,
                 )
             );
+
+            //remove deleted messages
+            $deleted_messages = DeletedMessage::model()->with('message')->findAllByAttributes(array('user_id'=>Yii::app()->user->id));
+            foreach($deleted_messages as $deleted_message){
+                if ($deleted_message->message->dialog_id == $this->id)
+                    $deleted_message->delete();
+            }
         }
         ActiveDialogs::model()->deleteDialog($this->id);
         return true;
@@ -307,5 +308,4 @@ class Dialog extends HActiveRecord
         ))
             ->queryScalar();
     }
-
 }

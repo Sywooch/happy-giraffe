@@ -24,34 +24,25 @@
     <div class="row">
         <label for="zodiac-type">Тип прогноза</label>
         <select id="zodiac-type" name="Horoscope[type]">
-            <option value="1">на конкретную дату</option>
-            <option value="2">на неделю</option>
-            <option value="3">на месяц</option>
-            <option value="4">на год</option>
+            <option value="1"<?php if (!empty($model->date)) echo ' selected="selected"'?>>на конкретную дату</option>
+            <option value="2"<?php if ($model->onMonth()) echo ' selected="selected"'?>>на месяц</option>
+            <option value="3"<?php if ($model->onYear()) echo ' selected="selected"'?>>на год</option>
         </select>
     </div>
 
-    <div class="row year" style="display: none;">
+    <div class="row year" <?php if (empty($model->year)) echo 'style="display: none;"'?>>
         <?php echo $form->labelEx($model,'year'); ?>
         <?php echo $form->dropDownList($model,'year', HDate::Range(date('Y'), date('Y') +1)); ?>
         <?php echo $form->error($model,'year'); ?>
     </div>
 
-    <div class="row month" style="display: none;">
+    <div class="row month" <?php if (empty($model->month)) echo 'style="display: none;"'?>>
         <?php echo $form->labelEx($model,'month'); ?>
         <?php echo $form->dropDownList($model,'month', HDate::ruMonths()); ?>
         <?php echo $form->error($model,'month'); ?>
     </div>
 
-    <div class="row week" style="display: none;">
-        <?php echo $form->labelEx($model,'week'); ?>
-        <?php echo $form->dropDownList($model,'week', HDate::Range(1, 52)); ?>
-        <?php echo $form->error($model,'week'); ?>
-        <div>Текущая неделя - <?=date('W') ?></div>
-        <br>
-    </div>
-
-	<div class="row date">
+	<div class="row date" <?php if (empty($model->date)) echo 'style="display: none;"'?>>
 		<?php echo $form->labelEx($model,'date'); ?>
         <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
         'model'=>$model,
@@ -91,14 +82,10 @@
         if ($(this).val() == '1')
             $('.date').show();
         if ($(this).val() == '2'){
-            $('.week').show();
-            $('.year').show();
-        }
-        if ($(this).val() == '3'){
             $('.month').show();
             $('.year').show();
         }
-        if ($(this).val() == '4')
+        if ($(this).val() == '3')
             $('.year').show();
     });
 </script>

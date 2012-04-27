@@ -14,8 +14,6 @@ class FlooringForm extends CFormModel
     public function rules()
     {
         return array(
-            //array('flooringLength', 'required', 'message' => 'Укажите длину покрытия'),
-
             array('flooringType', 'required', 'message' => 'Укажите тип покрытия'),
             array('flooringLength', 'validateFloorLength'),
             array('flooringWidth', 'required', 'message' => 'Укажите ширину покрытия'),
@@ -48,7 +46,6 @@ class FlooringForm extends CFormModel
                 }
             }
         }
-
     }
 
     public function normalizeLength($attribute, $params)
@@ -60,11 +57,11 @@ class FlooringForm extends CFormModel
     public function calculate()
     {
         if ($this->flooringType > $this->t) {
-            $result = ceil($this->floorLength / $this->flooringLength) * ceil($this->floorWidth / $this->flooringWidth);
-            $result .= ' м.';
+            $result['qty'] = ceil($this->floorWidth / $this->flooringWidth) * $this->floorLength;
+            $result['noun'] = HDate::GenerateNoun(array('метр', 'метра', 'метров'), $result['qty']);
         } else {
-            $result = ceil($this->floorWidth / $this->flooringWidth) * $this->floorLength;
-            $result .= ' шт.';
+            $result['qty'] = ceil($this->floorLength / $this->flooringLength) * ceil($this->floorWidth / $this->flooringWidth);
+            $result['noun'] = HDate::GenerateNoun(array('штука', 'штуки', 'штук'), $result['qty']);
         }
 
         return $result;

@@ -6,7 +6,7 @@
 
 #user .box-title {font-size:22px;color:#4c4d4d;padding-bottom:10px;}
 #user .box-title a {font-size:13px;margin-left:10px;}
-#user .box-title .btn {position:relative;top:4px;margin-right:15px;margin-left:0;}
+#user .box-title .btn {position:relative;top:8px;margin-right:15px;margin-left:0;}
 
 #user .header {padding-bottom:15px;}
 
@@ -181,6 +181,7 @@
 #user .user-blog ul li .date {color:#AFAFB0;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin:6px 0 8px;}
 #user .user-blog ul li img {max-width:140px;}
 #user .user-blog ul li p {font-size:11px;}
+#user .user-blog .box-title .btn {margin-right:0;}
 
 #user .user-photo-add {padding:5px;border:1px solid #f7f7f7;}
 
@@ -319,8 +320,9 @@
 #user .family .family-member .data .comment {display:block;width:25px;height:19px;background:url(/images/common.png) no-repeat -636px -244px;float:left;margin-left:8px;position:relative;}
 #user .family .family-member .data .comment:hover {background-position:-636px -221px;}
 
-#user .family .family-member .data .photo {display:block;width:22px;height:16px;background:url(/images/common.png) no-repeat -663px -244px;float:left;margin-left:8px;position:relative;overflow:hidden;}
+#user .family .family-member .data .photo {display:block;width:22px;height:16px;background:url(/images/common.png) no-repeat -663px -244px;float:left;margin-left:8px;position:relative;}
 #user .family .family-member .data .photo:hover {background-position:-663px -221px;}
+#user .family .family-member .data .photo form {position:absolute;width:22px;height:16px;overflow:hidden;left:0;top:0;}
 #user .family .family-member .data .photo input[type=file] {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);width:210px;}
 
 

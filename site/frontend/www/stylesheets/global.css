@@ -575,7 +575,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 #morning.morning-wide .morning-main .entry .entry-content img {width: 1000px;}
 
 
-.entry .meta {float:right;color:#737575;text-align:right;font-size:13px;overflow:hidden;padding-top:10px;}
+.entry .meta {float:right;color:#737575;text-align:right;font-size:13px;overflow:hidden;padding-top:1px;}
 
 .entry .meta .seen {background:#fdfccc;width:auto;display:inline-block;text-align:center;padding:0 8px;height:21px;line-height:21px;}
 
@@ -3833,7 +3833,7 @@ ul.letters li a:hover {
 #repair-wallpapers .form .form-in .row .row-elements .col {width:32%;vertical-align:top;display:inline-block;font-size:16px;color:#3e3e3e;font-weight:bold;padding:5px 0;text-align:center;}
 #repair-wallpapers .form .form-in .row .row-elements .col small {font-size:11px;line-height:1;color:#7b6190;font-weight:normal;line-height:normal;}
 #repair-wallpapers .form .form-in .row .row-elements .col input[type=text] {padding:0px 12px;font-size:16px;color:#906ab6;width:45px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #dac8e7;vertical-align:top;margin-top:2px;}
-#repair-wallpapers .form .form-in .row .small {text-align:center;font-size:11px;line-height:1;color:#7b6190;font-weight:normal;line-height:normal;padding-top:5px;}
+#repair-wallpapers .form .form-in .row .small {text-align:center;font-size:10px;line-height:1;color:#999;font-weight:normal;line-height:normal;padding-top:5px;}
 #repair-wallpapers .form .form-in .row.row-btn {text-align:center;border-top:1px solid #f6e8ff;}
 
 #repair-wallpapers .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}

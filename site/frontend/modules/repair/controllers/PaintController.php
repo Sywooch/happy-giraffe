@@ -19,18 +19,18 @@ class PaintController extends HController
 
     public function actionCalculate()
     {
-        if (isset($_POST['WallpapersCalcForm'])) {
-            $model = new WallpapersCalcForm;
-            $model->attributes = $_POST['WallpapersCalcForm'];
+        if (isset($_POST['PaintForm'])) {
+            $model = new PaintForm();
+            $model->attributes = $_POST['PaintForm'];
             $this->performAjaxValidation($model);
             $model->validate();
-            $this->renderPartial('result', array('result' => $model->calculate()));
+            echo CJSON::encode($model->calculate());
         }
     }
 
     public function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] == 'wallpapers-calculate-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] == 'paint-calculate-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

@@ -32,7 +32,7 @@ class ProductType extends HActiveRecord
 			),
 			'attribute_set' => array(
 				'class'=>'attribute.AttributeSetBehavior',
-				'table'=>'shop_product_attribute_set',
+				'table'=>'shop__product_attribute_set',
 				'attribute'=>'type_attribute_set_id',
 			),
 		);

@@ -213,48 +213,63 @@ class ProductController extends BController
         $image->save();
     }
 
-    public function actionUploadBigPhoto()
+    public function actionPutIn($id, $put = false)
     {
-        if (isset($_POST['Product'])) {
-            $product = $this->loadModel($_POST['Product']['product_id']);
-            $product->attributes = $_POST['Product'];
-            if ($product->save(true, array('product_image'))) {
-                $response = array(
-                    'status' => true,
-                    'url' => $product->product_image->getUrl('product'),
-                    'title' => $product->product_title,
-                );
-            }
-            else
-            {
-                $response = array(
-                    'status' => false,
-                );
-            }
-            echo CJSON::encode($response);
-        }
-    }
+        $product = $this->loadModel($id);
 
-    public function actionUploadSmallPhoto()
-    {
-        if (isset($_POST['ProductImage'])) {
-            $product_image = new ProductImage;
-            $product_image->attributes = $_POST['ProductImage'];
-            $product_image->image_product_id = $_POST['Product']['product_id'];
-            if ($product_image->save()) {
-                $response = array(
-                    'status' => true,
-                    'url' => $product_image->image_file->getUrl('product_thumb'),
-                    'modelPk' => $product_image->primaryKey,
-                );
+        $attributes = array();
+        if($put == false)
+        {
+            $attributeSetMap = $product->category->GetAttributesMap();
+            foreach ($attributeSetMap as $attribute)
+            {
+
+                if ($attribute->map_attribute->attribute_in_price == 1) {
+                    $attribute_values = $product->GetCardAttributeValues($attribute->map_attribute->attribute_id);
+                    if(count($attribute_values) == 0)
+                        continue;
+                    $attributes[$attribute->map_attribute->attribute_id] = array(
+                        'attribute' => $attribute,
+                        'items' => array(),
+                    );
+                    foreach($attribute_values as $attribute_value)
+                        $attributes[$attribute->map_attribute->attribute_id]['items'][$attribute_value['eav_id']] = $attribute_value['eav_attribute_value'];
+                }
+            }
+        }
+
+        if(count($attributes) == 0)
+            $put = true;
+
+        if(isset($_POST['Attribute']))
+            $product->cart_attributes = $_POST['Attribute'];
+
+        if($put !== false)
+        {
+            $count = $_POST['count'];
+            print_r($product);
+        }
+
+        if (Y::isAjaxRequest())
+        {
+            if($put !== false)
+            {
+                $this->renderPartial('putIn', array(
+                    'model' => $product,
+                    'cart' => $cart,
+                ));
             }
             else
             {
-                $response = array(
-                    'status' => false,
-                );
+                $this->renderPartial('putInAttributes', array(
+                    'model' => $product,
+                    'attributes' => $attributes
+                ));
             }
-            echo CJSON::encode($response);
+        }
+        else
+        {
+            $this->redirect(Y::request()->urlReferrer);
         }
     }
 

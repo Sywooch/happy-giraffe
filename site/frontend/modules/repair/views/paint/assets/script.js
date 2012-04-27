@@ -5,10 +5,12 @@ var Paint = {
             data:$("#empty-area-form").serialize(),
             type:"POST",
             success:function (data) {
+                $('.except-area').hide();
                 $("#emptyareas").fadeOut(100, function () {
                     $("#emptyareas").html(data);
                     $("#emptyareas").fadeIn(100);
                 });
+
             }
         });
         return false;

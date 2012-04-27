@@ -59,8 +59,8 @@ class DeletedMessage extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'dialog' => array(self::BELONGS_TO, 'ImDialogs', 'dialog_id'),
-			'message' => array(self::BELONGS_TO, 'ImMessages', 'message_id'),
+			'dialog' => array(self::BELONGS_TO, 'Dialog', 'dialog_id'),
+			'message' => array(self::BELONGS_TO, 'Message', 'message_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}

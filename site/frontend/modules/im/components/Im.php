@@ -5,28 +5,18 @@
  */
 class Im
 {
-    const USER_CACHE_ID = 'user_dialogs_';
     /*
      * Instance for each user
      */
     protected static $instances = array();
 
     /**
-     * @var int[] all user's interlocutors
-     */
-    private $_dialog_users;
-    /**
-     * @var array All user dialogs array('id','name','users' => array())
-     */
-    private $_dialogs;
-    /**
      * @var int|null user for whom we create this instance
      */
     private $_user_id;
-    /**
-     * @var array users loaded from cache can not be loaded again
-     */
-    private $_loaded_users = array();
+
+    private $dialog_counts = null;
+    private $unread_counts = null;
 
     /**
      * @param null|int $user_id
@@ -37,8 +27,6 @@ class Im
             $this->_user_id = Yii::app()->user->id;
         else
             $this->_user_id = $user_id;
-
-        $this->loadDialogs();
     }
 
     /**
@@ -58,107 +46,6 @@ class Im
     }
 
     /**
-     * Load all user dialogs with its users from cache
-     */
-    private function loadDialogs()
-    {
-        $value = Yii::app()->cache->get(self::USER_CACHE_ID . $this->_user_id);
-        if ($value === false || $value === null) {
-            $this->refreshDialogUsers();
-        } else {
-            $this->_dialog_users = $value['users'];
-            if (!is_array($value['dialogs']))
-                $value['dialogs'] = array();
-            else
-                $this->_dialogs = $value['dialogs'];
-        }
-    }
-
-    /**
-     * Refresh all user dialogs with its users
-     */
-    public function refreshDialogUsers()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->condition = 't.id IN (SELECT dialog_id FROM im__dialog_users WHERE user_id = ' . $this->_user_id . ')';
-        $dialogs = Dialog::model()->with(array(
-            'dialogUsers'
-        ))->findAll($criteria);
-
-        $users = array();
-        $this->_dialogs = array();
-
-        foreach ($dialogs as $dialog) {
-            $new_dialog = array(
-                'id' => $dialog->id,
-                'name' => '',
-                'users' => array(),
-            );
-
-            foreach ($dialog->dialogUsers as $user) {
-                if ($user->user_id !== $this->_user_id) {
-                    $users [] = $user->user_id;
-                    $new_dialog['name'] = $this->getUser($user->user_id)->getFullName();
-                    $new_dialog['users'][] = $user->user_id;
-                }
-            }
-            if (empty($new_dialog['users'])){
-                //remove dialog where no users
-                Dialog::model()->deleteByPk($dialog->id);
-            }
-            $this->_dialogs[$dialog->id] = $new_dialog;
-        }
-
-        $this->_dialog_users = $users;
-        Yii::app()->cache->set(self::USER_CACHE_ID . $this->_user_id, array(
-            'users' => $users,
-            'dialogs' => $this->_dialogs
-        ));
-    }
-
-    /**
-     * All dialog id's
-     *
-     * @return int[]
-     */
-    public function getDialogIds()
-    {
-        $res = array();
-        foreach ($this->_dialogs as $dialog)
-            $res [] = $dialog['id'];
-        return $res;
-    }
-
-    public function getDialogsCount()
-    {
-        return count($this->_dialogs);
-    }
-
-    /**
-     * @param $id
-     * @return array ('id', 'user')
-     */
-    public function getDialog($id)
-    {
-        foreach ($this->_dialogs as $dialog)
-            if ($id == $dialog['id'])
-                return array(
-                    'id'=>$id,
-                    'user'=>$this->GetDialogUser($id)
-                );
-        return null;
-    }
-
-    /*public function getNotEmptyDialogIds()
-    {
-        $res = array();
-        foreach ($this->_dialogs as $dialog)
-            if (!$dialog['empty'])
-                $res [] = $dialog['id'];
-        return $res;
-    }*/
-
-    /**
      * Search users from dialogs
      *
      * @param $term
@@ -166,7 +53,7 @@ class Im
      */
     public function findDialogUserNames($term)
     {
-        $term = strtolower($term);
+        /*$term = strtolower($term);
         $result = array();
         foreach ($this->_dialog_users as $user_id) {
             $user = $this->getUser($user_id);
@@ -178,35 +65,7 @@ class Im
             }
         }
 
-        return $result;
-    }
-
-    /**
-     * Get User model of dialog interlocutor
-     *
-     * @param $dialog_id
-     * @return User
-     */
-    public function GetDialogUser($dialog_id)
-    {
-        if (!isset($this->_dialogs[$dialog_id]['users'][0]))
-            return null;
-        $id = $this->_dialogs[$dialog_id]['users'][0];
-        return $this->getUser($id);
-    }
-
-    /**
-     * @param $user_id
-     * @return int
-     */
-    public function getDialogIdByUser($user_id)
-    {
-        foreach ($this->_dialogs as $dialog) {
-            if ($dialog['users'][0] == $user_id) {
-                return $dialog['id'];
-            }
-        }
-        return null;
+        return $result;*/
     }
 
     /**
@@ -216,12 +75,12 @@ class Im
      */
     public function findDialog($name)
     {
-        foreach ($this->_dialogs as $dialog) {
+        /*foreach ($this->_dialogs as $dialog) {
             $pal_id = $dialog['users'][0];
             if (mb_strtolower($this->getUser($pal_id)->getFullName(), 'utf-8') == mb_strtolower($name, 'utf-8')) {
                 return $dialog['id'];
             }
-        }
+        }*/
 
         return null;
     }
@@ -233,49 +92,123 @@ class Im
         return (substr($haystack, 0, $length) === $needle);
     }
 
-    /**
-     * @return array ('id','name','users' => array())
-     */
-    public function getDialogs()
+    public function getUnreadMessagesCount()
     {
-        return $this->_dialogs;
-    }
+        if ($this->unread_counts !== null)
+            return $this->unread_counts;
 
-    static function clearCache($user_id = null)
-    {
-        if ($user_id === null)
-            $user_id = Yii::app()->user->id;
-        Yii::app()->cache->delete(self::USER_CACHE_ID . $user_id);
+        return Yii::app()->db->createCommand()
+            ->select('COUNT( id )')
+            ->from(Message::model()->tableName())
+            ->where('`dialog_id` IN (SELECT DISTINCT (dialog_id) FROM im__dialog_users WHERE user_id = :user_id) AND user_id != :user_id AND read_status = 0', array(':user_id' => $this->_user_id))
+            ->queryScalar();
     }
 
     /**
-     * @param $id
-     * @return User
+     * Return count of not empty dialogs and count of online dialogs
+     *
+     * @static
+     * @return array dialog_id[]
      */
-    public function getUser($id)
+    public function getDialogsCountAndOnlineDialogsCount()
     {
-        if (!empty($this->_loaded_users[$id]))
-            return $this->_loaded_users[$id];
-        $user = User::getUserById($id);
-        if ($user === null)
-            return null;
+        if ($this->dialog_counts !== null)
+            return $this->dialog_counts;
 
-        $this->_loaded_users[$id] = $user;
-        return $user;
-    }
+        $dialogUsers = DialogUser::model()->with(array(
+            'dialog.lastDeleted' => array(
+                'select' => array('message_id', 'user_id')
+            ),
+            'dialog.lastMessage' => array(
+                'select' => array('id')
+            ),
+            'dialog' => array(
+                'select' => array('id'),
+            ),
+            'user' => array(
+                'select' => array('online'),
+            ),
+        ))->findAll('t.dialog_id IN (SELECT distinct(dialog_id) FROM ' . DialogUser::model()->tableName() . ' WHERE user_id=' . $this->_user_id . ')');
 
-    public static function getUnreadMessagesCount($user_id)
-    {
-        $criteria = new CDbCriteria;
-        $criteria->condition = 't.id IN (SELECT dialog_id FROM im__dialog_users WHERE user_id = ' . $user_id . ')';
-        $criteria->select = 'id';
-        $dialogs = Dialog::model()->findAll($criteria);
+        $all_count = 0;
+        $online_count = 0;
 
-        $unread = 0;
-        foreach ($dialogs as $dialog) {
-            $unread += Dialog::getUnreadMessagesCount($dialog->id, $user_id);
+        foreach ($dialogUsers as $dialogUser) {
+            //check on deleted dialog
+            if ($dialogUser->user_id == $this->_user_id) {
+                if ($dialogUser->dialog->lastMessage === null){
+                    continue;
+                }
+                $dialog = $dialogUser->dialog;
+                if (isset($dialog->lastDeleted) && $dialog->lastDeleted->user_id == $this->_user_id) {
+                    if ($dialog->lastDeleted->message_id == $dialogUser->dialog->lastMessage->id)
+                        $all_count--;
+                }
+                $all_count++;
+            }
+
+            //check online status
+            if ($dialogUser->user_id != $this->_user_id) {
+                if ($dialogUser->user->online)
+                    $online_count++;
+            }
         }
 
-        return $unread;
+        return array($all_count, $online_count);
+    }
+
+    /**
+     * @static
+     * @return array
+     */
+    public function getNotificationMessages()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('*')
+            ->from(Message::model()->tableName())
+            ->where('`dialog_id` IN (SELECT DISTINCT (dialog_id) FROM im__dialog_users WHERE user_id = :user_id) AND user_id != :user_id', array(':user_id' => $this->_user_id))
+            ->order('id desc')
+            ->limit(3)
+            ->queryAll();
+
+        $data = array();
+        foreach ($models as $m) {
+            $data[] = array(
+                'text' => self::getNotificationText($m),
+                'url' => Yii::app()->createUrl('/im/default/dialog', array('id' => $m['dialog_id'])),
+            );
+        }
+
+        $new_count = Im::model()->getUnreadMessagesCount();
+
+        return array('data' => $data, 'count' => $new_count);
+    }
+
+    /**
+     * @static
+     * @param $message
+     * @return string
+     */
+    public static function getNotificationText($message)
+    {
+        $user = User::getUserById($message['user_id']);
+        return '<span class="name">' . $user->fullName . '</span><span class="text">'
+            . strip_tags(Str::truncate($message['text'], 150)) . '</span><span class="date">'
+            . HDate::GetFormattedTime($message['created']) . '</span>';
+    }
+
+    public function GetDialogUser($dialog_id)
+    {
+        $user_id = Yii::app()->db->createCommand()
+            ->select('user_id')
+            ->from(DialogUser::model()->tableName())
+            ->where('`dialog_id` = :dialog_id AND user_id != :user_id',
+            array(
+                ':user_id' => $this->_user_id,
+                ':dialog_id' => $dialog_id
+            ))
+            ->queryScalar();
+
+        return User::getUserById($user_id);
     }
 }

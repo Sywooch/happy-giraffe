@@ -3941,7 +3941,7 @@ ul.letters li a:hover {
 
 #prikorm.test .step {height:515px;}
 
-#prikorm.test .step-in {position: absolute;right: 40px;padding: 0 20px 45px 20px;top: 100px;display: block;width: 305pxborder-radius: 20px;-moz-border-radius: 20px;-webkit-border-radius: 20px;}
+#prikorm.test .step-in {position: absolute;right: 40px;padding: 0 20px 45px 20px;top: 100px;display: block;width: 305px;border-radius: 20px;-moz-border-radius: 20px;-webkit-border-radius: 20px;}
 
 #prikorm.test #step1 .step-in {
     background: url(../images/yellow_trans.png) 0 0 repeat;

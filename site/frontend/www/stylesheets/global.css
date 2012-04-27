@@ -575,7 +575,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 #morning.morning-wide .morning-main .entry .entry-content img {width: 1000px;}
 
 
-.entry .meta {float:right;color:#737575;text-align:right;font-size:13px;overflow:hidden;padding-top:10px;}
+.entry .meta {float:right;color:#737575;text-align:right;font-size:13px;overflow:hidden;padding-top:1px;}
 
 .entry .meta .seen {background:#fdfccc;width:auto;display:inline-block;text-align:center;padding:0 8px;height:21px;line-height:21px;}
 
@@ -3833,7 +3833,7 @@ ul.letters li a:hover {
 #repair-wallpapers .form .form-in .row .row-elements .col {width:32%;vertical-align:top;display:inline-block;font-size:16px;color:#3e3e3e;font-weight:bold;padding:5px 0;text-align:center;}
 #repair-wallpapers .form .form-in .row .row-elements .col small {font-size:11px;line-height:1;color:#7b6190;font-weight:normal;line-height:normal;}
 #repair-wallpapers .form .form-in .row .row-elements .col input[type=text] {padding:0px 12px;font-size:16px;color:#906ab6;width:45px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #dac8e7;vertical-align:top;margin-top:2px;}
-#repair-wallpapers .form .form-in .row .small {text-align:center;font-size:11px;line-height:1;color:#7b6190;font-weight:normal;line-height:normal;padding-top:5px;}
+#repair-wallpapers .form .form-in .row .small {text-align:center;font-size:10px;line-height:1;color:#999;font-weight:normal;line-height:normal;padding-top:5px;}
 #repair-wallpapers .form .form-in .row.row-btn {text-align:center;border-top:1px solid #f6e8ff;}
 
 #repair-wallpapers .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
@@ -3878,7 +3878,7 @@ ul.letters li a:hover {
 #repair-wallpapers .recommendation .right {float:left;width:420px;padding-left:20px;}
 #repair-wallpapers .recommendation .right big {font-size:20px;color:#906ab6;margin-bottom:15px;display:block;}
 
-#repair-wallpapers .wysiwyg-content{ margin-top:30px}
+#repair-wallpapers .wysiwyg-content{margin-top:30px}
 
 
 #repair-ceiling {}
@@ -4011,3 +4011,29 @@ ul.letters li a:hover {
 #repair-paint .recommendation .right big {font-size:20px;color:#906ab6;margin-bottom:15px;display:block;}
 
 #repair-paint div.wysiwyg-content{ margin-top: 30px}
+#repair-floor {}
+#repair-floor .form {border:1px solid #fbefff;background:url(/images/bg_repair_floor.jpg) no-repeat right bottom;min-height:610px;padding:22px;}
+#repair-floor .form .title {}
+#repair-floor .form .title h1 {font:bold 45px/1 tahoma, arial, helvetica, sans-serif;color:#3e3e3e;}
+#repair-floor .form .title span {color:#a37fc6;font:bold 45px/1 tahoma, arial, helvetica, sans-serif;display:block;margin-bottom:10px;}
+#repair-floor .form .title p {font-size:13px;color:#949394;width:480px;}
+#repair-floor .form .form-in {margin-top:20px;width:355px;}
+#repair-floor .form .form-in .row {padding:10px 15px 5px;background:#fcf8ff;background:rgba(249,244,254,0.75);}
+#repair-floor .form .form-in .row big {font-weight:bold;color:#3e3e3e;font-size:20px;margin-right:5px;margin-left:10px;}
+#repair-floor .form .form-in .row .chzn-container {position:relative;top:-2px;}
+#repair-floor .form .form-in .row .row-elements {background:#e9ddf2;padding:5px 10px;font-size:18px;color:#3e3e3e;font-weight:bold;margin-bottom:10px;}
+#repair-floor .form .form-in .row .row-elements .text {display:inline-block;line-height:24px;font-size:20px;width:200px;}
+#repair-floor .form .form-in .row .row-elements .row-line {padding:10px 0 10px;}
+#repair-floor .form .form-in .row  input[type=text] {padding:0px 7px;font-size:16px;color:#906ab6;width:45px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #dac8e7;vertical-align:top;margin-top:2px;}
+#repair-floor .form .form-in .row.row-btn {text-align:center;border-top:1px solid #f6e8ff;background:#faf6cf;background:rgba(250,246,207, 0.75);padding:15px 0;}
+
+#repair-floor .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
+#repair-floor .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
+
+
+#repair-floor .recommendation {padding:30px 20px;background:#fcf8ff;font-size:13px;line-height:19px;margin-bottom:30px;}
+#repair-floor .recommendation .left {float:left;width:220px;text-align:center;font-size:14px;line-height:1;padding-top:1.5em;}
+#repair-floor .recommendation .left img {margin-bottom:10px;}
+#repair-floor .recommendation .left span {font-size:25px;display:block;color:#8761ab;font-weight:bold;}
+#repair-floor .recommendation .right {float:left;width:420px;padding-left:20px;}
+#repair-floor .recommendation .right big {font-size:20px;color:#906ab6;margin-bottom:15px;display:block;}

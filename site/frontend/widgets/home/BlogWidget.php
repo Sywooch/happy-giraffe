@@ -7,14 +7,14 @@ class BlogWidget extends CWidget
         $criteria = new CDbCriteria;
         $criteria->limit = 6;
         $criteria->with = array('rubric' => array(
-            'select' => array('community_id'),
+            'select' => array('community_id', 'user_id'),
             'condition'=>'user_id IS NOT NULL'
         ), 'type' => array(
             'select' => array('slug')
         ), 'post' => array(
             'select' => array('text')
         ),'video','travel');
-        $criteria->select = array('t.id', 't.title', 'rubric_id', 'author_id');
+        $criteria->select = array('t.id', 't.title', 't.type_id', 'rubric_id', 'author_id');
 //        $criteria->condition = ' rubric.user_id IS NOT NULL ';
         $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_BLOGS, 6));
 

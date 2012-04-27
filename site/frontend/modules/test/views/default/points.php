@@ -4,11 +4,19 @@
 
 	<img src="/images/test/<?php echo $test->id . '/' . $test->start_image ?>" alt=""/>
 
-	<div class="step-in">
+    <div class="step-in">
 
-		<div class="btn"><button class="test_begin" onclick="Test.Start();">ПРОЙТИ ТЕСТ</button></div>
+        <div class="title">
 
-	</div>
+            <h1><?=$test->title ?></h1>
+
+        </div>
+
+        <div class="text">Онлайн тест на беременность – прекрасная возможность подтвердить или опровергнуть свои мысли по поводу возможной беременности, особенно, если под рукой нет экспресс-теста, а приём гинеколога состоится не раньше чем завтра</div>
+
+        <div class="btn"><button class="test_begin" onclick="Test.Start();">ПРОЙТИ ТЕСТ</button></div>
+
+    </div>
 
 </div>
 
@@ -25,7 +33,7 @@ foreach ($test->testQuestions as $question):?>
 			<form action="">
 				<div class="q-title"><?php echo $question->title ?></div>
 
-				<?php if ($test->yes_no):?>
+				<?php if ($test->type == Test::TYPE_YES_NO):?>
 					<a href="#" class="yes_button">Да</a>
 					<a href="#" class="no_button">Нет</a>
 				<?php else: ?>
@@ -74,9 +82,6 @@ foreach ($test->testQuestions as $question):?>
 
 		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
 
-		<!--<div class="your_res"><?php echo $test->result_title ?>:<ins> <?php echo 'Неизвестен' ?></ins></div>
-        <span class="your_rec">Рекомендации</span>-->
-
     </div>
 </div>
 
@@ -86,22 +91,25 @@ foreach ($test->testQuestions as $question):?>
         echo empty($result->image)?$test->result_image:$result->image ?>" alt="" title="" />
     <div class="step-in">
 
+        <div class="title">
+
+            <h1><?=$test->title ?></h1>
+
+        </div>
+
         <div class="result">
 
 			<div class="r-title">Результат</div>
 
-            <div class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->title ?></ins></div>
-
             <div class="r-text">
 
-                <span class="your_rec">Рекомендации</span>
                 <?php echo $result->text ?>
 
 			</div>
 
 		</div>
 
-		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
+		<div class="btn"><button class="test_begin" onclick="document.location.reload();">ПРОЙТИ ЕЩЕ РАЗ</button></div>
 
     </div>
 </div>

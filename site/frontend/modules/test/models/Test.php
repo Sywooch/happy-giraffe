@@ -14,7 +14,7 @@
  * @property string $result_title
  * @property string $unknown_result_image
  * @property string $unknown_result_text
- * @property string $yes_no
+ * @property string $type
  *
  * The followings are the available model relations:
  * @property TestQuestion[] $testQuestions
@@ -22,6 +22,18 @@
  */
 class Test extends HActiveRecord
 {
+    const TYPE_MORE_ANSWERS = 1;
+    const TYPE_YES_NO = 2;
+    const TYPE_POINTS = 3;
+    const TYPE_TREE = 4;
+
+    public $typeAlias = array(
+        self::TYPE_MORE_ANSWERS => 'simple',
+        self::TYPE_YES_NO => 'yesno',
+        self::TYPE_POINTS => 'points',
+        self::TYPE_TREE => 'tree',
+    );
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Test the static model class
@@ -50,7 +62,7 @@ class Test extends HActiveRecord
 			array('title, start_image, slug, result_image, result_title', 'required'),
 			array('title, start_image, slug, result_image, result_title, unknown_result_image', 'length', 'max'=>255),
 			array('css_class', 'length', 'max'=>20),
-			array('text, unknown_result_text, yes_no', 'safe'),
+			array('text, unknown_result_text, type', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, start_image, css_class, text, slug, result_image, result_title, unknown_result_image, unknown_result_text', 'safe', 'on'=>'search'),
@@ -87,7 +99,7 @@ class Test extends HActiveRecord
 			'result_title' => 'Result Title',
 			'unknown_result_image' => 'Unknown Result Image',
 			'unknown_result_text' => 'Unknown Result Text',
-            'yes_no'=>'Yes/No test',
+            'type'=>'Type',
 		);
 	}
 
@@ -129,5 +141,10 @@ class Test extends HActiveRecord
         }
 
         return true;
+    }
+
+    public function getTypeName()
+    {
+        return $this->typeAlias[$this->type];
     }
 }

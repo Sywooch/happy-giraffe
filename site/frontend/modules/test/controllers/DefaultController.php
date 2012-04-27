@@ -10,15 +10,15 @@ class DefaultController extends HController
     public function filters()
     {
         return array(
-            array(
-                'COutputCache + view',
-                'duration' => 10,
-                'varyByParam' => array('slug'),
-            ),
-            array(
-                'COutputCache + index',
-                'duration' => 10,
-            ),
+//            array(
+//                'COutputCache + view',
+//                'duration' => 10,
+//                'varyByParam' => array('slug'),
+//            ),
+//            array(
+//                'COutputCache + index',
+//                'duration' => 10,
+//            ),
         );
     }
 
@@ -36,25 +36,13 @@ class DefaultController extends HController
     public function actionView($slug)
     {
         $test = $this->LoadModel($slug);
-        $this->pageTitle = $test->title;
-
-        $this->render('view', array(
-            'test' => $test
-        ));
-    }
-
-    public function actionView2($slug)
-    {
+        $this->pageTitle = strip_tags($test->title). ', бесплатные тесты на сайте Веселый Жираф';
 
         $basePath = Yii::getPathOfAlias('test') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'assets';
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        //echo $baseUrl;
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/points.js', CClientScript::POS_HEAD);
+        Yii::app()->clientScript->registerScriptFile($baseUrl . "/" . $test->getTypeName() . ".js", CClientScript::POS_HEAD);
 
-        $test = $this->LoadModelPoint($slug);
-        $this->pageTitle = $test->title;
-
-        $this->render('points', array(
+        $this->render($test->getTypeName(), array(
             'test' => $test
         ));
     }
@@ -66,27 +54,24 @@ class DefaultController extends HController
      */
     public function LoadModel($slug)
     {
-        $model = Test::model()->with(array(
-            'testQuestions' => array('order' => 'testQuestions.number'),
-            'testQuestions.testQuestionAnswers' => array('order' => 'testQuestionAnswers.number'),
-            'testResults' => array('order' => 'testResults.number'),
-            'questionsCount'
-        ))->findByAttributes(array('slug' => $slug));
+        $model = Test::model()->findByAttributes(array('slug' => $slug));
         if ($model === null)
             throw new CHttpException(404, 'Такого теста не существует.');
-        return $model;
-    }
 
-    public function LoadModelPoint($slug)
-    {
-        $model = Test::model()->with(array(
-            'testQuestions' => array('order' => 'testQuestions.number'),
-            'testQuestions.testQuestionAnswers' => array('order' => 'testQuestionAnswers.number'),
-            'testResults' => array('order' => 'testResults.points DESC'),
-            'questionsCount'
-        ))->findByAttributes(array('slug' => $slug));
-        if ($model === null)
-            throw new CHttpException(404, 'Такого теста не существует.');
+        if ($model->type == Test::TYPE_POINTS)
+            $model = Test::model()->with(array(
+                'testQuestions' => array('order' => 'testQuestions.number'),
+                'testQuestions.testQuestionAnswers' => array('order' => 'testQuestionAnswers.number'),
+                'testResults' => array('order' => 'testResults.points DESC'),
+                'questionsCount'
+            ))->findByAttributes(array('slug' => $slug));
+        else
+            $model = Test::model()->with(array(
+                'testQuestions' => array('order' => 'testQuestions.number'),
+                'testQuestions.testQuestionAnswers' => array('order' => 'testQuestionAnswers.number'),
+                'testResults' => array('order' => 'testResults.number'),
+                'questionsCount'
+            ))->findByAttributes(array('slug' => $slug));
         return $model;
     }
 }

@@ -17,8 +17,6 @@ class WallpapersCalcForm extends CFormModel
             array('room_height', 'required', 'message' => 'Укажите высоту помещения'),
             array('wp_width', 'required', 'message' => 'Укажите ширину обоев'),
             array('wp_length', 'required', 'message' => 'Укажите длину рулона'),
-            //array('repeat', 'required', 'message' => 'Укажите раппорт'),
-            //array('room_length, room_width, room_height, wp_width, wp_length, repeat', 'filter', 'filter'=>'trim'),
             array('room_length, room_width, room_height, wp_width, wp_length, repeat', 'normalizeLength'),
             array('room_length, room_width, room_height, wp_width, wp_length, repeat', 'numerical', 'message' => 'Введите число')
 

@@ -52,8 +52,17 @@
         $(".RadioClass").change(function () {
             step_result = $(this).attr('rel');
             result.push(step_result);
+
+            if($(this).attr('data-last')=="1"){
+                $('#step' + active_step).fadeOut(300, function () {
+                    ShowResult();
+                });
+                active_step++;
+                return;
+            }
             NextStep();
             console.log(result);
+            console.log(step_result);
         });
 
         $('.inner_bl a.yes_button').click(function(){
@@ -85,7 +94,7 @@
     }
 
     function ShowResult() {
-//        console.log(result);
+        //console.log(result);
         
         var res_count = new Array();
         for (var i = 0; i <= result.length - 1; i++) {
@@ -167,7 +176,7 @@ foreach ($test->testQuestions as $question): ?>
 
                 <?php foreach ($question->testQuestionAnswers as $answer): ?>
                     <li>
-                        <input type="radio" name="v" rel="<?php echo $answer->number ?>" id="value<?php echo $i . $answer->number ?>" class="RadioClass"/>
+                        <input type="radio" name="v" rel="<?php echo $answer->number ?>" id="value<?php echo $i . $answer->number ?>" class="RadioClass" data-last="<?=$answer->islast?>"/>
                         <label for="value<?php echo $i . $answer->number ?>" class="RadioLabelClass"><?php
                             echo $answer->text ?></label>
                     </li>

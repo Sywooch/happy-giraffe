@@ -22,10 +22,6 @@
             'filter' => HDate::ruMonths()
         ),
         array(
-            'name' => 'week',
-            'filter' => HDate::Range(1, 52)
-        ),
-        array(
             'name' => 'date',
             'value' => '$data->dateText()',
             'filter' => $this->widget('zii.widgets.jui.CJuiDatePicker',array(

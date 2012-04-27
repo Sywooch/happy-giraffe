@@ -189,8 +189,6 @@
                 'actions' => false,
             )); ?>
 
-
-
         </div>
 
     </div>

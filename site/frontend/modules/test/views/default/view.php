@@ -167,7 +167,7 @@
 
 <?php
 $i = 1;
-foreach ($test->testQuestions as $question): ?>
+foreach ($test->testQuestions as $question):?>
 
 <div class="step" id="step<?php echo $i; $i++ ?>" style="display: none;">
     
@@ -197,6 +197,7 @@ foreach ($test->testQuestions as $question): ?>
 		</div>
     </div>
 </div>
+
 <?php endforeach; ?>
 
 <div class="step" id="unknown_result" style="display: none;">

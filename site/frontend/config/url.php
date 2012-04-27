@@ -33,6 +33,7 @@ return array(
         'sewing/<action:\w+>'=>'sewing/default/<action>',
         'sizes/<action:\w+>'=>'sizes/default/<action>',
         'test/<slug:[\w-]+>'=>'test/default/view',
+        'ptest/<slug:[\w-]+>'=>'test/default/view2',
         'im/<action:[\w-]+>'=>'im/default/<action>',
         'geo/<action:[\w-]+>'=>'geo/geo/<action>',
 

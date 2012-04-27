@@ -3957,8 +3957,9 @@ ul.letters li a:hover {
 #repair-paint .form .form-in {margin-top:20px;width:355px;}
 #repair-paint .form .form-in .row-switcher {padding-bottom:20px;background:url(/images/bg_repair_row_switcher.gif) no-repeat left bottom;}
 #repair-paint .form .form-in .row-switcher .a-right {line-height:normal;font-size:11px;padding-top:10px;}
-#repair-paint .form .form-in .row-switcher .a-right a {font-size:13px;}
+#repair-paint .form .form-in .row-switcher .a-right a {font-size:13px; margin-left: 5px}
 #repair-paint .form .form-in .row-switcher .a-right a:hover {border:0;}
+#repair-paint .form .form-in .row-switcher .a-right span.wall{display:none}
 #repair-paint .form .form-in .row-switcher big {color:#8a67ac;font-weight:bold;font-size:25px;line-height:25px;margin-left:25px;}
 #repair-paint .form .form-in .row {padding:10px 10px 5px;background:#f5eefd;background:rgba(245,238,253,0.88);}
 #repair-paint .form .form-in .row:first-child {padding-bottom:0;}
@@ -3970,8 +3971,10 @@ ul.letters li a:hover {
 #repair-paint .form .form-in .row .row-elements .col {width:32%;vertical-align:top;display:inline-block;font-size:16px;color:#3e3e3e;font-weight:bold;padding:5px 0;text-align:center;}
 #repair-paint .form .form-in .row .row-elements .col small {font-size:11px;line-height:1;color:#7b6190;font-weight:normal;line-height:normal;}
 #repair-paint .form .form-in .row .row-elements .col input[type=text] {padding:0px 12px;font-size:16px;color:#906ab6;width:45px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #dac8e7;vertical-align:top;margin-top:2px;}
+#repair-paint #PaintForm_paintType{ width: 200px}
 #repair-paint .form .form-in .row.row-btn {text-align:center;border-top:1px solid #d7dff9;background:#faf6cf;background:rgba(250,246,207, 0.75);}
 #repair-paint .form .form-in .row.row-btn {padding:10px;}
+#repair-paint .errorSummary ul{ padding-left: 20px}
 
 #repair-paint .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
 #repair-paint .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
@@ -4000,9 +4003,11 @@ ul.letters li a:hover {
 #repair-paint .form .row.except .errorSummary ul li{display: block; width: 100%; padding: 0}
 
 
-#repair-paint .recommendation {padding:30px 20px;background:#fcf8ff;font-size:13px;line-height:19px;margin-bottom:30px;}
+#repair-paint .recommendation {padding:30px 20px;background:#fcf8ff;font-size:13px;line-height:19px;}
 #repair-paint .recommendation .left {float:left;width:220px;text-align:center;font-size:14px;line-height:1;}
 #repair-paint .recommendation .left img {margin-bottom:10px;}
 #repair-paint .recommendation .left span {font-size:25px;display:block;color:#8761ab;font-weight:bold;}
 #repair-paint .recommendation .right {float:left;width:420px;padding-left:20px;}
 #repair-paint .recommendation .right big {font-size:20px;color:#906ab6;margin-bottom:15px;display:block;}
+
+#repair-paint div.wysiwyg-content{ margin-top: 30px}

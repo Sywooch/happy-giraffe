@@ -6,12 +6,14 @@ class PaintController extends HController
 
     public function actionIndex()
     {
+        $this->pageTitle = 'Расчет объема краски';
+
         $basePath = Yii::getPathOfAlias('repair') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'paint' . DIRECTORY_SEPARATOR . 'assets';
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-        Yii::app()->clientScript->registerCssFile($baseUrl . '/style.css', 'all');
+
         Yii::app()->user->setState('emptyAreas', array());
-        $this->pageTitle = 'Расчета объема краски';
+
         $this->render('index', array('model' => new PaintForm(), 'emptyArea' => new PaintAreaForm()));
     }
 

@@ -49,7 +49,7 @@
             return false;
         });
 
-        $(".RadioClass").change(function () {
+        $(".q-options input").change(function () {
             step_result = $(this).attr('rel');
             result.push(step_result);
 
@@ -65,12 +65,12 @@
             console.log(step_result);
         });
 
-        $('.inner_bl a.yes_button').click(function(){
+        $('.step-in a.yes_button').click(function(){
             result.push(2);
             NextStep();
             return false;
         });
-        $('.inner_bl a.no_button').click(function(){
+        $('.step-in a.no_button').click(function(){
             result.push(1);
             NextStep();
             return false;

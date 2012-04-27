@@ -2,7 +2,7 @@
 /* @var $this Controller
  * @var $message array
  */
-$user = Im::model()->getUser($message['user_id']);
+$user = User::getUserById($message['user_id']);
 if (!isset($class))
     $class = '';
 ?><div class="dialog-message<?php if ($message['read_status'] == 0 && !$read) echo ' dialog-message-new-in'

@@ -979,7 +979,7 @@ a:hover {text-decoration:none;}
 #dialogs .header ul li a {display:block;float:left;text-decoration:none;font-size:12px;height:14px;line-height:14px;padding:3px 10px;}
 #dialogs .header ul li a span {float:left;border-bottom:1px dashed #0498b8;display:block;}
 #dialogs .header ul li a:hover span {border:0;}
-#dialogs .header ul li a .count {background:#75bb6e;color:#fff;float:left;padding:0px 6px;height:13px;line-height:13px;font-size:10px;font-weight:bold;margin-left:5px;position:relative;top:-3px;}
+#dialogs .header ul li a .count {background:#75bb6e;color:#fff;float:left;padding:0px 6px;height:13px;line-height:13px;font-size:10px;font-weight:bold;margin-left:5px;position:relative;}
 #dialogs .header ul li a .count {/*css3*/ -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}
 #dialogs .header ul li.active a {background:#fef4c5;}
 #dialogs .header ul li.active a span {border:0;}

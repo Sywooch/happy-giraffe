@@ -10,7 +10,7 @@ class NotificationController extends HController
         //if (Yii::app()->request->isAjaxRequest) {
             $notifications = UserNotification::model()->getUserData(Yii::app()->user->id);
             $friends = UserFriendNotification::model()->getUserData(Yii::app()->user->id);
-            $im = Message::getNotificationMessages(Yii::app()->user->id);
+            $im = Im::model()->getNotificationMessages();
             $response = array(
                 'notifications' => $notifications,
                 'friends' => $friends,

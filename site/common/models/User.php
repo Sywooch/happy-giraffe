@@ -488,12 +488,12 @@ class User extends HActiveRecord
         if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->id)
             return '#';
 
-        $dialog_id = Im::model()->getDialogIdByUser($this->id);
-        if (isset($dialog_id)) {
-            $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
-        } else {
+//        $dialog_id = Im::model()->getDialogIdByUser($this->id);
+//        if (isset($dialog_id)) {
+//            $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
+//        } else {
             $url = Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
-        }
+//        }
 
         return $url;
     }

@@ -7,7 +7,7 @@ class BlogWidget extends CWidget
         $criteria = new CDbCriteria;
         $criteria->limit = 6;
         $criteria->with = array('rubric' => array(
-            'select' => array('community_id'),
+            'select' => array('community_id', 'user_id'),
             'condition'=>'user_id IS NOT NULL'
         ), 'type' => array(
             'select' => array('slug')

@@ -233,21 +233,20 @@ foreach ($test->testQuestions as $question): ?>
         <div class="result">
 								
 			<div class="r-title">Результат</div>
-			
-			<div class="r-text">
-				
-				<?php echo $result->text ?>
+
+            <div class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->title ?></ins></div>
+
+            <div class="r-text">
+
+                <span class="your_rec">Рекомендации</span>
+                <?php echo $result->text ?>
 				
 			</div>
-		
+
 		</div>
 		
 		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
 		
-		<!--<div class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->title ?></ins></div>
-        <span class="your_rec">Рекомендации</span>-->
-        
-        
     </div>
 </div>
 <?php endforeach; ?>

@@ -26,7 +26,7 @@
 
     <div class="row">
         <label>Сообщество</label>
-        <?php echo CHtml::dropDownList('community_id', '', CHtml::listData(Community::model()->findAll(), 'id', 'name'), array('empty' => 'Все')); ?>
+        <?php echo CHtml::dropDownList('community_id', '', CHtml::listData(Community::model()->findAll(), 'id', 'title'), array('empty' => 'Все')); ?>
     </div>
 
     <b>Действия</b><br>

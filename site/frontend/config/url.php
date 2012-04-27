@@ -19,6 +19,7 @@ return array(
 		'contest/work/<id:\d+>' => 'contest/default/work',
 		'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
 
+        'morning/' => 'morning/index',
         'morning/<id:\d+>' => 'morning/view',
         'morning/saveLocation' => 'morning/saveLocation',
         'morning/index/<date:[\w-]+>' => 'morning/index',

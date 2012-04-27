@@ -8,36 +8,38 @@ var Test = {
         });
     },
     Next:function (input) {
-        if ($(input).attr('data-last') == "1") {
-            $(input).closest('div.question-div').fadeOut(300, function () {
-                Test.Finish();
-            })
-            return;
+        console.log($(input).attr('data-next-question'));
+
+        if ($(input).attr('data-next-question') != undefined) {
+            var q_num = $(input).attr('data-next-question');
+            console.log(q_num);
+
+            $(input).parents('div.step').fadeOut(300, function () {
+                $('div.question-div').each(function (index, el) {
+                    var num = $(el).attr('data-number');
+
+                    if (num == q_num) {
+                        $(el).fadeIn(300);
+                    }
+                });
+            });
         }
-        $(input).closest('div.question-div').fadeOut(300, function () {
-            if ($(input).closest('div.question-div').next('div.question-div').length) {
-                $(input).closest('div.question-div').next('div.question-div').fadeIn(300);
-            } else {
-                Test.Finish();
-            }
-        });
-
+        if ($(input).attr('data-result') != undefined) {
+            Test.Finish(input);
+        }
     },
-    Finish:function () {
-        var points = 0;
-        $('div.question input[type="radio"]:checked').each(function (index, el) {
-            points += parseInt($(el).attr('data-points'));
-        });
+    Finish:function (input) {
+        var result_id = $(input).attr('data-result');
+        console.log(result_id);
 
-        var finished = false;
-        $('div.result-div').each(function (index, el) {
-            if (finished)
-                return;
-            result_points = parseInt($(el).attr('data-points'));
-            if (points >= result_points) {
-                $(el).fadeIn(300);
-                finished = true;
-            }
+        $(input).fadeOut(300, function () {
+            $('div.result-div').each(function (index, el) {
+                var num = $(el).attr('data-number');
+
+                if (num == result_id) {
+                    $(el).fadeIn(300);
+                }
+            });
         });
     },
     Restart:function () {

@@ -23,6 +23,7 @@ class m120426_113838_add_last_dialog_message_id extends CDbMigration
         }
 
         $this->addForeignKey('fk_' . $this->_table . '_message', $this->_table, 'last_message_id', 'im__messages', 'id', 'CASCADE', "CASCADE");
+//        $this->execute('');
         $this->execute('ALTER TABLE  `im__deleted_messages` ADD PRIMARY KEY (  `message_id` ,  `user_id` ) ;');
     }
 

@@ -17,18 +17,10 @@
 
             <div class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created); ?></div>
 
-            <?php if ($full): ?>
-                <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = $this->views; echo $views; ?></span></div>
-                <br/>
-                <a href="#comment_list">Комментариев: <?php echo $data->commentsCount; ?></a>
-            <?php else: ?>
-                <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true); echo $views; ?></span></div>
-            <?php endif; ?>
+            <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php $views = $this->views; echo $views; ?></span></div>
+            <br/>
+            <a href="#comment_list">Комментариев: <?php echo $data->commentsCount; ?></a>
             <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
-            <?php if (! $full): ?>
-                <div class="rate"><?php echo Rating::model()->countByEntity($data); ?></div>
-                рейтинг
-            <?php endif; ?>
         </div>
         <div class="clear"></div>
     </div>

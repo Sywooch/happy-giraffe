@@ -74,10 +74,10 @@ class Horoscope extends HActiveRecord
         return array(
             array('zodiac, text', 'required'),
             array('zodiac, year, week, month', 'numerical', 'integerOnly' => true),
-            array('date, type', 'safe'),
+            array('date, type, month', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, zodiac, year, week, date, text', 'safe', 'on' => 'search'),
+            array('id, zodiac, year, week, month, date, text', 'safe', 'on' => 'search'),
         );
     }
 
@@ -146,12 +146,8 @@ class Horoscope extends HActiveRecord
             $this->month = null;
             $this->week = null;
         } elseif ($this->type == 2) {
-            $this->month = null;
             $this->date = null;
         } elseif ($this->type == 3) {
-            $this->week = null;
-            $this->date = null;
-        } elseif ($this->type == 4) {
             $this->month = null;
             $this->week = null;
             $this->date = null;

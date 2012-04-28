@@ -67,7 +67,7 @@
             <div class="club-fast-nav default-nav">
 
                 <?php
-                    if ($this->action->id == 'view') {
+                    if ($this->action->id == 'list') {
                         $this->widget('zii.widgets.CMenu', array(
                             'items' => array(
                                 array(

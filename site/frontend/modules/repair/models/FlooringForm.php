@@ -1,6 +1,6 @@
 <?php
 
-class FlooringForm extends CFormModel
+class FlooringForm extends HFormModel
 {
     public $flooringLength;
     public $flooringWidth;
@@ -19,7 +19,7 @@ class FlooringForm extends CFormModel
             array('flooringWidth', 'required', 'message' => 'Укажите ширину покрытия'),
             array('floorLength', 'required', 'message' => 'Укажите длину пола'),
             array('floorWidth', 'required', 'message' => 'Укажите ширину пола'),
-            array('flooringLength, flooringWidth, floorLength, floorWidth', 'numerical', 'message' => 'Введите десятичное число'),
+            array('flooringLength, flooringWidth, floorLength, floorWidth', 'numerical', 'message' => '{attribute} должна быть числом'),
             array('flooringLength, flooringWidth, floorLength, floorWidth', 'normalizeLength')
         );
     }
@@ -41,17 +41,8 @@ class FlooringForm extends CFormModel
             if (!$this->$attribute) {
                 $this->addError($attribute, 'Укажите длину покрытия');
                 $this->normalizeLength($attribute, $params);
-                if (!is_float($this->$attribute)) {
-                    $this->addError($attribute, 'Введите десятичное число');
-                }
             }
         }
-    }
-
-    public function normalizeLength($attribute, $params)
-    {
-        $this->$attribute = trim(str_replace(',', '.', $this->$attribute));
-        $this->$attribute = preg_replace('#[^0-9\.]+#', '', $this->$attribute);
     }
 
     public function calculate()

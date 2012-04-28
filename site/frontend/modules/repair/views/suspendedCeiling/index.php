@@ -31,13 +31,13 @@
                 )));
             ?>
 
-            <?php echo $form->error($SuspendedCeilingModel, 'area'); ?>
-
             <div class="row">
 
+                <div>
                 <big>Площадь потолка</big> <?php echo $form->textField($SuspendedCeilingModel, 'area') ?>
                 <b>м</b><sup>2</sup>
-
+                    <?php echo $form->error($SuspendedCeilingModel, 'area'); ?>
+                </div>
                 <div class="small"><span>Потолочная плитка</span>
                     <?php echo $form->dropDownList($SuspendedCeilingModel, 'plate', $SuspendedCeilingModel->plateTypes, array('class' => 'chzn')) ?>
                 </div>

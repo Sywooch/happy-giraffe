@@ -218,8 +218,8 @@ foreach ($test->testQuestions as $question): ?>
 		
 		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
 		
-		<!--<div class="your_res"><?php echo $test->result_title ?>:<ins> <?php echo 'Неизвестен' ?></ins></div>
-        <span class="your_rec">Рекомендации</span>-->
+		<div class="your_res"><?php echo $test->result_title ?>:<ins> <?php echo 'Неизвестен' ?></ins></div>
+        <span class="your_rec">Рекомендации</span>
         
     </div>
 </div>
@@ -244,8 +244,8 @@ foreach ($test->testQuestions as $question): ?>
 		
 		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
 		
-		<!--<div class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->title ?></ins></div>
-        <span class="your_rec">Рекомендации</span>-->
+		<div class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->title ?></ins></div>
+        <span class="your_rec">Рекомендации</span>
         
         
     </div>

@@ -33,7 +33,6 @@ class FamilyController extends HController
     public function actionIndex()
     {
         $this->loadUser();
-        Yii::app()->clientScript->registerScriptFile('/javascripts/family.js');
         $this->pageTitle = 'Семья';
 
         if ($this->user->partner == null) {
@@ -217,7 +216,7 @@ class FamilyController extends HController
             } else
                 $response = array('status' => false);
         } else
-            $response = array('status' => false);
+            $response = array('status' => true);
 
         echo CJSON::encode($response);
     }

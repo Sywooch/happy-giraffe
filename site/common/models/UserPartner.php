@@ -7,7 +7,6 @@
  * @property string $user_id
  * @property string $name
  * @property string $notice
- * @property string $birthday
  *
  * The followings are the available model relations:
  * @property User $user
@@ -97,23 +96,6 @@ class UserPartner extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-
-    public function getAge()
-    {
-        if ($this->birthday === null) return '';
-
-        $date1 = new DateTime($this->birthday);
-        $date2 = new DateTime(date('Y-m-d'));
-        $interval = $date1->diff($date2);
-        return $interval->y.' '.HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
-    }
-
-    public function getBDatePart($part)
-    {
-        if (empty($this->birthday))
-            return '';
-        return date($part, strtotime($this->birthday));
-    }
 
     public function getRandomPhotoUrl()
     {

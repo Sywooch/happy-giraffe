@@ -3872,13 +3872,20 @@ ul.letters li a:hover {
 }
 
 #hair_type_bl.test .step-in {
-    position: absolute;
-    left: 30px;
+    
+    width:698px;
+	height:465px;
+    
+}
+
+#hair_type_bl.test .step-in .question {
+	position: absolute;
+	left: 30px;
     padding: 0 10px 20px 20px;
     top: 121px;
     display: block;
     width: 350px;
-    background: url(../images/wh_trans.png) 0 0 repeat;
+	background: url(../images/wh_trans.png) 0 0 repeat;
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;

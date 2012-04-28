@@ -42,7 +42,7 @@ var Paint = {
     },
     SurfaceSwitch:function (surface, event) {
 
-        $('#paint-calculate-form')[0].reset();
+        //$('#paint-calculate-form')[0].reset();
         $('#repair-paint div.recommendation').fadeOut(200);
 
         $('#repair-paint div.recommendation div.left div').text('Краски для '+$(surface).text()+' нужно')

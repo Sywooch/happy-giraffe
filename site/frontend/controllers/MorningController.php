@@ -252,4 +252,17 @@ class MorningController extends HController
             $cond .= ' AND is_published = 1';
         return CommunityContent::model()->with('photoPost')->count($cond) != 0;
     }
+
+    public function actionRemoveLocation(){
+        if (!Yii::app()->user->checkAccess('editMorning'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $post = CommunityContent::model()->findByPk($_POST['id']);
+        if ($post === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $post->photoPost->location = null;
+        $post->photoPost->location_image = null;
+        $post->photoPost->save();
+    }
 }

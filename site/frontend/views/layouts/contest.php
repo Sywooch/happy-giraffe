@@ -21,6 +21,11 @@
                         'url' => array('/contest/default/list', 'id' => $this->contest->id),
                         'active' => $this->action->id == 'list',
                     ),
+                    array(
+                        'label' => 'Победители',
+                        'url' => array('/contest/default/results', 'id' => $this->contest->id),
+                        'active' => $this->action->id == 'results',
+                    ),
 				),
 			));
 		?>

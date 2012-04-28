@@ -58,6 +58,8 @@ class TestQuestionAnswer extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'testQuestion' => array(self::BELONGS_TO, 'TestQuestion', 'test_question_id'),
+            'next_question' => array(self::BELONGS_TO, 'TestQuestion', 'next_question_id'),
+            'result' => array(self::BELONGS_TO, 'TestResult', 'result_id'),
 		);
 	}
 

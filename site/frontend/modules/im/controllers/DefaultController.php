@@ -111,7 +111,6 @@ class DefaultController extends HController
             if (!$um->save())
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            Im::clearCache();
             $dialog_id = $dialog->id;
         }
         $this->redirect($this->createUrl('/im/default/dialog', array('id' => $dialog_id)));

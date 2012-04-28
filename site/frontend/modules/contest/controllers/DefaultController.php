@@ -111,7 +111,7 @@ class DefaultController extends HController
 
     public function actionResults($id, $work = false)
     {
-        $winners = array(1, 1, 1, 1, 1);
+        $winners = array(117, 128, 248, 43, 220);
         $this->contest = Contest::model()->findByPk($id);
         if($work && $index = array_search($work, $winners))
         {

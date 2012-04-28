@@ -1,12 +1,13 @@
 <div class="content-title">Победители конкурса</div>
 
 <div class="wysiwyg-content">
-	<p>Уважаемые пользователи, сообщаем вам, что конкурс «Веселая семейка» завершен.<br/>
-	Благодарим всех пользователей, принявших участие и поделившихся замечательными, интересными и яркими моментами вашей семейной жизни!
+	<p>Уважаемые пользователи, рады сообщить вам итоги конкурса «Веселая семейка»<br/>
+        Благодарим всех пользователей, принявших участие и поделившихся замечательными интересными и яркими моментами вашей семейной жизни!
 	</p>
 
-	<p>В связи с тем, что в процессе проверки хода голосования были выявлены факты искусственной накрутки голосов, победителей в конкурсе выбирала экспертная комиссия.
-	Итоги конкурса будут объявлены 30 апреля 2012 года
+	<p>Внимание!<br/>
+        Так как в ходе проверки голосования были выявлены случаи искусственной накрутки голосов, было принято решение о создании экспертной комиссии для независимой оценки фотографий и определения победителей. <br/>
+        Поздравляем победителей!
 	</p>
 </div>
 
@@ -19,45 +20,45 @@
 			<div class="clearfix">
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => ContestWork::model()->findByPk($winners[0])->author)); ?>
 			</div>
-			<div class="place place-1"></div>
+            <?php echo CHtml::link('', array('/contest/results', 'id' => 1, 'work' => $winners[0]), array('class' => 'place place-1')); ?>
 			<div class="title">
-				<a href="">Мультиварка<br><b>Land Life YBW60-100A1 </b></a>
+				Мультиварка<br><b>Land Life YBW60-100A1 </b>
 			</div>
 		</li>
 		<li class="place-2">
 			<div class="clearfix">
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => ContestWork::model()->findByPk($winners[1])->author)); ?>
 			</div>
-			<div class="place place-2"></div>
+            <?php echo CHtml::link('', array('/contest/results', 'id' => 1, 'work' => $winners[1]), array('class' => 'place place-2')); ?>
 			<div class="title">
-				<a href="">Мультиварка<br><b>BRAND 37501</b></a>
+				Мультиварка<br><b>BRAND 37501</b>
 			</div>
 		</li>
 		<li class="place-3">
 			<div class="clearfix">
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => ContestWork::model()->findByPk($winners[2])->author)); ?>
 			</div>
-			<div class="place place-3"></div>
+            <?php echo CHtml::link('', array('/contest/results', 'id' => 1, 'work' => $winners[2]), array('class' => 'place place-3')); ?>
 			<div class="title">
-				<a href="">Мультиварка<br><b>Land Life YBD60-100A </b></a>
+				Мультиварка<br><b>Land Life YBD60-100A </b>
 			</div>
 		</li>
 		<li class="place-4">
 			<div class="clearfix">
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => ContestWork::model()->findByPk($winners[3])->author)); ?>
 			</div>
-			<div class="place place-4"></div>
+            <?php echo CHtml::link('', array('/contest/results', 'id' => 1, 'work' => $winners[3]), array('class' => 'place place-4')); ?>
 			<div class="title">
-				<a href="">Мультиварка<br><b>Polaris PMC 0506AD</b></a>
+				Мультиварка<br><b>Polaris PMC 0506AD</b>
 			</div>
 		</li>
 		<li class="place-5">
 			<div class="clearfix">
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => ContestWork::model()->findByPk($winners[4])->author)); ?>
 			</div>
-			<div class="place place-5"></div>
+            <?php echo CHtml::link('', array('/contest/results', 'id' => 1, 'work' => $winners[4]), array('class' => 'place place-5')); ?>
 			<div class="title">
-				<a href="">Мультиварка<br><b>SUPRA MCS-4501</b></a>
+				Мультиварка<br><b>SUPRA MCS-4501</b>
 			</div>
 		</li>
 

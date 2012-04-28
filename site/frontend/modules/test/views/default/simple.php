@@ -200,7 +200,7 @@ foreach ($test->testQuestions as $question):?>
 
 <?php endforeach; ?>
 
-<div class="step" id="unknown_result" style="display: none;">
+<div class="step result-div" id="unknown_result" style="display: none;">
     <img src="/images/test/<?php echo $test->id ?>/<?php
         echo empty($test->unknown_result_image)?$test->result_image:$test->unknown_result_image ?>" alt="" title="" />
     <div class="step-in">
@@ -210,23 +210,28 @@ foreach ($test->testQuestions as $question):?>
 			<div class="r-title">Результат</div>
 			
 			<div class="r-text">
-				
-				<?php echo $test->unknown_result_text ?>
-				
+
+                <div class="your_res"><?php echo $test->result_title ?>: <ins>Неизвестен</ins></div>
+
+                <div class="r-text">
+
+                    <span class="your_rec">Рекомендации</span>
+                    <?php echo $test->unknown_result_text ?>
+
+                </div>
+
 			</div>
 		
 		</div>
 		
 		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
 		
-		<!--<div class="your_res"><?php echo $test->result_title ?>:<ins> <?php echo 'Неизвестен' ?></ins></div>
-        <span class="your_rec">Рекомендации</span>-->
-        
+
     </div>
 </div>
 
 <?php foreach ($test->testResults as $result): ?>
-<div class="step" id="result<?php echo $result->number ?>" style="display: none;">
+<div class="step result-div" id="result<?php echo $result->number ?>" style="display: none;">
     <img src="/images/test/<?php echo $test->id ?>/<?php
         echo empty($result->image)?$test->result_image:$result->image ?>" alt="" title="" />
     <div class="step-in">

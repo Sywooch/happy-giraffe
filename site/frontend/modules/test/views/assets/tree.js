@@ -1,48 +1,34 @@
 var Test = {
     Init:function () {
-
     },
     Start:function () {
-        $('#step0').fadeOut(300, function () {
-            $('#step1').fadeIn(300);
+        Test.Step = 1;
+        $('.step:visible').fadeOut(300, function () {
+            $('.step.q:first .q-number span').text(Test.Step);
+            $('.step.q:first').fadeIn(300);
         });
     },
-    Next:function (input) {
-        console.log($(input).attr('data-next-question'));
-
-        if ($(input).attr('data-next-question') != undefined) {
-            var q_num = $(input).attr('data-next-question');
-            console.log(q_num);
-
-            $(input).parents('div.step').fadeOut(300, function () {
-                $('div.question-div').each(function (index, el) {
-                    var num = $(el).attr('data-number');
-
-                    if (num == q_num) {
-                        $(el).fadeIn(300);
-                    }
-                });
+    Next:function (el) {
+        Test.Step++;
+        var input = $(el);
+        var nextId = parseInt(input.attr('data-next'));
+        var resultPoints = parseInt(input.attr('data-points'));
+        if (nextId > 0) {
+            $('.step:visible').fadeOut(300, function () {
+                $('.step.q[data-id="' + nextId + '"] .q-number span').text(Test.Step);
+                $('.step.q[data-id="' + nextId + '"]').fadeIn(300);
             });
         }
-        if ($(input).attr('data-result') != undefined) {
-            Test.Finish(input);
+        else if (resultPoints != 0) {
+            Test.Finish(resultPoints);
         }
     },
-    Finish:function (input) {
-        var result_id = $(input).attr('data-result');
-        console.log(result_id);
-
-        $(input).fadeOut(300, function () {
-            $('div.result-div').each(function (index, el) {
-                var num = $(el).attr('data-number');
-
-                if (num == result_id) {
-                    $(el).fadeIn(300);
-                }
-            });
+    Finish:function (resultPoints) {
+        $('.step:visible').fadeOut(300, function () {
+            $('.step.r[data-points="' + resultPoints.toString() + '"]').fadeIn(300);
         });
     },
+
     Restart:function () {
-
     }
 }

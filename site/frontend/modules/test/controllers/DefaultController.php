@@ -5,7 +5,7 @@ class DefaultController extends HController
     /**
      * @todo добавить в sitemap
      */
-    public $layout = '//layouts/new2';
+    public $layout = '//layouts/new';
 
     public function filters()
     {

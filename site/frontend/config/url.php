@@ -16,6 +16,7 @@ return array(
         'contest/<id:\d+>/rules' => 'contest/default/rules',
         'contest/<id:\d+>/list/<sort:\w+>' => 'contest/default/list',
         'contest/<id:\d+>/list' => 'contest/default/list',
+        'contest/<id:\d+>/results' => 'contest/default/results',
 		'contest/work/<id:\d+>' => 'contest/default/work',
 		'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
 

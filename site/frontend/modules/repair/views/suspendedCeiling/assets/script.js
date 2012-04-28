@@ -12,5 +12,8 @@ var SuspendedCeiling = {
             }
         });
         return false;
+    },
+    Recommendations:function(){
+        $('#repair-ceiling #results div a.pseudo, #repair-ceiling #results p, #repair-ceiling #results ul').toggle();
     }
 }

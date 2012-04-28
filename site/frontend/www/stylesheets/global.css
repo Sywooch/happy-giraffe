@@ -1620,112 +1620,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 
 /*===== Hair Section =====*/
-.hair_type_bl {
-    display: block;
-    height: 515px;
-    position: relative;
-}
 
-.hair_type_bl .inner_bl {
-    position: absolute;
-    left: 30px;
-    padding: 0 10px 20px 20px;
-    top: 121px;
-    display: block;
-    width: 350px;
-    background: url(../images/wh_trans.png) 0 0 repeat;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    box-shadow: 0 0 3px 1px #a1a1a1;
-    -moz-box-shadow: 0 0 3px 1px #a1a1a1;
-    -webkit-box-shadow: 0 0 3px 1px #a1a1a1;
-}
-
-.hair_type_bl span.question_title {
-    padding: 20px 0;
-    font: 20px/25px tahoma, sans-serif;
-    color: #1c1b1c;
-    display: block;
-    text-align: center;
-}
-
-.hair_type_bl ul {list-style:none;}
-
-.hair_type_bl ul li, .hair_type_bl p {
-    margin: 0 0 6px 0;
-}
-
-.hair_type_bl .RadioLabelClass {
-    background: url(../images/radio_dis.png) 0 0 no-repeat;
-    display: inline-block;
-    margin: 0;
-    padding: 0 0 0 25px;
-    line-height: 16px;
-}
-
-.hair_type_bl .RadioSelected {
-    background: url(../images/radio_sel.png) 0 0 no-repeat;
-}
-
-.hair_type_bl a.test_begin {
-    position: absolute;
-    right: 40px;
-    bottom: 40px;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    width: 300px;
-    background: url(../images/bg_yellow_sup.png) 0 0 repeat-x;
-    font: 40px/79px tahoma, sans-serif;
-    color: #965b08;
-    border: 1px solid #f2d826;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-}
-
-.hair_type_bl .result_bl {
-    height: 420px;
-    padding: 35px 15px 0 30px;
-    position: absolute;
-    right: 13px;
-    bottom: 30px;
-    display: block;
-    width: 380px;
-    background: url(../images/wh_trans.png) 0 0 repeat;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    box-shadow: 0 0 3px 1px #a1a1a1;
-    -moz-box-shadow: 0 0 3px 1px #a1a1a1;
-    -webkit-box-shadow: 0 0 3px 1px #a1a1a1;
-}
-
-.hair_type_bl .result_bl span.rs_title {
-    display: block;
-    font: 25px/25px tahoma, sans-serif;
-    color: #272526;
-    padding: 0 0 15px 0;
-}
-
-.hair_type_bl .result_bl div.your_res {
-    font: 16px/16px tahoma, sans-serif;
-    color: #5e307d;
-    padding: 0 0 15px 0;
-}
-
-.hair_type_bl .result_bl div.your_res ins {
-    font: bold 16px/16px tahoma, sans-serif;
-    color: #dd72b9;
-}
-
-.hair_type_bl .result_bl span.your_rec {
-    display: block;
-    font: bold 20px/20px arial, sans-serif;
-    color: #444;
-    padding: 0 0 15px 0;
-}
 
 /*===== Embroidery section =====*/
 .embroidery_service {
@@ -3762,6 +3657,7 @@ ul.letters li a:hover {
 #repair-ceiling .form .row.row-result ul li span {background:#f5f5f4;padding-right:5px;}
 #repair-ceiling .form .row.row-result ul li span.count {float:right;padding-left:5px;padding-right:0;}
 #repair-ceiling .form .row.row-result .pseudo {text-decoration:none;border-bottom:1px dashed #029AD2;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+#repair-ceiling #results p{ padding-bottom: 10px}
 
 #repair-ceiling .recommendation {padding:30px 20px;background:#fcf8ff;font-size:13px;line-height:19px;margin-bottom:30px;}
 
@@ -3929,12 +3825,147 @@ ul.letters li a:hover {
 #test-pregnancy .step .question .q-options label {font-size:22px;color:#969696;cursor:pointer;}
 #test-pregnancy .step .question .q-options label:hover {color:#5d5c5c;}
 #test-pregnancy .step .question .q-options label:active {color:#8b5fb5;}
-#test-pregnancy .step .question .q-options label span {}
+#test-pregnancy .step .question .q-options label span {display:inline-block;vertical-align:top;margin-top:5px;}
 
 #test-pregnancy .step .result {}
 #test-pregnancy .step .result .r-title {font-size:24px;margin-left:25px;margin-bottom:10px;}
 #test-pregnancy .step .result .r-text {background:#fff;padding:15px 25px;width:310px;font-size:14px;color:#5f5e5e;margin-bottom:45px;line-height:26px;}
 #test-pregnancy .step .result .r-text {/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;}
+
+
+#test-navel {border:1px solid #f0e8f7;}
+#test-navel .step {width:698px;height:642px;position:relative;}
+#test-navel .step > img {position:relative;z-index:1;}
+#test-navel .step-in {position:absolute;z-index:2;top:0;left:0;padding:25px;width:648px;height:592px;}
+#test-navel .step .title h1 {font:bold 35px/1 tahoma, arial, helvetica, sans-serif;color:#3e3e3e;}
+#test-navel .step .title span {color:#9971c0;font-size:30px;display:block;}
+#test-navel .step .title small {font-weight:normal;font-size:16px;color:#858686;}
+#test-navel .step .title big {font-size:40px;}
+
+#test-navel .step .text {background:#fff;width:370px;font-size:15px;color:#474747;position:absolute;bottom:30px;left:40px;}
+
+#test-navel .step .btn {position:absolute;bottom:25px;right:25px;}
+#test-navel .step .btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;padding:0 25px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
+#test-navel .step .btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
+
+#test-navel .step .question {font-size:25px;padding-left:20px;}
+#test-navel .step .question .q-title {line-height:76px;padding-top:5px;margin-bottom:20px;}
+#test-navel .step .question .q-number {font-size:80px;color:#ebe1f5;font-weight:bold;margin-top:35px;}
+#test-navel .step .question .q-options {list-style:none;padding:0 15px;}
+#test-navel .step .question .q-options li {padding:8px 0;}
+#test-navel .step .question .q-options label {font-size:22px;color:#969696;cursor:pointer;}
+#test-navel .step .question .q-options label:hover {color:#5d5c5c;}
+#test-navel .step .question .q-options label:active {color:#8b5fb5;}
+#test-navel .step .question .q-options label span {display:inline-block;vertical-align:top;margin-top:5px;}
+
+#test-navel .step .result {width:300px;margin-left:330px;}
+#test-navel .step .result .r-title {font-size:80px;color:#ebe1f5;font-weight:bold;margin-top:35px;text-align:center;margin-bottom:100px;}
+#test-navel .step .result .r-text {font-size:16px;color:#5f5e5e;margin-bottom:45px;line-height:25px;}
+#test-navel .step .result .r-text p {margin:1em 0;color:#319e03;}
+#test-navel .step .result .r-text p img {display:block;margin:auto;}
+#test-navel .step .result .r-text p.red {color:#cd1616;}
+
+
+#hair_type_bl.test .step {
+    display: block;
+    height: 515px;
+    position: relative;
+}
+
+#hair_type_bl.test .step-in {
+    
+    width:698px;
+	height:515px;
+	left:0;top:0;
+    
+}
+
+#hair_type_bl.test .step-in .question {
+	position: absolute;
+	left: 30px;
+    padding: 0 10px 20px 20px;
+    top: 80px;
+    display: block;
+    width: 350px;
+	background: url(../images/wh_trans.png) 0 0 repeat;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    box-shadow: 0 0 3px 1px #a1a1a1;
+    -moz-box-shadow: 0 0 3px 1px #a1a1a1;
+    -webkit-box-shadow: 0 0 3px 1px #a1a1a1;
+}
+
+#hair_type_bl.test .step .question .q-title {
+    padding: 20px 0;
+    font: 20px/25px tahoma, sans-serif;
+    color: #1c1b1c;
+    display: block;
+    text-align: center;
+}
+
+#hair_type_bl.test .step .question .q-options label {font-size:15px;}
+
+
+#hair_type_bl.test .step .btn button {
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    width: 300px;
+    background: url(../images/bg_yellow_sup.png) 0 0 repeat-x;
+    font: 40px/75px tahoma, sans-serif;
+    color: #965b08;
+    border: 1px solid #f2d826;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+#hair_type_bl.test .step .result {
+    height: 420px;
+    padding: 35px 15px 0 30px;
+    position: absolute;
+    right: 13px;
+    bottom: 30px;
+    display: block;
+    width: 380px;
+    background: url(../images/wh_trans.png) 0 0 repeat;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    box-shadow: 0 0 3px 1px #a1a1a1;
+    -moz-box-shadow: 0 0 3px 1px #a1a1a1;
+    -webkit-box-shadow: 0 0 3px 1px #a1a1a1;
+}
+
+#hair_type_bl.test .step .result .r-title {
+    display: block;
+    font: 25px/25px tahoma, sans-serif;
+    color: #272526;
+    padding: 0 0 15px 0;
+}
+
+#hair_type_bl.test .step .reult .r-text {
+    font: 16px/16px tahoma, sans-serif;
+    color: #5e307d;
+    padding: 0 0 15px 0;
+}
+
+#hair_type_bl.test .step .result .r-text ins {
+    font: bold 16px/16px tahoma, sans-serif;
+    color: #dd72b9;
+}
+
+.hair_type_bl .result_bl span.your_rec {
+    display: block;
+    font: bold 20px/20px arial, sans-serif;
+    color: #444;
+    padding: 0 0 15px 0;
+}
+
 
 
 #prikorm.test {}

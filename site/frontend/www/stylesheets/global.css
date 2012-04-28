@@ -3762,6 +3762,7 @@ ul.letters li a:hover {
 #repair-ceiling .form .row.row-result ul li span {background:#f5f5f4;padding-right:5px;}
 #repair-ceiling .form .row.row-result ul li span.count {float:right;padding-left:5px;padding-right:0;}
 #repair-ceiling .form .row.row-result .pseudo {text-decoration:none;border-bottom:1px dashed #029AD2;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+#repair-ceiling #results p{ padding-bottom: 10px}
 
 #repair-ceiling .recommendation {padding:30px 20px;background:#fcf8ff;font-size:13px;line-height:19px;margin-bottom:30px;}
 

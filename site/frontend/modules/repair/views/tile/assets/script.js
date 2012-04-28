@@ -16,8 +16,8 @@ var Tile = {
     },
     CalcSq:function(){
         $('#tile-calculate-form div.form-in div.row div.img').each(function(){
-            a = $(this).next().find('input').val();
-            b = $(this).next().next().find('input').val();
+            a = $(this).next().find('input').val().replace (/\,/g, '.');;
+            b = $(this).next().next().find('input').val().replace (/\,/g, '.');;
             sq = parseFloat(a) * parseFloat(b);
             if (sq > 0) {
                 $(this).find('div.val').text(sq.toFixed(1));

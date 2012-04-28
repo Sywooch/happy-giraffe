@@ -8,7 +8,7 @@
         <?php endif; ?>
         <?php if (! $data->by_happy_giraffe): ?>
             <div class="user">
-                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true)); ?>
+                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
             </div>
         <?php endif; ?>
         <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>

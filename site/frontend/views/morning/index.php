@@ -17,7 +17,7 @@
 
     <div class="entry-header clearfix">
 
-        <h1><a href="<?=$article->url ?>"><?=$article->title ?></a></h1>
+        <h1><a class="entry-title" href="<?=$article->url ?>"><?=$article->title ?></a></h1>
 
         <?php if (!empty($article->photoPost->location_image)):?>
         <div class="where">

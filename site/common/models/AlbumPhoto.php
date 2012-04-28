@@ -141,7 +141,7 @@ class AlbumPhoto extends HActiveRecord
             $signal->item_id = (int)$this->id;
             $signal->item_name = get_class($this);
             $signal->signal_type = UserSignal::TYPE_NEW_USER_PHOTO;
-            //$signal->save();
+            $signal->save();
 
             if (!empty($this->album_id)) {
                 UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);

@@ -3903,6 +3903,8 @@ ul.letters li a:hover {
     text-align: center;
 }
 
+#hair_type_bl.test .step .question .q-options label {font-size:15px;}
+
 
 #hair_type_bl.test .step .btn button {
     position: absolute;
@@ -3913,7 +3915,7 @@ ul.letters li a:hover {
     display: block;
     width: 300px;
     background: url(../images/bg_yellow_sup.png) 0 0 repeat-x;
-    font: 40px/79px tahoma, sans-serif;
+    font: 40px/75px tahoma, sans-serif;
     color: #965b08;
     border: 1px solid #f2d826;
     border-radius: 10px;

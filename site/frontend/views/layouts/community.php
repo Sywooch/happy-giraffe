@@ -66,6 +66,12 @@
 
             <div class="club-fast-nav default-nav">
 
+                <?php if (! Yii::app()->user->isGuest): ?>
+                    <?php $this->renderPartial('_joinButton', array(
+                        'community_id' => $this->community->id,
+                    )); ?>
+                <?php endif; ?>
+
                 <?php
                     if ($this->action->id == 'list') {
                         $this->widget('zii.widgets.CMenu', array(
@@ -107,12 +113,6 @@
                         ));
                     }
                 ?>
-
-                <?php if (! Yii::app()->user->isGuest): ?>
-                    <?php $this->renderPartial('_joinButton', array(
-                        'community_id' => $this->community->id,
-                    )); ?>
-                <?php endif; ?>
 
             </div>
 

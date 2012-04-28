@@ -4,7 +4,11 @@
         <?=CHtml::link('<i class="icon"></i>', '', array('class' => 'edit'))?>
     <?php endif; ?>
     <div class="in">
-        <?=CHtml::link($r->title, $this->getUrl(array('rubric_id' => $r->id)))?>
+        <?php
+            $params = array('rubric_id' => $r->id);
+            if ($this->action->id == 'view') $params['content_type_slug'] = null;
+        ?>
+        <?=CHtml::link($r->title, $this->getUrl($params))?>
         <span class="count"><?=$r->contentsCount?></span>
     </div>
 </li>

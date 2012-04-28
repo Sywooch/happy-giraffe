@@ -211,4 +211,27 @@ class Im
 
         return User::getUserById($user_id);
     }
+
+    public function getDialogIdByUser($pal_id)
+    {
+        $dialogs = Yii::app()->db->createCommand()
+            ->select('*')
+            ->from(DialogUser::model()->tableName())
+            ->where('user_id = :user_id OR user_id = :pal_id',
+            array(
+                ':user_id' => $this->_user_id,
+                ':pal_id' => $pal_id,
+            ))
+            ->queryAll();
+
+        foreach($dialogs as $dialog1){
+            foreach($dialogs as $dialog2)
+                if ($dialog1['user_id'] == $this->_user_id && $dialog2['user_id'] == $pal_id
+                    && $dialog1['dialog_id'] == $dialog2['dialog_id'])
+                    return $dialog1['dialog_id'];
+
+        }
+
+        return null;
+    }
 }

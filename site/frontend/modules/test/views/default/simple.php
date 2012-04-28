@@ -177,8 +177,8 @@ foreach ($test->testQuestions as $question):?>
 		<div class="question">
 			<form action="">
 				<div class="q-title"><?php echo $question->title ?></div>
-				
-				<?php if ($test->yes_no):?>
+
+                <?php if ($test->type == Test::TYPE_YES_NO):?>
 					<a href="#" class="yes_button">Да</a>
 					<a href="#" class="no_button">Нет</a>
 				<?php else: ?>

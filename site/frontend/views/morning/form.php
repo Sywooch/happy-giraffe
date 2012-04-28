@@ -19,8 +19,7 @@
             <button class="btn btn-green-small" onclick="Morniing.saveField(this, 'title');"><span><span>Ok</span></span>
             </button>
         </div>
-        <a href="javascript:void(0);" onclick="Morniing.editField(this)"
-           class="edit"<?php if (empty($post->title)) echo ' style="display:none;"' ?>><span class="tip">Редактировать название</span></a>
+        <a href="javascript:void(0);" onclick="Morniing.editField(this)" class="edit"><span class="tip">Редактировать название</span></a>
     </div>
     <br>
     <div<?php if (empty($post->title)) echo ' style="display:none;"' ?>>
@@ -36,7 +35,7 @@
                 </button>
             </div>
             <a href="javascript:void(0);" onclick="Morniing.editField(this)"
-               class="edit"<?php if (empty($post->preview)) echo ' style="display:none;"' ?>><span class="tip">Редактировать название</span></a>
+               class="edit"<?php if (empty($post->preview)) echo ' style="display:none;"' ?>><span class="tip">Редактировать текст превью</span></a>
         </div>
 
         <br>
@@ -116,6 +115,20 @@
         width: 14px;
         z-index: 3;
     }
+
+    .morning-edit .remove {display: block;
+        float: left;
+        font-weight: normal;
+        height: 18px;
+        margin: 0 auto 0 5px;
+        position: relative;
+        text-decoration: none;
+        width: 14px;
+        height: 14px;
+        z-index: 3;
+        background:url(/images/common.png) no-repeat -314px -135px;
+    }
+    .morning-edit .remove:hover {background-position:-314px -148px;}
 
     .morning-edit .edit:hover {
         background-position: -341px -136px;

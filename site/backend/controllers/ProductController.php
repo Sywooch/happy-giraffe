@@ -244,7 +244,7 @@ class ProductController extends BController
         if(isset($_POST['Attribute']))
             $product->cart_attributes = $_POST['Attribute'];
 
-        if($put !== false)
+        if($put !== false && isset($_POST['count']))
         {
             $count = $_POST['count'];
             print_r($product);
@@ -252,20 +252,10 @@ class ProductController extends BController
 
         if (Y::isAjaxRequest())
         {
-            if($put !== false)
-            {
-                $this->renderPartial('putIn', array(
-                    'model' => $product,
-                    'cart' => $cart,
-                ));
-            }
-            else
-            {
                 $this->renderPartial('putInAttributes', array(
                     'model' => $product,
                     'attributes' => $attributes
                 ));
-            }
         }
         else
         {

@@ -74,4 +74,14 @@ class DefaultController extends HController
             ))->findByAttributes(array('slug' => $slug));
         return $model;
     }
+
+    public function actionTestt(){
+        $models = TestQuestionAnswer::model()->findAll();
+        foreach($models as $model){
+            $first = mb_substr($model->text,0,1, 'UTF-8');
+            $first = mb_strtoupper($first, 'UTF-8');
+            $first.mb_substr($model->text,1,mb_strlen($model->text), 'UTF-8');
+            echo mb_convert_case($model->text, MB_CASE_TITLE, "UTF-8").'<br>';
+        }
+    }
 }

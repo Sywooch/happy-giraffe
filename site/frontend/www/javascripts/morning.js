@@ -54,6 +54,15 @@ var Morniing = {
         $.post('/morning/photo/', {id:response.id}, function (response) {
             $('div.add').before(response);
         });
+    },
+    removeLocation:function (el) {
+        if (confirm("Удалить локацию?")) {
+
+            $.post('/morning/removeLocation/', {id:model_id}, function (response) {
+                $('#location-img').attr('src', '');
+                $('#location-title').text('');
+            });
+        }
     }
 }
 

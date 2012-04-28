@@ -1,6 +1,6 @@
 <?php
 
-class TileForm extends CFormModel
+class TileForm extends HFormModel
 {
     public $wallLength;
     public $roomHeight;
@@ -23,7 +23,7 @@ class TileForm extends CFormModel
             array('tileLength', 'required', 'message' => 'Укажите длину рулона'),
             array('tileWidth', 'required', 'message' => 'Укажите ширину обоев'),
             array('wallLength, roomHeight, bathLength, bathHeight, doorHeight, doorWidth, tileLength, tileWidth', 'normalizeLength'),
-            array('wallLength, roomHeight, bathLength, bathHeight, doorHeight, doorWidth, tileLength, tileWidth', 'numerical', 'message' => 'Введите число')
+            array('wallLength, roomHeight, bathLength, bathHeight, doorHeight, doorWidth, tileLength, tileWidth', 'numerical', 'message' => '{attribute} должна быть числом')
         );
     }
 
@@ -39,12 +39,6 @@ class TileForm extends CFormModel
             'tileLength' => 'Длина плитки',
             'tileWidth' => 'Ширина плитки',
         );
-    }
-
-    public function normalizeLength($attribute, $params)
-    {
-        $this->$attribute = trim(str_replace(',', '.', $this->$attribute));
-        $this->$attribute = preg_replace('#[^0-9\.]+#', '', $this->$attribute);
     }
 
     public function calculate()

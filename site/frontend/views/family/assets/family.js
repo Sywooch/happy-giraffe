@@ -66,32 +66,6 @@ var Family = {
     editDate:function (el) {
         $(el).next().show();
     },
-    saveDate:function (el) {
-        var d = $(el).parent().find('select.date').val();
-        var m = $(el).parent().find('select.month').val();
-        var y = $(el).parent().find('select.year').val();
-        $.ajax({
-            url:'/ajax/setDate/',
-            data:{
-                entity:'UserPartner',
-                entity_id:this.partner_id,
-                attribute:'birthday',
-                d:d,
-                m:m,
-                y:y
-            },
-            type:'POST',
-            dataType:'JSON',
-            success:function (response) {
-                if (response.status) {
-                    $(el).parent().hide();
-                    $(el).parents('div.date').prev().html(response.age).show();
-                    Family.updateWidget();
-                }
-            },
-            context:el
-        });
-    },
     editPartnerNotice:function (el) {
         $('#user-partner div.comment').show();
         $('#user-partner div.comment div.text').hide();

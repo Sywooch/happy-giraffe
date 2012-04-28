@@ -840,8 +840,11 @@ class User extends HActiveRecord
     {
         if ($this->_role === null) {
             $roles = Yii::app()->authManager->getRoles($this->id);
-            if (!empty($roles))
-                $this->_role = current($roles);
+            foreach($roles as $role){
+                $this->_role = $role->name;
+                return $role->name;
+            }
+
             $this->_role = 'user';
         }
         return $this->_role;

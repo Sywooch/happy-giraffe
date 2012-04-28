@@ -3860,7 +3860,7 @@ ul.letters li a:hover {
 #test-navel .step .question .q-options label span {display:inline-block;vertical-align:top;margin-top:5px;}
 
 #test-navel .step .result {width:300px;margin-left:330px;}
-#test-navel .step .result .r-title {font-size:80px;color:#ebe1f5;font-weight:bold;margin-top:35px;text-align:center;margin-bottom:100px;}
+#test-navel .step .result .r-title {font-size:80px;color:#ebe1f5;font-weight:bold;margin-top:35px;text-align:center;margin-bottom:100px;line-height: 100px;}
 #test-navel .step .result .r-text {font-size:16px;color:#5f5e5e;margin-bottom:45px;line-height:25px;}
 #test-navel .step .result .r-text p {margin:1em 0;color:#319e03;}
 #test-navel .step .result .r-text p img {display:block;margin:auto;}

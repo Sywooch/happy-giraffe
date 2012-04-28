@@ -73,7 +73,8 @@
 </div>
 
 <?php endforeach; ?>
+</div>
 
-
-
+<div class="seo-text">
+    <?php echo $test->text ?>
 </div>

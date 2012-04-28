@@ -67,43 +67,45 @@
             <div class="club-fast-nav default-nav">
 
                 <?php
-                $this->widget('zii.widgets.CMenu', array(
-                    'items' => array(
-                        array(
-                            'label' => 'Все',
-                            'url' => $this->getUrl(array('content_type_slug' => null)),
-                            'active' => $this->content_type_slug === null,
-                            'linkOptions' => array(
-                                'rel' => 'nofollow',
+                    if ($this->action->id == 'view') {
+                        $this->widget('zii.widgets.CMenu', array(
+                            'items' => array(
+                                array(
+                                    'label' => 'Все',
+                                    'url' => $this->getUrl(array('content_type_slug' => null)),
+                                    'active' => $this->content_type_slug === null,
+                                    'linkOptions' => array(
+                                        'rel' => 'nofollow',
+                                    ),
+                                ),
+                                array(
+                                    'label' => 'Статьи',
+                                    'url' => $this->getUrl(array('content_type_slug' => 'post')),
+                                    'active' => $this->content_type_slug == 'post',
+                                    'linkOptions' => array(
+                                        'rel' => 'nofollow',
+                                    ),
+                                ),
+                                array(
+                                    'label' => 'Путешествия',
+                                    'url' => $this->getUrl(array('content_type_slug' => 'travel')),
+                                    'active' => $this->content_type_slug == 'travel',
+                                    'visible' => $this->community->id == 21,
+                                    'linkOptions' => array(
+                                        'rel' => 'nofollow',
+                                    ),
+                                ),
+                                array(
+                                    'label' => 'Видео',
+                                    'url' => $this->getUrl(array('content_type_slug' => 'video')),
+                                    'active' => $this->content_type_slug == 'video',
+                                    'linkOptions' => array(
+                                        'rel' => 'nofollow',
+                                    ),
+                                ),
                             ),
-                        ),
-                        array(
-                            'label' => 'Статьи',
-                            'url' => $this->getUrl(array('content_type_slug' => 'post')),
-                            'active' => $this->content_type_slug == 'post',
-                            'linkOptions' => array(
-                                'rel' => 'nofollow',
-                            ),
-                        ),
-                        array(
-                            'label' => 'Путешествия',
-                            'url' => $this->getUrl(array('content_type_slug' => 'travel')),
-                            'active' => $this->content_type_slug == 'travel',
-                            'visible' => $this->community->id == 21,
-                            'linkOptions' => array(
-                                'rel' => 'nofollow',
-                            ),
-                        ),
-                        array(
-                            'label' => 'Видео',
-                            'url' => $this->getUrl(array('content_type_slug' => 'video')),
-                            'active' => $this->content_type_slug == 'video',
-                            'linkOptions' => array(
-                                'rel' => 'nofollow',
-                            ),
-                        ),
-                    ),
-                ));
+                        ));
+                    }
                 ?>
 
                 <?php if (! Yii::app()->user->isGuest): ?>

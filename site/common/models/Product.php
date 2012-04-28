@@ -1,7 +1,4 @@
 <?php
-
-Yii::import('site.frontend.extensions.ufile.UFiles', true);
-Yii::import('site.frontend.extensions.ufile.UFileBehavior');
 Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
 Yii::import('site.frontend.extensions.status.EStatusBehavior');
 
@@ -61,47 +58,6 @@ class Product extends HActiveRecord implements IECartPosition
     public function behaviors()
     {
         return array(
-            'behavior_ufiles' => array(
-                'class' => 'site.frontend.extensions.ufile.UFileBehavior',
-                'fileAttributes' => array(
-                    'product_image' => array(
-                        'fileName' => 'upload/product/*/<date>-{product_id}-<name>.<ext>',
-                        'fileItems' => array(
-                            'product' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'resize' => array(
-                                    'width' => 300,
-                                    'height' => 301,
-                                ),
-                            ),
-                            'product_thumb' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'product_resize' => array(
-                                    'width' => 76,
-                                    'height' => 79,
-                                ),
-                            ),
-                            'product_contest' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'product_resize' => array(
-                                    'width' => 127,
-                                    'height' => 132,
-                                ),
-                            ),
-                            'subproduct' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'product_resize' => array(
-                                    'width' => 200,
-                                    'height' => 160,
-                                ),
-                            ),
-                            'original' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                            ),
-                        )
-                    ),
-                ),
-            ),
             'getUrl' => array(
                 'class' => 'site.frontend.extensions.geturl.EGetUrlBehavior',
                 'route' => 'product/view',
@@ -179,10 +135,7 @@ class Product extends HActiveRecord implements IECartPosition
             array('product_sex', 'in', 'range' => array_keys(AgeRange::model()->getGenderList()), 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_text', 'safe', 'on' => self::SCENARIO_FILL_PRODUCT),
 
-            array('product_image', 'site.frontend.extensions.ufile.UFileValidator',
-                'allowedTypes' => 'jpg, gif, png, jpeg',
-//				'minWidth'=>621, 'minHeight'=>424,
-                'allowEmpty' => true,
+            array('product_image', 'safe',
                 'on' => self::SCENARIO_FILL_PRODUCT
             ),
 
@@ -206,7 +159,8 @@ class Product extends HActiveRecord implements IECartPosition
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'images' => array(self::HAS_MANY, 'ProductImage', 'image_product_id'),
+            'images' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'condition' => 'type = 0'),
+            'main_image' => array(self::HAS_ONE, 'ProductImage', 'product_id', 'condition' =>'type = 1'),
             'comments' => array(self::HAS_MANY, 'ProductComment', 'product_id'),
             'videos' => array(self::HAS_MANY, 'ProductVideo', 'product_id'),
             'brand' => array(self::BELONGS_TO, 'ProductBrand', 'product_brand_id'),
@@ -326,7 +280,7 @@ class Product extends HActiveRecord implements IECartPosition
     {
         return Y::command()
             ->select('COUNT(link_id)')
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id=:link_main_product_id', array(
             ':link_main_product_id' => $this->product_id,
         ))
@@ -388,8 +342,8 @@ class Product extends HActiveRecord implements IECartPosition
     {
         $eav = Y::command()
             ->select('attribute_id, attribute_title, eav_attribute_value, attribute_type')
-            ->from('shop_product_eav')
-            ->leftJoin('shop_product_attribute', 'eav_attribute_id=attribute_id')
+            ->from('shop__product_eav')
+            ->leftJoin('shop__product_attribute', 'eav_attribute_id=attribute_id')
             ->where('eav_product_id=:eav_product_id', array(
             ':eav_product_id' => $this->product_id,
         ))
@@ -407,7 +361,7 @@ class Product extends HActiveRecord implements IECartPosition
         if ($value_ids) {
             $enum = Y::command()
                 ->select('value_id, value_value')
-                ->from('shop_product_attribute_value')
+                ->from('shop__product_attribute_value')
                 ->where(array('in', 'value_id', $value_ids))
                 ->queryAll();
 
@@ -441,8 +395,8 @@ class Product extends HActiveRecord implements IECartPosition
 
         $eav_text = Y::command()
             ->select('attribute_id, attribute_title, eav_attribute_value')
-            ->from('shop_product_eav_text')
-            ->leftJoin('shop_product_attribute', 'eav_attribute_id=attribute_id')
+            ->from('shop__product_eav_text')
+            ->leftJoin('shop__product_attribute', 'eav_attribute_id=attribute_id')
             ->where('eav_product_id=:eav_product_id', array(
             ':eav_product_id' => $this->product_id,
         ))
@@ -465,7 +419,7 @@ class Product extends HActiveRecord implements IECartPosition
 
     public function rated($authorId)
     {
-        return ProductComment::model()->isRated($authorId, $this->product_id);
+
     }
 
     /**
@@ -477,7 +431,7 @@ class Product extends HActiveRecord implements IECartPosition
     public function addSubProduct($productId, $subProductId)
     {
         $command = Yii::app()->db->createCommand();
-        $command->insert('shop_product_link', array(
+        $command->insert('shop__product_link', array(
             'link_main_product_id' => $productId,
             'link_sub_product_id' => $subProductId,
         ));
@@ -493,7 +447,7 @@ class Product extends HActiveRecord implements IECartPosition
     {
         $command = Yii::app()->db->createCommand();
         $command->select()
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id = :link_main_product_id AND link_sub_product_id = :link_sub_product_id', array(
             'link_main_product_id' => (int)$_POST['main_product_id'],
             'link_sub_product_id' => (int)$_POST['product_id'],
@@ -511,7 +465,7 @@ class Product extends HActiveRecord implements IECartPosition
     {
         $command = Yii::app()->db->createCommand();
         $command->select()
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id = :link_main_product_i', array(
             ':link_main_product_id' => $productId,
         ));
@@ -528,7 +482,7 @@ class Product extends HActiveRecord implements IECartPosition
     {
         $command = Yii::app()->db->createCommand();
         $command->select('link_sub_product_id')
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id = :link_main_product_id');
         $command->params = array(
             ':link_main_product_id' => $productId
@@ -547,7 +501,7 @@ class Product extends HActiveRecord implements IECartPosition
 
             $eav_id = Y::command()
                 ->select('eav_attribute_value')
-                ->from('shop_product_eav')
+                ->from('shop__product_eav')
                 ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
                 ':eav_product_id' => $this->product_id,
                 ':eav_attribute_id' => $attr->attribute_id,
@@ -578,7 +532,7 @@ class Product extends HActiveRecord implements IECartPosition
         if ($attr->attribute_type == Attribute::TYPE_TEXT) {
             $eav_text = Y::command()
                 ->select('eav_attribute_value')
-                ->from('shop_product_eav_text')
+                ->from('shop__product_eav_text')
                 ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
                 ':eav_product_id' => $this->product_id,
                 ':eav_attribute_id' => $attr->attribute_id,
@@ -656,7 +610,7 @@ class Product extends HActiveRecord implements IECartPosition
     public function GetCardAttributeValues($attr_id){
         $eav_text = Y::command()
             ->select('eav_id, eav_attribute_value')
-            ->from('shop_product_eav_text')
+            ->from('shop__product_eav_text')
             ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
             ':eav_product_id' => $this->product_id,
             ':eav_attribute_id' => $attr_id,

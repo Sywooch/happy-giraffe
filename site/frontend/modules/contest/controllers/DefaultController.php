@@ -16,7 +16,7 @@ class DefaultController extends HController
     {
         return array(
             array('allow',  // allow all users to perform 'index' and 'view' actions
-                'actions'=>array('index','view','list','rules', 'work'),
+                'actions'=>array('index','view','list','rules', 'work', 'results'),
                 'users'=>array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -107,6 +107,22 @@ class DefaultController extends HController
             'work' => $work,
             'others' => $others,
         ));
+    }
+
+    public function actionResults($id, $work = false)
+    {
+        $winners = array(1, 1, 1, 1, 1);
+        $this->contest = Contest::model()->findByPk($id);
+        if($work && $index = array_search($work, $winners))
+        {
+            $model = ContestWork::model()->findByPk($work);
+        }
+        else
+        {
+            $index = 0;
+            $model = ContestWork::model()->findByPk($winners[0]);
+        }
+        $this->render('results', array('work' => $model, 'winners' => $winners, 'index' => $index));
     }
 
     public function actionPreview()

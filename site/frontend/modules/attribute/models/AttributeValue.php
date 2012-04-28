@@ -23,7 +23,7 @@ class AttributeValue extends HActiveRecord
      */
     public function tableName()
     {
-        return 'shop_product_attribute_value';
+        return 'shop__product_attribute_value';
     }
 
     /**

@@ -30,9 +30,9 @@
 
             <div class="row-switcher">
                 <div class="a-right">Посчитать для
-                    <span data-title="Стены" style="display:none"><a href="" class="pseudo" onclick="Paint.SurfaceSwitch(this, event);">стен</a></span>
-                    <span data-title="Потолок"><a href="" class="pseudo" onclick="Paint.SurfaceSwitch(this, event);">потолка</a></span>
-                    <span data-title="Пол"><a href="" class="pseudo" onclick="Paint.SurfaceSwitch(this, event);">пола</a></span>
+                    <span data-title="Стены" style="display:none"><a href="" class="pseudo" onclick="return Paint.SurfaceSwitch(this);">стен</a></span>
+                    <span data-title="Потолок"><a href="" class="pseudo" onclick="return Paint.SurfaceSwitch(this);">потолка</a></span>
+                    <span data-title="Пол"><a href="" class="pseudo" onclick="return Paint.SurfaceSwitch(this);">пола</a></span>
                 </div>
                 <big>Стены</big>
             </div>

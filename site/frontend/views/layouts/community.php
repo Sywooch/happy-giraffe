@@ -191,7 +191,7 @@
 
 <div style="display: none;">
     <div id="joinClub" class="popup-confirm popup">
-        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
+        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
         <div class="confirm-before">
             <div class="confirm-question">
                 <p>Чтобы размещать материалы и добавлять<br/>комментарии, Вы должны вступить в клуб!</p>

@@ -3956,16 +3956,35 @@ ul.letters li a:hover {
 
 #hair_type_bl.test .step .result .r-text ins {
     font: bold 16px/16px tahoma, sans-serif;
-    color: #dd72b9;
+    color: #e56a78;
 }
 
-.hair_type_bl .result_bl span.your_rec {
+#hair_type_bl .result span.your_rec {
     display: block;
     font: bold 20px/20px arial, sans-serif;
-    color: #444;
+    color: #dd72b9;
+    padding: 0 0 15px 0;
+}
+#hair_type_bl .result-div .btn {display: none;}
+
+#hair_type_bl .result span.rs_title {
+    display: block;
+    font: 25px/25px tahoma, sans-serif;
+    color: #272526;
     padding: 0 0 15px 0;
 }
 
+#hair_type_bl .result div.your_res {
+    display: block;
+    font: 16px/16px tahoma, sans-serif;
+    color: #5e307d;
+    padding: 0 0 15px 0;
+}
+
+#hair_type_bl .result div.your_res ins {
+    font: bold 16px/16px tahoma, sans-serif;
+    color: #e56a78;
+}
 
 
 #prikorm.test {}

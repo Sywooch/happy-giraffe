@@ -42,7 +42,7 @@
         <?php echo $form->error($model,'month'); ?>
     </div>
 
-	<div class="row date" <?php if (empty($model->date)) echo 'style="display: none;"'?>>
+	<div class="row date" <?php if (empty($model->date) && !$model->isNewRecord) echo 'style="display: none;"'?>>
 		<?php echo $form->labelEx($model,'date'); ?>
         <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
         'model'=>$model,

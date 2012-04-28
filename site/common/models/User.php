@@ -400,7 +400,7 @@ class User extends HActiveRecord
         return array(
 //			'attribute_set' => array(
 //				'class'=>'attribute.AttributeSetBehavior',
-//				'table'=>'shop_product_attribute_set',
+//				'table'=>'shop__product_attribute_set',
 //				'attribute'=>'product_attribute_set_id',
 //			),
             'getUrl' => array(
@@ -785,7 +785,7 @@ class User extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->with =array('level' => array('select' => array('title')));
         $criteria->compare('user_id', $this->id);
-        $criteria->select = array('scores');
+        $criteria->select = array('scores', 'level_id');
         $model = UserScores::model()->find($criteria);
         if ($model === null) {
             $model = new UserScores;
@@ -840,8 +840,11 @@ class User extends HActiveRecord
     {
         if ($this->_role === null) {
             $roles = Yii::app()->authManager->getRoles($this->id);
-            if (!empty($roles))
-                $this->_role = current($roles);
+            foreach($roles as $role){
+                $this->_role = $role->name;
+                return $role->name;
+            }
+
             $this->_role = 'user';
         }
         return $this->_role;

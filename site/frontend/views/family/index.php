@@ -9,7 +9,13 @@ $js = '
     Family.partnerOf = '.CJavaScript::encode($user->getPartnerTitlesOf()).';
     Family.baby_count = '.$user->babyCount().';
 ';
-Yii::app()->clientScript->registerScript('family-edit',$js);
+
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+
+Yii::app()->clientScript->registerScript('family-edit',$js)
+    ->registerScriptFile($baseUrl. '/family.js', CClientScript::POS_HEAD);
+
 ?>
 <div class="user-cols clearfix">
 
@@ -48,31 +54,6 @@ Yii::app()->clientScript->registerScript('family-edit',$js);
                         </div>
 
                         <div<?php if (empty($user->partner->name)) echo ' style="display:none;"' ?>>
-                            <div class="age"<?php if (empty($user->partner->birthday)) echo ' style="display:none;"' ?>>
-                                <?=$user->partner->getAge() ?>
-                            </div>
-                            <div class="date">
-                                <a href="javascript:void(0);" onclick="Family.editDate(this);" class="date"><span class="tip">Укажите дату рождения</span></a>
-                                <div class="datepicker" style="display:none;">
-                                    <div class="tale"></div>
-                                    <?php echo CHtml::dropDownList('partner_d', $user->partner->getBDatePart('j'), array(''=>' ')+HDate::Days(), array(
-                                        'class'=>'chzn w-50 date',
-                                        'data-placeholder'=>' '
-                                    )) ?>
-                                    &nbsp;
-                                    <?php echo CHtml::dropDownList('partner_m', $user->partner->getBDatePart('n'), array(''=>' ')+HDate::ruMonths(), array(
-                                        'class'=>'chzn w-100 month',
-                                        'data-placeholder'=>' '
-                                    )) ?>
-                                    &nbsp;
-                                    <?php echo CHtml::dropDownList('partner_y', $user->partner->getBDatePart('Y'), array(''=>' ')+HDate::Range(date('Y')-16, date('Y') - 100), array(
-                                        'class'=>'chzn w-50 year',
-                                        'data-placeholder'=>' '
-                                    )) ?>
-                                    &nbsp;
-                                    <button class="btn btn-green-small" onclick="Family.saveDate(this)"><span><span>Ok</span></span></button>
-                                </div>
-                            </div>
                             <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this)" class="comment"><span class="tip">Расскажите о <?= ($user->gender == 1)?'ней':'нем' ?></span></a>
                             <a href="javascript:void(0);" class="photo"><span class="tip">Добавить 4 фото</span>
                                 <?php $form = $this->beginWidget('CActiveForm', array(

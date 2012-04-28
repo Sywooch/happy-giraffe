@@ -58,7 +58,7 @@ class Category extends HActiveRecord
     {
         return Yii::app()->db->createCommand()
             ->select('count(DISTINCT `product_brand_id`)')
-            ->from('shop_product')
+            ->from('shop__product')
             ->where('product_category_id = :category_id', array(':category_id' => $this->primaryKey))
             ->queryScalar();
     }
@@ -126,7 +126,7 @@ class Category extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'attributeSets' => array(self::MANY_MANY, 'AttributeSet', 'shop_category_attribute_set_map(category_id, attribute_set_id)'),
+            'attributeSets' => array(self::MANY_MANY, 'AttributeSet', 'shop__category_attribute_set_map(category_id, attribute_set_id)'),
             'products' => array(self::HAS_MANY, 'Product', 'product_category_id'),
             'productsCount' => array(self::STAT, 'Product', 'product_category_id'),
         );

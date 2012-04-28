@@ -10,6 +10,7 @@ class CommentWidget extends CWidget
     public $actions = true;
     public $button = 'Добавить комментарий';
     public $type = 'default';
+    public $readOnly = false;
 
     public function init()
     {

@@ -70,7 +70,7 @@ class ProductController extends BController
 
         $eav_id = Y::command()
             ->select('eav_id')
-            ->from('shop_product_eav')
+            ->from('shop__product_eav')
             ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
             ':eav_product_id' => $product_id,
             ':eav_attribute_id' => $attr_id,
@@ -80,7 +80,7 @@ class ProductController extends BController
 
         if ($eav_id) {
             Y::command()
-                ->update('shop_product_eav', array(
+                ->update('shop__product_eav', array(
                 'eav_attribute_value' => $value,
             ), 'eav_id=:eav_id', array(
                 ':eav_id' => $eav_id,
@@ -89,7 +89,7 @@ class ProductController extends BController
         else
         {
             Y::command()
-                ->insert('shop_product_eav', array(
+                ->insert('shop__product_eav', array(
                 'eav_product_id' => $product_id,
                 'eav_attribute_id' => $attr_id,
                 'eav_attribute_value' => $value,
@@ -105,7 +105,7 @@ class ProductController extends BController
 
         $eav_id = Y::command()
             ->select('eav_id')
-            ->from('shop_product_eav_text')
+            ->from('shop__product_eav_text')
             ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
             ':eav_product_id' => $product_id,
             ':eav_attribute_id' => $attr_id,
@@ -115,7 +115,7 @@ class ProductController extends BController
 
         if ($eav_id) {
             Y::command()
-                ->update('shop_product_eav_text', array(
+                ->update('shop__product_eav_text', array(
                 'eav_attribute_value' => $value,
             ), 'eav_id=:eav_id', array(
                 ':eav_id' => $eav_id,
@@ -124,7 +124,7 @@ class ProductController extends BController
         else
         {
             Y::command()
-                ->insert('shop_product_eav_text', array(
+                ->insert('shop__product_eav_text', array(
                 'eav_product_id' => $product_id,
                 'eav_attribute_id' => $attr_id,
                 'eav_attribute_value' => $value,
@@ -246,8 +246,13 @@ class ProductController extends BController
 
         if($put !== false && isset($_POST['count']))
         {
-            $count = $_POST['count'];
-            print_r($product);
+            $item = new ProductItem;
+            $item->product_id = $product->primaryKey;
+            $item->count = $_POST['count'];
+            $item->properties = $product->cart_attributes;
+            $item->save();
+            echo $product->itemsCount;
+            Yii::app()->end();
         }
 
         if (Y::isAjaxRequest())

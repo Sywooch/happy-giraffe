@@ -166,6 +166,7 @@ class Product extends HActiveRecord implements IECartPosition
             'brand' => array(self::BELONGS_TO, 'ProductBrand', 'product_brand_id'),
             'category' => array(self::BELONGS_TO, 'Category', 'product_category_id'),
             'ageRange' => array(self::BELONGS_TO, 'AgeRange', 'product_age_range_id'),
+            'items' => array(self::HAS_MANY, 'ProductItem', 'product_id'),
         );
     }
 
@@ -236,6 +237,14 @@ class Product extends HActiveRecord implements IECartPosition
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function getItemsCount()
+    {
+        $count = 0;
+        foreach($this->items as $item)
+            $count += $item->count;
+        return $count;
     }
 
     public function getBrands()
@@ -394,9 +403,10 @@ class Product extends HActiveRecord implements IECartPosition
         }
 
         $eav_text = Y::command()
-            ->select('attribute_id, attribute_title, eav_attribute_value')
+            ->select('attribute_id, attribute_title, shop__product_eav_text_values.value as eav_attribute_value')
             ->from('shop__product_eav_text')
             ->leftJoin('shop__product_attribute', 'eav_attribute_id=attribute_id')
+            ->leftJoin('shop__product_eav_text_values', 'shop__product_eav_text_values.id=value_id')
             ->where('eav_product_id=:eav_product_id', array(
             ':eav_product_id' => $this->product_id,
         ))
@@ -609,8 +619,9 @@ class Product extends HActiveRecord implements IECartPosition
 
     public function GetCardAttributeValues($attr_id){
         $eav_text = Y::command()
-            ->select('eav_id, eav_attribute_value')
+            ->select('eav_id, shop__product_eav_text_values.value as eav_attribute_value')
             ->from('shop__product_eav_text')
+            ->leftJoin("shop__product_eav_text_values", "shop__product_eav_text_values.id = shop__product_eav_text.value_id")
             ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
             ':eav_product_id' => $this->product_id,
             ':eav_attribute_id' => $attr_id,

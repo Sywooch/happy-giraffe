@@ -20,7 +20,8 @@
 <script type="text/javascript">
     $('#put-form').iframePostForm({
         complete : function(data) {
-
+            $('#product-items-count').text(data);
+            $.fancybox.close();
         }
     });
 </script>

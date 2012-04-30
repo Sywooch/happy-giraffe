@@ -19,8 +19,8 @@ class FlooringForm extends HFormModel
             array('flooringWidth', 'required', 'message' => 'Укажите ширину покрытия'),
             array('floorLength', 'required', 'message' => 'Укажите длину пола'),
             array('floorWidth', 'required', 'message' => 'Укажите ширину пола'),
-            array('flooringLength, flooringWidth, floorLength, floorWidth', 'numerical', 'message' => '{attribute} должна быть числом'),
-            array('flooringLength, flooringWidth, floorLength, floorWidth', 'normalizeLength')
+            array('flooringLength, flooringWidth, floorLength, floorWidth', 'normalizeLength'),
+            array('flooringLength, flooringWidth, floorLength, floorWidth', 'numerical', 'message' => '{attribute} должна быть числом')
         );
     }
 

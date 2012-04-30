@@ -40,14 +40,14 @@ var Paint = {
         });
         return false;
     },
-    SurfaceSwitch:function (surface, event) {
+    SurfaceSwitch:function (surface) {
 
-        $('#paint-calculate-form')[0].reset();
+        //$('#paint-calculate-form')[0].reset();
         $('#repair-paint div.recommendation').fadeOut(200);
 
-        $('#repair-paint div.recommendation div.left div').text('Краски для '+$(surface).text()+' нужно')
+        $('#repair-paint div.recommendation div.left div').text('Краски для '+$(surface).text()+' нужно');
 
-        title = $(surface).parent().attr('data-title');
+        var title = $(surface).parent().attr('data-title');
         $('#repair-paint div.form div.form-in form#paint-calculate-form div.row-switcher big').text(title);
         $('#PaintForm_surface').val(title);
 
@@ -65,8 +65,6 @@ var Paint = {
             $('#repair-paint div.form div.form-in form#paint-calculate-form div.row div.row-elements div.col:last').fadeOut(200);
         }
 
-        event.preventDefault();
+        return false;
     }
-
-
 }

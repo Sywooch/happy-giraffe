@@ -1,6 +1,6 @@
 <?php
 
-class WallpapersCalcForm extends CFormModel
+class WallpapersCalcForm extends HFormModel
 {
     public $room_length;
     public $room_width;
@@ -18,8 +18,8 @@ class WallpapersCalcForm extends CFormModel
             array('wp_width', 'required', 'message' => 'Укажите ширину обоев'),
             array('wp_length', 'required', 'message' => 'Укажите длину рулона'),
             array('room_length, room_width, room_height, wp_width, wp_length, repeat', 'normalizeLength'),
-            array('room_length, room_width, room_height, wp_width, wp_length, repeat', 'numerical', 'message' => 'Введите число')
-
+            array('room_length, room_width, room_height, wp_width, wp_length', 'numerical', 'message' => '{attribute} должна быть числом'),
+            array('repeat', 'numerical', 'message' => '{attribute} должен быть числом')
         );
     }
 
@@ -33,12 +33,6 @@ class WallpapersCalcForm extends CFormModel
             'wp_length' => 'Длина рулона',
             'repeat' => 'Раппорт'
         );
-    }
-
-    public function normalizeLength($attribute, $params)
-    {
-        $this->$attribute = trim(str_replace(',', '.', $this->$attribute));
-        $this->$attribute = preg_replace('#[^0-9\.]+#', '', $this->$attribute);
     }
 
     public function calculate()

@@ -1,6 +1,6 @@
 <?php
 
-class WallpapersAreaForm extends CFormModel
+class WallpapersAreaForm extends HFormModel
 {
     public $height;
     public $width;
@@ -29,12 +29,5 @@ class WallpapersAreaForm extends CFormModel
             'qty' => 'Количество'
         );
     }
-
-    public function normalizeLength($attribute, $params)
-    {
-        $this->$attribute = trim(str_replace(',', '.', $this->$attribute));
-        $this->$attribute = preg_replace('#[^0-9\.]+#', '', $this->$attribute);
-    }
-
 
 }

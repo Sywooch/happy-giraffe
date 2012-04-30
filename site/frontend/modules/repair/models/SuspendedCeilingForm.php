@@ -1,6 +1,6 @@
 <?php
 
-class SuspendedCeilingForm extends CFormModel
+class SuspendedCeilingForm extends HFormModel
 {
     public $area;
     public $plate;
@@ -11,7 +11,7 @@ class SuspendedCeilingForm extends CFormModel
         return array(
             array('area', 'required', 'message' => 'Укажите площадь потолка'),
             array('plate', 'required', 'message' => 'Укажите тип потолочной плиты'),
-            array('area', 'numerical', 'message' => 'Введите десятичное число'),
+            array('area', 'numerical', 'message' => 'Введите число'),
             array('area', 'normalizeLength')
         );
     }
@@ -22,12 +22,6 @@ class SuspendedCeilingForm extends CFormModel
             'area' => 'Площадь потолка',
             'plate' => 'Потолочная плита'
         );
-    }
-
-    public function normalizeLength($attribute, $params)
-    {
-        $this->$attribute = trim(str_replace(',', '.', $this->$attribute));
-        $this->$attribute = preg_replace('#[^0-9\.]+#', '', $this->$attribute);
     }
 
     public function calculate()

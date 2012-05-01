@@ -192,7 +192,7 @@
             <?php if ($attr->attribute_type == Attribute::TYPE_MEASURE): ?>
             <p<?php if ($value !== false) echo ' style="display: none;"' ?>>
                 <input type="text" value=""/>
-                <input type="button" class="smallGreen" value="Ok"/>
+                <input type="button" class="smallGreen set-text" value="Ok"/>
             </p>
             <a<?php if ($value === false) echo ' style="display: none;"' ?> href="#"
                                                                             class="edit"><?php echo $value ?></a>

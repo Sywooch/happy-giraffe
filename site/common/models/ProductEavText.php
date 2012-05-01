@@ -7,7 +7,7 @@
  * @property string $eav_id
  * @property string $eav_product_id
  * @property string $eav_attribute_id
- * @property string $eav_attribute_value
+ * @property integer $value_id
  *
  * The followings are the available model relations:
  * @property ShopProductAttribute $eavAttribute
@@ -15,6 +15,7 @@
  */
 class ProductEavText extends HActiveRecord
 {
+    public $eav_attribute_value;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return ProductEavText the static model class
@@ -41,11 +42,10 @@ class ProductEavText extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('eav_product_id, eav_attribute_id', 'required'),
-			array('eav_product_id, eav_attribute_id', 'length', 'max'=>10),
-			array('eav_attribute_value', 'safe'),
+			array('eav_product_id, eav_attribute_id, value_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('eav_id, eav_product_id, eav_attribute_id, eav_attribute_value', 'safe', 'on'=>'search'),
+			array('eav_id, eav_product_id, eav_attribute_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,6 +62,15 @@ class ProductEavText extends HActiveRecord
 		);
 	}
 
+    public function defaultScope()
+    {
+        $this->tableAlias = 'et';
+        return array(
+            'select' => 'et.*, ev.value as eav_attribute_value',
+            'join' => 'shop__product_eav_text_values ev on id = value_id',
+        );
+    }
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -71,7 +80,6 @@ class ProductEavText extends HActiveRecord
 			'eav_id' => 'Eav',
 			'eav_product_id' => 'Eav Product',
 			'eav_attribute_id' => 'Eav Attribute',
-			'eav_attribute_value' => 'Eav Attribute Value',
 		);
 	}
 
@@ -89,10 +97,32 @@ class ProductEavText extends HActiveRecord
 		$criteria->compare('eav_id',$this->eav_id,true);
 		$criteria->compare('eav_product_id',$this->eav_product_id,true);
 		$criteria->compare('eav_attribute_id',$this->eav_attribute_id,true);
-		$criteria->compare('eav_attribute_value',$this->eav_attribute_value,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function beforeSave()
+    {
+        $value = $this->eav_attribute_value;
+        $result = Y::command()->select("id, value")->from("shop__product_eav_text_values")
+            ->where('value = :value');
+        $result->params = array(":value" => $value);
+        $result = $result->queryRow();
+        if($result)
+        {
+            $this->value_id = $result['id'];
+        }
+        else
+        {
+            Y::command()->insert('shop__product_eav_text_values', array('value' => $value));
+            $result = Y::command()->select("id, value")->from("shop__product_eav_text_values")
+                ->where('value = :value');
+            $result->params = array(":value" => $value);
+            $result = $result->queryRow();
+            $this->value_id = $result['id'];
+        }
+        return parent::beforeSave();
+    }
 }

@@ -9,7 +9,7 @@
         <a class="edit" href="#"></a>
         <a class="delete" href="#"></a>
     </div>
-    <a href="#" class="triangle<?php if (!$model->attribute_is_insearch) echo ' vain' ?>"></a>
+    <!--<a href="#" class="triangle<?php /*if (!$model->attribute_is_insearch) echo ' vain' */?>"></a>-->
 
     <p class="type"><?php echo $model->getType() ?></p>
 </li>

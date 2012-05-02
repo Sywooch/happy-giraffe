@@ -349,6 +349,18 @@ class Product extends HActiveRecord implements IECartPosition
 
     public function getAttributesText()
     {
+        $attrs = array();
+        $attributeMap = $this->category->attributesMap;
+        foreach ($attributeMap as $attribute)
+        {
+            if ($attribute->map_attribute->attribute_in_price != 1)
+            {
+                $attr = $attribute->map_attribute;
+                $value = $this->GetAttributeValue($attr);
+                $attrs[$attr->attribute_title] = $value;
+            }
+        }
+        return $attrs;
         $eav = Y::command()
             ->select('attribute_id, attribute_title, eav_attribute_value, attribute_type')
             ->from('shop__product_eav')
@@ -507,37 +519,45 @@ class Product extends HActiveRecord implements IECartPosition
     {
         if ($attr->attribute_type == Attribute::TYPE_BOOL || $attr->attribute_type == Attribute::TYPE_ENUM ||
             $attr->attribute_type == Attribute::TYPE_INTG || $attr->attribute_type == Attribute::TYPE_MEASURE
-        ) {
-
-            $eav_id = Y::command()
-                ->select('eav_attribute_value')
+        )
+        {
+            $eav = Y::command()
+                ->select('eav_id, eav_attribute_value')
                 ->from('shop__product_eav')
                 ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
                 ':eav_product_id' => $this->product_id,
                 ':eav_attribute_id' => $attr->attribute_id,
             ))
                 ->limit(1)
-                ->queryScalar();
+                ->queryRow();
 
-            if ($attr->attribute_type == Attribute::TYPE_BOOL) {
-                if ($eav_id == 1)
+            if ($attr->attribute_type == Attribute::TYPE_BOOL)
+            {
+                if ($eav['eav_attribute_value'] == 1)
                     return 'Да';
-                elseif ($eav_id === false)
+                elseif ($eav === false)
                     return false;
                 else
                     return 'Нет';
-            } elseif ($attr->attribute_type == Attribute::TYPE_ENUM) {
-                if ($eav_id === false)
+            }
+            elseif ($attr->attribute_type == Attribute::TYPE_ENUM)
+            {
+                if ($eav === false)
                     return false;
 
-                $value = AttributeValue::model()->findByPk($eav_id);
+                $value = AttributeValue::model()->findByPk($eav['eav_attribute_value']);
                 if ($value !== null)
                     return $value->value_value;
                 else
                     return false;
             }
+            elseif ($attr->attribute_type == Attribute::TYPE_MEASURE)
+            {
+                $value = $eav['eav_attribute_value'] . ' ' . $attr->measure_option->title;
+                return $value;
+            }
 
-            return $eav_id;
+            return $eav['eav_attribute_value'];
         }
         if ($attr->attribute_type == Attribute::TYPE_TEXT)
         {

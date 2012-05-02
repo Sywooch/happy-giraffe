@@ -114,21 +114,18 @@ class ProductController extends BController
             ->queryScalar();
 
         if ($eav_id) {
-            Y::command()
-                ->update('shop__product_eav_text', array(
-                'eav_attribute_value' => $value,
-            ), 'eav_id=:eav_id', array(
-                ':eav_id' => $eav_id,
-            ));
+           
+            $pet = ProductEavText::model()->findByPk($eav_id);
+            $pet->eav_attribute_value = $value;
+            $pet->save();
         }
         else
         {
-            Y::command()
-                ->insert('shop__product_eav_text', array(
-                'eav_product_id' => $product_id,
-                'eav_attribute_id' => $attr_id,
-                'eav_attribute_value' => $value,
-            ));
+            $pet = new ProductEavText;
+            $pet->eav_product_id = $product_id;
+            $pet->eav_attribute_id = $attr_id;
+            $pet->eav_attribute_value = $value;
+            $pet->save();
         }
     }
 

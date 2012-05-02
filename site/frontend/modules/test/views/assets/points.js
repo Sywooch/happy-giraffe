@@ -42,9 +42,7 @@ var Test = {
         });
     },
     Restart:function () {
-        $('.step input[type="radio"]:checked').each(function () {
-            $(this).prop('checked', false);
-        });
+        $(".step input:radio:checked").removeAttr("checked");
         Test.Start();
     }
 }

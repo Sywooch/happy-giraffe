@@ -225,18 +225,18 @@ Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 							<?php $attributes = $model->getAttributesText(); ?>
 							<li>
 								<ul>
-									<?php $i = 0; foreach ($attributes as $a): ?>
+									<?php $i = 0; foreach ($attributes as $aname => $avalue): ?>
 										<?php if (++$i % 2 == 1): ?>
-											<li><span class="a-right"><?php echo $a['eav_attribute_value']; ?></span><span><?php echo $a['attribute_title']; ?></span></li>
+											<li><span class="a-right"><?php echo $avalue; ?></span><span><?php echo $aname; ?></span></li>
 										<?php endif; ?>
 									<?php endforeach; ?>
 								</ul>
 							</li>
 							<li>
 								<ul>
-									<?php $i = 0; foreach ($attributes as $a): ?>
+                                    <?php $i = 0; foreach ($attributes as $aname => $avalue): ?>
 										<?php if (++$i % 2 == 0): ?>
-											<li><span class="a-right"><?php echo $a['eav_attribute_value']; ?></span><span><?php echo $a['attribute_title']; ?></span></li>
+											<li><span class="a-right"><?php echo $avalue; ?></span><span><?php echo $aname; ?></span></li>
 										<?php endif; ?>
 									<?php endforeach; ?>
 								</ul>

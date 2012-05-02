@@ -114,7 +114,7 @@ class ProductController extends BController
             ->queryScalar();
 
         if ($eav_id) {
-           
+
             $pet = ProductEavText::model()->findByPk($eav_id);
             $pet->eav_attribute_value = $value;
             $pet->save();

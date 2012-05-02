@@ -539,15 +539,16 @@ class Product extends HActiveRecord implements IECartPosition
 
             return $eav_id;
         }
-        if ($attr->attribute_type == Attribute::TYPE_TEXT) {
+        if ($attr->attribute_type == Attribute::TYPE_TEXT)
+        {
             $eav_text = Y::command()
-                ->select('eav_attribute_value')
-                ->from('shop__product_eav_text')
-                ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
-                ':eav_product_id' => $this->product_id,
-                ':eav_attribute_id' => $attr->attribute_id,
-            ))
-                ->limit(1)
+                        ->select('shop__product_eav_text_values.value as eav_attribute_value')
+                        ->from('shop__product_eav_text')
+                        ->leftJoin("shop__product_eav_text_values", "shop__product_eav_text_values.id = shop__product_eav_text.value_id")
+                        ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
+                        ':eav_product_id' => $this->product_id,
+                        ':eav_attribute_id' => $attr->primaryKey,
+                    ))
                 ->queryScalar();
 
             return $eav_text;

@@ -44,14 +44,12 @@ class AjaxController extends BController
         /**
          * @var CActiveRecord $model
          */
-        $model = new $modelName;
-        $res = Yii::app()->db->createCommand()
-            ->update($model->tableName(),
-            array($attribute => $value),
-            $model->getTableSchema()->primaryKey.' = '.$modelPk);
-
-        if ($res >= 0)
+        $model = call_user_func(array($modelName, 'model'));
+        $model = $model->findByPk($modelPk);
+        $model->$attribute = $value;
+        if($model->save())
             echo '1';
+
     }
 
     public function actionSetValueAR()

@@ -41,13 +41,13 @@ class PageView extends EMongoDocument
         $ga->setDateRange('2011-12-01', date('Y-m-d'));
         $report = $ga->getReport(array(
             'dimensions'=>urlencode('ga:pagePath'),
-            'metrics'=>urlencode('ga:visits'),
+            'metrics'=>urlencode('ga:uniquePageviews'),
             'filters'=>urlencode('ga:pagePath==' . $path),
             'max-results' => 1,
         ));
         if(!$report || !isset($report[$path]))
             return false;
-        $count = $report[$path]['ga:visits'];
+        $count = $report[$path]['ga:uniquePageviews'];
         $model = $this->findByPath($path);
         if(!$model)
         {

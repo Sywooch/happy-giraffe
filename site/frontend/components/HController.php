@@ -14,7 +14,8 @@ class HController extends CController
         else
             $views = 1;
 
-
+        if(!$model || (time() - 3600 > $model->updated))
+        {
             $js = '$.post(
                     "' . $this->createUrl('/ajax/pageView') . '",
                     {path : "' . $path . '"},
@@ -24,7 +25,7 @@ class HController extends CController
                     "json"
                 );';
             Yii::app()->clientScript->registerScript('update_page_view', $js, CClientScript::POS_LOAD);
-        
+        }
         return $views;
     }
 }

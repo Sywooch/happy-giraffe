@@ -43,6 +43,13 @@
             });
         });
 
+        $('.characteristic input.set-measure').click(function () {
+            var block = $(this).parent().parent();
+            var id = block.find('input[type=hidden]').val();
+            var value = block.find('input[type=text]').val();
+            SetAttributeValue(id, value, value, block);
+        });
+
         $('.characteristic input.set-yes').click(function () {
             var block = $(this).parent().parent();
             var id = block.find('input[type=hidden]').val();
@@ -146,7 +153,7 @@
         if ($model->isNewRecord)
             $value = false;
         else
-            $value = $model->GetAttributeValue($attr)
+            $value = $model->GetAttributeValue($attr);
         ?>
 <tr>
     <td class="name"><?php echo $attr->attribute_title ?></td>
@@ -185,14 +192,13 @@
                 <input type="text" value="<?php echo $value ?>"/>
                 <input type="button" class="smallGreen set-text" value="Ok"/>
             </p>
-            <a<?php if ($value === false) echo ' style="display: none;"' ?> href="#"
-                                                                            class="edit"><?php echo $value ?></a>
+            <a<?php if ($value === false) echo ' style="display: none;"' ?> href="#" class="edit"><?php echo $value ?></a>
             <?php endif ?>
 
             <?php if ($attr->attribute_type == Attribute::TYPE_MEASURE): ?>
             <p<?php if ($value !== false) echo ' style="display: none;"' ?>>
                 <input type="text" value=""/>
-                <input type="button" class="smallGreen set-text" value="Ok"/>
+                <input type="button" class="smallGreen set-measure" value="Ok"/>
             </p>
             <a<?php if ($value === false) echo ' style="display: none;"' ?> href="#"
                                                                             class="edit"><?php echo $value ?></a>

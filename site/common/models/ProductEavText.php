@@ -62,14 +62,6 @@ class ProductEavText extends HActiveRecord
 		);
 	}
 
-    public function defaultScope()
-    {
-        $this->tableAlias = 'et';
-        return array(
-            'select' => 'et.*, ev.value as eav_attribute_value',
-            'join' => 'shop__product_eav_text_values ev on id = value_id',
-        );
-    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)

@@ -14,7 +14,7 @@ class HController extends CController
         else
             $views = 1;
 
-        if(!$model || (time() - 3600 > $model->updated))
+        if(!$model || (time() - 1 > $model->updated))
         {
             $js = '$.post(
                     "' . $this->createUrl('/ajax/pageView') . '",

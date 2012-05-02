@@ -278,7 +278,7 @@ class HoroscopeText
 <p style="margin-left:35.4pt;">	Cnc &ndash; общепринятое сокращение</p>
 <p style="margin-left:35.4pt;">	Северное &ndash; полушарие</p>
 <p style="margin-left:35.4pt;">	Зима &ndash; весна &ndash; период видимости</p>
-<p>Где найти гороскоп Рака на месяц, вы знаете, а координаты созвездия Рака следующие:</p>
+<p><strong>Где найти гороскоп Рака на месяц, вы знаете, а координаты созвездия Рака следующие:</strong></p>
 <p style="margin-left:106.2pt;">
 	&alpha; = 9ч</p>
 <p style="margin-left:106.2pt;">
@@ -345,7 +345,7 @@ class HoroscopeText
 <p style="margin-left:70.8pt;">	Sgr &ndash; общепринятое сокращение</p>
 <p style="margin-left:70.8pt;">	Южное &ndash; полушарие</p>
 <p style="margin-left:70.8pt;">	Июнь-июль &ndash; период лучшей видимости</p>
-<p>Координаты созвездия, как и гороскоп Стрельца на месяц, &ndash; в открытом доступе у нас на сайте.</p>
+<p><strong>Координаты созвездия, как и гороскоп Стрельца на месяц, &ndash; в открытом доступе у нас на сайте.</strong></p>
 <p style="margin-left:70.8pt;">	От 17h 36m до 20h 20m &ndash; прямое восхождение</p>
 <p style="margin-left:70.8pt;">	От &minus;45&deg; 30&prime; до &minus;12&deg; 2&prime; &ndash; склонение.</p>
 <p>&nbsp;</p>';

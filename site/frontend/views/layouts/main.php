@@ -72,7 +72,7 @@
                                 </div>
                             </li>
                             <li id="user-nav-friends">
-                                <a href=""><i class="icon icon-friends"></i><span class="count">0</span></a>
+                                <a href="#"><i class="icon icon-friends"></i><span class="count">0</span></a>
                                 <div class="drp drp-closable">
                                     <div class="drp-title">Друзья</div>
                                     <ul class="list"></ul>
@@ -80,14 +80,14 @@
                                         <ul>
                                             <li><a href="<?php echo $this->createUrl('/user/friends', array('user_id' => $user->id)); ?>">Все друзья (<?php echo $user->getFriendsCount(false); ?>)</a></li>
                                             <li><a href="<?php echo $this->createUrl('/user/friends', array('user_id' => $user->id, 'show' => 'online')); ?>">Кто онлайн</a> <span class="online-count"><?php echo $user->getFriendsCount(true); ?></span></li>
-                                            <li><a href="<?php echo $this->createUrl('/user/myFriendRequests', array('direction' => 'incoming')); ?>">Предложения дружбы</a> <a href="" class="count<?php if (($incoming_count = $user->getFriendRequestsCount('incoming')) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count; ?></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/user/myFriendRequests', array('direction' => 'incoming')); ?>">Предложения дружбы</a> <a href="#" class="count<?php if (($incoming_count = $user->getFriendRequestsCount('incoming')) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count; ?></a></li>
                                             <li><a href="<?php echo $this->createUrl('/user/myFriendRequests', array('direction' => 'outgoing')); ?>">Мои предложения</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </li>
                             <li id="user-nav-notifications">
-                                <a href=""><i class="icon icon-notifications"></i><span class="count">0</span></a>
+                                <a href="#"><i class="icon icon-notifications"></i><span class="count">0</span></a>
                                 <div class="drp drp-icons">
                                     <div class="drp-title">Уведомления</div>
                                     <ul class="list"></ul>

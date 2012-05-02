@@ -83,7 +83,7 @@ Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 				<div class="description-img">
 					
 					<div class="img-in">
-						<?php echo CHtml::link(CHtml::image(/*$model->product_image->getUrl('product')*/'', $model->product_title), /*$model->product_image->getUrl('original')*/'', array(
+						<?php echo CHtml::link(CHtml::image($model->main_image->photo->getPreviewUrl(329, 355, Image::WIDTH), $model->product_title), $model->main_image->photo->originalUrl, array(
 							'class' => 'cloud-zoom',
 							'id' => 'zoom1',
 							'rel' => 'adjustX: 40, adjustY:-4',
@@ -96,20 +96,14 @@ Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 								/*$imagesDP = $images->search($criteriaImage);*/
 							?>
 							<ul>
-								<li>
-									<?php echo CHtml::link(CHtml::image(/*$model->product_image->getUrl('product_thumb')*/'', $model->product_title), /*$model->product_image->getUrl('original')*/'', array(
-										'class' => 'cloud-zoom-gallery',
-										'rel' => 'useZoom: "zoom1", smallImage: "' . /*$model->product_image->getUrl('product')*/'' . '"',
-									)); ?>
-								</li>
-								<?php /*foreach ($imagesDP->data as $i): */?><!--
+								<?php foreach ($model->images as $i): ?>
 									<li>
-										<?php /*echo CHtml::link(CHtml::image($i->image_file->getUrl('product_thumb'), $model->product_title), $i->image_file->getUrl('original'), array(
+										<?php echo CHtml::link(CHtml::image($i->photo->getPreviewUrl(76, 79, Image::WIDTH), $model->product_title), $i->photo->originalUrl, array(
 											'class' => 'cloud-zoom-gallery',
-											'rel' => 'useZoom: "zoom1", smallImage: "' . $i->image_file->getUrl('product') . '"',
-										)); */?>
+											'rel' => 'useZoom: "zoom1", smallImage: "' . $i->photo->getPreviewUrl(329, 355, Image::WIDTH) . '"',
+										)); ?>
 									</li>
-								--><?php /*endforeach; */?>
+								<?php endforeach; ?>
 							</ul>
 						</div>
 						<a href="javascript:void(0);" class="jcarousel-prev prev disabled" onclick="$('#product-thumbs').jcarousel('scroll', '-=1');"></a>

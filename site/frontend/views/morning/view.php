@@ -21,8 +21,7 @@
 
             <div
                 class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $article->created); ?></div>
-            <div class="seen">Просмотров:&nbsp;<span
-                id="page_views"><?= $views = PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $article->url), true); ?></span>
+            <div class="seen">Просмотров:&nbsp;<span id="page_views"><?= $views = $this->getViews(); ?></span>
                 <?php Rating::model()->saveByEntity($article, 'vw', floor($views / 100)); ?>
             </div>
             <br>

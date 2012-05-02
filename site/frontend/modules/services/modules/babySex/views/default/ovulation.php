@@ -14,11 +14,12 @@ $form = $this->beginWidget('CActiveForm', array(
     'id' => 'ovulation-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
+    'action' => $this->createUrl('/babySex/ovulationCalc/'),
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => true,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/babySex/default/ovulationCalc/'),
+        'validationUrl' => $this->createUrl('/babySex/ovulationCalc/'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     StartCalc();

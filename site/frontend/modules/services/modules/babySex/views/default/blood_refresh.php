@@ -14,11 +14,12 @@ $form = $this->beginWidget('CActiveForm', array(
     'id' => 'blood-refresh-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => false,
+    'action' => $this->createUrl('/babySex/BloodUpdate'),
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/babySex/default/BloodUpdate'),
+        'validationUrl' => $this->createUrl('/babySex/BloodUpdate'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     StartCalc();

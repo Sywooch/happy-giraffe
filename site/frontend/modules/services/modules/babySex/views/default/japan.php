@@ -14,11 +14,12 @@ $form = $this->beginWidget('CActiveForm', array(
     'id' => 'japan-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
+    'action' => $this->createUrl('/babySex/japanCalc'),
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => true,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/babySex/default/japanCalc'),
+        'validationUrl' => $this->createUrl('/babySex/japanCalc'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     StartCalc();

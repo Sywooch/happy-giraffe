@@ -59,7 +59,7 @@ $('body').delegate('.cal_item_default', 'hover', function (event) {
 
 function LoadCalendar() {
     $.ajax({
-        url:'/babySex/default/ovulationCalc/',
+        url:$('#ovulation-form').attr('action'),
         data:$('#ovulation-form').serialize(),
         type:'POST',
         success:function (data) {

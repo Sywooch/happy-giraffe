@@ -9,7 +9,7 @@ $('body').delegate('#blood-refresh-prev-month', 'click', function () {
     }
     $('#blood_refr_review_month').val(month);
     $.ajax({
-        url:'/babySex/default/bloodUpdate/',
+        url:$('#blood-refresh-form').attr('action'),
         data:$('#blood-refresh-form').serialize(),
         type:'POST',
         success:function (data) {
@@ -30,7 +30,7 @@ $('body').delegate('#blood-refresh-next-month', 'click', function () {
     }
     $('#blood_refr_review_month').val(month);
     $.ajax({
-        url:'/babySex/default/bloodUpdate/',
+        url:$('#blood-refresh-form').attr('action'),
         data:$('#blood-refresh-form').serialize(),
         type:'POST',
         success:function (data) {
@@ -44,7 +44,7 @@ function StartCalc() {
     $('#blood_refr_review_year').val($('#BloodRefreshForm_baby_y').val());
     $('#blood_refr_review_month').val($('#BloodRefreshForm_baby_m').val());
     $.ajax({
-        url:'/babySex/default/bloodUpdate/',
+        url:$('#blood-refresh-form').attr('action'),
         data:$('#blood-refresh-form').serialize(),
         type:'POST',
         success:function (data) {
@@ -55,7 +55,7 @@ function StartCalc() {
 
 function ShowResult(data) {
     $('#blood-update-result').html(data);
-    $('html,body').animate({scrollTop: $('#blood-update-result').offset().top},'fast');
+    $('html,body').animate({scrollTop:$('#blood-update-result').offset().top}, 'fast');
 }
 
 $('body').delegate('.cal_item', 'hover', function (event) {

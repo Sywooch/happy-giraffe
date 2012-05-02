@@ -19,7 +19,7 @@ $form = $this->beginWidget('CActiveForm', array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/babySex/default/china'),
+        'validationUrl' => $this->createUrl('/babySex/china'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     StartCalc();

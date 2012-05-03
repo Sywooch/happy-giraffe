@@ -20,10 +20,10 @@ return array(
 		'contest/work/<id:\d+>' => 'contest/default/work',
 		'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
 
-        'morning/' => 'morning/index',
-        'morning/<id:\d+>' => 'morning/view',
         'morning/saveLocation' => 'morning/saveLocation',
-        'morning/index/<date:[\w-]+>' => 'morning/index',
+        'morning/<id:\d+>' => 'morning/view',
+        'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
+        'morning/' => 'morning/index',
 
 		'/' => 'site/index',
 		'admin/' => 'admin/site/index',
@@ -59,11 +59,11 @@ return array(
 		'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
 //		'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 
-        'гороскоп/'=>'horoscope/default/index',
-        'гороскоп/на-год/<zodiac:[\w]+>'=>'horoscope/default/year',
-        'гороскоп/на-месяц/<zodiac:[\w]+>'=>'horoscope/default/month',
-        'гороскоп/<zodiac:[\w]+>/<date:[\w-]+>'=>'horoscope/default/view',
-        'гороскоп/на-сегодня/<zodiac:[\w]+>'=>'horoscope/default/view',
+        'horoscope/'=>'horoscope/default/index',
+        'horoscope/year/<zodiac:[\w]+>'=>'horoscope/default/year',
+        'horoscope/month/<zodiac:[\w]+>'=>'horoscope/default/month',
+        'horoscope/<zodiac:[\w]+>/<date:[\w-]+>'=>'horoscope/default/view',
+        'horoscope/today/<zodiac:[\w]+>'=>'horoscope/default/view',
 
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

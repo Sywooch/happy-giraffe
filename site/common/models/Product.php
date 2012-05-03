@@ -124,7 +124,7 @@ class Product extends HActiveRecord implements IECartPosition
             array('product_category_id', 'required', 'on' => self::SCENARIO_SELECT_CATEGORY),
             array('product_category_id', 'length', 'max' => 10, 'on' => self::SCENARIO_SELECT_CATEGORY),
 
-            array('product_title,product_image,product_price, product_articul', 'required', 'on' => self::SCENARIO_FILL_PRODUCT),
+            array('product_title,product_price, product_articul', 'required', 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_rate, product_status', 'numerical', 'integerOnly' => true, 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_price, product_buy_price, product_sell_price', 'numerical', 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_articul', 'length', 'max' => 32, 'on' => self::SCENARIO_FILL_PRODUCT),

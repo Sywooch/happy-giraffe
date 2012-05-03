@@ -2,15 +2,40 @@
 
 class CommentWidget extends CWidget
 {
-	public $onlyList = FALSE;
-	public $model;
+    /**
+     * @var bool
+     * Отключает возможность комментирования
+     */
+    public $onlyList = FALSE;
+
+    /**
+     * @var HActiveRecord
+     * ActiveRecord model
+     */
+    public $model;
+
+    /**
+     * @var string
+     * Название класса модели
+     */
     public $entity;
-	public $entity_id;
+
+    /**
+     * @var int
+     * Primary key модели
+     */
+    public $entity_id;
     public $title = 'Комментарии';
     public $actions = true;
     public $button = 'Добавить комментарий';
     public $type = 'default';
     public $readOnly = false;
+
+    /**
+     * @var bool
+     * Включает голосование
+     */
+    public $vote = false;
 
     public function init()
     {
@@ -26,7 +51,10 @@ class CommentWidget extends CWidget
 
 	public function run()
 	{
-		$comment_model = Comment::model();
+        if(!$this->vote)
+		    $comment_model = Comment::model();
+        else
+            $comment_model = CommentProduct::model();
         $dataProvider = $comment_model->get($this->entity, $this->entity_id);
         $dataProvider->getData();
         if(isset($_GET['lastPage']))
@@ -73,6 +101,7 @@ class CommentWidget extends CWidget
             'entity_id' => (int)$this->entity_id,
             'save_url' => Yii::app()->createUrl('ajax/sendcomment'),
             'toolbar' => $this->type == 'guestBook' ? 'Simple' : 'Main',
+            'model' => $this->vote ? 'CommentProduct' : 'Comment',
         )) . ');';
 
         Yii::app()->clientScript->registerScript('Comment register script', $script);

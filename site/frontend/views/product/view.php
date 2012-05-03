@@ -284,18 +284,14 @@ Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 					</div>
 				</div>-->
 			</div>
-			
-			<div class="steps steps-comments">
-				<?php if(! Yii::app()->user->isGuest && ! $model->rated(Yii::app()->user->id)): ?>
-					<a href="#add_comment" class="btn btn-orange a-right"><span><span>Добавить отзыв</span></span></a>
-				<?php endif; ?>
-				<ul>
-					<li class="active"><a>Отзывы о товаре</a></li>
-				</ul>
-				<div class="avg-rating">
-					Средняя оценка:  <span class="product_rate"><?php $this->renderPartial('rating', array('rating' => $model->product_rate)); ?></span>
-				</div>
-			</div>
+
+            <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
+                'model' => $model,
+                'title' => 'Отзывы о товаре',
+                'button' => 'Добавить отзыв',
+                'vote' => true,
+                'actions' => false,
+            )); ?>
 
 		</div>
 		
@@ -330,6 +326,12 @@ Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 	</div>
 
 </div>
+
+<?php
+$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+$remove_tmpl->registerTemplates();
+$this->endWidget();
+?>
 
 <!--<div class="b-banners">
 	<ul>

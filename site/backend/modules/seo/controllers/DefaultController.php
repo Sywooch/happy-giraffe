@@ -24,6 +24,22 @@ class DefaultController extends BController
         ));
     }
 
+    public function actionSearch()
+    {
+        $pages = new CPagination();
+        $pages->pageSize = 100000;
+        $criteria = new stdClass();
+        $criteria->from = 'keywords';
+        $criteria->select = '*';
+        $criteria->paginator = $pages;
+        $criteria->query = '*кесарю*';
+        $resIterator = Yii::app()->search->search($criteria);
+
+        $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
+        $allCount = count($allSearch['matches']);
+
+    }
+
     public function actionCalc()
     {
         $i = 0;
@@ -503,5 +519,63 @@ class DefaultController extends BController
         }
 
         return $res;
+    }
+
+    public function actionAddKeys()
+    {
+        $file = fopen('F:\Xedant\Keywords.txt', 'r');
+        $i = 0;
+        $sql = '';
+        $continue = false;
+        if ($file) {
+            while (($buffer = fgets($file)) !== false) {
+                $i++;
+                $keyword = trim(ltrim($buffer, '#'));
+                $keyword = str_replace("'", '', $keyword);
+                $keyword = str_replace("\\", '', $keyword);
+
+                if ($keyword == 'приказ министра обороны 310 1999г')
+                    $continue = true;
+
+                if ($continue) {
+                    $sql .= 'INSERT INTO keywords (`id` ,`name`)VALUES (NULL ,  \'' . $keyword . '\');';
+
+                    if ($i % 2000 == 0) {
+                        $command = Yii::app()->db_seo->createCommand($sql);
+                        $command->execute();
+                        $sql = '';
+                    }
+                }
+            }
+            if (!feof($file)) {
+                echo "Error: unexpected fgets() fail\n";
+                Yii::app()->end();
+            }
+            fclose($file);
+        }
+    }
+
+    public function actionPopularity()
+    {
+        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
+        $i = 0;
+        if ($file) {
+            while (($buffer = fgets($file)) !== false) {
+                $i++;
+                $line = trim(ltrim($buffer));
+                $parts = explode('|', $line);
+                foreach($parts as $part)
+                    $last = $part;
+                $keyword = trim($parts[0]);
+                $stat = $last;
+
+                $key = SeoKeywords::GetKeyword($keyword);
+            }
+            if (!feof($file)) {
+                echo "Error: unexpected fgets() fail\n";
+                Yii::app()->end();
+            }
+            fclose($file);
+        }
     }
 }

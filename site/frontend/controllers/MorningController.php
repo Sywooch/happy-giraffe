@@ -51,7 +51,7 @@ class MorningController extends HController
 
         $criteria->condition = $cond;
         $count = CommunityContent::model()->with('photoPost')->count($criteria);
-        if ($count == 0){
+        if ($count == 0) {
             $this->time = strtotime(' - 1 day', strtotime($date . ' 00:00:00'));
 
             $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
@@ -61,9 +61,15 @@ class MorningController extends HController
         }
         $articles = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findAll($criteria);
 
-        $this->breadcrumbs = array(
-            'Утро с Весёлым жирафом',
-        );
+        if ($date == date("Y-m-d"))
+            $this->breadcrumbs = array(
+                'Утро с Весёлым жирафом',
+            );
+        else
+            $this->breadcrumbs = array(
+                'Утро с Весёлым жирафом' => array('morning/'),
+                'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", strtotime($date))
+            );
 
         $this->render('index', compact('articles'));
     }
@@ -76,10 +82,18 @@ class MorningController extends HController
 
         $this->pageTitle = CHtml::encode($article->title);
         $this->time = strtotime(date("Y-m-d", strtotime($article->created)) . ' 00:00:00');
-        $this->breadcrumbs = array(
-            'Утро с Весёлым жирафом' => array('morning/'),
-            $article->title
-        );
+
+        if (date("Y-m-d", $this->time) == date("Y-m-d"))
+            $this->breadcrumbs = array(
+                'Утро с Весёлым жирафом' => array('morning/'),
+                $article->title
+            );
+        else
+            $this->breadcrumbs = array(
+                'Утро с Весёлым жирафом' => array('morning/'),
+                'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", $this->time) => $this->createUrl('morning/index', array('date' => date("Y-m-d", $this->time))),
+                $article->title
+            );
 
         $this->render('view', compact('article'));
     }
@@ -253,7 +267,8 @@ class MorningController extends HController
         return CommunityContent::model()->with('photoPost')->count($cond) != 0;
     }
 
-    public function actionRemoveLocation(){
+    public function actionRemoveLocation()
+    {
         if (!Yii::app()->user->checkAccess('editMorning'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 

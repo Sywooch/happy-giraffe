@@ -7,6 +7,7 @@
 
             <div class="date">
                 <big>Гороскоп<br>на месяц</big>
+                <span><span><?= HDate::ruMonth(date('n')) . ' '.date('Y') ?></span> года</span>
             </div>
 
         </div>

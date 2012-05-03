@@ -4,6 +4,7 @@ return array(
     'id' => 'happy-giraffe',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'My Console Application',
+    'language'=>'ru',
     'commandMap' => array(
         'migrate' => array(
             'class' => 'system.cli.commands.MigrateCommand',

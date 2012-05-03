@@ -1,7 +1,7 @@
 <?php $this->render('list', array('dataProvider' => $dataProvider,'type'=>$type)); ?>
 
 <?php if (!Yii::app()->user->isGuest): ?>
-<div class="new_comment" id="new_comment_wrapper">
+<div class="new_comment new-comment" id="new_comment_wrapper">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'add_comment',
     'htmlOptions' => array(
@@ -17,7 +17,7 @@
             <span onmouseover="setRatingHover(this, 3);" onclick="setRating(this,3);"></span>
             <span onmouseover="setRatingHover(this, 4);" onclick="setRating(this,4);"></span>
             <span onmouseover="setRatingHover(this, 5);" onclick="setRating(this,5);"></span>
-            <input type="hidden" value="0" />
+            <?php echo $form->hiddenField($comment_model, 'rating'); ?>
         </div>
         <br/>
     <?php endif; ?>

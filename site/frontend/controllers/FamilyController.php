@@ -224,7 +224,6 @@ class FamilyController extends HController
     public function actionRemoveAllBabies()
     {
         $criteria = new CDbCriteria;
-        //$criteria->condition = ' type IS NULL ';
         $criteria->compare('parent_id', Yii::app()->user->id);
         $criteria->compare('type', null);
         $count = Baby::model()->deleteAll($criteria);

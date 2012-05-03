@@ -3,20 +3,21 @@ var Test = {
 
     },
     Start:function () {
-        $('#step0').fadeOut(300, function () {
+        $('.step:visible').fadeOut(300, function () {
             $('#step1').fadeIn(300);
         });
     },
-    Next:function (input) {
-        if ($(input).attr('data-last') == "1") {
-            $(input).closest('div.question-div').fadeOut(300, function () {
+    Next:function (el) {
+        var input = $(el).find('input');
+        if (input.attr('data-last') == "1") {
+            input.closest('div.question-div').fadeOut(300, function () {
                 Test.Finish();
-            })
+            });
             return;
         }
-        $(input).closest('div.question-div').fadeOut(300, function () {
-            if ($(input).closest('div.question-div').next('div.question-div').length) {
-                $(input).closest('div.question-div').next('div.question-div').fadeIn(300);
+        $('.step:visible').fadeOut(300, function () {
+            if (input.closest('div.question-div').next('div.question-div').length) {
+                input.closest('div.question-div').next('div.question-div').fadeIn(300);
             } else {
                 Test.Finish();
             }
@@ -33,7 +34,7 @@ var Test = {
         $('div.result-div').each(function (index, el) {
             if (finished)
                 return;
-            result_points = parseInt($(el).attr('data-points'));
+            var result_points = parseInt($(el).attr('data-points'));
             if (points >= result_points) {
                 $(el).fadeIn(300);
                 finished = true;
@@ -41,6 +42,7 @@ var Test = {
         });
     },
     Restart:function () {
-
+        $(".step input:radio:checked").removeAttr("checked");
+        Test.Start();
     }
 }

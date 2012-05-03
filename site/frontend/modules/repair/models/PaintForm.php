@@ -1,6 +1,6 @@
 <?php
 
-class PaintForm extends CFormModel
+class PaintForm extends HFormModel
 {
     public $roomLength;
     public $roomWidth;
@@ -22,7 +22,7 @@ class PaintForm extends CFormModel
             array('paintType', 'required', 'message' => 'Укажите тип краски'),
 
             array('roomLength, roomWidth, roomHeight', 'normalizeLength'),
-            array('roomLength, roomWidth, roomHeight', 'numerical', 'message' => 'Введите число')
+            array('roomLength, roomWidth, roomHeight', 'numerical', 'message' => '{attribute} должна быть числом')
 
         );
     }
@@ -38,12 +38,6 @@ class PaintForm extends CFormModel
         );
     }
 
-    public function normalizeLength($attribute, $params)
-    {
-        $this->$attribute = trim(str_replace(',', '.', $this->$attribute));
-        $this->$attribute = preg_replace('#[^0-9\.]+#', '', $this->$attribute);
-    }
-
     public function validateRoomHeight($attribute, $params)
     {
         if ($this->surface == "Стены") {
@@ -51,10 +45,6 @@ class PaintForm extends CFormModel
             if (!$this->$attribute) {
                 $this->addError($attribute, 'Укажите высоту помещения');
                 return;
-            }
-            $this->normalizeLength($attribute, $params);
-            if (!preg_match('#^[0-9\.]+$#', $this->$attribute)) {
-                $this->addError($attribute, 'Введите число');
             }
         }
     }

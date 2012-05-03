@@ -16,10 +16,10 @@ class DefaultController extends HController
 
     public function actionView($zodiac, $date = null)
     {
-        if ($date == null || empty($date))
+        if (empty($date))
             $date = date("Y-m-d");
 
-        $zodiac = Horoscope::model()->getZodiacId($zodiac);
+        $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
         $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

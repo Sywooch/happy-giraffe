@@ -124,7 +124,7 @@ class Product extends HActiveRecord implements IECartPosition
             array('product_category_id', 'required', 'on' => self::SCENARIO_SELECT_CATEGORY),
             array('product_category_id', 'length', 'max' => 10, 'on' => self::SCENARIO_SELECT_CATEGORY),
 
-            array('product_title,product_image,product_price, product_articul', 'required', 'on' => self::SCENARIO_FILL_PRODUCT),
+            array('product_title,product_price, product_articul', 'required', 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_rate, product_status', 'numerical', 'integerOnly' => true, 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_price, product_buy_price, product_sell_price', 'numerical', 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_articul', 'length', 'max' => 32, 'on' => self::SCENARIO_FILL_PRODUCT),
@@ -166,6 +166,7 @@ class Product extends HActiveRecord implements IECartPosition
             'brand' => array(self::BELONGS_TO, 'ProductBrand', 'product_brand_id'),
             'category' => array(self::BELONGS_TO, 'Category', 'product_category_id'),
             'ageRange' => array(self::BELONGS_TO, 'AgeRange', 'product_age_range_id'),
+            'items' => array(self::HAS_MANY, 'ProductItem', 'product_id'),
         );
     }
 
@@ -236,6 +237,14 @@ class Product extends HActiveRecord implements IECartPosition
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function getItemsCount()
+    {
+        $count = 0;
+        foreach($this->items as $item)
+            $count += $item->count;
+        return $count;
     }
 
     public function getBrands()
@@ -340,6 +349,18 @@ class Product extends HActiveRecord implements IECartPosition
 
     public function getAttributesText()
     {
+        $attrs = array();
+        $attributeMap = $this->category->attributesMap;
+        foreach ($attributeMap as $attribute)
+        {
+            if ($attribute->map_attribute->attribute_in_price != 1)
+            {
+                $attr = $attribute->map_attribute;
+                $value = $this->GetAttributeValue($attr);
+                $attrs[$attr->attribute_title] = $value;
+            }
+        }
+        return $attrs;
         $eav = Y::command()
             ->select('attribute_id, attribute_title, eav_attribute_value, attribute_type')
             ->from('shop__product_eav')
@@ -394,9 +415,10 @@ class Product extends HActiveRecord implements IECartPosition
         }
 
         $eav_text = Y::command()
-            ->select('attribute_id, attribute_title, eav_attribute_value')
+            ->select('attribute_id, attribute_title, shop__product_eav_text_values.value as eav_attribute_value')
             ->from('shop__product_eav_text')
             ->leftJoin('shop__product_attribute', 'eav_attribute_id=attribute_id')
+            ->leftJoin('shop__product_eav_text_values', 'shop__product_eav_text_values.id=value_id')
             ->where('eav_product_id=:eav_product_id', array(
             ':eav_product_id' => $this->product_id,
         ))
@@ -497,47 +519,56 @@ class Product extends HActiveRecord implements IECartPosition
     {
         if ($attr->attribute_type == Attribute::TYPE_BOOL || $attr->attribute_type == Attribute::TYPE_ENUM ||
             $attr->attribute_type == Attribute::TYPE_INTG || $attr->attribute_type == Attribute::TYPE_MEASURE
-        ) {
-
-            $eav_id = Y::command()
-                ->select('eav_attribute_value')
+        )
+        {
+            $eav = Y::command()
+                ->select('eav_id, eav_attribute_value')
                 ->from('shop__product_eav')
                 ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
                 ':eav_product_id' => $this->product_id,
                 ':eav_attribute_id' => $attr->attribute_id,
             ))
                 ->limit(1)
-                ->queryScalar();
+                ->queryRow();
 
-            if ($attr->attribute_type == Attribute::TYPE_BOOL) {
-                if ($eav_id == 1)
+            if ($attr->attribute_type == Attribute::TYPE_BOOL)
+            {
+                if ($eav['eav_attribute_value'] == 1)
                     return 'Да';
-                elseif ($eav_id === false)
+                elseif ($eav === false)
                     return false;
                 else
                     return 'Нет';
-            } elseif ($attr->attribute_type == Attribute::TYPE_ENUM) {
-                if ($eav_id === false)
+            }
+            elseif ($attr->attribute_type == Attribute::TYPE_ENUM)
+            {
+                if ($eav === false)
                     return false;
 
-                $value = AttributeValue::model()->findByPk($eav_id);
+                $value = AttributeValue::model()->findByPk($eav['eav_attribute_value']);
                 if ($value !== null)
                     return $value->value_value;
                 else
                     return false;
             }
+            elseif ($attr->attribute_type == Attribute::TYPE_MEASURE)
+            {
+                $value = $eav['eav_attribute_value'] . ' ' . $attr->measure_option->title;
+                return $value;
+            }
 
-            return $eav_id;
+            return $eav['eav_attribute_value'];
         }
-        if ($attr->attribute_type == Attribute::TYPE_TEXT) {
+        if ($attr->attribute_type == Attribute::TYPE_TEXT)
+        {
             $eav_text = Y::command()
-                ->select('eav_attribute_value')
-                ->from('shop__product_eav_text')
-                ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
-                ':eav_product_id' => $this->product_id,
-                ':eav_attribute_id' => $attr->attribute_id,
-            ))
-                ->limit(1)
+                        ->select('shop__product_eav_text_values.value as eav_attribute_value')
+                        ->from('shop__product_eav_text')
+                        ->leftJoin("shop__product_eav_text_values", "shop__product_eav_text_values.id = shop__product_eav_text.value_id")
+                        ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
+                        ':eav_product_id' => $this->product_id,
+                        ':eav_attribute_id' => $attr->primaryKey,
+                    ))
                 ->queryScalar();
 
             return $eav_text;
@@ -609,8 +640,9 @@ class Product extends HActiveRecord implements IECartPosition
 
     public function GetCardAttributeValues($attr_id){
         $eav_text = Y::command()
-            ->select('eav_id, eav_attribute_value')
+            ->select('eav_id, shop__product_eav_text_values.value as eav_attribute_value')
             ->from('shop__product_eav_text')
+            ->leftJoin("shop__product_eav_text_values", "shop__product_eav_text_values.id = shop__product_eav_text.value_id")
             ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
             ':eav_product_id' => $this->product_id,
             ':eav_attribute_id' => $attr_id,

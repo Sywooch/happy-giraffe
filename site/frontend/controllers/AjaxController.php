@@ -163,7 +163,7 @@ class AjaxController extends HController
             Yii::app()->end();
         $count = 1;
         if ($model = PageView::model()->updateByPath($path))
-            $count = $model->views + 1;
+            $count = $model->views;
         echo CJSON::encode(array(
             'count' => (int)$count,
         ));
@@ -171,15 +171,21 @@ class AjaxController extends HController
 
     public function actionSendComment()
     {
-        if (!isset($_POST['Comment']) || !isset($_POST['Comment']['text']))
+        if(isset($_POST['CommentProduct']))
+            $model = 'CommentProduct';
+        elseif(isset($_POST['Comment']))
+            $model = 'Comment';
+        else
+            Yii::app()->end();
+        if (!isset($_POST[$model]['text']))
             Yii::app()->end();
 
         if (empty($_POST['edit-id'])) {
-            $comment = new Comment('default');
-            $comment->attributes = $_POST['Comment'];
+            $comment = new $model('default');
+            $comment->attributes = $_POST[$model];
             $comment->author_id = Yii::app()->user->id;
         } else {
-            $comment = Comment::model()->findByPk($_POST['edit-id']);
+            $comment = call_user_func(array($model, 'model'))->findByPk($_POST['edit-id']);
             $comment->scenario = 'default';
             if ($comment === null)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
@@ -188,7 +194,7 @@ class AjaxController extends HController
                 !Yii::app()->authManager->checkAccess('editComment', Yii::app()->user->id)
             )
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-            $comment->attributes = $_POST['Comment'];
+            $comment->attributes = $_POST[$model];
         }
         if ($comment->save()) {
             $response = array(

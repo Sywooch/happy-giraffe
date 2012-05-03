@@ -1,6 +1,6 @@
 <?php
 
-class PaintAreaForm extends CFormModel
+class PaintAreaForm extends HFormModel
 {
     public $height;
     public $width;
@@ -16,7 +16,7 @@ class PaintAreaForm extends CFormModel
             array('qty', 'default', 'value' => 1),
             array('qty', 'required', 'message' => 'Укажите кол-во неокрашиваемых областей'),
             array('height, width', 'normalizeLength'),
-            array('height, width', 'numerical', 'message' => 'Введите число')
+            array('height, width', 'numerical', 'message' => '{attribute} должна быть числом')
         );
     }
 
@@ -29,12 +29,4 @@ class PaintAreaForm extends CFormModel
             'qty' => 'кол-во'
         );
     }
-
-    public function normalizeLength($attribute, $params)
-    {
-        $this->$attribute = trim(str_replace(',', '.', $this->$attribute));
-        $this->$attribute = preg_replace('#[^0-9\.]+#', '', $this->$attribute);
-    }
-
-
 }

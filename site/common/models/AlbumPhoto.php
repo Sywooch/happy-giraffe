@@ -169,7 +169,7 @@ class AlbumPhoto extends HActiveRecord
     {
         if (!$temp) {
             $this->file_name = $this->file;
-            $this->fs_name = md5($this->file_name) . '.' . $this->file->extensionName;
+            $this->fs_name = md5($this->file_name . time()) . '.' . $this->file->extensionName;
         }
         else {
             $this->fs_name = $this->file_name;

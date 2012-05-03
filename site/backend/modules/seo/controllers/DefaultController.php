@@ -24,6 +24,22 @@ class DefaultController extends BController
         ));
     }
 
+    public function actionSearch()
+    {
+        $pages = new CPagination();
+        $pages->pageSize = 100000;
+        $criteria = new stdClass();
+        $criteria->from = 'keywords';
+        $criteria->select = '*';
+        $criteria->paginator = $pages;
+        $criteria->query = '*кесарю*';
+        $resIterator = Yii::app()->search->search($criteria);
+
+        $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
+        $allCount = count($allSearch['matches']);
+
+    }
+
     public function actionCalc()
     {
         $i = 0;

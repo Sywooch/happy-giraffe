@@ -19,7 +19,7 @@ class DefaultController extends HController
         if (empty($date))
             $date = date("Y-m-d");
 
-        $zodiac = Horoscope::model()->getZodiacId($zodiac);
+        $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
         $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

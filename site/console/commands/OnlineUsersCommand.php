@@ -97,7 +97,7 @@ class OnlineUsersCommand extends CConsoleCommand
      */
     private function SendOnlineNotice($user_id, $online)
     {
-        $friends = User::model()->findAll(User::getUserById($user_id)->getFriendSelectCriteria());
+/*        $friends = User::model()->findAll(User::getUserById($user_id)->getFriendSelectCriteria());
         //id друзей
         $friend_ids = array();
         foreach ($friends as $friend) {
@@ -126,7 +126,7 @@ class OnlineUsersCommand extends CConsoleCommand
         foreach ($friend_ids as $friend_id) {
             $comet->attributes = array('online' => $online, 'user_type' => 1);
             $comet->send($friend_id);
-        }
+        }*/
     }
 
     /**

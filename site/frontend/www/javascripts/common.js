@@ -35,7 +35,7 @@ $(document).ready(function () {
         });
     }
 
-    $('input[placeholder], textarea[placeholder]').placeholder();
+    if ($('input[placeholder], textarea[placeholder]').size() > 0 ) $('input[placeholder], textarea[placeholder]').placeholder();
 
     $('body').click(function (e) {
         if (!$(e.target).parents().hasClass('navdrp'))
@@ -179,21 +179,6 @@ $('.hotel-class .star').click(function () {
 function toggleFilterBox(el) {
     $(el).parents('.filter-box').toggleClass('filter-box-toggled');
 }
-
-function setPlaceholder(el) {
-    if ($(el).val() == '') {
-        $(el).val($(el).attr('placeholder'));
-        $(el).addClass('placeholder')
-    }
-}
-
-function unsetPlaceholder(el) {
-    if ($(el).val() == $(el).attr('placeholder')) {
-        $(el).val('');
-        $(el).removeClass('placeholder');
-    }
-}
-
 
 function toggleChildForm(el) {
     $(el).parents('.child').find('.child-form').fadeToggle();

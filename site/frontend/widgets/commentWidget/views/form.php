@@ -9,6 +9,18 @@
         'style' => 'display:none;',
     ),
 )); ?>
+    <?php if($this->vote): ?>
+        <span>Ваша оценка:</span>
+        <div class="rating setRating" onmouseout="setRatingOut(this);">
+            <span onmouseover="setRatingHover(this, 1);" onclick="setRating(this,1);"></span>
+            <span onmouseover="setRatingHover(this, 2);" onclick="setRating(this,2);"></span>
+            <span onmouseover="setRatingHover(this, 3);" onclick="setRating(this,3);"></span>
+            <span onmouseover="setRatingHover(this, 4);" onclick="setRating(this,4);"></span>
+            <span onmouseover="setRatingHover(this, 5);" onclick="setRating(this,5);"></span>
+            <input type="hidden" value="0" />
+        </div>
+        <br/>
+    <?php endif; ?>
     <div class="response">
         <input type="hidden" id="Comment_response_id" name="Comment[response_id]" value="" />
     </div>

@@ -7,6 +7,7 @@ Comment = {
     saveCommentUrl:null,
     entity:null,
     entity_id:null,
+    model:'Comment',
     setParams:function(params) {
         for(var n in params) {
             if(typeof(this[n]) != undefined)
@@ -14,7 +15,7 @@ Comment = {
         }
     },
     getInstance:function () {
-        var instance = CKEDITOR.instances['Comment_text'];
+        var instance = CKEDITOR.instances[this.model + '_text'];
         if (instance)
             return instance;
         return false;
@@ -24,7 +25,7 @@ Comment = {
         if (instance) {
             instance.destroy(true);
         }
-        CKEDITOR.replace('Comment_text', {toolbar:this.toolbar});
+        CKEDITOR.replace(this.model + '_text', {toolbar:this.toolbar});
     },
     moveForm:function (container) {
         var instance = this.getInstance();

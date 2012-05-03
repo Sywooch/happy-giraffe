@@ -62,8 +62,8 @@ return array(
         'horoscope/'=>'horoscope/default/index',
         'horoscope/year/<zodiac:[\w]+>'=>'horoscope/default/year',
         'horoscope/month/<zodiac:[\w]+>'=>'horoscope/default/month',
-        'horoscope/<zodiac:[\w]+>/<date:[\w-]+>'=>'horoscope/default/view',
         'horoscope/today/<zodiac:[\w]+>'=>'horoscope/default/view',
+        'horoscope/<zodiac:[\w]+>/<date:[\w-]+>'=>'horoscope/default/view',
 
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

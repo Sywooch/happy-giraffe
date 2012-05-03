@@ -16,7 +16,7 @@ class DefaultController extends HController
 
     public function actionView($zodiac, $date = null)
     {
-        if ($date == null || empty($date))
+        if (empty($date))
             $date = date("Y-m-d");
 
         $zodiac = Horoscope::model()->getZodiacId($zodiac);

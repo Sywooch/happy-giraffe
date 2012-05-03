@@ -16,7 +16,7 @@
                 else
                     echo '<big>Гороскоп<br>на</big>';
                 ?>
-                <span><span><?=date("j", strtotime($model->date)) ?></span><?=HDate::ruMonthShort(date("n", strtotime($model->date)))  ?></span>
+                <span><span><?=date("j", strtotime($model->date)) ?></span><?=Yii::app()->dateFormatter->format('MMM',strtotime($model->date))  ?></span>
             </div>
 
         </div>

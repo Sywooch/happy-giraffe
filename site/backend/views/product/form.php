@@ -199,6 +199,7 @@ $(function () {
     $('.photo-upload').iframePostForm({
         json:true,
         complete:function (response) {
+            document.location.reload();
             if (response.status == '1') {
                 $('.big_foto a').replaceWith($('#product_image').tmpl({url:response.url, title:response.title}));
                 if (!has_image) $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
@@ -403,7 +404,7 @@ function SetGender(value, sender) {
                     <div class="left_quantity">
                         <p>Количество на складе</p>
 
-                        <p class="number"><span>0</span> шт.</p>
+                        <p class="number"><span id="product-items-count"><?php echo $model->itemsCount; ?></span> шт.</p>
                         <?php echo CHtml::link('Добавить на склад', array('/product/putIn', 'id' => $model->primaryKey), array('class' => 'greenGradient fancy')); ?>
                     </div>
                     <div class="right_quantity">

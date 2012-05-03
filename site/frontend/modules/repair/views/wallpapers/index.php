@@ -28,16 +28,7 @@
                               }",
                 )));
             ?>
-            <?php echo $form->errorSummary($model) ?>
-
-            <?php
-            $form->error($model, 'room_length');
-            $form->error($model, 'room_width');
-            $form->error($model, 'room_height');
-            $form->error($model, 'wp_width');
-            $form->error($model, 'wp_length');
-            $form->error($model, 'repeat');
-            ?>
+            <?php //echo $form->errorSummary($model) ?>
 
             <div class="row">
                 <div class="row-title">Размер помещения <span>(в метрах)</span></div>
@@ -46,6 +37,11 @@
                     <div class="col">Длина <?php echo $form->textField($model, 'room_length') ?></div>
                     <div class="col">Высота <?php echo $form->textField($model, 'room_height') ?></div>
                 </div>
+                <?php
+                echo $form->error($model, 'room_length');
+                echo $form->error($model, 'room_width');
+                echo $form->error($model, 'room_height');
+                ?>
             </div>
 
             <div class="row">
@@ -56,6 +52,11 @@
                     <div class="col">Раппорт <?php echo $form->textField($model, 'repeat') ?></div>
                 </div>
                 <div class="small">Раппорт обоев - шаг между отдельными элементами рисунка</div>
+                <?php
+                echo $form->error($model, 'wp_width');
+                echo $form->error($model, 'wp_length');
+                echo $form->error($model, 'repeat');
+                ?>
             </div>
 
             <?php $this->endWidget(); ?>
@@ -106,6 +107,8 @@
                            onclick="$('#empty-area-form').submit(); event.preventDefault();">
                             <span><span>Ok</span></span>
                         </a>
+
+                        <div class="clear"></div>
                         <?php echo $form->errorSummary($emptyArea) ?>
                     </div>
 

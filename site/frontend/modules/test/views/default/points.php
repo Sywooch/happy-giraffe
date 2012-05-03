@@ -12,7 +12,7 @@
 
         </div>
 
-        <div class="text">Онлайн тест на беременность – прекрасная возможность подтвердить или опровергнуть свои мысли по поводу возможной беременности, особенно, если под рукой нет экспресс-теста, а приём гинеколога состоится не раньше чем завтра.</div>
+        <div class="text">Онлайн-тест на беременность – прекрасная возможность подтвердить или опровергнуть свои мысли по поводу возможной беременности, особенно если под рукой нет экспресс-теста, а приём гинеколога состоится не раньше чем завтра.</div>
 
         <div class="btn"><button class="test_begin" onclick="Test.Start();">ПРОЙТИ ТЕСТ</button></div>
 
@@ -41,9 +41,8 @@ foreach ($test->testQuestions as $question):?>
 				<?php foreach ($question->testQuestionAnswers as $answer): ?>
 					<li>
 
-						<label for="value<?php echo $i . $answer->number ?>">
+						<label for="value<?php echo $i . $answer->number ?>" onclick="Test.Next(this);">
                             <input
-                               onchange="Test.Next(this);"
                                data-points="<?php echo $answer->points ?>"
                                type="radio"
                                name="v"

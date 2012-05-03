@@ -83,7 +83,7 @@ Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 				<div class="description-img">
 					
 					<div class="img-in">
-						<?php echo CHtml::link(CHtml::image(/*$model->product_image->getUrl('product')*/'', $model->product_title), /*$model->product_image->getUrl('original')*/'', array(
+						<?php echo CHtml::link(CHtml::image($model->main_image->photo->getPreviewUrl(329, 355, Image::WIDTH), $model->product_title), $model->main_image->photo->originalUrl, array(
 							'class' => 'cloud-zoom',
 							'id' => 'zoom1',
 							'rel' => 'adjustX: 40, adjustY:-4',
@@ -96,20 +96,14 @@ Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 								/*$imagesDP = $images->search($criteriaImage);*/
 							?>
 							<ul>
-								<li>
-									<?php echo CHtml::link(CHtml::image(/*$model->product_image->getUrl('product_thumb')*/'', $model->product_title), /*$model->product_image->getUrl('original')*/'', array(
-										'class' => 'cloud-zoom-gallery',
-										'rel' => 'useZoom: "zoom1", smallImage: "' . /*$model->product_image->getUrl('product')*/'' . '"',
-									)); ?>
-								</li>
-								<?php /*foreach ($imagesDP->data as $i): */?><!--
+								<?php foreach ($model->images as $i): ?>
 									<li>
-										<?php /*echo CHtml::link(CHtml::image($i->image_file->getUrl('product_thumb'), $model->product_title), $i->image_file->getUrl('original'), array(
+										<?php echo CHtml::link(CHtml::image($i->photo->getPreviewUrl(76, 79, Image::WIDTH), $model->product_title), $i->photo->originalUrl, array(
 											'class' => 'cloud-zoom-gallery',
-											'rel' => 'useZoom: "zoom1", smallImage: "' . $i->image_file->getUrl('product') . '"',
-										)); */?>
+											'rel' => 'useZoom: "zoom1", smallImage: "' . $i->photo->getPreviewUrl(329, 355, Image::WIDTH) . '"',
+										)); ?>
 									</li>
-								--><?php /*endforeach; */?>
+								<?php endforeach; ?>
 							</ul>
 						</div>
 						<a href="javascript:void(0);" class="jcarousel-prev prev disabled" onclick="$('#product-thumbs').jcarousel('scroll', '-=1');"></a>
@@ -231,18 +225,18 @@ Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 							<?php $attributes = $model->getAttributesText(); ?>
 							<li>
 								<ul>
-									<?php $i = 0; foreach ($attributes as $a): ?>
+									<?php $i = 0; foreach ($attributes as $aname => $avalue): ?>
 										<?php if (++$i % 2 == 1): ?>
-											<li><span class="a-right"><?php echo $a['eav_attribute_value']; ?></span><span><?php echo $a['attribute_title']; ?></span></li>
+											<li><span class="a-right"><?php echo $avalue; ?></span><span><?php echo $aname; ?></span></li>
 										<?php endif; ?>
 									<?php endforeach; ?>
 								</ul>
 							</li>
 							<li>
 								<ul>
-									<?php $i = 0; foreach ($attributes as $a): ?>
+                                    <?php $i = 0; foreach ($attributes as $aname => $avalue): ?>
 										<?php if (++$i % 2 == 0): ?>
-											<li><span class="a-right"><?php echo $a['eav_attribute_value']; ?></span><span><?php echo $a['attribute_title']; ?></span></li>
+											<li><span class="a-right"><?php echo $avalue; ?></span><span><?php echo $aname; ?></span></li>
 										<?php endif; ?>
 									<?php endforeach; ?>
 								</ul>
@@ -290,18 +284,14 @@ Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 					</div>
 				</div>-->
 			</div>
-			
-			<div class="steps steps-comments">
-				<?php if(! Yii::app()->user->isGuest && ! $model->rated(Yii::app()->user->id)): ?>
-					<a href="#add_comment" class="btn btn-orange a-right"><span><span>Добавить отзыв</span></span></a>
-				<?php endif; ?>
-				<ul>
-					<li class="active"><a>Отзывы о товаре</a></li>
-				</ul>
-				<div class="avg-rating">
-					Средняя оценка:  <span class="product_rate"><?php $this->renderPartial('rating', array('rating' => $model->product_rate)); ?></span>
-				</div>
-			</div>
+
+            <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
+                'model' => $model,
+                'title' => 'Отзывы о товаре',
+                'button' => 'Добавить отзыв',
+                'vote' => true,
+                'actions' => false,
+            )); ?>
 
 		</div>
 		
@@ -336,6 +326,12 @@ Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 	</div>
 
 </div>
+
+<?php
+$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+$remove_tmpl->registerTemplates();
+$this->endWidget();
+?>
 
 <!--<div class="b-banners">
 	<ul>

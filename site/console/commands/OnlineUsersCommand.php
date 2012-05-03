@@ -6,8 +6,6 @@ class OnlineUsersCommand extends CConsoleCommand
 
     public function actionIndex()
     {
-        date_default_timezone_set('Europe/Moscow');
-
         Yii::import('site.frontend.modules.im.models.*');
         Yii::import('site.frontend.modules.im.components.*');
         Yii::import('site.frontend.modules.scores.models.*');

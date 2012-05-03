@@ -41,7 +41,6 @@ if ($type == 'guestBook') {
 
 $this->widget('MyListView', array(
     'dataProvider' => $dataProvider,
-//        'summaryText' => '',
     'itemView' => '_comment',
     'summaryText' => 'показано: {start} - {end} из {count}',
     'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast');",

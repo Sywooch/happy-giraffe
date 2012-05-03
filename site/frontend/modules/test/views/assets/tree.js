@@ -30,5 +30,7 @@ var Test = {
     },
 
     Restart:function () {
+        $(".step input:radio:checked").removeAttr("checked");
+        Test.Start();
     }
 }

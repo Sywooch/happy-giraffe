@@ -3,7 +3,7 @@ var Test = {
 
     },
     Start:function () {
-        $('#step0').fadeOut(300, function () {
+        $('.step:visible').fadeOut(300, function () {
             $('#step1').fadeIn(300);
         });
     },
@@ -15,7 +15,7 @@ var Test = {
             });
             return;
         }
-        input.closest('div.question-div').fadeOut(300, function () {
+        $('.step:visible').fadeOut(300, function () {
             if (input.closest('div.question-div').next('div.question-div').length) {
                 input.closest('div.question-div').next('div.question-div').fadeIn(300);
             } else {
@@ -42,6 +42,7 @@ var Test = {
         });
     },
     Restart:function () {
-
+        $(".step input:radio:checked").removeAttr("checked");
+        Test.Start();
     }
 }

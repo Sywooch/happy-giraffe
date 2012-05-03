@@ -36,13 +36,13 @@ class DefaultController extends HController
     public function actionView($slug)
     {
         $test = $this->LoadModel($slug);
-        $this->pageTitle = strip_tags($test->title). ', бесплатные тесты на сайте Веселый Жираф';
+        $this->pageTitle = strip_tags($test->title) . ', бесплатные тесты на сайте Веселый Жираф';
 
         $basePath = Yii::getPathOfAlias('test') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'assets';
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . "/" . $test->getTypeName() . ".js", CClientScript::POS_HEAD);
 
-        $this->render($test->getTypeName(), array(
+        $this->render($test->getTypeName() . '_' . $test->slug, array(
             'test' => $test
         ));
     }
@@ -58,27 +58,23 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Такого теста не существует.');
 
-        if ($model->type == Test::TYPE_POINTS)
-            $model = Test::model()->with(array(
-                'testQuestions' => array('order' => 'testQuestions.number'),
-                'testQuestions.testQuestionAnswers' => array('order' => 'testQuestionAnswers.number'),
-                'testResults' => array('order' => 'testResults.points DESC'),
-                'questionsCount'
-            ))->findByAttributes(array('slug' => $slug));
-        else
-            $model = Test::model()->with(array(
-                'testQuestions' => array('order' => 'testQuestions.number'),
-                'testQuestions.testQuestionAnswers' => array('order' => 'testQuestionAnswers.number'),
-                'testResults' => array('order' => 'testResults.number'),
-                'questionsCount'
-            ))->findByAttributes(array('slug' => $slug));
+        $orderBy = ($model->type == Test::TYPE_POINTS) ? 'testResults.points DESC' : 'testResults.number';
+
+        $model = Test::model()->with(array(
+            'testQuestions' => array('order' => 'testQuestions.number'),
+            'testQuestions.testQuestionAnswers' => array('order' => 'testQuestionAnswers.number'),
+            'testResults' => array('order' => $orderBy),
+            'questionsCount'
+        ))->findByAttributes(array('slug' => $slug));
+
         return $model;
     }
 
-    public function actionTestt(){
+    public function actionTestt()
+    {
         //$models = TestQuestionAnswer::model()->findAll();
         $models = TestQuestion::model()->findAll('test_id=4');
-        foreach($models as $model){
+        foreach ($models as $model) {
             /*$first = mb_substr($model->text,0,1, 'UTF-8');
             $first = mb_strtoupper($first, 'UTF-8');
             $text = $first.mb_substr($model->text,1,mb_strlen($model->text), 'UTF-8');

@@ -1,6 +1,6 @@
 <?php
 
-class m120502_115058_change_comments extends CDbMigration
+class m120502_115059_change_comments extends CDbMigration
 {
 	public function up()
 	{

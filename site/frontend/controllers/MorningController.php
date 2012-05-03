@@ -68,7 +68,7 @@ class MorningController extends HController
         else
             $this->breadcrumbs = array(
                 'Утро с Весёлым жирафом' => array('morning/'),
-                'Утро '.Yii::app()->dateFormatter->format("d MMMM yyyy", strtotime($date))
+                'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", strtotime($date))
             );
 
         $this->render('index', compact('articles'));
@@ -82,11 +82,18 @@ class MorningController extends HController
 
         $this->pageTitle = CHtml::encode($article->title);
         $this->time = strtotime(date("Y-m-d", strtotime($article->created)) . ' 00:00:00');
-        $this->breadcrumbs = array(
-            'Утро с Весёлым жирафом' => array('morning/'),
-            'Утро '.Yii::app()->dateFormatter->format("d MMMM yyyy", $this->time)=>$this->createUrl('morning/index', array('date'=>date("Y-m-d", $this->time) )),
-            $article->title
-        );
+
+        if (date("Y-m-d", $this->time) == date("Y-m-d"))
+            $this->breadcrumbs = array(
+                'Утро с Весёлым жирафом' => array('morning/'),
+                $article->title
+            );
+        else
+            $this->breadcrumbs = array(
+                'Утро с Весёлым жирафом' => array('morning/'),
+                'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", $this->time) => $this->createUrl('morning/index', array('date' => date("Y-m-d", $this->time))),
+                $article->title
+            );
 
         $this->render('view', compact('article'));
     }

@@ -9,16 +9,16 @@
     'id' => 'date-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
-    'action' => $this->createUrl('/vaccineCalendar/default/validateDate'),
+    'action' => $this->createUrl('default/validateDate'),
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => true,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/vaccineCalendar/default/validateDate'),
+        'validationUrl' => $this->createUrl('default/validateDate'),
         'afterValidate' => "js:function(form, data, hasError) {
                   if (!hasError) {
                       $.ajax({
-                          url: '" . $this->createUrl('/vaccineCalendar/default/VaccineTable') . "',
+                          url: '" . $this->createUrl('default/VaccineTable') . "',
                           type: 'POST',
                           data: $('#date-form').serialize(),
                           success: function(data) {

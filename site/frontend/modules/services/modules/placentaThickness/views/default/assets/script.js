@@ -4,13 +4,16 @@
  */
 
 var placentaThickness = {
-    calc:function(){
+    calc:function () {
         $.ajax({
-            url: "/placentaThickness/default/calculate/",
-            data: $("#placenta-thickness-form").serialize(),
-            type: "POST",
-            success: function(data) {
-                $("#result").fadeOut(100,function(){$("#result").html(data);$("#result").fadeIn(100);});
+            url:$('#placenta-thickness-form').attr('action'),
+            data:$("#placenta-thickness-form").serialize(),
+            type:"POST",
+            success:function (data) {
+                $("#result").fadeOut(100, function () {
+                    $("#result").html(data);
+                    $("#result").fadeIn(100);
+                });
             }
         });
         return false;

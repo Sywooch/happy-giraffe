@@ -4,25 +4,25 @@
  */
 
 var pregnancyWeight = {
-    calc:function(){
+    calc:function () {
         $.ajax({
-            url: '/pregnancyWeight/default/calculate/',
-            data: $('#pregnant-params-form').serialize(),
-            type: 'POST',
-            success: function(data) {
+            url:$('#pregnant-params-form').attr('action'),
+            data:$('#pregnant-params-form').serialize(),
+            type:'POST',
+            success:function (data) {
                 $('.intro-text').hide();
                 $('#result').html(data);
-                $('html,body').animate({scrollTop: $('#result').offset().top},'fast');
+                $('html,body').animate({scrollTop:$('#result').offset().top}, 'fast');
             }
         });
         return false;
     },
-    toWeight:function(){
+    toWeight:function () {
         $('#recommend').hide();
         $('#weight-table').show();
         return false;
     },
-    toRecommend:function(){
+    toRecommend:function () {
         $('#recommend').show();
         $('#weight-table').hide();
         return false;

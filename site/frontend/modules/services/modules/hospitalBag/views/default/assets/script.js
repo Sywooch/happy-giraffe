@@ -10,7 +10,7 @@ $(function () {
             $.ajax({
                 dataType:'JSON',
                 type:'POST',
-                url:'/hospitalBag/default/putIn/',
+                url:$('#items-storage').attr('data-putin'),
                 data:{
                     id:ui.draggable.find('input[name=\"id\"]').val()
                 },

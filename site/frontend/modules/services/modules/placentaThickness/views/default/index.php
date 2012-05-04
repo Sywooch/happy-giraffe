@@ -35,11 +35,12 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
         'id' => 'placenta-thickness-form',
         'enableAjaxValidation' => true,
         'enableClientValidation' => false,
+        'action' => $this->createUrl('default/calculate'),
         'clientOptions' => array(
             'validateOnSubmit' => true,
             'validateOnChange' => false,
             'validateOnType' => false,
-            'validationUrl' => $this->createUrl('/placentaThickness/default/calculate'),
+            'validationUrl' => $this->createUrl('default/calculate'),
             'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     placentaThickness.calc();

@@ -15,11 +15,12 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
     'id' => 'menstrual-cycle-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
+    'action' => $this->createUrl('default/calculate'),
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/menstrualCycle/default/calculate'),
+        'validationUrl' => $this->createUrl('default/calculate'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     StartCalc();

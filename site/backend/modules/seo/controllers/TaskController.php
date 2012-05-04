@@ -119,7 +119,7 @@ class TaskController extends BController
         $task = SeoTask::model()->findByPk($id);
         if ($task !== null) {
             $task->type = $type;
-            $this->status = self::STATUS_READY;
+            $task->status = SeoTask::STATUS_READY;
             if ($task->save()) {
                 $response = array(
                     'status' => true,

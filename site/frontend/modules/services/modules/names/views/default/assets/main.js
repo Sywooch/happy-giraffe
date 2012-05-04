@@ -5,7 +5,6 @@
 var gender;
 var page;
 var title;
-var letter;
 
 $(function () {
 
@@ -29,7 +28,7 @@ $(function () {
         }
 
         $.ajax({
-            url:url,
+            url:'/services/names/default/index/',
             data:{
                 letter:letter,
                 gender:gender
@@ -54,7 +53,7 @@ $(function () {
         url = $(this).attr('href');
 
         $.ajax({
-            url:url,
+            url:'/services/names/default/index/',
             data:{
                 letter:letter,
                 gender:gender
@@ -72,7 +71,7 @@ $(function () {
 
     $('body').delegate('.pagination a', 'click', function () {
         $.ajax({
-            url:$(this).attr('href'),
+            url:'/services/names/default/index/',
             data:{
                 letter:letter,
                 gender:gender

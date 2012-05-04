@@ -4,7 +4,7 @@
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Untitled Document</title>
+	<title><?=$this->pageTitle?></title>
 </head>
 <body class="body-club">
 	<div id="layout" class="wrapper">

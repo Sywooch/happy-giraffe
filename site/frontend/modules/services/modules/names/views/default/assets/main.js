@@ -10,6 +10,7 @@ $(function () {
 
     $('ul.letters a').click(function () {
         letter = $(this).text();
+        url = $(this).attr('href');
         title = 'Имена на букву ' + letter;
         if (letter == 'Все') {
             letter = null;
@@ -27,9 +28,9 @@ $(function () {
         }
 
         $.ajax({
-            url:'/names/default/index/',
+            url:url,
             data:{
-                letter:letter,
+                //letter:letter,
                 gender:gender
             },
             type:'GET',
@@ -49,12 +50,16 @@ $(function () {
 
     $('.gender-link a').click(function () {
         gender = $(this).attr('rel');
+        url = $(this).attr('href');
+        if (window.letter === undefined)
+            letter = null;
 
         $.ajax({
-            url:'/names/default/index/',
+            //url:'/services/names/default/index/',
+            url:url,
             data:{
-                letter:letter,
-                gender:gender
+                letter:letter
+                //gender:gender
             },
             type:'GET',
             success:function (data) {
@@ -90,7 +95,7 @@ $(function () {
 
         if (state) {
             $.ajax({
-                url:'/names/default/index/',
+                url:$('.choice_name_navi li:first a').attr('href'),
                 data:{
                     letter:letter,
                     gender:gender

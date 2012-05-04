@@ -12,8 +12,8 @@
 </script>
 <div class="left-inner mirror">
     <div class="name_link">
-        <a href="<?php echo $this->createUrl('/names/default/index') ?>">Все имена</a>
-        <a href="<?php echo $this->createUrl('/names/default/index',array('letter'=>$name->GetFirstLetter())) ?>">Имена на букву <?php echo $name->GetFirstLetter() ?></a>
+        <a href="<?php echo $this->createUrl('index') ?>">Все имена</a>
+        <a href="<?php echo $this->createUrl('index',array('letter'=>$name->GetFirstLetter())) ?>">Имена на букву <?php echo $name->GetFirstLetter() ?></a>
     </div>
 
     <div class="name_info_right <?php echo ($name->gender == 1)?'boy':'girl' ?>">

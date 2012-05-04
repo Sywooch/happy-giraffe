@@ -54,7 +54,7 @@ class PageView extends EMongoDocument
             $model = new $this;
             $model->_id = $path;
         }
-        $model->views = $count;
+        $model->views = (int) $count;
         $model->updated = time();
         $model->save();
         return $model;

@@ -9,6 +9,8 @@
  *
  * The followings are the available model relations:
  * @property Stats[] $seoStats
+ * @property KeywordGroup[] $keywordGroups
+ * @property YandexPopularity $yandexPopularity
  */
 class Keywords extends HActiveRecord
 {
@@ -58,6 +60,8 @@ class Keywords extends HActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'seoStats' => array(self::HAS_MANY, 'Stats', 'keyword_id'),
+            'keywordGroups' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
+            'yandexPopularity' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
         );
     }
 

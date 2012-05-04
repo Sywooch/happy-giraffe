@@ -1,6 +1,6 @@
 <?php
 /* @var $this Controller
- * @var $models SeoKeywords[]
+ * @var $models Keywords[]
  */
 ?>
 <ul>

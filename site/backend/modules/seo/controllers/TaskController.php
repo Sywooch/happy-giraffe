@@ -53,8 +53,8 @@ class TaskController extends BController
             if (!empty($ids)) {
                 $criteria = new CDbCriteria;
                 $criteria->compare('id', $ids);
-                $criteria->with = array('seoKeywordGroups', 'seoKeywordGroups.newTaskCount', 'seoKeywordGroups.seoArticleKeywords');
-                $models = SeoKeywords::model()->findAll($criteria);
+                //$criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords');
+                $models = Keywords::model()->findAll($criteria);
             }else
                 $models = array();
             $this->renderPartial('_keywords', array('models' => $models));
@@ -64,10 +64,10 @@ class TaskController extends BController
     public function actionAddTask()
     {
         $key_id = Yii::app()->request->getPost('id');
-        $key = SeoKeywords::model()->findByPk($key_id);
+        $key = Keywords::model()->findByPk($key_id);
 
-        $group = new SeoKeywordGroup();
-        $group->seoKeywords = array($key);
+        $group = new KeywordGroup();
+        $group->keywords = array($key);
         if ($group->save()) {
             $task = new SeoTask();
             $task->keyword_group_id = $group->id;
@@ -89,10 +89,10 @@ class TaskController extends BController
     public function actionAddGroupTask()
     {
         $key_ids = Yii::app()->request->getPost('id');
-        $keywords = SeoKeywords::model()->findAllByPk($key_ids);
+        $keywords = Keywords::model()->findAllByPk($key_ids);
 
-        $group = new SeoKeywordGroup();
-        $group->seoKeywords = $keywords;
+        $group = new KeywordGroup();
+        $group->keywords = $keywords;
         if ($group->save()) {
             $task = new SeoTask();
             $task->keyword_group_id = $group->id;
@@ -156,27 +156,27 @@ class TaskController extends BController
         $keywords = Yii::app()->request->getPost('keywords');
 
         $article = CommunityContent::model()->findByPk($id);
-        $article_keywords = new SeoArticleKeywords();
+        $article_keywords = new ArticleKeywords();
         $article_keywords->entity = 'CommunityContent';
         $article_keywords->entity_id = $article->id;
 
-        $group = new SeoKeywordGroup();
-        $seoKeywords = array();
+        $group = new KeywordGroup();
+        $keywords = array();
 
         foreach ($keywords as $keyword) {
             $keyword = trim($keyword);
             if (!empty($keyword)) {
-                $model = SeoKeywords::model()->findByAttributes(array('name' => $keyword));
+                $model = Keywords::model()->findByAttributes(array('name' => $keyword));
                 if ($model === null)
                     throw new CHttpException(401, 'кейворд не найден в базе');
-                $seoKeywords[] = $model;
+                $keywords[] = $model;
             }
         }
 
-        if (empty($seoKeywords))
+        if (empty($keywords))
             throw new CHttpException(401, 'нет ни одного кейворда');
 
-        $group->seoKeywords = $seoKeywords;
+        $group->keywords = $keywords;
         $group->save();
 
         $article_keywords->keyword_group_id = $group->id;

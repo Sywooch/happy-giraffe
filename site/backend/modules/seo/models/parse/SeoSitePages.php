@@ -19,12 +19,12 @@ class SeoSitePages extends HActiveRecord
 		return parent::model($className);
 	}
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'seo__site_pages';
+    public function getDbConnection(){
+        return Yii::app()->db_seo;
+    }
+
+    public function tableName(){
+        return 'happy_giraffe_seo.site_pages';
 	}
 
 	/**

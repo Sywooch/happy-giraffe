@@ -1,33 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "seo__browser".
+ * This is the model class for table "seo__visits_names".
  *
- * The followings are the available columns in table 'seo__browser':
- * @property integer $id
+ * The followings are the available columns in table 'seo__visits_names':
+ * @property string $id
  * @property string $name
- *
- * The followings are the available model relations:
- * @property SeoBrowserStats[] $seoBrowserStats
  */
-class SeoBrowser extends HActiveRecord
+class SeoVisitsNames extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SeoBrowser the static model class
+	 * @return SeoVisitsNames the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'seo__browser';
+    public function getDbConnection(){
+        return Yii::app()->db_seo;
+    }
+
+    public function tableName(){
+        return 'happy_giraffe_seo.visits_names';
 	}
 
 	/**
@@ -54,7 +51,6 @@ class SeoBrowser extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'seoBrowserStats' => array(self::HAS_MANY, 'SeoBrowserStats', 'browser_id'),
 		);
 	}
 
@@ -80,7 +76,7 @@ class SeoBrowser extends HActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
+		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
@@ -88,7 +84,7 @@ class SeoBrowser extends HActiveRecord
 		));
 	}
 
-    public function GetModelName($word)
+    public function GetVisitName($word)
     {
         $word = trim($word);
         $model = self::model()->findByAttributes(array(
@@ -97,7 +93,7 @@ class SeoBrowser extends HActiveRecord
         if (isset($model))
             return $model;
 
-        $model = new self();
+        $model = new SeoVisitsNames();
         $model->name = $word;
         if (!$model->save())
             throw new CHttpException(404, 'Страница не сохранена. ' . $word);

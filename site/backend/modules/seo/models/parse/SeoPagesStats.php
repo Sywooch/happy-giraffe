@@ -39,12 +39,12 @@ class SeoPagesStats extends HActiveRecord
 		return parent::model($className);
 	}
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'seo__pages_stats';
+    public function getDbConnection(){
+        return Yii::app()->db_seo;
+    }
+
+    public function tableName(){
+        return 'happy_giraffe_seo.pages_stats';
 	}
 
 	/**

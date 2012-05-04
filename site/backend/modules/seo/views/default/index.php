@@ -20,7 +20,7 @@
 </style>
 
 <br><br>
-<?php $sites = SeoSite::model()->findAll(); ?>
+<?php $sites = Site::model()->findAll(); ?>
 <table class="choose-type">
     <tr>
         <?php foreach ($sites as $site): ?>
@@ -114,7 +114,7 @@
 )); ?>
 <script type="text/javascript">
     $('#page').keyup(function(){
-        var url = $('.yiiPager li.last a').attr('href')+'/SeoKeyStats_page/'+$(this).val();
+        var url = $('.yiiPager li.last a').attr('href')+'/KeyStats_page/'+$(this).val();
         console.log(url);
         $.fn.yiiGridView.update('keywords-grid', {url:url});
     });

@@ -25,7 +25,7 @@ class CommunityController extends HController
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map', 'rewrite', 'postRewrite'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map', 'rewrite', 'postRewrite', 'stats'),
                 'users'=>array('*'),
             ),
             array('allow',
@@ -704,5 +704,21 @@ class CommunityController extends HController
                 'dp' => $dp,
             ));
         }
+    }
+
+    public function actionStats()
+    {
+        $dp = new CActiveDataProvider('Community', array(
+            'criteria' => array(
+                'order' => 't.id ASC',
+            ),
+            'pagination' => array(
+                'pageSize' => 50,
+            ),
+        ));
+
+        $this->render('stats', array(
+            'dp' => $dp,
+        ));
     }
 }

@@ -96,18 +96,19 @@ class Community extends HActiveRecord
 		);
 	}
 
-    public function getContentViews()
+    public function getContentViewsCount()
     {
         $col = PageView::getCollection();
 
+        $keys = array();
         $initial = array('csum' => 0);
         $reduce = 'function(obj, prev) { prev.csum += obj.views; }';
         $condition = array(
             '_id' => array('$regex' => '/community/' . $this->id . '/'),
         );
 
-        $query = $col->group(array(), $initial, $reduce, $condition);
-        var_dump($query);
+        $query = $col->group($keys, $initial, $reduce, $condition);
+        return $query['csum'];
     }
 
     public function getContentsCount()

@@ -86,29 +86,14 @@ return array(
 			'callbackOrderProceed' => array('Order','callbackOrderProceed'),
 			'callbackOrderPaid' => array('Order','callbackOrderPaid'),
 		),
-		'vaccineCalendar',
-		'pregnancyWeight',
-		'hospitalBag',
-		'contractionsTime',
-        'placentaThickness',
-        'menstrualCycle',
-        'babySex',
-    	'recipeBook',
-        'names',
         'hairType',
-        'sewing',
-        'babyBloodGroup',
-        'sizes',
-        'childrenDiseases',
-        'test',
         'im',
         'geo',
         'signal',
         'scores',
         'servicePages',
-        'repair',
-        'maternityLeave',
-        'horoscope'
+        'horoscope',
+        'services'
 	),
 
 	// application components
@@ -275,7 +260,7 @@ return array(
         'frontend_url'=>'http://www.happy-giraffe.ru/',
         'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA=='
 	),
-	
+
         'controllerMap' => array(
             'sitemap' => array(
                 'class' => 'ext.sitemapgenerator.SGController',

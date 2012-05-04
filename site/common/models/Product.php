@@ -58,14 +58,6 @@ class Product extends HActiveRecord implements IECartPosition
     public function behaviors()
     {
         return array(
-            'getUrl' => array(
-                'class' => 'site.frontend.extensions.geturl.EGetUrlBehavior',
-                'route' => 'product/view',
-                'dataField' => array(
-                    'id' => 'product_id',
-                    'title' => 'product_slug',
-                ),
-            ),
             'statuses' => array(
                 'class' => 'site.frontend.extensions.status.EStatusBehavior',
                 // Поле зарезервированное для статуса

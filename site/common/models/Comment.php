@@ -179,7 +179,7 @@ class Comment extends HActiveRecord
         /* Вырезка цитаты */
         $find = '/<div class="quote">(.*)<\/div>/ims';
         preg_match($find, $this->text, $matches);
-        if(isset($this->quote_text))
+        if(isset($this->quote_id))
         {
             if(count($matches) > 0)
             {

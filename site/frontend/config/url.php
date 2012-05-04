@@ -81,6 +81,8 @@ return array(
         'recipeBook/getAlphabetList'=>'services/recipeBook/default/getAlphabetList',
         'recipeBook/getCategoryList'=>'services/recipeBook/default/getCategoryList',
         'recipeBook/<url:\w+>' => 'services/recipeBook/default/disease',
+        'maternityLeave' => 'services/maternityLeave/default/index',
+        'repair/<controller:[\w-]+>'=>'services/repair/<controller>/index',
 
         'signal' => 'signal/default/index',
         'score' => 'scores/default/index',

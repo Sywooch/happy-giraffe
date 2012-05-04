@@ -15,8 +15,7 @@ class HoroscopeWidget extends UserCoreWidget
     {
         if (!$this->visible)
             return ;
-
-            Yii::import('application.modules.horoscope.models.*');
+            Yii::import('application.modules.services.modules.horoscope.models.*');
 
             $user_zodiac = Horoscope::model()->getDateZodiac($this->user->birthday);
             if ($user_zodiac === null)

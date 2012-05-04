@@ -266,7 +266,7 @@
 
 #baby .comments {border: none;margin:0;padding:0;}
 #baby .comments .add, #product .comments .all {padding-top:10px;text-align:right;}
-#baby .comments ul {padding-top:10px;}
+#baby .comments ul {padding-top:10px;list-style: none;}
 #baby .comments li {padding:25px;}
 #baby .comments li.even {background:#f6fdfe;}
 #baby .comments li .user {float:left;font:11px tahoma, arial, sans-serif;color:#1ba3c4;}
@@ -357,12 +357,7 @@
 
 #baby .placenta_recomendation {display:block;padding:30px 25px 45px 295px;position:relative;background:#fff2fb;font-size:13px;margin:0 0 40px 0;}
 #baby .placenta_recomendation span.title_p {font:25px/25px arial, sans-serif;color:#dd72b9;display:block;padding:0 0 15px 0;}
-<<<<<<< HEAD
 #baby .placenta_recomendation ul.placent_norm {display:block;width:200px;text-align:center;position:absolute;left:55px;top:85px;list-style:none;}
-=======
-#baby .placenta_recomendation ul.placent_norm {display:block;width:200px;text-align:center;position:absolute;left:55px;top:85px;list-style: none;}
->>>>>>> 0d0d24615f0fa40d2093f54d09a60de50b54356c
-#baby .placenta_recomendation ul.placent_norm li {padding:0 0 20px 0;}
 #baby .placenta_recomendation ul.placent_norm li.your_w {font:40px/40px tahoma, sans-serif;color:#ef80c9;}
 #baby .placenta_recomendation ul.placent_norm li.your_w ins {color:#c6c5c5;}
 #baby .placenta_recomendation ul.placent_norm li.your_pr {font:16px/24px tahoma, sans-serif;color:#5e307d;}
@@ -594,8 +589,8 @@
 #baby .handbook_alfa ul.sortable_u li a span {border-bottom:1px dashed #5e5f60;}
 #baby .handbook_alfa ul.sortable_u li.current_t a {display:inline-block;color:#5e5f60;text-decoration:none;background:#fef7ae;padding:0 4px;}
 #baby .handbook_alfa ul.sortable_u li.current_t a span {border:0;}
-#baby .handbook_alfa .handbook_multi {-moz-column-count: 4;-moz-column-gap: 20px;-webkit-column-count: 4;-webkit-column-gap: 20px;column-count: 4;column-gap: 20px;}
-#baby .handbook_alfa ul.handbook_list {display:block;margin:0 0 40px 0;}
+#baby .handbook_alfa .handbook_multi {-moz-column-count: 4;-moz-column-gap: 20px;-webkit-column-count: 4;-webkit-column-gap: 20px;column-count: 4;column-gap: 20px;list-style: none;}
+#baby .handbook_alfa ul.handbook_list {display:block;margin:0 0 40px 0;list-style: none;}
 #baby .handbook_alfa ul.handbook_list li {margin:0 0 5px 0;}
 #baby .handbook_alfa ul.handbook_list li span {font:bold 16px/25px arial, sans-serif;text-align:center;color:#fff;background:#c5a7e2;display:inline-block;padding: 0 10px;}
 #baby p.p40 {padding:0 40px;}
@@ -645,7 +640,7 @@
 #baby .handbook_alfa_popup ul.sortable_u li.current_t a {display:inline-block;color:#5e5f60;text-decoration:none;background:#fef7ae;padding:0 4px;}
 #baby .handbook_alfa_popup ul.sortable_u li.current_t a span {border:0;}
 #baby .handbook_alfa_popup .handbook_multi {-moz-column-count: 4;-moz-column-gap: 20px;-webkit-column-count: 4;-webkit-column-gap: 20px;column-count: 4;column-gap: 20px;}
-#baby .handbook_alfa_popup ul.handbook_list {display:block;margin:0 0 40px 0;}
+#baby .handbook_alfa_popup ul.handbook_list {display:block;margin:0 0 40px 0;list-style: none;}
 #baby .handbook_alfa_popup ul.handbook_list li {margin:0 0 5px 0;}
 #baby .handbook_alfa_popup ul.handbook_list li span {font:bold 16px/25px arial, sans-serif;padding: 0 10px;text-align:center;color:#fff;background:#c5a7e2;display:inline-block;}
 

@@ -74,7 +74,19 @@ return array(
         'cache'=>array(
             //	'class' => 'CMemCache',
             'class' => 'CDummyCache',
-        )
+        ),
+        'search' => array(
+            'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',
+            'server' => '127.0.0.1',
+            'port' => 9312,
+            'maxQueryTime' => 3000,
+            'enableProfiling'=>0,
+            'enableResultTrace'=>0,
+            'fieldWeights' => array(
+                'name' => 10000,
+                'keywords' => 100,
+            ),
+        ),
 	),
 
     'params' => array(

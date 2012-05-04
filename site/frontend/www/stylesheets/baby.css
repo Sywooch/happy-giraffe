@@ -266,7 +266,7 @@
 
 #baby .comments {border: none;margin:0;padding:0;}
 #baby .comments .add, #product .comments .all {padding-top:10px;text-align:right;}
-#baby .comments ul {padding-top:10px;}
+#baby .comments ul {padding-top:10px;list-style: none;}
 #baby .comments li {padding:25px;}
 #baby .comments li.even {background:#f6fdfe;}
 #baby .comments li .user {float:left;font:11px tahoma, arial, sans-serif;color:#1ba3c4;}
@@ -589,8 +589,8 @@
 #baby .handbook_alfa ul.sortable_u li a span {border-bottom:1px dashed #5e5f60;}
 #baby .handbook_alfa ul.sortable_u li.current_t a {display:inline-block;color:#5e5f60;text-decoration:none;background:#fef7ae;padding:0 4px;}
 #baby .handbook_alfa ul.sortable_u li.current_t a span {border:0;}
-#baby .handbook_alfa .handbook_multi {-moz-column-count: 4;-moz-column-gap: 20px;-webkit-column-count: 4;-webkit-column-gap: 20px;column-count: 4;column-gap: 20px;}
-#baby .handbook_alfa ul.handbook_list {display:block;margin:0 0 40px 0;}
+#baby .handbook_alfa .handbook_multi {-moz-column-count: 4;-moz-column-gap: 20px;-webkit-column-count: 4;-webkit-column-gap: 20px;column-count: 4;column-gap: 20px;list-style: none;}
+#baby .handbook_alfa ul.handbook_list {display:block;margin:0 0 40px 0;list-style: none;}
 #baby .handbook_alfa ul.handbook_list li {margin:0 0 5px 0;}
 #baby .handbook_alfa ul.handbook_list li span {font:bold 16px/25px arial, sans-serif;text-align:center;color:#fff;background:#c5a7e2;display:inline-block;padding: 0 10px;}
 #baby p.p40 {padding:0 40px;}
@@ -640,7 +640,7 @@
 #baby .handbook_alfa_popup ul.sortable_u li.current_t a {display:inline-block;color:#5e5f60;text-decoration:none;background:#fef7ae;padding:0 4px;}
 #baby .handbook_alfa_popup ul.sortable_u li.current_t a span {border:0;}
 #baby .handbook_alfa_popup .handbook_multi {-moz-column-count: 4;-moz-column-gap: 20px;-webkit-column-count: 4;-webkit-column-gap: 20px;column-count: 4;column-gap: 20px;}
-#baby .handbook_alfa_popup ul.handbook_list {display:block;margin:0 0 40px 0;}
+#baby .handbook_alfa_popup ul.handbook_list {display:block;margin:0 0 40px 0;list-style: none;}
 #baby .handbook_alfa_popup ul.handbook_list li {margin:0 0 5px 0;}
 #baby .handbook_alfa_popup ul.handbook_list li span {font:bold 16px/25px arial, sans-serif;padding: 0 10px;text-align:center;color:#fff;background:#c5a7e2;display:inline-block;}
 

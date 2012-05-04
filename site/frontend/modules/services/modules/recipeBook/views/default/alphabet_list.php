@@ -1,7 +1,7 @@
 <div class="handbook_multi">
     <?php foreach ($alphabetList as $letter => $diseases): ?>
     <ul class="handbook_list">
-        <li><span><?php echo mb_strtoupper($letter) ?></span></li>
+        <li><span><?php echo $letter ?></span></li>
         <?php foreach ($diseases as $disease): ?>
         <li><a
             href="<?php echo $this->createUrl('disease', array('url' => $disease->slug)) ?>"><?php

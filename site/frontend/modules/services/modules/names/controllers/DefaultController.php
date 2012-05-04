@@ -32,7 +32,7 @@ class DefaultController extends HController
         $criteria->order = 'name';
         $show_all = false;
         if ($letter !== null && strlen($letter) < 3) {
-            $criteria->compare('name', mb_strtolower($letter) . '%', true, 'AND', false);
+            $criteria->compare('name', $letter . '%', true, 'AND', false);
             $show_all = true;
         }
         if (!empty($gender))

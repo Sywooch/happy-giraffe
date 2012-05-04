@@ -96,6 +96,15 @@ class Community extends HActiveRecord
 		);
 	}
 
+    public function getContentViews()
+    {
+        $mongo = Yii::app()->mongodb->getConnection();
+        $db = $mongo->selectDB("happy_giraffe_db");
+        $col = $db->page_views->views;
+        $group = $col->group(array('_id' => true), array('items' => 0), "function (obj, prev) { prev.items += obj.views; }");
+        return '';
+    }
+
     public function getContentsCount()
     {
         $sql = "

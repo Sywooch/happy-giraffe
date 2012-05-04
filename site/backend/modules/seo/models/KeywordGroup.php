@@ -1,34 +1,34 @@
 <?php
 
 /**
- * This is the model class for table "seo__site".
+ * This is the model class for table "seo__keyword_groups".
  *
- * The followings are the available columns in table 'seo__site':
- * @property integer $id
- * @property string $name
- * @property integer $url
+ * The followings are the available columns in table 'seo__keyword_groups':
+ * @property string $id
  *
  * The followings are the available model relations:
- * @property SeoKeyStats[] $seoKeyStats
+ * @property ArticleKeywords[] $articleKeywords
+ * @property Keywords[] $keywords
+ * @property SeoTask[] $seoTasks
  */
-class SeoSite extends HActiveRecord
+class KeywordGroup extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SeoSite the static model class
+	 * @return KeywordGroup the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'seo__site';
+    public function getDbConnection(){
+        return Yii::app()->db_seo;
+    }
+
+    public function tableName(){
+        return 'happy_giraffe_seo.keyword_groups';
 	}
 
 	/**
@@ -39,12 +39,9 @@ class SeoSite extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('url', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, url', 'safe', 'on'=>'search'),
+			array('id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,9 +53,20 @@ class SeoSite extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'seoKeyStats' => array(self::HAS_MANY, 'SeoKeyStats', 'site_id'),
+			'articleKeywords' => array(self::HAS_MANY, 'ArticleKeywords', 'keyword_group_id'),
+			'keywords' => array(self::MANY_MANY, 'Keywords', 'keyword_group_keywords(group_id, keyword_id)'),
+			'seoTasks' => array(self::HAS_MANY, 'SeoTask', 'keyword_group_id'),
+            'newTasks' => array(self::HAS_MANY, 'SeoTask', 'keyword_group_id', 'condition'=>'status = 0 OR status = 1'),
+            'newTaskCount' => array(self::STAT, 'SeoTask', 'keyword_group_id', 'condition'=>'status = 0 OR status = 1'),
 		);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'site.frontend.components.ManyToManyBehavior'
+        );
+    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -67,8 +75,6 @@ class SeoSite extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'url' => 'Url',
 		);
 	}
 
@@ -83,9 +89,7 @@ class SeoSite extends HActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('url',$this->url);
+		$criteria->compare('id',$this->id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

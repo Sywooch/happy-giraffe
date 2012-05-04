@@ -1,18 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "seo__visits_names".
+ * This is the model class for table "site".
  *
- * The followings are the available columns in table 'seo__visits_names':
- * @property string $id
+ * The followings are the available columns in table 'site':
+ * @property integer $id
  * @property string $name
+ * @property integer $url
+ *
+ * The followings are the available model relations:
+ * @property KeyStats[] $seoKeyStats
  */
-class SeoVisitsNames extends HActiveRecord
+class Site extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SeoVisitsNames the static model class
+	 * @return Site the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -24,8 +28,13 @@ class SeoVisitsNames extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'seo__visits_names';
+		return 'site';
 	}
+
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -36,10 +45,11 @@ class SeoVisitsNames extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
+			array('url', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, name, url', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,6 +61,7 @@ class SeoVisitsNames extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'seoKeyStats' => array(self::HAS_MANY, 'KeyStats', 'site_id'),
 		);
 	}
 
@@ -62,6 +73,7 @@ class SeoVisitsNames extends HActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'url' => 'Url',
 		);
 	}
 
@@ -76,28 +88,12 @@ class SeoVisitsNames extends HActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
+		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('url',$this->url);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
-    public function GetVisitName($word)
-    {
-        $word = trim($word);
-        $model = self::model()->findByAttributes(array(
-            'name' => $word,
-        ));
-        if (isset($model))
-            return $model;
-
-        $model = new SeoVisitsNames();
-        $model->name = $word;
-        if (!$model->save())
-            throw new CHttpException(404, 'Страница не сохранена. ' . $word);
-
-        return $model;
-    }
 }

@@ -6,6 +6,7 @@
 
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.control.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile('/javascripts/cloud-zoom.1.0.2.min.js'); ?>
 <?php
 Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#product-thumbs').jcarousel();
     $('#product .img-thumbs .prev').jcarouselControl({target: '-=1',carousel: slider1});

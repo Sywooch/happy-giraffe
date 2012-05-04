@@ -10,7 +10,7 @@ class ServicesModule extends CWebModule
         // import the module-level models and components
         $this->setImport(array(
             'services.models.*',
-            'services.components.*',
+            'services.components.*'
         ));
         $this->setModules(array(
             'repair',
@@ -23,7 +23,13 @@ class ServicesModule extends CWebModule
             'menstrualCycle',
             'pregnancyWeight',
             'placentaThickness',
-            'vaccineCalendar'
+            'vaccineCalendar',
+            'sizes',
+            'sewing',
+            'test',
+            'recipeBook',
+            'names',
+            'childrenDiseases'
         ));
     }
 

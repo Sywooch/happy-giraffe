@@ -39,7 +39,7 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 
 		</div>
 
-		<div class="items-storage">
+		<div class="items-storage" id="items-storage" data-putin="<?=$this->createUrl('default/putIn')?>">
 			<div class="storage-text">
 				Перетащите сюда<br/>необходимое Вам
 				<span>В сумке предметов: <span class="count"><?php echo $count; ?></span></span>
@@ -85,7 +85,7 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 			<div class="new-comment">
 				<?php
 					$form = $this->beginWidget('CActiveForm', array(
-						'action' => $this->createUrl('/hospitalBag/default/addOffer'),
+						'action' => $this->createUrl('default/addOffer'),
 						'id' => 'addOffer',
                         'enableAjaxValidation' => true,
                         'enableClientValidation' => true,
@@ -93,12 +93,12 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
                             'validateOnSubmit' => true,
                             'validateOnChange' => true,
                             'validateOnType' => false,
-                            'validationUrl' => $this->createUrl('/hospitalBag/default/addOffer'),
+                            'validationUrl' => $this->createUrl('default/addOffer'),
                             'afterValidate' => "js:function(form, data, hasError) {
                                 var i = $('.comments > ul > li').size();
                                   if (!hasError) {
                                       $.ajax({
-                                          url: '" . $this->createUrl('/hospitalBag/default/addOffer') . "',
+                                          url: '" . $this->createUrl('default/addOffer') . "',
                                           type: 'POST',
                                           data: $('#addOffer').serialize()+'&i='+i,
                                           success: function(data) {

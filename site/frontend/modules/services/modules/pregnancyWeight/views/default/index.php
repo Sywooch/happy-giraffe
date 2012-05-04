@@ -15,11 +15,12 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
         'id' => 'pregnant-params-form',
         'enableAjaxValidation' => true,
         'enableClientValidation' => false,
+        'action' => $this->createUrl('default/calculate'),
         'clientOptions' => array(
             'validateOnSubmit' => true,
             'validateOnChange' => false,
             'validateOnType' => false,
-            'validationUrl' => $this->createUrl('/pregnancyWeight/default/calculate'),
+            'validationUrl' => $this->createUrl('default/calculate'),
             'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     pregnancyWeight.calc();

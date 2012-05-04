@@ -55,7 +55,7 @@ $(function () {
         }
     });
 
-    $('.btn-yellow-medium').click(function(){
+    $('.btn-yellow-medium').click(function () {
         $('#menstrual-cycle-form').submit();
     });
 });
@@ -69,12 +69,15 @@ function StartCalc() {
 }
 function LoadCalendar() {
     $.ajax({
-        url:'/menstrualCycle/default/calculate/',
+        url:$('#menstrual-cycle-form').attr('action'),
         data:$('#menstrual-cycle-form').serialize(),
         type:'POST',
         success:function (data) {
-            $('#result').fadeOut(100,function(){ $('#result').html(data);$('#result').fadeIn(100);});
-            $('html,body').animate({scrollTop: $('#result').offset().top},'fast');
+            $('#result').fadeOut(100, function () {
+                $('#result').html(data);
+                $('#result').fadeIn(100);
+            });
+            $('html,body').animate({scrollTop:$('#result').offset().top}, 'fast');
             started = true;
         }
     });

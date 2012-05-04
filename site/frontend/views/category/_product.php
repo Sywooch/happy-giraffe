@@ -71,7 +71,7 @@ Y::script()->registerScript('incDec', $js, CClientScript::POS_HEAD);
 
 ; ?>
 <li>
-	<div class="img-box"><?php echo CHtml::link(/*CHtml::image($sp->product_image->getUrl('subproduct'), $sp->product_title)*/'', $sp->getUrl()); ?><?php if (intval($sp->product_sell_price)): ?><label><img src="/images/product_price_discount_img_shock_big.png" /></label><?php endif; ?></div>
+	<div class="img-box"><?php if($sp->main_image) echo CHtml::link(CHtml::image($sp->main_image->photo->getPreviewUrl(160, 160, Image::WIDTH, true), $sp->product_title), $sp->getUrl()); ?><?php if (intval($sp->product_sell_price)): ?><label><img src="/images/product_price_discount_img_shock_big.png" /></label><?php endif; ?></div>
 	<div class="item-title"><?php echo CHtml::link($sp->product_title, $sp->getUrl()); ?></div>
 	<div class="rating rating-<?php echo intval($sp->product_rate);?>"></div>
 	<div class="item-price">

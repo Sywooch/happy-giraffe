@@ -16,7 +16,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
     <div id="alphabet-list" class="handbook_multi">
         <?php foreach ($alphabetList as $letter => $diseases): ?>
         <ul class="handbook_list">
-            <li><span><?php echo mb_strtoupper($letter) ?></span></li>
+            <li><span><?php echo $letter ?></span></li>
             <?php foreach ($diseases as $disease): ?>
             <li><a
                 href="<?php echo $this->createUrl('view', array('url' => $disease->slug)) ?>"><?php
@@ -30,7 +30,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
     <div id="category-list" class="handbook_multi" style="display: none;">
         <?php foreach ($categoryList as $category => $diseases): ?>
         <ul class="handbook_list">
-            <li><span><?php echo mb_strtoupper($category) ?></span></li>
+            <li><span><?php echo $category ?></span></li>
             <?php foreach ($diseases as $disease): ?>
             <li><a
                 href="<?php echo $this->createUrl('view', array('url' => $disease->slug)) ?>"><?php

@@ -7,33 +7,33 @@ Yii::app()->clientScript
     history.replaceState({ path:window.location.href, letter:letter }, '');", CClientScript::POS_LOAD);
 
 ?><ul class="letters">
-    <li<?php if (empty($letter)) echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index') ?>">Все</a></li>
-    <li<?php if ($letter == 'А') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'А')) ?>">А</a></li>
-    <li<?php if ($letter == 'Б') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Б')) ?>">Б</a></li>
-    <li<?php if ($letter == 'В') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'В')) ?>">В</a></li>
-    <li<?php if ($letter == 'Г') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Г')) ?>">Г</a></li>
-    <li<?php if ($letter == 'Д') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Д')) ?>">Д</a></li>
-    <li<?php if ($letter == 'Е') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Е')) ?>">Е</a></li>
-    <li<?php if ($letter == 'Ж') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Ж')) ?>">Ж</a></li>
-    <li<?php if ($letter == 'З') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'З')) ?>">З</a></li>
-    <li<?php if ($letter == 'И') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'И')) ?>">И</a></li>
-    <li<?php if ($letter == 'К') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'К')) ?>">К</a></li>
-    <li<?php if ($letter == 'Л') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Л')) ?>">Л</a></li>
-    <li<?php if ($letter == 'М') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'М')) ?>">М</a></li>
-    <li<?php if ($letter == 'Н') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Н')) ?>">Н</a></li>
-    <li<?php if ($letter == 'О') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'О')) ?>">О</a></li>
-    <li<?php if ($letter == 'П') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'П')) ?>">П</a></li>
-    <li<?php if ($letter == 'Р') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Р')) ?>">Р</a></li>
-    <li<?php if ($letter == 'С') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'С')) ?>">С</a></li>
-    <li<?php if ($letter == 'Т') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Т')) ?>">Т</a></li>
-    <li<?php if ($letter == 'У') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'У')) ?>">У</a></li>
-    <li<?php if ($letter == 'Ф') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Ф')) ?>">Ф</a></li>
-    <li<?php if ($letter == 'Х') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Х')) ?>">Х</a></li>
-    <li<?php if ($letter == 'Ц') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Ц')) ?>">Ц</a></li>
-    <li<?php if ($letter == 'Ч') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Ч')) ?>">Ч</a></li>
-    <li<?php if ($letter == 'Э') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Э')) ?>">Э</a></li>
-    <li<?php if ($letter == 'Ю') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Ю')) ?>">Ю</a></li>
-    <li<?php if ($letter == 'Я') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('/names/default/index', array('letter'=>'Я')) ?>">Я</a></li>
+    <li<?php if (empty($letter)) echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index') ?>">Все</a></li>
+    <li<?php if ($letter == 'А') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'А')) ?>">А</a></li>
+    <li<?php if ($letter == 'Б') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Б')) ?>">Б</a></li>
+    <li<?php if ($letter == 'В') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'В')) ?>">В</a></li>
+    <li<?php if ($letter == 'Г') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Г')) ?>">Г</a></li>
+    <li<?php if ($letter == 'Д') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Д')) ?>">Д</a></li>
+    <li<?php if ($letter == 'Е') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Е')) ?>">Е</a></li>
+    <li<?php if ($letter == 'Ж') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Ж')) ?>">Ж</a></li>
+    <li<?php if ($letter == 'З') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'З')) ?>">З</a></li>
+    <li<?php if ($letter == 'И') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'И')) ?>">И</a></li>
+    <li<?php if ($letter == 'К') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'К')) ?>">К</a></li>
+    <li<?php if ($letter == 'Л') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Л')) ?>">Л</a></li>
+    <li<?php if ($letter == 'М') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'М')) ?>">М</a></li>
+    <li<?php if ($letter == 'Н') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Н')) ?>">Н</a></li>
+    <li<?php if ($letter == 'О') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'О')) ?>">О</a></li>
+    <li<?php if ($letter == 'П') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'П')) ?>">П</a></li>
+    <li<?php if ($letter == 'Р') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Р')) ?>">Р</a></li>
+    <li<?php if ($letter == 'С') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'С')) ?>">С</a></li>
+    <li<?php if ($letter == 'Т') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Т')) ?>">Т</a></li>
+    <li<?php if ($letter == 'У') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'У')) ?>">У</a></li>
+    <li<?php if ($letter == 'Ф') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Ф')) ?>">Ф</a></li>
+    <li<?php if ($letter == 'Х') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Х')) ?>">Х</a></li>
+    <li<?php if ($letter == 'Ц') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Ц')) ?>">Ц</a></li>
+    <li<?php if ($letter == 'Ч') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Ч')) ?>">Ч</a></li>
+    <li<?php if ($letter == 'Э') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Э')) ?>">Э</a></li>
+    <li<?php if ($letter == 'Ю') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Ю')) ?>">Ю</a></li>
+    <li<?php if ($letter == 'Я') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Я')) ?>">Я</a></li>
 </ul>
 <div class="content_block">
     <?php $this->renderPartial('_gender'); ?>

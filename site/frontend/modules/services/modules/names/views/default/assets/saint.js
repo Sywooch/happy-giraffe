@@ -16,7 +16,7 @@ $(function () {
         }
 
         $.ajax({
-            url:'/names/default/saint/',
+            url:'/services/names/default/saint/',
             data:{
                 m:month,
                 gender:gender
@@ -38,7 +38,7 @@ $(function () {
         gender = $(this).attr('rel');
 
         $.ajax({
-            url:'/names/default/saint/',
+            url:'/services/names/default/saint/',
             data:{
                 m:month,
                 gender:gender

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "seo_stats"."seo__stats".
+ * This is the model class for table "stats".
  *
- * The followings are the available columns in table 'seo_stats':'seo__stats':
+ * The followings are the available columns in table 'stats':
  * @property integer $id
  * @property integer $keyword_id
  * @property integer $site_id
@@ -12,14 +12,14 @@
  * @property integer $value
  *
  * The followings are the available model relations:
- * @property SeoKeywords $keyword
+ * @property Keywords $keyword
  */
-class SeoStats extends HActiveRecord
+class Stats extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return SeoStats the static model class
+     * @return Stats the static model class
      */
     public static function model($className=__CLASS__)
     {
@@ -31,7 +31,12 @@ class SeoStats extends HActiveRecord
      */
     public function tableName()
     {
-        return 'seo__stats';
+        return 'stats';
+    }
+
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
     }
 
     /**
@@ -58,8 +63,8 @@ class SeoStats extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'keyword' => array(self::BELONGS_TO, 'SeoKeywords', 'keyword_id'),
-            'site' => array(self::BELONGS_TO, 'SeoSite', 'site_id'),
+            'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
+            'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
         );
     }
 
@@ -100,7 +105,7 @@ class SeoStats extends HActiveRecord
 
     public function SaveOrUpdate()
     {
-        $model = SeoStats::model()->findByAttributes(array(
+        $model = Stats::model()->findByAttributes(array(
             'keyword_id'=>$this->keyword_id,
             'year'=>$this->year,
             'month'=>$this->month,
@@ -110,10 +115,10 @@ class SeoStats extends HActiveRecord
         if (isset($model)){
 //            $model->value = $this->value;
 //            if (!$model->save())
-//                throw new CHttpException(404, 'SeoStats not saved');
+//                throw new CHttpException(404, 'Stats not saved');
             echo 'Пропущена статистика '.$model->keyword->name.' - '.$model->value.' - '.$this->value.'<br>';
         }else
             if (!$this->save())
-                throw new CHttpException(404, 'SeoStats not saved');
+                throw new CHttpException(404, 'Stats not saved');
     }
 }

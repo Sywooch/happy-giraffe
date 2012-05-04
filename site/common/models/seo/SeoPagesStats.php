@@ -24,8 +24,8 @@
  * @property integer $m12
  *
  * The followings are the available model relations:
- * @property SeoSite $site
- * @property SeoSitePages $page
+ * @property Site $site
+ * @property SitePages $page
  */
 class SeoPagesStats extends HActiveRecord
 {
@@ -73,8 +73,8 @@ class SeoPagesStats extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'site' => array(self::BELONGS_TO, 'SeoSite', 'site_id'),
-			'page' => array(self::BELONGS_TO, 'SeoSitePages', 'page_id'),
+			'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
+			'page' => array(self::BELONGS_TO, 'SitePages', 'page_id'),
 		);
 	}
 

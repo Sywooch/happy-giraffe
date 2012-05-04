@@ -16,5 +16,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'header' => 'Кол-во участников',
             'value' => '$data->usersCount',
         ),
+        array(
+            'header' => 'Кол-во просмотров',
+            'value' => '$data->contentViewsCount',
+        ),
     ),
 ));

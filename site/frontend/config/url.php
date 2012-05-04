@@ -52,7 +52,7 @@ return array(
         'childrenDiseases/'=>'services/childrenDiseases/default/index',
         'childrenDiseases/getAlphabetList'=>'services/childrenDiseases/default/getAlphabetList',
         'childrenDiseases/getCategoryList'=>'services/childrenDiseases/default/getCategoryList',
-        'childrenDiseases/<url:[\w\d- ]+>'=>'services/childrenDiseases/default/view',
+        'childrenDiseases/<url:[\w-+\s]+>'=>'services/childrenDiseases/default/view',
 
 //        'recipeBook/disease/<url:\w+>'=>'recipeBook/default/disease',
 //        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',

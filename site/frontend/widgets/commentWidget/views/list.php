@@ -17,7 +17,7 @@ if ($type == 'guestBook') {
                     <div class="title">' . $this->title . '</div>
                     <div class="count">' . $dataProvider->totalItemCount . '</div>
                 </div>
-                <ul>{items}</ul>
+                {items}
             </div>
             <div class="pagination pagination-center clearfix">
                 {pager}
@@ -31,7 +31,7 @@ if ($type == 'guestBook') {
                     <div class="title">' . $this->title . '</div>
                     <div class="count">' . $dataProvider->totalItemCount . '</div>
                 </div>
-                <ul>{items}</ul>
+                {items}
             </div>
             <div class="pagination pagination-center clearfix">
                 {pager}
@@ -41,8 +41,8 @@ if ($type == 'guestBook') {
 
 $this->widget('MyListView', array(
     'dataProvider' => $dataProvider,
-//        'summaryText' => '',
     'itemView' => '_comment',
+    'itemsTagName' => 'ul',
     'summaryText' => 'показано: {start} - {end} из {count}',
     'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast');",
     'pager' => array(

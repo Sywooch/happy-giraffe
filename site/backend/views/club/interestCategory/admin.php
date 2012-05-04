@@ -6,7 +6,7 @@
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'name',
+		'title',
 		'css_class',
 		array(
 			'class'=>'CButtonColumn',

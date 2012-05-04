@@ -28,7 +28,7 @@ class Keywords extends HActiveRecord
      */
     public function tableName()
     {
-        return 'keywords';
+        return 'happy_giraffe_seo.keywords';
     }
 
     public function getDbConnection()
@@ -129,5 +129,25 @@ class Keywords extends HActiveRecord
         }
 
         return null;
+    }
+
+    public function hasOpenedTask()
+    {
+        foreach ($this->keywordGroups as $group){
+            if ($group->newTaskCount > 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    public function used()
+    {
+        foreach ($this->keywordGroups as $group){
+            if (!empty($group->seoArticleKeywords))
+                return true;
+        }
+
+        return false;
     }
 }

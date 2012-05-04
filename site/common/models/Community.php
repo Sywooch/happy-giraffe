@@ -98,11 +98,16 @@ class Community extends HActiveRecord
 
     public function getContentViews()
     {
-        $mongo = Yii::app()->mongodb->getConnection();
-        $db = $mongo->selectDB("happy_giraffe_db");
-        $col = $db->page_views->views;
-        $group = $col->group(array('_id' => true), array('items' => 0), "function (obj, prev) { prev.items += obj.views; }");
-        return '';
+        $col = PageView::getCollection();
+
+        $initial = array('csum' => 0);
+        $reduce = 'function(obj, prev) { prev.csum += obj.views; }';
+        $condition = array(
+            '_id' => array('$regex' => '/community/' . $this->id . '/'),
+        );
+
+        $query = $col->group(array(), $initial, $reduce, $condition);
+        var_dump($query);
     }
 
     public function getContentsCount()

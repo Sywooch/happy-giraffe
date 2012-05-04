@@ -11,6 +11,13 @@
         </div>
         <?php endif; ?>
     </div>
+    <?php if($this->vote && $data->rating != 0): ?>
+        <div class="rating">
+            <?php for($i = 0;$i < $data->rating; $i++): ?>
+                <span class="s1"></span>
+            <?php endfor; ?>
+        </div>
+    <?php endif; ?>
     <?php if (($data->quote_id !== null && $data->quote)): ?>
     <input type="hidden" name="selectable_quote" value="<?php echo $data->quote_text != '' ? 1 : 0; ?>"/>
     <div class="quote" id="commentQuote_<?php echo $data->quote->id; ?>">

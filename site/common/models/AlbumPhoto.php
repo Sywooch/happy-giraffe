@@ -169,7 +169,7 @@ class AlbumPhoto extends HActiveRecord
     {
         if (!$temp) {
             $this->file_name = $this->file;
-            $this->fs_name = md5($this->file_name) . '.' . $this->file->extensionName;
+            $this->fs_name = md5($this->file_name . time()) . '.' . $this->file->extensionName;
         }
         else {
             $this->fs_name = $this->file_name;
@@ -240,7 +240,7 @@ class AlbumPhoto extends HActiveRecord
      *
      * @return string
      */
-    public function getPreviewPath($width = 100, $height = 100, $master = false)
+    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false)
     {
         // Uload root
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
@@ -274,6 +274,9 @@ class AlbumPhoto extends HActiveRecord
                 $image->resize($width, $image->height, Image::HEIGHT);
             else
                 $image->resize($width, $height, $master ? $master : Image::AUTO);
+
+            if($crop)
+                $image->crop($width, $height);
             $image->save($thumb);
         }
         return $thumb;
@@ -286,9 +289,9 @@ class AlbumPhoto extends HActiveRecord
      * @param int $height
      * @return string
      */
-    public function getPreviewUrl($width = 100, $height = 100, $master = false)
+    public function getPreviewUrl($width = 100, $height = 100, $master = false, $crop = false)
     {
-        $this->getPreviewPath($width, $height, $master);
+        $this->getPreviewPath($width, $height, $master, $crop);
         return implode('/', array(
             Yii::app()->params['photos_url'],
             $this->thumb_folder,

@@ -46,9 +46,10 @@ class UserSignalResponse extends EMongoDocument
         $models = self::model()->findAll($criteria);
         foreach($models as $model){
             $signal = UserSignal::model()->findByPk(new MongoId($model->task_id));
-            if (in_array($model->user_id, $signal->executors)){
-                $signal->DeclineExecutor($model->user_id);
-            }
+            if (!empty($signal->executors))
+                if (in_array($model->user_id, $signal->executors)){
+                    $signal->DeclineExecutor($model->user_id);
+                }
             $model->status = self::STATUS_FAIL_CLOSE;
             $model->save();
         }

@@ -31,6 +31,21 @@ class Horoscope extends HActiveRecord
         '12' => 'Рыбы',
     );
 
+    public $zodiac_list_eng = array(
+        '1' => 'aries',
+        '2' => 'taurus',
+        '3' => 'gemini',
+        '4' => 'cancer',
+        '5' => 'leo',
+        '6' => 'virgo',
+        '7' => 'libra',
+        '8' => 'scorpio',
+        '9' => 'sagittarius',
+        '10' => 'capricorn',
+        '11' => 'aquarius',
+        '12' => 'pisces',
+    );
+
     public $zodiac_dates = array(
         '1' => array('start' => array(21, 3), 'end' => array(20, 4),),
         '2' => array('start' => array(21, 4), 'end' => array(21, 5),),
@@ -158,15 +173,21 @@ class Horoscope extends HActiveRecord
 
     public function getZodiacId($name)
     {
-        foreach ($this->zodiac_list as $key => $zodiac)
+        foreach ($this->zodiac_list_eng as $key => $zodiac)
             if ($zodiac == $name)
                 return $key;
+
         return null;
     }
 
     public function zodiacText()
     {
         return $this->zodiac_list[$this->zodiac];
+    }
+
+    public function zodiacSlug()
+    {
+        return $this->zodiac_list_eng[$this->zodiac];
     }
 
     public function zodiacDates()

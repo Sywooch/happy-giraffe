@@ -71,7 +71,7 @@ class ManyToManyBehavior extends CActiveRecordBehavior
     // returns 0 and the error gets thrown falsely.
     public function executeManyManyEntry($query)
     {
-        Yii::app()->db->createCommand($query)->execute();
+        $this->owner->getDbConnection()->createCommand($query)->execute();
     }
 
     // It is important to use insert IGNORE so SQL doesn't throw an foreign key

@@ -40,7 +40,7 @@ class SeoTask extends CActiveRecord
     }
 
     public function tableName(){
-        return 'happy_giraffe_seo.task';
+        return 'task';
 	}
 
 	/**

@@ -302,10 +302,4 @@ class SiteController extends HController
     public function actionLink($text){
         $this->renderPartial('link', compact('text'));
     }
-
-    public function actionTest()
-    {
-        $c = Community::model()->findByPk(1);
-        echo $c->contentViewsCount;
-    }
 }

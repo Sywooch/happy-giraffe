@@ -1,5 +1,5 @@
 <?php
-Yii::import('site.frontend.modules.names.models.*');
+Yii::import('site.frontend.modules.services.modules.names.models.*');
 
 class NamesController extends BController
 {

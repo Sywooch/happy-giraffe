@@ -6,8 +6,8 @@
 	'filter'=>$model,
 	'columns'=>array(
         'id',
-		'name',
-		'category.name',
+		'title',
+		'category.title',
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}{delete}'

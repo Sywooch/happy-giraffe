@@ -92,8 +92,43 @@ class Community extends HActiveRecord
 		return array(
 			'rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'community_id'),
 			'users' => array(self::MANY_MANY, 'User', 'user__users_communities(user_id, community_id)'),
+            'usersCount' => array(self::STAT, 'User', 'user__users_communities(user_id, community_id)'),
 		);
 	}
+
+    public function getContentsCount()
+    {
+        $sql = "
+            SELECT COUNT(*)
+            FROM community__contents
+            JOIN community__rubrics ON community__contents.rubric_id = community__rubrics.id
+            AND community__contents.removed = 0
+            WHERE community__rubrics.community_id = :community_id
+        ";
+
+        $command = Yii::app()->db->createCommand($sql);
+        $community_id = $this->id;
+        $command->bindParam(":community_id", $community_id, PDO::PARAM_INT);
+        return $command->queryScalar();
+    }
+
+    public function getCommentsCount()
+    {
+        $sql = "
+            SELECT COUNT(*)
+            FROM comments
+            JOIN community__contents ON comments.entity = 'CommunityContent'
+            AND comments.entity_id = community__contents.id
+            AND community__contents.removed = 0
+            JOIN community__rubrics ON community__contents.rubric_id = community__rubrics.id
+            WHERE community__rubrics.community_id = :community_id
+        ";
+
+        $command = Yii::app()->db->createCommand($sql);
+        $community_id = $this->id;
+        $command->bindParam(":community_id", $community_id, PDO::PARAM_INT);
+        return $command->queryScalar();
+    }
 
     public function defaultScope()
     {
@@ -118,7 +153,7 @@ class Community extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Name',
+			'title' => 'Название',
 			'pic' => 'Pic',
 		);
 	}

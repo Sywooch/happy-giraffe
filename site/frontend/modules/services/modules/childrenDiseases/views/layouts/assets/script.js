@@ -11,7 +11,7 @@ $(function () {
             $('#disease-type').parent('li').removeClass('current_t');
 
             $.ajax({
-                url:$('#disease-alphabet2 a').attr('href'),
+                url:'/childrenDiseases/getAlphabetList/',
                 type:'POST',
                 success:function (data) {
                     $('#popup').html(data);
@@ -31,7 +31,7 @@ $(function () {
             $(this).parent('li').addClass('current_t');
             $('#disease-alphabet').parent('li').removeClass('current_t');
             $.ajax({
-                url:$('#disease-type2 a').attr('href'),
+                url:'/childrenDiseases/getCategoryList/',
                 type:'POST',
                 success:function (data) {
                     $('#popup').html(data);

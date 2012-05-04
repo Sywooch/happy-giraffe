@@ -86,14 +86,11 @@ return array(
 			'callbackOrderProceed' => array('Order','callbackOrderProceed'),
 			'callbackOrderPaid' => array('Order','callbackOrderPaid'),
 		),
-        'hairType',
         'im',
         'geo',
         'signal',
         'scores',
-        'servicePages',
-        'horoscope',
-        'services'
+        'services',
 	),
 
 	// application components

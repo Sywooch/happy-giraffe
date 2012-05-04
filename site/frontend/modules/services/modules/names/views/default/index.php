@@ -3,8 +3,8 @@ $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPAR
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript
     ->registerScriptFile($baseUrl . '/main.js', CClientScript::POS_HEAD)
-    ->registerScript('names-module-index', 'var letter = '. (empty($letter))?'null':"'".$letter."';
-    history.replaceState({ path:window.location.href, letter:letter }, '');", CClientScript::POS_LOAD);
+    ->registerScript('names-module-index', 'letter = '. (empty($letter))?'null':"'".$letter."';
+    history.replaceState({ path:window.location.href, letter:letter }, '');", CClientScript::POS_READY);
 
 ?><ul class="letters">
     <li<?php if (empty($letter)) echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index') ?>">Все</a></li>

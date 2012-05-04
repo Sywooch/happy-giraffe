@@ -11,7 +11,7 @@ Yii::app()->clientScript
     <div class="content-box clearfix">
         <div class="baby_recipes_service">
             <ul class="handbook_changes_u">
-                <li<?php if (Yii::app()->controller->index == true) echo ' class="current_t"' ?>><a href="<?php echo $this->createUrl('/recipeBook/default/index') ?>">Главная</a>
+                <li<?php if (Yii::app()->controller->index == true) echo ' class="current_t"' ?>><a href="<?php echo $this->createUrl('index') ?>">Главная</a>
                 </li>
                 <li><a id="disease-alphabet" href="#"><span>Болезни по алфавиту</span></a></li>
                 <li><a id="disease-type" href="#"><span>Болезни по типу</span></a></li>

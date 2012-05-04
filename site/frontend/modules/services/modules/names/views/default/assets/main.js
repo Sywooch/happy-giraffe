@@ -5,6 +5,7 @@
 var gender;
 var page;
 var title;
+var letter;
 
 $(function () {
 
@@ -30,7 +31,7 @@ $(function () {
         $.ajax({
             url:url,
             data:{
-                //letter:letter,
+                letter:letter,
                 gender:gender
             },
             type:'GET',
@@ -51,15 +52,12 @@ $(function () {
     $('.gender-link a').click(function () {
         gender = $(this).attr('rel');
         url = $(this).attr('href');
-        if (window.letter === undefined)
-            letter = null;
 
         $.ajax({
-            //url:'/services/names/default/index/',
             url:url,
             data:{
-                letter:letter
-                //gender:gender
+                letter:letter,
+                gender:gender
             },
             type:'GET',
             success:function (data) {

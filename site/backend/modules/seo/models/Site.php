@@ -1,22 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "seo__site".
+ * This is the model class for table "site".
  *
- * The followings are the available columns in table 'seo__site':
+ * The followings are the available columns in table 'site':
  * @property integer $id
  * @property string $name
  * @property integer $url
  *
  * The followings are the available model relations:
- * @property SeoKeyStats[] $seoKeyStats
+ * @property KeyStats[] $seoKeyStats
  */
-class SeoSite extends HActiveRecord
+class Site extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SeoSite the static model class
+	 * @return Site the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,8 +28,13 @@ class SeoSite extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'seo__site';
+		return 'site';
 	}
+
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -56,7 +61,7 @@ class SeoSite extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'seoKeyStats' => array(self::HAS_MANY, 'SeoKeyStats', 'site_id'),
+			'seoKeyStats' => array(self::HAS_MANY, 'KeyStats', 'site_id'),
 		);
 	}
 

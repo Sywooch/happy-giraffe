@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "seo__key_stats".
+ * This is the model class for table "key_stats".
  *
- * The followings are the available columns in table 'seo__key_stats':
+ * The followings are the available columns in table 'key_stats':
  * @property integer $id
  * @property integer $site_id
  * @property integer $keyword_id
@@ -23,10 +23,10 @@
  * @property integer $year
  *
  * The followings are the available model relations:
- * @property SeoKeywords $keyword
- * @property SeoSite $site
+ * @property Keywords $keyword
+ * @property Site $site
  */
-class SeoKeyStats extends HActiveRecord
+class KeyStats extends HActiveRecord
 {
     public $all;
     public $avarage;
@@ -35,7 +35,7 @@ class SeoKeyStats extends HActiveRecord
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return SeoKeyStats the static model class
+     * @return KeyStats the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -47,7 +47,12 @@ class SeoKeyStats extends HActiveRecord
      */
     public function tableName()
     {
-        return 'seo__key_stats';
+        return 'key_stats';
+    }
+
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
     }
 
     /**
@@ -74,8 +79,8 @@ class SeoKeyStats extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'keyword' => array(self::BELONGS_TO, 'SeoKeywords', 'keyword_id'),
-            'site' => array(self::BELONGS_TO, 'SeoSite', 'site_id'),
+            'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
+            'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
         );
     }
 
@@ -124,8 +129,8 @@ class SeoKeyStats extends HActiveRecord
      */
     public function search()
     {
-        if (!empty($_GET['SeoKeyStats']["key_name"]))
-            $this->key_name = $_GET['SeoKeyStats']["key_name"];
+        if (!empty($_GET['KeyStats']["key_name"]))
+            $this->key_name = $_GET['KeyStats']["key_name"];
 
         $criteria = new CDbCriteria;
 
@@ -133,7 +138,7 @@ class SeoKeyStats extends HActiveRecord
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('year', $this->year);
         $criteria->compare('t2.name', $this->key_name, true);
-        $criteria->join = ' LEFT JOIN '.SeoKeywords::model()->tableName().' as t2 ON keyword_id = t2.id ';
+        $criteria->join = ' LEFT JOIN '.Keywords::model()->tableName().' as t2 ON keyword_id = t2.id ';
         $criteria->with = array('keyword');
 
         return new CActiveDataProvider($this, array(

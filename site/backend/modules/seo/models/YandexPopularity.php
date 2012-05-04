@@ -1,18 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "seo__site_pages".
+ * This is the model class for table "yandex_popularity".
  *
- * The followings are the available columns in table 'seo__site_pages':
- * @property string $id
- * @property string $name
+ * The followings are the available columns in table 'yandex_popularity':
+ * @property integer $keyword_id
+ * @property integer $value
+ *
+ * The followings are the available model relations:
+ * @property Keywords $keyword
  */
-class SitePages extends HActiveRecord
+class YandexPopularity extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SitePages the static model class
+	 * @return YandexPopularity the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -24,7 +27,7 @@ class SitePages extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'seo__site_pages';
+		return 'yandex_popularity';
 	}
 
 	/**
@@ -35,11 +38,11 @@ class SitePages extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name', 'length', 'max'=>1000),
+			array('keyword_id, value', 'required'),
+			array('keyword_id, value', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('keyword_id, value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,17 +54,23 @@ class SitePages extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
 		);
 	}
 
-	/**
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
+
+    /**
 	 * @return array customized attribute labels (name=>label)
 	 */
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
+			'keyword_id' => 'Keyword',
+			'value' => 'Value',
 		);
 	}
 
@@ -76,34 +85,11 @@ class SitePages extends HActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('keyword_id',$this->keyword_id);
+		$criteria->compare('value',$this->value);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
-    /**
-     * @static
-     * @param string $word
-     * @return SitePages
-     * @throws CHttpException
-     */
-    public static function GetPage($word)
-    {
-        $word = trim($word);
-        $model = self::model()->findByAttributes(array(
-            'name' => $word,
-        ));
-        if (isset($model))
-            return $model;
-
-        $model = new SitePages();
-        $model->name = $word;
-        if (!$model->save())
-            throw new CHttpException(404, 'Страница не сохранена. ' . $word);
-
-        return $model;
-    }
 }

@@ -108,6 +108,9 @@ class Community extends HActiveRecord
         );
 
         $query = $col->group($keys, $initial, $reduce, $condition);
+        var_dump($query);
+        die;
+
         return $query['csum'];
     }
 

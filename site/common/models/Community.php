@@ -98,7 +98,7 @@ class Community extends HActiveRecord
 
     public function getContentViewsCount()
     {
-        $col = PageView::getCollection();
+        $col = PageView::model()->getCollection();
 
         $keys = array();
         $initial = array('csum' => 0);

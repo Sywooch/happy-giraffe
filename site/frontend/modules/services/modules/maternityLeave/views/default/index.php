@@ -12,7 +12,7 @@
         <div class="form-in">
 
             <div class="row">
-                <div class="row-title">ПДР <span>(предполагаемую дату родов)</span></div>
+                <div class="row-title">ПДР <span>(предполагаемая дата родов)</span></div>
                 <div class="row-elements">
                     <div class="select-box">
                         <select class="chzn" style="width:60px;" id="day">
@@ -74,7 +74,7 @@
     <div class="recommendation clearfix hide">
 
         <div class="left" style="display:none">
-            <img src="/images/decree_time_calendar.png"/><br/> не позднее <span>14 июня</span>
+            <img src="/images/decree_time_calendar.png"/> <span>14 июня</span>
         </div>
 
         <div class="right" style="display:none">

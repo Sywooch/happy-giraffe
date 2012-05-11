@@ -55,7 +55,6 @@ $(function () {
         $.ajax({
             url:'/services/names/default/index/',
             data:{
-                letter:letter,
                 gender:gender
             },
             type:'GET',
@@ -71,7 +70,7 @@ $(function () {
 
     $('body').delegate('.pagination a', 'click', function () {
         $.ajax({
-            url:'/services/names/default/index/',
+            url:$(this).attr('href'),
             data:{
                 letter:letter,
                 gender:gender

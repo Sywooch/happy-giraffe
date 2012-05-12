@@ -83,7 +83,7 @@ class TaskController extends BController
         echo CJSON::encode(array('status' => $temp->save()));
     }
 
-    public function actionAddTask()
+    /*public function actionAddTask()
     {
         $key_id = Yii::app()->request->getPost('id');
         $key = Keywords::model()->findByPk($key_id);
@@ -106,7 +106,7 @@ class TaskController extends BController
             $response = array('status' => false);
 
         echo CJSON::encode($response);
-    }
+    }*/
 
     public function actionAddGroupTask()
     {
@@ -128,7 +128,7 @@ class TaskController extends BController
         echo CJSON::encode($response);
     }
 
-    public function actionSetTask()
+    /*public function actionSetTask()
     {
         $id = Yii::app()->request->getPost('id');
         $type = Yii::app()->request->getPost('type');
@@ -149,18 +149,27 @@ class TaskController extends BController
 
             echo CJSON::encode($response);
         }
-    }
+    }*/
 
     public function actionGetArticleInfo()
     {
         $url = Yii::app()->request->getPost('url');
         preg_match("/\/([\d]+)\/$/", $url, $match);
         $id = $match[1];
+
         if (strstr($url, '/community/')) {
             $article = CommunityContent::model()->findByPk($id);
+            if (!$article){
+                echo CJSON::encode(array(
+                    'status'=>false,
+                    'error'=>'Ошибка, статья не найдена'
+                ));
+                Yii::app()->end();
+            }
 
             echo CJSON::encode(array(
-                'title' => $article->meta_title,
+                'status'=>true,
+                'title' => $article->title,
                 'keywords' => $article->meta_keywords,
                 'id' => $article->id
             ));

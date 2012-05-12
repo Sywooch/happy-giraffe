@@ -179,12 +179,12 @@ class DefaultController extends BController
                     //echo 'skip '.$keyword.'<br>';
                     $key = $this->nextKeyword();
                     $this->fail_long++;
-                    if ($this->fail_long >= 1000)
+                    if ($this->fail_long >= $this->limit)
                         break;
                 }
 
                 flush();
-                if ($this->fail_long == 1000) {
+                if ($this->fail_long == $this->limit) {
                     $this->i = $this->i - 2;
                     $this->j--;
                     $this->keywords = $this->getKeywords();
@@ -215,10 +215,11 @@ class DefaultController extends BController
     private $j = 0;
     private $keywords = array();
     private $fail_long = 0;
+    private $limit = 100;
 
     public function nextKeyword()
     {
-        if ($this->j >= 1000 || empty($this->keywords)) {
+        if ($this->j >= $this->limit || empty($this->keywords)) {
             $this->keywords = $this->getKeywords();
             $this->j = 0;
         }
@@ -232,9 +233,9 @@ class DefaultController extends BController
     public function getKeywords()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'id >= 2218927';
-        $criteria->limit = 1000;
-        $criteria->offset = 1000 * $this->i;
+        $criteria->condition = 'id >= 2222113';
+        $criteria->limit = $this->limit;
+        $criteria->offset = $this->limit * $this->i;
         $criteria->order = 'id';
         $this->i++;
 

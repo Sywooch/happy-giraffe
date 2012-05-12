@@ -34,8 +34,12 @@ class MorningController extends HController
 
     public function actionIndex($date = null)
     {
-        if ($date === null || empty($date))
+        if ($date === null || empty($date)){
             $date = date("Y-m-d");
+            $empty_param = true;
+        }
+        else
+            $empty_param = false;
 
         if (strtotime($date) == strtotime(date("Y-m-d")))
             $this->pageTitle = 'Утро с Весёлым жирафом';
@@ -74,7 +78,7 @@ class MorningController extends HController
                 'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", strtotime($date))
             );
 
-        $this->render('index', compact('articles'));
+        $this->render('index', compact('articles', 'empty_param'));
     }
 
     public function actionView($id)

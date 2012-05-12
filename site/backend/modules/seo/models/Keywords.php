@@ -175,7 +175,7 @@ class Keywords extends HActiveRecord
 
     public function getButtons()
     {
-        if (!$this->used()) {
+        if (!$this->used() && !$this->hasOpenedTask()) {
             echo CHtml::hiddenField('id', $this->id);
             echo CHtml::link('выбрать', '#', array('onclick' => 'return SeoKeywords.Select(this);'));
         }

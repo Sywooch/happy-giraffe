@@ -36,7 +36,7 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->pageTitle = $model->title;
+        $this->pageTitle = 'Справочник детских болезней - '.$model->title;
         $cat = RecipeBookDisease::model()->findAll(array(
             'order' => 't.title',
             'select' => array('id', 'title', 'slug'),

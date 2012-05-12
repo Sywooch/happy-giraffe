@@ -14,6 +14,8 @@
  */
 class Keywords extends HActiveRecord
 {
+    public $btns;
+
     /**
      * Returns the static model of the specified AR class.
      * @return Keywords the static model class
@@ -62,6 +64,7 @@ class Keywords extends HActiveRecord
             'seoStats' => array(self::HAS_MANY, 'Stats', 'keyword_id'),
             'keywordGroups' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'yandexPopularity' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
+            'tempKeyword' => array(self::HAS_ONE, 'TempKeywords', 'id'),
         );
     }
 
@@ -83,8 +86,24 @@ class Keywords extends HActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('t.id', $this->id);
-        $criteria->compare('t.name', $this->name, true);
+        //$criteria->compare('t.id', $this->id);
+        if (!empty($this->name)) {
+            $allSearch = Yii::app()->search
+                ->select('*')
+                ->from('keywords')
+                ->where('* ' . $this->name . ' *')
+                ->limit(0, 100000)
+                ->searchRaw();
+            $ids = array();
+            foreach ($allSearch['matches'] as $key => $m) {
+                $ids [] = $key;
+            }
+            if (!empty($ids))
+                $criteria->compare('t.id', $ids);
+            else
+                $criteria->compare('t.id', 835768577);
+        }
+        $criteria->with = array('keywordGroups', 'yandexPopularity', 'tempKeyword');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -124,16 +143,16 @@ class Keywords extends HActiveRecord
 
         if (!empty($allSearch['matches']))
 
-        foreach($allSearch['matches'] as $key => $m){
-            return Keywords::model()->findByPk($key);
-        }
+            foreach ($allSearch['matches'] as $key => $m) {
+                return Keywords::model()->findByPk($key);
+            }
 
         return null;
     }
 
     public function hasOpenedTask()
     {
-        foreach ($this->keywordGroups as $group){
+        foreach ($this->keywordGroups as $group) {
             if ($group->newTaskCount > 0)
                 return true;
         }
@@ -143,11 +162,29 @@ class Keywords extends HActiveRecord
 
     public function used()
     {
-        foreach ($this->keywordGroups as $group){
+        foreach ($this->keywordGroups as $group) {
             if (!empty($group->seoArticleKeywords))
                 return true;
         }
 
+        if (!empty($this->tempKeyword))
+            return true;
+
         return false;
+    }
+
+    public function getButtons()
+    {
+        if (!$this->used()) {
+            echo CHtml::hiddenField('id', $this->id);
+            echo CHtml::link('выбрать', '#', array('onclick' => 'return SeoKeywords.Select(this);'));
+        }
+    }
+
+    public function getClass()
+    {
+        if ($this->used()) return 'used';
+        elseif ($this->hasOpenedTask()) return 'active';
+        return 'default';
     }
 }

@@ -9,19 +9,12 @@ var SeoModule = {
     searchKeywords:function (term) {
         $.post('/seo/task/searchKeywords', {term:term}, function (response) {
             $('.keywords .result').html(response);
-            SeoModule.refreshKeywordsDrag();
         });
     },
-    refreshKeywordsDrag:function () {
-        $('div.keywords ul li').draggable("destroy");
-        $('div.keywords ul li.default').draggable({handle:'.drag', revert:true, revertDuration:100});
-    },
-    dropToGroup:function (event, ui) {
-        var id = SeoModule.getId(ui.draggable);
+    addToGroup:function (el, id) {
         SeoModule.group.push(id);
-        $('.keyword_group').append('<div>' + ui.draggable.text() + '</div>');
-        $('#key-' + id).removeClass('default').addClass('active');
-        SeoModule.refreshKeywordsDrag();
+        $('.keyword_group').append('<div>' + $(el).prev().text() + '</div>');
+        $(el).parent().removeClass('default').addClass('active');
     },
     dropToTask:function (event, ui) {
         var id = SeoModule.getId(ui.draggable);

@@ -14,40 +14,25 @@
         padding-bottom: 10px;
     }
     .keywords .active{
-        background: #adff2f;
-    }
-    .keywords .used{
-        background: #5bbdff;
+        background: #adff2f !important;
     }
 </style>
 <div class="clearfix" style="position: relative;">
     <div class="keywords">
-        <?=CHtml::textField('keyword', ''); ?>
+        <ul>
+            <?php foreach ($tempKeywords as $tempKeyword): ?>
+                <li id="keyword-<?=$tempKeyword->keyword->id ?>"><span><?php echo $tempKeyword->keyword->name ?></span> <?php echo CHtml::link('add', '#',
+                    array('onclick'=>'return SeoModule.addToGroup(this);')) ?></li>
+            <?php endforeach; ?>
 
-        <a href="javascript:void(0);" onclick="SeoModule.searchKeywords($(this).prev().val());">search</a>
-        <div class="result">
-
-        </div>
+        </ul>
     </div>
     <div class="keyword_group">
-
-    </div>
-    <div class="tasks">
-        <?php $this->renderPartial('_tasks',array('tasks' => $tasks)); ?>
+        <?php //$this->renderPartial('_tasks',array('tasks' => $tasks)); ?>
     </div>
 
     <div class="add-group">
-        <a href="javascript:void(0);" onclick="SeoModule.addGroup();">Add Group</a>
+        <a href="javascript:void(0);" onclick="return SeoModule.addGroup(1);">Moder task</a><br>
+        <a href="javascript:void(0);" onclick="return SeoModule.addGroup(2);">Journalist task</a>
     </div>
 </div>
-<script type="text/javascript">
-    $(function () {
-        SeoModule.refreshKeywordsDrag();
-
-        $('#keyword').change(function () {
-            SeoModule.searchKeywords($(this).val())
-        });
-        $('div.keyword_group').droppable({drop:SeoModule.dropToGroup});
-        $('div.tasks').droppable({drop:SeoModule.dropToTask});
-    });
-</script>

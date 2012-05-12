@@ -122,6 +122,7 @@ class DefaultController extends BController
                 foreach ($parts as $part)
                     $last = $part;
                 $keyword = trim($parts[0]);
+
                 $keyword = str_replace('$', '', $keyword);
                 $stat = $last;
 
@@ -149,17 +150,95 @@ class DefaultController extends BController
         }
     }
 
-    public function actionFind()
+    public function actionPop2()
     {
-        $key = 'диатез фото';
+        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
+        $i = 0;
 
-        $allSearch = Yii::app()->search->select('*')->from('keywords')->where('*' . $key . '*')->limit(0, 1000)->searchRaw();
-        foreach ($allSearch['matches'] as $key => $m) {
-            $keyword = Keywords::model()->findByPk($key);
+        if ($file) {
+            while (($buffer = fgets($file)) !== false) {
+                $i++;
+                $line = trim(ltrim($buffer));
+                $parts = explode('|', $line);
+                $last = '';
+                foreach ($parts as $part)
+                    $last = $part;
+                $keyword = trim($parts[0]);
 
-            echo $keyword->name . '<br>';
+                $keyword = trim(ltrim($keyword, '#'));
+                $keyword = str_replace("'", '', $keyword);
+                $keyword = str_replace("\\", '', $keyword);
 
+                //$keyword = str_replace('$', '', $keyword);
+                $stat = $last;
+                if (empty($last))
+                    continue;
+
+                $key = $this->nextKeyword();
+                while ($keyword != $key->name) {
+                    //echo 'skip '.$keyword.'<br>';
+                    $key = $this->nextKeyword();
+                    $this->fail_long++;
+                    if ($this->fail_long >= $this->limit)
+                        break;
+                }
+
+                flush();
+                if ($this->fail_long == $this->limit) {
+                    $this->i = $this->i - 2;
+                    $this->j--;
+                    $this->keywords = $this->getKeywords();
+
+                    //echo $keyword.' - not found, next keyword <br>';
+                } else {
+                    //echo 'success ' . $key->name . '<br>';
+
+                    if ($key !== null && !empty($last)) {
+                        Yii::app()->db_seo->createCommand('CALL saveYP (:key_id, :stat)')->execute(array(
+                            ':key_id' => $key->id,
+                            ':stat' => $stat,
+                        ));
+                    }
+                }
+                $this->fail_long = 0;
+                $i++;
+            }
+            if (!feof($file)) {
+                echo "Error: unexpected fgets() fail\n";
+                Yii::app()->end();
+            }
+            fclose($file);
+        }
+    }
+
+    private $i = 0;
+    private $j = 0;
+    private $keywords = array();
+    private $fail_long = 0;
+    private $limit = 100;
+
+    public function nextKeyword()
+    {
+        if ($this->j >= $this->limit || empty($this->keywords)) {
+            $this->keywords = $this->getKeywords();
+            $this->j = 0;
         }
 
+        $result = $this->keywords[$this->j];
+        $this->j++;
+
+        return $result;
+    }
+
+    public function getKeywords()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'id >= 2227287';
+        $criteria->limit = $this->limit;
+        $criteria->offset = $this->limit * $this->i;
+        $criteria->order = 'id';
+        $this->i++;
+
+        return Keywords::model()->findAll($criteria);
     }
 }

@@ -111,6 +111,7 @@ class TaskController extends BController
     public function actionAddGroupTask()
     {
         $key_ids = Yii::app()->request->getPost('id');
+        $type = Yii::app()->request->getPost('type');
         $keywords = Keywords::model()->findAllByPk($key_ids);
 
         $group = new KeywordGroup();
@@ -118,15 +119,9 @@ class TaskController extends BController
         if ($group->save()) {
             $task = new SeoTask();
             $task->keyword_group_id = $group->id;
-            if ($task->save()) {
-                $tasks = SeoTask::model()->findAllByAttributes(array('status' => SeoTask::STATUS_NEW));
-                $response = array(
-                    'status' => true,
-                    'html' => $this->renderPartial('_tasks', array('tasks' => $tasks), true)
-                );
-            }
-            else
-                $response = array('status' => false);
+            $task->type = $type;
+            $task->status = SeoTask::STATUS_READY;
+            $response = array('status' => $task->save());
         } else
             $response = array('status' => false);
 

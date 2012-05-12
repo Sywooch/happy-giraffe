@@ -21,20 +21,18 @@
     <div class="keywords">
         <ul>
             <?php foreach ($tempKeywords as $tempKeyword): ?>
-                <li><span><?php echo $tempKeyword->keyword->name ?></span> <?php echo CHtml::link('add', '#',
-                    array('onclick'=>'SeoModule.addToGroup(this, '.$tempKeyword->keyword->id.');')) ?></li>
+                <li id="keyword-<?=$tempKeyword->keyword->id ?>"><span><?php echo $tempKeyword->keyword->name ?></span> <?php echo CHtml::link('add', '#',
+                    array('onclick'=>'return SeoModule.addToGroup(this);')) ?></li>
             <?php endforeach; ?>
 
         </ul>
     </div>
     <div class="keyword_group">
-
-    </div>
-    <div class="tasks">
-        <?php $this->renderPartial('_tasks',array('tasks' => $tasks)); ?>
+        <?php //$this->renderPartial('_tasks',array('tasks' => $tasks)); ?>
     </div>
 
     <div class="add-group">
-        <a href="javascript:void(0);" onclick="SeoModule.addGroup();">Add Group</a>
+        <a href="javascript:void(0);" onclick="return SeoModule.addGroup(1);">Moder task</a><br>
+        <a href="javascript:void(0);" onclick="return SeoModule.addGroup(2);">Journalist task</a>
     </div>
 </div>

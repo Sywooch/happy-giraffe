@@ -14,20 +14,18 @@
         padding-bottom: 10px;
     }
     .keywords .active{
-        background: #adff2f;
-    }
-    .keywords .used{
-        background: #5bbdff;
+        background: #adff2f !important;
     }
 </style>
 <div class="clearfix" style="position: relative;">
     <div class="keywords">
-        <?=CHtml::textField('keyword', ''); ?>
+        <ul>
+            <?php foreach ($tempKeywords as $tempKeyword): ?>
+                <li><span><?php echo $tempKeyword->keyword->name ?></span> <?php echo CHtml::link('add', '#',
+                    array('onclick'=>'SeoModule.addToGroup(this, '.$tempKeyword->keyword->id.');')) ?></li>
+            <?php endforeach; ?>
 
-        <a href="javascript:void(0);" onclick="SeoModule.searchKeywords($(this).prev().val());">search</a>
-        <div class="result">
-
-        </div>
+        </ul>
     </div>
     <div class="keyword_group">
 
@@ -40,14 +38,3 @@
         <a href="javascript:void(0);" onclick="SeoModule.addGroup();">Add Group</a>
     </div>
 </div>
-<script type="text/javascript">
-    $(function () {
-        SeoModule.refreshKeywordsDrag();
-
-        $('#keyword').change(function () {
-            SeoModule.searchKeywords($(this).val())
-        });
-        $('div.keyword_group').droppable({drop:SeoModule.dropToGroup});
-        $('div.tasks').droppable({drop:SeoModule.dropToTask});
-    });
-</script>

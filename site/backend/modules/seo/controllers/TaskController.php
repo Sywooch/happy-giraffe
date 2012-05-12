@@ -23,9 +23,24 @@ class TaskController extends BController
 
     public function actionIndex()
     {
+        $model = new Keywords('search');
+        $model->unsetAttributes(); // clear any default values
+        if (isset($_GET['Keywords']))
+            $model->attributes = $_GET['Keywords'];
+        if (empty($model->name))
+            $model->name = 'поисковый запрос';
+
+        $this->render('admin', array(
+            'model' => $model,
+        ));
+    }
+
+    public function actionTasks(){
         $tasks = SeoTask::model()->findAllByAttributes(array('status' => SeoTask::STATUS_NEW));
+        $tempKeywords = TempKeywords::model()->findAll();
         $this->render('index', array(
-            'tasks' => $tasks
+            'tasks' => $tasks,
+            'tempKeywords'=>$tempKeywords
         ));
     }
 
@@ -59,6 +74,13 @@ class TaskController extends BController
                 $models = array();
             $this->renderPartial('_keywords', array('models' => $models));
         }
+    }
+
+    public function actionSelectKeyword(){
+        $key_id = Yii::app()->request->getPost('id');
+        $temp = new TempKeywords;
+        $temp->id = $key_id;
+        echo CJSON::encode(array('status' => $temp->save()));
     }
 
     public function actionAddTask()

@@ -1,21 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "yandex_popularity".
+ * This is the model class for table "temp_keywords".
  *
- * The followings are the available columns in table 'yandex_popularity':
- * @property integer $keyword_id
- * @property integer $value
+ * The followings are the available columns in table 'temp_keywords':
+ * @property integer $id
  *
  * The followings are the available model relations:
  * @property Keywords $keyword
  */
-class YandexPopularity extends HActiveRecord
+class TempKeywords extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return YandexPopularity the static model class
+	 * @return TempKeywords the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -27,8 +26,13 @@ class YandexPopularity extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'yandex_popularity';
+		return 'happy_giraffe_seo.temp_keywords';
 	}
+
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -38,11 +42,11 @@ class YandexPopularity extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('keyword_id, value', 'required'),
-			array('keyword_id, value', 'numerical', 'integerOnly'=>true),
+			array('id', 'required'),
+			array('id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('keyword_id, value', 'safe', 'on'=>'search'),
+			array('id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,23 +58,17 @@ class YandexPopularity extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
+			'keyword' => array(self::BELONGS_TO, 'Keywords', 'id'),
 		);
 	}
 
-    public function getDbConnection()
-    {
-        return Yii::app()->db_seo;
-    }
-
-    /**
+	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
 	public function attributeLabels()
 	{
 		return array(
-			'keyword_id' => 'Keyword',
-			'value' => 'Y popularity',
+			'id' => 'ID',
 		);
 	}
 
@@ -85,8 +83,7 @@ class YandexPopularity extends HActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('keyword_id',$this->keyword_id);
-		$criteria->compare('value',$this->value);
+		$criteria->compare('id',$this->id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

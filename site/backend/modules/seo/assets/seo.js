@@ -9,54 +9,31 @@ var SeoModule = {
     searchKeywords:function (term) {
         $.post('/seo/task/searchKeywords', {term:term}, function (response) {
             $('.keywords .result').html(response);
-            SeoModule.refreshKeywordsDrag();
         });
     },
-    refreshKeywordsDrag:function () {
-        $('div.keywords ul li').draggable("destroy");
-        $('div.keywords ul li.default').draggable({handle:'.drag', revert:true, revertDuration:100});
-    },
-    dropToGroup:function (event, ui) {
-        var id = SeoModule.getId(ui.draggable);
+    addToGroup:function (el) {
+        var id = this.getId($(el).parent());
         SeoModule.group.push(id);
-        $('.keyword_group').append('<div>' + ui.draggable.text() + '</div>');
-        $('#key-' + id).removeClass('default').addClass('active');
-        SeoModule.refreshKeywordsDrag();
-    },
-    dropToTask:function (event, ui) {
-        var id = SeoModule.getId(ui.draggable);
-        $.post('/seo/task/addTask', {id:id}, function (response) {
-            if (response.status) {
-                $('div.tasks').html(response.html);
-                $('#key-' + id).removeClass('default').addClass('active');
-                SeoModule.refreshKeywordsDrag();
-            }
-            else
-                return false;
-        }, 'json');
+        $('.keyword_group').append('<div>' + $(el).prev().text() + '</div>');
+        $(el).parent().removeClass('default').addClass('active');
+        $(el).hide();
+
+        return false;
     },
     getId:function (el) {
         return el.attr("id").replace(/[a-zA-Z]*-/ig, "");
     },
-    addGroup:function () {
-        $.post('/seo/task/addGroupTask', {id:this.group}, function (response) {
+    addGroup:function (type) {
+        $.post('/seo/task/addGroupTask', {id:this.group,type:type}, function (response) {
             if (response.status) {
-                $('div.tasks').html(response.html);
                 $('.keyword_group').html('');
+                for (var key in SeoModule.group)
+                    $('#keyword-'+SeoModule.group[key]).remove();
+
+                SeoModule.group = new Array();
             }
-            else
-                return false;
         }, 'json');
-    },
-    toEditor:function (el) {
-        this.setTask(this.getId($(el).parent()), 2, function () {
-            $(el).parent().remove();
-        });
-    },
-    toModer:function (el) {
-        this.setTask(this.getId($(el).parent()), 2, function () {
-            $(el).parent().remove();
-        });
+        return false;
     },
     setTask:function (id, type, callback) {
         $.post('/seo/task/setTask', {id:id, type:type}, function (response) {

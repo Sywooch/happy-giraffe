@@ -44,6 +44,8 @@ class AjaxController extends HController
         if (Yii::app()->user->isGuest)
             Yii::app()->end();
         Yii::import('contest.models.*');
+        Yii::import('services.modules.recipeBook.models.*');
+
         $modelName = $_POST['modelName'];
         $objectId = $_POST['objectId'];
         $social_key = $_POST['key'];

@@ -233,7 +233,7 @@ class DefaultController extends BController
     public function getKeywords()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'id >= 2222113';
+        $criteria->condition = 'id >= 2227287';
         $criteria->limit = $this->limit;
         $criteria->offset = $this->limit * $this->i;
         $criteria->order = 'id';

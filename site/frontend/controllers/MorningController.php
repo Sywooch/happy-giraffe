@@ -61,6 +61,9 @@ class MorningController extends HController
         }
         $articles = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findAll($criteria);
 
+        if (empty($articles) && !Yii::app()->user->checkAccess('editMorning'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         if ($date == date("Y-m-d"))
             $this->breadcrumbs = array(
                 'Утро с Весёлым жирафом',

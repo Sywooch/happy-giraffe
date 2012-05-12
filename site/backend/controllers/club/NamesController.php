@@ -106,48 +106,6 @@ class NamesController extends BController
         return $model;
     }
 
-    public function actionTestMy()
-    {
-        $names = Name::model()->findAll();
-        foreach ($names as $name) {
-            /**
-             * @var Name $name
-             */
-            $vals = explode(',', $name->options);
-            foreach ($vals as $val) {
-                $val = trim($val);
-                if (empty($val))
-                    continue;
-                $model = new NameOption();
-                $model->name_id = $name->id;
-                $model->value = trim($val);
-                $model->save();
-            }
-
-            $vals = explode(',', $name->middle_names);
-            foreach ($vals as $val) {
-                $val = trim($val);
-                if (empty($val))
-                    continue;
-                $model = new NameMiddle();
-                $model->name_id = $name->id;
-                $model->value = trim($val);
-                $model->save();
-            }
-
-            $vals = explode(',', $name->sweet);
-            foreach ($vals as $val) {
-                $val = trim($val);
-                if (empty($val))
-                    continue;
-                $model = new NameSweet();
-                $model->name_id = $name->id;
-                $model->value = trim($val);
-                $model->save();
-            }
-        }
-    }
-
     public function actionAddValue()
     {
         $text = Yii::app()->request->getPost('text');

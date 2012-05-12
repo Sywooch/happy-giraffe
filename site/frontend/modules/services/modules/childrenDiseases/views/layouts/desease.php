@@ -20,12 +20,8 @@ Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css');
             </div>
         </div>
         <div class="clear"></div>
-        <!-- .clear -->
-        <!-- .baby_recipes_service -->
-
         <?php echo $content ?>
     </div>
 
 </div>
-<div class="push"></div>
 <?php $this->endContent(); ?>

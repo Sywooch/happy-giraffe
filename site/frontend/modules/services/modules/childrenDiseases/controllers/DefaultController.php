@@ -91,6 +91,7 @@ class DefaultController extends HController
             $disease->slug = str_replace(' ', '_', $disease->slug);
             $disease->slug = str_replace('+', '_', $disease->slug);
             $disease->slug = str_replace('-', '_', $disease->slug);
+            $disease->slug = str_replace('\'', '', $disease->slug);
             $disease->save();
         }
     }

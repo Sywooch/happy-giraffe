@@ -56,7 +56,7 @@
                     <li><a href="<?=Yii::app()->createUrl('/sewing/loopCalculator/') ?>">Калькулятор петель</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/embroideryCost/') ?>">Расчет стоимости вышивки</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/fabricCalculator/') ?>">Калькулятор ткани</a></li>
-                    <li><a href="<?=Yii::app()->createUrl('/services/childrenDiseases/') ?>">Справочник детских болезней</a></li>
+                    <li><a href="<?=Yii::app()->createUrl('/childrenDiseases/') ?>">Справочник детских болезней</a></li>
                 </ul>
             </li>
 

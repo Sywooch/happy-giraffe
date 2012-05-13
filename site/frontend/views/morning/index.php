@@ -2,6 +2,8 @@
 /* @var $this Controller
  * @var $articles CommunityContent[]
  */
+if (!$empty_param)
+    Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 ?>
 <?php if (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('editMorning')):?>
 <div class="club-fast-add clearfix">

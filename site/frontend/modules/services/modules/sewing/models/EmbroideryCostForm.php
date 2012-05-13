@@ -22,6 +22,7 @@ class EmbroideryCostForm extends CFormModel
     public function rules()
     {
         return array(
+            array('cross_price', 'ext.validators.normalizeNumber'),
             array('width, height, cross_price, material_price', 'required', 'message'=>'Введите {attribute}'),
             array('width, height, canva, colors_count', 'numerical', 'integerOnly' => true, 'message'=>'Вводите только цифры'),
             array('cross_price, material_price, design_price', 'numerical', 'message'=>'Вводите только цифры'),

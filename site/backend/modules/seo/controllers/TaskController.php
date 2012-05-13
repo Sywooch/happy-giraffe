@@ -23,9 +23,24 @@ class TaskController extends BController
 
     public function actionIndex()
     {
+        $model = new Keywords('search');
+        $model->unsetAttributes(); // clear any default values
+        if (isset($_GET['Keywords']))
+            $model->attributes = $_GET['Keywords'];
+        if (empty($model->name))
+            $model->name = 'поисковый запрос';
+
+        $this->render('admin', array(
+            'model' => $model,
+        ));
+    }
+
+    public function actionTasks(){
         $tasks = SeoTask::model()->findAllByAttributes(array('status' => SeoTask::STATUS_NEW));
+        $tempKeywords = TempKeywords::model()->findAll();
         $this->render('index', array(
-            'tasks' => $tasks
+            'tasks' => $tasks,
+            'tempKeywords'=>$tempKeywords
         ));
     }
 
@@ -61,7 +76,14 @@ class TaskController extends BController
         }
     }
 
-    public function actionAddTask()
+    public function actionSelectKeyword(){
+        $key_id = Yii::app()->request->getPost('id');
+        $temp = new TempKeywords;
+        $temp->id = $key_id;
+        echo CJSON::encode(array('status' => $temp->save()));
+    }
+
+    /*public function actionAddTask()
     {
         $key_id = Yii::app()->request->getPost('id');
         $key = Keywords::model()->findByPk($key_id);
@@ -84,11 +106,12 @@ class TaskController extends BController
             $response = array('status' => false);
 
         echo CJSON::encode($response);
-    }
+    }*/
 
     public function actionAddGroupTask()
     {
         $key_ids = Yii::app()->request->getPost('id');
+        $type = Yii::app()->request->getPost('type');
         $keywords = Keywords::model()->findAllByPk($key_ids);
 
         $group = new KeywordGroup();
@@ -96,22 +119,16 @@ class TaskController extends BController
         if ($group->save()) {
             $task = new SeoTask();
             $task->keyword_group_id = $group->id;
-            if ($task->save()) {
-                $tasks = SeoTask::model()->findAllByAttributes(array('status' => SeoTask::STATUS_NEW));
-                $response = array(
-                    'status' => true,
-                    'html' => $this->renderPartial('_tasks', array('tasks' => $tasks), true)
-                );
-            }
-            else
-                $response = array('status' => false);
+            $task->type = $type;
+            $task->status = SeoTask::STATUS_READY;
+            $response = array('status' => $task->save());
         } else
             $response = array('status' => false);
 
         echo CJSON::encode($response);
     }
 
-    public function actionSetTask()
+    /*public function actionSetTask()
     {
         $id = Yii::app()->request->getPost('id');
         $type = Yii::app()->request->getPost('type');
@@ -132,18 +149,27 @@ class TaskController extends BController
 
             echo CJSON::encode($response);
         }
-    }
+    }*/
 
     public function actionGetArticleInfo()
     {
         $url = Yii::app()->request->getPost('url');
         preg_match("/\/([\d]+)\/$/", $url, $match);
         $id = $match[1];
+
         if (strstr($url, '/community/')) {
             $article = CommunityContent::model()->findByPk($id);
+            if (!$article){
+                echo CJSON::encode(array(
+                    'status'=>false,
+                    'error'=>'Ошибка, статья не найдена'
+                ));
+                Yii::app()->end();
+            }
 
             echo CJSON::encode(array(
-                'title' => $article->meta_title,
+                'status'=>true,
+                'title' => $article->title,
                 'keywords' => $article->meta_keywords,
                 'id' => $article->id
             ));

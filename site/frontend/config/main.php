@@ -265,12 +265,12 @@ return array(
                     'sitemap.xml' => array(
                         'aliases' => array(
                             'application.controllers',
-                            'application.modules.pregnancyWeight.controllers',
-                            'application.modules.contractionsTime.controllers',
-                            'application.modules.placentaThickness.controllers',
-                            'application.modules.vaccineCalendar.controllers',
-                            'application.modules.menstrualCycle.controllers',
-                            'application.modules.babyBloodGroup.controllers',
+                            'application.modules.services.modules.pregnancyWeight.controllers',
+                            'application.modules.services.modules.contractionsTime.controllers',
+                            'application.modules.services.modules.placentaThickness.controllers',
+                            'application.modules.services.modules.vaccineCalendar.controllers',
+                            'application.modules.services.modules.menstrualCycle.controllers',
+                            'application.modules.services.modules.babyBloodGroup.controllers',
                         ),
                     ),
                 ),

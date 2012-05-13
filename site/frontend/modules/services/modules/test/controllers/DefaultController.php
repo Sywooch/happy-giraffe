@@ -36,7 +36,7 @@ class DefaultController extends HController
     public function actionView($slug)
     {
         $test = $this->LoadModel($slug);
-        $this->pageTitle = strip_tags($test->title) . ', бесплатные тесты на сайте Веселый Жираф';
+        $this->pageTitle = strip_tags($test->title);
 
         $basePath = Yii::getPathOfAlias('test') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'assets';
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);

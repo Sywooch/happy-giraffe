@@ -134,8 +134,15 @@
             </div>
         </div>
         <div class="nav">
+            <?php //check if there is news on previous day
+            $prev_day = date("Y-m-d", strtotime('-1 day', $time));
+            $criteria = new CDbCriteria;
+            $criteria->condition = 'type_id=4 AND created >= "' . $prev_day . ' 00:00:00"' . ' AND created <= "' . $prev_day . ' 23:59:59" AND is_published = 1';
+            $prev_day_news_count = CommunityContent::model()->with('photoPost')->count($criteria);
+
+            ?>
             <input type="hidden" value="<?=date("Y-m-d", $time)  ?>">
-            <a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-1 day', $time)))) ?>" class="prev" onclick="return Morning.next()"></a>
+            <a href="<?= ($prev_day_news_count == 0)?'javascript:void(0);':$this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-1 day', $time)))) ?>" class="prev" onclick="return Morning.next()"></a>
             <a href="<?= ($days_away == 0)?'javascript:void(0);':$this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('+1 day', $time)))) ?>" class="next" onclick="return Morning.prev()"></a>
         </div>
     </div>

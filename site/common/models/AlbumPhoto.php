@@ -17,7 +17,7 @@
  *
  * The followings are the available model relations:
  * @property Album $album
- * @property User $user
+ * @property User $author
  */
 class AlbumPhoto extends HActiveRecord
 {
@@ -135,16 +135,18 @@ class AlbumPhoto extends HActiveRecord
 
     public function afterSave()
     {
-        if ($this->isNewRecord && isset(Yii::app()->comet)) {
-            $signal = new UserSignal();
-            $signal->user_id = (int)$this->author_id;
-            $signal->item_id = (int)$this->id;
-            $signal->item_name = get_class($this);
-            $signal->signal_type = UserSignal::TYPE_NEW_USER_PHOTO;
-            $signal->save();
+        if ($this->isNewRecord && isset(Yii::app()->comet) && $this->author->isNewComer()) {
+            if ($this->album->type == 0 || $this->album->type == 1 || $this->album->type == 3) {
+                $signal = new UserSignal();
+                $signal->user_id = (int)$this->author_id;
+                $signal->item_id = (int)$this->id;
+                $signal->item_name = get_class($this);
+                $signal->signal_type = UserSignal::TYPE_NEW_USER_PHOTO;
+                $signal->save();
 
-            if (!empty($this->album_id)) {
-                UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+                if (!empty($this->album_id)) {
+                    UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+                }
             }
         }
         parent::afterSave();
@@ -201,7 +203,7 @@ class AlbumPhoto extends HActiveRecord
         $file_name = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
         if (!$move_temp)
             return $this->file->saveAs($file_name);
-        else{
+        else {
             //echo $this->templatePath;Yii::app()->end();
             rename($this->templatePath, $file_name);
         }
@@ -261,11 +263,11 @@ class AlbumPhoto extends HActiveRecord
             if (!file_exists($model_dir))
                 mkdir($model_dir);
             Yii::import('site.frontend.extensions.image.Image');
-            if(!file_exists($this->originalPath))
+            if (!file_exists($this->originalPath))
                 return false;
             $image = new Image($this->originalPath);
 
-            if ($image->width <= $width && $image->height <= $height){
+            if ($image->width <= $width && $image->height <= $height) {
 
             }
             elseif ($master && $master == Image::WIDTH && $image->width < $width)
@@ -275,7 +277,7 @@ class AlbumPhoto extends HActiveRecord
             else
                 $image->resize($width, $height, $master ? $master : Image::AUTO);
 
-            if($crop)
+            if ($crop)
                 $image->crop($width, $height);
             $image->save($thumb);
         }
@@ -314,10 +316,10 @@ class AlbumPhoto extends HActiveRecord
     public function getAvatarPath($size)
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
-        if(!file_exists($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id))
+        if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id))
             mkdir($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id);
 
-        if(!file_exists($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id . DIRECTORY_SEPARATOR . $size))
+        if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id . DIRECTORY_SEPARATOR . $size))
             mkdir($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id . DIRECTORY_SEPARATOR . $size);
 
         return $dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id .
@@ -366,6 +368,6 @@ class AlbumPhoto extends HActiveRecord
 
     public function getCommentContent()
     {
-        return CHtml::image($this->getPreviewUrl(460,600));
+        return CHtml::image($this->getPreviewUrl(460, 600));
     }
 }

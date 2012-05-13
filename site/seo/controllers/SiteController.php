@@ -21,7 +21,14 @@ class SiteController extends SController
 
 	public function actionIndex()
 	{
-        $this->render('index');
+        if (Yii::app()->user->checkAccess('moderator'))
+            $this->redirect($this->createUrl('task/moderator'));
+        if (Yii::app()->user->checkAccess('author'))
+            $this->redirect($this->createUrl('task/author'));
+        if (Yii::app()->user->checkAccess('editor'))
+            $this->redirect($this->createUrl('task/tasks'));
+        if (Yii::app()->user->checkAccess('content-manager'))
+            $this->redirect($this->createUrl('task/cmanager'));
 	}
 
     /**

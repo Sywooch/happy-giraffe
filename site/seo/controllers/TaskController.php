@@ -19,12 +19,13 @@ class TaskController extends SController
         ));
     }
 
-    public function actionTasks(){
+    public function actionTasks()
+    {
         $tasks = SeoTask::model()->findAllByAttributes(array('status' => SeoTask::STATUS_NEW));
         $tempKeywords = TempKeywords::model()->findAll('owner_id');
         $this->render('index', array(
             'tasks' => $tasks,
-            'tempKeywords'=>$tempKeywords
+            'tempKeywords' => $tempKeywords
         ));
     }
 
@@ -54,13 +55,14 @@ class TaskController extends SController
                 $criteria->compare('id', $ids);
                 //$criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords');
                 $models = Keywords::model()->findAll($criteria);
-            }else
+            } else
                 $models = array();
             $this->renderPartial('_keywords', array('models' => $models));
         }
     }
 
-    public function actionSelectKeyword(){
+    public function actionSelectKeyword()
+    {
         $key_id = Yii::app()->request->getPost('id');
         $temp = new TempKeywords;
         $temp->keyword_id = $key_id;
@@ -72,6 +74,7 @@ class TaskController extends SController
     {
         $key_ids = Yii::app()->request->getPost('id');
         $type = Yii::app()->request->getPost('type');
+        $author_id = Yii::app()->request->getPost('author_id');
         $keywords = Keywords::model()->findAllByPk($key_ids);
 
         $group = new KeywordGroup();
@@ -80,7 +83,11 @@ class TaskController extends SController
             $task = new SeoTask();
             $task->keyword_group_id = $group->id;
             $task->type = $type;
-            $task->status = SeoTask::STATUS_READY;
+            $task->status = SeoTask::STATUS_NEW;
+            $task->owner_id = Yii::app()->user->id;
+            if ($type == SeoTask::TYPE_EDITOR) {
+                $task->executor_id = $author_id;
+            }
             $response = array('status' => $task->save());
         } else
             $response = array('status' => false);
@@ -96,16 +103,16 @@ class TaskController extends SController
 
         if (strstr($url, '/community/')) {
             $article = CommunityContent::model()->findByPk($id);
-            if (!$article){
+            if (!$article) {
                 echo CJSON::encode(array(
-                    'status'=>false,
-                    'error'=>'Ошибка, статья не найдена'
+                    'status' => false,
+                    'error' => 'Ошибка, статья не найдена'
                 ));
                 Yii::app()->end();
             }
 
             echo CJSON::encode(array(
-                'status'=>true,
+                'status' => true,
                 'title' => $article->title,
                 'keywords' => $article->meta_keywords,
                 'id' => $article->id
@@ -155,5 +162,94 @@ class TaskController extends SController
         }
 
         echo CJSON::encode($response);
+    }
+
+    public function actionModerator()
+    {
+        if (!Yii::app()->user->checkAccess('moderator'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $tasks = SeoTask::getTasks();
+        $executing = SeoTask::getActiveTask();
+        $success_tasks = SeoTask::TodayExecutedTasks();
+
+        $this->render('_moderator', compact('tasks', 'executing', 'success_tasks'));
+    }
+
+    public function actionAuthor()
+    {
+        if (!Yii::app()->user->checkAccess('author'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $tasks = SeoTask::getTasks();
+        $success_tasks = SeoTask::TodayExecutedTasks();
+        $this->render('_author', compact('tasks', 'success_tasks'));
+    }
+
+    public function actionCmanager()
+    {
+
+    }
+
+    public function actionExecuted()
+    {
+        $task_id = Yii::app()->request->getPost('id');
+        $task = $this->loadTask($task_id);
+
+        $task->executed = date("Y-m-d H:i:s");
+        $url = Yii::app()->request->getPost('url');
+        if (!empty($url)) {
+            preg_match("/\/([\d]+)\/$/", $url, $match);
+            $article_id = $match[1];
+            $article = CommunityContent::model()->findByPk($article_id);
+            if ($article === null)
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+            $task->article_id = $article_id;
+            $task->status = SeoTask::STATUS_PUBLISHED;
+        } else {
+            $task->status = SeoTask::STATUS_WRITTEN;
+        }
+
+        echo CJSON::encode(array('status' => $task->save()));
+    }
+
+    public function actionTake()
+    {
+        $task_id = Yii::app()->request->getPost('id');
+        $task = $this->loadTask($task_id);
+        if ($task->status != SeoTask::STATUS_NEW) {
+            echo CJSON::encode(array(
+                'status' => false,
+                'error' => 'задание уже забито'
+            ));
+            Yii::app()->end();
+        }
+
+        $task->executor_id = Yii::app()->user->id;
+        $task->status = SeoTask::STATUS_TAKEN;
+        if ($task->save()) {
+            echo CJSON::encode(array('status' => true));
+
+            $comet = new CometModel();
+            $comet->type = CometModel::SEO_TASK_TAKEN;
+            $comet->attributes = array('task_id' => $task->id);
+            $comet->sendToSeoUsers();
+        }
+        else
+            echo CJSON::encode(array('status' => false));
+    }
+
+    /**
+     * @param int $id model id
+     * @return SeoTask
+     * @throws CHttpException
+     */
+    public function loadTask($id)
+    {
+        $model = SeoTask::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

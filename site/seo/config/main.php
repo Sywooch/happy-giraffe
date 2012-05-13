@@ -6,11 +6,11 @@ return array(
     'language'=>'ru',
     'preload'=>array('log'),
 	'import'=>array(
+        'site.common.models.*',
         'application.models.*',
         'application.components.*',
 
         'site.common.components.*',
-        //'site.common.models.*',
         //'site.common.models.mongo.*',
         'site.frontend.helpers.FileHandler',
         'site.frontend.helpers.CArray',
@@ -19,6 +19,10 @@ return array(
     ),
 
 	'components' => array(
+        'user'=>array(
+            'class'=>'WebUser',
+            'allowAutoLogin'=>true,
+        ),
         'widgetFactory' => array(
             'widgets' => array(
                 'LinkPager' => array(
@@ -51,7 +55,7 @@ return array(
         ),
         'authManager'=>array(
             'class'=>'CDbAuthManager',
-            'connectionID'=>'db',
+            'connectionID'=>'db_seo',
             'itemTable'=>'auth__items',
             'itemChildTable'=>'auth__items_childs',
             'assignmentTable'=>'auth__assignments',
@@ -81,6 +85,12 @@ return array(
                 'keywords' => 100,
             ),
         ),
+        'comet'=>array(
+            'class' => 'site.frontend.extensions.Dklab_Realplexor',
+            'host' => 'plexor.www.happy-giraffe.ru',
+            'port' => 10010,
+            'namespace' => 'crm_',
+        )
 	),
 
     'params' => array(

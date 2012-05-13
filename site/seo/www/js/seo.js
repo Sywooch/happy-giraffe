@@ -23,12 +23,15 @@ var SeoModule = {
     getId:function (el) {
         return el.attr("id").replace(/[a-zA-Z]*-/ig, "");
     },
-    addGroup:function (type) {
-        $.post('/task/addGroupTask/', {id:this.group,type:type}, function (response) {
+    addGroup:function (type, author_id) {
+        $.post('/task/addGroupTask/', {id:this.group,
+            type:type,
+            author_id:author_id
+        }, function (response) {
             if (response.status) {
                 $('.keyword_group').html('');
                 for (var key in SeoModule.group)
-                    $('#keyword-'+SeoModule.group[key]).remove();
+                    $('#keyword-' + SeoModule.group[key]).remove();
 
                 SeoModule.group = new Array();
             }
@@ -45,7 +48,7 @@ var SeoModule = {
     GetArticleInfo:function () {
         var url = $('input.article-url').val();
         $.post('/task/getArticleInfo/', {url:url}, function (response) {
-            $('.info').html(response.title+'<br>'+response.keywords);
+            $('.info').html(response.title + '<br>' + response.keywords);
             SeoModule.id = response.id;
         }, 'json');
     },
@@ -57,6 +60,20 @@ var SeoModule = {
 
         $.post('/task/SaveArticleKeys/', {id:this.id, keywords:keywords}, function (response) {
 
+        }, 'json');
+    },
+    TakeTask:function (id) {
+        $.post('/task/take/', {id:id}, function (response) {
+            if (response.status) {
+                document.location.reload();
+            }
+        }, 'json');
+    },
+    Executed:function (id, el) {
+        $.post('/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
+            if (response.status) {
+                document.location.reload();
+            }
         }, 'json');
     }
 }

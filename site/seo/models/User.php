@@ -109,7 +109,7 @@ class User extends HActiveRecord
             'tasks' => array(self::HAS_MANY, 'SeoTask', 'user_id'),
             'tempKeywords' => array(self::HAS_MANY, 'TempKeywords', 'owner_id'),
             'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
-            'users' => array(self::HAS_MANY, 'User', 'owner_id'),
+            'authors' => array(self::HAS_MANY, 'User', 'owner_id'),
         );
     }
 

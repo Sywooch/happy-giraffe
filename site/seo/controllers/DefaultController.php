@@ -4,7 +4,7 @@ class DefaultController extends SController
 {
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('seo'))
+        if (!Yii::app()->user->checkAccess('admin'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }

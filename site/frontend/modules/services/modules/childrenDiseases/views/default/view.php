@@ -1,4 +1,4 @@
-<?php Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+<?php
 /* @var $this Controller
  * @var $model RecipeBookDisease
  */
@@ -50,10 +50,17 @@
         <?php echo $model->treatment_text ?>
         <h2 id="prophylaxis"><?php echo empty($model->prophylaxis_name) ? 'Профилактика' : $model->prophylaxis_name ?></h2>
         <?php echo $model->prophylaxis_text ?>
+
         <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-//        'title' => 'Полезен ли материал?',
+        'title' => 'Вам понравилась статья? Отметьте!',
+        'notice' => '<big>Рейтинг статьи</big><p>Он показывает, насколько нравится ваша статья другим пользователям. Если статья интересная, то пользователи её читают, комментируют, увеличивают лайки социальных сетей.</p>',
         'model' => $model,
-        'options' => array('title' => 'Полезен ли материал?',),
+        'type' => 'minimize',
+        'options' => array(
+            'title' => $model->title,
+            'image' => $model->getImage(),
+            'description' => str_replace("\n", '', $model->getShort()),
+        ),
     )); ?>
     </div>
 </div><!-- .handbook_article_ill -->

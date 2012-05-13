@@ -48,7 +48,16 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
                 <a href="javascript:void(0);" class="next"></a>
 
             </div>
-
+            <?php
+            if(!Yii::app()->user->isGuest)
+            {
+                $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                    'model' => $model,
+                ));
+                $fileAttach->button();
+                $this->endWidget();
+            }
+            ?>
             <div class="color-list">
                 <span>Цвет:</span>
                 <ul>

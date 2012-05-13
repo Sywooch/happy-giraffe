@@ -84,4 +84,15 @@ class DefaultController extends HController
             'categoryList' => $categoryList
         ));
     }
+
+    public function actionTest(){
+        $diseases = RecipeBookDisease::model()->findAll();
+        foreach($diseases as $disease){
+            $disease->slug = str_replace(' ', '_', $disease->slug);
+            $disease->slug = str_replace('+', '_', $disease->slug);
+            $disease->slug = str_replace('-', '_', $disease->slug);
+            $disease->slug = str_replace('\'', '', $disease->slug);
+            $disease->save();
+        }
+    }
 }

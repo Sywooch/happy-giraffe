@@ -11,7 +11,7 @@ class WallpapersController extends HController
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
         Yii::app()->user->setState('wallpapersCalcAreas', array());
-        $this->pageTitle = 'Расчет обоев';
+        $this->pageTitle = 'Расчет количества обоев';
         $this->render('index', array('model' => new WallpapersCalcForm(), 'emptyArea' => new WallpapersAreaForm()));
     }
 

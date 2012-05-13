@@ -4,7 +4,7 @@
  */
 
 var fabricCalculator = {
-    calc:function(){
+    calc:function () {
         var LEN = document.getElementById("FabricCalculatorForm1_canva").value;
         var NIT = document.getElementById("FabricCalculatorForm1_threads_num").value;
         var PLUS = document.getElementById("FabricCalculatorForm1_additional").value;
@@ -25,9 +25,11 @@ var fabricCalculator = {
         document.getElementById("res").innerHTML = RES_W + " x " + RES_H + " см";
         $("#res").show();
     },
-    calc2:function(){
+    calc2:function () {
         var AIDA = document.getElementById("FabricCalculatorForm2_canva").value;
         var PLUS1 = document.getElementById("FabricCalculatorForm2_additional").value;
+        if (PLUS1 == "")
+            PLUS1 = 0;
         var W1 = document.getElementById("FabricCalculatorForm2_width").value;
         var H1 = document.getElementById("FabricCalculatorForm2_height").value;
         if (!parseInt(PLUS1) && parseInt(PLUS1) != 0 || !parseInt(W1) || !parseInt(H1)) {

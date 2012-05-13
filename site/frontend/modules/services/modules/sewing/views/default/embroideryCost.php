@@ -108,7 +108,7 @@ $model = new EmbroideryCostForm();
             <div class="input-box">
                 <span class="units">Размер канвы в схеме:</span>
 
-                <?php echo $form->dropDownList($model, 'canva', array('0' => '7','1' => '11','2' => '14','5' => '16',
+                <?php echo $form->dropDownList($model, 'canva', array('1' => '7','2' => '11','3' => '14','5' => '16',
                 '10' => '18','15' => '20','20' => '22','25' => '25'), array('class'=>'chzn','empty'=>'-', 'disabled'=>'disabled')) ?>
                 <?php echo $form->error($model, 'canva'); ?>
 

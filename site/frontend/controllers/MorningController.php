@@ -34,8 +34,12 @@ class MorningController extends HController
 
     public function actionIndex($date = null)
     {
-        if ($date === null || empty($date))
+        if ($date === null || empty($date)){
             $date = date("Y-m-d");
+            $empty_param = true;
+        }
+        else
+            $empty_param = false;
 
         if (strtotime($date) == strtotime(date("Y-m-d")))
             $this->pageTitle = 'Утро с Весёлым жирафом';
@@ -61,6 +65,9 @@ class MorningController extends HController
         }
         $articles = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findAll($criteria);
 
+//        if (empty($articles) && !Yii::app()->user->checkAccess('editMorning'))
+//            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         if ($date == date("Y-m-d"))
             $this->breadcrumbs = array(
                 'Утро с Весёлым жирафом',
@@ -71,7 +78,7 @@ class MorningController extends HController
                 'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", strtotime($date))
             );
 
-        $this->render('index', compact('articles'));
+        $this->render('index', compact('articles', 'empty_param'));
     }
 
     public function actionView($id)

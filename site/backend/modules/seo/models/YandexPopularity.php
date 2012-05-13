@@ -70,7 +70,7 @@ class YandexPopularity extends HActiveRecord
 	{
 		return array(
 			'keyword_id' => 'Keyword',
-			'value' => 'Value',
+			'value' => 'Y popularity',
 		);
 	}
 

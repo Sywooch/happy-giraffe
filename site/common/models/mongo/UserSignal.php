@@ -322,6 +322,8 @@ class UserSignal extends EMongoDocument
      */
     public static function CheckTask($item_name, $item_id, $user_id)
     {
+        if ($item_name == 'BlogContent')
+            $item_name = 'CommunityContent';
         $criteria = new EMongoCriteria;
         $criteria->item_name('==', $item_name);
         $criteria->item_id('==', (int)$item_id);
@@ -368,8 +370,8 @@ class UserSignal extends EMongoDocument
         $criteria->status('==', UserSignalResponse::STATUS_SUCCESS_CLOSE);
         $criteria->date('==', $date);
         $criteria->sort('_id', EMongoCriteria::SORT_DESC);
-        if ($limit !== null)
-            $criteria->limit($limit);
+//        if ($limit !== null)
+//            $criteria->limit($limit);
 
         return UserSignalResponse::model()->findAll($criteria);
     }

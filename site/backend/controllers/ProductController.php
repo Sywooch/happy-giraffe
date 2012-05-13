@@ -246,6 +246,7 @@ class ProductController extends BController
             $item = new ProductItem;
             $item->product_id = $product->primaryKey;
             $item->count = $_POST['count'];
+            $item->price = str_replace(',', '.', $_POST['price']);
             $item->properties = $product->cart_attributes;
             $item->save();
             echo $product->itemsCount;

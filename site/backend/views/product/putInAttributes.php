@@ -15,6 +15,7 @@
     </p>
     <?php endforeach; ?>
     <p>Количество: <input type="text" name="count" value="1" /></p>
+    <p>Стоимость (шт): <input type="text" name="price" id="product_put_price" value="" /></p>
     <?php echo CHtml::submitButton('Добавить в корзину'); ?>
 </form>
 <script type="text/javascript">

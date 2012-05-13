@@ -50,13 +50,13 @@
             <li>
                 <ul>
                     <li><a href="<?=Yii::app()->createUrl('/test/hair-type/') ?>">Тест. Определение типа волос</a></li>
-<!--                    <li><a href="--><?//=Yii::app()->createUrl('/childrenDiseases/') ?><!--">Справочник детских болезней</a></li>-->
 <!--                    <li><a href="--><?//=Yii::app()->createUrl('/recipeBook/') ?><!--">Книга народных рецептов от детских болезней</a></li>-->
                     <li><a href="<?=Yii::app()->createUrl('/test/prikorm/') ?>">Тест. Готов ли ребенок к первому прикорму</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/contractionsTime/') ?>">Считаем схватки</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/loopCalculator/') ?>">Калькулятор петель</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/embroideryCost/') ?>">Расчет стоимости вышивки</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/fabricCalculator/') ?>">Калькулятор ткани</a></li>
+                    <li><a href="<?=Yii::app()->createUrl('/childrenDiseases/') ?>">Справочник детских болезней</a></li>
                 </ul>
             </li>
 

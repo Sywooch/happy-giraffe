@@ -5,22 +5,29 @@
  *
  * The followings are the available columns in table 'seo__task':
  * @property string $id
+ * @property string $executor_id
+ * @property string $owner_id
  * @property string $keyword_group_id
- * @property string $user_id
+ * @property integer $article_id
  * @property integer $type
  * @property integer $status
+ * @property string $updated
  * @property string $created
+ * @property string $executed
  *
  * The followings are the available model relations:
+ * @property User $owner
  * @property KeywordGroup $keywordGroup
+ * @property User $executor
  */
 class SeoTask extends CActiveRecord
 {
     const STATUS_NEW = 0;
-    const STATUS_READY = 1;
-    const STATUS_TAKEN = 2;
-    const STATUS_EXECUTED = 3;
-    const STATUS_CLOSED = 4;
+    const STATUS_TAKEN = 1;
+    const STATUS_WRITTEN = 2;
+    const STATUS_CHECKED = 3;
+    const STATUS_PUBLISHED = 4;
+    const STATUS_CLOSED = 5;
 
     const TYPE_MODER = 1;
     const TYPE_EDITOR = 2;
@@ -53,10 +60,10 @@ class SeoTask extends CActiveRecord
 		return array(
 			array('keyword_group_id', 'required'),
 			array('type, status', 'numerical', 'integerOnly'=>true),
-			array('keyword_group_id, user_id', 'length', 'max'=>10),
+			array('keyword_group_id, executor_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, keyword_group_id, user_id, type, status, created', 'safe', 'on'=>'search'),
+			array('id, keyword_group_id, type, status, created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +76,8 @@ class SeoTask extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'keywordGroup' => array(self::BELONGS_TO, 'KeywordGroup', 'keyword_group_id'),
+            'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
+            'executor' => array(self::BELONGS_TO, 'User', 'executor_id'),
 		);
 	}
 
@@ -80,42 +89,21 @@ class SeoTask extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'keyword_group_id' => 'Keyword Group',
-			'user_id' => 'User',
 			'type' => 'Type',
 			'status' => 'Status',
 			'created' => 'Created',
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('keyword_group_id',$this->keyword_group_id,true);
-		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('created',$this->created,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-
-    public function beforeSave()
+    public function behaviors()
     {
-        if ($this->isNewRecord)
-            $this->created = date("Y-m-d");
-
-        return parent::beforeSave();
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            )
+        );
     }
 
     public function getText()
@@ -125,5 +113,44 @@ class SeoTask extends CActiveRecord
             $res .= $key->name.', ';
 
         return trim($res, ', ');
+    }
+
+    public static function TodayExecutedTasks()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('executor_id', Yii::app()->user->id);
+        if (Yii::app()->user->checkAccess('author')){
+            $criteria->condition = 'status > '.SeoTask::STATUS_NEW;
+            $criteria->compare('type', SeoTask::TYPE_EDITOR);
+        }
+        if (Yii::app()->user->checkAccess('moderator')){
+            $criteria->condition = 'status > '.SeoTask::STATUS_TAKEN;
+            $criteria->compare('type', SeoTask::TYPE_MODER);
+        }
+        return SeoTask::model()->findAll($criteria);
+    }
+
+    public static function getTasks()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('status', SeoTask::STATUS_NEW);
+        if (Yii::app()->user->checkAccess('author')){
+            $criteria->compare('type', SeoTask::TYPE_EDITOR);
+            $criteria->compare('executor_id', Yii::app()->user->id);
+        }
+        if (Yii::app()->user->checkAccess('moderator')){
+            $criteria->compare('type', SeoTask::TYPE_MODER);
+        }
+        $criteria->order = 'created DESC';
+
+        return SeoTask::model()->findAll($criteria);
+    }
+
+    public static function getActiveTask()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('status', SeoTask::STATUS_TAKEN);
+        $criteria->compare('executor_id', Yii::app()->user->id);
+        return SeoTask::model()->find($criteria);
     }
 }

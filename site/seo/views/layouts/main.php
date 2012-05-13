@@ -21,8 +21,14 @@
 
         ->registerScriptFile('/js/jquery.pnotify.min.js')
         ->registerCssFile('/css/jquery.pnotify.css')
+        ->registerCssFile('/css/reset.css')
 
-        ->registerScriptFile('/js/jquery.iframe-post-form.js');
+        ->registerScriptFile('/js/jquery.iframe-post-form.js')
+
+        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/comet.js')
+        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/dklab_realplexor.js')
+        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
+    ;
     ?>
 </head>
 <body>
@@ -35,10 +41,10 @@
             <li><a href="<?php echo $this->createUrl('site/logout') ?>">Выйти</a></li>
         </ul>
     </div>
+    <br><br><br>
     <?php echo $content; ?>
 
-    <div class="clear"></div>
-
+    <br><br><br>
     <div class="footer">
         <span>&copy; Все права защищены.</span>
     </div>

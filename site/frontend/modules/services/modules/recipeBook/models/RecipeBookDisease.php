@@ -19,6 +19,7 @@
  * @property string $treatment_text
  * @property string $prophylaxis_text
  * @property string diagnosis_text
+ * @property string $slug
  *
  * The followings are the available model relations:
  * @property RecipeBookDiseaseCategory $category
@@ -155,5 +156,18 @@ class RecipeBookDisease extends HActiveRecord
         }
 
         return $result;
+    }
+
+    public function getShort()
+    {
+        return trim($this->text);
+    }
+
+    public function getImage()
+    {
+        preg_match('!<img.*?src="(.*?)"!', $this->text, $matches);
+        if (count($matches) > 0)
+            return $matches[1];
+        return false;
     }
 }

@@ -71,10 +71,6 @@
     <ul class="header_nav">
         <li<?php if (Yii::app()->controller->section == 'club') echo ' class="active"'; ?>><a href="<?php echo $this->createUrl('/modules/index', array()) ?>">Клуб</a></li>
         <li<?php if (Yii::app()->controller->section == 'shop') echo ' class="active"'; ?>><a href="<?php echo $this->createUrl('/site/index', array()) ?>">Магазин</a></li>
-        <?php if (Yii::app()->user->checkAccess('seo')):?>
-        <li<?php if (Yii::app()->controller->section == 'seo') echo ' class="active"'; ?>><a href="<?php
-            echo $this->createUrl('/seo/default/index') ?>">SEO</a></li>
-        <?php endif ?>
     </ul>
 </div>
 <?php echo $content; ?>

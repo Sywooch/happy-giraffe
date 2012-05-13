@@ -8,6 +8,7 @@
  * @property string $product_id
  * @property string $properties
  * @property integer $count
+ * @property float $price
  *
  * The followings are the available model relations:
  * @property Product $product
@@ -42,6 +43,7 @@ class ProductItem extends CActiveRecord
 		return array(
 			array('product_id, properties, count', 'required'),
 			array('count, product_id', 'numerical', 'integerOnly'=>true),
+            array('price', 'numerical'),
 			array('product_id', 'length', 'max'=>10),
 		);
 	}
@@ -82,6 +84,7 @@ class ProductItem extends CActiveRecord
         if($pi = ProductItem::model()->find($criteria))
         {
             $pi->count += $this->count;
+            $pi->price = $this->price;
             $pi->save();
             return false;
         }

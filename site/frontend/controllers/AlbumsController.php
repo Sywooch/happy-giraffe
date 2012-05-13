@@ -250,6 +250,43 @@ class AlbumsController extends HController
         );
     }
 
+    public function actionProductPhoto()
+    {
+        if(!$val = Yii::app()->request->getPost('val'))
+            Yii::app()->end();
+
+        if(is_numeric($val))
+        {
+            $model = AlbumPhoto::model()->findByPk($val);
+            if(!$model)
+                Yii::app()->end();
+        }
+        else
+        {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            if($title = Yii::app()->request->getPost('title'))
+                $model->title = CHtml::encode($title);
+            $model->create(true);
+        }
+        $attach = new AttachPhoto;
+        $attach->entity = 'Product';
+        $attach->entity_id = Yii::app()->request->getPost('entity_id');
+        $attach->photo_id = $model->id;
+        if ($attach->save())
+        {
+            $image = new ProductImage;
+            $image->product_id = $attach->entity_id;
+            $image->type = 0;
+            $image->photo_id = $model->id;
+            $image->save();
+            echo CJSON::encode(array('status' => true));
+        }
+        else
+            echo CJSON::encode(array('status' => false));
+    }
+
     public function actionCommentPhoto()
     {
         if(!$val = Yii::app()->request->getPost('val'))

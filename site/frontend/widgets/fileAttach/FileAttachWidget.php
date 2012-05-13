@@ -48,6 +48,11 @@ class FileAttachWidget extends CWidget
             $this->title = 'Вставить изображение';
             $this->button_title = 'Продолжить';
         }
+        elseif($this->entity == 'Product')
+        {
+            $this->title = 'Добавить фото к продукту';
+            $this->button_title = 'Добавить';
+        }
 
         if($view_type == 'window')
             $this->render('window');

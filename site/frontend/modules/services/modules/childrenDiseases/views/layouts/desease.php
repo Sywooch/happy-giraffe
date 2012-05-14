@@ -4,6 +4,7 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 
 Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css');
+Yii::app()->clientScript->registerMetaTag('Здесь собраны самые распространённые детские болезни, от которых, к сожалению, не застрахован ни один ребенок. Выберите название и узнайте о симптомах, лечении и профилактике заболевания', 'description');
 ?>
 <div id="baby">
 

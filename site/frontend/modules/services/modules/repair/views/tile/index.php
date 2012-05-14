@@ -1,4 +1,5 @@
-<div id="repair-bathroom-tile">
+<?php Yii::app()->clientScript->registerMetaTag('Ванная. Отделка плиткой этого помещения давно стала классикой. Но перед тем как купить плитку для ванной, нужно посчитать, сколько её понадобится. Это легко сделать, воспользовавшись нашим сервисом', 'description');
+?><div id="repair-bathroom-tile">
 
     <div class="form">
 

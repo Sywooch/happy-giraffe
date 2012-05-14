@@ -7,8 +7,16 @@ class Popular extends CWidget
 {
     public function run()
     {
-        $communityContents = Rating::model()->findTopWithEntity(CommunityContent::model()->full(), 3);
-        $blogContents = Rating::model()->findTopWithEntity(BlogContent::model()->full(), 3);
+        $communityContents = CommunityContent::model()->full()->findAll(array(
+            'limit' => 3,
+            'order' => 'rate DESC',
+            'condition' => 'rubric.community_id IS NOT NULL',
+        ));
+        $blogContents = BlogContent::model()->full()->findAll(array(
+            'limit' => 3,
+            'order' => 'rate DESC',
+            'condition' => 'rubric.user_id IS NOT NULL',
+        ));
         $this->render('Popular', compact('communityContents', 'blogContents'));
     }
 }

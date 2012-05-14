@@ -64,6 +64,8 @@ class User extends HActiveRecord
     private $_role = null;
     private $_authItems = null;
 
+    public $authorsRate;
+    public $commentatorsRate;
 
     public $women_rel = array(
         1 => 'Замужем',

@@ -6,9 +6,9 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
 <div class="handbook_alfa">
     <span class="handbook_title">Выберите болезнь</span>
     <ul class="sortable_u">
-        <li id="disease-alphabet2" class="current_t"><a href="<?=$this->createUrl('getAlphabetList') ?>"><span>По алфавиту</span></a></li>
+        <li id="disease-alphabet2" class="current_t"><a href="#"><span>По алфавиту</span></a></li>
         <li>|</li>
-        <li id="disease-type2"><a href="<?=$this->createUrl('getCategoryList') ?>"><span>По типу заболевания</span></a></li>
+        <li id="disease-type2"><a href="#"><span>По типу заболевания</span></a></li>
     </ul>
     <div class="clear"></div>
     <!-- .clear -->

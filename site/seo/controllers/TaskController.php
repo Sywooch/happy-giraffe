@@ -21,11 +21,27 @@ class TaskController extends SController
 
     public function actionTasks()
     {
-        $tasks = SeoTask::model()->findAllByAttributes(array('status' => SeoTask::STATUS_NEW));
+        $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status < 5 AND rewrite = 0');
         $tempKeywords = TempKeywords::model()->findAll('owner_id');
-        $this->render('index', array(
+        $success_tasks = SeoTask::TodayExecutedTasks();
+
+        $this->render('editor_panel', array(
             'tasks' => $tasks,
-            'tempKeywords' => $tempKeywords
+            'tempKeywords' => $tempKeywords,
+            'success_tasks' => $success_tasks
+        ));
+    }
+
+    public function actionRewriteTasks()
+    {
+        $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status < 5 AND rewrite = 1');
+        $tempKeywords = TempKeywords::model()->findAll('owner_id');
+        $success_tasks = SeoTask::TodayExecutedTasks();
+
+        $this->render('rewrite_editor_panel', array(
+            'tasks' => $tasks,
+            'tempKeywords' => $tempKeywords,
+            'success_tasks' => $success_tasks
         ));
     }
 
@@ -74,6 +90,9 @@ class TaskController extends SController
     {
         $key_ids = Yii::app()->request->getPost('id');
         $type = Yii::app()->request->getPost('type');
+        $rewrite = Yii::app()->request->getPost('rewrite');
+        $urls = Yii::app()->request->getPost('urls');
+
         $author_id = Yii::app()->request->getPost('author_id');
         $keywords = Keywords::model()->findAllByPk($key_ids);
 
@@ -85,10 +104,21 @@ class TaskController extends SController
             $task->type = $type;
             $task->status = SeoTask::STATUS_NEW;
             $task->owner_id = Yii::app()->user->id;
-            if ($type == SeoTask::TYPE_EDITOR) {
+
+            if ($type == SeoTask::TYPE_EDITOR)
                 $task->executor_id = $author_id;
-            }
+            if ($rewrite)
+                $task->rewrite = 1;
+
             $response = array('status' => $task->save());
+            if (!empty($urls) && $response['status']){
+                foreach($urls as $url){
+                    $r_url = new RewriteUrl();
+                    $r_url->task_id = $task->id;
+                    $r_url->url = $url;
+                    $r_url->save();
+                }
+            }
         } else
             $response = array('status' => false);
 
@@ -188,7 +218,12 @@ class TaskController extends SController
 
     public function actionCmanager()
     {
+        if (!Yii::app()->user->checkAccess('content-manager'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        $tasks = SeoTask::getTasks();
+        $success_tasks = SeoTask::TodayExecutedTasks();
+        $this->render('_cmanager', compact('tasks', 'success_tasks'));
     }
 
     public function actionExecuted()
@@ -206,6 +241,9 @@ class TaskController extends SController
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
             $task->article_id = $article_id;
+            if ($task->status != SeoTask::STATUS_CHECKED && $task->status != SeoTask::STATUS_TAKEN)
+                Yii::app()->end();
+
             $task->status = SeoTask::STATUS_PUBLISHED;
         } else {
             $task->status = SeoTask::STATUS_WRITTEN;
@@ -235,6 +273,36 @@ class TaskController extends SController
             $comet->type = CometModel::SEO_TASK_TAKEN;
             $comet->attributes = array('task_id' => $task->id);
             $comet->sendToSeoUsers();
+        }
+        else
+            echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionClose()
+    {
+        if (!Yii::app()->user->checkAccess('editor'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $task_id = Yii::app()->request->getPost('id');
+        $task = $this->loadTask($task_id);
+        if ($task->status == SeoTask::STATUS_PUBLISHED) {
+            $task->status = SeoTask::STATUS_CLOSED;
+            echo CJSON::encode(array('status' => $task->save()));
+        }
+        else
+            echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionPublish()
+    {
+        if (!Yii::app()->user->checkAccess('editor'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $task_id = Yii::app()->request->getPost('id');
+        $task = $this->loadTask($task_id);
+        if ($task->status == SeoTask::STATUS_WRITTEN && $task->type == SeoTask::TYPE_EDITOR) {
+            $task->status = SeoTask::STATUS_CHECKED;
+            echo CJSON::encode(array('status' => $task->save()));
         }
         else
             echo CJSON::encode(array('status' => false));

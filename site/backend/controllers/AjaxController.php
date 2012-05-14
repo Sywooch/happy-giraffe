@@ -4,6 +4,8 @@ class AjaxController extends BController
 {
     public function actionDelete()
     {
+        Yii::import('site.frontend.modules.services.modules.names.models.*');
+
         $modelName = Yii::app()->request->getPost('modelName');
         $modelPk = Yii::app()->request->getPost('modelPk');
 

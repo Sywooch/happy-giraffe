@@ -1,4 +1,6 @@
-<div id="repair-wallpapers">
+<?php
+Yii::app()->clientScript->registerMetaTag('Сколько обоев нужно, чтобы оклеить одну комнату? А две? А если на обоях сложный рисунок? Воспользуйтесь нашим сервисом и узнайте точно, сколько нужно обоев для того, чтобы оклеить ими запланированное помещение', 'description');
+?><div id="repair-wallpapers">
 
     <div class="form">
 

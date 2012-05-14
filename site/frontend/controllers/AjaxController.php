@@ -44,6 +44,8 @@ class AjaxController extends HController
         if (Yii::app()->user->isGuest)
             Yii::app()->end();
         Yii::import('contest.models.*');
+        Yii::import('services.modules.recipeBook.models.*');
+
         $modelName = $_POST['modelName'];
         $objectId = $_POST['objectId'];
         $social_key = $_POST['key'];
@@ -371,6 +373,10 @@ class AjaxController extends HController
     public function actionVote()
     {
         if (Yii::app()->request->isAjaxRequest && !Yii::app()->user->isGuest) {
+            Yii::import('application.modules.services.modules.vaccineCalendar.models.*');
+            Yii::import('application.modules.services.modules.recipeBook.models.*');
+            Yii::import('application.modules.services.modules.hospitalBag.models.*');
+
             $object_id = $_POST['object_id'];
             $vote = $_POST['vote'];
             $model = $_POST['model']::model()->findByPk($object_id);

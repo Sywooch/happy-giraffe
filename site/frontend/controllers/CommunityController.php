@@ -25,7 +25,7 @@ class CommunityController extends HController
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map', 'rewrite', 'postRewrite'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map', 'rewrite', 'postRewrite', 'stats'),
                 'users'=>array('*'),
             ),
             array('allow',
@@ -67,7 +67,7 @@ class CommunityController extends HController
         );
         $communities = Community::model()->public()->findAll();
 
-        $top5 = Rating::model()->findTopWithEntity('CommunityContent', 5);
+        $top5 = Rating::model()->findTopWithEntity(CommunityContent::model()->full(), 5);
         $this->render('index', array(
             'communities' => $communities,
             'categories' => $categories,
@@ -134,7 +134,11 @@ class CommunityController extends HController
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
 
-        header('Last-Modified: ' . date('r', strtotime($content->updated)));
+        if ($community_id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: " . $content->url);
+            Yii::app()->end();
+        }
 
         if ($content->isFromBlog) {
             $this->layout = '//layouts/user_blog';
@@ -704,5 +708,21 @@ class CommunityController extends HController
                 'dp' => $dp,
             ));
         }
+    }
+
+    public function actionStats()
+    {
+        $dp = new CActiveDataProvider('Community', array(
+            'criteria' => array(
+                'order' => 't.id ASC',
+            ),
+            'pagination' => array(
+                'pageSize' => 50,
+            ),
+        ));
+
+        $this->render('stats', array(
+            'dp' => $dp,
+        ));
     }
 }

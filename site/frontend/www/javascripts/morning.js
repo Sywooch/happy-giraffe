@@ -35,6 +35,27 @@ var Morniing = {
             context:el
         });
     },
+    savePos:function (el) {
+        var pos = $(el).prev().val();
+        $.ajax({
+            url:'/morning/updatePos/',
+            data:{
+                id:model_id,
+                pos:pos
+            },
+            type:'POST',
+            dataType:'JSON',
+            success:function (response) {
+                if (response.status) {
+                    $(el).parent().hide();
+                    $(el).parent().prev().text(pos).show();
+                    $(el).parent().next().show();
+                    $(el).parents('div.pos').next().show();
+                }
+            },
+            context:el
+        });
+    },
     removePhoto:function (el) {
         $.ajax({
             url:'/morning/removePhoto/',

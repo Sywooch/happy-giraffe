@@ -33,7 +33,8 @@ class SiteCommand extends CConsoleCommand
             mail(
                 implode(', ', $this->recipients),
                 'Ошибка на сайте happy-giraffe.ru',
-                'robots.txt или sitemap.xml недоступен или имеет неправильный формат.'
+                'robots.txt - ' . $robotsResult . "\n" .
+                'sitemap.xml - ' . $sitemapResult . "\n"
             );
         }
     }

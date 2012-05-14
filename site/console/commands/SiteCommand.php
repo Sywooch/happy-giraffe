@@ -30,8 +30,8 @@ class SiteCommand extends CConsoleCommand
         $sitemapResult = simplexml_load_string($response) !== FALSE;
 
         $output =
-            'robots.txt - ' . $robotsResult ? 'OK' : 'BROKEN' . "\n" .
-                'sitemap.xml - ' . $sitemapResult ? 'OK' : 'BROKEN' . "\n"
+            'robots.txt - ' . ($robotsResult ? 'OK' : 'BROKEN') . "\n" .
+                'sitemap.xml - ' . ($sitemapResult ? 'OK' : 'BROKEN') . "\n"
         ;
 
         if (!($robotsResult && $sitemapResult)) {

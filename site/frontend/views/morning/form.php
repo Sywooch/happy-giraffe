@@ -23,11 +23,12 @@
     </div>
     <br>
 
+    <div class="inner-title">Позиция</div>
     <div class="pos clearfix">
-        <div class="text"><?=$post->pos ?></div>
+        <div class="text"><?=$post->photoPost->position ?></div>
         <div class="input" style="display:none;">
-            <input type="text" value="<?=$post->pos ?>">
-            <button class="btn btn-green-small" onclick="Morniing.saveField(this, 'position');"><span><span>Ok</span></span>
+            <input type="text" value="<?=$post->photoPost->position ?>">
+            <button class="btn btn-green-small" onclick="Morniing.savePos(this);"><span><span>Ok</span></span>
             </button>
         </div>
         <a href="javascript:void(0);" onclick="Morniing.editField(this)" class="edit"><span class="tip">Редактировать позицию</span></a>

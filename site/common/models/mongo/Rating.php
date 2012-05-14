@@ -150,29 +150,30 @@ class Rating extends EMongoDocument
 
     public function findTopWithEntity($entity, $limit)
     {
-        $models = array();
-        $criteria = new EMongoCriteria;
-        $criteria->entity_name('==', 'CommunityContent');
-        $criteria->sort('sum', EMongoCriteria::SORT_DESC);
-
-        $ratings = $this->findAll($criteria);
-
-        $i = 0;
-        foreach($ratings as $rating)
+        if (is_string($entity))
         {
-            if($i == $limit)
-                break;
-
-            $model = call_user_func(array($entity, 'model'));
-            if($entity == 'CommunityContent')
-                $model->full();
-            $m = $model->findByPk($rating->entity_id);
-            if(!$m)
-                continue;
-            array_push($models, $m);
-
-            $i++;
+            $entity_name = $entity;
+            $model = CActiveRecord::model($entity_name);
         }
-        return $models;
+        elseif ($entity instanceof CActiveRecord)
+        {
+            $entity_name = get_class($entity);
+            $model = $entity;
+        }
+
+        $criteria = new EMongoCriteria;
+        $criteria->entity_name('==', $entity_name);
+        $criteria->sort('sum', EMongoCriteria::SORT_DESC);
+        $criteria->limit($limit);
+        $ratings = $this->findAll($criteria);
+        $modelsIds = array();
+        foreach ($ratings as $r) {
+            $modelsIds[] = $r->entity_id;
+        }
+
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('t.id', $modelsIds);
+        $criteria->order = new CDbExpression('FIELD(' . implode(', ', array('t.id') + $modelsIds) . ')');
+        return $model->findAll($criteria);
     }
 }

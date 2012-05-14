@@ -22,6 +22,18 @@
         <a href="javascript:void(0);" onclick="Morniing.editField(this)" class="edit"><span class="tip">Редактировать название</span></a>
     </div>
     <br>
+
+    <div class="inner-title">Позиция</div>
+    <div class="pos clearfix">
+        <div class="text"><?=$post->photoPost->position ?></div>
+        <div class="input" style="display:none;">
+            <input type="text" value="<?=$post->photoPost->position ?>">
+            <button class="btn btn-green-small" onclick="Morniing.savePos(this);"><span><span>Ok</span></span>
+            </button>
+        </div>
+        <a href="javascript:void(0);" onclick="Morniing.editField(this)" class="edit"><span class="tip">Редактировать позицию</span></a>
+    </div>
+
     <div<?php if (empty($post->title)) echo ' style="display:none;"' ?>>
 
         <div class="inner-title">Превью</div>

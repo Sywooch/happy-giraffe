@@ -14,6 +14,7 @@ Yii::app()->clientScript
     'columns' => array(
         'id',
         'name',
+        'data',
         'yandexPopularity.value',
         array(
             'name'=>'btns',

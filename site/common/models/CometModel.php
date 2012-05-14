@@ -17,6 +17,8 @@ class CometModel extends CComponent
     const TYPE_UPDATE_FRIEND_NOTIFICATIONS = 101;
     const TYPE_INVITES_PLUS_ONE = 102;
 
+    const SEO_TASK_TAKEN = 200;
+
     public $attributes = array();
     public $type;
 
@@ -36,5 +38,17 @@ class CometModel extends CComponent
         $channel_id = UserCache::GetUserCache($user_id);
         $this->attributes['type'] = $this->type;
         Yii::app()->comet->send($channel_id, $this->attributes);
+    }
+
+    public function sendToSeoUsers()
+    {
+        $user_ids = Yii::app()->db_seo->createCommand()
+            ->select('userid')
+            ->from('auth__assignments')
+            ->where('itemname = "moderator" OR itemname = "editor"')
+            ->queryColumn();
+        foreach ($user_ids as $user_id){
+            $this->send($user_id);
+        }
     }
 }

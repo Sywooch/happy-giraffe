@@ -43,7 +43,7 @@ class SiteController extends HController
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
-            $item->title = $c->name;
+            $item->title = $c->title;
             $item->link = $c->url;
             $item->date = $c->created;
             $item->description = $c->preview;
@@ -121,7 +121,7 @@ class SiteController extends HController
 	    		echo $error['message'];
 	    	else
             {
-                if(file_exists(Yii::getPathOfAlias('application.www.themes.happy_giraffe.views.system.' . $error['code']) . '.php'))
+                if(file_exists(Yii::getPathOfAlias('application.views.system.' . $error['code']) . '.php'))
                 {
                     $this->layout = '//system/layout';
                     Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/common.css');

@@ -4,6 +4,7 @@
 	'id'=>'user-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+    'ajaxUpdate'=>false,
 	'columns'=>array(
 		'id',
 		'email',

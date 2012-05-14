@@ -6,6 +6,7 @@
 
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.control.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile('/javascripts/cloud-zoom.1.0.2.min.js'); ?>
 <?php
 Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#product-thumbs').jcarousel();
     $('#product .img-thumbs .prev').jcarouselControl({target: '-=1',carousel: slider1});
@@ -22,7 +23,7 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
         <div class="description-img">
 
             <div class="img-in">
-                <?php echo CHtml::link(CHtml::image($model->main_image->photo->getPreviewUrl(329, 355, Image::WIDTH), $model->product_title), $model->main_image->photo->originalUrl, array(
+                <?php echo CHtml::link(CHtml::image($model->main_image->photo->getPreviewUrl(300, 300, Image::WIDTH, true), $model->product_title), $model->main_image->photo->originalUrl, array(
                     'class' => 'cloud-zoom',
                     'id' => 'zoom1',
                     'rel' => 'adjustX: 40, adjustY:-4',
@@ -37,7 +38,7 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
                             <li>
                                 <?php echo CHtml::link(CHtml::image($i->photo->getPreviewUrl(76, 79, Image::WIDTH), $model->product_title), $i->photo->originalUrl, array(
                                     'class' => 'cloud-zoom-gallery',
-                                    'rel' => 'useZoom: "zoom1", smallImage: "' . $i->photo->getPreviewUrl(329, 355, Image::WIDTH) . '"',
+                                    'rel' => 'useZoom: "zoom1", smallImage: "' . $i->photo->getPreviewUrl(300, 300, Image::WIDTH, true) . '"',
                                 )); ?>
                             </li>
                         <?php endforeach; ?>
@@ -47,7 +48,16 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
                 <a href="javascript:void(0);" class="next"></a>
 
             </div>
-
+            <?php
+            if(!Yii::app()->user->isGuest)
+            {
+                $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                    'model' => $model,
+                ));
+                $fileAttach->button();
+                $this->endWidget();
+            }
+            ?>
             <div class="color-list">
                 <span>Цвет:</span>
                 <ul>

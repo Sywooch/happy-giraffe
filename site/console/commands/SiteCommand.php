@@ -29,13 +29,15 @@ class SiteCommand extends CConsoleCommand
         $response = curl_exec($ch);
         $sitemapResult = simplexml_load_string($response) !== FALSE;
 
+        $output =
+            'robots.txt - ' . $robotsResult ? 'OK' : 'BROKEN' . "\n" .
+                'sitemap.xml - ' . $sitemapResult ? 'OK' : 'BROKEN' . "\n"
+        ;
+
         if (!($robotsResult && $sitemapResult)) {
-            mail(
-                implode(', ', $this->recipients),
-                'Ошибка на сайте happy-giraffe.ru',
-                'robots.txt - ' . (string) $robotsResult . "\n" .
-                'sitemap.xml - ' . (string) $sitemapResult . "\n"
-            );
+            mail(implode(', ', $this->recipients), 'Ошибка на сайте happy-giraffe.ru', $output);
         }
+
+        echo $output;
     }
 }

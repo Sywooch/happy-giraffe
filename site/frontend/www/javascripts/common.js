@@ -323,7 +323,7 @@ Comet.prototype.liveContents = function(result, id) {
         '/ajax/contentsLive/',
         {id: result.newId},
         function (response) {
-            var contentObj = reponse;
+            var contentObj = response;
             $('li', contentObj).attr('style', 'display: none;');
             alert(contentObj.outerHTML);
             $('#contents_live').prepend(response);

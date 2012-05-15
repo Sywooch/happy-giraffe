@@ -47,7 +47,7 @@ class KeyStats extends HActiveRecord
      */
     public function tableName()
     {
-        return 'key_stats';
+        return 'happy_giraffe_seo.baby_stats__key_stats';
     }
 
     public function getDbConnection()

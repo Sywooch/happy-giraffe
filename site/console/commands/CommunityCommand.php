@@ -8,6 +8,31 @@
  */
 class CommunityCommand extends CConsoleCommand
 {
+    public function actionUpdateViews()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.Rating');
+
+        $ratings = Rating::model()->findAll(array(
+            'conditions' => array(
+                'entity_name' => array(
+                    'in' => array(
+                        'CommunityContent',
+                        'BlogContent',
+                    ),
+                ),
+            ),
+        ));
+
+        foreach ($ratings as $r) {
+            $model = CActiveRecord::model($r->entity_name)->findByPk($r->entity_id);
+            if ($model !== null) {
+                $model->rate = $r->sum;
+                $model->save(false);
+            }
+        }
+    }
+
     public function actionCutConvert()
     {
         Yii::import('site.frontend.extensions.ESaveRelatedBehavior');

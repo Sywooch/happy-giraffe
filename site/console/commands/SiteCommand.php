@@ -29,12 +29,15 @@ class SiteCommand extends CConsoleCommand
         $response = curl_exec($ch);
         $sitemapResult = simplexml_load_string($response) !== FALSE;
 
+        $output =
+            'robots.txt - ' . ($robotsResult ? 'OK' : 'BROKEN') . "\n" .
+                'sitemap.xml - ' . ($sitemapResult ? 'OK' : 'BROKEN') . "\n"
+        ;
+
         if (!($robotsResult && $sitemapResult)) {
-            mail(
-                implode(', ', $this->recipients),
-                'Ошибка на сайте happy-giraffe.ru',
-                'robots.txt или sitemap.xml недоступен или имеет неправильный формат.'
-            );
+            mail(implode(', ', $this->recipients), 'happy-giraffe.ru seo check failure', $output);
         }
+
+        echo $output;
     }
 }

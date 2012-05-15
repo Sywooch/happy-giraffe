@@ -58,7 +58,7 @@ class NamesController extends BController
 
     public function actionCreate()
     {
-        $name = new Name;
+        $name = new Name('edit');
 
         if (!empty($_POST['title'])) {
             $name->name = $_POST['title'];

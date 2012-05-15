@@ -12,7 +12,9 @@ class VideoWidget extends CWidget
     public function run()
     {
         $videoIds = Favourites::getIdList(Favourites::BLOCK_VIDEO, 1);
-        $video = CommunityContent::model()->findByPk($videoIds[0]);
-        $this->render('VideoWidget', compact('video'));
+        if (! empty($videoIds)) {
+            $video = CommunityContent::model()->findByPk($videoIds[0]);
+            $this->render('VideoWidget', compact('video'));
+        }
     }
 }

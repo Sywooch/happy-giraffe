@@ -450,4 +450,20 @@ class AjaxController extends HController
             echo CJSON::encode(array('status' => $success));
         }
     }
+
+    public function actionWantToChat()
+    {
+        if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)) {
+            $model = new WantToChat;
+            $model->user_id = (int) Yii::app()->user->id;
+            $model->created = time();
+            echo $model->save();
+        }
+    }
+
+    public function actionContentsLive($id)
+    {
+        $model = CommunityContent::model()->findByPk($id);
+        $this->renderPartial('application.widgets.activity.views._live_entry', array('data' => $model));
+    }
 }

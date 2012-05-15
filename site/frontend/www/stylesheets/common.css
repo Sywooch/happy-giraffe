@@ -2385,6 +2385,7 @@ label {
 .admin-buttons a.green:hover,.admin-buttons a.green.active {background:#6bc545;border-color:#6bc545;}
 .admin-buttons a.yellow:hover,.admin-buttons a.yellow.active {background:#f8cb30;border-color:#f8cb30;}
 .admin-buttons a.blue:hover,.admin-buttons a.blue.active {background:#5488d0;border-color:#5488d0;}
+.admin-buttons a.lilac:hover,.admin-buttons a.lilac.active {background:#b666d2;border-color:#b666d2;}
 .admin-buttons a .tip {font-size:11px;line-height:normal;bottom:100%;left:100%;display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;top:auto !important;margin:0 0 2px 0;}
 .admin-buttons a:hover .tip {display:block;}
 .admin-buttons a .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}

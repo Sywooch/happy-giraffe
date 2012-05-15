@@ -12,6 +12,7 @@
  * @property string $lat
  * @property string $long
  * @property string $zoom
+ * @property integer $position
  *
  * The followings are the available model relations:
  * @property CommunityContent $content
@@ -112,6 +113,22 @@ class CommunityPhotoPost extends HActiveRecord
             'pagination' => array('pageSize' => 20),
 		));
 	}
+
+    public function beforeSave()
+    {
+        if ($this->isNewRecord){
+            //calculate next position
+            $today_contents = CommunityContent::model()->with('photoPost')->findAll('created > "'.date("Y-m-d").' 00:00:00" AND type_id = 4');
+            $pos = 0;
+            foreach($today_contents as $today_content){
+                if (isset($today_content->photoPost) && $today_content->photoPost->position > $pos)
+                    $pos = $today_content->photoPost->position;
+            }
+            $this->position = $pos + 1;
+        }
+
+        return parent::beforeSave();
+    }
 
     public function getPhotoUrl($num)
     {

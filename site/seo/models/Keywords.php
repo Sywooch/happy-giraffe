@@ -8,7 +8,7 @@
  * @property string $name
  *
  * The followings are the available model relations:
- * @property Stats[] $seoStats
+ * @property KeyStats[] $seoStats
  * @property KeywordGroup[] $keywordGroups
  * @property YandexPopularity $yandexPopularity
  */
@@ -61,7 +61,7 @@ class Keywords extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'seoStats' => array(self::HAS_MANY, 'Stats', 'keyword_id'),
+            'seoStats' => array(self::HAS_MANY, 'KeyStats', 'keyword_id'),
             'keywordGroups' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'yandexPopularity' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeywords', 'keyword_id'),
@@ -186,5 +186,15 @@ class Keywords extends HActiveRecord
         if ($this->used()) return 'used';
         elseif ($this->hasOpenedTask()) return 'active';
         return 'default';
+    }
+
+    public function getData()
+    {
+        $res = '';
+        if (!empty($this->seoStats))
+            foreach ($this->seoStats as $seoStat)
+                $res .= $seoStat->sum . ', ';
+
+        return $res;
     }
 }

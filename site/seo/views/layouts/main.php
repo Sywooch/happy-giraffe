@@ -41,6 +41,11 @@
             <li><a href="<?php echo $this->createUrl('site/logout') ?>">Выйти</a></li>
         </ul>
     </div>
+    <div>
+        <?php if (Yii::app()->user->checkAccess('editor')):?>
+        <a href="/task/index/">Выбор кейвордов</a> <a href="/task/tasks/">Задания копирайт</a> <a href="/task/rewriteTasks/">Задания рерайт</a>
+        <?php endif ?>
+    </div>
     <br><br><br>
     <?php echo $content; ?>
 

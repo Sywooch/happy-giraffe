@@ -7,6 +7,7 @@ class MorningController extends HController
 {
     public $layout = '//morning/layout';
     public $time = null;
+    public $last_time = null;
 
     public function filters()
     {
@@ -40,15 +41,27 @@ class MorningController extends HController
         }
         else
             $empty_param = false;
+        $this->last_time = strtotime(date("Y-m-d") . ' 00:00:00');
 
         if (strtotime($date) == strtotime(date("Y-m-d")))
             $this->pageTitle = 'Утро с Весёлым жирафом';
         else
             $this->pageTitle = 'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", $date) . ' с Весёлым жирафом';
 
-        $this->time = strtotime($date . ' 00:00:00');
+        //check if no articles today
         $criteria = new CDbCriteria;
-        $criteria->order = 'title DESC';
+        $criteria->condition = 'type_id=4 AND created >= "' . date("Y-m-d")  . ' 00:00:00" ';
+        if (!Yii::app()->user->checkAccess('editMorning'))
+            $criteria->condition .= ' AND is_published = 1';
+        $count = CommunityContent::model()->with('photoPost')->count($criteria);
+        if ($count == 0){
+            $this->last_time = strtotime(' - 1 day', $this->last_time);
+        }
+
+        $this->time = strtotime($date . ' 00:00:00');
+
+        $criteria = new CDbCriteria;
+        $criteria->order = 'photoPost.position ASC';
         $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
         if (!Yii::app()->user->checkAccess('editMorning'))
             $cond .= ' AND is_published = 1';
@@ -56,8 +69,8 @@ class MorningController extends HController
         $criteria->condition = $cond;
         $count = CommunityContent::model()->with('photoPost')->count($criteria);
         if ($count == 0) {
-            $this->time = strtotime(' - 1 day', strtotime($date . ' 00:00:00'));
-
+            $date = date("Y-m-d", $this->last_time);
+            $this->time = $this->last_time;
             $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
             if (!Yii::app()->user->checkAccess('editMorning'))
                 $cond .= ' AND is_published = 1';
@@ -286,5 +299,17 @@ class MorningController extends HController
         $post->photoPost->location = null;
         $post->photoPost->location_image = null;
         $post->photoPost->save();
+    }
+
+    public function actionUpdatePos(){
+        if (!Yii::app()->user->checkAccess('editMorning'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $post = CommunityContent::model()->findByPk(Yii::app()->request->getPost('id'));
+        if ($post === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $post->photoPost->position = Yii::app()->request->getPost('pos');;
+        echo CJSON::encode(array('status' => $post->photoPost->save()));
     }
 }

@@ -67,7 +67,10 @@ class CommunityController extends HController
         );
         $communities = Community::model()->public()->findAll();
 
-        $top5 = Rating::model()->findTopWithEntity(CommunityContent::model()->full(), 5);
+        $top5 = CommunityContent::model()->full()->findAll(array(
+            'limit' => 5,
+            'order' => 'rate DESC',
+        ));
         $this->render('index', array(
             'communities' => $communities,
             'categories' => $categories,

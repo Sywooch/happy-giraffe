@@ -50,11 +50,11 @@ $(function () {
 
     $('.gender-link a').click(function () {
         gender = $(this).attr('rel');
-        url = $(this).attr('href');
 
         $.ajax({
             url:'/services/names/default/index/',
             data:{
+                letter:letter,
                 gender:gender
             },
             type:'GET',

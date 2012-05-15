@@ -88,7 +88,7 @@ class Rating extends EMongoDocument
         $old_sum = $model->sum;
         $model->sum = array_sum($model->ratings);
 
-        if(isset($entity->rate))
+        if (isset($entity->rate) && $entity->rate != $model->sum)
         {
             $entity->rate = $model->sum;
             $entity->save(false);
@@ -146,34 +146,5 @@ class Rating extends EMongoDocument
             default : $count = 0;
         }
         Rating::model()->saveByEntity($entity, $social_key, $count);
-    }
-
-    public function findTopWithEntity($entity, $limit)
-    {
-        if (is_string($entity))
-        {
-            $entity_name = $entity;
-            $model = CActiveRecord::model($entity_name);
-        }
-        elseif ($entity instanceof CActiveRecord)
-        {
-            $entity_name = get_class($entity);
-            $model = $entity;
-        }
-
-        $criteria = new EMongoCriteria;
-        $criteria->entity_name('==', $entity_name);
-        $criteria->sort('sum', EMongoCriteria::SORT_DESC);
-        $criteria->limit($limit);
-        $ratings = $this->findAll($criteria);
-        $modelsIds = array();
-        foreach ($ratings as $r) {
-            $modelsIds[] = $r->entity_id;
-        }
-
-        $criteria = new CDbCriteria;
-        $criteria->addInCondition('t.id', $modelsIds);
-        $criteria->order = new CDbExpression('FIELD(' . implode(', ', array('t.id') + $modelsIds) . ')');
-        return $model->findAll($criteria);
     }
 }

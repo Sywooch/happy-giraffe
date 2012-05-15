@@ -87,7 +87,8 @@ class SiteController extends BController
     }
 
     public function actionStat(){
-        Yii::import('site.frontend.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.services.modules.names.models.*');
 
         $this->render('stat');
     }

@@ -105,5 +105,9 @@ var SeoModule = {
     },
     reloadTask:function(id){
 
+    },
+    hideUsed:function(el){
+        $.post('/task/hideUsed/', {checked:$(el).attr('checked')}, function (response) {
+        }, 'json');
     }
 }

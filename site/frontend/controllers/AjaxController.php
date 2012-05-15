@@ -173,6 +173,7 @@ class AjaxController extends HController
 
     public function actionSendComment()
     {
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
         if(isset($_POST['CommentProduct']))
             $model = 'CommentProduct';
         elseif(isset($_POST['Comment']))

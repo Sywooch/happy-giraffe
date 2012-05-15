@@ -11,6 +11,10 @@
     $cs = Yii::app()->clientScript;
 
     $cs
+        ->registerScriptFile('/javascripts/comet.js')
+        ->registerScriptFile('/javascripts/dklab_realplexor.js')
+        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
+
         ->registerCssFile('/stylesheets/global.css?r=349')
         ->registerCssFile('/stylesheets/common.css?r=349')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
@@ -28,13 +32,10 @@
     if (! Yii::app()->user->isGuest) {
         $cs
             ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
-            ->registerScriptFile('/javascripts/comet.js')
             ->registerScriptFile('/javascripts/im.js')
             ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
             ->registerScriptFile('/javascripts/user_common.js')
             ->registerCssFile('/stylesheets/user_common.css')
-            ->registerScriptFile('/javascripts/dklab_realplexor.js')
-            ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
         ;
     }
 

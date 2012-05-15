@@ -1,3 +1,8 @@
 <?php
-    $this->widget('TopFive');
-    $this->widget('Popular');
+    $this->widget('TopFiveWidget');
+    $this->widget('PopularWidget');
+    $this->widget('RandomPhotosWidget');
+    $this->widget('VideoWidget');
+    $this->widget('FriendsWidget');
+    $this->widget('WantToChatWidget');
+    $this->widget('LiveWidget');

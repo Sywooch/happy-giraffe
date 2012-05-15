@@ -1,9 +1,13 @@
 <?php
 /**
+ * 5 самых-самых
+ *
+ * Самые активные авторы и комментаторы за всё время.
+ *
  * Author: choo
  * Date: 13.05.2012
  */
-class TopFive extends CWidget
+class TopFiveWidget extends CWidget
 {
     public function run()
     {
@@ -24,7 +28,7 @@ class TopFive extends CWidget
             'condition' => 't.id != 1',
         ));
 
-        $this->render('TopFive', compact('topAuthors', 'topCommentators'));
+        $this->render('TopFiveWidget', compact('topAuthors', 'topCommentators'));
     }
 }
 

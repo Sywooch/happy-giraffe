@@ -468,7 +468,7 @@ class DefaultController extends HController
         if (!Yii::app()->user->checkAccess('administrator'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $models = Name::model()->findAll('slug = NULL OR slug = ""');
+        $models = Name::model()->findAll('slug IS NULL OR slug = ""');
         echo count($models);
         foreach($models as $model){
             $model->scenario = 'edit';

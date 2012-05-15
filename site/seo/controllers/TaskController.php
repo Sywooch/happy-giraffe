@@ -19,6 +19,16 @@ class TaskController extends SController
         ));
     }
 
+    public function actionHideUsed()
+    {
+        $checked = Yii::app()->request->getPost('checked');
+        if (!empty($checked)){
+            Yii::app()->user->setState('hide_used', 1);
+        }
+        else
+            Yii::app()->user->setState('hide_used', 0);
+    }
+
     public function actionTasks()
     {
         $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status < 5 AND rewrite = 0');
@@ -161,7 +171,6 @@ class TaskController extends SController
         $article_keywords->entity_id = $article->id;
 
         $group = new KeywordGroup();
-        $keywords = array();
 
         foreach ($keywords as $keyword) {
             $keyword = trim($keyword);

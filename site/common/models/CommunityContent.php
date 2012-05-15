@@ -289,7 +289,7 @@ class CommunityContent extends HActiveRecord
         if ($this->isNewRecord) {
             $comet = new CometModel;
             $comet->type = CometModel::CONTENTS_LIVE;
-            $comet->send('guest', array('id' => $this->id));
+            $comet->send('guest');
         }
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();

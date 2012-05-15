@@ -15,6 +15,7 @@
  * @property string $unknown_result_image
  * @property string $unknown_result_text
  * @property string $type
+ * @property string $meta_description
  *
  * The followings are the available model relations:
  * @property TestQuestion[] $testQuestions

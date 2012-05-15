@@ -32,8 +32,6 @@ class Name extends HActiveRecord
     const GENDER_MAN = 1;
     const GENDER_WOMAN = 2;
 
-    const SCENARIO_EDIT_NAME = 1;
-
     /**
      * Returns the static model of the specified AR class.
      * @return Name the static model class
@@ -65,7 +63,7 @@ class Name extends HActiveRecord
             array('translate', 'length', 'max' => 512),
             array('origin, saints', 'length', 'max' => 2048),
             array('description', 'safe'),
-            array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'name', 'on' => self::SCENARIO_EDIT_NAME),
+            array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'name', 'on' => 'edit'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, gender, translate, description, saints, origin, likes', 'safe', 'on' => 'search'),
@@ -148,6 +146,15 @@ class Name extends HActiveRecord
                 'condition'=>' description IS NOT NULL '
             )
         );
+    }
+
+    public function afterSave()
+    {
+        if ($this->isNewRecord){
+            //transliterate name
+
+        }
+        parent::afterSave();
     }
 
     public function GetShort($attribute){

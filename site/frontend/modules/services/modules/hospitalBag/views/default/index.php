@@ -8,6 +8,8 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 		->registerCoreScript('jquery.ui')
         ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
         ->registerMetaTag('noindex', 'robots');
+
+Yii::app()->clientScript->registerMetaTag('У вас собрана сумка в роддом? Нет? Начните прямо сейчас! Воспользуйтесь нашим сервисом и узнайте, что действительно необходимо взять с собой в родильное отделение, а без чего можно вполне обойтись', 'description');
 ?>
 <div class="section-banner" style="margin:0;">
 	<img src="/images/section_banner_07.jpg" />

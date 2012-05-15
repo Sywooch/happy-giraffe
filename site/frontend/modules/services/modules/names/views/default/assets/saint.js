@@ -3,6 +3,7 @@
  * Date: 25.04.12
  */
 var gender;
+var month;
 
 $(function () {
     $('ul.letters a').click(function () {

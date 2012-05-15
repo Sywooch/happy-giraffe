@@ -23,10 +23,19 @@ var SeoModule = {
     getId:function (el) {
         return el.attr("id").replace(/[a-zA-Z]*-/ig, "");
     },
-    addGroup:function (type, author_id) {
+    addGroup:function (type, author_id, rewrite) {
+        var urls = new Array();
+        if (rewrite == 1){
+            $('.urls input').each(function(index, val){
+                if ($(this).val() != '')
+                    urls.push($(this).val());
+            });
+        }
         $.post('/task/addGroupTask/', {id:this.group,
             type:type,
-            author_id:author_id
+            author_id:author_id,
+            urls:urls,
+            rewrite:rewrite
         }, function (response) {
             if (response.status) {
                 $('.keyword_group').html('');
@@ -74,6 +83,31 @@ var SeoModule = {
             if (response.status) {
                 document.location.reload();
             }
+        }, 'json');
+    },
+    CloseTask:function(id){
+        $.post('/task/close/', {id:id}, function (response) {
+            if (response.status) {
+                $('#task-'.id).remove();
+                SeoModule.reloadHistory();
+            }
+        }, 'json');
+    },
+    ToPublishing:function(id){
+        $.post('/task/publish/', {id:id}, function (response) {
+            if (response.status) {
+                SeoModule.reloadTask(id);
+            }
+        }, 'json');
+    },
+    reloadHistory:function(){
+
+    },
+    reloadTask:function(id){
+
+    },
+    hideUsed:function(el){
+        $.post('/task/hideUsed/', {checked:$(el).attr('checked')}, function (response) {
         }, 'json');
     }
 }

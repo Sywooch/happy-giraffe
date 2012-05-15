@@ -46,5 +46,21 @@ var NameModule = {
         $('.gender-link a').removeClass('active');
         $(el).addClass('active');
         return false;
+    },
+    showAllSaints:function(el){
+        $('ul.calendar li').show();
+        $(el).parent().hide();
+        $('#calendar-link2').show();
+    },
+    showFirstSaints:function(el){
+        //$('ul.calendar li a.calendar-link').show();
+        $('#calendar-link2').hide();
+
+        $('ul.calendar li').each(function(index, elem){
+            if (index > 5)
+                $(this).hide();
+            else
+                $(this).show();
+        });
     }
 }

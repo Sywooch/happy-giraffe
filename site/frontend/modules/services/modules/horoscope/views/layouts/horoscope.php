@@ -1,13 +1,6 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
-    <?php /*$this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => $this->breadcrumbs,
-        'separator' => ' &gt; ',
-        'htmlOptions' => array(
-            'id' => 'crumbs',
-            'class' => null,
-        ),
-    ));*/ ?>
+    <?php Yii::app()->clientScript->registerMetaTag('Хотите ежедневно читать бесплатный личный гороскоп? Воспользуйтесь нашим сервисом и читайте гороскоп на сегодня, на завтра, на месяц и на год. Кроме того, вы можете прочитать и гороскоп на вчера, чтобы уточнить детали прошедшего дня', 'description'); ?>
 
     <div class="main">
         <div class="main-in">

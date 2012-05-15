@@ -11,12 +11,18 @@
     <div class="keyword_group">
 
     </div>
+    <div class="urls">
+        <input type="text" size="50">
+        <input type="text" size="50">
+        <input type="text" size="50">
+        <input type="text" size="50">
+        <input type="text" size="50">
+    </div>
 
     <div class="add-group">
-        <a href="javascript:void(0);" onclick="return SeoModule.addGroup(1, '');return false;">Moder task</a><br>
         <?php foreach (Yii::app()->user->getModel()->authors as $author): ?>
             <?php if (Yii::app()->authManager->checkAccess('author', $author->id)):?>
-                <a href="javascript:void(0);" onclick="return SeoModule.addGroup(2, <?php echo $author->id ?>);return false;">Journalist task (<?=$author->name ?>)</a>
+                <a href="javascript:void(0);" onclick="return SeoModule.addGroup(2, <?php echo $author->id ?>, 1);return false;">Journalist task (<?=$author->name ?>)</a>
             <br>
             <?php endif ?>
         <?php endforeach; ?>
@@ -25,7 +31,16 @@
 </div>
 
 <div class="tasks">
-    <?php $this->renderPartial('_tasks'); ?>
+    <?php $this->renderPartial('_tasks', compact('tasks')); ?>
+</div>
+<br><br>
+<div class="history">
+    <?php foreach ($success_tasks as $success_task): ?>
+        <div>
+            <?=$success_task->getText() ?>
+        </div>
+    <?php endforeach; ?>
+
 </div>
 
 

@@ -319,5 +319,11 @@ function initScrolledContent() {
 comet.addEvent(300, 'liveContents');
 
 Comet.prototype.liveContents = function(result, id) {
-    alert('ЕБА ТУТ ЗАПИСЬ ПРИШЛА');
+    $.get(
+        '/ajax/contentsLive/',
+        {id: result.newId},
+        function (response) {
+            $('#contents_live').prepend(response);
+        }
+    )
 }

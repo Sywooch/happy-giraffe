@@ -23,18 +23,19 @@
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/common.js')
+
+        ->registerScriptFile('/javascripts/comet.js')
+        ->registerScriptFile('/javascripts/dklab_realplexor.js')
+        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
     ;
 
     if (! Yii::app()->user->isGuest) {
         $cs
             ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
-            ->registerScriptFile('/javascripts/comet.js')
             ->registerScriptFile('/javascripts/im.js')
             ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
             ->registerScriptFile('/javascripts/user_common.js')
             ->registerCssFile('/stylesheets/user_common.css')
-            ->registerScriptFile('/javascripts/dklab_realplexor.js')
-            ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
         ;
     }
 

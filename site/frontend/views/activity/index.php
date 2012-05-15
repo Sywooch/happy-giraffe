@@ -5,3 +5,4 @@
     $this->widget('VideoWidget');
     $this->widget('FriendsWidget');
     $this->widget('WantToChatWidget');
+    $this->widget('LiveWidget');

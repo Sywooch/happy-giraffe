@@ -286,6 +286,11 @@ class CommunityContent extends HActiveRecord
 
     public function afterSave()
     {
+        if ($this->isNewRecord) {
+            $comet = new CometModel;
+            $comet->type = CometModel::CONTENTS_LIVE;
+            $comet->send('guest', array('id' => $this->id));
+        }
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();
         if ($this->contentAuthor->isNewComer() && $this->isNewRecord) {

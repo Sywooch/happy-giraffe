@@ -11,6 +11,10 @@
     $cs = Yii::app()->clientScript;
 
     $cs
+        ->registerScriptFile('/javascripts/comet.js')
+        ->registerScriptFile('/javascripts/dklab_realplexor.js')
+        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
+
         ->registerCssFile('/stylesheets/global.css?r=349')
         ->registerCssFile('/stylesheets/common.css?r=349')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
@@ -23,10 +27,6 @@
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/common.js')
-
-        ->registerScriptFile('/javascripts/comet.js')
-        ->registerScriptFile('/javascripts/dklab_realplexor.js')
-        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
     ;
 
     if (! Yii::app()->user->isGuest) {

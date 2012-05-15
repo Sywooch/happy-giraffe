@@ -19,6 +19,8 @@ class CometModel extends CComponent
 
     const SEO_TASK_TAKEN = 200;
 
+    const CONTENTS_LIVE = 300;
+
     public $attributes = array();
     public $type;
 
@@ -29,13 +31,13 @@ class CometModel extends CComponent
      * @param array $attributes
      * @param int $type signal type constant from CometModel
      */
-    public function send($user_id, $attributes = null, $type = null){
+    public function send($receiver, $attributes = null, $type = null){
         if ($attributes !== null)
             $this->attributes = $attributes;
         if ($type !== null)
             $this->type = $type;
 
-        $channel_id = UserCache::GetUserCache($user_id);
+        $channel_id = is_numeric($receiver) ? UserCache::GetUserCache($receiver) : $receiver;
         $this->attributes['type'] = $this->type;
         Yii::app()->comet->send($channel_id, $this->attributes);
     }

@@ -2168,18 +2168,28 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .content-cols .col-2 {width:460px;}
 #activity .content-cols .col-3 {width:220px;}
 
-#activity .activity-onair .title {padding-left:28px;position:relative;z-index:1;}
-#activity .activity-onair .title img {position:absolute;bottom:0;left:-12px;z-index:-1;}
-#activity .activity-onair ul {list-style:none;line-height:normal;}
-#activity .activity-onair ul li {padding:15px 0;border-top:1px dashed #e6d6f9;}
-#activity .activity-onair ul li:first-child {border-top:0;}
-#activity .activity-onair ul li .date {margin-bottom:5px;color:#a2a2a2;font-size:9px;line-height:1;}
-#activity .activity-onair ul li .user {margin-bottom:5px;}
-#activity .activity-onair ul li .user a {display:inline-block;width:180px;font-family:arial, helvetica, sans-serif;font-weight:normal;vertical-align:top;}
-#activity .activity-onair ul li .user .icon-status {position:relative;top:0px;}
-#activity .activity-onair ul li a {display:block;line-height:14px;font-family:tahoma, arial, sans-serif;font-weight:bold;}
-#activity .activity-onair ul li p {margin-top:5px;font-size:11px;line-height:16px;}
-#activity .activity-onair ul li img {max-width:200px;margin-top:8px;}
+.activity-onair {border:1px solid #f7f0fd;padding:14px 19px;margin-bottom:30px;}
+.activity-onair .title {padding-left:28px;position:relative;z-index:1;font:bold 25px arial, helvetica, sans-serif;color:#454545;margin-left:20px;}
+.activity-onair .title span {font-weight:normal;color:#8a61b3;}
+.activity-onair .title img {position:absolute;bottom:0;left:-12px;z-index:-1;}
+.activity-onair ul {list-style:none;line-height:normal;}
+.activity-onair ul li {padding:15px 0;border-top:1px dashed #e6d6f9;}
+.activity-onair ul li:first-child {border-top:0;}
+.activity-onair ul li .date {margin-bottom:5px;color:#a2a2a2;font-size:9px;line-height:1;}
+.activity-onair ul li .user {margin-bottom:5px;}
+.activity-onair ul li .user a {display:inline-block;width:180px;font-family:arial, helvetica, sans-serif;font-weight:normal;vertical-align:top;}
+.activity-onair ul li .user .icon-status {position:relative;top:0px;}
+.activity-onair ul li a {display:block;line-height:14px;font-family:tahoma, arial, sans-serif;font-weight:bold;}
+.activity-onair ul li p {margin-top:5px;font-size:11px;line-height:16px;}
+.activity-onair ul li img {max-width:200px;margin-top:8px;}
+
+.activity-onair.horizontal .title a {font-size:12px;margin-left:30px;font-weight:normal;}
+.activity-onair.horizontal {padding:14px 0;}
+.activity-onair.horizontal li {float:left;width:200px;border-top:0;padding:15px 19px 0;}
+
+.onair-title {font-weight:bold;font-size:48px;color:#484848;text-align:center;margin-bottom:20px;line-height:1;margin-top:-10px;}
+.onair-title img {position:relative;z-index:-1;margin-right:-25px;top:3px;}
+.onair-title span {font-size:45px;font-weight:normal;color:#9e76c4;}
 
 #activity .activity-wannachat {}
 #activity .activity-wannachat ul {list-style:none;padding-top:10px;}
@@ -2246,17 +2256,29 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-video .preview .v-title:hover span {text-decoration:none;}
 #activity .activity-video .preview .play {display:block;width:103px;height:103px;background:url(/images/activity_play.png) no-repeat;position:absolute;top:50%;left:50%;margin-left:-51px;margin-top:-51px;}
 
-#activity .activity-find-friend {padding:15px 0;}
-#activity .activity-find-friend .title {padding:0px 19px;}
-#activity .activity-find-friend ul {list-style:none;padding-top:15px;}
-#activity .activity-find-friend ul li {border-left:1px dashed #e6d6f9;padding:0 14px;width:200px;float:left;}
-#activity .activity-find-friend ul li:first-child {border-left:0;}
-#activity .activity-find-friend ul li .user-info {}
-#activity .activity-find-friend ul li .user-info .details .username {width:100px;}
-#activity .activity-find-friend ul li .info {font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;line-height:13px;}
-#activity .activity-find-friend ul li .info span {color:#9f9e9e;}
-#activity .activity-find-friend ul li .info p {margin:10px 0;}
-#activity .activity-find-friend ul li .info .interest {margin:10px 7px 0 0;}
+.activity-find-friend {padding:15px 0;}
+.activity-find-friend .title {padding:0px 19px;}
+.activity-find-friend ul {list-style:none;padding-top:15px;}
+.activity-find-friend ul li {border-left:1px dashed #e6d6f9;padding:0 14px;width:200px;float:left;}
+.activity-find-friend ul li:first-child {border-left:0;}
+.activity-find-friend ul li .user-info {}
+.activity-find-friend ul li .user-info .details .username {width:100px;}
+.activity-find-friend ul li .info {font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;line-height:13px;}
+.activity-find-friend ul li .info span {color:#9f9e9e;}
+.activity-find-friend ul li .info p {margin:10px 0;}
+.activity-find-friend ul li .info .interest {margin:10px 7px 0 0;}
+.activity-find-friend ul li .icon-kid-boy {display:inline-block;width:22px;height:21px;background:url(/images/common.png) no-repeat -557px -221px;vertical-align:middle;position:relative;top:-1px;}
+.activity-find-friend ul li .icon-kid-girl {display:inline-block;width:22px;height:21px;background:url(/images/common.png) no-repeat -580px -221px;vertical-align:middle;position:relative;top:-1px;}
+.activity-find-friend ul li .icon-kid-wait {display:inline-block;width:25px;height:22px;background:url(/images/common.png) no-repeat -629px -267px;vertical-align:middle;position:relative;top:-1px;}
+
+#find-friend {}
+#find-friend .title {font-weight:bold;font-size:48px;color:#484848;text-align:center;margin-bottom:20px;line-height:1;}
+#find-friend .title > span {font-size:45px;font-weight:normal;color:#9e76c4;}
+#find-friend .title a {display:inline-block;width:76px;height:78px;background:url(/images/more_friend.png) no-repeat;text-align:center;font-size:13px;font-weight:normal;text-decoration:none;color:#5488d0;vertical-align:middle;margin-left:20px;}
+#find-friend .title a span {border-bottom:1px dashed #5488d0;position:relative;top:28px;}
+#find-friend .title a:hover span {border:0;}
+
+#find-friend ul li {border:0;display:inline-block;vertical-align:top;float:none;margin-bottom:40px;}
 
 #activity .activity-photo {padding:0;}
 #activity .activity-photo .title {padding:9px 19px 15px;}

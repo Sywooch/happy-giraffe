@@ -325,7 +325,7 @@ Comet.prototype.liveContents = function(result, id) {
         function (response) {
             var contentObj = $(response);
             $('li', contentObj).attr('style', 'display: none;');
-            alert($('li', contentObj).outerHTML);
+            alert($('li', contentObj)[0].outerHTML);
             $('#contents_live').prepend(response);
             $('#contents_live li:last').remove();
         }

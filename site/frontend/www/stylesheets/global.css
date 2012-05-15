@@ -3386,6 +3386,19 @@ ul.letters li a:hover {
     display: block;
 }
 
+.name_info_right a.calendar-link{
+    text-decoration: none;
+    border-bottom: 1px dotted #32A5E3;
+    font-weight: normal !important;
+    color: #32A5E3;
+    font-size: 12px;
+    line-height: 1;
+}
+#calendar-link2{
+    margin-left: 10px;
+    padding-top: -5px;
+}
+
 .diagram {
     margin: 35px 0 0 0;
 }

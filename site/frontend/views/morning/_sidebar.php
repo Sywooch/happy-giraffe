@@ -1,5 +1,7 @@
 <?php $time = $this->time;
 $last_time = $this->last_time;
+//echo date("Y-m-d", $this->time).'<br>';
+//echo date<!--("Y-m-d", $this->last_time);-->
 ?>
 <div class="morning-sidebar">
 
@@ -96,13 +98,15 @@ $last_time = $this->last_time;
                         <?php else: ?>
                             <td><?=date("j", strtotime('-5 days', $last_time))?></td>
                         <?php endif ?>
+
                         <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-4 days', $last_time)))):?>
                             <td><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-4 days', $last_time)))) ?>"><?=date("j", strtotime('-4 days', $last_time))?></a></td>
                         <?php else: ?>
                             <td><?=date("j", strtotime('-4 days', $last_time))?></td>
                         <?php endif ?>
+
                         <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-3 days', $last_time)))):?>
-                        <td<?php if (date("j", strtotime('-3 days')) == date("j", $last_time)) echo ' class="active"'
+                            <td<?php if (date("j", strtotime('-3 days', $last_time)) == date("j", $time)) echo ' class="active"'
                             ?>><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-3 days', $last_time)))) ?>"><?=date("j", strtotime('-3 days', $last_time))?></a></td>
                         <?php else: ?>
                             <td><?=date("j", strtotime('-3 days', $last_time))?></td>

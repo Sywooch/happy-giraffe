@@ -2256,7 +2256,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-video .preview .v-title:hover span {text-decoration:none;}
 #activity .activity-video .preview .play {display:block;width:103px;height:103px;background:url(/images/activity_play.png) no-repeat;position:absolute;top:50%;left:50%;margin-left:-51px;margin-top:-51px;}
 
-.activity-find-friend {padding:15px 0;}
+.activity-find-friend {padding:15px 0 !important;}
 .activity-find-friend .title {padding:0px 19px;}
 .activity-find-friend ul {list-style:none;padding-top:15px;}
 .activity-find-friend ul li {border-left:1px dashed #e6d6f9;padding:0 14px;width:200px;float:left;}

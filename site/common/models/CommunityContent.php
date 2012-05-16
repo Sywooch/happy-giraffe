@@ -485,6 +485,7 @@ class CommunityContent extends HActiveRecord
     {
         switch ($this->type_id) {
             case 1:
+                var_dump($this->post);
                 if (preg_match('/src="([^"]+)"/', $this->post->text, $matches)) {
                     return '<img src="' . $matches[1] . '" alt="' . $this->title . '" />';
                 } else {

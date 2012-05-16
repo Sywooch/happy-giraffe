@@ -286,11 +286,6 @@ class CommunityContent extends HActiveRecord
 
     public function afterSave()
     {
-        if ($this->isNewRecord) {
-            $comet = new CometModel;
-            $comet->type = CometModel::CONTENTS_LIVE;
-            $comet->send('guest', array('newId' => $this->id));
-        }
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();
         if ($this->contentAuthor->isNewComer() && $this->isNewRecord) {
@@ -485,14 +480,14 @@ class CommunityContent extends HActiveRecord
     {
         switch ($this->type_id) {
             case 1:
-                if (preg_match('/src="([^"]+)"/', $this->content->text, $matches)) {
+                if (preg_match('/src="([^"]+)"/', $this->post->text, $matches)) {
                     return '<img src="' . $matches[1] . '" alt="' . $this->title . '" />';
                 } else {
-                    return Str::truncate(strip_tags($this->content->text));
+                    return Str::truncate(strip_tags($this->post->text));
                 }
                 break;
             case 2:
-                $video = new Video($this->content->link);
+                $video = new Video($this->video->link);
                 return '<img src="' . $video->preview . '" alt="' . $video->title . '" />';
                 break;
             default:

@@ -54,6 +54,10 @@
                 echo $ingr['ingredient']['row']['title'];
             echo '</td>';
             echo '<td>';
+            if (isset($ingr['qty']))
+                echo $ingr['qty'];
+            echo '</td>';
+            echo '<td>';
             if (isset($ingr['unit']['row']))
                 echo $ingr['unit']['row']['title'];
             echo '</td>';

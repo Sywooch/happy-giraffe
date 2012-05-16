@@ -2,18 +2,20 @@
 
 </style>
 <div>
-    <h4>Keywords</h4>
+    <h4>Добавление кейвордов для существующих статей</h4>
 
-    <input type="text" class="article-url">
-    <a href="#" onclick="SeoModule.GetArticleInfo();return false;">Show</a><br>
+    <p>Url статьи</p>
+    <input type="text" class="article-url" size="100">
     <a href="#" onclick="SeoModule.SaveArticleKeys();return false;">Save</a>
 
 
+    <p>Ключевые слова</p>
     <div class="article-keys">
-        <input type="text" class="key"><br>
-        <input type="text" class="key"><br>
-        <input type="text" class="key"><br>
-        <input type="text" class="key"><br>
+        <input type="text" class="key" size="100"><br>
+        <input type="text" class="key" size="100"><br>
+        <input type="text" class="key" size="100"><br>
+        <input type="text" class="key" size="100"><br>
+        <input type="text" class="key" size="100"><br>
     </div>
 
     <div class="info"></div>

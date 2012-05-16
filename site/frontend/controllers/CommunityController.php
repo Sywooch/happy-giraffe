@@ -288,6 +288,11 @@ class CommunityController extends HController
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
+
+                $comet = new CometModel;
+                $comet->type = CometModel::CONTENTS_LIVE;
+                $comet->send('guest', array('newId' => $model->id));
+
                 $this->redirect($model->url);
             }
         }

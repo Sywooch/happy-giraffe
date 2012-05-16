@@ -476,4 +476,10 @@ class AjaxController extends HController
         }
         $this->renderPartial($view, $data);
     }
+
+    public function actionDuelForm()
+    {
+        $questions = DuelQuestion::getAvailable();
+        $this->renderPartial('duel', compact('questions'));
+    }
 }

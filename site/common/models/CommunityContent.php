@@ -485,15 +485,14 @@ class CommunityContent extends HActiveRecord
     {
         switch ($this->type_id) {
             case 1:
-                var_dump($this->post->text);
-                if (preg_match('/src="([^"]+)"/', $this->post->text, $matches)) {
+                if (preg_match('/src="([^"]+)"/', $this->content->text, $matches)) {
                     return '<img src="' . $matches[1] . '" alt="' . $this->title . '" />';
                 } else {
-                    return Str::truncate(strip_tags($this->post->text));
+                    return Str::truncate(strip_tags($this->content->text));
                 }
                 break;
             case 2:
-                $video = new Video($this->video->link);
+                $video = new Video($this->content->link);
                 return '<img src="' . $video->preview . '" alt="' . $video->title . '" />';
                 break;
             default:

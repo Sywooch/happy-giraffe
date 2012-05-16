@@ -530,7 +530,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-crop table td.preview .img {height:72px;overflow:hidden;width:72px;margin:0 auto 10px;}
 #photoPick .photo-crop table td.preview .img  {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;}
 
-
+#photoPick.smile-photo {width:400px;}
+#photoPick.smile-photo .photo-upload .photo .in {width:230px;height:170px;}
+#photoPick.smile-photo .photo-upload .note {width:150px;padding-right:0;}
 
 #galleryUploadPhotos {width:550px;}
 
@@ -2248,7 +2250,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-popular ul li .meta .views {background:#fdfccc;color:#737575;}
 
 #activity .activity-video {margin-bottom:30px;}
-#activity .activity-video .preview {position:relative;width:460px;height:287px;cursor:pointer;display:block;}
+#activity .activity-video .preview {position:relative;width:460px;cursor:pointer;display:block;}
+#activity .activity-video .preview img {max-width:460px;display:block;}
 #activity .activity-video .preview .title {position:absolute;top:13px;left:0;color:#fff;background:rgba(148, 101, 191, .8);font-size:33px;font-weight:bold;line-height:1;padding:10px 20px;}
 #activity .activity-video .preview .title span {font-size:41px;}
 #activity .activity-video .preview .v-title {position:absolute;bottom:0;left:0;padding:5px 15px;background:rgba(0,0,0,.45);width:430px;display:block;color:#fff;}
@@ -2304,45 +2307,71 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-smile .options .option .value {font-size:18px;position:relative;top:-9px;margin-left:5px;}
 #activity .activity-smile .options .option:hover .value {color:#e85201;}
 
-#activity .activity-duel {}
-#activity .activity-duel .title {font-size:40px;margin-bottom:15px;}
-#activity .activity-duel .title > span {font-size:25px;}
-#activity .activity-duel .title .btn {float:right;margin-top:16px;}
-#activity .activity-duel .question {background:#daeefe;padding:12px 15px;font:italic 18px/20px times new roman, serif;color:#3d3d3d;margin-bottom:25px;position:relative;}
-#activity .activity-duel .question {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
-#activity .activity-duel .question .tale {display:block;width:25px;height:17px;background:url(/images/activity_duel_tale.gif) no-repeat;position:absolute;top:100%;left:0;}
-#activity .activity-duel .question .tale-1 {left:27px;}
-#activity .activity-duel .question .tale-2 {left:251px;}
-#activity .activity-duel .answers {background:url(/images/activity_duel_dash.gif) repeat-y 50%;list-style:none;}
-#activity .activity-duel .answers .answer-1 {width:195px;padding-right:15px;float:left;}
-#activity .activity-duel .answers .answer-2 {width:195px;padding-left:15px;float:left;}
-#activity .activity-duel .answers  .user-info {margin-bottom:10px;}
-#activity .activity-duel .answers  .user-info .details .username {width:95px;}
-#activity .activity-duel .answers  p {font-size:11px;line-height:15px;}
-#activity .activity-duel .answers .vote {padding-top:15px;padding-left:12px;}
-#activity .activity-duel .answers .vote .count {display:inline-block;margin-right:10px;text-align:center;}
-#activity .activity-duel .answers .vote .count .count-in {font:italic 50px/1 times new roman, serif;display:block;}
-#activity .activity-duel .answers .answer-1 .vote .count .count-in {color:#25a44a;}
-#activity .activity-duel .answers .answer-2 .vote .count .count-in {color:#4992d0;}
-#activity .activity-duel .answers .vote .count a {position:relative;text-decoration:none;color:#b9b9b9;border-bottom:1px dashed #b9b9b9;line-height:1;}
-#activity .activity-duel .answers .answer-1 .vote .count a:hover {color:#25a44a;border-color:#25a44a;}
-#activity .activity-duel .answers .answer-2 .vote .count a:hover {color:#4992d0;border-color:#4992d0;}
-#activity .activity-duel .answers .vote .button {display:inline-block;vertical-align:top;}
-#activity .activity-duel .answers .vote .button a {margin-top:10px;display:inline-block;height:22px;line-height:22px;padding:0 12px;color:#fff;background:#c9c9c9;font-weight:bold;text-decoration:none;border:1px solid #d1d1d1;}
-#activity .activity-duel .answers .vote .button a {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
-#activity .activity-duel .answers .vote .button span {margin-top:10px;display:inline-block;height:22px;line-height:22px;padding:0 12px;color:#777;font-weight:bold;}
-#activity .activity-duel .answers .answer-1 .vote .button a {background-image:url(/images/btn_answer_g.gif);border:1px solid #34ac51;}
-#activity .activity-duel .answers .answer-1 .vote .button span {color:#25a44a;}
-#activity .activity-duel .answers .answer-2 .vote .button a {background-image:url(/images/btn_answer_b.gif);border:1px solid #549bd7;}
-#activity .activity-duel .answers .answer-2 .vote .button span {color:#4992d0;}
-#activity .activity-duel .answers .vote .button a.disabled {background-image:url(/images/btn_answer_d.gif);border:1px solid #d1d1d1;}
-#activity .activity-duel .answers .votes {list-style:none;padding-top:20px;}
-#activity .activity-duel .answers .votes li {float:left;padding:5px 12px;}
-#activity .activity-duel .answers .more-votes {text-align:right;padding-top:10px;}
-#activity .activity-duel .answers .more-votes a {text-decoration:none;border-bottom:1px dashed #029AD2;}
-#activity .activity-duel .answers .answer-1 .more-votes a {color:#25a44a;border-color:#25a44a;}
-#activity .activity-duel .answers .answer-2 .more-votes a {color:#4992d0;border-color:#4992d0;}
+.activity-duel {}
+.activity-duel .title {font-size:40px;margin-bottom:15px;}
+.activity-duel .title > span {font-size:25px;}
+.activity-duel .title .btn {float:right;margin-top:16px;}
+.activity-duel .question {background:#daeefe;padding:12px 15px;font:italic 18px/20px times new roman, serif;color:#3d3d3d;margin-bottom:25px;position:relative;}
+.activity-duel .question {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+.activity-duel .question .tale {display:block;width:25px;height:17px;background:url(/images/activity_duel_tale.gif) no-repeat;position:absolute;top:100%;left:0;}
+.activity-duel .question .tale-1 {left:27px;}
+.activity-duel .question .tale-2 {left:251px;}
+.activity-duel .answers {background:url(/images/activity_duel_dash.gif) repeat-y 50%;list-style:none;}
+.activity-duel .answers .answer-1 {width:195px;padding-right:15px;float:left;}
+.activity-duel .answers .answer-2 {width:195px;padding-left:15px;float:left;}
+.activity-duel .answers  .user-info {margin-bottom:10px;}
+.activity-duel .answers  .user-info .details .username {width:95px;}
+.activity-duel .answers  p {font-size:11px;line-height:15px;}
+.activity-duel .answers .vote {padding-top:15px;padding-left:12px;}
+.activity-duel .answers .vote .count {display:inline-block;margin-right:10px;text-align:center;color:#b9b9b9;}
+.activity-duel .answers .vote .count .count-in {font:italic 50px/1 times new roman, serif;display:block;}
+.activity-duel .answers .answer-1 .vote .count .count-in {color:#25a44a;}
+.activity-duel .answers .answer-2 .vote .count .count-in {color:#4992d0;}
+.activity-duel .answers .vote .count a {position:relative;text-decoration:none;color:#b9b9b9;border-bottom:1px dashed #b9b9b9;line-height:1;}
+.activity-duel .answers .answer-1 .vote .count a:hover {color:#25a44a;border-color:#25a44a;}
+.activity-duel .answers .answer-2 .vote .count a:hover {color:#4992d0;border-color:#4992d0;}
+.activity-duel .answers .vote .button {display:inline-block;vertical-align:top;}
+.activity-duel .answers .vote .button a {margin-top:10px;display:inline-block;height:22px;line-height:22px;padding:0 12px;color:#fff;background:#c9c9c9;font-weight:bold;text-decoration:none;border:1px solid #d1d1d1;}
+.activity-duel .answers .vote .button a {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
+.activity-duel .answers .vote .button span {margin-top:10px;display:inline-block;height:22px;line-height:22px;padding:0 12px;color:#777;font-weight:bold;}
+.activity-duel .answers .answer-1 .vote .button a {background-image:url(/images/btn_answer_g.gif);border:1px solid #34ac51;}
+.activity-duel .answers .answer-1 .vote .button span {color:#25a44a;}
+.activity-duel .answers .answer-2 .vote .button a {background-image:url(/images/btn_answer_b.gif);border:1px solid #549bd7;}
+.activity-duel .answers .answer-2 .vote .button span {color:#4992d0;}
+.activity-duel .answers .vote .button a.disabled {background-image:url(/images/btn_answer_d.gif);border:1px solid #d1d1d1;}
+.activity-duel .answers .votes {list-style:none;padding-top:20px;}
+.activity-duel .answers .votes li {float:left;padding:5px 12px;}
+.activity-duel .answers .more-votes {text-align:right;padding-top:10px;}
+.activity-duel .answers .more-votes a {text-decoration:none;border-bottom:1px dashed #029AD2;}
+.activity-duel .answers .answer-1 .more-votes a {color:#25a44a;border-color:#25a44a;}
+.activity-duel .answers .answer-2 .more-votes a {color:#4992d0;border-color:#4992d0;}
 
+#duel-takeapart {width:420px;}
+#duel-takeapart .title {line-height:28px;}
+
+#duel-takeapart .duels-list {list-style:none;}
+#duel-takeapart .duels-list li {padding:10px 0;}
+#duel-takeapart .duels-list li .num {display:block;width:30px;height:30px;background:#c5a7e2;color:#fff;text-align:center;text-decoration:none;line-height:30px;font-size:20px;font-weight:bold;float:left;}
+#duel-takeapart .duels-list li .num {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;}
+#duel-takeapart .duels-list li .text {margin-left:40px;padding-top:8px;}
+#duel-takeapart .duels-list li .text p {font-size:15px;}
+#duel-takeapart .duels-list li .text p a {color:#242424;text-decoration:none;}
+#duel-takeapart .duels-list li .text p a:hover {text-decoration:underline;}
+#duel-takeapart .duels-list li .text .duelist {padding-top:10px;}
+#duel-takeapart .duels-list li .text .duelist .label {float:left;color:#949696;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+#duel-takeapart .duels-list li .text .duelist .user-info {margin-left:15px;}
+#duel-takeapart .duels-list li .text .duelist .user-info .details {margin-left:30px;}
+#duel-takeapart .duels-list li .text .duelist .user-info .details .username {width:130px;}
+#duel-takeapart .duels-list li.orange .num {background:#f68704;}
+#duel-takeapart .duels-list li.orange .text p a {color:#fe8c05;}
+
+#duel-takeapart .add-answer {}
+#duel-takeapart .add-answer label {display:block;color:#898888;font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;}
+#duel-takeapart .add-answer textarea {padding:5px;width:408px;border:1px solid #e8d2fd;margin:8px 0;min-height:100px;resize:none;}
+#duel-takeapart .add-answer textarea.cap {font-size:45px;color:#e0e1e0;line-height:1;text-align:center;}
+#duel-takeapart .add-answer .note {font-size:11px;color:#9a9b9a;}
+#duel-takeapart .add-answer .note span {color:#a87fcf;}
+#duel-takeapart .add-answer .btn span {font-weight:bold;font-family:arial, helvetica, sans-serif;}
 
 
 /* */

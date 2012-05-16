@@ -214,8 +214,8 @@
                                         <div class="title">Дошкольники</div>
                                         <ul>
                                             <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 12))?>">Детский сад</a></li>
-                                            <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 13))?>">Игры и развлечения</a></li>
-                                            <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 14))?>">Готовимся к школе</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 13))?>">Готовимся к школе</a></li>
+                                            <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 14))?>">Игры и развлечения</a></li>
                                         </ul>
                                     </div>
 

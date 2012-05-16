@@ -19,6 +19,8 @@ return array(
         'site.common.components.*',
 		'site.common.models.*',
         'site.common.models.mongo.*',
+        'site.common.models.interest.*',
+        'site.common.models.*',
         'site.common.helpers.*',
 		'ext.ufile.UFiles',
 		'application.models.*',
@@ -91,6 +93,7 @@ return array(
         'signal',
         'scores',
         'services',
+        'cook'
 	),
 
 	// application components

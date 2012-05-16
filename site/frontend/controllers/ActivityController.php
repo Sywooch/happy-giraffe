@@ -15,11 +15,17 @@ class ActivityController extends HController
     {
         $live = new CActiveDataProvider(CommunityContent::model()->full(), array(
             'criteria' => array(
-                'limit' => 5,
                 'order' => 'created DESC',
             ),
         ));
 
         $this->render('live', compact('live'));
+    }
+
+    public function actionFriends()
+    {
+        $friends = User::findFriends(60);
+
+        $this->render('friends', compact('friends'));
     }
 }

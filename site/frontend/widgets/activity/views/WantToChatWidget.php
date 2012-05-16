@@ -1,3 +1,7 @@
+<?php
+    Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/wantToChat.js');
+?>
+
 <div class="box activity-wannachat">
 
     <div class="title">Хотят <span>общаться</span></div>
@@ -16,7 +20,7 @@
 
     <?php if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)): ?>
         <div class="me-too">
-            я тоже <?php $this->render('_chatButton'); ?>
+            я тоже <a href="" onclick="WantToChat.send(this); return false;">Хочу!</a>
         </div>
     <?php endif; ?>
 

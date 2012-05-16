@@ -6,7 +6,7 @@
 
         <div class="col-1">
 
-            <?php $this->widget('LiveWidget'); ?>
+            <?php //$this->widget('LiveWidget'); ?>
 
             <?php $this->widget('WantToChatWidget'); ?>
 
@@ -24,69 +24,7 @@
 
                     <?php $this->widget('VideoWidget'); ?>
 
-                    <div class="box activity-find-friend">
-
-                        <div class="title">Найти <span>друзей</span></div>
-
-                        <ul class="clearfix">
-                            <li>
-                                <div class="clearfix">
-                                    <div class="user-info clearfix">
-                                        <a class="ava female"></a>
-                                        <div class="details">
-                                            <span class="icon-status status-online"></span>
-                                            <a href="" class="username">Богоявленский</a>
-                                            <div class="user-fast-buttons clearfix">
-                                                <a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-                                                <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="info">
-                                    <p><span>Семья:</span> замужем, 2 детей</p>
-                                    <p><span>Я живу здесь:</span> Россия Ярославская область, г. Гаврилов-Ям</p>
-                                    <p><img src="/images/activity_friend_map.png" /></p>
-                                    <div class="interests">
-                                        <span>Интересы:</span><br/>
-                                        <a href="" class="interest rest selected">Путешествия</a>
-                                        <a href="" class="interest manwoman selected">Свадьба</a>
-                                        <a href="" class="interest beauty selected">Красота</a>
-                                        <a href="" class="interest beauty selected">Мода</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="user-info clearfix">
-                                        <a class="ava female"></a>
-                                        <div class="details">
-                                            <span class="icon-status status-online"></span>
-                                            <a href="" class="username">Богоявленский</a>
-                                            <div class="user-fast-buttons clearfix">
-                                                <a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-                                                <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="info">
-                                    <p><span>Семья:</span> замужем, 2 детей</p>
-                                    <p><span>Я живу здесь:</span> Россия Ярославская область, г. Гаврилов-Ям</p>
-                                    <p><img src="/images/activity_friend_map.png" /></p>
-                                    <div class="interests">
-                                        <span>Интересы:</span><br/>
-                                        <a href="" class="interest rest selected">Путешествия</a>
-                                        <a href="" class="interest manwoman selected">Свадьба</a>
-                                        <a href="" class="interest beauty selected">Красота</a>
-                                        <a href="" class="interest beauty selected">Мода</a>
-                                    </div>
-                                </div>
-                            </li>
-
-                        </ul>
-
-                    </div>
+                    <?php $this->widget('FriendsWidget'); ?>
 
                     <?php $this->widget('RandomPhotosWidget'); ?>
 

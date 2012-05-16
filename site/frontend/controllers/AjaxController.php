@@ -460,4 +460,10 @@ class AjaxController extends HController
             echo $model->save();
         }
     }
+
+    public function actionContentsLive($id)
+    {
+        $model = CommunityContent::model()->full()->findByPk($id);
+        $this->renderPartial('application.widgets.activity.views._live_entry', array('data' => $model));
+    }
 }

@@ -1,12 +1,28 @@
-<h1>Хотят общаться</h1>
+<div class="box activity-wannachat">
 
-<ul>
-    <?php foreach ($users as $i => $u): ?>
-        <li><?=++$i?>. <?=$u->fullName?></li>
-    <?php endforeach; ?>
-</ul>
+    <div class="title">Хотят <span>общаться</span></div>
 
-<?php $this->render('_chatButton'); ?>
+    <?php if ($users): ?>
+        <ul>
+            <?php foreach ($users as $i => $u): ?>
+                <li class="clearfix">
+                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $u)); ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <p>Пока никого :(</p>
+    <?php endif; ?>
+
+    <?php if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)): ?>
+        <div class="me-too">
+            я тоже <?php $this->render('_chatButton'); ?>
+        </div>
+    <?php endif; ?>
+
+</div>
+
+
 
 
 

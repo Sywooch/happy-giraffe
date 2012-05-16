@@ -10,8 +10,8 @@
                     <?php foreach ($photos as $p): ?>
                     <li>
                         <div class="user">
-                            <span class="icon-status status-<?php echo $p->user->online == 1 ? 'online' : 'offline'; ?>"></span>
-                            <?=CHtml::link($p->user->fullName, $p->user->url)?>
+                            <span class="icon-status status-<?php echo $p->author->online == 1 ? 'online' : 'offline'; ?>"></span>
+                            <?=CHtml::link($p->author->fullName, $p->author->url)?>
                         </div>
                         <div class="img">
                             <?php echo CHtml::link(CHtml::image($p->getPreviewUrl(150, 150, Image::WIDTH)), array('/albums/photo', 'id' => $p->id)); ?>

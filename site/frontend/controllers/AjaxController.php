@@ -463,7 +463,7 @@ class AjaxController extends HController
 
     public function actionContentsLive($id)
     {
-        $model = CommunityContent::model()->findByPk($id);
+        $model = CommunityContent::model()->full()->findByPk($id);
         $this->renderPartial('application.widgets.activity.views._live_entry', array('data' => $model));
     }
 }

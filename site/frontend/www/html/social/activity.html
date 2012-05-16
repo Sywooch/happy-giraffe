@@ -25,8 +25,30 @@
 		$(function(){
 			
 			$('#activity-photo').jcarousel({wrap: 'circular'});
-			
+						
 		})
+		
+		function addLI(){
+			var s = '\
+				<li>\
+					<div class="date">3 сен 2012, 08:25</div>\
+					<div class="user">\
+						<span class="icon-status status-online"></span>\
+						<a href="">Михаил Боярский</a>\
+					</div>\
+					<a href="">Как мы весело учимся делать разминку у доктора </a>\
+					<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке. Это вредно для не доконца оформившегося,  запрещают спать на подушке ... </p>\
+				</li>';
+			
+			var li = $(s).hide();
+			$('#activity .activity-onair ul').prepend(li);			
+			$('#activity .activity-onair ul li:last').remove();
+			$('#activity .activity-onair ul li:first').fadeIn(1000)
+			
+		}
+			
+		
+		
 	</script>
 	
 </head>
@@ -440,18 +462,9 @@
 			
 			<div class="box activity-onair horizontal">
 				
-				<div class="title"><img src="/images/onair_title.png" />Прямой <span>эфир</span> <a href="">Весь прямой эфир</a></div>
+				<div class="title"><img src="/images/onair_title.png" />Прямой <span>эфир</span> <a href="">Весь прямой эфир</a> </div>
 				
 				<ul class="clearfix">
-					<li>
-						<div class="date">3 сен 2012, 08:25</div>
-						<div class="user">
-							<span class="icon-status status-online"></span>
-							<a href="">Михаил Боярский</a>
-						</div>
-						<a href="">Как мы весело учимся делать разминку у доктора </a>
-						<a href=""><img src="/images/activity_onair_video.jpg" /></a>
-					</li>
 					<li>
 						<div class="date">3 сен 2012, 08:25</div>
 						<div class="user">
@@ -497,7 +510,7 @@
 						
 						<div class="box activity-onair">
 							
-							<div class="title"><img src="/images/onair_title.png" />Прямой <span>эфир</span></div>
+							<div class="title"><img src="/images/onair_title.png" />Прямой <span>эфир</span> <a href="javascript:void(0);" onclick="addLI()">добавить елемент</a></div>
 							
 							<ul>
 								<li>
@@ -619,7 +632,7 @@
 								
 								<div class="box activity-find-friend">
 									
-									<div class="title">Найти <span>друзей</span></div>
+									<div class="title"><a href="">Найти еще</a>Найти <span>друзей</span></div>
 									
 									<ul class="clearfix">
 										<li>

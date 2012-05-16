@@ -1,1 +1,0 @@
-<a href="" onclick="WantToChat.send(this); return false;">Хочу!</a>

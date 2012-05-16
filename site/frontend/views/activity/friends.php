@@ -5,7 +5,7 @@
 
 <div id="find-friend" class="activity-find-friend">
 
-    <div class="title">Найти <span>друзей</span> <a href="javascript:void(0);" onclick="nextFriendsPage();"><span>Найти<br/>еще</span></a></div>
+    <div class="title">Найти <span>друзей</span><?php if(count($friends) > 12): ?> <a href="javascript:void(0);" onclick="nextFriendsPage();"><span>Найти<br/>еще</span></a><?php endif; ?></div>
 
     <div id="find-friend-wrapper">
         <div class="slide">

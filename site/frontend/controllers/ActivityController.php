@@ -17,9 +17,6 @@ class ActivityController extends HController
             'criteria' => array(
                 'order' => 'created DESC',
             ),
-            'pagination' => array(
-                'pageSize' => 5,
-            ),
         ));
 
         $this->render('live', compact('live'));

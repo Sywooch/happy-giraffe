@@ -872,4 +872,34 @@ class User extends HActiveRecord
 
         return isset($this->_authItems[$item]);
     }
+
+    public static function findFriends($limit)
+    {
+        $criteria = new CDbCriteria(array(
+            'select' => 't.*, count(interests_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() .  '.id) AS babiesCount',
+            'group' => 't.id',
+            'having' => 'interestsCount > 0 AND (babiesCount > 0 OR t.relationship_status IS NOT NULL)',
+            'condition' => 't.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
+            'with' => array(
+                'interests' => array(
+                    'together' => true,
+                ),
+                'userAddress',
+                'babies' => array(
+                    'together' => true,
+                    'condition' => 'sex != 0 OR type IS NOT NULL',
+                ),
+            ),
+            'order' => 'RAND()',
+            'limit' => $limit,
+        ));
+
+        if (! Yii::app()->user->isGuest) {
+            $criteria->join .= ' LEFT JOIN friends ON (friends.user1_id = :me AND friends.user2_id = t.id) OR (friends.user2_id = :me AND friends.user1_id = t.id)';
+            $criteria->addCondition('t.id != :me AND friends.id IS NULL');
+            $criteria->params = array(':me' => Yii::app()->user->id);
+        }
+
+        return User::model()->findAll($criteria);
+    }
 }

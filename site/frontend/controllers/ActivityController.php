@@ -21,4 +21,11 @@ class ActivityController extends HController
 
         $this->render('live', compact('live'));
     }
+
+    public function actionFriends()
+    {
+        $friends = User::findFriends(999);
+
+        $this->render('friends', compact('friends'));
+    }
 }

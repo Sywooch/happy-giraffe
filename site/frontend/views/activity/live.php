@@ -10,15 +10,15 @@
 
             <div id="contents_live" class="full">
                 <?php
-                $this->widget('zii.widgets.CListView', array(
-                    'ajaxUpdate' => false,
-                    'dataProvider' => $live,
-                    'itemView' => '//community/_post',
-                    'template' => '{items}',
-                    'viewData' => array(
-                        'full' => false,
-                    ),
-                ));
+                    $this->widget('zii.widgets.CListView', array(
+                        'ajaxUpdate' => false,
+                        'dataProvider' => $live,
+                        'itemView' => '//community/_post',
+                        'template' => '{items}',
+                        'viewData' => array(
+                            'full' => false,
+                        ),
+                    ));
                 ?>
             </div>
 

@@ -24,7 +24,7 @@ class ActivityController extends HController
 
     public function actionFriends()
     {
-        $friends = User::findFriends(999);
+        $friends = User::findFriends(60);
 
         $this->render('friends', compact('friends'));
     }

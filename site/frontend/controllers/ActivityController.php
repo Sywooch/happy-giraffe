@@ -13,11 +13,13 @@ class ActivityController extends HController
 
     public function actionLive()
     {
-        $live = CommunityContent::model()->full()->findAll(array(
-            'limit' => 5,
-            'order' => 'created DESC',
+        $live = new CActiveDataProvider(CommunityContent::model()->full(), array(
+            'criteria' => array(
+                'limit' => 5,
+                'order' => 'created DESC',
+            ),
         ));
 
-        $this->render('live', compact($live));
+        $this->render('live', compact('live'));
     }
 }

@@ -319,9 +319,13 @@ class CommunityContent extends HActiveRecord
     public function getUrl($comments = false, $absolute = false)
     {
         switch ($this->type_id) {
-            case 1:
-            case 2:
-            case 3:
+            case 4:
+                $route = '/morning/view';
+                $params = array(
+                    'id' => $this->id,
+                );
+                break;
+            default:
                 if ($this->isFromBlog) {
                     $route = '/blog/view';
                     $params = array(
@@ -335,13 +339,6 @@ class CommunityContent extends HActiveRecord
                         'content_id' => $this->id,
                     );
                 }
-                break;
-            case 4:
-                $route = '/morning/view';
-                $params = array(
-                    'id' => $this->id,
-                );
-                break;
         }
 
         if ($comments)

@@ -2278,7 +2278,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #find-friend {}
 #find-friend .title {font-weight:bold;font-size:48px;color:#484848;text-align:center;margin-bottom:20px;line-height:1;}
 #find-friend .title > span {font-size:45px;font-weight:normal;color:#9e76c4;}
-#find-friend .title a {display:inline-block;width:76px;height:78px;background:url(/images/more_friend.png) no-repeat;text-align:center;font-size:13px;font-weight:normal;text-decoration:none;color:#5488d0;vertical-align:middle;margin-left:20px;}
+#find-friend .title a {display:inline-block;width:76px;height:78px;background:url(/images/more_friend.png) no-repeat;text-align:center;font-size:13px;font-weight:normal;text-decoration:none;color:#5488d0;vertical-align:middle;margin-left:20px;float:none;margin-top:0;}
 #find-friend .title a span {border-bottom:1px dashed #5488d0;position:relative;top:28px;}
 #find-friend .title a:hover span {border:0;}
 

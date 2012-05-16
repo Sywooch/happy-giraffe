@@ -91,6 +91,7 @@ return array(
         'signal',
         'scores',
         'services',
+        'cook'
 	),
 
 	// application components

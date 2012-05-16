@@ -323,9 +323,6 @@ Comet.prototype.liveContents = function(result, id) {
         '/ajax/contentsLive/',
         {id: result.newId},
         function (response) {
-            var contentObj = $(response);
-            $('li', contentObj).attr('style', 'display: none;');
-            alert($('li', contentObj)[0].outerHTML);
             $('#contents_live').prepend(response);
             $('#contents_live li:last').remove();
         }

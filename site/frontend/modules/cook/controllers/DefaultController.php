@@ -25,6 +25,4 @@ class DefaultController extends HController
 
         $this->render('test', array('model' => new TestForm(), 'result' => $result));
     }
-
-
 }

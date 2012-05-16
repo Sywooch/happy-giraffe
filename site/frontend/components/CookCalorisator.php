@@ -10,6 +10,7 @@ class CookCalorisator extends CComponent
     public function setRecipeIngredients($string)
     {
         $this->_RecipeIngredients = $string;
+        $string = preg_replace('%(\d+)(,)(\d+)%siu', '$1.$3', $string);
         $this->RecipeSubstrings = preg_split('%(\R|,)%mu', $string, -1, PREG_SPLIT_NO_EMPTY);
         $this->parseIngredients();
     }
@@ -19,9 +20,9 @@ class CookCalorisator extends CComponent
         foreach ($this->RecipeSubstrings as $s) {
             $ingredient = array('text' => trim($s));
 
-            // Seacrh unit in ingredient substring
+            // Seacrh unit
 
-            $ingredient['unit']['search'] = $units = Yii::app()->search->select('*')->from('cookUnits')->where($this->sphinxQuote($s))->limit(0, 1)->searchRaw();
+            $units = Yii::app()->search->select('*')->from('cookUnits')->where($this->sphinxQuote($s))->limit(0, 1)->searchRaw();
 
 
             if (count($units['words'])) {
@@ -52,13 +53,31 @@ class CookCalorisator extends CComponent
             if (is_array($ingredient['unit']['words']))
                 $ingredient['ingredient']['words'] = array_diff($ingredient['words'], $ingredient['unit']['words']);
             if (count($ingredient['ingredient']['words'])) {
-                $ingredient_seacrh = Yii::app()->search->select('*')->from('cookIngredients')->where($this->sphinxQuote(implode(' ', $ingredient['ingredient']['words'])))->limit(0, 1)->searchRaw();
+                $ingredient_seacrh = Yii::app()->search->select('*')->from('cookIngredients')->where($this->sphinxQuote(implode(' ', $ingredient['ingredient']['words'])))->limit(0, 4)->searchRaw();
                 //$ingredient['ingredient']['search'] = $ingredient_seacrh;
                 if (count($ingredient_seacrh['matches'])) {
                     $ingredient_id = key($ingredient_seacrh['matches']);
                     $ingredient['ingredient']['row'] = Yii::app()->db->createCommand()->select('*')->from('cook__ingredients')->where('id=:id', array(':id' => $ingredient_id))->queryRow();
                 }
             }
+
+            // search Qty
+
+            $text = $s;
+            foreach ($ingredient['words'] as $word) {
+                $text = preg_replace('%' . preg_quote($word, '%') . '%siu', '', $text);
+            }
+
+            if (preg_match('%(\d+)%', $text, $m))
+                $ingredient['qty'] = $m[1];
+            if (preg_match('%([0-9\.]+)%', $text, $m))
+                $ingredient['qty'] = $m[1];
+            if (preg_match('%(\d+)/(\d+)%', $text, $m))
+                $ingredient['qty'] = $m[1] / $m[2];
+            if (preg_match('%(\d+)\s+(\d+)/(\d+)%', $text, $m))
+                $ingredient['qty'] = $m[1] + $m[2] / $m[3];
+            if (preg_match('%(\d+)(-|—)(\d+)%', $text, $m))
+                $ingredient['qty'] = ($m[1] + $m[3]) / 2;
 
             $this->ingredients[] = $ingredient;
         }
@@ -81,5 +100,6 @@ class CookCalorisator extends CComponent
         }
         return $result;
     }
+
 
 }

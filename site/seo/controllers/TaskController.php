@@ -22,7 +22,7 @@ class TaskController extends SController
     public function actionHideUsed()
     {
         $checked = Yii::app()->request->getPost('checked');
-        if (!empty($checked)){
+        if (!empty($checked)) {
             Yii::app()->user->setState('hide_used', 1);
         }
         else
@@ -121,8 +121,8 @@ class TaskController extends SController
                 $task->rewrite = 1;
 
             $response = array('status' => $task->save());
-            if (!empty($urls) && $response['status']){
-                foreach($urls as $url){
+            if (!empty($urls) && $response['status']) {
+                foreach ($urls as $url) {
                     $r_url = new RewriteUrl();
                     $r_url->task_id = $task->id;
                     $r_url->url = $url;
@@ -162,42 +162,50 @@ class TaskController extends SController
 
     public function actionSaveArticleKeys()
     {
-        $id = Yii::app()->request->getPost('id');
+        $url = Yii::app()->request->getPost('url');
+        preg_match("/\/([\d]+)\/$/", $url, $match);
+        $id = $match[1];
+
         $keywords = Yii::app()->request->getPost('keywords');
-
         $article = CommunityContent::model()->findByPk($id);
-        $article_keywords = new ArticleKeywords();
-        $article_keywords->entity = 'CommunityContent';
-        $article_keywords->entity_id = $article->id;
-
-        $group = new KeywordGroup();
-
-        foreach ($keywords as $keyword) {
-            $keyword = trim($keyword);
-            if (!empty($keyword)) {
-                $model = Keywords::model()->findByAttributes(array('name' => $keyword));
-                if ($model === null)
-                    throw new CHttpException(401, 'кейворд не найден в базе');
-                $keywords[] = $model;
-            }
-        }
-
-        if (empty($keywords))
-            throw new CHttpException(401, 'нет ни одного кейворда');
-
-        $group->keywords = $keywords;
-        $group->save();
-
-        $article_keywords->keyword_group_id = $group->id;
-
-        if ($article_keywords->save()) {
-            $response = array(
-                'status' => true
-            );
-        } else {
+        if ($article === null) {
             $response = array(
                 'status' => false,
+                'error' => 'Не найдена статья, обратитесь к разработчикам.',
             );
+        } else {
+            $article_keywords = new ArticleKeywords();
+            $article_keywords->entity = 'CommunityContent';
+            $article_keywords->entity_id = $article->id;
+
+            $group = new KeywordGroup();
+
+            $keyword_models = array();
+            foreach ($keywords as $keyword) {
+                $keyword = trim($keyword);
+                if (!empty($keyword)) {
+                    $model = Keywords::GetKeyword($keyword);
+                    $keyword_models[] = $model;
+                }
+            }
+
+            if (empty($keywords))
+                throw new CHttpException(401, 'нет ни одного кейворда');
+
+            $group->keywords = $keyword_models;
+            $group->save();
+
+            $article_keywords->keyword_group_id = $group->id;
+
+            if ($article_keywords->save()) {
+                $response = array(
+                    'status' => true
+                );
+            } else {
+                $response = array(
+                    'status' => false,
+                );
+            }
         }
 
         echo CJSON::encode($response);

@@ -13,6 +13,9 @@
         ->registerScriptFile('/js/jquery.fancybox-1.3.4.pack.js')
         ->registerCssFile('/css/jquery.fancybox-1.3.4.css')
 
+        ->registerCssFile('/css/jquery.ui/base.css')
+        ->registerCssFile('/css/jquery.ui/theme.css')
+
         ->registerScriptFile('/js/jquery.tooltip.js')
 
         ->registerScriptFile('/js/seo.js')

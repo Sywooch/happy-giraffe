@@ -67,8 +67,17 @@ var SeoModule = {
             keywords.push($(this).val());
         });
 
-        $.post('/task/SaveArticleKeys/', {id:this.id, keywords:keywords}, function (response) {
-
+        $.post('/task/SaveArticleKeys/', {url:$('input.article-url').val(), keywords:keywords}, function (response) {
+            if (response.status){
+                $('input.article-url').val('');
+                $('.article-keys input').val('');
+            }else{
+                $.pnotify({
+                    pnotify_title: 'Ошибка',
+                    pnotify_type: 'error',
+                    pnotify_text: response.error
+                });
+            }
         }, 'json');
     },
     TakeTask:function (id) {

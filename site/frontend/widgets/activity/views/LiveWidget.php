@@ -8,6 +8,6 @@
         <?php endforeach; ?>
     </ul>
 
-    <div class="all-link"><a href="<?=$this->createUrl('activity')?>">Весь прямой эфир</a></div>
+    <div class="all-link"><a href="<?=$this->createUrl('activity/live')?>">Весь прямой эфир</a></div>
 
 </div>

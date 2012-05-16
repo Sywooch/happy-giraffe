@@ -325,7 +325,7 @@ Comet.prototype.liveContents = function(result, id) {
         function (response) {
             var el = $(response).hide();
             $('#contents_live').prepend(el);
-            $('#contents_live li:first').fadeIn(500);
+            $('#contents_live li:first').fadeIn(1000);
             $('#contents_live li:last').remove();
         }
     )

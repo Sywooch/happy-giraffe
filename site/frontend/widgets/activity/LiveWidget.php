@@ -7,7 +7,7 @@ class LiveWidget extends CWidget
 {
     public function run()
     {
-        $live = CommunityContent::model()->findAll(array(
+        $live = CommunityContent::model()->full()->findAll(array(
             'limit' => 5,
             'order' => 'created DESC',
         ));

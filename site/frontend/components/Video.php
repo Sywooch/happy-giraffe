@@ -8,6 +8,7 @@ class Video extends CComponent
 	public $description;
 	public $code;
 	public $preview;
+    public $image;
 	
 	private $player = NULL;
 	private $accepted_players = array(
@@ -68,7 +69,8 @@ class Video extends CComponent
 		$this->code = "<iframe width=\"560\" height=\"315\" src=\"http://www.youtube.com/embed/$v\" frameborder=\"0\" allowfullscreen></iframe>";
 		$this->title = @$xpath->query('//span[@id="eow-title"]')->item(0)->nodeValue;
 		$this->description = @$xpath->query('//p[@id="eow-description"]')->item(0)->nodeValue;
-		$this->preview = "http://i1.ytimg.com/vi/$v/default.jpg";
+		$this->preview = "http://i.ytimg.com/vi/$v/default.jpg";
+        $this->image = "http://i.ytimg.com/vi/$v/hqdefault.jpg";
 	}
 
 	protected function parseQuery()

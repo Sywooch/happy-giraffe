@@ -16,7 +16,7 @@
                 <div class="meta">
                     <span class="rating"><?=$c->rate?></span>
                     <span class="views">Просмотров: <?=PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $c->url), true)?></span>
-                    <span class="comments"><a href="">Комментариев: <?=$c->commentsCount?></a></span>
+                    <span class="comments"><a href="<?=$c->getUrl(true)?>">Комментариев: <?=$c->commentsCount?></a></span>
                 </div>
             </li>
             <?php endforeach; ?>
@@ -44,7 +44,7 @@
                 <div class="meta">
                     <span class="rating"><?=$c->rate?></span>
                     <span class="views">Просмотров: <?=PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $c->url), true)?></span>
-                    <span class="comments"><a href="">Комментариев: <?=$c->commentsCount?></a></span>
+                    <span class="comments"><a href="<?=$c->getUrl(true)?>">Комментариев: <?=$c->commentsCount?></a></span>
                 </div>
             </li>
             <?php endforeach; ?>

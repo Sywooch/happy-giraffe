@@ -316,23 +316,39 @@ class CommunityContent extends HActiveRecord
         parent::afterSave();
     }
 
-    public function getUrl()
+    public function getUrl($comments = false, $absolute = false)
     {
-        if ($this->rubric_id === null){
-            return Yii::app()->createUrl('/morning/view', array(
-                'id' => $this->id,
-            ));
-        }elseif ($this->isFromBlog) {
-            return Yii::app()->createUrl('/blog/view', array(
-                'content_id' => $this->id,
-            ));
-        } else {
-            return Yii::app()->createAbsoluteUrl('community/view', array(
-                'community_id' => $this->rubric->community_id,
-                'content_type_slug' => $this->type->slug,
-                'content_id' => $this->id,
-            ));
+        switch ($this->type_id) {
+            case 1:
+            case 2:
+            case 3:
+                if ($this->isFromBlog) {
+                    $route = '/blog/view';
+                    $params = array(
+                        'content_id' => $this->id,
+                    );
+                } else {
+                    $route = 'community/view';
+                    $params = array(
+                        'community_id' => $this->rubric->community_id,
+                        'content_type_slug' => $this->type->slug,
+                        'content_id' => $this->id,
+                    );
+                }
+                break;
+            case 4:
+                $route = '/morning/view';
+                $params = array(
+                    'id' => $this->id,
+                );
+                break;
         }
+
+        if ($comments)
+            $params['#'] = 'comments_list';
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
     }
 
     public function scopes()

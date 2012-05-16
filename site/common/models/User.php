@@ -689,6 +689,11 @@ class User extends HActiveRecord
         return array();
     }
 
+    public function getRelationshipStatusString()
+    {
+        return $this->relationship_status === null ? '' : mb_strtolower($this->relashionshipList[$this->relationship_status], 'utf-8');
+    }
+
     public function getPartnerTitle($id)
     {
         if ($this->gender == 1) {

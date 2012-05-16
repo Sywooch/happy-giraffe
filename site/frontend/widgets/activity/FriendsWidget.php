@@ -12,17 +12,21 @@ class FriendsWidget extends CWidget
     public function run()
     {
         $criteria = new CDbCriteria(array(
-            'select' => 't.*, count(interest__users_interests.interest_id) AS interestsCount, count(user__users_babies.id) AS babiesCount',
-            'join' => '
-                LEFT JOIN interest__users_interests ON t.id = interest__users_interests.user_id
-                LEFT JOIN user__users_babies ON t.id = user__users_babies.parent_id
-            ',
+            'select' => 't.*, count(interests_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() .  '.id) AS babiesCount',
             'group' => 't.id',
             'having' => 'interestsCount > 0 AND (babiesCount > 0 OR t.relationship_status IS NOT NULL)',
             'condition' => 't.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
-            'with' => 'userAddress',
+            'with' => array(
+                'interests' => array(
+                    'together' => true,
+                ),
+                'userAddress',
+                'babies' => array(
+                    'condition' => 'sex != 0 OR type IS NOT NULL',
+                ),
+            ),
             'order' => 'RAND()',
-            'limit' => 3,
+            'limit' => 2,
         ));
 
         if (Yii::app()->user->id) {
@@ -32,7 +36,6 @@ class FriendsWidget extends CWidget
         }
 
         $friends = User::model()->findAll($criteria);
-
         $this->render('FriendsWidget', compact('friends'));
     }
 }

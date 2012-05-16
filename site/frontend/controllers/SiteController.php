@@ -44,7 +44,7 @@ class SiteController extends HController
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->title = $c->title;
-            $item->link = $c->url;
+            $item->link = $c->getUrl(false, true);
             $item->date = $c->created;
             $item->description = $c->preview;
             $item->addTag('author', $c->author->email);

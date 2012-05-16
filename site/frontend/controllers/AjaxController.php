@@ -461,9 +461,17 @@ class AjaxController extends HController
         }
     }
 
-    public function actionContentsLive($id)
+    public function actionContentsLive($id, $class)
     {
         $model = CommunityContent::model()->full()->findByPk($id);
-        $this->renderPartial('application.widgets.activity.views._live_entry', array('data' => $model));
+        switch ($class) {
+            case 'short':
+                $view = 'application.widgets.activity.views._live_entry';
+                break;
+            case 'full':
+                $view = '//community/_post';
+                break;
+        }
+        $this->renderPartial($view, array('data' => $model));
     }
 }

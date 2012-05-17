@@ -1,3 +1,7 @@
+<?php
+    Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jcarousel.js');
+?>
+
 <div id="activity">
 
     <div class="content-title">Что у нас новенького?</div>

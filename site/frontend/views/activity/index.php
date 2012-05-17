@@ -2,6 +2,14 @@
     Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jcarousel.js');
 ?>
 
+<script>
+    $(function(){
+
+        $('#activity-photo').jcarousel({wrap: 'circular'});
+
+    })
+</script>
+
 <div id="activity">
 
     <div class="content-title">Что у нас новенького?</div>

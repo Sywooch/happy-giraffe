@@ -450,4 +450,59 @@ class AjaxController extends HController
             echo CJSON::encode(array('status' => $success));
         }
     }
+
+    public function actionWantToChat()
+    {
+        if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)) {
+            $model = new WantToChat;
+            $model->user_id = (int) Yii::app()->user->id;
+            $model->created = time();
+            echo $model->save();
+        }
+    }
+
+    public function actionContentsLive($id, $containerClass)
+    {
+        $model = CommunityContent::model()->full()->findByPk($id);
+        $data = array('data' => $model);
+        switch ($containerClass) {
+            case 'short':
+                $view = 'application.widgets.activity.views._live_entry';
+                break;
+            case 'full':
+                $view = '//community/_post';
+                $data['full'] = false;
+                break;
+        }
+        $this->renderPartial($view, $data);
+    }
+
+    public function actionDuelForm()
+    {
+        $questions = DuelQuestion::getAvailable();
+        $answer = new DuelAnswer;
+        $answer->text = 'Блестните знаниями!';
+        $this->renderPartial('duel', compact('questions', 'answer'));
+    }
+
+    public function actionDuelSubmit()
+    {
+        if ($_POST['DuelAnswer']) {
+            $answer = new DuelAnswer;
+            $answer->attributes = $_POST['DuelAnswer'];
+            $answer->user_id = Yii::app()->user->id;
+            if ($answer->save()) {
+                $response = array(
+                    'status' => true,
+                    'html' => $this->renderPartial('duel_submit', array(), true),
+                );
+            } else {
+                $response = array(
+                    'status' => false,
+                    'error' => $answer->errors,
+                );
+            }
+            echo CJSON::encode($response);
+        }
+    }
 }

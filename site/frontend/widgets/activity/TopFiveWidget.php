@@ -1,9 +1,13 @@
 <?php
 /**
+ * 5 самых-самых
+ *
+ * Самые активные авторы и комментаторы за всё время.
+ *
  * Author: choo
  * Date: 13.05.2012
  */
-class TopFive extends CWidget
+class TopFiveWidget extends CWidget
 {
     public function run()
     {
@@ -13,6 +17,7 @@ class TopFive extends CWidget
             'group' => 't.id',
             'order' => 'authorsRate DESC',
             'limit' => '5',
+            'condition' => 'DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= ' . CommunityContent::model()->tableName() . '.created AND t.id != 1',
         ));
 
         $topCommentators = User::model()->findAll(array(
@@ -21,10 +26,10 @@ class TopFive extends CWidget
             'group' => 't.id',
             'order' => 'commentatorsRate DESC',
             'limit' => '5',
-            'condition' => 't.id != 1',
+            'condition' => 'DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= ' . Comment::model()->tableName() . '.created AND t.id != 1',
         ));
 
-        $this->render('TopFive', compact('topAuthors', 'topCommentators'));
+        $this->render('TopFiveWidget', compact('topAuthors', 'topCommentators'));
     }
 }
 

@@ -58,14 +58,14 @@ table {
     border-spacing: 0;
 }
 html, body {
-	height:100%;
+    height:100%;
     margin: 0;
     padding: 0;
     position:relative;
     font-family:arial;
     font-size:12px;
     line-height:18px;
-	
+
 }
 
 body.body-club {background:#f6f6f6;}
@@ -152,7 +152,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-info .details .username:hover {text-decoration:underline;}
 .user-info .details .location {margin:3px 0;}
 .user-info .details .location .flag {display:inline-block;margin-right:5px;position:relative;top:1px;}
-.user-info .details .birthday span {color:#aeaeae;}		
+.user-info .details .birthday span {color:#aeaeae;}
 
 
 .user-fast-buttons {padding-top:2px;}
@@ -530,7 +530,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-crop table td.preview .img {height:72px;overflow:hidden;width:72px;margin:0 auto 10px;}
 #photoPick .photo-crop table td.preview .img  {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;}
 
-
+#photoPick.smile-photo {width:400px;}
+#photoPick.smile-photo .photo-upload .photo .in {width:230px;height:170px;}
+#photoPick.smile-photo .photo-upload .note {width:150px;padding-right:0;}
 
 #galleryUploadPhotos {width:550px;}
 
@@ -774,7 +776,7 @@ a:hover {text-decoration:none;}
 #header-new .user-nav .drp .actions .count {/*css3*/ -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}
 
 
-#header-new .user-nav ul li.user .drp {width:100%;left:-1px;margin:0;} 
+#header-new .user-nav ul li.user .drp {width:100%;left:-1px;margin:0;}
 #header-new .user-nav ul li.user .drp .actions a {padding-left:28px;}
 #header-new .user-nav ul li.user .drp .actions .icon {position:absolute;top:2px;left:9px;background:url(/images/common.png) no-repeat;display:block;}
 #header-new .user-nav ul li.user .drp .actions .icon-profile {width:12px;height:11px;background-position:-299px -176px;}
@@ -851,7 +853,7 @@ a:hover {text-decoration:none;}
 #header-new .nav .cols-3 .col {width:33%;}
 #header-new .nav .cols-4 .col {width:25%;}
 #header-new .nav .cols-5 .col {width:20%;}
-#header-new .nav .cols .col:first-child {background:none !important;} 
+#header-new .nav .cols .col:first-child {background:none !important;}
 
 #header-new .nav .cols .col .col-in {padding:15px 0 15px 19px;height:215px;position:relative;background-repeat:no-repeat;background-position:50% 100%;}
 #header-new .nav .cols .col ul {list-style:none;font-size:11px;}
@@ -886,33 +888,33 @@ a:hover {text-decoration:none;}
 
 /* ������� ����������� */
 
-#header-new .nav .bg-img-11 {background-image:url(/images/nav_kids_img_01.jpg);} 
-#header-new .nav .bg-img-12 {background-image:url(/images/nav_kids_img_02.jpg);} 
-#header-new .nav .bg-img-13 {background-image:url(/images/nav_kids_img_03.jpg);} 
-#header-new .nav .bg-img-14 {background-image:url(/images/nav_kids_img_04.jpg);} 
-#header-new .nav .bg-img-15 {background-image:url(/images/nav_kids_img_05.jpg);} 
+#header-new .nav .bg-img-11 {background-image:url(/images/nav_kids_img_01.jpg);}
+#header-new .nav .bg-img-12 {background-image:url(/images/nav_kids_img_02.jpg);}
+#header-new .nav .bg-img-13 {background-image:url(/images/nav_kids_img_03.jpg);}
+#header-new .nav .bg-img-14 {background-image:url(/images/nav_kids_img_04.jpg);}
+#header-new .nav .bg-img-15 {background-image:url(/images/nav_kids_img_05.jpg);}
 
-#header-new .nav .bg-img-21 {background-image:url(/images/nav_manwoman_img_01.jpg);} 
-#header-new .nav .bg-img-22 {background-image:url(/images/nav_manwoman_img_02.jpg);} 
+#header-new .nav .bg-img-21 {background-image:url(/images/nav_manwoman_img_01.jpg);}
+#header-new .nav .bg-img-22 {background-image:url(/images/nav_manwoman_img_02.jpg);}
 
-#header-new .nav .bg-img-31 {background-image:url(/images/nav_beauty_img_01.jpg);} 
-#header-new .nav .bg-img-32 {background-image:url(/images/nav_beauty_img_02.jpg);} 
-#header-new .nav .bg-img-33 {background-image:url(/images/nav_beauty_img_03.jpg);} 
+#header-new .nav .bg-img-31 {background-image:url(/images/nav_beauty_img_01.jpg);}
+#header-new .nav .bg-img-32 {background-image:url(/images/nav_beauty_img_02.jpg);}
+#header-new .nav .bg-img-33 {background-image:url(/images/nav_beauty_img_03.jpg);}
 
-#header-new .nav .bg-img-41 {background-image:url(/images/nav_home_img_01.jpg);} 
-#header-new .nav .bg-img-42 {background-image:url(/images/nav_home_img_02.jpg);} 
-#header-new .nav .bg-img-43 {background-image:url(/images/nav_home_img_03.jpg);} 
-#header-new .nav .bg-img-44 {background-image:url(/images/nav_home_img_04.jpg);} 
-#header-new .nav .bg-img-45 {background-image:url(/images/nav_home_img_05.jpg);} 
+#header-new .nav .bg-img-41 {background-image:url(/images/nav_home_img_01.jpg);}
+#header-new .nav .bg-img-42 {background-image:url(/images/nav_home_img_02.jpg);}
+#header-new .nav .bg-img-43 {background-image:url(/images/nav_home_img_03.jpg);}
+#header-new .nav .bg-img-44 {background-image:url(/images/nav_home_img_04.jpg);}
+#header-new .nav .bg-img-45 {background-image:url(/images/nav_home_img_05.jpg);}
 
-#header-new .nav .bg-img-51 {background-image:url(/images/nav_hobbies_img_01.jpg);} 
-#header-new .nav .bg-img-52 {background-image:url(/images/nav_hobbies_img_02.jpg);} 
-#header-new .nav .bg-img-53 {background-image:url(/images/nav_hobbies_img_03.jpg);} 
-#header-new .nav .bg-img-54 {background-image:url(/images/nav_hobbies_img_04.jpg);} 
+#header-new .nav .bg-img-51 {background-image:url(/images/nav_hobbies_img_01.jpg);}
+#header-new .nav .bg-img-52 {background-image:url(/images/nav_hobbies_img_02.jpg);}
+#header-new .nav .bg-img-53 {background-image:url(/images/nav_hobbies_img_03.jpg);}
+#header-new .nav .bg-img-54 {background-image:url(/images/nav_hobbies_img_04.jpg);}
 
-#header-new .nav .bg-img-61 {background-image:url(/images/nav_rest_img_01.jpg);} 
-#header-new .nav .bg-img-62 {background-image:url(/images/nav_rest_img_02.jpg);} 
-#header-new .nav .bg-img-63 {background-image:url(/images/nav_rest_img_03.jpg);} 
+#header-new .nav .bg-img-61 {background-image:url(/images/nav_rest_img_01.jpg);}
+#header-new .nav .bg-img-62 {background-image:url(/images/nav_rest_img_02.jpg);}
+#header-new .nav .bg-img-63 {background-image:url(/images/nav_rest_img_03.jpg);}
 
 
 
@@ -1286,7 +1288,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-
 
 /* scroll */
 
-div.scrollbarpaper-container {position:absolute;z-index:1;background:#fff;} 
+div.scrollbarpaper-container {position:absolute;z-index:1;background:#fff;}
 div.scrollbarpaper-track {position:absolute;top:0;right:0;height:100%;cursor:pointer;width:8px;background-color:#e5f1ff;}
 div.scrollbarpaper-drag{position:absolute;width:100%;height:100px;background-color:#b3cfed;width:10px;margin-left:-2px;border:1px solid #a5c5e8;}
 div.scrollbarpaper-drag:after {display:block;content:'';width:7px;height:7px;background:url(../images/common.png) no-repeat -257px -102px;position:absolute;top:50%;left:50%;margin:-3px -4px;}
@@ -1427,7 +1429,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery #photo .big-photo .next .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -366px -224px;position:absolute;top:50%;right:20px;margin-top:-28px;}
 #gallery #photo .big-photo .next:hover .icon {background-position:-366px -282px;}
 
-#gallery #photo .big-photo .in:hover .prev, #gallery #photo .big-photo .in:hover .next {display:block;} 
+#gallery #photo .big-photo .in:hover .prev, #gallery #photo .big-photo .in:hover .next {display:block;}
 
 
 #gallery #photo #photo-thumbs, #gallery #photo #photo-thumbs-2 {height:250px;width:820px;}
@@ -1705,7 +1707,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 
 /* start */
-	
+
 #start {padding-bottom:20px;background:url(/images/bg_start.png);}
 #start .wrapper {height:705px;background:url(/images/start.png) no-repeat;}
 
@@ -1743,7 +1745,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #start-teasers ul li .text {margin-left:70px;}
 
 
-	
+
 /* start */
 
 
@@ -1785,20 +1787,20 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .clubs-list .subcategory {margin:5px 0;border:1px solid transparent;}
 .clubs-list .subcategory {/*css3*/  -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
-.clubs-list .subcategory.kids {border-color:#bfddff;} 
-.clubs-list .subcategory.manwoman {border-color:#bef2b9;} 
-.clubs-list .subcategory.beauty {border-color:#fff9bc;} 
-.clubs-list .subcategory.home {border-color:#dcc7ee;} 
-.clubs-list .subcategory.hobbies {border-color:#ffdda7;} 
-.clubs-list .subcategory.rest {border-color:#c5effe} 
+.clubs-list .subcategory.kids {border-color:#bfddff;}
+.clubs-list .subcategory.manwoman {border-color:#bef2b9;}
+.clubs-list .subcategory.beauty {border-color:#fff9bc;}
+.clubs-list .subcategory.home {border-color:#dcc7ee;}
+.clubs-list .subcategory.hobbies {border-color:#ffdda7;}
+.clubs-list .subcategory.rest {border-color:#c5effe}
 
 .clubs-list .subcategory	.subcategory-title {float:right;padding:20px 20px 0 0;font-size:14px;}
-.clubs-list .subcategory.kids .subcategory-title {color:#84aee8;} 
-.clubs-list .subcategory.manwoman .subcategory-title{color:#bef2b9;} 
-.clubs-list .subcategory.beauty .subcategory-title {color:#fff9bc;} 
-.clubs-list .subcategory.home .subcategory-title {color:#dcc7ee;} 
-.clubs-list .subcategory.hobbies .subcategory-title {color:#ffdda7;} 
-.clubs-list .subcategory.rest .subcategory-title {color:#c5effe} 
+.clubs-list .subcategory.kids .subcategory-title {color:#84aee8;}
+.clubs-list .subcategory.manwoman .subcategory-title{color:#bef2b9;}
+.clubs-list .subcategory.beauty .subcategory-title {color:#fff9bc;}
+.clubs-list .subcategory.home .subcategory-title {color:#dcc7ee;}
+.clubs-list .subcategory.hobbies .subcategory-title {color:#ffdda7;}
+.clubs-list .subcategory.rest .subcategory-title {color:#c5effe}
 
 /* clubs */
 
@@ -2099,7 +2101,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #homepage .homepage-articles ul li img {display:block;}
 #homepage .homepage-articles .all-link {text-align:right;}
 
-#homepage .homepage-recipes .title span {color:#44cf0c;font-size:16px;display:inline;} 
+#homepage .homepage-recipes .title span {color:#44cf0c;font-size:16px;display:inline;}
 
 #homepage .homepage-most {padding:14px 0 10px 14px;border:1px solid #f7f1fd;}
 #homepage .homepage-most .title {margin-bottom:10px;}
@@ -2168,18 +2170,28 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .content-cols .col-2 {width:460px;}
 #activity .content-cols .col-3 {width:220px;}
 
-#activity .activity-onair .title {padding-left:28px;position:relative;z-index:1;}
-#activity .activity-onair .title img {position:absolute;bottom:0;left:-12px;z-index:-1;}
-#activity .activity-onair ul {list-style:none;line-height:normal;}
-#activity .activity-onair ul li {padding:15px 0;border-top:1px dashed #e6d6f9;}
-#activity .activity-onair ul li:first-child {border-top:0;}
-#activity .activity-onair ul li .date {margin-bottom:5px;color:#a2a2a2;font-size:9px;line-height:1;}
-#activity .activity-onair ul li .user {margin-bottom:5px;}
-#activity .activity-onair ul li .user a {display:inline-block;width:180px;font-family:arial, helvetica, sans-serif;font-weight:normal;vertical-align:top;}
-#activity .activity-onair ul li .user .icon-status {position:relative;top:0px;}
-#activity .activity-onair ul li a {display:block;line-height:14px;font-family:tahoma, arial, sans-serif;font-weight:bold;}
-#activity .activity-onair ul li p {margin-top:5px;font-size:11px;line-height:16px;}
-#activity .activity-onair ul li img {max-width:200px;margin-top:8px;}
+.activity-onair {border:1px solid #f7f0fd;padding:14px 19px;margin-bottom:30px;}
+.activity-onair .title {padding-left:28px;position:relative;z-index:1;font:bold 25px arial, helvetica, sans-serif;color:#454545;}
+.activity-onair .title span {font-weight:normal;color:#8a61b3;}
+.activity-onair .title img {position:absolute;bottom:0;left:-12px;z-index:-1;}
+.activity-onair ul {list-style:none;line-height:normal;}
+.activity-onair ul li {padding:15px 0;border-top:1px dashed #e6d6f9;}
+.activity-onair ul li:first-child {border-top:0;}
+.activity-onair ul li .date {margin-bottom:5px;color:#a2a2a2;font-size:9px;line-height:1;}
+.activity-onair ul li .user {margin-bottom:5px;}
+.activity-onair ul li .user a {display:inline-block;width:180px;font-family:arial, helvetica, sans-serif;font-weight:normal;vertical-align:top;}
+.activity-onair ul li .user .icon-status {position:relative;top:0px;}
+.activity-onair ul li a {display:block;line-height:14px;font-family:tahoma, arial, sans-serif;font-weight:bold;}
+.activity-onair ul li p {margin-top:5px;font-size:11px;line-height:16px;}
+.activity-onair ul li img {max-width:200px;margin-top:8px;}
+.activity-onair.horizontal .title {margin-left:20px;}
+.activity-onair.horizontal .title a {font-size:12px;margin-left:30px;font-weight:normal;}
+.activity-onair.horizontal {padding:14px 0;}
+.activity-onair.horizontal li {float:left;width:200px;border-top:0;padding:15px 19px 0;}
+
+.onair-title {font-weight:bold;font-size:48px;color:#484848;text-align:center;margin-bottom:20px;line-height:1;margin-top:-10px;}
+.onair-title img {position:relative;z-index:-1;margin-right:-25px;top:3px;}
+.onair-title span {font-size:45px;font-weight:normal;color:#9e76c4;}
 
 #activity .activity-wannachat {}
 #activity .activity-wannachat ul {list-style:none;padding-top:10px;}
@@ -2232,13 +2244,15 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-popular ul li .user-info .details .username {width:130px;font-size:12px;}
 #activity .activity-popular ul li .item-title {margin:5px 0;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;line-height:14px;font-size:12px;}
 #activity .activity-popular ul li .content {}
+#activity .activity-popular ul li .content img {max-width:178px;}
 #activity .activity-popular ul li .meta {margin-top:8px;line-height:1.2;font-size:12px;}
 #activity .activity-popular ul li .meta span {display:inline-block;padding:2px 5px;}
 #activity .activity-popular ul li .meta .rating {float:right;color:#8455b1;font:italic 25px/1 times new roman, serif;position:relative;top:-6px;}
 #activity .activity-popular ul li .meta .views {background:#fdfccc;color:#737575;}
 
 #activity .activity-video {margin-bottom:30px;}
-#activity .activity-video .preview {position:relative;width:460px;height:287px;cursor:pointer;display:block;}
+#activity .activity-video .preview {position:relative;width:460px;cursor:pointer;display:block;}
+#activity .activity-video .preview img {max-width:460px;display:block;}
 #activity .activity-video .preview .title {position:absolute;top:13px;left:0;color:#fff;background:rgba(148, 101, 191, .8);font-size:33px;font-weight:bold;line-height:1;padding:10px 20px;}
 #activity .activity-video .preview .title span {font-size:41px;}
 #activity .activity-video .preview .v-title {position:absolute;bottom:0;left:0;padding:5px 15px;background:rgba(0,0,0,.45);width:430px;display:block;color:#fff;}
@@ -2246,17 +2260,34 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-video .preview .v-title:hover span {text-decoration:none;}
 #activity .activity-video .preview .play {display:block;width:103px;height:103px;background:url(/images/activity_play.png) no-repeat;position:absolute;top:50%;left:50%;margin-left:-51px;margin-top:-51px;}
 
-#activity .activity-find-friend {padding:15px 0;}
-#activity .activity-find-friend .title {padding:0px 19px;}
-#activity .activity-find-friend ul {list-style:none;padding-top:15px;}
-#activity .activity-find-friend ul li {border-left:1px dashed #e6d6f9;padding:0 14px;width:200px;float:left;}
-#activity .activity-find-friend ul li:first-child {border-left:0;}
-#activity .activity-find-friend ul li .user-info {}
-#activity .activity-find-friend ul li .user-info .details .username {width:100px;}
-#activity .activity-find-friend ul li .info {font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;line-height:13px;}
-#activity .activity-find-friend ul li .info span {color:#9f9e9e;}
-#activity .activity-find-friend ul li .info p {margin:10px 0;}
-#activity .activity-find-friend ul li .info .interest {margin:10px 7px 0 0;}
+.activity-find-friend {padding:15px 0 !important;}
+.activity-find-friend .title {padding:0px 19px;}
+.activity-find-friend .title a {float:right;font-size:12px;font-weight:normal;margin-top:10px;}
+.activity-find-friend ul {list-style:none;padding-top:15px;}
+.activity-find-friend ul li {border-left:1px dashed #e6d6f9;padding:0 14px;width:200px;float:left;}
+.activity-find-friend ul li:first-child {border-left:0;}
+.activity-find-friend ul li .user-info {}
+.activity-find-friend ul li .user-info .details .username {width:100px;}
+.activity-find-friend ul li .info {font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;line-height:13px;}
+.activity-find-friend ul li .info span {color:#9f9e9e;}
+.activity-find-friend ul li .info p {margin:10px 0;}
+.activity-find-friend ul li .info .interest {margin:10px 7px 0 0;}
+.activity-find-friend ul li .icon-kid-boy {display:inline-block;width:22px;height:21px;background:url(/images/common.png) no-repeat -557px -221px;vertical-align:middle;position:relative;top:-1px;}
+.activity-find-friend ul li .icon-kid-girl {display:inline-block;width:22px;height:21px;background:url(/images/common.png) no-repeat -580px -221px;vertical-align:middle;position:relative;top:-1px;}
+.activity-find-friend ul li .icon-kid-wait {display:inline-block;width:25px;height:22px;background:url(/images/common.png) no-repeat -629px -267px;vertical-align:middle;position:relative;top:-1px;}
+
+#find-friend {}
+#find-friend .title {font-weight:bold;font-size:48px;color:#484848;text-align:center;margin-bottom:20px;line-height:1;}
+#find-friend .title > span {font-size:45px;font-weight:normal;color:#9e76c4;}
+#find-friend .title a {display:inline-block;width:76px;height:78px;background:url(/images/more_friend.png) no-repeat;text-align:center;font-size:13px;font-weight:normal;text-decoration:none;color:#5488d0;vertical-align:middle;margin-left:20px;float:none;margin-top:0;}
+#find-friend .title a span {border-bottom:1px dashed #5488d0;position:relative;top:28px;}
+#find-friend .title a:hover span {border:0;}
+
+#find-friend-wrapper {width:960px;overflow:hidden;}
+#find-friend-wrapper .slide {position:relative;left:0;overflow:hidden;}
+#find-friend-wrapper ul {float:left;width:960px;}
+
+#find-friend ul li {border:0;display:inline-block;vertical-align:top;float:none;margin-bottom:40px;}
 
 #activity .activity-photo {padding:0;}
 #activity .activity-photo .title {padding:9px 19px 15px;}
@@ -2282,45 +2313,71 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-smile .options .option .value {font-size:18px;position:relative;top:-9px;margin-left:5px;}
 #activity .activity-smile .options .option:hover .value {color:#e85201;}
 
-#activity .activity-duel {}
-#activity .activity-duel .title {font-size:40px;margin-bottom:15px;}
-#activity .activity-duel .title > span {font-size:25px;}
-#activity .activity-duel .title .btn {float:right;margin-top:16px;}
-#activity .activity-duel .question {background:#daeefe;padding:12px 15px;font:italic 18px/20px times new roman, serif;color:#3d3d3d;margin-bottom:25px;position:relative;}
-#activity .activity-duel .question {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
-#activity .activity-duel .question .tale {display:block;width:25px;height:17px;background:url(/images/activity_duel_tale.gif) no-repeat;position:absolute;top:100%;left:0;}
-#activity .activity-duel .question .tale-1 {left:27px;}
-#activity .activity-duel .question .tale-2 {left:251px;}
-#activity .activity-duel .answers {background:url(/images/activity_duel_dash.gif) repeat-y 50%;list-style:none;}
-#activity .activity-duel .answers .answer-1 {width:195px;padding-right:15px;float:left;}
-#activity .activity-duel .answers .answer-2 {width:195px;padding-left:15px;float:left;}
-#activity .activity-duel .answers  .user-info {margin-bottom:10px;}
-#activity .activity-duel .answers  .user-info .details .username {width:95px;}
-#activity .activity-duel .answers  p {font-size:11px;line-height:15px;}
-#activity .activity-duel .answers .vote {padding-top:15px;padding-left:12px;}
-#activity .activity-duel .answers .vote .count {display:inline-block;margin-right:10px;text-align:center;}
-#activity .activity-duel .answers .vote .count .count-in {font:italic 50px/1 times new roman, serif;display:block;}
-#activity .activity-duel .answers .answer-1 .vote .count .count-in {color:#25a44a;}
-#activity .activity-duel .answers .answer-2 .vote .count .count-in {color:#4992d0;}
-#activity .activity-duel .answers .vote .count a {position:relative;text-decoration:none;color:#b9b9b9;border-bottom:1px dashed #b9b9b9;line-height:1;}
-#activity .activity-duel .answers .answer-1 .vote .count a:hover {color:#25a44a;border-color:#25a44a;}
-#activity .activity-duel .answers .answer-2 .vote .count a:hover {color:#4992d0;border-color:#4992d0;}
-#activity .activity-duel .answers .vote .button {display:inline-block;vertical-align:top;}
-#activity .activity-duel .answers .vote .button a {margin-top:10px;display:inline-block;height:22px;line-height:22px;padding:0 12px;color:#fff;background:#c9c9c9;font-weight:bold;text-decoration:none;border:1px solid #d1d1d1;}
-#activity .activity-duel .answers .vote .button a {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
-#activity .activity-duel .answers .vote .button span {margin-top:10px;display:inline-block;height:22px;line-height:22px;padding:0 12px;color:#777;font-weight:bold;}
-#activity .activity-duel .answers .answer-1 .vote .button a {background-image:url(/images/btn_answer_g.gif);border:1px solid #34ac51;}
-#activity .activity-duel .answers .answer-1 .vote .button span {color:#25a44a;}
-#activity .activity-duel .answers .answer-2 .vote .button a {background-image:url(/images/btn_answer_b.gif);border:1px solid #549bd7;}
-#activity .activity-duel .answers .answer-2 .vote .button span {color:#4992d0;}
-#activity .activity-duel .answers .vote .button a.disabled {background-image:url(/images/btn_answer_d.gif);border:1px solid #d1d1d1;}
-#activity .activity-duel .answers .votes {list-style:none;padding-top:20px;}
-#activity .activity-duel .answers .votes li {float:left;padding:5px 12px;}
-#activity .activity-duel .answers .more-votes {text-align:right;padding-top:10px;}
-#activity .activity-duel .answers .more-votes a {text-decoration:none;border-bottom:1px dashed #029AD2;}
-#activity .activity-duel .answers .answer-1 .more-votes a {color:#25a44a;border-color:#25a44a;}
-#activity .activity-duel .answers .answer-2 .more-votes a {color:#4992d0;border-color:#4992d0;}
+.activity-duel {}
+.activity-duel .title {font-size:40px;margin-bottom:15px;}
+.activity-duel .title > span {font-size:25px;}
+.activity-duel .title .btn {float:right;margin-top:4px;}
+.activity-duel .question {background:#daeefe;padding:12px 15px;font:italic 18px/20px times new roman, serif;color:#3d3d3d;margin-bottom:25px;position:relative;}
+.activity-duel .question {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+.activity-duel .question .tale {display:block;width:25px;height:17px;background:url(/images/activity_duel_tale.gif) no-repeat;position:absolute;top:100%;left:0;}
+.activity-duel .question .tale-1 {left:27px;}
+.activity-duel .question .tale-2 {left:251px;}
+.activity-duel .answers {background:url(/images/activity_duel_dash.gif) repeat-y 50%;list-style:none;}
+.activity-duel .answers .answer-1 {width:195px;padding-right:15px;float:left;}
+.activity-duel .answers .answer-2 {width:195px;padding-left:15px;float:left;}
+.activity-duel .answers  .user-info {margin-bottom:10px;}
+.activity-duel .answers  .user-info .details .username {width:95px;}
+.activity-duel .answers  p {font-size:11px;line-height:15px;}
+.activity-duel .answers .vote {padding-top:15px;padding-left:12px;}
+.activity-duel .answers .vote .count {display:inline-block;margin-right:10px;text-align:center;color:#b9b9b9;}
+.activity-duel .answers .vote .count .count-in {font:italic 50px/1 times new roman, serif;display:block;}
+.activity-duel .answers .answer-1 .vote .count .count-in {color:#25a44a;}
+.activity-duel .answers .answer-2 .vote .count .count-in {color:#4992d0;}
+.activity-duel .answers .vote .count a {position:relative;text-decoration:none;color:#b9b9b9;border-bottom:1px dashed #b9b9b9;line-height:1;}
+.activity-duel .answers .answer-1 .vote .count a:hover {color:#25a44a;border-color:#25a44a;}
+.activity-duel .answers .answer-2 .vote .count a:hover {color:#4992d0;border-color:#4992d0;}
+.activity-duel .answers .vote .button {display:inline-block;vertical-align:top;}
+.activity-duel .answers .vote .button a {margin-top:10px;display:inline-block;height:22px;line-height:22px;padding:0 12px;color:#fff;background:#c9c9c9;font-weight:bold;text-decoration:none;border:1px solid #d1d1d1;}
+.activity-duel .answers .vote .button a {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
+.activity-duel .answers .vote .button span {margin-top:10px;display:inline-block;height:22px;line-height:22px;padding:0 12px;color:#777;font-weight:bold;}
+.activity-duel .answers .answer-1 .vote .button a {background-image:url(/images/btn_answer_g.gif);border:1px solid #34ac51;}
+.activity-duel .answers .answer-1 .vote .button span {color:#25a44a;}
+.activity-duel .answers .answer-2 .vote .button a {background-image:url(/images/btn_answer_b.gif);border:1px solid #549bd7;}
+.activity-duel .answers .answer-2 .vote .button span {color:#4992d0;}
+.activity-duel .answers .vote .button a.disabled {background-image:url(/images/btn_answer_d.gif);border:1px solid #d1d1d1;}
+.activity-duel .answers .votes {list-style:none;padding-top:20px;}
+.activity-duel .answers .votes li {float:left;padding:5px 12px;}
+.activity-duel .answers .more-votes {text-align:right;padding-top:10px;}
+.activity-duel .answers .more-votes a {text-decoration:none;border-bottom:1px dashed #029AD2;}
+.activity-duel .answers .answer-1 .more-votes a {color:#25a44a;border-color:#25a44a;}
+.activity-duel .answers .answer-2 .more-votes a {color:#4992d0;border-color:#4992d0;}
 
+#duel-takeapart {width:420px;}
+#duel-takeapart .title {line-height:28px;}
+
+#duel-takeapart .duels-list {list-style:none;}
+#duel-takeapart .duels-list li {padding:10px 0;}
+#duel-takeapart .duels-list li .num {display:block;width:30px;height:30px;background:#c5a7e2;color:#fff;text-align:center;text-decoration:none;line-height:30px;font-size:20px;font-weight:bold;position:absolute;right:100%;margin-right:10px;top:-8px;}
+#duel-takeapart .duels-list li .num {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;}
+#duel-takeapart .duels-list li .text {margin-left:40px;padding-top:8px;}
+#duel-takeapart .duels-list li .text p {font-size:15px;}
+#duel-takeapart .duels-list li .text p a {color:#242424;text-decoration:none;display:block;position:relative;}
+#duel-takeapart .duels-list li .text p a:hover {text-decoration:underline;}
+#duel-takeapart .duels-list li .text .duelist {padding-top:10px;}
+#duel-takeapart .duels-list li .text .duelist .label {float:left;color:#949696;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+#duel-takeapart .duels-list li .text .duelist .user-info {margin-left:15px;}
+#duel-takeapart .duels-list li .text .duelist .user-info .details {margin-left:30px;}
+#duel-takeapart .duels-list li .text .duelist .user-info .details .username {width:130px;}
+#duel-takeapart .duels-list li p a:hover {color:#fe8c05;}
+#duel-takeapart .duels-list li p a:hover .num {background:#f68704;}
+
+#duel-takeapart .add-answer {}
+#duel-takeapart .add-answer label {display:block;color:#898888;font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;}
+#duel-takeapart .add-answer textarea {padding:5px;width:408px;border:1px solid #e8d2fd;margin:8px 0;min-height:100px;resize:none;}
+#duel-takeapart .add-answer textarea.cap {font-size:45px;color:#e0e1e0;line-height:1;text-align:center;}
+#duel-takeapart .add-answer .note {font-size:11px;color:#9a9b9a;}
+#duel-takeapart .add-answer .note span {color:#a87fcf;}
+#duel-takeapart .add-answer .btn span {font-weight:bold;font-family:arial, helvetica, sans-serif;}
 
 
 /* */
@@ -2385,6 +2442,7 @@ label {
 .admin-buttons a.green:hover,.admin-buttons a.green.active {background:#6bc545;border-color:#6bc545;}
 .admin-buttons a.yellow:hover,.admin-buttons a.yellow.active {background:#f8cb30;border-color:#f8cb30;}
 .admin-buttons a.blue:hover,.admin-buttons a.blue.active {background:#5488d0;border-color:#5488d0;}
+.admin-buttons a.lilac:hover,.admin-buttons a.lilac.active {background:#b666d2;border-color:#b666d2;}
 .admin-buttons a .tip {font-size:11px;line-height:normal;bottom:100%;left:100%;display:block;position:absolute;top:100%;white-space:nowrap;background:#fff8b4;color:#7e7d7d;padding:4px 10px;border:1px solid #fdef6c;display:none;top:auto !important;margin:0 0 2px 0;}
 .admin-buttons a:hover .tip {display:block;}
 .admin-buttons a .tip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-top:3px;}
@@ -2399,443 +2457,443 @@ label {
     background:url(/images/flags_18.png) no-repeat
 }
 
-.flag.flag-ad{ background-position: 0 0; width: 18px; height: 12px; } 
-.flag.flag-ae{ background-position: 0 -13px; width: 18px; height: 12px; } 
-.flag.flag-af{ background-position: 0 -26px; width: 18px; height: 12px; } 
-.flag.flag-ag{ background-position: 0 -39px; width: 18px; height: 12px; } 
-.flag.flag-ai{ background-position: 0 -52px; width: 18px; height: 12px; } 
-.flag.flag-al{ background-position: 0 -65px; width: 18px; height: 12px; } 
-.flag.flag-an{ background-position: 0 -78px; width: 18px; height: 12px; } 
-.flag.flag-ao{ background-position: 0 -91px; width: 18px; height: 12px; } 
-.flag.flag-aq{ background-position: 0 -104px; width: 18px; height: 12px; } 
-.flag.flag-ar{ background-position: 0 -117px; width: 18px; height: 12px; } 
-.flag.flag-as{ background-position: 0 -130px; width: 18px; height: 12px; } 
-.flag.flag-at{ background-position: 0 -143px; width: 18px; height: 12px; } 
-.flag.flag-au{ background-position: 0 -156px; width: 18px; height: 12px; } 
-.flag.flag-aw{ background-position: 0 -169px; width: 18px; height: 12px; } 
-.flag.flag-az{ background-position: 0 -182px; width: 18px; height: 12px; } 
-.flag.flag-ba{ background-position: 0 -195px; width: 18px; height: 12px; } 
-.flag.flag-bb{ background-position: 0 -208px; width: 18px; height: 12px; } 
-.flag.flag-bd{ background-position: 0 -221px; width: 18px; height: 12px; } 
-.flag.flag-be{ background-position: 0 -234px; width: 18px; height: 12px; } 
-.flag.flag-bf{ background-position: 0 -247px; width: 18px; height: 12px; } 
-.flag.flag-bg{ background-position: 0 -260px; width: 18px; height: 12px; } 
-.flag.flag-bh{ background-position: 0 -273px; width: 18px; height: 12px; } 
-.flag.flag-bi{ background-position: 0 -286px; width: 18px; height: 12px; } 
-.flag.flag-bj{ background-position: 0 -299px; width: 18px; height: 12px; } 
-.flag.flag-bm{ background-position: 0 -312px; width: 18px; height: 12px; } 
-.flag.flag-bn{ background-position: 0 -325px; width: 18px; height: 12px; } 
-.flag.flag-bo{ background-position: 0 -338px; width: 18px; height: 12px; } 
-.flag.flag-br{ background-position: 0 -351px; width: 18px; height: 12px; } 
-.flag.flag-bs{ background-position: 0 -364px; width: 18px; height: 12px; } 
-.flag.flag-bt{ background-position: 0 -377px; width: 18px; height: 12px; } 
-.flag.flag-bv{ background-position: 0 -390px; width: 18px; height: 12px; } 
-.flag.flag-bw{ background-position: 0 -403px; width: 18px; height: 12px; } 
-.flag.flag-by{ background-position: 0 -416px; width: 18px; height: 12px; } 
-.flag.flag-bz{ background-position: 0 -429px; width: 18px; height: 12px; } 
-.flag.flag-ca{ background-position: 0 -442px; width: 18px; height: 12px; } 
-.flag.flag-cd{ background-position: 0 -455px; width: 18px; height: 12px; } 
-.flag.flag-cf{ background-position: 0 -468px; width: 18px; height: 12px; } 
-.flag.flag-cg{ background-position: 0 -481px; width: 18px; height: 12px; } 
-.flag.flag-ch{ background-position: 0 -494px; width: 18px; height: 12px; } 
-.flag.flag-ci{ background-position: 0 -507px; width: 18px; height: 12px; } 
-.flag.flag-ck{ background-position: 0 -520px; width: 18px; height: 12px; } 
-.flag.flag-cl{ background-position: 0 -533px; width: 18px; height: 12px; } 
-.flag.flag-cm{ background-position: 0 -546px; width: 18px; height: 12px; } 
-.flag.flag-cn{ background-position: 0 -559px; width: 18px; height: 12px; } 
-.flag.flag-co{ background-position: 0 -572px; width: 18px; height: 12px; } 
-.flag.flag-cr{ background-position: 0 -585px; width: 18px; height: 12px; } 
-.flag.flag-cu{ background-position: 0 -598px; width: 18px; height: 12px; } 
-.flag.flag-cv{ background-position: 0 -611px; width: 18px; height: 12px; } 
-.flag.flag-cy{ background-position: 0 -624px; width: 18px; height: 12px; } 
-.flag.flag-cz{ background-position: 0 -637px; width: 18px; height: 12px; } 
-.flag.flag-de{ background-position: 0 -650px; width: 18px; height: 12px; } 
-.flag.flag-dj{ background-position: 0 -663px; width: 18px; height: 12px; } 
-.flag.flag-dk{ background-position: 0 -676px; width: 18px; height: 12px; } 
-.flag.flag-dm{ background-position: 0 -689px; width: 18px; height: 12px; } 
-.flag.flag-do{ background-position: 0 -702px; width: 18px; height: 12px; } 
-.flag.flag-dz{ background-position: 0 -715px; width: 18px; height: 12px; } 
-.flag.flag-ec{ background-position: 0 -728px; width: 18px; height: 12px; } 
-.flag.flag-ee{ background-position: 0 -741px; width: 18px; height: 12px; } 
-.flag.flag-eg{ background-position: 0 -754px; width: 18px; height: 12px; } 
-.flag.flag-er{ background-position: 0 -767px; width: 18px; height: 12px; } 
-.flag.flag-es{ background-position: 0 -780px; width: 18px; height: 12px; } 
-.flag.flag-et{ background-position: 0 -793px; width: 18px; height: 12px; } 
-.flag.flag-eu{ background-position: 0 -806px; width: 18px; height: 12px; } 
-.flag.flag-fi{ background-position: 0 -819px; width: 18px; height: 12px; } 
-.flag.flag-fj{ background-position: 0 -832px; width: 18px; height: 12px; } 
-.flag.flag-fk{ background-position: 0 -845px; width: 18px; height: 12px; } 
-.flag.flag-fm{ background-position: 0 -858px; width: 18px; height: 12px; } 
-.flag.flag-fo{ background-position: 0 -871px; width: 18px; height: 12px; } 
-.flag.flag-fr{ background-position: 0 -884px; width: 18px; height: 12px; } 
-.flag.flag-ga{ background-position: 0 -897px; width: 18px; height: 12px; } 
-.flag.flag-gb{ background-position: 0 -910px; width: 18px; height: 12px; } 
-.flag.flag-gd{ background-position: 0 -923px; width: 18px; height: 12px; } 
-.flag.flag-ge{ background-position: 0 -936px; width: 18px; height: 12px; } 
-.flag.flag-gh{ background-position: 0 -949px; width: 18px; height: 12px; } 
-.flag.flag-gi{ background-position: 0 -962px; width: 18px; height: 12px; } 
-.flag.flag-gl{ background-position: 0 -975px; width: 18px; height: 12px; } 
-.flag.flag-gm{ background-position: 0 -988px; width: 18px; height: 12px; } 
-.flag.flag-gn{ background-position: 0 -1001px; width: 18px; height: 12px; } 
-.flag.flag-gp{ background-position: 0 -1014px; width: 18px; height: 12px; } 
-.flag.flag-gq{ background-position: 0 -1027px; width: 18px; height: 12px; } 
-.flag.flag-gr{ background-position: 0 -1040px; width: 18px; height: 12px; } 
-.flag.flag-gt{ background-position: 0 -1053px; width: 18px; height: 12px; } 
-.flag.flag-gu{ background-position: 0 -1066px; width: 18px; height: 12px; } 
-.flag.flag-gw{ background-position: 0 -1079px; width: 18px; height: 12px; } 
-.flag.flag-gy{ background-position: 0 -1092px; width: 18px; height: 12px; } 
-.flag.flag-hk{ background-position: 0 -1105px; width: 18px; height: 12px; } 
-.flag.flag-hm{ background-position: 0 -1118px; width: 18px; height: 12px; } 
-.flag.flag-hn{ background-position: 0 -1131px; width: 18px; height: 12px; } 
-.flag.flag-hr{ background-position: 0 -1144px; width: 18px; height: 12px; } 
-.flag.flag-ht{ background-position: 0 -1157px; width: 18px; height: 12px; } 
-.flag.flag-hu{ background-position: 0 -1170px; width: 18px; height: 12px; } 
-.flag.flag-id{ background-position: 0 -1183px; width: 18px; height: 12px; } 
-.flag.flag-ie{ background-position: 0 -1196px; width: 18px; height: 12px; } 
-.flag.flag-il{ background-position: 0 -1209px; width: 18px; height: 12px; } 
-.flag.flag-in{ background-position: 0 -1222px; width: 18px; height: 12px; } 
-.flag.flag-io{ background-position: 0 -1235px; width: 18px; height: 12px; } 
-.flag.flag-iq{ background-position: 0 -1248px; width: 18px; height: 12px; } 
-.flag.flag-ir{ background-position: 0 -1261px; width: 18px; height: 12px; } 
-.flag.flag-is{ background-position: 0 -1274px; width: 18px; height: 12px; } 
-.flag.flag-it{ background-position: 0 -1287px; width: 18px; height: 12px; } 
-.flag.flag-jm{ background-position: 0 -1300px; width: 18px; height: 12px; } 
-.flag.flag-jo{ background-position: 0 -1313px; width: 18px; height: 12px; } 
-.flag.flag-jp{ background-position: 0 -1326px; width: 18px; height: 12px; } 
-.flag.flag-ke{ background-position: 0 -1339px; width: 18px; height: 12px; } 
-.flag.flag-kg{ background-position: 0 -1352px; width: 18px; height: 12px; } 
-.flag.flag-kh{ background-position: 0 -1365px; width: 18px; height: 12px; } 
-.flag.flag-ki{ background-position: 0 -1378px; width: 18px; height: 12px; } 
-.flag.flag-km{ background-position: 0 -1391px; width: 18px; height: 12px; } 
-.flag.flag-kn{ background-position: 0 -1404px; width: 18px; height: 12px; } 
-.flag.flag-kp{ background-position: 0 -1417px; width: 18px; height: 12px; } 
-.flag.flag-kr{ background-position: 0 -1430px; width: 18px; height: 12px; } 
-.flag.flag-kw{ background-position: 0 -1443px; width: 18px; height: 12px; } 
-.flag.flag-ky{ background-position: 0 -1456px; width: 18px; height: 12px; } 
-.flag.flag-kz{ background-position: 0 -1469px; width: 18px; height: 12px; } 
-.flag.flag-la{ background-position: 0 -1482px; width: 18px; height: 12px; } 
-.flag.flag-lb{ background-position: 0 -1495px; width: 18px; height: 12px; } 
-.flag.flag-lc{ background-position: 0 -1508px; width: 18px; height: 12px; } 
-.flag.flag-li{ background-position: 0 -1521px; width: 18px; height: 12px; } 
-.flag.flag-lk{ background-position: 0 -1534px; width: 18px; height: 12px; } 
-.flag.flag-lr{ background-position: 0 -1547px; width: 18px; height: 12px; } 
-.flag.flag-ls{ background-position: 0 -1560px; width: 18px; height: 12px; } 
-.flag.flag-lt{ background-position: 0 -1573px; width: 18px; height: 12px; } 
-.flag.flag-lu{ background-position: 0 -1586px; width: 18px; height: 12px; } 
-.flag.flag-lv{ background-position: 0 -1599px; width: 18px; height: 12px; } 
-.flag.flag-ly{ background-position: 0 -1612px; width: 18px; height: 12px; } 
-.flag.flag-ma{ background-position: 0 -1625px; width: 18px; height: 12px; } 
-.flag.flag-mc{ background-position: 0 -1638px; width: 18px; height: 12px; } 
-.flag.flag-md{ background-position: 0 -1651px; width: 18px; height: 12px; } 
-.flag.flag-mg{ background-position: 0 -1664px; width: 18px; height: 12px; } 
-.flag.flag-mh{ background-position: 0 -1677px; width: 18px; height: 12px; } 
-.flag.flag-mk{ background-position: 0 -1690px; width: 18px; height: 12px; } 
-.flag.flag-ml{ background-position: 0 -1703px; width: 18px; height: 12px; } 
-.flag.flag-mm{ background-position: 0 -1716px; width: 18px; height: 12px; } 
-.flag.flag-mn{ background-position: 0 -1729px; width: 18px; height: 12px; } 
-.flag.flag-mo{ background-position: 0 -1742px; width: 18px; height: 12px; } 
-.flag.flag-mp{ background-position: 0 -1755px; width: 18px; height: 12px; } 
-.flag.flag-mq{ background-position: 0 -1768px; width: 18px; height: 12px; } 
-.flag.flag-mr{ background-position: 0 -1781px; width: 18px; height: 12px; } 
-.flag.flag-ms{ background-position: 0 -1794px; width: 18px; height: 12px; } 
-.flag.flag-mt{ background-position: 0 -1807px; width: 18px; height: 12px; } 
-.flag.flag-mu{ background-position: 0 -1820px; width: 18px; height: 12px; } 
-.flag.flag-mv{ background-position: 0 -1833px; width: 18px; height: 12px; } 
-.flag.flag-mw{ background-position: 0 -1846px; width: 18px; height: 12px; } 
-.flag.flag-mx{ background-position: 0 -1859px; width: 18px; height: 12px; } 
-.flag.flag-my{ background-position: 0 -1872px; width: 18px; height: 12px; } 
-.flag.flag-mz{ background-position: 0 -1885px; width: 18px; height: 12px; } 
-.flag.flag-na{ background-position: 0 -1898px; width: 18px; height: 12px; } 
-.flag.flag-nc{ background-position: 0 -1911px; width: 18px; height: 12px; } 
-.flag.flag-ne{ background-position: 0 -1924px; width: 18px; height: 12px; } 
-.flag.flag-nf{ background-position: 0 -1937px; width: 18px; height: 12px; } 
-.flag.flag-ng{ background-position: 0 -1950px; width: 18px; height: 12px; } 
-.flag.flag-ni{ background-position: 0 -1963px; width: 18px; height: 12px; } 
-.flag.flag-nl{ background-position: 0 -1976px; width: 18px; height: 12px; } 
-.flag.flag-no{ background-position: 0 -1989px; width: 18px; height: 12px; } 
-.flag.flag-np{ background-position: -19px 0; width: 18px; height: 12px; } 
-.flag.flag-nr{ background-position: -19px -13px; width: 18px; height: 12px; } 
-.flag.flag-nz{ background-position: -19px -26px; width: 18px; height: 12px; } 
-.flag.flag-om{ background-position: -19px -39px; width: 18px; height: 12px; } 
-.flag.flag-pa{ background-position: -19px -52px; width: 18px; height: 12px; } 
-.flag.flag-pe{ background-position: -19px -65px; width: 18px; height: 12px; } 
-.flag.flag-pf{ background-position: -19px -78px; width: 18px; height: 12px; } 
-.flag.flag-pg{ background-position: -19px -91px; width: 18px; height: 12px; } 
-.flag.flag-ph{ background-position: -19px -104px; width: 18px; height: 12px; } 
-.flag.flag-pk{ background-position: -19px -117px; width: 18px; height: 12px; } 
-.flag.flag-pl{ background-position: -19px -130px; width: 18px; height: 12px; } 
-.flag.flag-pm{ background-position: -19px -143px; width: 18px; height: 12px; } 
-.flag.flag-pr{ background-position: -19px -156px; width: 18px; height: 12px; } 
-.flag.flag-ps{ background-position: -19px -169px; width: 18px; height: 12px; } 
-.flag.flag-pt{ background-position: -19px -182px; width: 18px; height: 12px; } 
-.flag.flag-pw{ background-position: -19px -195px; width: 18px; height: 12px; } 
-.flag.flag-py{ background-position: -19px -208px; width: 18px; height: 12px; } 
-.flag.flag-qa{ background-position: -19px -221px; width: 18px; height: 12px; } 
-.flag.flag-re{ background-position: -19px -234px; width: 18px; height: 12px; } 
-.flag.flag-ro{ background-position: -19px -247px; width: 18px; height: 12px; } 
-.flag.flag-ru{ background-position: -19px -260px; width: 18px; height: 12px; } 
-.flag.flag-rw{ background-position: -19px -273px; width: 18px; height: 12px; } 
-.flag.flag-sa{ background-position: -19px -286px; width: 18px; height: 12px; } 
-.flag.flag-sb{ background-position: -19px -299px; width: 18px; height: 12px; } 
-.flag.flag-sc{ background-position: -19px -312px; width: 18px; height: 12px; } 
-.flag.flag-sd{ background-position: -19px -325px; width: 18px; height: 12px; } 
-.flag.flag-se{ background-position: -19px -338px; width: 18px; height: 12px; } 
-.flag.flag-sg{ background-position: -19px -351px; width: 18px; height: 12px; } 
-.flag.flag-si{ background-position: -19px -364px; width: 18px; height: 12px; } 
-.flag.flag-sk{ background-position: -19px -377px; width: 18px; height: 12px; } 
-.flag.flag-sl{ background-position: -19px -390px; width: 18px; height: 12px; } 
-.flag.flag-sm{ background-position: -19px -403px; width: 18px; height: 12px; } 
-.flag.flag-sn{ background-position: -19px -416px; width: 18px; height: 12px; } 
-.flag.flag-so{ background-position: -19px -429px; width: 18px; height: 12px; } 
-.flag.flag-sr{ background-position: -19px -442px; width: 18px; height: 12px; } 
-.flag.flag-st{ background-position: -19px -455px; width: 18px; height: 12px; } 
-.flag.flag-su{ background-position: -19px -468px; width: 18px; height: 12px; } 
-.flag.flag-sv{ background-position: -19px -481px; width: 18px; height: 12px; } 
-.flag.flag-sy{ background-position: -19px -494px; width: 18px; height: 12px; } 
-.flag.flag-sz{ background-position: -19px -507px; width: 18px; height: 12px; } 
-.flag.flag-tc{ background-position: -19px -520px; width: 18px; height: 12px; } 
-.flag.flag-td{ background-position: -19px -533px; width: 18px; height: 12px; } 
-.flag.flag-tf{ background-position: -19px -546px; width: 18px; height: 12px; } 
-.flag.flag-tg{ background-position: -19px -559px; width: 18px; height: 12px; } 
-.flag.flag-th{ background-position: -19px -572px; width: 18px; height: 12px; } 
-.flag.flag-tj{ background-position: -19px -585px; width: 18px; height: 12px; } 
-.flag.flag-tm{ background-position: -19px -598px; width: 18px; height: 12px; } 
-.flag.flag-tn{ background-position: -19px -611px; width: 18px; height: 12px; } 
-.flag.flag-to{ background-position: -19px -624px; width: 18px; height: 12px; } 
-.flag.flag-tp{ background-position: -19px -637px; width: 18px; height: 12px; } 
-.flag.flag-tr{ background-position: -19px -650px; width: 18px; height: 12px; } 
-.flag.flag-tt{ background-position: -19px -663px; width: 18px; height: 12px; } 
-.flag.flag-tv{ background-position: -19px -676px; width: 18px; height: 12px; } 
-.flag.flag-tw{ background-position: -19px -689px; width: 18px; height: 12px; } 
-.flag.flag-tz{ background-position: -19px -702px; width: 18px; height: 12px; } 
-.flag.flag-ua{ background-position: -19px -715px; width: 18px; height: 12px; } 
-.flag.flag-ug{ background-position: -19px -728px; width: 18px; height: 12px; } 
-.flag.flag-um{ background-position: -19px -741px; width: 18px; height: 12px; } 
-.flag.flag-us{ background-position: -19px -754px; width: 18px; height: 12px; } 
-.flag.flag-uy{ background-position: -19px -767px; width: 18px; height: 12px; } 
-.flag.flag-uz{ background-position: -19px -780px; width: 18px; height: 12px; } 
-.flag.flag-va{ background-position: -19px -793px; width: 18px; height: 12px; } 
-.flag.flag-vc{ background-position: -19px -806px; width: 18px; height: 12px; } 
-.flag.flag-ve{ background-position: -19px -819px; width: 18px; height: 12px; } 
-.flag.flag-vg{ background-position: -19px -832px; width: 18px; height: 12px; } 
-.flag.flag-vi{ background-position: -19px -845px; width: 18px; height: 12px; } 
-.flag.flag-vn{ background-position: -19px -858px; width: 18px; height: 12px; } 
-.flag.flag-vu{ background-position: -19px -871px; width: 18px; height: 12px; } 
-.flag.flag-ws{ background-position: -19px -884px; width: 18px; height: 12px; } 
-.flag.flag-ye{ background-position: -19px -897px; width: 18px; height: 12px; } 
-.flag.flag-yu{ background-position: -19px -910px; width: 18px; height: 12px; } 
-.flag.flag-za{ background-position: -19px -923px; width: 18px; height: 12px; } 
-.flag.flag-zm{ background-position: -19px -936px; width: 18px; height: 12px; } 
-.flag.flag-zr{ background-position: -19px -949px; width: 18px; height: 12px; } 
-.flag.flag-zw{ background-position: -19px -962px; width: 18px; height: 12px; } 
+.flag.flag-ad{ background-position: 0 0; width: 18px; height: 12px; }
+.flag.flag-ae{ background-position: 0 -13px; width: 18px; height: 12px; }
+.flag.flag-af{ background-position: 0 -26px; width: 18px; height: 12px; }
+.flag.flag-ag{ background-position: 0 -39px; width: 18px; height: 12px; }
+.flag.flag-ai{ background-position: 0 -52px; width: 18px; height: 12px; }
+.flag.flag-al{ background-position: 0 -65px; width: 18px; height: 12px; }
+.flag.flag-an{ background-position: 0 -78px; width: 18px; height: 12px; }
+.flag.flag-ao{ background-position: 0 -91px; width: 18px; height: 12px; }
+.flag.flag-aq{ background-position: 0 -104px; width: 18px; height: 12px; }
+.flag.flag-ar{ background-position: 0 -117px; width: 18px; height: 12px; }
+.flag.flag-as{ background-position: 0 -130px; width: 18px; height: 12px; }
+.flag.flag-at{ background-position: 0 -143px; width: 18px; height: 12px; }
+.flag.flag-au{ background-position: 0 -156px; width: 18px; height: 12px; }
+.flag.flag-aw{ background-position: 0 -169px; width: 18px; height: 12px; }
+.flag.flag-az{ background-position: 0 -182px; width: 18px; height: 12px; }
+.flag.flag-ba{ background-position: 0 -195px; width: 18px; height: 12px; }
+.flag.flag-bb{ background-position: 0 -208px; width: 18px; height: 12px; }
+.flag.flag-bd{ background-position: 0 -221px; width: 18px; height: 12px; }
+.flag.flag-be{ background-position: 0 -234px; width: 18px; height: 12px; }
+.flag.flag-bf{ background-position: 0 -247px; width: 18px; height: 12px; }
+.flag.flag-bg{ background-position: 0 -260px; width: 18px; height: 12px; }
+.flag.flag-bh{ background-position: 0 -273px; width: 18px; height: 12px; }
+.flag.flag-bi{ background-position: 0 -286px; width: 18px; height: 12px; }
+.flag.flag-bj{ background-position: 0 -299px; width: 18px; height: 12px; }
+.flag.flag-bm{ background-position: 0 -312px; width: 18px; height: 12px; }
+.flag.flag-bn{ background-position: 0 -325px; width: 18px; height: 12px; }
+.flag.flag-bo{ background-position: 0 -338px; width: 18px; height: 12px; }
+.flag.flag-br{ background-position: 0 -351px; width: 18px; height: 12px; }
+.flag.flag-bs{ background-position: 0 -364px; width: 18px; height: 12px; }
+.flag.flag-bt{ background-position: 0 -377px; width: 18px; height: 12px; }
+.flag.flag-bv{ background-position: 0 -390px; width: 18px; height: 12px; }
+.flag.flag-bw{ background-position: 0 -403px; width: 18px; height: 12px; }
+.flag.flag-by{ background-position: 0 -416px; width: 18px; height: 12px; }
+.flag.flag-bz{ background-position: 0 -429px; width: 18px; height: 12px; }
+.flag.flag-ca{ background-position: 0 -442px; width: 18px; height: 12px; }
+.flag.flag-cd{ background-position: 0 -455px; width: 18px; height: 12px; }
+.flag.flag-cf{ background-position: 0 -468px; width: 18px; height: 12px; }
+.flag.flag-cg{ background-position: 0 -481px; width: 18px; height: 12px; }
+.flag.flag-ch{ background-position: 0 -494px; width: 18px; height: 12px; }
+.flag.flag-ci{ background-position: 0 -507px; width: 18px; height: 12px; }
+.flag.flag-ck{ background-position: 0 -520px; width: 18px; height: 12px; }
+.flag.flag-cl{ background-position: 0 -533px; width: 18px; height: 12px; }
+.flag.flag-cm{ background-position: 0 -546px; width: 18px; height: 12px; }
+.flag.flag-cn{ background-position: 0 -559px; width: 18px; height: 12px; }
+.flag.flag-co{ background-position: 0 -572px; width: 18px; height: 12px; }
+.flag.flag-cr{ background-position: 0 -585px; width: 18px; height: 12px; }
+.flag.flag-cu{ background-position: 0 -598px; width: 18px; height: 12px; }
+.flag.flag-cv{ background-position: 0 -611px; width: 18px; height: 12px; }
+.flag.flag-cy{ background-position: 0 -624px; width: 18px; height: 12px; }
+.flag.flag-cz{ background-position: 0 -637px; width: 18px; height: 12px; }
+.flag.flag-de{ background-position: 0 -650px; width: 18px; height: 12px; }
+.flag.flag-dj{ background-position: 0 -663px; width: 18px; height: 12px; }
+.flag.flag-dk{ background-position: 0 -676px; width: 18px; height: 12px; }
+.flag.flag-dm{ background-position: 0 -689px; width: 18px; height: 12px; }
+.flag.flag-do{ background-position: 0 -702px; width: 18px; height: 12px; }
+.flag.flag-dz{ background-position: 0 -715px; width: 18px; height: 12px; }
+.flag.flag-ec{ background-position: 0 -728px; width: 18px; height: 12px; }
+.flag.flag-ee{ background-position: 0 -741px; width: 18px; height: 12px; }
+.flag.flag-eg{ background-position: 0 -754px; width: 18px; height: 12px; }
+.flag.flag-er{ background-position: 0 -767px; width: 18px; height: 12px; }
+.flag.flag-es{ background-position: 0 -780px; width: 18px; height: 12px; }
+.flag.flag-et{ background-position: 0 -793px; width: 18px; height: 12px; }
+.flag.flag-eu{ background-position: 0 -806px; width: 18px; height: 12px; }
+.flag.flag-fi{ background-position: 0 -819px; width: 18px; height: 12px; }
+.flag.flag-fj{ background-position: 0 -832px; width: 18px; height: 12px; }
+.flag.flag-fk{ background-position: 0 -845px; width: 18px; height: 12px; }
+.flag.flag-fm{ background-position: 0 -858px; width: 18px; height: 12px; }
+.flag.flag-fo{ background-position: 0 -871px; width: 18px; height: 12px; }
+.flag.flag-fr{ background-position: 0 -884px; width: 18px; height: 12px; }
+.flag.flag-ga{ background-position: 0 -897px; width: 18px; height: 12px; }
+.flag.flag-gb{ background-position: 0 -910px; width: 18px; height: 12px; }
+.flag.flag-gd{ background-position: 0 -923px; width: 18px; height: 12px; }
+.flag.flag-ge{ background-position: 0 -936px; width: 18px; height: 12px; }
+.flag.flag-gh{ background-position: 0 -949px; width: 18px; height: 12px; }
+.flag.flag-gi{ background-position: 0 -962px; width: 18px; height: 12px; }
+.flag.flag-gl{ background-position: 0 -975px; width: 18px; height: 12px; }
+.flag.flag-gm{ background-position: 0 -988px; width: 18px; height: 12px; }
+.flag.flag-gn{ background-position: 0 -1001px; width: 18px; height: 12px; }
+.flag.flag-gp{ background-position: 0 -1014px; width: 18px; height: 12px; }
+.flag.flag-gq{ background-position: 0 -1027px; width: 18px; height: 12px; }
+.flag.flag-gr{ background-position: 0 -1040px; width: 18px; height: 12px; }
+.flag.flag-gt{ background-position: 0 -1053px; width: 18px; height: 12px; }
+.flag.flag-gu{ background-position: 0 -1066px; width: 18px; height: 12px; }
+.flag.flag-gw{ background-position: 0 -1079px; width: 18px; height: 12px; }
+.flag.flag-gy{ background-position: 0 -1092px; width: 18px; height: 12px; }
+.flag.flag-hk{ background-position: 0 -1105px; width: 18px; height: 12px; }
+.flag.flag-hm{ background-position: 0 -1118px; width: 18px; height: 12px; }
+.flag.flag-hn{ background-position: 0 -1131px; width: 18px; height: 12px; }
+.flag.flag-hr{ background-position: 0 -1144px; width: 18px; height: 12px; }
+.flag.flag-ht{ background-position: 0 -1157px; width: 18px; height: 12px; }
+.flag.flag-hu{ background-position: 0 -1170px; width: 18px; height: 12px; }
+.flag.flag-id{ background-position: 0 -1183px; width: 18px; height: 12px; }
+.flag.flag-ie{ background-position: 0 -1196px; width: 18px; height: 12px; }
+.flag.flag-il{ background-position: 0 -1209px; width: 18px; height: 12px; }
+.flag.flag-in{ background-position: 0 -1222px; width: 18px; height: 12px; }
+.flag.flag-io{ background-position: 0 -1235px; width: 18px; height: 12px; }
+.flag.flag-iq{ background-position: 0 -1248px; width: 18px; height: 12px; }
+.flag.flag-ir{ background-position: 0 -1261px; width: 18px; height: 12px; }
+.flag.flag-is{ background-position: 0 -1274px; width: 18px; height: 12px; }
+.flag.flag-it{ background-position: 0 -1287px; width: 18px; height: 12px; }
+.flag.flag-jm{ background-position: 0 -1300px; width: 18px; height: 12px; }
+.flag.flag-jo{ background-position: 0 -1313px; width: 18px; height: 12px; }
+.flag.flag-jp{ background-position: 0 -1326px; width: 18px; height: 12px; }
+.flag.flag-ke{ background-position: 0 -1339px; width: 18px; height: 12px; }
+.flag.flag-kg{ background-position: 0 -1352px; width: 18px; height: 12px; }
+.flag.flag-kh{ background-position: 0 -1365px; width: 18px; height: 12px; }
+.flag.flag-ki{ background-position: 0 -1378px; width: 18px; height: 12px; }
+.flag.flag-km{ background-position: 0 -1391px; width: 18px; height: 12px; }
+.flag.flag-kn{ background-position: 0 -1404px; width: 18px; height: 12px; }
+.flag.flag-kp{ background-position: 0 -1417px; width: 18px; height: 12px; }
+.flag.flag-kr{ background-position: 0 -1430px; width: 18px; height: 12px; }
+.flag.flag-kw{ background-position: 0 -1443px; width: 18px; height: 12px; }
+.flag.flag-ky{ background-position: 0 -1456px; width: 18px; height: 12px; }
+.flag.flag-kz{ background-position: 0 -1469px; width: 18px; height: 12px; }
+.flag.flag-la{ background-position: 0 -1482px; width: 18px; height: 12px; }
+.flag.flag-lb{ background-position: 0 -1495px; width: 18px; height: 12px; }
+.flag.flag-lc{ background-position: 0 -1508px; width: 18px; height: 12px; }
+.flag.flag-li{ background-position: 0 -1521px; width: 18px; height: 12px; }
+.flag.flag-lk{ background-position: 0 -1534px; width: 18px; height: 12px; }
+.flag.flag-lr{ background-position: 0 -1547px; width: 18px; height: 12px; }
+.flag.flag-ls{ background-position: 0 -1560px; width: 18px; height: 12px; }
+.flag.flag-lt{ background-position: 0 -1573px; width: 18px; height: 12px; }
+.flag.flag-lu{ background-position: 0 -1586px; width: 18px; height: 12px; }
+.flag.flag-lv{ background-position: 0 -1599px; width: 18px; height: 12px; }
+.flag.flag-ly{ background-position: 0 -1612px; width: 18px; height: 12px; }
+.flag.flag-ma{ background-position: 0 -1625px; width: 18px; height: 12px; }
+.flag.flag-mc{ background-position: 0 -1638px; width: 18px; height: 12px; }
+.flag.flag-md{ background-position: 0 -1651px; width: 18px; height: 12px; }
+.flag.flag-mg{ background-position: 0 -1664px; width: 18px; height: 12px; }
+.flag.flag-mh{ background-position: 0 -1677px; width: 18px; height: 12px; }
+.flag.flag-mk{ background-position: 0 -1690px; width: 18px; height: 12px; }
+.flag.flag-ml{ background-position: 0 -1703px; width: 18px; height: 12px; }
+.flag.flag-mm{ background-position: 0 -1716px; width: 18px; height: 12px; }
+.flag.flag-mn{ background-position: 0 -1729px; width: 18px; height: 12px; }
+.flag.flag-mo{ background-position: 0 -1742px; width: 18px; height: 12px; }
+.flag.flag-mp{ background-position: 0 -1755px; width: 18px; height: 12px; }
+.flag.flag-mq{ background-position: 0 -1768px; width: 18px; height: 12px; }
+.flag.flag-mr{ background-position: 0 -1781px; width: 18px; height: 12px; }
+.flag.flag-ms{ background-position: 0 -1794px; width: 18px; height: 12px; }
+.flag.flag-mt{ background-position: 0 -1807px; width: 18px; height: 12px; }
+.flag.flag-mu{ background-position: 0 -1820px; width: 18px; height: 12px; }
+.flag.flag-mv{ background-position: 0 -1833px; width: 18px; height: 12px; }
+.flag.flag-mw{ background-position: 0 -1846px; width: 18px; height: 12px; }
+.flag.flag-mx{ background-position: 0 -1859px; width: 18px; height: 12px; }
+.flag.flag-my{ background-position: 0 -1872px; width: 18px; height: 12px; }
+.flag.flag-mz{ background-position: 0 -1885px; width: 18px; height: 12px; }
+.flag.flag-na{ background-position: 0 -1898px; width: 18px; height: 12px; }
+.flag.flag-nc{ background-position: 0 -1911px; width: 18px; height: 12px; }
+.flag.flag-ne{ background-position: 0 -1924px; width: 18px; height: 12px; }
+.flag.flag-nf{ background-position: 0 -1937px; width: 18px; height: 12px; }
+.flag.flag-ng{ background-position: 0 -1950px; width: 18px; height: 12px; }
+.flag.flag-ni{ background-position: 0 -1963px; width: 18px; height: 12px; }
+.flag.flag-nl{ background-position: 0 -1976px; width: 18px; height: 12px; }
+.flag.flag-no{ background-position: 0 -1989px; width: 18px; height: 12px; }
+.flag.flag-np{ background-position: -19px 0; width: 18px; height: 12px; }
+.flag.flag-nr{ background-position: -19px -13px; width: 18px; height: 12px; }
+.flag.flag-nz{ background-position: -19px -26px; width: 18px; height: 12px; }
+.flag.flag-om{ background-position: -19px -39px; width: 18px; height: 12px; }
+.flag.flag-pa{ background-position: -19px -52px; width: 18px; height: 12px; }
+.flag.flag-pe{ background-position: -19px -65px; width: 18px; height: 12px; }
+.flag.flag-pf{ background-position: -19px -78px; width: 18px; height: 12px; }
+.flag.flag-pg{ background-position: -19px -91px; width: 18px; height: 12px; }
+.flag.flag-ph{ background-position: -19px -104px; width: 18px; height: 12px; }
+.flag.flag-pk{ background-position: -19px -117px; width: 18px; height: 12px; }
+.flag.flag-pl{ background-position: -19px -130px; width: 18px; height: 12px; }
+.flag.flag-pm{ background-position: -19px -143px; width: 18px; height: 12px; }
+.flag.flag-pr{ background-position: -19px -156px; width: 18px; height: 12px; }
+.flag.flag-ps{ background-position: -19px -169px; width: 18px; height: 12px; }
+.flag.flag-pt{ background-position: -19px -182px; width: 18px; height: 12px; }
+.flag.flag-pw{ background-position: -19px -195px; width: 18px; height: 12px; }
+.flag.flag-py{ background-position: -19px -208px; width: 18px; height: 12px; }
+.flag.flag-qa{ background-position: -19px -221px; width: 18px; height: 12px; }
+.flag.flag-re{ background-position: -19px -234px; width: 18px; height: 12px; }
+.flag.flag-ro{ background-position: -19px -247px; width: 18px; height: 12px; }
+.flag.flag-ru{ background-position: -19px -260px; width: 18px; height: 12px; }
+.flag.flag-rw{ background-position: -19px -273px; width: 18px; height: 12px; }
+.flag.flag-sa{ background-position: -19px -286px; width: 18px; height: 12px; }
+.flag.flag-sb{ background-position: -19px -299px; width: 18px; height: 12px; }
+.flag.flag-sc{ background-position: -19px -312px; width: 18px; height: 12px; }
+.flag.flag-sd{ background-position: -19px -325px; width: 18px; height: 12px; }
+.flag.flag-se{ background-position: -19px -338px; width: 18px; height: 12px; }
+.flag.flag-sg{ background-position: -19px -351px; width: 18px; height: 12px; }
+.flag.flag-si{ background-position: -19px -364px; width: 18px; height: 12px; }
+.flag.flag-sk{ background-position: -19px -377px; width: 18px; height: 12px; }
+.flag.flag-sl{ background-position: -19px -390px; width: 18px; height: 12px; }
+.flag.flag-sm{ background-position: -19px -403px; width: 18px; height: 12px; }
+.flag.flag-sn{ background-position: -19px -416px; width: 18px; height: 12px; }
+.flag.flag-so{ background-position: -19px -429px; width: 18px; height: 12px; }
+.flag.flag-sr{ background-position: -19px -442px; width: 18px; height: 12px; }
+.flag.flag-st{ background-position: -19px -455px; width: 18px; height: 12px; }
+.flag.flag-su{ background-position: -19px -468px; width: 18px; height: 12px; }
+.flag.flag-sv{ background-position: -19px -481px; width: 18px; height: 12px; }
+.flag.flag-sy{ background-position: -19px -494px; width: 18px; height: 12px; }
+.flag.flag-sz{ background-position: -19px -507px; width: 18px; height: 12px; }
+.flag.flag-tc{ background-position: -19px -520px; width: 18px; height: 12px; }
+.flag.flag-td{ background-position: -19px -533px; width: 18px; height: 12px; }
+.flag.flag-tf{ background-position: -19px -546px; width: 18px; height: 12px; }
+.flag.flag-tg{ background-position: -19px -559px; width: 18px; height: 12px; }
+.flag.flag-th{ background-position: -19px -572px; width: 18px; height: 12px; }
+.flag.flag-tj{ background-position: -19px -585px; width: 18px; height: 12px; }
+.flag.flag-tm{ background-position: -19px -598px; width: 18px; height: 12px; }
+.flag.flag-tn{ background-position: -19px -611px; width: 18px; height: 12px; }
+.flag.flag-to{ background-position: -19px -624px; width: 18px; height: 12px; }
+.flag.flag-tp{ background-position: -19px -637px; width: 18px; height: 12px; }
+.flag.flag-tr{ background-position: -19px -650px; width: 18px; height: 12px; }
+.flag.flag-tt{ background-position: -19px -663px; width: 18px; height: 12px; }
+.flag.flag-tv{ background-position: -19px -676px; width: 18px; height: 12px; }
+.flag.flag-tw{ background-position: -19px -689px; width: 18px; height: 12px; }
+.flag.flag-tz{ background-position: -19px -702px; width: 18px; height: 12px; }
+.flag.flag-ua{ background-position: -19px -715px; width: 18px; height: 12px; }
+.flag.flag-ug{ background-position: -19px -728px; width: 18px; height: 12px; }
+.flag.flag-um{ background-position: -19px -741px; width: 18px; height: 12px; }
+.flag.flag-us{ background-position: -19px -754px; width: 18px; height: 12px; }
+.flag.flag-uy{ background-position: -19px -767px; width: 18px; height: 12px; }
+.flag.flag-uz{ background-position: -19px -780px; width: 18px; height: 12px; }
+.flag.flag-va{ background-position: -19px -793px; width: 18px; height: 12px; }
+.flag.flag-vc{ background-position: -19px -806px; width: 18px; height: 12px; }
+.flag.flag-ve{ background-position: -19px -819px; width: 18px; height: 12px; }
+.flag.flag-vg{ background-position: -19px -832px; width: 18px; height: 12px; }
+.flag.flag-vi{ background-position: -19px -845px; width: 18px; height: 12px; }
+.flag.flag-vn{ background-position: -19px -858px; width: 18px; height: 12px; }
+.flag.flag-vu{ background-position: -19px -871px; width: 18px; height: 12px; }
+.flag.flag-ws{ background-position: -19px -884px; width: 18px; height: 12px; }
+.flag.flag-ye{ background-position: -19px -897px; width: 18px; height: 12px; }
+.flag.flag-yu{ background-position: -19px -910px; width: 18px; height: 12px; }
+.flag.flag-za{ background-position: -19px -923px; width: 18px; height: 12px; }
+.flag.flag-zm{ background-position: -19px -936px; width: 18px; height: 12px; }
+.flag.flag-zr{ background-position: -19px -949px; width: 18px; height: 12px; }
+.flag.flag-zw{ background-position: -19px -962px; width: 18px; height: 12px; }
 
 .flag-big {width: 32px;
     height: 32px;
     background:url(/images/flags_32.png) no-repeat;
 }
-.flag-big.flag-big-ad{ background-position: 0 0; width: 32px; height: 32px; } 
-.flag-big.flag-big-ae{ background-position: 0 -33px; width: 32px; height: 32px; } 
-.flag-big.flag-big-af{ background-position: 0 -66px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ag{ background-position: 0 -99px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ai{ background-position: 0 -132px; width: 32px; height: 32px; } 
-.flag-big.flag-big-al{ background-position: 0 -165px; width: 32px; height: 32px; } 
-.flag-big.flag-big-am{ background-position: 0 -198px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ao{ background-position: 0 -231px; width: 32px; height: 32px; } 
-.flag-big.flag-big-aq{ background-position: 0 -264px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ar{ background-position: 0 -297px; width: 32px; height: 32px; } 
-.flag-big.flag-big-as{ background-position: 0 -330px; width: 32px; height: 32px; } 
-.flag-big.flag-big-at{ background-position: 0 -363px; width: 32px; height: 32px; } 
-.flag-big.flag-big-au{ background-position: 0 -396px; width: 32px; height: 32px; } 
-.flag-big.flag-big-aw{ background-position: 0 -429px; width: 32px; height: 32px; } 
-.flag-big.flag-big-az{ background-position: 0 -462px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ba{ background-position: 0 -495px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bb{ background-position: 0 -528px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bd{ background-position: 0 -561px; width: 32px; height: 32px; } 
-.flag-big.flag-big-be{ background-position: 0 -594px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bf{ background-position: 0 -627px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bg{ background-position: 0 -660px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bh{ background-position: 0 -693px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bi{ background-position: 0 -726px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bj{ background-position: 0 -759px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bn{ background-position: 0 -792px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bo{ background-position: 0 -825px; width: 32px; height: 32px; } 
-.flag-big.flag-big-br{ background-position: 0 -858px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bs{ background-position: 0 -891px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bt{ background-position: 0 -924px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bw{ background-position: 0 -957px; width: 32px; height: 32px; } 
-.flag-big.flag-big-by{ background-position: 0 -990px; width: 32px; height: 32px; } 
-.flag-big.flag-big-bz{ background-position: 0 -1023px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ca{ background-position: 0 -1056px; width: 32px; height: 32px; } 
-.flag-big.flag-big-cf{ background-position: 0 -1089px; width: 32px; height: 32px; } 
-.flag-big.flag-big-cg{ background-position: 0 -1122px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ch00{ background-position: 0 -1155px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ch{ background-position: 0 -1188px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ci{ background-position: 0 -1221px; width: 32px; height: 32px; } 
-.flag-big.flag-big-cl{ background-position: 0 -1254px; width: 32px; height: 32px; } 
-.flag-big.flag-big-cm{ background-position: 0 -1287px; width: 32px; height: 32px; } 
-.flag-big.flag-big-cn{ background-position: 0 -1320px; width: 32px; height: 32px; } 
-.flag-big.flag-big-co{ background-position: 0 -1353px; width: 32px; height: 32px; } 
-.flag-big.flag-big-cr{ background-position: 0 -1386px; width: 32px; height: 32px; } 
-.flag-big.flag-big-cu{ background-position: 0 -1419px; width: 32px; height: 32px; } 
-.flag-big.flag-big-cv{ background-position: 0 -1452px; width: 32px; height: 32px; } 
-.flag-big.flag-big-cy{ background-position: 0 -1485px; width: 32px; height: 32px; } 
-.flag-big.flag-big-cz{ background-position: 0 -1518px; width: 32px; height: 32px; } 
-.flag-big.flag-big-de{ background-position: 0 -1551px; width: 32px; height: 32px; } 
-.flag-big.flag-big-dj{ background-position: 0 -1584px; width: 32px; height: 32px; } 
-.flag-big.flag-big-dk{ background-position: 0 -1617px; width: 32px; height: 32px; } 
-.flag-big.flag-big-dm{ background-position: 0 -1650px; width: 32px; height: 32px; } 
-.flag-big.flag-big-do{ background-position: 0 -1683px; width: 32px; height: 32px; } 
-.flag-big.flag-big-dz{ background-position: 0 -1716px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ec{ background-position: 0 -1749px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ee{ background-position: 0 -1782px; width: 32px; height: 32px; } 
-.flag-big.flag-big-eg{ background-position: 0 -1815px; width: 32px; height: 32px; } 
-.flag-big.flag-big-er{ background-position: 0 -1848px; width: 32px; height: 32px; } 
-.flag-big.flag-big-es{ background-position: 0 -1881px; width: 32px; height: 32px; } 
-.flag-big.flag-big-et{ background-position: 0 -1914px; width: 32px; height: 32px; } 
-.flag-big.flag-big-eu{ background-position: 0 -1947px; width: 32px; height: 32px; } 
-.flag-big.flag-big-fi{ background-position: 0 -1980px; width: 32px; height: 32px; } 
-.flag-big.flag-big-fj{ background-position: -33px 0; width: 32px; height: 32px; } 
-.flag-big.flag-big-fm{ background-position: -33px -33px; width: 32px; height: 32px; } 
-.flag-big.flag-big-fo{ background-position: -33px -66px; width: 32px; height: 32px; } 
-.flag-big.flag-big-fr{ background-position: -33px -99px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ga{ background-position: -33px -132px; width: 32px; height: 32px; } 
-.flag-big.flag-big-gb{ background-position: -33px -165px; width: 32px; height: 32px; } 
-.flag-big.flag-big-gd{ background-position: -33px -198px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ge{ background-position: -33px -231px; width: 32px; height: 32px; } 
-.flag-big.flag-big-gh{ background-position: -33px -264px; width: 32px; height: 32px; } 
-.flag-big.flag-big-gm{ background-position: -33px -297px; width: 32px; height: 32px; } 
-.flag-big.flag-big-gn{ background-position: -33px -330px; width: 32px; height: 32px; } 
-.flag-big.flag-big-gq{ background-position: -33px -363px; width: 32px; height: 32px; } 
-.flag-big.flag-big-gr{ background-position: -33px -396px; width: 32px; height: 32px; } 
-.flag-big.flag-big-gt{ background-position: -33px -429px; width: 32px; height: 32px; } 
-.flag-big.flag-big-gw{ background-position: -33px -462px; width: 32px; height: 32px; } 
-.flag-big.flag-big-gy{ background-position: -33px -495px; width: 32px; height: 32px; } 
-.flag-big.flag-big-hk{ background-position: -33px -528px; width: 32px; height: 32px; } 
-.flag-big.flag-big-hn{ background-position: -33px -561px; width: 32px; height: 32px; } 
-.flag-big.flag-big-hr{ background-position: -33px -594px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ht{ background-position: -33px -627px; width: 32px; height: 32px; } 
-.flag-big.flag-big-hu{ background-position: -33px -660px; width: 32px; height: 32px; } 
-.flag-big.flag-big-id{ background-position: -33px -693px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ie{ background-position: -33px -726px; width: 32px; height: 32px; } 
-.flag-big.flag-big-il{ background-position: -33px -759px; width: 32px; height: 32px; } 
-.flag-big.flag-big-in{ background-position: -33px -792px; width: 32px; height: 32px; } 
-.flag-big.flag-big-iq{ background-position: -33px -825px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ir{ background-position: -33px -858px; width: 32px; height: 32px; } 
-.flag-big.flag-big-is{ background-position: -33px -891px; width: 32px; height: 32px; } 
-.flag-big.flag-big-it{ background-position: -33px -924px; width: 32px; height: 32px; } 
-.flag-big.flag-big-jm{ background-position: -33px -957px; width: 32px; height: 32px; } 
-.flag-big.flag-big-jo{ background-position: -33px -990px; width: 32px; height: 32px; } 
-.flag-big.flag-big-jp{ background-position: -33px -1023px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ke{ background-position: -33px -1056px; width: 32px; height: 32px; } 
-.flag-big.flag-big-kg{ background-position: -33px -1089px; width: 32px; height: 32px; } 
-.flag-big.flag-big-kh{ background-position: -33px -1122px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ki{ background-position: -33px -1155px; width: 32px; height: 32px; } 
-.flag-big.flag-big-km{ background-position: -33px -1188px; width: 32px; height: 32px; } 
-.flag-big.flag-big-kn{ background-position: -33px -1221px; width: 32px; height: 32px; } 
-.flag-big.flag-big-kp{ background-position: -33px -1254px; width: 32px; height: 32px; } 
-.flag-big.flag-big-kr{ background-position: -33px -1287px; width: 32px; height: 32px; } 
-.flag-big.flag-big-kw{ background-position: -33px -1320px; width: 32px; height: 32px; } 
-.flag-big.flag-big-kz{ background-position: -33px -1353px; width: 32px; height: 32px; } 
-.flag-big.flag-big-la{ background-position: -33px -1386px; width: 32px; height: 32px; } 
-.flag-big.flag-big-lb{ background-position: -33px -1419px; width: 32px; height: 32px; } 
-.flag-big.flag-big-lc{ background-position: -33px -1452px; width: 32px; height: 32px; } 
-.flag-big.flag-big-li{ background-position: -33px -1485px; width: 32px; height: 32px; } 
-.flag-big.flag-big-lk{ background-position: -33px -1518px; width: 32px; height: 32px; } 
-.flag-big.flag-big-lr{ background-position: -33px -1551px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ls{ background-position: -33px -1584px; width: 32px; height: 32px; } 
-.flag-big.flag-big-lt{ background-position: -33px -1617px; width: 32px; height: 32px; } 
-.flag-big.flag-big-lu{ background-position: -33px -1650px; width: 32px; height: 32px; } 
-.flag-big.flag-big-lv{ background-position: -33px -1683px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ly{ background-position: -33px -1716px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ma{ background-position: -33px -1749px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mc{ background-position: -33px -1782px; width: 32px; height: 32px; } 
-.flag-big.flag-big-md{ background-position: -33px -1815px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mg{ background-position: -33px -1848px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mh{ background-position: -33px -1881px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mk{ background-position: -33px -1914px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ml{ background-position: -33px -1947px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mm{ background-position: -33px -1980px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mn{ background-position: -66px 0; width: 32px; height: 32px; } 
-.flag-big.flag-big-mo{ background-position: -66px -33px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mr{ background-position: -66px -66px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mt{ background-position: -66px -99px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mu{ background-position: -66px -132px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mv{ background-position: -66px -165px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mw{ background-position: -66px -198px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mx{ background-position: -66px -231px; width: 32px; height: 32px; } 
-.flag-big.flag-big-my{ background-position: -66px -264px; width: 32px; height: 32px; } 
-.flag-big.flag-big-mz{ background-position: -66px -297px; width: 32px; height: 32px; } 
-.flag-big.flag-big-na{ background-position: -66px -330px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ne{ background-position: -66px -363px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ng{ background-position: -66px -396px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ni{ background-position: -66px -429px; width: 32px; height: 32px; } 
-.flag-big.flag-big-nl{ background-position: -66px -462px; width: 32px; height: 32px; } 
-.flag-big.flag-big-no{ background-position: -66px -495px; width: 32px; height: 32px; } 
-.flag-big.flag-big-np{ background-position: -66px -528px; width: 32px; height: 32px; } 
-.flag-big.flag-big-nr{ background-position: -66px -561px; width: 32px; height: 32px; } 
-.flag-big.flag-big-nz{ background-position: -66px -594px; width: 32px; height: 32px; } 
-.flag-big.flag-big-om{ background-position: -66px -627px; width: 32px; height: 32px; } 
-.flag-big.flag-big-pa{ background-position: -66px -660px; width: 32px; height: 32px; } 
-.flag-big.flag-big-pe{ background-position: -66px -693px; width: 32px; height: 32px; } 
-.flag-big.flag-big-pg{ background-position: -66px -726px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ph{ background-position: -66px -759px; width: 32px; height: 32px; } 
-.flag-big.flag-big-pk{ background-position: -66px -792px; width: 32px; height: 32px; } 
-.flag-big.flag-big-pl{ background-position: -66px -825px; width: 32px; height: 32px; } 
-.flag-big.flag-big-pr{ background-position: -66px -858px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ps{ background-position: -66px -891px; width: 32px; height: 32px; } 
-.flag-big.flag-big-pt{ background-position: -66px -924px; width: 32px; height: 32px; } 
-.flag-big.flag-big-pw{ background-position: -66px -957px; width: 32px; height: 32px; } 
-.flag-big.flag-big-py{ background-position: -66px -990px; width: 32px; height: 32px; } 
-.flag-big.flag-big-qa{ background-position: -66px -1023px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ro{ background-position: -66px -1056px; width: 32px; height: 32px; } 
-.flag-big.flag-big-rs{ background-position: -66px -1089px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ru{ background-position: -66px -1122px; width: 32px; height: 32px; } 
-.flag-big.flag-big-rw{ background-position: -66px -1155px; width: 32px; height: 32px; } 
-.flag-big.flag-big-sa{ background-position: -66px -1188px; width: 32px; height: 32px; } 
-.flag-big.flag-big-sb{ background-position: -66px -1221px; width: 32px; height: 32px; } 
-.flag-big.flag-big-sc{ background-position: -66px -1254px; width: 32px; height: 32px; } 
-.flag-big.flag-big-sd{ background-position: -66px -1287px; width: 32px; height: 32px; } 
-.flag-big.flag-big-se{ background-position: -66px -1320px; width: 32px; height: 32px; } 
-.flag-big.flag-big-sg{ background-position: -66px -1353px; width: 32px; height: 32px; } 
-.flag-big.flag-big-si{ background-position: -66px -1386px; width: 32px; height: 32px; } 
-.flag-big.flag-big-sk{ background-position: -66px -1419px; width: 32px; height: 32px; } 
-.flag-big.flag-big-sl{ background-position: -66px -1452px; width: 32px; height: 32px; } 
-.flag-big.flag-big-sm{ background-position: -66px -1485px; width: 32px; height: 32px; } 
-.flag-big.flag-big-sn{ background-position: -66px -1518px; width: 32px; height: 32px; } 
-.flag-big.flag-big-so{ background-position: -66px -1551px; width: 32px; height: 32px; } 
-.flag-big.flag-big-sr{ background-position: -66px -1584px; width: 32px; height: 32px; } 
-.flag-big.flag-big-st{ background-position: -66px -1617px; width: 32px; height: 32px; } 
-.flag-big.flag-big-sy{ background-position: -66px -1650px; width: 32px; height: 32px; } 
-.flag-big.flag-big-td{ background-position: -66px -1683px; width: 32px; height: 32px; } 
-.flag-big.flag-big-tg{ background-position: -66px -1716px; width: 32px; height: 32px; } 
-.flag-big.flag-big-th{ background-position: -66px -1749px; width: 32px; height: 32px; } 
-.flag-big.flag-big-tj{ background-position: -66px -1782px; width: 32px; height: 32px; } 
-.flag-big.flag-big-tl{ background-position: -66px -1815px; width: 32px; height: 32px; } 
-.flag-big.flag-big-tm{ background-position: -66px -1848px; width: 32px; height: 32px; } 
-.flag-big.flag-big-tn{ background-position: -66px -1881px; width: 32px; height: 32px; } 
-.flag-big.flag-big-to{ background-position: -66px -1914px; width: 32px; height: 32px; } 
-.flag-big.flag-big-tp{ background-position: -66px -1947px; width: 32px; height: 32px; } 
-.flag-big.flag-big-tr{ background-position: -66px -1980px; width: 32px; height: 32px; } 
-.flag-big.flag-big-tt{ background-position: -99px 0; width: 32px; height: 32px; } 
-.flag-big.flag-big-tv{ background-position: -99px -33px; width: 32px; height: 32px; } 
-.flag-big.flag-big-tw{ background-position: -99px -66px; width: 32px; height: 32px; } 
-.flag-big.flag-big-tz{ background-position: -99px -99px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ua{ background-position: -99px -132px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ug{ background-position: -99px -165px; width: 32px; height: 32px; } 
-.flag-big.flag-big-us{ background-position: -99px -198px; width: 32px; height: 32px; } 
-.flag-big.flag-big-uy{ background-position: -99px -231px; width: 32px; height: 32px; } 
-.flag-big.flag-big-uz{ background-position: -99px -264px; width: 32px; height: 32px; } 
-.flag-big.flag-big-va{ background-position: -99px -297px; width: 32px; height: 32px; } 
-.flag-big.flag-big-vc{ background-position: -99px -330px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ve{ background-position: -99px -363px; width: 32px; height: 32px; } 
-.flag-big.flag-big-vn{ background-position: -99px -396px; width: 32px; height: 32px; } 
-.flag-big.flag-big-vu{ background-position: -99px -429px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ws{ background-position: -99px -462px; width: 32px; height: 32px; } 
-.flag-big.flag-big-ye{ background-position: -99px -495px; width: 32px; height: 32px; } 
-.flag-big.flag-big-za{ background-position: -99px -528px; width: 32px; height: 32px; } 
-.flag-big.flag-big-zm{ background-position: -99px -561px; width: 32px; height: 32px; } 
-.flag-big.flag-big-zr{ background-position: -99px -594px; width: 32px; height: 32px; } 
-.flag-big.flag-big-zw{ background-position: -99px -627px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ad{ background-position: 0 0; width: 32px; height: 32px; }
+.flag-big.flag-big-ae{ background-position: 0 -33px; width: 32px; height: 32px; }
+.flag-big.flag-big-af{ background-position: 0 -66px; width: 32px; height: 32px; }
+.flag-big.flag-big-ag{ background-position: 0 -99px; width: 32px; height: 32px; }
+.flag-big.flag-big-ai{ background-position: 0 -132px; width: 32px; height: 32px; }
+.flag-big.flag-big-al{ background-position: 0 -165px; width: 32px; height: 32px; }
+.flag-big.flag-big-am{ background-position: 0 -198px; width: 32px; height: 32px; }
+.flag-big.flag-big-ao{ background-position: 0 -231px; width: 32px; height: 32px; }
+.flag-big.flag-big-aq{ background-position: 0 -264px; width: 32px; height: 32px; }
+.flag-big.flag-big-ar{ background-position: 0 -297px; width: 32px; height: 32px; }
+.flag-big.flag-big-as{ background-position: 0 -330px; width: 32px; height: 32px; }
+.flag-big.flag-big-at{ background-position: 0 -363px; width: 32px; height: 32px; }
+.flag-big.flag-big-au{ background-position: 0 -396px; width: 32px; height: 32px; }
+.flag-big.flag-big-aw{ background-position: 0 -429px; width: 32px; height: 32px; }
+.flag-big.flag-big-az{ background-position: 0 -462px; width: 32px; height: 32px; }
+.flag-big.flag-big-ba{ background-position: 0 -495px; width: 32px; height: 32px; }
+.flag-big.flag-big-bb{ background-position: 0 -528px; width: 32px; height: 32px; }
+.flag-big.flag-big-bd{ background-position: 0 -561px; width: 32px; height: 32px; }
+.flag-big.flag-big-be{ background-position: 0 -594px; width: 32px; height: 32px; }
+.flag-big.flag-big-bf{ background-position: 0 -627px; width: 32px; height: 32px; }
+.flag-big.flag-big-bg{ background-position: 0 -660px; width: 32px; height: 32px; }
+.flag-big.flag-big-bh{ background-position: 0 -693px; width: 32px; height: 32px; }
+.flag-big.flag-big-bi{ background-position: 0 -726px; width: 32px; height: 32px; }
+.flag-big.flag-big-bj{ background-position: 0 -759px; width: 32px; height: 32px; }
+.flag-big.flag-big-bn{ background-position: 0 -792px; width: 32px; height: 32px; }
+.flag-big.flag-big-bo{ background-position: 0 -825px; width: 32px; height: 32px; }
+.flag-big.flag-big-br{ background-position: 0 -858px; width: 32px; height: 32px; }
+.flag-big.flag-big-bs{ background-position: 0 -891px; width: 32px; height: 32px; }
+.flag-big.flag-big-bt{ background-position: 0 -924px; width: 32px; height: 32px; }
+.flag-big.flag-big-bw{ background-position: 0 -957px; width: 32px; height: 32px; }
+.flag-big.flag-big-by{ background-position: 0 -990px; width: 32px; height: 32px; }
+.flag-big.flag-big-bz{ background-position: 0 -1023px; width: 32px; height: 32px; }
+.flag-big.flag-big-ca{ background-position: 0 -1056px; width: 32px; height: 32px; }
+.flag-big.flag-big-cf{ background-position: 0 -1089px; width: 32px; height: 32px; }
+.flag-big.flag-big-cg{ background-position: 0 -1122px; width: 32px; height: 32px; }
+.flag-big.flag-big-ch00{ background-position: 0 -1155px; width: 32px; height: 32px; }
+.flag-big.flag-big-ch{ background-position: 0 -1188px; width: 32px; height: 32px; }
+.flag-big.flag-big-ci{ background-position: 0 -1221px; width: 32px; height: 32px; }
+.flag-big.flag-big-cl{ background-position: 0 -1254px; width: 32px; height: 32px; }
+.flag-big.flag-big-cm{ background-position: 0 -1287px; width: 32px; height: 32px; }
+.flag-big.flag-big-cn{ background-position: 0 -1320px; width: 32px; height: 32px; }
+.flag-big.flag-big-co{ background-position: 0 -1353px; width: 32px; height: 32px; }
+.flag-big.flag-big-cr{ background-position: 0 -1386px; width: 32px; height: 32px; }
+.flag-big.flag-big-cu{ background-position: 0 -1419px; width: 32px; height: 32px; }
+.flag-big.flag-big-cv{ background-position: 0 -1452px; width: 32px; height: 32px; }
+.flag-big.flag-big-cy{ background-position: 0 -1485px; width: 32px; height: 32px; }
+.flag-big.flag-big-cz{ background-position: 0 -1518px; width: 32px; height: 32px; }
+.flag-big.flag-big-de{ background-position: 0 -1551px; width: 32px; height: 32px; }
+.flag-big.flag-big-dj{ background-position: 0 -1584px; width: 32px; height: 32px; }
+.flag-big.flag-big-dk{ background-position: 0 -1617px; width: 32px; height: 32px; }
+.flag-big.flag-big-dm{ background-position: 0 -1650px; width: 32px; height: 32px; }
+.flag-big.flag-big-do{ background-position: 0 -1683px; width: 32px; height: 32px; }
+.flag-big.flag-big-dz{ background-position: 0 -1716px; width: 32px; height: 32px; }
+.flag-big.flag-big-ec{ background-position: 0 -1749px; width: 32px; height: 32px; }
+.flag-big.flag-big-ee{ background-position: 0 -1782px; width: 32px; height: 32px; }
+.flag-big.flag-big-eg{ background-position: 0 -1815px; width: 32px; height: 32px; }
+.flag-big.flag-big-er{ background-position: 0 -1848px; width: 32px; height: 32px; }
+.flag-big.flag-big-es{ background-position: 0 -1881px; width: 32px; height: 32px; }
+.flag-big.flag-big-et{ background-position: 0 -1914px; width: 32px; height: 32px; }
+.flag-big.flag-big-eu{ background-position: 0 -1947px; width: 32px; height: 32px; }
+.flag-big.flag-big-fi{ background-position: 0 -1980px; width: 32px; height: 32px; }
+.flag-big.flag-big-fj{ background-position: -33px 0; width: 32px; height: 32px; }
+.flag-big.flag-big-fm{ background-position: -33px -33px; width: 32px; height: 32px; }
+.flag-big.flag-big-fo{ background-position: -33px -66px; width: 32px; height: 32px; }
+.flag-big.flag-big-fr{ background-position: -33px -99px; width: 32px; height: 32px; }
+.flag-big.flag-big-ga{ background-position: -33px -132px; width: 32px; height: 32px; }
+.flag-big.flag-big-gb{ background-position: -33px -165px; width: 32px; height: 32px; }
+.flag-big.flag-big-gd{ background-position: -33px -198px; width: 32px; height: 32px; }
+.flag-big.flag-big-ge{ background-position: -33px -231px; width: 32px; height: 32px; }
+.flag-big.flag-big-gh{ background-position: -33px -264px; width: 32px; height: 32px; }
+.flag-big.flag-big-gm{ background-position: -33px -297px; width: 32px; height: 32px; }
+.flag-big.flag-big-gn{ background-position: -33px -330px; width: 32px; height: 32px; }
+.flag-big.flag-big-gq{ background-position: -33px -363px; width: 32px; height: 32px; }
+.flag-big.flag-big-gr{ background-position: -33px -396px; width: 32px; height: 32px; }
+.flag-big.flag-big-gt{ background-position: -33px -429px; width: 32px; height: 32px; }
+.flag-big.flag-big-gw{ background-position: -33px -462px; width: 32px; height: 32px; }
+.flag-big.flag-big-gy{ background-position: -33px -495px; width: 32px; height: 32px; }
+.flag-big.flag-big-hk{ background-position: -33px -528px; width: 32px; height: 32px; }
+.flag-big.flag-big-hn{ background-position: -33px -561px; width: 32px; height: 32px; }
+.flag-big.flag-big-hr{ background-position: -33px -594px; width: 32px; height: 32px; }
+.flag-big.flag-big-ht{ background-position: -33px -627px; width: 32px; height: 32px; }
+.flag-big.flag-big-hu{ background-position: -33px -660px; width: 32px; height: 32px; }
+.flag-big.flag-big-id{ background-position: -33px -693px; width: 32px; height: 32px; }
+.flag-big.flag-big-ie{ background-position: -33px -726px; width: 32px; height: 32px; }
+.flag-big.flag-big-il{ background-position: -33px -759px; width: 32px; height: 32px; }
+.flag-big.flag-big-in{ background-position: -33px -792px; width: 32px; height: 32px; }
+.flag-big.flag-big-iq{ background-position: -33px -825px; width: 32px; height: 32px; }
+.flag-big.flag-big-ir{ background-position: -33px -858px; width: 32px; height: 32px; }
+.flag-big.flag-big-is{ background-position: -33px -891px; width: 32px; height: 32px; }
+.flag-big.flag-big-it{ background-position: -33px -924px; width: 32px; height: 32px; }
+.flag-big.flag-big-jm{ background-position: -33px -957px; width: 32px; height: 32px; }
+.flag-big.flag-big-jo{ background-position: -33px -990px; width: 32px; height: 32px; }
+.flag-big.flag-big-jp{ background-position: -33px -1023px; width: 32px; height: 32px; }
+.flag-big.flag-big-ke{ background-position: -33px -1056px; width: 32px; height: 32px; }
+.flag-big.flag-big-kg{ background-position: -33px -1089px; width: 32px; height: 32px; }
+.flag-big.flag-big-kh{ background-position: -33px -1122px; width: 32px; height: 32px; }
+.flag-big.flag-big-ki{ background-position: -33px -1155px; width: 32px; height: 32px; }
+.flag-big.flag-big-km{ background-position: -33px -1188px; width: 32px; height: 32px; }
+.flag-big.flag-big-kn{ background-position: -33px -1221px; width: 32px; height: 32px; }
+.flag-big.flag-big-kp{ background-position: -33px -1254px; width: 32px; height: 32px; }
+.flag-big.flag-big-kr{ background-position: -33px -1287px; width: 32px; height: 32px; }
+.flag-big.flag-big-kw{ background-position: -33px -1320px; width: 32px; height: 32px; }
+.flag-big.flag-big-kz{ background-position: -33px -1353px; width: 32px; height: 32px; }
+.flag-big.flag-big-la{ background-position: -33px -1386px; width: 32px; height: 32px; }
+.flag-big.flag-big-lb{ background-position: -33px -1419px; width: 32px; height: 32px; }
+.flag-big.flag-big-lc{ background-position: -33px -1452px; width: 32px; height: 32px; }
+.flag-big.flag-big-li{ background-position: -33px -1485px; width: 32px; height: 32px; }
+.flag-big.flag-big-lk{ background-position: -33px -1518px; width: 32px; height: 32px; }
+.flag-big.flag-big-lr{ background-position: -33px -1551px; width: 32px; height: 32px; }
+.flag-big.flag-big-ls{ background-position: -33px -1584px; width: 32px; height: 32px; }
+.flag-big.flag-big-lt{ background-position: -33px -1617px; width: 32px; height: 32px; }
+.flag-big.flag-big-lu{ background-position: -33px -1650px; width: 32px; height: 32px; }
+.flag-big.flag-big-lv{ background-position: -33px -1683px; width: 32px; height: 32px; }
+.flag-big.flag-big-ly{ background-position: -33px -1716px; width: 32px; height: 32px; }
+.flag-big.flag-big-ma{ background-position: -33px -1749px; width: 32px; height: 32px; }
+.flag-big.flag-big-mc{ background-position: -33px -1782px; width: 32px; height: 32px; }
+.flag-big.flag-big-md{ background-position: -33px -1815px; width: 32px; height: 32px; }
+.flag-big.flag-big-mg{ background-position: -33px -1848px; width: 32px; height: 32px; }
+.flag-big.flag-big-mh{ background-position: -33px -1881px; width: 32px; height: 32px; }
+.flag-big.flag-big-mk{ background-position: -33px -1914px; width: 32px; height: 32px; }
+.flag-big.flag-big-ml{ background-position: -33px -1947px; width: 32px; height: 32px; }
+.flag-big.flag-big-mm{ background-position: -33px -1980px; width: 32px; height: 32px; }
+.flag-big.flag-big-mn{ background-position: -66px 0; width: 32px; height: 32px; }
+.flag-big.flag-big-mo{ background-position: -66px -33px; width: 32px; height: 32px; }
+.flag-big.flag-big-mr{ background-position: -66px -66px; width: 32px; height: 32px; }
+.flag-big.flag-big-mt{ background-position: -66px -99px; width: 32px; height: 32px; }
+.flag-big.flag-big-mu{ background-position: -66px -132px; width: 32px; height: 32px; }
+.flag-big.flag-big-mv{ background-position: -66px -165px; width: 32px; height: 32px; }
+.flag-big.flag-big-mw{ background-position: -66px -198px; width: 32px; height: 32px; }
+.flag-big.flag-big-mx{ background-position: -66px -231px; width: 32px; height: 32px; }
+.flag-big.flag-big-my{ background-position: -66px -264px; width: 32px; height: 32px; }
+.flag-big.flag-big-mz{ background-position: -66px -297px; width: 32px; height: 32px; }
+.flag-big.flag-big-na{ background-position: -66px -330px; width: 32px; height: 32px; }
+.flag-big.flag-big-ne{ background-position: -66px -363px; width: 32px; height: 32px; }
+.flag-big.flag-big-ng{ background-position: -66px -396px; width: 32px; height: 32px; }
+.flag-big.flag-big-ni{ background-position: -66px -429px; width: 32px; height: 32px; }
+.flag-big.flag-big-nl{ background-position: -66px -462px; width: 32px; height: 32px; }
+.flag-big.flag-big-no{ background-position: -66px -495px; width: 32px; height: 32px; }
+.flag-big.flag-big-np{ background-position: -66px -528px; width: 32px; height: 32px; }
+.flag-big.flag-big-nr{ background-position: -66px -561px; width: 32px; height: 32px; }
+.flag-big.flag-big-nz{ background-position: -66px -594px; width: 32px; height: 32px; }
+.flag-big.flag-big-om{ background-position: -66px -627px; width: 32px; height: 32px; }
+.flag-big.flag-big-pa{ background-position: -66px -660px; width: 32px; height: 32px; }
+.flag-big.flag-big-pe{ background-position: -66px -693px; width: 32px; height: 32px; }
+.flag-big.flag-big-pg{ background-position: -66px -726px; width: 32px; height: 32px; }
+.flag-big.flag-big-ph{ background-position: -66px -759px; width: 32px; height: 32px; }
+.flag-big.flag-big-pk{ background-position: -66px -792px; width: 32px; height: 32px; }
+.flag-big.flag-big-pl{ background-position: -66px -825px; width: 32px; height: 32px; }
+.flag-big.flag-big-pr{ background-position: -66px -858px; width: 32px; height: 32px; }
+.flag-big.flag-big-ps{ background-position: -66px -891px; width: 32px; height: 32px; }
+.flag-big.flag-big-pt{ background-position: -66px -924px; width: 32px; height: 32px; }
+.flag-big.flag-big-pw{ background-position: -66px -957px; width: 32px; height: 32px; }
+.flag-big.flag-big-py{ background-position: -66px -990px; width: 32px; height: 32px; }
+.flag-big.flag-big-qa{ background-position: -66px -1023px; width: 32px; height: 32px; }
+.flag-big.flag-big-ro{ background-position: -66px -1056px; width: 32px; height: 32px; }
+.flag-big.flag-big-rs{ background-position: -66px -1089px; width: 32px; height: 32px; }
+.flag-big.flag-big-ru{ background-position: -66px -1122px; width: 32px; height: 32px; }
+.flag-big.flag-big-rw{ background-position: -66px -1155px; width: 32px; height: 32px; }
+.flag-big.flag-big-sa{ background-position: -66px -1188px; width: 32px; height: 32px; }
+.flag-big.flag-big-sb{ background-position: -66px -1221px; width: 32px; height: 32px; }
+.flag-big.flag-big-sc{ background-position: -66px -1254px; width: 32px; height: 32px; }
+.flag-big.flag-big-sd{ background-position: -66px -1287px; width: 32px; height: 32px; }
+.flag-big.flag-big-se{ background-position: -66px -1320px; width: 32px; height: 32px; }
+.flag-big.flag-big-sg{ background-position: -66px -1353px; width: 32px; height: 32px; }
+.flag-big.flag-big-si{ background-position: -66px -1386px; width: 32px; height: 32px; }
+.flag-big.flag-big-sk{ background-position: -66px -1419px; width: 32px; height: 32px; }
+.flag-big.flag-big-sl{ background-position: -66px -1452px; width: 32px; height: 32px; }
+.flag-big.flag-big-sm{ background-position: -66px -1485px; width: 32px; height: 32px; }
+.flag-big.flag-big-sn{ background-position: -66px -1518px; width: 32px; height: 32px; }
+.flag-big.flag-big-so{ background-position: -66px -1551px; width: 32px; height: 32px; }
+.flag-big.flag-big-sr{ background-position: -66px -1584px; width: 32px; height: 32px; }
+.flag-big.flag-big-st{ background-position: -66px -1617px; width: 32px; height: 32px; }
+.flag-big.flag-big-sy{ background-position: -66px -1650px; width: 32px; height: 32px; }
+.flag-big.flag-big-td{ background-position: -66px -1683px; width: 32px; height: 32px; }
+.flag-big.flag-big-tg{ background-position: -66px -1716px; width: 32px; height: 32px; }
+.flag-big.flag-big-th{ background-position: -66px -1749px; width: 32px; height: 32px; }
+.flag-big.flag-big-tj{ background-position: -66px -1782px; width: 32px; height: 32px; }
+.flag-big.flag-big-tl{ background-position: -66px -1815px; width: 32px; height: 32px; }
+.flag-big.flag-big-tm{ background-position: -66px -1848px; width: 32px; height: 32px; }
+.flag-big.flag-big-tn{ background-position: -66px -1881px; width: 32px; height: 32px; }
+.flag-big.flag-big-to{ background-position: -66px -1914px; width: 32px; height: 32px; }
+.flag-big.flag-big-tp{ background-position: -66px -1947px; width: 32px; height: 32px; }
+.flag-big.flag-big-tr{ background-position: -66px -1980px; width: 32px; height: 32px; }
+.flag-big.flag-big-tt{ background-position: -99px 0; width: 32px; height: 32px; }
+.flag-big.flag-big-tv{ background-position: -99px -33px; width: 32px; height: 32px; }
+.flag-big.flag-big-tw{ background-position: -99px -66px; width: 32px; height: 32px; }
+.flag-big.flag-big-tz{ background-position: -99px -99px; width: 32px; height: 32px; }
+.flag-big.flag-big-ua{ background-position: -99px -132px; width: 32px; height: 32px; }
+.flag-big.flag-big-ug{ background-position: -99px -165px; width: 32px; height: 32px; }
+.flag-big.flag-big-us{ background-position: -99px -198px; width: 32px; height: 32px; }
+.flag-big.flag-big-uy{ background-position: -99px -231px; width: 32px; height: 32px; }
+.flag-big.flag-big-uz{ background-position: -99px -264px; width: 32px; height: 32px; }
+.flag-big.flag-big-va{ background-position: -99px -297px; width: 32px; height: 32px; }
+.flag-big.flag-big-vc{ background-position: -99px -330px; width: 32px; height: 32px; }
+.flag-big.flag-big-ve{ background-position: -99px -363px; width: 32px; height: 32px; }
+.flag-big.flag-big-vn{ background-position: -99px -396px; width: 32px; height: 32px; }
+.flag-big.flag-big-vu{ background-position: -99px -429px; width: 32px; height: 32px; }
+.flag-big.flag-big-ws{ background-position: -99px -462px; width: 32px; height: 32px; }
+.flag-big.flag-big-ye{ background-position: -99px -495px; width: 32px; height: 32px; }
+.flag-big.flag-big-za{ background-position: -99px -528px; width: 32px; height: 32px; }
+.flag-big.flag-big-zm{ background-position: -99px -561px; width: 32px; height: 32px; }
+.flag-big.flag-big-zr{ background-position: -99px -594px; width: 32px; height: 32px; }
+.flag-big.flag-big-zw{ background-position: -99px -627px; width: 32px; height: 32px; }
 
 
 /* */

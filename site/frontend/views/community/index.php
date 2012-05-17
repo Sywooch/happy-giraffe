@@ -106,7 +106,7 @@
                     </div>
                     <div class="meta">
                         <div class="fast-rank">
-                            <span><?php echo Rating::model()->countByEntity($data); ?></span>
+                            <span><?=$data->rate?></span>
                             рейтинг
                         </div>
                         <span class="views">Просмотров: <?php echo PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true); ?></span><br>

@@ -14,7 +14,7 @@ class UserFriendsWidget extends UserCoreWidget
         $criteria->condition = 'avatar_id IS NOT NULL';
         $this->_friends = User::model()->findAll($this->user->getFriendsCriteria($criteria));
 
-        $this->visible = ($this->isMyProfile && !empty($this->_friends)) || (count($this->_friends) >= $this->limit);
+        $this->visible = $this->isMyProfile || (count($this->_friends) >= $this->limit);
     }
 
     public function run()

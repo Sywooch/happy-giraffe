@@ -17,7 +17,7 @@ class TopFiveWidget extends CWidget
             'group' => 't.id',
             'order' => 'authorsRate DESC',
             'limit' => '5',
-            'condition' => 'DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= t.created AND t.id != 1',
+            'condition' => 'DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= ' . CommunityContent::model()->tableName() . '.created AND t.id != 1',
         ));
 
         $topCommentators = User::model()->findAll(array(
@@ -26,7 +26,7 @@ class TopFiveWidget extends CWidget
             'group' => 't.id',
             'order' => 'commentatorsRate DESC',
             'limit' => '5',
-            'condition' => 'DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= t.created AND t.id != 1',
+            'condition' => 'DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= ' . Comment::model()->tableName() . '.created AND t.id != 1',
         ));
 
         $this->render('TopFiveWidget', compact('topAuthors', 'topCommentators'));

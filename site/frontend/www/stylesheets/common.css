@@ -2344,7 +2344,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .activity-duel .answers .answer-1 .vote .button span {color:#25a44a;}
 .activity-duel .answers .answer-2 .vote .button a {background-image:url(/images/btn_answer_b.gif);border:1px solid #549bd7;}
 .activity-duel .answers .answer-2 .vote .button span {color:#4992d0;}
-.activity-duel .answers .vote .button a.disabled {background-image:url(/images/btn_answer_d.gif);border:1px solid #d1d1d1;}
+.activity-duel .answers .vote .button a.active {background-image:url(/images/btn_answer_d.gif);border:1px solid #d1d1d1;}
 .activity-duel .answers .votes {list-style:none;width:195px;}
 .activity-duel .answers #duel-votes {width:100%;display:block;}
 .activity-duel .answers #duel-votes ul {padding-top:30px;}

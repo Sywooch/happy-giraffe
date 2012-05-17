@@ -409,6 +409,18 @@ class AjaxController extends HController
         }
     }
 
+    public function actionDuelVote()
+    {
+        if (Yii::app()->request->isAjaxRequest && ! Yii::app()->user->isGuest) {
+            $id = Yii::app()->request->getPost('id');
+            $model = DuelAnswer::model()->findByPk($id);
+            $model->vote(Yii::app()->user->id, 1);
+            echo true;
+        } else {
+            echo false;
+        }
+    }
+
     public function actionInterestsForm()
     {
         if (!Yii::app()->request->isAjaxRequest)
@@ -479,7 +491,7 @@ class AjaxController extends HController
 
     public function actionDuelForm()
     {
-        $questions = DuelQuestion::getAvailable();
+        $questions = DuelQuestion::getAvailable(Yii::app()->user->id);
         $answer = new DuelAnswer;
         $answer->text = 'Блестните знаниями!';
         $this->renderPartial('duel', compact('questions', 'answer'));
@@ -492,9 +504,12 @@ class AjaxController extends HController
             $answer->attributes = $_POST['DuelAnswer'];
             $answer->user_id = Yii::app()->user->id;
             if ($answer->save()) {
+                $question = $answer->getRelated('question', false, array(
+                    'with' => 'answers.user',
+                ));
                 $response = array(
                     'status' => true,
-                    'html' => $this->renderPartial('duel_submit', array(), true),
+                    'html' => $this->renderPartial('duel_submit', compact('question'), true),
                 );
             } else {
                 $response = array(

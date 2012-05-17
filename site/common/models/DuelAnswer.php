@@ -59,7 +59,7 @@ class DuelAnswer extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'question' => array(self::BELONGS_TO, 'DuelQuestion', 'question_id'),
 		);
 	}
@@ -97,4 +97,15 @@ class DuelAnswer extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'VoteBehavior' => array(
+                'class' => 'VoteBehavior',
+                'vote_attributes' => array(
+                    '1' => 'votes',
+                )),
+        );
+    }
 }

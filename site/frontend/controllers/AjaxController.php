@@ -476,4 +476,33 @@ class AjaxController extends HController
         }
         $this->renderPartial($view, $data);
     }
+
+    public function actionDuelForm()
+    {
+        $questions = DuelQuestion::getAvailable();
+        $answer = new DuelAnswer;
+        $answer->text = 'Блестните знаниями!';
+        $this->renderPartial('duel', compact('questions', 'answer'));
+    }
+
+    public function actionDuelSubmit()
+    {
+        if ($_POST['DuelAnswer']) {
+            $answer = new DuelAnswer;
+            $answer->attributes = $_POST['DuelAnswer'];
+            $answer->user_id = Yii::app()->user->id;
+            if ($answer->save()) {
+                $response = array(
+                    'status' => true,
+                    'html' => $this->renderPartial('duel_submit', array(), true),
+                );
+            } else {
+                $response = array(
+                    'status' => false,
+                    'error' => $answer->errors,
+                );
+            }
+            echo CJSON::encode($response);
+        }
+    }
 }

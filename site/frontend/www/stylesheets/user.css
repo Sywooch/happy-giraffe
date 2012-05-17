@@ -369,7 +369,7 @@
 #user .user-weather table thead td {border-top:1px solid #c2e7f7;border-bottom:1px solid #c2e7f7;height:23px;line-height:23px;color:#868788;font-size:12px;padding:0 5px;}
 #user .user-weather table .hl td {background:#e8f6ff;}
 
-#user .user-horoscope {padding:10px 14px;border:1px solid #efefef;}
+#user .user-horoscope {padding:10px 14px;border:1px solid #efefef;margin-bottom:20px;}
 #user .user-horoscope .clearfix {text-align:center;}
 #user .user-horoscope .title {font-size:28px;color:#2d87be;display:inline-block;vertical-align:middle;font-family:times new roman, serif;font-style:italic;}
 #user .user-horoscope .img {width:120px;margin:0 5px;height:90px;background:url(/images/widget/horoscope/bg.png) no-repeat;display:inline-block;vertical-align:middle;}
@@ -377,6 +377,26 @@
 #user .user-horoscope .date span {display:block;font-size:18px;line-height:1;}
 #user .user-horoscope p {font-size:12px;line-height:19px;margin:0 0 1em 0;color:#404040;}
 #user .user-horoscope b {color:#f05d6e;}
+
+#user .user-duel {background:#d0e6ff;padding:15px;}
+#user .user-duel .box-title {}
+#user .user-duel .box-title span {color:#3d7cb1;}
+#user .user-duel .question {font-size:15px;color:#555455;padding:10px 10px 10px 50px;margin-bottom:10px;background:#eef6fe url(/images/icon_info_29x29.png) no-repeat 10px 10px;}
+#user .user-duel .my-votes {padding-bottom:15px;}
+#user .user-duel .my-votes .ava {float:left;}
+#user .user-duel .my-votes .in {background:#ffffff;position:relative;padding:10px;text-align:center;float:left;margin-left:8px;width:210px;}
+#user .user-duel .my-votes .in {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;}
+#user .user-duel .my-votes .in .tale {display:block;width:28px;height:32px;position:absolute;background:url(/images/user_duel_tale.png) no-repeat;right:100%;top:25px;}
+#user .user-duel .my-votes .in .label {color:#6d6d6e;font:italic 25px/1 times new roman, serif;margin-bottom:10px;}
+#user .user-duel .my-votes .in .count {display:inline-block;vertical-align:top;margin-left:10px;margin-bottom:10px;color:#939292;width:100px;}
+#user .user-duel .my-votes .in .count span {display:block;font:italic 60px/0.9 times new roman, serif;color:#2fa84b;}
+#user .user-duel .my-votes .in img {margin-left:15px;}
+#user .user-duel .opponent {color:#515151;padding-left:10px;}
+#user .user-duel .opponent .count {float:right;margin-top:5px;width:100px;text-align:center;margin-right:27px;color:#939292;}
+#user .user-duel .opponent .count span {color:#4992d0;display:block;font:italic 30px/0.9 times new roman, serif;}
+#user .user-duel .opponent .user-info {margin-top:5px;}
+#user .user-duel .opponent .user-info .details {margin-left:30px;}
+#user .user-duel .opponent .user-info .details .username {width:110px;}
 
 #user .friends {}
 #user .friends ul {list-style:none;}

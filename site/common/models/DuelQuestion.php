@@ -127,4 +127,19 @@ class DuelQuestion extends CActiveRecord
 
         return self::model()->find($criteria);
     }
+
+    public function getCanVote($user_id)
+    {
+        $connection = Yii::app()->db;
+        $sql = '
+            SELECT count(*)
+            FROM ' . DuelQuestion::model()->tableName() .' q
+            JOIN ' . DuelAnswer::model()->tableName() .' a ON q.id = a.question_id
+            WHERE q.id = :question_id AND user_id = :user_id;
+        ';
+        $command = $connection->createCommand($sql);
+        $command->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $command->bindValue(':question_id', $this->id, PDO::PARAM_INT);
+        return $command->queryScalar() == 0;
+    }
 }

@@ -32,9 +32,14 @@ Duel.vote = function(el, id) {
         {id: id},
         function(response) {
             if (response) {
-                $(el).addClass('active');
-                var counter = $(el).prev().find('span.count-in');
-                counter.text(parseInt(counter.text() + 1));
+                $(el).before('<span>Мой голос</span><br />');
+                var vote = $(el).parents('div.vote');
+                var counter = $('span.count-in', vote);
+                $('div.vote div.button a').addClass('active');
+                $('div.vote div.button a').attr('disabled', 'disabled');
+                $('div.vote div.button a').removeAttr('href');
+                $('div.vote div.button a').removeAttr('onclick')
+                counter.text(parseInt(counter.text()) + 1);
             }
         }
     );

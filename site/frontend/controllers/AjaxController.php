@@ -507,6 +507,10 @@ class AjaxController extends HController
                 $question = $answer->getRelated('question', false, array(
                     'with' => 'answers.user',
                 ));
+                if (count($question->answers) == 2) {
+                    $question->ends = new CDbExpression('NOW() + INTERVAL 3 DAY');
+                    $question->save();
+                }
                 $response = array(
                     'status' => true,
                     'html' => $this->renderPartial('duel_submit', compact('question'), true),

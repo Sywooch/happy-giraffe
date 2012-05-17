@@ -27,35 +27,31 @@
         <?php endforeach; ?>
     </div>
 
-    <div class="clearfix">
-        <div class="answer-1">
-            <div class="vote">
-                <div class="count">
-                    <span class="count-in"><?=$answers[0]['votes']?></span>
-                    <a href="">голосов<span class="tip">Посмотреть голоса</span></a>
-                </div>
-                <?php if (! Yii::app()->user->isGuest): ?>
-                    <div class="button">
-                        <?php if ($answers[0]->getCurrentVote(Yii::app()->user->id) !== null): ?>
-                            <span>Мой голос</span>
-                            <br />
+    <?php if ($votes): ?>
+        <div class="clearfix">
+            <?php foreach ($answers as $i => $a): ?>
+                <div class="answer-<?=$i+1?>">
+                    <div class="vote">
+                        <div class="count">
+                            <span class="count-in"><?=$answers[$i]['votes']?></span>
+                            <a href="">голосов<span class="tip">Посмотреть голоса</span></a>
+                        </div>
+                        <?php if (! Yii::app()->user->isGuest): ?>
+                            <div class="button">
+                                <?php if ($answers[$i]->getCurrentVote(Yii::app()->user->id) !== null): ?>
+                                    <span>Мой голос</span><br />
+                                <?php endif; ?>
+                                <?php if (! $question->getCanVote(Yii::app()->user->id) || ($answers[0]->getCurrentVote(Yii::app()->user->id) !== null || $answers[1]->getCurrentVote(Yii::app()->user->id)) !== null): ?>
+                                    <a class="active" disabled="disabled">Голосовать</a>
+                                <?php else: ?>
+                                    <a href="javascript:;" onclick="Duel.vote(this, <?=$answers[0]->id?>);">Голосовать</a>
+                                <?php endif; ?>
+                            </div>
                         <?php endif; ?>
-                        <a href="javascript:;" onclick="Duel.vote(this, <?=$answers[0]->id?>);"<?php if ($answers[0]->getCurrentVote(Yii::app()->user->id) !== null): ?> class="active"<?php endif; ?>>Голосовать</a>
                     </div>
-                <?php endif; ?>
-            </div>
-        </div>
-        <div class="answer-2">
-            <div class="vote">
-                <div class="count">
-                    <span class="count-in">826</span>
-                    <a href="">голосов<span class="tip">Посмотреть голоса</span></a>
                 </div>
-                <div class="button">
-                    <a href="">Голосовать</a>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
-    </div>
+    <?php endif; ?>
 
 </div>

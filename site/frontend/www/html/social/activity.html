@@ -28,6 +28,12 @@
 						
 		})
 		
+		function showVotes(){
+			$('.show-votes').hide();
+			$('.showed-votes').show();
+			$('#duel-votes').slideDown(300, 'linear');
+		}
+		
 		function addLI(){
 			var s = '\
 				<li>\
@@ -795,7 +801,8 @@
 												<div class="vote">
 													<div class="count">
 														<span class="count-in">56</span>
-														<a href="">голосов<span class="tip">Посмотреть голоса</span></a>
+														<a href="javascript:void(0);" onclick="showVotes();" class="show-votes">голосов<span class="tip">Посмотреть голоса</span></a>
+														<span class="showed-votes">голосов</span>
 													</div>
 													<div class="button">
 														<a href="">Голосовать</a>
@@ -806,41 +813,18 @@
 												<div class="vote">
 													<div class="count">
 														<span class="count-in">826</span>
-														<a href="">голосов<span class="tip">Посмотреть голоса</span></a>
+														<a href="javascript:void(0);" onclick="showVotes();" class="show-votes">голосов<span class="tip">Посмотреть голоса</span></a>
+														<span class="showed-votes">голосов</span>
 													</div>
 													<div class="button">
-														<a href="">Голосовать</a>
+														<span>Мой голос</span><br/>
+														<a href="" class="disabled">Голосовать</a>
 													</div>
 												</div>
 											</div>
 										</div>										
 										
-										<div class="clearfix">
-											<div class="answer-1">
-												<div class="vote">
-													<div class="count">
-														<span class="count-in">56</span>
-														<a href="">голосов<span class="tip">Посмотреть голоса</span></a>
-													</div>
-													<div class="button">
-														<span>Мой голос</span>
-													</div>
-												</div>
-											</div>
-											<div class="answer-2">
-												<div class="vote">
-													<div class="count">
-														<span class="count-in">826</span>
-														<a href="">голосов<span class="tip">Посмотреть голоса</span></a>
-													</div>
-													<div class="button">
-														<a href="" class="disabled">Голосовать</a>
-													</div>
-												</div>
-											</div>
-										</div>
-										
-										<div class="clearfix">
+										<div class="clearfix" id="duel-votes" style="display:none;">
 											<div class="answer-1">
 												<ul class="votes clearfix">
 													<li><a href="" class="ava small female"></a></li>

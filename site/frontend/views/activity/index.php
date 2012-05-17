@@ -6,7 +6,7 @@
 
         <div class="col-1">
 
-            <?php //$this->widget('LiveWidget'); ?>
+            <?php $this->widget('LiveWidget'); ?>
 
             <?php $this->widget('WantToChatWidget'); ?>
 
@@ -28,9 +28,9 @@
 
                     <?php $this->widget('RandomPhotosWidget'); ?>
 
-                    <?php $this->widget('DuelWidget'); ?>
+                    <?php //$this->widget('DuelWidget'); ?>
 
-                    <div class="box activity-smile">
+                    <!--<div class="box activity-smile">
 
                         <div class="title">Улыбнись <span>вместе с нами</span> <img src="/images/activity_smile_smile.png" /></div>
 
@@ -57,7 +57,7 @@
 
                         </div>
 
-                    </div>
+                    </div>-->
 
                 </div>
 

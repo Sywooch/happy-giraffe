@@ -10,6 +10,12 @@
                 <li class="clearfix">
                     <div class="text">
                         <p><a href="javascript:;" onclick="Duel.select(this, <?=$q->id?>);"><span class="num"><?=++$i?></span><?=$q->text?></a></p>
+                        <?php if ($q->answers): $q = $q->answers[0]; ?>
+                            <div class="duelist clearfix">
+                                <span class="label">Ожидает дуэлянта:</span>
+                                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $q->user, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </li>
             <?php endforeach; ?>

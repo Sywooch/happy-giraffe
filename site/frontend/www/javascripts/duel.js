@@ -25,3 +25,17 @@ Duel.submit = function(form) {
         'json'
     );
 }
+
+Duel.vote = function(el, id) {
+    $.post(
+        '/ajax/duelVote/',
+        {id: id},
+        function(response) {
+            if (response) {
+                $(el).addClass('active');
+                var counter = $(el).prev().find('span.count-in');
+                counter.text(parseInt(counter.text() + 1));
+            }
+        }
+    );
+}

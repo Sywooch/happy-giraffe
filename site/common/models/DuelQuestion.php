@@ -86,4 +86,21 @@ class DuelQuestion extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public static function getAvailable()
+    {
+        $criteria = new CDbCriteria(array(
+            'select' => 't.*, count(answers.id) AS answersCount',
+            'group' => 't.id',
+            'having' => 'answersCount < 2',
+            'with' => array(
+                'answers' => array(
+                    'together' => true,
+                ),
+            ),
+            'limit' => 3,
+        ));
+
+        return self::model()->findAll($criteria);
+    }
 }

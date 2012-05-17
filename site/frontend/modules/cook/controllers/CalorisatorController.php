@@ -31,7 +31,8 @@ class CalorisatorController extends HController
                 'value' => $ing->title,
                 'label' => $ing->title,
                 'id' => $ing->id,
-                'unit_id' => $ing->unit_id
+                'unit_id' => $ing->unit_id,
+                'weight' => $ing->weight
             );
             foreach ($ing->cookIngredientsNutritionals as $nutritional)
                 $i['nutritionals'][$nutritional->nutritional_id] = $nutritional->value;

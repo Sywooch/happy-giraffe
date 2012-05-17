@@ -2283,8 +2283,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #find-friend .title a:hover span {border:0;}
 
 #find-friend-wrapper {width:960px;overflow:hidden;}
-#find-friend-wrapper .slide {position:relative;left:0;overflow:hidden;}
-#find-friend-wrapper ul {float:left;width:960px;}
+#find-friend-wrapper ul {display:none;}
 
 #find-friend ul li {border:0;display:inline-block;vertical-align:top;float:none;margin-bottom:40px;}
 

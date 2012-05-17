@@ -5,6 +5,7 @@ Yii::app()->clientScript
     ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 
 ?><h1>Кейворды</h1>
+<input type="checkbox" id="hide-used" <?php if (Yii::app()->user->getState('hide_used') == 1) echo 'checked="checked"' ?> onchange="SeoModule.hideUsed(this);">
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'keywords-grid',
     'dataProvider' => $model->search(),

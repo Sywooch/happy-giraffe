@@ -17,12 +17,38 @@
 	
 	<script type="text/javascript" src="/javascripts/jquery.jcarousel.js"></script>
 	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
+	
+	
 	<script>
 		$(function(){
 			
 			$('#activity-photo').jcarousel({wrap: 'circular'});
-			
+						
 		})
+		
+		function addLI(){
+			var s = '\
+				<li>\
+					<div class="date">3 сен 2012, 08:25</div>\
+					<div class="user">\
+						<span class="icon-status status-online"></span>\
+						<a href="">Михаил Боярский</a>\
+					</div>\
+					<a href="">Как мы весело учимся делать разминку у доктора </a>\
+					<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке. Это вредно для не доконца оформившегося,  запрещают спать на подушке ... </p>\
+				</li>';
+			
+			var li = $(s).hide();
+			$('#activity .activity-onair ul').prepend(li);			
+			$('#activity .activity-onair ul li:last').remove();
+			$('#activity .activity-onair ul li:first').fadeIn(1000)
+			
+		}
+			
+		
+		
 	</script>
 	
 </head>
@@ -433,6 +459,47 @@
 				<a href="">Главная</a> > <span>Активность</span>
 			</div>
 			
+			
+			<div class="box activity-onair horizontal">
+				
+				<div class="title"><img src="/images/onair_title.png" />Прямой <span>эфир</span> <a href="">Весь прямой эфир</a> </div>
+				
+				<ul class="clearfix">
+					<li>
+						<div class="date">3 сен 2012, 08:25</div>
+						<div class="user">
+							<span class="icon-status status-online"></span>
+							<a href="">Михаил Боярский</a>
+						</div>
+						<a href="">Как мы весело учимся делать разминку у доктора </a>
+						<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке. Это вредно для не доконца оформившегося,  запрещают спать на подушке ... </p>
+					</li>
+					<li>
+						<div class="date">3 сен 2012, 08:25</div>
+						<div class="user">
+							<span class="icon-status status-online"></span>
+							<a href="">Михаил Боярский</a>
+						</div>
+						<a href="">Как мы весело учимся делать разминку у доктора </a>
+						<a href=""><img src="/images/activity_onair_img.jpg" /></a>
+					</li>
+					<li>
+						<div class="date">3 сен 2012, 08:25</div>
+						<div class="user">
+							<span class="icon-status status-online"></span>
+							<a href="">Михаил Боярский ышфнпвирфгфвфывыф	</a>
+						</div>
+						<a href="">Как мы весело учимся делать разминку у доктора </a>
+						<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке. Это вредно для не доконца оформившегося,  запрещают спать на подушке ... </p>
+					</li>
+					
+				</ul>
+				
+				
+				
+			</div>
+			
+			
 			<div id="activity">
 				
 				<div class="content-title">Что у нас новенького?</div>
@@ -443,7 +510,7 @@
 						
 						<div class="box activity-onair">
 							
-							<div class="title"><img src="/images/onair_title.png" />Прямой <span>эфир</span></div>
+							<div class="title"><img src="/images/onair_title.png" />Прямой <span>эфир</span> <a href="javascript:void(0);" onclick="addLI()">добавить елемент</a></div>
 							
 							<ul>
 								<li>
@@ -556,16 +623,16 @@
 							
 								<div class="activity-video">
 									<div class="preview">
-										<a href=""><img src="http://i.ytimg.com/vi/IY2j_GPIqRA/hqdefault.jpg" width="460" height="287"/>
+										<a href=""><img src="http://i.ytimg.com/vi/IY2j_GPIqRA/hqdefault.jpg" /></a>
 										<a class="title"><span>Видео</span> дня</a>
 										<a class="play"></a>
-										<a class="v-title"><span>Bill Gates & Steve Ballmer Night at the Roxbury theme</span>
+										<a class="v-title"><span>Bill Gates & Steve Ballmer Night at the Roxbury theme</span></a>
 									</div>
 								</div>
 								
 								<div class="box activity-find-friend">
 									
-									<div class="title">Найти <span>друзей</span></div>
+									<div class="title"><a href="">Найти еще</a>Найти <span>друзей</span></div>
 									
 									<ul class="clearfix">
 										<li>
@@ -675,7 +742,7 @@
 								
 								<div class="box activity-duel">
 									
-									<div class="title"><a href="" class="btn btn-orange-small"><span><span>Принять участие</span></span></a>Дуэль <span>ДНЯ</span></div>
+									<div class="title"><a href="#duel-takeapart" class="btn btn-orange-small fancy"><span><span>Принять участие</span></span></a>Дуэль <span>ДНЯ</span></div>
 									
 									<div class="question">
 										<p>Давно интересующий всех вопрос. Что раньше появилось яйцо или курица?</p>
@@ -854,7 +921,9 @@
 											<span class="text"><span>:(</span></span>
 											<span class="value">11</span>
 										</div>
-										
+										<br/>
+										<br/>
+										<a href="#photoPick" class="btn btn-orange-small fancy"><span><span>Загрузить фото</span></span></a>
 									</div>
 									
 								</div>
@@ -1169,6 +1238,7 @@
 	</div>
 	
 <div style="display:none">
+	
 	<div id="login" class="popup">
 		
 		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
@@ -1220,6 +1290,186 @@
 			</div>
 		</form>
 		
+	</div>
+	
+	<div id="duel-takeapart" class="popup">
+		
+		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
+		
+		<div class="title">Выберите вопрос-дуэль, в которой<br/>Вы хотели бы поучаствовать</div>
+		
+		<ul class="duels-list">
+			<li class="clearfix">
+				
+				<div class="text">
+					<p><a href=""><span class="num">1</span>Почему у коровы всегда понос, а у овцы — никогда?</a></p>
+					<div class="duelist clearfix">
+						<span class="label">Ожидает дуэлянта:</span>
+						<div class="user-info clearfix">
+							<a class="ava small female"></a>
+							<div class="details">
+								<span class="icon-status status-online"></span>
+								<a href="" class="username">Александр Богоявленский</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="clearfix">
+				
+				<div class="text">
+					<p><a href=""><span class="num">2</span>Зачем на батоне делают надрезы?</a></p>
+				</div>
+			</li>
+			<li class="clearfix">
+				
+				<div class="text">
+					<p><a href=""><span class="num">3</span>Почему люди во сне не чихают?</a></p>
+				</div>
+			</li>
+			
+		</ul>
+		
+		<div class="title">Почему люди во сне не чихают?</div>
+		
+		<div class="add-answer">
+			
+			<label>Введите в форму Ваш вариант ответа</label>
+			
+			<textarea class="cap">Блестните знаниями!</textarea>
+			
+			<textarea>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг. Набираемый вес при беременности складывается из нескольких показателей: вес ребенка, матки, околоплодных вод, плаценты, а также увеличиваются   молочные железы, объем циркулирующей крови, ну и, конечно, появляется запас жировой ткани. Желательно, чтобы набор веса при беременности происходил постепенно, без рывков.ткани. Желательно, чтобы набор веса при беременности происходил постепенно, без рывков.ткани. Желательно, чтобы набор веса при беременности происходил постепенно.</textarea>
+			
+			<div class="note"><span>Внимание!</span> Ответ должен быть кратким не более 500 символов</div>
+			
+			<div class="bottom">
+				<a href="" class="btn btn-green"><span><span>К дуэли!</span></span></a>
+			</div>
+			
+		</div>
+		
+		<div class="activity-duel">
+			
+			<div class="title">Дуэль</div>
+			
+			<div class="question">
+				<p>Давно интересующий всех вопрос. Что раньше появилось яйцо или курица?</p>
+				<span class="tale tale-1"></span>
+				<span class="tale tale-2"></span>
+			</div>
+			
+			<div class="answers clearfix">
+				
+				<div class="clearfix">
+					<div class="answer-1">
+						<div class="user-info clearfix">
+							<a class="ava female"></a>
+							<div class="details">
+								<span class="icon-status status-online"></span>
+								<a href="" class="username">Богоявленский</a>
+								<div class="user-fast-buttons clearfix">
+									<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+									<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="answer-2">
+						<div class="user-info clearfix">
+							<a class="ava female"></a>
+							<div class="details">
+								<span class="icon-status status-online"></span>
+								<a href="" class="username">Богоявленский</a>
+								<div class="user-fast-buttons clearfix">
+									<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+									<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="clearfix">
+					<div class="answer-1">
+						<p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг. Набираемый вес при беременности складывается из нескольких показателей: вес ребенка, мат Желательно, чтобы набор веса при беременности происходил постепенно.</p>
+					</div>
+					<div class="answer-2">
+						<p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг. Набираемый вес при беременности складывается из вных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг. Набираемый вес при беременности складывается из нескольких показателей: вес ребенка, мат Желательно, чтобы набор веса при беременности происходил постепенно.</p>
+					</div>
+				</div>
+				
+				<div class="clearfix">
+					<div class="answer-1">
+						<div class="vote">
+							<div class="count">
+								<span class="count-in">56</span>
+								голосов
+							</div>
+							<div class="button">
+								<a href="">Голосовать</a>
+							</div>
+						</div>
+					</div>
+					<div class="answer-2">
+						<div class="vote">
+							<div class="count">
+								<span class="count-in">826</span>
+								голосов
+							</div>
+							<div class="button">
+								<a href="">Голосовать</a>
+							</div>
+						</div>
+					</div>
+				</div>										
+				
+			</div>
+		
+		</div>
+		
+		
+	</div>
+	
+	<div id="photoPick" class="smile-photo popup">
+		<a onclick="$.fancybox.close();" class="popup-close" href="javascript:void(0);">закрыть</a>
+		<div class="title">Фото в &laquo;Улыбнить вместе с нами&raquo;</div>
+		
+		<div id="attach_content">
+			<div class="form">
+				<div class="photo-upload clearfix">
+					<div class="photo">
+						<div class="in">
+							<div class="file-fake">
+								<form>
+									<button class="btn btn-orange"><span><span>Обзор...</span></span></button>
+									<input type="file" />
+								</form>
+							</div>
+							
+						</div>
+					</div>
+					<div class="note">Загрузите файл<br>(jpg, gif, png не более 6 МБ)</div>
+				</div>
+				
+				<div class="form-bottom">
+					<button class="btn btn-green-medium disabled"><span><span>Продолжить</span></span></button>
+				</div>
+				
+				<div class="photo-upload clearfix">
+					<div class="photo">
+						<div class="in">
+							<img src="http://img.happy-giraffe.ru/temp/2354ffc2465fe78a33616953dc5bc35f.jpg" width="170" alt="">
+							<a href="" class="remove"><span class="tip">Удалить</span></a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-bottom">
+					<button class="btn btn-green-medium"><span><span>Завершить</span></span></button>
+				</div>
+				
+			</div>    
+		</div>
 	</div>
 	
 </div>

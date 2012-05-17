@@ -2356,19 +2356,19 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #duel-takeapart .duels-list {list-style:none;}
 #duel-takeapart .duels-list li {padding:10px 0;}
-#duel-takeapart .duels-list li .num {display:block;width:30px;height:30px;background:#c5a7e2;color:#fff;text-align:center;text-decoration:none;line-height:30px;font-size:20px;font-weight:bold;float:left;}
+#duel-takeapart .duels-list li .num {display:block;width:30px;height:30px;background:#c5a7e2;color:#fff;text-align:center;text-decoration:none;line-height:30px;font-size:20px;font-weight:bold;position:absolute;right:100%;margin-right:10px;top:-8px;}
 #duel-takeapart .duels-list li .num {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;}
 #duel-takeapart .duels-list li .text {margin-left:40px;padding-top:8px;}
 #duel-takeapart .duels-list li .text p {font-size:15px;}
-#duel-takeapart .duels-list li .text p a {color:#242424;text-decoration:none;}
+#duel-takeapart .duels-list li .text p a {color:#242424;text-decoration:none;display:block;position:relative;}
 #duel-takeapart .duels-list li .text p a:hover {text-decoration:underline;}
 #duel-takeapart .duels-list li .text .duelist {padding-top:10px;}
 #duel-takeapart .duels-list li .text .duelist .label {float:left;color:#949696;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
 #duel-takeapart .duels-list li .text .duelist .user-info {margin-left:15px;}
 #duel-takeapart .duels-list li .text .duelist .user-info .details {margin-left:30px;}
 #duel-takeapart .duels-list li .text .duelist .user-info .details .username {width:130px;}
-#duel-takeapart .duels-list li.orange .num {background:#f68704;}
-#duel-takeapart .duels-list li.orange .text p a {color:#fe8c05;}
+#duel-takeapart .duels-list li p a:hover {color:#fe8c05;}
+#duel-takeapart .duels-list li p a:hover .num {background:#f68704;}
 
 #duel-takeapart .add-answer {}
 #duel-takeapart .add-answer label {display:block;color:#898888;font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;}

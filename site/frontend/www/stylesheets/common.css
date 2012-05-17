@@ -2284,8 +2284,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #find-friend .title a:hover span {border:0;}
 
 #find-friend-wrapper {width:960px;overflow:hidden;}
-#find-friend-wrapper .slide {position:relative;left:0;overflow:hidden;}
-#find-friend-wrapper ul {float:left;width:960px;}
+#find-friend-wrapper ul {display:none;}
 
 #find-friend ul li {border:0;display:inline-block;vertical-align:top;float:none;margin-bottom:40px;}
 
@@ -2328,24 +2327,27 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .activity-duel .answers  .user-info {margin-bottom:10px;}
 .activity-duel .answers  .user-info .details .username {width:95px;}
 .activity-duel .answers  p {font-size:11px;line-height:15px;}
-.activity-duel .answers .vote {padding-top:15px;padding-left:12px;}
-.activity-duel .answers .vote .count {display:inline-block;margin-right:10px;text-align:center;color:#b9b9b9;}
+.activity-duel .answers .vote {padding-top:15px;padding-left:5px;}
+.activity-duel .answers .vote .count {display:inline-block;margin-right:10px;text-align:center;color:#b9b9b9;line-height:1;}
 .activity-duel .answers .vote .count .count-in {font:italic 50px/1 times new roman, serif;display:block;}
 .activity-duel .answers .answer-1 .vote .count .count-in {color:#25a44a;}
 .activity-duel .answers .answer-2 .vote .count .count-in {color:#4992d0;}
 .activity-duel .answers .vote .count a {position:relative;text-decoration:none;color:#b9b9b9;border-bottom:1px dashed #b9b9b9;line-height:1;}
 .activity-duel .answers .answer-1 .vote .count a:hover {color:#25a44a;border-color:#25a44a;}
 .activity-duel .answers .answer-2 .vote .count a:hover {color:#4992d0;border-color:#4992d0;}
-.activity-duel .answers .vote .button {display:inline-block;vertical-align:top;}
+.activity-duel .answers .showed-votes {display:none;}
+.activity-duel .answers .vote .button {display:inline-block;vertical-align:top;text-align:center;}
 .activity-duel .answers .vote .button a {margin-top:10px;display:inline-block;height:22px;line-height:22px;padding:0 12px;color:#fff;background:#c9c9c9;font-weight:bold;text-decoration:none;border:1px solid #d1d1d1;}
 .activity-duel .answers .vote .button a {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
-.activity-duel .answers .vote .button span {margin-top:10px;display:inline-block;height:22px;line-height:22px;padding:0 12px;color:#777;font-weight:bold;}
+.activity-duel .answers .vote .button span {height:22px;line-height:22px;display:inline-block;padding:0 12px;color:#777;font-weight:bold;margin-top:10px;margin-bottom:-12px;}
 .activity-duel .answers .answer-1 .vote .button a {background-image:url(/images/btn_answer_g.gif);border:1px solid #34ac51;}
 .activity-duel .answers .answer-1 .vote .button span {color:#25a44a;}
 .activity-duel .answers .answer-2 .vote .button a {background-image:url(/images/btn_answer_b.gif);border:1px solid #549bd7;}
 .activity-duel .answers .answer-2 .vote .button span {color:#4992d0;}
-.activity-duel .answers .vote .button a.disabled {background-image:url(/images/btn_answer_d.gif);border:1px solid #d1d1d1;}
-.activity-duel .answers .votes {list-style:none;padding-top:20px;}
+.activity-duel .answers .vote .button a.active {background-image:url(/images/btn_answer_d.gif);border:1px solid #d1d1d1;}
+.activity-duel .answers .votes {list-style:none;width:195px;}
+.activity-duel .answers #duel-votes {width:100%;display:block;}
+.activity-duel .answers #duel-votes ul {padding-top:30px;}
 .activity-duel .answers .votes li {float:left;padding:5px 12px;}
 .activity-duel .answers .more-votes {text-align:right;padding-top:10px;}
 .activity-duel .answers .more-votes a {text-decoration:none;border-bottom:1px dashed #029AD2;}
@@ -2362,7 +2364,6 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #duel-takeapart .duels-list li .text {margin-left:40px;padding-top:8px;}
 #duel-takeapart .duels-list li .text p {font-size:15px;}
 #duel-takeapart .duels-list li .text p a {color:#242424;text-decoration:none;display:block;position:relative;}
-#duel-takeapart .duels-list li .text p a:hover {text-decoration:underline;}
 #duel-takeapart .duels-list li .text .duelist {padding-top:10px;}
 #duel-takeapart .duels-list li .text .duelist .label {float:left;color:#949696;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
 #duel-takeapart .duels-list li .text .duelist .user-info {margin-left:15px;}

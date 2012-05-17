@@ -30,7 +30,7 @@ class UserNotification extends EMongoDocument
                 'CommunityContent' => '{comments} к вашей записи {post} в клубе {club}',
                 'RecipeBookRecipe' => '{comments} к вашей записи {post} в сервисе {recipeBook}',
                 'AlbumPhoto' => '{comments} к фотографии {photo} в альбомe {album}',
-                'BlogContent' => '{comments} к вашей записи {post} в вашем блоге',
+                'BlogContent' => '{comments} к вашей записи {post} в блоге',
                 'User' => '{records} в гостевой книге',
             ),
         ),
@@ -40,6 +40,7 @@ class UserNotification extends EMongoDocument
                 'CommunityContent' => '{replies} на ваш комментарий к записи {post} в клубе {club}',
                 'RecipeBookRecipe' => '{replies} на ваш комментарий к записи {post} в сервисе {recipeBook}',
                 'AlbumPhoto' => '{replies} на ваш комментарий к фотографии {photo} в альбоме {album}',
+                'BlogContent' => '{replies} на ваш комментарий к записи {post} в вашем блоге',
             ),
         ),
         self::DELETED => array(

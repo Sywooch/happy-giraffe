@@ -10,4 +10,22 @@ class ActivityController extends HController
         Yii::import('application.widgets.activity.*');
         $this->render('index');
     }
+
+    public function actionLive()
+    {
+        $live = new CActiveDataProvider(CommunityContent::model()->full(), array(
+            'criteria' => array(
+                'order' => 'created DESC',
+            ),
+        ));
+
+        $this->render('live', compact('live'));
+    }
+
+    public function actionFriends()
+    {
+        $friends = User::findFriends(60);
+
+        $this->render('friends', compact('friends'));
+    }
 }

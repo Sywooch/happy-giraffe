@@ -20,6 +20,7 @@ class User extends HActiveRecord
 {
     public $current_password;
     public $remember;
+    public $role;
 
     /**
      * Returns the static model of the specified AR class.
@@ -50,9 +51,8 @@ class User extends HActiveRecord
     {
         return array(
             //general
-            array('name', 'length', 'max' => 50),
-            array('email', 'email'),
-
+            array('name, email', 'length', 'max' => 50),
+            array('email', 'unique'),
             //login
             array('email, password', 'required', 'on' => 'login'),
             array('password', 'passwordValidator', 'on' => 'login'),
@@ -120,7 +120,7 @@ class User extends HActiveRecord
     {
         return array(
             'name' => 'Имя',
-            'email' => 'E-mail',
+            'email' => 'Логин',
             'password' => 'Пароль',
             'gender' => 'Пол',
         );
@@ -131,7 +131,7 @@ class User extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->compare('id', $this->id);
         $criteria->compare('email', $this->email, true);
-        $criteria->compare('name', $this->first_name, true);
+        $criteria->compare('name', $this->name, true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,

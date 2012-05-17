@@ -16,7 +16,7 @@
                         <div class="img">
                             <?php echo CHtml::link(CHtml::image($p->getPreviewUrl(150, 150, Image::WIDTH)), array('/albums/photo', 'id' => $p->id)); ?>
                         </div>
-                        <div class="item-title"><?php echo $p->title ? $p->title : '&nbsp;' ?></div>
+                        <div class="item-title"><?php echo $p->title != '' ? $p->title : '&nbsp;' ?></div>
                     </li>
                     <?php endforeach; ?>
                 </ul>

@@ -7,7 +7,7 @@
     <li class="set_attr_li" obj_id="<?php echo $model->attribute_id ?>">
 <?php endif ?>
     <div class="name attr-name">
-        <p><?php echo $model->attribute_title ?></p>
+        <p><?php echo $model->attribute_title ?><?php if ($model->attribute_type == Attribute::TYPE_MEASURE) echo ', '.$model->measure_option->title ?></p>
         <a class="edit" href="#"></a>
         <a class="delete" href="#"></a>
     </div>

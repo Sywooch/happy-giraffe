@@ -2,15 +2,7 @@
 /* @var $this Controller
  * @var $name Name
  */
-?>
-<script type="text/javascript">
-    $(function() {
-        $('.diagram_navi a').click(function(){
-            return false;
-        });
-    });
-</script>
-<div class="left-inner mirror">
+?><div class="left-inner mirror">
     <div class="name_link">
         <a href="<?php echo $this->createUrl('index') ?>">Все имена</a>
         <a href="<?php echo $this->createUrl('index',array('letter'=>$name->GetFirstLetter())) ?>">Имена на букву <?php echo $name->GetFirstLetter() ?></a>
@@ -22,10 +14,15 @@
         <p>"<?php echo $name->translate; ?>"</p>
 
         <?php if (!empty($name->nameSaintDates)):?>
-            <p class="header">Святцы</p>
+            <p class="header">Святцы <a href="#" id="calendar-link2" onclick="NameModule.showFirstSaints(this);return false;" class="calendar-link" style="display: none;">только первые</a></p>
             <ul class="calendar">
+                <?php $i = 0; ?>
                 <?php foreach ($name->nameSaintDates as $saint): ?>
-                    <li><span><?php echo $saint->day ?></span><?php echo HDate::ruMonth($saint->month) ?></li>
+                    <?php if ($i == 5) :?>
+                        <li><a href="#" class="calendar-link" onclick="NameModule.showAllSaints(this);return false;">еще...</a></li>
+                    <?php endif; ?>
+                    <li<?php if ($i >= 5) echo ' style="display:none;"' ?>><span><?php echo $saint->day ?></span><?php echo HDate::ruMonth($saint->month) ?></li>
+                    <?php $i++ ?>
                 <?php endforeach; ?>
             </ul>
         <?php endif ?>
@@ -104,3 +101,10 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    $(function() {
+        $('.diagram_navi a').click(function(){
+            return false;
+        });
+    });
+</script>

@@ -64,6 +64,10 @@ class User extends HActiveRecord
     private $_role = null;
     private $_authItems = null;
 
+    public $authorsRate;
+    public $commentatorsRate;
+    public $interestsCount;
+    public $babiesCount;
 
     public $women_rel = array(
         1 => 'Замужем',
@@ -685,6 +689,11 @@ class User extends HActiveRecord
         return array();
     }
 
+    public function getRelationshipStatusString()
+    {
+        return $this->relationship_status === null ? '' : mb_strtolower($this->relashionshipList[$this->relationship_status], 'utf-8');
+    }
+
     public function getPartnerTitle($id)
     {
         if ($this->gender == 1) {
@@ -862,5 +871,49 @@ class User extends HActiveRecord
         }
 
         return isset($this->_authItems[$item]);
+    }
+
+    public static function findFriends($limit)
+    {
+        $criteria = new CDbCriteria(array(
+            'select' => 't.*, count(interests_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() .  '.id) AS babiesCount',
+            'group' => 't.id',
+            'having' => 'interestsCount > 0 AND (babiesCount > 0 OR t.relationship_status IS NOT NULL)',
+            'condition' => 't.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
+            'with' => array(
+                'interests' => array(
+                    'together' => true,
+                ),
+                'userAddress',
+                'babies' => array(
+                    'together' => true,
+                    'condition' => 'sex != 0 OR type IS NOT NULL',
+                ),
+            ),
+            'order' => 'RAND()',
+            'limit' => $limit,
+        ));
+
+        if (! Yii::app()->user->isGuest) {
+            $criteria->join .= ' LEFT JOIN friends ON (friends.user1_id = :me AND friends.user2_id = t.id) OR (friends.user2_id = :me AND friends.user1_id = t.id)';
+            $criteria->addCondition('t.id != :me AND friends.id IS NULL');
+            $criteria->params = array(':me' => Yii::app()->user->id);
+        }
+
+        return User::model()->findAll($criteria);
+    }
+
+    public function getCanDuel()
+    {
+        $connection = Yii::app()->db;
+        $sql = '
+            SELECT count(*)
+            FROM ' . DuelQuestion::model()->tableName() .' q
+            JOIN ' . DuelAnswer::model()->tableName() .' a ON q.id = a.question_id
+            WHERE ends > NOW() AND user_id = :user_id;
+        ';
+        $command = $connection->createCommand($sql);
+        $command->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+        return $command->queryScalar() == 0;
     }
 }

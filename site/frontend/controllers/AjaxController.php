@@ -173,6 +173,7 @@ class AjaxController extends HController
 
     public function actionSendComment()
     {
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
         if(isset($_POST['CommentProduct']))
             $model = 'CommentProduct';
         elseif(isset($_POST['Comment']))
@@ -408,6 +409,18 @@ class AjaxController extends HController
         }
     }
 
+    public function actionDuelVote()
+    {
+        if (Yii::app()->request->isAjaxRequest && ! Yii::app()->user->isGuest) {
+            $id = Yii::app()->request->getPost('id');
+            $model = DuelAnswer::model()->findByPk($id);
+            $model->vote(Yii::app()->user->id, 1);
+            echo true;
+        } else {
+            echo false;
+        }
+    }
+
     public function actionInterestsForm()
     {
         if (!Yii::app()->request->isAjaxRequest)
@@ -447,6 +460,68 @@ class AjaxController extends HController
                 $success = Favourites::toggle($model, $index, $param);
             }
             echo CJSON::encode(array('status' => $success));
+        }
+    }
+
+    public function actionWantToChat()
+    {
+        if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)) {
+            $model = new WantToChat;
+            $model->user_id = (int) Yii::app()->user->id;
+            $model->created = time();
+            echo $model->save();
+        }
+    }
+
+    public function actionContentsLive($id, $containerClass)
+    {
+        $model = CommunityContent::model()->full()->findByPk($id);
+        $data = array('data' => $model);
+        switch ($containerClass) {
+            case 'short':
+                $view = 'application.widgets.activity.views._live_entry';
+                break;
+            case 'full':
+                $view = '//community/_post';
+                $data['full'] = false;
+                break;
+        }
+        $this->renderPartial($view, $data);
+    }
+
+    public function actionDuelForm()
+    {
+        $questions = DuelQuestion::getAvailable(Yii::app()->user->id);
+        $answer = new DuelAnswer;
+        $answer->text = 'Блестните знаниями!';
+        $this->renderPartial('duel', compact('questions', 'answer'));
+    }
+
+    public function actionDuelSubmit()
+    {
+        if ($_POST['DuelAnswer']) {
+            $answer = new DuelAnswer;
+            $answer->attributes = $_POST['DuelAnswer'];
+            $answer->user_id = Yii::app()->user->id;
+            if ($answer->save()) {
+                $question = $answer->getRelated('question', false, array(
+                    'with' => 'answers.user',
+                ));
+                if (count($question->answers) == 2) {
+                    $question->ends = new CDbExpression('NOW() + INTERVAL 3 DAY');
+                    $question->save();
+                }
+                $response = array(
+                    'status' => true,
+                    'html' => $this->renderPartial('duel_submit', compact('question'), true),
+                );
+            } else {
+                $response = array(
+                    'status' => false,
+                    'error' => $answer->errors,
+                );
+            }
+            echo CJSON::encode($response);
         }
     }
 }

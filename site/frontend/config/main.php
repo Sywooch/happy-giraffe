@@ -19,6 +19,8 @@ return array(
         'site.common.components.*',
 		'site.common.models.*',
         'site.common.models.mongo.*',
+        'site.common.models.interest.*',
+        'site.common.models.*',
         'site.common.helpers.*',
 		'ext.ufile.UFiles',
 		'application.models.*',
@@ -91,6 +93,7 @@ return array(
         'signal',
         'scores',
         'services',
+        'cook'
 	),
 
 	// application components
@@ -255,7 +258,8 @@ return array(
 			),
 		),
         'frontend_url'=>'http://www.happy-giraffe.ru/',
-        'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA=='
+        'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA==',
+        'google_map_key'=>'AIzaSyBRfSZOBqRx2gKsXlo1sMjCrsAjFAl-jvE'
 	),
 
         'controllerMap' => array(

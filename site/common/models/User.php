@@ -902,4 +902,18 @@ class User extends HActiveRecord
 
         return User::model()->findAll($criteria);
     }
+
+    public function getCanDuel()
+    {
+        $connection = Yii::app()->db;
+        $sql = '
+            SELECT count(*)
+            FROM ' . DuelQuestion::model()->tableName() .' q
+            JOIN ' . DuelAnswer::model()->tableName() .' a ON q.id = a.question_id
+            WHERE ends > NOW() AND user_id = :user_id;
+        ';
+        $command = $connection->createCommand($sql);
+        $command->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+        return $command->queryScalar() == 0;
+    }
 }

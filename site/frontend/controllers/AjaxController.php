@@ -524,4 +524,10 @@ class AjaxController extends HController
             echo CJSON::encode($response);
         }
     }
+
+    public function actionDuelShow($question_id)
+    {
+        $question = DuelQuestion::model()->with('answers.user')->findByPk($question_id);
+        $this->renderPartial('duel_show', compact('question'));
+    }
 }

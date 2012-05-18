@@ -266,6 +266,26 @@ class ProductController extends BController
         }
     }
 
+    public function actionUpdateItemCount($id)
+    {
+        ProductItem::model()->updateByPk($id, array('count' => Yii::app()->request->getPost('itemCount')));
+    }
+
+    public function actionAddPresent($id)
+    {
+        $model = Product::model()->findByPk($id);
+        $this->renderPartial('add_present', compact('model'));
+    }
+
+    public function actionGetPresents()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('product_category_id', Yii::app()->request->getPost('category'));
+        $products = Product::model()->findPresents($criteria);
+        foreach($products as $product)
+            $this->renderPartial('_add_present_item', compact('product'));
+    }
+
     public function actionAddAttrListElem()
     {
         if (isset($_POST['value']) && isset($_POST['product_id']) && isset($_POST['attribute_id'])) {

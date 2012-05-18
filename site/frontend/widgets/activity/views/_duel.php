@@ -34,7 +34,7 @@
                     <div class="vote">
                         <div class="count">
                             <span class="count-in"><?=$answers[$i]['votes']?></span>
-                            <a href="">голосов<span class="tip">Посмотреть голоса</span></a>
+                            <a href="javascript:;" onclick="Duel.showVotes();">голосов<span class="tip">Посмотреть голоса</span></a>
                         </div>
                         <?php if (! Yii::app()->user->isGuest): ?>
                             <div class="button">
@@ -49,6 +49,25 @@
                             </div>
                         <?php endif; ?>
                     </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="clearfix" id="duel-votes" style="display:none;">
+            <?php foreach ($answers as $i => $a): ?>
+                <div class="answer-<?=$i+1?>">
+                    <ul class="votes clearfix">
+                        <?php foreach ($answers[$i]->getUsers(20) as $u): ?>
+                            <?php
+                                $class = 'ava small';
+                                if ($u->gender !== null) $class .= ' ' . (($u->gender) ? 'male' : 'female');
+                            ?>
+                            <li><?=CHtml::link(CHtml::image($u->getAva('small')), $u->url, array('class' => $class))?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php if ($answers[$i]->votes > 20): ?>
+                        <div class="more-votes">еще <?=($answer[$i] - 20)?> голосов</div>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>

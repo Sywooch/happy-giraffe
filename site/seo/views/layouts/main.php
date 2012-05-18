@@ -7,6 +7,8 @@
 
     <?php
     Yii::app()->clientScript
+        ->registerCssFile('/css/seo.css')
+
         ->registerCoreScript('jquery')
         ->registerCoreScript('jquery.ui')
 
@@ -37,25 +39,27 @@
 <body>
 <div id="wrapper">
     <div class="header">
-        <a href="/" class="logo" title="Обновить страницу">Администратор</a>
-        <!-- .logo -->
         <ul class="logged">
-            <li><?php echo Yii::app()->user->name ?></li>
             <li><a href="<?php echo $this->createUrl('site/logout') ?>">Выйти</a></li>
         </ul>
+    </div>
+
+    <div id="seo">
+
+        <div class="title">
+            <span>SEO-<span>жираф</span></span> &nbsp; ГОТОВОЕ
+        </div>
+
+        <?=$content ?>
+
     </div>
     <div>
         <?php if (Yii::app()->user->checkAccess('editor')):?>
         <a href="/task/index/">Выбор кейвордов</a> <a href="/task/tasks/">Задания копирайт</a> <a href="/task/rewriteTasks/">Задания рерайт</a>
         <?php endif ?>
     </div>
-    <br><br><br>
-    <?php echo $content; ?>
 
-    <br><br><br>
-    <div class="footer">
-        <span>&copy; Все права защищены.</span>
-    </div>
+
 </div>
 
 </body>

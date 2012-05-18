@@ -57,16 +57,19 @@ class TaskController extends SController
 
     public function actionArticles()
     {
+
         $this->render('articles');
     }
 
-    public function actionTest()
+    public function actionSearchKeywords()
     {
+        $term = $_POST['term'];
+        if (!empty($term)) {
 
             $allSearch = $textSearch = Yii::app()->search
                 ->select('*')
-                ->from('communityText')
-                ->where('')
+                ->from('keywords')
+                ->where('*' . $term . '*')
                 ->limit(0, 1000)
                 ->searchRaw();
             $ids = array();
@@ -77,11 +80,12 @@ class TaskController extends SController
             if (!empty($ids)) {
                 $criteria = new CDbCriteria;
                 $criteria->compare('id', $ids);
-                $models = CommunityContent::model()->findAll($criteria);
+                //$criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords');
+                $models = Keywords::model()->findAll($criteria);
             } else
                 $models = array();
-        foreach($models as $model)
-            echo $model->title.'<br>';
+            $this->renderPartial('_keywords', array('models' => $models));
+        }
     }
 
     public function actionSelectKeyword()

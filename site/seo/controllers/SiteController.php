@@ -23,12 +23,18 @@ class SiteController extends SController
 	{
         if (Yii::app()->user->checkAccess('moderator'))
             $this->redirect($this->createUrl('task/moderator'));
+
         if (Yii::app()->user->checkAccess('author'))
             $this->redirect($this->createUrl('task/author'));
+
         if (Yii::app()->user->checkAccess('editor'))
             $this->redirect($this->createUrl('task/tasks'));
+
         if (Yii::app()->user->checkAccess('content-manager'))
             $this->redirect($this->createUrl('task/cmanager'));
+
+        if (Yii::app()->user->checkAccess('articles-input'))
+            $this->redirect($this->createUrl('existArticles/index'));
 	}
 
     /**

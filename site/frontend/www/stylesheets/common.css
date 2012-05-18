@@ -20,7 +20,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     background: transparent;
 }
 body {
-    line-height: 1;
+    line-height: normal;
 }
 
 blockquote, q {
@@ -2355,6 +2355,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .activity-duel .answers .answer-2 .more-votes a {color:#4992d0;border-color:#4992d0;}
 
 #duel-takeapart {width:420px;}
+
 #duel-takeapart .title {line-height:28px;}
 
 #duel-takeapart .duels-list {list-style:none;}

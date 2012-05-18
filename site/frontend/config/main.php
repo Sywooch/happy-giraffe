@@ -259,7 +259,7 @@ return array(
 		),
         'frontend_url'=>'http://www.happy-giraffe.ru/',
         'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA==',
-        'google_map_key'=>'AIzaSyBRfSZOBqRx2gKsXlo1sMjCrsAjFAl-jvE'
+        'google_map_key'=>'AIzaSyCk--cFAYpjqqxmbabeV9IIlwbmnYlzHfc'
 	),
 
         'controllerMap' => array(

@@ -4,6 +4,8 @@ class AjaxController extends BController
 {
     public function actionDelete()
     {
+        Yii::import('site.frontend.modules.services.modules.names.models.*');
+
         $modelName = Yii::app()->request->getPost('modelName');
         $modelPk = Yii::app()->request->getPost('modelPk');
 
@@ -47,6 +49,8 @@ class AjaxController extends BController
          * @var CActiveRecord $model
          */
         $model = call_user_func(array($modelName, 'model'));
+        if ($modelName == 'Name')
+            $model->scenario = 'edit';
         $model = $model->findByPk($modelPk);
         $model->$attribute = $value;
         if($model->save())

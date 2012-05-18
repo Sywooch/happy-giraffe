@@ -1,4 +1,8 @@
-<?php $time = $this->time; ?>
+<?php $time = $this->time;
+$last_time = $this->last_time;
+//echo date("Y-m-d", $this->time).'<br>';
+//echo date<!--("Y-m-d", $this->last_time);-->
+?>
 <div class="morning-sidebar">
 
     <div class="banner">
@@ -17,7 +21,7 @@
                     </thead>
                     <tbody>
                     <?php
-                    $days_away = round((strtotime(date("Y-m-d 00:00:00")) - $time) / (24 * 3600));
+                    $days_away = round((strtotime(date("Y-m-d 00:00:00", $this->last_time)) - $time) / (24 * 3600));
                     if ($days_away > 3) {
                         ?>
                     <tr>
@@ -72,55 +76,57 @@
 
                         ?>
                     <tr>
-                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-8 days')))):?>
-                            <td><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-8 days')))) ?>"><?=date("j", strtotime('-8 days'))?></a></td>
+                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-8 days', $last_time)))):?>
+                            <td><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-8 days', $last_time)))) ?>"><?=date("j", strtotime('-8 days', $last_time))?></a></td>
                         <?php else: ?>
-                            <td><?=date("j", strtotime('-8 days'))?></td>
+                            <td><?=date("j", strtotime('-8 days', $last_time))?></td>
                         <?php endif ?>
-                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-7 days')))):?>
-                            <td><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-7 days')))) ?>"><?=date("j", strtotime('-7 days'))?></a></td>
+                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-7 days', $last_time)))):?>
+                            <td><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-7 days', $last_time)))) ?>"><?=date("j", strtotime('-7 days', $last_time))?></a></td>
                         <?php else: ?>
-                            <td><?=date("j", strtotime('-7 days'))?></td>
+                            <td><?=date("j", strtotime('-7 days', $last_time))?></td>
                         <?php endif ?>
-                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-6 days')))):?>
-                            <td><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-6 days')))) ?>"><?=date("j", strtotime('-6 days'))?></a></td>
+                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-6 days', $last_time)))):?>
+                            <td><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-6 days', $last_time)))) ?>"><?=date("j", strtotime('-6 days', $last_time))?></a></td>
                         <?php else: ?>
-                            <td><?=date("j", strtotime('-6 days'))?></td>
-                        <?php endif ?>
-                    </tr>
-                    <tr>
-                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-5 days')))):?>
-                            <td><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-5 days')))) ?>"><?=date("j", strtotime('-5 days'))?></a></td>
-                        <?php else: ?>
-                            <td><?=date("j", strtotime('-5 days'))?></td>
-                        <?php endif ?>
-                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-4 days')))):?>
-                            <td><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-4 days')))) ?>"><?=date("j", strtotime('-4 days'))?></a></td>
-                        <?php else: ?>
-                            <td><?=date("j", strtotime('-4 days'))?></td>
-                        <?php endif ?>
-                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-3 days')))):?>
-                        <td<?php if (date("j", strtotime('-3 days')) == date("j", $time)) echo ' class="active"'
-                            ?>><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-3 days')))) ?>"><?=date("j", strtotime('-3 days'))?></a></td>
-                        <?php else: ?>
-                            <td><?=date("j", strtotime('-3 days'))?></td>
+                            <td><?=date("j", strtotime('-6 days', $last_time))?></td>
                         <?php endif ?>
                     </tr>
                     <tr>
-                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-2 days')))):?>
-                        <td<?php if (date("j", strtotime('-2 days')) == date("j", $time)) echo ' class="active"'
-                            ?>><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-2 days')))) ?>"><?=date("j", strtotime('-2 days'))?></a></td>
+                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-5 days', $last_time)))):?>
+                            <td><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-5 days', $last_time)))) ?>"><?=date("j", strtotime('-5 days', $last_time))?></a></td>
                         <?php else: ?>
-                            <td><?=date("j", strtotime('-2 days'))?></td>
+                            <td><?=date("j", strtotime('-5 days', $last_time))?></td>
                         <?php endif ?>
-                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-1 day')))):?>
-                        <td<?php if (date("j", strtotime('-1 day')) == date("j", $time)) echo ' class="active"'
-                            ?>><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-1 days')))) ?>"><?=date("j", strtotime('-1 days'))?></a></td>
+
+                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-4 days', $last_time)))):?>
+                            <td><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-4 days', $last_time)))) ?>"><?=date("j", strtotime('-4 days', $last_time))?></a></td>
                         <?php else: ?>
-                             <td><?=date("j", strtotime('-1 day'))?></td>
+                            <td><?=date("j", strtotime('-4 days', $last_time))?></td>
                         <?php endif ?>
-                        <td<?php if (date('j') == date("j", $time)) echo ' class="active"'
-                            ?>><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d"))) ?>"><?=date("j", time())?></a></td>
+
+                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-3 days', $last_time)))):?>
+                            <td<?php if (date("j", strtotime('-3 days', $last_time)) == date("j", $time)) echo ' class="active"'
+                            ?>><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-3 days', $last_time)))) ?>"><?=date("j", strtotime('-3 days', $last_time))?></a></td>
+                        <?php else: ?>
+                            <td><?=date("j", strtotime('-3 days', $last_time))?></td>
+                        <?php endif ?>
+                    </tr>
+                    <tr>
+                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-2 days', $last_time)))):?>
+                        <td<?php if (date("j", strtotime('-2 days', $last_time)) == date("j", $time)) echo ' class="active"'
+                            ?>><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-2 days', $last_time)))) ?>"><?=date("j", strtotime('-2 days', $last_time))?></a></td>
+                        <?php else: ?>
+                            <td><?=date("j", strtotime('-2 days', $last_time))?></td>
+                        <?php endif ?>
+                        <?php if ($this->hasArticlesOnDay(date("Y-m-d", strtotime('-1 day', $last_time)))):?>
+                        <td<?php if (date("j", strtotime('-1 day', $last_time)) == date("j", $time)) echo ' class="active"'
+                            ?>><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-1 days', $last_time)))) ?>"><?=date("j", strtotime('-1 days', $last_time))?></a></td>
+                        <?php else: ?>
+                             <td><?=date("j", strtotime('-1 day', $last_time))?></td>
+                        <?php endif ?>
+                        <td<?php if (date('j', $last_time) == date("j", $time)) echo ' class="active"'
+                            ?>><a href="<?= $this->createUrl('/morning/index', array('date'=>date("Y-m-d", $last_time))) ?>"><?=date("j", $last_time)?></a></td>
                     </tr>
                         <?php
                     }
@@ -135,15 +141,15 @@
         </div>
         <div class="nav">
             <?php //check if there is news on previous day
-            $prev_day = date("Y-m-d", strtotime('-1 day', $time));
+            $prev_day = date("Y-m-d", strtotime('-1 day', $this->time));
             $criteria = new CDbCriteria;
             $criteria->condition = 'type_id=4 AND created >= "' . $prev_day . ' 00:00:00"' . ' AND created <= "' . $prev_day . ' 23:59:59" AND is_published = 1';
             $prev_day_news_count = CommunityContent::model()->with('photoPost')->count($criteria);
 
             ?>
-            <input type="hidden" value="<?=date("Y-m-d", $time)  ?>">
-            <a href="<?= ($prev_day_news_count == 0)?'javascript:void(0);':$this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-1 day', $time)))) ?>" class="prev" onclick="return Morning.next()"></a>
-            <a href="<?= ($days_away == 0)?'javascript:void(0);':$this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('+1 day', $time)))) ?>" class="next" onclick="return Morning.prev()"></a>
+            <input type="hidden" value="<?=date("Y-m-d", $this->time)  ?>">
+            <a href="<?= ($prev_day_news_count == 0)?'javascript:void(0);':$this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('-1 day', $this->time)))) ?>" class="prev" onclick="return Morning.next()"></a>
+            <a href="<?= ($days_away == 0)?'javascript:void(0);':$this->createUrl('/morning/index', array('date'=>date("Y-m-d", strtotime('+1 day', $this->time)))) ?>" class="next" onclick="return Morning.prev()"></a>
         </div>
     </div>
 

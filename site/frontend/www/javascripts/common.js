@@ -315,3 +315,18 @@ function initScrolledContent() {
         }
     });
 }
+
+comet.addEvent(300, 'liveContents');
+
+Comet.prototype.liveContents = function(result, id) {
+    $.get(
+        '/ajax/contentsLive/',
+        {id: result.newId, containerClass: $('#contents_live').attr('class')},
+        function (response) {
+            var el = $(response).hide();
+            $('#contents_live').prepend(el);
+            $('#contents_live :first').fadeIn(1000);
+            $('#contents_live :last').remove();
+        }
+    )
+}

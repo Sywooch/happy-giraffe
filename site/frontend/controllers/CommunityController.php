@@ -67,7 +67,11 @@ class CommunityController extends HController
         );
         $communities = Community::model()->public()->findAll();
 
-        $top5 = Rating::model()->findTopWithEntity('CommunityContent', 5);
+        $top5 = CommunityContent::model()->full()->findAll(array(
+            'limit' => 5,
+            'order' => 'rate DESC',
+            'condition' => 'rubric.community_id IS NOT NULL',
+        ));
         $this->render('index', array(
             'communities' => $communities,
             'categories' => $categories,
@@ -284,6 +288,11 @@ class CommunityController extends HController
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
+
+                $comet = new CometModel;
+                $comet->type = CometModel::CONTENTS_LIVE;
+                $comet->send('guest', array('newId' => $model->id));
+
                 $this->redirect($model->url);
             }
         }

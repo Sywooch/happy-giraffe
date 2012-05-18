@@ -381,7 +381,7 @@
 #user .user-duel {background:#d0e6ff;padding:15px;}
 #user .user-duel .box-title {}
 #user .user-duel .box-title span {color:#3d7cb1;}
-#user .user-duel .question {font-size:15px;color:#555455;padding:10px 10px 10px 50px;margin-bottom:10px;background:#eef6fe url(/images/icon_info_29x29.png) no-repeat 10px 10px;}
+#user .user-duel .question {font-size:15px;color:#555455;padding:10px 10px 10px 50px;margin-bottom:10px;background:#eef6fe url(/images/icon_info_29x29.png) no-repeat 10px 10px;min-height:29px;}
 #user .user-duel .my-votes {padding-bottom:15px;}
 #user .user-duel .my-votes .ava {float:left;}
 #user .user-duel .my-votes .in {background:#ffffff;position:relative;padding:10px;text-align:center;float:left;margin-left:8px;width:210px;}

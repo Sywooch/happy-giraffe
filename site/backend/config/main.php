@@ -28,6 +28,7 @@ return array(
         'site.frontend.modules.services.modules.horoscope.models.*',
         'site.frontend.modules.contest.models.*',
         'site.common.models.interest.*',
+        'site.frontend.modules.cook.models.*'
     ),
     'modules'=>array(
         'seo'

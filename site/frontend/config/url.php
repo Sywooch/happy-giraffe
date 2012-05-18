@@ -8,6 +8,7 @@ return array(
         '/user/<user_id:\d+>' => 'user/profile',
         '/user/<user_id:\d+>/clubs' => 'user/clubs',
         '/user/<user_id:\d+>/friends' => 'user/friends',
+        '/user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
         '/user/<user_id:\d+>/blog' => 'blog/list',
         '/user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
         '/user/<id:\d+>/albums' => 'albums/user',

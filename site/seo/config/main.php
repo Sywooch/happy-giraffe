@@ -46,7 +46,7 @@ return array(
         ),
         'db_seo' => array(
             'class'=>'CDbConnection',
-            'connectionString' => 'mysql:host=localhost;dbname=happy_giraffe_seo',
+            'connectionString' => 'mysql:host=localhost;dbname=seo',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => '',

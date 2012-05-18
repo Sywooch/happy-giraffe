@@ -133,6 +133,20 @@ class Keywords extends HActiveRecord
         return $model;
     }
 
+    public static function GetKeywordForExist($keyword)
+    {
+        /*$model = self::model()->findByAttributes(array('name'=>$keyword));
+        if ($model !== null)
+            return $model;*/
+
+        $model = new Keywords();
+        $model->name = $keyword;
+        if (!$model->save())
+            throw new CHttpException(404, 'Кейворд не сохранен. ' . $keyword);
+
+        return $model;
+    }
+
     public static function sphinxSearch($word)
     {
         $allSearch = Yii::app()->search

@@ -55,12 +55,6 @@ class TaskController extends SController
         ));
     }
 
-    public function actionArticles()
-    {
-
-        $this->render('articles');
-    }
-
     public function actionSearchKeywords()
     {
         $term = $_POST['term'];
@@ -159,57 +153,6 @@ class TaskController extends SController
                 'id' => $article->id
             ));
         }
-    }
-
-    public function actionSaveArticleKeys()
-    {
-        $url = Yii::app()->request->getPost('url');
-        preg_match("/\/([\d]+)\/$/", $url, $match);
-        $id = $match[1];
-
-        $keywords = Yii::app()->request->getPost('keywords');
-        $article = CommunityContent::model()->findByPk($id);
-        if ($article === null) {
-            $response = array(
-                'status' => false,
-                'error' => 'Не найдена статья, обратитесь к разработчикам.',
-            );
-        } else {
-            $article_keywords = new ArticleKeywords();
-            $article_keywords->entity = 'CommunityContent';
-            $article_keywords->entity_id = $article->id;
-
-            $group = new KeywordGroup();
-
-            $keyword_models = array();
-            foreach ($keywords as $keyword) {
-                $keyword = trim($keyword);
-                if (!empty($keyword)) {
-                    $model = Keywords::GetKeyword($keyword);
-                    $keyword_models[] = $model;
-                }
-            }
-
-            if (empty($keywords))
-                throw new CHttpException(401, 'нет ни одного кейворда');
-
-            $group->keywords = $keyword_models;
-            $group->save();
-
-            $article_keywords->keyword_group_id = $group->id;
-
-            if ($article_keywords->save()) {
-                $response = array(
-                    'status' => true
-                );
-            } else {
-                $response = array(
-                    'status' => false,
-                );
-            }
-        }
-
-        echo CJSON::encode($response);
     }
 
     public function actionModerator()

@@ -73,7 +73,7 @@ a:hover {text-decoration:none;}
 #seo .add-article .step-1 {float:left;width:420px;}
 #seo .add-article .step-1 textarea {padding:10px 14px;overflow:auto;width:390px;border:1px solid #d8c7ea;height:65px;font-size:12px;max-width:390px;}
 #seo .add-article .step-2 {float:left;width:420px;}
-#seo .add-article .step-2 input {padding:5px 9px;overflow:auto;width:320px;border:1px solid #d8c7ea;font-size:13px;background:#fff;vertical-align:middle;margin-right:10px;margin-top:20px;color:#2881d4;}
+#seo .add-article .step-2 input {padding:5px 9px;overflow:auto;width:350px;border:1px solid #d8c7ea;font-size:13px;background:#fff;vertical-align:middle;margin-right:10px;margin-top:20px;color:#2881d4;}
 #seo .add-article .step-2 .btn {vertical-align:middle;margin-top:20px;}
 
 #seo .seo-table {}

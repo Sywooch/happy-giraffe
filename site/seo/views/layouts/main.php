@@ -7,6 +7,9 @@
 
     <?php
     Yii::app()->clientScript
+        ->registerCssFile('/css/seo.css')
+        ->registerCssFile('/css/form.css')
+
         ->registerCoreScript('jquery')
         ->registerCoreScript('jquery.ui')
 
@@ -28,35 +31,28 @@
 
         ->registerScriptFile('/js/jquery.iframe-post-form.js')
 
-        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/comet.js')
-        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/dklab_realplexor.js')
-        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
+//        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/comet.js')
+//        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/dklab_realplexor.js')
+//        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
     ;
     ?>
 </head>
 <body>
-<div id="wrapper">
-    <div class="header">
-        <a href="/" class="logo" title="Обновить страницу">Администратор</a>
-        <!-- .logo -->
-        <ul class="logged">
-            <li><?php echo Yii::app()->user->name ?></li>
-            <li><a href="<?php echo $this->createUrl('site/logout') ?>">Выйти</a></li>
-        </ul>
-    </div>
-    <div>
-        <?php if (Yii::app()->user->checkAccess('editor')):?>
-        <a href="/task/index/">Выбор кейвордов</a> <a href="/task/tasks/">Задания копирайт</a> <a href="/task/rewriteTasks/">Задания рерайт</a>
-        <?php endif ?>
-    </div>
-    <br><br><br>
-    <?php echo $content; ?>
 
-    <br><br><br>
-    <div class="footer">
-        <span>&copy; Все права защищены.</span>
+    <div id="seo" class="wrapper">
+
+        <div class="title">
+            <span>SEO-<span>жираф</span></span> &nbsp; ГОТОВОЕ
+        </div>
+        <div>
+            <?php if (Yii::app()->user->checkAccess('admin')):?>
+            <a href="/user/">Пользователи</a> <a href="/existArticles/">Готовое</a> <a href="/task/index/">Задания рерайт</a>
+            <?php endif ?>
+        </div>
+
+        <?=$content ?>
+
     </div>
-</div>
 
 </body>
 </html>

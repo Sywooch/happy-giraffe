@@ -16,7 +16,7 @@
                 <div class="header">
                     <div class="title">
                         <big>
-                            Альбом <span>&laquo;<?php echo CHtml::link($model->title, array('albums/view', 'id' => $model->id)); ?>&raquo;</span>
+                            Альбом <span>&laquo;<?php echo CHtml::link($model->title, $model->url); ?>&raquo;</span>
                             <?php if($model->isNotSystem && !Yii::app()->user->isGuest && Yii::app()->user->id == $model->author_id): ?>
                                 <div class="album-visibility small hl">
                                     <?php for ($i = 3; $i > $model->permission; $i--): ?>

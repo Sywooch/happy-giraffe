@@ -54,6 +54,7 @@ class Humor extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
 		);
 	}
 
@@ -92,4 +93,17 @@ class Humor extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'VoteBehavior' => array(
+                'class' => 'VoteBehavior',
+                'vote_attributes' => array(
+                    '2' => 'votes_rofl',
+                    '1' => 'votes_lol',
+                    '0' => 'votes_sad',
+                )),
+        );
+    }
 }

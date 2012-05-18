@@ -1,31 +1,55 @@
-<div class="add-article">
+<?php
+/* @var $this Controller
+ * @var $models ArticleKeywords[]
+ */
+
+$model = new ArticleKeywords();
+?><div class="add-article">
 
     <div class="block-title">Добавить статью</div>
 
     <div class="clearfix">
+        <?php $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'article-form',
+        'enableAjaxValidation' => true,
+        'enableClientValidation' => true,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+            'validateOnChange' => false,
+            'validateOnType' => false,
+            'validationUrl' => $this->createUrl('validate'),
+            'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    SeoModule.SaveArticleKeys();
+                                else{
+
+                                }
+                                return false;
+                              }",
+        )));  ?>
         <div class="step-1">
             <div class="num"><span>1</span>Ключевое слово или фраза</div>
-            <textarea>кесарева сечение
-                кесарево сечение
-                после кесарева сечения</textarea>
+            <?= $form->textArea($model, 'keywords') ?>
+            <?= $form->error($model, 'keywords'); ?>
         </div>
 
         <div class="arrow"></div>
 
         <div class="step-2">
             <div class="num"><span>2</span>Ссылка на статью</div>
-            <input type="text"value="http://www.happy-giraffe.ru/blog/view/content_id/17446/" />
+            <?= $form->textField($model, 'url', array('class'=>'article-url')) ?>
+            <?= $form->error($model, 'url'); ?>
             <button class="btn btn-green"><span><span>Ok</span></span></button>
         </div>
-
+        <?php $this->endWidget(); ?>
     </div>
 
 </div>
 
 <div class="seo-table">
     <div class="meta">
-        <span>Статей: 256</span>
-        <span>Ключевых слов: 385</span>
+        <span>Статей: <span class="count articles-count"><?=count($models); ?></span></span>
+        <span>Ключевых слов: <span class="count keywords-count"><?=$keys_count; ?></span></span>
     </div>
     <div class="table-box">
         <table>
@@ -42,23 +66,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="col-1">1</td>
-                <td><b>Кесарево сечение - за и против</b><br/><a href="">http://www.happy-giraffe.ru/blog/view/content_id/17446/</a></td>
-                <td>кесарева сечение<br/>кесарево сечение<br/>после кесарева сечения</td>
-            </tr>
-            <tr>
-                <td class="col-1">25</td>
-                <td><b>Кесарево сечение - за и против</b><br/><a href="">http://www.happy-giraffe.ru/blog/view/content_id/17446/</a></td>
-                <td>кесарева сечение<br/>кесарево сечение<br/>после кесарева сечения</td>
-            </tr>
-            <tr>
-                <td class="col-1">152</td>
-                <td><b>Кесарево сечение - за и против</b><br/><a href="">http://www.happy-giraffe.ru/blog/view/content_id/17446/</a></td>
-                <td>кесарева сечение<br/>кесарево сечение<br/>после кесарева сечения</td>
-            </tr>
-
+            <?php foreach ($models as $model): ?>
+                <?php $this->renderPartial('_article',compact('model')); ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 </div>
+<style type="text/css">
+    span.count{
+        margin-left: 0 !important;
+    }
+    .errorMessage {
+        color: #db0033;
+    }
+</style>

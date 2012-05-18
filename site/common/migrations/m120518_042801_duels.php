@@ -45,6 +45,21 @@ class m120518_042801_duels extends CDbMigration
               ADD CONSTRAINT `duel__answer_votes_ibfk_1` FOREIGN KEY (`entity_id`) REFERENCES `duel__answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
               ADD CONSTRAINT `duel__answer_votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
         ");
+
+        $this->execute("
+            INSERT INTO `duel__question` (
+            `id` ,
+            `text` ,
+            `ends`
+            )
+            VALUES (
+            NULL , 'Шикарная свадьба - деньги на ветер или память на всю жизнь?', NULL
+            ), (
+            NULL , 'Есть ли другая жизнь во вселенной?', NOW( )
+            ), (
+            NULL , 'Крестить ребенка в младенчестве или ждать сознательного возраста?', NOW( )
+            );
+        ");
 	}
 
 	public function down()

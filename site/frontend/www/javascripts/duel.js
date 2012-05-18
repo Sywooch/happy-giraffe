@@ -44,3 +44,7 @@ Duel.vote = function(el, id) {
         }
     );
 }
+
+Duel.showVotes = function() {
+    $('#duel-votes').slideToggle();
+}

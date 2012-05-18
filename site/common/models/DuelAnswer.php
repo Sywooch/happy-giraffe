@@ -108,4 +108,20 @@ class DuelAnswer extends CActiveRecord
                 )),
         );
     }
+
+    public function getUsers($limit = false)
+    {
+        $criteria = new CDbCriteria(array(
+            'join' => '
+                JOIN duel__answer_votes ON duel__answer_votes.user_id = t.id
+                JOIN duel__answer ON duel__answer_votes.entity_id = duel__answer.id
+            ',
+            'condition' => 'duel__answer.question_id = :question_id AND duel__answer.id = :answer_id',
+            'params' => array(':question_id' => $this->question_id, ':answer_id' => $this->id),
+        ));
+        if ($limit)
+            $criteria->limit = $limit;
+
+        return User::model()->findAll($criteria);
+    }
 }

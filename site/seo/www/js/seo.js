@@ -6,11 +6,11 @@
 var SeoModule = {
     group:new Array(),
     id:null,
-    searchKeywords:function (term) {
+    /*searchKeywords:function (term) {
         $.post('/task/searchKeywords/', {term:term}, function (response) {
             $('.keywords .result').html(response);
         });
-    },
+    },*/
     addToGroup:function (el) {
         var id = this.getId($(el).parent());
         SeoModule.group.push(id);
@@ -62,15 +62,16 @@ var SeoModule = {
         }, 'json');
     },
     SaveArticleKeys:function () {
-        var keywords = new Array();
-        $('.article-keys input').each(function () {
-            keywords.push($(this).val());
-        });
-
-        $.post('/task/SaveArticleKeys/', {url:$('input.article-url').val(), keywords:keywords}, function (response) {
+        $.post('/existArticles/SaveArticleKeys/', {
+            url:$('input.article-url').val(),
+            keywords:$('#ArticleKeywords_keywords').val()
+        }, function (response) {
             if (response.status){
                 $('input.article-url').val('');
-                $('.article-keys input').val('');
+                $('#ArticleKeywords_keywords').val('');
+                $('table tbody').prepend(response.html);
+                $('span.articles-count').text(parseInt($('span.articles-count').text()) + 1);
+                $('span.keywords-count').text(parseInt($('span.keywords-count').text()) + response.keysCount);
             }else{
                 $.pnotify({
                     pnotify_title: 'Ошибка',

@@ -22,7 +22,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password',array('size'=>60,'maxlength'=>256)); ?>
+		<?php echo $form->textField($model,'password',array('size'=>60,'maxlength'=>256)); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 
@@ -40,7 +40,7 @@
 
      <div class="row">
          <?php echo $form->labelEx($model,'role'); ?>
-         <?php echo $form->dropDownList($model,'role', CHtml::listData(Yii::app()->authManager->getRoles(), 'name', 'name')); ?>
+         <?php echo $form->dropDownList($model,'role', array(''=>'')+CHtml::listData(Yii::app()->authManager->getRoles(), 'name', 'name')); ?>
          <?php echo $form->error($model,'role'); ?>
      </div>
 

@@ -177,6 +177,10 @@
                         'user' => $user,
                     )); ?>
 
+                    <?php $this->widget('UserDuelWidget', array(
+                        'user' => $user,
+                    )); ?>
+
                 </div>
 
             </div>

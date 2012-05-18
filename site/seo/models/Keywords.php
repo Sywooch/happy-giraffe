@@ -91,17 +91,18 @@ class Keywords extends HActiveRecord
             $allSearch = Yii::app()->search
                 ->select('*')
                 ->from('keywords')
-                ->where('* ' . $this->name . ' *')
+                ->where(' ' . $this->name . ' ')
                 ->limit(0, 100000)
                 ->searchRaw();
             $ids = array();
             foreach ($allSearch['matches'] as $key => $m) {
                 $ids [] = $key;
+                break;
             }
             if (!empty($ids))
                 $criteria->compare('t.id', $ids);
             else
-                $criteria->compare('t.id', 835768577);
+                $criteria->compare('t.id', null);
         }
         $criteria->with = array('keywordGroups', 'yandexPopularity', 'tempKeyword');
 

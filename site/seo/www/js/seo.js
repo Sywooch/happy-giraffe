@@ -6,11 +6,11 @@
 var SeoModule = {
     group:new Array(),
     id:null,
-    searchKeywords:function (term) {
+    /*searchKeywords:function (term) {
         $.post('/task/searchKeywords/', {term:term}, function (response) {
             $('.keywords .result').html(response);
         });
-    },
+    },*/
     addToGroup:function (el) {
         var id = this.getId($(el).parent());
         SeoModule.group.push(id);

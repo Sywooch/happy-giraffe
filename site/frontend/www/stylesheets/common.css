@@ -20,7 +20,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     background: transparent;
 }
 body {
-    line-height: 1;
+    line-height: normal;
 }
 
 blockquote, q {
@@ -2304,13 +2304,15 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-smile .title img {vertical-align:middle;}
 #activity .activity-smile .img {margin:8px 0 15px;}
 #activity .activity-smile .options {text-align:center;}
-#activity .activity-smile .options .option {display:inline-block;vertical-align:top;margin:0 15px;}
+#activity .activity-smile .options .option {display:inline-block;vertical-align:top;margin:0 15px;color:#464646;}
 #activity .activity-smile .options .option:hover {cursor:pointer;}
 #activity .activity-smile .options .option .text {color:#257dc7;font:italic 22px/1 times new roman, serif;padding:2px 8px 5px;}
 #activity .activity-smile .options .option .text span {border-bottom:1px dashed #257dc7;}
 #activity .activity-smile .options .option:hover .text {background:#fdfccc;}
 #activity .activity-smile .options .option .value {font-size:18px;position:relative;top:-9px;margin-left:5px;}
 #activity .activity-smile .options .option:hover .value {color:#e85201;}
+#activity .activity-smile .options .option.active .text {background:#fdfccc;}
+#activity .activity-smile .options .option.active .value {color:#e85201;}
 
 .activity-duel {}
 .activity-duel .title {font-size:40px;margin-bottom:15px;}
@@ -2355,6 +2357,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .activity-duel .answers .answer-2 .more-votes a {color:#4992d0;border-color:#4992d0;}
 
 #duel-takeapart {width:420px;}
+
 #duel-takeapart .title {line-height:28px;}
 
 #duel-takeapart .duels-list {list-style:none;}

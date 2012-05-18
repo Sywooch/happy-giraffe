@@ -278,6 +278,9 @@ class User extends HActiveRecord
             'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
             'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
+
+            'answers' => array(self::HAS_MANY, 'DuelAnswer', 'user_id'),
+            'activeQuestion' => array(self::HAS_ONE, 'DuelQuestion', array('question_id' => 'id'), 'through' => 'answers', 'condition' => 'ends > NOW()'),
         );
     }
 
@@ -910,7 +913,7 @@ class User extends HActiveRecord
             SELECT count(*)
             FROM ' . DuelQuestion::model()->tableName() .' q
             JOIN ' . DuelAnswer::model()->tableName() .' a ON q.id = a.question_id
-            WHERE ends > NOW() AND user_id = :user_id;
+            WHERE (ends > NOW() OR ends IS NULL) AND user_id = :user_id;
         ';
         $command = $connection->createCommand($sql);
         $command->bindValue(':user_id', $this->id, PDO::PARAM_INT);

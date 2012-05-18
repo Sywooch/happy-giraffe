@@ -10,6 +10,7 @@ class FileAttachWidget extends CWidget
     public $title;
     public $button_title;
 
+
     public function init()
     {
         parent::init();

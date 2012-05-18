@@ -40,7 +40,7 @@
 
                     <?php $this->widget('RandomPhotosWidget'); ?>
 
-                    <?php //$this->widget('DuelWidget'); ?>
+                    <?php $this->widget('DuelWidget'); ?>
 
                     <!--<div class="box activity-smile">
 
@@ -76,7 +76,7 @@
                 <div class="col-3">
 
                     <?php $this->widget('TopFiveWidget'); ?>
-                    <?php $this->widget('PopularWidget'); ?>
+                    <?php //$this->widget('PopularWidget'); ?>
 
                 </div>
 

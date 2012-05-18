@@ -18,7 +18,7 @@
 
         <div class="col-1">
 
-            <?php //$this->widget('LiveWidget'); ?>
+            <?php $this->widget('LiveWidget'); ?>
 
             <?php $this->widget('WantToChatWidget'); ?>
 

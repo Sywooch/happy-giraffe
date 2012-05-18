@@ -40,6 +40,17 @@
                 'url' => array('/club/horoscope/'),
                 'visible' => Yii::app()->user->checkAccess('horoscope')
             ),
+            array('label' => 'Кулинария',
+                'active' => (in_array(Yii::app()->controller->id, array('club/cookIngredients'))),
+                'url' => array('/club/cookIngredients/'),
+                'visible' => Yii::app()->user->checkAccess('interests'),
+                'items' => array(
+                    array(
+                        'label' => 'Ингредиенты',
+                        'url' => array('/club/cookIngredients/'),
+                    ),
+                )
+            )
         ),
     ));?>
     <div class="clear"></div>

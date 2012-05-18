@@ -7,7 +7,7 @@ class UserController extends HController
     public $rubric_id;
     public $content_type_slug;
 
-    private $_publicActions = array('profile', 'blog', 'friends', 'clubs');
+    private $_publicActions = array('profile', 'blog', 'friends', 'clubs', 'rss');
 
     public function filters()
     {
@@ -161,5 +161,48 @@ class UserController extends HController
                 print_r($user->errors);
             }
         }
+    }
+
+    public function actionRss($user_id)
+    {
+        Yii::import('ext.EFeed.*');
+        $feed = new EFeed();
+
+        $feed->title= 'Веселый Жираф - сайт для всей семьи';
+        $feed->description = 'Социальная сеть для родителей и их детей';
+        $feed->setImage('Веселый Жираф - сайт для всей семьи', 'http://www.happy-giraffe.ru/rss/', 'http://www.happy-giraffe.ru/images/logo_2.0.png');
+        $feed->addChannelTag('language', 'ru-ru');
+        $feed->addChannelTag('pubDate', date(DATE_RSS, time()));
+        $feed->addChannelTag('link', 'http://www.happy-giraffe.ru/rss/' );
+
+        if ($user_id == 1) {
+            $criteria = new CDbCriteria(array(
+                'condition' => 'type_id = 4 OR by_happy_giraffe = 1',
+                'params' => array(':author_id' => $this->user->id),
+                'limit' => 20,
+                'order' => 'created DESC',
+            ));
+        } else {
+            $criteria = new CDbCriteria(array(
+                'condition' => 'author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0',
+                'params' => array(':author_id' => $this->user->id),
+                'limit' => 20,
+                'order' => 'created DESC',
+            ));
+        }
+        $contents = CommunityContent::model()->full()->findAll($criteria);
+
+        foreach ($contents as $c) {
+            $item = $feed->createNewItem();
+            $item->title = $c->title;
+            $item->link = $c->getUrl(false, true);
+            $item->date = $c->created;
+            $item->description = $c->preview;
+            $item->addTag('author', $c->author->email);
+            $feed->addItem($item);
+        }
+
+        $feed->generateFeed();
+        Yii::app()->end();
     }
 }

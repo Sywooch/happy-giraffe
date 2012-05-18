@@ -42,34 +42,7 @@
 
                     <?php $this->widget('DuelWidget'); ?>
 
-                    <!--<div class="box activity-smile">
-
-                        <div class="title">Улыбнись <span>вместе с нами</span> <img src="/images/activity_smile_smile.png" /></div>
-
-                        <div class="img">
-                            <img src="/images/activity_smile_img.jpg" />
-                        </div>
-
-                        <div class="options">
-
-                            <div class="option">
-                                <span class="text"><span>Ха-ха-ха!</span></span>
-                                <span class="value">28</span>
-                            </div>
-
-                            <div class="option">
-                                <span class="text"><span>Ха!</span></span>
-                                <span class="value">16</span>
-                            </div>
-
-                            <div class="option">
-                                <span class="text"><span>:(</span></span>
-                                <span class="value">11</span>
-                            </div>
-
-                        </div>
-
-                    </div>-->
+                    <?php $this->widget('HumorWidget'); ?>
 
                 </div>
 

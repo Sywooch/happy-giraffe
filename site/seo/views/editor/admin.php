@@ -15,7 +15,7 @@
         <label for="hide-used">не показывать<br>используемые<br>
             <input type="checkbox"
                    id="hide-used" <?php if (Yii::app()->user->getState('hide_used') == 1) echo 'checked="checked"' ?>
-                   onchange="SeoModule.hideUsed(this);"></label>
+                   onchange="SeoKeywords.hideUsed(this);"></label>
     </div>
 
 </div>
@@ -25,7 +25,7 @@
         <table>
             <thead>
             <tr>
-                <th rowspan="2" class="col-1">Ключевое слово или фраза</th>
+                <th rowspan="2" class="col-1" style="width:350px;">Ключевое слово или фраза</th>
                 <th rowspan="2"><i class="icon-freq"></i></th>
                 <th colspan="4">Частота показов</th>
                 <th colspan="2"><i class="icon-comments"></i></th>

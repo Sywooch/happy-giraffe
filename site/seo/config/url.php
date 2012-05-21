@@ -7,7 +7,7 @@ return array(
     'rules' => array(
         'login'=>'site/login',
         'logout'=>'site/logout',
-        'keywords'=>'task/index',
-        'tasks'=>'task/tasks'
+        'keywords'=>'editor/index',
+        'tasks'=>'editor/tasks'
     ),
 );

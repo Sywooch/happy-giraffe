@@ -1,35 +1,52 @@
-<?php
-$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript
-    ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
+<div class="search clearfix">
 
-?><h1>Кейворды</h1>
-<input type="checkbox" id="hide-used" <?php if (Yii::app()->user->getState('hide_used') == 1) echo 'checked="checked"' ?> onchange="SeoModule.hideUsed(this);">
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'keywords-grid',
-    'dataProvider' => $model->search(),
-    'filter' => $model,
-    'ajaxUpdate'=>true,
-    'rowCssClassExpression'=>'$data->getClass()',
-    'columns' => array(
-        'id',
-        'name',
-        'data',
-        'yandexPopularity.value',
-        array(
-            'name'=>'btns',
-            'value'=>'$data->getButtons()',
-        ),
-    ),
-));
-?>
-<a href="<?= $this->createUrl('tasks') ?>" class="selectedLink">Выбранные (<span><?= TempKeywords::model()->count() ?></span>)</a>
-<style type="text/css">
-    #keywords-grid .active td{
-        background: #adff2f !important;
-    }
-    #keywords-grid .used td{
-        background: #5bbdff !important;
-    }
-</style>
+    <div class="input">
+        <label>Введите слово или фразу</label>
+        <input name="keyword" id="keyword" type="text">
+        <button class="btn btn-green-small" onclick="SeoKeywords.searchKeywords($(this).prev().val());return false;">
+            <span><span>Поиск</span></span></button>
+    </div>
+
+    <div class="result">
+
+    </div>
+
+    <div class="result-filter">
+        <label for="hide-used">не показывать<br>используемые<br>
+            <input type="checkbox"
+                   id="hide-used" <?php if (Yii::app()->user->getState('hide_used') == 1) echo 'checked="checked"' ?>
+                   onchange="SeoModule.hideUsed(this);"></label>
+    </div>
+
+</div>
+
+<div class="seo-table table-result">
+    <div class="table-box">
+        <table>
+            <thead>
+            <tr>
+                <th rowspan="2" class="col-1">Ключевое слово или фраза</th>
+                <th rowspan="2"><i class="icon-freq"></i></th>
+                <th colspan="4">Частота показов</th>
+                <th colspan="2"><i class="icon-comments"></i></th>
+                <th colspan="2">Конкуренты</th>
+                <th rowspan="2">Действие</th>
+            </tr>
+            <tr>
+                <th><i class="icon-yandex"></i></th>
+                <th><i class="icon-google"></i></th>
+                <th><i class="icon-yandex-2"></i></th>
+                <th><i class="icon-rambler"></i></th>
+                <th><i class="icon-yandex"></i></th>
+                <th><i class="icon-google"></i></th>
+                <th><i class="icon-babyru"></i></th>
+                <th><i class="icon-babyru-2"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+

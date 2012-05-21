@@ -121,7 +121,7 @@ class Keywords extends HActiveRecord
     public static function GetKeyword($word)
     {
         $word = trim($word);
-        $model = self::sphinxSearch($word);
+        $model = self::model()->findByAttributes(array('name'=>$word));
         if ($model !== null)
             return $model;
 
@@ -133,41 +133,12 @@ class Keywords extends HActiveRecord
         return $model;
     }
 
-    public static function GetKeywordForExist($keyword)
-    {
-        /*$model = self::model()->findByAttributes(array('name'=>$keyword));
-        if ($model !== null)
-            return $model;*/
-
-        $model = new Keywords();
-        $model->name = $keyword;
-        if (!$model->save())
-            throw new CHttpException(404, 'Кейворд не сохранен. ' . $keyword);
-
-        return $model;
-    }
-
-    public static function sphinxSearch($word)
-    {
-        $allSearch = Yii::app()->search
-            ->select('*')
-            ->from('keywords')
-            ->where($word)
-            ->limit(0, 1000)
-            ->searchRaw();
-
-        if (!empty($allSearch['matches']))
-
-            foreach ($allSearch['matches'] as $key => $m) {
-                return Keywords::model()->findByPk($key);
-            }
-
-        return null;
-    }
-
     public function hasOpenedTask()
     {
         foreach ($this->keywordGroups as $group) {
+            if (!empty($group->seoArticleKeywords))
+                return false;
+
             if ($group->newTaskCount > 0)
                 return true;
         }
@@ -181,7 +152,11 @@ class Keywords extends HActiveRecord
             if (!empty($group->seoArticleKeywords))
                 return true;
         }
+        return false;
+    }
 
+    public function inBuffer()
+    {
         if (!empty($this->tempKeyword))
             return true;
 

@@ -64,7 +64,7 @@ class TaskController extends SController
                 ->select('*')
                 ->from('keywords')
                 ->where('*' . $term . '*')
-                ->limit(0, 1000)
+                ->limit(0, 100000)
                 ->searchRaw();
             $ids = array();
             foreach ($allSearch['matches'] as $key => $m) {
@@ -73,12 +73,18 @@ class TaskController extends SController
 
             if (!empty($ids)) {
                 $criteria = new CDbCriteria;
-                $criteria->compare('id', $ids);
-                //$criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords');
+                $criteria->compare('t.id', $ids);
+                $criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords');
                 $models = Keywords::model()->findAll($criteria);
             } else
                 $models = array();
-            $this->renderPartial('_keywords', array('models' => $models));
+
+            $response = array(
+                'status' => true,
+                'count' => $this->renderPartial('_find_result_count', array('models' => $models), true),
+                'table' => $this->renderPartial('_find_result_table', array('models' => $models), true)
+            );
+            echo CJSON::encode($response);
         }
     }
 

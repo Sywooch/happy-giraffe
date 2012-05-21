@@ -69,7 +69,7 @@ a:hover {text-decoration:none;}
 #seo .add-article .block-title {color:#505050;font-size:25px;margin-bottom:10px;line-height:1;}
 #seo .add-article .num {font-size:13px;color:#5d338c;line-height:normal;height:60px;}
 #seo .add-article .num span {font-size:50px;font-weight:bold;color:#b9a0d4;margin-right:5px;}
-#seo .add-article .arrow {width:80px;background:url(/images/seo_add_article_arrow.gif) no-repeat center;margin-top:75px;float:left;height:50px;}
+#seo .add-article .arrow {width:80px;background:url(/images/seo_add_article_arrow.gif) no-repeat center center;margin-top:75px;float:left;height:50px;}
 #seo .add-article .step-1 {float:left;width:420px;}
 #seo .add-article .step-1 textarea {padding:10px 14px;overflow:auto;width:390px;border:1px solid #d8c7ea;height:65px;font-size:12px;max-width:390px;}
 #seo .add-article .step-2 {float:left;width:420px;}

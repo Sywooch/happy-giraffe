@@ -316,6 +316,8 @@ class CommunityContent extends HActiveRecord
         $output = curl_exec($ch);
         curl_close($ch);
 
+        Yii::log($output);
+
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();
         if ($this->contentAuthor->isNewComer() && $this->isNewRecord) {

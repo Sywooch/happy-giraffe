@@ -56,6 +56,8 @@ class AttributeSetController extends BController
         if (isset($_POST['in_price']) && $_POST['in_price'] == 1)
             $model->attribute_in_price = 1;
 
+        $model->attribute_is_insearch = 0;
+
         if (isset($_POST['Attribute'])) {
             $model->attributes = $_POST['Attribute'];
             $model->attribute_required = 1;
@@ -71,7 +73,7 @@ class AttributeSetController extends BController
                 else
                     var_dump($map_model->getErrors());
             } else {
-
+                var_dump($model->errors);
             }
         } else{
             if ($model->attribute_in_price)
@@ -104,7 +106,7 @@ class AttributeSetController extends BController
     {
         $id = $_POST['id'];
         $model = $this->loadModel($id);
-        $this->renderPartial('_attribute_view', array(
+        $this->renderPartial($model->attribute_in_price == 0 ? '_attribute_view' : '_card_attribute_view', array(
             'model' => $model
         ));
     }
@@ -116,12 +118,9 @@ class AttributeSetController extends BController
         if (empty($text))
             Yii::app()->end();
 
-        $attr_val = new AttributeValue();
+        $attr_val = new AttributeValue;
         $attr_val->value_value = $text;
-        if (!$attr_val->save()){
-            var_dump($attr_val->getErrors());
-            Yii::app()->end();
-        }
+        $attr_val->save();
 
         $attr_map_val = new AttributeValueMap();
         $attr_map_val->map_attribute_id = $id;

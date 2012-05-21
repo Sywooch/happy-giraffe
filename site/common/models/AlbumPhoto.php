@@ -343,7 +343,7 @@ class AlbumPhoto extends HActiveRecord
 
     public function getUrl()
     {
-        return Yii::app()->createUrl('albums/photo', array('id' => $this->id));
+        return Yii::app()->createUrl('albums/photo', array('user_id' => $this->author_id, 'album_id' => $this->album_id, 'id' => $this->id));
     }
 
     public function getCheckAccess()

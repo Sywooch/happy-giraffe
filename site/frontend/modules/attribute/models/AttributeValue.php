@@ -100,6 +100,16 @@ class AttributeValue extends HActiveRecord
             return $this->value_id;
     }
 
+    public function beforeSave()
+    {
+        if($model = $this->findByAttributes(array('value_value' => $this->value_value)))
+        {
+            $this->primaryKey = $model->primaryKey;
+            return false;
+        }
+        return parent::beforeSave();
+    }
+
     public function beforeDelete()
     {
         AttributeValueMap::model()->deleteAll('map_value_id=' . $this->value_id);

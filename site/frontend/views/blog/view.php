@@ -7,7 +7,7 @@
     </big>
     <?php foreach ($data->relatedPosts as $rc): ?>
             <div class="block">
-                <b><?php echo CHtml::link($rc->title, $this->createUrl('/blog/view', array('content_id' => $rc->id))); ?></b>
+                <b><?php echo CHtml::link($rc->title, $rc->url); ?></b>
                 <p><?php echo $rc->short; ?></p>
             </div>
     <?php endforeach; ?>

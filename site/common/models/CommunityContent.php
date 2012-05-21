@@ -329,6 +329,7 @@ class CommunityContent extends HActiveRecord
                 if ($this->isFromBlog) {
                     $route = '/blog/view';
                     $params = array(
+                        'user_id' => $this->author_id,
                         'content_id' => $this->id,
                     );
                 } else {

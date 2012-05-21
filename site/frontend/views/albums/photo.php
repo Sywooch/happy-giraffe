@@ -85,7 +85,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
             <?php foreach($photo->album->author->albums as $album): ?>
                 <li<?php echo $photo->album->id == $album->id ? ' class="active"' : ''; ?>>
                     <div class="in">
-                        <?php echo CHtml::link($album->title, array('/albums/view', 'id' => $album->id)); ?>
+                        <?php echo CHtml::link($album->title, $album->url); ?>
                         <span class="count"><?php echo count($album->photos); ?></span>
                         <span class="tale"><img src="/images/default_v_nav_active.png"></span>
                     </div>

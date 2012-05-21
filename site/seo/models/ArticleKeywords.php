@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $entity
  * @property string $entity_id
+ * @property string $url
  * @property string $keyword_group_id
  *
  * The followings are the available model relations:
@@ -14,6 +15,7 @@
  */
 class ArticleKeywords extends CActiveRecord
 {
+    public $keywords;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -40,8 +42,12 @@ class ArticleKeywords extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('entity, entity_id, keyword_group_id', 'required'),
+			array('url', 'required'),
+            array('keywords', 'required', 'on'=>'check'),
+            array('keywords', 'safe', 'on'=>'check'),
 			array('entity', 'length', 'max'=>255),
+            array('url', 'unique'),
+            array('url', 'url'),
 			array('entity_id, keyword_group_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -94,4 +100,22 @@ class ArticleKeywords extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getArticle()
+    {
+        $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        if ($model === null)
+            return null;
+        return $model;
+    }
+
+    public function getKeywords()
+    {
+        $keys = array();
+        foreach($this->keywordGroup->keywords as $keyword){
+            $keys [] = $keyword->name;
+        }
+
+        return implode('<br>', $keys);
+    }
 }

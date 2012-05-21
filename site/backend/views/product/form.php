@@ -17,16 +17,6 @@ var category_id = <?php echo $category->category_id ?>;
 var has_image = <?php echo (int)is_string($image); ?>;
 
 $(function () {
-//        $("#filter-price-1").slider({
-//            range:true,
-//            min:0,
-//            max:60000,
-//            values:[0, 60000],
-//            slide:function (event, ui) {
-//                $("#filter-price-1-min").val(ui.values[0]);
-//                $("#filter-price-1-max").val(ui.values[1]);
-//            }
-//        });
     $('select').selectBox();
 
     $("#filter-price-1-min").val($("#filter-price-1").slider("values", 0));
@@ -44,14 +34,7 @@ $(function () {
                     dataType:'JSON',
                     success:function (data) {
                         if (data.success) {
-                            $('div.editProduct > div').show();
-                            model_id = data.id;
-                            $('input[name="Product[product_id]"]').val(model_id);
-
-                            $(this).parent().hide();
-                            $(this).parent().prev().text(title);
-                            $(this).parent().prev().show();
-                            $('select').selectBox('refresh');
+                            document.location.href = '<?php echo Yii::app()->createUrl('/product/update'); ?>/product_id/' + data.id;
                         }
                     },
                     context:$(this)
@@ -403,9 +386,7 @@ function SetGender(value, sender) {
                 <div class="quantity">
                     <div class="left_quantity">
                         <p>Количество на складе</p>
-
                         <p class="number"><span id="product-items-count"><?php echo $model->itemsCount; ?></span> шт.</p>
-                        <?php echo CHtml::link('Добавить на склад', array('/product/putIn', 'id' => $model->primaryKey), array('class' => 'greenGradient fancy')); ?>
                     </div>
                     <div class="right_quantity">
                     </div>
@@ -415,7 +396,10 @@ function SetGender(value, sender) {
                 <?php $this->renderPartial('_attributes', array(
                 'attributeMap' => $attributeMap,
                 'model' => $model
-            )); ?>
+                )); ?>
+
+                <p class="text_header">Акции и подарки</p>
+                <?php echo CHtml::link('Добавить', array('/product/addPresent', 'id' => $model->primaryKey), array('class' => 'fancy')); ?>
 
                 <p class="text_header">Видео о товаре</p>
 

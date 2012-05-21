@@ -14,7 +14,8 @@ return array(
         '/user/<id:\d+>/albums' => 'albums/user',
         '/user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
         '/user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
-        '/user/<user_id:\d+>/rss' => 'user/rss',
+        '/user/<user_id:\d+>/rss/page/<page:\d+>' => 'rss/user',
+        '/user/<user_id:\d+>/rss' => 'rss/user',
 
         'user/blog/add' => 'community/add/community_id/999999/content_type_slug/post/blog/1/',
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
@@ -97,7 +98,6 @@ return array(
 
         'signal' => 'signal/default/index',
         'score' => 'scores/default/index',
-        'rss' => 'site/rss',
         '/contest' => '/site/contest',
         'search' => 'site/search',
 

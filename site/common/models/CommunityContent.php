@@ -292,7 +292,7 @@ class CommunityContent extends HActiveRecord
             $pingUserId = $this->author_id;
         }
         $pingName = 'Блог пользователя ' . $this->author->fullName;
-        $pingUrl = $this->createAbsoluteUrl('rss/user', array('user_id' => $pingUserId));
+        $pingUrl = Yii::app()->createAbsoluteUrl('rss/user', array('user_id' => $pingUserId));
 
         $xmlDoc = new DOMDocument;
         $methodCall = $xmlDoc->createElement('methodCall');

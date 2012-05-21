@@ -6,9 +6,11 @@ class FileAttachWidget extends CWidget
     public $entity_id;
     public $container;
     public $afterSelect;
+    public $disableNavigation = false;
 
     public $title;
     public $button_title;
+
 
     public function init()
     {
@@ -52,6 +54,12 @@ class FileAttachWidget extends CWidget
         {
             $this->title = 'Добавить фото к продукту';
             $this->button_title = 'Добавить';
+        }
+        elseif($this->entity == 'Humor')
+        {
+            $this->title = 'Фото в «Улыбнить вместе с нами»';
+            $this->button_title = 'Продолжить';
+            $this->disableNavigation = true;
         }
 
         if($view_type == 'window')

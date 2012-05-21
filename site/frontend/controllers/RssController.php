@@ -29,7 +29,7 @@ class RssController extends HController
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
-            $item->addTag('author', $c->author->url);
+            $item->addTag('author', $c->author->getUrl(true));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);
             $item->description = $c->preview;
@@ -89,7 +89,7 @@ class RssController extends HController
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
-            $item->addTag('author', $c->author->url);
+            $item->addTag('author', $c->author->getUrl(true));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);
             $item->description = $c->preview;
@@ -132,7 +132,7 @@ class RssController extends HController
                 $item->addTag('ya:parent', $comment->response->getUrl(true));
             }
             $item->date = $comment->created;
-            $item->addTag('author', $comment->author->url);
+            $item->addTag('author', $comment->author->getUrl(true));
             $item->link = $comment->getUrl(true);
             $item->title = 'Комментарий к записи ' . $content->title;
             $item->description = $comment->text;

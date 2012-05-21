@@ -499,3 +499,15 @@ ul.letters li a:hover {text-decoration: underline;}
 .name_block:hover a.delete {display: block;}
 #famous_add {width: 600px;}
 .content_block .add-btn {background: url("../images/icons/add_catg_icon.png") no-repeat;display: block;height: 33px;width: 35px;}
+
+.items_table {}
+.items_table table {width:100%;}
+.items_table table caption {font-size:130%;text-align:center;padding-bottom:10px;}
+.items_table table th, .items_table table strong {font-weight:bold;}
+.items_table table th, .items_table table td {padding:2px 5px;}
+.items_table table form input[type=text] {width:40px;}
+.items_table table form input[type=submit] {width:16px;height:16px;background:url(/images/ok_16.png) no-repeat 0 0 transparent;border:none;}
+.items_table table tr.product_items {display:none;}
+#present_items {width:500px;}
+#present_items > table > tbody > tr {background:#ccc;}
+#present_items tr.product_items {background:#fff;}

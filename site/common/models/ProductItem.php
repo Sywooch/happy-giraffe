@@ -73,6 +73,29 @@ class ProductItem extends CActiveRecord
 		);
 	}
 
+    public function getParams()
+    {
+        $params = unserialize($this->properties);
+        $p = array();
+        $i = 0;
+        foreach($params as $var => $val)
+        {
+            if(!$attr = Attribute::model()->findByPk($var))
+                continue;
+            $p[$i] = array();
+            $p[$i]['attribute'] = $attr;
+            if ($attr->attribute_type == Attribute::TYPE_BOOL)
+                $value = $val == 1 ? 'Да' : 'Нет';
+            elseif ($attr->attribute_type == Attribute::TYPE_ENUM || $attr->attribute_type == Attribute::TYPE_MEASURE || $attr->attribute_type == Attribute::TYPE_TEXT)
+                $value = AttributeValue::model()->findByPk($val)->value_value;
+            else
+                $value = false;
+            $p[$i]['value'] = $value;
+            $i++;
+        }
+        return $p;
+    }
+
     public function beforeSave()
     {
         if(!$this->isNewRecord)

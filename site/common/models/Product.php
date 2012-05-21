@@ -33,6 +33,7 @@ Yii::import('site.frontend.extensions.status.EStatusBehavior');
  * *
  * @property Category $category
  * @property ProductBrand $brand
+ * @property ProductItem $items
  */
 class Product extends HActiveRecord implements IECartPosition
 {
@@ -167,6 +168,7 @@ class Product extends HActiveRecord implements IECartPosition
             'category' => array(self::BELONGS_TO, 'Category', 'product_category_id'),
             'ageRange' => array(self::BELONGS_TO, 'AgeRange', 'product_age_range_id'),
             'items' => array(self::HAS_MANY, 'ProductItem', 'product_id'),
+            'presents' => array(self::HAS_MANY, 'ProductPresent', 'product_id'),
         );
     }
 
@@ -439,9 +441,17 @@ class Product extends HActiveRecord implements IECartPosition
         return true;
     }
 
-    public function rated($authorId)
+    /**
+     * @param CDbCriteria $mcriteria
+     *
+     * @return array
+     */public function findPresents($mcriteria = false)
     {
-
+        $criteria = new CDbCriteria;
+        if($mcriteria)
+            $criteria->mergeWith($mcriteria);
+        //$criteria->addNotInCondition($this->getTableSchema()->primaryKey, array_keys(CHtml::listData($this->presents, 'present_id', 'present_id')));
+        return $this->findAll($criteria);
     }
 
     /**

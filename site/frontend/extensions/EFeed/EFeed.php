@@ -311,7 +311,7 @@ class EFeed extends CComponent{
 		{
 			$head .= CHtml::openTag('rss',array(
 						"version"=>"2.0",
-						"xmlns:content"=>"http://purl.org/rss/1.0/modules/content/",
+						"xmlns:ya"=>"http://blogs.yandex.ru/yarss/",
 						"xmlns:wfw"=>"http://wellformedweb.org/CommentAPI/")).PHP_EOL;	
 		}    
 		elseif($this->type == self::RSS1)

@@ -287,6 +287,19 @@ class AlbumsController extends HController
             echo CJSON::encode(array('status' => false));
     }
 
+    public function actionHumorPhoto()
+    {
+        $val = Yii::app()->request->getPost('val');
+        $model = new AlbumPhoto;
+        $model->file_name = $val;
+        $model->author_id = Yii::app()->user->id;
+        $model->create(true);
+
+        /* TODO your code */
+
+        echo CJSON::encode(array('result' => 'true'));
+    }
+
     public function actionCommentPhoto()
     {
         if(!$val = Yii::app()->request->getPost('val'))

@@ -302,7 +302,7 @@ class Comment extends HActiveRecord
     {
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         list($route, $params) = $entity->urlParams;
-        $params['#'] = 'comment_' . $entity->id;
+        $params['#'] = 'comment_' . $this->id;
 
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
         return Yii::app()->$method($route, $params);

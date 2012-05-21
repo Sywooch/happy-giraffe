@@ -42,7 +42,7 @@
 
                     <?php $this->widget('DuelWidget'); ?>
 
-                    <?php $this->widget('HumorWidget'); ?>
+                    <?php //$this->widget('HumorWidget'); ?>
 
                 </div>
 

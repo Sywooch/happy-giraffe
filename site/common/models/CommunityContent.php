@@ -286,6 +286,36 @@ class CommunityContent extends HActiveRecord
 
     public function afterSave()
     {
+        if ($this->type_id == 4 || $this->by_happy_giraffe) {
+            $pingUserId = 1;
+        } else {
+            $pingUserId = $this->author_id;
+        }
+        $pingName = 'Блог пользователя ' . $this->author->fullName;
+        $pingUrl = Yii::app()->createAbsoluteUrl('rss/user', array('user_id' => $pingUserId));
+
+        $xmlDoc = new DOMDocument;
+        $methodCall = $xmlDoc->createElement('methodCall');
+        $xmlDoc->appendChild($methodCall);
+        $methodCall->appendChild($xmlDoc->createElement('methodName', 'weblogUpdates.ping'));
+        $params = $xmlDoc->createElement('params');
+        $methodCall->appendChild($params);
+        $param = $xmlDoc->createElement('param');
+        $param->appendChild($xmlDoc->createElement('value', $pingName));
+        $params->appendChild($param);
+        $param = $xmlDoc->createElement('param');
+        $param->appendChild($xmlDoc->createElement('value', $pingUrl));
+        $params->appendChild($param);
+        $xml = $xmlDoc->saveXML();
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://ping.blogs.yandex.ru/RPC2');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $output = curl_exec($ch);
+        curl_close($ch);
+
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();
         if ($this->contentAuthor->isNewComer() && $this->isNewRecord) {
@@ -316,7 +346,7 @@ class CommunityContent extends HActiveRecord
         parent::afterSave();
     }
 
-    public function getUrl($comments = false, $absolute = false)
+    public function getUrlParams()
     {
         switch ($this->type_id) {
             case 4:
@@ -329,6 +359,7 @@ class CommunityContent extends HActiveRecord
                 if ($this->isFromBlog) {
                     $route = '/blog/view';
                     $params = array(
+                        'user_id' => $this->author_id,
                         'content_id' => $this->id,
                     );
                 } else {
@@ -341,8 +372,15 @@ class CommunityContent extends HActiveRecord
                 }
         }
 
+        return array($route, $params);
+    }
+
+    public function getUrl($comments = false, $absolute = false)
+    {
+        list($route, $params) = $this->urlParams;
+
         if ($comments)
-            $params['#'] = 'comments_list';
+            $params['#'] = 'comment_list';
 
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
         return Yii::app()->$method($route, $params);

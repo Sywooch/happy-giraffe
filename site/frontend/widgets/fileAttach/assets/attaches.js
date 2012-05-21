@@ -59,6 +59,8 @@ Attach.selectBrowsePhoto = function(button) {
         this.saveCommentPhoto(fsn);
     } else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(fsn);
+    }else if(this.entity == 'Humor') {
+        this.insertToHumor(fsn);
     } else {
         $.fancybox.close();
     }
@@ -92,6 +94,13 @@ Attach.insertToComment = function(val) {
         $.fancybox.close();
     }, 'json');
 };
+
+Attach.insertToHumor = function(fsn) {
+    $.post(base_url + '/albums/humorPhoto/', {val:fsn}, function(data) {
+        if(data.result == true)
+            $.fancybox.close();
+    }, 'json');
+}
 
 Attach.saveCommentPhoto = function (fsn) {
     $.post(base_url + '/albums/commentPhoto/', {entity:Comment.entity, entity_id:Comment.entity_id, val:fsn},

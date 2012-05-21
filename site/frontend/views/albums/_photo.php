@@ -3,7 +3,7 @@
         <tr>
             <td class="img">
                 <div>
-                    <?php echo CHtml::link(CHtml::image($data->getPreviewUrl(150, 150, Image::WIDTH)), array('/albums/photo', 'id' => $data->id)); ?>
+                    <?php echo CHtml::link(CHtml::image($data->getPreviewUrl(150, 150, Image::WIDTH)), $data->url); ?>
                 </div>
             </td>
         </tr>

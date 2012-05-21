@@ -15,7 +15,8 @@
         <label for="hide-used">не показывать<br>используемые<br>
             <input type="checkbox"
                    id="hide-used" <?php if (Yii::app()->user->getState('hide_used') == 1) echo 'checked="checked"' ?>
-                   onchange="SeoKeywords.hideUsed(this);"></label>
+                   onchange="SeoKeywords.hideUsed(this);">
+        </label>
     </div>
 
 </div>

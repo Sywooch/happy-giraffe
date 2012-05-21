@@ -15,8 +15,8 @@ foreach ($models as $model){ ?>
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
+        <td><?=$model->getStats(1) ?></td>
+        <td><?=$model->getStats(2) ?></td>
         <td>
             <?php if ($model->inBuffer()):?>
                 in-buffer <a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>

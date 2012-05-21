@@ -138,7 +138,7 @@ class Keywords extends HActiveRecord
     public function hasOpenedTask()
     {
         foreach ($this->keywordGroups as $group) {
-            if (!empty($group->seoArticleKeywords))
+            if (!empty($group->articleKeywords))
                 return false;
 
             if ($group->newTaskCount > 0)
@@ -151,7 +151,7 @@ class Keywords extends HActiveRecord
     public function used()
     {
         foreach ($this->keywordGroups as $group) {
-            if (!empty($group->seoArticleKeywords))
+            if (!empty($group->articleKeywords))
                 return true;
         }
         return false;
@@ -185,5 +185,14 @@ class Keywords extends HActiveRecord
                 $res .= $seoStat->sum . ', ';
 
         return $res;
+    }
+
+    public function getStats($site_id){
+        foreach($this->seoStats as $stats){
+            if ($stats->site_id == $site_id)
+                return ($stats->sum/12);
+        }
+
+        return 0;
     }
 }

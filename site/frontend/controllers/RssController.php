@@ -127,7 +127,7 @@ class RssController extends HController
 
             $item = $feed->createNewItem();
             $item->addTag('guid', $comment->getUrl(true), array('isPermaLink'=>'true'));
-            $item->addTag('ya:post', $content->url);
+            $item->addTag('ya:post', $content->getUrl(false, true));
             if ($comment->response) {
                 $item->addTag('ya:parent', $comment->response->getUrl(true));
             }

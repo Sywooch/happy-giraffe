@@ -5,6 +5,20 @@ return array(
     'showScriptName' => false,
     'urlSuffix' => '/',
     'rules' => array(
+        '/user/<user_id:\d+>' => 'user/profile',
+        '/user/<user_id:\d+>/clubs' => 'user/clubs',
+        '/user/<user_id:\d+>/friends' => 'user/friends',
+        '/user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
+        '/user/<user_id:\d+>/blog' => 'blog/list',
+        '/user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
+        '/user/<id:\d+>/albums' => 'albums/user',
+        '/user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
+        '/user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
+        '/user/<user_id:\d+>/rss/page/<page:\d+>' => 'rss/user',
+        '/user/<user_id:\d+>/rss' => 'rss/user',
+        '/user/<user_id:\d+>/comments/rss/page/<page:\d+>' => 'rss/comments',
+        '/user/<user_id:\d+>/comments/rss' => 'rss/comments',
+
         'user/blog/add' => 'community/add/community_id/999999/content_type_slug/post/blog/1/',
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/list',
@@ -86,7 +100,6 @@ return array(
 
         'signal' => 'signal/default/index',
         'score' => 'scores/default/index',
-        'rss' => 'site/rss',
         '/contest' => '/site/contest',
         'search' => 'site/search',
 

@@ -1,7 +1,38 @@
-/**
- * Created with JetBrains PhpStorm.
- * User: farik
- * Date: 18.05.12
- * Time: 19:00
- * To change this template use File | Settings | File Templates.
- */
+var Nutritionals = {
+
+    // create nutritional
+    Link:function () {
+        $.post(
+            $("#cook-ingredients-nutritionals-create-form").attr('action'),
+            $("#cook-ingredients-nutritionals-create-form").serialize(),
+            function (data) {
+                $('#nutritionals').html(data);
+            }
+        );
+        return false;
+    },
+
+    // create synonym
+    createSynonym:function () {
+        $.post(
+            $("#cook-ingredients-synonyms-create-form").attr('action'),
+            $("#cook-ingredients-synonyms-create-form").serialize(),
+            function (data) {
+                $('#synonyms').html(data);
+            }
+        );
+        return false;
+    },
+
+    // delete synonyms, nutritionals
+
+    deleteChild:function (event, container) {
+        var link = $(event.target);
+        if (confirm('Удалить?')) {
+            $.post(link.attr('href'), function (data) {
+                $('#' + container).html(data);
+            })
+        }
+        event.preventDefault();
+    }
+}

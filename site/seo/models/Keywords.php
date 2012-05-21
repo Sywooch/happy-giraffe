@@ -11,6 +11,7 @@
  * @property KeyStats[] $seoStats
  * @property KeywordGroup[] $keywordGroups
  * @property YandexPopularity $yandexPopularity
+ * @property KeywordBlacklist $keywordBlacklist
  */
 class Keywords extends HActiveRecord
 {
@@ -65,6 +66,7 @@ class Keywords extends HActiveRecord
             'keywordGroups' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'yandexPopularity' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeywords', 'keyword_id'),
+            'keywordBlacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
         );
     }
 
@@ -163,19 +165,16 @@ class Keywords extends HActiveRecord
         return false;
     }
 
-    public function getButtons()
-    {
-        if (!$this->used() && !$this->hasOpenedTask()) {
-            echo CHtml::hiddenField('id', $this->id);
-            echo CHtml::link('выбрать', '#', array('onclick' => 'return SeoKeywords.Select(this);'));
-        }
-    }
-
     public function getClass()
     {
-        if ($this->used()) return 'used';
-        elseif ($this->hasOpenedTask()) return 'active';
-        return 'default';
+        $class = '';
+        if ($this->used()) $class = 'on-site';
+        elseif ($this->inBuffer()) $class ='in-buffer';
+        elseif ($this->hasOpenedTask()) $class ='in-work';
+
+        if (!empty($class))
+            return ' class="'.$class.'"';
+        return '';
     }
 
     public function getData()

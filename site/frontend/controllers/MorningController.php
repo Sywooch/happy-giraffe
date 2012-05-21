@@ -131,7 +131,7 @@ class MorningController extends HController
                     $post = new CommunityContent();
                     $post->title = $_POST['title'];
                     $post->type_id = 4;
-                    $post->author_id = Yii::app()->user->getId();
+                    $post->author_id = 1;
                     if ($post->save()) {
                         $photoPost = new CommunityPhotoPost();
                         $photoPost->content_id = $post->id;

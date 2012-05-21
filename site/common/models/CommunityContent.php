@@ -316,7 +316,7 @@ class CommunityContent extends HActiveRecord
         $output = curl_exec($ch);
         curl_close($ch);
 
-        Yii::log($output);
+        Yii::log($output, 'error');
 
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();

@@ -59,7 +59,7 @@
         'options' => array(
             'title' => $model->title,
             'image' => $model->getImage(),
-            'description' => str_replace("\n", '', $model->getShort()),
+            'description' => str_replace("\r\n", '', $model->getShort()),
         ),
     )); ?>
     </div>

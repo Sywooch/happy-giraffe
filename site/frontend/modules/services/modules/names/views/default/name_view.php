@@ -14,12 +14,12 @@
         <p>"<?php echo $name->translate; ?>"</p>
 
         <?php if (!empty($name->nameSaintDates)):?>
-            <p class="header">Святцы <a href="#" id="calendar-link2" onclick="NameModule.showFirstSaints(this);return false;" class="calendar-link" style="display: none;">только первые</a></p>
+            <p class="header">Святцы <a href="#" id="calendar-link2" onclick="NameModule.showFirstSaints(this);return false;" class="calendar-link" style="display: none;">только ближайшие</a></p>
             <ul class="calendar">
                 <?php $i = 0; ?>
                 <?php foreach ($name->nameSaintDates as $saint): ?>
                     <?php if ($i == 5) :?>
-                        <li><a href="#" class="calendar-link" onclick="NameModule.showAllSaints(this);return false;">еще...</a></li>
+                        <li><a href="#" class="calendar-link" onclick="NameModule.showAllSaints(this);return false;">Все святцы</a></li>
                     <?php endif; ?>
                     <li<?php if ($i >= 5) echo ' style="display:none;"' ?>><span><?php echo $saint->day ?></span><?php echo HDate::ruMonth($saint->month) ?></li>
                     <?php $i++ ?>

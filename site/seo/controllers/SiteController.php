@@ -10,7 +10,7 @@ class SiteController extends SController
                 'users' => array('@'),
             ),
             array('allow',
-                'actions'=>array('login'),
+                'actions'=>array('login', 'test'),
                 'users' => array('*'),
             ),
             array('deny',
@@ -23,12 +23,18 @@ class SiteController extends SController
 	{
         if (Yii::app()->user->checkAccess('moderator'))
             $this->redirect($this->createUrl('task/moderator'));
+
         if (Yii::app()->user->checkAccess('author'))
             $this->redirect($this->createUrl('task/author'));
+
         if (Yii::app()->user->checkAccess('editor'))
             $this->redirect($this->createUrl('task/tasks'));
+
         if (Yii::app()->user->checkAccess('content-manager'))
             $this->redirect($this->createUrl('task/cmanager'));
+
+        if (Yii::app()->user->checkAccess('articles-input'))
+            $this->redirect($this->createUrl('existArticles/index'));
 	}
 
     /**
@@ -86,5 +92,56 @@ class SiteController extends SController
     {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
+    }
+
+    public function actionTest()
+    {
+        for($i=0;$i<30000;$i++){
+            $keyword = $this->nextKeyword();
+            if ($keyword !== null){
+                $count = Keywords::model()->countByAttributes(array('name'=>$keyword->name));
+                if ($count > 1){
+                    $keywords = Keywords::model()->findAllByAttributes(array('name'=>$keyword->name));
+                    foreach($keywords as $keyword2)
+                        if ($keyword2->id > $keyword->id){
+                            $keyword2->delete();
+                            echo $keyword->name.'<br>';
+                        }
+                }
+            }
+            if ($i % 1000 == 0){
+                echo $i.'<br>';
+            }
+            flush();
+        }
+    }
+
+    private $i = 0;
+    private $j = 0;
+    private $keywords = array();
+    private $limit = 100;
+
+    public function nextKeyword()
+    {
+        if ($this->j >= $this->limit || empty($this->keywords)) {
+            $this->keywords = $this->getKeywords();
+            $this->j = 0;
+        }
+
+        $result = $this->keywords[$this->j];
+        $this->j++;
+
+        return $result;
+    }
+
+    public function getKeywords()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = $this->limit;
+        $criteria->offset = $this->limit * $this->i;
+        $criteria->order = 'id';
+        $this->i++;
+
+        return Keywords::model()->findAll($criteria);
     }
 }

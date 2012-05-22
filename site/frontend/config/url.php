@@ -16,6 +16,8 @@ return array(
         '/user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
         '/user/<user_id:\d+>/rss/page/<page:\d+>' => 'rss/user',
         '/user/<user_id:\d+>/rss' => 'rss/user',
+        '/user/<user_id:\d+>/comments/rss/page/<page:\d+>' => 'rss/comments',
+        '/user/<user_id:\d+>/comments/rss' => 'rss/comments',
 
         'user/blog/add' => 'community/add/community_id/999999/content_type_slug/post/blog/1/',
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',

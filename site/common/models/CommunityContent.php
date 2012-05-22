@@ -292,7 +292,7 @@ class CommunityContent extends HActiveRecord
             $pingUserId = $this->author_id;
         }
         $pingName = 'Блог пользователя ' . $this->author->fullName;
-        $pingUrl = $this->createAbsoluteUrl('rss/user', array('user_id' => $pingUserId));
+        $pingUrl = Yii::app()->createAbsoluteUrl('rss/user', array('user_id' => $pingUserId));
 
         $xmlDoc = new DOMDocument;
         $methodCall = $xmlDoc->createElement('methodCall');
@@ -315,6 +315,8 @@ class CommunityContent extends HActiveRecord
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $output = curl_exec($ch);
         curl_close($ch);
+
+        Yii::log($output, 'error');
 
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();

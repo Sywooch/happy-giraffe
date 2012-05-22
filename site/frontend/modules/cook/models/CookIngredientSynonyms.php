@@ -1,24 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "cook__ingredients_nutritionals".
+ * This is the model class for table "cook__ingredient_synonyms".
  *
- * The followings are the available columns in table 'cook__ingredients_nutritionals':
+ * The followings are the available columns in table 'cook__ingredient_synonyms':
  * @property string $id
  * @property string $ingredient_id
- * @property string $nutritional_id
- * @property string $value
+ * @property string $title
  *
  * The followings are the available model relations:
- * @property CookNutritionals $nutritional
  * @property CookIngredients $ingredient
  */
-class CookIngredientsNutritionals extends CActiveRecord
+class CookIngredientSynonyms extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return CookIngredientsNutritionals the static model class
+	 * @return CookIngredientSynonyms the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -30,7 +28,7 @@ class CookIngredientsNutritionals extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'cook__ingredients_nutritionals';
+		return 'cook__ingredient_synonyms';
 	}
 
 	/**
@@ -41,13 +39,12 @@ class CookIngredientsNutritionals extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ingredient_id, nutritional_id, value', 'required'),
-			array('ingredient_id, nutritional_id', 'length', 'max'=>11),
-            array('ingredient_id, nutritional_id, value', 'numerical', 'allowEmpty'=>false),
-			array('value', 'length', 'max'=>10),
+			array('ingredient_id, title', 'required'),
+			array('ingredient_id', 'length', 'max'=>11),
+			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, ingredient_id, nutritional_id, value', 'safe', 'on'=>'search'),
+			array('id, ingredient_id, title', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,7 +56,6 @@ class CookIngredientsNutritionals extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'nutritional' => array(self::BELONGS_TO, 'CookNutritionals', 'nutritional_id'),
 			'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
 		);
 	}
@@ -72,8 +68,7 @@ class CookIngredientsNutritionals extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'ingredient_id' => 'Ингредиент',
-			'nutritional_id' => 'Составляющая',
-			'value' => 'Значение',
+			'title' => 'Название',
 		);
 	}
 
@@ -90,8 +85,7 @@ class CookIngredientsNutritionals extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('ingredient_id',$this->ingredient_id,true);
-		$criteria->compare('nutritional_id',$this->nutritional_id,true);
-		$criteria->compare('value',$this->value,true);
+		$criteria->compare('title',$this->title,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

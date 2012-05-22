@@ -1,4 +1,4 @@
-<h1>Manage Cook Ingredients</h1>
+<h1>Ингредиенты</h1>
 
 <?php echo CHtml::link('создать', array('club/CookIngredients/create')) ?>
 
@@ -16,10 +16,13 @@
             'value' => '$data->unit->title',
             'header' => 'Ед.изм.'
         ),
-        'title',
+        array(
+            'name' => 'title',
+            'value' => 'CHtml::link ( CHtml::encode ( $data->title ),  array ( "club/cookIngredients/update", "id" => $data->id ) )',
+            'type'=>'raw'
+        ),
         'weight',
         'density',
-        //'src',
         array(
             'class' => 'CButtonColumn',
             'template' => '{update}{delete}'

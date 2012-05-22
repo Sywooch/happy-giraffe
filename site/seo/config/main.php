@@ -34,10 +34,7 @@ return array(
                 ),
             ),
         ),
-		'urlManager' => array(
-			'urlFormat'=>'path',
-            'showScriptName'=>false
-		),
+        'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
         'db' => array(
             'schemaCachingDuration' => 3600,
             'enableProfiling' => true,

@@ -29,7 +29,7 @@ class RssController extends HController
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
-            $item->addTag('author', $c->author->url);
+            $item->addTag('author', $c->author->getUrl(true));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);
             $item->description = $c->preview;
@@ -55,7 +55,7 @@ class RssController extends HController
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
         $feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id)));
         $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/user', array('user_id' => $user->id, 'page' => $page + 1)));
-        $feed->addChannelTag('image', array('url' => Yii::app()->homeUrl . $user->getAva(), 'width' => 72, 'height' => 72));
+        $feed->addChannelTag('image', array('url' => $user->getAva(), 'width' => 72, 'height' => 72));
 
         if ($user->id == 1) {
             $criteria = new CDbCriteria(array(
@@ -89,7 +89,7 @@ class RssController extends HController
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
-            $item->addTag('author', $c->author->url);
+            $item->addTag('author', $c->author->getUrl(true));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);
             $item->description = $c->preview;
@@ -127,12 +127,12 @@ class RssController extends HController
 
             $item = $feed->createNewItem();
             $item->addTag('guid', $comment->getUrl(true), array('isPermaLink'=>'true'));
-            $item->addTag('ya:post', $content->url);
+            $item->addTag('ya:post', $content->getUrl(false, true));
             if ($comment->response) {
                 $item->addTag('ya:parent', $comment->response->getUrl(true));
             }
             $item->date = $comment->created;
-            $item->addTag('author', $comment->author->url);
+            $item->addTag('author', $comment->author->getUrl(true));
             $item->link = $comment->getUrl(true);
             $item->title = 'Комментарий к записи ' . $content->title;
             $item->description = $comment->text;

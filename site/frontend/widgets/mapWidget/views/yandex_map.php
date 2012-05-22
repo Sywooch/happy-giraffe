@@ -9,8 +9,7 @@ Yii::app()->clientScript->registerScript('register_yandex_map-'.$map_id,$js);*/
 
 ?><script type="text/javascript">
     $(function() {
-        HMap.map_id = "<?= $map_id ?>";
-        HMap.address = "<?= $this->user->getUserAddress()->getLocationString() ?>";
-        HMap.initYandexMap();
+        var map = new HYandexMap();
+        map.create("<?= $map_id ?>", "<?= $this->user->getUserAddress()->getLocationString() ?>");
     });
 </script>

@@ -22,52 +22,25 @@ class DefaultController extends SController
         ));
     }
 
-    public function actionSearch()
-    {
-        $pages = new CPagination();
-        $pages->pageSize = 100000;
-        $criteria = new stdClass();
-        $criteria->from = 'keywords';
-        $criteria->select = '*';
-        $criteria->paginator = $pages;
-        $criteria->query = '*кесарю*';
-        $resIterator = Yii::app()->search->search($criteria);
-
-        $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where('*' . 'keywords' . '*')->limit(0, 100000)->searchRaw();
-        $allCount = count($allSearch['matches']);
-
-    }
-
     public function actionCalc()
     {
-        $i = 0;
-        $count = Keywords::model()->count();
-        while ($i * 1000 < $count) {
-            $criteria = new CDbCriteria;
-            $criteria->offset = $i * 1000;
-            $criteria->limit = 1000;
-            $keywords = Keywords::model()->with(array('seoStats'))->findAll($criteria);
-            $sites = Site::model()->findAll();
-            $year = 2012;
-            foreach ($sites as $site) {
-                foreach ($keywords as $keyword) {
-                    $models = Stats::model()->findAll('site_id = ' . $site->id . ' AND keyword_id = ' . $keyword->id . ' AND year = ' . $year);
-
-                    $stat = KeyStats::model()->find('site_id = ' . $site->id . ' AND keyword_id = ' . $keyword->id . ' AND year = ' . $year);
-                    if ($stat === null) {
-                        $stat = new KeyStats;
-                        $stat->keyword_id = $keyword->id;
-                        $stat->site_id = $site->id;
-                        $stat->year = $year;
-                    }
-                    foreach ($models as $model) {
-                        $stat->setAttribute('m' . $model->month, $model->value);
-                    }
-
-                    $stat->save();
-                }
+        $site_id = 3;
+        $year = 2012;
+        $criteria = new CDbCriteria;
+        $criteria->compare('site_id', $site_id);
+        $criteria->compare('year', $year);
+        $criteria->compare('month >', 2);
+        $stats = Stats::model()->findAll($criteria);
+        foreach ($stats as $stat) {
+            $key_stat = KeyStats::model()->find('site_id = ' . $site_id . ' AND keyword_id = ' . $stat->keyword_id . ' AND year = ' . $year);
+            if ($key_stat === null) {
+                $key_stat = new KeyStats;
+                $key_stat->keyword_id = $stat->keyword_id;
+                $key_stat->site_id = $site_id;
+                $key_stat->year = $year;
             }
-            $i++;
+            $key_stat->setAttribute('m'.$stat->month, $stat->value);
+            $key_stat->save();
         }
     }
 

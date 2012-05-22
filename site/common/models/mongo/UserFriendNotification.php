@@ -91,7 +91,7 @@ class UserFriendNotification extends EMongoDocument
             'type' => self::FRIEND_INVITE,
             'request_id' => (int) $request_id,
         ));
-        return $model->delete();
+        return $model !== null ? $model->delete() : false;
     }
 
     public function getLast($user_id)

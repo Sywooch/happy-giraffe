@@ -4,7 +4,11 @@
  */
 $i=0;
 
-foreach ($models as $model){ ?>
+foreach ($models as $model){
+    if (Yii::app()->user->getState('hide_used'))
+        if ($model->used() || $model->hasOpenedTask())
+            continue;
+    ?>
 <?php $i++; ?>
     <tr id="key-<?=$model->id ?>"<?=$model->getClass() ?>>
         <td class="col-1"><?=$model->name ?></td>

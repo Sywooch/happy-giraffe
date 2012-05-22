@@ -31,7 +31,7 @@ class Stats extends HActiveRecord
      */
     public function tableName()
     {
-        return 'stats';
+        return 'happy_giraffe_seo.baby_stats__stats';
     }
 
     public function getDbConnection()

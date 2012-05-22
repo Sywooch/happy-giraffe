@@ -15,11 +15,11 @@ class ParseController extends SController
         $site_id = 1;
         $year = 2012;
 
-        $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
-        $site = 'baby.ru';
+        $cookie = 'session=085Tia1wNMhf; suid=0HL2kG3LzWGy; per_page=100; total=yes; adv-uid=fdae6f.bb2af5.e2d520';
+        $site = 'blog.mosmedclinic.ru';
         ob_start();
 
-        for ($month = 4; $month > 2; $month--) {
+        for ($month = 5; $month > 4; $month--) {
             $url = 'http://www.liveinternet.ru/stat/' . $site . '/queries.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
 
             $ch = curl_init();
@@ -42,7 +42,6 @@ class ParseController extends SController
             if ($max_pages > 40)
                 $max_pages = 40;
             $this->GetStat($document, $month, $year, $site_id);
-            ob_flush();
             flush();
             sleep(2);
 
@@ -60,9 +59,8 @@ class ParseController extends SController
                 $document = phpQuery::newDocument($result);
                 $this->GetStat($document, $month, $year, $site_id);
 
-                ob_flush();
                 flush();
-                sleep(rand(1, 2));
+                //sleep(rand(1, 2));
             }
         }
     }
@@ -73,7 +71,7 @@ class ParseController extends SController
         $site_id = 1;
         $year = 2012;
 
-        $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
+        $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1njOHUeRvpWhhIViv; per_page=100; total=yes; adv-uid=bb2c2c';
         $site = 'baby.ru';
         ob_start();
 

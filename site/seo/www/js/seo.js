@@ -6,11 +6,6 @@
 var SeoModule = {
     group:new Array(),
     id:null,
-    searchKeywords:function (term) {
-        $.post('/task/searchKeywords/', {term:term}, function (response) {
-            $('.keywords .result').html(response);
-        });
-    },
     addToGroup:function (el) {
         var id = this.getId($(el).parent());
         SeoModule.group.push(id);
@@ -23,37 +18,6 @@ var SeoModule = {
     getId:function (el) {
         return el.attr("id").replace(/[a-zA-Z]*-/ig, "");
     },
-    addGroup:function (type, author_id, rewrite) {
-        var urls = new Array();
-        if (rewrite == 1){
-            $('.urls input').each(function(index, val){
-                if ($(this).val() != '')
-                    urls.push($(this).val());
-            });
-        }
-        $.post('/task/addGroupTask/', {id:this.group,
-            type:type,
-            author_id:author_id,
-            urls:urls,
-            rewrite:rewrite
-        }, function (response) {
-            if (response.status) {
-                $('.keyword_group').html('');
-                for (var key in SeoModule.group)
-                    $('#keyword-' + SeoModule.group[key]).remove();
-
-                SeoModule.group = new Array();
-            }
-        }, 'json');
-        return false;
-    },
-    setTask:function (id, type, callback) {
-        $.post('/task/setTask/', {id:id, type:type}, function (response) {
-            if (response.status) {
-                callback();
-            }
-        }, 'json');
-    },
     GetArticleInfo:function () {
         var url = $('input.article-url').val();
         $.post('/task/getArticleInfo/', {url:url}, function (response) {
@@ -62,15 +26,16 @@ var SeoModule = {
         }, 'json');
     },
     SaveArticleKeys:function () {
-        var keywords = new Array();
-        $('.article-keys input').each(function () {
-            keywords.push($(this).val());
-        });
-
-        $.post('/task/SaveArticleKeys/', {url:$('input.article-url').val(), keywords:keywords}, function (response) {
+        $.post('/existArticles/SaveArticleKeys/', {
+            url:$('input.article-url').val(),
+            keywords:$('#ArticleKeywords_keywords').val()
+        }, function (response) {
             if (response.status){
                 $('input.article-url').val('');
-                $('.article-keys input').val('');
+                $('#ArticleKeywords_keywords').val('');
+                $('table tbody').prepend(response.html);
+                $('span.articles-count').text(parseInt($('span.articles-count').text()) + 1);
+                $('span.keywords-count').text(parseInt($('span.keywords-count').text()) + response.keysCount);
             }else{
                 $.pnotify({
                     pnotify_title: 'Ошибка',
@@ -114,9 +79,5 @@ var SeoModule = {
     },
     reloadTask:function(id){
 
-    },
-    hideUsed:function(el){
-        $.post('/task/hideUsed/', {checked:$(el).attr('checked')}, function (response) {
-        }, 'json');
     }
 }

@@ -9,9 +9,9 @@
             new Ya.share({
                 element: 'ya_share1',
                 l10n : 'ru',
-                title : '<?php echo $this->options['title'] ?>',
-                description : '<?php echo $this->options['description'] ?>',
-                image : '<?php echo $this->options['image'] ?>',
+                title : <?= CJavaScript::encode($this->options['title']) ?>,
+                description : <?= CJavaScript::encode($this->options['description']) ?>,
+                image : <?= CJavaScript::encode($this->options['image']) ?>,
                 elementStyle : {
                     'type': 'none',
                     'quickServices' : ['vkontakte', 'facebook', 'twitter', 'odnoklassniki', 'moimir', 'gplus']

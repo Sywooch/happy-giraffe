@@ -56,6 +56,12 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
                 ));
                 $fileAttach->button();
                 $this->endWidget();
+
+                $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                    'model' => new Humor(),
+                ));
+                $fileAttach->button();
+                $this->endWidget();
             }
             ?>
             <div class="color-list">

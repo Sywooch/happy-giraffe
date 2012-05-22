@@ -8,7 +8,8 @@
  * @property string $category_id
  * @property string $unit_id
  * @property string $title
- * @property string $wight
+ * @property string $weight
+ * @property string $density
  * @property string $src
  *
  * The followings are the available model relations:
@@ -46,12 +47,12 @@ class CookIngredients extends CActiveRecord
         // will receive user inputs.
         return array(
             array('category_id, title', 'required'),
-            array('category_id, unit_id', 'length', 'max' => 11),
+            array('category_id, unit_id, weight', 'length', 'max' => 11),
             array('title, src', 'length', 'max' => 255),
-            array('wight', 'length', 'max' => 10),
+            array('density', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, category_id, unit_id, title, wight, src', 'safe', 'on' => 'search'),
+            array('id, category_id, unit_id, title, weight, density', 'safe', 'on' => 'search'),
         );
     }
 
@@ -77,11 +78,12 @@ class CookIngredients extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'category_id' => 'Category',
-            'unit_id' => 'Unit',
-            'title' => 'Title',
-            'wight' => 'Wight',
-            'src' => 'Src',
+            'category_id' => 'Категория',
+            'unit_id' => 'Ед.изм.',
+            'title' => 'Название',
+            'weight' => 'Вес г',
+            'density' => 'Плотность',
+            'src' => 'Источник',
         );
     }
 
@@ -91,8 +93,6 @@ class CookIngredients extends CActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
 
         $criteria = new CDbCriteria;
 
@@ -100,31 +100,15 @@ class CookIngredients extends CActiveRecord
         $criteria->compare('category_id', $this->category_id, true);
         $criteria->compare('unit_id', $this->unit_id, true);
         $criteria->compare('title', $this->title, true);
-        $criteria->compare('wight', $this->wight, true);
-        $criteria->compare('src', $this->src, true);
+        $criteria->compare('weight', $this->weight, true);
+        $criteria->compare('density', $this->density, true);
+
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => '25',
+            ),
         ));
-    }
-
-    public function ac()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->with = array(
-            'unit',
-            'cookIngredientsNutritionals',
-            'cookIngredientsNutritionals.nutritional',
-        );
-        $criteria->together = true;
-
-
-        return new CActiveDataProvider($this,
-            array(
-                'criteria' => $criteria,
-                'pagination' => array(
-                    'pageSize' => 100,
-                ),
-            ));
     }
 }

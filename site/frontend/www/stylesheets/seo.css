@@ -8,6 +8,8 @@ html, body {height:100%;margin: 0;padding: 0;position:relative;font-family:arial
 
 textarea {overflow:auto;font-family:arial,sans-serif;}
 
+.tab-box {display:none;}
+
 table {border-collapse: collapse;border-spacing: 0;}
 
 a {color:#029AD2;}
@@ -83,9 +85,27 @@ a:hover {text-decoration:none;}
 #seo .add-article .step-2 .btn {vertical-align:middle;margin-top:20px;}
 
 #seo .seo-table {}
+
+#seo .seo-table .table-title {display:inline-block;margin-right:30px;font-size:25px;margin-bottom:20px;}
+
+#seo .seo-table .table-nav {display:inline-block;margin-bottom:20px;overflow:hidden;}
+#seo .seo-table .table-nav ul {}
+#seo .seo-table .table-nav ul li {display:inline-block;padding:10px 20px;}
+#seo .seo-table .table-nav ul li a {border-bottom:1px dashed #029AD2;text-decoration:none;}
+#seo .seo-table .table-nav ul li .count {color:#029AD2;position:relative;top:-4px;}
+#seo .seo-table .table-nav ul li.new.active {background:#49b9e5;}
+#seo .seo-table .table-nav ul li.correction.active {background:#fea351;}
+#seo .seo-table .table-nav ul li.publish.active {background:#fed547;}
+#seo .seo-table .table-nav ul li.check.active {background:#6bc545;}
+#seo .seo-table .table-nav ul li.process.active {background:#a582c7;}
+#seo .seo-table .table-nav ul li.active a {color:#fff;border:0;}
+#seo .seo-table .table-nav ul li.active .count {color:#fff;}
+
+
 #seo .seo-table .meta {text-align:right;font-size:13px;padding-right:5px;padding-bottom:5px;}
 #seo .seo-table .meta span {margin-left:20px;}
-#seo .seo-table .table-box {border:1px solid #d0e3fc;padding:2px;}
+
+#seo .seo-table .table-box {border:1px solid #d0e3fc;padding:2px 2px 3px;}
 #seo .seo-table .table-box table {width:100%;}
 #seo .seo-table .table-box table th {vertical-align:middle;background:#d9eafe;font-size:13px;color:#0b509b;font-weight:normal;padding:10px 15px;border:1px solid #fff;text-align:left;}
 #seo .seo-table .table-box table td {vertical-align:top;padding:10px 15px;border:1px solid #f5f5f5;border-bottom:0;border-right:0;color:#6a6a6a;}
@@ -134,3 +154,16 @@ a:hover {text-decoration:none;}
 #seo .seo-table .admin-name {vertical-align:middle;display:inline-block;line-height:1;margin-left:5px;width:100px;position:relative;top:1px;}
 
 #seo .current-tasks {width:700px;margin:0 auto;}
+
+#seo .table-report .table-box tbody td, #seo .table-report .table-box tbody th {vertical-align:middle;text-align:center;}
+#seo .table-report .table-box table .al {text-align:left;}
+
+#seo .table-report td.seo-status-new-1 {background:#bfecfe;}
+#seo .table-report td.seo-status-new-2 {background:#8ddefe;}
+
+#seo .table-report td.seo-status-correction-1 {background:#fee1c8;}
+#seo .table-report td.seo-status-correction-2 {background:#ffcda2;}
+
+#seo .table-report td.seo-status-publish-1 {background:#fff9d4;}
+#seo .table-report td.seo-status-publish-2 {background:#fcf1ad;}
+

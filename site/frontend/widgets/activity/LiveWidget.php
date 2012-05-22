@@ -10,6 +10,7 @@ class LiveWidget extends CWidget
         $live = CommunityContent::model()->full()->findAll(array(
             'limit' => 5,
             'order' => 'created DESC',
+            'condition' => 'type_id != 4',
         ));
 
         $this->render('LiveWidget', compact('live'));

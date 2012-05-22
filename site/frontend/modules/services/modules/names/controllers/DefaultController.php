@@ -157,6 +157,7 @@ class DefaultController extends HController
     {
         $this->SetLikes();
         $name = $this->LoadModelBySlugName($name);
+        $name->reorderSaints();
         $name->initOptionsSweetMiddles();
         $this->pageTitle = $name->name;
 

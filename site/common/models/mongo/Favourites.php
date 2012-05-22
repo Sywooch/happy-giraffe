@@ -101,4 +101,13 @@ class Favourites extends EMongoDocument
             $model->save();
         }
     }
+
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        if ($this->isNewRecord && $this->block == self::BLOCK_VIDEO) {
+            Yii::app()->cache->set('activityLastUpdated', time());
+        }
+    }
 }

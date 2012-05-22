@@ -173,16 +173,19 @@ class SeoTask extends CActiveRecord
         if (Yii::app()->user->checkAccess('author')) {
             $criteria->compare('type', SeoTask::TYPE_EDITOR);
             $criteria->compare('executor_id', Yii::app()->user->id);
-            $criteria->compare('status', SeoTask::STATUS_NEW);
+            $criteria->compare('status', SeoTask::STATUS_READY);
             $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
 
         } elseif (Yii::app()->user->checkAccess('moderator')) {
             $criteria->compare('type', SeoTask::TYPE_MODER);
-            $criteria->compare('status', SeoTask::STATUS_NEW);
-
+            $criteria->compare('status', SeoTask::STATUS_READY);
+        } elseif (Yii::app()->user->checkAccess('corrector')) {
+            $criteria->compare('type', SeoTask::TYPE_EDITOR);
+            $criteria->compare('status', SeoTask::STATUS_CORRECTING);
+            $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
         } elseif (Yii::app()->user->checkAccess('content-manager')) {
             $criteria->compare('type', SeoTask::TYPE_EDITOR);
-            $criteria->compare('status', SeoTask::STATUS_CHECKED);
+            $criteria->compare('status', SeoTask::STATUS_PUBLICATION);
             $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
         }
         $criteria->order = 'created DESC';
@@ -211,12 +214,12 @@ class SeoTask extends CActiveRecord
         switch($this->status){
             case self::STATUS_READY: return 'Новое';
             case self::STATUS_TAKEN: return 'Написание';
-            case self::STATUS_WRITTEN: return 'Новое';
-            case self::STATUS_CORRECTING: return 'Новое';
-            case self::STATUS_CORRECTED: return 'Новое';
-            case self::STATUS_PUBLICATION: return 'Новое';
-            case self::STATUS_PUBLISHED: return 'Новое';
-            case self::STATUS_CLOSED: return 'Новое';
+            case self::STATUS_WRITTEN: return 'Статья написана';
+            case self::STATUS_CORRECTING: return 'На коррекции';
+            case self::STATUS_CORRECTED: return 'Откорректировано';
+            case self::STATUS_PUBLICATION: return 'На публикации';
+            case self::STATUS_PUBLISHED: return 'Опубликована';
+            case self::STATUS_CLOSED: return 'Выполнено';
         }
     }
 }

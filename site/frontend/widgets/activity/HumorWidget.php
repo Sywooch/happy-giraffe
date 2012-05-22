@@ -8,6 +8,6 @@ class HumorWidget extends CWidget
     public function run()
     {
         $humor = Humor::model()->with('photo')->findByPk(1);
-        $this->render('HumorWidget', compact('humor'));
+        //$this->render('HumorWidget', compact('humor'));
     }
 }

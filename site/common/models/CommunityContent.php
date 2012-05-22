@@ -287,7 +287,9 @@ class CommunityContent extends HActiveRecord
     public function afterSave()
     {
         if ($this->isNewRecord && $this->type_id != 4) {
-            Yii::app()->cache->set('activityLastUpdated', time());
+            $a = Yii::app()->cache->set('activityLastUpdated', time());
+            var_dump($a);
+            die;
         }
 
         if ($this->type_id == 4 || $this->by_happy_giraffe) {

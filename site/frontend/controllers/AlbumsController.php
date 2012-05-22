@@ -297,7 +297,9 @@ class AlbumsController extends HController
 
         $humor = new Humor;
         $humor->photo_id = $model->id;
-        $humor->save();
+        if (! $humor->save())
+            print_($humor->errors);
+
 
         echo CJSON::encode(array('result' => 'true'));
     }

@@ -148,15 +148,6 @@ class Name extends HActiveRecord
         );
     }
 
-    public function afterSave()
-    {
-        if ($this->isNewRecord){
-            //transliterate name
-
-        }
-        parent::afterSave();
-    }
-
     public function GetShort($attribute){
         $len = 80;
         if (strlen($this->getAttribute($attribute)) > $len){
@@ -333,7 +324,27 @@ class Name extends HActiveRecord
             $this->middle_names.=$name->value.', ';
         }
         $this->middle_names = rtrim($this->middle_names, ', ');
+    }
 
-        return parent::afterFind();
+    public function reorderSaints()
+    {
+        $res = array();
+        $start = false;
+        foreach($this->nameSaintDates as $saintDate){
+            if ($saintDate->month == date('n') && $saintDate->day > date('j') ||
+                $saintDate->month > date('n')){
+                $start = true;
+            }
+            if ($start)
+                $res [] = $saintDate;
+        }
+
+        foreach($this->nameSaintDates as $saintDate){
+            if ($saintDate->month == $res[0]->month && $saintDate->day == $res[0]->day)
+                break;
+            $res [] = $saintDate;
+        }
+
+        $this->nameSaintDates = $res;
     }
 }

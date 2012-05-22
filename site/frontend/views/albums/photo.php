@@ -82,7 +82,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
     <div class="default-v-nav">
         <div class="title">Мои альбомы </div>
         <ul>
-            <?php foreach($photo->album->author->albums as $album): ?>
+            <?php foreach($photo->album->author->albums('albums:noSystem') as $album): ?>
                 <li<?php echo $photo->album->id == $album->id ? ' class="active"' : ''; ?>>
                     <div class="in">
                         <?php echo CHtml::link($album->title, $album->url); ?>

@@ -298,10 +298,14 @@ class Comment extends HActiveRecord
         }
     }
 
-    public function getUrl()
+    public function getUrl($absolute = false)
     {
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-        return $entity->url;
+        list($route, $params) = $entity->urlParams;
+        $params['#'] = 'comment_' . $this->id;
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
     }
 
     public function isEntityAuthor($user_id)

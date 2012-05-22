@@ -265,7 +265,6 @@ class CommunityController extends HController
 
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
         $model = new CommunityContent('default');
-        $model->author_id = Yii::app()->user->id;
         $model->type_id = $content_type->id;
         $model->rubric_id = $rubric_id;
         $slave_model_name = 'Community' . ucfirst($content_type->slug);
@@ -278,6 +277,7 @@ class CommunityController extends HController
         if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
         {
             $model->attributes = $_POST['CommunityContent'];
+            $model->author_id = $model->by_happy_giraffe ? 1 : Yii::app()->user->id;
             $slave_model->attributes = $_POST[$slave_model_name];
 
             $valid = $model->validate();
@@ -462,6 +462,7 @@ class CommunityController extends HController
             ->from('community__contents')
             ->join('community__rubrics', 'community__contents.rubric_id = community__rubrics.id')
             ->join('community__content_types', 'community__contents.type_id = community__content_types.id')
+            ->where('community__rubrics.community_id IS NOT NULL')
             ->order('community__contents.id ASC')
             ->queryAll();
         foreach ($models as $model)

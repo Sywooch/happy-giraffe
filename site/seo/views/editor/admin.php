@@ -50,4 +50,11 @@
         </table>
     </div>
 </div>
-
+<script type="text/javascript">
+    $(function() {
+        $('#keyword').keypress(function(e){
+            if(e.which == 13)
+                SeoKeywords.searchKeywords($(this).val());
+        });
+    });
+</script>

@@ -97,7 +97,7 @@ Attach.insertToComment = function(val) {
 
 Attach.insertToHumor = function(fsn) {
     $.post(base_url + '/albums/humorPhoto/', {val:fsn}, function(data) {
-        if(data.result == true)
+        if(data)
             $.fancybox.close();
     }, 'json');
 }

@@ -94,20 +94,19 @@ class SiteController extends SController
         $this->redirect(Yii::app()->homeUrl);
     }
 
-    public function actionTest()
+    /*public function actionTest()
     {
-        for($i=0;$i<30000;$i++){
+        $k = 1;
+        for($i=0;$i<2000;$i++){
             $keyword = $this->nextKeyword();
             if ($keyword !== null){
-                $count = Keywords::model()->countByAttributes(array('name'=>$keyword->name));
-                if ($count > 1){
-                    $keywords = Keywords::model()->findAllByAttributes(array('name'=>$keyword->name));
+                $keywords = Keywords::model()->findAllByAttributes(array('name'=>$keyword->name));
                     foreach($keywords as $keyword2)
                         if ($keyword2->id > $keyword->id){
                             $keyword2->delete();
-                            echo $keyword->name.'<br>';
+                            echo $k.'. '.$keyword->name.'<br>';
+                            $k++;
                         }
-                }
             }
             if ($i % 1000 == 0){
                 echo $i.'<br>';
@@ -116,7 +115,7 @@ class SiteController extends SController
         }
     }
 
-    private $i = 0;
+    private $i = 130;
     private $j = 0;
     private $keywords = array();
     private $limit = 100;
@@ -143,5 +142,5 @@ class SiteController extends SController
         $this->i++;
 
         return Keywords::model()->findAll($criteria);
-    }
+    }*/
 }

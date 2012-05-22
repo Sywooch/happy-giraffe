@@ -31,7 +31,7 @@ class Stats extends HActiveRecord
      */
     public function tableName()
     {
-        return 'stats';
+        return 'happy_giraffe_seo.baby_stats__stats';
     }
 
     public function getDbConnection()
@@ -116,6 +116,7 @@ class Stats extends HActiveRecord
 //            $model->value = $this->value;
 //            if (!$model->save())
 //                throw new CHttpException(404, 'Stats not saved');
+
             echo 'Пропущена статистика '.$model->keyword->name.' - '.$model->value.' - '.$this->value.'<br>';
         }else
             if (!$this->save())

@@ -28,7 +28,7 @@ class Site extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'site';
+		return 'happy_giraffe_seo.baby_stats__site';
 	}
 
     public function getDbConnection()

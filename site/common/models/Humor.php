@@ -10,7 +10,7 @@
  * @property string $votes_lol
  * @property string $votes_sad
  */
-class Humor extends CActiveRecord
+class Humor extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -105,5 +105,14 @@ class Humor extends CActiveRecord
                     '0' => 'votes_sad',
                 )),
         );
+    }
+
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        if ($this->isNewRecord) {
+            Yii::app()->cache->set('activityLastUpdated', time());
+        }
     }
 }

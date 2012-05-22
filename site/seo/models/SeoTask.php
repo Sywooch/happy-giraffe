@@ -25,11 +25,14 @@
 class SeoTask extends CActiveRecord
 {
     const STATUS_NEW = 0;
-    const STATUS_TAKEN = 1;
-    const STATUS_WRITTEN = 2;
-    const STATUS_CHECKED = 3;
-    const STATUS_PUBLISHED = 4;
-    const STATUS_CLOSED = 5;
+    const STATUS_READY = 1;
+    const STATUS_TAKEN = 2;
+    const STATUS_WRITTEN = 3;
+    const STATUS_CORRECTING = 4;
+    const STATUS_CORRECTED = 5;
+    const STATUS_PUBLICATION = 6;
+    const STATUS_PUBLISHED = 7;
+    const STATUS_CLOSED = 8;
 
     const TYPE_MODER = 1;
     const TYPE_EDITOR = 2;
@@ -111,6 +114,19 @@ class SeoTask extends CActiveRecord
         );
     }
 
+    public function beforeSave()
+    {
+        if ($this->isNewRecord){
+            $this->status = self::STATUS_NEW;
+        }
+        if ($this->status == self::STATUS_READY){
+            foreach($this->keywordGroup->keywords as $keyword)
+                TempKeywords::model()->deleteAll('keyword_id='.$keyword->id);
+        }
+
+        return parent::beforeSave();
+    }
+
     public function getText()
     {
         $res = '';
@@ -157,16 +173,19 @@ class SeoTask extends CActiveRecord
         if (Yii::app()->user->checkAccess('author')) {
             $criteria->compare('type', SeoTask::TYPE_EDITOR);
             $criteria->compare('executor_id', Yii::app()->user->id);
-            $criteria->compare('status', SeoTask::STATUS_NEW);
+            $criteria->compare('status', SeoTask::STATUS_READY);
             $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
 
         } elseif (Yii::app()->user->checkAccess('moderator')) {
             $criteria->compare('type', SeoTask::TYPE_MODER);
-            $criteria->compare('status', SeoTask::STATUS_NEW);
-
+            $criteria->compare('status', SeoTask::STATUS_READY);
+        } elseif (Yii::app()->user->checkAccess('corrector')) {
+            $criteria->compare('type', SeoTask::TYPE_EDITOR);
+            $criteria->compare('status', SeoTask::STATUS_CORRECTING);
+            $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
         } elseif (Yii::app()->user->checkAccess('content-manager')) {
             $criteria->compare('type', SeoTask::TYPE_EDITOR);
-            $criteria->compare('status', SeoTask::STATUS_CHECKED);
+            $criteria->compare('status', SeoTask::STATUS_PUBLICATION);
             $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
         }
         $criteria->order = 'created DESC';
@@ -180,5 +199,27 @@ class SeoTask extends CActiveRecord
         $criteria->compare('status', SeoTask::STATUS_TAKEN);
         $criteria->compare('executor_id', Yii::app()->user->id);
         return SeoTask::model()->find($criteria);
+    }
+
+    public function getIcon()
+    {
+        if ($this->type == self::TYPE_MODER)
+            echo '<i class="icon-moderator"></i>';
+        else
+            echo '<i class="icon-admin"></i>';
+    }
+
+    public function getStatusText()
+    {
+        switch($this->status){
+            case self::STATUS_READY: return 'Новое';
+            case self::STATUS_TAKEN: return 'Написание';
+            case self::STATUS_WRITTEN: return 'Статья написана';
+            case self::STATUS_CORRECTING: return 'На коррекции';
+            case self::STATUS_CORRECTED: return 'Откорректировано';
+            case self::STATUS_PUBLICATION: return 'На публикации';
+            case self::STATUS_PUBLISHED: return 'Опубликована';
+            case self::STATUS_CLOSED: return 'Выполнено';
+        }
     }
 }

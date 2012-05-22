@@ -38,9 +38,8 @@ class Humor extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('photo_id, votes_rofl, votes_lol, votes_sad', 'required'),
+			array('photo_id', 'required'),
 			array('photo_id, votes_rofl, votes_lol, votes_sad', 'length', 'max'=>11),
-            array('votes_rofl, votes_lol, votes_sad', 'default', 'value' => 0),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, photo_id, votes_rofl, votes_lol, votes_sad', 'safe', 'on'=>'search'),

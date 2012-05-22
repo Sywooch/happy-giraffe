@@ -35,15 +35,17 @@
                     ),
                     'main_selector' => '.options'
                 )); ?>
-                <br/>
-                <br/>
-                <?php
-                    $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                        'model' => new Humor(),
-                    ));
-                    $fileAttach->button();
-                    $this->endWidget();
-                ?>
+                <?php if (Yii::app()->authManager->checkAccess('manageActivity', Yii::app()->user->id)): ?>
+                    <br/>
+                    <br/>
+                    <?php
+                        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                            'model' => new Humor(),
+                        ));
+                        $fileAttach->button();
+                        $this->endWidget();
+                    ?>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
 

@@ -1,34 +1,22 @@
 $(function(){
 
-    $('#activity-photo').jcarousel({wrap: 'circular'});
-
     ffpactive = 0;
-
-    ffwrapper = $('#find-friend-wrapper');
-    ffslide = ffwrapper.find('.slide');
-
-    ffpcount = ffslide.find('ul').size();
-
-    ffslide.width(ffpcount*960);
-
-    ffwrapper.height(ffslide.find('ul').eq(ffpactive).height());
+    ffpcount = $('#find-friend-wrapper').find('ul').size();
 
 })
 
-var ffwrapper;
-var ffslide;
 var ffpcount;
 var ffpactive;
 
+
 function nextFriendsPage(){
 
-    if (!ffslide.is(':animated')){
+    if (!$('#find-friend-wrapper').find('ul').is(':animated')){
 
         ffpcount == ffpactive+1 ? ffpactive = 0 : ffpactive++;
 
-        ffslide.animate({left: -(ffpactive*960)}, 600, 'linear')
-
-        ffwrapper.height(ffslide.find('ul').eq(ffpactive).height());
+        $('#find-friend-wrapper').find('ul').eq(ffpactive).fadeIn();
+        $('#find-friend-wrapper').find('ul').not(':eq('+ffpactive+')').hide();
 
     }
 

@@ -6,11 +6,6 @@
 var SeoModule = {
     group:new Array(),
     id:null,
-    /*searchKeywords:function (term) {
-        $.post('/task/searchKeywords/', {term:term}, function (response) {
-            $('.keywords .result').html(response);
-        });
-    },*/
     addToGroup:function (el) {
         var id = this.getId($(el).parent());
         SeoModule.group.push(id);
@@ -22,37 +17,6 @@ var SeoModule = {
     },
     getId:function (el) {
         return el.attr("id").replace(/[a-zA-Z]*-/ig, "");
-    },
-    addGroup:function (type, author_id, rewrite) {
-        var urls = new Array();
-        if (rewrite == 1){
-            $('.urls input').each(function(index, val){
-                if ($(this).val() != '')
-                    urls.push($(this).val());
-            });
-        }
-        $.post('/task/addGroupTask/', {id:this.group,
-            type:type,
-            author_id:author_id,
-            urls:urls,
-            rewrite:rewrite
-        }, function (response) {
-            if (response.status) {
-                $('.keyword_group').html('');
-                for (var key in SeoModule.group)
-                    $('#keyword-' + SeoModule.group[key]).remove();
-
-                SeoModule.group = new Array();
-            }
-        }, 'json');
-        return false;
-    },
-    setTask:function (id, type, callback) {
-        $.post('/task/setTask/', {id:id, type:type}, function (response) {
-            if (response.status) {
-                callback();
-            }
-        }, 'json');
     },
     GetArticleInfo:function () {
         var url = $('input.article-url').val();
@@ -115,9 +79,5 @@ var SeoModule = {
     },
     reloadTask:function(id){
 
-    },
-    hideUsed:function(el){
-        $.post('/task/hideUsed/', {checked:$(el).attr('checked')}, function (response) {
-        }, 'json');
     }
 }

@@ -1,24 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "cook__ingredients_nutritionals".
+ * This is the model class for table "keyword_blacklist".
  *
- * The followings are the available columns in table 'cook__ingredients_nutritionals':
- * @property string $id
- * @property string $ingredient_id
- * @property string $nutritional_id
- * @property string $value
+ * The followings are the available columns in table 'keyword_blacklist':
+ * @property integer $keyword_id
  *
  * The followings are the available model relations:
- * @property CookNutritionals $nutritional
- * @property CookIngredients $ingredient
+ * @property Keywords $keyword
  */
-class CookIngredientsNutritionals extends CActiveRecord
+class KeywordBlacklist extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return CookIngredientsNutritionals the static model class
+	 * @return KeywordBlacklist the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -30,8 +26,12 @@ class CookIngredientsNutritionals extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'cook__ingredients_nutritionals';
+		return 'happy_giraffe_seo.keyword_blacklist';
 	}
+
+    public function getDbConnection(){
+        return Yii::app()->db_seo;
+    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -41,13 +41,11 @@ class CookIngredientsNutritionals extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ingredient_id, nutritional_id, value', 'required'),
-			array('ingredient_id, nutritional_id', 'length', 'max'=>11),
-            array('ingredient_id, nutritional_id, value', 'numerical', 'allowEmpty'=>false),
-			array('value', 'length', 'max'=>10),
+			array('keyword_id', 'required'),
+			array('keyword_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, ingredient_id, nutritional_id, value', 'safe', 'on'=>'search'),
+			array('keyword_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,8 +57,7 @@ class CookIngredientsNutritionals extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'nutritional' => array(self::BELONGS_TO, 'CookNutritionals', 'nutritional_id'),
-			'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
+			'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
 		);
 	}
 
@@ -70,10 +67,7 @@ class CookIngredientsNutritionals extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'ingredient_id' => 'Ингредиент',
-			'nutritional_id' => 'Составляющая',
-			'value' => 'Значение',
+			'keyword_id' => 'Keyword',
 		);
 	}
 
@@ -88,10 +82,7 @@ class CookIngredientsNutritionals extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('ingredient_id',$this->ingredient_id,true);
-		$criteria->compare('nutritional_id',$this->nutritional_id,true);
-		$criteria->compare('value',$this->value,true);
+		$criteria->compare('keyword_id',$this->keyword_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

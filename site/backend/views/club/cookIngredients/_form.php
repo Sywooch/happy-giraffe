@@ -6,8 +6,6 @@
     'enableAjaxValidation' => false,
 )); ?>
 
-    <p class="note">Поля с <span class="required">*</span> обязательны.</p>
-
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
@@ -49,10 +47,13 @@
 
     <?php $this->endWidget(); ?>
 
-    <?php
-    if (!$model->isNewRecord) {
-        $this->renderPartial('_form_nutritionals', array('model' => $model));
-    }
-    ?>
+    <div>
+        <?php
+        if (!$model->isNewRecord) {
+            $this->renderPartial('_form_nutritionals', array('model' => $model));
+            $this->renderPartial('_form_synonyms', array('model' => $model));
+        }
+        ?>
+    </div>
 
 </div><!-- form -->

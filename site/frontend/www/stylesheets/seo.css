@@ -86,7 +86,7 @@ a:hover {text-decoration:none;}
 
 #seo .seo-table {}
 
-#seo .seo-table .table-title {display:inline-block;margin-right:30px;font-size:25px;margin-bottom:20px;}
+#seo .seo-table .table-title {display:inline-block;margin-right:30px;font-size:25px;margin-bottom:20px;margin-left:20px;}
 
 #seo .seo-table .table-nav {display:inline-block;margin-bottom:20px;overflow:hidden;}
 #seo .seo-table .table-nav ul {}
@@ -114,10 +114,18 @@ a:hover {text-decoration:none;}
 #seo .seo-table .table-box table .col-1 {text-align:center;}
 #seo .seo-table .table-box table tbody .col-1 {font-weight:bold;}
 
+#seo .seo-table .table-box tr:hover td {background:#f2f8fe;}
+
+#seo .seo-table .table-box table .al {text-align:left;}
+#seo .seo-table .table-box table .ac {text-align:center;}
+
+#seo .seo-table .table-box .date {display:block;font-size:11px;color:#ad76df;margin-bottom:5px;}
+
+
 #seo .table-result {}
 #seo .table-result .table-box table td, #seo .table-result .table-box table th {text-align:center;}
 #seo .table-result .table-box table .col-1 {font-weight:normal !important;text-align:left;}
-#seo .table-result .table-box tr:hover td {background:#f2f8fe;}
+
 #seo .table-result .table-box tr.on-site td {background:#f1e4fd;}
 #seo .table-result .table-box tr.in-work td {background:#dafacc;}
 #seo .table-result .table-box tr.in-buffer td {background:#e1efff;}
@@ -126,7 +134,7 @@ a:hover {text-decoration:none;}
 #seo .table-tasks .table-box table  td, #seo .table-tasks .table-box table  th {text-align:center;}
 #seo .table-tasks .table-box table  td.col-1, #seo .table-tasks .table-box table  th.col-1 {text-align:left;vertical-align:middle;font-weight:normal;}
 #seo .table-tasks .table-box table  th.col-1 {padding-left:35px;}
-#seo .table-tasks .table-box table  tr:hover td {background:#f2f8fe;}
+
 
 #seo .tasks-manager {float:right;width:406px;padding:30px 2px;border:1px dashed #cbcaca;margin-top:45px;margin-bottom:50px;}
 #seo .tasks-manager {/*css3*/ -webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;}
@@ -156,14 +164,28 @@ a:hover {text-decoration:none;}
 #seo .current-tasks {width:700px;margin:0 auto;}
 
 #seo .table-report .table-box tbody td, #seo .table-report .table-box tbody th {vertical-align:middle;text-align:center;}
-#seo .table-report .table-box table .al {text-align:left;}
 
-#seo .table-report td.seo-status-new-1 {background:#bfecfe;}
-#seo .table-report td.seo-status-new-2 {background:#8ddefe;}
+#seo input[type=text].placing {padding:0px 9px;overflow:auto;width:300px;border:1px solid #d8c7ea;font-size:13px;background:#fff;vertical-align:middle;color:#2881d4;height:20px;}
 
-#seo .table-report td.seo-status-correction-1 {background:#fee1c8;}
-#seo .table-report td.seo-status-correction-2 {background:#ffcda2;}
+#seo .table-report td.seo-status-new-1 {background:#bfecfe !important;}
+#seo .table-report td.seo-status-new-2 {background:#8ddefe !important;}
 
-#seo .table-report td.seo-status-publish-1 {background:#fff9d4;}
-#seo .table-report td.seo-status-publish-2 {background:#fcf1ad;}
+#seo .table-report td.seo-status-correction-1 {background:#fee1c8 !important;}
+#seo .table-report td.seo-status-correction-2 {background:#ffcda2 !important;}
 
+#seo .table-report td.seo-status-publish-1 {background:#fff9d4 !important;}
+#seo .table-report td.seo-status-publish-2 {background:#fcf1ad !important;}
+
+#seo .table-report td.seo-status-check-1 {background:#e0fcd4 !important;}
+#seo .table-report td.seo-status-check-2 {background:#baeaa5 !important;}
+
+#seo .table-report td.seo-status-author-1 {background:#eefde7 !important;}
+#seo .table-report td.seo-status-author-2 {background:#d0f5bf !important;}
+#seo .table-report td.seo-status-author-3 {background:#abe391 !important;}
+#seo .table-report td.seo-status-author-4 {background:#88d265 !important;}
+
+
+#seo .article-ready {margin-top:30px;}
+#seo .article-ready .block-title {color:#505050;font-size:18px;margin-bottom:10px;line-height:1;margin-left:10px;}
+#seo .article-ready input[type=text] {padding:5px 9px;overflow:auto;width:320px;border:1px solid #d8c7ea;font-size:13px;background:#fff;vertical-align:middle;margin-right:10px;color:#2881d4;}
+#seo .article-ready .text {display:inline-block;width:50%;color:#505050;font-size:18px;margin-bottom:10px;margin-left:10px;vertical-align:middle;}

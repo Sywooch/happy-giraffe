@@ -15,11 +15,11 @@ class ParseController extends SController
         $site_id = 1;
         $year = 2012;
 
-        $cookie = 'session=085Tia1wNMhf; suid=0HL2kG3LzWGy; per_page=100; total=yes; adv-uid=fdae6f.bb2af5.e2d520';
+        $cookie = 'session=085XhH043Ro1; suid=0HL2kG3LzWGy; per_page=100; total=yes; adv-uid=fdae6f.bb2af5.e2d520';
         $site = 'blog.mosmedclinic.ru';
         ob_start();
 
-        for ($month = 5; $month > 4; $month--) {
+        for ($month = 5; $month > 0; $month--) {
             $url = 'http://www.liveinternet.ru/stat/' . $site . '/queries.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
 
             $ch = curl_init();

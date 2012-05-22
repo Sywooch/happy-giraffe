@@ -68,14 +68,6 @@ class KeywordGroup extends CActiveRecord
         );
     }
 
-    public function afterSave()
-    {
-        foreach($this->keywords as $keyword)
-            TempKeywords::model()->deleteAll('keyword_id='.$keyword->id);
-
-        parent::afterSave();
-    }
-
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

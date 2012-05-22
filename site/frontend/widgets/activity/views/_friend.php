@@ -1,6 +1,6 @@
 <li>
     <div class="clearfix">
-        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $f, 'location' => false)); ?>
+        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $f, 'location' => false, 'friendButton' => true)); ?>
     </div>
     <div class="info">
         <p>

@@ -51,7 +51,9 @@ HGoogleMap.prototype.create = function (map_id, address) {
     this.map = new google.maps.Map(document.getElementById(map_id), {
         center:new google.maps.LatLng(0, 0),
         zoom:8,
-        mapTypeId:google.maps.MapTypeId.ROADMAP
+        mapTypeId:google.maps.MapTypeId.ROADMAP,
+        mapTypeControl:false,
+        streetViewControl:false
     });
     var $this = this;
 

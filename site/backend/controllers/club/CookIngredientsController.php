@@ -20,7 +20,7 @@ class CookIngredientsController extends BController
         if (isset($_POST['CookIngredients'])) {
             $model->attributes = $_POST['CookIngredients'];
             if ($model->save())
-                $this->redirect(array('admin'));
+                $this->redirect(array('update', 'id' => $model->id));
         }
 
         $this->render('create', array(
@@ -35,10 +35,9 @@ class CookIngredientsController extends BController
      */
     public function actionUpdate($id)
     {
-
-        /*$basePath = Yii::getPathOfAlias('club/cookIngredients') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'assets';
+        $basePath = Yii::getPathOfAlias('application.views.club.cookIngredients.assets');
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);*/
+        Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 
         $model = $this->loadModel($id);
 
@@ -75,6 +74,13 @@ class CookIngredientsController extends BController
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
+    /**
+     *
+     * Delete nutritional from ingredient
+     *
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionUnlinkNutritional($id)
     {
         if (Yii::app()->request->isPostRequest) {
@@ -83,7 +89,63 @@ class CookIngredientsController extends BController
 
             $link->delete();
 
-            $this->renderPartial('_form_nutritionals', array('model' => $model));
+            $this->renderPartial('_form_nutritionals_list', array('model' => $model));
+        }
+        else
+            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+    }
+
+    /**
+     *  Add Nutritional with value to ingredient
+     */
+    public function actionLinkNutritional()
+    {
+        $link = new CookIngredientsNutritionals();
+        if (isset($_POST['ajax']) && $_POST['ajax'] == 'cook-ingredients-nutritionals-create-form') {
+            $link->attributes = $_POST['CookIngredientsNutritionals'];
+            echo CActiveForm::validate($link);
+            Yii::app()->end();
+        } elseif (isset($_POST['CookIngredientsNutritionals'])) {
+            $link->attributes = $_POST['CookIngredientsNutritionals'];
+            $link->save();
+            $model = $this->loadModel($link->ingredient_id);
+            $this->renderPartial('_form_nutritionals_list', array('model' => $model));
+        }
+    }
+
+    /**
+     *    Create synonym of an ingredient
+     */
+    public function actionCreateSynonym()
+    {
+        $synonym = new CookIngredientSynonyms();
+        if (isset($_POST['ajax']) && $_POST['ajax'] == 'cook-ingredients-synonyms-create-form') {
+            $synonym->attributes = $_POST['CookIngredientSynonyms'];
+            echo CActiveForm::validate($synonym);
+            Yii::app()->end();
+        } elseif (isset($_POST['CookIngredientSynonyms'])) {
+            $synonym->attributes = $_POST['CookIngredientSynonyms'];
+            $synonym->save();
+            $model = $this->loadModel($synonym->ingredient_id);
+            $this->renderPartial('_form_synonyms_list', array('model' => $model));
+        }
+    }
+
+    /**
+     * Delete Synonym
+     *
+     * @param $id
+     * @throws CHttpException
+     */
+    public function actionDeleteSynonym($id)
+    {
+        if (Yii::app()->request->isPostRequest) {
+            $synonym = CookIngredientSynonyms::model()->findByPk((int)$id);
+            $model = $this->loadModel($synonym->ingredient_id);
+
+            $synonym->delete();
+
+            $this->renderPartial('_form_synonyms_list', array('model' => $model));
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');

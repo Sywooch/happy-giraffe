@@ -49,7 +49,7 @@ class ExistArticlesController extends SController
             foreach ($keywords as $keyword) {
                 $keyword = trim($keyword);
                 if (!empty($keyword)) {
-                    $model = Keywords::GetKeywordForExist($keyword);
+                    $model = Keywords::GetKeyword($keyword);
                     $keyword_models[] = $model;
                 }
             }

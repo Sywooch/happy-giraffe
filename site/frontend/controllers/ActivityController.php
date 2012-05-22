@@ -35,6 +35,7 @@ class ActivityController extends HController
 
     public function actionTest()
     {
-        UserAttributes::del(1, 'fuck');
+        var_dump(UserAttributes::get(Yii::app()->user->id, 'activityLastVisited'));
+        var_dump(Yii::app()->cache->get('activityLastUpdated'))
     }
 }

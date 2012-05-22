@@ -10,8 +10,7 @@ Yii::app()->clientScript->registerScript('register_google_map-'.$map_id,$js);*/
 ?>
 <script type="text/javascript">
     $(function() {
-        HMap.map_id = "<?= $map_id ?>";
-        HMap.address = "<?= $this->user->getUserAddress()->getLocationString() ?>";
-        HMap.initGoogleMap();
+        var map = new HGoogleMap();
+        map.create("<?= $map_id ?>", "<?= $this->user->getUserAddress()->getLocationString() ?>");
     });
 </script>

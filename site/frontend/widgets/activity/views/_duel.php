@@ -44,7 +44,7 @@
                                 <?php if (! $question->getCanVote(Yii::app()->user->id) || ($answers[0]->getCurrentVote(Yii::app()->user->id) !== null || $answers[1]->getCurrentVote(Yii::app()->user->id) !== null)): ?>
                                     <a class="active" disabled="disabled">Голосовать</a>
                                 <?php else: ?>
-                                    <a href="javascript:;" onclick="Duel.vote(this, <?=$answers[0]->id?>);">Голосовать</a>
+                                    <a href="javascript:;" onclick="Duel.vote(this, <?=$answers[$i]->id?>);">Голосовать</a>
                                 <?php endif; ?>
                             </div>
                         <?php endif; ?>

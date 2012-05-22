@@ -11,7 +11,7 @@
             $class = 'ava';
             if ($this->user->gender !== null) $class .= ' ' . (($this->user->gender) ? 'male' : 'female');
         ?>
-        <?=CHtml::link(CHtml::image($this->user->getAva('small')), $this->user->url, array('class' => $class))?>
+        <?=CHtml::link(CHtml::image($this->user->ava), $this->user->url, array('class' => $class))?>
         <div class="in">
             <span class="tale"></span>
             <?php if ($this->myAnswer->votes < $this->opponentAnswer->votes): ?>

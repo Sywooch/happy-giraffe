@@ -2251,7 +2251,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-popular ul li .meta .views {background:#fdfccc;color:#737575;}
 
 #activity .activity-video {margin-bottom:30px;}
-#activity .activity-video .preview {position:relative;width:460px;cursor:pointer;display:block;}
+#activity .activity-video .preview {position:relative;width:460px;cursor:pointer;display:block;text-decoration:none;}
 #activity .activity-video .preview img {max-width:460px;display:block;}
 #activity .activity-video .preview .title {position:absolute;top:13px;left:0;color:#fff;background:rgba(148, 101, 191, .8);font-size:33px;font-weight:bold;line-height:1;padding:10px 20px;}
 #activity .activity-video .preview .title span {font-size:41px;}

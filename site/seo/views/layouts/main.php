@@ -65,14 +65,14 @@
                 <?php if (Yii::app()->user->checkAccess('editor')):?>
                 <ul>
                     <li<?php if (Yii::app()->controller->action->id == 'index' ) echo ' class="active"' ?>>
-                        <a href="<?=$this->createUrl('task/index') ?>">Ключевые слова или фразы</a><span class="tale"><img src="/images/default_nav_active.gif"></span></li>
+                        <a href="<?=$this->createUrl('editor/index') ?>">Ключевые слова или фразы</a><span class="tale"><img src="/images/default_nav_active.gif"></span></li>
                     <li<?php if (Yii::app()->controller->action->id == 'tasks' ) echo ' class="active"' ?>>
-                        <a href="<?=$this->createUrl('task/tasks') ?>">Раздача заданий</a>
+                        <a href="<?=$this->createUrl('editor/tasks') ?>">Раздача заданий</a>
                         <span class="tale"><img src="/images/default_nav_active.gif"></span>
-                        <div class="count"><a href=""><?=TempKeywords::model()->count('owner_id='.Yii::app()->user->id) ?></a></div>
+                        <div class="count"><a href="<?=$this->createUrl('editor/tasks') ?>"><?=TempKeywords::model()->count('owner_id='.Yii::app()->user->id) ?></a></div>
                     </li>
                     <li<?php if (Yii::app()->controller->action->id == 'history' ) echo ' class="active"' ?>>
-                        <a href="<?=$this->createUrl('task/index') ?>">Отчеты</a></li>
+                        <a href="<?=$this->createUrl('editor/reports') ?>">Отчеты</a></li>
                 </ul>
                 <?php endif ?>
 
@@ -86,7 +86,7 @@
 
             </div>
             <div class="title">
-                <span>SEO-<span>жираф</span></span> &nbsp; ГОТОВОЕ
+                <span>SEO-<span>жираф</span></span> &nbsp; <?= $this->pageTitle ?>
             </div>
         </div>
 

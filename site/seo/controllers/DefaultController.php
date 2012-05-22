@@ -24,12 +24,11 @@ class DefaultController extends SController
 
     public function actionCalc()
     {
-        $site_id = 3;
+        $site_id = 1;
         $year = 2012;
         $criteria = new CDbCriteria;
         $criteria->compare('site_id', $site_id);
         $criteria->compare('year', $year);
-        $criteria->compare('month >', 2);
         $stats = Stats::model()->findAll($criteria);
         foreach ($stats as $stat) {
             $key_stat = KeyStats::model()->find('site_id = ' . $site_id . ' AND keyword_id = ' . $stat->keyword_id . ' AND year = ' . $year);

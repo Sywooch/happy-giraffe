@@ -5,6 +5,8 @@
  */
 class SController extends CController
 {
+    public $pageTitle = '';
+
     public function filters()
     {
         return array(

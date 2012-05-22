@@ -295,9 +295,9 @@ class AlbumsController extends HController
         $model->author_id = Yii::app()->user->id;
         $model->create(true);
 
-        /* TODO your code */
-
-        echo CJSON::encode(array('result' => 'true'));
+        $humor = new Humor;
+        $humor->photo_id = $model->id;
+        echo $humor->save();
     }
 
     public function actionCommentPhoto()

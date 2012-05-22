@@ -921,4 +921,15 @@ class User extends HActiveRecord
         $command->bindValue(':user_id', $this->id, PDO::PARAM_INT);
         return $command->queryScalar() == 0;
     }
+
+    public function getActivityUpdated()
+    {
+        if (UserAttributes::get($this->id, 'activityLastVisited') === false) {
+            return true;
+        } elseif (($activityLastUpdated = Yii::app()->cache->get('activityLastUpdated')) === false) {
+            return false;
+        } else {
+            return $activityLastUpdated > UserAttributes::get($this->id, 'activityLastVisited');
+        }
+    }
 }

@@ -239,6 +239,8 @@ class AlbumPhoto extends HActiveRecord
      *
      * @param int $width
      * @param int $height
+     * @param bool/string $master
+     * @param bool $crop
      *
      * @return string
      */

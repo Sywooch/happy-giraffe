@@ -41,7 +41,7 @@ class CookIngredientSynonyms extends CActiveRecord
 		return array(
 			array('ingredient_id, title', 'required'),
 			array('ingredient_id', 'length', 'max'=>11),
-			array('title', 'length', 'max'=>255),
+			//array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, ingredient_id, title', 'safe', 'on'=>'search'),

@@ -16,11 +16,11 @@ a {color:#029AD2;}
 a:hover {text-decoration:none;}
 
 
-.btn-green {display:inline-block;text-decoration:none;height:41px;line-height:38px;border:1px solid #34ac51;background:url(/images/seo_sprite.png) repeat-x 0 -195px;color:#fff;font-weight:bold;padding:0 15px;font-size:25px;vertical-align:middle;}
+.btn-green {display:inline-block;text-decoration:none;height:41px;line-height:38px;border:1px solid #34ac51;background:url(/images/seo_sprite.png) repeat-x 0 -195px;color:#fff;font-weight:bold;padding:0 15px;font-size:25px;vertical-align:middle;cursor:pointer:}
 button.btn-green {height:43px;}
 .btn-green {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;}
 
-.btn-green-small {display:inline-block;text-decoration:none;height:18px;line-height:16px;border:1px solid #34ac51;background:url(/images/seo_sprite.png) repeat-x 0 -238px;color:#fff;font-weight:bold;padding:0 10px;font-size:11px;vertical-align:middle;}
+.btn-green-small {display:inline-block;text-decoration:none;height:18px;line-height:16px;border:1px solid #34ac51;background:url(/images/seo_sprite.png) repeat-x 0 -238px;color:#fff;font-weight:bold;padding:0 10px;font-size:11px;vertical-align:middle;cursor:pointer:}
 button.btn-green-small {height:20px;}
 .btn-green-small {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;}
 
@@ -52,6 +52,7 @@ button.btn-green-small {height:20px;}
 #seo .title span span {font-size:30px;color:#a481c8;}
 #seo .title .img {display:block;width:39px;height:73px;background:url(/images/seo_sprite.png) no-repeat -1px -120px;position:absolute;left:15px;top:0;z-index:-1;}
 
+.default-nav {position:relative;z-index:2}
 .default-nav ul {overflow:hidden;list-style:none;}
 .default-nav ul li {display:inline-block;padding:0 10px 15px;height:24px;line-height:24px;width:70px;text-align:center;position:relative;}
 .default-nav ul li a {height:16px;line-height:16px;display:inline-block;color:#029ad2;margin:4px 0;}

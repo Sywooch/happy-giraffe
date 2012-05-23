@@ -5,15 +5,11 @@
  */
 class EditorController extends SController
 {
+    public $pageTitle = 'Копирайт';
+
     public function actionIndex()
     {
-        $model = new Keywords('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Keywords']))
-            $model->attributes = $_GET['Keywords'];
-        if (empty($model->name))
-            $model->name = 'поисковый запрос';
-
+        $model = new Keywords();
         $this->render('admin', array(
             'model' => $model,
         ));
@@ -31,14 +27,14 @@ class EditorController extends SController
 
     public function actionTasks()
     {
-        $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status < 5 AND rewrite = 0');
+        //$tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status < 5 AND rewrite = 0');
+        //$success_tasks = SeoTask::TodayExecutedTasks();
         $tempKeywords = TempKeywords::model()->findAll('owner_id');
-        $success_tasks = SeoTask::TodayExecutedTasks();
+        $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status = 0');
 
         $this->render('editor_panel', array(
             'tasks' => $tasks,
             'tempKeywords' => $tempKeywords,
-            'success_tasks' => $success_tasks
         ));
     }
 
@@ -67,7 +63,7 @@ class EditorController extends SController
                 ->limit(0, 100000)
                 ->searchRaw();
             $ids = array();
-            $blacklist = Yii::app()->db->createCommand('select keyword_id from '.KeywordBlacklist::model()->tableName())->queryColumn();
+            $blacklist = Yii::app()->db->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
 
             foreach ($allSearch['matches'] as $key => $m) {
                 if (!in_array($key, $blacklist))
@@ -94,19 +90,24 @@ class EditorController extends SController
     public function actionSelectKeyword()
     {
         $key_id = Yii::app()->request->getPost('id');
-        $temp = new TempKeywords;
-        $temp->keyword_id = $key_id;
-        $temp->owner_id = Yii::app()->user->id;
-        echo CJSON::encode(array('status' => $temp->save()));
+        if (!TempKeywords::model()->exists('keyword_id=' . $key_id)) {
+            $temp = new TempKeywords;
+            $temp->keyword_id = $key_id;
+            $temp->owner_id = Yii::app()->user->id;
+            echo CJSON::encode(array('status' => $temp->save()));
+        } else
+            echo CJSON::encode(array('status' => false));
     }
 
-    public function actionCancelSelectKeyword(){
+    public function actionCancelSelectKeyword()
+    {
         $key_id = Yii::app()->request->getPost('id');
         TempKeywords::model()->deleteByPk($key_id);
         echo CJSON::encode(array('status' => true));
     }
 
-    public function actionHideKey(){
+    public function actionHideKey()
+    {
         $key_id = Yii::app()->request->getPost('id');
         $key = new KeywordBlacklist();
         $key->keyword_id = $key_id;
@@ -129,7 +130,6 @@ class EditorController extends SController
             $task = new SeoTask();
             $task->keyword_group_id = $group->id;
             $task->type = $type;
-            $task->status = SeoTask::STATUS_NEW;
             $task->owner_id = Yii::app()->user->id;
 
             if ($type == SeoTask::TYPE_EDITOR)
@@ -137,22 +137,29 @@ class EditorController extends SController
             if ($rewrite)
                 $task->rewrite = 1;
 
-            $response = array('status' => $task->save());
-            if (!empty($urls) && $response['status']) {
-                foreach ($urls as $url) {
-                    $r_url = new RewriteUrl();
-                    $r_url->task_id = $task->id;
-                    $r_url->url = $url;
-                    $r_url->save();
+            if ($task->save()) {
+                if (!empty($urls)) {
+                    foreach ($urls as $url) {
+                        $r_url = new RewriteUrl();
+                        $r_url->task_id = $task->id;
+                        $r_url->url = $url;
+                        $r_url->save();
+                    }
                 }
+                $response = array(
+                    'status' => true,
+                    'html' => $this->renderPartial('_distrib_task', array('task' => $task), true)
+                );
             }
+            else
+                $response = array('status' => false);
         } else
             $response = array('status' => false);
 
         echo CJSON::encode($response);
     }
 
-/*    public function actionGetArticleInfo()
+    /*    public function actionGetArticleInfo()
     {
         $url = Yii::app()->request->getPost('url');
         preg_match("/\/([\d]+)\/$/", $url, $match);
@@ -190,6 +197,53 @@ class EditorController extends SController
         }
         else
             echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionRemoveFromSelected()
+    {
+        $key_id = Yii::app()->request->getPost('id');
+        TempKeywords::model()->deleteByPk($key_id);
+        echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionRemoveTask()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $withKeys = Yii::app()->request->getPost('withKeys');
+        $task = SeoTask::model()->findByPk($id);
+        $group = $task->keywordGroup;
+        $keywords = $task->keywordGroup->keywords;
+        $task->delete();
+        $group->delete();
+
+        $keys = array();
+        foreach ($keywords as $keyword) {
+            $keys [] = $keyword->id;
+            if ($withKeys)
+                TempKeywords::model()->deleteAll('keyword_id=' . $keyword->id);
+        }
+
+        echo CJSON::encode(array('status' => true, 'keys' => $keys));
+    }
+
+    public function actionReady()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $task = $this->loadTask($id);
+        $task->status = SeoTask::STATUS_READY;
+
+        echo CJSON::encode(array('status' => $task->save()));
+    }
+
+    public function actionReports(){
+        $criteria = new CDbCriteria;
+        $criteria->compare('owner_id', Yii::app()->user->id);
+        $criteria->compare('status >', SeoTask::STATUS_NEW);
+        $tasks = SeoTask::model()->findAll($criteria);
+
+        $this->render('reports', array(
+            'tasks' => $tasks,
+        ));
     }
 
     /**

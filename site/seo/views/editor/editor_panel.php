@@ -76,7 +76,6 @@
 
         $('.tasks-manager').droppable({
             drop:function (event, ui) {
-                //ui.draggable.parents('tr').hide();
                 TaskDistribution.addToGroup(ui.draggable);
             }
         });

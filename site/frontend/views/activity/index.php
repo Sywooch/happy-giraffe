@@ -18,7 +18,7 @@
 
         <div class="col-1">
 
-            <?php $this->widget('LiveWidget'); ?>
+            <?php //$this->widget('LiveWidget'); ?>
 
             <?php $this->widget('WantToChatWidget'); ?>
 
@@ -49,7 +49,7 @@
                 <div class="col-3">
 
                     <?php $this->widget('TopFiveWidget'); ?>
-                    <?php $this->widget('PopularWidget'); ?>
+                    <?php //$this->widget('PopularWidget'); ?>
 
                 </div>
 

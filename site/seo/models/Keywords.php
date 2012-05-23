@@ -190,7 +190,7 @@ class Keywords extends HActiveRecord
     public function getStats($site_id){
         foreach($this->seoStats as $stats){
             if ($stats->site_id == $site_id)
-                return ($stats->sum/12);
+                return round($stats->sum/12);
         }
 
         return 0;

@@ -5,6 +5,8 @@
  */
 class ExistArticlesController extends SController
 {
+    public $pageTitle = 'ГОТОВОЕ';
+
     public function beforeAction($action)
     {
         if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('articles-input'))

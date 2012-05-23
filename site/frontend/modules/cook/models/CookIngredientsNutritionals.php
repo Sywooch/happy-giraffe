@@ -43,6 +43,7 @@ class CookIngredientsNutritionals extends CActiveRecord
 		return array(
 			array('ingredient_id, nutritional_id, value', 'required'),
 			array('ingredient_id, nutritional_id', 'length', 'max'=>11),
+            array('ingredient_id, nutritional_id, value', 'numerical', 'allowEmpty'=>false),
 			array('value', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -70,9 +71,9 @@ class CookIngredientsNutritionals extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'ingredient_id' => 'Ingredient',
-			'nutritional_id' => 'Nutritional',
-			'value' => 'Value',
+			'ingredient_id' => 'Ингредиент',
+			'nutritional_id' => 'Составляющая',
+			'value' => 'Значение',
 		);
 	}
 

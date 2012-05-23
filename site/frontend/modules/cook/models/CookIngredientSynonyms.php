@@ -1,22 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "site".
+ * This is the model class for table "cook__ingredient_synonyms".
  *
- * The followings are the available columns in table 'site':
- * @property integer $id
- * @property string $name
- * @property integer $url
+ * The followings are the available columns in table 'cook__ingredient_synonyms':
+ * @property string $id
+ * @property string $ingredient_id
+ * @property string $title
  *
  * The followings are the available model relations:
- * @property KeyStats[] $seoKeyStats
+ * @property CookIngredients $ingredient
  */
-class Site extends HActiveRecord
+class CookIngredientSynonyms extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Site the static model class
+	 * @return CookIngredientSynonyms the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,13 +28,8 @@ class Site extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'happy_giraffe_seo.baby_stats__site';
+		return 'cook__ingredient_synonyms';
 	}
-
-    public function getDbConnection()
-    {
-        return Yii::app()->db_seo;
-    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -44,12 +39,12 @@ class Site extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('url', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>255),
+			array('ingredient_id, title', 'required'),
+			array('ingredient_id', 'length', 'max'=>11),
+			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, url', 'safe', 'on'=>'search'),
+			array('id, ingredient_id, title', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,7 +56,7 @@ class Site extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'seoKeyStats' => array(self::HAS_MANY, 'KeyStats', 'site_id'),
+			'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
 		);
 	}
 
@@ -72,8 +67,8 @@ class Site extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'url' => 'Url',
+			'ingredient_id' => 'Ингредиент',
+			'title' => 'Название',
 		);
 	}
 
@@ -88,9 +83,9 @@ class Site extends HActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('url',$this->url);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('ingredient_id',$this->ingredient_id,true);
+		$criteria->compare('title',$this->title,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

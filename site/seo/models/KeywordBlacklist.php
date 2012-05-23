@@ -1,22 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "site".
+ * This is the model class for table "keyword_blacklist".
  *
- * The followings are the available columns in table 'site':
- * @property integer $id
- * @property string $name
- * @property integer $url
+ * The followings are the available columns in table 'keyword_blacklist':
+ * @property integer $keyword_id
  *
  * The followings are the available model relations:
- * @property KeyStats[] $seoKeyStats
+ * @property Keywords $keyword
  */
-class Site extends HActiveRecord
+class KeywordBlacklist extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Site the static model class
+	 * @return KeywordBlacklist the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,11 +26,10 @@ class Site extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'happy_giraffe_seo.baby_stats__site';
+		return 'happy_giraffe_seo.keyword_blacklist';
 	}
 
-    public function getDbConnection()
-    {
+    public function getDbConnection(){
         return Yii::app()->db_seo;
     }
 
@@ -44,12 +41,11 @@ class Site extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('url', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>255),
+			array('keyword_id', 'required'),
+			array('keyword_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, url', 'safe', 'on'=>'search'),
+			array('keyword_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,7 +57,7 @@ class Site extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'seoKeyStats' => array(self::HAS_MANY, 'KeyStats', 'site_id'),
+			'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
 		);
 	}
 
@@ -71,9 +67,7 @@ class Site extends HActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'url' => 'Url',
+			'keyword_id' => 'Keyword',
 		);
 	}
 
@@ -88,9 +82,7 @@ class Site extends HActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('url',$this->url);
+		$criteria->compare('keyword_id',$this->keyword_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

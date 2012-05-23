@@ -24,7 +24,37 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . Yii::app()->dateFormatter->format('d MMMM', strtotime($date));
+        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на сегодня';
+        $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
+        $this->pageTitle = $this->title;
+
+        $this->render('date', compact('model'));
+    }
+
+    public function actionYesterday($zodiac){
+        $date = date("Y-m-d", strtotime('-1 day'));
+
+        $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
+        $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на вчера';
+        $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
+        $this->pageTitle = $this->title;
+
+        $this->render('date', compact('model'));
+    }
+
+    public function actionTomorrow($zodiac){
+        $date = date("Y-m-d", strtotime('+1 day'));
+
+        $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
+        $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на завтра';
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
         $this->pageTitle = $this->title;
 

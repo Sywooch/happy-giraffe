@@ -10,7 +10,7 @@
  * @property string $votes_lol
  * @property string $votes_sad
  */
-class Humor extends CActiveRecord
+class Humor extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -38,7 +38,7 @@ class Humor extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('photo_id, votes_rofl, votes_lol, votes_sad', 'required'),
+			array('photo_id', 'required'),
 			array('photo_id, votes_rofl, votes_lol, votes_sad', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -105,5 +105,14 @@ class Humor extends CActiveRecord
                     '0' => 'votes_sad',
                 )),
         );
+    }
+
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        if ($this->isNewRecord) {
+            Yii::app()->cache->set('activityLastUpdated', time());
+        }
     }
 }

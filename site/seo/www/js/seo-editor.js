@@ -164,3 +164,62 @@ var TaskDistribution = {
         $('.default-nav .count a').text(parseInt($('.default-nav .count a').text()) - 1);
     }
 }
+
+
+var SeoTasks = {
+    TakeTask:function (id) {
+        $.post('/task/take/', {id:id}, function (response) {
+            if (response.status) {
+                document.location.reload();
+            }
+        }, 'json');
+    },
+    Written:function (id, el) {
+        $.post('/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
+            if (response.status) {
+                document.location.reload();
+            }
+        }, 'json');
+    },
+    CloseTask:function(el, id){
+        $.post('/editor/close/', {id:id}, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+                $('.tab-box-5 tbody').prepend(response.html);
+                calcTaskCount();
+            }
+        }, 'json');
+    },
+    ToCorrection:function(el, id){
+        $.post('/editor/correction/', {id:id}, function (response) {
+            if (response.status) {
+                $(el).parents('td').prev().removeClass('seo-status-correction-1')
+                    .addClass('seo-status-correction-2').text('На коррекции');
+                $(el).remove();
+            }
+        }, 'json');
+    },
+    ToPublishing:function(el, id){
+        $.post('/editor/publish/', {id:id}, function (response) {
+            if (response.status) {
+                $(el).parents('td').prev().removeClass('seo-status-publish-1')
+                    .addClass('seo-status-publish-2').text('На публикации');
+                $(el).remove();
+            }
+        }, 'json');
+    },
+    Corrected:function(el, id){
+        $.post('/task/corrected/', {id:id}, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+            }
+        }, 'json');
+    },
+    Published:function(el, id){
+        $.post('/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+            }
+        }, 'json');
+    }
+}

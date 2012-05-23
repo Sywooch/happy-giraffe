@@ -554,20 +554,24 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #galleryUploadPhotos .teasers .max-size {border:1px solid #f3e9fc;padding:2px 2px 12px 2px;}
 #galleryUploadPhotos .teasers .max-size .in {width:56px;height:30px;line-height:30px;background:#f3ebf9;text-align:center;padding:5px 0;font-size:16px;color:#c2a8db;}
 
+#galleryUploadPhotos .upload-files-list-container {border:1px solid #e9dcf3;padding:5px 0;border-width:1px 0 1px 0;}
 #galleryUploadPhotos .upload-files-list {line-height:23px;max-height:200px;}
 #galleryUploadPhotos .upload-files-list ul {list-style:none;}
-#galleryUploadPhotos .upload-files-list li {padding:2px 0;}
-#galleryUploadPhotos .upload-files-list li .img {width:25px;float:left;margin-right:10px;margin-top:-2px;}
-#galleryUploadPhotos .upload-files-list li .img img {max-width:25px;}
-#galleryUploadPhotos .upload-files-list li .icon-error {display:none;width:21px;height:19px;background:url(/images/common.png) no-repeat -114px -100px;margin:0 auto;}
-#galleryUploadPhotos .upload-files-list li .icon-done {display:none;width:12px;height:10px;float:left;background:url(/images/common.png) no-repeat -66px -185px;margin-right:8px;margin-top:3px;}
-#galleryUploadPhotos .upload-files-list li span {float:left;line-height:16px;}
-#galleryUploadPhotos .upload-files-list li .remove {display:block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;float:left;margin-top:2px;margin-left:10px;}
-#galleryUploadPhotos .upload-files-list li .remove:hover {background-position:-314px -148px;}
-#galleryUploadPhotos .upload-files-list li .progress {background:#dedfde;width:125px;height:10px;float:left;margin-top:2px;}
-#galleryUploadPhotos .upload-files-list li .progress .in {background:#c5a7e2;height:10px;}
-#galleryUploadPhotos .upload-files-list li .progress, #galleryUploadPhotos .upload-files-list li .progress .in {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
-#galleryUploadPhotos .upload-files-list li .progress-value {float:left;color:#6f6e6e;margin-left:5px;font-size:11px;line-height:16px;}
+#galleryUploadPhotos .upload-files-list li {display:inline-block;vertical-align:bottom;margin-right:14px;margin-bottom:14px;}
+#galleryUploadPhotos .upload-files-list li .img {display:inline-block;position:relative;}
+#galleryUploadPhotos .upload-files-list li .img img {max-height:110px;max-width:130px;display:block;}
+#galleryUploadPhotos .upload-files-list li .remove {display:block;width:10px;height:12px;background:url(/images/common.png) no-repeat -315px -136px;position:absolute;right:5px;top:5px;}
+#galleryUploadPhotos .upload-files-list li .remove:hover {background-position:-315px -149px;}
+#galleryUploadPhotos .upload-files-list li .loading {display:block;height:77px;border:1px solid #efe5f8;width:120px;position:relative;font-size:9px;color:#9f83bb; line-height:1.2;}
+#galleryUploadPhotos .upload-files-list li .loading .progress-bar {width:100px;margin:0 auto;background:#ede4f4;margin-top:5px;}
+#galleryUploadPhotos .upload-files-list li .loading .progress-bar div {height:4px;background:#b695ce;}
+#galleryUploadPhotos .upload-files-list li .loading table td {width:120px;height:77px;vertical-align:middle;text-align:center;}
+#galleryUploadPhotos .upload-files-list li .loading.erorr {border-color:#f7dfdf;color:#e8a6a6;}
+#galleryUploadPhotos .upload-files-list li .icon-error {display:inline-block; width:21px; height:19px; background:url(/images/common.png) no-repeat -114px -100px;margin-bottom:5px;}
+#galleryUploadPhotos .uploaded-count {color:#916cb5;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+
+
+
 
 
 #galleryUploadPhotos .upload-files-list li.upload-error .icon-error {display:block;}
@@ -2293,7 +2297,6 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #find-friend .title a:hover span {border:0;}
 
 #find-friend-wrapper {width:960px;overflow:hidden;}
-#find-friend-wrapper ul {display:none;}
 
 #find-friend ul li {border:0;display:inline-block;vertical-align:top;float:none;margin-bottom:40px;}
 

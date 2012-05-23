@@ -31,39 +31,5 @@ var SeoModule = {
             }
         }, 'json');
     },
-    TakeTask:function (id) {
-        $.post('/task/take/', {id:id}, function (response) {
-            if (response.status) {
-                document.location.reload();
-            }
-        }, 'json');
-    },
-    Executed:function (id, el) {
-        $.post('/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
-            if (response.status) {
-                document.location.reload();
-            }
-        }, 'json');
-    },
-    CloseTask:function(id){
-        $.post('/task/close/', {id:id}, function (response) {
-            if (response.status) {
-                $('#task-'.id).remove();
-                SeoModule.reloadHistory();
-            }
-        }, 'json');
-    },
-    ToPublishing:function(id){
-        $.post('/task/publish/', {id:id}, function (response) {
-            if (response.status) {
-                SeoModule.reloadTask(id);
-            }
-        }, 'json');
-    },
-    reloadHistory:function(){
 
-    },
-    reloadTask:function(id){
-
-    }
 }

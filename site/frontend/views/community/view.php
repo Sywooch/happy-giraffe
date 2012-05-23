@@ -1,4 +1,9 @@
 <?php
+/* @var $this CommunityController
+ * @var $data CommunityContent
+*/
+?>
+<?php
     Yii::app()->clientScript->registerMetaTag(Str::truncate(trim(strip_tags($data->content->text)), 90), 'description');
     Yii::app()->clientScript->registerMetaTag('', 'keywords');
 ?>
@@ -6,6 +11,11 @@
 <?php $this->renderPartial('_post', array('data' => $data, 'full' => true)); ?>
 
 <div class="content-more clearfix">
+    <big class="title">
+        Фотографии
+        <?php echo CHtml::link('<span><span>Показать все</span></span>', $data->getUrl() . 'uploadImage/', array('class' => 'btn btn-blue-small')); ?>
+    </big>
+
     <big class="title">
         Ещё статьи на эту тему
         <a href="<?php echo CHtml::normalizeUrl($this->getUrl(array('content_type_slug' => null))); ?>" class="btn btn-blue-small"><span><span>Показать все</span></span></a>

@@ -509,7 +509,8 @@ class AjaxController extends HController
                 ));
                 if (count($question->answers) == 2) {
                     $question->ends = new CDbExpression('NOW() + INTERVAL 3 DAY');
-                    $question->save();
+                    if ($question->save())
+                        Yii::app()->cache->set('activityLastUpdated', time());
                 }
                 $response = array(
                     'status' => true,

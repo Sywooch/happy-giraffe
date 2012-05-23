@@ -145,6 +145,11 @@
                             </div>
                             <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>
                         </form>
+
+                        <div class="fast-actions">
+                            <a href="<?=$this->createUrl('/activity')?>" class="newest<?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->activityUpdated):?> active<?php endif; ?>"><i class="icon"></i>Самое<br/>свежее</a>
+                            <a href="<?=$this->createUrl('/activity/friends')?>" class="find-friend"><i class="icon"></i>Найти<br/>друзей</a>
+                        </div>
                     </div>
 
                     <div class="logo-box">

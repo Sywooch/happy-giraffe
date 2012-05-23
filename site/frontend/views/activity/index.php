@@ -22,9 +22,9 @@
 
             <?php $this->widget('WantToChatWidget'); ?>
 
-            <div class="banner">
+            <!--<div class="banner">
                 <a href=""><img src="/images/banner_04.png"></a>
-            </div>
+            </div>-->
 
         </div>
 

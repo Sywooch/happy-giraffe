@@ -32,9 +32,9 @@
 
         ->registerScriptFile('/js/jquery.iframe-post-form.js')
 
-//        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/comet.js')
-//        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/dklab_realplexor.js')
-//        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
+        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/comet.js')
+        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/dklab_realplexor.js')
+        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
     ;
     ?>
     <style type="text/css">
@@ -81,6 +81,13 @@
                     <li><a href="/user/">Пользователи</a></li>
                     <li><a href="/existArticles/">Готовое</a></li>
                     <li><a href="/task/index/">Задания рерайт</a></li>
+                </ul>
+                <?php endif ?>
+
+                <?php if (Yii::app()->user->checkAccess('moderator')):?>
+                <ul>
+                    <li class="active"><a href="<?=$this->createUrl('task/moderator') ?>">В работу</a><span class="tale"><img src="/images/default_nav_active.gif"></span></li>
+                    <li><a href="<?=$this->createUrl('task/moderatorReports') ?>">Отчеты</a><span class="tale"><img src="/images/default_nav_active.gif"></span></li>
                 </ul>
                 <?php endif ?>
 

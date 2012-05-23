@@ -1,23 +1,48 @@
-<?php if (!$executing)
-foreach ($tasks as $task): ?>
-<div class="status-<?=$task->status ?>">
-    <?= $task->getText() ?> - <a href="#" onclick="SeoModule.TakeTask(<?=$task->id ?>);return false;">Take it!</a>
+<?php if (!$executing) {    ?>
+    <div class="seo-table">
+    <div class="table-title">Список текущих заданий</div>
+        <div class="table-box">
+        <table>
+            <tbody><tr>
+                <th>Ключевое слово или фраза</th>
+                <th class="ac">Действие</th>
+            </tr>
+    <?php foreach ($tasks as $task){ ?>
+            <tr>
+                <td><?=$task->getText() ?></td>
+                <td class="ac"><a href="" class="btn-green-small" onclick="SeoTasks.TakeTask(<?=$task->id ?>);return false;">Взять в обработку</a></td>
+            </tr>
+        <?php } ?>
+            </tbody></table>
+    </div>
 </div>
-<?php endforeach; ?>
+<?php }?>
+
 
 <?php if ($executing):?>
-    <div>
-        <?= $executing->getText() ?>
-        <input type="text" value="" size="100">
-        <a href="#" onclick="SeoModule.Executed(<?=$executing->id ?>, this);return false;">OK</a>
+<div class="seo-table">
+    <div class="table-title">Данные для работы</div>
+    <div class="table-box">
+        <table>
+            <tbody><tr>
+                <th>Ключевое слово или фраза</th>
+                <th>Подсказки</th>
+            </tr>
+            <tr>
+                <td><?=$executing->getText() ?></td>
+                <td><?=$executing->getText() ?></td>
+            </tr>
+            </tbody></table>
     </div>
-<?php endif ?>
-
-<?php foreach ($success_tasks as $task): ?>
-<div>
-    <?= $task->getText() ?> - <?= $task->executed ?>
 </div>
-<?php endforeach; ?>
+
+<div class="article-ready">
+    <div class="block-title">Введите адрес готовой статьи</div>
+    <input type="text" value="">
+    <button class="btn-green-big" onclick="SeoTasks.Executed(<?=$executing->id ?>, this);return false;">Готово</button>
+</div>
+
+<?php endif ?>
 
 <script type="text/javascript">
     $(function() {

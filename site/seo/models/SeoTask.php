@@ -9,11 +9,10 @@
  * @property string $owner_id
  * @property string $keyword_group_id
  * @property integer $article_id
+ * @property string $article_title
  * @property integer $type
  * @property integer $status
- * @property string $updated
  * @property string $created
- * @property string $executed
  * @property string $rewrite
  *
  * The followings are the available model relations:
@@ -86,6 +85,7 @@ class SeoTask extends CActiveRecord
             'keywordGroup' => array(self::BELONGS_TO, 'KeywordGroup', 'keyword_group_id'),
             'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
             'executor' => array(self::BELONGS_TO, 'User', 'executor_id'),
+            'article' => array(self::BELONGS_TO, 'ArticleKeywords', 'article_id'),
         );
     }
 
@@ -109,19 +109,28 @@ class SeoTask extends CActiveRecord
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
-                'updateAttribute' => 'updated',
-            )
+                'updateAttribute' => null,
+            ),
+            'OldAttributesBehavior'
         );
     }
 
     public function beforeSave()
     {
-        if ($this->isNewRecord){
+        if ($this->isNewRecord) {
             $this->status = self::STATUS_NEW;
         }
-        if ($this->status == self::STATUS_READY){
-            foreach($this->keywordGroup->keywords as $keyword)
-                TempKeywords::model()->deleteAll('keyword_id='.$keyword->id);
+        if ($this->status == self::STATUS_READY) {
+            foreach ($this->keywordGroup->keywords as $keyword)
+                TempKeywords::model()->deleteAll('keyword_id=' . $keyword->id);
+        }
+
+        if ($this->status != $this->getOldAttribute('status')) {
+            $statusDate = new StatusDates();
+            $statusDate->status = (int)$this->status;
+            $statusDate->entity_id = (int)$this->id;
+            $statusDate->entity = get_class($this);
+            $statusDate->save();
         }
 
         return parent::beforeSave();
@@ -133,7 +142,7 @@ class SeoTask extends CActiveRecord
         foreach ($this->keywordGroup->keywords as $key)
             $res .= $key->name . ', ';
         if ($this->rewrite)
-            foreach($this->rewriteUrls as $url)
+            foreach ($this->rewriteUrls as $url)
                 $res .= $url->url . ', ';
         return trim($res, ', ');
     }
@@ -151,10 +160,10 @@ class SeoTask extends CActiveRecord
             $criteria->compare('status >', SeoTask::STATUS_TAKEN);
             $criteria->compare('type', SeoTask::TYPE_MODER);
             $criteria->compare('executor_id', Yii::app()->user->id);
-            $criteria->compare('executed >', date("Y-m-d") . ' 00:00:00');
+            //$criteria->compare('executed >', date("Y-m-d") . ' 00:00:00');
 
         } elseif (Yii::app()->user->checkAccess('content-manager')) {
-            $criteria->compare('status >', SeoTask::STATUS_CHECKED);
+            $criteria->compare('status >', SeoTask::STATUS_PUBLICATION);
             $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
 
         } elseif (Yii::app()->user->checkAccess('editor')) {
@@ -162,7 +171,6 @@ class SeoTask extends CActiveRecord
             $criteria->compare('owner_id', Yii::app()->user->id);
 
         }
-        $criteria->compare('updated >', date("Y-m-d") . ' 00:00:00');
 
         return SeoTask::model()->findAll($criteria);
     }
@@ -204,22 +212,53 @@ class SeoTask extends CActiveRecord
     public function getIcon()
     {
         if ($this->type == self::TYPE_MODER)
-            echo '<i class="icon-moderator"></i>';
+            return '<i class="icon-moderator"></i>';
         else
-            echo '<i class="icon-admin"></i>';
+            return '<i class="icon-admin"></i>';
+    }
+
+    public function getExecutor()
+    {
+        if (empty($this->executor_id))
+            return $this->getIcon();
+        else
+            return $this->getIcon() . '<span class="admin-name">' . $this->executor->name . '</span>';
     }
 
     public function getStatusText()
     {
-        switch($this->status){
-            case self::STATUS_READY: return 'Новое';
-            case self::STATUS_TAKEN: return 'Написание';
-            case self::STATUS_WRITTEN: return 'Статья написана';
-            case self::STATUS_CORRECTING: return 'На коррекции';
-            case self::STATUS_CORRECTED: return 'Откорректировано';
-            case self::STATUS_PUBLICATION: return 'На публикации';
-            case self::STATUS_PUBLISHED: return 'Опубликована';
-            case self::STATUS_CLOSED: return 'Выполнено';
+        switch ($this->status) {
+            case self::STATUS_READY:
+                return 'Новое';
+            case self::STATUS_TAKEN:
+                return 'Написание';
+            case self::STATUS_WRITTEN:
+                return 'Статья написана';
+            case self::STATUS_CORRECTING:
+                return 'На коррекции';
+            case self::STATUS_CORRECTED:
+                return 'Откорректировано';
+            case self::STATUS_PUBLICATION:
+                return 'На публикации';
+            case self::STATUS_PUBLISHED:
+                return 'Опубликована';
+            case self::STATUS_CLOSED:
+                return 'Выполнено';
         }
+
+        return '';
+    }
+
+    public function getArticleText()
+    {
+        $text = '';
+        if (!empty($this->article_title))
+            $text.= $this->article_title;
+
+        if (!empty($this->article_id)){
+            $text.= '<br>'.CHtml::link($this->article->url, $this->article->url);
+        }
+
+        return $text;
     }
 }

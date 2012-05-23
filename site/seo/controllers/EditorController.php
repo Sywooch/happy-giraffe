@@ -184,21 +184,6 @@ class EditorController extends SController
         }
     }*/
 
-    public function actionClose()
-    {
-        if (!Yii::app()->user->checkAccess('editor'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $task_id = Yii::app()->request->getPost('id');
-        $task = $this->loadTask($task_id);
-        if ($task->status == SeoTask::STATUS_PUBLISHED) {
-            $task->status = SeoTask::STATUS_CLOSED;
-            echo CJSON::encode(array('status' => $task->save()));
-        }
-        else
-            echo CJSON::encode(array('status' => false));
-    }
-
     public function actionRemoveFromSelected()
     {
         $key_id = Yii::app()->request->getPost('id');
@@ -235,7 +220,8 @@ class EditorController extends SController
         echo CJSON::encode(array('status' => $task->save()));
     }
 
-    public function actionReports(){
+    public function actionReports()
+    {
         $criteria = new CDbCriteria;
         $criteria->compare('owner_id', Yii::app()->user->id);
         $criteria->compare('status >', SeoTask::STATUS_NEW);
@@ -244,6 +230,24 @@ class EditorController extends SController
         $this->render('reports', array(
             'tasks' => $tasks,
         ));
+    }
+
+    public function actionClose()
+    {
+        if (!Yii::app()->user->checkAccess('editor'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $task_id = Yii::app()->request->getPost('id');
+        $task = $this->loadTask($task_id);
+        if ($task->status == SeoTask::STATUS_PUBLISHED) {
+            $task->status = SeoTask::STATUS_CLOSED;
+            echo CJSON::encode(array(
+                'status' => $task->save(),
+                'html' => $this->renderPartial('_closed_task', compact('task'), true)
+            ));
+        }
+        else
+            echo CJSON::encode(array('status' => false));
     }
 
     /**

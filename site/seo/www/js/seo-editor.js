@@ -164,3 +164,42 @@ var TaskDistribution = {
         $('.default-nav .count a').text(parseInt($('.default-nav .count a').text()) - 1);
     }
 }
+
+
+var SeoTasks = {
+    TakeTask:function (id) {
+        $.post('/task/take/', {id:id}, function (response) {
+            if (response.status) {
+                document.location.reload();
+            }
+        }, 'json');
+    },
+    Executed:function (id, el) {
+        $.post('/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
+            if (response.status) {
+                document.location.reload();
+            }
+        }, 'json');
+    },
+    CloseTask:function(el, id){
+        $.post('/editor/close/', {id:id}, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+                $('.tab-box-5 tbody').prepend(response.html);
+            }
+        }, 'json');
+    },
+    ToPublishing:function(id){
+        $.post('/task/publish/', {id:id}, function (response) {
+            if (response.status) {
+                SeoModule.reloadTask(id);
+            }
+        }, 'json');
+    },
+    reloadHistory:function(){
+
+    },
+    reloadTask:function(id){
+
+    }
+}

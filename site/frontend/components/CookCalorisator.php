@@ -20,7 +20,7 @@ class CookCalorisator extends CComponent
         foreach ($this->RecipeSubstrings as $s) {
             $ingredient = array('text' => trim($s));
 
-            // Seacrh unit
+            // Search unit
 
             $units = Yii::app()->search->select('*')->from('cookUnits')->where($this->sphinxQuote($s))->limit(0, 1)->searchRaw();
 

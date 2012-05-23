@@ -12,11 +12,11 @@ class ParseController extends SController
     public function actionParseStats()
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $site_id = 1;
+        $site_id = 2;
         $year = 2012;
 
-        $cookie = 'session=085XhH043Ro1; suid=0HL2kG3LzWGy; per_page=100; total=yes; adv-uid=fdae6f.bb2af5.e2d520';
-        $site = 'blog.mosmedclinic.ru';
+        $cookie = 'pwd=1sd9Cw4MQjmNOt3lYV6; suid=0HL2kG3LzWGy; per_page=100; total=yes; adv-uid=fdae6f.bb2af5.e2d520';
+        $site = 'baby.ru';
         ob_start();
 
         for ($month = 5; $month > 0; $month--) {

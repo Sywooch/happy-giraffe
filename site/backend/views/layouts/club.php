@@ -43,7 +43,7 @@
             array('label' => 'Кулинария',
                 'active' => (in_array(Yii::app()->controller->id, array('club/cookIngredients'))),
                 'url' => array('/club/cookIngredients/'),
-                'visible' => Yii::app()->user->checkAccess('interests'),
+                'visible' => Yii::app()->user->checkAccess('cook_ingredients'),
                 'items' => array(
                     array(
                         'label' => 'Ингредиенты',

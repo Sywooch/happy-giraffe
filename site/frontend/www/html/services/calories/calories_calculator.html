@@ -1,42 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
+	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Untitled Document</title>
 	
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css" />
-	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/scrollbarpaper.js"></script>
+	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.jscrollpane.css" />
-	<script type="text/javascript" src="/javascripts/jquery.jscrollpane.min.js"></script>
-	<script type="text/javascript" src="/javascripts/jquery.mousewheel.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/common.js"></script>	
-	
-	<!--[if IE 7]>
-		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
-	<![endif]-->
-	
 </head>
 <body class="body-club">
+	
 	<div id="layout" class="wrapper">
-		
+	
 		<div id="header-new" class="clearfix">
 			
 			<div class="top-line clearfix">
@@ -182,10 +167,10 @@
 				</div>
 				
 				<div class="nav">
-					<ul class="clearfix width-2">
-						<!--<li class="morning">
+					<ul class="clearfix">
+						<li class="morning">
 							<a href=""><i class="text"></i></a>
-						</li>-->
+						</li>
 						<li class="kids navdrp">
 							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 							<div class="drp">
@@ -436,337 +421,107 @@
 		
 		<div id="content" class="clearfix">
 			
-			<div id="user">
+			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Калькулятор калорий</span></div>
+			
+			<div id="calories-calculator">
 				
-				<div class="header clearfix">
+				<div class="title">
+					<span>Узнайте!</span>
+					<h2>Сколько калорий<br/>в Ваших продуктах</h2>
+					<h1>Счетчик калорий</h1>
+				</div>
+				
+				<div class="calculator">
 					
-					<div class="user-info clearfix">
-						<div class="ava"></div>
-						<div class="details">
-							<span class="icon-status status-online"></span><a href="" class="username">Дарья</a>
-							<div class="location">
-								<div class="flag flag-ru"></div>
-								Гаврилов-Ям
-							</div>
-							<div class="user-fast-buttons clearfix">
-								<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-								<a href="" class="remove-friend"><span class="tip">Удалить из друзей</span></a>
-								<a href="" class="pending-friend"><span class="tip">Приглашение выслано</span></a>
-								<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-							</div>
-						</div>
-					</div>
-					
-					<div class="user-nav default-nav">
-						<ul>
-							<li><a href="">Анкета</a></li>
-							<li><a href="">Блог</a></li>
-							<li class="active"><a href="">Фото</a></li>
-							<li><a href="">Друзья</a></li>
-							<li><a href="">Клубы</a></li>
-						</ul>
-					</div>
+					<table>
+						<thead>
+							<tr>
+								<td class="col-1">Продукт</td>
+								<td class="col-2">Кол-во</td>
+								<td class="col-3">Ед. изм.</td>
+								<td class="col-4"><span class="calories-icon orange">Б</span>Белки, <span>г.</span></td>
+								<td class="col-5"><span class="calories-icon green">Ж</span>Жиры, <span>г.</span></td>
+								<td class="col-6"><span class="calories-icon yellow">У</span>Углеводы, <span>г.</span></td>
+								<td class="col-7"><span class="calories-icon blue">К</span>Калории, <span>ккал.</span></td>
+							</tr>
+							
+						</thead>
+						<tbody>
+							<tr>
+								<td class="col-1"><input type="text" value="" placeholder="Введите название продукта" /></td>
+								<td class="col-2"><input type="text" value="" placeholder="0" /></td>
+								<td class="col-3"><select><option></option></select></td>
+								<td class="col-4"><div class="value">&nbsp;</div></td>
+								<td class="col-5"><div class="value">&nbsp;</div></td>
+								<td class="col-6"><div class="value">&nbsp;</div></td>
+								<td class="col-7"><div class="value">&nbsp;</div></td>
+							</tr>
+							<tr>
+								<td class="col-1"><input type="text" value="Кофе растворимый" placeholder="Введите название продукта" /></td>
+								<td class="col-2"><input type="text" value="2" placeholder="0" /></td>
+								<td class="col-3"><select><option>грамм</option></select></td>
+								<td class="col-4"><div class="value">2,0</div></td>
+								<td class="col-5"><div class="value">0,5</div></td>
+								<td class="col-6"><div class="value">0,1</div></td>
+								<td class="col-7"><div class="value">2,1</div></td>
+							</tr>
+							<tr>
+								<td class="col-1"><input type="text" value="Кофе растворимый" placeholder="Введите название продукта" /></td>
+								<td class="col-2"><input type="text" value="2" placeholder="0" /></td>
+								<td class="col-3"><select><option>ст. ложки</option></select></td>
+								<td class="col-4"><div class="value">2,0</div></td>
+								<td class="col-5"><div class="value">0,5</div></td>
+								<td class="col-6"><div class="value">0,1</div></td>
+								<td class="col-7"><div class="value">2,1</div></td>
+							</tr>
+							<tr>
+								<td class="col-1"><input type="text" value="Кофе растворимый" placeholder="Введите название продукта" /></td>
+								<td class="col-2"><input type="text" value="2" placeholder="0" /></td>
+								<td class="col-3"><select><option>шт.</option></select></td>
+								<td class="col-4"><div class="value">2,0</div></td>
+								<td class="col-5"><div class="value">0,5</div></td>
+								<td class="col-6"><div class="value">0,1</div></td>
+								<td class="col-7"><div class="value">2,1</div></td>
+							</tr>
+							<tr class="add">
+								<td class="col-1" colspan="7">
+									<a href="" class="btn btn-green-medium"><span><span>Добавить новый продукт</span></span></a>
+									Вы можете добавлять любое количество продуктов. Просто нажмите на кнопку “Добавить новый продукт"
+								</td>
+							</tr>
+							<tr class="summary">
+								<td class="col-1"></td>
+								<td class="col-23" colspan="2">Итого:</td>
+								<td class="col-4">902,0</td>
+								<td class="col-5">76,55</td>
+								<td class="col-6">750,1</td>
+								<td class="col-7">900,1</td>
+							</tr>
+							<tr class="summary">
+								<td class="col-1"></td>
+								<td class="col-23" colspan="2">Итого на 100г.:</td>
+								<td class="col-4">902,0</td>
+								<td class="col-5">76,55</td>
+								<td class="col-6">750,1</td>
+								<td class="col-7">900,1</td>
+							</tr>
+							
+						</tbody>
+					</table>
 					
 				</div>
 				
-				<div class="main">
-					<div class="main-in">
-						
-						<div id="gallery" class="nopadding">
-						
-							<div class="header">
-								
-								<div class="title">
-										<big>Альбом <span>«Поездка в Турцию»</span>
-											<a href="" class="edit"><span class="tip">Редактировать</span></a>
-											<div class="visibility-picker">
-												<a href="javascript:void(0);" class="album-visibility" onclick="albumVisibilityListToggle(this)">
-													<span></span>
-													<span></span>
-													<span></span>
-													<span class="tip">Кому показывать</span>
-												</a>
-												<div class="visibility-list">
-													<div class="tale"></div>
-													<ul>
-														<li onclick="albumVisibilitySet(this, 0, 25)">
-															<div class="text">для всех</div>
-															<div class="album-visibility small">
-																<span></span><span></span><span></span>
-															</div>
-														</li>
-														<li onclick="albumVisibilitySet(this, 1, 25)">
-															<div class="text">для друзей</div>
-															<div class="album-visibility small">
-																<span></span><span></span>
-															</div>
-														</li>
-														<li onclick="albumVisibilitySet(this, 2, 25)">
-															<div class="text">для меня</div>
-															<div class="album-visibility small">
-																<span></span>
-															</div>
-														</li>														
-													</ul>
-												</div>
-											</div>
-										</big>
-										<div class="note">
-											<div class="fast-actions">
-												<a href="" class="edit"><span class="tip">Редактировать</span></a>
-											</div>
-											<p>Бархатная осень, жаркое лето на золотистых пляжах и ночи, приправленные капелькой страсти. Словом, перефразируя одного сказочного героя ...</p>
-										</div>
-										<br/>
-										<div class="note">
-											<a href="" class="add"><span class="tip">Написать комментарий</span></a>
-										</div>										
-									</div>
-								
-							</div>
+				<div class="wysiwyg-content">
 							
-							<div class="gallery-photos clearfix">
-							
-								<ul>
-									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex1.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
-									</li>
-									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
-											</tr>
-											
-										</table>
-									</li>
-									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex3.jpg" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
-									</li>
-									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex1.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
-									</li>
-									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
-											</tr>
-											
-										</table>
-									</li>
-									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex3.jpg" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
-									</li>
-									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex1.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
-									</li>
-									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
-											</tr>
-											
-										</table>
-									</li>
-									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex3.jpg" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
-									</li>
-									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex1.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
-									</li>
-									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
-											</tr>
-											
-										</table>
-									</li>
-									<li class="add">
-										<a href=""><i class="icon"></i><span>Загрузить еще<br/>фотографий</span></a>
-									</li>
-									
-								</ul>
-								
-							</div>
-							
-							<div class="pagination pagination-center clearfix">
-								<div class="pager">
-									<ul>
-										<li class="previous"><a href="">...</a></li>
-										<li><a href="">1</a></li>
-										<li><a href="">2</a></li>
-										<li class="selected"><a href="">321</a><img src="/images/pagination_tale.png" /></li>
-										<li><a href="">4</a></li>
-										<li class="selected"><a href="">5</a><img src="/images/pagination_tale.png" /></li>
-										<li><a href="">6</a></li>
-										<li><a href="">7</a></li>
-										<li class="next"><a href="">...</a></li>
-									</ul>
-								</div>
-							</div>							
-							
-						</div>
-						
-					</div>
-				</div>
-				
-				<div class="side-left gallery-sidebar">
+					<h2>Сервис «Счетчик калорий»</h2>
 					
-					<div class="fast-add">
-						<a href="#galleryUploadPhotos" class="btn btn-green fancy" onclick="setTimeout(function(){$('.scroll').jScrollPane({showArrows: true})}, 500)"><span><span>Загрузить фото</span></span></a>
-					</div>
+					<p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким. К профессиональным разногласиям относитесь спокойно, сегодня они являются всего лишь частью нормального рабочего процесса. Даже с руководством можно поспорить от души – и без всяких далеко идущих последствий. </p>
 					
-					<div class="default-v-nav">
-						<div class="title">Мои альбомы </div>
-						<ul>
-							<li>
-								<div class="in">
-									<a href="">Личные</a>
-									<span class="count">2</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li>
-								<div class="in">
-									<a href="">Моя семья</a>
-									<span class="count">22</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li class="active">
-								<div class="in">
-									<a href="">Поездка в Турцию</a>
-									<span class="count">222</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li>
-								<div class="in">
-									<a href="">Наша свадьба</a>
-									<span class="count">2</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li class="active">
-								<div class="in">
-									<a href="">Дача и все связанное с огородом</a>
-									<span class="count">22</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li>
-								<div class="in">
-									<a href="">Моя работа</a>
-									<span class="count">22</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li>
-								<div class="in">
-									<a href="">Мое творчество</a>
-									<span class="count">2</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-						</ul>
-						<div class="title service">Служебные альбомы </div>
-						<ul>
-							<li>
-								<div class="in">
-									<a href="">Альбом для диалогов</a>
-									<span class="count">2</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li>
-								<div class="in">
-									<a href="">Альбом для форумов</a>
-									<span class="count">22</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li class="active">
-								<div class="in">
-									<a href="">Альбом для блогов</a>
-									<span class="count">222</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-						</ul>
-						
-					</div>
+					<p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким. К профессиональным разногласиям относитесь спокойно, сегодня они являются всего лишь частью нормального рабочего процесса. Даже с руководством можно поспорить от души – и без всяких далеко идущих последствий. </p>
+					
+					<p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким.</p>
 					
 				</div>
-				
-						
 				
 			</div>
 			
@@ -775,9 +530,19 @@
 		<div class="push"></div>
 		
 	</div>
-	<div id="footer" class="wrapper">
-		f
+
+	<div id="footer" class="wrapper clearfix">
+		
+		<div class="a-right">
+			<a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
+		</div>
+		
+		<div class="copy">
+			<p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены</p>
+		</div>
+		
 	</div>
+	
 <div style="display:none">
 	<div id="login" class="popup">
 		
@@ -831,236 +596,6 @@
 		</form>
 		
 	</div>
-	
-	
-	<div id="galleryUploadPhotos" class="popup popup-purple">
-		
-		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
-		
-		<div class="popup-title">Загрузка фотографий</div>
-		
-		<div class="title">Шаг 1</div>
-		
-		<table>
-			<tr>
-				<td>
-					<big>Выберите альбом</big>
-					<select class="chzn w-200" data-placeholder="Выбрать альбом">
-						<option></option>
-						<option>Личный альбом</option>
-						<option>Семейный альбом</option>
-						<option>Поездка в турцию</option>
-					</select>
-				</td>
-				<td width="120" align="center"><big>или</big></td>
-				<td>
-					<big>Создайте новый</big>
-					<input type="text" class="album-name" placeholder="Введите название нового альбома"/>
-				</td>
-			</tr>
-		</table>
-		
-		<br/>
-		<br/>
-		
-		<div class="title">Шаг 2</div>
-		
-		<div class="teasers clearfix">
-			<ul>
-				<li>
-					<div class="img"><img src="/images/upload_teaser_img_01.png" /></div>
-					<div class="text">Чтобы загрузить сразу несколько фото, нажмите и удерживайте кнопку Control при выборе фото.</div>
-				</li>
-				<li>
-					<div class="img"><div class="max-size"><div class="in">6 Мб</div></div></div>
-					<div class="text">Загрузите файл (jpeg, png, gif не более 6 Мб)</div>
-				</li>				
-			</ul>
-		</div>
-		
-		<div class="bottom">
-			<button style="width:178px;height:34px;text-align:center;color:#fff;font:bold 16px arial, helvetica, sans-serif;border:0;margin:0;padding:0;background:url(/images/btn_browse.png) no-repeat;cursor:pointer;"></button>			
-		</div>
-		
-		<br/>
-		<br/>
-		
-		<div class="upload-files-list-container">
-			<div class="upload-files-list scroll">
-				
-				<ul>
-					<li>
-						<div class="img">
-							<img src="/images/example/uploaded_photo_01.jpg" />
-							<a href="" class="remove"></a>
-						</div>
-					</li>
-					<li>
-						<div class="img">
-							<img src="/images/example/ex4.jpg" />
-							<a href="" class="remove"></a>
-						</div>					
-					</li>
-					<li>
-						<div class="loading">
-							<table>
-								<tr>
-									<td>
-										Загрузка
-										<div class="progress-bar">
-											<div style="width:50%;"></div>
-										</div>
-									</td>
-								</tr>
-							</table>
-							<a href="" class="remove"></a>
-						</div>
-					</li>
-					<li>
-						<div class="loading erorr">
-							<table>
-								<tr>
-									<td>
-										<i class="icon-error"></i>
-										<br/>
-										256.jpeg<br/>не загружен 
-									</td>
-								</tr>
-							</table>
-							<a href="" class="remove"></a>
-						</div>
-					</li>
-					<li>
-						<div class="loading">
-							<table>
-								<tr>
-									<td>
-										Загрузка
-										<div class="progress-bar">
-											<div style="width:50%;"></div>
-										</div>
-									</td>
-								</tr>
-							</table>
-							<a href="" class="remove"></a>
-						</div>
-					</li>
-					<li>
-						<div class="loading erorr">
-							<table>
-								<tr>
-									<td>
-										<i class="icon-error"></i>
-										<br/>
-										256.jpeg<br/>не загружен 
-									</td>
-								</tr>
-							</table>
-							<a href="" class="remove"></a>
-						</div>
-					</li>
-					<li>
-						<div class="img">
-							<img src="/images/example/ex3.jpg" />
-							<a href="" class="remove"></a>
-						</div>					
-					</li>
-					<li>
-						<div class="loading">
-							<table>
-								<tr>
-									<td>
-										Загрузка
-										<div class="progress-bar">
-											<div style="width:50%;"></div>
-										</div>
-									</td>
-								</tr>
-							</table>
-							<a href="" class="remove"></a>
-						</div>
-					</li>
-					<li>
-						<div class="loading">
-							<table>
-								<tr>
-									<td>
-										Загрузка
-										<div class="progress-bar">
-											<div style="width:50%;"></div>
-										</div>
-									</td>
-								</tr>
-							</table>
-							<a href="" class="remove"></a>
-						</div>
-					</li>
-					<li>
-						<div class="loading erorr">
-							<table>
-								<tr>
-									<td>
-										<i class="icon-error"></i>
-										<br/>
-										256.jpeg<br/>не загружен 
-									</td>
-								</tr>
-							</table>
-							<a href="" class="remove"></a>
-						</div>
-					</li>
-					<li>
-						<div class="loading">
-							<table>
-								<tr>
-									<td>
-										Загрузка
-										<div class="progress-bar">
-											<div style="width:50%;"></div>
-										</div>
-									</td>
-								</tr>
-							</table>
-							<a href="" class="remove"></a>
-						</div>
-					</li>
-					<li>
-						<div class="img">
-							<img src="/images/example/uploaded_photo_02.jpg" />
-							<a href="" class="remove"></a>
-						</div>
-					</li>
-					<li>
-						<div class="img">
-							<img src="/images/example/uploaded_photo_03.jpg" />
-							<a href="" class="remove"></a>
-						</div>					
-					</li>
-					
-				</ul>
-				
-			</div>
-		
-		</div>
-		
-		<div class="uploaded-count">Загружено 14 фотографий</div>
-		
-		<div class="bottom">
-			
-			<a href="" class="a-left">Добавить еще фотографий</a>
-			<a href="" class="btn btn-gray-medium"><span><span>Завершить</span></span></a>
-			
-		</div>
-		
-		<div class="bottom">
-			
-			<a href="" class="a-left">Добавить еще фотографий</a>
-			<a href="" class="btn btn-green-medium"><span><span>Завершить</span></span></a>
-			
-		</div>
-		
-	</div>
-	
 	
 </div>
 </body>

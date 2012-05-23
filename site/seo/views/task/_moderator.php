@@ -18,7 +18,6 @@
 </div>
 <?php }?>
 
-
 <?php if ($executing):?>
 <div class="seo-table">
     <div class="table-title">Данные для работы</div>
@@ -41,7 +40,6 @@
     <input type="text" value="">
     <button class="btn-green-big" onclick="SeoTasks.Executed(<?=$executing->id ?>, this);return false;">Готово</button>
 </div>
-
 <?php endif ?>
 
 <script type="text/javascript">

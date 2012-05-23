@@ -63,47 +63,76 @@
 
     <div class="clearfix">
         <div class="default-nav">
-            <?php if (Yii::app()->user->checkAccess('editor')): ?>
-            <ul>
-                <li<?php if (Yii::app()->controller->action->id == 'index') echo ' class="active"' ?>>
-                    <a href="<?=$this->createUrl('editor/index') ?>">Ключевые слова или фразы</a><span class="tale"><img
-                    src="/images/default_nav_active.gif"></span></li>
-                <li<?php if (Yii::app()->controller->action->id == 'tasks') echo ' class="active"' ?>>
-                    <a href="<?=$this->createUrl('editor/tasks') ?>">Раздача заданий</a>
-                    <span class="tale"><img src="/images/default_nav_active.gif"></span>
 
-                    <div class="count"><a
-                        href="<?=$this->createUrl('editor/tasks') ?>"><?=TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) ?></a>
-                    </div>
-                </li>
-                <li<?php if (Yii::app()->controller->action->id == 'history') echo ' class="active"' ?>>
-                    <a href="<?=$this->createUrl('editor/reports') ?>">Отчеты</a></li>
-            </ul>
-            <?php endif ?>
+            <?php
+            if (Yii::app()->user->checkAccess('editor'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'Ключевые слова или фразы',
+                            'url' => array('/editor/index/'),
+                        ),
+                        array(
+                            'label' => 'Раздача заданий',
+                            'url' => array('/editor/tasks/'),
+                            'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('editor/tasks') . '">' . TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
+                        ),
+                        array(
+                            'label' => 'Отчеты',
+                            'url' => array('/editor/reports/'),
+                        ),
+                    )));
 
-            <?php if (Yii::app()->user->checkAccess('admin')): ?>
-            <ul>
-                <li><a href="/user/">Пользователи</a></li>
-                <li><a href="/existArticles/">Готовое</a></li>
-                <li><a href="/task/index/">Задания рерайт</a></li>
-            </ul>
-            <?php endif ?>
+            if (Yii::app()->user->checkAccess('admin'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'Пользователи',
+                            'url' => array('/user/moderator/'),
+                            'active' => Yii::app()->controller->id == 'user'
+                        ),
+                        array(
+                            'label' => 'Готовое',
+                            'url' => array('/existArticles/'),
+                        ),
+                        array(
+                            'label' => 'Задания рерайт',
+                            'url' => array('/task/index/'),
+                        ),
+                    )));
 
-            <?php if (Yii::app()->user->checkAccess('moderator')): ?>
-            <?php $this->widget('zii.widgets.CMenu', array(
-                'items' => array(
-                    'label' => 'В работу',
-                    'url' => array('/task/moderator'),
-                    'active' => Yii::app()->controller->action->id  == 'moderator',
-                ),
-                array(
-                    'label' => 'Отчеты',
-                    'url' => array('/task/moderatorReports'),
-                    'active' => Yii::app()->controller->action->id  == 'moderatorReports',
-                ),
-            )); ?>
-            <?php endif ?>
 
+            if (Yii::app()->user->checkAccess('moderator'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'В работу',
+                            'url' => array('/task/moderator'),
+                        ),
+                        array(
+                            'label' => 'Отчеты',
+                            'url' => array('/task/moderatorReports'),
+                        ),
+                    )));
+
+            if (Yii::app()->user->checkAccess('author'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'В работу',
+                            'url' => array('/task/author'),
+                        ),
+                        array(
+                            'label' => 'Отчеты',
+                            'url' => array('/task/authorReports'),
+                        ),
+                    )));
+
+            ?>
         </div>
         <div class="title">
             <span>SEO-<span>жираф</span></span> &nbsp; <?= $this->pageTitle ?>

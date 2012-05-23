@@ -15,7 +15,7 @@ class TaskController extends SController
         $tasks = SeoTask::getTasks();
         $executing = SeoTask::getActiveTask();
 
-        $this->render('_moderator', compact('tasks', 'executing', 'success_tasks'));
+        $this->render('_moderator', compact('tasks', 'executing'));
     }
 
     public function actionModeratorReports(){
@@ -33,8 +33,18 @@ class TaskController extends SController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $tasks = SeoTask::getTasks();
-        $success_tasks = SeoTask::TodayExecutedTasks();
-        $this->render('_author', compact('tasks', 'success_tasks'));
+        $executing = SeoTask::getActiveTask();
+
+        $this->render('_author', compact('tasks', 'executing'));
+    }
+
+    public function actionAuthorReports(){
+        if (!Yii::app()->user->checkAccess('author'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $this->pageTitle = 'модератор';
+        $tasks = SeoTask::TodayExecutedTasks();
+        $this->render('_moderator_reports',compact('tasks'));
     }
 
     public function actionCmanager()

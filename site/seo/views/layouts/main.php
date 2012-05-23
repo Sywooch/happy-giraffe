@@ -34,13 +34,13 @@
 
         ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/comet.js')
         ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/dklab_realplexor.js')
-        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
-    ;
+        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
     ?>
     <style type="text/css">
         .default-nav li span.tale {
             display: none;
         }
+
         .default-nav li.active span.tale {
             display: block;
         }
@@ -51,59 +51,72 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #fff url(/images/loading.gif) no-repeat center !important;z-index: 100;
+            background: #fff url(/images/loading.gif) no-repeat center !important;
+            z-index: 100;
             opacity: 0.5;
         }
     </style>
 </head>
 <body>
 
-    <div id="seo" class="wrapper">
+<div id="seo" class="wrapper">
 
-        <div class="clearfix">
-            <div class="default-nav">
-                <?php if (Yii::app()->user->checkAccess('editor')):?>
-                <ul>
-                    <li<?php if (Yii::app()->controller->action->id == 'index' ) echo ' class="active"' ?>>
-                        <a href="<?=$this->createUrl('editor/index') ?>">Ключевые слова или фразы</a><span class="tale"><img src="/images/default_nav_active.gif"></span></li>
-                    <li<?php if (Yii::app()->controller->action->id == 'tasks' ) echo ' class="active"' ?>>
-                        <a href="<?=$this->createUrl('editor/tasks') ?>">Раздача заданий</a>
-                        <span class="tale"><img src="/images/default_nav_active.gif"></span>
-                        <div class="count"><a href="<?=$this->createUrl('editor/tasks') ?>"><?=TempKeywords::model()->count('owner_id='.Yii::app()->user->id) ?></a></div>
-                    </li>
-                    <li<?php if (Yii::app()->controller->action->id == 'history' ) echo ' class="active"' ?>>
-                        <a href="<?=$this->createUrl('editor/reports') ?>">Отчеты</a></li>
-                </ul>
-                <?php endif ?>
+    <div class="clearfix">
+        <div class="default-nav">
+            <?php if (Yii::app()->user->checkAccess('editor')): ?>
+            <ul>
+                <li<?php if (Yii::app()->controller->action->id == 'index') echo ' class="active"' ?>>
+                    <a href="<?=$this->createUrl('editor/index') ?>">Ключевые слова или фразы</a><span class="tale"><img
+                    src="/images/default_nav_active.gif"></span></li>
+                <li<?php if (Yii::app()->controller->action->id == 'tasks') echo ' class="active"' ?>>
+                    <a href="<?=$this->createUrl('editor/tasks') ?>">Раздача заданий</a>
+                    <span class="tale"><img src="/images/default_nav_active.gif"></span>
 
-                <?php if (Yii::app()->user->checkAccess('admin')):?>
-                <ul>
-                    <li><a href="/user/">Пользователи</a></li>
-                    <li><a href="/existArticles/">Готовое</a></li>
-                    <li><a href="/task/index/">Задания рерайт</a></li>
-                </ul>
-                <?php endif ?>
+                    <div class="count"><a
+                        href="<?=$this->createUrl('editor/tasks') ?>"><?=TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) ?></a>
+                    </div>
+                </li>
+                <li<?php if (Yii::app()->controller->action->id == 'history') echo ' class="active"' ?>>
+                    <a href="<?=$this->createUrl('editor/reports') ?>">Отчеты</a></li>
+            </ul>
+            <?php endif ?>
 
-                <?php if (Yii::app()->user->checkAccess('moderator')):?>
-                <ul>
-                    <li class="active"><a href="<?=$this->createUrl('task/moderator') ?>">В работу</a><span class="tale"><img src="/images/default_nav_active.gif"></span></li>
-                    <li><a href="<?=$this->createUrl('task/moderatorReports') ?>">Отчеты</a><span class="tale"><img src="/images/default_nav_active.gif"></span></li>
-                </ul>
-                <?php endif ?>
+            <?php if (Yii::app()->user->checkAccess('admin')): ?>
+            <ul>
+                <li><a href="/user/">Пользователи</a></li>
+                <li><a href="/existArticles/">Готовое</a></li>
+                <li><a href="/task/index/">Задания рерайт</a></li>
+            </ul>
+            <?php endif ?>
 
-            </div>
-            <div class="title">
-                <span>SEO-<span>жираф</span></span> &nbsp; <?= $this->pageTitle ?>
-            </div>
+            <?php if (Yii::app()->user->checkAccess('moderator')): ?>
+            <?php $this->widget('zii.widgets.CMenu', array(
+                'items' => array(
+                    'label' => 'В работу',
+                    'url' => array('/task/moderator'),
+                    'active' => Yii::app()->controller->action->id  == 'moderator',
+                ),
+                array(
+                    'label' => 'Отчеты',
+                    'url' => array('/task/moderatorReports'),
+                    'active' => Yii::app()->controller->action->id  == 'moderatorReports',
+                ),
+            )); ?>
+            <?php endif ?>
+
         </div>
-
-        <?=$content ?>
-
+        <div class="title">
+            <span>SEO-<span>жираф</span></span> &nbsp; <?= $this->pageTitle ?>
+        </div>
     </div>
 
-    <div class="loading" style="display: none;">
+    <?=$content ?>
 
-    </div>
+</div>
+
+<div class="loading" style="display: none;">
+
+</div>
 
 </body>
 </html>

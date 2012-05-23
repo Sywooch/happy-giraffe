@@ -34,8 +34,8 @@ class StatusDates extends EMongoDocument
         $criteria->status('==', (int)$status);
 
         $date = self::model()->find($criteria);
-        if ($date){
-            date("d MMM Y", $date->time);
+        if ($date !== null){
+            return Yii::app()->dateFormatter->format("d MMMM y", $date->time);
         }else
             return null;
     }

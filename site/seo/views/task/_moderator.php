@@ -38,7 +38,7 @@
 <div class="article-ready">
     <div class="block-title">Введите адрес готовой статьи</div>
     <input type="text" value="">
-    <button class="btn-green-big" onclick="SeoTasks.Executed(<?=$executing->id ?>, this);return false;">Готово</button>
+    <button class="btn-green-big" onclick="SeoTasks.Written(<?=$executing->id ?>, this);return false;">Готово</button>
 </div>
 <?php endif ?>
 

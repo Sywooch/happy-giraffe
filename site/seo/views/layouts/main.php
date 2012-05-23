@@ -132,9 +132,38 @@
                         ),
                     )));
 
+            if (Yii::app()->user->checkAccess('corrector'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'В работу',
+                            'url' => array('/task/corrector'),
+                        ),
+                        array(
+                            'label' => 'Отчеты',
+                            'url' => array('/task/correctorReports'),
+                        ),
+                    )));
+
+            if (Yii::app()->user->checkAccess('content-manager'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'В работу',
+                            'url' => array('/task/contentManager'),
+                        ),
+                        array(
+                            'label' => 'Отчеты',
+                            'url' => array('/task/contentManagerReports'),
+                        ),
+                    )));
+
             ?>
         </div>
         <div class="title">
+            <i class="img"></i>
             <span>SEO-<span>жираф</span></span> &nbsp; <?= $this->pageTitle ?>
         </div>
     </div>

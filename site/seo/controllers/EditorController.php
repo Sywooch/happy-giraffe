@@ -7,6 +7,13 @@ class EditorController extends SController
 {
     public $pageTitle = 'Копирайт';
 
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('editor'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
     public function actionIndex()
     {
         $model = new Keywords();
@@ -234,9 +241,6 @@ class EditorController extends SController
 
     public function actionClose()
     {
-        if (!Yii::app()->user->checkAccess('editor'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
         if ($task->status == SeoTask::STATUS_PUBLISHED) {
@@ -245,6 +249,36 @@ class EditorController extends SController
                 'status' => $task->save(),
                 'html' => $this->renderPartial('_closed_task', compact('task'), true)
             ));
+        }
+        else
+            echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionCorrection(){
+        $task_id = Yii::app()->request->getPost('id');
+        $task = $this->loadTask($task_id);
+
+        if ($task->status == SeoTask::STATUS_WRITTEN) {
+            $task->status = SeoTask::STATUS_CORRECTING;
+            echo CJSON::encode(array(
+                'status' => $task->save(),
+                'html' => $this->renderPartial('_correcting_task', compact('task'), true)
+            ));
+        }
+        else
+            echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionPublish()
+    {
+        if (!Yii::app()->user->checkAccess('editor'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $task_id = Yii::app()->request->getPost('id');
+        $task = $this->loadTask($task_id);
+        if ($task->status == SeoTask::STATUS_CORRECTED) {
+            $task->status = SeoTask::STATUS_PUBLICATION;
+            echo CJSON::encode(array('status' => $task->save()));
         }
         else
             echo CJSON::encode(array('status' => false));

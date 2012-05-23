@@ -39,7 +39,7 @@
 <div class="article-ready">
 
     <span class="text">После того, как Вы передали готовую статью<br>шеф-редактору, нажмите кнопку</span>
-    <a href="" class="btn-green" onclick="SeoTasks.Executed(<?=$executing->id ?>, this);return false;">Готово</a>
+    <a href="" class="btn-green" onclick="SeoTasks.Written(<?=$executing->id ?>, this);return false;">Готово</a>
 
 </div>
 <?php endif; ?>

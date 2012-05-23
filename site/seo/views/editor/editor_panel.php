@@ -59,7 +59,7 @@
             <tr>
                 <th>Ключевое слово или фраза</th>
                 <th>Исполнитель</th>
-                <th>Действие</th>
+                <th width="110">Действие</th>
             </tr>
             <?php foreach($tasks as $task)
                     $this->renderPartial('_distrib_task', array('task' => $task)); ?>

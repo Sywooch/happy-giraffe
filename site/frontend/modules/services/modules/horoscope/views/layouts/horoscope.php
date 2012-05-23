@@ -16,7 +16,7 @@
 
     <div class="side-left">
 
-        <div class="banner-box"><a href=""><img src="/images/horoscope_sidebar_banner.jpg"></a></div>
+        <div class="banner-box"><a href="<?=$this->createUrl('/horoscope') ?>"><img src="/images/horoscope_sidebar_banner.jpg"></a></div>
 
         <?php if (Yii::app()->user->isGuest):?>
             <div class="horoscope-subscribe">

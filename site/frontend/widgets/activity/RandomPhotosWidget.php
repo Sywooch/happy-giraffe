@@ -19,7 +19,7 @@ class RandomPhotosWidget extends CWidget
                     'scopes' => 'noSystem',
                 ),
             ),
-            'condition' => 'DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= t.created AND album.permission = 0',
+            'condition' => 'DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= t.created AND album.permission = 0 AND t.removed = 0',
             'order' => 'RAND()',
         ));
 

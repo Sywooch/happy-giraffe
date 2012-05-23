@@ -3626,7 +3626,7 @@ ul.letters li a:hover {
 #repair-wallpapers #empty-area-form{display:none;}
 #repair-wallpapers .form .row.except .cut {display:block;width:334px;height:21px;background:url(/images2/repair_wallpapers_cut.png) no-repeat;margin-top:-25px;margin-left:-15px;}
 #repair-wallpapers .form .row.except ul#emptyareas {list-style:none;}
-#repair-wallpapers .form .row.except ul#emptyareas li {width:45%;padding-right:4%;display:inline-block;vertical-align:top;padding:5px 0;}
+#repair-wallpapers .form .row.except ul#emptyareas li {width:95%;padding-right:4%;display:inline-block;vertical-align:top;padding:5px 0;}
 #repair-wallpapers .form .row.except ul#emptyareas li .remove {display:inline-block;width:12px;height:14px;background:url(/images2/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
 #repair-wallpapers .form .row.except ul#emptyareas li .remove:hover {background-position:-314px -148px;}
 
@@ -3870,7 +3870,7 @@ ul.letters li a:hover {
 #test-navel .step .question .q-options label {font-size:22px;color:#969696;cursor:pointer;}
 #test-navel .step .question .q-options label:hover {color:#5d5c5c;}
 #test-navel .step .question .q-options label:active {color:#8b5fb5;}
-#test-navel .step .question .q-options label span {display:inline-block;vertical-align:top;margin-top:5px;}
+#test-navel .step .question .q-options label span {/*display:inline-block;vertical-align:top;margin-top:5px;*/}
 
 #test-navel .step .result {width:300px;margin-left:330px;}
 #test-navel .step .result .r-title {font-size:80px;color:#ebe1f5;font-weight:bold;margin-top:35px;text-align:center;margin-bottom:100px;line-height: 100px;}

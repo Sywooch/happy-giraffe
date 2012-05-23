@@ -38,6 +38,7 @@ return array(
         'morning/<id:\d+>' => 'morning/view',
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
         'morning/' => 'morning/index',
+        'morning/index/<date:[\w-]+>'=>'404',
 
         '/' => 'site/index',
         'admin/' => 'admin/site/index',
@@ -79,6 +80,8 @@ return array(
         'horoscope/month/<zodiac:[\w]+>'=>'services/horoscope/default/month',
         'horoscope/<zodiac:[\w]+>/<date:[\d\d\d\d-\d\d-\d\d]*>'=>'services/horoscope/default/view',
         'horoscope/today/<zodiac:[\w]+>'=>'services/horoscope/default/view',
+        'horoscope/tomorrow/<zodiac:[\w]+>'=>'services/horoscope/default/tomorrow',
+        'horoscope/yesterday/<zodiac:[\w]+>'=>'services/horoscope/default/yesterday',
 
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

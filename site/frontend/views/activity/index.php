@@ -18,13 +18,13 @@
 
         <div class="col-1">
 
-            <?php //$this->widget('LiveWidget'); ?>
+            <?php $this->widget('LiveWidget'); ?>
 
             <?php $this->widget('WantToChatWidget'); ?>
 
-            <div class="banner">
+            <!--<div class="banner">
                 <a href=""><img src="/images/banner_04.png"></a>
-            </div>
+            </div>-->
 
         </div>
 
@@ -49,7 +49,7 @@
                 <div class="col-3">
 
                     <?php $this->widget('TopFiveWidget'); ?>
-                    <?php //$this->widget('PopularWidget'); ?>
+                    <?php $this->widget('PopularWidget'); ?>
 
                 </div>
 

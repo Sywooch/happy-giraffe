@@ -13,17 +13,17 @@
                 <th class="al">Ключевые слова и фразы</th>
                 <th class="al">Название статьи, ссылка</th>
                 <th>Статус</th>
-                <th>Дата завершения</th>
+                <th>Дата</th>
             </tr>
             <?php foreach ($tasks as $task) { ?>
             <tr>
                 <td class="al"><?=$task->getText() ?></td>
                 <td class="al"><?=$task->getArticleText() ?></td>
-                <td class="seo-status-check-<?=($task->status == SeoTask::STATUS_PUBLISHED) ? 1 : 2 ?>"><?=$task->statusText ?></td>
+                <td class="seo-status-author-<?=$task->status ?>"><?=$task->statusText ?></td>
                 <td>
-                    Размещено <span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_PUBLISHED) ?></span>
-                    <?php if ($task->status > SeoTask::STATUS_PUBLISHED): ?>
-                    Проверено <span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_CLOSED) ?></span>
+                    Написана <span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_WRITTEN) ?></span>
+                    <?php if ($task->status >= SeoTask::STATUS_PUBLISHED): ?>
+                    Размещена <span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_PUBLISHED) ?></span>
                     <?php endif ?>
                 </td>
             </tr>

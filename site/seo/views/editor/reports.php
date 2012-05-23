@@ -5,23 +5,23 @@
         <ul>
             <li class="new active">
                 <a onclick="setTab(this, 1);" href="javascript:void(0);">Новое</a>
-                <span class="count">18</span>
+                <span class="count"></span>
             </li>
             <li class="new correction">
                 <a onclick="setTab(this, 2);" href="javascript:void(0);">Коррекция</a>
-                <span class="count">8</span>
+                <span class="count"></span>
             </li>
             <li class="new publish">
                 <a onclick="setTab(this, 3);" href="javascript:void(0);">Публикация</a>
-                <span class="count">9</span>
+                <span class="count"></span>
             </li>
             <li class="new check">
                 <a onclick="setTab(this, 4);" href="javascript:void(0);">Проверка</a>
-                <span class="count">5</span>
+                <span class="count"></span>
             </li>
             <li class="new process">
                 <a onclick="setTab(this, 5);" href="javascript:void(0);">Выполненные</a>
-                <span class="count">12</span>
+                <span class="count"></span>
             </li>
 
         </ul>
@@ -41,7 +41,7 @@
                 <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_READY || $task->status == SeoTask::STATUS_TAKEN) { ?>
                 <tr>
                     <td class="al"><?=$task->getText() ?></td>
-                    <td><?=$task->getIcon() ?></td>
+                    <td><?=$task->getExecutor() ?></td>
                     <td class="seo-status-new-<?=$task->status ?>"><?=$task->statusText ?></td>
                 </tr>
                     <?php } ?>
@@ -69,20 +69,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_WRITTEN || $task->status == SeoTask::STATUS_CORRECTING) { ?>
-                <tr>
-                    <td class="al"><?=$task->getText() ?></td>
-                    <td class="al"><?=$task->getArticleText() ?></td>
-                    <td><?=$task->getExecutor() ?></td>
-                    <td class="seo-status-<?=$task->status ?>"><?=$task->statusText ?></td>
-                    <?php if ($task->status == SeoTask::STATUS_WRITTEN): ?>
-                    <td><a href="" class="btn-green-small">На коррекцию</a></td>
-                    <?php else: ?>
-                    <td>На коррекции</td>
-                    <?php endif ?>
-                </tr>
-                    <?php } ?>
-
+                <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_WRITTEN || $task->status == SeoTask::STATUS_CORRECTING)
+                    $this->renderPartial('_correcting_task',compact('task'));
+                ?>
                 </tbody>
             </table>
         </div>
@@ -111,11 +100,11 @@
                     <td class="al"><?=$task->getText() ?></td>
                     <td class="al"><?=$task->getArticleText() ?></td>
                     <td><?=$task->getExecutor() ?></td>
-                    <td class="seo-status-<?=$task->status ?>"><?=$task->statusText ?></td>
+                    <td class="seo-status-publish-<?=($task->status == SeoTask::STATUS_CORRECTED)?1:2 ?>"><?=$task->statusText ?></td>
                     <?php if ($task->status == SeoTask::STATUS_CORRECTED): ?>
-                    <td><a href="" class="btn-green-small" onclick="SeoTasks.ToPublishing(<?=$task->id ?>);return false;">На публикацию</a></td>
+                    <td><a href="" class="btn-green-small" onclick="SeoTasks.ToPublishing(this, <?=$task->id ?>);return false;">На публикацию</a></td>
                     <?php else: ?>
-                    <td>На публикации</td>
+                    <td></td>
                     <?php endif ?>
                 </tr>
                     <?php } ?>
@@ -183,6 +172,10 @@
 </div>
 
 <script type="text/javascript">
+    $(function() {
+        calcTaskCount();
+    });
+
     function setTab(el, num) {
         var tabs = $(el).parents('.tabs');
         var li = $(el).parent();
@@ -193,5 +186,12 @@
             tabs.find('.tab-box').not('.tab-box-' + num).hide();
 
         }
+    }
+
+    function calcTaskCount(){
+        $('div.table-box').each(function(index, Element){
+            var tabs_count = $(this).find('tr').length - 1;
+            $('.table-nav li:eq('+index+') span.count').html(tabs_count);
+        });
     }
 </script>

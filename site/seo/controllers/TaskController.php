@@ -10,9 +10,10 @@ class TaskController extends SController
         if (!Yii::app()->user->checkAccess('moderator'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        $this->pageTitle = 'модератор';
+
         $tasks = SeoTask::getTasks();
         $executing = SeoTask::getActiveTask();
-        $success_tasks = SeoTask::TodayExecutedTasks();
 
         $this->render('_moderator', compact('tasks', 'executing', 'success_tasks'));
     }
@@ -42,8 +43,7 @@ class TaskController extends SController
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
 
-        $task->executed = date("Y-m-d H:i:s");
-        $url = Yii::app()->request->getPost('url');
+        $url = trim(Yii::app()->request->getPost('url'));
         if (!empty($url)) {
             preg_match("/\/([\d]+)\/$/", $url, $match);
             $article_id = $match[1];
@@ -51,8 +51,16 @@ class TaskController extends SController
             if ($article === null)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            $task->article_id = $article_id;
-            if ($task->status != SeoTask::STATUS_CHECKED && $task->status != SeoTask::STATUS_TAKEN)
+            $article_keywords = new ArticleKeywords();
+            $article_keywords->entity = 'CommunityContent';
+            $article_keywords->entity_id = $article_id;
+            $article_keywords->keyword_group_id = $task->keyword_group_id;
+            $article_keywords->url = $url;
+            $article_keywords->save();
+
+            $task->article_id = $article_keywords->id;
+            $task->article_title = $article->title;
+            if ($task->status != SeoTask::STATUS_TAKEN)
                 Yii::app()->end();
 
             $task->status = SeoTask::STATUS_PUBLISHED;
@@ -67,7 +75,7 @@ class TaskController extends SController
     {
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
-        if ($task->status != SeoTask::STATUS_NEW) {
+        if ($task->status != SeoTask::STATUS_READY) {
             echo CJSON::encode(array(
                 'status' => false,
                 'error' => 'задание уже забито'
@@ -97,7 +105,7 @@ class TaskController extends SController
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
         if ($task->status == SeoTask::STATUS_WRITTEN && $task->type == SeoTask::TYPE_EDITOR) {
-            $task->status = SeoTask::STATUS_CHECKED;
+            $task->status = SeoTask::STATUS_PUBLICATION;
             echo CJSON::encode(array('status' => $task->save()));
         }
         else

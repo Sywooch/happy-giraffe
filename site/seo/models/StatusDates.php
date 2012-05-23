@@ -5,6 +5,7 @@
  */
 class StatusDates extends EMongoDocument
 {
+    public $entity;
     public $entity_id;
     public $status;
     public $time;
@@ -26,5 +27,16 @@ class StatusDates extends EMongoDocument
         return parent::beforeSave();
     }
 
+    public static function getTime($model, $status){
+        $criteria = new EMongoCriteria;
+        $criteria->entity('==', get_class($model));
+        $criteria->entity_id('==', (int)$model->primaryKey);
+        $criteria->status('==', (int)$status);
 
+        $date = self::model()->find($criteria);
+        if ($date){
+            date("d MMM Y", $date->time);
+        }else
+            return null;
+    }
 }

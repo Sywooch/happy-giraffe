@@ -36,18 +36,20 @@
                             <span class="count-in"><?=$answers[$i]['votes']?></span>
                             <a href="javascript:;" onclick="Duel.showVotes();">голосов<span class="tip">Посмотреть голоса</span></a>
                         </div>
-                        <?php if (! Yii::app()->user->isGuest): ?>
-                            <div class="button">
-                                <?php if ($answers[$i]->getCurrentVote(Yii::app()->user->id) !== null): ?>
-                                    <span>Мой голос</span><br />
-                                <?php endif; ?>
-                                <?php if (! $question->getCanVote(Yii::app()->user->id) || ($answers[0]->getCurrentVote(Yii::app()->user->id) !== null || $answers[1]->getCurrentVote(Yii::app()->user->id) !== null)): ?>
-                                    <a class="active" disabled="disabled">Голосовать</a>
-                                <?php else: ?>
-                                    <a href="javascript:;" onclick="Duel.vote(this, <?=$answers[$i]->id?>);">Голосовать</a>
-                                <?php endif; ?>
-                            </div>
-                        <?php endif; ?>
+                        <div class="button">
+                            <?php if (! Yii::app()->user->isGuest): ?>
+                                    <?php if ($answers[$i]->getCurrentVote(Yii::app()->user->id) !== null): ?>
+                                        <span>Мой голос</span><br />
+                                    <?php endif; ?>
+                                    <?php if (! $question->getCanVote(Yii::app()->user->id) || ($answers[0]->getCurrentVote(Yii::app()->user->id) !== null || $answers[1]->getCurrentVote(Yii::app()->user->id) !== null)): ?>
+                                        <a class="active" disabled="disabled">Голосовать</a>
+                                    <?php else: ?>
+                                        <a href="javascript:;" onclick="Duel.vote(this, <?=$answers[$i]->id?>);">Голосовать</a>
+                                    <?php endif; ?>
+                            <?php else: ?>
+                                <a href="#login">Голосовать</a>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>

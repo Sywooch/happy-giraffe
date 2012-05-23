@@ -18,6 +18,15 @@ class TaskController extends SController
         $this->render('_moderator', compact('tasks', 'executing', 'success_tasks'));
     }
 
+    public function actionModeratorReports(){
+        if (!Yii::app()->user->checkAccess('moderator'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $this->pageTitle = 'модератор';
+        $tasks = SeoTask::TodayExecutedTasks();
+        $this->render('_moderator_reports',compact('tasks'));
+    }
+
     public function actionAuthor()
     {
         if (!Yii::app()->user->checkAccess('author'))

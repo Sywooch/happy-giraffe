@@ -243,7 +243,7 @@ class SeoTask extends CActiveRecord
             case self::STATUS_PUBLISHED:
                 return 'Опубликована';
             case self::STATUS_CLOSED:
-                return 'Выполнено';
+                return 'Проверено';
         }
 
         return '';
@@ -253,7 +253,7 @@ class SeoTask extends CActiveRecord
     {
         $text = '';
         if (!empty($this->article_title))
-            $text.= $this->article_title;
+            $text.= '<b>'.$this->article_title.'</b>';
 
         if (!empty($this->article_id)){
             $text.= '<br>'.CHtml::link($this->article->url, $this->article->url);

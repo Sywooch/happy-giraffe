@@ -72,7 +72,7 @@
                 <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_WRITTEN || $task->status == SeoTask::STATUS_CORRECTING) { ?>
                 <tr>
                     <td class="al"><?=$task->getText() ?></td>
-                    <td class="al"><b><?=$task->getArticleText() ?></b></td>
+                    <td class="al"><?=$task->getArticleText() ?></td>
                     <td><?=$task->getExecutor() ?></td>
                     <td class="seo-status-<?=$task->status ?>"><?=$task->statusText ?></td>
                     <?php if ($task->status == SeoTask::STATUS_WRITTEN): ?>
@@ -109,7 +109,7 @@
                 <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_CORRECTED || $task->status == SeoTask::STATUS_PUBLICATION) { ?>
                 <tr>
                     <td class="al"><?=$task->getText() ?></td>
-                    <td class="al"><b><?=$task->getArticleText() ?></b></td>
+                    <td class="al"><?=$task->getArticleText() ?></td>
                     <td><?=$task->getExecutor() ?></td>
                     <td class="seo-status-<?=$task->status ?>"><?=$task->statusText ?></td>
                     <?php if ($task->status == SeoTask::STATUS_CORRECTED): ?>
@@ -145,7 +145,7 @@
                 <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_PUBLISHED) { ?>
                 <tr>
                     <td class="al"><?=$task->getText() ?></td>
-                    <td class="al"><b><?=$task->getArticleText() ?></b></td>
+                    <td class="al"><?=$task->getArticleText() ?></td>
                     <td><?=$task->getExecutor() ?></td>
                     <td><a href="" class="btn-green-small" onclick="SeoTasks.CloseTask(this, <?=$task->id ?>);return false;">Проверено</a></td>
                 </tr>

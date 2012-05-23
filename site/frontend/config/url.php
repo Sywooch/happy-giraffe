@@ -38,6 +38,7 @@ return array(
         'morning/<id:\d+>' => 'morning/view',
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
         'morning/' => 'morning/index',
+        'morning/index/<date:[\w-]+>'=>'404',
 
         '/' => 'site/index',
         'admin/' => 'admin/site/index',

@@ -4,20 +4,6 @@
  * Time: 15:57
  */
 var SeoModule = {
-    group:new Array(),
-    id:null,
-    addToGroup:function (el) {
-        var id = this.getId($(el).parent());
-        SeoModule.group.push(id);
-        $('.keyword_group').append('<div>' + $(el).prev().text() + '</div>');
-        $(el).parent().removeClass('default').addClass('active');
-        $(el).hide();
-
-        return false;
-    },
-    getId:function (el) {
-        return el.attr("id").replace(/[a-zA-Z]*-/ig, "");
-    },
     GetArticleInfo:function () {
         var url = $('input.article-url').val();
         $.post('/task/getArticleInfo/', {url:url}, function (response) {

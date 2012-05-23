@@ -63,10 +63,6 @@ var UserLocation = {
         });
     },
     OpenEdit:function (elem) {
-        if(typeof(HMap.map.descruction) != 'undefined')
-            HMap.map.descruction();
-        if(typeof(HMap.map.destroy) != 'undefined')
-            HMap.map.destroy();
         $.ajax({
             url: '/geo/geo/locationForm/',
             type: 'POST',

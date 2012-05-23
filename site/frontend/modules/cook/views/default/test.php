@@ -28,7 +28,12 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'recipeIngredients'); ?>
-        <?php echo $form->textArea($model, 'recipeIngredients'); ?>
+        <?php
+        if (isset($_POST['TestForm']['recipeIngredients'])) {
+            $model->recipeIngredients = $_POST['TestForm']['recipeIngredients'];
+        }
+        echo $form->textArea($model, 'recipeIngredients', $result['recipe']);
+        ?>
         <?php echo $form->error($model, 'recipeIngredients'); ?>
     </div>
 

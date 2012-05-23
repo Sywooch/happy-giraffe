@@ -49,7 +49,6 @@
                     $display = (in_array($unit['type'], array('qty', 'single', 'undefined'))) ? ' style="display:none" ' : '';
                     echo '<option value="' . $unit['id'] . '" data-id="' . $unit['id'] . '" data-type="' . $unit['type'] . '" data-ratio="' . $unit['ratio'] . '"' . $display . ' >' . CHtml::encode($unit['title']) . '</option>';
                 }
-                //echo CHtml::dropDownList('ingredient[nnn][unit]', '1', CHtml::listData($units, 'id', 'title'));
                 ?>
             </select>
 

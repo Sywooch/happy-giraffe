@@ -82,7 +82,7 @@ class CookIngredients extends CActiveRecord
             'unit_id' => 'Ед.изм.',
             'title' => 'Название',
             'weight' => 'Вес г',
-            'density' => 'Плотность',
+            'density' => 'Плотность г/см³',
             'src' => 'Источник',
         );
     }

@@ -11,6 +11,7 @@
  * @property KeyStats[] $seoStats
  * @property KeywordGroup[] $keywordGroups
  * @property YandexPopularity $yandexPopularity
+ * @property KeywordBlacklist $keywordBlacklist
  */
 class Keywords extends HActiveRecord
 {
@@ -65,6 +66,7 @@ class Keywords extends HActiveRecord
             'keywordGroups' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'yandexPopularity' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeywords', 'keyword_id'),
+            'keywordBlacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
         );
     }
 
@@ -121,7 +123,7 @@ class Keywords extends HActiveRecord
     public static function GetKeyword($word)
     {
         $word = trim($word);
-        $model = self::sphinxSearch($word);
+        $model = self::model()->findByAttributes(array('name'=>$word));
         if ($model !== null)
             return $model;
 
@@ -133,41 +135,12 @@ class Keywords extends HActiveRecord
         return $model;
     }
 
-    public static function GetKeywordForExist($keyword)
-    {
-        /*$model = self::model()->findByAttributes(array('name'=>$keyword));
-        if ($model !== null)
-            return $model;*/
-
-        $model = new Keywords();
-        $model->name = $keyword;
-        if (!$model->save())
-            throw new CHttpException(404, 'Кейворд не сохранен. ' . $keyword);
-
-        return $model;
-    }
-
-    public static function sphinxSearch($word)
-    {
-        $allSearch = Yii::app()->search
-            ->select('*')
-            ->from('keywords')
-            ->where($word)
-            ->limit(0, 1000)
-            ->searchRaw();
-
-        if (!empty($allSearch['matches']))
-
-            foreach ($allSearch['matches'] as $key => $m) {
-                return Keywords::model()->findByPk($key);
-            }
-
-        return null;
-    }
-
     public function hasOpenedTask()
     {
         foreach ($this->keywordGroups as $group) {
+            if (!empty($group->articleKeywords))
+                return false;
+
             if ($group->newTaskCount > 0)
                 return true;
         }
@@ -178,29 +151,30 @@ class Keywords extends HActiveRecord
     public function used()
     {
         foreach ($this->keywordGroups as $group) {
-            if (!empty($group->seoArticleKeywords))
+            if (!empty($group->articleKeywords))
                 return true;
         }
+        return false;
+    }
 
+    public function inBuffer()
+    {
         if (!empty($this->tempKeyword))
             return true;
 
         return false;
     }
 
-    public function getButtons()
-    {
-        if (!$this->used() && !$this->hasOpenedTask()) {
-            echo CHtml::hiddenField('id', $this->id);
-            echo CHtml::link('выбрать', '#', array('onclick' => 'return SeoKeywords.Select(this);'));
-        }
-    }
-
     public function getClass()
     {
-        if ($this->used()) return 'used';
-        elseif ($this->hasOpenedTask()) return 'active';
-        return 'default';
+        $class = '';
+        if ($this->used()) $class = 'on-site';
+        elseif ($this->inBuffer()) $class ='in-buffer';
+        elseif ($this->hasOpenedTask()) $class ='in-work';
+
+        if (!empty($class))
+            return ' class="'.$class.'"';
+        return '';
     }
 
     public function getData()
@@ -211,5 +185,14 @@ class Keywords extends HActiveRecord
                 $res .= $seoStat->sum . ', ';
 
         return $res;
+    }
+
+    public function getStats($site_id){
+        foreach($this->seoStats as $stats){
+            if ($stats->site_id == $site_id)
+                return round($stats->sum/12);
+        }
+
+        return 0;
     }
 }

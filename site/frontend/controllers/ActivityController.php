@@ -16,6 +16,7 @@ class ActivityController extends HController
         $live = new CActiveDataProvider(CommunityContent::model()->full(), array(
             'criteria' => array(
                 'order' => 'created DESC',
+                'condition' => 'type_id != 4',
             ),
         ));
 

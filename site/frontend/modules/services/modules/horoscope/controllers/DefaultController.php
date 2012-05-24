@@ -5,6 +5,9 @@ class DefaultController extends HController
     public $layout = 'horoscope';
     public $title;
 
+    /**
+     * @sitemap
+     */
     public function actionIndex()
     {
         $models = Horoscope::model()->findAllByAttributes(array('date' => date("Y-m-d")));

@@ -93,36 +93,45 @@ class VoteWidget extends CWidget
         }
 
         //form javascript
-        $js = "$('body').delegate('$this->main_selector a', 'click', function(e) {
-			e.preventDefault();
-			if ($(this).hasClass('active'))
-			    return false;
+        if (! Yii::app()->user->isGuest) {
+            $js = "$('body').delegate('$this->main_selector a', 'click', function(e) {
+                e.preventDefault();
+                if ($(this).hasClass('active'))
+                    return false;
 
-			var button = $(this);
-			var vote = button.attr('vote');
-			var main_bl = $(this).parents('$this->main_selector');
-			var object_id = $(this).parents('$this->main_selector').find('.obj_id').val();
+                var button = $(this);
+                var vote = button.attr('vote');
+                var main_bl = $(this).parents('$this->main_selector');
+                var object_id = $(this).parents('$this->main_selector').find('.obj_id').val();
 
-			var request = 'object_id='+object_id+'&vote='+vote+'&model=" . get_class($this->model) . "&';
-			var depends = main_bl.find('input.depends');
-			depends.each(function(index, Element) {
-			    request += 'depends['+$(this).attr('rel')+']='+$(this).val()+'&';
-			});
+                var request = 'object_id='+object_id+'&vote='+vote+'&model=" . get_class($this->model) . "&';
+                var depends = main_bl.find('input.depends');
+                depends.each(function(index, Element) {
+                    request += 'depends['+$(this).attr('rel')+']='+$(this).val()+'&';
+                });
 
-			$.ajax({
-				dataType: 'JSON',
-				type: 'POST',
-				url: '" . Yii::app()->createUrl('ajax/vote') . "',
-				data: request,
-				success: function(response) {
-				    main_bl.find('a').removeClass('active');
-					$(this).addClass('active');
-					$insert_result
-					main_bl.find('$this->rating').text(response.rating);
-				},
-				context:$(this)
-			});
-		});";
+                $.ajax({
+                    dataType: 'JSON',
+                    type: 'POST',
+                    url: '" . Yii::app()->createUrl('ajax/vote') . "',
+                    data: request,
+                    success: function(response) {
+                        main_bl.find('a').removeClass('active');
+                        $(this).addClass('active');
+                        $insert_result
+                        main_bl.find('$this->rating').text(response.rating);
+                    },
+                    context:$(this)
+                });
+            });";
+        } else {
+            $js = "
+                $('body').delegate('$this->main_selector a', 'click', function(e) {
+                    e.preventDefault();
+                    $('a[href=\"#login\"]').click();
+                });
+            ";
+        }
         $this->js = $js;
 
         Yii::app()->clientScript->registerScript('vote-' . get_class($this->model), $js);

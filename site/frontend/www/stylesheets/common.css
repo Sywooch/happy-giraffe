@@ -2257,7 +2257,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-popular ul li .user-info .details .username {width:130px;font-size:12px;}
 #activity .activity-popular ul li .item-title {margin:5px 0;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;line-height:14px;font-size:12px;}
 #activity .activity-popular ul li .content {}
-#activity .activity-popular ul li .content img {max-width:178px;}
+#activity .activity-popular ul li .content img {max-width:178px;max-height:300px;}
 #activity .activity-popular ul li .meta {margin-top:8px;line-height:1.2;font-size:12px;}
 #activity .activity-popular ul li .meta span {display:inline-block;padding:2px 5px;}
 #activity .activity-popular ul li .meta .rating {float:right;color:#8455b1;font:italic 25px/1 times new roman, serif;position:relative;top:-6px;}

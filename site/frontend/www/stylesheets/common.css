@@ -2196,7 +2196,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .activity-onair ul li .user .icon-status {position:relative;top:0px;}
 .activity-onair ul li a {display:block;line-height:14px;font-family:tahoma, arial, sans-serif;font-weight:bold;}
 .activity-onair ul li p {margin-top:5px;font-size:11px;line-height:16px;}
-.activity-onair ul li img {max-width:200px;margin-top:8px;}
+.activity-onair ul li img {max-width:200px;max-height:400px;margin-top:8px;}
 .activity-onair.horizontal .title {margin-left:20px;}
 .activity-onair.horizontal .title a {font-size:12px;margin-left:30px;font-weight:normal;}
 .activity-onair.horizontal {padding:14px 0;}
@@ -2257,7 +2257,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-popular ul li .user-info .details .username {width:130px;font-size:12px;}
 #activity .activity-popular ul li .item-title {margin:5px 0;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;line-height:14px;font-size:12px;}
 #activity .activity-popular ul li .content {}
-#activity .activity-popular ul li .content img {max-width:178px;max-height:300px;}
+#activity .activity-popular ul li .content img {max-width:178px;max-height:356px;}
 #activity .activity-popular ul li .meta {margin-top:8px;line-height:1.2;font-size:12px;}
 #activity .activity-popular ul li .meta span {display:inline-block;padding:2px 5px;}
 #activity .activity-popular ul li .meta .rating {float:right;color:#8455b1;font:italic 25px/1 times new roman, serif;position:relative;top:-6px;}

@@ -1,5 +1,11 @@
 <div id="duel-takeapart" class="popup">
 
-    <?php $this->renderPartial('duel_submit', array('question' => $question, 'votes' => true)); ?>
+    <div class="activity-duel">
+
+        <div class="title">Дуэль</div>
+
+        <?php $this->renderPartial('application.widgets.activity.views._duel', array('question' => $question, 'votes' => true)); ?>
+
+    </div>
 
 </div>

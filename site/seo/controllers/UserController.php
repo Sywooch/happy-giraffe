@@ -33,7 +33,12 @@ class UserController extends SController
                 $password = substr(md5(time()), 0, 8);
                 $model->password = md5($password);
             }
-            $model->save();
+            if ($model->save()){
+                if (!empty($model->role)){
+                    Yii::app()->db->createCommand()->delete('auth__assignments', 'userid=:userid',array(':userid'=>$model->id));
+                    Yii::app()->authManager->assign($model->role, $model->id);
+                }
+            }
 		}
 
 		$this->render('create',array(
@@ -57,8 +62,11 @@ class UserController extends SController
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
-			if($model->save())
+			if($model->save()){
+                Yii::app()->db->createCommand()->delete('auth__assignments', 'userid=:userid',array(':userid'=>$model->id));
+                Yii::app()->authManager->assign($model->role, $model->id);
 				$this->redirect(array('admin'));
+            }
 		}
 
 		$this->render('update',array(

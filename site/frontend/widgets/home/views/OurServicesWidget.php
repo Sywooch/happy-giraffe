@@ -45,6 +45,8 @@
                     <li><a href="<?=Yii::app()->createUrl('/babyBloodGroup/') ?>">Определение группы крови ребенка</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/threadCalculation/') ?>">Расчет ниток для вышивания</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/yarnCalculator/') ?>">Сколько пряжи для вязания нужно?</a></li>
+                    <li><a href="<?=Yii::app()->createUrl('/horoscope/') ?>">Гороскоп</a></li>
+                    <li><a href="<?=Yii::app()->createUrl('/maternityLeave/') ?>">Когда уходить в декрет</a></li>
                 </ul>
             </li>
             <li>
@@ -57,6 +59,7 @@
                     <li><a href="<?=Yii::app()->createUrl('/sewing/embroideryCost/') ?>">Расчет стоимости вышивки</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/sewing/fabricCalculator/') ?>">Калькулятор ткани</a></li>
                     <li><a href="<?=Yii::app()->createUrl('/childrenDiseases/') ?>">Справочник детских болезней</a></li>
+                    <li><a href="<?=Yii::app()->createUrl('/repair/wallpapers/') ?>">Расчет количества обоев</a></li>
                 </ul>
             </li>
 

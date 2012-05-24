@@ -31,10 +31,13 @@ class SiteController extends SController
             $this->redirect($this->createUrl('task/tasks'));
 
         if (Yii::app()->user->checkAccess('content-manager'))
-            $this->redirect($this->createUrl('task/cmanager'));
+            $this->redirect($this->createUrl('task/ContentManager'));
 
         if (Yii::app()->user->checkAccess('articles-input'))
             $this->redirect($this->createUrl('existArticles/index'));
+
+        if (Yii::app()->user->checkAccess('corrector'))
+            $this->redirect($this->createUrl('task/corrector'));
 	}
 
     /**

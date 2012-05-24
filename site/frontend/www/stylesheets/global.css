@@ -3626,7 +3626,7 @@ ul.letters li a:hover {
 #repair-wallpapers #empty-area-form{display:none;}
 #repair-wallpapers .form .row.except .cut {display:block;width:334px;height:21px;background:url(/images2/repair_wallpapers_cut.png) no-repeat;margin-top:-25px;margin-left:-15px;}
 #repair-wallpapers .form .row.except ul#emptyareas {list-style:none;}
-#repair-wallpapers .form .row.except ul#emptyareas li {width:45%;padding-right:4%;display:inline-block;vertical-align:top;padding:5px 0;}
+#repair-wallpapers .form .row.except ul#emptyareas li {width:95%;padding-right:4%;display:inline-block;vertical-align:top;padding:5px 0;}
 #repair-wallpapers .form .row.except ul#emptyareas li .remove {display:inline-block;width:12px;height:14px;background:url(/images2/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
 #repair-wallpapers .form .row.except ul#emptyareas li .remove:hover {background-position:-314px -148px;}
 
@@ -3870,7 +3870,7 @@ ul.letters li a:hover {
 #test-navel .step .question .q-options label {font-size:22px;color:#969696;cursor:pointer;}
 #test-navel .step .question .q-options label:hover {color:#5d5c5c;}
 #test-navel .step .question .q-options label:active {color:#8b5fb5;}
-#test-navel .step .question .q-options label span {display:inline-block;vertical-align:top;margin-top:5px;}
+#test-navel .step .question .q-options label span {/*display:inline-block;vertical-align:top;margin-top:5px;*/}
 
 #test-navel .step .result {width:300px;margin-left:330px;}
 #test-navel .step .result .r-title {font-size:80px;color:#ebe1f5;font-weight:bold;margin-top:35px;text-align:center;margin-bottom:100px;line-height: 100px;}
@@ -4140,3 +4140,40 @@ ul.letters li a:hover {
 
 .step .your_res{display: none;}
 .step .your_rec{display: none;}
+
+
+/* */
+
+#calories-calculator {}
+
+#calories-calculator .title {height:285px;background:url(/images/bg_calories_calculator_title.jpg) no-repeat right top;border:1px solid #ebe1f5;padding-left:30px;padding-top:50px;font-weight:normal;margin-bottom:30px;}
+#calories-calculator .title span {font-family:tahoma, arial, helvetica, sans-serif;display:block;font-size:50px;color:#88ab20;margin-bottom:15px;}
+#calories-calculator .title h2 {font-family:tahoma, arial, helvetica, sans-serif;font-weight:normal;font-size:36px;color:#9bc12b;line-height:1;margin-bottom:30px;}
+#calories-calculator .title h1 {font-size:32px;color:#737373;font-weight:normal;}
+
+#calories-calculator .calculator {margin-bottom:50px;}
+#calories-calculator .calculator table {font-size:13px;width:100%;}
+#calories-calculator .calculator table td {padding:3px;text-align:center;}
+#calories-calculator .calculator table thead {color:#4c4d4d;}
+#calories-calculator .calculator table thead td {vertical-align:bottom;}
+#calories-calculator .calculator table thead span {color:#8b8b8b;font-size:11px;}
+#calories-calculator .calculator table thead .calories-icon {display:block;width:20px;height:20px;font-size:14px;font-weight:bold;background:#f0f0f0;line-height:20px;color:#fff;margin:0 auto 2px;}
+#calories-calculator .calculator table thead .calories-icon {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+#calories-calculator .calculator table thead .calories-icon.orange {background:#f68704;}
+#calories-calculator .calculator table thead .calories-icon.green {background:#abb71d;}
+#calories-calculator .calculator table thead .calories-icon.yellow {background:#fcbe03;}
+#calories-calculator .calculator table thead .calories-icon.blue {background:#62a0f5;}
+#calories-calculator .calculator table thead .col-1 {font-size:18px;text-align:left;padding-left:13px;}
+#calories-calculator .calculator table tbody input[type=text] {padding:3px 9px;border:1px solid #a9c8f3;margin:0;font-size:13px;line-height:17px;}
+#calories-calculator .calculator table tbody select {height:25px;border-color:#a9c8f3;width:100px;}
+#calories-calculator .calculator table tbody .value {height:25px;width:85px;background:#e5f4ff;line-height:25px;}
+#calories-calculator .calculator table tbody .col-1 {text-align:left;}
+#calories-calculator .calculator table tbody .col-1 input {width:400px;}
+#calories-calculator .calculator table tbody .col-2 input {width:30px;text-align:center;}
+#calories-calculator .calculator table tbody .col-3 {padding-right:10px;}
+#calories-calculator .calculator table tr.add td {padding:15px 3px 35px;}
+#calories-calculator .calculator table tr.add .btn {margin-right:20px;}
+#calories-calculator .calculator table tr.add .btn span {text-transform:none;font-weight:bold;font-family:arial, helvetica, sans-serif;font-size:16px;}
+#calories-calculator .calculator table tr.summary td {background:#fdfbe9;}
+#calories-calculator .calculator table tr.summary .col-1 {background:#fff;}
+#calories-calculator .calculator table tr.summary .col-23 {text-align:right;font-weight:bold;}

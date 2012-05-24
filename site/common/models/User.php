@@ -877,7 +877,7 @@ class User extends HActiveRecord
         return isset($this->_authItems[$item]);
     }
 
-    public static function findFriends($limit)
+    public static function findFriends($limit, $offset = 0)
     {
         $criteria = new CDbCriteria(array(
             'select' => 't.*, count(interest__users_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() .  '.id) AS babiesCount',
@@ -895,8 +895,9 @@ class User extends HActiveRecord
                     'condition' => 'sex != 0 OR type IS NOT NULL',
                 ),
             ),
-            'order' => 'RAND()',
+            'order' => 'register_date DESC',
             'limit' => $limit,
+            'offset' => $offset,
         ));
 
         if (! Yii::app()->user->isGuest) {

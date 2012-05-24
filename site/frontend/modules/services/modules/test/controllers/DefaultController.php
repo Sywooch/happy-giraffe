@@ -33,6 +33,9 @@ class DefaultController extends HController
         ));
     }
 
+    /**
+     * @sitemap dataSource=getModelsUrls
+     */
     public function actionView($slug)
     {
         $test = $this->LoadModel($slug);
@@ -89,5 +92,18 @@ class DefaultController extends HController
             $model->title = $text;
             $model->save();*/
         }
+    }
+
+    public function getModelsUrls()
+    {
+        Yii::import('application.modules.services.modules.test.models.*');
+
+        $models = Test::model()->findAll();
+        $data = array();
+        foreach ($models as $model)
+            $data[] = array(
+                'params' => array('slug' => $model->slug),
+            );
+        return $data;
     }
 }

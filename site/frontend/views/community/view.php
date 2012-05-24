@@ -11,10 +11,10 @@
 <?php $this->renderPartial('_post', array('data' => $data, 'full' => true)); ?>
 
 <div class="content-more clearfix">
-    <big class="title">
-        Фотографии
-        <?php echo CHtml::link('<span><span>Показать все</span></span>', $data->getUrl() . 'uploadImage/', array('class' => 'btn btn-blue-small')); ?>
-    </big>
+<!--    <big class="title">-->
+<!--        Фотографии-->
+<!--        --><?php //echo CHtml::link('<span><span>Показать все</span></span>', $data->getUrl() . 'uploadImage/', array('class' => 'btn btn-blue-small')); ?>
+<!--    </big>-->
 
     <big class="title">
         Ещё статьи на эту тему

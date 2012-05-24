@@ -4146,10 +4146,10 @@ ul.letters li a:hover {
 
 #calories-calculator {}
 
-#calories-calculator .title {height:285px;background:url(/images/bg_calories_calculator_title.jpg) no-repeat right top;border:1px solid #ebe1f5;padding-left:30px;padding-top:50px;font-weight:normal;margin-bottom:30px;}
-#calories-calculator .title span {font-family:tahoma, arial, helvetica, sans-serif;display:block;font-size:50px;color:#88ab20;margin-bottom:15px;}
-#calories-calculator .title h2 {font-family:tahoma, arial, helvetica, sans-serif;font-weight:normal;font-size:36px;color:#9bc12b;line-height:1;margin-bottom:30px;}
-#calories-calculator .title h1 {font-size:32px;color:#737373;font-weight:normal;}
+#calories-calculator div.title {height:285px;background:url(/images/bg_calories_calculator_title.jpg) no-repeat right top;border:1px solid #ebe1f5;padding-left:30px;padding-top:50px;font-weight:normal;margin-bottom:30px;}
+#calories-calculator div.title span {font-family:tahoma, arial, helvetica, sans-serif;display:block;font-size:50px;color:#88ab20;margin-bottom:15px;}
+#calories-calculator div.title h2 {font-family:tahoma, arial, helvetica, sans-serif;font-weight:normal;font-size:36px;color:#9bc12b;line-height:1;margin-bottom:30px;}
+#calories-calculator div.title h1 {font-size:32px;color:#737373;font-weight:normal;}
 
 #calories-calculator .calculator {margin-bottom:50px;}
 #calories-calculator .calculator table {font-size:13px;width:100%;}

@@ -119,4 +119,121 @@ class DefaultController extends SController
             fclose($file);
         }
     }
+
+    public function actionPop2()
+    {
+        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
+        $i = 0;
+
+        if ($file) {
+            $key = $this->nextKeyword();
+            $start = false;
+            while (($buffer = fgets($file)) !== false) {
+                if ('алдюхов сергей викторович|12' == trim($buffer))
+                    $start = true;
+                if (!$start)
+                    continue;
+
+                $i++;
+
+                $line = trim(ltrim($buffer));
+                $parts = explode('|', $line);
+                $last = '';
+                foreach ($parts as $part)
+                    $last = $part;
+                $keyword = trim($parts[0]);
+                //echo $keyword.'<br>';
+                //$keyword = str_replace("ё", 'е', $keyword);
+
+                $stat = $last;
+                if (empty($last))
+                    continue;
+
+                $k = 0;
+                //echo $key->name. '<br>';
+                while (strcmp($keyword, $key->name) > 0) {
+                    //echo $keyword . ' > ' . $key->name . '<br>';
+                    $key = $this->nextKeyword();
+                    $k++;
+                    if ($k > 500){
+                        //echo $keyword.'<br>';
+                        //Yii::app()->end();
+                        break;
+                    }
+                }
+
+//                if ($k > 20000)
+//                    echo ' k = '.$k.'<br>';
+
+                if (strcmp($keyword, $key->name) == 0){
+                    echo 'success '.$key->id.'  '.$key->name.'<br>';
+                    Yii::app()->db_seo->createCommand('CALL saveYP (:key_id, :stat)')->execute(array(
+                        ':key_id' => $key->id,
+                        ':stat' => $stat,
+                    ));
+                }
+            }
+            if (!feof($file)) {
+                echo "Error: unexpected fgets() fail\n";
+                Yii::app()->end();
+            }
+            fclose($file);
+        }
+    }
+
+    public function nextKeyword()
+    {
+        if ($this->j >= $this->limit || empty($this->keywords)) {
+            $this->keywords = $this->getKeywords();
+            $this->j = 0;
+        }
+
+        $result = $this->keywords[$this->j];
+        $this->j++;
+
+        return $result;
+    }
+
+    public function returnKey($k)
+    {
+         if ($this->j >= $k)
+             $this->j = $this->j - $k;
+        else{
+            $this->i--;
+            $this->j = $this->limit + $this->j - $k;
+            $this->keywords = $this->getKeywords();
+            $this->last_id = $this->keywords[$this->limit - 1]->id;
+            //echo $this->last_id.'<br>';
+        }
+    }
+
+    public function getKeywords()
+    {
+        $criteria = new CDbCriteria;
+        //$criteria->condition = 'id >= 2227287';
+        $criteria->condition = 'id > '.$this->last_id;
+        $criteria->limit = $this->limit;
+        $criteria->order = 'id';
+        $percent = round($this->i * $this->limit / 2100000);
+        if ($percent > $this->prev_percent) {
+            $this->prev_percent = $percent;
+            echo $percent . "% \n";
+        }
+        //echo 'достали еще '.$this->limit.'<br>';
+        flush();
+
+        return Keywords::model()->findAll($criteria);
+    }
+
+    private $i = 0;
+    private $j = 0;
+    private $keywords = array();
+    private $limit = 10000;
+    private $prev_percent = 0;
+    private $last_id = 15016308;
+
+    public function actionPop3(){
+       echo  strcmp('аля', 'але');
+    }
+
 }

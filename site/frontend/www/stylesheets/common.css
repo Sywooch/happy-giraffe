@@ -559,6 +559,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #galleryUploadPhotos .upload-files-list ul {list-style:none;}
 #galleryUploadPhotos .upload-files-list li {display:inline-block;vertical-align:bottom;margin-right:14px;margin-bottom:14px;}
 #galleryUploadPhotos .upload-files-list li .img {display:inline-block;position:relative;}
+#galleryUploadPhotos .upload-files-list li.not-loaded .img {display:none;}
+#galleryUploadPhotos .upload-files-list li.upload-done .loading {display:none;}
 #galleryUploadPhotos .upload-files-list li .img img {max-height:110px;max-width:130px;display:block;}
 #galleryUploadPhotos .upload-files-list li .remove {display:block;width:10px;height:12px;background:url(/images/common.png) no-repeat -315px -136px;position:absolute;right:5px;top:5px;}
 #galleryUploadPhotos .upload-files-list li .remove:hover {background-position:-315px -149px;}

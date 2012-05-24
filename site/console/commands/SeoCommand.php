@@ -31,8 +31,6 @@ class SeoCommand extends CConsoleCommand
 
             while (($buffer = fgets($file)) !== false) {
                 $i++;
-                if ($i < 10000)
-                    continue;
                 $line = trim(ltrim($buffer));
                 $parts = explode('|', $line);
                 $last = '';
@@ -53,10 +51,11 @@ class SeoCommand extends CConsoleCommand
                     $key = $this->nextKeyword();
                 }
 
-                Yii::app()->db_seo->createCommand('CALL saveYP (:key_id, :stat)')->execute(array(
-                    ':key_id' => $key->id,
-                    ':stat' => $stat,
-                ));
+                if (strcmp($keyword, $key->name) == 0)
+                    Yii::app()->db_seo->createCommand('CALL saveYP (:key_id, :stat)')->execute(array(
+                        ':key_id' => $key->id,
+                        ':stat' => $stat,
+                    ));
                 $i++;
             }
             if (!feof($file)) {
@@ -83,15 +82,16 @@ class SeoCommand extends CConsoleCommand
     public function getKeywords()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'id >= 2227287';
+        //$criteria->condition = 'id >= 2227287';
+        $criteria->condition = 'id > 15000000';
         $criteria->limit = $this->limit;
         $criteria->offset = $this->limit * $this->i;
         $criteria->order = 'id';
         $this->i++;
-        $percent = round($this->i*$this->limit / 2100000);
-        if ($percent > $this->prev_percent){
+        $percent = round($this->i * $this->limit / 2100000);
+        if ($percent > $this->prev_percent) {
             $this->prev_percent = $percent;
-            echo $percent."% \n";
+            echo $percent . "% \n";
         }
         //echo 'достали еще '.$this->limit.'<br>';
         flush();

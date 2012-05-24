@@ -266,32 +266,36 @@ Album.clearFlash = function () {
 };
 
 Album.appendUploadItem = function (id) {
-    var listitem = '<li class="clearfix" id="' + id + '" class="not-loaded">' +
-        '<div class="img"><i class="icon-error"></i></div>' +
+    var listitem = '<li class="clearfix not-loaded" id="' + id + '">' +
+        '<div class="img"><a class="remove" href="javascript:;" onclick="return Album.removeUploadItem(this);"></a></div>' +
         '<div class="loading"><table><tr><td>Загрузка<div class="progress-bar"><div class="in"></div></div></td></tr></table><a href="" class="remove"></a></div>' +
         '<div class="file-params" style="display:none;"></div>' +
-        '<a class="remove" href="" onclick="return Album.removeUploadItem(this);"></a>' +
         '</li>';
     $('#log').append(listitem);
 };
 
 
 Album.removeUploadItem = function (link) {
-    if ($(link).siblings('.file-params').children('span.fid').size() > 0) {
-        var id = $(link).siblings('.file-params').children('span.fid').text();
+    if ($(link).parent().siblings('.file-params').children('span.fid').size() > 0) {
+        var id = $(link).parent().siblings('.file-params').children('span.fid').text();
         $.post('/albums/removeUploadPhoto/', {id:id});
     }
-    $(link).parent().remove();
+    $(link).parent().parent().remove();
     return false;
 }
 
 Album.appendUploadErrorItem = function (id, name, error) {
-    var listitem = '<li class="clearfix upload-error" id="' + id + '" >' +
-        '<div class="img"><i class="icon-error"></i></div>' +
-        '<span>Файл ' + name + ' не был загружен. ' + error + '.</span>' +
+    $('#upload_button_wrapper').css({height:0});
+    $('#upload_finish_wrapper').css('height', 'auto').addClass('is_visible');
+    $('#album_upload_step_1').css('height', 0);
+    $('#album_upload_step_2').css('visibility', 'show');
+    var listitem = '<li class="clearfix" id="' + id + '" >' +
+        '<div class="loading error"><table><tbody><tr><td><i class="icon-error"></i><br>' + name + '<br>не загружен</td></tr></tbody></table></div>' +
         '</li>';
     $('#log').append(listitem);
 };
+
+
 
 Album.uploadStart = function (id) {
     $('#upload_button_wrapper').css({height:0});
@@ -301,10 +305,11 @@ Album.uploadStart = function (id) {
 };
 
 Album.uploadProgress = function (id, percentage) {
-    $('#log li#' + id).find('div.progress .in').css('width', percentage + '%');
+    $('#log li#' + id).find('div.progress-bar .in').css('width', percentage + '%');
 };
 
 Album.uploadSuccess = function (id, name, serverData) {
+    $('#log li#' + id).removeClass('not-loaded');
     $('#album_select').replaceWith($(serverData).find('#album_select'));
     $('#album_select_chzn').remove();
     $('#album_select').chosen({
@@ -317,7 +322,7 @@ Album.uploadSuccess = function (id, name, serverData) {
 
     var item = $('#log li#' + id);
     item.addClass('upload-done');
-    item.find('div.progress .in').css('width', '100%');
+    item.find('div.progress-bar .in').css('width', '100%');
     var pathtofile = '<a href="uploads/' + name + '" target="_blank" >view &raquo;</a>';
 
     var params = $(serverData).find('#params').text().split('||');

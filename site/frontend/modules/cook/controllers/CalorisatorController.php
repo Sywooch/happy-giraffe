@@ -16,6 +16,18 @@ class CalorisatorController extends HController
         $this->render('index', array('units' => $units));
     }
 
+    public function actionIndexold()
+    {
+        $this->pageTitle = 'Калоризатор';
+        $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'calorisator' . DIRECTORY_SEPARATOR . 'assets';
+        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+        Yii::app()->clientScript->registerScriptFile($baseUrl . '/script_old.js', CClientScript::POS_HEAD);
+
+        $units = Yii::app()->db->createCommand()->select('*')->from('cook__units')->where('parent_id IS NULL', array())->queryAll();
+
+        $this->render('index_old', array('units' => $units));
+    }
+
 
     public function actionAc($term)
     {
@@ -32,7 +44,8 @@ class CalorisatorController extends HController
                 'label' => $ing->title,
                 'id' => $ing->id,
                 'unit_id' => $ing->unit_id,
-                'weight' => $ing->weight
+                'weight' => $ing->weight,
+                'density' => $ing->density
             );
             foreach ($ing->cookIngredientsNutritionals as $nutritional)
                 $i['nutritionals'][$nutritional->nutritional_id] = $nutritional->value;

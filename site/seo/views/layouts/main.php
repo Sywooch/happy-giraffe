@@ -90,7 +90,7 @@
                     'items' => array(
                         array(
                             'label' => 'Пользователи',
-                            'url' => array('/user/moderator/'),
+                            'url' => array('/user/'),
                             'active' => Yii::app()->controller->id == 'user'
                         ),
                         array(
@@ -99,7 +99,7 @@
                         ),
                         array(
                             'label' => 'Задания рерайт',
-                            'url' => array('/task/index/'),
+                            'url' => array('/editor/index/'),
                         ),
                     )));
 

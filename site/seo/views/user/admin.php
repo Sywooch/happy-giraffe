@@ -10,6 +10,7 @@
 		'password',
 		'name',
 		'owner_id',
+        'role',
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}'

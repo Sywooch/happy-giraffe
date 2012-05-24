@@ -53,6 +53,7 @@ class User extends HActiveRecord
             //general
             array('name, email', 'length', 'max' => 50),
             array('email', 'unique'),
+            array('role', 'safe'),
             //login
             array('email, password', 'required', 'on' => 'login'),
             array('password', 'passwordValidator', 'on' => 'login'),
@@ -63,6 +64,15 @@ class User extends HActiveRecord
     {
         if ($this->password !== $this->hashPassword($this->current_password)) $this->addError('password', 'Текущий пароль введён неверно.');
 
+    }
+
+    public function afterFind()
+    {
+        $roles = array_shift(Yii::app()->authManager->getAuthItems(2, $this->id));
+        if (!empty($roles))
+            $this->role = $roles->name;
+
+        parent::afterFind();
     }
 
     public function passwordValidator($attribute, $params)

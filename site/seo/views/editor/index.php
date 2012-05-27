@@ -27,19 +27,19 @@
             <thead>
             <tr>
                 <th rowspan="2" class="col-1" style="width:350px;">Ключевое слово или фраза</th>
-                <th rowspan="2"><i class="icon-freq"></i></th>
-                <th colspan="4">Частота показов</th>
-                <th colspan="2"><i class="icon-comments"></i></th>
+<!--                <th rowspan="2"><i class="icon-freq"></i></th>-->
+<!--                <th colspan="4">Частота показов</th>-->
+<!--                <th colspan="2"><i class="icon-comments"></i></th>-->
                 <th colspan="2">Конкуренты</th>
                 <th rowspan="2">Действие</th>
             </tr>
             <tr>
-                <th><i class="icon-yandex"></i></th>
-                <th><i class="icon-google"></i></th>
-                <th><i class="icon-yandex-2"></i></th>
-                <th><i class="icon-rambler"></i></th>
-                <th><i class="icon-yandex"></i></th>
-                <th><i class="icon-google"></i></th>
+<!--                <th><i class="icon-yandex"></i></th>-->
+<!--                <th><i class="icon-google"></i></th>-->
+<!--                <th><i class="icon-yandex-2"></i></th>-->
+<!--                <th><i class="icon-rambler"></i></th>-->
+<!--                <th><i class="icon-yandex"></i></th>-->
+<!--                <th><i class="icon-google"></i></th>-->
                 <th><i class="icon-babyru"></i></th>
                 <th><i class="icon-babyru-2"></i></th>
             </tr>

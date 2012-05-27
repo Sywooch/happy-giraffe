@@ -25,13 +25,15 @@ class LinkingPagesPages extends CActiveRecord
 		return parent::model($className);
 	}
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'linking_pages_pages';
-	}
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
+
+    public function tableName()
+    {
+        return 'happy_giraffe_seo.linking_pages_pages';
+    }
 
 	/**
 	 * @return array validation rules for model attributes.

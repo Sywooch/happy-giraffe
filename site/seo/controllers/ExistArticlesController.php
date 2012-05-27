@@ -9,7 +9,7 @@ class ExistArticlesController extends SController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('articles-input'))
+        if (!Yii::app()->user->checkAccess('input-old-articles'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }

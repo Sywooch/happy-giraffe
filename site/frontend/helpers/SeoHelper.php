@@ -14,7 +14,7 @@ class SeoHelper
         $page = LinkingPages::model()->find($criteria);
         if (!empty($page) && !empty($page->linkingTo)){
             foreach($page->linkingTo as $link_page){
-                echo CHtml::link($link_page->keyword->name, $link_page->getPageUrl());
+                echo CHtml::link($link_page->keyword->name, $link_page->linktoPage->url);
             }
         }
     }

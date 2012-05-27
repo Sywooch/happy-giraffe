@@ -93,6 +93,7 @@ class KeyStats extends HActiveRecord
             'id' => 'ID',
             'site_id' => 'Site',
             'keyword_id' => 'Keyword',
+            'key_name'=>'Ключевое слово',
             'all' => 'Всего',
             'avarage' => 'Среднее',
             'm1' => 'Янв',
@@ -167,6 +168,8 @@ class KeyStats extends HActiveRecord
 
     public function GetAverageStats()
     {
+        if ($this->year == 2012)
+            return round($this->sum / 5);
         return round($this->sum / 12);
     }
 }

@@ -12,38 +12,70 @@
         text-decoration: none;
     }
     .choose-type td.active{
-        background: #333;
+        background: #D9EAFE;
     }
-    .choose-type td.active a{
-        color: #fff;
+
+
+    #seo .grid-view table.items th {
+        background: none repeat scroll 0 0 #D9EAFE;
+        border: 1px solid #FFFFFF;
+        color: #0B509B;
+        font-size: 13px;
+        font-weight: normal;
+        padding: 10px 5px;
+        vertical-align: middle;
+    }
+
+    #keywords-grid_c0{
+        width: 300px;
+    }
+
+    #seo .seo-table .table-box table td {
+        padding: 5px;
+    }
+
+    #seo .grid-view table.items th a {
+        color: #0B509B;
+    }
+
+    .grid-view table.items {
+        border: none;
+    }
+    .grid-view table.items tr.odd {
+        background: none;
+    }
+    .grid-view table.items tr.even {
+        background: none;
+    }
+    .grid-view {
+        padding: 0;
     }
 </style>
-
-<br><br>
 <?php $sites = Site::model()->findAll(); ?>
 <table class="choose-type">
     <tr>
         <?php foreach ($sites as $site): ?>
-        <td<?php if ($site_id == $site->id) echo ' class="active"' ?>><a rel="<?=$site->id ?>" href="<?php echo $this->createUrl('/seo/default/index', array('site_id'=>$site->id)) ?>"><?php echo $site->url ?></a></td>
+        <td<?php if ($site_id == $site->id) echo ' class="active"' ?>><a rel="<?=$site->id ?>" href="<?php echo $this->createUrl('/default/index', array('site_id'=>$site->id)) ?>"><?php echo $site->name ?></a></td>
         <?php endforeach; ?>
     </tr>
-</table><br><br>
-перейти к странице <input type="text" id="page"><br>
+</table><br>
+перейти к странице <input type="text" id="page">
 <?php $form=$this->beginWidget('CActiveForm', array(
     'id'=>'seo-form',
     'enableAjaxValidation'=>false,
     'method'=>'GET',
-    'action'=>array('/seo/default')
+    'action'=>array('/default/')
 ));?>
 <?php echo CHtml::hiddenField('site_id', $site_id) ?>
-<?php echo CHtml::dropDownList('year', $year, array('2011'=>2011, '2012'=>2012), array('onchange'=>'submit')) ?>
+Год: <?php echo CHtml::dropDownList('year', $year, array('2011'=>2011, '2012'=>2012), array('onchange'=>'submit')) ?>
 <?php $this->endWidget(); ?>
 
+<div class="seo-table">
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'keywords-grid',
     'dataProvider'=>$model->search(),
     'filter'=>$model,
-    'template'=>'{pager}{summary}{items}',
+    'template'=>'{pager}{summary}<div class="table-box">{items}</div>',
     'columns'=>array(
         array(
             'name'=>'key_name',
@@ -112,6 +144,7 @@
         ),
     ),
 )); ?>
+</div>
 <script type="text/javascript">
     $('#page').keyup(function(){
         var url = $('.yiiPager li.last a').attr('href')+'/KeyStats_page/'+$(this).val();

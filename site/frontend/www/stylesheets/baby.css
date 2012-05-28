@@ -6,7 +6,7 @@
 #baby .age-list ul li {float:left;margin-left:3px;position:relative;height:88px;}
 #baby .age-list ul li:first-child {margin-left:0;}
 #baby .age-list ul li a {display:block;height:16px;margin-top:42px;width:20px;background:#f4b6f8;line-height:16px;color:#fff;text-align:center;font:10px/8px tahoma, arial, sans-serif;text-decoration:none;padding:2px 0;}
-#baby .age-list ul li a {/*css3*/border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+#baby .age-list ul li a {/*css3*/border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
 #baby .age-list ul li img {position:absolute;bottom:29px;left:0;z-index:5;}
 #baby .age-list ul li .age-title {position:absolute;display:none;bottom:0;left:2px;white-space:nowrap;color:#626262;font-family:tahoma, arial, sans-serif;}
 #baby .age-list ul li .flag {position:absolute;padding-bottom:20px;white-space:nowrap;top:3px;left:-2px;font-size:11px;color:#cbcbcb;font-family:tahoma, arial, sans-serif;z-index:1;background:none;}
@@ -61,11 +61,11 @@
 
 
 #baby .favor-services {padding:4px;background:url(../images/pattern_02.gif) center;}
-#baby .favor-services {/*css3*/ border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+#baby .favor-services {/*css3*/ border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
 #baby .favor-services .block-in {background:#fff;}
-#baby .favor-services .block-in {/*css3*/ border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;}
+#baby .favor-services .block-in {/*css3*/ border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;behavior: url(/stylesheets/PIE.htc);}
 #baby .favor-services .title {font:normal 18px/25px arial, sans-serif;padding:15px 10px;text-align:center;color:#727272;background:url(../images/bg_favor_services_title.gif) repeat-x;border-bottom:1px solid #f9eaf9;}
-#baby .favor-services .title {/*css3*/ border-radius:8px 8px 0 0;-moz-border-radius:8px 8px 0 0;-webkit-border-radius:8px 8px 0 0;}
+#baby .favor-services .title {/*css3*/ border-radius:8px 8px 0 0;-moz-border-radius:8px 8px 0 0;-webkit-border-radius:8px 8px 0 0;behavior: url(/stylesheets/PIE.htc);}
 #baby .favor-services .title span {font-size:20px;color:#be39be;font-weight:bold;}
 #baby .favor-services ul {list-style:none;}
 #baby .favor-services ul li {padding:12px 0;border-bottom:1px solid #faf0fa;}
@@ -226,7 +226,7 @@
 #baby .contractions-summary .result-table {margin-top:20px;margin-bottom:30px;width:100%;}
 #baby .contractions-summary .result-table td {padding:10px;text-align:center;}
 #baby .contractions-summary .result-table thead td {background:#cfb7df;text-align:center;color:#fff;font-family:tahoma, arial, sans-serif;font-size:15px;}
-#baby .contractions-summary .result-table thead td:first-child {/*css3*/ border-radius:20px 0 0 0;-moz-border-radius:20px 0 0 0;-webkit-border-radius:20px 0 0 0;}
+#baby .contractions-summary .result-table thead td:first-child {/*css3*/ border-radius:20px 0 0 0;-moz-border-radius:20px 0 0 0;-webkit-border-radius:20px 0 0 0;behavior: url(/stylesheets/PIE.htc);}
 #baby .contractions-summary .result-table thead td:last-child {/**/ border-radius:0 20px 0 0;-moz-border-radius:0 20px 0 0;-webkit-border-radius:0 20px 0 0;}
 #baby .contractions-summary .result-table tbody td {vertical-align:middle;}
 #baby .contractions-summary .result-table tbody tr.even td, #baby .contractions-summary .result-table tfoot td {background:#fbf6ff;}
@@ -248,7 +248,7 @@
 #baby .hospital-bag {margin-bottom:40px;}
 #baby .hospital-bag .items {height:290px;background:url(../images/bg_hospital_bag.png) no-repeat;padding:15px 30px;text-align:center;}
 #baby .hospital-bag .items .item-box {display:inline-block;vertical-align:top;border:1px solid #c3edfd;background:#fff; font-size:14px;font-family:tahoma, arial, sans-serif;line-height:14px;color:#444;}
-#baby .hospital-bag .items .item-box {/*css3*/ border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;margin:11px 8px;}
+#baby .hospital-bag .items .item-box {/*css3*/ border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;margin:11px 8px;behavior: url(/stylesheets/PIE.htc);}
 #baby .hospital-bag .items .item-box .box-in {display:block;height:32px;background:url(../images/hospital_bag_item.gif) no-repeat 8px;padding:8px 12px 8px 32px;position:relative;text-align:left;}
 #baby .hospital-bag .items .item-box.item-box-pink {background:#fff url(../images/bg_hospital_bag_item_pink.gif) repeat-x;border-color:#fdd5fe;z-index:5;}
 #baby .hospital-bag .items .item-box.item-box-pink .box-in {background:url(../images/hospital_bag_item_pink.gif) no-repeat 8px;}
@@ -295,7 +295,7 @@
 
 #baby .hospital-bag-item-fast {padding-bottom:20px;}
 #baby .hospital-bag-item-fast .item-box {display:inline-block;vertical-align:top;border:1px solid #c3edfd;background:#fff; font-size:14px;font-family:tahoma, arial, sans-serif;line-height:14px;color:#444;}
-#baby .hospital-bag-item-fast .item-box {/*css3*/ border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;}
+#baby .hospital-bag-item-fast .item-box {/*css3*/ border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;behavior: url(/stylesheets/PIE.htc);}
 #baby .hospital-bag-item-fast .item-box .box-in {display:block;height:32px;background:url(../images/hospital_bag_item.gif) no-repeat 8px;padding:8px 12px 8px 32px;position:relative;text-align:left;}
 #baby .hospital-bag-item-fast .item-box:hover {background:#fff url(../images/bg_hospital_bag_item.gif) repeat-x;border-color:#b2ef96;z-index:5;}
 #baby .hospital-bag-item-fast .item-box:hover .box-in {background:url(../images/hospital_bag_item_h.gif) no-repeat 8px;}

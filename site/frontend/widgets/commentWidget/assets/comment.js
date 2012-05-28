@@ -39,6 +39,7 @@ Comment = {
     newComment:function (event) {
         this.cancel();
         this.moveForm($('#new_comment_wrapper'));
+        $(document).scrollTop($('#new_comment_wrapper').offset().top);
     },
     newPhotoComment:function (event) {
         this.cancel();

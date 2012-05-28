@@ -56,6 +56,7 @@ class Video extends CComponent
 		$this->title = @$xpath->query('//h1')->item(0)->nodeValue;
 		$this->description = @$xpath->query('//div[@class="descr"]')->item(0)->nodeValue;
 		$this->preview = $xpath->query('//meta[@property="og:image"]')->item(0)->getAttribute('content');
+        $this->image = $this->preview;
 	}
 	
 	protected function youtubeData()

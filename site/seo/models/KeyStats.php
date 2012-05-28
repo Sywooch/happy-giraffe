@@ -128,7 +128,7 @@ class KeyStats extends HActiveRecord
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
+    public function search($recOnPage)
     {
         if (!empty($_GET['KeyStats']["key_name"]))
             $this->key_name = $_GET['KeyStats']["key_name"];
@@ -144,7 +144,7 @@ class KeyStats extends HActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'pagination' => array('pageSize' => 20),
+            'pagination' => array('pageSize' => $recOnPage),
             'sort' => array(
                 'attributes' => array(
                     'sum'=>array('default'=>'desc'),

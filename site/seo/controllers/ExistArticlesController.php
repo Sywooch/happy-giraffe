@@ -60,6 +60,12 @@ class ExistArticlesController extends SController
                 $keyword_models = array();
                 foreach ($keywords as $keyword) {
                     $keyword = trim($keyword);
+                    $keyword = str_replace(',',' ',$keyword);
+                    $keyword = str_replace('.',' ',$keyword);
+                    $keyword = str_replace('.',' ',$keyword);
+                    $keyword = str_replace('  ',' ',$keyword);
+                    $keyword = str_replace('  ',' ',$keyword);
+
                     $keyword = mb_strtolower($keyword, 'utf8');
                     if (!empty($keyword)) {
                         $model = Keywords::GetKeyword($keyword);

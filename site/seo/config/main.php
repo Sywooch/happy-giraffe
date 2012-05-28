@@ -16,6 +16,7 @@ return array(
         'site.frontend.helpers.CArray',
         'site.frontend.helpers.*',
         'site.common.helpers.*',
+        'site.frontend.extensions.YiiMongoDbSuite.*',
     ),
 
 	'components' => array(

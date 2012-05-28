@@ -5,6 +5,9 @@ class WallpapersController extends HController
 
     public $layout = '//layouts/new';
 
+    /**
+     * @sitemap
+     */
     public function actionIndex()
     {
         $basePath = Yii::getPathOfAlias('repair') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'wallpapers' . DIRECTORY_SEPARATOR . 'assets';

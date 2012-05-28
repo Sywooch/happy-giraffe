@@ -1,23 +1,16 @@
-$(function(){
-
-    ffpactive = 0;
-    ffpcount = $('#find-friend-wrapper').find('ul').size();
-
-})
-
-var ffpcount;
-var ffpactive;
+var page = 1;
 
 
 function nextFriendsPage(){
-
-    if (!$('#find-friend-wrapper').find('ul').is(':animated')){
-
-        ffpcount == ffpactive+1 ? ffpactive = 0 : ffpactive++;
-
-        $('#find-friend-wrapper').find('ul').eq(ffpactive).fadeIn();
-        $('#find-friend-wrapper').find('ul').not(':eq('+ffpactive+')').hide();
-
-    }
-
+    page++;
+    $.get(
+        '/activity/friendsNext/',
+        {page: page},
+        function (response) {
+            $('#find-friend-wrapper').fadeOut().html(response).fadeIn();
+            if ($('#find-friend-wrapper ul li').length < 12) {
+                page = 0;
+            }
+        }
+    )
 }

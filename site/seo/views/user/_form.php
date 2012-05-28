@@ -1,9 +1,6 @@
  <?php echo CHtml::link('К таблице', array('User/admin')) ?><div class="form">
 
 <?php
-     $roles = array_shift(Yii::app()->authManager->getAuthItems(2, Yii::app()->user->id));
-     if (!empty($roles))
-        $model->role = $roles->name;
 
     $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'user-form',
@@ -34,13 +31,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'owner_id'); ?>
-		<?php echo $form->dropDownList($model,'owner_id', CHtml::listData(User::model()->findAll('owner_id IS NULL'), 'id', 'name')); ?>
+		<?php echo $form->dropDownList($model,'owner_id', CHtml::listData(User::model()->findAll('owner_id IS NULL'), 'id', 'name'), array('empty'=>' ')); ?>
 		<?php echo $form->error($model,'owner_id'); ?>
 	</div>
 
      <div class="row">
          <?php echo $form->labelEx($model,'role'); ?>
-         <?php echo $form->dropDownList($model,'role', array(''=>'')+CHtml::listData(Yii::app()->authManager->getRoles(), 'name', 'name')); ?>
+         <?php echo $form->dropDownList($model,'role', CHtml::listData(Yii::app()->authManager->getRoles(), 'name', 'name'), array('empty'=>' ')); ?>
          <?php echo $form->error($model,'role'); ?>
      </div>
 

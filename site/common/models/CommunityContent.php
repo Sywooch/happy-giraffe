@@ -571,4 +571,28 @@ class CommunityContent extends HActiveRecord
         }
         return (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->contentAuthor->id)));
     }
+
+    public function getRssContent()
+    {
+        switch ($this->type_id) {
+            case 1:
+                $output = $this->post->text;
+                break;
+            case 2:
+                $video = new Video($this->video->link);
+                $output = CHtml::image($video->image) . $this->video->text;
+                break;
+            case 3:
+                $output = $this->travel->text;
+                break;
+            case 4:
+                $output = $this->preview;
+                foreach ($this->photoPost->photos as $p) {
+                    $output .= CHtml::tag('p', array(), CHtml::image($p->url)) . CHtml::tag('p', array(), $p->text);
+                }
+                break;
+        }
+
+        return $output;
+    }
 }

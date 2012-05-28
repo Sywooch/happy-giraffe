@@ -9,17 +9,13 @@ class DefaultController extends SController
         return true;
     }
 
-    public function actionIndex($site_id = 1, $year = 2011)
+    public function actionIndex($site_id = 1, $year = 2011, $recOnPage = 10)
     {
         $model = new KeyStats;
         $model->site_id = $site_id;
         $model->year = $year;
 
-        $this->render('index', array(
-            'model' => $model,
-            'site_id' => $site_id,
-            'year' => $year
-        ));
+        $this->render('index', compact('model','site_id','year','recOnPage'));
     }
 
     public function actionCalc()

@@ -102,12 +102,6 @@ class DefaultController extends SController
                         ':key_id' => $key->id,
                         ':stat' => $stat,
                     ));
-                    /*if (!YandexPopularity::model()->exists('keyword_id=' . $key->id)) {
-                        $popularity = new YandexPopularity();
-                        $popularity->keyword_id = $key->id;
-                        $popularity->value = $stat;
-                        $popularity->save();
-                    }*/
                 }
 
                 $i++;

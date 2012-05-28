@@ -170,6 +170,7 @@ class CommunityController extends HController
         $this->render('view', array(
             'data' => $content,
         ));
+        //
     }
 
     public function actionEdit($content_id)

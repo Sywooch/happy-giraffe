@@ -46,10 +46,6 @@ class LinkingController extends SController
                         'error' => 'Не введены ключевые слова статьи.',
                     );
                 else {
-                    foreach ($article_keyword->keywordGroup->keywords as $keyword2) {
-                        $keyword = $keyword2;
-                    }
-
                     $linkingPage = LinkingPages::model()->findByAttributes(array(
                         'entity' => 'CommunityContent',
                         'entity_id' => $id
@@ -103,5 +99,27 @@ class LinkingController extends SController
         $link->keyword_id = $keyword_id;
 
         echo CJSON::encode(array('status' => $link->save()));
+    }
+
+    public function actionTest(){
+        $t1 = $this->getmicrotime();
+
+        $allSearch = Yii::app()->search
+            ->select('*')
+            ->from('keywords2')
+            ->where('жан клод ван дам')
+            ->limit(0, 1)
+            ->searchRaw();
+        $t2 = $this->getmicrotime();
+
+        echo $t2 - $t1;
+        echo '<br>';
+        var_dump($allSearch);
+    }
+
+    function getmicrotime()
+    {
+        list($usec, $sec) = explode(" ", microtime());
+        return ((float)$usec + (float)$sec);
     }
 }

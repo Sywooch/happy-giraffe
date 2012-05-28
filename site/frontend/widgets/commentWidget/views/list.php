@@ -10,7 +10,7 @@ if ($type == 'guestBook') {
                     <div class="add-menu">
                          ' . (!Yii::app()->user->isGuest ? '<a href="javascript:void(0);" class="btn btn-orange a-right" onclick="addMenuToggle(this);"><span><span>Добавить запись<i class="arr-b"></i></span></span></a>
                             <ul style="display: none; ">
-                                <li><a href="#new_comment_wrapper" onclick="Comment.newComment(event);addMenuToggle(this);">Текст</a></li>
+                                <li><a href="javascript:;" onclick="Comment.newComment(event);addMenuToggle(this);">Текст</a></li>
                                 <li><a  href="#new_photo_comment_wrapper" onclick="Comment.newPhotoComment(event);addMenuToggle(this);">Картинка</a></li>
                             </ul>
                         </div>' : '') . '
@@ -27,7 +27,7 @@ if ($type == 'guestBook') {
     $template = '
             <div class="default-comments">
                 <div class="comments-meta clearfix">
-                    ' . (!Yii::app()->user->isGuest && !$this->readOnly ? '<a href="#new_comment_wrapper" onclick="Comment.newComment(event);" class="btn btn-orange a-right"><span><span>' . $this->button . '</span></span></a>' : '') . '
+                    ' . (!Yii::app()->user->isGuest && !$this->readOnly ? '<a href="javascript:;" onclick="Comment.newComment(event);" class="btn btn-orange a-right"><span><span>' . $this->button . '</span></span></a>' : '') . '
                     <div class="title">' . $this->title . '</div>
                     <div class="count">' . $dataProvider->totalItemCount . '</div>
                 </div>

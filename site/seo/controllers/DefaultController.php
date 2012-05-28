@@ -4,7 +4,7 @@ class DefaultController extends SController
 {
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('admin'))
+        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }
@@ -24,7 +24,7 @@ class DefaultController extends SController
 
     public function actionCalc()
     {
-        $site_id = 1;
+        $site_id = 2;
         $year = 2012;
         $criteria = new CDbCriteria;
         $criteria->compare('site_id', $site_id);
@@ -38,7 +38,7 @@ class DefaultController extends SController
                 $key_stat->site_id = $site_id;
                 $key_stat->year = $year;
             }
-            $key_stat->setAttribute('m'.$stat->month, $stat->value);
+            $key_stat->setAttribute('m' . $stat->month, $stat->value);
             $key_stat->save();
         }
     }
@@ -120,95 +120,65 @@ class DefaultController extends SController
         }
     }
 
-    public function actionPop2()
+    public function actionTransferData()
     {
-        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
-        $i = 0;
+        $articles = Yii::app()->db_seo2->createCommand()
+            ->select('*')
+            ->from('article_keywords')
+            ->queryAll();
 
-        if ($file) {
-            while (($buffer = fgets($file)) !== false) {
-                $i++;
-                $line = trim(ltrim($buffer));
-                $parts = explode('|', $line);
-                $last = '';
-                foreach ($parts as $part)
-                    $last = $part;
-                $keyword = trim($parts[0]);
+        foreach ($articles as $article) {
 
-                $keyword = trim(ltrim($keyword, '#'));
-                $keyword = str_replace("'", '', $keyword);
-                $keyword = str_replace("\\", '', $keyword);
+            $new_article = new ArticleKeywords();
+            $new_article->entity = $article['entity'];
+            $new_article->entity_id = $article['entity_id'];
+            $new_article->url = $article['url'];
 
-                //$keyword = str_replace('$', '', $keyword);
-                $stat = $last;
-                if (empty($last))
-                    continue;
+            $keyword_group = new KeywordGroup();
+            $keyword_group->save();
 
-                $key = $this->nextKeyword();
-                while ($keyword != $key->name) {
-                    //echo 'skip '.$keyword.'<br>';
-                    $key = $this->nextKeyword();
-                    $this->fail_long++;
-                    if ($this->fail_long >= $this->limit)
-                        break;
-                }
+            $new_article->keyword_group_id = $keyword_group->id;
+            $new_article->save();
 
-                flush();
-                if ($this->fail_long == $this->limit) {
-                    $this->i = $this->i - 2;
-                    $this->j--;
-                    $this->keywords = $this->getKeywords();
+            //echo $article['url'].'<br>';
+            $keywords = Yii::app()->db_seo2->createCommand()
+                ->select('keyword_id')
+                ->from('keyword_group_keywords')
+                ->where('group_id=' . $article['keyword_group_id'])
+                ->queryColumn();
+            foreach ($keywords as $keyword) {
+                $key = Yii::app()->db_seo2->createCommand()
+                    ->select('name')
+                    ->from('keywords')
+                    ->where('id=' . $keyword)
+                    ->queryScalar();
 
-                    //echo $keyword.' - not found, next keyword <br>';
-                } else {
-                    //echo 'success ' . $key->name . '<br>';
+                $key = str_replace('.', ',', $key);
+                $keys = explode(',', $key);
 
-                    if ($key !== null && !empty($last)) {
-                        Yii::app()->db_seo->createCommand('CALL saveYP (:key_id, :stat)')->execute(array(
-                            ':key_id' => $key->id,
-                            ':stat' => $stat,
-                        ));
+                foreach ($keys as $key2) {
+                    $key2 = trim($key2);
+                    if (!empty($key2)) {
+                        $final_keyword_name = mb_strtolower(trim($key2), 'utf8');
+                        $final_keyword = Keywords::model()->findByAttributes(array('name' => $final_keyword_name));
+                        if ($final_keyword === null) {
+                            $final_keyword = new Keywords;
+                            $final_keyword->name = $final_keyword_name;
+                            $final_keyword->save();
+                        }
+
+                        try {
+                            Yii::app()->db_seo->createCommand()
+                                ->insert('keyword_group_keywords', array(
+                                'keyword_id' => $final_keyword->id,
+                                'group_id' => $keyword_group->id
+                            ));
+                        } catch (Exception $e) {
+
+                        }
                     }
                 }
-                $this->fail_long = 0;
-                $i++;
             }
-            if (!feof($file)) {
-                echo "Error: unexpected fgets() fail\n";
-                Yii::app()->end();
-            }
-            fclose($file);
         }
-    }
-
-    private $i = 0;
-    private $j = 0;
-    private $keywords = array();
-    private $fail_long = 0;
-    private $limit = 100;
-
-    public function nextKeyword()
-    {
-        if ($this->j >= $this->limit || empty($this->keywords)) {
-            $this->keywords = $this->getKeywords();
-            $this->j = 0;
-        }
-
-        $result = $this->keywords[$this->j];
-        $this->j++;
-
-        return $result;
-    }
-
-    public function getKeywords()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'id >= 2227287';
-        $criteria->limit = $this->limit;
-        $criteria->offset = $this->limit * $this->i;
-        $criteria->order = 'id';
-        $this->i++;
-
-        return Keywords::model()->findAll($criteria);
     }
 }

@@ -18,13 +18,13 @@
  *
  * The followings are the available model relations:
  *
- * @property CommunityComment[] $comments
  * @property User $contentAuthor
  * @property CommunityRubric $rubric
  * @property CommunityContentType $type
  * @property CommunityPost $post
  * @property CommunityVideo $video
  * @property CommunityPhotoPost $photoPost
+ * @property userPhotos[] $userPhotos
  */
 class CommunityContent extends HActiveRecord
 {
@@ -89,7 +89,7 @@ class CommunityContent extends HActiveRecord
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
-
+            'userPhotos' => array(self::HAS_MANY, 'UserPhoto', 'content_id'),
             'editor' => array(self::BELONGS_TO, 'User', 'editor_id'),
 		);
 	}

@@ -43,7 +43,7 @@
             <?php
             $js = "var upload_ajax_url = '" . Yii::app()->createUrl('/albums/addPhoto', array('a' => $album ? $album->id : false)) . "';";
             if($album)
-                $js .= "Album.album_id = " . $album->id . ";";
+                $js .= "Album.album_id = " . $album->id . ";Album.current_album_id = " . $album->id . ";";
             Yii::app()->clientScript->registerScript('upload_ajax_url', $js, CClientScript::POS_HEAD);
             ?>
             <?php echo CHtml::form('', 'post', array('id' => 'upload-form', 'enctype' => 'multipart/form-data')); ?>
@@ -69,11 +69,11 @@
     </div>
 
     <div id="album_upload_step_2">
-
-        <div class="upload-files-list scroll">
-            <ul id="log"></ul>
+        <div class="upload-files-list-container">
+            <div class="upload-files-list scroll">
+                <ul id="log"></ul>
+            </div>
         </div>
-
         <div class="bottom" style="overflow:hidden;height:0;" id="upload_finish_wrapper">
             <a href="" class="a-left" id="upload-link">Добавить еще фотографий</a>
             <a href="" class="btn btn-green-medium" onclick="return Album.savePhotos();"><span><span>Завершить</span></span></a>

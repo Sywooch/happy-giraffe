@@ -30,6 +30,5 @@ var SeoModule = {
                 });
             }
         }, 'json');
-    },
-
+    }
 }

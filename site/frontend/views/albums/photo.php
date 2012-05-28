@@ -96,7 +96,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
     </div>
 
 </div>
-
 <script type="text/javascript">
     $(function() {
         <?php if(isset($selected_item)): ?>
@@ -106,7 +105,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                 $('#photo-thumbs img').each(function(){
                     $(this).bind('load', function(){
                         ready++;
-                        if (ready == count) $('#photo-thumbs').jcarousel('scroll', <?php echo $selected_item; ?>);
+                        if (ready == count) {
+                            $('#photo-thumbs').jcarousel('scroll', <?php echo $selected_item; ?>);
+                        }
                     });
                 });
             });

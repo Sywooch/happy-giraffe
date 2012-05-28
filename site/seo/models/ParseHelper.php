@@ -22,7 +22,7 @@ class ParseHelper extends EMongoDocument
         $model = ParseHelper::model()->find();
         if ($model === null){
             $model = new ParseHelper;
-            $model->line = 0;
+            $model->line = 900000;
             $model->save();
         }
 

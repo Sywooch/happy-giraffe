@@ -15,8 +15,6 @@ class DefaultController extends SController
         $model->site_id = $site_id;
         $model->year = $year;
 
-        //$model->attributes = $_GET['KeyStats'];
-
         $this->render('index', array(
             'model' => $model,
             'site_id' => $site_id,

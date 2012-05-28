@@ -24,8 +24,8 @@ class SeoCommand extends CConsoleCommand
 
     public function Popularity()
     {
-        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
-//        $file = fopen('/var/temporary/YANDEX_POPULARITY.txt', 'r');
+//        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
+        $file = fopen('/var/temporary/YANDEX_POPULARITY.txt', 'r');
 
         $start = ParseHelper::getLine();
         echo $start."\n";

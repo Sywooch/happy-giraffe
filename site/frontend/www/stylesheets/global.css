@@ -1546,6 +1546,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
     box-shadow: 0 0 10px #ddd;
     -moz-box-shadow: 0 0 10px #ddd;
     -webkit-box-shadow: 0 0 10px #ddd;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 #contest-photo .img-box .img-title {
@@ -3510,7 +3511,7 @@ ul.letters li a:hover {
 #decree-time .form .form-in .row.row-btn {background:#eefee6;text-align:center;border-top:1px solid #f6e8ff;}
 #decree-time .form .select-box {background:#f2e7f9;}
 #decree-time .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
-#decree-time .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
+#decree-time .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
 
 #decree-time .form .pregnancy-type label {display:inline-block;vertical-align:top;padding-right:65px;margin-left:15px;}
 #decree-time .form .pregnancy-type label input {float:left;margin-left:-15px;position:relative;top:-2px;}
@@ -3600,7 +3601,7 @@ ul.letters li a:hover {
 #repair-wallpapers .form .form-in .row.row-btn {text-align:center;border-top:1px solid #f6e8ff;}
 
 #repair-wallpapers .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
-#repair-wallpapers .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
+#repair-wallpapers .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
 
 #repair-wallpapers .form .row.except {background:#eaf9ff;background:rgba(234,249,255,0.75);padding:0 10px;}
 #repair-wallpapers .form .row.except .in {padding:15px;}
@@ -3661,7 +3662,7 @@ ul.letters li a:hover {
 
 #repair-ceiling .form .row.row-btn {text-align:center;border-top:1px solid #f6e8ff;background:#faf6c6;background:rgba(250, 246, 198, 0.75)}
 #repair-ceiling .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
-#repair-ceiling .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
+#repair-ceiling .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
 
 #repair-ceiling .form .row.row-result {background:#fff;background:rgba(255,255,255,0.80);padding:15px 50px;}
 #repair-ceiling .form .row.row-result .title  {color:#8259ab;font-size:16px;margin-bottom:10px;}
@@ -3701,7 +3702,7 @@ ul.letters li a:hover {
 
 #repair-bathroom-tile .form .row.row-btn {text-align:center;background:url(/images/repair_bathroom_tile_dash.gif) no-repeat top;padding-top:21px;}
 #repair-bathroom-tile .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
-#repair-bathroom-tile .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
+#repair-bathroom-tile .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
 
 #repair-bathroom-tile .recommendation {padding:30px 20px;background:#fcf8ff;font-size:13px;line-height:19px; display:none;}
 #repair-bathroom-tile .recommendation .left {float:left;width:220px;text-align:center;font-size:14px;line-height:1;}
@@ -3741,7 +3742,7 @@ ul.letters li a:hover {
 #repair-paint .errorSummary ul{ padding-left: 20px}
 
 #repair-paint .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
-#repair-paint .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
+#repair-paint .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
 
 #repair-paint .form .row.except {background:#eaf9ff;background:rgba(234,249,255,0.75);padding:0 10px;border-top:1px solid #d7dff9;}
 #repair-paint .form .row.except .in {padding:15px;}
@@ -3794,7 +3795,7 @@ ul.letters li a:hover {
 #repair-floor .form .form-in .row.row-btn {text-align:center;border-top:1px solid #f6e8ff;background:#faf6cf;background:rgba(250,246,207, 0.75);padding:15px 0;}
 
 #repair-floor .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
-#repair-floor .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
+#repair-floor .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
 
 #repair-floor .recommendation {padding:30px 20px;background:#fcf8ff;font-size:13px;line-height:19px;}
 #repair-floor .recommendation .left {float:left;width:220px;text-align:center;font-size:14px;line-height:1;padding-top:1.5em;}
@@ -3825,13 +3826,13 @@ ul.letters li a:hover {
 #test-pregnancy .step .title h1 {font:bold 50px/1 tahoma, arial, helvetica, sans-serif;color:#3e3e3e;margin-bottom:25px;}
 #test-pregnancy .step .title span {color:#a582c7;font-size:48px;display:block;}
 #test-pregnancy .step .text {background:#fff;padding:15px 25px;width:310px;font:italic 18px times new roman, serif;color:#5f5e5e;margin-bottom:45px;}
-#test-pregnancy .step .text {/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;}
+#test-pregnancy .step .text {/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;behavior: url(/stylesheets/PIE.htc);}
 #test-pregnancy .step .btn {width:360px;text-align:center;}
 #test-pregnancy .step .btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;padding:0 25px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
-#test-pregnancy .step .btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
+#test-pregnancy .step .btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
 
 #test-pregnancy .step .question {width:400px;padding:15px 25px 35px;background:#fff;background:rgba(255,255,255,0.7);font-size:25px;}
-#test-pregnancy .step .question {/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;}
+#test-pregnancy .step .question {/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;behavior: url(/stylesheets/PIE.htc);}
 #test-pregnancy .step .question .q-title {padding:20px 0 30px;line-height: 30px;}
 #test-pregnancy .step .question .q-options {list-style:none;padding:0 15px;}
 #test-pregnancy .step .question .q-options li {padding:8px 0;}
@@ -3843,7 +3844,7 @@ ul.letters li a:hover {
 #test-pregnancy .step .result {}
 #test-pregnancy .step .result .r-title {font-size:24px;margin-left:25px;margin-bottom:10px;}
 #test-pregnancy .step .result .r-text {background:#fff;padding:15px 25px;width:310px;font-size:14px;color:#5f5e5e;margin-bottom:45px;line-height:26px;}
-#test-pregnancy .step .result .r-text {/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;}
+#test-pregnancy .step .result .r-text {/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;behavior: url(/stylesheets/PIE.htc);}
 
 
 #test-navel {border:1px solid #f0e8f7;}
@@ -3860,7 +3861,7 @@ ul.letters li a:hover {
 
 #test-navel .step .btn {position:absolute;bottom:25px;right:25px;}
 #test-navel .step .btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;padding:0 25px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
-#test-navel .step .btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
+#test-navel .step .btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
 
 #test-navel .step .question {font-size:25px;padding-left:20px;}
 #test-navel .step .question .q-title {line-height:76px;padding-top:5px;margin-bottom:20px;}
@@ -4146,19 +4147,19 @@ ul.letters li a:hover {
 
 #calories-calculator {}
 
-#calories-calculator .title {height:285px;background:url(/images/bg_calories_calculator_title.jpg) no-repeat right top;border:1px solid #ebe1f5;padding-left:30px;padding-top:50px;font-weight:normal;margin-bottom:30px;}
-#calories-calculator .title span {font-family:tahoma, arial, helvetica, sans-serif;display:block;font-size:50px;color:#88ab20;margin-bottom:15px;}
-#calories-calculator .title h2 {font-family:tahoma, arial, helvetica, sans-serif;font-weight:normal;font-size:36px;color:#9bc12b;line-height:1;margin-bottom:30px;}
-#calories-calculator .title h1 {font-size:32px;color:#737373;font-weight:normal;}
+#calories-calculator div.title {height:285px;background:url(/images/bg_calories_calculator_title.jpg) no-repeat right top;border:1px solid #ebe1f5;padding-left:30px;padding-top:50px;font-weight:normal;margin-bottom:30px;}
+#calories-calculator div.title span {font-family:tahoma, arial, helvetica, sans-serif;display:block;font-size:50px;color:#88ab20;margin-bottom:15px;}
+#calories-calculator div.title h2 {font-family:tahoma, arial, helvetica, sans-serif;font-weight:normal;font-size:36px;color:#9bc12b;line-height:1;margin-bottom:30px;}
+#calories-calculator div.title h1 {font-size:32px;color:#737373;font-weight:normal;}
 
 #calories-calculator .calculator {margin-bottom:50px;}
 #calories-calculator .calculator table {font-size:13px;width:100%;}
-#calories-calculator .calculator table td {padding:3px;text-align:center;}
+#calories-calculator .calculator table td {padding:3px;text-align:center;vertical-align:middle;}
 #calories-calculator .calculator table thead {color:#4c4d4d;}
 #calories-calculator .calculator table thead td {vertical-align:bottom;}
 #calories-calculator .calculator table thead span {color:#8b8b8b;font-size:11px;}
 #calories-calculator .calculator table thead .calories-icon {display:block;width:20px;height:20px;font-size:14px;font-weight:bold;background:#f0f0f0;line-height:20px;color:#fff;margin:0 auto 2px;}
-#calories-calculator .calculator table thead .calories-icon {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+#calories-calculator .calculator table thead .calories-icon {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
 #calories-calculator .calculator table thead .calories-icon.orange {background:#f68704;}
 #calories-calculator .calculator table thead .calories-icon.green {background:#abb71d;}
 #calories-calculator .calculator table thead .calories-icon.yellow {background:#fcbe03;}
@@ -4168,7 +4169,7 @@ ul.letters li a:hover {
 #calories-calculator .calculator table tbody select {height:25px;border-color:#a9c8f3;width:100px;}
 #calories-calculator .calculator table tbody .value {height:25px;width:85px;background:#e5f4ff;line-height:25px;}
 #calories-calculator .calculator table tbody .col-1 {text-align:left;}
-#calories-calculator .calculator table tbody .col-1 input {width:400px;}
+#calories-calculator .calculator table tbody .col-1 input {width:360px;}
 #calories-calculator .calculator table tbody .col-2 input {width:30px;text-align:center;}
 #calories-calculator .calculator table tbody .col-3 {padding-right:10px;}
 #calories-calculator .calculator table tr.add td {padding:15px 3px 35px;}
@@ -4177,3 +4178,6 @@ ul.letters li a:hover {
 #calories-calculator .calculator table tr.summary td {background:#fdfbe9;}
 #calories-calculator .calculator table tr.summary .col-1 {background:#fff;}
 #calories-calculator .calculator table tr.summary .col-23 {text-align:right;font-weight:bold;}
+#calories-calculator .calculator table tr.summary .col-8 {background:#fff;}
+#calories-calculator .calculator table .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
+#calories-calculator .calculator table .remove:hover {background-position:-314px -148px;}

@@ -15,16 +15,7 @@ class SeoUserIdentity extends CUserIdentity
     {
         $user = User::model()->find(array('condition' => 'email=:email', 'params' => array(':email' => $this->user['email'])));
         if ($user === null) {
-            $user = new User;
-            $user->attributes = $this->user;
-            if (!$user->save()) {
-                $this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
-            }
-            else {
-                $this->_id = $user->id;
-                $this->saveParams($user);
-            }
-            return $this->errorCode = self::ERROR_NONE;
+            return $this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
         }
         else {
             $this->_id = $user->id;

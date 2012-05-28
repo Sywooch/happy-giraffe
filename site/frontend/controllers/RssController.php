@@ -32,7 +32,7 @@ class RssController extends HController
             $item->addTag('author', $c->author->getUrl(true));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);
-            $item->description = $c->preview;
+            $item->description = $c->rssContent;
             $item->title = $c->title;
             $item->addTag('comments', $c->getUrl(true, true));
             $feed->addItem($item);
@@ -92,7 +92,7 @@ class RssController extends HController
             $item->addTag('author', $c->author->getUrl(true));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);
-            $item->description = $c->preview;
+            $item->description = $c->rssContent;
             $item->title = $c->title;
             $item->addTag('comments', $c->getUrl(true, true));
             $feed->addItem($item);

@@ -5,6 +5,9 @@ class TileController extends HController
 
     public $layout = '//layouts/new';
 
+    /**
+     * @sitemap
+     */
     public function actionIndex()
     {
         $this->pageTitle = 'Расчет плитки для ванной комнаты';

@@ -4,6 +4,9 @@ class PaintController extends HController
 {
     public $layout = '//layouts/new';
 
+    /**
+     * @sitemap
+     */
     public function actionIndex()
     {
         $this->pageTitle = 'Расчет объема краски';

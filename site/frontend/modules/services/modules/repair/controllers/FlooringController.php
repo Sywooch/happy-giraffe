@@ -5,6 +5,9 @@ class FlooringController extends HController
 
     public $layout = '//layouts/new';
 
+    /**
+     * @sitemap
+     */
     public function actionIndex()
     {
         $this->pageTitle = 'Расчет напольного покрытия';

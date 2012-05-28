@@ -39,7 +39,7 @@ $model = new ArticleKeywords();
             <div class="num"><span>2</span>Ссылка на статью</div>
             <?= $form->textField($model, 'url', array('class'=>'article-url')) ?>
             <?= $form->error($model, 'url'); ?>
-            <button class="btn btn-green"><span><span>Ok</span></span></button>
+            <button class="btn btn-green">Ok</button>
         </div>
         <?php $this->endWidget(); ?>
     </div>

@@ -29,7 +29,7 @@ HYandexMap.prototype.create = function (map_id, address) {
         if (geocoder.length()) {
             $this.map.setBounds(geocoder.get(0).getBounds());
             $this.map.removeOverlay($this.placemark);
-            $this.placemark = new YMaps.Placemark($this.map.getCenter(), {style:$this.s});
+            $this.placemark = new YMaps.Placemark(geocoder.get(0).getGeoPoint(), {style:$this.s});
             $this.map.addOverlay($this.placemark);
         }
     });

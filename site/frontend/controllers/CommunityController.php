@@ -29,7 +29,7 @@ class CommunityController extends HController
                 'users'=>array('*'),
             ),
             array('allow',
-                'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete', 'transfer'),
+                'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete', 'transfer', 'uploadImage'),
                 'users' => array('@'),
             ),
             array('deny',
@@ -611,6 +611,18 @@ class CommunityController extends HController
         } else {
             $this->redirect(Yii::app()->request->urlReferrer);
         }
+    }
+
+    public function actionUploadImage($community_id, $content_type_slug, $content_id)
+    {
+        $this->layout = '//layouts/community';
+        $content = CommunityContent::model()->active()->full()->findByPk($content_id);
+        $this->user = $content->rubric->user;
+        $this->community = Community::model()->with('rubrics')->findByPk($community_id);
+        $this->rubric_id = $content->rubric->id;
+        $this->content_type_slug = $content_type_slug;
+
+        $this->render('upload_user_image', compact('content'));
     }
 
     public function actionPurify($by_happy_giraffe = 1)

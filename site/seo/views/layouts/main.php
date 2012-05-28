@@ -32,15 +32,15 @@
 
         ->registerScriptFile('/js/jquery.iframe-post-form.js')
 
-//        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/comet.js')
-//        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/dklab_realplexor.js')
-//        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
-    ;
+        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/comet.js')
+        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/dklab_realplexor.js')
+        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
     ?>
     <style type="text/css">
         .default-nav li span.tale {
             display: none;
         }
+
         .default-nav li.active span.tale {
             display: block;
         }
@@ -51,52 +51,130 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #fff url(/images/loading.gif) no-repeat center !important;z-index: 100;
+            background: #fff url(/images/loading.gif) no-repeat center !important;
+            z-index: 100;
             opacity: 0.5;
         }
     </style>
 </head>
 <body>
 
-    <div id="seo" class="wrapper">
+<div id="seo" class="wrapper">
 
-        <div class="clearfix">
-            <div class="default-nav">
-                <?php if (Yii::app()->user->checkAccess('editor')):?>
-                <ul>
-                    <li<?php if (Yii::app()->controller->action->id == 'index' ) echo ' class="active"' ?>>
-                        <a href="<?=$this->createUrl('editor/index') ?>">Ключевые слова или фразы</a><span class="tale"><img src="/images/default_nav_active.gif"></span></li>
-                    <li<?php if (Yii::app()->controller->action->id == 'tasks' ) echo ' class="active"' ?>>
-                        <a href="<?=$this->createUrl('editor/tasks') ?>">Раздача заданий</a>
-                        <span class="tale"><img src="/images/default_nav_active.gif"></span>
-                        <div class="count"><a href="<?=$this->createUrl('editor/tasks') ?>"><?=TempKeywords::model()->count('owner_id='.Yii::app()->user->id) ?></a></div>
-                    </li>
-                    <li<?php if (Yii::app()->controller->action->id == 'history' ) echo ' class="active"' ?>>
-                        <a href="<?=$this->createUrl('editor/reports') ?>">Отчеты</a></li>
-                </ul>
-                <?php endif ?>
+    <div class="clearfix">
+        <div class="default-nav">
 
-                <?php if (Yii::app()->user->checkAccess('admin')):?>
-                <ul>
-                    <li><a href="/user/">Пользователи</a></li>
-                    <li><a href="/existArticles/">Готовое</a></li>
-                    <li><a href="/task/index/">Задания рерайт</a></li>
-                </ul>
-                <?php endif ?>
+            <?php
+            if (Yii::app()->user->checkAccess('editor'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'Ключевые слова или фразы',
+                            'url' => array('/editor/index/'),
+                        ),
+                        array(
+                            'label' => 'Раздача заданий',
+                            'url' => array('/editor/tasks/'),
+                            'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('editor/tasks') . '">' . TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
+                        ),
+                        array(
+                            'label' => 'Отчеты',
+                            'url' => array('/editor/reports/'),
+                        ),
+                    )));
 
-            </div>
-            <div class="title">
-                <span>SEO-<span>жираф</span></span> &nbsp; <?= $this->pageTitle ?>
-            </div>
+            if (Yii::app()->user->checkAccess('admin'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'Пользователи',
+                            'url' => array('/user/'),
+                            'active' => Yii::app()->controller->id == 'user'
+                        ),
+                        array(
+                            'label' => 'Готовое',
+                            'url' => array('/existArticles/'),
+                        ),
+                        array(
+                            'label' => 'Задания рерайт',
+                            'url' => array('/editor/index/'),
+                        ),
+                    )));
+
+
+            if (Yii::app()->user->checkAccess('moderator'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'В работу',
+                            'url' => array('/task/moderator'),
+                        ),
+                        array(
+                            'label' => 'Отчеты',
+                            'url' => array('/task/moderatorReports'),
+                        ),
+                    )));
+
+            if (Yii::app()->user->checkAccess('author'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'В работу',
+                            'url' => array('/task/author'),
+                        ),
+                        array(
+                            'label' => 'Отчеты',
+                            'url' => array('/task/authorReports'),
+                        ),
+                    )));
+
+            if (Yii::app()->user->checkAccess('corrector'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'В работу',
+                            'url' => array('/task/corrector'),
+                        ),
+                        array(
+                            'label' => 'Отчеты',
+                            'url' => array('/task/correctorReports'),
+                        ),
+                    )));
+
+            if (Yii::app()->user->checkAccess('content-manager'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'В работу',
+                            'url' => array('/task/contentManager'),
+                        ),
+                        array(
+                            'label' => 'Отчеты',
+                            'url' => array('/task/contentManagerReports'),
+                        ),
+                    )));
+
+            ?>
         </div>
-
-        <?=$content ?>
-
+        <div class="title">
+            <i class="img"></i>
+            <span>SEO-<span>жираф</span></span> &nbsp; <?= $this->pageTitle ?>
+        </div>
     </div>
 
-    <div class="loading" style="display: none;">
+    <?=$content ?>
 
-    </div>
+</div>
+
+<div class="loading" style="display: none;">
+
+</div>
 
 </body>
 </html>

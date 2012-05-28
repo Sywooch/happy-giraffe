@@ -13,7 +13,21 @@
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	
+	<script type="text/javascript" src="/javascripts/jquery.dimensions.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
+	
+	<script>
+		$(function(){
+			$('.tooltip').tooltip({
+				delay: 100,
+				track: false,
+				showUrl: false,
+				showBody: false,
+			});
+		})
+	</script>
 	
 </head>
 <body class="body-club">
@@ -433,8 +447,9 @@
 			
 			<div class="flag-big flag-big-ua"></div>
 			<br/>
-			<div class="flag-big flag-big-kz"></div>
+			<div class="flag-big flag-big-kz tooltip" title="Казахстан, че"></div>
 			
+			<a href="" class="tooltip" title="Тайтл">Рофл</a>
 			
 		</div>  	
 		

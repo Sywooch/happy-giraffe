@@ -27,11 +27,27 @@
 	<script type="text/javascript" src="/javascripts/jquery.jscrollpane.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.mousewheel.js"></script>
 	
+	<script type="text/javascript" src="/javascripts/jquery.dimensions.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
 	
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
 	<![endif]-->
+	
+	<script>
+		$(function(){
+			$('.tooltip').tooltip({
+				delay: 100,
+				track: false,
+				showURL: false,
+				showBody: false,
+				top: -20,
+				left: 10
+			});
+		})
+	</script>
 	
 </head>
 <body class="body-club">
@@ -449,10 +465,10 @@
 								Гаврилов-Ям
 							</div>
 							<div class="user-fast-buttons clearfix">
-								<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-								<a href="" class="remove-friend"><span class="tip">Удалить из друзей</span></a>
-								<a href="" class="pending-friend"><span class="tip">Приглашение выслано</span></a>
-								<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+								<a href="" class="add-friend tooltip" title="Пригласить в друзья"></a>
+								<a href="" class="remove-friend tooltip" title="Удалить из друзей"></a>
+								<a href="" class="pending-friend tooltip" title="Приглашение выслано"></a>
+								<a href="" class="new-message tooltip" title="Написать сообщение"></a>
 							</div>
 						</div>
 					</div>
@@ -781,7 +797,7 @@
 <div style="display:none">
 	<div id="login" class="popup">
 		
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
+		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
 		
 		<div class="popup-title">Вход на сайт</div>
 		
@@ -835,7 +851,7 @@
 	
 	<div id="galleryUploadPhotos" class="popup popup-purple">
 		
-		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
+		<a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close();" title="Закрыть"></a>
 		
 		<div class="popup-title">Загрузка фотографий</div>
 		
@@ -892,13 +908,13 @@
 					<li>
 						<div class="img">
 							<img src="/images/example/uploaded_photo_01.jpg" />
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>
 					</li>
 					<li>
 						<div class="img">
 							<img src="/images/example/ex4.jpg" />
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>					
 					</li>
 					<li>
@@ -913,7 +929,7 @@
 									</td>
 								</tr>
 							</table>
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>
 					</li>
 					<li>
@@ -927,7 +943,7 @@
 									</td>
 								</tr>
 							</table>
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>
 					</li>
 					<li>
@@ -942,7 +958,7 @@
 									</td>
 								</tr>
 							</table>
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>
 					</li>
 					<li>
@@ -956,13 +972,13 @@
 									</td>
 								</tr>
 							</table>
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>
 					</li>
 					<li>
 						<div class="img">
 							<img src="/images/example/ex3.jpg" />
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>					
 					</li>
 					<li>
@@ -977,7 +993,7 @@
 									</td>
 								</tr>
 							</table>
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>
 					</li>
 					<li>
@@ -992,7 +1008,7 @@
 									</td>
 								</tr>
 							</table>
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>
 					</li>
 					<li>
@@ -1006,7 +1022,7 @@
 									</td>
 								</tr>
 							</table>
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>
 					</li>
 					<li>
@@ -1021,19 +1037,19 @@
 									</td>
 								</tr>
 							</table>
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>
 					</li>
 					<li>
 						<div class="img">
 							<img src="/images/example/uploaded_photo_02.jpg" />
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>
 					</li>
 					<li>
 						<div class="img">
 							<img src="/images/example/uploaded_photo_03.jpg" />
-							<a href="" class="remove"></a>
+							<a href="" class="remove tooltip" title="Удалить"></a>
 						</div>					
 					</li>
 					

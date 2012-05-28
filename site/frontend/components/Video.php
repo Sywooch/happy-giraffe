@@ -53,8 +53,8 @@ class Video extends CComponent
 		@$dom->loadHTMLFile($this->url);
 		$xpath = new DOMXpath($dom);
 		$this->code = $xpath->query('//input[@id="pcode"]')->item(0)->getAttribute('value');
-		$this->title = $xpath->query('//h1')->item(0)->nodeValue;
-		$this->description = $xpath->query('//div[@class="descr"]')->item(0)->nodeValue;
+		$this->title = @$xpath->query('//h1')->item(0)->nodeValue;
+		$this->description = @$xpath->query('//div[@class="descr"]')->item(0)->nodeValue;
 		$this->preview = $xpath->query('//meta[@property="og:image"]')->item(0)->getAttribute('content');
 	}
 	

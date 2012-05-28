@@ -130,6 +130,18 @@ class DefaultController extends SController
             ->queryAll();
 
         foreach ($articles as $article) {
+
+            $new_article = new ArticleKeywords();
+            $new_article->entity = $article['entity'];
+            $new_article->entity_id = $article['entity_id'];
+            $new_article->url = $article['url'];
+
+            $keyword_group = new KeywordGroup();
+            $keyword_group->save();
+
+            $new_article->keyword_group_id = $keyword_group->id;
+            $new_article->save();
+
             //echo $article['url'].'<br>';
             $keywords = Yii::app()->db_seo2->createCommand()
                 ->select('keyword_id')
@@ -152,7 +164,19 @@ class DefaultController extends SController
                         $final_keyword_name = mb_strtolower(trim($key2), 'utf8');
                         $final_keyword = Keywords::model()->findByAttributes(array('name' => $final_keyword_name));
                         if ($final_keyword === null) {
-                            echo $final_keyword_name . '<br>';
+                            $final_keyword = new Keywords;
+                            $final_keyword->name = $final_keyword_name;
+                            $final_keyword->save();
+                        }
+
+                        try {
+                            Yii::app()->db_seo->createCommand()
+                                ->insert('keyword_group_keywords', array(
+                                'keyword_id' => $final_keyword->id,
+                                'group_id' => $keyword_group->id
+                            ));
+                        } catch (Exception $e) {
+
                         }
                     }
                 }

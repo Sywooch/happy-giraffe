@@ -37,7 +37,5 @@ class SiteCommand extends CConsoleCommand
         if (!($robotsResult && $sitemapResult)) {
             mail(implode(', ', $this->recipients), 'happy-giraffe.ru seo check failure', $output);
         }
-
-        echo $output;
     }
 }

@@ -1,11 +1,22 @@
 <?php
 
-class CookUnits extends CActiveRecord
+/**
+ * This is the model class for table "cook__spices__categories".
+ *
+ * The followings are the available columns in table 'cook__spices__categories':
+ * @property string $id
+ * @property string $title
+ * @property string $content
+ *
+ * The followings are the available model relations:
+ * @property CookSpicesCategoriesSpices[] $cookSpicesCategoriesSpices
+ */
+class CookSpicesCategories extends CActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return CookUnits the static model class
+     * @return CookSpicesCategories the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -17,7 +28,7 @@ class CookUnits extends CActiveRecord
      */
     public function tableName()
     {
-        return 'cook__units';
+        return 'cook__spices__categories';
     }
 
     /**
@@ -28,13 +39,12 @@ class CookUnits extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title, type, ratio', 'required'),
-            array('parent_id', 'length', 'max' => 11),
-            array('title, title2, title3, type', 'length', 'max' => 255),
-            array('ratio', 'length', 'max' => 10),
+            array('title', 'required'),
+            array('title', 'length', 'max' => 255),
+            array('content', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, parent_id, title, title2, title3, type, ratio', 'safe', 'on' => 'search'),
+            array('id, title, content', 'safe', 'on' => 'search'),
         );
     }
 
@@ -46,9 +56,8 @@ class CookUnits extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'cookIngredients' => array(self::HAS_MANY, 'CookIngredients', 'default_unit_id'),
-            'parent' => array(self::BELONGS_TO, 'CookUnits', 'parent_id'),
-            'cookUnits' => array(self::HAS_MANY, 'CookUnits', 'parent_id'),
+            //'cookSpicesCategoriesSpices' => array(self::HAS_MANY, 'CookSpicesCategoriesSpices', 'category_id'),
+            'spices' => array(self::MANY_MANY, 'cook__spices', 'cook__spices__categories_spices(category_id, spice_id)'),
         );
     }
 
@@ -59,12 +68,8 @@ class CookUnits extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'parent_id' => 'Parent',
-            'title' => 'Title',
-            'title2' => 'Title2',
-            'title3' => 'Title3',
-            'type' => 'Type',
-            'ratio' => 'Ratio',
+            'title' => 'Название',
+            'content' => 'Контент',
         );
     }
 
@@ -80,25 +85,16 @@ class CookUnits extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('parent_id', $this->parent_id, true);
         $criteria->compare('title', $this->title, true);
-        $criteria->compare('title2', $this->title2, true);
-        $criteria->compare('title3', $this->title3, true);
-        $criteria->compare('type', $this->type, true);
-        $criteria->compare('ratio', $this->ratio, true);
+        $criteria->compare('content', $this->content, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
 
-    public function getUnits($all = false)
+    public function getCategories()
     {
-        $result = array();
-        $units = ($all) ? self::model()->findAll(array('order' => 'title')) : self::model()->findAll('', array('order' => 'title'));
-        foreach ($units as $unit)
-            $result [$unit->id] = $unit->title;
-        return $result;
+        return $ingredients = Yii::app()->db->createCommand()->select('*')->from($this->tableName())->queryAll();
     }
-
 }

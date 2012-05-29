@@ -12,13 +12,13 @@ foreach ($models as $model){
 <?php $i++; ?>
     <tr id="key-<?=$model->id ?>"<?=$model->getClass() ?>>
         <td class="col-1"><?=$model->name ?></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
         <td><?=$model->getStats(1) ?></td>
         <td><?=$model->getStats(2) ?></td>
         <td>
@@ -38,5 +38,5 @@ foreach ($models as $model){
             <?php endif ?>
         </td>
     </tr>
-<?php if ($i > 100) break; ?>
+<?php //if ($i > 100) break; ?>
 <?php }

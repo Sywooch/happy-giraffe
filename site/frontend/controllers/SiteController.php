@@ -61,16 +61,16 @@ class SiteController extends HController
         $criteria->from = $index;
         $criteria->select = '*';
         $criteria->paginator = $pages;
-        $criteria->query = '*' . $text . '*';
+        $criteria->query = $text;
         $resIterator = Yii::app()->search->search($criteria);
 
-        $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
+        $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where($criteria->query)->limit(0, 100000)->searchRaw();
         $allCount = count($allSearch['matches']);
 
-        $textSearch = Yii::app()->search->select('*')->from('communityText')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
+        $textSearch = Yii::app()->search->select('*')->from('communityText')->where($criteria->query)->limit(0, 100000)->searchRaw();
         $textCount = count($textSearch['matches']);
 
-        $videoSearch = Yii::app()->search->select('*')->from('communityVideo')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
+        $videoSearch = Yii::app()->search->select('*')->from('communityVideo')->where($criteria->query)->limit(0, 100000)->searchRaw();
         $videoCount = count($videoSearch['matches']);
 
         $criteria = new CDbCriteria;

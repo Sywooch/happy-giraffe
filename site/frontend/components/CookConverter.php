@@ -69,13 +69,13 @@ class CookConverter extends CComponent
                 {
                 if (!$this->ingredient->density)
                     return null;
-                return (($qty * $from->ratiov) * $this->ingredient->density) / $to->ratio;
+                return (($qty * $from->ratio) * $this->ingredient->density) / $to->ratio;
                 }
             case 'weight-volume':
                 {
                 if (!$this->ingredient->density)
                     return null;
-                return (($qty * $from->ratio) / $this->ingredient->density) / $to->ratiov;
+                return (($qty * $from->ratio) / $this->ingredient->density) / $to->ratio;
                 }
             case 'weight-weight':
                 {
@@ -83,7 +83,7 @@ class CookConverter extends CComponent
                 }
             case 'volume-volume':
                 {
-                return ($qty * $from->ratiov) / $to->ratiov;
+                return ($qty * $from->ratio) / $to->ratio;
                 }
             default:
                 {

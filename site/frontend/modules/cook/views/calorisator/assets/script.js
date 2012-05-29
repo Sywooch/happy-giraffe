@@ -71,7 +71,7 @@ var Calorisator = {
                 qty = qty * unit_ratio;
             }
             else if (unit_type == 'volume') {
-                var unit_ratio = parseFloat(unit.attr('data-ratiov'));
+                var unit_ratio = parseFloat(unit.attr('data-ratio'));
                 var density = parseFloat($(tr).find('td.title').attr('data-density'));
 
                 if (density > 0) {

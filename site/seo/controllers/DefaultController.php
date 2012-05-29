@@ -139,7 +139,7 @@ class DefaultController extends SController
             foreach ($keywords as $keyword) {
                 $key = Yii::app()->db_seo2->createCommand()
                     ->select('name')
-                    ->from('keyword')
+                    ->from('keywords')
                     ->where('id=' . $keyword)
                     ->queryScalar();
 

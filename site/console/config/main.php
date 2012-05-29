@@ -37,5 +37,15 @@ return array(
             'useCursor'        => false
         ),
         'db'=>require_once(dirname(__FILE__).'/db.php'),
+        'db_seo' => array(
+            'class'=>'CDbConnection',
+            'connectionString' => 'mysql:host=localhost;dbname=happy_giraffe_seo',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'enableProfiling' => false,
+            'enableParamLogging' => true,
+        ),
     ),
 );

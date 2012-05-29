@@ -4,15 +4,11 @@ class m120529_110811_yandex_popularity extends CDbMigration
 {
 	public function up()
 	{
+
+        $db_name = end(explode("=", Yii::app()->db->connectionString));
         $sql = <<<EOD
 
 USE happy_giraffe_seo;
-
-CREATE TABLE IF NOT EXISTS `tbl_migration` (
-  `version` varchar(255) NOT NULL,
-  `apply_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`version`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=42;
 
 CREATE TABLE IF NOT EXISTS `parsing_session` (
   `id` int(10) unsigned NOT NULL,
@@ -37,6 +33,8 @@ CREATE TABLE IF NOT EXISTS `yandex_rank` (
 ALTER TABLE `yandex_rank`
   ADD CONSTRAINT `fk_yandex_rank_session` FOREIGN KEY (`session_id`) REFERENCES `parsing_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_yandex_rank_keyword` FOREIGN KEY (`keyword_id`) REFERENCES `keywords` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+USE $db_name;
 
 EOD;
 

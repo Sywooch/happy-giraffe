@@ -16,12 +16,8 @@ class ExistArticlesController extends SController
 
     public function actionIndex()
     {
-        $models = ArticleKeywords::model()->with(array('keywordGroup', 'keywordGroup.keywords'))->findAll(array('order' => 't.id desc'));
-        $keys_count = 0;
-        foreach ($models as $model) {
-            $keys_count += count($model->keywordGroup->keywords);
-        }
-        $this->render('index', compact('models', 'keys_count'));
+        $models = ArticleKeywords::model()->with(array('keywordGroup', 'keywordGroup.keywords'))->findAll(array('order' => 't.id desc', 'limit'=>500));
+        $this->render('index', compact('models'));
     }
 
     public function actionSaveArticleKeys()

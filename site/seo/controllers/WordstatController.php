@@ -17,13 +17,13 @@ class WordstatController extends SController
     }
 
     public function actionPrepareKeywords(){
-        $allSearch = $textSearch = Yii::app()->search
+        $allSearch = Yii::app()->search
             ->select('*')
-            ->from('keywords')
-            ->where('беременность')
-            ->limit(0, 100000)
+            ->from('keyword')
+            ->where('*роды*')
+            ->limit(0, 10000)
             ->searchRaw();
-        $ids = array();
+        echo count($allSearch['matches']);
     }
 
     public function getCookie($url)

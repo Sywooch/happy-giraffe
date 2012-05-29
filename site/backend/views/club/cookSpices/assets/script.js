@@ -37,4 +37,19 @@ var Spice = {
 
 $(function () {
     $("#ac").bind("autocompleteselect", Spice.acSelect);
+
+    $('#photo_upload').iframePostForm({
+        json:true,
+        complete:function (response) {
+            if (response.status) {
+                Family.addPhoto($('#user-partner .photos').get(), response.url, response.id);
+            }
+        }
+    });
+
+    $('#photo_upload input').change(function(){
+        $(this).parents('form').submit();
+        return false;
+    });
+
 })

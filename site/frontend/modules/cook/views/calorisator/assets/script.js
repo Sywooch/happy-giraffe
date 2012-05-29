@@ -20,9 +20,10 @@ var Calorisator = {
         event.preventDefault();
     },
 
-    delRow:function(event){
+    delRow:function (event) {
         $(event.target).closest('tr').remove();
-         event.preventDefault();
+        Calorisator.Calculate();
+        event.preventDefault();
     },
 
 
@@ -39,9 +40,9 @@ var Calorisator = {
         });
 
         if (parseFloat(ui.item.density) > 0) {
-            tr.find('td.unit select option[data-type="volume"]').css("display","list-item !important");
+            tr.find('td.unit select option[data-type="volume"]').css("display", "list-item !important");
         }
-        tr.find('td.unit select option[value="' + ui.item.unit_id + '"]').css("display","list-item !important");
+        tr.find('td.unit select option[value="' + ui.item.unit_id + '"]').css("display", "list-item !important");
 
         tr.find('td.unit select').val(ui.item.unit_id);
         $(".chzn").trigger("liszt:updated");
@@ -58,7 +59,7 @@ var Calorisator = {
             var utype = $(el).attr('data-type');
             //if (utype != 'weight' && utype != 'volume')
             if (utype != 'weight')
-                $(el).css("display","none !important");
+                $(el).css("display", "none !important");
         });
     },
 

@@ -45,7 +45,7 @@ class SeoCommand extends CConsoleCommand
 
                 $stat = $last;
 
-                $key = Keywords::GetKeyword($keyword);
+                $key = Keywords::model()->findByAttributes(array('name'=>$keyword));
                 if ($key !== null && !empty($last)) {
                     try{
                         $y_pop = new YandexPopularity();

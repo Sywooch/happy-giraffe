@@ -4,6 +4,7 @@ class m120529_124604_prepare_keywords extends CDbMigration
 {
 	public function up()
 	{
+        $db_name = end(explode("=", Yii::app()->db->connectionString));
         $sql = <<<EOD
 
 USE happy_giraffe_seo;
@@ -17,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `parsing_keywords` (
 ALTER TABLE `parsing_keywords`
   ADD CONSTRAINT `fk_parsing_keywords_keyword` FOREIGN KEY (`keyword_id`) REFERENCES `keywords` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+USE $db_name;
 EOD;
 
         $lnk = mysql_connect('localhost', Yii::app()->db_seo->username, Yii::app()->db_seo->password)

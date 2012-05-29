@@ -64,7 +64,7 @@ class CookSpices extends CActiveRecord
             'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
             //'cookSpicesCategoriesSpices' => array(self::HAS_MANY, 'CookSpicesCategoriesSpices', 'spice_id'),
             'categories' => array(self::MANY_MANY, 'CookSpicesCategories', 'cook__spices__categories_spices(spice_id, category_id)'),
-            'cookSpicesHints' => array(self::HAS_MANY, 'CookSpicesHints', 'spice_id'),
+            'hints' => array(self::HAS_MANY, 'CookSpicesHints', 'spice_id'),
         );
     }
 

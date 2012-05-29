@@ -54,7 +54,7 @@ class CookSpicesController extends BController
         }
 
         $this->render('update', array(
-            'model' => $model,
+            'model' => $model
         ));
     }
 
@@ -107,5 +107,46 @@ class CookSpicesController extends BController
             ->limit(20)->queryAll();
         header('Content-type: application/json');
         echo CJSON::encode($ingredients);
+    }
+
+    public function actionAddHint()
+    {
+        $hint = new CookSpicesHints();
+        if (isset($_POST['ajax']) && $_POST['ajax'] == 'spices-hints-form') {
+            $hint->attributes = $_POST['CookSpicesHints'];
+            echo CActiveForm::validate($hint);
+            Yii::app()->end();
+        } elseif (isset($_POST['CookSpicesHints'])) {
+            $hint->attributes = $_POST['CookSpicesHints'];
+            $hint->save();
+            $model = $this->loadModel($hint->spice_id);
+            $this->renderPartial('_form_hints', array('model' => $model));
+        }
+    }
+
+    public function actionDeleteHint($id)
+    {
+        $hint = CookSpicesHints::model()->findByPk((int)$id);
+        $model = $this->loadModel($hint->spice_id);
+        $hint->delete();
+        $this->renderPartial('_form_hints', array('model' => $model));
+    }
+
+    public function actionPhoto()
+    {
+        $file = CUploadedFile::getInstanceByName('photo');
+
+        print_r($file);
+        Yii::app()->end();
+
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        $model_dir = $dir . DIRECTORY_SEPARATOR . 'spices';
+        if (!file_exists($model_dir))
+            mkdir($model_dir);
+
+        $fs_name = $_REQUEST['spice_id'] . '.' . $this->file->extensionName;
+
+        $file_name = $model_dir . DIRECTORY_SEPARATOR . $fs_name;
+
     }
 }

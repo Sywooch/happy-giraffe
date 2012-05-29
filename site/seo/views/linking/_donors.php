@@ -23,7 +23,7 @@ foreach ($article_keyword->keywordGroup->keywords as $keyword) {
             ?></td>
         <td><?php
 
-            $allSearch = $textSearch = Yii::app()->search->select('*')->from('keywords')->where('* ' . $keyword->name . ' *')->limit(0, 30)->searchRaw();
+            $allSearch = $textSearch = Yii::app()->search->select('*')->from('keyword')->where('* ' . $keyword->name . ' *')->limit(0, 30)->searchRaw();
 
             foreach ($allSearch['matches'] as $key => $m) {
                 $keyword = Keywords::model()->findByPk(trim($key));

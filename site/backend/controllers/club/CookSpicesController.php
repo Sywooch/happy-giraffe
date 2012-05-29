@@ -54,7 +54,7 @@ class CookSpicesController extends BController
         }
 
         $this->render('update', array(
-            'model' => $model,
+            'model' => $model
         ));
     }
 
@@ -107,5 +107,28 @@ class CookSpicesController extends BController
             ->limit(20)->queryAll();
         header('Content-type: application/json');
         echo CJSON::encode($ingredients);
+    }
+
+    public function actionAddHint()
+    {
+        $hint = new CookSpicesHints();
+        if (isset($_POST['ajax']) && $_POST['ajax'] == 'spices-hints-form') {
+            $hint->attributes = $_POST['CookSpicesHints'];
+            echo CActiveForm::validate($hint);
+            Yii::app()->end();
+        } elseif (isset($_POST['CookSpicesHints'])) {
+            $hint->attributes = $_POST['CookSpicesHints'];
+            $hint->save();
+            $model = $this->loadModel($hint->spice_id);
+            $this->renderPartial('_form_hints', array('model' => $model));
+        }
+    }
+
+    public function actionDeleteHint($id)
+    {
+        $hint = CookSpicesHints::model()->findByPk((int)$id);
+        $model = $this->loadModel($hint->spice_id);
+        $hint->delete();
+        $this->renderPartial('_form_hints', array('model' => $model));
     }
 }

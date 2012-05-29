@@ -30,7 +30,7 @@
                         <?php
                         foreach ($units as $unit) {
                             $display = (in_array($unit['type'], array('qty', 'single', 'undefined'))) ? ' style="display:none" ' : '';
-                            echo '<option value="' . $unit['id'] . '" data-id="' . $unit['id'] . '" data-type="' . $unit['type'] . '" data-ratio="' . $unit['ratio'] . '" data-ratiov="' . $unit['ratiov'] . '" ' . $display . ' >' . CHtml::encode($unit['title']) . '</option>';
+                            echo '<option value="' . $unit['id'] . '" data-id="' . $unit['id'] . '" data-type="' . $unit['type'] . '" data-ratio="' . $unit['ratio'] . '" ' . $display . ' >' . CHtml::encode($unit['title']) . '</option>';
                         }
                         ?>
                     </select>

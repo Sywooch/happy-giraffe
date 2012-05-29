@@ -2027,28 +2027,28 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-top-5 .tabs .tabs-container ul li .user-info .details {margin-left:30px;}
 #activity .activity-top-5 .tabs .tabs-container ul li .user-info .details .username {width:85px;font-size:12px;}
 
-#activity .activity-popular {padding:0;border:0;}
-#activity .activity-popular .title {color:#fff;font-size:23px;font-weight:normal;padding:10px 20px;background:#7ea9e5 url(/images/title_activity_popular.png) no-repeat 95% 75%;line-height:1;}
-#activity .activity-popular.club .title {background-color:#99d77e;}
-#activity .activity-popular .title span {color:#fff;font-weight:bold;display:block;}
-#activity .activity-popular ul {list-style:none;padding:9px 19px;border:1px solid #dce9fa;}
-#activity .activity-popular.club ul {border-color:#dbf1d1;}
-#activity .activity-popular ul li {padding:10px 0;}
-#activity .activity-popular ul li .place {text-align:center;font-size:18px;color:#484848;padding-bottom:8px;}
-#activity .activity-popular ul li .place .icon {display:inline-block;width:22px;height:36px;margin-right:3px;}
-#activity .activity-popular ul li .place.place-1 .icon {background:url(/images/cup_22x36_1.png) no-repeat;}
-#activity .activity-popular ul li .place.place-2 .icon {background:url(/images/cup_22x36_2.png) no-repeat;}
-#activity .activity-popular ul li .place.place-3 .icon {background:url(/images/cup_22x36_3.png) no-repeat;}
-#activity .activity-popular ul li .user-info {width:180px;}
-#activity .activity-popular ul li .user-info .details {margin-left:30px;}
-#activity .activity-popular ul li .user-info .details .username {width:130px;font-size:12px;}
-#activity .activity-popular ul li .item-title {margin:5px 0;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;line-height:14px;font-size:12px;}
-#activity .activity-popular ul li .content {}
-#activity .activity-popular ul li .content img {max-width:178px;max-height:356px;}
-#activity .activity-popular ul li .meta {margin-top:8px;line-height:1.2;font-size:12px;}
-#activity .activity-popular ul li .meta span {display:inline-block;padding:2px 5px;}
-#activity .activity-popular ul li .meta .rating {float:right;color:#8455b1;font:italic 25px/1 times new roman, serif;position:relative;top:-6px;}
-#activity .activity-popular ul li .meta .views {background:#fdfccc;color:#737575;}
+.activity-popular {padding:0 !important;border:0 !important;}
+.activity-popular .title {color:#fff !important;font-size:23px !important;font-weight:normal !important;padding:10px 20px !important;background:#7ea9e5 url(/images/title_activity_popular.png) no-repeat 95% 75% !important;line-height:1 !important;}
+.activity-popular.club .title {background-color:#99d77e !important;}
+.activity-popular .title span {color:#fff !important;font-weight:bold !important;display:block !important;}
+.activity-popular ul {list-style:none;padding:9px 19px;border:1px solid #dce9fa;}
+.activity-popular.club ul {border-color:#dbf1d1;}
+.activity-popular ul li {padding:10px 0;}
+.activity-popular ul li .place {text-align:center;font-size:18px;color:#484848;padding-bottom:8px;}
+.activity-popular ul li .place .icon {display:inline-block;width:22px;height:36px;margin-right:3px;}
+.activity-popular ul li .place.place-1 .icon {background:url(/images/cup_22x36_1.png) no-repeat;}
+.activity-popular ul li .place.place-2 .icon {background:url(/images/cup_22x36_2.png) no-repeat;}
+.activity-popular ul li .place.place-3 .icon {background:url(/images/cup_22x36_3.png) no-repeat;}
+.activity-popular ul li .user-info {width:180px;}
+.activity-popular ul li .user-info .details {margin-left:30px;}
+.activity-popular ul li .user-info .details .username {width:130px;font-size:12px;}
+.activity-popular ul li .item-title {margin:5px 0;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;line-height:14px;font-size:12px;}
+.activity-popular ul li .content {}
+.activity-popular ul li .content img {max-width:178px;max-height:356px;}
+.activity-popular ul li .meta {margin-top:8px;line-height:1.2;font-size:12px;}
+.activity-popular ul li .meta span {display:inline-block;padding:2px 5px;}
+.activity-popular ul li .meta .rating {float:right;color:#8455b1;font:italic 25px/1 times new roman, serif;position:relative;top:-6px;}
+.activity-popular ul li .meta .views {background:#fdfccc;color:#737575;}
 
 #activity .activity-video {margin-bottom:30px;}
 #activity .activity-video .preview {position:relative;width:460px;cursor:pointer;display:block;text-decoration:none;}

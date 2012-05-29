@@ -2027,10 +2027,10 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-top-5 .tabs .tabs-container ul li .user-info .details {margin-left:30px;}
 #activity .activity-top-5 .tabs .tabs-container ul li .user-info .details .username {width:85px;font-size:12px;}
 
-.activity-popular {padding:0;border:0;}
-.activity-popular .title {color:#fff;font-size:23px;font-weight:normal;padding:10px 20px;background:#7ea9e5 url(/images/title_activity_popular.png) no-repeat 95% 75%;line-height:1;}
-.activity-popular.club .title {background-color:#99d77e;}
-.activity-popular .title span {color:#fff;font-weight:bold;display:block;}
+.activity-popular {padding:0 !important;border:0 !important;}
+.activity-popular .title {color:#fff !important;font-size:23px !important;font-weight:normal !important;padding:10px 20px !important;background:#7ea9e5 url(/images/title_activity_popular.png) no-repeat 95% 75% !important;line-height:1 !important;}
+.activity-popular.club .title {background-color:#99d77e !important;}
+.activity-popular .title span {color:#fff !important;font-weight:bold !important;display:block !important;}
 .activity-popular ul {list-style:none;padding:9px 19px;border:1px solid #dce9fa;}
 .activity-popular.club ul {border-color:#dbf1d1;}
 .activity-popular ul li {padding:10px 0;}

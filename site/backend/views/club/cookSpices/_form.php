@@ -16,6 +16,24 @@
         cursor: pointer
     }
 
+    div.hint {
+        border: 1px solid #EEE;
+        margin: 5px 0;
+        padding: 10px
+    }
+
+    div.hint div {
+        margin-top: 10px
+    }
+
+    .errorMessage {
+        color: #ff0000;
+    }
+
+    #spices-hints-form {
+        margin-bottom: 15px
+    }
+
 </style>
 
 <p><?php echo CHtml::link('К таблице', array('admin')) ?></p>
@@ -34,14 +52,14 @@
 
 <table class="form">
     <tr>
-        <td>
+        <td style="width: 80px">
             <?php echo $form->labelEx($model, 'title'); ?>
         </td>
         <td>
             <?php echo $form->textField($model, 'title', array('size' => 60, 'maxlength' => 255)); ?>
             <div><?php echo $form->error($model, 'title'); ?></div>
         </td>
-        <td rowspan="5" class="categories">
+        <td rowspan="5" class="categories" style="width: 220px">
             <?
             foreach (CookSpicesCategories::model()->getCategories() as $category) {
                 ?><div>
@@ -82,13 +100,7 @@
     <tr>
         <td><?php echo $form->labelEx($model, 'content'); ?></td>
         <td>
-            <?php
-            echo $form->textArea($model, 'content', array('rows' => 6, 'cols' => 50));
-            /*$this->widget('site.backend.extensions.ckeditor.CKEditorWidget', array(
-                'model' => $model,
-                'attribute' => 'content',
-            ));*/
-            ?>
+            <?php echo $form->textArea($model, 'content', array('rows' => 6, 'cols' => 50)); ?>
             <div><?php echo $form->error($model, 'content'); ?></div>
         </td>
     </tr>
@@ -106,4 +118,44 @@
 </table>
 
 <?php $this->endWidget(); ?>
+
+<div>
+    <h1>Советы</h1>
+
+    <?php
+    $hint = new CookSpicesHints();
+
+    $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'spices-hints-form',
+        'enableAjaxValidation' => true,
+        'action' => CHtml::normalizeUrl(array('club/cookSpices/addHint')),
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+            'validateOnChange' => false,
+            'validateOnType' => false,
+            'validationUrl' => $this->createUrl('club/cookSpices/addHint'),
+            'afterValidate' => "js:function(form, data, hasError) { if (!hasError){ Spice.addHint();} else { return false;} }",
+        )));
+
+    echo $form->hiddenField($hint, 'spice_id', array('value' => $model->id));
+    ?>
+
+    <div class="row">
+        <?php echo $form->textArea($hint, 'content', array('rows' => 6, 'cols' => 50)); ?>
+        <?php echo $form->error($hint, 'content'); ?>
+    </div>
+
+    <div class="row buttons">
+        <?php echo CHtml::submitButton('Добавить совет'); ?>
+    </div>
+
+    <?php $this->endWidget(); ?>
+
+</div>
+
+
+<div id="hints">
+    <?php $this->renderPartial('_form_hints', array('model' => $model)); ?>
+</div>
+
 

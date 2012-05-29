@@ -13,7 +13,16 @@ var Calorisator = {
 
         Calorisator.RowI++;
         tr.removeClass('template').addClass('ingredient').show();
+        tr.find('span.nchzn-v2').addClass('chzn-v2');
+        tr.find('select.nchzn').addClass('chzn');
+
+        $(".chzn").chosen();
         event.preventDefault();
+    },
+
+    delRow:function(event){
+        $(event.target).closest('tr').remove();
+         event.preventDefault();
     },
 
 
@@ -30,10 +39,12 @@ var Calorisator = {
         });
 
         if (parseFloat(ui.item.density) > 0) {
-            tr.find('td.unit select option[data-type="volume"]').show();
+            tr.find('td.unit select option[data-type="volume"]').css("display","list-item !important");
         }
-        tr.find('td.unit select option[value="' + ui.item.unit_id + '"]').show();
+        tr.find('td.unit select option[value="' + ui.item.unit_id + '"]').css("display","list-item !important");
+
         tr.find('td.unit select').val(ui.item.unit_id);
+        $(".chzn").trigger("liszt:updated");
 
         Calorisator.Calculate();
         tr.find('td.qty input').focus();
@@ -47,7 +58,7 @@ var Calorisator = {
             var utype = $(el).attr('data-type');
             //if (utype != 'weight' && utype != 'volume')
             if (utype != 'weight')
-                $(el).hide();
+                $(el).css("display","none !important");
         });
     },
 

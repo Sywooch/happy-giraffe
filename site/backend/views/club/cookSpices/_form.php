@@ -119,6 +119,8 @@
 
 <?php $this->endWidget(); ?>
 
+
+<?php if (!$model->isNewRecord) { ?>
 <div>
     <h1>Советы</h1>
 
@@ -157,5 +159,21 @@
 <div id="hints">
     <?php $this->renderPartial('_form_hints', array('model' => $model)); ?>
 </div>
+
+<?php } ?>
+
+
+<h1>Фото</h1>
+
+<?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'photo_upload',
+    'action' => $this->createUrl('club/cookSpices/photo'),
+    'htmlOptions' => array(
+        'enctype' => 'multipart/form-data',
+    ),
+)); ?>
+<input type="hidden" name="spice_id" value="<?=$model->id; ?>">
+<?php echo CHtml::fileField('photo', '', array('class' => 'photo-file')); ?>
+<?php $this->endWidget(); ?>
 
 

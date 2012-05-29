@@ -131,4 +131,22 @@ class CookSpicesController extends BController
         $hint->delete();
         $this->renderPartial('_form_hints', array('model' => $model));
     }
+
+    public function actionPhoto()
+    {
+        $file = CUploadedFile::getInstanceByName('photo');
+
+        print_r($file);
+        Yii::app()->end();
+
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        $model_dir = $dir . DIRECTORY_SEPARATOR . 'spices';
+        if (!file_exists($model_dir))
+            mkdir($model_dir);
+
+        $fs_name = $_REQUEST['spice_id'] . '.' . $this->file->extensionName;
+
+        $file_name = $model_dir . DIRECTORY_SEPARATOR . $fs_name;
+
+    }
 }

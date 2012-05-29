@@ -18,24 +18,31 @@ class SeoCommand extends CConsoleCommand
     {
         Yii::import('site.seo.models.*');
         Yii::import('site.seo.components.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         $this->Popularity();
     }
 
     public function Popularity()
     {
+//        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
         $file = fopen('/var/temporary/YANDEX_POPULARITY.txt', 'r');
+
+        $start = ParseHelper::getLine();
+        echo $start."\n";
         $i = 0;
         if ($file) {
             while (($buffer = fgets($file)) !== false) {
                 $i++;
-                $line = trim(ltrim($buffer));
+                if ($i < $start)
+                    continue;
+                $line = trim($buffer);
                 $parts = explode('|', $line);
                 $last = '';
                 foreach ($parts as $part)
                     $last = $part;
                 $keyword = trim($parts[0]);
-
                 $keyword = str_replace('$', '', $keyword);
+
                 $stat = $last;
 
                 $key = Keywords::GetKeyword($keyword);
@@ -50,7 +57,9 @@ class SeoCommand extends CConsoleCommand
                     }
                 }
 
-                $i++;
+                if ($i % 10000 == 0){
+                    ParseHelper::setLine($i);
+                }
             }
             if (!feof($file)) {
                 echo "Error: unexpected fgets() fail\n";

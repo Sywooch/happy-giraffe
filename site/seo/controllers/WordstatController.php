@@ -19,9 +19,9 @@ class WordstatController extends SController
     public function actionPrepareKeywords(){
         $allSearch = Yii::app()->search
             ->select('*')
-            ->from('keyword')
+            ->from('keywords')
             ->where('*роды*')
-            ->limit(0, 10000)
+            ->limit(0, 1000)
             ->searchRaw();
         echo count($allSearch['matches']);
     }

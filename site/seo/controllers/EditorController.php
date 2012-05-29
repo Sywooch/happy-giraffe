@@ -30,7 +30,7 @@ class EditorController extends SController
 
             $allSearch = $textSearch = Yii::app()->search
                 ->select('*')
-                ->from('keywords')
+                ->from('keyword')
                 ->where('*' . $term . '*')
                 ->limit(0, 100000)
                 ->searchRaw();

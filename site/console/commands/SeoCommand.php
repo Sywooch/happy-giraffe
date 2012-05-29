@@ -57,7 +57,7 @@ class SeoCommand extends CConsoleCommand
                     }
                 }
 
-                if ($i % 1000 == 0){
+                if ($i % 10000 == 0){
                     ParseHelper::setLine($i);
                 }
             }

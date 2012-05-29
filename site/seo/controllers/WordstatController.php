@@ -16,6 +16,16 @@ class WordstatController extends SController
         $this->startParse();
     }
 
+    public function actionPrepareKeywords(){
+        $allSearch = $textSearch = Yii::app()->search
+            ->select('*')
+            ->from('keywords')
+            ->where('беременность')
+            ->limit(0, 100000)
+            ->searchRaw();
+        $ids = array();
+    }
+
     public function getCookie($url)
     {
         $data = $this->loadPage($url, '');
@@ -64,5 +74,10 @@ class WordstatController extends SController
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
         return curl_exec($ch);
+    }
+
+    public function getKeyword()
+    {
+
     }
 }

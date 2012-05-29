@@ -49,6 +49,10 @@
                         'label' => 'Ингредиенты',
                         'url' => array('/club/cookIngredients/'),
                     ),
+                    array(
+                        'label' => 'Cпеции',
+                        'url' => array('/club/cookSpices/'),
+                    ),
                 )
             )
         ),

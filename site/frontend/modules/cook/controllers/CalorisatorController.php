@@ -11,7 +11,7 @@ class CalorisatorController extends HController
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 
-        $units = Yii::app()->db->createCommand()->select('*')->from('cook__units')->where('parent_id IS NULL', array())->queryAll();
+        $units = Yii::app()->db->createCommand()->select('*')->from('cook__units')->queryAll();
 
         $this->render('index', array('units' => $units));
     }

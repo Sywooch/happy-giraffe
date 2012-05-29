@@ -58,7 +58,6 @@ var SeoKeywords = {
 }
 
 
-
 var TaskDistribution = {
     group:new Array(),
     getId:function (el) {
@@ -116,7 +115,7 @@ var TaskDistribution = {
     },
     removeTask:function (el) {
         var id = TaskDistribution.getId(el);
-        $.post('/editor/removeTask/', {id:id,withKeys:'1'}, function (response) {
+        $.post('/editor/removeTask/', {id:id, withKeys:'1'}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }
@@ -142,7 +141,7 @@ var TaskDistribution = {
                 for (var key in response.keys) {
                     var key_id = response.keys[key];
                     TaskDistribution.showKeyword(key_id);
-                    $('#keyword-'+key_id+' .btn-green-small').trigger('click');
+                    $('#keyword-' + key_id + ' .btn-green-small').trigger('click');
                 }
             }
         }, 'json');
@@ -155,12 +154,12 @@ var TaskDistribution = {
             }
         }, 'json');
     },
-    showKeyword:function(id){
-        $('#keyword-'+id).show();
+    showKeyword:function (id) {
+        $('#keyword-' + id).show();
         $('.default-nav .count a').text(parseInt($('.default-nav .count a').text()) + 1);
     },
-    hideKeyword:function(id){
-        $('#keyword-'+id).hide();
+    hideKeyword:function (id) {
+        $('#keyword-' + id).hide();
         $('.default-nav .count a').text(parseInt($('.default-nav .count a').text()) - 1);
     }
 }
@@ -181,7 +180,7 @@ var SeoTasks = {
             }
         }, 'json');
     },
-    CloseTask:function(el, id){
+    CloseTask:function (el, id) {
         $.post('/editor/close/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
@@ -190,7 +189,7 @@ var SeoTasks = {
             }
         }, 'json');
     },
-    ToCorrection:function(el, id){
+    ToCorrection:function (el, id) {
         $.post('/editor/correction/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('td').prev().removeClass('seo-status-correction-1')
@@ -199,7 +198,7 @@ var SeoTasks = {
             }
         }, 'json');
     },
-    ToPublishing:function(el, id){
+    ToPublishing:function (el, id) {
         $.post('/editor/publish/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('td').prev().removeClass('seo-status-publish-1')
@@ -208,18 +207,65 @@ var SeoTasks = {
             }
         }, 'json');
     },
-    Corrected:function(el, id){
+    Corrected:function (el, id) {
         $.post('/task/corrected/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }
         }, 'json');
     },
-    Published:function(el, id){
+    Published:function (el, id) {
         $.post('/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }
         }, 'json');
+    }
+}
+
+var SeoLinking = {
+    keywordId:null,
+    Go:function (el) {
+        var url = $(el).prev().val();
+        SeoLinking.keywordId = null;
+
+        $.post('/linking/go/', {url:url}, function (response) {
+            if (response.status) {
+                $('.result').html(response.html);
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
+    },
+    AddLink:function (el, linkingPageId, articleId) {
+        if (SeoLinking.keywordId == null) {
+            $.pnotify({
+                pnotify_title:'Ошибка',
+                pnotify_type:'error',
+                pnotify_text:'Выберите ключевое слово'
+            });
+        } else
+            $.post('/linking/add/', {id:linkingPageId, articleFromId:articleId, keyword_id:SeoLinking.keywordId}, function (response) {
+                if (response.status) {
+                    $(el).remove();
+                    $('#keyword-' + SeoLinking.keywordId).remove();
+                    SeoLinking.keywordId = null;
+                } else {
+                    $.pnotify({
+                        pnotify_title:'Ошибка',
+                        pnotify_type:'error',
+                        pnotify_text:response.error
+                    });
+                }
+            }, 'json');
+    },
+    CheckKeyword:function (el, keywordId) {
+        SeoLinking.keywordId = keywordId;
+        $('a.keyword-for-link').removeClass('active');
+        $(el).addClass('active');
     }
 }

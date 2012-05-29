@@ -60,6 +60,7 @@
 <body>
 
 <div id="seo" class="wrapper">
+    <a href="/logout/">выйти</a>
 
     <div class="clearfix">
         <div class="default-nav">
@@ -84,10 +85,50 @@
                         ),
                     )));
 
+            if (Yii::app()->user->checkAccess('superuser'))
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+                    'items' => array(
+                        array(
+                            'label' => 'Готовое',
+                            'url' => array('/existArticles/index/'),
+                        ),
+                        array(
+                            'label' => 'Конкуренты',
+                            'url' => array('/default/index/'),
+                        ),
+                        array(
+                            'label' => 'Ключевые слова или фразы',
+                            'url' => array('/editor/index/'),
+                        ),
+                        array(
+                            'label' => 'Раздача заданий',
+                            'url' => array('/editor/tasks/'),
+                            'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('editor/tasks') . '">' . TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
+                        ),
+                        array(
+                            'label' => 'Отчеты',
+                            'url' => array('/editor/reports/'),
+                        ),
+                    )));
+
             if (Yii::app()->user->checkAccess('admin'))
                 $this->widget('zii.widgets.CMenu', array(
                     'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                     'items' => array(
+                        array(
+                            'label' => 'Ключевые слова или фразы',
+                            'url' => array('/editor/index/'),
+                        ),
+                        array(
+                            'label' => 'Раздача заданий',
+                            'url' => array('/editor/tasks/'),
+                            'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('editor/tasks') . '">' . TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
+                        ),
+                        array(
+                            'label' => 'Конкуренты',
+                            'url' => array('/default/index'),
+                        ),
                         array(
                             'label' => 'Пользователи',
                             'url' => array('/user/'),
@@ -95,11 +136,7 @@
                         ),
                         array(
                             'label' => 'Готовое',
-                            'url' => array('/existArticles/'),
-                        ),
-                        array(
-                            'label' => 'Задания рерайт',
-                            'url' => array('/editor/index/'),
+                            'url' => array('/existArticles/index/'),
                         ),
                     )));
 

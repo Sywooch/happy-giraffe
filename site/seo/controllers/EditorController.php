@@ -9,7 +9,8 @@ class EditorController extends SController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('editor'))
+        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('editor')
+            && !Yii::app()->user->checkAccess('superuser'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }
@@ -17,44 +18,8 @@ class EditorController extends SController
     public function actionIndex()
     {
         $model = new Keywords();
-        $this->render('admin', array(
+        $this->render('index', array(
             'model' => $model,
-        ));
-    }
-
-    public function actionHideUsed()
-    {
-        $checked = Yii::app()->request->getPost('checked');
-        if (!empty($checked)) {
-            Yii::app()->user->setState('hide_used', 1);
-        }
-        else
-            Yii::app()->user->setState('hide_used', 0);
-    }
-
-    public function actionTasks()
-    {
-        //$tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status < 5 AND rewrite = 0');
-        //$success_tasks = SeoTask::TodayExecutedTasks();
-        $tempKeywords = TempKeywords::model()->findAll('owner_id');
-        $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status = 0');
-
-        $this->render('editor_panel', array(
-            'tasks' => $tasks,
-            'tempKeywords' => $tempKeywords,
-        ));
-    }
-
-    public function actionRewriteTasks()
-    {
-        $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status < 5 AND rewrite = 1');
-        $tempKeywords = TempKeywords::model()->findAll('owner_id');
-        $success_tasks = SeoTask::TodayExecutedTasks();
-
-        $this->render('rewrite_editor_panel', array(
-            'tasks' => $tasks,
-            'tempKeywords' => $tempKeywords,
-            'success_tasks' => $success_tasks
         ));
     }
 
@@ -80,7 +45,8 @@ class EditorController extends SController
             if (!empty($ids)) {
                 $criteria = new CDbCriteria;
                 $criteria->compare('t.id', $ids);
-                $criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords');
+                $criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords', 'seoStats');
+                $criteria->order = 'seoStats.sum desc';
                 $models = Keywords::model()->findAll($criteria);
             } else
                 $models = array();
@@ -92,6 +58,40 @@ class EditorController extends SController
             );
             echo CJSON::encode($response);
         }
+    }
+
+    public function actionHideUsed()
+    {
+        $checked = Yii::app()->request->getPost('checked');
+        if (!empty($checked)) {
+            Yii::app()->user->setState('hide_used', 1);
+        }
+        else
+            Yii::app()->user->setState('hide_used', 0);
+    }
+
+    public function actionTasks()
+    {
+        $tempKeywords = TempKeywords::model()->findAll('owner_id');
+        $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status = 0');
+
+        $this->render('editor_panel', array(
+            'tasks' => $tasks,
+            'tempKeywords' => $tempKeywords,
+        ));
+    }
+
+    public function actionRewriteTasks()
+    {
+        $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status < 5 AND rewrite = 1');
+        $tempKeywords = TempKeywords::model()->findAll('owner_id');
+        $success_tasks = SeoTask::TodayExecutedTasks();
+
+        $this->render('rewrite_editor_panel', array(
+            'tasks' => $tasks,
+            'tempKeywords' => $tempKeywords,
+            'success_tasks' => $success_tasks
+        ));
     }
 
     public function actionSelectKeyword()

@@ -1,39 +1,35 @@
 <?php
 
 /**
- * This is the model class for table "linking_pages_pages".
+ * This is the model class for table "cook__spices__hints".
  *
- * The followings are the available columns in table 'linking_pages_pages':
- * @property string $page_id
- * @property string $linkto_page_id
- * @property integer $keyword_id
+ * The followings are the available columns in table 'cook__spices__hints':
+ * @property string $id
+ * @property string $spice_id
+ * @property string $content
  *
  * The followings are the available model relations:
- * @property Keywords $keyword
- * @property LinkingPages $page
- * @property LinkingPages $linktoPage
+ * @property CookSpices $spice
  */
-class LinkingPagesPages extends CActiveRecord
+class CookSpicesHints extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return LinkingPagesPages the static model class
+	 * @return CookSpicesHints the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-    public function getDbConnection()
-    {
-        return Yii::app()->db_seo;
-    }
-
-    public function tableName()
-    {
-        return 'happy_giraffe_seo.linking_pages_pages';
-    }
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return 'cook__spices__hints';
+	}
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -43,12 +39,11 @@ class LinkingPagesPages extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('page_id, linkto_page_id, keyword_id', 'required'),
-			array('keyword_id', 'numerical', 'integerOnly'=>true),
-			array('page_id, linkto_page_id', 'length', 'max'=>10),
+			array('spice_id, content', 'required'),
+			array('spice_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('page_id, linkto_page_id, keyword_id', 'safe', 'on'=>'search'),
+			array('id, spice_id, content', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,9 +55,7 @@ class LinkingPagesPages extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
-			'page' => array(self::BELONGS_TO, 'LinkingPages', 'page_id'),
-			'linktoPage' => array(self::BELONGS_TO, 'LinkingPages', 'linkto_page_id'),
+			'spice' => array(self::BELONGS_TO, 'CookSpices', 'spice_id'),
 		);
 	}
 
@@ -72,9 +65,9 @@ class LinkingPagesPages extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'page_id' => 'Page',
-			'linkto_page_id' => 'Linkto Page',
-			'keyword_id' => 'Keyword',
+			'id' => 'ID',
+			'spice_id' => 'Spice',
+			'content' => 'Content',
 		);
 	}
 
@@ -89,9 +82,9 @@ class LinkingPagesPages extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('page_id',$this->page_id,true);
-		$criteria->compare('linkto_page_id',$this->linkto_page_id,true);
-		$criteria->compare('keyword_id',$this->keyword_id);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('spice_id',$this->spice_id,true);
+		$criteria->compare('content',$this->content,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

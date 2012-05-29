@@ -40,7 +40,11 @@ ALTER TABLE `yandex_rank`
 
 EOD;
 
-        $this->execute($sql);
+        $lnk = mysql_connect('localhost', Yii::app()->db_seo->username, Yii::app()->db_seo->password)
+            or die ('Not connected : ' . mysql_error());
+
+        if (mysql_select_db('happy_giraffe_seo'))
+            $this->execute($sql);
 	}
 
 	public function down()

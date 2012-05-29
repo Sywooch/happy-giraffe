@@ -6,16 +6,50 @@ var Spice = {
         $('#ingredient_text').text(ui.item.title).show();
         $('#ac').hide();
     },
+
     selectIngredient:function (event) {
         $(event.target).hide();
         $('#ac').show().focus();
         event.preventDefault();
+    },
+
+    addHint:function () {
+        $.post(
+            $("#spices-hints-form").attr('action'),
+            $("#spices-hints-form").serialize(),
+            function (data) {
+                $('#hints').html(data);
+            }
+        );
+        return false;
+    },
+
+    deleteHint:function (event) {
+        $.post(
+            $(event.target).attr('href'),
+            function (data) {
+                $('#hints').html(data);
+            }
+        );
+        event.preventDefault();
     }
-
-
 }
-
 
 $(function () {
     $("#ac").bind("autocompleteselect", Spice.acSelect);
+
+    $('#photo_upload').iframePostForm({
+        json:true,
+        complete:function (response) {
+            if (response.status) {
+                Family.addPhoto($('#user-partner .photos').get(), response.url, response.id);
+            }
+        }
+    });
+
+    $('#photo_upload input').change(function(){
+        $(this).parents('form').submit();
+        return false;
+    });
+
 })

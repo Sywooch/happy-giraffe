@@ -45,10 +45,6 @@ body > .page {
     background: #FFFFFF;
 }
 
-a {
-    color: #0498b8;
-}
-
 a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .empty {
@@ -4120,7 +4116,7 @@ ul.letters li a:hover {
 
 #spices .spices-categories {float:left;margin-left:-100%;width:110px;}
 #spices .spices-categories ul {border-right:1px solid #ead8f9;padding:10px 0;}
-#spices .spices-categories ul li {padding:10px;display:block;text-align:center;margin-right:-1px;}
+#spices .spices-categories ul li {padding:20px 10px;display:block;text-align:center;margin-right:-1px;}
 #spices .spices-categories ul li.active {border:1px solid #ead8f9;border-right-color:#fff;}
 #spices .spices-categories ul li.active {/*css3*/ -moz-border-radius:10px 0 0 8px;-webkit-border-radius:10px 0 0 8px;border-radius:10px 0 0 8px;behavior: url(/stylesheets/PIE.htc);}
 

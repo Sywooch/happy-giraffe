@@ -21,10 +21,10 @@ ALTER TABLE `parsing_keywords`
 USE $db_name;
 EOD;
 
-        $lnk = mysql_connect('localhost', Yii::app()->db_seo->username, Yii::app()->db_seo->password)
+        $lnk = mysql_connect('localhost', Yii::app()->db->username, Yii::app()->db->password)
             or die ('Not connected : ' . mysql_error());
 
-        if (mysql_select_db('happy_giraffe_seo'))
+        if (mysql_select_db('happy_giraffe_seo', $lnk))
             $this->execute($sql);
 	}
 

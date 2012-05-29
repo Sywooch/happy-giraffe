@@ -4085,3 +4085,82 @@ ul.letters li a:hover {
 #calories-calculator .calculator table tr.summary .col-8 {background:#fff;}
 #calories-calculator .calculator table .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
 #calories-calculator .calculator table .remove:hover {background-position:-314px -148px;}
+
+
+#spices {}
+
+#spices .title {height:114px;background:url(/images/bg_spices_title.jpg) no-repeat right bottom;border:1px solid #ead8f9;padding:50px 60px;margin-bottom:10px;}
+#spices .title h2 {font-size:60px;font-weight:normal;line-height:1;}
+#spices .title h2 span {font-size:50px;display:block;}
+
+#spices .spices-in {width:830px;float:left;margin-left:130px;padding-top:25px;}
+#spices .spices-in .cat-img {float:right;margin:0 0 15px 15px;}
+#spices .spices-in .cat-img img {display:block;}
+
+#spices .spices-abc {padding:20px;background:#f8fff2;}
+#spices .spices-abc .block-title {font-size:14px;font-weight:bold;color:#585758;margin-bottom:5px;}
+#spices .spices-abc > ul {list-style:none;}
+#spices .spices-abc > ul > li {float:left;width:23%;padding-right:2%;}
+#spices .spices-abc > ul > li .letter {display:inline-block;background:#6bc545;width:25px;height:25px;line-height:25px;text-align:center;color:#fff;font-size:16px;font-weight:bold;}
+#spices .spices-abc > ul > li ul {list-style:none;margin:10px 0 30px;}
+#spices .spices-abc > ul > li ul li {padding:5px 0;}
+#spices .spices-abc > ul > li ul li a {display:block;line-height:1.2;}
+
+#spices .chef-advice {background:#fffedf;padding:10px 30px 30px 70px;width:460px;}
+#spices .chef-advice .block-title {display:block;margin:0 auto;height:75px;background:url(/images/bg_chef_advice_title.gif) no-repeat center;text-indent:-9999px;margin-bottom:20px;}
+#spices .chef-advice ul {list-style:none;}
+#spices .chef-advice ul li {padding-bottom:10px;line-height:1.5em;}
+#spices .chef-advice ul .num {float:left;margin-left:-40px;display:block;width:20px;height:20px;text-align:center;line-height:20px;font-weight:bold;color:#fff;background:#0b89b8;}
+#spices .chef-advice ul .num {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
+
+#spices .perfect-to {width:200px;float:right;padding:10px 30px;}
+#spices .perfect-to .block-title {text-align:center;font-size:22px;line-height:1;color:#575757;margin-bottom:10px;}
+#spices .perfect-to ul {list-style:none;text-align:center;}
+#spices .perfect-to ul li {width:90px;display:inline-block;vertical-align:middle;text-align:center;padding:10px 0;}
+
+#spices .spices-categories {float:left;margin-left:-100%;width:110px;}
+#spices .spices-categories ul {border-right:1px solid #ead8f9;padding:10px 0;}
+#spices .spices-categories ul li {padding:10px;display:block;text-align:center;margin-right:-1px;}
+#spices .spices-categories ul li.active {border:1px solid #ead8f9;border-right-color:#fff;}
+#spices .spices-categories ul li.active {/*css3*/ -moz-border-radius:10px 0 0 8px;-webkit-border-radius:10px 0 0 8px;border-radius:10px 0 0 8px;behavior: url(/stylesheets/PIE.htc);}
+
+
+
+.cook-cat {display:block;text-decoration:none;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+.cook-cat span {text-decoration:underline;}
+.cook-cat:hover span {text-decoration:none;}
+
+.cook-cat .icon-cook-cat {display:block;margin:0 auto 2px;background:url(/images/cook_sprite.png) no-repeat 100px 100px;}
+.cook-cat .icon-cook-cat-0 {width:41px;height:54px;background-position:0 0;}
+.cook-cat .icon-cook-cat-1 {width:34px;height:35px;background-position:0 -54px;}
+.cook-cat.active .icon-cook-cat-1, .cook-cat:hover .icon-cook-cat-1 {width:34px;height:35px;background-position:-50px -54px;}
+.cook-cat .icon-cook-cat-2 {width:35px;height:27px;background-position:0 -89px;}
+.cook-cat.active .icon-cook-cat-2, .cook-cat:hover .icon-cook-cat-2 {width:35px;height:27px;background-position:-50px -89px;}
+.cook-cat .icon-cook-cat-3 {width:40px;height:24px;background-position:0 -116px;}
+.cook-cat.active .icon-cook-cat-3, .cook-cat:hover .icon-cook-cat-3 {width:40px;height:24px;background-position:-50px -116px;}
+.cook-cat .icon-cook-cat-4 {width:43px;height:32px;background-position:0 -140px;}
+.cook-cat.active .icon-cook-cat-4, .cook-cat:hover .icon-cook-cat-4 {width:43px;height:32px;background-position:-50px -140px;}
+.cook-cat .icon-cook-cat-5 {width:30px;height:34px;background-position:0 -172px;}
+.cook-cat.active .icon-cook-cat-5, .cook-cat:hover .icon-cook-cat-5 {width:30px;height:34px;background-position:-50px -172px;}
+.cook-cat .icon-cook-cat-6 {width:19px;height:39px;background-position:0 -206px;}
+.cook-cat.active .icon-cook-cat-6, .cook-cat:hover .icon-cook-cat-6 {width:19px;height:39px;background-position:-50px -206px;}
+.cook-cat .icon-cook-cat-7 {width:44px;height:24px;background-position:0 -245px;}
+.cook-cat.active .icon-cook-cat-7, .cook-cat:hover .icon-cook-cat-7 {width:44px;height:24px;background-position:-50px -245px;}
+.cook-cat .icon-cook-cat-8 {width:34px;height:30px;background-position:0 -269px;}
+.cook-cat.active .icon-cook-cat-8, .cook-cat:hover .icon-cook-cat-8 {width:34px;height:30px;background-position:-50px -269px;}
+.cook-cat .icon-cook-cat-9 {width:41px;height:29px;background-position:0 -299px;}
+.cook-cat.active .icon-cook-cat-9, .cook-cat:hover .icon-cook-cat-9 {width:41px;height:29px;background-position:-50px -299px;}
+.cook-cat .icon-cook-cat-10 {width:25px;height:30px;background-position:0 -328px;}
+.cook-cat.active .icon-cook-cat-10, .cook-cat:hover .icon-cook-cat-10 {width:25px;height:30px;background-position:-50px -328px;}
+.cook-cat .icon-cook-cat-11 {width:50px;height:24px;background-position:0 -358px;}
+.cook-cat.active .icon-cook-cat-11, .cook-cat:hover .icon-cook-cat-11 {width:50px;height:24px;background-position:-50px -358px;}
+.cook-cat .icon-cook-cat-12 {width:26px;height:33px;background-position:0 -382px;}
+.cook-cat.active .icon-cook-cat-12, .cook-cat:hover .icon-cook-cat-12 {width:26px;height:33px;background-position:-50px -382px;}
+.cook-cat .icon-cook-cat-13 {width:37px;height:30px;background-position:0 -415px;}
+.cook-cat.active .icon-cook-cat-13, .cook-cat:hover .icon-cook-cat-13 {width:37px;height:30px;background-position:-50px -415px;}
+.cook-cat .icon-cook-cat-14 {width:36px;height:30px;background-position:0 -445px;}
+.cook-cat.active .icon-cook-cat-14, .cook-cat:hover .icon-cook-cat-14 {width:36px;height:30px;background-position:-50px -445px;}
+.cook-cat .icon-cook-cat-15 {width:44px;height:26px;background-position:0 -475px;}
+.cook-cat.active .icon-cook-cat-15, .cook-cat:hover .icon-cook-cat-15 {width:44px;height:26px;background-position:-50px -475px;}
+.cook-cat .icon-cook-cat-16 {width:29px;height:41px;background-position:0 -501px;}
+.cook-cat.active .icon-cook-cat-16, .cook-cat:hover .icon-cook-cat-16 {width:29px;height:41px;background-position:-50px -501px;}

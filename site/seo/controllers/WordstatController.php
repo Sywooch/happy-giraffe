@@ -6,9 +6,12 @@
 class WordstatController extends SController
 {
     public $cookie = '';
+    public $session = 1;
 
     public function actionIndex()
     {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
         $this->getCookie('http://wordstat.yandex.ru/');
         $this->startParse();
     }
@@ -36,9 +39,16 @@ class WordstatController extends SController
     public function startParse()
     {
         $keyword = urlencode('бэбиблог');
-        $url = 'http://wordstat.yandex.ru/?cmd=words&page=1&t='.$keyword.'&geo=&text_geo=';
-        $data = $this->loadPage($url, 'http://wordstat.yandex.ru/');
-        echo $data;
+        $url = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . $keyword . '&geo=&text_geo=';
+        $html = $this->loadPage($url, 'http://wordstat.yandex.ru/');
+        //echo $html;
+
+        $document = phpQuery::newDocument($html);
+        foreach ($document->find('table.campaign tr td table td a') as $link) {
+            echo pq($link)->text();
+            echo pq($link)->parent()->next()->next()->text();
+            echo '<br>';
+        }
     }
 
     public function loadPage($url, $ref)

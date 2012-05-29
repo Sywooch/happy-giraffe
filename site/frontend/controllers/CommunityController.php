@@ -67,15 +67,9 @@ class CommunityController extends HController
         );
         $communities = Community::model()->public()->findAll();
 
-        $top5 = CommunityContent::model()->full()->findAll(array(
-            'limit' => 5,
-            'order' => 'rate DESC',
-            'condition' => 'rubric.community_id IS NOT NULL',
-        ));
         $this->render('index', array(
             'communities' => $communities,
             'categories' => $categories,
-            'top5' => $top5,
         ));
     }
 

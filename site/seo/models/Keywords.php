@@ -124,13 +124,13 @@ class Keywords extends HActiveRecord
     {
         $word = trim($word);
         $model = self::model()->findByAttributes(array('name'=>$word));
-/*        if ($model !== null)
+        if ($model !== null)
             return $model;
 
         $model = new Keywords();
         $model->name = $word;
         if (!$model->save())
-            throw new CHttpException(404, 'Кейворд не сохранен. ' . $word);*/
+            throw new CHttpException(404, 'Кейворд не сохранен. ' . $word);
 
         return $model;
     }

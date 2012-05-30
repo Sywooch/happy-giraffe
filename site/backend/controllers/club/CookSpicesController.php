@@ -136,17 +136,19 @@ class CookSpicesController extends BController
     {
         $file = CUploadedFile::getInstanceByName('photo');
 
-        print_r($file);
-        Yii::app()->end();
+        //print_r($file);
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos.spices');
+        if (!file_exists($dir))
+            mkdir($dir);
+        $fs_name = $dir . DIRECTORY_SEPARATOR . $_REQUEST['spice_id'] . '.' . $file->extensionName;
+        $file->saveAs($fs_name);
 
-        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
-        $model_dir = $dir . DIRECTORY_SEPARATOR . 'spices';
-        if (!file_exists($model_dir))
-            mkdir($model_dir);
+        $response = array(
+            'status' => true,
+            'url' => $dir.DIRECTORY_SEPARATOR.$fs_name
+        );
 
-        $fs_name = $_REQUEST['spice_id'] . '.' . $this->file->extensionName;
-
-        $file_name = $model_dir . DIRECTORY_SEPARATOR . $fs_name;
-
+        header('Content-type: application/json');
+        echo CJSON::encode($response);
     }
 }

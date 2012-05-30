@@ -22,8 +22,8 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.seo.components.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
-        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
-//        $file = fopen('/var/temporary/YANDEX_POPULARITY.txt', 'r');
+//        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
+        $file = fopen('/var/temporary/YANDEX_POPULARITY.txt', 'r');
 
         $start = ParseHelper::getLine($thread);
         $i = 0;

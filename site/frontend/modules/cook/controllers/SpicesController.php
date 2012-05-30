@@ -7,25 +7,23 @@ class SpicesController extends HController
     public function actionIndex()
     {
         $this->pageTitle = 'Приправы специи';
-        $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'calorisator' . DIRECTORY_SEPARATOR . 'assets';
+        $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'spices' . DIRECTORY_SEPARATOR . 'assets';
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         //Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
+        $obj = CookSpices::model()->getSpicesByAlphabet();
 
-
-        $this->render('index', array());
+        $this->render('index', compact('obj'));
     }
 
     public function actionCategory($id)
     {
-        $category = CookSpicesCategories::model()->findByPk((int)$id);
-        $this->render('category', array('category' => $category));
+        $model = CookSpicesCategories::model()->with('spices', 'photo')->findByPk($id);
+        $this->render('category', compact('model'));
     }
 
     public function actionView($id)
     {
-        $spice = CookSpices::model()->findByPk((int)$id);
-        $this->render('view', array('spice' => $spice));
+        $model = CookSpices::model()->with('photo', 'categories', 'hints')->findByPk($id);
+        $this->render('view', compact('model'));
     }
-
-
 }

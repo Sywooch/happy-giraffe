@@ -47,5 +47,17 @@ return array(
             'enableProfiling' => false,
             'enableParamLogging' => true,
         ),
+        'search' => array(
+            'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',
+            'server' => '127.0.0.1',
+            'port' => 9312,
+            'maxQueryTime' => 3000,
+            'enableProfiling'=>0,
+            'enableResultTrace'=>0,
+            'fieldWeights' => array(
+                'name' => 10000,
+                'keywords' => 100,
+            ),
+        ),
     ),
 );

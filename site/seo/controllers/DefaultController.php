@@ -175,6 +175,13 @@ class DefaultController extends SController
     public function actionTest2(){
         echo Yii::app()->db_seo->createCommand('select count(keyword_id) from yandex_popularity')->queryScalar();
         echo '<br>';
-        echo ParseHelper::getLine();
+        echo ParseHelper::getLine(0).'<br>';
+        echo ParseHelper::getLine(1).'<br>';
+        echo ParseHelper::getLine(2).'<br>';
+        echo ParseHelper::getLine(3).'<br>';
+        echo ParseHelper::getLine(4).'<br>';
+        echo ParseHelper::getLine(5).'<br>';
+        echo ParseHelper::getLine(6).'<br>';
+        echo ParseHelper::getLine(7).'<br>';
     }
 }

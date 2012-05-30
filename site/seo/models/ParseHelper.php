@@ -6,6 +6,7 @@
 class ParseHelper extends EMongoDocument
 {
     public $line;
+    public $thread;
 
     public static function model($className = __CLASS__)
     {
@@ -17,23 +18,29 @@ class ParseHelper extends EMongoDocument
         return 'parse_helper';
     }
 
-    public static function getLine()
+    public static function getLine($thread)
     {
-        $model = ParseHelper::model()->find();
-        if ($model === null){
+        $criteria = new EMongoCriteria;
+        $criteria->thread('==', (int)$thread);
+        $model = ParseHelper::model()->find($criteria);
+        if ($model === null) {
             $model = new ParseHelper;
-            $model->line = 900000;
+            $model->thread = (int)$thread;
+            $model->line = 6000000 + $thread * 4000000;
             $model->save();
         }
 
         return $model->line;
     }
 
-    public static function setLine($n)
+    public static function setLine($thread, $n)
     {
-        $model = ParseHelper::model()->find();
-        if ($model === null){
+        $criteria = new EMongoCriteria;
+        $criteria->thread('==', (int)$thread);
+        $model = ParseHelper::model()->find($criteria);
+        if ($model === null) {
             $model = new ParseHelper;
+            $model->thread = (int)$thread;
         }
         $model->line = $n;
         $model->save();

@@ -11,24 +11,21 @@ class SeoCommand extends CConsoleCommand
     private $limit = 10000;
     private $prev_percent = 0;
 
-    /**
-     * Удаление в назначениях прав несуществующих юзеров
-     */
-    public function actionIndex()
+    public function actionIndex($thread = 1)
+    {
+        $this->Popularity($thread);
+    }
+
+    public function Popularity($thread)
     {
         Yii::import('site.seo.models.*');
         Yii::import('site.seo.components.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        $this->Popularity();
-    }
 
-    public function Popularity()
-    {
-//        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
-        $file = fopen('/var/temporary/YANDEX_POPULARITY.txt', 'r');
+        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
+//        $file = fopen('/var/temporary/YANDEX_POPULARITY.txt', 'r');
 
-        $start = ParseHelper::getLine();
-        echo $start."\n";
+        $start = ParseHelper::getLine($thread);
         $i = 0;
         if ($file) {
             while (($buffer = fgets($file)) !== false) {
@@ -45,21 +42,24 @@ class SeoCommand extends CConsoleCommand
 
                 $stat = $last;
 
-                $key = Keywords::model()->findByAttributes(array('name'=>$keyword));
+                $key = Keywords::model()->findByAttributes(array('name' => $keyword));
                 if ($key !== null && !empty($last)) {
-                    try{
+                    try {
                         $y_pop = new YandexPopularity();
                         $y_pop->keyword_id = $key->id;
                         $y_pop->value = $stat;
                         $y_pop->save();
-                    }catch (Exception $e){
+                    } catch (Exception $e) {
 
                     }
                 }
 
-                if ($i % 10000 == 0){
-                    ParseHelper::setLine($i);
+                if ($i % 1000 == 0) {
+                    ParseHelper::setLine($thread, $i);
                 }
+
+                if ($i > 10000000 + $thread * 4000000)
+                    break;
             }
             if (!feof($file)) {
                 echo "Error: unexpected fgets() fail\n";

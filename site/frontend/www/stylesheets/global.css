@@ -45,10 +45,6 @@ body > .page {
     background: #FFFFFF;
 }
 
-a {
-    color: #0498b8;
-}
-
 a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .empty {
@@ -4090,14 +4086,14 @@ ul.letters li a:hover {
 #spices {}
 
 #spices .title {height:114px;background:url(/images/bg_spices_title.jpg) no-repeat right bottom;border:1px solid #ead8f9;padding:50px 60px;margin-bottom:10px;}
-#spices .title h2 {font-size:60px;font-weight:normal;line-height:1;}
+#spices .title h2 {font-size:60px;font-weight:normal;line-height:1;color:#464546;}
 #spices .title h2 span {font-size:50px;display:block;}
 
 #spices .spices-in {width:830px;float:left;margin-left:130px;padding-top:25px;}
 #spices .spices-in .cat-img {float:right;margin:0 0 15px 15px;}
 #spices .spices-in .cat-img img {display:block;}
 
-#spices .spices-abc {padding:20px;background:#f8fff2;}
+#spices .spices-abc {padding:20px;background:#f8fff2;margin-top:30px;}
 #spices .spices-abc .block-title {font-size:14px;font-weight:bold;color:#585758;margin-bottom:5px;}
 #spices .spices-abc > ul {list-style:none;}
 #spices .spices-abc > ul > li {float:left;width:23%;padding-right:2%;}
@@ -4120,7 +4116,7 @@ ul.letters li a:hover {
 
 #spices .spices-categories {float:left;margin-left:-100%;width:110px;}
 #spices .spices-categories ul {border-right:1px solid #ead8f9;padding:10px 0;}
-#spices .spices-categories ul li {padding:10px;display:block;text-align:center;margin-right:-1px;}
+#spices .spices-categories ul li {padding:20px 10px;display:block;text-align:center;margin-right:-1px;}
 #spices .spices-categories ul li.active {border:1px solid #ead8f9;border-right-color:#fff;}
 #spices .spices-categories ul li.active {/*css3*/ -moz-border-radius:10px 0 0 8px;-webkit-border-radius:10px 0 0 8px;border-radius:10px 0 0 8px;behavior: url(/stylesheets/PIE.htc);}
 

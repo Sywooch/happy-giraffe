@@ -67,7 +67,7 @@ class CookSpicesHints extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'spice_id' => 'Spice',
-			'content' => 'Content',
+			'content' => 'Содержание',
 		);
 	}
 

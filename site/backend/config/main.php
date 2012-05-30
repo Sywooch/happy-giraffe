@@ -43,6 +43,9 @@ return array(
                     'prevPageLabel' => '',
                     'maxButtonCount' => 5,
                 ),
+                'CKEditorWidget' => array(
+                    'ckEditor' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www' . DIRECTORY_SEPARATOR . 'ckeditor' . DIRECTORY_SEPARATOR . 'ckeditor.php',
+                ),
             ),
         ),
 		'urlManager' => array(

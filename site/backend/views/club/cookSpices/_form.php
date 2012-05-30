@@ -1,4 +1,8 @@
-<style type="text/css">
+<?php
+/* @var $this Controller
+ * @var $form CActiveForm
+ */
+?><style type="text/css">
     table.form {
         width: 100%
     }
@@ -92,7 +96,7 @@
             ?>
 
             <a href="#" id="ingredient_text" onclick="Spice.selectIngredient(event);">
-                <?php echo ($model->ingredient->title) ? $model->ingredient->title : "выбрать ингредиент"; ?>
+                <?php echo (isset($model->ingredient)) ? $model->ingredient->title : "выбрать ингредиент"; ?>
             </a>
             <?php echo $form->error($model, 'ingredient_id'); ?>
         </td>
@@ -100,14 +104,17 @@
     <tr>
         <td><?php echo $form->labelEx($model, 'content'); ?></td>
         <td>
-            <?php echo $form->textArea($model, 'content', array('rows' => 6, 'cols' => 50)); ?>
+            <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array(
+                'model' => $model,
+                'attribute' => 'content',
+            )); ?>
             <div><?php echo $form->error($model, 'content'); ?></div>
         </td>
     </tr>
     <tr>
         <td><?php echo $form->labelEx($model, 'photo'); ?></td>
         <td>
-            <?php echo $form->textField($model, 'photo', array('size' => 60, 'maxlength' => 255)); ?>
+            <?php echo $form->fileField($model, 'photo'); ?>
             <div><?php echo $form->error($model, 'photo'); ?></div>
         </td>
     </tr>
@@ -161,19 +168,3 @@
 </div>
 
 <?php } ?>
-
-
-<h1>Фото</h1>
-
-<?php $form = $this->beginWidget('CActiveForm', array(
-    'id' => 'photo_upload',
-    'action' => $this->createUrl('club/cookSpices/photo'),
-    'htmlOptions' => array(
-        'enctype' => 'multipart/form-data',
-    ),
-)); ?>
-<input type="hidden" name="spice_id" value="<?=$model->id; ?>">
-<?php echo CHtml::fileField('photo', '', array('class' => 'photo-file')); ?>
-<?php $this->endWidget(); ?>
-
-

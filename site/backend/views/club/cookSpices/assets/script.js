@@ -19,6 +19,7 @@ var Spice = {
             $("#spices-hints-form").serialize(),
             function (data) {
                 $('#hints').html(data);
+                $('#CookSpicesHints_content').val('');
             }
         );
         return false;
@@ -42,7 +43,7 @@ $(function () {
         json:true,
         complete:function (response) {
             if (response.status) {
-                Family.addPhoto($('#user-partner .photos').get(), response.url, response.id);
+                $('#photo-upload-block img').attr('src', response.image);
             }
         }
     });

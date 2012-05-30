@@ -10,12 +10,12 @@
 
         <div class="spices-in">
 
-            <h1>Приправы и специи <?=$category->title; ?></h1>
+            <h1>Приправы и специи <?=$model->title; ?></h1>
 
             <div class="clearfix">
-                <div class="cat-img"><img src="/images/cook_spice_cat_img.jpg"/></div>
+                <div class="cat-img"><img src="<?=isset($model->photo)?$model->photo->getOriginalUrl():'' ?>"/></div>
 
-                <div class="wysiwyg-content"><?=$category->content; ?></div>
+                <div class="wysiwyg-content"><?=$model->content; ?></div>
             </div>
 
             <div class="spices-abc clearfix">
@@ -25,95 +25,20 @@
                 <ul>
 
                     <li>
-
                         <ul>
-                            <li><a href="">Аир</a></li>
-                            <li><a href="">Ангелика китайская</a></li>
-                            <li><a href="">Анис</a></li>
-                            <li><a href="">Апельсиновая корка сушеная</a></li>
-                            <li><a href="">Асафетида</a></li>
-                            <li><a href="">Бадьян</a></li>
-                            <li><a href="">Базилик (реган)</a></li>
-                            <li><a href="">Барбарис</a></li>
-                            <li><a href="">Бедс</a></li>
-                            <li><a href="">Апельсиновая корка сушеная</a></li>
-                            <li><a href="">Асафетида</a></li>
-                            <li><a href="">Бадьян</a></li>
-                            <li><a href="">Базилик (реган)</a></li>
-                            <li><a href="">Барбарис</a></li>
-                            <li><a href="">Бедренец (каменеломка)</a></li>
-                            <li><a href="">Бораго</a></li>
+                            <?php $i = 0;$col = 1;foreach ($model->spices as $spice): ?>
+                            <?php if ($i > $col * (count($model->spices)/4) ): ?>
                         </ul>
-
                     </li>
-
                     <li>
-
                         <ul>
-                            <li><a href="">Аир</a></li>
-                            <li><a href="">Ангелика китайская</a></li>
-                            <li><a href="">Анис</a></li>
-                            <li><a href="">Апельсиновая корка сушеная</a></li>
-                            <li><a href="">Асафетида</a></li>
-                            <li><a href="">Бадьян</a></li>
-                            <li><a href="">Базилик (реган)</a></li>
-                            <li><a href="">Барбарис</a></li>
-                            <li><a href="">Бедс</a></li>
-                            <li><a href="">Апельсиновая корка сушеная</a></li>
-                            <li><a href="">Асафетида</a></li>
-                            <li><a href="">Бадьян</a></li>
-                            <li><a href="">Базилик (реган)</a></li>
-                            <li><a href="">Барбарис</a></li>
-                            <li><a href="">Бедренец (каменеломка)</a></li>
-                            <li><a href="">Бораго</a></li>
+                            <?php endif; ?>
+                            <li>
+                                <a href="<?=$this->createUrl('view', array('id' => $spice->id)) ?>"><?=$spice->title ?></a>
+                            </li>
+                            <?php $i++ ?>
+                            <?php endforeach; ?>
                         </ul>
-
-                    </li>
-
-                    <li>
-
-                        <ul>
-                            <li><a href="">Аир</a></li>
-                            <li><a href="">Ангелика китайская</a></li>
-                            <li><a href="">Анис</a></li>
-                            <li><a href="">Апельсиновая корка сушеная</a></li>
-                            <li><a href="">Асафетида</a></li>
-                            <li><a href="">Бадьян</a></li>
-                            <li><a href="">Базилик (реган)</a></li>
-                            <li><a href="">Барбарис</a></li>
-                            <li><a href="">Бедс</a></li>
-                            <li><a href="">Апельсиновая корка сушеная</a></li>
-                            <li><a href="">Асафетида</a></li>
-                            <li><a href="">Бадьян</a></li>
-                            <li><a href="">Базилик (реган)</a></li>
-                            <li><a href="">Барбарис</a></li>
-                            <li><a href="">Бедренец (каменеломка)</a></li>
-                            <li><a href="">Бораго</a></li>
-                        </ul>
-
-                    </li>
-
-                    <li>
-
-                        <ul>
-                            <li><a href="">Аир</a></li>
-                            <li><a href="">Ангелика китайская</a></li>
-                            <li><a href="">Анис</a></li>
-                            <li><a href="">Апельсиновая корка сушеная</a></li>
-                            <li><a href="">Асафетида</a></li>
-                            <li><a href="">Бадьян</a></li>
-                            <li><a href="">Базилик (реган)</a></li>
-                            <li><a href="">Барбарис</a></li>
-                            <li><a href="">Бедс</a></li>
-                            <li><a href="">Апельсиновая корка сушеная</a></li>
-                            <li><a href="">Асафетида</a></li>
-                            <li><a href="">Бадьян</a></li>
-                            <li><a href="">Базилик (реган)</a></li>
-                            <li><a href="">Барбарис</a></li>
-                            <li><a href="">Бедренец (каменеломка)</a></li>
-                            <li><a href="">Бораго</a></li>
-                        </ul>
-
                     </li>
 
                 </ul>

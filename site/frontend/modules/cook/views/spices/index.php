@@ -1,5 +1,9 @@
-<div id="spices">
-
+<?php
+/* @var $this Controller
+ * @var $obj SpiceColumns
+ */
+?><div id="spices">
+<?php //var_dump($models) ?>
 <div class="title">
 
     <h2>Приправы <span>и специи</span></h2>
@@ -23,239 +27,18 @@
 <div class="spices-abc clearfix">
 
 <ul>
-
+    <?php foreach ($obj->columns as $column): ?>
 <li>
-
-    <div class="letter">А</div>
-    <ul>
-        <li><a href="">Аир</a></li>
-        <li><a href="">Ангелика китайская</a></li>
-        <li><a href="">Анис</a></li>
-        <li><a href="">Апельсиновая корка сушеная</a></li>
-        <li><a href="">Асафетида</a></li>
-    </ul>
-
-    <div class="letter">Б</div>
-    <ul>
-        <li><a href="">Бадьян</a></li>
-        <li><a href="">Базилик (реган)</a></li>
-        <li><a href="">Барбарис</a></li>
-        <li><a href="">Бедренец (каменеломка)</a></li>
-        <li><a href="">Бораго</a></li>
-    </ul>
-
-    <div class="letter">В</div>
-    <ul>
-        <li><a href="">Ваниль</a></li>
-        <li><a href="">Ванилин</a></li>
-        <li><a href="">Васаби</a></li>
-        <li><a href="">Васильки (Centaurea)</a></li>
-    </ul>
-
-    <div class="letter">Г</div>
-    <ul>
-        <li><a href="">Галгант (калган)</a></li>
-        <li><a href="">Гарам-масала</a></li>
-        <li><a href="">Гвоздика</a></li>
-        <li><a href="">Гибискус</a></li>
-        <li><a href="">Горчица белая</a></li>
-        <li><a href="">Горчица сарептская</a></li>
-        <li><a href="">Горчица черная</a></li>
-        <li><a href="">Гравилат городской</a></li>
-        <li><a href="">Грибной экстракт</a></li>
-    </ul>
-
-    <div class="letter">Д</div>
-    <ul>
-        <li><a href="">Дандур (портулак)</a></li>
-        <li><a href="">Девясил высокий</a></li>
-        <li><a href="">Донник лекарственный</a></li>
-        <li><a href="">Дудник лесной</a></li>
-        <li><a href="">Душистый перец</a></li>
-        <li><a href="">Душица (орегано)</a></li>
-        <li><a href="">Дягиль аптечный</a></li>
-    </ul>
-
-    <div class="letter">Д</div>
-    <ul>
-        <li><a href="">Зверобой</a></li>
-        <li><a href="">Зира (кумин, каммун)</a></li>
-        <li><a href="">Змееголовник молдавский</a></li>
-        <li><a href="">Зубровка</a></li>
-    </ul>
-
+    <?php foreach ($column->alphabetGroups as $group): ?>
+        <ul>
+            <div class="letter"><?=$group->letter ?></div>
+            <?php foreach ($group->models as $model): ?>
+                <li><a href="<?=$this->createUrl('view', array('id'=>$model->id)) ?>"><?=$model->title ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endforeach; ?>
 </li>
-
-<li>
-
-    <div class="letter">Г</div>
-    <ul>
-        <li><a href="">Галгант (калган)</a></li>
-        <li><a href="">Гарам-масала</a></li>
-        <li><a href="">Гвоздика</a></li>
-        <li><a href="">Гибчица сарептская</a></li>
-        <li><a href="">Горчица черная</a></li>
-        <li><a href="">Гравилат городской</a></li>
-        <li><a href="">Грибной экстракт</a></li>
-    </ul>
-
-    <div class="letter">Б</div>
-    <ul>
-        <li><a href="">Бадьян</a></li>
-        <li><a href="">Базилик (реган)</a></li>
-        <li><a href="">Барбарис</a></li>
-        <li><a href="">Бедренец (каменеломка)</a></li>
-        <li><a href="">Бораго</a></li>
-    </ul>
-
-    <div class="letter">А</div>
-    <ul>
-        <li><a href="">Аир</a></li>
-        <li><a href="">Ангелика китайская</a></li>
-        <li><a href="">Анис</a></li>
-        <li><a href="">Апельсиновая корка сушеная</a></li>
-        <li><a href="">Асафетида</a></li>
-    </ul>
-
-    <div class="letter">В</div>
-    <ul>
-        <li><a href="">Ваниль</a></li>
-        <li><a href="">Ванаби</a></li>
-        <li><a href="">Васильки (Centaurea)</a></li>
-    </ul>
-
-    <div class="letter">Д</div>
-    <ul>
-        <li><a href="">Дандур (портулак)</a></li>
-        <li><a href="">Девясил высокий</a></li>
-        <li><a href="">Донник лекарственный</a></li>
-        <li><a href="">Дудникый перец</a></li>
-        <li><a href="">Душица (орегано)</a></li>
-        <li><a href="">Дягиль аптечный</a></li>
-    </ul>
-
-    <div class="letter">Д</div>
-    <ul>
-        <li><a href="">Зверобой</a></li>
-        <li><a href="">Зираголовник молдавский</a></li>
-        <li><a href="">Зубровка</a></li>
-    </ul>
-
-</li>
-
-<li>
-
-    <div class="letter">Б</div>
-    <ul>
-        <li><a href="">Бадьян</a></li>
-        <li><a href="">Базилик (реган)</a></li>
-        <li><a href="">Барбарис</a></li>
-        <li><a href="">Бедренец (каменеломка)</a></li>
-        <li><a href="">Бораго</a></li>
-    </ul>
-
-    <div class="letter">В</div>
-    <ul>
-        <li><a href="">Ваниль</a></li>
-        <li><a href="">Ванилин</a></li>
-        <li><a href="">Васаби</a></li>
-        <li><a href="">Васильки (Centaurea)</a></li>
-    </ul>
-
-    <div class="letter">Г</div>
-    <ul>
-        <li><a href="">Галгант (калган)</a></li>
-        <li><a href="">Гарам-масала</a></li>
-        <li><a href="">Гвоздика</a></li>
-        <li><a href="">Гибискус</a></li>
-        <li><a href="">Горчица белая</a></li>
-        <li><a href="">Горчица сарептская Горчица черная</a></li>
-        <li><a href="">Гравилат городской</a></li>
-        <li><a href="">Грибной экстракт</a></li>
-    </ul>
-
-    <div class="letter">Д</div>
-    <ul>
-        <li><a href="">Дандур (портулак)</a></li>
-        <li><a href="">Девясил высокий</a></li>
-        <li><a href="">Донник лекарственный</a></li>
-        <li><a href="">Дудник лесной</a></li>
-        <li><a href="">Душистый перец</a></li>
-        <li><a href="">Душица (орегано)</a></li>
-        <li><a href="">Дягиль аптечный</a></li>
-    </ul>
-
-    <div class="letter">Д</div>
-    <ul>
-        <li><a href="">Зверобой</a></li>
-        <li><a href="">Зира (кумин, каммун)</a></li>
-        <li><a href="">Змееголовник молдавский</a></li>
-        <li><a href="">Зубровка</a></li>
-    </ul>
-
-</li>
-
-<li>
-
-    <div class="letter">В</div>
-    <ul>
-        <li><a href="">Ваниль</a></li>
-        <li><a href="">Ванилин</a></li>
-        <li><a href="">Васаби</a></li>
-        <li><a href="">Васильки (Centaurea)</a></li>
-    </ul>
-
-    <div class="letter">А</div>
-    <ul>
-        <li><a href="">Аир</a></li>
-        <li><a href="">Ангелика китайская</a></li>
-        <li><a href="">Анис</a></li>
-        <li><a href="">Апельсиновая корка сушеная Апельсиновая корка сушеная Апельсиновая корка сушеная Апельсиновая корка сушеная </a></li>
-        <li><a href="">Асафетида</a></li>
-    </ul>
-
-    <div class="letter">Б</div>
-    <ul>
-        <li><a href="">Бадьян</a></li>
-        <li><a href="">Базилик (реган)</a></li>
-        <li><a href="">Барбарис</a></li>
-        <li><a href="">Бедренец (каменеломка)</a></li>
-        <li><a href="">Бораго</a></li>
-    </ul>
-
-    <div class="letter">Г</div>
-    <ul>
-        <li><a href="">Галгант (калган)</a></li>
-        <li><a href="">Гарам-масала</a></li>
-        <li><a href="">Гвоздика</a></li>
-        <li><a href="">Гибискус</a></li>
-        <li><a href="">Горчица белая</a></li>
-        <li><a href="">Горчица сарептская</a></li>
-        <li><a href="">Горчица черная</a></li>
-        <li><a href="">Гравилат городской</a></li>
-        <li><a href="">Грибной экстракт</a></li>
-    </ul>
-
-    <div class="letter">Д</div>
-    <ul>
-        <li><a href="">Дандур (портулак)</a></li>
-        <li><a href="">Девясил высокий</a></li>
-        <li><a href="">Донник лекарственный</a></li>
-        <li><a href="">Дудник лесной</a></li>
-        <li><a href="">Душистый перец</a></li>
-        <li><a href="">Душица (орегано)</a></li>
-        <li><a href="">Дягиль аптечный</a></li>
-    </ul>
-
-    <div class="letter">Д</div>
-    <ul>
-        <li><a href="">Зверобой</a></li>
-        <li><a href="">Зира (кумин, каммун)</a></li>
-        <li><a href="">Змееголовник молдавский</a></li>
-        <li><a href="">Зубровка</a></li>
-    </ul>
-
-</li>
+    <?php endforeach; ?>
 
 </ul>
 
@@ -264,7 +47,7 @@
 </div>
 
 <div class="spices-categories">
-    <?php $this->renderPartial('_categories', array('model' => $model)); ?>
+    <?php $this->renderPartial('_categories', array('model' => null)); ?>
 </div>
 
 </div>

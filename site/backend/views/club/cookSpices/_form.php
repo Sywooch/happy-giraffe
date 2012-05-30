@@ -1,6 +1,7 @@
 <?php
 /* @var $this Controller
  * @var $form CActiveForm
+ * @var $model CookSpices
  */
 ?><style type="text/css">
     table.form {
@@ -101,6 +102,7 @@
             <?php echo $form->error($model, 'ingredient_id'); ?>
         </td>
     </tr>
+    <?php if (!$model->isNewRecord) { ?>
     <tr>
         <td><?php echo $form->labelEx($model, 'content'); ?></td>
         <td>
@@ -111,23 +113,38 @@
             <div><?php echo $form->error($model, 'content'); ?></div>
         </td>
     </tr>
-    <tr>
-        <td><?php echo $form->labelEx($model, 'photo'); ?></td>
-        <td>
-            <?php echo $form->fileField($model, 'photo'); ?>
-            <div><?php echo $form->error($model, 'photo'); ?></div>
-        </td>
-    </tr>
+    <?php } ?>
     <tr>
         <td>&nbsp;</td>
-        <td><?php echo CHtml::submitButton($model->isNewRecord ? 'Добавить' : 'Сохранить'); ?></td>
+        <td><?php echo CHtml::submitButton($model->isNewRecord ? 'Создать и продолжить' : 'Сохранить'); ?></td>
     </tr>
 </table>
 
 <?php $this->endWidget(); ?>
 
-
 <?php if (!$model->isNewRecord) { ?>
+
+<table width="100%" style="margin: 30px 0;">
+    <tr>
+        <td>Выберите фото</td>
+        <td>
+            <div id="photo-upload-block">
+                <img src="<?php if (!empty($model->photo_id)) echo $model->photo->getPreviewUrl() ?>" alt="">
+                <?php $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'photo_upload',
+                'action' => $this->createUrl('addPhoto'),
+                'htmlOptions' => array(
+                    'enctype' => 'multipart/form-data',
+                ),
+            )); ?>
+                <?php echo CHtml::hiddenField('id', $model->id); ?>
+                <?php echo CHtml::fileField('photo', '', array('class'=>'photo-file')); ?>
+                <?php $this->endWidget(); ?>
+            </div>
+        </td>
+    </tr>
+</table>
+
 <div>
     <h1>Советы</h1>
 

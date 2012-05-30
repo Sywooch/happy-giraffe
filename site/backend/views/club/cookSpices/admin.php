@@ -16,6 +16,16 @@
             'value' => 'CHtml::link ( CHtml::encode ( $data->title ),  array ( "update", "id" => $data->id ) )',
             'type'=>'raw'
         ),
+        array(
+            'name' => 'cats',
+            'value'=> '$data->getCategoriesText()'
+        ),
+        array(
+            'name'=>'photo_id',
+            'value'=>'$data->getImage()',
+            'type'=>'raw'
+        ),
+        'slug',
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}{delete}'

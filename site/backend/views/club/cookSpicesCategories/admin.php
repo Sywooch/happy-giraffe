@@ -16,6 +16,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'type'=>'raw'
         ),
         array(
+            'name'=>'photo_id',
+            'value'=>'$data->getImage()',
+            'type'=>'raw'
+        ),
+        'slug',
+        array(
             'class' => 'CButtonColumn',
             'template' => '{update}{delete}'
         ),

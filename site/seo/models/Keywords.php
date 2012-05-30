@@ -195,4 +195,25 @@ class Keywords extends HActiveRecord
 
         return 0;
     }
+
+    /*public static function findByNameWithSphinx($name)
+    {
+        $allSearch = Yii::app()->search
+            ->select('*')
+            ->from('keywords2')
+            ->where($name)
+            ->limit(0, 1)
+            ->searchRaw();
+
+        if (!empty($allSearch['matches'])){
+            $id = 0;
+            foreach ($allSearch['matches'] as $key => $m) {
+                $id = $key;
+                break;
+            }
+            return self::model()->findByPk($id);
+        }
+
+        return null;
+    }*/
 }

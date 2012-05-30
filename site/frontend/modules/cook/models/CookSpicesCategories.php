@@ -69,7 +69,7 @@ class CookSpicesCategories extends CActiveRecord
         return array(
             'id' => 'ID',
             'title' => 'Название',
-            'content' => 'Контент',
+            'content' => 'Описание',
         );
     }
 
@@ -90,6 +90,7 @@ class CookSpicesCategories extends CActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100)
         ));
     }
 

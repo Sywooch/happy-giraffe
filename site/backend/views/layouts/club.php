@@ -53,6 +53,10 @@
                         'label' => 'Cпеции',
                         'url' => array('/club/cookSpices/'),
                     ),
+                    array(
+                        'label' => 'Cпец. категории',
+                        'url' => array('/club/cookSpices/'),
+                    ),
                 )
             )
         ),

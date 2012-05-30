@@ -73,43 +73,6 @@ class DefaultController extends SController
         }
     }
 
-    public function actionPopularity()
-    {
-        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
-        $i = 0;
-        if ($file) {
-            while (($buffer = fgets($file)) !== false) {
-                $i++;
-                if ($i < 6170)
-                    continue;
-                $line = trim(ltrim($buffer));
-                $parts = explode('|', $line);
-                $last = '';
-                foreach ($parts as $part)
-                    $last = $part;
-                $keyword = trim($parts[0]);
-
-                $keyword = str_replace('$', '', $keyword);
-                $stat = $last;
-
-                $key = Keywords::GetKeyword($keyword);
-                if ($key !== null && !empty($last)) {
-                    Yii::app()->db_seo->createCommand('CALL saveYP (:key_id, :stat)')->execute(array(
-                        ':key_id' => $key->id,
-                        ':stat' => $stat,
-                    ));
-                }
-
-                $i++;
-            }
-            if (!feof($file)) {
-                echo "Error: unexpected fgets() fail\n";
-                Yii::app()->end();
-            }
-            fclose($file);
-        }
-    }
-
     public function actionTransferData()
     {
         $articles = Yii::app()->db_seo2->createCommand()
@@ -183,5 +146,11 @@ class DefaultController extends SController
         echo ParseHelper::getLine(5).'<br>';
         echo ParseHelper::getLine(6).'<br>';
         echo ParseHelper::getLine(7).'<br>';
+    }
+
+    public function actionTest3()
+    {
+        $wm = new YandexWebmaster();
+        echo $wm->login();
     }
 }

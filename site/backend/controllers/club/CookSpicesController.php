@@ -24,7 +24,8 @@ class CookSpicesController extends BController
 
         if (isset($_POST['CookSpices'])) {
             $model->attributes = $_POST['CookSpices'];
-            $model->categories = $_POST['category'];
+            if (isset($_POST['category']))
+                $model->categories = $_POST['category'];
             if ($model->save())
 
                 $this->redirect(array('update', 'id' => $model->id));
@@ -48,7 +49,11 @@ class CookSpicesController extends BController
 
         if (isset($_POST['CookSpices'])) {
             $model->attributes = $_POST['CookSpices'];
-            $model->categories = $_POST['category'];
+            if (isset($_POST['category']))
+                $model->categories = $_POST['category'];
+            else
+                $model->categories = array();
+
             if ($model->save())
                 $this->redirect(array('admin'));
         }
@@ -84,6 +89,11 @@ class CookSpicesController extends BController
         ));
     }
 
+    /**
+     * @param $id
+     * @return CookSpices
+     * @throws CHttpException
+     */
     public function loadModel($id)
     {
         $model = CookSpices::model()->with('categories')->findByPk((int)$id);
@@ -132,23 +142,44 @@ class CookSpicesController extends BController
         $this->renderPartial('_form_hints', array('model' => $model));
     }
 
-    public function actionPhoto()
+    public function actionAddPhoto()
     {
-        $file = CUploadedFile::getInstanceByName('photo');
+        $id = Yii::app()->request->getPost('id');
+        $spice = $this->loadModel($id);
 
-        //print_r($file);
-        $dir = Yii::getPathOfAlias('site.common.uploads.photos.spices');
-        if (!file_exists($dir))
-            mkdir($dir);
-        $fs_name = $dir . DIRECTORY_SEPARATOR . $_REQUEST['spice_id'] . '.' . $file->extensionName;
-        $file->saveAs($fs_name);
+        if (!empty($spice->photo))
+            $last_photo = $spice->photo;
 
-        $response = array(
-            'status' => true,
-            'url' => $dir.DIRECTORY_SEPARATOR.$fs_name
-        );
+        if (isset($_FILES['photo']) && !empty($spice)) {
+            $file = CUploadedFile::getInstanceByName('photo');
+            if (!in_array($file->extensionName, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
+                Yii::app()->end();
 
-        header('Content-type: application/json');
-        echo CJSON::encode($response);
+            $model = new AlbumPhoto();
+            $model->file = $file;
+            $model->title = $spice->title;
+            $model->author_id = 1;
+
+            if ($model->create()) {
+                echo "<script type='text/javascript'>
+                document.domain = document.location.host;
+                </script>";
+
+                $spice->photo_id = $model->id;
+                if ($spice->save()){
+                    if (isset($last_photo))
+                        $last_photo->delete();
+                    $response = array(
+                        'status' => true,
+                        'image' => $model->getPreviewUrl()
+                    );
+                }
+                else
+                    $response = array('status' => false);
+            } else
+                $response = array('status' => false);
+
+            echo CJSON::encode($response);
+        }
     }
 }

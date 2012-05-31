@@ -4160,3 +4160,54 @@ ul.letters li a:hover {
 .cook-cat.active .icon-cook-cat-15, .cook-cat:hover .icon-cook-cat-15 {width:44px;height:26px;background-position:-50px -475px;}
 .cook-cat .icon-cook-cat-16 {width:29px;height:41px;background-position:0 -501px;}
 .cook-cat.active .icon-cook-cat-16, .cook-cat:hover .icon-cook-cat-16 {width:29px;height:41px;background-position:-50px -501px;}
+
+.cook-more {}
+.cook-more .block-title {font-size:25px;color:#0281b0;font-weight:bold;padding-bottom:30px;}
+.cook-more .block-title .btn {position:relative;top:-5px;}
+.cook-more ul {list-style:none;}
+.cook-more ul li {float:left;width:30%;padding-right:3%;}
+.cook-more ul li .item-title {font-weight:bold;margin-bottom:5px;}
+.cook-more ul li .user {margin-bottom:5px;}
+.cook-more ul li .user-info {}
+.cook-more ul li .user-info .details {margin-left:30px;}
+.cook-more ul li .user-info .details .username {width:120px;}
+.cook-more ul li .content {color:#595859;font-family:tahoma, arial, helvetica, sans-serif;}
+.cook-more ul li .content img {display:block;max-width:100%;}
+.cook-more ul li .content p {margin-top:5px;font-size:11px;line-height:19px;}
+.cook-more ul li .content b {display:block;line-height:1.2;}
+
+
+#measure {}
+
+#measure .title {padding:50px 40px;background:url(/images/bg_measure_calculator.jpg) no-repeat right;border:1px solid #dbe4f1;height:114px;margin-bottom:25px;}
+#measure .title h2 {font-weight:normal;color:#464546;font-size:60px;line-height:1;}
+#measure .title h2 span {font-size:50px;color:#717071;display:block;}
+
+#measure .calculator {padding:0 30px;}
+#measure .calculator .product {padding-bottom:40px;}
+#measure .calculator .product .block-title {margin-left:11px;margin-bottom:8px;font-size:25px;color:#4c4d4d;}
+#measure .calculator .product input {padding:8px 10px;border:1px solid #a9c8f3;margin:0;font-size:16px;line-height:22px;font-weight:bold;color:#598dd6;width:730px;}
+#measure .calculator .values {padding-bottom:40px;}
+#measure .calculator .values * {vertical-align:middle;}
+#measure .calculator .values input {padding:2px 10px;border:1px solid #a9c8f3;margin:0;font-size:30px;line-height:30px;color:#575757;width:70px;text-align:center;margin-right:20px;}
+#measure .calculator .equal {display:inline-block;width:23px;height:32px;background:url(/images/cook_sprite.png) no-repeat -42px -1px;margin:0 30px;}
+#measure .calculator .equal:hover {background-position:-67px -1px;}
+#measure .calculator .value {color:#585757;font-size:30px;margin-right:20px;}
+#measure .calculator .drp-list {display:inline-block;position:relative;}
+#measure .calculator .drp-list a.trigger {text-decoration:none;border-bottom:1px dashed #029AD2;}
+#measure .calculator .drp-list a.trigger:hover {border:0;}
+#measure .calculator .drp-list ul {padding:2px;border:1px solid #A9C8F3;position:absolute;top:100%;list-style:none;background:#fff;}
+#measure .calculator .drp-list ul li a {display:block;padding:2px 6px;text-decoration:none;color:#777;}
+#measure .calculator .drp-list ul li a:hover {background:#1B9BCB;color:#fff;}
+#measure .calculator .btn {margin-left:30px;}
+#measure .calculator .btn:hover {color:#fff;}
+#measure .calculator .btn:hover > span {background-position:100% -1020px;color:#fff;}
+#measure .calculator .btn:hover > span > span {background-position:0 -1000px;}
+
+#measure .saved-calculations	 {padding:0 30px;}
+#measure .saved-calculations ul {list-style:none;}
+#measure .saved-calculations ul li {}
+#measure .saved-calculations ul li .product-name {font-size:15px;color:#598dd6;}
+#measure .saved-calculations ul li .value {font-size:20px;color:#848383;margin:0 5px;}
+#measure .saved-calculations ul li .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;margin-left:20px;}
+#measure .saved-calculations ul li .remove:hover {background-position:-314px -148px;}

@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property CookRecipes[] $cookRecipes
  */
-class CookCuisine extends HActiveRecord
+class CookCuisine extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -39,7 +39,7 @@ class CookCuisine extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title', 'required'),
-			array('title', 'length', 'max' => 255),
+			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title', 'safe', 'on'=>'search'),

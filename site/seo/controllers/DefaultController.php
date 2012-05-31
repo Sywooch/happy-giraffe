@@ -146,6 +146,9 @@ class DefaultController extends SController
         echo ParseHelper::getLine(5).'<br>';
         echo ParseHelper::getLine(6).'<br>';
         echo ParseHelper::getLine(7).'<br>';
+        echo ParseHelper::getLine(8).'<br>';
+        echo ParseHelper::getLine(9).'<br>';
+        echo ParseHelper::getLine(10).'<br>';
     }
 
     public function actionTest3()

@@ -15,7 +15,7 @@ class ConverterController extends HController
 
         $this->render('index', array(
             'model' => new ConverterForm(),
-            'units' => Yii::app()->db->createCommand()->select('*')->from('cook__units')->where('parent_id IS NULL AND type IN ("weight", "volume", "qty")', array())->queryAll()
+            'units' => Yii::app()->db->createCommand()->select('*')->from('cook__units')->where('type IN ("weight", "volume", "qty")', array())->queryAll()
         ));
     }
 

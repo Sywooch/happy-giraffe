@@ -35,4 +35,19 @@ var Nutritionals = {
         }
         event.preventDefault();
     }
+
+}
+
+var Units = {
+
+    save:function (event) {
+        $.post(
+            $('#ingredientUnits').attr('action'),
+            $('#ingredientUnits').serializeArray(),
+            function (data) {
+
+            }
+        );
+        event.preventDefault()
+    }
 }

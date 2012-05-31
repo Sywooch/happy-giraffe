@@ -47,8 +47,7 @@ class CookUnits extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'cookIngredients' => array(self::HAS_MANY, 'CookIngredients', 'default_unit_id'),
-            'parent' => array(self::BELONGS_TO, 'CookUnits', 'parent_id'),
-            'cookUnits' => array(self::HAS_MANY, 'CookUnits', 'parent_id'),
+            'ingredientUnits' => array(self::HAS_MANY, 'CookIngredientUnits', 'unit_id'),
         );
     }
 
@@ -92,10 +91,10 @@ class CookUnits extends CActiveRecord
         ));
     }
 
-    public function getUnits($all = false)
+    public function getUnits()
     {
         $result = array();
-        $units = ($all) ? self::model()->findAll(array('order' => 'title')) : self::model()->findAll('', array('order' => 'title'));
+        $units = self::model()->findAll(array('order' => 'title'));
         foreach ($units as $unit)
             $result [$unit->id] = $unit->title;
         return $result;

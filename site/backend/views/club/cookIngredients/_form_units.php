@@ -3,6 +3,11 @@
     <div class="form">
 <form id="ingredientUnits" action="<?=CHtml::normalizeUrl(array("club/cookIngredients/saveUnits", "id" => $model->id))?>">
     <table class="iform units">
+        <tr>
+            <th>&nbsp;</th>
+            <th>ед. изм.</th>
+            <th>вес</th>
+        </tr>
         <?php
         $units = CookUnits::model()->findAll(array('order' => 'type'));
         $iUnits = $model->getUnits();

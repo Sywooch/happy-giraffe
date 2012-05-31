@@ -30,12 +30,8 @@ $synonyms->ingredient_id = $model->id;
     <div class="row">
         <?php echo $form->labelEx($synonyms, 'title'); ?>
         <?php echo $form->textField($synonyms, 'title'); ?>
-        <?php echo $form->error($synonyms, 'title'); ?>
-    </div>
-
-
-    <div class="row buttons">
         <?php echo CHtml::submitButton('Добавить'); ?>
+        <?php echo $form->error($synonyms, 'title'); ?>
     </div>
 
     <?php $this->endWidget(); ?>

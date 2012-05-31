@@ -309,6 +309,7 @@ Album.uploadProgress = function (id, percentage) {
 };
 
 Album.uploadSuccess = function (id, name, serverData) {
+    $('.scroll').jScrollPane({showArrows: true, autoReinitialise : true});
     $('#log li#' + id).removeClass('not-loaded');
     $('#album_select').replaceWith($(serverData).find('#album_select'));
     $('#album_select_chzn').remove();
@@ -353,6 +354,8 @@ Album.registerUploadEvents = function (elem) {
         })
         .unbind('fileDialogStart').bind('fileDialogStart', function () {
             $('#log').empty();
+            if($('.upload-files-list').data('jsp') != undefined)
+                $('.upload-files-list').data('jsp').destroy()
         })
         .unbind('uploadStart').bind('uploadStart', function (event, file) {
             Album.uploadStart(file.id);

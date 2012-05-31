@@ -42,7 +42,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                                         <tr>
                                             <td class="img">
                                                 <div>
-                                                    <?php echo CHtml::link(CHtml::image($item->getPreviewUrl(180, 180)), array('/albums/photo', 'id' => $item->id)); ?>
+                                                    <?php echo CHtml::link('<img data-src="' . $item->getPreviewUrl(180, 180) . '" alt="" />', array('/albums/photo', 'id' => $item->id)); ?>
                                                 </div>
                                             </td>
                                         </tr>
@@ -59,6 +59,30 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                     <a id="photo-thumbs-prev" class="prev" href="#"></a>
                     <a id="photo-thumbs-next" class="next" href="#"></a>
                 </div>
+                <script type="text/javascript">
+                    $(function() {
+                    <?php if(isset($selected_item)): ?>
+
+
+                        $('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
+                            var count = $('#photo-thumbs li').size();
+                            var ready = 0;
+                            $('#photo-thumbs img').each(function(){
+                                $(this).get(0).onload = function() {
+                                    ready++;
+                                    if (ready == count) {
+                                        $('#photo-thumbs').jcarousel('scroll', <?php echo $selected_item; ?>);
+                                    }
+                                };
+                                $(this).attr('src', $(this).attr('data-src'));
+                            });
+                        });
+                        <?php endif; ?>
+                        var carousel = $('#photo-thumbs').jcarousel();
+                        $('#photo-thumbs-prev').jcarouselControl({target: '-=1',carousel: carousel});
+                        $('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});
+                    });
+                </script>
             </div>
         </div>
         <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
@@ -96,27 +120,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
     </div>
 
 </div>
-<script type="text/javascript">
-    $(function() {
-        <?php if(isset($selected_item)): ?>
-            $('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
-                var count = $('#photo-thumbs li').size();
-                var ready = 0;
-                $('#photo-thumbs img').each(function(){
-                    $(this).bind('load', function(){
-                        ready++;
-                        if (ready == count) {
-                            $('#photo-thumbs').jcarousel('scroll', <?php echo $selected_item; ?>);
-                        }
-                    });
-                });
-            });
-        <?php endif; ?>
-        var carousel = $('#photo-thumbs').jcarousel();
-        $('#photo-thumbs-prev').jcarouselControl({target: '-=1',carousel: carousel});
-        $('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});
-    });
-</script>
+
 
 <?php
 $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');

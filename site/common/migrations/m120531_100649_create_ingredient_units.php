@@ -5,6 +5,7 @@ class m120531_100649_create_ingredient_units extends CDbMigration
 	public function up()
 	{
         $this->execute("
+DROP TABLE IF EXISTS cook__ingredient_units;
 CREATE TABLE cook__ingredient_units(
   id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   ingredient_id INT(11) UNSIGNED NOT NULL,

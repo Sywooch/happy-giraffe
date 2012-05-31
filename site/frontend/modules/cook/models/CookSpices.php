@@ -8,15 +8,19 @@
  * @property string $ingredient_id
  * @property string $title
  * @property string $content
- * @property string $photo
+ * @property string $photo_id
+ * @property string $slug
  *
  * The followings are the available model relations:
  * @property CookIngredients $ingredient
- * @property CookSpicesCategoriesSpices[] $cookSpicesCategoriesSpices
- * @property CookSpicesHints[] $cookSpicesHints
+ * @property CookSpicesCategories[] $categories
+ * @property CookSpicesHints[] $hints
+ * @property AlbumPhoto $photo
  */
 class CookSpices extends CActiveRecord
 {
+    public $cats;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -45,11 +49,13 @@ class CookSpices extends CActiveRecord
         return array(
             array('ingredient_id, title', 'required'),
             array('ingredient_id', 'length', 'max' => 11),
-            array('title, photo', 'length', 'max' => 255),
+            array('title, slug', 'length', 'max' => 255),
+            array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'title'),
+            array('photo_id', 'numerical', 'integerOnly' => true),
             array('content', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, ingredient_id, title, content, photo', 'safe', 'on' => 'search'),
+            array('id, ingredient_id, title, content, photo_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -62,9 +68,10 @@ class CookSpices extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
+            'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
             //'cookSpicesCategoriesSpices' => array(self::HAS_MANY, 'CookSpicesCategoriesSpices', 'spice_id'),
             'categories' => array(self::MANY_MANY, 'CookSpicesCategories', 'cook__spices__categories_spices(spice_id, category_id)'),
-            'cookSpicesHints' => array(self::HAS_MANY, 'CookSpicesHints', 'spice_id'),
+            'hints' => array(self::HAS_MANY, 'CookSpicesHints', 'spice_id'),
         );
     }
 
@@ -78,7 +85,8 @@ class CookSpices extends CActiveRecord
             'ingredient_id' => 'Ингредиент',
             'title' => 'Заголовок',
             'content' => 'Описание',
-            'photo' => 'Фотография',
+            'photo_id' => 'Фото',
+            'cats' => 'Категории'
         );
     }
 
@@ -97,7 +105,7 @@ class CookSpices extends CActiveRecord
         $criteria->compare('ingredient_id', $this->ingredient_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('content', $this->content, true);
-        $criteria->compare('photo', $this->photo, true);
+        $criteria->compare('photo_id', $this->photo_id, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -118,5 +126,39 @@ class CookSpices extends CActiveRecord
             $result[] = $category->id;
         }
         return $result;
+    }
+
+    public function getCategoriesText()
+    {
+        $result = array();
+        foreach ($this->categories as $category) {
+            $result[] = $category->title;
+        }
+
+        return implode(', ', $result);
+    }
+
+    public function getImage()
+    {
+        if (!empty($this->photo_id)) {
+            return CHtml::image($this->photo->getPreviewUrl(70, 70));
+        }
+
+        return '';
+    }
+
+    public function getSpicesByAlphabet()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->order = 'title ASC';
+        $models = self::findAll($criteria);
+
+        $obj = new SpiceColumns();
+        foreach ($models as $model) {
+            $obj->addModel($model);
+        }
+        $obj->calcColumns();
+
+        return $obj;
     }
 }

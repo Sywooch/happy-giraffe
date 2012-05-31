@@ -1,0 +1,7 @@
+var Spices = {
+
+}
+
+$(function () {
+
+})

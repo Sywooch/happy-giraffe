@@ -26,19 +26,22 @@
                 <td class="col-1 title"><input type="text" class="ingredient_ac"  value="" placeholder="Введите название продукта" /></td>
                 <td class="col-2 qty"><input  type="text"  value="" placeholder="0" onblur="Calorisator.Calculate();" onkeyup="Calorisator.Calculate();" /></td>
                 <td class="col-3 unit">
-                    <select  onchange="Calorisator.Calculate();">
-                        <?php
-                        foreach ($units as $unit) {
-                            $display = (in_array($unit['type'], array('qty', 'single', 'undefined'))) ? ' style="display:none" ' : '';
-                            echo '<option value="' . $unit['id'] . '" data-id="' . $unit['id'] . '" data-type="' . $unit['type'] . '" data-ratio="' . $unit['ratio'] . '" data-ratiov="' . $unit['ratiov'] . '" ' . $display . ' >' . CHtml::encode($unit['title']) . '</option>';
-                        }
-                        ?>
-                    </select>
+                    <span class="nchzn-v2">
+                        <select class="nchzn" onchange="Calorisator.Calculate();">
+                            <?php
+                            foreach ($units as $unit) {
+                                $display = (in_array($unit['type'], array('qty', 'single', 'undefined'))) ? ' style="display:none !important" ' : '';
+                                echo '<option value="' . $unit['id'] . '" data-id="' . $unit['id'] . '" data-type="' . $unit['type'] . '" data-ratio="' . $unit['ratio'] . '" ' . $display . ' >' . CHtml::encode($unit['title']) . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </span>
                 </td>
                 <td class="col-4 n3 nutritional" data-value="0" data-n="3"><div class="value">&nbsp;</div></td>
                 <td class="col-5 n2 nutritional" data-value="0" data-n="2"><div class="value">&nbsp;</div></td>
                 <td class="col-6 n4 nutritional" data-value="0" data-n="4"><div class="value">&nbsp;</div></td>
                 <td class="col-7 n1 nutritional" data-value="0" data-n="1"><div class="value">&nbsp;</div></td>
+                <td class="col-8"><a href="" class="remove tooltip" title="Удалить" onclick="Calorisator.delRow(event);"></a></td>
             </tr>
 
             <tr class="add">

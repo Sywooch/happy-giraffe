@@ -9,17 +9,13 @@ class DefaultController extends SController
         return true;
     }
 
-    public function actionIndex($site_id = 1, $year = 2011)
+    public function actionIndex($site_id = 1, $year = 2011, $recOnPage = 10)
     {
         $model = new KeyStats;
         $model->site_id = $site_id;
         $model->year = $year;
 
-        $this->render('index', array(
-            'model' => $model,
-            'site_id' => $site_id,
-            'year' => $year
-        ));
+        $this->render('index', compact('model','site_id','year','recOnPage'));
     }
 
     public function actionCalc()
@@ -68,43 +64,6 @@ class DefaultController extends SController
                         $sql = '';
                     }
                 }
-            }
-            if (!feof($file)) {
-                echo "Error: unexpected fgets() fail\n";
-                Yii::app()->end();
-            }
-            fclose($file);
-        }
-    }
-
-    public function actionPopularity()
-    {
-        $file = fopen('F:\Xedant\YANDEX_POPULARITY.txt', 'r');
-        $i = 0;
-        if ($file) {
-            while (($buffer = fgets($file)) !== false) {
-                $i++;
-                if ($i < 6170)
-                    continue;
-                $line = trim(ltrim($buffer));
-                $parts = explode('|', $line);
-                $last = '';
-                foreach ($parts as $part)
-                    $last = $part;
-                $keyword = trim($parts[0]);
-
-                $keyword = str_replace('$', '', $keyword);
-                $stat = $last;
-
-                $key = Keywords::GetKeyword($keyword);
-                if ($key !== null && !empty($last)) {
-                    Yii::app()->db_seo->createCommand('CALL saveYP (:key_id, :stat)')->execute(array(
-                        ':key_id' => $key->id,
-                        ':stat' => $stat,
-                    ));
-                }
-
-                $i++;
             }
             if (!feof($file)) {
                 echo "Error: unexpected fgets() fail\n";
@@ -174,5 +133,27 @@ class DefaultController extends SController
                 }
             }
         }
+    }
+
+    public function actionTest2(){
+        echo Yii::app()->db_seo->createCommand('select count(keyword_id) from yandex_popularity')->queryScalar();
+        echo '<br>';
+        echo ParseHelper::getLine(0).'<br>';
+        echo ParseHelper::getLine(1).'<br>';
+        echo ParseHelper::getLine(2).'<br>';
+        echo ParseHelper::getLine(3).'<br>';
+        echo ParseHelper::getLine(4).'<br>';
+        echo ParseHelper::getLine(5).'<br>';
+        echo ParseHelper::getLine(6).'<br>';
+        echo ParseHelper::getLine(7).'<br>';
+        echo ParseHelper::getLine(8).'<br>';
+        echo ParseHelper::getLine(9).'<br>';
+        echo ParseHelper::getLine(10).'<br>';
+    }
+
+    public function actionTest3()
+    {
+        $wm = new YandexWebmaster();
+        echo $wm->login();
     }
 }

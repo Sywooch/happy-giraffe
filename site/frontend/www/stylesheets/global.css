@@ -4209,5 +4209,5 @@ ul.letters li a:hover {
 #measure .saved-calculations ul li {}
 #measure .saved-calculations ul li .product-name {font-size:15px;color:#598dd6;}
 #measure .saved-calculations ul li .value {font-size:20px;color:#848383;margin:0 5px;}
-#measure .saved-calculations ul li .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;margin-left:20px;}
+#measure .saved-calculations ul li .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;margin-left:10px;}
 #measure .saved-calculations ul li .remove:hover {background-position:-314px -148px;}

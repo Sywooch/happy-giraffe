@@ -65,24 +65,32 @@
         </td>
         <?php endforeach; ?>
     </tr>
-</table><br>
-перейти к странице <input type="text" id="page">
+</table>
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'seo-form',
     'enableAjaxValidation' => false,
     'method' => 'GET',
     'action' => array('/default/')
 ));?>
-<?php echo CHtml::hiddenField('site_id', $site_id) ?>
-<?php echo CHtml::dropDownList('recOnPage', $recOnPage, array(10=>10, 25=>25, 50=>50 ,100=>100)) ?><br>
-Год: <?php echo CHtml::dropDownList('year', $year, array('2011' => 2011, '2012' => 2012)) ?>
-<?php $this->endWidget(); ?>
-
+<div class="clearfix">
+    <div style="float: left;">
+        <br>
+        <?php echo CHtml::hiddenField('site_id', $site_id) ?>
+        Выводить строк на страницу: <?php echo CHtml::dropDownList('recOnPage', $recOnPage, array(10 => 10, 25 => 25, 50 => 50, 100 => 100)) ?><br>
+        Год: <?php echo CHtml::dropDownList('year', $year, array('2011' => 2011, '2012' => 2012)) ?>
+    </div>
+    <div style="float: right;">
+        <br>
+        <br>
+        перейти к странице <input type="text" id="page" size="4">
+    </div>
+</div>
 <div class="seo-table">
     <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'keywords-grid',
     'dataProvider' => $model->search($recOnPage),
     'filter' => $model,
+//    'ajaxUpdate'=>false,
     'template' => '{pager}{summary}<div class="table-box">{items}</div>',
     'columns' => array(
         array(
@@ -153,9 +161,11 @@
     ),
 )); ?>
 </div>
+<?php $this->endWidget(); ?>
 <script type="text/javascript">
     $('#page').keyup(function () {
-        var url = $('.yiiPager li.last a').attr('href') + '/KeyStats_page/' + $(this).val();
+        var url = $('.yiiPager li.last a').attr('href').replace(/KeyStats_page=[\d]+/,"");
+        url = url + '&KeyStats_page=' + $(this).val();
         console.log(url);
         $.fn.yiiGridView.update('keywords-grid', {url:url});
     });
@@ -176,6 +186,7 @@
     });
 
     function submitForm() {
+        $('#seo-form').attr('action', window.location.href);
         $('#seo-form').submit();
     }
 </script>

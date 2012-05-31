@@ -151,11 +151,4 @@ class DefaultController extends SController
         echo ParseHelper::getLine(9) . '<br>';
         echo ParseHelper::getLine(10) . '<br>';
     }
-
-    public function actionTest3()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->getData();
-
-    }
 }

@@ -16,18 +16,52 @@ var SeoModule = {
             url:$('input.article-url').val(),
             keywords:$('#ArticleKeywords_keywords').val()
         }, function (response) {
-            if (response.status){
+            if (response.status) {
                 $('input.article-url').val('');
                 $('#ArticleKeywords_keywords').val('');
                 $('table tbody').prepend(response.html);
                 $('span.articles-count').text(parseInt($('span.articles-count').text()) + 1);
                 $('span.keywords-count').text(parseInt($('span.keywords-count').text()) + response.keysCount);
-            }else{
+            } else {
                 $.pnotify({
-                    pnotify_title: 'Ошибка',
-                    pnotify_type: 'error',
-                    pnotify_text: response.error
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
                 });
+            }
+        }, 'json');
+    },
+    parseQueries:function () {
+        $.post('/queries/parse/', function (response) {
+            if (response.status) {
+                $('#result').html('Спарсили ' + response.count + ' запросов');
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
+    },
+    parseSearch:function () {
+        $.post('/queries/search/', function (response) {
+            if (response.status) {
+                $('#result').html('Спарсили ' + response.count + ' запросов');
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
+    },
+    refreshProxy:function () {
+        var proxy = $('textarea#proxy').val();
+        $.post('/queries/proxy/', {proxy:proxy}, function (response) {
+            if (response.status) {
+                $('textarea#proxy').val('');
             }
         }, 'json');
     }

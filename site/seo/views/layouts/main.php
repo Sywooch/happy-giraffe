@@ -138,6 +138,10 @@
                             'label' => 'Готовое',
                             'url' => array('/existArticles/index/'),
                         ),
+                        array(
+                            'label' => 'Парсинг',
+                            'url' => array('/queries/index/'),
+                        ),
                     )));
 
 

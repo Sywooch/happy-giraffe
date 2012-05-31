@@ -3,7 +3,7 @@
  * @var $obj SpiceColumns
  */
 ?><div id="spices">
-<?php //var_dump($models) ?>
+
 <div class="title">
 
     <h2>Приправы <span>и специи</span></h2>

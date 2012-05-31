@@ -299,4 +299,9 @@ class SiteController extends HController
     public function actionLink($text){
         $this->renderPartial('link', compact('text'));
     }
+
+    public function actionTest()
+    {
+        $this->render("test");
+    }
 }

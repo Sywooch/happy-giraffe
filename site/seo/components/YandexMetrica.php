@@ -6,33 +6,48 @@
 class YandexMetrica
 {
     public $token = 'b1cb78403f76432b8a6803dc5e6631b5';
-    public $min_clicks = 4;
+    public $min_visits = 4;
 
-    public function getData()
+    public function parseQueries()
     {
-        $this->loadPage('/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=100&filter=month&date1=20120430&date2=20120531&select_period=month');
-    }
+        $date1 = date("Ymd", strtotime('-1 month'));
+        $date2 = date("Ymd");
+        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&filter=month&date1=' . $date1 . '&date2=' . $date2 . '&select_period=month';
 
-    private function loadPage($url)
-    {
-        $hostname = 'api-metrika.yandex.ru';
-        $ch = curl_init('http://' . $hostname . $url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/x-yametrika+json'));
-        curl_exec($ch);
-        $result = curl_exec($ch);
-        $val = json_decode($result, true);
-        foreach ($val['data'] as $query) {
-            echo $query['phrase'] . ' ' . $query['visits'];
-            foreach ($query['search_engines'] as $search_engine) {
-                echo ' .' . $search_engine['se_page'];
+        Queries::model()->deleteAll();
+
+        while (!empty($next)) {
+            $ch = curl_init($next);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/x-yametrika+json'));
+            curl_exec($ch);
+            $result = curl_exec($ch);
+            $val = json_decode($result, true);
+
+            if (isset($val['links']['next']))
+                $next = $val['links']['next'];
+            else
+                $next = null;
+
+            //save to db
+            foreach ($val['data'] as $query) {
+                if ($query['visits'] < $this->min_visits)
+                    break(2);
+                $model = new Queries();
+                $model->attributes = $query;
+                if ($model->save()) {
+                    foreach ($query['search_engines'] as $search_engine) {
+                        $se = new QueriesSearchEngines();
+                        $se->attributes = $search_engine;
+                        $se->query_id = $model->id;
+                        $se->save();
+                    }
+                }
             }
-            echo '<br>';
+            curl_close($ch);
         }
-        curl_close($ch);
-
-        return $result;
     }
+
 }

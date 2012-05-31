@@ -1,0 +1,3 @@
+[submodule "site/common/extensions/wr"]
+	path = site/common/extensions/wr
+	url = git://github.com/yiiext/with-related-behavior.git

@@ -1,5 +1,5 @@
 <style type="text/css">
-    table.iform td {
+    table.iform td, th {
         padding: 2px 5px
     }
 
@@ -45,16 +45,17 @@
             <td><?=$form->dropDownList($model, 'category_id', CookIngredientsCategories::getCategories());?></td>
             <td><?=$form->error($model, 'category_id');?></td>
         </tr>
-        <tr>
-            <td><?=$form->labelEx($model, 'unit_id');?></td>
-            <td><?=$form->dropDownList($model, 'unit_id', CookUnits::getUnits());?></td>
-            <td><?=$form->error($model, 'unit_id');?></td>
-        </tr>
-        <tr>
-            <td><?=$form->labelEx($model, 'weight');?></td>
-            <td><?=$form->textField($model, 'weight', array('size' => 11, 'maxlength' => 11));?></td>
-            <td><?=$form->error($model, 'weight');?></td>
-        </tr>
+        <?php
+        if (!$model->isNewRecord) {
+            ?>
+            <tr>
+                <td><?=$form->labelEx($model, 'unit_id');?></td>
+                <td><?=$form->dropDownList($model, 'unit_id', CookUnits::getUnits());?></td>
+                <td><?=$form->error($model, 'unit_id');?></td>
+            </tr>
+            <?php
+        }
+        ?>
         <tr>
             <td><?=$form->labelEx($model, 'density');?></td>
             <td><?=$form->textField($model, 'density', array('size' => 10, 'maxlength' => 10));?></td>

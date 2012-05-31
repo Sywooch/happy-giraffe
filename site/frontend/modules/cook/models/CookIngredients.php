@@ -80,7 +80,7 @@ class CookIngredients extends CActiveRecord
         return array(
             'id' => 'ID',
             'category_id' => 'Категория',
-            'unit_id' => 'Ед.изм.',
+            'unit_id' => 'Ед.изм. по умолчанию',
             'title' => 'Название',
             'weight' => 'Вес г',
             'density' => 'Плотность г/см³',

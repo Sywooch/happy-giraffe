@@ -27,8 +27,12 @@ class CookIngredientsController extends BController
 
         if (isset($_POST['CookIngredients'])) {
             $model->attributes = $_POST['CookIngredients'];
-            if ($model->save())
+            if ($model->save()) {
+                $iunit = new CookIngredientUnits();
+                $iunit->attributes = array('ingredient_id' => $model->id, 'unit_id' => 1);
+                $iunit->save();
                 $this->redirect(array('update', 'id' => $model->id));
+            }
         }
 
         $this->render('create', array(
@@ -215,4 +219,37 @@ class CookIngredientsController extends BController
             }
         }
     }
+
+    // temp method to fill Ingredient units
+
+    /*public function actionFillUnits()
+    {
+        set_time_limit(0);
+        $ingredients = CookIngredients::model()->findAll();
+        $units = CookUnits::model()->findAll();
+
+        foreach ($ingredients as $ingredient) {
+            $s = array();
+            $s[] = array('ingredient_id' => $ingredient->id, 'unit_id' => 1);
+
+            if ($ingredient->unit->type == 'qty' and $ingredient->weight > 0) {
+                $s[] = array('ingredient_id' => $ingredient->id, 'unit_id' => $ingredient->unit_id, 'weight' => $ingredient->weight);
+            }
+
+            if ($ingredient->density > 0) {
+                foreach ($units as $unit) {
+                    if ($unit->type == 'volume') {
+                        $s[] = array('ingredient_id' => $ingredient->id, 'unit_id' => $unit->id);
+                    }
+                }
+            }
+
+            foreach ($s as $ss) {
+                //continue;
+                $model = new CookIngredientUnits();
+                $model->attributes = $ss;
+                $model->save();
+            }
+        }
+    }*/
 }

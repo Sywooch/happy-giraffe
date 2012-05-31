@@ -10,6 +10,9 @@ class AlbumsController extends HController
         if(!Yii::app()->request->isAjaxRequest){
             $this->pageTitle = 'Фотоальбомы';
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js');
+            Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/jquery.jscrollpane.css');
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jscrollpane.min.js');
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.mousewheel.js');
         }
         return parent::beforeAction($action);
     }

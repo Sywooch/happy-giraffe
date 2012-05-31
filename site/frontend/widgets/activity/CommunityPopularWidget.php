@@ -1,0 +1,22 @@
+<?php
+/**
+ * Популярное в клубах
+ *
+ * Новые статьи с самым высоким рейтингом.
+ *
+ * Author: choo
+ * Date: 13.05.2012
+ */
+class CommunityPopularWidget extends CWidget
+{
+    public function run()
+    {
+        $communityContents = CommunityContent::model()->full()->findAll(array(
+            'limit' => 3,
+            'order' => 'rate DESC',
+            'condition' => 'rubric.community_id IS NOT NULL AND DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= created',
+        ));
+
+        $this->render('CommunityPopularWidget', compact('communityContents'));
+    }
+}

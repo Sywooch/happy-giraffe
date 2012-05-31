@@ -24,7 +24,8 @@ class CookSpicesController extends BController
 
         if (isset($_POST['CookSpices'])) {
             $model->attributes = $_POST['CookSpices'];
-            $model->categories = $_POST['category'];
+            if (isset($_POST['category']))
+                $model->categories = $_POST['category'];
             if ($model->save())
 
                 $this->redirect(array('update', 'id' => $model->id));
@@ -48,13 +49,17 @@ class CookSpicesController extends BController
 
         if (isset($_POST['CookSpices'])) {
             $model->attributes = $_POST['CookSpices'];
-            $model->categories = $_POST['category'];
+            if (isset($_POST['category']))
+                $model->categories = $_POST['category'];
+            else
+                $model->categories = array();
+
             if ($model->save())
                 $this->redirect(array('admin'));
         }
 
         $this->render('update', array(
-            'model' => $model,
+            'model' => $model
         ));
     }
 
@@ -84,6 +89,11 @@ class CookSpicesController extends BController
         ));
     }
 
+    /**
+     * @param $id
+     * @return CookSpices
+     * @throws CHttpException
+     */
     public function loadModel($id)
     {
         $model = CookSpices::model()->with('categories')->findByPk((int)$id);
@@ -107,5 +117,69 @@ class CookSpicesController extends BController
             ->limit(20)->queryAll();
         header('Content-type: application/json');
         echo CJSON::encode($ingredients);
+    }
+
+    public function actionAddHint()
+    {
+        $hint = new CookSpicesHints();
+        if (isset($_POST['ajax']) && $_POST['ajax'] == 'spices-hints-form') {
+            $hint->attributes = $_POST['CookSpicesHints'];
+            echo CActiveForm::validate($hint);
+            Yii::app()->end();
+        } elseif (isset($_POST['CookSpicesHints'])) {
+            $hint->attributes = $_POST['CookSpicesHints'];
+            $hint->save();
+            $model = $this->loadModel($hint->spice_id);
+            $this->renderPartial('_form_hints', array('model' => $model));
+        }
+    }
+
+    public function actionDeleteHint($id)
+    {
+        $hint = CookSpicesHints::model()->findByPk((int)$id);
+        $model = $this->loadModel($hint->spice_id);
+        $hint->delete();
+        $this->renderPartial('_form_hints', array('model' => $model));
+    }
+
+    public function actionAddPhoto()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $spice = $this->loadModel($id);
+
+        if (!empty($spice->photo))
+            $last_photo = $spice->photo;
+
+        if (isset($_FILES['photo']) && !empty($spice)) {
+            $file = CUploadedFile::getInstanceByName('photo');
+            if (!in_array($file->extensionName, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
+                Yii::app()->end();
+
+            $model = new AlbumPhoto();
+            $model->file = $file;
+            $model->title = $spice->title;
+            $model->author_id = 1;
+
+            if ($model->create()) {
+                echo "<script type='text/javascript'>
+                document.domain = document.location.host;
+                </script>";
+
+                $spice->photo_id = $model->id;
+                if ($spice->save()){
+                    if (isset($last_photo))
+                        $last_photo->delete();
+                    $response = array(
+                        'status' => true,
+                        'image' => $model->getPreviewUrl()
+                    );
+                }
+                else
+                    $response = array('status' => false);
+            } else
+                $response = array('status' => false);
+
+            echo CJSON::encode($response);
+        }
     }
 }

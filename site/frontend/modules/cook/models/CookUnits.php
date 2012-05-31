@@ -95,7 +95,7 @@ class CookUnits extends CActiveRecord
     public function getUnits($all = false)
     {
         $result = array();
-        $units = ($all) ? self::model()->findAll(array('order' => 'title')) : self::model()->findAll('parent_id IS NULL', array('order' => 'title'));
+        $units = ($all) ? self::model()->findAll(array('order' => 'title')) : self::model()->findAll('', array('order' => 'title'));
         foreach ($units as $unit)
             $result [$unit->id] = $unit->title;
         return $result;

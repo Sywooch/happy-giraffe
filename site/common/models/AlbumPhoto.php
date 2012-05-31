@@ -135,7 +135,7 @@ class AlbumPhoto extends HActiveRecord
 
     public function afterSave()
     {
-        if ($this->isNewRecord && isset(Yii::app()->comet) && $this->author->isNewComer() && isset($this->album)) {
+        if ($this->isNewRecord && Yii::app()->hasComponent('comet') && $this->author->isNewComer() && isset($this->album)) {
             if ($this->album->type == 0 || $this->album->type == 1 || $this->album->type == 3) {
                 $signal = new UserSignal();
                 $signal->user_id = (int)$this->author_id;

@@ -7,6 +7,8 @@
  * @property string $id
  * @property string $title
  * @property string $content
+ * @property string $photo_id
+ * @property string $slug
  *
  * The followings are the available model relations:
  * @property CookSpicesCategoriesSpices[] $cookSpicesCategoriesSpices
@@ -40,7 +42,9 @@ class CookSpicesCategories extends CActiveRecord
         // will receive user inputs.
         return array(
             array('title', 'required'),
-            array('title', 'length', 'max' => 255),
+            array('title, slug', 'length', 'max' => 255),
+            array('photo_id', 'numerical', 'integerOnly' => true),
+            array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'title'),
             array('content', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -57,7 +61,8 @@ class CookSpicesCategories extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             //'cookSpicesCategoriesSpices' => array(self::HAS_MANY, 'CookSpicesCategoriesSpices', 'category_id'),
-            'spices' => array(self::MANY_MANY, 'cook__spices', 'cook__spices__categories_spices(category_id, spice_id)'),
+            'spices' => array(self::MANY_MANY, 'CookSpices', 'cook__spices__categories_spices(category_id, spice_id)', 'order'=>'t.title'),
+            'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
         );
     }
 
@@ -69,7 +74,8 @@ class CookSpicesCategories extends CActiveRecord
         return array(
             'id' => 'ID',
             'title' => 'Название',
-            'content' => 'Контент',
+            'content' => 'Описание',
+            'photo_id' => 'Фото',
         );
     }
 
@@ -87,14 +93,25 @@ class CookSpicesCategories extends CActiveRecord
         $criteria->compare('id', $this->id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('content', $this->content, true);
+        $criteria->compare('photo_id', $this->photo_id, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100)
         ));
     }
 
     public function getCategories()
     {
         return $ingredients = Yii::app()->db->createCommand()->select('*')->from($this->tableName())->queryAll();
+    }
+
+    public function getImage()
+    {
+        if (!empty($this->photo_id)) {
+            return CHtml::image($this->photo->getPreviewUrl(70, 70));
+        }
+
+        return '';
     }
 }

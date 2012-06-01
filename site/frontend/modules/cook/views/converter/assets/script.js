@@ -62,6 +62,23 @@ var Converter = {
         );
 
         return false;
+    },
+
+    saveResult:function () {
+        if ($('#ac').attr('data-title').length
+            && parseFloat($('#ConverterForm_qty').val()) > 0
+            && parseFloat($('span.value.current').text()) > 0
+            ) {
+            $('.saved-calculations ul li.template').clone().prependTo('.saved-calculations ul');
+            var result = $('.saved-calculations ul li.template').first();
+            result.removeClass('template');
+            result.find('.product-name').text($('#ac').attr('data-title'));
+            result.find('.qty').text($('#ConverterForm_qty').val());
+            result.find('.unit_from').text($('.trigger.from').text());
+            result.find('.unit_to').text($('.trigger.to').text());
+            result.find('.qty_result').text($('span.value.current').text());
+            result.show();
+        }
     }
 }
 

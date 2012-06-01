@@ -38,7 +38,10 @@ $units = CookUnit::model()->findAll(array('order' => 'title'));
             $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                 'sourceUrl' => Yii::app()->createUrl('cook/converter/ac'),
                 'name' => 'ac',
-                'id' => 'ac'
+                'id' => 'ac',
+                'htmlOptions' => array(
+                    'data-title' => ''
+                )
             ));
             echo $form->hiddenField($model, 'ingredient');
             ?>
@@ -48,10 +51,10 @@ $units = CookUnit::model()->findAll(array('order' => 'title'));
         <div class="values">
 
             <!--<input type="text" placeholder="0" value="0"/>-->
-            <?php echo $form->textField($model, 'qty',array('onchange'=>'Converter.Calculate();')); ?>
+            <?php echo $form->textField($model, 'qty', array('onchange' => 'Converter.Calculate();')); ?>
 
             <div class="drp-list from">
-                <?=$form->hiddenField($model, 'from', array('value'=>1));?>
+                <?=$form->hiddenField($model, 'from', array('value' => 1));?>
                 <a href="" class="trigger from" data-id="1" onclick="$('.drp-list ul').hide(); $(this).next().show(); event.preventDefault();">грамм</a>
                 <ul style="display:none;">
                     <?php
@@ -66,7 +69,7 @@ $units = CookUnit::model()->findAll(array('order' => 'title'));
             <span class="value current"></span>
 
             <div class="drp-list">
-                <?=$form->hiddenField($model, 'to', array('value'=>1));?>
+                <?=$form->hiddenField($model, 'to', array('value' => 1));?>
                 <a href="" class="trigger to" data-id="1" onclick="$('.drp-list ul').hide(); $(this).next().show(); event.preventDefault();">грамм</a>
                 <ul style="display:none;">
                     <?php
@@ -76,7 +79,7 @@ $units = CookUnit::model()->findAll(array('order' => 'title'));
                 </ul>
             </div>
 
-            <a href="" class="btn btn-gray-small"><span><span>Запомнить</span></span></a>
+            <a href="" class="btn btn-gray-small" onclick="Converter.saveResult(); event.preventDefault();"><span><span>Запомнить</span></span></a>
 
         </div>
 
@@ -96,16 +99,16 @@ $units = CookUnit::model()->findAll(array('order' => 'title'));
     <div class="saved-calculations">
 
         <ul>
-            <!--<li>
-                <span class="product-name">Яйцо куриное</span>
-                <span class="value">10</span>
-                штук
+            <li class="template" style="display: none">
+                <span class="product-name"></span>
+                <span class="value qty"></span>
+                <span class="unit_from"></span>
                 <span class="value">=</span>
-                <span class="value">203,5</span>
-                грамм
-                <a href="" class="remove tooltip" title="Удалить"></a>
+                <span class="value qty_result"></span>
+                <span class="unit_to"></span>
+                <a href="" class="remove tooltip" title="Удалить" onclick="$(this).parent().remove(); event.preventDefault();"></a>
             </li>
-            <li>
+            <!--<li>
                 <span class="product-name">Яйцо куриное</span>
                 <span class="value">100</span>
                 штук
@@ -113,26 +116,7 @@ $units = CookUnit::model()->findAll(array('order' => 'title'));
                 <span class="value">2035</span>
                 грамм
                 <a href="" class="remove tooltip" title="Удалить"></a>
-            </li>
-            <li>
-                <span class="product-name">Яйцо куриное</span>
-                <span class="value">1</span>
-                штук
-                <span class="value">=</span>
-                <span class="value">20,35</span>
-                грамм
-                <a href="" class="remove tooltip" title="Удалить"></a>
-            </li>
-            <li>
-                <span class="product-name">Яйцо куриное</span>
-                <span class="value">1000</span>
-                штук
-                <span class="value">=</span>
-                <span class="value">20350</span>
-                грамм
-                <a href="" class="remove tooltip" title="Удалить"></a>
-            </li>
--->
+            </li>-->
         </ul>
 
     </div>

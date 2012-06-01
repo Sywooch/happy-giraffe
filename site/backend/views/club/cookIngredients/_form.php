@@ -23,7 +23,7 @@
     }
 </style>
 
-<?php echo CHtml::link('К таблице', array('club/CookIngredients/admin')) ?>
+<?php echo CHtml::link('К таблице', array('club/CookIngredient/admin')) ?>
 
 
 <div class="form">
@@ -42,7 +42,7 @@
         </tr>
         <tr>
             <td><?=$form->labelEx($model, 'category_id');?></td>
-            <td><?=$form->dropDownList($model, 'category_id', CookIngredientsCategories::getCategories());?></td>
+            <td><?=$form->dropDownList($model, 'category_id', CookIngredientCategory::getCategories());?></td>
             <td><?=$form->error($model, 'category_id');?></td>
         </tr>
         <?php
@@ -50,7 +50,7 @@
             ?>
             <tr>
                 <td><?=$form->labelEx($model, 'unit_id');?></td>
-                <td><?=$form->dropDownList($model, 'unit_id', CookUnits::getUnits());?></td>
+                <td><?=$form->dropDownList($model, 'unit_id', CookUnit::getUnits());?></td>
                 <td><?=$form->error($model, 'unit_id');?></td>
             </tr>
             <?php

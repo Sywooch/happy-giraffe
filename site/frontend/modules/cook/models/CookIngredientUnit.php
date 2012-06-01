@@ -1,22 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "cook__spices__hints".
+ * This is the model class for table "cook__ingredient_units".
  *
- * The followings are the available columns in table 'cook__spices__hints':
+ * The followings are the available columns in table 'cook__ingredient_units':
  * @property string $id
- * @property string $spice_id
- * @property string $content
+ * @property string $ingredient_id
+ * @property string $unit_id
+ * @property integer $weight
  *
  * The followings are the available model relations:
- * @property CookSpice $spice
+ * @property CookUnit $unit
+ * @property CookIngredient $ingredient
  */
-class CookSpicesHints extends HActiveRecord
+class CookIngredientUnit extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return CookSpicesHints the static model class
+	 * @return CookIngredientUnit the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,7 +30,7 @@ class CookSpicesHints extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'cook__spices__hints';
+		return 'cook__ingredient_units';
 	}
 
 	/**
@@ -39,11 +41,12 @@ class CookSpicesHints extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('spice_id, content', 'required'),
-			array('spice_id', 'length', 'max'=>11),
+			array('ingredient_id, unit_id', 'required'),
+			array('weight', 'numerical', 'integerOnly'=>true),
+			array('ingredient_id, unit_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, spice_id, content', 'safe', 'on'=>'search'),
+			array('id, ingredient_id, unit_id, weight', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,7 +58,8 @@ class CookSpicesHints extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'spice' => array(self::BELONGS_TO, 'CookSpice', 'spice_id'),
+			'unit' => array(self::BELONGS_TO, 'CookUnit', 'unit_id'),
+			'ingredient' => array(self::BELONGS_TO, 'CookIngredient', 'ingredient_id'),
 		);
 	}
 
@@ -66,8 +70,9 @@ class CookSpicesHints extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'spice_id' => 'Spice',
-			'content' => 'Содержание',
+			'ingredient_id' => 'Ingredient',
+			'unit_id' => 'Unit',
+			'weight' => 'Weight',
 		);
 	}
 
@@ -83,8 +88,9 @@ class CookSpicesHints extends HActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('spice_id',$this->spice_id,true);
-		$criteria->compare('content',$this->content,true);
+		$criteria->compare('ingredient_id',$this->ingredient_id,true);
+		$criteria->compare('unit_id',$this->unit_id,true);
+		$criteria->compare('weight',$this->weight);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -34,7 +34,10 @@ var SeoModule = {
     parseQueries:function () {
         $.post('/queries/parse/', function (response) {
             if (response.status) {
-                $('#result').html('Спарсили ' + response.count + ' запросов');
+                $.pnotify({
+                    pnotify_title: 'Успешно',
+                    pnotify_text: 'Спарсили ' + response.count + ' запросов'
+                });
             } else {
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -47,7 +50,10 @@ var SeoModule = {
     parseSearch:function () {
         $.post('/queries/search/', function (response) {
             if (response.status) {
-                $('#result').html('Спарсили ' + response.count + ' запросов');
+                $.pnotify({
+                    pnotify_title: 'Успешно',
+                    pnotify_text: response.count + ' потоков запущено'
+                });
             } else {
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -62,6 +68,21 @@ var SeoModule = {
         $.post('/queries/proxy/', {proxy:proxy}, function (response) {
             if (response.status) {
                 $('textarea#proxy').val('');
+
+                $.pnotify({
+                    pnotify_title: 'Успешно',
+                    pnotify_text: 'Новые прокси внесены в базу'
+                });
+            }
+        }, 'json');
+    },
+    stopThreads:function () {
+        $.post('/queries/stopThreads/', function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title: 'Успешно',
+                    pnotify_text: 'Сигнал передан, в течении минуты потоки должны завершиться'
+                });
             }
         }, 'json');
     }

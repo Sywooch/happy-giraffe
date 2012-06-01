@@ -11,11 +11,11 @@
  * @property string $value
  *
  * The followings are the available model relations:
- * @property CookUnits $unit
  * @property CookRecipes $recipe
  * @property CookIngredients $ingredient
+ * @property CookUnits $unit
  */
-class CookRecipeIngredient extends HActiveRecord
+class CookRecipeIngredient extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -43,7 +43,7 @@ class CookRecipeIngredient extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('recipe_id, ingredient_id, unit_id, value', 'required'),
+            array('recipe_id, ingredient_id, unit_id, value', 'required'),
             array('recipe_id', 'exist', 'attributeName' => 'id', 'className' => 'CookRecipe'),
             array('ingredient_id', 'exist', 'attributeName' => 'id', 'className' => 'CookIngredients'),
             array('unit_id', 'exist', 'attributeName' => 'id', 'className' => 'CookUnits'),
@@ -62,9 +62,9 @@ class CookRecipeIngredient extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'unit' => array(self::BELONGS_TO, 'CookUnit', 'unit_id'),
 			'recipe' => array(self::BELONGS_TO, 'CookRecipe', 'recipe_id'),
 			'ingredient' => array(self::BELONGS_TO, 'CookIngredient', 'ingredient_id'),
+			'unit' => array(self::BELONGS_TO, 'CookUnit', 'unit_id'),
 		);
 	}
 

@@ -10,6 +10,9 @@ class AlbumsController extends HController
         if(!Yii::app()->request->isAjaxRequest){
             $this->pageTitle = 'Фотоальбомы';
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js');
+            Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/jquery.jscrollpane.css');
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jscrollpane.min.js');
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.mousewheel.js');
         }
         return parent::beforeAction($action);
     }
@@ -175,9 +178,10 @@ class AlbumsController extends HController
             UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
         }
 
-        $this->render('photo', array(
-            'photo' => $photo,
-        ));
+        if(!Yii::app()->request->isAjaxRequest)
+            $this->render('photo', compact('photo'));
+        else
+            $this->renderPartial('photo', compact('photo'));
     }
 
     public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)

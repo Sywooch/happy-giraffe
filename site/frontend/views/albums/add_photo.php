@@ -80,6 +80,3 @@
         </div>
     </div>
 </div>
-    <script type="text/javascript">
-        setTimeout(function(){$('.scroll').scrollbarPaper();}, 500)
-    </script>

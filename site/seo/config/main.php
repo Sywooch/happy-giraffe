@@ -8,6 +8,8 @@ return array(
 	'import'=>array(
         'site.common.models.*',
         'application.models.*',
+        'application.models.mongo.*',
+        'application.models.forms.*',
         'application.components.*',
 
         'site.common.components.*',

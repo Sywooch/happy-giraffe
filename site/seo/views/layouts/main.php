@@ -110,6 +110,10 @@
                             'label' => 'Отчеты',
                             'url' => array('/editor/reports/'),
                         ),
+                        array(
+                            'label' => 'Запросы',
+                            'url' => array('/queries/admin/'),
+                        ),
                     )));
 
             if (Yii::app()->user->checkAccess('admin'))
@@ -137,6 +141,14 @@
                         array(
                             'label' => 'Готовое',
                             'url' => array('/existArticles/index/'),
+                        ),
+                        array(
+                            'label' => 'Парсинг',
+                            'url' => array('/queries/index/'),
+                        ),
+                        array(
+                            'label' => 'Запросы',
+                            'url' => array('/queries/admin/'),
                         ),
                     )));
 

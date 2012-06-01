@@ -10,7 +10,7 @@
  * @property integer $weight
  *
  * The followings are the available model relations:
- * @property CookUnits $unit
+ * @property CookUnit $unit
  * @property CookIngredients $ingredient
  */
 class CookIngredientUnits extends CActiveRecord
@@ -58,7 +58,7 @@ class CookIngredientUnits extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'unit' => array(self::BELONGS_TO, 'CookUnits', 'unit_id'),
+			'unit' => array(self::BELONGS_TO, 'CookUnit', 'unit_id'),
 			'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
 		);
 	}

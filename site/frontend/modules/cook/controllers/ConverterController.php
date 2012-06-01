@@ -23,7 +23,7 @@ class ConverterController extends HController
     public function actionAc($term)
     {
         $ingredients = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')
-            ->where('title LIKE :term AND (density > 0 OR weight > 0)', array(':term' => '%' . $term . '%'))
+            ->where('title LIKE :term', array(':term' => '%' . $term . '%'))
             ->limit(20)->queryAll();
 
         header('Content-type: application/json');

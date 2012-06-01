@@ -519,10 +519,12 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-upload .note {float:left;padding-right:30px;color:#949696;font-size:11px;line-height:normal;}
 #photoPick .photo-upload .photo {position:relative;float:left;margin-right:15px;}
 #photoPick .photo-upload .photo .in {text-align:center;width:300px;height:225px;background:#ededed;display:table-cell;vertical-align:middle;}
-#photoPick .photo-upload .remove {display:block;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;position:absolute;top:0;right:0;}
+#photoPick .photo-upload .remove {display:block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:absolute;top:5px;right:5px;}
+#photoPick .photo-upload .remove:hover {background-position:-314px -148px;}
 
-#photoPick .photo-upload label {font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;color:#4e4e4e;}
+#photoPick .photo-upload label {font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;color:#898888;margin-left:11px;}
 #photoPick .photo-upload input[type=text]{border-color:#ece4f4;height:auto;padding:0px 10px;color:#333;margin-top:10px;font-size:12px;font-weight:normal;}
+#photoPick .photo-upload .photo-title {margin:0px 0 0 320px;padding-top:40px;}
 
 #photoPick .photo-crop .note {color:#161616;font-size:13px;line-height:16px;margin-bottom:15px;}
 #photoPick .photo-crop table td {vertical-align:middle;}

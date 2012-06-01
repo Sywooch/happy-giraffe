@@ -62,5 +62,25 @@ class SeoCommand extends CConsoleCommand
             fclose($file);
         }
     }
+
+    public function actionParseQueriesYandex()
+    {
+        Yii::import('site.seo.models.*');
+        Yii::import('site.seo.components.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+
+        $parser = new PositionParserThread(PositionParserThread::SE_YANDEX);
+        $parser->start();
+    }
+
+    public function actionParseQueriesGoogle()
+    {
+        Yii::import('site.seo.models.*');
+        Yii::import('site.seo.components.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+
+        $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE);
+        $parser->start();
+    }
 }
 

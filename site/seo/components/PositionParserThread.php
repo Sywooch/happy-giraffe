@@ -47,6 +47,9 @@ class PositionParserThread
             $this->parsePage();
             $this->closeQuery();
             $i++;
+
+            if (Config::getAttribute('stop_threads') == 1)
+                break;
         }
     }
 
@@ -82,7 +85,7 @@ class PositionParserThread
             //throw new CHttpException(404, 'Неудача при получении прокси.');
         }
 
-        echo $this->proxy->value . '<br>';
+        //echo $this->proxy->value . '<br>';
     }
 
     public function getPage()
@@ -117,7 +120,7 @@ class PositionParserThread
 //            throw new CHttpException(404, 'Неудача при выбора кейворда для парсинга.');
         }
 
-        echo $this->query->phrase . '<br>';
+        //echo $this->query->phrase . '<br>';
     }
 
     public function parsePage()
@@ -150,7 +153,7 @@ class PositionParserThread
             flush();
             if ($found)
                 break;
-            sleep(rand(3, 5));
+            sleep(rand(5, 15));
         }
     }
 
@@ -223,7 +226,7 @@ class PositionParserThread
 
             if ($content === false) {
                 if (curl_errno($ch)) {
-                    echo 'Ошибка curl: ' . curl_error($ch) . '<br>';
+                    //echo 'Ошибка curl: ' . curl_error($ch) . '<br>';
                 }
                 if (curl_errno($ch) == 5) {
                     $attempt += 1;

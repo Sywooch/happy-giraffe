@@ -18,12 +18,12 @@
  * @property CookUnit $unit
  * @property CookIngredientsNutritionals[] $cookIngredientsNutritionals
  */
-class CookIngredients extends CActiveRecord
+class CookIngredient extends CActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return CookIngredients the static model class
+     * @return CookIngredient the static model class
      */
     public static function model($className = __CLASS__)
     {

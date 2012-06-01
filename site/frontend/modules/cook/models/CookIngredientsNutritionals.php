@@ -11,7 +11,7 @@
  *
  * The followings are the available model relations:
  * @property CookNutritionals $nutritional
- * @property CookIngredients $ingredient
+ * @property CookIngredient $ingredient
  */
 class CookIngredientsNutritionals extends CActiveRecord
 {
@@ -60,7 +60,7 @@ class CookIngredientsNutritionals extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'nutritional' => array(self::BELONGS_TO, 'CookNutritionals', 'nutritional_id'),
-			'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
+			'ingredient' => array(self::BELONGS_TO, 'CookIngredient', 'ingredient_id'),
 		);
 	}
 

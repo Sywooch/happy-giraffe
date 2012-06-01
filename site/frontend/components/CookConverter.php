@@ -17,7 +17,7 @@ class CookConverter extends CComponent
     {
         $this->from = CookUnit::model()->findByPk($data['from']);
         $this->to = CookUnit::model()->findByPk($data['to']);
-        $this->ingredient = CookIngredients::model()->findByPk($data['ingredient']);
+        $this->ingredient = CookIngredient::model()->findByPk($data['ingredient']);
 
         $this->direction = $this->from->type . '-' . $this->to->type;
 

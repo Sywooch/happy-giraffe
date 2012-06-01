@@ -20,13 +20,13 @@ class CookIngredientsController extends BController
      */
     public function actionCreate()
     {
-        $model = new CookIngredients;
+        $model = new CookIngredient;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['CookIngredients'])) {
-            $model->attributes = $_POST['CookIngredients'];
+        if (isset($_POST['CookIngredient'])) {
+            $model->attributes = $_POST['CookIngredient'];
             if ($model->save()) {
                 $iunit = new CookIngredientUnits();
                 $iunit->attributes = array('ingredient_id' => $model->id, 'unit_id' => 1);
@@ -56,8 +56,8 @@ class CookIngredientsController extends BController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['CookIngredients'])) {
-            $model->attributes = $_POST['CookIngredients'];
+        if (isset($_POST['CookIngredient'])) {
+            $model->attributes = $_POST['CookIngredient'];
             if ($model->save())
                 $this->redirect(array('admin'));
         }
@@ -165,10 +165,10 @@ class CookIngredientsController extends BController
      */
     public function actionAdmin()
     {
-        $model = new CookIngredients('search');
+        $model = new CookIngredient('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['CookIngredients']))
-            $model->attributes = $_GET['CookIngredients'];
+        if (isset($_GET['CookIngredient']))
+            $model->attributes = $_GET['CookIngredient'];
 
         $this->render('admin', array(
             'model' => $model,
@@ -182,7 +182,7 @@ class CookIngredientsController extends BController
      */
     public function loadModel($id)
     {
-        $model = CookIngredients::model()->findByPk((int)$id);
+        $model = CookIngredient::model()->findByPk((int)$id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -225,7 +225,7 @@ class CookIngredientsController extends BController
     /*public function actionFillUnits()
     {
         set_time_limit(0);
-        $ingredients = CookIngredients::model()->findAll();
+        $ingredients = CookIngredient::model()->findAll();
         $units = CookUnit::model()->findAll();
 
         foreach ($ingredients as $ingredient) {

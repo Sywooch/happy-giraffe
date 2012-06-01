@@ -15,7 +15,7 @@ class ConverterController extends HController
 
     public function actionUnits()
     {
-        $ingredient = CookIngredients::model()->findByPk($_POST['id']);
+        $ingredient = CookIngredient::model()->findByPk($_POST['id']);
         header('Content-type: application/json');
         echo CJSON::encode($ingredient->getUnitsIds());
     }

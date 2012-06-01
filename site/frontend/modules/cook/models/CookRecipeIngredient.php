@@ -12,7 +12,7 @@
  *
  * The followings are the available model relations:
  * @property CookRecipes $recipe
- * @property CookIngredients $ingredient
+ * @property CookIngredient $ingredient
  * @property CookUnit $unit
  */
 class CookRecipeIngredient extends CActiveRecord
@@ -45,7 +45,7 @@ class CookRecipeIngredient extends CActiveRecord
 		return array(
             array('recipe_id, ingredient_id, unit_id, value', 'required'),
             array('recipe_id', 'exist', 'attributeName' => 'id', 'className' => 'CookRecipe'),
-            array('ingredient_id', 'exist', 'attributeName' => 'id', 'className' => 'CookIngredients'),
+            array('ingredient_id', 'exist', 'attributeName' => 'id', 'className' => 'CookIngredient'),
             array('unit_id', 'exist', 'attributeName' => 'id', 'className' => 'CookUnit'),
             array('value', 'numerical', 'min' => '0.01', 'max' => '9999.99'),
 			// The following rule is used by search().

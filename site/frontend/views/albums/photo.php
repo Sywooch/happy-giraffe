@@ -62,8 +62,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                 <script type="text/javascript">
                     $(function() {
                     <?php if(isset($selected_item)): ?>
-
-
                         $('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
                             var count = $('#photo-thumbs li').size();
                             var ready = 0;
@@ -76,6 +74,13 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                                 };
                                 $(this).attr('src', $(this).attr('data-src'));
                             });
+                        });
+                        $('.big-photo').on('click', 'a', function() {
+                            if(this.href != '#') {
+
+                                Album.changePhoto(this.href);
+                            }
+                            return false;
                         });
                         <?php endif; ?>
                         var carousel = $('#photo-thumbs').jcarousel();

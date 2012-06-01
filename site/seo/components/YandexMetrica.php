@@ -8,6 +8,11 @@ class YandexMetrica
     public $token = 'b1cb78403f76432b8a6803dc5e6631b5';
     public $min_visits = 4;
 
+    function __construct()
+    {
+        $this->min_visits = Config::getAttribute('minClicks');
+    }
+
     public function parseQueries()
     {
         $date1 = date("Ymd", strtotime('-1 month'));

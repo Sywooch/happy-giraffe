@@ -66,8 +66,10 @@ class SeoCommand extends CConsoleCommand
     public function actionParseQueriesYandex()
     {
         Yii::import('site.seo.models.*');
+        Yii::import('site.seo.models.mongo.*');
         Yii::import('site.seo.components.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Config::setAttribute('stop_threads', 0);
 
         $parser = new PositionParserThread(PositionParserThread::SE_YANDEX);
         $parser->start();
@@ -76,8 +78,10 @@ class SeoCommand extends CConsoleCommand
     public function actionParseQueriesGoogle()
     {
         Yii::import('site.seo.models.*');
+        Yii::import('site.seo.models.mongo.*');
         Yii::import('site.seo.components.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Config::setAttribute('stop_threads', 0);
 
         $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE);
         $parser->start();

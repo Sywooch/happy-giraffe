@@ -178,9 +178,10 @@ class AlbumsController extends HController
             UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
         }
 
-        $this->render('photo', array(
-            'photo' => $photo,
-        ));
+        if(!Yii::app()->request->isAjaxRequest)
+            $this->render('photo', compact('photo'));
+        else
+            $this->renderPartial('photo', compact('photo'));
     }
 
     public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)

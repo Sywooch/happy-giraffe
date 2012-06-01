@@ -19,14 +19,14 @@ class CookSpicesCategoriesController extends BController
 	 */
 	public function actionCreate()
 	{
-		$model=new CookSpicesCategories;
+		$model=new CookSpiceCategory;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['CookSpicesCategories']))
+		if(isset($_POST['CookSpiceCategory']))
 		{
-			$model->attributes=$_POST['CookSpicesCategories'];
+			$model->attributes=$_POST['CookSpiceCategory'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -48,9 +48,9 @@ class CookSpicesCategoriesController extends BController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['CookSpicesCategories']))
+		if(isset($_POST['CookSpiceCategory']))
 		{
-			$model->attributes=$_POST['CookSpicesCategories'];
+			$model->attributes=$_POST['CookSpiceCategory'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -85,10 +85,10 @@ class CookSpicesCategoriesController extends BController
 	 */
 	public function actionAdmin()
 	{
-		$model=new CookSpicesCategories('search');
+		$model=new CookSpiceCategory('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['CookSpicesCategories']))
-			$model->attributes=$_GET['CookSpicesCategories'];
+		if(isset($_GET['CookSpiceCategory']))
+			$model->attributes=$_GET['CookSpiceCategory'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -102,7 +102,7 @@ class CookSpicesCategoriesController extends BController
 	 */
 	public function loadModel($id)
 	{
-		$model=CookSpicesCategories::model()->findByPk((int)$id);
+		$model=CookSpiceCategory::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

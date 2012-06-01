@@ -9,7 +9,7 @@
             <th>вес</th>
         </tr>
         <?php
-        $units = CookUnits::model()->findAll(array('order' => 'type'));
+        $units = CookUnit::model()->findAll(array('order' => 'type'));
         $iUnits = $model->getUnits();
         $iUnitsIds = $model->getUnitsIds();
 

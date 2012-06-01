@@ -16,17 +16,82 @@ var SeoModule = {
             url:$('input.article-url').val(),
             keywords:$('#ArticleKeywords_keywords').val()
         }, function (response) {
-            if (response.status){
+            if (response.status) {
                 $('input.article-url').val('');
                 $('#ArticleKeywords_keywords').val('');
                 $('table tbody').prepend(response.html);
                 $('span.articles-count').text(parseInt($('span.articles-count').text()) + 1);
                 $('span.keywords-count').text(parseInt($('span.keywords-count').text()) + response.keysCount);
-            }else{
+            } else {
                 $.pnotify({
-                    pnotify_title: 'Ошибка',
-                    pnotify_type: 'error',
-                    pnotify_text: response.error
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
+    },
+    parseQueries:function () {
+        $.post('/queries/parse/', function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:'Спарсили ' + response.count + ' запросов'
+                });
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
+    },
+    parseSearch:function () {
+        $.post('/queries/search/', function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:response.count + ' потоков запущено'
+                });
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
+    },
+    refreshProxy:function () {
+        var proxy = $('textarea#proxy').val();
+        $.post('/queries/proxy/', {proxy:proxy}, function (response) {
+            if (response.status) {
+                $('textarea#proxy').val('');
+
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:'Новые прокси внесены в базу'
+                });
+            }
+        }, 'json');
+    },
+    stopThreads:function () {
+        $.post('/queries/stopThreads/', function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:'Сигнал передан, в течении минуты потоки должны завершиться'
+                });
+            }
+        }, 'json');
+    },
+    setConfigAttribute:function (title, value) {
+        $.post('/queries/setConfigAttribute/', {title:title, value:value}, function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:'Параметр установлен'
                 });
             }
         }, 'json');

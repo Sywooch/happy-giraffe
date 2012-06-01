@@ -10,15 +10,15 @@
  * @property string $value
  *
  * The followings are the available model relations:
- * @property CookNutritionals $nutritional
- * @property CookIngredients $ingredient
+ * @property CookNutritional $nutritional
+ * @property CookIngredient $ingredient
  */
-class CookIngredientsNutritionals extends CActiveRecord
+class CookIngredientNutritional extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return CookIngredientsNutritionals the static model class
+	 * @return CookIngredientNutritional the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -59,8 +59,8 @@ class CookIngredientsNutritionals extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'nutritional' => array(self::BELONGS_TO, 'CookNutritionals', 'nutritional_id'),
-			'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
+			'nutritional' => array(self::BELONGS_TO, 'CookNutritional', 'nutritional_id'),
+			'ingredient' => array(self::BELONGS_TO, 'CookIngredient', 'ingredient_id'),
 		);
 	}
 

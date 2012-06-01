@@ -1,24 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "cook__spices__categories".
+ * This is the model class for table "cook__nutritionals".
  *
- * The followings are the available columns in table 'cook__spices__categories':
+ * The followings are the available columns in table 'cook__nutritionals':
  * @property string $id
  * @property string $title
- * @property string $content
- * @property string $photo_id
- * @property string $slug
  *
  * The followings are the available model relations:
- * @property CookSpicesCategoriesSpices[] $cookSpicesCategoriesSpices
+ * @property CookIngredientsNutritionals[] $cookIngredientsNutritionals
  */
-class CookSpicesCategories extends CActiveRecord
+class CookNutritional extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return CookSpicesCategories the static model class
+     * @return CookNutritional the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -30,7 +27,7 @@ class CookSpicesCategories extends CActiveRecord
      */
     public function tableName()
     {
-        return 'cook__spices__categories';
+        return 'cook__nutritionals';
     }
 
     /**
@@ -42,13 +39,10 @@ class CookSpicesCategories extends CActiveRecord
         // will receive user inputs.
         return array(
             array('title', 'required'),
-            array('title, slug', 'length', 'max' => 255),
-            array('photo_id', 'numerical', 'integerOnly' => true),
-            array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'title'),
-            array('content', 'safe'),
+            array('title', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, title, content', 'safe', 'on' => 'search'),
+            array('id, title', 'safe', 'on' => 'search'),
         );
     }
 
@@ -60,9 +54,7 @@ class CookSpicesCategories extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            //'cookSpicesCategoriesSpices' => array(self::HAS_MANY, 'CookSpicesCategoriesSpices', 'category_id'),
-            'spices' => array(self::MANY_MANY, 'CookSpices', 'cook__spices__categories_spices(category_id, spice_id)', 'order'=>'t.title'),
-            'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
+            'cookIngredientsNutritionals' => array(self::HAS_MANY, 'CookIngredientNutritional', 'nutritional_id'),
         );
     }
 
@@ -73,9 +65,7 @@ class CookSpicesCategories extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'title' => 'Название',
-            'content' => 'Описание',
-            'photo_id' => 'Фото',
+            'title' => 'Title',
         );
     }
 
@@ -92,26 +82,18 @@ class CookSpicesCategories extends CActiveRecord
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('title', $this->title, true);
-        $criteria->compare('content', $this->content, true);
-        $criteria->compare('photo_id', $this->photo_id, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'pagination' => array('pageSize' => 100)
         ));
     }
 
-    public function getCategories()
+    public function getNutritionals()
     {
-        return $ingredients = Yii::app()->db->createCommand()->select('*')->from($this->tableName())->queryAll();
-    }
-
-    public function getImage()
-    {
-        if (!empty($this->photo_id)) {
-            return CHtml::image($this->photo->getPreviewUrl(70, 70));
-        }
-
-        return '';
+        $result = array();
+        $nutritionals = self::model()->findAll(array('order' => 'title'));
+        foreach ($nutritionals as $n)
+            $result [$n->id] = $n->title;
+        return $result;
     }
 }

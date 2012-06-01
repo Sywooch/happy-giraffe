@@ -17,14 +17,14 @@
  * @property CookSpicesHints[] $hints
  * @property AlbumPhoto $photo
  */
-class CookSpices extends CActiveRecord
+class CookSpice extends HActiveRecord
 {
     public $cats;
 
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return CookSpices the static model class
+     * @return CookSpice the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -70,7 +70,7 @@ class CookSpices extends CActiveRecord
             'ingredient' => array(self::BELONGS_TO, 'CookIngredient', 'ingredient_id'),
             'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
             //'cookSpicesCategoriesSpices' => array(self::HAS_MANY, 'CookSpicesCategoriesSpices', 'spice_id'),
-            'categories' => array(self::MANY_MANY, 'CookSpicesCategories', 'cook__spices__categories_spices(spice_id, category_id)'),
+            'categories' => array(self::MANY_MANY, 'CookSpiceCategory', 'cook__spices__categories_spices(spice_id, category_id)'),
             'hints' => array(self::HAS_MANY, 'CookSpicesHints', 'spice_id'),
         );
     }

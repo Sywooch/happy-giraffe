@@ -14,7 +14,7 @@
  *
  * The followings are the available model relations:
  * @property CookIngredientSynonyms[] $cookIngredientSynonyms
- * @property CookIngredientsCategories $category
+ * @property CookIngredientCategory $category
  * @property CookUnit $unit
  * @property CookIngredientsNutritionals[] $cookIngredientsNutritionals
  */
@@ -64,11 +64,11 @@ class CookIngredient extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'cookIngredientSynonyms' => array(self::HAS_MANY, 'CookIngredientSynonyms', 'ingredient_id'),
-            'units' => array(self::HAS_MANY, 'CookIngredientUnits', 'ingredient_id'),
-            'category' => array(self::BELONGS_TO, 'CookIngredientsCategories', 'category_id'),
+            'cookIngredientSynonyms' => array(self::HAS_MANY, 'CookIngredientSynonym', 'ingredient_id'),
+            'units' => array(self::HAS_MANY, 'CookIngredientUnit', 'ingredient_id'),
+            'category' => array(self::BELONGS_TO, 'CookIngredientCategory', 'category_id'),
             'unit' => array(self::BELONGS_TO, 'CookUnit', 'unit_id'),
-            'cookIngredientsNutritionals' => array(self::HAS_MANY, 'CookIngredientsNutritionals', 'ingredient_id'),
+            'cookIngredientsNutritionals' => array(self::HAS_MANY, 'CookIngredientNutritional', 'ingredient_id'),
         );
     }
 

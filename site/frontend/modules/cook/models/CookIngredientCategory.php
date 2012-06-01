@@ -10,12 +10,12 @@
  * The followings are the available model relations:
  * @property CookIngredients[] $cookIngredients
  */
-class CookIngredientsCategories extends CActiveRecord
+class CookIngredientCategory extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return CookIngredientsCategories the static model class
+     * @return CookIngredientCategory the static model class
      */
     public static function model($className = __CLASS__)
     {

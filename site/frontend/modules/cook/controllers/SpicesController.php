@@ -5,14 +5,14 @@ class SpicesController extends HController
     public function actionIndex()
     {
         $this->pageTitle = 'Приправы и специи';
-        $obj = CookSpices::model()->getSpicesByAlphabet();
+        $obj = CookSpice::model()->getSpicesByAlphabet();
 
         $this->render('index', compact('obj'));
     }
 
     public function actionCategory($id)
     {
-        $model = CookSpicesCategories::model()->with('spices', 'photo')->findByPk($id);
+        $model = CookSpiceCategory::model()->with('spices', 'photo')->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
@@ -23,7 +23,7 @@ class SpicesController extends HController
 
     public function actionView($id)
     {
-        $model = CookSpices::model()->with('photo', 'categories', 'hints')->findByPk($id);
+        $model = CookSpice::model()->with('photo', 'categories', 'hints')->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 

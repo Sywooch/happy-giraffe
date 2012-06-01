@@ -1,12 +1,13 @@
 <?php
 
 /**
- * This is the model class for table "proxy".
+ * This is the model class for table "proxies".
  *
- * The followings are the available columns in table 'proxy':
+ * The followings are the available columns in table 'proxies':
  * @property integer $id
  * @property string $value
  * @property integer $active
+ * @property integer $rank
  */
 class Proxy extends HActiveRecord
 {
@@ -22,7 +23,7 @@ class Proxy extends HActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.proxy';
+        return 'happy_giraffe_seo.proxies';
     }
 
     public function getDbConnection()
@@ -39,7 +40,7 @@ class Proxy extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('value', 'required'),
-			array('active', 'numerical', 'integerOnly'=>true),
+			array('active, rank', 'numerical', 'integerOnly'=>true),
 			array('value', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

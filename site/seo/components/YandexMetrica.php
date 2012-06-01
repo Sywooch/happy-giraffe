@@ -14,7 +14,7 @@ class YandexMetrica
         $date2 = date("Ymd");
         $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&filter=month&date1=' . $date1 . '&date2=' . $date2 . '&select_period=month';
 
-        Queries::model()->deleteAll();
+        Query::model()->deleteAll();
 
         while (!empty($next)) {
             $ch = curl_init($next);
@@ -35,11 +35,11 @@ class YandexMetrica
             foreach ($val['data'] as $query) {
                 if ($query['visits'] < $this->min_visits)
                     break(2);
-                $model = new Queries();
+                $model = new Query();
                 $model->attributes = $query;
                 if ($model->save()) {
                     foreach ($query['search_engines'] as $search_engine) {
-                        $se = new QueriesSearchEngines();
+                        $se = new QuerySearchEngine();
                         $se->attributes = $search_engine;
                         $se->query_id = $model->id;
                         $se->save();

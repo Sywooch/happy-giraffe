@@ -384,3 +384,13 @@ Album.savePhotos = function () {
     }
     return false;
 };
+
+Album.changePhoto = function(link) {
+    var params = link.split('/');
+    var id = params[params.length - 2];
+    $.get(link.href, {}, function(data) {
+        var html = $(data);
+        cl(html.find('.big-photo'));
+    }, 'html');
+    Comment.entity_id = id;
+}

@@ -1,105 +1,124 @@
-<style type="text/css">
-    input {
-        border: 1px solid #777
-    }
-
-    #c {
-        margin: 10px 0;
-    }
-
-    #c td {
-        padding: 5px 10px
-    }
-
-    #c input[type="text"] {
-        width: 250px
-    }
-</style>
-
-
-
-
-
-
-
 <?php
-$form = $this->beginWidget('CActiveForm', array(
-    'id' => 'converter-form',
-    'action' => CHtml::normalizeUrl(array('converter/calculate')),
-    'enableAjaxValidation' => true,
-    'clientOptions' => array(
-        'validateOnSubmit' => true,
-        'validateOnChange' => false,
-        'validateOnType' => false,
-        'validationUrl' => $this->createUrl('converter/calculate'),
-        'afterValidate' => "js:function(form, data, hasError) { if (!hasError){ Converter.Calculate();} else { return false;} }",
-    )
-));
+$basePath = Yii::getPathOfAlias('application.modules.cook.views.converter.assets');
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
+
+$units = CookUnit::model()->findAll(array('order' => 'title'));
 ?>
 
+<div id="measure">
 
-<table id="c">
+    <div class="title">
 
-    <tr>
-        <td colspan="4">
+        <h2>Калькулятор <span>мер и весов</span></h2>
+
+    </div>
+
+    <div class="calculator">
+        <?php
+        $form = $this->beginWidget('CActiveForm', array(
+            'id' => 'converter-form',
+            'action' => CHtml::normalizeUrl(array('converter/calculate')),
+            'enableAjaxValidation' => true,
+            'clientOptions' => array(
+                'validateOnSubmit' => true,
+                'validateOnChange' => false,
+                'validateOnType' => false,
+                'validationUrl' => $this->createUrl('converter/calculate'),
+                'afterValidate' => "js:function(form, data, hasError) { if (!hasError){ Converter.Calculate();} else { return false;} }",
+            )
+        ));
+        ?>
+
+        <div class="product">
+
+            <div class="block-title">Продукт</div>
+            <!--<input type="text" placeholder="Введите название продукта" value="Яйцо куриное"/>-->
             <?php
             $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                 'sourceUrl' => Yii::app()->createUrl('cook/converter/ac'),
                 'name' => 'ac',
-                'id' => 'ac'
+                'id' => 'ac',
+                'htmlOptions' => array(
+                    'data-title' => ''
+                )
             ));
             echo $form->hiddenField($model, 'ingredient');
             ?>
 
-        </td>
-    </tr>
+        </div>
 
-    <tr>
-        <td>
-            <?php echo $form->textField($model, 'qty'); ?>
-        </td>
-        <td>
-            <select id="ConverterForm_from" name="ConverterForm[from]">
-                <?php
-                foreach ($units as $unit) {
-                    $display = ($unit['type'] == 'qty') ? ' style="display:none" ' : '';
-                    echo '<option value="' . $unit['id'] . '" data-id="' . $unit['id'] . '" data-type="' . $unit['type'] . '" data-ratio="' . $unit['ratio'] . '"' . $display . '>' . CHtml::encode($unit['title']) . '</option>';
-                }
-                ?>
-            </select>
-        </td>
-        <td>
-            ->
-        </td>
-        <td>
-            <select id="ConverterForm_to" name="ConverterForm[to]">
-                <?php
-                foreach ($units as $unit) {
-                    $display = ($unit['type'] == 'qty') ? ' style="display:none" ' : '';
-                    echo '<option value="' . $unit['id'] . '" data-id="' . $unit['id'] . '" data-type="' . $unit['type'] . '" data-ratio="' . $unit['ratio'] . '"' . $display . '>' . CHtml::encode($unit['title']) . '</option>';
-                }
-                ?>
-            </select>
-        </td>
-    </tr>
+        <div class="values">
 
-    <tr>
-        <td><?php echo CHtml::submitButton('Перевести'); ?></td>
-        <td colspan="3"></td>
-    </tr>
+            <!--<input type="text" placeholder="0" value="0"/>-->
+            <?php echo $form->textField($model, 'qty', array('onchange' => 'Converter.Calculate();')); ?>
 
+            <div class="drp-list from">
+                <?=$form->hiddenField($model, 'from', array('value' => 1));?>
+                <a href="" class="trigger from" data-id="1" onclick="$('.drp-list ul').hide(); $(this).next().show(); event.preventDefault();">грамм</a>
+                <ul style="display:none;">
+                    <?php
+                    foreach ($units as $unit)
+                        echo '<li data-id="' . $unit->id . '" style="display:none"><a href="" onclick="Converter.unitSelect($(this), event);">' . $unit->title . '</a></li>';
+                    ?>
+                </ul>
+            </div>
 
-</table>
+            <a href="" class="equal" onclick="Converter.unitSwap(event);"></a>
 
-<?php
+            <span class="value current"></span>
 
-$form->error($model, 'from');
-$form->error($model, 'to');
-$form->error($model, 'qty');
-$form->error($model, 'ingredient');
+            <div class="drp-list">
+                <?=$form->hiddenField($model, 'to', array('value' => 1));?>
+                <a href="" class="trigger to" data-id="1" onclick="$('.drp-list ul').hide(); $(this).next().show(); event.preventDefault();">грамм</a>
+                <ul style="display:none;">
+                    <?php
+                    foreach ($units as $unit)
+                        echo '<li data-id="' . $unit->id . '" style="display:none"><a href="" onclick="Converter.unitSelect($(this), event);">' . $unit->title . '</a></li>';
+                    ?>
+                </ul>
+            </div>
 
-echo $form->errorSummary($model);
-$this->endWidget();
+            <a href="" class="btn btn-gray-small" onclick="Converter.saveResult(); event.preventDefault();"><span><span>Запомнить</span></span></a>
 
-?>
-<div id="result"></div>
+        </div>
+
+        <?php
+
+        $form->error($model, 'from');
+        $form->error($model, 'to');
+        $form->error($model, 'qty');
+        $form->error($model, 'ingredient');
+
+        echo $form->errorSummary($model);
+        $this->endWidget();
+
+        ?>
+    </div>
+
+    <div class="saved-calculations">
+
+        <ul>
+            <li class="template" style="display: none">
+                <span class="product-name"></span>
+                <span class="value qty"></span>
+                <span class="unit_from"></span>
+                <span class="value">=</span>
+                <span class="value qty_result"></span>
+                <span class="unit_to"></span>
+                <a href="" class="remove tooltip" title="Удалить" onclick="$(this).parent().remove(); event.preventDefault();"></a>
+            </li>
+            <!--<li>
+                <span class="product-name">Яйцо куриное</span>
+                <span class="value">100</span>
+                штук
+                <span class="value">=</span>
+                <span class="value">2035</span>
+                грамм
+                <a href="" class="remove tooltip" title="Удалить"></a>
+            </li>-->
+        </ul>
+
+    </div>
+
+</div>

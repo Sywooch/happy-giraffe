@@ -226,7 +226,7 @@ class CookIngredientsController extends BController
     {
         set_time_limit(0);
         $ingredients = CookIngredients::model()->findAll();
-        $units = CookUnits::model()->findAll();
+        $units = CookUnit::model()->findAll();
 
         foreach ($ingredients as $ingredient) {
             $s = array();

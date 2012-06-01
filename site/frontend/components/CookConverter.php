@@ -15,8 +15,8 @@ class CookConverter extends CComponent
 
     public function convert($data)
     {
-        $this->from = CookUnits::model()->findByPk($data['from']);
-        $this->to = CookUnits::model()->findByPk($data['to']);
+        $this->from = CookUnit::model()->findByPk($data['from']);
+        $this->to = CookUnit::model()->findByPk($data['to']);
         $this->ingredient = CookIngredients::model()->findByPk($data['ingredient']);
 
         $this->direction = $this->from->type . '-' . $this->to->type;
@@ -30,7 +30,7 @@ class CookConverter extends CComponent
 
         // double conversion
         if (in_array($this->direction, $this->doubleConvert)) {
-            $swap = CookUnits::model()->findByPk(1);
+            $swap = CookUnit::model()->findByPk(1);
             $swap_qty = $this->subConvert($this->from, $swap, $data['qty']);
             $this->result = array(
                 'qty' => $this->subConvert($this->swap, $this->to, $swap_qty)
@@ -38,7 +38,7 @@ class CookConverter extends CComponent
         }
 
         // one unit type conversion
-        if (($this->from->type == $this->to->type) and (in_array($this->from->type, array('weight', 'volume')))) {
+        if (($this->from->type == $this->to->type) and (in_array($this->from->type, array('weight', 'volume', 'qty')))) {
             $this->result = array(
                 'qty' => $this->subConvert($this->from, $this->to, $data['qty'])
             );
@@ -80,6 +80,10 @@ class CookConverter extends CComponent
             case 'weight-weight':
                 {
                 return ($qty * $from->ratio) / $to->ratio;
+                }
+            case 'qty-qty':
+                {
+                return $qty;
                 }
             case 'volume-volume':
                 {

@@ -1,7 +1,7 @@
 <h1>Характеристики ингредиента</h1>
 
 <?php
-$nutritionals = new CookIngredientsNutritionals();
+$nutritionals = new CookIngredientNutritional();
 $nutritionals->ingredient_id = $model->id;
 
 ?>
@@ -29,7 +29,7 @@ $nutritionals->ingredient_id = $model->id;
     <?php echo $form->hiddenField($nutritionals, 'ingredient_id'); ?>
 
     <div class="row">
-        <?php echo $form->dropDownList($nutritionals, 'nutritional_id', CookNutritionals::getNutritionals()); ?>
+        <?php echo $form->dropDownList($nutritionals, 'nutritional_id', CookNutritional::getNutritionals()); ?>
         <?php echo $form->textField($nutritionals, 'value'); ?>
         <?php echo CHtml::submitButton('Добавить'); ?>
     </div>

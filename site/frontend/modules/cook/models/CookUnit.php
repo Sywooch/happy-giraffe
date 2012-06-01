@@ -1,6 +1,6 @@
 <?php
 
-class CookUnit extends CActiveRecord
+class CookUnit extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
@@ -47,7 +47,7 @@ class CookUnit extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'cookIngredients' => array(self::HAS_MANY, 'CookIngredient', 'default_unit_id'),
-            'ingredientUnits' => array(self::HAS_MANY, 'CookIngredientUnits', 'unit_id'),
+            'ingredientUnits' => array(self::HAS_MANY, 'CookIngredientUnit', 'unit_id'),
         );
     }
 

@@ -1,5 +1,5 @@
 <?php
-$categories = CookSpicesCategories::model()->findAll();
+$categories = CookSpiceCategory::model()->findAll();
 $active = (Yii::app()->controller->action->id != 'category') ? 'active' : '';
 ?>
 

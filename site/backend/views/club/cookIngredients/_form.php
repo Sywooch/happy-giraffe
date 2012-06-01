@@ -42,7 +42,7 @@
         </tr>
         <tr>
             <td><?=$form->labelEx($model, 'category_id');?></td>
-            <td><?=$form->dropDownList($model, 'category_id', CookIngredientsCategories::getCategories());?></td>
+            <td><?=$form->dropDownList($model, 'category_id', CookIngredientCategory::getCategories());?></td>
             <td><?=$form->error($model, 'category_id');?></td>
         </tr>
         <?php

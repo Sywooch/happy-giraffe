@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $model CookSpices
+ * @var $model CookSpice
  */
 ?><div id="spices">
 

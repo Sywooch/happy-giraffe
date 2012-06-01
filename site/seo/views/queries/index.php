@@ -6,4 +6,7 @@
 <textarea name="proxy" id="proxy" cols="30" rows="10"></textarea><br>
 <a href="javascript:;" onclick="SeoModule.refreshProxy();">обновить прокси</a>
 <br><br>
-<a href="javascript:;" onclick="SeoModule.stopThreads();">stop threads</a>
+<a href="javascript:;" onclick="SeoModule.stopThreads();">stop threads</a><br>
+Со скольки кликов парсим запросы
+<input type="text" value="<?=Config::getAttribute('minClicks'); ?>">
+<a href="javascript:;" onclick="SeoModule.setConfigAttribute('minClicks', $(this).prev().val());">OK</a>

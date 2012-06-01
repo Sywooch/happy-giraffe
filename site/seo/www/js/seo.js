@@ -35,8 +35,8 @@ var SeoModule = {
         $.post('/queries/parse/', function (response) {
             if (response.status) {
                 $.pnotify({
-                    pnotify_title: 'Успешно',
-                    pnotify_text: 'Спарсили ' + response.count + ' запросов'
+                    pnotify_title:'Успешно',
+                    pnotify_text:'Спарсили ' + response.count + ' запросов'
                 });
             } else {
                 $.pnotify({
@@ -51,8 +51,8 @@ var SeoModule = {
         $.post('/queries/search/', function (response) {
             if (response.status) {
                 $.pnotify({
-                    pnotify_title: 'Успешно',
-                    pnotify_text: response.count + ' потоков запущено'
+                    pnotify_title:'Успешно',
+                    pnotify_text:response.count + ' потоков запущено'
                 });
             } else {
                 $.pnotify({
@@ -70,8 +70,8 @@ var SeoModule = {
                 $('textarea#proxy').val('');
 
                 $.pnotify({
-                    pnotify_title: 'Успешно',
-                    pnotify_text: 'Новые прокси внесены в базу'
+                    pnotify_title:'Успешно',
+                    pnotify_text:'Новые прокси внесены в базу'
                 });
             }
         }, 'json');
@@ -80,8 +80,18 @@ var SeoModule = {
         $.post('/queries/stopThreads/', function (response) {
             if (response.status) {
                 $.pnotify({
-                    pnotify_title: 'Успешно',
-                    pnotify_text: 'Сигнал передан, в течении минуты потоки должны завершиться'
+                    pnotify_title:'Успешно',
+                    pnotify_text:'Сигнал передан, в течении минуты потоки должны завершиться'
+                });
+            }
+        }, 'json');
+    },
+    setConfigAttribute:function (title, value) {
+        $.post('/queries/setConfigAttribute/', {title:title, value:value}, function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:'Параметр установлен'
                 });
             }
         }, 'json');

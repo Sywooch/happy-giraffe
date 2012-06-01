@@ -13,6 +13,7 @@ class SeoCommand extends CConsoleCommand
     public function Popularity($thread)
     {
         Yii::import('site.seo.models.*');
+        Yii::import('site.seo.models.mongo.*');
         Yii::import('site.seo.components.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 

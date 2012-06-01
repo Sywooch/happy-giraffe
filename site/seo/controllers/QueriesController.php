@@ -7,6 +7,7 @@ class QueriesController extends SController
 {
 
     public $secret_key = 'kastgpij35iyiehi';
+
     public function accessRules()
     {
         return array(
@@ -33,13 +34,13 @@ class QueriesController extends SController
 
     public function actionAdmin()
     {
-        $model=new Query('search');
-        $model->unsetAttributes();  // clear any default values
-        if(isset($_GET['Query']))
-            $model->attributes=$_GET['Query'];
+        $model = new Query('search');
+        $model->unsetAttributes(); // clear any default values
+        if (isset($_GET['Query']))
+            $model->attributes = $_GET['Query'];
 
-        $this->render('admin',array(
-            'model'=>$model,
+        $this->render('admin', array(
+            'model' => $model,
         ));
     }
 
@@ -58,31 +59,37 @@ class QueriesController extends SController
 
     public function actionSearch()
     {
+        Config::setAttribute('stop_threads', 0);
+
         for ($i = 0; $i < 10; $i++) {
-            $ch = curl_init('http://seo.happy-giraffe.com/queries/startThread?se=2&secret_key='.$this->secret_key);
+            $ch = curl_init('http://seo.happy-giraffe.com/queries/startThread?se=2&secret_key=' . $this->secret_key);
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             curl_setopt($ch, CURLOPT_HEADER, 1);
             $result = curl_exec($ch);
-            echo $result;
+//            echo $result;
         }
 
         for ($i = 0; $i < 10; $i++) {
-            $ch = curl_init('http://seo.happy-giraffe.com/queries/startThread?secret_key='.$this->secret_key);
+            $ch = curl_init('http://seo.happy-giraffe.com/queries/startThread?secret_key=' . $this->secret_key);
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             curl_setopt($ch, CURLOPT_HEADER, 1);
             $result = curl_exec($ch);
-            echo $result;
+//            echo $result;
         }
+
+        echo CJSON::encode(array('status' => true, 'count' => 20));
     }
 
     public function actionStartThread($secret_key, $se = 3)
     {
-        $parser = new PositionParserThread($se);
-        $parser->start();
+        if ($secret_key == $this->secret_key) {
+            $parser = new PositionParserThread($se);
+            $parser->start();
+        }
     }
 
     public function actionProxy()
@@ -96,6 +103,12 @@ class QueriesController extends SController
             $model->save();
         }
 
+        echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionStopThreads()
+    {
+        Config::setAttribute('stop_threads', 1);
         echo CJSON::encode(array('status' => true));
     }
 }

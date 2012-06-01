@@ -7,7 +7,6 @@ class CookIngredientsController extends BController
     public $layout = '//layouts/club';
 
 
-
     public function beforeAction($action)
     {
         if (!Yii::app()->user->checkAccess('cook_ingredients'))
@@ -28,8 +27,12 @@ class CookIngredientsController extends BController
 
         if (isset($_POST['CookIngredients'])) {
             $model->attributes = $_POST['CookIngredients'];
-            if ($model->save())
+            if ($model->save()) {
+                $iunit = new CookIngredientUnits();
+                $iunit->attributes = array('ingredient_id' => $model->id, 'unit_id' => 1);
+                $iunit->save();
                 $this->redirect(array('update', 'id' => $model->id));
+            }
         }
 
         $this->render('create', array(
@@ -78,8 +81,7 @@ class CookIngredientsController extends BController
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -99,8 +101,7 @@ class CookIngredientsController extends BController
             $link->delete();
 
             $this->renderPartial('_form_nutritionals_list', array('model' => $model));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -155,8 +156,7 @@ class CookIngredientsController extends BController
             $synonym->delete();
 
             $this->renderPartial('_form_synonyms_list', array('model' => $model));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -199,4 +199,57 @@ class CookIngredientsController extends BController
             Yii::app()->end();
         }
     }
+
+    public function actionSaveUnits($id)
+    {
+        foreach ($_POST['units'] as $unit_id => $unit) {
+            $model = CookIngredientUnits::model()->findByAttributes(array('ingredient_id' => $id, 'unit_id' => $unit_id));
+            if (isset($unit['cb'])) {
+                if ($model) {
+                    $model->weight = $unit['weight'];
+                    $model->save();
+                } else {
+                    $model = new CookIngredientUnits();
+                    $model->attributes = array('ingredient_id' => $id, 'unit_id' => $unit_id, 'weight' => $unit['weight']);
+                    $model->save();
+                }
+            } else {
+                if ($model)
+                    $model->delete();
+            }
+        }
+    }
+
+    // temp method to fill Ingredient units
+
+    /*public function actionFillUnits()
+    {
+        set_time_limit(0);
+        $ingredients = CookIngredients::model()->findAll();
+        $units = CookUnits::model()->findAll();
+
+        foreach ($ingredients as $ingredient) {
+            $s = array();
+            $s[] = array('ingredient_id' => $ingredient->id, 'unit_id' => 1);
+
+            if ($ingredient->unit->type == 'qty' and $ingredient->weight > 0) {
+                $s[] = array('ingredient_id' => $ingredient->id, 'unit_id' => $ingredient->unit_id, 'weight' => $ingredient->weight);
+            }
+
+            if ($ingredient->density > 0) {
+                foreach ($units as $unit) {
+                    if ($unit->type == 'volume') {
+                        $s[] = array('ingredient_id' => $ingredient->id, 'unit_id' => $unit->id);
+                    }
+                }
+            }
+
+            foreach ($s as $ss) {
+                //continue;
+                $model = new CookIngredientUnits();
+                $model->attributes = $ss;
+                $model->save();
+            }
+        }
+    }*/
 }

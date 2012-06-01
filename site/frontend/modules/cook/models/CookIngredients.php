@@ -65,6 +65,7 @@ class CookIngredients extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'cookIngredientSynonyms' => array(self::HAS_MANY, 'CookIngredientSynonyms', 'ingredient_id'),
+            'units' => array(self::HAS_MANY, 'CookIngredientUnits', 'ingredient_id'),
             'category' => array(self::BELONGS_TO, 'CookIngredientsCategories', 'category_id'),
             'unit' => array(self::BELONGS_TO, 'CookUnits', 'unit_id'),
             'cookIngredientsNutritionals' => array(self::HAS_MANY, 'CookIngredientsNutritionals', 'ingredient_id'),
@@ -79,7 +80,7 @@ class CookIngredients extends CActiveRecord
         return array(
             'id' => 'ID',
             'category_id' => 'Категория',
-            'unit_id' => 'Ед.изм.',
+            'unit_id' => 'Ед.изм. по умолчанию',
             'title' => 'Название',
             'weight' => 'Вес г',
             'density' => 'Плотность г/см³',
@@ -110,5 +111,26 @@ class CookIngredients extends CActiveRecord
                 'pageSize' => '25',
             ),
         ));
+    }
+
+    public function getUnitsIds()
+    {
+        return Yii::app()->db->createCommand()->select('unit_id')->from('cook__ingredient_units')
+            ->where('ingredient_id = :id', array(':id' => $this->id))
+            ->limit(100)->queryColumn();
+    }
+
+    public function getUnits()
+    {
+        $result = array();
+
+        $temp = Yii::app()->db->createCommand()->select('*')->from('cook__ingredient_units')
+            ->where('ingredient_id = :id', array(':id' => $this->id))
+            ->limit(100)->queryAll();
+
+        foreach ($temp as $t)
+            $result[$t['unit_id']] = $t;
+
+        return $result;
     }
 }

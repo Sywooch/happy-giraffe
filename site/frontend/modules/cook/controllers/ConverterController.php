@@ -20,20 +20,6 @@ class ConverterController extends HController
         echo CJSON::encode($ingredient->getUnitsIds());
     }
 
-    public function actionIndexOld()
-    {
-        $this->pageTitle = 'Конвертер';
-
-        $basePath = Yii::getPathOfAlias('application.modules.cook.views.converter.assets');
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/script_old.js', CClientScript::POS_HEAD);
-
-        $this->render('index_old', array(
-            'model' => new ConverterForm(),
-            'units' => Yii::app()->db->createCommand()->select('*')->from('cook__units')->where('type IN ("weight", "volume", "qty")', array())->queryAll()
-        ));
-    }
-
     public function actionAc($term)
     {
         $ingredients = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')

@@ -20,24 +20,17 @@ $nutritionals->ingredient_id = $model->id;
     )));
     ?>
 
-    <?php echo $form->errorSummary($nutritionals); ?>
+    <?php
+    echo $form->errorSummary($nutritionals);
+    $form->error($nutritionals, 'nutritional_id');
+    $form->error($nutritionals, 'value');
+    ?>
 
     <?php echo $form->hiddenField($nutritionals, 'ingredient_id'); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($nutritionals, 'nutritional_id'); ?>
         <?php echo $form->dropDownList($nutritionals, 'nutritional_id', CookNutritionals::getNutritionals()); ?>
-        <?php echo $form->error($nutritionals, 'nutritional_id'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($nutritionals, 'value'); ?>
         <?php echo $form->textField($nutritionals, 'value'); ?>
-        <?php echo $form->error($nutritionals, 'value'); ?>
-    </div>
-
-
-    <div class="row buttons">
         <?php echo CHtml::submitButton('Добавить'); ?>
     </div>
 

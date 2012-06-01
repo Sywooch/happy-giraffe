@@ -10,15 +10,15 @@
  * @property integer $preparation_duration
  * @property integer $cooking_duration
  * @property integer $servings
- * @property string $advice
  * @property string $text
  * @property string $cuisine_id
  * @property integer $type
  * @property integer $method
+ * @property string $author_id
  *
  * The followings are the available model relations:
  * @property CookRecipeIngredients[] $cookRecipeIngredients
- * @property CookRecipeSteps[] $cookRecipeSteps
+ * @property Users $author
  * @property AlbumPhotos $photo
  * @property CookCuisines $cuisine
  */
@@ -54,6 +54,11 @@ class CookRecipe extends CActiveRecord
         13 => 'На углях',
     );
 
+    public $preparation_duration_h;
+    public $preparation_duration_m;
+    public $cooking_duration_h;
+    public $cooking_duration_m;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -80,17 +85,19 @@ class CookRecipe extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, type, method', 'required'),
-			array('title', 'length', 'max' => 255),
+			array('title, text, type, method, author_id', 'required'),
+            array('title', 'length', 'max' => 255),
             array('photo_id', 'exist', 'attributeName' => 'id', 'className' => 'AlbumPhoto'),
             array('cuisine_id', 'exist', 'attributeName' => 'id', 'className' => 'CookCuisine'),
-            array('servings', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 10),
+            array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
             array('type', 'in', 'range' => array_keys($this->types)),
             array('method', 'in', 'range' => array_keys($this->methods)),
+            array('servings', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 10),
             array('preparation_duration, cooking_duration', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 999),
+            array('preparation_duration_h, preparation_duration_m, cooking_duration_h, cooking_duration_m', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, photo_id, preparation_duration, cooking_duration, servings, advice, text, cuisine_id, type, method', 'safe', 'on'=>'search'),
+			array('id, title, photo_id, preparation_duration, cooking_duration, servings, text, cuisine_id, type, method, author_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -102,10 +109,10 @@ class CookRecipe extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'ingredients' => array(self::HAS_MANY, 'CookRecipeIngredient', 'recipe_id'),
-            'steps' => array(self::HAS_MANY, 'CookRecipeStep', 'recipe_id'),
-            'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
-            'cuisine' => array(self::BELONGS_TO, 'CookCuisine', 'cuisine_id'),
+			'ingredients' => array(self::HAS_MANY, 'CookRecipeIngredient', 'recipe_id'),
+			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+			'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
+			'cuisine' => array(self::BELONGS_TO, 'CookCuisine', 'cuisine_id'),
 		);
 	}
 
@@ -116,16 +123,18 @@ class CookRecipe extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
-			'photo_id' => 'Photo',
-			'preparation_duration' => 'Preparation Duration',
-			'cooking_duration' => 'Cooking Duration',
-			'servings' => 'Servings',
-			'advice' => 'Advice',
-			'text' => 'Text',
-			'cuisine_id' => 'Cuisine',
-			'type' => 'Type',
-			'method' => 'Method',
+			'title' => 'Название блюда',
+			'photo_id' => 'Фото блюда',
+			'preparation_duration' => 'Время подготовки',
+			'cooking_duration' => 'Время приготовления',
+			'servings' => 'На сколько порций',
+			'text' => 'Описание приготовления',
+			'cuisine_id' => 'Кухня',
+			'type' => 'Тип блюда',
+			'method' => 'Способ приготовления',
+			'author_id' => 'Автор',
+
+            'ingredients' => 'Из чего готовим?',
 		);
 	}
 
@@ -146,14 +155,38 @@ class CookRecipe extends CActiveRecord
 		$criteria->compare('preparation_duration',$this->preparation_duration);
 		$criteria->compare('cooking_duration',$this->cooking_duration);
 		$criteria->compare('servings',$this->servings);
-		$criteria->compare('advice',$this->advice,true);
 		$criteria->compare('text',$this->text,true);
 		$criteria->compare('cuisine_id',$this->cuisine_id,true);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('method',$this->method);
+		$criteria->compare('author_id',$this->author_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'withRelated'=>array(
+                'class'=>'site.common.extensions.wr.WithRelatedBehavior',
+            ),
+        );
+    }
+
+    protected function beforeValidate() {
+        if (! empty($this->preparation_duration_h) || ! empty($this->preparation_duration_m)) {
+            $this->preparation_duration = $this->preparation_duration_h * 60 + $this->preparation_duration_m;
+        } else {
+            $this->preparation_duration = null;
+        }
+        if (! empty($this->cooking_duration_h) || ! empty($this->cooking_duration_m)) {
+            $this->cooking_duration = $this->cooking_duration_h * 60 + $this->cooking_duration_m;
+        } else {
+            $this->cooking_duration = null;
+        }
+
+        return parent::beforeValidate();
+    }
 }

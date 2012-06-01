@@ -120,7 +120,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 #tooltip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
 #tooltip h3 {font-weight:normal;font-size:12px;}
 
-.tip {display:none;}
+.tip {display:none !important;}
 
 
 ::-webkit-input-placeholder {color: #ccc !important;font-weight: normal !important;}

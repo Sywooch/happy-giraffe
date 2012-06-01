@@ -12,7 +12,7 @@
  * @property string $slug
  *
  * The followings are the available model relations:
- * @property CookIngredients $ingredient
+ * @property CookIngredient $ingredient
  * @property CookSpicesCategories[] $categories
  * @property CookSpicesHints[] $hints
  * @property AlbumPhoto $photo
@@ -67,7 +67,7 @@ class CookSpices extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
+            'ingredient' => array(self::BELONGS_TO, 'CookIngredient', 'ingredient_id'),
             'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
             //'cookSpicesCategoriesSpices' => array(self::HAS_MANY, 'CookSpicesCategoriesSpices', 'spice_id'),
             'categories' => array(self::MANY_MANY, 'CookSpicesCategories', 'cook__spices__categories_spices(spice_id, category_id)'),

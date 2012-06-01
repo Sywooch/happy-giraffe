@@ -2,15 +2,9 @@
 
 class CalorisatorController extends HController
 {
-    //public $layout = '//layouts/new';
-
     public function actionIndex()
     {
         $this->pageTitle = 'Калоризатор';
-
-
-        $units = Yii::app()->db->createCommand()->select('*')->from('cook__units')->queryAll();
-
         $this->render('index', array('units' => $units));
     }
 
@@ -29,19 +23,17 @@ class CalorisatorController extends HController
                 'label' => $ing->title,
                 'id' => $ing->id,
                 'unit_id' => $ing->unit_id,
-                'weight' => $ing->weight,
                 'density' => $ing->density
             );
             foreach ($ing->cookIngredientsNutritionals as $nutritional)
                 $i['nutritionals'][$nutritional->nutritional_id] = $nutritional->value;
+            foreach ($ing->units as $unit)
+                $i['units'][$unit->unit_id] = $unit->weight;
 
             $result[] = $i;
         }
-        if (Yii::app()->request->isAjaxRequest) {
-            header('Content-type: application/json');
-            echo CJSON::encode($result);
-        } else {
-            echo '<pre>' . print_r($result, true) . '</pre>';
-        }
+
+        header('Content-type: application/json');
+        echo CJSON::encode($result);
     }
 }

@@ -50,7 +50,7 @@
             ?>
             <tr>
                 <td><?=$form->labelEx($model, 'unit_id');?></td>
-                <td><?=$form->dropDownList($model, 'unit_id', CookUnits::getUnits());?></td>
+                <td><?=$form->dropDownList($model, 'unit_id', CookUnit::getUnits());?></td>
                 <td><?=$form->error($model, 'unit_id');?></td>
             </tr>
             <?php

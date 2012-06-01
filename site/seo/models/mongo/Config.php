@@ -6,6 +6,10 @@
 class Config extends EMongoDocument
 {
     public $attributes;
+    private $default = array(
+        'minClicks'=>4,
+        'stop_threads'=>0,
+    );
 
     public static function model($className = __CLASS__)
     {
@@ -28,6 +32,10 @@ class Config extends EMongoDocument
             $model->attributes = array();
             $model->save();
         }
+
+        if (isset($model->default[$title]))
+            return $model->default[$title];
+
         return null;
     }
 

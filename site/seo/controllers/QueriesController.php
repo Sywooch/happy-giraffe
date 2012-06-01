@@ -111,4 +111,9 @@ class QueriesController extends SController
         Config::setAttribute('stop_threads', 1);
         echo CJSON::encode(array('status' => true));
     }
+
+    public function actionSetConfigAttribute(){
+        Config::setAttribute(Yii::app()->request->getPost('title'), Yii::app()->request->getPost('value'));
+        echo CJSON::encode(array('status' => true));
+    }
 }

@@ -181,7 +181,7 @@ class PositionParserThread
 
         $document = phpQuery::newDocument($content);
         $links = array();
-        foreach ($document->find('#ires li.g h3.r a.l') as $link) {
+        foreach ($document->find('#ires li.g div.vsc > h3.r > a.l') as $link) {
             $links [] = pq($link)->attr('href');
         }
 

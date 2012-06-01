@@ -1,11 +1,11 @@
 <?php
 
-class CookUnits extends CActiveRecord
+class CookUnit extends CActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return CookUnits the static model class
+     * @return CookUnit the static model class
      */
     public static function model($className = __CLASS__)
     {

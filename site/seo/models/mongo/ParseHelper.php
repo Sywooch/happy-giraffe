@@ -26,7 +26,7 @@ class ParseHelper extends EMongoDocument
         if ($model === null) {
             $model = new ParseHelper;
             $model->thread = (int)$thread;
-            $model->line = 6000000 + $thread * 4000000;
+            $model->line = $thread * 2000000;
             $model->save();
         }
 

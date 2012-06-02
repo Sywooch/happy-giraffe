@@ -151,4 +151,14 @@ class DefaultController extends SController
         echo ParseHelper::getLine(9) . '<br>';
         echo ParseHelper::getLine(10) . '<br>';
     }
+
+    public function actionTest3()
+    {
+        $file = fopen('F:\Xedant\RAMBLER_ALL.txt', 'r');
+
+        if ($file)
+            while (($buffer = fgets($file)) !== false) {
+                echo $buffer.'<br>';
+            }
+    }
 }

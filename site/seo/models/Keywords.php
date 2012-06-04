@@ -244,7 +244,7 @@ class Keywords extends HActiveRecord
     {
         $allSearch = $textSearch = Yii::app()->search
             ->select('*')
-            ->from('keywords2')
+            ->from('keywords')
             ->where(' ' . $name . ' ')
             ->limit(0, 100000)
             ->searchRaw();

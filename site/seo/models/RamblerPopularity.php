@@ -1,22 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "cook__ingredient_synonyms".
+ * This is the model class for table "rambler_popularity".
  *
- * The followings are the available columns in table 'cook__ingredient_synonyms':
- * @property string $id
- * @property string $ingredient_id
- * @property string $title
+ * The followings are the available columns in table 'rambler_popularity':
+ * @property integer $keyword_id
+ * @property integer $value
  *
  * The followings are the available model relations:
- * @property CookIngredients $ingredient
+ * @property Keywords $keyword
  */
-class CookIngredientSynonyms extends CActiveRecord
+class RamblerPopularity extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return CookIngredientSynonyms the static model class
+	 * @return RamblerPopularity the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,8 +27,13 @@ class CookIngredientSynonyms extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'cook__ingredient_synonyms';
+		return 'happy_giraffe_seo.rambler_popularity';
 	}
+
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -39,12 +43,11 @@ class CookIngredientSynonyms extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ingredient_id, title', 'required'),
-			array('ingredient_id', 'length', 'max'=>11),
-			//array('title', 'length', 'max'=>255),
+			array('keyword_id, value', 'required'),
+			array('keyword_id, value', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, ingredient_id, title', 'safe', 'on'=>'search'),
+			array('keyword_id, value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +59,7 @@ class CookIngredientSynonyms extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
+			'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
 		);
 	}
 
@@ -66,9 +69,8 @@ class CookIngredientSynonyms extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'ingredient_id' => 'Ингредиент',
-			'title' => 'Название',
+			'keyword_id' => 'Keyword',
+			'value' => 'Value',
 		);
 	}
 
@@ -83,9 +85,8 @@ class CookIngredientSynonyms extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('ingredient_id',$this->ingredient_id,true);
-		$criteria->compare('title',$this->title,true);
+		$criteria->compare('keyword_id',$this->keyword_id);
+		$criteria->compare('value',$this->value);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

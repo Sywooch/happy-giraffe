@@ -8,6 +8,13 @@ class WordstatController extends SController
     public $cookie = '';
     public $session = 1;
 
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('admin'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
     public function actionIndex()
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');

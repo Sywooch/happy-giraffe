@@ -1,8 +1,8 @@
 <h1>Синонимы ингредиента</h1>
 
 <?php
-$nutritionals = new CookIngredientsNutritionals();
-$synonyms = new CookIngredientSynonyms();
+$nutritionals = new CookIngredientNutritional();
+$synonyms = new CookIngredientSynonym();
 $synonyms->ingredient_id = $model->id;
 
 ?>

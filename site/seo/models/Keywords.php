@@ -12,6 +12,7 @@
  * @property KeywordGroup[] $keywordGroups
  * @property YandexPopularity $yandexPopularity
  * @property KeywordBlacklist $keywordBlacklist
+ * @property RamblerPopularity $ramblerPopularity
  */
 class Keywords extends HActiveRecord
 {
@@ -65,6 +66,7 @@ class Keywords extends HActiveRecord
             'seoStats' => array(self::HAS_MANY, 'KeyStats', 'keyword_id'),
             'keywordGroups' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'yandexPopularity' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
+            'ramblerPopularity' => array(self::HAS_ONE, 'RamblerPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeywords', 'keyword_id'),
             'keywordBlacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
         );
@@ -123,7 +125,7 @@ class Keywords extends HActiveRecord
     public static function GetKeyword($word)
     {
         $word = trim($word);
-        $model = self::model()->findByAttributes(array('name'=>$word));
+        $model = self::model()->findByAttributes(array('name' => $word));
         if ($model !== null)
             return $model;
 
@@ -169,11 +171,11 @@ class Keywords extends HActiveRecord
     {
         $class = '';
         if ($this->used()) $class = 'on-site';
-        elseif ($this->inBuffer()) $class ='in-buffer';
-        elseif ($this->hasOpenedTask()) $class ='in-work';
+        elseif ($this->inBuffer()) $class = 'in-buffer';
+        elseif ($this->hasOpenedTask()) $class = 'in-work';
 
         if (!empty($class))
-            return ' class="'.$class.'"';
+            return ' class="' . $class . '"';
         return '';
     }
 
@@ -187,13 +189,35 @@ class Keywords extends HActiveRecord
         return $res;
     }
 
-    public function getStats($site_id){
-        foreach($this->seoStats as $stats){
+    public function getStats($site_id)
+    {
+        foreach ($this->seoStats as $stats) {
             if ($stats->site_id == $site_id)
-                return round($stats->sum/12);
+                return round($stats->sum / 12);
         }
 
         return 0;
+    }
+
+    public function getFreqIcon()
+    {
+        $freq = $this->getFreq();
+        if ($freq != 0)
+            return '<i class="icon-freq-' . $freq . '"></i>';
+        return '';
+    }
+
+    public function getFreq()
+    {
+        if (!isset($this->yandexPopularity))
+            return 0;
+        if ($this->yandexPopularity->value > 10000)
+            return 1;
+        if ($this->yandexPopularity->value >= 1500)
+            return 2;
+        if ($this->yandexPopularity->value >= 500)
+            return 3;
+        return 4;
     }
 
     /*public static function findByNameWithSphinx($name)
@@ -216,4 +240,42 @@ class Keywords extends HActiveRecord
 
         return null;
     }*/
+
+    public function findKeywords($name)
+    {
+        $allSearch = $textSearch = Yii::app()->search
+            ->select('*')
+            ->from('keywords')
+            ->where(' ' . $name . ' ')
+            ->limit(0, 100000)
+            ->searchRaw();
+        $ids = array();
+        $blacklist = Yii::app()->db->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
+
+        foreach ($allSearch['matches'] as $key => $m) {
+            if (!in_array($key, $blacklist))
+                $ids [] = $key;
+        }
+
+        if (!empty($ids)) {
+            $criteria = new CDbCriteria;
+            $criteria->compare('t.id', $ids);
+            $criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords', 'seoStats', 'yandexPopularity', 'ramblerPopularity');
+            $criteria->order = 'yandexPopularity.value desc';
+            $models = Keywords::model()->findAll($criteria);
+        } else
+            $models = array();
+
+        return $models;
+    }
+
+    public function getFreqCount($models)
+    {
+        $result = array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0);
+        foreach ($models as $model) {
+            $result [$model->freq] ++;
+        }
+
+        return $result;
+    }
 }

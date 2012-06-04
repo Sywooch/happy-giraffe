@@ -17,6 +17,8 @@
  */
 class CookRecipeIngredient extends CActiveRecord
 {
+    const EMPTY_INGREDIENT_UNIT = 1;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -103,4 +105,21 @@ class CookRecipeIngredient extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getEmptyModel($n = false)
+    {
+        $defaultUnit = CookUnit::model()->findByPk(self::EMPTY_INGREDIENT_UNIT);
+        $model = new self;
+        $model->unit = $defaultUnit;
+        $model->unit_id = $defaultUnit->id;
+        if ($n) {
+            $models = array();
+            for ($i = 0; $i < $n; $i++) {
+                $models[] = $model;
+            }
+            return $models;
+        } else {
+            return $model;
+        }
+    }
 }

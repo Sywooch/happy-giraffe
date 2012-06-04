@@ -123,12 +123,12 @@ class Query extends HActiveRecord
         $sort = new CSort();
         $sort->attributes = array(
             'yandexPos'=>array(
-                'asc'=>'pages.google_position asc',
-                'desc'=>'pages.google_position desc',
-            ),
-            'googlePos'=>array(
                 'asc'=>'pages.yandex_position asc',
                 'desc'=>'pages.yandex_position desc',
+            ),
+            'googlePos'=>array(
+                'asc'=>'pages.google_position asc',
+                'desc'=>'pages.google_position desc',
             ),
             '*',
         );

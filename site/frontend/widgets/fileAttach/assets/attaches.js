@@ -106,6 +106,7 @@ Attach.insertToHumor = function(fsn) {
 
 Attach.insertToRecipe = function(fsn) {
     $.post(base_url + '/albums/recipePhoto/', {val:fsn}, function(data) {
+        alert('data.status');
         if(data.status) {
             alert('123');
             $('#CookRecipe_photo_id').val(data.id);

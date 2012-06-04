@@ -82,10 +82,15 @@
 
                             <div class="add-photo">
 
-                                <a href="">
-                                    <span>Загрузите главное<br/>фото Вашего блюда</span><br/>
-                                    <i class="icon"></i>
-                                </a>
+                                <?php
+                                    $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                                        'model' => $recipe,
+                                    ));
+                                    $fileAttach->button();
+                                    $this->endWidget();
+                                ?>
+
+                                <?=$form->hiddenField($recipe, 'photo_id')?>
 
                             </div>
 
@@ -183,7 +188,7 @@
 
                         <div class="portions">
                             <?php for ($i = 1; $i <= 10; $i++): ?>
-                                <a href="javascript:void(0)" onclick="selectServings(this)"><?=$i?></a>
+                                <a href="javascript:void(0)" onclick="selectServings(this)"<?php if ($i == $recipe->servings): ?> class="active"<?php endif; ?>><?=$i?></a>
                             <?php endfor; ?>
                         </div>
 

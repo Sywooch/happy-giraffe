@@ -264,6 +264,7 @@ class UserNotification extends EMongoDocument
 
     public function getParamsByEntity($entity, $direct = true)
     {
+        $params = array();
         switch (get_class($entity)) {
             case 'CommunityContent':
                 if (isset($entity->rubric->community))

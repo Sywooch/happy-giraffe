@@ -35,14 +35,15 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
                 <td class="col-2 qty"><input type="text" value="" placeholder="0" onblur="Calorisator.Calculate();" onkeyup="Calorisator.Calculate();"/></td>
                 <td class="col-3 unit">
                     <span class="nchzn-v2">
-                        <select class="nchzn" onchange="Calorisator.Calculate();">
-                            <?php
-                            foreach ($units as $unit) {
-                                $display = (in_array($unit['type'], array('qty', 'single', 'undefined'))) ? ' style="display:none !important" ' : '';
-                                echo '<option value="' . $unit['id'] . '" data-id="' . $unit['id'] . '" data-type="' . $unit['type'] . '" data-ratio="' . $unit['ratio'] . '" ' . $display . ' >' . CHtml::encode($unit['title']) . '</option>';
-                            }
-                            ?>
-                        </select>
+                        <!--<select class="nchzn" onchange="Calorisator.Calculate();">
+
+                        </select>-->
+                        <?php
+                        echo CHtml::DropDownList('', 1,
+                            CHtml::listData(CookUnit::model()->findAll(array('order' => 'title')), 'id', 'title'),
+                            array('class' => 'nchzn', 'onchange' => 'Calorisator.Calculate();', 'options' => CookUnit::model()->getTypesData())
+                        );
+                        ?>
                     </span>
                 </td>
                 <td class="col-4 n3 nutritional" data-value="0" data-n="3">

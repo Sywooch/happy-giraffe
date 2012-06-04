@@ -52,6 +52,7 @@ var Converter = {
     },
 
     Calculate:function () {
+        $('.drp-list ul').hide();
         $('#ac').val($('#ac').attr('data-title'));
         $.post(
             $("#converter-form").attr('action'),

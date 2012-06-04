@@ -4299,7 +4299,7 @@ ul.letters li a:hover {
 #cook-add-recipe .title .icon {display:inline-block;width:42px;height:73px;background:url(/images/cook_sprite.png) no-repeat 0 -726px;vertical-align:middle;margin-right:10px;position:relative;top:-2px;}
 
 #cook-add-recipe .form-in {background:#fbf7ff;position:relative;}
-#cook-add-recipe .row {padding:15px 25px 35px;}
+#cook-add-recipe .row {padding:15px 25px 25px;}
 #cook-add-recipe .row .col {width:50%;float:left;}
 #cook-add-recipe .row-title {color:#3c3c3c;font-size:18px;margin-left:10px;display:inline-block;margin-bottom:5px;}
 #cook-add-recipe .row-title span {color:#858383;font-size:14px;}
@@ -4329,8 +4329,9 @@ ul.letters li a:hover {
 #cook-add-recipe .add-photo a:hover span {border:0;}
 
 #cook-add-recipe .dish-types {}
-#cook-add-recipe .dish-types label {width:48%;display:inline-block;vertical-align:top;color:#1e95d9;padding:7px 0;cursor:pointer;}
-#cook-add-recipe .dish-types label input {float:left;position:relative;top:-3px;margin-left:-5px;margin-right:5px;}
+#cook-add-recipe .dish-types .radio-box {width:48%;display:inline-block;vertical-align:top;color:#1e95d9;padding:7px 0;cursor:pointer;}
+#cook-add-recipe .dish-types .radio-box input {float:left;position:relative;top:-2px;margin-left:-5px;margin-right:5px;}
+#cook-add-recipe .dish-types .radio-box label {color:#1e95d9;font-size:13px;}
 
 #cook-add-recipe select {width:280px;}
 

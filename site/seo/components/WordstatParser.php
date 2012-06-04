@@ -3,17 +3,83 @@
  * Author: alexk984
  * Date: 29.05.12
  */
-class WordstatParser
+class WordstatParser extends ProxyParserThread
 {
-    public function getCaptcha()
+    public $cookie;
+    public $keywords = array(
+        'беременность',
+        //'беременность по неделям'
+    );
+
+    public $result = array();
+
+    public function start()
     {
+        $this->getCookie();
 
-        $oc = new OCR();
-        $oc->SystemKey = "e0d903d95bae559de224c88eb3a3f6e6";
+        for ($i = 0; $i < count($this->keywords); $i++) {
+            $success = false;
+            while (!$success) {
+                $success = $this->parseQuery($this->keywords[$i]);
+            }
 
-        $res = $oc->RecognizeExt( _PATH_TO_FILE_, 2, 0, 0, 3, 10, 0);
-        $oc->Report(true);
+            if (!$success)
+                $this->changeBadProxy();
 
-        echo $res;
+            if (Config::getAttribute('stop_threads') == 1)
+                break;
+        }
+
+        var_dump($this->result);
+    }
+
+    public function afterProxyChange()
+    {
+        $this->getCookie();
+    }
+
+    private function getCookie()
+    {
+        $url = 'http://wordstat.yandex.ru/';
+        $mc_url = '';
+
+        while (empty($mc_url)) {
+            $data = $this->query($url);
+
+            if (preg_match('/<img src="\/\/mc.yandex.ru\/watch\/([\d]+)"/', $data, $res)) {
+                $mc_url = 'http://mc.yandex.ru/watch/' . $res[1];
+                $this->query($mc_url, $url);
+            }
+        }
+        $this->query('http://kiks.yandex.ru/su/', $url);
+    }
+
+    private function parseQuery($query)
+    {
+        if (isset($this->result[$query]))
+            return true;
+
+        $html = $this->query('http://wordstat.yandex.ru/?cmd=words&page=1&t=' . urlencode($query) . '&geo=&text_geo=');
+
+        if (!strpos($html, 'Что искали со словом')){
+            return false;
+        }
+
+        echo $html;
+
+        $document = phpQuery::newDocument($html);
+        foreach ($document->find('table.campaign tr td table td a') as $link) {
+            $keywords = pq($link)->text();
+            $value = (int)pq($link)->parent()->next()->next()->text();
+            $this->AddStat($keywords, $value);
+        }
+
+        return true;
+    }
+
+    public function AddStat($keyword, $value)
+    {
+        if (!empty($keyword) && !empty($value))
+            $this->result[$keyword] = $value;
     }
 }

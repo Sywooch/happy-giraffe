@@ -69,8 +69,6 @@ class WordstatParser extends ProxyParserThread
             return false;
         }
 
-        echo $html;
-
         $document = phpQuery::newDocument($html);
         foreach ($document->find('table.campaign tr td table td a') as $link) {
             $keywords = pq($link)->text();

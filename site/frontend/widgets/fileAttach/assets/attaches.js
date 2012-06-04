@@ -59,8 +59,10 @@ Attach.selectBrowsePhoto = function(button) {
         this.saveCommentPhoto(fsn);
     } else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(fsn);
-    }else if(this.entity == 'Humor') {
+    } else if(this.entity == 'Humor') {
         this.insertToHumor(fsn);
+    } else if(this.entity == 'Recipe') {
+        this.insertToRecipe(fsn);
     } else {
         $.fancybox.close();
     }
@@ -99,6 +101,14 @@ Attach.insertToHumor = function(fsn) {
     $.post(base_url + '/albums/humorPhoto/', {val:fsn}, function(data) {
         if(data)
             document.location.reload();
+    }, 'json');
+}
+
+Attach.insertToRecipe = function(fsn) {
+    $.post(base_url + '/albums/humorPhoto/', {val:fsn}, function(data) {
+        if(data.status) {
+            $('div.add-photo').html($('<img />').attr('src', data.src));
+        }
     }, 'json');
 }
 

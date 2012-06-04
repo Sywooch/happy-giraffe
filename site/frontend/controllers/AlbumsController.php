@@ -304,6 +304,34 @@ class AlbumsController extends HController
         echo $humor->save();
     }
 
+    public function actionRecipePhoto()
+    {
+        $val = Yii::app()->request->getPost('val');
+        if (is_numeric($val)) {
+            AlbumPhoto::model()->findByPk($val);
+        } else {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            $model->create(true);
+        }
+
+        if ($model === null) {
+            $response = array(
+                'status' => false,
+            );
+        } else {
+            $response = array(
+                'status' => true,
+                'src' => $model->getPreviewUrl(325, 252),
+                'id' => $model->primaryKey,
+                'title' => $model->title,
+            );
+        }
+        echo CJSON::encode($response);
+        Yii::app()->end();
+    }
+
     public function actionCommentPhoto()
     {
         if(!$val = Yii::app()->request->getPost('val'))

@@ -105,7 +105,7 @@ Attach.insertToHumor = function(fsn) {
 }
 
 Attach.insertToRecipe = function(fsn) {
-    $.post(base_url + '/albums/humorPhoto/', {val:fsn}, function(data) {
+    $.post(base_url + '/albums/recipePhoto/', {val:fsn}, function(data) {
         if(data.status) {
             $('div.add-photo').html($('<img />').attr('src', data.src));
         }

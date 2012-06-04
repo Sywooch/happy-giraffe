@@ -85,6 +85,11 @@ return array(
         'horoscope/tomorrow/<zodiac:[\w]+>'=>'services/horoscope/default/tomorrow',
         'horoscope/yesterday/<zodiac:[\w]+>'=>'services/horoscope/default/yesterday',
 
+        'cook/spices/index' => 'cook/spices/index',
+        'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
+        'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
+
+
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 

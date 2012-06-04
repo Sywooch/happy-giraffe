@@ -17,7 +17,7 @@
  * @property CookUnit $unit
  * @property CookIngredientsNutritionals[] $cookIngredientsNutritionals
  */
-class CookIngredient extends CActiveRecord
+class CookIngredient extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

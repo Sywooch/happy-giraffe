@@ -7,6 +7,7 @@ class FileAttachWidget extends CWidget
     public $container;
     public $afterSelect;
     public $disableNavigation = false;
+    public $fixAsap = false;
 
     public $title;
     public $button_title;

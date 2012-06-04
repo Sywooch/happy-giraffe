@@ -85,6 +85,7 @@
                                 <?php
                                     $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                                         'model' => $recipe,
+                                        'fixAsap' => true,
                                     ));
                                     $fileAttach->button();
                                     $this->endWidget();

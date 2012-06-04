@@ -155,7 +155,7 @@ class Query extends HActiveRecord
     {
         $res = '';
         foreach ($this->pages as $page) {
-            $res .= $page->yandex_position . '<br>';
+            return $page->yandex_position . '<br>';
         }
 
         return $res;
@@ -165,7 +165,7 @@ class Query extends HActiveRecord
     {
         $res = '';
         foreach ($this->pages as $page) {
-            $res .= $page->google_position . '<br>';
+            return $page->google_position . '<br>';
         }
 
         return $res;

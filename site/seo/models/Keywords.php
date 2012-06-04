@@ -201,7 +201,8 @@ class Keywords extends HActiveRecord
 
     public function getFreqIcon()
     {
-        if ($freq = $this->getFreq() != 0)
+        $freq = $this->getFreq();
+        if ($freq != 0)
             return '<i class="icon-freq-' . $freq . '"></i>';
         return '';
     }
@@ -260,7 +261,7 @@ class Keywords extends HActiveRecord
             $criteria = new CDbCriteria;
             $criteria->compare('t.id', $ids);
             $criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords', 'seoStats', 'yandexPopularity', 'ramblerPopularity');
-            $criteria->order = 'seoStats.sum desc';
+            $criteria->order = 'yandexPopularity.value desc';
             $models = Keywords::model()->findAll($criteria);
         } else
             $models = array();

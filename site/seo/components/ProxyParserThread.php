@@ -34,7 +34,7 @@ class ProxyParserThread extends CComponent
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        $criteria->order = 'rank DESC';
+        $criteria->order = 'rand()';
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
@@ -58,7 +58,7 @@ class ProxyParserThread extends CComponent
         sleep(rand($this->delay_min, $this->delay_max));
 
         if ($ch = curl_init($url)) {
-            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3');
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
             if ($post) {
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);

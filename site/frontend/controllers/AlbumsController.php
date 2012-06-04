@@ -184,6 +184,12 @@ class AlbumsController extends HController
             $this->renderPartial('photo', compact('photo'));
     }
 
+    public function actionWPhoto($id)
+    {
+        $model = AlbumPhoto::model()->findByPk($id);
+        $this->renderPartial('w_photo', compact('model'));
+    }
+
     public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)
     {
         Yii::app()->clientScript->scriptMap['*.js'] = false;

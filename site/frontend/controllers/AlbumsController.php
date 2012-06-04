@@ -304,6 +304,28 @@ class AlbumsController extends HController
         echo $humor->save();
     }
 
+    public function actionCookDecorationPhoto()
+    {
+        $val = Yii::app()->request->getPost('val');
+        $model = new AlbumPhoto;
+        $model->file_name = $val;
+        $model->author_id = Yii::app()->user->id;
+        $model->create(true);
+
+        Yii::import('application.modules.cook.models.CookDecoration');
+        $decoration = new CookDecoration();
+        $decoration->photo_id = $model->id;
+        $decoration->category_id = Yii::app()->request->getPost('category');
+        $decoration->title = Yii::app()->request->getPost('title');
+        echo $decoration->save();
+    }
+
+    public function actionCookDecorationCategory()
+    {
+        $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decor', array());
+        Yii::app()->end();
+    }
+
     public function actionCommentPhoto()
     {
         if(!$val = Yii::app()->request->getPost('val'))

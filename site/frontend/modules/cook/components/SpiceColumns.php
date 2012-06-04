@@ -36,7 +36,6 @@ class SpiceColumns
     public function calcColumns()
     {
         $part_size = count($this->models) / 4;
-        echo $part_size;
         $col = new SpiceColumn;
         foreach ($this->groups as $group) {
             if ($col->count() + count($group->models) / 2 > $part_size && count($this->columns) < 3) {

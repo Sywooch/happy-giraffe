@@ -17,10 +17,8 @@ class WordstatController extends SController
 
     public function actionIndex()
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
-        $this->getCookie('http://wordstat.yandex.ru/');
-        $this->startParse();
+        $parser = new WordstatParser;
+        $parser->start();
     }
 
     public function actionPrepareKeywords(){

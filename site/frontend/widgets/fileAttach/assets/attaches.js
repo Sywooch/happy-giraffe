@@ -59,10 +59,12 @@ Attach.selectBrowsePhoto = function(button) {
         this.saveCommentPhoto(fsn);
     } else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(fsn);
-    }else if(this.entity == 'Humor') {
+    } else if(this.entity == 'Humor') {
         this.insertToHumor(fsn);
     }else if(this.entity == 'CookDecoration') {
         this.CookDecorationEdit(fsn);
+    } else if(this.entity == 'CookRecipe') {
+        this.insertToRecipe(fsn);
     } else {
         $.fancybox.close();
     }
@@ -101,6 +103,15 @@ Attach.insertToHumor = function(fsn) {
     $.post(base_url + '/albums/humorPhoto/', {val:fsn}, function(data) {
         if(data)
             document.location.reload();
+    }, 'json');
+}
+
+Attach.insertToRecipe = function(fsn) {
+    $.post(base_url + '/albums/recipePhoto/', {val:fsn}, function(data) {
+        if(data.status) {
+            $('#CookRecipe_photo_id').val(data.id);
+            $('div.photo.CookRecipe').html($('<img />').attr('src', data.src));
+        }
     }, 'json');
 }
 

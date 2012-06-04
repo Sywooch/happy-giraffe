@@ -95,6 +95,7 @@ class CookRecipe extends CActiveRecord
             array('servings', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 10),
             array('preparation_duration, cooking_duration', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 999),
             array('preparation_duration_h, preparation_duration_m, cooking_duration_h, cooking_duration_m', 'safe'),
+            array('cuisine_id', 'default', 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, photo_id, preparation_duration, cooking_duration, servings, text, cuisine_id, type, method, author_id', 'safe', 'on'=>'search'),

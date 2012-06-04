@@ -12,11 +12,11 @@ foreach ($models as $model){
 <?php $i++; ?>
     <tr id="key-<?=$model->id ?>"<?=$model->getClass() ?>>
         <td class="col-1"><?=$model->name ?></td>
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><?= $model->yandexPopularity ?></td>
+        <td><?= $model->ramblerPopularity ?></td>
 <!--        <td></td>-->
 <!--        <td></td>-->
         <td><?=$model->getStats(1) ?></td>

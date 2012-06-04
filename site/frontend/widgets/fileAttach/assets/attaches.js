@@ -61,7 +61,7 @@ Attach.selectBrowsePhoto = function(button) {
         this.insertToComment(fsn);
     } else if(this.entity == 'Humor') {
         this.insertToHumor(fsn);
-    } else if(this.entity == 'Recipe') {
+    } else if(this.entity == 'CookRecipe') {
         this.insertToRecipe(fsn);
     } else {
         $.fancybox.close();
@@ -109,6 +109,7 @@ Attach.insertToRecipe = function(fsn) {
         if(data.status) {
             alert('123');
             $('#CookRecipe_photo_id').val(data.id);
+            $('div.add-photo').html($('<img />').attr('src', data.src));
         }
     }, 'json');
 }

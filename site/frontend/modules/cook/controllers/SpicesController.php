@@ -12,7 +12,7 @@ class SpicesController extends HController
 
     public function actionCategory($id)
     {
-        $model = CookSpicesCategories::model()->with('spices', 'photo')->findByPk($id);
+        $model = CookSpicesCategories::model()->with('spices', 'photo')->findByAttributes(array('slug'=>$id));
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
@@ -23,7 +23,7 @@ class SpicesController extends HController
 
     public function actionView($id)
     {
-        $model = CookSpices::model()->with('photo', 'categories', 'hints')->findByPk($id);
+        $model = CookSpices::model()->with('photo', 'categories', 'hints')->findByAttributes(array('slug'=>$id));
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 

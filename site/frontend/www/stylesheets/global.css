@@ -4091,7 +4091,7 @@ ul.letters li a:hover {
 
 #spices .spices-in {width:830px;float:left;margin-left:130px;padding-top:25px;}
 #spices .spices-in .cat-img {float:right;margin:0 0 15px 15px;}
-#spices .spices-in .cat-img img {display:block;}
+#spices .spices-in .cat-img img {display:block;width: 370px;}
 
 #spices .spices-abc {padding:20px;background:#f8fff2;margin-top:30px;}
 #spices .spices-abc .block-title {font-size:14px;font-weight:bold;color:#585758;margin-bottom:5px;}

@@ -19,6 +19,11 @@ class WordstatController extends SController
     {
         $parser = new WordstatParser;
         $parser->start();
+
+//        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+//
+//        $this->getCookie('http://wordstat.yandex.ru/');
+//        $this->startParse();
     }
 
     public function actionPrepareKeywords(){

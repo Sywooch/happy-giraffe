@@ -15,16 +15,18 @@ class WordstatParser extends ProxyParserThread
 
     public function start()
     {
+        $this->delay_min = 0;
+        $this->delay_max = 0;
+
         $this->getCookie();
 
         for ($i = 0; $i < count($this->keywords); $i++) {
             $success = false;
             while (!$success) {
                 $success = $this->parseQuery($this->keywords[$i]);
+                if (!$success)
+                    $this->changeBadProxy();
             }
-
-            if (!$success)
-                $this->changeBadProxy();
 
             if (Config::getAttribute('stop_threads') == 1)
                 break;
@@ -49,9 +51,10 @@ class WordstatParser extends ProxyParserThread
             if (preg_match('/<img src="\/\/mc.yandex.ru\/watch\/([\d]+)"/', $data, $res)) {
                 $mc_url = 'http://mc.yandex.ru/watch/' . $res[1];
                 $this->query($mc_url, $url);
+                echo $mc_url;
             }
+            $this->query('http://kiks.yandex.ru/su/', $url);
         }
-        $this->query('http://kiks.yandex.ru/su/', $url);
     }
 
     private function parseQuery($query)
@@ -59,9 +62,10 @@ class WordstatParser extends ProxyParserThread
         if (isset($this->result[$query]))
             return true;
 
-        $html = $this->query('http://wordstat.yandex.ru/?cmd=words&page=1&t=' . urlencode($query) . '&geo=&text_geo=');
+        $html = $this->query('http://wordstat.yandex.ru/?cmd=words&page=1&t=' . urlencode($query) . '&geo=&text_geo=', 'http://wordstat.yandex.ru/');
 
-        if (!strpos($html, 'Что искали со словом')){
+        if (!strpos($html, 'Что искали со')){
+            echo $html;
             return false;
         }
 

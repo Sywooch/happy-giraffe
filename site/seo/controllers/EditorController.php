@@ -28,33 +28,12 @@ class EditorController extends SController
         $term = $_POST['term'];
         if (!empty($term)) {
 
-            $allSearch = $textSearch = Yii::app()->search
-                ->select('*')
-                ->from('keywords')
-                ->where(' ' . $term . ' ')
-                ->limit(0, 100000)
-                ->searchRaw();
-            $ids = array();
-            $blacklist = Yii::app()->db->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
-
-            foreach ($allSearch['matches'] as $key => $m) {
-                if (!in_array($key, $blacklist))
-                    $ids [] = $key;
-            }
-
-            if (!empty($ids)) {
-                $criteria = new CDbCriteria;
-                $criteria->compare('t.id', $ids);
-                $criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords', 'seoStats');
-                $criteria->order = 'seoStats.sum desc';
-                $models = Keywords::model()->findAll($criteria);
-            } else
-                $models = array();
-
+            $models = Keywords::model()->findKeywords($term);
+            $counts = Keywords::model()->getFreqCount($models);
             $response = array(
                 'status' => true,
-                'count' => $this->renderPartial('_find_result_count', array('models' => $models), true),
-                'table' => $this->renderPartial('_find_result_table', array('models' => $models), true)
+                'count' => $this->renderPartial('_find_result_count',  compact('models', 'counts'), true),
+                'table' => $this->renderPartial('_find_result_table', compact('models'), true)
             );
             echo CJSON::encode($response);
         }

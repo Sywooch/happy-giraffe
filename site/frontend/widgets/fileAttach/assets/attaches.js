@@ -61,6 +61,8 @@ Attach.selectBrowsePhoto = function(button) {
         this.insertToComment(fsn);
     } else if(this.entity == 'Humor') {
         this.insertToHumor(fsn);
+    }else if(this.entity == 'CookDecoration') {
+        this.CookDecorationEdit(fsn);
     } else if(this.entity == 'CookRecipe') {
         this.insertToRecipe(fsn);
     } else {
@@ -112,6 +114,29 @@ Attach.insertToRecipe = function(fsn) {
             $.fancybox.close();
         }
     }, 'json');
+}
+
+Attach.insertToCookDecoration = function() {
+    $.post(
+        '/albums/cookDecorationPhoto/',
+        {
+            val:$('#upload_photo_container').children('input').val(),
+            title:$('.photo-title input[name="title"]').val(),
+            category:$('.photo-title select[name="category"]').val()
+        },
+        function(data) {
+            if(data){
+                document.location.reload();
+            }
+        });
+}
+
+Attach.CookDecorationEdit = function(fsn){
+    $.post(base_url + '/albums/cookDecorationCategory/', {}, function(data) {
+        $('.photo-upload').append(data);
+        $('#save_attach_button button span span').text('Завершить')
+        $('#save_attach_button button').attr('onclick', 'Attach.insertToCookDecoration();');
+    });
 }
 
 Attach.saveCommentPhoto = function (fsn) {

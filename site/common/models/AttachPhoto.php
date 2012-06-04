@@ -80,6 +80,7 @@ class AttachPhoto extends HActiveRecord
                     case 'Baby' : $type = 3; break;
                     case 'UserPartner' : $type = 3; break;
                     case 'Product' : $type = 4; break;
+                    case 'CookDecoration' : $type = 5; break;
                     default : $type = 0;
                 }
                 if($type != 0)

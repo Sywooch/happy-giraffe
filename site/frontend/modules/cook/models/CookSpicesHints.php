@@ -9,9 +9,9 @@
  * @property string $content
  *
  * The followings are the available model relations:
- * @property CookSpices $spice
+ * @property CookSpice $spice
  */
-class CookSpicesHints extends CActiveRecord
+class CookSpicesHints extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -55,7 +55,7 @@ class CookSpicesHints extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'spice' => array(self::BELONGS_TO, 'CookSpices', 'spice_id'),
+			'spice' => array(self::BELONGS_TO, 'CookSpice', 'spice_id'),
 		);
 	}
 

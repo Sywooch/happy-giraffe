@@ -1,11 +1,11 @@
 <?php
 
-class CookUnits extends CActiveRecord
+class CookUnit extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return CookUnits the static model class
+     * @return CookUnit the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -46,8 +46,8 @@ class CookUnits extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'cookIngredients' => array(self::HAS_MANY, 'CookIngredients', 'default_unit_id'),
-            'ingredientUnits' => array(self::HAS_MANY, 'CookIngredientUnits', 'unit_id'),
+            'cookIngredients' => array(self::HAS_MANY, 'CookIngredient', 'default_unit_id'),
+            'ingredientUnits' => array(self::HAS_MANY, 'CookIngredientUnit', 'unit_id'),
         );
     }
 
@@ -97,6 +97,19 @@ class CookUnits extends CActiveRecord
         $units = self::model()->findAll(array('order' => 'title'));
         foreach ($units as $unit)
             $result [$unit->id] = $unit->title;
+        return $result;
+    }
+
+    public function getTypesData()
+    {
+        $result = array();
+        $units = self::model()->findAll();
+        foreach ($units as $unit) {
+            $result[$unit->id] = array(
+                'data-type' => $unit->type,
+                'data-ratio' => $unit->ratio
+            );
+        }
         return $result;
     }
 

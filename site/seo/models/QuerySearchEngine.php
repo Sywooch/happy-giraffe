@@ -1,37 +1,39 @@
 <?php
 
 /**
- * This is the model class for table "cook__ingredients_nutritionals".
+ * This is the model class for table "query_search_engines".
  *
- * The followings are the available columns in table 'cook__ingredients_nutritionals':
+ * The followings are the available columns in table 'query_search_engines':
  * @property string $id
- * @property string $ingredient_id
- * @property string $nutritional_id
- * @property string $value
+ * @property string $query_id
+ * @property string $se_id
+ * @property string $se_page
+ * @property string $se_url
  *
  * The followings are the available model relations:
- * @property CookNutritionals $nutritional
- * @property CookIngredients $ingredient
+ * @property Query $query
  */
-class CookIngredientsNutritionals extends CActiveRecord
+class QuerySearchEngine extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return CookIngredientsNutritionals the static model class
+	 * @return QuerySearchEngine the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'cook__ingredients_nutritionals';
-	}
+    public function tableName()
+    {
+        return 'happy_giraffe_seo.query_search_engines';
+    }
+
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -41,13 +43,12 @@ class CookIngredientsNutritionals extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ingredient_id, nutritional_id, value', 'required'),
-			array('ingredient_id, nutritional_id', 'length', 'max'=>11),
-            array('ingredient_id, nutritional_id, value', 'numerical', 'allowEmpty'=>false),
-			array('value', 'length', 'max'=>10),
+			array('query_id', 'required'),
+			array('query_id, se_id, se_page', 'length', 'max'=>10),
+			array('se_url', 'length', 'max'=>1024),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, ingredient_id, nutritional_id, value', 'safe', 'on'=>'search'),
+			array('id, query_id, se_id, se_page, se_url', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,8 +60,7 @@ class CookIngredientsNutritionals extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'nutritional' => array(self::BELONGS_TO, 'CookNutritionals', 'nutritional_id'),
-			'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
+			'query' => array(self::BELONGS_TO, 'Query', 'query_id'),
 		);
 	}
 
@@ -71,9 +71,10 @@ class CookIngredientsNutritionals extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'ingredient_id' => 'Ингредиент',
-			'nutritional_id' => 'Составляющая',
-			'value' => 'Значение',
+			'query_id' => 'Query',
+			'se_id' => 'Se',
+			'se_page' => 'Se Page',
+			'se_url' => 'Se Url',
 		);
 	}
 
@@ -89,9 +90,10 @@ class CookIngredientsNutritionals extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('ingredient_id',$this->ingredient_id,true);
-		$criteria->compare('nutritional_id',$this->nutritional_id,true);
-		$criteria->compare('value',$this->value,true);
+		$criteria->compare('query_id',$this->query_id,true);
+		$criteria->compare('se_id',$this->se_id,true);
+		$criteria->compare('se_page',$this->se_page,true);
+		$criteria->compare('se_url',$this->se_url,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

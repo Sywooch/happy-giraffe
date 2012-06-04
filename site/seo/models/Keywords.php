@@ -12,6 +12,7 @@
  * @property KeywordGroup[] $keywordGroups
  * @property YandexPopularity $yandexPopularity
  * @property KeywordBlacklist $keywordBlacklist
+ * @property RamblerPopularity ramblerPopularity
  */
 class Keywords extends HActiveRecord
 {
@@ -65,6 +66,7 @@ class Keywords extends HActiveRecord
             'seoStats' => array(self::HAS_MANY, 'KeyStats', 'keyword_id'),
             'keywordGroups' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'yandexPopularity' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
+            'ramblerPopularity' => array(self::HAS_ONE, 'RamblerPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeywords', 'keyword_id'),
             'keywordBlacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
         );

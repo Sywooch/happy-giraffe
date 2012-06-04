@@ -61,7 +61,7 @@ class FileAttachWidget extends CWidget
             $this->button_title = 'Продолжить';
             $this->disableNavigation = true;
         }
-        elseif($this->entity == 'Humor')
+        elseif($this->entity == 'Recipe')
         {
             $this->title = 'Фото блюда';
             $this->button_title = 'Продолжить';

@@ -15,8 +15,8 @@ foreach ($models as $model){
         <td></td>
         <td></td>
         <td></td>
-        <td><?= $model->yandexPopularity ?></td>
-        <td><?= $model->ramblerPopularity ?></td>
+        <td><?= isset($model->yandexPopularity)?$model->yandexPopularity->value:'' ?></td>
+        <td><?= isset($model->ramblerPopularity)?$model->ramblerPopularity->value:'' ?></td>
 <!--        <td></td>-->
 <!--        <td></td>-->
         <td><?=$model->getStats(1) ?></td>

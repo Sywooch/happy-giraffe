@@ -100,4 +100,17 @@ class CookUnit extends HActiveRecord
         return $result;
     }
 
+    public function getTypesData()
+    {
+        $result = array();
+        $units = self::model()->findAll();
+        foreach ($units as $unit) {
+            $result[$unit->id] = array(
+                'data-type' => $unit->type,
+                'data-ratio' => $unit->ratio
+            );
+        }
+        return $result;
+    }
+
 }

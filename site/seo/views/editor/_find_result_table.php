@@ -12,11 +12,11 @@ foreach ($models as $model){
 <?php $i++; ?>
     <tr id="key-<?=$model->id ?>"<?=$model->getClass() ?>>
         <td class="col-1"><?=$model->name ?></td>
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
+        <td><?=$model->getFreqIcon() ?></td>
+        <td></td>
+        <td></td>
+        <td><?= isset($model->yandexPopularity)?$model->yandexPopularity->value:'' ?></td>
+        <td><?= isset($model->ramblerPopularity)?$model->ramblerPopularity->value:'' ?></td>
 <!--        <td></td>-->
 <!--        <td></td>-->
         <td><?=$model->getStats(1) ?></td>
@@ -38,5 +38,5 @@ foreach ($models as $model){
             <?php endif ?>
         </td>
     </tr>
-<?php //if ($i > 100) break; ?>
+<?php if ($i > 200) break; ?>
 <?php }

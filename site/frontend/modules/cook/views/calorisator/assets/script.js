@@ -31,7 +31,8 @@ var Calorisator = {
 
     acSelect:function (event, ui) {
         var tr = $(event.target).closest('tr');
-        Calorisator.unitsHide(tr);
+        tr.find('td.unit select option').attr('style', 'display:none !important');
+        tr.find(".chzn").trigger("liszt:updated");
         tr.find('td.title').attr('data-id', ui.item.id);
         tr.find('td.title').attr('data-weight', ui.item.weight);
         tr.find('td.title').attr('data-density', ui.item.density);
@@ -39,30 +40,19 @@ var Calorisator = {
             tr.find('.nutritional.n' + index).attr('data-value', value);
         });
 
-        if (parseFloat(ui.item.density) > 0) {
-            tr.find('td.unit select option[data-type="volume"]').css("display", "list-item !important");
-        }
-        tr.find('td.unit select option[value="' + ui.item.unit_id + '"]').css("display", "list-item !important");
+        $.each(ui.item.units, function (unit_id, weight) {
+            var option = tr.find('td.unit select option[value="' + unit_id + '"]');
+            option.attr('style', 'display:list-item !important');
+            option.attr('data-weight', weight);
+        });
 
         tr.find('td.unit select').val(ui.item.unit_id);
-        $(".chzn").trigger("liszt:updated");
+        tr.find(".chzn").trigger("liszt:updated");
+
 
         Calorisator.Calculate();
         tr.find('td.qty input').focus();
     },
-
-
-    // hide restricted units for product
-
-    unitsHide:function (tr) {
-        tr.find('td.unit select option').each(function (index, el) {
-            var utype = $(el).attr('data-type');
-            //if (utype != 'weight' && utype != 'volume')
-            if (utype != 'weight')
-                $(el).css("display", "none !important");
-        });
-    },
-
 
     // Calculate :)
 
@@ -75,6 +65,7 @@ var Calorisator = {
 
             var unit = $(tr).find('td.unit option[value="' + $(tr).find('td.unit select').val() + '"]');
             var unit_type = unit.attr('data-type');
+            var unit_id = unit.attr('value');
             var qty = parseFloat($(tr).find('td.qty input').val());
             qty = (isNaN(qty)) ? 0 : qty;
 
@@ -93,7 +84,7 @@ var Calorisator = {
                 }
             }
             else if (unit_type == 'qty') {
-                var weight = parseFloat($(tr).find('td.title').attr('data-weight')); // weight of one piece (onlu peices units)
+                var weight = parseFloat($(tr).find('td.unit select option[value="' + unit_id + '"]').attr('data-weight'));
                 qty = qty * weight;
             }
 

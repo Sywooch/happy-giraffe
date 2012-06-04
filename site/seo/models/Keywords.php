@@ -210,11 +210,11 @@ class Keywords extends HActiveRecord
     {
         if (!isset($this->yandexPopularity))
             return 0;
-        if ($this->yandexPopularity > 10000)
+        if ($this->yandexPopularity->value > 10000)
             return 1;
-        if ($this->yandexPopularity >= 1500)
+        if ($this->yandexPopularity->value >= 1500)
             return 2;
-        if ($this->yandexPopularity >= 500)
+        if ($this->yandexPopularity->value >= 500)
             return 3;
         return 4;
     }

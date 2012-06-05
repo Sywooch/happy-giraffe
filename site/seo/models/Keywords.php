@@ -10,9 +10,10 @@
  * The followings are the available model relations:
  * @property KeyStats[] $seoStats
  * @property KeywordGroup[] $keywordGroups
- * @property YandexPopularity $yandexPopularity
+ * @property PastuhovYandexPopularity $pastuhovYandex
  * @property KeywordBlacklist $keywordBlacklist
  * @property RamblerPopularity $ramblerPopularity
+ * @property YandexPopularity $yandex
  */
 class Keywords extends HActiveRecord
 {
@@ -65,7 +66,8 @@ class Keywords extends HActiveRecord
         return array(
             'seoStats' => array(self::HAS_MANY, 'KeyStats', 'keyword_id'),
             'keywordGroups' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
-            'yandexPopularity' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
+            'pastuhovYandex' => array(self::HAS_ONE, 'PastuhovYandexPopularity', 'keyword_id'),
+            'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'ramblerPopularity' => array(self::HAS_ONE, 'RamblerPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeywords', 'keyword_id'),
             'keywordBlacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
@@ -108,7 +110,7 @@ class Keywords extends HActiveRecord
             else
                 $criteria->compare('t.id', null);
         }
-        $criteria->with = array('keywordGroups', 'yandexPopularity', 'tempKeyword');
+        $criteria->with = array('keywordGroups', 'pastuhovYandex', 'tempKeyword');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -209,13 +211,13 @@ class Keywords extends HActiveRecord
 
     public function getFreq()
     {
-        if (!isset($this->yandexPopularity))
+        if (!isset($this->pastuhovYandex))
             return 0;
-        if ($this->yandexPopularity->value > 10000)
+        if ($this->pastuhovYandex->value > 10000)
             return 1;
-        if ($this->yandexPopularity->value >= 1500)
+        if ($this->pastuhovYandex->value >= 1500)
             return 2;
-        if ($this->yandexPopularity->value >= 500)
+        if ($this->pastuhovYandex->value >= 500)
             return 3;
         return 4;
     }
@@ -243,11 +245,11 @@ class Keywords extends HActiveRecord
 
     public function findKeywords($name)
     {
-        $allSearch = $textSearch = Yii::app()->search
+        $allSearch = Yii::app()->search
             ->select('*')
             ->from('keywords')
             ->where(' ' . $name . ' ')
-            ->limit(0, 100000)
+            ->limit(0, 10000)
             ->searchRaw();
         $ids = array();
         $blacklist = Yii::app()->db->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
@@ -260,8 +262,8 @@ class Keywords extends HActiveRecord
         if (!empty($ids)) {
             $criteria = new CDbCriteria;
             $criteria->compare('t.id', $ids);
-            $criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords', 'seoStats', 'yandexPopularity', 'ramblerPopularity');
-            $criteria->order = 'yandexPopularity.value desc';
+            $criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords', 'seoStats', 'pastuhovYandex', 'ramblerPopularity');
+            $criteria->order = 'pastuhovYandex.value desc';
             $models = Keywords::model()->findAll($criteria);
         } else
             $models = array();

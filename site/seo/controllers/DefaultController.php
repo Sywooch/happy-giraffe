@@ -39,7 +39,7 @@ class DefaultController extends SController
         }
     }
 
-    public function actionAddKeys()
+    /*public function actionAddKeys()
     {
         $file = fopen('F:\Xedant\Keywords.txt', 'r');
         $i = 0;
@@ -133,7 +133,7 @@ class DefaultController extends SController
                 }
             }
         }
-    }
+    }*/
 
     public function actionTest2()
     {
@@ -141,6 +141,15 @@ class DefaultController extends SController
         echo '<br>';
         for($i=0;$i<25;$i++){
             echo ParseHelper::getLine($i) . '<br>';
+        }
+    }
+
+    public function actionTest3(){
+        $models = Keywords::model()->findAll('id < 40000');
+        foreach($models as $model){
+            $parsing = new ParsingKeywords();
+            $parsing->keyword_id = $model->id;
+            $parsing->save();
         }
     }
 }

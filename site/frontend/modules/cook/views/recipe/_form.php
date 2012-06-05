@@ -2,15 +2,15 @@
     $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'recipe' . DIRECTORY_SEPARATOR . 'assets';
     $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
-    Yii::app()->clientScript->
-        registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
+    $cs = Yii::app()->clientScript;
+
+    $cs
+        ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
+        ->registerCoreScript('jquery.ui')
+        ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');
     ;
 ?>
-
-<script id="unitTmpl" type="text/x-jquery-tmpl">
-    <li><a href="javascript:void(0)">${title}</a><?=CHtml::hiddenField('unit_id', '${id}')?></li>
-</script>
 
 <div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
 
@@ -191,7 +191,7 @@
 
                         <div class="portions">
                             <?php for ($i = 1; $i <= 10; $i++): ?>
-                                <a href="javascript:void(0)" onclick="selectServings(this)"<?php if ($i == $recipe->servings): ?> class="active"<?php endif; ?>><?=$i?></a>
+                                <a href="javascript:void(0)" onclick="CookRecipe.selectServings(this)"<?php if ($i == $recipe->servings): ?> class="active"<?php endif; ?>><?=$i?></a>
                             <?php endfor; ?>
                         </div>
 
@@ -210,8 +210,6 @@
                 </div>
 
             <?php $this->endWidget(); ?>
-
-            <?php $this->renderPartial('_js', array('count' => count($ingredients), 'form' => $form, 'model' => CookRecipeIngredient::model()->emptyModel, 'units' => $units)); ?>
 
         </div>
 
@@ -286,3 +284,16 @@
     <?php $this->endWidget(); ?>
 
 <?php endif; ?>
+
+<script id="unitTmpl" type="text/x-jquery-tmpl">
+    <li><a href="javascript:void(0)">${title}</a><?=CHtml::hiddenField('unit_id', '${id}')?></li>
+</script>
+
+<script id="ingredientTmpl" type="text/x-jquery-tmpl">
+    <?php $this->renderPartial('_ingredient', array(
+        'n' => '${n}',
+        'form' => $form,
+        'model' => CookRecipeIngredient::model()->emptyModel,
+        'units' => $units,
+    )); ?>
+</script>

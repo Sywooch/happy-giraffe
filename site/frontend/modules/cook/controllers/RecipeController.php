@@ -40,6 +40,7 @@ class RecipeController extends HController
                         $ingredients[] = $ingredient;
                     }
                 }
+                $this->redirect('/cook/recipe/add');
             }
         }
 

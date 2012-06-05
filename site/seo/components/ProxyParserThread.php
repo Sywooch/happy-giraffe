@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 01.06.12
  */
-class ProxyParserThread
+class ProxyParserThread extends CComponent
 {
     /**
      * @var Proxy
@@ -53,7 +53,7 @@ class ProxyParserThread
         }
     }
 
-    protected function query($url, $post = false, $attempt = 0)
+    protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
         sleep(rand($this->delay_min, $this->delay_max));
 
@@ -63,6 +63,9 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
             }
+
+            if (!empty($ref))
+                curl_setopt($ch, CURLOPT_REFERER, $url);
 
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
@@ -90,11 +93,11 @@ class ProxyParserThread
                         $this->changeBadProxy();
                     }
 
-                    return $this->query($url, $post, $attempt);
+                    return $this->query($url, $ref, $post, $attempt);
                 }
 
                 $this->changeBadProxy();
-                return $this->query($url, $post, $attempt);
+                return $this->query($url, $ref, $post, $attempt);
             }
             else {
                 return $content;
@@ -116,6 +119,8 @@ class ProxyParserThread
         $this->success_loads = 0;
 
         $this->removeCookieFile();
+
+        $this->afterProxyChange();
     }
 
     private function saveProxy()
@@ -155,5 +160,10 @@ class ProxyParserThread
     {
         $length = strlen($needle);
         return (substr($haystack, 0, $length) === $needle);
+    }
+
+    protected function afterProxyChange()
+    {
+
     }
 }

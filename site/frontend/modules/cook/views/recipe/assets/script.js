@@ -1,13 +1,8 @@
-function inSelect(event, ui, el)
-{
-    $(el).next('input').val(ui.item.id);
-    var div = $(el).parents('tr').find('div.drp-list');
-    div.children('ul').html($('#unitTmpl').tmpl(ui.item.units));
-    div.children('a.trigger').text(ui.item.unit.title);
-    div.children('input').text(ui.item.unit.id);
+var CookRecipe = {
+
 }
 
-function selectServings(el)
+CookRecipe.selectServings = function(el)
 {
     $('div.portions > a.active').removeClass('active');
     $(el).addClass('active');
@@ -20,7 +15,11 @@ $(function() {
             minLength: 3,
             source: '/cook/recipe/ac/',
             select: function(event, ui) {
-                inSelect(event, ui, this)
+                $(this).next('input').val(ui.item.id);
+                var div = $(this).parents('tr').find('div.drp-list');
+                div.children('ul').html($('#unitTmpl').tmpl(ui.item.units));
+                div.children('a.trigger').text(ui.item.unit.title);
+                div.children('input').val(ui.item.unit.id);
             }
         });
     });
@@ -30,7 +29,7 @@ $(function() {
     });
 
     $('div.product-list').delegate('a.add-btn', 'click', function(e) {
-        $('div.product-list > table').append(newIn);
+        $('div.product-list > table').append($('#ingredientTmpl').tmpl({n: $('div.product-list tr').length}));
     });
 
     $('div.product-list').delegate('a.remove', 'click', function(e) {
@@ -46,12 +45,12 @@ $(function() {
         list.toggle();
         list.next('input').val($(this).next('input').val());
     });
-});
 
-$('#addRecipeForm').delegate('#CookRecipe_preparation_duration_m', 'change', function() {
-    var h = $(this).prev('input');
-    if (parseInt($(this).val()) > 59) {
-        h.val(Math.floor(parseInt($(this).val()) / 60) + parseInt(h.val()));
-        $(this).val(parseInt($(this).val()) % 60);
-    }
+    /*$('#addRecipeForm').delegate('#CookRecipe_preparation_duration_m', 'change', function() {
+        var h = $(this).parent('div.input').prev('div.input').find('input');
+        if (parseInt($(this).val()) > 59) {
+            h.val(Math.floor(parseInt($(this).val()) / 60) + parseInt(h.val()));
+            $(this).val(parseInt($(this).val()) % 60);
+        }
+    });*/
 });

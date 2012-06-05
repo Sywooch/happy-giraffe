@@ -1,6 +1,6 @@
 <tr>
     <td class="col-1">
-        <?=CHtml::textField('CookRecipeIngredient[' . $n . '][title]', '', array('placeholder' => 'Название продукта', 'class' => 'inAc'))?>
+        <?=$form->textField($model, '[' . $n . ']' . 'title', array('placeholder' => 'Название продукта', 'class' => 'inAc'))?>
         <?=$form->hiddenField($model, '[' . $n . ']' . 'ingredient_id')?>
     </td>
     <td class="col-2"><?=$form->textField($model, '[' . $n . ']' . 'value', array('placeholder' => 0))?></td>
@@ -18,7 +18,7 @@
         <p>
             Продукт:
             <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                'name' => 'CookRecipeIngredient[' . $n . '][title]',
+                'name' => 'CookRecipeIngredient[' . $n . ']title',
                 'sourceUrl' => '/cook/recipe/ac/',
                 'options' => array(
                     'minLength' => '2',

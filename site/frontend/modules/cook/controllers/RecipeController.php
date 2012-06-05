@@ -28,11 +28,9 @@ class RecipeController extends HController
         $ingredients = CookRecipeIngredient::model()->getEmptyModel(20);
 
         if (isset($_POST['CookRecipe'], $_POST['CookRecipeIngredient'])) {
-            $transaction = $recipe->dbConnection->beginTransaction();
-            try {
-                $recipe->attributes = $_POST['CookRecipe'];
-                $recipe->author_id = Yii::app()->user->id;
-                $recipe->save();
+            $recipe->attributes = $_POST['CookRecipe'];
+            $recipe->author_id = Yii::app()->user->id;
+            if ($recipe->save()) {
                 foreach ($_POST['CookRecipeIngredient'] as $i) {
                     $ingredient = new CookRecipeIngredient;
                     $ingredient->attributes = $i;
@@ -40,11 +38,6 @@ class RecipeController extends HController
                     $ingredient->save();
                     $ingredients[] = $ingredient;
                 }
-                $transaction->commit();
-                $this->redirect('cook/recipe/add');
-            } catch(Exception $e)
-            {
-                $transaction->rollBack();
             }
         }
 

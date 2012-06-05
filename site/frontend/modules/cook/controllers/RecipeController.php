@@ -9,6 +9,7 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
+            'ajaxOnly + ac'
         );
     }
 

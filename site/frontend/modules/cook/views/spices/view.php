@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $model CookSpice
+ * @var $model CookSpices
  */
 ?><div id="spices">
 
@@ -33,7 +33,7 @@
             <ul>
                 <?php foreach ($model->categories as $category): ?>
                     <li>
-                        <a href="<?=$this->createUrl('category', array('id'=>$category->id)) ?>" class="cook-cat">
+                        <a href="<?=$this->createUrl('category', array('id'=>$category->slug)) ?>" class="cook-cat">
                             <i class="icon-cook-cat icon-spice-<?=$category->id ?>"></i>
                             <span><?=$category->title ?></span>
                         </a>

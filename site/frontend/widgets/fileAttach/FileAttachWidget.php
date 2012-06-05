@@ -7,6 +7,7 @@ class FileAttachWidget extends CWidget
     public $container;
     public $afterSelect;
     public $disableNavigation = false;
+    public $fixAsap = false;
 
     public $title;
     public $button_title;
@@ -60,6 +61,17 @@ class FileAttachWidget extends CWidget
             $this->title = 'Фото в «Улыбнить вместе с нами»';
             $this->button_title = 'Продолжить';
             $this->disableNavigation = true;
+        }
+        elseif($this->entity == 'CookRecipe')
+        {
+            $this->title = 'Фото блюда';
+            $this->button_title = 'Продолжить';
+            $this->disableNavigation = true;
+        }
+        elseif($this->entity == 'CookDecoration')
+        {
+            $this->title = 'Загрузка фото в раздел "Оформление блюд"';
+            $this->button_title = 'Продолжить';
         }
 
         if($view_type == 'window')

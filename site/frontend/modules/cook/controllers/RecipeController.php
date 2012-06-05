@@ -32,11 +32,13 @@ class RecipeController extends HController
             $recipe->author_id = Yii::app()->user->id;
             if ($recipe->save()) {
                 foreach ($_POST['CookRecipeIngredient'] as $i) {
-                    $ingredient = new CookRecipeIngredient;
-                    $ingredient->attributes = $i;
-                    $ingredient->recipe_id = $recipe->id;
-                    $ingredient->save();
-                    $ingredients[] = $ingredient;
+                    if (! empty($i['title'])) {
+                        $ingredient = new CookRecipeIngredient;
+                        $ingredient->attributes = $i;
+                        $ingredient->recipe_id = $recipe->id;
+                        $ingredient->save();
+                        $ingredients[] = $ingredient;
+                    }
                 }
             }
         }

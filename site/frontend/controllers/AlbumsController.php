@@ -184,10 +184,35 @@ class AlbumsController extends HController
             $this->renderPartial('photo', compact('photo'));
     }
 
-    public function actionWPhoto($id)
+    public function actionWPhoto()
     {
-        $model = AlbumPhoto::model()->findByPk($id);
-        $this->renderPartial('w_photo', compact('model'));
+        $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
+        $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'))->findByPk(Yii::app()->request->getQuery('entity_id'));
+        if(!Yii::app()->request->getQuery('go'))
+        {
+            $this->renderPartial('w_photo', compact('model', 'photo'));
+        }
+        else
+        {
+            if($dist = Yii::app()->request->getQuery('dist'))
+            {
+                foreach($model->photoCollection as $key => $p)
+                {
+                    if($p->id == $photo->id)
+                    {
+                        $offset = $dist == 'prev' ? -1 : 1;
+                        $i = $key + $offset;
+                        if($i < 0)
+                            $i = count($model->photoCollection) - 1;
+                        elseif($i + 1 > count($model->photoCollection))
+                            $i = 0;
+                        $photo = $model->photoCollection[$i];
+                        break;
+                    }
+                }
+            }
+            $this->renderPartial('w_photo_content', compact('model', 'photo'));
+        }
     }
 
     public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)

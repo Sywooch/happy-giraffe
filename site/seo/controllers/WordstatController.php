@@ -28,7 +28,7 @@ class WordstatController extends SController
             ->select('*')
             ->from('keywords')
             ->where(' ' . $keyword . ' ')
-            ->limit(0, 50000)
+            ->limit(0, 100000)
             ->searchRaw();
         $count = 0;
         foreach ($allSearch['matches'] as $key => $m)
@@ -45,7 +45,7 @@ class WordstatController extends SController
     {
         $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from baby_stats__key_stats')->queryColumn();
         $count = 0;
-        foreach ($keywords as $keyword){
+        foreach ($keywords as $keyword) {
             if (ParsingKeywords::model()->addKeywordById($keyword))
                 $count++;
         }
@@ -54,5 +54,41 @@ class WordstatController extends SController
             'status' => true,
             'count' => $count
         ));
+    }
+
+    public function actionRemovePlus()
+    {
+        $end = false;
+        $i = 0;
+
+        $criteria = new CDbCriteria;
+        $criteria->order = 'id';
+        $criteria->limit = 1000;
+        while (!$end) {
+            $criteria->condition = 'id >= ' . ($i * 1000) . ' AND id < ' . ($i*1000 + 1000);
+            $models = Keywords::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                if (preg_match_all('/\+([а-яА-Я]+)/', $model->name, $matches)) {
+                    echo $model->name.'<br>';
+                    $new_name = str_replace('+', '', $model->name);
+
+                    $keyword = Keywords::model()->findByAttributes(array('name' => $new_name));
+                    if ($keyword !== null) {
+                        //$model->delete();
+                    } else {
+                        $model->name = $new_name;
+                        //$model->save();
+                    }
+                }
+            }
+
+            $i++;
+            if ($i%100 == 0)
+                echo $i.'<br>';
+
+            if ($i > 230000)
+                $end = true;
+        }
     }
 }

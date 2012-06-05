@@ -25,7 +25,7 @@ var SeoKeywords = {
         $.post('/editor/selectKeyword/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').addClass('in-buffer');
-                $(el).parent('td').html('in-buffer <a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>');
+                $(el).parent('td').html('in-buffer <input type="hidden" value="'+id+'"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>');
                 $('.default-nav div.count a').text(parseInt($('.default-nav div.count a').text()) + 1);
             }
         }, 'json');
@@ -35,7 +35,7 @@ var SeoKeywords = {
         $.post('/editor/CancelSelectKeyword/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').removeClass('in-buffer');
-                $(el).parent('td').html('<a href="" class="icon-add" onclick="SeoKeywords.Select(this);return false;"></a><a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>');
+                $(el).parent('td').html('<input type="hidden" value="'+id+'"><a href="" class="icon-add" onclick="SeoKeywords.Select(this);return false;"></a><a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>');
                 $('.default-nav div.count a').text(parseInt($('.default-nav div.count a').text()) - 1);
             }
         }, 'json');
@@ -49,7 +49,7 @@ var SeoKeywords = {
         }, 'json');
     },
     getId:function (el) {
-        return $(el).parents('tr').attr("id").replace(/[a-zA-Z]*-/ig, "");
+        return $(el).parent('td').find("input").val();
     },
     hideUsed:function (el) {
         $.post('/editor/hideUsed/', {checked:$(el).attr('checked')}, function (response) {

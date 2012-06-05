@@ -280,4 +280,18 @@ class Keywords extends HActiveRecord
 
         return $result;
     }
+
+    public function getButtons()
+    {
+        if ($this->inBuffer())
+            return 'in-buffer <input type="hidden" value="'.$this->id.'"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>';
+        elseif ($this->used())
+            return 'на сайте';
+        elseif ($this->hasOpenedTask())
+            return 'в работе';
+        else
+            return '<input type="hidden" value="'.$this->id.'">
+            <a href="" class="icon-add" onclick="SeoKeywords.Select(this);return false;"></a>
+            <a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>';
+    }
 }

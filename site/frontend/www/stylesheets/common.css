@@ -2218,6 +2218,10 @@ body.gallery {overflow:hidden;}
 #photo-window #photo .img .title .user-info {margin-left:15px;max-width:40%;}
 #photo-window #photo .img .title .user-info .details {margin-left:30px;}
 #photo-window #photo .img .title .user-info .details .username {max-width:80%;width:auto;color:#38a5f4;}
+#photo-window #photo .img .loading {position:absolute;width:100%;height:100%;background:#000;background:rgba(0,0,0,.8);z-index:2;left:0;top:0;font-size:30px;text-align:center;}
+#photo-window #photo .img .loading .in {width:200px;position:absolute;left:50%;margin-left:-100px;top:50%;margin-top:-100px;}
+#photo-window #photo .img .loading .in img {margin-bottom:10px;}
+
 
 #photo-window #photo .prev {display:block;width:66px;height:130px;background:url(/images/common.png) no-repeat -69px -300px;text-indent:-9999px;position:absolute;left:19px;top:50%;margin-top:-65px;}
 #photo-window #photo .next {display:block;width:66px;height:130px;background:url(/images/common.png) no-repeat -1px -300px;text-indent:-9999px;position:absolute;right:19px;top:50%;margin-top:-65px;}

@@ -15,13 +15,22 @@ function selectServings(el)
 }
 
 $(function() {
+    $('div.product-list').delegate('input.inAc', 'focusin', function(e) {
+        $(this).autocomplete({
+            minLength: 3,
+            source: '/cook/recipe/ac/',
+            select: function(event, ui) {
+                inSelect(event, ui, this)
+            }
+        });
+    });
+
     $('div.product-list').delegate('a.trigger', 'click', function(e) {
         $(this).next('ul').toggle();
     });
 
     $('div.product-list').delegate('a.add-btn', 'click', function(e) {
-        //$('div.product-list > table').append(newIn);
-        $('div.product-list tr:hidden:first').show();
+        $('div.product-list > table').append(newIn);
     });
 
     $('div.product-list').delegate('a.remove', 'click', function(e) {

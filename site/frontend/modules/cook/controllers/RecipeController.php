@@ -25,7 +25,7 @@ class RecipeController extends HController
     public function actionAdd()
     {
         $recipe = new CookRecipe;
-        $ingredients = CookRecipeIngredient::model()->getEmptyModel(20);
+        $ingredients = CookRecipeIngredient::model()->getEmptyModel(3);
 
         if (isset($_POST['CookRecipe'], $_POST['CookRecipeIngredient'])) {
             $recipe->attributes = $_POST['CookRecipe'];

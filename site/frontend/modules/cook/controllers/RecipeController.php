@@ -26,16 +26,51 @@ class RecipeController extends HController
     {
         $recipe = new CookRecipe;
 
-        if (isset($_POST['CookRecipe'])) {
+        if (isset($_POST['CookRecipe'], $_POST['CookRecipeIngredient'])) {
             $recipe->attributes = $_POST['CookRecipe'];
             $recipe->author_id = Yii::app()->user->id;
-            if ($recipe->save()) {
-                echo 'ok';
-                Yii::app()->end();
+            $ingredients = array();
+            foreach ($_POST['CookRecipeIngredient'] as $i) {
+                if (! empty($i['title'])) {
+                    $ingredient = new CookRecipeIngredient;
+                    $ingredient->attributes = $i;
+                    $ingredient->recipe_id = $recipe->id;
+                    $ingredient->save();
+                    $ingredients[] = $ingredient;
+                }
             }
+            $recipe->ingredients = $ingredients;
+            $recipe->withRelated->save(true, array('ingredients'));
+
+        } else {
+            $ingredients = CookRecipeIngredient::model()->getEmptyModel(3);
         }
 
         $cuisines = CookCuisine::model()->findAll();
-        $this->render('_form', compact('recipe', 'cuisines'));
+        $units = CookUnit::model()->findAll();
+        $this->render('_form', compact('recipe', 'ingredients', 'cuisines', 'units'));
+    }
+
+    public function actionAc($term)
+    {
+        $criteria = new CDbCriteria(array(
+            'select' => 'id, title',
+            'with' => array('units', 'unit'),
+        ));
+        $criteria->compare('t.title', $term, true);
+
+        $_ingredients = array();
+        $ingredients = CookIngredient::model()->findAll($criteria);
+        foreach ($ingredients as $i) {
+            $unit = array('id' => $i->unit->id, 'title' => $i->unit->title);
+            $units = array();
+            foreach ($i->availableUnits as $u) {
+                $units[] = array('id' => $u->id, 'title' => $u->title);
+            }
+            $ingredient = array('label' => $i->title, 'value' => $i->title, 'id' => $i->id, 'units' => $units, 'unit' => $unit);
+            $_ingredients[] = $ingredient;
+        }
+
+        echo CJSON::encode($_ingredients);
     }
 }

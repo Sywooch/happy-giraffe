@@ -28,7 +28,7 @@ $selected_index = null;
         <a href="javascript:;" class="next" onclick="$('#photo-thumbs .jcarousel').jcarousel('scroll', '+=1');">следующая</a>
     </div>
     <script type="text/javascript">
-        <?php if($selected_index): ?>
+        <?php if($selected_index !== null): ?>
         $('#photo-thumbs', $('#photo-window')).bind('jcarouselinitend', function(carousel) {
             var count = $('#photo-thumbs li').size();
             var ready = 0;

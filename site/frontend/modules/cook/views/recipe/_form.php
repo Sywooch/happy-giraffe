@@ -2,9 +2,13 @@
     $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'recipe' . DIRECTORY_SEPARATOR . 'assets';
     $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
-    Yii::app()->clientScript->
-        registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
+    $cs = Yii::app()->clientScript;
+
+    $cs
+        ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
+        ->registerCoreScript('jquery.ui')
+        ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');
     ;
 ?>
 

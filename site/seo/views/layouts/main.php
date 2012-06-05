@@ -95,7 +95,7 @@
                         ),
                         array(
                             'label' => 'Конкуренты',
-                            'url' => array('/default/index/'),
+                            'url' => array('/default/competitors/'),
                         ),
                         array(
                             'label' => 'Ключевые слова или фразы',
@@ -131,7 +131,7 @@
                         ),
                         array(
                             'label' => 'Конкуренты',
-                            'url' => array('/default/index'),
+                            'url' => array('/default/competitors'),
                         ),
                         array(
                             'label' => 'Пользователи',

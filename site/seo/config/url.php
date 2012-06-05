@@ -16,6 +16,6 @@ return array(
         'logout'=>'site/logout',
         'keywords'=>'editor/index',
         'tasks'=>'editor/tasks',
-        'competitors'=>'default/index'
+        'competitors'=>'default/competitors'
     ),
 );

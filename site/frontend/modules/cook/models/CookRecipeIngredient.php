@@ -17,6 +17,7 @@
  */
 class CookRecipeIngredient extends CActiveRecord
 {
+    public $title;
     const EMPTY_INGREDIENT_UNIT = 1;
 
 	/**
@@ -50,6 +51,7 @@ class CookRecipeIngredient extends CActiveRecord
             array('ingredient_id', 'exist', 'attributeName' => 'id', 'className' => 'CookIngredient'),
             array('unit_id', 'exist', 'attributeName' => 'id', 'className' => 'CookUnit'),
             array('value', 'numerical', 'min' => '0.01', 'max' => '9999.99'),
+            array('title', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, recipe_id, ingredient_id, unit_id, value', 'safe', 'on'=>'search'),

@@ -55,6 +55,9 @@
     .grid-view {
         padding: 0;
     }
+    .grid-view table.items tr.active{
+        background: #F1E4FD;
+    }
 </style>
 <?php $sites = Site::model()->findAll(); ?>
 <table class="choose-type">
@@ -90,6 +93,7 @@
     'id' => 'keywords-grid',
     'dataProvider' => $model->search($recOnPage),
     'filter' => $model,
+    'rowCssClassExpression'=>'$data->getRowClass()',
 //    'ajaxUpdate'=>false,
     'template' => '{pager}{summary}<div class="table-box">{items}</div>',
     'columns' => array(

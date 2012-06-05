@@ -34,7 +34,7 @@
                         <ul>
                             <?php endif; ?>
                             <li>
-                                <a href="<?=$this->createUrl('view', array('id' => $spice->id)) ?>"><?=$spice->title ?></a>
+                                <a href="<?=$this->createUrl('view', array('id' => $spice->slug)) ?>"><?=$spice->title ?></a>
                             </li>
                             <?php $i++ ?>
                             <?php endforeach; ?>

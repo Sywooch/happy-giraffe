@@ -26,6 +26,8 @@
 
                     <div class="title"><i class="icon"></i>Добавить рецепт</div>
 
+                    <?=$form->errorSummary(array($recipe) + $ingredients)?>
+
                     <div class="row">
 
                         <div class="recipe-name">

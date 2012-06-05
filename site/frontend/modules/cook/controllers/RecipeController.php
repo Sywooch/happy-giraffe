@@ -25,25 +25,22 @@ class RecipeController extends HController
     public function actionAdd()
     {
         $recipe = new CookRecipe;
+        $ingredients = CookRecipeIngredient::model()->getEmptyModel(3);
 
-        if (isset($_POST['CookRecipe'], $_POST['CookRecipeIngredient'])) {
+        if (isset($_POST['CookRecipe'])) {
             $recipe->attributes = $_POST['CookRecipe'];
             $recipe->author_id = Yii::app()->user->id;
-            $ingredients = array();
-            foreach ($_POST['CookRecipeIngredient'] as $i) {
+            foreach ($_POST['CookRecipeIngredient'] as $k => $i) {
                 if (! empty($i['title'])) {
                     $ingredient = new CookRecipeIngredient;
                     $ingredient->attributes = $i;
                     $ingredient->recipe_id = $recipe->id;
                     $ingredient->save();
-                    $ingredients[] = $ingredient;
+                    $ingredients[$k] = $ingredient;
                 }
             }
             $recipe->ingredients = $ingredients;
             $recipe->withRelated->save(true, array('ingredients'));
-
-        } else {
-            $ingredients = CookRecipeIngredient::model()->getEmptyModel(3);
         }
 
         $cuisines = CookCuisine::model()->findAll();

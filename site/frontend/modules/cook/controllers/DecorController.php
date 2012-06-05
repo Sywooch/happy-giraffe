@@ -7,13 +7,11 @@ class DecorController extends HController
 
         $dataProvider = new CActiveDataProvider('CookDecoration', array(
             'criteria' => array(
-                'join' => '',
-                //'condition' => 'status=1',
-                //'order' => 'create_time DESC',
-                'with' => array('category'),
+                'order' => 'photo.created DESC',
+                'with' => array('category','photo'),
             ),
             'pagination' => array(
-                'pageSize' => 3,
+                'pageSize' => 6,
             ),
         ));
 

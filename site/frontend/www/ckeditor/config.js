@@ -34,7 +34,7 @@ CKEDITOR.editorConfig = function (config) {
 
     config.toolbar_Main =
         [
-            { name:'clipboard', items:[ 'Undo', 'Redo', '-' ] },
+
             { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'Avarageheader', 'SmallHeader' ] },
             { name:'paragraph', items:[ 'NumberedList', 'BulletedList', '-' ] },
             { name:'insert', items:[ 'Attach', 'Smiles', '-' ] },
@@ -51,8 +51,9 @@ CKEDITOR.editorConfig = function (config) {
 
     config.toolbar_Simple =
         [
-            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline' ] },
-            { name:'insert', items:[ 'Smiles' ] }
+            { name:'clipboard', items:[ 'Undo', 'Redo', '-' ] },
+            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike'] },
+            { name:'paragraph', items:[ 'NumberedList', 'BulletedList', '-' ] }
         ];
 
     config.toolbar_Nocut =

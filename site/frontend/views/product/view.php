@@ -38,11 +38,13 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
         <div class="description-img">
 
             <div class="img-in">
+                <?php if($model->main_image && $model->main_image->photo): ?>
                 <?php echo CHtml::link(CHtml::image($model->main_image->photo->getPreviewUrl(300, 300, Image::WIDTH, true), $model->product_title), $model->main_image->photo->originalUrl, array(
                     'class' => 'cloud-zoom',
                     'id' => 'zoom1',
                     'rel' => 'adjustX: 40, adjustY:-4',
                 )); ?>
+                <?php endif; ?>
             </div>
 
 

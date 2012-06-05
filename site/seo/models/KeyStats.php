@@ -172,4 +172,12 @@ class KeyStats extends HActiveRecord
             return round($this->sum / 5);
         return round($this->sum / 12);
     }
+
+    public function getRowClass()
+    {
+        if (!empty($this->keyword->keywordGroups))
+            return 'active';
+
+        else return 'odd';
+    }
 }

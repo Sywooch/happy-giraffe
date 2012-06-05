@@ -114,18 +114,38 @@ class Query extends HActiveRecord
         $criteria->compare('visit_time', $this->visit_time);
         $criteria->compare('parsing', $this->parsing);
         $criteria->with = 'pages';
+        $criteria->together = true;
+
+        $criteria->condition = 'pages.yandex_position IS NOT NULL OR pages.google_position IS NOT NULL';
+
+//        $criteria->select = 't.*, IFNULL( count(pages.yandex_position), 0) as yandexPos';
+
+        $sort = new CSort();
+        $sort->attributes = array(
+            'yandexPos'=>array(
+                'asc'=>'pages.yandex_position asc',
+                'desc'=>'pages.yandex_position desc',
+            ),
+            'googlePos'=>array(
+                'asc'=>'pages.google_position asc',
+                'desc'=>'pages.google_position desc',
+            ),
+            '*',
+        );
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 50),
+            'sort' => $sort
         ));
     }
 
     public function getActivePages()
     {
+
         $res = '';
         foreach ($this->pages as $page) {
-            $res .= CHtml::link($page->page_url, $page->page_url) . '<br>';
+            return CHtml::link($page->page_url, $page->page_url);
         }
 
         return $res;
@@ -135,7 +155,7 @@ class Query extends HActiveRecord
     {
         $res = '';
         foreach ($this->pages as $page) {
-            $res .= $page->yandex_position . '<br>';
+            return $page->yandex_position . '<br>';
         }
 
         return $res;
@@ -145,7 +165,7 @@ class Query extends HActiveRecord
     {
         $res = '';
         foreach ($this->pages as $page) {
-            $res .= $page->google_position . '<br>';
+            return $page->google_position . '<br>';
         }
 
         return $res;

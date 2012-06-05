@@ -38,11 +38,11 @@ class CookDecorationCategory extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title', 'required'),
-			array('title', 'length', 'max'=>255),
+			array('title, title_h1', 'required'),
+			array('title, title_h1', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title', 'safe', 'on'=>'search'),
+			array('id, title, title_h1', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +66,7 @@ class CookDecorationCategory extends HActiveRecord
 		return array(
 			'id' => 'ID',
 			'title' => 'Title',
+            'title_h1'=> 'title h1'
 		);
 	}
 
@@ -82,6 +83,7 @@ class CookDecorationCategory extends HActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('title',$this->title,true);
+        $criteria->compare('title_h1',$this->title_h1,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

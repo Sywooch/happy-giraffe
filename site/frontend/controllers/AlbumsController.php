@@ -337,6 +337,8 @@ class AlbumsController extends HController
         $val = Yii::app()->request->getPost('val');
         $model = new AlbumPhoto;
         $model->file_name = $val;
+        if ($title = Yii::app()->request->getPost('title'))
+            $model->title = CHtml::encode($title);
         $model->author_id = Yii::app()->user->id;
         $model->create(true);
 
@@ -344,8 +346,20 @@ class AlbumsController extends HController
         $decoration = new CookDecoration();
         $decoration->photo_id = $model->id;
         $decoration->category_id = Yii::app()->request->getPost('category');
-        $decoration->title = Yii::app()->request->getPost('title');
-        echo $decoration->save();
+        if ($title) {
+            $decoration->title = $title;
+        }
+
+        if ($decoration->save()) {
+            $attach = new AttachPhoto;
+            $attach->entity = 'CookDecoration';
+            $attach->entity_id = $decoration->id;
+            $attach->photo_id = $model->id;
+            if ($attach->save())
+                echo CJSON::encode(array('status' => true));
+
+        } else
+            echo CJSON::encode(array('status' => false));
     }
 
     public function actionCookDecorationCategory()

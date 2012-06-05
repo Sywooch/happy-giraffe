@@ -41,7 +41,7 @@ class SeoCommand extends CConsoleCommand
                 $key = Keywords::model()->findByAttributes(array('name' => $keyword));
                 if ($key !== null && !empty($last)) {
                     try {
-                        $y_pop = new YandexPopularity();
+                        $y_pop = new PastuhovYandexPopularity();
                         $y_pop->keyword_id = $key->id;
                         $y_pop->value = $stat;
                         $y_pop->save();
@@ -132,6 +132,12 @@ class SeoCommand extends CConsoleCommand
         Config::setAttribute('stop_threads', 0);
 
         $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE);
+        $parser->start();
+    }
+
+    public function actionWordstat()
+    {
+        $parser = new WordstatParser();
         $parser->start();
     }
 }

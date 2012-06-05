@@ -1,39 +1,42 @@
 <?php
 
 /**
- * This is the model class for table "yandex_popularity".
+ * This is the model class for table "parsing_keywords".
  *
- * The followings are the available columns in table 'yandex_popularity':
+ * The followings are the available columns in table 'parsing_keywords':
  * @property integer $keyword_id
- * @property string $date
- * @property integer $value
+ * @property integer $active
  *
  * The followings are the available model relations:
  * @property Keywords $keyword
  */
-class YandexPopularity extends HActiveRecord
+class ParsingKeywords extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return YandexPopularity the static model class
+	 * @return ParsingKeywords the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-    public function tableName()
-    {
-        return 'happy_giraffe_seo.yandex_popularity';
-    }
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return 'happy_giraffe_seo.parsing_keywords';
+	}
 
     public function getDbConnection()
     {
         return Yii::app()->db_seo;
     }
 
-	/**
+
+    /**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()
@@ -41,11 +44,11 @@ class YandexPopularity extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('value', 'required'),
-			array('value', 'numerical', 'integerOnly'=>true),
+			array('keyword_id', 'required'),
+			array('keyword_id, active', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('keyword_id, date, value', 'safe', 'on'=>'search'),
+			array('keyword_id, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,17 +71,9 @@ class YandexPopularity extends HActiveRecord
 	{
 		return array(
 			'keyword_id' => 'Keyword',
-			'date' => 'Date',
-			'value' => 'Value',
+			'active' => 'Active',
 		);
 	}
-
-    public function beforeSave()
-    {
-        $this->date = date("Y-m-d");
-
-        return parent::beforeSave();
-    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -92,11 +87,25 @@ class YandexPopularity extends HActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('keyword_id',$this->keyword_id);
-		$criteria->compare('date',$this->date,true);
-		$criteria->compare('value',$this->value);
+		$criteria->compare('active',$this->active);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function addKeywordById($id)
+    {
+        $parsing = new ParsingKeywords();
+        $parsing->keyword_id = $id;
+        try {
+            $success = $parsing->save();
+            if ($success)
+                return true;
+        } catch (Exception $e) {
+
+        }
+
+        return false;
+    }
 }

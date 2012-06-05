@@ -5,7 +5,6 @@
  */
 class WordstatParser extends ProxyParserThread
 {
-    public $cookie;
     /**
      * @var ParsingKeywords
      */
@@ -110,12 +109,14 @@ class WordstatParser extends ProxyParserThread
                 $yaPop = YandexPopularity::model()->findByPk($model->id);
                 if ($yaPop !== null){
                     $yaPop->value = $value;
-                    $yaPop->save();
+                    if (!$yaPop->save())
+                        echo "yandex popularity not saved\n";
                 }else{
                     $yaPop = new YandexPopularity;
                     $yaPop->keyword_id = $model->id;
                     $yaPop->value = $value;
-                    $yaPop->save();
+                    if (!$yaPop->save())
+                        echo "yandex popularity not saved\n";
                 }
                 ParsingKeywords::model()->deleteByPk($model->id);
             }
@@ -129,17 +130,20 @@ class WordstatParser extends ProxyParserThread
                 $yaPop = new YandexPopularity;
                 $yaPop->keyword_id = $model->id;
                 $yaPop->value = $value;
-                $yaPop->save();
+                if (!$yaPop->save())
+                    echo "yandex popularity not saved\n";
             } else {
                 $yaPop = YandexPopularity::model()->findByPk($model->id);
                 if ($yaPop !== null){
                     $yaPop->value = $value;
-                    $yaPop->save();
+                    if (!$yaPop->save())
+                        echo "yandex popularity not saved\n";
                 }else{
                     $yaPop = new YandexPopularity;
                     $yaPop->keyword_id = $model->id;
                     $yaPop->value = $value;
-                    $yaPop->save();
+                    if (!$yaPop->save())
+                        echo "yandex popularity not saved\n";
                 }
                 ParsingKeywords::model()->deleteByPk($model->id);
             }

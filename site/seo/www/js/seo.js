@@ -97,3 +97,26 @@ var SeoModule = {
         }, 'json');
     }
 }
+
+var WordStat = {
+    addKeyword:function (el) {
+        $.post('/wordstat/addKeywords/', {keyword:$(el).prev().val()}, function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:response.count + ' слов добавлено на парсинг'
+                });
+            }
+        }, 'json');
+    },
+    addCompetitors:function () {
+        $.post('/wordstat/addCompetitors/', function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:response.count + ' слов добавлено на парсинг'
+                });
+            }
+        }, 'json');
+    }
+}

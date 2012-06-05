@@ -22,6 +22,7 @@ class ProxyParserThread extends CComponent
     protected $delay_min = 5;
     protected $delay_max = 15;
     protected $debug = true;
+    protected $timeout = 15;
 
     function __construct()
     {
@@ -68,16 +69,16 @@ class ProxyParserThread extends CComponent
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
-            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
+//            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
+//            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_HEADER, 1);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
+            curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
             if ($this->startsWith($url, 'https')) {
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
                 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
@@ -153,7 +154,7 @@ class ProxyParserThread extends CComponent
 
     protected function getCookieFile()
     {
-        return getcwd() . '/cookies/cookies-' . $this->thread_id . '.txt';
+        return Yii::getPathOfAlias('site.common.cookies')  . DIRECTORY_SEPARATOR . $this->thread_id . '.txt';
     }
 
     protected function startsWith($haystack, $needle)

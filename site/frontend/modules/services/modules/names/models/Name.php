@@ -99,12 +99,12 @@ class Name extends HActiveRecord
             'gender' => 'Пол',
             'translate' => 'перевод, значение',
             'origin' => 'Происхождение',
-            'description'=>'Характеристика',
+            'description' => 'Характеристика',
             'options' => 'Варианты',
             'sweet' => 'Ласковые обращения',
             'middle_names' => 'Подходящие отчества',
             'likes' => 'Нравится',
-            'saints'=>'Христианские святые с этим именем',
+            'saints' => 'Христианские святые с этим именем',
         );
     }
 
@@ -142,21 +142,23 @@ class Name extends HActiveRecord
     public function scopes()
     {
         return array(
-            'filled'=>array(
-                'condition'=>' description IS NOT NULL '
+            'filled' => array(
+                'condition' => ' description IS NOT NULL '
             )
         );
     }
 
-    public function GetShort($attribute){
+    public function GetShort($attribute)
+    {
         $len = 80;
-        if (strlen($this->getAttribute($attribute)) > $len){
-            echo substr($this->getAttribute($attribute), 0, $len).'...';
-        }else
+        if (strlen($this->getAttribute($attribute)) > $len) {
+            echo substr($this->getAttribute($attribute), 0, $len) . '...';
+        } else
             echo $this->getAttribute($attribute);
     }
 
-    public function GenderText(){
+    public function GenderText()
+    {
         if ($this->gender == 1) echo  'мужской';
         if ($this->gender == 2) echo  'женский';
     }
@@ -263,7 +265,8 @@ class Name extends HActiveRecord
         return $data;
     }
 
-    public function GetFirstLetter(){
+    public function GetFirstLetter()
+    {
         return substr($this->name, 0, 2);
     }
 
@@ -279,9 +282,7 @@ class Name extends HActiveRecord
             ));
 
             $this->likes++;
-        }
-        else
-        {
+        } else {
             Yii::app()->db->createCommand()
                 ->delete('name__likes', 'user_id = :user_id AND name_id = :name_id', array(
                 ':user_id' => $user_id,
@@ -309,19 +310,19 @@ class Name extends HActiveRecord
     {
         $this->sweet = '';
         foreach ($this->nameSweets as $name) {
-            $this->sweet.=$name->value.', ';
+            $this->sweet .= $name->value . ', ';
         }
         $this->sweet = rtrim($this->sweet, ', ');
 
         $this->options = '';
         foreach ($this->nameOptions as $name) {
-            $this->options.=$name->value.', ';
+            $this->options .= $name->value . ', ';
         }
         $this->options = rtrim($this->options, ', ');
 
         $this->middle_names = '';
         foreach ($this->nameMiddles as $name) {
-            $this->middle_names.=$name->value.', ';
+            $this->middle_names .= $name->value . ', ';
         }
         $this->middle_names = rtrim($this->middle_names, ', ');
     }
@@ -330,20 +331,22 @@ class Name extends HActiveRecord
     {
         $res = array();
         $start = false;
-        foreach($this->nameSaintDates as $saintDate){
+        foreach ($this->nameSaintDates as $saintDate) {
             if ($saintDate->month == date('n') && $saintDate->day > date('j') ||
-                $saintDate->month > date('n')){
+                $saintDate->month > date('n')
+            ) {
                 $start = true;
             }
             if ($start)
                 $res [] = $saintDate;
         }
 
-        foreach($this->nameSaintDates as $saintDate){
-            if ($saintDate->month == $res[0]->month && $saintDate->day == $res[0]->day)
-                break;
-            $res [] = $saintDate;
-        }
+        if (!empty($res))
+            foreach ($this->nameSaintDates as $saintDate) {
+                if ($saintDate->month == $res[0]->month && $saintDate->day == $res[0]->day)
+                    break;
+                $res [] = $saintDate;
+            }
 
         $this->nameSaintDates = $res;
     }

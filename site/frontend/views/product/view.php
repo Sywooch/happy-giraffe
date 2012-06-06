@@ -7,7 +7,23 @@
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.control.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/cloud-zoom.1.0.2.min.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile('/javascripts/gallery.js'); ?>
 <?php
+$this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+    'registerScripts' => true,
+));
+$this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
+    'registerScripts' => true,
+));
+$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+$remove_tmpl->registerTemplates();
+$this->endWidget();
+
+$report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget');
+$report->registerScripts();
+$this->endWidget();
+
+
 Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#product-thumbs').jcarousel();
     $('#product .img-thumbs .prev').jcarouselControl({target: '-=1',carousel: slider1});
     $('#product .img-thumbs .next').jcarouselControl({target: '+=1',carousel: slider1});
@@ -15,7 +31,6 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
     $('.buy-else .prev').jcarouselControl({target: '-=1',carousel: slider2});
     $('.buy-else .next').jcarouselControl({target: '+=1',carousel: slider2});");
 ?>
-
 <div id="product">
     <h1><?php echo $model->product_title; ?></h1>
     <div class="description clearfix">
@@ -23,11 +38,13 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
         <div class="description-img">
 
             <div class="img-in">
+                <?php if($model->main_image && $model->main_image->photo): ?>
                 <?php echo CHtml::link(CHtml::image($model->main_image->photo->getPreviewUrl(300, 300, Image::WIDTH, true), $model->product_title), $model->main_image->photo->originalUrl, array(
                     'class' => 'cloud-zoom',
                     'id' => 'zoom1',
                     'rel' => 'adjustX: 40, adjustY:-4',
                 )); ?>
+                <?php endif; ?>
             </div>
 
 
@@ -38,6 +55,7 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
                             <li>
                                 <?php echo CHtml::link(CHtml::image($i->photo->getPreviewUrl(76, 79, Image::WIDTH), $model->product_title), $i->photo->originalUrl, array(
                                     'class' => 'cloud-zoom-gallery',
+                                    'data-gallery' => CJavaScript::encode(array('id' => (int)$i->photo->id, 'entity' => get_class($model), 'entity_id' => (int)$model->primaryKey)),
                                     'rel' => 'useZoom: "zoom1", smallImage: "' . $i->photo->getPreviewUrl(300, 300, Image::WIDTH, true) . '"',
                                 )); ?>
                             </li>
@@ -48,17 +66,14 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
                 <a href="javascript:void(0);" class="next"></a>
 
             </div>
+            <script type="text/javascript">
+                $('#product-thumbs a').pGallery();
+            </script>
             <?php
             if(!Yii::app()->user->isGuest)
             {
                 $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                     'model' => $model,
-                ));
-                $fileAttach->button();
-                $this->endWidget();
-
-                $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                    'model' => new Humor(),
                 ));
                 $fileAttach->button();
                 $this->endWidget();
@@ -200,13 +215,13 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
             </div>
         <?php endif; ?>
     </div>
-    <div class="default-comments">
-    <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
+    <!--<div class="default-comments">
+    <?php /*$this->widget('application.widgets.commentWidget.CommentWidget', array(
         'model' => $model,
         'title' => 'Отзывы о товаре',
         'button' => 'Добавить отзыв',
         'vote' => true,
         'actions' => false,
-    )); ?>
-    </div>
+    )); */?>
+    </div>-->
 </div>

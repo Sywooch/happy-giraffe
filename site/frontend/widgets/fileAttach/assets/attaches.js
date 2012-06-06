@@ -111,6 +111,8 @@ Attach.insertToRecipe = function(fsn) {
         if(data.status) {
             $('#CookRecipe_photo_id').val(data.id);
             $('a.attach').html($('<img />').attr('src', data.src));
+            if (! $('a.add-photo').hasClass('uploaded'))
+                $('a.add-photo').addClass('uploaded');
             $.fancybox.close();
         }
     }, 'json');

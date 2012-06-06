@@ -60,7 +60,6 @@ jQuery.fn.pGallery = function() {
                 if(callback)
                     callback();
                 $('#w-photo-content', this.window).animate({opacity: 1}, 300, function() {
-                    cl($('#photo-window-in', this.window));
                     $('#photo-window-in', this.window).children('#loading').remove();
                 });
             }, 'html');

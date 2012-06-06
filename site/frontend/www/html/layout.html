@@ -13,10 +13,13 @@
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/jquery.dimensions.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.jcarousel.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.jcarousel.control.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
@@ -30,18 +33,28 @@
 				showBody: false,
 			});
 			
-			$('#photo-thumbs .jcarousel').jcarousel();
+			
+			carousel = $('#photo-thumbs .jcarousel').jcarousel();			
+			
+			$('#photo-thumbs .prev').jcarouselControl({target: '-=1',carousel: carousel});
+			$('#photo-thumbs .next').jcarouselControl({target: '+=1',carousel: carousel});
+			
+			
 			
 		})
 		
 		var st;
+		var carousel;
 		
 		function openPhoto(){
 			
 			$('#photo-window-bg, #photo-window').fadeIn(600, function(){
 				st = $('body').scrollTop();
 				$('body').scrollTop(0).css('overflow', 'hidden');
+				
 			});
+			
+			$(window).resize();
 			
 		}
 		
@@ -473,8 +486,9 @@
 			<div class="flag-big flag-big-kz tooltip" title="Казахстан, че"></div>
 			
 			<a href="javascript:void(0);" onclick="openPhoto();">Открыть фотку</a>			
+			<br/>
 			
-			<img src="/images/test3.gif" />
+			<img src="/images/test_loader.gif" />
 			
 		</div>  	
 		
@@ -557,7 +571,7 @@
 		<div id="photo-window-in">
 			<div class="top-line">
 				<div class="wrapper">
-					<a href="javascript:void(0);" class="close" onclick="closePhoto();">закрыть<i class="icon"></i></a>
+					<a href="javascript:void(0);" class="window-close" onclick="closePhoto();">закрыть<i class="icon"></i></a>
 					<div class="count">Всего в альбоме 98 фотографий</div>
 				</div>
 			</div>
@@ -578,10 +592,11 @@
 						<li><a href="javascript:void(0);"><img src="/images/example/ex3.jpg" /></a></li>
 						<li><a href="javascript:void(0);"><img src="/images/example/ex4.jpg" /></a></li>
 						
+						
 					</ul>
 				</div>
-				<a href="javascript:void(0);" class="prev" onclick="$('#photo-thumbs .jcarousel').jcarousel('scroll', '-=1');">предыдущая</a>
-				<a href="javascript:void(0);" class="next" onclick="$('#photo-thumbs .jcarousel').jcarousel('scroll', '+=1');">следующая</a>
+				<a href="javascript:void(0);" class="prev">предыдущая</a>
+				<a href="javascript:void(0);" class="next">следующая</a>
 			</div>
 			
 			<div id="photo">

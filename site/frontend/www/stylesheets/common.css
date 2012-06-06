@@ -2203,7 +2203,7 @@ body.gallery {overflow:hidden;}
 #photo-window #photo-thumbs {width:830px;margin:0 auto 20px;height:100px;background:#4d4d4d;padding:12px 65px;position:relative;}
 #photo-window #photo-thumbs {/*css3*/ -moz-border-radius:20px;-webkit-border-radius:20px;border-radius:20px;}
 #photo-window #photo-thumbs .jcarousel {width:830px;height:100px;}
-#photo-window #photo-thumbs li {padding:0px 6px;opacity:.5;filter: alpha(opacity = 50);}
+#photo-window #photo-thumbs li {padding:0px 6px;opacity:.5;filter: alpha(opacity = 50);display:table-cell;vertical-align:bottom;height:100px;float:none;}
 #photo-window #photo-thumbs li  img {max-height:100px;}
 #photo-window #photo-thumbs .prev {display:block;width:12px;height:17px;background:url(/images/common.png) no-repeat -424px -227px;text-indent:-9999px;position:absolute;left:25px;top:50%;margin-top:-9px;}
 #photo-window #photo-thumbs .next {display:block;width:12px;height:17px;background:url(/images/common.png) no-repeat -438px -227px;text-indent:-9999px;position:absolute;right:25px;top:50%;margin-top:-9px;}

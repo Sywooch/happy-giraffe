@@ -7,7 +7,7 @@ class FileAttachWidget extends CWidget
     public $container;
     public $afterSelect;
     public $disableNavigation = false;
-    public $fixAsap = false;
+    public $customButton = false;
 
     public $title;
     public $button_title;
@@ -20,6 +20,22 @@ class FileAttachWidget extends CWidget
         {
             $this->entity = get_class($this->model);
             $this->entity_id = $this->model->primaryKey;
+        }
+
+        if ($this->customButton) {
+            echo CHtml::openTag('a', array(
+                'href' => Yii::app()->createUrl('/albums/attach', array('entity' => $this->entity, 'entity_id' => $this->entity_id)),
+                'class' => 'fancy attach',
+                'onclick'=>'Attach.updateEntity(\''.$this->entity.'\', \''.$this->entity_id.'\');',
+            ));
+            $this->registerScripts();
+        }
+    }
+
+    public function run()
+    {
+        if ($this->customButton) {
+            echo CHtml::closeTag('a');
         }
     }
 

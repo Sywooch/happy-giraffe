@@ -39,6 +39,7 @@ jQuery.fn.pGallery = function() {
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=1',carousel: $('#photo-thumbs .jcarousel', plugin.window)});
                 $('#photo-thumbs .next', plugin.window).jcarouselControl({target: '+=1',carousel: $('#photo-thumbs .jcarousel', plugin.window)});
+                $(window).resize();
             });
         }, 'html');
     };

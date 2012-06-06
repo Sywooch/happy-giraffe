@@ -2195,9 +2195,9 @@ body.gallery {overflow:hidden;}
 #photo-window-in {background:#3e3e3e;width:998px;margin:30px auto;border:1px solid #333232;padding-bottom:40px;}
 
 #photo-window .top-line {background:#2f2f2f;margin:10px 0;position:relative;height:30px;}
-#photo-window .top-line .close {position:absolute;right:29px;top:7px;text-transform:uppercase;color:#dcdcdc;text-decoration:none;line-height:14px;}
-#photo-window .top-line .close .icon {display:inline-block;width:15px;height:14px;background:url(/images/common.png) no-repeat -347px -189px;vertical-align:top;margin-left:3px;}
-#photo-window .top-line .close:hover {text-decoration:underline;}
+#photo-window .top-line .window-close {position:absolute;right:29px;top:7px;text-transform:uppercase;color:#dcdcdc;text-decoration:none;line-height:14px;}
+#photo-window .top-line .window-close .icon {display:inline-block;width:15px;height:14px;background:url(/images/common.png) no-repeat -347px -189px;vertical-align:top;margin-left:3px;}
+#photo-window .top-line .window-close:hover {text-decoration:underline;}
 #photo-window .top-line .count {line-height:30px;margin:0 150px;text-align:center;}
 
 #photo-window #photo-thumbs {width:830px;margin:0 auto 20px;height:100px;background:#4d4d4d;padding:12px 65px;position:relative;}
@@ -2745,3 +2745,4 @@ label {
 
 
 /* */
+#fancybox-wrap {z-index: 100000 !important;}

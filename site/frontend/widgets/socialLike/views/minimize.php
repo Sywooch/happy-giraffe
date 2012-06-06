@@ -1,9 +1,10 @@
 <div class="like-block fast-like-block">
 
     <div class="box-1">
-        <script charset="utf-8" src="//yandex.st/share/share.js" type="text/javascript"></script>
         Поделиться
-        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+        <?php if(!Yii::app()->request->isAjaxRequest): ?>
+            <script charset="utf-8" src="//yandex.st/share/share.js" type="text/javascript"></script>
+        <?php endif; ?>
         <div id="ya_share1"></div>
         <script type="text/javascript">
             new Ya.share({

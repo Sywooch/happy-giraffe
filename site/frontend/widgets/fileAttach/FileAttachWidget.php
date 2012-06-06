@@ -25,7 +25,7 @@ class FileAttachWidget extends CWidget
         if ($this->customButton) {
             echo CHtml::openTag('a', array(
                 'href' => Yii::app()->createUrl('/albums/attach', array('entity' => $this->entity, 'entity_id' => $this->entity_id)),
-                'class' => 'fancy',
+                'class' => 'fancy attach',
                 'onclick'=>'Attach.updateEntity(\''.$this->entity.'\', \''.$this->entity_id.'\');',
             ));
             $this->registerScripts();

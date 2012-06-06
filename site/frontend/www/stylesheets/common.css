@@ -2208,6 +2208,7 @@ body.gallery {overflow:hidden;}
 #photo-window #photo-thumbs .prev {display:block;width:12px;height:17px;background:url(/images/common.png) no-repeat -424px -227px;text-indent:-9999px;position:absolute;left:25px;top:50%;margin-top:-9px;}
 #photo-window #photo-thumbs .next {display:block;width:12px;height:17px;background:url(/images/common.png) no-repeat -438px -227px;text-indent:-9999px;position:absolute;right:25px;top:50%;margin-top:-9px;}
 #photo-window #photo {text-align:center;}
+#photo-window #photo-thumbs a.jcarousel-control-inactive {display:none;}
 #photo-window #photo-thumbs li.active, #photo-window #photo-thumbs li:hover {opacity:1;filter: alpha(opacity = 100);}
 
 #photo-window #photo {position:relative;}

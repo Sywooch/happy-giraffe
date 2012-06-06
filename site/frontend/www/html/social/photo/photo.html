@@ -39,15 +39,15 @@
 						ready++;
 						if (ready == count) $('#photo-thumbs').jcarousel('scroll', 4);
 					});
-				});			
+				});
+				
+				$('#photo-thumbs-prev').jcarouselControl({target: '-=1'});
+				$('#photo-thumbs-next').jcarouselControl({target: '+=1'});
 				
 			});
 			
 			var carousel = $('#photo-thumbs').jcarousel();		
-		
-			$('#photo-thumbs-prev').jcarouselControl({target: '-=1',carousel: carousel});
-			$('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});
-					
+			
 		});
 		
 	</script>

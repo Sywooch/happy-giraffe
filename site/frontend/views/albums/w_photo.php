@@ -18,14 +18,14 @@ $selected_index = null;
             <ul>
                 <?php foreach($model->photoCollection as $i => $p): ?>
                     <li>
-                        <a href="javascript:;" data-id="<?php echo $p->primaryKey; ?>"><img src="" data-src="<?php echo $p->getPreviewUrl(76, 79, Image::WIDTH); ?>" alt="" /></a>
+                        <a href="javascript:;" data-id="<?php echo $p->primaryKey; ?>"><img src="" data-src="<?php echo $p->getPreviewUrl(100, 100, Image::HEIGHT); ?>" alt="" /></a>
                         <?php if($photo->id == $p->id) {$selected_index = $i;} ?>
                     </li>
                 <?php endforeach; ?>
             </ul>
         </div>
-        <a href="javascript:;" class="prev" onclick="$('#photo-thumbs .jcarousel').jcarousel('scroll', '-=1');">предыдущая</a>
-        <a href="javascript:;" class="next" onclick="$('#photo-thumbs .jcarousel').jcarousel('scroll', '+=1');">следующая</a>
+        <a href="javascript:;" class="prev" onclick="">предыдущая</a>
+        <a href="javascript:;" class="next" onclick="">следующая</a>
     </div>
     <script type="text/javascript">
         <?php if($selected_index !== null): ?>

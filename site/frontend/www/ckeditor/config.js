@@ -52,8 +52,8 @@ CKEDITOR.editorConfig = function (config) {
     config.toolbar_Simple =
         [
             { name:'clipboard', items:[ 'Undo', 'Redo', '-' ] },
-            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike'] },
-            { name:'paragraph', items:[ 'NumberedList', 'BulletedList', '-' ] }
+            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', 'Strike', '-' ] },
+            { name:'paragraph', items:[ 'NumberedList', 'BulletedList' ] }
         ];
 
     config.toolbar_Nocut =

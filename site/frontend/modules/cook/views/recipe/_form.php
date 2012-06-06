@@ -82,14 +82,21 @@
 
                             <span class="row-title">Фото блюда <span>(не обязательно) </span></span>
 
-                            <div class="add-photo">
+                            <div class="add-photo<?php if ($recipe->photo_id !== null): ?> uploaded<?php endif; ?>">
 
                                 <?php
                                     $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                                         'model' => $recipe,
-                                        'fixAsap' => true,
+                                        'customButton' => true,
                                     ));
-                                    $fileAttach->button();
+                                ?>
+                                    <?php if ($recipe->photo_id === null): ?>
+                                        <span>Загрузите главное<br/>фото Вашего блюда</span><br/>
+                                        <i class="icon"></i>
+                                    <?php else: ?>
+                                        <?=CHtml::image($recipe->photo->getPreviewUrl(325, 252))?>
+                                    <?php endif; ?>
+                                <?php
                                     $this->endWidget();
                                 ?>
 

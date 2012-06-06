@@ -10,7 +10,8 @@
  * @property string $title
  *
  * The followings are the available model relations:
- * @property CookDecorationsCategories $category
+ * @property CookDecorationCategory $category
+ * @pphoto AlbumPhoto $category
  */
 class CookDecoration extends CActiveRecord
 {
@@ -58,6 +59,7 @@ class CookDecoration extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'category' => array(self::BELONGS_TO, 'CookDecorationCategory', 'category_id'),
+            'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
 		);
 	}
 

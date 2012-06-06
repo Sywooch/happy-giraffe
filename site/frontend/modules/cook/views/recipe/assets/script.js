@@ -46,11 +46,14 @@ $(function() {
         list.next('input').val($(this).next('input').val());
     });
 
-    /*$('#addRecipeForm').delegate('#CookRecipe_preparation_duration_m', 'change', function() {
-        var h = $(this).parent('div.input').prev('div.input').find('input');
-        if (parseInt($(this).val()) > 59) {
-            h.val(Math.floor(parseInt($(this).val()) / 60) + parseInt(h.val()));
-            $(this).val(parseInt($(this).val()) % 60);
+    $('#addRecipeForm').delegate('#CookRecipe_preparation_duration_m, #CookRecipe_cooking_duration_m', 'change', function() {
+        var mEl = $(this);
+        var hEl = $(this).parent().prev().find('input');
+        var currentM = parseInt(mEl.val()) || 0;
+        var currentH = parseInt(hEl.val()) || 0;
+        if (currentM > 59) {
+            mEl.val(currentM % 60);
+            hEl.val(currentH + Math.floor(currentM / 60));
         }
-    });*/
+    });
 });

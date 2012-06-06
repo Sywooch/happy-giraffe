@@ -90,8 +90,12 @@
                                         'customButton' => true,
                                     ));
                                 ?>
-                                    <span>Загрузите главное<br/>фото Вашего блюда</span><br/>
-                                    <i class="icon"></i>
+                                    <?php if ($recipe->photo_id === null): ?>
+                                        <span>Загрузите главное<br/>фото Вашего блюда</span><br/>
+                                        <i class="icon"></i>
+                                    <?php else: ?>
+                                        <?=CHtml::image($recipe->photo->getPreviewUrl(325, 252))?>
+                                    <?php endif; ?>
                                 <?php
                                     $this->endWidget();
                                 ?>

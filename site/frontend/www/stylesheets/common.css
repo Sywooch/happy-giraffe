@@ -2215,8 +2215,8 @@ body.gallery {overflow:hidden;}
 #photo-window #photo .img {display:inline-block;position:relative;}
 #photo-window #photo .img img {display:block;}
 #photo-window #photo .img .title {display:block;position:absolute;width:100%;top:0;left:0;padding:10px 0;background:#000;background:rgba(0,0,0,.6);}
-#photo-window #photo .img .title .in {width:50%;float:right;padding-right:10px;font-size:13px;color:#fff;margin-right:15px;}
-#photo-window #photo .img .title .user-info {margin-left:15px;max-width:40%;}
+#photo-window #photo .img .title .in {width:50%;float:right;padding-right:10px;font-size:13px;color:#fff;margin-right:15px;text-align:left;}
+#photo-window #photo .img .title .user-info {margin-left:15px;width:40%;}
 #photo-window #photo .img .title .user-info .details {margin-left:30px;}
 #photo-window #photo .img .title .user-info .details .username {max-width:80%;width:auto;color:#38a5f4;}
 

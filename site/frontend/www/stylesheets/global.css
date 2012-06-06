@@ -4327,6 +4327,8 @@ ul.letters li a:hover {
 #cook-add-recipe .add-photo a .icon {display:inline-block;width:94px;height:73px;background:url(/images/cook_sprite.png) no-repeat 0 -653px;margin-top:30px;}
 #cook-add-recipe .add-photo a span {border-bottom:1px dashed #029AD2;}
 #cook-add-recipe .add-photo a:hover span {border:0;}
+#cook-add-recipe .add-photo a.uploaded {border-style:solid;padding:0;display:table-cell;text-align:center;vertical-align:middle;}
+#cook-add-recipe .add-photo a.uploaded img {max-width:260px;max-height:160px;}
 
 #cook-add-recipe .dish-types {}
 #cook-add-recipe .dish-types .radio-box {width:48%;display:inline-block;vertical-align:top;color:#1e95d9;padding:7px 0;cursor:pointer;}

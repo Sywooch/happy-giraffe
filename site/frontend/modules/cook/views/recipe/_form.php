@@ -26,7 +26,7 @@
 
                     <div class="title"><i class="icon"></i>Добавить рецепт</div>
 
-                    <?=$form->errorSummary(array($recipe) + $ingredients)?>
+                    <?=$form->errorSummary(CMap::mergeArray($recipe->ingredients, array($recipe)))?>
 
                     <div class="row">
 

@@ -39,7 +39,7 @@ if ($type == 'guestBook') {
             ';
 }
 
-$this->widget('MyListView', array(
+$this->widget('HCommentListView', array(
     'dataProvider' => $dataProvider,
     'itemView' => '_comment',
     'itemsTagName' => 'ul',

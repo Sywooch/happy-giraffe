@@ -1,10 +1,6 @@
 <?php
 $categories = CookDecorationCategory::model()->findAll();
 ?>
-
-
-<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
-
 <div id="dishes">
 
     <div class="title">
@@ -23,14 +19,14 @@ $categories = CookDecorationCategory::model()->findAll();
                 </a>
             </li>
             <?php
-            foreach ($categories as $category) {
-                $active = (false) ? 'active' : '';
+            foreach ($categories as $c) {
+                $active = ($id == $c->id) ? 'active' : '';
                 ?>
                 <li>
                     <span class="valign"></span>
-                    <a href="<?=CHtml::normalizeUrl(array('index', 'id' => $category->id));?>" class="cook-cat <?=$active;?>">
-                        <i class="icon-cook-cat icon-dish-<?=$category->id;?> active"></i>
-                        <span><?=$category->title;?></span>
+                    <a href="<?=CHtml::normalizeUrl(array('index', 'id' => $c->id));?>" class="cook-cat <?=$active;?>">
+                        <i class="icon-cook-cat icon-dish-<?=$c->id;?> active"></i>
+                        <span><?=$c->title;?></span>
                     </a>
                 </li>
                 <?php
@@ -45,7 +41,7 @@ $categories = CookDecorationCategory::model()->findAll();
 
             <div class="add-photo">
                 Нашли интересное оформление или<br/>хотите похвастаться своим творением<br/>
-                <a href="#photoPick" class="btn btn-green fancy"><span><span>Добавить фото</span></span></a>
+                <!--<a href="#photoPick" class="btn btn-green fancy"><span><span>Добавить фото</span></span></a>-->
                 <?php
                 $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                     'model' => new CookDecoration(),
@@ -54,8 +50,8 @@ $categories = CookDecorationCategory::model()->findAll();
                 $this->endWidget();
                 ?>
             </div>
+            <?='<h1>Как можно оформить ' . (($id) ? $category->title_h1 : 'блюда') . '</h1>';?>
 
-            <h1>Как можно оформить десерты и выпечку</h1>
 
         </div>
 

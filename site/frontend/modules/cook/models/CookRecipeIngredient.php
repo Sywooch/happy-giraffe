@@ -79,10 +79,10 @@ class CookRecipeIngredient extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'recipe_id' => 'Recipe',
-			'ingredient_id' => 'Ingredient',
-			'unit_id' => 'Unit',
-			'value' => 'Value',
+			'recipe_id' => 'Рецепт',
+			'ingredient_id' => 'Название продукта',
+			'unit_id' => 'Единица измерения',
+			'value' => 'Количество',
 		);
 	}
 

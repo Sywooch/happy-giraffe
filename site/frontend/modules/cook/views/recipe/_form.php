@@ -87,9 +87,12 @@
                                 <?php
                                     $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                                         'model' => $recipe,
-                                        'fixAsap' => true,
+                                        'customButton' => true,
                                     ));
-                                    $fileAttach->button();
+                                ?>
+                                    <span>Загрузите главное<br/>фото Вашего блюда</span><br/>
+                                    <i class="icon"></i>
+                                <?php
                                     $this->endWidget();
                                 ?>
 

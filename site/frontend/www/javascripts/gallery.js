@@ -50,14 +50,21 @@ jQuery.fn.pGallery = function() {
         var data = plugin.data;
         data.go = 1;
 
-        $.get(base_url + '/albums/wPhoto/', data, function(html) {
-            document.location.hash = 'photo-' + plugin.data.id;
-            $('#w-photo-content').html(html);
-            $(link).parent().siblings('li.active').removeClass('active');
-            $(link).parent().addClass('active');
-            if(callback)
-                callback();
-        }, 'html');
+        $('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');
+        $('#w-photo-content', this.window).animate({opacity:0}, 300, function() {
+            $.get(base_url + '/albums/wPhoto/', data, function(html) {
+                document.location.hash = 'photo-' + plugin.data.id;
+                $('#w-photo-content', this.window).html(html);
+                $(link).parent().siblings('li.active').removeClass('active');
+                $(link).parent().addClass('active');
+                if(callback)
+                    callback();
+                $('#w-photo-content', this.window).animate({opacity: 1}, 300, function() {
+                    cl($('#photo-window-in', this.window));
+                    $('#photo-window-in', this.window).children('#loading').remove();
+                });
+            }, 'html');
+        })
     };
 
     plugin.goTo = function(dist) {

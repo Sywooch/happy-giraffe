@@ -49,6 +49,7 @@ jQuery.fn.pGallery = function() {
         delete plugin.data.dist;
         var data = plugin.data;
         data.go = 1;
+
         $.get(base_url + '/albums/wPhoto/', data, function(html) {
             document.location.hash = 'photo-' + plugin.data.id;
             $('#w-photo-content').html(html);

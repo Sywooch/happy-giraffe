@@ -3,26 +3,11 @@
  * @var $model Product
  */
 ?>
-
-<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.js'); ?>
-<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.control.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/cloud-zoom.1.0.2.min.js'); ?>
-<?php Yii::app()->clientScript->registerScriptFile('/javascripts/gallery.js'); ?>
 <?php
-$this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-    'registerScripts' => true,
+$this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+    'selector' => '#product-thumbs a'
 ));
-$this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-    'registerScripts' => true,
-));
-$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-$remove_tmpl->registerTemplates();
-$this->endWidget();
-
-$report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget');
-$report->registerScripts();
-$this->endWidget();
-
 
 Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#product-thumbs').jcarousel();
     $('#product .img-thumbs .prev').jcarouselControl({target: '-=1',carousel: slider1});
@@ -56,6 +41,7 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
                                 <?php echo CHtml::link(CHtml::image($i->photo->getPreviewUrl(76, 79, Image::WIDTH), $model->product_title), $i->photo->originalUrl, array(
                                     'class' => 'cloud-zoom-gallery',
                                     'data-gallery' => CJavaScript::encode(array('id' => (int)$i->photo->id, 'entity' => get_class($model), 'entity_id' => (int)$model->primaryKey)),
+                                    'data-id' => $i->photo->id,
                                     'rel' => 'useZoom: "zoom1", smallImage: "' . $i->photo->getPreviewUrl(300, 300, Image::WIDTH, true) . '"',
                                 )); ?>
                             </li>
@@ -66,9 +52,6 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
                 <a href="javascript:void(0);" class="next"></a>
 
             </div>
-            <script type="text/javascript">
-                $('#product-thumbs a').pGallery();
-            </script>
             <?php
             if(!Yii::app()->user->isGuest)
             {

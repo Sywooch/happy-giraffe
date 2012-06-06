@@ -194,23 +194,6 @@ class AlbumsController extends HController
         }
         else
         {
-            if($dist = Yii::app()->request->getQuery('dist'))
-            {
-                foreach($model->photoCollection as $key => $p)
-                {
-                    if($p->id == $photo->id)
-                    {
-                        $offset = $dist == 'prev' ? -1 : 1;
-                        $i = $key + $offset;
-                        if($i < 0)
-                            $i = count($model->photoCollection) - 1;
-                        elseif($i + 1 > count($model->photoCollection))
-                            $i = 0;
-                        $photo = $model->photoCollection[$i];
-                        break;
-                    }
-                }
-            }
             $this->renderPartial('w_photo_content', compact('model', 'photo'));
         }
     }

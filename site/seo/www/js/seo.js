@@ -95,6 +95,17 @@ var SeoModule = {
                 });
             }
         }, 'json');
+    },
+    removeArticle:function(el, id){
+        $.post('/existArticles/remove/', {id:id}, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text: 'статья удалена'
+                });
+            }
+        }, 'json');
     }
 }
 

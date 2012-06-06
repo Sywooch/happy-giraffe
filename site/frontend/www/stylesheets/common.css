@@ -2192,7 +2192,7 @@ body.gallery {overflow:hidden;}
 
 #photo-window-bg {position:fixed;height:100%;width:100%;top:0;left:0;z-index:9990;background:url(/images/bg_black_alpha_40.png);background:#959595;}
 #photo-window  {max-height:100%;position:absolute;width:100%;z-index:9999;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;}
-#photo-window-in {background:#3e3e3e;width:998px;margin:30px auto;border:1px solid #333232;padding-bottom:40px;}
+#photo-window-in {background:#3e3e3e;width:998px;margin:30px auto;border:1px solid #333232;padding-bottom:40px;position:relative;}
 
 #photo-window .top-line {background:#2f2f2f;margin:10px 0;position:relative;height:30px;}
 #photo-window .top-line .window-close {position:absolute;right:29px;top:7px;text-transform:uppercase;color:#dcdcdc;text-decoration:none;line-height:14px;}
@@ -2219,9 +2219,10 @@ body.gallery {overflow:hidden;}
 #photo-window #photo .img .title .user-info {margin-left:15px;max-width:40%;}
 #photo-window #photo .img .title .user-info .details {margin-left:30px;}
 #photo-window #photo .img .title .user-info .details .username {max-width:80%;width:auto;color:#38a5f4;}
-#photo-window #photo .img .loading {position:absolute;width:100%;height:100%;background:#000;background:rgba(0,0,0,.8);z-index:2;left:0;top:0;font-size:30px;text-align:center;}
-#photo-window #photo .img .loading .in {width:200px;position:absolute;left:50%;margin-left:-100px;top:50%;margin-top:-100px;}
-#photo-window #photo .img .loading .in img {margin-bottom:10px;}
+
+#photo-window #loading {position:absolute;width:100%;height:100%;background:#000;background:rgba(0,0,0,.8);z-index:2;left:0;top:0;font-size:30px;text-align:center;}
+#photo-window #loading .in {width:200px;position:fixed;left:50%;margin-left:-100px;top:50%;margin-top:-100px;}
+#photo-window #loading .in img {margin-bottom:10px;}
 
 
 #photo-window #photo .prev {display:block;width:66px;height:130px;background:url(/images/common.png) no-repeat -69px -300px;text-indent:-9999px;position:absolute;left:19px;top:50%;margin-top:-65px;}

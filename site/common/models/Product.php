@@ -287,6 +287,14 @@ class Product extends HActiveRecord implements IECartPosition
             ->queryScalar();
     }
 
+    public function getPhotoCollection()
+    {
+        $photos = array();
+        foreach($this->images as $image)
+            array_push($photos, $image->photo);
+        return $photos;
+    }
+
     public function getSubProductCount()
     {
         return Y::command()

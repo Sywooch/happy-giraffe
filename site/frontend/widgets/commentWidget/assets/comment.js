@@ -8,6 +8,7 @@ Comment = {
     entity:null,
     entity_id:null,
     model:'Comment',
+    scrollContainer:null,
     setParams:function(params) {
         for(var n in params) {
             if(typeof(this[n]) != undefined)
@@ -39,7 +40,7 @@ Comment = {
     newComment:function (event) {
         this.cancel();
         this.moveForm($('#new_comment_wrapper'));
-        $(document).scrollTop($('#new_comment_wrapper').offset().top);
+        $(!this.scrollContainer ? document : this.scrollContainer).scrollTop($('#new_comment_wrapper').offset().top);
     },
     newPhotoComment:function (event) {
         this.cancel();
@@ -99,7 +100,7 @@ Comment = {
     },
     changeScrollPosition:function (index) {
         var elem = $('#cp_' + index.toString());
-        $('html, body').animate({scrollTop:elem.offset().top}, 'fast');
+        $(!this.scrollContainer ? document : this.scrollContainer).animate({scrollTop:elem.offset().top}, 'fast');
     },
     remove:function (el) {
         $.fn.yiiListView.update('comment_list');
@@ -126,7 +127,7 @@ Comment = {
             editor.setData($(button).parents('.item').find('.content-in').html());
         $('#add_comment .button_panel .btn-green-medium span span').text('Редактировать');
 
-        $('html,body').animate({scrollTop:$('#add_comment').offset().top - 100}, 'fast');
+        $(!this.scrollContainer ? document : this.scrollContainer).animate({scrollTop:$('#add_comment').offset().top - 100}, 'fast');
         return false;
     },
     send:function (form) {

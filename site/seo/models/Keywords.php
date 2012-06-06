@@ -284,7 +284,7 @@ class Keywords extends HActiveRecord
     public function getButtons()
     {
         if ($this->inBuffer())
-            return 'in-buffer <input type="hidden" value="'.$this->id.'"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>';
+            return 'в буфере <input type="hidden" value="'.$this->id.'"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>';
         elseif ($this->used())
             return 'на сайте';
         elseif ($this->hasOpenedTask())

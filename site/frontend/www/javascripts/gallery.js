@@ -31,6 +31,7 @@ jQuery.fn.pGallery = function() {
                 if($(this).parent().hasClass('active'))
                     return false;
                 plugin.openImage(this);
+                return false;
             });
 
             $('body').css('overflow', 'hidden');
@@ -51,19 +52,17 @@ jQuery.fn.pGallery = function() {
         data.go = 1;
 
         $('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');
-        $('#w-photo-content', this.window).animate({opacity:0}, 300, function() {
-            $.get(base_url + '/albums/wPhoto/', data, function(html) {
-                document.location.hash = 'photo-' + plugin.data.id;
-                $('#w-photo-content', this.window).html(html);
-                $(link).parent().siblings('li.active').removeClass('active');
-                $(link).parent().addClass('active');
-                if(callback)
-                    callback();
-                $('#w-photo-content', this.window).animate({opacity: 1}, 300, function() {
-                    $('#photo-window-in', this.window).children('#loading').remove();
-                });
-            }, 'html');
-        })
+
+        $.get(base_url + '/albums/wPhoto/', data, function(html) {
+            document.location.hash = 'photo-' + plugin.data.id;
+            $('#w-photo-content', this.window).html(html);
+            $(link).parent().siblings('li.active').removeClass('active');
+            $(link).parent().addClass('active');
+            if(callback)
+                callback();
+            $('#photo-window-in', this.window).children('#loading').remove();
+        }, 'html');
+
     };
 
     plugin.goTo = function(dist) {
@@ -87,7 +86,7 @@ jQuery.fn.pGallery = function() {
 
     plugin.closeWindow = function() {
         $('#photo-window-bg, #photo-window').fadeOut(600, function(){
-            document.location.hash = '';
+            document.location.hash = null;
             $('body').css('overflow', 'auto');
             plugin.window.remove();
             plugin.bg.remove();

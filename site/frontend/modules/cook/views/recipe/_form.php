@@ -82,7 +82,7 @@
 
                             <span class="row-title">Фото блюда <span>(не обязательно) </span></span>
 
-                            <div class="add-photo">
+                            <div class="add-photo<?php if ($recipe->photo_id !== null): ?> uploaded<?php endif; ?>">
 
                                 <?php
                                     $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(

@@ -1,17 +1,36 @@
-jQuery.fn.pGallery = function() {
+jQuery.fn.pGallery = function(options) {
     var plugin = {};
-    plugin.data = null,
+    plugin.data = options,
         plugin.window = null,
-        plugin.bg = null;
+        plugin.bg = null,
+        plugin.history = null,
+        plugin.init = false;
 
-    plugin.openWindow = function(link) {
+    plugin.openWindow = function(id) {
+        if(this.init)
+            return false;
+        this.init = true;
         this.bg = $('<div id="photo-window-bg" style="display:none"></div>');
         this.window = $('<div id="photo-window" style="display:none"></div>');
         this.window.css('top', $(document).scrollTop());
         this.bg.appendTo('body');
         this.window.appendTo('body');
 
-        this.data = $.parseJSON($(link).attr('data-gallery').replace(/'/g, '"'));
+        this.data.id = id;
+
+        this.history = new AjaxHistory('photo_view');
+        this.history.loadCallback = function(id, url) {
+            if(/\/photo(\d+)/.test(url)) {
+                var id = url.split(/\/photo(\d+)/)[1];
+                if(plugin.init == true)
+                    plugin.openImage(id);
+                else
+                    plugin.openWindow(id);
+            } else {
+                if(plugin.init)
+                    plugin.closeWindow();
+            }
+        }
 
         $.get(base_url + '/albums/wPhoto/', plugin.data, function(html) {
             $('#photo-window').append(html);
@@ -30,12 +49,13 @@ jQuery.fn.pGallery = function() {
             plugin.window.on('click', '#photo-thumbs li a', function() {
                 if($(this).parent().hasClass('active'))
                     return false;
-                plugin.openImage(this);
+                plugin.openImage($(this).attr('data-id'));
+                return false;
             });
 
             $('body').css('overflow', 'hidden');
+            plugin.history.changeBrowserUrl(plugin.getEntityUrl() + 'photo' + plugin.data.id + '/');
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
-                document.location.hash = 'photo-' + plugin.data.id;
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=1',carousel: $('#photo-thumbs .jcarousel', plugin.window)});
                 $('#photo-thumbs .next', plugin.window).jcarouselControl({target: '+=1',carousel: $('#photo-thumbs .jcarousel', plugin.window)});
@@ -44,27 +64,25 @@ jQuery.fn.pGallery = function() {
         }, 'html');
     };
 
-    plugin.openImage = function(link, callback) {
-        plugin.data.id = $(link).attr('data-id');
-        delete plugin.data.dist;
-        var data = plugin.data;
+    plugin.openImage = function(id, callback) {
+        this.data.id = id;
+        var link = $('#photo-thumbs li a[data-id='+id+']' ,this.window);
+        delete this.data.dist;
+        var data = this.data;
         data.go = 1;
 
         $('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');
-        $('#w-photo-content', this.window).animate({opacity:0}, 300, function() {
-            $.get(base_url + '/albums/wPhoto/', data, function(html) {
-                document.location.hash = 'photo-' + plugin.data.id;
-                $('#w-photo-content', this.window).html(html);
-                $(link).parent().siblings('li.active').removeClass('active');
-                $(link).parent().addClass('active');
-                if(callback)
-                    callback();
-                $('#w-photo-content', this.window).animate({opacity: 1}, 300, function() {
-                    cl($('#photo-window-in', this.window));
-                    $('#photo-window-in', this.window).children('#loading').remove();
-                });
-            }, 'html');
-        })
+
+        $.get(base_url + '/albums/wPhoto/', data, function(html) {
+            plugin.history.changeBrowserUrl(plugin.getEntityUrl() + 'photo' + plugin.data.id + '/');
+            $('#w-photo-content', plugin.window).html(html);
+            link.parent().siblings('li.active').removeClass('active');
+            link.parent().addClass('active');
+            if(callback)
+                callback();
+            $('#photo-window-in', plugin.window).children('#loading').remove();
+        }, 'html');
+
     };
 
     plugin.goTo = function(dist) {
@@ -87,23 +105,27 @@ jQuery.fn.pGallery = function() {
     }
 
     plugin.closeWindow = function() {
+        plugin.init = false;
         $('#photo-window-bg, #photo-window').fadeOut(600, function(){
-            document.location.hash = '';
+            plugin.history.changeBrowserUrl(plugin.getEntityUrl());
             $('body').css('overflow', 'auto');
             plugin.window.remove();
             plugin.bg.remove();
         });
     }
 
-    if(/photo-/.test(document.location.hash)) {
-        var id = document.location.hash.split('-')[1];
-        if($(this + '[data-id='+id+']').size() > 0)
-            plugin.openWindow($(this + '[data-id='+id+']').get(0));
+    plugin.getEntityUrl = function() {
+        return document.location.href.replace(/photo(.*)/, '');
+    }
+
+    if(/\/photo(\d+)/.test(document.location.href)) {
+        var id = document.location.href.split(/\/photo(\d+)/)[1];
+        plugin.openWindow(id);
     }
 
     return this.each(function() {
         $(this).bind('click', function() {
-            plugin.openWindow(this);
+            plugin.openWindow($(this).attr('data-id'));
         });
     });
 }

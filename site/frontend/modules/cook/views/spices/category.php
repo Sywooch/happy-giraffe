@@ -13,7 +13,7 @@
             <h1>Приправы и специи <?=$model->title; ?></h1>
 
             <div class="clearfix">
-                <div class="cat-img"><img src="<?=isset($model->photo)?$model->photo->getOriginalUrl():'' ?>"/></div>
+                <div class="cat-img"><img src="<?=isset($model->photo)?$model->photo->getPreviewUrl(370, 500, Image::WIDTH):'' ?>"/></div>
 
                 <div class="wysiwyg-content"><?=$model->content; ?></div>
             </div>

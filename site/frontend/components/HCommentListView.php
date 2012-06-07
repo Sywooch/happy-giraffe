@@ -33,7 +33,7 @@ class HCommentListView extends MyListView
         $cs=Yii::app()->getClientScript();
         $cs->registerCoreScript('jquery');
         $cs->registerCoreScript('bbq');
-        echo '<script type="text/javascript">jQuery(\'#' . $id . '\').yiiListView(' . $options . ')</script>';
+        echo '<script type="text/javascript">$(function() {jQuery(\'#' . $id . '\').yiiListView(' . $options . ');});</script>';
     }
 
     protected function registerStatePagination()

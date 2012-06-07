@@ -369,7 +369,7 @@ class CommunityContent extends HActiveRecord
                         'content_id' => $this->id,
                     );
                 } else {
-                    $route = 'community/view';
+                    $route = '/community/view';
                     $params = array(
                         'community_id' => $this->rubric->community_id,
                         'content_type_slug' => $this->type->slug,

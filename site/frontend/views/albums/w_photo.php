@@ -18,7 +18,7 @@ $selected_index = null;
             <ul>
                 <?php foreach($model->photoCollection as $i => $p): ?>
                     <li>
-                        <a href="javascript:;" data-id="<?php echo $p->primaryKey; ?>"><img src="" data-src="<?php echo $p->getPreviewUrl(100, 100, Image::HEIGHT); ?>" alt="" /></a>
+                        <a href="#photo-<?php echo $p->id; ?>" data-id="<?php echo $p->primaryKey; ?>"><img src="" data-src="<?php echo $p->getPreviewUrl(100, 100, Image::HEIGHT); ?>" alt="" /></a>
                         <?php if($photo->id == $p->id) {$selected_index = $i;} ?>
                     </li>
                 <?php endforeach; ?>

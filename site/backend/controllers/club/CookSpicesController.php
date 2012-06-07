@@ -22,7 +22,7 @@ class CookSpicesController extends BController
 
             if (!$_POST['CookSpice']['ingredient_id']) {
                 $ingredient = new CookIngredient();
-                $ingredient->attributes = array('title' => $_POST['CookSpice']['title'], 'category_id' => 41);
+                $ingredient->attributes = array('title' => $_POST['ac'], 'category_id' => 41);
                 $ingredient->save();
                 $_POST['CookSpice']['ingredient_id'] = $ingredient->id;
             }

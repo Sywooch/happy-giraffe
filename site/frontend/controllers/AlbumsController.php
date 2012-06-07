@@ -364,9 +364,7 @@ class AlbumsController extends HController
         $decoration = new CookDecoration();
         $decoration->photo_id = $model->id;
         $decoration->category_id = Yii::app()->request->getPost('category');
-        if ($title) {
-            $decoration->title = $model->title;
-        }
+        $decoration->title = $model->title;
 
         if ($decoration->save()) {
             $attach = new AttachPhoto;

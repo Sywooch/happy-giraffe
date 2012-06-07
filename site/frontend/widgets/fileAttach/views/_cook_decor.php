@@ -4,7 +4,7 @@
         <label>Тип блюда</label>
         <?php
         Yii::import('application.modules.cook.models.CookDecorationCategory');
-        echo CHtml::dropDownList('category', '', CHtml::listData(CookDecorationCategory::model()->findAll(), 'id', 'title'), array('class' => 'chzn-select'));
+        echo CHtml::dropDownList('category', '', CHtml::listData(CookDecorationCategory::model()->findAll(), 'id', 'title'), array('class' => 'chzn-select chzn'));
         ?>
     </div>
 
@@ -13,7 +13,7 @@
         <input type="text" name="title" placeholder="Введите название" value="<?=$title;?>">
     </div>
 
-    <div style="" id="save_attach_button" class="form-bottom">
+    <div style="" id="save_decor_button" class="form-bottom">
         <button onclick="Attach.insertToCookDecoration();" class="btn btn-green-medium">
             <span><span>Завершить</span></span>
         </button>

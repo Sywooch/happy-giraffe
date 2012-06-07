@@ -10,7 +10,7 @@
                             <?php if($image->getimagewidth() < 240 || $image->getimageheight() < 240): ?>
                                 <p class="error">Слишком маленький размер</p>
                             <?php else: ?>
-                                <a class="btn btn-green-medium" href="javascript:;" onclick="Attach.selectPhoto(this, <?php echo $data->id ?>);"><span><span><?php echo $this->button_title; ?></span></span></a>
+                                <a class="btn btn-green-medium" href="javascript:;" onclick="<?php echo $this->id; ?>.selectPhoto(this, <?php echo $data->id ?>);"><span><span><?php echo $this->button_title; ?></span></span></a>
                             <?php endif; ?>
                         </div>
                     </div>

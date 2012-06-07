@@ -14,12 +14,12 @@
 ): ?>
     <div class="admin-actions">
         <?php if ((Yii::app()->user->model->checkAuthItem('editComment') || Yii::app()->user->id == $data->author_id) && $data->isTextComment()): ?>
-        <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit', 'onclick' => 'return Comment.edit(this);')); ?>
+        <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit', 'onclick' => 'return '.$this->objectName.'.edit(this);')); ?>
         <?php endif; ?>
         <?php if ((Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $data->author_id) || $data->isEntityAuthor(Yii::app()->user->id)): ?>
         <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
             'model' => $data,
-            'callback' => 'Comment.remove',
+            'callback' => 'function() {'.$this->objectName.'.remove();}',
             'author' => Yii::app()->user->id == $data->author_id || $data->isEntityAuthor(Yii::app()->user->id)
         )); ?>
         <?php endif; ?>
@@ -28,9 +28,9 @@
     <?php endif; ?>
 
     <?php if($this->actions): ?>
-    <a href="javascript:void(0);" onclick="return Comment.response(this);">Ответить</a>
+    <a href="javascript:void(0);" onclick="return <?php echo $this->objectName; ?>.response(this);">Ответить</a>
     &nbsp;
-    <a href="javascript:void(0);" class="quote-link" onclick="return Comment.quote(this);">С цитатой</a>
+    <a href="javascript:void(0);" class="quote-link" onclick="return <?php echo $this->objectName; ?>.quote(this);">С цитатой</a>
     <?php endif; ?>
 
 </div>

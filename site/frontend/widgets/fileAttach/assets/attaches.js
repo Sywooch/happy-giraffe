@@ -1,41 +1,43 @@
-var Attach = {
-    entity : null,
-    entity_id : null,
-    base_url : null,
-    params : new Array(),
-    attachGuestPhoto : false
-};
+function Attach() {
+    this.entity = null,
+        this.entity_id = null,
+        this.base_url = null, /* TODO не уверен, что где-то используется. Проверить. */
+        this.params = new Array(),
+        this.object_name = null;
+}
 
-Attach.changeView = function(link) {
+Attach.prototype.changeView = function(link) {
     $('#attach_content').load(link.href, function() {
         $(link).parent().addClass('active').siblings().removeClass('active');
     });
     return false;
 };
 
-Attach.updateEntity = function(entity, entity_id) {
+Attach.prototype.updateEntity = function(entity, entity_id) {
     this.entity = entity;
     this.entity_id = entity_id;
     return true;
 };
 
-Attach.changeAlbum = function(link) {
+Attach.prototype.changeAlbum = function(link) {
     $('#attach_content').load(link.href);
     return false;
 };
 
-Attach.selectPhoto = function(button, id) {
+Attach.prototype.selectPhoto = function(button, id) {
     var image = $(button).parent().siblings('a').children('img').clone(true);
     $('.upload-file .photo').find('a').hide();
     $('.upload-file .photo .upload-container').append(image);
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="photo_id" />').val(id));
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="ContestWork[file]" />').val(1));
-    $('<a class="remove" href="javascript:;" onclick="Attach.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
-    if($('#change_ava').size() > 0 && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo') {
+    $('<a class="remove" href="javascript:;" onclick="' + this.object_name + '.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
+    if($('#change_ava').size() > 0 && this.entity != "PhotoComment" && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo') {
         this.crop(id);
     }
     else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(id);
+    } else if(this.entity = "PhotoComment"){
+        this.saveCommentPhoto(id);
     } else if (this.entity == "Product") {
         this.saveProductPhoto(id);
     } else if (this.entity == "CookDecoration") {
@@ -45,19 +47,19 @@ Attach.selectPhoto = function(button, id) {
     }
 };
 
-Attach.selectBrowsePhoto = function(button) {
+Attach.prototype.selectBrowsePhoto = function(button) {
     var image = $('#upload_photo_container').children('img').clone(true);
     var fsn = $('#upload_photo_container').children('input').val();
     $('.upload-file .photo').find('a').hide();
     $('.upload-file .photo .upload-container').append(image);
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="photo_fsn" />').val(fsn));
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="ContestWork[file]" />').val(1));
-    $('<a class="remove" href="javascript:;" onclick="Attach.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
-    if($('#change_ava').size() > 0 && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo') {
+    $('<a class="remove" href="javascript:;" onclick="' + this.object_name + '.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
+    if($('#change_ava').size() > 0 && this.entity != 'PhotoComment' && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo') {
         this.crop(fsn);
     } else if(this.entity == "Product") {
         this.saveProductPhoto(fsn);
-    } else if (this.attachGuestPhoto){
+    } else if(this.entity == "PhotoComment"){
         this.saveCommentPhoto(fsn);
     } else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(fsn);
@@ -73,8 +75,8 @@ Attach.selectBrowsePhoto = function(button) {
     return false;
 };
 
-Attach.saveProductPhoto = function(val) {
-    $.post(base_url + '/albums/productPhoto/', {val : val,  entity: Attach.entity, entity_id: Attach.entity_id}, function(data) {
+Attach.prototype.saveProductPhoto = function(val) {
+    $.post(base_url + '/albums/productPhoto/', {val : val,  entity: this.entity, entity_id: this.entity_id}, function(data) {
         if(data.status == true) {
             $.fancybox.close();
             document.location.reload();
@@ -82,13 +84,13 @@ Attach.saveProductPhoto = function(val) {
     }, 'json');
 }
 
-Attach.closeUpload = function(link) {
+Attach.prototype.closeUpload = function(link) {
     $(link).siblings('.photo').find('.upload-container').empty();
     $(link).siblings('.photo').find('a').show();
     $(link).remove();
 };
 
-Attach.insertToComment = function(val) {
+Attach.prototype.insertToComment = function(val) {
     var title = $('#photo_title').size() > 0 ? $('#photo_title').val() : null;
     $.post(base_url + '/albums/commentPhoto/', {val : val, title : title}, function(data) {
         if(CKEDITOR.instances[cke_instance] != undefined){
@@ -101,14 +103,14 @@ Attach.insertToComment = function(val) {
     }, 'json');
 };
 
-Attach.insertToHumor = function(fsn) {
+Attach.prototype.insertToHumor = function(fsn) {
     $.post(base_url + '/albums/humorPhoto/', {val:fsn}, function(data) {
         if(data)
             document.location.reload();
     }, 'json');
 }
 
-Attach.insertToRecipe = function(fsn) {
+Attach.prototype.insertToRecipe = function(fsn) {
     $.post(base_url + '/albums/recipePhoto/', {val:fsn}, function(data) {
         if(data.status) {
             $('#CookRecipe_photo_id').val(data.id);
@@ -120,7 +122,7 @@ Attach.insertToRecipe = function(fsn) {
     }, 'json');
 }
 
-Attach.insertToCookDecoration = function(id) {
+Attach.prototype.insertToCookDecoration = function(id) {
     $.post(
         '/albums/cookDecorationPhoto/',
         {
@@ -136,23 +138,23 @@ Attach.insertToCookDecoration = function(id) {
         });
 }
 
-Attach.CookDecorationEdit = function (type, id) {
+Attach.prototype.CookDecorationEdit = function (type, id) {
 
     if (type == 'album') {
-        $('#attach_content').append('<div style="" id="save_attach_button" class="form-bottom"><button onclick="Attach.insertToCookDecoration();" class="btn btn-green-medium"><span><span>Завершить</span></span></button></div>');
+        $('#attach_content').append('<div style="" id="save_attach_button" class="form-bottom"><button onclick="' + this.object_name + '.insertToCookDecoration();" class="btn btn-green-medium"><span><span>Завершить</span></span></button></div>');
         $('#gallery .gallery-photos').hide();
     }
 
-    $.post(base_url + '/albums/cookDecorationCategory/', {id:id}, function (data) {
+    $.post(base_url + '/albums/cookDecorationCategory/', {id:id, widget_id : this.object_name}, function (data) {
         $('#attach_content>*').hide();
         $('#attach_content').append(data);
         $('#save_attach_button button span span').text('Завершить')
-        $('#save_attach_button button').attr('onclick', 'Attach.insertToCookDecoration('+id+');');
+        $('#save_attach_button button').attr('onclick', '' + this.object_name + '.insertToCookDecoration('+id+');');
     });
 }
 
-Attach.saveCommentPhoto = function (fsn) {
-    $.post(base_url + '/albums/commentPhoto/', {entity:Comment.entity, entity_id:Comment.entity_id, val:fsn},
+Attach.prototype.saveCommentPhoto = function (val) {
+    $.post(base_url + '/albums/commentPhoto/', {entity:attach_comment_obj.entity, entity_id:attach_comment_obj.entity_id, val:val},
         function (response) {
             if (response.status) {
                 $.fancybox.close();
@@ -161,31 +163,32 @@ Attach.saveCommentPhoto = function (fsn) {
                 if (pager.size() > 0 && $('#add_comment .button_panel .btn-green-medium span span').text() != 'Редактировать')
                     url = pager.children('a').attr('href');
                 if (url !== false)
-                    $.fn.yiiListView.update('comment_list', {url:url, data:{lastPage:true}});
+                    $.fn.yiiListView.update(attach_comment_obj.getId(), {url:url, data:{lastPage:true}});
                 else if ($('#add_comment .button_panel .btn-green-medium span span').text() == 'Редактировать')
-                    $.fn.yiiListView.update('comment_list');
+                    $.fn.yiiListView.update(attach_comment_obj.getId());
                 else
-                    $.fn.yiiListView.update('comment_list', {data:{lastPage:true}});
-                var editor = Comment.getInstance();
+                    $.fn.yiiListView.update(attach_comment_obj.getId(), {data:{lastPage:true}});
+                var editor = attach_comment_obj.getInstance();
                 editor.setData('');
                 editor.destroy();
-                Comment.cancel();
+                attach_comment_obj.cancel();
             }
         }, 'json');
 };
 
-Attach.crop = function(val) {
-    $.post(base_url + '/albums/crop/', {val : val}, function(data) {
+Attach.prototype.crop = function(val) {
+    var $this = this;
+    $.post(base_url + '/albums/crop/', {val : val, widget_id : this.object_name}, function(data) {
         $('#photoPick').replaceWith($(data));
         $('#crop_target').Jcrop({
-            onChange: Attach.showPreview,
-            onSelect: Attach.showPreview,
+            onChange: $this.showPreview,
+            onSelect: $this.showPreview,
             aspectRatio: 1
         });
     });
 };
 
-Attach.showPreview = function(coords) {
+Attach.prototype.showPreview = function(coords) {
     $('#photoPick .form-bottom').show();
     var rx = 72 / coords.w;
     var ry = 72 / coords.h;
@@ -198,7 +201,7 @@ Attach.showPreview = function(coords) {
     });
 }
 
-Attach.changeAvatar = function(form) {
+Attach.prototype.changeAvatar = function(form) {
     var data = $(form).serialize();
     data += '&width=' + $('#crop_target').width() + '&height=' + $('#crop_target').height();
     $.post(base_url + '/albums/changeAvatar/', data, function(data) {

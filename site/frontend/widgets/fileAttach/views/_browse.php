@@ -25,6 +25,6 @@
         <?php endif; ?>
     </div>
     <div class="form-bottom" id="save_attach_button" style="display:none;">
-        <button class="btn btn-green-medium" onclick="return Attach.selectBrowsePhoto(this);"><span><span><?php echo $this->button_title; ?></span></span></button>
+        <button class="btn btn-green-medium" onclick="return <?php echo $this->id; ?>.selectBrowsePhoto(this);"><span><span><?php echo $this->button_title; ?></span></span></button>
     </div>
 </div>

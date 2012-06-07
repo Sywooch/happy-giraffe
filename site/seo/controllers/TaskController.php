@@ -123,7 +123,14 @@ class TaskController extends SController
             $article_keywords->entity_id = $article_id;
             $article_keywords->keyword_group_id = $task->keyword_group_id;
             $article_keywords->url = $url;
-            $article_keywords->save();
+            if (!$article_keywords->save()){
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Ошибка сохранения статьи'
+                ));
+                var_dump($article_keywords->getErrors());
+                Yii::app()->end();
+            }
 
             $task->article_id = $article_keywords->id;
             if (empty($task->article_title))

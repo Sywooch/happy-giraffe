@@ -176,9 +176,7 @@ class Keywords extends HActiveRecord
         elseif ($this->inBuffer()) $class = 'in-buffer';
         elseif ($this->hasOpenedTask()) $class = 'in-work';
 
-        if (!empty($class))
-            return ' class="' . $class . '"';
-        return '';
+        return $class;
     }
 
     public function getData()
@@ -275,22 +273,33 @@ class Keywords extends HActiveRecord
     {
         $result = array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0);
         foreach ($models as $model) {
-            $result [$model->freq] ++;
+            $result [$model->freq]++;
         }
 
         return $result;
     }
 
-    public function getButtons()
+    public function getButtons($short = false)
     {
+        if ($short) {
+            if ($this->inBuffer())
+                return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>';
+            elseif ($this->used())
+                return '';
+            elseif ($this->hasOpenedTask())
+                return '';
+            else
+                return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this);return false;"></a>';
+
+        }
         if ($this->inBuffer())
-            return 'в буфере <input type="hidden" value="'.$this->id.'"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>';
+            return 'в буфере <input type="hidden" value="' . $this->id . '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>';
         elseif ($this->used())
             return 'на сайте';
         elseif ($this->hasOpenedTask())
             return 'в работе';
         else
-            return '<input type="hidden" value="'.$this->id.'">
+            return '<input type="hidden" value="' . $this->id . '">
             <a href="" class="icon-add" onclick="SeoKeywords.Select(this);return false;"></a>
             <a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>';
     }

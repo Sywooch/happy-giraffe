@@ -1,6 +1,6 @@
 <?php
 
-class OrderController extends Controller
+class OrderController extends HController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

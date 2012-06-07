@@ -2,7 +2,7 @@
 /* @var $this Controller
  * @var $message array
  */
-$user = Im::model()->getUser($message['user_id']);
+$user = User::getUserById($message['user_id']);
 if (!isset($class))
     $class = '';
 ?><div class="dialog-message<?php if ($message['read_status'] == 0 && !$read) echo ' dialog-message-new-in'
@@ -10,7 +10,7 @@ if (!isset($class))
     <table>
         <tr>
             <td class="user">
-                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $user, 'small'=>'true', 'size'=>'small')); ?>
+                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $user, 'small'=>true, 'size'=>'small')); ?>
             </td>
             <td class="content">
                 <div class="name"><?php echo $user->first_name ?></div>

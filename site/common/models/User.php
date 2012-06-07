@@ -5,9 +5,6 @@
  *
  * The followings are the available columns in table 'user':
  * @property integer $id
- * @property integer $external_id
- * @property string $vk_id
- * @property string $nick
  * @property string $email
  * @property string $phone
  * @property string $password
@@ -16,7 +13,6 @@
  * @property int $deleted
  * @property integer $gender
  * @property string $birthday
- * @property string $mail_id
  * @property string $last_active
  * @property integer $online
  * @property string $register_date
@@ -54,8 +50,9 @@
  * @property Interest[] interests
  * @property UserPartner partner
  * @property Baby[] babies
+ * @property AlbumPhoto $avatar
  */
-class User extends CActiveRecord
+class User extends HActiveRecord
 {
     public $verifyCode;
     public $current_password;
@@ -64,6 +61,13 @@ class User extends CActiveRecord
     public $remember;
     public $photo;
     public $assigns;
+    private $_role = null;
+    private $_authItems = null;
+
+    public $authorsRate;
+    public $commentatorsRate;
+    public $interestsCount;
+    public $babiesCount;
 
     public $women_rel = array(
         1 => 'Замужем',
@@ -136,7 +140,7 @@ class User extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{users}}';
+        return 'users';
     }
 
     /**
@@ -160,7 +164,7 @@ class User extends CActiveRecord
             array('blocked, login_date, register_date', 'safe'),
             array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
-            array('avatar', 'numerical', 'allowEmpty' => true),
+            array('avatar_id', 'numerical', 'allowEmpty' => true),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -229,6 +233,7 @@ class User extends CActiveRecord
     public function relations()
     {
         return array(
+            'avatar' => array(self::BELONGS_TO, 'AlbumPhoto', 'avatar_id'),
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
             'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
@@ -273,6 +278,9 @@ class User extends CActiveRecord
             'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
             'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
+
+            'answers' => array(self::HAS_MANY, 'DuelAnswer', 'user_id'),
+            'activeQuestion' => array(self::HAS_ONE, 'DuelQuestion', array('question_id' => 'id'), 'through' => 'answers', 'condition' => 'ends > NOW()'),
         );
     }
 
@@ -321,8 +329,6 @@ class User extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('external_id', $this->external_id);
-        $criteria->compare('nick', $this->nick, true);
         $criteria->compare('email', $this->email, true);
         $criteria->compare('first_name', $this->first_name, true);
         $criteria->compare('last_name', $this->last_name, true);
@@ -335,6 +341,9 @@ class User extends CActiveRecord
     protected function beforeSave()
     {
         if (parent::beforeSave()) {
+            if ($this->isNewRecord) {
+                $this->register_date = date("Y-m-d H:i:s");
+            }
             if ($this->isNewRecord OR $this->scenario == 'change_password') {
                 $this->password = $this->hashPassword($this->password);
             }
@@ -353,8 +362,6 @@ class User extends CActiveRecord
             $service->save();
         }
         if ($this->isNewRecord) {
-            $this->register_date = date("Y-m-d H:i:s");
-
             //силнал о новом юзере
             $signal = new UserSignal();
             $signal->user_id = (int)$this->id;
@@ -365,7 +372,7 @@ class User extends CActiveRecord
 
             //рубрика для блога
             $rubric = new CommunityRubric;
-            $rubric->name = 'Обо всём';
+            $rubric->title = 'Обо всём';
             $rubric->user_id = $this->id;
             $rubric->save();
 
@@ -400,7 +407,7 @@ class User extends CActiveRecord
         return array(
 //			'attribute_set' => array(
 //				'class'=>'attribute.AttributeSetBehavior',
-//				'table'=>'shop_product_attribute_set',
+//				'table'=>'shop__product_attribute_set',
 //				'attribute'=>'product_attribute_set_id',
 //			),
             'getUrl' => array(
@@ -455,15 +462,8 @@ class User extends CActiveRecord
      */
     public static function getUserById($id)
     {
-        $user = User::model()->cache(3600 * 24)->findByPk($id);
+        $user = User::model()->findByPk($id);
         return $user;
-
-        //        $value = Yii::app()->cache->get('User_' . $id);
-        //        if ($value === false) {
-        //            $value = User::model()->findByPk($id);
-        //            Yii::app()->cache->set('User_' . $id, $value, 5184000);
-        //        }
-        //        return $value;
     }
 
     public static function clearCache($id)
@@ -476,12 +476,12 @@ class User extends CActiveRecord
 
     public function getAva($size = 'ava')
     {
-        if(!$this->avatar)
+        if(empty($this->avatar_id))
             return false;
         if($size != 'big')
-            return AlbumPhoto::model()->findByPk($this->avatar)->getAvatarUrl($size);
+            return $this->avatar->getAvatarUrl($size);
         else
-            return AlbumPhoto::model()->findByPk($this->avatar)->getPreviewUrl(240, 400, Image::WIDTH);
+            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
     }
 
     public function getPartnerPhotoUrl()
@@ -495,12 +495,12 @@ class User extends CActiveRecord
         if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->id)
             return '#';
 
-        $dialog_id = Im::model()->getDialogIdByUser($this->id);
-        if (isset($dialog_id)) {
-            $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
-        } else {
+//        $dialog_id = Im::model()->getDialogIdByUser($this->id);
+//        if (isset($dialog_id)) {
+//            $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
+//        } else {
             $url = Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
-        }
+//        }
 
         return $url;
     }
@@ -515,18 +515,6 @@ class User extends CActiveRecord
             $res .= $assign->description . '<br>';
         }
         return trim($res, '<br>');
-    }
-
-    public function getRole()
-    {
-        $roles = Yii::app()->authManager->getRoles($this->id);
-        if (empty($roles))
-            return 'user';
-        $res = '';
-        foreach ($roles as $name => $item) {
-            $res .= $name . ', ';
-        }
-        return trim($res, ', ');
     }
 
     /**
@@ -704,6 +692,11 @@ class User extends CActiveRecord
         return array();
     }
 
+    public function getRelationshipStatusString()
+    {
+        return $this->relationship_status === null ? '' : mb_strtolower($this->relashionshipList[$this->relationship_status], 'utf-8');
+    }
+
     public function getPartnerTitle($id)
     {
         if ($this->gender == 1) {
@@ -773,9 +766,10 @@ class User extends CActiveRecord
         }
     }
 
-    public function getUrl()
+    public function getUrl($absolute = false)
     {
-        return Yii::app()->createUrl('user/profile', array('user_id' => $this->id));
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method('user/profile', array('user_id' => $this->id));
     }
 
     public function addCommunity($community_id)
@@ -801,7 +795,11 @@ class User extends CActiveRecord
 
     public function getScores()
     {
-        $model = UserScores::model()->with(array('level' => array('select' => array('title'))))->findByPk($this->id);
+        $criteria = new CDbCriteria;
+        $criteria->with =array('level' => array('select' => array('title')));
+        $criteria->compare('user_id', $this->id);
+        $criteria->select = array('scores', 'level_id');
+        $model = UserScores::model()->find($criteria);
         if ($model === null) {
             $model = new UserScores;
             $model->user_id = $this->id;
@@ -849,5 +847,90 @@ class User extends CActiveRecord
             if (empty($baby->type))
                 $i++;
         return $i;
+    }
+
+    function getRole()
+    {
+        if ($this->_role === null) {
+            $roles = Yii::app()->authManager->getRoles($this->id);
+            foreach($roles as $role){
+                $this->_role = $role->name;
+                return $role->name;
+            }
+
+            $this->_role = 'user';
+        }
+        return $this->_role;
+    }
+
+    function isUser()
+    {
+        return $this->role == 'user';
+    }
+
+    public function checkAuthItem($item)
+    {
+        if ($this->_authItems === null){
+            $this->_authItems = Yii::app()->authManager->getAuthAssignments($this->id);
+        }
+
+        return isset($this->_authItems[$item]);
+    }
+
+    public static function findFriends($limit, $offset = 0)
+    {
+        $criteria = new CDbCriteria(array(
+            'select' => 't.*, count(interest__users_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() .  '.id) AS babiesCount',
+            'group' => 't.id',
+            'having' => 'interestsCount > 0 AND (babiesCount > 0 OR t.relationship_status IS NOT NULL)',
+            'condition' => 't.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
+            'join' => 'LEFT JOIN interest__users_interests ON interest__users_interests.user_id = t.id',
+            'with' => array(
+                'interests' => array(
+                    'together' => false,
+                ),
+                'userAddress',
+                'babies' => array(
+                    'together' => true,
+                    'condition' => 'sex != 0 OR type IS NOT NULL',
+                ),
+            ),
+            'order' => 'register_date DESC',
+            'limit' => $limit,
+            'offset' => $offset,
+        ));
+
+        if (! Yii::app()->user->isGuest) {
+            $criteria->join .= ' LEFT JOIN friends ON (friends.user1_id = :me AND friends.user2_id = t.id) OR (friends.user2_id = :me AND friends.user1_id = t.id)';
+            $criteria->addCondition('t.id != :me AND friends.id IS NULL');
+            $criteria->params = array(':me' => Yii::app()->user->id);
+        }
+
+        return User::model()->findAll($criteria);
+    }
+
+    public function getCanDuel()
+    {
+        $connection = Yii::app()->db;
+        $sql = '
+            SELECT count(*)
+            FROM ' . DuelQuestion::model()->tableName() .' q
+            JOIN ' . DuelAnswer::model()->tableName() .' a ON q.id = a.question_id
+            WHERE (ends > NOW() OR ends IS NULL) AND user_id = :user_id;
+        ';
+        $command = $connection->createCommand($sql);
+        $command->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+        return $command->queryScalar() == 0;
+    }
+
+    public function getActivityUpdated()
+    {
+        if (UserAttributes::get($this->id, 'activityLastVisited') === false) {
+            return true;
+        } elseif (($activityLastUpdated = Yii::app()->cache->get('activityLastUpdated')) === false) {
+            return false;
+        } else {
+            return $activityLastUpdated > UserAttributes::get($this->id, 'activityLastVisited');
+        }
     }
 }

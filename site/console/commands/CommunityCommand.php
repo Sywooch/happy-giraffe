@@ -8,6 +8,31 @@
  */
 class CommunityCommand extends CConsoleCommand
 {
+    public function actionUpdateViews()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.Rating');
+
+        $ratings = Rating::model()->findAll(array(
+            'conditions' => array(
+                'entity_name' => array(
+                    'in' => array(
+                        'CommunityContent',
+                        'BlogContent',
+                    ),
+                ),
+            ),
+        ));
+
+        foreach ($ratings as $r) {
+            $model = CActiveRecord::model($r->entity_name)->findByPk($r->entity_id);
+            if ($model !== null) {
+                $model->rate = $r->sum;
+                $model->save(false);
+            }
+        }
+    }
+
     public function actionCutConvert()
     {
         Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
@@ -284,7 +309,12 @@ class CommunityCommand extends CConsoleCommand
                 SELECT `content`.`id`
                 FROM `community__contents` `content`
                 JOIN `community__rubrics` `rubric` ON  `content`.`rubric_id` = `rubric`.`id`
-                WHERE `content`.`type_id` = 1 AND `rubric`.`community_id` != 22 AND `rubric`.`community_id` != 23 AND `content`.`editor_id` IS NULL AND `rubric`.`community_id` IS NOT NULL AND `content`.`by_happy_giraffe` = 0
+                WHERE `content`.`type_id` = 1
+                AND `rubric`.`community_id` != 22
+                AND `rubric`.`community_id` != 23
+                AND `content`.`editor_id` IS NULL
+                AND `rubric`.`community_id` IS NOT NULL
+                AND `content`.`by_happy_giraffe` = 0
                 ORDER BY `content`.`id` ASC
                 LIMIT :offset, 500
                 ) `t2` ON `t1`.`id` = `t2`.`id`

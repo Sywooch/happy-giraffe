@@ -12,7 +12,7 @@
  * @property string $url
  * @property string $product_id
  */
-class ProductVideo extends CActiveRecord
+class ProductVideo extends HActiveRecord
 {
     public $accusativeName = 'видео';
 
@@ -30,7 +30,7 @@ class ProductVideo extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__product_video}}';
+		return 'shop__product_video';
 	}
 
 	/**

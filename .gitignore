@@ -1,27 +1,65 @@
-site/backend/www/index.php
-site/console/yiic.php
-site/frontend/www/index.php
-site/backend/config/main-local.php
-site/console/config/main-local.php
-site/frontend/config/main-local.php
-site/backend/runtime/*
-site/console/runtime/*
-site/frontend/runtime/*
-site/backend/www/assets/*
-site/frontend/www/assets/*
-site/frontend/www/temp_upload/*
-site/frontend/www/upload/*/*
-site/backend/www/temp_upload/*
-site/backend/www/upload/*/*
-!site/frontend/www/upload/contest/preview
-!.gitignore
-/.idea
-/.gitignore
-/site/backend/config/main_local.php
-/site/console/config/main_local.php
-/site/frontend/config/main_local.php
-/site/common/uploads/photos/originals
-/site/common/uploads/photos/thumbs
-/site/common/uploads/photos/temp
-/site/frontend/www/assets
-/site/common/uploads/photos/avatars
+*.iml
+*.ipr
+*.iws
+.idea/
+nbproject/
+nbactions.xml
+nb-configuration.xml
+
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
+
+.DS_Store
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# SublimeText project files
+/*.sublime-project
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+.*.sw[a-z]
+*.un~
+Session.vim

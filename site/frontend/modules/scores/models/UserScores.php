@@ -13,7 +13,7 @@
  * @property ScoreLevels $level
  * @property User $user
  */
-class UserScores extends CActiveRecord
+class UserScores extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

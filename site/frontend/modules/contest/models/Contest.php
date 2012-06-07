@@ -31,7 +31,7 @@
  * @property User $user
  *
  */
-class Contest extends CActiveRecord
+class Contest extends HActiveRecord
 {
 
 	public function behaviors()
@@ -86,7 +86,7 @@ class Contest extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{contest__contests}}';
+		return 'contest__contests';
 	}
 
 	/**

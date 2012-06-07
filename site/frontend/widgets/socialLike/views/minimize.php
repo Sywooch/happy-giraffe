@@ -1,17 +1,18 @@
 <div class="like-block fast-like-block">
 
     <div class="box-1">
-        <script charset="utf-8" src="//yandex.st/share/share.js" type="text/javascript"></script>
         Поделиться
-        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+        <?php if(!Yii::app()->request->isAjaxRequest): ?>
+            <script charset="utf-8" src="//yandex.st/share/share.js" type="text/javascript"></script>
+        <?php endif; ?>
         <div id="ya_share1"></div>
         <script type="text/javascript">
             new Ya.share({
                 element: 'ya_share1',
                 l10n : 'ru',
-                title : '<?php echo $this->options['title'] ?>',
-                description : '<?php echo $this->options['description'] ?>',
-                image : '<?php echo $this->options['image'] ?>',
+                title : <?= CJavaScript::encode($this->options['title']) ?>,
+                description : <?= CJavaScript::encode($this->options['description']) ?>,
+                image : <?= CJavaScript::encode($this->options['image']) ?>,
                 elementStyle : {
                     'type': 'none',
                     'quickServices' : ['vkontakte', 'facebook', 'twitter', 'odnoklassniki', 'moimir', 'gplus']

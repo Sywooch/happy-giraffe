@@ -1,6 +1,6 @@
 <?php
 
-class GeoController extends Controller
+class GeoController extends HController
 {
     public $layout = '//layouts/main';
 

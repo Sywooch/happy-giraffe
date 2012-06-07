@@ -9,7 +9,7 @@
  * @property string $map_product_id
  * @property string $map_product_count
  */
-class ProductSetMap extends CActiveRecord
+class ProductSetMap extends HActiveRecord
 {
 
 	/**
@@ -26,7 +26,7 @@ class ProductSetMap extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__product_set_map}}';
+		return 'shop__product_set_map';
 	}
 
 	/**

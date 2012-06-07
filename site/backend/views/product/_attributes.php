@@ -43,6 +43,13 @@
             });
         });
 
+        $('.characteristic input.set-measure').click(function () {
+            var block = $(this).parent().parent();
+            var id = block.find('input[type=hidden]').val();
+            var value = block.find('input[type=text]').val();
+            SetAttributeValue(id, value, value, block);
+        });
+
         $('.characteristic input.set-yes').click(function () {
             var block = $(this).parent().parent();
             var id = block.find('input[type=hidden]').val();
@@ -115,25 +122,71 @@
             context:block
         });
     }
+
+    $(function() {
+        $('#putInBlock tbody').on('submit', 'form', function() {
+            $.post(this.action, $(this).serialize(), function() {
+
+            });
+            return false;
+        });
+    });
 </script>
-<div class="propertyBlock">
+<div id="putInBlock" class="items_table">
+    <table>
+        <caption>Позиции на складе</caption>
+        <thead>
+            <tr>
+                <th>Характеристики</th>
+                <th>Количество</th>
+                <th>Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($model->items as $item): ?>
+                <tr>
+                    <td>
+                        <?php foreach($item->params as $key => $param): ?>
+                            <?php echo ($key != 0 ? ', ' : '') . CHtml::tag('strong', array(), $param['attribute']->attribute_title) . ': ' . $param['value']; ?>
+                        <?php endforeach; ?>
+                    </td>
+                    <td>
+                        <?php echo CHtml::beginForm(array('/product/updateItemCount', 'id' => $item->primaryKey), 'post'); ?>
+                            <input type="text" name="itemCount" value="<?php echo $item->count; ?>" />
+                            <input type="submit" class="save-item-count" value="" />
+                        <?php echo CHtml::endForm(); ?>
+                    </td>
+                    <td>
+                        <?php echo $item->price; ?> руб.
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><?php echo CHtml::link('Добавить на склад', array('/product/putIn', 'id' => $model->primaryKey), array('class' => 'fancy')); ?></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<!--<div class="propertyBlock">
     <p class="text_header">Характеристики в корзину</p>
 
     <div class="text_block">
         <ul class="inline_block">
-            <?php foreach ($attributeMap as $attribute)
+            <?php /*foreach ($attributeMap as $attribute)
             if ($attribute->map_attribute->attribute_in_price == 1) {
-                ?>
-                <?php $attr = $attribute->map_attribute; ?>
-                <?php $this->renderPartial('_attribute_view', array(
+                */?>
+                <?php /*$attr = $attribute->map_attribute; */?>
+                <?php /*$this->renderPartial('_attribute_view', array(
                     'model' => $attr,
                     'product' => $model,
-                )); ?>
-                <?php } ?>
+                )); */?>
+                <?php /*} */?>
         </ul>
         <div class="clear"></div>
     </div>
-</div>
+</div>-->
 
 <p class="text_header">Технические характеристики</p>
 
@@ -146,7 +199,7 @@
         if ($model->isNewRecord)
             $value = false;
         else
-            $value = $model->GetAttributeValue($attr)
+            $value = $model->GetAttributeValue($attr);
         ?>
 <tr>
     <td class="name"><?php echo $attr->attribute_title ?></td>
@@ -185,14 +238,13 @@
                 <input type="text" value="<?php echo $value ?>"/>
                 <input type="button" class="smallGreen set-text" value="Ok"/>
             </p>
-            <a<?php if ($value === false) echo ' style="display: none;"' ?> href="#"
-                                                                            class="edit"><?php echo $value ?></a>
+            <a<?php if ($value === false) echo ' style="display: none;"' ?> href="#" class="edit"><?php echo $value ?></a>
             <?php endif ?>
 
             <?php if ($attr->attribute_type == Attribute::TYPE_MEASURE): ?>
             <p<?php if ($value !== false) echo ' style="display: none;"' ?>>
                 <input type="text" value=""/>
-                <input type="button" class="smallGreen" value="Ok"/>
+                <input type="button" class="smallGreen set-measure" value="Ok"/>
             </p>
             <a<?php if ($value === false) echo ' style="display: none;"' ?> href="#"
                                                                             class="edit"><?php echo $value ?></a>

@@ -5,7 +5,7 @@
  *
  * @property User $user
  */
-class FamilyController extends Controller
+class FamilyController extends HController
 {
     public $user;
     public $layout = 'user';
@@ -33,7 +33,6 @@ class FamilyController extends Controller
     public function actionIndex()
     {
         $this->loadUser();
-        Yii::app()->clientScript->registerScriptFile('/javascripts/family.js');
         $this->pageTitle = 'Семья';
 
         if ($this->user->partner == null) {
@@ -217,7 +216,7 @@ class FamilyController extends Controller
             } else
                 $response = array('status' => false);
         } else
-            $response = array('status' => false);
+            $response = array('status' => true);
 
         echo CJSON::encode($response);
     }
@@ -226,7 +225,7 @@ class FamilyController extends Controller
     {
         $criteria = new CDbCriteria;
         $criteria->compare('parent_id', Yii::app()->user->id);
-        $criteria->condition = ' type IS NULL ';
+        $criteria->compare('type', null);
         $count = Baby::model()->deleteAll($criteria);
         if ($count > 0) {
             $response = array('status' => true);

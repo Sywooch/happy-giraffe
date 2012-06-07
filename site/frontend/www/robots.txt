@@ -1,9 +1,0 @@
-User-agent: *
-Disallow: /admin
-Disallow: /contest
-Disallow: /calendar
-Disallow: /shop
-Disallow: /search
-Disallow: /my
-Sitemap: http://www.happy-giraffe.ru/sitemap.xml
-Host: www.happy-giraffe.ru

@@ -17,7 +17,7 @@ class User extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{users}}';
+        return 'users';
     }
 
     /**
@@ -57,7 +57,7 @@ class User extends CActiveRecord
 
     public static function getUserById($id)
     {
-        $user = User::model()->cache(3600*24)->findByPk($id);
+        $user = User::model()->findByPk($id);
         return $user;
     }
 

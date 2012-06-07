@@ -290,14 +290,11 @@ class AttributeAbstract extends CFormModel
                         if(count($ids) == 0)
                             break;
                         $criteria->addCondition('(eav_attribute_id = ' . end($id) . ' and eav_attribute_value in ('.implode(',', $ids).'))', 'or');
-                        /*$criteria->addCondition('eav_attribute_id = ' . end($id));
-                        $criteria->addInCondition('eav_attribute_valued', $ids);*/
                     }
                     $eav[] = true;
                     $is_eav = true;
                     break;
                 default:
-                    new Exception("Error field for attribute {$key} - {$attribute['attribute_title']}");
                     break;
             }
         }
@@ -323,16 +320,13 @@ class AttributeAbstract extends CFormModel
 		{
 			$text_eav_ids = Y::command()
 				->select("eav_product_id, count(DISTINCT eav_attribute_id) N")
-				->from('shop_product_eav_text')
+				->from('shop__product_eav_text')
 				->where($text_eav, $text_where)
 				->group('eav_product_id')
 				->having("N=$text_eav_count")
 				->queryAll();
 			$text_eav_ids = CHtml::listData($text_eav_ids, 'eav_product_id', 'eav_product_id');
 		}
-		
-//		Y::dump($eav_ids, false);
-//		Y::dump($text_eav_ids);
 		
 		if(!$is_eav)
 			return $text_eav_ids;
@@ -343,132 +337,4 @@ class AttributeAbstract extends CFormModel
 		
 		return array_intersect($eav_ids, $text_eav_ids);
 	}
-
-    /* TODO DELETE */
-    /*
-    public function setProductValues($product_id)
-    {
-        $this->_product_id = $product_id;
-
-        $attribute_eav_values = Y::command()
-            ->select('eav_attribute_id, eav_attribute_value')
-            ->from('shop_product_eav')
-            ->where('eav_product_id=:eav_product_id', array(
-                ':eav_product_id' => $product_id,
-            ))
-            ->queryAll();
-
-        $attribute_eav_text_values = Y::command()
-            ->select('eav_attribute_id, eav_attribute_value')
-            ->from('shop_product_eav_text')
-            ->where('eav_product_id=:eav_product_id', array(
-                ':eav_product_id' => $product_id,
-            ))
-            ->queryAll();
-
-        $attribute_eav_values = CHtml::listData($attribute_eav_values, 'eav_attribute_id', 'eav_attribute_value');
-        $attribute_eav_text_values = CHtml::listData($attribute_eav_text_values, 'eav_attribute_id', 'eav_attribute_value');
-
-        $attribute_values = $attribute_eav_values + $attribute_eav_text_values;
-
-        foreach($this->_attributes as $key=>$attribute)
-        {
-            if(isset($attribute_values[$attribute['attribute_id']]))
-                $this->_attributes[$key]['value'] = $attribute_values[$attribute['attribute_id']];
-        }
-    }
-
-    public function save($validate=true)
-    {
-        if($validate && !$this->validate())
-            return false;
-
-        $eav = $text_eav = array();
-        foreach($this->_attributes as $key=>$attribute)
-        {
-            switch($attribute['attribute_type'])
-            {
-                case Attribute::TYPE_TEXT:
-                    $text_eav[$key] = $attribute;
-                    $text_eav[$key]['_value'] = $text_eav[$key]['value'];
-                    break;
-                case Attribute::TYPE_BOOL:
-                case Attribute::TYPE_ENUM:
-                case Attribute::TYPE_INTG:
-                    $eav[$key] = $attribute;
-                    $eav[$key]['_value'] = intval($eav[$key]['value']);
-                    break;
-                default:
-                    new Exception("Error field for attribute {$key} - {$attribute['attribute_title']}");
-                    break;
-            }
-        }
-
-        foreach($text_eav as $attribute)
-        {
-            $eav_id = Y::command()
-                ->select('eav_id')
-                ->from('shop_product_eav_text')
-                ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
-                    ':eav_product_id'=>$this->_product_id,
-                    ':eav_attribute_id'=>$attribute['attribute_id'],
-                ))
-                ->limit(1)
-                ->queryScalar();
-
-            if($eav_id)
-            {
-                Y::command()
-                    ->update('shop_product_eav_text', array(
-                        'eav_attribute_value'=>$attribute['_value'],
-                    ), 'eav_id=:eav_id', array(
-                        ':eav_id'=>$eav_id,
-                    ));
-            }
-            else
-            {
-                Y::command()
-                    ->insert('shop_product_eav_text', array(
-                        'eav_product_id'=>$this->_product_id,
-                        'eav_attribute_id'=>$attribute['attribute_id'],
-                        'eav_attribute_value'=>$attribute['_value'],
-                    ));
-            }
-        }
-
-        foreach($eav as $attribute)
-        {
-            $eav_id = Y::command()
-                ->select('eav_id')
-                ->from('shop_product_eav')
-                ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
-                    ':eav_product_id'=>$this->_product_id,
-                    ':eav_attribute_id'=>$attribute['attribute_id'],
-                ))
-                ->limit(1)
-                ->queryScalar();
-
-            if($eav_id)
-            {
-                Y::command()
-                    ->update('shop_product_eav', array(
-                        'eav_attribute_value'=>$attribute['_value'],
-                    ), 'eav_id=:eav_id', array(
-                        ':eav_id'=>$eav_id,
-                    ));
-            }
-            else
-            {
-                Y::command()
-                    ->insert('shop_product_eav', array(
-                        'eav_product_id'=>$this->_product_id,
-                        'eav_attribute_id'=>$attribute['attribute_id'],
-                        'eav_attribute_value'=>$attribute['_value'],
-                    ));
-            }
-        }
-
-        return true;
-    }*/
-
 }

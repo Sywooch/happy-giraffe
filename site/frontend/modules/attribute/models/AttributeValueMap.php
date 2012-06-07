@@ -10,7 +10,7 @@
  *
  * @property AttributeValue map_value
  */
-class AttributeValueMap extends CActiveRecord
+class AttributeValueMap extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -26,7 +26,7 @@ class AttributeValueMap extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_product_attribute_value_map}}';
+		return 'shop__product_attribute_value_map';
 	}
 
 	/**

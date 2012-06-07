@@ -18,15 +18,15 @@
  *
  * The followings are the available model relations:
  *
- * @property CommunityComment[] $comments
  * @property User $contentAuthor
  * @property CommunityRubric $rubric
  * @property CommunityContentType $type
  * @property CommunityPost $post
  * @property CommunityVideo $video
  * @property CommunityPhotoPost $photoPost
+ * @property userPhotos[] $userPhotos
  */
-class CommunityContent extends CActiveRecord
+class CommunityContent extends HActiveRecord
 {
     const USERS_COMMUNITY = 999999;
 
@@ -44,7 +44,7 @@ class CommunityContent extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{community__contents}}';
+		return 'community__contents';
 	}
 
 	/**
@@ -89,7 +89,7 @@ class CommunityContent extends CActiveRecord
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
-
+            'userPhotos' => array(self::HAS_MANY, 'UserPhoto', 'content_id'),
             'editor' => array(self::BELONGS_TO, 'User', 'editor_id'),
 		);
 	}
@@ -286,6 +286,42 @@ class CommunityContent extends CActiveRecord
 
     public function afterSave()
     {
+        if ($this->isNewRecord && $this->type_id != 4) {
+            Yii::app()->cache->set('activityLastUpdated', time());
+        }
+
+        if ($this->type_id == 4 || $this->by_happy_giraffe) {
+            $pingUserId = 1;
+        } else {
+            $pingUserId = $this->author_id;
+        }
+        $pingName = 'Блог пользователя ' . $this->author->fullName;
+        $pingUrl = Yii::app()->createAbsoluteUrl('rss/user', array('user_id' => $pingUserId));
+
+        $xmlDoc = new DOMDocument;
+        $methodCall = $xmlDoc->createElement('methodCall');
+        $xmlDoc->appendChild($methodCall);
+        $methodCall->appendChild($xmlDoc->createElement('methodName', 'weblogUpdates.ping'));
+        $params = $xmlDoc->createElement('params');
+        $methodCall->appendChild($params);
+        $param = $xmlDoc->createElement('param');
+        $param->appendChild($xmlDoc->createElement('value', $pingName));
+        $params->appendChild($param);
+        $param = $xmlDoc->createElement('param');
+        $param->appendChild($xmlDoc->createElement('value', $pingUrl));
+        $params->appendChild($param);
+        $xml = $xmlDoc->saveXML();
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://ping.blogs.yandex.ru/RPC2');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $output = curl_exec($ch);
+        curl_close($ch);
+
+        Yii::log($output, 'error');
+
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();
         if ($this->contentAuthor->isNewComer() && $this->isNewRecord) {
@@ -316,23 +352,44 @@ class CommunityContent extends CActiveRecord
         parent::afterSave();
     }
 
-    public function getUrl()
+    public function getUrlParams()
     {
-        if ($this->rubric_id === null){
-            return Yii::app()->createUrl('/morning/view', array(
-                'id' => $this->id,
-            ));
-        }elseif ($this->isFromBlog) {
-            return Yii::app()->createUrl('/blog/view', array(
-                'content_id' => $this->id,
-            ));
-        } else {
-            return Yii::app()->createAbsoluteUrl('community/view', array(
-                'community_id' => $this->rubric->community->id,
-                'content_type_slug' => $this->type->slug,
-                'content_id' => $this->id,
-            ));
+        switch ($this->type_id) {
+            case 4:
+                $route = '/morning/view';
+                $params = array(
+                    'id' => $this->id,
+                );
+                break;
+            default:
+                if ($this->isFromBlog) {
+                    $route = '/blog/view';
+                    $params = array(
+                        'user_id' => $this->author_id,
+                        'content_id' => $this->id,
+                    );
+                } else {
+                    $route = '/community/view';
+                    $params = array(
+                        'community_id' => $this->rubric->community_id,
+                        'content_type_slug' => $this->type->slug,
+                        'content_id' => $this->id,
+                    );
+                }
         }
+
+        return array($route, $params);
+    }
+
+    public function getUrl($comments = false, $absolute = false)
+    {
+        list($route, $params) = $this->urlParams;
+
+        if ($comments)
+            $params['#'] = 'comment_list';
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
     }
 
     public function scopes()
@@ -355,7 +412,7 @@ class CommunityContent extends CActiveRecord
                     'travel',
                     'commentsCount',
                     'contentAuthor' => array(
-                        'select' => 'id, first_name, last_name, avatar, online',
+                        'select' => 'id, first_name, last_name, avatar_id, online',
                     ),
                 ),
             ),
@@ -493,5 +550,49 @@ class CommunityContent extends CActiveRecord
             default:
                 return '';
         }
+    }
+
+    public function canEdit()
+    {
+        if (Yii::app()->user->model->role == 'user'){
+            if ($this->author_id == Yii::app()->user->id)
+                return true;
+            return false;
+        }
+        return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->contentAuthor->id)));
+    }
+
+    public function canRemove()
+    {
+        if (Yii::app()->user->model->role == 'user'){
+            if ($this->author_id == Yii::app()->user->id)
+                return true;
+            return false;
+        }
+        return (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->contentAuthor->id)));
+    }
+
+    public function getRssContent()
+    {
+        switch ($this->type_id) {
+            case 1:
+                $output = $this->post->text;
+                break;
+            case 2:
+                $video = new Video($this->video->link);
+                $output = CHtml::image($video->image) . $this->video->text;
+                break;
+            case 3:
+                $output = $this->travel->text;
+                break;
+            case 4:
+                $output = $this->preview;
+                foreach ($this->photoPost->photos as $p) {
+                    $output .= CHtml::tag('p', array(), CHtml::image($p->url)) . CHtml::tag('p', array(), $p->text);
+                }
+                break;
+        }
+
+        return $output;
     }
 }

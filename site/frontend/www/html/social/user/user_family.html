@@ -22,14 +22,32 @@
 	
 	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>	
 	
+	<script type="text/javascript" src="/javascripts/jquery.dimensions.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
+	
+	
 	
 	<script type="text/javascript">
 		
 		function setFamilyRadiogroup(el){
+			
 			$(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
 			$(el).addClass('checked').find('input').attr('checked', 'checked');
+			
 		}
+		
+		$(function(){
+			$('.tooltip').tooltip({
+				delay: 100,
+				track: false,
+				showURL: false,
+				showBody: false,
+				top: -20,
+				left: 10
+			});
+		})
 		
 	</script>
 	
@@ -453,10 +471,10 @@
 								Гаврилов-Ям
 							</div>
 							<div class="user-fast-buttons clearfix">
-								<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-								<a href="" class="remove-friend"><span class="tip">Удалить из друзей</span></a>
-								<a href="" class="pending-friend"><span class="tip">Приглашение выслано</span></a>
-								<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+								<a href="" class="add-friend tooltip" title="Пригласить в друзья"></a>
+								<a href="" class="remove-friend tooltip" title="Удалить из друзей"></a>
+								<a href="" class="pending-friend tooltip" title="Приглашение выслано"></a>
+								<a href="" class="new-message tooltip" title="Написать сообщение"></a>
 							</div>
 						</div>
 					</div>
@@ -552,18 +570,18 @@
 									<div class="d-text">Имя невесты:</div>
 									<div class="name">
 										<div class="text">Светлана</div>
-										<div class="input" style="display:none;"><input type="text" /></div>
-										<a href="javascript:void(0);" class="edit"><span class="tip">Редактировать имя</span></a>
+										<div class="input"><input type="text" /></div>
+										<a href="javascript:void(0);" class="edit tooltip" title="Редактировать имя"></a>
 									</div>
-									<a href="javascript:void(0);" class="gender male" style="display:none;"><span class="tip">Мальчик</span></a>
-									<a href="javascript:void(0);" class="gender female" style="display:none;"><span class="tip">Девочка</span></a>
-									<a href="javascript:void(0);" class="gender question" style="display:none;"><span class="tip">Не знаем</span></a>
-									<div class="age" style="display:none;">
+									<a href="javascript:void(0);" class="gender male tooltip" title="Мальчик"></a>
+									<a href="javascript:void(0);" class="gender female tooltip" title="Девочка"></a>
+									<a href="javascript:void(0);" class="gender question tooltip" title="Не знаем"></a>
+									<div class="age">
 										<b>2</b> года
 										<b>2</b> месяца
 									</div>
-									<div class="date" style="display:none;">
-										<a href="javascript:void(0);" class="date"><span class="tip">Укажите дату рождения</span></a>
+									<div class="date">
+										<a href="javascript:void(0);" class="date tooltip" title="Укажите дату рождения"></a>
 										<div class="datepicker">
 											<div class="tale"></div>
 											<select class="chzn w-1">
@@ -587,17 +605,17 @@
 											<button class="btn btn-green-small"><span><span>Ok</span></span></button>
 										</div>
 									</div>
-									<a href="javascript:void(0);" class="comment"><span class="tip">Расскажите о нем</span></a>
-									<a href="javascript:void(0);" class="photo"><span class="tip">Добавить 2 фото</span><input type="file" /></a>
+									<a href="javascript:void(0);" class="comment tooltip" title="Расскажите о нем"></a>
+									<a href="javascript:void(0);" class="photo tooltip" title="Добавить 2 фото"><form><input type="file" class="tooltip" title="фыв" /></form></a>
 								</div>
 								
 								<div class="comment">
-									<div class="input" style="display:none;">
+									<div class="input">
 										<div class="tale"></div>
 										<textarea>Очень любит готовить и воспитывать детей очень добрая и отзывчивая</textarea>
 										<button class="btn btn-green-small"><span><span>Ok</span></span></button>
 									</div>
-									<div class="text">Очень любит готовить и воспитывать детей очень добрая и отзывчивая <a href="javascript:void(0);" class="edit"><span class="tip">Редактировать комментарий</span></a></div>
+									<div class="text">Очень любит готовить и воспитывать детей очень добрая и отзывчивая <a href="javascript:void(0);" class="edit tooltip" title="Редактировать комментарий"></a></div>
 								</div>
 								
 								<div class="photos">
@@ -645,19 +663,19 @@
 									<div class="d-text">Имя 1-го ребенка:</div>
 									<div class="name">
 										<div class="text">Артем</div>
-										<div class="input" style="display:none;"><input type="text" /></div>
+										<div class="input"><input type="text" /></div>
 										<a href="javascript:void(0);" class="edit"><span class="tip">Редактировать имя</span></a>
 									</div>
 									<a href="javascript:void(0);" class="gender male active"><span class="tip">Мальчик</span></a>
 									<a href="javascript:void(0);" class="gender female"><span class="tip">Девочка</span></a>
-									<a href="javascript:void(0);" class="gender question" style="display:none;"><span class="tip">Не знаем</span></a>
+									<a href="javascript:void(0);" class="gender question"><span class="tip">Не знаем</span></a>
 									<div class="age">
 										<b>2</b> года
 										<b>2</b> месяца
 									</div>
 									<div class="date">
 										<a href="javascript:void(0);" class="date"><span class="tip">Укажите дату рождения</span></a>
-										<div class="datepicker" style="display:none;">
+										<div class="datepicker">
 											<div class="tale"></div>
 											<select class="chzn w-1">
 												<option>28</option>
@@ -971,7 +989,7 @@
 <div style="display:none">
 	<div id="login" class="popup">
 		
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
+		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
 		
 		<div class="popup-title">Вход на сайт</div>
 		

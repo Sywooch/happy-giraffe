@@ -31,13 +31,17 @@ Attach.selectPhoto = function(button, id) {
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="photo_id" />').val(id));
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="ContestWork[file]" />').val(1));
     $('<a class="remove" href="javascript:;" onclick="Attach.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
-    if($('#change_ava').size() > 0 && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo')
+    if($('#change_ava').size() > 0 && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo') {
         this.crop(id);
-    else{
-        if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo'){
-            this.insertToComment(id);
-        }else
-            $.fancybox.close();
+    }
+    else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
+        this.insertToComment(id);
+    } else if (this.entity == "Product") {
+        this.saveProductPhoto(id);
+    } else if (this.entity == "CookDecoration") {
+        this.CookDecorationEdit('album', id);
+    } else {
+        $.fancybox.close();
     }
 };
 
@@ -49,20 +53,34 @@ Attach.selectBrowsePhoto = function(button) {
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="photo_fsn" />').val(fsn));
     $('.upload-file .photo .upload-container').append($('<input type="hidden" name="ContestWork[file]" />').val(1));
     $('<a class="remove" href="javascript:;" onclick="Attach.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
-
-    if($('#change_ava').size() > 0 && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo')
+    if($('#change_ava').size() > 0 && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo') {
         this.crop(fsn);
-    else{
-        if (this.attachGuestPhoto){
-            this.saveCommentPhoto(fsn);
-        }
-        else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo'){
-            this.insertToComment(fsn);
-        }else
-            $.fancybox.close();
+    } else if(this.entity == "Product") {
+        this.saveProductPhoto(fsn);
+    } else if (this.attachGuestPhoto){
+        this.saveCommentPhoto(fsn);
+    } else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
+        this.insertToComment(fsn);
+    } else if(this.entity == 'Humor') {
+        this.insertToHumor(fsn);
+    }else if(this.entity == 'CookDecoration') {
+        this.CookDecorationEdit('browse', 0);
+    } else if(this.entity == 'CookRecipe') {
+        this.insertToRecipe(fsn);
+    } else {
+        $.fancybox.close();
     }
     return false;
 };
+
+Attach.saveProductPhoto = function(val) {
+    $.post(base_url + '/albums/productPhoto/', {val : val,  entity: Attach.entity, entity_id: Attach.entity_id}, function(data) {
+        if(data.status == true) {
+            $.fancybox.close();
+            document.location.reload();
+        }
+    }, 'json');
+}
 
 Attach.closeUpload = function(link) {
     $(link).siblings('.photo').find('.upload-container').empty();
@@ -82,6 +100,56 @@ Attach.insertToComment = function(val) {
         $.fancybox.close();
     }, 'json');
 };
+
+Attach.insertToHumor = function(fsn) {
+    $.post(base_url + '/albums/humorPhoto/', {val:fsn}, function(data) {
+        if(data)
+            document.location.reload();
+    }, 'json');
+}
+
+Attach.insertToRecipe = function(fsn) {
+    $.post(base_url + '/albums/recipePhoto/', {val:fsn}, function(data) {
+        if(data.status) {
+            $('#CookRecipe_photo_id').val(data.id);
+            $('a.attach').html($('<img />').attr('src', data.src));
+            if (! $('div.add-photo').hasClass('uploaded'))
+                $('div.add-photo').addClass('uploaded');
+            $.fancybox.close();
+        }
+    }, 'json');
+}
+
+Attach.insertToCookDecoration = function(id) {
+    $.post(
+        '/albums/cookDecorationPhoto/',
+        {
+            val:$('#upload_photo_container').children('input').val(),
+            title:$('#attach_content .photo-category input[name="title"]').val(),
+            category:$('.photo-category select[name="category"]').val(),
+            id:id
+        },
+        function(data) {
+            if(data){
+                document.location.reload();
+            }
+        });
+}
+
+Attach.CookDecorationEdit = function (type, id) {
+
+    if (type == 'album') {
+        $('#attach_content').append('<div style="" id="save_attach_button" class="form-bottom"><button onclick="Attach.insertToCookDecoration();" class="btn btn-green-medium"><span><span>Завершить</span></span></button></div>');
+        $('#gallery .gallery-photos').hide();
+    }
+
+    $.post(base_url + '/albums/cookDecorationCategory/', {id:id}, function (data) {
+        $('#attach_content>*').hide();
+        $('#attach_content').append(data);
+        $('#save_attach_button button span span').text('Завершить')
+        $('#save_attach_button button').attr('onclick', 'Attach.insertToCookDecoration('+id+');');
+    });
+}
 
 Attach.saveCommentPhoto = function (fsn) {
     $.post(base_url + '/albums/commentPhoto/', {entity:Comment.entity, entity_id:Comment.entity_id, val:fsn},

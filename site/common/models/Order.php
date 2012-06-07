@@ -19,7 +19,7 @@
  * @property string $order_description
  * @property string $order_vaucher_id
  */
-class Order extends CActiveRecord
+class Order extends HActiveRecord
 {
 	const ORDER_STATUS_CANCEL = -1;
 	const ORDER_STATUS_INIT = 0;
@@ -62,7 +62,7 @@ class Order extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__order}}';
+		return 'shop__order';
 	}
 
 	/**

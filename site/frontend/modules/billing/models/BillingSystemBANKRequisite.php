@@ -8,7 +8,7 @@
  * @property string $requisite_name
  * @property string $requisite_account
  */
-class BillingSystemBANKRequisite extends CActiveRecord
+class BillingSystemBANKRequisite extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -24,7 +24,7 @@ class BillingSystemBANKRequisite extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{billing__system_BANK_requisites}}';
+		return 'billing__system_BANK_requisites';
 	}
 
 	/**

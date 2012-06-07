@@ -13,7 +13,7 @@
  * @property AttributeSet $map_set
  * @property Attribute $map_attribute
  */
-class AttributeSetMap extends CActiveRecord
+class AttributeSetMap extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
@@ -29,7 +29,7 @@ class AttributeSetMap extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{shop_product_attribute_set_map}}';
+        return 'shop__product_attribute_set_map';
     }
 
     /**

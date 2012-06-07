@@ -3,10 +3,11 @@
  * Author: alexk984
  * Date: 11.04.12
  */
-class MorningController extends Controller
+class MorningController extends HController
 {
     public $layout = '//morning/layout';
     public $time = null;
+    public $last_time = null;
 
     public function filters()
     {
@@ -34,26 +35,42 @@ class MorningController extends Controller
 
     public function actionIndex($date = null)
     {
-        if ($date === null || empty($date))
+        if ($date === null || empty($date)){
             $date = date("Y-m-d");
+            $empty_param = true;
+        }
+        else
+            $empty_param = false;
+        $this->last_time = strtotime(date("Y-m-d") . ' 00:00:00');
 
         if (strtotime($date) == strtotime(date("Y-m-d")))
             $this->pageTitle = 'Утро с Весёлым жирафом';
         else
             $this->pageTitle = 'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", $date) . ' с Весёлым жирафом';
 
-        $this->time = strtotime($date . ' 00:00:00');
+        //check if no articles today
         $criteria = new CDbCriteria;
-        $criteria->order = 'title DESC';
+        $criteria->condition = 'type_id=4 AND created >= "' . date("Y-m-d")  . ' 00:00:00" ';
+        if (!Yii::app()->user->checkAccess('editMorning'))
+            $criteria->condition .= ' AND is_published = 1';
+        $count = CommunityContent::model()->with('photoPost')->count($criteria);
+        if ($count == 0){
+            $this->last_time = strtotime(' - 1 day', $this->last_time);
+        }
+
+        $this->time = strtotime($date . ' 00:00:00');
+
+        $criteria = new CDbCriteria;
+        $criteria->order = 'photoPost.position ASC';
         $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
         if (!Yii::app()->user->checkAccess('editMorning'))
             $cond .= ' AND is_published = 1';
 
         $criteria->condition = $cond;
         $count = CommunityContent::model()->with('photoPost')->count($criteria);
-        if ($count == 0){
-            $this->time = strtotime(' - 1 day', strtotime($date . ' 00:00:00'));
-
+        if ($count == 0) {
+            $date = date("Y-m-d", $this->last_time);
+            $this->time = $this->last_time;
             $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
             if (!Yii::app()->user->checkAccess('editMorning'))
                 $cond .= ' AND is_published = 1';
@@ -61,11 +78,20 @@ class MorningController extends Controller
         }
         $articles = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findAll($criteria);
 
-        $this->breadcrumbs = array(
-            'Утро с Весёлым жирафом',
-        );
+//        if (empty($articles) && !Yii::app()->user->checkAccess('editMorning'))
+//            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->render('index', compact('articles'));
+        if ($date == date("Y-m-d"))
+            $this->breadcrumbs = array(
+                'Утро с Весёлым жирафом',
+            );
+        else
+            $this->breadcrumbs = array(
+                'Утро с Весёлым жирафом' => array('morning/'),
+                'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", strtotime($date))
+            );
+
+        $this->render('index', compact('articles', 'empty_param'));
     }
 
     public function actionView($id)
@@ -76,10 +102,18 @@ class MorningController extends Controller
 
         $this->pageTitle = CHtml::encode($article->title);
         $this->time = strtotime(date("Y-m-d", strtotime($article->created)) . ' 00:00:00');
-        $this->breadcrumbs = array(
-            'Утро с Весёлым жирафом' => array('morning/'),
-            $article->title
-        );
+
+        if (date("Y-m-d", $this->time) == date("Y-m-d"))
+            $this->breadcrumbs = array(
+                'Утро с Весёлым жирафом' => array('morning/'),
+                $article->title
+            );
+        else
+            $this->breadcrumbs = array(
+                'Утро с Весёлым жирафом' => array('morning/'),
+                'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", $this->time) => $this->createUrl('morning/index', array('date' => date("Y-m-d", $this->time))),
+                $article->title
+            );
 
         $this->render('view', compact('article'));
     }
@@ -97,7 +131,7 @@ class MorningController extends Controller
                     $post = new CommunityContent();
                     $post->title = $_POST['title'];
                     $post->type_id = 4;
-                    $post->author_id = Yii::app()->user->getId();
+                    $post->author_id = 1;
                     if ($post->save()) {
                         $photoPost = new CommunityPhotoPost();
                         $photoPost->content_id = $post->id;
@@ -251,5 +285,31 @@ class MorningController extends Controller
         if (!Yii::app()->user->checkAccess('editMorning'))
             $cond .= ' AND is_published = 1';
         return CommunityContent::model()->with('photoPost')->count($cond) != 0;
+    }
+
+    public function actionRemoveLocation()
+    {
+        if (!Yii::app()->user->checkAccess('editMorning'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $post = CommunityContent::model()->findByPk($_POST['id']);
+        if ($post === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $post->photoPost->location = null;
+        $post->photoPost->location_image = null;
+        $post->photoPost->save();
+    }
+
+    public function actionUpdatePos(){
+        if (!Yii::app()->user->checkAccess('editMorning'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $post = CommunityContent::model()->findByPk(Yii::app()->request->getPost('id'));
+        if ($post === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $post->photoPost->position = Yii::app()->request->getPost('pos');;
+        echo CJSON::encode(array('status' => $post->photoPost->save()));
     }
 }

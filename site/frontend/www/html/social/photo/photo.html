@@ -39,15 +39,15 @@
 						ready++;
 						if (ready == count) $('#photo-thumbs').jcarousel('scroll', 4);
 					});
-				});			
+				});
+				
+				$('#photo-thumbs-prev').jcarouselControl({target: '-=1'});
+				$('#photo-thumbs-next').jcarouselControl({target: '+=1'});
 				
 			});
 			
 			var carousel = $('#photo-thumbs').jcarousel();		
-		
-			$('#photo-thumbs-prev').jcarouselControl({target: '-=1',carousel: carousel});
-			$('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});
-					
+			
 		});
 		
 	</script>
@@ -415,7 +415,7 @@
 <div style="display:none">
 	<div id="login" class="popup">
 		
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
+		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
 		
 		<div class="popup-title">Вход на сайт</div>
 		

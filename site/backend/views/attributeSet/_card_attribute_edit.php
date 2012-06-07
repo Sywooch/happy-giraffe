@@ -21,9 +21,8 @@ if ($model->attribute_type == Attribute::TYPE_MEASURE) {
 </p>
 <p class="row withMargin">
     <?php echo $form->dropDownList($model, 'attribute_type', array(
-    Attribute::TYPE_INTG => 'Число',
-    Attribute::TYPE_MEASURE => 'Единицы измерения',
     Attribute::TYPE_TEXT => 'Текст',
+    Attribute::TYPE_MEASURE => 'Единицы измерения',
     Attribute::TYPE_BOOL => 'Да-Нет',
 )); ?>
 </p>
@@ -34,11 +33,6 @@ if ($model->attribute_type == Attribute::TYPE_MEASURE) {
 
 <p class="row withMargin"<?php if ($model->attribute_type != Attribute::TYPE_MEASURE) echo ' style="display: none;"' ?>>
     <?php echo $form->dropDownList($model, 'measure_option_id', $attribute_measure_options); ?>
-</p>
-
-<p class="row">
-    <?php echo $form->label($model, 'attribute_is_insearch'); ?>
-    <?php echo $form->checkBox($model, 'attribute_is_insearch', array('class' => 'niceCheck')); ?>
 </p>
 
 <?php if ($model->attribute_in_price == 1): ?>

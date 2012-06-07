@@ -17,7 +17,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class Album extends CActiveRecord
+class Album extends HActiveRecord
 {
     private $_check_access = null;
     public $files = array();
@@ -25,7 +25,9 @@ class Album extends CActiveRecord
     public static $systems = array(
         1 => 'Личные фотографии',
         2 => 'Диалоги',
-        3 => 'Семейные'
+        3 => 'Семейные',
+        4 => 'Продукты',
+        5 => 'Мои рецепты'
     );
 
     public static $permissions = array(
@@ -237,5 +239,10 @@ class Album extends CActiveRecord
         $this->save();
 
         return false;
+    }
+
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('albums/view', array('user_id' => $this->author_id, 'id' => $this->id));
     }
 }

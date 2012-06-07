@@ -20,7 +20,7 @@
  * @property User author
  * @property AttachPhoto[] $photoAttaches
  */
-class Comment extends CActiveRecord
+class Comment extends HActiveRecord
 {
     public $selectable_quote = false;
     const CONTENT_TYPE_DEFAULT = 1;
@@ -41,7 +41,7 @@ class Comment extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{comments}}';
+		return 'comments';
 	}
 
 	/**
@@ -139,7 +139,7 @@ class Comment extends CActiveRecord
 
 	public function get($entity, $entity_id)
 	{
-		return new CActiveDataProvider(get_class(), array(
+		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => array(
 				'condition' => 'entity=:entity AND entity_id=:entity_id',
 				'params' => array(':entity' => $entity, ':entity_id' => $entity_id),
@@ -179,21 +179,24 @@ class Comment extends CActiveRecord
         /* Вырезка цитаты */
         $find = '/<div class="quote">(.*)<\/div>/ims';
         preg_match($find, $this->text, $matches);
-        if(count($matches) > 0)
+        if(isset($this->quote_id))
         {
-            $this->text = preg_replace($find, '', $this->text);
-            if($this->selectable_quote == 1)
+            if(count($matches) > 0)
             {
-                $this->quote_text = $matches[1];
+                $this->text = preg_replace($find, '', $this->text);
+                if($this->selectable_quote == 1)
+                {
+                    $this->quote_text = $matches[1];
+                }
+            }
+            else
+            {
+                $this->quote_text = '';
+                $this->quote_id = null;
             }
         }
-        else
-        {
-            $this->quote_text = '';
-            $this->quote_id = null;
-        }
 
-        if($this->response_id == '')
+        if(isset($this->response_id) && $this->response_id == '')
             $this->response_id = null;
 
 
@@ -206,7 +209,7 @@ class Comment extends CActiveRecord
                 'condition' => 'entity = :entity and entity_id = :entity_id',
                 'params' => array(':entity' => $this->entity, ':entity_id' => $this->entity_id)
             ));
-            $model = Comment::model()->find($criteria);
+            $model = $this->find($criteria);
             if(!$model)
                 $position = 1;
             else
@@ -295,10 +298,14 @@ class Comment extends CActiveRecord
         }
     }
 
-    public function getUrl()
+    public function getUrl($absolute = false)
     {
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-        return $entity->url;
+        list($route, $params) = $entity->urlParams;
+        $params['#'] = 'comment_' . $this->id;
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
     }
 
     public function isEntityAuthor($user_id)

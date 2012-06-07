@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends Controller
+class DefaultController extends HController
 {
     public function filters()
     {
@@ -89,7 +89,7 @@ class DefaultController extends Controller
         if ($id == Yii::app()->user->id)
             throw new CHttpException(404, 'Вы не можете создать диалог с собой.');
 
-        $user = Im::model()->getUser($id);
+        $user = User::getUserById($id);
 
         //find if dialog with this user exist
         $dialog_id = Im::model()->getDialogIdByUser($id);
@@ -111,7 +111,6 @@ class DefaultController extends Controller
             if (!$um->save())
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            Im::clearCache();
             $dialog_id = $dialog->id;
         }
         $this->redirect($this->createUrl('/im/default/dialog', array('id' => $dialog_id)));

@@ -19,7 +19,7 @@
  * @property string $invoice_paid_amount
  * @property string $invoice_paid_time
  */
-class BillingInvoice extends CActiveRecord
+class BillingInvoice extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -35,7 +35,7 @@ class BillingInvoice extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{billing__invoices}}';
+		return 'billing__invoices';
 	}
 
 	/**

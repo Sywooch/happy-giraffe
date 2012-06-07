@@ -8,7 +8,7 @@ class SiteController extends BController
     {
         return array(
             array('allow',
-                'actions'=>array('index', 'logout'),
+                'actions'=>array('index', 'logout', 'stat'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -84,5 +84,12 @@ class SiteController extends BController
     {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
+    }
+
+    public function actionStat(){
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.services.modules.names.models.*');
+
+        $this->render('stat');
     }
 }

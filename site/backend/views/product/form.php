@@ -8,7 +8,8 @@ Yii::app()->clientScript
     ->registerCoreScript('jquery')
     ->registerCoreScript('jquery.ui')
     ->registerCssFile('/css/jquery.ui/slider.css');
-$image = $model->isNewRecord ? 0 : $model->product_image->getUrl('product');
+
+$image = $model->isNewRecord ? 0 : $model->main_image ? $model->main_image->photo->getPreviewUrl(329, 355, Image::WIDTH) : 0;
 ?>
 <script type="text/javascript">
 var model_id = <?php echo ($model->isNewRecord) ? 'null' : $model->product_id ?>;
@@ -16,16 +17,6 @@ var category_id = <?php echo $category->category_id ?>;
 var has_image = <?php echo (int)is_string($image); ?>;
 
 $(function () {
-//        $("#filter-price-1").slider({
-//            range:true,
-//            min:0,
-//            max:60000,
-//            values:[0, 60000],
-//            slide:function (event, ui) {
-//                $("#filter-price-1-min").val(ui.values[0]);
-//                $("#filter-price-1-max").val(ui.values[1]);
-//            }
-//        });
     $('select').selectBox();
 
     $("#filter-price-1-min").val($("#filter-price-1").slider("values", 0));
@@ -43,14 +34,7 @@ $(function () {
                     dataType:'JSON',
                     success:function (data) {
                         if (data.success) {
-                            $('div.editProduct > div').show();
-                            model_id = data.id;
-                            $('input[name="Product[product_id]"]').val(model_id);
-
-                            $(this).parent().hide();
-                            $(this).parent().prev().text(title);
-                            $(this).parent().prev().show();
-                            $('select').selectBox('refresh');
+                            document.location.href = '<?php echo Yii::app()->createUrl('/product/update'); ?>/product_id/' + data.id;
                         }
                     },
                     context:$(this)
@@ -195,23 +179,14 @@ $(function () {
         return false;
     });
 
-    $('#big_foto_upload').iframePostForm({
+    $('.photo-upload').iframePostForm({
         json:true,
         complete:function (response) {
+            document.location.reload();
             if (response.status == '1') {
                 $('.big_foto a').replaceWith($('#product_image').tmpl({url:response.url, title:response.title}));
                 if (!has_image) $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
                 has_image = 1;
-            }
-        }
-    });
-
-    $('#small_foto_upload').iframePostForm({
-        json:true,
-        complete:function (response) {
-            if (response.status == '1') {
-                $('#mycarousel li:eq(0)').after($('#product_small_image').tmpl({url:response.url, modelPk:response.modelPk}));
-                $('p.total ins').text(parseInt($('p.total ins').text()) + 1);
             }
         }
     });
@@ -314,9 +289,10 @@ function SetGender(value, sender) {
                     <div class="big_foto fake_file">
                         <?php $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'big_foto_upload',
-                        'action' => $this->createUrl('uploadBigPhoto'),
+                        'action' => $this->createUrl('uploadPhoto'),
                         'htmlOptions' => array(
                             'enctype' => 'multipart/form-data',
+                            'class' => 'photo-upload'
                         ),
                     )); ?>
                         <?php echo $form->hiddenField($model, 'product_id'); ?>
@@ -334,20 +310,23 @@ function SetGender(value, sender) {
                         </a>
                         <?php endif; ?>
                         <?php echo CHtml::activeFileField($model, 'product_image'); ?>
+                        <?php echo CHtml::hiddenField('type', 1); ?>
                         <?php $this->endWidget(); ?>
                     </div>
                     <?php $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'small_foto_upload',
-                    'action' => $this->createUrl('uploadSmallPhoto'),
+                    'action' => $this->createUrl('uploadPhoto'),
                     'htmlOptions' => array(
                         'enctype' => 'multipart/form-data',
+                        'class' => 'photo-upload'
                     ),
                 )); ?>
                     <?php echo $form->hiddenField($model, 'product_id'); ?>
                     <ul id="mycarousel" class="small_foto">
                         <li class="fake_file">
                             <a href="#" class="add addValue" title="Добавить фото"></a>
-                            <?php echo CHtml::activeFileField(new ProductImage, 'image_file'); ?>
+                            <?php echo CHtml::activeFileField($model, 'product_image'); ?>
+                            <?php echo CHtml::hiddenField('type', 0); ?>
                         </li>
                         <?php foreach ($model->images as $i): ?>
                         <li>
@@ -361,7 +340,7 @@ function SetGender(value, sender) {
 
                             <p>
                                 <span>
-                                    <?php echo CHtml::image($i->image_file->getUrl('product_thumb')); ?>
+                                    <?php echo CHtml::image($i->photo->getPreviewUrl(76, 79, Image::WIDTH)); ?>
                                 </span>
                             </p>
                         </li>
@@ -407,9 +386,7 @@ function SetGender(value, sender) {
                 <div class="quantity">
                     <div class="left_quantity">
                         <p>Количество на складе</p>
-
-                        <p class="number"><span>0</span> шт.</p>
-                        <a href="#addQuantity" class="greenGradient fancy">Добавить на склад</a>
+                        <p class="number"><span id="product-items-count"><?php echo $model->itemsCount; ?></span> шт.</p>
                     </div>
                     <div class="right_quantity">
                     </div>
@@ -419,7 +396,10 @@ function SetGender(value, sender) {
                 <?php $this->renderPartial('_attributes', array(
                 'attributeMap' => $attributeMap,
                 'model' => $model
-            )); ?>
+                )); ?>
+
+                <p class="text_header">Акции и подарки</p>
+                <?php echo CHtml::link('Добавить', array('/product/addPresent', 'id' => $model->primaryKey), array('class' => 'fancy')); ?>
 
                 <p class="text_header">Видео о товаре</p>
 

@@ -35,7 +35,7 @@ $(document).ready(function () {
         });
     }
 
-    $('input[placeholder], textarea[placeholder]').placeholder();
+    if ($('input[placeholder], textarea[placeholder]').size() > 0 ) $('input[placeholder], textarea[placeholder]').placeholder();
 
     $('body').click(function (e) {
         if (!$(e.target).parents().hasClass('navdrp'))
@@ -180,21 +180,6 @@ function toggleFilterBox(el) {
     $(el).parents('.filter-box').toggleClass('filter-box-toggled');
 }
 
-function setPlaceholder(el) {
-    if ($(el).val() == '') {
-        $(el).val($(el).attr('placeholder'));
-        $(el).addClass('placeholder')
-    }
-}
-
-function unsetPlaceholder(el) {
-    if ($(el).val() == $(el).attr('placeholder')) {
-        $(el).val('');
-        $(el).removeClass('placeholder');
-    }
-}
-
-
 function toggleChildForm(el) {
     $(el).parents('.child').find('.child-form').fadeToggle();
 }
@@ -329,4 +314,19 @@ function initScrolledContent() {
             }
         }
     });
+}
+
+comet.addEvent(300, 'liveContents');
+
+Comet.prototype.liveContents = function(result, id) {
+    $.get(
+        '/ajax/contentsLive/',
+        {id: result.newId, containerClass: $('#contents_live').attr('class')},
+        function (response) {
+            var el = $(response).hide();
+            $('#contents_live').prepend(el);
+            $('#contents_live > :first').fadeIn(1000);
+            $('#contents_live > :last').remove();
+        }
+    )
 }

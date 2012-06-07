@@ -9,16 +9,18 @@ return array(
     'id' => 'happy-giraffe',
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Клуб',
-	'theme'=>'happy_giraffe',
-	'homeUrl' => 'http://happy-giraffe.ru',
+	'homeUrl' => 'http://www.happy-giraffe.ru',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
 
 	// autoloading model and component classes
 	'import'=>array(
+        'site.common.components.*',
 		'site.common.models.*',
         'site.common.models.mongo.*',
+        'site.common.models.interest.*',
+        'site.common.models.*',
         'site.common.helpers.*',
 		'ext.ufile.UFiles',
 		'application.models.*',
@@ -86,27 +88,12 @@ return array(
 			'callbackOrderProceed' => array('Order','callbackOrderProceed'),
 			'callbackOrderPaid' => array('Order','callbackOrderPaid'),
 		),
-		'vaccineCalendar',
-		'pregnancyWeight',
-		'hospitalBag',
-		'contractionsTime',
-        'placentaThickness',
-        'menstrualCycle',
-        'babySex',
-    	'recipeBook',
-        'names',
-        'hairType',
-        'sewing',
-        'babyBloodGroup',
-        'sizes',
-        'childrenDiseases',
-        'test',
         'im',
         'geo',
         'signal',
         'scores',
-        'servicePages',
-        'repair'
+        'services',
+        'cook'
 	),
 
 	// application components
@@ -184,7 +171,6 @@ return array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',
 			'allowAutoLogin'=>true,
-			'roleAttribute'=>'role',
 			'loginUrl'=>'/',
 		),
         'authManager'=>array(
@@ -200,7 +186,15 @@ return array(
             'schemaCachingDuration' => 180,
             'tablePrefix'=> '',
         ),
-
+        'db_seo' => array(
+            'class'=>'CDbConnection',
+            'connectionString' => 'mysql:host=localhost;dbname=happy_giraffe_seo',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'schemaCachingDuration' => 60,
+        ),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
@@ -272,9 +266,10 @@ return array(
 			),
 		),
         'frontend_url'=>'http://www.happy-giraffe.ru/',
-        'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA=='
+        'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA==',
+        'google_map_key'=>'AIzaSyCk--cFAYpjqqxmbabeV9IIlwbmnYlzHfc'
 	),
-	
+
         'controllerMap' => array(
             'sitemap' => array(
                 'class' => 'ext.sitemapgenerator.SGController',
@@ -282,12 +277,15 @@ return array(
                     'sitemap.xml' => array(
                         'aliases' => array(
                             'application.controllers',
-                            'application.modules.pregnancyWeight.controllers',
-                            'application.modules.contractionsTime.controllers',
-                            'application.modules.placentaThickness.controllers',
-                            'application.modules.vaccineCalendar.controllers',
-                            'application.modules.menstrualCycle.controllers',
-                            'application.modules.babyBloodGroup.controllers',
+                            'application.modules.services.modules.pregnancyWeight.controllers',
+                            'application.modules.services.modules.contractionsTime.controllers',
+                            'application.modules.services.modules.placentaThickness.controllers',
+                            'application.modules.services.modules.vaccineCalendar.controllers',
+                            'application.modules.services.modules.menstrualCycle.controllers',
+                            'application.modules.services.modules.babyBloodGroup.controllers',
+                            'application.modules.services.modules.repair.controllers',
+                            'application.modules.services.modules.horoscope.controllers',
+                            'application.modules.services.modules.test.controllers',
                         ),
                     ),
                 ),

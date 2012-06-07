@@ -1,6 +1,6 @@
 <?php
 
-class ProductController extends Controller
+class ProductController extends HController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -90,17 +90,13 @@ class ProductController extends Controller
 		$subProducts = new Product('search');
 		$subProducts->unsetAttributes();
 		
-		$comment_model = ProductComment::model();
-		$comments = $comment_model->get($id);
-		
+
 		$this->render('view',array(
 			'model' => $model,
 			'criteriaImage' => $criteriaImage,
 			'images' => $images,
 			'criteriaSubProduct' => $criteriaSubProduct,
             'subProducts' => $subProducts,
-			'comment_model' => $comment_model,
-			'comments' => $comments,
 		));
 	}
 

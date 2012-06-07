@@ -8,7 +8,7 @@
  * @property string $set_title
  * @property string $set_text
  */
-class ProductSet extends CActiveRecord
+class ProductSet extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -24,7 +24,7 @@ class ProductSet extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__product_set}}';
+		return 'shop__product_set';
 	}
 
 	/**

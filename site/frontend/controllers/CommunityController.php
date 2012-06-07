@@ -1,5 +1,5 @@
 <?php
-class CommunityController extends Controller
+class CommunityController extends HController
 {
 
     public $layout = '//layouts/main';
@@ -25,11 +25,11 @@ class CommunityController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map', 'rewrite', 'postRewrite'),
+                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map', 'rewrite', 'postRewrite', 'stats'),
                 'users'=>array('*'),
             ),
             array('allow',
-                'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete', 'transfer'),
+                'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete', 'transfer', 'uploadImage'),
                 'users' => array('@'),
             ),
             array('deny',
@@ -67,11 +67,9 @@ class CommunityController extends Controller
         );
         $communities = Community::model()->public()->findAll();
 
-        $top5 = Rating::model()->findTopWithEntity('CommunityContent', 5);
         $this->render('index', array(
             'communities' => $communities,
             'categories' => $categories,
-            'top5' => $top5,
         ));
     }
 
@@ -133,6 +131,13 @@ class CommunityController extends Controller
         $content = CommunityContent::model()->active()->full()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
+
+        if ($community_id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: " . $content->url);
+            Yii::app()->end();
+        }
+
         if ($content->isFromBlog) {
             $this->layout = '//layouts/user_blog';
             $this->user = $content->rubric->user;
@@ -254,7 +259,6 @@ class CommunityController extends Controller
 
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
         $model = new CommunityContent('default');
-        $model->author_id = Yii::app()->user->id;
         $model->type_id = $content_type->id;
         $model->rubric_id = $rubric_id;
         $slave_model_name = 'Community' . ucfirst($content_type->slug);
@@ -267,6 +271,7 @@ class CommunityController extends Controller
         if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
         {
             $model->attributes = $_POST['CommunityContent'];
+            $model->author_id = $model->by_happy_giraffe ? 1 : Yii::app()->user->id;
             $slave_model->attributes = $_POST[$slave_model_name];
 
             $valid = $model->validate();
@@ -277,6 +282,11 @@ class CommunityController extends Controller
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
+
+                $comet = new CometModel;
+                $comet->type = CometModel::CONTENTS_LIVE;
+                $comet->send('guest', array('newId' => $model->id));
+
                 $this->redirect($model->url);
             }
         }
@@ -446,6 +456,7 @@ class CommunityController extends Controller
             ->from('community__contents')
             ->join('community__rubrics', 'community__contents.rubric_id = community__rubrics.id')
             ->join('community__content_types', 'community__contents.type_id = community__content_types.id')
+            ->where('community__rubrics.community_id IS NOT NULL')
             ->order('community__contents.id ASC')
             ->queryAll();
         foreach ($models as $model)
@@ -596,6 +607,18 @@ class CommunityController extends Controller
         }
     }
 
+    public function actionUploadImage($community_id, $content_type_slug, $content_id)
+    {
+        $this->layout = '//layouts/community';
+        $content = CommunityContent::model()->active()->full()->findByPk($content_id);
+        $this->user = $content->rubric->user;
+        $this->community = Community::model()->with('rubrics')->findByPk($community_id);
+        $this->rubric_id = $content->rubric->id;
+        $this->content_type_slug = $content_type_slug;
+
+        $this->render('upload_user_image', compact('content'));
+    }
+
     public function actionPurify($by_happy_giraffe = 1)
     {
         $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
@@ -701,5 +724,21 @@ class CommunityController extends Controller
                 'dp' => $dp,
             ));
         }
+    }
+
+    public function actionStats()
+    {
+        $dp = new CActiveDataProvider('Community', array(
+            'criteria' => array(
+                'order' => 't.id ASC',
+            ),
+            'pagination' => array(
+                'pageSize' => 50,
+            ),
+        ));
+
+        $this->render('stats', array(
+            'dp' => $dp,
+        ));
     }
 }

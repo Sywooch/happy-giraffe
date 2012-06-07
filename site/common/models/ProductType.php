@@ -14,7 +14,7 @@
  * @method array getAllSets() getAllSets() return all attribute sets
  * @method string getSetTitle() getSetTitle() return attribute set title
  */
-class ProductType extends CActiveRecord
+class ProductType extends HActiveRecord
 {
 	public function behaviors()
 	{
@@ -32,7 +32,7 @@ class ProductType extends CActiveRecord
 			),
 			'attribute_set' => array(
 				'class'=>'attribute.AttributeSetBehavior',
-				'table'=>'shop_product_attribute_set',
+				'table'=>'shop__product_attribute_set',
 				'attribute'=>'type_attribute_set_id',
 			),
 		);
@@ -51,7 +51,7 @@ class ProductType extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__product_type}}';
+		return 'shop__product_type';
 	}
 
 	/**

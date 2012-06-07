@@ -12,7 +12,7 @@
  * @property string $vaucher_till_time
  * @property string $vaucher_text
  */
-class Vaucher extends CActiveRecord
+class Vaucher extends HActiveRecord
 {
 	public function behaviors()
 	{
@@ -43,7 +43,7 @@ class Vaucher extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__vaucher}}';
+		return 'shop__vaucher';
 	}
 
 	/**

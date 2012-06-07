@@ -1,6 +1,6 @@
 <?php
 
-class AttributeController extends Controller
+class AttributeController extends HController
 {
 	public $defaultAction = 'admin';
 

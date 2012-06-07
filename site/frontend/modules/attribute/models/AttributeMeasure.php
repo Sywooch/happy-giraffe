@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the model class for table "shop_product_attribute_measure".
+ * This is the model class for table "shop__product_attribute_measure".
  *
  * The followings are the available columns in table 'shop_product_attribute_measure':
  * @property integer $id
@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property AttributeMeasureOption[] $measureOptions
  */
-class AttributeMeasure extends CActiveRecord
+class AttributeMeasure extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -26,7 +26,7 @@ class AttributeMeasure extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'shop_product_attribute_measure';
+		return 'shop__product_attribute_measure';
 	}
 
 	/**

@@ -8,7 +8,7 @@
  * @property integer $country_id
  * @property string $title
  */
-class Regions extends CActiveRecord
+class Regions extends HActiveRecord
 {
 
 	/**
@@ -25,7 +25,7 @@ class Regions extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_delivery_regions}}';
+		return 'shop_delivery_regions';
 	}
 
 	/**

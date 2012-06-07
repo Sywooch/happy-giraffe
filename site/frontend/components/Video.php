@@ -8,6 +8,7 @@ class Video extends CComponent
 	public $description;
 	public $code;
 	public $preview;
+    public $image;
 	
 	private $player = NULL;
 	private $accepted_players = array(
@@ -52,9 +53,10 @@ class Video extends CComponent
 		@$dom->loadHTMLFile($this->url);
 		$xpath = new DOMXpath($dom);
 		$this->code = $xpath->query('//input[@id="pcode"]')->item(0)->getAttribute('value');
-		$this->title = $xpath->query('//h1')->item(0)->nodeValue;
-		$this->description = $xpath->query('//div[@class="descr"]')->item(0)->nodeValue;
+		$this->title = @$xpath->query('//h1')->item(0)->nodeValue;
+		$this->description = @$xpath->query('//div[@class="descr"]')->item(0)->nodeValue;
 		$this->preview = $xpath->query('//meta[@property="og:image"]')->item(0)->getAttribute('content');
+        $this->image = $this->preview;
 	}
 	
 	protected function youtubeData()
@@ -68,7 +70,8 @@ class Video extends CComponent
 		$this->code = "<iframe width=\"560\" height=\"315\" src=\"http://www.youtube.com/embed/$v\" frameborder=\"0\" allowfullscreen></iframe>";
 		$this->title = @$xpath->query('//span[@id="eow-title"]')->item(0)->nodeValue;
 		$this->description = @$xpath->query('//p[@id="eow-description"]')->item(0)->nodeValue;
-		$this->preview = "http://i1.ytimg.com/vi/$v/default.jpg";
+		$this->preview = "http://i.ytimg.com/vi/$v/default.jpg";
+        $this->image = "http://i.ytimg.com/vi/$v/hqdefault.jpg";
 	}
 
 	protected function parseQuery()

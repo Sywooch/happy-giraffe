@@ -412,8 +412,9 @@ class ScoreInput extends EMongoDocument
             if ($this->amount < 0) {
                 if ($model->isFromBlog)
                     $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в блоге удалена';
-                else
+                else{
                     $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span> удалена';
+                }
             }
         }
         if ($class == 'RecipeBookRecipe') {
@@ -592,6 +593,7 @@ class ScoreInput extends EMongoDocument
             $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к записи <span>' . $model->title . '</span> ';
 
         if ($class == 'CommunityContent' || $class == 'BlogContent') {
+
             if ($model->isFromBlog) {
                 if ($model->author_id == $this->user_id)
                     $text .= ($this->amount > 0) ? 'в блог' : 'в блоге';
@@ -601,7 +603,10 @@ class ScoreInput extends EMongoDocument
                 }
             } else {
                 $text .= ($this->amount > 0) ? 'в клуб' : 'в клубе';
-                $text .= ' <span>' . $model->rubric->community->title . '</span>';
+                if ($model->rubric_id !== null)
+                    $text .= ' <span>' . $model->rubric->community->title . '</span>';
+                else
+                    $text .= ' <span>Утро с Веселым Жирафом</span>';
             }
         }
         if ($class == 'RecipeBookRecipe') {

@@ -30,7 +30,7 @@ class UserNotification extends EMongoDocument
                 'CommunityContent' => '{comments} к вашей записи {post} в клубе {club}',
                 'RecipeBookRecipe' => '{comments} к вашей записи {post} в сервисе {recipeBook}',
                 'AlbumPhoto' => '{comments} к фотографии {photo} в альбомe {album}',
-                'BlogContent' => '{comments} к вашей записи {post} в вашем блоге',
+                'BlogContent' => '{comments} к вашей записи {post} в блоге',
                 'User' => '{records} в гостевой книге',
             ),
         ),
@@ -40,6 +40,7 @@ class UserNotification extends EMongoDocument
                 'CommunityContent' => '{replies} на ваш комментарий к записи {post} в клубе {club}',
                 'RecipeBookRecipe' => '{replies} на ваш комментарий к записи {post} в сервисе {recipeBook}',
                 'AlbumPhoto' => '{replies} на ваш комментарий к фотографии {photo} в альбоме {album}',
+                'BlogContent' => '{replies} на ваш комментарий к записи {post} в вашем блоге',
             ),
         ),
         self::DELETED => array(
@@ -100,7 +101,7 @@ class UserNotification extends EMongoDocument
         $notification = $this->findByAttributes(array(
             'type' => $type,
             'entity.name' => get_class($entity),
-            'entity.id' => (int) $entity->id,
+            'entity.id' => (int)$entity->id,
         ));
         if ($notification !== null) {
             $notification->delete();
@@ -112,7 +113,7 @@ class UserNotification extends EMongoDocument
         return $this->findByAttributes(array(
             'type' => $type,
             'entity.name' => get_class($entity),
-            'entity.id' => (int) $entity->id,
+            'entity.id' => (int)$entity->id,
         ));
     }
 
@@ -129,7 +130,7 @@ class UserNotification extends EMongoDocument
         $criteria = new EMongoCriteria;
 
         $criteria
-            ->user_id('==', (int) $user_id)
+            ->user_id('==', (int)$user_id)
             ->limit(5)
             ->sort('updated', EMongoCriteria::SORT_DESC);
 
@@ -150,7 +151,7 @@ class UserNotification extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria
-            ->user_id('==', (int) $user_id);
+            ->user_id('==', (int)$user_id);
 
         $models = $this->findAll($criteria);
         $count = 0;
@@ -176,13 +177,13 @@ class UserNotification extends EMongoDocument
             $notification = $this->findByEntity($type, $entity);
             if ($notification === null) {
                 $notification = new self;
-                $notification->user_id = (int) $recipient;
+                $notification->user_id = (int)$recipient;
                 $notification->url = $entity->url;
                 $notification->type = $type;
                 $notification->created = $notification->updated = time();
                 $notification->entity = array(
                     'name' => $entity_name,
-                    'id' => (int) $entity->id,
+                    'id' => (int)$entity->id,
                     'quantity' => 1,
                 );
                 $notification->params = $this->getParamsByEntity($entity);
@@ -203,13 +204,13 @@ class UserNotification extends EMongoDocument
             $notification = $this->findByEntity($type, $entity);
             if ($notification === null) {
                 $notification = new self;
-                $notification->user_id = (int) $recipient;
+                $notification->user_id = (int)$recipient;
                 $notification->url = $entity->url;
                 $notification->type = $type;
                 $notification->created = $notification->updated = time();
                 $notification->entity = array(
                     'name' => $entity_name,
-                    'id' => (int) $entity->id,
+                    'id' => (int)$entity->id,
                     'quantity' => 1,
                 );
                 $notification->params = $this->getParamsByEntity($entity);
@@ -228,13 +229,13 @@ class UserNotification extends EMongoDocument
         $recipient = $entity->author_id;
         if ($recipient != Yii::app()->user->id) {
             $notification = new self;
-            $notification->user_id = (int) $recipient;
+            $notification->user_id = (int)$recipient;
             $notification->url = $entity->url;
             $notification->type = $type;
             $notification->created = $notification->updated = time();
             $notification->entity = array(
                 'name' => $entity_name,
-                'id' => (int) $entity->id,
+                'id' => (int)$entity->id,
             );
             $notification->params = $notification->getParamsByEntity($entity);
             $notification->save();
@@ -248,13 +249,13 @@ class UserNotification extends EMongoDocument
         $recipient = $entity->author_id;
         if ($recipient != Yii::app()->user->id) {
             $notification = new self;
-            $notification->user_id = (int) $recipient;
+            $notification->user_id = (int)$recipient;
             $notification->url = $entity->url;
             $notification->type = $type;
             $notification->created = $notification->updated = time();
             $notification->entity = array(
                 'name' => $entity_name,
-                'id' => (int) $entity->id,
+                'id' => (int)$entity->id,
             );
             $notification->params = $notification->getParamsByEntity($entity);
             $notification->save();
@@ -263,17 +264,19 @@ class UserNotification extends EMongoDocument
 
     public function getParamsByEntity($entity, $direct = true)
     {
+        $params = array();
         switch (get_class($entity)) {
             case 'CommunityContent':
-                $params = array(
-                    '{post}' => $entity->name,
-                    '{club}' => $entity->rubric->community->name,
-                    '{rubric}' => $entity->rubric->name,
-                );
+                if (isset($entity->rubric->community))
+                    $params = array(
+                        '{post}' => $entity->title,
+                        '{club}' => $entity->rubric->community->title,
+                        '{rubric}' => $entity->rubric->title,
+                    );
                 break;
             case 'BlogContent':
                 $params = array(
-                    '{post}' => $entity->name,
+                    '{post}' => $entity->title,
 
                 );
                 break;
@@ -285,7 +288,7 @@ class UserNotification extends EMongoDocument
                 break;
             case 'RecipeBookRecipe':
                 $params = array(
-                    '{post}' => $entity->name,
+                    '{post}' => $entity->title,
                     '{recipeBook}' => CHtml::tag('span', array('class' => 'black'), 'Книга народных рецептов'),
                 );
                 break;

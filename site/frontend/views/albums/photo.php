@@ -62,8 +62,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                 <script type="text/javascript">
                     $(function() {
                     <?php if(isset($selected_item)): ?>
-
-
                         $('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
                             var count = $('#photo-thumbs li').size();
                             var ready = 0;

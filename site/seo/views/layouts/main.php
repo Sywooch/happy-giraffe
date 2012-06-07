@@ -30,9 +30,7 @@
         ->registerCssFile('/css/jquery.pnotify.css')
         ->registerCssFile('/css/reset.css')
 
-        ->registerScriptFile('/js/jquery.iframe-post-form.js')
-
-        ;
+        ->registerScriptFile('/js/jquery.iframe-post-form.js');
     ?>
     <style type="text/css">
         .default-nav li span.tale {
@@ -129,7 +127,7 @@
                         ),
                         array(
                             'label' => 'Конкуренты',
-                            'url' => array('/default/competitors'),
+                            'url' => array('/competitors/default/index'),
                         ),
                         array(
                             'label' => 'Пользователи',
@@ -213,6 +211,15 @@
             <i class="img"></i>
             <span>SEO-<span>жираф</span></span> &nbsp; <?= $this->pageTitle ?>
         </div>
+
+        <?php if (!empty($this->fast_nav)): ?>
+        <div class="fast-nav">
+            <?php $this->widget('zii.widgets.CMenu', array(
+            'items' => $this->fast_nav
+        ));?>
+        </div>
+        <?php endif ?>
+
     </div>
 
     <?=$content ?>

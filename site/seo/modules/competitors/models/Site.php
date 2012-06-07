@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'site':
  * @property integer $id
  * @property string $name
- * @property integer $url
+ * @property string $url
  *
  * The followings are the available model relations:
  * @property KeyStats[] $seoKeyStats
@@ -45,8 +45,7 @@ class Site extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('url', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>255),
+			array('name, url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, url', 'safe', 'on'=>'search'),

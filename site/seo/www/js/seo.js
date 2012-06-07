@@ -36,7 +36,8 @@ var SeoModule = {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',
-                    pnotify_text:'Спарсили ' + response.count + ' запросов'
+                    pnotify_text:'Спарсили ' + response.count + ' запросов',
+                    pnotify_hide: false
                 });
             } else {
                 $.pnotify({
@@ -52,7 +53,8 @@ var SeoModule = {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',
-                    pnotify_text:response.count + ' потоков запущено'
+                    pnotify_text:response.count + ' потоков запущено',
+                    pnotify_hide: false
                 });
             } else {
                 $.pnotify({
@@ -71,7 +73,8 @@ var SeoModule = {
 
                 $.pnotify({
                     pnotify_title:'Успешно',
-                    pnotify_text:'Новые прокси внесены в базу'
+                    pnotify_text:'Новые прокси внесены в базу',
+                    pnotify_hide: false
                 });
             }
         }, 'json');
@@ -81,7 +84,8 @@ var SeoModule = {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',
-                    pnotify_text:'Сигнал передан, в течении минуты потоки должны завершиться'
+                    pnotify_text:'Сигнал передан, в течении минуты потоки должны завершиться',
+                    pnotify_hide: false
                 });
             }
         }, 'json');
@@ -115,7 +119,8 @@ var WordStat = {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',
-                    pnotify_text:response.count + ' слов добавлено на парсинг'
+                    pnotify_text:response.count + ' слов добавлено на парсинг',
+                    pnotify_hide: false
                 });
             }
         }, 'json');
@@ -125,7 +130,22 @@ var WordStat = {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',
-                    pnotify_text:response.count + ' слов добавлено на парсинг'
+                    pnotify_text:response.count + ' слов добавлено на парсинг',
+                    pnotify_hide: false
+                });
+            }
+        }, 'json');
+    }
+}
+
+var Competitors = {
+    Parse:function(){
+        $.post('/competitors/parse/parse', {site_id:$('#site-to_parse').val()}, function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:response.count + ' новых запросов спарсили',
+                    pnotify_hide: false
                 });
             }
         }, 'json');

@@ -6,7 +6,9 @@
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/cloud-zoom.1.0.2.min.js'); ?>
 <?php
 $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-    'selector' => '#product-thumbs a'
+    'selector' => '#product-thumbs a',
+    'entity' => get_class($model),
+    'entity_id' => (int)$model->primaryKey
 ));
 
 Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#product-thumbs').jcarousel();
@@ -40,7 +42,6 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
                             <li>
                                 <?php echo CHtml::link(CHtml::image($i->photo->getPreviewUrl(76, 79, Image::WIDTH), $model->product_title), $i->photo->originalUrl, array(
                                     'class' => 'cloud-zoom-gallery',
-                                    'data-gallery' => CJavaScript::encode(array('id' => (int)$i->photo->id, 'entity' => get_class($model), 'entity_id' => (int)$model->primaryKey)),
                                     'data-id' => $i->photo->id,
                                     'rel' => 'useZoom: "zoom1", smallImage: "' . $i->photo->getPreviewUrl(300, 300, Image::WIDTH, true) . '"',
                                 )); ?>

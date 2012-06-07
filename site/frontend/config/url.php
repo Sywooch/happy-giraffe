@@ -46,6 +46,7 @@ return array(
         'admin/' => 'admin/site/index',
         '<controller:\w+>/admin'=>'site/index',
         '<controller:\w+>/master'=>'<controller>/admin',
+        '<controller:\w+>/<title:\w+>_<id:\d+>/photo<pid:\d+>'=>'<controller>/view',
         '<controller:\w+>/<title:\w+>_<id:\d+>'=>'<controller>/view',
         'babySex/<action:\w+>'=>'services/babySex/default/<action>',
         'sewing/<action:\w+>'=>'services/sewing/default/<action>',

@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property AlbumPhoto $photo
  */
-class AttachPhoto extends CActiveRecord
+class AttachPhoto extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -79,6 +79,8 @@ class AttachPhoto extends CActiveRecord
                     case 'Comment' : $type = 2; break;
                     case 'Baby' : $type = 3; break;
                     case 'UserPartner' : $type = 3; break;
+                    case 'Product' : $type = 4; break;
+                    case 'CookDecoration' : $type = 5; break;
                     default : $type = 0;
                 }
                 if($type != 0)

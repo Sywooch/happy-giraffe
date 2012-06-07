@@ -4,6 +4,7 @@
 	'id'=>'user-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+    'ajaxUpdate'=>false,
 	'columns'=>array(
 		'id',
 		'email',
@@ -11,6 +12,7 @@
 		'last_name',
         array(
             'name'=>'role',
+            'type'=>'html',
             'value'=>'$data->getRole()',
             //'filter'=>CHtml::listData(Yii::app()->authManager->getRoles(), 'name', 'name')
             'filter'=>false

@@ -10,7 +10,7 @@
  * @property string $region_id
  * @property string $population
  */
-class GeoRusSettlement extends CActiveRecord
+class GeoRusSettlement extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -26,7 +26,7 @@ class GeoRusSettlement extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{geo__rus_settlement}}';
+		return 'geo__rus_settlement';
 	}
 	
 	public function primaryKey() {

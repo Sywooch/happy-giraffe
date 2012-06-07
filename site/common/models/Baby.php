@@ -18,7 +18,7 @@
  * @property AttachPhoto $photos
  * @property int $photosCount
  */
-class Baby extends CActiveRecord
+class Baby extends HActiveRecord
 {
     const TYPE_WAIT = 1;
     const TYPE_PLANNING = 2;
@@ -30,7 +30,7 @@ class Baby extends CActiveRecord
 
     public function tableName()
     {
-        return '{{user__users_babies}}';
+        return 'user__users_babies';
     }
 
     public function relations()

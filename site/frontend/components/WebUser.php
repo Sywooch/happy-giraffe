@@ -1,35 +1,23 @@
 <?php
 class WebUser extends CWebUser
 {
-	public $roleAttribute = 'user_role';
+    public $modelName = 'User';
+    private $_model = null;
 
-	public $modelName = 'User';
+    public function getModel()
+    {
+        if (!$this->isGuest && $this->_model === null) {
+            $this->_model = CActiveRecord::model($this->modelName)->findByPk($this->id);
+        }
+        return $this->_model;
+    }
 
-	private $_model = null;
-
-	function getRole()
-	{
-        $roles = Yii::app()->authManager->getRoles($this->id);
-        if (!empty($roles))
-            return $roles[0];
-        return 'user';
-	}
-
-	public function getModel()
-	{
-		if(!$this->isGuest && $this->_model === null)
-		{
-			$this->_model = CActiveRecord::model($this->modelName)->findByPk($this->id);
-		}
-		return $this->_model;
-	}
-
-	/**
-	 * @todo put real %
-	 * @return float
-	 */
-	public function getRate()
-	{
-		return 0.03;
-	}
+    /**
+     * @todo put real %
+     * @return float
+     */
+    public function getRate()
+    {
+        return 0.03;
+    }
 }

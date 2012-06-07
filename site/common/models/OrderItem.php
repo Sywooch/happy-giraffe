@@ -12,7 +12,7 @@
  * @property string $item_product_title
  * @property string $item_product_property
  */
-class OrderItem extends CActiveRecord
+class OrderItem extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -28,7 +28,7 @@ class OrderItem extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__order_item}}';
+		return 'shop__order_item';
 	}
 	
 	/**

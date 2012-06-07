@@ -14,7 +14,7 @@
  * @property GeoCity $city
  * @property GeoCountry $country
  */
-class CommunityTravelWaypoint extends CActiveRecord
+class CommunityTravelWaypoint extends HActiveRecord
 {
 	public $country_name;
 	public $city_name;

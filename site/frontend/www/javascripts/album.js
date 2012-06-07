@@ -1,6 +1,7 @@
 var Album = {
     editMode:false,
     album_id:false,
+    current_album_id:null,
     initJ:false,
     initFlash:false
 };
@@ -83,7 +84,7 @@ Album.changeAlbum = function (select) {
     if ($(select).val() == '') {
         this.album_id = null;
         if ($('#new_album_title').val() == '') {
-            if(this.initFlash) {
+            if (this.initFlash) {
                 Album.clearFlash();
                 $('#upload_button_wrapper').addClass('disabled');
             } else {
@@ -97,7 +98,7 @@ Album.changeAlbum = function (select) {
     upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/' + $(select).val() + '/');
     $('#new_album_title').val('');
     if (!$('#upload_finish_wrapper').is('.is_visible')) {
-        if(this.initFlash) {
+        if (this.initFlash) {
             $('#upload_button_wrapper').removeClass('disabled');
         } else {
             $('#j-upload-input1').parent().show();
@@ -111,7 +112,7 @@ Album.initUploadForm = function () {
         if (FlashDetect.installed == true)
             Album.initUForm();
         else {
-            if($('#j-upload-input1').data('fileupload') == undefined)
+            if ($('#j-upload-input1').data('fileupload') == undefined)
                 Album.initJForm();
             else
                 $('#j-upload-input1').data('fileupload').options.url = upload_ajax_url;
@@ -126,7 +127,7 @@ Album.initUploadForm = function () {
 Album.changeAlbumTitle = function (input) {
     if ($(input).val() != '') {
         if ($('#upload_finish_wrapper').not('.is_visible')) {
-            if(this.initFlash) {
+            if (this.initFlash) {
                 $('#upload_button_wrapper').removeClass('disabled');
             } else {
                 $('#j-upload-input1').parent().show();
@@ -136,7 +137,7 @@ Album.changeAlbumTitle = function (input) {
         upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/0/text/' + $(input).val() + '/u/' + $('#author_id').val() + '/');
         Album.initUploadForm();
     } else {
-        if(this.initFlash) {
+        if (this.initFlash) {
             Album.clearFlash();
             $('#upload_button_wrapper').addClass('disabled');
         } else {
@@ -190,13 +191,13 @@ Album.initJForm = function () {
     $('.j-upload-input').fileupload({
         url:upload_ajax_url,
         dataType:'html',
-        add: function (e, data) {
+        add:function (e, data) {
             data.id = Math.floor(Math.random() * (100000 - 1) + 1);
             Album.appendUploadItem(data.id);
             Album.uploadStart(data.id);
             data.submit();
         },
-        progress:function(e, data) {
+        progress:function (e, data) {
             Album.uploadProgress(data.id, parseInt(data.loaded / data.total * 100, 10));
         },
         done:function (e, data) {
@@ -264,39 +265,52 @@ Album.clearFlash = function () {
     return true;
 };
 
-Album.appendUploadItem = function(id) {
-    var listitem = '<li class="clearfix" id="' + id + '" >' +
-                '<div class="img"><i class="icon-error"></i></div>' +
-                '<div class="progress"><div class="in"></div></div>' +
-                '<div class="progress-value"></div>' +
-                '<div class="file-params" style="display:none;"></div>' +
-                '<a class="remove" href="" onclick="$(this).parent().remove();return false;"></a>' +
-                '</li>';
+Album.appendUploadItem = function (id) {
+    var listitem = '<li class="clearfix not-loaded" id="' + id + '">' +
+        '<div class="img"><a class="remove" href="javascript:;" onclick="return Album.removeUploadItem(this);"></a></div>' +
+        '<div class="loading"><table><tr><td>Загрузка<div class="progress-bar"><div class="in"></div></div></td></tr></table><a href="" class="remove"></a></div>' +
+        '<div class="file-params" style="display:none;"></div>' +
+        '</li>';
     $('#log').append(listitem);
 };
 
-Album.appendUploadErrorItem = function(id, name, error) {
-    var listitem = '<li class="clearfix upload-error" id="' + id + '" >' +
-        '<div class="img"><i class="icon-error"></i></div>' +
-        '<span>Файл ' + name + ' не был загружен. ' + error + '.</span>' +
-        '</li>'
-    $('#log').append(listitem);
-};
 
-Album.uploadStart = function(id) {
+Album.removeUploadItem = function (link) {
+    if ($(link).parent().siblings('.file-params').children('span.fid').size() > 0) {
+        var id = $(link).parent().siblings('.file-params').children('span.fid').text();
+        $.post('/albums/removeUploadPhoto/', {id:id});
+    }
+    $(link).parent().parent().remove();
+    return false;
+}
+
+Album.appendUploadErrorItem = function (id, name, error) {
     $('#upload_button_wrapper').css({height:0});
     $('#upload_finish_wrapper').css('height', 'auto').addClass('is_visible');
-    $('#log li#' + id).find('.progress-value').text('0%');
+    $('#album_upload_step_1').css('height', 0);
+    $('#album_upload_step_2').css('visibility', 'show');
+    var listitem = '<li class="clearfix" id="' + id + '" >' +
+        '<div class="loading error"><table><tbody><tr><td><i class="icon-error"></i><br>' + name + '<br>не загружен</td></tr></tbody></table></div>' +
+        '</li>';
+    $('#log').append(listitem);
+};
+
+
+
+Album.uploadStart = function (id) {
+    $('#upload_button_wrapper').css({height:0});
+    $('#upload_finish_wrapper').css('height', 'auto').addClass('is_visible');
     $('#album_upload_step_1').css('height', 0);
     $('#album_upload_step_2').css('visibility', 'show');
 };
 
-Album.uploadProgress = function(id, percentage) {
-    $('#log li#' + id).find('div.progress .in').css('width', percentage + '%');
-    $('#log li#' + id).find('.progress-value').text(percentage + '%');
+Album.uploadProgress = function (id, percentage) {
+    $('#log li#' + id).find('div.progress-bar .in').css('width', percentage + '%');
 };
 
-Album.uploadSuccess = function(id, name, serverData) {
+Album.uploadSuccess = function (id, name, serverData) {
+    $('.scroll').jScrollPane({showArrows: true, autoReinitialise : true});
+    $('#log li#' + id).removeClass('not-loaded');
     $('#album_select').replaceWith($(serverData).find('#album_select'));
     $('#album_select_chzn').remove();
     $('#album_select').chosen({
@@ -309,8 +323,7 @@ Album.uploadSuccess = function(id, name, serverData) {
 
     var item = $('#log li#' + id);
     item.addClass('upload-done');
-    item.find('div.progress .in').css('width', '100%');
-    item.find('.progress-value').text('100%');
+    item.find('div.progress-bar .in').css('width', '100%');
     var pathtofile = '<a href="uploads/' + name + '" target="_blank" >view &raquo;</a>';
 
     var params = $(serverData).find('#params').text().split('||');
@@ -341,6 +354,8 @@ Album.registerUploadEvents = function (elem) {
         })
         .unbind('fileDialogStart').bind('fileDialogStart', function () {
             $('#log').empty();
+            if($('.upload-files-list').data('jsp') != undefined)
+                $('.upload-files-list').data('jsp').destroy()
         })
         .unbind('uploadStart').bind('uploadStart', function (event, file) {
             Album.uploadStart(file.id);
@@ -357,16 +372,25 @@ Album.registerUploadEvents = function (elem) {
         })
         .unbind('uploadError').bind('uploadError', function (file, errorCode, message) {
             cl(message);
-            cl(errorCode);
         });
 }
 
 Album.savePhotos = function () {
-    if ($('#comment_list_view').size() > 0)
-        $.fn.yiiListView.update('comment_list_view');
     $.fancybox.close();
-    if (Album.album_id && $('#comment_list_view').size() == 0) {
+    if (Album.album_id && ($('#comment_list_view').size() == 0 || Album.current_album_id != null && Album.current_album_id != Album.album_id)) {
         document.location.href = base_url + '/albums/' + Album.album_id + '/';
+    } else {
+        $.fn.yiiListView.update('comment_list_view');
     }
     return false;
 };
+
+Album.changePhoto = function(link) {
+    var params = link.split('/');
+    var id = params[params.length - 2];
+    $.get(link.href, {}, function(data) {
+        var html = $(data);
+        cl(html.find('.big-photo'));
+    }, 'html');
+    Comment.entity_id = id;
+}

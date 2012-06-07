@@ -17,7 +17,12 @@ Comet.prototype.connect = function(host, namespace, cache) {
     this.server = new Dklab_Realplexor(host, namespace);
     var $this = this;
     this.cache = cache;
-    this.server.subscribe(cache, function(result, id) {
+    if (cache) {
+        this.server.subscribe(cache, function(result, id) {
+            $this.call(result.type, result, id);
+        });
+    }
+    this.server.subscribe('guest', function(result, id) {
         $this.call(result.type, result, id);
     });
     this.server.execute();

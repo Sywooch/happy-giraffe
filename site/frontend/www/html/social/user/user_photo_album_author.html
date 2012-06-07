@@ -27,11 +27,27 @@
 	<script type="text/javascript" src="/javascripts/jquery.jscrollpane.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.mousewheel.js"></script>
 	
+	<script type="text/javascript" src="/javascripts/jquery.dimensions.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
 	
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
 	<![endif]-->
+	
+	<script>
+		$(function(){
+			$('.tooltip').tooltip({
+				delay: 100,
+				track: false,
+				showURL: false,
+				showBody: false,
+				top: -20,
+				left: 10
+			});
+		})
+	</script>
 	
 </head>
 <body class="body-club">
@@ -449,10 +465,10 @@
 								Гаврилов-Ям
 							</div>
 							<div class="user-fast-buttons clearfix">
-								<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-								<a href="" class="remove-friend"><span class="tip">Удалить из друзей</span></a>
-								<a href="" class="pending-friend"><span class="tip">Приглашение выслано</span></a>
-								<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+								<a href="" class="add-friend tooltip" title="Пригласить в друзья"></a>
+								<a href="" class="remove-friend tooltip" title="Удалить из друзей"></a>
+								<a href="" class="pending-friend tooltip" title="Приглашение выслано"></a>
+								<a href="" class="new-message tooltip" title="Написать сообщение"></a>
 							</div>
 						</div>
 					</div>
@@ -781,7 +797,7 @@
 <div style="display:none">
 	<div id="login" class="popup">
 		
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
+		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
 		
 		<div class="popup-title">Вход на сайт</div>
 		
@@ -835,7 +851,7 @@
 	
 	<div id="galleryUploadPhotos" class="popup popup-purple">
 		
-		<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
+		<a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close();" title="Закрыть"></a>
 		
 		<div class="popup-title">Загрузка фотографий</div>
 		
@@ -885,119 +901,165 @@
 		<br/>
 		<br/>
 		
-		<div class="title">Загружено  78%</div>
-		
-		<div class="upload-files-list scroll">
-			<ul>
-				<li class="clearfix upload-done">
-					<div class="img"><div class="ava small male"></div><i class="icon-error"></i></div>
-					<span>Файл успешно загружен</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-error">
-					<div class="img"><i class="icon-error"></i></div>
-					<span>256.jpeg не был загружен. Слишком маленький размер.</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix">
-					<div class="img"><i class="icon-error"></i></div>
-					<div class="progress"><div class="in" style="width:76%;"></div></div>
-					<div class="progress-value">76%</div>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-error">
-					<div class="img"><i class="icon-error"></i></div>
-					<span>256.jpeg не был загружен. Слишком маленький размер.</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-done">
-					<div class="img"><div class="ava small male"></div><i class="icon-error"></i></div>
-					<span>Файл успешно загружен</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-error">
-					<div class="img"><i class="icon-error"></i></div>			
-					<span>Файл 256.jpeg не был загружен. Слишком маленький размер.</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix">
-					<div class="img"><i class="icon-error"></i></div>				
-					<div class="progress"><div class="in" style="width:76%;"></div></div>
-					<div class="progress-value">76%</div>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix">
-					<div class="img"><i class="icon-error"></i></div>
-					<div class="progress"><div class="in" style="width:31%;"></div></div>
-					<div class="progress-value">31%</div>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-error">
-					<div class="img"><i class="icon-error"></i></div>
-					<span>256.jpeg не был загружен. Слишком маленький размер.</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-done">
-					<div class="img"><div class="ava small male"></div><i class="icon-error"></i></div>
-					<span>Файл успешно загружен</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-done">
-					<div class="img"><div class="ava small male"></div><i class="icon-error"></i></div>
-					<span>Файл успешно загружен</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-error">
-					<div class="img"><i class="icon-error"></i></div>
-					<span>256.jpeg не был загружен. Слишком маленький размер.</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix">
-					<div class="img"><i class="icon-error"></i></div>
-					<div class="progress"><div class="in" style="width:76%;"></div></div>
-					<div class="progress-value">76%</div>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-error">
-					<div class="img"><i class="icon-error"></i></div>
-					<span>256.jpeg не был загружен. Слишком маленький размер.</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-done">
-					<div class="img"><div class="ava small male"></div><i class="icon-error"></i></div>
-					<span>Файл успешно загружен</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-error">
-					<div class="img"><i class="icon-error"></i></div>
-					<span>256.jpeg не был загружен. Слишком маленький размер.</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix">
-					<div class="img"><i class="icon-error"></i></div>
-					<div class="progress"><div class="in" style="width:76%;"></div></div>
-					<div class="progress-value">76%</div>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix">
-					<div class="img"><i class="icon-error"></i></div>
-					<div class="progress"><div class="in" style="width:31%;"></div></div>
-					<div class="progress-value">31%</div>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-error">
-					<div class="img"><i class="icon-error"></i></div>
-					<span>256.jpeg не был загружен. Слишком маленький размер.</span>
-					<a href="" class="remove"></a>
-				</li>
-				<li class="clearfix upload-done">
-					<div class="img"><div class="ava small male"></div><i class="icon-error"></i></div>
-					<span>Файл успешно загружен</span>
-					<a href="" class="remove"></a>
-				</li>
+		<div class="upload-files-list-container">
+			<div class="upload-files-list scroll">
 				
-			</ul>
+				<ul>
+					<li>
+						<div class="img">
+							<img src="/images/example/uploaded_photo_01.jpg" />
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>
+					</li>
+					<li>
+						<div class="img">
+							<img src="/images/example/ex4.jpg" />
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>					
+					</li>
+					<li>
+						<div class="loading">
+							<table>
+								<tr>
+									<td>
+										Загрузка
+										<div class="progress-bar">
+											<div style="width:50%;"></div>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>
+					</li>
+					<li>
+						<div class="loading erorr">
+							<table>
+								<tr>
+									<td>
+										<i class="icon-error"></i>
+										<br/>
+										256.jpeg<br/>не загружен 
+									</td>
+								</tr>
+							</table>
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>
+					</li>
+					<li>
+						<div class="loading">
+							<table>
+								<tr>
+									<td>
+										Загрузка
+										<div class="progress-bar">
+											<div style="width:50%;"></div>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>
+					</li>
+					<li>
+						<div class="loading erorr">
+							<table>
+								<tr>
+									<td>
+										<i class="icon-error"></i>
+										<br/>
+										256.jpeg<br/>не загружен 
+									</td>
+								</tr>
+							</table>
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>
+					</li>
+					<li>
+						<div class="img">
+							<img src="/images/example/ex3.jpg" />
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>					
+					</li>
+					<li>
+						<div class="loading">
+							<table>
+								<tr>
+									<td>
+										Загрузка
+										<div class="progress-bar">
+											<div style="width:50%;"></div>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>
+					</li>
+					<li>
+						<div class="loading">
+							<table>
+								<tr>
+									<td>
+										Загрузка
+										<div class="progress-bar">
+											<div style="width:50%;"></div>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>
+					</li>
+					<li>
+						<div class="loading erorr">
+							<table>
+								<tr>
+									<td>
+										<i class="icon-error"></i>
+										<br/>
+										256.jpeg<br/>не загружен 
+									</td>
+								</tr>
+							</table>
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>
+					</li>
+					<li>
+						<div class="loading">
+							<table>
+								<tr>
+									<td>
+										Загрузка
+										<div class="progress-bar">
+											<div style="width:50%;"></div>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>
+					</li>
+					<li>
+						<div class="img">
+							<img src="/images/example/uploaded_photo_02.jpg" />
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>
+					</li>
+					<li>
+						<div class="img">
+							<img src="/images/example/uploaded_photo_03.jpg" />
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>					
+					</li>
+					
+				</ul>
+				
+			</div>
+		
 		</div>
+		
+		<div class="uploaded-count">Загружено 14 фотографий</div>
 		
 		<div class="bottom">
 			

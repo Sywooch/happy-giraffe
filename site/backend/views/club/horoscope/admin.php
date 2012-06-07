@@ -13,6 +13,15 @@
             'filter' => Horoscope::model()->zodiac_list
         ),
         array(
+            'name' => 'year',
+            'filter' => HDate::Range(2012, date('Y'))
+        ),
+        array(
+            'name' => 'month',
+            'value' => 'HDate::ruMonth($data->month)',
+            'filter' => HDate::ruMonths()
+        ),
+        array(
             'name' => 'date',
             'value' => '$data->dateText()',
             'filter' => $this->widget('zii.widgets.jui.CJuiDatePicker',array(
@@ -25,7 +34,10 @@
                 )
             ),  true)
         ),
-        'text',
+        array(
+            'name'=>'text',
+            'value'=>'Str::truncate($data->text, 100)',
+        ),
         array(
             'class' => 'CButtonColumn',
             'template' => '{update}{delete}'

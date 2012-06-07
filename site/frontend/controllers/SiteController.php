@@ -1,6 +1,6 @@
 <?php
 
-class SiteController extends Controller
+class SiteController extends HController
 {
 	/**
 	 * Declares class-based actions.
@@ -32,19 +32,16 @@ class SiteController extends Controller
         $feed->addChannelTag('language', 'ru-ru');
         $feed->addChannelTag('pubDate', date(DATE_RSS, time()));
         $feed->addChannelTag('link', 'http://www.happy-giraffe.ru/rss/' );
-        //$feed->addChannelTag('atom:link','http://www.happy-giraffe.ru/rss/');
 
         $contents = CommunityContent::model()->full()->findAll(array(
-            'condition' => 'community.id != :blog_id',
-            'params' => array(':blog_id' => CommunityContent::USERS_COMMUNITY),
             'limit' => 20,
             'order' => 'created DESC',
         ));
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
-            $item->title = $c->name;
-            $item->link = $c->url;
+            $item->title = $c->title;
+            $item->link = $c->getUrl(false, true);
             $item->date = $c->created;
             $item->description = $c->preview;
             $item->addTag('author', $c->author->email);
@@ -64,16 +61,16 @@ class SiteController extends Controller
         $criteria->from = $index;
         $criteria->select = '*';
         $criteria->paginator = $pages;
-        $criteria->query = '*' . $text . '*';
+        $criteria->query = $text;
         $resIterator = Yii::app()->search->search($criteria);
 
-        $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
+        $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where($criteria->query)->limit(0, 100000)->searchRaw();
         $allCount = count($allSearch['matches']);
 
-        $textSearch = Yii::app()->search->select('*')->from('communityText')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
+        $textSearch = Yii::app()->search->select('*')->from('communityText')->where($criteria->query)->limit(0, 100000)->searchRaw();
         $textCount = count($textSearch['matches']);
 
-        $videoSearch = Yii::app()->search->select('*')->from('communityVideo')->where('*' . $text . '*')->limit(0, 100000)->searchRaw();
+        $videoSearch = Yii::app()->search->select('*')->from('communityVideo')->where($criteria->query)->limit(0, 100000)->searchRaw();
         $videoCount = count($videoSearch['matches']);
 
         $criteria = new CDbCriteria;
@@ -121,7 +118,7 @@ class SiteController extends Controller
 	    		echo $error['message'];
 	    	else
             {
-                if(file_exists(Yii::getPathOfAlias('application.www.themes.happy_giraffe.views.system.' . $error['code']) . '.php'))
+                if(file_exists(Yii::getPathOfAlias('application.views.system.' . $error['code']) . '.php'))
                 {
                     $this->layout = '//system/layout';
                     Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/common.css');
@@ -301,5 +298,10 @@ class SiteController extends Controller
 
     public function actionLink($text){
         $this->renderPartial('link', compact('text'));
+    }
+
+    public function actionTest()
+    {
+        $this->render("test");
     }
 }

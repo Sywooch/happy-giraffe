@@ -7,7 +7,7 @@
  * @property string $value_id
  * @property string $value_value
  */
-class AttributeValue extends CActiveRecord
+class AttributeValue extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
@@ -23,7 +23,7 @@ class AttributeValue extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{shop_product_attribute_value}}';
+        return 'shop__product_attribute_value';
     }
 
     /**
@@ -98,6 +98,16 @@ class AttributeValue extends CActiveRecord
 
         if ($this->save())
             return $this->value_id;
+    }
+
+    public function beforeSave()
+    {
+        if($model = $this->findByAttributes(array('value_value' => $this->value_value)))
+        {
+            $this->primaryKey = $model->primaryKey;
+            return false;
+        }
+        return parent::beforeSave();
     }
 
     public function beforeDelete()

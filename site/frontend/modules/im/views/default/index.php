@@ -9,7 +9,7 @@
         if ($dialog->unreadByMe) echo 'new-in';
         elseif ($dialog->unreadByPal) echo 'new-out';
         else {
-            echo ($dialog->lastMessage->isMessageSentByUser()) ? 'out' : 'in';
+            echo ($dialog->lastMessage->sent()) ? 'out' : 'in';
         }
         ?>" id="Dialog_<?php echo $dialog->id; ?>">
         <input type="hidden" value="<?php echo $this->createUrl('/im/default/dialog', array('id' => $dialog->id)) ?>"
@@ -19,7 +19,7 @@
         <table>
             <tr>
                 <td class="user">
-                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Im::model()->GetDialogUser($dialog->id))); ?>
+                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $dialog->GetInterlocutor())); ?>
                 </td>
                 <td class="message-icon">
                     <div class="icon"></div>

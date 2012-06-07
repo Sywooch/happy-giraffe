@@ -16,7 +16,7 @@
  * @property string $adress_porch
  * @property string $adress_floor
  */
-class OrderAdress extends CActiveRecord {
+class OrderAdress extends HActiveRecord {
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -30,7 +30,7 @@ class OrderAdress extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop__order_adress}}';
+		return 'shop__order_adress';
 	}
 
 	/**

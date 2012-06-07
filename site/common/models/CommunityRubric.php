@@ -8,7 +8,7 @@
  * @property string $title
  * @property string $community_id
  */
-class CommunityRubric extends CActiveRecord
+class CommunityRubric extends HActiveRecord
 {
 	private $_typeCounts = null;
 	
@@ -59,7 +59,7 @@ class CommunityRubric extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{community__rubrics}}';
+		return 'community__rubrics';
 	}
 
 	/**

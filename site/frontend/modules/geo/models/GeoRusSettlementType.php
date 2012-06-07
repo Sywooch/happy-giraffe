@@ -8,7 +8,7 @@
  * @property string $short_name
  * @property string $name
  */
-class GeoRusSettlementType extends CActiveRecord
+class GeoRusSettlementType extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -24,7 +24,7 @@ class GeoRusSettlementType extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{geo__rus_settlement_type}}';
+		return 'geo__rus_settlement_type';
 	}
 
 	/**

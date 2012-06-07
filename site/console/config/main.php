@@ -1,9 +1,11 @@
 <?php
-
+date_default_timezone_set('Europe/Moscow');
 return array(
     'id' => 'happy-giraffe',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'My Console Application',
+    'sourceLanguage' => 'en',
+    'language' => 'ru',
     'commandMap' => array(
         'migrate' => array(
             'class' => 'system.cli.commands.MigrateCommand',
@@ -11,9 +13,7 @@ return array(
         ),
     ),
     'import' => array(
-//        'site.frontend.components.*',
-//        'site.frontend.models.*',
-//        'site.frontend.modules.names.models.*',
+        'site.common.components.*',
         'site.common.models.*',
         'site.console.models.*',
     ),
@@ -37,5 +37,27 @@ return array(
             'useCursor'        => false
         ),
         'db'=>require_once(dirname(__FILE__).'/db.php'),
+        'db_seo' => array(
+            'class'=>'CDbConnection',
+            'connectionString' => 'mysql:host=localhost;dbname=happy_giraffe_seo',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'enableProfiling' => false,
+            'enableParamLogging' => true,
+        ),
+        'search' => array(
+            'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',
+            'server' => '127.0.0.1',
+            'port' => 9312,
+            'maxQueryTime' => 3000,
+            'enableProfiling'=>0,
+            'enableResultTrace'=>0,
+            'fieldWeights' => array(
+                'name' => 10000,
+                'keywords' => 100,
+            ),
+        ),
     ),
 );

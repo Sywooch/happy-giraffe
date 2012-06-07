@@ -7,7 +7,7 @@
  * @property string $id
  * @property string $title
  */
-class CommunityContentType extends CActiveRecord
+class CommunityContentType extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -23,7 +23,7 @@ class CommunityContentType extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{community__content_types}}';
+		return 'community__content_types';
 	}
 
 	/**

@@ -4,6 +4,8 @@ class AjaxController extends BController
 {
     public function actionDelete()
     {
+        Yii::import('site.frontend.modules.services.modules.names.models.*');
+
         $modelName = Yii::app()->request->getPost('modelName');
         $modelPk = Yii::app()->request->getPost('modelPk');
 
@@ -36,6 +38,8 @@ class AjaxController extends BController
 
     public function actionSetValue()
     {
+        Yii::import('site.frontend.modules.services.modules.names.models.*');
+
         $modelName = Yii::app()->request->getPost('modelName');
         $modelPk = Yii::app()->request->getPost('modelPk');
         $attribute = Yii::app()->request->getPost('attribute');
@@ -44,14 +48,14 @@ class AjaxController extends BController
         /**
          * @var CActiveRecord $model
          */
-        $model = new $modelName;
-        $res = Yii::app()->db->createCommand()
-            ->update($model->tableName(),
-            array($attribute => $value),
-            $model->getTableSchema()->primaryKey.' = '.$modelPk);
-
-        if ($res >= 0)
+        $model = call_user_func(array($modelName, 'model'));
+        if ($modelName == 'Name')
+            $model->scenario = 'edit';
+        $model = $model->findByPk($modelPk);
+        $model->$attribute = $value;
+        if($model->save())
             echo '1';
+
     }
 
     public function actionSetValueAR()

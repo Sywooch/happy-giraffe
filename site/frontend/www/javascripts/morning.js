@@ -35,6 +35,27 @@ var Morniing = {
             context:el
         });
     },
+    savePos:function (el) {
+        var pos = $(el).prev().val();
+        $.ajax({
+            url:'/morning/updatePos/',
+            data:{
+                id:model_id,
+                pos:pos
+            },
+            type:'POST',
+            dataType:'JSON',
+            success:function (response) {
+                if (response.status) {
+                    $(el).parent().hide();
+                    $(el).parent().prev().text(pos).show();
+                    $(el).parent().next().show();
+                    $(el).parents('div.pos').next().show();
+                }
+            },
+            context:el
+        });
+    },
     removePhoto:function (el) {
         $.ajax({
             url:'/morning/removePhoto/',
@@ -54,6 +75,15 @@ var Morniing = {
         $.post('/morning/photo/', {id:response.id}, function (response) {
             $('div.add').before(response);
         });
+    },
+    removeLocation:function (el) {
+        if (confirm("Удалить локацию?")) {
+
+            $.post('/morning/removeLocation/', {id:model_id}, function (response) {
+                $('#location-img').attr('src', '');
+                $('#location-title').text('');
+            });
+        }
     }
 }
 

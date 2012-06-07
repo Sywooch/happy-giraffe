@@ -2,14 +2,41 @@
 
 class CommentWidget extends CWidget
 {
-	public $onlyList = FALSE;
-	public $model;
+    /**
+     * @var bool
+     * Отключает возможность комментирования
+     */
+    public $onlyList = FALSE;
+
+    /**
+     * @var HActiveRecord
+     * ActiveRecord model
+     */
+    public $model;
+
+    /**
+     * @var string
+     * Название класса модели
+     */
     public $entity;
-	public $entity_id;
+
+    /**
+     * @var int
+     * Primary key модели
+     */
+    public $entity_id;
     public $title = 'Комментарии';
     public $actions = true;
     public $button = 'Добавить комментарий';
     public $type = 'default';
+    public $readOnly = false;
+    public $registerScripts = false;
+
+    /**
+     * @var bool
+     * Включает голосование
+     */
+    public $vote = false;
 
     public function init()
     {
@@ -17,7 +44,7 @@ class CommentWidget extends CWidget
         {
             $this->entity = get_class($this->model);
             $this->entity_id = $this->model->primaryKey;
-        } else {
+        } elseif($this->entity) {
             $model = call_user_func(array($this->entity, 'model'));
             $this->model = $model->findByPk($this->entity_id);
         }
@@ -25,7 +52,15 @@ class CommentWidget extends CWidget
 
 	public function run()
 	{
-		$comment_model = Comment::model();
+        if($this->registerScripts)
+        {
+            $this->registerScripts();
+            return;
+        }
+        if(!$this->vote)
+		    $comment_model = Comment::model();
+        else
+            $comment_model = CommentProduct::model();
         $dataProvider = $comment_model->get($this->entity, $this->entity_id);
         $dataProvider->getData();
         if(isset($_GET['lastPage']))
@@ -50,8 +85,6 @@ class CommentWidget extends CWidget
 		}
 		else
 		{
-            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/ckeditor/ckeditor.js')
-                ->registerScriptFile(Yii::app()->baseUrl . '/ckeditor/adapters/jquery.js');
 			$this->render('form', array(
 				'comment_model' => $comment_model,
 				'dataProvider' => $dataProvider,
@@ -67,14 +100,27 @@ class CommentWidget extends CWidget
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/comment.js', CClientScript::POS_HEAD)
         ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.tmpl.min.js');
 
-        $script = 'Comment.setParams(' . CJavaScript::encode(array(
-            'entity' => $this->entity,
-            'entity_id' => (int)$this->entity_id,
-            'save_url' => Yii::app()->createUrl('ajax/sendcomment'),
-            'toolbar' => $this->type == 'guestBook' ? 'Simple' : 'Main',
-        )) . ');';
+        if(!$this->registerScripts)
+        {
+            $script = 'Comment.setParams(' . CJavaScript::encode(array(
+                'entity' => $this->entity,
+                'entity_id' => (int)$this->entity_id,
+                'save_url' => Yii::app()->createUrl('ajax/sendcomment'),
+                'toolbar' => $this->type == 'guestBook' ? 'Simple' : 'Main',
+                'model' => $this->vote ? 'CommentProduct' : 'Comment',
+            )) . ');';
+            echo '<script type="text/javascript">' . $script . '</script>';
+        }
+        else
+        {
+            echo '<script type="text/javascript">Comment.scrollContainer = "#photo-window";</script>';
+        }
 
-        Yii::app()->clientScript->registerScript('Comment register script', $script);
+        if(!$this->onlyList)
+        {
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/ckeditor/ckeditor.js')
+                ->registerScriptFile(Yii::app()->baseUrl . '/ckeditor/adapters/jquery.js');
+        }
 
         $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
             'model' => new Comment

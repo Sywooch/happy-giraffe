@@ -6,6 +6,7 @@ return array(
     'language'=>'ru',
     'preload'=>array('log'),
 	'import'=>array(
+        'site.common.components.*',
         'site.common.models.*',
         'site.common.models.mongo.*',
         'application.models.*',
@@ -24,10 +25,10 @@ return array(
         'site.frontend.modules.names.models.*',
         'site.frontend.helpers.*',
         'site.common.helpers.*',
-        'site.frontend.modules.horoscope.models.*',
+        'site.frontend.modules.services.modules.horoscope.models.*',
         'site.frontend.modules.contest.models.*',
         'site.common.models.interest.*',
-        'site.common.models.seo.*',
+        'site.frontend.modules.cook.models.*'
     ),
     'modules'=>array(
         'seo'
@@ -41,6 +42,9 @@ return array(
                     'nextPageLabel' => '',
                     'prevPageLabel' => '',
                     'maxButtonCount' => 5,
+                ),
+                'CKEditorWidget' => array(
+                    'ckEditor' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www' . DIRECTORY_SEPARATOR . 'ckeditor' . DIRECTORY_SEPARATOR . 'ckeditor.php',
                 ),
             ),
         ),
@@ -73,11 +77,24 @@ return array(
         'cache'=>array(
             //	'class' => 'CMemCache',
             'class' => 'CDummyCache',
-        )
+        ),
+        'search' => array(
+            'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',
+            'server' => '127.0.0.1',
+            'port' => 9312,
+            'maxQueryTime' => 3000,
+            'enableProfiling'=>0,
+            'enableResultTrace'=>0,
+            'fieldWeights' => array(
+                'name' => 10000,
+                'keywords' => 100,
+            ),
+        ),
 	),
 
     'params' => array(
         'ufileStorageRoot' => 'temp_upload',
-        'frontend_url'=>'http://www.happy-giraffe.ru/'
+        'frontend_url'=>'http://www.happy-giraffe.ru/',
+        'photos_url'=>'http://img.happy-giraffe.ru',
     )
 );

@@ -13,7 +13,7 @@
  * rel
  * @property Contest $contest
  */
-class ContestPrize extends CActiveRecord
+class ContestPrize extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -29,7 +29,7 @@ class ContestPrize extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{contest__prizes}}';
+		return 'contest__prizes';
 	}
 
 	/**

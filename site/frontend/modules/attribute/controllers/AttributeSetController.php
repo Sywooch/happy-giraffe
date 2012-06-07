@@ -1,6 +1,6 @@
 <?php
 
-class AttributeSetController extends Controller
+class AttributeSetController extends HController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

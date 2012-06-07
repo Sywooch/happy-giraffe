@@ -1,0 +1,178 @@
+<?php
+/**
+ * Author: alexk984
+ * Date: 31.05.12
+ */
+class PositionParserThread extends ProxyParserThread
+{
+    const SE_YANDEX = 2;
+    const SE_GOOGLE = 3;
+    /**
+     * @var Query
+     */
+    protected $query;
+    /**
+     * @var int search engine id
+     */
+    protected $se;
+    protected $pages = 5;
+
+    function __construct($se)
+    {
+        parent::__construct();
+        $this->se = $se;
+    }
+
+    public function start()
+    {
+        while (true) {
+            $this->getPage();
+            $this->parsePage();
+            $this->closeQuery();
+
+            if (Config::getAttribute('stop_threads') == 1)
+                break;
+        }
+    }
+
+    public function perPage()
+    {
+        if ($this->se == self::SE_GOOGLE)
+            return 10;
+        if ($this->se == self::SE_YANDEX)
+            return 20;
+
+        return 10;
+    }
+
+    public function getPage()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('parsing', 0);
+        $criteria->order = 'rand()';
+        $criteria->with = array('pages', 'searchEngines');
+        if ($this->se === self::SE_GOOGLE)
+            $criteria->condition = 'google_parsed = 0 AND searchEngines.se_id = 3';
+        else
+            $criteria->condition = 'yandex_parsed = 0 AND searchEngines.se_id = 2';
+
+        $transaction = Yii::app()->db_seo->beginTransaction();
+        try {
+            $this->query = Query::model()->find($criteria);
+            if ($this->query === null) {
+                $this->closeThread('no queries');
+            }
+
+            $this->query->parsing = 1;
+            $this->query->save();
+            $transaction->commit();
+        }
+        catch (Exception $e) {
+            $transaction->rollback();
+            $this->closeThread('Fail with getting queries');
+        }
+
+        //echo $this->query->phrase . '<br>';
+    }
+
+    public function parsePage()
+    {
+        for ($i = 0; $i < $this->pages; $i++) {
+            $links = array();
+            while (empty($links)) {
+                if ($this->se == self::SE_GOOGLE)
+                    $links = $this->loadGooglePage($i);
+                if ($this->se == self::SE_YANDEX)
+                    $links = $this->loadYandexPage($i);
+
+                if ($this->debug)
+                    echo 'Page loaded, links count: ' . count($links)."\n";
+
+                if (empty($links))
+                    $this->changeBadProxy();
+            }
+            $this->success_loads++;
+
+            $found = false;
+            foreach ($links as $key => $link) {
+                if ($this->startsWith($link, 'http://www.happy-giraffe.ru/')) {
+                    $this->savePosition($link, $this->perPage() * $i + $key + 1);
+                    $found = true;
+                }
+            }
+
+            if ($found)
+                break;
+        }
+    }
+
+    private function loadYandexPage($i)
+    {
+        $page = $i;
+        $q = '';
+        if ($page > 0)
+            $q = '&p=' . $page;
+        $content = $this->query('http://yandex.ru/yandsearch?text=' . urlencode($this->query->phrase) . '&zone=all&numdoc=' . $this->perPage() . '&lr=38&lang=ru' . $q);
+
+        $document = phpQuery::newDocument($content);
+        $links = array();
+        foreach ($document->find('.b-body-items  h2 a.b-serp-item__title-link') as $link) {
+            $links [] = pq($link)->attr('href');
+        }
+
+        return $links;
+    }
+
+    private function loadGooglePage($i)
+    {
+        $start = $i * $this->perPage();
+        $content = $this->query('https://www.google.ru/search?q=' . urlencode($this->query->phrase) . '&btnG=%D0%9F%D0%BE%D0%B8%D1%81%D0%BA&hl=ru&newwindow=1&prmd=imvns&lr=lang_' . $this->country . '&gbv=2&country=' . $this->country . '&start=' . $start);
+
+        $document = phpQuery::newDocument($content);
+        $links = array();
+        foreach ($document->find('#ires li.g div.vsc > h3.r > a.l') as $link) {
+            $links [] = pq($link)->attr('href');
+        }
+
+        return $links;
+    }
+
+    public function savePosition($url, $pos)
+    {
+        $page = QueryPage::model()->findByAttributes(array(
+            'query_id' => $this->query->id,
+            'page_url' => $url,
+        ));
+        if ($page === null) {
+            $page = new QueryPage();
+            $page->query_id = $this->query->id;
+            $page->page_url = $url;
+        }
+
+        if ($this->se == self::SE_GOOGLE)
+            $page->google_position = $pos;
+        if ($this->se == self::SE_YANDEX)
+            $page->yandex_position = $pos;
+
+        $page->save();
+    }
+
+    protected function closeThread($reason)
+    {
+        $this->query->parsing = 0;
+        $this->query->save();
+
+        parent::closeThread($reason);
+    }
+
+    public function closeQuery()
+    {
+        if ($this->se == self::SE_GOOGLE)
+            $this->query->google_parsed = 1;
+        if ($this->se == self::SE_YANDEX)
+            $this->query->yandex_parsed = 1;
+
+        $this->query->parsing = 0;
+        $this->query->save();
+    }
+}

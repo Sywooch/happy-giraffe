@@ -70,7 +70,7 @@ class ProductController extends BController
 
         $eav_id = Y::command()
             ->select('eav_id')
-            ->from('shop_product_eav')
+            ->from('shop__product_eav')
             ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
             ':eav_product_id' => $product_id,
             ':eav_attribute_id' => $attr_id,
@@ -80,7 +80,7 @@ class ProductController extends BController
 
         if ($eav_id) {
             Y::command()
-                ->update('shop_product_eav', array(
+                ->update('shop__product_eav', array(
                 'eav_attribute_value' => $value,
             ), 'eav_id=:eav_id', array(
                 ':eav_id' => $eav_id,
@@ -89,7 +89,7 @@ class ProductController extends BController
         else
         {
             Y::command()
-                ->insert('shop_product_eav', array(
+                ->insert('shop__product_eav', array(
                 'eav_product_id' => $product_id,
                 'eav_attribute_id' => $attr_id,
                 'eav_attribute_value' => $value,
@@ -105,7 +105,7 @@ class ProductController extends BController
 
         $eav_id = Y::command()
             ->select('eav_id')
-            ->from('shop_product_eav_text')
+            ->from('shop__product_eav_text')
             ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
             ':eav_product_id' => $product_id,
             ':eav_attribute_id' => $attr_id,
@@ -114,21 +114,18 @@ class ProductController extends BController
             ->queryScalar();
 
         if ($eav_id) {
-            Y::command()
-                ->update('shop_product_eav_text', array(
-                'eav_attribute_value' => $value,
-            ), 'eav_id=:eav_id', array(
-                ':eav_id' => $eav_id,
-            ));
+
+            $pet = ProductEavText::model()->findByPk($eav_id);
+            $pet->eav_attribute_value = $value;
+            $pet->save();
         }
         else
         {
-            Y::command()
-                ->insert('shop_product_eav_text', array(
-                'eav_product_id' => $product_id,
-                'eav_attribute_id' => $attr_id,
-                'eav_attribute_value' => $value,
-            ));
+            $pet = new ProductEavText;
+            $pet->eav_product_id = $product_id;
+            $pet->eav_attribute_id = $attr_id;
+            $pet->eav_attribute_value = $value;
+            $pet->save();
         }
     }
 
@@ -189,49 +186,104 @@ class ProductController extends BController
         return $model;
     }
 
-    public function actionUploadBigPhoto()
+    public function actionUploadPhoto()
     {
-        if (isset($_POST['Product'])) {
-            $product = $this->loadModel($_POST['Product']['product_id']);
-            $product->attributes = $_POST['Product'];
-            if ($product->save(true, array('product_image'))) {
-                $response = array(
-                    'status' => true,
-                    'url' => $product->product_image->getUrl('product'),
-                    'title' => $product->product_title,
-                );
-            }
-            else
+        if (!isset($_POST['Product']))
+            Yii::app()->end();
+        $product = $this->loadModel($_POST['Product']['product_id']);
+
+        $photo = new AlbumPhoto();
+        $photo->file = CUploadedFile::getInstanceByName('Product[product_image]');
+        $photo->author_id = Yii::app()->user->id;
+        $photo->create();
+
+        $attach = new AttachPhoto;
+        $attach->entity = 'Product';
+        $attach->entity_id = $product->primaryKey;
+        $attach->photo_id = $photo->id;
+        $attach->save();
+
+        $image = new ProductImage;
+        $image->product_id = $product->primaryKey;
+        $image->type = $_POST['type'];
+        $image->photo_id = $photo->id;
+        $image->save();
+    }
+
+    public function actionPutIn($id, $put = false)
+    {
+        $product = $this->loadModel($id);
+
+        $attributes = array();
+        if($put == false)
+        {
+            $attributeSetMap = $product->category->GetAttributesMap();
+            foreach ($attributeSetMap as $attribute)
             {
-                $response = array(
-                    'status' => false,
-                );
+
+                if ($attribute->map_attribute->attribute_in_price == 1) {
+                    $attribute_values = $product->GetCardAttributeValues($attribute->map_attribute->attribute_id);
+                    if(count($attribute_values) == 0)
+                        continue;
+                    $attributes[$attribute->map_attribute->attribute_id] = array(
+                        'attribute' => $attribute,
+                        'items' => array(),
+                    );
+                    foreach($attribute_values as $attribute_value)
+                        $attributes[$attribute->map_attribute->attribute_id]['items'][$attribute_value['eav_id']] = $attribute_value['eav_attribute_value'];
+                }
             }
-            echo CJSON::encode($response);
+        }
+
+        if(count($attributes) == 0)
+            $put = true;
+
+        if(isset($_POST['Attribute']))
+            $product->cart_attributes = $_POST['Attribute'];
+
+        if($put !== false && isset($_POST['count']))
+        {
+            $item = new ProductItem;
+            $item->product_id = $product->primaryKey;
+            $item->count = $_POST['count'];
+            $item->price = str_replace(',', '.', $_POST['price']);
+            $item->properties = $product->cart_attributes;
+            $item->save();
+            echo $product->itemsCount;
+            Yii::app()->end();
+        }
+
+        if (Y::isAjaxRequest())
+        {
+                $this->renderPartial('putInAttributes', array(
+                    'model' => $product,
+                    'attributes' => $attributes
+                ));
+        }
+        else
+        {
+            $this->redirect(Y::request()->urlReferrer);
         }
     }
 
-    public function actionUploadSmallPhoto()
+    public function actionUpdateItemCount($id)
     {
-        if (isset($_POST['ProductImage'])) {
-            $product_image = new ProductImage;
-            $product_image->attributes = $_POST['ProductImage'];
-            $product_image->image_product_id = $_POST['Product']['product_id'];
-            if ($product_image->save()) {
-                $response = array(
-                    'status' => true,
-                    'url' => $product_image->image_file->getUrl('product_thumb'),
-                    'modelPk' => $product_image->primaryKey,
-                );
-            }
-            else
-            {
-                $response = array(
-                    'status' => false,
-                );
-            }
-            echo CJSON::encode($response);
-        }
+        ProductItem::model()->updateByPk($id, array('count' => Yii::app()->request->getPost('itemCount')));
+    }
+
+    public function actionAddPresent($id)
+    {
+        $model = Product::model()->findByPk($id);
+        $this->renderPartial('add_present', compact('model'));
+    }
+
+    public function actionGetPresents()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('product_category_id', Yii::app()->request->getPost('category'));
+        $products = Product::model()->findPresents($criteria);
+        foreach($products as $product)
+            $this->renderPartial('_add_present_item', compact('product'));
     }
 
     public function actionAddAttrListElem()

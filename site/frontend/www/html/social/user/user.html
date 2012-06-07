@@ -733,7 +733,7 @@
 									
 									<div class="box-title">Друзья <a href="">Все друзья (105)</a></div>
 									
-									<ul>
+									<ul class="clearfix">
 										<li><a href="" class="ava"></a></li>
 										<li><a href="" class="ava male"></a></li>
 										<li><a href="" class="ava"><img src="/images/user_friends_img.jpg" /></a></li>
@@ -743,6 +743,16 @@
 										<li><a href="" class="ava male"></a></li>
 										<li><a href="" class="ava"></a></li>
 									</ul>
+									
+									<div class="more-friends"><a href="">Найти еще друзей</a> <a href="" class="wannachat">Хочу общаться!</a></div>
+									
+								</div>
+								<br/><br/> <!-- этих <br/> быть не должно, просто изза дублирования блока-->
+								<div class="user-friends clearfix">
+									
+									<div class="box-title">Друзья <a href="">Найти друзей</a></div>
+									
+									<a href=""><img src="/images/cap_wannachat.png" /></a>
 									
 								</div>
 								
@@ -857,6 +867,76 @@
 									
 									<p>Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью – дела стоят на месте, приходится возвращаться к, казалось бы, уже решенным вопросам и переделывать многое  
 									Вам хотелось бы организовать эффективное взаимодействие в совместных проектах. Однако идеи, которые придут к Вам сегодня, могут оказаться не слишком продуманными.</p>
+									
+								</div>
+								
+								<div class="user-duel">
+									
+									<div class="box-title">Моя <span>дуэль</span></div>
+									
+									<div class="question">
+										<p>Почему одна строка?</p>
+									</div>
+									
+									<div class="my-votes clearfix">
+										<a href="" class="ava male"></a>
+										<div class="in">
+											<span class="tale"></span>
+											<div class="label">Увы, проигрываю!</div>
+											<img src="/images/user_duel_smile_losing.png" />
+											<div class="count">
+												<span>86</span>
+												голосов
+											</div>
+											<br/>
+											<a href="#duel-takeapart" class="pseudo fancy">Посмотреть дуэль</a>
+										</div>
+									</div>
+									
+									<div class="my-votes clearfix">
+										<a href="" class="ava male"></a>
+										<div class="in">
+											<span class="tale"></span>
+											<div class="label">Ништяк, побеждаем!</div>
+											<img src="/images/user_duel_smile_winning.png" />
+											<div class="count">
+												<span>86</span>
+												голосов
+											</div>
+											<br/>
+											<a href="#duel-takeapart" class="pseudo fancy">Посмотреть дуэль</a>
+										</div>
+									</div>
+									
+									<div class="my-votes clearfix">
+										<a href="" class="ava male"></a>
+										<div class="in">
+											<span class="tale"></span>
+											<div class="label">Хех, ничья!</div>
+											<img src="/images/user_duel_smile_draw.png" />
+											<div class="count">
+												<span>86</span>
+												голосов
+											</div>
+											<br/>
+											<a href="#duel-takeapart" class="pseudo fancy">Посмотреть дуэль</a>
+										</div>
+									</div>
+									
+									<div class="opponent clearfix">
+										Мой противник
+										<div class="count">
+											<span>116</span>
+											голосов
+										</div>
+										<div class="user-info clearfix">
+											<a class="ava small female"></a>
+											<div class="details">
+												<span class="icon-status status-online"></span>
+												<a href="" class="username">Даша Ефросинина</a>
+											</div>
+										</div>
+									</div>
 									
 								</div>
 								
@@ -987,7 +1067,7 @@
 <div style="display:none">
 	<div id="login" class="popup">
 		
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close">Закрыть</a>
+		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
 		
 		<div class="popup-title">Вход на сайт</div>
 		
@@ -1288,6 +1368,94 @@
 		</div>
 
 	</div>
+	
+	
+	<div id="duel-takeapart" class="popup">
+		
+		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
+		
+		<div class="activity-duel">
+			
+			<div class="title">Дуэль</div>
+			
+			<div class="question">
+				<p>Давно интересующий всех вопрос. Что раньше появилось яйцо или курица?</p>
+				<span class="tale tale-1"></span>
+				<span class="tale tale-2"></span>
+			</div>
+			
+			<div class="answers clearfix">
+				
+				<div class="clearfix">
+					<div class="answer-1">
+						<div class="user-info clearfix">
+							<a class="ava female"></a>
+							<div class="details">
+								<span class="icon-status status-online"></span>
+								<a href="" class="username">Богоявленский</a>
+								<div class="user-fast-buttons clearfix">
+									<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+									<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="answer-2">
+						<div class="user-info clearfix">
+							<a class="ava female"></a>
+							<div class="details">
+								<span class="icon-status status-online"></span>
+								<a href="" class="username">Богоявленский</a>
+								<div class="user-fast-buttons clearfix">
+									<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+									<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="clearfix">
+					<div class="answer-1">
+						<p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг. Набираемый вес при беременности складывается из нескольких показателей: вес ребенка, мат Желательно, чтобы набор веса при беременности происходил постепенно.</p>
+					</div>
+					<div class="answer-2">
+						<p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг. Набираемый вес при беременности складывается из вных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг. Набираемый вес при беременности складывается из нескольких показателей: вес ребенка, мат Желательно, чтобы набор веса при беременности происходил постепенно.</p>
+					</div>
+				</div>
+				
+				<div class="clearfix">
+					<div class="answer-1">
+						<div class="vote">
+							<div class="count">
+								<span class="count-in">56</span>
+								голосов
+							</div>
+							<div class="button">
+								<a href="">Голосовать</a>
+							</div>
+						</div>
+					</div>
+					<div class="answer-2">
+						<div class="vote">
+							<div class="count">
+								<span class="count-in">826</span>
+								голосов
+							</div>
+							<div class="button">
+								<a href="">Голосовать</a>
+							</div>
+						</div>
+					</div>
+				</div>										
+				
+			</div>
+		
+		</div>
+		
+		
+	</div>
+	
 	
 </div>
 </body>

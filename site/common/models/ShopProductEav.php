@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "shop_product_eav".
+ * This is the model class for table "shop__product_eav".
  *
- * The followings are the available columns in table 'shop_product_eav':
+ * The followings are the available columns in table 'shop__product_eav':
  * @property string $eav_id
  * @property string $eav_product_id
  * @property string $eav_attribute_id
@@ -13,7 +13,7 @@
  * @property ShopProductAttribute $eavAttribute
  * @property ShopProduct $eavProduct
  */
-class ShopProductEav extends CActiveRecord
+class ShopProductEav extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -29,7 +29,7 @@ class ShopProductEav extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'shop_product_eav';
+		return 'shop__product_eav';
 	}
 
 	/**

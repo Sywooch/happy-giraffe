@@ -1,7 +1,4 @@
 <?php
-
-Yii::import('site.frontend.extensions.ufile.UFiles', true);
-Yii::import('site.frontend.extensions.ufile.UFileBehavior');
 Yii::import('site.frontend.extensions.geturl.EGetUrlBehavior');
 Yii::import('site.frontend.extensions.status.EStatusBehavior');
 
@@ -36,8 +33,9 @@ Yii::import('site.frontend.extensions.status.EStatusBehavior');
  * *
  * @property Category $category
  * @property ProductBrand $brand
+ * @property ProductItem $items
  */
-class Product extends CActiveRecord implements IECartPosition
+class Product extends HActiveRecord implements IECartPosition
 {
     const SCENARIO_SELECT_CATEGORY = 1;
     const SCENARIO_FILL_PRODUCT = 2;
@@ -61,47 +59,6 @@ class Product extends CActiveRecord implements IECartPosition
     public function behaviors()
     {
         return array(
-            'behavior_ufiles' => array(
-                'class' => 'site.frontend.extensions.ufile.UFileBehavior',
-                'fileAttributes' => array(
-                    'product_image' => array(
-                        'fileName' => 'upload/product/*/<date>-{product_id}-<name>.<ext>',
-                        'fileItems' => array(
-                            'product' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'resize' => array(
-                                    'width' => 300,
-                                    'height' => 301,
-                                ),
-                            ),
-                            'product_thumb' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'product_resize' => array(
-                                    'width' => 76,
-                                    'height' => 79,
-                                ),
-                            ),
-                            'product_contest' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'product_resize' => array(
-                                    'width' => 127,
-                                    'height' => 132,
-                                ),
-                            ),
-                            'subproduct' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                                'product_resize' => array(
-                                    'width' => 200,
-                                    'height' => 160,
-                                ),
-                            ),
-                            'original' => array(
-                                'fileHandler' => array('FileHandler', 'run'),
-                            ),
-                        )
-                    ),
-                ),
-            ),
             'getUrl' => array(
                 'class' => 'site.frontend.extensions.geturl.EGetUrlBehavior',
                 'route' => 'product/view',
@@ -149,7 +106,7 @@ class Product extends CActiveRecord implements IECartPosition
      */
     public function tableName()
     {
-        return '{{shop__product}}';
+        return 'shop__product';
     }
 
     public function primaryKey()
@@ -168,7 +125,7 @@ class Product extends CActiveRecord implements IECartPosition
             array('product_category_id', 'required', 'on' => self::SCENARIO_SELECT_CATEGORY),
             array('product_category_id', 'length', 'max' => 10, 'on' => self::SCENARIO_SELECT_CATEGORY),
 
-            array('product_title,product_image,product_price, product_articul', 'required', 'on' => self::SCENARIO_FILL_PRODUCT),
+            array('product_title, product_price, product_articul', 'required', 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_rate, product_status', 'numerical', 'integerOnly' => true, 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_price, product_buy_price, product_sell_price', 'numerical', 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_articul', 'length', 'max' => 32, 'on' => self::SCENARIO_FILL_PRODUCT),
@@ -179,10 +136,7 @@ class Product extends CActiveRecord implements IECartPosition
             array('product_sex', 'in', 'range' => array_keys(AgeRange::model()->getGenderList()), 'on' => self::SCENARIO_FILL_PRODUCT),
             array('product_text', 'safe', 'on' => self::SCENARIO_FILL_PRODUCT),
 
-            array('product_image', 'site.frontend.extensions.ufile.UFileValidator',
-                'allowedTypes' => 'jpg, gif, png, jpeg',
-//				'minWidth'=>621, 'minHeight'=>424,
-                'allowEmpty' => true,
+            array('product_image', 'safe',
                 'on' => self::SCENARIO_FILL_PRODUCT
             ),
 
@@ -206,12 +160,15 @@ class Product extends CActiveRecord implements IECartPosition
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'images' => array(self::HAS_MANY, 'ProductImage', 'image_product_id'),
+            'images' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'condition' => 'type = 0'),
+            'main_image' => array(self::HAS_ONE, 'ProductImage', 'product_id', 'condition' =>'type = 1'),
             'comments' => array(self::HAS_MANY, 'ProductComment', 'product_id'),
             'videos' => array(self::HAS_MANY, 'ProductVideo', 'product_id'),
             'brand' => array(self::BELONGS_TO, 'ProductBrand', 'product_brand_id'),
             'category' => array(self::BELONGS_TO, 'Category', 'product_category_id'),
             'ageRange' => array(self::BELONGS_TO, 'AgeRange', 'product_age_range_id'),
+            'items' => array(self::HAS_MANY, 'ProductItem', 'product_id'),
+            'presents' => array(self::HAS_MANY, 'ProductPresent', 'product_id'),
         );
     }
 
@@ -284,6 +241,14 @@ class Product extends CActiveRecord implements IECartPosition
         ));
     }
 
+    public function getItemsCount()
+    {
+        $count = 0;
+        foreach($this->items as $item)
+            $count += $item->count;
+        return $count;
+    }
+
     public function getBrands()
     {
         static $brands;
@@ -322,11 +287,19 @@ class Product extends CActiveRecord implements IECartPosition
             ->queryScalar();
     }
 
+    public function getPhotoCollection()
+    {
+        $photos = array();
+        foreach($this->images as $image)
+            array_push($photos, $image->photo);
+        return $photos;
+    }
+
     public function getSubProductCount()
     {
         return Y::command()
             ->select('COUNT(link_id)')
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id=:link_main_product_id', array(
             ':link_main_product_id' => $this->product_id,
         ))
@@ -386,10 +359,22 @@ class Product extends CActiveRecord implements IECartPosition
 
     public function getAttributesText()
     {
+        $attrs = array();
+        $attributeMap = $this->category->attributesMap;
+        foreach ($attributeMap as $attribute)
+        {
+            if ($attribute->map_attribute->attribute_in_price != 1)
+            {
+                $attr = $attribute->map_attribute;
+                $value = $this->GetAttributeValue($attr);
+                $attrs[$attr->attribute_title] = $value;
+            }
+        }
+        return $attrs;
         $eav = Y::command()
             ->select('attribute_id, attribute_title, eav_attribute_value, attribute_type')
-            ->from('shop_product_eav')
-            ->leftJoin('shop_product_attribute', 'eav_attribute_id=attribute_id')
+            ->from('shop__product_eav')
+            ->leftJoin('shop__product_attribute', 'eav_attribute_id=attribute_id')
             ->where('eav_product_id=:eav_product_id', array(
             ':eav_product_id' => $this->product_id,
         ))
@@ -407,7 +392,7 @@ class Product extends CActiveRecord implements IECartPosition
         if ($value_ids) {
             $enum = Y::command()
                 ->select('value_id, value_value')
-                ->from('shop_product_attribute_value')
+                ->from('shop__product_attribute_value')
                 ->where(array('in', 'value_id', $value_ids))
                 ->queryAll();
 
@@ -440,9 +425,10 @@ class Product extends CActiveRecord implements IECartPosition
         }
 
         $eav_text = Y::command()
-            ->select('attribute_id, attribute_title, eav_attribute_value')
-            ->from('shop_product_eav_text')
-            ->leftJoin('shop_product_attribute', 'eav_attribute_id=attribute_id')
+            ->select('attribute_id, attribute_title, shop__product_eav_text_values.value as eav_attribute_value')
+            ->from('shop__product_eav_text')
+            ->leftJoin('shop__product_attribute', 'eav_attribute_id=attribute_id')
+            ->leftJoin('shop__product_eav_text_values', 'shop__product_eav_text_values.id=value_id')
             ->where('eav_product_id=:eav_product_id', array(
             ':eav_product_id' => $this->product_id,
         ))
@@ -463,9 +449,17 @@ class Product extends CActiveRecord implements IECartPosition
         return true;
     }
 
-    public function rated($authorId)
+    /**
+     * @param CDbCriteria $mcriteria
+     *
+     * @return array
+     */public function findPresents($mcriteria = false)
     {
-        return ProductComment::model()->isRated($authorId, $this->product_id);
+        $criteria = new CDbCriteria;
+        if($mcriteria)
+            $criteria->mergeWith($mcriteria);
+        //$criteria->addNotInCondition($this->getTableSchema()->primaryKey, array_keys(CHtml::listData($this->presents, 'present_id', 'present_id')));
+        return $this->findAll($criteria);
     }
 
     /**
@@ -477,7 +471,7 @@ class Product extends CActiveRecord implements IECartPosition
     public function addSubProduct($productId, $subProductId)
     {
         $command = Yii::app()->db->createCommand();
-        $command->insert('shop_product_link', array(
+        $command->insert('shop__product_link', array(
             'link_main_product_id' => $productId,
             'link_sub_product_id' => $subProductId,
         ));
@@ -493,7 +487,7 @@ class Product extends CActiveRecord implements IECartPosition
     {
         $command = Yii::app()->db->createCommand();
         $command->select()
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id = :link_main_product_id AND link_sub_product_id = :link_sub_product_id', array(
             'link_main_product_id' => (int)$_POST['main_product_id'],
             'link_sub_product_id' => (int)$_POST['product_id'],
@@ -511,7 +505,7 @@ class Product extends CActiveRecord implements IECartPosition
     {
         $command = Yii::app()->db->createCommand();
         $command->select()
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id = :link_main_product_i', array(
             ':link_main_product_id' => $productId,
         ));
@@ -528,7 +522,7 @@ class Product extends CActiveRecord implements IECartPosition
     {
         $command = Yii::app()->db->createCommand();
         $command->select('link_sub_product_id')
-            ->from('shop_product_link')
+            ->from('shop__product_link')
             ->where('link_main_product_id = :link_main_product_id');
         $command->params = array(
             ':link_main_product_id' => $productId
@@ -543,47 +537,56 @@ class Product extends CActiveRecord implements IECartPosition
     {
         if ($attr->attribute_type == Attribute::TYPE_BOOL || $attr->attribute_type == Attribute::TYPE_ENUM ||
             $attr->attribute_type == Attribute::TYPE_INTG || $attr->attribute_type == Attribute::TYPE_MEASURE
-        ) {
-
-            $eav_id = Y::command()
-                ->select('eav_attribute_value')
-                ->from('shop_product_eav')
+        )
+        {
+            $eav = Y::command()
+                ->select('eav_id, eav_attribute_value')
+                ->from('shop__product_eav')
                 ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
                 ':eav_product_id' => $this->product_id,
                 ':eav_attribute_id' => $attr->attribute_id,
             ))
                 ->limit(1)
-                ->queryScalar();
+                ->queryRow();
 
-            if ($attr->attribute_type == Attribute::TYPE_BOOL) {
-                if ($eav_id == 1)
+            if ($attr->attribute_type == Attribute::TYPE_BOOL)
+            {
+                if ($eav['eav_attribute_value'] == 1)
                     return 'Да';
-                elseif ($eav_id === false)
+                elseif ($eav === false)
                     return false;
                 else
                     return 'Нет';
-            } elseif ($attr->attribute_type == Attribute::TYPE_ENUM) {
-                if ($eav_id === false)
+            }
+            elseif ($attr->attribute_type == Attribute::TYPE_ENUM)
+            {
+                if ($eav === false)
                     return false;
 
-                $value = AttributeValue::model()->findByPk($eav_id);
+                $value = AttributeValue::model()->findByPk($eav['eav_attribute_value']);
                 if ($value !== null)
                     return $value->value_value;
                 else
                     return false;
             }
+            elseif ($attr->attribute_type == Attribute::TYPE_MEASURE)
+            {
+                $value = $eav['eav_attribute_value'] . ' ' . $attr->measure_option->title;
+                return $value;
+            }
 
-            return $eav_id;
+            return $eav['eav_attribute_value'];
         }
-        if ($attr->attribute_type == Attribute::TYPE_TEXT) {
+        if ($attr->attribute_type == Attribute::TYPE_TEXT)
+        {
             $eav_text = Y::command()
-                ->select('eav_attribute_value')
-                ->from('shop_product_eav_text')
-                ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
-                ':eav_product_id' => $this->product_id,
-                ':eav_attribute_id' => $attr->attribute_id,
-            ))
-                ->limit(1)
+                        ->select('shop__product_eav_text_values.value as eav_attribute_value')
+                        ->from('shop__product_eav_text')
+                        ->leftJoin("shop__product_eav_text_values", "shop__product_eav_text_values.id = shop__product_eav_text.value_id")
+                        ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
+                        ':eav_product_id' => $this->product_id,
+                        ':eav_attribute_id' => $attr->primaryKey,
+                    ))
                 ->queryScalar();
 
             return $eav_text;
@@ -655,8 +658,9 @@ class Product extends CActiveRecord implements IECartPosition
 
     public function GetCardAttributeValues($attr_id){
         $eav_text = Y::command()
-            ->select('eav_id, eav_attribute_value')
-            ->from('shop_product_eav_text')
+            ->select('eav_id, shop__product_eav_text_values.value as eav_attribute_value')
+            ->from('shop__product_eav_text')
+            ->leftJoin("shop__product_eav_text_values", "shop__product_eav_text_values.id = shop__product_eav_text.value_id")
             ->where('eav_product_id=:eav_product_id AND eav_attribute_id=:eav_attribute_id', array(
             ':eav_product_id' => $this->product_id,
             ':eav_attribute_id' => $attr_id,

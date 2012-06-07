@@ -7,7 +7,7 @@
  * @property integer $country_id
  * @property string $title
  */
-class Countries extends CActiveRecord
+class Countries extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -23,7 +23,7 @@ class Countries extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{_Countries}}';
+		return '_Countries';
 	}
 
 	/**

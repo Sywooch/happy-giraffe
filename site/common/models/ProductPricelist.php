@@ -8,7 +8,7 @@
  * @property string $pricelist_title
  * @property string $price_list_settings
  */
-class ProductPricelist extends CActiveRecord
+class ProductPricelist extends HActiveRecord
 {
 	public $pricelist_by;
 	
@@ -30,7 +30,7 @@ class ProductPricelist extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__product_pricelist}}';
+		return 'shop__product_pricelist';
 	}
 
 	/**

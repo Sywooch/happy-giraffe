@@ -9,6 +9,7 @@ class Favourites extends EMongoDocument
     const BLOCK_INTERESTING = 2;
     const BLOCK_BLOGS = 3;
     const BLOCK_THEME = 4;
+    const BLOCK_VIDEO = 5;
 
     public $block;
     public $entity;
@@ -98,6 +99,15 @@ class Favourites extends EMongoDocument
         foreach($models as $model){
             $model->created = time();
             $model->save();
+        }
+    }
+
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        if ($this->isNewRecord && $this->block == self::BLOCK_VIDEO) {
+            Yii::app()->cache->set('activityLastUpdated', time());
         }
     }
 }

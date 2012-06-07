@@ -9,7 +9,7 @@
  * @property string $brand_text
  * @property string $brand_image
  */
-class ProductBrand extends CActiveRecord {
+class ProductBrand extends HActiveRecord {
 
     public function getProductsCount()
     {
@@ -55,7 +55,7 @@ class ProductBrand extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop__product_brand}}';
+		return 'shop__product_brand';
 	}
 	
 	public function primaryKey() {

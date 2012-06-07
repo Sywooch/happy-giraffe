@@ -3,7 +3,7 @@
  * Author: choo
  * Date: 26.03.2012
  */
-class BlogController extends Controller
+class BlogController extends HController
 {
     public $user;
     public $rubric_id;
@@ -145,6 +145,9 @@ class BlogController extends Controller
         ));
     }
 
+    /**
+     * @sitemap dataSource=getContentUrls
+     */
     public function actionView($content_id)
     {
         $this->layout = '//layouts/user_blog';
@@ -174,5 +177,24 @@ class BlogController extends Controller
 
         $this->user = Yii::app()->user->model;
         $this->render('empty');
+    }
+
+    public function getContentUrls()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('community__contents.id AS content_id, community__contents.author_id AS user_id')
+            ->from('community__contents')
+            ->join('community__rubrics', 'community__contents.rubric_id = community__rubrics.id')
+            ->join('community__content_types', 'community__contents.type_id = community__content_types.id')
+            ->where('community__rubrics.user_id IS NOT NULL')
+            ->order('community__contents.id ASC')
+            ->queryAll();
+        foreach ($models as $model)
+        {
+            $data[] = array(
+                'params' => $model,
+            );
+        }
+        return $data;
     }
 }

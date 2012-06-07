@@ -12,7 +12,7 @@
  * @property string $product_buy_price
  * @property string $product_sell_price
  */
-class ProductPrice extends CActiveRecord
+class ProductPrice extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -28,7 +28,7 @@ class ProductPrice extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__product_price}}';
+		return 'shop__product_price';
 	}
 
 	/**

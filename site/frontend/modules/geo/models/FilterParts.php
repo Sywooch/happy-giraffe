@@ -7,7 +7,7 @@
  * @property integer $id
  * @property string $part
  */
-class FilterParts extends CActiveRecord
+class FilterParts extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -7,7 +7,7 @@
 
             <li>Добавить информацию о членах своей семьи.</li>
         </ul>
-        <?php if(!ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->contest->id))): ?>
+        <?php if($this->contest->isStatement): ?>
             <center><a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" class="btn btn-green-medium<?=(Yii::app()->user->isGuest) ? ' fancy' : ''?>"><span><span>Участвовать<i class="arr-r"></i></span></span></a></center>
         <?php endif; ?>
     </div>

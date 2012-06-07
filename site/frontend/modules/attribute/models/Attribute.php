@@ -17,7 +17,7 @@
  * @property AttributeMeasureOption $measure_option
  * @property AttributeValueMap[] $value_map
  */
-class Attribute extends CActiveRecord
+class Attribute extends HActiveRecord
 {
 	const TYPE_ENUM = 1;
     const TYPE_INTG = 2;
@@ -56,7 +56,7 @@ class Attribute extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop_product_attribute}}';
+		return 'shop__product_attribute';
 	}
 
 	/**
@@ -218,7 +218,7 @@ class Attribute extends CActiveRecord
 		
 		$command = Y::command()
 			->select(array_merge($val, array('attribute_id')))
-			->from('shop_product_attribute');
+			->from('shop__product_attribute');
 		
 		if($term && is_string($term))
 		{

@@ -36,7 +36,7 @@ class EGruzovozoff extends CActiveRecord {
 	 * @return string the associated database table name
 	 */
 	public function tableName() {
-		return '{{shop_delivery_egruzovozoff}}';
+		return 'shop_delivery_egruzovozoff';
 	}
 	
 	public function primaryKey() {

@@ -8,7 +8,7 @@ class UserIdentity extends CUserIdentity {
 
 	public function __construct($profile) {
 		$this->user = $profile;
-		$this->_name = $profile['nick'];
+		$this->_name = $profile['first_name'];
 	}
 
 	public function authenticate() {

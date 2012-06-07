@@ -9,7 +9,7 @@
  * @property string $map_attribute_id
  * @property integer $map_in_search
  */
-class CategoryAttributesMap extends CActiveRecord
+class CategoryAttributesMap extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -25,7 +25,7 @@ class CategoryAttributesMap extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{shop__category_attributes_map}}';
+		return 'shop__category_attributes_map';
 	}
 	
 	public function primaryKey() {
@@ -220,7 +220,7 @@ class CategoryAttributesMap extends CActiveRecord
 	{
 		$sql = "
 			INSERT IGNORE INTO shop_category_attributes_map (map_category_id, map_attribute_id)
-				SELECT $id, map_attribute_id FROM shop_product_attribute_set_map
+				SELECT $id, map_attribute_id FROM shop__product_attribute_set_map
 					WHERE map_set_id=:map_set_id";
 		Y::command($sql)->execute(array(
 			':map_set_id' => $setId,

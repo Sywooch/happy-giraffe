@@ -16,7 +16,7 @@ class EDPDTarifZone extends CActiveRecord {
 	}
 	
 	public function tableName() {
-		return '{{shop_delivery_edpd_tarifzone}}';
+		return 'shop_delivery_edpd_tarifzone';
 	}
 	
 	public function primaryKey() {

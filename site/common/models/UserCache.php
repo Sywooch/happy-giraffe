@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class UserCache extends CActiveRecord
+class UserCache extends HActiveRecord
 {
     CONST CACHE_ID = 'user_cache_';
 

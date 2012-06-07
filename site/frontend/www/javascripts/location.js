@@ -4,15 +4,10 @@
  * Time: 15:05
  */
 var UserLocation = {
-    regionUrl:null,
-    cityUrl:null,
-    saveUrl:null,
-    regionIsCityUrl:null,
-    editFormUrl:null,
     SelectCounty:function (elem) {
         this.clearCity();
         $.ajax({
-            url:this.regionUrl,
+            url:'/geo/geo/regions/',
             data:{id:elem.val()},
             type:'POST',
             success:function (response) {
@@ -24,7 +19,7 @@ var UserLocation = {
     RegionChanged:function (elem) {
         this.clearCity();
         $.ajax({
-            url:this.regionIsCityUrl,
+            url:'/geo/geo/regionIsCity/',
             data:{id:elem.val()},
             type:'POST',
             dataType:'JSON',
@@ -44,7 +39,7 @@ var UserLocation = {
     },
     saveLocation:function () {
         $.ajax({
-            url:this.saveUrl,
+            url:'/geo/geo/saveLocation/',
             data:{
                 country_id:$('#country_id').val(),
                 city_id:$('#city_id').val(),
@@ -62,12 +57,6 @@ var UserLocation = {
                         speed:400,
                         color:'#fff',
                         content:response.main,
-                        onEnd: function(){
-                            map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);
-                            map.enableScrollZoom();
-                            geocoder = new YMaps.Geocoder(response.mapsLocation);
-                            ShowNewLoc();
-                        }
                     });
                 }
             }
@@ -75,7 +64,7 @@ var UserLocation = {
     },
     OpenEdit:function (elem) {
         $.ajax({
-            url: this.editFormUrl,
+            url: '/geo/geo/locationForm/',
             type: 'POST',
             success: function(response) {
                 $("#loc-flipbox").flip({

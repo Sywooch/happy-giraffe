@@ -14,7 +14,14 @@ class m120607_062031_parsing_session_fix extends CDbMigration
         if (mysql_select_db('happy_giraffe_seo', $lnk)) {
             $this->setDbConnection(Yii::app()->db_seo);
 
+            try{
             $this->renameTable('parsing_session', 'parsing_sessions');
+            }catch (Exception $e){
+
+            }
+            $this->truncateTable('query_pages');
+            $this->truncateTable('query_search_engines');
+            $this->execute('delete from queries;');
             $this->addForeignKey('fk_' . $this->_table . '_session', $this->_table, 'session_id', 'parsing_sessions', 'id', 'CASCADE', "CASCADE");
 
         }

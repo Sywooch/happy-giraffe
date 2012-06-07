@@ -9,36 +9,6 @@ class DefaultController extends SController
         return true;
     }
 
-    public function actionCompetitors($site_id = 1, $year = 2011, $recOnPage = 10)
-    {
-        $model = new KeyStats;
-        $model->site_id = $site_id;
-        $model->year = $year;
-
-        $this->render('competitors', compact('model', 'site_id', 'year', 'recOnPage'));
-    }
-
-    public function actionCalc()
-    {
-        $site_id = 2;
-        $year = 2012;
-        $criteria = new CDbCriteria;
-        $criteria->compare('site_id', $site_id);
-        $criteria->compare('year', $year);
-        $stats = Stats::model()->findAll($criteria);
-        foreach ($stats as $stat) {
-            $key_stat = KeyStats::model()->find('site_id = ' . $site_id . ' AND keyword_id = ' . $stat->keyword_id . ' AND year = ' . $year);
-            if ($key_stat === null) {
-                $key_stat = new KeyStats;
-                $key_stat->keyword_id = $stat->keyword_id;
-                $key_stat->site_id = $site_id;
-                $key_stat->year = $year;
-            }
-            $key_stat->setAttribute('m' . $stat->month, $stat->value);
-            $key_stat->save();
-        }
-    }
-
     /*public function actionAddKeys()
     {
         $file = fopen('F:\Xedant\Keywords.txt', 'r');

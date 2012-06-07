@@ -51,7 +51,7 @@ class EditorController extends SController
 
     public function actionTasks()
     {
-        $tempKeywords = TempKeywords::model()->findAll('owner_id');
+        $tempKeywords = TempKeywords::model()->findAll('owner_id=' . Yii::app()->user->id);
         $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status = 0');
 
         $this->render('editor_panel', array(

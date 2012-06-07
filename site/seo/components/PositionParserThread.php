@@ -69,8 +69,6 @@ class PositionParserThread extends ProxyParserThread
         }
         catch (Exception $e) {
             $transaction->rollback();
-            $this->proxy->active = 0;
-            $this->proxy->save();
             $this->closeThread('Fail with getting queries');
         }
 

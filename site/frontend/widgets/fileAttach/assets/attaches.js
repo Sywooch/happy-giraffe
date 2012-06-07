@@ -36,8 +36,10 @@ Attach.selectPhoto = function(button, id) {
     }
     else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(id);
-    } else if(this.entity == "Product") {
-            this.saveProductPhoto(id);
+    } else if (this.entity == "Product") {
+        this.saveProductPhoto(id);
+    } else if (this.entity == "CookDecoration") {
+        this.CookDecorationEdit('album', id);
     } else {
         $.fancybox.close();
     }
@@ -62,7 +64,7 @@ Attach.selectBrowsePhoto = function(button) {
     } else if(this.entity == 'Humor') {
         this.insertToHumor(fsn);
     }else if(this.entity == 'CookDecoration') {
-        this.CookDecorationEdit(fsn);
+        this.CookDecorationEdit('browse', 0);
     } else if(this.entity == 'CookRecipe') {
         this.insertToRecipe(fsn);
     } else {
@@ -118,13 +120,14 @@ Attach.insertToRecipe = function(fsn) {
     }, 'json');
 }
 
-Attach.insertToCookDecoration = function() {
+Attach.insertToCookDecoration = function(id) {
     $.post(
         '/albums/cookDecorationPhoto/',
         {
             val:$('#upload_photo_container').children('input').val(),
-            title:$('.photo-title input[name="title"]').val(),
-            category:$('.photo-title select[name="category"]').val()
+            title:$('#attach_content .photo-category input[name="title"]').val(),
+            category:$('.photo-category select[name="category"]').val(),
+            id:id
         },
         function(data) {
             if(data){
@@ -133,11 +136,18 @@ Attach.insertToCookDecoration = function() {
         });
 }
 
-Attach.CookDecorationEdit = function(fsn){
-    $.post(base_url + '/albums/cookDecorationCategory/', {}, function(data) {
-        $('.photo-upload').append(data);
+Attach.CookDecorationEdit = function (type, id) {
+
+    if (type == 'album') {
+        $('#attach_content').append('<div style="" id="save_attach_button" class="form-bottom"><button onclick="Attach.insertToCookDecoration();" class="btn btn-green-medium"><span><span>Завершить</span></span></button></div>');
+        $('#gallery .gallery-photos').hide();
+    }
+
+    $.post(base_url + '/albums/cookDecorationCategory/', {id:id}, function (data) {
+        $('#attach_content>*').hide();
+        $('#attach_content').append(data);
         $('#save_attach_button button span span').text('Завершить')
-        $('#save_attach_button button').attr('onclick', 'Attach.insertToCookDecoration();');
+        $('#save_attach_button button').attr('onclick', 'Attach.insertToCookDecoration('+id+');');
     });
 }
 

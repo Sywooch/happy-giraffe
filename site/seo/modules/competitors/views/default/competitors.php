@@ -105,15 +105,6 @@
             'value' => '$data->keyword->name',
         ),
         array(
-            'name' => 'sum',
-            'filter' => false
-        ),
-        array(
-            'name' => 'avarage',
-            'value' => '$data->GetAverageStats()',
-            'filter' => false
-        ),
-        array(
             'name' => 'm1',
             'filter' => false
         ),
@@ -168,7 +159,7 @@
         array(
             'name' => 'buttons',
             'type' => 'raw',
-            'header' => 'Действия',
+            'header' => '',
             'filter' => false
         ),
     ),

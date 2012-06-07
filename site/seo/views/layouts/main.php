@@ -129,7 +129,7 @@
                         ),
                         array(
                             'label' => 'Конкуренты',
-                            'url' => array('/default/competitors'),
+                            'url' => array('/competitors/default/index'),
                         ),
                         array(
                             'label' => 'Пользователи',

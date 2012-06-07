@@ -1,26 +1,26 @@
 <?php
 
-require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
+Yii::import('ext.phpQuery.phpQuery');
 
 class Filters
 {
 	public static function add_nofollow($value)
 	{
-		$html = str_get_html($value);
+        $doc = phpQuery::newDocumentXHTML($value, $charset = 'utf-8');
 
-		$links = $html->find('a');
-		foreach ($links as $link)
-		{
-			if (! isset($link->rel) AND strpos($link->href, 'happy-giraffe.ru') === false)
-			{
-				$link->rel = 'nofollow';
-			}
-			elseif ($link->rel == 'nofollow')
-			{
-				$link->rel = null;
-			}
-		}
+		foreach (pq('a') as $link) {
+            if (strpos(pq($link)->attr('href'), $_SERVER["HTTP_HOST"])) {
+                if ($link->hasAttribute('target'))
+                    pq($link)->removeAttr('target');
+            } else {
+                if (pq($link)->attr('rel') != 'nofollow')
+                    pq($link)->attr('rel', 'nofollow');
+                if (pq($link)->attr('target') != '_blank') {
+                    pq($link)->attr('target', '_blank');
+                }
+            }
+        }
 
-		return $html;
+		return $doc;
 	}
 }

@@ -9,13 +9,13 @@ class DefaultController extends SController
         return true;
     }
 
-    public function actionIndex($site_id = 1, $year = 2011, $recOnPage = 10)
+    public function actionCompetitors($site_id = 1, $year = 2011, $recOnPage = 10)
     {
         $model = new KeyStats;
         $model->site_id = $site_id;
         $model->year = $year;
 
-        $this->render('index', compact('model', 'site_id', 'year', 'recOnPage'));
+        $this->render('competitors', compact('model', 'site_id', 'year', 'recOnPage'));
     }
 
     public function actionCalc()
@@ -39,7 +39,7 @@ class DefaultController extends SController
         }
     }
 
-    public function actionAddKeys()
+    /*public function actionAddKeys()
     {
         $file = fopen('F:\Xedant\Keywords.txt', 'r');
         $i = 0;
@@ -133,7 +133,7 @@ class DefaultController extends SController
                 }
             }
         }
-    }
+    }*/
 
     public function actionTest2()
     {
@@ -141,6 +141,15 @@ class DefaultController extends SController
         echo '<br>';
         for($i=0;$i<25;$i++){
             echo ParseHelper::getLine($i) . '<br>';
+        }
+    }
+
+    public function actionTest3(){
+        $models = Keywords::model()->findAll('id < 40000');
+        foreach($models as $model){
+            $parsing = new ParsingKeywords();
+            $parsing->keyword_id = $model->id;
+            $parsing->save();
         }
     }
 }

@@ -32,9 +32,7 @@
 
         ->registerScriptFile('/js/jquery.iframe-post-form.js')
 
-        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/comet.js')
-        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/dklab_realplexor.js')
-        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
+        ;
     ?>
     <style type="text/css">
         .default-nav li span.tale {
@@ -95,7 +93,7 @@
                         ),
                         array(
                             'label' => 'Конкуренты',
-                            'url' => array('/default/index/'),
+                            'url' => array('/default/competitors/'),
                         ),
                         array(
                             'label' => 'Ключевые слова или фразы',
@@ -131,7 +129,7 @@
                         ),
                         array(
                             'label' => 'Конкуренты',
-                            'url' => array('/default/index'),
+                            'url' => array('/default/competitors'),
                         ),
                         array(
                             'label' => 'Пользователи',

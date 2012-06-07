@@ -7,8 +7,6 @@ class ActivityController extends HController
 {
     public function actionIndex()
     {
-        echo $_SERVER["HTTP_HOST"];
-        die;
         $this->pageTitle = 'Самое свежее на Веселом Жирафе';
         if (! Yii::app()->user->isGuest) {
             UserAttributes::set(Yii::app()->user->id, 'activityLastVisited', time());

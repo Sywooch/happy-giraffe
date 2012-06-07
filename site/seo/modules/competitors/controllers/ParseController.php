@@ -2,6 +2,8 @@
 
 class ParseController extends SController
 {
+    public $layout = 'main';
+
     public function beforeAction($action)
     {
         if (!Yii::app()->user->checkAccess('admin'))
@@ -9,10 +11,23 @@ class ParseController extends SController
         return true;
     }
 
-    public function actionParseStats()
-    {
+    public function actionIndex(){
+        $this->render('index');
+    }
+
+    public function actionParse(){
+        $site_id = Yii::app()->request->getPost('site_id');
+
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $site_id = 2;
+        if ($site_id < 3){
+            $this->parseStats($site_id);
+        }
+        else
+            $this->parseStats2($site_id);
+    }
+
+    public function parseStats($site_id)
+    {
         $year = 2012;
 
         $cookie = 'pwd=1sd9Cw4MQjmNOt3lYV6; suid=0HL2kG3LzWGy; per_page=100; total=yes; adv-uid=fdae6f.bb2af5.e2d520';
@@ -330,17 +345,16 @@ class ParseController extends SController
         return $res;
     }*/
 
-    public function actionParseStats2()
+    public function parseStats2($site_id)
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $site_id = 3;
-        $year = 2012;
+        $year = 2011;
+        $site = $this->loadModel($site_id);
 
         $cookie = 'suid=0HL0At2P9XWy; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
-        $url = 'http://www.liveinternet.ru/stat/shkolazhizni/queries.html?date=2011-12-31;period=month;';
-        for ($month = 3; $month > 0; $month--) {
+        $url = 'http://www.liveinternet.ru/stat/'.$site->url.'/queries.html?date=2011-12-31;period=month;';
+        for ($month = 12; $month > 0; $month--) {
             $last_url = $url;
-            $url = 'http://www.liveinternet.ru/stat/shkolazhizni/queries.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;page=';
+            $url = 'http://www.liveinternet.ru/stat/'.$site->url.'/queries.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;page=';
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
@@ -363,7 +377,7 @@ class ParseController extends SController
             if ($max_pages > 50)
                 $max_pages = 50;
 
-            echo $max_pages . '<br>';
+            //echo $max_pages . '<br>';
             $res = array_merge(array(), $this->GetStat($document, $month, $year, $site_id));
             flush();
             sleep(2);
@@ -431,11 +445,10 @@ class ParseController extends SController
                         continue;
                     $keyword = trim(pq($tr)->find('td:eq(1)')->text());
                     if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие'
-                        || $keyword == 'Другие' || $keyword == 'Другие')
+                        || $keyword == 'сумма выбранных' || $keyword == 'всего')
                         continue;
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
                     $res[] = array($keyword, $stats);
-                    //                    echo $keyword . ' ' . $stats . '<br>';
                     $keyword_model = Keywords::GetKeyword($keyword);
                     $model = new Stats();
                     $model->month = $month;
@@ -446,10 +459,43 @@ class ParseController extends SController
                     $model->SaveOrUpdate();
                 }
 
-                echo $i . '<br>';
+                //echo $i . '<br>';
             }
         }
 
         return $res;
+    }
+
+    public function actionCalc()
+    {
+        $site_id = 2;
+        $year = 2012;
+        $criteria = new CDbCriteria;
+        $criteria->compare('site_id', $site_id);
+        $criteria->compare('year', $year);
+        $stats = Stats::model()->findAll($criteria);
+        foreach ($stats as $stat) {
+            $key_stat = KeyStats::model()->find('site_id = ' . $site_id . ' AND keyword_id = ' . $stat->keyword_id . ' AND year = ' . $year);
+            if ($key_stat === null) {
+                $key_stat = new KeyStats;
+                $key_stat->keyword_id = $stat->keyword_id;
+                $key_stat->site_id = $site_id;
+                $key_stat->year = $year;
+            }
+            $key_stat->setAttribute('m' . $stat->month, $stat->value);
+            $key_stat->save();
+        }
+    }
+
+    /**
+     * @param int $id model id
+     * @return Site
+     * @throws CHttpException
+     */
+    public function loadModel($id){
+        $model = Site::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

@@ -1,7 +1,7 @@
 <?php $this->beginContent('//layouts/main');
 
 if (Yii::app()->user->checkAccess('admin'))
-    $this->widget('zii.widgets.CMenu', array(
+    /*$this->widget('zii.widgets.CMenu', array(
         'items' => array(
             array(
                 'label' => 'Таблица',
@@ -15,7 +15,7 @@ if (Yii::app()->user->checkAccess('admin'))
                 'label' => 'Парсинг',
                 'url' => array('/competitors/parse/'),
             ),
-        )));
+        )));*/
 
 echo $content;
 

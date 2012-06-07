@@ -18,6 +18,7 @@ return array(
         'application.modules.competitors.models.*',
 
         'site.frontend.helpers.FileHandler',
+        'site.frontend.components.*',
         'site.frontend.helpers.CArray',
         'site.frontend.helpers.*',
         'site.frontend.extensions.YiiMongoDbSuite.*',

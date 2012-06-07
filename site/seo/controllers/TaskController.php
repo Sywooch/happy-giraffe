@@ -134,7 +134,7 @@ class TaskController extends SController
 
             $task->status = SeoTask::STATUS_PUBLISHED;
         } else {
-            if ($task->type == SeoTask::TYPE_MODER)
+            if ($task->type == SeoTask::TYPE_EDITOR)
                 $task->status = SeoTask::STATUS_WRITTEN;
             else {
                 echo CJSON::encode(array(

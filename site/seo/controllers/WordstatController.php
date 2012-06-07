@@ -17,72 +17,78 @@ class WordstatController extends SController
 
     public function actionIndex()
     {
-        $parser = new WordstatParser;
-        $parser->start();
+        $this->render('index');
     }
 
-    public function actionPrepareKeywords(){
+    public function actionAddKeywords()
+    {
+        $keyword = Yii::app()->request->getPost('keyword');
+
         $allSearch = Yii::app()->search
             ->select('*')
             ->from('keywords')
-            ->where('*роды*')
-            ->limit(0, 1000)
+            ->where(' ' . $keyword . ' ')
+            ->limit(0, 100000)
             ->searchRaw();
-        echo count($allSearch['matches']);
+        $count = 0;
+        foreach ($allSearch['matches'] as $key => $m)
+            if (ParsingKeywords::model()->addKeywordById($key))
+                $count++;
+
+        echo CJSON::encode(array(
+            'status' => true,
+            'count' => $count
+        ));
     }
 
-    public function getCookie($url)
+    public function actionAddCompetitors()
     {
-        $data = $this->loadPage($url, '');
-        //echo $data;Yii::app()->end();
-        if (preg_match('/<img src="\/\/mc.yandex.ru\/watch\/([\d]+)"/', $data, $res)) {
-            $mc_url = 'http://mc.yandex.ru/watch/' . $res[1];
-            $data2 = $this->loadPage($mc_url, $url);
-            if (preg_match('/Set-Cookie: ([^;]+;) domain=.yandex.ru/', $data2, $res)) {
-                $cookie = $res[1] . ' ';
+        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from baby_stats__key_stats')->queryColumn();
+        $count = 0;
+        foreach ($keywords as $keyword) {
+            if (ParsingKeywords::model()->addKeywordById($keyword))
+                $count++;
+        }
+
+        echo CJSON::encode(array(
+            'status' => true,
+            'count' => $count
+        ));
+    }
+
+    public function actionRemovePlus()
+    {
+        $end = false;
+        $i = 0;
+
+        $criteria = new CDbCriteria;
+        $criteria->order = 'id';
+        $criteria->limit = 1000;
+        while (!$end) {
+            $criteria->condition = 'id >= ' . ($i * 1000) . ' AND id < ' . ($i*1000 + 1000);
+            $models = Keywords::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                if (preg_match_all('/\+([а-яА-Я]+)/', $model->name, $matches)) {
+                    echo $model->name.'<br>';
+                    $new_name = str_replace('+', '', $model->name);
+
+                    $keyword = Keywords::model()->findByAttributes(array('name' => $new_name));
+                    if ($keyword !== null) {
+                        //$model->delete();
+                    } else {
+                        $model->name = $new_name;
+                        //$model->save();
+                    }
+                }
             }
 
+            $i++;
+            if ($i%100 == 0)
+                echo $i.'<br>';
+
+            if ($i > 230000)
+                $end = true;
         }
-        $data2 = $this->loadPage('http://kiks.yandex.ru/su/', $url);
-        if (preg_match('/Set-Cookie: ([^;]+;) domain=.yandex.ru/', $data2, $res)) {
-            $cookie .= $res[1];
-        }
-
-        $this->cookie = $cookie;
-    }
-
-    public function startParse()
-    {
-        $keyword = urlencode('бэбиблог');
-        $url = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . $keyword . '&geo=&text_geo=';
-        $html = $this->loadPage($url, 'http://wordstat.yandex.ru/');
-        //echo $html;
-
-        $document = phpQuery::newDocument($html);
-        foreach ($document->find('table.campaign tr td table td a') as $link) {
-            echo pq($link)->text();
-            echo pq($link)->parent()->next()->next()->text();
-            echo '<br>';
-        }
-    }
-
-    public function loadPage($url, $ref)
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_REFERER, $ref);
-        curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        if (!empty($this->cookie))
-            curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
-        return curl_exec($ch);
-    }
-
-    public function getKeyword()
-    {
-
     }
 }

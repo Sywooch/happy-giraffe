@@ -100,10 +100,23 @@ class TaskController extends SController
         $url = trim(Yii::app()->request->getPost('url'));
         if (!empty($url)) {
             preg_match("/\/([\d]+)\/$/", $url, $match);
+            if (!isset($match[1])) {
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Статья не найдена'
+                ));
+                Yii::app()->end();
+            }
+
             $article_id = $match[1];
             $article = CommunityContent::model()->findByPk($article_id);
-            if ($article === null)
-                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            if ($article === null) {
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Статья не найдена'
+                ));
+                Yii::app()->end();
+            }
 
             $article_keywords = new ArticleKeywords();
             $article_keywords->entity = 'CommunityContent';
@@ -121,7 +134,15 @@ class TaskController extends SController
 
             $task->status = SeoTask::STATUS_PUBLISHED;
         } else {
-            $task->status = SeoTask::STATUS_WRITTEN;
+            if ($task->type == SeoTask::TYPE_MODER)
+                $task->status = SeoTask::STATUS_WRITTEN;
+            else {
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Не ввели url статьи'
+                ));
+                Yii::app()->end();
+            }
         }
 
         echo CJSON::encode(array('status' => $task->save()));
@@ -150,12 +171,12 @@ class TaskController extends SController
                 $comet->attributes = array('task_id' => $task->id);
                 $comet->sendToSeoUsers();
             }
-        }
-        else
+        } else
             echo CJSON::encode(array('status' => false));
     }
 
-    public function actionCorrected(){
+    public function actionCorrected()
+    {
         if (!Yii::app()->user->checkAccess('corrector'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
@@ -164,8 +185,7 @@ class TaskController extends SController
         if ($task->status == SeoTask::STATUS_CORRECTING) {
             $task->status = SeoTask::STATUS_CORRECTED;
             echo CJSON::encode(array('status' => $task->save()));
-        }
-        else
+        } else
             echo CJSON::encode(array('status' => false));
 
     }

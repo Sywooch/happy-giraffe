@@ -178,9 +178,24 @@ class AlbumsController extends HController
             UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
         }
 
-        $this->render('photo', array(
-            'photo' => $photo,
-        ));
+        if(!Yii::app()->request->isAjaxRequest)
+            $this->render('photo', compact('photo'));
+        else
+            $this->renderPartial('photo', compact('photo'));
+    }
+
+    public function actionWPhoto()
+    {
+        $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
+        $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'))->findByPk(Yii::app()->request->getQuery('entity_id'));
+        if(!Yii::app()->request->getQuery('go'))
+        {
+            $this->renderPartial('w_photo', compact('model', 'photo'));
+        }
+        else
+        {
+            $this->renderPartial('w_photo_content', compact('model', 'photo'));
+        }
     }
 
     public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)
@@ -301,6 +316,70 @@ class AlbumsController extends HController
         $humor = new Humor;
         $humor->photo_id = $model->id;
         echo $humor->save();
+    }
+
+    public function actionRecipePhoto()
+    {
+        $val = Yii::app()->request->getPost('val');
+        if (is_numeric($val)) {
+            AlbumPhoto::model()->findByPk($val);
+        } else {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            $model->create(true);
+        }
+
+        if ($model === null) {
+            $response = array(
+                'status' => false,
+            );
+        } else {
+            $response = array(
+                'status' => true,
+                'src' => $model->getPreviewUrl(325, 252),
+                'id' => $model->primaryKey,
+                'title' => $model->title,
+            );
+        }
+        echo CJSON::encode($response);
+        Yii::app()->end();
+    }
+
+    public function actionCookDecorationPhoto()
+    {
+        $val = Yii::app()->request->getPost('val');
+        $model = new AlbumPhoto;
+        $model->file_name = $val;
+        if ($title = Yii::app()->request->getPost('title'))
+            $model->title = CHtml::encode($title);
+        $model->author_id = Yii::app()->user->id;
+        $model->create(true);
+
+        Yii::import('application.modules.cook.models.CookDecoration');
+        $decoration = new CookDecoration();
+        $decoration->photo_id = $model->id;
+        $decoration->category_id = Yii::app()->request->getPost('category');
+        if ($title) {
+            $decoration->title = $title;
+        }
+
+        if ($decoration->save()) {
+            $attach = new AttachPhoto;
+            $attach->entity = 'CookDecoration';
+            $attach->entity_id = $decoration->id;
+            $attach->photo_id = $model->id;
+            if ($attach->save())
+                echo CJSON::encode(array('status' => true));
+
+        } else
+            echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionCookDecorationCategory()
+    {
+        $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decor', array());
+        Yii::app()->end();
     }
 
     public function actionCommentPhoto()

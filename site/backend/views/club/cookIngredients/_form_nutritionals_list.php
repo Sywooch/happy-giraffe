@@ -3,7 +3,7 @@
 $this->widget('zii.widgets.grid.CGridView', array(
     'enablePagination' => false,
     'summaryText' => '',
-    'dataProvider' => new CActiveDataProvider ('CookIngredientsNutritionals', array(
+    'dataProvider' => new CActiveDataProvider ('CookIngredientNutritional', array(
         'criteria' => array(
             'condition' => 'ingredient_id = ' . $model->id,
             'order' => 'id'

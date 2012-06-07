@@ -1,6 +1,6 @@
 <h1>Ингредиенты</h1>
 
-<?php echo CHtml::link('создать', array('club/CookIngredients/create')) ?>
+<?php echo CHtml::link('создать', array('club/CookIngredient/create')) ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'cook-ingredients-grid',

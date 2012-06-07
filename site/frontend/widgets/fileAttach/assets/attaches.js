@@ -36,8 +36,10 @@ Attach.selectPhoto = function(button, id) {
     }
     else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(id);
-    } else if(this.entity == "Product") {
-            this.saveProductPhoto(id);
+    } else if (this.entity == "Product") {
+        this.saveProductPhoto(id);
+    } else if (this.entity == "CookDecoration") {
+        this.CookDecorationEdit(id);
     } else {
         $.fancybox.close();
     }

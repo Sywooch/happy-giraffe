@@ -123,7 +123,20 @@ class TaskController extends SController
             $article_keywords->entity_id = $article_id;
             $article_keywords->keyword_group_id = $task->keyword_group_id;
             $article_keywords->url = $url;
-            $article_keywords->save();
+            if (!$article_keywords->save()) {
+                $errorText = '';
+                foreach ($article_keywords->getErrors() as $error) {
+                    foreach($error as $errorPart)
+                        $errorText.= $errorPart.' ';
+                }
+
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Ошибка сохранения статьи',
+                    'errorText' => $errorText
+                ));
+                Yii::app()->end();
+            }
 
             $task->article_id = $article_keywords->id;
             if (empty($task->article_title))
@@ -134,7 +147,7 @@ class TaskController extends SController
 
             $task->status = SeoTask::STATUS_PUBLISHED;
         } else {
-            if ($task->type == SeoTask::TYPE_MODER)
+            if ($task->type == SeoTask::TYPE_EDITOR)
                 $task->status = SeoTask::STATUS_WRITTEN;
             else {
                 echo CJSON::encode(array(

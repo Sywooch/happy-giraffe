@@ -13,7 +13,7 @@
             <h1>Приправы и специи <?=$model->title; ?></h1>
 
             <div class="clearfix">
-                <div class="cat-img"><img src="<?=isset($model->photo)?$model->photo->getPreviewUrl(370, 500, Image::WIDTH):'' ?>"/></div>
+                <div class="cat-img"><img src="<?=isset($model->photo) ? $model->photo->getPreviewUrl(370, 500, Image::WIDTH) : '' ?>"/></div>
 
                 <div class="wysiwyg-content"><?=$model->content; ?></div>
             </div>
@@ -22,25 +22,28 @@
 
                 <div class="block-title">Приправы и специи</div>
 
+                <?php
+                $qnty = count($model->spices);
+                $per_column = ceil($qnty / 4);
+                $i = 1;
+                ?>
                 <ul>
-
                     <li>
                         <ul>
-                            <?php $i = 0;$col = 1;foreach ($model->spices as $spice): ?>
-                            <?php if ($i > $col * (count($model->spices)/4) ): ?>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul>
-                            <?php endif; ?>
-                            <li>
-                                <a href="<?=$this->createUrl('view', array('id' => $spice->slug)) ?>"><?=$spice->title ?></a>
-                            </li>
-                            <?php $i++ ?>
-                            <?php endforeach; ?>
-                        </ul>
-                    </li>
+                            <?php
+                            foreach ($model->spices as $spice) {
+                                ?>
 
+                                <li><a href="<?=$this->createUrl('view', array('id' => $spice->slug));?>"><?=$spice->title;?></a></li>
+
+                                <?php
+                                if (($i % $per_column) == 0)
+                                    echo "</ul></li><li><ul>";
+                                $i++;
+                            }
+                            ?>
+                        </ul>
+                    </li>
                 </ul>
 
             </div>

@@ -29,8 +29,9 @@
 class KeyStats extends HActiveRecord
 {
     public $all;
-    public $avarage;
     public $key_name;
+    public $popular;
+    public $popularCategory;
 
     /**
      * Returns the static model of the specified AR class.

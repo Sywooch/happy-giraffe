@@ -373,6 +373,7 @@ class CommunityContent extends HActiveRecord
                         $log = 'Controller: ' . Yii::app()->controller->id . "\n"
                             . 'Action: ' . Yii::app()->controller->action . "\n";
                         mail('choojoy.work@gmail.com', 'gotcha', $log);
+                        Yii::log($log, 'error');
                     }
 
                     $route = '/community/view';

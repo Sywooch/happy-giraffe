@@ -18,23 +18,26 @@ class CookSpicesController extends BController
     {
         $model = new CookSpice;
 
-        $basePath = Yii::getPathOfAlias('application.views.club.cookSpices.assets');
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-
         if (isset($_POST['CookSpice'])) {
+
+            if (!$_POST['CookSpice']['ingredient_id']) {
+                $ingredient = new CookIngredient();
+                $ingredient->attributes = array('title' => $_POST['ac'], 'category_id' => 41);
+                $ingredient->save();
+                $_POST['CookSpice']['ingredient_id'] = $ingredient->id;
+            }
+
             $model->attributes = $_POST['CookSpice'];
+
             if (isset($_POST['category']))
                 $model->categories = $_POST['category'];
             if ($model->save())
-
                 $this->redirect(array('update', 'id' => $model->id));
         }
 
         $this->render('create', array(
             'model' => $model,
         ));
-        Yii::app()->clientScript->registerCssFile($baseUrl . '/style.css', CClientScript::POS_HEAD);
     }
 
     public function actionUpdate($id)
@@ -72,8 +75,7 @@ class CookSpicesController extends BController
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -166,15 +168,14 @@ class CookSpicesController extends BController
                 </script>";
 
                 $spice->photo_id = $model->id;
-                if ($spice->save()){
+                if ($spice->save()) {
                     if (isset($last_photo))
                         $last_photo->delete();
                     $response = array(
                         'status' => true,
                         'image' => $model->getPreviewUrl()
                     );
-                }
-                else
+                } else
                     $response = array('status' => false);
             } else
                 $response = array('status' => false);

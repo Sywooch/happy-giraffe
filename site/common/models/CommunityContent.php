@@ -372,7 +372,7 @@ class CommunityContent extends HActiveRecord
                     if ($this->rubric->community_id === null) {
                         $log = 'Controller: ' . Yii::app()->controller->id . "\n"
                             . 'Action: ' . Yii::app()->controller->action . "\n";
-                        Yii::log($log, 'error');
+                        mail('choojoy.work@gmail.com', 'gotcha', $log);
                     }
 
                     $route = '/community/view';

@@ -6,7 +6,7 @@ foreach ($article_keyword->keywordGroup->keywords as $keyword) {
 <table>
     <tr>
         <td><?php
-            $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where('* ' . $keyword->name . ' *')->limit(0, 30)->searchRaw();
+            $allSearch = Yii::app()->search->select('*')->from('community')->where('* ' . $keyword->name . ' *')->limit(0, 30)->searchRaw();
 
             foreach ($allSearch['matches'] as $key => $m) {
                 $article = CommunityContent::model()->findByPk(trim($key));
@@ -23,7 +23,7 @@ foreach ($article_keyword->keywordGroup->keywords as $keyword) {
             ?></td>
         <td><?php
 
-            $allSearch = $textSearch = Yii::app()->search->select('*')->from('keywords')->where('* ' . $keyword->name . ' *')->limit(0, 30)->searchRaw();
+            $allSearch = Yii::app()->search->select('*')->from('keywords')->where('* ' . $keyword->name . ' *')->limit(0, 30)->searchRaw();
 
             foreach ($allSearch['matches'] as $key => $m) {
                 $keyword = Keywords::model()->findByPk(trim($key));

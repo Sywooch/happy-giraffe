@@ -55,7 +55,8 @@
     .grid-view {
         padding: 0;
     }
-    .grid-view table.items tr.active{
+
+    .grid-view table.items tr.active {
         background: #F1E4FD;
     }
 </style>
@@ -79,7 +80,9 @@
     <div style="float: left;">
         <br>
         <?php echo CHtml::hiddenField('site_id', $site_id) ?>
-        Выводить строк на страницу: <?php echo CHtml::dropDownList('recOnPage', $recOnPage, array(10 => 10, 25 => 25, 50 => 50, 100 => 100)) ?><br>
+        Выводить строк на
+        страницу: <?php echo CHtml::dropDownList('recOnPage', $recOnPage, array(10 => 10, 25 => 25, 50 => 50, 100 => 100)) ?>
+        <br>
         Год: <?php echo CHtml::dropDownList('year', $year, array('2011' => 2011, '2012' => 2012)) ?>
     </div>
     <div style="float: right;">
@@ -93,7 +96,7 @@
     'id' => 'keywords-grid',
     'dataProvider' => $model->search($recOnPage),
     'filter' => $model,
-    'rowCssClassExpression'=>'$data->getRowClass()',
+    'rowCssClassExpression' => '$data->getRowClass()',
 //    'ajaxUpdate'=>false,
     'template' => '{pager}{summary}<div class="table-box">{items}</div>',
     'columns' => array(
@@ -162,13 +165,19 @@
             'header' => 'Дек',
             'filter' => false
         ),
+        array(
+            'name' => 'buttons',
+            'type' => 'raw',
+            'header' => 'Действия',
+            'filter' => false
+        ),
     ),
 )); ?>
 </div>
 <?php $this->endWidget(); ?>
 <script type="text/javascript">
     $('#page').keyup(function () {
-        var url = $('.yiiPager li.last a').attr('href').replace(/KeyStats_page=[\d]+/,"");
+        var url = $('.yiiPager li.last a').attr('href').replace(/KeyStats_page=[\d]+/, "");
         url = url + '&KeyStats_page=' + $(this).val();
         console.log(url);
         $.fn.yiiGridView.update('keywords-grid', {url:url});

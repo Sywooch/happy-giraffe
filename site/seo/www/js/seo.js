@@ -95,5 +95,39 @@ var SeoModule = {
                 });
             }
         }, 'json');
+    },
+    removeArticle:function(el, id){
+        $.post('/existArticles/remove/', {id:id}, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text: 'статья удалена'
+                });
+            }
+        }, 'json');
+    }
+}
+
+var WordStat = {
+    addKeyword:function (el) {
+        $.post('/wordstat/addKeywords/', {keyword:$(el).prev().val()}, function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:response.count + ' слов добавлено на парсинг'
+                });
+            }
+        }, 'json');
+    },
+    addCompetitors:function () {
+        $.post('/wordstat/addCompetitors/', function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:response.count + ' слов добавлено на парсинг'
+                });
+            }
+        }, 'json');
     }
 }

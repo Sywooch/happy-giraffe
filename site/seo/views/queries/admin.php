@@ -4,12 +4,7 @@
 	'filter'=>$model,
 	'columns'=>array(
 //		'id',
-		'phrase',
-		'visits',
-//		'page_views',
-		'denial',
-		'depth',
-		'visit_time',
+        'phrase',
         array(
             'name'=>'activePages',
             'type'=>'raw',
@@ -17,10 +12,17 @@
         array(
             'name'=>'yandexPos',
             'type'=>'raw',
+            'sortable'=>true
         ),
         array(
             'name'=>'googlePos',
             'type'=>'raw',
+            'sortable'=>true
         ),
-	),
+        'visits',
+//		'page_views',
+        'denial',
+        'depth',
+        'visit_time',
+    ),
 )); ?>

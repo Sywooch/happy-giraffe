@@ -20,15 +20,15 @@ class CookIngredientsController extends BController
      */
     public function actionCreate()
     {
-        $model = new CookIngredients;
+        $model = new CookIngredient;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['CookIngredients'])) {
-            $model->attributes = $_POST['CookIngredients'];
+        if (isset($_POST['CookIngredient'])) {
+            $model->attributes = $_POST['CookIngredient'];
             if ($model->save()) {
-                $iunit = new CookIngredientUnits();
+                $iunit = new CookIngredientUnit();
                 $iunit->attributes = array('ingredient_id' => $model->id, 'unit_id' => 1);
                 $iunit->save();
                 $this->redirect(array('update', 'id' => $model->id));
@@ -56,8 +56,8 @@ class CookIngredientsController extends BController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['CookIngredients'])) {
-            $model->attributes = $_POST['CookIngredients'];
+        if (isset($_POST['CookIngredient'])) {
+            $model->attributes = $_POST['CookIngredient'];
             if ($model->save())
                 $this->redirect(array('admin'));
         }
@@ -95,7 +95,7 @@ class CookIngredientsController extends BController
     public function actionUnlinkNutritional($id)
     {
         if (Yii::app()->request->isPostRequest) {
-            $link = CookIngredientsNutritionals::model()->findByPk((int)$id);
+            $link = CookIngredientNutritional::model()->findByPk((int)$id);
             $model = $this->loadModel($link->ingredient_id);
 
             $link->delete();
@@ -110,13 +110,13 @@ class CookIngredientsController extends BController
      */
     public function actionLinkNutritional()
     {
-        $link = new CookIngredientsNutritionals();
+        $link = new CookIngredientNutritional();
         if (isset($_POST['ajax']) && $_POST['ajax'] == 'cook-ingredients-nutritionals-create-form') {
-            $link->attributes = $_POST['CookIngredientsNutritionals'];
+            $link->attributes = $_POST['CookIngredientNutritional'];
             echo CActiveForm::validate($link);
             Yii::app()->end();
-        } elseif (isset($_POST['CookIngredientsNutritionals'])) {
-            $link->attributes = $_POST['CookIngredientsNutritionals'];
+        } elseif (isset($_POST['CookIngredientNutritional'])) {
+            $link->attributes = $_POST['CookIngredientNutritional'];
             $link->save();
             $model = $this->loadModel($link->ingredient_id);
             $this->renderPartial('_form_nutritionals_list', array('model' => $model));
@@ -128,13 +128,13 @@ class CookIngredientsController extends BController
      */
     public function actionCreateSynonym()
     {
-        $synonym = new CookIngredientSynonyms();
+        $synonym = new CookIngredientSynonym();
         if (isset($_POST['ajax']) && $_POST['ajax'] == 'cook-ingredients-synonyms-create-form') {
-            $synonym->attributes = $_POST['CookIngredientSynonyms'];
+            $synonym->attributes = $_POST['CookIngredientSynonym'];
             echo CActiveForm::validate($synonym);
             Yii::app()->end();
-        } elseif (isset($_POST['CookIngredientSynonyms'])) {
-            $synonym->attributes = $_POST['CookIngredientSynonyms'];
+        } elseif (isset($_POST['CookIngredientSynonym'])) {
+            $synonym->attributes = $_POST['CookIngredientSynonym'];
             $synonym->save();
             $model = $this->loadModel($synonym->ingredient_id);
             $this->renderPartial('_form_synonyms_list', array('model' => $model));
@@ -150,7 +150,7 @@ class CookIngredientsController extends BController
     public function actionDeleteSynonym($id)
     {
         if (Yii::app()->request->isPostRequest) {
-            $synonym = CookIngredientSynonyms::model()->findByPk((int)$id);
+            $synonym = CookIngredientSynonym::model()->findByPk((int)$id);
             $model = $this->loadModel($synonym->ingredient_id);
 
             $synonym->delete();
@@ -165,10 +165,10 @@ class CookIngredientsController extends BController
      */
     public function actionAdmin()
     {
-        $model = new CookIngredients('search');
+        $model = new CookIngredient('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['CookIngredients']))
-            $model->attributes = $_GET['CookIngredients'];
+        if (isset($_GET['CookIngredient']))
+            $model->attributes = $_GET['CookIngredient'];
 
         $this->render('admin', array(
             'model' => $model,
@@ -182,7 +182,7 @@ class CookIngredientsController extends BController
      */
     public function loadModel($id)
     {
-        $model = CookIngredients::model()->findByPk((int)$id);
+        $model = CookIngredient::model()->findByPk((int)$id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -203,13 +203,13 @@ class CookIngredientsController extends BController
     public function actionSaveUnits($id)
     {
         foreach ($_POST['units'] as $unit_id => $unit) {
-            $model = CookIngredientUnits::model()->findByAttributes(array('ingredient_id' => $id, 'unit_id' => $unit_id));
+            $model = CookIngredientUnit::model()->findByAttributes(array('ingredient_id' => $id, 'unit_id' => $unit_id));
             if (isset($unit['cb'])) {
                 if ($model) {
                     $model->weight = $unit['weight'];
                     $model->save();
                 } else {
-                    $model = new CookIngredientUnits();
+                    $model = new CookIngredientUnit();
                     $model->attributes = array('ingredient_id' => $id, 'unit_id' => $unit_id, 'weight' => $unit['weight']);
                     $model->save();
                 }
@@ -225,8 +225,8 @@ class CookIngredientsController extends BController
     /*public function actionFillUnits()
     {
         set_time_limit(0);
-        $ingredients = CookIngredients::model()->findAll();
-        $units = CookUnits::model()->findAll();
+        $ingredients = CookIngredient::model()->findAll();
+        $units = CookUnit::model()->findAll();
 
         foreach ($ingredients as $ingredient) {
             $s = array();
@@ -246,7 +246,7 @@ class CookIngredientsController extends BController
 
             foreach ($s as $ss) {
                 //continue;
-                $model = new CookIngredientUnits();
+                $model = new CookIngredientUnit();
                 $model->attributes = $ss;
                 $model->save();
             }

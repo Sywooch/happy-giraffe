@@ -16,14 +16,14 @@ class CookSpicesController extends BController
 
     public function actionCreate()
     {
-        $model = new CookSpices;
+        $model = new CookSpice;
 
         $basePath = Yii::getPathOfAlias('application.views.club.cookSpices.assets');
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 
-        if (isset($_POST['CookSpices'])) {
-            $model->attributes = $_POST['CookSpices'];
+        if (isset($_POST['CookSpice'])) {
+            $model->attributes = $_POST['CookSpice'];
             if (isset($_POST['category']))
                 $model->categories = $_POST['category'];
             if ($model->save())
@@ -47,8 +47,8 @@ class CookSpicesController extends BController
 
         $model = $this->loadModel($id);
 
-        if (isset($_POST['CookSpices'])) {
-            $model->attributes = $_POST['CookSpices'];
+        if (isset($_POST['CookSpice'])) {
+            $model->attributes = $_POST['CookSpice'];
             if (isset($_POST['category']))
                 $model->categories = $_POST['category'];
             else
@@ -79,10 +79,10 @@ class CookSpicesController extends BController
 
     public function actionAdmin()
     {
-        $model = new CookSpices('search');
+        $model = new CookSpice('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['CookSpices']))
-            $model->attributes = $_GET['CookSpices'];
+        if (isset($_GET['CookSpice']))
+            $model->attributes = $_GET['CookSpice'];
 
         $this->render('admin', array(
             'model' => $model,
@@ -91,12 +91,12 @@ class CookSpicesController extends BController
 
     /**
      * @param $id
-     * @return CookSpices
+     * @return CookSpice
      * @throws CHttpException
      */
     public function loadModel($id)
     {
-        $model = CookSpices::model()->with('categories')->findByPk((int)$id);
+        $model = CookSpice::model()->with('categories')->findByPk((int)$id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

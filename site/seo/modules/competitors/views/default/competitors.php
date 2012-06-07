@@ -1,171 +1,110 @@
-<style type="text/css">
-    .choose-type {
-        width: 100%;
-    }
+<div class="search clearfix">
 
-    .choose-type td {
-        text-align: center;
-    }
-
-    .choose-type a {
-        font-weight: normal;
-        font-size: 14px;
-        color: #333;
-        text-decoration: none;
-    }
-
-    .choose-type td.active {
-        background: #D9EAFE;
-    }
-
-    #seo .grid-view table.items th {
-        background: none repeat scroll 0 0 #D9EAFE;
-        border: 1px solid #FFFFFF;
-        color: #0B509B;
-        font-size: 13px;
-        font-weight: normal;
-        padding: 10px 5px;
-        vertical-align: middle;
-    }
-
-    #keywords-grid_c0 {
-        width: 300px;
-    }
-
-    #seo .seo-table .table-box table td {
-        padding: 5px;
-    }
-
-    #seo .grid-view table.items th a {
-        color: #0B509B;
-    }
-
-    .grid-view table.items {
-        border: none;
-    }
-
-    .grid-view table.items tr.odd {
-        background: none;
-    }
-
-    .grid-view table.items tr.even {
-        background: none;
-    }
-
-    .grid-view {
-        padding: 0;
-    }
-
-    .grid-view table.items tr.active {
-        background: #F1E4FD;
-    }
-</style>
-<?php $sites = Site::model()->findAll(); ?>
-<table class="choose-type">
-    <tr>
-        <?php foreach ($sites as $site): ?>
-        <td<?php if ($site_id == $site->id) echo ' class="active"' ?>><a rel="<?=$site->id ?>"
-                                                                         href="<?php echo $this->createUrl('/default/index', array('site_id' => $site->id)) ?>"><?php echo $site->name ?></a>
-        </td>
-        <?php endforeach; ?>
-    </tr>
-</table>
-<?php $form = $this->beginWidget('CActiveForm', array(
-    'id' => 'seo-form',
-    'enableAjaxValidation' => false,
-    'method' => 'GET',
-    'action' => array('/default/')
-));?>
-<div class="clearfix">
-    <div style="float: left;">
-        <br>
-        <?php echo CHtml::hiddenField('site_id', $site_id) ?>
-        Выводить строк на
-        страницу: <?php echo CHtml::dropDownList('recOnPage', $recOnPage, array(10 => 10, 25 => 25, 50 => 50, 100 => 100)) ?>
-        <br>
-        Год: <?php echo CHtml::dropDownList('year', $year, array('2011' => 2011, '2012' => 2012)) ?>
+    <div class="input">
+        <label>Введите слово или фразу</label>
+        <input type="text">
+        <button class="btn btn-green-small">Поиск</button>
     </div>
-    <div style="float: right;">
-        <br>
-        <br>
-        перейти к странице <input type="text" id="page" size="4">
+
+    <div class="result">
+        <label>Найдено: <a href="">25 365</a></label>
+        <span><i class="icon-freq-1"></i> <a href="">5 615</a></span>
+        <span><i class="icon-freq-2"></i> <a href="">5 615</a></span>
+        <span><i class="icon-freq-3"></i> <a href="">5 615</a></span>
+        <span class="active"><i class="icon-freq-4"></i> <a href="">5 615</a></span>
     </div>
+
+    <div class="result-filter">
+        <label>не показывать<br>используемые<br><input type="checkbox"></label>
+    </div>
+
 </div>
-<div class="seo-table">
-    <?php $this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'keywords-grid',
-    'dataProvider' => $model->search($recOnPage),
-    'filter' => $model,
-    'rowCssClassExpression' => '$data->getRowClass()',
+
+
+<div class="seo-table table-result mini">
+    <div class="seo-table">
+        <?php $this->widget('zii.widgets.grid.CGridView', array(
+        'id' => 'keywords-grid',
+        'dataProvider' => $model->search($recOnPage),
+        'filter' => null,
+        'cssFile' => false,
+        'rowCssClassExpression' => '$data->getRowClass()',
 //    'ajaxUpdate'=>false,
-    'template' => '{pager}{summary}<div class="table-box">{items}</div>',
-    'columns' => array(
-        array(
-            'name' => 'key_name',
-            'value' => '$data->keyword->name',
-        ),
-        array(
-            'name' => 'm1',
-            'filter' => false
-        ),
-        array(
-            'name' => 'm2',
-            'filter' => false
-        ),
-        array(
-            'name' => 'm3',
-            'filter' => false
-        ),
-        array(
-            'name' => 'm4',
-            'filter' => false
-        ),
-        array(
-            'name' => 'm5',
-            'filter' => false
-        ),
-        array(
-            'name' => 'm6',
-            'filter' => false
-        ),
-        array(
-            'name' => 'm7',
-            'filter' => false
-        ),
-        array(
-            'name' => 'm8',
-            'filter' => false
-        ),
-        array(
-            'name' => 'm9',
-            'filter' => false
-        ),
-        array(
-            'name' => 'm10',
-            'filter' => false
-        ),
-        array(
-            'name' => 'm11',
-            'value' => '$data->m11',
-            'header' => 'Ноя',
-            'filter' => false
-        ),
-        array(
-            'name' => 'm12',
-            'value' => '$data->m12',
-            'header' => 'Дек',
-            'filter' => false
-        ),
-        array(
-            'name' => 'buttons',
-            'type' => 'raw',
+        'template' => '<div class="table-box">{items}</div><div class="pagination pagination-center clearfix">{pager}</div>',
+//        'summaryText' => 'показано: {start} - {end} из {count}',
+        'pager' => array(
+            'class' => 'MyLinkPager',
             'header' => '',
-            'filter' => false
         ),
-    ),
-)); ?>
+        'columns' => array(
+            array(
+                'name' => 'key_name',
+                'value' => '$data->keyword->name',
+            ),
+            array(
+                'name' => 'm1',
+                'filter' => false
+            ),
+            array(
+                'name' => 'm2',
+                'filter' => false
+            ),
+            array(
+                'name' => 'm3',
+                'filter' => false
+            ),
+            array(
+                'name' => 'm4',
+                'filter' => false
+            ),
+            array(
+                'name' => 'm5',
+                'filter' => false
+            ),
+            array(
+                'name' => 'm6',
+                'filter' => false
+            ),
+            array(
+                'name' => 'm7',
+                'filter' => false
+            ),
+            array(
+                'name' => 'm8',
+                'filter' => false
+            ),
+            array(
+                'name' => 'm9',
+                'filter' => false
+            ),
+            array(
+                'name' => 'm10',
+                'filter' => false
+            ),
+            array(
+                'name' => 'm11',
+                'value' => '$data->m11',
+                'header' => 'Ноя',
+                'filter' => false
+            ),
+            array(
+                'name' => 'm12',
+                'value' => '$data->m12',
+                'header' => 'Дек',
+                'filter' => false
+            ),
+            array(
+                'name' => 'buttons',
+                'type' => 'raw',
+                'header' => '',
+                'filter' => false
+            ),
+        ),
+    )); ?>
+    </div>
 </div>
-<?php $this->endWidget(); ?>
+
+
 <script type="text/javascript">
     $('#page').keyup(function () {
         var url = $('.yiiPager li.last a').attr('href').replace(/KeyStats_page=[\d]+/, "");
@@ -194,3 +133,19 @@
         $('#seo-form').submit();
     }
 </script>
+
+<style type="text/css">
+    .pagination {font-size:23px;padding:15px 0;color:#ababab;font-family:times new roman, serif;font-style:italic;line-height:1;}
+    .pagination.pagination-center {text-align:center;}
+    .pagination .pager {text-align:left;}
+    .pagination.pagination-center .pager {text-align:center;}
+    .pagination ul {list-style:none;}
+    .pagination ul li {display:inline-block;padding:6px 8px;text-indent:0 !important;margin:0 !important;position:relative;}
+    .pagination ul li a {padding:0 3px;display:block;color:#45a5c9;}
+    .pagination ul li.selected {background:#f1e4fd;}
+    .pagination ul li.selected img {position:absolute;top:-9px;width:100%;left:0;height:9px;}
+    .pagination ul li.selected a {color:#7f8181;text-decoration:none;}
+    .pagination ul li.previous a, .pagination ul li.next a {}
+    .pagination ul li.next a {background-position:-157px -101px;}
+    .pagination .hidden {display:none;}
+</style>

@@ -93,7 +93,7 @@ class KeyStats extends HActiveRecord
             'id' => 'ID',
             'site_id' => 'Site',
             'keyword_id' => 'Keyword',
-            'key_name'=>'Ключевое слово',
+            'key_name' => 'Ключевое слово',
             'all' => 'Всего',
             'avarage' => 'Среднее',
             'm1' => 'Янв',
@@ -109,7 +109,7 @@ class KeyStats extends HActiveRecord
             'mll' => 'Ноя',
             'ml2' => 'Дек',
             'sum' => 'Всего',
-            'year'=>'Год'
+            'year' => 'Год'
         );
     }
 
@@ -139,7 +139,7 @@ class KeyStats extends HActiveRecord
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('year', $this->year);
         $criteria->compare('t2.name', $this->key_name, true);
-        $criteria->join = ' LEFT JOIN '.Keywords::model()->tableName().' as t2 ON keyword_id = t2.id ';
+        $criteria->join = ' LEFT JOIN ' . Keywords::model()->tableName() . ' as t2 ON keyword_id = t2.id ';
         $criteria->with = array('keyword');
 
         return new CActiveDataProvider($this, array(
@@ -147,19 +147,19 @@ class KeyStats extends HActiveRecord
             'pagination' => array('pageSize' => $recOnPage),
             'sort' => array(
                 'attributes' => array(
-                    'sum'=>array('default'=>'desc'),
-                    'm1'=>array('default'=>'desc'),
-                    'm2'=>array('default'=>'desc'),
-                    'm3'=>array('default'=>'desc'),
-                    'm4'=>array('default'=>'desc'),
-                    'm5'=>array('default'=>'desc'),
-                    'm6'=>array('default'=>'desc'),
-                    'm7'=>array('default'=>'desc'),
-                    'm8'=>array('default'=>'desc'),
-                    'm9'=>array('default'=>'desc'),
-                    'm10'=>array('default'=>'desc'),
-                    'm11'=>array('default'=>'desc'),
-                    'm12'=>array('default'=>'desc'),
+                    'sum' => array('default' => 'desc'),
+                    'm1' => array('default' => 'desc'),
+                    'm2' => array('default' => 'desc'),
+                    'm3' => array('default' => 'desc'),
+                    'm4' => array('default' => 'desc'),
+                    'm5' => array('default' => 'desc'),
+                    'm6' => array('default' => 'desc'),
+                    'm7' => array('default' => 'desc'),
+                    'm8' => array('default' => 'desc'),
+                    'm9' => array('default' => 'desc'),
+                    'm10' => array('default' => 'desc'),
+                    'm11' => array('default' => 'desc'),
+                    'm12' => array('default' => 'desc'),
                 ),
                 'defaultOrder' => 'sum desc',
             ),
@@ -179,5 +179,10 @@ class KeyStats extends HActiveRecord
             return 'active';
 
         else return 'odd';
+    }
+
+    public function getButtons()
+    {
+        return $this->keyword->getButtons();
     }
 }

@@ -16,6 +16,11 @@ class ExistArticlesController extends SController
 
     public function actionIndex()
     {
+        /*$ids = Yii::app()->db_seo->createCommand('select id from article_keywords ORDER BY id ASC')->queryColumn();
+        for($i=0;$i<count($ids);$i++){
+            Yii::app()->db_seo->createCommand()->update('article_keywords', array('number'=>$i+1), 'id='.$ids[$i]);
+        }*/
+
         $models = ArticleKeywords::model()->with(array('keywordGroup', 'keywordGroup.keywords'))->findAll(array('order' => 't.id desc', 'limit'=>500));
         $this->render('index', compact('models'));
     }
@@ -121,14 +126,27 @@ class ExistArticlesController extends SController
         }
     }
 
+    public function actionRemove(){
+        $id = Yii::app()->request->getPost('id');
+        if (Yii::app()->user->checkAccess('admin')){
+            $model = $this->loadArticle($id);
+            if ($model->delete()){
+                echo CJSON::encode(array('status' => true));
+                Yii::app()->end();
+            }
+        }
+
+        echo CJSON::encode(array('status' => false));
+    }
+
     /**
      * @param int $id model id
-     * @return SeoTask
+     * @return ArticleKeywords
      * @throws CHttpException
      */
-    public function loadTask($id)
+    public function loadArticle($id)
     {
-        $model = SeoTask::model()->findByPk($id);
+        $model = ArticleKeywords::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

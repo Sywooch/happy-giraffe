@@ -10,7 +10,7 @@
 
     <div class="row">
         <label>Название блюда или оформления</label>
-        <input type="text" name="title" placeholder="Введите название ">
+        <input type="text" name="title" placeholder="Введите название" value="<?=$title;?>">
     </div>
 
     <div style="" id="save_attach_button" class="form-bottom">

@@ -46,7 +46,7 @@ class CommunityController extends HController
 
     public function actionIndex()
     {
-        $this->pageTitle = 'Клубы';
+        $this->pageTitle = 'Клубы на Веселом Жирафе';
 
         $categories = array(
             'Дети' => array(

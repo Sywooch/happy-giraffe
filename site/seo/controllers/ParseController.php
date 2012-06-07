@@ -65,7 +65,7 @@ class ParseController extends SController
         }
     }
 
-    public function actionParsePages()
+    /*public function actionParsePages()
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $site_id = 1;
@@ -328,7 +328,7 @@ class ParseController extends SController
         }
 
         return $res;
-    }
+    }*/
 
     public function actionParseStats2()
     {
@@ -393,8 +393,6 @@ class ParseController extends SController
     {
         $curl = curl_init();
 
-        // Setup headers - I used the same headers from Firefox version 2.0.0.6
-        // below was split up because php.net said the line was too long. :/
         $header[0] = "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8;";
         $header[] = "Cache-Control: max-age=0";
         $header[] = "Connection: keep-alive";
@@ -411,7 +409,6 @@ class ParseController extends SController
         curl_setopt($curl, CURLOPT_AUTOREFERER, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-//        curl_setopt($curl, CURLOPT_PROXY, '176.196.169.3:8080');
 
         $html = curl_exec($curl); // execute the curl command
         curl_close($curl); // close the connection
@@ -433,7 +430,8 @@ class ParseController extends SController
                     if ($i < 2)
                         continue;
                     $keyword = trim(pq($tr)->find('td:eq(1)')->text());
-                    if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие')
+                    if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие'
+                        || $keyword == 'Другие' || $keyword == 'Другие')
                         continue;
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
                     $res[] = array($keyword, $stats);

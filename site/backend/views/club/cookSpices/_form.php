@@ -1,7 +1,7 @@
 <?php
 /* @var $this Controller
  * @var $form CActiveForm
- * @var $model CookSpices
+ * @var $model CookSpice
  */
 ?><style type="text/css">
     table.form {
@@ -66,7 +66,7 @@
         </td>
         <td rowspan="5" class="categories" style="width: 220px">
             <?
-            foreach (CookSpicesCategories::model()->getCategories() as $category) {
+            foreach (CookSpiceCategory::model()->getCategories() as $category) {
                 ?><div>
                 <input type="checkbox" name="category[<?=$category['id'];?>]" id="category<?=$category['id'];?>" value="<?=$category['id'];?>"
                     <?php if (in_array($category['id'], $model->getCategories())) { ?> checked="checked" <?php } ?> >

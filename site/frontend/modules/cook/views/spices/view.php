@@ -34,7 +34,7 @@
                 <?php foreach ($model->categories as $category): ?>
                     <li>
                         <a href="<?=$this->createUrl('category', array('id'=>$category->slug)) ?>" class="cook-cat">
-                            <i class="icon-cook-cat icon-cook-cat-<?=$category->id ?>"></i>
+                            <i class="icon-cook-cat icon-spice-<?=$category->id ?>"></i>
                             <span><?=$category->title ?></span>
                         </a>
                     </li>

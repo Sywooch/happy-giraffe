@@ -1,7 +1,8 @@
 <?
-$a = array('c', 'b', 'a');
-$b = (array)$a;
-var_dump($b);
+class a {function a() {echo 123;}}
+class b extends a {function b() {}}
+$c = new b;
+
 
 Yii::app()->clientScript->registerScriptFile("http://cdn.connect.mail.ru/js/loader.js");
 ?>

@@ -7,6 +7,7 @@ class FileAttachWidget extends CWidget
     public $container;
     public $afterSelect;
     public $disableNavigation = false;
+    public $customButton = false;
 
     public $title;
     public $button_title;
@@ -19,6 +20,22 @@ class FileAttachWidget extends CWidget
         {
             $this->entity = get_class($this->model);
             $this->entity_id = $this->model->primaryKey;
+        }
+
+        if ($this->customButton) {
+            echo CHtml::openTag('a', array(
+                'href' => Yii::app()->createUrl('/albums/attach', array('entity' => $this->entity, 'entity_id' => $this->entity_id)),
+                'class' => 'fancy attach',
+                'onclick'=>'Attach.updateEntity(\''.$this->entity.'\', \''.$this->entity_id.'\');',
+            ));
+            $this->registerScripts();
+        }
+    }
+
+    public function run()
+    {
+        if ($this->customButton) {
+            echo CHtml::closeTag('a');
         }
     }
 
@@ -60,6 +77,17 @@ class FileAttachWidget extends CWidget
             $this->title = 'Фото в «Улыбнить вместе с нами»';
             $this->button_title = 'Продолжить';
             $this->disableNavigation = true;
+        }
+        elseif($this->entity == 'CookRecipe')
+        {
+            $this->title = 'Фото блюда';
+            $this->button_title = 'Продолжить';
+            $this->disableNavigation = true;
+        }
+        elseif($this->entity == 'CookDecoration')
+        {
+            $this->title = 'Загрузка фото в раздел "Оформление блюд"';
+            $this->button_title = 'Продолжить';
         }
 
         if($view_type == 'window')

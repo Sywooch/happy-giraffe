@@ -1,24 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "cook__ingredient_units".
+ * This is the model class for table "cook__ingredient_synonyms".
  *
- * The followings are the available columns in table 'cook__ingredient_units':
+ * The followings are the available columns in table 'cook__ingredient_synonyms':
  * @property string $id
  * @property string $ingredient_id
- * @property string $unit_id
- * @property integer $weight
+ * @property string $title
  *
  * The followings are the available model relations:
- * @property CookUnits $unit
- * @property CookIngredients $ingredient
+ * @property CookIngredient $ingredient
  */
-class CookIngredientUnits extends CActiveRecord
+class CookIngredientSynonym extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return CookIngredientUnits the static model class
+	 * @return CookIngredientSynonym the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -30,7 +28,7 @@ class CookIngredientUnits extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'cook__ingredient_units';
+		return 'cook__ingredient_synonyms';
 	}
 
 	/**
@@ -41,12 +39,12 @@ class CookIngredientUnits extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ingredient_id, unit_id', 'required'),
-			array('weight', 'numerical', 'integerOnly'=>true),
-			array('ingredient_id, unit_id', 'length', 'max'=>11),
+			array('ingredient_id, title', 'required'),
+			array('ingredient_id', 'length', 'max'=>11),
+			//array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, ingredient_id, unit_id, weight', 'safe', 'on'=>'search'),
+			array('id, ingredient_id, title', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,8 +56,7 @@ class CookIngredientUnits extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'unit' => array(self::BELONGS_TO, 'CookUnits', 'unit_id'),
-			'ingredient' => array(self::BELONGS_TO, 'CookIngredients', 'ingredient_id'),
+			'ingredient' => array(self::BELONGS_TO, 'CookIngredient', 'ingredient_id'),
 		);
 	}
 
@@ -70,9 +67,8 @@ class CookIngredientUnits extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'ingredient_id' => 'Ingredient',
-			'unit_id' => 'Unit',
-			'weight' => 'Weight',
+			'ingredient_id' => 'Ингредиент',
+			'title' => 'Название',
 		);
 	}
 
@@ -89,8 +85,7 @@ class CookIngredientUnits extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('ingredient_id',$this->ingredient_id,true);
-		$criteria->compare('unit_id',$this->unit_id,true);
-		$criteria->compare('weight',$this->weight);
+		$criteria->compare('title',$this->title,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

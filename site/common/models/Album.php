@@ -27,6 +27,7 @@ class Album extends HActiveRecord
         2 => 'Диалоги',
         3 => 'Семейные',
         4 => 'Продукты',
+        5 => 'Мои рецепты'
     );
 
     public static $permissions = array(

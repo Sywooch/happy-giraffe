@@ -2,41 +2,32 @@
 class ConverterController extends HController
 {
 
-    public $layout = '//layouts/new';
+    //public $layout = '//layouts/new';
 
     public function actionIndex()
     {
         $this->pageTitle = 'Конвертер';
 
-        $basePath = Yii::getPathOfAlias('application.modules.cook.views.converter.assets');
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-
-
         $this->render('index', array(
-            'model' => new ConverterForm(),
-            'units' => Yii::app()->db->createCommand()->select('*')->from('cook__units')->where('type IN ("weight", "volume", "qty")', array())->queryAll()
+            'model' => new ConverterForm()
         ));
+    }
+
+    public function actionUnits()
+    {
+        $ingredient = CookIngredient::model()->findByPk($_POST['id']);
+        header('Content-type: application/json');
+        echo CJSON::encode($ingredient->getUnitsIds());
     }
 
     public function actionAc($term)
     {
-        $ingredients = Yii::app()->db->createCommand()->select('id, unit_id, title, weight, density')->from('cook__ingredients')
-            ->where('title LIKE :term AND (density > 0 OR weight > 0)', array(':term' => '%' . $term . '%'))
+        $ingredients = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')
+            ->where('title LIKE :term', array(':term' => '%' . $term . '%'))
             ->limit(20)->queryAll();
 
-        foreach ($ingredients as &$ing) {
-            $ing['value'] = $ing['label'] = $ing['title'];
-            $ing['weight'] = ($ing['weight'] > 0) ? 1 : 0;
-            $ing['density'] = ($ing['density'] > 0) ? 1 : 0;
-        }
-
-        if (Yii::app()->request->isAjaxRequest) {
-            header('Content-type: application/json');
-            echo CJSON::encode($ingredients);
-        } else {
-            echo '<pre>' . print_r($ingredients, true) . '</pre>';
-        }
+        header('Content-type: application/json');
+        echo CJSON::encode($ingredients);
     }
 
     public function actionCalculate()
@@ -50,7 +41,9 @@ class ConverterController extends HController
         } elseif (isset($_POST['ConverterForm'])) {
             $converter = new CookConverter();
             $result = $converter->convert($_POST['ConverterForm']);
-            $this->renderPartial('_result', array('result' => $result));
+            header('Content-type: application/json');
+            $result['qty'] = (round($result['qty']) == $result['qty']) ? $result['qty'] : round($result['qty'], 2);
+            echo CJSON::encode($result['qty']);
         }
     }
 }

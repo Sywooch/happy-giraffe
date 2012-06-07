@@ -2,7 +2,7 @@ var Spice = {
 
     acSelect:function (event, ui) {
         //console.log(ui.item);
-        $('#CookSpices_ingredient_id').val(ui.item.id);
+        $('#CookSpice_ingredient_id').val(ui.item.id);
         $('#ingredient_text').text(ui.item.title).show();
         $('#ac').hide();
     },

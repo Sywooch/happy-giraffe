@@ -143,13 +143,10 @@ Attach.CookDecorationEdit = function(type, id){
     }
 
     $.post(base_url + '/albums/cookDecorationCategory/', {}, function (data) {
-        if (type == 'album') {
-            $('#gallery').append(data);
-        } else {
-            $('.photo-upload').append(data);
+
+            $('#attach_content').html(data);
             $('#save_attach_button button span span').text('Завершить')
             $('#save_attach_button button').attr('onclick', 'Attach.insertToCookDecoration();');
-        }
     });
 }
 

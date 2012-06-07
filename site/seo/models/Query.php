@@ -6,11 +6,6 @@
  * The followings are the available columns in table 'queries':
  * @property string $id
  * @property string $phrase
- * @property string $visits
- * @property string $page_views
- * @property double $denial
- * @property double $depth
- * @property integer $visit_time
  * @property integer $parsing
  * @property integer $yandex_parsed
  * @property integer $google_parsed
@@ -50,14 +45,12 @@ class Query extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('phrase, visits, page_views, denial, depth, visit_time', 'required'),
-            array('visit_time, parsing, google_parsed, yandex_parsed', 'numerical', 'integerOnly' => true),
-            array('denial, depth', 'numerical'),
+            array('phrase', 'required'),
+            array('parsing, google_parsed, yandex_parsed', 'numerical', 'integerOnly' => true),
             array('phrase', 'length', 'max' => 1024),
-            array('visits, page_views', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, phrase, visits, page_views, denial, depth, visit_time, parsing', 'safe', 'on' => 'search'),
+            array('id, phrase, parsing', 'safe', 'on' => 'search'),
         );
     }
 
@@ -82,11 +75,11 @@ class Query extends HActiveRecord
         return array(
             'id' => 'ID',
             'phrase' => 'Поисковый запрос',
-            'visits' => 'Визитов',
-            'page_views' => 'Просмотров',
-            'denial' => 'Отказов',
-            'depth' => 'Глубина',
-            'visit_time' => 'Время посещения, сек',
+//            'visits' => 'Визитов',
+//            'page_views' => 'Просмотров',
+//            'denial' => 'Отказов',
+//            'depth' => 'Глубина',
+//            'visit_time' => 'Время посещения, сек',
             'parsing' => 'Parsing',
             'activePages' => 'Страницы в выдаче',
             'yandexPos' => 'Позиция в Yandex',
@@ -107,11 +100,6 @@ class Query extends HActiveRecord
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('phrase', $this->phrase, true);
-        $criteria->compare('visits', $this->visits, true);
-        $criteria->compare('page_views', $this->page_views, true);
-        $criteria->compare('denial', $this->denial);
-        $criteria->compare('depth', $this->depth);
-        $criteria->compare('visit_time', $this->visit_time);
         $criteria->compare('parsing', $this->parsing);
         $criteria->with = 'pages';
         $criteria->together = true;

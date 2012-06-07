@@ -7,6 +7,9 @@ class ActivityController extends HController
 {
     public function actionIndex()
     {
+        echo $_SERVER["HTTP_HOST"];
+        die;
+        $this->pageTitle = 'Самое свежее на Веселом Жирафе';
         if (! Yii::app()->user->isGuest) {
             UserAttributes::set(Yii::app()->user->id, 'activityLastVisited', time());
         }
@@ -38,12 +41,5 @@ class ActivityController extends HController
         $friends = User::findFriends(12, ($page - 1) * 12);
 
         $this->renderPartial('_friends', compact('friends'));
-    }
-
-    public function actionTest()
-    {
-        var_dump(UserAttributes::get(Yii::app()->user->id, 'activityLastVisited'));
-        var_dump(Yii::app()->cache->get('activityLastUpdated'));
-        var_dump(Yii::app()->cache->get('activityLastUpdated') > UserAttributes::get(Yii::app()->user->id, 'activityLastVisited'));
     }
 }

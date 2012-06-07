@@ -6,7 +6,9 @@ class m120607_054340_metrika_date_stats extends CDbMigration
 
     public function up()
     {
-        $lnk = mysql_connect('localhost', Yii::app()->db->username, Yii::app()->db->password)
+        preg_match('/host=([^;]+);/', Yii::app()->db->connectionString, $matches);
+        $host = $matches[1];
+        $lnk = mysql_connect($host, Yii::app()->db->username, Yii::app()->db->password)
             or die ('Not connected : ' . mysql_error());
 
         if (mysql_select_db('happy_giraffe_seo', $lnk)) {

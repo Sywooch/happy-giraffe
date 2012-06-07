@@ -378,6 +378,10 @@ class AlbumsController extends HController
 
     public function actionCookDecorationCategory()
     {
+        $id = Yii::app()->request->getPost('id');
+        if($id){
+            $pho
+        }
         $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decor', array());
         Yii::app()->end();
     }

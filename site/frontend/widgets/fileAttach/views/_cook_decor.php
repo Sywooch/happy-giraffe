@@ -1,4 +1,4 @@
-<div class="photo-title">
+<div class="photo-category">
 
     <div class="row">
         <label>Тип блюда</label>

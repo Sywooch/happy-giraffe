@@ -149,7 +149,8 @@ Attach.prototype.CookDecorationEdit = function (type, id) {
         $('#attach_content>*').hide();
         $('#attach_content').append(data);
         $('#save_attach_button button span span').text('Завершить')
-        $('#save_attach_button button').attr('onclick', '' + this.object_name + '.insertToCookDecoration('+id+');');
+        $('#save_attach_button button').attr('onclick', this.object_name + '.insertToCookDecoration('+id+');');
+        $(".chzn").chosen();
     });
 }
 

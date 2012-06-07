@@ -7,20 +7,25 @@ return array(
     'preload'=>array('log'),
 	'import'=>array(
         'site.common.models.*',
+        'site.common.components.*',
+        'site.common.behaviors.*',
+        'site.common.helpers.*',
+
         'application.models.*',
         'application.models.mongo.*',
         'application.models.forms.*',
         'application.components.*',
+        'application.modules.competitors.models.*',
 
-        'site.common.components.*',
-        //'site.common.models.mongo.*',
         'site.frontend.helpers.FileHandler',
+        'site.frontend.components.*',
         'site.frontend.helpers.CArray',
         'site.frontend.helpers.*',
-        'site.common.helpers.*',
         'site.frontend.extensions.YiiMongoDbSuite.*',
     ),
-
+    'modules'=>array(
+        'competitors',
+    ),
 	'components' => array(
         'user'=>array(
             'class'=>'WebUser',

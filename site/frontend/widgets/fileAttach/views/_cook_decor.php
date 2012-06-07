@@ -14,7 +14,7 @@
     </div>
 
     <div style="" id="save_decor_button" class="form-bottom">
-        <button onclick="Attach.insertToCookDecoration();" class="btn btn-green-medium">
+        <button onclick="<?php echo $widget_id; ?>.insertToCookDecoration();" class="btn btn-green-medium">
             <span><span>Завершить</span></span>
         </button>
     </div>

@@ -20,6 +20,8 @@ class FileAttachWidget extends CWidget
         {
             $this->entity = get_class($this->model);
             $this->entity_id = $this->model->primaryKey;
+            if(mb_strstr($this->id, 'yw'))
+                $this->id = 'attach' . $this->entity . $this->entity_id;
         }
 
         if ($this->customButton) {
@@ -57,12 +59,12 @@ class FileAttachWidget extends CWidget
             $this->title = 'Главное фото';
             $this->button_title = 'Выбор';
         }
-        elseif($this->entity == 'Comment')
+        elseif($this->entity == 'PhotoComment')
         {
             $this->title = 'Отправить фото в гостевую';
             $this->button_title = 'Продолжить';
         }
-        elseif($this->entity == 'CommunityPost' || $this->entity == 'CommunityVideo')
+        elseif($this->entity == 'CommunityPost' || $this->entity == 'CommunityVideo' || $this->entity = "Comment")
         {
             $this->title = 'Вставить изображение';
             $this->button_title = 'Продолжить';
@@ -120,11 +122,13 @@ class FileAttachWidget extends CWidget
         $cs->registerScriptFile($baseUrl . '/attaches.js', CClientScript::POS_HEAD)
             ->registerScriptFile($baseUrl . '/jquery.Jcrop.min.js')
             ->registerCssFile($baseUrl . '/jquery.Jcrop.css');
-        $cs->registerScript('attaches_entity', '
-            Attach.entity = "' . $this->entity . '";
-            Attach.entity_id = "' . $this->entity_id. '";
-            Attach.base_url = "' . Yii::app()->createUrl('/albums/album/saveAttach') . '";
-        ');
+        $cs->registerScript('attaches_entity' . $this->id, '
+            var ' . $this->id . ' = new Attach();
+            ' . $this->id . '.entity = "' . $this->entity . '";
+            ' . $this->id . '.entity_id = "' . $this->entity_id. '";
+            ' . $this->id . '.base_url = "' . Yii::app()->createUrl('/albums/album/saveAttach') . '";
+            ' . $this->id . '.object_name = "' . $this->id . '";
+        ', CClientScript::POS_END);
 
         $path = Yii::getPathOfAlias('zii.widgets.assets.listview');
         $assets = Yii::app()->assetManager->publish($path);

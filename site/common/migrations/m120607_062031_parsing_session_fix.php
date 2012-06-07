@@ -19,6 +19,8 @@ class m120607_062031_parsing_session_fix extends CDbMigration
             }catch (Exception $e){
 
             }
+            $this->truncateTable('query_pages');
+            $this->truncateTable('query_search_engines');
             $this->truncateTable('queries');
             $this->addForeignKey('fk_' . $this->_table . '_session', $this->_table, 'session_id', 'parsing_sessions', 'id', 'CASCADE', "CASCADE");
 

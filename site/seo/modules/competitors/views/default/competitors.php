@@ -24,10 +24,10 @@
 <div class="seo-table table-result mini">
     <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'keywords-grid',
-    'dataProvider' => $model->search($recOnPage),
+    'dataProvider' => $model->search(),
     'filter' => null,
     'cssFile' => false,
-    'rowCssClassExpression' => '$data->getRowClass()',
+    'rowCssClassExpression' => '$data->keyword->getClass()',
 //    'ajaxUpdate'=>false,
     'template' => '<div class="table-box">{items}</div><div class="pagination pagination-center clearfix">{pager}</div>',
 //        'summaryText' => 'показано: {start} - {end} из {count}',
@@ -111,6 +111,16 @@
     ),
 )); ?>
 </div>
+
+<?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'seo-form',
+    'enableAjaxValidation' => false,
+    'method' => 'GET',
+    'action' => array('/')
+));?>
+<?php echo CHtml::hiddenField('site_id', $site_id) ?>
+<?php echo CHtml::hiddenField('year', $year) ?>
+<?php $this->endWidget(); ?>
 
 
 <script type="text/javascript">

@@ -129,7 +129,7 @@ class KeyStats extends HActiveRecord
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search($recOnPage)
+    public function search()
     {
         if (!empty($_GET['KeyStats']["key_name"]))
             $this->key_name = $_GET['KeyStats']["key_name"];
@@ -140,12 +140,12 @@ class KeyStats extends HActiveRecord
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('year', $this->year);
         $criteria->compare('t2.name', $this->key_name, true);
-        $criteria->join = ' LEFT JOIN ' . Keywords::model()->tableName() . ' as t2 ON keyword_id = t2.id ';
         $criteria->with = array('keyword');
+        $criteria->together = true;
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'pagination' => array('pageSize' => $recOnPage),
+            'pagination' => array('pageSize' => 100),
             'sort' => array(
                 'attributes' => array(
                     'sum' => array('default' => 'desc'),
@@ -184,6 +184,6 @@ class KeyStats extends HActiveRecord
 
     public function getButtons()
     {
-        return $this->keyword->getButtons();
+        return $this->keyword->getButtons(true);
     }
 }

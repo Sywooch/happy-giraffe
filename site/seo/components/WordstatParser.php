@@ -10,14 +10,15 @@ class WordstatParser extends ProxyParserThread
      */
     public $keyword = null;
 
-    public function start()
+    public function start($mode)
     {
+
         Config::setAttribute('stop_threads', 0);
 
         $this->delay_min = 0;
         $this->delay_max = 0;
         $this->timeout = 15;
-        $this->debug = false;
+        $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 
         $this->getCookie();
@@ -82,8 +83,7 @@ class WordstatParser extends ProxyParserThread
                 $html = $this->query($mc_url, $url);
                 if (strpos($html, 'Set-Cookie:') === false)
                     $success = false;
-            }
-            else
+            } else
                 $success = false;
             $html = $this->query('http://kiks.yandex.ru/su/', $url);
             if (strpos($html, 'Set-Cookie:') === false)
@@ -106,7 +106,7 @@ class WordstatParser extends ProxyParserThread
         $document = phpQuery::newDocument($html);
 
         $html = str_replace('&nbsp;', ' ', $html);
-        if (strpos($html, '0 показов в месяц')){
+        if (strpos($html, '0 показов в месяц')) {
             YandexPopularity::addValue($this->keyword->keyword_id, 0);
             ParsingKeywords::model()->deleteByPk($this->keyword->keyword_id);
             return true;
@@ -114,7 +114,7 @@ class WordstatParser extends ProxyParserThread
 
         $k = 0;
 
-        if (preg_match('/— ([\d]+) показов в месяц/', $html, $matches)){
+        if (preg_match('/— ([\d]+) показов в месяц/', $html, $matches)) {
             YandexPopularity::addValue($this->keyword->keyword_id, $matches[1]);
             ParsingKeywords::model()->deleteByPk($this->keyword->keyword_id);
             $k = 1;
@@ -136,6 +136,9 @@ class WordstatParser extends ProxyParserThread
     {
         $old_keyword = trim($keyword);
         $keyword = str_replace('+', '', $old_keyword);
+        if ($this->debug) {
+            echo $keyword . ' - ' . $value . "\n";
+        }
 
         if (!empty($keyword) && !empty($value)) {
             $model = Keywords::model()->findByAttributes(array('name' => $old_keyword));
@@ -155,7 +158,7 @@ class WordstatParser extends ProxyParserThread
                 $yaPop->value = $value;
                 try {
                     $yaPop->save();
-                }catch (Exception $e){
+                } catch (Exception $e) {
 
                 }
             } else {
@@ -165,7 +168,8 @@ class WordstatParser extends ProxyParserThread
         }
     }
 
-    public function closeThread($reason = 'unknown reason'){
+    public function closeThread($reason = 'unknown reason')
+    {
         $this->keyword->active = 0;
         $this->keyword->save();
 

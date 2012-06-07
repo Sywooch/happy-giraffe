@@ -10,7 +10,7 @@ foreach ($models as $model){
             continue;
     ?>
 <?php $i++; ?>
-    <tr id="key-<?=$model->id ?>"<?=$model->getClass() ?>>
+    <tr id="key-<?=$model->id ?>" class="<?=$model->getClass() ?>">
         <td class="col-1"><?=$model->name ?></td>
         <td><?=$model->getFreqIcon() ?></td>
         <td><?= isset($model->yandex)?$model->yandex->value:'' ?></td>

@@ -199,13 +199,13 @@ Yii::app()->clientScript->registerScript('product_init', "var slider1 = $('#prod
             </div>
         <?php endif; ?>
     </div>
-    <!--<div class="default-comments">
-    <?php /*$this->widget('application.widgets.commentWidget.CommentWidget', array(
+    <div class="default-comments">
+    <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
         'model' => $model,
         'title' => 'Отзывы о товаре',
         'button' => 'Добавить отзыв',
         'vote' => true,
         'actions' => false,
-    )); */?>
-    </div>-->
+    )); ?>
+    </div>
 </div>

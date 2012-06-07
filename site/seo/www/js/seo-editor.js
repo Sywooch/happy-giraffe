@@ -220,6 +220,13 @@ var SeoTasks = {
                 if (response.status) {
                     $(el).parents('tr').remove();
                 } else {
+                    if (response.errorText !== undefined)
+                        $.pnotify({
+                            pnotify_title:'Ошибка',
+                            pnotify_type:'error',
+                            pnotify_text:response.errorText
+                        });
+                    else
                     $.pnotify({
                         pnotify_title:'Ошибка',
                         pnotify_type:'error',

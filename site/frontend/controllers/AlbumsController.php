@@ -348,20 +348,24 @@ class AlbumsController extends HController
 
     public function actionCookDecorationPhoto()
     {
-        $val = Yii::app()->request->getPost('val');
-        $model = new AlbumPhoto;
-        $model->file_name = $val;
-        if ($title = Yii::app()->request->getPost('title'))
-            $model->title = CHtml::encode($title);
-        $model->author_id = Yii::app()->user->id;
-        $model->create(true);
+        $model = AlbumPhoto::model()->findByPk(Yii::app()->request->getPost('id'));
+
+        if (!$model) {
+            $val = Yii::app()->request->getPost('val');
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            if ($title = Yii::app()->request->getPost('title'))
+                $model->title = CHtml::encode($title);
+            $model->author_id = Yii::app()->user->id;
+            $model->create(true);
+        }
 
         Yii::import('application.modules.cook.models.CookDecoration');
         $decoration = new CookDecoration();
         $decoration->photo_id = $model->id;
         $decoration->category_id = Yii::app()->request->getPost('category');
         if ($title) {
-            $decoration->title = $title;
+            $decoration->title = $model->title;
         }
 
         if ($decoration->save()) {
@@ -378,11 +382,13 @@ class AlbumsController extends HController
 
     public function actionCookDecorationCategory()
     {
+        $title = '';
         $id = Yii::app()->request->getPost('id');
         if($id){
-            $pho
+            $photo = AlbumPhoto::model()->findByPk($id);
+            $title = $photo->title;
         }
-        $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decor', array());
+        $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decor', array('title'=>$title));
         Yii::app()->end();
     }
 

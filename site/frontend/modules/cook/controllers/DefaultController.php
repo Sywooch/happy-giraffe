@@ -37,11 +37,11 @@ class DefaultController extends HController
                 'unit_id' => 1,
                 'value' => 50
             ),
-           /* array(
+            array(
                 'ingredient_id' => 371,
                 'unit_id' => 14,
                 'value' => 2
-            )*/
+            )
         );
 
         $result = $converter->calculateNutritionals($data);

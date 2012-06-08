@@ -16,6 +16,7 @@ jQuery.fn.pGallery = function(options) {
         this.bg.appendTo('body');
         this.window.appendTo('body');
 
+        delete this.data.go;
         this.data.id = id;
 
         this.history = new AjaxHistory('photo_view');
@@ -99,7 +100,7 @@ jQuery.fn.pGallery = function(options) {
         else if(offset < 0)
             offset = $('#photo-thumbs li').size() - 1;
         var newLink = $('#photo-thumbs li:eq(' + (offset) + ') a');
-        this.openImage(newLink, function() {
+        this.openImage(newLink.attr('data-id'), function() {
             $('#photo-thumbs .jcarousel', $('#photo-window')).jcarousel('scroll', offset);
         });
     }
@@ -122,6 +123,13 @@ jQuery.fn.pGallery = function(options) {
         var id = document.location.href.split(/\/photo(\d+)/)[1];
         plugin.openWindow(id);
     }
+
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27 && plugin.init == true) {
+            plugin.closeWindow();
+        }
+    });
+
 
     return this.each(function() {
         $(this).bind('click', function() {

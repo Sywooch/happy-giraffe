@@ -31,6 +31,15 @@ class CommentWidget extends CWidget
     public $type = 'default';
     public $readOnly = false;
     public $registerScripts = false;
+    public $popUp = false;
+
+    protected $_commentModel;
+
+    /**
+     * @var bool
+     * Имя созданного js объекта
+     */
+    protected $objectName = false;
 
     /**
      * @var bool
@@ -48,6 +57,7 @@ class CommentWidget extends CWidget
             $model = call_user_func(array($this->entity, 'model'));
             $this->model = $model->findByPk($this->entity_id);
         }
+        $this->_commentModel = $this->vote ? 'CommentProduct' : 'Comment';
     }
 
 	public function run()
@@ -102,18 +112,24 @@ class CommentWidget extends CWidget
 
         if(!$this->registerScripts)
         {
-            $script = 'Comment.setParams(' . CJavaScript::encode(array(
+            $this->id = $this->entity . $this->entity_id;
+            $this->objectName = 'comment_' . $this->id;
+            $script = '
+            var ' . $this->objectName . ' = new Comment;
+            ' . $this->objectName . '.setParams(' . CJavaScript::encode(array(
                 'entity' => $this->entity,
                 'entity_id' => (int)$this->entity_id,
                 'save_url' => Yii::app()->createUrl('ajax/sendcomment'),
                 'toolbar' => $this->type == 'guestBook' ? 'Simple' : 'Main',
                 'model' => $this->vote ? 'CommentProduct' : 'Comment',
+                'object_name' => $this->objectName
             )) . ');';
             echo '<script type="text/javascript">' . $script . '</script>';
+            Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');
         }
         else
         {
-            echo '<script type="text/javascript">Comment.scrollContainer = "#photo-window";</script>';
+            echo '<script type="text/javascript">comment_scroll_container = "#photo-window";</script>';
         }
 
         if(!$this->onlyList)
@@ -123,7 +139,8 @@ class CommentWidget extends CWidget
         }
 
         $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-            'model' => new Comment
+            'model' => new $this->_commentModel,
+            'id' => 'attach' . $this->_commentModel . 'comment',
         ));
         $fileAttach->registerScripts();
         $this->endWidget();

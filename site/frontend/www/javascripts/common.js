@@ -20,8 +20,7 @@ $(document).ready(function () {
             padding:0,
             showCloseButton:false,
             scrolling:false,
-            onComplete:onComplete_function,
-            onClosed:function(){if (typeof Attach != 'undefined') Attach.attachGuestPhoto = false;}
+            onComplete:onComplete_function
         }).trigger('click');
         return false;
     });

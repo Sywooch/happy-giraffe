@@ -4,8 +4,8 @@ class m120529_124604_prepare_keywords extends CDbMigration
 {
 	public function up()
 	{
-        $connect = explode("=", Yii::app()->db->connectionString);
-        $db_name = end($connect);
+        $params = explode("=", Yii::app()->db->connectionString);
+        $db_name = end($params);
         $sql = <<<EOD
 
 USE happy_giraffe_seo;

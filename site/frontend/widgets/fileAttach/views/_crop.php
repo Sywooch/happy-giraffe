@@ -1,7 +1,7 @@
 <div class="popup" id="photoPick">
     <a onclick="$.fancybox.close();" class="popup-close" href="javascript:void(0);">закрыть</a>
     <div class="title">Настройка главного фото</div>
-    <form id="crop_form" onsubmit="return Attach.changeAvatar(this);">
+    <form id="crop_form" onsubmit="return <?php echo $widget_id; ?>.changeAvatar(this);">
         <div class="form">
             <div class="photo-crop clearfix">
                 <div class="note">Выберите область на основной фотографии, которая будет<br>отображаться в трех вариантах на сайте</div>

@@ -301,24 +301,24 @@ class Keywords extends HActiveRecord
     {
         if ($short) {
             if ($this->inBuffer())
-                return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>';
+                return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, '.(int)$short.');return false;"></a>';
             elseif ($this->used())
                 return '';
             elseif ($this->hasOpenedTask())
                 return '';
             else
-                return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this);return false;"></a>';
+                return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this, '.(int)$short.');return false;"></a>';
 
         }
         if ($this->inBuffer())
-            return 'в буфере <input type="hidden" value="' . $this->id . '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>';
+            return 'в буфере <input type="hidden" value="' . $this->id . '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, '.(int)$short.');return false;"></a>';
         elseif ($this->used())
             return 'на сайте';
         elseif ($this->hasOpenedTask())
             return 'в работе';
         else
             return '<input type="hidden" value="' . $this->id . '">
-            <a href="" class="icon-add" onclick="SeoKeywords.Select(this);return false;"></a>
+            <a href="" class="icon-add" onclick="SeoKeywords.Select(this, '.(int)$short.');return false;"></a>
             <a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>';
     }
 }

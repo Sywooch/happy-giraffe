@@ -18,6 +18,9 @@ class ParseController extends SController
     public function actionParse(){
         $site_id = Yii::app()->request->getPost('site_id');
 
+        if (empty($site_id))
+            Yii::app()->end();
+
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         if ($site_id < 3){
             $this->parseStats($site_id);

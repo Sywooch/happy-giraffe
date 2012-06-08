@@ -9,6 +9,7 @@
     Yii::app()->clientScript
         ->registerCssFile('/css/seo.css')
         ->registerCssFile('/css/form.css')
+        ->registerCssFile('/css/my.css')
 
         ->registerCoreScript('jquery')
         ->registerCoreScript('jquery.ui')
@@ -32,26 +33,16 @@
 
         ->registerScriptFile('/js/jquery.iframe-post-form.js');
     ?>
-    <style type="text/css">
-        .default-nav li span.tale {
-            display: none;
-        }
-
-        .default-nav li.active span.tale {
-            display: block;
-        }
-
-        .loading {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #fff url(/images/loading.gif) no-repeat center !important;
-            z-index: 100;
-            opacity: 0.5;
-        }
-    </style>
+    <script type="text/javascript">
+        $(function () {
+            $('#admin-menu').mouseover(function () {
+                $(this).css('opacity', 1);
+            });
+            $('#admin-menu').mouseout(function () {
+                $(this).css('opacity', 0.6);
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -68,16 +59,16 @@
                     'items' => array(
                         array(
                             'label' => 'Ключевые слова или фразы',
-                            'url' => array('/editor/index/'),
+                            'url' => array('/writing/editor/index/'),
                         ),
                         array(
                             'label' => 'Раздача заданий',
-                            'url' => array('/editor/tasks/'),
+                            'url' => array('/writing/editor/tasks/'),
                             'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('editor/tasks') . '">' . TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
                         ),
                         array(
                             'label' => 'Отчеты',
-                            'url' => array('/editor/reports/'),
+                            'url' => array('/writing/editor/reports/'),
                         ),
                     )));
 
@@ -87,24 +78,24 @@
                     'items' => array(
                         array(
                             'label' => 'Готовое',
-                            'url' => array('/existArticles/index/'),
+                            'url' => array('/writing/existArticles/index/'),
                         ),
                         array(
                             'label' => 'Конкуренты',
-                            'url' => array('/default/competitors/'),
+                            'url' => array('/competitors/default/index'),
                         ),
                         array(
                             'label' => 'Ключевые слова или фразы',
-                            'url' => array('/editor/index/'),
+                            'url' => array('/writing/editor/index/'),
                         ),
                         array(
                             'label' => 'Раздача заданий',
-                            'url' => array('/editor/tasks/'),
+                            'url' => array('/writing/editor/tasks/'),
                             'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('editor/tasks') . '">' . TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
                         ),
                         array(
                             'label' => 'Отчеты',
-                            'url' => array('/editor/reports/'),
+                            'url' => array('/writing/editor/reports/'),
                         ),
                         array(
                             'label' => 'Запросы',
@@ -118,11 +109,11 @@
                     'items' => array(
                         array(
                             'label' => 'Ключевые слова или фразы',
-                            'url' => array('/editor/index/'),
+                            'url' => array('/writing/editor/index/'),
                         ),
                         array(
                             'label' => 'Раздача заданий',
-                            'url' => array('/editor/tasks/'),
+                            'url' => array('/writing/editor/tasks/'),
                             'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('editor/tasks') . '">' . TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
                         ),
                         array(
@@ -130,21 +121,8 @@
                             'url' => array('/competitors/default/index'),
                         ),
                         array(
-                            'label' => 'Пользователи',
-                            'url' => array('/user/'),
-                            'active' => Yii::app()->controller->id == 'user'
-                        ),
-                        array(
                             'label' => 'Готовое',
-                            'url' => array('/existArticles/index/'),
-                        ),
-                        array(
-                            'label' => 'Парсинг',
-                            'url' => array('/queries/index/'),
-                        ),
-                        array(
-                            'label' => 'Запросы',
-                            'url' => array('/queries/admin/'),
+                            'url' => array('/writing/existArticles/index/'),
                         ),
                     )));
 
@@ -155,11 +133,11 @@
                     'items' => array(
                         array(
                             'label' => 'В работу',
-                            'url' => array('/task/moderator'),
+                            'url' => array('/writing/task/moderator'),
                         ),
                         array(
                             'label' => 'Отчеты',
-                            'url' => array('/task/moderatorReports'),
+                            'url' => array('/writing/task/moderatorReports'),
                         ),
                     )));
 
@@ -169,11 +147,11 @@
                     'items' => array(
                         array(
                             'label' => 'В работу',
-                            'url' => array('/task/author'),
+                            'url' => array('/writing/task/author'),
                         ),
                         array(
                             'label' => 'Отчеты',
-                            'url' => array('/task/authorReports'),
+                            'url' => array('/writing/task/authorReports'),
                         ),
                     )));
 
@@ -183,11 +161,11 @@
                     'items' => array(
                         array(
                             'label' => 'В работу',
-                            'url' => array('/task/corrector'),
+                            'url' => array('/writing/task/corrector'),
                         ),
                         array(
                             'label' => 'Отчеты',
-                            'url' => array('/task/correctorReports'),
+                            'url' => array('/writing/task/correctorReports'),
                         ),
                     )));
 
@@ -197,11 +175,11 @@
                     'items' => array(
                         array(
                             'label' => 'В работу',
-                            'url' => array('/task/contentManager'),
+                            'url' => array('/writing/task/contentManager'),
                         ),
                         array(
                             'label' => 'Отчеты',
-                            'url' => array('/task/contentManagerReports'),
+                            'url' => array('/writing/task/contentManagerReports'),
                         ),
                     )));
 
@@ -228,6 +206,32 @@
 
 <div class="loading" style="display: none;">
 
+</div>
+
+<div id="admin-menu">
+    <?php
+    if (Yii::app()->user->checkAccess('admin'))
+        $this->widget('zii.widgets.CMenu', array(
+            'items' => array(
+                array(
+                    'label' => 'Пользователи',
+                    'url' => array('/user/'),
+                    'active' => Yii::app()->controller->id == 'user'
+                ),
+                array(
+                    'label' => 'Парсинг Метрики',
+                    'url' => array('/queries/index/'),
+                ),
+                array(
+                    'label' => 'Запросы',
+                    'url' => array('/queries/admin/'),
+                ),
+                array(
+                    'label' => 'Парсинг Вордстата',
+                    'url' => array('/wordstat/index'),
+                ),
+            )));
+    ?>
 </div>
 
 </body>

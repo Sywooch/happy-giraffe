@@ -31,7 +31,8 @@ class KeyStats extends HActiveRecord
     public $all;
     public $key_name;
     public $popular;
-    public $popularCategory;
+    public $popularIcon;
+    public $freq;
 
     /**
      * Returns the static model of the specified AR class.
@@ -68,7 +69,7 @@ class KeyStats extends HActiveRecord
             array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, year', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, key_name, year', 'safe'),
+            array('id, site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, key_name, year, freq, popular', 'safe'),
         );
     }
 
@@ -131,24 +132,24 @@ class KeyStats extends HActiveRecord
      */
     public function search()
     {
-        if (!empty($_GET['KeyStats']["key_name"]))
-            $this->key_name = $_GET['KeyStats']["key_name"];
+        $criteria = $this->getCriteriaWithoutFreq();
 
-        $criteria = new CDbCriteria;
-
-        $criteria->compare('id', $this->id);
-        $criteria->compare('site_id', $this->site_id);
-        $criteria->compare('year', $this->year);
-        $criteria->compare('t2.name', $this->key_name, true);
-        $criteria->with = array('keyword');
-        $criteria->together = true;
+        if (!empty($this->freq)) {
+            $condition = Keywords::getFreqCondition($this->freq);
+            if (!empty($criteria->condition)) {
+                $criteria->condition .= ' AND ' . $condition;
+            } else
+                $criteria->condition = $condition;
+        }
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
             'sort' => array(
                 'attributes' => array(
-                    'sum' => array('default' => 'desc'),
+                    'popular' => array(
+                        'asc' => 'yandex.value desc',
+                    ),
                     'm1' => array('default' => 'desc'),
                     'm2' => array('default' => 'desc'),
                     'm3' => array('default' => 'desc'),
@@ -167,19 +168,28 @@ class KeyStats extends HActiveRecord
         ));
     }
 
+    public function getCriteriaWithoutFreq()
+    {
+        $criteria = new CDbCriteria;
+
+        if (Yii::app()->user->getState('hide_used') == 1)
+            $criteria->condition = 'group.id IS NULL';
+
+        $criteria->compare('site_id', $this->site_id);
+        $criteria->compare('year', $this->year);
+        $criteria->compare('keyword.name', $this->key_name, true);
+        $criteria->compare('yandex.value', $this->popular);
+        $criteria->with = array('keyword', 'keyword.group', 'keyword.yandex', 'keyword.tempKeyword');
+        $criteria->together = true;
+
+        return $criteria;
+    }
+
     public function GetAverageStats()
     {
         if ($this->year == 2012)
             return round($this->sum / 5);
         return round($this->sum / 12);
-    }
-
-    public function getRowClass()
-    {
-        if (!empty($this->keyword->keywordGroups))
-            return 'active';
-
-        else return 'odd';
     }
 
     public function getButtons()

@@ -2,33 +2,29 @@
 
     <div class="input">
         <label>Введите слово или фразу</label>
-        <input type="text">
+        <input type="text" id="keyword" value="<?=$model->key_name ?>">
         <button class="btn btn-green-small">Поиск</button>
     </div>
 
-    <div class="result">
-        <label>Найдено: <a href="">25 365</a></label>
-        <span><i class="icon-freq-1"></i> <a href="">5 615</a></span>
-        <span><i class="icon-freq-2"></i> <a href="">5 615</a></span>
-        <span><i class="icon-freq-3"></i> <a href="">5 615</a></span>
-        <span class="active"><i class="icon-freq-4"></i> <a href="">5 615</a></span>
-    </div>
+    <?php $this->renderPartial('_count', compact('model', 'freq')); ?>
 
     <div class="result-filter">
-        <label>не показывать<br>используемые<br><input type="checkbox"></label>
+        <label>не показывать<br>используемые<br>
+            <input type="checkbox"
+                   id="hide-used" <?php if (Yii::app()->user->getState('hide_used') == 1) echo 'checked="checked"' ?>
+                   onchange="SeoKeywords.hideUsed(this);"></label>
     </div>
 
 </div>
-
-
 <div class="seo-table table-result mini">
     <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'keywords-grid',
     'dataProvider' => $model->search(),
+//    'afterAjaxUpdate'=>'CompetitorsTable.updateTable()',
     'filter' => null,
     'cssFile' => false,
     'rowCssClassExpression' => '$data->keyword->getClass()',
-//    'ajaxUpdate'=>false,
+    'ajaxUpdate'=>false,
     'template' => '<div class="table-box">{items}</div><div class="pagination pagination-center clearfix">{pager}</div>',
 //        'summaryText' => 'показано: {start} - {end} из {count}',
     'pager' => array(
@@ -44,10 +40,13 @@
         ),
         array(
             'name' => 'popular',
+            'value' => 'isset($data->keyword->yandex)?$data->keyword->yandex->value:""',
             'header' => '<i class="icon-yandex"></i>'
         ),
         array(
-            'name' => 'popularCategory',
+            'name' => 'popularIcon',
+            'type' => 'raw',
+            'value' => 'isset($data->keyword->yandex)?$data->keyword->yandex->getFreqIcon():""',
             'header' => '<i class="icon-freq"></i>'
         ),
         array(
@@ -116,107 +115,70 @@
     'id' => 'seo-form',
     'enableAjaxValidation' => false,
     'method' => 'GET',
-    'action' => array('/')
+    'action' => array('/competitors/default/index')
 ));?>
 <?php echo CHtml::hiddenField('site_id', $site_id) ?>
 <?php echo CHtml::hiddenField('year', $year) ?>
+<?php echo CHtml::hiddenField('key_name', $model->key_name) ?>
+<?php echo CHtml::hiddenField('freq', $model->freq) ?>
+<?php echo CHtml::hiddenField('KeyStats_sort', isset($_GET['KeyStats_sort'])?$_GET['KeyStats_sort']:'') ?>
 <?php $this->endWidget(); ?>
 
-
 <script type="text/javascript">
-    $('#page').keyup(function () {
-        var url = $('.yiiPager li.last a').attr('href').replace(/KeyStats_page=[\d]+/, "");
-        url = url + '&KeyStats_page=' + $(this).val();
-        console.log(url);
-        $.fn.yiiGridView.update('keywords-grid', {url:url});
-    });
-
     $('#year').change(function () {
-        setTimeout('submitForm()', 200);
+        submitForm();
     });
 
-    $('#recOnPage').change(function () {
-        setTimeout('submitForm()', 200);
+    $('.search .input button').click(function () {
+        $('#key_name').val($('#keyword').val());
+        submitForm();
     });
 
-    $('.choose-type a').click(function () {
-        console.log($(this).attr('rel'));
-        $('#site_id').val($(this).attr('rel'));
-        setTimeout('submitForm()', 200);
-        return false;
+    $('#keyword').keypress(function (e) {
+        if (e.which == 13) {
+            $('#key_name').val($('#keyword').val());
+            submitForm();
+        }
     });
 
     function submitForm() {
         $('#seo-form').attr('action', window.location.href);
         $('#seo-form').submit();
     }
+
+    var CompetitorsTable = {
+        SetFreq:function (freq) {
+            $('#freq').val(freq);
+            submitForm();
+        },
+        setYear:function(el){
+            $('#year').val($(el).val());
+            submitForm();
+        },
+        sortByFreq:function(){
+            $('#KeyStats_sort').val('popular');
+            submitForm();
+        },
+        updateTable:function(){
+            $('table.items thead tr th:eq(0)').remove();
+            $('table.items thead tr th:eq(0)').remove();
+            $('table.items thead tr th:eq(0)').remove();
+            $('table.items thead tr th:last').remove();
+
+            var tr = '<tr>\
+						<th rowspan="2" class="col-1">Ключевое слово или фраза</th>\
+						<th rowspan="2"><i class="icon-yandex" onclick="CompetitorsTable.sortByFreq()"></i></th>\
+						<th rowspan="2"><i class="icon-freq"></i></th>\
+						<th colspan="12">Количество визитов &nbsp;&nbsp;&nbsp; Год <select onchange="CompetitorsTable.setYear(this);"><option value="2011"<?php if ($model->year == 2011) echo ' selected' ?>>2011</option><option value="2012"<?php if ($model->year == 2012) echo ' selected' ?>>2012</option></select></th>\
+						<th rowspan="2"></th>\
+					</tr>'
+
+
+            $('table.items thead').prepend(tr);
+        }
+    };
+
+    $(function () {
+        CompetitorsTable.updateTable();
+    });
 </script>
-
-<style type="text/css">
-    .pagination {
-        font-size: 23px;
-        padding: 15px 0;
-        color: #ababab;
-        font-family: times new roman, serif;
-        font-style: italic;
-        line-height: 1;
-    }
-
-    .pagination.pagination-center {
-        text-align: center;
-    }
-
-    .pagination .pager {
-        text-align: left;
-    }
-
-    .pagination.pagination-center .pager {
-        text-align: center;
-    }
-
-    .pagination ul {
-        list-style: none;
-    }
-
-    .pagination ul li {
-        display: inline-block;
-        padding: 6px 8px;
-        text-indent: 0 !important;
-        margin: 0 !important;
-        position: relative;
-    }
-
-    .pagination ul li a {
-        padding: 0 3px;
-        display: block;
-        color: #45a5c9;
-    }
-
-    .pagination ul li.selected {
-        background: #f1e4fd;
-    }
-
-    .pagination ul li.selected img {
-        position: absolute;
-        top: -9px;
-        width: 100%;
-        left: 0;
-        height: 9px;
-    }
-
-    .pagination ul li.selected a {
-        color: #7f8181;
-        text-decoration: none;
-    }
-
-    .pagination ul li.previous a, .pagination ul li.next a {
-    }
-
-    .pagination ul li.next a {
-        background-position: -157px -101px;
-    }
-
-    .pagination .hidden {
-        display: none;
-    }
-</style>

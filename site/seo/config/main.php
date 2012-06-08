@@ -16,6 +16,7 @@ return array(
         'application.models.forms.*',
         'application.components.*',
         'application.modules.competitors.models.*',
+        'application.modules.writing.models.*',
 
         'site.frontend.helpers.FileHandler',
         'site.frontend.components.*',
@@ -25,6 +26,7 @@ return array(
     ),
     'modules'=>array(
         'competitors',
+        'writing',
     ),
 	'components' => array(
         'user'=>array(

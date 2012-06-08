@@ -1,6 +1,6 @@
 <?php $this->beginContent('//layouts/main');
 
-if (Yii::app()->user->checkAccess('admin'))
+//if (Yii::app()->user->checkAccess('admin'))
     /*$this->widget('zii.widgets.CMenu', array(
         'items' => array(
             array(

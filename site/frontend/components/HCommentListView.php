@@ -3,14 +3,22 @@
  * User: Eugene
  * Date: 05.06.12
  */
-class HCommentListView extends MyListView
+Yii::import('zii.widgets.CListView');
+class HCommentListView extends CListView
 {
-
+    public $ajaxState = true;
     /**
      * @var bool
      * Сообщает, в попапе ли был открыт ListView
      */
     public $popUp = false;
+
+    public function init()
+    {
+        if($this->ajaxState === true)
+            $this->registerStatePagination();
+        parent::init();
+    }
 
     public function registerClientScript()
     {
@@ -40,13 +48,35 @@ class HCommentListView extends MyListView
         $cs=Yii::app()->getClientScript();
         $cs->registerCoreScript('jquery');
         $cs->registerCoreScript('bbq');
-        echo '<script type="text/javascript">$(function() {jQuery(\'#' . $id . '\').yiiListView(' . $options . ');});</script>';
+        if(!$this->popUp)
+        {
+            $cs->registerScriptFile($this->baseScriptUrl.'/jquery.yiilistview.js',CClientScript::POS_END);
+            $cs->registerScript(__CLASS__.'#'.$id,"jQuery('#$id').yiiListView($options);");
+        }
+        else
+        {
+            echo '<script type="text/javascript">$(function() {jQuery(\'#' . $id . '\').yiiListView(' . $options . ');});</script>';
+        }
     }
 
     protected function registerStatePagination()
     {
-
-        $this->afterAjaxUpdate = 'function(id, data) {
-        }';
+        if(!$this->popUp)
+        {
+            $js = 'var history_' . $this->id . ' = new AjaxHistory("' .$this->id  . '");';
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/history.js')
+                ->registerScript('history_' . $this->id, $js, CClientScript::POS_END);
+            $ajaxUpdate = null;
+            if($this->afterAjaxUpdate)
+                $ajaxUpdate = $this->afterAjaxUpdate;
+            $this->afterAjaxUpdate = 'function(id, data) {
+            '.($ajaxUpdate ? $ajaxUpdate : '').'
+                history_' . $this->id . '.changeBrowserUrl($.fn.yiiListView.getUrl(id));
+            }';
+        }
+        else
+        {
+            $this->afterAjaxUpdate = 'function(id, data) {}';
+        }
     }
 }

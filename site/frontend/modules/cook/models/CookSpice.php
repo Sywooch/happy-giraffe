@@ -140,10 +140,8 @@ class CookSpice extends HActiveRecord
 
     public function getImage()
     {
-        if (!empty($this->photo_id)) {
+        if (!empty($this->photo_id))
             return CHtml::image($this->photo->getPreviewUrl(70, 70));
-        }
-
         return '';
     }
 

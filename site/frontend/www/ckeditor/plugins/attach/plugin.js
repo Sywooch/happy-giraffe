@@ -13,6 +13,7 @@ var AttachCommand = {
 
 CKEDITOR.plugins.add('attach', {
     init : function(editor) {
+        cke_instance = editor.name;
         var command = editor.addCommand('attach', AttachCommand);
         command.canUndo = true;
 

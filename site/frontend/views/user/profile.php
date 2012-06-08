@@ -90,7 +90,8 @@
                 <?php if ($user->id == Yii::app()->user->id): ?>
                     <?php
                         $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                            'model' => $user
+                            'model' => $user,
+                            'id' => 'attach' . get_class($user) . $user->primaryKey,
                         ));
                         $fileAttach->button();
                         $this->endWidget();
@@ -198,6 +199,23 @@
     </div>
 
 </div>
+
+<?php if(!Yii::app()->user->isGuest): ?>
+    <div style="display: none;">
+        <div class="upload-btn" id="refresh_upload">
+            <?php
+            $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                'model' => new PhotoComment(),
+            ));
+            $fileAttach->button();
+            $this->endWidget();
+            ?>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var attach_comment_obj = comment_<?php echo get_class($user) . $user->primaryKey; ?>;
+    </script>
+<?php endif; ?>
 
 <?php
     $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');

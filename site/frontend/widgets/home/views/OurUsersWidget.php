@@ -4,7 +4,7 @@
  */
 ?><div class="box homepage-parents clearfix">
 
-    <div class="title"><span>Наши</span> мамы и папы</div>
+    <div class="title">Наши <span>мамы и папы</span></div>
 
     <ul>
         <?php foreach ($users as $user): ?>

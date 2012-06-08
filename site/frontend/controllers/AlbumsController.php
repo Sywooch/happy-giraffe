@@ -198,11 +198,11 @@ class AlbumsController extends HController
         }
     }
 
-    public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)
+    public function actionAttach($entity, $entity_id, $mode = 'window', $a = false, $instance = false)
     {
         Yii::app()->clientScript->scriptMap['*.js'] = false;
         Yii::app()->clientScript->scriptMap['*.css'] = false;
-        $this->renderPartial('attach_widget', compact('entity', 'entity_id', 'mode', 'a'), false, true);
+        $this->renderPartial('attach_widget', compact('entity', 'entity_id', 'mode', 'a', 'instance'), false, true);
     }
 
     public function actionAttachView($id)
@@ -215,6 +215,7 @@ class AlbumsController extends HController
         ));
     }
 
+    /* TODO не уверен, что где-то используется. Проверить. */
     public function actionSaveAttach()
     {
         $model = new AttachPhoto;
@@ -386,7 +387,10 @@ class AlbumsController extends HController
             $photo = AlbumPhoto::model()->findByPk($id);
             $title = $photo->title;
         }
-        $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decor', array('title'=>$title));
+        $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decor', array(
+            'title'=>$title,
+            'widget_id' => Yii::app()->request->getPost('widget_id'),
+        ));
         Yii::app()->end();
     }
 
@@ -450,6 +454,7 @@ class AlbumsController extends HController
         $this->renderPartial('site.frontend.widgets.fileAttach.views._crop', array(
             'src' => $params['src'],
             'val' => $val,
+            'widget_id' => Yii::app()->request->getPost('widget_id')
         ));
         Yii::app()->end();
     }

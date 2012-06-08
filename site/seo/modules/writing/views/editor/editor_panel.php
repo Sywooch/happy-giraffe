@@ -37,7 +37,7 @@
                     <th>Действие</th>
                 </tr>
                 <?php foreach ($tempKeywords as $tempKeyword): ?>
-                <tr id="keyword-<?=$tempKeyword->keyword->id ?>"<?php if (!empty($tempKeyword->keyword->keywordGroups)) echo ' style="display:none;"' ?>>
+                <tr id="keyword-<?=$tempKeyword->keyword->id ?>"<?php if (!empty($tempKeyword->keyword->group)) echo ' style="display:none;"' ?>>
                     <td class="col-1">
                         <div class="item"><div class="drag"></div>
                             <span><?=$tempKeyword->keyword->name ?></span>

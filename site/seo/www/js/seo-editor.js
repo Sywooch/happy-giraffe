@@ -5,7 +5,7 @@
 var SeoKeywords = {
     searchKeywords:function (term) {
         $('div.loading').show();
-        $.post('/editor/searchKeywords/', {term:term}, function (response) {
+        $.post('/writing/editor/searchKeywords/', {term:term}, function (response) {
             $('div.loading').hide();
             if (response.status) {
                 $('.search .result').html(response.count);
@@ -20,9 +20,9 @@ var SeoKeywords = {
             }
         }, 'json');
     },
-    Select:function (el) {
+    Select:function (el, mode) {
         var id = this.getId(el);
-        $.post('/editor/selectKeyword/', {id:id}, function (response) {
+        $.post('/writing/editor/selectKeyword/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').addClass('in-buffer');
                 $(el).parent('td').html('в буфере <input type="hidden" value="' + id + '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>');
@@ -30,9 +30,9 @@ var SeoKeywords = {
             }
         }, 'json');
     },
-    CancelSelect:function (el) {
+    CancelSelect:function (el, mode) {
         var id = this.getId(el);
-        $.post('/editor/CancelSelectKeyword/', {id:id}, function (response) {
+        $.post('/writing/editor/CancelSelectKeyword/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').removeClass('in-buffer');
                 $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this);return false;"></a><a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>');
@@ -42,7 +42,7 @@ var SeoKeywords = {
     },
     Hide:function (el) {
         var id = this.getId(el);
-        $.post('/editor/hideKey/', {id:id}, function (response) {
+        $.post('/writing/editor/hideKey/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }
@@ -52,7 +52,7 @@ var SeoKeywords = {
         return $(el).parent('td').find("input").val();
     },
     hideUsed:function (el) {
-        $.post('/editor/hideUsed/', {checked:$(el).attr('checked')}, function (response) {
+        $.post('/writing/editor/hideUsed/', {checked:$(el).attr('checked')}, function (response) {
         }, 'json');
     }
 }
@@ -84,7 +84,7 @@ var TaskDistribution = {
     },
     removeFromSelected:function (el) {
         var id = this.getId(el);
-        $.post('/editor/removeFromSelected/', {id:id}, function (response) {
+        $.post('/writing/editor/removeFromSelected/', {id:id}, function (response) {
             if (response.status) {
                 TaskDistribution.hideKeyword(id);
                 $(el).parents('tr').remove();
@@ -99,7 +99,7 @@ var TaskDistribution = {
                     urls.push($(this).val());
             });
         }
-        $.post('/editor/addGroupTask/', {id:this.group,
+        $.post('/writing/editor/addGroupTask/', {id:this.group,
             type:type,
             author_id:author_id,
             urls:urls,
@@ -115,7 +115,7 @@ var TaskDistribution = {
     },
     removeTask:function (el) {
         var id = TaskDistribution.getId(el);
-        $.post('/editor/removeTask/', {id:id, withKeys:'1'}, function (response) {
+        $.post('/writing/editor/removeTask/', {id:id, withKeys:'1'}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }
@@ -123,7 +123,7 @@ var TaskDistribution = {
     },
     returnTask:function (el) {
         var id = TaskDistribution.getId(el);
-        $.post('/editor/removeTask/', {id:id}, function (response) {
+        $.post('/writing/editor/removeTask/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
                 for (var key in response.keys) {
@@ -135,7 +135,7 @@ var TaskDistribution = {
     },
     upTask:function (el) {
         var id = TaskDistribution.getId(el);
-        $.post('/editor/removeTask/', {id:id}, function (response) {
+        $.post('/writing/editor/removeTask/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
                 for (var key in response.keys) {
@@ -148,7 +148,7 @@ var TaskDistribution = {
     },
     readyTask:function (el) {
         var id = TaskDistribution.getId(el);
-        $.post('/editor/ready/', {id:id}, function (response) {
+        $.post('/writing/editor/ready/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }
@@ -167,21 +167,21 @@ var TaskDistribution = {
 
 var SeoTasks = {
     TakeTask:function (id) {
-        $.post('/task/take/', {id:id}, function (response) {
+        $.post('/writing/task/take/', {id:id}, function (response) {
             if (response.status) {
                 document.location.reload();
             }
         }, 'json');
     },
     Written:function (id, el) {
-        $.post('/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
+        $.post('/writing/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
             if (response.status) {
                 document.location.reload();
             }
         }, 'json');
     },
     CloseTask:function (el, id) {
-        $.post('/editor/close/', {id:id}, function (response) {
+        $.post('/writing/editor/close/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
                 $('.tab-box-5 tbody').prepend(response.html);
@@ -190,7 +190,7 @@ var SeoTasks = {
         }, 'json');
     },
     ToCorrection:function (el, id) {
-        $.post('/editor/correction/', {id:id}, function (response) {
+        $.post('/writing/editor/correction/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('td').prev().removeClass('seo-status-correction-1')
                     .addClass('seo-status-correction-2').text('На коррекции');
@@ -199,7 +199,7 @@ var SeoTasks = {
         }, 'json');
     },
     ToPublishing:function (el, id) {
-        $.post('/editor/publish/', {id:id}, function (response) {
+        $.post('/writing/editor/publish/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('td').prev().removeClass('seo-status-publish-1')
                     .addClass('seo-status-publish-2').text('На публикации');
@@ -208,7 +208,7 @@ var SeoTasks = {
         }, 'json');
     },
     Corrected:function (el, id) {
-        $.post('/task/corrected/', {id:id}, function (response) {
+        $.post('/writing/task/corrected/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }
@@ -216,7 +216,7 @@ var SeoTasks = {
     },
     Published:function (el, id) {
         if ($(el).prev().val() !== "")
-            $.post('/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
+            $.post('/writing/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
                 if (response.status) {
                     $(el).parents('tr').remove();
                 } else {

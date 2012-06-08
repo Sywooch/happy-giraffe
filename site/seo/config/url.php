@@ -14,8 +14,8 @@ return array(
 
         'login' => 'site/login',
         'logout' => 'site/logout',
-        'keywords' => 'editor/index',
-        'tasks' => 'editor/tasks',
-        'competitors/<site_id:\d+>' => 'competitors/default/index'
+        'keywords' => 'writing/editor/index',
+        'tasks' => 'writing/editor/tasks',
+        'competitors/' => 'competitors/default/index'
     ),
 );

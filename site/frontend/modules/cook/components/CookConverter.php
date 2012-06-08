@@ -15,6 +15,12 @@ class CookConverter extends CComponent
     private $directConvertQty = array('qty-weight', 'weight-qty');
     private $directConvertVolume = array('volume-weight', 'weight-volume');
 
+    /**
+     * connverts ingredient from one unit into other
+     *
+     * @param $data array contains 'from','to' - unit_id, 'ingredient' - ingredient_id, 'qty'
+     * @return null
+     */
     public function convert($data)
     {
 
@@ -59,6 +65,14 @@ class CookConverter extends CComponent
         return ($this->result['qty']) ? $this->result : null;
     }
 
+    /**
+     * protected function used from
+     *
+     * @param $from unit_id
+     * @param $to unit_id
+     * @param $qty
+     * @return float|null qty or null if unsupported conversion
+     */
     protected function subConvert($from, $to, $qty)
     {
         $direction = $from->type . '-' . $to->type;
@@ -107,6 +121,12 @@ class CookConverter extends CComponent
         }
     }
 
+
+    /**Calculate nutritionals by ingredients and qty
+     *
+     * @param $components array of components, each must contain 'unit_id', 'ingredient_id', 'value'
+     * @return array with 'total' nutritionals and 'g100' for 100 grams
+     */
     public function calculateNutritionals($components)
     {
         $converter = new CookConverter();

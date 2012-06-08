@@ -47,43 +47,43 @@
                     // IE versions below IE8 cannot set the name property of
                     // elements that have already been added to the DOM,
                     // so we set the name along with the iframe HTML markup:
-                    iframe = $(
-                        '<iframe src="javascript:false;" name="iframe-transport-' +
-                            (counter += 1) + '"></iframe>'
-                    ).bind('load', function () {
+                    if($.browser.webkit == undefined || $.browser.webkit == false)
+                        var W = 'javascript:void(function(){document.open();document.domain=\'' + document.domain + '\';document.close();}())';
+                    else
+                        var W = 'javascript:false;';
+                    iframe = $('<iframe src="' + W + '"  name="iframe-transport-' +(counter += 1) + '"></iframe>');
+                    iframe.bind('load', function () {
                         var fileInputClones,
                             paramNames = $.isArray(options.paramName) ?
                                     options.paramName : [options.paramName];
-                        iframe
-                            .unbind('load')
-                            .bind('load', function () {
-                                var response;
-                                // Wrap in a try/catch block to catch exceptions thrown
-                                // when trying to access cross-domain iframe contents:
-                                try {
-                                    response = iframe.contents();
-                                    // Google Chrome and Firefox do not throw an
-                                    // exception when calling iframe.contents() on
-                                    // cross-domain requests, so we unify the response:
-                                    if (!response.length || !response[0].firstChild) {
-                                        throw new Error();
-                                    }
-                                } catch (e) {
-                                    response = undefined;
+
+                            var response;
+                            // Wrap in a try/catch block to catch exceptions thrown
+                            // when trying to access cross-domain iframe contents:
+                            try {
+                                response = iframe.contents();
+                                // Google Chrome and Firefox do not throw an
+                                // exception when calling iframe.contents() on
+                                // cross-domain requests, so we unify the response:
+                                if (!response.length || !response[0].firstChild) {
+                                    throw new Error();
                                 }
-                                // The complete callback returns the
-                                // iframe content document as response object:
-                                completeCallback(
-                                    200,
-                                    'success',
-                                    {'iframe': response}
-                                );
-                                // Fix for IE endless progress bar activity bug
-                                // (happens on form submits to iframe targets):
-                                $('<iframe src="javascript:false;"></iframe>')
-                                    .appendTo(form);
-                                form.remove();
-                            });
+                            } catch (e) {
+                                response = undefined;
+                            }
+                            // The complete callback returns the
+                            // iframe content document as response object:
+                            completeCallback(
+                                200,
+                                'success',
+                                {'iframe': response}
+                            );
+                            // Fix for IE endless progress bar activity bug
+                            // (happens on form submits to iframe targets):
+                            $('<iframe></iframe>')
+                                .appendTo(form);
+                            form.remove();
+
                         form
                             .prop('target', iframe.prop('name'))
                             .prop('action', options.url)
@@ -98,6 +98,7 @@
                         }
                         if (options.fileInput && options.fileInput.length &&
                                 options.type === 'POST') {
+                            cl(options.fileInput[0].value);
                             fileInputClones = options.fileInput.clone();
                             // Insert a clone for each file input field:
                             options.fileInput.after(function (index) {

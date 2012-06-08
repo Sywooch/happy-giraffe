@@ -291,7 +291,9 @@ class Product extends HActiveRecord implements IECartPosition
     {
         $photos = array();
         foreach($this->images as $image)
+        {
             array_push($photos, $image->photo);
+        }
         return $photos;
     }
 

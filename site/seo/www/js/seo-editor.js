@@ -20,22 +20,29 @@ var SeoKeywords = {
             }
         }, 'json');
     },
-    Select:function (el, mode) {
+    Select:function (el, short) {
         var id = this.getId(el);
         $.post('/writing/editor/selectKeyword/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').addClass('in-buffer');
-                $(el).parent('td').html('в буфере <input type="hidden" value="' + id + '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this);return false;"></a>');
+                if (short)
+                    $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, '+short+');return false;"></a>');
+                else
+                    $(el).parent('td').html('в буфере <input type="hidden" value="' + id + '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, '+short+');return false;"></a>');
                 $('.default-nav div.count a').text(parseInt($('.default-nav div.count a').text()) + 1);
             }
         }, 'json');
     },
-    CancelSelect:function (el, mode) {
+    CancelSelect:function (el, short) {
         var id = this.getId(el);
         $.post('/writing/editor/CancelSelectKeyword/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').removeClass('in-buffer');
-                $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this);return false;"></a><a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>');
+                if (short)
+                    $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this, '+short+');return false;"></a>');
+                else
+                    $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this, '+short+');return false;"></a><a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>');
+
                 $('.default-nav div.count a').text(parseInt($('.default-nav div.count a').text()) - 1);
             }
         }, 'json');
@@ -227,11 +234,11 @@ var SeoTasks = {
                             pnotify_text:response.errorText
                         });
                     else
-                    $.pnotify({
-                        pnotify_title:'Ошибка',
-                        pnotify_type:'error',
-                        pnotify_text:response.error
-                    });
+                        $.pnotify({
+                            pnotify_title:'Ошибка',
+                            pnotify_type:'error',
+                            pnotify_text:response.error
+                        });
                 }
             }, 'json');
         else

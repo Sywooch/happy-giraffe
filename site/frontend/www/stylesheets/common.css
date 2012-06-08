@@ -1910,7 +1910,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #homepage .homepage-articles {padding:15px;border:1px solid #f7f1fd;}
 #homepage .homepage-articles .title {margin-bottom:10px;}
 #homepage .homepage-articles .title span {color:#916bb5;}
-#homepage .homepage-articles .title i {display:block;color:#5488d0;font:italic 18px times new roman, serif;margin-top:5px;}
+#homepage .homepage-articles .title i {display:block;color:#5488d0;font:italic 18px times new roman, serif;}
 #homepage .homepage-articles ul {list-style:none;}
 #homepage .homepage-articles ul li {margin-bottom:15px;}
 #homepage .homepage-articles ul li img {display:block;}

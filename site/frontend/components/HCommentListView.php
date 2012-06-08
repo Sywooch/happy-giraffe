@@ -5,6 +5,13 @@
  */
 class HCommentListView extends MyListView
 {
+
+    /**
+     * @var bool
+     * Сообщает, в попапе ли был открыт ListView
+     */
+    public $popUp = false;
+
     public function registerClientScript()
     {
         $id=$this->getId();

@@ -106,7 +106,7 @@ class WordstatParser extends ProxyParserThread
         $document = phpQuery::newDocument($html);
 
         $html = str_replace('&nbsp;', ' ', $html);
-        if (strpos($html, '0 показов в месяц')) {
+        if (strpos($html, ' 0 показов в месяц')) {
             YandexPopularity::addValue($this->keyword->keyword_id, 0);
             ParsingKeywords::model()->deleteByPk($this->keyword->keyword_id);
             return true;

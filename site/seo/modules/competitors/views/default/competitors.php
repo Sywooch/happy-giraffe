@@ -6,7 +6,7 @@
         <button class="btn btn-green-small">Поиск</button>
     </div>
 
-    <?php $this->renderPartial('_count',compact('model', 'freq')); ?>
+    <?php $this->renderPartial('_count', compact('model', 'freq')); ?>
 
     <div class="result-filter">
         <label>не показывать<br>используемые<br>
@@ -20,10 +20,11 @@
     <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'keywords-grid',
     'dataProvider' => $model->search(),
+//    'afterAjaxUpdate'=>'CompetitorsTable.updateTable()',
     'filter' => null,
     'cssFile' => false,
     'rowCssClassExpression' => '$data->keyword->getClass()',
-//    'ajaxUpdate'=>false,
+    'ajaxUpdate'=>false,
     'template' => '<div class="table-box">{items}</div><div class="pagination pagination-center clearfix">{pager}</div>',
 //        'summaryText' => 'показано: {start} - {end} из {count}',
     'pager' => array(
@@ -120,11 +121,12 @@
 <?php echo CHtml::hiddenField('year', $year) ?>
 <?php echo CHtml::hiddenField('key_name', $model->key_name) ?>
 <?php echo CHtml::hiddenField('freq', $model->freq) ?>
+<?php echo CHtml::hiddenField('KeyStats_sort', isset($_GET['KeyStats_sort'])?$_GET['KeyStats_sort']:'') ?>
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
     $('#year').change(function () {
-        setTimeout('submitForm()', 200);
+        submitForm();
     });
 
     $('.search .input button').click(function () {
@@ -145,9 +147,38 @@
     }
 
     var CompetitorsTable = {
-        SetFreq:function(freq){
+        SetFreq:function (freq) {
             $('#freq').val(freq);
             submitForm();
+        },
+        setYear:function(el){
+            $('#year').val($(el).val());
+            submitForm();
+        },
+        sortByFreq:function(){
+            $('#KeyStats_sort').val('popular');
+            submitForm();
+        },
+        updateTable:function(){
+            $('table.items thead tr th:eq(0)').remove();
+            $('table.items thead tr th:eq(0)').remove();
+            $('table.items thead tr th:eq(0)').remove();
+            $('table.items thead tr th:last').remove();
+
+            var tr = '<tr>\
+						<th rowspan="2" class="col-1">Ключевое слово или фраза</th>\
+						<th rowspan="2"><i class="icon-yandex" onclick="CompetitorsTable.sortByFreq()"></i></th>\
+						<th rowspan="2"><i class="icon-freq"></i></th>\
+						<th colspan="12">Количество визитов &nbsp;&nbsp;&nbsp; Год <select onchange="CompetitorsTable.setYear(this);"><option value="2011"<?php if ($model->year == 2011) echo ' selected' ?>>2011</option><option value="2012"<?php if ($model->year == 2012) echo ' selected' ?>>2012</option></select></th>\
+						<th rowspan="2"></th>\
+					</tr>'
+
+
+            $('table.items thead').prepend(tr);
         }
-    }
+    };
+
+    $(function () {
+        CompetitorsTable.updateTable();
+    });
 </script>

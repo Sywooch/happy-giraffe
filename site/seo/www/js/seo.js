@@ -140,7 +140,7 @@ var WordStat = {
 
 var Competitors = {
     Parse:function(){
-        $.post('/competitors/parse/parse', {site_id:$('#site-to_parse').val()}, function (response) {
+        $.post('/competitors/parse/parse/', {site_id:$('#site-to_parse').val()}, function (response) {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',

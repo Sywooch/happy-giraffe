@@ -62,6 +62,10 @@
                             'url' => array('/writing/editor/index/'),
                         ),
                         array(
+                            'label' => 'Конкуренты',
+                            'url' => array('/competitors/default/index'),
+                        ),
+                        array(
                             'label' => 'Раздача заданий',
                             'url' => array('/writing/editor/tasks/'),
                             'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('/writing/editor/tasks') . '">' . TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',

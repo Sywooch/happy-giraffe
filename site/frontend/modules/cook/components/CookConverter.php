@@ -15,6 +15,12 @@ class CookConverter extends CComponent
     private $directConvertQty = array('qty-weight', 'weight-qty');
     private $directConvertVolume = array('volume-weight', 'weight-volume');
 
+    /**
+     * connverts ingredient from one unit into other
+     *
+     * @param $data array contains 'from','to' - unit_id, 'ingredient' - ingredient_id, 'qty'
+     * @return null
+     */
     public function convert($data)
     {
 
@@ -59,6 +65,14 @@ class CookConverter extends CComponent
         return ($this->result['qty']) ? $this->result : null;
     }
 
+    /**
+     * protected function used from
+     *
+     * @param $from unit_id
+     * @param $to unit_id
+     * @param $qty
+     * @return float|null qty or null if unsupported conversion
+     */
     protected function subConvert($from, $to, $qty)
     {
         $direction = $from->type . '-' . $to->type;
@@ -72,8 +86,8 @@ class CookConverter extends CComponent
                 }
             case 'weight-qty':
                 {
-               /* if (!$this->ingredient->weight)
-                    return null;*/
+                /* if (!$this->ingredient->weight)
+               return null;*/
                 return (($qty * $from->ratio) / $this->to_weight['weight']) / $to->ratio;
                 }
             case 'volume-weight':
@@ -107,5 +121,50 @@ class CookConverter extends CComponent
         }
     }
 
+
+    /**Calculate nutritionals by ingredients and qty
+     *
+     * @param $components array of components, each must contain 'unit_id', 'ingredient_id', 'value'
+     * @return array with 'total' nutritionals and 'g100' for 100 grams
+     */
+    public function calculateNutritionals($components)
+    {
+        $converter = new CookConverter();
+        $result = array(
+            'total' => array(
+                'weight' => 0,
+                'nutritionals' => array()
+            ),
+            'g100' => array(
+                'nutritionals' => array()
+            )
+        );
+
+        foreach ($components as $component) {
+            $ingredient = CookIngredient::model()->findByPk($component['ingredient_id']);
+            $weight = $converter->convert(array(
+                'from' => $component['unit_id'],
+                'to' => 1,
+                'ingredient' => $ingredient->id,
+                'qty' => $component['value']
+            ));
+
+            $result['total']['weight'] += $weight['qty'];
+            foreach ($ingredient->cookIngredientsNutritionals as $nutritional) {
+                if (isset($result['total']['nutritionals'][$nutritional->nutritional_id])) {
+                    $result['total']['nutritionals'][$nutritional->nutritional_id] += $nutritional->value * ($weight['qty'] / 100);
+                } else {
+                    $result['total']['nutritionals'][$nutritional->nutritional_id] = $nutritional->value * ($weight['qty'] / 100);
+                }
+            }
+        }
+
+        foreach ($result['total']['nutritionals'] as $key => $n) {
+            $result['g100']['nutritionals'][$key] = $n * (100 / $result['total']['weight']);
+        }
+
+
+        return $result;
+    }
 
 }

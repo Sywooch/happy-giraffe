@@ -6,7 +6,7 @@
                     <?php echo CHtml::link(
                     $album->title,
                     array('/albums/attach', 'entity' => $this->entity, 'entity_id' => $this->entity_id, 'mode' => 'albums', 'a' => $album->id), array(
-                        'onclick' => 'return Attach.changeAlbum(this);'
+                        'onclick' => 'return ' . $this->id . '.changeAlbum(this);'
                     )); ?>
                     <span class="tale"><img src="<?php echo Yii::app()->baseUrl; ?>/images/default_v_nav_active.png"></span>
                 </div>

@@ -174,6 +174,11 @@ class CookRecipe extends CActiveRecord
             'withRelated'=>array(
                 'class'=>'site.common.extensions.wr.WithRelatedBehavior',
             ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            ),
         );
     }
 
@@ -190,5 +195,24 @@ class CookRecipe extends CActiveRecord
         }
 
         return parent::beforeValidate();
+    }
+
+    protected function afterFind()
+    {
+        $this->preparation_duration_h = sprintf("%02d", floor($this->preparation_duration / 60));
+        $this->preparation_duration_m = sprintf("%02d", $this->preparation_duration % 60);
+        $this->cooking_duration_h = sprintf("%02d", floor($this->cooking_duration / 60));
+        $this->cooking_duration_m = sprintf("%02d", $this->cooking_duration % 60);
+
+        parent::afterFind();
+    }
+
+    protected function beforeSave()
+    {
+        if (! $this->isNewRecord) {
+            CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
+        }
+
+        return parent::beforeSave();
     }
 }

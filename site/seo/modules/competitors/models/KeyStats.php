@@ -69,7 +69,7 @@ class KeyStats extends HActiveRecord
             array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, year', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, key_name, year, freq', 'safe'),
+            array('id, site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, key_name, year, freq, popular', 'safe'),
         );
     }
 
@@ -134,12 +134,11 @@ class KeyStats extends HActiveRecord
     {
         $criteria = $this->getCriteriaWithoutFreq();
 
-        if (!empty($this->freq)){
+        if (!empty($this->freq)) {
             $condition = Keywords::getFreqCondition($this->freq);
-            if (!empty($criteria->condition)){
-                $criteria->condition .= ' AND '.$condition;
-            }
-            else
+            if (!empty($criteria->condition)) {
+                $criteria->condition .= ' AND ' . $condition;
+            } else
                 $criteria->condition = $condition;
         }
 
@@ -148,6 +147,9 @@ class KeyStats extends HActiveRecord
             'pagination' => array('pageSize' => 100),
             'sort' => array(
                 'attributes' => array(
+                    'popular' => array(
+                        'asc' => 'yandex.value desc',
+                    ),
                     'm1' => array('default' => 'desc'),
                     'm2' => array('default' => 'desc'),
                     'm3' => array('default' => 'desc'),
@@ -170,13 +172,15 @@ class KeyStats extends HActiveRecord
     {
         $criteria = new CDbCriteria;
 
-        if (Yii::app()->user->getState('hide_used') == 1)
-            $criteria->condition = 'group.id IS NULL';
+        if (Yii::app()->user->getState('hide_used') == 1){
+            $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = '.Yii::app()->user->id.') OR tempKeyword.keyword_id IS NULL)';
+        }
 
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('year', $this->year);
         $criteria->compare('keyword.name', $this->key_name, true);
-        $criteria->with = array('keyword', 'keyword.group', 'keyword.yandex');
+        $criteria->compare('yandex.value', $this->popular);
+        $criteria->with = array('keyword', 'keyword.group', 'keyword.yandex', 'keyword.tempKeyword');
         $criteria->together = true;
 
         return $criteria;
@@ -192,5 +196,21 @@ class KeyStats extends HActiveRecord
     public function getButtons()
     {
         return $this->keyword->getButtons(true);
+    }
+
+    public function getKeywordAndSimilarArticles()
+    {
+        $res = $this->keyword->name;
+
+	    $models = $this->keyword->getSimilarArticles();
+        if (!empty($models)){
+            $res.= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).next().toggle().toggleClass(\'triggered\')"></a><div class="links" style="display:none;">';
+            foreach($models as $model)
+                $res.= CHtml::link($model->title, 'http://www.happy-giraffe.ru'.$model->url).'<br>';
+//                $res.= $model->title.'<br>';
+                $res.= '</div>';
+        }
+
+        return $res;
     }
 }

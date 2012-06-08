@@ -57,6 +57,10 @@
                         'label' => 'Cпеции категории',
                         'url' => array('/club/cookSpicesCategories/'),
                     ),
+                    array(
+                        'label' => 'Как выбрать',
+                        'url' => array('/club/cookChoose/'),
+                    ),
                 )
             )
         ),

@@ -16,6 +16,9 @@ class DefaultController extends SController
 
         $model = new KeyStats;
         $model->attributes = $_GET;
+        $model->year = $year;
+        $model->site_id = $site_id;
+        $model->freq = $freq;
 
         $this->render('competitors', compact('model', 'site_id', 'year', 'freq'));
     }

@@ -1,23 +1,4 @@
-<div id="photo">
-    <div class="img">
-        <?php echo CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), ''); ?>
-        <div class="title clearfix">
-            <?php if(isset($photo->title) && $photo->title != ''): ?>
-            <div class="in">Квашеная капуста с клюквой</div>
-            <?php endif; ?>
-            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $photo->author,
-                'size' => 'small',
-                'sendButton' => false,
-                'location' => false
-            )); ?>
-        </div>
-    </div>
-    <a href="javascript:;" class="prev">предыдушая</a>
-    <a href="javascript:;" class="next">следующая</a>
-</div>
-
-    <div id="photo-content">
+<div id="photo-content">
         <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
         'title' => 'Вам понравилось фото?',
         'type' => 'minimize',

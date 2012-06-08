@@ -24,7 +24,7 @@
 
                 <div class="form-in">
 
-                    <div class="title"><i class="icon"></i>Добавить рецепт</div>
+                    <div class="title"><i class="icon"></i><?=$recipe->isNewRecord ? 'Добавить' : 'Редактировать'?></div>
 
                     <?=$form->errorSummary(CMap::mergeArray($recipe->ingredients, array($recipe)))?>
 
@@ -47,7 +47,7 @@
 
                             <table>
                                 <?php foreach ($ingredients as $k => $i): ?>
-                                    <?php $this->renderPartial('_ingredient', array('n' => $k, 'form' => $form, 'model' => $i, 'units' => $units)); ?>
+                                    <?php $this->renderPartial('_ingredient', array('n' => $k, 'form' => $form, 'model' => $i, 'units' => ($recipe->isNewRecord) ? $units : $i->ingredient->availableUnits)); ?>
                                 <?php endforeach; ?>
 
                             </table>
@@ -212,7 +212,7 @@
 
                     <button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
                     <button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>
-                    <button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
+                    <button class="btn btn-green-medium"><span><span><?=$recipe->isNewRecord ? 'Добавить' : 'Редактировать'?></span></span></button>
 
                 </div>
 
@@ -233,64 +233,6 @@
     </div>
 
 </div>
-
-<?php if (false): ?>
-    <?=CHtml::errorSummary(array($recipe) + $ingredients)?>
-
-    <?php $form = $this->beginWidget('CActiveForm', array('id' => 'addRecipeForm')); ?>
-
-        <div>
-            <p><?php echo $form->labelEx($recipe, 'title'); ?></p>
-            <p><?php echo $form->textField($recipe, 'title'); ?></p>
-        </div>
-
-        <div>
-            <p><?php echo $form->labelEx($recipe, 'ingredients'); ?></p>
-            <?php foreach ($ingredients as $k => $i): ?>
-                <?php $this->renderPartial('_ingredient', array('n' => $k, 'form' => $form, 'model' => $i, 'units' => $units)); ?>
-            <?php endforeach; ?>
-        </div>
-
-        <div>
-            <p><?php echo $form->labelEx($recipe, 'preparation_duration'); ?></p>
-            <p><?php echo $form->textField($recipe, 'preparation_duration_h', array('size' => 2)); ?>:<?php echo $form->textField($recipe, 'preparation_duration_m', array('size' => 2)); ?></p>
-        </div>
-
-        <div>
-            <p><?php echo $form->labelEx($recipe, 'cooking_duration'); ?></p>
-            <p><?php echo $form->textField($recipe, 'cooking_duration_h', array('size' => 2)); ?>:<?php echo $form->textField($recipe, 'cooking_duration_m', array('size' => 2)); ?></p>
-        </div>
-
-        <div>
-            <p><?php echo $form->labelEx($recipe, 'cuisine_id'); ?></p>
-            <p><?php echo $form->dropDownList($recipe, 'cuisine_id', CHtml::listData($cuisines, 'id', 'title'), array('prompt' => '---')); ?></p>
-        </div>
-
-        <div>
-            <p><?php echo $form->labelEx($recipe, 'type'); ?></p>
-            <p><?php echo $form->dropDownList($recipe, 'type', $recipe->types, array('prompt' => '')); ?></p>
-        </div>
-
-        <div>
-            <p><?php echo $form->labelEx($recipe, 'method'); ?></p>
-            <p><?php echo $form->dropDownList($recipe, 'method', $recipe->methods, array('prompt' => '')); ?></p>
-        </div>
-
-        <div>
-            <p><?php echo $form->labelEx($recipe, 'servings'); ?></p>
-            <p><?php echo $form->textField($recipe, 'servings'); ?></p>
-        </div>
-
-        <div>
-            <p><?php echo $form->labelEx($recipe, 'text'); ?></p>
-            <p><?php echo $form->textArea($recipe, 'text'); ?></p>
-        </div>
-
-        <?=CHtml::submitButton('Сохранить')?>
-
-    <?php $this->endWidget(); ?>
-
-<?php endif; ?>
 
 <script id="unitTmpl" type="text/x-jquery-tmpl">
     <li><a href="javascript:void(0)">${title}</a><?=CHtml::hiddenField('unit_id', '${id}')?></li>

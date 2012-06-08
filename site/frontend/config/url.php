@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'class' => 'HUrlManager',
     'urlFormat'=>'path',
     'showScriptName' => false,
     'urlSuffix' => '/',

@@ -208,9 +208,9 @@
 
 </div>
 
+<?php if (Yii::app()->user->checkAccess('admin')): ?>
 <div id="admin-menu">
     <?php
-    if (Yii::app()->user->checkAccess('admin'))
         $this->widget('zii.widgets.CMenu', array(
             'items' => array(
                 array(
@@ -233,6 +233,7 @@
             )));
     ?>
 </div>
+<?php endif; ?>
 
 </body>
 </html>

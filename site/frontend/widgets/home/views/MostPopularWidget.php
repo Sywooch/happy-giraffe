@@ -1,6 +1,6 @@
 <div class="box homepage-most">
 
-    <div class="title"><span>Самое-самое</span> интересное</div>
+    <div class="title">Самое-самое <span>интересное</span></div>
 
     <ul>
         <?php foreach ($models as $model): ?>

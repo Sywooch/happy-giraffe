@@ -1,6 +1,6 @@
 <div class="box homepage-services">
 
-    <div class="title"><span>Сервисы</span> попробуй!</div>
+    <div class="title">Сервисы <span>попробуй!</span></div>
 
     <div class="clearfix">
 

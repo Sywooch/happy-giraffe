@@ -47,7 +47,7 @@
 
                     <div class="box homepage-articles">
 
-                        <div class="title">Интерьер и дизайн <span>- сделаем все красиво!</span></div>
+                        <div class="title">Интерьер <span>и дизайн</span> <i>- сделаем все красиво!</i></div>
 
                         <?php $this->widget('CommunityArticlesWidget', array(
                             'community_id' => 26,
@@ -59,7 +59,7 @@
 
                     <div class="box homepage-articles homepage-recipes">
 
-                        <div class="title">Кулинарные рецепты <span>- <b>3000</b> рецептов</span></div>
+                        <div class="title">Кулинарные <span>рецепты</span> <i>- <b>1000</b> рецептов</i></div>
 
                         <?php $this->widget('CommunityArticlesWidget', array(
                             'community_id' => 22,

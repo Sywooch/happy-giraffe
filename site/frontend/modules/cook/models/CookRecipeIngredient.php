@@ -124,4 +124,11 @@ class CookRecipeIngredient extends CActiveRecord
             return $model;
         }
     }
+
+    protected function afterFind()
+    {
+        parent::afterFind();
+
+        $this->title = $this->ingredient->title;
+    }
 }

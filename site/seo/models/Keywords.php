@@ -331,10 +331,11 @@ class Keywords extends HActiveRecord
     public function getSimilarArticles()
     {
         Yii::import('site.frontend.extensions.*');
+        $this->name = str_replace('/', '', $this->name);
         $allSearch = Yii::app()->search
             ->select('*')
             ->from('communityTextTitle')
-            ->where(' ' . $this->name . ' ')
+            ->where(' ' . CHtml::encode($this->name) . ' ')
             ->limit(0, 5)
             ->searchRaw();
         if (empty($allSearch['matches']))

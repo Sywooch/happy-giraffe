@@ -353,7 +353,7 @@ class ParseController extends SController
         $year = 2011;
         $site = $this->loadModel($site_id);
 
-        $cookie = 'suid=0HL0At2P9XWy; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
+        $cookie = 'suid=0IwZPl0hY8W_; per_page=100; total=yes; adv-uid=d2ea12.d2608c.b9b2c0';
         $url = 'http://www.liveinternet.ru/stat/'.$site->url.'/queries.html?date=2011-12-31;period=month;';
         for ($month = 12; $month > 0; $month--) {
             $last_url = $url;
@@ -401,7 +401,7 @@ class ParseController extends SController
                 $res = array_merge($res, $this->GetStat($document, $month, $year, $site_id));
 
                 flush();
-                sleep(rand(1, 2));
+                sleep(rand(3, 5));
             }
         }
     }

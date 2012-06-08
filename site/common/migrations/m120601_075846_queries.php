@@ -4,7 +4,8 @@ class m120601_075846_queries extends CDbMigration
 {
 	public function up()
 	{
-        $db_name = end(explode("=", Yii::app()->db->connectionString));
+        $connect = explode("=", Yii::app()->db->connectionString);
+        $db_name = end($connect);
         $sql = <<<EOD
 USE happy_giraffe_seo;
 

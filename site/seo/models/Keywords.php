@@ -9,7 +9,7 @@
  *
  * The followings are the available model relations:
  * @property KeyStats[] $seoStats
- * @property KeywordGroup[] $keywordGroups
+ * @property KeywordGroup[] $group
  * @property PastuhovYandexPopularity $pastuhovYandex
  * @property KeywordBlacklist $keywordBlacklist
  * @property RamblerPopularity $ramblerPopularity
@@ -65,7 +65,7 @@ class Keywords extends HActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'seoStats' => array(self::HAS_MANY, 'KeyStats', 'keyword_id'),
-            'keywordGroups' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
+            'group' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'pastuhovYandex' => array(self::HAS_ONE, 'PastuhovYandexPopularity', 'keyword_id'),
             'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'ramblerPopularity' => array(self::HAS_ONE, 'RamblerPopularity', 'keyword_id'),
@@ -110,7 +110,7 @@ class Keywords extends HActiveRecord
             else
                 $criteria->compare('t.id', null);
         }
-        $criteria->with = array('keywordGroups', 'pastuhovYandex', 'tempKeyword');
+        $criteria->with = array('group', 'pastuhovYandex', 'tempKeyword');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -141,7 +141,7 @@ class Keywords extends HActiveRecord
 
     public function hasOpenedTask()
     {
-        foreach ($this->keywordGroups as $group) {
+        foreach ($this->group as $group) {
             if (!empty($group->articleKeywords))
                 return false;
 
@@ -154,7 +154,7 @@ class Keywords extends HActiveRecord
 
     public function used()
     {
-        foreach ($this->keywordGroups as $group) {
+        foreach ($this->group as $group) {
             if (!empty($group->articleKeywords))
                 return true;
         }
@@ -209,15 +209,33 @@ class Keywords extends HActiveRecord
 
     public function getFreq()
     {
-        if (!isset($this->pastuhovYandex))
+        if (!isset($this->yandex))
             return 0;
-        if ($this->pastuhovYandex->value > 10000)
+        if ($this->yandex->value > 10000)
             return 1;
-        if ($this->pastuhovYandex->value >= 1500)
+        if ($this->yandex->value >= 1500)
             return 2;
-        if ($this->pastuhovYandex->value >= 500)
+        if ($this->yandex->value >= 500)
             return 3;
         return 4;
+    }
+
+    /**
+     * @param int $freq
+     * @return string
+     */
+    public static function getFreqCondition($freq)
+    {
+        if ($freq == 1)
+            return 'yandex.value > 10000';
+        if ($freq == 2)
+            return 'yandex.value <= 10000 AND yandex.value > 1500';
+        if ($freq == 3)
+            return 'yandex.value <= 1500 AND yandex.value > 500';
+        if ($freq == 4)
+            return 'yandex.value < 500';
+
+        return '';
     }
 
     /*public static function findByNameWithSphinx($name)
@@ -260,7 +278,7 @@ class Keywords extends HActiveRecord
         if (!empty($ids)) {
             $criteria = new CDbCriteria;
             $criteria->compare('t.id', $ids);
-            $criteria->with = array('keywordGroups', 'keywordGroups.newTaskCount', 'keywordGroups.articleKeywords', 'seoStats', 'pastuhovYandex', 'ramblerPopularity');
+            $criteria->with = array('group', 'group.newTaskCount', 'group.articleKeywords', 'seoStats', 'pastuhovYandex', 'ramblerPopularity');
             $criteria->order = 'pastuhovYandex.value desc';
             $models = Keywords::model()->findAll($criteria);
         } else

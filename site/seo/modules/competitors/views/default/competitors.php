@@ -34,7 +34,8 @@
     'columns' => array(
         array(
             'name' => 'key_name',
-            'value' => '$data->keyword->name',
+            'type'=>'raw',
+            'value' => '$data->getKeywordAndSimilarArticles()',
             'headerHtmlOptions' => array('class' => 'col-1'),
             'htmlOptions' => array('class' => 'col-1')
         ),
@@ -156,7 +157,10 @@
             submitForm();
         },
         sortByFreq:function(){
-            $('#KeyStats_sort').val('popular');
+            if ($('#KeyStats_sort').val() == '')
+                $('#KeyStats_sort').val('popular');
+            else
+                $('#KeyStats_sort').val('');
             submitForm();
         },
         updateTable:function(){

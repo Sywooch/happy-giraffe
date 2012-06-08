@@ -154,7 +154,6 @@ class Comment extends HActiveRecord
 
     public function afterSave()
     {
-        return parent::afterSave();
         if ($this->isNewRecord) {
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);

@@ -1,6 +1,6 @@
 <div class="box homepage-clubs">
 
-    <div class="title"><span>Клубы</span> для общения</div>
+    <div class="title">Клубы <span>для общения</span></div>
 
     <ul>
 

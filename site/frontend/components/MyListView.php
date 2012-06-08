@@ -3,6 +3,7 @@ Yii::import('zii.widgets.CListView');
 class MyListView extends CListView
 {
     public $ajaxState = true;
+    public $popUp;
 
     public function init()
     {

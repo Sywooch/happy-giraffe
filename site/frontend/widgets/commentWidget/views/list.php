@@ -44,7 +44,7 @@ $this->widget('HCommentListView', array(
     'itemView' => '_comment',
     'itemsTagName' => 'ul',
     'summaryText' => 'показано: {start} - {end} из {count}',
-    'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast');",
+    'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast')",
     'pager' => array(
         'class' => 'MyLinkPager',
         'header' => '',
@@ -54,5 +54,6 @@ $this->widget('HCommentListView', array(
     'viewData' => array(
         'currentPage' => $dataProvider->pagination->currentPage,
     ),
+    'popUp' => $this->popUp,
 ));
 ?>

@@ -1,6 +1,6 @@
 <div class="box homepage-blogs">
 
-    <div class="title"><span>Блоги</span> мам и пап</div>
+    <div class="title">Блоги <span>мам и пап</span></div>
 
     <ul>
         <?php foreach ($contents as $c): ?>

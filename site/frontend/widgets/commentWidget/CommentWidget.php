@@ -31,6 +31,7 @@ class CommentWidget extends CWidget
     public $type = 'default';
     public $readOnly = false;
     public $registerScripts = false;
+    public $popUp = false;
 
     protected $_commentModel;
 

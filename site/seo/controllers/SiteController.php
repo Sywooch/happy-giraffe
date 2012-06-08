@@ -22,28 +22,28 @@ class SiteController extends SController
 	public function actionIndex()
 	{
         if (Yii::app()->user->checkAccess('moderator'))
-            $this->redirect($this->createUrl('task/moderator'));
+            $this->redirect($this->createUrl('writing/task/moderator'));
 
         if (Yii::app()->user->checkAccess('admin'))
             $this->redirect($this->createUrl('user/'));
 
         if (Yii::app()->user->checkAccess('author'))
-            $this->redirect($this->createUrl('task/author'));
+            $this->redirect($this->createUrl('writing/task/author'));
 
         if (Yii::app()->user->checkAccess('editor'))
-            $this->redirect($this->createUrl('editor/reports'));
+            $this->redirect($this->createUrl('writing/editor/reports'));
 
         if (Yii::app()->user->checkAccess('content-manager'))
-            $this->redirect($this->createUrl('task/ContentManager'));
+            $this->redirect($this->createUrl('writing/task/ContentManager'));
 
         if (Yii::app()->user->checkAccess('articles-input'))
-            $this->redirect($this->createUrl('existArticles/index'));
+            $this->redirect($this->createUrl('writing/existArticles/index'));
 
         if (Yii::app()->user->checkAccess('corrector'))
-            $this->redirect($this->createUrl('task/corrector'));
+            $this->redirect($this->createUrl('writing/task/corrector'));
 
         if (Yii::app()->user->checkAccess('superuser'))
-            $this->redirect($this->createUrl('editor/index'));
+            $this->redirect($this->createUrl('writing/editor/index'));
 	}
 
     /**

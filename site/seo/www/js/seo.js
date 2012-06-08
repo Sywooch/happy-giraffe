@@ -6,13 +6,13 @@
 var SeoModule = {
     GetArticleInfo:function () {
         var url = $('input.article-url').val();
-        $.post('/task/getArticleInfo/', {url:url}, function (response) {
+        $.post('/writing/task/getArticleInfo/', {url:url}, function (response) {
             $('.info').html(response.title + '<br>' + response.keywords);
             SeoModule.id = response.id;
         }, 'json');
     },
     SaveArticleKeys:function () {
-        $.post('/existArticles/SaveArticleKeys/', {
+        $.post('/writing/existArticles/SaveArticleKeys/', {
             url:$('input.article-url').val(),
             keywords:$('#ArticleKeywords_keywords').val()
         }, function (response) {
@@ -27,6 +27,17 @@ var SeoModule = {
                     pnotify_title:'Ошибка',
                     pnotify_type:'error',
                     pnotify_text:response.error
+                });
+            }
+        }, 'json');
+    },
+    removeArticle:function(el, id){
+        $.post('/writing/existArticles/remove/', {id:id}, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text: 'статья удалена'
                 });
             }
         }, 'json');
@@ -96,17 +107,6 @@ var SeoModule = {
                 $.pnotify({
                     pnotify_title:'Успешно',
                     pnotify_text:'Параметр установлен'
-                });
-            }
-        }, 'json');
-    },
-    removeArticle:function(el, id){
-        $.post('/existArticles/remove/', {id:id}, function (response) {
-            if (response.status) {
-                $(el).parents('tr').remove();
-                $.pnotify({
-                    pnotify_title:'Успешно',
-                    pnotify_text: 'статья удалена'
                 });
             }
         }, 'json');

@@ -28,7 +28,7 @@ class FileAttachWidget extends CWidget
             echo CHtml::openTag('a', array(
                 'href' => Yii::app()->createUrl('/albums/attach', array('entity' => $this->entity, 'entity_id' => $this->entity_id)),
                 'class' => 'fancy attach',
-                'onclick'=>'Attach.updateEntity(\''.$this->entity.'\', \''.$this->entity_id.'\');',
+                'onclick'=>$this->id . '.updateEntity(\''.$this->entity.'\', \''.$this->entity_id.'\');',
             ));
             $this->registerScripts();
         }
@@ -64,7 +64,7 @@ class FileAttachWidget extends CWidget
             $this->title = 'Отправить фото в гостевую';
             $this->button_title = 'Продолжить';
         }
-        elseif($this->entity == 'CommunityPost' || $this->entity == 'CommunityVideo' || $this->entity = "Comment")
+        elseif($this->entity == 'CommunityPost' || $this->entity == 'CommunityVideo' || $this->entity == "Comment")
         {
             $this->title = 'Вставить изображение';
             $this->button_title = 'Продолжить';

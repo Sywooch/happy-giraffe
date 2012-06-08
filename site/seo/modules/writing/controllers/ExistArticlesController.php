@@ -70,7 +70,7 @@ class ExistArticlesController extends SController
                     $keyword = mb_strtolower($keyword, 'utf8');
                     if (!empty($keyword)) {
                         $model = Keywords::GetKeyword($keyword);
-                        if (!empty($model->keywordGroups)) {
+                        if (!empty($model->group)) {
                             $response = array(
                                 'status' => false,
                                 'error' => "Кейворд <b>{$keyword}</b> уже используется.",

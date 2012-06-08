@@ -172,8 +172,9 @@ class KeyStats extends HActiveRecord
     {
         $criteria = new CDbCriteria;
 
-        if (Yii::app()->user->getState('hide_used') == 1)
-            $criteria->condition = 'group.id IS NULL';
+        if (Yii::app()->user->getState('hide_used') == 1){
+            $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = '.Yii::app()->user->id.') OR tempKeyword.keyword_id IS NULL)';
+        }
 
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('year', $this->year);
@@ -195,5 +196,21 @@ class KeyStats extends HActiveRecord
     public function getButtons()
     {
         return $this->keyword->getButtons(true);
+    }
+
+    public function getKeywordAndSimilarArticles()
+    {
+        $res = $this->keyword->name;
+
+	    $models = $this->keyword->getSimilarArticles();
+        if (!empty($models)){
+            $res.= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).next().toggle().toggleClass(\'triggered\')"></a><div class="links" style="display:none;">';
+            foreach($models as $model)
+                $res.= CHtml::link($model->title, 'http://www.happy-giraffe.ru'.$model->url).'<br>';
+//                $res.= $model->title.'<br>';
+                $res.= '</div>';
+        }
+
+        return $res;
     }
 }

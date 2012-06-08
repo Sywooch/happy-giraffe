@@ -77,7 +77,4 @@ $model = new ArticleKeywords();
     span.count{
         margin-left: 0 !important;
     }
-    .errorMessage {
-        color: #db0033;
-    }
 </style>

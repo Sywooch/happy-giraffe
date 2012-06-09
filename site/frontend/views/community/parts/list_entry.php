@@ -1,7 +1,7 @@
 <div class="entry">
 
 	<div class="entry-header">
-		<?php echo CHtml::link($c->title, CController::createUrl('community/view', array('community_id' => $c->rubric->community->id, 'content_type_slug' => $c->type->slug, 'content_id' => $c->id)), array('class' => 'entry-title')); ?>
+		<?php echo CHtml::link(CHtml::encode($c->title), CController::createUrl('community/view', array('community_id' => $c->rubric->community->id, 'content_type_slug' => $c->type->slug, 'content_id' => $c->id)), array('class' => 'entry-title')); ?>
 		<?php if (! $c->by_happy_giraffe): ?>
 			<div class="user">
 				<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $c->contentAuthor)); ?>

@@ -42,7 +42,7 @@
         'columns' => array(
             array(
                 'header' => 'Статья',
-                'value' => '$data->edited ? CHtml::link("<s>" . $data->title . "</s>", $data->url, array("target" => "_blank")) : CHtml::link($data->title, $data->url, array("target" => "_blank"))',
+                'value' => '$data->edited ? CHtml::link("<s>" . CHtml::encode($data->title) . "</s>", $data->url, array("target" => "_blank")) : CHtml::link(CHtml::encode($data->title), $data->url, array("target" => "_blank"))',
                 'type' => 'raw',
             ),
             array(

@@ -3,7 +3,7 @@
     <div class="input">
         <label>Введите слово или фразу</label>
         <input name="keyword" id="keyword" type="text">
-        <button class="btn btn-green-small" onclick="SeoKeywords.searchKeywords($(this).prev().val());return false;">
+        <button class="btn btn-green-small" onclick="SeoKeywords.term = $(this).prev().val();SeoKeywords.searchKeywords();return false;">
             <span><span>Поиск</span></span></button>
     </div>
 
@@ -50,11 +50,27 @@
         </table>
     </div>
 </div>
+<div class="pagination pagination-center clearfix">
+
+</div>
 <script type="text/javascript">
     $(function() {
         $('#keyword').keypress(function(e){
-            if(e.which == 13)
-                SeoKeywords.searchKeywords($(this).val());
+            if(e.which == 13){
+                SeoKeywords.term = $(this).val();
+                SeoKeywords.searchKeywords();
+            }
+        });
+
+        $('body').delegate('.yiiPager li.page a', 'click', function(e){
+            var myRe = /.\/(\d+)\//ig;
+
+            var page = myRe.exec($(this).attr('href'));
+            page = page[1];
+            SeoKeywords.page = page - 1;
+            SeoKeywords.searchKeywords();
+
+            return false;
         });
     });
 </script>

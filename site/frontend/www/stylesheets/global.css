@@ -849,7 +849,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
     display: block;
     background: #fff;
     padding-top: 25px;
-    width: 225px;
+    width: 240px;
     min-height: 100%;
     float: left;
 }
@@ -882,6 +882,81 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .left-inner li a.current {
     background: #ffea90;
+}
+
+.left-inner .add {
+    display: block;
+    width: 100%;
+    margin: 0px 0 10px;
+}
+
+.left-inner .add  li a {
+    color: #0281b0;
+}
+
+.left-inner .themes {
+    background: #EEDFFD;
+    display: block;
+    width: 100%;
+    font-weight: bolder;
+    margin: 15px 0 20px;
+}
+
+.left-inner .themes .theme-pic {
+    background: url(../images/rubrik.png) no-repeat;
+    color: #fff;
+    text-transform: uppercase;
+    height: 66px;
+    padding: 15px 0 0;
+    text-align: center;
+    font: bold 18px Arial, Helvetica, sans-serif;
+}
+
+.left-inner .themes .theme-pic_double {
+    background: url(../images/rubrik.png) no-repeat;
+    color: #fff;
+    text-transform: uppercase;
+    height: 71px;
+    padding: 10px 0 0 0;
+    text-align: center;
+    font: bold 15px Arial, Helvetica, sans-serif;
+}
+
+.left-inner  .themes ul {
+    padding: 12px 20px 32px 20px;
+}
+
+.left-inner  .themes  li {
+    padding: 7px 0;
+}
+
+.left-inner  .themes  li a {
+    font: bold 14px Arial, Helvetica, sans-serif;
+    color: #885EB2;
+    text-decoration: underline;
+}
+
+.left-inner .leftbanner a {
+    display: block;
+    margin: 20px 0;
+}
+
+.right-inner {
+    display: block;
+    background: #FFFFFF;
+    padding: 25px 0 0 15px;
+    margin: 0;
+    width: 700px;
+    float: left;
+}
+
+.right-inner.mirror {
+    display: block;
+    background: #FFFFFF;
+    padding: 25px 0 0 5px;
+    margin: 0;
+    width: 630px;
+    float: left;
 }
 
 

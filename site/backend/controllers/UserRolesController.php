@@ -3,7 +3,7 @@
 class UserRolesController extends BController
 {
     public $layout = 'shop';
-	public $defaultAction='admin';
+    public $defaultAction = 'admin';
 
     public function beforeAction($action)
     {
@@ -12,25 +12,24 @@ class UserRolesController extends BController
         return true;
     }
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
+    /**
+     * Updates a particular model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id the ID of the model to be updated
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->loadModel($id);
 
-		if(isset($_POST['User']))
-		{
+        if (isset($_POST['User'])) {
             //clear all
             $assignments = Yii::app()->authManager->getAuthAssignments($model->id);
-            foreach($assignments as $assignment)
+            foreach ($assignments as $assignment)
                 Yii::app()->authManager->revoke($assignment->itemName, $model->id);
 
             //assign role
             if (isset($_POST['User']['role']) && !empty($_POST['User']['role']))
-                    Yii::app()->authManager->assign($_POST['User']['role'], $model->id);
+                Yii::app()->authManager->assign($_POST['User']['role'], $model->id);
 
             //assign operations
             if (isset($_POST['Operation']))
@@ -38,59 +37,89 @@ class UserRolesController extends BController
                     if ($value == 1) {
                         if (isset($_POST['community_id'])
                             && !empty($_POST['community_id'])
-                            && ($key =='editCommunityContent' || $key =='removeCommunityContent'))
+                            && ($key == 'editCommunityContent' || $key == 'removeCommunityContent')
+                        )
                             Yii::app()->authManager->assign($key, $model->id,
-                                'return $params["community_id"] == '.$_POST['community_id'].';');
+                                'return $params["community_id"] == ' . $_POST['community_id'] . ';');
                         else
                             Yii::app()->authManager->assign($key, $model->id);
                     }
                 }
             $this->redirect('/userRoles/admin');
-		}
+        }
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
+        $this->render('update', array(
+            'model' => $model,
+        ));
+    }
 
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new User('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['User']))
-			$model->attributes=$_GET['User'];
+    /**
+     * Manages all models.
+     */
+    public function actionAdmin()
+    {
+        $model = new User('search');
+        $model->unsetAttributes(); // clear any default values
+        if (isset($_GET['User']))
+            $model->attributes = $_GET['User'];
 
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
+        $this->render('admin', array(
+            'model' => $model,
+        ));
+    }
 
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadModel($id)
-	{
-		$model=User::model()->findByPk((int)$id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
+    /**
+     * @param $id
+     * @return User
+     * @throws CHttpException
+     */
+    public function loadModel($id)
+    {
+        $model = User::model()->findByPk((int)$id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
 
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='user-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
+    /**
+     * Performs the AJAX validation.
+     * @param CModel the model to be validated
+     */
+    protected function performAjaxValidation($model)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-form') {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
+
+    public function actionChangePassword()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $model = $this->loadModel($id);
+
+        $password = $this->createPassword(12);
+        $model->password = $model->hashPassword($password);
+
+        if ($model->save()) {
+            $response = array(
+                'status' => true,
+                'result' => $password
+            );
+        } else
+            $response = array('status' => false);
+
+        echo CJSON::encode($response);
+    }
+
+    function createPassword($length) {
+        $chars = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $i = 0;
+        $password = "";
+        while ($i <= $length) {
+            $password .= $chars{mt_rand(0,strlen($chars) - 1)};
+            $i++;
+        }
+        return $password;
+    }
 }

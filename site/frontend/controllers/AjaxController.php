@@ -337,14 +337,6 @@ class AjaxController extends HController
         }
     }
 
-    public function actionSave()
-    {
-        print_r($_POST);
-        $user = User::model()->findByPk(Yii::app()->user->id);
-        $user->setAttributes($_POST['User']);
-        $user->save(TRUE, array('first_name', 'last_name', 'birthday'));
-    }
-
     public function actionSaveChild()
     {
         //sleep(2);

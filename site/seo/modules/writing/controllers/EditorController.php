@@ -39,8 +39,10 @@ class EditorController extends SController
             $pages->applyLimit($dataProvider->criteria);
 
 
-            $models = Keywords::model()->findAll($criteria);
             $counts = Keywords::model()->getFreqCount($criteria);
+            $criteria2 = clone $criteria;
+            $criteria2->with = array('yandex', 'pastuhovYandex', 'seoStats', 'group', 'tempKeyword');
+            $models = Keywords::model()->findAll($criteria2);
             $response = array(
                 'status' => true,
                 'count' => $this->renderPartial('_find_result_count',  compact('models', 'counts'), true),

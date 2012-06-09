@@ -234,6 +234,10 @@
                     'label' => 'Парсинг Вордстата',
                     'url' => array('/wordstat/index'),
                 ),
+                array(
+                    'label' => 'Готовые статьи',
+                    'url' => array('/writing/articleKeywords/admin/'),
+                ),
             )));
     ?>
 </div>

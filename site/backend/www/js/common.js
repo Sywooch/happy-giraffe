@@ -1,46 +1,45 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $('a.fancy').fancybox({
-        overlayColor: '#000',
-        overlayOpacity: '0.6',
+        overlayColor:'#000',
+        overlayOpacity:'0.6',
         padding:0,
         showCloseButton:false,
-        scrolling: false
+        scrolling:false
     });
 
     $('table.common_sett a, .add_main_ct, .add_paket, .addValue, .content a').tooltip({
-        track: true,
-        delay: 0,
-        showURL: false,
-        fade: 200
+        track:true,
+        delay:0,
+        showURL:false,
+        fade:200
     });
 
     jQuery(".niceCheck").each(
         /* при загрузке страницы меняем обычные на стильные checkbox */
-        function() {
+        function () {
             changeCheckStart(jQuery(this));
         });
 
-    $('.small_foto div').click(function(){
+    $('.small_foto div').click(function () {
         var Input = basename($(this).children('img').attr('src'));
-        $('.big_foto').find('a').attr({ href: '/upload/catalog/product/'+Input});
-        $('.big_foto').find('img').attr({ src: '/upload/catalog/product/thumb/'+Input});
+        $('.big_foto').find('a').attr({ href:'/upload/catalog/product/' + Input});
+        $('.big_foto').find('img').attr({ src:'/upload/catalog/product/thumb/' + Input});
         return false;
     });
 
-    function basename( path )
-    {
-      parts = path.split( '/' );
-      return parts[parts.length-1];
+    function basename(path) {
+        parts = path.split('/');
+        return parts[parts.length - 1];
     }
 
 });
 
-function RefreshTooltip(elem){
+function RefreshTooltip(elem) {
     elem.tooltip({
-        track: true,
-        delay: 0,
-        showURL: false,
-        fade: 200
+        track:true,
+        delay:0,
+        showURL:false,
+        fade:200
     });
 }
 
@@ -118,20 +117,20 @@ function changeCheckStart(el)
         }
 
         /* цепляем обработчики стилизированным checkbox */
-        el.next().bind("mousedown", function(e) {
+        el.next().bind("mousedown", function (e) {
             changeCheck(jQuery(this))
         });
-        el.next().find("input").eq(0).bind("change", function(e) {
+        el.next().find("input").eq(0).bind("change", function (e) {
             changeVisualCheck(jQuery(this))
         });
         if (jQuery.browser.msie) {
-            el.next().find("input").eq(0).bind("click", function(e) {
+            el.next().find("input").eq(0).bind("click", function (e) {
                 changeVisualCheck(jQuery(this))
             });
         }
         el.remove();
     }
-    catch(e) {
+    catch (e) {
         // если ошибка, ничего не делаем
     }
 
@@ -140,20 +139,27 @@ function changeCheckStart(el)
 
 /*    ConfirmPopup      */
 var confirm_popup = null;
-$('html').delegate('#confirm_popup .popup_question input.agree', 'click', function(){
+$('html').delegate('#confirm_popup .popup_question input.agree', 'click', function () {
     $.fancybox.close();
     confirm_popup.callback(confirm_popup.sender);
 });
 
-$('html').delegate('#confirm_popup .popup_question input.disagree', 'click', function(){
+$('html').delegate('#confirm_popup .popup_question input.disagree', 'click', function () {
     $.fancybox.close();
 });
 
-function ConfirmPopup(text, sender, callback)
-{
+function ConfirmPopup(text, sender, callback) {
     $('#confirm_popup .popup_question span').text(text);
     $('#confirm_popup_link').trigger('click');
     this.callback = callback;
     this.sender = sender;
     confirm_popup = this;
+}
+
+function ChangeUserPassword(el, id) {
+    $.post('/userRoles/changePassword', {id:id}, function (response) {
+        if (response.status) {
+            $(el).next().html(response.result);
+        }
+    }, 'json');
 }

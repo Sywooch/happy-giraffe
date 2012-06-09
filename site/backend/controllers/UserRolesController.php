@@ -104,7 +104,7 @@ class UserRolesController extends BController
         if ($model->save()) {
             $response = array(
                 'status' => true,
-                'result' => $password
+                'result' => $model->id.' - '.$model->getFullName().'. Новый пароль: '.$password
             );
         } else
             $response = array('status' => false);

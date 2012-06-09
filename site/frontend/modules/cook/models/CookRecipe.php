@@ -215,4 +215,20 @@ class CookRecipe extends CActiveRecord
 
         return parent::beforeSave();
     }
+
+    public function getNutritionals()
+    {
+        $ingredients = array();
+        foreach ($this->ingredients as $ingredient) {
+            $ingredients[] = array(
+                'ingredient_id' => $ingredient->ingredient_id,
+                'unit_id' => $ingredient->unit_id,
+                'value' => $ingredient->value
+            );
+        }
+        $converter = new CookConverter();
+        $result = $converter->calculateNutritionals($ingredients);
+
+        return $result;
+    }
 }

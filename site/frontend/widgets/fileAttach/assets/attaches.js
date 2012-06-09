@@ -1,9 +1,12 @@
+var currentAttach;
+
 function Attach() {
     this.entity = null,
         this.entity_id = null,
         this.base_url = null, /* TODO не уверен, что где-то используется. Проверить. */
         this.params = new Array(),
         this.object_name = null;
+    currentAttach = this;
 }
 
 Attach.prototype.changeView = function(link) {
@@ -41,7 +44,7 @@ Attach.prototype.selectPhoto = function(button, id) {
     } else if (this.entity == "Product") {
         this.saveProductPhoto(id);
     } else if (this.entity == "CookDecoration") {
-        this.CookDecorationEdit('album', id);
+        this.CookDecorationEdit(id);
     } else {
         $.fancybox.close();
     }
@@ -66,7 +69,7 @@ Attach.prototype.selectBrowsePhoto = function(button) {
     } else if(this.entity == 'Humor') {
         this.insertToHumor(fsn);
     }else if(this.entity == 'CookDecoration') {
-        this.CookDecorationEdit('browse', 0);
+        this.CookDecorationEdit(fsn);
     } else if(this.entity == 'CookRecipe') {
         this.insertToRecipe(fsn);
     } else {
@@ -126,9 +129,9 @@ Attach.prototype.insertToCookDecoration = function(id) {
     $.post(
         '/albums/cookDecorationPhoto/',
         {
-            val:$('#upload_photo_container').children('input').val(),
-            title:$('#attach_content .photo-category input[name="title"]').val(),
-            category:$('.photo-category select[name="category"]').val(),
+            //val:$('#upload_photo_container').children('input').val(),
+            title:$('#attach_content input[name="title"]').val(),
+            category:$('#attach_content select[name="category"]').val(),
             id:id
         },
         function(data) {
@@ -138,20 +141,11 @@ Attach.prototype.insertToCookDecoration = function(id) {
         });
 }
 
-Attach.prototype.CookDecorationEdit = function (type, id) {
-
-    if (type == 'album') {
-        $('#attach_content').append('<div style="" id="save_attach_button" class="form-bottom"><button onclick="' + this.object_name + '.insertToCookDecoration();" class="btn btn-green-medium"><span><span>Завершить</span></span></button></div>');
-        $('#gallery .gallery-photos').hide();
-    }
-
-    $.post(base_url + '/albums/cookDecorationCategory/', {id:id, widget_id : this.object_name}, function (data) {
-        $('#attach_content>*').hide();
-        $('#attach_content').append(data);
-        $('#save_attach_button button span span').text('Завершить')
-        $('#save_attach_button button').attr('onclick', this.object_name + '.insertToCookDecoration('+id+');');
+Attach.prototype.CookDecorationEdit = function (fsn) {
+    $.post(base_url + '/albums/cookDecorationCategory/', {val:fsn, widget_id:this.object_name}, function (data) {
+        $('#attach_content').html(data);
         $(".chzn").chosen();
-    });
+    })
 }
 
 Attach.prototype.saveCommentPhoto = function (val) {
@@ -231,6 +225,8 @@ function initAttachForm() {
             $('#upload_photo_container').html(html);
             $('#attach_form').hide();
             $('#save_attach_button').show();
+
+            currentAttach.CookDecorationEdit(params[1]);
         }
     });
 }

@@ -143,7 +143,11 @@ Attach.prototype.insertToCookDecoration = function(id) {
 
 Attach.prototype.CookDecorationEdit = function (fsn) {
     $.post(base_url + '/albums/cookDecorationCategory/', {val:fsn, widget_id:this.object_name}, function (data) {
-        $('#attach_content').html(data);
+        $('#attach_content').html(data.html);
+        if(data.title){
+            $('#file_attach_menu li').removeClass('active');
+            $('#file_attach_menu').append('<li class="active"><a href="#" onclick="return false">'+data.title+'</a></li>');
+        }
         $(".chzn").chosen();
     })
 }

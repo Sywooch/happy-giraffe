@@ -391,17 +391,22 @@ class AlbumsController extends HController
             $p = AlbumPhoto::model()->findByPk($val);
             $photo = $p->getPreviewUrl(100, 100, Image::NONE);
             $title = $p->title;
+            $data['title'] = mb_substr($p->title, 0, 20);
         } else {
             $photo = Yii::app()->params['photos_url'].'/temp/'.$val;
             $title = '';
         }
 
-        $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decoration', array(
+        $data['html'] = $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decoration', array(
             'title'=>$title,
             'widget_id' => Yii::app()->request->getPost('widget_id'),
             'photo' => $photo,
             'val' => $val
-        ));
+        ), true);
+
+        header('Content-type: application/json');
+        echo CJSON::encode($data);
+
         Yii::app()->end();
     }
 

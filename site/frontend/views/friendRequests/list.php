@@ -7,11 +7,11 @@
             ),
             array(
                 'name' => 'from_id',
-                'value' => '$data->from->first_name . " " . $data->from->last_name',
+                'value' => 'CHtml::encode($data->from->first_name) . " " . CHtml::encode($data->from->last_name)',
             ),
             array(
                 'name' => 'to_id',
-                'value' => '$data->to->first_name . " " . $data->to->last_name',
+                'value' => 'CHtml::encode($data->to->first_name) . " " . CHtml::encode($data->to->last_name)',
             ),
             'text',
             array(

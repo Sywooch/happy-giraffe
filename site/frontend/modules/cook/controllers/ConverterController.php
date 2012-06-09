@@ -23,8 +23,26 @@ class ConverterController extends HController
     public function actionAc($term)
     {
         $ingredients = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')
-            ->where('title LIKE :term', array(':term' => '%' . $term . '%'))
+            ->where('title LIKE :term', array(':term' => $term . '%'))->order('title')
             ->limit(20)->queryAll();
+        if (count($ingredients) < 20) {
+            $ingredients2 = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')
+                ->where('title LIKE :term', array(':term' => '%' . $term . '%'))->order('title')
+                ->limit(20 - count($ingredients))->queryAll();
+            if (count($ingredients2)) {
+                $ingredient_keys = array();
+                if (count($ingredients)) {
+                    foreach ($ingredients as $ingredient) {
+                        $ingredient_keys[] = $ingredient['id'];
+                    }
+                }
+                foreach ($ingredients2 as $ingredient) {
+                    if (!in_array($ingredient['id'], $ingredient_keys)) {
+                        $ingredients[] = $ingredient;
+                    }
+                }
+            }
+        }
 
         header('Content-type: application/json');
         echo CJSON::encode($ingredients);

@@ -354,6 +354,9 @@ class AlbumsController extends HController
         $val = Yii::app()->request->getPost('id');
         if (is_numeric($val)) {
             $model = AlbumPhoto::model()->findByPk($val);
+            if ($title = Yii::app()->request->getPost('title'))
+                $model->title = CHtml::encode($title);
+            $model->save();
         } else {
             $model = new AlbumPhoto;
             $model->file_name = $val;
@@ -387,8 +390,10 @@ class AlbumsController extends HController
         if (is_numeric($val)) {
             $p = AlbumPhoto::model()->findByPk($val);
             $photo = $p->getPreviewUrl(100, 100, Image::NONE);
+            $title = $p->title;
         } else {
-            $photo = 'http://img.happy-giraffe.com/temp/'.$val;
+            $photo = Yii::app()->params['photos_url'].'/temp/'.$val;
+            $title = '';
         }
 
         $title = '';

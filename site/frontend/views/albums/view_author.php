@@ -46,7 +46,7 @@
                             <div class="fast-actions">
                                 <?php echo CHtml::link('<span class="tip">Редактировать</span>', array('/albums/editDescription', 'id' => $model->id), array('class' => 'edit', 'onclick' => 'return Album.editDescription(this);')); ?>
                             </div>
-                            <p><?php echo $model->description; ?></p>
+                            <p><?php echo CHtml::encode($model->description); ?></p>
                         <?php else: ?>
                             <div class="fast-actions">
                                 <?php echo CHtml::link('<span class="tip">Написать комментарий</span>', array('/albums/editDescription', 'id' => $model->id), array('class' => 'add', 'onclick' => 'return Album.editDescription(this);')); ?>
@@ -96,7 +96,7 @@
         <?php foreach($model->author->albums as $album): ?>
             <li<?php echo $model->id == $album->id ? ' class="active"' : ''; ?>>
                 <div class="in">
-                    <?php echo CHtml::link($album->title, array('/albums/view', 'id' => $album->id)); ?>
+                    <?php echo CHtml::link(CHtml::encode($album->title), array('/albums/view', 'id' => $album->id)); ?>
                     <span class="count"><?php echo count($album->photos); ?></span>
                     <span class="tale"><img src="/images/default_v_nav_active.png"></span>
                 </div>

@@ -7,10 +7,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
         <div id="gallery" class="nopadding">
             <div id="photo">
                 <?php if((Yii::app()->user->isGuest || $photo->author_id != Yii::app()->user->id) && $photo->title != ''): ?>
-                    <div class="title"><?php echo $photo->title; ?></div>
+                    <div class="title"><?php echo CHtml::encode($photo->title); ?></div>
                 <?php elseif(!Yii::app()->user->isGuest && $photo->author_id == Yii::app()->user->id): ?>
                     <div class="title">
-                        <span class="album_title"><?php echo $photo->title != '' ? $photo->title : '...'; ?></span>
+                        <span class="album_title"><?php echo $photo->title != '' ? CHtml::encode($photo->title) : '...'; ?></span>
                         <?php echo CHtml::link('<span class="tip">Редактировать</span>', 'javascript:;', array('class' => 'edit', 'onclick' => 'return Album.changePhotoTitle(this, ' . $photo->id . ');')); ?>
                     </div>
                 <?php endif; ?>
@@ -48,7 +48,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                                         </tr>
                                         <tr class="title">
                                             <td align="center">
-                                                <div><?php echo $item->title != '' ? $item->title : '&nbsp;' ?></div>
+                                                <div><?php echo $item->title != '' ? CHtml::encode($item->title) : '&nbsp;' ?></div>
                                             </td>
                                         </tr>
                                     </table>
@@ -107,7 +107,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
             <?php foreach($photo->album->author->albums('albums:noSystem') as $album): ?>
                 <li<?php echo $photo->album->id == $album->id ? ' class="active"' : ''; ?>>
                     <div class="in">
-                        <?php echo CHtml::link($album->title, $album->url); ?>
+                        <?php echo CHtml::link(CHtml::encode($album->title), $album->url); ?>
                         <span class="count"><?php echo count($album->photos); ?></span>
                         <span class="tale"><img src="/images/default_v_nav_active.png"></span>
                     </div>

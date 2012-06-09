@@ -47,7 +47,7 @@
             ),
             array(
                 'header' => 'Ответственный',
-                'value' => 'CHtml::link($data->editor->fullName, $data->editor->url, array("target" => "_blank"))',
+                'value' => 'CHtml::link(CHtml::encode($data->editor->fullName), $data->editor->url, array("target" => "_blank"))',
                 'type' => 'raw',
             ),
             array(

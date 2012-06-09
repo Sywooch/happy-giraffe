@@ -3,7 +3,7 @@
         <div class="clubs-list">
             <?php $n = 0; ?>
             <?php foreach($categories as $title => $category): ?>
-                <div class="category-title <?php echo $category['css'] ?>"><?php echo $title; ?></div>
+                <div class="category-title <?php echo $category['css'] ?>"><?php echo CHtml::encode($title); ?></div>
                 <?php if(isset($category['items'])): ?>
                     <?php foreach($category['items'] as $subtitle => $subcount): ?>
                     <div class="subcategory <?php echo $category['css'] ?>">
@@ -13,7 +13,7 @@
                                 <li class="club-img <?php echo $category['css'] ?>">
                                     <a href="<?php echo $this->createUrl('community/list', array('community_id' => $communities[$n]->id)); ?>">
                                         <img src="/images/club_img_<?php echo $communities[$n]->position; ?>.png">
-                                        <?php echo $communities[$n]->title; ?>
+                                        <?php echo CHtml::encode($communities[$n]->title); ?>
                                     </a>
                                 </li>
                                 <?php $n++; ?>
@@ -28,7 +28,7 @@
                             <li class="club-img <?php echo $category['css'] ?>">
                                 <a href="<?php echo $this->createUrl('community/list', array('community_id' => $communities[$n]->id)); ?>">
                                     <img src="/images/club_img_<?php echo $communities[$n]->position; ?>.png">
-                                    <?php echo $communities[$n]->title; ?>
+                                    <?php echo CHtml::encode($communities[$n]->title); ?>
                                 </a>
                             </li>
                             <?php $n++; ?>

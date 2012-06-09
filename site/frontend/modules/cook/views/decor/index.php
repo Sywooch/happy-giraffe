@@ -13,7 +13,7 @@ $categories = CookDecorationCategory::model()->findAll();
         <ul>
             <li>
                 <span class="valign"></span>
-                <a href="<?=CHtml::normalizeUrl(array('index'))?>" class="cook-cat">
+                <a href="<?=CHtml::normalizeUrl(array('index'))?>" class="cook-cat <?php if(!$id){echo 'active';}?>">
                     <i class="icon-cook-cat icon-dish-0"></i>
                     <span>Все</span>
                 </a>
@@ -50,7 +50,7 @@ $categories = CookDecorationCategory::model()->findAll();
                 $this->endWidget();
                 ?>
             </div>
-            <?='<h1>Как можно оформить ' . (($id) ? $category->title_h1 : 'блюда') . '</h1>';?>
+            <?='<h1>' . (($id) ? 'Как можно оформить '.$category->title_h1 : '1000 лучших оформлений блюд') . '</h1>';?>
 
 
         </div>

@@ -350,15 +350,16 @@ class AlbumsController extends HController
 
     public function actionCookDecorationPhoto()
     {
-        $model = AlbumPhoto::model()->findByPk(Yii::app()->request->getPost('id'));
 
-        if (!$model) {
-            $val = Yii::app()->request->getPost('val');
+        $val = Yii::app()->request->getPost('id');
+        if (is_numeric($val)) {
+            $model = AlbumPhoto::model()->findByPk($val);
+        } else {
             $model = new AlbumPhoto;
             $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
             if ($title = Yii::app()->request->getPost('title'))
                 $model->title = CHtml::encode($title);
-            $model->author_id = Yii::app()->user->id;
             $model->create(true);
         }
 
@@ -382,15 +383,25 @@ class AlbumsController extends HController
 
     public function actionCookDecorationCategory()
     {
+        $val = Yii::app()->request->getPost('val');
+        if (is_numeric($val)) {
+            $p = AlbumPhoto::model()->findByPk($val);
+            $photo = $p->getPreviewUrl(100, 100, Image::NONE);
+        } else {
+            $photo = 'http://img.happy-giraffe.com/temp/'.$val;
+        }
+
         $title = '';
         $id = Yii::app()->request->getPost('id');
         if($id){
             $photo = AlbumPhoto::model()->findByPk($id);
             $title = $photo->title;
         }
-        $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decor', array(
+        $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decoration', array(
             'title'=>$title,
             'widget_id' => Yii::app()->request->getPost('widget_id'),
+            'photo' => $photo,
+            'val' => $val
         ));
         Yii::app()->end();
     }

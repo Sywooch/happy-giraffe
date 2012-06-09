@@ -9,7 +9,7 @@ class CookSpicesController extends BController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('cook_ingredients'))
+        if (!Yii::app()->user->checkAccess('cook_spices'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }

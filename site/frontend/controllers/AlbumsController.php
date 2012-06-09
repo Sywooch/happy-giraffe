@@ -396,12 +396,6 @@ class AlbumsController extends HController
             $title = '';
         }
 
-        $title = '';
-        $id = Yii::app()->request->getPost('id');
-        if($id){
-            $photo = AlbumPhoto::model()->findByPk($id);
-            $title = $photo->title;
-        }
         $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decoration', array(
             'title'=>$title,
             'widget_id' => Yii::app()->request->getPost('widget_id'),

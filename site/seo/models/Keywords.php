@@ -99,7 +99,7 @@ class Keywords extends HActiveRecord
                 ->select('*')
                 ->from('keywords')
                 ->where(' ' . $this->name . ' ')
-                ->limit(0, 10000)
+                ->limit(0, 50000)
                 ->searchRaw();
             $ids = array();
             foreach ($allSearch['matches'] as $key => $m) {

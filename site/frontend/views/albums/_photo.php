@@ -10,7 +10,7 @@
         <tr class="title">
             <td align="center">
                 <div>
-                    <?php echo $data->title != '' ? $data->title : '&nbsp;' ?>
+                    <?php echo $data->title != '' ? CHtml::encode($data->title) : '&nbsp;' ?>
                 </div>
             </td>
         </tr>

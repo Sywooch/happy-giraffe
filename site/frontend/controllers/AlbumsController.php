@@ -21,7 +21,7 @@ class AlbumsController extends HController
     {
         return array(
             'accessControl',
-            'attach + ajaxOnly'
+            'ajaxOnly + attach, wPhoto, attachView, editDescription, editPhotoTitle, changeTitle, changePermission, removeUploadPhoto'
         );
     }
 
@@ -232,7 +232,7 @@ class AlbumsController extends HController
     public function actionEditDescription($id)
     {
         $model = Album::model()->findByPk($id);
-        if(!Yii::app()->request->isAjaxRequest || Yii::app()->user->id != $model->author_id || ($text = Yii::app()->request->getPost('text')) === false)
+        if(Yii::app()->user->id != $model->author_id || ($text = Yii::app()->request->getPost('text')) === false)
             Yii::app()->end();
         $model->description = $text;
         $model->save();
@@ -242,10 +242,11 @@ class AlbumsController extends HController
     {
         $id = Yii::app()->request->getPost('id');
         $model = AlbumPhoto::model()->findByPk($id);
-        if(!Yii::app()->request->isAjaxRequest || Yii::app()->user->id != $model->author_id || ($title = Yii::app()->request->getPost('title')) === false)
+        if(Yii::app()->user->id != $model->author_id || ($title = Yii::app()->request->getPost('title')) === false)
             Yii::app()->end();
         $model->title = $title;
         $model->save();
+        var_dump($model->errors);
     }
 
     private function saveImage($val)
@@ -506,14 +507,16 @@ class AlbumsController extends HController
 
     public function actionChangeTitle()
     {
-        $id = Yii::app()->request->getPost('id');
-        $title = Yii::app()->request->getPost('title');
-        if(!$id || !$title)
+        if(($id = Yii::app()->request->getPost('id')) === false || ($title = Yii::app()->request->getPost('title')) === false)
             Yii::app()->end();
         $model = Album::model()->findByPk($id);
-        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+        if(!$model || $model->author_id != Yii::app()->user->id)
             Yii::app()->end();
-        $model->updateByPk($id, array('title' => $title));
+        $model->title = $title;
+        if($model->save())
+            echo CJSON::encode(array('result' => true));
+        else
+            echo CJSON::encode(array('result' => false));
     }
 
     public function actionChangePermission()
@@ -521,15 +524,13 @@ class AlbumsController extends HController
         $id = Yii::app()->request->getPost('id');
         $num = Yii::app()->request->getPost('num');
         $model = Album::model()->findByPk($id);
-        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+        if(!$model || $model->author_id != Yii::app()->user->id)
             Yii::app()->end();
         $model->updateByPk($id, array('permission' => $num));
     }
 
     public function actionRemoveUploadPhoto()
     {
-        if(!Yii::app()->request->isAjaxRequest)
-            Yii::app()->end();
         $model = AlbumPhoto::model()->findByPk(Yii::app()->request->getPost('id'));
         if($model->author_id != Yii::app()->user->id)
             Yii::app()->end();

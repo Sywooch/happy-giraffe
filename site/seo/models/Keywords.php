@@ -93,29 +93,27 @@ class Keywords extends HActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
-        //$criteria->compare('t.id', $this->id);
+
         if (!empty($this->name)) {
             $allSearch = Yii::app()->search
                 ->select('*')
                 ->from('keywords')
                 ->where(' ' . $this->name . ' ')
-                ->limit(0, 100000)
+                ->limit(0, 10000)
                 ->searchRaw();
             $ids = array();
             foreach ($allSearch['matches'] as $key => $m) {
                 $ids [] = $key;
-                break;
             }
             if (!empty($ids))
                 $criteria->compare('t.id', $ids);
             else
-                $criteria->compare('t.id', null);
+                $criteria->compare('t.id', 0);
         }
-        $criteria->with = array('group', 'pastuhovYandex', 'tempKeyword');
+        $criteria->with = array('yandex');
 
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider('Keywords', array(
             'criteria' => $criteria,
-            'pagination' => array('pageSize' => 20),
         ));
     }
 
@@ -242,26 +240,22 @@ class Keywords extends HActiveRecord
         return '';
     }
 
-    /*public static function findByNameWithSphinx($name)
+    public static function findSiteIdsByNameWithSphinx($name)
     {
         $allSearch = Yii::app()->search
             ->select('*')
-            ->from('keywords2')
-            ->where($name)
-            ->limit(0, 1)
+            ->from('sitesKeywords')
+            ->where(' ' . $name . ' ')
+            ->limit(0, 100000)
             ->searchRaw();
+        $ids = array();
 
-        if (!empty($allSearch['matches'])){
-            $id = 0;
-            foreach ($allSearch['matches'] as $key => $m) {
-                $id = $key;
-                break;
-            }
-            return self::model()->findByPk($id);
+        foreach ($allSearch['matches'] as $key => $m) {
+            $ids [] = $key;
         }
 
-        return null;
-    }*/
+        return $ids;
+    }
 
     public function findKeywords($name)
     {
@@ -291,14 +285,16 @@ class Keywords extends HActiveRecord
         return $models;
     }
 
-    public function getFreqCount($models)
+    public function getFreqCount($criteria)
     {
-        $result = array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0);
-        foreach ($models as $model) {
-            $result [$model->freq]++;
+        $counts = array(
+            0 => Keywords::model()->count($criteria)
+        );
+        for($i=1;$i<5;$i++){
+            $criteria2 = clone $criteria;
+            $counts[$i] = Keywords::model()->count($criteria2->addCondition(Keywords::getFreqCondition($i)));
         }
-
-        return $result;
+        return $counts;
     }
 
     public function getButtons($short = false)
@@ -357,5 +353,22 @@ class Keywords extends HActiveRecord
 
         $models = CommunityContent::model()->resetScope()->findAll($criteria);
         return $models;
+    }
+
+    public function getKeywordAndSimilarArticles()
+    {
+        $res = $this->name;
+        if ($this->used() || $this->hasOpenedTask())
+            return $res;
+
+        $models = $this->getSimilarArticles();
+        if (!empty($models)) {
+            $res .= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
+            foreach ($models as $model)
+                $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '<br>';
+            $res .= '</div>';
+        }
+
+        return $res;
     }
 }

@@ -201,13 +201,14 @@ class KeyStats extends HActiveRecord
     public function getKeywordAndSimilarArticles()
     {
         $res = $this->keyword->name;
+        if ($this->keyword->used() || $this->keyword->hasOpenedTask())
+            return $res;
 
-	    $models = $this->keyword->getSimilarArticles();
+            $models = $this->keyword->getSimilarArticles();
         if (!empty($models)){
-            $res.= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).next().toggle().toggleClass(\'triggered\')"></a><div class="links" style="display:none;">';
+            $res.= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
             foreach($models as $model)
-                $res.= CHtml::link($model->title, 'http://www.happy-giraffe.ru'.$model->url).'<br>';
-//                $res.= $model->title.'<br>';
+                $res.= CHtml::link($model->title, 'http://www.happy-giraffe.ru'.$model->url, array('target'=>'_blank')).'<br>';
                 $res.= '</div>';
         }
 

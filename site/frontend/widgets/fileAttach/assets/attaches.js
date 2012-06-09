@@ -36,7 +36,7 @@ Attach.prototype.selectPhoto = function(button, id) {
     }
     else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(id);
-    } else if(this.entity = "PhotoComment"){
+    } else if(this.entity == "PhotoComment"){
         this.saveCommentPhoto(id);
     } else if (this.entity == "Product") {
         this.saveProductPhoto(id);

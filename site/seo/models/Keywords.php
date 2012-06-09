@@ -14,6 +14,7 @@
  * @property KeywordBlacklist $keywordBlacklist
  * @property RamblerPopularity $ramblerPopularity
  * @property YandexPopularity $yandex
+ * @property TempKeywords $tempKeyword
  */
 class Keywords extends HActiveRecord
 {
@@ -141,6 +142,9 @@ class Keywords extends HActiveRecord
 
     public function hasOpenedTask()
     {
+        if (!empty($this->tempKeyword) && $this->tempKeyword->owner_id != Yii::app()->user->id)
+            return true;
+
         foreach ($this->group as $group) {
             if (!empty($group->articleKeywords))
                 return false;
@@ -163,7 +167,7 @@ class Keywords extends HActiveRecord
 
     public function inBuffer()
     {
-        if (!empty($this->tempKeyword))
+        if (!empty($this->tempKeyword) && $this->tempKeyword->owner_id == Yii::app()->user->id)
             return true;
 
         return false;
@@ -300,25 +304,57 @@ class Keywords extends HActiveRecord
     public function getButtons($short = false)
     {
         if ($short) {
-            if ($this->inBuffer())
-                return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, '.(int)$short.');return false;"></a>';
-            elseif ($this->used())
+            if ($this->inBuffer()) {
+                if ($this->tempKeyword->owner_id == Yii::app()->user->id)
+                    return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, ' . (int)$short . ');return false;"></a>';
+            } elseif ($this->used())
                 return '';
             elseif ($this->hasOpenedTask())
                 return '';
             else
-                return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this, '.(int)$short.');return false;"></a>';
+                return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this, ' . (int)$short . ');return false;"></a>';
 
         }
-        if ($this->inBuffer())
-            return 'в буфере <input type="hidden" value="' . $this->id . '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, '.(int)$short.');return false;"></a>';
-        elseif ($this->used())
+        if ($this->inBuffer()) {
+            if ($this->tempKeyword->owner_id == Yii::app()->user->id)
+                return 'в буфере <input type="hidden" value="' . $this->id . '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, ' . (int)$short . ');return false;"></a>';
+        } elseif ($this->used())
             return 'на сайте';
         elseif ($this->hasOpenedTask())
             return 'в работе';
         else
             return '<input type="hidden" value="' . $this->id . '">
-            <a href="" class="icon-add" onclick="SeoKeywords.Select(this, '.(int)$short.');return false;"></a>
+            <a href="" class="icon-add" onclick="SeoKeywords.Select(this, ' . (int)$short . ');return false;"></a>
             <a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>';
+    }
+
+    public function getSimilarArticles()
+    {
+        Yii::import('site.frontend.extensions.*');
+        $allSearch = Yii::app()->search
+            ->select('*')
+            ->from('communityTextTitle')
+            ->where(' ' . $this->name . ' ')
+            ->limit(0, 5)
+            ->searchRaw();
+        if (empty($allSearch['matches']))
+            return null;
+
+        $ids = array();
+
+        $i = 0;
+        foreach ($allSearch['matches'] as $key => $m) {
+            $ids [] = $key;
+            $i++;
+            if ($i > 5)
+                break;
+        }
+
+        $criteria = new CDbCriteria;
+        $criteria->compare('t.id', $ids);
+        $criteria->limit = 5;
+
+        $models = CommunityContent::model()->resetScope()->findAll($criteria);
+        return $models;
     }
 }

@@ -34,6 +34,8 @@ class KeyStats extends HActiveRecord
     public $popularIcon;
     public $freq;
 
+    private $temp_ids = null;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -172,13 +174,18 @@ class KeyStats extends HActiveRecord
     {
         $criteria = new CDbCriteria;
 
-        if (Yii::app()->user->getState('hide_used') == 1){
-            $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = '.Yii::app()->user->id.') OR tempKeyword.keyword_id IS NULL)';
+        if (Yii::app()->user->getState('hide_used') == 1) {
+            $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = ' . Yii::app()->user->id . ') OR tempKeyword.keyword_id IS NULL)';
         }
 
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('year', $this->year);
-        $criteria->compare('keyword.name', $this->key_name, true);
+        if (!empty($this->key_name)) {
+            if ($this->temp_ids === null) {
+                $this->temp_ids = Keywords::findSiteIdsByNameWithSphinx($this->key_name);
+            }
+            $criteria->condition .= ' AND keyword.id IN (' . implode(',', $this->temp_ids) . ')';
+        }
         $criteria->compare('yandex.value', $this->popular);
         $criteria->with = array('keyword', 'keyword.group', 'keyword.yandex', 'keyword.tempKeyword');
         $criteria->together = true;
@@ -196,22 +203,5 @@ class KeyStats extends HActiveRecord
     public function getButtons()
     {
         return $this->keyword->getButtons(true);
-    }
-
-    public function getKeywordAndSimilarArticles()
-    {
-        $res = $this->keyword->name;
-        if ($this->keyword->used() || $this->keyword->hasOpenedTask())
-            return $res;
-
-            $models = $this->keyword->getSimilarArticles();
-        if (!empty($models)){
-            $res.= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
-            foreach($models as $model)
-                $res.= CHtml::link($model->title, 'http://www.happy-giraffe.ru'.$model->url, array('target'=>'_blank')).'<br>';
-                $res.= '</div>';
-        }
-
-        return $res;
     }
 }

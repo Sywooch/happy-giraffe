@@ -83,10 +83,10 @@ button.btn-green-small {height:20px;}
 #seo .default-nav ul li .count a:hover {text-decoration:none;}
 
 #seo .search {padding-left:40px;color:#474748;margin-bottom:30px;}
-#seo .search .input {width:420px;float:left;}
+#seo .search .input {width:430px;float:left;}
 #seo .search .input label {display:block;font-size:13px;margin-bottom:10px;padding-left:10px;}
 #seo .search .input input[type=text] {border:1px solid #cdb7e4;padding:3px 9px;width:330px;margin:0;margin-right:5px;vertical-align:middle;}
-#seo .search .result {width:380px;float:left;text-align:center;}
+#seo .search .result {width:370px;float:left;text-align:center;}
 #seo .search .result label {display:block;font-size:13px;margin-bottom:10px;}
 #seo .search .result label a {font-size:12px;}
 #seo .search .result span {margin:0 10px;line-height:24px;font-size:11px;}

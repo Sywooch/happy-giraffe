@@ -28,7 +28,7 @@
             {
                 case 'post':
                     if (preg_match('/src="([^"]+)"/', $rc->post->text, $matches)) {
-                        $content = '<img src="' . $matches[1] . '" alt="' . $rc->title . '" width="150" />';
+                        $content = '<img src="' . $matches[1] . '" alt="' . CHtml::encode($rc->title) . '" width="150" />';
                     }
                     else
                     {
@@ -39,7 +39,7 @@
                     break;
                 case 'travel':
                     if (preg_match('/src="([^"]+)"/', $rc->travel->text, $matches)) {
-                        $content = '<img src="' . $matches[1] . '" alt="' . $rc->title . '" width="150" />';
+                        $content = '<img src="' . $matches[1] . '" alt="' . CHtml::encode($rc->title) . '" width="150" />';
                     }
                     else
                     {
@@ -50,12 +50,12 @@
                     break;
                 case 'video':
                     $video = new Video($rc->video->link);
-                    $content = '<img src="' . $video->preview . '" alt="' . $video->title . '" />';
+                    $content = '<img src="' . $video->preview . '" alt="' . CHtml::encode($video->title) . '" />';
                     break;
             }
         ?>
             <div class="block">
-                <b><?php echo CHtml::link($rc->title, $rc->url); ?></b>
+                <b><?php echo CHtml::link(CHtml::encode($rc->title), $rc->url); ?></b>
                 <p><?php echo $content; ?></p>
             </div>
         <?php

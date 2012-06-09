@@ -10,7 +10,7 @@
 
         <div class="photo-title">
             <label>Название блюда или оформления</label>
-            <input type="text" placeholder="Введите название" name="title"/>
+            <input type="text" placeholder="Введите название" name="title" value="<?=$title;?>"/>
             <br/><br/>
             <label>Укажите тип блюда</label><br/>
 						<span>

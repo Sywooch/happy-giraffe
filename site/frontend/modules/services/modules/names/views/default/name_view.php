@@ -86,10 +86,10 @@
                 <div class="best_person">
                     <?php if (!empty($famous->photo)) echo CHtml::image($famous->GetUrl()) ?>
                     <?php if (!empty($famous->link)): ?>
-                        <a href="<?php echo $famous->link ?>" rel="nofollow"><?php echo $name->name.' '.$famous->last_name ?>
+                        <a href="<?php echo $famous->link ?>" rel="nofollow"><?php echo CHtml::encode($name->name).' '.CHtml::encode($famous->last_name); ?>
                             <?php if (!empty($famous->description)) echo ', '.$famous->description ?></a>
                     <?php else: ?>
-                        <p><?php echo $name->name.' '.$famous->last_name ?>
+                        <p><?php echo CHtml::encode($name->name).' '.CHtml::encode($famous->last_name); ?>
                             <?php if (!empty($famous->description)) echo ', '.$famous->description ?></p>
                     <?php endif ?>
                 </div>

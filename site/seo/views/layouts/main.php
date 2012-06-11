@@ -231,7 +231,11 @@
                     'url' => array('/writing/articleKeywords/admin/'),
                 ),
                 array(
-                    'label' => 'Парсинг',
+                    'label' => 'Парсинг и прокси',
+                    'url' => array('/parsing/index/'),
+                ),
+                array(
+                    'label' => 'Парсинг Запросов и позиций',
                     'url' => array('/queries/index/'),
                 ),
                 array(

@@ -149,12 +149,13 @@ var WordStat = {
 }
 
 var Competitors = {
-    Parse:function () {
+    Parse:function (mode) {
         $.post('/competitors/parse/parse/', {
             site_id:$('#site').val(),
             year:$('#year').val(),
             month_from:$('#month_from').val(),
-            month_to:$('#month_to').val()
+            month_to:$('#month_to').val(),
+            mode:mode
         }, function (response) {
             if (response.status)
                 $.pnotify({

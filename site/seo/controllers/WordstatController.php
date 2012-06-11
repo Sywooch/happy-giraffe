@@ -43,7 +43,7 @@ class WordstatController extends SController
 
     public function actionAddCompetitors()
     {
-        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from baby_stats__key_stats')->queryColumn();
+        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits')->queryColumn();
         $count = 0;
         foreach ($keywords as $keyword) {
             if (ParsingKeywords::model()->addKeywordById($keyword))

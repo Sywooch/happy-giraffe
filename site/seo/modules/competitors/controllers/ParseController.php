@@ -28,6 +28,8 @@ class ParseController extends SController
         if (empty($site_id))
             Yii::app()->end();
 
+        $this->cookie = Config::getAttribute('liveinternet-cookie');
+
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $error = $this->parseStats($site_id, $year, $month_from, $month_to, $mode);
 
@@ -368,8 +370,8 @@ class ParseController extends SController
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
         curl_setopt($ch, CURLOPT_REFERER, $last_url);
         curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
-        curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
-        curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
+//        curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
+//        curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         $result = curl_exec($ch);

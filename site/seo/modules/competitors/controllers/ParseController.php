@@ -46,20 +46,22 @@ class ParseController extends SController
     {
         $site = $this->loadModel($site_id);
 
-        for ($month = $month_from; $month <= $month_to; $month++) {
-            $first_url = 'http://www.liveinternet.ru/stat/' . $site->url.'/index.html';
-            $result = $this->loadPage($first_url, '');
-            if ($mode == 2) {
-                echo $result;
-                Yii::app()->end();
-            }
+        $this->loadPage('http://www.liveinternet.ru/stat/' . $site->url.'/index.html', '');
+        $this->loadPage('http://www.liveinternet.ru/stat/' . $site->url.'/queries.html', 'http://www.liveinternet.ru/stat/' . $site->url.'/index.html');
+        $next_url = 'http://www.liveinternet.ru/stat/' . $site->url.'/queries.html?total=yes&period=month';
+        $this->loadPage($next_url, 'http://www.liveinternet.ru/stat/' . $site->url.'/queries.html');
 
+        for ($month = $month_from; $month <= $month_to; $month++) {
             $url = 'http://www.liveinternet.ru/stat/' . $site->url
                 . '/queries.html?date=' . $year . '-' . str_pad($month, 2, "0", STR_PAD_LEFT) . '-'
                 . str_pad(cal_days_in_month(CAL_GREGORIAN, $month, $year), 2, '0', STR_PAD_LEFT)
                 . '&period=month&total=yes&per_page=100&page=';
 
-            $result = $this->loadPage($url, $first_url);
+            $result = $this->loadPage($url, $next_url);
+            if ($mode == 2) {
+                echo $result;
+                Yii::app()->end();
+            }
 
             $document = phpQuery::newDocument($result);
             $max_pages = $this->getPagesCount($document);
@@ -78,6 +80,8 @@ class ParseController extends SController
 
                 sleep(rand(1, 2));
             }
+
+            $next_url = $url;
         }
 
         return true;

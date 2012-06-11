@@ -22,46 +22,7 @@ class WordstatController extends SController
 
     public function actionWordstatParse(){
         $parser = new WordstatParser();
-//        $parser->start(0);
-
-        $text = '<table width="100%" cellspacing="0" cellpadding="5" border="0" align="center" class="campaign">
-                      <tbody>                            <tr valign="top">
-                                <td style="text-align: right" colspan="3">
-                                    <span>Обновлено: 07/06/2012</span>
-                                </td>
-                            </tr>
-                        <tr valign="top">
-                            <td>Что искали со словами <span class="bold-style">«беременность по не...»</span> &mdash; 34 показа в месяц.
-                            </td>
-                            <td></td>
-                            <td>Что еще искали люди, искавшие <span class="bold-style">«беременность по не...»</span>:
-                            </td>
-                        </tr>
-                        <tr valign="top">
-                          <td width="45%"><table width="100%" cellspacing="0" cellpadding="5" border="0">
-  <tbody>
-    <tr valign="bottom" class="thead">
-      <td width="80%" rowspan="1">Слова</td>
-      <td><div style="width: 10px"></div> </td>
-      <td width="20%" class="align-right-td">Показов в месяц</td>
-    </tr>  </tbody>
-</table>                          </td>
-                          <td width="10%">
-                              <div style="width:15px"></div>
-                          </td>
-                          <td width="45%"><table width="100%" cellspacing="0" cellpadding="5" border="0">
-  <tbody>
-    <tr valign="bottom" class="thead">
-      <td width="80%" rowspan="1">Слова</td>
-      <td><div style="width: 10px"></div> </td>
-      <td width="20%" class="align-right-td">Показов в месяц</td>
-    </tr>  </tbody>
-</table>                            <br>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>';
-
+        $text = '';
         $parser->parseData($text);
     }
 
@@ -88,7 +49,7 @@ class WordstatController extends SController
 
     public function actionAddCompetitors()
     {
-        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits')->queryColumn();
+        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits WHERE keyword_id NOT IN (SELECT keyword_id from yandex_popularity) ')->queryColumn();
         $count = 0;
         foreach ($keywords as $keyword) {
             if (ParsingKeywords::model()->addKeywordById($keyword))
@@ -99,6 +60,12 @@ class WordstatController extends SController
             'status' => true,
             'count' => $count
         ));
+    }
+
+    public function actionClearParsingKeywords(){
+        ParsingKeywords::model()->deleteAll();
+
+        echo CJSON::encode(array('status' => true));
     }
 
     public function actionRemovePlus()

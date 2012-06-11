@@ -24,4 +24,7 @@
     <input type="text" value="" style="width:400px;">
     <?php echo CHtml::link('установить куки', '#', array('onclick' => 'SeoModule.setConfigAttribute("liveinternet-cookie", $(this).prev().val())')); ?>
 
+    <input type="text" value="" style="width:400px;">
+    <?php echo CHtml::link('дополнить урл', '#', array('onclick' => 'SeoModule.setConfigAttribute("liveinternet-add-url", $(this).prev().val())')); ?>
+
 </div>

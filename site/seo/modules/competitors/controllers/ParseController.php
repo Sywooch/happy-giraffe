@@ -50,7 +50,7 @@ class ParseController extends SController
             $url = 'http://www.liveinternet.ru/stat/' . $site->url
                 . '/queries.html?date=' . $year . '-' . str_pad($month, 2, "0", STR_PAD_LEFT) . '-'
                 . str_pad(cal_days_in_month(CAL_GREGORIAN, $month, $year), 2, '0', STR_PAD_LEFT)
-                . '&period=month&total=yes&page=';
+                . '&period=month&total=yes&per_page=100&page=';
 
             $result = $this->loadPage($url, $url);
 

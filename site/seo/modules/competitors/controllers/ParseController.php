@@ -28,6 +28,8 @@ class ParseController extends SController
         if (empty($site_id))
             Yii::app()->end();
 
+        $this->cookie = Config::getAttribute('liveinternet-cookie');
+
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $error = $this->parseStats($site_id, $year, $month_from, $month_to, $mode);
 

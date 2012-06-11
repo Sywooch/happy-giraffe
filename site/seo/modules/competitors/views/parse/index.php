@@ -18,7 +18,10 @@
     </div>
 
     <?php echo CHtml::link('Парсить сайт', '#', array('onclick' => 'Competitors.Parse(1)')); ?>
-    <br><br>
+    <br>
     <?php echo CHtml::link('посмотреть страницу', '#', array('onclick' => 'Competitors.Parse(2)')); ?>
+    <br>
+    <input type="text" value="" style="width:400px;">
+    <?php echo CHtml::link('установить куки', '#', array('onclick' => 'SeoModule.setConfigAttribute("liveinternet-cookie", $(this).prev().val())')); ?>
 
 </div>

@@ -102,7 +102,7 @@ var SeoModule = {
         }, 'json');
     },
     setConfigAttribute:function (title, value) {
-        $.post('/queries/setConfigAttribute/', {title:title, value:value}, function (response) {
+        $.post('/parsing/setConfigAttribute/', {title:title, value:value}, function (response) {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',

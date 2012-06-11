@@ -50,10 +50,9 @@ class ParseController extends SController
             $url = 'http://www.liveinternet.ru/stat/' . $site->url
                 . '/queries.html?date=' . $year . '-' . str_pad($month, 2, "0", STR_PAD_LEFT) . '-'
                 . str_pad(cal_days_in_month(CAL_GREGORIAN, $month, $year), 2, '0', STR_PAD_LEFT)
-                . Config::getAttribute('liveinternet-add-url')
                 . '&period=month&total=yes&page=';
 
-            $result = $this->loadPage($url, 'http://www.liveinternet.ru/stat/baby.ru/queries.html?period=month');
+            $result = $this->loadPage($url, $url);
 
             if ($mode == 2) {
                 echo $result;
@@ -369,7 +368,9 @@ class ParseController extends SController
         curl_setopt($ch, CURLOPT_URL, $page_url);
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
         curl_setopt($ch, CURLOPT_REFERER, $last_url);
-        curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
+//        curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
+        curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         $result = curl_exec($ch);
@@ -382,7 +383,6 @@ class ParseController extends SController
     public function getCookieFile()
     {
         $filename = Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'liveinternet.txt';
-        file_put_contents($filename, Config::getAttribute('liveinternet-cookie'));
 
         return $filename;
     }

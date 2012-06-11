@@ -31,13 +31,13 @@ var SeoModule = {
             }
         }, 'json');
     },
-    removeArticle:function(el, id){
+    removeArticle:function (el, id) {
         $.post('/writing/existArticles/remove/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
                 $.pnotify({
                     pnotify_title:'Успешно',
-                    pnotify_text: 'статья удалена'
+                    pnotify_text:'статья удалена'
                 });
             }
         }, 'json');
@@ -48,7 +48,7 @@ var SeoModule = {
                 $.pnotify({
                     pnotify_title:'Успешно',
                     pnotify_text:'Спарсили ' + response.count + ' запросов',
-                    pnotify_hide: false
+                    pnotify_hide:false
                 });
             } else {
                 $.pnotify({
@@ -65,7 +65,7 @@ var SeoModule = {
                 $.pnotify({
                     pnotify_title:'Успешно',
                     pnotify_text:response.count + ' потоков запущено',
-                    pnotify_hide: false
+                    pnotify_hide:false
                 });
             } else {
                 $.pnotify({
@@ -85,7 +85,7 @@ var SeoModule = {
                 $.pnotify({
                     pnotify_title:'Успешно',
                     pnotify_text:'Новые прокси внесены в базу',
-                    pnotify_hide: false
+                    pnotify_hide:false
                 });
             }
         }, 'json');
@@ -96,7 +96,7 @@ var SeoModule = {
                 $.pnotify({
                     pnotify_title:'Успешно',
                     pnotify_text:'Сигнал передан, в течении минуты потоки должны завершиться',
-                    pnotify_hide: false
+                    pnotify_hide:false
                 });
             }
         }, 'json');
@@ -120,7 +120,7 @@ var WordStat = {
                 $.pnotify({
                     pnotify_title:'Успешно',
                     pnotify_text:response.count + ' слов добавлено на парсинг',
-                    pnotify_hide: false
+                    pnotify_hide:false
                 });
             }
         }, 'json');
@@ -131,12 +131,12 @@ var WordStat = {
                 $.pnotify({
                     pnotify_title:'Успешно',
                     pnotify_text:response.count + ' слов добавлено на парсинг',
-                    pnotify_hide: false
+                    pnotify_hide:false
                 });
             }
         }, 'json');
     },
-    clearKeywords:function(){
+    clearKeywords:function () {
         $.post('/wordstat/clearParsingKeywords/', function (response) {
             if (response.status) {
                 $.pnotify({
@@ -149,15 +149,25 @@ var WordStat = {
 }
 
 var Competitors = {
-    Parse:function(){
-        $.post('/competitors/parse/parse/', {site_id:$('#site-to_parse').val()}, function (response) {
-            if (response.status) {
+    Parse:function () {
+        $.post('/competitors/parse/parse/', {
+            site_id:$('#site').val(),
+            year:$('#year').val(),
+            month_from:$('#month_from').val(),
+            month_to:$('#month_to').val()
+        }, function (response) {
+            if (response.status)
                 $.pnotify({
                     pnotify_title:'Успешно',
                     pnotify_text:response.count + ' новых запросов спарсили',
-                    pnotify_hide: false
+                    pnotify_hide:false
                 });
-            }
+            else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
         }, 'json');
     }
 }

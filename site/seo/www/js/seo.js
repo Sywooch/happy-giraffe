@@ -135,6 +135,16 @@ var WordStat = {
                 });
             }
         }, 'json');
+    },
+    clearKeywords:function(){
+        $.post('/wordstat/clearParsingKeywords/', function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:'',
+                });
+            }
+        }, 'json');
     }
 }
 

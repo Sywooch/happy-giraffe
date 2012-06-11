@@ -53,7 +53,7 @@ class ParseController extends SController
                 . Config::getAttribute('liveinternet-add-url')
                 . '&period=month&total=yes&page=';
 
-            $result = $this->loadPage($url, $url);
+            $result = $this->loadPage($url, 'http://www.liveinternet.ru/stat/baby.ru/queries.html?period=month');
 
             if ($mode == 2) {
                 echo $result;
@@ -370,8 +370,6 @@ class ParseController extends SController
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
         curl_setopt($ch, CURLOPT_REFERER, $last_url);
         curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
-//        curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
-//        curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         $result = curl_exec($ch);

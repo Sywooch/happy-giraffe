@@ -3,6 +3,7 @@
 class ParseController extends SController
 {
     public $layout = 'main';
+    public $cookie = 'pwd=1lwsZTdjVuTb2TFFwKo; suid=0IwZPl0hY8W_; per_page=100; adv-uid=d2ea12.d2608c.b9b2c0';
 
     public function beforeAction($action)
     {
@@ -22,65 +23,50 @@ class ParseController extends SController
             Yii::app()->end();
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        if ($site_id < 3){
-            $this->parseStats($site_id);
-        }
-        else
-            $this->parseStats2($site_id);
+        $this->parseStats($site_id);
+
+        echo CJSON::encode(array('status' => true));
     }
 
     public function parseStats($site_id)
     {
         $year = 2012;
+        $site = $this->loadModel($site_id);
 
-        $cookie = 'pwd=1sd9Cw4MQjmNOt3lYV6; suid=0HL2kG3LzWGy; per_page=100; total=yes; adv-uid=fdae6f.bb2af5.e2d520';
-        $site = 'baby.ru';
-        ob_start();
-
-        for ($month = 5; $month > 0; $month--) {
-            $url = 'http://www.liveinternet.ru/stat/' . $site . '/queries.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
-            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-            curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-            curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-            $result = curl_exec($ch); // run the whole process
-            curl_close($ch);
+        for ($month = 5; $month > 4; $month--) {
+            $url = 'http://www.liveinternet.ru/stat/' . $site->url . '/queries.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
+            $result = $this->loadPage($url, $url);
 
             $document = phpQuery::newDocument($result);
-            $max_pages = 30;
-            foreach ($document->find('table p a.high') as $link) {
-                $name = trim(pq($link)->text());
-                if (is_numeric($name))
-                    $max_pages = $name;
-            }
-            echo $max_pages . '<br>';
-            if ($max_pages > 40)
-                $max_pages = 40;
+            $max_pages = $this->getPagesCount($document);
             $this->GetStat($document, $month, $year, $site_id);
-            flush();
-            sleep(2);
+            sleep(rand(1, 2));
 
             for ($i = 2; $i <= $max_pages; $i++) {
                 $page_url = $url . $i;
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $page_url);
-                curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-                curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-                curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-                $result = curl_exec($ch); // run the whole process
-                curl_close($ch);
+                $result = $this->loadPage($page_url, $url);
 
                 $document = phpQuery::newDocument($result);
                 $this->GetStat($document, $month, $year, $site_id);
 
-                flush();
-                //sleep(rand(1, 2));
+                sleep(rand(1, 2));
             }
         }
+    }
+
+    public function getPagesCount($document)
+    {
+        $max_pages = 30;
+        foreach ($document->find('table p a.high') as $link) {
+            $name = trim(pq($link)->text());
+            if (is_numeric($name))
+                $max_pages = $name;
+        }
+
+        if ($max_pages > 50)
+            $max_pages = 50;
+
+        return $max_pages;
     }
 
     /*public function actionParsePages()
@@ -348,89 +334,20 @@ class ParseController extends SController
         return $res;
     }*/
 
-    public function parseStats2($site_id)
+    public function loadPage($page_url, $last_url)
     {
-        $year = 2011;
-        $site = $this->loadModel($site_id);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
+        curl_setopt($ch, CURLOPT_URL, $page_url);
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_REFERER, $last_url);
+        curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        $result = curl_exec($ch);
+        curl_close($ch);
 
-        $cookie = 'suid=0IwZPl0hY8W_; per_page=100; total=yes; adv-uid=d2ea12.d2608c.b9b2c0';
-        $url = 'http://www.liveinternet.ru/stat/'.$site->url.'/queries.html?date=2011-12-31;period=month;';
-        for ($month = 12; $month > 0; $month--) {
-            $last_url = $url;
-            $url = 'http://www.liveinternet.ru/stat/'.$site->url.'/queries.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;page=';
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
-            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-            curl_setopt($ch, CURLOPT_REFERER, $last_url);
-            curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-            curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-
-            $result = curl_exec($ch); // run the whole process
-            curl_close($ch);
-
-            $document = phpQuery::newDocument($result);
-            $max_pages = 30;
-            foreach ($document->find('table p a.high') as $link) {
-                $name = trim(pq($link)->text());
-                if (is_numeric($name))
-                    $max_pages = $name;
-            }
-            if ($max_pages > 50)
-                $max_pages = 50;
-
-            //echo $max_pages . '<br>';
-            $res = array_merge(array(), $this->GetStat($document, $month, $year, $site_id));
-            flush();
-            sleep(2);
-
-            for ($i = 2; $i <= $max_pages; $i++) {
-                $page_url = $url . $i;
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $page_url);
-                curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-                curl_setopt($ch, CURLOPT_REFERER, $last_url);
-                curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-                curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-                $result = curl_exec($ch); // run the whole process
-                curl_close($ch);
-
-                $document = phpQuery::newDocument($result);
-                $res = array_merge($res, $this->GetStat($document, $month, $year, $site_id));
-
-                flush();
-                sleep(rand(3, 5));
-            }
-        }
-    }
-
-    public function loadPage($url)
-    {
-        $curl = curl_init();
-
-        $header[0] = "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8;";
-        $header[] = "Cache-Control: max-age=0";
-        $header[] = "Connection: keep-alive";
-        $header[] = "Keep-Alive: 300";
-        $header[] = "Content-Type: text/html; charset=windows-1251";
-        $header[] = "Accept-Language: ru-ru,ru;q=0.8,en-us;q=0.5,en;q=0.3";
-        $header[] = "Pragma: "; // browsers keep this blank.
-
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_USERAGENT, 'Googlebot/2.1 (+http://www.google.com/bot.html)');
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($curl, CURLOPT_REFERER, 'http://www.google.com');
-        curl_setopt($curl, CURLOPT_ENCODING, 'gzip,deflate');
-        curl_setopt($curl, CURLOPT_AUTOREFERER, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-
-        $html = curl_exec($curl); // execute the curl command
-        curl_close($curl); // close the connection
-
-        return $html;
+        return $result;
 //        return $this->CP1251toUTF8($html);
     }
 
@@ -453,13 +370,7 @@ class ParseController extends SController
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
                     $res[] = array($keyword, $stats);
                     $keyword_model = Keywords::GetKeyword($keyword);
-                    $model = new Stats();
-                    $model->month = $month;
-                    $model->year = $year;
-                    $model->keyword_id = $keyword_model->id;
-                    $model->value = str_replace(',', '', $stats);
-                    $model->site_id = $site_id;
-                    $model->SaveOrUpdate();
+                    SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, str_replace(',', '', $stats));
                 }
 
                 //echo $i . '<br>';
@@ -467,27 +378,6 @@ class ParseController extends SController
         }
 
         return $res;
-    }
-
-    public function actionCalc()
-    {
-        $site_id = 2;
-        $year = 2012;
-        $criteria = new CDbCriteria;
-        $criteria->compare('site_id', $site_id);
-        $criteria->compare('year', $year);
-        $stats = Stats::model()->findAll($criteria);
-        foreach ($stats as $stat) {
-            $key_stat = SiteKeywordVisit::model()->find('site_id = ' . $site_id . ' AND keyword_id = ' . $stat->keyword_id . ' AND year = ' . $year);
-            if ($key_stat === null) {
-                $key_stat = new SiteKeywordVisit;
-                $key_stat->keyword_id = $stat->keyword_id;
-                $key_stat->site_id = $site_id;
-                $key_stat->year = $year;
-            }
-            $key_stat->setAttribute('m' . $stat->month, $stat->value);
-            $key_stat->save();
-        }
     }
 
     /**

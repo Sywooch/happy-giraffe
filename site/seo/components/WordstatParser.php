@@ -103,18 +103,17 @@ class WordstatParser extends ProxyParserThread
         if (!isset($html) || $html === null)
             return false;
 
-        $document = phpQuery::newDocument($html);
+        return $this->parseData($html);
+    }
 
+    public function parseData($html)
+    {
+        $document = phpQuery::newDocument($html);
         $html = str_replace('&nbsp;', ' ', $html);
-        if (strpos($html, ' 0 показов в месяц')) {
-            YandexPopularity::addValue($this->keyword->keyword_id, 0);
-            ParsingKeywords::model()->deleteByPk($this->keyword->keyword_id);
-            return true;
-        }
+        $html = str_replace('&mdash;', '—', $html);
 
         $k = 0;
-
-        if (preg_match('/— ([\d]+) показов в месяц/', $html, $matches)) {
+        if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
             YandexPopularity::addValue($this->keyword->keyword_id, $matches[1]);
             ParsingKeywords::model()->deleteByPk($this->keyword->keyword_id);
             $k = 1;
@@ -136,9 +135,8 @@ class WordstatParser extends ProxyParserThread
     {
         $old_keyword = trim($keyword);
         $keyword = str_replace('+', '', $old_keyword);
-        if ($this->debug) {
+        if ($this->debug)
             echo $keyword . ' - ' . $value . "\n";
-        }
 
         if (!empty($keyword) && !empty($value)) {
             $model = Keywords::model()->findByAttributes(array('name' => $old_keyword));

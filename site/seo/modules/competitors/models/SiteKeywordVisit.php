@@ -205,23 +205,30 @@ class SiteKeywordVisit extends HActiveRecord
         return $this->keyword->getButtons(true);
     }
 
-    public function SaveOrUpdate()
+    public static function SaveValue($site_id, $keyword_id, $month, $year, $value)
     {
-        $model = Stats::model()->findByAttributes(array(
-            'keyword_id'=>$this->keyword_id,
-            'year'=>$this->year,
-            'month'=>$this->month,
-            'site_id'=>$this->site_id
+        $model = self::model()->findByAttributes(array(
+            'keyword_id'=>$keyword_id,
+            'year'=>$year,
+            'site_id'=>$site_id
         ));
 
-        if (isset($model)){
-//            $model->value = $this->value;
-//            if (!$model->save())
-//                throw new CHttpException(404, 'Stats not saved');
+        if ($model !== null){
+            //второй раз и меньше - значит слово в котором есть буква ё
+            $old = $model->getAttribute('m'.$month);
+            if ($old > $value)
+                return ;
 
-            echo 'Пропущена статистика '.$model->keyword->name.' - '.$model->value.' - '.$this->value.'<br>';
-        }else
-            if (!$this->save())
-                throw new CHttpException(404, 'Stats not saved');
+            $model->setAttribute('m'.$month, $value);
+        }else{
+            $model = new SiteKeywordVisit();
+            $model->site_id = $site_id;
+            $model->keyword_id = $keyword_id;
+            $model->year = $year;
+            $model->setAttribute('m'.$month, $value);
+        }
+
+        if (!$model->save())
+            throw new CHttpException(404, 'Error - stats doesnt saved.');
     }
 }

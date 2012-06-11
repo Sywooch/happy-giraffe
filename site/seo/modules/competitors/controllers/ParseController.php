@@ -23,12 +23,13 @@ class ParseController extends SController
         $year = Yii::app()->request->getPost('year');
         $month_from = Yii::app()->request->getPost('site_id');
         $month_to = Yii::app()->request->getPost('site_id');
+        $mode = Yii::app()->request->getPost('mode');
 
         if (empty($site_id))
             Yii::app()->end();
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $error = $this->parseStats($site_id, $year, $month_from, $month_to);
+        $error = $this->parseStats($site_id, $year, $month_from, $month_to, $mode);
 
         if ($error === true)
             echo CJSON::encode(array('status' => true));
@@ -39,24 +40,29 @@ class ParseController extends SController
             ));
     }
 
-    public function parseStats($site_id, $year, $month_from, $month_to)
+    public function parseStats($site_id, $year, $month_from, $month_to, $mode)
     {
         $site = $this->loadModel($site_id);
 
         for ($month = $month_from; $month <= $month_to; $month++) {
             $url = 'http://www.liveinternet.ru/stat/' . $site->url
-                . '/queries.html?date=' . $year . '-' . $month . '-'
-                . cal_days_in_month(CAL_GREGORIAN, $month, $year)
+                . '/queries.html?date=' . $year . '-' . str_pad($month, 2, "0", STR_PAD_LEFT) . '-'
+                . str_pad(cal_days_in_month(CAL_GREGORIAN, $month, $year), 2, '0', STR_PAD_LEFT)
                 . ';period=month;total=yes;page=';
 
             $result = $this->loadPage($url, $url);
+
+            if ($mode == 2) {
+                echo $result;
+                Yii::app()->end();
+            }
 
             $document = phpQuery::newDocument($result);
             $max_pages = $this->getPagesCount($document);
             $count = $this->ParseDocument($document, $month, $year, $site_id);
 
             if ($count == 0)
-                return 'Не найдено данных на старнице';
+                return 'Не найдено данных на стрaнице - ' . $url;
             sleep(rand(1, 2));
 
             for ($i = 2; $i <= $max_pages; $i++) {
@@ -372,7 +378,7 @@ class ParseController extends SController
 
     private function ParseDocument($document, $month, $year, $site_id)
     {
-        $i = 0;
+        $count = 0;
         foreach ($document->find('table table') as $table) {
             $text = pq($table)->find('td:first')->text();
             if (strstr($text, 'значения:суммарные') !== FALSE) {
@@ -386,14 +392,16 @@ class ParseController extends SController
                         || $keyword == 'сумма выбранных' || $keyword == 'всего'
                     )
                         continue;
+
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
                     $keyword_model = Keywords::GetKeyword($keyword);
                     SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, str_replace(',', '', $stats));
+                    $count++;
                 }
             }
         }
 
-        return $i;
+        return $count;
     }
 
     /**

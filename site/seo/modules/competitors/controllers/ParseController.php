@@ -12,34 +12,51 @@ class ParseController extends SController
         return true;
     }
 
-    public function actionIndex(){
+    public function actionIndex()
+    {
         $this->render('index');
     }
 
-    public function actionParse(){
+    public function actionParse()
+    {
         $site_id = Yii::app()->request->getPost('site_id');
+        $year = Yii::app()->request->getPost('year');
+        $month_from = Yii::app()->request->getPost('site_id');
+        $month_to = Yii::app()->request->getPost('site_id');
 
         if (empty($site_id))
             Yii::app()->end();
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $this->parseStats($site_id);
+        $error = $this->parseStats($site_id, $year, $month_from, $month_to);
 
-        echo CJSON::encode(array('status' => true));
+        if ($error === true)
+            echo CJSON::encode(array('status' => true));
+        else
+            echo CJSON::encode(array(
+                'status' => false,
+                'error' => $error
+            ));
     }
 
-    public function parseStats($site_id)
+    public function parseStats($site_id, $year, $month_from, $month_to)
     {
-        $year = 2012;
         $site = $this->loadModel($site_id);
 
-        for ($month = 5; $month > 4; $month--) {
-            $url = 'http://www.liveinternet.ru/stat/' . $site->url . '/queries.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
+        for ($month = $month_from; $month <= $month_to; $month++) {
+            $url = 'http://www.liveinternet.ru/stat/' . $site->url
+                . '/queries.html?date=' . $year . '-' . $month . '-'
+                . cal_days_in_month(CAL_GREGORIAN, $month, $year)
+                . ';period=month;total=yes;page=';
+
             $result = $this->loadPage($url, $url);
 
             $document = phpQuery::newDocument($result);
             $max_pages = $this->getPagesCount($document);
-            $this->GetStat($document, $month, $year, $site_id);
+            $count = $this->ParseDocument($document, $month, $year, $site_id);
+
+            if ($count == 0)
+                return 'Не найдено данных на старнице';
             sleep(rand(1, 2));
 
             for ($i = 2; $i <= $max_pages; $i++) {
@@ -47,11 +64,13 @@ class ParseController extends SController
                 $result = $this->loadPage($page_url, $url);
 
                 $document = phpQuery::newDocument($result);
-                $this->GetStat($document, $month, $year, $site_id);
+                $this->ParseDocument($document, $month, $year, $site_id);
 
                 sleep(rand(1, 2));
             }
         }
+
+        return true;
     }
 
     public function getPagesCount($document)
@@ -351,12 +370,11 @@ class ParseController extends SController
 //        return $this->CP1251toUTF8($html);
     }
 
-    private function GetStat($document, $month, $year, $site_id)
+    private function ParseDocument($document, $month, $year, $site_id)
     {
-        $res = array();
+        $i = 0;
         foreach ($document->find('table table') as $table) {
             $text = pq($table)->find('td:first')->text();
-            //            echo $text.'<br>';
             if (strstr($text, 'значения:суммарные') !== FALSE) {
                 $i = 0;
                 foreach (pq($table)->find('tr') as $tr) {
@@ -365,19 +383,17 @@ class ParseController extends SController
                         continue;
                     $keyword = trim(pq($tr)->find('td:eq(1)')->text());
                     if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие'
-                        || $keyword == 'сумма выбранных' || $keyword == 'всего')
+                        || $keyword == 'сумма выбранных' || $keyword == 'всего'
+                    )
                         continue;
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
-                    $res[] = array($keyword, $stats);
                     $keyword_model = Keywords::GetKeyword($keyword);
                     SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, str_replace(',', '', $stats));
                 }
-
-                //echo $i . '<br>';
             }
         }
 
-        return $res;
+        return $i;
     }
 
     /**
@@ -385,7 +401,8 @@ class ParseController extends SController
      * @return Site
      * @throws CHttpException
      */
-    public function loadModel($id){
+    public function loadModel($id)
+    {
         $model = Site::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

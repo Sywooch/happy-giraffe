@@ -141,7 +141,7 @@ class SeoCommand extends CConsoleCommand
         $parser->start($mode);
     }
 
-    public function actionTest1(){
+    /*public function actionTest1(){
         $models = YandexPopularity::model()->findAll('value=0');
         foreach($models as $model){
             $parse = new ParsingKeywords();
@@ -154,6 +154,6 @@ class SeoCommand extends CConsoleCommand
 
             $model->delete();
         }
-    }
+    }*/
 }
 

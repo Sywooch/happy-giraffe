@@ -223,20 +223,24 @@
                     'active' => Yii::app()->controller->id == 'user'
                 ),
                 array(
-                    'label' => 'Парсинг Метрики',
-                    'url' => array('/queries/index/'),
-                ),
-                array(
                     'label' => 'Запросы',
                     'url' => array('/queries/admin/'),
+                ),
+                array(
+                    'label' => 'Готовые статьи',
+                    'url' => array('/writing/articleKeywords/admin/'),
+                ),
+                array(
+                    'label' => 'Парсинг',
+                    'url' => array('/queries/index/'),
                 ),
                 array(
                     'label' => 'Парсинг Вордстата',
                     'url' => array('/wordstat/index'),
                 ),
                 array(
-                    'label' => 'Готовые статьи',
-                    'url' => array('/writing/articleKeywords/admin/'),
+                    'label' => 'Парсинг LI',
+                    'url' => array('/competitors/parse/index'),
                 ),
             )));
     ?>

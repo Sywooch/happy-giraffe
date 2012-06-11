@@ -156,7 +156,7 @@ class ParseController extends SController
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
                     $res[] = array($keyword, $stats);
                     $page = SitePages::GetPage($keyword);
-                    $model = new SeoPagesStats();
+                    $model = new SitePageVisit();
                     $model->setAttribute('m' . $month, str_replace(',', '', $stats));
                     $model->year = $year;
                     $model->page_id = $page->id;
@@ -269,8 +269,8 @@ class ParseController extends SController
                         continue;
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
                     $res[] = array($keyword, $stats);
-                    $page = SeoVisitsNames::GetVisitName($keyword);
-                    $model = new SeoVisits();
+                    $page = SiteStatisticType::GetVisitName($keyword);
+                    $model = new SiteStatistic();
                     $model->value = str_replace(',', '', $stats);
                     $model->year = $year;
                     $model->month = $month;
@@ -331,8 +331,8 @@ class ParseController extends SController
                         continue;
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
                     $res[] = array($keyword, $stats);
-                    $page = SeoBrowser::GetModelName($keyword);
-                    $model = new SeoBrowserStats();
+                    $page = SiteBrowser::GetModelName($keyword);
+                    $model = new SiteBrowserVisit();
                     $model->value = str_replace(',', '', $stats);
                     $model->year = $year;
                     $model->month = $month;
@@ -478,9 +478,9 @@ class ParseController extends SController
         $criteria->compare('year', $year);
         $stats = Stats::model()->findAll($criteria);
         foreach ($stats as $stat) {
-            $key_stat = KeyStats::model()->find('site_id = ' . $site_id . ' AND keyword_id = ' . $stat->keyword_id . ' AND year = ' . $year);
+            $key_stat = SiteKeywordVisit::model()->find('site_id = ' . $site_id . ' AND keyword_id = ' . $stat->keyword_id . ' AND year = ' . $year);
             if ($key_stat === null) {
-                $key_stat = new KeyStats;
+                $key_stat = new SiteKeywordVisit;
                 $key_stat->keyword_id = $stat->keyword_id;
                 $key_stat->site_id = $site_id;
                 $key_stat->year = $year;

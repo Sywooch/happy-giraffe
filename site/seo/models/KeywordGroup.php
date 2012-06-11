@@ -10,14 +10,15 @@
  * @property ArticleKeywords[] $articleKeywords
  * @property Keywords[] $keywords
  * @property SeoTask[] $seoTasks
+ * @property int $newTaskCount
  */
 class KeywordGroup extends CActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return KeywordGroup the static model class
-	 */
+    /**
+     * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
+     * @return KeywordGroup the static model class
+     */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -36,11 +37,7 @@ class KeywordGroup extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id', 'safe', 'on'=>'search'),
 		);
 	}

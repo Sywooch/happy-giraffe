@@ -12,7 +12,6 @@
  * @property KeywordGroup[] $group
  * @property PastuhovYandexPopularity $pastuhovYandex
  * @property KeywordBlacklist $keywordBlacklist
- * @property RamblerPopularity $ramblerPopularity
  * @property YandexPopularity $yandex
  * @property TempKeywords $tempKeyword
  */
@@ -47,12 +46,8 @@ class Keywords extends HActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('name', 'length', 'max' => 1024),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('id, name', 'safe', 'on' => 'search'),
         );
     }
@@ -62,14 +57,11 @@ class Keywords extends HActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
-            'seoStats' => array(self::HAS_MANY, 'KeyStats', 'keyword_id'),
+            'seoStats' => array(self::HAS_MANY, 'SiteKeywordVisit', 'keyword_id'),
             'group' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'pastuhovYandex' => array(self::HAS_ONE, 'PastuhovYandexPopularity', 'keyword_id'),
             'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
-            'ramblerPopularity' => array(self::HAS_ONE, 'RamblerPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeywords', 'keyword_id'),
             'keywordBlacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
         );
@@ -102,15 +94,20 @@ class Keywords extends HActiveRecord
                 ->limit(0, 50000)
                 ->searchRaw();
             $ids = array();
+
+            $blacklist = Yii::app()->db->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
             foreach ($allSearch['matches'] as $key => $m) {
-                $ids [] = $key;
+                if (!in_array($key, $blacklist))
+                    $ids [] = $key;
             }
+
             if (!empty($ids))
                 $criteria->compare('t.id', $ids);
             else
                 $criteria->compare('t.id', 0);
         }
         $criteria->with = array('yandex');
+        $criteria->order = 'yandex.value desc';
 
         return new CActiveDataProvider('Keywords', array(
             'criteria' => $criteria,
@@ -138,6 +135,9 @@ class Keywords extends HActiveRecord
         return $model;
     }
 
+    /**
+     * @return bool
+     */
     public function hasOpenedTask()
     {
         if (!empty($this->tempKeyword) && $this->tempKeyword->owner_id != Yii::app()->user->id)
@@ -154,6 +154,9 @@ class Keywords extends HActiveRecord
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function used()
     {
         foreach ($this->group as $group) {
@@ -163,6 +166,9 @@ class Keywords extends HActiveRecord
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function inBuffer()
     {
         if (!empty($this->tempKeyword) && $this->tempKeyword->owner_id == Yii::app()->user->id)
@@ -171,6 +177,9 @@ class Keywords extends HActiveRecord
         return false;
     }
 
+    /**
+     * @return string
+     */
     public function getClass()
     {
         $class = '';
@@ -181,26 +190,23 @@ class Keywords extends HActiveRecord
         return $class;
     }
 
-    public function getData()
-    {
-        $res = '';
-        if (!empty($this->seoStats))
-            foreach ($this->seoStats as $seoStat)
-                $res .= $seoStat->sum . ', ';
-
-        return $res;
-    }
-
+    /**
+     * @param $site_id
+     * @return int
+     */
     public function getStats($site_id)
     {
         foreach ($this->seoStats as $stats) {
             if ($stats->site_id == $site_id)
-                return round($stats->sum / 12);
+                return $stats->GetAverageStats();
         }
 
         return 0;
     }
 
+    /**
+     * @return string
+     */
     public function getFreqIcon()
     {
         $freq = $this->getFreq();
@@ -209,6 +215,9 @@ class Keywords extends HActiveRecord
         return '';
     }
 
+    /**
+     * @return int
+     */
     public function getFreq()
     {
         if (!isset($this->yandex))
@@ -220,6 +229,21 @@ class Keywords extends HActiveRecord
         if ($this->yandex->value >= 500)
             return 3;
         return 4;
+    }
+
+    /**
+     * @param CDbCriteria $criteria
+     * @return array
+     */
+    public function getFreqCount($criteria)
+    {
+        $counts = array(0 => Keywords::model()->count($criteria));
+
+        for ($i = 1; $i < 5; $i++) {
+            $criteria2 = clone $criteria;
+            $counts[$i] = Keywords::model()->count($criteria2->addCondition(Keywords::getFreqCondition($i)));
+        }
+        return $counts;
     }
 
     /**
@@ -240,6 +264,11 @@ class Keywords extends HActiveRecord
         return '';
     }
 
+    /**
+     * @static
+     * @param string $name
+     * @return array
+     */
     public static function findSiteIdsByNameWithSphinx($name)
     {
         $allSearch = Yii::app()->search
@@ -255,46 +284,6 @@ class Keywords extends HActiveRecord
         }
 
         return $ids;
-    }
-
-    public function findKeywords($name)
-    {
-        $allSearch = Yii::app()->search
-            ->select('*')
-            ->from('keywords')
-            ->where(' ' . $name . ' ')
-            ->limit(0, 10000)
-            ->searchRaw();
-        $ids = array();
-        $blacklist = Yii::app()->db->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
-
-        foreach ($allSearch['matches'] as $key => $m) {
-            if (!in_array($key, $blacklist))
-                $ids [] = $key;
-        }
-
-        if (!empty($ids)) {
-            $criteria = new CDbCriteria;
-            $criteria->compare('t.id', $ids);
-            $criteria->with = array('group', 'group.newTaskCount', 'group.articleKeywords', 'seoStats', 'pastuhovYandex', 'ramblerPopularity');
-            $criteria->order = 'pastuhovYandex.value desc';
-            $models = Keywords::model()->findAll($criteria);
-        } else
-            $models = array();
-
-        return $models;
-    }
-
-    public function getFreqCount($criteria)
-    {
-        $counts = array(
-            0 => Keywords::model()->count($criteria)
-        );
-        for($i=1;$i<5;$i++){
-            $criteria2 = clone $criteria;
-            $counts[$i] = Keywords::model()->count($criteria2->addCondition(Keywords::getFreqCondition($i)));
-        }
-        return $counts;
     }
 
     public function getButtons($short = false)
@@ -322,6 +311,25 @@ class Keywords extends HActiveRecord
             return '<input type="hidden" value="' . $this->id . '">
             <a href="" class="icon-add" onclick="SeoKeywords.Select(this, ' . (int)$short . ');return false;"></a>
             <a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>';
+
+        return '';
+    }
+
+    public function getKeywordAndSimilarArticles()
+    {
+        $res = $this->name;
+        if ($this->used() || $this->hasOpenedTask())
+            return $res;
+
+        $models = $this->getSimilarArticles();
+        if (!empty($models)) {
+            $res .= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
+            foreach ($models as $model)
+                $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '<br>';
+            $res .= '</div>';
+        }
+
+        return $res;
     }
 
     public function getSimilarArticles()
@@ -353,22 +361,5 @@ class Keywords extends HActiveRecord
 
         $models = CommunityContent::model()->resetScope()->findAll($criteria);
         return $models;
-    }
-
-    public function getKeywordAndSimilarArticles()
-    {
-        $res = $this->name;
-        if ($this->used() || $this->hasOpenedTask())
-            return $res;
-
-        $models = $this->getSimilarArticles();
-        if (!empty($models)) {
-            $res .= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
-            foreach ($models as $model)
-                $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '<br>';
-            $res .= '</div>';
-        }
-
-        return $res;
     }
 }

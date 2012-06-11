@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "key_stats".
+ * This is the model class for table "sites__keywords_visits".
  *
- * The followings are the available columns in table 'key_stats':
+ * The followings are the available columns in table 'sites__keywords_visits':
  * @property integer $id
  * @property integer $site_id
  * @property integer $keyword_id
@@ -26,7 +26,7 @@
  * @property Keywords $keyword
  * @property Site $site
  */
-class KeyStats extends HActiveRecord
+class SiteKeywordVisit extends HActiveRecord
 {
     public $all;
     public $key_name;
@@ -39,7 +39,7 @@ class KeyStats extends HActiveRecord
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return KeyStats the static model class
+     * @return SiteKeywordVisit the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -51,7 +51,7 @@ class KeyStats extends HActiveRecord
      */
     public function tableName()
     {
-        return 'happy_giraffe_seo.baby_stats__key_stats';
+        return 'happy_giraffe_seo.sites__keywords_visits';
     }
 
     public function getDbConnection()
@@ -203,5 +203,25 @@ class KeyStats extends HActiveRecord
     public function getButtons()
     {
         return $this->keyword->getButtons(true);
+    }
+
+    public function SaveOrUpdate()
+    {
+        $model = Stats::model()->findByAttributes(array(
+            'keyword_id'=>$this->keyword_id,
+            'year'=>$this->year,
+            'month'=>$this->month,
+            'site_id'=>$this->site_id
+        ));
+
+        if (isset($model)){
+//            $model->value = $this->value;
+//            if (!$model->save())
+//                throw new CHttpException(404, 'Stats not saved');
+
+            echo 'Пропущена статистика '.$model->keyword->name.' - '.$model->value.' - '.$this->value.'<br>';
+        }else
+            if (!$this->save())
+                throw new CHttpException(404, 'Stats not saved');
     }
 }

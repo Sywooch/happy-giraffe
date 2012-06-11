@@ -114,6 +114,36 @@ class Keywords extends HActiveRecord
         ));
     }
 
+    public function getChildKeywords($num)
+    {
+        $criteria = new CDbCriteria;
+
+        if (!empty($this->name)) {
+            $allSearch = Yii::app()->search
+                ->select('*')
+                ->from('keywords')
+                ->where(' ' . $this->name . ' ')
+                ->limit(0, $num)
+                ->searchRaw();
+            $ids = array();
+
+            $blacklist = Yii::app()->db->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
+            foreach ($allSearch['matches'] as $key => $m) {
+                if (!in_array($key, $blacklist))
+                    $ids [] = $key;
+            }
+
+            if (!empty($ids))
+                $criteria->compare('t.id', $ids);
+            else
+                $criteria->compare('t.id', 0);
+        }
+        $criteria->with = array('yandex');
+        $criteria->order = 'yandex.value desc';
+
+        return self::model()->findAll($criteria);
+    }
+
     /**
      * @static
      * @param string $word

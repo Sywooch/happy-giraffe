@@ -103,23 +103,5 @@ class Stats extends HActiveRecord
         ));
     }
 
-    public function SaveOrUpdate()
-    {
-        $model = Stats::model()->findByAttributes(array(
-            'keyword_id'=>$this->keyword_id,
-            'year'=>$this->year,
-            'month'=>$this->month,
-            'site_id'=>$this->site_id
-        ));
 
-        if (isset($model)){
-//            $model->value = $this->value;
-//            if (!$model->save())
-//                throw new CHttpException(404, 'Stats not saved');
-
-            echo 'Пропущена статистика '.$model->keyword->name.' - '.$model->value.' - '.$this->value.'<br>';
-        }else
-            if (!$this->save())
-                throw new CHttpException(404, 'Stats not saved');
-    }
 }

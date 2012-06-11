@@ -17,6 +17,8 @@
         echo CHtml::textField('month_to', 5, array('id' => 'month_to')) . '<br>'; ?>
     </div>
 
-    <?php echo CHtml::link('Парсить сайт', '#', array('onclick' => 'Competitors.Parse()')); ?>
+    <?php echo CHtml::link('Парсить сайт', '#', array('onclick' => 'Competitors.Parse(1)')); ?>
+    <br><br>
+    <?php echo CHtml::link('посмотреть страницу', '#', array('onclick' => 'Competitors.Parse(2)')); ?>
 
 </div>

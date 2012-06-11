@@ -140,5 +140,20 @@ class SeoCommand extends CConsoleCommand
         $parser = new WordstatParser();
         $parser->start($mode);
     }
+
+    public function actionTest1(){
+        $models = YandexPopularity::model()->findAll('value=0');
+        foreach($models as $model){
+            $parse = new ParsingKeywords();
+            $parse->keyword_id = $model->keyword_id;
+            try{
+                $parse->save();
+            }catch (Exception $err){
+
+            }
+
+            $model->delete();
+        }
+    }
 }
 

@@ -47,17 +47,19 @@ class ParseController extends SController
         $site = $this->loadModel($site_id);
 
         for ($month = $month_from; $month <= $month_to; $month++) {
+            $first_url = 'http://www.liveinternet.ru/stat/' . $site->url.'/index.html';
+            $result = $this->loadPage($first_url, '');
+            if ($mode == 2) {
+                echo $result;
+                Yii::app()->end();
+            }
+
             $url = 'http://www.liveinternet.ru/stat/' . $site->url
                 . '/queries.html?date=' . $year . '-' . str_pad($month, 2, "0", STR_PAD_LEFT) . '-'
                 . str_pad(cal_days_in_month(CAL_GREGORIAN, $month, $year), 2, '0', STR_PAD_LEFT)
                 . '&period=month&total=yes&per_page=100&page=';
 
-            $result = $this->loadPage($url, $url);
-
-            if ($mode == 2) {
-                echo $result;
-                Yii::app()->end();
-            }
+            $result = $this->loadPage($url, $first_url);
 
             $document = phpQuery::newDocument($result);
             $max_pages = $this->getPagesCount($document);
@@ -367,8 +369,8 @@ class ParseController extends SController
         curl_setopt($ch, CURLOPT_USERAGENT, 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:13.0) Gecko/20100101 Firefox/13.0');
         curl_setopt($ch, CURLOPT_URL, $page_url);
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-        curl_setopt($ch, CURLOPT_REFERER, $last_url);
-//        curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
+        if (!empty($last_url))
+            curl_setopt($ch, CURLOPT_REFERER, $last_url);
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

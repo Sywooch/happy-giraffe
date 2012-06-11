@@ -135,10 +135,7 @@ class ProxyParserThread extends CComponent
     protected function closeThread($reason = 'unknown reason')
     {
         //save proxy
-        $this->proxy->rank = $this->proxy->rank + $this->success_loads;
-        $this->proxy->active = 0;
-        $this->proxy->save();
-
+        $this->saveProxy();
         $this->removeCookieFile();
 
         Yii::log('Thread closed: ' . $reason);

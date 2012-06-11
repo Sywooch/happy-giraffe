@@ -38,7 +38,7 @@ class WordstatController extends SController
             ->searchRaw();
         $count = 0;
         foreach ($allSearch['matches'] as $key => $m)
-            if (ParsingKeywords::model()->addKeywordById($key))
+            if (ParsingKeywords::model()->addKeywordByIdNotInYandex($key))
                 $count++;
 
         echo CJSON::encode(array(

@@ -39,6 +39,7 @@ $categories = CookDecorationCategory::model()->findAll();
 
         <div class="block-title">
 
+            <?php if (!Yii::app()->user->isGuest){ ?>
             <div class="add-photo">
                 Нашли интересное оформление или<br/>хотите похвастаться своим творением<br/>
                 <!--<a href="#photoPick" class="btn btn-green fancy"><span><span>Добавить фото</span></span></a>-->
@@ -50,6 +51,8 @@ $categories = CookDecorationCategory::model()->findAll();
                 $this->endWidget();
                 ?>
             </div>
+            <?php } ?>
+
             <?='<h1>' . (($id) ? 'Как можно оформить '.$category->title_h1 : '1000 лучших оформлений блюд') . '</h1>';?>
 
 

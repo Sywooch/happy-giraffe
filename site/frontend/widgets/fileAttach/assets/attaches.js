@@ -137,6 +137,7 @@ Attach.prototype.insertToCookDecoration = function(id) {
         function(data) {
             if(data){
                 document.location.reload();
+                $.fancybox.close();
             }
         });
 }
@@ -146,22 +147,12 @@ Attach.prototype.CookDecorationEdit = function (fsn) {
         $('#attach_content').html(data.html);
         if(data.title){
             $('#file_attach_menu li').removeClass('active');
-            $('#file_attach_menu').append('<li class="active"><a href="#" onclick="return false">'+data.title+'</a></li>');
-        }
-        $(".chzn").chosen();
-    })
-}
-
-Attach.prototype.CookDecorationTab = function (fsn) {
-    $.post(base_url + '/albums/cookDecorationCategory/', {val:fsn, widget_id:this.object_name}, function (data) {
-        $('#attach_content').html(data.html);
-        if(data.title){
-            $('#file_attach_menu li').removeClass('active');
             $('#file_attach_menu').append('<li class="active"><a href="#" onclick="'+data.tab+'">'+data.title+'</a></li>');
         }
         $(".chzn").chosen();
     })
 }
+
 
 Attach.prototype.saveCommentPhoto = function (val) {
     $.post(base_url + '/albums/commentPhoto/', {entity:attach_comment_obj.entity, entity_id:attach_comment_obj.entity_id, val:val},

@@ -125,7 +125,7 @@ Attach.prototype.insertToRecipe = function(fsn) {
     }, 'json');
 }
 
-Attach.prototype.insertToCookDecoration = function(id) {
+Attach.prototype.insertToCookDecoration = function (id) {
     $.post(
         '/albums/cookDecorationPhoto/',
         {
@@ -134,9 +134,9 @@ Attach.prototype.insertToCookDecoration = function(id) {
             category:$('#attach_content select[name="category"]').val(),
             id:id
         },
-        function(data) {
-            if(data){
-                document.location.reload();
+        function (data) {
+            if (data) {
+                $('#dishes').load('/cook/decor/ #dishes');
                 $.fancybox.close();
             }
         });
@@ -147,7 +147,7 @@ Attach.prototype.CookDecorationEdit = function (fsn) {
         $('#attach_content').html(data.html);
         if (data.title) {
             if ($('#file_attach_menu li.decorationTab').length == 0)
-                $('#file_attach_menu').append('<li class="active decorationTab"><a href="#" onclick="' + data.tab + '">' + data.title + '</a></li>');
+                $('#file_attach_menu').append('<li class="active decorationTab"><a href="#" onclick="' + data.tab + '; return false;">' + data.title + '</a></li>');
             $('#file_attach_menu li').removeClass('active');
             $('#file_attach_menu li.decorationTab').addClass('active');
         }

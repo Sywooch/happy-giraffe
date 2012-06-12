@@ -387,13 +387,15 @@ class AlbumsController extends HController
     public function actionCookDecorationCategory()
     {
         $val = Yii::app()->request->getPost('val');
+        $data['tab'] = Yii::app()->request->getPost('widget_id') . ".CookDecorationEdit('" . $val . "')";
+
         if (is_numeric($val)) {
             $p = AlbumPhoto::model()->findByPk($val);
             $photo = $p->getPreviewUrl(100, 100, Image::NONE);
             $title = $p->title;
             $data['title'] = mb_substr($p->title, 0, 20);
         } else {
-            $photo = Yii::app()->params['photos_url'].'/temp/'.$val;
+            $photo = Yii::app()->params['photos_url'] . '/temp/' . $val;
             $title = '';
         }
 

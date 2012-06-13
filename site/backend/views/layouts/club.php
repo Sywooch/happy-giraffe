@@ -41,7 +41,7 @@
                 'visible' => Yii::app()->user->checkAccess('horoscope')
             ),
             array('label' => 'Кулинария',
-                'active' => (in_array(Yii::app()->controller->id, array('club/cookIngredients', 'club/cookSpices', 'club/cookSpicesCategories'))),
+                'active' => (in_array(Yii::app()->controller->id, array('club/cookIngredients', 'club/cookSpices', 'club/cookSpicesCategories', 'club/cookChooseCategory'))),
                 'url' => array('/club/cookIngredients/'),
                 //'visible' => Yii::app()->user->checkAccess('cook_ingredients'),
                 'items' => array(
@@ -63,6 +63,11 @@
                     array(
                         'label' => 'Как выбрать',
                         'url' => array('/club/cookChoose/'),
+                        'visible' => Yii::app()->user->checkAccess('cook_choose'),
+                    ),
+                    array(
+                        'label' => 'Как выбрать категории',
+                        'url' => array('/club/cookChooseCategory/'),
                         'visible' => Yii::app()->user->checkAccess('cook_choose'),
                     ),
                 )

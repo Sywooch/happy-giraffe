@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <td><?=$executing->getText() ?></td>
-                <td><?=$executing->getText() ?></td>
+                <td><?=$executing->getHints() ?></td>
             </tr>
             </tbody></table>
     </div>

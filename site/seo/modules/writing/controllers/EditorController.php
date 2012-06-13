@@ -27,13 +27,27 @@ class EditorController extends SController
     {
         $term = $_POST['term'];
         if (!empty($term)) {
+            $model = new Keywords;
+            $model->name = $term;
 
-            $models = Keywords::model()->findKeywords($term);
-            $counts = Keywords::model()->getFreqCount($models);
+            $dataProvider = $model->search();
+            $criteria = $dataProvider->criteria;
+            $count = Keywords::model()->count($dataProvider->criteria);
+            $pages = new CPagination($count);
+            $pages->pageSize = 100;
+            $pages->currentPage = Yii::app()->request->getPost('page');
+            $pages->applyLimit($dataProvider->criteria);
+
+
+            $counts = Keywords::model()->getFreqCount($criteria);
+            $criteria2 = clone $criteria;
+            $criteria2->with = array('yandex', 'pastuhovYandex', 'seoStats', 'group', 'tempKeyword');
+            $models = Keywords::model()->findAll($criteria2);
             $response = array(
                 'status' => true,
                 'count' => $this->renderPartial('_find_result_count',  compact('models', 'counts'), true),
-                'table' => $this->renderPartial('_find_result_table', compact('models'), true)
+                'table' => $this->renderPartial('_find_result_table', compact('models'), true),
+                'pagination' => $this->renderPartial('_find_result_pagination', compact('pages'), true)
             );
             echo CJSON::encode($response);
         }

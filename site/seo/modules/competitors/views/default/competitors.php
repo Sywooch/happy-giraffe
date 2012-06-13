@@ -35,7 +35,7 @@
         array(
             'name' => 'key_name',
             'type'=>'raw',
-            'value' => '$data->getKeywordAndSimilarArticles()',
+            'value' => '$data->keyword->getKeywordAndSimilarArticles()',
             'headerHtmlOptions' => array('class' => 'col-1'),
             'htmlOptions' => array('class' => 'col-1')
         ),
@@ -122,7 +122,7 @@
 <?php echo CHtml::hiddenField('year', $year) ?>
 <?php echo CHtml::hiddenField('key_name', $model->key_name) ?>
 <?php echo CHtml::hiddenField('freq', $model->freq) ?>
-<?php echo CHtml::hiddenField('KeyStats_sort', isset($_GET['KeyStats_sort'])?$_GET['KeyStats_sort']:'') ?>
+<?php echo CHtml::hiddenField('SiteKeywordVisit_sort', isset($_GET['SiteKeywordVisit_sort'])?$_GET['SiteKeywordVisit_sort']:'') ?>
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
@@ -157,10 +157,10 @@
             submitForm();
         },
         sortByFreq:function(){
-            if ($('#KeyStats_sort').val() == '')
-                $('#KeyStats_sort').val('popular');
+            if ($('#SiteKeywordVisit_sort').val() == '')
+                $('#SiteKeywordVisit_sort').val('popular');
             else
-                $('#KeyStats_sort').val('');
+                $('#SiteKeywordVisit_sort').val('');
             submitForm();
         },
         updateTable:function(){

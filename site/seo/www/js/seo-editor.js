@@ -3,13 +3,17 @@
  * Date: 21.05.12
  */
 var SeoKeywords = {
-    searchKeywords:function (term) {
+    page : 0,
+    term : '',
+    searchKeywords:function () {
         $('div.loading').show();
-        $.post('/writing/editor/searchKeywords/', {term:term}, function (response) {
+        $.post('/writing/editor/searchKeywords/', {term:this.term, page:this.page}, function (response) {
             $('div.loading').hide();
             if (response.status) {
                 $('.search .result').html(response.count);
                 $('div.table-box tbody').html(response.table);
+                $('div.pagination').html(response.pagination);
+                $('html,body').animate({scrollTop: $('html').offset().top},'fast');
             }
             else {
                 $.pnotify({

@@ -1,15 +1,15 @@
 <?php
 
 /**
- * This is the model class for table "site".
+ * This is the model class for table "sites__sites".
  *
- * The followings are the available columns in table 'site':
+ * The followings are the available columns in table 'sites__sites':
  * @property integer $id
  * @property string $name
  * @property string $url
  *
  * The followings are the available model relations:
- * @property KeyStats[] $seoKeyStats
+ * @property SiteKeywordVisit[] $seoKeyStats
  */
 class Site extends HActiveRecord
 {
@@ -28,7 +28,7 @@ class Site extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'happy_giraffe_seo.baby_stats__site';
+		return 'happy_giraffe_seo.sites__sites';
 	}
 
     public function getDbConnection()
@@ -60,7 +60,7 @@ class Site extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'seoKeyStats' => array(self::HAS_MANY, 'KeyStats', 'site_id'),
+			'seoKeyStats' => array(self::HAS_MANY, 'SiteKeywordVisit', 'site_id'),
 		);
 	}
 

@@ -1,30 +1,18 @@
 <?php
-$basePath = Yii::getPathOfAlias('application.views.club.cookChoose.assets');
+$basePath = Yii::getPathOfAlias('application.views.club.cookChooseCategory.assets');
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 ?>
 
 <?php echo CHtml::link('К таблице', array('admin')) ?>
-
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-    'id' => 'cook-choose-form',
+    'id' => 'cook-choose-category-form',
     'enableAjaxValidation' => false,
 )); ?>
 
-
     <?php echo $form->errorSummary($model); ?>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'category_id'); ?>
-        <?php
-        echo $form->dropDownList($model, 'category_id',
-            CHtml::listData(CookChooseCategory::model()->findAll(), 'id', 'title')
-        );
-        ?>
-        <?php echo $form->error($model, 'category_id'); ?>
-    </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'title'); ?>
@@ -38,37 +26,14 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
         <?php echo $form->error($model, 'title_accusative'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'desc'); ?>
-        <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'desc')); ?>
-        <?php echo $form->error($model, 'desc'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'desc_quality'); ?>
-        <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'desc_quality')); ?>
-        <?php echo $form->error($model, 'desc_quality'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'desc_defective'); ?>
-        <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'desc_defective')); ?>
-        <?php echo $form->error($model, 'desc_defective'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'desc_check'); ?>
-        <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'desc_check')); ?>
-        <?php echo $form->error($model, 'desc_check'); ?>
-    </div>
-
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
     </div>
 
     <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
 
 <?php if (!$model->isNewRecord) { ?>
 <div>

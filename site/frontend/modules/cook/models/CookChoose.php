@@ -13,6 +13,7 @@
  * @property string $desc_defective
  * @property string $desc_check
  * @property string $photo_id
+ * @property string $slug
  *
  * The followings are the available model relations:
  * @property CookChooseCategories $category
@@ -44,6 +45,7 @@ class CookChoose extends HActiveRecord
             array('category_id, title, title_accusative', 'required'),
             array('category_id', 'length', 'max' => 11),
             array('title, title_accusative', 'length', 'max' => 255),
+            array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'title'),
             array('desc, desc_quality, desc_defective, desc_check', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -78,7 +80,8 @@ class CookChoose extends HActiveRecord
             'desc_quality' => 'Признаки качественного',
             'desc_defective' => 'Признаки некачественного',
             'desc_check' => 'Как можно проверить качество',
-            'photo_id' => 'Фотография'
+            'photo_id' => 'Фотография',
+            'slug' => 'slug'
         );
     }
 

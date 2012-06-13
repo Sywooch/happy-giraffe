@@ -5,7 +5,8 @@
             $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                 'user' => $data->photo->author,
                 'size' => 'small',
-                'location' => false
+                'location' => false,
+                'withMail' => false
             ));
             ?>
         </div>

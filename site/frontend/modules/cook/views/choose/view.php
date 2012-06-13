@@ -10,7 +10,7 @@
 
         <div class="product-choose-in">
 
-            <h1>Как выбрать мед</h1>
+            <h1>Как выбрать <?=$model->title_accusative;?></h1>
 
             <div class="product-choose-img">
 

@@ -90,4 +90,12 @@ class RecipeController extends HController
 
         echo CJSON::encode($_ingredients);
     }
+
+    public function actionSearch()
+    {
+        $recipes = CookRecipe::model()->searchByIngredients(array(477, 479));
+        foreach ($recipes as $r) {
+            echo $r->title;
+        }
+    }
 }

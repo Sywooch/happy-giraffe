@@ -15,65 +15,23 @@
             <div class="clearfix">
 
                 <div class="product-choose-img">
-
                     <img src="<?=isset($model->photo) ? $model->photo->getPreviewUrl(273, 259, Image::WIDTH) : '' ?>"/>
-
                 </div>
 
                 <div class="wysiwyg-content" class="clearfix">
-
-
                     <?=$model->description_extra;?>
-
-
                 </div>
+
             </div>
 
             <div class="product-choose-cat-list">
 
                 <ul>
                     <?php
-                    foreach($model->chooses as $product){
-
+                    foreach ($model->chooses as $product) {
+                        echo '<li><a href=""><img src="'.(isset($product->photo) ? $product->photo->getPreviewUrl(120, 120, Image::WIDTH) : '').'"/>Как выбрать '.$product->title_accusative.'</a></li>';
                     }
                     ?>
-                    <li>
-                        <a href="">
-                            <img src="/images/product_choose_cat_img_01.jpg"/>
-                            Как выбрать шампанское
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/product_choose_cat_img_02.jpg"/>
-                            Как выбрать вино
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/product_choose_cat_img_03.jpg"/>
-                            Как выбрать водку
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/product_choose_cat_img_01.jpg"/>
-                            Как выбрать шампанское
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/product_choose_cat_img_02.jpg"/>
-                            Как выбрать вино
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/product_choose_cat_img_03.jpg"/>
-                            Как выбрать водку
-                        </a>
-                    </li>
-
                 </ul>
 
             </div>

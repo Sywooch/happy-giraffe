@@ -7,8 +7,7 @@ class ChooseController extends HController
         $this->pageTitle = 'Как выбрать продукты?';
 
         $this->render('index', array(
-            'products' => CookChoose::model()->findAll(),
-            'categories' => CookChooseCategory::model()->findAll()
+            'categories' => CookChooseCategory::model()->with('chooses')->findAll()
         ));
     }
 

@@ -100,6 +100,9 @@ return array(
         'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
         'cook/decor' => 'cook/decor/index',
 
+        'cook/recipe/add' => 'cook/recipe/form',
+        'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
+
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 

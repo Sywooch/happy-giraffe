@@ -1,4 +1,4 @@
-<?php
+<?
     /**
      * @var CookRecipe $recipe
      */
@@ -13,7 +13,7 @@
         <div class="add-recipe">
 
             Поделиться вкусненьким!<br/>
-            <a href="" class="btn btn-green"><span><span>Добавить рецепт</span></span></a>
+            <a href="<?=$this->createUrl('/cook/recipe/add')?>" class="btn btn-green"><span><span>Добавить рецепт</span></span></a>
 
         </div>
 
@@ -57,7 +57,7 @@
                         </div>
                     </div>
 
-                    <div class="clearfix">
+                    <div class="recipe-right">
 
                         <div class="recipe-description">
 
@@ -90,31 +90,15 @@
 
                         </div>
 
-                        <div class="recipe-photo">
-
-                            <div class="big">
-                                <img class="photo" src="/images/cook_recipe_img_01.jpg" />
-                            </div>
-
-                            <div class="thumbs clearfix">
-
-                                <ul>
-                                    <li><a href=""><img src="/images/cook_recipe_img_02.jpg" /></li>
-                                    <li><a href=""><img src="/images/cook_recipe_img_03.jpg" /></li>
-                                    <li><a href="" class="add"><i class="icon"></i></a></li>
-                                </ul>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="clearfix">
-
                         <div class="nutrition">
 
-                            <div class="block-title">Калорийность блюда <span>(100 г.)</span></div>
+                            <div class="block-title">Калорийность блюда</div>
+
+                            <div class="portion">
+                                <a href="" class="active">На 100 г.</a>
+                                |
+                                <a href="">На порцию</a>
+                            </div>
 
                             <ul>
                                 <li class="n-calories">
@@ -150,248 +134,96 @@
 
                         </div>
 
-                        <h2>Ингредиенты</h2>
+                        <div class="nutrition diabetes">
 
-                        <ul class="ingredients">
-                            <?php foreach ($recipe->ingredients as $i): ?>
-                                <li class="ingredient">
-                                    <span class="name"><?=$i->ingredient->title?></span>
-                                    <span class="value"><?=round($i->value, 2)?></span>
-                                    <span class="type"><?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value)?></span>
+                            <div class="block-title">Подходит для диабетики</div>
+
+                            <ul>
+                                <li class="n-bread">
+                                    <div class="icon">
+                                        <i>ХЕ</i>
+                                        Хлебных единиц
+                                    </div>
+                                    <span class="calories">18,8</span> <span class="gray">х.е.</span>
+                                </li>
+                            </ul>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="recipe-photo">
+
+                        <a href="" class="add-photo">
+                            <i class="icon"></i>
+                            <span>Вы уже готовили это блюдо?<br/>Добавьте фото!</span>
+                        </a>
+
+                        <div class="big">
+                            <img class="photo" src="/images/cook_recipe_img_01.jpg" />
+                        </div>
+
+                        <div class="thumbs clearfix">
+
+                            <ul>
+                                <li><a href=""><img src="/images/cook_recipe_img_02.jpg" /></li>
+                                <li><a href=""><img src="/images/cook_recipe_img_03.jpg" /></li>
+                                <li><a href="" class="add"><i class="icon"></i></a></li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <div style="clear:left;"></div>
+
+                    <h2>Ингредиенты</h2>
+
+                    <ul class="ingredients">
+                        <?php foreach ($recipe->ingredients as $i): ?>
+                            <li class="ingredient">
+                                <span class="name"><?=$i->ingredient->title?></span>
+                                <span class="value"><?=round($i->value, 2)?></span>
+                                <span class="type"><?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value)?></span>
+                                <a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+
+                    <h2>Приготовление</h2>
+
+                    <div class="instructions wysiwyg-content">
+
+                        <?=$recipe->text?>
+
+                    </div>
+
+                </div>
+
+                <?php if ($recipe->more): ?>
+                    <div class="cook-more clearfix">
+                        <div class="block-title">
+                            Еще вкусненькое
+                        </div>
+                        <ul>
+                            <?php foreach($recipe->more as $m): ?>
+                                <li>
+                                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $recipe->author, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>
+                                    <div class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $recipe->created)?></div>
+                                    <div class="item-title"><?=CHtml::link($recipe->title, $recipe->url)?></div>
+                                    <div class="content">
+                                        <?=$recipe->getPreview(243)?>
+                                    </div>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
-
-                        <h2>Приготовление</h2>
-
-                        <p>Мои родители и я пошел в поход на Верхний полуостров штата Мичиган летом после моего старшего года средней школы. Это один из тех поездок, которые всегда будут оставаться со мной. Я был одним из тех больших основные переходные периоды в жизни (хотя, как всегда, я не узнал его в то время) и поездка с родителями в красивой части страны было только, что мне нужно, чтобы чувствовать себя в безопасности , безопасный и готовы отправиться в следующую главу моей жизни.</p>
-
-                        <ul class="instructions">
-                            <li class="instruction" >Курицу нарезать на кусочки, выложить в форму для запекания,
-                                посолить, поперчить, добавить специи по вкусу.</li>
-                            <li class="instruction" >Курицу залить пивом, поставить в духовку.</li>
-                            <li class="instruction" >Жарить при температуре 180 градусов в течение 40-45 минут.</li>
-                        </ul>
-
                     </div>
-                </div>
+                <?php endif; ?>
 
-                <div class="cook-more clearfix">
-                    <div class="block-title">
-                        Еще вкусненькое
-                    </div>
-                    <ul>
-                        <li>
-                            <div class="user clearfix">
-                                <div class="user-info clearfix">
-                                    <a class="ava female small"></a>
-                                    <div class="details">
-                                        <span class="icon-status status-online"></span>
-                                        <a href="" class="username">Дарья</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="date">3 сен 2012, 08:25</div>
-                            <div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
-                            <div class="content">
-                                <img src="/images/cook_more_img_01.jpg">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user clearfix">
-                                <div class="user-info clearfix">
-                                    <a class="ava female small"></a>
-                                    <div class="details">
-                                        <span class="icon-status status-online"></span>
-                                        <a href="" class="username">Денис Ижецкий</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="date">3 сен 2012, 08:25</div>
-                            <div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
-                            <div class="content">
-                                <img src="/images/cook_more_img_01.jpg">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user clearfix">
-                                <div class="user-info clearfix">
-                                    <a class="ava female small"></a>
-                                    <div class="details">
-                                        <span class="icon-status status-online"></span>
-                                        <a href="" class="username">Денис</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="date">3 сен 2012, 08:25</div>
-                            <div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
-                            <div class="content">
-                                <img src="/images/cook_more_img_01.jpg">
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-
-                <div class="default-comments">
-
-                    <div class="comments-meta clearfix">
-                        <a href="" class="btn btn-orange a-right"><span><span>Добавить комментарий</span></span></a>
-                        <div class="title">Комментарии</div>
-                        <div class="count">55</div>
-                    </div>
-
-                    <ul>
-                        <li class="author-comment">
-                            <div class="comment-in clearfix">
-                                <div class="header clearfix">
-                                    <div class="user-info clearfix">
-                                        <div class="ava female"></div>
-                                        <div class="details">
-                                            <span class="icon-status status-online"></span>
-                                            <a href="" class="username">Дарья</a>
-                                            <div class="user-fast-buttons clearfix">
-                                                <a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-                                                <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content">
-                                    <div class="meta">
-                                        <span class="num">1</span>
-                                        <span class="date">Сегодня, 20:45</span>
-                                    </div>
-                                    <div class="content-in">
-                                        <div class="wysiwyg-content">
-                                            <h2>Как выбрать детскую коляску</h2>
-
-                                            <p>Как правило, кроватку новорожденному приобретают незадолго до его появления на свет. При этом многие молодые <b>родители</b> обращают внимание главным <u>образом</u> на ее <strike>внешний</strike> вид. Но, прельстившись яркими красками, многие платят баснословные суммы, даже не поинтересовавшись, из чего сделано это покорившее вас чудо.</p>
-
-                                            <p><img src="/images/example/12.jpg" width="300" class="content-img" /><i>Атопический дерматит у детей до года локализуется в основном на щечках и ягодицах, реже на теле и конечностях, на коже головы возможно появление корочек. Когда малышу исполнится год, то места высыпаний меняются – теперь поражаются локтевые сгибы (внутри и снаружи), подколенные впадины, шея. После трех лет высыпания начинают поражать также и кисти рук.</i></p>
-
-                                            <h3>Как выбрать детскую коляску</h3>
-
-                                            <ul>
-                                                <li>Приходишь в детский магазин - глаза разбегаются: столько всего, что порой забываешь, зачем пришел. <a href="">Немало и разновидностей детских кроваток</a>: тут и люльки для младенцев</li>
-                                                <li>И кроватки-"домики" - с навесом в виде крыши, и кровати в стиле "евростандарт" - выкрашенные в белый цвет, и даже претендующие на готический стиль, </li>
-                                                <li>Есть и продукция попроще. Не покупайте ничего под влиянием первых эмоций. </li>
-                                            </ul>
-
-                                            <h3>Как выбрать детскую коляску</h3>
-
-                                            <ol>
-                                                <li>Приходишь в детский магазин - глаза разбегаются: столько всего, что порой забываешь, зачем пришел. <a href="">Немало и разновидностей детских кроваток</a>: тут и люльки для младенцев</li>
-                                                <li>И кроватки-"домики" - с навесом в виде крыши, и кровати в стиле "евростандарт" - выкрашенные в белый цвет, и даже претендующие на готический стиль, </li>
-                                                <li>Есть и продукция попроще. Не покупайте ничего под влиянием первых эмоций. </li>
-                                            </ol>
-                                        </div>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="claim">Нарушение!</a>
-                                        <div class="admin-actions">
-                                            <a href="" class="edit"><i class="icon"></i></a>
-                                            <a href="#deleteComment" class="remove fancy"><i class="icon"></i></a>
-                                        </div>
-                                        <a href="">Ответить</a>
-                                        &nbsp;
-                                        <a href="" class="quote-link">С цитатой</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="comment-in clearfix">
-                                <div class="header clearfix">
-                                    <div class="user-info clearfix">
-                                        <div class="ava female"></div>
-                                        <div class="details">
-                                            <span class="icon-status status-online"></span>
-                                            <a href="" class="username">Дарья</a>
-                                            <div class="user-fast-buttons clearfix">
-                                                <a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-                                                <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content">
-                                    <div class="meta">
-                                        <span class="num">2</span>
-                                        <span class="date">Сегодня, 20:45</span>
-                                    </div>
-                                    <div class="content-in">
-                                        <p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="claim">Нарушение!</a>
-                                        <div class="admin-actions">
-                                            <a href="" class="edit"><i class="icon"></i></a>
-                                            <a href="#deleteComment" class="remove fancy"><i class="icon"></i></a>
-                                        </div>
-                                        <a href="">Ответить</a>
-                                        &nbsp;
-                                        <a href="" class="quote-link">С цитатой</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="comment-in clearfix">
-                                <div class="header clearfix">
-                                    <div class="user-info clearfix">
-                                        <div class="ava female"></div>
-                                        <div class="details">
-                                            <span class="icon-status status-online"></span>
-                                            <a href="" class="username">Дарья</a>
-                                            <div class="user-fast-buttons clearfix">
-                                                <span class="friend">друг</span>
-                                                <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content">
-                                    <div class="meta">
-                                        <span class="num">3</span>
-                                        <span class="date">Сегодня, 20:45</span>
-                                        <div class="answer">
-                                            Ответ для
-                                            <div class="user-info clearfix">
-                                                <a onclick="return false;" class="ava female small" href="#">
-                                                    <img src="http://www.happy-giraffe.ru/upload/avatars/small/120316-10264-ya.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            на <span class="num"><a href="#">2</a></span>
-                                        </div>
-                                    </div>
-                                    <div class="content-in">
-                                        <div class="quote">
-                                            <p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
-                                        </div>
-                                        <p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="" class="claim">Нарушение!</a>
-                                        <div class="admin-actions">
-                                            <a href="" class="edit"><i class="icon"></i></a>
-                                            <a href="#deleteComment" class="remove fancy"><i class="icon"></i></a>
-                                        </div>
-                                        <a href="">Ответить</a>
-                                        &nbsp;
-                                        <a href="" class="quote-link">С цитатой</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </div>
-
+                <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
+                    'model' => $recipe,
+                )); ?>
 
             </div>
 

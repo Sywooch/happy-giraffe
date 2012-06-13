@@ -487,7 +487,7 @@ class AjaxController extends HController
     {
         $questions = DuelQuestion::getAvailable(Yii::app()->user->id);
         $answer = new DuelAnswer;
-        $answer->text = 'Блестните знаниями!';
+        $answer->text = 'Блесните знаниями!';
         $this->renderPartial('duel', compact('questions', 'answer'));
     }
 

@@ -117,6 +117,8 @@ class CookDecoration extends CActiveRecord
             ),
             'pagination' => array(
                 'pageSize' => $perPage,
+                'pageVar'=>'page',
+                'route'=>'/cook/decor'
             ),
         ));
         return $dataProvider;

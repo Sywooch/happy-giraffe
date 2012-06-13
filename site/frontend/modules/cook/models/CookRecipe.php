@@ -232,18 +232,25 @@ class CookRecipe extends CActiveRecord
         return $result;
     }
 
-    public function searchByIngredients($ingredients, $type = null)
+    public function findByIngredients($ingredients, $type = null)
     {
+        $subquery = Yii::app()->db->createCommand()
+            ->select('count(*)')
+            ->from('cook__recipe_ingredients')
+            ->where(array('and', 'recipe_id = t.id', array('in', 'cook__recipe_ingredients.ingredient_id', $ingredients)))
+            ->text;
+
         $criteria = new CDbCriteria;
-        $criteria->condition = '(
-            SELECT count(*)
-            FROM cook__recipe_ingredients
-            WHERE recipe_id = t.id AND cook__recipe_ingredients.ingredient_id IN (' . implode(', ', $ingredients) . ')
-        ) = :count';
+        $criteria->condition = '(' . $subquery . ') = :count';
         $criteria->params = array(':count' => count($ingredients));
         if ($type !== null)
             $criteria->compare('type', $type);
 
         return $this->findAll($criteria);
+    }
+
+    public function getUrl()
+    {
+        return Yii::app()->controller->createUrl('cook/recipe/view', array('id' => $this->id));
     }
 }

@@ -108,4 +108,12 @@ class ParsingKeywords extends HActiveRecord
 
         return false;
     }
+
+    public function addKeywordByIdNotInYandex($id)
+    {
+        $already = YandexPopularity::model()->findByPk($id);
+        if ($already !== null)
+            return true;
+        return $this->addKeywordById($id);
+    }
 }

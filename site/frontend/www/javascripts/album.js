@@ -154,13 +154,19 @@ Album.changeTitle = function (link, id) {
     $(link).hide();
     return false;
 };
+
 Album.appendTitle = function (button) {
-    $(button).parent().parent().parent().children('a.edit').show();
     var span = $(button).parent();
     var text = span.find('input[name=title_input]').val();
     var id = span.find('input[name=album_id]').val();
-    span.empty().text(text);
-    $.post(base_url + '/albums/changeTitle/', {title:text, id:id});
+    $.post(base_url + '/albums/changeTitle/', {title:text, id:id}, function(result) {
+        if(result.result == true) {
+            $(button).parent().parent().parent().children('a.edit').show();
+            span.empty().text(text);
+        } else {
+            span.find('input[name=title_input]').addClass('error');
+        }
+    }, 'json');
     return false;
 }
 
@@ -173,6 +179,7 @@ Album.changePhotoTitle = function (link, id) {
     $(link).hide();
     return false;
 };
+
 Album.appendPhotoTitle = function (button) {
     $(button).parent().parent().children('a.edit').show();
     var span = $(button).parent();

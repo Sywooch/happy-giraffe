@@ -33,7 +33,7 @@ $selected_index = null;
         <?php foreach($collection as $i => $p): ?>
             pGallery_photos[<?php echo $p->primaryKey ?>] = {
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
-                title : '<?php echo isset($p->title) && $p->title != '' ? $p->title : null ?>',
+                title : '<?php echo isset($p->title) && $p->title != '' ? CHtml::encode($p->title) : null ?>',
                 avatar : '<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                     'user' => $p->author,
                     'size' => 'small',
@@ -70,7 +70,7 @@ $selected_index = null;
             <div class="title clearfix">
                 <?php if(isset($photo->title)): ?>
                     <div class="in"<?php echo $photo->title == '' ? ' style="display:none"' : ''; ?>>
-                        <?php echo $photo->title; ?>
+                        <?php echo CHtml::encode($photo->title); ?>
                     </div>
                 <?php endif; ?>
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(

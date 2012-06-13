@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "key_stats".
+ * This is the model class for table "sites__keywords_visits".
  *
- * The followings are the available columns in table 'key_stats':
+ * The followings are the available columns in table 'sites__keywords_visits':
  * @property integer $id
  * @property integer $site_id
  * @property integer $keyword_id
@@ -26,7 +26,7 @@
  * @property Keywords $keyword
  * @property Site $site
  */
-class KeyStats extends HActiveRecord
+class SiteKeywordVisit extends HActiveRecord
 {
     public $all;
     public $key_name;
@@ -34,10 +34,12 @@ class KeyStats extends HActiveRecord
     public $popularIcon;
     public $freq;
 
+    private $temp_ids = null;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return KeyStats the static model class
+     * @return SiteKeywordVisit the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -49,7 +51,7 @@ class KeyStats extends HActiveRecord
      */
     public function tableName()
     {
-        return 'happy_giraffe_seo.baby_stats__key_stats';
+        return 'happy_giraffe_seo.sites__keywords_visits';
     }
 
     public function getDbConnection()
@@ -172,13 +174,18 @@ class KeyStats extends HActiveRecord
     {
         $criteria = new CDbCriteria;
 
-        if (Yii::app()->user->getState('hide_used') == 1){
-            $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = '.Yii::app()->user->id.') OR tempKeyword.keyword_id IS NULL)';
+        if (Yii::app()->user->getState('hide_used') == 1) {
+            $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = ' . Yii::app()->user->id . ') OR tempKeyword.keyword_id IS NULL)';
         }
 
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('year', $this->year);
-        $criteria->compare('keyword.name', $this->key_name, true);
+        if (!empty($this->key_name)) {
+            if ($this->temp_ids === null) {
+                $this->temp_ids = Keywords::findSiteIdsByNameWithSphinx($this->key_name);
+            }
+            $criteria->condition .= ' AND keyword.id IN (' . implode(',', $this->temp_ids) . ')';
+        }
         $criteria->compare('yandex.value', $this->popular);
         $criteria->with = array('keyword', 'keyword.group', 'keyword.yandex', 'keyword.tempKeyword');
         $criteria->together = true;
@@ -198,19 +205,30 @@ class KeyStats extends HActiveRecord
         return $this->keyword->getButtons(true);
     }
 
-    public function getKeywordAndSimilarArticles()
+    public static function SaveValue($site_id, $keyword_id, $month, $year, $value)
     {
-        $res = $this->keyword->name;
+        $model = self::model()->findByAttributes(array(
+            'keyword_id'=>$keyword_id,
+            'year'=>$year,
+            'site_id'=>$site_id
+        ));
 
-	    $models = $this->keyword->getSimilarArticles();
-        if (!empty($models)){
-            $res.= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).next().toggle().toggleClass(\'triggered\')"></a><div class="links" style="display:none;">';
-            foreach($models as $model)
-                $res.= CHtml::link($model->title, 'http://www.happy-giraffe.ru'.$model->url).'<br>';
-//                $res.= $model->title.'<br>';
-                $res.= '</div>';
+        if ($model !== null){
+            //второй раз и меньше - значит слово в котором есть буква ё
+            $old = $model->getAttribute('m'.$month);
+            if ($old > $value)
+                return ;
+
+            $model->setAttribute('m'.$month, $value);
+        }else{
+            $model = new SiteKeywordVisit();
+            $model->site_id = $site_id;
+            $model->keyword_id = $keyword_id;
+            $model->year = $year;
+            $model->setAttribute('m'.$month, $value);
         }
 
-        return $res;
+        if (!$model->save())
+            throw new CHttpException(404, 'Error - stats doesnt saved.');
     }
 }

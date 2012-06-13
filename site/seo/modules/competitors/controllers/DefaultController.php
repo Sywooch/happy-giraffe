@@ -14,8 +14,11 @@ class DefaultController extends SController
                 'active' => $site_id == $site->id
             );
 
-        $model = new KeyStats;
+        $model = new SiteKeywordVisit;
         $model->attributes = $_GET;
+        $model->year = $year;
+        $model->site_id = $site_id;
+        $model->freq = $freq;
 
         $this->render('competitors', compact('model', 'site_id', 'year', 'freq'));
     }

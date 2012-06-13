@@ -1,9 +1,12 @@
+var currentAttach;
+
 function Attach() {
     this.entity = null,
         this.entity_id = null,
         this.base_url = null, /* TODO не уверен, что где-то используется. Проверить. */
         this.params = new Array(),
         this.object_name = null;
+    currentAttach = this;
 }
 
 Attach.prototype.changeView = function(link) {
@@ -36,12 +39,12 @@ Attach.prototype.selectPhoto = function(button, id) {
     }
     else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(id);
-    } else if(this.entity = "PhotoComment"){
+    } else if(this.entity == "PhotoComment"){
         this.saveCommentPhoto(id);
     } else if (this.entity == "Product") {
         this.saveProductPhoto(id);
     } else if (this.entity == "CookDecoration") {
-        this.CookDecorationEdit('album', id);
+        this.CookDecorationEdit(id);
     } else {
         $.fancybox.close();
     }
@@ -66,7 +69,7 @@ Attach.prototype.selectBrowsePhoto = function(button) {
     } else if(this.entity == 'Humor') {
         this.insertToHumor(fsn);
     }else if(this.entity == 'CookDecoration') {
-        this.CookDecorationEdit('browse', 0);
+        this.CookDecorationEdit(fsn);
     } else if(this.entity == 'CookRecipe') {
         this.insertToRecipe(fsn);
     } else {
@@ -122,37 +125,36 @@ Attach.prototype.insertToRecipe = function(fsn) {
     }, 'json');
 }
 
-Attach.prototype.insertToCookDecoration = function(id) {
+Attach.prototype.insertToCookDecoration = function (id) {
     $.post(
         '/albums/cookDecorationPhoto/',
         {
-            val:$('#upload_photo_container').children('input').val(),
-            title:$('#attach_content .photo-category input[name="title"]').val(),
-            category:$('.photo-category select[name="category"]').val(),
+            //val:$('#upload_photo_container').children('input').val(),
+            title:$('#attach_content input[name="title"]').val(),
+            category:$('#attach_content select[name="category"]').val(),
             id:id
         },
-        function(data) {
-            if(data){
-                document.location.reload();
+        function (data) {
+            if (data) {
+                $('#dishes').load('/cook/decor/ #dishes');
+                $.fancybox.close();
             }
         });
 }
 
-Attach.prototype.CookDecorationEdit = function (type, id) {
-
-    if (type == 'album') {
-        $('#attach_content').append('<div style="" id="save_attach_button" class="form-bottom"><button onclick="' + this.object_name + '.insertToCookDecoration();" class="btn btn-green-medium"><span><span>Завершить</span></span></button></div>');
-        $('#gallery .gallery-photos').hide();
-    }
-
-    $.post(base_url + '/albums/cookDecorationCategory/', {id:id, widget_id : this.object_name}, function (data) {
-        $('#attach_content>*').hide();
-        $('#attach_content').append(data);
-        $('#save_attach_button button span span').text('Завершить')
-        $('#save_attach_button button').attr('onclick', this.object_name + '.insertToCookDecoration('+id+');');
+Attach.prototype.CookDecorationEdit = function (fsn) {
+    $.post(base_url + '/albums/cookDecorationCategory/', {val:fsn, widget_id:this.object_name}, function (data) {
+        $('#attach_content').html(data.html);
+        if (data.title) {
+            if ($('#file_attach_menu li.decorationTab').length == 0)
+                $('#file_attach_menu').append('<li class="active decorationTab"><a href="#" onclick="' + data.tab + '; return false;">' + data.title + '</a></li>');
+            $('#file_attach_menu li').removeClass('active');
+            $('#file_attach_menu li.decorationTab').addClass('active');
+        }
         $(".chzn").chosen();
-    });
+    })
 }
+
 
 Attach.prototype.saveCommentPhoto = function (val) {
     $.post(base_url + '/albums/commentPhoto/', {entity:attach_comment_obj.entity, entity_id:attach_comment_obj.entity_id, val:val},
@@ -231,6 +233,8 @@ function initAttachForm() {
             $('#upload_photo_container').html(html);
             $('#attach_form').hide();
             $('#save_attach_button').show();
+
+            currentAttach.CookDecorationEdit(params[1]);
         }
     });
 }

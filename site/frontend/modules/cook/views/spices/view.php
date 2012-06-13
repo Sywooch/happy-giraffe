@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $model CookSpice
+ * @var $model CookSpices
  */
 ?><div id="spices">
 
@@ -16,7 +16,7 @@
 
     <h1><?=$model->title ?></h1>
 
-    <div class="cat-img"><img src="<?=isset($model->photo)?$model->photo->getOriginalUrl():'' ?>"/></div>
+    <div class="cat-img"><img src="<?=isset($model->photo)?$model->photo->getPreviewUrl(370, 500, Image::WIDTH):'' ?>"/></div>
 
     <div class="wysiwyg-content">
 
@@ -33,7 +33,7 @@
             <ul>
                 <?php foreach ($model->categories as $category): ?>
                     <li>
-                        <a href="<?=$this->createUrl('category', array('id'=>$category->id)) ?>" class="cook-cat">
+                        <a href="<?=$this->createUrl('category', array('id'=>$category->slug)) ?>" class="cook-cat">
                             <i class="icon-cook-cat icon-spice-<?=$category->id ?>"></i>
                             <span><?=$category->title ?></span>
                         </a>

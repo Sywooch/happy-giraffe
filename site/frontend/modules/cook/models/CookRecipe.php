@@ -85,7 +85,7 @@ class CookRecipe extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, text, type, method, author_id', 'required'),
+			array('title, text, type, method, author_id, ingredients', 'required'),
             array('title', 'length', 'max' => 255),
             array('photo_id', 'exist', 'attributeName' => 'id', 'className' => 'AlbumPhoto'),
             array('cuisine_id', 'exist', 'attributeName' => 'id', 'className' => 'CookCuisine'),
@@ -95,6 +95,8 @@ class CookRecipe extends CActiveRecord
             array('servings', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 10),
             array('preparation_duration, cooking_duration', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 999),
             array('preparation_duration_h, preparation_duration_m, cooking_duration_h, cooking_duration_m', 'safe'),
+            array('cuisine_id', 'default', 'value' => null),
+            array('photo_id', 'default', 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, photo_id, preparation_duration, cooking_duration, servings, text, cuisine_id, type, method, author_id', 'safe', 'on'=>'search'),
@@ -172,6 +174,11 @@ class CookRecipe extends CActiveRecord
             'withRelated'=>array(
                 'class'=>'site.common.extensions.wr.WithRelatedBehavior',
             ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            ),
         );
     }
 
@@ -188,5 +195,40 @@ class CookRecipe extends CActiveRecord
         }
 
         return parent::beforeValidate();
+    }
+
+    protected function afterFind()
+    {
+        $this->preparation_duration_h = sprintf("%02d", floor($this->preparation_duration / 60));
+        $this->preparation_duration_m = sprintf("%02d", $this->preparation_duration % 60);
+        $this->cooking_duration_h = sprintf("%02d", floor($this->cooking_duration / 60));
+        $this->cooking_duration_m = sprintf("%02d", $this->cooking_duration % 60);
+
+        parent::afterFind();
+    }
+
+    protected function beforeSave()
+    {
+        if (! $this->isNewRecord) {
+            CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
+        }
+
+        return parent::beforeSave();
+    }
+
+    public function getNutritionals()
+    {
+        $ingredients = array();
+        foreach ($this->ingredients as $ingredient) {
+            $ingredients[] = array(
+                'ingredient_id' => $ingredient->ingredient_id,
+                'unit_id' => $ingredient->unit_id,
+                'value' => $ingredient->value
+            );
+        }
+        $converter = new CookConverter();
+        $result = $converter->calculateNutritionals($ingredients);
+
+        return $result;
     }
 }

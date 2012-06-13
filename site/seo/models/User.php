@@ -53,7 +53,7 @@ class User extends HActiveRecord
             //general
             array('name, email', 'length', 'max' => 50),
             array('email', 'unique'),
-            array('role', 'safe'),
+            array('role, owner_id', 'safe'),
             //login
             array('email, password', 'required', 'on' => 'login'),
             array('password', 'passwordValidator', 'on' => 'login'),

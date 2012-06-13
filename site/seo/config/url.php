@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'urlFormat'=>'path',
+    'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
     'rules' => array(
@@ -12,10 +12,10 @@ return array(
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>/uploadImage' => 'community/uploadImage',
 
-        'login'=>'site/login',
-        'logout'=>'site/logout',
-        'keywords'=>'editor/index',
-        'tasks'=>'editor/tasks',
-        'competitors'=>'default/index'
+        'login' => 'site/login',
+        'logout' => 'site/logout',
+        'keywords' => 'writing/editor/index',
+        'tasks' => 'writing/editor/tasks',
+        'competitors/' => 'competitors/default/index'
     ),
 );

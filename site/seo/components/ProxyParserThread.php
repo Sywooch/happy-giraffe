@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 01.06.12
  */
-class ProxyParserThread
+class ProxyParserThread extends CComponent
 {
     /**
      * @var Proxy
@@ -22,11 +22,13 @@ class ProxyParserThread
     protected $delay_min = 5;
     protected $delay_max = 15;
     protected $debug = true;
+    protected $timeout = 15;
+    protected $removeCookieOnChangeProxy = true;
 
     function __construct()
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $this->thread_id = substr(sha1(microtime()), 0, 6);
+        $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
     }
 
@@ -34,7 +36,8 @@ class ProxyParserThread
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        $criteria->order = 'rank DESC';
+        //$criteria->order = 'rank DESC';
+        $criteria->order = 'rand()';
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
@@ -46,35 +49,37 @@ class ProxyParserThread
             $this->proxy->active = 1;
             $this->proxy->save();
             $transaction->commit();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $transaction->rollback();
             $this->closeThread('Fail with getting proxy');
         }
     }
 
-    protected function query($url, $post = false, $attempt = 0)
+    protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
         sleep(rand($this->delay_min, $this->delay_max));
 
         if ($ch = curl_init($url)) {
-            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3');
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
             if ($post) {
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
             }
 
+            if (!empty($ref))
+                curl_setopt($ch, CURLOPT_REFERER, $url);
+
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
-            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
+//            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
+//            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_HEADER, 1);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
+            curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
             if ($this->startsWith($url, 'https')) {
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
                 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
@@ -84,19 +89,18 @@ class ProxyParserThread
             if ($content === false) {
                 if (curl_errno($ch)) {
                     if ($this->debug)
-                        echo 'Error while curl: ' . curl_error($ch)."\n";
+                        echo 'Error while curl: ' . curl_error($ch) . "\n";
                     $attempt += 1;
                     if ($attempt > 2) {
                         $this->changeBadProxy();
                     }
 
-                    return $this->query($url, $post, $attempt);
+                    return $this->query($url, $ref, $post, $attempt);
                 }
 
                 $this->changeBadProxy();
-                return $this->query($url, $post, $attempt);
-            }
-            else {
+                return $this->query($url, $ref, $post, $attempt);
+            } else {
                 return $content;
             }
         }
@@ -107,15 +111,18 @@ class ProxyParserThread
     protected function changeBadProxy()
     {
         if ($this->debug)
-            echo 'Change proxy '."\n";
+            echo 'Change proxy ' . "\n";
 
-        $this->proxy->rank = floor(($this->proxy->rank + $this->success_loads) / 2);
+        $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
         $this->proxy->active = 0;
         $this->proxy->save();
         $this->getProxy();
         $this->success_loads = 0;
 
-        $this->removeCookieFile();
+        if ($this->removeCookieOnChangeProxy)
+            $this->removeCookieFile();
+
+        $this->afterProxyChange();
     }
 
     private function saveProxy()
@@ -128,14 +135,11 @@ class ProxyParserThread
     protected function closeThread($reason = 'unknown reason')
     {
         //save proxy
-        $this->proxy->rank = $this->proxy->rank + $this->success_loads;
-        $this->proxy->active = 0;
-        $this->proxy->save();
-
+        $this->saveProxy();
         $this->removeCookieFile();
 
         Yii::log('Thread closed: ' . $reason);
-        echo 'Thread closed: ' . $reason;
+        echo 'Thread closed: ' . $reason . "\n";
 
         Yii::app()->end();
     }
@@ -148,12 +152,17 @@ class ProxyParserThread
 
     protected function getCookieFile()
     {
-        return getcwd() . '/cookies/cookies-' . $this->thread_id . '.txt';
+        return Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . $this->thread_id . '.txt';
     }
 
     protected function startsWith($haystack, $needle)
     {
         $length = strlen($needle);
         return (substr($haystack, 0, $length) === $needle);
+    }
+
+    protected function afterProxyChange()
+    {
+
     }
 }

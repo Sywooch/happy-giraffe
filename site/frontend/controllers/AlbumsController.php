@@ -21,7 +21,7 @@ class AlbumsController extends HController
     {
         return array(
             'accessControl',
-            'attach + ajaxOnly'
+            'ajaxOnly + attach, wPhoto, attachView, editDescription, editPhotoTitle, changeTitle, changePermission, removeUploadPhoto'
         );
     }
 
@@ -184,11 +184,25 @@ class AlbumsController extends HController
             $this->renderPartial('photo', compact('photo'));
     }
 
-    public function actionAttach($entity, $entity_id, $mode = 'window', $a = false)
+    public function actionWPhoto()
+    {
+        $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
+        $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'))->findByPk(Yii::app()->request->getQuery('entity_id'));
+        if(!Yii::app()->request->getQuery('go'))
+        {
+            $this->renderPartial('w_photo', compact('model', 'photo'));
+        }
+        else
+        {
+            $this->renderPartial('w_photo_content', compact('model', 'photo'));
+        }
+    }
+
+    public function actionAttach($entity, $entity_id, $mode = 'window', $a = false, $instance = false)
     {
         Yii::app()->clientScript->scriptMap['*.js'] = false;
         Yii::app()->clientScript->scriptMap['*.css'] = false;
-        $this->renderPartial('attach_widget', compact('entity', 'entity_id', 'mode', 'a'), false, true);
+        $this->renderPartial('attach_widget', compact('entity', 'entity_id', 'mode', 'a', 'instance'), false, true);
     }
 
     public function actionAttachView($id)
@@ -201,6 +215,7 @@ class AlbumsController extends HController
         ));
     }
 
+    /* TODO не уверен, что где-то используется. Проверить. */
     public function actionSaveAttach()
     {
         $model = new AttachPhoto;
@@ -217,7 +232,7 @@ class AlbumsController extends HController
     public function actionEditDescription($id)
     {
         $model = Album::model()->findByPk($id);
-        if(!Yii::app()->request->isAjaxRequest || Yii::app()->user->id != $model->author_id || ($text = Yii::app()->request->getPost('text')) === false)
+        if(Yii::app()->user->id != $model->author_id || ($text = Yii::app()->request->getPost('text')) === false)
             Yii::app()->end();
         $model->description = $text;
         $model->save();
@@ -227,10 +242,11 @@ class AlbumsController extends HController
     {
         $id = Yii::app()->request->getPost('id');
         $model = AlbumPhoto::model()->findByPk($id);
-        if(!Yii::app()->request->isAjaxRequest || Yii::app()->user->id != $model->author_id || ($title = Yii::app()->request->getPost('title')) === false)
+        if(Yii::app()->user->id != $model->author_id || ($title = Yii::app()->request->getPost('title')) === false)
             Yii::app()->end();
         $model->title = $title;
         $model->save();
+        var_dump($model->errors);
     }
 
     private function saveImage($val)
@@ -304,6 +320,98 @@ class AlbumsController extends HController
         echo $humor->save();
     }
 
+    public function actionRecipePhoto()
+    {
+        $val = Yii::app()->request->getPost('val');
+        if (is_numeric($val)) {
+            AlbumPhoto::model()->findByPk($val);
+        } else {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            $model->create(true);
+        }
+
+        if ($model === null) {
+            $response = array(
+                'status' => false,
+            );
+        } else {
+            $response = array(
+                'status' => true,
+                'src' => $model->getPreviewUrl(325, 252),
+                'id' => $model->primaryKey,
+                'title' => $model->title,
+            );
+        }
+        echo CJSON::encode($response);
+        Yii::app()->end();
+    }
+
+    public function actionCookDecorationPhoto()
+    {
+
+        $val = Yii::app()->request->getPost('id');
+        if (is_numeric($val)) {
+            $model = AlbumPhoto::model()->findByPk($val);
+            if ($title = Yii::app()->request->getPost('title'))
+                $model->title = CHtml::encode($title);
+            $model->save();
+        } else {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            if ($title = Yii::app()->request->getPost('title'))
+                $model->title = CHtml::encode($title);
+            $model->create(true);
+        }
+
+        Yii::import('application.modules.cook.models.CookDecoration');
+        $decoration = new CookDecoration();
+        $decoration->photo_id = $model->id;
+        $decoration->category_id = Yii::app()->request->getPost('category');
+        $decoration->title = $model->title;
+
+        if ($decoration->save()) {
+            $attach = new AttachPhoto;
+            $attach->entity = 'CookDecoration';
+            $attach->entity_id = $decoration->id;
+            $attach->photo_id = $model->id;
+            if ($attach->save())
+                echo CJSON::encode(array('status' => true));
+
+        } else
+            echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionCookDecorationCategory()
+    {
+        $val = Yii::app()->request->getPost('val');
+        $data['tab'] = Yii::app()->request->getPost('widget_id') . ".CookDecorationEdit('" . $val . "')";
+
+        if (is_numeric($val)) {
+            $p = AlbumPhoto::model()->findByPk($val);
+            $photo = $p->getPreviewUrl(100, 100, Image::NONE);
+            $title = $p->title;
+            $data['title'] = mb_substr($p->title, 0, 20);
+        } else {
+            $photo = Yii::app()->params['photos_url'] . '/temp/' . $val;
+            $title = '';
+        }
+
+        $data['html'] = $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decoration', array(
+            'title'=>$title,
+            'widget_id' => Yii::app()->request->getPost('widget_id'),
+            'photo' => $photo,
+            'val' => $val
+        ), true);
+
+        header('Content-type: application/json');
+        echo CJSON::encode($data);
+
+        Yii::app()->end();
+    }
+
     public function actionCommentPhoto()
     {
         if(!$val = Yii::app()->request->getPost('val'))
@@ -364,6 +472,7 @@ class AlbumsController extends HController
         $this->renderPartial('site.frontend.widgets.fileAttach.views._crop', array(
             'src' => $params['src'],
             'val' => $val,
+            'widget_id' => Yii::app()->request->getPost('widget_id')
         ));
         Yii::app()->end();
     }
@@ -415,14 +524,16 @@ class AlbumsController extends HController
 
     public function actionChangeTitle()
     {
-        $id = Yii::app()->request->getPost('id');
-        $title = Yii::app()->request->getPost('title');
-        if(!$id || !$title)
+        if(($id = Yii::app()->request->getPost('id')) === false || ($title = Yii::app()->request->getPost('title')) === false)
             Yii::app()->end();
         $model = Album::model()->findByPk($id);
-        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+        if(!$model || $model->author_id != Yii::app()->user->id)
             Yii::app()->end();
-        $model->updateByPk($id, array('title' => $title));
+        $model->title = $title;
+        if($model->save())
+            echo CJSON::encode(array('result' => true));
+        else
+            echo CJSON::encode(array('result' => false));
     }
 
     public function actionChangePermission()
@@ -430,15 +541,13 @@ class AlbumsController extends HController
         $id = Yii::app()->request->getPost('id');
         $num = Yii::app()->request->getPost('num');
         $model = Album::model()->findByPk($id);
-        if(!Yii::app()->request->isAjaxRequest || !$model || $model->author_id != Yii::app()->user->id)
+        if(!$model || $model->author_id != Yii::app()->user->id)
             Yii::app()->end();
         $model->updateByPk($id, array('permission' => $num));
     }
 
     public function actionRemoveUploadPhoto()
     {
-        if(!Yii::app()->request->isAjaxRequest)
-            Yii::app()->end();
         $model = AlbumPhoto::model()->findByPk(Yii::app()->request->getPost('id'));
         if($model->author_id != Yii::app()->user->id)
             Yii::app()->end();

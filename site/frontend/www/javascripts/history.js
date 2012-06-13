@@ -2,6 +2,7 @@ var states = new Array();
 function AjaxHistory(id) {
     this.id = id;
     var $this = this;
+    var loadCallback = null;
     if(history.replaceState)
         history.replaceState({ path:window.location.href }, '');
 
@@ -33,7 +34,7 @@ AjaxHistory.prototype.changeBrowserUrl = function (url) {
         }
     }
     var path = this.buildUrl(url[0], query);
-    if (hash.length > 1)
+    if (hash != undefined && hash.length > 1)
         path += '#' + hash[1];
     if (typeof(window.history.pushState) == 'function') {
         window.history.pushState({path:path}, "", path);
@@ -57,6 +58,11 @@ AjaxHistory.prototype.buildUrl = function (url, parameters) {
 };
 
 AjaxHistory.prototype.load = function (id, url, callback) {
+    var $this = this;
+    if(this.loadCallback) {
+        this.loadCallback(id, url);
+        return true;
+    }
     $.ajax({
         type:'GET',
         url:url,
@@ -66,7 +72,7 @@ AjaxHistory.prototype.load = function (id, url, callback) {
             if (/#/.test(document.location.hash))
                 document.location.hash = document.location.hash;
             if (callback)
-                callback();
+                callback(id, url);
         }
     });
     return this;

@@ -12,6 +12,6 @@
 
     <div class="img"><?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $dialog['user'], 'small'=>true, 'size'=>'small')); ?></div>
     <div class="status<?php if (!$dialog['user']->online) echo ' status-offline' ?>"><i class="icon"></i></div>
-    <div class="name"><span><?php echo $dialog['user']->getFullName() ?></span></div>
+    <div class="name"><span><?php echo CHtml::encode($dialog['user']->fullName); ?></span></div>
     <div class="meta"<?php if ($unread == 0) echo ' style="display:none"'; ?>><?php echo $unread; ?></div>
 </li>

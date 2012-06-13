@@ -9,37 +9,7 @@ class DefaultController extends SController
         return true;
     }
 
-    public function actionIndex($site_id = 1, $year = 2011, $recOnPage = 10)
-    {
-        $model = new KeyStats;
-        $model->site_id = $site_id;
-        $model->year = $year;
-
-        $this->render('index', compact('model', 'site_id', 'year', 'recOnPage'));
-    }
-
-    public function actionCalc()
-    {
-        $site_id = 2;
-        $year = 2012;
-        $criteria = new CDbCriteria;
-        $criteria->compare('site_id', $site_id);
-        $criteria->compare('year', $year);
-        $stats = Stats::model()->findAll($criteria);
-        foreach ($stats as $stat) {
-            $key_stat = KeyStats::model()->find('site_id = ' . $site_id . ' AND keyword_id = ' . $stat->keyword_id . ' AND year = ' . $year);
-            if ($key_stat === null) {
-                $key_stat = new KeyStats;
-                $key_stat->keyword_id = $stat->keyword_id;
-                $key_stat->site_id = $site_id;
-                $key_stat->year = $year;
-            }
-            $key_stat->setAttribute('m' . $stat->month, $stat->value);
-            $key_stat->save();
-        }
-    }
-
-    public function actionAddKeys()
+    /*public function actionAddKeys()
     {
         $file = fopen('F:\Xedant\Keywords.txt', 'r');
         $i = 0;
@@ -133,14 +103,14 @@ class DefaultController extends SController
                 }
             }
         }
-    }
+    }*/
 
     public function actionTest2()
     {
-        echo Yii::app()->db_seo->createCommand('select count(keyword_id) from rambler_popularity')->queryScalar();
+        /*echo Yii::app()->db_seo->createCommand('select count(keyword_id) from rambler_popularity')->queryScalar();
         echo '<br>';
         for($i=0;$i<25;$i++){
             echo ParseHelper::getLine($i) . '<br>';
-        }
+        }*/
     }
 }

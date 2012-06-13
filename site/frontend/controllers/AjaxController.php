@@ -4,6 +4,8 @@ class AjaxController extends HController
 {
     public function actionSetValue()
     {
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
         $modelName = Yii::app()->request->getPost('entity');
         $modelPk = Yii::app()->request->getPost('entity_id');
         $attribute = Yii::app()->request->getPost('attribute');
@@ -335,14 +337,6 @@ class AjaxController extends HController
                 ));
                 break;
         }
-    }
-
-    public function actionSave()
-    {
-        print_r($_POST);
-        $user = User::model()->findByPk(Yii::app()->user->id);
-        $user->setAttributes($_POST['User']);
-        $user->save(TRUE, array('first_name', 'last_name', 'birthday'));
     }
 
     public function actionSaveChild()

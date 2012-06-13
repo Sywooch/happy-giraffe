@@ -29,7 +29,7 @@ class RssController extends HController
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
-            $item->addTag('author', $c->author->getUrl(true));
+            $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);
             $item->description = $c->rssContent;
@@ -89,7 +89,7 @@ class RssController extends HController
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
-            $item->addTag('author', $c->author->getUrl(true));
+            $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);
             $item->description = $c->rssContent;

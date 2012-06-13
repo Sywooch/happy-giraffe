@@ -20,10 +20,7 @@ class CutBehavior extends CActiveRecordBehavior
                     'http' => true,
                     'https' => true,
                 ),
-                'HTML.Nofollow' => true,
-                'HTML.TargetBlank' => true,
                 'HTML.AllowedComments' => array('more' => true),
-
             );
             $text = $p->purify($this->owner->$a);
             $pos = strpos($text, '<!--more-->');

@@ -119,7 +119,7 @@ class SeoTask extends CActiveRecord
     {
         if ($this->isNewRecord) {
             $this->status = self::STATUS_NEW;
-        }elseif ($this->status != $this->getOldAttribute('status')) {
+        } elseif ($this->status != $this->getOldAttribute('status')) {
             $statusDate = new StatusDates();
             $statusDate->status = (int)$this->status;
             $statusDate->entity_id = (int)$this->id;
@@ -146,12 +146,31 @@ class SeoTask extends CActiveRecord
         return trim($res, ', ');
     }
 
+    public function getHints()
+    {
+        $res = array();
+
+        $keys = CHtml::listData($this->keywordGroup->keywords, 'id', 'name');
+
+        foreach ($this->keywordGroup->keywords as $key) {
+            $hint_keywords = $key->getChildKeywords(20);
+            foreach ($hint_keywords as $hint_keyword){
+                if (!in_array($hint_keyword->name, $keys))
+                    $res[] = $hint_keyword->name;
+                if (count($res) >= 10)
+                    break(2);
+            }
+        }
+
+        return implode(', ', $res);
+    }
+
     public static function TodayExecutedTasks()
     {
         $criteria = new CDbCriteria;
         if (Yii::app()->user->checkAccess('author')) {
-            $criteria->condition = 'executor_id = :executor_id AND status > '.SeoTask::STATUS_TAKEN;
-            $criteria->params = array('executor_id'=>Yii::app()->user->id);
+            $criteria->condition = 'executor_id = :executor_id AND status > ' . SeoTask::STATUS_TAKEN;
+            $criteria->params = array('executor_id' => Yii::app()->user->id);
 
         } elseif (Yii::app()->user->checkAccess('moderator')) {
             $criteria->compare('status >', SeoTask::STATUS_TAKEN);
@@ -159,12 +178,12 @@ class SeoTask extends CActiveRecord
             $criteria->compare('executor_id', Yii::app()->user->id);
 
         } elseif (Yii::app()->user->checkAccess('content-manager')) {
-            $criteria->condition = 'owner_id = :owner_id AND status > '.SeoTask::STATUS_PUBLICATION.' AND type = '.SeoTask::TYPE_EDITOR;
-            $criteria->params = array('owner_id'=>Yii::app()->user->getModel()->owner_id);
+            $criteria->condition = 'owner_id = :owner_id AND status > ' . SeoTask::STATUS_PUBLICATION . ' AND type = ' . SeoTask::TYPE_EDITOR;
+            $criteria->params = array('owner_id' => Yii::app()->user->getModel()->owner_id);
 
         } elseif (Yii::app()->user->checkAccess('corrector')) {
-            $criteria->condition = 'owner_id = :owner_id AND status > '.SeoTask::STATUS_CORRECTING.' AND type = '.SeoTask::TYPE_EDITOR;
-            $criteria->params = array('owner_id'=>Yii::app()->user->getModel()->owner_id);
+            $criteria->condition = 'owner_id = :owner_id AND status > ' . SeoTask::STATUS_CORRECTING . ' AND type = ' . SeoTask::TYPE_EDITOR;
+            $criteria->params = array('owner_id' => Yii::app()->user->getModel()->owner_id);
 
         } elseif (Yii::app()->user->checkAccess('editor')) {
             $criteria->compare('status', SeoTask::STATUS_CLOSED);
@@ -254,10 +273,10 @@ class SeoTask extends CActiveRecord
     {
         $text = '';
         if (!empty($this->article_title))
-            $text.= '<b>'.$this->article_title.'</b>';
+            $text .= '<b>' . $this->article_title . '</b>';
 
-        if (!empty($this->article_id)){
-            $text.= '<br>'.CHtml::link($this->article->url, $this->article->url);
+        if (!empty($this->article_id)) {
+            $text .= '<br>' . CHtml::link($this->article->url, $this->article->url);
         }
 
         return $text;

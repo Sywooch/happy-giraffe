@@ -113,6 +113,7 @@ class ArticleKeywords extends CActiveRecord
 
     public function beforeDelete()
     {
+        $this->keywordGroup->delete();
         Yii::app()->db_seo->createCommand(' update article_keywords set number = number - 1 WHERE id >' . $this->id)->execute();
         return parent::beforeDelete();
     }
@@ -133,5 +134,13 @@ class ArticleKeywords extends CActiveRecord
         }
 
         return implode('<br>', $keys);
+    }
+
+    public function getArticleLink()
+    {
+        $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        if ($model === null)
+            return '';
+        return CHtml::link($model->title, $model->getUrl());
     }
 }

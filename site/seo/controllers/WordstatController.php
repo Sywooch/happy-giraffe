@@ -20,6 +20,12 @@ class WordstatController extends SController
         $this->render('index');
     }
 
+    public function actionWordstatParse(){
+        $parser = new WordstatParser();
+        $text = '';
+        $parser->parseData($text);
+    }
+
     public function actionAddKeywords()
     {
         $keyword = Yii::app()->request->getPost('keyword');
@@ -32,7 +38,7 @@ class WordstatController extends SController
             ->searchRaw();
         $count = 0;
         foreach ($allSearch['matches'] as $key => $m)
-            if (ParsingKeywords::model()->addKeywordById($key))
+            if (ParsingKeywords::model()->addKeywordByIdNotInYandex($key))
                 $count++;
 
         echo CJSON::encode(array(
@@ -43,7 +49,7 @@ class WordstatController extends SController
 
     public function actionAddCompetitors()
     {
-        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from baby_stats__key_stats')->queryColumn();
+        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits WHERE keyword_id NOT IN (SELECT keyword_id from yandex_popularity) ')->queryColumn();
         $count = 0;
         foreach ($keywords as $keyword) {
             if (ParsingKeywords::model()->addKeywordById($keyword))
@@ -54,6 +60,12 @@ class WordstatController extends SController
             'status' => true,
             'count' => $count
         ));
+    }
+
+    public function actionClearParsingKeywords(){
+        ParsingKeywords::model()->deleteAll();
+
+        echo CJSON::encode(array('status' => true));
     }
 
     public function actionRemovePlus()

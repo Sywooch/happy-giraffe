@@ -119,7 +119,7 @@ class Album extends HActiveRecord
             'system' => array(
                 'condition' => $this->tableAlias . '.type != 0 and ' . $this->tableAlias . '.type != 1',
             ),
-            'permission' => $permission->toArray(),
+            'permission' => /*$permission->toArray()*/array(),
         );
     }
 

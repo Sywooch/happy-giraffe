@@ -5,7 +5,7 @@
     $cs = Yii::app()->clientScript;
 
     $cs
-        ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
+        ->registerScriptFile($baseUrl . '/form.js', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
         ->registerCoreScript('jquery.ui')
         ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');

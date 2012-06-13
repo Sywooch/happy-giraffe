@@ -76,6 +76,14 @@ class CookDecoration extends CActiveRecord
         );
     }
 
+    public function defaultScope()
+    {
+        $alias = $this->getTableAlias(false, false);
+        return array(
+            'order' => !empty($alias) ? $alias . '.id desc':'id desc',
+        );
+    }
+
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -112,4 +120,5 @@ class CookDecoration extends CActiveRecord
         ));
         return $dataProvider;
     }
+
 }

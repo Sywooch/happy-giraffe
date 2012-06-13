@@ -215,4 +215,35 @@ class CookRecipe extends CActiveRecord
 
         return parent::beforeSave();
     }
+
+    public function getNutritionals()
+    {
+        $ingredients = array();
+        foreach ($this->ingredients as $ingredient) {
+            $ingredients[] = array(
+                'ingredient_id' => $ingredient->ingredient_id,
+                'unit_id' => $ingredient->unit_id,
+                'value' => $ingredient->value
+            );
+        }
+        $converter = new CookConverter();
+        $result = $converter->calculateNutritionals($ingredients);
+
+        return $result;
+    }
+
+    public function searchByIngredients($ingredients, $type = null)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = '(
+            SELECT count(*)
+            FROM cook__recipe_ingredients
+            WHERE recipe_id = t.id AND cook__recipe_ingredients.ingredient_id IN (' . implode(', ', $ingredients) . ')
+        ) = :count';
+        $criteria->params = array(':count' => count($ingredients));
+        if ($type !== null)
+            $criteria->compare('type', $type);
+
+        return $this->findAll($criteria);
+    }
 }

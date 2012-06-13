@@ -12,7 +12,7 @@
     </div>
     <div class="img">
         <a href=""><img src="<?=$data->photo->getPreviewUrl(240, 160, Image::NONE);?>"/></a>
-        <a href="" class="btn-look">Посмотреть</a>
+        <a href="" data-id="<?= $data->photo->id ?>" class="btn-look">Посмотреть</a>
     </div>
     <div class="item-title"><?=$data->title;?></div>
 </li>

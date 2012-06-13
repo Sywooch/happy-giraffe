@@ -528,12 +528,12 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-upload .remove {display:block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:absolute;top:5px;right:5px;}
 #photoPick .photo-upload .remove:hover {background-position:-314px -148px;}
 
-/*
+
 #photoPick .photo-title {margin:0px 0 0 0;padding-top:20px;}
 #photoPick .photo-title .row{margin:0px 0 0 0;padding-top:20px;}
-#photoPick .photo-title label {font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;color:#898888;margin-left:11px;}
-#photoPick .photo-title input[type=text]{border-color:#ece4f4;height:auto;padding:0px 10px;color:#333;margin-top:10px;font-size:12px;font-weight:normal;}
-*/
+#photoPick .photo-title label {font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;color:#898888;margin-left:11px;display:inline-block;margin-bottom:8px;}
+#photoPick .photo-title input[type=text]{border-color:#ece4f4;height:auto;padding:0px 10px;color:#333;font-size:12px;font-weight:normal;}
+#photoPick .photo-title select {width:220px}
 
 #photoPick .photo-category .row{margin:0px 0 0 0;padding-top:20px;}
 #photoPick .photo-category label {font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;color:#898888;margin-left:11px; display: block; margin-bottom: 5px}
@@ -1737,6 +1737,9 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-nav ul li.active {background:#f1e4fd;}
 .default-nav ul li.active:after {display:block;content:'';position:absolute;left:0;bottom:0;width:90px;height:11px;background:url(/images/default_nav_active.gif) no-repeat;}
 .default-nav ul li.active a {border:0;cursor:default;text-decoration:none;}
+.default-nav ul li a.remove {width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;margin:0;margin-left:5px;position:relative;top:-2px;margin-right:-5px;cursor:pointer;}
+.default-nav ul li a.remove:hover {background-position:-314px -148px;}
+
 
 .default-v-nav {font-size:13px;}
 .default-v-nav .title {color:#636363;font-size:16px;margin:10px 15px;}

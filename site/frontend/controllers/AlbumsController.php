@@ -417,6 +417,16 @@ class AlbumsController extends HController
         if (is_numeric($val)) {
             $p = AlbumPhoto::model()->findByPk($val);
             $photo = $p->getPreviewUrl(100, 100, Image::NONE);
+
+            $image = new Image($photo->getOriginalPath());
+            if ($image->width < 400 || $image->height < 400){
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Слишком маленькое изображение, минимум 400x400 пикселей',
+                ));
+                Yii::app()->end();
+            }
+
             $title = $p->title;
             $data['title'] = mb_substr($p->title, 0, 20);
         } else {
@@ -427,7 +437,7 @@ class AlbumsController extends HController
                 echo CJSON::encode(array(
                     'status' => false,
                     'html'=> $this->renderPartial('site.frontend.widgets.fileAttach.views._upload_error', array(
-                        'error' => 'Слишком маленькое изображение, минимум 400x400 px',
+                        'error' => 'Слишком маленькое изображение, минимум 400x400 пикселей',
                     ), true)
                 ));
                 Yii::app()->end();

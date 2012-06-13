@@ -107,19 +107,10 @@ class DefaultController extends SController
 
     public function actionTest2()
     {
-        echo Yii::app()->db_seo->createCommand('select count(keyword_id) from rambler_popularity')->queryScalar();
+        /*echo Yii::app()->db_seo->createCommand('select count(keyword_id) from rambler_popularity')->queryScalar();
         echo '<br>';
         for($i=0;$i<25;$i++){
             echo ParseHelper::getLine($i) . '<br>';
-        }
-    }
-
-    public function actionTest3(){
-        $models = Keywords::model()->findAll('id < 40000');
-        foreach($models as $model){
-            $parsing = new ParsingKeywords();
-            $parsing->keyword_id = $model->id;
-            $parsing->save();
-        }
+        }*/
     }
 }

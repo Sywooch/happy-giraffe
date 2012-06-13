@@ -13,7 +13,7 @@
     <div class="header clearfix user-home">
 
         <div class="user-name">
-            <h1><?=$user->last_name?><br/><?=$user->first_name?></h1>
+            <h1><?php echo CHtml::encode($user->last_name); ?><br/><?php echo CHtml::encode($user->first_name); ?></h1>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>
@@ -98,7 +98,7 @@
                     ?>
                 <?php endif; ?>
                 <?php if ($user->getAva('big')): ?>
-                    <?=CHtml::image($user->getAva('big'), $user->fullName)?>
+                    <?=CHtml::image($user->getAva('big'), CHtml::encode($user->fullName))?>
                     <?php if ($user->id == Yii::app()->user->id): ?>
                         <a class="renew">Обновить<br>фото</a>
                     <?php endif; ?>

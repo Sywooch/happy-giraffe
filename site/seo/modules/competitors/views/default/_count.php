@@ -1,20 +1,20 @@
 <?php
 /* @var $this Controller
- * @var $model KeyStats
+ * @var $model SiteKeywordVisit
  * @var $freq int
  */
 
 $criteria = $model->getCriteriaWithoutFreq();
 $counts = array(
-    1 => KeyStats::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(1))),
-    2 => KeyStats::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(2))),
-    3 => KeyStats::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(3))),
-    4 => KeyStats::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(4))),
+    1 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(1))),
+    2 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(2))),
+    3 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(3))),
+    4 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(4))),
 );
 ?>
 <div class="result">
     <label>Найдено: <a href="javascript:;"
-                       onclick="CompetitorsTable.SetFreq(0);"><?=KeyStats::model()->count($criteria); ?></a></label>
+                       onclick="CompetitorsTable.SetFreq(0);"><?=SiteKeywordVisit::model()->count($criteria); ?></a></label>
     <span<?php if ($freq == 1) echo ' class="active"' ?>><i class="icon-freq-1"></i> <a href="javascript:;"
                                                                                         onclick="CompetitorsTable.SetFreq(1);"><?=$counts[1] ?></a></span>
     <span<?php if ($freq == 2) echo ' class="active"' ?>><i class="icon-freq-2"></i> <a href="javascript:;"

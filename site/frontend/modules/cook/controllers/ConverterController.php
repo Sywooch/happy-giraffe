@@ -27,7 +27,7 @@ class ConverterController extends HController
             ->limit(10)->queryAll();
         if (count($ingredients) < 10) {
             $ingredients2 = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')
-                ->where('title LIKE :term AND density > 0', array(':term' => '%' . $term . '%'))->order('title')
+                ->where('title LIKE :term AND density > 0', array(':term' => ' ' . $term . '%'))->order('title')
                 ->limit(10 - count($ingredients))->queryAll();
             if (count($ingredients2)) {
                 $ingredient_keys = array();

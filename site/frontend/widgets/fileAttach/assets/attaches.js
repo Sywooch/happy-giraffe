@@ -234,7 +234,8 @@ function initAttachForm() {
             $('#attach_form').hide();
             $('#save_attach_button').show();
 
-            currentAttach.CookDecorationEdit(params[1]);
+            if (currentAttach.entity == "CookDecoration")
+                currentAttach.CookDecorationEdit(params[1]);
         }
     });
 }

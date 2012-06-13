@@ -251,6 +251,40 @@ class CookRecipe extends CActiveRecord
 
     public function getUrl()
     {
-        return Yii::app()->controller->createUrl('cook/recipe/view', array('id' => $this->id));
+        return Yii::app()->controller->createUrl('/cook/recipe/view', array('id' => $this->id));
+    }
+
+    public function getPreview($imageWidth = 167)
+    {
+        if ($this->photo !== null) {
+            $preview = CHtml::link(CHtml::image($this->photo->getPreviewUrl($imageWidth, null, Image::WIDTH)), $this->url);
+        } else {
+            $preview = CHtml::tag('p', array(), Str::truncate($this->text));
+        }
+
+        return $preview;
+    }
+
+    public function getMore()
+    {
+        $next = $this->findAll(
+            array(
+                'condition' => 't.id > :current_id',
+                'params' => array(':current_id' => $this->id),
+                'limit' => 1,
+                'order' => 't.id',
+            )
+        );
+
+        $prev = $this->findAll(
+            array(
+                'condition' => 't.id < :current_id',
+                'params' => array(':current_id' => $this->id),
+                'limit' => 2,
+                'order' => 't.id DESC',
+            )
+        );
+
+        return CMap::mergeArray($next, $prev);
     }
 }

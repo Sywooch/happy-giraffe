@@ -91,6 +91,8 @@ return array(
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
 
+        'cook/recipe/add' => 'cook/recipe/form',
+        'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
 
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

@@ -231,4 +231,19 @@ class CookRecipe extends CActiveRecord
 
         return $result;
     }
+
+    public function searchByIngredients($ingredients, $type = null)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = '(
+            SELECT count(*)
+            FROM cook__recipe_ingredients
+            WHERE recipe_id = t.id AND cook__recipe_ingredients.ingredient_id IN (' . implode(', ', $ingredients) . ')
+        ) = :count';
+        $criteria->params = array(':count' => count($ingredients));
+        if ($type !== null)
+            $criteria->compare('type', $type);
+
+        return $this->findAll($criteria);
+    }
 }

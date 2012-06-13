@@ -3997,7 +3997,7 @@ ul.letters li a:hover {
 #dishes .dishes-list .block-title .add-photo .btn {margin:5px 0 0 -5px;}
 #dishes .dishes-list .block-title .add-photo .btn span {font-weight:bold;text-transform:none;font-family:arial, helvetica, sans-serif;font-size:20px;}
 #dishes .dishes-list ul {list-style:none;}
-#dishes .dishes-list ul li.dish {width:240px;padding:40px 35px 0px;float:left;}
+#dishes .dishes-list ul li.dish {width:240px;padding:40px 35px 0px;float:left; height:230px}
 #dishes .dishes-list ul li.dish .user-info {margin-bottom:5px;}
 #dishes .dishes-list ul li.dish .user-info .details {margin-left:30px;}
 #dishes .dishes-list ul li.dish .user-info .details .username {width:180px;}

@@ -359,12 +359,18 @@ class AlbumsController extends HController
 
     public function actionCookDecorationPhoto()
     {
+        header('Content-type: application/json');
+
+        $title = trim(Yii::app()->request->getPost('title'));
+        if (!$title) {
+            echo CJSON::encode(array('status' => false, 'message' => 'Введите название блюда или оформления'));
+            Yii::app()->end();
+        }
 
         $val = Yii::app()->request->getPost('id');
         if (is_numeric($val)) {
             $model = AlbumPhoto::model()->findByPk($val);
-            if ($title = Yii::app()->request->getPost('title'))
-                $model->title = CHtml::encode($title);
+            $model->title = CHtml::encode($title);
             $model->save();
         } else {
             $model = new AlbumPhoto;
@@ -376,6 +382,12 @@ class AlbumsController extends HController
         }
 
         Yii::import('application.modules.cook.models.CookDecoration');
+
+        if (CookDecoration::model()->exists('photo_id = :photo_id', array(':photo_id' => $model->id))) {
+            echo CJSON::encode(array('status' => false, 'message' => 'Вы уже добавили эту фотографию, выберите другую'));
+            Yii::app()->end();
+        }
+
         $decoration = new CookDecoration();
         $decoration->photo_id = $model->id;
         $decoration->category_id = Yii::app()->request->getPost('category');

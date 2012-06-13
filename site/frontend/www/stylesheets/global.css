@@ -3997,8 +3997,8 @@ ul.letters li a:hover {
 #dishes .dishes-list .block-title .add-photo .btn {margin:5px 0 0 -5px;}
 #dishes .dishes-list .block-title .add-photo .btn span {font-weight:bold;text-transform:none;font-family:arial, helvetica, sans-serif;font-size:20px;}
 #dishes .dishes-list ul {list-style:none;}
-#dishes .dishes-list ul li.dish {width:240px;padding:40px 35px 0px;float:left;}
-#dishes .dishes-list ul li.dish .user-info {margin-bottom:5px;}
+#dishes .dishes-list ul li.dish {width:240px;padding:40px 35px 0px;float:left; height:230px}
+#dishes .dishes-list ul li.dish .user-info {margin-bottom:5px; height:41px}
 #dishes .dishes-list ul li.dish .user-info .details {margin-left:30px;}
 #dishes .dishes-list ul li.dish .user-info .details .username {width:180px;}
 #dishes .dishes-list ul li.dish .img {position:relative;}
@@ -4201,3 +4201,29 @@ ul.letters li a:hover {
 #cook-recipe-search .result .recipe-list li .item-title {font-weight:bold;margin-bottom:10px;}
 #cook-recipe-search .result .recipe-list li .content {color:#535454;}
 
+
+#product-choose {}
+
+#product-choose > .title {height:68px;background:url(/images/bg_product_choose_title.jpg) no-repeat right bottom;border:1px solid #ead8f9;padding:40px 50px;margin-bottom:20px;}
+#product-choose > .title h2 {font-size:48px;font-weight:normal;line-height:1;color:#464546;}
+
+#product-choose .product-choose-in {width:700px;float:left;margin-left:260px;padding-top:25px;}
+
+#product-choose .product-choose-img {float:right;margin:0 0 15px 15px;}
+#product-choose .product-choose-img img {display:block;}
+
+#product-choose .product-choose-abc {padding:20px;background:#fffbf5;margin-top:30px;}
+#product-choose .product-choose-abc > ul {list-style:none;}
+#product-choose .product-choose-abc > ul > li {float:left;width:30%;padding-right:3%;}
+#product-choose .product-choose-abc > ul > li .letter {display:inline-block;background:#6bc545;width:25px;height:25px;line-height:25px;text-align:center;color:#fff;font-size:16px;font-weight:bold;}
+#product-choose .product-choose-abc > ul > li ul {list-style:none;margin:10px 0 30px;}
+#product-choose .product-choose-abc > ul > li ul li {padding:5px 0;}
+#product-choose .product-choose-abc > ul > li ul li a {display:block;line-height:1.2;}
+#product-choose .product-choose-abc .cook-cat {color:#585758;text-decoration:none;font-size:11px;cursor:default;}
+#product-choose .product-choose-abc .cook-cat span {text-decoration:none;}
+
+#product-choose .product-choose-categories {float:left;margin-left:-100%;width:220px;}
+#product-choose .product-choose-categories ul {border-right:1px solid #ead8f9;padding:10px 0;}
+#product-choose .product-choose-categories ul li {padding:20px 10px;display:block;text-align:center;margin-right:-1px;}
+#product-choose .product-choose-categories ul li.active {border:1px solid #ead8f9;border-right-color:#fff;}
+#product-choose .product-choose-categories ul li.active {/*css3*/ -moz-border-radius:10px 0 0 8px;-webkit-border-radius:10px 0 0 8px;border-radius:10px 0 0 8px;behavior: url(/stylesheets/PIE.htc);}

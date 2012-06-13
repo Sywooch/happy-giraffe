@@ -186,11 +186,20 @@ class AlbumsController extends HController
 
     public function actionWPhoto()
     {
+        Yii::import('site.frontend.modules.cook.models.*');
+
         $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
-        $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'))->findByPk(Yii::app()->request->getQuery('entity_id'));
+
+        $entity_id = Yii::app()->request->getQuery('entity_id');
+        $entity = Yii::app()->request->getQuery('entity');
+
+        if ($entity_id == 'null')
+            $model = null;
+        else
+            $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'))->findByPk(Yii::app()->request->getQuery('entity_id'));
         if(!Yii::app()->request->getQuery('go'))
         {
-            $this->renderPartial('w_photo', compact('model', 'photo'));
+            $this->renderPartial('w_photo', compact('model', 'photo', 'entity'));
         }
         else
         {

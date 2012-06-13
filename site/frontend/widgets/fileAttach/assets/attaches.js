@@ -135,9 +135,15 @@ Attach.prototype.insertToCookDecoration = function (id) {
             id:id
         },
         function (data) {
-            if (data) {
+            if (data.status) {
                 $('#dishes').load('/cook/decor/ #dishes');
                 $.fancybox.close();
+            } else {
+                if (data.message) {
+                    alert(data.message)
+                } else {
+                    alert('Ошибка загрузки, попробуйте еще раз');
+                }
             }
         });
 }
@@ -154,7 +160,6 @@ Attach.prototype.CookDecorationEdit = function (fsn) {
         $(".chzn").chosen();
     })
 }
-
 
 Attach.prototype.saveCommentPhoto = function (val) {
     $.post(base_url + '/albums/commentPhoto/', {entity:attach_comment_obj.entity, entity_id:attach_comment_obj.entity_id, val:val},
@@ -220,7 +225,7 @@ Attach.prototype.changeAvatar = function(form) {
 function initAttachForm() {
     $('#attach_form').iframePostForm({
         complete:function (response) {
-            if(!response)
+            if (!response)
                 return false;
             var params = $(response).find('#params').text().split('||');
             var html = '<img src="' + params[0] + '" width="170" alt="" />' +

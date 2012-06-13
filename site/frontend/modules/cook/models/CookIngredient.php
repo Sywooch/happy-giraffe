@@ -131,4 +131,33 @@ class CookIngredient extends HActiveRecord
 
         return $result;
     }
+
+    /**
+     * @param string $term
+     * @return CookIngredient[]
+     */
+    public function findByNameWithCalories($term)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->with = array('nutritionals');
+        $criteria->together = true;
+        $criteria->limit = 10;
+        $criteria->compare('nutritionals.nutritional_id', 1);
+
+        $criteria2 = clone $criteria;
+        $criteria2->compare('title', $term . '%', true, 'AND', false);
+        $ingredients = CookIngredient::model()->findAll($criteria2);
+
+        if (count($ingredients) < 10) {
+            $criteria->compare('title', ' ' . $term, true, 'AND', true);
+            $more_ingredients = CookIngredient::model()->findAll($criteria);
+
+            while (count($ingredients) < 10 && !empty($more_ingredients)) {
+                array_push($ingredients, $more_ingredients[0]);
+                array_shift($more_ingredients);
+            }
+        }
+
+        return $ingredients;
+    }
 }

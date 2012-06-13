@@ -8,6 +8,7 @@ class FileAttachWidget extends CWidget
     public $afterSelect;
     public $disableNavigation = false;
     public $customButton = false;
+    public $button_title = 'Фото';
 
     public $title;
     public $first_button_title = 'Загрузить фото';

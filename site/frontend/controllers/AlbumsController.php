@@ -418,7 +418,7 @@ class AlbumsController extends HController
             $p = AlbumPhoto::model()->findByPk($val);
             $photo = $p->getPreviewUrl(100, 100, Image::NONE);
 
-            $image = new Image($photo->getOriginalPath());
+            $image = new Image($p->getOriginalPath());
             if ($image->width < 400 || $image->height < 400){
                 echo CJSON::encode(array(
                     'status' => false,

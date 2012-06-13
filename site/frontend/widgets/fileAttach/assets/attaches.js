@@ -161,8 +161,10 @@ Attach.prototype.CookDecorationEdit = function (fsn) {
             }
             $(".chzn").chosen();
         } else {
-            alert(response.error);
-            //$('#attach_content').html(response.html);
+            if (response.hasOwnProperty('error'))
+                alert(response.error);
+            else
+                $('#attach_content').html(response.html);
         }
     }, 'json')
 }

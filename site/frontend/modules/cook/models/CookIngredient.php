@@ -15,7 +15,7 @@
  * @property CookIngredientSynonyms[] $cookIngredientSynonyms
  * @property CookIngredientCategory $category
  * @property CookUnit $unit
- * @property CookIngredientsNutritionals[] $cookIngredientsNutritionals
+ * @property CookIngredientsNutritionals[] $nutritionals
  */
 class CookIngredient extends HActiveRecord
 {
@@ -67,7 +67,7 @@ class CookIngredient extends HActiveRecord
             'units' => array(self::HAS_MANY, 'CookIngredientUnit', 'ingredient_id'),
             'category' => array(self::BELONGS_TO, 'CookIngredientCategory', 'category_id'),
             'unit' => array(self::BELONGS_TO, 'CookUnit', 'unit_id'),
-            'cookIngredientsNutritionals' => array(self::HAS_MANY, 'CookIngredientNutritional', 'ingredient_id'),
+            'nutritionals' => array(self::HAS_MANY, 'CookIngredientNutritional', 'ingredient_id'),
             'availableUnits' => array(self::MANY_MANY, 'CookUnit', 'cook__ingredient_units(ingredient_id, unit_id)'),
         );
     }

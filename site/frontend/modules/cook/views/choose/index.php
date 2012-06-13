@@ -26,158 +26,35 @@
 
             </div>
 
+            <?php
+            $perColumn = ceil(CookChoose::model()->count() / 3);
+            $perColumn = ($perColumn == 0) ? 1 : $perColumn;
+            $i = 0;
+            $closeColumn = false;
+            ?>
+
             <div class="product-choose-abc clearfix">
 
                 <ul>
                     <li>
-                        <div class="cat-title">
-										<span class="cook-cat active">
-											<i class="icon-cook-cat icon-product-1"></i>
-											<span>Алкоголь</span>
-										</span>
-                        </div>
-                        <ul>
-                            <li><a href="">Шампанское</a></li>
-                            <li><a href="">Вино</a></li>
-                            <li><a href="">Водка</a></li>
-                        </ul>
-
-
-                        <div class="cat-title">
-										<span class="cook-cat active">
-											<i class="icon-cook-cat icon-product-6"></i>
-											<span>Мясо, птица</span>
-										</span>
-                        </div>
-                        <ul>
-                            <li><a href="">Говядина</a></li>
-                            <li><a href="">Свинина</a></li>
-                            <li><a href="">Мясо кролика</a></li>
-                            <li><a href="">Мясо кролика (печень)</a></li>
-                            <li><a href="">Купить мясо курицы</a></li>
-                        </ul>
-
-                        <div class="cat-title">
-										<span class="cook-cat active">
-											<i class="icon-cook-cat icon-product-3"></i>
-											<span>Кондитерские&nbsp;изделия, десерты&nbsp;и&nbsp;сладости</span>
-										</span>
-                        </div>
-                        <ul>
-                            <li><a href="">Мед</a></li>
-                            <li><a href="">Шоколад</a></li>
-                        </ul>
-
-                        <div class="cat-title">
-										<span class="cook-cat active">
-											<i class="icon-cook-cat icon-product-7"></i>
-											<span>Рыба&nbsp;и морепродукты</span>
-										</span>
-                        </div>
-                        <ul>
-                            <li><a href="">Рыбу</a></li>
-                            <li><a href="">Красную икру</a></li>
-                        </ul>
-
+                        <?php
+                        foreach ($categories as $category) {
+                            echo '<div class="cat-title"><span class="cook-cat active"><i class="icon-cook-cat icon-product-' . $category->id . '"></i><span>' . $category->title . '</span></span></div>';
+                            echo '<ul>';
+                            foreach ($category->chooses as $product) {
+                                echo '<li><a href="' . $this->createUrl('view', array('id' => $product->slug)) . '">' . $product->title . '</a></li>';
+                                $i++;
+                                if (($i % $perColumn) == 0)
+                                    $closeColumn = true;
+                            }
+                            echo '</ul>';
+                            if ($closeColumn) {
+                                echo '</li><li>';
+                                $closeColumn = false;
+                            }
+                        }
+                        ?>
                     </li>
-                    <li>
-                        <div class="cat-title">
-										<span class="cook-cat active">
-											<i class="icon-cook-cat icon-product-2"></i>
-											<span>Напитки</span>
-										</span>
-                        </div>
-                        <ul>
-                            <li><a href="">Какао</a></li>
-                            <li><a href="">Кофе</a></li>
-                            <li><a href="">Квас</a></li>
-                            <li><a href="">Черный чай</a></li>
-                            <li><a href="">Зеленый чай</a></li>
-                            <li><a href="">Травяной чай</a></li>
-                            <li><a href="">Чай каркаде</a></li>
-                            <li><a href="">Цикорий</a></li>
-                            <li><a href="">Питьевую воду</a></li>
-                            <li><a href="">Минеральную воду</a></li>
-                        </ul>
-
-                        <div class="cat-title">
-										<span class="cook-cat active">
-											<i class="icon-cook-cat icon-product-9"></i>
-											<span>Овощи,&nbsp;фрукты, грибы</span>
-										</span>
-                        </div>
-                        <ul>
-                            <li><a href="">Ананас</a></li>
-                            <li><a href="">Мандарины</a></li>
-                            <li><a href="">Лимоны</a></li>
-                            <li><a href="">Арбуз</a></li>
-                            <li><a href="">Дыню</a></li>
-                            <li><a href="">Помидоры</a></li>
-                            <li><a href="">Грушу </a></li>
-                            <li><a href="">Клубнику</a></li>
-                            <li><a href="">Лук</a></li>
-                            <li><a href="">Кокос</a></li>
-                            <li><a href="">Шампиньоны</a></li>
-                            <li><a href="">Виноград</a></li>
-                            <li><a href="">Черешню</a></li>
-                            <li><a href="">Персики</a></li>
-                            <li><a href="">Бананы</a></li>
-                        </ul>
-
-                    </li>
-                    <li>
-
-                        <div class="cat-title">
-										<span class="cook-cat active">
-											<i class="icon-cook-cat icon-product-5"></i>
-											<span>Молочная продукция</span>
-										</span>
-                        </div>
-                        <ul>
-                            <li><a href="">Ряженку</a></li>
-                            <li><a href="">Сливочное масло</a></li>
-                            <li><a href="">Коровье молоко</a></li>
-                            <li><a href="">Сливки</a></li>
-                            <li><a href="">Козье молоко</a></li>
-                            <li><a href="">Йогурт</a></li>
-                            <li><a href="">Сметану купить</a></li>
-                            <li><a href="">Творог</a></li>
-                            <li><a href="">Кефир</a></li>
-                            <li><a href="">Сыр</a></li>
-                        </ul>
-
-                        <div class="cat-title">
-										<span class="cook-cat active">
-											<i class="icon-cook-cat icon-product-10"></i>
-											<span>Хлебобулочные изделия и&nbsp;крупы</span>
-										</span>
-                        </div>
-                        <ul>
-                            <li><a href="">Белый хлеб</a></li>
-                        </ul>
-
-                        <div class="cat-title">
-										<span class="cook-cat active">
-											<i class="icon-cook-cat icon-product-8"></i>
-											<span>Масла</span>
-										</span>
-                        </div>
-                        <ul>
-                            <li><a href="">Соус</a></li>
-                        </ul>
-
-                        <div class="cat-title">
-										<span class="cook-cat active">
-											<i class="icon-cook-cat icon-product-4"></i>
-											<span>Майонезы, кетчупы,&nbsp;соусы</span>
-										</span>
-                        </div>
-                        <ul>
-                            <li><a href="">Майонез</a></li>
-                        </ul>
-
-                    </li>
-
                 </ul>
 
 

@@ -29,7 +29,9 @@
                 <ul>
                     <?php
                     foreach ($model->chooses as $product) {
-                        echo '<li><a href=""><img src="'.(isset($product->photo) ? $product->photo->getPreviewUrl(120, 120, Image::WIDTH) : '').'"/>Как выбрать '.$product->title_accusative.'</a></li>';
+                        $url = $this->createUrl('view', array('id' => $product->slug));
+                        $src = isset($product->photo) ? $product->photo->getPreviewUrl(120, 130, Image::HEIGHT) : '';
+                        echo '<li><a href="' . $url . '"><img src="' . $src . '"/>Как выбрать ' . $product->title_accusative . '</a></li>';
                     }
                     ?>
                 </ul>
@@ -45,7 +47,7 @@
         </div>
 
         <div class="product-choose-categories">
-            <?php $this->renderPartial('_categories'); ?>
+            <?php $this->renderPartial('_categories', array('category_slug' =>$_GET['id'])); ?>
         </div>
 
     </div>

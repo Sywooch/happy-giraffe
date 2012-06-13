@@ -25,11 +25,11 @@ class ChooseController extends HController
 
     public function actionView($id)
     {
-        $model = CookSpice::model()->with('photo', 'categories', 'hints')->findByAttributes(array('slug' => $id));
+        $model = CookChoose::model()->with('photo', 'category')->findByAttributes(array('slug' => $id));
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->pageTitle = 'Приправы и специи ' . $model->title;
+        $this->pageTitle = 'Как выбрать ' . $model->title_accusative;
 
         $this->render('view', compact('model'));
     }

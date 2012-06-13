@@ -14,6 +14,9 @@
  * @property string $desc_check
  * @property string $photo_id
  * @property string $slug
+ * @property string $title_quality
+ * @property string $title_defective
+ * @property string $title_check
  *
  * The followings are the available model relations:
  * @property CookChooseCategories $category
@@ -42,14 +45,14 @@ class CookChoose extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('category_id, title, title_accusative', 'required'),
+            array('category_id, title, title_accusative, title_quality, title_defective, title_check', 'required'),
             array('category_id', 'length', 'max' => 11),
-            array('title, title_accusative', 'length', 'max' => 255),
+            array('title, title_accusative, title_quality, title_defective, title_check', 'length', 'max' => 255),
             array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'title'),
-            array('desc, desc_quality, desc_defective, desc_check', 'safe'),
+            array('desc, desc_quality, desc_defective, desc_check, title_quality, title_defective, title_check', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, category_id, title, title_accusative, desc, desc_quality, desc_defective, desc_check', 'safe', 'on' => 'search'),
+            array('id, category_id, title, title_accusative, desc, desc_quality, desc_defective, desc_check, title_quality, title_defective, title_check', 'safe', 'on' => 'search'),
         );
     }
 
@@ -77,8 +80,11 @@ class CookChoose extends HActiveRecord
             'title' => 'Продукт',
             'title_accusative' => 'Продукт винительный падеж',
             'desc' => 'О продукте',
+            'title_quality' => 'Как выглядит "качественный продукт"',
             'desc_quality' => 'Признаки качественного',
+            'title_defective' => 'Как выглядит "некачественный продукт"',
             'desc_defective' => 'Признаки некачественного',
+            'title_check' => 'Как проверить "качество продукта"',
             'desc_check' => 'Как можно проверить качество',
             'photo_id' => 'Фотография',
             'slug' => 'slug'
@@ -101,6 +107,8 @@ class CookChoose extends HActiveRecord
         $criteria->compare('title', $this->title, true);
         $criteria->compare('title_accusative', $this->title_accusative, true);
         $criteria->compare('desc', $this->desc, true);
+        $criteria->compare('title_quality', $this->desc, true);
+
         $criteria->compare('desc_quality', $this->desc_quality, true);
         $criteria->compare('desc_defective', $this->desc_defective, true);
         $criteria->compare('desc_check', $this->desc_check, true);

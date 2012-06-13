@@ -91,9 +91,9 @@ return array(
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
 
-        //'cook/choose/index' => 'cook/choose/index',
+        'cook/choose/index' => 'cook/choose/index',
         'cook/choose/category/<id:[\w_]+>' => 'cook/choose/category',
-        //'cook/choose/<id:[\w_]+>' => 'cook/choose/view',
+        'cook/choose/<id:[\w_]+>' => 'cook/choose/view',
 
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

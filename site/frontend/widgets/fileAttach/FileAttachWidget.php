@@ -10,8 +10,8 @@ class FileAttachWidget extends CWidget
     public $customButton = false;
 
     public $title;
-    public $button_title;
-
+    public $first_button_title = 'Загрузить фото';
+    public $first_button_class = 'btn-orange';
 
     public function init()
     {

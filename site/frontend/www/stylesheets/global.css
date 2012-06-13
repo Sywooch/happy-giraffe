@@ -4033,7 +4033,7 @@ ul.letters li a:hover {
 
 #dishes .dishes-list {padding:0 15px;}
 #dishes .dishes-list .block-title {overflow:hidden;}
-#dishes .dishes-list .block-title h1 {margin-top:37px;width:600px;margin-left:35px;}
+#dishes .dishes-list .block-title h1 {margin-top:37px;width:600px;margin-left:35px;line-height:1;}
 #dishes .dishes-list .block-title .add-photo {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#939292;width:235px;float:right;}
 #dishes .dishes-list .block-title .add-photo .btn {margin:5px 0 0 -5px;}
 #dishes .dishes-list .block-title .add-photo .btn span {font-weight:bold;text-transform:none;font-family:arial, helvetica, sans-serif;font-size:20px;}

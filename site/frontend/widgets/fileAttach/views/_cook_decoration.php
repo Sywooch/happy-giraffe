@@ -4,7 +4,7 @@
         <div class="photo">
             <div class="in">
                 <img src="<?=$photo;?>" width="170" alt="">
-                <a href="" class="remove tooltip" title="Удалить"></a>
+                <a href="javascript:;" onclick="$('#file_attach_menu li:first-child a').trigger('click');" class="remove tooltip" title="Удалить"></a>
             </div>
         </div>
 

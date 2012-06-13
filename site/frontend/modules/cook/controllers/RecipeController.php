@@ -9,6 +9,7 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
+            'ajaxOnly + ac'
         );
     }
 
@@ -16,26 +17,77 @@ class RecipeController extends HController
     {
         return array(
             array('deny',
-                'actions' => array('add'),
+                'actions' => array('form'),
                 'users' => array('?'),
             ),
         );
     }
 
-    public function actionAdd()
+    public function actionForm($id = null)
     {
-        $recipe = new CookRecipe;
+        if ($id === null) {
+            $recipe = new CookRecipe;
+            $ingredients = array();
+        } else {
+            $recipe = CookRecipe::model()->with('ingredients.unit', 'ingredients.ingredient.availableUnits')->findByPk($id);
+            $ingredients = $recipe->ingredients;
+        }
 
         if (isset($_POST['CookRecipe'])) {
             $recipe->attributes = $_POST['CookRecipe'];
-            $recipe->author_id = Yii::app()->user->id;
-            if ($recipe->save()) {
-                echo 'ok';
-                Yii::app()->end();
+            if ($recipe->isNewRecord)
+                $recipe->author_id = Yii::app()->user->id;
+            foreach ($_POST['CookRecipeIngredient'] as $i) {
+                if (! empty($i['ingredient_id']) || ! empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
+                    $ingredient = new CookRecipeIngredient;
+                    $ingredient->attributes = $i;
+                    $ingredient->recipe_id = $recipe->id;
+                    $ingredients[] = $ingredient;
+                }
+            }
+            $recipe->ingredients = $ingredients;
+            if ($recipe->withRelated->save(true, array('ingredients'))) {
+                $this->redirect(array('/cook/recipe/view', 'id' => $recipe->id));
             }
         }
 
+        if (empty($ingredients))
+            $ingredients = CookRecipeIngredient::model()->getEmptyModel(3);
+
         $cuisines = CookCuisine::model()->findAll();
-        $this->render('_form', compact('recipe', 'cuisines'));
+        $units = CookUnit::model()->findAll();
+        $this->render('_form', compact('recipe', 'ingredients', 'cuisines', 'units'));
+    }
+
+    public function actionView($id)
+    {
+        $recipe = CookRecipe::model()->with('cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
+        if ($recipe === null)
+            throw new CHttpException(404, 'Такого рецепта не существует');
+
+        $this->render('view', compact('recipe'));
+    }
+
+    public function actionAc($term)
+    {
+        $criteria = new CDbCriteria(array(
+            'select' => 'id, title',
+            'with' => array('units', 'unit'),
+        ));
+        $criteria->compare('t.title', $term, true);
+
+        $_ingredients = array();
+        $ingredients = CookIngredient::model()->findAll($criteria);
+        foreach ($ingredients as $i) {
+            $unit = array('id' => $i->unit->id, 'title' => $i->unit->title);
+            $units = array();
+            foreach ($i->availableUnits as $u) {
+                $units[] = array('id' => $u->id, 'title' => $u->title);
+            }
+            $ingredient = array('label' => $i->title, 'value' => $i->title, 'id' => $i->id, 'units' => $units, 'unit' => $unit);
+            $_ingredients[] = $ingredient;
+        }
+
+        echo CJSON::encode($_ingredients);
     }
 }

@@ -5,7 +5,7 @@
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'add_comment',
     'htmlOptions' => array(
-        'onsubmit' => "return Comment.send(this, event);",
+        'onsubmit' => "return ".$this->objectName.".send(this, event);",
         'style' => 'display:none;',
     ),
 )); ?>
@@ -43,7 +43,7 @@
     ));*/
     ?>
     <div class="button_panel">
-        <button class="btn btn-gray-medium cancel" onclick="return Comment.cancel(event);"><span><span>Отмена</span></span></button>
+        <button class="btn btn-gray-medium cancel" onclick="return <?php echo $this->objectName; ?>.cancel(event);"><span><span>Отмена</span></span></button>
         <button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
     </div>
     <?php $this->endWidget(); ?>
@@ -62,5 +62,5 @@
     </div>
 <?php endif; ?>
 <script type="text/javascript">
-    var cke_instance = 'Comment_text';
+    var cke_instance = '<?php echo $this->_commentModel; ?>_text';
 </script>

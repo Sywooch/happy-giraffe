@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'class' => 'HUrlManager',
     'urlFormat'=>'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
@@ -46,6 +47,7 @@ return array(
         'admin/' => 'admin/site/index',
         '<controller:\w+>/admin'=>'site/index',
         '<controller:\w+>/master'=>'<controller>/admin',
+        '<controller:\w+>/<title:\w+>_<id:\d+>/photo<pid:\d+>'=>'<controller>/view',
         '<controller:\w+>/<title:\w+>_<id:\d+>'=>'<controller>/view',
         'babySex/<action:\w+>'=>'services/babySex/default/<action>',
         'sewing/<action:\w+>'=>'services/sewing/default/<action>',
@@ -84,6 +86,11 @@ return array(
         'horoscope/today/<zodiac:[\w]+>'=>'services/horoscope/default/view',
         'horoscope/tomorrow/<zodiac:[\w]+>'=>'services/horoscope/default/tomorrow',
         'horoscope/yesterday/<zodiac:[\w]+>'=>'services/horoscope/default/yesterday',
+
+        'cook/spices/index' => 'cook/spices/index',
+        'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
+        'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
+
 
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

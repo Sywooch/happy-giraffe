@@ -17,7 +17,7 @@
         <tr class="title">
             <td align="center">
                 <div<?php echo $data->isNewRecord && $data->title == '' ? ' style="display:none;"' : ''; ?>>
-                    <span><?php echo $data->title != '' ? $data->title : '&nbsp;'; ?></span>
+                    <span><?php echo $data->title != '' ? CHtml::encode($data->title) : '&nbsp;'; ?></span>
                 </div>
             </td>
         </tr>

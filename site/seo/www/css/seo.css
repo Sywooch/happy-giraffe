@@ -12,17 +12,17 @@ textarea {overflow:auto;font-family:arial,sans-serif;}
 
 table {border-collapse: collapse;border-spacing: 0;}
 
-a {color:#029AD2;}
+a {color:#2371dd;}
 a:hover {text-decoration:none;}
 
 
 .btn-green {display:inline-block;text-decoration:none;height:41px;line-height:38px;border:1px solid #34ac51;background:url(/images/seo_sprite.png) repeat-x 0 -195px;color:#fff;font-weight:bold;padding:0 15px;font-size:25px;vertical-align:middle;cursor:pointer;white-space:nowrap;}
 button.btn-green {height:43px;}
-.btn-green {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;}
+.btn-green {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;behavior: url(/stylesheets/PIE.htc);}
 
 .btn-green-small {display:inline-block;text-decoration:none;height:18px;line-height:16px;border:1px solid #34ac51;background:url(/images/seo_sprite.png) repeat-x 0 -238px;color:#fff;font-weight:bold;padding:0 10px;font-size:11px;vertical-align:middle;cursor:pointer;white-space:nowrap;}
 button.btn-green-small {height:20px;}
-.btn-green-small {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;}
+.btn-green-small {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;behavior: url(/stylesheets/PIE.htc);}
 
 
 #seo {padding-top:20px;padding-bottom:50px;}
@@ -46,6 +46,8 @@ button.btn-green-small {height:20px;}
 #seo .icon-admin {display:inline-block;width:25px;height:25px;background:url(/images/seo_sprite.png) no-repeat -38px -90px;vertical-align:middle;}
 #seo .icon-return {display:inline-block;width:17px;height:18px;background:url(/images/seo_sprite.png) no-repeat -13px -81px;vertical-align:middle;margin-left:3px;}
 #seo .icon-updrag {display:inline-block;width:16px;height:17px;background:url(/images/seo_sprite.png) no-repeat -13px -101px;vertical-align:middle;margin-left:3px;}
+#seo .icon-links-trigger {display:inline-block;width:14px;height:13px;background:url(/images/seo_sprite.png) no-repeat -65px -78px;vertical-align:middle;position:relative;top:-2px;margin-left: 20px;}
+#seo .icon-links-trigger.triggered {display:inline-block;width:14px;height:13px;background:url(/images/seo_sprite.png) no-repeat -65px -63px;vertical-align:middle;}
 
 #seo .title {padding-top:50px;font-size:25px;color:#494949;margin-left:40px;margin-bottom:40px;position:relative;}
 #seo .title span {font-size:35px;color:#6d439d;font-weight:bold;}
@@ -62,25 +64,34 @@ button.btn-green-small {height:20px;}
 .default-nav ul li.active:after {display:block;content:'';position:absolute;left:0;bottom:0;width:90px;height:11px;background:url(/images/default_nav_active.gif) no-repeat;}
 .default-nav ul li.active a {border:0;cursor:default;text-decoration:none;}
 
+#seo .fast-nav {float:left;padding-left:40px;}
+#seo .fast-nav ul {list-style:none;}
+#seo .fast-nav ul li {float:left;padding:0 10px;border-left:1px solid #323334;}
+#seo .fast-nav ul li:first-child {border-left:0;}
+#seo .fast-nav ul li a {}
+#seo .fast-nav ul li.active a {color:#323334;text-decoration:none;}
+
 #seo .default-nav {float:right;margin-right:20px;margin-top:55px;margin-bottom:80px;}
 #seo .default-nav ul {overflow:visible;}
 #seo .default-nav ul li {width:auto;position:relative;}
 #seo .default-nav ul li.active:after {display:none;}
 #seo .default-nav ul li.active .tale img {display:block;position:absolute;width:100%;height:11px;bottom:0px;left:0;}
 #seo .default-nav ul li .count {position:absolute;width:60px;height:60px;border:3px solid #fff;left:50%;margin-left:-33px;top:30px;}
-#seo .default-nav ul li .count {/*css3*/ border-radius:33px;}
+#seo .default-nav ul li .count {/*css3*/ border-radius:33px;behavior: url(/stylesheets/PIE.htc);}
 #seo .default-nav ul li .count a {display:block;width:56px;height:56px;border:2px solid #ecdcfb;text-align:center;line-height:56px;margin:0;font-size:25px;text-decoration:underline;background:#fff;cursor:pointer;}
-#seo .default-nav ul li .count a {/*css3*/ border-radius:33px;}
+#seo .default-nav ul li .count a {/*css3*/ border-radius:33px;behavior: url(/stylesheets/PIE.htc);}
 #seo .default-nav ul li .count a:hover {text-decoration:none;}
 
 #seo .search {padding-left:40px;color:#474748;margin-bottom:30px;}
-#seo .search .input {width:420px;float:left;}
+#seo .search .input {width:430px;float:left;}
 #seo .search .input label {display:block;font-size:13px;margin-bottom:10px;padding-left:10px;}
-#seo .search .input input[type=text] {border:1px solid #cdb7e4;padding:3px 9px;width:330px;margin:0;margin-right:5px;}
-#seo .search .result {width:380px;float:left;text-align:center;}
+#seo .search .input input[type=text] {border:1px solid #cdb7e4;padding:3px 9px;width:330px;margin:0;margin-right:5px;vertical-align:middle;}
+#seo .search .result {width:370px;float:left;text-align:center;}
 #seo .search .result label {display:block;font-size:13px;margin-bottom:10px;}
+#seo .search .result label a {font-size:12px;}
 #seo .search .result span {margin:0 10px;line-height:24px;font-size:11px;}
 #seo .search .result span i {position:relative;top:-2px;}
+#seo .search .result span.active a {text-decoration:none;background:#fbf1ba;padding:0 5px;}
 #seo .search .result-filter {width:120px;float:left;text-align:center;}
 #seo .search .result-filter label {font-size:11px;line-height:1;}
 #seo .search .result-filter label input {margin-top:5px;}
@@ -126,7 +137,7 @@ button.btn-green-small {height:20px;}
 #seo .seo-table .table-box table .col-1 {text-align:center;}
 #seo .seo-table .table-box table tbody .col-1 {font-weight:bold;}
 
-#seo .seo-table .table-box tr:hover td {background:#f2f8fe;}
+#seo .seo-table .table-box tr:hover td {background:#f2f8fe !important;}
 
 #seo .seo-table .table-box table .al {text-align:left;}
 #seo .seo-table .table-box table .ac {text-align:center;}
@@ -135,8 +146,8 @@ button.btn-green-small {height:20px;}
 
 
 #seo .table-result {}
-#seo .table-result .table-box table td, #seo .table-result .table-box table th {text-align:center;}
-#seo .table-result .table-box table .col-1 {font-weight:normal !important;text-align:left;}
+#seo .table-result .table-box table td, #seo .table-result .table-box table th {text-align:center;padding:10px 5px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+#seo .table-result .table-box table .col-1 {font-weight:normal !important;text-align:left;padding:10px 10px;font-size:13px;font-family:arial, helvetica, sans-serif;}
 
 #seo .table-result .table-box tr.on-site td {background:#f1e4fd;}
 #seo .table-result .table-box tr.in-work td {background:#dafacc;}
@@ -149,7 +160,7 @@ button.btn-green-small {height:20px;}
 
 
 #seo .tasks-manager {float:right;width:406px;padding:30px 2px;border:1px dashed #cbcaca;margin-top:45px;margin-bottom:50px;}
-#seo .tasks-manager {/*css3*/ -webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;}
+#seo .tasks-manager {/*css3*/ -webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
 
 #seo .tasks-manager .drag-text {display:block;padding-left:100px;color:#bababa;font-size:25px;line-height:normal;min-height:80px;position:relative;margin:50px 0 30px 90px;}
 #seo .tasks-manager .drag-text .arrow {display:block;width:68px;height:78px;background:url(/images/seo_sprite.png) no-repeat -94px -30px;position:absolute;left:0;top:0;}
@@ -191,10 +202,10 @@ button.btn-green-small {height:20px;}
 #seo .table-report td.seo-status-check-1 {background:#e0fcd4 !important;}
 #seo .table-report td.seo-status-check-2 {background:#baeaa5 !important;}
 
-#seo .table-report td.seo-status-author-3 {background:#eefde7 !important;}
-#seo .table-report td.seo-status-author-4 {background:#d0f5bf !important;}
-#seo .table-report td.seo-status-author-5 {background:#abe391 !important;}
-#seo .table-report td.seo-status-author-6, #seo .table-report td.seo-status-author-7 {background:#88d265 !important;}
+#seo .table-report td.seo-status-author-1 {background:#eefde7 !important;}
+#seo .table-report td.seo-status-author-2 {background:#d0f5bf !important;}
+#seo .table-report td.seo-status-author-3 {background:#abe391 !important;}
+#seo .table-report td.seo-status-author-4 {background:#88d265 !important;}
 
 
 #seo .article-ready {margin-top:30px;}

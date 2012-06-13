@@ -7,11 +7,11 @@
                 </div>
                 <div class="title">
                     <big>
-                        Альбом <span>&laquo;<?php echo $model->title; ?>&raquo;</span>
+                        Альбом <span>&laquo;<?php echo CHtml::encode($model->title); ?>&raquo;</span>
                     </big>
                     <?php if ($model->description): ?>
                     <div class="note">
-                        <p><?php echo $model->description; ?></p>
+                        <p><?php echo CHtml::encode($model->description); ?></p>
                     </div>
                     <?php endif; ?>
                 </div>
@@ -48,7 +48,7 @@
         <?php foreach($model->author->albums('albums:noSystem') as $album): ?>
             <li<?php echo $model->id == $album->id ? ' class="active"' : ''; ?>>
                 <div class="in">
-                    <?php echo CHtml::link($album->title, $album->url); ?>
+                    <?php echo CHtml::link(CHtml::encode($album->title), $album->url); ?>
                     <span class="count"><?php echo count($album->photos); ?></span>
                     <span class="tale"><img src="/images/default_v_nav_active.png"></span>
                 </div>

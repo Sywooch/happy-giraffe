@@ -2,9 +2,9 @@
 
     <div class="entry-header">
         <?php if ($full): ?>
-            <h1><?php echo $data->title; ?></h1>
+            <h1><?php echo CHtml::encode($data->title); ?></h1>
         <?php else: ?>
-            <?php echo CHtml::link($data->title, $data->url, array('class' => 'entry-title')); ?>
+            <?php echo CHtml::link(CHtml::encode($data->title), $data->url, array('class' => 'entry-title')); ?>
         <?php endif; ?>
         <?php if (! $data->by_happy_giraffe): ?>
             <div class="user">
@@ -190,7 +190,7 @@
     'model' => $data,
     'type' => 'minimize',
     'options' => array(
-        'title' => $data->title,
+        'title' => CHtml::encode($data->title),
         'image' => isset($data_image) ? $data_image : false,
         'description' => $data_text,
     ),

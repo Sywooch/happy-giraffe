@@ -1,6 +1,6 @@
 <div class="box homepage-clubs">
 
-    <div class="title"><span>Клубы</span> для общения</div>
+    <div class="title">Клубы <span>для общения</span></div>
 
     <ul>
 
@@ -139,19 +139,19 @@
             <ul>
                 <li>
                     <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 19))?>">
-                        <span class="club-img"><img src="/images/club_img_29.png"></span>
+                        <span class="club-img"><img src="/images/club_img_33.png"></span>
                         <span class="club-title">Выходные с ребенком</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 21))?>">
-                        <span class="club-img"><img src="/images/club_img_30.png"></span>
+                        <span class="club-img"><img src="/images/club_img_34.png"></span>
                         <span class="club-title">Путешествия семьей</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 20))?>">
-                        <span class="club-img"><img src="/images/club_img_31.png"></span>
+                        <span class="club-img"><img src="/images/club_img_35.png"></span>
                         <span class="club-title">Праздники</span>
                     </a>
                 </li>

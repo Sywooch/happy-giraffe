@@ -34,7 +34,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
 
     <div class="row">
         <?php echo $form->labelEx($model, 'title_accusative'); ?>
-        <?php echo $form->textField($model, 'title_accusative', array('size' => 60, 'maxlength' => 255)); ?>
+        <?php echo $form->textField($model, 'title', array('size' => 60, 'maxlength' => 255)); ?>
         <?php echo $form->error($model, 'title_accusative'); ?>
     </div>
 
@@ -45,15 +45,34 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
     </div>
 
     <div class="row">
+        trololo
+        <?php echo $form->labelEx($model, 'title_quality'); ?>
+        <?php echo $form->textField($model, 'title_quality', array('size' => 60, 'maxlength' => 255, 'placeholder'=>'качественный продукт')); ?>
+        <?php echo $form->error($model, 'title_quality'); ?>
+    </div>
+
+    <div class="row">
         <?php echo $form->labelEx($model, 'desc_quality'); ?>
         <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'desc_quality')); ?>
         <?php echo $form->error($model, 'desc_quality'); ?>
     </div>
 
     <div class="row">
+        <?php echo $form->labelEx($model, 'title_defective'); ?>
+        <?php echo $form->textField($model, 'title_defective', array('size' => 60, 'maxlength' => 255, 'placeholder'=>'некачественный продукт')); ?>
+        <?php echo $form->error($model, 'title_defective'); ?>
+    </div>
+
+    <div class="row">
         <?php echo $form->labelEx($model, 'desc_defective'); ?>
         <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'desc_defective')); ?>
         <?php echo $form->error($model, 'desc_defective'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'title_check'); ?>
+        <?php echo $form->textField($model, 'title_check', array('size' => 60, 'maxlength' => 255, 'placeholder'=>'качество продукта')); ?>
+        <?php echo $form->error($model, 'title_check'); ?>
     </div>
 
     <div class="row">

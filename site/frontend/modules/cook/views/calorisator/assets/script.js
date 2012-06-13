@@ -36,6 +36,8 @@ var Calorisator = {
         tr.find('td.title').attr('data-id', ui.item.id);
         tr.find('td.title').attr('data-weight', ui.item.weight);
         tr.find('td.title').attr('data-density', ui.item.density);
+
+        tr.find('.nutritional').attr('data-value', 0);
         $.each(ui.item.nutritionals, function (index, value) {
             tr.find('.nutritional.n' + index).attr('data-value', value);
         });
@@ -57,7 +59,7 @@ var Calorisator = {
     // Calculate :)
 
     Calculate:function () {
-        Results = {n1:0, n2:0, n3:0, n4:0, qty:0};
+        var Results = {n1:0, n2:0, n3:0, n4:0, qty:0};
 
         // ingredients
 
@@ -94,7 +96,7 @@ var Calorisator = {
 
             // fill nutritional cells and add to Result
             $(tr).find('td.nutritional').each(function (tdIndex, td) {
-                r = parseFloat(ratio * parseFloat($(td).attr('data-value')));
+                var r = parseFloat(ratio * parseFloat($(td).attr('data-value')));
                 if (!isNaN(r) && r > 0) {
                     Results['n' + $(td).attr('data-n')] += r;
                     $(td).find('div').text(r.toFixed(2))

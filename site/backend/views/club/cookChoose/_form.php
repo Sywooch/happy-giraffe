@@ -34,7 +34,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
 
     <div class="row">
         <?php echo $form->labelEx($model, 'title_accusative'); ?>
-        <?php echo $form->textField($model, 'title', array('size' => 60, 'maxlength' => 255)); ?>
+        <?php echo $form->textField($model, 'title_accusative', array('size' => 60, 'maxlength' => 255)); ?>
         <?php echo $form->error($model, 'title_accusative'); ?>
     </div>
 

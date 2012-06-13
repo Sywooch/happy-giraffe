@@ -39,6 +39,8 @@ class WordstatParser extends ProxyParserThread
             }
             sleep(rand(10, 15));
         }
+
+
     }
 
     public function getKeyword()

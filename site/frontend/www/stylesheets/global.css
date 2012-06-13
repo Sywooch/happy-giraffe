@@ -4219,6 +4219,8 @@ ul.letters li a:hover {
 #product-choose .product-choose-abc > ul > li ul {list-style:none;margin:10px 0 30px;}
 #product-choose .product-choose-abc > ul > li ul li {padding:5px 0;}
 #product-choose .product-choose-abc > ul > li ul li a {display:block;line-height:1.2;}
+#product-choose .product-choose-abc .cook-cat {color:#585758;text-decoration:none;font-size:11px;cursor:default;}
+#product-choose .product-choose-abc .cook-cat span {text-decoration:none;}
 
 #product-choose .product-choose-categories {float:left;margin-left:-100%;width:220px;}
 #product-choose .product-choose-categories ul {border-right:1px solid #ead8f9;padding:10px 0;}

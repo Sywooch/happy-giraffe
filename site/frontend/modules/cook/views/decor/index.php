@@ -1,5 +1,11 @@
 <?php
 $categories = CookDecorationCategory::model()->findAll();
+
+$this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+    'selector' => 'a.btn-look',
+    'entity' => 'CookDecorationCategory',
+    'entity_id' => ($id)?$category->id:null,
+));
 ?>
 <div id="dishes">
 
@@ -82,3 +88,12 @@ $categories = CookDecorationCategory::model()->findAll();
     </div>
 
 </div>
+
+<script type="text/javascript">
+    $(function() {
+        $('a.btn-look').click(function(){
+
+            return false;
+        });
+    });
+</script>

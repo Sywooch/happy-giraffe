@@ -28,4 +28,3 @@
     </div>
     <?php $this->render('_admin_actions', compact('data')) ?>
 </div>
-

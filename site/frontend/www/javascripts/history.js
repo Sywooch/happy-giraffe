@@ -19,6 +19,8 @@ function AjaxHistory(id) {
 }
 
 AjaxHistory.prototype.changeBrowserUrl = function (url) {
+    if(url == document.location.href)
+        return;
     url = url.split("?");
     if (url[1]) {
         var query = new Array();

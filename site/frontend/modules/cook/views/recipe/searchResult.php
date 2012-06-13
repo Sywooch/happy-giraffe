@@ -20,17 +20,10 @@
 
         <ul class="scroll">
             <?php foreach ($recipes as $r): ?>
-                <?php
-                    if ($r->photo !== null) {
-                        $content = CHtml::link(CHtml::image($r->photo->getPreviewUrl(167, 167, Image::WIDTH)), $r->url);
-                    } else {
-                        $content = CHtml::tag('p', array(), Str::truncate($r->text));
-                    }
-                ?>
                 <li>
                     <div class="item-title"><?=CHtml::link($r->title, $r->url)?></div>
                     <div class="content">
-                        <?=$content?>
+                        <?=$r->preview?>
                     </div>
                 </li>
             <?php endforeach; ?>
@@ -38,6 +31,18 @@
 
     </div>
 <?php else: ?>
+    <div class="result-title clearfix">
+
+        <div class="filter">
+            Показывать
+            &nbsp;
+            <span class="chzn-v2">
+                <?=CHtml::dropDownList('type', $type, CookRecipe::model()->types, array('prompt' => 'Все блюда', 'class' => 'chzn'))?>
+            </span>
+        </div>
+
+    </div>
+
     <div class="arrow"></div>
 
     <div class="text">

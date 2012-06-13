@@ -2,7 +2,7 @@
 $categories = CookDecorationCategory::model()->findAll();
 
 $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-    'selector' => 'a.btn-look',
+    'selector' => '.list-view li.dish div.img a',
     'entity' => 'CookDecorationCategory',
     'entity_id' => ($id)?$category->id:null,
 ));
@@ -88,12 +88,3 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     </div>
 
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        $('a.btn-look').click(function(){
-
-            return false;
-        });
-    });
-</script>

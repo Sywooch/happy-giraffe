@@ -91,8 +91,11 @@ return array(
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
 
-        'cook/recipe/add' => 'cook/recipe/form',
-        'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
+        'cook/decor/<id:[\d]+>' => 'cook/decor/index',
+        'cook/decor/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor' => 'cook/decor/index',
+
 
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

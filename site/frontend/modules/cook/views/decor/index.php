@@ -52,6 +52,8 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                 <?php
                 $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                     'model' => new CookDecoration(),
+                    'first_button_class'=>'btn-green',
+                    'first_button_title'=>'Добавить фото',
                 ));
                 $fileAttach->button();
                 $this->endWidget();

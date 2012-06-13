@@ -91,29 +91,4 @@ class QueriesController extends SController
             $parser->start();
         }
     }
-
-    public function actionProxy()
-    {
-        Proxy::model()->deleteAll();
-        $proxyList = Yii::app()->request->getPost('proxy');
-        $proxyList = explode("\n", $proxyList);
-        foreach ($proxyList as $proxy) {
-            $model = new Proxy();
-            $model->value = $proxy;
-            $model->save();
-        }
-
-        echo CJSON::encode(array('status' => true));
-    }
-
-    public function actionStopThreads()
-    {
-        Config::setAttribute('stop_threads', 1);
-        echo CJSON::encode(array('status' => true));
-    }
-
-    public function actionSetConfigAttribute(){
-        Config::setAttribute(Yii::app()->request->getPost('title'), Yii::app()->request->getPost('value'));
-        echo CJSON::encode(array('status' => true));
-    }
 }

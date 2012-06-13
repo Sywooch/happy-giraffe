@@ -6,7 +6,7 @@
                     <big>
                         Альбом <span>&laquo;<span class="album_title"><?php echo CHtml::encode($model->title); ?></span>&raquo;</span>
                         <?php echo CHtml::link('<span class="tip">Редактировать</span>', 'javascript:;', array('class' => 'edit', 'onclick' => 'return Album.changeTitle(this, ' . $model->id . ');')); ?>
-                        <?php if($model->isNotSystem): ?>
+                        <?php if(0 && $model->isNotSystem): ?>
                             <div class="visibility-picker">
                                 <a onclick="albumVisibilityListToggle(this)" class="album-visibility" href="javascript:void(0);">
                                     <?php

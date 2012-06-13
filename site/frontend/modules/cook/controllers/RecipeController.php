@@ -17,7 +17,7 @@ class RecipeController extends HController
     {
         return array(
             array('deny',
-                'actions' => array('form'),
+                'actions' => array('save'),
                 'users' => array('?'),
             ),
         );
@@ -56,7 +56,7 @@ class RecipeController extends HController
 
         $cuisines = CookCuisine::model()->findAll();
         $units = CookUnit::model()->findAll();
-        $this->render('_form', compact('recipe', 'ingredients', 'cuisines', 'units'));
+        $this->render('form', compact('recipe', 'ingredients', 'cuisines', 'units'));
     }
 
     public function actionView($id)
@@ -66,6 +66,21 @@ class RecipeController extends HController
             throw new CHttpException(404, 'Такого рецепта не существует');
 
         $this->render('view', compact('recipe'));
+    }
+
+
+    public function actionSearch()
+    {
+        $this->render('search');
+    }
+
+    public function actionSearchResult()
+    {
+        $ingredients = Yii::app()->request->getQuery('ingredients', array());
+        $type = Yii::app()->request->getQuery('type', null);
+        $ingredients = array_filter($ingredients);
+        $recipes = CookRecipe::model()->findByIngredients($ingredients, $type);
+        $this->renderPartial('searchResult', compact('recipes', 'type'));
     }
 
     public function actionAc($term)
@@ -89,13 +104,5 @@ class RecipeController extends HController
         }
 
         echo CJSON::encode($_ingredients);
-    }
-
-    public function actionSearch()
-    {
-        $recipes = CookRecipe::model()->searchByIngredients(array(477, 479));
-        foreach ($recipes as $r) {
-            echo $r->title;
-        }
     }
 }

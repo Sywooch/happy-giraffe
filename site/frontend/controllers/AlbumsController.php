@@ -186,11 +186,20 @@ class AlbumsController extends HController
 
     public function actionWPhoto()
     {
+        Yii::import('site.frontend.modules.cook.models.*');
+
         $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
-        $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'))->findByPk(Yii::app()->request->getQuery('entity_id'));
+
+        $entity_id = Yii::app()->request->getQuery('entity_id');
+        $entity = Yii::app()->request->getQuery('entity');
+
+        if ($entity_id == 'null')
+            $model = null;
+        else
+            $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'))->findByPk(Yii::app()->request->getQuery('entity_id'));
         if(!Yii::app()->request->getQuery('go'))
         {
-            $this->renderPartial('w_photo', compact('model', 'photo'));
+            $this->renderPartial('w_photo', compact('model', 'photo', 'entity'));
         }
         else
         {
@@ -350,15 +359,19 @@ class AlbumsController extends HController
 
     public function actionCookDecorationPhoto()
     {
-        $model = AlbumPhoto::model()->findByPk(Yii::app()->request->getPost('id'));
 
-        if (!$model) {
-            $val = Yii::app()->request->getPost('val');
-            $model = new AlbumPhoto;
-            $model->file_name = $val;
+        $val = Yii::app()->request->getPost('id');
+        if (is_numeric($val)) {
+            $model = AlbumPhoto::model()->findByPk($val);
             if ($title = Yii::app()->request->getPost('title'))
                 $model->title = CHtml::encode($title);
+            $model->save();
+        } else {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
             $model->author_id = Yii::app()->user->id;
+            if ($title = Yii::app()->request->getPost('title'))
+                $model->title = CHtml::encode($title);
             $model->create(true);
         }
 
@@ -382,16 +395,29 @@ class AlbumsController extends HController
 
     public function actionCookDecorationCategory()
     {
-        $title = '';
-        $id = Yii::app()->request->getPost('id');
-        if($id){
-            $photo = AlbumPhoto::model()->findByPk($id);
-            $title = $photo->title;
+        $val = Yii::app()->request->getPost('val');
+        $data['tab'] = Yii::app()->request->getPost('widget_id') . ".CookDecorationEdit('" . $val . "')";
+
+        if (is_numeric($val)) {
+            $p = AlbumPhoto::model()->findByPk($val);
+            $photo = $p->getPreviewUrl(100, 100, Image::NONE);
+            $title = $p->title;
+            $data['title'] = mb_substr($p->title, 0, 20);
+        } else {
+            $photo = Yii::app()->params['photos_url'] . '/temp/' . $val;
+            $title = '';
         }
-        $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decor', array(
+
+        $data['html'] = $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decoration', array(
             'title'=>$title,
             'widget_id' => Yii::app()->request->getPost('widget_id'),
-        ));
+            'photo' => $photo,
+            'val' => $val
+        ), true);
+
+        header('Content-type: application/json');
+        echo CJSON::encode($data);
+
         Yii::app()->end();
     }
 

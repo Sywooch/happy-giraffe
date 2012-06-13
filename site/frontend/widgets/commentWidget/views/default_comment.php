@@ -24,8 +24,7 @@
     </div>
     <?php endif; ?>
     <div class="content-in">
-        <?php echo $data->text; ?>
+        <?php echo $data->purified->text; ?>
     </div>
     <?php $this->render('_admin_actions', compact('data')) ?>
 </div>
-

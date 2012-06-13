@@ -8,7 +8,7 @@
             $params = array('rubric_id' => $r->id);
             if ($this->action->id == 'view') $params['content_type_slug'] = null;
         ?>
-        <?=CHtml::link($r->title, $this->getUrl($params))?>
+        <?=CHtml::link(CHtml::encode($r->title), $this->getUrl($params))?>
         <span class="count"><?=$r->contentsCount?></span>
     </div>
 </li>

@@ -15,7 +15,7 @@ class CalorisatorController extends HController
         $criteria = new CDbCriteria;
         $criteria->with = array('nutritionals');
         $criteria->limit = 10;
-        $criteria->condition = 'density > 0';
+        $criteria->compare('nutritionals.id', 4);
         $criteria->compare('title', $term . '%', true, 'AND', false);
         $ingredients = CookIngredient::model()->findAll($criteria);
 
@@ -39,7 +39,7 @@ class CalorisatorController extends HController
             $criteria = new CDbCriteria;
             $criteria->with = array('nutritionals');
             $criteria->limit = 10;
-            $criteria->condition = 'density > 0';
+            $criteria->compare('nutritionals.id', 4);
             $criteria->compare('title', $term, true, 'AND', true);
             $ingredients = CookIngredient::model()->findAll($criteria);
 

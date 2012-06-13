@@ -22,6 +22,9 @@
 class AlbumPhoto extends HActiveRecord
 {
     private $_check_access = null;
+    const CROP_SIDE_CENTER = 'center';
+    const CROP_SIDE_TOP = 'top';
+    const CROP_SIDE_BOTTOM = 'bottom';
 
     /**
      * @var string original photos folder
@@ -244,7 +247,7 @@ class AlbumPhoto extends HActiveRecord
      *
      * @return string
      */
-    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false)
+    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false, $crop_side)
     {
         // Uload root
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
@@ -280,7 +283,7 @@ class AlbumPhoto extends HActiveRecord
                 $image->resize($width, $height, $master ? $master : Image::AUTO);
 
             if ($crop)
-                $image->crop($width, $height);
+                $image->crop($width, $height, $crop_side);
             $image->save($thumb);
         }
         return $thumb;
@@ -293,9 +296,9 @@ class AlbumPhoto extends HActiveRecord
      * @param int $height
      * @return string
      */
-    public function getPreviewUrl($width = 100, $height = 100, $master = false, $crop = false)
+    public function getPreviewUrl($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER)
     {
-        $this->getPreviewPath($width, $height, $master, $crop);
+        $this->getPreviewPath($width, $height, $master, $crop, $crop_side);
         return implode('/', array(
             Yii::app()->params['photos_url'],
             $this->thumb_folder,

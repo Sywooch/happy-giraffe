@@ -356,9 +356,12 @@ class CookRecipe extends CActiveRecord
 
     public function getPhotoCollection()
     {
-        $photos = $this->attachPhotos;
+        $photos = array();
         if ($this->photo !== null)  {
-            array_unshift($photos, $this->photo);
+            $photos[] = $this->photo;
+        }
+        foreach ($this->attachPhotos as $p) {
+            $photos[] = $p->photo;
         }
 
         return $photos;

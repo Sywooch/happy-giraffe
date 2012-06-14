@@ -136,9 +136,10 @@ Attach.prototype.insertToCookDecoration = function (id) {
         },
         function (data) {
             if (data.status) {
-                $('#dishes').load('/cook/decor/ #dishes');
-                $('div.note').hide().html('');
+                //$('#dishes').load('/cook/decor/ #dishes');
+                //$('div.note').hide().html('');
                 $.fancybox.close();
+                $.fn.yiiListView.update('decorlv');
             } else {
                 if (data.message) {
                     alert(data.message);

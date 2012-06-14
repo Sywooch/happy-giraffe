@@ -18,8 +18,8 @@
  *
  * The followings are the available model relations:
  * @property CookRecipeIngredients[] $cookRecipeIngredients
- * @property Users $author
- * @property AlbumPhotos $photo
+ * @property User $author
+ * @property AlbumPhoto $photo
  * @property CookCuisines $cuisine
  */
 class CookRecipe extends CActiveRecord
@@ -236,7 +236,7 @@ class CookRecipe extends CActiveRecord
         return $this->_nutritionals;
     }
 
-    public function findByIngredients($ingredients, $type = null)
+    public function findByIngredients($ingredients, $type = null, $limit = null)
     {
         $subquery = Yii::app()->db->createCommand()
             ->select('count(*)')
@@ -249,6 +249,32 @@ class CookRecipe extends CActiveRecord
         $criteria->params = array(':count' => count($ingredients));
         if ($type !== null)
             $criteria->compare('type', $type);
+        if ($limit !== null)
+            $criteria->limit = $limit;
+
+        return $this->findAll($criteria);
+    }
+
+    /**
+     * @param int $ingredient_id
+     * @param int $limit
+     * @return CookRecipe []
+     */
+    public function findByIngredient($ingredient_id, $limit)
+    {
+        $subquery = Yii::app()->db->createCommand()
+            ->select('t.id')
+            ->from($this->tableName() . ' as t')
+            ->join(CookRecipeIngredient::model()->tableName(), CookRecipeIngredient::model()->tableName() . '.recipe_id = t.id')
+            ->where(CookRecipeIngredient::model()->tableName().'.ingredient_id = :ingredient_id')
+            ->text;
+
+        $criteria = new CDbCriteria;
+        $criteria->with = array('ingredients', 'ingredients.ingredient', 'ingredients.unit', 'author', 'photo');
+        $criteria->together = true;
+        $criteria->condition = 't.id IN (' . $subquery . ')';
+        $criteria->params = array(':ingredient_id'=>$ingredient_id);
+        $criteria->limit = $limit;
 
         return $this->findAll($criteria);
     }

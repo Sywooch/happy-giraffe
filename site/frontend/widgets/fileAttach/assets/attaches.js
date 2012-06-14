@@ -5,6 +5,7 @@ function Attach() {
         this.entity_id = null,
         this.base_url = null, /* TODO не уверен, что где-то используется. Проверить. */
         this.params = new Array(),
+        this.many = false,
         this.object_name = null;
     currentAttach = this;
 }
@@ -114,7 +115,7 @@ Attach.prototype.insertToHumor = function (fsn) {
 }
 
 Attach.prototype.insertToRecipe = function (fsn) {
-    $.post(base_url + '/albums/recipePhoto/', {val:fsn}, function (data) {
+    $.post(base_url + '/albums/recipePhoto/', {val:fsn, many:this.many,entity:this.entity,entity_id:this.entity_id}, function (data) {
         if (data.status) {
             $('#CookRecipe_photo_id').val(data.id);
             $('a.attach').html($('<img />').attr('src', data.src));
@@ -136,10 +137,11 @@ Attach.prototype.insertToCookDecoration = function (id) {
         },
         function (data) {
             if (data.status) {
-                //$('#dishes').load('/cook/decor/ #dishes');
+                $('#dishes').load(document.location+' #dishes', function(){
+                    $('.list-view li.dish div.img a').pGallery({entity:'CookDecorationCategory', entity_id:photo_gallery_entity_id});
+                });
                 //$('div.note').hide().html('');
                 $.fancybox.close();
-                $.fn.yiiListView.update('decorlv');
             } else {
                 if (data.message) {
                     alert(data.message);

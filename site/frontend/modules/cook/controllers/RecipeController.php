@@ -9,7 +9,7 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + ac'
+            'ajaxOnly + ac, searchResult'
         );
     }
 
@@ -61,7 +61,7 @@ class RecipeController extends HController
 
     public function actionView($id)
     {
-        $recipe = CookRecipe::model()->with('author', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
+        $recipe = CookRecipe::model()->with('cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');
 
@@ -85,14 +85,12 @@ class RecipeController extends HController
 
     public function actionAc($term)
     {
-        $criteria = new CDbCriteria(array(
+        $ingredients = CookIngredient::model()->findByName($term, array(
             'select' => 'id, title',
             'with' => array('units', 'unit'),
         ));
-        $criteria->compare('t.title', $term, true);
 
         $_ingredients = array();
-        $ingredients = CookIngredient::model()->findAll($criteria);
         foreach ($ingredients as $i) {
             $unit = array('id' => $i->unit->id, 'title' => $i->unit->title);
             $units = array();

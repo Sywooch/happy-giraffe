@@ -72,7 +72,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
             $this->widget('zii.widgets.CListView', array(
                 'id'=>'decorlv',
                 'dataProvider' => $dataProvider,
-                //'ajaxUpdate' => false,
+                'ajaxUpdate' => false,
                 'itemView' => '_decoration', // refers to the partial view named '_post'
                 'emptyText' => 'В этой рубрике еще нет фотографий',
                 'summaryText' => '',

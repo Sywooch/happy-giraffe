@@ -4,7 +4,7 @@
      */
 
     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => 'div.big > a',
+        'selector' => 'div.big > a, div.thumbs a',
         'entity' => 'CookRecipe',
         'entity_id' => $recipe->id,
     ));
@@ -173,7 +173,7 @@
                             ?>
                         <?php else: ?>
                             <div class="big">
-                                <a href="javascript:;" data-id="<?=$recipe->mainPhoto->id?>">
+                                <a href="javascript:void(0)" data-id="<?=$recipe->mainPhoto->id?>">
                                     <?=CHtml::image($recipe->mainPhoto->getPreviewUrl(441, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'photo'))?>
                                 </a>
                             </div>
@@ -183,7 +183,7 @@
 
                             <ul>
                                 <?php foreach ($recipe->thumbs as $t): ?>
-                                    <li><a href="javascript:;" data-id="<?=$t->photo->id?>"><?=CHtml::image($t->photo->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->photo->title)?></a></li>
+                                    <li><a href="javascript:void(0)" data-id="<?=$t->photo->id?>"><?=CHtml::image($t->photo->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->photo->title)?></a></li>
                                 <?php endforeach; ?>
                                 <?php if ($recipe->mainPhoto !== null): ?>
                                     <li>

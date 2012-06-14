@@ -16,7 +16,9 @@
             <div class="admins">
                 <a href="" class="btn-admins" onclick="$(this).next().toggle();return false;"></a>
                 <ul style="display: none;">
-                    <?php foreach (Yii::app()->user->getModel()->authors as $author): ?>
+                    <?php
+                    $users = User::model()->findAll();
+                    foreach ($users as $author): ?>
                         <?php if (Yii::app()->authManager->checkAccess('author', $author->id)):?>
                             <li><a href="" onclick="TaskDistribution.addGroup(2, <?php echo $author->id ?>,0);$(this).parents('ul').hide();return false;"><?=$author->name ?></a></li>
                         <?php endif ?>

@@ -4,7 +4,7 @@
      */
 
     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => 'div.big > a, div.thumbs > a:not(.add)',
+        'selector' => 'div.big > a',
         'entity' => 'CookRecipe',
         'entity_id' => $recipe->id,
     ));

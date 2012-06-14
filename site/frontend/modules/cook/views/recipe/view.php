@@ -151,24 +151,29 @@
 
                     <div class="recipe-photo">
 
-                        <a href="" class="add-photo">
-                            <i class="icon"></i>
-                            <span>Вы уже готовили это блюдо?<br/>Добавьте фото!</span>
-                        </a>
+                        <?php if ($recipe->mainPhoto === null): ?>
+                            <a href="" class="add-photo">
+                                <i class="icon"></i>
+                                <span>Вы уже готовили это блюдо?<br/>Добавьте фото!</span>
+                            </a>
+                        <?php else: ?>
+                            <div class="big">
+                                <?=CHtml::image($recipe->mainPhoto->getPreviewUrl(441, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'photo'))?>
+                            </div>
+                        <?php endif; ?>
 
-                        <div class="big">
-                            <img class="photo" src="/images/cook_recipe_img_01.jpg" />
-                        </div>
+                        <?php if ($recipe->thumbs): ?>
+                            <div class="thumbs clearfix">
 
-                        <div class="thumbs clearfix">
+                                <ul>
+                                    <?php foreach ($thumbs as $t): ?>
+                                        <li><a href=""><?=CHtml::image($t->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->title)?></a></li>
+                                    <?php endforeach; ?>
+                                    <li><a href="" class="add"><i class="icon"></i></a></li>
+                                </ul>
 
-                            <ul>
-                                <li><a href=""><img src="/images/cook_recipe_img_02.jpg" /></li>
-                                <li><a href=""><img src="/images/cook_recipe_img_03.jpg" /></li>
-                                <li><a href="" class="add"><i class="icon"></i></a></li>
-                            </ul>
-
-                        </div>
+                            </div>
+                        <?php endif; ?>
 
                     </div>
 

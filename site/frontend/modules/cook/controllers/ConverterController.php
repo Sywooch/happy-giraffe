@@ -23,11 +23,11 @@ class ConverterController extends HController
     public function actionAc($term)
     {
         $ingredients = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')
-            ->where('title LIKE :term AND (density > 0 OR (SELECT COUNT(cook__ingredient_units.id) FROM cook__ingredient_units WHERE cook__ingredient_units.ingredient_id = cook__ingredients.id) > 1)', array(':term' => $term . '%'))->order('title')
+            ->where('title LIKE :term AND (SELECT COUNT(cook__ingredient_units.id) FROM cook__ingredient_units WHERE cook__ingredient_units.ingredient_id = cook__ingredients.id) > 1', array(':term' => $term . '%'))->order('title')
             ->limit(20)->queryAll();
         if (count($ingredients) < 20) {
             $ingredients2 = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')
-                ->where('title LIKE :term AND (density > 0 OR (SELECT COUNT(cook__ingredient_units.id) FROM cook__ingredient_units WHERE cook__ingredient_units.ingredient_id = cook__ingredients.id) > 1)', array(':term' => $term . '%'))->order('title')
+                ->where('title LIKE :term AND (SELECT COUNT(cook__ingredient_units.id) FROM cook__ingredient_units WHERE cook__ingredient_units.ingredient_id = cook__ingredients.id) > 1', array(':term' => $term . '%'))->order('title')
                 ->limit(20 - count($ingredients))->queryAll();
             if (count($ingredients2)) {
                 $ingredient_keys = array();

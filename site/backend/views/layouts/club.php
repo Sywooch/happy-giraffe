@@ -61,6 +61,11 @@
                         'visible' => Yii::app()->user->checkAccess('cook_spices'),
                     ),
                     array(
+                        'label' => 'Украшения блюд',
+                        'url' => array('/club/CookDecoration/'),
+                        'visible' => Yii::app()->user->checkAccess('cook_choose'),
+                    ),
+                    array(
                         'label' => 'Как выбрать',
                         'url' => array('/club/cookChoose/'),
                         'visible' => Yii::app()->user->checkAccess('cook_choose'),

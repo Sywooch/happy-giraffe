@@ -169,8 +169,27 @@ class CookIngredient extends HActiveRecord
         return $ingredients;
     }
 
-    public function findByName($term)
+    public function findByName($term, $condition = '', $params = array())
     {
+        $additionalCriteria = $this->getCommandBuilder()->createCriteria($condition,$params);
+        $criteria = new CDbCriteria;
+        $criteria->limit = 10;
+        $criteria->mergeWith($additionalCriteria);
+        $criteriaMore = clone $criteria;
 
+        $criteria->compare('t.title', $term . '%', true, 'AND', false);
+        $ingredients = $this->findAll($criteria);
+
+        if (count($ingredients) < 10) {
+            $criteriaMore->compare('t.title', ' ' . $term, true, 'AND');
+            $ingredientsMore = $this->findAll($criteriaMore);
+
+            while (count($ingredients) < 10 && ! empty($ingredientsMore)) {
+                array_push($ingredients, $ingredientsMore[0]);
+                array_shift($ingredientsMore);
+            }
+        }
+
+        return $ingredients;
     }
 }

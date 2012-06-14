@@ -89,12 +89,27 @@ class UserController extends SController
 		));
 	}
 
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadModel($id)
+    public function actionDelete($id)
+    {
+        if(Yii::app()->request->isPostRequest)
+        {
+            // we only allow deletion via POST request
+            $this->loadModel($id)->delete();
+
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            if(!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        }
+        else
+            throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+    }
+
+    /**
+     * @param $id
+     * @return User
+     * @throws CHttpException
+     */
+    public function loadModel($id)
 	{
 		$model=User::model()->findByPk((int)$id);
 		if($model===null)
@@ -114,4 +129,34 @@ class UserController extends SController
 			Yii::app()->end();
 		}
 	}
+
+    public function actionChangePassword()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $model = $this->loadModel($id);
+
+        $password = $this->createPassword(12);
+        $model->password = $model->hashPassword($password);
+
+        if ($model->save()) {
+            $response = array(
+                'status' => true,
+                'result' => $model->id.' - '.$model->name.'. Новый пароль: '.$password
+            );
+        } else
+            $response = array('status' => false);
+
+        echo CJSON::encode($response);
+    }
+
+    function createPassword($length) {
+        $chars = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $i = 0;
+        $password = "";
+        while ($i <= $length) {
+            $password .= $chars{mt_rand(0,strlen($chars) - 1)};
+            $i++;
+        }
+        return $password;
+    }
 }

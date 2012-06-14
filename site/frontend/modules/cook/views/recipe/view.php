@@ -175,7 +175,7 @@
 
                             <ul>
                                 <?php foreach ($recipe->thumbs as $t): ?>
-                                    <li><a href=""><?=CHtml::image($t->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->title)?></a></li>
+                                    <li><a href=""><?=CHtml::image($t->photo->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->photo->title)?></a></li>
                                 <?php endforeach; ?>
                                 <?php if ($recipe->mainPhoto !== null): ?>
                                     <li>

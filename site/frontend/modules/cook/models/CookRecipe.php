@@ -118,7 +118,19 @@ class CookRecipe extends CActiveRecord
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
 			'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
 			'cuisine' => array(self::BELONGS_TO, 'CookCuisine', 'cuisine_id'),
-            'attachPhotos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
+            'attachPhotos' => array(
+                self::HAS_MANY,
+                'AttachPhoto',
+                'entity_id',
+                'condition' => 'entity = :entity',
+                'params' => array(':entity' => get_class($this)),
+                'with' => array(
+                    'photo' => array(
+
+                    ),
+                ),
+                'order' => 'photo.created ASC',
+            ),
 		);
 	}
 
@@ -318,5 +330,27 @@ class CookRecipe extends CActiveRecord
         );
 
         return CMap::mergeArray($next, $prev);
+    }
+
+    public function getMainPhoto()
+    {
+        if ($this->photo !== null)
+            return $this->photo;
+
+        if (! empty($this->attachPhotos)) {
+            return $this->attachPhotos[0];
+        }
+
+        return null;
+    }
+
+    public function getThumbs()
+    {
+        $thumbs = $this->attachPhotos;
+        if ($this->photo === null) {
+            array_shift($thumbs);
+        }
+
+        return $thumbs;
     }
 }

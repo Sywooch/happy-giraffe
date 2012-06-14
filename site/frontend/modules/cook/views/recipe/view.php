@@ -47,14 +47,7 @@
                     <h1 class="fn"><?=$recipe->title?></h1>
 
                     <div class="user clearfix">
-                        <div class="user-info clearfix">
-                            <a class="ava female small"></a>
-                            <div class="details">
-                                <span class="icon-status status-online"></span>
-                                <a href="" class="username">Дарья</a>
-                                <div class="date">3 сен 2012, 08:25</div>
-                            </div>
-                        </div>
+                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $recipe->author, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>
                     </div>
 
                     <div class="recipe-right">
@@ -62,8 +55,9 @@
                         <div class="recipe-description">
 
                             <ul>
-                                <li>Кухня <span class="nationality"><!--<div class="flag flag-ua"></div> --><span class="cuisine-type"><?=$recipe->cuisine->title?></span></span>
-                                </li>
+                                <?php if ($recipe->cuisine): ?>
+                                    <li>Кухня <span class="nationality"><!--<div class="flag flag-ua"></div> --><span class="cuisine-type"><?=$recipe->cuisine->title?></span></span></li>
+                                <?php endif; ?>
                                 <li>Время подготовки <span class="time-1"><i class="icon"></i><span class=""><?=$recipe->preparation_duration_h?> : <?=$recipe->preparation_duration_m?></span></span></li>
                                 <li>Время приготовления <span class="time-2"><i class="icon"></i><span class=""><?=$recipe->cooking_duration_h?> : <?=$recipe->cooking_duration_m?></span></span></li>
                                 <li>Кол-во порций <span class="yield-count"><i class="icon"></i><span class="yield"><?=$recipe->servings?> <?=HDate::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings)?></span></span></li>
@@ -209,11 +203,13 @@
                         <ul>
                             <?php foreach($recipe->more as $m): ?>
                                 <li>
-                                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $recipe->author, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>
-                                    <div class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $recipe->created)?></div>
-                                    <div class="item-title"><?=CHtml::link($recipe->title, $recipe->url)?></div>
+                                    <div class="user clearfix">
+                                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $m->author, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>
+                                    </div>
+                                    <div class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $m->created)?></div>
+                                    <div class="item-title"><?=CHtml::link($m->title, $m->url)?></div>
                                     <div class="content">
-                                        <?=$recipe->getPreview(243)?>
+                                        <?=$m->getPreview(243)?>
                                     </div>
                                 </li>
                             <?php endforeach; ?>

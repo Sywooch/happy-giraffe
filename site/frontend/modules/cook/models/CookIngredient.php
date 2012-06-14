@@ -168,4 +168,9 @@ class CookIngredient extends HActiveRecord
 
         return $ingredients;
     }
+
+    public function findByName($term)
+    {
+
+    }
 }

@@ -122,14 +122,14 @@ class CookRecipe extends CActiveRecord
                 self::HAS_MANY,
                 'AttachPhoto',
                 'entity_id',
-                'condition' => 'entity = :entity',
+                'on' => 'entity = :entity',
                 'params' => array(':entity' => get_class($this)),
                 'with' => array(
                     'photo' => array(
-
+                        'alias' => 'attachPhoto',
                     ),
                 ),
-                'order' => 'photo.created ASC',
+                'order' => 'attachPhoto.created ASC',
             ),
 		);
 	}

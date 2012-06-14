@@ -61,7 +61,7 @@ class RecipeController extends HController
 
     public function actionView($id)
     {
-        $recipe = CookRecipe::model()->with('photo', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
+        $recipe = CookRecipe::model()->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');
 

@@ -62,7 +62,17 @@
 
     </div>
 
-    <div class="cook-more clearfix">
+    <div class="cook-more clearfix" style="display: none;">
+        <div class="block-title">
+            Рецепты с асафетидой на нашем сайте
+            <a href="" class="btn btn-blue-small"><span><span>Показать все</span></span></a>
+        </div>
+        <ul>
+
+            <?php foreach ($recipes as $recipe)
+                $this->renderPartial('_recipe',compact('recipe')); ?>
+
+        </ul>
 
     </div>
 

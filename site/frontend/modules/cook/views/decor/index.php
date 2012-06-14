@@ -2,7 +2,7 @@
 $categories = CookDecorationCategory::model()->findAll();
 
 $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-    'selector' => 'a.btn-look',
+    'selector' => '.list-view li.dish div.img a',
     'entity' => 'CookDecorationCategory',
     'entity_id' => ($id)?$category->id:null,
 ));
@@ -47,11 +47,12 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
             <?php if (!Yii::app()->user->isGuest){ ?>
             <div class="add-photo">
-                Нашли интересное оформление или<br/>хотите похвастаться своим творением<br/>
-                <!--<a href="#photoPick" class="btn btn-green fancy"><span><span>Добавить фото</span></span></a>-->
+                Нашли интересное оформление или<br/>хотите похвастаться своим творением?<br/>
                 <?php
                 $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                     'model' => new CookDecoration(),
+                    'first_button_class'=>'btn-green',
+                    'first_button_title'=>'Добавьте фото',
                 ));
                 $fileAttach->button();
                 $this->endWidget();
@@ -69,6 +70,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
 
             $this->widget('zii.widgets.CListView', array(
+                'id'=>'decorlv',
                 'dataProvider' => $dataProvider,
                 'ajaxUpdate' => false,
                 'itemView' => '_decoration', // refers to the partial view named '_post'
@@ -88,12 +90,3 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     </div>
 
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        $('a.btn-look').click(function(){
-
-            return false;
-        });
-    });
-</script>

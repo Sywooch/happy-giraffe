@@ -191,15 +191,13 @@ class AlbumsController extends HController
         $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
 
         $entity_id = Yii::app()->request->getQuery('entity_id');
-        $entity = Yii::app()->request->getQuery('entity');
+        $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'));
+        if ($entity_id != 'null')
+            $model = $model->findByPk($entity_id);
 
-        if ($entity_id == 'null')
-            $model = null;
-        else
-            $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'))->findByPk(Yii::app()->request->getQuery('entity_id'));
         if(!Yii::app()->request->getQuery('go'))
         {
-            $this->renderPartial('w_photo', compact('model', 'photo', 'entity'));
+            $this->renderPartial('w_photo', compact('model', 'photo'));
         }
         else
         {
@@ -363,7 +361,10 @@ class AlbumsController extends HController
 
         $title = trim(Yii::app()->request->getPost('title'));
         if (!$title) {
-            echo CJSON::encode(array('status' => false, 'message' => 'Введите название блюда или оформления'));
+            echo CJSON::encode(array(
+                'status' => false,
+                'message' => 'Введите название блюда или оформления'
+            ));
             Yii::app()->end();
         }
 
@@ -384,7 +385,10 @@ class AlbumsController extends HController
         Yii::import('application.modules.cook.models.CookDecoration');
 
         if (CookDecoration::model()->exists('photo_id = :photo_id', array(':photo_id' => $model->id))) {
-            echo CJSON::encode(array('status' => false, 'message' => 'Вы уже добавили эту фотографию, выберите другую'));
+            echo CJSON::encode(array(
+                'status' => false,
+                'message' => 'Вы уже добавили эту фотографию, выберите другую'
+            ));
             Yii::app()->end();
         }
 
@@ -413,10 +417,31 @@ class AlbumsController extends HController
         if (is_numeric($val)) {
             $p = AlbumPhoto::model()->findByPk($val);
             $photo = $p->getPreviewUrl(100, 100, Image::NONE);
+
+            $image = new Image($p->getOriginalPath());
+            if ($image->width < 400 || $image->height < 400){
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Слишком маленькое изображение, минимум 400x400 пикселей',
+                ));
+                Yii::app()->end();
+            }
+
             $title = $p->title;
             $data['title'] = mb_substr($p->title, 0, 20);
         } else {
             $photo = Yii::app()->params['photos_url'] . '/temp/' . $val;
+            $photo_path = Yii::getPathOfAlias('site.common.uploads.photos'). '/temp/' . $val;
+            $image = new Image($photo_path);
+            if ($image->width < 400 || $image->height < 400){
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'html'=> $this->renderPartial('site.frontend.widgets.fileAttach.views._upload_error', array(
+                        'error' => 'Слишком маленькое изображение, минимум 400x400 пикселей',
+                    ), true)
+                ));
+                Yii::app()->end();
+            }
             $title = '';
         }
 
@@ -426,11 +451,9 @@ class AlbumsController extends HController
             'photo' => $photo,
             'val' => $val
         ), true);
+        $data['success']=true;
 
-        header('Content-type: application/json');
         echo CJSON::encode($data);
-
-        Yii::app()->end();
     }
 
     public function actionCommentPhoto()

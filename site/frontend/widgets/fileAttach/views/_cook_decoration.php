@@ -4,7 +4,7 @@
         <div class="photo">
             <div class="in">
                 <img src="<?=$photo;?>" width="170" alt="">
-                <a href="" class="remove tooltip" title="Удалить"></a>
+                <a href="javascript:;" onclick="$('#file_attach_menu li:first-child a').trigger('click');" class="remove tooltip" title="Удалить"></a>
             </div>
         </div>
 
@@ -13,12 +13,13 @@
             <input type="text" placeholder="Введите название" name="title" value="<?=$title;?>"/>
             <br/><br/>
             <label>Укажите тип блюда</label><br/>
-						<span>
-                            <?php
-                            Yii::import('application.modules.cook.models.CookDecorationCategory');
-                            echo CHtml::dropDownList('category', '', CHtml::listData(CookDecorationCategory::model()->findAll(), 'id', 'title'), array('class' => 'chzn-select chzn'));
-                            ?>
-						</span>
+            <span>
+                <?php
+                Yii::import('application.modules.cook.models.CookDecorationCategory');
+                echo CHtml::dropDownList('category', '', CHtml::listData(CookDecorationCategory::model()->findAll(), 'id', 'title'), array('class' => 'chzn-select chzn'));
+                ?>
+            </span>
+            <div class="errorMessage"></div>
         </div>
 
     </div>

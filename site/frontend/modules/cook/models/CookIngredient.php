@@ -15,7 +15,7 @@
  * @property CookIngredientSynonyms[] $cookIngredientSynonyms
  * @property CookIngredientCategory $category
  * @property CookUnit $unit
- * @property CookIngredientsNutritionals[] $cookIngredientsNutritionals
+ * @property CookIngredientsNutritionals[] $nutritionals
  */
 class CookIngredient extends HActiveRecord
 {
@@ -67,7 +67,7 @@ class CookIngredient extends HActiveRecord
             'units' => array(self::HAS_MANY, 'CookIngredientUnit', 'ingredient_id'),
             'category' => array(self::BELONGS_TO, 'CookIngredientCategory', 'category_id'),
             'unit' => array(self::BELONGS_TO, 'CookUnit', 'unit_id'),
-            'cookIngredientsNutritionals' => array(self::HAS_MANY, 'CookIngredientNutritional', 'ingredient_id'),
+            'nutritionals' => array(self::HAS_MANY, 'CookIngredientNutritional', 'ingredient_id'),
             'availableUnits' => array(self::MANY_MANY, 'CookUnit', 'cook__ingredient_units(ingredient_id, unit_id)'),
         );
     }
@@ -130,5 +130,47 @@ class CookIngredient extends HActiveRecord
             $result[$t['unit_id']] = $t;
 
         return $result;
+    }
+
+    /**
+     * @param string $term
+     * @return CookIngredient[]
+     */
+    public function findByNameWithCalories($term)
+    {
+        //get all with calories
+        $subquery = Yii::app()->db->createCommand()
+            ->select('t.id')
+            ->from($this->tableName() . ' as t')
+            ->join(CookIngredientNutritional::model()->tableName(), CookIngredientNutritional::model()->tableName() . '.ingredient_id = t.id')
+            ->where('cook__ingredients_nutritionals.nutritional_id = 1')
+            ->text;
+
+        $criteria = new CDbCriteria;
+        $criteria->with = array('nutritionals');
+        $criteria->together = true;
+        $criteria->limit = 10;
+        $criteria->condition = 't.id IN (' . $subquery . ')';
+
+        $criteria2 = clone $criteria;
+        $criteria2->compare('title', $term . '%', true, 'AND', false);
+        $ingredients = CookIngredient::model()->findAll($criteria2);
+
+        if (count($ingredients) < 10) {
+            $criteria->compare('title', ' ' . $term, true, 'AND', true);
+            $more_ingredients = CookIngredient::model()->findAll($criteria);
+
+            while (count($ingredients) < 10 && !empty($more_ingredients)) {
+                array_push($ingredients, $more_ingredients[0]);
+                array_shift($more_ingredients);
+            }
+        }
+
+        return $ingredients;
+    }
+
+    public function findByName($term)
+    {
+
     }
 }

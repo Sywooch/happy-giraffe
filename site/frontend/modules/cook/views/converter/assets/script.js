@@ -57,6 +57,11 @@ var Converter = {
 
         $('.drp-list ul').hide();
         $('#ac').val($('#ac').attr('data-title'));
+        $("#converter-form").submit();
+        return false;
+    },
+
+    CalculatePost:function(){
         $.post(
             $("#converter-form").attr('action'),
             $("#converter-form").serialize(),
@@ -64,8 +69,6 @@ var Converter = {
                 $('.value.current').text(data);
             }
         );
-
-        return false;
     },
 
     saveResult:function () {

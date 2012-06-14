@@ -20,12 +20,13 @@ $units = CookUnit::model()->findAll(array('order' => 'title'));
             'id' => 'converter-form',
             'action' => CHtml::normalizeUrl(array('converter/calculate')),
             'enableAjaxValidation' => true,
+            'enableClientValidation' => false,
             'clientOptions' => array(
                 'validateOnSubmit' => true,
                 'validateOnChange' => false,
                 'validateOnType' => false,
                 'validationUrl' => $this->createUrl('converter/calculate'),
-                'afterValidate' => "js:function(form, data, hasError) { if (!hasError){ Converter.Calculate();} else { return false;} }",
+                'afterValidate' => "js:function(form, data, hasError) { if (!hasError){ Converter.CalculatePost();} else { return false;} }",
             )
         ));
         ?>

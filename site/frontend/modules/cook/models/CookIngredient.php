@@ -153,11 +153,11 @@ class CookIngredient extends HActiveRecord
         $criteria->condition = 't.id IN (' . $subquery . ')';
 
         $criteria2 = clone $criteria;
-        $criteria2->compare('title', $term . '%', true, 'AND', false);
+        $criteria2->compare('title', $term . '%', true, 'AND');
         $ingredients = CookIngredient::model()->findAll($criteria2);
 
         if (count($ingredients) < 10) {
-            $criteria->compare('title', ' ' . $term, true, 'AND', true);
+            $criteria->compare('title', ' ' . $term, true, 'AND');
             $more_ingredients = CookIngredient::model()->findAll($criteria);
 
             while (count($ingredients) < 10 && !empty($more_ingredients)) {

@@ -98,7 +98,8 @@ return array(
         'cook/decor/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
 
-        'cook/decor/page/<page:[\d]+>/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<id:[\d]+>/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<id:[\d]+>/page/<page:[\d]+>' => 'cook/decor/index',
         'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
         'cook/decor' => 'cook/decor/index',

@@ -7,6 +7,9 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     'entity_id' => ($id)?$category->id:null,
 ));
 ?>
+<script type="text/javascript">
+    var photo_gallery_entity_id = '<?=($id)?$category->id:null ?>';
+</script>
 <div id="dishes">
 
     <div class="title">

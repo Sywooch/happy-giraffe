@@ -46,6 +46,8 @@
 
                     <h1 class="fn"><?=$recipe->title?></h1>
 
+                    <div class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $recipe->created)?></div>
+
                     <div class="user clearfix">
                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $recipe->author, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>
                     </div>
@@ -206,8 +208,8 @@
                                     <div class="user clearfix">
                                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $m->author, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>
                                     </div>
-                                    <div class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $m->created)?></div>
                                     <div class="item-title"><?=CHtml::link($m->title, $m->url)?></div>
+                                    <div class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $m->created)?></div>
                                     <div class="content">
                                         <?=$m->getPreview(243)?>
                                     </div>
@@ -216,6 +218,15 @@
                         </ul>
                     </div>
                 <?php endif; ?>
+
+                <?php
+                $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                    'model' => $recipe,
+                    'many' => true,
+                ));
+                    $fileAttach->button();
+                $this->endWidget();
+                ?>
 
                 <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
                     'model' => $recipe,

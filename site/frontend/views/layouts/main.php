@@ -15,8 +15,8 @@
         ->registerScriptFile('/javascripts/dklab_realplexor.js')
         ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
 
-        ->registerCssFile('/stylesheets/global.css?r=349')
         ->registerCssFile('/stylesheets/common.css?r=349')
+        ->registerCssFile('/stylesheets/global.css?r=349')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')

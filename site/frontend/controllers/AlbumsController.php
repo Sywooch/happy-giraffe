@@ -339,11 +339,23 @@ class AlbumsController extends HController
             $model->create(true);
         }
 
-        if ($model === null) {
+
+        if ($model === null)
+        {
             $response = array(
                 'status' => false,
             );
-        } else {
+        }
+        else
+        {
+            if(Yii::app()->request->getPost('many') == 'true')
+            {
+                $attach = new AttachPhoto;
+                $attach->entity = Yii::app()->request->getPost('entity');
+                $attach->entity_id = Yii::app()->request->getPost('entity_id');
+                $attach->photo_id = $model->primaryKey;
+                $attach->save();
+            }
             $response = array(
                 'status' => true,
                 'src' => $model->getPreviewUrl(325, 252),

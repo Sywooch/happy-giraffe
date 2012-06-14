@@ -49,3 +49,13 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+ <script type="text/javascript">
+     function ChangeUserPassword(el, id) {
+         $.post('/user/changePassword', {id:id}, function (response) {
+             if (response.status) {
+                 $(el).next().html(response.result);
+             }
+         }, 'json');
+     }
+ </script>

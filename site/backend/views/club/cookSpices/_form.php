@@ -78,6 +78,15 @@
         </td>
     </tr>
     <tr>
+        <td style="width: 80px">
+            <?php echo $form->labelEx($model, 'title_ablative'); ?>
+        </td>
+        <td>
+            <?php echo $form->textField($model, 'title_ablative', array('size' => 60, 'maxlength' => 255)); ?>
+            <div><?php echo $form->error($model, 'title_ablative'); ?></div>
+        </td>
+    </tr>
+    <tr>
         <td>
             <?php echo $form->labelEx($model, 'ingredient_id'); ?>
         </td>

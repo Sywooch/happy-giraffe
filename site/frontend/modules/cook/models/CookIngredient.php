@@ -15,7 +15,7 @@
  * @property CookIngredientSynonyms[] $cookIngredientSynonyms
  * @property CookIngredientCategory $category
  * @property CookUnit $unit
- * @property CookIngredientsNutritionals[] $cookIngredientsNutritionals
+ * @property CookIngredientsNutritionals[] $nutritionals
  */
 class CookIngredient extends HActiveRecord
 {
@@ -67,7 +67,7 @@ class CookIngredient extends HActiveRecord
             'units' => array(self::HAS_MANY, 'CookIngredientUnit', 'ingredient_id'),
             'category' => array(self::BELONGS_TO, 'CookIngredientCategory', 'category_id'),
             'unit' => array(self::BELONGS_TO, 'CookUnit', 'unit_id'),
-            'cookIngredientsNutritionals' => array(self::HAS_MANY, 'CookIngredientNutritional', 'ingredient_id'),
+            'nutritionals' => array(self::HAS_MANY, 'CookIngredientNutritional', 'ingredient_id'),
             'availableUnits' => array(self::MANY_MANY, 'CookUnit', 'cook__ingredient_units(ingredient_id, unit_id)'),
         );
     }
@@ -130,5 +130,48 @@ class CookIngredient extends HActiveRecord
             $result[$t['unit_id']] = $t;
 
         return $result;
+    }
+
+    /**
+     * @param string $term
+     * @return CookIngredient[]
+     */
+    public function findByNameWithCalories($term)
+    {
+        $subquery = Yii::app()->db->createCommand()
+            ->select('t.id')
+            ->from($this->tableName() . ' as t')
+            ->join(CookIngredientNutritional::model()->tableName(), CookIngredientNutritional::model()->tableName() . '.ingredient_id = t.id')
+            ->where('cook__ingredients_nutritionals.nutritional_id = 1')
+            ->text;
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 't.id IN (' . $subquery . ')';
+
+        return $this->findByName($term, $criteria);
+    }
+
+    public function findByName($term, $condition = '', $params = array())
+    {
+        $additionalCriteria = $this->getCommandBuilder()->createCriteria($condition,$params);
+        $criteria = new CDbCriteria;
+        $criteria->limit = 10;
+        $criteria->mergeWith($additionalCriteria);
+        $criteriaMore = clone $criteria;
+
+        $criteria->compare('t.title', $term . '%', true, 'AND', false);
+        $ingredients = $this->findAll($criteria);
+
+        if (count($ingredients) < 10) {
+            $criteriaMore->compare('t.title', ' ' . $term, true, 'AND');
+            $ingredientsMore = $this->findAll($criteriaMore);
+
+            while (count($ingredients) < 10 && ! empty($ingredientsMore)) {
+                array_push($ingredients, $ingredientsMore[0]);
+                array_shift($ingredientsMore);
+            }
+        }
+
+        return $ingredients;
     }
 }

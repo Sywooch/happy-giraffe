@@ -43,6 +43,7 @@ class CookDecoration extends CActiveRecord
         return array(
             array('photo_id, category_id, title', 'required'),
             array('photo_id, category_id', 'length', 'max' => 11),
+            array('photo_id', 'unique'),
             array('title', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -73,6 +74,14 @@ class CookDecoration extends CActiveRecord
             'photo_id' => 'Photo',
             'category_id' => 'Category',
             'title' => 'Title',
+        );
+    }
+
+    public function defaultScope()
+    {
+        $alias = $this->getTableAlias(false, false);
+        return array(
+            'order' => !empty($alias) ? $alias . '.id desc':'id desc',
         );
     }
 
@@ -108,8 +117,11 @@ class CookDecoration extends CActiveRecord
             ),
             'pagination' => array(
                 'pageSize' => $perPage,
+                'pageVar'=>'page',
+                'route'=>'/cook/decor'
             ),
         ));
         return $dataProvider;
     }
+
 }

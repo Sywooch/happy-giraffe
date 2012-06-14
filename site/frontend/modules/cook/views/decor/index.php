@@ -1,6 +1,15 @@
 <?php
 $categories = CookDecorationCategory::model()->findAll();
+
+$this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+    'selector' => '.list-view li.dish div.img a',
+    'entity' => 'CookDecorationCategory',
+    'entity_id' => ($id)?$category->id:null,
+));
 ?>
+<script type="text/javascript">
+    var photo_gallery_entity_id = '<?=($id)?$category->id:null ?>';
+</script>
 <div id="dishes">
 
     <div class="title">
@@ -13,7 +22,7 @@ $categories = CookDecorationCategory::model()->findAll();
         <ul>
             <li>
                 <span class="valign"></span>
-                <a href="<?=CHtml::normalizeUrl(array('index'))?>" class="cook-cat">
+                <a href="<?=CHtml::normalizeUrl(array('index'))?>" class="cook-cat <?php if(!$id){echo 'active';}?>">
                     <i class="icon-cook-cat icon-dish-0"></i>
                     <span>Все</span>
                 </a>
@@ -39,18 +48,22 @@ $categories = CookDecorationCategory::model()->findAll();
 
         <div class="block-title">
 
+            <?php if (!Yii::app()->user->isGuest){ ?>
             <div class="add-photo">
-                Нашли интересное оформление или<br/>хотите похвастаться своим творением<br/>
-                <!--<a href="#photoPick" class="btn btn-green fancy"><span><span>Добавить фото</span></span></a>-->
+                Нашли интересное оформление или<br/>хотите похвастаться своим творением?<br/>
                 <?php
                 $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                     'model' => new CookDecoration(),
+                    'first_button_class'=>'btn-green',
+                    'first_button_title'=>'Добавьте фото',
                 ));
                 $fileAttach->button();
                 $this->endWidget();
                 ?>
             </div>
-            <?='<h1>Как можно оформить ' . (($id) ? $category->title_h1 : 'блюда') . '</h1>';?>
+            <?php } ?>
+
+            <?='<h1>' . (($id) ? 'Как можно оформить '.$category->title_h1 : '1000 лучших оформлений блюд') . '</h1>';?>
 
 
         </div>
@@ -60,6 +73,7 @@ $categories = CookDecorationCategory::model()->findAll();
 
 
             $this->widget('zii.widgets.CListView', array(
+                'id'=>'decorlv',
                 'dataProvider' => $dataProvider,
                 'ajaxUpdate' => false,
                 'itemView' => '_decoration', // refers to the partial view named '_post'

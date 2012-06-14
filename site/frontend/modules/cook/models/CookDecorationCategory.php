@@ -8,7 +8,7 @@
  * @property string $title
  *
  * The followings are the available model relations:
- * @property CookDecorations[] $cookDecorations
+ * @property CookDecoration[] $decorations
  */
 class CookDecorationCategory extends HActiveRecord
 {
@@ -54,7 +54,7 @@ class CookDecorationCategory extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'decorations' => array(self::HAS_MANY, 'CookDecorations', 'category_id'),
+			'decorations' => array(self::HAS_MANY, 'CookDecoration', 'category_id'),
 		);
 	}
 
@@ -89,4 +89,19 @@ class CookDecorationCategory extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getPhotoCollection()
+    {
+        if (empty($this->id))
+            $decorations = CookDecoration::model()->findAll();
+        else
+            $decorations = $this->decorations;
+
+        $photos = array();
+        foreach($decorations as $model)
+        {
+            array_push($photos, $model->photo);
+        }
+        return $photos;
+    }
 }

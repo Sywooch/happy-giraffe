@@ -24,10 +24,10 @@ $cs
 
 <?php foreach ($contents as $c): ?>
 <div class="community">
-    <h1><?=$c->title?></h1>
+    <h1><?php echo CHtml::encode($c->title); ?></h1>
     <div class="rubric">
         <?php foreach ($c->rubrics as $r): ?>
-            <h3><?php echo CHtml::ajaxLink($r->title, $this->createUrl('community/shortListContents'), array(
+            <h3><?php echo CHtml::ajaxLink(CHtml::encode($r->title), $this->createUrl('community/shortListContents'), array(
                 'update' => '#' . $r->id,
                 'data' => array(
                     'rubric_id' => $r->id,

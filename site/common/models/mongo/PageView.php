@@ -36,7 +36,7 @@ class PageView extends EMongoDocument
     public function updateByPath($path)
     {
         Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $ga = new GoogleAnalytics('alexk984@gmail.com', 'alderbro12');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
         $ga->setDateRange('2011-12-01', date('Y-m-d'));
         $report = $ga->getReport(array(

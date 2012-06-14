@@ -353,4 +353,14 @@ class CookRecipe extends CActiveRecord
 
         return $thumbs;
     }
+
+    public function getPhotoCollection()
+    {
+        $photos = $this->attachPhotos;
+        if ($this->photo !== null)  {
+            array_unshift($photos, $this->photo);
+        }
+
+        return $photos;
+    }
 }

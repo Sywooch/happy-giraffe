@@ -151,21 +151,48 @@
 
                     <div class="recipe-photo">
 
-                        <a href="" class="add-photo">
-                            <i class="icon"></i>
-                            <span>Вы уже готовили это блюдо?<br/>Добавьте фото!</span>
-                        </a>
-
-                        <div class="big">
-                            <img class="photo" src="/images/cook_recipe_img_01.jpg" />
-                        </div>
+                        <?php if ($recipe->mainPhoto === null): ?>
+                            <?php
+                                $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                                    'model' => $recipe,
+                                    'many' => true,
+                                    'customButton' => true,
+                                    'customButtonHtmlOptions' => array('class' => 'fancy add-photo'),
+                                ));
+                            ?>
+                                    <i class="icon"></i>
+                                    <span>Вы уже готовили это блюдо?<br/>Добавьте фото!</span>
+                            <?php
+                                $this->endWidget();
+                            ?>
+                        <?php else: ?>
+                            <div class="big">
+                                <?=CHtml::image($recipe->mainPhoto->getPreviewUrl(441, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'photo'))?>
+                            </div>
+                        <?php endif; ?>
 
                         <div class="thumbs clearfix">
 
                             <ul>
-                                <li><a href=""><img src="/images/cook_recipe_img_02.jpg" /></li>
-                                <li><a href=""><img src="/images/cook_recipe_img_03.jpg" /></li>
-                                <li><a href="" class="add"><i class="icon"></i></a></li>
+                                <?php foreach ($recipe->thumbs as $t): ?>
+                                    <li><a href=""><?=CHtml::image($t->photo->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->photo->title)?></a></li>
+                                <?php endforeach; ?>
+                                <?php if ($recipe->mainPhoto !== null): ?>
+                                    <li>
+                                        <?php
+                                            $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                                                'model' => $recipe,
+                                                'many' => true,
+                                                'customButton' => true,
+                                                'customButtonHtmlOptions' => array('class' => 'fancy add'),
+                                            ));
+                                        ?>
+                                            <i class="icon"></i>
+                                        <?php
+                                            $this->endWidget();
+                                        ?>
+                                    </li>
+                                <?php endif; ?>
                             </ul>
 
                         </div>
@@ -218,15 +245,6 @@
                         </ul>
                     </div>
                 <?php endif; ?>
-
-                <?php
-                $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                    'model' => $recipe,
-                    'many' => true,
-                ));
-                    $fileAttach->button();
-                $this->endWidget();
-                ?>
 
                 <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
                     'model' => $recipe,

@@ -8,10 +8,12 @@ class FileAttachWidget extends CWidget
     public $afterSelect;
     public $disableNavigation = false;
     public $customButton = false;
+    public $button_title = 'Фото';
 
     public $title;
-    public $button_title;
-
+    public $first_button_title = 'Загрузить фото';
+    public $first_button_class = 'btn-orange';
+    public $many = false;
 
     public function init()
     {
@@ -127,6 +129,7 @@ class FileAttachWidget extends CWidget
             ' . $this->id . '.entity = "' . $this->entity . '";
             ' . $this->id . '.entity_id = "' . $this->entity_id. '";
             ' . $this->id . '.base_url = "' . Yii::app()->createUrl('/albums/album/saveAttach') . '";
+            ' . ($this->many ? $this->id . '.many = true;' : '') . '
             ' . $this->id . '.object_name = "' . $this->id . '";
         ', CClientScript::POS_END);
 

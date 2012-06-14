@@ -134,7 +134,7 @@ class UserController extends SController
         if ($model->save()) {
             $response = array(
                 'status' => true,
-                'result' => $model->name . '. Новый пароль: ' . $password
+                'result' => $model->email . ' '.$model->name. '. Новый пароль: ' . $password
             );
         } else
             $response = array('status' => false);

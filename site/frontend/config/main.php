@@ -253,6 +253,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+        'gaPass'=>'',
 		'ufileStorageRoot'=>'temp_upload',
 		'social' => array(
 			'vk' => array(

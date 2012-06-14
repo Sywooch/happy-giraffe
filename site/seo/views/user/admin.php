@@ -13,7 +13,7 @@
         'role',
 		array(
 			'class'=>'CButtonColumn',
-			'template' => '{update}'
+			'template' => '{update}{delete}'
 		),
 	),
 )); ?>

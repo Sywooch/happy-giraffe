@@ -4,12 +4,13 @@
  * @var AlbumPhoto $photo
  */
 $selected_index = null;
+$count = count($model->photoCollection);
 ?>
 <div id="photo-window-in">
     <div class="top-line">
         <div class="wrapper">
             <a href="javascript:;" class="window-close">закрыть<i class="icon"></i></a>
-            <div class="count">Всего в альбоме <?php echo count($model->photoCollection); ?> фотографий</div>
+            <div class="count">Всего в альбоме <?= $count ?> <?=HDate::GenerateNoun(array('фотография', 'фотографии', 'фотографий'), $count) ?></div>
         </div>
     </div>
 

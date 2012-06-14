@@ -9,7 +9,7 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + ac'
+            'ajaxOnly + ac, searchResult'
         );
     }
 
@@ -56,7 +56,7 @@ class RecipeController extends HController
 
         $cuisines = CookCuisine::model()->findAll();
         $units = CookUnit::model()->findAll();
-        $this->render('_form', compact('recipe', 'ingredients', 'cuisines', 'units'));
+        $this->render('form', compact('recipe', 'ingredients', 'cuisines', 'units'));
     }
 
     public function actionView($id)
@@ -68,16 +68,29 @@ class RecipeController extends HController
         $this->render('view', compact('recipe'));
     }
 
+
+    public function actionSearch()
+    {
+        $this->render('search');
+    }
+
+    public function actionSearchResult()
+    {
+        $ingredients = Yii::app()->request->getQuery('ingredients', array());
+        $type = Yii::app()->request->getQuery('type', null);
+        $ingredients = array_filter($ingredients);
+        $recipes = CookRecipe::model()->findByIngredients($ingredients, $type);
+        $this->renderPartial('searchResult', compact('recipes', 'type'));
+    }
+
     public function actionAc($term)
     {
-        $criteria = new CDbCriteria(array(
+        $ingredients = CookIngredient::model()->findByName($term, array(
             'select' => 'id, title',
             'with' => array('units', 'unit'),
         ));
-        $criteria->compare('t.title', $term, true);
 
         $_ingredients = array();
-        $ingredients = CookIngredient::model()->findAll($criteria);
         foreach ($ingredients as $i) {
             $unit = array('id' => $i->unit->id, 'title' => $i->unit->title);
             $units = array();

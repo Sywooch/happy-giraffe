@@ -186,8 +186,15 @@ class AlbumsController extends HController
 
     public function actionWPhoto()
     {
+        Yii::import('site.frontend.modules.cook.models.*');
+
         $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
-        $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'))->findByPk(Yii::app()->request->getQuery('entity_id'));
+
+        $entity_id = Yii::app()->request->getQuery('entity_id');
+        $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'));
+        if ($entity_id != 'null')
+            $model = $model->findByPk($entity_id);
+
         if(!Yii::app()->request->getQuery('go'))
         {
             $this->renderPartial('w_photo', compact('model', 'photo'));
@@ -332,11 +339,23 @@ class AlbumsController extends HController
             $model->create(true);
         }
 
-        if ($model === null) {
+
+        if ($model === null)
+        {
             $response = array(
                 'status' => false,
             );
-        } else {
+        }
+        else
+        {
+            if(Yii::app()->request->getPost('many') == 'true')
+            {
+                $attach = new AttachPhoto;
+                $attach->entity = Yii::app()->request->getPost('entity');
+                $attach->entity_id = Yii::app()->request->getPost('entity_id');
+                $attach->photo_id = $model->primaryKey;
+                $attach->save();
+            }
             $response = array(
                 'status' => true,
                 'src' => $model->getPreviewUrl(325, 252),
@@ -350,19 +369,41 @@ class AlbumsController extends HController
 
     public function actionCookDecorationPhoto()
     {
-        $model = AlbumPhoto::model()->findByPk(Yii::app()->request->getPost('id'));
+        header('Content-type: application/json');
 
-        if (!$model) {
-            $val = Yii::app()->request->getPost('val');
+        $title = trim(Yii::app()->request->getPost('title'));
+        if (!$title) {
+            echo CJSON::encode(array(
+                'status' => false,
+                'message' => 'Введите название блюда или оформления'
+            ));
+            Yii::app()->end();
+        }
+
+        $val = Yii::app()->request->getPost('id');
+        if (is_numeric($val)) {
+            $model = AlbumPhoto::model()->findByPk($val);
+            $model->title = CHtml::encode($title);
+            $model->save();
+        } else {
             $model = new AlbumPhoto;
             $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
             if ($title = Yii::app()->request->getPost('title'))
                 $model->title = CHtml::encode($title);
-            $model->author_id = Yii::app()->user->id;
             $model->create(true);
         }
 
         Yii::import('application.modules.cook.models.CookDecoration');
+
+        if (CookDecoration::model()->exists('photo_id = :photo_id', array(':photo_id' => $model->id))) {
+            echo CJSON::encode(array(
+                'status' => false,
+                'message' => 'Вы уже добавили эту фотографию, выберите другую'
+            ));
+            Yii::app()->end();
+        }
+
         $decoration = new CookDecoration();
         $decoration->photo_id = $model->id;
         $decoration->category_id = Yii::app()->request->getPost('category');
@@ -382,17 +423,49 @@ class AlbumsController extends HController
 
     public function actionCookDecorationCategory()
     {
-        $title = '';
-        $id = Yii::app()->request->getPost('id');
-        if($id){
-            $photo = AlbumPhoto::model()->findByPk($id);
-            $title = $photo->title;
+        $val = Yii::app()->request->getPost('val');
+        $data['tab'] = Yii::app()->request->getPost('widget_id') . ".CookDecorationEdit('" . $val . "')";
+
+        if (is_numeric($val)) {
+            $p = AlbumPhoto::model()->findByPk($val);
+            $photo = $p->getPreviewUrl(100, 100, Image::NONE);
+
+            $image = new Image($p->getOriginalPath());
+            if ($image->width < 400 || $image->height < 400){
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Слишком маленькое изображение, минимум 400x400 пикселей',
+                ));
+                Yii::app()->end();
+            }
+
+            $title = $p->title;
+            $data['title'] = mb_substr($p->title, 0, 20);
+        } else {
+            $photo = Yii::app()->params['photos_url'] . '/temp/' . $val;
+            $photo_path = Yii::getPathOfAlias('site.common.uploads.photos'). '/temp/' . $val;
+            $image = new Image($photo_path);
+            if ($image->width < 400 || $image->height < 400){
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'html'=> $this->renderPartial('site.frontend.widgets.fileAttach.views._upload_error', array(
+                        'error' => 'Слишком маленькое изображение, минимум 400x400 пикселей',
+                    ), true)
+                ));
+                Yii::app()->end();
+            }
+            $title = '';
         }
-        $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decor', array(
+
+        $data['html'] = $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decoration', array(
             'title'=>$title,
             'widget_id' => Yii::app()->request->getPost('widget_id'),
-        ));
-        Yii::app()->end();
+            'photo' => $photo,
+            'val' => $val
+        ), true);
+        $data['success']=true;
+
+        echo CJSON::encode($data);
     }
 
     public function actionCommentPhoto()

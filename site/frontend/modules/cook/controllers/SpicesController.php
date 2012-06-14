@@ -28,7 +28,9 @@ class SpicesController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->pageTitle = 'Приправы и специи '.$model->title;
-        $recipes = CookRecipe::model()->findByIngredient($model->id, 3);
+        $recipes = CookRecipe::model()->findByIngredient($model->ingredient_id, 3);
+        /*print_r($recipes);
+        exit();*/
 
         $this->render('view', compact('model', 'recipes'));
     }

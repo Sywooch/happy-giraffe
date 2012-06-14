@@ -4140,10 +4140,9 @@ ul.letters li a:hover {
 
 #cook-recipe .hrecipe {color:#020202;padding-bottom:30px;}
 
-#cook-recipe .hrecipe h1 {}
 #cook-recipe h2 {font-size:14px;color:#2e2e2e;margin-bottom:20px;}
 
-#cook-recipe .hrecipe > .date {position:relative;top:-15px;margin-bottom:5px;color:#b3b3b3;font-size:9px;}
+#cook-recipe .hrecipe > .date {position:relative;top:-10px;margin-bottom:5px;color:#b3b3b3;font-size:9px;}
 
 #cook-recipe .ingredients {list-style:none;margin-bottom:30px;}
 #cook-recipe .ingredients > li {margin:10px 0;background:url(/images/marker_04.gif) no-repeat left 4px;padding-left:20px;}

@@ -81,6 +81,8 @@ $units = CookUnit::model()->findAll(array('order' => 'title'));
 
             <a href="" class="btn btn-gray-small" onclick="Converter.saveResult(); event.preventDefault();"><span><span>Запомнить</span></span></a>
 
+            <a href="" class="btn btn-gray-small" onclick="Converter.clear(); event.preventDefault();"><span><span>Очистить</span></span></a>
+
         </div>
 
         <?php

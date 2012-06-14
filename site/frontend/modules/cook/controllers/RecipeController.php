@@ -17,7 +17,7 @@ class RecipeController extends HController
     {
         return array(
             array('deny',
-                'actions' => array('save'),
+                'actions' => array('form'),
                 'users' => array('?'),
             ),
         );
@@ -61,7 +61,7 @@ class RecipeController extends HController
 
     public function actionView($id)
     {
-        $recipe = CookRecipe::model()->with('cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
+        $recipe = CookRecipe::model()->with('author', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');
 

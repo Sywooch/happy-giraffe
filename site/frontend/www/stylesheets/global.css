@@ -284,7 +284,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .content-more big.title, .photo-block big.title {
     color: #0281b0;
-    font: bold 25px Arial, Tahoma, sans-serif;
+    font: bold 20px Arial, Tahoma, sans-serif;
     display: block;
 }
 
@@ -3955,7 +3955,7 @@ ul.letters li a:hover {
 
 
 .cook-more {}
-.cook-more .block-title {font-size:25px;color:#0281b0;font-weight:bold;padding-bottom:20px;}
+.cook-more .block-title {font-size:20px;color:#0281b0;font-weight:bold;padding-bottom:20px;}
 .cook-more .block-title .btn {position:relative;top:-5px;}
 .cook-more ul {list-style:none;}
 .cook-more ul li {float:left;width:30%;padding-right:3%;}
@@ -4140,7 +4140,10 @@ ul.letters li a:hover {
 
 #cook-recipe .hrecipe {color:#020202;padding-bottom:30px;}
 
+#cook-recipe .hrecipe h1 {}
 #cook-recipe h2 {font-size:14px;color:#2e2e2e;margin-bottom:20px;}
+
+#cook-recipe .hrecipe > .date {position:relative;top:-15px;margin-bottom:5px;color:#b3b3b3;font-size:9px;}
 
 #cook-recipe .ingredients {list-style:none;margin-bottom:30px;}
 #cook-recipe .ingredients > li {margin:10px 0;background:url(/images/marker_04.gif) no-repeat left 4px;padding-left:20px;}

@@ -81,7 +81,7 @@
                 <td>
                     <?php $this->renderPartial('_form_nutritionals', array('model' => $model));?>
                 </td>
-                <td>
+                <td id="units-container">
                     <?php $this->renderPartial('_form_units', array('model' => $model)); ?>
                 </td>
             </tr>

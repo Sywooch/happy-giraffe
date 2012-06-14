@@ -50,4 +50,9 @@ class DefaultController extends HController
 
         Yii::app()->end();
     }
+
+    public function actionTest3(){
+        $recipe = CookRecipe::model()->findByPk(1);
+        echo '<pre>'.print_r($recipe->nutritionals, true).'</pre>';
+    }
 }

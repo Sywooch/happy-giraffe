@@ -24,6 +24,22 @@ button.btn-green {height:43px;}
 button.btn-green-small {height:20px;}
 .btn-green-small {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;behavior: url(/stylesheets/PIE.htc);}
 
+.btn-gray-small {display:inline-block;text-decoration:none;height:18px;line-height:16px;border:1px solid #d1d1d1;background:url(/images/seo_sprite.png) repeat-x 0 -258px;color:#fff;font-weight:bold;padding:0 10px;font-size:11px;vertical-align:middle;cursor:pointer;white-space:nowrap;}
+button.btn-gray-small {height:20px;}
+.btn-gray-small {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;behavior: url(/stylesheets/PIE.htc);}
+.btn-gray-small:hover {background:url(/images/seo_sprite.png) repeat-x 0 -238px;border-color:#34ac51;}
+
+
+.ava, .ava img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);}
+
+.user-info {width:200px;}
+.user-info .ava {float:left;position:relative;width:72px;height:72px;background:url(/images/seo_sprite.png) no-repeat -99px -120px;display:block;}
+.user-info .details {margin-left:90px;}
+.user-info .details .username {text-decoration:none;}
+.user-info .details .username:hover {text-decoration:underline;}
+
+.user-info .details .btn-logout {text-align:right;padding-top:20px;}
+
 
 #seo {padding-top:20px;padding-bottom:50px;}
 
@@ -212,3 +228,21 @@ button.btn-green-small {height:20px;}
 #seo .article-ready .block-title {color:#505050;font-size:18px;margin-bottom:10px;line-height:1;margin-left:10px;}
 #seo .article-ready input[type=text] {padding:5px 9px;overflow:auto;width:320px;border:1px solid #d8c7ea;font-size:13px;background:#fff;vertical-align:middle;margin-right:10px;color:#2881d4;}
 #seo .article-ready .text {display:inline-block;width:50%;color:#505050;font-size:18px;margin-bottom:10px;margin-left:10px;vertical-align:middle;}
+
+
+#seo #login {width:400px;padding:30px 40px;border:1px solid #cdcdcd;margin:150px auto 0;}
+#seo #login .title {text-align:center;margin-left:0;}
+#seo #login .title .img {left:50%;margin-left:-75px;}
+#seo #login .row {margin-bottom:10px;}
+#seo #login .row label {color:#575757;font-size:18px;display:inline-block;width:80px;}
+#seo #login .row input[type=text], #seo #login .row input[type=password]{height:24px;padding:10px 15px;border:1px solid #ecdffa;width:265px;}
+#seo #login .row.row-btn {padding-top:10px;margin-bottom:0;text-align:center;}
+#seo #login .row.row-btn .btn-green {padding:0 25px;}
+
+#seo #login .user-info {margin:0 auto;}
+
+#seo #login .user-nav {margin-top:50px;}
+#seo #login .user-nav .block-title {width:200px;text-align:center;color:#818080;font-size:30px;line-height:normal;float:left;}
+#seo #login .user-nav ul {margin-left:240px;list-style:none;}
+#seo #login .user-nav ul li {padding:5px 0;}
+#seo #login .user-nav ul li a:after {display:inline-block;content:'';width:8px;height:7px;background:url(/images/seo_sprite.png) no-repeat -65px -93px;margin-left:5px;}

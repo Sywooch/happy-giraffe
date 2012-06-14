@@ -18,8 +18,8 @@
  *
  * The followings are the available model relations:
  * @property CookRecipeIngredients[] $cookRecipeIngredients
- * @property Users $author
- * @property AlbumPhotos $photo
+ * @property User $author
+ * @property AlbumPhoto $photo
  * @property CookCuisines $cuisine
  */
 class CookRecipe extends CActiveRecord
@@ -58,6 +58,8 @@ class CookRecipe extends CActiveRecord
     public $preparation_duration_m;
     public $cooking_duration_h;
     public $cooking_duration_m;
+
+    private $_nutritionals = null;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -218,21 +220,23 @@ class CookRecipe extends CActiveRecord
 
     public function getNutritionals()
     {
-        $ingredients = array();
-        foreach ($this->ingredients as $ingredient) {
-            $ingredients[] = array(
-                'ingredient_id' => $ingredient->ingredient_id,
-                'unit_id' => $ingredient->unit_id,
-                'value' => $ingredient->value
-            );
+        if ($this->_nutritionals === null) {
+            $ingredients = array();
+            foreach ($this->ingredients as $ingredient) {
+                $ingredients[] = array(
+                    'ingredient_id' => $ingredient->ingredient_id,
+                    'unit_id' => $ingredient->unit_id,
+                    'value' => $ingredient->value
+                );
+            }
+            $converter = new CookConverter();
+            $this->_nutritionals = $converter->calculateNutritionals($ingredients);
         }
-        $converter = new CookConverter();
-        $result = $converter->calculateNutritionals($ingredients);
 
-        return $result;
+        return $this->_nutritionals;
     }
 
-    public function findByIngredients($ingredients, $type = null)
+    public function findByIngredients($ingredients, $type = null, $limit = null)
     {
         $subquery = Yii::app()->db->createCommand()
             ->select('count(*)')
@@ -245,12 +249,72 @@ class CookRecipe extends CActiveRecord
         $criteria->params = array(':count' => count($ingredients));
         if ($type !== null)
             $criteria->compare('type', $type);
+        if ($limit !== null)
+            $criteria->limit = $limit;
+
+        return $this->findAll($criteria);
+    }
+
+    /**
+     * @param int $ingredient_id
+     * @param int $limit
+     * @return CookRecipe []
+     */
+    public function findByIngredient($ingredient_id, $limit)
+    {
+        $subquery = Yii::app()->db->createCommand()
+            ->select('t.id')
+            ->from($this->tableName() . ' as t')
+            ->join(CookRecipeIngredient::model()->tableName(), CookRecipeIngredient::model()->tableName() . '.recipe_id = t.id')
+            ->where(CookRecipeIngredient::model()->tableName().'.ingredient_id = :ingredient_id')
+            ->text;
+
+        $criteria = new CDbCriteria;
+        $criteria->with = array('ingredients', 'ingredients.ingredient', 'ingredients.unit', 'author', 'photo');
+        $criteria->together = true;
+        $criteria->condition = 't.id IN (' . $subquery . ')';
+        $criteria->params = array(':ingredient_id'=>$ingredient_id);
+        $criteria->limit = $limit;
 
         return $this->findAll($criteria);
     }
 
     public function getUrl()
     {
-        return Yii::app()->controller->createUrl('cook/recipe/view', array('id' => $this->id));
+        return Yii::app()->controller->createUrl('/cook/recipe/view', array('id' => $this->id));
+    }
+
+    public function getPreview($imageWidth = 167)
+    {
+        if ($this->photo !== null) {
+            $preview = CHtml::link(CHtml::image($this->photo->getPreviewUrl($imageWidth, null, Image::WIDTH)), $this->url);
+        } else {
+            $preview = CHtml::tag('p', array(), Str::truncate($this->text));
+        }
+
+        return $preview;
+    }
+
+    public function getMore()
+    {
+        $next = $this->findAll(
+            array(
+                'condition' => 't.id > :current_id AND type = :type',
+                'params' => array(':current_id' => $this->id, ':type' => $this->type),
+                'limit' => 1,
+                'order' => 't.id',
+            )
+        );
+
+        $prev = $this->findAll(
+            array(
+                'condition' => 't.id < :current_id AND type = :type',
+                'params' => array(':current_id' => $this->id, ':type' => $this->type),
+                'limit' => 2,
+                'order' => 't.id DESC',
+            )
+        );
+
+        return CMap::mergeArray($next, $prev);
     }
 }

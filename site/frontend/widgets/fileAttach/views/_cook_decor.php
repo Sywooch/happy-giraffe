@@ -12,6 +12,7 @@
         <label>Название блюда или оформления</label>
         <input type="text" name="title" placeholder="Введите название" value="<?=$title;?>">
     </div>
+    <div class="errorMessage"></div>
 
     <div style="" id="save_decor_button" class="form-bottom">
         <button onclick="<?php echo $widget_id; ?>.insertToCookDecoration();" class="btn btn-green-medium">

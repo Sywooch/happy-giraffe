@@ -96,6 +96,7 @@ class CookDecorationCategory extends HActiveRecord
             $decorations = CookDecoration::model()->findAll();
         else
             $decorations = $this->decorations;
+
         $photos = array();
         foreach($decorations as $model)
         {

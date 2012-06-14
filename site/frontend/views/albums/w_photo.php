@@ -2,26 +2,22 @@
 /* @var AlbumsController $this
  * @var HActiveRecord $model
  * @var AlbumPhoto $photo
- * @var string $entity
  */
 $selected_index = null;
+$count = count($model->photoCollection);
 ?>
 <div id="photo-window-in">
     <div class="top-line">
         <div class="wrapper">
             <a href="javascript:;" class="window-close">закрыть<i class="icon"></i></a>
-            <div class="count">Всего в альбоме <?php echo empty($model)?count(HActiveRecord::model($entity)):count($model->photoCollection); ?> фотографий</div>
+            <div class="count">Всего в альбоме <?= $count ?> <?=HDate::GenerateNoun(array('фотография', 'фотографии', 'фотографий'), $count) ?></div>
         </div>
     </div>
 
     <div id="photo-thumbs">
         <div class="jcarousel">
             <ul>
-                <?php if (empty($model))
-                        $collection = HActiveRecord::model($entity)->photoCollection;
-                    else
-                        $collection = $model->photoCollection;
-                ?>
+                <?php $collection = $model->photoCollection; ?>
                 <?php foreach($collection as $i => $p): ?>
                     <li>
                         <a href="#photo-<?php echo $p->id; ?>" data-id="<?php echo $p->primaryKey; ?>"><img src="" data-src="<?php echo $p->getPreviewUrl(100, 100, Image::HEIGHT); ?>" alt="" /></a>

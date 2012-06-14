@@ -178,7 +178,20 @@
                                     <li><a href=""><?=CHtml::image($t->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->title)?></a></li>
                                 <?php endforeach; ?>
                                 <?php if ($recipe->mainPhoto !== null): ?>
-                                    <li><a href="" class="add"><i class="icon"></i></a></li>
+                                    <li>
+                                        <?php
+                                            $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                                                'model' => $recipe,
+                                                'many' => true,
+                                                'customButton' => true,
+                                                'customButtonHtmlOptions' => array('class' => 'fancy attach add'),
+                                            ));
+                                        ?>
+                                            <i class="icon"></i>
+                                        <?php
+                                            $this->endWidget();
+                                        ?>
+                                    </li>
                                 <?php endif; ?>
                             </ul>
 

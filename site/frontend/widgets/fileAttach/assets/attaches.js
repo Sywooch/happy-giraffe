@@ -136,10 +136,11 @@ Attach.prototype.insertToCookDecoration = function (id) {
         },
         function (data) {
             if (data.status) {
-                //$('#dishes').load('/cook/decor/ #dishes');
+                $('#dishes').load(document.location+' #dishes', function(){
+                    $('.list-view li.dish div.img a').pGallery({entity:'CookDecorationCategory', entity_id:photo_gallery_entity_id});
+                });
                 //$('div.note').hide().html('');
                 $.fancybox.close();
-                $.fn.yiiListView.update('decorlv');
             } else {
                 if (data.message) {
                     alert(data.message);

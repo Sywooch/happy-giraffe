@@ -48,7 +48,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
             <?php if (!Yii::app()->user->isGuest){ ?>
             <div class="add-photo">
                 Нашли интересное оформление или<br/>хотите похвастаться своим творением?<br/>
-                <!--<a href="#photoPick" class="btn btn-green fancy"><span><span>Добавить фото</span></span></a>-->
                 <?php
                 $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                     'model' => new CookDecoration(),
@@ -71,8 +70,9 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
 
             $this->widget('zii.widgets.CListView', array(
+                'id'=>'decorlv',
                 'dataProvider' => $dataProvider,
-                'ajaxUpdate' => false,
+                //'ajaxUpdate' => false,
                 'itemView' => '_decoration', // refers to the partial view named '_post'
                 'emptyText' => 'В этой рубрике еще нет фотографий',
                 'summaryText' => '',

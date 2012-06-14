@@ -58,10 +58,6 @@
                     'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                     'items' => array(
                         array(
-                            'label' => 'Ключевые слова или фразы',
-                            'url' => array('/writing/editor/index/'),
-                        ),
-                        array(
                             'label' => 'Конкуренты',
                             'url' => array('/competitors/default/index'),
                         ),

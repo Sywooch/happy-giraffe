@@ -138,7 +138,6 @@ class CookIngredient extends HActiveRecord
      */
     public function findByNameWithCalories($term)
     {
-        //get all with calories
         $subquery = Yii::app()->db->createCommand()
             ->select('t.id')
             ->from($this->tableName() . ' as t')
@@ -147,26 +146,9 @@ class CookIngredient extends HActiveRecord
             ->text;
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('nutritionals');
-        $criteria->together = true;
-        $criteria->limit = 10;
         $criteria->condition = 't.id IN (' . $subquery . ')';
 
-        $criteria2 = clone $criteria;
-        $criteria2->compare('title', $term . '%', true, 'AND');
-        $ingredients = CookIngredient::model()->findAll($criteria2);
-
-        if (count($ingredients) < 10) {
-            $criteria->compare('title', ' ' . $term, true, 'AND');
-            $more_ingredients = CookIngredient::model()->findAll($criteria);
-
-            while (count($ingredients) < 10 && !empty($more_ingredients)) {
-                array_push($ingredients, $more_ingredients[0]);
-                array_shift($more_ingredients);
-            }
-        }
-
-        return $ingredients;
+        return $this->findByName($term, $criteria);
     }
 
     public function findByName($term, $condition = '', $params = array())

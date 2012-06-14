@@ -16,6 +16,7 @@
             'value' => 'CHtml::link ( CHtml::encode ( $data->title ),  array ( "update", "id" => $data->id ) )',
             'type'=>'raw'
         ),
+        'title_ablative',
         array(
             'name' => 'cats',
             'value'=> '$data->getCategoriesText()'

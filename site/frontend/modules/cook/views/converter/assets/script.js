@@ -52,8 +52,16 @@ var Converter = {
     },
 
     Calculate:function () {
+        if (isNaN(parseInt($('#ConverterForm_ingredient').val())))
+            return false;
+
         $('.drp-list ul').hide();
         $('#ac').val($('#ac').attr('data-title'));
+        $("#converter-form").submit();
+        return false;
+    },
+
+    CalculatePost:function(){
         $.post(
             $("#converter-form").attr('action'),
             $("#converter-form").serialize(),
@@ -61,8 +69,6 @@ var Converter = {
                 $('.value.current').text(data);
             }
         );
-
-        return false;
     },
 
     saveResult:function () {
@@ -71,7 +77,7 @@ var Converter = {
             && parseFloat($('span.value.current').text()) > 0
             ) {
 
-            var hash = $('#ac').attr('data-unit_id') + $('#ConverterForm_qty').val()+ $('.trigger.from').attr('data-id') + $('.trigger.to').attr('data-id') ;//  + $('.trigger.from').to('data-id');
+            var hash = $('#ac').attr('data-unit_id') + $('#ConverterForm_qty').val() + $('.trigger.from').attr('data-id') + $('.trigger.to').attr('data-id');//  + $('.trigger.from').to('data-id');
 
             if ($('.saved-calculations ul li[data-hash="' + hash + '"]').length == 0) {
                 $('.saved-calculations ul li.template').clone().prependTo('.saved-calculations ul');
@@ -86,6 +92,22 @@ var Converter = {
                 result.show();
             }
         }
+    },
+
+    clear:function () {
+        $('#ac').val('').attr('data-id', '').attr('data-title', '');
+        $('#ConverterForm_ingredient').val('');
+        $('#ConverterForm_qty').val('');
+        $('.value.current').text('');
+        $('.trigger.from').attr('data-id', 1);
+        $('.trigger.from').prev().val(1);
+        $('.trigger.from').text('грамм');
+
+        $('.trigger.to').attr('data-id', 1);
+        $('.trigger.to').prev().val(1);
+        $('.trigger.to').text('грамм');
+        $('.drp-list ul li').hide();
+        $('.drp-list ul').hide();
     }
 }
 

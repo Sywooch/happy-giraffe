@@ -7,6 +7,9 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     'entity_id' => ($id)?$category->id:null,
 ));
 ?>
+<script type="text/javascript">
+    var photo_gallery_entity_id = '<?=($id)?$category->id:null ?>';
+</script>
 <div id="dishes">
 
     <div class="title">
@@ -72,7 +75,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
             $this->widget('zii.widgets.CListView', array(
                 'id'=>'decorlv',
                 'dataProvider' => $dataProvider,
-                //'ajaxUpdate' => false,
+                'ajaxUpdate' => false,
                 'itemView' => '_decoration', // refers to the partial view named '_post'
                 'emptyText' => 'В этой рубрике еще нет фотографий',
                 'summaryText' => '',

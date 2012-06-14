@@ -5,7 +5,7 @@
  * @var CookRecipe $recipe
  */
 ?><li>
-    <div class="item-title"><a href=""><?=$recipe->title ?></a></div>
+    <div class="item-title"><a href=""><?=$recipe->title_ablative ?></a></div>
     <?php
     $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
         'user' => $recipe->author,

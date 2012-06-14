@@ -21,6 +21,7 @@
  * @property User $author
  * @property AlbumPhoto $photo
  * @property CookCuisines $cuisine
+ * @property AttachPhoto[] $attachPhotos
  */
 class CookRecipe extends CActiveRecord
 {
@@ -117,6 +118,7 @@ class CookRecipe extends CActiveRecord
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
 			'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
 			'cuisine' => array(self::BELONGS_TO, 'CookCuisine', 'cuisine_id'),
+            'attachPhotos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
 		);
 	}
 

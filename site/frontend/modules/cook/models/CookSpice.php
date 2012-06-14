@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $ingredient_id
  * @property string $title
+ * @property string $title_ablative
  * @property string $content
  * @property string $photo_id
  * @property string $slug
@@ -47,15 +48,15 @@ class CookSpice extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('ingredient_id, title', 'required'),
+            array('ingredient_id, title, title_ablative', 'required'),
             array('ingredient_id', 'length', 'max' => 11),
-            array('title, slug', 'length', 'max' => 255),
+            array('title, slug, title_ablative', 'length', 'max' => 255),
             array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'title'),
             array('photo_id', 'numerical', 'integerOnly' => true),
             array('content', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, ingredient_id, title, content, photo_id', 'safe', 'on' => 'search'),
+            array('id, ingredient_id, title, title_ablative, content, photo_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -84,6 +85,7 @@ class CookSpice extends HActiveRecord
             'id' => 'ID',
             'ingredient_id' => 'Ингредиент',
             'title' => 'Заголовок',
+            'title_ablative' => 'с чем? (твор. падеж)',
             'content' => 'Описание',
             'photo_id' => 'Фото',
             'cats' => 'Категории'

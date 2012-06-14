@@ -59,6 +59,8 @@ class CookRecipe extends CActiveRecord
     public $cooking_duration_h;
     public $cooking_duration_m;
 
+    private $_nutritionals = null;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -218,18 +220,20 @@ class CookRecipe extends CActiveRecord
 
     public function getNutritionals()
     {
-        $ingredients = array();
-        foreach ($this->ingredients as $ingredient) {
-            $ingredients[] = array(
-                'ingredient_id' => $ingredient->ingredient_id,
-                'unit_id' => $ingredient->unit_id,
-                'value' => $ingredient->value
-            );
+        if ($this->_nutritionals === null) {
+            $ingredients = array();
+            foreach ($this->ingredients as $ingredient) {
+                $ingredients[] = array(
+                    'ingredient_id' => $ingredient->ingredient_id,
+                    'unit_id' => $ingredient->unit_id,
+                    'value' => $ingredient->value
+                );
+            }
+            $converter = new CookConverter();
+            $this->_nutritionals = $converter->calculateNutritionals($ingredients);
         }
-        $converter = new CookConverter();
-        $result = $converter->calculateNutritionals($ingredients);
 
-        return $result;
+        return $this->_nutritionals;
     }
 
     public function findByIngredients($ingredients, $type = null, $limit = null)
@@ -295,8 +299,8 @@ class CookRecipe extends CActiveRecord
     {
         $next = $this->findAll(
             array(
-                'condition' => 't.id > :current_id',
-                'params' => array(':current_id' => $this->id),
+                'condition' => 't.id > :current_id AND type = :type',
+                'params' => array(':current_id' => $this->id, ':type' => $this->type),
                 'limit' => 1,
                 'order' => 't.id',
             )
@@ -304,8 +308,8 @@ class CookRecipe extends CActiveRecord
 
         $prev = $this->findAll(
             array(
-                'condition' => 't.id < :current_id',
-                'params' => array(':current_id' => $this->id),
+                'condition' => 't.id < :current_id AND type = :type',
+                'params' => array(':current_id' => $this->id, ':type' => $this->type),
                 'limit' => 2,
                 'order' => 't.id DESC',
             )

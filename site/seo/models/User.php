@@ -148,6 +148,14 @@ class User extends HActiveRecord
         ));
     }
 
+    public function beforeValidate()
+    {
+        if (empty($this->owner_id))
+            $this->owner_id = null;
+
+        return parent::beforeValidate();
+    }
+
     public function hashPassword($password)
     {
         return md5($password);

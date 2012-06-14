@@ -219,6 +219,15 @@
                     </div>
                 <?php endif; ?>
 
+                <?php
+                $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                    'model' => $recipe,
+                    'many' => true,
+                ));
+                    $fileAttach->button();
+                $this->endWidget();
+                ?>
+
                 <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
                     'model' => $recipe,
                 )); ?>

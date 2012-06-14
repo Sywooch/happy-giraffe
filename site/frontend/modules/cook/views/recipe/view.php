@@ -157,7 +157,7 @@
                                     'model' => $recipe,
                                     'many' => true,
                                     'customButton' => true,
-                                    'customButtonHtmlOptions' => array('class' => 'fancy attach add-photo'),
+                                    'customButtonHtmlOptions' => array('class' => 'fancy add-photo'),
                                 ));
                             ?>
                                     <i class="icon"></i>
@@ -184,7 +184,7 @@
                                                 'model' => $recipe,
                                                 'many' => true,
                                                 'customButton' => true,
-                                                'customButtonHtmlOptions' => array('class' => 'fancy attach add'),
+                                                'customButtonHtmlOptions' => array('class' => 'fancy add'),
                                             ));
                                         ?>
                                             <i class="icon"></i>

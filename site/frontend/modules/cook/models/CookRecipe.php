@@ -273,8 +273,8 @@ class CookRecipe extends CActiveRecord
     {
         $next = $this->findAll(
             array(
-                'condition' => 't.id > :current_id',
-                'params' => array(':current_id' => $this->id),
+                'condition' => 't.id > :current_id AND type = :type',
+                'params' => array(':current_id' => $this->id, ':type' => $this->type),
                 'limit' => 1,
                 'order' => 't.id',
             )
@@ -282,8 +282,8 @@ class CookRecipe extends CActiveRecord
 
         $prev = $this->findAll(
             array(
-                'condition' => 't.id < :current_id',
-                'params' => array(':current_id' => $this->id),
+                'condition' => 't.id < :current_id AND type = :type',
+                'params' => array(':current_id' => $this->id, ':type' => $this->type),
                 'limit' => 2,
                 'order' => 't.id DESC',
             )

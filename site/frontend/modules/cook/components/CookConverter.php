@@ -149,6 +149,9 @@ class CookConverter extends CComponent
                 'qty' => $component['value']
             ));
 
+            if ($weight == null)
+                continue;
+
             $result['total']['weight'] += $weight['qty'];
             foreach ($ingredient->nutritionals as $nutritional) {
                 if (isset($result['total']['nutritionals'][$nutritional->nutritional_id])) {
@@ -163,8 +166,6 @@ class CookConverter extends CComponent
             $result['g100']['nutritionals'][$key] = $n * (100 / $result['total']['weight']);
         }
 
-
         return $result;
     }
-
 }

@@ -181,10 +181,13 @@ class SiteKeywordVisit extends HActiveRecord
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('year', $this->year);
         if (!empty($this->key_name)) {
-            if ($this->temp_ids === null) {
+            if ($this->temp_ids === null)
                 $this->temp_ids = Keywords::findSiteIdsByNameWithSphinx($this->key_name);
-            }
-            $criteria->condition .= ' AND keyword.id IN (' . implode(',', $this->temp_ids) . ')';
+
+            if (empty($this->temp_ids))
+                $criteria->condition .= ' AND keyword.id = 0';
+            else
+                $criteria->condition .= ' AND keyword.id IN (' . implode(',', $this->temp_ids) . ')';
         }
         $criteria->compare('yandex.value', $this->popular);
         $criteria->with = array('keyword', 'keyword.group', 'keyword.yandex', 'keyword.tempKeyword');
@@ -208,24 +211,24 @@ class SiteKeywordVisit extends HActiveRecord
     public static function SaveValue($site_id, $keyword_id, $month, $year, $value)
     {
         $model = self::model()->findByAttributes(array(
-            'keyword_id'=>$keyword_id,
-            'year'=>$year,
-            'site_id'=>$site_id
+            'keyword_id' => $keyword_id,
+            'year' => $year,
+            'site_id' => $site_id
         ));
 
-        if ($model !== null){
+        if ($model !== null) {
             //второй раз и меньше - значит слово в котором есть буква ё
-            $old = $model->getAttribute('m'.$month);
+            $old = $model->getAttribute('m' . $month);
             if ($old > $value)
-                return ;
+                return;
 
-            $model->setAttribute('m'.$month, $value);
-        }else{
+            $model->setAttribute('m' . $month, $value);
+        } else {
             $model = new SiteKeywordVisit();
             $model->site_id = $site_id;
             $model->keyword_id = $keyword_id;
             $model->year = $year;
-            $model->setAttribute('m'.$month, $value);
+            $model->setAttribute('m' . $month, $value);
         }
 
         if (!$model->save())

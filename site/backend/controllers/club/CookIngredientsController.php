@@ -59,7 +59,7 @@ class CookIngredientsController extends BController
         if (isset($_POST['CookIngredient'])) {
             $model->attributes = $_POST['CookIngredient'];
             if ($model->save())
-                $this->redirect(array('admin'));
+                $this->redirect(array('update', 'id' => $model->id));
         }
 
         $this->render('update', array(
@@ -202,54 +202,54 @@ class CookIngredientsController extends BController
 
     public function actionSaveUnits($id)
     {
-        foreach ($_POST['units'] as $unit_id => $unit) {
-            $model = CookIngredientUnit::model()->findByAttributes(array('ingredient_id' => $id, 'unit_id' => $unit_id));
-            if (isset($unit['cb'])) {
+        $response = array('html', 'error');
+        $ingredient = CookIngredient::model()->findByPk($id);
+        $units = CookUnit::model()->findAll();
+
+        foreach ($units as $unit) {
+            $model = CookIngredientUnit::model()->findByAttributes(array('ingredient_id' => $ingredient->id, 'unit_id' => $unit->id));
+            if (isset($_POST['units'][$unit->id]['cb'])) {
                 if ($model) {
-                    $model->weight = $unit['weight'];
-                    $model->save();
+                    if (isset($_POST['units'][$unit->id]['weight']))
+                        $model->weight = $_POST['units'][$unit->id]['weight'];
                 } else {
                     $model = new CookIngredientUnit();
-                    $model->attributes = array('ingredient_id' => $id, 'unit_id' => $unit_id, 'weight' => $unit['weight']);
-                    $model->save();
+                    $model->attributes = array(
+                        'ingredient_id' => $ingredient->id,
+                        'unit_id' => $unit->id,
+                        'weight' => (isset($_POST['units'][$unit->id]['weight'])) ? $_POST['units'][$unit->id]['weight'] : 0
+                    );
                 }
+
+                if ($unit->type == 'volume' and $ingredient->density == 0) {
+                    $response['error'] .= '<strong>' . $unit->title . '</strong> недопустима т.к. не задана плотность ингредиента<br>';
+                    if ($model->id)
+                        $model->delete();
+                    continue;
+                }
+                if (($unit->type == 'qty') and !$_POST['units'][$unit->id]['weight']) {
+                    $response['error'] .= '<strong>' . $unit->title . '</strong> недопустима т.к. не указан вес для этой ед.изм.<br>';
+                    if ($model->id)
+                        $model->delete();
+                    continue;
+                }
+
+                $model->save();
+
             } else {
                 if ($model)
                     $model->delete();
             }
+
         }
+
+        $response['html'] = $this->renderPartial('_form_units', array('model' => $ingredient), true);
+        if ($response['error'] == '')
+            $response['error'] = 'Сохранено успешно';
+
+
+        header('Content-type: application/json');
+        echo CJSON::encode($response);
     }
 
-    // temp method to fill Ingredient units
-
-    /*public function actionFillUnits()
-    {
-        set_time_limit(0);
-        $ingredients = CookIngredient::model()->findAll();
-        $units = CookUnit::model()->findAll();
-
-        foreach ($ingredients as $ingredient) {
-            $s = array();
-            $s[] = array('ingredient_id' => $ingredient->id, 'unit_id' => 1);
-
-            if ($ingredient->unit->type == 'qty' and $ingredient->weight > 0) {
-                $s[] = array('ingredient_id' => $ingredient->id, 'unit_id' => $ingredient->unit_id, 'weight' => $ingredient->weight);
-            }
-
-            if ($ingredient->density > 0) {
-                foreach ($units as $unit) {
-                    if ($unit->type == 'volume') {
-                        $s[] = array('ingredient_id' => $ingredient->id, 'unit_id' => $unit->id);
-                    }
-                }
-            }
-
-            foreach ($s as $ss) {
-                //continue;
-                $model = new CookIngredientUnit();
-                $model->attributes = $ss;
-                $model->save();
-            }
-        }
-    }*/
 }

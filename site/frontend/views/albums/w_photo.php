@@ -82,8 +82,8 @@ $count = count($model->photoCollection);
             )); ?>
             </div>
         </div>
-        <a href="javascript:;" class="prev">предыдушая</a>
-        <a href="javascript:;" class="next">следующая</a>
+        <a href="javascript:;" class="prev"><i class="icon"></i>предыдушая</a>
+        <a href="javascript:;" class="next"><i class="icon"></i>следующая</a>
     </div>
     <div id="w-photo-content">
         <?php $this->renderPartial('w_photo_content', compact('model', 'photo', 'selected_index')); ?>

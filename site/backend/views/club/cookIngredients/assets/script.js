@@ -45,7 +45,8 @@ var Units = {
             $('#ingredientUnits').attr('action'),
             $('#ingredientUnits').serializeArray(),
             function (data) {
-
+                $('#units-container').html(data.html);
+                $.pnotify({pnotify_title:'Единицы измерения', pnotify_text:data.error});
             }
         );
         event.preventDefault()

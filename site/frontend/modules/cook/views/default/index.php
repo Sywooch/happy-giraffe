@@ -133,7 +133,7 @@
         </div>
 
         <ul>
-            <?php foreach ($posts as $post): ?>
+            <?php foreach ($community->getLast(7) as $post): ?>
                 <li>
                     <div class="user clearfix">
                         <?php
@@ -155,7 +155,7 @@
             <?php endforeach; ?>
         </ul>
 
-        <div class="all-link"><a href="">Все записи клуба (8 258)</a></div>
+        <div class="all-link"><?=CHtml::link('Все записи клуба (' . $community->count . ')', $community->url)?></div>
 
     </div>
 

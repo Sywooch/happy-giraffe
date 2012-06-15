@@ -124,4 +124,13 @@ class CookDecoration extends CActiveRecord
         return $dataProvider;
     }
 
+    public function getLastDecorations($limit = 9){
+
+        $criteria = new CDbCriteria;
+        $criteria->limit = $limit;
+        $criteria->order = 'created DESC';
+
+        return $this->findAll($criteria);
+    }
+
 }

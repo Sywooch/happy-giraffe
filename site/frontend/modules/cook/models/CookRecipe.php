@@ -163,6 +163,7 @@ class CookRecipe extends CActiveRecord
                 ),
                 'order' => 'attachPhoto.created ASC',
             ),
+            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
 		);
 	}
 
@@ -475,5 +476,42 @@ class CookRecipe extends CActiveRecord
         foreach ($this->durations as $d)
             $labels[] = $d['label'];
         return $labels;
+    }
+
+    public function getCounts()
+    {
+        $_counts = array();
+
+        $_counts[0] = $this->count();
+        foreach ($this->types as $k => $v)
+            $_counts[$k] = 0;
+
+        $counts = Yii::app()->db->createCommand()
+            ->select('type, count(*)')
+            ->from($this->tableName())
+            ->group('type')
+            ->queryAll();
+        foreach ($counts as $c)
+            $_counts[$c['type']] = $c['count(*)'];
+
+        return $_counts;
+    }
+
+    public function getByType($type)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array('photo', 'attachPhotos'),
+        ));
+        if ($type !== null)
+            $criteria->compare('type', $type);
+
+        $dp = new CActiveDataProvider('CookRecipe', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 3,
+            ),
+        ));
+
+        return $dp;
     }
 }

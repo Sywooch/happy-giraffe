@@ -4131,11 +4131,11 @@ ul.letters li a:hover {
 #cook-recipe .search .title {margin-bottom:5px;}
 #cook-recipe .search .title .icon {display:inline-block;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:11px;margin-right:5px;}
 #cook-recipe .search .title span {color:#575757;font-size:16px;font-weight:bold;}
-#cook-recipe .search .title a {text-decoration:none;margin-left:15px;border-bottom:1px dashed #029AD2;}
+#cook-recipe .search .title a {margin-left:15px;}
 #cook-recipe .search input[type=text] {border:1px solid #e4d0f6;background:#fff;height:18px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;padding:4px 13px;float:left;margin:0;width:550px;}
 #cook-recipe .search .btn {float:left;position:relative;top:-2px;margin-left:-1px;}
 
-#cook-recipe .recipe-categories {}
+#cook-recipe .recipe-categories {margin-bottom:80px;}
 #cook-recipe .recipe-categories ul {border-right:1px solid #e6d4f7;list-style:none;padding:10px 0;margin-right:10px;}
 #cook-recipe .recipe-categories ul li {text-align:center;padding:20px 0;margin-right:-1px;}
 #cook-recipe .recipe-categories ul li.active {border:1px solid #e6d4f7;border-right:1px solid #fff;}

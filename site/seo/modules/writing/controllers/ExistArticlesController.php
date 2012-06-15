@@ -69,7 +69,7 @@ class ExistArticlesController extends SController
 
                     $keyword = mb_strtolower($keyword, 'utf8');
                     if (!empty($keyword)) {
-                        $model = Keywords::GetKeyword($keyword);
+                        $model = Keyword::GetKeyword($keyword);
                         if (!empty($model->group)) {
                             $response = array(
                                 'status' => false,

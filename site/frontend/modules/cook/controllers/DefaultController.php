@@ -7,11 +7,12 @@ class DefaultController extends HController
     {
         $this->pageTitle = 'Кулинария';
 
-        //$posts = CommunityContent::model()->lastCookPosts;
+        $posts = Community::model()->findByPk(22)->getLast(7);
         $recipes = CookRecipe::model()->lastRecipes;
+        $recipesCount = CookRecipe::model()->count();
         $decorations = CookDecoration::model()->lastDecorations;
 
-        $this->render('index', compact('recipes', 'decorations'));
+        $this->render('index', compact('posts', 'recipes', 'recipesCount', 'decorations'));
     }
 
 }

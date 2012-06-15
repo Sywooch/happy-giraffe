@@ -7,6 +7,7 @@ class DefaultController extends HController
     {
         $this->pageTitle = 'Кулинария';
 
+        //$posts = CommunityContent::model()->lastCookPosts;
         $recipes = CookRecipe::model()->lastRecipes;
         $decorations = CookDecoration::model()->lastDecorations;
 

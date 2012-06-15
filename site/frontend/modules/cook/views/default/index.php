@@ -133,6 +133,7 @@
         </div>
 
         <ul>
+
             <li>
                 <div class="user clearfix">
                     <div class="user-info clearfix">
@@ -201,19 +202,19 @@
 
         <ul>
             <li>
-                <a href="<?=$this->createUrl('/cook/choose/category', array('id'=>'Myaso_ptica'))?>">
+                <a href="<?=$this->createUrl('/cook/choose/category', array('id' => 'Myaso_ptica'))?>">
                     <img src="/images/fast_services_img_01.jpg"/>
                     <span>Как выбрать мясо?</span>
                 </a>
             </li>
             <li>
-                <a href="<?=$this->createUrl('/cook/choose', array('id'=>'Med'))?>">
+                <a href="<?=$this->createUrl('/cook/choose', array('id' => 'Med'))?>">
                     <img src="/images/fast_services_img_02.jpg"/>
                     <span>Как выбрать мед?</span>
                 </a>
             </li>
             <li>
-                <a href="<?=$this->createUrl('/cook/choose', array('id'=>'Sir'))?>">
+                <a href="<?=$this->createUrl('/cook/choose', array('id' => 'Sir'))?>">
                     <img src="/images/fast_services_img_03.jpg"/>
                     <span>Как выбрать сыр?</span>
                 </a>
@@ -222,7 +223,7 @@
         </ul>
 
         <div class="all-link">
-            <a href="" class="btn btn-green-small"><span><span>Весь прилавок</span></span></a>
+            <a href="<?=$this->createUrl('/cook/choose')?>" class="btn btn-green-small"><span><span>Весь прилавок</span></span></a>
         </div>
 
     </div>

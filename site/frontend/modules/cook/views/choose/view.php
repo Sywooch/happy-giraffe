@@ -23,11 +23,16 @@
                 <?=$model->desc;?>
                 <br/>
 
-                <h2>Как выглядит <?=$model->title_quality;?></h2>
+                <?php
+                mb_internal_encoding("UTF-8");
+                $kak_viglyadat = (mb_substr($model->title_quality, -2, 2) == 'ки') ? 'Как выглядят' : 'Как выглядит';
+                ?>
+
+                <h2><?=$kak_viglyadat?> <?=$model->title_quality;?></h2>
 
                 <?=$model->desc_quality;?>
 
-                <h2>Как выглядит <?=$model->title_defective;?></h2>
+                <h2><?=$kak_viglyadat?> <?=$model->title_defective;?></h2>
 
                 <?=$model->desc_defective;?>
 

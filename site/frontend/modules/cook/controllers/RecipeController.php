@@ -5,6 +5,8 @@
  */
 class RecipeController extends HController
 {
+    public $counts;
+
     public function filters()
     {
         return array(
@@ -62,6 +64,7 @@ class RecipeController extends HController
 
     public function actionView($id)
     {
+        $this->counts = CookRecipe::model()->counts;
         $recipe = CookRecipe::model()->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');

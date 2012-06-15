@@ -313,7 +313,6 @@
         <div class="side-left">
 
             <div class="recipe-categories">
-
                 <ul>
                     <li>
                         <a href="" class="cook-cat">

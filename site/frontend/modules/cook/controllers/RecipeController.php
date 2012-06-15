@@ -95,9 +95,11 @@ class RecipeController extends HController
         foreach (array('cuisine_id', 'type', 'method', 'preparation_duration', 'cooking_duration') as $var) {
             $$var = ($temp = Yii::app()->request->getQuery($var, '')) == '' ? null : $temp;
         }
-        foreach (array('lowCal', 'lowFat', 'forDiabetics') as $var) {
-            $$var = (bool) Yii::app()->request->getQuery($var, false);
+        foreach (array('lowCal', 'lowFat', 'forDiabetics1', 'forDiabetics2') as $var) {
+            $$var = (bool) Yii::app()->request->getQuery($var);
         }
+        $forDiabetics = $forDiabetics1 || $forDiabetics2;
+
         $recipes = CookRecipe::model()->findAdvanced($cuisine_id, $type, $method, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics);
         $this->renderPartial('advancedSearchResult', compact('recipes'));
     }

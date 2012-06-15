@@ -6,6 +6,7 @@
 class RecipeController extends HController
 {
     public $counts;
+    public $currentType = null;
 
     public function filters()
     {
@@ -23,6 +24,18 @@ class RecipeController extends HController
                 'users' => array('?'),
             ),
         );
+    }
+
+    public function actionIndex($type = null)
+    {
+        $this->layout = '//layouts/recipe';
+
+        $dp = CookRecipe::model()->getByType($type);
+
+        $this->counts = CookRecipe::model()->counts;
+        $this->currentType = $type;
+
+        $this->render('index', compact('dp'));
     }
 
     public function actionForm($id = null)
@@ -64,10 +77,14 @@ class RecipeController extends HController
 
     public function actionView($id)
     {
-        $this->counts = CookRecipe::model()->counts;
+        $this->layout = '//layouts/recipe';
+
         $recipe = CookRecipe::model()->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');
+
+        $this->counts = CookRecipe::model()->counts;
+        $this->currentType = $recipe->type;
 
         $this->render('view', compact('recipe'));
     }

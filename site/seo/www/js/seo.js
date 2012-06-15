@@ -78,7 +78,7 @@ var SeoModule = {
     },
     refreshProxy:function () {
         var proxy = $('textarea#proxy').val();
-        $.post('/queries/proxy/', {proxy:proxy}, function (response) {
+        $.post('/parsing/proxy/', {proxy:proxy}, function (response) {
             if (response.status) {
                 $('textarea#proxy').val('');
 
@@ -141,7 +141,7 @@ var WordStat = {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',
-                    pnotify_text:'',
+                    pnotify_text:''
                 });
             }
         }, 'json');

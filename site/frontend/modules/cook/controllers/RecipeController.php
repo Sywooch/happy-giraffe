@@ -91,6 +91,8 @@ class RecipeController extends HController
 
     public function actionSearch($text = false)
     {
+        $this->layout = '//layouts/recipe';
+
         $pages = new CPagination();
         $pages->pageSize = 100000;
         $criteria = new stdClass();

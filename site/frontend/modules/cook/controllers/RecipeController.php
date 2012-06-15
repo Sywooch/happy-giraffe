@@ -9,7 +9,7 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + ac, searchResult'
+            'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult'
         );
     }
 
@@ -34,11 +34,12 @@ class RecipeController extends HController
         }
 
         if (isset($_POST['CookRecipe'])) {
+            $ingredients = array();
             $recipe->attributes = $_POST['CookRecipe'];
             if ($recipe->isNewRecord)
                 $recipe->author_id = Yii::app()->user->id;
             foreach ($_POST['CookRecipeIngredient'] as $i) {
-                if (! empty($i['ingredient_id']) || ! empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
+                if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
                     $ingredient = new CookRecipeIngredient;
                     $ingredient->attributes = $i;
                     $ingredient->recipe_id = $recipe->id;
@@ -68,19 +69,62 @@ class RecipeController extends HController
         $this->render('view', compact('recipe'));
     }
 
-
-    public function actionSearch()
+    public function actionSearch($text = false)
     {
-        $this->render('search');
+        $pages = new CPagination();
+        $pages->pageSize = 100000;
+        $criteria = new stdClass();
+        $criteria->from = 'recipe';
+        $criteria->select = '*';
+        $criteria->paginator = $pages;
+        $criteria->query = ' ' . $text . ' ';
+        $resIterator = Yii::app()->search->search($criteria);
+
+        $allSearch = $textSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
+        $allCount = count($allSearch['matches']);
+
+        $criteria = new CDbCriteria;
+
+        $dataProvider = new CArrayDataProvider($resIterator->getRawData(), array(
+            'keyField' => 'id',
+        ));
+
+        $this->render('search', compact('dataProvider', 'criteria', 'text', 'allCount'));
     }
 
-    public function actionSearchResult()
+
+    public function actionSearchByIngredients()
+    {
+        $this->render('searchByIngredients');
+    }
+
+    public function actionSearchByIngredientsResult()
     {
         $ingredients = Yii::app()->request->getQuery('ingredients', array());
         $type = Yii::app()->request->getQuery('type', null);
         $ingredients = array_filter($ingredients);
         $recipes = CookRecipe::model()->findByIngredients($ingredients, $type);
-        $this->renderPartial('searchResult', compact('recipes', 'type'));
+        $this->renderPartial('searchByIngredientsResult', compact('recipes', 'type'));
+    }
+
+    public function actionAdvancedSearch()
+    {
+        $cuisines = CookCuisine::model()->findAll();
+        $this->render('advancedSearch', compact('cuisines'));
+    }
+
+    public function actionAdvancedSearchResult()
+    {
+        foreach (array('cuisine_id', 'type', 'method', 'preparation_duration', 'cooking_duration') as $var) {
+            $$var = ($temp = Yii::app()->request->getQuery($var, '')) == '' ? null : $temp;
+        }
+        foreach (array('lowCal', 'lowFat', 'forDiabetics1', 'forDiabetics2') as $var) {
+            $$var = (bool)Yii::app()->request->getQuery($var);
+        }
+        $forDiabetics = $forDiabetics1 || $forDiabetics2;
+
+        $recipes = CookRecipe::model()->findAdvanced($cuisine_id, $type, $method, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics);
+        $this->renderPartial('advancedSearchResult', compact('recipes'));
     }
 
     public function actionAc($term)

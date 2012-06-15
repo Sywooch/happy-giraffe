@@ -54,6 +54,8 @@ var Converter = {
     Calculate:function () {
         if (isNaN(parseInt($('#ConverterForm_ingredient').val())))
             return false;
+        if ($('#ConverterForm_qty').val() == '')
+            return false;
 
         $('.drp-list ul').hide();
         $('#ac').val($('#ac').attr('data-title'));
@@ -61,7 +63,7 @@ var Converter = {
         return false;
     },
 
-    CalculatePost:function(){
+    CalculatePost:function () {
         $.post(
             $("#converter-form").attr('action'),
             $("#converter-form").serialize(),
@@ -108,6 +110,13 @@ var Converter = {
         $('.trigger.to').text('грамм');
         $('.drp-list ul li').hide();
         $('.drp-list ul').hide();
+    },
+
+    qtyInput:function (evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
     }
 }
 

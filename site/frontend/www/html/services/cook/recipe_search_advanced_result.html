@@ -23,10 +23,15 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.jscrollpane.css" />
+	<script type="text/javascript" src="/javascripts/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.mousewheel.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 	<script>
 		$(function(){
+			
 			$('.tooltip').tooltip({
 				delay: 100,
 				track: false,
@@ -35,6 +40,9 @@
 				top: -20,
 				left: 10
 			});
+			
+			$('.scroll').jScrollPane({showArrows: true, autoReinitialise: true});
+			
 		})
 	</script>
 	
@@ -444,137 +452,198 @@
 			
 			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
 			
-			<div id="measure">
+			<div id="cook-recipe-search">
 				
-				<div class="title">
-					
-					<h2>Калькулятор <span>мер и весов</span></h2>
-					
-				</div>
-				
-				<div class="hl">
-				
-					<div class="calculator">
-						
-						<div class="product">
-							
-							<div class="block-title">Продукт</div>
-							<input type="text" placeholder="Введите название продукта" value="Яйцо куриное" /><br/>
-							<span>Начинайте вводить название продукта. Например, мясо, молоко, мука</span>
-							
-						</div>
-						
-						<div class="values">
-							
-							<div class="input">
-								<input type="text" placeholder="0" value="0" />
-								<br/>
-								Введите кол-во
-							</div>
-							
-							<div class="drp-list">
-								<a href="" class="trigger">штук</a>
-								<ul>
-									<li><a href="">штук</a></li>
-									<li><a href="">грамм</a></li>
-									<li><a href="">литров</a></li>
-								</ul>
-							</div>
-							
-							<a href="" class="equal"></a>
-							
-							<span class="value">203,456</span>
-							
-							<div class="drp-list">
-								<a href="" class="trigger">грамм</a>
-								<ul style="display:none;">
-									<li><a href="">штук</a></li>
-									<li><a href="">грамм</a></li>
-									<li><a href="">литров</a></li>
-								</ul>
-							</div>
-							
-							&nbsp;&nbsp;&nbsp;&nbsp;
-							
-							<a href="" class="btn btn-gray-small"><span><span>Запомнить</span></span></a>						
-							<a href="" class="btn btn-gray-small"><span><span>Очистить</span></span></a>						
-							
-						</div>
-						
-					</div>
-					
-					<div class="saved-calculations">
-						
+				<div class="title clear">
+					<i class="icon"></i>
+					<span>Поиск рецепта</span>
+					<div class="nav">
 						<ul>
-							<li>
-								<span class="product-name">Яйцо куриное</span>
-								<span class="value">10</span>
-								штук
-								<span class="value">=</span>
-								<span class="value">203,5</span>
-								грамм
-								<a href="" class="remove tooltip" title="Удалить"></a>
-							</li>
-							<li>
-								<span class="product-name">Яйцо куриное</span>
-								<span class="value">100</span>
-								штук
-								<span class="value">=</span>
-								<span class="value">2035</span>
-								грамм
-								<a href="" class="remove tooltip" title="Удалить"></a>
-							</li>
-							<li>
-								<span class="product-name">Яйцо куриное</span>
-								<span class="value">1</span>
-								штук
-								<span class="value">=</span>
-								<span class="value">20,35</span>
-								грамм
-								<a href="" class="remove tooltip" title="Удалить"></a>
-							</li>
-							<li>
-								<span class="product-name">Яйцо куриное</span>
-								<span class="value">1000</span>
-								штук
-								<span class="value">=</span>
-								<span class="value">20350</span>
-								грамм
-								<a href="" class="remove tooltip" title="Удалить"></a>
-							</li>
-							
+							<li><a href="">По ингредиентам</a></li>
+							<li class="active"><a href="">Расширеный поиск</a></li>
 						</ul>
-						
 					</div>
-					
 				</div>
 				
-				<div class="wysiwyg-content">
+				<div class="clearfix">
 					
-					<h2>Калькулятор мер и весов</h2>
-					
-					<p>Часто бывает: найдёшь с большим трудом нужный рецепт, а в нём хоть одна мера продуктов, да обязательно не в «тех» единицах. Получается, что рецепт-то есть, а воспользоваться им не получается. Причём это не единичные случаи, а закономерность для именно тех рецептов, которые очень хочется воспроизвести на своей любимой кухне! Можно, конечно, взять необходимые продукты в количестве по наитию или, воспользовавшись калькулятором, посчитать пропорции ингредиентов, можно искать соразмерность каждой единицы в Интернете…но все это занимает достаточно много времени и может ещё, даже при незначительной погрешности в вычислениях, привести к плачевным результатам, проще говоря, к выброшенной еде, ведь понятие «мера продуктов» придумана совсем не зря.</p>
-
-					<p>Именно для подобных ситуаций создан наш новый сервис о массах и мерах: «Таблица мер продуктов». Теперь, обладая рецептом с набором продуктов в любых измерениях, вы можете легко перевести их именно в те, которые вам нужны. Сервис позволяет вообще не задумываться о таком понятии, как мера веса продуктов. В каких бы мерах ни были компоненты – они будут переведены в необходимые.</p>
-
-					<div style="background:#fefded;padding:20px 20px 10px;margin-bottom:20px;">
-					
-						<h3>Пользоваться сервисом просто: </h3>
+					<div class="advanced">
 						
-						<ol>
-							<li>Введите название продукта (выберите из выпадающего списка)</li>
-							<li>Впишите количество продукта, выбрав единицы, в которых он указан, затем выбирайте те, которые вам нужны.</li>
-						</ol>
+						<div class="block-title">Параметры рецепта</div>
 						
-						<p>Одна секунда – и вы     знаете, сколько граммов масла в чайной ложке или сколько стаканов воды в литре. Любая мера веса продуктов теперь не представляет секрета: наша интерактивная таблица мер продуктов переводит любые единицы в те, что надо. Легко, просто, быстро – именно то, что нужно современной хозяйке, у которой очень мало времени. Но это ещё не всё! Вы можете сохранить результат, чтобы не производить вычисления повторно. Для этого просто нужно нажать на соответствующую кнопку</p>
-					
+						<div class="row">
+							<label>Кухня</label>
+							<span class="chzn-v2">
+								<select class="chzn">
+									<option>Кухня</option>
+								</select>
+							</span>
+						</div>
+						
+						<div class="row">
+							<label>Тип блюда</label>
+							<span class="chzn-v2">
+								<select class="chzn">
+									<option>Тип блюда</option>
+								</select>
+							</span>
+						</div>
+						
+						<div class="row">
+							<label>Способ приготовления</label>
+							<span class="chzn-v2">
+								<select class="chzn">
+									<option>Способ приготовления</option>
+								</select>
+							</span>
+						</div>
+						
+						<div class="block-title">Время</div>
+						
+						<div class="row">
+							<label><i class="icon-time-1"></i>Подготовка</label>
+							<span class="chzn-v2">
+								<select class="chzn">
+									<option>Подготовка</option>
+								</select>
+							</span>
+						</div>
+						
+						<div class="row">
+							<label><i class="icon-time-2"></i>Приготовление</label>
+							<span class="chzn-v2">
+								<select class="chzn">
+									<option>Приготовление</option>
+								</select>
+							</span>
+						</div>
+						
+						<div class="block-title">Диетические предпочтения</div>
+						
+						<div class="radiogroup">
+							
+							<span class="checkbox">
+								<input type="checkbox" />
+								<label>Для диабетиков</label>
+							</span>
+							
+							<span class="checkbox">
+								<input type="checkbox" />
+								<label>Низкокалорийные</label>
+							</span>
+							
+							<span class="checkbox">
+								<input type="checkbox" />
+								<label>Низкоуглеводные</label>
+							</span>
+							
+							<span class="checkbox">
+								<input type="checkbox" />
+								<label>Низкожирные</label>
+							</span>
+							
+						</div>
+						
 					</div>
 					
-					<p>Оставьте калькулятор – это не современно! Вооружитесь компьютером и сделайте закладку на странице с нужным сервисом. Мгновенно переводя одни меры в другие, вы сэкономите массу времени и ещё больше нервов. Останутся в прошлом сомнения и томление в ожидании: получится – не получится. Получится всё и именно так, как вам нужно. Удачи!</p>
+					<div class="result">
+						
+						
+						<div class="result-title clearfix">
+							
+							<div class="count">
+								Найдено рецептов
+								<span>286</span>
+							</div>
+							
+						</div>
+						
+						<div class="recipe-list">
+							
+							<ul class="scroll">
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_02.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<p>Из муки, крахмала, молока, яиц, сахара, печeм тонкие блинчики, вы можете испечь блины по своему любимому рецепту.</p>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_02.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<p>Из муки, крахмала, молока, яиц, сахара, печeм тонкие блинчики, вы можете испечь блины по своему любимому рецепту.</p>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_02.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<p>Из муки, крахмала, молока, яиц, сахара, печeм тонкие блинчики, вы можете испечь блины по своему любимому рецепту.</p>
+									</div>
+								</li>
+							</ul>
+							
+						</div>
+						
+						
+					</div>
 					
 				</div>
 				
 			</div>
+			
 			
 		</div>  	
 		

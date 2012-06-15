@@ -5,7 +5,7 @@ var CookRecipe = {
 CookRecipe.search = function()
 {
     $.get(
-        '/cook/recipe/searchResult/',
+        '/cook/recipe/searchByIngredientsResult/',
         $('#searchRecipeForm').serialize(),
         function(response) {
             $('div.result').html(response);

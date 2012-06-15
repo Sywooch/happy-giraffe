@@ -3992,7 +3992,7 @@ ul.letters li a:hover {
 #measure .calculator .btn:hover > span {background-position:100% -1020px;color:#fff;}
 #measure .calculator .btn:hover > span > span {background-position:0 -1000px;}
 
-#measure .saved-calculations	 {padding:0 30px;}
+#measure .saved-calculations {padding:0 30px; margin-bottom: 40px}
 #measure .saved-calculations ul {list-style:none;}
 #measure .saved-calculations ul li {padding:5px 0;}
 #measure .saved-calculations ul li .product-name {font-size:15px;color:#598dd6;}
@@ -4007,6 +4007,7 @@ ul.letters li a:hover {
 .measure-calculator .equal:hover {background-position:-67px -1px;}
 .measure-calculator .value {color:#585757;font-size:30px;margin-right:20px;}
 
+#measure .wysiwyg-content{ padding: 0 30px}
 
 .drp-list {display:inline-block;position:relative;font-size:13px;}
 .drp-list a.trigger {text-decoration:none;border-bottom:1px dashed #598DD6;color:#598DD6;font-size:16px;position:relative;z-index:1;}

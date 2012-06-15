@@ -54,6 +54,8 @@ var Converter = {
     Calculate:function () {
         if (isNaN(parseInt($('#ConverterForm_ingredient').val())))
             return false;
+        if ($('#ConverterForm_qty').val()=='')
+            return false;
 
         $('.drp-list ul').hide();
         $('#ac').val($('#ac').attr('data-title'));

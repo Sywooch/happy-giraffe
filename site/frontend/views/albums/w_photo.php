@@ -71,7 +71,7 @@ $count = count($model->photoCollection);
             <div class="title clearfix">
                 <?php if(isset($photo->title)): ?>
                     <div class="in"<?php echo $photo->title == '' ? ' style="display:none"' : ''; ?>>
-                        <?php echo CHtml::encode($photo->title); ?>
+                        <?= $photo->title; ?>
                     </div>
                 <?php endif; ?>
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(

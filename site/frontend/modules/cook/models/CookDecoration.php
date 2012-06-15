@@ -81,7 +81,7 @@ class CookDecoration extends CActiveRecord
     {
         $alias = $this->getTableAlias(false, false);
         return array(
-            'order' => !empty($alias) ? $alias . '.id desc':'id desc',
+            'order' => !empty($alias) ? $alias . '.id desc' : 'id desc',
         );
     }
 
@@ -117,11 +117,31 @@ class CookDecoration extends CActiveRecord
             ),
             'pagination' => array(
                 'pageSize' => $perPage,
-                'pageVar'=>'page',
-                'route'=>'/cook/decor'
+                'pageVar' => 'page',
+                'route' => '/cook/decor'
             ),
         ));
         return $dataProvider;
+    }
+
+    public function getLastDecorations($limit = 9)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = $limit;
+        $criteria->order = 'created DESC';
+
+        return $this->findAll($criteria);
+    }
+
+    public function getUrl()
+    {
+        return Yii::app()->controller->createUrl('/cook/decor/') . 'photo' . $this->photo_id . '/';
+    }
+
+    public function getPreview($imageWidth = 240)
+    {
+        $preview = CHtml::link(CHtml::image($this->photo->getPreviewUrl($imageWidth, null, Image::WIDTH)), $this->url);
+        return $preview;
     }
 
 }

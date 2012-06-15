@@ -91,15 +91,15 @@ class RecipeController extends HController
 
     public function actionSearch($text = false)
     {
+        $text = urldecode($text);
         $this->layout = '//layouts/recipe';
-
         $pages = new CPagination();
         $pages->pageSize = 100000;
         $criteria = new stdClass();
         $criteria->from = 'recipe';
         $criteria->select = '*';
         $criteria->paginator = $pages;
-        $criteria->query = ' ' . $text . ' ';
+        $criteria->query = $text;
         $resIterator = Yii::app()->search->search($criteria);
 
         $allSearch = $textSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();

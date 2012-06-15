@@ -28,7 +28,7 @@
             </div>
 
             <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
-                <input name="text" type="text" placeholder="Введите ключевое слово в названии рецепта" />
+                <input value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" name="text" type="text" placeholder="Введите ключевое слово в названии рецепта" />
                 <button class="btn btn-purple-medium"><span><span>Найти</span></span></button>
             <?=CHtml::endForm()?>
 

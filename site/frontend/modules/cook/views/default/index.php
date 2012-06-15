@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="add-btn">
-                    <a href="<?=$this->createUrl('/cook/recipe/add')?>" class="btn btn-green-medium"><span><span>Добавить рецепт</span></span></a>
+                    <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/add')?>" class="btn btn-green-medium fancy"><span><span>Добавить рецепт</span></span></a>
                 </div>
 
 

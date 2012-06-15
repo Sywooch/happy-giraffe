@@ -118,7 +118,19 @@ class CookRecipe extends CActiveRecord
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
 			'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
 			'cuisine' => array(self::BELONGS_TO, 'CookCuisine', 'cuisine_id'),
-            'attachPhotos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
+            'attachPhotos' => array(
+                self::HAS_MANY,
+                'AttachPhoto',
+                'entity_id',
+                'on' => 'entity = :entity',
+                'params' => array(':entity' => get_class($this)),
+                'with' => array(
+                    'photo' => array(
+                        'alias' => 'attachPhoto',
+                    ),
+                ),
+                'order' => 'attachPhoto.created ASC',
+            ),
 		);
 	}
 
@@ -238,6 +250,16 @@ class CookRecipe extends CActiveRecord
         return $this->_nutritionals;
     }
 
+    public function getBakeryItems()
+    {
+        return round($this->nutritionals['total']['nutritionals'][4] / 3, 1);
+    }
+
+    public function getSuitableForDiabetics()
+    {
+        return ($this->bakeryItems / $this->servings) < 3;
+    }
+
     public function findByIngredients($ingredients, $type = null, $limit = null)
     {
         $subquery = Yii::app()->db->createCommand()
@@ -318,5 +340,40 @@ class CookRecipe extends CActiveRecord
         );
 
         return CMap::mergeArray($next, $prev);
+    }
+
+    public function getMainPhoto()
+    {
+        if ($this->photo !== null)
+            return $this->photo;
+
+        if (! empty($this->attachPhotos)) {
+            return $this->attachPhotos[0];
+        }
+
+        return null;
+    }
+
+    public function getThumbs()
+    {
+        $thumbs = $this->attachPhotos;
+        if ($this->photo === null) {
+            array_shift($thumbs);
+        }
+
+        return $thumbs;
+    }
+
+    public function getPhotoCollection()
+    {
+        $photos = array();
+        if ($this->photo !== null)  {
+            $photos[] = $this->photo;
+        }
+        foreach ($this->attachPhotos as $p) {
+            $photos[] = $p->photo;
+        }
+
+        return $photos;
     }
 }

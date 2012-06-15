@@ -1,4 +1,8 @@
-<div id="cook" class="clearfix">
+<?php
+/* @var $this Controller
+ * @var CookDecoration[] $decorations
+ */
+?><div id="cook" class="clearfix">
 
 <div class="title">
     <h2>Кулинария <span>Готовьте с Веселым Жирафом!</span></h2>
@@ -114,7 +118,7 @@
 
             <ul class="list">
                 <?php foreach ($decorations as $decoration) { ?>
-                <li><?=$decoration->preview?></li>
+                <li><a href="<?=$decoration->url ?>"><img src="<?=$decoration->photo->getPreviewUrl(240, 160, false, true, AlbumPhoto::CROP_SIDE_TOP)?>" alt="<?=$decoration->title ?>"></a></li>
                 <?php } ?>
             </ul>
 

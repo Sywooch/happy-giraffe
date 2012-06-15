@@ -22,8 +22,8 @@
         <span>Поиск рецепта</span>
         <div class="nav">
             <ul>
-                <li class="active"><a href="">По ингредиентам</a></li>
-                <li><a href="">Расширеный поиск</a></li>
+                <li class="active"><?=CHtml::link('По ингредиентам', '/cook/recipe/searchByIngredients')?></li>
+                <li><?=CHtml::link('Расширеный поиск', '/cook/recipe/advancedSearch')?></li>
             </ul>
         </div>
     </div>

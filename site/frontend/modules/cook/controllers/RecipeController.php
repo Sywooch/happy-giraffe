@@ -9,7 +9,7 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + ac, searchByIngredientsResult'
+            'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult'
         );
     }
 
@@ -86,7 +86,20 @@ class RecipeController extends HController
 
     public function actionAdvancedSearch()
     {
-        $this->render('advancedSearch');
+        $cuisines = CookCuisine::model()->findAll();
+        $this->render('advancedSearch', compact('cuisines'));
+    }
+
+    public function actionAdvancedSearchResult()
+    {
+        foreach (array('cuisine_id', 'type', 'method', 'preparation_duration', 'cooking_duration') as $var) {
+            $$var = ($temp = Yii::app()->request->getQuery($var, '')) == '' ? null : $temp;
+        }
+        foreach (array('lowCal', 'lowFat', 'forDiabetics') as $var) {
+            $$var = (bool) Yii::app()->request->getQuery($var, false);
+        }
+        $recipes = CookRecipe::model()->findAdvanced($cuisine_id, $type, $method, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics);
+        $this->renderPartial('advancedSearchResult', compact('recipes'));
     }
 
     public function actionAc($term)

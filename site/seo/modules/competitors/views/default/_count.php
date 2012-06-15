@@ -6,10 +6,10 @@
 
 $criteria = $model->getCriteriaWithoutFreq();
 $counts = array(
-    1 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(1))),
-    2 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(2))),
-    3 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(3))),
-    4 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keywords::getFreqCondition(4))),
+    1 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keyword::getFreqCondition(1))),
+    2 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keyword::getFreqCondition(2))),
+    3 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keyword::getFreqCondition(3))),
+    4 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreq()->addCondition(Keyword::getFreqCondition(4))),
 );
 ?>
 <div class="result">

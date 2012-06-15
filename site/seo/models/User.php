@@ -12,7 +12,7 @@
  *
  * The followings are the available model relations:
  * @property SeoTask[] $tasks
- * @property TempKeywords[] $tempKeywords
+ * @property TempKeyword[] $tempKeywords
  * @property User $owner
  * @property User[] $users
  */
@@ -117,7 +117,7 @@ class User extends HActiveRecord
     {
         return array(
             'tasks' => array(self::HAS_MANY, 'SeoTask', 'user_id'),
-            'tempKeywords' => array(self::HAS_MANY, 'TempKeywords', 'owner_id'),
+            'tempKeywords' => array(self::HAS_MANY, 'TempKeyword', 'owner_id'),
             'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
             'authors' => array(self::HAS_MANY, 'User', 'owner_id'),
         );
@@ -146,6 +146,14 @@ class User extends HActiveRecord
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function beforeValidate()
+    {
+        if (empty($this->owner_id))
+            $this->owner_id = null;
+
+        return parent::beforeValidate();
     }
 
     public function hashPassword($password)

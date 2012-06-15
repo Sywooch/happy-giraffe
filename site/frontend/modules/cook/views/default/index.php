@@ -138,7 +138,7 @@
                     <div class="user clearfix">
                         <?php
                             $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                                'user' => $recipe->author,
+                                'user' => $post->author,
                                 'size' => 'small',
                                 'location' => false,
                                 'sendButton' => false

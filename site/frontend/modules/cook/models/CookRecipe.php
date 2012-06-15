@@ -476,4 +476,21 @@ class CookRecipe extends CActiveRecord
             $labels[] = $d['label'];
         return $labels;
     }
+
+    public function getCounts()
+    {
+        $_counts = array();
+        foreach ($this->types as $k => $v)
+            $_counts[$k] = 0;
+
+        $counts = Yii::app()->db->createCommand()
+            ->select('type, count(*)')
+            ->from($this->tableName())
+            ->group('type')
+            ->queryAll();
+        foreach ($counts as $c)
+            $_counts[$c['type']] = $c['count(*)'];
+
+        return $_counts;
+    }
 }

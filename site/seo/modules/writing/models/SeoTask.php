@@ -129,7 +129,7 @@ class SeoTask extends CActiveRecord
 
         if ($this->status == self::STATUS_READY) {
             foreach ($this->keywordGroup->keywords as $keyword)
-                TempKeywords::model()->deleteAll('keyword_id=' . $keyword->id);
+                TempKeyword::model()->deleteAll('keyword_id=' . $keyword->id);
         }
 
         return parent::beforeSave();

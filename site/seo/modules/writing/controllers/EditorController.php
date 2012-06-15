@@ -17,7 +17,7 @@ class EditorController extends SController
 
     public function actionIndex()
     {
-        $model = new Keywords();
+        $model = new Keyword();
         $this->render('index', array(
             'model' => $model,
         ));
@@ -27,22 +27,22 @@ class EditorController extends SController
     {
         $term = $_POST['term'];
         if (!empty($term)) {
-            $model = new Keywords;
+            $model = new Keyword;
             $model->name = $term;
 
             $dataProvider = $model->search();
             $criteria = $dataProvider->criteria;
-            $count = Keywords::model()->count($dataProvider->criteria);
+            $count = Keyword::model()->count($dataProvider->criteria);
             $pages = new CPagination($count);
             $pages->pageSize = 100;
             $pages->currentPage = Yii::app()->request->getPost('page');
             $pages->applyLimit($dataProvider->criteria);
 
 
-            $counts = Keywords::model()->getFreqCount($criteria);
+            $counts = Keyword::model()->getFreqCount($criteria);
             $criteria2 = clone $criteria;
             $criteria2->with = array('yandex', 'pastuhovYandex', 'seoStats', 'group', 'tempKeyword');
-            $models = Keywords::model()->findAll($criteria2);
+            $models = Keyword::model()->findAll($criteria2);
             $response = array(
                 'status' => true,
                 'count' => $this->renderPartial('_find_result_count',  compact('models', 'counts'), true),
@@ -65,7 +65,7 @@ class EditorController extends SController
 
     public function actionTasks()
     {
-        $tempKeywords = TempKeywords::model()->findAll('owner_id=' . Yii::app()->user->id);
+        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
         $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status = 0');
 
         $this->render('editor_panel', array(
@@ -77,7 +77,7 @@ class EditorController extends SController
     public function actionRewriteTasks()
     {
         $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status < 5 AND rewrite = 1');
-        $tempKeywords = TempKeywords::model()->findAll('owner_id');
+        $tempKeywords = TempKeyword::model()->findAll('owner_id');
         $success_tasks = SeoTask::TodayExecutedTasks();
 
         $this->render('rewrite_editor_panel', array(
@@ -90,8 +90,8 @@ class EditorController extends SController
     public function actionSelectKeyword()
     {
         $key_id = Yii::app()->request->getPost('id');
-        if (!TempKeywords::model()->exists('keyword_id=' . $key_id)) {
-            $temp = new TempKeywords;
+        if (!TempKeyword::model()->exists('keyword_id=' . $key_id)) {
+            $temp = new TempKeyword;
             $temp->keyword_id = $key_id;
             $temp->owner_id = Yii::app()->user->id;
             echo CJSON::encode(array('status' => $temp->save()));
@@ -102,7 +102,7 @@ class EditorController extends SController
     public function actionCancelSelectKeyword()
     {
         $key_id = Yii::app()->request->getPost('id');
-        TempKeywords::model()->deleteByPk($key_id);
+        TempKeyword::model()->deleteByPk($key_id);
         echo CJSON::encode(array('status' => true));
     }
 
@@ -122,7 +122,7 @@ class EditorController extends SController
         $urls = Yii::app()->request->getPost('urls');
 
         $author_id = Yii::app()->request->getPost('author_id');
-        $keywords = Keywords::model()->findAllByPk($key_ids);
+        $keywords = Keyword::model()->findAllByPk($key_ids);
 
         $group = new KeywordGroup();
         $group->keywords = $keywords;
@@ -187,7 +187,7 @@ class EditorController extends SController
     public function actionRemoveFromSelected()
     {
         $key_id = Yii::app()->request->getPost('id');
-        TempKeywords::model()->deleteByPk($key_id);
+        TempKeyword::model()->deleteByPk($key_id);
         echo CJSON::encode(array('status' => true));
     }
 
@@ -205,7 +205,7 @@ class EditorController extends SController
         foreach ($keywords as $keyword) {
             $keys [] = $keyword->id;
             if ($withKeys)
-                TempKeywords::model()->deleteAll('keyword_id=' . $keyword->id);
+                TempKeyword::model()->deleteAll('keyword_id=' . $keyword->id);
         }
 
         echo CJSON::encode(array('status' => true, 'keys' => $keys));

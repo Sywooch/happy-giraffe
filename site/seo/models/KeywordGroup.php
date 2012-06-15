@@ -8,7 +8,7 @@
  *
  * The followings are the available model relations:
  * @property ArticleKeywords[] $articleKeywords
- * @property Keywords[] $keywords
+ * @property Keyword[] $keywords
  * @property SeoTask[] $seoTasks
  * @property int $newTaskCount
  */
@@ -51,7 +51,7 @@ class KeywordGroup extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'articleKeywords' => array(self::HAS_MANY, 'ArticleKeywords', 'keyword_group_id'),
-			'keywords' => array(self::MANY_MANY, 'Keywords', 'keyword_group_keywords(group_id, keyword_id)'),
+			'keywords' => array(self::MANY_MANY, 'Keyword', 'keyword_group_keywords(group_id, keyword_id)'),
 			'seoTasks' => array(self::HAS_MANY, 'SeoTask', 'keyword_group_id'),
             'newTasks' => array(self::HAS_MANY, 'SeoTask', 'keyword_group_id', 'condition'=>'status = 0 OR status = 1'),
             'newTaskCount' => array(self::STAT, 'SeoTask', 'keyword_group_id', 'condition'=>'status = 0 OR status = 1'),

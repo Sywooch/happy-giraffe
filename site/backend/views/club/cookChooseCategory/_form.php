@@ -33,6 +33,12 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
     </div>
 
     <div class="row">
+        <?php echo $form->labelEx($model, 'description_center'); ?>
+        <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'description_center')); ?>
+        <?php echo $form->error($model, 'description_center'); ?>
+    </div>
+
+    <div class="row">
         <?php echo $form->labelEx($model, 'description_extra'); ?>
         <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'description_extra')); ?>
         <?php echo $form->error($model, 'description_extra'); ?>

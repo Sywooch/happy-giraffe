@@ -22,8 +22,7 @@ class WordstatController extends SController
 
     public function actionWordstatParse(){
         $parser = new WordstatParser();
-        $text = '';
-        $parser->parseData($text);
+        $parser->start(0);
     }
 
     public function actionAddKeywords()
@@ -38,7 +37,7 @@ class WordstatController extends SController
             ->searchRaw();
         $count = 0;
         foreach ($allSearch['matches'] as $key => $m)
-            if (ParsingKeywords::model()->addKeywordByIdNotInYandex($key))
+            if (ParsingKeyword::model()->addKeywordByIdNotInYandex($key))
                 $count++;
 
         echo CJSON::encode(array(
@@ -49,10 +48,10 @@ class WordstatController extends SController
 
     public function actionAddCompetitors()
     {
-        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits WHERE keyword_id NOT IN (SELECT keyword_id from yandex_popularity) ')->queryColumn();
+        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits ')->queryColumn();
         $count = 0;
         foreach ($keywords as $keyword) {
-            if (ParsingKeywords::model()->addKeywordById($keyword))
+            if (ParsingKeyword::model()->addKeywordById($keyword))
                 $count++;
         }
 
@@ -63,7 +62,7 @@ class WordstatController extends SController
     }
 
     public function actionClearParsingKeywords(){
-        ParsingKeywords::model()->deleteAll();
+        ParsingKeyword::model()->deleteAll();
 
         echo CJSON::encode(array('status' => true));
     }
@@ -78,14 +77,14 @@ class WordstatController extends SController
         $criteria->limit = 1000;
         while (!$end) {
             $criteria->condition = 'id >= ' . ($i * 1000) . ' AND id < ' . ($i*1000 + 1000);
-            $models = Keywords::model()->findAll($criteria);
+            $models = Keyword::model()->findAll($criteria);
 
             foreach ($models as $model) {
                 if (preg_match_all('/\+([а-яА-Я]+)/', $model->name, $matches)) {
                     echo $model->name.'<br>';
                     $new_name = str_replace('+', '', $model->name);
 
-                    $keyword = Keywords::model()->findByAttributes(array('name' => $new_name));
+                    $keyword = Keyword::model()->findByAttributes(array('name' => $new_name));
                     if ($keyword !== null) {
                         //$model->delete();
                     } else {

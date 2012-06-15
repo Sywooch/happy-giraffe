@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="wysiwyg-content" class="clearfix">
-                    <?=$model->description_extra;?>
+                    <?=$model->description;?>
                 </div>
 
             </div>

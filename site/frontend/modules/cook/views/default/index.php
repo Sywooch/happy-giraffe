@@ -147,7 +147,7 @@
                     </div>
                     <div class="item-title"><?=CHtml::link($post->title, $post->url)?></div>
                     <div class="meta">
-                        <span class="views">Просмотров:&nbsp;&nbsp;<?=PageView::model()->viewsByPath($c->url, true)?></span><br/>
+                        <span class="views">Просмотров:&nbsp;&nbsp;<?=PageView::model()->viewsByPath($post->url, true)?></span><br/>
                         <span class="comments"><?=CHtml::link('Комментариев:&nbsp;&nbsp;' . $post->commentsCount, $post->getUrl(true, false))?></span>
                         <span class="comments"><a href="">Комментариев:&nbsp;&nbsp;18</a></span>
                     </div>

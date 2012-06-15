@@ -26,6 +26,18 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
         <?php echo $form->error($model, 'title_accusative'); ?>
     </div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model, 'description'); ?>
+        <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'description')); ?>
+        <?php echo $form->error($model, 'description'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'description_extra'); ?>
+        <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'description_extra')); ?>
+        <?php echo $form->error($model, 'description_extra'); ?>
+    </div>
+
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
     </div>

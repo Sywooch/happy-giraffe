@@ -40,11 +40,11 @@
 
                 <div class="all-link">
                     <span>Смотреть</span><br/>
-                    <a href="">все рецепты (5268)</a>
+                    <a href="">все рецепты (<?=$recipesCount?>)</a>
                 </div>
 
                 <div class="add-btn">
-                    <a href="<?=$this->createUrl('/cook/recipe/form')?>" class="btn btn-green-medium"><span><span>Добавить рецепт</span></span></a>
+                    <a href="<?=$this->createUrl('/cook/recipe/add')?>" class="btn btn-green-medium"><span><span>Добавить рецепт</span></span></a>
                 </div>
 
 
@@ -52,26 +52,26 @@
 
             <ul class="list">
 
-                <?php foreach ($recipes as $recipe) { ?>
+                <?php foreach ($recipes as $recipe): ?>
                 <li>
                     <div class="user clearfix">
                         <?php
-                        $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                            'user' => $recipe->author,
-                            'size' => 'small',
-                            'location' => false,
-                            'sendButton' => false
-                        ));
+                            $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                'user' => $recipe->author,
+                                'size' => 'small',
+                                'location' => false,
+                                'sendButton' => false
+                            ));
                         ?>
                     </div>
                     <div class="item-title">
-                        <a href="<?=$recipe->url?>"><?=$recipe->title?></a>
+                        <?=CHtml::link($recipe->title, $recipe->url)?>
                     </div>
                     <div class="content">
-                        <a href=""><?=$recipe->getPreview(175)?></a>
+                        <?=$recipe->getPreview(175)?>
                     </div>
                 </li>
-                <?php } ?>
+                <?php endforeach; ?>
             </ul>
 
         </div>
@@ -133,59 +133,26 @@
         </div>
 
         <ul>
-
-            <li>
-                <div class="user clearfix">
-                    <div class="user-info clearfix">
-                        <a class="ava female small"></a>
-
-                        <div class="details">
-                            <span class="icon-status status-online"></span>
-                            <a href="" class="username">Дарья</a>
-                        </div>
+            <?php foreach ($posts as $post): ?>
+                <li>
+                    <div class="user clearfix">
+                        <?php
+                            $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                'user' => $recipe->author,
+                                'size' => 'small',
+                                'location' => false,
+                                'sendButton' => false
+                            ));
+                        ?>
                     </div>
-                </div>
-                <div class="item-title"><a href="">Проблемы с неврологией и психиатрией в раннем возрасте</a></div>
-                <div class="meta">
-                    <span class="views">Просмотров:&nbsp;&nbsp;465</span><br/>
-                    <span class="comments"><a href="">Комментариев:&nbsp;&nbsp;18</a></span>
-                </div>
-            </li>
-            <li>
-                <div class="user clearfix">
-                    <div class="user-info clearfix">
-                        <a class="ava female small"></a>
-
-                        <div class="details">
-                            <span class="icon-status status-online"></span>
-                            <a href="" class="username">Дарья</a>
-                        </div>
+                    <div class="item-title"><?=CHtml::link($post->title, $post->url)?></div>
+                    <div class="meta">
+                        <span class="views">Просмотров:&nbsp;&nbsp;<?=PageView::model()->viewsByPath($c->url, true)?></span><br/>
+                        <span class="comments"><?=CHtml::link('Комментариев:&nbsp;&nbsp;' . $post->commentsCount, $post->getUrl(true, false))?></span>
+                        <span class="comments"><a href="">Комментариев:&nbsp;&nbsp;18</a></span>
                     </div>
-                </div>
-                <div class="item-title"><a href="">Проблемы с неврологией и психиатрией</a></div>
-                <div class="meta">
-                    <span class="views">Просмотров:&nbsp;&nbsp;465</span><br/>
-                    <span class="comments"><a href="">Комментариев:&nbsp;&nbsp;18</a></span>
-                </div>
-            </li>
-            <li>
-                <div class="user clearfix">
-                    <div class="user-info clearfix">
-                        <a class="ava female small"></a>
-
-                        <div class="details">
-                            <span class="icon-status status-online"></span>
-                            <a href="" class="username">Дарья</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-title"><a href="">Проблемы с неврологией и психиатрией в раннем возрасте</a></div>
-                <div class="meta">
-                    <span class="views">Просмотров:&nbsp;&nbsp;465</span><br/>
-                    <span class="comments"><a href="">Комментариев:&nbsp;&nbsp;18</a></span>
-                </div>
-            </li>
-
+                </li>
+            <?php endforeach; ?>
         </ul>
 
         <div class="all-link"><a href="">Все записи клуба (8 258)</a></div>

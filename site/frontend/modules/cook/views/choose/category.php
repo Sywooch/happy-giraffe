@@ -19,9 +19,13 @@
                 </div>
 
                 <div class="wysiwyg-content" class="clearfix">
-                    <?=$model->description;?>
+                    <i><?=$model->description;?></i>
                 </div>
 
+            </div>
+
+            <div class="wysiwyg-content" class="clearfix">
+                <?=$model->description_center;?>
             </div>
 
             <div class="product-choose-cat-list">
@@ -42,7 +46,6 @@
             <div class="wysiwyg-content">
                 <?=$model->description_extra;?>
             </div>
-
 
         </div>
 

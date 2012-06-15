@@ -1,9 +1,7 @@
 <?php
 
-class m120614_112907_wordstat_parsing_enhance extends CDbMigration
+class m120615_124734_add_seo_migrations_table extends CDbMigration
 {
-    private $_table = 'parsing_keywords';
-
 	public function up()
 	{
         preg_match('/host=([^;]+);/', Yii::app()->db->connectionString, $matches);
@@ -14,15 +12,17 @@ class m120614_112907_wordstat_parsing_enhance extends CDbMigration
         if (mysql_select_db('happy_giraffe_seo', $lnk)) {
             $this->setDbConnection(Yii::app()->db_seo);
 
-            $this->addColumn($this->_table, 'depth', 'tinyint default NULL');
-            $this->_table = 'keywords';
-            $this->addColumn($this->_table, 'our', 'tinyint(1)');
+            $this->execute('CREATE TABLE IF NOT EXISTS tbl_migration (
+              version varchar(255) NOT NULL,
+              apply_time int(11) DEFAULT NULL,
+              PRIMARY KEY (version)
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=42;');
         }
 	}
 
 	public function down()
 	{
-		echo "m120614_112907_wordstat_parsing_enhance does not support migration down.\n";
+		echo "m120615_124734_add_seo_migrations_table does not support migration down.\n";
 		return false;
 	}
 

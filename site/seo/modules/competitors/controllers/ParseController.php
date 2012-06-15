@@ -411,7 +411,7 @@ class ParseController extends SController
                         continue;
 
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
-                    $keyword_model = Keywords::GetKeyword($keyword);
+                    $keyword_model = Keyword::GetKeyword($keyword);
                     SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, str_replace(',', '', $stats));
                     $count++;
                 }

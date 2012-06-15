@@ -62,7 +62,7 @@
 
             <div class="main-in">
 
-                <div class="hrecipe">
+                <div class="hrecipe clearfix">
 
                     <h1 class="fn"><?=$recipe->title?></h1>
 

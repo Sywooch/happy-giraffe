@@ -52,8 +52,18 @@ var Converter = {
     },
 
     Calculate:function () {
+        if (isNaN(parseInt($('#ConverterForm_ingredient').val())))
+            return false;
+        if ($('#ConverterForm_qty').val()=='')
+            return false;
+
         $('.drp-list ul').hide();
         $('#ac').val($('#ac').attr('data-title'));
+        $("#converter-form").submit();
+        return false;
+    },
+
+    CalculatePost:function(){
         $.post(
             $("#converter-form").attr('action'),
             $("#converter-form").serialize(),
@@ -61,8 +71,6 @@ var Converter = {
                 $('.value.current').text(data);
             }
         );
-
-        return false;
     },
 
     saveResult:function () {
@@ -70,16 +78,38 @@ var Converter = {
             && parseFloat($('#ConverterForm_qty').val()) > 0
             && parseFloat($('span.value.current').text()) > 0
             ) {
-            $('.saved-calculations ul li.template').clone().prependTo('.saved-calculations ul');
-            var result = $('.saved-calculations ul li.template').first();
-            result.removeClass('template');
-            result.find('.product-name').text($('#ac').attr('data-title'));
-            result.find('.qty').text($('#ConverterForm_qty').val());
-            result.find('.unit_from').text($('.trigger.from').text());
-            result.find('.unit_to').text($('.trigger.to').text());
-            result.find('.qty_result').text($('span.value.current').text());
-            result.show();
+
+            var hash = $('#ac').attr('data-unit_id') + $('#ConverterForm_qty').val() + $('.trigger.from').attr('data-id') + $('.trigger.to').attr('data-id');//  + $('.trigger.from').to('data-id');
+
+            if ($('.saved-calculations ul li[data-hash="' + hash + '"]').length == 0) {
+                $('.saved-calculations ul li.template').clone().prependTo('.saved-calculations ul');
+                var result = $('.saved-calculations ul li.template').first();
+                result.attr('data-hash', hash);
+                result.removeClass('template');
+                result.find('.product-name').text($('#ac').attr('data-title'));
+                result.find('.qty').text($('#ConverterForm_qty').val());
+                result.find('.unit_from').text($('.trigger.from').text());
+                result.find('.unit_to').text($('.trigger.to').text());
+                result.find('.qty_result').text($('span.value.current').text());
+                result.show();
+            }
         }
+    },
+
+    clear:function () {
+        $('#ac').val('').attr('data-id', '').attr('data-title', '');
+        $('#ConverterForm_ingredient').val('');
+        $('#ConverterForm_qty').val('');
+        $('.value.current').text('');
+        $('.trigger.from').attr('data-id', 1);
+        $('.trigger.from').prev().val(1);
+        $('.trigger.from').text('грамм');
+
+        $('.trigger.to').attr('data-id', 1);
+        $('.trigger.to').prev().val(1);
+        $('.trigger.to').text('грамм');
+        $('.drp-list ul li').hide();
+        $('.drp-list ul').hide();
     }
 }
 

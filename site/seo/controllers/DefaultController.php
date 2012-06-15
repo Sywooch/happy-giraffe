@@ -83,9 +83,9 @@ class DefaultController extends SController
                     $key2 = trim($key2);
                     if (!empty($key2)) {
                         $final_keyword_name = mb_strtolower(trim($key2), 'utf8');
-                        $final_keyword = Keywords::model()->findByAttributes(array('name' => $final_keyword_name));
+                        $final_keyword = Keyword::model()->findByAttributes(array('name' => $final_keyword_name));
                         if ($final_keyword === null) {
-                            $final_keyword = new Keywords;
+                            $final_keyword = new Keyword;
                             $final_keyword->name = $final_keyword_name;
                             $final_keyword->save();
                         }

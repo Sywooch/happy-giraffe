@@ -381,7 +381,7 @@ class CookRecipe extends CActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'limit' => $limit,
-            'order' => 'created DESC',
+            'order' => 't.created DESC',
             'with' => 'photo',
         ));
 

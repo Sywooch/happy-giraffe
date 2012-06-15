@@ -2,7 +2,7 @@
     $this->widget('zii.widgets.CListView', array(
         'ajaxUpdate' => false,
         'dataProvider' => $dataProvider,
-        'itemView' => '_recipe',
+        'itemView' => '_search',
         'summaryText' => 'Показано: {start}-{end} из {count}',
         'pager' => array(
             'class' => 'AlbumLinkPager',

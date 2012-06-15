@@ -15,7 +15,7 @@
  * @property CookIngredientSynonyms[] $cookIngredientSynonyms
  * @property CookIngredientCategory $category
  * @property CookUnit $unit
- * @property CookIngredientsNutritionals[] $nutritionals
+ * @property CookIngredientNutritional[] $nutritionals
  */
 class CookIngredient extends HActiveRecord
 {

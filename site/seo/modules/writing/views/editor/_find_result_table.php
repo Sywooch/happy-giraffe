@@ -1,6 +1,6 @@
 <?php
 /* @var $this Controller
- * @var $models Keywords[]
+ * @var $models Keyword[]
  */
 foreach ($models as $model):?>
 <tr id="key-<?=$model->id ?>" class="<?=$model->getClass() ?>">

@@ -9,7 +9,7 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + ac, searchResult'
+            'ajaxOnly + ac, searchByIngredientsResult'
         );
     }
 
@@ -34,6 +34,7 @@ class RecipeController extends HController
         }
 
         if (isset($_POST['CookRecipe'])) {
+            $ingredients = array();
             $recipe->attributes = $_POST['CookRecipe'];
             if ($recipe->isNewRecord)
                 $recipe->author_id = Yii::app()->user->id;
@@ -69,18 +70,23 @@ class RecipeController extends HController
     }
 
 
-    public function actionSearch()
+    public function actionSearchByIngredients()
     {
-        $this->render('search');
+        $this->render('searchByIngredients');
     }
 
-    public function actionSearchResult()
+    public function actionSearchByIngredientsResult()
     {
         $ingredients = Yii::app()->request->getQuery('ingredients', array());
         $type = Yii::app()->request->getQuery('type', null);
         $ingredients = array_filter($ingredients);
         $recipes = CookRecipe::model()->findByIngredients($ingredients, $type);
-        $this->renderPartial('searchResult', compact('recipes', 'type'));
+        $this->renderPartial('searchByIngredientsResult', compact('recipes', 'type'));
+    }
+
+    public function actionAdvancedSearch()
+    {
+        $this->render('advancedSearch');
     }
 
     public function actionAc($term)

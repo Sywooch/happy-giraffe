@@ -39,7 +39,7 @@ class RecipeController extends HController
             if ($recipe->isNewRecord)
                 $recipe->author_id = Yii::app()->user->id;
             foreach ($_POST['CookRecipeIngredient'] as $i) {
-                if (! empty($i['ingredient_id']) || ! empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
+                if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
                     $ingredient = new CookRecipeIngredient;
                     $ingredient->attributes = $i;
                     $ingredient->recipe_id = $recipe->id;
@@ -69,6 +69,29 @@ class RecipeController extends HController
         $this->render('view', compact('recipe'));
     }
 
+    public function actionSearch($text = false)
+    {
+        $pages = new CPagination();
+        $pages->pageSize = 100000;
+        $criteria = new stdClass();
+        $criteria->from = 'recipe';
+        $criteria->select = '*';
+        $criteria->paginator = $pages;
+        $criteria->query = ' ' . $text . ' ';
+        $resIterator = Yii::app()->search->search($criteria);
+
+        $allSearch = $textSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
+        $allCount = count($allSearch['matches']);
+
+        $criteria = new CDbCriteria;
+
+        $dataProvider = new CArrayDataProvider($resIterator->getRawData(), array(
+            'keyField' => 'id',
+        ));
+
+        $this->render('search', compact('dataProvider', 'criteria', 'text', 'allCount'));
+    }
+
 
     public function actionSearchByIngredients()
     {
@@ -96,7 +119,7 @@ class RecipeController extends HController
             $$var = ($temp = Yii::app()->request->getQuery($var, '')) == '' ? null : $temp;
         }
         foreach (array('lowCal', 'lowFat', 'forDiabetics1', 'forDiabetics2') as $var) {
-            $$var = (bool) Yii::app()->request->getQuery($var);
+            $$var = (bool)Yii::app()->request->getQuery($var);
         }
         $forDiabetics = $forDiabetics1 || $forDiabetics2;
 

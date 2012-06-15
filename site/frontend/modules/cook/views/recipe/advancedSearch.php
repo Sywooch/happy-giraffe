@@ -73,17 +73,22 @@
             <div class="radiogroup">
 
                 <span class="checkbox">
-                    <?=CHtml::checkbox('forDiabetics')?>
+                    <?=CHtml::checkbox('forDiabetics1', false, array('uncheckValue' => false))?>
                     <label>Для диабетиков</label>
                 </span>
 
                 <span class="checkbox">
-                    <?=CHtml::checkbox('lowCal')?>
+                    <?=CHtml::checkbox('lowCal', false, array('uncheckValue' => false))?>
                     <label>Низкокалорийные</label>
                 </span>
 
                 <span class="checkbox">
-                    <?=CHtml::checkbox('lowFat')?>
+                    <?=CHtml::checkbox('forDiabetics2', false, array('uncheckValue' => false))?>
+                    <label>Низкоуглеводные</label>
+                </span>
+
+                <span class="checkbox">
+                    <?=CHtml::checkbox('lowFat', false, array('uncheckValue' => false))?>
                     <label>Низкожирные</label>
                 </span>
 

@@ -55,6 +55,34 @@ class CookRecipe extends CActiveRecord
         13 => 'На углях',
     );
 
+    public $durations = array(
+        array(
+            'label' => 'Меньше чем 15 мин',
+            'min' => null,
+            'max' => 15,
+        ),
+        array(
+            'label' => '15-30 мин',
+            'min' => 15,
+            'max' => 30,
+        ),
+        array(
+            'label' => '30-60 мин',
+            'min' => 30,
+            'max' => 60,
+        ),
+        array(
+            'label' => '1 час - 2 часа',
+            'min' => 60,
+            'max' => 120,
+        ),
+        array(
+            'label' => 'Более 2 часов',
+            'min' => 120,
+            'max' => null,
+        ),
+    );
+
     public $preparation_duration_h;
     public $preparation_duration_m;
     public $cooking_duration_h;
@@ -258,6 +286,32 @@ class CookRecipe extends CActiveRecord
     public function getSuitableForDiabetics()
     {
         return ($this->bakeryItems / $this->servings) < 3;
+    }
+
+    public function findAdvanced($cuisine_id, $type, $method,  $preparation_duration, $cooking_duration, $forDiabetics, $lowCalorie, $lowCarbohydrate, $lowFat)
+    {
+        $criteria = new CDbCriteria;
+
+        if ($cuisine_id !== null)
+            $criteria->compare('cuisine_id', $cuisine_id);
+        if ($type !== null)
+            $criteria->compare('type', $type);
+        if ($method !== null)
+            $criteria->compare('method', $method);
+
+        if ($preparation_duration !== null) {
+            if ($this->durations[$preparation_duration]['min'] !== null)
+                $criteria->compare('preparation_duration', '>=' . $preparation_duration['min']);
+            if ($this->durations[$preparation_duration]['max'] !== null)
+                $criteria->compare('preparation_duration', '<' . $preparation_duration['max']);
+        }
+
+        if ($cooking_duration !== null) {
+            if ($this->durations[$cooking_duration]['min'] !== null)
+                $criteria->compare('cooking_duration', '>=' . $cooking_duration['min']);
+            if ($this->durations[$cooking_duration]['max'] !== null)
+                $criteria->compare('cooking_duration', '<' . $cooking_duration['max']);
+        }
     }
 
     public function findByIngredients($ingredients, $type = null, $limit = null)

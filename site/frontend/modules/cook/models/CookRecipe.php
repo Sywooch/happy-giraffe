@@ -468,4 +468,12 @@ class CookRecipe extends CActiveRecord
 
         return $this->findAll($criteria);
     }
+
+    public function getDurationLabels()
+    {
+        $labels = array();
+        foreach ($this->durations as $d)
+            $labels[] = $d['label'];
+        return $labels;
+    }
 }

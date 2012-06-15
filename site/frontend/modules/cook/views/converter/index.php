@@ -48,7 +48,7 @@ $units = CookUnit::model()->findAll(array('order' => 'title'));
             <div class="values">
 
                 <div class="input">
-                    <?php echo $form->textField($model, 'qty', array('onkeyup' => 'Converter.Calculate();', 'placeholder' => 0)); ?>
+                    <?php echo $form->textField($model, 'qty', array('onkeyup' => 'Converter.Calculate();', 'placeholder' => 0, 'onkeypress' => 'return Converter.qtyInput(event);')); ?>
                     <br/>
                     Введите кол-во
                 </div>

@@ -1,15 +1,34 @@
-<?php
-$this->breadcrumbs=array(
-	$this->module->id,
-);
-?>
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
+<h2>Рецепты</h2>
 
-<p>
-This is the view content for action "<?php echo $this->action->id; ?>".
-The action belongs to the controller "<?php echo get_class($this); ?>"
-in the "<?php echo $this->module->id; ?>" module.
-</p>
-<p>
-You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
-</p>
+<?php
+foreach ($recipes as $recipe) {
+    ?>
+<div>
+    <div class="user clearfix">
+        <?php
+        $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+            'user' => $recipe->author,
+            'size' => 'small',
+            'location' => false,
+            'sendButton' => false
+        ));
+        ?>
+    </div>
+    <h3><a href="<?=$recipe->url?>"><?=$recipe->title?></a></h3>
+</div>
+<?php
+}
+
+?>
+<h2>оформления</h2>
+<?php
+
+foreach ($decorations as $decoration) {
+    ?>
+<div>
+    <h3><?=$decoration->title?></h3>
+</div>
+<?php
+}
+
+?>

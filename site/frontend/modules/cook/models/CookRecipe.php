@@ -376,4 +376,13 @@ class CookRecipe extends CActiveRecord
 
         return $photos;
     }
+
+    public function getLastRecipes($limit = 9){
+
+        $criteria = new CDbCriteria;
+        $criteria->limit = $limit;
+        $criteria->order = 'created DESC';
+
+        return $this->findAll($criteria);
+    }
 }

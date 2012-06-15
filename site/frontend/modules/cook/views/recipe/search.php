@@ -12,4 +12,8 @@
                     {pager}
                 </div>
             ',
+        'viewData' => array(
+            'search_text' => $text,
+            'criteria' => $criteria,
+        )
     ));

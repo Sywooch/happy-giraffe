@@ -3983,7 +3983,7 @@ ul.letters li a:hover {
 #measure .calculator .product input {padding:8px 10px;border:1px solid #a9c8f3;margin:0;font-size:16px;line-height:22px;font-weight:bold;color:#598dd6;width:730px;}
 #measure .calculator .values {padding-bottom:40px;}
 #measure .calculator .values * {vertical-align:middle;}
-#measure .calculator .values input {padding:2px 10px;border:1px solid #a9c8f3;margin:0;font-size:30px;line-height:30px;color:#575757;width:70px;text-align:center;margin-right:20px;}
+#measure .calculator .values input {padding:2px 10px;border:1px solid #a9c8f3;margin:0;font-size:30px;line-height:30px;color:#575757;width:100px;text-align:center;margin-right:20px;}
 #measure .calculator .equal {display:inline-block;width:23px;height:32px;background:url(/images/cook_sprite.png) no-repeat -42px -1px;margin:0 30px;}
 #measure .calculator .equal:hover {background-position:-67px -1px;}
 #measure .calculator .value {color:#585757;font-size:30px;margin-right:20px;}
@@ -4011,7 +4011,7 @@ ul.letters li a:hover {
 .drp-list {display:inline-block;position:relative;font-size:13px;}
 .drp-list a.trigger {text-decoration:none;border-bottom:1px dashed #598DD6;color:#598DD6;font-size:16px;position:relative;z-index:1;}
 .drp-list a.trigger:hover {border:0;}
-.drp-list ul {padding:2px;border:1px solid #A9C8F3;position:absolute;top:100%;list-style:none;background:#fff;margin-top:5px;z-index:2;}
+.drp-list ul {padding:2px;border:1px solid #A9C8F3;position:absolute;top:100%;list-style:none;background:#fff;margin-top:5px;z-index:2; width:120px}
 .drp-list ul li a {display:block;padding:1px 10px 1px;text-decoration:none;color:#4b4d4d;}
 .drp-list ul li a:hover {background:#6db4d9;color:#fff;}
 

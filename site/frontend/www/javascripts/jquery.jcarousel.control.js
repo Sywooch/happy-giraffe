@@ -14,17 +14,22 @@ jCarousel.plugin('control', function($) {
     return {
         options: {
             target: '+=1',
-            event:  'click'
+            event:  'click',
+            fullScroll : false
         },
         active: null,
         _init: function() {
+            var $this = this;
             this.carousel()
                 ._bind('reloadend.' + this.pluginName, jCarousel.proxy(this.reload, this))
                 ._bind('scrollend.' + this.pluginName, jCarousel.proxy(this.reload, this));
-
             this.element()
                 .bind(this.option('event') + '.' + this.pluginName, jCarousel.proxy(function(e) {
                     e.preventDefault();
+                    if($this.options.fullScroll) {
+                        this.options.target = this.options.target.split('=')[0] + '=';
+                        this.options.target += $('.jcarousel-item-visible', $this.carousel()._element).size();
+                    }
                     this.carousel().scroll(this.option('target'));
                 }, this));
 

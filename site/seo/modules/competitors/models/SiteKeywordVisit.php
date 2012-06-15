@@ -23,7 +23,7 @@
  * @property integer $year
  *
  * The followings are the available model relations:
- * @property Keywords $keyword
+ * @property Keyword $keyword
  * @property Site $site
  */
 class SiteKeywordVisit extends HActiveRecord
@@ -83,7 +83,7 @@ class SiteKeywordVisit extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
+            'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
             'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
         );
     }
@@ -137,7 +137,7 @@ class SiteKeywordVisit extends HActiveRecord
         $criteria = $this->getCriteriaWithoutFreq();
 
         if (!empty($this->freq)) {
-            $condition = Keywords::getFreqCondition($this->freq);
+            $condition = Keyword::getFreqCondition($this->freq);
             if (!empty($criteria->condition)) {
                 $criteria->condition .= ' AND ' . $condition;
             } else
@@ -182,7 +182,7 @@ class SiteKeywordVisit extends HActiveRecord
         $criteria->compare('year', $this->year);
         if (!empty($this->key_name)) {
             if ($this->temp_ids === null)
-                $this->temp_ids = Keywords::findSiteIdsByNameWithSphinx($this->key_name);
+                $this->temp_ids = Keyword::findSiteIdsByNameWithSphinx($this->key_name);
 
             if (empty($this->temp_ids))
                 $criteria->condition .= ' AND keyword.id = 0';

@@ -8,7 +8,7 @@
  *
  * The followings are the available model relations:
  * @property ArticleKeywords[] $articleKeywords
- * @property Keywords[] $keywords
+ * @property Keyword[] $keywords
  * @property SeoTask[] $seoTasks
  * @property int $newTaskCount
  */

@@ -22,10 +22,10 @@
 
             </div>
 
-            <form>
+            <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
                 <input type="text" placeholder="Введите ключевое слово в названии рецепта"/>
                 <button class="btn btn-purple-medium"><span><span>Найти</span></span></button>
-            </form>
+            <?=CHtml::endForm()?>
 
         </div>
 
@@ -40,7 +40,7 @@
 
                 <div class="all-link">
                     <span>Смотреть</span><br/>
-                    <a href="">все рецепты (<?=$recipesCount?>)</a>
+                    <?=CHtml::link('все рецепты (' . $recipesCount . ')', '/cook/recipe')?>
                 </div>
 
                 <div class="add-btn">

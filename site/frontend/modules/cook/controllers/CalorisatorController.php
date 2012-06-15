@@ -27,4 +27,5 @@ class CalorisatorController extends HController
         header('Content-type: application/json');
         echo CJSON::encode($result);
     }
+
 }

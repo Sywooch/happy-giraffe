@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'seo_keywords':
  * @property integer $id
  * @property string $name
+ * @property string $our
  *
  * The followings are the available model relations:
  * @property KeyStats[] $seoStats
@@ -13,15 +14,15 @@
  * @property PastuhovYandexPopularity $pastuhovYandex
  * @property KeywordBlacklist $keywordBlacklist
  * @property YandexPopularity $yandex
- * @property TempKeywords $tempKeyword
+ * @property TempKeyword $tempKeyword
  */
-class Keywords extends HActiveRecord
+class Keyword extends HActiveRecord
 {
     public $btns;
 
     /**
      * Returns the static model of the specified AR class.
-     * @return Keywords the static model class
+     * @return Keyword the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -48,7 +49,7 @@ class Keywords extends HActiveRecord
     {
         return array(
             array('name', 'length', 'max' => 1024),
-            array('id, name', 'safe', 'on' => 'search'),
+            array('id, name, our', 'safe', 'on' => 'search'),
         );
     }
 
@@ -62,7 +63,7 @@ class Keywords extends HActiveRecord
             'group' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'pastuhovYandex' => array(self::HAS_ONE, 'PastuhovYandexPopularity', 'keyword_id'),
             'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
-            'tempKeyword' => array(self::HAS_ONE, 'TempKeywords', 'keyword_id'),
+            'tempKeyword' => array(self::HAS_ONE, 'TempKeyword', 'keyword_id'),
             'keywordBlacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
         );
     }
@@ -109,7 +110,7 @@ class Keywords extends HActiveRecord
         $criteria->with = array('yandex');
         $criteria->order = 'yandex.value desc';
 
-        return new CActiveDataProvider('Keywords', array(
+        return new CActiveDataProvider('Keyword', array(
             'criteria' => $criteria,
         ));
     }
@@ -147,7 +148,7 @@ class Keywords extends HActiveRecord
     /**
      * @static
      * @param string $word
-     * @return Keywords
+     * @return Keyword
      * @throws CHttpException
      */
     public static function GetKeyword($word)
@@ -157,7 +158,7 @@ class Keywords extends HActiveRecord
         if ($model !== null)
             return $model;
 
-        $model = new Keywords();
+        $model = new Keyword();
         $model->name = $word;
         if (!$model->save())
             throw new CHttpException(404, 'Кейворд не сохранен. ' . $word);
@@ -267,11 +268,11 @@ class Keywords extends HActiveRecord
      */
     public function getFreqCount($criteria)
     {
-        $counts = array(0 => Keywords::model()->count($criteria));
+        $counts = array(0 => Keyword::model()->count($criteria));
 
         for ($i = 1; $i < 5; $i++) {
             $criteria2 = clone $criteria;
-            $counts[$i] = Keywords::model()->count($criteria2->addCondition(Keywords::getFreqCondition($i)));
+            $counts[$i] = Keyword::model()->count($criteria2->addCondition(Keyword::getFreqCondition($i)));
         }
         return $counts;
     }

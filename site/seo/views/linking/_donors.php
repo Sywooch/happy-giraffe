@@ -26,7 +26,7 @@ foreach ($article_keyword->keywordGroup->keywords as $keyword) {
             $allSearch = Yii::app()->search->select('*')->from('keywords')->where('* ' . $keyword->name . ' *')->limit(0, 30)->searchRaw();
 
             foreach ($allSearch['matches'] as $key => $m) {
-                $keyword = Keywords::model()->findByPk(trim($key));
+                $keyword = Keyword::model()->findByPk(trim($key));
                 if ($keyword !== null && !$linkingPage->hasLinkKeyword($key)) {
                     ?>
 

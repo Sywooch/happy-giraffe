@@ -122,28 +122,28 @@
                                         <i>К</i>
                                         Калории
                                     </div>
-                                    <span class="calories"><?=$recipe->nutritionals['g100']['nutritionals'][1]?></span> <span class="gray">ккал.</span>
+                                    <span class="calories"><?=$recipe->getNutritionalsPer100g(1)?></span> <span class="gray">ккал.</span>
                                 </li>
                                 <li class="n-protein">
                                     <div class="icon">
                                         <i>Б</i>
                                         Белки
                                     </div>
-                                    <span class="protein"><?=$recipe->nutritionals['g100']['nutritionals'][3]?></span> <span class="gray">г.</span>
+                                    <span class="protein"><?=$recipe->getNutritionalsPer100g(3)?></span> <span class="gray">г.</span>
                                 </li>
                                 <li class="n-fat">
                                     <div class="icon">
                                         <i>Ж</i>
                                         Жиры
                                     </div>
-                                    <span class="fat"><?=$recipe->nutritionals['g100']['nutritionals'][2]?></span> <span class="gray">г.</span>
+                                    <span class="fat"><?=$recipe->getNutritionalsPer100g(2)?></span> <span class="gray">г.</span>
                                 </li>
                                 <li class="n-carbohydrates">
                                     <div class="icon">
                                         <i>У</i>
                                         Углеводы
                                     </div>
-                                    <span class="carbohydrates"><?=$recipe->nutritionals['g100']['nutritionals'][4]?></span> <span class="gray">г.</span>
+                                    <span class="carbohydrates"><?=$recipe->getNutritionalsPer100g(4)?></span> <span class="gray">г.</span>
                                 </li>
 
                             </ul>
@@ -154,35 +154,35 @@
                                         <i>К</i>
                                         Калории
                                     </div>
-                                    <span class="calories"><?=$recipe->nutritionals['total']['nutritionals'][1]?></span> <span class="gray">ккал.</span>
+                                    <span class="calories"><?=$recipe->getNutritionalsPerServing(1)?></span> <span class="gray">ккал.</span>
                                 </li>
                                 <li class="n-protein">
                                     <div class="icon">
                                         <i>Б</i>
                                         Белки
                                     </div>
-                                    <span class="protein"><?=$recipe->nutritionals['total']['nutritionals'][3]?></span> <span class="gray">г.</span>
+                                    <span class="protein"><?=$recipe->getNutritionalsPerServing(3)?></span> <span class="gray">г.</span>
                                 </li>
                                 <li class="n-fat">
                                     <div class="icon">
                                         <i>Ж</i>
                                         Жиры
                                     </div>
-                                    <span class="fat"><?=$recipe->nutritionals['total']['nutritionals'][2]?></span> <span class="gray">г.</span>
+                                    <span class="fat"><?=$recipe->getNutritionalsPerServing(2)?></span> <span class="gray">г.</span>
                                 </li>
                                 <li class="n-carbohydrates">
                                     <div class="icon">
                                         <i>У</i>
                                         Углеводы
                                     </div>
-                                    <span class="carbohydrates"><?=$recipe->nutritionals['total']['nutritionals'][4]?></span> <span class="gray">г.</span>
+                                    <span class="carbohydrates"><?=$recipe->getNutritionalsPerServing(4)?></span> <span class="gray">г.</span>
                                 </li>
 
                             </ul>
 
                         </div>
 
-                        <?php if ($recipe->suitableForDiabetics): ?>
+                        <?php if ($recipe->forDiabetics): ?>
                             <div class="nutrition diabetes">
 
                                 <div class="block-title">Подходит для диабетики</div>

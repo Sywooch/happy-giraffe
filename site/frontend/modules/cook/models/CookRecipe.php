@@ -25,6 +25,10 @@
  */
 class CookRecipe extends CActiveRecord
 {
+    const COOK_RECIPE_LOWFAT = 11;
+    const COOK_RECIPE_LOWCAL = 40;
+    const COOK_RECIPE_FORDIABETICS = 33;
+
     public $types = array(
         1 => 'Первые блюда',
         2 => 'Вторые блюда',
@@ -57,22 +61,22 @@ class CookRecipe extends CActiveRecord
 
     public $durations = array(
         array(
-            'label' => 'Меньше чем 15 мин',
+            'label' => 'Меньше чем 15 минут',
             'min' => null,
             'max' => 15,
         ),
         array(
-            'label' => '15-30 мин',
+            'label' => 'От 15 до 30 минут',
             'min' => 15,
             'max' => 30,
         ),
         array(
-            'label' => '30-60 мин',
+            'label' => 'От 30 до 60 минут',
             'min' => 30,
             'max' => 60,
         ),
         array(
-            'label' => '1 час - 2 часа',
+            'label' => 'От 1 часа до 2 часов',
             'min' => 60,
             'max' => 120,
         ),
@@ -257,6 +261,10 @@ class CookRecipe extends CActiveRecord
             CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
         }
 
+        $this->lowFat = $this->getNutritionalsPerServing(2) <= self::COOK_RECIPE_LOWFAT;
+        $this->forDiabetics = $this->getNutritionalsPerServing(4) <= self::COOK_RECIPE_FORDIABETICS;
+        $this->lowCal = $this->getNutritionalsPer100g(1) <= self::COOK_RECIPE_LOWCAL;
+
         return parent::beforeSave();
     }
 
@@ -278,17 +286,22 @@ class CookRecipe extends CActiveRecord
         return $this->_nutritionals;
     }
 
+    public function getNutritionalsPer100g($nutritional_id)
+    {
+        return $this->nutritionals['g100']['nutritionals'][$nutritional_id];
+    }
+
+    public function getNutritionalsPerServing($nutritional_id)
+    {
+        return round($this->nutritionals['total']['nutritionals'][$nutritional_id] / $this->servings, 1);
+    }
+
     public function getBakeryItems()
     {
-        return round($this->nutritionals['total']['nutritionals'][4] / 3, 1);
+        return round($this->getNutritionalsPerServing(4) / 11, 1);
     }
 
-    public function getSuitableForDiabetics()
-    {
-        return ($this->bakeryItems / $this->servings) < 3;
-    }
-
-    public function findAdvanced($cuisine_id, $type, $method,  $preparation_duration, $cooking_duration, $forDiabetics, $lowCalorie, $lowCarbohydrate, $lowFat)
+    public function findAdvanced($cuisine_id, $type, $method,  $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics)
     {
         $criteria = new CDbCriteria;
 
@@ -312,6 +325,20 @@ class CookRecipe extends CActiveRecord
             if ($this->durations[$cooking_duration]['max'] !== null)
                 $criteria->compare('cooking_duration', '<' . $cooking_duration['max']);
         }
+
+        if ($lowFat) {
+            $criteria->compare('lowFat', 1);
+        }
+
+        if ($lowCal) {
+            $criteria->compare('lowCal', 1);
+        }
+
+        if ($forDiabetics) {
+            $criteria->compare('forDiabetics', 1);
+        }
+
+        return $this->findAll($criteria);
     }
 
     public function findByIngredients($ingredients, $type = null, $limit = null)

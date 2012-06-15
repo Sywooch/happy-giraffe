@@ -13,8 +13,8 @@
             <div class="title">
 
                 <div class="links">
-                    <a href="">По ингредиентам</a>
-                    <a href="">Расширеный поиск</a>
+                    <?=CHtml::link('По ингредиентам', '/cook/recipe/searchByIngredients')?>
+                    <?=CHtml::link('Расширеный поиск', '/cook/recipe/advancedSearch')?>
                 </div>
 
                 <i class="icon"></i>

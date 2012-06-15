@@ -5,7 +5,7 @@
     $cs = Yii::app()->clientScript;
 
     $cs
-        ->registerScriptFile($baseUrl . '/search.js', CClientScript::POS_HEAD)
+        ->registerScriptFile($baseUrl . '/searchByIngredients.js', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
         ->registerCoreScript('jquery.ui')
         ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');
@@ -22,8 +22,8 @@
         <span>Поиск рецепта</span>
         <div class="nav">
             <ul>
-                <li class="active"><a href="">По ингредиентам</a></li>
-                <li><a href="">Расширеный поиск</a></li>
+                <li class="active"><?=CHtml::link('По ингредиентам', '/cook/recipe/searchByIngredients')?></li>
+                <li><?=CHtml::link('Расширеный поиск', '/cook/recipe/advancedSearch')?></li>
             </ul>
         </div>
     </div>

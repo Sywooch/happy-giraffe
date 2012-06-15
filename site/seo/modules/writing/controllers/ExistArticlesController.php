@@ -16,11 +16,6 @@ class ExistArticlesController extends SController
 
     public function actionIndex()
     {
-        /*$ids = Yii::app()->db_seo->createCommand('select id from article_keywords ORDER BY id ASC')->queryColumn();
-        for($i=0;$i<count($ids);$i++){
-            Yii::app()->db_seo->createCommand()->update('article_keywords', array('number'=>$i+1), 'id='.$ids[$i]);
-        }*/
-
         $models = ArticleKeywords::model()->with(array('keywordGroup', 'keywordGroup.keywords'))->findAll(array('order' => 't.id desc', 'limit'=>500));
         $this->render('index', compact('models'));
     }
@@ -69,7 +64,7 @@ class ExistArticlesController extends SController
 
                     $keyword = mb_strtolower($keyword, 'utf8');
                     if (!empty($keyword)) {
-                        $model = Keywords::GetKeyword($keyword);
+                        $model = Keyword::GetKeyword($keyword);
                         if (!empty($model->group)) {
                             $response = array(
                                 'status' => false,

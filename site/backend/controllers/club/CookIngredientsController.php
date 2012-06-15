@@ -221,13 +221,13 @@ class CookIngredientsController extends BController
                     );
                 }
 
-                if ($unit->type == 'volume' and $ingredient->density == 0) {
+                if ($unit->type == 'volume' && $ingredient->density == 0) {
                     $response['error'] .= '<strong>' . $unit->title . '</strong> недопустима т.к. не задана плотность ингредиента<br>';
                     if ($model->id)
                         $model->delete();
                     continue;
                 }
-                if (($unit->type == 'qty') and !$_POST['units'][$unit->id]['weight']) {
+                if (($unit->type == 'qty') && !isset($_POST['units'][$unit->id]['weight'])) {
                     $response['error'] .= '<strong>' . $unit->title . '</strong> недопустима т.к. не указан вес для этой ед.изм.<br>';
                     if ($model->id)
                         $model->delete();

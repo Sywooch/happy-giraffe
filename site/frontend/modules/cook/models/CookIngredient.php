@@ -10,11 +10,13 @@
  * @property string $title
  * @property string $density
  * @property string $src
+ * @property string $checked
  *
  * The followings are the available model relations:
- * @property CookIngredientSynonyms[] $cookIngredientSynonyms
+ * @property CookIngredientSynonym[] $synonyms
  * @property CookIngredientCategory $category
  * @property CookUnit $unit
+ * @property CookUnit[] $availableUnits
  * @property CookIngredientNutritional[] $nutritionals
  */
 class CookIngredient extends HActiveRecord
@@ -49,6 +51,7 @@ class CookIngredient extends HActiveRecord
             array('category_id, unit_id', 'length', 'max' => 11),
             array('title, src', 'length', 'max' => 255),
             array('density', 'length', 'max' => 10),
+            array('checked', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, category_id, unit_id, title, density', 'safe', 'on' => 'search'),
@@ -63,7 +66,7 @@ class CookIngredient extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'cookIngredientSynonyms' => array(self::HAS_MANY, 'CookIngredientSynonym', 'ingredient_id'),
+            'synonyms' => array(self::HAS_MANY, 'CookIngredientSynonym', 'ingredient_id'),
             'units' => array(self::HAS_MANY, 'CookIngredientUnit', 'ingredient_id'),
             'category' => array(self::BELONGS_TO, 'CookIngredientCategory', 'category_id'),
             'unit' => array(self::BELONGS_TO, 'CookUnit', 'unit_id'),
@@ -82,8 +85,11 @@ class CookIngredient extends HActiveRecord
             'category_id' => 'Категория',
             'unit_id' => 'Ед.изм. по умолчанию',
             'title' => 'Название',
-            'density' => 'Плотность г/см³',
+            'density' => 'Плотность',
             'src' => 'Источник',
+            'textSynonyms'=>'Синонимы',
+            'textNutritional'=>'Состав продукта',
+            'textUnits'=>'Единицы измерения'
         );
     }
 
@@ -101,6 +107,7 @@ class CookIngredient extends HActiveRecord
         $criteria->compare('unit_id', $this->unit_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('density', $this->density, true);
+        $criteria->compare('checked', 0);
 
 
         return new CActiveDataProvider($this, array(
@@ -173,5 +180,35 @@ class CookIngredient extends HActiveRecord
         }
 
         return $ingredients;
+    }
+
+    public function getTextSynonyms()
+    {
+        $arr = array();
+        foreach($this->synonyms as $synonym){
+            $arr[] = $synonym->title;
+        }
+
+        return implode(',', $arr);
+    }
+
+    public function getTextNutritional()
+    {
+        $arr = array();
+        foreach($this->nutritionals as $model){
+            $arr[] = $model->nutritional->title.': '.(float)$model->value;
+        }
+
+        return implode('<br>', $arr);
+    }
+
+    public function getTextUnits()
+    {
+        $arr = array();
+        foreach($this->availableUnits as $model){
+            $arr[] = $model->title;
+        }
+
+        return implode(', ', $arr);
     }
 }

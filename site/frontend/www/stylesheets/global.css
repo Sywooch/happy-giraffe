@@ -4122,10 +4122,11 @@ ul.letters li a:hover {
 #cook-recipe .add-recipe .btn > span > span {width:184px;}
 
 #cook-recipe .search {float:left;margin-left:30px;width:650px;background:#f7f1fe;padding:15px 25px 25px;margin-bottom:40px;}
+#cook-recipe .search .links {float:right;padding-right:90px;margin-top:23px;}
 #cook-recipe .search .title {margin-bottom:5px;}
 #cook-recipe .search .title .icon {display:inline-block;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:11px;margin-right:5px;}
 #cook-recipe .search .title span {color:#575757;font-size:16px;font-weight:bold;}
-#cook-recipe .search .title a {text-decoration:none;margin-left:25px;border-bottom:1px dashed #029AD2;}
+#cook-recipe .search .title a {text-decoration:none;margin-left:15px;border-bottom:1px dashed #029AD2;}
 #cook-recipe .search input[type=text] {border:1px solid #e4d0f6;background:#fff;height:18px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;padding:4px 13px;float:left;margin:0;width:550px;}
 #cook-recipe .search .btn {float:left;position:relative;top:-2px;margin-left:-1px;}
 
@@ -4298,3 +4299,61 @@ ul.letters li a:hover {
 #product-choose .product-choose-cat-list ul li {width:29%;padding:0 2%;display:inline-block;vertical-align:top;text-align:center;}
 #product-choose .product-choose-cat-list ul li a {display:block;font-weight:bold;}
 #product-choose .product-choose-cat-list ul li a img {display:block;margin:0 auto 5px;}
+
+
+#cook .search {background:#f7f1fe;padding:15px 25px 25px;margin-bottom:30px;}
+#cook .search .links {float:right;padding-right:90px;margin-top:23px;}
+#cook .search .title {margin-bottom:5px;}
+#cook .search .title .icon {display:inline-block;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:11px;margin-right:5px;}
+#cook .search .title span {color:#575757;font-size:16px;font-weight:bold;}
+#cook .search .title a {margin-left:15px;}
+#cook .search input[type=text] {border:1px solid #e4d0f6;background:#fff;height:18px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;padding:4px 13px;float:left;margin:0;width:550px;}
+#cook .search .btn {float:left;position:relative;top:-2px;margin-left:-1px;}
+
+
+#cook > .title {height:108px;background:url(/images/bg_cook_title.jpg) no-repeat right bottom;border:1px solid #ead8f9;padding:20px 50px;margin-bottom:20px;}
+#cook > .title h2 {font-size:60px;line-height:1.2;font-weight:normal;color:#434343;}
+#cook > .title span {display:block;font-size:20px;}
+
+
+#cook .recipe-list {padding:20px 25px;border:1px solid #f2ebfa;margin-bottom:30px;}
+
+#cook .recipe-list .block-title {}
+
+#cook .recipe-list .block-title .title-in {display:inline-block;width:300px;vertical-align:middle;font-size:23px;color:#131312;}
+#cook .recipe-list .block-title .title-in span {padding:0 5px;}
+#cook .recipe-list .block-title .title-in span.yellow {background:#fdfccc;}
+
+#cook .recipe-list .block-title .all-link {display:inline-block;width:150px;vertical-align:middle;text-align:center;}
+#cook .recipe-list .block-title .all-link span {color:#6a6b6c;background:#fdfccc;padding:0 5px;}
+
+#cook .recipe-list .block-title .add-btn {display:inline-block;width:190px;vertical-align:middle;text-align:right;}
+
+#cook .recipe-list .list {list-style:none;}
+#cook .recipe-list .list li {display:inline-block;vertical-align:top;width:30%;padding-right:3%;padding-top:30px;}
+#cook .recipe-list .list li .user {margin-bottom:5px;}
+#cook .recipe-list .list li .user .user-info {}
+#cook .recipe-list .list li .user .user-info .details {margin-left:30px;}
+#cook .recipe-list .list li .user .user-info .details .username {width:120px;}
+#cook .recipe-list .list li .item-title {font-size:11px;line-height:14px;font-family:tahoma, arial, helvetica, sans-serif;font-weight:bold;margin-bottom:8px;}
+#cook .recipe-list .list li .content {color:#191919;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;line-height:14px;}
+#cook .recipe-list .list li .content img {}
+#cook .recipe-list .list li .content p {}
+
+#cook .cook-teasers {background:#fffee6;padding:20px 25px;margin-bottom:30px;}
+#cook .cook-teasers .block-title {font-size:23px;color:#131312;margin-bottom:20px;}
+#cook .cook-teasers ul {list-style:none;}
+#cook .cook-teasers ul li {width:45%;padding-right:5%;float:left;}
+#cook .cook-teasers ul li .img {float:left;}
+#cook .cook-teasers ul li .text {margin-left:130px;}
+#cook .cook-teasers ul li .text .item-title {font-size:16px;margin-bottom:5px;}
+#cook .cook-teasers ul li .text p {font-size:13px;line-height:19px;}
+
+#cook .dish-list {padding:20px 25px;border:1px solid #f2ebfa;margin-bottom:30px;}
+#cook .dish-list .block-title {font-size:23px;color:#131312;width:570px;margin:0 auto 30px;}
+#cook .dish-list .block-title .btn {float:right;}
+#cook .dish-list .list {list-style:none;width:570px;margin:0 auto;}
+#cook .dish-list .list li {display:inline-block;vertical-align:top;width:176px;padding:6px;}
+#cook .dish-list .list li img {max-width:176px;}
+
+#cook .banner-box {margin-bottom:30px;}

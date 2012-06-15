@@ -1,4 +1,10 @@
-<div class="entry hrecipe clearfix">
+<?php
+if (!isset($data->title)) {
+    $criteria->addCondition('t.id = :id');
+    $criteria->params[':id'] = $data->id;
+    $data = CookRecipe::model()->find($criteria);
+}
+?><div class="entry hrecipe clearfix">
 
     <h1 class="fn"><?=$data->title?></h1>
 

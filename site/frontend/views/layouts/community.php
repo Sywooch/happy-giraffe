@@ -124,7 +124,7 @@
     <div class="side-left">
 
         <div class="club-fast-add">
-            <a href="<?=$this->getUrl(array('content_type_slug' => null), 'community/add')?>" class="btn btn-green" rel="nofollow"><span><span>Добавить</span></span></a>
+            <a href="<?=(! Yii::app()->user->isGuest) ? $this->getUrl(array('content_type_slug' => null), 'community/add') : '#login'?>" class="btn btn-green fancy" rel="nofollow"><span><span>Добавить</span></span></a>
         </div>
 
         <div class="club-topics-all-link">

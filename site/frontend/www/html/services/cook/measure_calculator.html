@@ -452,88 +452,125 @@
 					
 				</div>
 				
-				<div class="calculator">
-					
-					<div class="product">
+				<div class="hl">
+				
+					<div class="calculator">
 						
-						<div class="block-title">Продукт</div>
-						<input type="text" placeholder="Введите название продукта" value="Яйцо куриное" />
+						<div class="product">
+							
+							<div class="block-title">Продукт</div>
+							<input type="text" placeholder="Введите название продукта" value="Яйцо куриное" /><br/>
+							<span>Начинайте вводить название продукта. Например, мясо, молоко, мука</span>
+							
+						</div>
+						
+						<div class="values">
+							
+							<div class="input">
+								<input type="text" placeholder="0" value="0" />
+								<br/>
+								Введите кол-во
+							</div>
+							
+							<div class="drp-list">
+								<a href="" class="trigger">штук</a>
+								<ul>
+									<li><a href="">штук</a></li>
+									<li><a href="">грамм</a></li>
+									<li><a href="">литров</a></li>
+								</ul>
+							</div>
+							
+							<a href="" class="equal"></a>
+							
+							<span class="value">203,456</span>
+							
+							<div class="drp-list">
+								<a href="" class="trigger">грамм</a>
+								<ul style="display:none;">
+									<li><a href="">штук</a></li>
+									<li><a href="">грамм</a></li>
+									<li><a href="">литров</a></li>
+								</ul>
+							</div>
+							
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							
+							<a href="" class="btn btn-gray-small"><span><span>Запомнить</span></span></a>						
+							<a href="" class="btn btn-gray-small"><span><span>Очистить</span></span></a>						
+							
+						</div>
 						
 					</div>
 					
-					<div class="values">
+					<div class="saved-calculations">
 						
-						<input type="text" placeholder="0" value="0" />
-						
-						<div class="drp-list">
-							<a href="" class="trigger">штук</a>
-							<ul>
-								<li><a href="">штук</a></li>
-								<li><a href="">грамм</a></li>
-								<li><a href="">литров</a></li>
-							</ul>
-						</div>
-						
-						<a href="" class="equal"></a>
-						
-						<span class="value">203,456</span>
-						
-						<div class="drp-list">
-							<a href="" class="trigger">грамм</a>
-							<ul style="display:none;">
-								<li><a href="">штук</a></li>
-								<li><a href="">грамм</a></li>
-								<li><a href="">литров</a></li>
-							</ul>
-						</div>
-						
-						<a href="" class="btn btn-gray-small"><span><span>Запомнить</span></span></a>						
+						<ul>
+							<li>
+								<span class="product-name">Яйцо куриное</span>
+								<span class="value">10</span>
+								штук
+								<span class="value">=</span>
+								<span class="value">203,5</span>
+								грамм
+								<a href="" class="remove tooltip" title="Удалить"></a>
+							</li>
+							<li>
+								<span class="product-name">Яйцо куриное</span>
+								<span class="value">100</span>
+								штук
+								<span class="value">=</span>
+								<span class="value">2035</span>
+								грамм
+								<a href="" class="remove tooltip" title="Удалить"></a>
+							</li>
+							<li>
+								<span class="product-name">Яйцо куриное</span>
+								<span class="value">1</span>
+								штук
+								<span class="value">=</span>
+								<span class="value">20,35</span>
+								грамм
+								<a href="" class="remove tooltip" title="Удалить"></a>
+							</li>
+							<li>
+								<span class="product-name">Яйцо куриное</span>
+								<span class="value">1000</span>
+								штук
+								<span class="value">=</span>
+								<span class="value">20350</span>
+								грамм
+								<a href="" class="remove tooltip" title="Удалить"></a>
+							</li>
+							
+						</ul>
 						
 					</div>
 					
 				</div>
 				
-				<div class="saved-calculations">
+				<div class="wysiwyg-content">
 					
-					<ul>
-						<li>
-							<span class="product-name">Яйцо куриное</span>
-							<span class="value">10</span>
-							штук
-							<span class="value">=</span>
-							<span class="value">203,5</span>
-							грамм
-							<a href="" class="remove tooltip" title="Удалить"></a>
-						</li>
-						<li>
-							<span class="product-name">Яйцо куриное</span>
-							<span class="value">100</span>
-							штук
-							<span class="value">=</span>
-							<span class="value">2035</span>
-							грамм
-							<a href="" class="remove tooltip" title="Удалить"></a>
-						</li>
-						<li>
-							<span class="product-name">Яйцо куриное</span>
-							<span class="value">1</span>
-							штук
-							<span class="value">=</span>
-							<span class="value">20,35</span>
-							грамм
-							<a href="" class="remove tooltip" title="Удалить"></a>
-						</li>
-						<li>
-							<span class="product-name">Яйцо куриное</span>
-							<span class="value">1000</span>
-							штук
-							<span class="value">=</span>
-							<span class="value">20350</span>
-							грамм
-							<a href="" class="remove tooltip" title="Удалить"></a>
-						</li>
+					<h2>Калькулятор мер и весов</h2>
+					
+					<p>Часто бывает: найдёшь с большим трудом нужный рецепт, а в нём хоть одна мера продуктов, да обязательно не в «тех» единицах. Получается, что рецепт-то есть, а воспользоваться им не получается. Причём это не единичные случаи, а закономерность для именно тех рецептов, которые очень хочется воспроизвести на своей любимой кухне! Можно, конечно, взять необходимые продукты в количестве по наитию или, воспользовавшись калькулятором, посчитать пропорции ингредиентов, можно искать соразмерность каждой единицы в Интернете…но все это занимает достаточно много времени и может ещё, даже при незначительной погрешности в вычислениях, привести к плачевным результатам, проще говоря, к выброшенной еде, ведь понятие «мера продуктов» придумана совсем не зря.</p>
+
+					<p>Именно для подобных ситуаций создан наш новый сервис о массах и мерах: «Таблица мер продуктов». Теперь, обладая рецептом с набором продуктов в любых измерениях, вы можете легко перевести их именно в те, которые вам нужны. Сервис позволяет вообще не задумываться о таком понятии, как мера веса продуктов. В каких бы мерах ни были компоненты – они будут переведены в необходимые.</p>
+
+					<div style="background:#fefded;padding:20px;">
+					
+						<h3>Пользоваться сервисом просто: </h3>
 						
-					</ul>
+						<ol>
+							<li>Введите название продукта (выберите из выпадающего списка)</li>
+							<li>Впишите количество продукта, выбрав единицы, в которых он указан, затем выбирайте те, которые вам нужны.</li>
+						</ol>
+						
+						<p>Одна секунда – и вы     знаете, сколько граммов масла в чайной ложке или сколько стаканов воды в литре. Любая мера веса продуктов теперь не представляет секрета: наша интерактивная таблица мер продуктов переводит любые единицы в те, что надо. Легко, просто, быстро – именно то, что нужно современной хозяйке, у которой очень мало времени. Но это ещё не всё! Вы можете сохранить результат, чтобы не производить вычисления повторно. Для этого просто нужно нажать на соответствующую кнопку</p>
+					
+					</div>
+					
+					<p>Оставьте калькулятор – это не современно! Вооружитесь компьютером и сделайте закладку на странице с нужным сервисом. Мгновенно переводя одни меры в другие, вы сэкономите массу времени и ещё больше нервов. Останутся в прошлом сомнения и томление в ожидании: получится – не получится. Получится всё и именно так, как вам нужно. Удачи!</p>
 					
 				</div>
 				

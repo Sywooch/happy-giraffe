@@ -3977,22 +3977,26 @@ ul.letters li a:hover {
 #measure .title h2 {font-weight:normal;color:#464546;font-size:60px;line-height:1;}
 #measure .title h2 span {font-size:50px;color:#717071;display:block;}
 
-#measure .calculator {padding:0 30px;}
-#measure .calculator .product {padding-bottom:40px;}
+#measure .hl {background:#eef5fe;width:600px;padding:30px 50px 10px;margin:0 auto 50px;}
+
+#measure .calculator {}
+#measure .calculator .product {padding-bottom:40px;color:#858484;}
 #measure .calculator .product .block-title {margin-left:11px;margin-bottom:8px;font-size:25px;color:#4c4d4d;}
-#measure .calculator .product input {padding:8px 10px;border:1px solid #a9c8f3;margin:0;font-size:16px;line-height:22px;font-weight:bold;color:#598dd6;width:730px;}
+#measure .calculator .product input {padding:8px 10px;border:1px solid #a9c8f3;margin:0;font-size:16px;line-height:22px;font-weight:bold;color:#598dd6;width:570px;background:#fff;margin-bottom:3px;}
+#measure .calculator .product span {margin-left:11px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
 #measure .calculator .values {padding-bottom:40px;}
 #measure .calculator .values * {vertical-align:middle;}
-#measure .calculator .values input {padding:2px 10px;border:1px solid #a9c8f3;margin:0;font-size:30px;line-height:30px;color:#575757;width:100px;text-align:center;margin-right:20px;}
-#measure .calculator .equal {display:inline-block;width:23px;height:32px;background:url(/images/cook_sprite.png) no-repeat -42px -1px;margin:0 30px;}
+#measure .calculator .values .input {display:inline-block;position:relative;top:8px;text-align:center;color:#858484;margin-right:10px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+#measure .calculator .values input {padding:2px 10px;border:1px solid #a9c8f3;margin:0;font-size:30px;line-height:30px;color:#575757;width:70px;text-align:center;background:#fff;margin-bottom:3px;}
+#measure .calculator .equal {display:inline-block;width:23px;height:32px;background:url(/images/cook_sprite.png) no-repeat -42px -1px;margin:0 15px;}
 #measure .calculator .equal:hover {background-position:-67px -1px;}
-#measure .calculator .value {color:#585757;font-size:30px;margin-right:20px;}
-#measure .calculator .btn {margin-left:30px;}
+#measure .calculator .value {color:#585757;font-size:30px;margin-right:10px;}
+#measure .calculator .btn {margin-left:10px;}
 #measure .calculator .btn:hover {color:#fff;}
 #measure .calculator .btn:hover > span {background-position:100% -1020px;color:#fff;}
 #measure .calculator .btn:hover > span > span {background-position:0 -1000px;}
 
-#measure .saved-calculations {padding:0 30px; margin-bottom: 40px}
+#measure .saved-calculations {margin-bottom: 40px}
 #measure .saved-calculations ul {list-style:none;}
 #measure .saved-calculations ul li {padding:5px 0;}
 #measure .saved-calculations ul li .product-name {font-size:15px;color:#598dd6;}

@@ -250,6 +250,16 @@ class CookRecipe extends CActiveRecord
         return $this->_nutritionals;
     }
 
+    public function getBakeryItems()
+    {
+        return round($this->nutritionals['total']['nutritionals'][4] / 3, 1);
+    }
+
+    public function getSuitableForDiabetics()
+    {
+        return ($this->bakeryItems / $this->servings) < 3;
+    }
+
     public function findByIngredients($ingredients, $type = null, $limit = null)
     {
         $subquery = Yii::app()->db->createCommand()

@@ -8,6 +8,20 @@
         'entity' => 'CookRecipe',
         'entity_id' => $recipe->id,
     ));
+
+    $cs = Yii::app()->clientScript;
+
+    $js = "
+        function toggleNutrition(el, class)
+        {
+            $('div.portion > a.active').removeClass('active');
+            $(el).addClass('active');
+            $('div.nutrition:first > ul:visible').hide();
+            $('div.nutrition:first > ul.' + class).show();
+        }
+    ";
+
+    $cs->registerScript('cookRecipeView', $js, CClientScript::POS_HEAD);
 ?>
 
 <div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
@@ -97,61 +111,95 @@
                             <div class="block-title">Калорийность блюда</div>
 
                             <div class="portion">
-                                <a href="" class="active">На 100 г.</a>
+                                <a onclick="toggleNutrition(this, 'g100');" href="javascript:void(0)" class="active">На 100 г.</a>
                                 |
-                                <a href="">На порцию</a>
+                                <a onclick="toggleNutrition(this, 'total');" href="javascript:void(0)">На порцию</a>
                             </div>
 
-                            <ul>
+                            <ul class="g100">
                                 <li class="n-calories">
                                     <div class="icon">
                                         <i>К</i>
                                         Калории
                                     </div>
-                                    <span class="calories">240</span> <span class="gray">ккал.</span>
+                                    <span class="calories"><?=$recipe->nutritionals['g100']['nutritionals'][1]?></span> <span class="gray">ккал.</span>
                                 </li>
                                 <li class="n-protein">
                                     <div class="icon">
                                         <i>Б</i>
                                         Белки
                                     </div>
-                                    <span class="protein">18</span> <span class="gray">г.</span>
+                                    <span class="protein"><?=$recipe->nutritionals['g100']['nutritionals'][3]?></span> <span class="gray">г.</span>
                                 </li>
                                 <li class="n-fat">
                                     <div class="icon">
                                         <i>Ж</i>
                                         Жиры
                                     </div>
-                                    <span class="fat">10</span> <span class="gray">г.</span>
+                                    <span class="fat"><?=$recipe->nutritionals['g100']['nutritionals'][2]?></span> <span class="gray">г.</span>
                                 </li>
                                 <li class="n-carbohydrates">
                                     <div class="icon">
                                         <i>У</i>
                                         Углеводы
                                     </div>
-                                    <span class="carbohydrates">70</span> <span class="gray">г.</span>
+                                    <span class="carbohydrates"><?=$recipe->nutritionals['g100']['nutritionals'][4]?></span> <span class="gray">г.</span>
                                 </li>
 
                             </ul>
 
-                        </div>
-
-                        <div class="nutrition diabetes">
-
-                            <div class="block-title">Подходит для диабетики</div>
-
-                            <ul>
-                                <li class="n-bread">
+                            <ul class="total" style="display:none;">
+                                <li class="n-calories">
                                     <div class="icon">
-                                        <i>ХЕ</i>
-                                        Хлебных единиц
+                                        <i>К</i>
+                                        Калории
                                     </div>
-                                    <span class="calories">18,8</span> <span class="gray">х.е.</span>
+                                    <span class="calories"><?=$recipe->nutritionals['total']['nutritionals'][1]?></span> <span class="gray">ккал.</span>
                                 </li>
+                                <li class="n-protein">
+                                    <div class="icon">
+                                        <i>Б</i>
+                                        Белки
+                                    </div>
+                                    <span class="protein"><?=$recipe->nutritionals['total']['nutritionals'][3]?></span> <span class="gray">г.</span>
+                                </li>
+                                <li class="n-fat">
+                                    <div class="icon">
+                                        <i>Ж</i>
+                                        Жиры
+                                    </div>
+                                    <span class="fat"><?=$recipe->nutritionals['total']['nutritionals'][2]?></span> <span class="gray">г.</span>
+                                </li>
+                                <li class="n-carbohydrates">
+                                    <div class="icon">
+                                        <i>У</i>
+                                        Углеводы
+                                    </div>
+                                    <span class="carbohydrates"><?=$recipe->nutritionals['total']['nutritionals'][4]?></span> <span class="gray">г.</span>
+                                </li>
+
                             </ul>
 
-
                         </div>
+
+                        <?php if ($recipe->suitableForDiabetics): ?>
+                            <div class="nutrition diabetes">
+
+                                <div class="block-title">Подходит для диабетики</div>
+
+                                <ul>
+                                    <li class="n-bread">
+                                        <div class="icon">
+                                            <i>ХЕ</i>
+                                            Хлебных единиц
+                                        </div>
+                                        <span class="calories"><?=$recipe->bakeryItems?></span> <span class="gray">х.е.</span>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+                        <?php endif; ?>
 
                     </div>
 
@@ -217,7 +265,7 @@
                                 <span class="name"><?=$i->ingredient->title?></span>
                                 <span class="value"><?=round($i->value, 2)?></span>
                                 <span class="type"><?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value)?></span>
-                                <a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>
+                                <!--<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>-->
                             </li>
                         <?php endforeach; ?>
                     </ul>

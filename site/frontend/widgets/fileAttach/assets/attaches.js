@@ -115,13 +115,18 @@ Attach.prototype.insertToHumor = function (fsn) {
 }
 
 Attach.prototype.insertToRecipe = function (fsn) {
+    var $this = this;
     $.post(base_url + '/albums/recipePhoto/', {val:fsn, many:this.many,entity:this.entity,entity_id:this.entity_id}, function (data) {
         if (data.status) {
-            $('#CookRecipe_photo_id').val(data.id);
-            $('a.attach').html($('<img />').attr('src', data.src));
-            if (!$('div.add-photo').hasClass('uploaded'))
-                $('div.add-photo').addClass('uploaded');
-            $.fancybox.close();
+            if (! $this.many) {
+                $('#CookRecipe_photo_id').val(data.id);
+                $('a.attach').html($('<img />').attr('src', data.src));
+                if (!$('div.add-photo').hasClass('uploaded'))
+                    $('div.add-photo').addClass('uploaded');
+                $.fancybox.close();
+            } else {
+                document.location.reload();
+            }
         }
     }, 'json');
 }

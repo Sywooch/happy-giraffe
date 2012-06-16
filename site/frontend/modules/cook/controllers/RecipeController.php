@@ -29,11 +29,10 @@ class RecipeController extends HController
     public function actionIndex($type = null)
     {
         $this->layout = '//layouts/recipe';
+        $this->currentType = $type;
 
         $dp = CookRecipe::model()->getByType($type);
-
         $this->counts = CookRecipe::model()->counts;
-        $this->currentType = $type;
 
         $this->render('index', compact('dp'));
     }
@@ -89,31 +88,35 @@ class RecipeController extends HController
         $this->render('view', compact('recipe'));
     }
 
-    public function actionSearch($text = false)
+    public function actionSearch($type = null, $text = false)
     {
-        $text = urldecode($text);
         $this->layout = '//layouts/recipe';
+        $this->currentType = $type;
+        $text = urldecode($text);
+
         $pages = new CPagination();
         $pages->pageSize = 100000;
+
         $criteria = new stdClass();
         $criteria->from = 'recipe';
         $criteria->select = '*';
         $criteria->paginator = $pages;
         $criteria->query = $text;
-        $resIterator = Yii::app()->search->search($criteria);
 
-        $allSearch = $textSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
-        $allCount = count($allSearch['matches']);
+        $resIterator = CookRecipe::model()->getSearchResult($criteria);
 
-        $criteria = new CDbCriteria;
+        $allSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
+        $this->counts = CookRecipe::model()->getSearchResultCounts($allSearch);
+        $allCount = $this->counts[0];
 
-        $dataProvider = new CArrayDataProvider($resIterator->getRawData(), array(
+        $dataProvider = new CArrayDataProvider($resIterator, array(
             'keyField' => 'id',
+            'pagination' => array('pageSize' => 10000),
         ));
 
-        $this->render('search', compact('dataProvider', 'criteria', 'text', 'allCount'));
+        $criteria = new CDbCriteria;
+        $this->render('search', compact('dataProvider', 'criteria', 'text', 'allCount', 'type'));
     }
-
 
     public function actionSearchByIngredients()
     {

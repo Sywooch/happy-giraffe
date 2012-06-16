@@ -27,7 +27,7 @@
 
             </div>
 
-            <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
+            <?=CHtml::beginForm('/cook/recipe/index', 'get')?>
                 <input value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" name="text" type="text" placeholder="Введите ключевое слово в названии рецепта" />
                 <button class="btn btn-purple-medium"><span><span>Найти</span></span></button>
             <?=CHtml::endForm()?>
@@ -53,7 +53,10 @@
             <div class="recipe-categories">
                 <ul>
                     <li<?php if ($this->currentType == null): ?> class="active"<?php endif; ?>>
-                        <a href="<?=$this->createUrl('/cook/recipe')?>" class="cook-cat">
+                        <a href="<?=isset($_GET['text'])?
+                            $this->createUrl('/cook/recipe/index', array('text'=>$_GET['text']))
+                            :
+                            $this->createUrl('/cook/recipe/index')?>" class="cook-cat">
                             <i class="icon-cook-cat icon-recipe-0"></i>
                             <span>Все рецепты</span>
 
@@ -62,11 +65,15 @@
                     </li>
                     <?php foreach (CookRecipe::model()->types as $id => $label): ?>
                         <li<?php if ($this->currentType == $id): ?> class="active"<?php endif; ?>>
-                            <a href="<?=$this->createUrl('/cook/recipe/index', array('type' => $id))?>" class="cook-cat">
+                            <a href="<?=isset($_GET['text'])?
+                                $this->createUrl('/cook/recipe/index', array('type' => $id, 'text'=>$_GET['text']))
+                                :
+                                $this->createUrl('/cook/recipe/index', array('type' => $id))
+                                ?>" class="cook-cat">
                                 <i class="icon-cook-cat icon-recipe-<?=$id?>"></i>
                                 <span><?=$label?></span>
                             </a>
-                            <span class="count"><?=$this->counts[$id]?></span>
+                            <span class="count"><?=isset($this->counts[$id])?$this->counts[$id]:0?></span>
                         </li>
                     <?php endforeach; ?>
                 </ul>

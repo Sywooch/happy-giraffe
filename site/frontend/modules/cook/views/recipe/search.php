@@ -15,5 +15,6 @@
         'viewData' => array(
             'search_text' => $text,
             'criteria' => $criteria,
+            'type'=>isset($type)?$type:null
         )
     ));

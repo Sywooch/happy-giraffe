@@ -26,42 +26,15 @@ class RecipeController extends HController
         );
     }
 
-    public function actionIndex($type = null, $text = false)
+    public function actionIndex($type = null)
     {
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
-        if ($text !== false) {
-            $text = urldecode($text);
+        $dp = CookRecipe::model()->getByType($type);
+        $this->counts = CookRecipe::model()->counts;
 
-            $pages = new CPagination();
-            $pages->pageSize = 100000;
-
-            $criteria = new stdClass();
-            $criteria->from = 'recipe';
-            $criteria->select = '*';
-            $criteria->paginator = $pages;
-            $criteria->query = $text;
-
-            $resIterator = CookRecipe::model()->getSearchResult($criteria);
-
-            $allSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
-            $this->counts = CookRecipe::model()->getSearchResultCounts($allSearch);
-            $allCount = $this->counts[0];
-
-            $dataProvider = new CArrayDataProvider($resIterator, array(
-                'keyField' => 'id',
-                'pagination' => array('pageSize' => 10000),
-            ));
-
-            $criteria = new CDbCriteria;
-            $this->render('search', compact('dataProvider', 'criteria', 'text', 'allCount', 'type'));
-        } else {
-            $dp = CookRecipe::model()->getByType($type);
-            $this->counts = CookRecipe::model()->counts;
-
-            $this->render('index', compact('dp'));
-        }
+        $this->render('index', compact('dp'));
     }
 
     public function actionForm($id = null)
@@ -113,6 +86,36 @@ class RecipeController extends HController
         $this->currentType = $recipe->type;
 
         $this->render('view', compact('recipe'));
+    }
+
+    public function actionSearch($type = null, $text = false)
+    {
+        $this->layout = '//layouts/recipe';
+        $this->currentType = $type;
+        $text = urldecode($text);
+
+        $pages = new CPagination();
+        $pages->pageSize = 100000;
+
+        $criteria = new stdClass();
+        $criteria->from = 'recipe';
+        $criteria->select = '*';
+        $criteria->paginator = $pages;
+        $criteria->query = $text;
+
+        $resIterator = CookRecipe::model()->getSearchResult($criteria);
+
+        $allSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
+        $this->counts = CookRecipe::model()->getSearchResultCounts($allSearch);
+        $allCount = $this->counts[0];
+
+        $dataProvider = new CArrayDataProvider($resIterator, array(
+            'keyField' => 'id',
+            'pagination' => array('pageSize' => 10000),
+        ));
+
+        $criteria = new CDbCriteria;
+        $this->render('search', compact('dataProvider', 'criteria', 'text', 'allCount', 'type'));
     }
 
     public function actionSearchByIngredients()

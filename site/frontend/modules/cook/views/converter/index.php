@@ -4,6 +4,7 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 
 $units = CookUnit::model()->findAll(array('order' => 'title'));
+$model->qty = 0;
 ?>
 
 <div id="measure">
@@ -37,7 +38,7 @@ $units = CookUnit::model()->findAll(array('order' => 'title'));
 
                 <div class="block-title">Продукт</div>
                 <?php
-                $this->widget('zii.widgets.jui.CJuiAutoComplete', array('sourceUrl' => Yii::app()->createUrl('cook/converter/ac'), 'name' => 'ac', 'id' => 'ac', 'htmlOptions' => array('data-title' => '')));
+                $this->widget('zii.widgets.jui.CJuiAutoComplete', array('sourceUrl' => Yii::app()->createUrl('cook/converter/ac'), 'name' => 'ac', 'id' => 'ac', 'htmlOptions' => array('data-title' => '', 'placeholder' => 'Введите название продукта')));
                 echo $form->hiddenField($model, 'ingredient');
                 ?>
                 <br/>
@@ -48,7 +49,7 @@ $units = CookUnit::model()->findAll(array('order' => 'title'));
             <div class="values">
 
                 <div class="input">
-                    <?php echo $form->textField($model, 'qty', array('onkeyup' => 'Converter.Calculate();', 'placeholder' => 0, 'onkeypress' => 'return Converter.qtyInput(event);')); ?>
+                    <?php echo $form->textField($model, 'qty', array('onkeyup' => 'Converter.Calculate();', 'onkeypress' => 'return Converter.qtyInput(event, this);')); ?>
                     <br/>
                     Введите кол-во
                 </div>

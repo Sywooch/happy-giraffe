@@ -217,8 +217,9 @@ class WordstatParser extends ProxyParserThread
             $parsing_model = new ParsingKeyword();
             $parsing_model->keyword_id = $keyword_id;
             $parsing_model->depth = $depth;
-            if (!$parsing_model->save())
-                var_dump($parsing_model->getErrors());
+            try{
+                $parsing_model->save();
+            }catch (Exception $err){}
         } else {
             if (empty($depth) && !empty($exist->depth))
                 $exist->depth = null;

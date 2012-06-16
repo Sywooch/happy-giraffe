@@ -54,7 +54,8 @@ class ConverterController extends HController
 
         if (isset($_POST['ajax']) and $_POST['ajax'] == 'converter-form') {
             $form->attributes = $_POST['ConverterForm'];
-            echo CActiveForm::validate($form);
+//            echo CActiveForm::validate($form);
+            echo '[]';
             Yii::app()->end();
         } elseif (isset($_POST['ConverterForm'])) {
             $converter = new CookConverter();

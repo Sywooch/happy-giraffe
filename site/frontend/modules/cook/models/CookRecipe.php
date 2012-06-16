@@ -385,9 +385,17 @@ class CookRecipe extends CActiveRecord
         return $this->findAll($criteria);
     }
 
-    public function getUrl()
+    public function getUrl($comments = false, $absolute = false)
     {
-        return Yii::app()->controller->createUrl('/cook/recipe/view', array('id' => $this->id));
+        $params = array(
+            'id' => $this->id,
+        );
+
+        if ($comments)
+            $params['#'] = 'comment_list';
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method('/cook/recipe/view', $params);
     }
 
     public function getPreview($imageWidth = 167)
@@ -495,6 +503,41 @@ class CookRecipe extends CActiveRecord
             $_counts[$c['type']] = $c['count(*)'];
 
         return $_counts;
+    }
+
+    public function getSearchResultCounts($allSearch)
+    {
+        $_counts = array();
+
+        $_counts[0] = count($allSearch['matches']);
+
+        $ids = array();
+        foreach($allSearch['matches'] as $key => $m){
+            $ids[] = $key;
+        }
+
+        $counts = Yii::app()->db->createCommand()
+            ->select('type, count(*)')
+            ->from($this->tableName())
+            ->group('type')
+            ->where('id IN ('.implode(',', $ids).')')
+            ->queryAll();
+
+        foreach ($counts as $c)
+            $_counts[$c['type']] = $c['count(*)'];
+
+        return $_counts;
+    }
+
+    public function getSearchResult($criteria)
+    {
+        $allSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
+
+        $res = array();
+        foreach($allSearch['matches'] as $key=>$m)
+            $res[] = array('id'=>$key);
+
+        return $res;
     }
 
     public function getByType($type)

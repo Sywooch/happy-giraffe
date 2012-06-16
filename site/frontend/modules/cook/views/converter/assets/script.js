@@ -31,7 +31,7 @@ var Converter = {
         el.closest('.drp-list').find('input').val(el.parent().attr('data-id'));
 
         Converter.Calculate();
-        event.preventDefault();
+        return false;
     },
 
     unitSwap:function (event) {
@@ -48,7 +48,7 @@ var Converter = {
 
         Converter.Calculate();
 
-        event.preventDefault();
+        return false;
     },
 
     Calculate:function () {

@@ -26,9 +26,10 @@
             </div>
 
             <?php
-            $perColumn = ceil((CookChoose::model()->count())/ 3);
+            $perColumn = ceil((CookChoose::model()->count() + CookChooseCategory::model()->count()*4)/ 3);
             $perColumn = ($perColumn == 0) ? 1 : $perColumn;
             $i = 0;
+            $column = 1;
             $closeColumn = false;
             ?>
 
@@ -37,18 +38,30 @@
                     <li>
                         <?php
                         foreach ($categories as $category) {
+                            if ($i + count($category->chooses)/2 >= $column*$perColumn)
+                                $closeColumn = true;
+                            if ($closeColumn && $column <= 3) {
+                                echo '</li><li>';
+                                $closeColumn = false;
+                                $column++;
+                            }
+
                             echo '<div class="cat-title"><span class="cook-cat active"><i class="icon-cook-cat icon-product-' . $category->id . '"></i><span>' . $category->title . '</span></span></div>';
                             echo '<ul>';
+                            $i = $i + 5;
+
                             foreach ($category->chooses as $product) {
                                 echo '<li><a href="' . $this->createUrl('view', array('id' => $product->slug)) . '">' . $product->title . '</a></li>';
                                 $i++;
-                                if (($i % $perColumn) == 0)
+                                if ($i >= $column*$perColumn)
                                     $closeColumn = true;
                             }
                             echo '</ul>';
-                            if ($closeColumn) {
+
+                            if ($closeColumn && $column <= 3) {
                                 echo '</li><li>';
                                 $closeColumn = false;
+                                $column++;
                             }
                         }
                         ?>

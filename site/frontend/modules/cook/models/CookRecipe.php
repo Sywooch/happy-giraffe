@@ -497,6 +497,41 @@ class CookRecipe extends CActiveRecord
         return $_counts;
     }
 
+    public function getSearchResultCounts($allSearch)
+    {
+        $_counts = array();
+
+        $_counts[0] = count($allSearch['matches']);
+
+        $ids = array();
+        foreach($allSearch['matches'] as $key => $m){
+            $ids[] = $key;
+        }
+
+        $counts = Yii::app()->db->createCommand()
+            ->select('type, count(*)')
+            ->from($this->tableName())
+            ->group('type')
+            ->where('id IN ('.implode(',', $ids).')')
+            ->queryAll();
+
+        foreach ($counts as $c)
+            $_counts[$c['type']] = $c['count(*)'];
+
+        return $_counts;
+    }
+
+    public function getSearchResult($criteria)
+    {
+        $allSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
+
+        $res = array();
+        foreach($allSearch['matches'] as $key=>$m)
+            $res[] = array('id'=>$key);
+
+        return $res;
+    }
+
     public function getByType($type)
     {
         $criteria = new CDbCriteria(array(

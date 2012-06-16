@@ -27,7 +27,7 @@
 
             </div>
 
-            <?=CHtml::beginForm('/cook/recipe/index', 'get')?>
+            <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
                 <input value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" name="text" type="text" placeholder="Введите ключевое слово в названии рецепта" />
                 <button class="btn btn-purple-medium"><span><span>Найти</span></span></button>
             <?=CHtml::endForm()?>
@@ -54,7 +54,7 @@
                 <ul>
                     <li<?php if ($this->currentType == null): ?> class="active"<?php endif; ?>>
                         <a href="<?=isset($_GET['text'])?
-                            $this->createUrl('/cook/recipe/index', array('text'=>$_GET['text']))
+                            $this->createUrl('/cook/recipe/search', array('text'=>$_GET['text']))
                             :
                             $this->createUrl('/cook/recipe/index')?>" class="cook-cat">
                             <i class="icon-cook-cat icon-recipe-0"></i>
@@ -66,7 +66,7 @@
                     <?php foreach (CookRecipe::model()->types as $id => $label): ?>
                         <li<?php if ($this->currentType == $id): ?> class="active"<?php endif; ?>>
                             <a href="<?=isset($_GET['text'])?
-                                $this->createUrl('/cook/recipe/index', array('type' => $id, 'text'=>$_GET['text']))
+                                $this->createUrl('/cook/recipe/search', array('type' => $id, 'text'=>$_GET['text']))
                                 :
                                 $this->createUrl('/cook/recipe/index', array('type' => $id))
                                 ?>" class="cook-cat">

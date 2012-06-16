@@ -27,7 +27,7 @@
             </div>
 
             <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
-                <input type="text" placeholder="Введите ключевое слово в названии рецепта"/>
+                <input name="text" type="text" placeholder="Введите ключевое слово в названии рецепта"/>
                 <button class="btn btn-purple-medium"><span><span>Найти</span></span></button>
             <?=CHtml::endForm()?>
 

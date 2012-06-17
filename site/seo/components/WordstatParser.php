@@ -52,31 +52,37 @@ class WordstatParser extends ProxyParserThread
 
     public function getKeyword()
     {
+        $this->keyword = null;
+
         //сначала выбираем с бесконечной глубиной парсинга
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->condition = 'depth IS NULL';
         $criteria->with = 'keyword';
 
-        $transaction = Yii::app()->db_seo->beginTransaction();
-        try {
-            $this->keyword = ParsingKeyword::model()->find($criteria);
-            if ($this->keyword === null) {
-                $criteria = new CDbCriteria;
-                $criteria->compare('active', 0);
-                $criteria->order = 'depth DESC';
-                $criteria->with = 'keyword';
-                $this->keyword = ParsingKeyword::model()->find($criteria);
-                if ($this->keyword === null)
-                    $this->closeThread('Keywords for parsing ended');
-            }
+        //затем все остальные упорядоченные по глубине парсинга
+        $criteria2 = new CDbCriteria;
+        $criteria2->compare('active', 0);
+        $criteria2->order = 'depth DESC';
+        $criteria2->with = 'keyword';
 
-            $this->keyword->active = 1;
-            $this->keyword->save();
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
-            $this->closeThread('Fail with getting keyword');
+        while ($this->keyword == null) {
+            $transaction = Yii::app()->db_seo->beginTransaction();
+            try {
+                $this->keyword = ParsingKeyword::model()->find($criteria);
+                if ($this->keyword === null) {
+                    $this->keyword = ParsingKeyword::model()->find($criteria2);
+                    if ($this->keyword === null)
+                        $this->closeThread('Keywords for parsing ended');
+                }
+
+                $this->keyword->active = 1;
+                $this->keyword->save();
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollback();
+            }
+            sleep(1);
         }
 
         $this->first_page = true;
@@ -217,8 +223,10 @@ class WordstatParser extends ProxyParserThread
             $parsing_model = new ParsingKeyword();
             $parsing_model->keyword_id = $keyword_id;
             $parsing_model->depth = $depth;
-            if (!$parsing_model->save())
-                var_dump($parsing_model->getErrors());
+            try {
+                $parsing_model->save();
+            } catch (Exception $err) {
+            }
         } else {
             if (empty($depth) && !empty($exist->depth))
                 $exist->depth = null;
@@ -274,20 +282,32 @@ class WordstatParser extends ProxyParserThread
 
             ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
 
-            //и добавляем в спарсенные
-            $parsed = ParsedKeywords::model()->findByPk($this->keyword->keyword_id);
-            if ($parsed !== null) {
-                if (($parsed->depth < $this->keyword->depth) ||
-                    (empty($this->keyword->depth) && !empty($parsed->depth))
-                ) {
+            $success = false;
+            while (!$success) {
+                //и добавляем в спарсенные
+                $parsed = ParsedKeywords::model()->findByPk($this->keyword->keyword_id);
+                if ($parsed !== null) {
+                    if (($parsed->depth < $this->keyword->depth) ||
+                        (empty($this->keyword->depth) && !empty($parsed->depth))
+                    ) {
+                        $parsed->depth = $this->keyword->depth;
+                        try {
+                            $success = $parsed->save();
+                        } catch (Exception $err) {
+                        }
+                    } else
+                        $success = false;
+                } else {
+                    $parsed = new ParsedKeywords;
+                    $parsed->keyword_id = $this->keyword->keyword_id;
                     $parsed->depth = $this->keyword->depth;
-                    $parsed->save();
+                    try {
+                        $success = $parsed->save();
+                    } catch (Exception $err) {
+                    }
                 }
-            } else {
-                $parsed = new ParsedKeywords;
-                $parsed->keyword_id = $this->keyword->keyword_id;
-                $parsed->depth = $this->keyword->depth;
-                $parsed->save();
+                if (!$success)
+                    sleep(1);
             }
         }
     }

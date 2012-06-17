@@ -74,6 +74,65 @@ class RecipeController extends HController
         $this->render('form', compact('recipe', 'ingredients', 'cuisines', 'units'));
     }
 
+    /**
+     * Импорт рецептов
+     */
+    public function actionImport($content_id)
+    {
+        $recipe = new CookRecipe;
+        $ingredients = array();
+
+        /* IMPORT */
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $content = CommunityContent::model()->full()->findByPk($content_id);
+
+        //title
+        $recipe->title = $content->title;
+
+        //bind
+        $recipe->content_id = $content_id;
+
+        //text
+        $doc = phpQuery::newDocumentXHTML($content->content->text, $charset = 'utf-8');
+        $img = pq('img:first');
+        $imgSrc = $img->attr('src');
+        $img->remove();
+        $recipe->text = $doc;
+
+        //image
+        preg_match('/\/([\w\.]+)$/', $imgSrc, $matches);
+        $fs_name = $matches[1];
+        $photo = AlbumPhoto::model()->find('fs_name = :fs_name', array(':fs_name' => $fs_name));
+        if ($photo !== null)
+            $recipe->photo_id = $photo->id;
+
+        if (isset($_POST['CookRecipe'])) {
+            $ingredients = array();
+            $recipe->attributes = $_POST['CookRecipe'];
+            $recipe->author_id = Yii::app()->user->id;
+            foreach ($_POST['CookRecipeIngredient'] as $i) {
+                if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
+                    $ingredient = new CookRecipeIngredient;
+                    $ingredient->attributes = $i;
+                    $ingredient->recipe_id = $recipe->id;
+                    $ingredients[] = $ingredient;
+                }
+            }
+            $recipe->ingredients = $ingredients;
+            if ($recipe->withRelated->save(true, array('ingredients'))) {
+                $content->update(array('removed' => 1));
+                $this->redirect(array('/cook/recipe/view', 'id' => $recipe->id));
+            }
+        }
+
+        if (empty($ingredients))
+            $ingredients = CookRecipeIngredient::model()->getEmptyModel(3);
+
+        $cuisines = CookCuisine::model()->findAll();
+        $units = CookUnit::model()->findAll();
+        $this->render('form', compact('recipe', 'ingredients', 'cuisines', 'units'));
+    }
+
     public function actionView($id)
     {
         $this->layout = '//layouts/recipe';

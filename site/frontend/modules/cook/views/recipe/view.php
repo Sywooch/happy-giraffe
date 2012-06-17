@@ -12,12 +12,12 @@
     $cs = Yii::app()->clientScript;
 
     $js = "
-        function toggleNutrition(el, class)
+        function toggleNutrition(el, nutrition)
         {
             $('div.portion > a.active').removeClass('active');
             $(el).addClass('active');
             $('div.nutrition:first > ul:visible').hide();
-            $('div.nutrition:first > ul.' + class).show();
+            $('div.nutrition:first > ul.' + nutrition).show();
         }
     ";
 
@@ -41,7 +41,7 @@
         <div class="meta">
             <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $recipe->created)?></div>
             <div class="seen">Просмотров:&nbsp;<span><?=PageView::model()->viewsByPath($recipe->url)?></span></div><br>
-            <a href="">Комментариев: <?php echo $recipe->commentsCount; ?></a>
+            <a href="<?=$recipe->getUrl(true)?>">Комментариев: <?php echo $recipe->commentsCount; ?></a>
         </div>
 
     </div>

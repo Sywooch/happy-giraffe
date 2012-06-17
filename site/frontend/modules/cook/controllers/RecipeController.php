@@ -100,7 +100,7 @@ class RecipeController extends HController
         $recipe->text = $doc;
 
         //image
-        preg_match('/\/(\w+)\.(?:\w+)$/', $imgSrc, $matches);
+        preg_match('/\/(\w+)$/', $imgSrc, $matches);
         $fs_name = $matches[1];
         $photo = AlbumPhoto::model()->find('fs_name = :fs_name', array(':fs_name' => $fs_name));
         if ($photo !== null)

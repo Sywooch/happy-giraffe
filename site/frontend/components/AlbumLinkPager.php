@@ -18,6 +18,6 @@ class AlbumLinkPager extends CLinkPager
     {
         if ($hidden || $selected)
             $class .= ' ' . ($hidden ? self::CSS_HIDDEN_PAGE : self::CSS_SELECTED_PAGE);
-        return '<li class="' . $class . '">' . CHtml::link($class == 'previous' || $class == 'next' ? '...' : $label, $this->createPageUrl($page)) . ($selected ? '<img src="/images/pagination_tale.png">' : '') . '</li>';
+        return '<li class="' . $class . '">' . CHtml::link($class == 'previous' || $class == 'next' ? '...' : $label, $this->createPageUrl($page), array('rel' => 'nofollow')) . ($selected ? '<img src="/images/pagination_tale.png">' : '') . '</li>';
     }
 }

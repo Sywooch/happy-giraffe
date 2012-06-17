@@ -133,13 +133,13 @@ class CommunityController extends HController
             throw new CHttpException(404, 'Такой записи не существует');
 
         /* <ИМПОРТ РЕЦЕПТОВ> */
-        Yii::import('app.modules.cook.models.CookRecipe');
+        /*Yii::import('app.modules.cook.models.CookRecipe');
         $recipe = CookRecipe::model()->find('content_id = :content_id', array(':content_id' => $content->id));
         if ($recipe !== null) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: " . $recipe->url);
             Yii::app()->end();
-        }
+        }               */
 
         /* </ИМПОРТ РЕЦЕПТОВ> */
 

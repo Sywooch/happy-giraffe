@@ -14,8 +14,9 @@ Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.com/styleshe
     'method' => 'POST'
 )); ?>
     <div class="form form-horizontal">
-
+        <div>
         <?= $form->errorSummary($model); ?>
+        </div>
 
         <div class="row clearfix">
             <?=$form->labelEx($model, 'title');?>

@@ -84,14 +84,20 @@ class CookIngredientsController extends BController
                     } else {
                         $nutritional = CookIngredientNutritional::model()->findByAttributes(array('nutritional_id' => $nutritional_id, 'ingredient_id' => $id));
                         if ($nutritional !== null) {
-                            if ($nutritional->value != $value)
+                            if ($nutritional->value != $value) {
                                 $nutritional->value = $value;
+                                if (!$nutritional->save()) {
+                                    $model->addError('other', 'Неправильно введен состав');
+                                }
+                            }
                         } else {
                             $nutritional = new CookIngredientNutritional;
                             $nutritional->ingredient_id = $id;
                             $nutritional->nutritional_id = $nutritional_id;
                             $nutritional->value = $value;
-                            $nutritional->save();
+                            if (!$nutritional->save()) {
+                                $model->addError('other', 'Неправильно введен состав');
+                            }
                         }
                     }
                 }
@@ -100,13 +106,15 @@ class CookIngredientsController extends BController
             //synonyms
             if (isset($_POST['synonym'])) {
                 CookIngredientSynonym::model()->deleteAll('ingredient_id=' . $id);
-                foreach ($_POST['synonym'] as $value) {
-                    $value = trim($value);
-                    $synonym = new CookIngredientSynonym;
-                    $synonym->ingredient_id = $id;
-                    $synonym->title = $value;
-                    $synonym->save();
-                }
+                foreach ($_POST['synonym'] as $value)
+                    if (!empty($value)) {
+                        $value = trim($value);
+                        $synonym = new CookIngredientSynonym;
+                        $synonym->ingredient_id = $id;
+                        $synonym->title = $value;
+                        if (!$synonym->save())
+                            $model->addError('other', 'Ошибка в синонимах');
+                    }
             }
 
             //units
@@ -137,7 +145,8 @@ class CookIngredientsController extends BController
                         continue;
                     }
 
-                    $ingredient_unit->save();
+                    if (!$ingredient_unit->save())
+                        $model->addError('other', 'Ошибка в единицах измерения');
 
                 } else {
                     if ($ingredient_unit)
@@ -145,9 +154,12 @@ class CookIngredientsController extends BController
                 }
             }
 
-            $model->checked = 1;
-            if ($model->save())
-                $this->redirect(array('update', 'id' => $model->id));
+            $errors = $model->getErrors();
+            if (empty($errors)) {
+                $model->checked = 1;
+                if ($model->save())
+                    $this->redirect(array('update', 'id' => $model->id));
+            }
         }
 
         $this->render('update2', array(

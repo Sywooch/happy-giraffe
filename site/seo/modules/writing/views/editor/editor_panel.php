@@ -1,4 +1,8 @@
-<?php Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
+<?php
+/* @var $this Controller
+ * @var $tempKeywords TempKeyword[]
+ */
+Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
 <div class="clearfix">
 
     <div class="tasks-manager">
@@ -45,7 +49,7 @@
                             <span><?=$tempKeyword->keyword->name ?></span>
                         </div>
                     </td>
-                    <td><span><i class="icon-freq-1"></i></span> <span class="freq-val">10,5</span></td>
+                    <td><span><?=$tempKeyword->keyword->getFreqIcon() ?></span> <span class="freq-val"><?= $tempKeyword->keyword->getRoundFrequency() ?></span></td>
                     <td><a href="" class="btn-green-small" onclick="TaskDistribution.addToGroup($(this));return false;">Ok</a>
                         <a href="" class="icon-remove" onclick="TaskDistribution.removeFromSelected(this);return false;"></a></td>
                 </tr>

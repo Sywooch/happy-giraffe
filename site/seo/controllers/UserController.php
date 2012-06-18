@@ -17,14 +17,14 @@ class UserController extends SController
      */
     public function actionCreate()
     {
-        $model = new User;
+        $model = new SeoUser;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
         $password = '';
 
-        if (isset($_POST['User'])) {
-            $model->attributes = $_POST['User'];
+        if (isset($_POST['SeoUser'])) {
+            $model->attributes = $_POST['SeoUser'];
             $password = substr(md5(microtime()), 0, 8);
             $model->password = md5($password);
 
@@ -56,8 +56,8 @@ class UserController extends SController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['User'])) {
-            $model->attributes = $_POST['User'];
+        if (isset($_POST['SeoUser'])) {
+            $model->attributes = $_POST['SeoUser'];
             if ($model->save()) {
                 Yii::app()->db_seo->createCommand()->delete('auth__assignments', 'userid=:userid', array(':userid' => $model->id));
                 Yii::app()->authManager->assign($model->role, $model->id);
@@ -75,10 +75,10 @@ class UserController extends SController
      */
     public function actionAdmin()
     {
-        $model = new User('search');
+        $model = new SeoUser('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['User']))
-            $model->attributes = $_GET['User'];
+        if (isset($_GET['SeoUser']))
+            $model->attributes = $_GET['SeoUser'];
 
         $this->render('admin', array(
             'model' => $model,
@@ -100,12 +100,12 @@ class UserController extends SController
 
     /**
      * @param $id
-     * @return User
+     * @return SeoUser
      * @throws CHttpException
      */
     public function loadModel($id)
     {
-        $model = User::model()->findByPk((int)$id);
+        $model = SeoUser::model()->findByPk((int)$id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

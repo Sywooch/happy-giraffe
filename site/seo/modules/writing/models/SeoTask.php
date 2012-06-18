@@ -16,9 +16,9 @@
  * @property string $rewrite
  *
  * The followings are the available model relations:
- * @property User $owner
+ * @property SeoUser $owner
  * @property KeywordGroup $keywordGroup
- * @property User $executor
+ * @property SeoUser $executor
  * @property RewriteUrl[] $rewriteUrls
  */
 class SeoTask extends CActiveRecord
@@ -83,8 +83,8 @@ class SeoTask extends CActiveRecord
         return array(
             'rewriteUrls' => array(self::HAS_MANY, 'RewriteUrl', 'task_id'),
             'keywordGroup' => array(self::BELONGS_TO, 'KeywordGroup', 'keyword_group_id'),
-            'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
-            'executor' => array(self::BELONGS_TO, 'User', 'executor_id'),
+            'owner' => array(self::BELONGS_TO, 'SeoUser', 'owner_id'),
+            'executor' => array(self::BELONGS_TO, 'SeoUser', 'executor_id'),
             'article' => array(self::BELONGS_TO, 'ArticleKeywords', 'article_id'),
         );
     }

@@ -9,7 +9,7 @@
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
- * @property User $owner
+ * @property SeoUser $owner
  */
 class TempKeyword extends CActiveRecord
 {
@@ -62,7 +62,7 @@ class TempKeyword extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
-			'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
+			'owner' => array(self::BELONGS_TO, 'SeoUser', 'owner_id'),
 		);
 	}
 

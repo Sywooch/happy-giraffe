@@ -2,8 +2,8 @@
 /* @var $this Controller
  * @var $model CookIngredient
  */
-Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.com/stylesheets/admin.css');
-Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.com/stylesheets/common.css');
+Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.ru/stylesheets/admin.css');
+Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.ru/stylesheets/common.css');
 ?>
 <div class="content-title"><?=$model->title;?></div>
 
@@ -67,16 +67,16 @@ Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.com/styleshe
         <label>Состав продукта <span>(на 100 гр.)</span></label>
 
         <div class="value-row">
-            <?= CHtml::textField('nutritional[1]', $model->getNutritional(1)) ?> ккал
+            <span>Калорийность</span> <?= CHtml::textField('nutritional[1]', $model->getNutritional(1)) ?> ккал
         </div>
         <div class="value-row">
-            <?= CHtml::textField('nutritional[3]', $model->getNutritional(3)) ?> грамм
+            <span>Белки</span> <?= CHtml::textField('nutritional[3]', $model->getNutritional(3)) ?> грамм
         </div>
         <div class="value-row">
-            <?= CHtml::textField('nutritional[2]', $model->getNutritional(2)) ?> грамм
+            <span>Жиры</span> <?= CHtml::textField('nutritional[2]', $model->getNutritional(2)) ?> грамм
         </div>
         <div class="value-row">
-            <?= CHtml::textField('nutritional[4]', $model->getNutritional(4)) ?> грамм
+            <span>Углеводы</span> <?= CHtml::textField('nutritional[4]', $model->getNutritional(4)) ?> грамм
         </div>
     </div>
 

@@ -37,6 +37,8 @@ class WordstatParser extends ProxyParserThread
 
                 if (Config::getAttribute('stop_threads') == 1)
                     $this->closeThread('manual exit');
+
+                sleep(1);
             }
             sleep(rand(10, 12));
         }
@@ -113,6 +115,7 @@ class WordstatParser extends ProxyParserThread
 
             if (!$success)
                 $this->changeBadProxy();
+            sleep(1);
         }
     }
 

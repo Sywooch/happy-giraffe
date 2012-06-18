@@ -262,8 +262,10 @@ class CookRecipe extends CActiveRecord
             CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
         }
 
-        $this->lowFat = ($this->servings === null) ? null : $this->getNutritionalsPerServing(2) <= self::COOK_RECIPE_LOWFAT;
-        $this->forDiabetics = ($this->servings === null) ? null : $this->getNutritionalsPerServing(4) <= self::COOK_RECIPE_FORDIABETICS;
+        if ($this->servings !== null) {
+            $this->lowFat = $this->getNutritionalsPerServing(2) <= self::COOK_RECIPE_LOWFAT;
+            $this->forDiabetics = $this->getNutritionalsPerServing(4) <= self::COOK_RECIPE_FORDIABETICS;
+        }
         $this->lowCal = $this->getNutritionalsPer100g(1) <= self::COOK_RECIPE_LOWCAL;
 
         return parent::beforeSave();

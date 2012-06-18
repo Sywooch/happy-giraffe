@@ -24,7 +24,7 @@ $form=$this->beginWidget('CActiveForm', array(
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'owner_id'); ?>
-		<?php echo $form->dropDownList($model,'owner_id', CHtml::listData(User::model()->findAll('owner_id IS NULL'), 'id', 'name'), array('empty'=>' ')); ?>
+		<?php echo $form->dropDownList($model,'owner_id', CHtml::listData(SeoUser::model()->findAll('owner_id IS NULL'), 'id', 'name'), array('empty'=>' ')); ?>
 		<?php echo $form->error($model,'owner_id'); ?>
 	</div>
 

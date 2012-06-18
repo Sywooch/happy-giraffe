@@ -2,8 +2,8 @@
 /* @var $this Controller
  * @var $model CookIngredient
  */
-Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.com/stylesheets/admin.css');
-Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.com/stylesheets/common.css');
+Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.ru/stylesheets/admin.css');
+Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.ru/stylesheets/common.css');
 ?>
 <div class="content-title"><?=$model->title;?></div>
 

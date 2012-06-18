@@ -9,15 +9,15 @@
  * @property string $cache
  *
  * The followings are the available model relations:
- * @property User $user
+ * @property SeoUser $user
  */
-class UserCache extends HActiveRecord
+class SeoUserCache extends HActiveRecord
 {
     CONST CACHE_ID = 'seo_user_cache_';
 
     /**
      * Returns the static model of the specified AR class.
-     * @return UserCache the static model class
+     * @return SeoUserCache the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -62,7 +62,7 @@ class UserCache extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'user' => array(self::BELONGS_TO, 'SeoUser', 'user_id'),
         );
     }
 
@@ -72,7 +72,7 @@ class UserCache extends HActiveRecord
     public function attributeLabels()
     {
         return array(
-            'user_id' => 'User',
+            'user_id' => 'SeoUser',
             'cache' => 'Cache',
         );
     }
@@ -120,7 +120,7 @@ class UserCache extends HActiveRecord
             if (isset($model))
                 $value = $model->cache;
             else {
-                $model = new UserCache();
+                $model = new SeoUserCache();
                 $model->user_id = $user_id;
                 $model->UpdateCache();
                 $model->save();
@@ -135,7 +135,7 @@ class UserCache extends HActiveRecord
     {
         do {
             $cache = substr(md5(time() . $this->user_id), 0, 5);
-        } while (UserCache::model()->count('cache="' . $cache . '"') != 0);
+        } while (SeoUserCache::model()->count('cache="' . $cache . '"') != 0);
         $this->cache = $cache;
         Yii::app()->cache->set(self::CACHE_ID . $this->user_id, $cache);
     }

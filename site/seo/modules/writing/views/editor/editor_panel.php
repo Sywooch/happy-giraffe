@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                 <a href="" class="btn-admins" onclick="$(this).next().toggle();return false;"></a>
                 <ul style="display: none;">
                     <?php
-                    $users = User::model()->findAll();
+                    $users = SeoUser::model()->findAll();
                     foreach ($users as $author): ?>
                         <?php if (Yii::app()->authManager->checkAccess('author', $author->id)):?>
                             <li><a href="" onclick="TaskDistribution.addGroup(2, <?php echo $author->id ?>,0);$(this).parents('ul').hide();return false;"><?=$author->name ?></a></li>

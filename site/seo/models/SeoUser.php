@@ -9,14 +9,15 @@
  * @property string $password
  * @property string $name
  * @property integer $owner_id
+ * @property integer $related_user_id
  *
  * The followings are the available model relations:
  * @property SeoTask[] $tasks
  * @property TempKeyword[] $tempKeywords
- * @property User $owner
- * @property User[] $users
+ * @property SeoUser $owner
+ * @property SeoUser[] $users
  */
-class User extends HActiveRecord
+class SeoUser extends HActiveRecord
 {
     public $current_password;
     public $remember;
@@ -24,7 +25,7 @@ class User extends HActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
-     * @return User the static model class
+     * @return SeoUser the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -52,7 +53,8 @@ class User extends HActiveRecord
         return array(
             //general
             array('name, email', 'length', 'max' => 50),
-            array('email', 'unique'),
+            array('related_user_id', 'numerical', 'integerOnly' => true),
+            array('email, related_user_id', 'unique'),
             array('role, owner_id', 'safe'),
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -82,13 +84,13 @@ class User extends HActiveRecord
         $userModel = $this->find(array(
             'condition' => 'email=:email AND password=:password',
             'params' => array(
-                ':email' => $_POST['User']['email'],
-                ':password' => $this->hashPassword($_POST['User']['password']),
+                ':email' => $_POST['SeoUser']['email'],
+                ':password' => $this->hashPassword($_POST['SeoUser']['password']),
             )));
         if ($userModel) {
-            $identity = new UserIdentity($userModel->getAttributes());
+            $identity = new SeoUserIdentity($userModel->getAttributes());
             $identity->authenticate();
-            if ($identity->errorCode == UserIdentity::ERROR_NONE) {
+            if ($identity->errorCode == SeoUserIdentity::ERROR_NONE) {
                 $duration = $this->remember == 1 ? 2592000 : 0;
                 Yii::app()->user->login($identity, $duration);
                 $userModel->save(false);
@@ -110,6 +112,18 @@ class User extends HActiveRecord
         }
     }
 
+    public function beforeSave()
+    {
+        if (empty($this->related_user_id)){
+            $frontend_model = User::model()->findByAttributes(array('email'=>$this->email));
+            if ($frontend_model !== null){
+                $this->related_user_id = $frontend_model->id;
+            }
+        }
+
+        return parent::beforeSave();
+    }
+
     /**
      * @return array relational rules.
      */
@@ -118,8 +132,8 @@ class User extends HActiveRecord
         return array(
             'tasks' => array(self::HAS_MANY, 'SeoTask', 'user_id'),
             'tempKeywords' => array(self::HAS_MANY, 'TempKeyword', 'owner_id'),
-            'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
-            'authors' => array(self::HAS_MANY, 'User', 'owner_id'),
+            'owner' => array(self::BELONGS_TO, 'SeoUser', 'owner_id'),
+            'authors' => array(self::HAS_MANY, 'SeoUser', 'owner_id'),
         );
     }
 
@@ -159,5 +173,10 @@ class User extends HActiveRecord
     public function hashPassword($password)
     {
         return md5($password);
+    }
+
+    public function getRelatedUser()
+    {
+
     }
 }

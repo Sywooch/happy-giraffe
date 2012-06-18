@@ -45,7 +45,7 @@ class CookIngredientsController extends BController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id)
+    public function actionUpdateOld($id)
     {
         $basePath = Yii::getPathOfAlias('application.views.club.cookIngredients.assets');
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
@@ -67,7 +67,7 @@ class CookIngredientsController extends BController
         ));
     }
 
-    public function actionUpdate2($id)
+    public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
 
@@ -120,13 +120,13 @@ class CookIngredientsController extends BController
                 ) {
                     if ($ingredient_unit) {
                         if (isset($_POST['units'][$unit->id]['weight']))
-                            $ingredient_unit->weight = $_POST['units'][$unit->id]['weight'];
+                            $ingredient_unit->weight = $value = str_replace(',', '.', $_POST['units'][$unit->id]['weight']);
                     } else {
                         $ingredient_unit = new CookIngredientUnit();
                         $ingredient_unit->attributes = array(
                             'ingredient_id' => $id,
                             'unit_id' => $unit->id,
-                            'weight' => (isset($_POST['units'][$unit->id]['weight'])) ? $_POST['units'][$unit->id]['weight'] : 0
+                            'weight' => (isset($_POST['units'][$unit->id]['weight'])) ? $value = str_replace(',', '.', $_POST['units'][$unit->id]['weight']) : 0
                         );
                     }
 
@@ -143,11 +143,11 @@ class CookIngredientsController extends BController
                     if ($ingredient_unit)
                         $ingredient_unit->delete();
                 }
-
             }
 
+            $model->checked = 1;
             if ($model->save())
-                $this->redirect(array('update2', 'id' => $model->id));
+                $this->redirect(array('update', 'id' => $model->id));
         }
 
         $this->render('update2', array(

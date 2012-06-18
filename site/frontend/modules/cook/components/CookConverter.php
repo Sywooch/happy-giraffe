@@ -23,6 +23,8 @@ class CookConverter extends CComponent
      */
     public function convert($data)
     {
+        $data['qty'] = trim(str_replace(',', '.', $data['qty']));
+        $data['qty'] = preg_replace('#[^0-9\.]+#', '', $data['qty']);
 
         $this->from = CookUnit::model()->findByPk($data['from']);
         $this->to = CookUnit::model()->findByPk($data['to']);

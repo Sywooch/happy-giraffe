@@ -20,6 +20,8 @@ class CutBehavior extends CActiveRecordBehavior
                     'http' => true,
                     'https' => true,
                 ),
+                'Attr.AllowedFrameTargets' => array('_blank' => true),
+                'Attr.AllowedRel' => array('nofollow' ),
                 'HTML.AllowedComments' => array('more' => true),
             );
             $text = $p->purify($this->owner->$a);

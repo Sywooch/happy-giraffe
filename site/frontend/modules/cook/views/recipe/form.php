@@ -88,6 +88,7 @@
                                     $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                                         'model' => $recipe,
                                         'customButton' => true,
+                                        'customButtonHtmlOptions' => array('class' => 'fancy attach'),
                                     ));
                                 ?>
                                     <?php if ($recipe->photo_id === null): ?>

@@ -6,7 +6,7 @@ class ConverterController extends HController
 
     public function actionIndex()
     {
-        $this->pageTitle = 'Конвертер';
+        $this->pageTitle = 'Калькулятор мер и весов';
 
         $this->render('index', array(
             'model' => new ConverterForm()
@@ -23,12 +23,12 @@ class ConverterController extends HController
     public function actionAc($term)
     {
         $ingredients = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')
-            ->where('title LIKE :term AND density > 0', array(':term' => $term . '%'))->order('title')
-            ->limit(10)->queryAll();
-        if (count($ingredients) < 10) {
+            ->where('title LIKE :term AND (SELECT COUNT(cook__ingredient_units.id) FROM cook__ingredient_units WHERE cook__ingredient_units.ingredient_id = cook__ingredients.id) > 1', array(':term' => $term . '%'))->order('title')
+            ->limit(20)->queryAll();
+        if (count($ingredients) < 20) {
             $ingredients2 = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')
-                ->where('title LIKE :term AND density > 0', array(':term' => ' ' . $term . '%'))->order('title')
-                ->limit(10 - count($ingredients))->queryAll();
+                ->where('title LIKE :term AND (SELECT COUNT(cook__ingredient_units.id) FROM cook__ingredient_units WHERE cook__ingredient_units.ingredient_id = cook__ingredients.id) > 1', array(':term' => $term . '%'))->order('title')
+                ->limit(20 - count($ingredients))->queryAll();
             if (count($ingredients2)) {
                 $ingredient_keys = array();
                 if (count($ingredients)) {
@@ -54,7 +54,8 @@ class ConverterController extends HController
 
         if (isset($_POST['ajax']) and $_POST['ajax'] == 'converter-form') {
             $form->attributes = $_POST['ConverterForm'];
-            echo CActiveForm::validate($form);
+//            echo CActiveForm::validate($form);
+            echo '[]';
             Yii::app()->end();
         } elseif (isset($_POST['ConverterForm'])) {
             $converter = new CookConverter();

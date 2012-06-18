@@ -25,6 +25,10 @@
  */
 class CookRecipe extends CActiveRecord
 {
+    const COOK_RECIPE_LOWFAT = 11;
+    const COOK_RECIPE_LOWCAL = 40;
+    const COOK_RECIPE_FORDIABETICS = 33;
+
     public $types = array(
         1 => 'Первые блюда',
         2 => 'Вторые блюда',
@@ -53,6 +57,34 @@ class CookRecipe extends CActiveRecord
         11 => 'Замораживание',
         12 => 'Выпекание',
         13 => 'На углях',
+    );
+
+    public $durations = array(
+        array(
+            'label' => 'Меньше чем 15 минут',
+            'min' => null,
+            'max' => 15,
+        ),
+        array(
+            'label' => 'От 15 до 30 минут',
+            'min' => 15,
+            'max' => 30,
+        ),
+        array(
+            'label' => 'От 30 до 60 минут',
+            'min' => 30,
+            'max' => 60,
+        ),
+        array(
+            'label' => 'От 1 часа до 2 часов',
+            'min' => 60,
+            'max' => 120,
+        ),
+        array(
+            'label' => 'Более 2 часов',
+            'min' => 120,
+            'max' => null,
+        ),
     );
 
     public $preparation_duration_h;
@@ -118,7 +150,20 @@ class CookRecipe extends CActiveRecord
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
 			'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
 			'cuisine' => array(self::BELONGS_TO, 'CookCuisine', 'cuisine_id'),
-            'attachPhotos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
+            'attachPhotos' => array(
+                self::HAS_MANY,
+                'AttachPhoto',
+                'entity_id',
+                'on' => 'entity = :entity',
+                'params' => array(':entity' => get_class($this)),
+                'with' => array(
+                    'photo' => array(
+                        'alias' => 'attachPhoto',
+                    ),
+                ),
+                'order' => 'attachPhoto.created ASC',
+            ),
+            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
 		);
 	}
 
@@ -217,6 +262,10 @@ class CookRecipe extends CActiveRecord
             CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
         }
 
+        $this->lowFat = $this->getNutritionalsPerServing(2) <= self::COOK_RECIPE_LOWFAT;
+        $this->forDiabetics = $this->getNutritionalsPerServing(4) <= self::COOK_RECIPE_FORDIABETICS;
+        $this->lowCal = $this->getNutritionalsPer100g(1) <= self::COOK_RECIPE_LOWCAL;
+
         return parent::beforeSave();
     }
 
@@ -236,6 +285,61 @@ class CookRecipe extends CActiveRecord
         }
 
         return $this->_nutritionals;
+    }
+
+    public function getNutritionalsPer100g($nutritional_id)
+    {
+        return round($this->nutritionals['g100']['nutritionals'][$nutritional_id], 2);
+    }
+
+    public function getNutritionalsPerServing($nutritional_id)
+    {
+        return round($this->nutritionals['total']['nutritionals'][$nutritional_id] / $this->servings, 2);
+    }
+
+    public function getBakeryItems()
+    {
+        return round($this->getNutritionalsPerServing(4) / 11, 2);
+    }
+
+    public function findAdvanced($cuisine_id, $type, $method,  $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics)
+    {
+        $criteria = new CDbCriteria;
+
+        if ($cuisine_id !== null)
+            $criteria->compare('cuisine_id', $cuisine_id);
+        if ($type !== null)
+            $criteria->compare('type', $type);
+        if ($method !== null)
+            $criteria->compare('method', $method);
+
+        if ($preparation_duration !== null) {
+            if ($this->durations[$preparation_duration]['min'] !== null)
+                $criteria->compare('preparation_duration', '>=' . $preparation_duration['min']);
+            if ($this->durations[$preparation_duration]['max'] !== null)
+                $criteria->compare('preparation_duration', '<' . $preparation_duration['max']);
+        }
+
+        if ($cooking_duration !== null) {
+            if ($this->durations[$cooking_duration]['min'] !== null)
+                $criteria->compare('cooking_duration', '>=' . $cooking_duration['min']);
+            if ($this->durations[$cooking_duration]['max'] !== null)
+                $criteria->compare('cooking_duration', '<' . $cooking_duration['max']);
+        }
+
+        if ($lowFat) {
+            $criteria->compare('lowFat', 1);
+        }
+
+        if ($lowCal) {
+            $criteria->compare('lowCal', 1);
+        }
+
+        if ($forDiabetics) {
+            $criteria->compare('forDiabetics', 1);
+        }
+
+        return $this->findAll($criteria);
     }
 
     public function findByIngredients($ingredients, $type = null, $limit = null)
@@ -281,9 +385,17 @@ class CookRecipe extends CActiveRecord
         return $this->findAll($criteria);
     }
 
-    public function getUrl()
+    public function getUrl($comments = false, $absolute = false)
     {
-        return Yii::app()->controller->createUrl('/cook/recipe/view', array('id' => $this->id));
+        $params = array(
+            'id' => $this->id,
+        );
+
+        if ($comments)
+            $params['#'] = 'comment_list';
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method('/cook/recipe/view', $params);
     }
 
     public function getPreview($imageWidth = 167)
@@ -318,5 +430,131 @@ class CookRecipe extends CActiveRecord
         );
 
         return CMap::mergeArray($next, $prev);
+    }
+
+    public function getMainPhoto()
+    {
+        if ($this->photo !== null)
+            return $this->photo;
+
+        if (! empty($this->attachPhotos)) {
+            return $this->attachPhotos[0];
+        }
+
+        return null;
+    }
+
+    public function getThumbs()
+    {
+        $thumbs = $this->attachPhotos;
+        if ($this->photo === null) {
+            array_shift($thumbs);
+        }
+
+        return $thumbs;
+    }
+
+    public function getPhotoCollection()
+    {
+        $photos = array();
+        if ($this->photo !== null)  {
+            $photos[] = $this->photo;
+        }
+        foreach ($this->attachPhotos as $p) {
+            $photos[] = $p->photo;
+        }
+
+        return $photos;
+    }
+
+    public function getLastRecipes($limit = 9)
+    {
+        $criteria = new CDbCriteria(array(
+            'limit' => $limit,
+            'order' => 't.created DESC',
+            'with' => 'photo',
+        ));
+
+        return $this->findAll($criteria);
+    }
+
+    public function getDurationLabels()
+    {
+        $labels = array();
+        foreach ($this->durations as $d)
+            $labels[] = $d['label'];
+        return $labels;
+    }
+
+    public function getCounts()
+    {
+        $_counts = array();
+
+        $_counts[0] = $this->count();
+        foreach ($this->types as $k => $v)
+            $_counts[$k] = 0;
+
+        $counts = Yii::app()->db->createCommand()
+            ->select('type, count(*)')
+            ->from($this->tableName())
+            ->group('type')
+            ->queryAll();
+        foreach ($counts as $c)
+            $_counts[$c['type']] = $c['count(*)'];
+
+        return $_counts;
+    }
+
+    public function getSearchResultCounts($allSearch)
+    {
+        $_counts = array();
+
+        $_counts[0] = count($allSearch['matches']);
+
+        $ids = array();
+        foreach($allSearch['matches'] as $key => $m){
+            $ids[] = $key;
+        }
+
+        $counts = Yii::app()->db->createCommand()
+            ->select('type, count(*)')
+            ->from($this->tableName())
+            ->group('type')
+            ->where('id IN ('.implode(',', $ids).')')
+            ->queryAll();
+
+        foreach ($counts as $c)
+            $_counts[$c['type']] = $c['count(*)'];
+
+        return $_counts;
+    }
+
+    public function getSearchResult($criteria)
+    {
+        $allSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
+
+        $res = array();
+        foreach($allSearch['matches'] as $key=>$m)
+            $res[] = array('id'=>$key);
+
+        return $res;
+    }
+
+    public function getByType($type)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array('photo', 'attachPhotos'),
+        ));
+        if ($type !== null)
+            $criteria->compare('type', $type);
+
+        $dp = new CActiveDataProvider('CookRecipe', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 3,
+            ),
+        ));
+
+        return $dp;
     }
 }

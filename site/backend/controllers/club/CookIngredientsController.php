@@ -67,6 +67,21 @@ class CookIngredientsController extends BController
         ));
     }
 
+    public function actionUpdate2($id)
+    {
+        $model = $this->loadModel($id);
+
+        if (isset($_POST['CookIngredient'])) {
+            $model->attributes = $_POST['CookIngredient'];
+            if ($model->save())
+                $this->redirect(array('update', 'id' => $model->id));
+        }
+
+        $this->render('update2', array(
+            'model' => $model,
+        ));
+    }
+
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'admin' page.

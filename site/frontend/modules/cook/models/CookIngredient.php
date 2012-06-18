@@ -202,6 +202,11 @@ class CookIngredient extends HActiveRecord
         return implode('<br>', $arr);
     }
 
+    public function getNutritional($id){
+        $cal = CookIngredientNutritional::model()->findByAttributes(array('nutritional_id'=>$id,'ingredient_id'=>$this->id));
+        return isset($cal)?(float)$cal->value:'';
+    }
+
     public function getTextUnits()
     {
         $arr = array();

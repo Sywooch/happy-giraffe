@@ -71,7 +71,7 @@ button.btn-gray-small {height:20px;}
 #seo .icon-moderator {display:inline-block;width:25px;height:25px;background:url(/images/seo_sprite.png) no-repeat -38px -63px;vertical-align:middle;}
 #seo .icon-admin {display:inline-block;width:25px;height:25px;background:url(/images/seo_sprite.png) no-repeat -38px -90px;vertical-align:middle;}
 #seo .icon-return {display:inline-block;width:17px;height:18px;background:url(/images/seo_sprite.png) no-repeat -13px -81px;vertical-align:middle;margin-left:3px;}
-#seo .icon-article {display:inline-block;width:11px;height:11px;background:url(/images/seo_sprite.png) no-repeat -146px -17px;vertical-align:middle;margin-left:3px;position:relative;top:-1px;}
+#seo .icon-article {display:inline-block;width:11px;height:11px;background:url(/images/seo_sprite.png) no-repeat -146px -17px;vertical-align:middle;margin-left:15px;position:relative;top:-1px;}
 #seo .icon-link {display:inline-block;width:20px;height:8px;background:url(/images/seo_sprite.png) no-repeat -102px -17px;vertical-align:middle;margin-left:3px;}
 #seo .icon-link.active {background-position:-124px -17px;}
 #seo .icon-updrag {display:inline-block;width:16px;height:17px;background:url(/images/seo_sprite.png) no-repeat -13px -101px;vertical-align:middle;margin-left:3px;}

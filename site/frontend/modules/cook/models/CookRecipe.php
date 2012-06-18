@@ -163,6 +163,7 @@ class CookRecipe extends CActiveRecord
                 ),
                 'order' => 'attachPhoto.created ASC',
             ),
+            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
 		);
 	}
 
@@ -288,17 +289,17 @@ class CookRecipe extends CActiveRecord
 
     public function getNutritionalsPer100g($nutritional_id)
     {
-        return $this->nutritionals['g100']['nutritionals'][$nutritional_id];
+        return round($this->nutritionals['g100']['nutritionals'][$nutritional_id], 2);
     }
 
     public function getNutritionalsPerServing($nutritional_id)
     {
-        return round($this->nutritionals['total']['nutritionals'][$nutritional_id] / $this->servings, 1);
+        return round($this->nutritionals['total']['nutritionals'][$nutritional_id] / $this->servings, 2);
     }
 
     public function getBakeryItems()
     {
-        return round($this->getNutritionalsPerServing(4) / 11, 1);
+        return round($this->getNutritionalsPerServing(4) / 11, 2);
     }
 
     public function findAdvanced($cuisine_id, $type, $method,  $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics)
@@ -384,9 +385,17 @@ class CookRecipe extends CActiveRecord
         return $this->findAll($criteria);
     }
 
-    public function getUrl()
+    public function getUrl($comments = false, $absolute = false)
     {
-        return Yii::app()->controller->createUrl('/cook/recipe/view', array('id' => $this->id));
+        $params = array(
+            'id' => $this->id,
+        );
+
+        if ($comments)
+            $params['#'] = 'comment_list';
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method('/cook/recipe/view', $params);
     }
 
     public function getPreview($imageWidth = 167)
@@ -475,5 +484,77 @@ class CookRecipe extends CActiveRecord
         foreach ($this->durations as $d)
             $labels[] = $d['label'];
         return $labels;
+    }
+
+    public function getCounts()
+    {
+        $_counts = array();
+
+        $_counts[0] = $this->count();
+        foreach ($this->types as $k => $v)
+            $_counts[$k] = 0;
+
+        $counts = Yii::app()->db->createCommand()
+            ->select('type, count(*)')
+            ->from($this->tableName())
+            ->group('type')
+            ->queryAll();
+        foreach ($counts as $c)
+            $_counts[$c['type']] = $c['count(*)'];
+
+        return $_counts;
+    }
+
+    public function getSearchResultCounts($allSearch)
+    {
+        $_counts = array();
+
+        $_counts[0] = count($allSearch['matches']);
+
+        $ids = array();
+        foreach($allSearch['matches'] as $key => $m){
+            $ids[] = $key;
+        }
+
+        $counts = Yii::app()->db->createCommand()
+            ->select('type, count(*)')
+            ->from($this->tableName())
+            ->group('type')
+            ->where('id IN ('.implode(',', $ids).')')
+            ->queryAll();
+
+        foreach ($counts as $c)
+            $_counts[$c['type']] = $c['count(*)'];
+
+        return $_counts;
+    }
+
+    public function getSearchResult($criteria)
+    {
+        $allSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
+
+        $res = array();
+        foreach($allSearch['matches'] as $key=>$m)
+            $res[] = array('id'=>$key);
+
+        return $res;
+    }
+
+    public function getByType($type)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array('photo', 'attachPhotos'),
+        ));
+        if ($type !== null)
+            $criteria->compare('type', $type);
+
+        $dp = new CActiveDataProvider('CookRecipe', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 3,
+            ),
+        ));
+
+        return $dp;
     }
 }

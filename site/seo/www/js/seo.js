@@ -91,7 +91,7 @@ var SeoModule = {
         }, 'json');
     },
     stopThreads:function () {
-        $.post('/queries/stopThreads/', function (response) {
+        $.post('/parsing/stopThreads/', function (response) {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',

@@ -1,4 +1,8 @@
-<div id="cook" class="clearfix">
+<?php
+/* @var $this Controller
+ * @var CookDecoration[] $decorations
+ */
+?><div id="cook" class="clearfix">
 
 <div class="title">
     <h2>Кулинария <span>Готовьте с Веселым Жирафом!</span></h2>
@@ -22,10 +26,10 @@
 
             </div>
 
-            <form>
-                <input type="text" placeholder="Введите ключевое слово в названии рецепта"/>
+            <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
+                <input name="text" type="text" placeholder="Введите ключевое слово в названии рецепта"/>
                 <button class="btn btn-purple-medium"><span><span>Найти</span></span></button>
-            </form>
+            <?=CHtml::endForm()?>
 
         </div>
 
@@ -40,11 +44,11 @@
 
                 <div class="all-link">
                     <span>Смотреть</span><br/>
-                    <a href="">все рецепты (<?=$recipesCount?>)</a>
+                    <?=CHtml::link('все рецепты (' . $recipesCount . ')', '/cook/recipe')?>
                 </div>
 
                 <div class="add-btn">
-                    <a href="<?=$this->createUrl('/cook/recipe/add')?>" class="btn btn-green-medium"><span><span>Добавить рецепт</span></span></a>
+                    <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/add')?>" class="btn btn-green-medium<?php if (Yii::app()->user->isGuest): ?> fancy<?php endif; ?>"><span><span>Добавить рецепт</span></span></a>
                 </div>
 
 
@@ -114,7 +118,7 @@
 
             <ul class="list">
                 <?php foreach ($decorations as $decoration) { ?>
-                <li><?=$decoration->preview?></li>
+                <li><a href="<?=$decoration->url ?>"><img src="<?=$decoration->photo->getPreviewUrl(240, 160, false, true, AlbumPhoto::CROP_SIDE_TOP)?>" alt="<?=$decoration->title ?>"></a></li>
                 <?php } ?>
             </ul>
 

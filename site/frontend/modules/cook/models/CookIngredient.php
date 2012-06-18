@@ -83,9 +83,9 @@ class CookIngredient extends HActiveRecord
         return array(
             'id' => 'ID',
             'category_id' => 'Категория',
-            'unit_id' => 'Ед.изм. по умолчанию',
+            'unit_id' => 'Единица измерения <span>(по умолчанию)</span>',
             'title' => 'Название',
-            'density' => 'Плотность',
+            'density' => 'Плотность <span>(г/см3)</span>',
             'src' => 'Источник',
             'textSynonyms'=>'Синонимы',
             'textNutritional'=>'Состав продукта',

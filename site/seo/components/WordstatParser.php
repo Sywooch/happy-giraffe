@@ -66,7 +66,7 @@ class WordstatParser extends ProxyParserThread
         $criteria2->order = 'depth DESC';
         $criteria2->with = 'keyword';
 
-        while ($this->keyword == null) {
+        while ($this->keyword === null) {
             $transaction = Yii::app()->db_seo->beginTransaction();
             try {
                 $this->keyword = ParsingKeyword::model()->find($criteria);
@@ -80,6 +80,7 @@ class WordstatParser extends ProxyParserThread
                 $this->keyword->save();
                 $transaction->commit();
             } catch (Exception $e) {
+                $this->keyword = null;
                 $transaction->rollback();
             }
             sleep(1);

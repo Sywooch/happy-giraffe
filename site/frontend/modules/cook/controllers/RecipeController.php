@@ -120,7 +120,8 @@ class RecipeController extends HController
             }
             $recipe->ingredients = $ingredients;
             if ($recipe->withRelated->save(true, array('ingredients'))) {
-                $content->update(array('removed' => 1));
+                $content->removed = 1;
+                $content->update(array('removed'));
                 $this->redirect(array('/cook/recipe/view', 'id' => $recipe->id));
             }
         }

@@ -141,6 +141,6 @@ class ArticleKeywords extends CActiveRecord
         $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         if ($model === null)
             return '';
-        return CHtml::link($model->title, $model->getUrl());
+        return CHtml::link($model->title, 'http://www.happy-giraffe.ru'.$model->getUrl(), array('target' => '_blank'));
     }
 }

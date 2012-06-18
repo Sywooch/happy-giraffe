@@ -349,8 +349,20 @@ class Keyword extends HActiveRecord
     public function getKeywordAndSimilarArticles()
     {
         $res = $this->name;
-        if ($this->used() || $this->hasOpenedTask())
+        if ($this->hasOpenedTask())
             return $res;
+        if ($this->used()) {
+            if (empty($this->group))
+                return $res;
+
+            foreach ($this->group as $group_) {
+                $group = $group_;
+            }
+            if (empty($group->articleKeywords))
+                return $res;
+
+            return $res.'<br>' . $group->articleKeywords->getArticleLink();
+        }
 
         $models = $this->getSimilarArticles();
         if (!empty($models)) {

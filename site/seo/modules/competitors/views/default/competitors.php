@@ -182,7 +182,7 @@
             $('table.items thead').prepend(tr);
         },
         clearSearch:function(){
-            $('#keyword').val('');
+            $('#key_name').val('');
             submitForm();
         }
     };

@@ -146,7 +146,7 @@ class ProxyParserThread extends CComponent
         Yii::app()->end();
     }
 
-    private function removeCookieFile()
+    protected function removeCookieFile()
     {
         if (file_exists($this->getCookieFile()))
             unlink($this->getCookieFile());

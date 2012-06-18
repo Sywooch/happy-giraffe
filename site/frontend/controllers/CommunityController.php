@@ -128,7 +128,7 @@ class CommunityController extends HController
     public function actionView($community_id, $content_type_slug, $content_id)
     {
         $this->layout = '//layouts/community';
-        $content = CommunityContent::model()->active()->full()->findByPk($content_id);
+        $content = CommunityContent::model()->full()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
 

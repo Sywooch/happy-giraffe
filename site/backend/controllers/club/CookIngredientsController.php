@@ -73,8 +73,81 @@ class CookIngredientsController extends BController
 
         if (isset($_POST['CookIngredient'])) {
             $model->attributes = $_POST['CookIngredient'];
+
+            //nutritional
+            if (isset($_POST['nutritional'])) {
+                foreach ($_POST['nutritional'] as $nutritional_id => $value) {
+                    $value = trim($value);
+                    $value = str_replace(',', '.', $value);
+                    if (empty($value)) {
+                        CookIngredientNutritional::model()->deleteAllByAttributes(array('nutritional_id' => $nutritional_id, 'ingredient_id' => $id));
+                    } else {
+                        $nutritional = CookIngredientNutritional::model()->findByAttributes(array('nutritional_id' => $nutritional_id, 'ingredient_id' => $id));
+                        if ($nutritional !== null) {
+                            if ($nutritional->value != $value)
+                                $nutritional->value = $value;
+                        } else {
+                            $nutritional = new CookIngredientNutritional;
+                            $nutritional->ingredient_id = $id;
+                            $nutritional->nutritional_id = $nutritional_id;
+                            $nutritional->value = $value;
+                            $nutritional->save();
+                        }
+                    }
+                }
+            }
+
+            //synonyms
+            if (isset($_POST['synonym'])) {
+                CookIngredientSynonym::model()->deleteAll('ingredient_id=' . $id);
+                foreach ($_POST['synonym'] as $value) {
+                    $value = trim($value);
+                    $synonym = new CookIngredientSynonym;
+                    $synonym->ingredient_id = $id;
+                    $synonym->title = $value;
+                    $synonym->save();
+                }
+            }
+
+            //units
+            $units = CookUnit::model()->findAll();
+
+            foreach ($units as $unit) {
+                $ingredient_unit = CookIngredientUnit::model()->findByAttributes(array('ingredient_id' => $id, 'unit_id' => $unit->id));
+                if (isset($_POST['units'][$unit->id]['cb'])
+                    ||
+                    (isset($_POST['units'][$unit->id]['weight']) && !empty($_POST['units'][$unit->id]['weight']))
+                ) {
+                    if ($ingredient_unit) {
+                        if (isset($_POST['units'][$unit->id]['weight']))
+                            $ingredient_unit->weight = $_POST['units'][$unit->id]['weight'];
+                    } else {
+                        $ingredient_unit = new CookIngredientUnit();
+                        $ingredient_unit->attributes = array(
+                            'ingredient_id' => $id,
+                            'unit_id' => $unit->id,
+                            'weight' => (isset($_POST['units'][$unit->id]['weight'])) ? $_POST['units'][$unit->id]['weight'] : 0
+                        );
+                    }
+
+                    if ($unit->type == 'volume' && $model->density == 0) {
+                        continue;
+                    }
+                    if (($unit->type == 'qty') && !isset($_POST['units'][$unit->id]['weight'])) {
+                        continue;
+                    }
+
+                    $ingredient_unit->save();
+
+                } else {
+                    if ($ingredient_unit)
+                        $ingredient_unit->delete();
+                }
+
+            }
+
             if ($model->save())
-                $this->redirect(array('update', 'id' => $model->id));
+                $this->redirect(array('update2', 'id' => $model->id));
         }
 
         $this->render('update2', array(
@@ -191,9 +264,9 @@ class CookIngredientsController extends BController
     }
 
     /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer the ID of the model to be loaded
+     * @param $id
+     * @return CookIngredient
+     * @throws CHttpException
      */
     public function loadModel($id)
     {

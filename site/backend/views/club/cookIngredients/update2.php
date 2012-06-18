@@ -34,6 +34,7 @@
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'cook-ingredients-form',
     'enableAjaxValidation' => false,
+    'method'=>'POST'
 )); ?>
 
 <div class="form">
@@ -72,37 +73,67 @@
 </div>
 
 <div id="nutritionals">
-    <?= CHtml::textField('Nutritional[Cal]', $model->getNutritional(1)) ?><br>
-    <?= CHtml::textField('Nutritional[Cal]', $model->getNutritional(3)) ?><br>
-    <?= CHtml::textField('Nutritional[Cal]', $model->getNutritional(2)) ?><br>
-    <?= CHtml::textField('Nutritional[Cal]', $model->getNutritional(4)) ?><br>
+    <?= CHtml::textField('nutritional[1]', $model->getNutritional(1)) ?><br>
+    <?= CHtml::textField('nutritional[3]', $model->getNutritional(3)) ?><br>
+    <?= CHtml::textField('nutritional[2]', $model->getNutritional(2)) ?><br>
+    <?= CHtml::textField('nutritional[4]', $model->getNutritional(4)) ?><br>
 </div>
-
 
 <div>
-    <table id="fcontainer">
-        <tr>
-            <td>
-                <?php $this->renderPartial('_form_nutritionals', array('model' => $model));?>
-            </td>
-            <td id="units-container">
-                <?php $this->renderPartial('_form_units', array('model' => $model)); ?>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <?php $this->renderPartial('_form_synonyms', array('model' => $model)); ?>
-            </td>
-        </tr>
-    </table>
+    <?php
+    $units = CookUnit::model()->findAll(array('order' => 'type'));
+    $iUnits = $model->getUnits();
+    $iUnitsIds = $model->getUnitsIds();
+
+    foreach ($units as $unit) {
+        $active = (in_array($unit->id, $iUnitsIds)) ? 'checked="checked"' : '';
+        if ($unit->type != 'qty') {
+            echo '<div>';
+            echo '<input name="units[' . $unit->id . '][cb]" type="checkbox" value="' . $unit->id . '" ' . $active . '>';
+            echo '<label>' . $unit->title . '</label>';
+            echo '</div>';
+        }
+    }
+
+    foreach ($units as $unit) {
+        $weight = (in_array($unit->id, $iUnitsIds)) ? $iUnits[$unit->id]['weight'] : '';
+        if ($unit->type == 'qty') {
+            echo '<div>';
+            echo '<input name="units[' . $unit->id . '][weight]" type="text" value="' . $weight . '">';
+            echo '<label>' . $unit->title . '</label>';
+            echo '</div>';
+        }
+    }
+    ?>
 </div>
+
+<div class="synonyms">
+    <h2>Синонимы</h2>
+    <?php $i = 0; ?>
+    <?php foreach ($model->synonyms as $synonym): ?>
+        <input type="text" name="synonym[<?=$i ?>]" value="<?=$synonym->title ?>" id="synonym-<?=$i ?>">
+        <?php $i++; ?>
+    <?php endforeach; ?>
+
+    <input type="text" name="synonym[<?=$i ?>]" value="" id="synonym-<?=$i ?>">
+</div>
+
 <?php echo CHtml::submitButton($model->isNewRecord ? 'Добавить' : 'Сохранить'); ?>
 
 <?php $this->endWidget(); ?>
-
 
 <script type="text/javascript">
     var IngredientEdit = {
 
     }
+
+    $(function() {
+        $('body').delegate('.synonyms input', 'keydown', function(){
+            var i = $(this).attr("id").replace(/[a-zA-Z]*-/ig, "");
+            i = parseInt(i+1);
+            if ($('#synonym-'+i).length <= 0){
+                $('.synonyms').append('<input type="text" name="synonym['+i+']" value="" id="synonym-'+i+'">');
+            }
+        });
+    });
 </script>

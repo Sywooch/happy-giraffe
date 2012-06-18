@@ -136,11 +136,11 @@ class ArticleKeywords extends CActiveRecord
         return implode('<br>', $keys);
     }
 
-    public function getArticleLink()
+    public function getArticleLink($icon = false)
     {
         $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         if ($model === null)
             return '';
-        return CHtml::link($model->title, 'http://www.happy-giraffe.ru'.$model->getUrl(), array('target' => '_blank'));
+        return CHtml::link($icon?$model->title:'', 'http://www.happy-giraffe.ru'.$model->getUrl(), array('target' => '_blank'));
     }
 }

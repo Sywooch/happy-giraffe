@@ -262,6 +262,20 @@ class Keyword extends HActiveRecord
         return 4;
     }
 
+    public function getRoundFrequency()
+    {
+        if (empty($this->yandex))
+            return '';
+
+        if ($this->yandex->value > 1000)
+            return round($this->yandex->value/1000,1);
+
+        if ($this->yandex->value > 100)
+            return round($this->yandex->value/1000,2);
+
+        return round($this->yandex->value/1000,3);
+    }
+
     /**
      * @param CDbCriteria $criteria
      * @return array
@@ -361,7 +375,10 @@ class Keyword extends HActiveRecord
             if (empty($group->articleKeywords))
                 return $res;
 
-            return $res.'<br>' . $group->articleKeywords->getArticleLink();
+            return $res . CHtml::link('', $group->articleKeywords->url, array(
+                'target' => '_blank',
+                'class' => 'icon-article'
+            ));
         }
 
         $models = $this->getSimilarArticles();

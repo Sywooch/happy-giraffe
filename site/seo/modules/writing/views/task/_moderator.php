@@ -1,7 +1,7 @@
 <?php Yii::app()->clientScript
     ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/comet.js')
     ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/dklab_realplexor.js')
-    ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');'); ?>
+    ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . SeoUserCache::GetCurrentUserCache() . '\');'); ?>
 <?php if (!$executing) {    ?>
     <div class="seo-table">
     <div class="table-title">Список текущих заданий</div>

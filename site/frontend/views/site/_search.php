@@ -13,4 +13,3 @@ $this->renderPartial('//community/_post', array(
     'full' => false,
     'data' => $c
 ));
-?>

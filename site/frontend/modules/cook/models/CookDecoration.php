@@ -11,7 +11,7 @@
  *
  * The followings are the available model relations:
  * @property CookDecorationCategory $category
- * @pphoto AlbumPhoto $category
+ * @property AlbumPhoto $photo
  */
 class CookDecoration extends CActiveRecord
 {

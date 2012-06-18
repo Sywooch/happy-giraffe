@@ -31,7 +31,7 @@ var Converter = {
         el.closest('.drp-list').find('input').val(el.parent().attr('data-id'));
 
         Converter.Calculate();
-        event.preventDefault();
+        return false;
     },
 
     unitSwap:function (event) {
@@ -48,10 +48,13 @@ var Converter = {
 
         Converter.Calculate();
 
-        event.preventDefault();
+        return false;
     },
 
     Calculate:function () {
+        if ($('#ConverterForm_qty').val() == '')
+            $('#ConverterForm_qty').val(0);
+
         if (isNaN(parseInt($('#ConverterForm_ingredient').val())))
             return false;
         if ($('#ConverterForm_qty').val() == '')
@@ -112,8 +115,8 @@ var Converter = {
         $('.drp-list ul').hide();
     },
 
-    qtyInput:function (evt) {
-        var charCode = (evt.which) ? evt.which : event.keyCode
+    qtyInput:function (evt, elem) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
         if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
             return false;
         return true;

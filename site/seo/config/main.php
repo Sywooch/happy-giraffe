@@ -11,18 +11,18 @@ return array(
         'site.common.behaviors.*',
         'site.common.helpers.*',
 
+        'site.frontend.helpers.FileHandler',
+        'site.frontend.components.*',
+        'site.frontend.helpers.CArray',
+        'site.frontend.helpers.*',
+        'site.frontend.extensions.YiiMongoDbSuite.*',
+
         'application.models.*',
         'application.models.mongo.*',
         'application.models.forms.*',
         'application.components.*',
         'application.modules.competitors.models.*',
         'application.modules.writing.models.*',
-
-        'site.frontend.helpers.FileHandler',
-        'site.frontend.components.*',
-        'site.frontend.helpers.CArray',
-        'site.frontend.helpers.*',
-        'site.frontend.extensions.YiiMongoDbSuite.*',
     ),
     'modules'=>array(
         'competitors',

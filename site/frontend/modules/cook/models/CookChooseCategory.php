@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $title
  * @property string $description
+ * @property string $description_center
  * @property string $description_extra
  * @property string $photo_id
  * @property string $slug
@@ -45,7 +46,7 @@ class CookChooseCategory extends HActiveRecord
             array('title, photo_id, title_accusative', 'required'),
             array('title, title_accusative', 'length', 'max' => 255),
             array('photo_id', 'length', 'max' => 11),
-            array('description, description_extra', 'safe'),
+            array('description, description_extra, description_center', 'safe'),
             array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'title'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -75,8 +76,9 @@ class CookChooseCategory extends HActiveRecord
             'id' => 'ID',
             'title' => 'Заголовок',
             'title_accusative' => 'Как выбрать ...',
-            'description' => 'Описание',
-            'description_extra' => 'Дополнительное описание',
+            'description' => 'Описание (курсив не нужен)',
+            'description_center'=>'Описание под фото',
+            'description_extra' => 'Описание снизу',
             'photo_id' => 'Фото',
             'slug' => 'slug'
         );

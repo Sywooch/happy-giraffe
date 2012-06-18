@@ -11,7 +11,9 @@ class ConverterForm extends HFormModel
     {
         return array(
             array('from, to, qty, ingredient', 'required', 'message' => 'Вы не выбрали {attribute}'),
-            array('from, to, qty, ingredient', 'numerical', 'message' => 'Не корректно введен {attribute}')
+            array('qty', 'normalizeLength'),
+            array('qty',  'numerical', 'allowEmpty'=>false, 'min'=>0.01, 'message' => 'Не корректно введен {attribute}'),
+            array('from, to, ingredient', 'numerical', 'allowEmpty'=>false, 'message' => 'Не корректно введен {attribute}')
         );
     }
 
@@ -20,7 +22,7 @@ class ConverterForm extends HFormModel
         return array(
             'from' => 'Ед. изм ИЗ',
             'to' => 'Ед. изм В',
-            'qty' => 'Количество',
+            'qty' => 'количество',
             'ingredient' => 'продукт'
         );
     }

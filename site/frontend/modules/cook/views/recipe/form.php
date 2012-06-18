@@ -211,8 +211,8 @@
 
                 <div class="row-btn">
 
-                    <button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
-                    <button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>
+                    <!--<button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>-->
+                    <!--<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>-->
                     <button class="btn btn-green-medium"><span><span><?=$recipe->isNewRecord ? 'Добавить' : 'Редактировать'?></span></span></button>
 
                 </div>

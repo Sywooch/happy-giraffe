@@ -113,9 +113,11 @@ class WordstatParser extends ProxyParserThread
             if (Config::getAttribute('stop_threads') == 1)
                 $this->closeThread('manual exit');
 
-            if (!$success)
+            if (!$success){
                 $this->changeBadProxy();
-            sleep(1);
+                $this->removeCookieFile();
+            }
+            sleep(10);
         }
     }
 

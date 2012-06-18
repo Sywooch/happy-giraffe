@@ -71,7 +71,7 @@ class ProxyParserThread extends CComponent
 
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-            if ($_SERVER['SERVER_ADDR'] != '5.9.7.81') {
+            if (getenv('SERVER_ADDR') != '5.9.7.81') {
                 curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
                 curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             }

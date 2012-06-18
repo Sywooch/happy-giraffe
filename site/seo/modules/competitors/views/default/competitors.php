@@ -12,7 +12,7 @@
         <label>не показывать<br>используемые<br>
             <input type="checkbox"
                    id="hide-used" <?php if (Yii::app()->user->getState('hide_used') == 1) echo 'checked="checked"' ?>
-                   onchange="SeoKeywords.hideUsed(this);"></label>
+                   onchange="SeoKeywords.hideUsed(this, function(){document.location.reload()});"></label>
     </div>
 
 </div>

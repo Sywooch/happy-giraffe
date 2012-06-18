@@ -139,11 +139,11 @@ class SeoTask extends CActiveRecord
     {
         $res = '';
         foreach ($this->keywordGroup->keywords as $key)
-            $res .= $key->name . ', ';
+            $res .= $key->name . '<br>';
         if ($this->rewrite)
             foreach ($this->rewriteUrls as $url)
-                $res .= $url->url . ', ';
-        return trim($res, ', ');
+                $res .= $url->url . '<br>';
+        return trim($res, '<br>');
     }
 
     public function getHints()

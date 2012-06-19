@@ -247,7 +247,7 @@ class AlbumPhoto extends HActiveRecord
      *
      * @return string
      */
-    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false, $crop_side)
+    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER)
     {
         // Uload root
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');

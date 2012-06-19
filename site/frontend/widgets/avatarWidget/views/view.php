@@ -1,8 +1,8 @@
 <?php
-    $class = 'ava';
-    if ($this->user->gender !== null) $class .= ' ' . (($this->user->gender) ? 'male' : 'female');
-    if ($this->size !== 'ava') $class .= ' ' . $this->size;
-    if($this->filled) $class .= ' filled';
+$class = 'ava';
+if ($this->user->gender !== null) $class .= ' ' . (($this->user->gender) ? 'male' : 'female');
+if ($this->size !== 'ava') $class .= ' ' . $this->size;
+if($this->filled) $class .= ' filled';
 
 $link_to_profile = $this->user->url;
 if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)

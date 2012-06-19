@@ -92,21 +92,21 @@ class SignupController extends HController
                     $photo->author_id = $model->id;
                     $photo->save();
 
-//                    $picture = new Imagick($src);
+                    $picture = new Imagick($src);
 
-//                    $a1 = clone $picture;
-//                    $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);
-//                    $a1->writeImage($photo->getAvatarPath('small'));
-//
-//                    $a2 = clone $picture;
-//                    $a2->resizeimage(72, 72, imagick::COLOR_OPACITY, 1);
-//                    $a2->writeImage($photo->getAvatarPath('ava'));
-//
-//                    $attach = new AttachPhoto;
-//                    $attach->entity = 'User';
-//                    $attach->entity_id = $model->id;
-//                    $attach->photo_id = $photo->id;
-//                    $attach->save();
+                    $a1 = clone $picture;
+                    $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);
+                    $a1->writeImage($photo->getAvatarPath('small'));
+
+                    $a2 = clone $picture;
+                    $a2->resizeimage(72, 72, imagick::COLOR_OPACITY, 1);
+                    $a2->writeImage($photo->getAvatarPath('ava'));
+
+                    $attach = new AttachPhoto;
+                    $attach->entity = 'User';
+                    $attach->entity_id = $model->id;
+                    $attach->photo_id = $photo->id;
+                    $attach->save();
 
                     $model->avatar_id = $photo->id;
                     $model->save();

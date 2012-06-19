@@ -46,10 +46,10 @@ class ParseController extends SController
     {
         $site = $this->loadModel($site_id);
 
-        $this->loadPage('http://www.liveinternet.ru/stat/' . $site->url.'/index.html', '');
-        $this->loadPage('http://www.liveinternet.ru/stat/' . $site->url.'/queries.html', 'http://www.liveinternet.ru/stat/' . $site->url.'/index.html');
-        $next_url = 'http://www.liveinternet.ru/stat/' . $site->url.'/queries.html?total=yes&period=month';
-        $this->loadPage($next_url, 'http://www.liveinternet.ru/stat/' . $site->url.'/queries.html');
+        $this->loadPage('http://www.liveinternet.ru/stat/' . $site->url . '/index.html', '');
+        $this->loadPage('http://www.liveinternet.ru/stat/' . $site->url . '/queries.html', 'http://www.liveinternet.ru/stat/' . $site->url . '/index.html');
+        $next_url = 'http://www.liveinternet.ru/stat/' . $site->url . '/queries.html?total=yes&period=month';
+        $this->loadPage($next_url, 'http://www.liveinternet.ru/stat/' . $site->url . '/queries.html');
 
         for ($month = $month_from; $month <= $month_to; $month++) {
             $url = 'http://www.liveinternet.ru/stat/' . $site->url
@@ -419,6 +419,56 @@ class ParseController extends SController
         }
 
         return $count;
+    }
+
+    public function actionEncode()
+    {
+        $site_id = 4;
+
+        $criteria = new CDbCriteria;
+        $criteria->compare('site_id', $site_id);
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+        $criteria->with = array('keyword');
+
+        $i = 0;
+        $models = array(0);
+        while (!empty($models)) {
+            $models = SiteKeywordVisit::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $model2 = new SitesKeywordsVisit2();
+                $model2->attributes = $model->attributes;
+                $model2->keyword = $model->keyword->name;
+                $model2->save();
+            }
+
+            $i++;
+            $criteria->offset = $i * 100;
+        }
+    }
+
+    public function actionDecode()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $i = 0;
+        $models = array(0);
+        while (!empty($models)) {
+            $models = SitesKeywordsVisit2::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $model2 = new SiteKeywordVisit();
+                $model2->attributes = $model->attributes;
+                $model2->keyword_id = Keyword::GetKeyword($model->keyword);
+                $model2->save();
+            }
+
+            $i++;
+            $criteria->offset = $i * 100;
+        }
     }
 
     /**

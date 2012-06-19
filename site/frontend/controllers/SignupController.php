@@ -78,6 +78,7 @@ class SignupController extends HController
                     $url = $_POST['User']['avatar'];
                     $src = AlbumPhoto::model()->getTempPath() . 'avatar.jpeg';
                     file_put_contents($src, file_get_contents($url));
+                    file_put_contents(AlbumPhoto::model()->getOriginalPath() . 'avatar.jpeg', file_get_contents($url));
 
                     $photo = new AlbumPhoto;
                     $photo->file_name = 'avatar.jpeg';

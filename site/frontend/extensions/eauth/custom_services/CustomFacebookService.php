@@ -18,5 +18,8 @@ class CustomFacebookService extends FacebookOAuthService
         $this->attributes['url'] = $info->link;
         if(isset($info->email))
             $this->attributes['email'] = $info->email;
+
+        var_dump($info);
+        Yii::app()->end();
     }
 }

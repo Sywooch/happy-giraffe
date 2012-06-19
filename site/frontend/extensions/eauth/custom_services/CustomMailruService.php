@@ -25,6 +25,9 @@ class CustomMailruService extends MailruOAuthService {
 		$this->attributes['id'] = $info->uid;
 		$this->attributes['name'] = $info->first_name;
 		$this->attributes['photo'] = $info->pic;
+
+        var_dump($info);
+        Yii::app()->end();
 	}
 	
 }

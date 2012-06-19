@@ -29,7 +29,7 @@ class AlbumPhoto extends HActiveRecord
     /**
      * @var string original photos folder
      */
-    private $original_folder = 'originals';
+    public $original_folder = 'originals';
     /**
      * @var string thumbnail image folder
      */

@@ -77,6 +77,12 @@ class SignupController extends HController
                 if (isset($_POST['User']['avatar'])) {
                     $url = $_POST['User']['avatar'];
                     $src = AlbumPhoto::model()->getTempPath() . 'avatar.jpeg';
+
+                    $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+                    $model_dir = $dir . DIRECTORY_SEPARATOR . AlbumPhoto::model()->original_folder . DIRECTORY_SEPARATOR . $model->id;
+                    if (!file_exists($model_dir))
+                        mkdir($model_dir);
+
                     file_put_contents($src, file_get_contents($url));
                     file_put_contents(AlbumPhoto::model()->getOriginalPath() . 'avatar.jpeg', file_get_contents($url));
 

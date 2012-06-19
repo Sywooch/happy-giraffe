@@ -53,7 +53,7 @@ class CookConverter extends CComponent
             $swap = CookUnit::model()->findByPk(1);
             $swap_qty = $this->subConvert($this->from, $swap, $data['qty']);
             $this->result = array(
-                'qty' => $this->subConvert($this->swap, $this->to, $swap_qty)
+                'qty' => $this->subConvert($swap, $this->to, $swap_qty)
             );
         }
 

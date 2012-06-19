@@ -10,6 +10,7 @@ var Calorisator = {
         $('.ingredient_ac').autocomplete({minLength:'2', source:'/cook/calorisator/ac/'});
         var tr = $('#ingredients tr.template').last();
         tr.find(".ingredient_ac").bind("autocompleteselect", Calorisator.acSelect);
+        tr.find('input').val('');
 
         Calorisator.RowI++;
         tr.removeClass('template').addClass('ingredient').show();
@@ -17,13 +18,19 @@ var Calorisator = {
         tr.find('select.nchzn').addClass('chzn');
 
         $(".chzn").chosen();
-        event.preventDefault();
+
+        // for new rows with no product available units only gramms
+        tr.find('td.unit select option').attr('style', 'display:none !important');
+        tr.find('td.unit select option[value="1"]').attr('style', 'display:list-item !important');
+        tr.find(".chzn").trigger("liszt:updated");
+
+        return false;
     },
 
-    delRow:function (event) {
-        $(event.target).closest('tr').remove();
+    delRow:function (target) {
+        $(target).closest('tr').remove();
         Calorisator.Calculate();
-        event.preventDefault();
+        return false;
     },
 
 

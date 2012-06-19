@@ -49,7 +49,7 @@ class CustomOdnoklassnikiService extends OdnoklassnikiOAuthService {
 
             $this->attributes['photo'] = AlbumPhoto::model()->getTempUrl().$temp_file_name;
 
-            $this->attributes['avatar'] = str_replace('&photoType=4', '', $info->pic_2);
+            $this->attributes['avatar'] = str_replace('&photoType=4', '', $info->pic_1);
         }
     }
 }

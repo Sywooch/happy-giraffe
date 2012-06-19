@@ -4,7 +4,7 @@ class CalorisatorController extends HController
 {
     public function actionIndex()
     {
-        $this->pageTitle = 'Калоризатор';
+        $this->pageTitle = 'Счетчик калорий';
         $this->render('index');
     }
 

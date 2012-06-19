@@ -34,13 +34,13 @@ class SitesKeywordsVisit2 extends HActiveRecord
 		return parent::model($className);
 	}
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'sites__keywords_visits2';
-	}
+    public function getDbConnection(){
+        return Yii::app()->db_seo;
+    }
+
+    public function tableName(){
+        return 'happy_giraffe_seo.sites__keywords_visits2';
+    }
 
 	/**
 	 * @return array validation rules for model attributes.

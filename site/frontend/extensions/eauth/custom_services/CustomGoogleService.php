@@ -25,5 +25,8 @@ class CustomGoogleService extends GoogleOAuthService {
         $this->attributes['id'] = $info->id;
         $this->attributes['name'] = $info->name;
         $this->attributes['url'] = $info->link;
+
+        var_dump($info);
+        Yii::app()->end();
 	}
 }

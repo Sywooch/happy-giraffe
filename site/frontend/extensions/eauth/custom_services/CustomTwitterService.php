@@ -21,5 +21,8 @@ class CustomTwitterService extends TwitterOAuthService {
 		$this->attributes['language'] = $info->lang;
 		$this->attributes['timezone'] = timezone_name_from_abbr('', $info->utc_offset, date('I'));
 		$this->attributes['photo'] = $info->profile_image_url;
+
+        var_dump($info);
+        Yii::app()->end();
 	}
 }

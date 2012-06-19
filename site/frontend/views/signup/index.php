@@ -77,9 +77,9 @@ Yii::app()->clientScript->registerCss('signup', $css_signup)->registerScriptFile
                 <?php if (isset($regdata['avatar'])) echo $form->hiddenField($model, 'avatar', array('value' => $regdata['avatar'])); ?>
 
                 <div class="user-info">
-                    <a href="" class="ava"><?php if (isset($regdata['photo'])): ?><?php echo CHtml::image($regdata['photo']); ?><?php endif; ?></a>
+                    <?php if (isset($regdata['photo'])): ?><a style="float: left" href="javascript:;"><?php echo CHtml::image($regdata['photo']); ?></a><?php endif; ?>
                     <div class="details">
-                        <a href="" class="username"><?php echo $regdata['name']; ?></a>
+                        <a href="javascript:;" class="username"><?php echo $regdata['name']; ?></a>
                     </div>
                 </div>
 

@@ -18,6 +18,9 @@ class MapWidget extends CWidget
     {
         $map_id = md5(microtime());
         $this->registerScripts();
+
+        if (empty($this->user->userAddress->country_id))
+            return ;
         if ($this->user->userAddress->country_id == 174){
             //yandex map
             $this->render('yandex_map', array(

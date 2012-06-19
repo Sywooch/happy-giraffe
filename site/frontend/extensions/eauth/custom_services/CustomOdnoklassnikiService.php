@@ -42,6 +42,7 @@ class CustomOdnoklassnikiService extends OdnoklassnikiOAuthService {
         $this->attributes['last_name'] = $info->last_name;
         if (isset($info->birthday))
             $this->attributes['birthday'] = $info->birthday;
+
         if (isset($info->pic_1)){
             $temp_file_name = md5(microtime()).'.jpeg';
             $img = AlbumPhoto::model()->getTempPath() . $temp_file_name;

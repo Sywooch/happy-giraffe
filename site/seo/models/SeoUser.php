@@ -115,9 +115,14 @@ class SeoUser extends HActiveRecord
     public function beforeSave()
     {
         if (empty($this->related_user_id)){
-            $frontend_model = User::model()->findByAttributes(array('email'=>$this->email));
-            if ($frontend_model !== null){
-                $this->related_user_id = $frontend_model->id;
+            $frontend_model_id = Yii::app()->db->createCommand()
+                ->select('id')
+                ->from(User::model()->tableName())
+                ->where('email = :email', array(':email'=>$this->email))
+                ->queryScalar();
+
+            if ($frontend_model_id !== null){
+                $this->related_user_id = $frontend_model_id;
             }
         }
 
@@ -175,8 +180,25 @@ class SeoUser extends HActiveRecord
         return md5($password);
     }
 
+    /**
+     * @return User
+     */
     public function getRelatedUser()
     {
+        if (!empty($this->related_user_id)){
+            $user = User::model()->findByPk($this->related_user_id);
 
+            return $user;
+        }
+
+        return null;
+    }
+
+    public function getAva($size = 'ava')
+    {
+        $user = $this->getRelatedUser();
+        if ($user != null){
+            return $user->getAva($size);
+        }
     }
 }

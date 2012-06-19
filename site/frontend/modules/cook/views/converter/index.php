@@ -49,7 +49,14 @@ $model->qty = 0;
             <div class="values">
 
                 <div class="input">
-                    <?php echo $form->textField($model, 'qty', array('onkeyup' => 'Converter.Calculate();', 'onkeypress' => 'return Converter.qtyInput(event, this);')); ?>
+                    <?php
+                    echo $form->textField($model, 'qty', array(
+                        'onkeyup' => 'Converter.Calculate();',
+                        'onkeypress' => 'return Converter.qtyInput(event, this);',
+                        'onblur' => "if ($(this).val() == ''){ $(this).val(0);}",
+                        'onfocus' => "if ($(this).val() == '0'){ $(this).val('');}"
+                    ));
+                    ?>
                     <br/>
                     Введите кол-во
                 </div>

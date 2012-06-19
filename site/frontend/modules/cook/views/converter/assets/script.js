@@ -52,9 +52,6 @@ var Converter = {
     },
 
     Calculate:function () {
-        if ($('#ConverterForm_qty').val() == '')
-            $('#ConverterForm_qty').val(0);
-
         if (isNaN(parseInt($('#ConverterForm_ingredient').val())))
             return false;
         if ($('#ConverterForm_qty').val() == '')

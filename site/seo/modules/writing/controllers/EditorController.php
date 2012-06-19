@@ -103,8 +103,16 @@ class EditorController extends SController
     public function actionSelectKeyword()
     {
         $key_id = Yii::app()->request->getPost('id');
-        if (!TempKeyword::model()->exists('keyword_id=' . $key_id)) {
+        $keyword = Keyword::model()->findByPk($key_id);
+        if (!TempKeyword::model()->exists('keyword_id=' . $key_id) && $keyword !== null) {
             $temp = new TempKeyword;
+            //remove duplicates
+            $duplicates = Keyword::model()->findAllByAttributes(array('name'=>$keyword->name));
+            if (count($duplicates) > 1){
+                foreach($duplicates as $duplicate)
+                    if ($duplicate->id != $key_id)
+                        $duplicate->delete();
+            }
             $temp->keyword_id = $key_id;
             $temp->owner_id = Yii::app()->user->id;
             echo CJSON::encode(array('status' => $temp->save()));
@@ -136,6 +144,16 @@ class EditorController extends SController
 
         $author_id = Yii::app()->request->getPost('author_id');
         $keywords = Keyword::model()->findAllByPk($key_ids);
+
+        foreach($keywords as $keyword)
+            if (!empty($keyword->group)){
+                $response = array(
+                    'status' => false,
+                    'error' => 'Ошибка, ключевое слово '.$keyword->id.' уже использовалось'
+                );
+                echo CJSON::encode($response);
+                Yii::app()->end();
+            }
 
         $group = new KeywordGroup();
         $group->keywords = $keywords;

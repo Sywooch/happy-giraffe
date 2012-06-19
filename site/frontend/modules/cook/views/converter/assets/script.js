@@ -79,7 +79,7 @@ var Converter = {
             && parseFloat($('span.value.current').text()) > 0
             ) {
 
-            var hash = $('#ac').attr('data-unit_id') + $('#ConverterForm_qty').val() + $('.trigger.from').attr('data-id') + $('.trigger.to').attr('data-id');//  + $('.trigger.from').to('data-id');
+            var hash = $('#ConverterForm_ingredient').val() + $('#ConverterForm_qty').val() + $('.trigger.from').attr('data-id') + $('.trigger.to').attr('data-id');//  + $('.trigger.from').to('data-id');
 
             if ($('.saved-calculations ul li[data-hash="' + hash + '"]').length == 0) {
                 $('.saved-calculations ul li.template').clone().prependTo('.saved-calculations ul');

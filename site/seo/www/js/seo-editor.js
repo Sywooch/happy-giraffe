@@ -121,7 +121,13 @@ var TaskDistribution = {
                 $('.tasks-list').html('');
                 $('.current-tasks tbody').append(response.html);
                 TaskDistribution.group = new Array();
-            }
+            }else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+
         }, 'json');
         return false;
     },

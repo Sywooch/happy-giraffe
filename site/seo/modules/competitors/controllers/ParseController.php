@@ -462,7 +462,7 @@ class ParseController extends SController
             foreach ($models as $model) {
                 $model2 = new SiteKeywordVisit();
                 $model2->attributes = $model->attributes;
-                $model2->keyword_id = Keyword::GetKeyword($model->keyword);
+                $model2->keyword_id = Keyword::GetKeyword($model->keyword)->id;
                 $model2->save();
             }
 

@@ -10,7 +10,8 @@ class EditorController extends SController
     public function beforeAction($action)
     {
         if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('editor')
-            && !Yii::app()->user->checkAccess('superuser'))
+            && !Yii::app()->user->checkAccess('superuser')
+        )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }
@@ -45,7 +46,7 @@ class EditorController extends SController
             $models = Keyword::model()->findAll($criteria2);
             $response = array(
                 'status' => true,
-                'count' => $this->renderPartial('_find_result_count',  compact('models', 'counts'), true),
+                'count' => $this->renderPartial('_find_result_count', compact('models', 'counts'), true),
                 'table' => $this->renderPartial('_find_result_table', compact('models'), true),
                 'pagination' => $this->renderPartial('_find_result_pagination', compact('pages'), true)
             );
@@ -58,14 +59,26 @@ class EditorController extends SController
         $checked = Yii::app()->request->getPost('checked');
         if (!empty($checked)) {
             Yii::app()->user->setState('hide_used', 1);
-        }
-        else
+        } else
             Yii::app()->user->setState('hide_used', 0);
     }
 
     public function actionTasks()
     {
         $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
+        foreach ($tempKeywords as $tempKeyword) {
+            if (!empty($tempKeyword->keyword->group)) {
+                $success = false;
+                foreach ($tempKeyword->keyword->group as $group)
+                    if (empty($group->seoTasks) && empty($group->articleKeywords))
+                        $success = $group->delete();
+
+                if (!$success)
+                    $tempKeyword->delete();
+            }
+        }
+        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
+
         $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status = 0');
 
         $this->render('editor_panel', array(
@@ -150,8 +163,7 @@ class EditorController extends SController
                     'status' => true,
                     'html' => $this->renderPartial('_distrib_task', array('task' => $task), true)
                 );
-            }
-            else
+            } else
                 $response = array('status' => false);
         } else
             $response = array('status' => false);
@@ -242,12 +254,12 @@ class EditorController extends SController
                 'status' => $task->save(),
                 'html' => $this->renderPartial('_closed_task', compact('task'), true)
             ));
-        }
-        else
+        } else
             echo CJSON::encode(array('status' => false));
     }
 
-    public function actionCorrection(){
+    public function actionCorrection()
+    {
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
 
@@ -257,8 +269,7 @@ class EditorController extends SController
                 'status' => $task->save(),
                 'html' => $this->renderPartial('_correcting_task', compact('task'), true)
             ));
-        }
-        else
+        } else
             echo CJSON::encode(array('status' => false));
     }
 
@@ -272,8 +283,7 @@ class EditorController extends SController
         if ($task->status == SeoTask::STATUS_CORRECTED) {
             $task->status = SeoTask::STATUS_PUBLICATION;
             echo CJSON::encode(array('status' => $task->save()));
-        }
-        else
+        } else
             echo CJSON::encode(array('status' => false));
     }
 

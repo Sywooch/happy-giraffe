@@ -154,7 +154,7 @@ return array(
                     'secret' => 'lIVhQhUeKV9TYRH2DFT70Bxu5EIlqipTM8uD0nw',
                 ),
                 'odnoklassniki' => array(
-                    'class' => 'OdnoklassnikiOAuthService',
+                    'class' => 'CustomOdnoklassnikiService',
                     'client_id' => '90353152',
                     'client_secret' => '4D9D33E5CD84A7F203BBC8C7',
                     'client_public' => 'CBAPKDGGABABABABA',

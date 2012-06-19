@@ -155,8 +155,10 @@ return array(
                 ),
                 'odnoklassniki' => array(
                     'class' => 'CustomOdnoklassnikiService',
+                    'client_id' => '90353152',
                     'client_secret' => '4D9D33E5CD84A7F203BBC8C7',
                     'client_public' => 'CBAPKDGGABABABABA',
+                    'title' => 'Odnokl.',
                 ),
 			),
 		),

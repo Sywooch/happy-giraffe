@@ -15,13 +15,11 @@ if ($this->isMyProfile && empty($user->getUserAddress()->country_id)):?>
     <a href="#" onclick="UserLocation.OpenEdit();return false;"><big>Я живу<br>здесь</big><img
         src="/images/user_map_cap.png"></a>
     <?php $this->widget('application.widgets.mapWidget.MapWidget', array('user' => $this->user))?>
-</div>
-<?php
+</div><?php
 
 else:
 
-?>
-<div class="user-map">
+?><div class="user-map">
     <div class="header">
         <?php if ($this->isMyProfile): ?>
         <a href="#" class="edit" onclick="UserLocation.OpenEdit();return false;"><span class="tip">Изменить</span></a>

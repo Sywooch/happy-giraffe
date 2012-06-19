@@ -153,6 +153,11 @@ return array(
                     'key' => '19JgB2MpN6VgOVBrR1zrqQ',
                     'secret' => 'lIVhQhUeKV9TYRH2DFT70Bxu5EIlqipTM8uD0nw',
                 ),
+                'odnoklassniki' => array(
+                    'class' => 'CustomOdnoklassnikiService',
+                    'client_secret' => '4D9D33E5CD84A7F203BBC8C7',
+                    'client_public' => 'CBAPKDGGABABABABA',
+                ),
 			),
 		),
 		'format' => array(

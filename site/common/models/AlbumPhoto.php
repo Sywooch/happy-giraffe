@@ -324,6 +324,11 @@ class AlbumPhoto extends HActiveRecord
         return Yii::app()->params['photos_url'] . '/' . $this->tmp_folder . '/' . $this->fs_name;
     }
 
+    public function getTempUrl()
+    {
+        return Yii::app()->params['photos_url'] . '/' . $this->tmp_folder . '/';
+    }
+
     public function getAvatarPath($size)
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');

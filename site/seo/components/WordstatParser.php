@@ -61,6 +61,7 @@ class WordstatParser extends ProxyParserThread
         $criteria->compare('active', 0);
         $criteria->condition = 'depth IS NULL';
         $criteria->with = 'keyword';
+        $criteria->order = 'rand()';
 
         //затем все остальные упорядоченные по глубине парсинга
         $criteria2 = new CDbCriteria;
@@ -118,7 +119,7 @@ class WordstatParser extends ProxyParserThread
                 $this->changeBadProxy();
                 $this->removeCookieFile();
             }
-            sleep(10);
+            sleep(1);
         }
     }
 

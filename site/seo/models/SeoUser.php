@@ -194,7 +194,7 @@ class SeoUser extends HActiveRecord
         return null;
     }
 
-    public function getAva($size = 'ava')
+    public function getAva($size = 'small')
     {
         $user = $this->getRelatedUser();
         if ($user != null){

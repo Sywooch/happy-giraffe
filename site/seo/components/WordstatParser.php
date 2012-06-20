@@ -22,6 +22,8 @@ class WordstatParser extends ProxyParserThread
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 
+        sleep(rand(1, 120));
+
         $this->getCookie();
 
         while (true) {

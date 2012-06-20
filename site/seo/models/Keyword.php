@@ -384,8 +384,13 @@ class Keyword extends HActiveRecord
         $models = $this->getSimilarArticles();
         if (!empty($models)) {
             $res .= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
-            foreach ($models as $model)
-                $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '<br>';
+            foreach ($models as $model){
+                $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')).'  ';
+                $res .= CHtml::link('', 'javascript:;', array(
+                    'onclick' => 'SeoModule.bindKeywordToArticle('.$this->id.', '.$model->id.', this);',
+                    'class'=>'icon-link'
+                )) . '<br>';
+            }
             $res .= '</div>';
         }
 

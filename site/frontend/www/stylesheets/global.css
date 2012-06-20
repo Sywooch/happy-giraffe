@@ -3151,10 +3151,58 @@ ul.letters li a:hover {
 #horoscope .horoscope-fast-list ul li a:hover span {text-decoration:none;}
 
 
+.horoscope-compatibility {padding:15px;border:1px solid #eeeeee;margin-bottom:30px;}
+.horoscope-compatibility .block-title {color:#0281b0;font:bold 25px arial, helvetica, sans-serif;margin-bottom:20px;}
+.horoscope-compatibility .sign {float:left;text-align:center;}
+.horoscope-compatibility .sign .img {width:170px;height:170px;background:url(/images/widget/horoscope/big/bg.png) no-repeat;margin-bottom:12px;}
+.horoscope-compatibility .sign .img img {display:block;}
+.horoscope-compatibility .sign select {width:120px;}
+.horoscope-compatibility .plus {width:44px;height:43px;background:url(/images/common.png) no-repeat -1px -294px;float:left;margin:60px 12px 0;}
+.horoscope-compatibility .equal {width:38px;height:43px;background:url(/images/common.png) no-repeat -47px -294px;float:left;margin:60px 12px 0;}
+.horoscope-compatibility .button {float:left;margin-top:50px;}
+.horoscope-compatibility .button a {font: bold 40px/62px arial, sans-serif;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    height: 62px;
+    padding: 5px 0 0 0;
+    text-align: center;
+    background: url(../images/bg_gr_large_button.png) 0 0 repeat-x;
+    border: 1px solid #3eaf51;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;padding:0 20px;}
+
+.horoscope-compatibility-list {}
+.horoscope-compatibility-list > ul {list-style:none;}
+.horoscope-compatibility-list > ul > li {width:21%;padding-right:3%;display:inline-block;vertical-align:top;margin-bottom:25px;}
+.horoscope-compatibility-list.wide > ul > li {width:28%;}
+.horoscope-compatibility-list > ul > li ul {list-style:none;}
+.horoscope-compatibility-list > ul > li ul li {padding:3px 0;}
+.horoscope-compatibility-list > ul > li .img {margin-bottom:10px;}
+.horoscope-compatibility-list > ul > li .img img {vertical-align:top;}
+.horoscope-compatibility-list > ul > li .img .date {display:inline-block;vertical-align:top;padding-top:15px;color:#2d2d2d;font-size:10px;}
+.horoscope-compatibility-list > ul > li .img .date span {font:italic 20px/1 times new roman, serif;display:block;color:#2d87be;}
+.horoscope-compatibility-list > ul > li .text {font-size:11px;line-height:17px;color:#626262;}
+
+
+.fast-horoscope {padding:20px;border:1px solid #f1eaf6;width:200px;float:right;}
+.fast-horoscope .block-title {margin-bottom:10px;}
+.fast-horoscope .block-title .in {color:#2f2f2f;font:italic 23px/23px times new roman, serif;display:inline-block;width:130px;text-align:center;}
+.fast-horoscope .block-title .date {color:#fa717c;font-size:18px;line-height:25px;display:inline-block;width:55px;text-align:center;font-weight:bold;}
+.fast-horoscope .block-title .date b {font-size:30px;}
+.fast-horoscope ul {list-style:none;}
+.fast-horoscope ul li {list-style:none;margin-bottom:15px;}
+.fast-horoscope ul li .img {margin-bottom:10px;}
+.fast-horoscope ul li .img img {vertical-align:top;}
+.fast-horoscope ul li .img .date {display:inline-block;vertical-align:top;padding-top:15px;color:#2d2d2d;font-size:10px;}
+.fast-horoscope ul li .img .date span {font:italic 20px/1 times new roman, serif;display:block;color:#2d87be;}
+.fast-horoscope ul li .text {font-size:11px;line-height:17px;color:#626262;}
 
 .horoscope-subscribe {margin-top:20px;border:1px solid #f0ecf3;text-align:center;padding-bottom:15px;}
 .horoscope-subscribe  p {margin:5px 20px;color:#8b8c8c;font-size:13px;line-height:19px;text-align:left;}
 .horoscope-subscribe .btn-want {display:inline-block;width:144px;height:53px;background:url(/images/btn_horoscope_subscribe.png) no-repeat;color:#fff;text-align:center;line-height:53px;font-weight:bold;font-size:35px;text-decoration:none;margin:10px auto;}
+
 
 
 
@@ -3986,12 +4034,14 @@ ul.letters li a:hover {
 #measure .calculator .product span {margin-left:11px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
 #measure .calculator .values {padding-bottom:40px;}
 #measure .calculator .values * {vertical-align:middle;}
-#measure .calculator .values .input {display:inline-block;position:relative;top:8px;text-align:center;color:#858484;margin-right:10px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
-#measure .calculator .values input {padding:2px 10px;border:1px solid #a9c8f3;margin:0;font-size:30px;line-height:30px;color:#575757;width:100px;text-align:center;background:#fff;margin-bottom:3px;}
-#measure .calculator .equal {display:inline-block;width:23px;height:32px;background:url(/images/cook_sprite.png) no-repeat -42px -1px;margin:0 15px;}
+#measure .calculator .values .input {display:inline-block;position:relative;top:8px;text-align:center;color:#858484;margin-right:10px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;margin-bottom:15px;}
+#measure .calculator .values input {padding:2px 10px;border:1px solid #a9c8f3;margin:0;font-size:30px;line-height:30px;color:#575757;width:70px;text-align:center;background:#fff;margin-bottom:3px;}
+#measure .calculator .equal {display:inline-block;width:23px;height:32px;background:url(/images/cook_sprite.png) no-repeat -42px -1px;margin:0 15px;margin-bottom:15px;}
 #measure .calculator .equal:hover {background-position:-67px -1px;}
 #measure .calculator .value {color:#585757;font-size:30px;margin-right:10px;}
-#measure .calculator .btn {margin-left:10px;}
+#measure .calculator .values .value {margin-bottom:15px;display:inline-block;margin-right:10px;}
+#measure .calculator .values .drp-list {margin-bottom:15px;}
+#measure .calculator .btn {margin-right:10px;}
 #measure .calculator .btn:hover {color:#fff;}
 #measure .calculator .btn:hover > span {background-position:100% -1020px;color:#fff;}
 #measure .calculator .btn:hover > span > span {background-position:0 -1000px;}

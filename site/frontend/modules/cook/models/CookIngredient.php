@@ -168,6 +168,7 @@ class CookIngredient extends HActiveRecord
         $criteria->distinct = true;
         $criteria->mergeWith($additionalCriteria);
         $criteria->join = 'LEFT JOIN cook__ingredient_synonyms ON cook__ingredient_synonyms.ingredient_id = t.id';
+        $criteria->order = 't.title ASC';
         $criteriaMore = clone $criteria;
 
         $criteria->compare('t.title', $term . '%', true, 'AND', false);

@@ -22,6 +22,8 @@ class WordstatParser extends ProxyParserThread
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 
+        sleep(rand(1, 120));
+
         $this->getCookie();
 
         while (true) {
@@ -61,6 +63,7 @@ class WordstatParser extends ProxyParserThread
         $criteria->compare('active', 0);
         $criteria->condition = 'depth IS NULL';
         $criteria->with = 'keyword';
+        $criteria->order = 'rand()';
 
         //затем все остальные упорядоченные по глубине парсинга
         $criteria2 = new CDbCriteria;
@@ -84,6 +87,7 @@ class WordstatParser extends ProxyParserThread
             } catch (Exception $e) {
                 $this->keyword = null;
                 $transaction->rollback();
+                $this->closeThread('get keyword transaction failed');
             }
             sleep(1);
         }
@@ -117,7 +121,7 @@ class WordstatParser extends ProxyParserThread
                 $this->changeBadProxy();
                 $this->removeCookieFile();
             }
-            sleep(10);
+            sleep(1);
         }
     }
 

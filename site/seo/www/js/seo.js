@@ -110,6 +110,29 @@ var SeoModule = {
                 });
             }
         }, 'json');
+    },
+    bindKeywordToArticle:function(keyword_id, article_id, el){
+        $.post('/writing/editor/bindKeywordToArticle', {
+            keyword_id:keyword_id,
+            article_id:article_id
+        }, function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:'Статья привязана к ключевому слову'
+                });
+
+                $(el).addClass('active');
+                $(el).parents('tr').addClass('on-site');
+                $(el).parents('tr').find('td:last').html('');
+            }else{
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
     }
 }
 

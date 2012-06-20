@@ -29,7 +29,7 @@ class AlbumPhoto extends HActiveRecord
     /**
      * @var string original photos folder
      */
-    private $original_folder = 'originals';
+    public $original_folder = 'originals';
     /**
      * @var string thumbnail image folder
      */
@@ -247,7 +247,7 @@ class AlbumPhoto extends HActiveRecord
      *
      * @return string
      */
-    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false, $crop_side)
+    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER)
     {
         // Uload root
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
@@ -313,9 +313,20 @@ class AlbumPhoto extends HActiveRecord
         return Yii::getPathOfAlias('site.common.uploads.photos') . DIRECTORY_SEPARATOR . $this->tmp_folder . DIRECTORY_SEPARATOR . $this->fs_name;
     }
 
+    public function getTempPath()
+    {
+        return Yii::getPathOfAlias('site.common.uploads.photos') . DIRECTORY_SEPARATOR . $this->tmp_folder . DIRECTORY_SEPARATOR;
+    }
+
+
     public function getTemplateUrl()
     {
         return Yii::app()->params['photos_url'] . '/' . $this->tmp_folder . '/' . $this->fs_name;
+    }
+
+    public function getTempUrl()
+    {
+        return Yii::app()->params['photos_url'] . '/' . $this->tmp_folder . '/';
     }
 
     public function getAvatarPath($size)

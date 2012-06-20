@@ -21,6 +21,8 @@
  */
 class CookIngredient extends HActiveRecord
 {
+    public $other;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -83,13 +85,13 @@ class CookIngredient extends HActiveRecord
         return array(
             'id' => 'ID',
             'category_id' => 'Категория',
-            'unit_id' => 'Ед.изм. по умолчанию',
+            'unit_id' => 'Единица измерения <span>(по умолчанию)</span>',
             'title' => 'Название',
-            'density' => 'Плотность',
+            'density' => 'Плотность <span>(г/см3)</span>',
             'src' => 'Источник',
-            'textSynonyms'=>'Синонимы',
-            'textNutritional'=>'Состав продукта',
-            'textUnits'=>'Единицы измерения'
+            'textSynonyms' => 'Синонимы',
+            'textNutritional' => 'Состав продукта',
+            'textUnits' => 'Единицы измерения'
         );
     }
 
@@ -107,7 +109,7 @@ class CookIngredient extends HActiveRecord
         $criteria->compare('unit_id', $this->unit_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('density', $this->density, true);
-        $criteria->compare('checked', 0);
+        //$criteria->compare('checked', 0);
 
 
         return new CActiveDataProvider($this, array(
@@ -143,7 +145,7 @@ class CookIngredient extends HActiveRecord
      * @param string $term
      * @return CookIngredient[]
      */
-    public function findByNameWithCalories($term)
+    public function findByNameWithCalories($term, $limit = 10)
     {
         $subquery = Yii::app()->db->createCommand()
             ->select('t.id')
@@ -155,25 +157,30 @@ class CookIngredient extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->condition = 't.id IN (' . $subquery . ')';
 
-        return $this->findByName($term, $criteria);
+        return $this->findByName($term, $limit, $criteria);
     }
 
-    public function findByName($term, $condition = '', $params = array())
+    public function findByName($term, $limit = 10, $condition = '', $params = array())
     {
-        $additionalCriteria = $this->getCommandBuilder()->createCriteria($condition,$params);
+        $additionalCriteria = $this->getCommandBuilder()->createCriteria($condition, $params);
         $criteria = new CDbCriteria;
-        $criteria->limit = 10;
+        $criteria->limit = $limit;
+        $criteria->distinct = true;
         $criteria->mergeWith($additionalCriteria);
+        $criteria->join = 'LEFT JOIN cook__ingredient_synonyms ON cook__ingredient_synonyms.ingredient_id = t.id';
+        $criteria->order = 't.title ASC';
         $criteriaMore = clone $criteria;
 
         $criteria->compare('t.title', $term . '%', true, 'AND', false);
+        $criteria->compare('cook__ingredient_synonyms.title', $term . '%', true, 'OR', false);
         $ingredients = $this->findAll($criteria);
 
-        if (count($ingredients) < 10) {
-            $criteriaMore->compare('t.title', ' ' . $term, true, 'AND');
+        if (count($ingredients) < $limit) {
+            $criteriaMore->compare('t.title', $term, true, 'AND');
+            $criteriaMore->compare('cook__ingredient_synonyms.title', $term, true, 'OR');
             $ingredientsMore = $this->findAll($criteriaMore);
 
-            while (count($ingredients) < 10 && ! empty($ingredientsMore)) {
+            while (count($ingredients) < $limit && !empty($ingredientsMore)) {
                 array_push($ingredients, $ingredientsMore[0]);
                 array_shift($ingredientsMore);
             }
@@ -182,10 +189,39 @@ class CookIngredient extends HActiveRecord
         return $ingredients;
     }
 
+    public function autoComplete($term, $limit = 10, $withCalories = false, $withUnits = false, $condition = '')
+    {
+        $ingredients = ($withCalories) ? $this->findByNameWithCalories($term, $limit) : $this->findByName($term, $limit, $condition);
+
+        $result = array();
+        $ids = array();
+
+        foreach ($ingredients as $ing) {
+            if (in_array($ing->id, $ids))
+                continue;
+            $ids[] = $ing->id;
+
+            $i = array('value' => $ing->title, 'label' => $ing->title, 'id' => $ing->id, 'unit_id' => $ing->unit_id, 'density' => $ing->density);
+
+
+            if ($withCalories) {
+                foreach ($ing->nutritionals as $nutritional)
+                    $i['nutritionals'][$nutritional->nutritional_id] = $nutritional->value;
+            }
+            if ($withUnits) {
+                foreach ($ing->units as $unit)
+                    $i['units'][$unit->unit_id] = $unit->weight;
+            }
+            $result[] = $i;
+        }
+
+        return $result;
+    }
+
     public function getTextSynonyms()
     {
         $arr = array();
-        foreach($this->synonyms as $synonym){
+        foreach ($this->synonyms as $synonym) {
             $arr[] = $synonym->title;
         }
 
@@ -195,17 +231,23 @@ class CookIngredient extends HActiveRecord
     public function getTextNutritional()
     {
         $arr = array();
-        foreach($this->nutritionals as $model){
-            $arr[] = $model->nutritional->title.': '.(float)$model->value;
+        foreach ($this->nutritionals as $model) {
+            $arr[] = $model->nutritional->title . ': ' . (float)$model->value;
         }
 
         return implode('<br>', $arr);
     }
 
+    public function getNutritional($id)
+    {
+        $cal = CookIngredientNutritional::model()->findByAttributes(array('nutritional_id' => $id, 'ingredient_id' => $this->id));
+        return isset($cal) ? (float)$cal->value : '';
+    }
+
     public function getTextUnits()
     {
         $arr = array();
-        foreach($this->availableUnits as $model){
+        foreach ($this->availableUnits as $model) {
             $arr[] = $model->title;
         }
 

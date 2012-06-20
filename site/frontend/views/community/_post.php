@@ -4,7 +4,7 @@
         <?php if ($full): ?>
             <h1><?php echo CHtml::encode($data->title); ?></h1>
         <?php else: ?>
-            <?php echo CHtml::link(CHtml::encode($data->title), $data->url, array('class' => 'entry-title')); ?>
+            <?php echo CHtml::link($data->title, $data->url, array('class' => 'entry-title')); ?>
         <?php endif; ?>
         <?php if (! $data->by_happy_giraffe): ?>
             <div class="user">
@@ -155,7 +155,7 @@
         'communities'=>Community::model()->findAll(),
     )); ?>
         <?php $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data)); ?>
-        <?php if (! $data->isFromBlog && $this->community->id == 22 && Yii::app()->authManager->checkAccess('importCookRecipes', Yii::app()->user->id)): ?>
+        <?php if (isset($this->community) && ! $data->isFromBlog && $this->community->id == 22 && Yii::app()->authManager->checkAccess('importCookRecipes', Yii::app()->user->id)): ?>
             <?=CHtml::link('Перенести в рецепты', array('/cook/recipe/import', 'content_id' => $data->id))?>
         <?php endif; ?>
 

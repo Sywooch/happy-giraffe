@@ -66,7 +66,7 @@ class SiteController extends SController
         {
             $model->attributes=$_POST['LoginForm'];
 
-            $userModel = new User('login');
+            $userModel = new SeoUser('login');
             $userModel = $userModel->find(array(
                 'condition' => 'email=:email AND password=:password',
                 'params'=>array(

@@ -71,8 +71,10 @@ class ProxyParserThread extends CComponent
 
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
-            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+            if (getenv('SERVER_ADDR') != '5.9.7.81') {
+                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
+                curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+            }
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -144,7 +146,7 @@ class ProxyParserThread extends CComponent
         Yii::app()->end();
     }
 
-    private function removeCookieFile()
+    protected function removeCookieFile()
     {
         if (file_exists($this->getCookieFile()))
             unlink($this->getCookieFile());

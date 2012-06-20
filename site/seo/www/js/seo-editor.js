@@ -78,7 +78,7 @@ var TaskDistribution = {
     addToGroup:function (el) {
         var id = this.getId(el);
         TaskDistribution.group.push(id);
-        console.log(TaskDistribution.group);
+//        console.log(TaskDistribution.group);
 
         $('.tasks-list').append('<div class="task-box"><a class="remove" href="" onclick="TaskDistribution.removeFromGroup(this, ' + id + ');return false; "></a><div class="drag"></div>' +
             el.parents('tr').find('.col-1 span').text() + '</div>');
@@ -90,7 +90,7 @@ var TaskDistribution = {
     removeFromGroup:function (el, id) {
         $('#keyword-' + id).show();
         TaskDistribution.group.pop(id);
-        console.log(TaskDistribution.group);
+//        console.log(TaskDistribution.group);
         $(el).parents('.task-box').remove();
         TaskDistribution.showKeyword(id);
     },
@@ -121,7 +121,13 @@ var TaskDistribution = {
                 $('.tasks-list').html('');
                 $('.current-tasks tbody').append(response.html);
                 TaskDistribution.group = new Array();
-            }
+            }else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+
         }, 'json');
         return false;
     },

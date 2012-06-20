@@ -79,8 +79,8 @@ return array(
             'useCursor'        => false
         ),
         'cache'=>array(
-            //	'class' => 'CMemCache',
-            'class' => 'CDummyCache',
+            'class' => 'CFileCache',
+//            'class' => 'CDummyCache',
         ),
         'search' => array(
             'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',

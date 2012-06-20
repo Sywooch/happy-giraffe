@@ -17,6 +17,7 @@ return array(
         'site.frontend.helpers.CArray',
         'site.frontend.helpers.*',
         'site.frontend.extensions.YiiMongoDbSuite.*',
+        'site.frontend.extensions.ESaveRelatedBehavior',
 
         'application.models.*',
         'application.models.mongo.*',
@@ -103,6 +104,7 @@ return array(
 
     'params' => array(
         'ufileStorageRoot' => 'temp_upload',
-        'frontend_url'=>'http://www.happy-giraffe.ru/'
+        'frontend_url'=>'http://www.happy-giraffe.ru/',
+        'photos_url'=>'http://img.happy-giraffe.ru/',
     )
 );

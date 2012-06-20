@@ -8,7 +8,6 @@
 		'title',
 		'title2',
 		'title3',
-		'ratio',
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}{delete}'

@@ -28,6 +28,8 @@ class CookUnitController extends BController
 		if(isset($_POST['CookUnit']))
 		{
 			$model->attributes=$_POST['CookUnit'];
+            $model->type = 'qty';
+            $model->ratio = 1;
 			if($model->save())
 				$this->redirect(array('admin'));
 		}

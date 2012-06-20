@@ -22,7 +22,8 @@ class ConverterController extends HController
 
     public function actionAc($term)
     {
-        $ingredients = CookIngredient::model()->autoComplete($term, 2, false, true);
+        $condition = ' (SELECT COUNT(cook__ingredient_units.id) FROM cook__ingredient_units WHERE cook__ingredient_units.ingredient_id = t.id) > 1 ';
+        $ingredients = CookIngredient::model()->autoComplete($term, 20, false, true, $condition);
         header('Content-type: application/json');
         echo CJSON::encode($ingredients);
     }

@@ -29,6 +29,12 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 
      <div class="row">
+         <?php echo $form->labelEx($model,'related_user_id'); ?>
+         <?php echo $form->textField($model,'related_user_id'); ?>
+         <?php echo $form->error($model,'related_user_id'); ?>
+     </div>
+
+     <div class="row">
          <?php echo $form->labelEx($model,'role'); ?>
          <?php echo $form->dropDownList($model,'role', CHtml::listData(Yii::app()->authManager->getRoles(), 'name', 'name'), array('empty'=>' ')); ?>
          <?php echo $form->error($model,'role'); ?>

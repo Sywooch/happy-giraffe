@@ -18,6 +18,7 @@
             ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js')
             ->registerScriptFile('/javascripts/common.js')
             ->registerCssFile('/stylesheets/ie.css', 'screen')
+            ->registerMetaTag('noindex, nofollow', 'robots');
         ;
     ?>
 </head>
@@ -34,7 +35,7 @@
                 <a href="#login" class="btn btn-orange fancy"><span><span>Вход на сайт</span></span></a>
             </div>
 
-            <div class="logo-box"><a title="hg.ru" class="logo">Ключевые слова сайта</a></div>
+            <div class="logo-box"><a href="/" title="hg.ru" class="logo">Ключевые слова сайта</a></div>
 
         </div>
 

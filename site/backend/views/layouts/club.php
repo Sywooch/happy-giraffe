@@ -41,13 +41,25 @@
                 'visible' => Yii::app()->user->checkAccess('horoscope')
             ),
             array('label' => 'Кулинария',
-                'active' => (in_array(Yii::app()->controller->id, array('club/cookIngredients', 'club/cookSpices', 'club/cookSpicesCategories', 'club/cookChooseCategory'))),
+                'active' => (in_array(Yii::app()->controller->id, array(
+                    'club/cookIngredients',
+                    'club/cookSpices',
+                    'club/cookChooseCategory',
+                    'club/cookSpicesCategories',
+                    'club/cookDecoration',
+                    'club/cookUnit'
+                ))),
                 'url' => array('/club/cookIngredients/'),
                 //'visible' => Yii::app()->user->checkAccess('cook_ingredients'),
                 'items' => array(
                     array(
                         'label' => 'Ингредиенты',
                         'url' => array('/club/cookIngredients/'),
+                        'visible' => Yii::app()->user->checkAccess('cook_ingredients'),
+                    ),
+                    array(
+                        'label' => 'Меры',
+                        'url' => array('/club/cookUnit/'),
                         'visible' => Yii::app()->user->checkAccess('cook_ingredients'),
                     ),
                     array(
@@ -61,11 +73,6 @@
                         'visible' => Yii::app()->user->checkAccess('cook_spices'),
                     ),
                     array(
-                        'label' => 'Украшения блюд',
-                        'url' => array('/club/CookDecoration/'),
-                        'visible' => Yii::app()->user->checkAccess('cook_choose'),
-                    ),
-                    array(
                         'label' => 'Как выбрать',
                         'url' => array('/club/cookChoose/'),
                         'visible' => Yii::app()->user->checkAccess('cook_choose'),
@@ -73,6 +80,11 @@
                     array(
                         'label' => 'Как выбрать категории',
                         'url' => array('/club/cookChooseCategory/'),
+                        'visible' => Yii::app()->user->checkAccess('cook_choose'),
+                    ),
+                    array(
+                        'label' => 'Украшения блюд',
+                        'url' => array('/club/cookDecoration/'),
                         'visible' => Yii::app()->user->checkAccess('cook_choose'),
                     ),
                 )

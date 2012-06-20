@@ -70,8 +70,12 @@ class ScoreInput extends EMongoDocument
 
         if ($this->status == self::STATUS_CLOSED) {
             $model = UserScores::getModel($this->user_id);
-            $model->scores += $this->scores_earned;
-            $model->save();
+            if ($model !== null) {
+                $model->scores += $this->scores_earned;
+                $model->save();
+            }else{
+                $this->delete();
+            }
         }
 
         return parent::beforeSave();
@@ -368,7 +372,7 @@ class ScoreInput extends EMongoDocument
         if (date("Y-m-d", $this->created) == date("Y-m-d"))
             $text = 'За посещение сайта сегодня';
         else
-            $text = 'За посещение сайта <span>' . Yii::app()->dateFormatter->format("d MMMM", $this->created).'</span>';
+            $text = 'За посещение сайта <span>' . Yii::app()->dateFormatter->format("d MMMM", $this->created) . '</span>';
 
         return $text;
     }
@@ -412,7 +416,7 @@ class ScoreInput extends EMongoDocument
             if ($this->amount < 0) {
                 if ($model->isFromBlog)
                     $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в блоге удалена';
-                else{
+                else {
                     $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span> удалена';
                 }
             }

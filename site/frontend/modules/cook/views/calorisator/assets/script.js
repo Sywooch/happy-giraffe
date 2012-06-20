@@ -7,10 +7,8 @@ var Calorisator = {
 
     addRow:function (event) {
         $('#ingredients tr.template').clone().insertBefore('#ingredients tr.add');
-        $('.ingredient_ac').autocomplete({minLength:'2', source:'/cook/calorisator/ac/'});
+
         var tr = $('#ingredients tr.template').last();
-        tr.find(".ingredient_ac").bind("autocompleteselect", Calorisator.acSelect);
-        tr.find('input').val('');
 
         Calorisator.RowI++;
         tr.removeClass('template').addClass('ingredient').show();
@@ -23,6 +21,10 @@ var Calorisator = {
         tr.find('td.unit select option').attr('style', 'display:none !important');
         tr.find('td.unit select option[value="1"]').attr('style', 'display:list-item !important');
         tr.find(".chzn").trigger("liszt:updated");
+
+        tr.find('.ingredient_ac').autocomplete({minLength:'2', source:'/cook/calorisator/ac/'});
+        tr.find(".ingredient_ac").bind("autocompleteselect", Calorisator.acSelect);
+        tr.find('input[placeholder]').placeholder();
 
         return false;
     },

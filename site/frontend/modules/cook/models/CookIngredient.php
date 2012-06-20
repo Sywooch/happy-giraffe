@@ -165,14 +165,19 @@ class CookIngredient extends HActiveRecord
         $additionalCriteria = $this->getCommandBuilder()->createCriteria($condition, $params);
         $criteria = new CDbCriteria;
         $criteria->limit = $limit;
+        $criteria->distinct = true;
         $criteria->mergeWith($additionalCriteria);
+        $criteria->join = 'LEFT JOIN cook__ingredient_synonyms ON cook__ingredient_synonyms.ingredient_id = t.id';
+        $criteria->order = 't.title ASC';
         $criteriaMore = clone $criteria;
 
         $criteria->compare('t.title', $term . '%', true, 'AND', false);
+        $criteria->compare('cook__ingredient_synonyms.title', $term . '%', true, 'OR', false);
         $ingredients = $this->findAll($criteria);
 
         if (count($ingredients) < $limit) {
-            $criteriaMore->compare('t.title', ' ' . $term, true, 'AND');
+            $criteriaMore->compare('t.title', $term, true, 'AND');
+            $criteriaMore->compare('cook__ingredient_synonyms.title', $term, true, 'OR');
             $ingredientsMore = $this->findAll($criteriaMore);
 
             while (count($ingredients) < $limit && !empty($ingredientsMore)) {
@@ -184,14 +189,20 @@ class CookIngredient extends HActiveRecord
         return $ingredients;
     }
 
-    public function autoComplete($term, $limit = 10, $withCalories = false, $withUnits = false)
+    public function autoComplete($term, $limit = 10, $withCalories = false, $withUnits = false, $condition = '')
     {
-        $ingredients = ($withCalories) ? $this->findByNameWithCalories($term, $limit) : $this->findByName($term, $limit);
+        $ingredients = ($withCalories) ? $this->findByNameWithCalories($term, $limit) : $this->findByName($term, $limit, $condition);
 
         $result = array();
+        $ids = array();
 
         foreach ($ingredients as $ing) {
+            if (in_array($ing->id, $ids))
+                continue;
+            $ids[] = $ing->id;
+
             $i = array('value' => $ing->title, 'label' => $ing->title, 'id' => $ing->id, 'unit_id' => $ing->unit_id, 'density' => $ing->density);
+
 
             if ($withCalories) {
                 foreach ($ing->nutritionals as $nutritional)

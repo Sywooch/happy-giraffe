@@ -84,6 +84,7 @@ class WordstatParser extends ProxyParserThread
             } catch (Exception $e) {
                 $this->keyword = null;
                 $transaction->rollback();
+                $this->closeThread('get keyword transaction failed');
             }
             sleep(1);
         }

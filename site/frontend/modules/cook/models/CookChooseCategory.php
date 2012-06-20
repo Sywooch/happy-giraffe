@@ -62,7 +62,9 @@ class CookChooseCategory extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'chooses' => array(self::HAS_MANY, 'CookChoose', 'category_id'),
+            'chooses' => array(self::HAS_MANY, 'CookChoose', 'category_id',
+                'order' => 'chooses.title',
+            ),
             'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id')
         );
     }

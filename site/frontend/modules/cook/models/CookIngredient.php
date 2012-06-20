@@ -109,7 +109,7 @@ class CookIngredient extends HActiveRecord
         $criteria->compare('unit_id', $this->unit_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('density', $this->density, true);
-        $criteria->compare('checked', 0);
+        //$criteria->compare('checked', 0);
 
 
         return new CActiveDataProvider($this, array(

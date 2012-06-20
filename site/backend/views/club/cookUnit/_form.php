@@ -27,12 +27,6 @@
 		<?php echo $form->error($model,'title3'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'ratio'); ?>
-		<?php echo $form->textField($model,'ratio',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'ratio'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

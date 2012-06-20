@@ -60,7 +60,8 @@ Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.ru/styleshee
                 echo '</span>';
             }
         }
-        ?>
+        ?><br>
+        <a href="/club/cookUnit/create/" target="_blank">добавить</a>
     </div>
 
     <div class="col" id="nutritionals">

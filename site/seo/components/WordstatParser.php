@@ -16,8 +16,8 @@ class WordstatParser extends ProxyParserThread
     {
         Config::setAttribute('stop_threads', 0);
 
-        $this->delay_min = 0;
-        $this->delay_max = 0;
+        $this->delay_min = 1;
+        $this->delay_max = 3;
         $this->timeout = 15;
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
@@ -276,6 +276,9 @@ class WordstatParser extends ProxyParserThread
         parent::closeThread($reason);
     }
 
+    /**
+     * Когда спарсили все - удаляем кейворд из очереди на парсинг
+     */
     public function RemoveCurrentKeywordFromParsing()
     {
         //проверяем не изменилась ли глубина за время парсинга

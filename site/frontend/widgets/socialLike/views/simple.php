@@ -13,7 +13,7 @@ Yii::app()->clientScript
 ?>
 <style type="text/css">
     #vk_like{
-        width: 170px !important;
+        width: 175px !important;
     }
 </style>
 <div class="like-block fast-like-block">
@@ -31,22 +31,22 @@ Yii::app()->clientScript
         <div class="clearfix">
             <table width="100%">
                 <tr>
-                    <td style="vertical-align:top;width: 150px;text-align: left;">
+                    <td style="vertical-align:top;padding-right:35px;text-align: left;">
                         <div class="fb-like" data-send="false" data-layout="button_count" data-width="50"
                              data-show-faces="true"></div>
                     </td>
-                    <td style="vertical-align:top;width: 150px;">
+                    <td style="vertical-align:top;">
                         <div id="vk_like"></div>
                         <script type="text/javascript">
                             VK.Widgets.Like("vk_like", {type:"button", height:20});
                         </script>
                     </td>
-                    <td style="vertical-align:top;width: 120px;text-align: left;">
+                    <td style="vertical-align:top;padding-right:35px;text-align: left;">
                         <a class="odkl-klass-oc"
                            href="http://www.<?= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>"
                            onclick="ODKL.Share(this);return false;"><span>0</span></a>
                     </td>
-                    <td style="vertical-align:top;width: 100px;">
+                    <td style="vertical-align:top;">
                         <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Твитнуть</a>
                         <script>!function (d, s, id) {
                             var js, fjs = d.getElementsByTagName(s)[0];

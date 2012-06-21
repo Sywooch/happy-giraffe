@@ -6,6 +6,7 @@ return array(
     'name' => 'My Console Application',
     'sourceLanguage' => 'en',
     'language' => 'ru',
+    'preload'=>array('log'),
     'commandMap' => array(
         'migrate' => array(
             'class' => 'system.cli.commands.MigrateCommand',

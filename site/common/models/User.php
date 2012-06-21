@@ -20,6 +20,7 @@
  * @property string $last_ip
  * @property string $relationship_status
  * @property UserAddress $userAddress
+ * @property integer $recovery_disable
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers

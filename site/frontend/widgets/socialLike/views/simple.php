@@ -11,6 +11,11 @@ Yii::app()->clientScript
     ->registerMetaTag('Веселый Жираф', 'og:site_name');
 
 ?>
+<style type="text/css">
+    #vk_like{
+        width: 160px !important;
+    }
+</style>
 <div class="like-block fast-like-block">
 
     <div class="box-1">
@@ -54,7 +59,7 @@ Yii::app()->clientScript
                            href="http://<?= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>"
                            onclick="ODKL.Share(this);return false;"><span>0</span></a>
                     </td>
-                    <td style="vertical-align:top;width: 120px;">
+                    <td style="vertical-align:top;width: 80px;">
                         <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Твитнуть</a>
                         <script>!function (d, s, id) {
                             var js, fjs = d.getElementsByTagName(s)[0];

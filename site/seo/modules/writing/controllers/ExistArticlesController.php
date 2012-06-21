@@ -16,7 +16,7 @@ class ExistArticlesController extends SController
 
     public function actionIndex()
     {
-        $models = ArticleKeywords::model()->with(array('keywordGroup', 'keywordGroup.keywords'))->findAll(array('order' => 't.id desc', 'limit'=>500));
+        $models = Page::model()->with(array('keywordGroup', 'keywordGroup.keywords'))->findAll(array('order' => 't.id desc', 'limit'=>500));
         $this->render('index', compact('models'));
     }
 
@@ -36,7 +36,7 @@ class ExistArticlesController extends SController
                 'error' => 'Не найдена статья, обратитесь к разработчикам.',
             );
         } else {
-            $exist = ArticleKeywords::model()->findByAttributes(array(
+            $exist = Page::model()->findByAttributes(array(
                 'entity' => 'CommunityContent',
                 'entity_id' => $article->id,
             ));
@@ -46,7 +46,7 @@ class ExistArticlesController extends SController
                     'error' => 'Вы уже вводили эту статью.',
                 );
             } else {
-                $article_keywords = new ArticleKeywords();
+                $article_keywords = new Page();
                 $article_keywords->entity = 'CommunityContent';
                 $article_keywords->entity_id = $article->id;
                 $article_keywords->url = $url;
@@ -108,8 +108,8 @@ class ExistArticlesController extends SController
 
     public function actionValidate()
     {
-        $model = new ArticleKeywords('check');
-        $model->attributes = $_POST['ArticleKeywords'];
+        $model = new Page('check');
+        $model->attributes = $_POST['Page'];
         $this->performAjaxValidation($model, 'article-form');
     }
 
@@ -136,12 +136,12 @@ class ExistArticlesController extends SController
 
     /**
      * @param int $id model id
-     * @return ArticleKeywords
+     * @return Page
      * @throws CHttpException
      */
     public function loadArticle($id)
     {
-        $model = ArticleKeywords::model()->findByPk($id);
+        $model = Page::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

@@ -13,7 +13,7 @@
  *
  * The followings are the available model relations:
  * @property Query $query
- * @property ArticleKeywords $article
+ * @property Page $article
  */
 class QueryPage extends HActiveRecord
 {
@@ -65,7 +65,7 @@ class QueryPage extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'query' => array(self::BELONGS_TO, 'Query', 'query_id'),
-			'article' => array(self::BELONGS_TO, 'ArticleKeywords', 'article_id'),
+			'article' => array(self::BELONGS_TO, 'Page', 'article_id'),
 		);
 	}
 
@@ -113,4 +113,24 @@ class QueryPage extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getVisits($se, $week, $year)
+    {
+        foreach($this->query->searchEngines as $searchEngine){
+            if ($searchEngine->se_id == $se && $searchEngine->week = $week && $searchEngine->year = $year)
+                return $searchEngine->visits;
+        }
+
+        return 0;
+    }
+
+    public function getPosition($se, $week, $year)
+    {
+        foreach($this->query->searchEngines as $searchEngine){
+            if ($searchEngine->se_id == $se && $searchEngine->week = $week && $searchEngine->year = $year)
+                return $searchEngine->visits;
+        }
+
+        return 0;
+    }
 }

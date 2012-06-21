@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "seo__article_keywords".
+ * This is the model class for table "pages".
  *
- * The followings are the available columns in table 'seo__article_keywords':
+ * The followings are the available columns in table 'pages':
  * @property string $id
  * @property string $entity
  * @property string $entity_id
@@ -14,14 +14,14 @@
  * The followings are the available model relations:
  * @property KeywordGroup $keywordGroup
  */
-class ArticleKeywords extends CActiveRecord
+class Page extends CActiveRecord
 {
     public $keywords;
 
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return ArticleKeywords the static model class
+     * @return Page the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -35,7 +35,7 @@ class ArticleKeywords extends CActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.article_keywords';
+        return 'happy_giraffe_seo.pages';
     }
 
     /**
@@ -114,7 +114,7 @@ class ArticleKeywords extends CActiveRecord
     public function beforeDelete()
     {
         $this->keywordGroup->delete();
-        Yii::app()->db_seo->createCommand(' update article_keywords set number = number - 1 WHERE id >' . $this->id)->execute();
+        Yii::app()->db_seo->createCommand('update pages set number = number - 1 WHERE id >' . $this->id)->execute();
         return parent::beforeDelete();
     }
 
@@ -141,6 +141,55 @@ class ArticleKeywords extends CActiveRecord
         $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         if ($model === null)
             return '';
-        return CHtml::link($icon?$model->title:'', 'http://www.happy-giraffe.ru'.$model->getUrl(), array('target' => '_blank'));
+        return CHtml::link($icon ? $model->title : '', 'http://www.happy-giraffe.ru' . $model->getUrl(), array('target' => '_blank'));
+    }
+
+    /**
+     * Ищет статью по урлу, если не находит, то создает. Добавляет кейврд в группу
+     * @param string $url
+     * @param int $keyword_id
+     * @return Page
+     */
+    public function getOrCreate($url, $keyword_id = null)
+    {
+        $model = Page::model()->findByAttributes(array('url' => $url));
+        if ($model === null) {
+            $keyword_group = new KeywordGroup();
+            $keyword_group->keywords = array($keyword_id);
+            $keyword_group->save();
+
+            $model = new Page();
+            $model->url = $url;
+
+            preg_match("/\/([\d]+)\/$/", $url, $match);
+            if (isset($match[1])) {
+                $id = $match[1];
+
+                $article = CommunityContent::model()->findByPk($id);
+                if ($article !== null) {
+                    $exist = Page::model()->findByAttributes(array(
+                        'entity' => 'CommunityContent',
+                        'entity_id' => $article->id,
+                    ));
+                    if ($exist !== null) {
+                        $model->keywordGroup->addKeyword($keyword_id);
+                    } else {
+                        $model->entity = 'CommunityContent';
+                        $model->entity_id = $article->id;
+                        $model->keyword_group_id = $keyword_group->id;
+                        $model->save();
+                    }
+                }else{
+                    throw new CHttpException(401, 'Статья с другим урлом');
+                }
+            }else{
+                $model->keyword_group_id = $keyword_group->id;
+                $model->save();
+            }
+        } else {
+            $model->keywordGroup->addKeyword($keyword_id);
+        }
+
+        return $model;
     }
 }

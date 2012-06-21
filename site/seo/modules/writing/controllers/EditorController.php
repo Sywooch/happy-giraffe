@@ -310,7 +310,7 @@ class EditorController extends SController
         $keyword_id = Yii::app()->request->getPost('keyword_id');
         $article_id = Yii::app()->request->getPost('article_id');
 
-        $article = ArticleKeywords::model()->findByAttributes(array(
+        $article = Page::model()->findByAttributes(array(
             'entity_id' => $article_id
         ));
         if ($article !== null) {
@@ -343,7 +343,7 @@ class EditorController extends SController
                 ));
                 Yii::app()->end();
             }
-            $article_keywords = new ArticleKeywords();
+            $article_keywords = new Page();
             $article_keywords->entity = 'CommunityContent';
             $article_keywords->entity_id = $article_id;
             $article_keywords->url = 'http://www.happy-giraffe.ru'.$model->getUrl();

@@ -229,6 +229,7 @@ class AjaxController extends HController
     public function actionRemoveEntity()
     {
         Yii::import('application.modules.contest.models.*');
+        Yii::import('application.modules.cook.models.*');
         if (!Yii::app()->request->isAjaxRequest || !isset($_POST['Removed']))
             Yii::app()->end();
         $model = call_user_func(array($_POST['Removed']['entity'], 'model'));

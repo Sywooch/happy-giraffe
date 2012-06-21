@@ -5,6 +5,7 @@ var Converter = {
         $.each(ui.item, function (index, value) {
             input.attr('data-' + index, value);
         });
+        input.attr('data-title', ui.item.label);
 
         $('#ConverterForm_ingredient').val(ui.item.id);
         $('.drp-list ul li').hide();

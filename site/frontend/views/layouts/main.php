@@ -46,7 +46,7 @@
 <body class="body-club">
     <div id="layout" class="wrapper">
 
-        <div id="header-new" class="clearfix">
+        <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix">
 
             <div class="top-line clearfix">
 

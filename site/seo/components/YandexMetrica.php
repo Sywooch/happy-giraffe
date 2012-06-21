@@ -26,18 +26,16 @@ class YandexMetrica
         $weekday = $d->format('w');
         $diff = 7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
         $d->modify("-$diff day");
-        $this->date1 = $d->format('Y-m-d');
+        $this->date1 = $d->format('Ymd');
         $d->modify('+6 day');
-        $this->date2 = $d->format('Y-m-d');
+        $this->date2 = $d->format('Ymd');
         $this->week = date("W") - 1;
         $this->year = date("Y", strtotime('-7 days'));
     }
 
     public function parseQueries()
     {
-        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&filter=month&date1=' . $this->date1 . '&date2=' . $this->date2 . '&select_period=week';
-
-        Query::model()->deleteAll();
+        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&date1=' . $this->date1 . '&date2=' . $this->date2;
 
         while (!empty($next)) {
             $val = $this->loadPage($next);
@@ -45,18 +43,32 @@ class YandexMetrica
 
             //save to db
             foreach ($val['data'] as $query) {
-                $model = new Query();
-                $model->attributes = $query;
+
+                //////////////////////////////// DELETE  ///////////////////////////////
+                if ($query['visits'] < 10)
+                    break(2);
                 $keyword = Keyword::GetKeyword($query['phrase']);
-                $model->keyword_id = $keyword->id;
-                $model->week = $this->week;
-                $model->year = $this->year;
+                $model = Query::model()->findByAttributes(array(
+                    'keyword_id' => $keyword->id,
+                    'week' => $this->week,
+                    'year' => $this->year
+                ));
+                if ($model === null) {
+                    $model = new Query();
+                    $model->keyword_id = $keyword->id;
+                    $model->week = $this->week;
+                    $model->year = $this->year;
+                }
+
+                $model->attributes = $query;
                 if ($model->save()) {
                     foreach ($query['search_engines'] as $search_engine) {
-                        $se = new QuerySearchEngine();
-                        $se->attributes = $search_engine;
-                        $se->query_id = $model->id;
-                        $se->save();
+                        if (in_array($search_engine['se_id'], $this->se)) {
+                            $se = new QuerySearchEngine();
+                            $se->attributes = $search_engine;
+                            $se->query_id = $model->id;
+                            $se->save();
+                        }
                     }
                 }
             }
@@ -68,7 +80,7 @@ class YandexMetrica
 
     public function parseDataForSE($se_id)
     {
-        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&filter=month&date1=' . $this->date1 . '&date2=' . $this->date2 . '&select_period=month&se_id=' . $se_id;
+        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&date1=' . $this->date1 . '&date2=' . $this->date2 . '&se_id=' . $se_id;
         while (!empty($next)) {
             $val = $this->loadPage($next);
             $next = $this->getNextLink($val);
@@ -76,7 +88,12 @@ class YandexMetrica
             //save to db
             if (is_array($val['data']))
                 foreach ($val['data'] as $query) {
-                    $model = Query::model()->findByAttributes(array('phrase' => $query['phrase']));
+
+                    //////////////////////////////// DELETE  ///////////////////////////////
+                    if ($query['visits'] < 3)
+                        break(2);
+                    $keyword = Keyword::GetKeyword($query['phrase']);
+                    $model = Query::model()->findByAttributes(array('keyword_id' => $keyword->id));
                     if ($model !== null) {
                         $se = QuerySearchEngine::model()->findByAttributes(array(
                             'query_id' => $model->id,

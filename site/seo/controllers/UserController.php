@@ -58,6 +58,9 @@ class UserController extends SController
 
         if (isset($_POST['SeoUser'])) {
             $model->attributes = $_POST['SeoUser'];
+            if (!empty($_POST['SeoUser']['related_user_id']) && $_POST['SeoUser']['related_user_id'] != 0)
+                $model->related_user_id = $_POST['SeoUser']['related_user_id'];
+
             if ($model->save()) {
                 Yii::app()->db_seo->createCommand()->delete('auth__assignments', 'userid=:userid', array(':userid' => $model->id));
                 Yii::app()->authManager->assign($model->role, $model->id);
@@ -131,13 +134,16 @@ class UserController extends SController
         $password = $this->createPassword(12);
         $model->password = $model->hashPassword($password);
 
-        if ($model->save()) {
+        if ($model->save('password')) {
             $response = array(
                 'status' => true,
                 'result' => $model->email . ' '.$model->name. '. Новый пароль: ' . $password
             );
-        } else
+        } else{
             $response = array('status' => false);
+            var_dump($model->getErrors());
+            Yii::app()->end();
+        }
 
         echo CJSON::encode($response);
     }

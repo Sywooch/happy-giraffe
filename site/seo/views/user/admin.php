@@ -10,6 +10,7 @@
 		'password',
 		'name',
 		'owner_id',
+        'related_user_id',
         'role',
 		array(
 			'class'=>'CButtonColumn',

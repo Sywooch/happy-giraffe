@@ -270,7 +270,7 @@ class WordstatParser extends ProxyParserThread
         if ($this->debug)
             echo $model->name . ' - ' . $value . "<br>";
 
-        YandexPopularity::addValue($model->id, $value);
+        YandexPopularity::model()->addValue($model->id, $value);
         $model->our = 1;
         $model->save();
     }
@@ -316,6 +316,7 @@ class WordstatParser extends ProxyParserThread
                         try {
                             $success = $parsed->save();
                         } catch (Exception $err) {
+                            $success = false;
                         }
                     } else
                         $success = false;
@@ -326,6 +327,7 @@ class WordstatParser extends ProxyParserThread
                     try {
                         $success = $parsed->save();
                     } catch (Exception $err) {
+                        $success = false;
                     }
                 }
                 if (!$success)

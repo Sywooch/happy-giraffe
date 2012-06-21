@@ -4,7 +4,6 @@ Yii::app()->clientScript
     ->registerScript('vk-init', "VK.init({apiId: " . Yii::app()->params['social']['vk']['api_id'] . ", onlyWidgets: true});", CClientScript::POS_HEAD)
     ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
     ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
-    ->registerScript('ODKL.init', 'ODKL.init();', CClientScript::POS_READY)
     ->registerMetaTag($this->options['title'], 'og:title')
     ->registerMetaTag($this->options['image'], 'og:image')
     ->registerMetaTag($this->options['description'], 'og:description')
@@ -29,19 +28,6 @@ Yii::app()->clientScript
             js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
-
-        <script type="text/javascript">
-            window.___gcfg = {lang:'ru'};
-            (function () {
-                ODKL.init();
-                var po = document.createElement('script');
-                po.type = 'text/javascript';
-                po.async = true;
-                po.src = 'https://apis.google.com/js/plusone.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(po, s);
-            })();
-        </script>
         <div class="clearfix">
             <table width="100%">
                 <tr>
@@ -60,7 +46,7 @@ Yii::app()->clientScript
                            href="http://www.<?= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>"
                            onclick="ODKL.Share(this);return false;"><span>0</span></a>
                     </td>
-                    <td style="vertical-align:top;width: 120px;">
+                    <td style="vertical-align:top;width: 100px;">
                         <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Твитнуть</a>
                         <script>!function (d, s, id) {
                             var js, fjs = d.getElementsByTagName(s)[0];

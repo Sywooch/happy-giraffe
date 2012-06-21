@@ -4,7 +4,7 @@ return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Seo admin panel',
     'language' => 'ru',
-    'preload' => array('log'),
+//    'preload' => array('log'),
     'import' => array(
         'site.common.models.*',
         'site.common.components.*',
@@ -82,15 +82,15 @@ return array(
             'class' => 'CFileCache',
 //            'class' => 'CDummyCache',
         ),
-        'log' => array(
-            'class' => 'CLogRouter',
-            'routes' => array(
-                array(
-                    'class' => 'CFileLogRoute',
-                    'levels' => 'trace, info, profile, warning, error',
-                ),
-            ),
-        ),
+//        'log' => array(
+//            'class' => 'CLogRouter',
+//            'routes' => array(
+//                array(
+//                    'class' => 'CFileLogRoute',
+//                    'levels' => 'trace, info, profile, warning, error',
+//                ),
+//            ),
+//        ),
         'search' => array(
             'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',
             'server' => '127.0.0.1',

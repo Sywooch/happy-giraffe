@@ -139,8 +139,11 @@ class UserController extends SController
                 'status' => true,
                 'result' => $model->email . ' '.$model->name. '. Новый пароль: ' . $password
             );
-        } else
+        } else{
             $response = array('status' => false);
+            var_dump($model->getErrors());
+            Yii::app()->end();
+        }
 
         echo CJSON::encode($response);
     }

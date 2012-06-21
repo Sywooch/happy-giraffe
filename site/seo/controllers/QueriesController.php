@@ -47,14 +47,14 @@ class QueriesController extends SController
     public function actionParse()
     {
         $metrica = new YandexMetrica();
-        $metrica->parseQueries();
-
-        $response = array(
-            'status' => true,
-            'count' => Query::model()->count()
-        );
-
-        echo CJSON::encode($response);
+//        $metrica->parseQueries();
+        $metrica->convertToPageSearchPhrases();
+//        $response = array(
+//            'status' => true,
+//            'count' => Query::model()->count()
+//        );
+//
+//        echo CJSON::encode($response);
     }
 
     public function actionSearch()

@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'queries':
  * @property string $id
- * @property string $phrase
+ * @property string $keyword_id
  * @property string $visits
  * @property string $page_views
  * @property double $denial
@@ -14,10 +14,13 @@
  * @property integer $parsing
  * @property integer $yandex_parsed
  * @property integer $google_parsed
+ * @property integer $week
+ * @property integer $year
  *
  * The followings are the available model relations:
  * @property QueryPage[] $pages
  * @property QuerySearchEngine[] $searchEngines
+ * @property Keyword $keyword
  */
 class Query extends HActiveRecord
 {
@@ -50,14 +53,14 @@ class Query extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('phrase, visits, page_views, denial, depth, visit_time', 'required'),
+            array('keyword_id, visits, page_views, denial, depth, visit_time', 'required'),
             array('visit_time, parsing, google_parsed, yandex_parsed', 'numerical', 'integerOnly' => true),
             array('denial, depth', 'numerical'),
-            array('phrase', 'length', 'max' => 1024),
+            array('keyword_id', 'length', 'max' => 1024),
             array('visits, page_views', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, phrase, visits, page_views, denial, depth, visit_time, parsing', 'safe', 'on' => 'search'),
+            array('id, keyword_id, visits, page_views, denial, depth, visit_time, parsing', 'safe', 'on' => 'search'),
         );
     }
 
@@ -71,6 +74,7 @@ class Query extends HActiveRecord
         return array(
             'pages' => array(self::HAS_MANY, 'QueryPage', 'query_id'),
             'searchEngines' => array(self::HAS_MANY, 'QuerySearchEngine', 'query_id'),
+            'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id)'),
         );
     }
 
@@ -81,7 +85,7 @@ class Query extends HActiveRecord
     {
         return array(
             'id' => 'ID',
-            'phrase' => 'Поисковый запрос',
+            'keyword_id' => 'Поисковый запрос',
             'visits' => 'Визитов',
             'page_views' => 'Просмотров',
             'denial' => 'Отказов',
@@ -106,7 +110,7 @@ class Query extends HActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('phrase', $this->phrase, true);
+        $criteria->compare('keyword_id', $this->keyword_id, true);
         $criteria->compare('visits', $this->visits, true);
         $criteria->compare('page_views', $this->page_views, true);
         $criteria->compare('denial', $this->denial);

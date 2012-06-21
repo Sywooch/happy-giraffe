@@ -7,6 +7,7 @@ class m120621_074833_search_phrases extends CDbMigration
     public function up()
     {
         $this->renameTable('article_keywords', 'pages');
+        $this->dropTable('query_visits');
 
         $this->createTable($this->_table, array(
             'id' => 'int(11) unsigned NOT NULL AUTO_INCREMENT',
@@ -34,8 +35,8 @@ class m120621_074833_search_phrases extends CDbMigration
             'search_phrase_id' => 'int(11) unsigned NOT NULL',
             'se_id' => 'int(11) unsigned NOT NULL',
             'visits' => 'mediumint unsigned NOT NULL',
-            'week_id' => 'tinyint NOT NULL',
-            'year' => 'mediumint NOT NULL',
+            'week' => 'tinyint NOT NULL',
+            'year' => 'smallint NOT NULL',
             'PRIMARY KEY (`id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
         $this->addForeignKey('fk_' . $this->_table . '_search_phrase', $this->_table, 'search_phrase_id', 'pages_search_phrases', 'id', 'CASCADE', "CASCADE");

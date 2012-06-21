@@ -32,7 +32,6 @@ Yii::app()->clientScript
         <script type="text/javascript">
             window.___gcfg = {lang:'ru'};
             (function () {
-                ODKL.init();
                 var po = document.createElement('script');
                 po.type = 'text/javascript';
                 po.async = true;

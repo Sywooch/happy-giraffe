@@ -15,8 +15,8 @@
         ->registerScriptFile('/javascripts/dklab_realplexor.js')
         ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
 
-        ->registerCssFile('/stylesheets/common.css?r=349')
-        ->registerCssFile('/stylesheets/global.css?r=349')
+        ->registerCssFile('/stylesheets/common.css?r=350')
+        ->registerCssFile('/stylesheets/global.css?r=350')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
@@ -43,7 +43,7 @@
         $user = User::getUserById(Yii::app()->user->id);
     ?>
 </head>
-<body class="body-club">
+<body class="body-club" onload="ODKL.init();">
     <div id="layout" class="wrapper">
 
         <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix">

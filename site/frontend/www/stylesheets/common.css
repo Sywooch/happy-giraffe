@@ -1337,7 +1337,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .fast-like-block .box-1 {text-align:center;display:inline-block;vertical-align:top;margin-top: 15px;}
 
-.fast-like-block .box-2 {text-align:center;display:inline-block;vertical-align:top;margin-top: 5px;padding-left: 30px;}
+.fast-like-block .box-2 {text-align:center;display:inline-block;vertical-align:top;margin-top: 5px;padding-left: 10px;}
 
 .fast-like-block .box-2 .btn-icon {vertical-align:bottom;}
 .fast-like-block .box-2 .btn-icon.heart {width:43px;height:41px;background:url(/images/like_heart.png) 0 100%;}

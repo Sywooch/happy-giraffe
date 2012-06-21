@@ -31,7 +31,7 @@ Yii::app()->clientScript
 
         <script type="text/javascript">
             window.___gcfg = {lang:'ru'};
-            (function () {
+            $(document).ready(function() {
                 ODKL.init();
                 var po = document.createElement('script');
                 po.type = 'text/javascript';
@@ -55,8 +55,8 @@ Yii::app()->clientScript
                         </script>
                     </td>
                     <td style="vertical-align:top;width: 120px;text-align: left;">
-                        <a class="odkl-klass-stat"
-                           href="http://<?= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>"
+                        <a class="odkl-klass-oc"
+                           href="http://www.<?= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>"
                            onclick="ODKL.Share(this);return false;"><span>0</span></a>
                     </td>
                     <td style="vertical-align:top;width: 120px;">

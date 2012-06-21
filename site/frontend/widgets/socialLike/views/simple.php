@@ -4,6 +4,7 @@ Yii::app()->clientScript
     ->registerScript('vk-init', "VK.init({apiId: " . Yii::app()->params['social']['vk']['api_id'] . ", onlyWidgets: true});", CClientScript::POS_HEAD)
     ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
     ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
+    ->registerScript('ODKL.init', 'ODKL.init();', CClientScript::POS_READY)
     ->registerMetaTag($this->options['title'], 'og:title')
     ->registerMetaTag($this->options['image'], 'og:image')
     ->registerMetaTag($this->options['description'], 'og:description')
@@ -32,6 +33,7 @@ Yii::app()->clientScript
         <script type="text/javascript">
             window.___gcfg = {lang:'ru'};
             (function () {
+                ODKL.init();
                 var po = document.createElement('script');
                 po.type = 'text/javascript';
                 po.async = true;

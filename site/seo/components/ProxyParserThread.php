@@ -21,7 +21,7 @@ class ProxyParserThread extends CComponent
 
     protected $delay_min = 5;
     protected $delay_max = 15;
-    protected $debug = true;
+    protected $debug = false;
     protected $timeout = 15;
     protected $removeCookieOnChangeProxy = true;
 
@@ -30,6 +30,8 @@ class ProxyParserThread extends CComponent
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
+
+
     }
 
     private function getProxy()
@@ -166,5 +168,12 @@ class ProxyParserThread extends CComponent
     protected function afterProxyChange()
     {
 
+    }
+
+    protected function logMemoryUsage($state){
+        $memory = round(Yii::getLogger()->getMemoryUsage()/1048576,2);
+        $message = $state.' - memory usage: '.$memory.' mb';
+        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime').DIRECTORY_SEPARATOR.'my_log.txt', 'a');
+        fwrite($fh, date("Y-m-d H:i:s").':  '. $message."\n");
     }
 }

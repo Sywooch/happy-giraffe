@@ -38,7 +38,7 @@ class CommunityController extends HController
         );
     }
 
-    public function beforeAction($action) {
+    protected function beforeAction($action) {
         if(!Yii::app()->request->isAjaxRequest)
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/community.js');
         return parent::beforeAction($action);

@@ -1689,7 +1689,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #profile .socials .auth-link .auth-icon.twitter {background-position:0 -170px;}
 
 .socials-inline .services {display:inline-block;vertical-align:middle;}
-.socials .services ul.auth-services {list-style:none;margin:0;}
+.socials .services ul.auth-services {list-style:none;margin:0;white-space:nowrap;}
 
 .socials-inline .services .auth-service {display:inline-block;margin:0 0 0 6px;float:none;}
 .socials-rect .services .auth-service {margin:0;float:none;}

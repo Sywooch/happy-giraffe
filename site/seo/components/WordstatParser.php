@@ -16,20 +16,28 @@ class WordstatParser extends ProxyParserThread
     {
         Config::setAttribute('stop_threads', 0);
 
-        $this->delay_min = 0;
-        $this->delay_max = 0;
+        $this->logMemoryUsage('start');
+
+        $this->delay_min = 1;
+        $this->delay_max = 3;
         $this->timeout = 15;
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 
+        //sleep(rand(1, 120));
+
         $this->getCookie();
 
+        $this->logMemoryUsage('got cookie');
         while (true) {
             $this->getNextPage();
-            $success = false;
 
+            $success = false;
             while (!$success) {
                 $success = $this->parseQuery();
+
+                $this->logMemoryUsage('page parsed');
+
                 if (!$success)
                     $this->changeBadProxy();
                 else
@@ -61,6 +69,7 @@ class WordstatParser extends ProxyParserThread
         $criteria->compare('active', 0);
         $criteria->condition = 'depth IS NULL';
         $criteria->with = 'keyword';
+        $criteria->order = 'rand()';
 
         //затем все остальные упорядоченные по глубине парсинга
         $criteria2 = new CDbCriteria;
@@ -84,11 +93,13 @@ class WordstatParser extends ProxyParserThread
             } catch (Exception $e) {
                 $this->keyword = null;
                 $transaction->rollback();
+                $this->closeThread('get keyword transaction failed');
             }
             sleep(1);
         }
 
         $this->first_page = true;
+        $this->logMemoryUsage('keyword selected');
     }
 
     private function getCookie()
@@ -117,7 +128,7 @@ class WordstatParser extends ProxyParserThread
                 $this->changeBadProxy();
                 $this->removeCookieFile();
             }
-            sleep(10);
+            sleep(1);
         }
     }
 
@@ -126,6 +137,8 @@ class WordstatParser extends ProxyParserThread
         $html = $this->query($this->next_page, 'http://wordstat.yandex.ru/');
         if (!isset($html) || $html === null)
             return false;
+
+        $this->logMemoryUsage('page loaded');
 
         return $this->parseData($html);
     }
@@ -257,7 +270,7 @@ class WordstatParser extends ProxyParserThread
         if ($this->debug)
             echo $model->name . ' - ' . $value . "<br>";
 
-        YandexPopularity::addValue($model->id, $value);
+        YandexPopularity::model()->addValue($model->id, $value);
         $model->our = 1;
         $model->save();
     }
@@ -272,6 +285,9 @@ class WordstatParser extends ProxyParserThread
         parent::closeThread($reason);
     }
 
+    /**
+     * Когда спарсили все - удаляем кейворд из очереди на парсинг
+     */
     public function RemoveCurrentKeywordFromParsing()
     {
         //проверяем не изменилась ли глубина за время парсинга
@@ -300,6 +316,7 @@ class WordstatParser extends ProxyParserThread
                         try {
                             $success = $parsed->save();
                         } catch (Exception $err) {
+                            $success = false;
                         }
                     } else
                         $success = false;
@@ -310,6 +327,7 @@ class WordstatParser extends ProxyParserThread
                     try {
                         $success = $parsed->save();
                     } catch (Exception $err) {
+                        $success = false;
                     }
                 }
                 if (!$success)

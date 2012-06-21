@@ -38,6 +38,7 @@ class YandexMetrica
                         $se = new QuerySearchEngine();
                         $se->attributes = $search_engine;
                         $se->query_id = $model->id;
+                        $se->session_id = 1;
                         $se->save();
                     }
                 }

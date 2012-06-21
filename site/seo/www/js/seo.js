@@ -112,7 +112,7 @@ var SeoModule = {
         }, 'json');
     },
     bindKeywordToArticle:function(keyword_id, article_id, el){
-        $.post('/writing/editor/bindKeywordToArticle', {
+        $.post('/writing/editor/bindKeywordToArticle/', {
             keyword_id:keyword_id,
             article_id:article_id
         }, function (response) {

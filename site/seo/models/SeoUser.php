@@ -56,6 +56,7 @@ class SeoUser extends HActiveRecord
             array('related_user_id', 'numerical', 'integerOnly' => true),
             array('email, related_user_id', 'unique'),
             array('role, owner_id', 'safe'),
+            array('related_user_id', 'unsafe'),
             //login
             array('email, password', 'required', 'on' => 'login'),
             array('password', 'passwordValidator', 'on' => 'login'),
@@ -194,7 +195,7 @@ class SeoUser extends HActiveRecord
         return null;
     }
 
-    public function getAva($size = 'ava')
+    public function getAva($size = 'small')
     {
         $user = $this->getRelatedUser();
         if ($user != null){

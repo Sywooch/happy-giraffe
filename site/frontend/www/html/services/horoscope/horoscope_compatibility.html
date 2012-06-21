@@ -13,30 +13,9 @@
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/jquery.dimensions.js"></script>
-	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
-	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
-	<script>
-		$(function(){
-			$('.tooltip').tooltip({
-				delay: 100,
-				track: false,
-				showURL: false,
-				showBody: false,
-				top: -20,
-				left: 10
-			});
-		})
-	</script>
+	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	
 </head>
 <body class="body-club">
@@ -442,136 +421,231 @@
 		
 		<div id="content" class="clearfix">
 			
-			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
+			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Гороскоп</span></div>
 			
-			<div id="measure">
+			<div class="main">
+				<div class="main-in">
 				
-				<div class="title">
-					
-					<h2>Калькулятор <span>мер и весов</span></h2>
-					
-				</div>
-				
-				<div class="hl">
-				
-					<div class="calculator">
-						
-						<div class="product">
+					<div id="horoscope">
+												
+						<div class="horoscope-compatibility clearfix">
 							
-							<div class="block-title">Продукт</div>
-							<input type="text" placeholder="Введите название продукта" value="Яйцо куриное" /><br/>
-							<span>Начинайте вводить название продукта. Например, мясо, молоко, мука</span>
+							<div class="sign">
+								<div class="img"><img src="/images/widget/horoscope/big/4.png" /></div>
+								<select class="chzn"><option>Рак</option></select>
+							</div>
+							<div class="plus"></div>
+							<div class="sign">
+								<div class="img"><img src="/images/widget/horoscope/big/7.png" /></div>
+								<select class="chzn"><option>Весы</option></select>
+							</div>
+							<div class="equal"></div>
+							<div class="button">
+								<a href="">Узнать!</a>
+							</div>
 							
 						</div>
 						
-						<div class="values">
+						<div class="wysiwyg-content">
 							
-							<div class="input">
-								<input type="text" placeholder="0" value="0" />
-								<br/>
-								Введите кол-во
-							</div>
+							<h2>Гороскоп совместимости</h2>
 							
-							<div class="drp-list">
-								<a href="" class="trigger">штук</a>
+							<p>Эффект взаимного притяжения очень хорошо просматривается на примере этой пары. Самое большое удовольствие для них – духовное общение и обмен мнениями. Оба знака очень интеллектуальны и интересуются всем на свете. Это шумные создания, и одно из любимейших их занятий – подискутировать на интересную тему. Оба не переносят малейшее ограничение их свободы. А вот в постели ничего яркого они продемонстрировать не смогут, так как оба будут ждать инициативы от партнера.</p>
+							<p>Глядя на них со стороны, не сразу поймешь, какие отношения их связывают: то ли это любовники, то ли хорошие друзья, а может, это старые враги, которые лишь скрывают свою неприязнь? Они и сами порой не уверены до конца, кем приходятся друг другу.</p>
+							
+						</div>
+						
+						<div class="clearfix">
+							
+							<div class="horoscope-compatibility-list">
 								<ul>
-									<li><a href="">штук</a></li>
-									<li><a href="">грамм</a></li>
-									<li><a href="">литров</a></li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/1.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/2.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/3.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/4.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/5.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/6.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/7.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/8.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/9.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/10.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/11.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									<li>
+										<div class="img">
+											<img src="/images/widget/horoscope/smaller/12.png" />
+											<div class="date"><span>Близнецы</span>22.01 - 3.02</div>
+										</div>
+										<ul>
+											<li><a href="">Близнецы - Овен</a></li>
+											<li><a href="">Близнецы - Телец</a></li>
+											<li><a href="">Близнецы - Близнецы</a></li>
+											<li><a href="">Близнецы - Рак</a></li>
+											<li><a href="">Близнецы - Лев</a></li>
+											<li><a href="">Близнецы - Дева</a></li>
+										</ul>
+									</li>
+									
 								</ul>
 							</div>
-							
-							<a href="" class="equal"></a>
-							
-							<span class="value">203,4151515151156</span>
-							
-							<div class="drp-list">
-								<a href="" class="trigger">грамм</a>
-								<ul style="display:none;">
-									<li><a href="">штук</a></li>
-									<li><a href="">грамм</a></li>
-									<li><a href="">литров</a></li>
-								</ul>
-							</div>
-							
-							&nbsp;&nbsp;&nbsp;&nbsp;
-							
-							<a href="" class="btn btn-gray-small"><span><span>Запомнить</span></span></a>						
-							<a href="" class="btn btn-gray-small"><span><span>Очистить</span></span></a>						
 							
 						</div>
 						
 					</div>
-					
-					<div class="saved-calculations">
-						
-						<ul>
-							<li>
-								<span class="product-name">Яйцо куриное</span>
-								<span class="value">10</span>
-								штук
-								<span class="value">=</span>
-								<span class="value">203,5</span>
-								грамм
-								<a href="" class="remove tooltip" title="Удалить"></a>
-							</li>
-							<li>
-								<span class="product-name">Яйцо куриное</span>
-								<span class="value">100</span>
-								штук
-								<span class="value">=</span>
-								<span class="value">2035</span>
-								грамм
-								<a href="" class="remove tooltip" title="Удалить"></a>
-							</li>
-							<li>
-								<span class="product-name">Яйцо куриное</span>
-								<span class="value">1</span>
-								штук
-								<span class="value">=</span>
-								<span class="value">20,35</span>
-								грамм
-								<a href="" class="remove tooltip" title="Удалить"></a>
-							</li>
-							<li>
-								<span class="product-name">Яйцо куриное</span>
-								<span class="value">1000</span>
-								штук
-								<span class="value">=</span>
-								<span class="value">20350</span>
-								грамм
-								<a href="" class="remove tooltip" title="Удалить"></a>
-							</li>
-							
-						</ul>
-						
-					</div>
-					
-				</div>
 				
-				<div class="wysiwyg-content">
-					
-					<h2>Калькулятор мер и весов</h2>
-					
-					<p>Часто бывает: найдёшь с большим трудом нужный рецепт, а в нём хоть одна мера продуктов, да обязательно не в «тех» единицах. Получается, что рецепт-то есть, а воспользоваться им не получается. Причём это не единичные случаи, а закономерность для именно тех рецептов, которые очень хочется воспроизвести на своей любимой кухне! Можно, конечно, взять необходимые продукты в количестве по наитию или, воспользовавшись калькулятором, посчитать пропорции ингредиентов, можно искать соразмерность каждой единицы в Интернете…но все это занимает достаточно много времени и может ещё, даже при незначительной погрешности в вычислениях, привести к плачевным результатам, проще говоря, к выброшенной еде, ведь понятие «мера продуктов» придумана совсем не зря.</p>
-
-					<p>Именно для подобных ситуаций создан наш новый сервис о массах и мерах: «Таблица мер продуктов». Теперь, обладая рецептом с набором продуктов в любых измерениях, вы можете легко перевести их именно в те, которые вам нужны. Сервис позволяет вообще не задумываться о таком понятии, как мера веса продуктов. В каких бы мерах ни были компоненты – они будут переведены в необходимые.</p>
-
-					<div style="background:#fefded;padding:20px 20px 10px;margin-bottom:20px;">
-					
-						<h3>Пользоваться сервисом просто: </h3>
-						
-						<ol>
-							<li>Введите название продукта (выберите из выпадающего списка)</li>
-							<li>Впишите количество продукта, выбрав единицы, в которых он указан, затем выбирайте те, которые вам нужны.</li>
-						</ol>
-						
-						<p>Одна секунда – и вы     знаете, сколько граммов масла в чайной ложке или сколько стаканов воды в литре. Любая мера веса продуктов теперь не представляет секрета: наша интерактивная таблица мер продуктов переводит любые единицы в те, что надо. Легко, просто, быстро – именно то, что нужно современной хозяйке, у которой очень мало времени. Но это ещё не всё! Вы можете сохранить результат, чтобы не производить вычисления повторно. Для этого просто нужно нажать на соответствующую кнопку</p>
-					
-					</div>
-					
-					<p>Оставьте калькулятор – это не современно! Вооружитесь компьютером и сделайте закладку на странице с нужным сервисом. Мгновенно переводя одни меры в другие, вы сэкономите массу времени и ещё больше нервов. Останутся в прошлом сомнения и томление в ожидании: получится – не получится. Получится всё и именно так, как вам нужно. Удачи!</p>
-					
+				</div>
+			</div>
+			
+			<div class="side-left">
+				
+				<div class="banner-box"><a href=""><img src="/images/horoscope_sidebar_banner.jpg" /></a></div>
+				
+				<div class="horoscope-subscribe">
+					<img src="/images/horoscope_subscribe_banner.jpg" />
+					<p>Этот день открывает массу возможностей,  пользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким.</p>
+					<a href="" class="btn-want">Хочу!</a>
 				</div>
 				
 			</div>

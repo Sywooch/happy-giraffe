@@ -134,7 +134,7 @@ class UserController extends SController
         $password = $this->createPassword(12);
         $model->password = $model->hashPassword($password);
 
-        if ($model->save()) {
+        if ($model->save('password')) {
             $response = array(
                 'status' => true,
                 'result' => $model->email . ' '.$model->name. '. Новый пароль: ' . $password

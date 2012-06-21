@@ -55,7 +55,7 @@ Yii::app()->clientScript
                         </script>
                     </td>
                     <td style="vertical-align:top;width: 120px;text-align: left;">
-                        <a class="odkl-klass-stat"
+                        <a class="odkl-klass-oc"
                            href="http://www.<?= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>"
                            onclick="ODKL.Share(this);return false;"><span>0</span></a>
                     </td>

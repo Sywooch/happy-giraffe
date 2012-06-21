@@ -21,7 +21,7 @@ class ProxyParserThread extends CComponent
 
     protected $delay_min = 5;
     protected $delay_max = 15;
-    protected $debug = true;
+    protected $debug = false;
     protected $timeout = 15;
     protected $removeCookieOnChangeProxy = true;
 

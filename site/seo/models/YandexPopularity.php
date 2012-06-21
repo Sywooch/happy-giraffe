@@ -100,7 +100,7 @@ class YandexPopularity extends HActiveRecord
         ));
     }
 
-    public static function addValue($keyword_id, $value)
+    public function addValue($keyword_id, $value)
     {
         $yaPop = YandexPopularity::model()->findByPk($keyword_id);
         if ($yaPop !== null) {

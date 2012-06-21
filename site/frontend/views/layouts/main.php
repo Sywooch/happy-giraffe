@@ -43,7 +43,7 @@
         $user = User::getUserById(Yii::app()->user->id);
     ?>
 </head>
-<body class="body-club" onload="ODKL.init();">
+<body class="body-club" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
     <div id="layout" class="wrapper">
 
         <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix">

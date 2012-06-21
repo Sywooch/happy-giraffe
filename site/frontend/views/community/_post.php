@@ -191,7 +191,7 @@
     'title' => $like_title,
     'notice' => $like_notice,
     'model' => $data,
-    'type' => 'minimize',
+    'type' => 'simple',
     'options' => array(
         'title' => CHtml::encode($data->title),
         'image' => isset($data_image) ? $data_image : false,

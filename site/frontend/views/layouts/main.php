@@ -138,19 +138,21 @@
             <div class="header-in">
                 <div class="clearfix">
 
-                    <div class="search-box clearfix">
-                        <form action="<?php echo $this->createUrl('/search'); ?>">
-                            <div class="input">
-                                <input type="text" name="text" />
-                            </div>
-                            <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>
-                        </form>
+                    <?php if (! Yii::app()->user->isGuest): ?>
+                        <div class="search-box clearfix">
+                            <form action="<?php echo $this->createUrl('/search'); ?>">
+                                <div class="input">
+                                    <input type="text" name="text" />
+                                </div>
+                                <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>
+                            </form>
 
-                        <div class="fast-actions">
-                            <a href="<?=$this->createUrl('/activity')?>" class="newest<?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->activityUpdated):?> active<?php endif; ?>"><i class="icon"></i>Самое<br/>свежее</a>
-                            <a href="<?=$this->createUrl('/activity/friends')?>" class="find-friend"><i class="icon"></i>Найти<br/>друзей</a>
+                            <div class="fast-actions">
+                                <a href="<?=$this->createUrl('/activity')?>" class="newest<?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->activityUpdated):?> active<?php endif; ?>"><i class="icon"></i>Самое<br/>свежее</a>
+                                <a href="<?=$this->createUrl('/activity/friends')?>" class="find-friend"><i class="icon"></i>Найти<br/>друзей</a>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
 
                     <div class="logo-box">
                         <a href="/" class="logo" title="Веселый Жираф - сайт для всей семьи">Ключевые слова сайта</a>
@@ -158,7 +160,11 @@
                     </div>
 
                     <div class="banner-box">
-                        <a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
+                        <?php if (! Yii::app()->user->isGuest): ?>
+                            <a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
+                        <?php else: ?>
+                            <a href="<?=$this->createUrl('/signup') ?>"><img src="/images/banner_06.png" /></a>
+                        <?php endif; ?>
                     </div>
 
                 </div>

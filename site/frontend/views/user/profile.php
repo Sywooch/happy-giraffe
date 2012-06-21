@@ -27,13 +27,17 @@
             <?php if ($user->birthday): ?><div class="birthday"><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)</div><?php endif; ?>
         </div>
 
-        <?php if (! Yii::app()->user->isGuest && $user->id != Yii::app()->user->id): ?>
+        <?php if ($user->id != Yii::app()->user->id): ?>
             <div class="user-buttons clearfix">
-                <?php $this->renderPartial('_friend_button', array(
+                <?php
+                $this->renderPartial('_friend_button', array(
                     'user' => $user,
-                )); ?>
-                <a href="<?=$user->dialogUrl?>" class="new-message"><span class="tip">Написать сообщение</span></a>
-                <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
+                ));
+                Yii::app()->controller->renderPartial('_dialog_button', array(
+                    'user' => $this->user,
+                ));
+                $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user));
+                ?>
             </div>
         <?php elseif(Yii::app()->user->checkAccess('manageFavourites')): ?>
             <div class="user-buttons clearfix">

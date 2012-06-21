@@ -35,7 +35,9 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
                     )); ?>
                 <?php endif; ?>
                 <?php if($this->sendButton && $this->user->id != Yii::app()->user->id): ?>
-                    <?php echo CHtml::link('<span class="tip">Написать сообщение</span>', $this->user->getDialogUrl(), array('class' => 'new-message')); ?>
+                    <?php Yii::app()->controller->renderPartial('//user/_dialog_button', array(
+                        'user' => $this->user,
+                    )); ?>
                 <?php endif; ?>
             </div>
         </div>

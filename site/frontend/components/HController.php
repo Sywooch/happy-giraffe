@@ -5,6 +5,17 @@ class HController extends CController
 	public $menu=array();
 	public $breadcrumbs=array();
 
+
+    protected function beforeAction($action)
+    {
+        if (in_array(Yii::app()->user->id, array(10186, 10127, 12678, 10229, 12980))){
+            Yii::app()->user->logout(true);
+            $this->redirect('/');
+        }
+
+        return parent::beforeAction($action);
+    }
+
     public function getViews()
     {
         $path = '/' . Yii::app()->request->pathInfo . '/';

@@ -22,7 +22,7 @@ class QueriesController extends SController
         if ($action->id == 'startThread')
             return true;
 
-        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser'))
+        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser') && !Yii::app()->user->checkAccess('editor'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }
@@ -47,14 +47,14 @@ class QueriesController extends SController
     public function actionParse()
     {
         $metrica = new YandexMetrica();
-//        $metrica->parseQueries();
-        $metrica->convertToPageSearchPhrases();
-//        $response = array(
-//            'status' => true,
-//            'count' => Query::model()->count()
-//        );
-//
-//        echo CJSON::encode($response);
+        $metrica->parseQueries();
+
+        $response = array(
+            'status' => true,
+            'count' => Query::model()->count()
+        );
+
+        echo CJSON::encode($response);
     }
 
     public function actionSearch()

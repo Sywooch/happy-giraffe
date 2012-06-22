@@ -175,7 +175,7 @@ class Keyword extends HActiveRecord
             return true;
 
         foreach ($this->group as $group) {
-            if (!empty($group->articleKeywords))
+            if (!empty($group->page))
                 return false;
 
             if ($group->newTaskCount > 0)
@@ -191,7 +191,7 @@ class Keyword extends HActiveRecord
     public function used()
     {
         foreach ($this->group as $group) {
-            if (!empty($group->articleKeywords))
+            if (!empty($group->page))
                 return true;
         }
         return false;
@@ -372,10 +372,10 @@ class Keyword extends HActiveRecord
             foreach ($this->group as $group_) {
                 $group = $group_;
             }
-            if (empty($group->articleKeywords))
+            if (empty($group->page))
                 return $res;
 
-            return $res . CHtml::link('', $group->articleKeywords->url, array(
+            return $res . CHtml::link('', $group->page->url, array(
                 'target' => '_blank',
                 'class' => 'icon-article'
             ));

@@ -43,7 +43,10 @@
             </div>
 
             <?php
-            $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $model,));
+            $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $model));
+            $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+            $remove_tmpl->registerTemplates();
+            $this->endWidget();
             ?>
 
 

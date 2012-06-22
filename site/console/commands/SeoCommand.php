@@ -120,28 +120,28 @@ class SeoCommand extends CConsoleCommand
     {
         $metrica = new YandexMetrica();
         $metrica->parseQueries();
-        $metrica->convertToPageSearchPhrases();
+        $metrica->convertToSearchPhraseVisits();
     }
 
-    public function actionConvertPositions()
+    public function actionConvertVisits()
     {
         $metrica = new YandexMetrica();
-        $metrica->convertToPageSearchPhrases();
+        $metrica->convertToSearchPhraseVisits();
     }
 
     public function actionParseMonthTraffic()
     {
         $metrica = new YandexMetrica(1);
         $metrica->parseQueries();
-        $metrica->convertToPageSearchPhrases();
+        $metrica->convertToSearchPhraseVisits();
 
         $metrica = new YandexMetrica(2);
         $metrica->parseQueries();
-        $metrica->convertToPageSearchPhrases();
+        $metrica->convertToSearchPhraseVisits();
 
         $metrica = new YandexMetrica(3);
         $metrica->parseQueries();
-        $metrica->convertToPageSearchPhrases();
+        $metrica->convertToSearchPhraseVisits();
     }
 
 

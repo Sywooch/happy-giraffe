@@ -53,7 +53,7 @@ class QueriesController extends SController
     {
         $metrica = new YandexMetrica();
         $metrica->parseQueries();
-        $metrica->convertToPageSearchPhrases();
+        $metrica->convertToSearchPhraseVisits();
 
         $response = array(
             'status' => true,

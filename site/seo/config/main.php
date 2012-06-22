@@ -4,7 +4,7 @@ return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Seo admin panel',
     'language' => 'ru',
-//    'preload' => array('log'),
+    'preload' => array('log'),
     'import' => array(
         'site.common.models.*',
         'site.common.components.*',

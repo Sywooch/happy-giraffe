@@ -16,19 +16,30 @@ class YandexMetrica
 
     public $se = array(2, 3);
 
-    function __construct()
+    function __construct($weeks_ago = null)
     {
-        $d = new DateTime();
-
-        //вычисляем даты для парсинга предыдущей недели
-        $weekday = $d->format('w');
-        $diff = 7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
-        $d->modify("-$diff day");
-        $this->date1 = $d->format('Ymd');
-        $d->modify('+6 day');
-        $this->date2 = $d->format('Ymd');
-        $this->week = date("W") - 1;
-        $this->year = date("Y", strtotime('-7 days'));
+        if ($weeks_ago == null) {
+            //вычисляем даты для парсинга предыдущей недели
+            $d = new DateTime();
+            $weekday = $d->format('w');
+            $diff = 7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
+            $d->modify("-$diff day");
+            $this->date1 = $d->format('Ymd');
+            $d->modify('+6 day');
+            $this->date2 = $d->format('Ymd');
+            $this->week = date("W") - 1;
+            $this->year = date("Y", strtotime('-7 days'));
+        } else{
+            $d = new DateTime();
+            $weekday = $d->format('w');
+            $diff = (1+$weeks_ago)*7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
+            $d->modify("-$diff day");
+            $this->date1 = $d->format('Ymd');
+            $d->modify('+6 day');
+            $this->date2 = $d->format('Ymd');
+            $this->week = date("W") - 1;
+            $this->year = date("Y", strtotime('-7 days'));
+        }
     }
 
     public function parseQueries()
@@ -144,12 +155,12 @@ class YandexMetrica
 
             //save visits
             foreach ($this->se as $se) {
-                $visits_value = Query::model()->getVisits($searchPhrase->keyword_id, $se, date("W"), date("Y"));
+                $visits_value = Query::model()->getVisits($searchPhrase->keyword_id, $se, $this->week, $this->year);
                 $visits = new SearchPhraseVisit;
                 $visits->search_phrase_id = $searchPhrase->id;
                 $visits->se_id = $se;
-                $visits->week = date("W");
-                $visits->year = date("Y");
+                $visits->week = $this->week;
+                $visits->year = $this->year;
                 $visits->visits = $visits_value;
                 $visits->save();
             }

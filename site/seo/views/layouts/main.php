@@ -69,6 +69,10 @@
                             'label' => 'Отчеты',
                             'url' => array('/writing/editor/reports/'),
                         ),
+                        array(
+                            'label' => 'Поисковый трафик',
+                            'url' => array('/queries/admin'),
+                        ),
                     )));
 
             if (Yii::app()->user->checkAccess('superuser'))
@@ -106,6 +110,10 @@
                 $this->widget('zii.widgets.CMenu', array(
                     'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                     'items' => array(
+                        array(
+                            'label' => 'Поисковый трафик',
+                            'url' => array('/queries/admin'),
+                        ),
                         array(
                             'label' => 'Ключевые слова или фразы',
                             'url' => array('/writing/editor/index/'),

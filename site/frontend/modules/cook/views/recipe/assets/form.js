@@ -39,7 +39,7 @@ $(function() {
         }
     });
 
-    $('div.drp-list').delegate('li > a', 'click', function(e) {
+    $('body').delegate('div.drp-list li a', 'click', function(e) {
         var list = $(this).parents('ul');
         list.prev('a.trigger').text($(this).text());
         list.toggle();

@@ -192,7 +192,7 @@ class Page extends CActiveRecord
                 $model->save();
             }
         } else {
-            $model->keywordGroup->addKeyword($keyword_id);
+            //$model->keywordGroup->addKeyword($keyword_id);
         }
 
         return $model;

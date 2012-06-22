@@ -10,9 +10,9 @@
     <div class="fast-filter">
         <span>Период</span>
         &nbsp;&nbsp;
-        <a href="" class="active">Неделя</a>
+        <a href="?period=1"<?php if ($period==1) echo ' class="active"'?>>Неделя</a>
         |
-        <a href="">Месяц</a>
+        <a href="?period=2"<?php if ($period==2) echo ' class="active"'?>>Месяц</a>
     </div>
 
     <div class="table-box">
@@ -44,9 +44,9 @@
                 <?php foreach ($model->phrases as $phrase): ?>
                     <td><?=$phrase->keyword->name ?></td>
                     <td><?=$phrase->getPosition(2) ?></td>
-                    <td><?=$visits1 = $phrase->getVisits(2) ?></td>
+                    <td><?=$visits1 = $phrase->getVisits(2, $period) ?></td>
                     <td><?=$phrase->getPosition(3) ?></td>
-                    <td><?=$visits2 =$phrase->getVisits(3) ?></td>
+                    <td><?=$visits2 =$phrase->getVisits(3, $period) ?></td>
                     <td><?=($visits1+$visits2) ?></td>
                     <td><a href="javascript:;" class="icon-plus"></a></td>
                     <td><a href="javascript:;" class="icon-arr-r"></a></td>

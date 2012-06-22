@@ -32,23 +32,21 @@ class QueriesController extends SController
         $this->render('index');
     }
 
-    public function actionAdmin()
+    public function actionAdmin($period = 1)
     {
         $criteria = new CDbCriteria;
         $criteria->with = array('phrases', 'phrases.keyword', 'phrases.positions');
         $criteria->together = true;
         $criteria->condition = 'keyword_id IS NOT NULL';
 //        $criteria->order = 'positions.position asc';
+
         $count = Page::model()->count($criteria);
         $pages = new CPagination($count);
         $pages->setPageSize(100);
         $pages->applyLimit($criteria);
 
         $models = Page::model()->findAll($criteria);
-        $this->render('admin', array(
-            'models' => $models,
-            'pages'=>$pages
-        ));
+        $this->render('admin', compact('models', 'pages', 'period'));
     }
 
     public function actionParse()

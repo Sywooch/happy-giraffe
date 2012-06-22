@@ -111,20 +111,41 @@ class PagesSearchPhrase extends HActiveRecord
         if ($model !== null)
             return $model->position;
 
-        return ' > 100';
+        return '';
     }
 
-    public function getVisits($se)
+    public function getVisits($se, $period)
+    {
+        if ($period == 1) {
+            return $this->getWeekVisits($se, date('W'), date('Y'));
+        } else {
+            $week = date('W');
+            $year = date('Y');
+
+            $visits = 0;
+            for($i=0;$i<4;$i++){
+                $visits += $this->getWeekVisits($se, $week, $year);
+
+                if ($week == 1){
+                    $week = 52;
+                }else
+                    $week--;
+            }
+            return $visits;
+        }
+    }
+
+    public function getWeekVisits($se, $week, $year)
     {
         $criteria = new CDbCriteria;
         $criteria->compare('search_phrase_id', $this->id);
         $criteria->compare('se_id', $se);
-        $criteria->order = 'year desc, week desc';
-
+        $criteria->compare('week', $week);
+        $criteria->compare('year', $year);
         $model = SearchPhraseVisit::model()->find($criteria);
         if ($model !== null)
             return $model->visits;
 
-        return ' > 100';
+        return 0;
     }
 }

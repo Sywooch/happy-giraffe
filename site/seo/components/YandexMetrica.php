@@ -18,8 +18,6 @@ class YandexMetrica
 
     function __construct()
     {
-        $this->min_visits = Config::getAttribute('minClicks');
-
         $d = new DateTime();
 
         //вычисляем даты для парсинга предыдущей недели
@@ -74,6 +72,11 @@ class YandexMetrica
             }
         }
 
+        $this->parseDataForAllSE();
+    }
+
+    public function parseDataForAllSE()
+    {
         foreach ($this->se as $se)
             $this->parseDataForSE($se);
     }

@@ -17,7 +17,7 @@ $(function() {
             select: function(event, ui) {
                 $(this).next('input').val(ui.item.id);
                 var div = $(this).parents('tr').find('div.drp-list');
-                div.children('ul').html($('#unitTmpl').tmpl(ui.item.units));
+                div.children('ul').html($('#unitTmpl').tmpl(ui.item.units_titles));
                 div.children('a.trigger').text(ui.item.unit.title);
                 div.children('input').val(ui.item.unit.id);
             }

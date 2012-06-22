@@ -201,7 +201,14 @@ class CookIngredient extends HActiveRecord
                 continue;
             $ids[] = $ing->id;
 
-            $i = array('value' => $ing->title, 'label' => $ing->title, 'id' => $ing->id, 'unit_id' => $ing->unit_id, 'density' => $ing->density);
+            $i = array(
+                'value' => $ing->title,
+                'label' => $ing->title,
+                'id' => $ing->id,
+                'unit_id' => $ing->unit_id,
+                'density' => $ing->density,
+                'unit' => $ing->unit->title
+            );
 
 
             if ($withCalories) {
@@ -211,6 +218,8 @@ class CookIngredient extends HActiveRecord
             if ($withUnits) {
                 foreach ($ing->units as $unit)
                     $i['units'][$unit->unit_id] = $unit->weight;
+                foreach ($ing->units as $unit)
+                    $i['units_titles'][] = array('id'=>$unit->unit_id, 'title'=>$unit->unit->title);
             }
             $result[] = $i;
         }

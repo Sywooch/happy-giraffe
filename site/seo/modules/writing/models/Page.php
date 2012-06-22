@@ -185,7 +185,7 @@ class Page extends CActiveRecord
                         $model->save();
                     }
                 } else {
-                    throw new CHttpException(401, 'Статья с другим урлом');
+                    return 'null';
                 }
             } else {
                 $model->keyword_group_id = $keyword_group->id;

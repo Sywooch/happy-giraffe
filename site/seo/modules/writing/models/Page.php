@@ -176,7 +176,8 @@ class Page extends CActiveRecord
                         'entity_id' => $article->id,
                     ));
                     if ($exist !== null) {
-                        $model->keywordGroup->addKeyword($keyword_id);
+                        $model = $exist;
+                        //$exist->keywordGroup->addKeyword($keyword_id);
                     } else {
                         $model->entity = 'CommunityContent';
                         $model->entity_id = $article->id;

@@ -72,9 +72,8 @@ class Query extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'pages' => array(self::HAS_MANY, 'QueryPage', 'query_id'),
             'searchEngines' => array(self::HAS_MANY, 'QuerySearchEngine', 'query_id'),
-            'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id)'),
+            'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
         );
     }
 
@@ -120,27 +119,9 @@ class Query extends HActiveRecord
         $criteria->with = 'pages';
         $criteria->together = true;
 
-        $criteria->condition = 'pages.yandex_position IS NOT NULL OR pages.google_position IS NOT NULL';
-
-//        $criteria->select = 't.*, IFNULL( count(pages.yandex_position), 0) as yandexPos';
-
-        $sort = new CSort();
-        $sort->attributes = array(
-            'yandexPos'=>array(
-                'asc'=>'pages.yandex_position asc',
-                'desc'=>'pages.yandex_position desc',
-            ),
-            'googlePos'=>array(
-                'asc'=>'pages.google_position asc',
-                'desc'=>'pages.google_position desc',
-            ),
-            '*',
-        );
-
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 50),
-            'sort' => $sort
         ));
     }
 

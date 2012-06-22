@@ -13,6 +13,7 @@
  *
  * The followings are the available model relations:
  * @property KeywordGroup $keywordGroup
+ * @property PagesSearchPhrase[] $phrases
  */
 class Page extends CActiveRecord
 {
@@ -68,6 +69,7 @@ class Page extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'keywordGroup' => array(self::BELONGS_TO, 'KeywordGroup', 'keyword_group_id'),
+            'phrase' => array(self::HAS_MANY, 'PagesSearchPhrase', 'page_id'),
         );
     }
 

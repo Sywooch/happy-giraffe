@@ -153,11 +153,7 @@ class PositionParserThread extends ProxyParserThread
         $search_phrase_position->se_id = $this->se;
         $search_phrase_position->search_phrase_id = $search_phrase->id;
         $search_phrase_position->position = $pos;
-        if (!$search_phrase_position->save()){
-            var_dump($search_phrase_position->getErrors());
-            $this->closeThread('не сохранена позиция');
-        }
-
+        $search_phrase_position->save();
     }
 
     protected function closeThread($reason)

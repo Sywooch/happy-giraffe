@@ -148,7 +148,7 @@ class YandexMetrica
         return json_decode($result, true);
     }
 
-    public function convertToPageSearchPhrases()
+    public function convertToSearchPhraseVisits()
     {
         $searchPhrases = PagesSearchPhrase::model()->findAll();
         foreach ($searchPhrases as $searchPhrase) {

@@ -117,7 +117,7 @@ class PagesSearchPhrase extends HActiveRecord
     public function getVisits($se, $period)
     {
         if ($period == 1) {
-            return $this->getWeekVisits($se, date('W'), date('Y'));
+            return $this->getWeekVisits($se, date('W') - 1, date('Y'));
         } else {
             $week = date('W');
             $year = date('Y');

@@ -15,21 +15,11 @@ Yii::app()->clientScript
 <div class="like-block fast-like-block">
 
     <div class="box-1">
-        <div id="fb-root"></div>
-        <script>(function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
         <div class="clearfix">
             <table width="100%">
                 <tr>
                     <td style="vertical-align:top;padding-right:35px;text-align: left;">
-                        <div class="fb-like" data-send="false" data-layout="button_count" data-width="50"
-                             data-show-faces="true"></div>
+                        <iframe src="//www.facebook.com/plugins/like.php?href=<?=urlencode('http://www.'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]) ?>&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
                     </td>
                     <td style="vertical-align:top;width: 150px;">
                         <script type="text/javascript"><!--

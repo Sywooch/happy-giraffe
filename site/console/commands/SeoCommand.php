@@ -119,9 +119,25 @@ class SeoCommand extends CConsoleCommand
     public function actionParseSeVisits()
     {
         $metrica = new YandexMetrica();
-        $metrica->parseDataForAllSE();
+        $metrica->parseQueries();
         $metrica->convertToPageSearchPhrases();
     }
+
+    public function actionParseMonthTraffic()
+    {
+        $metrica = new YandexMetrica(1);
+        $metrica->parseQueries();
+        $metrica->convertToPageSearchPhrases();
+
+        $metrica = new YandexMetrica(2);
+        $metrica->parseQueries();
+        $metrica->convertToPageSearchPhrases();
+
+        $metrica = new YandexMetrica(3);
+        $metrica->parseQueries();
+        $metrica->convertToPageSearchPhrases();
+    }
+
 
     public function actionParseQueriesYandex()
     {

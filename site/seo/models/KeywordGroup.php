@@ -7,7 +7,7 @@
  * @property string $id
  *
  * The followings are the available model relations:
- * @property Page[] $articleKeywords
+ * @property Page $page
  * @property Keyword[] $keywords
  * @property SeoTask[] $seoTasks
  * @property int $newTaskCount
@@ -52,7 +52,7 @@ class KeywordGroup extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'articleKeywords' => array(self::HAS_ONE, 'Page', 'keyword_group_id'),
+            'page' => array(self::HAS_ONE, 'Page', 'keyword_group_id'),
             'keywords' => array(self::MANY_MANY, 'Keyword', 'keyword_group_keywords(group_id, keyword_id)'),
             'seoTasks' => array(self::HAS_MANY, 'SeoTask', 'keyword_group_id'),
             'newTasks' => array(self::HAS_MANY, 'SeoTask', 'keyword_group_id', 'condition' => 'status = 0 OR status = 1'),
@@ -114,5 +114,14 @@ class KeywordGroup extends CActiveRecord
                 ':group_id' => $this->id,
                 ':keyword_id' => $keyword_id
             ));
+    }
+
+    public function checkGroups()
+    {
+        $groups = KeywordGroup::model()->findAll();
+        foreach($groups as $group){
+            if (empty($group->page) && empty($group->seoTasks))
+                $group->delete();
+        }
     }
 }

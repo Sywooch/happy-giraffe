@@ -70,7 +70,7 @@ class EditorController extends SController
             if (!empty($tempKeyword->keyword->group)) {
                 $success = false;
                 foreach ($tempKeyword->keyword->group as $group)
-                    if (empty($group->seoTasks) && empty($group->articleKeywords))
+                    if (empty($group->seoTasks) && empty($group->page))
                         $success = $group->delete();
 
                 if (!$success)

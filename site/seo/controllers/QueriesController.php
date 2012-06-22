@@ -34,13 +34,20 @@ class QueriesController extends SController
 
     public function actionAdmin()
     {
-        $model = new Query('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Query']))
-            $model->attributes = $_GET['Query'];
+        $criteria = new CDbCriteria;
+        $criteria->with = array('phrases', 'phrases.keyword', 'phrases.positions');
+        $criteria->together = true;
+        $criteria->condition = 'keyword_id IS NOT NULL';
+//        $criteria->order = 'positions.position asc';
+        $count = Page::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->setPageSize(100);
+        $pages->applyLimit($criteria);
 
+        $models = Page::model()->findAll($criteria);
         $this->render('admin', array(
-            'model' => $model,
+            'models' => $models,
+            'pages'=>$pages
         ));
     }
 

@@ -16,15 +16,15 @@
  */
 class PagesSearchPhrase extends HActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return PagesSearchPhrase the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
+     * @return PagesSearchPhrase the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
     public function getDbConnection()
     {
@@ -36,67 +36,95 @@ class PagesSearchPhrase extends HActiveRecord
         return 'happy_giraffe_seo.pages_search_phrases';
     }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('page_id, keyword_id', 'required'),
-			array('keyword_id', 'numerical', 'integerOnly'=>true),
-			array('page_id', 'length', 'max'=>11),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, page_id, keyword_id', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('page_id, keyword_id', 'required'),
+            array('keyword_id', 'numerical', 'integerOnly' => true),
+            array('page_id', 'length', 'max' => 11),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, page_id, keyword_id', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
-			'page' => array(self::BELONGS_TO, 'Page', 'page_id'),
-			'positions' => array(self::HAS_MANY, 'SearchPhrasePosition', 'search_phrase_id'),
-			'visits' => array(self::HAS_MANY, 'SearchPhraseVisit', 'search_phrase_id'),
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
+            'page' => array(self::BELONGS_TO, 'Page', 'page_id'),
+            'positions' => array(self::HAS_MANY, 'SearchPhrasePosition', 'search_phrase_id'),
+            'visits' => array(self::HAS_MANY, 'SearchPhraseVisit', 'search_phrase_id'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'page_id' => 'Page',
-			'keyword_id' => 'Keyword',
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'page_id' => 'Page',
+            'keyword_id' => 'Keyword',
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('page_id',$this->page_id,true);
-		$criteria->compare('keyword_id',$this->keyword_id);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('page_id', $this->page_id, true);
+        $criteria->compare('keyword_id', $this->keyword_id);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
+
+    public function getPosition($se)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('search_phrase_id', $this->id);
+        $criteria->compare('se_id', $se);
+        $criteria->order = 'date desc';
+
+        $model = SearchPhrasePosition::model()->find($criteria);
+        if ($model !== null)
+            return $model->position;
+
+        return ' > 100';
+    }
+
+    public function getVisits($se)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('search_phrase_id', $this->id);
+        $criteria->compare('se_id', $se);
+        $criteria->order = 'year desc, week desc';
+
+        $model = SearchPhraseVisit::model()->find($criteria);
+        if ($model !== null)
+            return $model->visits;
+
+        return ' > 100';
+    }
 }

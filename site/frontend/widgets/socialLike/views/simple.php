@@ -7,7 +7,7 @@ Yii::app()->clientScript
     ->registerMetaTag($this->options['title'], 'og:title')//, null, array('property'=>'og:title'))
     ->registerMetaTag($this->options['image'], 'og:image')//, null, array('property'=>'og:image'))
     ->registerMetaTag($this->options['description'], 'og:description')//, null, array('property'=>'og:description'))
-    ->registerMetaTag('article', 'og:type')//, null, array('property'=>'og:type'))
+    ->registerMetaTag('article', 'og:type')//, null, array('property'=>'og:type') )
     ->registerMetaTag('Веселый Жираф', 'og:site_name')
     ->registerCss('vk_css', '#vk_like{width: 170px !important;}')
 ;

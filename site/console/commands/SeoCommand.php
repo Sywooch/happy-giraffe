@@ -116,9 +116,11 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionResetPopular()
+    public function actionParseSeVisits()
     {
-        ParseHelper::model()->deleteAll();
+        $metrica = new YandexMetrica();
+        $metrica->parseDataForAllSE();
+        $metrica->convertToPageSearchPhrases();
     }
 
     public function actionParseQueriesYandex()

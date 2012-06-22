@@ -40,33 +40,6 @@ class CookIngredientsController extends BController
         ));
     }
 
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
-     */
-    public function actionUpdateOld($id)
-    {
-        $basePath = Yii::getPathOfAlias('application.views.club.cookIngredients.assets');
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-
-        $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['CookIngredient'])) {
-            $model->attributes = $_POST['CookIngredient'];
-            if ($model->save())
-                $this->redirect(array('update', 'id' => $model->id));
-        }
-
-        $this->render('update', array(
-            'model' => $model,
-        ));
-    }
-
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
@@ -162,7 +135,7 @@ class CookIngredientsController extends BController
             }
         }
 
-        $this->render('update2', array(
+        $this->render('update', array(
             'model' => $model,
         ));
     }

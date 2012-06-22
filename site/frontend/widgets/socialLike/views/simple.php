@@ -23,7 +23,7 @@ Yii::app()->clientScript
                     </td>
                     <td style="vertical-align:top;width: 150px;">
                         <script type="text/javascript"><!--
-                        document.write(VK.Share.button(false,{type: "round", text: "Сохранить"}));
+                        document.write(VK.Share.button(false,{type: "round", text: "Мне нравится"}));
                         --></script>
                     </td>
                     <td style="vertical-align:top;padding-right:35px;text-align: left;">

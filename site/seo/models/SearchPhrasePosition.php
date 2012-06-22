@@ -102,8 +102,15 @@ class SearchPhrasePosition extends HActiveRecord
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)
+        if ($this->isNewRecord){
+            $model = self::model()->findByAttributes(array(
+                'search_phrase_id'=>$this->search_phrase_id,
+                'search_phrase_id'=>$this->search_phrase_id,
+                'search_phrase_id'=>$this->search_phrase_id,
+            ));
             $this->date = date("Y-m-d");
+
+        }
 
         return parent::beforeSave();
     }

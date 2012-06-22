@@ -8,7 +8,7 @@ class PositionParserThread extends ProxyParserThread
     const SE_YANDEX = 2;
     const SE_GOOGLE = 3;
     /**
-     * @var PagesSearchPhrase
+     * @var Query
      */
     protected $query;
     /**
@@ -49,7 +49,8 @@ class PositionParserThread extends ProxyParserThread
     {
         $criteria = new CDbCriteria;
         $criteria->compare('parsing', 0);
-        $criteria->order = 'rand()';
+        $criteria->compare('week', date('W') - 1);
+        $criteria->order = 't.id asc';
         $criteria->with = array('searchEngines');
         if ($this->se === self::SE_GOOGLE)
             $criteria->condition = 'google_parsed = 0 AND searchEngines.se_id = 3';
@@ -58,7 +59,7 @@ class PositionParserThread extends ProxyParserThread
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
-            $this->query = PagesSearchPhrase::model()->find($criteria);
+            $this->query = Query::model()->find($criteria);
             if ($this->query === null) {
                 $this->closeThread('no queries');
             }

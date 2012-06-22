@@ -6,22 +6,22 @@ class m120621_104933_search_phrases2 extends CDbMigration
 
     public function up()
     {
-//        $this->dropTable($this->_table);
-//
-//        $this->_table = 'query_search_engines';
-//        $this->dropForeignKey('fk_'.$this->_table . '_session', $this->_table);
-//        $this->dropColumn($this->_table, 'session_id');
-//
-//        $this->_table = 'queries';
-//        $this->addColumn($this->_table, 'week', 'tinyint');
-//        $this->addColumn($this->_table, 'year', 'smallint');
-//
-//        $this->_table = 'yandex_rank';
-//        $this->dropTable($this->_table);
-//
-//        $this->_table = 'parsing_sessions';
-//        $this->dropTable($this->_table);
-//
+        $this->dropTable($this->_table);
+
+        $this->_table = 'query_search_engines';
+        $this->dropForeignKey('fk_'.$this->_table . '_session', $this->_table);
+        $this->dropColumn($this->_table, 'session_id');
+
+        $this->_table = 'queries';
+        $this->addColumn($this->_table, 'week', 'tinyint');
+        $this->addColumn($this->_table, 'year', 'smallint');
+
+        $this->_table = 'yandex_rank';
+        $this->dropTable($this->_table);
+
+        $this->_table = 'parsing_sessions';
+        $this->dropTable($this->_table);
+
         $this->_table = 'queries';
         $this->execute('delete from queries');
         $this->dropColumn($this->_table,'phrase');

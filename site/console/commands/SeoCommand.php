@@ -123,6 +123,12 @@ class SeoCommand extends CConsoleCommand
         $metrica->convertToPageSearchPhrases();
     }
 
+    public function actionConvertPositions()
+    {
+        $metrica = new YandexMetrica();
+        $metrica->convertToPageSearchPhrases();
+    }
+
     public function actionParseMonthTraffic()
     {
         $metrica = new YandexMetrica(1);

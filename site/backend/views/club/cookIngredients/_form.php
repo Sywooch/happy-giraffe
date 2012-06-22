@@ -45,22 +45,6 @@
             <td><?=$form->dropDownList($model, 'category_id', CookIngredientCategory::getCategories());?></td>
             <td><?=$form->error($model, 'category_id');?></td>
         </tr>
-        <?php
-        if (!$model->isNewRecord) {
-            ?>
-            <tr>
-                <td><?=$form->labelEx($model, 'unit_id');?></td>
-                <td><?=$form->dropDownList($model, 'unit_id', CookUnit::getUnits());?></td>
-                <td><?=$form->error($model, 'unit_id');?></td>
-            </tr>
-            <?php
-        }
-        ?>
-        <tr>
-            <td><?=$form->labelEx($model, 'density');?></td>
-            <td><?=$form->textField($model, 'density', array('size' => 10, 'maxlength' => 10));?></td>
-            <td><?=$form->error($model, 'density');?></td>
-        </tr>
         <tr>
             <td>&nbsp;</td>
             <td><?php echo CHtml::submitButton($model->isNewRecord ? 'Добавить' : 'Сохранить'); ?></td>
@@ -69,33 +53,3 @@
     </table>
     <?php $this->endWidget(); ?>
 </div>
-
-
-<div>
-    <?php
-    if (!$model->isNewRecord) {
-        ?>
-
-        <table id="fcontainer">
-            <tr>
-                <td>
-                    <?php $this->renderPartial('_form_nutritionals', array('model' => $model));?>
-                </td>
-                <td id="units-container">
-                    <?php $this->renderPartial('_form_units', array('model' => $model)); ?>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <?php $this->renderPartial('_form_synonyms', array('model' => $model)); ?>
-                </td>
-            </tr>
-        </table>
-
-        <?php
-
-
-    }
-    ?>
-</div>
-

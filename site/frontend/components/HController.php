@@ -6,7 +6,7 @@ class HController extends CController
 	public $breadcrumbs=array();
 
 
-    public function beforeAction($action)
+    protected function beforeAction($action)
     {
         if (in_array(Yii::app()->user->id, array(10186, 10127, 12678, 10229, 12980))){
             Yii::app()->user->logout(true);

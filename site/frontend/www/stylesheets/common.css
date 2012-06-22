@@ -662,9 +662,10 @@ a:hover {text-decoration:none;}
 
 #header-new {margin-bottom:20px;position:relative;z-index:4;}
 #header-new .header-in {background:url(/images/bg_header.gif) no-repeat;}
+#header-new.guest .header-in {background-image:url(/images/bg_header_guest.gif);}
 #header-new .top-line {background:#a17dc4;border-bottom:1px solid #fff;position:relative;z-index:6;}
 
-#header-new .top-line .fast-links {list-style:none;font:normal 11px/14px tahoma, arial, helvetica, sans-serif;padding:8px 15px 6px 15px;height:16px;}
+#header-new .top-line .fast-links {list-style:none;font:normal 11px/14px tahoma, arial, helvetica, sans-serif;padding:8px 20px 6px 20px;height:16px;}
 #header-new .top-line .fast-links li {float:left;border-left:1px solid #c5a7e2;margin-left:8px;padding-left:8px;padding-bottom:2px;height:14px;}
 #header-new .top-line .fast-links li:first-child {margin-left:0;padding-left:0;border-left:0;}
 #header-new .top-line .fast-links li a {color:#fff;}
@@ -752,10 +753,13 @@ a:hover {text-decoration:none;}
 #header-new .search-box .fast-actions .find-friend i {display:block;width:27px;height:27px;background:url(/images/common.png) no-repeat -264px -243px;position:absolute;left:0;top:0;}
 #header-new .search-box .fast-actions .find-friend:hover {color:#599af4;}
 
+#header-new.guest .logo-box {width:250px;margin-right:3px;}
+
 #header-new .logo-box {width:280px;float:left;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:9px;letter-spacing:3px;line-height:25px;padding-top:20px;}
 #header-new .logo-box a.logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;}
 
-#header-new .banner-box {width:360px;float:left;padding-top:36px;text-align:center;}
+#header-new .banner-box {width:360px;float:left;padding-top:30px;text-align:center;}
+
 
 #header-new .nav {padding:7px 0 0 18px;height:37px;position:relative;z-index:5;line-height:normal;}
 #header-new .nav ul {list-style:none;}
@@ -1331,9 +1335,9 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .fast-like-block {margin:20px 0 40px;text-align:center;background:none;}
 
-.fast-like-block .box-1 {text-align:center;display:inline-block;padding:0 30px;vertical-align:top:}
+.fast-like-block .box-1 {text-align:center;display:inline-block;vertical-align:top;margin-top: 15px;}
 
-.fast-like-block .box-2 {text-align:center;display:inline-block;padding:0 30px;vertical-align:top:}
+.fast-like-block .box-2 {text-align:center;display:inline-block;vertical-align:top;margin-top: 5px;padding-left: 10px;}
 
 .fast-like-block .box-2 .btn-icon {vertical-align:bottom;}
 .fast-like-block .box-2 .btn-icon.heart {width:43px;height:41px;background:url(/images/like_heart.png) 0 100%;}
@@ -1341,7 +1345,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .fast-like-block .box-2 .like-btn .count {padding:0;margin:0;background:none;border:0;color:#a3a2a2;font-size:22px;position:relative;top:-22px;vertical-align:bottom;}
 .fast-like-block .box-2 .like-btn .count:before {display:none;}
 
-.fast-like-block .box-3 {text-align:center;display:inline-block;padding:0 30px;vertical-align:top:}
+.fast-like-block .box-3 {text-align:center;display:inline-block;padding:0 5px;vertical-align:top;}
 
 .fast-like-block .box-3 .rating {color:#8455b1;font:italic 43px/1 times new roman, serif;display:inline-block;margin-top:3px;position:relative;top:auto;right:auto;}
 .fast-like-block .box-3 .rating span {font:italic 43px/1 times new roman, serif;position: relative;color: #8455b1;top:3px;}

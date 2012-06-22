@@ -34,7 +34,7 @@ class UserController extends HController
         );
     }
 
-    public function beforeAction($action)
+    protected function beforeAction($action)
     {
         Yii::app()->clientScript->scriptMap = array(
             'global.css' => false,

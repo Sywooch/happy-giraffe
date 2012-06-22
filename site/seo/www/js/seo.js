@@ -14,11 +14,11 @@ var SeoModule = {
     SaveArticleKeys:function () {
         $.post('/writing/existArticles/SaveArticleKeys/', {
             url:$('input.article-url').val(),
-            keywords:$('#ArticleKeywords_keywords').val()
+            keywords:$('#Page_keywords').val()
         }, function (response) {
             if (response.status) {
                 $('input.article-url').val('');
-                $('#ArticleKeywords_keywords').val('');
+                $('#Page_keywords').val('');
                 $('table tbody').prepend(response.html);
                 $('span.articles-count').text(parseInt($('span.articles-count').text()) + 1);
                 $('span.keywords-count').text(parseInt($('span.keywords-count').text()) + response.keysCount);

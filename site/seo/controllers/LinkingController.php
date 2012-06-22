@@ -29,7 +29,7 @@ class LinkingController extends SController
                 'error' => 'Не найдена статья, обратитесь к разработчикам.',
             );
         } else {
-            $article_keyword = ArticleKeywords::model()->findByAttributes(array(
+            $article_keyword = Page::model()->findByAttributes(array(
                 'entity' => 'CommunityContent',
                 'entity_id' => $id,
             ));

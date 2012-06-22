@@ -10,6 +10,12 @@
  * @property string $url
  * @property string $keyword_group_id
  * @property int $number
+ * @property int $yandex_pos
+ * @property int $google_pos
+ * @property int $yandex_week_visits
+ * @property int $yandex_month_visits
+ * @property int $google_week_visits
+ * @property int $google_month_visits
  *
  * The followings are the available model relations:
  * @property KeywordGroup $keywordGroup

@@ -29,10 +29,10 @@ class YandexMetrica
             $this->date2 = $d->format('Ymd');
             $this->week = date("W") - 1;
             $this->year = date("Y", strtotime('-7 days'));
-        } else{
+        } else {
             $d = new DateTime();
             $weekday = $d->format('w');
-            $diff = (1+$weeks_ago)*7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
+            $diff = (1 + $weeks_ago) * 7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
             $d->modify("-$diff day");
             $this->date1 = $d->format('Ymd');
             $d->modify('+6 day');
@@ -152,7 +152,6 @@ class YandexMetrica
     {
         $searchPhrases = PagesSearchPhrase::model()->findAll();
         foreach ($searchPhrases as $searchPhrase) {
-
             //save visits
             foreach ($this->se as $se) {
                 $visits_value = Query::model()->getVisits($searchPhrase->keyword_id, $se, $this->week, $this->year);
@@ -164,6 +163,56 @@ class YandexMetrica
                 $visits->visits = $visits_value;
                 $visits->save();
             }
+        }
+    }
+
+
+    public function calculateMain()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->with = array('phrases', 'phrases.visits');
+        $pages = Page::model()->findAll($criteria);
+
+        $i = 1;
+
+        while (!empty($pages)) {
+            foreach ($pages as $page) {
+
+                //week
+                foreach ($page->phrases as $phrase) {
+                    $page->yandex_week_visits += $phrase->getVisits(self::SE_YANDEX, 1);
+                    $page->yandex_month_visits += $phrase->getVisits(self::SE_YANDEX, 2);
+                    $page->google_week_visits += $phrase->getVisits(self::SE_GOOGLE, 1);
+                    $page->google_month_visits += $phrase->getVisits(self::SE_GOOGLE, 2);
+
+                    $criteria = new CDbCriteria;
+                    $criteria->compare('search_phrase_id', $phrase->id);
+                    $criteria->compare('se_id', 2);
+                    $criteria->order = 'date desc';
+                    $model = SearchPhrasePosition::model()->find($criteria);
+                    if ($model !== null && $model->position != 0 && $model->position < $page->yandex_pos)
+                        $page->yandex_pos = $model->position;
+
+
+                    $criteria = new CDbCriteria;
+                    $criteria->compare('search_phrase_id', $phrase->id);
+                    $criteria->compare('se_id', 3);
+                    $criteria->order = 'date desc';
+                    $model = SearchPhrasePosition::model()->find($criteria);
+                    if ($model !== null && $model->position != 0 && $model->position < $page->google_pos)
+                        $page->google_pos = $model->position;
+                }
+
+                $page->save();
+            }
+
+            $criteria = new CDbCriteria;
+            $criteria->limit = 100;
+            $criteria->with = array('phrases', 'phrases.visits');
+            $criteria->offset = $i * 100;
+            $pages = Page::model()->findAll($criteria);
+            $i++;
         }
     }
 }

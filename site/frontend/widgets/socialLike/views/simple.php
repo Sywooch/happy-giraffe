@@ -4,10 +4,10 @@ Yii::app()->clientScript
     //->registerScript('vk-init', "VK.init({apiId: " . Yii::app()->params['social']['vk']['api_id'] . ", onlyWidgets: true});", CClientScript::POS_HEAD)
     ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
     ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
-    ->registerMetaTag($this->options['title'], 'og:title')
-    ->registerMetaTag($this->options['image'], 'og:image')
-    ->registerMetaTag($this->options['description'], 'og:description')
-    ->registerMetaTag('article', 'og:type')
+    ->registerMetaTag($this->options['title'], null, null, array('property'=>'og:title'))
+    ->registerMetaTag($this->options['image'], null, null, array('property'=>'og:image'))
+    ->registerMetaTag($this->options['description'], null, null, array('property'=>'og:description'))
+    ->registerMetaTag('article', null, null, array('property'=>'og:type') )
     ->registerMetaTag('Веселый Жираф', 'og:site_name')
     ->registerCss('vk_css', '#vk_like{width: 170px !important;}')
 ;
@@ -15,21 +15,11 @@ Yii::app()->clientScript
 <div class="like-block fast-like-block">
 
     <div class="box-1">
-        <div id="fb-root"></div>
-        <script>(function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
         <div class="clearfix">
             <table width="100%">
                 <tr>
                     <td style="vertical-align:top;padding-right:35px;text-align: left;">
-                        <div class="fb-like" data-send="false" data-layout="button_count" data-width="50"
-                             data-show-faces="true"></div>
+                        <iframe src="http://www.facebook.com/plugins/like.php?locale=ru_RU&amp;href=<?=urlencode('http://www.'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]) ?>&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
                     </td>
                     <td style="vertical-align:top;width: 150px;">
                         <script type="text/javascript"><!--

@@ -141,7 +141,6 @@ class YandexMetrica
             if (strpos($page->page_url, 'http://www.happy-giraffe.ru') === false)
                 continue;
 
-            $keyword = Keyword::GetKeyword($page->query->phrase);
             $model = Page::model()->getOrCreate($page->page_url, $keyword->id);
             $search_phrase = PagesSearchPhrase::model()->findByAttributes(array(
                 'page_id' => $model->id,
@@ -165,17 +164,6 @@ class YandexMetrica
                 $visits->visits = $visits_value;
                 $visits->save();
             }
-
-            //save positions
-            /*foreach ($this->se as $se) {
-                $position_value = $page->query->;
-                $position = new SearchPhrasePosition();
-                $position->search_phrase_id = $model->id;
-                $position->se_id = $se;
-                $position->date = date("Y-m-d H:i:s") ;
-                $position->position = $position_value;
-                $position->save();
-            }*/
         }
     }
 }

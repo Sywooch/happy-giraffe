@@ -43,7 +43,7 @@ class SearchPhrasePosition extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('search_phrase_id, se_id, position, date', 'required'),
+			array('search_phrase_id, se_id, position', 'required'),
 			array('position', 'numerical', 'integerOnly'=>true),
 			array('search_phrase_id, se_id', 'length', 'max'=>11),
 			// The following rule is used by search().
@@ -99,4 +99,12 @@ class SearchPhrasePosition extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function beforeSave()
+    {
+        if ($this->isNewRecord)
+            $this->date = date("Y-m-d");
+
+        return parent::beforeSave();
+    }
 }

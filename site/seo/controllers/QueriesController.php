@@ -35,10 +35,10 @@ class QueriesController extends SController
     public function actionAdmin($period = 1)
     {
         $criteria = new CDbCriteria;
-        $criteria->with = array('phrases', 'phrases.keyword', 'phrases.positions');
+        $criteria->with = array('phrases');
         $criteria->together = true;
         $criteria->condition = 'keyword_id IS NOT NULL';
-//        $criteria->order = 'positions.position asc';
+        $criteria->order = 'google_week_visits DESC';
 
         $count = Page::model()->count($criteria);
         $pages = new CPagination($count);

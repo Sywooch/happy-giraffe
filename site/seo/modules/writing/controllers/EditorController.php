@@ -39,7 +39,6 @@ class EditorController extends SController
             $pages->currentPage = Yii::app()->request->getPost('page');
             $pages->applyLimit($dataProvider->criteria);
 
-
             $counts = Keyword::model()->getFreqCount($criteria);
             $criteria2 = clone $criteria;
             $criteria2->with = array('yandex', 'pastuhovYandex', 'seoStats', 'group', 'tempKeyword');

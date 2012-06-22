@@ -69,7 +69,7 @@ class Page extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'keywordGroup' => array(self::BELONGS_TO, 'KeywordGroup', 'keyword_group_id'),
-            'phrase' => array(self::HAS_MANY, 'PagesSearchPhrase', 'page_id'),
+            'phrases' => array(self::HAS_MANY, 'PagesSearchPhrase', 'page_id'),
         );
     }
 
@@ -140,10 +140,12 @@ class Page extends CActiveRecord
 
     public function getArticleLink($icon = false)
     {
-        $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-        if ($model === null)
-            return '';
-        return CHtml::link($icon ? $model->title : '', 'http://www.happy-giraffe.ru' . $model->getUrl(), array('target' => '_blank'));
+        if (!empty($this->entity)) {
+            $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+            if ($model !== null)
+            return CHtml::link($icon ? '' : $model->title, 'http://www.happy-giraffe.ru' . $model->getUrl(), array('target' => '_blank'));
+        }
+        return CHtml::link($this->url, $this->url, array('target' => '_blank'));
     }
 
     /**
@@ -181,10 +183,10 @@ class Page extends CActiveRecord
                         $model->keyword_group_id = $keyword_group->id;
                         $model->save();
                     }
-                }else{
+                } else {
                     throw new CHttpException(401, 'Статья с другим урлом');
                 }
-            }else{
+            } else {
                 $model->keyword_group_id = $keyword_group->id;
                 $model->save();
             }

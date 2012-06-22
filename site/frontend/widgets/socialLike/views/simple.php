@@ -1,7 +1,7 @@
 <?php
 Yii::app()->clientScript
-    ->registerScriptFile('http://userapi.com/js/api/openapi.js?49')
-    ->registerScript('vk-init', "VK.init({apiId: " . Yii::app()->params['social']['vk']['api_id'] . ", onlyWidgets: true});", CClientScript::POS_HEAD)
+    ->registerScriptFile('http://vk.com/js/api/share.js?11')
+    //->registerScript('vk-init', "VK.init({apiId: " . Yii::app()->params['social']['vk']['api_id'] . ", onlyWidgets: true});", CClientScript::POS_HEAD)
     ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
     ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
     ->registerScript('ODKL.init', 'ODKL.init();', CClientScript::POS_READY)
@@ -9,14 +9,10 @@ Yii::app()->clientScript
     ->registerMetaTag($this->options['image'], 'og:image')
     ->registerMetaTag($this->options['description'], 'og:description')
     ->registerMetaTag('article', 'og:type')
-    ->registerMetaTag('Веселый Жираф', 'og:site_name');
-
+    ->registerMetaTag('Веселый Жираф', 'og:site_name')
+    ->registerCss('vk_css', '#vk_like{width: 170px !important;}')
+;
 ?>
-<style type="text/css">
-    #vk_like{
-        width: 170px !important;
-    }
-</style>
 <div class="like-block fast-like-block">
 
     <div class="box-1">
@@ -38,10 +34,9 @@ Yii::app()->clientScript
                              data-show-faces="true"></div>
                     </td>
                     <td style="vertical-align:top;width: 150px;">
-                        <div id="vk_like"></div>
-                        <script type="text/javascript">
-                            VK.Widgets.Like("vk_like", {type:"button", height:20});
-                        </script>
+                        <script type="text/javascript"><!--
+                        document.write(VK.Share.button(false,{type: "round", text: "Сохранить"}));
+                        --></script>
                     </td>
                     <td style="vertical-align:top;width: 120px;text-align: left;">
                         <a class="odkl-klass-oc"

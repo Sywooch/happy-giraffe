@@ -8,7 +8,7 @@ class PositionParserThread extends ProxyParserThread
     const SE_YANDEX = 2;
     const SE_GOOGLE = 3;
     /**
-     * @var Query
+     * @var PagesSearchPhrase
      */
     protected $query;
     /**
@@ -58,7 +58,7 @@ class PositionParserThread extends ProxyParserThread
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
-            $this->query = Query::model()->find($criteria);
+            $this->query = PagesSearchPhrase::model()->find($criteria);
             if ($this->query === null) {
                 $this->closeThread('no queries');
             }

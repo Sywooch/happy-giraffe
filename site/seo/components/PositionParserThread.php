@@ -158,9 +158,6 @@ class PositionParserThread extends ProxyParserThread
 
     protected function closeThread($reason)
     {
-        $this->query->parsing = 0;
-        $this->query->save();
-
         parent::closeThread($reason);
     }
 

@@ -155,4 +155,19 @@ class Query extends HActiveRecord
 
         return $res;
     }
+
+    public function getVisits($keyword_id, $se, $week, $year)
+    {
+        $model = self::model()->findByAttributes(compact('keyword_id', 'week', 'year'));
+        if ($model !== null) {
+            $se = QuerySearchEngine::model()->findByAttributes(array(
+                'query_id' => $model->id,
+                'se_id' => $se,
+            ));
+            if ($se !== null)
+                return $se->visits;
+        }
+
+        return 0;
+    }
 }

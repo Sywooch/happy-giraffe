@@ -136,28 +136,14 @@ class YandexMetrica
 
     public function convertToPageSearchPhrases()
     {
-        $pages = QueryPage::model()->findAll();
-        foreach ($pages as $page) {
-            if (strpos($page->page_url, 'http://www.happy-giraffe.ru') === false)
-                continue;
-
-            $model = Page::model()->getOrCreate($page->page_url, $keyword->id);
-            $search_phrase = PagesSearchPhrase::model()->findByAttributes(array(
-                'page_id' => $model->id,
-                'keyword_id' => $keyword->id
-            ));
-            if ($search_phrase === null) {
-                $search_phrase = new PagesSearchPhrase;
-                $search_phrase->keyword_id = $keyword->id;
-                $search_phrase->page_id = $model->id;
-                $search_phrase->save();
-            }
+        $searchPhrases = PagesSearchPhrase::model()->findAll();
+        foreach ($searchPhrases as $searchPhrase) {
 
             //save visits
             foreach ($this->se as $se) {
-                $visits_value = $page->getVisits($se, date("W"), date("Y"));
+                $visits_value = Query::model()->getVisits($searchPhrase->keyword_id, $se, date("W"), date("Y"));
                 $visits = new SearchPhraseVisit;
-                $visits->search_phrase_id = $search_phrase->id;
+                $visits->search_phrase_id = $searchPhrase->id;
                 $visits->se_id = $se;
                 $visits->week = date("W");
                 $visits->year = date("Y");

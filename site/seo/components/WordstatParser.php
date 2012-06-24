@@ -66,8 +66,8 @@ class WordstatParser extends ProxyParserThread
 
         //сначала выбираем с бесконечной глубиной парсинга
         $criteria = new CDbCriteria;
-        $criteria->compare('active', 0);
         $criteria->condition = 'depth IS NULL';
+        $criteria->compare('active', 0);
         $criteria->with = 'keyword';
         $criteria->order = 'rand()';
 

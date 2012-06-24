@@ -38,7 +38,7 @@ class QueriesController extends SController
         $criteria->with = array('phrases');
         $criteria->together = true;
         $criteria->condition = 'keyword_id IS NOT NULL';
-        $criteria->order = 'google_week_visits DESC';
+        $criteria->order = 'yandex_week_visits DESC';
 
         $count = Page::model()->count($criteria);
         $pages = new CPagination($count);
@@ -67,7 +67,7 @@ class QueriesController extends SController
     {
         Config::setAttribute('stop_threads', 0);
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $ch = curl_init('http://seo.happy-giraffe.com/queries/startThread?se=2&secret_key=' . $this->secret_key);
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -77,7 +77,7 @@ class QueriesController extends SController
 //            echo $result;
         }
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $ch = curl_init('http://seo.happy-giraffe.com/queries/startThread?secret_key=' . $this->secret_key);
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

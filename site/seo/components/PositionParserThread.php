@@ -48,14 +48,14 @@ class PositionParserThread extends ProxyParserThread
     public function getPage()
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('parsing', 0);
-        $criteria->compare('week', date('W') - 1);
         $criteria->order = 't.id asc';
         $criteria->with = array('searchEngines');
         if ($this->se === self::SE_GOOGLE)
-            $criteria->condition = 'google_parsed = 0 AND searchEngines.se_id = 3';
+            $criteria->condition = 'google_parsed = 0';
         else
-            $criteria->condition = 'yandex_parsed = 0 AND searchEngines.se_id = 2';
+            $criteria->condition = 'yandex_parsed = 0';
+        $criteria->compare('parsing', 0);
+        $criteria->compare('week', date('W') - 1);
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
@@ -139,6 +139,8 @@ class PositionParserThread extends ProxyParserThread
     public function savePosition($url, $pos)
     {
         $page = Page::model()->getOrCreate($url, $this->query->keyword->id);
+        if ($page == null)
+            return;
         $search_phrase = PagesSearchPhrase::model()->findByAttributes(array(
             'page_id' => $page->id,
             'keyword_id' => $this->query->keyword->id

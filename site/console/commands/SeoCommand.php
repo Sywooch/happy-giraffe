@@ -166,5 +166,10 @@ class SeoCommand extends CConsoleCommand
         $parser = new WordstatParser();
         $parser->start($mode);
     }
+
+    public function actionCalculateMain(){
+        $metrica = new YandexMetrica();
+        $metrica->calculateMain();
+    }
 }
 

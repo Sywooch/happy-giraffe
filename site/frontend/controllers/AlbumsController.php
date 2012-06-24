@@ -489,12 +489,14 @@ class AlbumsController extends HController
             $model->create(true);
         }
 
-        if ($entity_id = Yii::app()->request->getPost('entity_id')){
+        if ($entity_id = Yii::app()->request->getPost('entity_id'))
+        {
             $comment = new Comment;
             $comment->entity = Yii::app()->request->getPost('entity');;
             $comment->entity_id = $entity_id;
             $comment->author_id = Yii::app()->user->id;
-            if ($comment->save()){
+            if ($comment->save())
+            {
                 $attach = new AttachPhoto;
                 $attach->entity = 'Comment';
                 $attach->entity_id = $comment->id;
@@ -502,7 +504,9 @@ class AlbumsController extends HController
                 if ($attach->save())
                     echo CJSON::encode(array('status' => true));
             }
-        }else{
+        }
+        else
+        {
             $attach = new AttachPhoto;
             $attach->entity = 'Comment';
             $attach->entity_id = 0;

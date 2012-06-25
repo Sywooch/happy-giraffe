@@ -3,6 +3,7 @@
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
+    <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <?php echo CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type'); ?>
 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>

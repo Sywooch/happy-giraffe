@@ -198,7 +198,7 @@ button.btn-gray-small {height:20px;}
 #seo .table-promotion table tbody td {padding:5px 10px !important;}
 #seo .table-promotion table tbody tr:hover td.row-col {background:none !important;}
 #seo .table-promotion-links tr:hover td {background:#f5fcf3;}
-#seo .table-promotion-links tr.active td {background:#c8ebc1;}
+#seo .table-promotion-links tr.active td {background:#c8ebc1 !important;}
 
 
 #seo .table-result {}

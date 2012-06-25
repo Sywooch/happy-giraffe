@@ -1,9 +1,9 @@
 <?php
 /* @var $this Controller
- * @var $models ArticleKeywords[]
+ * @var $models Page[]
  */
 
-$model = new ArticleKeywords();
+$model = new Page();
 ?><div class="add-article">
 
     <div class="block-title">Добавить статью</div>
@@ -48,7 +48,7 @@ $model = new ArticleKeywords();
 
 <div class="seo-table">
     <div class="meta">
-        <span>Статей: <span class="count articles-count"><?=ArticleKeywords::model()->count(); ?></span></span>
+        <span>Статей: <span class="count articles-count"><?=Page::model()->count(); ?></span></span>
         <span>Ключевых слов: <span class="count keywords-count"><?=Yii::app()->db->createCommand('select count(keyword_id) from happy_giraffe_seo.keyword_group_keywords')->queryScalar(); ?></span></span>
     </div>
     <div class="table-box">

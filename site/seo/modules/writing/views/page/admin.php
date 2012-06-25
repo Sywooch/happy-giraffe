@@ -1,6 +1,6 @@
 <h1>Manage Article Keywords</h1>
 
- <?php echo CHtml::link('создать', array('ArticleKeywords/create')) ?><?php $this->widget('zii.widgets.grid.CGridView', array(
+ <?php echo CHtml::link('создать', array('Page/create')) ?><?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'article-keywords-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,

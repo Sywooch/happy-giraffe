@@ -18,15 +18,15 @@ Yii::app()->clientScript
         <div class="clearfix">
             <table width="100%">
                 <tr>
-                    <td style="vertical-align:top;padding-right:35px;text-align: left;">
-                        <iframe src="http://www.facebook.com/plugins/like.php?locale=ru_RU&amp;href=<?=urlencode('http://www.'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]) ?>&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
+                    <td style="vertical-align:top;padding-right:0;text-align: left;">
+                        <iframe src="//www.facebook.com/plugins/like.php?locale=ru_RU&amp;href=<?=urlencode('http://www.'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]) ?>&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
                     </td>
                     <td style="vertical-align:top;width: 150px;">
                         <script type="text/javascript"><!--
                         document.write(VK.Share.button(false,{type: "round", text: "Мне нравится"}));
                         --></script>
                     </td>
-                    <td style="vertical-align:top;padding-right:35px;text-align: left;">
+                    <td style="vertical-align:top;padding-right:15px;text-align: left;">
                         <a class="odkl-klass-oc"
                            href="http://www.<?= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>"
                            onclick="ODKL.Share(this);return false;"><span>0</span></a>

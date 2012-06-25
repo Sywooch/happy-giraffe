@@ -28,20 +28,21 @@
                 <th rowspan="2">Пере-<br>линковка</th>
             </tr>
             <tr>
-                <th>Позиции</th>
-                <th>Визиты</th>
-                <th>Позиции</th>
-                <th>Визиты</th>
+                <th><a href="?period=<?=$period ?>&sort=yandex_pos">Позиции</a></th>
+                <th><a href="?period=<?=$period ?>&sort=yandex_visits">Визиты</a></th>
+                <th><a href="?period=<?=$period ?>&sort=google_pos">Позиции</a></th>
+                <th><a href="?period=<?=$period ?>&sort=google_visits">Визиты</a></th>
             </tr>
             </thead>
             <tbody>
 
             <?php foreach ($models as $model): ?>
+                <?php $goodPhrases = $model->goodPhrases($period); ?>
                 <tr id="key-<?=$model->id ?>">
-                    <td rowspan="<?=count($model->phrases) ?>" class="col-1 row-col">
+                    <td rowspan="<?=count($goodPhrases) ?>" class="col-1 row-col">
                         <?=$model->getArticleLink() ?>
                     </td>
-                <?php foreach ($model->phrases as $phrase): ?>
+                <?php foreach ($goodPhrases as $phrase): ?>
                     <td><?=$phrase->keyword->name ?></td>
                     <td><?=$phrase->getPosition(2) ?></td>
                     <td><?=$visits1 = $phrase->getVisits(2, $period) ?></td>

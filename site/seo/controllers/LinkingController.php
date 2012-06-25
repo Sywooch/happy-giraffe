@@ -18,9 +18,9 @@ class LinkingController extends SController
 
     public function actionView($id)
     {
-        $page = $this->loadPhrase($id);
+        $page = $this->loadPage($id);
 
-        $this->render('index', compact('page'));
+        $this->render('view', compact('page'));
     }
 
 
@@ -38,14 +38,15 @@ class LinkingController extends SController
         echo CJSON::encode(array('status' => $link->save()));
     }
 
-    public function actionSimilarArticles($id){
+    public function actionPhraseInfo(){
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
 
         $parser = new SimilarArticlesParser;
-        $keyword = $this->loadKeyword($id);
-        $pages = $parser->getArticles($keyword);
+        $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
+        $pages = $parser->getArticles($phrase->keyword);
+        $keywords = $phrase->getSimilarKeywords();
 
-        $this->render('similar_articles', compact('pages'));
+        $this->render('_phrase_view', compact('pages', 'keywords'));
     }
 
     /**

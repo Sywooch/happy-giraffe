@@ -6,12 +6,15 @@
 class SimilarArticlesParser
 {
     /**
-     * @param Keyword $keyword
+     * @param string $keyword
      * @return Page[]
      */
     public function getArticles($keyword)
     {
-        $content = $this->query('http://yandex.ru/yandsearch?text=site%3Ahttp%3A%2F%2Fwww.happy-giraffe.ru%2F+' . urlencode($keyword->name) . '&lr=38&lang=ru');
+        if ($this->startsWith($keyword, 'http://'))
+            $content = $this->query('http://yandex.ru/yandsearch?text=site%3A' . urlencode($keyword) . '&lr=38&lang=ru');
+        else
+            $content = $this->query('http://yandex.ru/yandsearch?text=site%3Ahttp%3A%2F%2Fwww.happy-giraffe.ru%2F+' . urlencode($keyword) . '&lr=38&lang=ru');
 
         $document = phpQuery::newDocument($content);
         $links = array();
@@ -21,7 +24,7 @@ class SimilarArticlesParser
 
         $pages = array();
         foreach($links as $link){
-            $pages[] = Page::model()->getOrCreate($link, $keyword->id);
+            $pages[] = Page::model()->getOrCreate($link);
         }
 
         return $pages;

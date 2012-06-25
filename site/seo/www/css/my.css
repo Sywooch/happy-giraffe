@@ -133,3 +133,9 @@
 #keywords-grid .icon-yandex{
     cursor: pointer;
 }
+
+.loading-block{
+    background: #fff url("/images/loading.gif") no-repeat center !important;
+    z-index: 100;
+    opacity: 0.5;
+}

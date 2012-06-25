@@ -3,6 +3,9 @@
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
+    <?php if ($this->rssFeed !== null): ?>
+        <?=CHtml::linkTag('alternate', 'application/rss+xml', $this->rssFeed)?>
+    <?php endif; ?>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <?=CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type')?>
     <title><?=CHtml::encode($this->pageTitle)?></title>
@@ -27,6 +30,7 @@
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/common.js')
+        ->registerScriptFile('/javascripts/base64.js')
     ;
 
     if (! Yii::app()->user->isGuest) {
@@ -163,7 +167,7 @@
                         <?php if (! Yii::app()->user->isGuest): ?>
                             <a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
                         <?php else: ?>
-                            <a href="<?=$this->createUrl('/signup') ?>"><img src="/images/banner_06.png" /></a>
+                            <?=HHtml::link(CHtml::image('/images/banner_06.png'), $this->createUrl('/signup'), array(), true)?>
                         <?php endif; ?>
                     </div>
 

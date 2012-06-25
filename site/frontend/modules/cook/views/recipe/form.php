@@ -55,6 +55,9 @@
                             <a href="javascript:void(0)" class="add-btn"><i class="icon"></i><span>Добавить ингредиент</span></a>
 
                         </div>
+                        <?php if (Yii::app()->user->id == 10265):?>
+                            <a href="http://admin.happy-giraffe.ru/club/CookIngredients/create">создать новый в админке</a>
+                        <?php endif ?>
 
                     </div>
 

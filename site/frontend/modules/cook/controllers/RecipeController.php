@@ -109,7 +109,7 @@ class RecipeController extends HController
         if (isset($_POST['CookRecipe'])) {
             $ingredients = array();
             $recipe->attributes = $_POST['CookRecipe'];
-            $recipe->author_id = Yii::app()->user->id;
+            $recipe->author_id = $content->author_id;
             foreach ($_POST['CookRecipeIngredient'] as $i) {
                 if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
                     $ingredient = new CookRecipeIngredient;

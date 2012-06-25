@@ -1,35 +1,48 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
+	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Untitled Document</title>
 	
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css" />
-	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/jquery.dimensions.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/common.js"></script>	
-	
-	<!--[if IE 7]>
-		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
-	<![endif]-->
+	<script>
+		$(function(){
+			$('.tooltip').tooltip({
+				delay: 100,
+				track: false,
+				showURL: false,
+				showBody: false,
+				top: -20,
+				left: 10
+			});
+		})
+	</script>
 	
 </head>
 <body class="body-club">
+	
 	<div id="layout" class="wrapper">
-		
+	
 		<div id="header-new" class="clearfix">
 			
 			<div class="top-line clearfix">
@@ -429,315 +442,189 @@
 		
 		<div id="content" class="clearfix">
 			
-			<div id="user">
+			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
+			
+			<div id="disease">
 				
-				<div class="user-cols clearfix">
+				<div class="title">
 					
-					<div class="col-1">
+					<h2>Справочник<span>детских болезней</span></h2>
+					
+				</div>
+				
+				<div class="clearfix">
+					
+					<div class="disease-in">
 						
-						<div class="clearfix">
-							<div class="user-info">
-								<div class="ava female"></div>
-								<div class="details">
-									<span class="icon-status status-online"></span>
-									<a href="" class="username">Александр Богоявленский</a>
-									<div class="user-fast-buttons">
-										<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-										<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-									</div>
-									<div class="user-fast-nav">
-										<ul>
-											<a href="">Анкета</a> &nbsp;|&nbsp; <a href="">Фото</a> &nbsp;|&nbsp; <span class="drp-list"><a href="" class="more">Еще</a><ul><li><a href="">Семья</a></li><li><a href="">Друзья</a></li></ul>
-											</span>
-										</ul>
-									</div>
-								</div>
-								<div class="text-status">
-									<p>Привет всем! У меня все ok! Единственное, что имеет значение.</p>
-									<span class="tale"></span>
-								</div>
-							</div>
+						<h1>Ветряная оспа</h1>
+						
+						<div class="disease-img">
+							<img src="/images/disease_img_02.jpg" />
 						</div>
 						
-						
-						<div class="club-topics-list-new">
+						<div class="wysiwyg-content clearfix">
 							
-							<div class="block-title">О чем мой блог</div>
-							
-							<ul>
-								<li class="active"><span><a href="">Свадьба - прекрасный миг</a></span><div class="count">15</div></li>
-								<li><span><a href="">Фотография</a></span><div class="count">15</div></li>
-								<li class="active"><span><a href="">Прикольное видео и другие фишкиads ad ada das ad</a></span><div class="count">1515</div></li>
-								<li><span><a href="">Школа восточного танца Футбол фв фыв фывы ф фыв</a></span><div class="count">15</div></li>
-								<li><span><a href="">Детские передачи</a></span><div class="count">15</div></li>
-							</ul>
+							<p><em>Ветряная оспа, или в простонародье – ветрянка, представляет собой острое вирусное заболевание, которое чаще всего возникает в раннем детском возрасте, особенно у тех детей, которые посещают дошкольные учреждения.</em></p>
+
+							<p><em>Также в несколько другой форме проявляется данное заболевание у пожилых людей – под видом опоясывающего лишая.</em></p>
 							
 						</div>
 						
-						
-						<div class="fast-articles">
-						
-							<div class="block-title">
-								<i class="icon-popular"></i> Самое популярное
-							</div>
-							
-							<ul>
-								<li>
-									<div class="item-title"><a href="">Проблемы с неврологией и психиатрией в раннем возрасте</a></div>
-									<div class="meta">	
-										<div class="rating">286</div>
-										<span class="views">Просмотров:&nbsp;&nbsp;465</span><br/>
-										<span class="comments"><a href="">Комментариев:&nbsp;&nbsp;18</a></span>
-									</div>
-								</li>
-								<li>
-									<div class="item-title"><a href="">Проблемы с неврологией и психиатрией</a></div>
-									<div class="meta">
-										<div class="rating">172</div>
-										<span class="views">Просмотров:&nbsp;&nbsp;465</span><br/>
-										<span class="comments"><a href="">Комментариев:&nbsp;&nbsp;18</a></span>
-									</div>
-								</li>
-								<li>
-									<div class="item-title"><a href="">Проблемы с неврологией и психиатрией в раннем возрасте</a></div>
-									<div class="meta">
-										<div class="rating">27</div>
-										<span class="views">Просмотров:&nbsp;&nbsp;465</span><br/>
-										<span class="comments"><a href="">Комментариев:&nbsp;&nbsp;18</a></span>
-									</div>
-								</li>
-								
-							</ul>
-							
+						<div class="fast-nav">
+							<a href="" class="active">Причины</a> &nbsp; | &nbsp; <a href="">Симптомы</a> &nbsp; | &nbsp; <a href="">Лечение</a> &nbsp; | &nbsp; <a href="">Профилактика</a>
 						</div>
 						
-						
-						<div class="readers">
+						<div class="wysiwyg-content">
 							
-							<div class="block-title"><i class="icon-readers"></i>Постоянные читатели <span>(185)</span></div>
+							<h2>Причины появления ветряной оспы</h2>
 							
-							<ul class="clearfix">
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								<li>
-									<a href="" class="ava small"></a>
-								</li>
-								
-							</ul>
+							<p>Болезни органов кровообращения занимают одно из ведущих мест. Поражение органов кровообращения часто приводит к полной потере трудоспособности. Причины болезней органов кровообращения весьма разнообразны. Поражаются самые различные отделы сердца, а также сосудов: миокард, эндокард, перикард, коронарные артерии сердца, аорты, крупные магистральные артерии и артерии более мелкого калибра. Исходом многих болезней сердца является недостаточность кровообращения. Болезни органов кровообращения наблюдаются у лиц различного возраста и пола, однако одни заболевания чаще встречаются у мужчин, а другие — у женщин. Рост заболеваемости органов кровообращения в последние десятилетия в сочетании с тяжелыми исходами болезни свидетельствует о большом социальном значении этой патологии.</p>
 							
-							<div class="add-author-btn"><a href=""><img src="/images/btn_add_author.png" /></a></div>
+							<p>Мёд – это кладезь натуральных витаминов и микроэлементов. Многие используют этот полезный продукт вместо сахара и готовят с его помощью просто потрясающе вкусные блюда. А как выбрать мед? И какой мед бывает вообще? Да разный!</p>
 							
-						</div>
-						
-						
-						<div class="fast-photos">
+							<br/>
 							
-							<div class="block-title"><span>МОИ</span>свежие<br/>фото</div>
+							<h2>Клиника ветряной оспы</h2>
 							
-							<div class="preview">
-								<img src="/images/album_photo_04.jpg" class="img-1">
-								<img src="/images/album_photo_05.jpg" class="img-2">
-								<img src="/images/album_photo_06.jpg" class="img-3">
-							</div>
+							<p>Болезни органов кровообращения занимают одно из ведущих мест. Поражение органов кровообращения часто приводит к полной потере трудоспособности. Причины болезней органов кровообращения весьма разнообразны. Поражаются самые различные отделы сердца, а также сосудов: миокард, эндокард, перикард, коронарные артерии сердца, аорты, крупные магистральные артерии и артерии более мелкого калибра. Исходом многих болезней сердца является недостаточность кровообращения. Болезни органов кровообращения наблюдаются у лиц различного возраста и пола, однако одни заболевания чаще встречаются у мужчин, а другие — у женщин. Рост заболеваемости органов кровообращения в последние десятилетия в сочетании с тяжелыми исходами болезни свидетельствует о большом социальном значении этой патологии.</p>
 							
-							<a href="" class="more"><i class="icon"></i>Смотреть</a>
+							<p>Мёд – это кладезь натуральных витаминов и микроэлементов. Многие используют этот полезный продукт вместо сахара и готовят с его помощью просто потрясающе вкусные блюда. А как выбрать мед? И какой мед бывает вообще? Да разный!</p>
 							
-						</div>
-						
-						
-						<div class="banner-box">
-							<a href=""><img src="/images/banner_05.png" /></a>
+							<br/>
+							
+							<h2>Диагностика</h2>
+							
+							<p>Болезни органов кровообращения занимают одно из ведущих мест. Поражение органов кровообращения часто приводит к полной потере трудоспособности. Причины болезней органов кровообращения весьма разнообразны. Поражаются самые различные отделы сердца, а также сосудов: миокард, эндокард, перикард, коронарные артерии сердца, аорты, крупные магистральные артерии и артерии более мелкого калибра. Исходом многих болезней сердца является недостаточность кровообращения. Болезни органов кровообращения наблюдаются у лиц различного возраста и пола, однако одни заболевания чаще встречаются у мужчин, а другие — у женщин. Рост заболеваемости органов кровообращения в последние десятилетия в сочетании с тяжелыми исходами болезни свидетельствует о большом социальном значении этой патологии.</p>
+							
+							<p>Мёд – это кладезь натуральных витаминов и микроэлементов. Многие используют этот полезный продукт вместо сахара и готовят с его помощью просто потрясающе вкусные блюда. А как выбрать мед? И какой мед бывает вообще? Да разный!</p>
+							
 						</div>
 						
 					</div>
 					
-					<div class="col-23 clearfix">
-						
-						<div class="new-blog-btn"><a href="" class="btn btn-orange-smallest"><span><span>Создать блог</span></span></a></div>
-						
-						<div class="blog-title">Блог Александра Богоявленского</div>
-						
-						<div class="entry">
-			
-							<div class="entry-header clearfix">
-								
-								<a href="" class="entry-title">Как выбрать детскую кроватку?</a>
-								
-								<div class="user-info clearfix">
-									<div class="ava female"></div>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-										<div class="user-fast-buttons">
-											<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-										</div>
-									</div>
-								</div>
+					<div class="disease-categories">
+					
+						<ul>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-0"></i>
+									<span>Все заболевания</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-1"></i>
+									<span>Дерматология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-2"></i>
+									<span>Инфекции</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-3"></i>
+									<span>Оториноларингология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-4"></i>
+									<span>Психиаирия</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-5"></i>
+									<span>Эндокринология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-6"></i>
+									<span>Гемотология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-7"></i>
+									<span>Хирургия</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-8"></i>
+									<span>Офтальмология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-9"></i>
+									<span>Урология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-10"></i>
+									<span>Пульмонология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-11"></i>
+									<span>Неврология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-12"></i>
+									<span>Детские инфекции</span>
+								</a>
+							</li>
+							<li class="active">
+								<a class="disease-cat active">
+									<i class="icon-disease-cat icon-disease-13"></i>
+									<span>Болезни кровообращения</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-14"></i>
+									<span>Гастроэнтерология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-15"></i>
+									<span>Паразитология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-16"></i>
+									<span>Онкология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-17"></i>
+									<span>Стоматология</span>
+								</a>
+							</li>
+							<li>
+								<a class="disease-cat">
+									<i class="icon-disease-cat icon-disease-18"></i>
+									<span>Гиповитаминозы</span>
+								</a>
+							</li>
 							
-								<div class="meta">
-									
-									<div class="time">3 сен, 08:25</div>
-									<div class="seen">Просмотров:&nbsp;<span>265</span></div>
-									<div class="comments"><a href="">Комментариев: 2</a></div>
-								</div>
-							</div>
-							
-							<div class="entry-content wysiwyg-content">
-								<p>Как правило, кроватку новорожденному приобретают незадолго до его появления на свет. При этом многие молодые родители обращают внимание главным образом на ее внешний вид. Но, прельстившись яркими красками, многие платят баснословные суммы, даже не поинтересовавшись, из чего сделано это покорившее вас чудо.</p>
-								<p>Выбирая детскую кроватку, руководствоваться одной "красотой" нельзя. Необходимо принимать во внимание очень много важных моментов.</p>
-								<p>Детская комната без мебели - все равно, что дом без крыши. Кроватка, комод, шкафчик, пеленальный столик - вот основные предметы, которые должны находиться в комнате новорожденного. По мере роста и взросления малыша будет расти и его мебельное богатство. А пока детская кроватка является, чуть ли не ... <a href="" class="read-more">Читать всю запись<i class="icon"></i></a></p>
-							</div>
-						
-						</div>
-						
-						<div class="entry">
-			
-							<div class="entry-header clearfix">
-								
-								<a href="" class="entry-title">Как выбрать детскую кроватку?</a>
-								
-								<div class="user-info clearfix">
-									<div class="ava female"></div>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-										<div class="user-fast-buttons">
-											<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-										</div>
-									</div>
-								</div>
-							
-								<div class="meta">
-									
-									<div class="time">3 сен, 08:25</div>
-									<div class="seen">Просмотров:&nbsp;<span>265</span></div>
-									<div class="comments"><a href="">Комментариев: 2</a></div>
-								</div>
-							</div>
-							
-							<div class="entry-content wysiwyg-content">
-								<p>Как правило, кроватку новорожденному приобретают незадолго до его появления на свет. При этом многие молодые родители обращают внимание главным образом на ее внешний вид. Но, прельстившись яркими красками, многие платят баснословные суммы, даже не поинтересовавшись, из чего сделано это покорившее вас чудо.</p>
-								<p>Выбирая детскую кроватку, руководствоваться одной "красотой" нельзя. Необходимо принимать во внимание очень много важных моментов.</p>
-								<p>Детская комната без мебели - все равно, что дом без крыши. Кроватка, комод, шкафчик, пеленальный столик - вот основные предметы, которые должны находиться в комнате новорожденного. По мере роста и взросления малыша будет расти и его мебельное богатство. А пока детская кроватка является, чуть ли не ... <a href="" class="read-more">Читать всю запись<i class="icon"></i></a></p>
-							</div>
-						
-						</div>
-						
-						<div class="entry">
-			
-							<div class="entry-header clearfix">
-								
-								<a href="" class="entry-title">Как выбрать детскую кроватку?</a>
-								
-								<div class="user-info clearfix">
-									<div class="ava female"></div>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-										<div class="user-fast-buttons">
-											<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-										</div>
-									</div>
-								</div>
-							
-								<div class="meta">
-									
-									<div class="time">3 сен, 08:25</div>
-									<div class="seen">Просмотров:&nbsp;<span>265</span></div>
-									<div class="comments"><a href="">Комментариев: 2</a></div>
-								</div>
-							</div>
-							
-							<div class="entry-content wysiwyg-content">
-								<p>Как правило, кроватку новорожденному приобретают незадолго до его появления на свет. При этом многие молодые родители обращают внимание главным образом на ее внешний вид. Но, прельстившись яркими красками, многие платят баснословные суммы, даже не поинтересовавшись, из чего сделано это покорившее вас чудо.</p>
-								<p>Выбирая детскую кроватку, руководствоваться одной "красотой" нельзя. Необходимо принимать во внимание очень много важных моментов.</p>
-								<p>Детская комната без мебели - все равно, что дом без крыши. Кроватка, комод, шкафчик, пеленальный столик - вот основные предметы, которые должны находиться в комнате новорожденного. По мере роста и взросления малыша будет расти и его мебельное богатство. А пока детская кроватка является, чуть ли не ... <a href="" class="read-more">Читать всю запись<i class="icon"></i></a></p>
-							</div>
-						
-						</div>
-						
-						<div class="entry">
-			
-							<div class="entry-header clearfix">
-								
-								<a href="" class="entry-title">Как выбрать детскую кроватку?</a>
-								
-								<div class="user-info clearfix">
-									<div class="ava female"></div>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-										<div class="user-fast-buttons">
-											<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-										</div>
-									</div>
-								</div>
-							
-								<div class="meta">
-									
-									<div class="time">3 сен, 08:25</div>
-									<div class="seen">Просмотров:&nbsp;<span>265</span></div>
-									<div class="comments"><a href="">Комментариев: 2</a></div>
-								</div>
-							</div>
-							
-							<div class="entry-content wysiwyg-content">
-								<p>Как правило, кроватку новорожденному приобретают незадолго до его появления на свет. При этом многие молодые родители обращают внимание главным образом на ее внешний вид. Но, прельстившись яркими красками, многие платят баснословные суммы, даже не поинтересовавшись, из чего сделано это покорившее вас чудо.</p>
-								<p>Выбирая детскую кроватку, руководствоваться одной "красотой" нельзя. Необходимо принимать во внимание очень много важных моментов.</p>
-								<p>Детская комната без мебели - все равно, что дом без крыши. Кроватка, комод, шкафчик, пеленальный столик - вот основные предметы, которые должны находиться в комнате новорожденного. По мере роста и взросления малыша будет расти и его мебельное богатство. А пока детская кроватка является, чуть ли не ... <a href="" class="read-more">Читать всю запись<i class="icon"></i></a></p>
-							</div>
-						
-						</div>
+						</ul>
 						
 					</div>
 					
 				</div>
-				
-				
 				
 			</div>
 			
@@ -746,9 +633,19 @@
 		<div class="push"></div>
 		
 	</div>
-	<div id="footer" class="wrapper">
-		f
+
+	<div id="footer" class="wrapper clearfix">
+		
+		<div class="a-right">
+			<a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
+		</div>
+		
+		<div class="copy">
+			<p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены</p>
+		</div>
+		
 	</div>
+	
 <div style="display:none">
 	<div id="login" class="popup">
 		
@@ -802,6 +699,7 @@
 		</form>
 		
 	</div>
+	
 </div>
 </body>
 </html>

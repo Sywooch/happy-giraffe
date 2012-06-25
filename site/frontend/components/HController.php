@@ -4,6 +4,7 @@ class HController extends CController
 {
 	public $menu=array();
 	public $breadcrumbs=array();
+    public $rssFeed = null;
 
 
     protected function beforeAction($action)

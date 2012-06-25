@@ -44,76 +44,51 @@ class SignupController extends HController
                 );
             }
 
-            $authIdentity->redirect();
-        }
-        $regdata = Yii::app()->user->getFlash('regdata');
-
-        $model = new User;
-
-        $this->render('index', array(
-            'model' => $model,
-            'regdata' => $regdata,
-        ));
-    }
-
-    public function actionFinish()
-    {
-        $session = Yii::app()->session;
-        $model = new User('signup');
-
-        if (isset($_POST['User'])) {
-            $model->attributes = $_POST['User'];
-            $current_service = $session['service'];
-            if ($current_service) {
-                $service = new UserSocialService;
-                $service->setAttributes(array(
-                    'service' => $current_service['name'],
-                    'service_id' => $current_service['id'],
-                ));
-                $model->social_services = array($service);
-            }
-            $model->register_date = date('Y-m-d H:i:s');
-            if ($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday'))) {
-
-                if (isset($_POST['User']['avatar'])) {
-                    $url = $_POST['User']['avatar'];
-
-                    $dir = Yii::getPathOfAlias('site.common.uploads.photos');
-                    $original_dir = $dir . DIRECTORY_SEPARATOR . AlbumPhoto::model()->original_folder . DIRECTORY_SEPARATOR . $model->id;
-
-                    if (!file_exists($original_dir))
-                        mkdir($original_dir, 0755);
-
-                    $src = $original_dir . DIRECTORY_SEPARATOR . 'avatar.jpeg';
-                    file_put_contents($src, file_get_contents($url));
-
-                    $photo = new AlbumPhoto;
-                    $photo->file_name = 'avatar.jpeg';
-                    $photo->fs_name = 'avatar.jpeg';
-                    $photo->author_id = $model->id;
-                    $photo->save();
-
-                    $picture = new Imagick($src);
-
-                    $a1 = clone $picture;
-                    $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);
-                    $a1->writeImage($photo->getAvatarPath('small'));
-
-                    $a2 = clone $picture;
-                    $a2->resizeimage(72, 72, imagick::COLOR_OPACITY, 1);
-                    $a2->writeImage($photo->getAvatarPath('ava'));
-
-                    $attach = new AttachPhoto;
-                    $attach->entity = 'User';
-                    $attach->entity_id = $model->id;
-                    $attach->photo_id = $photo->id;
-                    $attach->save();
-
-                    $model->avatar_id = $photo->id;
-                    $model->save();
-                }
-
-                unset($session['service']);
+			$authIdentity->redirect();
+		}
+		$regdata = Yii::app()->user->getFlash('regdata');
+		
+		$model = new User;
+		
+		$this->render('index', array(
+			'model' => $model,
+			'regdata' => $regdata,
+		));
+	}
+	
+	public function actionFinish()
+	{
+		$session = Yii::app()->session;
+		$model = new User('signup');
+	
+		if(isset($_POST['User']))
+		{
+			$model->attributes=$_POST['User'];
+			$current_service = $session['service'];
+			if ($current_service)
+			{
+				$service = new UserSocialService;
+				$service->setAttributes(array(
+					'service' => $current_service['name'],
+					'service_id' => $current_service['id'],
+				));
+				$model->social_services = array($service);
+			}
+			$model->register_date = date('Y-m-d H:i:s');
+			if($model->save(true, array('first_name', 'password', 'email', 'gender')))
+			{
+                /*Yii::app()->mc->sendToEmail($model->email, $model, 'user_registration');*/
+				/*foreach ($_POST['age_group'] as $k => $q)
+				{
+					for ($j = 0; $j < $q; $j++)
+					{
+						$baby = new Baby;
+						$baby->age_group = $k;
+						$baby->parent_id = $model->id;
+						$baby->save();
+					}
+				}*/
+				unset($session['service']);
                 $identity = new UserIdentity($model->getAttributes());
                 $identity->authenticate();
                 Yii::app()->user->login($identity);

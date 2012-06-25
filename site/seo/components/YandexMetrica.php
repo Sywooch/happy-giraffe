@@ -105,7 +105,11 @@ class YandexMetrica
                 foreach ($val['data'] as $query) {
 
                     $keyword = Keyword::GetKeyword($query['phrase']);
-                    $model = Query::model()->findByAttributes(array('keyword_id' => $keyword->id));
+                    $model = Query::model()->findByAttributes(array(
+                        'keyword_id' => $keyword->id,
+                        'week'=>$this->week,
+                        'year'=>$this->year,
+                    ));
                     if ($model !== null) {
                         $se = QuerySearchEngine::model()->findByAttributes(array(
                             'query_id' => $model->id,

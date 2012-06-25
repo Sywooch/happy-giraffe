@@ -242,7 +242,7 @@
                 ),
                 array(
                     'label' => 'Готовые статьи',
-                    'url' => array('/writing/articleKeywords/admin/'),
+                    'url' => array('/writing/page/admin/'),
                 ),
                 array(
                     'label' => 'Парсинг и прокси',

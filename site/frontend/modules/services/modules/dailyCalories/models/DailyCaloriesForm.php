@@ -11,7 +11,7 @@ class DailyCaloriesForm extends HFormModel
     public function rules()
     {
         return array(
-            array('sex, age, growth, weight, activity', 'required', 'message' => 'Укажите площадь потолка'),
+            array('sex, age, growth, weight, activity', 'required', 'message' => 'Укажите {attribute}'),
             array('age, growth, weight', 'numerical', 'message' => 'Введите число')
             //array('growth, weight', 'normalizeLength')
         );
@@ -26,5 +26,10 @@ class DailyCaloriesForm extends HFormModel
             'weight' => 'Вес',
             'activity' => 'Активность'
         );
+    }
+
+    public function calculate()
+    {
+        return true;
     }
 }

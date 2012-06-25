@@ -1,9 +1,31 @@
+<?php
+$basePath = Yii::getPathOfAlias('dailyCalories') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . 'assets';
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
+?>
+
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'daily-calories-form-index-form',
-	'enableAjaxValidation'=>false,
-)); ?>
+<?php
+
+    $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'calories-form',
+        'action' => $this->createUrl('calculate'),
+        'enableAjaxValidation' => true,
+        'enableClientValidation' => false,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+            'validateOnChange' => false,
+            'validateOnType' => false,
+            'validationUrl' => $this->createUrl('calculate'),
+            'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    Calories.Calculate();
+                                return false;
+                              }",
+        )));
+
+    ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 

@@ -54,8 +54,6 @@ return array(
         'application.modules.im.components.*',
         'application.modules.geo.models.*',
         'application.modules.scores.models.*',
-        'application.modules.dailyCalories.models.*',
-        'application.modules.services.modules.dailyCalories.models.*',
 	),
 
 	'sourceLanguage' => 'en',

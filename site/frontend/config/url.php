@@ -69,8 +69,6 @@ return array(
         'names/CreateFamous'=>'services/names/default/CreateFamous',
         'names/<name:[\w]+>'=>'services/names/default/name/',
 
-        'dailyCalories/'=>'services/dailyCalories/default/index',
-
         'childrenDiseases/'=>'services/childrenDiseases/default/index',
         'childrenDiseases/getAlphabetList'=>'services/childrenDiseases/default/getAlphabetList',
         'childrenDiseases/getCategoryList'=>'services/childrenDiseases/default/getCategoryList',

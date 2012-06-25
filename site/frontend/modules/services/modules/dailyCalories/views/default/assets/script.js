@@ -6,7 +6,7 @@ var Calories = {
             type:"POST",
             dataType:'json',
             success:function (data) {
-                console.log(data);
+                $('#result').html(data.html);
             }
         });
         return false;

@@ -1,6 +1,6 @@
 <?php
 
-class ArticleKeywordsController extends SController
+class PageController extends SController
 {
 	public $defaultAction='admin';
 
@@ -17,14 +17,14 @@ class ArticleKeywordsController extends SController
 	 */
 	public function actionCreate()
 	{
-		$model=new ArticleKeywords;
+		$model=new Page;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ArticleKeywords']))
+		if(isset($_POST['Page']))
 		{
-			$model->attributes=$_POST['ArticleKeywords'];
+			$model->attributes=$_POST['Page'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -46,9 +46,9 @@ class ArticleKeywordsController extends SController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ArticleKeywords']))
+		if(isset($_POST['Page']))
 		{
-			$model->attributes=$_POST['ArticleKeywords'];
+			$model->attributes=$_POST['Page'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -83,10 +83,10 @@ class ArticleKeywordsController extends SController
 	 */
 	public function actionAdmin()
 	{
-		$model=new ArticleKeywords('search');
+		$model=new Page('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['ArticleKeywords']))
-			$model->attributes=$_GET['ArticleKeywords'];
+		if(isset($_GET['Page']))
+			$model->attributes=$_GET['Page'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -100,7 +100,7 @@ class ArticleKeywordsController extends SController
 	 */
 	public function loadModel($id)
 	{
-		$model=ArticleKeywords::model()->findByPk((int)$id);
+		$model=Page::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

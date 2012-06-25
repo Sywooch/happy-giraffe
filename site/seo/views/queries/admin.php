@@ -31,7 +31,7 @@
                 <th><a href="?period=<?=$period ?>&sort=yandex_pos">Позиции</a></th>
                 <th><a href="?period=<?=$period ?>&sort=yandex_visits">Визиты</a></th>
                 <th><a href="?period=<?=$period ?>&sort=google_pos">Позиции</a></th>
-                <th><a href="?period=<?=$period ?>&sort=yandex_visits">Визиты</a></th>
+                <th><a href="?period=<?=$period ?>&sort=google_visits">Визиты</a></th>
             </tr>
             </thead>
             <tbody>

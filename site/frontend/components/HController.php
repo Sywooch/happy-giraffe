@@ -18,7 +18,7 @@ class HController extends CController
         return parent::beforeAction($action);
     }
 
-    protected function afterRender($view, $output)
+    protected function afterRender($view, &$output)
     {
         $js = "
             $(function() {

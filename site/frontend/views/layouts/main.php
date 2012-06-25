@@ -30,6 +30,7 @@
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/common.js')
+        ->registerScriptFile('/javascripts/base64.js')
     ;
 
     if (! Yii::app()->user->isGuest) {

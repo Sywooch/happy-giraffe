@@ -111,7 +111,7 @@ var SeoModule = {
             }
         }, 'json');
     },
-    bindKeywordToArticle:function(keyword_id, article_id, el){
+    bindKeywordToArticle:function (keyword_id, article_id, el) {
         $.post('/writing/editor/bindKeywordToArticle/', {
             keyword_id:keyword_id,
             article_id:article_id
@@ -125,13 +125,21 @@ var SeoModule = {
                 $(el).addClass('active');
                 $(el).parents('tr').addClass('on-site');
                 $(el).parents('tr').find('td:last').html('');
-            }else{
+            } else {
                 $.pnotify({
                     pnotify_title:'Ошибка',
                     pnotify_type:'error',
                     pnotify_text:response.error
                 });
             }
+        }, 'json');
+    },
+    getPhraseData:function (el, phrase_id) {
+        $('#result').addClass('loading');
+        $.post('/linking/phraseInfo/', {phrase_id:phrase_id}, function (response) {
+            $('#result').html(response);
+            $('#result').removeClass('loading');
+            $(el).addClass('active');
         }, 'json');
     }
 }

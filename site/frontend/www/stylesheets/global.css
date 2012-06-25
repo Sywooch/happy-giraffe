@@ -4437,12 +4437,12 @@ ul.letters li a:hover {
 #disease .disease-img {float:right;margin:0 0 15px 15px;}
 #disease .disease-img img {display:block;}
 
-#disease .disease-abc {padding:20px;background:#fff8fe;margin-top:30px;}
-#disease .disease-abc .block-title {font-weight:bold;color:#484848;font-size:14px;margin-bottom:10px;}
+#disease .disease-abc {padding:20px;background:#fff8fe;margin-top:30px;margin-bottom:30px;}
+#disease .disease-abc .block-title {font-weight:bold;color:#484848;font-size:14px;}
 #disease .disease-abc > ul {list-style:none;}
 #disease .disease-abc > ul > li {float:left;width:30%;padding-right:3%;}
 #disease .disease-abc > ul > li .letter {display:inline-block;background:#6bc545;width:25px;height:25px;line-height:25px;text-align:center;color:#fff;font-size:16px;font-weight:bold;}
-#disease .disease-abc > ul > li ul {list-style:none;margin:10px 0 30px;}
+#disease .disease-abc > ul > li ul {list-style:none;margin:20px 0 20px;}
 #disease .disease-abc > ul > li ul li {padding:5px 0;}
 #disease .disease-abc > ul > li ul li a {display:block;line-height:1.2;}
 #disease .disease-abc .disease-cat {color:#585758;text-decoration:none;font-size:11px;cursor:default;}

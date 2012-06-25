@@ -23,7 +23,7 @@
     }
 </style>
 
-<?php echo CHtml::link('К таблице', array('club/CookIngredient/admin')) ?>
+<?php echo CHtml::link('К таблице', array('club/CookIngredients/admin')) ?>
 
 
 <div class="form">

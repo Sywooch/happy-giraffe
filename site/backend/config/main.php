@@ -32,7 +32,8 @@ return array(
         'site.frontend.modules.scores.models.*'
     ),
     'modules'=>array(
-        'seo'
+        'seo',
+        'mail'
     ),
 	'components' => array(
         'widgetFactory' => array(
@@ -91,11 +92,16 @@ return array(
                 'keywords' => 100,
             ),
         ),
+        'mc' => array(
+            'class' => 'site.common.extensions.mailchimp.MailChimp',
+            'apiKey' => '761494406f3754b8128246285e00b703-us5',
+            'list' => '5772c2a539'
+        )
 	),
 
     'params' => array(
         'ufileStorageRoot' => 'temp_upload',
         'frontend_url'=>'http://www.happy-giraffe.ru/',
         'photos_url'=>'http://img.happy-giraffe.ru',
-    )
+    ),
 );

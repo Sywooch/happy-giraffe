@@ -54,8 +54,9 @@ class YandexMetrica
             foreach ($val['data'] as $query) {
 
                 //////////////////////////////// DELETE  ///////////////////////////////
-//                if ($query['visits'] < 10)
-//                    break(2);
+                if ($query['visits'] < 2)
+                    break(2);
+
                 $keyword = Keyword::GetKeyword($query['phrase']);
                 $model = Query::model()->findByAttributes(array(
                     'keyword_id' => $keyword->id,
@@ -103,9 +104,6 @@ class YandexMetrica
             if (is_array($val['data']))
                 foreach ($val['data'] as $query) {
 
-                    //////////////////////////////// DELETE  ///////////////////////////////
-//                    if ($query['visits'] < 3)
-//                        break(2);
                     $keyword = Keyword::GetKeyword($query['phrase']);
                     $model = Query::model()->findByAttributes(array('keyword_id' => $keyword->id));
                     if ($model !== null) {

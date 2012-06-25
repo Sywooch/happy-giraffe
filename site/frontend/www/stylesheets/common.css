@@ -123,6 +123,9 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .tip {display:none !important;}
 
+.read-more {white-space:nowrap;}
+.read-more .icon {display:inline-block;width:7px;height:9px;background:url(/images/common.png) no-repeat -328px -178px;margin-left:5px;position:relative;top:1px;}
+
 
 ::-webkit-input-placeholder {color: #ccc !important;font-weight: normal !important;}
 :-moz-placeholder {color: #ccc !important;font-weight: normal !important;}
@@ -148,25 +151,30 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .ava img {display:block;}
 
-.user-info {font-size:9px;line-height:12px;float:left;}
+.user-info {font-size:9px;line-height:12px;float:left;max-width:240px;}
 .user-info .ava {float:left;position:relative;}
 .user-info .details {margin-left:80px;text-align:left !important;padding:0 !important;}
-.user-info .details .username {font-size:12px;line-height:1.2;text-decoration:none;vertical-align:top;width:80px;margin:0;padding:0;overflow:hidden;display:inline-block;}
+.user-info .details .username {font-size:12px;line-height:1.2;text-decoration:none;vertical-align:top;width:100px;margin:0;padding:0;overflow:hidden;display:inline-block;}
 .user-info .details .username:hover {text-decoration:underline;}
 .user-info .details .location {margin:3px 0;}
 .user-info .details .location .flag {display:inline-block;margin-right:5px;position:relative;top:1px;}
 .user-info .details .birthday span {color:#aeaeae;}
 .user-info .details .date {color:#b3b3b3;font-size:9px;margin-top:3px;margin-left:15px;}
 
+.user-info .text-status {clear:both;margin-top:15px;background:#fdfacf;position:relative;padding:10px 15px;font:italic 13px/16px times new roman, serif;color:#5b5c5c;}
+.user-info .text-status {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
+.user-info .text-status .tale {display:block;width:21px;height:30px;background:url(/images/common.png) no-repeat -424px -261px;position:absolute;top:-30px;left:20px;}
 
-.user-fast-buttons {padding-top:2px;}
-.user-fast-buttons a {display:block;float:left;position:relative;margin-right:4px;text-decoration:none;}
+.user-fast-buttons {padding-top:2px;margin-bottom:8px;}
+.user-fast-buttons a {display:inline-block;position:relative;margin-right:4px;text-decoration:none;}
 .user-fast-buttons span.friend {float:left;color:#22af16;margin-right:5px;font-size:13px;margin-top:2px;}
 .user-fast-buttons .add-friend {width:22px;height:18px;background:url(/images/common.png) no-repeat -256px -298px;}
 .user-fast-buttons .remove-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -283px -271px;}
 .user-fast-buttons .pending-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -310px -271px;}
 .user-fast-buttons .new-message {width:22px;height:17px;background:url(/images/common.png) no-repeat -234px -298px;margin-top:1px;}
 
+.user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;}
+.user-fast-nav .more {text-decoration:none;border-bottom:1px dashed #029AD2;}
 .icon-status {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;position:relative;top:2px;margin-right:2px;}
 .icon-status.status-online {background-position:-44px -180px;}
 .icon-status.status-offline {background-position:-55px -180px;}
@@ -319,7 +327,7 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 .btn.btn-orange-small > span > span {padding-left:5px;height:23px;line-height:23px;background-position:0 -2000px;padding:0 5px 0 10px;}
 .btn.btn-orange-small.btn-arrow-right img {margin-left:5px;position:relative;top:2px;}
 
-.btn.btn-orange-smallest > span {padding-right:5px;height:17px;background-position:100% -2067px;color:#fff;font-size:11px;font-family:tahoma,arial, sans-serif;font-weight:bold;}
+.btn.btn-orange-smallest > span {padding-right:5px;height:17px;background-position:100% -2067px;color:#fff;font-size:12px;}
 .btn.btn-orange-smallest > span > span {padding-left:5px;height:17px;line-height:17px;background-position:0 -2050px;padding:0 5px 0 10px;}
 
 .btn.btn-red-transparent > span {padding-right:20px;height:50px;background-position:100% -2450px;color:#fff;font-size:30px;font-family:arial, sans-serif;}
@@ -1514,6 +1522,19 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-topics-all-link {background:#cdecff;padding:12px 20px;margin-bottom:2px;font-size:13px;}
 #content .club-topics-all-link .count {font-size:20px;color:#6d6d6d;font-family:tahoma, arial, helvetica, sans-serif;position:relative;top:-3px;}
 
+
+#content .club-topics-list-new {margin-bottom:30px;}
+#content .club-topics-list-new .block-title {font-size:22px;color:#262626;margin-bottom:10px;}
+#content .club-topics-list-new ul {list-style:none;}
+#content .club-topics-list-new ul li {margin:6px 0;}
+#content .club-topics-list-new ul li a {}
+#content .club-topics-list-new ul li span {padding:2px 6px;line-height:18px;display:inline-block;max-width:70%}
+#content .club-topics-list-new ul li .count {display:inline;font-size:10px;color:#838381;font-family:tahoma, arial, helvetica, sans-serif;position:relative;top:-3px;margin-left:5px;}
+#content .club-topics-list-new ul li.active span {background:#f2e5ff;}
+#content .club-topics-list-new ul li.active a {text-decoration:none;}
+#content .club-topics-list-new ul li.active .count {font-size:20px;color:#474747;}
+
+
 #content .recent-topics {margin-bottom:20px;padding:15px 20px;border:1px solid #d8f1ff;}
 #content .recent-topics .title {font-weight:bold;color:#666666;font-size:16px;}
 #content .recent-topics ul {list-style:none;}
@@ -2269,6 +2290,7 @@ body.gallery {overflow:hidden;}
 .fast-articles {padding:20px;margin-bottom:30px;border:1px solid #f2ebfa;}
 .fast-articles .block-title {font-size:23px;color:#131312;line-height:1;margin-bottom:20px;}
 .fast-articles .block-title span {font-size:19px;display:block;}
+.fast-articles .icon-popular {width:44px;height:28px;background:url(/images/common.png) no-repeat -274px -361px;float:left;margin:13px 10px 0 0;}
 .fast-articles ul {list-style:none;}
 .fast-articles ul li {list-style:none;padding-bottom:20px;}
 .fast-articles ul li .user {margin-bottom:5px;}
@@ -2279,7 +2301,31 @@ body.gallery {overflow:hidden;}
 .fast-articles ul li .meta {margin-top:8px;line-height:1.2;font-size:12px;}
 .fast-articles ul li .meta span {display:inline-block;padding:2px 5px;margin-left:-5px;}
 .fast-articles ul li .meta .views {background:#fdfccc;color:#737575;}
+.fast-articles ul li .meta .rating {float:right;color:#8455b1;font:italic 25px/1 times new roman, serif;}
 .fast-articles .all-link {text-align:right;}
+
+
+.readers {padding:20px;margin-bottom:30px;border:1px solid #f2ebfa;}
+.readers .block-title {font-size:22px;color:#262626;line-height:1;margin-bottom:20px;}
+.readers .block-title span {color:#696867;font-size:16px;}
+.readers .icon-readers {display:block;width:40px;height:38px;background:url(/images/common.png) no-repeat -273px -390px;float:left;margin:0 10px 0 0;}
+.readers ul {list-style:none}
+.readers ul li {float:left;margin:0 5px 12px 4px;}
+.readers .add-author-btn {text-align:center;padding-top:10px;}
+
+
+.fast-photos {padding:20px;margin-bottom:30px;border:1px solid #f2ebfa;text-align:center;}
+.fast-photos .block-title {font-size:20px;color:#262626;line-height:1;margin-bottom:15px;text-align:left;}
+.fast-photos .block-title span {font-size:44px;color:#262626;font-weight:bold;float:left;margin-right:10px;}
+.fast-photos .preview {position:relative;width:200px;height:180px;}
+.fast-photos .preview img {position:absolute;display:block;}
+.fast-photos .preview img.img-1 {top:0;left:0;}
+.fast-photos .preview img.img-2 {right:0;top:20px;}
+.fast-photos .preview img.img-3 {left:20px;bottom:0;}
+.fast-photos .more {color:#b9b9b9;font-size:13px;text-decoration:none;margin-top:20px;display:inline-block;}
+.fast-photos .more .icon {display:inline-block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;vertical-align:middle;margin-right:10px;position:relative;top:-2px;}
+.fast-photos .more:hover .icon {background-position:-499px -193px;}
+.fast-photos .more:hover {color:#7abc2e;text-decoration:underline;}
 
 
 .fast-services {padding:20px;margin-bottom:30px;border:1px solid #f2ebfa;}

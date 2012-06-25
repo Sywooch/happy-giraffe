@@ -50,7 +50,6 @@ class UserController extends HController
     public function actionProfile($user_id)
     {
         $this->layout = '//layouts/main';
-        $this->pageTitle = 'Анкета';
 
         Yii::import('application.widgets.user.*');
         Yii::import('site.common.models.interest.*');
@@ -67,6 +66,9 @@ class UserController extends HController
         if ($user->id == Yii::app()->user->id) {
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $user);
         }
+
+        $this->pageTitle = $user->fullName . ' на Веселом Жирафе';
+
 
         $this->render('profile', array(
             'user' => $user,

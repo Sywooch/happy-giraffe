@@ -20,6 +20,7 @@ class SignupController extends HController
 
     public function actionIndex()
     {
+        $this->pageTitle = 'Регистрация - Веселый Жираф';
         $session = Yii::app()->session;
         $service = Yii::app()->request->getQuery('service');
         if (isset($service)) {

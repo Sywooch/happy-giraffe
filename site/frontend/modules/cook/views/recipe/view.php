@@ -246,7 +246,7 @@
                 <li class="ingredient">
                     <span class="name"><?=$i->ingredient->title?></span>
                     <span class="value"><?=round($i->value, 2)?></span>
-                    <span class="type"><?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value)?></span>
+                    <span class="type"><?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), (int)$i->value)?></span>
                     <!--<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>-->
                 </li>
             <?php endforeach; ?>
@@ -262,6 +262,13 @@
 
     </div>
 
+    <div class="entry-footer">
+        <div class="admin-actions">
+            <?php if (Yii::app()->authManager->checkAccess('editCookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $recipe->author_id){
+                echo CHtml::link('<i class="icon"></i>', $this->createUrl('/cook/recipe/form/', array('id' => $recipe->id)), array('class' => 'edit'));
+            } ?>
+        </div>
+    </div>
 </div>
 
 <?php if ($recipe->more): ?>

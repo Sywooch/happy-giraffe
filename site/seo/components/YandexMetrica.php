@@ -54,8 +54,9 @@ class YandexMetrica
             foreach ($val['data'] as $query) {
 
                 //////////////////////////////// DELETE  ///////////////////////////////
-//                if ($query['visits'] < 10)
-//                    break(2);
+                if ($query['visits'] < 2)
+                    break(2);
+
                 $keyword = Keyword::GetKeyword($query['phrase']);
                 $model = Query::model()->findByAttributes(array(
                     'keyword_id' => $keyword->id,
@@ -103,11 +104,12 @@ class YandexMetrica
             if (is_array($val['data']))
                 foreach ($val['data'] as $query) {
 
-                    //////////////////////////////// DELETE  ///////////////////////////////
-//                    if ($query['visits'] < 3)
-//                        break(2);
                     $keyword = Keyword::GetKeyword($query['phrase']);
-                    $model = Query::model()->findByAttributes(array('keyword_id' => $keyword->id));
+                    $model = Query::model()->findByAttributes(array(
+                        'keyword_id' => $keyword->id,
+                        'week' => $this->week,
+                        'year' => $this->year,
+                    ));
                     if ($model !== null) {
                         $se = QuerySearchEngine::model()->findByAttributes(array(
                             'query_id' => $model->id,
@@ -179,6 +181,13 @@ class YandexMetrica
         while (!empty($pages)) {
             foreach ($pages as $page) {
 
+                $page->yandex_week_visits = 0;
+                $page->yandex_month_visits = 0;
+                $page->google_week_visits = 0;
+                $page->google_month_visits = 0;
+                $page->yandex_pos = 1000;
+                $page->google_pos = 1000;
+
                 //week
                 foreach ($page->phrases as $phrase) {
                     $page->yandex_week_visits += $phrase->getVisits(self::SE_YANDEX, 1);
@@ -212,6 +221,28 @@ class YandexMetrica
             $criteria->with = array('phrases', 'phrases.visits');
             $criteria->offset = $i * 100;
             $pages = Page::model()->findAll($criteria);
+            $i++;
+        }
+    }
+
+    public function delete1Visits()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $criteria->compare('visits', 1);
+        $queries = Query::model()->findAll($criteria);
+
+        $i = 1;
+
+        while (!empty($queries)) {
+            foreach ($queries as $query) {
+                PagesSearchPhrase::model()->deleteAllByAttributes(array(
+                    'keyword_id' => $query->keyword_id
+                ));
+                $query->delete();
+            }
+            $criteria->offset = $i * 1000;
+            $queries = Query::model()->findAll($criteria);
             $i++;
         }
     }

@@ -127,6 +127,14 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .read-more .icon {display:inline-block;width:7px;height:9px;background:url(/images/common.png) no-repeat -328px -178px;margin-left:5px;position:relative;top:1px;}
 
 
+.drp-list {display:inline-block;position:relative;font-size:13px;}
+.drp-list a.trigger {text-decoration:none;border-bottom:1px dashed #598DD6;color:#598DD6;font-size:16px;position:relative;z-index:1;}
+.drp-list a.trigger:hover {border:0;}
+.drp-list ul {padding:2px;border:1px solid #A9C8F3;position:absolute;top:100%;list-style:none;background:#fff;margin-top:5px;z-index:2; width:120px}
+.drp-list ul li a {display:block;padding:3px 10px 3px;text-decoration:none;color:#4b4d4d;}
+.drp-list ul li a:hover {background:#6db4d9;color:#fff;}
+
+
 ::-webkit-input-placeholder {color: #ccc !important;font-weight: normal !important;}
 :-moz-placeholder {color: #ccc !important;font-weight: normal !important;}
 .placeholder { color: #ccc !important;font-weight: normal !important;}
@@ -1526,11 +1534,13 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-topics-list-new {margin-bottom:30px;}
 #content .club-topics-list-new .block-title {font-size:22px;color:#262626;margin-bottom:10px;}
 #content .club-topics-list-new ul {list-style:none;}
-#content .club-topics-list-new ul li {margin:6px 0;}
+#content .club-topics-list-new ul li {margin:6px 6px;}
 #content .club-topics-list-new ul li a {}
-#content .club-topics-list-new ul li span {padding:2px 6px;line-height:18px;display:inline-block;max-width:70%}
+#content .club-topics-list-new ul li span {line-height:18px;display:inline;max-width:70%}
 #content .club-topics-list-new ul li .count {display:inline;font-size:10px;color:#838381;font-family:tahoma, arial, helvetica, sans-serif;position:relative;top:-3px;margin-left:5px;}
-#content .club-topics-list-new ul li.active span {background:#f2e5ff;}
+#content .club-topics-list-new ul li.active {margin-left:0;}
+#content .club-topics-list-new ul li.active span {padding:2px 6px;background:#f2e5ff;display:inline-block;}
+
 #content .club-topics-list-new ul li.active a {text-decoration:none;}
 #content .club-topics-list-new ul li.active .count {font-size:20px;color:#474747;}
 

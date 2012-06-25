@@ -106,4 +106,26 @@ class LinkingController extends SController
         list($usec, $sec) = explode(" ", microtime());
         return ((float)$usec + (float)$sec);
     }
+
+    public function actionSimilarArticles($id){
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
+        $parser = new SimilarArticlesParser;
+        $keyword = $this->loadModel($id);
+        $pages = $parser->getArticles($keyword);
+
+        $this->render('similar_articles', compact('pages'));
+    }
+
+    /**
+     * @param int $id model id
+     * @return Keyword
+     * @throws CHttpException
+     */
+    public function loadModel($id){
+        $model = Keyword::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
 }

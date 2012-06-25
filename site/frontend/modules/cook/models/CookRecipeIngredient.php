@@ -9,6 +9,7 @@
  * @property string $ingredient_id
  * @property string $unit_id
  * @property string $value
+ * @property string $display_value
  *
  * The followings are the available model relations:
  * @property CookRecipes $recipe
@@ -46,7 +47,7 @@ class CookRecipeIngredient extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('recipe_id, ingredient_id, unit_id, value', 'required'),
+            array('recipe_id, ingredient_id, unit_id, value, display_value', 'required'),
             array('recipe_id', 'exist', 'attributeName' => 'id', 'className' => 'CookRecipe'),
             array('ingredient_id', 'exist', 'attributeName' => 'id', 'className' => 'CookIngredient'),
             array('unit_id', 'exist', 'attributeName' => 'id', 'className' => 'CookUnit'),
@@ -54,7 +55,7 @@ class CookRecipeIngredient extends CActiveRecord
             array('title', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, recipe_id, ingredient_id, unit_id, value', 'safe', 'on'=>'search'),
+			array('id, recipe_id, ingredient_id, unit_id, value, display_value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -83,6 +84,7 @@ class CookRecipeIngredient extends CActiveRecord
 			'ingredient_id' => 'Название продукта',
 			'unit_id' => 'Единица измерения',
 			'value' => 'Количество',
+            'display_value' => 'Количество',
 		);
 	}
 
@@ -122,6 +124,20 @@ class CookRecipeIngredient extends CActiveRecord
             return $models;
         } else {
             return $model;
+        }
+    }
+
+    public function setValue()
+    {
+        $this->value = $this->display_value;
+
+        if (strpos($this->value, '/')) {
+            $a = explode('/', $this->value);
+            $this->value = $a[0] / $a[1];
+        }
+
+        if (strpos($this->value, ',')) {
+            $this->value = str_replace(',', '.', $this->value);
         }
     }
 

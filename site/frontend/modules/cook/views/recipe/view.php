@@ -246,7 +246,7 @@
                 <li class="ingredient">
                     <span class="name"><?=$i->ingredient->title?></span>
                     <span class="value"><?=round($i->value, 2)?></span>
-                    <span class="type"><?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value)?></span>
+                    <span class="type"><?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), (int)$i->value)?></span>
                     <!--<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>-->
                 </li>
             <?php endforeach; ?>

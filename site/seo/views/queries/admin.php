@@ -28,10 +28,10 @@
                 <th rowspan="2">Пере-<br>линковка</th>
             </tr>
             <tr>
-                <th>Позиции</th>
-                <th>Визиты</th>
-                <th>Позиции</th>
-                <th>Визиты</th>
+                <th><a href="?period=<?=$period ?>&sort=yandex_pos">Позиции</a></th>
+                <th><a href="?period=<?=$period ?>&sort=yandex_visits">Визиты</a></th>
+                <th><a href="?period=<?=$period ?>&sort=google_pos">Позиции</a></th>
+                <th><a href="?period=<?=$period ?>&sort=yandex_visits">Визиты</a></th>
             </tr>
             </thead>
             <tbody>

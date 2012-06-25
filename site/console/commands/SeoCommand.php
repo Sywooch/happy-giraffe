@@ -177,5 +177,10 @@ class SeoCommand extends CConsoleCommand
         $metrica = new YandexMetrica();
         $metrica->calculateMain();
     }
+
+    public function actionDelete1Visits(){
+        $metrica = new YandexMetrica();
+        $metrica->delete1Visits();
+    }
 }
 

@@ -135,12 +135,12 @@ var SeoModule = {
         }, 'json');
     },
     getPhraseData:function (el, phrase_id) {
-        $('#result').addClass('loading');
+        $('#result').addClass('loading-block');
         $.post('/linking/phraseInfo/', {phrase_id:phrase_id}, function (response) {
+            $('#result').removeClass('loading-block');
             $('#result').html(response);
-            $('#result').removeClass('loading');
             $(el).addClass('active');
-        }, 'json');
+        });
     }
 }
 

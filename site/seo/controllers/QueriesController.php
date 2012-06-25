@@ -5,7 +5,6 @@
  */
 class QueriesController extends SController
 {
-
     public $secret_key = 'kastgpij35iyiehi';
 
     public function accessRules()

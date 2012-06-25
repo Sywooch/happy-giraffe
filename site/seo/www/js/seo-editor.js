@@ -262,36 +262,21 @@ var SeoTasks = {
 }
 
 var SeoLinking = {
-    keywordId:null,
-    Go:function (el) {
-        var url = $(el).prev().val();
-        SeoLinking.keywordId = null;
-
-        $.post('/linking/go/', {url:url}, function (response) {
-            if (response.status) {
-                $('.result').html(response.html);
-            } else {
-                $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:response.error
-                });
-            }
-        }, 'json');
-    },
+    page_id:null,
+    keyword_id:null,
     AddLink:function (el, linkingPageId, articleId) {
-        if (SeoLinking.keywordId == null) {
+        if (SeoLinking.keyword_id == null) {
             $.pnotify({
                 pnotify_title:'Ошибка',
                 pnotify_type:'error',
                 pnotify_text:'Выберите ключевое слово'
             });
         } else
-            $.post('/linking/add/', {id:linkingPageId, articleFromId:articleId, keyword_id:SeoLinking.keywordId}, function (response) {
+            $.post('/linking/add/', {id:linkingPageId, articleFromId:articleId, keyword_id:SeoLinking.keyword_id}, function (response) {
                 if (response.status) {
                     $(el).remove();
-                    $('#keyword-' + SeoLinking.keywordId).remove();
-                    SeoLinking.keywordId = null;
+                    $('#keyword-' + SeoLinking.keyword_id).remove();
+                    SeoLinking.keyword_id = null;
                 } else {
                     $.pnotify({
                         pnotify_title:'Ошибка',
@@ -301,8 +286,8 @@ var SeoLinking = {
                 }
             }, 'json');
     },
-    CheckKeyword:function (el, keywordId) {
-        SeoLinking.keywordId = keywordId;
+    CheckKeyword:function (el, keyword_id) {
+        SeoLinking.keyword_id = keyword_id;
         $('a.keyword-for-link').removeClass('active');
         $(el).addClass('active');
     }

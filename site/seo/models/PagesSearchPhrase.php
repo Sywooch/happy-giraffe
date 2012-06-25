@@ -163,4 +163,11 @@ class PagesSearchPhrase extends HActiveRecord
 
         return $keywords;
     }
+
+    public function getLinksCount(){
+         return InnerLink::model()->countByAttributes(array(
+             'phrase_id'=>$this->id
+         ));
+    }
+
 }

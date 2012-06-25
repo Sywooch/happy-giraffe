@@ -16,15 +16,15 @@ class LinkingController extends SController
         $this->render('index');
     }
 
-    public function actionView($id)
+    public function actionView($id, $selected_phrase_id = null)
     {
         $page = $this->loadPage($id);
 
         $this->render('view', compact('page'));
     }
 
-
-    public function actionAdd(){
+    public function actionAdd()
+    {
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
         $page_from = $this->loadPage(Yii::app()->request->getPost('page_id'));
         $keyword_id = Yii::app()->request->getPost('keyword_id');
@@ -38,15 +38,26 @@ class LinkingController extends SController
         echo CJSON::encode(array('status' => $link->save()));
     }
 
-    public function actionPhraseInfo(){
+    public function actionPhraseInfo()
+    {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
 
         $parser = new SimilarArticlesParser;
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
-        $pages = $parser->getArticles($phrase->keyword);
+        $pages = $parser->getArticles($phrase->keyword->name);
+        if (empty($pages)){
+            //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
+            $url = $phrase->page->getRubricUrl();
+            $pages = $parser->getArticles($url);
+        }
+        //удалим текущий
+        foreach($pages as $key=>$page)
+            if ($page->id == $phrase->page_id)
+                unset($pages[$key]);
+
         $keywords = $phrase->getSimilarKeywords();
 
-        $this->render('_phrase_view', compact('pages', 'keywords'));
+        $this->renderPartial('_phrase_view', compact('pages', 'keywords'));
     }
 
     /**
@@ -54,23 +65,25 @@ class LinkingController extends SController
      * @return Keyword
      * @throws CHttpException
      */
-    public function loadKeyword($id){
+    public function loadKeyword($id)
+    {
         $model = Keyword::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
     }
-    
+
     /**
      * @param int $id model id
      * @return PagesSearchPhrase
      * @throws CHttpException
      */
-    public function loadPhrase($id){
+    public function loadPhrase($id)
+    {
         $model = PagesSearchPhrase::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return $model;    
+        return $model;
     }
 
     /**
@@ -78,7 +91,8 @@ class LinkingController extends SController
      * @return Page
      * @throws CHttpException
      */
-    public function loadPage($id){
+    public function loadPage($id)
+    {
         $model = Page::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

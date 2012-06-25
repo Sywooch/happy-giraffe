@@ -31,10 +31,15 @@ class InnerLink extends HActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
-	public function tableName()
-	{
-		return 'inner_links';
-	}
+    public function tableName()
+    {
+        return 'happy_giraffe_seo.inner_links';
+    }
+
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
 
 	/**
 	 * @return array validation rules for model attributes.

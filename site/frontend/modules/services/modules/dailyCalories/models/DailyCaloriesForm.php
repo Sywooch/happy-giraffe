@@ -30,6 +30,10 @@ class DailyCaloriesForm extends HFormModel
 
     public function calculate()
     {
-        return true;
+        $result = array();
+        $result['calories'] = ($this->sex) ? 10 * $this->weight + 6.25 * $this->growth - 5 * $this->age + 5 : 10 * $this->weight + 6.25 * $this->growth - 5 * $this->age - 161;
+        $result['calories'] *= $this->activity;
+
+        return $result;
     }
 }

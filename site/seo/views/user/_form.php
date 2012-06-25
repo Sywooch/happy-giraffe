@@ -1,8 +1,7 @@
  <?php echo CHtml::link('К таблице', array('User/admin')) ?><div class="form">
 
 <?php
-
-    $form=$this->beginWidget('CActiveForm', array(
+$form=$this->beginWidget('CActiveForm', array(
 	'id'=>'user-form',
 	'enableAjaxValidation'=>false,
 )); ?>
@@ -18,12 +17,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->textField($model,'password',array('size'=>60,'maxlength'=>256)); ?>
-		<?php echo $form->error($model,'password'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>256)); ?>
 		<?php echo $form->error($model,'name'); ?>
@@ -31,14 +24,26 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'owner_id'); ?>
-		<?php echo $form->dropDownList($model,'owner_id', CHtml::listData(User::model()->findAll('owner_id IS NULL'), 'id', 'name'), array('empty'=>' ')); ?>
+		<?php echo $form->dropDownList($model,'owner_id', CHtml::listData(SeoUser::model()->findAll('owner_id IS NULL'), 'id', 'name'), array('empty'=>' ')); ?>
 		<?php echo $form->error($model,'owner_id'); ?>
 	</div>
+
+     <div class="row">
+         <?php echo $form->labelEx($model,'related_user_id'); ?>
+         <?php echo $form->textField($model,'related_user_id'); ?>
+         <?php echo $form->error($model,'related_user_id'); ?>
+     </div>
 
      <div class="row">
          <?php echo $form->labelEx($model,'role'); ?>
          <?php echo $form->dropDownList($model,'role', CHtml::listData(Yii::app()->authManager->getRoles(), 'name', 'name'), array('empty'=>' ')); ?>
          <?php echo $form->error($model,'role'); ?>
+     </div>
+
+     <div style="position:absolute;top:400px;right:200px;">
+         <a href="javascript:;" onclick="ChangeUserPassword(this, <?=$model->id ?>);">Change password</a>
+
+         <div class="result"></div>
      </div>
 
 
@@ -49,3 +54,13 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+ <script type="text/javascript">
+     function ChangeUserPassword(el, id) {
+         $.post('/user/changePassword/', {id:id}, function (response) {
+             if (response.status) {
+                 $(el).next().html(response.result);
+             }
+         }, 'json');
+     }
+ </script>

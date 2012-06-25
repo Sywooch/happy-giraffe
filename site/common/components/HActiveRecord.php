@@ -5,5 +5,8 @@
  */
 class HActiveRecord extends CActiveRecord
 {
-
+    public function getPhotoCollection()
+    {
+        return $this->photos;
+    }
 }

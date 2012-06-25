@@ -28,7 +28,8 @@ return array(
         'site.frontend.modules.services.modules.horoscope.models.*',
         'site.frontend.modules.contest.models.*',
         'site.common.models.interest.*',
-        'site.frontend.modules.cook.models.*'
+        'site.frontend.modules.cook.models.*',
+        'site.frontend.modules.scores.models.*'
     ),
     'modules'=>array(
         'seo'
@@ -42,6 +43,9 @@ return array(
                     'nextPageLabel' => '',
                     'prevPageLabel' => '',
                     'maxButtonCount' => 5,
+                ),
+                'CKEditorWidget' => array(
+                    'ckEditor' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www' . DIRECTORY_SEPARATOR . 'ckeditor' . DIRECTORY_SEPARATOR . 'ckeditor.php',
                 ),
             ),
         ),
@@ -91,6 +95,7 @@ return array(
 
     'params' => array(
         'ufileStorageRoot' => 'temp_upload',
-        'frontend_url'=>'http://www.happy-giraffe.ru/'
+        'frontend_url'=>'http://www.happy-giraffe.ru/',
+        'photos_url'=>'http://img.happy-giraffe.ru',
     )
 );

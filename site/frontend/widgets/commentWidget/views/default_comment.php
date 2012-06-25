@@ -6,8 +6,7 @@
         <div class="answer">
             Ответ для
             <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $response->author, 'sendButton' => false, 'small' => true, 'size' => 'small')); ?>
-            на <span class="num"><a href="#"
-                                    onclick="return Comment.goTo(<?php echo $response->position; ?>, <?php echo $currentPage + 1; ?>);"><?php echo $response->position; ?></a></span>
+            на <span class="num"><a href="#" onclick="return <?php echo $this->objectName; ?>.goTo(<?php echo $response->position; ?>, <?php echo $currentPage + 1; ?>);"><?php echo $response->position; ?></a></span>
         </div>
         <?php endif; ?>
     </div>
@@ -25,8 +24,7 @@
     </div>
     <?php endif; ?>
     <div class="content-in">
-        <?php echo $data->text; ?>
+        <?php echo $data->purified->text; ?>
     </div>
     <?php $this->render('_admin_actions', compact('data')) ?>
 </div>
-

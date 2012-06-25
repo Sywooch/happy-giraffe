@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'class' => 'HUrlManager',
     'urlFormat'=>'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
@@ -26,6 +27,7 @@ return array(
         'community/<community_id:\d+>/forum' => 'community/list',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>/uploadImage' => 'community/uploadImage',
+        'community/22' => 'cook',
 
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',
@@ -46,6 +48,7 @@ return array(
         'admin/' => 'admin/site/index',
         '<controller:\w+>/admin'=>'site/index',
         '<controller:\w+>/master'=>'<controller>/admin',
+        '<controller:\w+>/<title:\w+>_<id:\d+>/photo<pid:\d+>'=>'<controller>/view',
         '<controller:\w+>/<title:\w+>_<id:\d+>'=>'<controller>/view',
         'babySex/<action:\w+>'=>'services/babySex/default/<action>',
         'sewing/<action:\w+>'=>'services/sewing/default/<action>',
@@ -84,6 +87,26 @@ return array(
         'horoscope/today/<zodiac:[\w]+>'=>'services/horoscope/default/view',
         'horoscope/tomorrow/<zodiac:[\w]+>'=>'services/horoscope/default/tomorrow',
         'horoscope/yesterday/<zodiac:[\w]+>'=>'services/horoscope/default/yesterday',
+
+        'cook/spices/index' => 'cook/spices/index',
+        'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
+        'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
+
+        'cook/choose/index' => 'cook/choose/index',
+        'cook/choose/category/<id:[\w_]+>' => 'cook/choose/category',
+        'cook/choose/<id:[\w_]+>' => 'cook/choose/view',
+        'cook/decor/<id:[\d]+>' => 'cook/decor/index',
+        'cook/decor/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
+
+        'cook/decor/<id:[\d]+>/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<id:[\d]+>/page/<page:[\d]+>' => 'cook/decor/index',
+        'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
+        'cook/decor' => 'cook/decor/index',
+
+        'cook/recipe/add' => 'cook/recipe/form',
+        'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
 
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

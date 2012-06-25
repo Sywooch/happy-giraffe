@@ -22,7 +22,7 @@
             <td class="icon"><i class="signal-icon <?php echo $model->getIcon() ?>"></td>
             <td class="name"><?php echo $model->signalType() ?></td>
             <td><?php echo $model->signalWant() ?></td>
-            <td><?php echo $user->getFullName() ?></td>
+            <td><?php echo CHtml::encode($user->fullName); ?></td>
             <td class="actions">
                 <input type="hidden" value="<?php echo $model->_id ?>">
                 <a onclick="return Signal.TakeSignal($(this));" href="#" class="take-task btn btn-green-small"<?php

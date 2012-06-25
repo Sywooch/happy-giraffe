@@ -35,4 +35,20 @@ var Nutritionals = {
         }
         event.preventDefault();
     }
+
+}
+
+var Units = {
+
+    save:function (event) {
+        $.post(
+            $('#ingredientUnits').attr('action'),
+            $('#ingredientUnits').serializeArray(),
+            function (data) {
+                $('#units-container').html(data.html);
+                $.pnotify({pnotify_title:'Единицы измерения', pnotify_text:data.error});
+            }
+        );
+        event.preventDefault()
+    }
 }

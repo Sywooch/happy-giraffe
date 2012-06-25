@@ -9,31 +9,35 @@ class CookSpicesController extends BController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('cook_ingredients'))
+        if (!Yii::app()->user->checkAccess('cook_spices'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }
 
     public function actionCreate()
     {
-        $model = new CookSpices;
+        $model = new CookSpice;
 
-        $basePath = Yii::getPathOfAlias('application.views.club.cookSpices.assets');
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
+        if (isset($_POST['CookSpice'])) {
 
-        if (isset($_POST['CookSpices'])) {
-            $model->attributes = $_POST['CookSpices'];
-            $model->categories = $_POST['category'];
+            if (!$_POST['CookSpice']['ingredient_id']) {
+                $ingredient = new CookIngredient();
+                $ingredient->attributes = array('title' => $_POST['ac'], 'category_id' => 41);
+                $ingredient->save();
+                $_POST['CookSpice']['ingredient_id'] = $ingredient->id;
+            }
+
+            $model->attributes = $_POST['CookSpice'];
+
+            if (isset($_POST['category']))
+                $model->categories = $_POST['category'];
             if ($model->save())
-
                 $this->redirect(array('update', 'id' => $model->id));
         }
 
         $this->render('create', array(
             'model' => $model,
         ));
-        Yii::app()->clientScript->registerCssFile($baseUrl . '/style.css', CClientScript::POS_HEAD);
     }
 
     public function actionUpdate($id)
@@ -46,15 +50,19 @@ class CookSpicesController extends BController
 
         $model = $this->loadModel($id);
 
-        if (isset($_POST['CookSpices'])) {
-            $model->attributes = $_POST['CookSpices'];
-            $model->categories = $_POST['category'];
+        if (isset($_POST['CookSpice'])) {
+            $model->attributes = $_POST['CookSpice'];
+            if (isset($_POST['category']))
+                $model->categories = $_POST['category'];
+            else
+                $model->categories = array();
+
             if ($model->save())
                 $this->redirect(array('admin'));
         }
 
         $this->render('update', array(
-            'model' => $model,
+            'model' => $model
         ));
     }
 
@@ -67,26 +75,30 @@ class CookSpicesController extends BController
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     public function actionAdmin()
     {
-        $model = new CookSpices('search');
+        $model = new CookSpice('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['CookSpices']))
-            $model->attributes = $_GET['CookSpices'];
+        if (isset($_GET['CookSpice']))
+            $model->attributes = $_GET['CookSpice'];
 
         $this->render('admin', array(
             'model' => $model,
         ));
     }
 
+    /**
+     * @param $id
+     * @return CookSpice
+     * @throws CHttpException
+     */
     public function loadModel($id)
     {
-        $model = CookSpices::model()->with('categories')->findByPk((int)$id);
+        $model = CookSpice::model()->with('categories')->findByPk((int)$id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -107,5 +119,68 @@ class CookSpicesController extends BController
             ->limit(20)->queryAll();
         header('Content-type: application/json');
         echo CJSON::encode($ingredients);
+    }
+
+    public function actionAddHint()
+    {
+        $hint = new CookSpicesHints();
+        if (isset($_POST['ajax']) && $_POST['ajax'] == 'spices-hints-form') {
+            $hint->attributes = $_POST['CookSpicesHints'];
+            echo CActiveForm::validate($hint);
+            Yii::app()->end();
+        } elseif (isset($_POST['CookSpicesHints'])) {
+            $hint->attributes = $_POST['CookSpicesHints'];
+            $hint->save();
+            $model = $this->loadModel($hint->spice_id);
+            $this->renderPartial('_form_hints', array('model' => $model));
+        }
+    }
+
+    public function actionDeleteHint($id)
+    {
+        $hint = CookSpicesHints::model()->findByPk((int)$id);
+        $model = $this->loadModel($hint->spice_id);
+        $hint->delete();
+        $this->renderPartial('_form_hints', array('model' => $model));
+    }
+
+    public function actionAddPhoto()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $spice = $this->loadModel($id);
+
+        if (!empty($spice->photo))
+            $last_photo = $spice->photo;
+
+        if (isset($_FILES['photo']) && !empty($spice)) {
+            $file = CUploadedFile::getInstanceByName('photo');
+            if (!in_array($file->extensionName, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
+                Yii::app()->end();
+
+            $model = new AlbumPhoto();
+            $model->file = $file;
+            $model->title = $spice->title;
+            $model->author_id = 1;
+
+            if ($model->create()) {
+                echo "<script type='text/javascript'>
+                document.domain = document.location.host;
+                </script>";
+
+                $spice->photo_id = $model->id;
+                if ($spice->save()) {
+                    if (isset($last_photo))
+                        $last_photo->delete();
+                    $response = array(
+                        'status' => true,
+                        'image' => $model->getPreviewUrl()
+                    );
+                } else
+                    $response = array('status' => false);
+            } else
+                $response = array('status' => false);
+
+            echo CJSON::encode($response);
+        }
     }
 }

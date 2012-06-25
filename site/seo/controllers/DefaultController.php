@@ -9,37 +9,7 @@ class DefaultController extends SController
         return true;
     }
 
-    public function actionIndex($site_id = 1, $year = 2011, $recOnPage = 10)
-    {
-        $model = new KeyStats;
-        $model->site_id = $site_id;
-        $model->year = $year;
-
-        $this->render('index', compact('model','site_id','year','recOnPage'));
-    }
-
-    public function actionCalc()
-    {
-        $site_id = 2;
-        $year = 2012;
-        $criteria = new CDbCriteria;
-        $criteria->compare('site_id', $site_id);
-        $criteria->compare('year', $year);
-        $stats = Stats::model()->findAll($criteria);
-        foreach ($stats as $stat) {
-            $key_stat = KeyStats::model()->find('site_id = ' . $site_id . ' AND keyword_id = ' . $stat->keyword_id . ' AND year = ' . $year);
-            if ($key_stat === null) {
-                $key_stat = new KeyStats;
-                $key_stat->keyword_id = $stat->keyword_id;
-                $key_stat->site_id = $site_id;
-                $key_stat->year = $year;
-            }
-            $key_stat->setAttribute('m' . $stat->month, $stat->value);
-            $key_stat->save();
-        }
-    }
-
-    public function actionAddKeys()
+    /*public function actionAddKeys()
     {
         $file = fopen('F:\Xedant\Keywords.txt', 'r');
         $i = 0;
@@ -77,12 +47,12 @@ class DefaultController extends SController
     {
         $articles = Yii::app()->db_seo2->createCommand()
             ->select('*')
-            ->from('article_keywords')
+            ->from('pages')
             ->queryAll();
 
         foreach ($articles as $article) {
 
-            $new_article = new ArticleKeywords();
+            $new_article = new Page();
             $new_article->entity = $article['entity'];
             $new_article->entity_id = $article['entity_id'];
             $new_article->url = $article['url'];
@@ -113,9 +83,9 @@ class DefaultController extends SController
                     $key2 = trim($key2);
                     if (!empty($key2)) {
                         $final_keyword_name = mb_strtolower(trim($key2), 'utf8');
-                        $final_keyword = Keywords::model()->findByAttributes(array('name' => $final_keyword_name));
+                        $final_keyword = Keyword::model()->findByAttributes(array('name' => $final_keyword_name));
                         if ($final_keyword === null) {
-                            $final_keyword = new Keywords;
+                            $final_keyword = new Keyword;
                             $final_keyword->name = $final_keyword_name;
                             $final_keyword->save();
                         }
@@ -133,27 +103,6 @@ class DefaultController extends SController
                 }
             }
         }
-    }
+    }*/
 
-    public function actionTest2(){
-        echo Yii::app()->db_seo->createCommand('select count(keyword_id) from yandex_popularity')->queryScalar();
-        echo '<br>';
-        echo ParseHelper::getLine(0).'<br>';
-        echo ParseHelper::getLine(1).'<br>';
-        echo ParseHelper::getLine(2).'<br>';
-        echo ParseHelper::getLine(3).'<br>';
-        echo ParseHelper::getLine(4).'<br>';
-        echo ParseHelper::getLine(5).'<br>';
-        echo ParseHelper::getLine(6).'<br>';
-        echo ParseHelper::getLine(7).'<br>';
-        echo ParseHelper::getLine(8).'<br>';
-        echo ParseHelper::getLine(9).'<br>';
-        echo ParseHelper::getLine(10).'<br>';
-    }
-
-    public function actionTest3()
-    {
-        $wm = new YandexWebmaster();
-        echo $wm->login();
-    }
 }

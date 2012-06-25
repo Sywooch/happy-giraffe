@@ -152,7 +152,7 @@ class DefaultController extends HController
 
         $criteria = new CDbCriteria;
         $criteria->compare('disease_id', $model->id);
-        $criteria->with = array('author'=>array('select'=>array('id','first_name','last_name','gender','avatar_id')));
+        $criteria->with = array('author'=>array('select'=>array('id','last_name','gender','avatar_id')));
         $count = RecipeBookRecipe::model()->count($criteria);
         $pages = new CPagination($count);
         $pages->pageSize = 10;

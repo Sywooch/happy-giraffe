@@ -1,6 +1,32 @@
-<?php echo CHtml::link('К таблице', array('club/CookIngredients/admin')) ?>
-<div class="form">
+<style type="text/css">
+    table.iform td, th {
+        padding: 2px 5px
+    }
 
+    div.form {
+        margin: 15px 0;
+        padding: 5px;
+        border: 1px solid #CCC
+    }
+
+    table#fcontainer {
+        width: 100%
+    }
+
+    table#fcontainer td {
+        vertical-align: top;
+        padding: 0 10px
+    }
+
+    h1 {
+        padding-bottom: 10px
+    }
+</style>
+
+<?php echo CHtml::link('К таблице', array('club/CookIngredients/admin')) ?>
+
+
+<div class="form">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'cook-ingredients-form',
     'enableAjaxValidation' => false,
@@ -8,52 +34,22 @@
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'category_id');
-        echo $form->dropDownList($model, 'category_id', CookIngredientsCategories::getCategories());
-        echo $form->error($model, 'category_id');
-        ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'unit_id'); ?>
-        <?php echo $form->dropDownList($model, 'unit_id', CookUnits::getUnits()); ?>
-        <?php echo $form->error($model, 'unit_id'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'title'); ?>
-        <?php echo $form->textField($model, 'title', array('size' => 60, 'maxlength' => 255)); ?>
-        <?php echo $form->error($model, 'title'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'weight'); ?>
-        <?php echo $form->textField($model, 'weight', array('size' => 11, 'maxlength' => 11)); ?>
-        <?php echo $form->error($model, 'weight'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'density'); ?>
-        <?php echo $form->textField($model, 'density', array('size' => 10, 'maxlength' => 10)); ?>
-        <?php echo $form->error($model, 'density'); ?>
-    </div>
-
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-    </div>
-
+    <table class="iform general">
+        <tr>
+            <td><?=$form->labelEx($model, 'title');?></td>
+            <td><?=$form->textField($model, 'title', array('size' => 60, 'maxlength' => 255));?></td>
+            <td><?=$form->error($model, 'title');?></td>
+        </tr>
+        <tr>
+            <td><?=$form->labelEx($model, 'category_id');?></td>
+            <td><?=$form->dropDownList($model, 'category_id', CookIngredientCategory::getCategories());?></td>
+            <td><?=$form->error($model, 'category_id');?></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><?php echo CHtml::submitButton($model->isNewRecord ? 'Добавить' : 'Сохранить'); ?></td>
+            <td>&nbsp</td>
+        </tr>
+    </table>
     <?php $this->endWidget(); ?>
-
-    <div>
-        <?php
-        if (!$model->isNewRecord) {
-            $this->renderPartial('_form_nutritionals', array('model' => $model));
-            $this->renderPartial('_form_synonyms', array('model' => $model));
-        }
-        ?>
-    </div>
-
-</div><!-- form -->
+</div>

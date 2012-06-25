@@ -11,12 +11,12 @@ class DefaultController extends HController
         );
     }
 
-    public function beforeAction()
+    protected function beforeAction($action)
     {
         if (!Yii::app()->user->checkAccess('user_signals'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        return true;
+        return parent::beforeAction($action);
     }
 
     public function actionIndex()

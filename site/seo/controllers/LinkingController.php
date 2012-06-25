@@ -29,7 +29,7 @@ class LinkingController extends SController
                 'error' => 'Не найдена статья, обратитесь к разработчикам.',
             );
         } else {
-            $article_keyword = ArticleKeywords::model()->findByAttributes(array(
+            $article_keyword = Page::model()->findByAttributes(array(
                 'entity' => 'CommunityContent',
                 'entity_id' => $id,
             ));
@@ -99,22 +99,6 @@ class LinkingController extends SController
         $link->keyword_id = $keyword_id;
 
         echo CJSON::encode(array('status' => $link->save()));
-    }
-
-    public function actionTest(){
-        $t1 = $this->getmicrotime();
-
-        $allSearch = Yii::app()->search
-            ->select('*')
-            ->from('keywords2')
-            ->where('жан клод ван дам')
-            ->limit(0, 1)
-            ->searchRaw();
-        $t2 = $this->getmicrotime();
-
-        echo $t2 - $t1;
-        echo '<br>';
-        var_dump($allSearch);
     }
 
     function getmicrotime()

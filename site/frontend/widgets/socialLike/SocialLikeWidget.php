@@ -14,11 +14,15 @@ class SocialLikeWidget extends CWidget
 
     public $title;
 
+    public $image;
+
     public $notice;
 
     public $options;
 
     public $type;
+
+    public $registerScripts = false;
 
     public $providers = array(
         'yh' => array(),
@@ -47,13 +51,22 @@ class SocialLikeWidget extends CWidget
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/social.js');
-        Yii::app()->clientScript->registerScript('social_update_url', '
-            Social.ajax_url = "' . Yii::app()->createAbsoluteUrl('/ajax/socialApi') . '";
+
+        if($this->registerScripts)
+        {
+            $this->registerScripts();
+            return;
+        }
+
+        $js = 'Social.ajax_url = "' . Yii::app()->createAbsoluteUrl('/ajax/socialApi') . '";
             Social.update_url = "' . Yii::app()->createUrl('/ajax/rate') . '";
             Social.model_name = "' . get_class($this->model) . '";
             Social.model_id = "' . $this->model->primaryKey . '";
-            Social.api_url = "' . $this->options['url'] . '"'
-        );
+            Social.api_url = "' . $this->options['url'] . '"';
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->clientScript->registerScript('social_update_url', $js);
+        else
+            echo '<script type="text/javascript">' . $js . '</script>';
 
         if($this->type)
             $this->render($this->type);
@@ -67,5 +80,12 @@ class SocialLikeWidget extends CWidget
         foreach($array as $key => $option)
             $url .= ($url == '' ? '?' : '&amp;') . $key . '=' . urlencode($option);
         return $url;
+    }
+
+    public function registerScripts()
+    {
+        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+        Yii::app()->clientScript->registerScriptFile('//yandex.st/share/share.js');
     }
 }

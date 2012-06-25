@@ -70,8 +70,12 @@ class ScoreInput extends EMongoDocument
 
         if ($this->status == self::STATUS_CLOSED) {
             $model = UserScores::getModel($this->user_id);
-            $model->scores += $this->scores_earned;
-            $model->save();
+            if ($model !== null) {
+                $model->scores += $this->scores_earned;
+                $model->save();
+            }else{
+                $this->delete();
+            }
         }
 
         return parent::beforeSave();
@@ -368,7 +372,7 @@ class ScoreInput extends EMongoDocument
         if (date("Y-m-d", $this->created) == date("Y-m-d"))
             $text = 'За посещение сайта сегодня';
         else
-            $text = 'За посещение сайта <span>' . Yii::app()->dateFormatter->format("d MMMM", $this->created).'</span>';
+            $text = 'За посещение сайта <span>' . Yii::app()->dateFormatter->format("d MMMM", $this->created) . '</span>';
 
         return $text;
     }
@@ -412,7 +416,7 @@ class ScoreInput extends EMongoDocument
             if ($this->amount < 0) {
                 if ($model->isFromBlog)
                     $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в блоге удалена';
-                else{
+                else {
                     $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span> удалена';
                 }
             }
@@ -560,7 +564,7 @@ class ScoreInput extends EMongoDocument
             if ($this->user_id == $id)
                 $text .= ' в гостевой книге';
             else
-                $text .= ' в гостевой книге пользователя <span>' . $model->fullName . '</span> ';
+                $text .= ' в гостевой книге пользователя <span>' . CHtml::encode($model->fullName) . '</span> ';
             return $text;
         }
 
@@ -599,7 +603,7 @@ class ScoreInput extends EMongoDocument
                     $text .= ($this->amount > 0) ? 'в блог' : 'в блоге';
                 else {
                     $text .= ($this->amount > 0) ? 'в блог' : 'в блоге';
-                    $text .= ' <span>' . $model->author->fullName . '</span>';
+                    $text .= ' <span>' . CHtml::encode($model->author->fullName) . '</span>';
                 }
             } else {
                 $text .= ($this->amount > 0) ? 'в клуб' : 'в клубе';
@@ -640,11 +644,11 @@ class ScoreInput extends EMongoDocument
         }
 
         if (count($friends) == 1)
-            $text = 'У вас новый друг ' . CHtml::image($friends[0]->getAva('small')) . '&nbsp;<span>' . $friends[0]->first_name . '</span>';
+            $text = 'У вас новый друг ' . CHtml::image($friends[0]->getAva('small')) . '&nbsp;<span>' . CHtml::encode($friends[0]->first_name) . '</span>';
         elseif (count($friends) > 1) {
             $text = 'У вас ' . count($friends) . ' ' . HDate::GenerateNoun(array('новый друг', 'новых друга', 'новых друзей'), $this->amount);
             foreach ($friends as $friend) {
-                $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . $friend->first_name . '</span>,';
+                $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . CHtml::encode($friend->first_name) . '</span>,';
             }
             $text = rtrim($text, ',');
             $text .= '<br>';
@@ -662,11 +666,11 @@ class ScoreInput extends EMongoDocument
             }
 
             if (count($friends) == 1)
-                $text .= 'Вы потеряли друга ' . CHtml::image($friends[0]->getAva('small')) . ' <span>' . $friends[0]->first_name . '</span>';
+                $text .= 'Вы потеряли друга ' . CHtml::image($friends[0]->getAva('small')) . ' <span>' . CHtml::encode($friends[0]->first_name) . '</span>';
             elseif (count($friends) > 1) {
                 $text .= 'Вы потеряли ' . count($friends) . ' ' . HDate::GenerateNoun(array('друга', 'друзей', 'друзей'), $this->amount);
                 foreach ($friends as $friend) {
-                    $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . $friend->first_name . '</span>, ';
+                    $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . CHtml::encode($friend->first_name) . '</span>, ';
                 }
                 $text = rtrim($text, ', ');
             }

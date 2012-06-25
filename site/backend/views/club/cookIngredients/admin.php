@@ -21,8 +21,11 @@
             'value' => 'CHtml::link ( CHtml::encode ( $data->title ),  array ( "club/cookIngredients/update", "id" => $data->id ) )',
             'type'=>'raw'
         ),
-        'weight',
-        'density',
+        array(
+            'name' => 'density',
+            'value' => '($data->density > 0) ? $data->density : "-"',
+            'type'=>'raw'
+        ),
         array(
             'class' => 'CButtonColumn',
             'template' => '{update}{delete}'

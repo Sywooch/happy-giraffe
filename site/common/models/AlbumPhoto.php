@@ -22,11 +22,14 @@
 class AlbumPhoto extends HActiveRecord
 {
     private $_check_access = null;
+    const CROP_SIDE_CENTER = 'center';
+    const CROP_SIDE_TOP = 'top';
+    const CROP_SIDE_BOTTOM = 'bottom';
 
     /**
      * @var string original photos folder
      */
-    private $original_folder = 'originals';
+    public $original_folder = 'originals';
     /**
      * @var string thumbnail image folder
      */
@@ -135,7 +138,7 @@ class AlbumPhoto extends HActiveRecord
 
     public function afterSave()
     {
-        if ($this->isNewRecord && isset(Yii::app()->comet) && $this->author->isNewComer() && isset($this->album)) {
+        if ($this->isNewRecord && Yii::app()->hasComponent('comet') && $this->author->isNewComer() && isset($this->album)) {
             if ($this->album->type == 0 || $this->album->type == 1 || $this->album->type == 3) {
                 $signal = new UserSignal();
                 $signal->user_id = (int)$this->author_id;
@@ -244,7 +247,7 @@ class AlbumPhoto extends HActiveRecord
      *
      * @return string
      */
-    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false)
+    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER)
     {
         // Uload root
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
@@ -280,7 +283,7 @@ class AlbumPhoto extends HActiveRecord
                 $image->resize($width, $height, $master ? $master : Image::AUTO);
 
             if ($crop)
-                $image->crop($width, $height);
+                $image->crop($width, $height, $crop_side);
             $image->save($thumb);
         }
         return $thumb;
@@ -293,9 +296,9 @@ class AlbumPhoto extends HActiveRecord
      * @param int $height
      * @return string
      */
-    public function getPreviewUrl($width = 100, $height = 100, $master = false, $crop = false)
+    public function getPreviewUrl($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER)
     {
-        $this->getPreviewPath($width, $height, $master, $crop);
+        $this->getPreviewPath($width, $height, $master, $crop, $crop_side);
         return implode('/', array(
             Yii::app()->params['photos_url'],
             $this->thumb_folder,
@@ -310,9 +313,20 @@ class AlbumPhoto extends HActiveRecord
         return Yii::getPathOfAlias('site.common.uploads.photos') . DIRECTORY_SEPARATOR . $this->tmp_folder . DIRECTORY_SEPARATOR . $this->fs_name;
     }
 
+    public function getTempPath()
+    {
+        return Yii::getPathOfAlias('site.common.uploads.photos') . DIRECTORY_SEPARATOR . $this->tmp_folder . DIRECTORY_SEPARATOR;
+    }
+
+
     public function getTemplateUrl()
     {
         return Yii::app()->params['photos_url'] . '/' . $this->tmp_folder . '/' . $this->fs_name;
+    }
+
+    public function getTempUrl()
+    {
+        return Yii::app()->params['photos_url'] . '/' . $this->tmp_folder . '/';
     }
 
     public function getAvatarPath($size)
@@ -360,8 +374,8 @@ class AlbumPhoto extends HActiveRecord
 
     public function getNeighboringPhotos()
     {
-        $prev = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where removed = 0 and album_id = ' . $this->album_id . ' and id < ' . $this->id . ' limit 1')->queryRow();
-        $next = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where removed = 0 and album_id = ' . $this->album_id . ' and id > ' . $this->id . ' limit 1')->queryRow();
+        $prev = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where removed = 0 and album_id = ' . $this->album_id . ' and id < ' . $this->id . ' order by id desc limit 1')->queryRow();
+        $next = Yii::app()->db->createCommand('select id from ' . $this->tableName() . ' where removed = 0 and album_id = ' . $this->album_id . ' and id > ' . $this->id . ' order by id asc limit 1')->queryRow();
         return array(
             'prev' => $prev ? $prev['id'] : false,
             'next' => $next ? $next['id'] : false

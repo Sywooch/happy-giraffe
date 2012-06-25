@@ -37,7 +37,7 @@ class QueriesController extends SController
         $criteria = new CDbCriteria;
         $criteria->with = array('phrases');
         $criteria->together = true;
-        $criteria->condition = 'keyword_id IS NOT NULL';
+        $criteria->condition = 'keyword_id IS NOT NULL AND (yandex_month_visits != 0 OR google_month_visits != 0 )';
         if ($sort == 'yandex_visits' && $period == 1){
             $criteria->order = 'yandex_week_visits DESC';
         }

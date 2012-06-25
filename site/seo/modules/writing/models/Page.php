@@ -126,12 +126,23 @@ class Page extends CActiveRecord
         return parent::beforeDelete();
     }
 
+    /**
+     * @return CommunityContent
+     */
     public function getArticle()
     {
         $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         if ($model === null)
             return null;
         return $model;
+    }
+
+    public function getArticleTitle()
+    {
+        $model = $this->getArticle();
+        if ($model=== null)
+            return $this->url;
+        return $model->title;
     }
 
     public function getKeywords()

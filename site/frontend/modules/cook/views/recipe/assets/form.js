@@ -25,6 +25,7 @@ $(function() {
     });
 
     $('div.product-list').delegate('a.trigger', 'click', function(e) {
+        $('.drp-list ul').hide();
         $(this).next('ul').toggle();
     });
 

@@ -30,8 +30,6 @@ class ProxyParserThread extends CComponent
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
-
-
     }
 
     private function getProxy()

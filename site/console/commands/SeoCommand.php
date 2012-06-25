@@ -7,6 +7,8 @@
 Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
 Yii::import('site.seo.components.*');
+Yii::import('site.seo.modules.competitors.models.*');
+Yii::import('site.seo.modules.writing.models.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
 class SeoCommand extends CConsoleCommand
@@ -114,10 +116,34 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionResetPopular()
+    public function actionParseSeVisits()
     {
-        ParseHelper::model()->deleteAll();
+        $metrica = new YandexMetrica();
+        $metrica->parseQueries();
+        $metrica->convertToSearchPhraseVisits();
     }
+
+    public function actionConvertVisits()
+    {
+        $metrica = new YandexMetrica();
+        $metrica->convertToSearchPhraseVisits();
+    }
+
+    public function actionParseMonthTraffic()
+    {
+        $metrica = new YandexMetrica(1);
+        $metrica->parseQueries();
+        $metrica->convertToSearchPhraseVisits();
+
+        $metrica = new YandexMetrica(2);
+        $metrica->parseQueries();
+        $metrica->convertToSearchPhraseVisits();
+
+        $metrica = new YandexMetrica(3);
+        $metrica->parseQueries();
+        $metrica->convertToSearchPhraseVisits();
+    }
+
 
     public function actionParseQueriesYandex()
     {
@@ -139,6 +165,11 @@ class SeoCommand extends CConsoleCommand
     {
         $parser = new WordstatParser();
         $parser->start($mode);
+    }
+
+    public function actionCalculateMain(){
+        $metrica = new YandexMetrica();
+        $metrica->calculateMain();
     }
 }
 

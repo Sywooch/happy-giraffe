@@ -262,6 +262,13 @@
 
     </div>
 
+    <div class="entry-footer">
+        <div class="admin-actions">
+            <?php if (Yii::app()->authManager->checkAccess('editCookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $recipe->author_id){
+                echo CHtml::link('<i class="icon"></i>', $this->createUrl('/cook/recipe/form/', array('id' => $recipe->id)), array('class' => 'edit'));
+            } ?>
+        </div>
+    </div>
 </div>
 
 <?php if ($recipe->more): ?>

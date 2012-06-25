@@ -6,7 +6,7 @@
         </div>
 
         <div class="b">
-            <a href="<?php echo Yii::app()->createUrl('signup/', array()); ?>" class="register "></a>
+            <?=HHtml::link('', array('/signup'), array('class' => 'register'), true)?>
             <br>
             <small>Уже зарегистрированы?</small> &nbsp; <a class="fancy" rel="nofollow" href="#login">Войти</a>
         </div>

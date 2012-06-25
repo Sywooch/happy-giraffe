@@ -167,7 +167,7 @@
                         <?php if (! Yii::app()->user->isGuest): ?>
                             <a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
                         <?php else: ?>
-                            <a href="<?=$this->createUrl('/signup') ?>"><img src="/images/banner_06.png" /></a>
+                            <?=HHtml::link(CHtml::image('/images/banner_06.png'), $this->createUrl('/signup'), array(), true)?>
                         <?php endif; ?>
                     </div>
 

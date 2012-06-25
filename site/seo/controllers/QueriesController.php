@@ -22,7 +22,7 @@ class QueriesController extends SController
         if ($action->id == 'startThread')
             return true;
 
-        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser'))
+        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser') && !Yii::app()->user->checkAccess('editor'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }
@@ -32,22 +32,41 @@ class QueriesController extends SController
         $this->render('index');
     }
 
-    public function actionAdmin()
+    public function actionAdmin($period = 1, $sort = 'yandex_visits')
     {
-        $model = new Query('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Query']))
-            $model->attributes = $_GET['Query'];
+        $criteria = new CDbCriteria;
+        $criteria->with = array('phrases');
+        $criteria->together = true;
+        $criteria->condition = 'keyword_id IS NOT NULL';
+        if ($sort == 'yandex_visits' && $period == 1){
+            $criteria->order = 'yandex_week_visits DESC';
+        }
+        elseif ($sort == 'google_visits' && $period == 1){
+            $criteria->order = 'google_week_visits DESC';
+        }
+        elseif ($sort == 'yandex_visits' && $period == 2){
+            $criteria->order = 'yandex_month_visits DESC';
+        }
+        elseif ($sort == 'google_visits' && $period == 2){
+            $criteria->order = 'google_month_visits DESC';
+        }
+        else
+            $criteria->order = $sort.' ASC';
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $count = Page::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->setPageSize(100);
+        $pages->applyLimit($criteria);
+
+        $models = Page::model()->findAll($criteria);
+        $this->render('admin', compact('models', 'pages', 'period'));
     }
 
     public function actionParse()
     {
         $metrica = new YandexMetrica();
         $metrica->parseQueries();
+        $metrica->convertToSearchPhraseVisits();
 
         $response = array(
             'status' => true,
@@ -61,7 +80,7 @@ class QueriesController extends SController
     {
         Config::setAttribute('stop_threads', 0);
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $ch = curl_init('http://seo.happy-giraffe.com/queries/startThread?se=2&secret_key=' . $this->secret_key);
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -71,7 +90,7 @@ class QueriesController extends SController
 //            echo $result;
         }
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $ch = curl_init('http://seo.happy-giraffe.com/queries/startThread?secret_key=' . $this->secret_key);
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

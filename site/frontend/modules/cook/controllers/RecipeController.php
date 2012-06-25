@@ -212,7 +212,7 @@ class RecipeController extends HController
         $this->renderPartial('advancedSearchResult', compact('recipes'));
     }
 
-    public function actionAc($term)
+    public function actionAcOld($term)
     {
         $ingredients = CookIngredient::model()->findByName($term, array(
             'select' => 'id, title',
@@ -229,7 +229,14 @@ class RecipeController extends HController
             $ingredient = array('label' => $i->title, 'value' => $i->title, 'id' => $i->id, 'units' => $units, 'unit' => $unit);
             $_ingredients[] = $ingredient;
         }
-
+        header('Content-type: application/json');
         echo CJSON::encode($_ingredients);
+    }
+
+    public function actionAc($term)
+    {
+        $ingredients = CookIngredient::model()->autoComplete($term, 10, false, true);
+        header('Content-type: application/json');
+        echo CJSON::encode($ingredients);
     }
 }

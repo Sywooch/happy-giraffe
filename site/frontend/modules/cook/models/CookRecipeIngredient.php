@@ -125,6 +125,22 @@ class CookRecipeIngredient extends CActiveRecord
         }
     }
 
+    protected function beforeValidate()
+    {
+        $this->display_value = $this->value;
+
+        if (strpos($this->value, '/')) {
+            $a = explode('/', $this->value);
+            $this->value = $a[0] / $a[1];
+        }
+
+        if (strpos($this->value, ',')) {
+            $this->value = str_replace(',', '.', $this->value);
+        }
+
+        return parent::beforeValidate();
+    }
+
     protected function afterFind()
     {
         parent::afterFind();

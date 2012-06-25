@@ -37,21 +37,24 @@ class QueriesController extends SController
         $criteria = new CDbCriteria;
         $criteria->with = array('phrases');
         $criteria->together = true;
-        $criteria->condition = 'keyword_id IS NOT NULL';
-        if ($sort == 'yandex_visits' && $period == 1){
+        if ($period == 2)
+            $criteria->condition = 'keyword_id IS NOT NULL AND (yandex_month_visits != 0 OR google_month_visits != 0 )';
+        else
+            $criteria->condition = 'keyword_id IS NOT NULL AND (yandex_week_visits != 0 OR google_week_visits != 0 )';
+
+        if ($sort == 'yandex_visits' && $period == 1) {
             $criteria->order = 'yandex_week_visits DESC';
-        }
-        elseif ($sort == 'google_visits' && $period == 1){
+        } elseif ($sort == 'google_visits' && $period == 1) {
             $criteria->order = 'google_week_visits DESC';
         }
-        elseif ($sort == 'yandex_visits' && $period == 2){
+        elseif ($sort == 'yandex_visits' && $period == 2) {
             $criteria->order = 'yandex_month_visits DESC';
         }
-        elseif ($sort == 'google_visits' && $period == 2){
+        elseif ($sort == 'google_visits' && $period == 2) {
             $criteria->order = 'google_month_visits DESC';
         }
         else
-            $criteria->order = $sort.' ASC';
+            $criteria->order = $sort . ' ASC';
 
         $count = Page::model()->count($criteria);
         $pages = new CPagination($count);

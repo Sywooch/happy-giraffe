@@ -11,11 +11,22 @@ class DefaultController extends HController
     public function actionIndex()
     {
         $this->pageTitle = 'Расчет суточной потребности калорий';
-        /*$basePath = Yii::getPathOfAlias('repair') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'suspendedCeiling' . DIRECTORY_SEPARATOR . 'assets';
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-        $this->render('index', array('SuspendedCeilingModel' => new SuspendedCeilingForm()));*/
 
-        $this->render('index', array('DailyCaloriesForm' => new DailyCaloriesForm()));
+        $this->render('index', array('model' => new DailyCaloriesForm()));
+    }
+
+
+    public function actionCalculate()
+    {
+        if (isset($_POST['DailyCaloriesForm'])) {
+            $model = new DailyCaloriesForm();
+            $model->attributes = $_POST['DailyCaloriesForm'];
+            $validationResult = CActiveForm::validate($model);
+            if (isset($_POST['ajax']) && $_POST['ajax'] == 'calories-form') {
+                echo $validationResult;
+                Yii::app()->end();
+            }
+            echo CJSON::encode($model->calculate());
+        }
     }
 }

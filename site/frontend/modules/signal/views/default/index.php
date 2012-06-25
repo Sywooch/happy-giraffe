@@ -39,7 +39,7 @@ $cs
 <div class="title"><i class="icon"></i>Сигналы</div>
 
 <div class="username">
-    <i class="icon-status status-online"></i><span><?= User::getUserById(Yii::app()->user->id)->getFullName() ?></span>
+    <i class="icon-status status-online"></i><span><?php echo CHtml::encode(Yii::app()->user->model->fullName); ?></span>
 </div>
 
 <div class="nav">

@@ -22,28 +22,28 @@ class SiteController extends SController
 	public function actionIndex()
 	{
         if (Yii::app()->user->checkAccess('moderator'))
-            $this->redirect($this->createUrl('task/moderator'));
+            $this->redirect($this->createUrl('writing/task/moderator'));
 
         if (Yii::app()->user->checkAccess('admin'))
             $this->redirect($this->createUrl('user/'));
 
         if (Yii::app()->user->checkAccess('author'))
-            $this->redirect($this->createUrl('task/author'));
+            $this->redirect($this->createUrl('writing/task/author'));
 
         if (Yii::app()->user->checkAccess('editor'))
-            $this->redirect($this->createUrl('editor/reports'));
+            $this->redirect($this->createUrl('competitors/default/index'));
 
         if (Yii::app()->user->checkAccess('content-manager'))
-            $this->redirect($this->createUrl('task/ContentManager'));
+            $this->redirect($this->createUrl('writing/task/ContentManager'));
 
         if (Yii::app()->user->checkAccess('articles-input'))
-            $this->redirect($this->createUrl('existArticles/index'));
+            $this->redirect($this->createUrl('writing/existArticles/index'));
 
         if (Yii::app()->user->checkAccess('corrector'))
-            $this->redirect($this->createUrl('task/corrector'));
+            $this->redirect($this->createUrl('writing/task/corrector'));
 
         if (Yii::app()->user->checkAccess('superuser'))
-            $this->redirect($this->createUrl('editor/index'));
+            $this->redirect($this->createUrl('writing/editor/index'));
 	}
 
     /**
@@ -66,7 +66,7 @@ class SiteController extends SController
         {
             $model->attributes=$_POST['LoginForm'];
 
-            $userModel = new User('login');
+            $userModel = new SeoUser('login');
             $userModel = $userModel->find(array(
                 'condition' => 'email=:email AND password=:password',
                 'params'=>array(
@@ -74,13 +74,7 @@ class SiteController extends SController
                     ':password'=>md5($model->password),
                 )));
 
-            if ($userModel === null){
-                $this->render('login',array('model'=>$model));
-                Yii::app()->end();
-            }
-
-            if ($userModel)
-            {
+            if ($userModel !== null){
                 $identity=new SeoUserIdentity($userModel->getAttributes());
                 $identity->authenticate();
                 if ($identity->errorCode == SeoUserIdentity::ERROR_NONE)
@@ -89,6 +83,8 @@ class SiteController extends SController
                     $this->redirect(array('site/index'));
                 }
             }
+            else
+                $model->addError('username', 'Неправильный логин или пароль');
         }
         // display the login form
         $this->render('login',array('model'=>$model));
@@ -102,54 +98,4 @@ class SiteController extends SController
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
     }
-
-    /*public function actionTest()
-    {
-        $k = 1;
-        for($i=0;$i<2000;$i++){
-            $keyword = $this->nextKeyword();
-            if ($keyword !== null){
-                $keywords = Keywords::model()->findAllByAttributes(array('name'=>$keyword->name));
-                    foreach($keywords as $keyword2)
-                        if ($keyword2->id > $keyword->id){
-                            $keyword2->delete();
-                            echo $k.'. '.$keyword->name.'<br>';
-                            $k++;
-                        }
-            }
-            if ($i % 1000 == 0){
-                echo $i.'<br>';
-            }
-            flush();
-        }
-    }
-
-    private $i = 130;
-    private $j = 0;
-    private $keywords = array();
-    private $limit = 100;
-
-    public function nextKeyword()
-    {
-        if ($this->j >= $this->limit || empty($this->keywords)) {
-            $this->keywords = $this->getKeywords();
-            $this->j = 0;
-        }
-
-        $result = $this->keywords[$this->j];
-        $this->j++;
-
-        return $result;
-    }
-
-    public function getKeywords()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = $this->limit;
-        $criteria->offset = $this->limit * $this->i;
-        $criteria->order = 'id';
-        $this->i++;
-
-        return Keywords::model()->findAll($criteria);
-    }*/
 }

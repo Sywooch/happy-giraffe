@@ -12,7 +12,7 @@
 	<div class="highlight payment-details">
 		<ul>
 			<li>
-				<span class="a-right"><?php echo Y::user()->first_name, " ", Y::user()->last_name; ?></span>
+				<span class="a-right"><?php echo CHtml::encode(Y::user()->first_name), " ", CHtml::encode(Y::user()->last_name); ?></span>
 				Получатель:
 			</li>
 			<li>

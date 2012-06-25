@@ -13,7 +13,7 @@
     <div class="header clearfix user-home">
 
         <div class="user-name">
-            <h1><?=$user->last_name?><br/><?=$user->first_name?></h1>
+            <h1><?php echo CHtml::encode($user->last_name); ?><br/><?php echo CHtml::encode($user->first_name); ?></h1>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>
@@ -27,13 +27,17 @@
             <?php if ($user->birthday): ?><div class="birthday"><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)</div><?php endif; ?>
         </div>
 
-        <?php if (! Yii::app()->user->isGuest && $user->id != Yii::app()->user->id): ?>
+        <?php if ($user->id != Yii::app()->user->id): ?>
             <div class="user-buttons clearfix">
-                <?php $this->renderPartial('_friend_button', array(
+                <?php
+                $this->renderPartial('_friend_button', array(
                     'user' => $user,
-                )); ?>
-                <a href="<?=$user->dialogUrl?>" class="new-message"><span class="tip">Написать сообщение</span></a>
-                <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
+                ));
+                Yii::app()->controller->renderPartial('_dialog_button', array(
+                    'user' => $this->user,
+                ));
+                $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user));
+                ?>
             </div>
         <?php elseif(Yii::app()->user->checkAccess('manageFavourites')): ?>
             <div class="user-buttons clearfix">
@@ -90,14 +94,15 @@
                 <?php if ($user->id == Yii::app()->user->id): ?>
                     <?php
                         $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                            'model' => $user
+                            'model' => $user,
+                            'id' => 'attach' . get_class($user) . $user->primaryKey,
                         ));
                         $fileAttach->button();
                         $this->endWidget();
                     ?>
                 <?php endif; ?>
                 <?php if ($user->getAva('big')): ?>
-                    <?=CHtml::image($user->getAva('big'), $user->fullName)?>
+                    <?=CHtml::image($user->getAva('big'), CHtml::encode($user->fullName))?>
                     <?php if ($user->id == Yii::app()->user->id): ?>
                         <a class="renew">Обновить<br>фото</a>
                     <?php endif; ?>
@@ -198,6 +203,23 @@
     </div>
 
 </div>
+
+<?php if(!Yii::app()->user->isGuest): ?>
+    <div style="display: none;">
+        <div class="upload-btn" id="refresh_upload">
+            <?php
+            $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                'model' => new PhotoComment(),
+            ));
+            $fileAttach->button();
+            $this->endWidget();
+            ?>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var attach_comment_obj = comment_<?php echo get_class($user) . $user->primaryKey; ?>;
+    </script>
+<?php endif; ?>
 
 <?php
     $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');

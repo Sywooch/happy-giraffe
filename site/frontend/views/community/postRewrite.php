@@ -42,12 +42,12 @@
         'columns' => array(
             array(
                 'header' => 'Статья',
-                'value' => 'CHtml::link($data->title, $data->url, array("target" => "_blank"))',
+                'value' => 'CHtml::link(CHtml::encode($data->title), $data->url, array("target" => "_blank"))',
                 'type' => 'raw',
             ),
             array(
                 'header' => 'Ответственный',
-                'value' => 'CHtml::link($data->editor->fullName, $data->editor->url, array("target" => "_blank"))',
+                'value' => 'CHtml::link(CHtml::encode($data->editor->fullName), $data->editor->url, array("target" => "_blank"))',
                 'type' => 'raw',
             ),
             array(

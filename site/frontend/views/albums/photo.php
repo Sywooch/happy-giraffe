@@ -7,10 +7,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
         <div id="gallery" class="nopadding">
             <div id="photo">
                 <?php if((Yii::app()->user->isGuest || $photo->author_id != Yii::app()->user->id) && $photo->title != ''): ?>
-                    <div class="title"><?php echo $photo->title; ?></div>
+                    <div class="title"><?php echo CHtml::encode($photo->title); ?></div>
                 <?php elseif(!Yii::app()->user->isGuest && $photo->author_id == Yii::app()->user->id): ?>
                     <div class="title">
-                        <span class="album_title"><?php echo $photo->title != '' ? $photo->title : '...'; ?></span>
+                        <span class="album_title"><?php echo $photo->title != '' ? CHtml::encode($photo->title) : '...'; ?></span>
                         <?php echo CHtml::link('<span class="tip">Редактировать</span>', 'javascript:;', array('class' => 'edit', 'onclick' => 'return Album.changePhotoTitle(this, ' . $photo->id . ');')); ?>
                     </div>
                 <?php endif; ?>
@@ -42,13 +42,13 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                                         <tr>
                                             <td class="img">
                                                 <div>
-                                                    <?php echo CHtml::link(CHtml::image($item->getPreviewUrl(180, 180)), array('/albums/photo', 'id' => $item->id)); ?>
+                                                    <?php echo CHtml::link('<img data-src="' . $item->getPreviewUrl(180, 180) . '" alt="" />', array('/albums/photo', 'id' => $item->id)); ?>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="title">
                                             <td align="center">
-                                                <div><?php echo $item->title != '' ? $item->title : '&nbsp;' ?></div>
+                                                <div><?php echo $item->title != '' ? CHtml::encode($item->title) : '&nbsp;' ?></div>
                                             </td>
                                         </tr>
                                     </table>
@@ -59,6 +59,28 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                     <a id="photo-thumbs-prev" class="prev" href="#"></a>
                     <a id="photo-thumbs-next" class="next" href="#"></a>
                 </div>
+                <script type="text/javascript">
+                    $(function() {
+                    <?php if(isset($selected_item)): ?>
+                        $('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
+                            var count = $('#photo-thumbs li').size();
+                            var ready = 0;
+                            $('#photo-thumbs img').each(function(){
+                                $(this).get(0).onload = function() {
+                                    ready++;
+                                    if (ready == count) {
+                                        $('#photo-thumbs').jcarousel('scroll', <?php echo $selected_item; ?>);
+                                    }
+                                };
+                                $(this).attr('src', $(this).attr('data-src'));
+                            });
+                        });
+                        <?php endif; ?>
+                        var carousel = $('#photo-thumbs').jcarousel();
+                        $('#photo-thumbs-prev').jcarouselControl({target: '-=1',carousel: carousel});
+                        $('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});
+                    });
+                </script>
             </div>
         </div>
         <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
@@ -85,7 +107,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
             <?php foreach($photo->album->author->albums('albums:noSystem') as $album): ?>
                 <li<?php echo $photo->album->id == $album->id ? ' class="active"' : ''; ?>>
                     <div class="in">
-                        <?php echo CHtml::link($album->title, $album->url); ?>
+                        <?php echo CHtml::link(CHtml::encode($album->title), $album->url); ?>
                         <span class="count"><?php echo count($album->photos); ?></span>
                         <span class="tale"><img src="/images/default_v_nav_active.png"></span>
                     </div>
@@ -96,27 +118,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
     </div>
 
 </div>
-<script type="text/javascript">
-    $(function() {
-        <?php if(isset($selected_item)): ?>
-            $('#photo-thumbs').bind('jcarouselinitend', function(carousel) {
-                var count = $('#photo-thumbs li').size();
-                var ready = 0;
-                $('#photo-thumbs img').each(function(){
-                    $(this).bind('load', function(){
-                        ready++;
-                        if (ready == count) {
-                            $('#photo-thumbs').jcarousel('scroll', <?php echo $selected_item; ?>);
-                        }
-                    });
-                });
-            });
-        <?php endif; ?>
-        var carousel = $('#photo-thumbs').jcarousel();
-        $('#photo-thumbs-prev').jcarouselControl({target: '-=1',carousel: carousel});
-        $('#photo-thumbs-next').jcarouselControl({target: '+=1',carousel: carousel});
-    });
-</script>
+
 
 <?php
 $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');

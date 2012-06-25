@@ -13,7 +13,7 @@ if (!isset($class))
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $user, 'small'=>true, 'size'=>'small')); ?>
             </td>
             <td class="content">
-                <div class="name"><?php echo $user->first_name ?></div>
+                <div class="name"><?php echo CHtml::encode($user->first_name); ?></div>
                 <?php echo $message['text'] ?>
             </td>
             <td class="date"><?php echo HDate::GetFormattedTime($message['created'], '<br/>'); ?></td>

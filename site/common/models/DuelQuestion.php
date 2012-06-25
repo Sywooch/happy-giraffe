@@ -123,6 +123,7 @@ class DuelQuestion extends CActiveRecord
                 ),
             ),
             'order' => 'RAND()',
+            'condition' => 'ends > NOW()',
         ));
 
         return self::model()->find($criteria);

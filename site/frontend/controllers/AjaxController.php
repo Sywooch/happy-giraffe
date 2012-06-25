@@ -4,6 +4,8 @@ class AjaxController extends HController
 {
     public function actionSetValue()
     {
+        if(!Yii::app()->request->isAjaxRequest)
+            Yii::app()->end();
         $modelName = Yii::app()->request->getPost('entity');
         $modelPk = Yii::app()->request->getPost('entity_id');
         $attribute = Yii::app()->request->getPost('attribute');
@@ -227,6 +229,7 @@ class AjaxController extends HController
     public function actionRemoveEntity()
     {
         Yii::import('application.modules.contest.models.*');
+        Yii::import('application.modules.cook.models.*');
         if (!Yii::app()->request->isAjaxRequest || !isset($_POST['Removed']))
             Yii::app()->end();
         $model = call_user_func(array($_POST['Removed']['entity'], 'model'));
@@ -335,14 +338,6 @@ class AjaxController extends HController
                 ));
                 break;
         }
-    }
-
-    public function actionSave()
-    {
-        print_r($_POST);
-        $user = User::model()->findByPk(Yii::app()->user->id);
-        $user->setAttributes($_POST['User']);
-        $user->save(TRUE, array('first_name', 'last_name', 'birthday'));
     }
 
     public function actionSaveChild()
@@ -493,7 +488,7 @@ class AjaxController extends HController
     {
         $questions = DuelQuestion::getAvailable(Yii::app()->user->id);
         $answer = new DuelAnswer;
-        $answer->text = 'Блестните знаниями!';
+        $answer->text = 'Блесните знаниями!';
         $this->renderPartial('duel', compact('questions', 'answer'));
     }
 

@@ -192,7 +192,7 @@ class Im
     public static function getNotificationText($message)
     {
         $user = User::getUserById($message['user_id']);
-        return '<span class="name">' . $user->fullName . '</span><span class="text">'
+        return '<span class="name">' . CHtml::encode($user->fullName) . '</span><span class="text">'
             . strip_tags(Str::truncate($message['text'], 150)) . '</span><span class="date">'
             . HDate::GetFormattedTime($message['created']) . '</span>';
     }

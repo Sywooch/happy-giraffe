@@ -42,6 +42,12 @@
         <?php endforeach; ?>
     </div>
 
+    <div style="position:absolute;top:400px;right:200px;">
+        <a href="javascript:;" onclick="ChangeUserPassword(this, <?=$model->id ?>);">Change password</a>
+
+        <div class="result"></div>
+    </div>
+
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
     </div>

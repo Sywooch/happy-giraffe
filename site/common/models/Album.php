@@ -27,6 +27,7 @@ class Album extends HActiveRecord
         2 => 'Диалоги',
         3 => 'Семейные',
         4 => 'Продукты',
+        5 => 'Мои рецепты'
     );
 
     public static $permissions = array(
@@ -61,7 +62,7 @@ class Album extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, author_id', 'required'),
-            array('title', 'length', 'max' => 100),
+            array('title', 'length', 'min' => 1, 'max' => 100),
             array('description', 'length', 'max' => 140),
 			array('author_id', 'length', 'max'=>10),
             array('type, permission', 'numerical'),
@@ -118,7 +119,7 @@ class Album extends HActiveRecord
             'system' => array(
                 'condition' => $this->tableAlias . '.type != 0 and ' . $this->tableAlias . '.type != 1',
             ),
-            'permission' => $permission->toArray(),
+            'permission' => /*$permission->toArray()*/array(),
         );
     }
 

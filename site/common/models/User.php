@@ -20,6 +20,7 @@
  * @property string $last_ip
  * @property string $relationship_status
  * @property UserAddress $userAddress
+ * @property integer $recovery_disable
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -174,7 +175,7 @@ class User extends HActiveRecord
             array('first_name, email, password, gender', 'required', 'on' => 'signup'),
             array('verifyCode', 'captcha', 'on' => 'signup', 'allowEmpty' => Yii::app()->session->get('service') !== NULL),
             array('email', 'unique', 'on' => 'signup'),
-            array('photo', 'safe', 'on' => 'signup'),
+            array('first_name, last_name, birthday, photo', 'safe', 'on' => 'signup'),
 
             //change_password
             array('new_password', 'required', 'on' => 'change_password'),

@@ -16,8 +16,8 @@
                 <div class="header">
                     <div class="title">
                         <big>
-                            Альбом <span>&laquo;<?php echo CHtml::link($model->title, $model->url); ?>&raquo;</span>
-                            <?php if($model->isNotSystem && !Yii::app()->user->isGuest && Yii::app()->user->id == $model->author_id): ?>
+                            Альбом <span>&laquo;<?php echo CHtml::link(CHtml::encode($model->title), $model->url); ?>&raquo;</span>
+                            <?php if(0 && $model->isNotSystem && !Yii::app()->user->isGuest && Yii::app()->user->id == $model->author_id): ?>
                                 <div class="album-visibility small hl">
                                     <?php for ($i = 3; $i > $model->permission; $i--): ?>
                                         <span></span>
@@ -27,7 +27,7 @@
                         </big>
                         <?php if ($model->description): ?>
                         <div class="note">
-                            <p><?php echo $model->description; ?></p>
+                            <p><?php echo CHtml::encode($model->description); ?></p>
                         </div>
                         <?php endif; ?>
                     </div>

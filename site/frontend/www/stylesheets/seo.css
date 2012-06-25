@@ -50,6 +50,9 @@ button.btn-gray-small {height:20px;}
 .user-info .nav .btn-logout .logout .icon {display:inline-block;width:11px;height:12px;background:url(/images/seo_sprite.png) no-repeat -76px -93px;vertical-align:middle;position:relative;top:-1px;margin-right:5px;}
 
 
+.center-title {font-size:13px;text-align:center;margin-bottom:30px;}
+.center-title big {display:block;font-size:16px;font-weight:bold;color:#545353;}
+
 
 #seo {padding-top:20px;padding-bottom:50px;}
 
@@ -298,3 +301,25 @@ button.btn-gray-small {height:20px;}
 #seo .donors a {white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;}
 #seo .donors ul {list-style:none;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;line-height:12px;}
 #seo .donors ul li {margin:10px 0;}
+
+
+#seo .promotion-links {margin-bottom:50px;}
+#seo .promotion-links .step {float:left;padding-right:60px;width:260px;}
+#seo .promotion-links .step.step-1 {width:350px;}
+#seo .promotion-links .step.step-1 .col-1 {width:220px;float:left;padding:0 10px;	}
+#seo .promotion-links .step.step-1 .col-2 {width:100px;float:left;text-align:center;}
+#seo .promotion-links .step .block-title {font-weight:bold;color:#339c45;font-size:30px;margin-bottom:15px;}
+#seo .promotion-links .step .list-title .col-1 {width:240px;padding:0;}
+#seo .promotion-links .step .list {margin-bottom:20px;}
+#seo .promotion-links .step .list .list-title {font-size:13px;color:#535353;font-weight:bold;margin-bottom:15px;overflow:hidden;}
+#seo .promotion-links .step .list .list-title .col-2 {font-size:10px;font-weight:normal;margin-left:10px;}
+#seo .promotion-links .step .list .col-2 {font-size:11px;}
+#seo .promotion-links .step .list ul {list-style:none;overflow:hidden;}
+#seo .promotion-links .step .list ul li {padding:4px 0 4px 8px;overflow:hidden;border:1px solid #fff;cursor:pointer;}
+#seo .promotion-links .step .list ul li:hover {background:#f5fcf3;border:1px dashed #b5cfac;}
+#seo .promotion-links .step .list ul li.active {background:#c8ebc1;}
+#seo .promotion-links .step.step-2 .list ul {border:1px solid #d2e6fd;padding:2px;}
+#seo .promotion-links .step .input {}
+#seo .promotion-links .step .input .input-title {font-size:13px;color:#535353;font-weight:bold;margin-bottom:5px;overflow:hidden;}
+#seo .promotion-links .step .input input {height:18px;padding:2px 10px;border:1px solid #c6dffc;width:238px;}
+#seo .promotion-links .btn {margin-top:70px;float:left;}

@@ -203,4 +203,25 @@ class Page extends CActiveRecord
 
         return $model;
     }
+
+    /**
+     * @param $period
+     * @return PagesSearchPhrase[]
+     */
+    public function goodPhrases($period)
+    {
+        $result = array();
+        foreach ($this->phrases as $phrase){
+            $visits1 = $phrase->getVisits(2, $period);
+            $visits2 = $phrase->getVisits(3, $period);
+            if ($visits1 + $visits2 > 0)
+                $result [] = $phrase;
+        }
+
+        if (empty($result))
+            foreach ($this->phrases as $phrase)
+                return array($phrase);
+
+        return $result;
+    }
 }

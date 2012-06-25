@@ -123,6 +123,12 @@ class SeoCommand extends CConsoleCommand
         $metrica->convertToSearchPhraseVisits();
     }
 
+    public function actionParseDataForSe()
+    {
+        $metrica = new YandexMetrica();
+        $metrica->parseDataForAllSE();
+    }
+
     public function actionConvertVisits()
     {
         $metrica = new YandexMetrica();
@@ -170,6 +176,11 @@ class SeoCommand extends CConsoleCommand
     public function actionCalculateMain(){
         $metrica = new YandexMetrica();
         $metrica->calculateMain();
+    }
+
+    public function actionDelete1Visits(){
+        $metrica = new YandexMetrica();
+        $metrica->delete1Visits();
     }
 }
 

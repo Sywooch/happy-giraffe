@@ -76,7 +76,8 @@ class SignupController extends HController
 			}
 			$model->register_date = date('Y-m-d H:i:s');
 			if($model->save(true, array('first_name', 'password', 'email', 'gender')))
-			{	
+			{
+                /*Yii::app()->mc->sendToEmail($model->email, $model, 'user_registration');*/
 				/*foreach ($_POST['age_group'] as $k => $q)
 				{
 					for ($j = 0; $j < $q; $j++)

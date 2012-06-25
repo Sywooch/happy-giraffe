@@ -61,4 +61,49 @@ class MailChimp extends CApplicationComponent {
             $options['AGE'] = $user->age;
         return $options;
     }
+
+    public function sendToEmail($email, $model, $action)
+    {
+        if(($template = MailTemplate::model()->findByAction($action)) == null)
+            return;
+        $body = $template->parse($model, 'body');
+        $subject = $template->parse($model, 'subject');
+        $segmentGroups = array(
+            'match' => 'any',
+            'conditions' => array(
+                array(
+                    'field' => 'EMAIL',
+                    'op' => 'eq',
+                    'value' => $email),
+            )
+        );
+        return $this->send($segmentGroups, $subject, $body);
+    }
+
+    public function sendToGroup($subject, $body)
+    {
+        return $this->send(null, $subject, $body);
+    }
+
+    public function send($segmentGroups, $subject, $body)
+    {
+        $opts= array(
+            'list_id'	=> $this->list,
+            'from_email'	=> 'lnghost@hotmail.com',
+            'from_name'	=> 'Me',
+            'tracking'	=> array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
+            'authenticate'	=> true,
+            'subject'	=> $subject,
+            'title'		=> $subject,
+        );
+
+        $content = array(
+            'html' => $body,
+        );
+
+        $campaignId = $this->api->campaignCreate('regular', $opts, $content, $segmentGroups);
+        if ($campaignId)
+            return $this->api->campaignSendNow($campaignId);
+        return false;
+    }
 }

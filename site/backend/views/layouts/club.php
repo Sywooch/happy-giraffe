@@ -84,6 +84,10 @@
                     array(
                         'label' => 'Создать рассылку',
                         'url' => array('/mail/index/create'),
+                    ),
+                    array(
+                        'label' => 'Управление шаблонами',
+                        'url' => array('/mail/templates/index'),
                     )
                 )
             )

@@ -15,6 +15,12 @@ class IndexController extends BController
 
     public function actionCreate()
     {
+        $model = new MailCampaign;
+        $model->author_id = Yii::app()->user->id;
+        if(Yii::app()->request->getPost('subject') && Yii::app()->request->getPost('body'))
+        {
+            Yii::app()->mc->sendToGroup(Yii::app()->request->getPost('subject'), Yii::app()->request->getPost('body'));
+        }
         $this->render('create');
     }
 }

@@ -17,7 +17,7 @@ $(function() {
             select: function(event, ui) {
                 $(this).next('input').val(ui.item.id);
                 var div = $(this).parents('tr').find('div.drp-list');
-                div.children('ul').html($('#unitTmpl').tmpl(ui.item.units));
+                div.children('ul').html($('#unitTmpl').tmpl(ui.item.units_titles));
                 div.children('a.trigger').text(ui.item.unit.title);
                 div.children('input').val(ui.item.unit.id);
             }
@@ -39,7 +39,7 @@ $(function() {
         }
     });
 
-    $('div.drp-list').delegate('li > a', 'click', function(e) {
+    $('body').delegate('div.drp-list li a', 'click', function(e) {
         var list = $(this).parents('ul');
         list.prev('a.trigger').text($(this).text());
         list.toggle();

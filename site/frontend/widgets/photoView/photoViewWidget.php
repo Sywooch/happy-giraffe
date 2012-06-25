@@ -8,6 +8,7 @@ class photoViewWidget extends CWidget
     public $selector;
     public $entity;
     public $entity_id;
+
     public function init()
     {
         $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(

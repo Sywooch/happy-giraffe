@@ -48,13 +48,14 @@ class PositionParserThread extends ProxyParserThread
     public function getPage()
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('parsing', 0);
-        $criteria->order = 'rand()';
-        $criteria->with = array('pages', 'searchEngines');
+        $criteria->order = 't.id asc';
+        $criteria->with = array('searchEngines');
         if ($this->se === self::SE_GOOGLE)
-            $criteria->condition = 'google_parsed = 0 AND searchEngines.se_id = 3';
+            $criteria->condition = 'google_parsed = 0';
         else
-            $criteria->condition = 'yandex_parsed = 0 AND searchEngines.se_id = 2';
+            $criteria->condition = 'yandex_parsed = 0';
+        $criteria->compare('parsing', 0);
+        $criteria->compare('week', date('W') - 1);
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
@@ -71,8 +72,6 @@ class PositionParserThread extends ProxyParserThread
             $transaction->rollback();
             $this->closeThread('Fail with getting queries');
         }
-
-        //echo $this->query->phrase . '<br>';
     }
 
     public function parsePage()
@@ -112,7 +111,7 @@ class PositionParserThread extends ProxyParserThread
         $q = '';
         if ($page > 0)
             $q = '&p=' . $page;
-        $content = $this->query('http://yandex.ru/yandsearch?text=' . urlencode($this->query->phrase) . '&zone=all&numdoc=' . $this->perPage() . '&lr=38&lang=ru' . $q);
+        $content = $this->query('http://yandex.ru/yandsearch?text=' . urlencode($this->query->keyword->name) . '&zone=all&numdoc=' . $this->perPage() . '&lr=38&lang=ru' . $q);
 
         $document = phpQuery::newDocument($content);
         $links = array();
@@ -126,7 +125,7 @@ class PositionParserThread extends ProxyParserThread
     private function loadGooglePage($i)
     {
         $start = $i * $this->perPage();
-        $content = $this->query('https://www.google.ru/search?q=' . urlencode($this->query->phrase) . '&btnG=%D0%9F%D0%BE%D0%B8%D1%81%D0%BA&hl=ru&newwindow=1&prmd=imvns&lr=lang_' . $this->country . '&gbv=2&country=' . $this->country . '&start=' . $start);
+        $content = $this->query('https://www.google.ru/search?q=' . urlencode($this->query->keyword->name) . '&btnG=%D0%9F%D0%BE%D0%B8%D1%81%D0%BA&hl=ru&newwindow=1&prmd=imvns&lr=lang_' . $this->country . '&gbv=2&country=' . $this->country . '&start=' . $start);
 
         $document = phpQuery::newDocument($content);
         $links = array();
@@ -139,29 +138,29 @@ class PositionParserThread extends ProxyParserThread
 
     public function savePosition($url, $pos)
     {
-        $page = QueryPage::model()->findByAttributes(array(
-            'query_id' => $this->query->id,
-            'page_url' => $url,
+        $page = Page::model()->getOrCreate($url, $this->query->keyword->id);
+        if ($page == null)
+            return;
+        $search_phrase = PagesSearchPhrase::model()->findByAttributes(array(
+            'page_id' => $page->id,
+            'keyword_id' => $this->query->keyword->id
         ));
-        if ($page === null) {
-            $page = new QueryPage();
-            $page->query_id = $this->query->id;
-            $page->page_url = $url;
+        if ($search_phrase === null) {
+            $search_phrase = new PagesSearchPhrase;
+            $search_phrase->keyword_id = $this->query->keyword->id;
+            $search_phrase->page_id = $page->id;
+            $search_phrase->save();
         }
 
-        if ($this->se == self::SE_GOOGLE)
-            $page->google_position = $pos;
-        if ($this->se == self::SE_YANDEX)
-            $page->yandex_position = $pos;
-
-        $page->save();
+        $search_phrase_position = new SearchPhrasePosition();
+        $search_phrase_position->se_id = $this->se;
+        $search_phrase_position->search_phrase_id = $search_phrase->id;
+        $search_phrase_position->position = $pos;
+        $search_phrase_position->save();
     }
 
     protected function closeThread($reason)
     {
-        $this->query->parsing = 0;
-        $this->query->save();
-
         parent::closeThread($reason);
     }
 

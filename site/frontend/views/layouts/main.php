@@ -1,8 +1,11 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" xmlns:fb="http://ogp.me/ns/fb#">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
+    <?php if ($this->rssFeed !== null): ?>
+        <?=CHtml::linkTag('alternate', 'application/rss+xml', $this->rssFeed)?>
+    <?php endif; ?>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <?=CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type')?>
     <title><?=CHtml::encode($this->pageTitle)?></title>
@@ -15,8 +18,8 @@
         ->registerScriptFile('/javascripts/dklab_realplexor.js')
         ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
 
-        ->registerCssFile('/stylesheets/common.css?r=349')
-        ->registerCssFile('/stylesheets/global.css?r=349')
+        ->registerCssFile('/stylesheets/common.css?r=351')
+        ->registerCssFile('/stylesheets/global.css?r=351')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
@@ -43,7 +46,7 @@
         $user = User::getUserById(Yii::app()->user->id);
     ?>
 </head>
-<body class="body-club">
+<body class="body-club" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
     <div id="layout" class="wrapper">
 
         <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix">

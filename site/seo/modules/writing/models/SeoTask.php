@@ -85,7 +85,7 @@ class SeoTask extends CActiveRecord
             'keywordGroup' => array(self::BELONGS_TO, 'KeywordGroup', 'keyword_group_id'),
             'owner' => array(self::BELONGS_TO, 'SeoUser', 'owner_id'),
             'executor' => array(self::BELONGS_TO, 'SeoUser', 'executor_id'),
-            'article' => array(self::BELONGS_TO, 'ArticleKeywords', 'article_id'),
+            'article' => array(self::BELONGS_TO, 'Page', 'article_id'),
         );
     }
 

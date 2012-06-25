@@ -259,7 +259,7 @@ class CookRecipe extends CActiveRecord
 
     protected function beforeSave()
     {
-        if (!$this->isNewRecord) {
+        if (! $this->isNewRecord) {
             CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
         }
 
@@ -274,13 +274,14 @@ class CookRecipe extends CActiveRecord
 
     public function getNutritionals()
     {
+        var_dump(1);
         if ($this->_nutritionals === null) {
             $ingredients = array();
             foreach ($this->ingredients as $ingredient) {
                 $ingredients[] = array(
                     'ingredient_id' => $ingredient->ingredient_id,
                     'unit_id' => $ingredient->unit_id,
-                    'value' => $ingredient->value
+                    'value' => $ingredient->value,
                 );
             }
             $converter = new CookConverter();

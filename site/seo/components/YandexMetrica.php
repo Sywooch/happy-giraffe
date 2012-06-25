@@ -9,19 +9,42 @@ class YandexMetrica
     public $min_visits = 4;
     public $date1;
     public $date2;
+    public $week;
+    public $year;
+    const SE_GOOGLE = 3;
+    const SE_YANDEX = 2;
 
-    function __construct()
+    public $se = array(2, 3);
+
+    function __construct($weeks_ago = null)
     {
-        $this->min_visits = Config::getAttribute('minClicks');
-        $this->date1 = date("Ymd", strtotime('-1 month'));
-        $this->date2 = date("Ymd");
+        if ($weeks_ago == null) {
+            //вычисляем даты для парсинга предыдущей недели
+            $d = new DateTime();
+            $weekday = $d->format('w');
+            $diff = 7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
+            $d->modify("-$diff day");
+            $this->date1 = $d->format('Ymd');
+            $d->modify('+6 day');
+            $this->date2 = $d->format('Ymd');
+            $this->week = date("W") - 1;
+            $this->year = date("Y", strtotime('-7 days'));
+        } else {
+            $d = new DateTime();
+            $weekday = $d->format('w');
+            $diff = (1 + $weeks_ago) * 7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
+            $d->modify("-$diff day");
+            $this->date1 = $d->format('Ymd');
+            $d->modify('+6 day');
+            $this->date2 = $d->format('Ymd');
+            $this->week = date("W") - 1;
+            $this->year = date("Y", strtotime('-7 days'));
+        }
     }
 
     public function parseQueries()
     {
-        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&filter=month&date1=' . $this->date1 . '&date2=' . $this->date2 . '&select_period=month';
-
-        Query::model()->deleteAll();
+        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&date1=' . $this->date1 . '&date2=' . $this->date2;
 
         while (!empty($next)) {
             $val = $this->loadPage($next);
@@ -29,30 +52,50 @@ class YandexMetrica
 
             //save to db
             foreach ($val['data'] as $query) {
-//                if ($query['visits'] < $this->min_visits)
-//                    break(2);
-                $model = new Query();
+
+                //////////////////////////////// DELETE  ///////////////////////////////
+                if ($query['visits'] < 2)
+                    break(2);
+
+                $keyword = Keyword::GetKeyword($query['phrase']);
+                $model = Query::model()->findByAttributes(array(
+                    'keyword_id' => $keyword->id,
+                    'week' => $this->week,
+                    'year' => $this->year
+                ));
+                if ($model === null) {
+                    $model = new Query();
+                    $model->keyword_id = $keyword->id;
+                    $model->week = $this->week;
+                    $model->year = $this->year;
+                }
+
                 $model->attributes = $query;
                 if ($model->save()) {
                     foreach ($query['search_engines'] as $search_engine) {
-                        $se = new QuerySearchEngine();
-                        $se->attributes = $search_engine;
-                        $se->query_id = $model->id;
-                        $se->save();
+                        if (in_array($search_engine['se_id'], $this->se)) {
+                            $se = new QuerySearchEngine();
+                            $se->attributes = $search_engine;
+                            $se->query_id = $model->id;
+                            $se->save();
+                        }
                     }
                 }
             }
         }
 
-        //yandex
-        $this->parseDataForSE(2);
-        //google
-        $this->parseDataForSE(3);
+        $this->parseDataForAllSE();
+    }
+
+    public function parseDataForAllSE()
+    {
+        foreach ($this->se as $se)
+            $this->parseDataForSE($se);
     }
 
     public function parseDataForSE($se_id)
     {
-        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&filter=month&date1=' . $this->date1 . '&date2=' . $this->date2 . '&select_period=month&se_id=' . $se_id;
+        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&date1=' . $this->date1 . '&date2=' . $this->date2 . '&se_id=' . $se_id;
         while (!empty($next)) {
             $val = $this->loadPage($next);
             $next = $this->getNextLink($val);
@@ -60,7 +103,13 @@ class YandexMetrica
             //save to db
             if (is_array($val['data']))
                 foreach ($val['data'] as $query) {
-                    $model = Query::model()->findByAttributes(array('phrase' => $query['phrase']));
+
+                    $keyword = Keyword::GetKeyword($query['phrase']);
+                    $model = Query::model()->findByAttributes(array(
+                        'keyword_id' => $keyword->id,
+                        'week' => $this->week,
+                        'year' => $this->year,
+                    ));
                     if ($model !== null) {
                         $se = QuerySearchEngine::model()->findByAttributes(array(
                             'query_id' => $model->id,
@@ -99,5 +148,102 @@ class YandexMetrica
         $result = curl_exec($ch);
         curl_close($ch);
         return json_decode($result, true);
+    }
+
+    public function convertToSearchPhraseVisits()
+    {
+        $searchPhrases = PagesSearchPhrase::model()->findAll();
+        foreach ($searchPhrases as $searchPhrase) {
+            //save visits
+            foreach ($this->se as $se) {
+                $visits_value = Query::model()->getVisits($searchPhrase->keyword_id, $se, $this->week, $this->year);
+                $visits = new SearchPhraseVisit;
+                $visits->search_phrase_id = $searchPhrase->id;
+                $visits->se_id = $se;
+                $visits->week = $this->week;
+                $visits->year = $this->year;
+                $visits->visits = $visits_value;
+                $visits->save();
+            }
+        }
+    }
+
+
+    public function calculateMain()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->with = array('phrases', 'phrases.visits');
+        $pages = Page::model()->findAll($criteria);
+
+        $i = 1;
+
+        while (!empty($pages)) {
+            foreach ($pages as $page) {
+
+                $page->yandex_week_visits = 0;
+                $page->yandex_month_visits = 0;
+                $page->google_week_visits = 0;
+                $page->google_month_visits = 0;
+                $page->yandex_pos = 1000;
+                $page->google_pos = 1000;
+
+                //week
+                foreach ($page->phrases as $phrase) {
+                    $page->yandex_week_visits += $phrase->getVisits(self::SE_YANDEX, 1);
+                    $page->yandex_month_visits += $phrase->getVisits(self::SE_YANDEX, 2);
+                    $page->google_week_visits += $phrase->getVisits(self::SE_GOOGLE, 1);
+                    $page->google_month_visits += $phrase->getVisits(self::SE_GOOGLE, 2);
+
+                    $criteria = new CDbCriteria;
+                    $criteria->compare('search_phrase_id', $phrase->id);
+                    $criteria->compare('se_id', 2);
+                    $criteria->order = 'date desc';
+                    $model = SearchPhrasePosition::model()->find($criteria);
+                    if ($model !== null && $model->position != 0 && $model->position < $page->yandex_pos)
+                        $page->yandex_pos = $model->position;
+
+
+                    $criteria = new CDbCriteria;
+                    $criteria->compare('search_phrase_id', $phrase->id);
+                    $criteria->compare('se_id', 3);
+                    $criteria->order = 'date desc';
+                    $model = SearchPhrasePosition::model()->find($criteria);
+                    if ($model !== null && $model->position != 0 && $model->position < $page->google_pos)
+                        $page->google_pos = $model->position;
+                }
+
+                $page->save();
+            }
+
+            $criteria = new CDbCriteria;
+            $criteria->limit = 100;
+            $criteria->with = array('phrases', 'phrases.visits');
+            $criteria->offset = $i * 100;
+            $pages = Page::model()->findAll($criteria);
+            $i++;
+        }
+    }
+
+    public function delete1Visits()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $criteria->compare('visits', 1);
+        $queries = Query::model()->findAll($criteria);
+
+        $i = 1;
+
+        while (!empty($queries)) {
+            foreach ($queries as $query) {
+                PagesSearchPhrase::model()->deleteAllByAttributes(array(
+                    'keyword_id' => $query->keyword_id
+                ));
+                $query->delete();
+            }
+            $criteria->offset = $i * 1000;
+            $queries = Query::model()->findAll($criteria);
+            $i++;
+        }
     }
 }

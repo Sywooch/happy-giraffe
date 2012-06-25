@@ -22,28 +22,8 @@ class ConverterController extends HController
 
     public function actionAc($term)
     {
-        $ingredients = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')
-            ->where('title LIKE :term AND (density > 0 OR (SELECT COUNT(cook__ingredient_units.id) FROM cook__ingredient_units WHERE cook__ingredient_units.ingredient_id = cook__ingredients.id) > 1)', array(':term' => $term . '%'))->order('title')
-            ->limit(20)->queryAll();
-        if (count($ingredients) < 20) {
-            $ingredients2 = Yii::app()->db->createCommand()->select('id, unit_id, title, title AS value, title AS label')->from('cook__ingredients')
-                ->where('title LIKE :term AND (density > 0 OR (SELECT COUNT(cook__ingredient_units.id) FROM cook__ingredient_units WHERE cook__ingredient_units.ingredient_id = cook__ingredients.id) > 1)', array(':term' => $term . '%'))->order('title')
-                ->limit(20 - count($ingredients))->queryAll();
-            if (count($ingredients2)) {
-                $ingredient_keys = array();
-                if (count($ingredients)) {
-                    foreach ($ingredients as $ingredient) {
-                        $ingredient_keys[] = $ingredient['id'];
-                    }
-                }
-                foreach ($ingredients2 as $ingredient) {
-                    if (!in_array($ingredient['id'], $ingredient_keys)) {
-                        $ingredients[] = $ingredient;
-                    }
-                }
-            }
-        }
-
+        $condition = ' (SELECT COUNT(cook__ingredient_units.id) FROM cook__ingredient_units WHERE cook__ingredient_units.ingredient_id = t.id) > 1 ';
+        $ingredients = CookIngredient::model()->autoComplete($term, 20, false, true, $condition);
         header('Content-type: application/json');
         echo CJSON::encode($ingredients);
     }
@@ -54,7 +34,8 @@ class ConverterController extends HController
 
         if (isset($_POST['ajax']) and $_POST['ajax'] == 'converter-form') {
             $form->attributes = $_POST['ConverterForm'];
-            echo CActiveForm::validate($form);
+//            echo CActiveForm::validate($form);
+            echo '[]';
             Yii::app()->end();
         } elseif (isset($_POST['ConverterForm'])) {
             $converter = new CookConverter();

@@ -47,7 +47,6 @@
 <body>
 
 <div id="seo" class="wrapper">
-    <a href="/logout/">выйти</a>
 
     <div class="clearfix">
         <div class="default-nav">
@@ -58,21 +57,21 @@
                     'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                     'items' => array(
                         array(
-                            'label' => 'Ключевые слова или фразы',
-                            'url' => array('/writing/editor/index/'),
-                        ),
-                        array(
                             'label' => 'Конкуренты',
                             'url' => array('/competitors/default/index'),
                         ),
                         array(
                             'label' => 'Раздача заданий',
                             'url' => array('/writing/editor/tasks/'),
-                            'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('/writing/editor/tasks') . '">' . TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
+                            'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('/writing/editor/tasks') . '">' . TempKeyword::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
                         ),
                         array(
                             'label' => 'Отчеты',
                             'url' => array('/writing/editor/reports/'),
+                        ),
+                        array(
+                            'label' => 'Поисковый трафик',
+                            'url' => array('/queries/admin'),
                         ),
                     )));
 
@@ -95,7 +94,7 @@
                         array(
                             'label' => 'Раздача заданий',
                             'url' => array('/writing/editor/tasks/'),
-                            'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('/writing/editor/tasks') . '">' . TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
+                            'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('/writing/editor/tasks') . '">' . TempKeyword::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
                         ),
                         array(
                             'label' => 'Отчеты',
@@ -112,13 +111,17 @@
                     'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                     'items' => array(
                         array(
+                            'label' => 'Поисковый трафик',
+                            'url' => array('/queries/admin'),
+                        ),
+                        array(
                             'label' => 'Ключевые слова или фразы',
                             'url' => array('/writing/editor/index/'),
                         ),
                         array(
                             'label' => 'Раздача заданий',
                             'url' => array('/writing/editor/tasks/'),
-                            'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('/writing/editor/tasks') . '">' . TempKeywords::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
+                            'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('/writing/editor/tasks') . '">' . TempKeyword::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
                         ),
                         array(
                             'label' => 'Конкуренты',
@@ -189,7 +192,18 @@
 
             ?>
         </div>
+
         <div class="title">
+            <div class="user-info clearfix">
+                <div class="ava small"><img src="<?=Yii::app()->user->getModel()->getAva() ?>" alt=""></div>
+                <div class="details">
+                    <a href="javascript:;" class="username" onclick="$('.user-info .nav').toggle();"><?=Yii::app()->user->getModel()->name ?><i class="arr"></i></a>
+                </div>
+                <div class="nav" style="display: none;">
+                    <div class="btn-logout"><a href="/logout/" class="logout"><i class="icon"></i>Выход</a></div>
+                </div>
+            </div>
+
             <i class="img"></i>
             <span>SEO-<span>жираф</span></span> &nbsp; <?= $this->pageTitle ?>
         </div>
@@ -228,7 +242,7 @@
                 ),
                 array(
                     'label' => 'Готовые статьи',
-                    'url' => array('/writing/articleKeywords/admin/'),
+                    'url' => array('/writing/page/admin/'),
                 ),
                 array(
                     'label' => 'Парсинг и прокси',

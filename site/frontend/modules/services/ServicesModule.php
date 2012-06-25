@@ -29,7 +29,8 @@ class ServicesModule extends CWebModule
             'test',
             'recipeBook',
             'names',
-            'childrenDiseases'
+            'childrenDiseases',
+            'dailyCalories'
         ));
     }
 

@@ -5,7 +5,7 @@ class AlbumsController extends HController
 
     public $user;
 
-    public function beforeAction($action)
+    protected function beforeAction($action)
     {
         if(!Yii::app()->request->isAjaxRequest){
             $this->pageTitle = 'Фотоальбомы';

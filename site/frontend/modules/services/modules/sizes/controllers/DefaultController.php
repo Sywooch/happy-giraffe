@@ -37,7 +37,7 @@ class DefaultController extends HController
         $this->render('socks');
     }
 
-    public function beforeAction($action)
+    protected function beforeAction($action)
     {
         Yii::app()->clientScript->registerScript('size-module', 'function change(which) {
             for (var i = 0; i < document.form1.elements.length; i++) {

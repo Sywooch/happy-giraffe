@@ -6,7 +6,7 @@
 
         <?php if ($this->user->id == Yii::app()->user->id): ?>
             <div class="club-fast-add">
-                <a href="<?=$this->getUrl(array('content_type_slug' => null), 'blog/add')?>" class="btn btn-green"><span><span>Добавить запись</span></span></a>
+                <a href="<?=$this->getUrl(array('content_type_slug' => null), 'blog/add')?>" class="btn btn-green" rel="nofollow"><span><span>Добавить запись</span></span></a>
             </div>
         <?php endif; ?>
 

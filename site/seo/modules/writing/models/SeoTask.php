@@ -16,9 +16,9 @@
  * @property string $rewrite
  *
  * The followings are the available model relations:
- * @property User $owner
+ * @property SeoUser $owner
  * @property KeywordGroup $keywordGroup
- * @property User $executor
+ * @property SeoUser $executor
  * @property RewriteUrl[] $rewriteUrls
  */
 class SeoTask extends CActiveRecord
@@ -83,9 +83,9 @@ class SeoTask extends CActiveRecord
         return array(
             'rewriteUrls' => array(self::HAS_MANY, 'RewriteUrl', 'task_id'),
             'keywordGroup' => array(self::BELONGS_TO, 'KeywordGroup', 'keyword_group_id'),
-            'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
-            'executor' => array(self::BELONGS_TO, 'User', 'executor_id'),
-            'article' => array(self::BELONGS_TO, 'ArticleKeywords', 'article_id'),
+            'owner' => array(self::BELONGS_TO, 'SeoUser', 'owner_id'),
+            'executor' => array(self::BELONGS_TO, 'SeoUser', 'executor_id'),
+            'article' => array(self::BELONGS_TO, 'Page', 'article_id'),
         );
     }
 
@@ -129,7 +129,7 @@ class SeoTask extends CActiveRecord
 
         if ($this->status == self::STATUS_READY) {
             foreach ($this->keywordGroup->keywords as $keyword)
-                TempKeywords::model()->deleteAll('keyword_id=' . $keyword->id);
+                TempKeyword::model()->deleteAll('keyword_id=' . $keyword->id);
         }
 
         return parent::beforeSave();
@@ -139,11 +139,11 @@ class SeoTask extends CActiveRecord
     {
         $res = '';
         foreach ($this->keywordGroup->keywords as $key)
-            $res .= $key->name . ', ';
+            $res .= $key->name . '<br>';
         if ($this->rewrite)
             foreach ($this->rewriteUrls as $url)
-                $res .= $url->url . ', ';
-        return trim($res, ', ');
+                $res .= $url->url . '<br>';
+        return trim($res, '<br>');
     }
 
     public function getHints()

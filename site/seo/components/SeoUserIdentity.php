@@ -13,7 +13,7 @@ class SeoUserIdentity extends CUserIdentity
 
     public function authenticate()
     {
-        $user = User::model()->find(array('condition' => 'email=:email', 'params' => array(':email' => $this->user['email'])));
+        $user = SeoUser::model()->find(array('condition' => 'email=:email', 'params' => array(':email' => $this->user['email'])));
         if ($user === null) {
             return $this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
         }

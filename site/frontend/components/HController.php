@@ -4,6 +4,37 @@ class HController extends CController
 {
 	public $menu=array();
 	public $breadcrumbs=array();
+    public $rssFeed = null;
+    public $seoHrefs = array();
+
+
+    protected function beforeAction($action)
+    {
+        if (in_array(Yii::app()->user->id, array(10186, 10127, 12678, 10229, 12980))){
+            Yii::app()->user->logout(true);
+            $this->redirect('/');
+        }
+
+        return parent::beforeAction($action);
+    }
+
+    protected function afterRender($view, &$output)
+    {
+        $js = "
+            $(function() {
+                var seoHrefs = " . CJSON::encode($this->seoHrefs) . ";
+                $('[hashString]').each(function(){
+                    var key = $(this).attr('hashString');
+                    $(this).attr('href', Base64.decode(seoHrefs[key]));
+                });
+
+            });
+        ";
+
+        Yii::app()->clientScript->registerScript('seoHrefs', $js, CClientScript::POS_END);
+
+        return parent::afterRender($view, $output);
+    }
 
     public function getViews()
     {

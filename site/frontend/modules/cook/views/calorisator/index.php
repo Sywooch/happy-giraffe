@@ -58,12 +58,12 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
                 <td class="col-7 n1 nutritional" data-value="0" data-n="1">
                     <div class="value">&nbsp;</div>
                 </td>
-                <td class="col-8"><a href="" class="remove tooltip" title="Удалить" onclick="Calorisator.delRow(event);"></a></td>
+                <td class="col-8"><a href="" class="remove tooltip" title="Удалить" onclick="Calorisator.delRow(this); return false;"></a></td>
             </tr>
 
             <tr class="add">
                 <td class="col-1" colspan="7">
-                    <a href="#" class="btn btn-green-medium" onclick="Calorisator.addRow(event);" id="addRow"><span><span>Добавить новый продукт</span></span></a>
+                    <a href="#" class="btn btn-green-medium" onclick="Calorisator.addRow(event); return false;" id="addRow"><span><span>Добавить новый продукт</span></span></a>
                     Вы можете добавлять любое количество продуктов. Просто нажмите на кнопку “Добавить новый продукт"
                 </td>
             </tr>
@@ -103,8 +103,6 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
         </div>
         <p>Вы можете составить целый список продуктов, из которых будет состоять ваш завтрак, обед, ужин или просто перекус, и увидеть итоговые показатели питательности и калорийности. В случае перебора можно подкорректировать – убрать лишние калории или жиры, сократив количество соответствующих продуктов.</p>
         <p>Наш счетчик калорий онлайн – один из самых полных в Интернете, но при этом самый удобный и простой для пользования. Попробуйте им воспользоваться однажды, и вы поймёте, какое это интересное и захватывающее дело – отслеживать, как меняется ваша фигура и вес в зависимости от съедаемой пищи и физической активности.</p>
-        <p>Мы позаботились и о тех, кто не понаслышке знаком с сахарным диабетом. В каждом рецепте указано, сколько хлебных единиц (ХЕ) содержит блюдо. Вы сможете легко разнообразить своё питание, находясь в рамках дозволенного.</p>
-
 
     </div>
     <div style="display:none">

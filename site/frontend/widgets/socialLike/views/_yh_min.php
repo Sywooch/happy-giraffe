@@ -1,5 +1,9 @@
 <div class="like-btn">
-     <a class="btn-icon heart<?php echo Yii::app()->user->isGuest ? ' yohoho_guest' : '' ?><?php echo !Yii::app()->user->isGuest && isset($this->model->author) && Yii::app()->user->id == $this->model->author->id ? ' yohoho_me ' : '' ?><?php echo RatingYohoho::model()->findByEntity($this->model) ? ' active' : ''; ?>" href="javascript:;" onclick="pushYohoho(this);"></a>
+     <?php if (Yii::app()->user->isGuest):?>
+         <a class="btn-icon heart fancy" href="#login"></a>
+     <?php else: ?>
+         <a class="btn-icon heart<?php echo isset($this->model->author) && Yii::app()->user->id == $this->model->author->id ? ' yohoho_me ' : '' ?><?php echo RatingYohoho::model()->findByEntity($this->model) ? ' active' : ''; ?>" href="javascript:;" onclick="pushYohoho(this);"></a>
+     <?php endif ?>
 
      <div class="count"><?php echo Rating::model()->countByEntity($this->model, 'yh') / 2; ?></div>
  </div>

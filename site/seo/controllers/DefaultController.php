@@ -47,12 +47,12 @@ class DefaultController extends SController
     {
         $articles = Yii::app()->db_seo2->createCommand()
             ->select('*')
-            ->from('article_keywords')
+            ->from('pages')
             ->queryAll();
 
         foreach ($articles as $article) {
 
-            $new_article = new ArticleKeywords();
+            $new_article = new Page();
             $new_article->entity = $article['entity'];
             $new_article->entity_id = $article['entity_id'];
             $new_article->url = $article['url'];
@@ -83,9 +83,9 @@ class DefaultController extends SController
                     $key2 = trim($key2);
                     if (!empty($key2)) {
                         $final_keyword_name = mb_strtolower(trim($key2), 'utf8');
-                        $final_keyword = Keywords::model()->findByAttributes(array('name' => $final_keyword_name));
+                        $final_keyword = Keyword::model()->findByAttributes(array('name' => $final_keyword_name));
                         if ($final_keyword === null) {
-                            $final_keyword = new Keywords;
+                            $final_keyword = new Keyword;
                             $final_keyword->name = $final_keyword_name;
                             $final_keyword->save();
                         }
@@ -105,12 +105,4 @@ class DefaultController extends SController
         }
     }*/
 
-    public function actionTest2()
-    {
-        /*echo Yii::app()->db_seo->createCommand('select count(keyword_id) from rambler_popularity')->queryScalar();
-        echo '<br>';
-        for($i=0;$i<25;$i++){
-            echo ParseHelper::getLine($i) . '<br>';
-        }*/
-    }
 }

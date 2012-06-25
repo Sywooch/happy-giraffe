@@ -24,9 +24,15 @@ $form=$this->beginWidget('CActiveForm', array(
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'owner_id'); ?>
-		<?php echo $form->dropDownList($model,'owner_id', CHtml::listData(User::model()->findAll('owner_id IS NULL'), 'id', 'name'), array('empty'=>' ')); ?>
+		<?php echo $form->dropDownList($model,'owner_id', CHtml::listData(SeoUser::model()->findAll('owner_id IS NULL'), 'id', 'name'), array('empty'=>' ')); ?>
 		<?php echo $form->error($model,'owner_id'); ?>
 	</div>
+
+     <div class="row">
+         <?php echo $form->labelEx($model,'related_user_id'); ?>
+         <?php echo $form->textField($model,'related_user_id'); ?>
+         <?php echo $form->error($model,'related_user_id'); ?>
+     </div>
 
      <div class="row">
          <?php echo $form->labelEx($model,'role'); ?>
@@ -48,3 +54,13 @@ $form=$this->beginWidget('CActiveForm', array(
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+ <script type="text/javascript">
+     function ChangeUserPassword(el, id) {
+         $.post('/user/changePassword/', {id:id}, function (response) {
+             if (response.status) {
+                 $(el).next().html(response.result);
+             }
+         }, 'json');
+     }
+ </script>

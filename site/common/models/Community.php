@@ -207,10 +207,10 @@ class Community extends HActiveRecord
         ));
     }
 
-    public function getLast()
+    public function getLast($limit = 10)
     {
         return CommunityContent::model()->full()->findAll(array(
-            'limit' => 10,
+            'limit' => $limit,
             'order' => 'created DESC',
             'condition' => 'community.id = :community_id',
             'params' => array(':community_id' => $this->id),

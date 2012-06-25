@@ -23,7 +23,7 @@
  * @property integer $year
  *
  * The followings are the available model relations:
- * @property Keywords $keyword
+ * @property Keyword $keyword
  * @property Site $site
  */
 class SiteKeywordVisit extends HActiveRecord
@@ -71,7 +71,7 @@ class SiteKeywordVisit extends HActiveRecord
             array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, year', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, key_name, year, freq, popular', 'safe'),
+            array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, key_name, year, freq, popular', 'safe'),
         );
     }
 
@@ -83,7 +83,7 @@ class SiteKeywordVisit extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
+            'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
             'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
         );
     }
@@ -137,7 +137,7 @@ class SiteKeywordVisit extends HActiveRecord
         $criteria = $this->getCriteriaWithoutFreq();
 
         if (!empty($this->freq)) {
-            $condition = Keywords::getFreqCondition($this->freq);
+            $condition = Keyword::getFreqCondition($this->freq);
             if (!empty($criteria->condition)) {
                 $criteria->condition .= ' AND ' . $condition;
             } else
@@ -181,10 +181,13 @@ class SiteKeywordVisit extends HActiveRecord
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('year', $this->year);
         if (!empty($this->key_name)) {
-            if ($this->temp_ids === null) {
-                $this->temp_ids = Keywords::findSiteIdsByNameWithSphinx($this->key_name);
-            }
-            $criteria->condition .= ' AND keyword.id IN (' . implode(',', $this->temp_ids) . ')';
+            if ($this->temp_ids === null)
+                $this->temp_ids = Keyword::findSiteIdsByNameWithSphinx($this->key_name);
+
+            if (empty($this->temp_ids))
+                $criteria->condition .= ' AND keyword.id = 0';
+            else
+                $criteria->condition .= ' AND keyword.id IN (' . implode(',', $this->temp_ids) . ')';
         }
         $criteria->compare('yandex.value', $this->popular);
         $criteria->with = array('keyword', 'keyword.group', 'keyword.yandex', 'keyword.tempKeyword');
@@ -208,24 +211,24 @@ class SiteKeywordVisit extends HActiveRecord
     public static function SaveValue($site_id, $keyword_id, $month, $year, $value)
     {
         $model = self::model()->findByAttributes(array(
-            'keyword_id'=>$keyword_id,
-            'year'=>$year,
-            'site_id'=>$site_id
+            'keyword_id' => $keyword_id,
+            'year' => $year,
+            'site_id' => $site_id
         ));
 
-        if ($model !== null){
+        if ($model !== null) {
             //второй раз и меньше - значит слово в котором есть буква ё
-            $old = $model->getAttribute('m'.$month);
+            $old = $model->getAttribute('m' . $month);
             if ($old > $value)
-                return ;
+                return;
 
-            $model->setAttribute('m'.$month, $value);
-        }else{
+            $model->setAttribute('m' . $month, $value);
+        } else {
             $model = new SiteKeywordVisit();
             $model->site_id = $site_id;
             $model->keyword_id = $keyword_id;
             $model->year = $year;
-            $model->setAttribute('m'.$month, $value);
+            $model->setAttribute('m' . $month, $value);
         }
 
         if (!$model->save())

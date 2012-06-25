@@ -55,6 +55,9 @@
                             <a href="javascript:void(0)" class="add-btn"><i class="icon"></i><span>Добавить ингредиент</span></a>
 
                         </div>
+                        <?php if (Yii::app()->user->id == 10265):?>
+                            <a href="http://admin.happy-giraffe.ru/club/CookIngredients/create">создать новый в админке</a>
+                        <?php endif ?>
 
                     </div>
 
@@ -88,6 +91,7 @@
                                     $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                                         'model' => $recipe,
                                         'customButton' => true,
+                                        'customButtonHtmlOptions' => array('class' => 'fancy attach'),
                                     ));
                                 ?>
                                     <?php if ($recipe->photo_id === null): ?>
@@ -133,16 +137,6 @@
                             <!--<div class="country">
                                 <div class="flag-big flag-big-ua"></div>Украинская
                             </div>-->
-
-                        </div>
-
-                        <div class="col">
-
-                            <?=$form->label($recipe, 'method', array('class' => 'row-title'))?><br/>
-
-                            <span class="chzn-v2">
-                                <?=$form->dropDownList($recipe, 'method', $recipe->methods, array('prompt' => 'не выбран', 'class' => 'chzn'))?>
-                            </span>
 
                         </div>
 
@@ -210,8 +204,8 @@
 
                 <div class="row-btn">
 
-                    <button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
-                    <button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>
+                    <!--<button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>-->
+                    <!--<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>-->
                     <button class="btn btn-green-medium"><span><span><?=$recipe->isNewRecord ? 'Добавить' : 'Редактировать'?></span></span></button>
 
                 </div>

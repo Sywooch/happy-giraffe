@@ -4,7 +4,7 @@
         <?=$form->hiddenField($model, '[' . $n . ']' . 'ingredient_id')?>
     </td>
     <td class="col-2">
-        <?=$form->textField($model, '[' . $n . ']' . 'value', array('placeholder' => 0))?>
+        <?=$form->textField($model, '[' . $n . ']' . 'display_value', array('placeholder' => 0))?>
     </td>
     <td class="col-3">
         <div class="drp-list">

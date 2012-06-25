@@ -107,8 +107,8 @@ class YandexMetrica
                     $keyword = Keyword::GetKeyword($query['phrase']);
                     $model = Query::model()->findByAttributes(array(
                         'keyword_id' => $keyword->id,
-                        'week'=>$this->week,
-                        'year'=>$this->year,
+                        'week' => $this->week,
+                        'year' => $this->year,
                     ));
                     if ($model !== null) {
                         $se = QuerySearchEngine::model()->findByAttributes(array(
@@ -221,6 +221,28 @@ class YandexMetrica
             $criteria->with = array('phrases', 'phrases.visits');
             $criteria->offset = $i * 100;
             $pages = Page::model()->findAll($criteria);
+            $i++;
+        }
+    }
+
+    public function delete1Visits()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $criteria->compare('visits', 1);
+        $queries = Query::model()->findAll($criteria);
+
+        $i = 1;
+
+        while (!empty($queries)) {
+            foreach ($queries as $query) {
+                PagesSearchPhrase::model()->deleteAllByAttributes(array(
+                    'keyword_id' => $query->keyword_id
+                ));
+                $query->delete();
+            }
+            $criteria->offset = $i * 1000;
+            $queries = Query::model()->findAll($criteria);
             $i++;
         }
     }

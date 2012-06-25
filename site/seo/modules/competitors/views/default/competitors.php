@@ -2,6 +2,7 @@
 
     <div class="input">
         <label>Введите слово или фразу</label>
+        <a href="javascript:;" class="remove tooltip" onclick="CompetitorsTable.clearSearch()" title="Очистить  поиск"></a>
         <input type="text" id="keyword" value="<?=$model->key_name ?>">
         <button class="btn btn-green-small">Поиск</button>
     </div>
@@ -12,7 +13,7 @@
         <label>не показывать<br>используемые<br>
             <input type="checkbox"
                    id="hide-used" <?php if (Yii::app()->user->getState('hide_used') == 1) echo 'checked="checked"' ?>
-                   onchange="SeoKeywords.hideUsed(this);"></label>
+                   onchange="SeoKeywords.hideUsed(this, function(){document.location.reload()});"></label>
     </div>
 
 </div>
@@ -175,10 +176,14 @@
 						<th rowspan="2"><i class="icon-freq"></i></th>\
 						<th colspan="12">Количество визитов &nbsp;&nbsp;&nbsp; Год <select onchange="CompetitorsTable.setYear(this);"><option value="2011"<?php if ($model->year == 2011) echo ' selected' ?>>2011</option><option value="2012"<?php if ($model->year == 2012) echo ' selected' ?>>2012</option></select></th>\
 						<th rowspan="2"></th>\
-					</tr>'
+					</tr>';
 
 
             $('table.items thead').prepend(tr);
+        },
+        clearSearch:function(){
+            $('#key_name').val('');
+            submitForm();
         }
     };
 

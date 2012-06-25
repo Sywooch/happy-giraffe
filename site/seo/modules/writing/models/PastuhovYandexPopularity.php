@@ -8,7 +8,7 @@
  * @property integer $value
  *
  * The followings are the available model relations:
- * @property Keywords $keyword
+ * @property Keyword $keyword
  */
 class PastuhovYandexPopularity extends HActiveRecord
 {
@@ -54,7 +54,7 @@ class PastuhovYandexPopularity extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
+			'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
 		);
 	}
 

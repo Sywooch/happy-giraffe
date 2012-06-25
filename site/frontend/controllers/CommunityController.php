@@ -38,7 +38,7 @@ class CommunityController extends HController
         );
     }
 
-    public function beforeAction($action) {
+    protected function beforeAction($action) {
         if(!Yii::app()->request->isAjaxRequest)
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/community.js');
         return parent::beforeAction($action);
@@ -128,9 +128,20 @@ class CommunityController extends HController
     public function actionView($community_id, $content_type_slug, $content_id)
     {
         $this->layout = '//layouts/community';
-        $content = CommunityContent::model()->active()->full()->findByPk($content_id);
+        $content = CommunityContent::model()->full()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
+
+        /* <ИМПОРТ РЕЦЕПТОВ> */
+        Yii::import('application.modules.cook.models.CookRecipe');
+        $recipe = CookRecipe::model()->find('content_id = :content_id', array(':content_id' => $content->id));
+        if ($recipe !== null) {
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: " . $recipe->url);
+            Yii::app()->end();
+        }
+
+        /* </ИМПОРТ РЕЦЕПТОВ> */
 
         if ($community_id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
             header("HTTP/1.1 301 Moved Permanently");

@@ -124,7 +124,7 @@
     <div class="side-left">
 
         <div class="club-fast-add">
-            <a href="<?=$this->getUrl(array('content_type_slug' => null), 'community/add')?>" class="btn btn-green"><span><span>Добавить</span></span></a>
+            <?=HHtml::link('<span><span>Добавить</span></span>', $this->getUrl(array('content_type_slug' => null), 'community/add'), array('class' => 'btn btn-green'), true)?>
         </div>
 
         <div class="club-topics-all-link">

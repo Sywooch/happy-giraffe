@@ -1,6 +1,6 @@
 /* user.css */
 
-#user {line-height:normal;}
+#user {line-height:normal;padding:10px 0;}
 
 #user a.pseudo {border-bottom:1px dashed #51afc3;text-decoration:none;line-height:normal;}
 
@@ -32,6 +32,11 @@
 
 #user .header .user-nav {margin-left:360px;padding-top:10px;font-size:13px;padding-bottom:20px;}
 #user .user-home .user-nav {padding-bottom:70px;}
+
+#user .new-blog-btn {text-align:right;}
+
+#user .blog-title {font-size:32px;color:#232323;margin-bottom:40px;}
+
 
 
 .ava.big {position:relative;}
@@ -67,6 +72,10 @@
 #user .user-cols .col-2 {float:left;width:340px;padding-right:20px;}
 #user .user-cols .col-3 {float:left;width:340px;}
 #user .user-cols .col-23 {float:left;width:700px;}
+
+
+#user .user-cols .col-1 .user-info {margin-bottom:50px;}
+
 
 #user .user-photo {}
 #user .user-photo img {display:block;}

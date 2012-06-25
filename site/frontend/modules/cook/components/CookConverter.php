@@ -23,6 +23,8 @@ class CookConverter extends CComponent
      */
     public function convert($data)
     {
+        $data['qty'] = trim(str_replace(',', '.', $data['qty']));
+        $data['qty'] = preg_replace('#[^0-9\.]+#', '', $data['qty']);
 
         $this->from = CookUnit::model()->findByPk($data['from']);
         $this->to = CookUnit::model()->findByPk($data['to']);
@@ -51,7 +53,7 @@ class CookConverter extends CComponent
             $swap = CookUnit::model()->findByPk(1);
             $swap_qty = $this->subConvert($this->from, $swap, $data['qty']);
             $this->result = array(
-                'qty' => $this->subConvert($this->swap, $this->to, $swap_qty)
+                'qty' => $this->subConvert($swap, $this->to, $swap_qty)
             );
         }
 

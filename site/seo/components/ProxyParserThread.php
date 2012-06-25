@@ -21,7 +21,7 @@ class ProxyParserThread extends CComponent
 
     protected $delay_min = 5;
     protected $delay_max = 15;
-    protected $debug = true;
+    protected $debug = false;
     protected $timeout = 15;
     protected $removeCookieOnChangeProxy = true;
 
@@ -71,8 +71,10 @@ class ProxyParserThread extends CComponent
 
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-//            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
-//            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+            if (getenv('SERVER_ADDR') != '5.9.7.81') {
+                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
+                curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+            }
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -144,7 +146,7 @@ class ProxyParserThread extends CComponent
         Yii::app()->end();
     }
 
-    private function removeCookieFile()
+    protected function removeCookieFile()
     {
         if (file_exists($this->getCookieFile()))
             unlink($this->getCookieFile());
@@ -164,5 +166,12 @@ class ProxyParserThread extends CComponent
     protected function afterProxyChange()
     {
 
+    }
+
+    protected function logMemoryUsage($state){
+        $memory = round(Yii::getLogger()->getMemoryUsage()/1048576,2);
+        $message = $state.' - memory usage: '.$memory.' mb';
+        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime').DIRECTORY_SEPARATOR.'my_log.txt', 'a');
+        fwrite($fh, date("Y-m-d H:i:s").':  '. $message."\n");
     }
 }

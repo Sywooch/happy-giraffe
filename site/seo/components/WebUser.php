@@ -1,7 +1,7 @@
 <?php
 class WebUser extends CWebUser
 {
-    public $modelName = 'User';
+    public $modelName = 'SeoUser';
     private $_model = null;
 
     public function getModel()

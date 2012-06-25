@@ -70,12 +70,16 @@ Yii::app()->clientScript->registerCss('signup', $css_signup)->registerScriptFile
 
                 </div>
             <?php else: ?>
-                <?php echo $form->hiddenField($model, 'first_name', array('value' => $regdata['name'])); ?>
+                <?php echo $form->hiddenField($model, 'name', array('value' => $regdata['name'])); ?>
+                <?php if (isset($regdata['first_name'])) echo $form->hiddenField($model, 'first_name', array('value' => $regdata['first_name'])); ?>
+                <?php if (isset($regdata['last_name'])) echo $form->hiddenField($model, 'last_name', array('value' => $regdata['last_name'])); ?>
+                <?php if (isset($regdata['birthday'])) echo $form->hiddenField($model, 'birthday', array('value' => $regdata['birthday'])); ?>
+                <?php if (isset($regdata['avatar'])) echo $form->hiddenField($model, 'avatar', array('value' => $regdata['avatar'])); ?>
 
                 <div class="user-info">
-                    <a href="" class="ava"><?php if (isset($regdata['photo'])): ?><?php echo CHtml::image($regdata['photo']); ?><?php endif; ?></a>
+                    <?php if (isset($regdata['photo'])): ?><a style="float: left" href="javascript:;"><?php echo CHtml::image($regdata['photo']); ?></a><?php endif; ?>
                     <div class="details">
-                        <a href="" class="username"><?php echo $regdata['name']; ?></a>
+                        <a href="javascript:;" class="username"><?php echo $regdata['name']; ?></a>
                     </div>
                 </div>
 

@@ -31,7 +31,7 @@ class SiteController extends SController
             $this->redirect($this->createUrl('writing/task/author'));
 
         if (Yii::app()->user->checkAccess('editor'))
-            $this->redirect($this->createUrl('writing/editor/reports'));
+            $this->redirect($this->createUrl('competitors/default/index'));
 
         if (Yii::app()->user->checkAccess('content-manager'))
             $this->redirect($this->createUrl('writing/task/ContentManager'));
@@ -66,7 +66,7 @@ class SiteController extends SController
         {
             $model->attributes=$_POST['LoginForm'];
 
-            $userModel = new User('login');
+            $userModel = new SeoUser('login');
             $userModel = $userModel->find(array(
                 'condition' => 'email=:email AND password=:password',
                 'params'=>array(
@@ -74,13 +74,7 @@ class SiteController extends SController
                     ':password'=>md5($model->password),
                 )));
 
-            if ($userModel === null){
-                $this->render('login',array('model'=>$model));
-                Yii::app()->end();
-            }
-
-            if ($userModel)
-            {
+            if ($userModel !== null){
                 $identity=new SeoUserIdentity($userModel->getAttributes());
                 $identity->authenticate();
                 if ($identity->errorCode == SeoUserIdentity::ERROR_NONE)
@@ -89,6 +83,8 @@ class SiteController extends SController
                     $this->redirect(array('site/index'));
                 }
             }
+            else
+                $model->addError('username', 'Неправильный логин или пароль');
         }
         // display the login form
         $this->render('login',array('model'=>$model));

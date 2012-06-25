@@ -24,7 +24,13 @@ class CustomMailruService extends MailruOAuthService {
 		
 		$this->attributes['id'] = $info->uid;
 		$this->attributes['name'] = $info->first_name;
-		$this->attributes['photo'] = $info->pic;
+
+        $this->attributes['first_name'] = $info->first_name;
+        $this->attributes['last_name'] = $info->last_name;
+
+        if ($info->has_pic == 1){
+            $this->attributes['photo'] = $info->pic_small;
+            $this->attributes['avatar'] = $info->pic_big;
+        }
 	}
-	
 }

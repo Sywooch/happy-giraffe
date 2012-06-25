@@ -10,14 +10,15 @@ class EditorController extends SController
     public function beforeAction($action)
     {
         if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('editor')
-            && !Yii::app()->user->checkAccess('superuser'))
+            && !Yii::app()->user->checkAccess('superuser')
+        )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }
 
     public function actionIndex()
     {
-        $model = new Keywords();
+        $model = new Keyword();
         $this->render('index', array(
             'model' => $model,
         ));
@@ -27,25 +28,24 @@ class EditorController extends SController
     {
         $term = $_POST['term'];
         if (!empty($term)) {
-            $model = new Keywords;
+            $model = new Keyword;
             $model->name = $term;
 
             $dataProvider = $model->search();
             $criteria = $dataProvider->criteria;
-            $count = Keywords::model()->count($dataProvider->criteria);
+            $count = Keyword::model()->count($dataProvider->criteria);
             $pages = new CPagination($count);
             $pages->pageSize = 100;
             $pages->currentPage = Yii::app()->request->getPost('page');
             $pages->applyLimit($dataProvider->criteria);
 
-
-            $counts = Keywords::model()->getFreqCount($criteria);
+            $counts = Keyword::model()->getFreqCount($criteria);
             $criteria2 = clone $criteria;
             $criteria2->with = array('yandex', 'pastuhovYandex', 'seoStats', 'group', 'tempKeyword');
-            $models = Keywords::model()->findAll($criteria2);
+            $models = Keyword::model()->findAll($criteria2);
             $response = array(
                 'status' => true,
-                'count' => $this->renderPartial('_find_result_count',  compact('models', 'counts'), true),
+                'count' => $this->renderPartial('_find_result_count', compact('models', 'counts'), true),
                 'table' => $this->renderPartial('_find_result_table', compact('models'), true),
                 'pagination' => $this->renderPartial('_find_result_pagination', compact('pages'), true)
             );
@@ -58,14 +58,26 @@ class EditorController extends SController
         $checked = Yii::app()->request->getPost('checked');
         if (!empty($checked)) {
             Yii::app()->user->setState('hide_used', 1);
-        }
-        else
+        } else
             Yii::app()->user->setState('hide_used', 0);
     }
 
     public function actionTasks()
     {
-        $tempKeywords = TempKeywords::model()->findAll('owner_id=' . Yii::app()->user->id);
+        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
+        foreach ($tempKeywords as $tempKeyword) {
+            if (!empty($tempKeyword->keyword->group)) {
+                $success = false;
+                foreach ($tempKeyword->keyword->group as $group)
+                    if (empty($group->seoTasks) && empty($group->page))
+                        $success = $group->delete();
+
+                if (!$success)
+                    $tempKeyword->delete();
+            }
+        }
+        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
+
         $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status = 0');
 
         $this->render('editor_panel', array(
@@ -77,7 +89,7 @@ class EditorController extends SController
     public function actionRewriteTasks()
     {
         $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status < 5 AND rewrite = 1');
-        $tempKeywords = TempKeywords::model()->findAll('owner_id');
+        $tempKeywords = TempKeyword::model()->findAll('owner_id');
         $success_tasks = SeoTask::TodayExecutedTasks();
 
         $this->render('rewrite_editor_panel', array(
@@ -90,8 +102,16 @@ class EditorController extends SController
     public function actionSelectKeyword()
     {
         $key_id = Yii::app()->request->getPost('id');
-        if (!TempKeywords::model()->exists('keyword_id=' . $key_id)) {
-            $temp = new TempKeywords;
+        $keyword = Keyword::model()->findByPk($key_id);
+        if (!TempKeyword::model()->exists('keyword_id=' . $key_id) && $keyword !== null) {
+            $temp = new TempKeyword;
+            //remove duplicates
+            $duplicates = Keyword::model()->findAllByAttributes(array('name' => $keyword->name));
+            if (count($duplicates) > 1) {
+                foreach ($duplicates as $duplicate)
+                    if ($duplicate->id != $key_id)
+                        $duplicate->delete();
+            }
             $temp->keyword_id = $key_id;
             $temp->owner_id = Yii::app()->user->id;
             echo CJSON::encode(array('status' => $temp->save()));
@@ -102,7 +122,7 @@ class EditorController extends SController
     public function actionCancelSelectKeyword()
     {
         $key_id = Yii::app()->request->getPost('id');
-        TempKeywords::model()->deleteByPk($key_id);
+        TempKeyword::model()->deleteByPk($key_id);
         echo CJSON::encode(array('status' => true));
     }
 
@@ -122,7 +142,17 @@ class EditorController extends SController
         $urls = Yii::app()->request->getPost('urls');
 
         $author_id = Yii::app()->request->getPost('author_id');
-        $keywords = Keywords::model()->findAllByPk($key_ids);
+        $keywords = Keyword::model()->findAllByPk($key_ids);
+
+        foreach ($keywords as $keyword)
+            if (!empty($keyword->group)) {
+                $response = array(
+                    'status' => false,
+                    'error' => 'Ошибка, ключевое слово ' . $keyword->id . ' уже использовалось'
+                );
+                echo CJSON::encode($response);
+                Yii::app()->end();
+            }
 
         $group = new KeywordGroup();
         $group->keywords = $keywords;
@@ -150,8 +180,7 @@ class EditorController extends SController
                     'status' => true,
                     'html' => $this->renderPartial('_distrib_task', array('task' => $task), true)
                 );
-            }
-            else
+            } else
                 $response = array('status' => false);
         } else
             $response = array('status' => false);
@@ -187,7 +216,7 @@ class EditorController extends SController
     public function actionRemoveFromSelected()
     {
         $key_id = Yii::app()->request->getPost('id');
-        TempKeywords::model()->deleteByPk($key_id);
+        TempKeyword::model()->deleteByPk($key_id);
         echo CJSON::encode(array('status' => true));
     }
 
@@ -205,7 +234,7 @@ class EditorController extends SController
         foreach ($keywords as $keyword) {
             $keys [] = $keyword->id;
             if ($withKeys)
-                TempKeywords::model()->deleteAll('keyword_id=' . $keyword->id);
+                TempKeyword::model()->deleteAll('keyword_id=' . $keyword->id);
         }
 
         echo CJSON::encode(array('status' => true, 'keys' => $keys));
@@ -242,12 +271,12 @@ class EditorController extends SController
                 'status' => $task->save(),
                 'html' => $this->renderPartial('_closed_task', compact('task'), true)
             ));
-        }
-        else
+        } else
             echo CJSON::encode(array('status' => false));
     }
 
-    public function actionCorrection(){
+    public function actionCorrection()
+    {
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
 
@@ -257,8 +286,7 @@ class EditorController extends SController
                 'status' => $task->save(),
                 'html' => $this->renderPartial('_correcting_task', compact('task'), true)
             ));
-        }
-        else
+        } else
             echo CJSON::encode(array('status' => false));
     }
 
@@ -272,9 +300,74 @@ class EditorController extends SController
         if ($task->status == SeoTask::STATUS_CORRECTED) {
             $task->status = SeoTask::STATUS_PUBLICATION;
             echo CJSON::encode(array('status' => $task->save()));
-        }
-        else
+        } else
             echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionBindKeywordToArticle()
+    {
+        $keyword_id = Yii::app()->request->getPost('keyword_id');
+        $article_id = Yii::app()->request->getPost('article_id');
+
+        $article = Page::model()->findByAttributes(array(
+            'entity_id' => $article_id
+        ));
+        if ($article !== null) {
+            $keyword_ids = array();
+            foreach ($article->keywordGroup->keywords as $keyword) {
+                if ($keyword->id == $keyword_id) {
+                    echo CJSON::encode(array(
+                        'status' => false,
+                        'error' => 'Уже привязан'
+                    ));
+                    Yii::app()->end();
+                }
+                $keyword_ids [] = $keyword->id;
+            }
+            $keyword_ids[] = $keyword_id;
+            $article->keywordGroup->keywords = $keyword_ids;
+            if (!$article->keywordGroup->save()) {
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Ошибка при сохранении группы кейвордов'
+                ));
+                Yii::app()->end();
+            }
+        } else {
+            $model = CommunityContent::model()->findByPk($article_id);
+            if ($model === null){
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Статья не найдена'
+                ));
+                Yii::app()->end();
+            }
+            $article_keywords = new Page();
+            $article_keywords->entity = 'CommunityContent';
+            $article_keywords->entity_id = $article_id;
+            $article_keywords->url = 'http://www.happy-giraffe.ru'.$model->getUrl();
+
+            $group = new KeywordGroup();
+            $group->keywords = array($keyword_id);
+            if (!$group->save()) {
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Ошибка при сохранении группы кейвордов'
+                ));
+                Yii::app()->end();
+            }
+            $article_keywords->keyword_group_id = $group->id;
+            if (!$article_keywords->save()){
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Ошибка при сохранении статьи '
+                ));
+                $group->delete();
+                Yii::app()->end();
+            }
+        }
+
+        echo CJSON::encode(array('status' => true));
     }
 
     /**

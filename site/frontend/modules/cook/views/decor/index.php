@@ -1,15 +1,14 @@
 <?php
 $categories = CookDecorationCategory::model()->findAll();
-
+$entity_id = ($id)?$category->id:null;
 $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     'selector' => '.list-view li.dish div.img a',
     'entity' => 'CookDecorationCategory',
-    'entity_id' => ($id)?$category->id:null,
+    'entity_id' => $entity_id,
 ));
+
+Yii::app()->clientScript->registerScript('photo_gallery_entity_id','var photo_gallery_entity_id = "'. $entity_id .'";');
 ?>
-<script type="text/javascript">
-    var photo_gallery_entity_id = '<?=($id)?$category->id:null ?>';
-</script>
 <div id="dishes">
 
     <div class="title">

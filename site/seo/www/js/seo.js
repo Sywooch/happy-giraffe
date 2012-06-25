@@ -14,11 +14,11 @@ var SeoModule = {
     SaveArticleKeys:function () {
         $.post('/writing/existArticles/SaveArticleKeys/', {
             url:$('input.article-url').val(),
-            keywords:$('#ArticleKeywords_keywords').val()
+            keywords:$('#Page_keywords').val()
         }, function (response) {
             if (response.status) {
                 $('input.article-url').val('');
-                $('#ArticleKeywords_keywords').val('');
+                $('#Page_keywords').val('');
                 $('table tbody').prepend(response.html);
                 $('span.articles-count').text(parseInt($('span.articles-count').text()) + 1);
                 $('span.keywords-count').text(parseInt($('span.keywords-count').text()) + response.keysCount);
@@ -78,7 +78,7 @@ var SeoModule = {
     },
     refreshProxy:function () {
         var proxy = $('textarea#proxy').val();
-        $.post('/queries/proxy/', {proxy:proxy}, function (response) {
+        $.post('/parsing/proxy/', {proxy:proxy}, function (response) {
             if (response.status) {
                 $('textarea#proxy').val('');
 
@@ -91,7 +91,7 @@ var SeoModule = {
         }, 'json');
     },
     stopThreads:function () {
-        $.post('/queries/stopThreads/', function (response) {
+        $.post('/parsing/stopThreads/', function (response) {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',
@@ -107,6 +107,29 @@ var SeoModule = {
                 $.pnotify({
                     pnotify_title:'Успешно',
                     pnotify_text:'Параметр установлен'
+                });
+            }
+        }, 'json');
+    },
+    bindKeywordToArticle:function(keyword_id, article_id, el){
+        $.post('/writing/editor/bindKeywordToArticle/', {
+            keyword_id:keyword_id,
+            article_id:article_id
+        }, function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:'Статья привязана к ключевому слову'
+                });
+
+                $(el).addClass('active');
+                $(el).parents('tr').addClass('on-site');
+                $(el).parents('tr').find('td:last').html('');
+            }else{
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
                 });
             }
         }, 'json');
@@ -141,7 +164,7 @@ var WordStat = {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',
-                    pnotify_text:'',
+                    pnotify_text:''
                 });
             }
         }, 'json');

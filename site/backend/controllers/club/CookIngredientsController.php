@@ -40,26 +40,99 @@ class CookIngredientsController extends BController
         ));
     }
 
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
-     */
     public function actionUpdate($id)
     {
-        $basePath = Yii::getPathOfAlias('application.views.club.cookIngredients.assets');
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-
         $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (isset($_POST['CookIngredient'])) {
             $model->attributes = $_POST['CookIngredient'];
-            if ($model->save())
-                $this->redirect(array('update', 'id' => $model->id));
+
+            //nutritional
+            if (isset($_POST['nutritional'])) {
+                foreach ($_POST['nutritional'] as $nutritional_id => $value) {
+                    $value = trim($value);
+                    $value = str_replace(',', '.', $value);
+                    if (empty($value)) {
+                        CookIngredientNutritional::model()->deleteAllByAttributes(array('nutritional_id' => $nutritional_id, 'ingredient_id' => $id));
+                    } else {
+                        $nutritional = CookIngredientNutritional::model()->findByAttributes(array('nutritional_id' => $nutritional_id, 'ingredient_id' => $id));
+                        if ($nutritional !== null) {
+                            if ($nutritional->value != $value) {
+                                $nutritional->value = $value;
+                                if (!$nutritional->save()) {
+                                    $model->addError('other', 'Неправильно введен состав');
+                                }
+                            }
+                        } else {
+                            $nutritional = new CookIngredientNutritional;
+                            $nutritional->ingredient_id = $id;
+                            $nutritional->nutritional_id = $nutritional_id;
+                            $nutritional->value = $value;
+                            if (!$nutritional->save()) {
+                                $model->addError('other', 'Неправильно введен состав');
+                            }
+                        }
+                    }
+                }
+            }
+
+            //synonyms
+            if (isset($_POST['synonym'])) {
+                CookIngredientSynonym::model()->deleteAll('ingredient_id=' . $id);
+                foreach ($_POST['synonym'] as $value)
+                    if (!empty($value)) {
+                        $value = trim($value);
+                        $synonym = new CookIngredientSynonym;
+                        $synonym->ingredient_id = $id;
+                        $synonym->title = $value;
+                        if (!$synonym->save())
+                            $model->addError('other', 'Ошибка в синонимах');
+                    }
+            }
+
+            //units
+            $units = CookUnit::model()->findAll();
+
+            foreach ($units as $unit) {
+                $ingredient_unit = CookIngredientUnit::model()->findByAttributes(array('ingredient_id' => $id, 'unit_id' => $unit->id));
+                if (isset($_POST['units'][$unit->id]['cb'])
+                    ||
+                    (isset($_POST['units'][$unit->id]['weight']) && !empty($_POST['units'][$unit->id]['weight']))
+                ) {
+                    if ($ingredient_unit) {
+                        if (isset($_POST['units'][$unit->id]['weight']))
+                            $ingredient_unit->weight = $value = str_replace(',', '.', $_POST['units'][$unit->id]['weight']);
+                    } else {
+                        $ingredient_unit = new CookIngredientUnit();
+                        $ingredient_unit->attributes = array(
+                            'ingredient_id' => $id,
+                            'unit_id' => $unit->id,
+                            'weight' => (isset($_POST['units'][$unit->id]['weight'])) ? $value = str_replace(',', '.', $_POST['units'][$unit->id]['weight']) : 0
+                        );
+                    }
+
+                    if ($unit->type == 'volume' && $model->density == 0) {
+                        continue;
+                    }
+                    if (($unit->type == 'qty') && !isset($_POST['units'][$unit->id]['weight'])) {
+                        continue;
+                    }
+
+                    if (!$ingredient_unit->save())
+                        $model->addError('other', 'Ошибка в единицах измерения');
+
+                } else {
+                    if ($ingredient_unit)
+                        $ingredient_unit->delete();
+                }
+            }
+
+            $errors = $model->getErrors();
+            if (empty($errors)) {
+                $model->checked = 1;
+                if ($model->save())
+                    $this->redirect(array('update', 'id' => $model->id));
+            }
         }
 
         $this->render('update', array(
@@ -176,9 +249,9 @@ class CookIngredientsController extends BController
     }
 
     /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer the ID of the model to be loaded
+     * @param $id
+     * @return CookIngredient
+     * @throws CHttpException
      */
     public function loadModel($id)
     {
@@ -221,13 +294,13 @@ class CookIngredientsController extends BController
                     );
                 }
 
-                if ($unit->type == 'volume' and $ingredient->density == 0) {
+                if ($unit->type == 'volume' && $ingredient->density == 0) {
                     $response['error'] .= '<strong>' . $unit->title . '</strong> недопустима т.к. не задана плотность ингредиента<br>';
                     if ($model->id)
                         $model->delete();
                     continue;
                 }
-                if (($unit->type == 'qty') and !$_POST['units'][$unit->id]['weight']) {
+                if (($unit->type == 'qty') && !isset($_POST['units'][$unit->id]['weight'])) {
                     $response['error'] .= '<strong>' . $unit->title . '</strong> недопустима т.к. не указан вес для этой ед.изм.<br>';
                     if ($model->id)
                         $model->delete();

@@ -18,5 +18,13 @@ class CustomFacebookService extends FacebookOAuthService
         $this->attributes['url'] = $info->link;
         if(isset($info->email))
             $this->attributes['email'] = $info->email;
+
+        if(isset($info->first_name))
+            $this->attributes['first_name'] = $info->first_name;
+        else
+            $this->attributes['first_name'] = $info->name;
+
+        if(isset($info->last_name))
+            $this->attributes['last_name'] = $info->last_name;
     }
 }

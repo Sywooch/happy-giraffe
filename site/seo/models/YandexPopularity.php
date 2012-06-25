@@ -9,7 +9,7 @@
  * @property integer $value
  *
  * The followings are the available model relations:
- * @property Keywords $keyword
+ * @property Keyword $keyword
  */
 class YandexPopularity extends HActiveRecord
 {
@@ -57,7 +57,7 @@ class YandexPopularity extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
+            'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
         );
     }
 
@@ -100,7 +100,7 @@ class YandexPopularity extends HActiveRecord
         ));
     }
 
-    public static function addValue($keyword_id, $value)
+    public function addValue($keyword_id, $value)
     {
         $yaPop = YandexPopularity::model()->findByPk($keyword_id);
         if ($yaPop !== null) {
@@ -120,8 +120,6 @@ class YandexPopularity extends HActiveRecord
 
             }
         }
-
-        ParsingKeywords::model()->deleteByPk($keyword_id);
     }
 
     public function getFreqIcon()

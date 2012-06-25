@@ -29,12 +29,11 @@ class CookUnit extends HActiveRecord
         // will receive user inputs.
         return array(
             array('title, type, ratio', 'required'),
-            array('parent_id', 'length', 'max' => 11),
             array('title, title2, title3, type', 'length', 'max' => 255),
             array('ratio', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, parent_id, title, title2, title3, type, ratio', 'safe', 'on' => 'search'),
+            array('id, title, title2, title3, type, ratio', 'safe', 'on' => 'search'),
         );
     }
 
@@ -58,12 +57,11 @@ class CookUnit extends HActiveRecord
     {
         return array(
             'id' => 'ID',
-            'parent_id' => 'Parent',
-            'title' => 'Title',
-            'title2' => 'Title2',
-            'title3' => 'Title3',
-            'type' => 'Type',
-            'ratio' => 'Ratio',
+            'title' => 'Название (1 ...)',
+            'title2' => 'Название (2 ...)',
+            'title3' => 'Название (5 ...)',
+            'type' => 'Тип',
+            'ratio' => 'Вес',
         );
     }
 
@@ -79,11 +77,10 @@ class CookUnit extends HActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('parent_id', $this->parent_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('title2', $this->title2, true);
         $criteria->compare('title3', $this->title3, true);
-        $criteria->compare('type', $this->type, true);
+        $criteria->compare('type', 'qty');
         $criteria->compare('ratio', $this->ratio, true);
 
         return new CActiveDataProvider($this, array(

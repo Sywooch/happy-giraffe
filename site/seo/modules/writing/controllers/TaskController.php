@@ -118,7 +118,7 @@ class TaskController extends SController
                 Yii::app()->end();
             }
 
-            $article_keywords = new ArticleKeywords();
+            $article_keywords = new Page();
             $article_keywords->entity = 'CommunityContent';
             $article_keywords->entity_id = $article_id;
             $article_keywords->keyword_group_id = $task->keyword_group_id;

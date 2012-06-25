@@ -14,6 +14,8 @@ class SocialLikeWidget extends CWidget
 
     public $title;
 
+    public $image;
+
     public $notice;
 
     public $options;

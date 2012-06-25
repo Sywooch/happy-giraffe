@@ -177,6 +177,13 @@ class YandexMetrica
         while (!empty($pages)) {
             foreach ($pages as $page) {
 
+                $page->yandex_week_visits = 0;
+                $page->yandex_month_visits = 0;
+                $page->google_week_visits = 0;
+                $page->google_month_visits = 0;
+                $page->yandex_pos = 1000;
+                $page->google_pos = 1000;
+
                 //week
                 foreach ($page->phrases as $phrase) {
                     $page->yandex_week_visits += $phrase->getVisits(self::SE_YANDEX, 1);

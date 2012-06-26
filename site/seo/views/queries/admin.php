@@ -10,10 +10,13 @@
     <div class="fast-filter">
         <span>Период</span>
         &nbsp;&nbsp;
-        <a href="?period=1"<?php if ($period==1) echo ' class="active"'?>>Неделя</a>
+        <a onclick="$('#period').val(1);$('#page-form').submit();return false;" href="#"<?php if ($period==1) echo ' class="active"'?>>Неделя</a>
         |
-        <a href="?period=2"<?php if ($period==2) echo ' class="active"'?>>Месяц</a>
+        <a onclick="$('#period').val(2);$('#page-form').submit();return false;" href="#"<?php if ($period==2) echo ' class="active"'?>>Месяц</a>
     </div>
+    <form action="" id="page-form">
+        <input type="hidden" name="period" id="period">
+    </form>
 
     <div class="table-box">
         <table>

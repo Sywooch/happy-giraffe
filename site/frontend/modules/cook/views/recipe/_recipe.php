@@ -82,7 +82,7 @@
 
         <div class="instructions wysiwyg-content">
 
-            <p><?=Str::truncate(strip_tags($data->text))?> <?=CHtml::link('Весь рецепт<i class="icon"></i>', $data->url, array('class' => 'read-more'))?></p>
+            <p><?=Str::truncate(strip_tags($data->text), 255)?> <?=CHtml::link('Весь рецепт<i class="icon"></i>', $data->url, array('class' => 'read-more'))?></p>
 
         </div>
 

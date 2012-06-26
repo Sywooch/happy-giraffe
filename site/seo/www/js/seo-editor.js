@@ -3,8 +3,8 @@
  * Date: 21.05.12
  */
 var SeoKeywords = {
-    page : 0,
-    term : '',
+    page:0,
+    term:'',
     searchKeywords:function () {
         $('div.loading').show();
         $.post('/writing/editor/searchKeywords/', {term:this.term, page:this.page}, function (response) {
@@ -13,7 +13,7 @@ var SeoKeywords = {
                 $('.search .result').html(response.count);
                 $('div.table-box tbody').html(response.table);
                 $('div.pagination').html(response.pagination);
-                $('html,body').animate({scrollTop: $('html').offset().top},'fast');
+                $('html,body').animate({scrollTop:$('html').offset().top}, 'fast');
             }
             else {
                 $.pnotify({
@@ -30,9 +30,9 @@ var SeoKeywords = {
             if (response.status) {
                 $(el).parents('tr').addClass('in-buffer');
                 if (short)
-                    $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, '+short+');return false;"></a>');
+                    $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, ' + short + ');return false;"></a>');
                 else
-                    $(el).parent('td').html('в буфере <input type="hidden" value="' + id + '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, '+short+');return false;"></a>');
+                    $(el).parent('td').html('в буфере <input type="hidden" value="' + id + '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, ' + short + ');return false;"></a>');
                 $('.default-nav div.count a').text(parseInt($('.default-nav div.count a').text()) + 1);
             }
         }, 'json');
@@ -43,9 +43,9 @@ var SeoKeywords = {
             if (response.status) {
                 $(el).parents('tr').removeClass('in-buffer');
                 if (short)
-                    $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this, '+short+');return false;"></a>');
+                    $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this, ' + short + ');return false;"></a>');
                 else
-                    $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this, '+short+');return false;"></a><a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>');
+                    $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this, ' + short + ');return false;"></a><a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>');
 
                 $('.default-nav div.count a').text(parseInt($('.default-nav div.count a').text()) - 1);
             }
@@ -121,7 +121,7 @@ var TaskDistribution = {
                 $('.tasks-list').html('');
                 $('.current-tasks tbody').append(response.html);
                 TaskDistribution.group = new Array();
-            }else
+            } else
                 $.pnotify({
                     pnotify_title:'Ошибка',
                     pnotify_type:'error',
@@ -264,31 +264,89 @@ var SeoTasks = {
 var SeoLinking = {
     page_id:null,
     keyword_id:null,
-    AddLink:function (el, linkingPageId, articleId) {
-        if (SeoLinking.keyword_id == null) {
+    phrase_id:null,
+    AddLink:function () {
+        if (SeoLinking.keyword_id == null && $('#own-keyword').val() == '') {
             $.pnotify({
                 pnotify_title:'Ошибка',
                 pnotify_type:'error',
                 pnotify_text:'Выберите ключевое слово'
             });
-        } else
-            $.post('/linking/add/', {id:linkingPageId, articleFromId:articleId, keyword_id:SeoLinking.keyword_id}, function (response) {
-                if (response.status) {
-                    $(el).remove();
-                    $('#keyword-' + SeoLinking.keyword_id).remove();
-                    SeoLinking.keyword_id = null;
-                } else {
-                    $.pnotify({
-                        pnotify_title:'Ошибка',
-                        pnotify_type:'error',
-                        pnotify_text:response.error
-                    });
-                }
-            }, 'json');
+            return false;
+        }
+        if (SeoLinking.phrase_id == null) {
+            $.pnotify({
+                pnotify_title:'Ошибка',
+                pnotify_type:'error',
+                pnotify_text:'Выберите строку в верхней таблице'
+            });
+        }
+        if (SeoLinking.page_id == null) {
+            $.pnotify({
+                pnotify_title:'Ошибка',
+                pnotify_type:'error',
+                pnotify_text:'Выберите страницу с которой ставить ссылку'
+            });
+        }
+
+        $.post('/linking/add/', {page_id:SeoLinking.page_id, phrase_id:SeoLinking.phrase_id, keyword_id:SeoLinking.keyword_id, keyword:$('#own-keyword').val()}, function (response) {
+            if (response.status) {
+                $('#keyword-' + SeoLinking.keyword_id).remove();
+                SeoLinking.keyword_id = null;
+                $('#page-from-' + SeoLinking.page_id).remove();
+                $('.step-2 ul li').removeClass('active');
+                $('.table-promotion-links tr.active td b a').html(parseInt($('.table-promotion-links tr.active td b a').text()) + 1);
+                $('#page-links tbody').prepend(response.linkInfo);
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
     },
-    CheckKeyword:function (el, keyword_id) {
-        SeoLinking.keyword_id = keyword_id;
-        $('a.keyword-for-link').removeClass('active');
+    removeLink:function (el, page_id, page_to_id) {
+        if (confirm("Вы точно хотите удалить ссылку?")) {
+            $.post('/linking/remove/', {page_id:page_id, page_to_id:page_to_id}, function (response) {
+                if (response.status)
+                    $(el).parents('tr').remove();
+            }, 'json');
+        }
+    },
+    selectPage:function (el, id) {
+        SeoLinking.page_id = id;
+        $('.step-1 ul li').removeClass('active');
         $(el).addClass('active');
+    },
+    selectKeyword:function (el, id) {
+        if ($(el).hasClass('active')) {
+            SeoLinking.keyword_id = null;
+            $(el).removeClass('active');
+        } else {
+            SeoLinking.keyword_id = id;
+            $('.step-2 ul li').removeClass('active');
+            $(el).addClass('active');
+        }
+    },
+    getPhraseData:function (el, phrase_id) {
+        $('#result').addClass('loading-block');
+        $.post('/linking/phraseInfo/', {phrase_id:phrase_id}, function (response) {
+            $('#result').removeClass('loading-block');
+            $('#result').html(response);
+            $('.table-promotion-links table tr').removeClass('active');
+            $(el).addClass('active');
+            SeoLinking.phrase_id = phrase_id;
+        });
+    },
+    loadStats:function(el, period, page_id){
+        if ($(el).hasClass('active'))
+            return false;
+
+        $.post('/linking/stats/', {period:period, page_id:page_id, phrase_id:SeoLinking.phrase_id}, function (response) {
+            $('.table-promotion-links tbody').html(response);
+            $('.table-promotion .fast-filter a').removeClass('active');
+            $(el).addClass('active');
+        });
     }
 }

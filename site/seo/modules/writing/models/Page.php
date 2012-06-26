@@ -20,6 +20,10 @@
  * The followings are the available model relations:
  * @property KeywordGroup $keywordGroup
  * @property PagesSearchPhrase[] $phrases
+ * @property InnerLink[] $outputLinks
+ * @property InnerLink[] $inputLinks
+ * @property int $outputLinksCount
+ * @property int $inputLinksCount
  */
 class Page extends CActiveRecord
 {
@@ -76,6 +80,10 @@ class Page extends CActiveRecord
         return array(
             'keywordGroup' => array(self::BELONGS_TO, 'KeywordGroup', 'keyword_group_id'),
             'phrases' => array(self::HAS_MANY, 'PagesSearchPhrase', 'page_id'),
+            'outputLinks' => array(self::HAS_MANY, 'InnerLink', 'page_id', 'order' => 'date desc'),
+            'inputLinks' => array(self::HAS_MANY, 'InnerLink', 'page_to_id', 'order' => 'date desc'),
+            'outputLinksCount' => array(self::STAT, 'InnerLink', 'page_id'),
+            'inputLinksCount' => array(self::STAT, 'InnerLink', 'page_to_id'),
         );
     }
 

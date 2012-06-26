@@ -9,4 +9,15 @@ class HActiveRecord extends CActiveRecord
     {
         return $this->photos;
     }
+
+    public function getErrorsText()
+    {
+        $errorText = '';
+        foreach ($this->getErrors() as $error) {
+            foreach($error as $errorPart)
+                $errorText.= $errorPart.' ';
+        }
+
+        return $errorText;
+    }
 }

@@ -53,9 +53,10 @@ class RecipeController extends HController
             if ($recipe->isNewRecord)
                 $recipe->author_id = Yii::app()->user->id;
             foreach ($_POST['CookRecipeIngredient'] as $i) {
-                if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
+                if (! empty($i['ingredient_id']) || ! empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
                     $ingredient = new CookRecipeIngredient;
                     $ingredient->attributes = $i;
+                    $ingredient->setValue();
                     $ingredient->recipe_id = $recipe->id;
                     $ingredients[] = $ingredient;
                 }
@@ -200,7 +201,7 @@ class RecipeController extends HController
 
     public function actionAdvancedSearchResult()
     {
-        foreach (array('cuisine_id', 'type', 'method', 'preparation_duration', 'cooking_duration') as $var) {
+        foreach (array('cuisine_id', 'type', 'preparation_duration', 'cooking_duration') as $var) {
             $$var = ($temp = Yii::app()->request->getQuery($var, '')) == '' ? null : $temp;
         }
         foreach (array('lowCal', 'lowFat', 'forDiabetics1', 'forDiabetics2') as $var) {
@@ -208,7 +209,7 @@ class RecipeController extends HController
         }
         $forDiabetics = $forDiabetics1 || $forDiabetics2;
 
-        $recipes = CookRecipe::model()->findAdvanced($cuisine_id, $type, $method, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics);
+        $recipes = CookRecipe::model()->findAdvanced($cuisine_id, $type, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics);
         $this->renderPartial('advancedSearchResult', compact('recipes'));
     }
 

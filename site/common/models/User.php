@@ -21,6 +21,7 @@
  * @property string $relationship_status
  * @property UserAddress $userAddress
  * @property integer $recovery_disable
+ * @property int $age
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -52,6 +53,8 @@
  * @property UserPartner partner
  * @property Baby[] babies
  * @property AlbumPhoto $avatar
+ *
+ * @method User active()
  */
 class User extends HActiveRecord
 {
@@ -362,6 +365,9 @@ class User extends HActiveRecord
             $service->user_id = $this->id;
             $service->save();
         }
+
+        /*Yii::app()->mc->saveUser($this);*/
+
         if ($this->isNewRecord) {
             //силнал о новом юзере
             $signal = new UserSignal();
@@ -389,6 +395,7 @@ class User extends HActiveRecord
             if (!empty($this->relationship_status))
                 UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_FAMILY);
         }
+
         return true;
     }
 

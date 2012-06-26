@@ -1,0 +1,18 @@
+<?php
+/**
+ * @var PagesSearchPhrase[] $goodPhrases
+ * @var int $selected_phrase_id
+ * @var int $period
+ */
+
+foreach ($goodPhrases as $phrase): ?>
+<tr onclick="SeoLinking.getPhraseData(this, <?= $phrase->id?>)"<?php if ($selected_phrase_id == $phrase->id) echo ' class="active"' ?>>
+    <td><?=$phrase->keyword->name ?></td>
+    <td><?=$phrase->getPosition(2) ?></td>
+    <td><?=$visits1 = $phrase->getVisits(2, $period) ?></td>
+    <td><?=$phrase->getPosition(3) ?></td>
+    <td><?=$visits2 = $phrase->getVisits(3, $period) ?></td>
+    <td><?=($visits1 + $visits2) ?></td>
+    <td><b><a><?=$phrase->getLinksCount() ?></a></b></td>
+</tr>
+<?php endforeach; ?>

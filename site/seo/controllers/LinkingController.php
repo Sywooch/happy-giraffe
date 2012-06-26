@@ -2,7 +2,7 @@
 
 class LinkingController extends SController
 {
-    public $pageTitle = 'Перелинковка';
+    public $pageTitle = 'продвижение';
 
     public function beforeAction($action)
     {
@@ -16,94 +16,137 @@ class LinkingController extends SController
         $this->render('index');
     }
 
-    public function actionGo()
+    public function actionView($id, $selected_phrase_id = null, $period = 1)
     {
-        $url = Yii::app()->request->getPost('url');
-        preg_match("/\/([\d]+)\/$/", $url, $match);
-        $id = $match[1];
+        $page = $this->loadPage($id);
 
-        $article = CommunityContent::model()->findByPk($id);
-        if ($article === null) {
-            $response = array(
-                'status' => false,
-                'error' => 'Не найдена статья, обратитесь к разработчикам.',
-            );
-        } else {
-            $article_keyword = Page::model()->findByAttributes(array(
-                'entity' => 'CommunityContent',
-                'entity_id' => $id,
-            ));
-
-            if ($article_keyword === null)
-                $response = array(
-                    'status' => false,
-                    'error' => 'Не введены ключевые слова статьи.',
-                );
-            else {
-                if (!isset($article_keyword->keywordGroup) || empty($article_keyword->keywordGroup->keywords))
-                    $response = array(
-                        'status' => false,
-                        'error' => 'Не введены ключевые слова статьи.',
-                    );
-                else {
-                    $linkingPage = LinkingPages::model()->findByAttributes(array(
-                        'entity' => 'CommunityContent',
-                        'entity_id' => $id
-                    ));
-                    if ($linkingPage === null) {
-                        $linkingPage = new LinkingPages;
-                        $linkingPage->entity = 'CommunityContent';
-                        $linkingPage->entity_id = $id;
-                        $linkingPage->url = $article->url;
-                        $linkingPage->save();
-                    }
-
-                    $response = array(
-                        'status' => true,
-                        'html' => $this->renderPartial('_donors', array(
-                            'article_keyword'=>$article_keyword,
-                            'linkingPage'=>$linkingPage
-                        ), true)
-                    );
-                }
-            }
-        }
-
-        echo CJSON::encode($response);
+        $this->render('view', compact('page', 'selected_phrase_id', 'period'));
     }
 
-
-    public function actionAdd(){
-        $id = Yii::app()->request->getPost('id');
-        $article_from_id = Yii::app()->request->getPost('articleFromId');
+    public function actionAdd()
+    {
+        $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
+        $page_from = $this->loadPage(Yii::app()->request->getPost('page_id'));
         $keyword_id = Yii::app()->request->getPost('keyword_id');
-
-        $linkingPageTo = LinkingPages::model()->findByPk($id);
-        $article_from = CommunityContent::model()->findByPk($article_from_id);
-
-        $linkingPageFrom = LinkingPages::model()->findByPk(array(
-            'entity' => 'CommunityContent',
-            'entity_id' => $article_from_id
-        ));
-        if ($linkingPageFrom === null) {
-            $linkingPageFrom = new LinkingPages;
-            $linkingPageFrom->entity = 'CommunityContent';
-            $linkingPageFrom->entity_id = $article_from->id;
-            $linkingPageFrom->url = $article_from->url;
-            $linkingPageFrom->save();
+        if ($keyword_id == 'null') {
+            $keyword = Yii::app()->request->getPost('keyword');
+            $keyword = Keyword::GetKeyword($keyword);
+            $keyword_id = $keyword->id;
         }
 
-        $link = new LinkingPagesPages;
-        $link->page_id = $linkingPageFrom->id;
-        $link->linkto_page_id = $linkingPageTo->id;
+        $link = new InnerLink();
+        $link->page_id = $page_from->id;
+        $link->page_to_id = $phrase->page_id;
+        $link->phrase_id = $phrase->id;
         $link->keyword_id = $keyword_id;
 
-        echo CJSON::encode(array('status' => $link->save()));
+        if (!$link->save()) {
+            echo CJSON::encode(array(
+                'status' => false,
+                'error' => $link->getErrorsText(),
+            ));
+        } else
+            echo CJSON::encode(array(
+                'status' => true,
+                'linkInfo' => $this->renderPartial('_link_info', array('input_link' => $link), true)
+            ));
     }
 
-    function getmicrotime()
+    public function actionPhraseInfo()
     {
-        list($usec, $sec) = explode(" ", microtime());
-        return ((float)$usec + (float)$sec);
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
+        $parser = new SimilarArticlesParser;
+        $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
+        $pages = $parser->getArticles($phrase->keyword->name);
+
+        $pages = $this->filterPages($phrase, $pages);
+        if (empty($pages)) {
+            //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
+            $url = $phrase->page->getRubricUrl();
+            $pages = $parser->getArticles($url);
+        }
+        $pages = $this->filterPages($phrase, $pages);
+        if (count($pages) > 10)
+            $pages = array_slice($pages, 0, 10);
+
+        $keywords = $phrase->getSimilarKeywords();
+
+        $this->renderPartial('_phrase_view', compact('pages', 'keywords'));
+    }
+
+    private function filterPages($phrase, $pages)
+    {
+        //удалим текущий
+        foreach ($pages as $key => $page)
+            if ($page->id == $phrase->page_id)
+                unset($pages[$key]);
+        //удалим те с которых уже стоят ссылки на наш
+        foreach ($pages as $key => $page) {
+            if (InnerLink::model()->exists('page_id = ' . $page->id . ' and page_to_id=' . $phrase->page->id))
+                unset($pages[$key]);
+        }
+
+        return $pages;
+    }
+
+    public function actionRemove()
+    {
+        $page_id = Yii::app()->request->getPost('page_id');
+        $page_to_id = Yii::app()->request->getPost('page_to_id');
+        InnerLink::model()->deleteAllByAttributes(array(
+            'page_id' => $page_id,
+            'page_to_id' => $page_to_id
+        ));
+
+        echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionStats(){
+        $period = Yii::app()->request->getPost('period');
+        $page = $this->loadPage(Yii::app()->request->getPost('page_id'));
+        $goodPhrases = $page->goodPhrases();
+        $selected_phrase_id = Yii::app()->request->getPost('phrase_id');
+
+        $this->renderPartial('_stats',compact('period', 'goodPhrases', 'selected_phrase_id'));
+    }
+
+    /**
+     * @param int $id model id
+     * @return Keyword
+     * @throws CHttpException
+     */
+    public function loadKeyword($id)
+    {
+        $model = Keyword::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return PagesSearchPhrase
+     * @throws CHttpException
+     */
+    public function loadPhrase($id)
+    {
+        $model = PagesSearchPhrase::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return Page
+     * @throws CHttpException
+     */
+    public function loadPage($id)
+    {
+        $model = Page::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

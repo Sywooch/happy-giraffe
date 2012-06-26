@@ -148,4 +148,26 @@ class PagesSearchPhrase extends HActiveRecord
 
         return 0;
     }
+
+    public function getSimilarKeywords()
+    {
+        $keywords = $this->keyword->getChildKeywords(10);
+
+        //убираем кейворд если уже есть ссылка с ним
+//        $result = array();
+//        foreach($keywords as $keyword){
+//            InnerLink::model()->findByAttributes(array(
+//
+//            ));
+//        }
+
+        return $keywords;
+    }
+
+    public function getLinksCount(){
+         return InnerLink::model()->countByAttributes(array(
+             'phrase_id'=>$this->id
+         ));
+    }
+
 }

@@ -88,6 +88,20 @@
                         'visible' => Yii::app()->user->checkAccess('cook_choose'),
                     ),
                 )
+            ),
+            array(
+                'label' => 'Рассылки',
+                'url' => array('/mail/index/index'),
+                'items' => array(
+                    array(
+                        'label' => 'Создать рассылку',
+                        'url' => array('/mail/index/create'),
+                    ),
+                    array(
+                        'label' => 'Управление шаблонами',
+                        'url' => array('/mail/templates/index'),
+                    )
+                )
             )
         ),
     ));?>

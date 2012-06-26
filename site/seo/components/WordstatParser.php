@@ -68,14 +68,11 @@ class WordstatParser extends ProxyParserThread
         $criteria = new CDbCriteria;
         $criteria->condition = 'depth IS NULL';
         $criteria->compare('active', 0);
-        $criteria->with = 'keyword';
-        //$criteria->order = 'rand()';
 
         //затем все остальные упорядоченные по глубине парсинга
         $criteria2 = new CDbCriteria;
         $criteria2->compare('active', 0);
         $criteria2->order = 'depth DESC';
-        $criteria2->with = 'keyword';
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {

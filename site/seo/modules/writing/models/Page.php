@@ -214,7 +214,7 @@ class Page extends CActiveRecord
                         $model->save();
                     }
                 } else {
-                    return 'null';
+                    return null;
                 }
             } else {
                 $model->keyword_group_id = $keyword_group->id;

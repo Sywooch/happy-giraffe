@@ -5,7 +5,7 @@ class m120626_072339_change_users extends CDbMigration
 	public function up()
 	{
         $this->execute("ALTER TABLE `users` ADD `remember_code` MEDIUMINT( 5 ) NOT NULL ");
-        $this->execute("dtop table mail__templates");
+        $this->execute("drop table mail__templates");
         $this->execute("CREATE TABLE IF NOT EXISTS `mail__templates` (
       `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
       `title` varchar(255) NOT NULL,

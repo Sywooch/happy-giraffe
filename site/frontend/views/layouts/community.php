@@ -198,7 +198,7 @@
             </div>
             <div class="bottom">
                 <a href="javascript:void(0);" class="btn btn-gray-medium" onclick="$.fancybox.close();"><span><span>Отменить</span></span></a>
-                <?=HHtml::link('<span><span>Вступить в клуб</span></span>', array('community/join', 'action' => 'join', 'community_id' => $this->community->id, array('class' => 'btn btn-green-medium joinButton'), true))?>
+                <?=HHtml::link('<span><span>Вступить в клуб</span></span>', array('community/join', 'action' => 'join', 'community_id' => $this->community->id), array('class' => 'btn btn-green-medium joinButton'), true)?>
             </div>
         </div>
         <div class="confirm-after">

@@ -24,11 +24,10 @@ class WordstatParser extends ProxyParserThread
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 
-        //sleep(rand(1, 120));
-
+        $this->logMemoryUsage('start load cookie');
         $this->getCookie();
+        $this->logMemoryUsage('end load cookie');
 
-        $this->logMemoryUsage('got cookie');
         while (true) {
             $this->getNextPage();
 
@@ -62,6 +61,7 @@ class WordstatParser extends ProxyParserThread
 
     public function getKeyword()
     {
+        $this->logMemoryUsage('start select keyword');
         $this->keyword = null;
 
         //сначала выбираем с бесконечной глубиной парсинга
@@ -99,7 +99,7 @@ class WordstatParser extends ProxyParserThread
         }
 
         $this->first_page = true;
-        $this->logMemoryUsage('keyword selected');
+        $this->logMemoryUsage('end select keyword');
     }
 
     private function getCookie()
@@ -145,6 +145,7 @@ class WordstatParser extends ProxyParserThread
 
     public function parseData($html)
     {
+        $this->logMemoryUsage('start parse page');
         $document = phpQuery::newDocument($html);
         $html = str_replace('&nbsp;', ' ', $html);
         $html = str_replace('&mdash;', '—', $html);
@@ -197,6 +198,7 @@ class WordstatParser extends ProxyParserThread
             if ($this->debug)
                 echo 'next page: ' . $this->next_page;
         }
+        $this->logMemoryUsage('end parse page');
 
         return true;
     }
@@ -268,7 +270,7 @@ class WordstatParser extends ProxyParserThread
     public function AddStat($model, $value)
     {
         if ($this->debug)
-            echo $model->name . ' - ' . $value . "<br>";
+            echo $value . "\n";
 
         YandexPopularity::model()->addValue($model->id, $value);
         $model->our = 1;
@@ -300,7 +302,7 @@ class WordstatParser extends ProxyParserThread
         } else {
             //иначе удаляем кейворд из парсинга
             if ($this->debug)
-                echo $this->keyword->keyword_id . ' - удаляем кейворд из парсинга<br>';
+                echo $this->keyword->keyword_id . " - remove keyword from parsing\n";
 
             ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
 

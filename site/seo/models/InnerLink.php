@@ -11,10 +11,10 @@
  * @property string $date
  *
  * The followings are the available model relations:
- * @property PagesSearchPhrases $phrase
- * @property Keywords $keyword
- * @property Pages $page
- * @property Pages $pageTo
+ * @property PagesSearchPhrase $phrase
+ * @property Keyword $keyword
+ * @property Page $page
+ * @property Page $pageTo
  */
 class InnerLink extends HActiveRecord
 {
@@ -49,7 +49,7 @@ class InnerLink extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('page_id, phrase_id, page_to_id, keyword_id, date', 'required'),
+			array('page_id, phrase_id, page_to_id, keyword_id', 'required'),
 			array('keyword_id', 'numerical', 'integerOnly'=>true),
 			array('page_id, phrase_id, page_to_id', 'length', 'max'=>10),
 			// The following rule is used by search().
@@ -66,10 +66,10 @@ class InnerLink extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'phrase' => array(self::BELONGS_TO, 'PagesSearchPhrases', 'phrase_id'),
-			'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
-			'page' => array(self::BELONGS_TO, 'Pages', 'page_id'),
-			'pageTo' => array(self::BELONGS_TO, 'Pages', 'page_to_id'),
+			'phrase' => array(self::BELONGS_TO, 'PagesSearchPhrase', 'phrase_id'),
+			'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
+			'page' => array(self::BELONGS_TO, 'Page', 'page_id'),
+			'pageTo' => array(self::BELONGS_TO, 'Page', 'page_to_id'),
 		);
 	}
 
@@ -108,4 +108,10 @@ class InnerLink extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function beforeSave()
+    {
+        $this->date = date("Y-m-d");
+        return parent::beforeSave();
+    }
 }

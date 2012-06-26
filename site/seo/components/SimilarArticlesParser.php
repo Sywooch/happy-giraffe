@@ -12,9 +12,9 @@ class SimilarArticlesParser
     public function getArticles($keyword)
     {
         if ($this->startsWith($keyword, 'http://'))
-            $content = $this->query('http://yandex.ru/yandsearch?text=site%3A' . urlencode($keyword) . '&lr=38&lang=ru');
+            $content = $this->query('http://yandex.ru/yandsearch?text=site%3A' . urlencode($keyword) . '&lr=38&numdoc=30&lang=ru');
         else
-            $content = $this->query('http://yandex.ru/yandsearch?text=site%3Ahttp%3A%2F%2Fwww.happy-giraffe.ru%2F+' . urlencode($keyword) . '&lr=38&lang=ru');
+            $content = $this->query('http://yandex.ru/yandsearch?text=site%3Ahttp%3A%2F%2Fwww.happy-giraffe.ru%2F+' . urlencode($keyword) . '&lr=38&numdoc=30&lang=ru');
 
         $document = phpQuery::newDocument($content);
         $links = array();

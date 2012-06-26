@@ -102,10 +102,12 @@ class RecipeController extends HController
 
         //image
         preg_match('/\/([\w\.]+)$/', $imgSrc, $matches);
-        $fs_name = $matches[1];
-        $photo = AlbumPhoto::model()->find('fs_name = :fs_name', array(':fs_name' => $fs_name));
-        if ($photo !== null)
-            $recipe->photo_id = $photo->id;
+        if ($matches) {
+            $fs_name = $matches[1];
+            $photo = AlbumPhoto::model()->find('fs_name = :fs_name', array(':fs_name' => $fs_name));
+            if ($photo !== null)
+                $recipe->photo_id = $photo->id;
+        }
 
         if (isset($_POST['CookRecipe'])) {
             $ingredients = array();

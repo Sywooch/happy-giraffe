@@ -146,7 +146,7 @@ class LinkingController extends SController
     {
         $model = Page::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            throw new CHttpException(404, 'Page id not found.');
         return $model;
     }
 }

@@ -21,6 +21,7 @@
  * @property string $relationship_status
  * @property UserAddress $userAddress
  * @property integer $recovery_disable
+ * @property integer $remember_code
  * @property int $age
  *
  * The followings are the available model relations:
@@ -159,7 +160,6 @@ class User extends HActiveRecord
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
-            //array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12),
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('deleted', 'numerical', 'integerOnly' => true),
@@ -169,6 +169,7 @@ class User extends HActiveRecord
             array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
             array('avatar_id', 'numerical', 'allowEmpty' => true),
+            array('remember_code', 'numerical'),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -185,6 +186,9 @@ class User extends HActiveRecord
             array('current_password', 'validatePassword', 'on' => 'change_password'),
             array('new_password_repeat', 'compare', 'on' => 'change_password', 'compareAttribute' => 'new_password'),
             array('verifyCode', 'captcha', 'on' => 'change_password', 'allowEmpty' => false),
+
+            //remember_password
+            array('password', 'length', 'min' => 6, 'max' => 12, 'on' => 'remember_password'),
         );
     }
 
@@ -348,7 +352,7 @@ class User extends HActiveRecord
             if ($this->isNewRecord) {
                 $this->register_date = date("Y-m-d H:i:s");
             }
-            if ($this->isNewRecord OR $this->scenario == 'change_password') {
+            if ($this->isNewRecord || $this->scenario == 'change_password' || $this->scenario == 'remember_password') {
                 $this->password = $this->hashPassword($this->password);
             }
             return true;
@@ -393,7 +397,7 @@ class User extends HActiveRecord
             self::clearCache($this->id);
 
             if (!empty($this->relationship_status))
-                UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_FAMILY);
+                UserScores::checkProfileScores($this->id, ScoreActions::ACTION_PROFILE_FAMILY);
         }
 
         return true;

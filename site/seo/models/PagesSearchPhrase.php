@@ -119,16 +119,17 @@ class PagesSearchPhrase extends HActiveRecord
         if ($period == 1) {
             return $this->getWeekVisits($se, date('W') - 1, date('Y'));
         } else {
-            $week = date('W');
+            $week = date('W') - 1;
             $year = date('Y');
 
             $visits = 0;
-            for($i=0;$i<4;$i++){
+            for ($i = 0; $i < 4; $i++) {
                 $visits += $this->getWeekVisits($se, $week, $year);
 
-                if ($week == 1){
+                if ($week == 1) {
                     $week = 52;
-                }else
+                    $year--;
+                } else
                     $week--;
             }
             return $visits;
@@ -138,14 +139,32 @@ class PagesSearchPhrase extends HActiveRecord
     public function getWeekVisits($se, $week, $year)
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('search_phrase_id', $this->id);
-        $criteria->compare('se_id', $se);
+        $criteria->compare('keyword_id', $this->keyword_id);
         $criteria->compare('week', $week);
         $criteria->compare('year', $year);
-        $model = SearchPhraseVisit::model()->find($criteria);
-        if ($model !== null)
-            return $model->visits;
+        $models = Query::model()->findAll($criteria);
+
+        foreach ($models as $model) {
+            foreach ($model->searchEngines as $searchEngine)
+                if ($searchEngine->se_id == $se)
+                    return $searchEngine->visits;
+        }
 
         return 0;
     }
+
+    public function getSimilarKeywords()
+    {
+        $keywords = $this->keyword->getChildKeywords(10);
+
+        return $keywords;
+    }
+
+    public function getLinksCount()
+    {
+        return InnerLink::model()->countByAttributes(array(
+            'phrase_id' => $this->id
+        ));
+    }
+
 }

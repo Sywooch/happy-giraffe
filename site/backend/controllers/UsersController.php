@@ -12,10 +12,8 @@ class UsersController extends BController
 
     public function actionIndex()
     {
-        if(Yii::app()->request->getQuery('user-list-check') && Yii::app()->request->getQuery('workWithItemsSelected'))
-        {
-            switch(Yii::app()->request->getQuery('workWithItemsSelected'))
-            {
+        if (Yii::app()->request->getQuery('user-list-check') && Yii::app()->request->getQuery('workWithItemsSelected')) {
+            switch (Yii::app()->request->getQuery('workWithItemsSelected')) {
                 case 'delete' :
                     Yii::app()->db->createCommand()->update('users', array('deleted' => 1), 'id in (' . implode(',', Yii::app()->request->getQuery('user-list-check')) . ')');
                     break;
@@ -30,13 +28,12 @@ class UsersController extends BController
 
         $criteria = new CDbCriteria;
 
-        if(Yii::app()->request->getQuery('gender'))
-        {
+        if (Yii::app()->request->getQuery('gender')) {
             $criteria->addCondition('t.gender = :gender');
             $criteria->params[':gender'] = Yii::app()->request->getQuery('gender');
         }
 
-        if(Yii::app()->request->getQuery('list_sort'))
+        if (Yii::app()->request->getQuery('list_sort'))
             $criteria->order = Yii::app()->request->getQuery('list_sort') . ' asc';
 
         $dataProvider = new CActiveDataProvider('User', array(
@@ -57,8 +54,7 @@ class UsersController extends BController
 
         if (!isset($_GET['change_view']))
             $this->render('index', $viewData);
-        else
-        {
+        else {
             Yii::app()->clientScript->scriptMap = array(
                 'jquery.js' => false,
                 'jquery.min.js' => false,

@@ -1,5 +1,6 @@
 !.gitignore
 /console/yiic.php
+/console/yiic_seo.php
 /*/www/index.php
 /*/config/main-local.php
 /frontend/www/robots.txt

@@ -106,21 +106,31 @@ class RssController extends HController
     {
         $user = User::model()->findByPk($user_id);
 
-        Yii::import('ext.EFeed.*');
-        $feed = new EFeed();
-        $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
-        $feed->addChannelTag('generator', 'MyBlogEngine 1.1:comments');
-        $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id, 'page' => $page + 1)));
-        $feed->addChannelTag('category', 'ya:comments');
+        $commentsCount = Comment::model()->count(array(
+            'join' => 'LEFT OUTER JOIN community__contents ON community__contents.id = t.entity_id AND (t.entity = \'CommunityContent\' OR t.entity = \'BlogContent\')',
+            'condition' => 'community__contents.author_id = :user_id AND community__contents.removed = 0',
+            'params' => array(':user_id' => $user->id),
+        ));
 
         $comments = Comment::model()->findAll(array(
             'join' => 'LEFT OUTER JOIN community__contents ON community__contents.id = t.entity_id AND (t.entity = \'CommunityContent\' OR t.entity = \'BlogContent\')',
-            'condition' => 'community__contents.author_id = :user_id',
+            'condition' => 'community__contents.author_id = :user_id AND community__contents.removed = 0',
             'params' => array(':user_id' => $user->id),
             'limit' => $this->limit,
             'offset' => ($page - 1) * $this->limit,
             'with' => 'response',
         ));
+
+        if (! $comments)
+            throw new CHttpException(404, 'Такой записи не существует');
+
+        Yii::import('ext.EFeed.*');
+        $feed = new EFeed();
+        $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
+        $feed->addChannelTag('generator', 'MyBlogEngine 1.1:comments');
+        if ($commentsCount > $this->limit * $page)
+            $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id, 'page' => $page + 1)));
+        $feed->addChannelTag('category', 'ya:comments');
 
         foreach ($comments as $comment) {
             $content = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);

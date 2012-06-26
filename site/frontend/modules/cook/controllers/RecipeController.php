@@ -115,6 +115,7 @@ class RecipeController extends HController
                 if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
                     $ingredient = new CookRecipeIngredient;
                     $ingredient->attributes = $i;
+                    $ingredient->setValue();
                     $ingredient->recipe_id = $recipe->id;
                     $ingredients[] = $ingredient;
                 }

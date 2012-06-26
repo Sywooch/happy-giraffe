@@ -69,7 +69,7 @@ class WordstatParser extends ProxyParserThread
         $criteria->condition = 'depth IS NULL';
         $criteria->compare('active', 0);
         $criteria->with = 'keyword';
-        $criteria->order = 'rand()';
+        //$criteria->order = 'rand()';
 
         //затем все остальные упорядоченные по глубине парсинга
         $criteria2 = new CDbCriteria;
@@ -77,25 +77,21 @@ class WordstatParser extends ProxyParserThread
         $criteria2->order = 'depth DESC';
         $criteria2->with = 'keyword';
 
-        while ($this->keyword === null) {
-            $transaction = Yii::app()->db_seo->beginTransaction();
-            try {
-                $this->keyword = ParsingKeyword::model()->find($criteria);
-                if ($this->keyword === null) {
-                    $this->keyword = ParsingKeyword::model()->find($criteria2);
-                    if ($this->keyword === null)
-                        $this->closeThread('Keywords for parsing ended');
-                }
-
-                $this->keyword->active = 1;
-                $this->keyword->save();
-                $transaction->commit();
-            } catch (Exception $e) {
-                $this->keyword = null;
-                $transaction->rollback();
-                $this->closeThread('get keyword transaction failed');
+        $transaction = Yii::app()->db_seo->beginTransaction();
+        try {
+            $this->keyword = ParsingKeyword::model()->find($criteria);
+            if ($this->keyword === null) {
+                $this->keyword = ParsingKeyword::model()->find($criteria2);
+                if ($this->keyword === null)
+                    $this->closeThread('Keywords for parsing ended');
             }
-            sleep(1);
+
+            $this->keyword->active = 1;
+            $this->keyword->save();
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            $this->closeThread('get keyword transaction failed');
         }
 
         $this->first_page = true;

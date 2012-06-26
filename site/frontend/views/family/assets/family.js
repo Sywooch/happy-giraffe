@@ -148,9 +148,8 @@ var Family = {
                         if (response.status) {
                             $(el).removeClass('checked');
                             $(el).parents('.radiogroup').find('input').removeAttr('checked');
-                            Family.clearBaby(1);
-                            Family.clearBaby(2);
-                            Family.clearBaby(3);
+                            for (var i = num + 1; i <= 4; i++)
+                                Family.clearBaby(i);
 
                             Family.baby_count = 0;
                             Family.updateWidget();
@@ -161,7 +160,7 @@ var Family = {
                 $(el).removeClass('checked');
                 $(el).parents('.radiogroup').find('input').removeAttr('checked');
 
-                for (var i = 1; i <= 3; i++) {
+                for (var i = 1; i <= 4; i++) {
                     $('#baby-' + i).hide();
                 }
                 Family.baby_count = 0;
@@ -170,7 +169,7 @@ var Family = {
             if (this.baby_count > num) {
                 if ($('#baby-' + (num + 1) + ' input.baby-id').val() != '') {
                     var Ids = new Array();
-                    for (var i = num + 1; i <= 3; i++) {
+                    for (var i = num + 1; i <= 4; i++) {
                         Ids.push($('#baby-' + i + ' input.baby-id').val());
                     }
 
@@ -182,7 +181,7 @@ var Family = {
                             dataType:'JSON',
                             success:function (response) {
                                 if (response.status) {
-                                    for (var i = num + 1; i <= 3; i++)
+                                    for (var i = num + 1; i <= 4; i++)
                                         Family.clearBaby(i);
                                     Family.refreshBabyRadio(el);
                                     Family.updateWidget();
@@ -192,7 +191,7 @@ var Family = {
                         });
                     }
                 } else {
-                    for (var i = num + 1; i <= 3; i++) {
+                    for (var i = num + 1; i <= 4; i++) {
                         $('#baby-' + i).hide();
                     }
                     this.refreshBabyRadio(el);

@@ -18,7 +18,6 @@
  * @property integer $year
  *
  * The followings are the available model relations:
- * @property QueryPage[] $pages
  * @property QuerySearchEngine[] $searchEngines
  * @property Keyword $keyword
  */
@@ -108,52 +107,16 @@ class Query extends HActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('keyword_id', $this->keyword_id, true);
-        $criteria->compare('visits', $this->visits, true);
-        $criteria->compare('page_views', $this->page_views, true);
-        $criteria->compare('denial', $this->denial);
-        $criteria->compare('depth', $this->depth);
-        $criteria->compare('visit_time', $this->visit_time);
+        $criteria->compare('id', $this->id);
+        $criteria->compare('keyword_id', $this->keyword_id);
+        $criteria->compare('visits', $this->visits);
+        $criteria->compare('page_views', $this->page_views);
         $criteria->compare('parsing', $this->parsing);
-        $criteria->with = 'pages';
-        $criteria->together = true;
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 50),
         ));
-    }
-
-    public function getActivePages()
-    {
-
-        $res = '';
-        foreach ($this->pages as $page) {
-            return CHtml::link($page->page_url, $page->page_url);
-        }
-
-        return $res;
-    }
-
-    public function getYandexPos()
-    {
-        $res = '';
-        foreach ($this->pages as $page) {
-            return $page->yandex_position . '<br>';
-        }
-
-        return $res;
-    }
-
-    public function getGooglePos()
-    {
-        $res = '';
-        foreach ($this->pages as $page) {
-            return $page->google_position . '<br>';
-        }
-
-        return $res;
     }
 
     public function getVisits($keyword_id, $se, $week, $year)

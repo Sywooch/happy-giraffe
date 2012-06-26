@@ -84,9 +84,10 @@ class LinkingController extends SController
     private function filterPages($phrase, $pages)
     {
         //удалим текущий
-        foreach ($pages as $key => $page)
+        foreach ($pages as $key => $page){
             if ($page->id == $phrase->page_id)
                 unset($pages[$key]);
+        }
         //удалим те с которых уже стоят ссылки на наш
         foreach ($pages as $key => $page) {
             if (!empty($page->id) && InnerLink::model()->exists('page_id = ' . $page->id . ' and page_to_id=' . $phrase->page->id))

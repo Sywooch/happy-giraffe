@@ -7,7 +7,8 @@ class normalizeNumber extends CValidator
             $object->$attribute = trim(str_replace(',', '.', $object->$attribute));
             $object->$attribute = preg_replace('#[^0-9\.]+#', '', $object->$attribute);
         } else {
-            $this->addError($object, $attribute, 'Поле ' . $attribute . ' должно быть числом');
+            $labels = $object->attributeLabels();
+            $this->addError($object, $attribute, $labels[$attribute] . ' должно быть числом');
         }
     }
 }

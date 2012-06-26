@@ -11,6 +11,7 @@ var Wallpapers = {
                     $("#repair-wallpapers div.recommendation div.right span").text(data.qty+' '+data.noun2);
                     $("#repair-wallpapers div.recommendation").fadeIn(100);
                 });
+                $('html,body').animate({scrollTop:$('#result').offset().top}, 'fast');
             }
         });
         return false;

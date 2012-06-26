@@ -111,6 +111,12 @@ class LinkingController extends SController
         $this->renderPartial('_stats',compact('period', 'goodPhrases', 'selected_phrase_id'));
     }
 
+    public function actionDonors(){
+        $page = $this->loadPage(Yii::app()->request->getPost('page_id'));
+        $links = $page->inputLinks;
+        $this->renderPartial('_donors', compact('links'));
+    }
+
     /**
      * @param int $id model id
      * @return Keyword

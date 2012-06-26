@@ -117,7 +117,7 @@
 
     </div>
 
-    <div class="recommendation clearfix" style="display:none">
+    <div class="recommendation clearfix" id="result" style="display:none">
 
         <div class="left">
             <img src="/images/img_repair_paint_side.png" data-title="Стены" />

@@ -7785,10 +7785,10 @@ ul.letters li a:hover {
 #repair-ceiling .form .title h1 {font:bold 40px/1 tahoma, arial, helvetica, sans-serif;color:#3e3e3e;margin-bottom:0px;}
 #repair-ceiling .form .title span {color:#a37fc6;font:bold 40px/1 tahoma, arial, helvetica, sans-serif;text-transform:uppercase;display:block;margin-bottom:10px;}
 #repair-ceiling .form .title p {font-size:13px;color:#434343;width:480px;}
-#repair-ceiling .form .form-in {margin-top:20px;width:355px;}
-#repair-ceiling .form .form-in .row {padding:15px 25px 15px;background:#e5d8ef;background:rgba(229,216,239,0.85);font-size:15px;}
+#repair-ceiling .form .form-in {margin-top:20px;width:370px;}
+#repair-ceiling .form .form-in .row {padding:15px 25px 10px;background:#e5d8ef;background:rgba(229,216,239,0.85);font-size:15px;}
 #repair-ceiling .form .form-in .row sup {font-size:10px;}
-#repair-ceiling .form .form-in .row input[type=text] {padding:5px 10px;font-size:16px;color:#906ab6;width:25px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #cdb9dc;vertical-align:top;height:16px;line-height:16px;}
+#repair-ceiling .form .form-in .row input[type=text] {padding:5px 10px;font-size:16px;color:#906ab6;width:40px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #cdb9dc;vertical-align:top;height:16px;line-height:16px;}
 #repair-ceiling .form .form-in .row .small {padding-top:15px;}
 #repair-ceiling .form .form-in .row .small > span {font-size:16px;color:#4c4d4d;font-weight:bold;}
 

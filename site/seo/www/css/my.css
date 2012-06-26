@@ -143,3 +143,14 @@
     position: absolute;
     width: 200px;
 }
+#positions{
+    position: absolute;
+    width: 200px;
+}
+.positions{
+    margin: 0 !important;
+    width: 150px;
+}
+#seo .positions ul li .date{
+    width: 70px;
+}

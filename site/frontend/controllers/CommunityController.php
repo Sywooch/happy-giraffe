@@ -129,7 +129,7 @@ class CommunityController extends HController
     {
         //
         $this->layout = '//layouts/community';
-        $content = CommunityContent::model()->full()->findByPk($content_id);
+        $content = CommunityContent::model()->resetScope()->full()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
 

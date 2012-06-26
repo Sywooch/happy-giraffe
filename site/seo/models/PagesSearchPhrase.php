@@ -178,6 +178,9 @@ class PagesSearchPhrase extends HActiveRecord
             return $this->getPosition($se);
 
         $last = $se_positions[0];
+
+        return $last->position;
+
         $prev = $se_positions[1];
         $i = 2;
         while($prev->position == $last->position){

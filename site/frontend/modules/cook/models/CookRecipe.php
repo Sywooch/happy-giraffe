@@ -534,6 +534,7 @@ class CookRecipe extends CActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'with' => array('photo', 'attachPhotos'),
+            'order' => 't.created DESC',
         ));
         if ($type !== null)
             $criteria->compare('type', $type);

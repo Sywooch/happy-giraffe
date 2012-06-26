@@ -56,9 +56,15 @@
                     <?php if ($recipe->cuisine): ?>
                         <li>Кухня <span class="nationality"><!--<div class="flag flag-ua"></div> --><span class="cuisine-type"><?=$recipe->cuisine->title?></span></span></li>
                     <?php endif; ?>
-                    <li>Время подготовки <span class="time-1"><i class="icon"></i><span class=""><?=$recipe->preparation_duration_h?> : <?=$recipe->preparation_duration_m?></span></span></li>
-                    <li>Время приготовления <span class="time-2"><i class="icon"></i><span class=""><?=$recipe->cooking_duration_h?> : <?=$recipe->cooking_duration_m?></span></span></li>
-                    <li>Кол-во порций <span class="yield-count"><i class="icon"></i><span class="yield"><?=$recipe->servings?> <?=HDate::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings)?></span></span></li>
+                    <?php if ($recipe->preparation_duration): ?>
+                        <li>Время подготовки <span class="time-1"><i class="icon"></i><span class=""><?=$recipe->preparation_duration_h?> : <?=$recipe->preparation_duration_m?></span></span></li>
+                    <?php endif; ?>
+                    <?php if ($recipe->cooking_duration): ?>
+                        <li>Время приготовления <span class="time-2"><i class="icon"></i><span class=""><?=$recipe->cooking_duration_h?> : <?=$recipe->cooking_duration_m?></span></span></li>
+                    <?php endif; ?>
+                    <?php if ($recipe->servings): ?>
+                        <li>Кол-во порций <span class="yield-count"><i class="icon"></i><span class="yield"><?=$recipe->servings?> <?=HDate::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings)?></span></span></li>
+                    <?php endif; ?>
                 </ul>
 
                 <div class="actions">
@@ -246,7 +252,7 @@
                 <li class="ingredient">
                     <span class="name"><?=$i->ingredient->title?></span>
                     <span class="value"><?=round($i->value, 2)?></span>
-                    <span class="type"><?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value)?></span>
+                    <span class="type"><?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), (int)$i->value)?></span>
                     <!--<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>-->
                 </li>
             <?php endforeach; ?>
@@ -262,6 +268,13 @@
 
     </div>
 
+    <div class="entry-footer">
+        <div class="admin-actions">
+            <?php if (Yii::app()->authManager->checkAccess('editCookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $recipe->author_id){
+                echo CHtml::link('<i class="icon"></i>', $this->createUrl('/cook/recipe/form/', array('id' => $recipe->id)), array('class' => 'edit'));
+            } ?>
+        </div>
+    </div>
 </div>
 
 <?php if ($recipe->more): ?>

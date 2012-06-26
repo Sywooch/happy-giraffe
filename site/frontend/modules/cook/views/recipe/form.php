@@ -140,16 +140,6 @@
 
                         </div>
 
-                        <div class="col">
-
-                            <?=$form->label($recipe, 'method', array('class' => 'row-title'))?><br/>
-
-                            <span class="chzn-v2">
-                                <?=$form->dropDownList($recipe, 'method', $recipe->methods, array('prompt' => 'не выбран', 'class' => 'chzn'))?>
-                            </span>
-
-                        </div>
-
                     </div>
 
                     <div class="row clearfix ">

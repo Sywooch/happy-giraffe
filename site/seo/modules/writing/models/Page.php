@@ -20,6 +20,10 @@
  * The followings are the available model relations:
  * @property KeywordGroup $keywordGroup
  * @property PagesSearchPhrase[] $phrases
+ * @property InnerLink[] $outputLinks
+ * @property InnerLink[] $inputLinks
+ * @property int $outputLinksCount
+ * @property int $inputLinksCount
  */
 class Page extends CActiveRecord
 {
@@ -76,6 +80,10 @@ class Page extends CActiveRecord
         return array(
             'keywordGroup' => array(self::BELONGS_TO, 'KeywordGroup', 'keyword_group_id'),
             'phrases' => array(self::HAS_MANY, 'PagesSearchPhrase', 'page_id'),
+            'outputLinks' => array(self::HAS_MANY, 'InnerLink', 'page_id', 'order' => 'date desc'),
+            'inputLinks' => array(self::HAS_MANY, 'InnerLink', 'page_to_id', 'order' => 'date desc'),
+            'outputLinksCount' => array(self::STAT, 'InnerLink', 'page_id'),
+            'inputLinksCount' => array(self::STAT, 'InnerLink', 'page_to_id'),
         );
     }
 
@@ -126,12 +134,26 @@ class Page extends CActiveRecord
         return parent::beforeDelete();
     }
 
+    /**
+     * @return CommunityContent
+     */
     public function getArticle()
     {
+        if (empty($this->entity) || empty($this->entity_id))
+            return null;
+
         $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         if ($model === null)
             return null;
         return $model;
+    }
+
+    public function getArticleTitle()
+    {
+        $model = $this->getArticle();
+        if ($model === null)
+            return $this->url;
+        return $model->title;
     }
 
     public function getKeywords()
@@ -149,7 +171,7 @@ class Page extends CActiveRecord
         if (!empty($this->entity)) {
             $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
             if ($model !== null)
-            return CHtml::link($icon ? '' : $model->title, 'http://www.happy-giraffe.ru' . $model->getUrl(), array('target' => '_blank'));
+                return CHtml::link($icon ? '' : $model->title, 'http://www.happy-giraffe.ru' . $model->getUrl(), array('target' => '_blank'));
         }
         return CHtml::link($this->url, $this->url, array('target' => '_blank'));
     }
@@ -165,7 +187,8 @@ class Page extends CActiveRecord
         $model = Page::model()->findByAttributes(array('url' => $url));
         if ($model === null) {
             $keyword_group = new KeywordGroup();
-            $keyword_group->keywords = array($keyword_id);
+            if (!empty($keyword_id))
+                $keyword_group->keywords = array($keyword_id);
             $keyword_group->save();
 
             $model = new Page();
@@ -208,10 +231,10 @@ class Page extends CActiveRecord
      * @param $period
      * @return PagesSearchPhrase[]
      */
-    public function goodPhrases($period)
+    public function goodPhrases($period = 2)
     {
         $result = array();
-        foreach ($this->phrases as $phrase){
+        foreach ($this->phrases as $phrase) {
             $visits1 = $phrase->getVisits(2, $period);
             $visits2 = $phrase->getVisits(3, $period);
             if ($visits1 + $visits2 > 0)
@@ -223,5 +246,17 @@ class Page extends CActiveRecord
                 return array($phrase);
 
         return $result;
+    }
+
+    public function getRubricUrl()
+    {
+        $model = $this->getArticle();
+        if ($model === null)
+            return 'http://www.happy-giraffe.ru/community/';
+
+        if ($model->getIsFromBlog()) {
+            return 'http://www.happy-giraffe.ru/user/';
+        } else
+            return 'http://www.happy-giraffe.ru/community/' . $model->rubric->community_id . '/forum/rubric/' . $model->rubric_id . '/';
     }
 }

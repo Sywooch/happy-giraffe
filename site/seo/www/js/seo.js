@@ -111,7 +111,7 @@ var SeoModule = {
             }
         }, 'json');
     },
-    bindKeywordToArticle:function(keyword_id, article_id, el){
+    bindKeywordToArticle:function (keyword_id, article_id, el) {
         $.post('/writing/editor/bindKeywordToArticle/', {
             keyword_id:keyword_id,
             article_id:article_id
@@ -125,7 +125,7 @@ var SeoModule = {
                 $(el).addClass('active');
                 $(el).parents('tr').addClass('on-site');
                 $(el).parents('tr').find('td:last').html('');
-            }else{
+            } else {
                 $.pnotify({
                     pnotify_title:'Ошибка',
                     pnotify_type:'error',

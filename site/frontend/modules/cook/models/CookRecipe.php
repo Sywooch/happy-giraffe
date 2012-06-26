@@ -13,7 +13,6 @@
  * @property string $text
  * @property string $cuisine_id
  * @property integer $type
- * @property integer $method
  * @property string $author_id
  *
  * The followings are the available model relations:
@@ -41,22 +40,6 @@ class CookRecipe extends CActiveRecord
         9 => 'Напитки',
         10 => 'Соусы и кремы',
         11 => 'Консервация',
-    );
-
-    public $methods = array(
-        1 => 'Варка',
-        2 => 'Жарение',
-        3 => 'Запекание',
-        4 => 'Тушение',
-        5 => 'Копчение',
-        6 => 'Вяление',
-        7 => 'Маринование',
-        8 => 'Соление',
-        9 => 'Квашение',
-        10 => 'Сушение',
-        11 => 'Замораживание',
-        12 => 'Выпекание',
-        13 => 'На углях',
     );
 
     public $durations = array(
@@ -120,13 +103,12 @@ class CookRecipe extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title, text, type, method, author_id, ingredients', 'required'),
+            array('title, text, type, author_id, ingredients', 'required'),
             array('title', 'length', 'max' => 255),
             array('photo_id', 'exist', 'attributeName' => 'id', 'className' => 'AlbumPhoto'),
             array('cuisine_id', 'exist', 'attributeName' => 'id', 'className' => 'CookCuisine'),
             array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
             array('type', 'in', 'range' => array_keys($this->types)),
-            array('method', 'in', 'range' => array_keys($this->methods)),
             array('servings', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 10),
             array('preparation_duration, cooking_duration', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 999),
             array('preparation_duration_h, preparation_duration_m, cooking_duration_h, cooking_duration_m', 'safe'),
@@ -134,7 +116,7 @@ class CookRecipe extends CActiveRecord
             array('photo_id', 'default', 'value' => null),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, title, photo_id, preparation_duration, cooking_duration, servings, text, cuisine_id, type, method, author_id', 'safe', 'on' => 'search'),
+            array('id, title, photo_id, preparation_duration, cooking_duration, servings, text, cuisine_id, type, author_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -182,7 +164,6 @@ class CookRecipe extends CActiveRecord
             'text' => 'Описание приготовления',
             'cuisine_id' => 'Кухня',
             'type' => 'Тип блюда',
-            'method' => 'Способ приготовления',
             'author_id' => 'Автор',
 
             'ingredients' => 'Из чего готовим?',
@@ -209,7 +190,6 @@ class CookRecipe extends CActiveRecord
         $criteria->compare('text', $this->text, true);
         $criteria->compare('cuisine_id', $this->cuisine_id, true);
         $criteria->compare('type', $this->type);
-        $criteria->compare('method', $this->method);
         $criteria->compare('author_id', $this->author_id, true);
 
         return new CActiveDataProvider($this, array(
@@ -259,11 +239,11 @@ class CookRecipe extends CActiveRecord
 
     protected function beforeSave()
     {
-        if (!$this->isNewRecord) {
+        if (! $this->isNewRecord) {
             CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
         }
 
-        if ($this->servings !== null) {
+        if ($this->servings) {
             $this->lowFat = $this->getNutritionalsPerServing(2) <= self::COOK_RECIPE_LOWFAT;
             $this->forDiabetics = $this->getNutritionalsPerServing(4) <= self::COOK_RECIPE_FORDIABETICS;
         }
@@ -274,13 +254,14 @@ class CookRecipe extends CActiveRecord
 
     public function getNutritionals()
     {
+        var_dump(1);
         if ($this->_nutritionals === null) {
             $ingredients = array();
             foreach ($this->ingredients as $ingredient) {
                 $ingredients[] = array(
                     'ingredient_id' => $ingredient->ingredient_id,
                     'unit_id' => $ingredient->unit_id,
-                    'value' => $ingredient->value
+                    'value' => $ingredient->value,
                 );
             }
             $converter = new CookConverter();
@@ -305,7 +286,7 @@ class CookRecipe extends CActiveRecord
         return round($this->getNutritionalsPerServing(4) / 11, 2);
     }
 
-    public function findAdvanced($cuisine_id, $type, $method, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics)
+    public function findAdvanced($cuisine_id, $type, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics)
     {
         $criteria = new CDbCriteria;
 
@@ -313,8 +294,6 @@ class CookRecipe extends CActiveRecord
             $criteria->compare('cuisine_id', $cuisine_id);
         if ($type !== null)
             $criteria->compare('type', $type);
-        if ($method !== null)
-            $criteria->compare('method', $method);
 
         if ($preparation_duration !== null) {
             if ($this->durations[$preparation_duration]['min'] !== null)

@@ -45,13 +45,6 @@
                 </span>
             </div>
 
-            <div class="row">
-                <label>Способ приготовления</label>
-                <span class="chzn-v2">
-                    <?=CHtml::dropDownList('method', null, CookRecipe::model()->methods, array('prompt' => 'не выбран', 'class' => 'chzn'))?>
-                </span>
-            </div>
-
             <div class="block-title">Время</div>
 
             <div class="row">

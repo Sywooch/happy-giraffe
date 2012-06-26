@@ -25,7 +25,7 @@ var Calorisator = {
         tr.find('.ingredient_ac').autocomplete({minLength:'2', source:'/cook/calorisator/ac/'});
         tr.find(".ingredient_ac").bind("autocompleteselect", Calorisator.acSelect);
         tr.find('input[placeholder]').placeholder();
-c jgth
+
         return false;
     },
 

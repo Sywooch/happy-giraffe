@@ -33,7 +33,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'sex'); ?>
-		<?php echo $form->textField($model,'sex'); ?>
+        <?php echo $form->dropDownList($model, 'sex', $model->sexes, array('class' => 'chzn')) ?>
 		<?php echo $form->error($model,'sex'); ?>
 	</div>
 
@@ -57,7 +57,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'activity'); ?>
-		<?php echo $form->textField($model,'activity'); ?>
+        <?php echo $form->dropDownList($model, 'activity', $model->activities, array('class' => 'chzn')) ?>
 		<?php echo $form->error($model,'activity'); ?>
 	</div>
 
@@ -69,3 +69,5 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+<div id="result"></div>

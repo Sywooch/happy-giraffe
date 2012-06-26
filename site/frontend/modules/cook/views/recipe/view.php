@@ -175,7 +175,7 @@
             <?php if ($recipe->forDiabetics): ?>
                 <div class="nutrition diabetes">
 
-                    <div class="block-title">Подходит для диабетики</div>
+                    <div class="block-title">Подходит для диабетиков</div>
 
                     <ul>
                         <li class="n-bread">

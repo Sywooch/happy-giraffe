@@ -88,7 +88,6 @@ class SiteController extends HController
 	/**
 	 * @sitemap
 	 */
-
 	public function actionIndex()
 	{
 /*        if(!Yii::app()->user->isGuest)

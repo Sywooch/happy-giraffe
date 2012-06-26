@@ -14,7 +14,7 @@
         |
         <a onclick="$('#period').val(2);$('#page-form').submit();return false;" href="#"<?php if ($period==2) echo ' class="active"'?>>Месяц</a>
     </div>
-    <form action="" id="page-form">
+    <form action="/queries/admin/" id="page-form">
         <input type="hidden" name="period" id="period">
     </form>
 

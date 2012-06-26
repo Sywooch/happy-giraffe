@@ -69,7 +69,7 @@
 
     </div>
 
-    <div class="recommendation clearfix" style="display:none">
+    <div class="recommendation clearfix" id="result" style="display:none">
 
         <div class="left">
             Минимальный расход <span>72 штуки</span>

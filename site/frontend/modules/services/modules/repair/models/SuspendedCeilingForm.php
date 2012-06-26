@@ -10,6 +10,8 @@ class SuspendedCeilingForm extends HFormModel
     {
         return array(
             array('area', 'required', 'message' => 'Укажите площадь потолка'),
+            array('area', 'ext.validators.positiveNumber'),
+            array('area', 'ext.validators.normalizeNumber'),
             array('plate', 'required', 'message' => 'Укажите тип потолочной плиты'),
             array('area', 'numerical', 'message' => 'Введите число'),
             array('area', 'normalizeLength')

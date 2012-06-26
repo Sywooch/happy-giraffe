@@ -61,34 +61,10 @@ class PaintForm extends HFormModel
                 }
             }
         }
-        $result['volume'] = ceil($sq * $this->paintsK[$this->paintType]);
-        $result['noun'] = HDate::GenerateNoun(array('литр', 'литра', 'литров'),$result['volume']);
+        $volume = ceil($sq * $this->paintsK[$this->paintType]);
+        $result['volume'] = ($volume <= 0) ? 0 : $volume;
+        $result['noun'] = HDate::GenerateNoun(array('литр', 'литра', 'литров'), $result['volume']);
 
         return $result;
-    }
-
-    public function calculate_old()
-    {
-
-        $areas = Yii::app()->user->getState('wallpapersCalcAreas');
-        $perimeter = ($this->roomLength + $this->roomWidth) * 2;
-        $lines = ceil($perimeter / $this->wp_width);
-        if ($this->repeat) {
-            $tiles = (ceil($this->roomHeight / $this->repeat)) * $lines;
-            if (count($areas)) {
-                foreach ($areas as $area) {
-                    $tiles -= (floor($area['width'] / $this->wp_width) * floor($area['height'] / $this->repeat));
-                }
-            }
-            return ceil($tiles / (floor($this->wp_length / $this->repeat)));
-        } else {
-            $length = $lines * ($this->roomHeight + 0.1);
-            if (count($areas)) {
-                foreach ($areas as $area) {
-                    $length -= (floor($area['width'] / $this->wp_width) * $area['height']);
-                }
-            }
-            return ceil($length / $this->wp_length);
-        }
     }
 }

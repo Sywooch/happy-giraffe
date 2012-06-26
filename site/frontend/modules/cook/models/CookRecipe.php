@@ -254,7 +254,6 @@ class CookRecipe extends CActiveRecord
 
     public function getNutritionals()
     {
-        var_dump(1);
         if ($this->_nutritionals === null) {
             $ingredients = array();
             foreach ($this->ingredients as $ingredient) {

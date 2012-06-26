@@ -121,6 +121,9 @@ class RssController extends HController
             'with' => 'response',
         ));
 
+        if (! $comments)
+            throw new CHttpException(404, 'Такой записи не существует');
+
         Yii::import('ext.EFeed.*');
         $feed = new EFeed();
         $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));

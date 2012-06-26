@@ -1,6 +1,7 @@
 <?php
 Yii::app()->clientScript->registerMetaTag('Сколько обоев нужно, чтобы оклеить одну комнату? А две? А если на обоях сложный рисунок? Воспользуйтесь нашим сервисом и узнайте точно, сколько нужно обоев для того, чтобы оклеить ими запланированное помещение', 'description');
-?><div id="repair-wallpapers">
+?>
+<div id="repair-wallpapers">
 
     <div class="form">
 
@@ -129,7 +130,7 @@ Yii::app()->clientScript->registerMetaTag('Сколько обоев нужно,
 
     </div>
 
-    <div class="recommendation clearfix">
+    <div class="recommendation clearfix" id="result">
 
         <div class="left">
             <img src="/images2/img_repair_wallpapers.png"/><br/>Нужно не менее <span>6 рулонов</span>

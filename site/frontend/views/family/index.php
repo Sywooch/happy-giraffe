@@ -14,7 +14,7 @@ $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPAR
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
 Yii::app()->clientScript->registerScript('family-edit',$js)
-    ->registerScriptFile($baseUrl. '/family.js', CClientScript::POS_HEAD);
+    ->registerScriptFile($baseUrl. '/family.js?r=34', CClientScript::POS_HEAD);
 
 ?>
 <div class="user-cols clearfix">
@@ -125,6 +125,7 @@ Yii::app()->clientScript->registerScript('family-edit',$js)
                     <div class="radio-label<?php if($user->babyCount() == 1) echo ' checked'?>" onclick="Family.setBaby(this, 1);"><span>1 ребенок</span><input type="radio" name="radio-3"></div>
                     <div class="radio-label<?php if($user->babyCount() == 2) echo ' checked'?>" onclick="Family.setBaby(this, 2);"><span>2 ребенка</span><input type="radio" name="radio-3"></div>
                     <div class="radio-label<?php if($user->babyCount() == 3) echo ' checked'?>" onclick="Family.setBaby(this, 3);"><span>3 ребенка</span><input type="radio" name="radio-3"></div>
+                    <div class="radio-label<?php if($user->babyCount() == 4) echo ' checked'?>" onclick="Family.setBaby(this, 4);"><span>4 ребенка</span><input type="radio" name="radio-3"></div>
                 </div>
             </div>
 
@@ -265,7 +266,7 @@ Yii::app()->clientScript->registerScript('family-edit',$js)
                     <?php endif ?>
             <?php endforeach; ?>
 
-            <?php while($i <= 3){ ?>
+            <?php while($i <= 4){ ?>
             <div class="family-member" style="display:none;" id="baby-<?=$i ?>">
                 <?php $this->renderPartial('_empty_child',array('i'=>$i)); ?>
             </div>

@@ -7,9 +7,10 @@ var Paint = {
             dataType:'json',
             success:function (data) {
                 $("div#repair-paint div.recommendation").fadeOut(100, function () {
-                    $("div#repair-paint div.recommendation div.left span").text(data.volume+' '+data.noun);
+                    $("div#repair-paint div.recommendation div.left span").text(data.volume + ' ' + data.noun);
                     $("div#repair-paint div.recommendation").fadeIn(100);
                 });
+                $('html,body').animate({scrollTop:$('#result').offset().top}, 'fast');
             }
         });
         return false;
@@ -45,7 +46,7 @@ var Paint = {
         //$('#paint-calculate-form')[0].reset();
         $('#repair-paint div.recommendation').fadeOut(200);
 
-        $('#repair-paint div.recommendation div.left div').text('Краски для '+$(surface).text()+' нужно');
+        $('#repair-paint div.recommendation div.left div').text('Краски для ' + $(surface).text() + ' нужно');
 
         var title = $(surface).parent().attr('data-title');
         $('#repair-paint div.form div.form-in form#paint-calculate-form div.row-switcher big').text(title);
@@ -55,7 +56,7 @@ var Paint = {
         $(surface).parent().hide();
 
         $('div#repair-paint div.recommendation div.left img').hide();
-        $('div#repair-paint div.recommendation div.left img[data-title="'+title+'"]').show();
+        $('div#repair-paint div.recommendation div.left img[data-title="' + title + '"]').show();
 
         if (title == 'Стены') {
             $('#empty-area-form').show();

@@ -9,11 +9,17 @@ var SuspendedCeiling = {
                     $(".row-result").html(data);
                     $(".row-result").fadeIn(100);
                 });
+                $('html,body').animate({scrollTop:$('#result').offset().top}, 'fast');
             }
         });
         return false;
     },
-    Recommendations:function(){
+    Recommendations:function () {
         $('#repair-ceiling #results div a.pseudo, #repair-ceiling #results p, #repair-ceiling #results ul').toggle();
+        if ($('#repair-ceiling #results p').is(':visible')) {
+            $('#repair-ceiling #results .title').hide();
+        } else {
+            $('#repair-ceiling #results .title').show();
+        }
     }
 }

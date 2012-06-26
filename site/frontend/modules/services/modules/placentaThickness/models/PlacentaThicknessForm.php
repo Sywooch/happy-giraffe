@@ -8,6 +8,7 @@ class PlacentaThicknessForm extends CFormModel
     public function rules()
     {
         return array(
+            array('thickness', 'ext.validators.normalizeNumber'),
             array('week', 'required', 'message' => 'Выберите свой срок беременности из списка'),
             array('thickness', 'required', 'message' => 'Укажите толщину плаценты в миллиметрах'),
             array('week', 'numerical', 'integerOnly' => true, 'max' => 40, 'min' => 7),
@@ -25,9 +26,9 @@ class PlacentaThicknessForm extends CFormModel
         );
     }
 
-    public function beforeValidate()
+    /*public function beforeValidate()
     {
         $this->thickness = str_replace(',', '.', $this->thickness);
         return parent::beforeValidate();
-    }
+    }*/
 }

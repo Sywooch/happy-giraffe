@@ -360,11 +360,21 @@ var SeoLinking = {
             $('#donors').css('top', offset.top);
             $('#donors').css('left', offset.left - 250);
         });
+    },
+    showPositions:function(el, se, phrase_id){
+        $.post('/linking/positions/', {se:se, phrase_id:phrase_id}, function (response) {
+            $('#positions').html(response);
+            $('#positions').show();
+            var offset = $(el).offset();
+            $('#positions').css('top', offset.top + 20);
+            $('#positions').css('left', offset.left);
+        });
     }
 }
 
 $(function() {
     $('body').click(function(){
         $('#donors').hide();
+        $('#positions').hide();
     });
 });

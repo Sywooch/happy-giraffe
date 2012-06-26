@@ -44,7 +44,7 @@
                 <div class="row-title">Ваш пароль:</div>
                 <div class="row-elements"><?php echo $form->passwordField($model, 'password'); ?></div>
                 <p><?php echo $form->error($model, 'password'); ?></p>
-                <div class="row-bottom"><a href="javascript:;" onclick="Login.step = 1;Login.rememberPassword();">Забыли пароль?</a></div>
+                <!--<div class="row-bottom"><a href="javascript:;" onclick="Login.step = 1;Login.rememberPassword();">Забыли пароль?</a></div>-->
             </div>
 
             <div class="row row-social socials socials-inline">

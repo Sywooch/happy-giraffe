@@ -427,7 +427,7 @@ class CookRecipe extends CActiveRecord
             return $this->photo;
 
         if (!empty($this->attachPhotos)) {
-            return $this->attachPhotos[0];
+            return $this->attachPhotos[0]->photo;
         }
 
         return null;

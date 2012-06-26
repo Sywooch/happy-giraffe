@@ -16,17 +16,13 @@ class WordstatParser extends ProxyParserThread
     {
         Config::setAttribute('stop_threads', 0);
 
-        $this->logMemoryUsage('start');
-
         $this->delay_min = 1;
         $this->delay_max = 3;
         $this->timeout = 15;
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 
-        $this->logMemoryUsage('start load cookie');
         $this->getCookie();
-        $this->logMemoryUsage('end load cookie');
 
         while (true) {
             $this->getNextPage();
@@ -35,7 +31,6 @@ class WordstatParser extends ProxyParserThread
             while (!$success) {
                 $success = $this->parseQuery();
 
-                $this->logMemoryUsage('page parsed');
 
                 if (!$success)
                     $this->changeBadProxy();
@@ -61,7 +56,6 @@ class WordstatParser extends ProxyParserThread
 
     public function getKeyword()
     {
-        $this->logMemoryUsage('start select keyword');
         $this->keyword = null;
 
         //сначала выбираем с бесконечной глубиной парсинга
@@ -92,7 +86,6 @@ class WordstatParser extends ProxyParserThread
         }
 
         $this->first_page = true;
-        $this->logMemoryUsage('end select keyword');
     }
 
     private function getCookie()
@@ -131,14 +124,11 @@ class WordstatParser extends ProxyParserThread
         if (!isset($html) || $html === null)
             return false;
 
-        $this->logMemoryUsage('page loaded');
-
         return $this->parseData($html);
     }
 
     public function parseData($html)
     {
-        $this->logMemoryUsage('start parse page');
         $document = phpQuery::newDocument($html);
         $html = str_replace('&nbsp;', ' ', $html);
         $html = str_replace('&mdash;', '—', $html);
@@ -191,7 +181,6 @@ class WordstatParser extends ProxyParserThread
             if ($this->debug)
                 echo 'next page: ' . $this->next_page;
         }
-        $this->logMemoryUsage('end parse page');
 
         return true;
     }

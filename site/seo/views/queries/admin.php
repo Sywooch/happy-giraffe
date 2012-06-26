@@ -10,10 +10,13 @@
     <div class="fast-filter">
         <span>Период</span>
         &nbsp;&nbsp;
-        <a href="?period=1"<?php if ($period==1) echo ' class="active"'?>>Неделя</a>
+        <a onclick="$('#period').val(1);$('#page-form').submit();return false;" href="#"<?php if ($period==1) echo ' class="active"'?>>Неделя</a>
         |
-        <a href="?period=2"<?php if ($period==2) echo ' class="active"'?>>Месяц</a>
+        <a onclick="$('#period').val(2);$('#page-form').submit();return false;" href="#"<?php if ($period==2) echo ' class="active"'?>>Месяц</a>
     </div>
+    <form action="/queries/admin/" id="page-form">
+        <input type="hidden" name="period" id="period">
+    </form>
 
     <div class="table-box">
         <table>
@@ -52,7 +55,7 @@
                     <td><a href="javascript:;" class="icon-plus"></a></td><?php
                     $url = $this->createUrl('/linking/view', array('id'=>$phrase->page_id, 'selected_phrase_id'=>$phrase->id));
                     ?>
-                    <td><b><a target="_blank" href="<?=$url ?>"><?=$phrase->getLinksCount() ?></a></b><a target="_blank" href="<?=$url ?>" class="icon-arr-r"></a></td>
+                    <td><b><a onmouseover="SeoLinking.showDonors(this, <?=$phrase->page_id ?>)" target="_blank" href="<?=$url ?>"><?=$phrase->getLinksCount() ?></a></b><a target="_blank" href="<?=$url ?>" class="icon-arr-r"></a></td>
                 </tr><tr>
                     <?php endforeach; ?>
                 </tr>
@@ -71,5 +74,8 @@
     )); ?>
     </div>
     <?php endif; ?>
+
+</div>
+<div id="donors">
 
 </div>

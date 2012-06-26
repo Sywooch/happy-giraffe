@@ -6,6 +6,7 @@
 class QueriesController extends SController
 {
     public $secret_key = 'kastgpij35iyiehi';
+    public $pageTitle = 'продвижение';
 
     public function accessRules()
     {

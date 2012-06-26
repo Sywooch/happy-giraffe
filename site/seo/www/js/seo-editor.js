@@ -348,5 +348,23 @@ var SeoLinking = {
             $('.table-promotion .fast-filter a').removeClass('active');
             $(el).addClass('active');
         });
+    },
+    showDonors:function(el, page_id){
+        if ($(el).text() == '0')
+            return false;
+
+        $.post('/linking/donors/', {page_id:page_id}, function (response) {
+            $('#donors').html(response);
+            $('#donors').show();
+            var offset = $(el).offset();
+            $('#donors').css('top', offset.top);
+            $('#donors').css('left', offset.left - 250);
+        });
     }
 }
+
+$(function() {
+    $('body').click(function(){
+        $('#donors').hide();
+    });
+});

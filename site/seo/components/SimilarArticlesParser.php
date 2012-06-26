@@ -46,13 +46,37 @@ class SimilarArticlesParser
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
 
+            $best = '46.165.200.102:999
+46.165.200.104:999
+78.159.102.95:999
+89.149.242.87:999
+62.212.72.237:999
+89.149.254.167:999
+31.184.192.89:999
+95.211.156.223:999
+95.211.156.222:999
+95.211.159.76:999
+95.211.189.193:999
+95.211.189.194:999
+95.211.189.195:999
+95.211.189.196:999
+95.211.189.197:999
+83.136.86.192:999
+217.79.179.100:999
+95.211.189.218:999';
+            $best_proxies = explode("\n", $best);
+            $i = rand(0, count($best_proxies) - 1);
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            curl_setopt($ch, CURLOPT_PROXY, $best_proxies[$i]);
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
+            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_HEADER, 1);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 15);
 
             $content = curl_exec($ch);
 

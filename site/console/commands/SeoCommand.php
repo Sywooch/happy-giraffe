@@ -32,6 +32,12 @@ class SeoCommand extends CConsoleCommand
         $metrica->convertToSearchPhraseVisits();
     }
 
+    public function actionConvertPrevVisits($week)
+    {
+        $metrica = new YandexMetrica($week);
+        $metrica->convertToSearchPhraseVisits();
+    }
+
     public function actionParseMonthTraffic()
     {
         $metrica = new YandexMetrica(1);

@@ -67,6 +67,12 @@ class LinkingController extends SController
             $pages = $parser->getArticles($url);
         }
         $pages = $this->filterPages($phrase, $pages);
+
+        if (empty($pages)) {
+            $pages = $parser->getArticles('http://www.happy-giraffe.ru/community/');
+            $pages = $this->filterPages($phrase, $pages);
+        }
+
         if (count($pages) > 10)
             $pages = array_slice($pages, 0, 10);
 
@@ -83,7 +89,7 @@ class LinkingController extends SController
                 unset($pages[$key]);
         //удалим те с которых уже стоят ссылки на наш
         foreach ($pages as $key => $page) {
-            if (InnerLink::model()->exists('page_id = ' . $page->id . ' and page_to_id=' . $phrase->page->id))
+            if (!empty($page->id) && InnerLink::model()->exists('page_id = ' . $page->id . ' and page_to_id=' . $phrase->page->id))
                 unset($pages[$key]);
         }
 
@@ -102,16 +108,18 @@ class LinkingController extends SController
         echo CJSON::encode(array('status' => true));
     }
 
-    public function actionStats(){
+    public function actionStats()
+    {
         $period = Yii::app()->request->getPost('period');
         $page = $this->loadPage(Yii::app()->request->getPost('page_id'));
         $goodPhrases = $page->goodPhrases();
         $selected_phrase_id = Yii::app()->request->getPost('phrase_id');
 
-        $this->renderPartial('_stats',compact('period', 'goodPhrases', 'selected_phrase_id'));
+        $this->renderPartial('_stats', compact('period', 'goodPhrases', 'selected_phrase_id'));
     }
 
-    public function actionDonors(){
+    public function actionDonors()
+    {
         $page = $this->loadPage(Yii::app()->request->getPost('page_id'));
         $links = $page->inputLinks;
         $this->renderPartial('_donors', compact('links'));

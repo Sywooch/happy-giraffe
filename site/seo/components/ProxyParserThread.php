@@ -34,7 +34,6 @@ class ProxyParserThread extends CComponent
 
     private function getProxy()
     {
-        $this->logMemoryUsage('start selecting proxy');
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->order = 'rand()';
@@ -53,14 +52,11 @@ class ProxyParserThread extends CComponent
             $transaction->rollback();
             $this->closeThread('Fail with getting proxy');
         }
-        $this->logMemoryUsage('end selecting proxy');
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
-        $this->logMemoryUsage('sleep before loading page');
         sleep(rand($this->delay_min, $this->delay_max));
-        $this->logMemoryUsage('start loading page');
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
             if ($post) {
@@ -88,9 +84,7 @@ class ProxyParserThread extends CComponent
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
                 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
             }
-            $this->logMemoryUsage('before curl_exec');
             $content = curl_exec($ch);
-            $this->logMemoryUsage('after curl_exec');
 
             if ($content === false) {
                 if (curl_errno($ch)) {
@@ -107,7 +101,6 @@ class ProxyParserThread extends CComponent
                 $this->changeBadProxy();
                 return $this->query($url, $ref, $post, $attempt);
             } else {
-                $this->logMemoryUsage('page successfully loaded');
                 return $content;
             }
         }
@@ -117,7 +110,6 @@ class ProxyParserThread extends CComponent
 
     protected function changeBadProxy()
     {
-        $this->logMemoryUsage('start change proxy');
         if ($this->debug)
             echo 'Change proxy ' . "\n";
 
@@ -131,7 +123,6 @@ class ProxyParserThread extends CComponent
             $this->removeCookieFile();
 
         $this->afterProxyChange();
-        $this->logMemoryUsage('end change proxy');
     }
 
     private function saveProxy()
@@ -175,12 +166,15 @@ class ProxyParserThread extends CComponent
 
     }
 
-    protected function logMemoryUsage($state){
-        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime').DIRECTORY_SEPARATOR.'my_log.txt', 'a');
-        $t = microtime(true);
-        $micro = sprintf("%06d",($t - floor($t)) * 1000000);
-        $d = new DateTime( date('Y-m-d H:i:s.'.$micro,$t) );
+    protected function logMemoryUsage($state)
+    {
+        if ($this->debug) {
+            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+            $t = microtime(true);
+            $micro = sprintf("%06d", ($t - floor($t)) * 1000000);
+            $d = new DateTime(date('Y-m-d H:i:s.' . $micro, $t));
 
-        fwrite($fh, $d->format("Y-m-d H:i:s.u").':  '. $state."\n");
+            fwrite($fh, $d->format("Y-m-d H:i:s.u") . ':  ' . $state . "\n");
+        }
     }
 }

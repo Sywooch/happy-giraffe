@@ -163,7 +163,6 @@ class BlogController extends HController
             Yii::app()->end();
         }
 
-
         $this->pageTitle = $content->title;
 
         $this->user = $content->author;

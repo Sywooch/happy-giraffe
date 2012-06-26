@@ -25,9 +25,12 @@ class YandexMetrica
             $diff = 7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
             $d->modify("-$diff day");
             $this->date1 = $d->format('Ymd');
+            echo $this->date1."\n";
             $d->modify('+6 day');
             $this->date2 = $d->format('Ymd');
+            echo $this->date2."\n";
             $this->week = date("W") - 1;
+            echo $this->week."\n";
             $this->year = date("Y", strtotime('-7 days'));
         } else {
             $d = new DateTime();
@@ -35,10 +38,14 @@ class YandexMetrica
             $diff = (1 + $weeks_ago) * 7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
             $d->modify("-$diff day");
             $this->date1 = $d->format('Ymd');
+            echo $this->date1."\n";
             $d->modify('+6 day');
             $this->date2 = $d->format('Ymd');
-            $this->week = date("W") - 1;
-            $this->year = date("Y", strtotime('-7 days'));
+            echo $this->date2."\n";
+            $this->week = date("W") - ($weeks_ago+1);
+            echo $this->week."\n";
+            $this->year = date("Y", strtotime('-'.(($weeks_ago+1)*7).' days'));
+            echo $this->year;
         }
     }
 

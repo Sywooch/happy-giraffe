@@ -283,10 +283,10 @@ class SiteController extends HController
                     }
                     else
                     {
+                        $user->scenario = 'update';
                         $identity = new UserIdentity($user->getAttributes());
                         $identity->authenticate();
                         Yii::app()->user->login($identity);
-
                         $user->login_date = date('Y-m-d H:i:s');
                         $user->last_ip = $_SERVER['REMOTE_ADDR'];
                         $user->remember_code = '';

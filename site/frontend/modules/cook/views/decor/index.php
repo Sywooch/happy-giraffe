@@ -62,7 +62,7 @@ Yii::app()->clientScript->registerScript('photo_gallery_entity_id','var photo_ga
             </div>
             <?php } ?>
 
-            <?='<h1>' . (($id) ? 'Как можно оформить '.$category->title_h1 : '1000 лучших оформлений блюд') . '</h1>';?>
+            <?='<h1>' . (($id) ? 'Как можно оформить '.$category->title_h1 : 'Тысяча лучших оформлений блюд') . '</h1>';?>
 
 
         </div>

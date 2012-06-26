@@ -47,9 +47,9 @@
                     </td>
                 <?php foreach ($goodPhrases as $phrase): ?>
                     <td><?=$phrase->keyword->name ?></td>
-                    <td><?=$phrase->getPosition(2) ?></td>
+                    <td><?=$phrase->getPositionView(2) ?></td>
                     <td><?=$visits1 = $phrase->getVisits(2, $period) ?></td>
-                    <td><?=$phrase->getPosition(3) ?></td>
+                    <td><?=$phrase->getPositionView(3) ?></td>
                     <td><?=$visits2 =$phrase->getVisits(3, $period) ?></td>
                     <td><?=($visits1+$visits2) ?></td>
                     <td><a href="javascript:;" class="icon-plus"></a></td><?php
@@ -77,5 +77,8 @@
 
 </div>
 <div id="donors">
+
+</div>
+<div id="positions">
 
 </div>

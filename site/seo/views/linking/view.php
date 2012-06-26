@@ -28,7 +28,7 @@ Yii::app()->clientScript->registerScript('set_phrase', 'SeoLinking.phrase_id = "
         <table>
             <thead>
             <tr>
-                <th rowspan="2" class="col-1">Название статьи, ссылка</th>
+                <th rowspan="2" class="col-1">Ключевое слово иили фраза</th>
                 <th colspan="2"><i class="icon-yandex"></i></th>
                 <th colspan="2"><i class="icon-google"></i></th>
                 <th rowspan="2">Общие визиты</th>
@@ -58,7 +58,7 @@ Yii::app()->clientScript->registerScript('set_phrase', 'SeoLinking.phrase_id = "
         <table>
             <thead>
             <tr>
-                <th class="col-1">Ключенвые слова или фразы</th>
+                <th class="col-1">Ключевые слова или фразы</th>
                 <th class="col-1">Со статьи</th>
                 <th>Когда<br>поставлена</th>
                 <th>Анкор</th>

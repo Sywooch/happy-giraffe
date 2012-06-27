@@ -37,7 +37,8 @@ a {cursor:pointer;}
 .a-right {float:right;}
 .a-left {float:left;}
 
-
+.hidden {display:none !important;}
+.visible {display:block !important;}
 
 /* remember to define focus styles! */
 :focus {

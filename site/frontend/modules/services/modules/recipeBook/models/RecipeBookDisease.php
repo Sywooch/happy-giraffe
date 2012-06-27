@@ -172,4 +172,11 @@ class RecipeBookDisease extends HActiveRecord
             return $matches[1];
         return false;
     }
+
+    public function getAdminImage()
+    {
+        if (!empty($this->photo_id))
+            return CHtml::image($this->photo->getPreviewUrl(70, 70));
+        return '';
+    }
 }

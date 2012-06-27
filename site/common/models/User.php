@@ -550,6 +550,8 @@ class User extends HActiveRecord
     public function isNewComer()
     {
         //с каждой неделей пребывания на сервере приоритет уменьшается
+        if (!isset($this->register_date))
+            return false;
         $weeks_gone = floor((time() - strtotime($this->register_date)) / 604800);
 
         if ($this->getRole() == 'user' && $weeks_gone < 5)

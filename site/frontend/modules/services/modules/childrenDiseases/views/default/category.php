@@ -7,7 +7,7 @@
 <h1><?=$model->title ?></h1>
 
 <div class="disease-img">
-    <img src="<?=isset($model->photo) ? $model->photo->getPreviewUrl(273, 259, Image::WIDTH) : '' ?>"/>
+    <img src="<?=isset($model->photo) ? $model->photo->getPreviewUrl(300, 300, Image::WIDTH) : '' ?>"/>
 </div>
 
 <div class="wysiwyg-content">

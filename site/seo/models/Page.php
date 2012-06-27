@@ -259,4 +259,19 @@ class Page extends CActiveRecord
         } else
             return 'http://www.happy-giraffe.ru/community/' . $model->rubric->community_id . '/forum/rubric/' . $model->rubric_id . '/';
     }
+
+    public function getVisits($se, $period)
+    {
+        if ($se == 2){
+            if ($period == 1)
+                return $this->yandex_week_visits;
+            return $this->yandex_month_visits;
+        }elseif($se == 3){
+            if ($period == 1)
+                return $this->google_week_visits;
+            return $this->google_month_visits;
+        }
+
+        return 0;
+    }
 }

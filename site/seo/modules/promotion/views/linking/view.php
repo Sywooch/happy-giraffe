@@ -42,7 +42,7 @@ Yii::app()->clientScript->registerScript('set_phrase', 'SeoLinking.phrase_id = "
             </tr>
             </thead>
             <tbody>
-            <?php $this->renderPartial('_stats',compact('period', 'goodPhrases', 'selected_phrase_id')); ?>
+            <?php $this->renderPartial('_stats',compact('period', 'goodPhrases', 'selected_phrase_id', 'page')); ?>
             </tbody>
         </table>
     </div>

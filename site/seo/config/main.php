@@ -25,10 +25,12 @@ return array(
         'application.components.*',
         'application.modules.competitors.models.*',
         'application.modules.writing.models.*',
+        'application.modules.promotion.models.*',
     ),
     'modules' => array(
         'competitors',
         'writing',
+        'promotion',
     ),
     'components' => array(
         'user' => array(

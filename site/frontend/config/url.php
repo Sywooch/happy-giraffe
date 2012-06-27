@@ -70,9 +70,8 @@ return array(
         'names/<name:[\w]+>'=>'services/names/default/name/',
 
         'childrenDiseases/'=>'services/childrenDiseases/default/index',
-        'childrenDiseases/getAlphabetList'=>'services/childrenDiseases/default/getAlphabetList',
-        'childrenDiseases/getCategoryList'=>'services/childrenDiseases/default/getCategoryList',
-        'childrenDiseases/<url:[\w-+\s]+>'=>'services/childrenDiseases/default/view',
+        'childrenDiseases/<id:[\w-+\s]+>'=>'services/childrenDiseases/default/view',
+        'childrenDiseases/category/<id:[\w-+\s]+>'=>'services/childrenDiseases/default/category',
 
 //        'recipeBook/disease/<url:\w+>'=>'recipeBook/default/disease',
 //        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',

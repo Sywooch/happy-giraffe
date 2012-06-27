@@ -8,7 +8,15 @@ class normalizeNumber extends CValidator
             $object->$attribute = preg_replace('#[^0-9\.]+#', '', $object->$attribute);
         } else {
             $labels = $object->attributeLabels();
-            $this->addError($object, $attribute, $labels[$attribute] . ' должно быть числом');
+            $message = false;
+            foreach ($object->rules() as $rule) {
+                foreach (explode(',', $rule[0]) as $attr) {
+                    if (trim($attr) == $attribute and $rule[1] == 'ext.validators.normalizeNumber') {
+                        $message = $rule['message'];
+                    }
+                }
+            }
+            $this->addError($object, $attribute, ($message) ? $message : $labels[$attribute] . ' должно быть числом');
         }
     }
 }

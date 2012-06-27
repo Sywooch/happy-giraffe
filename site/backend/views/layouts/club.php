@@ -14,6 +14,17 @@
                 'active' => (Yii::app()->controller->id == 'club/names'),
                 'visible' => Yii::app()->user->checkAccess('names')
             ),
+            array('label' => 'Болезни',
+                'url' => array('/club/recipeBookDisease/'),
+                'active' => (Yii::app()->controller->id == 'club/recipeBookDisease' || Yii::app()->controller->id == 'club/recipeBookDiseaseCategory'),
+                'visible' => Yii::app()->user->checkAccess('editRecipeBook'),
+                'items' => array(
+                    array(
+                        'label' => 'Категории',
+                        'url' => array('/club/recipeBookDiseaseCategory/'),
+                    ),
+                )
+            ),
             array('label' => 'Жалобы',
                 'active' => (Yii::app()->controller->id == 'club/reports' && Yii::app()->controller->action->id == 'index'),
                 'url' => array('/club/reports/index'),

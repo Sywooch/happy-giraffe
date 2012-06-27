@@ -66,7 +66,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
     background: #fff;
 }
 
-.entry .entry-header a.entry-title, .entry .entry-header h1 {
+.entry  a.entry-title, .entry  h1 {
     display: block;
     font: bold 25px Arial, Tahoma, sans-serif;
     color: #0281b0;
@@ -76,6 +76,11 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .entry-footer {
     font-size: 12px;
 }
+
+
+.entry-body {position:relative;padding-top:75px;}
+.entry-body .entry-content {}
+.entry-body .entry-header {position:absolute;top:0;left:0;width:100%;}
 
 .entry .entry-header .where {float:left;}
 .entry .entry-header .where span {display:inline-block;vertical-align:middle;font-size:22px;color:#535454;padding-right:10px;}

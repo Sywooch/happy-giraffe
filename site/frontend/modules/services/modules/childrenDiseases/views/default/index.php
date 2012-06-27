@@ -1,49 +1,10 @@
 <?php
-$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-?>
-<div class="handbook_alfa">
-    <span class="handbook_title">Выберите болезнь</span>
-    <ul class="sortable_u">
-        <li id="disease-alphabet2" class="current_t"><a href="#"><span>По алфавиту</span></a></li>
-        <li>|</li>
-        <li id="disease-type2"><a href="#"><span>По типу заболевания</span></a></li>
-    </ul>
-    <div class="clear"></div>
-    <!-- .clear -->
-    <div id="alphabet-list" class="handbook_multi">
-        <?php foreach ($alphabetList as $letter => $diseases): ?>
-        <ul class="handbook_list">
-            <li><span><?php echo $letter ?></span></li>
-            <?php foreach ($diseases as $disease): ?>
-            <li><a
-                href="<?php echo $this->createUrl('view', array('url' => $disease->slug)) ?>"><?php
-                echo $disease->title ?></a></li>
-            <?php endforeach; ?>
-        </ul>
-        <?php endforeach; ?>
-    </div>
-    <!-- .handbook_multi -->
+/* @var $this Controller
+ * @var $categories RecipeBookDiseaseCategory[]
+ */
+?><h1>Справочник детских болезней</h1>
 
-    <div id="category-list" class="handbook_multi" style="display: none;">
-        <?php foreach ($categoryList as $category => $diseases): ?>
-        <ul class="handbook_list">
-            <li><span><?php echo $category ?></span></li>
-            <?php foreach ($diseases as $disease): ?>
-            <li><a
-                href="<?php echo $this->createUrl('view', array('url' => $disease->slug)) ?>"><?php
-                echo $disease->title ?></a></li>
-            <?php endforeach; ?>
-        </ul>
-        <?php endforeach; ?>
-    </div>
-    <!-- .handbook_multi -->
-
-</div><!-- .handbook_alfa -->
-<div class="seo-text">
-    <h1 class="summary-title">Справочник детских болезней</h1>
-
+<div class="wysiwyg-content">
     <p>Существует такой термин – «детские болезни». Раз он есть, значит, заболевания, которые выпадают на долю наших
         деток, особенные.</p>
 
@@ -78,4 +39,57 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
     <p class="notice">Внимание! Все публикации на портале «Веселый жираф» носят ознакомительный характер. Советы и
         рекомендации, размещенные на сайте, помогают узнать больше об интересующей вас проблеме, но ни в коем случае не
         заменяют очной консультации врача.</p>
+</div>
+
+
+<div class="disease-abc clearfix">
+
+    <?php
+    $perColumn = ceil((RecipeBookDisease::model()->count() + RecipeBookDiseaseCategory::model()->count() * 4) / 3);
+    $perColumn = ($perColumn == 0) ? 1 : $perColumn;
+    $i = 0;
+    $column = 1;
+    $closeColumn = false;
+    ?>
+
+    <ul>
+        <li>
+            <?php
+            foreach ($categories as $category) {
+                if ($i + count($category->diseases) / 3 >= $column * $perColumn)
+                    $closeColumn = true;
+                if ($closeColumn && $column <= 3) {
+                    echo '</li><li>';
+                    $closeColumn = false;
+                    $column++;
+                }
+                ?>
+                <div class="cat-title">
+                    <span class="disease-cat active">
+                        <i class="icon-disease-cat icon-disease-<?= $category->id ?>"></i>
+                        <span><?=$category->title ?></span>
+                    </span>
+                </div>
+                <?php
+                echo '<ul>';
+                $i = $i + 5;
+
+                foreach ($category->diseases as $diseases) {
+                    echo '<li><a href="' . $this->createUrl('view', array('id' => $diseases->slug)) . '">' . $diseases->title . '</a></li>';
+                    $i++;
+                    if ($i >= $column * $perColumn)
+                        $closeColumn = true;
+                }
+                echo '</ul>';
+
+                if ($closeColumn && $column <= 3) {
+                    echo '</li><li>';
+                    $closeColumn = false;
+                    $column++;
+                }
+            }
+            ?>
+        </li>
+    </ul>
+
 </div>

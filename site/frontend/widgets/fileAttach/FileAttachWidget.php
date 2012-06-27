@@ -95,6 +95,12 @@ class FileAttachWidget extends CWidget
             $this->title = 'Загрузка фото в раздел "Оформление блюд"';
             $this->button_title = 'Продолжить';
         }
+        elseif($this->entity == 'CommunityContent')
+        {
+            $this->title = 'Загрузка фото в галерею';
+            $this->button_title = 'Продолжить';
+            $this->disableNavigation = true;
+        }
 
         if($view_type == 'window')
             $this->render('window');

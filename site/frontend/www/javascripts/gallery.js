@@ -5,7 +5,8 @@ jQuery.fn.pGallery = function(options) {
         plugin.window = null,
         plugin.bg = null,
         plugin.history = null,
-        plugin.init = false;
+        plugin.init = false,
+        plugin.editable = false;
 
     plugin.openWindow = function(id) {
         if(this.init)
@@ -64,6 +65,15 @@ jQuery.fn.pGallery = function(options) {
                 plugin.preloadPhotos($('#photo-thumbs', this.window).find('li.active').index());
                 $(window).resize();
             });
+
+            if(pGallery_photos[id].description != null)
+                $('#photo', this.window).find('.photo-comment').show().text(pGallery_photos[id].description);
+            else
+                $('#photo', this.window).find('.photo-comment').hide().text('');
+
+            if(plugin.editable) {
+
+            }
         }, 'html');
     };
 
@@ -77,6 +87,11 @@ jQuery.fn.pGallery = function(options) {
                 photo.find('.in').hide().text('');
             }
         }
+        if(pGallery_photos[id].description != null)
+            photo.find('.photo-comment').show().text(pGallery_photos[id].description);
+        else
+            photo.find('.photo-comment').hide().text('');
+
         photo.find('.user-info').replaceWith(pGallery_photos[id].avatar);
 
         this.data.id = id;

@@ -15,33 +15,34 @@ class DefaultController extends HController
         ));
     }
 
-    public function actionCategory($id){
-        $model = $this->loadCategory($id);
-        $this->category_id = $model->id;
-
-        $this->render('category', compact('model'));
-    }
-
     public function actionView($id)
     {
         $model = $this->loadModel($id);
-        $this->category_id = $model->category_id;
-        $this->pageTitle = $model->title;
+        if ($model == null) {
+            $model = $this->loadCategory($id);
+            if ($model === null)
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->render('view', array(
-            'model' => $model,
-        ));
+            $this->category_id = $model->id;
+            $this->render('category', compact('model'));
+        } else {
+
+            $this->category_id = $model->category_id;
+            $this->pageTitle = $model->title;
+
+            $this->render('view', array(
+                'model' => $model,
+            ));
+        }
     }
 
     /**
      * @param int $id model id
      * @return RecipeBookDisease
-     * @throws CHttpException
      */
-    public function loadModel($id){
+    public function loadModel($id)
+    {
         $model = RecipeBookDisease::model()->with('category')->findByAttributes(array('slug' => $id));
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         return $model;
     }
@@ -49,18 +50,17 @@ class DefaultController extends HController
     /**
      * @param int $id model id
      * @return RecipeBookDiseaseCategory
-     * @throws CHttpException
      */
-    public function loadCategory($id){
+    public function loadCategory($id)
+    {
         $model = RecipeBookDiseaseCategory::model()->findByAttributes(array('slug' => $id));
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
         $diseases = RecipeBookDisease::model()->findAll();
-        foreach($diseases as $disease){
+        foreach ($diseases as $disease) {
             $disease->slug = str_replace(' ', '_', $disease->slug);
             $disease->slug = str_replace('+', '_', $disease->slug);
             $disease->slug = str_replace('-', '_', $disease->slug);

@@ -585,7 +585,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-upload .remove:hover {background-position:-314px -148px;}
 
 
-#photoPick .photo-title {margin:0px 0 0 0;padding-top:20px;}
+#photoPick .photo-title {margin:0px 0 0 0;padding-top:20px;float:left;width:400px;}
 #photoPick .photo-title .row{margin:0px 0 0 0;padding-top:20px;}
 #photoPick .photo-title label {font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;color:#898888;margin-left:11px;display:inline-block;margin-bottom:8px;}
 #photoPick .photo-title label span {color:#b6b5b5;font-size:11px;font-style:normal;}

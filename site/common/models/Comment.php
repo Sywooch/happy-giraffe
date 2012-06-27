@@ -151,7 +151,7 @@ class Comment extends HActiveRecord
 				'order' => 'created ASC',
 			),
 			'pagination' => array(
-				'pageSize' => 10,
+				'pageSize' => 25,
 			),
 		));
 	}

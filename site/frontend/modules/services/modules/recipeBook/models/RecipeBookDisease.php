@@ -24,7 +24,7 @@
  * The followings are the available model relations:
  * @property RecipeBookDiseaseCategory $category
  * @property RecipeBookRecipe[] $recipeBookRecipes
- * @property AlbumPhoto[] $photo
+ * @property AlbumPhoto $photo
  */
 class RecipeBookDisease extends HActiveRecord
 {
@@ -171,5 +171,12 @@ class RecipeBookDisease extends HActiveRecord
         if (count($matches) > 0)
             return $matches[1];
         return false;
+    }
+
+    public function getAdminImage()
+    {
+        if (!empty($this->photo_id))
+            return CHtml::image($this->photo->getPreviewUrl(70, 70));
+        return '';
     }
 }

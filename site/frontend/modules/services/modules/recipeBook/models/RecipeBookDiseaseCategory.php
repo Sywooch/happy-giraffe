@@ -15,7 +15,7 @@
  *
  * The followings are the available model relations:
  * @property RecipeBookDisease[] $diseases
- * @property AlbumPhoto[] $photo
+ * @property AlbumPhoto $photo
  */
 class RecipeBookDiseaseCategory extends HActiveRecord
 {

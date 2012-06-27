@@ -13,7 +13,7 @@
             <?php echo CHtml::link($data->title, $data->url, array('class' => 'entry-title')); ?>
         <?php endif; ?>
 
-        <?php $this->beginWidget('SeoContentWidget'); ?>
+        <noindex>
             <?php if (! $data->by_happy_giraffe): ?>
                 <div class="user">
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
@@ -35,7 +35,7 @@
                 <a href="#comment_list">Комментариев: <?php echo $data->commentsCount; ?></a>
                 <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
             </div>
-        <?php $this->endWidget(); ?>
+        </noindex>
         <div class="clear"></div>
     </div>
 

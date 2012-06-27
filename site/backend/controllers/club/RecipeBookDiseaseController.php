@@ -1,6 +1,6 @@
 <?php
 
-class RecipeBookDiseaseCategoryController extends BController
+class RecipeBookDiseaseController extends BController
 {
 	public $defaultAction='admin';
     public $section = 'club';
@@ -19,14 +19,14 @@ class RecipeBookDiseaseCategoryController extends BController
 	 */
 	public function actionCreate()
 	{
-		$model=new RecipeBookDiseaseCategory;
+		$model=new RecipeBookDisease;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['RecipeBookDiseaseCategory']))
+		if(isset($_POST['RecipeBookDisease']))
 		{
-			$model->attributes=$_POST['RecipeBookDiseaseCategory'];
+			$model->attributes=$_POST['RecipeBookDisease'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -48,9 +48,9 @@ class RecipeBookDiseaseCategoryController extends BController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['RecipeBookDiseaseCategory']))
+		if(isset($_POST['RecipeBookDisease']))
 		{
-			$model->attributes=$_POST['RecipeBookDiseaseCategory'];
+			$model->attributes=$_POST['RecipeBookDisease'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -85,10 +85,10 @@ class RecipeBookDiseaseCategoryController extends BController
 	 */
 	public function actionAdmin()
 	{
-		$model=new RecipeBookDiseaseCategory('search');
+		$model=new RecipeBookDisease('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['RecipeBookDiseaseCategory']))
-			$model->attributes=$_GET['RecipeBookDiseaseCategory'];
+		if(isset($_GET['RecipeBookDisease']))
+			$model->attributes=$_GET['RecipeBookDisease'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -102,7 +102,7 @@ class RecipeBookDiseaseCategoryController extends BController
 	 */
 	public function loadModel($id)
 	{
-		$model=RecipeBookDiseaseCategory::model()->findByPk((int)$id);
+		$model=RecipeBookDisease::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -114,7 +114,7 @@ class RecipeBookDiseaseCategoryController extends BController
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='recipe-book-disease-category-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='recipe-book-disease-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

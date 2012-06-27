@@ -5,7 +5,7 @@
 ?>
 <h1><?php echo $model->title ?></h1>
 <div class="disease-img">
-    <img src="<?=isset($model->photo) ? $model->photo->getPreviewUrl(500, 500, Image::WIDTH) : '' ?>"/>
+    <img src="<?=isset($model->photo) ? $model->photo->getPreviewUrl(250, 350, Image::WIDTH) : '' ?>"/>
 </div>
 
 <div class="wysiwyg-content clearfix">

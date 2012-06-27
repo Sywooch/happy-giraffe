@@ -21,7 +21,8 @@ $js = "
         ";
 
 $cs
-    ->registerScript('add_video', $js);
+    ->registerScript('add_video', $js)
+    ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.tooltip.pack.js');
 ?>
 
 <div class="add-nav default-nav clearfix">
@@ -70,14 +71,14 @@ $cs
 
             <?php if (Yii::app()->user->checkAccess('editMeta')): ?>
             <div class="row clearfix">
-                <div class="row-title">Title:</div>
+                <div class="row-title"><?php echo $form->label($model, 'meta_title'); ?>:</div>
                 <div class="row-elements">
                     <?php echo $form->textField($model, 'meta_title', array('class' => 'w-500')); ?>
                 </div>
             </div>
 
             <div class="row clearfix">
-                <div class="row-title">От Весёлого Жирафа:</div>
+                <div class="row-title"><?php echo $form->label($model, 'by_happy_giraffe'); ?>:</div>
                 <div class="row-elements">
                     <?php echo $form->checkBox($model, 'by_happy_giraffe'); ?>
                 </div>
@@ -86,14 +87,14 @@ $cs
 
             <?php if ($model->type_id == 1): ?>
             <div class="row clearfix">
-                <div class="row-title">Заголовок:</div>
+                <div class="row-title"><?php echo $form->label($model, 'title') ?>:</div>
                 <div class="row-elements">
                     <?php echo $form->textField($model, 'title', array('class' => 'w-500')); ?>
                 </div>
             </div>
 
             <div class="row clearfix">
-                <div class="row-title">Текст:</div>
+                <div class="row-title"><?php echo $form->label($slave_model, 'text') ?>:</div>
                 <div class="row-elements">
                     <?php
                     $this->widget('ext.ckeditor.CKEditorWidget', array(
@@ -107,7 +108,7 @@ $cs
 
             <?php if ($model->type_id == 2): ?>
             <div class="row clearfix">
-                <div class="row-title">Заголовок:</div>
+                <div class="row-title"><?php echo $form->label($model, 'title') ?>:</div>
                 <div class="row-elements">
                     <?php echo $form->textField($model, 'title', array('class' => 'w-400')); ?>
                 </div>
@@ -173,6 +174,41 @@ $cs
                         <span class="subtitle">Рубрика</span>
                         <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'title'), array('prompt' => 'Выберите рубрику', 'class' => 'chzn w-200')); ?>
                     </div>
+                </div>
+            </div>
+
+            <div class="row row-gallery">
+                <div class="row-title">
+                    <span class="title-in">Фотогалерея</span>
+                    <a class="add-gallery tooltip" href="javascript:;" onclick="return PostGallery.add(this);" title="Добавить фотогалерею"></a>
+                    <span class="gallery_input_container">
+                        <input type="text" name="gallery_title" placeholder="Название галереи">
+                        <button class="btn btn-green-small" onclick="return PostGallery.save(this);"><span><span>Ok</span></span></button>
+                    </span>
+                    <span class="gallery_title_container">
+                        <span class="gallery-title">Ветрянка</span>
+                        <a class="edit tooltip" href="javascript:;" title="Редактровать название" onclick="return PostGallery.add(this);"></a>
+                        <a class="remove tooltip" href="javascript:;" title="Удалить галерею" onclick="return PostGallery.remove(this);"></a>
+                    </span>
+                </div>
+
+                <div class="gallery-photos">
+                    <ul>
+                        <li>
+                            <?php
+                            $galleryAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                                'model' => $model,
+                                'customButton' => true,
+                                'customButtonHtmlOptions' => array(
+                                    'class' => 'fancy add tooltip',
+                                    'title' => 'Загрузить фото'
+                                )
+                            ));
+                            echo '<i class="icon"></i>';
+                            $this->endWidget();
+                            ?>
+                        </li>
+                    </ul>
                 </div>
             </div>
 

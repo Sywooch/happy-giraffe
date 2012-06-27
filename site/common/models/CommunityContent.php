@@ -103,9 +103,11 @@ class CommunityContent extends HActiveRecord
 			'id' => 'ID',
 			'title' => 'Заголовок',
 			'created' => 'Created',
-			'author_id' => 'Author',
+			'author_id' => 'Автор',
 			'rubric_id' => 'Рубрика',
 			'type_id' => 'Type',
+            'by_happy_giraffe' => 'От Весёлого Жирафа',
+            'meta_title' => 'Заголовок страницы',
 		);
 	}
 

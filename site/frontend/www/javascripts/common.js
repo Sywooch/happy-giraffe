@@ -329,3 +329,35 @@ Comet.prototype.liveContents = function(result, id) {
         }
     )
 }
+
+var PostGallery = {
+    add : function(link) {
+        $('.add-gallery').hide();
+        var input_container = $(link).parents('.row-gallery:eq(0)').find('.gallery_input_container').show();
+        $(link).parents('.row-gallery:eq(0)').find('.gallery_title_container').hide();
+    },
+    save : function(button) {
+        var input_container = $(button).parent();
+        var gallery_title_container = input_container.siblings('.gallery_title_container');
+        var input = input_container.find('input[name=gallery_title]');
+
+        if(input.val() == '') {
+            input.addClass('error');
+            return false;
+        } else {
+            input.removeClass('error');
+        }
+
+        gallery_title_container.find('.gallery-title').text(input.val());
+        input_container.hide();
+        gallery_title_container.show();
+        return false;
+    },
+    remove : function(link) {
+        var input_container = $(link).parents('.row-gallery:eq(0)').find('.gallery_input_container');
+        input_container.siblings('.gallery_title_container').hide().find('.gallery-title').text('');
+        var input = input_container.find('input[name=gallery_title]').val('');
+        $('.add-gallery').show();
+        return false;
+    }
+}

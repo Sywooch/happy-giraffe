@@ -1,27 +1,43 @@
 <?php $this->beginContent('//layouts/main');
-$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-
-Yii::app()->clientScript->registerCssFile('/stylesheets/baby.css');
-Yii::app()->clientScript->registerMetaTag('Здесь собраны самые распространённые детские болезни, от которых, к сожалению, не застрахован ни один ребенок. Выберите название и узнайте о симптомах, лечении и профилактике заболевания', 'description');
+$categories = RecipeBookDiseaseCategory::model()->findAll(array('order'=>'id'));
 ?>
-<div id="baby">
+<div id="disease">
 
-    <div class="content-box clearfix">
-        <div class="baby_handbook_service">
-            <ul class="handbook_changes_u">
-                <li<?php if (Yii::app()->controller->index == true) echo ' class="current_t"' ?>><a href="<?php echo $this->createUrl('index') ?>">Главная</a>
-                </li>
-                <li><a id="disease-alphabet" href="#"><span>Болезни по алфавиту</span></a></li>
-                <li><a id="disease-type" href="#"><span>Болезни по типу</span></a></li>
-            </ul>
-            <div class="handbook_alfa_popup" id="popup" style="display: none;">
+    <div class="title">
 
-            </div>
+        <h2>Справочник<span>детских болезней</span></h2>
+
+    </div>
+
+    <div class="clearfix">
+
+        <div class="disease-in">
+            <?php echo $content ?>
+
         </div>
-        <div class="clear"></div>
-        <?php echo $content ?>
+
+        <div class="disease-categories">
+
+            <ul>
+                <li class="<?php if ($this->category_id == 0) echo 'active' ?>">
+                    <a class="disease-cat<?php if ($this->category_id == 0) echo ' active' ?>" href="<?= $this->createUrl('default/index') ?>">
+                        <i class="icon-disease-cat icon-disease-0"></i>
+                        <span>Все заболевания</span>
+                    </a>
+                </li>
+                <?php foreach ($categories as $category): ?>
+                <li class="<?php if ($this->category_id == $category->id) echo 'active' ?>">
+                    <a href="<?=$this->createUrl('default/category', array('id'=>$category->slug)) ?>" class="disease-cat<?php if ($this->category_id == $category->id) echo ' active' ?>">
+                        <i class="icon-disease-cat icon-disease-<?=$category->id ?>"></i>
+                        <span><?=$category->title ?></span>
+                    </a>
+                </li>
+                <?php endforeach; ?>
+
+            </ul>
+
+        </div>
+
     </div>
 
 </div>

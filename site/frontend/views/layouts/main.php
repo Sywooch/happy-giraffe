@@ -444,7 +444,7 @@
     <div id="footer" class="wrapper clearfix">
 
         <div class="a-right">
-            <!--<a>Политика конфиденциальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a> &nbsp; | &nbsp; --><?=CHtml::link('Map', array('/community/map'))?>
+            <!--<a>Политика конфиденциальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a> &nbsp; | &nbsp; -->
         </div>
 
         <div class="copy">

@@ -128,13 +128,14 @@ class CommunityController extends HController
     public function actionView($community_id, $content_type_slug, $content_id)
     {
         /* <ИМПОРТ РЕЦЕПТОВ> */
-        Yii::import('application.modules.cook.models.CookRecipe');
-        $content = CommunityContent::model()->resetScope()->full()->findByPk($content_id);
-        $recipe = CookRecipe::model()->find('content_id = :content_id', array(':content_id' => $content->id));
-        if ($recipe !== null) {
-            header("HTTP/1.1 301 Moved Permanently");
-            header("Location: " . $recipe->url);
-            Yii::app()->end();
+        if ($community_id == 22) {
+            Yii::import('application.modules.cook.models.CookRecipe');
+            $recipe = CookRecipe::model()->find('content_id = :content_id', array(':content_id' => $content_id));
+            if ($recipe !== null) {
+                header("HTTP/1.1 301 Moved Permanently");
+                header("Location: " . $recipe->url);
+                Yii::app()->end();
+            }
         }
         /* </ИМПОРТ РЕЦЕПТОВ> */
 

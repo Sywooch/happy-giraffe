@@ -27,7 +27,7 @@ $categories = RecipeBookDiseaseCategory::model()->findAll(array('order'=>'id'));
                 </li>
                 <?php foreach ($categories as $category): ?>
                 <li class="<?php if ($this->category_id == $category->id) echo 'active' ?>">
-                    <a href="<?=$this->createUrl('default/category', array('id'=>$category->slug)) ?>" class="disease-cat<?php if ($this->category_id == $category->id) echo ' active' ?>">
+                    <a href="<?=$this->createUrl('default/view', array('id'=>$category->slug)) ?>" class="disease-cat<?php if ($this->category_id == $category->id) echo ' active' ?>">
                         <i class="icon-disease-cat icon-disease-<?=$category->id ?>"></i>
                         <span><?=$category->title ?></span>
                     </a>

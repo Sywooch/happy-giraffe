@@ -66,7 +66,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
     background: #fff;
 }
 
-.entry .entry-header a.entry-title, .entry .entry-header h1 {
+.entry  a.entry-title, .entry  h1 {
     display: block;
     font: bold 25px Arial, Tahoma, sans-serif;
     color: #0281b0;

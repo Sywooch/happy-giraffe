@@ -493,6 +493,41 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .form .form-error-summary ul li {padding:4px 0 4px 10px;}
 .form .form-error-summary ul li:before {content:'-';width:10px;display:inline-block;margin-left:-10px;}
 
+.form .row-gallery {}
+.form .row-gallery .row-title {padding-left:0;}
+.form .row-gallery .row-title .title-in {margin-right:25px;}
+.form .row-gallery .row-title input {height:17px;line-height:17px;padding:0 10px;border:1px solid #b4e3ff;font-size:12px;color:#333;font-weight:normal;width:280px;}
+.form .row-gallery .row-title .gallery-title {color:#2e2e2e;}
+
+.form .row-gallery .add-gallery {display:inline-block;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;;text-decoration:none;position:relative;top:3px;}
+
+.form .row-gallery .remove {display:inline-block;width:10px;height:12px;background:url(/images/common.png) no-repeat -315px -136px;position:relative;top:2px;}
+.form .row-gallery .remove:hover {background-position:-315px -149px;}
+
+.form .row-gallery .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;top:-2px;}
+.form .row-gallery .edit:hover {background-position:-341px -136px;}
+
+.form .row-gallery .gallery-photos {}
+.form .row-gallery .gallery-photos ul {}
+.form .row-gallery .gallery-photos ul li {display:inline-block;vertical-align:middle;position:relative;margin:0 10px 10px 0;}
+.form .row-gallery .gallery-photos ul li a.add {border:1px dotted #bababa;display:block;width:68px;height:50px;}
+.form .row-gallery .gallery-photos ul li a.add {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+.form .row-gallery .gallery-photos ul li a.add .icon {display:block;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;;text-decoration:none;position:relative;margin:15px auto;}
+.form .row-gallery .gallery-photos ul li img {max-height:70px;}
+.form .row-gallery .gallery-photos ul li .actions {position:absolute;top:0;left:0;background:#fff;background:rgba(255,255,255,.75);width:100%;padding:3px 0;text-align:right;display:none;}
+.form .row-gallery .gallery-photos ul li .actions .remove {background-position:-315px -149px;margin-right:5px;}
+.form .row-gallery .gallery-photos ul li .actions .edit {background-position:-341px -136px;}
+.form .row-gallery .gallery-photos ul li .img:hover .actions {display:block;}
+
+
+.gallery-box {text-align:center;}
+.gallery-box .img {position:relative;display:inline-block;}
+.gallery-box .img .title {position:absolute;bottom:0;left:0;padding:3%;background:#000;width:94%;background:rgba(0,0,0,.44);text-align:left;}
+.gallery-box .img .title .icon-play {display:inline-block;width:68px;height:68px;background:url(/images/gallery_box_icon_play.png) no-repeat;vertical-align:middle;}
+.gallery-box .img .title .title-in {display:inline-block;vertical-align:middle;max-width:80%;margin-left:20px;color:#fff;font-size:16px;}
+.gallery-box .img .title .title-in span {display:block;font-weight:bold;font-size:22px;line-height:22px;margin-bottom:5px;}
+
+
 .counter {display:inline-block;line-height:20px;vertical-align:top;}
 .counter input[type=text] {width:26px;height:16px;padding:0;font-size:12px;font-weight:bold;text-align:center;line-height:16px;margin:0 6px;vertical-align:top;border:1px solid #99d5e2;background:#fff;}
 .counter .dec {display:inline-block;width:8px;height:11px;background:url(../images/common.png) no-repeat -42px -101px;vertical-align:top;cursor:pointer;margin-top:4px;}
@@ -543,6 +578,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-upload .note {float:left;padding-right:30px;color:#949696;font-size:11px;line-height:normal;}
 #photoPick .photo-upload .photo {position:relative;float:left;margin-right:15px;}
 #photoPick .photo-upload .photo .in {text-align:center;width:300px;height:225px;background:#ededed;display:table-cell;vertical-align:middle;}
+#photoPick .photo-upload .photo .in img {max-width:300px;}
 #photoPick .photo-upload .remove {display:block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:absolute;top:5px;right:5px;}
 #photoPick .photo-upload .remove:hover {background-position:-314px -148px;}
 
@@ -550,7 +586,10 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-title {margin:0px 0 0 0;padding-top:20px;}
 #photoPick .photo-title .row{margin:0px 0 0 0;padding-top:20px;}
 #photoPick .photo-title label {font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;color:#898888;margin-left:11px;display:inline-block;margin-bottom:8px;}
-#photoPick .photo-title input[type=text]{border-color:#ece4f4;height:auto;padding:0px 10px;color:#333;font-size:12px;font-weight:normal;}
+#photoPick .photo-title label span {color:#b6b5b5;font-size:11px;font-style:normal;}
+#photoPick .photo-title input[type=text]{border-color:#dbcfe7;height:auto;padding:0px 10px;color:#333;font-size:12px;font-weight:normal;}
+#photoPick .photo-title textarea {border-color:#dbcfe7;height:auto;padding:5px 10px;color:#333;font-size:12px;font-weight:normal;height:90px;width:340px;}
+
 #photoPick .photo-title select {width:220px}
 
 #photoPick .photo-category .row{margin:0px 0 0 0;padding-top:20px;}
@@ -2299,6 +2338,8 @@ body.gallery {overflow:hidden;}
 #photo-window #photo-content {background:#fff;margin:20px 130px 0;padding:0 25px 25px;}
 #photo-window #photo-content .like-block {background:#f8f8f8;width:540px;padding:20px 0;margin:0 auto 50px;}
 #photo-window #photo-content .like-block {/*css3*/ -moz-border-radius:0 0 20px 20px;-webkit-border-radius:0 0 20px 20px;border-radius:0 0 20px 20px;}
+
+#photo-window .photo-comment {width:700px;margin:20px auto;color:#fff;font-size:13px;}
 
 
 /* */

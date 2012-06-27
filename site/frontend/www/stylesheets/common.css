@@ -459,7 +459,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .form {color:#575757;}
 .form a {color:#54afc3;}
 .form .row {padding-bottom:15px;}
-.form .row .row-title {color:#0d8ca3;font:italic 16px arial, sans-serif;padding-bottom:3px;}
+.form .row .row-title, .form .row .row-title label {color:#0d8ca3;font:italic 16px arial, sans-serif;padding-bottom:3px;}
 .form .row .subtitle {color:#0d8ca3;font:italic 14px arial, sans-serif;margin-right:5px;vertical-align:middle;}
 .form .row .row-elements {}
 .form .row .row-bottom {font-size:10px;line-height:1.2;}
@@ -496,6 +496,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 .form .row-gallery {}
 .form .row-gallery .row-title {padding-left:0;}
+
 .form .row-gallery .row-title .title-in {margin-right:25px;}
 .form .row-gallery .row-title input {height:17px;line-height:17px;padding:0 10px;border:1px solid #b4e3ff;font-size:12px;color:#333;font-weight:normal;width:280px;}
 .form .row-gallery .row-title .gallery-title {color:#2e2e2e;}

@@ -71,7 +71,6 @@ return array(
 
         'childrenDiseases/'=>'services/childrenDiseases/default/index',
         'childrenDiseases/<id:[\w-+\s]+>'=>'services/childrenDiseases/default/view',
-        'childrenDiseases/category/<id:[\w-+\s]+>'=>'services/childrenDiseases/default/category',
 
 //        'recipeBook/disease/<url:\w+>'=>'recipeBook/default/disease',
 //        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',

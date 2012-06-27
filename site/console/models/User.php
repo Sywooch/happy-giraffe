@@ -73,4 +73,9 @@ class User extends CActiveRecord
             'params' => array(':user_id' => $this->id),
         ));
     }
+
+    public function isNewComer()
+    {
+        return false;
+    }
 }

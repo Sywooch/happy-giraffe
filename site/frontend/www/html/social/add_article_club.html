@@ -28,6 +28,18 @@
 	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 	
 	<script type="text/javascript">
+	
+	$(function(){
+		$('.tooltip').tooltip({
+			delay: 100,
+			track: false,
+			showURL: false,
+			showBody: false,
+			top: -20,
+			left: 10
+		});
+	})
+	
 	//<![CDATA[
 
 		$(function(){
@@ -43,14 +55,7 @@
 				});
 			});
 			
-			$('.tooltip').tooltip({
-				delay: 100,
-				track: false,
-				showURL: false,
-				showBody: false,
-				top: -20,
-				left: 10
-			});
+			
 			
 
 	//]]>	
@@ -512,7 +517,7 @@
 							<div class="row row-gallery">
 								<div class="row-title">
 									<span class="title-in">Фотогалерея</span>
-									<a href="#photoPick" class="fancy add-gallery tooltip" title="Добавить фотогалерею"></a>
+									<a href="" class="add-gallery tooltip" title="Добавить фотогалерею"></a>
 									<input type="text" placeholder="Название галереи" />
 									&nbsp;
 									<button class="btn btn-green-small"><span><span>Ok</span></span></button>
@@ -534,7 +539,7 @@
 											</div>
 										</li>
 										<li>
-											<a href="" class="add" title="Загрузить фото"><i class="icon"></i></a>
+											<a href="#photoPick" class="fancy add tooltip" title="Загрузить фото"><i class="icon"></i></a>
 										</li>
 									</ul>
 									

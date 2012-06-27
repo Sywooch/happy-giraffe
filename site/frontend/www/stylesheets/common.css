@@ -1421,7 +1421,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments {padding-bottom:20px;margin-top:20px;}
 .default-comments .add, .default-comments .all {padding-top:10px;text-align:right;}
 .default-comments ul {padding-top:10px;list-style:none;}
-.default-comments > ul > li {padding:2px 0px;border-bottom:1px dashed #95c8ff;}
+.default-comments > ul > li {padding:2px 0px;border-top:1px dashed #95c8ff;}
+.default-comments > ul > li:first {border-top:0;}
 .default-comments li .comment-in {padding:10px;}
 .default-comments li .header {padding-bottom:8px;}
 .default-comments li .header .user-info .details .username:hover {text-decoration:underline;}
@@ -1490,6 +1491,10 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .default-comments .user-info .details .icon-status {vertical-align:middle;}
 .default-comments .user-info .details .username {width:auto;vertical-align:middle;}
+
+.default-comments .more-comments {display:block;background:#f8fbff;color:#5884bf;font-size:14px;text-decoration:none;border:1px solid #cedaea;height:25px;line-height:25px;text-align:center;margin-top:20px;}
+.default-comments .more-comments {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
+.default-comments .more-comments:hover {background:#eaf1fb;border-color:#c4d5eb;}
 
 /* */
 

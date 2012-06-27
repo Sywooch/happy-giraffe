@@ -101,10 +101,10 @@ class CommunityContent extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Name',
+			'title' => 'Заголовок',
 			'created' => 'Created',
 			'author_id' => 'Author',
-			'rubric_id' => 'Rubric',
+			'rubric_id' => 'Рубрика',
 			'type_id' => 'Type',
 		);
 	}

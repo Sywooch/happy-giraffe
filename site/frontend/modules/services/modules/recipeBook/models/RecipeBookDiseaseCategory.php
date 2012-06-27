@@ -64,7 +64,7 @@ class RecipeBookDiseaseCategory extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'diseases' => array(self::HAS_MANY, 'RecipeBookDisease', 'category_id'),
-			'photo' => array(self::HAS_MANY, 'AlbumPhoto', 'photo_id'),
+			'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
 		);
 	}
 

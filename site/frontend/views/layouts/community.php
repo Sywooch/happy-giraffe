@@ -124,7 +124,11 @@
     <div class="side-left">
 
         <div class="club-fast-add">
-            <?=HHtml::link('<span><span>Добавить</span></span>', $this->getUrl(array('content_type_slug' => null), 'community/add'), array('class' => 'btn btn-green'), true)?>
+            <?php if (Yii::app()->user->isGuest):?>
+                <?=CHtml::link('<span><span>Добавить</span></span>', '#login', array('class' => 'btn btn-green fancy'))?>
+            <?php else: ?>
+                <?=HHtml::link('<span><span>Добавить</span></span>', $this->getUrl(array('content_type_slug' => null), 'community/add'), array('class' => 'btn btn-green'), true)?>
+            <?php endif ?>
         </div>
 
         <div class="club-topics-all-link">

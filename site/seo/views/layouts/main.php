@@ -6,6 +6,8 @@
     <title>Администратор</title>
 
     <?php
+    CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
+
     Yii::app()->clientScript
         ->registerCssFile('/css/seo.css')
         ->registerCssFile('/css/form.css')

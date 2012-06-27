@@ -36,7 +36,6 @@ class ProxyParserThread extends CComponent
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        //$criteria->order = 'rank DESC';
         $criteria->order = 'rand()';
 
         $transaction = Yii::app()->db_seo->beginTransaction();
@@ -58,7 +57,6 @@ class ProxyParserThread extends CComponent
     protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
         sleep(rand($this->delay_min, $this->delay_max));
-
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
             if ($post) {
@@ -168,10 +166,15 @@ class ProxyParserThread extends CComponent
 
     }
 
-    protected function logMemoryUsage($state){
-        $memory = round(Yii::getLogger()->getMemoryUsage()/1048576,2);
-        $message = $state.' - memory usage: '.$memory.' mb';
-        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime').DIRECTORY_SEPARATOR.'my_log.txt', 'a');
-        fwrite($fh, date("Y-m-d H:i:s").':  '. $message."\n");
+    protected function logMemoryUsage($state)
+    {
+        if ($this->debug) {
+            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+            $t = microtime(true);
+            $micro = sprintf("%06d", ($t - floor($t)) * 1000000);
+            $d = new DateTime(date('Y-m-d H:i:s.' . $micro, $t));
+
+            fwrite($fh, $d->format("Y-m-d H:i:s.u") . ':  ' . $state . "\n");
+        }
     }
 }

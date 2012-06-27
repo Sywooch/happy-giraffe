@@ -71,9 +71,10 @@
                                 $this->createUrl('/cook/recipe/index', array('type' => $id))
                                 ?>" class="cook-cat">
                                 <i class="icon-cook-cat icon-recipe-<?=$id?>"></i>
+                                <?php if ($this->currentType != $id): ?><span class="count"><?=isset($this->counts[$id])?$this->counts[$id]:0?></span><?php endif; ?>
                                 <span><?=$label?></span>
                             </a>
-                            <span class="count"><?=isset($this->counts[$id])?$this->counts[$id]:0?></span>
+                            <?php if ($this->currentType == $id): ?><span class="count"><?=isset($this->counts[$id])?$this->counts[$id]:0?></span><?php endif; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>

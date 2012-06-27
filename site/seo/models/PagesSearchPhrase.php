@@ -63,7 +63,7 @@ class PagesSearchPhrase extends HActiveRecord
         return array(
             'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
             'page' => array(self::BELONGS_TO, 'Page', 'page_id'),
-            'positions' => array(self::HAS_MANY, 'SearchPhrasePosition', 'search_phrase_id'),
+            'positions' => array(self::HAS_MANY, 'SearchPhrasePosition', 'search_phrase_id', 'order' => 'date desc'),
             'visits' => array(self::HAS_MANY, 'SearchPhraseVisit', 'search_phrase_id'),
         );
     }
@@ -167,4 +167,47 @@ class PagesSearchPhrase extends HActiveRecord
         ));
     }
 
+    public function getPositionView($se)
+    {
+        $se_positions = $this->getPositionsArray($se);
+
+        if (empty($se_positions))
+            return '';
+
+        if (count($se_positions) == 1)
+            return $this->getPosition($se);
+
+        $last = $se_positions[0];
+        $prev = $se_positions[1];
+
+        $i = 2;
+        while($prev->position == $last->position){
+            if (!isset($se_positions[$i]))
+                break;
+            $prev = $se_positions[$i];
+            $i++;
+        }
+
+        if ($last->position < $prev->position){
+            return $last->position.' <i class="icon-up"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
+        }
+        if ($last->position > $prev->position){
+            return $last->position.' <i class="icon-down"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
+        }
+
+        return $last->position;
+    }
+
+    /**
+     * @param int $se
+     * @return SearchPhrasePosition[]
+     */
+    public function getPositionsArray($se)
+    {
+        $se_positions = array();
+        foreach ($this->positions as $position)
+            if ($position->se_id == $se)
+                $se_positions[] = $position;
+        return $se_positions;
+    }
 }

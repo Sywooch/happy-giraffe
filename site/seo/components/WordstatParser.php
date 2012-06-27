@@ -16,7 +16,7 @@ class WordstatParser extends ProxyParserThread
     {
         Config::setAttribute('stop_threads', 0);
 
-        $this->logMemoryUsage('start');
+        sleep(rand(1, 20));
 
         $this->delay_min = 1;
         $this->delay_max = 3;
@@ -24,11 +24,8 @@ class WordstatParser extends ProxyParserThread
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 
-        //sleep(rand(1, 120));
-
         $this->getCookie();
 
-        $this->logMemoryUsage('got cookie');
         while (true) {
             $this->getNextPage();
 
@@ -36,7 +33,6 @@ class WordstatParser extends ProxyParserThread
             while (!$success) {
                 $success = $this->parseQuery();
 
-                $this->logMemoryUsage('page parsed');
 
                 if (!$success)
                     $this->changeBadProxy();
@@ -68,38 +64,30 @@ class WordstatParser extends ProxyParserThread
         $criteria = new CDbCriteria;
         $criteria->condition = 'depth IS NULL';
         $criteria->compare('active', 0);
-        $criteria->with = 'keyword';
-        $criteria->order = 'rand()';
 
         //затем все остальные упорядоченные по глубине парсинга
         $criteria2 = new CDbCriteria;
         $criteria2->compare('active', 0);
         $criteria2->order = 'depth DESC';
-        $criteria2->with = 'keyword';
 
-        while ($this->keyword === null) {
-            $transaction = Yii::app()->db_seo->beginTransaction();
-            try {
-                $this->keyword = ParsingKeyword::model()->find($criteria);
-                if ($this->keyword === null) {
-                    $this->keyword = ParsingKeyword::model()->find($criteria2);
-                    if ($this->keyword === null)
-                        $this->closeThread('Keywords for parsing ended');
-                }
-
-                $this->keyword->active = 1;
-                $this->keyword->save();
-                $transaction->commit();
-            } catch (Exception $e) {
-                $this->keyword = null;
-                $transaction->rollback();
-                $this->closeThread('get keyword transaction failed');
+        $transaction = Yii::app()->db_seo->beginTransaction();
+        try {
+            $this->keyword = ParsingKeyword::model()->find($criteria);
+            if ($this->keyword === null) {
+                $this->keyword = ParsingKeyword::model()->find($criteria2);
+                if ($this->keyword === null)
+                    $this->closeThread('Keywords for parsing ended');
             }
-            sleep(1);
+
+            $this->keyword->active = 1;
+            $this->keyword->save();
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            $this->closeThread('get keyword transaction failed');
         }
 
         $this->first_page = true;
-        $this->logMemoryUsage('keyword selected');
     }
 
     private function getCookie()
@@ -137,8 +125,6 @@ class WordstatParser extends ProxyParserThread
         $html = $this->query($this->next_page, 'http://wordstat.yandex.ru/');
         if (!isset($html) || $html === null)
             return false;
-
-        $this->logMemoryUsage('page loaded');
 
         return $this->parseData($html);
     }
@@ -268,7 +254,7 @@ class WordstatParser extends ProxyParserThread
     public function AddStat($model, $value)
     {
         if ($this->debug)
-            echo $model->name . ' - ' . $value . "<br>";
+            echo $value . "\n";
 
         YandexPopularity::model()->addValue($model->id, $value);
         $model->our = 1;
@@ -300,7 +286,7 @@ class WordstatParser extends ProxyParserThread
         } else {
             //иначе удаляем кейворд из парсинга
             if ($this->debug)
-                echo $this->keyword->keyword_id . ' - удаляем кейворд из парсинга<br>';
+                echo $this->keyword->keyword_id . " - remove keyword from parsing\n";
 
             ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
 

@@ -10,6 +10,7 @@ var Tile = {
                     $("div#repair-bathroom-tile div.recommendation div.left span").html(data.qty + ' ' + data.noun);
                     $("div#repair-bathroom-tile div.recommendation").fadeIn(100);
                 });
+                $('html,body').animate({scrollTop:$('#result').offset().top}, 'fast');
             }
         });
         return false;

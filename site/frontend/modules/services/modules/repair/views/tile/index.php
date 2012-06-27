@@ -141,7 +141,7 @@
 
     </div>
 
-    <div class="recommendation clearfix">
+    <div class="recommendation clearfix" id="result">
 
         <div class="left">
             <img src="/images/img_repair_bathroom_tile.png"/><br/>Плитки потребуется: <span>455 штук</span>

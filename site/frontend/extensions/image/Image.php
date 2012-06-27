@@ -108,8 +108,8 @@ class Image {
 		// Load configuration
         if ($config === null){
             $this->config = array(
-                'driver'=>'GD',
-                'params'=>array(),
+                'driver'=>'ImageMagick',
+                'params'=>array('directory' => Yii::app()->params->imagick_directory),
             );
         }
         else{

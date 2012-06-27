@@ -52,7 +52,7 @@ Yii::app()->clientScript->registerMetaTag('Подвесные потолки –
 
             <?php $this->endWidget(); ?>
 
-            <div class="row row-result" style="display:none">
+            <div class="row row-result" id="result" style="display:none">
 
 
             </div>

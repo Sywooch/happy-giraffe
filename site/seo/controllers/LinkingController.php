@@ -126,6 +126,13 @@ class LinkingController extends SController
         $this->renderPartial('_donors', compact('links'));
     }
 
+    public function actionPositions(){
+        $se = Yii::app()->request->getPost('se');
+        $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
+        $positions = $phrase->getPositionsArray($se);
+        $this->renderPartial('_positions', compact('positions', 'se'));
+    }
+
     /**
      * @param int $id model id
      * @return Keyword

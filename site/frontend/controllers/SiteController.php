@@ -88,7 +88,6 @@ class SiteController extends HController
 	/**
 	 * @sitemap
 	 */
-
 	public function actionIndex()
 	{
 /*        if(!Yii::app()->user->isGuest)
@@ -222,6 +221,83 @@ class SiteController extends HController
                 $this->redirect(Yii::app()->request->urlReferrer);
 		}
 	}
+
+    public function actionRememberPassword($step)
+    {
+        /*if(!Yii::app()->request->isPostRequest || !Yii::app()->request->getPost('email'))
+            Yii::app()->end();*/
+        $email = Yii::app()->request->getPost('email');
+        $error = false;
+        $code = null;
+        if(Yii::app()->request->getPost('code') !== null)
+            $code = Yii::app()->request->getPost('code');
+        if($step == 2)
+        {
+            $user = User::model()->active()->findByAttributes(array('email' => $email));
+            if(!$user)
+            {
+                $step = 1;
+                $error = 'Пользователь не найден.';
+            }
+            else
+            {
+                if($code === null || $code === 'null')
+                {
+                    $user->remember_code = rand(10000, 99999);
+                    $user->save();
+                    Yii::app()->mc->sendToEmail($user->email, $user, 'remember_password');
+                }
+                else
+                {
+                    $user = User::model()->active()->findByAttributes(array('email' => $email, 'remember_code' => $code));
+                    if(!$user)
+                    {
+                        $error = 'Неверный код подтверждения';
+                    }
+                    else
+                    {
+                        $step = 3;
+                    }
+                }
+            }
+        }
+        if($step == 3)
+        {
+            $user = User::model()->active()->findByAttributes(array('email' => $email, 'remember_code' => $code));
+            if(!$user)
+            {
+                $step = 1;
+                $error = 'Пользователь не найден.';
+            }
+            else
+            {
+                $password = Yii::app()->request->getPost('password') !== null ? Yii::app()->request->getPost('password') : null;
+                if($password !== null && $password !== 'null')
+                {
+                    $user->scenario = 'remember_password';
+                    $user->password = $password;
+                    if(!$user->save(array('password')))
+                    {
+                        $error = $user->errors['password'][0];
+                    }
+                    else
+                    {
+                        $user->scenario = 'update';
+                        $identity = new UserIdentity($user->getAttributes());
+                        $identity->authenticate();
+                        Yii::app()->user->login($identity);
+                        $user->login_date = date('Y-m-d H:i:s');
+                        $user->last_ip = $_SERVER['REMOTE_ADDR'];
+                        $user->remember_code = '';
+                        $user->save(false);
+
+                        $step = 4;
+                    }
+                }
+            }
+        }
+        $this->renderPartial('remember_password/step' . $step, array('step' => $step, 'email' => $email, 'code' => $code,'error' => $error));
+    }
 
 	/**
 	 * Logs out the current user and redirect to homepage.

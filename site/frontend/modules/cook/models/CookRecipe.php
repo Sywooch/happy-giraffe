@@ -272,12 +272,20 @@ class CookRecipe extends CActiveRecord
 
     public function getNutritionalsPer100g($nutritional_id)
     {
-        return round($this->nutritionals['g100']['nutritionals'][$nutritional_id], 2);
+        if (isset($this->nutritionals['g100']['nutritionals'][$nutritional_id])) {
+            return round($this->nutritionals['g100']['nutritionals'][$nutritional_id], 2);
+        } else {
+            return 0;
+        }
     }
 
     public function getNutritionalsPerServing($nutritional_id)
     {
-        return round($this->nutritionals['total']['nutritionals'][$nutritional_id] / $this->servings, 2);
+        if (isset($this->nutritionals['total']['nutritionals'][$nutritional_id])) {
+            return round($this->nutritionals['total']['nutritionals'][$nutritional_id] / $this->servings, 2);
+        } else {
+            return 0;
+        }
     }
 
     public function getBakeryItems()
@@ -419,7 +427,7 @@ class CookRecipe extends CActiveRecord
             return $this->photo;
 
         if (!empty($this->attachPhotos)) {
-            return $this->attachPhotos[0];
+            return $this->attachPhotos[0]->photo;
         }
 
         return null;
@@ -526,6 +534,7 @@ class CookRecipe extends CActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'with' => array('photo', 'attachPhotos'),
+            'order' => 't.created DESC',
         ));
         if ($type !== null)
             $criteria->compare('type', $type);

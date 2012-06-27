@@ -102,10 +102,12 @@ class RecipeController extends HController
 
         //image
         preg_match('/\/([\w\.]+)$/', $imgSrc, $matches);
-        $fs_name = $matches[1];
-        $photo = AlbumPhoto::model()->find('fs_name = :fs_name', array(':fs_name' => $fs_name));
-        if ($photo !== null)
-            $recipe->photo_id = $photo->id;
+        if ($matches) {
+            $fs_name = $matches[1];
+            $photo = AlbumPhoto::model()->find('fs_name = :fs_name', array(':fs_name' => $fs_name));
+            if ($photo !== null)
+                $recipe->photo_id = $photo->id;
+        }
 
         if (isset($_POST['CookRecipe'])) {
             $ingredients = array();
@@ -115,6 +117,7 @@ class RecipeController extends HController
                 if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
                     $ingredient = new CookRecipeIngredient;
                     $ingredient->attributes = $i;
+                    $ingredient->setValue();
                     $ingredient->recipe_id = $recipe->id;
                     $ingredients[] = $ingredient;
                 }

@@ -26,14 +26,22 @@
 
             <div class="recipe-description">
 
-                <ul>
-                    <?php if ($data->cuisine): ?>
-                    <li>Кухня <span class="nationality"><!--<div class="flag flag-ua"></div> --><span class="cuisine-type"><?=$data->cuisine->title?></span></span></li>
-                    <?php endif; ?>
-                    <li>Время подготовки <span class="time-1"><i class="icon"></i><span class=""><?=$data->preparation_duration_h?> : <?=$data->preparation_duration_m?></span></span></li>
-                    <li>Время приготовления <span class="time-2"><i class="icon"></i><span class=""><?=$data->cooking_duration_h?> : <?=$data->cooking_duration_m?></span></span></li>
-                    <li>Кол-во порций <span class="yield-count"><i class="icon"></i><span class="yield"><?=$data->servings?> <?=HDate::GenerateNoun(array('персона', 'персоны', 'персон'), $data->servings)?></span></span></li>
-                </ul>
+                <?php if ($data->cuisine || $data->preparation_duration || $data->cooking_duration || $data->servings): ?>
+                    <ul>
+                        <?php if ($data->cuisine): ?>
+                        <li>Кухня <span class="nationality"><!--<div class="flag flag-ua"></div> --><span class="cuisine-type"><?=$data->cuisine->title?></span></span></li>
+                        <?php endif; ?>
+                        <?php if ($data->preparation_duration): ?>
+                        <li>Время подготовки <span class="time-1"><i class="icon"></i><span class=""><?=$data->preparation_duration_h?> : <?=$data->preparation_duration_m?></span></span></li>
+                        <?php endif; ?>
+                        <?php if ($data->cooking_duration): ?>
+                        <li>Время приготовления <span class="time-2"><i class="icon"></i><span class=""><?=$data->cooking_duration_h?> : <?=$data->cooking_duration_m?></span></span></li>
+                        <?php endif; ?>
+                        <?php if ($data->servings): ?>
+                        <li>Кол-во порций <span class="yield-count"><i class="icon"></i><span class="yield"><?=$data->servings?> <?=HDate::GenerateNoun(array('персона', 'персоны', 'персон'), $data->servings)?></span></span></li>
+                        <?php endif; ?>
+                    </ul>
+                <?php endif; ?>
 
                 <div class="actions">
 
@@ -74,7 +82,7 @@
 
         <div class="instructions wysiwyg-content">
 
-            <p><?=Str::truncate(strip_tags($data->text))?> <?=CHtml::link('Весь рецепт', $data->url)?></p>
+            <p><?=Str::truncate(strip_tags($data->text), 255)?> <?=CHtml::link('Весь рецепт<i class="icon"></i>', $data->url, array('class' => 'read-more'))?></p>
 
         </div>
 

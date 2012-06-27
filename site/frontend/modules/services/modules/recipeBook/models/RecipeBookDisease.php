@@ -24,6 +24,7 @@
  * The followings are the available model relations:
  * @property RecipeBookDiseaseCategory $category
  * @property RecipeBookRecipe[] $recipeBookRecipes
+ * @property AlbumPhoto[] $photo
  */
 class RecipeBookDisease extends HActiveRecord
 {
@@ -72,6 +73,7 @@ class RecipeBookDisease extends HActiveRecord
         return array(
             'category' => array(self::BELONGS_TO, 'RecipeBookDiseaseCategory', 'category_id'),
             'recipes' => array(self::HAS_MANY, 'RecipeBookRecipe', 'disease_id'),
+            'photo' => array(self::HAS_MANY, 'AlbumPhoto', 'photo_id'),
         );
     }
 

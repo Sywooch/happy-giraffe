@@ -65,7 +65,7 @@ class CookConverter extends CComponent
         }
 
         if (!isset($this->result['qty']))
-                return null;
+            return 0;
 
         $this->result['unit'] = $this->to;
         return ($this->result['qty']) ? $this->result : null;

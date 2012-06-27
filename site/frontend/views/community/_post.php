@@ -1,3 +1,9 @@
+<?php
+    if (Yii::app()->request->getParam('Comment_page', 1) != 1) {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+    }
+?>
+
 <div class="entry<?php if ($full): ?> entry-full<?php endif; ?>">
 
     <div class="entry-header">
@@ -6,27 +12,30 @@
         <?php else: ?>
             <?php echo CHtml::link($data->title, $data->url, array('class' => 'entry-title')); ?>
         <?php endif; ?>
-        <?php if (! $data->by_happy_giraffe): ?>
-            <div class="user">
-                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
+
+        <?php $this->beginWidget('SeoContentWidget'); ?>
+            <?php if (! $data->by_happy_giraffe): ?>
+                <div class="user">
+                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
+                </div>
+            <?php endif; ?>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
+
+            <div class="meta">
+
+                <div class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created); ?></div>
+
+                <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php
+                    if ($full)
+                        echo $views = $this->getViews();
+                    else
+                        echo $views = PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true);
+                    ?></span></div>
+                <br/>
+                <a href="#comment_list">Комментариев: <?php echo $data->commentsCount; ?></a>
+                <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
             </div>
-        <?php endif; ?>
-        <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
-
-        <div class="meta">
-
-            <div class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created); ?></div>
-
-            <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php
-                if ($full)
-                    echo $views = $this->getViews();
-                else
-                    echo $views = PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true);
-                ?></span></div>
-            <br/>
-            <a href="#comment_list">Комментариев: <?php echo $data->commentsCount; ?></a>
-            <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
-        </div>
+        <?php $this->endWidget(); ?>
         <div class="clear"></div>
     </div>
 
@@ -187,15 +196,17 @@
                 break;
         }
     ?>
-<?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-    'title' => $like_title,
-    'notice' => $like_notice,
-    'model' => $data,
-    'type' => 'simple',
-    'options' => array(
-        'title' => CHtml::encode($data->title),
-        'image' => isset($data_image) ? $data_image : false,
-        'description' => $data_text,
-    ),
-)); ?>
+    <noindex>
+        <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+            'title' => $like_title,
+            'notice' => $like_notice,
+            'model' => $data,
+            'type' => 'simple',
+            'options' => array(
+                'title' => CHtml::encode($data->title),
+                'image' => isset($data_image) ? $data_image : false,
+                'description' => $data_text,
+            ),
+        )); ?>
+    </noindex>
 <?php endif; ?>

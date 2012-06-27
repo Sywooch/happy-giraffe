@@ -1,19 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "recipeBook_disease_category".
+ * This is the model class for table "recipe_book__disease_categories".
  *
- * The followings are the available columns in table 'recipeBook_disease_category':
+ * The followings are the available columns in table 'recipe_book__disease_categories':
  * @property string $id
  * @property string $title
+ * @property string $slug
+ * @property string $title_all
+ * @property string $description
+ * @property string $description_center
+ * @property string $description_extra
+ * @property string $photo_id
  *
  * The followings are the available model relations:
- * @property RecipeBookDisease[] $recipeBookDiseases
+ * @property RecipeBookDisease[] $diseases
  */
 class RecipeBookDiseaseCategory extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
+	 * @param string $className active record class name.
 	 * @return RecipeBookDiseaseCategory the static model class
 	 */
 	public static function model($className=__CLASS__)
@@ -38,10 +45,12 @@ class RecipeBookDiseaseCategory extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, slug', 'required'),
-			array('title, slug', 'length', 'max' => 255),
+			array('title, slug, title_all', 'length', 'max'=>255),
+			array('photo_id', 'length', 'max'=>11),
+			array('description, description_center, description_extra', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, slug', 'safe', 'on'=>'search'),
+			array('id, title, slug, title_all, description, description_center, description_extra, photo_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,7 +74,12 @@ class RecipeBookDiseaseCategory extends HActiveRecord
 		return array(
 			'id' => 'ID',
 			'title' => 'Название',
-			'slug' => 'Для урла',
+			'slug' => 'Slug',
+			'title_all' => 'Заголоков для "Все болезни..."',
+			'description' => 'Описание',
+			'description_center' => 'Описание 2',
+			'description_extra' => 'Описание 3',
+			'photo_id' => 'Фото',
 		);
 	}
 
@@ -82,9 +96,22 @@ class RecipeBookDiseaseCategory extends HActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('title',$this->title,true);
+		$criteria->compare('slug',$this->slug,true);
+		$criteria->compare('title_all',$this->title_all,true);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('description_center',$this->description_center,true);
+		$criteria->compare('description_extra',$this->description_extra,true);
+		$criteria->compare('photo_id',$this->photo_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getImage()
+    {
+        if (!empty($this->photo_id))
+            return CHtml::image($this->photo->getPreviewUrl(70, 70));
+        return '';
+    }
 }

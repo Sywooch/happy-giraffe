@@ -135,6 +135,12 @@ Attach.prototype.insertToRecipe = function (fsn) {
     }, 'json');
 }
 
+Attach.prototype.CommunityContentEdit = function(val) {
+    $.post(base_url + '/albums/CommunityContentEdit/', {val:val, widget_id:this.object_name}, function (html) {
+        $('#attach_content').html(html);
+    }, 'html');
+}
+
 Attach.prototype.CommunityContentInsert = function(val) {
     if($('#attach_content textarea').val().length > 200) {
         $('#attach_content textarea').addClass('error');
@@ -153,14 +159,22 @@ Attach.prototype.CommunityContentInsert = function(val) {
     $.post(
         '/albums/CommunityContentSave/',
         {
-            title:$('#attach_content input[name="title"]').val(),
+            title:$('#attach_content input[name=title]').val(),
             description:$('#attach_content textarea').val(),
-            id:id
+            val:val
         },
         function (data) {
-            if (data.status) {
-                $.fancybox.close();
-            }
+            var item = $('#photo_item').tmpl({id:data.id, title:data.title, description:data.description, src: data.photo})
+                .insertBefore('.row-gallery .gallery-photos ul li:last-child');
+            $('.tooltip', item).tooltip({
+                delay: 100,
+                track: false,
+                showURL: false,
+                showBody: false,
+                top: -20,
+                left: 10
+            });
+            $.fancybox.close();
         }, 'json');
 }
 
@@ -213,12 +227,6 @@ Attach.prototype.CookDecorationEdit = function (fsn) {
                 $('#attach_content').html(response.html);
         }
     }, 'json')
-}
-
-Attach.prototype.CommunityContentEdit = function(val) {
-    $.post(base_url + '/albums/CommunityContentEdit/', {val:val, widget_id:this.object_name}, function (html) {
-        $('#attach_content').html(html);
-    }, 'html');
 }
 
 Attach.prototype.saveCommentPhoto = function (val) {

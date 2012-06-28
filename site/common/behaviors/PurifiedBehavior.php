@@ -48,13 +48,13 @@ class PurifiedBehavior extends CActiveRecordBehavior
     {
         parent::attach($owner);
 
-        $owner->attachEventHandler('onAfterSave', 'clearCache');
+        $owner->attachEventHandler('onAfterSave', array($this, 'clearCache'));
     }
 
     public function detach($owner)
     {
         parent::detach($owner);
 
-        $owner->detachEventHandler('onAfterSave', 'clearCache');
+        $owner->detachEventHandler('onAfterSave', array($this, 'clearCache'));
     }
 }

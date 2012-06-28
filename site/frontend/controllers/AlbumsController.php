@@ -454,14 +454,14 @@ class AlbumsController extends HController
         $val = Yii::app()->request->getPost('val');
         if (is_numeric($val)) {
             $model = AlbumPhoto::model()->findByPk($val);
-            $model->title = CHtml::encode($title);
+            $model->title = $title;
             $model->save();
         } else {
             $model = new AlbumPhoto;
             $model->file_name = $val;
             $model->author_id = Yii::app()->user->id;
             if ($title)
-                $model->title = CHtml::encode($title);
+                $model->title = $title;
             $model->create(true);
         }
         $photo = $model->getPreviewUrl(177, 177, Image::NONE);

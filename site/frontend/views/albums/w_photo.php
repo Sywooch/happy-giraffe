@@ -71,7 +71,7 @@ $count = count($model->photoCollection);
             <?php echo CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), ''); ?>
             <div class="title clearfix">
                 <?php if(isset($photo->title)): ?>
-                    <?php if(Yii::app()->user->checkAccess('moderator')): ?>
+                    <?php if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator')): ?>
                         <div class="in">
                             <span class="title-content">
                                 <span class="title-text"><?= $photo->title; ?></span>
@@ -100,7 +100,7 @@ $count = count($model->photoCollection);
         </div>
         <a href="javascript:;" class="prev"><i class="icon"></i>предыдушая</a>
         <a href="javascript:;" class="next"><i class="icon"></i>следующая</a>
-        <?php if(Yii::app()->user->checkAccess('moderator')): ?>
+        <?php if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator')): ?>
             <div class="photo-comment" style="position:relative;z-index:10;">
                 <span class="title-content">
                     <span class="title-text"><?= $photo->title; ?></span>

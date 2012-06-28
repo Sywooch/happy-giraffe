@@ -179,7 +179,7 @@
                 <li>
                     <a href="<?=$this->createUrl('/cook/choose', array('id' => $choose->slug))?>">
                         <img src="<?=isset($choose->photo) ? $choose->photo->getPreviewUrl(69, 57, Image::WIDTH) : '' ?>"/>
-                        <span>Как выбрать <?=$choose->title?>?</span>
+                        <span>Как выбрать <?=$choose->title_accusative?>?</span>
                     </a>
                 </li>
                 <?php endforeach; ?>

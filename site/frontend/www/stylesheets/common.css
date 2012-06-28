@@ -501,9 +501,10 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .form .row-gallery .row-title input {height:17px;line-height:17px;padding:0 10px;border:1px solid #b4e3ff;font-size:12px;color:#333;font-weight:normal;width:280px;}
 .form .row-gallery .row-title .gallery-title {color:#2e2e2e;}
 
-.form .row-gallery .add-gallery {display:inline-block;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;;text-decoration:none;position:relative;top:3px;}
+.form .row-gallery .add-gallery {display:inline-block;width:16px;height:16px;background:url(../images/common.png) no-repeat -139px -174px;;text-decoration:none;position:relative;top:3px;}
+.form .row-gallery .gallery_input_container, .form .row-gallery .gallery_title_container {display:none;}
 
-.form .row-gallery .remove {display:inline-block;width:10px;height:12px;background:url(/images/common.png) no-repeat -315px -136px;position:relative;top:2px;}
+.form .row-gallery .remove {display:inline-block;width:10px;height:12px;background:url(../images/common.png) no-repeat -315px -136px;position:relative;top:2px;}
 .form .row-gallery .remove:hover {background-position:-315px -149px;}
 
 .form .row-gallery .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;top:-2px;}
@@ -1784,8 +1785,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .socials-inline .services .auth-service .auth-link {display:block;width:24px;height:24px;}
 .socials-rect .services .auth-service .auth-link {display:block;width:177px;height:34px;}
 
-.socials-inline .services .auth-service .auth-link .auth-icon {display:block;width:24px;height:24px;background:url(/images/common.png) no-repeat 24px 24px;}
-.socials-rect .services .auth-service .auth-link .auth-icon {display:block;width:177px;height:34px;background:url(/images/btn_social.png) no-repeat 177px 34px;}
+.socials-inline .services .auth-service .auth-link .auth-icon {display:block;width:24px;height:24px;background:url(../images/common.png) no-repeat 24px 24px;}
+.socials-rect .services .auth-service .auth-link .auth-icon {display:block;width:177px;height:34px;background:url(../images/btn_social.png) no-repeat 177px 34px;}
 
 .socials .services .auth-service .auth-link .auth-icon i {display:none !important;}
 .socials .services .auth-service .auth-link .auth-title {display:none;}

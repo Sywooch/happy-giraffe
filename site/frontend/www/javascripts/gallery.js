@@ -64,6 +64,11 @@ jQuery.fn.pGallery = function(options) {
                 plugin.preloadPhotos($('#photo-thumbs', this.window).find('li.active').index());
                 $(window).resize();
             });
+
+            if(pGallery_photos[id].description != null)
+                $('#photo', this.window).find('.photo-comment .title-text').show().text(pGallery_photos[id].description);
+            else
+                $('#photo', this.window).find('.photo-comment .title-text').hide().text('');
         }, 'html');
     };
 
@@ -72,11 +77,19 @@ jQuery.fn.pGallery = function(options) {
         photo.find('.img').children('img').attr({src : pGallery_photos[id].src});
         if(photo.find('.in').size() > 0) {
             if(pGallery_photos[id].title != null) {
-                photo.find('.in').show().text(pGallery_photos[id].title);
+                photo.find('.in').show().find('.title-text').text(pGallery_photos[id].title);
             } else {
-                photo.find('.in').hide().text('');
+                if(photo.find('.in').find('a.edit').size() == 0)
+                    photo.find('.in').hide().text('');
+                else
+                    photo.find('.in').find('.title-text').text('');
             }
         }
+        if(pGallery_photos[id].description != null)
+            photo.find('.photo-comment .title-text').show().text(pGallery_photos[id].description);
+        else
+            photo.find('.photo-comment .title-text').hide().text('');
+
         photo.find('.user-info').replaceWith(pGallery_photos[id].avatar);
 
         this.data.id = id;

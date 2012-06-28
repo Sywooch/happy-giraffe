@@ -101,11 +101,13 @@ class CommunityContent extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Name',
+			'title' => 'Заголовок',
 			'created' => 'Created',
-			'author_id' => 'Author',
-			'rubric_id' => 'Rubric',
+			'author_id' => 'Автор',
+			'rubric_id' => 'Рубрика',
 			'type_id' => 'Type',
+            'by_happy_giraffe' => 'От Весёлого Жирафа',
+            'meta_title' => 'Заголовок страницы',
 		);
 	}
 

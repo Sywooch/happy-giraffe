@@ -8,6 +8,7 @@
  * @property string $photo_id
  * @property string $category_id
  * @property string $title
+ * @property string $description
  *
  * The followings are the available model relations:
  * @property CookDecorationCategory $category
@@ -44,7 +45,8 @@ class CookDecoration extends CActiveRecord
             array('photo_id, category_id, title', 'required'),
             array('photo_id, category_id', 'length', 'max' => 11),
             array('photo_id', 'unique'),
-            array('title', 'length', 'max' => 255),
+            array('title', 'length', 'max' => 70),
+            array('description', 'length', 'max' => 200),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, photo_id, category_id, title', 'safe', 'on' => 'search'),
@@ -74,6 +76,7 @@ class CookDecoration extends CActiveRecord
             'photo_id' => 'Photo',
             'category_id' => 'Category',
             'title' => 'Title',
+            'description' => 'Description',
         );
     }
 

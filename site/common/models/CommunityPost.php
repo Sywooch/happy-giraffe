@@ -87,7 +87,7 @@ class CommunityPost extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'text' => 'Text',
+			'text' => 'Текст',
 			'source_type' => 'Source Type',
 			'internet_link' => 'Internet Link',
 			'internet_favicon' => 'Internet Favicon',

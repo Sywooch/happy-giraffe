@@ -10,7 +10,7 @@
         <?php if ($full): ?>
             <h1><?php echo CHtml::encode($data->title); ?></h1>
         <?php else: ?>
-            <?php echo CHtml::link($data->title, $data->url, array('class' => 'entry-title')); ?>
+            <?php echo CHtml::link(CHtml::encode($data->title), $data->url, array('class' => 'entry-title')); ?>
         <?php endif; ?>
 
         <noindex>

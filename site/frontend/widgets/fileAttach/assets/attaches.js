@@ -310,7 +310,7 @@ function initAttachForm() {
 
                 if (currentAttach.entity == "CookDecoration")
                     currentAttach.CookDecorationEdit(params[1]);
-                if (currentAttach.entity == "CommunityPost")
+                if (currentAttach.entity == "CommunityContent")
                     currentAttach.CommunityContentEdit(params[1]);
         }
     });

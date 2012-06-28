@@ -27,6 +27,7 @@ class ServicesModule extends CWebModule
             'sizes',
             'sewing',
             'test',
+            'tester',
             'recipeBook',
             'names',
             'childrenDiseases',

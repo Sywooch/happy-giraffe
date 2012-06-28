@@ -34,7 +34,7 @@ $count = count($model->photoCollection);
         <?php foreach($collection as $i => $p): ?>
             pGallery_photos[<?php echo $p->primaryKey ?>] = {
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
-                title : '<?php echo isset($p->title) && $p->title != '' ? CHtml::encode($p->title) : null ?>',
+                title : '<?php echo isset($p->title) && $p->title != '' ? $p->title : null ?>',
                 description : <?php echo isset($p->options['description']) ? "'" . $p->options['description'] . "'" : 'null'; ?>,
                 avatar : '<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                     'user' => $p->author,

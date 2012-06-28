@@ -177,7 +177,7 @@ $cs
                 </div>
             </div>
 
-            <div class="row row-gallery">
+            <!--<div class="row row-gallery">
                 <div class="row-title">
                     <span class="title-in">Фотогалерея</span>
                     <a class="add-gallery tooltip" href="javascript:;" onclick="return PostGallery.add(this);" title="Добавить фотогалерею"></a>
@@ -196,7 +196,7 @@ $cs
                     <ul>
                         <li>
                             <?php
-                            $galleryAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+/*                            $galleryAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                                 'model' => $model,
                                 'customButton' => true,
                                 'customButtonHtmlOptions' => array(
@@ -206,11 +206,11 @@ $cs
                             ));
                             echo '<i class="icon"></i>';
                             $this->endWidget();
-                            ?>
+                            */?>
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div>-->
 
             <div class="row row-buttons">
                 <button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>

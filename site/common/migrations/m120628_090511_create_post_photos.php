@@ -4,18 +4,28 @@ class m120628_090511_create_post_photos extends CDbMigration
 {
 	public function up()
 	{
-        $this->execute("CREATE TABLE community__content_photo_attaches(
-          id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-          content_id INT(10) UNSIGNED NOT NULL,
-          photo_id INT(10) UNSIGNED NOT NULL,
-          title VARCHAR(70) NOT NULL,
-          description VARCHAR(200) NOT NULL,
+        $this->execute("CREATE TABLE community__content_gallery(
+          id INT(10) UNSIGNED NOT NULL,
+          content_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+          title VARCHAR(255) NOT NULL,
           created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
           PRIMARY KEY (id),
-          CONSTRAINT FK_community__content_photo_attaches_album__photos_id FOREIGN KEY (photo_id)
-          REFERENCES album__photos (id) ON DELETE RESTRICT ON UPDATE RESTRICT,
-          CONSTRAINT FK_community__content_photo_attaches_community__contents_id FOREIGN KEY (content_id)
-          REFERENCES community__contents (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+          CONSTRAINT FK_community__content_gallery_community__contents_id FOREIGN KEY (content_id)
+          REFERENCES community__contents (id) ON DELETE CASCADE ON UPDATE CASCADE
+        )
+        ENGINE = INNODB
+        CHARACTER SET utf8
+        COLLATE utf8_general_ci;");
+        $this->execute("CREATE TABLE community__content_gallery_items(
+          id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+          gallery_id INT(10) UNSIGNED NOT NULL,
+          photo_id INT(10) UNSIGNED NOT NULL,
+          description VARCHAR(200) NOT NULL,
+          PRIMARY KEY (id),
+          CONSTRAINT FK_community__content_gallery_item FOREIGN KEY (gallery_id)
+          REFERENCES community__content_gallery (id) ON DELETE CASCADE ON UPDATE CASCADE,
+          CONSTRAINT FK_community__content_gallery_items_album__photos_id FOREIGN KEY (photo_id)
+          REFERENCES album__photos (id) ON DELETE CASCADE ON UPDATE CASCADE
         )
         ENGINE = INNODB
         AUTO_INCREMENT = 1

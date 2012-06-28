@@ -21,7 +21,8 @@ class AlbumsController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + attach, wPhoto, attachView, editDescription, editPhotoTitle, changeTitle, changePermission, removeUploadPhoto, CommunityContentEdit',
+            'ajaxOnly + attach, wPhoto, attachView, editDescription, editPhotoTitle, changeTitle, changePermission,
+                removeUploadPhoto, CommunityContentEdit, CommunityContentSave',
         );
     }
 
@@ -427,7 +428,7 @@ class AlbumsController extends HController
         $val = Yii::app()->request->getPost('val');
         if (is_numeric($val)) {
             $p = AlbumPhoto::model()->findByPk($val);
-            $photo = $p->getPreviewUrl(100, 100, Image::NONE);
+            $photo = $p->getPreviewUrl(177, 177, Image::NONE);
             $title = $p->title;
         }
         else
@@ -448,15 +449,9 @@ class AlbumsController extends HController
     {
         header('Content-type: application/json');
         $title = trim(Yii::app()->request->getPost('title'));
-        if (!$title) {
-            echo CJSON::encode(array(
-                'status' => false,
-                'message' => 'Введите название блюда или оформления'
-            ));
-            Yii::app()->end();
-        }
+        $description = CHtml::encode(trim(Yii::app()->request->getPost('description')));
 
-        $val = Yii::app()->request->getPost('id');
+        $val = Yii::app()->request->getPost('val');
         if (is_numeric($val)) {
             $model = AlbumPhoto::model()->findByPk($val);
             $model->title = CHtml::encode($title);
@@ -469,7 +464,9 @@ class AlbumsController extends HController
                 $model->title = CHtml::encode($title);
             $model->create(true);
         }
-        echo CJSON::encode(array());
+        $photo = $model->getPreviewUrl(177, 177, Image::NONE);
+        $id = $model->id;
+        echo CJSON::encode(compact('photo', 'id', 'description'));
     }
 
     public function actionCookDecorationCategory()

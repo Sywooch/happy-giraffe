@@ -7,6 +7,10 @@
  * @property string $id
  * @property string $title
  * @property string $community_id
+ *
+ * @property Community $community
+ * @property User $user
+ * @property CommunityContent[] $contents
  */
 class CommunityRubric extends HActiveRecord
 {

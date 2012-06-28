@@ -42,7 +42,7 @@ class CookDecoration extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('photo_id, category_id, title', 'required'),
+            array('photo_id, category_id', 'required'),
             array('photo_id, category_id', 'length', 'max' => 11),
             array('photo_id', 'unique'),
             array('title', 'length', 'max' => 70),

@@ -174,10 +174,6 @@ class Comment extends HActiveRecord
 
             UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
                 'id'=>$this->entity_id, 'name'=>$this->entity));
-        } else {
-            foreach ($this->purified->attributes as $a) {
-                Yii::app()->cache->delete($this->getCacheId($a));
-            }
         }
         parent::afterSave();
     }

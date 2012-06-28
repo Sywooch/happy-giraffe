@@ -147,4 +147,12 @@ class CookRecipeIngredient extends CActiveRecord
 
         $this->title = $this->ingredient->title;
     }
+
+    public function getNoun()
+    {
+        return ((int) $this->value == $this->value) ?
+            HDate::GenerateNoun(array($this->unit->title, $this->unit->title2, $this->unit->title3), $this->value);
+            :
+            $this->unit->title2;
+    }
 }

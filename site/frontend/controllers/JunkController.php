@@ -7,6 +7,7 @@ class JunkController extends HController
 {
     function actionIndex()
     {
-        $this->render('index');
+        $n = 2.01;
+        var_dump($n == (int) $n);
     }
 }

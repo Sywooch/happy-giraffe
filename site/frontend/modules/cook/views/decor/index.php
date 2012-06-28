@@ -67,7 +67,7 @@ Yii::app()->clientScript->registerScript('photo_gallery_entity_id','var photo_ga
 
         </div>
 
-        <ul>
+        <!--<ul>-->
             <?php
 
 
@@ -81,13 +81,14 @@ Yii::app()->clientScript->registerScript('photo_gallery_entity_id','var photo_ga
                 'pager' => array(
                     'class' => 'AlbumLinkPager',
                 ),
-                'template' => '<div class="clearfix">{items}</div>
+                'tagName' => 'ul',
+                'template' => '{items}
                     <div class="pagination pagination-center clearfix">
                         {pager}
                     </div>',
             ));
             ?>
-        </ul>
+       <!-- </ul>-->
 
     </div>
 

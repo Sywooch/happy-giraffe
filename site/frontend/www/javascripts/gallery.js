@@ -5,8 +5,7 @@ jQuery.fn.pGallery = function(options) {
         plugin.window = null,
         plugin.bg = null,
         plugin.history = null,
-        plugin.init = false,
-        plugin.editable = false;
+        plugin.init = false;
 
     plugin.openWindow = function(id) {
         if(this.init)
@@ -67,13 +66,9 @@ jQuery.fn.pGallery = function(options) {
             });
 
             if(pGallery_photos[id].description != null)
-                $('#photo', this.window).find('.photo-comment').show().text(pGallery_photos[id].description);
+                $('#photo', this.window).find('.photo-comment .title-text').show().text(pGallery_photos[id].description);
             else
-                $('#photo', this.window).find('.photo-comment').hide().text('');
-
-            if(plugin.editable) {
-
-            }
+                $('#photo', this.window).find('.photo-comment .title-text').hide().text('');
         }, 'html');
     };
 
@@ -82,15 +77,18 @@ jQuery.fn.pGallery = function(options) {
         photo.find('.img').children('img').attr({src : pGallery_photos[id].src});
         if(photo.find('.in').size() > 0) {
             if(pGallery_photos[id].title != null) {
-                photo.find('.in').show().text(pGallery_photos[id].title);
+                photo.find('.in').show().find('.title-text').text(pGallery_photos[id].title);
             } else {
-                photo.find('.in').hide().text('');
+                if(photo.find('.in').find('a.edit').size() == 0)
+                    photo.find('.in').hide().text('');
+                else
+                    photo.find('.in').find('.title-text').text('');
             }
         }
         if(pGallery_photos[id].description != null)
-            photo.find('.photo-comment').show().text(pGallery_photos[id].description);
+            photo.find('.photo-comment .title-text').show().text(pGallery_photos[id].description);
         else
-            photo.find('.photo-comment').hide().text('');
+            photo.find('.photo-comment .title-text').hide().text('');
 
         photo.find('.user-info').replaceWith(pGallery_photos[id].avatar);
 

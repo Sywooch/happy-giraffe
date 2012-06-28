@@ -163,3 +163,14 @@ function ChangeUserPassword(el, id) {
         }
     }, 'json');
 }
+
+$.fancybox.open = function (content) {
+    var fancy = $('<a></a>').fancybox({content:content, showCloseButton:false, scrolling:false});
+    fancy.trigger('click');
+    $('#fancybox-wrap .chzn').each(function() {
+        var s = $(this);
+        s.chosen({
+            allow_single_deselect:s.hasClass('chzn-deselect')
+        });
+    });
+}

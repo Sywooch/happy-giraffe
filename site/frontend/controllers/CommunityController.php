@@ -286,6 +286,12 @@ class CommunityController extends HController
             $model->author_id = $model->by_happy_giraffe ? 1 : Yii::app()->user->id;
             $slave_model->attributes = $_POST[$slave_model_name];
 
+            if(Yii::app()->request->getPost('ajax') && $_POST['ajax']==='community-form')
+            {
+                echo CJSON::encode(CMap::mergeArray(CJSON::decode(CActiveForm::validate($model)), CJSON::decode(CActiveForm::validate($slave_model))));
+                Yii::app()->end();
+            }
+
             $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
 

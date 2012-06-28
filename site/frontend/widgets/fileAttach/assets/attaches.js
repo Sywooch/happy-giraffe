@@ -46,6 +46,8 @@ Attach.prototype.selectPhoto = function (button, id) {
         this.saveProductPhoto(id);
     } else if (this.entity == "CookDecoration") {
         this.CookDecorationEdit(id);
+    } else if (this.entity == 'CommunityContent') {
+        this.saveCommunityContent(id);
     } else {
         $.fancybox.close();
     }
@@ -73,6 +75,8 @@ Attach.prototype.selectBrowsePhoto = function (button) {
         this.CookDecorationEdit(fsn);
     } else if (this.entity == 'CookRecipe') {
         this.insertToRecipe(fsn);
+    } else if (this.entity == 'CommunityContent') {
+        this.saveCommunityContent(fsn);
     } else {
         $.fancybox.close();
     }
@@ -131,6 +135,35 @@ Attach.prototype.insertToRecipe = function (fsn) {
     }, 'json');
 }
 
+Attach.prototype.CommunityContentInsert = function(val) {
+    if($('#attach_content textarea').val().length > 200) {
+        $('#attach_content textarea').addClass('error');
+        return false;
+    } else {
+        $('#attach_content textarea').removeClass('error');
+    }
+
+    if($('#attach_content .photo-title input').val().length == 0) {
+        $('#attach_content .photo-title input').addClass('error');
+        return false;
+    } else {
+        $('#attach_content .photo-title input').removeClass('error');
+    }
+
+    $.post(
+        '/albums/CommunityContentSave/',
+        {
+            title:$('#attach_content input[name="title"]').val(),
+            description:$('#attach_content textarea').val(),
+            id:id
+        },
+        function (data) {
+            if (data.status) {
+                $.fancybox.close();
+            }
+        }, 'json');
+}
+
 Attach.prototype.insertToCookDecoration = function (id) {
     if($('#attach_content textarea').val().length > 200) {
         $('#attach_content textarea').addClass('error');
@@ -141,7 +174,6 @@ Attach.prototype.insertToCookDecoration = function (id) {
     $.post(
         '/albums/cookDecorationPhoto/',
         {
-            //val:$('#upload_photo_container').children('input').val(),
             title:$('#attach_content input[name="title"]').val(),
             description:$('#attach_content textarea').val(),
             category:$('#attach_content select[name="category"]').val(),
@@ -152,7 +184,6 @@ Attach.prototype.insertToCookDecoration = function (id) {
                 $('#dishes').load(document.location+' #dishes', function(){
                     $('.list-view li.dish div.img a').pGallery({entity:'CookDecorationCategory', entity_id:photo_gallery_entity_id});
                 });
-                //$('div.note').hide().html('');
                 $.fancybox.close();
             } else {
                 if (data.message) {
@@ -182,6 +213,12 @@ Attach.prototype.CookDecorationEdit = function (fsn) {
                 $('#attach_content').html(response.html);
         }
     }, 'json')
+}
+
+Attach.prototype.CommunityContentEdit = function(val) {
+    $.post(base_url + '/albums/CommunityContentEdit/', {val:val, widget_id:this.object_name}, function (html) {
+        $('#attach_content').html(html);
+    }, 'html');
 }
 
 Attach.prototype.saveCommentPhoto = function (val) {
@@ -265,6 +302,8 @@ function initAttachForm() {
 
                 if (currentAttach.entity == "CookDecoration")
                     currentAttach.CookDecorationEdit(params[1]);
+                if (currentAttach.entity == "CommunityPost")
+                    currentAttach.CommunityContentEdit(params[1]);
         }
     });
 }

@@ -347,6 +347,7 @@ var PostGallery = {
         } else {
             input.removeClass('error');
         }
+        $('.form .row-gallery .gallery-photos').show();
 
         gallery_title_container.find('.gallery-title').text(input.val());
         input_container.hide();
@@ -358,6 +359,8 @@ var PostGallery = {
         input_container.siblings('.gallery_title_container').hide().find('.gallery-title').text('');
         var input = input_container.find('input[name=gallery_title]').val('');
         $('.add-gallery').show();
+        $('.form .row-gallery .gallery-photos').hide();
+        $('.form .row-gallery .gallery-photos li:lt('+$('.form .row-gallery .gallery-photos li').size()+')').remove();
         return false;
     }
 }

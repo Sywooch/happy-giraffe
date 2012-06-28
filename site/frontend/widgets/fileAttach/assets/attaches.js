@@ -132,11 +132,18 @@ Attach.prototype.insertToRecipe = function (fsn) {
 }
 
 Attach.prototype.insertToCookDecoration = function (id) {
+    if($('#attach_content textarea').val().length > 200) {
+        $('#attach_content textarea').addClass('error');
+        return false;
+    } else {
+        $('#attach_content textarea').removeClass('error');
+    }
     $.post(
         '/albums/cookDecorationPhoto/',
         {
             //val:$('#upload_photo_container').children('input').val(),
             title:$('#attach_content input[name="title"]').val(),
+            description:$('#attach_content textarea').val(),
             category:$('#attach_content select[name="category"]').val(),
             id:id
         },

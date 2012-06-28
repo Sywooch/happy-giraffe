@@ -21,6 +21,6 @@ class IndexController extends BController
         {
             Yii::app()->mc->sendToGroup(Yii::app()->request->getPost('subject'), Yii::app()->request->getPost('body'));
         }
-        $this->render('create');
+        $this->render('create', compact('model'));
     }
 }

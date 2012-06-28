@@ -21,10 +21,11 @@
  */
 class AlbumPhoto extends HActiveRecord
 {
-    private $_check_access = null;
     const CROP_SIDE_CENTER = 'center';
     const CROP_SIDE_TOP = 'top';
     const CROP_SIDE_BOTTOM = 'bottom';
+
+    public $options = array();
 
     /**
      * @var string original photos folder

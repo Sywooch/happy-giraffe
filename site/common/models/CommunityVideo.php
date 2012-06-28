@@ -83,8 +83,8 @@ class CommunityVideo extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'link' => 'Link',
-			'text' => 'Text',
+			'link' => 'Ссылка',
+			'text' => 'Текст',
 			'content_id' => 'Content',
 			'player_favicon' => 'Player Favicon',
 			'player_title' => 'Player Title',

@@ -2,7 +2,7 @@ $(document).ready(function () {
     $('body').delegate('a.fancy', 'click', function () {
         var onComplete_function = function () {
             if ($('.popup .chzn').size() > 0)
-                $('.popup .chzn').each(function() {
+                $('.popup .chzn').each(function () {
                     var s = $(this);
                     s.chosen({
                         allow_single_deselect:s.hasClass('chzn-deselect')
@@ -34,12 +34,12 @@ $(document).ready(function () {
         });
     }
 
-    if ($('input[placeholder], textarea[placeholder]').size() > 0 ) $('input[placeholder], textarea[placeholder]').placeholder();
+    if ($('input[placeholder], textarea[placeholder]').size() > 0) $('input[placeholder], textarea[placeholder]').placeholder();
 
     $('body').click(function (e) {
         if (!$(e.target).parents().hasClass('navdrp'))
             navDrpClose();
-		if (!$(e.target).parents().hasClass('visibility-picker'))
+        if (!$(e.target).parents().hasClass('visibility-picker'))
             albumVisibilityListToggle($('.visibility-list:visible'));
     })
 
@@ -244,7 +244,7 @@ function cl(value) {
 $.fancybox.open = function (content) {
     var fancy = $('<a></a>').fancybox({content:content, showCloseButton:false, scrolling:false});
     fancy.trigger('click');
-    $('#fancybox-wrap .chzn').each(function() {
+    $('#fancybox-wrap .chzn').each(function () {
         var s = $(this);
         s.chosen({
             allow_single_deselect:s.hasClass('chzn-deselect')
@@ -275,40 +275,40 @@ $.fn.toggleDisabled = function () {
     });
 };
 
-function albumVisibilityListToggle(el){
-	var box = $(el).parents('.visibility-picker');
-	box.find('.visibility-list').toggle();
+function albumVisibilityListToggle(el) {
+    var box = $(el).parents('.visibility-picker');
+    box.find('.visibility-list').toggle();
 }
 
-function albumVisibilitySet(el, num, id){
-	
-	var box = $(el).parents('.visibility-picker');
-	
-	box.find('> .album-visibility > span').each(function(){
-		if ($(this).html() == '') $(this).remove();
-	});
-	
-	for(var i = 3; i > num; i--) {
-		box.find('> .album-visibility').prepend('<span></span>');
-	}
+function albumVisibilitySet(el, num, id) {
 
-    $.post(base_url + '/albums/changePermission/', {id : id, num : num});
-	
-	albumVisibilityListToggle(el);
+    var box = $(el).parents('.visibility-picker');
+
+    box.find('> .album-visibility > span').each(function () {
+        if ($(this).html() == '') $(this).remove();
+    });
+
+    for (var i = 3; i > num; i--) {
+        box.find('> .album-visibility').prepend('<span></span>');
+    }
+
+    $.post(base_url + '/albums/changePermission/', {id:id, num:num});
+
+    albumVisibilityListToggle(el);
 }
 
 function initScrolledContent() {
     var cpo = 0;
-    $(window).scroll(function(){
+    $(window).scroll(function () {
         var cp = $('#checkpoint').offset().top;
         var st = $(window).scrollTop();
         if (!$('#morning').hasClass('morning-wide')) {
-            if (st>=cp){
+            if (st >= cp) {
                 $('#morning').addClass('morning-wide')
                 cpo = cp;
             }
         } else {
-            if (st < cpo-100){
+            if (st < cpo - 100) {
                 $('#morning').removeClass('morning-wide')
             }
         }
@@ -317,10 +317,10 @@ function initScrolledContent() {
 
 comet.addEvent(300, 'liveContents');
 
-Comet.prototype.liveContents = function(result, id) {
+Comet.prototype.liveContents = function (result, id) {
     $.get(
         '/ajax/contentsLive/',
-        {id: result.newId, containerClass: $('#contents_live').attr('class')},
+        {id:result.newId, containerClass:$('#contents_live').attr('class')},
         function (response) {
             var el = $(response).hide();
             $('#contents_live').prepend(el);
@@ -328,4 +328,56 @@ Comet.prototype.liveContents = function(result, id) {
             $('#contents_live > :last').remove();
         }
     )
+}
+
+var PostGallery = {
+    add:function (link) {
+        $('.add-gallery').hide();
+        var input_container = $(link).parents('.row-gallery:eq(0)').find('.gallery_input_container').show();
+        $(link).parents('.row-gallery:eq(0)').find('.gallery_title_container').hide();
+    },
+    save:function (button) {
+        var input_container = $(button).parent();
+        var gallery_title_container = input_container.siblings('.gallery_title_container');
+        var input = input_container.find('input[name=gallery_title]');
+
+        if (input.val() == '') {
+            input.addClass('error');
+            return false;
+        } else {
+            input.removeClass('error');
+        }
+
+        gallery_title_container.find('.gallery-title').text(input.val());
+        input_container.hide();
+        gallery_title_container.show();
+        return false;
+    },
+    remove:function (link) {
+        var input_container = $(link).parents('.row-gallery:eq(0)').find('.gallery_input_container');
+        input_container.siblings('.gallery_title_container').hide().find('.gallery-title').text('');
+        var input = input_container.find('input[name=gallery_title]').val('');
+        $('.add-gallery').show();
+        return false;
+    }
+}
+
+function editPhotoTitleInWindow(link) {
+    $(link).parent().hide().siblings('.title-edit').show();
+    $(link).parent().hide().siblings('.title-edit').find('input, textarea').val($(link).siblings('.title-text').text());
+}
+
+function savePhotoTitleInWindow(button) {
+    var val = $(button).siblings('input, textarea').val();
+    if($(button).siblings('input').size() > 0) {
+        var attr = 'title';
+        var entity = 'AlbumPhoto';
+    } else {
+        var attr = 'description';
+        var entity = 'CookDecoration';
+    }
+
+    $(button).parent().hide().siblings('.title-content').show();
+    $(button).parent().hide().siblings('.title-content').find('.title-text').text(val);
+    $.post('/ajax/setValue/', {attribute:attr, value:val, entity:entity, entity_id:$('#photo-thumbs li.active a').attr('data-id')});
 }

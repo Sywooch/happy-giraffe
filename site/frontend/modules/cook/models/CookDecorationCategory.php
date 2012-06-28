@@ -100,6 +100,7 @@ class CookDecorationCategory extends HActiveRecord
         $photos = array();
         foreach($decorations as $model)
         {
+            $model->photo->options['description'] = CHtml::encode($model->description);
             array_push($photos, $model->photo);
         }
         return $photos;

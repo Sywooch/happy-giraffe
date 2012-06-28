@@ -191,7 +191,7 @@ $cs
                         <a class="remove tooltip" href="javascript:;" title="Удалить галерею" onclick="return PostGallery.remove(this);"></a>
                     </span>
                 </div>
-
+                <?php if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator') || Yii::app()->user->checkAccess('supermoderator')): ?>
                 <div class="gallery-photos"<?=$model->gallery ? ' style="display:block;"' : ''?>>
                     <ul>
                         <?php if($model->gallery): ?>
@@ -202,7 +202,7 @@ $cs
                                 <div class="img">
                                     <img src="<?=$item->photo->getPreviewUrl(177, 177, Image::NONE)?>" />
                                     <div class="actions">
-                                        <a href="" class="remove tooltip" title="Удалить галерею" onclick="$(this).parents('li:eq(0)').remove();"></a>
+                                        <a href="javascript:;" class="remove tooltip" title="Удалить галерею" onclick="$(this).parents('li:eq(0)').remove();"></a>
                                     </div>
                                 </div>
                             </li>
@@ -224,6 +224,7 @@ $cs
                         </li>
                     </ul>
                 </div>
+                <?php endif; ?>
             </div>
 
             <div class="row row-buttons">
@@ -265,7 +266,7 @@ $cs
         <div class="img">
             <img src="${src}" />
             <div class="actions">
-                <a href="" class="remove tooltip" title="Удалить галерею" onclick="$(this).parents('li:eq(0)').remove();"></a>
+                <a href="javascript:;" class="remove tooltip" title="Удалить галерею" onclick="$(this).parents('li:eq(0)').remove();"></a>
             </div>
         </div>
     </li>

@@ -6,7 +6,7 @@ class CookConverter extends CComponent
     public $to;
     public $ingredient;
     public $direction;
-    public $result;
+    public $result = array('qty' => 0);
     public $error;
     public $from_weight;
     public $to_weight;
@@ -23,6 +23,8 @@ class CookConverter extends CComponent
      */
     public function convert($data)
     {
+        $this->result['unit'] = $this->to;
+
         $data['qty'] = trim(str_replace(',', '.', $data['qty']));
         $data['qty'] = preg_replace('#[^0-9\.]+#', '', $data['qty']);
 
@@ -30,45 +32,32 @@ class CookConverter extends CComponent
         $this->to = CookUnit::model()->findByPk($data['to']);
         $this->ingredient = CookIngredient::model()->findByPk($data['ingredient']);
 
-
         $this->direction = $this->from->type . '-' . $this->to->type;
-
-        if ($this->from->type == 'qty')
-            $this->from_weight = Yii::app()->db->createCommand()->select('weight')->from('cook__ingredient_units')
-                ->where('ingredient_id=:iid AND unit_id = :uid', array(':iid' => $this->ingredient->id, 'uid' => $this->from->id))->queryRow();
-        if ($this->to->type == 'qty')
-            $this->to_weight = Yii::app()->db->createCommand()->select('weight')->from('cook__ingredient_units')
-                ->where('ingredient_id=:iid AND unit_id = :uid', array(':iid' => $this->ingredient->id, 'uid' => $this->to->id))->queryRow();
-
 
         // direct conversion
         if (in_array($this->direction, $this->directConvertQty) or in_array($this->direction, $this->directConvertVolume)) {
             $this->result = array(
-                'qty' => $this->subConvert($this->from, $this->to, $data['qty'])
+                'qty' => $this->subConvert($this->from, $this->to, $data['qty'], $this->ingredient)
             );
         }
 
         // double conversion
         if (in_array($this->direction, $this->doubleConvert)) {
             $swap = CookUnit::model()->findByPk(1);
-            $swap_qty = $this->subConvert($this->from, $swap, $data['qty']);
+            $swap_qty = $this->subConvert($this->from, $swap, $data['qty'], $this->ingredient);
             $this->result = array(
-                'qty' => $this->subConvert($swap, $this->to, $swap_qty)
+                'qty' => $this->subConvert($swap, $this->to, $swap_qty, $this->ingredient)
             );
         }
 
         // one unit type conversion
         if (($this->from->type == $this->to->type) and (in_array($this->from->type, array('weight', 'volume', 'qty')))) {
             $this->result = array(
-                'qty' => $this->subConvert($this->from, $this->to, $data['qty'])
+                'qty' => $this->subConvert($this->from, $this->to, $data['qty'], $this->ingredient)
             );
         }
 
-        if (!isset($this->result['qty']))
-            return 0;
-
-        $this->result['unit'] = $this->to;
-        return ($this->result['qty']) ? $this->result : null;
+        return (isset($this->result['qty'])) ? $this->result : array('qty' => 0);
     }
 
     /**
@@ -79,22 +68,36 @@ class CookConverter extends CComponent
      * @param $qty
      * @return float|null qty or null if unsupported conversion
      */
-    protected function subConvert($from, $to, $qty)
+    protected function subConvert($from, $to, $qty, $ingredient)
     {
+        if ($qty == 0)
+            return 0;
+
         $direction = $from->type . '-' . $to->type;
 
         switch ($direction) {
             case 'qty-weight':
                 {
-                /*if (!$this->ingredient->weight)
-                    return null;*/
-                return (($qty * $from->ratio) * $this->from_weight['weight']) / $to->ratio;
+                $ingredientUnit = CookIngredientUnit::model()->findByAttributes(array(
+                    'unit_id' => $from->id,
+                    'ingredient_id' => $ingredient->id
+                ));
+
+                if ($ingredientUnit == NULL or !$ingredientUnit->weight)
+                    return 0;
+
+                return (($qty * $ingredientUnit->weight) / $to->ratio);
                 }
             case 'weight-qty':
                 {
-                /* if (!$this->ingredient->weight)
-               return null;*/
-                return (($qty * $from->ratio) / $this->to_weight['weight']) / $to->ratio;
+                $ingredientUnit = CookIngredientUnit::model()->findByAttributes(array(
+                    'unit_id' => $to->id,
+                    'ingredient_id' => $ingredient->id
+                ));
+                if ($ingredientUnit == null or !$ingredientUnit->weight)
+                    return 0;
+
+                return (($qty * $from->ratio) / $ingredientUnit->weight);
                 }
             case 'volume-weight':
                 {
@@ -114,7 +117,22 @@ class CookConverter extends CComponent
                 }
             case 'qty-qty':
                 {
-                return (($qty * $this->from_weight['weight']) / $this->to_weight['weight']);
+
+                $ingredientUnitFrom = CookIngredientUnit::model()->findByAttributes(array(
+                    'unit_id' => $from->id,
+                    'ingredient_id' => $ingredient->id
+                ));
+                if ($ingredientUnitFrom == null or !$ingredientUnitFrom->weight)
+                    return 0;
+
+                $ingredientUnitTo = CookIngredientUnit::model()->findByAttributes(array(
+                    'unit_id' => $to->id,
+                    'ingredient_id' => $ingredient->id
+                ));
+                if ($ingredientUnitTo == null or !$ingredientUnitTo->weight)
+                    return 0;
+
+                return (($qty * $ingredientUnitFrom->weight) / $ingredientUnitTo->weight);
                 }
             case 'volume-volume':
                 {
@@ -122,7 +140,7 @@ class CookConverter extends CComponent
                 }
             default:
                 {
-                return null;
+                return 0;
                 }
         }
     }
@@ -136,15 +154,15 @@ class CookConverter extends CComponent
     public function calculateNutritionals($components)
     {
         $converter = new CookConverter();
+
         $result = array(
-            'total' => array(
-                'weight' => 0,
-                'nutritionals' => array()
-            ),
-            'g100' => array(
-                'nutritionals' => array()
-            )
-        );
+            'total' => array('weight' => 0, 'nutritionals' => array()),
+            'g100' => array('nutritionals' => array()));
+
+        $nutritionals = CookNutritional::model()->cache(3600)->findAll();
+        foreach ($nutritionals as $n)
+            $result['total']['nutritionals'][$n->id] = 0;
+        $result['g100']['nutritionals'] = $result['total']['nutritionals'];
 
         foreach ($components as $component) {
             $ingredient = CookIngredient::model()->findByPk($component['ingredient_id']);
@@ -155,16 +173,12 @@ class CookConverter extends CComponent
                 'qty' => $component['value']
             ));
 
-            if ($weight == null)
+            if (!$weight)
                 continue;
 
             $result['total']['weight'] += $weight['qty'];
             foreach ($ingredient->nutritionals as $nutritional) {
-                if (isset($result['total']['nutritionals'][$nutritional->nutritional_id])) {
-                    $result['total']['nutritionals'][$nutritional->nutritional_id] += $nutritional->value * ($weight['qty'] / 100);
-                } else {
-                    $result['total']['nutritionals'][$nutritional->nutritional_id] = $nutritional->value * ($weight['qty'] / 100);
-                }
+                $result['total']['nutritionals'][$nutritional->nutritional_id] += $nutritional->value * ($weight['qty'] / 100);
             }
         }
 

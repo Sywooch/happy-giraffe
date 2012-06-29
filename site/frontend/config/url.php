@@ -59,6 +59,9 @@ return array(
         'im/<action:[\w-]+>'=>'im/default/<action>',
         'geo/<action:[\w-]+>'=>'geo/geo/<action>',
 
+        'tester/'=>'services/tester/default/index',
+        'tester/<slug:[\w-]+>'=>'services/tester/default/view',
+
         'names/'=>'services/names/default/index',
         'names/top10'=>'services/names/default/top10',
         'names/saint/<m:[\w]+>'=>'services/names/default/saint',

@@ -21,7 +21,8 @@ class AlbumsController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + attach, wPhoto, attachView, editDescription, editPhotoTitle, changeTitle, changePermission, removeUploadPhoto'
+            'ajaxOnly + attach, wPhoto, attachView, editDescription, editPhotoTitle, changeTitle, changePermission,
+                removeUploadPhoto, CommunityContentEdit, CommunityContentSave',
         );
     }
 
@@ -205,7 +206,7 @@ class AlbumsController extends HController
         }
     }
 
-    public function actionAttach($entity, $entity_id, $mode = 'window', $a = false, $instance = false)
+    public function actionAttach($entity, $entity_id = null, $mode = 'window', $a = false, $instance = false)
     {
         Yii::app()->clientScript->scriptMap['*.js'] = false;
         Yii::app()->clientScript->scriptMap['*.css'] = false;
@@ -383,14 +384,14 @@ class AlbumsController extends HController
         $val = Yii::app()->request->getPost('id');
         if (is_numeric($val)) {
             $model = AlbumPhoto::model()->findByPk($val);
-            $model->title = CHtml::encode($title);
+            $model->title = $title;
             $model->save();
         } else {
             $model = new AlbumPhoto;
             $model->file_name = $val;
             $model->author_id = Yii::app()->user->id;
             if ($title = Yii::app()->request->getPost('title'))
-                $model->title = CHtml::encode($title);
+                $model->title = $title;
             $model->create(true);
         }
 
@@ -408,6 +409,7 @@ class AlbumsController extends HController
         $decoration->photo_id = $model->id;
         $decoration->category_id = Yii::app()->request->getPost('category');
         $decoration->title = $model->title;
+        $decoration->description = Yii::app()->request->getPost('description');
 
         if ($decoration->save()) {
             $attach = new AttachPhoto;
@@ -421,12 +423,54 @@ class AlbumsController extends HController
             echo CJSON::encode(array('status' => false));
     }
 
+    public function actionCommunityContentEdit()
+    {
+        $val = Yii::app()->request->getPost('val');
+        if (is_numeric($val)) {
+            $p = AlbumPhoto::model()->findByPk($val);
+            $photo = $p->getPreviewUrl(177, 177, Image::NONE);
+            $title = $p->title;
+        }
+        else
+        {
+            $photo = Yii::app()->params['photos_url'] . '/temp/' . $val;
+            $title = '';
+        }
+
+        $this->renderPartial('site.frontend.widgets.fileAttach.views._community_content', array(
+            'title'=>$title,
+            'widget_id' => Yii::app()->request->getPost('widget_id'),
+            'photo' => $photo,
+            'val' => $val
+        ));
+    }
+
+    public function actionCommunityContentSave()
+    {
+        header('Content-type: application/json');
+        $description = trim(Yii::app()->request->getPost('description'));
+
+        $val = Yii::app()->request->getPost('val');
+        if (!is_numeric($val))
+        {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            $model->create(true);
+        }
+        $photo = $model->getPreviewUrl(177, 177, Image::NONE);
+        $id = $model->id;
+        echo CJSON::encode(compact('photo', 'id', 'description'));
+    }
+
     public function actionCookDecorationCategory()
     {
         $val = Yii::app()->request->getPost('val');
+        $data = array();
         $data['tab'] = Yii::app()->request->getPost('widget_id') . ".CookDecorationEdit('" . $val . "')";
 
-        if (is_numeric($val)) {
+        if (is_numeric($val))
+        {
             $p = AlbumPhoto::model()->findByPk($val);
             $photo = $p->getPreviewUrl(100, 100, Image::NONE);
 
@@ -441,7 +485,9 @@ class AlbumsController extends HController
 
             $title = $p->title;
             $data['title'] = mb_substr($p->title, 0, 20);
-        } else {
+        }
+        else
+        {
             $photo = Yii::app()->params['photos_url'] . '/temp/' . $val;
             $photo_path = Yii::getPathOfAlias('site.common.uploads.photos'). '/temp/' . $val;
             $image = new Image($photo_path);

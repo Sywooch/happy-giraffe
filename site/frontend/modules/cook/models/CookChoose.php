@@ -124,4 +124,15 @@ class CookChoose extends HActiveRecord
             return CHtml::image($this->photo->getPreviewUrl(70, 70));
         return '';
     }
+
+    public function getRandomChooses($limit = 3)
+    {
+        $criteria = new CDbCriteria(array(
+            'limit' => $limit,
+            'order' => 'RAND()',
+            'with' => 'photo',
+        ));
+
+        return $this->findAll($criteria);
+    }
 }

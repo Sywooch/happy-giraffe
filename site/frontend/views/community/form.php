@@ -177,6 +177,7 @@ $cs
                 </div>
             </div>
 
+            <?php if(Yii::app()->user->model->id == '9990'): ?>
             <div class="row row-gallery">
                 <div class="row-title">
                     <span class="title-in">Фотогалерея</span>
@@ -192,7 +193,6 @@ $cs
                     </span>
                 </div>
                 <?php /*if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator') || Yii::app()->user->checkAccess('supermoderator')): */?>
-                <?php if(Yii::app()->user->model->id == '9990'): ?>
                 <div class="gallery-photos"<?=$model->gallery ? ' style="display:block;"' : ''?>>
                     <ul>
                         <?php if($model->gallery): ?>
@@ -225,9 +225,8 @@ $cs
                         </li>
                     </ul>
                 </div>
-                <?php endif; ?>
             </div>
-
+            <?php endif; ?>
             <div class="row row-buttons">
                 <button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
                 <!--<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>-->

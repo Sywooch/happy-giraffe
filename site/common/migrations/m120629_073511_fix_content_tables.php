@@ -1,9 +1,11 @@
 <?php
 
-class m120628_090511_create_post_photos extends CDbMigration
+class m120629_073511_fix_content_tables extends CDbMigration
 {
 	public function up()
 	{
+        $this->execute("drop table community__content_gallery_items;");
+        $this->execute("drop table community__content_gallery;");
         $this->execute("CREATE TABLE community__content_gallery(
           id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
           content_id INT(10) UNSIGNED NOT NULL,
@@ -36,7 +38,7 @@ class m120628_090511_create_post_photos extends CDbMigration
 
 	public function down()
 	{
-		echo "m120628_090511_create_post_photos does not support migration down.\n";
+		echo "m120629_073511_fix_content_tables does not support migration down.\n";
 		return false;
 	}
 

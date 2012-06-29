@@ -60,6 +60,10 @@ class SeoCommand extends CConsoleCommand
         $metrica->convertToSearchPhraseVisits();
     }
 
+    public function actionStopThreads()
+    {
+        Config::setAttribute('stop_threads', 1);
+    }
 
     public function actionParseQueriesYandex()
     {

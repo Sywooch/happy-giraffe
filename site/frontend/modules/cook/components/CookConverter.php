@@ -68,7 +68,7 @@ class CookConverter extends CComponent
             return 0;
 
         $this->result['unit'] = $this->to;
-        return ($this->result['qty']) ? $this->result : null;
+        return ($this->result['qty']) ? $this->result : 0;
     }
 
     /**
@@ -122,7 +122,7 @@ class CookConverter extends CComponent
                 }
             default:
                 {
-                return null;
+                return 0;
                 }
         }
     }
@@ -155,7 +155,7 @@ class CookConverter extends CComponent
                 'qty' => $component['value']
             ));
 
-            if ($weight == null)
+            if (!$weight)
                 continue;
 
             $result['total']['weight'] += $weight['qty'];

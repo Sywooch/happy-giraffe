@@ -79,7 +79,7 @@ Yii::app()->clientScript->registerScript('set_phrase', 'SeoLinking.phrase_id = "
 <script type="text/javascript">
     $(function () {
         $('#result').addClass('loading-block');
-        $.post('/linking/phraseInfo/', {phrase_id:<?=$selected_phrase_id ?>}, function (response) {
+        $.post('/promotion/linking/phraseInfo/', {phrase_id:<?=$selected_phrase_id ?>}, function (response) {
             $('#result').removeClass('loading-block');
             $('#result').html(response);
         });

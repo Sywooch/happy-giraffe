@@ -14,7 +14,7 @@
         |
         <a onclick="$('#period').val(2);$('#page-form').submit();return false;" href="#"<?php if ($period==2) echo ' class="active"'?>>Месяц</a>
     </div>
-    <form action="/queries/admin/" id="page-form">
+    <form action="/promotion/queries/admin/" id="page-form">
         <input type="hidden" name="period" id="period">
     </form>
 
@@ -53,7 +53,7 @@
                     <td><?=$visits2 =$phrase->getVisits(3, $period) ?></td>
                     <td><?=($visits1+$visits2) ?></td>
                     <td><a href="javascript:;" class="icon-plus"></a></td><?php
-                    $url = $this->createUrl('/linking/view', array('id'=>$phrase->page_id, 'selected_phrase_id'=>$phrase->id));
+                    $url = $this->createUrl('/promotion/linking/view', array('id'=>$phrase->page_id, 'selected_phrase_id'=>$phrase->id));
                     ?>
                     <td><b><a onmouseover="SeoLinking.showDonors(this, <?=$phrase->page_id ?>)" target="_blank" href="<?=$url ?>"><?=$phrase->getLinksCount() ?></a></b><a target="_blank" href="<?=$url ?>" class="icon-arr-r"></a></td>
                 </tr><tr>

@@ -127,6 +127,18 @@ class CookIngredientsController extends BController
                 }
             }
 
+            if ($model->unit->type == 'qty') {
+                $ingredientDefaultUnit = CookIngredientUnit::model()->findByAttributes(array(
+                    'ingredient_id' => $model->id,
+                    'unit_id' => $model->unit_id
+                ));
+                if ($ingredientDefaultUnit == null or !$ingredientDefaultUnit->weight)
+                    $model->addError(
+                        'unit_id',
+                        'Для ед.изм. по умолчанию "'.$model->unit->title.'" нужно указать вес в граммах'
+                    );
+            }
+
             $errors = $model->getErrors();
             if (empty($errors)) {
                 $model->checked = 1;

@@ -11,8 +11,9 @@ class DefaultController extends HController
         $recipes = CookRecipe::model()->lastRecipes;
         $recipesCount = CookRecipe::model()->count();
         $decorations = CookDecoration::model()->lastDecorations;
+        $chooses = CookChoose::model()->getRandomChooses(3);
 
-        $this->render('index', compact('community', 'recipes', 'recipesCount', 'decorations'));
+        $this->render('index', compact('community', 'recipes', 'recipesCount', 'decorations', 'chooses'));
     }
 
 }

@@ -17,12 +17,33 @@
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
+	<script type="text/javascript" src="/javascripts/jquery.dimensions.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
+	
 	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 	
 	<script type="text/javascript">
+	
+	$(function(){
+		$('.tooltip').tooltip({
+			delay: 100,
+			track: false,
+			showURL: false,
+			showBody: false,
+			top: -20,
+			left: 10
+		});
+	})
+	
 	//<![CDATA[
 
 		$(function(){
+		
 			CKEDITOR.replace( 'editor',
 				{
 					skin : 'hgru',
@@ -34,8 +55,10 @@
 				});
 			});
 			
+			
+			
 
-	//]]>
+	//]]>	
 	</script>
 	
 </head>
@@ -491,6 +514,39 @@
 								</div>
 							</div>
 							
+							<div class="row row-gallery">
+								<div class="row-title">
+									<span class="title-in"><label>Фотогалерея</label></span>
+									<a href="" class="add-gallery tooltip" title="Добавить фотогалерею"></a>
+									<input type="text" placeholder="Название галереи" />
+									&nbsp;
+									<button class="btn btn-green-small"><span><span>Ok</span></span></button>
+									<span class="gallery-title">Ветрянка</span>
+									<a href="" class="edit tooltip" title="Удалить галерею"></a>
+									<a href="" class="remove tooltip" title="Редактировать название"></a>
+								</div>
+								
+								<div class="gallery-photos">
+									
+									<ul>
+										<li>
+											<div class="img">
+												<img src="/images/example/ex3.jpg" />
+												<div class="actions">
+													<a href="" class="edit tooltip" title="Удалить галерею"></a>
+													<a href="" class="remove tooltip" title="Редактировать название"></a>
+												</div>
+											</div>
+										</li>
+										<li>
+											<a href="#photoPick" class="fancy add tooltip" title="Загрузить фото"><i class="icon"></i></a>
+										</li>
+									</ul>
+									
+								</div>
+								
+							</div>
+							
 							<div class="row row-buttons">								
 								<button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
 								<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>
@@ -580,6 +636,64 @@
 		</form>
 		
 	</div>
+	
+	
+	<div id="photoPick" class="popup">
+		
+		
+		<a onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть" href="javascript:void(0);"></a>
+		
+		<div class="title">Загрузка фото в галерею</div>
+		
+		<div id="attach_content">
+			<div class="form">
+				<div class="photo-upload clearfix">
+					<div class="photo">
+						<div class="in">
+							<div class="file-fake">
+								<form>
+									<button class="btn btn-orange"><span><span>Обзор...</span></span></button>
+									<input type="file" />
+								</form>
+							</div>
+							
+						</div>
+					</div>
+					<div class="note">Загрузите файл<br>(jpg, gif, png не более 6 МБ)</div>
+				</div>
+				
+				<div class="form-bottom">
+					<button class="btn btn-green-medium disabled"><span><span>Продолжить</span></span></button>
+				</div>
+				
+				<div class="photo-upload clearfix">
+					<div class="photo">
+						<div class="in">
+							<img src="/images/gallery_img.jpg" alt="">
+							<a href="" class="remove tooltip" title="Удалить"></a>
+						</div>
+					</div>
+					
+					<div class="photo-title">
+						<label>Название фото <span>(не более 75 знаков)</span></label>
+						<input type="text"  placeholder="Введите название "/>
+						<br/><br/>
+						<label>Комментарий к фото<br/><span>(не обязательно, не более 200 знаков)</span></label><br/>
+						<textarea></textarea>
+					</div>
+					
+				</div>
+				
+				<div class="form-bottom">
+					<button class="btn btn-green-medium"><span><span>Завершить</span></span></button>
+				</div>
+				
+			</div>    
+		</div>
+		
+		
+	</div>
+	
 	
 </div>
 </body>

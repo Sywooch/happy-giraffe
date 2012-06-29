@@ -128,13 +128,14 @@ class CommunityController extends HController
     public function actionView($community_id, $content_type_slug, $content_id)
     {
         /* <ИМПОРТ РЕЦЕПТОВ> */
-        Yii::import('application.modules.cook.models.CookRecipe');
-        $content = CommunityContent::model()->resetScope()->full()->findByPk($content_id);
-        $recipe = CookRecipe::model()->find('content_id = :content_id', array(':content_id' => $content->id));
-        if ($recipe !== null) {
-            header("HTTP/1.1 301 Moved Permanently");
-            header("Location: " . $recipe->url);
-            Yii::app()->end();
+        if ($community_id == 22) {
+            Yii::import('application.modules.cook.models.CookRecipe');
+            $recipe = CookRecipe::model()->find('content_id = :content_id', array(':content_id' => $content_id));
+            if ($recipe !== null) {
+                header("HTTP/1.1 301 Moved Permanently");
+                header("Location: " . $recipe->url);
+                Yii::app()->end();
+            }
         }
         /* </ИМПОРТ РЕЦЕПТОВ> */
 
@@ -206,6 +207,13 @@ class CommunityController extends HController
             $model->attributes = $_POST['CommunityContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
 
+            if(Yii::app()->request->getPost('ajax') && $_POST['ajax']==='community-form')
+            {
+                echo CJSON::encode(CMap::mergeArray(CJSON::decode(CActiveForm::validate($model)), CJSON::decode(CActiveForm::validate($slave_model))));
+                Yii::app()->end();
+            }
+
+
             $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
 
@@ -214,6 +222,29 @@ class CommunityController extends HController
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
+
+                if($model->gallery)
+                    $model->gallery->delete();
+                if(Yii::app()->request->getPost('CommunityContentGallery'))
+                {
+                    $gallery = new CommunityContentGallery;
+                    $gallery->title = $_POST['CommunityContentGallery']['title'];
+                    $gallery->content_id = $model->id;
+                    if($gallery->save() && ($items = Yii::app()->request->getPost('CommunityContentGalleryItem')) != null)
+                    {
+                        foreach($items as $item)
+                        {
+                            $gi = new CommunityContentGalleryItem();
+                            $gi->attributes = array(
+                                'gallery_id' => $gallery->id,
+                                'photo_id' => $item['photo_id'],
+                                'description' => $item['description']
+                            );
+                            $gi->save();
+                        }
+                    }
+                }
+
                 $this->redirect($model->url);
             }
         }
@@ -285,6 +316,12 @@ class CommunityController extends HController
             $model->author_id = $model->by_happy_giraffe ? 1 : Yii::app()->user->id;
             $slave_model->attributes = $_POST[$slave_model_name];
 
+            if(Yii::app()->request->getPost('ajax') && $_POST['ajax']==='community-form')
+            {
+                echo CJSON::encode(CMap::mergeArray(CJSON::decode(CActiveForm::validate($model)), CJSON::decode(CActiveForm::validate($slave_model))));
+                Yii::app()->end();
+            }
+
             $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
 
@@ -293,6 +330,26 @@ class CommunityController extends HController
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
+
+                if(Yii::app()->request->getPost('CommunityContentGallery'))
+                {
+                    $gallery = new CommunityContentGallery;
+                    $gallery->title = $_POST['CommunityContentGallery']['title'];
+                    $gallery->content_id = $model->id;
+                    if($gallery->save() && $items = Yii::app()->request->getPost('CommunityContentGalleryItem'))
+                    {
+                        foreach($items as $item)
+                        {
+                            $gi = new CommunityContentGalleryItem();
+                            $gi->attributes = array(
+                                'gallery_id' => $gallery->id,
+                                'photo_id' => $item['photo_id'],
+                                'description' => $item['description']
+                            );
+                            $gi->save();
+                        }
+                    }
+                }
 
                 $comet = new CometModel;
                 $comet->type = CometModel::CONTENTS_LIVE;

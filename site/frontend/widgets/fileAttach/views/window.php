@@ -21,3 +21,6 @@
         <?php $this->render('_browse'); ?>
     </div>
 </div>
+    <script type="text/javascript">
+        currentAttach = window['<?=$this->id?>'];
+    </script>

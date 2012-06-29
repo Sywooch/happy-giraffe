@@ -6,6 +6,7 @@ class HController extends CController
 	public $breadcrumbs=array();
     public $rssFeed = null;
     public $seoHrefs = array();
+    public $seoContent = array();
 
 
     protected function beforeAction($action)
@@ -23,10 +24,16 @@ class HController extends CController
         $js = "
             $(function() {
                 var seoHrefs = " . CJSON::encode($this->seoHrefs) . ";
+                var seoContent = " . CJSON::encode($this->seoContent) . ";
                 $('[hashString]').each(function(){
                     var key = $(this).attr('hashString');
-                    $(this).attr('href', Base64.decode(seoHrefs[key]));
+                    if($(this).attr('hashType') == 'href'){
+                        $(this).attr('href', Base64.decode(seoHrefs[key]));
+                    }else{
+                        $(this).replaceWith(Base64.decode(seoContent[key]));
+                    }
                 });
+
 
             });
         ";

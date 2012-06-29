@@ -1,0 +1,7 @@
+var Tester = {
+    Init:function () {
+
+
+    }
+
+}

@@ -105,6 +105,9 @@ class WordstatParser extends ProxyParserThread
         $url = 'http://wordstat.yandex.ru/';
         $success = false;
 
+        if ($this->debug)
+            echo 'starting get cookie';
+
         while (!$success) {
             $data = $this->query($url);
             $success = true;
@@ -128,6 +131,9 @@ class WordstatParser extends ProxyParserThread
             }
             sleep(1);
         }
+
+        if ($this->debug)
+            echo 'cookie received successfully';
     }
 
     private function parseQuery()
@@ -141,6 +147,9 @@ class WordstatParser extends ProxyParserThread
 
     public function parseData($html)
     {
+        if ($this->debug)
+            echo 'parse page';
+
         $document = phpQuery::newDocument($html);
         $html = str_replace('&nbsp;', ' ', $html);
         $html = str_replace('&mdash;', '—', $html);

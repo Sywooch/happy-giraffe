@@ -339,7 +339,7 @@ var PostGallery = {
     save:function (button) {
         var input_container = $(button).parent();
         var gallery_title_container = input_container.siblings('.gallery_title_container');
-        var input = input_container.find('input[name=gallery_title]');
+        var input = input_container.find('input');
 
         if (input.val() == '') {
             input.addClass('error');
@@ -347,6 +347,7 @@ var PostGallery = {
         } else {
             input.removeClass('error');
         }
+        $('.form .row-gallery .gallery-photos').show();
 
         gallery_title_container.find('.gallery-title').text(input.val());
         input_container.hide();
@@ -356,8 +357,10 @@ var PostGallery = {
     remove:function (link) {
         var input_container = $(link).parents('.row-gallery:eq(0)').find('.gallery_input_container');
         input_container.siblings('.gallery_title_container').hide().find('.gallery-title').text('');
-        var input = input_container.find('input[name=gallery_title]').val('');
+        var input = input_container.find('input').val('');
         $('.add-gallery').show();
+        $('.form .row-gallery .gallery-photos').hide();
+        $('.form .row-gallery .gallery-photos li:lt('+$('.form .row-gallery .gallery-photos li').size()+')').remove();
         return false;
     }
 }

@@ -18,6 +18,8 @@
  * The followings are the available model relations:
  * @property Album $album
  * @property User $author
+ *
+ * @method AlbumPhoto findByPk()
  */
 class AlbumPhoto extends HActiveRecord
 {

@@ -8,7 +8,7 @@
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
     }
 
-    Yii::app()->clientScript->registerMetaTag(Str::truncate(trim(strip_tags($data->content->text)), 90), 'description');
+    Yii::app()->clientScript->registerMetaTag(trim(Str::truncate(strip_tags($data->content->text), 90)), 'description');
     Yii::app()->clientScript->registerMetaTag('', 'keywords');
 ?>
 

@@ -7,7 +7,13 @@ class DefaultController extends HController
 
     public function actionIndex()
     {
-        $this->render('index');
+        $this->pageTitle = 'Тесты';
+        $tests = Test::model()->findAll(array(
+            'select' => array('id', 'title', 'slug')
+        ));
+        $this->render('index', array(
+            'tests' => $tests
+        ));
     }
 
     public function actionView($slug)

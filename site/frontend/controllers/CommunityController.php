@@ -234,7 +234,6 @@ class CommunityController extends HController
                     {
                         foreach($items as $item)
                         {
-                            var_dump($gallery->attributes);
                             $gi = new CommunityContentGalleryItem();
                             $gi->attributes = array(
                                 'gallery_id' => $gallery->id,
@@ -242,12 +241,11 @@ class CommunityController extends HController
                                 'description' => $item['description']
                             );
                             $gi->save();
-                            print_r($gi->errors);
                         }
                     }
                 }
 
-                //$this->redirect($model->url);
+                $this->redirect($model->url);
             }
         }
 

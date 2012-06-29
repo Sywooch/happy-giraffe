@@ -315,7 +315,7 @@ class WordstatParser extends ProxyParserThread
                             $success = false;
                         }
                     } else
-                        $success = false;
+                        $success = true;
                 } else {
                     $parsed = new ParsedKeywords;
                     $parsed->keyword_id = $this->keyword->keyword_id;

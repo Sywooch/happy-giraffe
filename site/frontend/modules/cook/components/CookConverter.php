@@ -136,15 +136,15 @@ class CookConverter extends CComponent
     public function calculateNutritionals($components)
     {
         $converter = new CookConverter();
+
         $result = array(
-            'total' => array(
-                'weight' => 0,
-                'nutritionals' => array(1 => 0, 2 => 0, 3 => 0, 4 => 0, 7 => 0)
-            ),
-            'g100' => array(
-                'nutritionals' => array(1 => 0, 2 => 0, 3 => 0, 4 => 0, 7 => 0)
-            )
-        );
+            'total' => array('weight' => 0, 'nutritionals' => array()),
+            'g100' => array('nutritionals' => array()));
+
+        $nutritionals = CookNutritional::model()->cache(3600)->findAll();
+        foreach ($nutritionals as $n)
+            $result['total']['nutritionals'][$n->id] = 0;
+        $result['g100']['nutritionals'] = $result['total']['nutritionals'];
 
         foreach ($components as $component) {
             $ingredient = CookIngredient::model()->findByPk($component['ingredient_id']);

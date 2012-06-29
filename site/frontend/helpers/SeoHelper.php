@@ -5,17 +5,30 @@
  */
 class SeoHelper
 {
-    public static function getLinkBock($model)
+    public static function getLinkBock()
     {
         Yii::import('site.seo.models.*');
-        $criteria = new CDbCriteria;
-        $criteria->compare('entity', get_class($model));
-        $criteria->compare('entity_id', $model->primaryKey);
-        $page = LinkingPages::model()->find($criteria);
-        if (!empty($page) && !empty($page->linkingTo)){
-            foreach($page->linkingTo as $link_page){
-                echo CHtml::link($link_page->keyword->name, $link_page->linktoPage->url);
+        Yii::import('site.seo.modules.promotion.models.*');
+
+        $str = '';
+        $page = self::getPage();
+        if (!empty($page) && !empty($page->outputLinks)) {
+            foreach ($page->outputLinks as $link_page) {
+                $str.= CHtml::link($link_page->keyword->name, $link_page->pageTo->url);
             }
         }
+
+        return $str;
+    }
+
+    /**
+     * @static
+     * @return Page
+     */
+    static function getPage()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('url', 'http://www.happy-giraffe.ru'.Yii::app()->request->getRequestUri());
+        return Page::model()->find($criteria);
     }
 }

@@ -272,20 +272,12 @@ class CookRecipe extends CActiveRecord
 
     public function getNutritionalsPer100g($nutritional_id)
     {
-        if (isset($this->nutritionals['g100']['nutritionals'][$nutritional_id])) {
-            return round($this->nutritionals['g100']['nutritionals'][$nutritional_id], 2);
-        } else {
-            return 0;
-        }
+        return round($this->nutritionals['g100']['nutritionals'][$nutritional_id], 2);
     }
 
     public function getNutritionalsPerServing($nutritional_id)
     {
-        if (isset($this->nutritionals['total']['nutritionals'][$nutritional_id])) {
-            return round($this->nutritionals['total']['nutritionals'][$nutritional_id] / $this->servings, 2);
-        } else {
-            return 0;
-        }
+        return round($this->nutritionals['total']['nutritionals'][$nutritional_id] / $this->servings, 2);
     }
 
     public function getBakeryItems()

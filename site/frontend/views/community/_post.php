@@ -240,4 +240,7 @@
             ),
         )); ?>
     </noindex>
+<div>
+    <?php if (Yii::app()->user->isGuest) echo SeoHelper::getLinkBock(); ?>
+</div>
 <?php endif; ?>

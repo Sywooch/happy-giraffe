@@ -6,6 +6,8 @@
     <title>Администратор</title>
 
     <?php
+    CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
+
     Yii::app()->clientScript
         ->registerCssFile('/css/seo.css')
         ->registerCssFile('/css/form.css')
@@ -71,7 +73,7 @@
                         ),
                         array(
                             'label' => 'Поисковый трафик',
-                            'url' => array('/queries/admin'),
+                            'url' => array('/promotion/queries/admin'),
                         ),
                     )));
 
@@ -102,7 +104,7 @@
                         ),
                         array(
                             'label' => 'Запросы',
-                            'url' => array('/queries/admin/'),
+                            'url' => array('/promotion/queries/admin/'),
                         ),
                     )));
 
@@ -112,7 +114,7 @@
                     'items' => array(
                         array(
                             'label' => 'Поисковый трафик',
-                            'url' => array('/queries/admin'),
+                            'url' => array('/promotion/queries/admin'),
                         ),
                         array(
                             'label' => 'Ключевые слова или фразы',
@@ -238,7 +240,7 @@
                 ),
                 array(
                     'label' => 'Запросы',
-                    'url' => array('/queries/admin/'),
+                    'url' => array('/promotion/queries/admin/'),
                 ),
                 array(
                     'label' => 'Готовые статьи',
@@ -250,7 +252,7 @@
                 ),
                 array(
                     'label' => 'Парсинг Запросов и позиций',
-                    'url' => array('/queries/index/'),
+                    'url' => array('/promotion/queries/index/'),
                 ),
                 array(
                     'label' => 'Парсинг Вордстата',

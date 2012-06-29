@@ -13,6 +13,11 @@
 class MailTemplate extends CActiveRecord
 {
     public static $replace_model;
+
+    /**
+     * Returns the static model of the specified AR class.
+     * @return MailTemplate the static model class
+     */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);

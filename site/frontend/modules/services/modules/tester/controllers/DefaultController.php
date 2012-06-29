@@ -25,7 +25,7 @@ class DefaultController extends HController
 
 
         if (!Yii::app()->request->isPostRequest) {
-            Yii::app()->user->setState('tester', array());
+            Yii::app()->user->setState('tester', array('points' => 0));
             $this->render($test->slug . '_start', array('test' => $test));
         } else {
             $stepMethod = 'step_' . $test->getTypeName();

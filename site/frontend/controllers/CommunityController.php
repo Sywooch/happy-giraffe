@@ -230,7 +230,7 @@ class CommunityController extends HController
                     $gallery = new CommunityContentGallery;
                     $gallery->title = $_POST['CommunityContentGallery']['title'];
                     $gallery->content_id = $model->id;
-                    if($gallery->save() && $items = Yii::app()->request->getPost('CommunityContentGalleryItem'))
+                    if($gallery->save() && ($items = Yii::app()->request->getPost('CommunityContentGalleryItem')) != null)
                     {
                         foreach($items as $item)
                         {

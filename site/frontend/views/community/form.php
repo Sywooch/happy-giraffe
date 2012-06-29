@@ -191,7 +191,8 @@ $cs
                         <a class="remove tooltip" href="javascript:;" title="Удалить галерею" onclick="return PostGallery.remove(this);"></a>
                     </span>
                 </div>
-                <?php if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator') || Yii::app()->user->checkAccess('supermoderator')): ?>
+                <?php /*if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator') || Yii::app()->user->checkAccess('supermoderator')): */?>
+                <?php if(Yii::app()->user->model->id == '9990'): ?>
                 <div class="gallery-photos"<?=$model->gallery ? ' style="display:block;"' : ''?>>
                     <ul>
                         <?php if($model->gallery): ?>

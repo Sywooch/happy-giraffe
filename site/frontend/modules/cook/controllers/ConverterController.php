@@ -41,6 +41,7 @@ class ConverterController extends HController
             $converter = new CookConverter();
             $result = $converter->convert($_POST['ConverterForm']);
             header('Content-type: application/json');
+
             $result['qty'] = (round($result['qty']) == $result['qty']) ? $result['qty'] : round($result['qty'], 2);
             echo CJSON::encode($result['qty']);
         }

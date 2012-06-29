@@ -52,11 +52,10 @@ class Video extends CComponent
 		$dom = new DOMDocument;
 		@$dom->loadHTMLFile($this->url);
 		$xpath = new DOMXpath($dom);
-		$this->code = $xpath->query('//input[@id="pcode"]')->item(0)->getAttribute('value');
-		$this->title = @$xpath->query('//h1')->item(0)->nodeValue;
-		$this->description = @$xpath->query('//div[@class="descr"]')->item(0)->nodeValue;
-		$this->preview = $xpath->query('//meta[@property="og:image"]')->item(0)->getAttribute('content');
-        $this->image = $this->preview;
+		$this->code = $xpath->query('//*[@id="block-blog-code"]/textarea')->item(0)->nodeValue;
+		$this->title = @$xpath->query('//meta[@property="og:title"]')->item(0)->getAttribute('content');
+		$this->description = @$xpath->query('//meta[@property="og:description"]')->item(0)->getAttribute('content');
+		$this->image = $this->preview = $xpath->query('//meta[@property="og:image"]')->item(0)->getAttribute('content');
 	}
 	
 	protected function youtubeData()

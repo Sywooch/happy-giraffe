@@ -7,7 +7,7 @@ class JunkController extends HController
 {
     function actionIndex()
     {
-        $n = 2.01;
-        var_dump($n == (int) $n);
+        $video = new Video('http://rutube.ru/tracks/4208872.html');
+        echo $video->title;
     }
 }

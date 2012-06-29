@@ -1127,6 +1127,7 @@ a:hover {text-decoration:none;}
 .popup .chzn-container-single .chzn-single div {background:#a17dc4;}
 .popup .chzn-container .chzn-results .highlighted {background:#a17dc4;}
 .popup .chzn-container-active .chzn-drop {border-top:0;}
+.popup .chzn-container .chzn-results {max-height:80px;}
 
 .chzn-container .chzn-results {margin:2px;max-height: 240px;position: relative;overflow-x: hidden;overflow-y: auto;color:#777;list-style: none !important;}
 .chzn-container-multi .chzn-results {margin: -1px 0 0;padding: 0;}

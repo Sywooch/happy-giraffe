@@ -204,7 +204,6 @@ class CommunityController extends HController
 
         if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
         {
-            print_r($_POST);exit;
             $model->attributes = $_POST['CommunityContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
 
@@ -213,6 +212,8 @@ class CommunityController extends HController
                 echo CJSON::encode(CMap::mergeArray(CJSON::decode(CActiveForm::validate($model)), CJSON::decode(CActiveForm::validate($slave_model))));
                 Yii::app()->end();
             }
+
+            print_r($_POST);exit;
 
             $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;

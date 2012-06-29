@@ -36,4 +36,25 @@ class PurifiedBehavior extends CActiveRecordBehavior
     {
         return get_class($this->getOwner()) . '_' . $this->getOwner()->primaryKey . '_' . $attributeName;
     }
+
+    public function clearCache()
+    {
+        foreach ($this->attributes as $a) {
+            Yii::app()->cache->delete($this->getCacheId($a));
+        }
+    }
+
+    public function attach($owner)
+    {
+        parent::attach($owner);
+
+        $owner->attachEventHandler('onAfterSave', array($this, 'clearCache'));
+    }
+
+    public function detach($owner)
+    {
+        parent::detach($owner);
+
+        $owner->detachEventHandler('onAfterSave', array($this, 'clearCache'));
+    }
 }

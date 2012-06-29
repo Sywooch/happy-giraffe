@@ -34,7 +34,7 @@ $count = count($model->photoCollection);
         <?php foreach($collection as $i => $p): ?>
             pGallery_photos[<?php echo $p->primaryKey ?>] = {
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
-                title : '<?php echo isset($p->title) && $p->title != '' ? CHtml::encode($p->title) : null ?>',
+                title : '<?php echo isset($p->title) && $p->title != '' ? $p->title : null ?>',
                 description : <?php echo isset($p->options['description']) ? "'" . $p->options['description'] . "'" : 'null'; ?>,
                 avatar : '<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                     'user' => $p->author,
@@ -71,7 +71,7 @@ $count = count($model->photoCollection);
             <?php echo CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), ''); ?>
             <div class="title clearfix">
                 <?php if(isset($photo->title)): ?>
-                    <?php if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator')): ?>
+                    <?php if(get_class($model) == 'CookDecorationCategory' && (Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator') || Yii::app()->user->checkAccess('supermoderator'))): ?>
                         <div class="in">
                             <span class="title-content">
                                 <span class="title-text"><?= $photo->title; ?></span>
@@ -100,10 +100,10 @@ $count = count($model->photoCollection);
         </div>
         <a href="javascript:;" class="prev"><i class="icon"></i>предыдушая</a>
         <a href="javascript:;" class="next"><i class="icon"></i>следующая</a>
-        <?php if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator')): ?>
+        <?php if(get_class($model) == 'CookDecorationCategory' && (Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator') || Yii::app()->user->checkAccess('supermoderator'))): ?>
             <div class="photo-comment" style="position:relative;z-index:10;">
                 <span class="title-content">
-                    <span class="title-text"><?= $photo->title; ?></span>
+                    <span class="title-text"></span>
                     <a href="javascript:;" onclick="editPhotoTitleInWindow(this);" class="edit"></a>
                 </span>
                 <span class="title-edit" style="display:none;">

@@ -62,5 +62,5 @@
     </div>
 <?php endif; ?>
 <script type="text/javascript">
-    var cke_instance = '<?php echo $this->_commentModel; ?>_text';
+    var cke_instance = '<?php echo $this->commentModel; ?>_text';
 </script>

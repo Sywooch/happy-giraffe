@@ -510,7 +510,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .form .row-gallery .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;top:-2px;}
 .form .row-gallery .edit:hover {background-position:-341px -136px;}
 
-.form .row-gallery .gallery-photos {}
+.form .row-gallery .gallery-photos {display:none;}
 .form .row-gallery .gallery-photos ul {}
 .form .row-gallery .gallery-photos ul li {display:inline-block;vertical-align:middle;position:relative;margin:0 10px 10px 0;}
 .form .row-gallery .gallery-photos ul li a.add {border:1px dotted #bababa;display:block;width:68px;height:50px;}

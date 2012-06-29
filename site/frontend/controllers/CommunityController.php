@@ -204,6 +204,7 @@ class CommunityController extends HController
 
         if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
         {
+            print_r($_POST);exit;
             $model->attributes = $_POST['CommunityContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
 

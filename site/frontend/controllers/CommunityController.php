@@ -234,6 +234,7 @@ class CommunityController extends HController
                     {
                         foreach($items as $item)
                         {
+                            var_dump($gallery->attributes);
                             $gi = new CommunityContentGalleryItem();
                             $gi->attributes = array(
                                 'gallery_id' => $gallery->id,

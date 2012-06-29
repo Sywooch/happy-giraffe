@@ -11,7 +11,15 @@ class AjaxController extends HController
         $attribute = Yii::app()->request->getPost('attribute');
         $value = Yii::app()->request->getPost('value');
 
-        $model = $modelName::model()->findByPk($modelPk);
+        if($modelName == 'CookDecoration' && $attribute == 'description')
+        {
+            Yii::import('site.frontend.modules.cook.models.*');
+            $model = $modelName::model()->findByAttributes(array('photo_id' => $modelPk));
+        }
+        else
+        {
+            $model = $modelName::model()->findByPk($modelPk);
+        }
         $model->setAttribute($attribute, $value);
         if ($model->update($attribute))
             echo '1';
@@ -176,6 +184,10 @@ class AjaxController extends HController
     public function actionSendComment()
     {
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+
+        if(Yii::app()->request->getPost('PhotoViewComment'))
+            $_POST['Comment'] = CMap::mergeArray($_POST['Comment'], $_POST['PhotoViewComment']);
+
         if(isset($_POST['CommentProduct']))
             $model = 'CommentProduct';
         elseif(isset($_POST['Comment']))

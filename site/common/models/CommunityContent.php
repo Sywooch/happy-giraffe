@@ -25,6 +25,10 @@
  * @property CommunityVideo $video
  * @property CommunityPhotoPost $photoPost
  * @property userPhotos[] $userPhotos
+ * @property CommunityContentGallery $gallery
+ *
+ * @method CommunityContent full()
+ * @method CommunityContent findByPk()
  */
 class CommunityContent extends HActiveRecord
 {
@@ -91,6 +95,7 @@ class CommunityContent extends HActiveRecord
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
             'userPhotos' => array(self::HAS_MANY, 'UserPhoto', 'content_id'),
             'editor' => array(self::BELONGS_TO, 'User', 'editor_id'),
+            'gallery' => array(self::HAS_ONE, 'CommunityContentGallery', 'content_id'),
 		);
 	}
 
@@ -101,11 +106,13 @@ class CommunityContent extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Name',
+			'title' => 'Заголовок',
 			'created' => 'Created',
-			'author_id' => 'Author',
-			'rubric_id' => 'Rubric',
+			'author_id' => 'Автор',
+			'rubric_id' => 'Рубрика',
 			'type_id' => 'Type',
+            'by_happy_giraffe' => 'От Весёлого Жирафа',
+            'meta_title' => 'Заголовок страницы',
 		);
 	}
 

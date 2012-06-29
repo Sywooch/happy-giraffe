@@ -253,10 +253,10 @@
             <?php foreach ($recipe->ingredients as $i): ?>
                 <li class="ingredient">
                     <span class="name"><?=$i->ingredient->title?></span>
-                    <?php if ($i->unit->type !="undefined"){  ?>
-                    <span class="value"><?=round($i->value, 2)?></span>
-                    <?php }  ?>
-                    <span class="type"><?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), (int)$i->value)?></span>
+                    <?php if ($i->unit->type != 'undefined'): ?>
+                        <span class="value"><?=$i->display_value?></span>
+                    <?php endif; ?>
+                    <span class="type"><?=$i->noun?></span>
                     <!--<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>-->
                 </li>
             <?php endforeach; ?>

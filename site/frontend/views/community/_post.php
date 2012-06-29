@@ -1,4 +1,9 @@
 <?php
+/* @var $this CommunityController
+ * @var $data CommunityContent
+ */
+?>
+<?php
     if (Yii::app()->request->getParam('Comment_page', 1) != 1) {
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
     }
@@ -55,99 +60,125 @@
             <div class="clear"></div>
         </div>
     <?php else: ?>
-        <div class="entry-content wysiwyg-content">
-            <?
-            switch ($data->type->slug)
-            {
-                case 'post':
-                    echo $data->post->text;
-                    $data_text = $data->post->text;
-                    preg_match('!<img.*?src="(.*?)"!', $data_text, $matches);
-                    if (count($matches) > 0)
-                        $data_image = $matches[1];
-                    else
-                        $data_image = false;
-                    break;
-                case 'video':
-                    $video = new Video($data->video->link);
-                    echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
-                    echo $data->video->text;
-                    $data_text = $data->video->text;
-                    $data_image = $video->preview;
-                    break;
-                case 'travel':
-                    if ($data->travel->waypoints) {
-                        $icon = new EGMapMarkerImage('/images/map_marker.png');
-                        $icon->setSize(20, 32);
+        <div class="entry-content">
+            <div class="wysiwyg-content">
+                <?
+                switch ($data->type->slug)
+                {
+                    case 'post':
+                        echo $data->post->text;
+                        $data_text = $data->post->text;
+                        preg_match('!<img.*?src="(.*?)"!', $data_text, $matches);
+                        if (count($matches) > 0)
+                            $data_image = $matches[1];
+                        else
+                            $data_image = false;
+                        break;
+                    case 'video':
+                        $video = new Video($data->video->link);
+                        echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
+                        echo $data->video->text;
+                        $data_text = $data->video->text;
+                        $data_image = $video->preview;
+                        break;
+                    case 'travel':
+                        if ($data->travel->waypoints) {
+                            $icon = new EGMapMarkerImage('/images/map_marker.png');
+                            $icon->setSize(20, 32);
 
-                        $gMap = new EGMap();
-                        $gMap->width = '100%';
-                        $gMap->height = '325';
-                        $gMap->zoom = (count($data->travel->waypoints) == 1) ? 5 : 2;
-                        $incLat = 0;
-                        $incLng = 0;
-                        foreach ($data->travel->waypoints as $w)
-                        {
-                            $address = $w->country->name . ', ' . $w->city->name;
-                            $geocoded_address = new EGMapGeocodedAddress($address);
-                            $geocoded_address->geocode($gMap->getGMapClient());
-                            $gMap->addMarker(
-                                new EGMapMarker($geocoded_address->getLat(), $geocoded_address->getLng(), array('title' => 'a', 'icon' => $icon))
-                            );
-                            $incLat += $geocoded_address->getLat();
-                            $incLng += $geocoded_address->getLng();
+                            $gMap = new EGMap();
+                            $gMap->width = '100%';
+                            $gMap->height = '325';
+                            $gMap->zoom = (count($data->travel->waypoints) == 1) ? 5 : 2;
+                            $incLat = 0;
+                            $incLng = 0;
+                            foreach ($data->travel->waypoints as $w)
+                            {
+                                $address = $w->country->name . ', ' . $w->city->name;
+                                $geocoded_address = new EGMapGeocodedAddress($address);
+                                $geocoded_address->geocode($gMap->getGMapClient());
+                                $gMap->addMarker(
+                                    new EGMapMarker($geocoded_address->getLat(), $geocoded_address->getLng(), array('title' => 'a', 'icon' => $icon))
+                                );
+                                $incLat += $geocoded_address->getLat();
+                                $incLng += $geocoded_address->getLng();
+                            }
+                            $dataenterLat = $incLat / count($data->travel->waypoints);
+                            $dataenterLng = $incLng / count($data->travel->waypoints);
+                            $gMap->setCenter($dataenterLat, $dataenterLng);
+
+                            $gMap->renderMap();
+                            ?>
+                            <ul class="tr_map">
+                                <li>
+                                    <ins>Посетили:</ins>
+                                </li>
+                                <li>
+                                    <ul>
+                                        <?php $i = 0; foreach ($data->travel->waypoints as $w): ?>
+                                        <li><?php echo $w->country_name; ?> -
+                                            <span><?php echo ++$i; ?></span> <?php echo $w->city_name; ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <?php
                         }
-                        $dataenterLat = $incLat / count($data->travel->waypoints);
-                        $dataenterLng = $incLng / count($data->travel->waypoints);
-                        $gMap->setCenter($dataenterLat, $dataenterLng);
-
-                        $gMap->renderMap();
                         ?>
-                        <ul class="tr_map">
-                            <li>
-                                <ins>Посетили:</ins>
-                            </li>
-                            <li>
-                                <ul>
-                                    <?php $i = 0; foreach ($data->travel->waypoints as $w): ?>
-                                    <li><?php echo $w->country_name; ?> -
-                                        <span><?php echo ++$i; ?></span> <?php echo $w->city_name; ?></li>
+                            <div class="clear"></div>
+
+                            <?php
+                            $data_text = $data->travel->text;
+                        echo $data->travel->text;
+                        ?>
+                            <div class="clear"></div>
+                            <div class="travel_photo">
+                                <ul class="photo-list">
+                                    <?php foreach ($data->travel->images as $i): ?>
+                                    <li>
+                                        <div class="img-box">
+                                            <?php echo CHtml::link(CHtml::image($i->getUrl('thumb')), $i->getUrl('original'), array(
+                                            'class' => 'lol',
+                                            'rel' => 'group',
+                                        )); ?>
+                                        </div>
+                                    </li>
                                     <?php endforeach; ?>
                                 </ul>
-                            </li>
-                        </ul>
-                        <?php
-                    }
-                    ?>
-                        <div class="clear"></div>
+                                <div class="clear"></div>
+                                <!-- .clear -->
+                            </div><!-- .travel_photo -->
+                            <?php
+                        break;
+                }
+                ?>
 
-                        <?php
-                        $data_text = $data->travel->text;
-                    echo $data->travel->text;
-                    ?>
-                        <div class="clear"></div>
-                        <div class="travel_photo">
-                            <ul class="photo-list">
-                                <?php foreach ($data->travel->images as $i): ?>
-                                <li>
-                                    <div class="img-box">
-                                        <?php echo CHtml::link(CHtml::image($i->getUrl('thumb')), $i->getUrl('original'), array(
-                                        'class' => 'lol',
-                                        'rel' => 'group',
-                                    )); ?>
-                                    </div>
-                                </li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <div class="clear"></div>
-                            <!-- .clear -->
-                        </div><!-- .travel_photo -->
-                        <?php
-                    break;
-            }
+                <div class="clear"></div>
+            </div>
+            <?php if($data->gallery !== null): ?>
+            <?php $photo = $data->gallery->items[0]; ?>
+            <div class="gallery-box">
+                <a class="img" data-id="<?=$data->gallery->items[0]->photo->id?>">
+                    <?php echo CHtml::image($photo->photo->getPreviewUrl(480, 360, Image::WIDTH)) ?>
+                    <div class="title">
+                        <i class="icon-play"></i>
+                        <div class="title-in">
+                            <span><?=CHtml::encode($data->gallery->title)?></span>
+                            <?php if(count($data->gallery->items) > 1): ?>
+                            еще <?=count($data->gallery->items) - 1?> фотографий
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <?php
+            $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+                'selector' => '.gallery-box a',
+                'entity' => get_class($data->gallery),
+                'entity_id' => (int)$data->gallery->primaryKey,
+            ));
             ?>
-
-            <div class="clear"></div>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
 

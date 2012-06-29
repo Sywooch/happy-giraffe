@@ -184,6 +184,10 @@ class AjaxController extends HController
     public function actionSendComment()
     {
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+
+        if(Yii::app()->request->getPost('PhotoViewComment'))
+            $_POST['Comment'] = CMap::mergeArray($_POST['Comment'], $_POST['PhotoViewComment']);
+
         if(isset($_POST['CommentProduct']))
             $model = 'CommentProduct';
         elseif(isset($_POST['Comment']))

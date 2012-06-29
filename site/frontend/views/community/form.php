@@ -177,26 +177,40 @@ $cs
                 </div>
             </div>
 
-            <!--<div class="row row-gallery">
+            <div class="row row-gallery">
                 <div class="row-title">
                     <span class="title-in">Фотогалерея</span>
-                    <a class="add-gallery tooltip" href="javascript:;" onclick="return PostGallery.add(this);" title="Добавить фотогалерею"></a>
+                    <a class="add-gallery tooltip"<?=$model->gallery ? ' style="display:none;"' : ''?> href="javascript:;" onclick="return PostGallery.add(this);" title="Добавить фотогалерею"></a>
                     <span class="gallery_input_container">
-                        <input type="text" name="gallery_title" placeholder="Название галереи">
+                        <input type="text" value="<?=$model->gallery ? $model->gallery->title : ''?>" name="CommunityContentGallery[title]" placeholder="Название галереи">
                         <button class="btn btn-green-small" onclick="return PostGallery.save(this);"><span><span>Ok</span></span></button>
                     </span>
-                    <span class="gallery_title_container">
-                        <span class="gallery-title">Ветрянка</span>
+                    <span class="gallery_title_container"<?=$model->gallery ? ' style="display:inline;"' : ''?>>
+                        <span class="gallery-title"><?=$model->gallery ? $model->gallery->title : ''?></span>
                         <a class="edit tooltip" href="javascript:;" title="Редактровать название" onclick="return PostGallery.add(this);"></a>
                         <a class="remove tooltip" href="javascript:;" title="Удалить галерею" onclick="return PostGallery.remove(this);"></a>
                     </span>
                 </div>
-
-                <div class="gallery-photos">
+                <?php if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator') || Yii::app()->user->checkAccess('supermoderator')): ?>
+                <div class="gallery-photos"<?=$model->gallery ? ' style="display:block;"' : ''?>>
                     <ul>
+                        <?php if($model->gallery): ?>
+                            <?php foreach($model->gallery->items as $item): ?>
+                            <li>
+                                <input type="hidden" name="CommunityContentGalleryItem[<?=CHtml::encode($item->photo_id)?>][description]" value="<?=CHtml::encode($item->description)?>" />
+                                <input type="hidden" name="CommunityContentGalleryItem[<?=CHtml::encode($item->photo_id)?>][photo_id]" value="<?=$item->photo_id?>" />
+                                <div class="img">
+                                    <img src="<?=$item->photo->getPreviewUrl(177, 177, Image::NONE)?>" />
+                                    <div class="actions">
+                                        <a href="javascript:;" class="remove tooltip" title="Удалить галерею" onclick="$(this).parents('li:eq(0)').remove();"></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                         <li>
                             <?php
-/*                            $galleryAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                            $galleryAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                                 'model' => $model,
                                 'customButton' => true,
                                 'customButtonHtmlOptions' => array(
@@ -206,11 +220,12 @@ $cs
                             ));
                             echo '<i class="icon"></i>';
                             $this->endWidget();
-                            */?>
+                            ?>
                         </li>
                     </ul>
                 </div>
-            </div>-->
+                <?php endif; ?>
+            </div>
 
             <div class="row row-buttons">
                 <button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
@@ -242,4 +257,17 @@ $cs
 
 <script type="text/javascript">
     var cke_instance = '<?php echo get_class($slave_model); ?>[text]';
+</script>
+
+<script id="photo_item" type="text/x-jquery-tmpl">
+    <li>
+        <input type="hidden" name="CommunityContentGalleryItem[${id}][description]" value="${description}" />
+        <input type="hidden" name="CommunityContentGalleryItem[${id}][photo_id]" value="${id}" />
+        <div class="img">
+            <img src="${src}" />
+            <div class="actions">
+                <a href="javascript:;" class="remove tooltip" title="Удалить галерею" onclick="$(this).parents('li:eq(0)').remove();"></a>
+            </div>
+        </div>
+    </li>
 </script>

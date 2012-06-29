@@ -11,6 +11,11 @@ class Rating extends EMongoDocument
         return 'ratings';
     }
 
+    /**
+     * @static
+     * @param string $className
+     * @return $this
+     */
     public static function model($className=__CLASS__)
     {
         return parent::model($className);

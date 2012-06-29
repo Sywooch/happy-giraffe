@@ -32,8 +32,7 @@ class CommentWidget extends CWidget
     public $readOnly = false;
     public $registerScripts = false;
     public $popUp = false;
-
-    protected $_commentModel;
+    public $commentModel  = 'Comment';
 
     /**
      * @var bool
@@ -57,7 +56,8 @@ class CommentWidget extends CWidget
             $model = call_user_func(array($this->entity, 'model'));
             $this->model = $model->findByPk($this->entity_id);
         }
-        $this->_commentModel = $this->vote ? 'CommentProduct' : 'Comment';
+        if($this->vote)
+            $this->commentModel = 'CommentProduct';
     }
 
 	public function run()
@@ -67,10 +67,9 @@ class CommentWidget extends CWidget
             $this->registerScripts();
             return;
         }
-        if(!$this->vote)
-		    $comment_model = Comment::model();
-        else
-            $comment_model = CommentProduct::model();
+
+        $comment_model = call_user_func(array($this->commentModel, 'model'));
+
         $dataProvider = $comment_model->get($this->entity, $this->entity_id);
         $dataProvider->getData();
         if(isset($_GET['lastPage']))
@@ -121,7 +120,7 @@ class CommentWidget extends CWidget
                 'entity_id' => (int)$this->entity_id,
                 'save_url' => Yii::app()->createUrl('ajax/sendcomment'),
                 'toolbar' => $this->type == 'guestBook' ? 'Simple' : 'Main',
-                'model' => $this->vote ? 'CommentProduct' : 'Comment',
+                'model' => $this->commentModel,
                 'object_name' => $this->objectName
             )) . ');';
             echo '<script type="text/javascript">' . $script . '</script>';
@@ -139,8 +138,8 @@ class CommentWidget extends CWidget
         }
 
         $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-            'model' => new $this->_commentModel,
-            'id' => 'attach' . $this->_commentModel . 'comment',
+            'model' => new $this->commentModel,
+            'id' => 'attach' . $this->commentModel . 'comment',
         ));
         $fileAttach->registerScripts();
         $this->endWidget();

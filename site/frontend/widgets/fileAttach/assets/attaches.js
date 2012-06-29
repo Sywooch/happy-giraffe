@@ -149,17 +149,9 @@ Attach.prototype.CommunityContentInsert = function(val) {
         $('#attach_content textarea').removeClass('error');
     }
 
-    if($('#attach_content .photo-title input').val().length == 0) {
-        $('#attach_content .photo-title input').addClass('error');
-        return false;
-    } else {
-        $('#attach_content .photo-title input').removeClass('error');
-    }
-
     $.post(
         '/albums/CommunityContentSave/',
         {
-            title:$('#attach_content input[name=title]').val(),
             description:$('#attach_content textarea').val(),
             val:val
         },

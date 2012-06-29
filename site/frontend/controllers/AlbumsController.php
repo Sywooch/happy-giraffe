@@ -448,20 +448,14 @@ class AlbumsController extends HController
     public function actionCommunityContentSave()
     {
         header('Content-type: application/json');
-        $title = trim(Yii::app()->request->getPost('title'));
         $description = trim(Yii::app()->request->getPost('description'));
 
         $val = Yii::app()->request->getPost('val');
-        if (is_numeric($val)) {
-            $model = AlbumPhoto::model()->findByPk($val);
-            $model->title = $title;
-            $model->save();
-        } else {
+        if (!is_numeric($val))
+        {
             $model = new AlbumPhoto;
             $model->file_name = $val;
             $model->author_id = Yii::app()->user->id;
-            if ($title)
-                $model->title = $title;
             $model->create(true);
         }
         $photo = $model->getPreviewUrl(177, 177, Image::NONE);

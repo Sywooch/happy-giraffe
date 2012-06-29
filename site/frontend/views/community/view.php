@@ -3,10 +3,6 @@
  * @var $data CommunityContent
 */
 ?>
-<?php
-    Yii::app()->clientScript->registerMetaTag(Str::truncate(trim(strip_tags($data->content->text)), 90), 'description');
-    Yii::app()->clientScript->registerMetaTag('', 'keywords');
-?>
 
 <?php $this->renderPartial('_post', array('data' => $data, 'full' => true)); ?>
 

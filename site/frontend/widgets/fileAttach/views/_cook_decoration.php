@@ -9,8 +9,12 @@
         </div>
 
         <div class="photo-title">
-            <label>Название блюда или оформления</label>
-            <input type="text" placeholder="Введите название" name="title" value="<?=$title;?>"/>
+            <label>Название блюда или оформления<span> (не более 70 знаков)</span></label>
+            <input type="text" placeholder="Введите название" name="title" maxlength="70" value="<?=$title;?>"/>
+            <br/><br/>
+            <label>Комментарий к фото<br><span>(не обязательно, не более 200 знаков)</span></label>
+            <br/>
+            <textarea name="description"></textarea>
             <br/><br/>
             <label>Укажите тип блюда</label><br/>
             <span>

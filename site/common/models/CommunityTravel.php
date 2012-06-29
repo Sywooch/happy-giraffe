@@ -79,7 +79,7 @@ class CommunityTravel extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'text' => 'Text',
+			'text' => 'Текст',
 			'content_id' => 'Content',
 		);
 	}

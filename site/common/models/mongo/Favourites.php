@@ -62,7 +62,8 @@ class Favourites extends EMongoDocument
         }
     }
 
-    public static function inFavourites($model, $index){
+    public static function inFavourites($model, $index)
+    {
         $criteria = new EMongoCriteria;
         $criteria->entity('==', get_class($model));
         $criteria->entity_id('==', (int)$model->primaryKey);

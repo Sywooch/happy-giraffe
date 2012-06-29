@@ -59,6 +59,9 @@ return array(
         'im/<action:[\w-]+>'=>'im/default/<action>',
         'geo/<action:[\w-]+>'=>'geo/geo/<action>',
 
+        'tester/'=>'services/tester/default/index',
+        'tester/<slug:[\w-]+>'=>'services/tester/default/view',
+
         'names/'=>'services/names/default/index',
         'names/top10'=>'services/names/default/top10',
         'names/saint/<m:[\w]+>'=>'services/names/default/saint',
@@ -70,9 +73,7 @@ return array(
         'names/<name:[\w]+>'=>'services/names/default/name/',
 
         'childrenDiseases/'=>'services/childrenDiseases/default/index',
-        'childrenDiseases/getAlphabetList'=>'services/childrenDiseases/default/getAlphabetList',
-        'childrenDiseases/getCategoryList'=>'services/childrenDiseases/default/getCategoryList',
-        'childrenDiseases/<url:[\w-+\s]+>'=>'services/childrenDiseases/default/view',
+        'childrenDiseases/<id:[\w-+\s]+>'=>'services/childrenDiseases/default/view',
 
 //        'recipeBook/disease/<url:\w+>'=>'recipeBook/default/disease',
 //        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',

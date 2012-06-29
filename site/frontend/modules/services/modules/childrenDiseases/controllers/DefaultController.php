@@ -3,91 +3,64 @@
 class DefaultController extends HController
 {
     public $layout = 'desease';
-    public $index = false;
     public $pageTitle = 'Справочник детских болезней';
+    public $category_id = 0;
 
     public function actionIndex()
     {
-        $this->index = true;
-        $diseases = RecipeBookDisease::model()->with(array(
-            'category' => array(
-                'select' => array('title')
-            )
-        ))->findAll(array(
-                'order' => 't.title',
-                'select' => array('id', 'title', 'slug', 'category_id'))
-        );
-        $alphabetList = RecipeBookDisease::GetDiseaseAlphabetList($diseases);
-        $categoryList = RecipeBookDisease::GetDiseaseCategoryList($diseases);
+        $categories = RecipeBookDiseaseCategory::model()->findAll();
 
         $this->render('index', array(
-            'alphabetList' => $alphabetList,
-            'categoryList' => $categoryList
+            'categories' => $categories
         ));
     }
 
-    public function actionView($url)
+    public function actionView($id)
     {
-        $model = RecipeBookDisease::model()->with(array(
-            'category' => array(
-                'select' => array('title'),
-            )
-        ))->findByAttributes(array('slug' => $url));
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        $model = $this->loadModel($id);
+        if ($model == null) {
+            $model = $this->loadCategory($id);
+            if ($model === null)
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->pageTitle = $model->title;
-        $cat = RecipeBookDisease::model()->findAll(array(
-            'order' => 't.title',
-            'select' => array('id', 'title', 'slug'),
-            'condition' => 'category_id=' . $model->category_id
-        ));
+            $this->category_id = $model->id;
+            $this->render('category', compact('model'));
+        } else {
 
-        $this->render('view', array(
-            'model' => $model,
-            'cat' => $cat
-        ));
+            $this->category_id = $model->category_id;
+            $this->pageTitle = $model->title;
+
+            $this->render('view', array(
+                'model' => $model,
+            ));
+        }
     }
 
-    public function actionGetAlphabetList()
+    /**
+     * @param int $id model id
+     * @return RecipeBookDisease
+     */
+    public function loadModel($id)
     {
-        $diseases = RecipeBookDisease::model()->findAll(array(
-            'order' => 'title',
-            'select' => array(
-                'id',
-                'title',
-                'slug'
-            ),
-        ));
-        $alphabetList = RecipeBookDisease::GetDiseaseAlphabetList($diseases);
+        $model = RecipeBookDisease::model()->with('category')->findByAttributes(array('slug' => $id));
 
-        $this->renderPartial('alphabet_list', array(
-            'alphabetList' => $alphabetList,
-        ));
+        return $model;
     }
 
-    public function actionGetCategoryList()
+    /**
+     * @param int $id model id
+     * @return RecipeBookDiseaseCategory
+     */
+    public function loadCategory($id)
     {
-        $diseases = RecipeBookDisease::model()->with(array(
-            'category' => array(
-                'select' => array('title')
-            )
-        ))->findAll(
-            array(
-                'order' => 't.title',
-                'select' => array('id', 'title', 'slug', 'category_id')
-            )
-        );
-        $categoryList = RecipeBookDisease::GetDiseaseCategoryList($diseases);
-
-        $this->renderPartial('category_list', array(
-            'categoryList' => $categoryList
-        ));
+        $model = RecipeBookDiseaseCategory::model()->findByAttributes(array('slug' => $id));
+        return $model;
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
         $diseases = RecipeBookDisease::model()->findAll();
-        foreach($diseases as $disease){
+        foreach ($diseases as $disease) {
             $disease->slug = str_replace(' ', '_', $disease->slug);
             $disease->slug = str_replace('+', '_', $disease->slug);
             $disease->slug = str_replace('-', '_', $disease->slug);

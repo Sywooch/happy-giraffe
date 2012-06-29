@@ -384,14 +384,14 @@ class AlbumsController extends HController
         $val = Yii::app()->request->getPost('id');
         if (is_numeric($val)) {
             $model = AlbumPhoto::model()->findByPk($val);
-            $model->title = CHtml::encode($title);
+            $model->title = $title;
             $model->save();
         } else {
             $model = new AlbumPhoto;
             $model->file_name = $val;
             $model->author_id = Yii::app()->user->id;
             if ($title = Yii::app()->request->getPost('title'))
-                $model->title = CHtml::encode($title);
+                $model->title = $title;
             $model->create(true);
         }
 
@@ -449,7 +449,7 @@ class AlbumsController extends HController
     {
         header('Content-type: application/json');
         $title = trim(Yii::app()->request->getPost('title'));
-        $description = CHtml::encode(trim(Yii::app()->request->getPost('description')));
+        $description = trim(Yii::app()->request->getPost('description'));
 
         $val = Yii::app()->request->getPost('val');
         if (is_numeric($val)) {

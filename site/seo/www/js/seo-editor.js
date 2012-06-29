@@ -289,7 +289,7 @@ var SeoLinking = {
             });
         }
 
-        $.post('/linking/add/', {page_id:SeoLinking.page_id, phrase_id:SeoLinking.phrase_id, keyword_id:SeoLinking.keyword_id, keyword:$('#own-keyword').val()}, function (response) {
+        $.post('/promotion/linking/add/', {page_id:SeoLinking.page_id, phrase_id:SeoLinking.phrase_id, keyword_id:SeoLinking.keyword_id, keyword:$('#own-keyword').val()}, function (response) {
             if (response.status) {
                 $('#keyword-' + SeoLinking.keyword_id).remove();
                 SeoLinking.keyword_id = null;
@@ -308,7 +308,7 @@ var SeoLinking = {
     },
     removeLink:function (el, page_id, page_to_id) {
         if (confirm("Вы точно хотите удалить ссылку?")) {
-            $.post('/linking/remove/', {page_id:page_id, page_to_id:page_to_id}, function (response) {
+            $.post('/promotion/linking/remove/', {page_id:page_id, page_to_id:page_to_id}, function (response) {
                 if (response.status)
                     $(el).parents('tr').remove();
             }, 'json');
@@ -331,7 +331,7 @@ var SeoLinking = {
     },
     getPhraseData:function (el, phrase_id) {
         $('#result').addClass('loading-block');
-        $.post('/linking/phraseInfo/', {phrase_id:phrase_id}, function (response) {
+        $.post('/promotion/linking/phraseInfo/', {phrase_id:phrase_id}, function (response) {
             $('#result').removeClass('loading-block');
             $('#result').html(response);
             $('.table-promotion-links table tr').removeClass('active');
@@ -343,7 +343,7 @@ var SeoLinking = {
         if ($(el).hasClass('active'))
             return false;
 
-        $.post('/linking/stats/', {period:period, page_id:page_id, phrase_id:SeoLinking.phrase_id}, function (response) {
+        $.post('/promotion/linking/stats/', {period:period, page_id:page_id, phrase_id:SeoLinking.phrase_id}, function (response) {
             $('.table-promotion-links tbody').html(response);
             $('.table-promotion .fast-filter a').removeClass('active');
             $(el).addClass('active');
@@ -353,7 +353,7 @@ var SeoLinking = {
         if ($(el).text() == '0')
             return false;
 
-        $.post('/linking/donors/', {page_id:page_id}, function (response) {
+        $.post('/promotion/linking/donors/', {page_id:page_id}, function (response) {
             $('#donors').html(response);
             $('#donors').show();
             var offset = $(el).offset();
@@ -362,7 +362,7 @@ var SeoLinking = {
         });
     },
     showPositions:function(el, se, phrase_id){
-        $.post('/linking/positions/', {se:se, phrase_id:phrase_id}, function (response) {
+        $.post('/promotion/linking/positions/', {se:se, phrase_id:phrase_id}, function (response) {
             $('#positions').html(response);
             $('#positions').show();
             var offset = $(el).offset();

@@ -43,7 +43,7 @@ var SeoModule = {
         }, 'json');
     },
     parseQueries:function () {
-        $.post('/queries/parse/', function (response) {
+        $.post('/promotion/queries/parse/', function (response) {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',
@@ -60,7 +60,7 @@ var SeoModule = {
         }, 'json');
     },
     parseSearch:function () {
-        $.post('/queries/search/', function (response) {
+        $.post('/promotion/queries/search/', function (response) {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',

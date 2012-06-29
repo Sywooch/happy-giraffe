@@ -42,7 +42,7 @@ Yii::app()->clientScript->registerScript('set_phrase', 'SeoLinking.phrase_id = "
             </tr>
             </thead>
             <tbody>
-            <?php $this->renderPartial('_stats',compact('period', 'goodPhrases', 'selected_phrase_id')); ?>
+            <?php $this->renderPartial('_stats',compact('period', 'goodPhrases', 'selected_phrase_id', 'page')); ?>
             </tbody>
         </table>
     </div>
@@ -79,7 +79,7 @@ Yii::app()->clientScript->registerScript('set_phrase', 'SeoLinking.phrase_id = "
 <script type="text/javascript">
     $(function () {
         $('#result').addClass('loading-block');
-        $.post('/linking/phraseInfo/', {phrase_id:<?=$selected_phrase_id ?>}, function (response) {
+        $.post('/promotion/linking/phraseInfo/', {phrase_id:<?=$selected_phrase_id ?>}, function (response) {
             $('#result').removeClass('loading-block');
             $('#result').html(response);
         });

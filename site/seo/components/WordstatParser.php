@@ -11,6 +11,7 @@ class WordstatParser extends ProxyParserThread
     public $keyword = null;
     public $next_page = '';
     public $first_page = true;
+    private $fails = 0;
 
     public function start($mode)
     {
@@ -34,10 +35,19 @@ class WordstatParser extends ProxyParserThread
                 $success = $this->parseQuery();
 
 
-                if (!$success)
-                    $this->changeBadProxy();
-                else
+                if (!$success){
+                    $this->fails++;
+                    if ($this->fails > 10){
+                        $this->removeCookieFile();
+                        $this->getCookie();
+                    }
+                    else
+                        $this->changeBadProxy();
+                }
+                else{
                     $this->success_loads++;
+                    $this->fails = 0;
+                }
 
                 if (Config::getAttribute('stop_threads') == 1)
                     $this->closeThread('manual exit');
@@ -138,7 +148,7 @@ class WordstatParser extends ProxyParserThread
         //find and add our keyword
         $k = 0;
         if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
-            YandexPopularity::addValue($this->keyword->keyword_id, $matches[1]);
+            YandexPopularity::model()->addValue($this->keyword->keyword_id, $matches[1]);
             $k = 1;
         }
         if ($k == 0)

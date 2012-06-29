@@ -213,7 +213,6 @@ class CommunityController extends HController
                 Yii::app()->end();
             }
 
-            print_r($_POST);exit;
 
             $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
@@ -242,11 +241,12 @@ class CommunityController extends HController
                                 'description' => $item['description']
                             );
                             $gi->save();
+                            print_r($gi->errors);
                         }
                     }
                 }
 
-                $this->redirect($model->url);
+                //$this->redirect($model->url);
             }
         }
 

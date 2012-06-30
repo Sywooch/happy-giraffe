@@ -121,7 +121,7 @@ class SeoCommand extends CConsoleCommand
                 }
             } else {
                 $model->priority = 5;
-                $parse->save();
+                $model->save();
             }
         }
     }

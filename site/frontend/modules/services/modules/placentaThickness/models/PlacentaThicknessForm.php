@@ -8,6 +8,7 @@ class PlacentaThicknessForm extends CFormModel
     public function rules()
     {
         return array(
+            array('thickness', 'ext.validators.positiveNumber', 'message' => 'Толщина плаценты слишком мала'),
             array('thickness', 'ext.validators.normalizeNumber', 'message' => 'Вводите цифры, допустимы дробные числа с запятой'),
             array('week', 'required', 'message' => 'Выберите свой срок беременности из списка'),
             array('thickness', 'required', 'message' => 'Укажите толщину плаценты в миллиметрах'),

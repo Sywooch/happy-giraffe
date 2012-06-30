@@ -56,6 +56,7 @@ jQuery.fn.pGallery = function(options) {
             });
 
             $('body').css('overflow', 'hidden');
+            alert(plugin.getEntityUrl() + 'photo' + plugin.data.id + '/');
             plugin.history.changeBrowserUrl(plugin.getEntityUrl() + 'photo' + plugin.data.id + '/');
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();

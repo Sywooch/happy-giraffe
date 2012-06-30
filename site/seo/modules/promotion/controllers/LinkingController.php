@@ -81,6 +81,11 @@ class LinkingController extends SController
         $this->renderPartial('_phrase_view', compact('pages', 'keywords'));
     }
 
+    /**
+     * @param PagesSearchPhrase $phrase
+     * @param Page[] $pages
+     * @return mixed
+     */
     private function filterPages($phrase, $pages)
     {
         //удалим текущий
@@ -92,6 +97,17 @@ class LinkingController extends SController
         foreach ($pages as $key => $page) {
             if (!empty($page->id) && InnerLink::model()->exists('page_id = ' . $page->id . ' and page_to_id=' . $phrase->page->id))
                 unset($pages[$key]);
+        }
+        //удалим те, с которых стоят ссылки на наш в разделе "Ещё статьи на эту тему"
+        foreach ($pages as $key => $page) {
+            $article = $phrase->page->getArticle();
+            $our_article = $page->getArticle();
+            if (!empty($article) && !empty($our_article)){
+                foreach ($article->getRelatedPosts() as $post){
+                    if ($post->id == $our_article->id)
+                        unset($pages[$key]);
+                }
+            }
         }
 
         return $pages;

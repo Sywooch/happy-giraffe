@@ -88,14 +88,34 @@ class SeoCommand extends CConsoleCommand
         $parser->start($mode);
     }
 
-    public function actionCalculateMain(){
+    public function actionCalculateMain()
+    {
         $metrica = new YandexMetrica();
         $metrica->calculateMain();
     }
 
-    public function actionDelete1Visits(){
+    public function actionDelete1Visits()
+    {
         $metrica = new YandexMetrica();
         $metrica->delete1Visits();
+    }
+
+    public function actionAddSeVisitsToWordStat()
+    {
+        $se = PagesSearchPhrase::model()->findAll();
+
+        foreach ($se as $phrase) {
+            if (!ParsingKeyword::model()->exists('keyword_id =' . $phrase->keyword_id)) {
+                $parse = new ParsingKeyword();
+                $parse->keyword_id = $phrase->keyword_id;
+                $parse->depth = 1;
+                $parse->priority = 5;
+                if (!$parse->save()){
+                    var_dump($parse->getErrors());
+                    Yii::app()->end();
+                }
+            }
+        }
     }
 }
 

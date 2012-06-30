@@ -35,17 +35,15 @@ class WordstatParser extends ProxyParserThread
                 $success = $this->parseQuery();
 
 
-                if (!$success){
+                if (!$success) {
                     $this->fails++;
-                    if ($this->fails > 10){
+                    if ($this->fails > 10) {
                         $this->removeCookieFile();
                         $this->getCookie();
                         $this->fails = 0;
-                    }
-                    else
+                    } else
                         $this->changeBadProxy();
-                }
-                else{
+                } else {
                     $this->success_loads++;
                     $this->fails = 0;
                 }
@@ -71,18 +69,26 @@ class WordstatParser extends ProxyParserThread
     {
         $this->keyword = null;
 
-        //сначала выбираем с бесконечной глубиной парсинга
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'depth IS NULL';
-        $criteria->compare('active', 0);
-
-        //затем все остальные упорядоченные по глубине парсинга
-        $criteria2 = new CDbCriteria;
-        $criteria2->compare('active', 0);
-        $criteria2->order = 'depth DESC';
-
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
+            //выбираем максимальный приоритет
+            $criteria = new CDbCriteria;
+            $criteria->order = 'priority desc';
+            $criteria->compare('active', 0);
+            $max_priority = ParsingKeyword::model()->find($criteria);
+
+            //сначала выбираем с бесконечной глубиной парсинга
+            $criteria = new CDbCriteria;
+            $criteria->condition = 'depth IS NULL';
+            $criteria->compare('active', 0);
+            $criteria->compare('priority', $max_priority->priority);
+
+            //затем все остальные упорядоченные по глубине парсинга
+            $criteria2 = new CDbCriteria;
+            $criteria2->compare('active', 0);
+            $criteria2->order = 'depth DESC';
+            $criteria2->compare('priority', $max_priority->priority);
+
             $this->keyword = ParsingKeyword::model()->find($criteria);
             if ($this->keyword === null) {
                 $this->keyword = ParsingKeyword::model()->find($criteria2);
@@ -125,7 +131,7 @@ class WordstatParser extends ProxyParserThread
             if (Config::getAttribute('stop_threads') == 1)
                 $this->closeThread('manual exit');
 
-            if (!$success){
+            if (!$success) {
                 $this->changeBadProxy();
                 $this->removeCookieFile();
             }

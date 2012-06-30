@@ -49,7 +49,6 @@ class PositionParserThread extends ProxyParserThread
     {
         $criteria = new CDbCriteria;
         $criteria->order = 't.id asc';
-        $criteria->with = array('searchEngines');
         if ($this->se === self::SE_GOOGLE)
             $criteria->condition = 'google_parsed = 0';
         else

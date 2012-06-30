@@ -29,12 +29,13 @@ Yii::app()->clientScript->registerScript('set_phrase', 'SeoLinking.phrase_id = "
             <thead>
             <tr>
                 <th rowspan="2" class="col-1">Ключевое слово иили фраза</th>
-                <th colspan="2"><i class="icon-yandex"></i></th>
+                <th colspan="3"><i class="icon-yandex"></i></th>
                 <th colspan="2"><i class="icon-google"></i></th>
                 <th rowspan="2">Общие визиты</th>
                 <th rowspan="2">Ссылок</th>
             </tr>
             <tr>
+                <th><a href="javascript:;">Частота</a></th>
                 <th>Позиции</th>
                 <th>Визиты</th>
                 <th>Позиции</th>

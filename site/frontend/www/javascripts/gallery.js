@@ -157,7 +157,7 @@ jQuery.fn.pGallery = function(options) {
     }
 
     plugin.getEntityUrl = function() {
-        return document.location.href.replace(/#1\/photo(.*)/, '');
+        return document.location.href.replace(/#!\/photo(.*)/, '');
     }
 
     if(/\/photo(\d+)/.test(document.location.href)) {

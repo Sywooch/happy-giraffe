@@ -59,6 +59,7 @@
  */
 class User extends HActiveRecord
 {
+    const HAPPY_GIRAFFE = 1;
     public $verifyCode;
     public $current_password;
     public $new_password;
@@ -389,7 +390,7 @@ class User extends HActiveRecord
 
             //коммент от веселого жирафа
             $comment = new Comment('giraffe');
-            $comment->author_id = 1;
+            $comment->author_id = User::HAPPY_GIRAFFE;
             $comment->entity = get_class($this);
             $comment->entity_id = $this->id;
             $comment->save();
@@ -507,14 +508,7 @@ class User extends HActiveRecord
         if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->id)
             return '#';
 
-//        $dialog_id = Im::model()->getDialogIdByUser($this->id);
-//        if (isset($dialog_id)) {
-//            $url = Yii::app()->createUrl('/im/default/dialog', array('id' => $dialog_id));
-//        } else {
-            $url = Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
-//        }
-
-        return $url;
+        return Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
     }
 
     public function getAssigns()

@@ -5,9 +5,8 @@
  */
 class JunkController extends HController
 {
-    function actionIndex()
+    function actionIndex($lol = null)
     {
-        $video = new Video('http://rutube.ru/tracks/4208872.html');
-        echo $video->title;
+        echo Yii::app()->request->url . Yii::app()->user->id;
     }
 }

@@ -56,7 +56,7 @@ jQuery.fn.pGallery = function(options) {
             });
 
             $('body').css('overflow', 'hidden');
-            plugin.history.changeBrowserUrl(plugin.getEntityUrl() + '#!/photo' + plugin.data.id + '/');
+            plugin.history.changeBrowserUrl(plugin.getEntityUrl().replace('happy-giraffe.ru/', 'happy-giraffe.ru/#!/') + '#!/photo' + plugin.data.id + '/');
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
@@ -101,7 +101,7 @@ jQuery.fn.pGallery = function(options) {
         /*$('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');*/
 
         $.get(base_url + '/albums/wPhoto/', data, function(html) {
-            plugin.history.changeBrowserUrl(plugin.getEntityUrl() + '#!/photo' + plugin.data.id + '/');
+            plugin.history.changeBrowserUrl(plugin.getEntityUrl() + 'photo' + plugin.data.id + '/');
             $('#w-photo-content', plugin.window).html(html);
             link.parent().siblings('li.active').removeClass('active');
             link.parent().addClass('active');
@@ -157,7 +157,7 @@ jQuery.fn.pGallery = function(options) {
     }
 
     plugin.getEntityUrl = function() {
-        return document.location.href.replace(/#!\/photo(.*)/, '');
+        return document.location.href.replace(/photo(.*)/, '');
     }
 
     if(/\/photo(\d+)/.test(document.location.href)) {

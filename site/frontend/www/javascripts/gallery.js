@@ -101,7 +101,7 @@ jQuery.fn.pGallery = function(options) {
         /*$('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');*/
 
         $.get(base_url + '/albums/wPhoto/', data, function(html) {
-            plugin.history.changeBrowserUrl(plugin.getEntityUrl() + 'photo' + plugin.data.id + '/');
+            plugin.history.changeBrowserUrl(plugin.getEntityUrl() + '#!/photo' + plugin.data.id + '/');
             $('#w-photo-content', plugin.window).html(html);
             link.parent().siblings('li.active').removeClass('active');
             link.parent().addClass('active');

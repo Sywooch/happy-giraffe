@@ -56,7 +56,10 @@ jQuery.fn.pGallery = function(options) {
             });
 
             $('body').css('overflow', 'hidden');
-            plugin.history.changeBrowserUrl(plugin.getEntityUrl().replace('happy-giraffe.ru/', 'happy-giraffe.ru/#!/') + 'photo' + plugin.data.id + '/');
+            var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
+            yaCounter11221648.hit(newUrl);
+            _gaq.push(['_trackPageview', newUrl]);
+            plugin.history.changeBrowserUrl(newUrl);
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
@@ -157,7 +160,7 @@ jQuery.fn.pGallery = function(options) {
     }
 
     plugin.getEntityUrl = function() {
-        return document.location.href.replace(/photo(.*)/, '').replace('#!/', '');
+        return document.location.href.replace(/photo(.*)/, '');
     }
 
     if(/\/photo(\d+)/.test(document.location.href)) {

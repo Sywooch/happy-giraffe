@@ -105,15 +105,23 @@ class SeoCommand extends CConsoleCommand
         $se = PagesSearchPhrase::model()->findAll();
 
         foreach ($se as $phrase) {
-            if (!ParsingKeyword::model()->exists('keyword_id =' . $phrase->keyword_id)) {
+            $parsed = ParsedKeywords::model()->find('keyword_id =' . $phrase->keyword_id);
+            if ($parsed !== null)
+                continue;
+
+            $model = ParsingKeyword::model()->find('keyword_id =' . $phrase->keyword_id);
+            if ($model === null) {
                 $parse = new ParsingKeyword();
                 $parse->keyword_id = $phrase->keyword_id;
                 $parse->depth = 1;
                 $parse->priority = 5;
-                if (!$parse->save()){
+                if (!$parse->save()) {
                     var_dump($parse->getErrors());
                     Yii::app()->end();
                 }
+            } else {
+                $model->priority = 5;
+                $parse->save();
             }
         }
     }

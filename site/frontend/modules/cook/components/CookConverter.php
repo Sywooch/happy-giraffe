@@ -182,8 +182,10 @@ class CookConverter extends CComponent
             }
         }
 
-        foreach ($result['total']['nutritionals'] as $key => $n) {
-            $result['g100']['nutritionals'][$key] = $n * (100 / $result['total']['weight']);
+        if ($result['total']['weight'] > 0) {
+            foreach ($result['total']['nutritionals'] as $key => $n) {
+                $result['g100']['nutritionals'][$key] = $n * (100 / $result['total']['weight']);
+            }
         }
 
         return $result;

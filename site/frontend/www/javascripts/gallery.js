@@ -57,9 +57,9 @@ jQuery.fn.pGallery = function(options) {
 
             $('body').css('overflow', 'hidden');
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
-            yaCounter11221648.hit(newUrl);
-            _gaq.push(['_trackPageview', str_replace('http://dev.happy-giraffe.ru', '', newUrl)]);
-            console.log(newUrl);
+            yaCounter11221648.hit(str_replace('http://'+window.location.hostname, '', newUrl));
+            _gaq.push(['_trackPageview', str_replace('http://'+window.location.hostname, '', newUrl)]);
+            console.log(str_replace('http://'+window.location.hostname, '', newUrl));
             plugin.history.changeBrowserUrl(newUrl);
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
@@ -106,8 +106,8 @@ jQuery.fn.pGallery = function(options) {
 
         $.get(base_url + '/albums/wPhoto/', data, function(html) {
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
-            plugin.history.changeBrowserUrl(newUrl);
-            _gaq.push(['_trackPageview', str_replace('http://dev.happy-giraffe.ru', '', newUrl)]);
+            plugin.history.changeBrowserUrl(str_replace('http://'+window.location.hostname, '', newUrl));
+            _gaq.push(['_trackPageview', str_replace('http://'+window.location.hostname, '', newUrl)]);
             console.log(newUrl);
 
             $('#w-photo-content', plugin.window).html(html);

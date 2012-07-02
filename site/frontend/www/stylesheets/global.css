@@ -66,7 +66,8 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
     background: #fff;
 }
 
-.entry .entry-header a.entry-title, .entry .entry-header h1 {
+
+.entry  a.entry-title, .entry  h1 {
     display: block;
     font: bold 25px Arial, Tahoma, sans-serif;
     color: #0281b0;
@@ -76,6 +77,10 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .entry-footer {
     font-size: 12px;
 }
+
+.entry-body {position:relative;padding-top:75px;}
+.entry-body .entry-content {}
+.entry-body .entry-header {position:absolute;top:0;left:0;width:100%;}
 
 .entry .entry-header .where {float:left;}
 .entry .entry-header .where span {display:inline-block;vertical-align:middle;font-size:22px;color:#535454;padding-right:10px;}
@@ -3274,10 +3279,17 @@ ul.letters li a:hover {
 #repair-ceiling .form .title h1 {font:bold 40px/1 tahoma, arial, helvetica, sans-serif;color:#3e3e3e;margin-bottom:0px;}
 #repair-ceiling .form .title span {color:#a37fc6;font:bold 40px/1 tahoma, arial, helvetica, sans-serif;text-transform:uppercase;display:block;margin-bottom:10px;}
 #repair-ceiling .form .title p {font-size:13px;color:#434343;width:480px;}
+
+#repair-ceiling .form .form-in {margin-top:20px;width:355px;}
+#repair-ceiling .form .form-in .row {padding:15px 25px 15px;background:#e5d8ef;background:rgba(229,216,239,0.85);font-size:15px;}
+#repair-ceiling .form .form-in .row sup {font-size:10px;}
+#repair-ceiling .form .form-in .row input[type=text] {padding:5px 10px;font-size:16px;color:#906ab6;width:25px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #cdb9dc;vertical-align:top;height:16px;line-height:16px;}
+
 #repair-ceiling .form .form-in {margin-top:20px;width:370px;}
 #repair-ceiling .form .form-in .row {padding:15px 25px 10px;background:#e5d8ef;background:rgba(229,216,239,0.85);font-size:15px;}
 #repair-ceiling .form .form-in .row sup {font-size:10px;}
 #repair-ceiling .form .form-in .row input[type=text] {padding:5px 10px;font-size:16px;color:#906ab6;width:40px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #cdb9dc;vertical-align:top;height:16px;line-height:16px;}
+
 #repair-ceiling .form .form-in .row .small {padding-top:15px;}
 #repair-ceiling .form .form-in .row .small > span {font-size:16px;color:#4c4d4d;font-weight:bold;}
 
@@ -4064,15 +4076,6 @@ ul.letters li a:hover {
 
 #measure .wysiwyg-content{ padding: 0 30px}
 
-.drp-list {display:inline-block;position:relative;font-size:13px;}
-.drp-list a.trigger {text-decoration:none;border-bottom:1px dashed #598DD6;color:#598DD6;font-size:16px;position:relative;z-index:1;}
-.drp-list a.trigger:hover {border:0;}
-.drp-list ul {padding:2px;border:1px solid #A9C8F3;position:absolute;top:100%;list-style:none;background:#fff;margin-top:5px;z-index:2; width:120px}
-.drp-list ul li a {display:block;padding:1px 10px 1px;text-decoration:none;color:#4b4d4d;}
-.drp-list ul li a:hover {background:#6db4d9;color:#fff;}
-
-
-
 #dishes {}
 
 #dishes .title {padding:50px 40px;background:url(/images/bg_dishes_title.jpg) no-repeat right;border:1px solid #dbe4f1;height:114px;margin-bottom:25px;}
@@ -4087,25 +4090,13 @@ ul.letters li a:hover {
 #dishes .dishes-cats ul li .cook-cat {vertical-align:bottom;width:70px;display:inline-block;}
 #dishes .dishes-cats ul li .cook-cat span {height:4em;display:block;}
 
-#dishes .dishes-list {padding:0 15px;}
-#dishes .dishes-list .block-title {overflow:hidden;}
+#dishes .dishes-list {}
+#dishes .dishes-list .block-title {overflow:hidden;margin-bottom:40px;}
 #dishes .dishes-list .block-title h1 {margin-top:37px;width:600px;margin-left:35px;line-height:1;}
 #dishes .dishes-list .block-title .add-photo {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#939292;width:235px;float:right;}
 #dishes .dishes-list .block-title .add-photo .btn {margin:5px 0 0 -5px;}
 #dishes .dishes-list .block-title .add-photo .btn span {font-weight:bold;text-transform:none;font-family:arial, helvetica, sans-serif;font-size:20px;}
-#dishes .dishes-list ul {list-style:none;}
-#dishes .dishes-list ul li.dish {width:240px;padding:40px 35px 0px;float:left; height:230px}
-#dishes .dishes-list ul li.dish .user-info {margin-bottom:5px; height:41px}
-#dishes .dishes-list ul li.dish .user-info .details {margin-left:30px;}
-#dishes .dishes-list ul li.dish .user-info .details .username {width:180px;}
-#dishes .dishes-list ul li.dish .img {position:relative;}
-#dishes .dishes-list ul li.dish .img img {display:block;}
-#dishes .dishes-list ul li.dish .btn-look {position:absolute;left:50%;top:50%;background:#fff;height:30px;line-height:30px;color:#777;font-size:16px;text-decoration:none;width:124px;text-align:center;margin-left:-62px;margin-top:-15px;}
-#dishes .dishes-list ul li.dish .btn-look {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;background:rgba(255,255,255,0.7);behavior: url(/stylesheets/PIE.htc);}
-#dishes .dishes-list ul li.dish .img:hover .btn-look {background:#24b828;color:#fff;}
-#dishes .dishes-list ul li.dish .img:hover .btn-look {/*css3*/ background:rgba(36, 184, 40, 0.8)}
-#dishes .dishes-list ul li.dish .item-title {background:#ededed;padding:4px 15px;height:22px;font-size:10px;line-height:11px;font-style:italic;text-align:center;display:table-cell;vertical-align:middle;width:210px;color:#626161;}
-#dishes .dishes-list .pager{ clear: both;}
+
 
 #cook-add-recipe {}
 
@@ -4193,7 +4184,7 @@ ul.letters li a:hover {
 #cook-recipe .recipe-categories ul li.active {/*css3*/ -moz-border-radius:10px 0 0 8px;-webkit-border-radius:10px 0 0 8px;border-radius:10px 0 0 8px;behavior: url(/stylesheets/PIE.htc);}
 #cook-recipe .recipe-categories ul li .cook-cat {display:inline-block;vertical-align:middle;}
 #cook-recipe .recipe-categories ul li .count {display:inline-block;color:#616061;position:relative;font-size:10px;text-decoration:none;vertical-align:top;width:40px;margin-right:-40px;text-align:left;white-space:nowrap;position:relative;}
-#cook-recipe .recipe-categories ul li.active .count {font-size:25px;vertical-align:middle;width:auto;margin-right:0;left:0;}
+#cook-recipe .recipe-categories ul li.active .count {font-size:25px;vertical-align:middle;width:auto;margin-right:0;left:0;left:-15px;}
 
 #cook-recipe .hrecipe {color:#020202;padding-bottom:30px;}
 
@@ -4514,6 +4505,10 @@ ul.letters li a:hover {
 
 .disease-cat .icon-disease-15 {width:23px;height:33px;background-position:0 -516px;}
 .disease-cat.active .icon-disease-15, .disease-cat:hover .icon-disease-15 {background-position:-70px -516px;}
+
+
+.disease-cat .icon-disease-18 {width:35px;height:31px;background-position:0 -549px;}
+.disease-cat.active .icon-disease-18, .disease-cat:hover .icon-disease-18 {background-position:-70px -549px;}
 
 .disease-cat .icon-disease-4 {width:35px;height:31px;background-position:0 -549px;}
 .disease-cat.active .icon-disease-4, .disease-cat:hover .icon-disease-4 {background-position:-70px -549px;}

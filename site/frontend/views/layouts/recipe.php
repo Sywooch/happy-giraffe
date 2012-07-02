@@ -56,7 +56,7 @@
                         <a href="<?=isset($_GET['text'])?
                             $this->createUrl('/cook/recipe/search', array('text'=>$_GET['text']))
                             :
-                            $this->createUrl('/cook/recipe/index')?>" class="cook-cat">
+                            $this->createUrl('/cook/recipe')?>" class="cook-cat">
                             <i class="icon-cook-cat icon-recipe-0"></i>
                             <span>Все рецепты</span>
 
@@ -68,7 +68,7 @@
                             <a href="<?=isset($_GET['text'])?
                                 $this->createUrl('/cook/recipe/search', array('type' => $id, 'text'=>$_GET['text']))
                                 :
-                                $this->createUrl('/cook/recipe/index', array('type' => $id))
+                                $this->createUrl('/cook/recipe', array('type' => $id))
                                 ?>" class="cook-cat">
                                 <i class="icon-cook-cat icon-recipe-<?=$id?>"></i>
                                 <?php if ($this->currentType != $id): ?><span class="count"><?=isset($this->counts[$id])?$this->counts[$id]:0?></span><?php endif; ?>

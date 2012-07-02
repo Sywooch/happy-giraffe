@@ -59,6 +59,7 @@ jQuery.fn.pGallery = function(options) {
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             yaCounter11221648.hit(newUrl);
             _gaq.push(['_trackPageview', newUrl]);
+            console.log(newUrl);
             plugin.history.changeBrowserUrl(newUrl);
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();

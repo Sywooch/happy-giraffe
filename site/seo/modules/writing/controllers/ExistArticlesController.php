@@ -6,6 +6,7 @@
 class ExistArticlesController extends SController
 {
     public $pageTitle = 'ГОТОВОЕ';
+    public $layout = '//layouts/empty';
 
     public function beforeAction($action)
     {

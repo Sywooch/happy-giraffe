@@ -135,5 +135,6 @@ return array(
 
         array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 
+        'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
     ),
 );

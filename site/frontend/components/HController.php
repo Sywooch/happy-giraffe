@@ -46,7 +46,7 @@ class HController extends CController
         $cacheId = 'seoHide_' . $hash;
         Yii::app()->cache->set($cacheId, $js);
 
-        Yii::app()->clientScript->registerScriptFile('js_dynamics/' . $hash . '.js', CClientScript::POS_END);
+        Yii::app()->clientScript->registerScriptFile('/js_dynamics/' . $hash . '.js', CClientScript::POS_END);
 
         return parent::afterRender($view, $output);
     }

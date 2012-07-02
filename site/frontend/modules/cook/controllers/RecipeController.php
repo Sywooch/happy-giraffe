@@ -147,7 +147,7 @@ class RecipeController extends HController
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');
 
-        if (! preg_match('\/cook\/recipe\/(\d+)\/', Yii::app()->request->requestUri)) {
+        if (! preg_match('#^\/cook\/recipe\/(\d+)\/#', Yii::app()->request->requestUri)) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: " . $recipe->url);
             Yii::app()->end();

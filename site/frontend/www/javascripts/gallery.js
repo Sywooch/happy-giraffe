@@ -104,6 +104,7 @@ jQuery.fn.pGallery = function(options) {
 
         $.get(base_url + '/albums/wPhoto/', data, function(html) {
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
+            plugin.history.changeBrowserUrl(newUrl);
             saveAsAjaxView(newUrl);
 
             $('#w-photo-content', plugin.window).html(html);
@@ -184,7 +185,7 @@ jQuery.fn.pGallery = function(options) {
 }
 
 function saveAsAjaxView(url){
-    url = str_replace('http://'+window.location.hostname, '', newUrl);
+    var url = str_replace('http://'+window.location.hostname, '', url);
     _gaq.push(['_trackPageview', url]);
     yaCounter11221648.hit(url);
     console.log(url);

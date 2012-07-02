@@ -14,7 +14,7 @@
 
         <div class="meta">
             <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created)?></div>
-            <div class="seen">Просмотров:&nbsp;<span><?=$this->getViews()?></span></div><br>
+            <div class="seen">Просмотров:&nbsp;<span><?=PageView::model()->viewsByPath($recipe->url)?></span></div><br>
             <a href="<?=$data->getUrl(true)?>">Комментариев: <?php echo $data->commentsCount; ?></a>
         </div>
 

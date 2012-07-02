@@ -104,6 +104,7 @@ jQuery.fn.pGallery = function(options) {
 
         $.get(base_url + '/albums/wPhoto/', data, function(html) {
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
+            plugin.history.changeBrowserUrl(newUrl);
             saveAsAjaxView(newUrl);
 
             $('#w-photo-content', plugin.window).html(html);

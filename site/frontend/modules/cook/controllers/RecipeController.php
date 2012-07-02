@@ -143,14 +143,20 @@ class RecipeController extends HController
 
     public function actionView($id)
     {
-        $this->layout = '//layouts/recipe';
-
         $recipe = CookRecipe::model()->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');
 
+        if (! preg_match('\/cook\/recipe\/(\d+)\/', Yii::app()->request->requestUri)) {
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: " . $recipe->url);
+            Yii::app()->end();
+        }
+
         $this->counts = CookRecipe::model()->counts;
         $this->currentType = $recipe->type;
+        $this->layout = '//layouts/recipe';
+        $this->pageTitle = $recipe->title;
 
         $this->render('view', compact('recipe'));
     }

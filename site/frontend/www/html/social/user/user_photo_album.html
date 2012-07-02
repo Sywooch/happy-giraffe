@@ -19,7 +19,26 @@
 	
 	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	
+	<script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
+	
+	<script>
+		
+		$(function(){
+		  
+		    var $container = $('.gallery-photos');
+
+			$container.imagesLoaded( function(){
+			    $container.masonry({
+					itemSelector : 'li',
+					columnWidth: 240
+			    });
+			});
+			
+		});
+		
+	</script>
 	
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
@@ -429,179 +448,131 @@
 		<div id="content" class="clearfix">
 			
 			<div id="user">
-				
-				<div class="header clearfix">
-					
-					<div class="user-info clearfix">
-						<div class="ava"></div>
-						<div class="details">
-							<span class="icon-status status-online"></span><a href="" class="username">Дарья</a>
-							<div class="location">
-								<div class="flag flag-ru"></div>
-								Гаврилов-Ям
-							</div>
-							<div class="user-fast-buttons clearfix">
-								<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-								<a href="" class="remove-friend"><span class="tip">Удалить из друзей</span></a>
-								<a href="" class="pending-friend"><span class="tip">Приглашение выслано</span></a>
-								<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-							</div>
-						</div>
-					</div>
-					
-					<div class="user-nav default-nav">
-						<ul>
-							<li><a href="">Анкета</a></li>
-							<li><a href="">Блог</a></li>
-							<li class="active"><a href="">Фото</a></li>
-							<li><a href="">Друзья</a></li>
-							<li><a href="">Клубы</a></li>
-						</ul>
-					</div>
-					
-				</div>
-				
+								
 				<div class="main">
 					<div class="main-in">
 						
+						<div class="content-title-new">
+							Альбом «Зимние каникулы»
+							<span>Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя. </span>
+						</div>
+						
 						<div id="gallery" class="nopadding">
 						
-							<div class="header">
+							<div class="gallery-photos cols-3 clearfix">
 								
-								<div class="title">
-										<big>Альбом <span>«Поездка в Турцию»</span></big>
-										<div class="note">								
-											<p>Бархатная осень, жаркое лето на золотистых пляжах и ночи, приправленные капелькой страсти. Словом, перефразируя одного сказочного героя ...</p>
-										</div>
-									</div>
-								
-							</div>
-							
-							<div class="gallery-photos clearfix">
-							
 								<ul>
 									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex1.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_01.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 									</li>
 									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
-											</tr>
-											
-										</table>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_02.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 									</li>
 									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex3.jpg" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_03.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 									</li>
 									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex1.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_04.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 									</li>
 									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
-											</tr>
-											
-										</table>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_05.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 									</li>
 									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex3.jpg" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_06.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 									</li>
 									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex1.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_07.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 									</li>
 									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
-											</tr>
-											
-										</table>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_08.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 									</li>
 									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex3.jpg" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_09.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 									</li>
 									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex1.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center"><div>Наш дайвинг</div></td>
-											</tr>
-											
-										</table>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_10.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 									</li>
 									<li>
-										<table>
-											<tr>
-												<td class="img"><div><a href=""><img src="/images/example/ex2.png" /></a></div></td>
-											</tr>
-											<tr class="title">
-												<td align="center" width="1%"><div>Наш дайвинг и еще много много текста</div></td>									
-											</tr>
-											
-										</table>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_11.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 									</li>
+									<li>
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_12.jpg" />
+												<span class="btn">Посмотреть</span>
+											</a>
+										</div>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+									</li>
+									
 								</ul>
+								
 							</div>
 							
 							
@@ -612,58 +583,41 @@
 				
 				<div class="side-left gallery-sidebar">
 					
-					<div class="default-v-nav">
-						<div class="title">Мои альбомы </div>
+					<div class="clearfix">
+						<div class="user-info">
+							<div class="ava female"></div>
+							<div class="details">
+								<span class="icon-status status-online"></span>
+								<a href="" class="username">Александр Богоявленский</a>
+								<div class="user-fast-buttons">
+									<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+									<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+								</div>
+								<div class="user-fast-nav">
+									<ul>
+										<a href="">Анкета</a> &nbsp;|&nbsp; <a href="">Блог</a> &nbsp;|&nbsp; <span class="drp-list"><a href="" class="more">Еще</a><ul><li><a href="">Семья</a></li><li><a href="">Друзья</a></li></ul>
+										</span>
+									</ul>
+								</div>
+							</div>
+							<div class="text-status">
+								<p>Привет всем! У меня все ok! Единственное, что имеет значение.</p>
+								<span class="tale"></span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="club-topics-list-new">
+							
+						<div class="block-title">Мои альбомы</div>
+						
 						<ul>
-							<li>
-								<div class="in">
-									<a href="">Личные</a>
-									<span class="count">2</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li>
-								<div class="in">
-									<a href="">Моя семья</a>
-									<span class="count">22</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li class="active">
-								<div class="in">
-									<a href="">Поездка в Турцию</a>
-									<span class="count">222</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li>
-								<div class="in">
-									<a href="">Наша свадьба</a>
-									<span class="count">2</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li class="active">
-								<div class="in">
-									<a href="">Дача и все связанное с огородом</a>
-									<span class="count">22</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li>
-								<div class="in">
-									<a href="">Моя работа</a>
-									<span class="count">22</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
-							<li>
-								<div class="in">
-									<a href="">Мое творчество</a>
-									<span class="count">2</span>
-									<span class="tale"><img src="/images/default_v_nav_active.png" /></span>
-								</div>
-							</li>
+							<li class="active"><span><a href="">Зимние каникулы</a></span><div class="count">15</div></li>
+							<li><span><a href="">Фотография</a></span><div class="count">15</div></li>
+							<li><span><a href="">Прикольное видео и другие фишки</a></span><div class="count">15</div></li>
+							<li><span><a href="">Школа восточного танца</a></span><div class="count">15</div></li>
+							<li><span><a href="">Футбол</a></span><div class="count">15</div></li>
+							<li><span><a href="">Детские передачи</a></span><div class="count">15</div></li>
 						</ul>
 						
 					</div>

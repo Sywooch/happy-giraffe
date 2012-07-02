@@ -108,7 +108,8 @@ jQuery.fn.pGallery = function(options) {
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             plugin.history.changeBrowserUrl(str_replace('http://'+window.location.hostname, '', newUrl));
             _gaq.push(['_trackPageview', str_replace('http://'+window.location.hostname, '', newUrl)]);
-            console.log(newUrl);
+            yaCounter11221648.hit(str_replace('http://'+window.location.hostname, '', newUrl));
+            console.log(str_replace('http://'+window.location.hostname, '', newUrl));
 
             $('#w-photo-content', plugin.window).html(html);
             link.parent().siblings('li.active').removeClass('active');

@@ -3,7 +3,7 @@ class positiveNumber extends CValidator
 {
     protected function validateAttribute($object, $attribute)
     {
-        if ($object->$attribute <= 0) {
+        if ($object->$attribute < 0) {
             $labels = $object->attributeLabels();
             $message = false;
             foreach ($object->rules() as $rule) {

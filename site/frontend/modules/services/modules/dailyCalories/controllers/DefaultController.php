@@ -29,7 +29,6 @@ class DefaultController extends HController
             $result['html'] = $this->renderPartial('_result', array('result' => $model->calculate()), true);
             header('Content-type: application/json');
             echo CJSON::encode($result);
-            //echo CJSON::encode($model->calculate());
         }
     }
 }

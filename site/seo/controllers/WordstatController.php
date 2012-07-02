@@ -8,6 +8,8 @@ class WordstatController extends SController
     public $cookie = '';
     public $session = 1;
 
+    public $layout = '//layouts/empty';
+
     public function beforeAction($action)
     {
         if (!Yii::app()->user->checkAccess('admin'))

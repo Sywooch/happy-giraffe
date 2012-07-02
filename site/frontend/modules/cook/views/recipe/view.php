@@ -21,7 +21,11 @@
         }
     ";
 
-    $cs->registerScript('cookRecipeView', $js, CClientScript::POS_HEAD);
+    $cs
+        ->registerScript('cookRecipeView', $js, CClientScript::POS_HEAD)
+        ->registerMetaTag(trim(Str::truncate(strip_tags($recipe->text), 90)), 'description')
+        ->registerMetaTag('', 'keywords')
+    ;
 ?>
 
 <div class="entry hrecipe clearfix">

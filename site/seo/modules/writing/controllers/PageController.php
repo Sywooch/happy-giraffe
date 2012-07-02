@@ -3,7 +3,7 @@
 class PageController extends SController
 {
 	public $defaultAction='admin';
-    public $layout = '//layouts/writing';
+    public $layout = '//layouts/empty';
 
     public function beforeAction($action)
     {

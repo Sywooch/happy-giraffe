@@ -22,7 +22,7 @@
         <?php endif; ?>
 
         <noindex>
-            <?php if (! $data->by_happy_giraffe): ?>
+            <?php if (! $data->by_happy_giraffe && $data->author_id != User::HAPPY_GIRAFFE): ?>
                 <div class="user">
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
                 </div>

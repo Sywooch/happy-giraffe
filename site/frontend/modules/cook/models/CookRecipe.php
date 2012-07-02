@@ -110,7 +110,7 @@ class CookRecipe extends CActiveRecord
             array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
             array('type', 'in', 'range' => array_keys($this->types)),
             array('servings', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 10),
-            array('preparation_duration, cooking_duration', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 999),
+            array('preparation_duration, cooking_duration', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 9999),
             array('preparation_duration_h, preparation_duration_m, cooking_duration_h, cooking_duration_m', 'safe'),
             array('cuisine_id', 'default', 'value' => null),
             array('photo_id', 'default', 'value' => null),

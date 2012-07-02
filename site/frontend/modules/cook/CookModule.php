@@ -18,8 +18,8 @@ class CookModule extends CWebModule
 	{
 		if(parent::beforeControllerAction($controller, $action))
 		{
-			// this method is called before any module controller action is performed
-			// you may place customized code here
+			if ($controller->id != 'recipe' || $action->id != 'view')
+                Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 			return true;
 		}
 		else

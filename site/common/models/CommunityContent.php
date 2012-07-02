@@ -470,6 +470,9 @@ class CommunityContent extends HActiveRecord
         ));
     }
 
+    /**
+     * @return CommunityContent[]
+     */
     public function getRelatedPosts()
     {
         if (! $this->isFromBlog) {

@@ -7,6 +7,7 @@
  * @property integer $keyword_id
  * @property integer $depth
  * @property integer $active
+ * @property integer $priority
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
@@ -46,7 +47,8 @@ class ParsingKeyword extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('keyword_id', 'required'),
-			array('keyword_id, active, depth', 'numerical', 'integerOnly'=>true),
+			array('keyword_id, active, depth, priority', 'numerical', 'integerOnly'=>true),
+			array('priority', 'default', 'value'=>0, 'setOnEmpty'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('keyword_id, active, depth', 'safe', 'on'=>'search'),
@@ -89,6 +91,7 @@ class ParsingKeyword extends HActiveRecord
 
 		$criteria->compare('keyword_id',$this->keyword_id);
 		$criteria->compare('active',$this->active);
+		$criteria->compare('priority',$this->priority);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

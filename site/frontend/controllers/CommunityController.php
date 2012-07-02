@@ -313,7 +313,7 @@ class CommunityController extends HController
         if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
         {
             $model->attributes = $_POST['CommunityContent'];
-            $model->author_id = $model->by_happy_giraffe ? 1 : Yii::app()->user->id;
+            $model->author_id = $model->by_happy_giraffe ? User::HAPPY_GIRAFFE : Yii::app()->user->id;
             $slave_model->attributes = $_POST[$slave_model_name];
 
             if(Yii::app()->request->getPost('ajax') && $_POST['ajax']==='community-form')

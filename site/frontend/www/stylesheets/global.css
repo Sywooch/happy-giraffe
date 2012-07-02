@@ -66,6 +66,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
     background: #fff;
 }
 
+
 .entry  a.entry-title, .entry  h1 {
     display: block;
     font: bold 25px Arial, Tahoma, sans-serif;
@@ -76,7 +77,6 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .entry-footer {
     font-size: 12px;
 }
-
 
 .entry-body {position:relative;padding-top:75px;}
 .entry-body .entry-content {}
@@ -282,10 +282,6 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .entry .entry-footer .comm span {
     font-size: 12px;
 }
-
-
-
-
 
 .content-more {
 	padding-bottom:20px;
@@ -3283,10 +3279,17 @@ ul.letters li a:hover {
 #repair-ceiling .form .title h1 {font:bold 40px/1 tahoma, arial, helvetica, sans-serif;color:#3e3e3e;margin-bottom:0px;}
 #repair-ceiling .form .title span {color:#a37fc6;font:bold 40px/1 tahoma, arial, helvetica, sans-serif;text-transform:uppercase;display:block;margin-bottom:10px;}
 #repair-ceiling .form .title p {font-size:13px;color:#434343;width:480px;}
+
 #repair-ceiling .form .form-in {margin-top:20px;width:355px;}
 #repair-ceiling .form .form-in .row {padding:15px 25px 15px;background:#e5d8ef;background:rgba(229,216,239,0.85);font-size:15px;}
 #repair-ceiling .form .form-in .row sup {font-size:10px;}
 #repair-ceiling .form .form-in .row input[type=text] {padding:5px 10px;font-size:16px;color:#906ab6;width:25px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #cdb9dc;vertical-align:top;height:16px;line-height:16px;}
+
+#repair-ceiling .form .form-in {margin-top:20px;width:370px;}
+#repair-ceiling .form .form-in .row {padding:15px 25px 10px;background:#e5d8ef;background:rgba(229,216,239,0.85);font-size:15px;}
+#repair-ceiling .form .form-in .row sup {font-size:10px;}
+#repair-ceiling .form .form-in .row input[type=text] {padding:5px 10px;font-size:16px;color:#906ab6;width:40px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #cdb9dc;vertical-align:top;height:16px;line-height:16px;}
+
 #repair-ceiling .form .form-in .row .small {padding-top:15px;}
 #repair-ceiling .form .form-in .row .small > span {font-size:16px;color:#4c4d4d;font-weight:bold;}
 
@@ -4095,7 +4098,6 @@ ul.letters li a:hover {
 #dishes .dishes-list .block-title .add-photo .btn span {font-weight:bold;text-transform:none;font-family:arial, helvetica, sans-serif;font-size:20px;}
 
 
-
 #cook-add-recipe {}
 
 #cook-add-recipe .title {color:#7f5ca1;font-size:25px;font-weight:bold;text-align:center;padding:15px 0;}
@@ -4453,56 +4455,60 @@ ul.letters li a:hover {
 .disease-cat .icon-disease-0 {width:28px;height:35px;background-position:0 0px;}
 .disease-cat.active .icon-disease-0, .disease-cat:hover .icon-disease-0 {background-position:-70px 0px;}
 
-.disease-cat .icon-disease-1 {width:30px;height:30px;background-position:0 -36px;}
-.disease-cat.active .icon-disease-1, .disease-cat:hover .icon-disease-1 {background-position:-70px -36px;}
+.disease-cat .icon-disease-5 {width:30px;height:30px;background-position:0 -36px;}
+.disease-cat.active .icon-disease-5, .disease-cat:hover .icon-disease-5 {background-position:-70px -36px;}
 
-.disease-cat .icon-disease-2 {width:32px;height:33px;background-position:0 -66px;}
-.disease-cat.active .icon-disease-2, .disease-cat:hover .icon-disease-2 {background-position:-70px -66px;}
+.disease-cat .icon-disease-7 {width:32px;height:33px;background-position:0 -66px;}
+.disease-cat.active .icon-disease-7, .disease-cat:hover .icon-disease-7 {background-position:-70px -66px;}
 
-.disease-cat .icon-disease-3 {width:31px;height:23px;background-position:0 -99px;}
-.disease-cat.active .icon-disease-3, .disease-cat:hover .icon-disease-3 {background-position:-70px -99px;}
+.disease-cat .icon-disease-10 {width:31px;height:23px;background-position:0 -99px;}
+.disease-cat.active .icon-disease-10, .disease-cat:hover .icon-disease-10 {background-position:-70px -99px;}
 
-.disease-cat .icon-disease-4 {width:30px;height:35px;background-position:0 -122px;}
-.disease-cat.active .icon-disease-4, .disease-cat:hover .icon-disease-4 {background-position:-70px -122px;}
+.disease-cat .icon-disease-13 {width:30px;height:35px;background-position:0 -122px;}
+.disease-cat.active .icon-disease-13, .disease-cat:hover .icon-disease-13 {background-position:-70px -122px;}
 
-.disease-cat .icon-disease-5 {width:27px;height:35px;background-position:0 -157px;}
-.disease-cat.active .icon-disease-5, .disease-cat:hover .icon-disease-5 {background-position:-70px -157px;}
+.disease-cat .icon-disease-18 {width:27px;height:35px;background-position:0 -157px;}
+.disease-cat.active .icon-disease-18, .disease-cat:hover .icon-disease-18 {background-position:-70px -157px;}
 
-.disease-cat .icon-disease-6 {width:37px;height:28px;background-position:0 -192px;}
-.disease-cat.active .icon-disease-6, .disease-cat:hover .icon-disease-6 {background-position:-70px -192px;}
+.disease-cat .icon-disease-3 {width:37px;height:28px;background-position:0 -192px;}
+.disease-cat.active .icon-disease-3, .disease-cat:hover .icon-disease-3 {background-position:-70px -192px;}
 
-.disease-cat .icon-disease-7 {width:30px;height:31px;background-position:0 -220px;}
-.disease-cat.active .icon-disease-7, .disease-cat:hover .icon-disease-7 {background-position:-70px -220px;}
+.disease-cat .icon-disease-17 {width:30px;height:31px;background-position:0 -220px;}
+.disease-cat.active .icon-disease-17, .disease-cat:hover .icon-disease-17 {background-position:-70px -220px;}
 
-.disease-cat .icon-disease-8 {width:39px;height:21px;background-position:0 -251px;}
-.disease-cat.active .icon-disease-8, .disease-cat:hover .icon-disease-8 {background-position:-70px -251px;}
+.disease-cat .icon-disease-11 {width:39px;height:21px;background-position:0 -251px;}
+.disease-cat.active .icon-disease-11, .disease-cat:hover .icon-disease-11 {background-position:-70px -251px;}
 
-.disease-cat .icon-disease-9 {width:37px;height:27px;background-position:0 -272px;}
-.disease-cat.active .icon-disease-9, .disease-cat:hover .icon-disease-9 {background-position:-70px -272px;}
+.disease-cat .icon-disease-16 {width:37px;height:27px;background-position:0 -272px;}
+.disease-cat.active .icon-disease-16, .disease-cat:hover .icon-disease-16 {background-position:-70px -272px;}
 
-.disease-cat .icon-disease-10 {width:37px;height:29px;background-position:0 -299px;}
-.disease-cat.active .icon-disease-10, .disease-cat:hover .icon-disease-10 {background-position:-70px -299px;}
+.disease-cat .icon-disease-14 {width:37px;height:29px;background-position:0 -299px;}
+.disease-cat.active .icon-disease-14, .disease-cat:hover .icon-disease-14 {background-position:-70px -299px;}
 
-.disease-cat .icon-disease-11 {width:31px;height:30px;background-position:0 -328px;}
-.disease-cat.active .icon-disease-11, .disease-cat:hover .icon-disease-11 {background-position:-70px -328px;}
+.disease-cat .icon-disease-8 {width:31px;height:30px;background-position:0 -328px;}
+.disease-cat.active .icon-disease-8, .disease-cat:hover .icon-disease-8 {background-position:-70px -328px;}
 
-.disease-cat .icon-disease-12 {width:40px;height:27px;background-position:0 -358px;}
-.disease-cat.active .icon-disease-12, .disease-cat:hover .icon-disease-12 {background-position:-70px -358px;}
+.disease-cat .icon-disease-6 {width:40px;height:27px;background-position:0 -358px;}
+.disease-cat.active .icon-disease-6, .disease-cat:hover .icon-disease-6 {background-position:-70px -358px;}
 
-.disease-cat .icon-disease-13 {width:23px;height:32px;background-position:0 -385px;}
-.disease-cat.active .icon-disease-13, .disease-cat:hover .icon-disease-13 {background-position:-70px -385px;}
+.disease-cat .icon-disease-1 {width:23px;height:32px;background-position:0 -385px;}
+.disease-cat.active .icon-disease-1, .disease-cat:hover .icon-disease-1 {background-position:-70px -385px;}
 
-.disease-cat .icon-disease-14 {width:32px;height:34px;background-position:0 -417px;}
-.disease-cat.active .icon-disease-14, .disease-cat:hover .icon-disease-14 {background-position:-70px -417px;}
+.disease-cat .icon-disease-2 {width:32px;height:34px;background-position:0 -417px;}
+.disease-cat.active .icon-disease-2, .disease-cat:hover .icon-disease-2 {background-position:-70px -417px;}
 
-.disease-cat .icon-disease-15 {width:29px;height:29px;background-position:0 -451px;}
-.disease-cat.active .icon-disease-15, .disease-cat:hover .icon-disease-15 {background-position:-70px -451px;}
+.disease-cat .icon-disease-12 {width:29px;height:29px;background-position:0 -451px;}
+.disease-cat.active .icon-disease-12, .disease-cat:hover .icon-disease-12 {background-position:-70px -451px;}
 
-.disease-cat .icon-disease-16 {width:36px;height:36px;background-position:0 -480px;}
-.disease-cat.active .icon-disease-16, .disease-cat:hover .icon-disease-16 {background-position:-70px -480px;}
+.disease-cat .icon-disease-9 {width:36px;height:36px;background-position:0 -480px;}
+.disease-cat.active .icon-disease-9, .disease-cat:hover .icon-disease-9 {background-position:-70px -480px;}
 
-.disease-cat .icon-disease-17 {width:23px;height:33px;background-position:0 -516px;}
-.disease-cat.active .icon-disease-17, .disease-cat:hover .icon-disease-17 {background-position:-70px -516px;}
+.disease-cat .icon-disease-15 {width:23px;height:33px;background-position:0 -516px;}
+.disease-cat.active .icon-disease-15, .disease-cat:hover .icon-disease-15 {background-position:-70px -516px;}
+
 
 .disease-cat .icon-disease-18 {width:35px;height:31px;background-position:0 -549px;}
 .disease-cat.active .icon-disease-18, .disease-cat:hover .icon-disease-18 {background-position:-70px -549px;}
+
+.disease-cat .icon-disease-4 {width:35px;height:31px;background-position:0 -549px;}
+.disease-cat.active .icon-disease-4, .disease-cat:hover .icon-disease-4 {background-position:-70px -549px;}

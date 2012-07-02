@@ -262,6 +262,12 @@ class Keyword extends HActiveRecord
         return 4;
     }
 
+    public function getFrequency(){
+        if (isset($this->yandex))
+            return $this->yandex->value;
+        return '';
+    }
+
     public function getRoundFrequency()
     {
         if (empty($this->yandex))

@@ -69,10 +69,6 @@
                     'active' => Yii::app()->controller->id == 'user'
                 ),
                 array(
-                    'label' => 'Запросы',
-                    'url' => array('/promotion/queries/admin/'),
-                ),
-                array(
                     'label' => 'Готовые статьи',
                     'url' => array('/writing/page/admin/'),
                 ),

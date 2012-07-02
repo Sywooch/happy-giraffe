@@ -267,6 +267,7 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
         'gaPass'=>'',
+        'gaCode' => 'UA-27545132-1',
 		'ufileStorageRoot'=>'temp_upload',
 		'social' => array(
 			'vk' => array(

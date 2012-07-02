@@ -58,7 +58,7 @@ jQuery.fn.pGallery = function(options) {
             $('body').css('overflow', 'hidden');
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             yaCounter11221648.hit(newUrl);
-            _gaq.push(['_trackPageview', newUrl]);
+            _gaq.push(['_trackPageview', str_replace('http://dev.happy-giraffe.ru'), '', newUrl]);
             console.log(newUrl);
             plugin.history.changeBrowserUrl(newUrl);
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
@@ -105,7 +105,11 @@ jQuery.fn.pGallery = function(options) {
         /*$('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');*/
 
         $.get(base_url + '/albums/wPhoto/', data, function(html) {
-            plugin.history.changeBrowserUrl(plugin.getEntityUrl() + 'photo' + plugin.data.id + '/');
+            var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
+            plugin.history.changeBrowserUrl(newUrl);
+            _gaq.push(['_trackPageview', str_replace('http://dev.happy-giraffe.ru'), '', newUrl]);
+            console.log(newUrl);
+
             $('#w-photo-content', plugin.window).html(html);
             link.parent().siblings('li.active').removeClass('active');
             link.parent().addClass('active');
@@ -181,4 +185,8 @@ jQuery.fn.pGallery = function(options) {
             plugin.openWindow($(this).attr('data-id'));
         });
     });
+}
+
+function str_replace(search, replace, subject) {
+    return subject.split(search).join(replace);
 }

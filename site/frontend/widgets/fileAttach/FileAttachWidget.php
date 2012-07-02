@@ -28,12 +28,18 @@ class FileAttachWidget extends CWidget
         }
 
         if ($this->customButton) {
-            $defaultHtmlOptions = array(
-                'href' => Yii::app()->createUrl('/albums/attach', array('entity' => $this->entity, 'entity_id' => $this->entity_id)),
-                'class' => 'fancy attach',
-                'onclick'=>$this->id . '.updateEntity(\''.$this->entity.'\', \''.$this->entity_id.'\');',
+            $htmlOptions = (Yii::app()->user->isGuest) ?
+                array(
+                    'href' => '#login',
+                    'class' => 'fancy',
+                )
+                :
+                array(
+                    'href' => Yii::app()->createUrl('/albums/attach', array('entity' => $this->entity, 'entity_id' => $this->entity_id)),
+                    'class' => 'fancy attach',
+                    'onclick'=>$this->id . '.updateEntity(\''.$this->entity.'\', \''.$this->entity_id.'\');',
             );
-            echo CHtml::openTag('a', CMap::mergeArray($defaultHtmlOptions, $this->customButtonHtmlOptions));
+            echo CHtml::openTag('a', CMap::mergeArray($htmlOptions, $this->customButtonHtmlOptions));
             $this->registerScripts();
         }
     }

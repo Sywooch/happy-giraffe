@@ -2,7 +2,7 @@
 
 class DefaultController extends SController
 {
-    public $layout = 'main';
+    public $layout = '//layouts/writing';
 
     public function actionIndex($site_id = null, $year = 2012, $freq = null)
     {

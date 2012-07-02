@@ -8,6 +8,10 @@ class HController extends CController
     public $seoHrefs = array();
     public $seoContent = array();
 
+    public function invalidActionParams($action)
+    {
+        throw new CHttpException(404, Yii::t('yii', 'Your request is invalid.'));
+    }
 
     protected function beforeAction($action)
     {

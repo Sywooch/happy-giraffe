@@ -9,6 +9,7 @@ Yii::import('site.seo.models.mongo.*');
 Yii::import('site.seo.components.*');
 Yii::import('site.seo.modules.competitors.models.*');
 Yii::import('site.seo.modules.writing.models.*');
+Yii::import('site.seo.modules.promotion.models.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
 class SeoCommand extends CConsoleCommand
@@ -87,14 +88,42 @@ class SeoCommand extends CConsoleCommand
         $parser->start($mode);
     }
 
-    public function actionCalculateMain(){
+    public function actionCalculateMain()
+    {
         $metrica = new YandexMetrica();
         $metrica->calculateMain();
     }
 
-    public function actionDelete1Visits(){
+    public function actionDelete1Visits()
+    {
         $metrica = new YandexMetrica();
         $metrica->delete1Visits();
+    }
+
+    public function actionAddSeVisitsToWordStat()
+    {
+        $se = PagesSearchPhrase::model()->findAll();
+
+        foreach ($se as $phrase) {
+            $parsed = ParsedKeywords::model()->find('keyword_id =' . $phrase->keyword_id);
+            if ($parsed !== null)
+                continue;
+
+            $model = ParsingKeyword::model()->find('keyword_id =' . $phrase->keyword_id);
+            if ($model === null) {
+                $parse = new ParsingKeyword();
+                $parse->keyword_id = $phrase->keyword_id;
+                $parse->depth = 1;
+                $parse->priority = 5;
+                if (!$parse->save()) {
+                    var_dump($parse->getErrors());
+                    Yii::app()->end();
+                }
+            } else {
+                $model->priority = 5;
+                $model->save();
+            }
+        }
     }
 }
 

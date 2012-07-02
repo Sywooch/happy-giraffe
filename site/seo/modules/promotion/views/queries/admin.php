@@ -24,13 +24,14 @@
             <tr>
                 <th rowspan="2" class="col-1">Название статьи, ссылка</th>
                 <th rowspan="2" class="col-1">Ключевые слова и фразы</th>
-                <th colspan="2"><i class="icon-yandex"></i></th>
+                <th colspan="3"><i class="icon-yandex"></i></th>
                 <th colspan="2"><i class="icon-google"></i></th>
                 <th rowspan="2">Общие визиты</th>
                 <th rowspan="2">Sape</th>
                 <th rowspan="2">Пере-<br>линковка</th>
             </tr>
             <tr>
+                <th><a href="javascript:;">Частота</a></th>
                 <th><a href="?period=<?=$period ?>&sort=yandex_pos">Позиции</a></th>
                 <th><a href="?period=<?=$period ?>&sort=yandex_visits">Визиты</a></th>
                 <th><a href="?period=<?=$period ?>&sort=google_pos">Позиции</a></th>
@@ -47,6 +48,7 @@
                     </td>
                 <?php foreach ($goodPhrases as $phrase): ?>
                     <td><?=$phrase->keyword->name ?></td>
+                    <td><?=$phrase->keyword->getFrequency() ?></td>
                     <td><?=$phrase->getPositionView(2) ?></td>
                     <td><?=$visits1 = $phrase->getVisits(2, $period) ?></td>
                     <td><?=$phrase->getPositionView(3) ?></td>

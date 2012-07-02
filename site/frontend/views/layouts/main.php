@@ -473,7 +473,7 @@
             (function (d, w, c) {
                 (w[c] = w[c] || []).push(function() {
                     try {
-                        w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true, webvisor:true});
+                        w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true, trackHash:true, webvisor:true});
                     } catch(e) {}
                 });
 

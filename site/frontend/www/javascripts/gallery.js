@@ -56,7 +56,10 @@ jQuery.fn.pGallery = function(options) {
             });
 
             $('body').css('overflow', 'hidden');
-            plugin.history.changeBrowserUrl(plugin.getEntityUrl() + 'photo' + plugin.data.id + '/');
+            var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
+            yaCounter11221648.hit(newUrl);
+            _gaq.push(['_trackPageview', newUrl]);
+            plugin.history.changeBrowserUrl(newUrl);
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});

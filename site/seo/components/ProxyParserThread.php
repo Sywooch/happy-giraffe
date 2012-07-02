@@ -57,6 +57,7 @@ class ProxyParserThread extends CComponent
     protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
         sleep(rand($this->delay_min, $this->delay_max));
+        $this->log('start curl');
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
             if ($post) {
@@ -88,8 +89,7 @@ class ProxyParserThread extends CComponent
 
             if ($content === false) {
                 if (curl_errno($ch)) {
-                    if ($this->debug)
-                        echo 'Error while curl: ' . curl_error($ch) . "\n";
+                    $this->log('Error while curl: ' . curl_error($ch) );
                     $attempt += 1;
                     if ($attempt > 2) {
                         $this->changeBadProxy();
@@ -101,6 +101,7 @@ class ProxyParserThread extends CComponent
                 $this->changeBadProxy();
                 return $this->query($url, $ref, $post, $attempt);
             } else {
+                $this->log('page loaded by curl');
                 return $content;
             }
         }
@@ -110,8 +111,7 @@ class ProxyParserThread extends CComponent
 
     protected function changeBadProxy()
     {
-        if ($this->debug)
-            echo 'Change proxy ' . "\n";
+        $this->log('Change proxy');
 
         $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
         $this->proxy->active = 0;
@@ -138,14 +138,14 @@ class ProxyParserThread extends CComponent
         $this->saveProxy();
         $this->removeCookieFile();
 
-        Yii::log('Thread closed: ' . $reason);
-        echo 'Thread closed: ' . $reason . "\n";
-
+        $this->log('Thread closed: ' . $reason);
         Yii::app()->end();
     }
 
     protected function removeCookieFile()
     {
+        $this->log('Remove cookie file');
+
         if (file_exists($this->getCookieFile()))
             unlink($this->getCookieFile());
     }
@@ -166,15 +166,16 @@ class ProxyParserThread extends CComponent
 
     }
 
-    protected function logMemoryUsage($state)
+    protected function log($state)
     {
         if ($this->debug) {
-            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-            $t = microtime(true);
-            $micro = sprintf("%06d", ($t - floor($t)) * 1000000);
-            $d = new DateTime(date('Y-m-d H:i:s.' . $micro, $t));
-
-            fwrite($fh, $d->format("Y-m-d H:i:s.u") . ':  ' . $state . "\n");
+            echo $state."\n";
+//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+//            $t = microtime(true);
+//            $micro = sprintf("%06d", ($t - floor($t)) * 1000000);
+//            $d = new DateTime(date('Y-m-d H:i:s.' . $micro, $t));
+//
+//            fwrite($fh, $d->format("Y-m-d H:i:s.u") . ':  ' . $state . "\n");
         }
     }
 }

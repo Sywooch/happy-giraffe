@@ -184,7 +184,7 @@ jQuery.fn.pGallery = function(options) {
 }
 
 function saveAsAjaxView(url){
-    url = str_replace('http://'+window.location.hostname, '', newUrl);
+    var url = str_replace('http://'+window.location.hostname, '', url);
     _gaq.push(['_trackPageview', url]);
     yaCounter11221648.hit(url);
     console.log(url);

@@ -47,6 +47,9 @@ class TileForm extends HFormModel
         $tiles -= floor($this->bathHeight / $this->tileLength) * floor($this->bathLength / $this->tileWidth);
         $tiles -= floor($this->doorHeight / $this->tileLength) * floor($this->doorWidth / $this->tileWidth);
 
+        if ($tiles < 0)
+            $tiles = 0;
+
         return array('qty' => $tiles, 'noun' => HDate::GenerateNoun(array('штука', 'штуки', 'штук'), $tiles));
     }
 }

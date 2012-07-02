@@ -25,8 +25,7 @@ class HController extends CController
 
     protected function afterRender($view, &$output)
     {
-        $js = "
-            $(function() {
+        $js = "$(function() {
                 var seoHrefs = " . CJSON::encode($this->seoHrefs) . ";
                 var seoContent = " . CJSON::encode($this->seoContent) . ";
                 $('[hashString]').each(function(){
@@ -39,8 +38,7 @@ class HController extends CController
                 });
 
 
-            });
-        ";
+            });";
 
         $hash = md5($js);
         $cacheId = 'seoHide_' . $hash;

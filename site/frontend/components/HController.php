@@ -42,7 +42,11 @@ class HController extends CController
             });
         ";
 
-        Yii::app()->clientScript->registerScript('seoHrefs', $js, CClientScript::POS_END);
+        $hash = md5($js);
+        $cacheId = 'seoHide_' . $hash;
+        Yii::app()->cache->set($cacheId, $js);
+
+        Yii::app()->clientScript->registerScriptFile('js_dynamics/' . $hash . '.js', CClientScript::POS_END);
 
         return parent::afterRender($view, $output);
     }

@@ -21,6 +21,15 @@ class SiteController extends HController
 		);
 	}
 
+    public function actionSeoHide($hash)
+    {
+        $cacheId = 'seoHide_' . $hash;
+        $value = Yii::app()->cache->get($cacheId);
+        if ($value !== false) {
+            echo $value;
+        }
+    }
+
     public function actionRss()
     {
         Yii::import('ext.EFeed.*');

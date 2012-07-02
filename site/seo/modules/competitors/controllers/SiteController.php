@@ -3,7 +3,7 @@
 class SiteController extends SController
 {
 	public $defaultAction='admin';
-    public $layout = '//layouts/writing';
+    public $layout = '//layouts/empty';
 
 
     /**

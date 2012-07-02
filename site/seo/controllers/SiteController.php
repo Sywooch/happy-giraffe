@@ -21,7 +21,7 @@ class SiteController extends SController
 
 	public function actionIndex()
 	{
-        if (count($this->modules) > 1)
+        if (count($this->getUserModules()) > 1)
             $this->redirect($this->createUrl('site/modules'));
 
         if (Yii::app()->user->checkAccess('moderator'))

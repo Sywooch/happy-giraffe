@@ -3,9 +3,10 @@
 class SiteController extends SController
 {
 	public $defaultAction='admin';
-    public $layout = 'main';
+    public $layout = '//layouts/writing';
 
-	/**
+
+    /**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */

@@ -5,6 +5,8 @@
  */
 class TaskController extends SController
 {
+    public $layout = '//layouts/writing';
+
     public function actionModerator()
     {
         if (!Yii::app()->user->checkAccess('moderator'))

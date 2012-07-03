@@ -23,9 +23,6 @@ return array(
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
         'user/<user_id:\d+>/blog' => 'blog/list',
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
-        'user/<id:\d+>/albums' => 'albums/user',
-        'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
-        'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
         'user/<user_id:\d+>/rss/page/<page:\d+>' => 'rss/user',
         'user/<user_id:\d+>/rss' => 'rss/user',
         'user/<user_id:\d+>/comments/rss/page/<page:\d+>' => 'rss/comments',
@@ -59,6 +56,14 @@ return array(
         'morning/<id:\d+>' => 'morning/view',
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
         'morning/<_a>' => 'morning/<_a>',
+
+        'user/<id:\d+>/albums' => 'albums/user',
+        'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
+        'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
+        'albums/<id:\d+>' => 'albums/view',
+        'albums/photo/<id:\d+>' => 'albums/photo',
+        'albums/addPhoto/a/<id:\d+>' => 'albums/addPhoto',
+        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave)>' => 'albums/<_a>',
 
         //===================== Modules =========================//
         '<_c:.*>/index' => 404,

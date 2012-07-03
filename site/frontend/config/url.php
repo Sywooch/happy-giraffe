@@ -10,8 +10,9 @@ return array(
         // global
         '.*/index' => 404,
         '<_c:(activity|ajax|notification|signup|profile)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|signup|profile)>' => '<_c>/index',
 
-        //site controller
+        // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
@@ -165,8 +166,5 @@ return array(
 
         'vaccineCalendar' => 'services/vaccineCalendar/default/index',
         'vaccineCalendar/<_a>' => 'services/vaccineCalendar/default/<_a>',
-
-        /***** global *****/
-        '<_c:(?!site)\w+>' => '<_c>/index',
     ),
 );

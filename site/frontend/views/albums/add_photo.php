@@ -42,7 +42,6 @@
         <div class="bottom<?php echo !$album ? ' disabled' : '' ?>" id="upload_button_wrapper">
             <?php
             $js = "var upload_ajax_url = '" . Yii::app()->createUrl('/albums/addPhoto', array('a' => $album ? $album->id : false)) . "';";
-            $js = "var upload_ajax_url = '" . Yii::app()->createUrl('/albums/addPhoto', array('a' => $album ? $album->id : false)) . "';";
             if($album)
                 $js .= "Album.album_id = " . $album->id . ";Album.current_album_id = " . $album->id . ";";
             Yii::app()->clientScript->registerScript('upload_ajax_url', $js, CClientScript::POS_HEAD);

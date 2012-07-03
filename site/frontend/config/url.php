@@ -2,9 +2,9 @@
 
 return array(
     'class' => 'HUrlManager',
-    'urlFormat'=>'path',
+    'urlFormat' => 'path',
     'showScriptName' => false,
-    'useStrictParsing'=>true,
+    'useStrictParsing' => true,
     'urlSuffix' => '/',
     'rules' => array(
         '/user/<user_id:\d+>' => 'user/profile',
@@ -31,107 +31,32 @@ return array(
         'community/22' => 'cook',
         '^community/list' => 404,
 
-        'morning/saveLocation' => 'morning/saveLocation',
-        'morning/<id:\d+>' => 'morning/view',
-        'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
-        'morning/' => 'morning/index',
-        'morning/index/<date:[\w-]+>'=>'404',
-        'morning/index/'=>'404',
 
         '/' => 'site/index',
         'site/login' => 'site/login',
-        'admin/' => 'admin/site/index',
-//        '<controller:\w+>/admin'=>'site/index',
-//        '<controller:\w+>/master'=>'<controller>/admin',
-//        '<controller:\w+>/<title:\w+>_<id:\d+>/photo<pid:\d+>'=>'<controller>/view',
-//        '<controller:\w+>/<title:\w+>_<id:\d+>'=>'<controller>/view',
-        'babySex/<action:\w+>'=>'services/babySex/default/<action>',
-        'sewing/<action:\w+>'=>'services/sewing/default/<action>',
-        'sewing/default/<action:\w+>'=>'services/sewing/default/<action>',
-        'sizes/<action:\w+>'=>'services/sizes/default/<action>',
-        'test/'=>'services/test/default/index',
-        'test/<slug:[\w-]+>'=>'services/test/default/view',
 
-        'tester/'=>'services/tester/default/index',
-        'tester/<slug:[\w-]+>'=>'services/tester/default/view',
-
-        'names/'=>'services/names/default/index',
-        'names/top10'=>'services/names/default/top10',
-        'names/saint/<m:[\w]+>'=>'services/names/default/saint',
-        'names/saint'=>'services/names/default/saint',
-        'names/saintCalc'=>'services/names/default/saintCalc',
-        'names/likes'=>'services/names/default/likes',
-        'names/like'=>'services/names/default/like',
-        'names/CreateFamous'=>'services/names/default/CreateFamous',
-        'names/<name:[\w]+>'=>'services/names/default/name/',
-
-        'childrenDiseases/'=>'services/childrenDiseases/default/index',
-        'childrenDiseases/<id:[\w-+\s]+>'=>'services/childrenDiseases/default/view',
-
-//        'recipeBook/disease/<url:\w+>'=>'recipeBook/default/disease',
-//        'recipeBook/view/<id:\d+>'=>'recipeBook/default/view',
-        //'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
         'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
-//		'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-
-        'horoscope/'=>'services/horoscope/default/index',
-        'horoscope/year/<zodiac:[\w]+>'=>'services/horoscope/default/year',
-        'horoscope/month/<zodiac:[\w]+>'=>'services/horoscope/default/month',
-        'horoscope/<zodiac:[\w]+>/<date:[\d\d\d\d-\d\d-\d\d]*>'=>'services/horoscope/default/view',
-        'horoscope/today/<zodiac:[\w]+>'=>'services/horoscope/default/view',
-        'horoscope/tomorrow/<zodiac:[\w]+>'=>'services/horoscope/default/tomorrow',
-        'horoscope/yesterday/<zodiac:[\w]+>'=>'services/horoscope/default/yesterday',
-
-        'cook/spices/index' => 'cook/spices/index',
-        'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
-        'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
-
-        'cook/choose/index' => 'cook/choose/index',
-        'cook/choose/category/<id:[\w_]+>' => 'cook/choose/category',
-        'cook/choose/<id:[\w_]+>' => 'cook/choose/view',
-        'cook/decor/<id:[\d]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
-
-        'cook/decor/<id:[\d]+>/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>/page/<page:[\d]+>' => 'cook/decor/index',
-        'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
-        'cook/decor' => 'cook/decor/index',
-
-        'cook/recipe/add' => 'cook/recipe/form',
-        'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
-        'cook/recipe/<id:\d+>' => 'cook/recipe/view',
-        'cook/recipe/type/<type:\d+>' => 'cook/recipe/index',
-
-        '<controller:\w+>/<id:\d+>'=>'<controller>/view',
-        '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-
-        'pregnancyWeight' => 'services/pregnancyWeight/default/index',
-        'contractionsTime' => 'services/contractionsTime/default/index',
-        'placentaThickness' => 'services/placentaThickness/default/index',
-        'vaccineCalendar' => 'services/vaccineCalendar/default/index',
-        'menstrualCycle' => 'services/menstrualCycle/default/index',
-        'babyBloodGroup' => 'services/babyBloodGroup/default/index',
-        'hospitalBag' => 'services/hospitalBag/default/index',
-        //'recipeBook/view/<id:\d+>' => 'services/recipeBook/default/view',
-        'recipeBook' => 'services/recipeBook/default/index',
-        'recipeBook/getAlphabetList'=>'services/recipeBook/default/getAlphabetList',
-        'recipeBook/getCategoryList'=>'services/recipeBook/default/getCategoryList',
-        'recipeBook/<url:\w+>' => 'services/recipeBook/default/disease',
-        'maternityLeave' => 'services/maternityLeave/default/index',
-        'repair/<controller:[\w-]+>'=>'services/repair/<controller>/index',
 
         '/contest' => '/site/contest',
         'search' => 'site/search',
 
-        array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
+        array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
 
+        //===================== Alex Controllers =========================//
+        'ajax/<_a>' => 'ajax/<_a>',
 
+        'family' => 'family/index',
+        'family/<_a>' => 'family/<_a>',
+
+        'morning/' => 'morning/index',
+        'morning/<id:\d+>' => 'morning/view',
+        'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
+        'morning/<_a>' => 'morning/<_a>',
 
         //===================== Modules =========================//
+        '<_c:.*>/index' => 404,
 
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',
@@ -141,9 +66,88 @@ return array(
         'contest/work/<id:\d+>' => 'contest/default/work',
         'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
 
-        '<_c:.*>/index' => 404,
-        '<_m:(geo|im|signal)>/<_a>'=>'<_m>/default/<_a>',
-        '<_m:(geo|im|signal)>/'=>'<_m>/default/index',
+        '<_m:(geo|im|signal)>/' => '<_m>/default/index',
+        '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
         'score' => 'scores/default/index',
+
+        //cook
+        'cook/<_c:(spices|choose|decor|calorisator|converter|decor|recipe)>' => 'cook/<_c>/index',
+
+        'cook/calorisator/ac' => 'cook/calorisator/ac',
+
+        'cook/choose/category/<id:[\w_]+>' => 'cook/choose/category',
+        'cook/choose/<id:[\w_]+>' => 'cook/choose/view',
+
+        'cook/converter/<_a>' => 'cook/converter/<_a>',
+
+        'cook/decor/<id:[\d]+>' => 'cook/decor/index',
+        'cook/decor/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<id:[\d]+>/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<id:[\d]+>/page/<page:[\d]+>' => 'cook/decor/index',
+        'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
+
+        'cook/' => 'cook/default/index',
+
+        'cook/recipe/add' => 'cook/recipe/form',
+        'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
+        'cook/recipe/<id:\d+>' => 'cook/recipe/view',
+        'cook/recipe/type/<type:\d+>' => 'cook/recipe/index',
+        'cook/recipe/<_a:(ac|import|search|searchByIngredients|advancedSearch|searchByIngredientsResult|advancedSearchResult)>' => 'cook/recipe/<_a>',
+
+        'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
+        'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
+
+        //===================== Services =========================//
+        'babyBloodGroup' => 'services/babyBloodGroup/default/index',
+
+        'babySex/<_a>/' => 'services/babySex/default/<_a>',
+        'babySex/default/<_a:(bloodUpdate, japanCalc, ovulationCalc)>/' => 'services/babySex/default/<_a>',
+
+        'childrenDiseases/' => 'services/childrenDiseases/default/index',
+        'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',
+
+        'contractionsTime' => 'services/contractionsTime/default/index',
+
+        'horoscope/' => 'services/horoscope/default/index',
+        'horoscope/<_a:(year|month|today|tomorrow|yesterday)>/<zodiac:[\w]+>' => 'services/horoscope/default/<_a>',
+        'horoscope/<zodiac:[\w]+>/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'services/horoscope/default/view',
+
+        'hospitalBag' => 'services/hospitalBag/default/index',
+        'hospitalBag/<_a>' => 'services/hospitalBag/default/<_a>',
+
+        'maternityLeave' => 'services/maternityLeave/default/index',
+
+        'menstrualCycle' => 'services/menstrualCycle/default/index',
+        'menstrualCycle/calculate' => 'services/menstrualCycle/default/calculate',
+
+        'names/' => 'services/names/default/index',
+        'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
+        'names/<name:[\w]+>' => 'services/names/default/name/',
+
+        'placentaThickness' => 'services/placentaThickness/default/index',
+        'placentaThickness/calculate' => 'services/placentaThickness/default/calculate',
+
+        'pregnancyWeight' => 'services/pregnancyWeight/default/index',
+        'pregnancyWeight/calculate' => 'services/pregnancyWeight/default/calculate',
+
+        'recipeBook' => 'services/recipeBook/default/index',
+        'recipeBook/<_a:(getAlphabetList|getCategoryList|edit|list|diseases|vote)>' => 'services/recipeBook/default/<_a>',
+        'recipeBook/recipe/<id:\d+>' => 'services/recipeBook/default/view',
+        'recipeBook/<url:\w+>' => 'services/recipeBook/default/disease',
+
+        'repair/<_c>' => 'services/repair/<_c>/index',
+
+        'sewing/<action:\w+>' => 'services/sewing/default/<action>',
+
+        'test/' => 'services/test/default/index',
+        'test/<slug:[\w-]+>' => 'services/test/default/view',
+
+        'tester/' => 'services/tester/default/index',
+        'tester/<slug:[\w-]+>' => 'services/tester/default/view',
+
+        'vaccineCalendar' => 'services/vaccineCalendar/default/index',
+        'vaccineCalendar/<_a>' => 'services/vaccineCalendar/default/<_a>',
     ),
 );

@@ -650,6 +650,11 @@ class CommunityController extends HController
 
     public function actionJoin($action, $community_id)
     {
+        if (Yii::app()->user->isGuest)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        if (empty($community_id))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         $result = ($action == 'join') ? Yii::app()->user->model->addCommunity($community_id) : Yii::app()->user->model->delCommunity($community_id);
 
         if (Yii::app()->request->isAjaxRequest) {

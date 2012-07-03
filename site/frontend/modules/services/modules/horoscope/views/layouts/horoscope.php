@@ -1,6 +1,6 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
-    <?php Yii::app()->clientScript->registerMetaTag('Хотите ежедневно читать бесплатный личный гороскоп? Воспользуйтесь нашим сервисом и читайте гороскоп на сегодня, на завтра, на месяц и на год. Кроме того, вы можете прочитать и гороскоп на вчера, чтобы уточнить детали прошедшего дня', 'description'); ?>
+    <?php Yii::app()->clientScript->registerMetaTag('', 'description'); ?>
 
     <div class="main">
         <div class="main-in">

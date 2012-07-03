@@ -2,9 +2,9 @@
 
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-Yii::app()->clientScript->registerMetaTag('Нет ничего сложнее, чем выбрать имя для только что появившегося на свет человечка. Упростите себе эту задачу, воспользовавшись нашим сервисом: можно посмотреть имена по святкам, по известным личностям, по алфавиту и по популярности', 'description');
-
+Yii::app()->clientScript
+    ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
+    ->registerMetaTag('', 'description');
 ?><div class="right_block">
     <div class="choice_name">
         <h1>Выбор имени <span>ребенка</span></h1>

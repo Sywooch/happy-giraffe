@@ -149,6 +149,7 @@ return array(
         'recipeBook/recipe/<id:\d+>' => 'services/recipeBook/default/view',
         'recipeBook/<url:\w+>' => 'services/recipeBook/default/disease',
 
+        'services/repair/<_c>/<_a>' => 'services/repair/<_c>/<_a>',
         'repair/<_c>' => 'services/repair/<_c>/index',
 
         'sewing/<action:\w+>' => 'services/sewing/default/<action>',
@@ -161,6 +162,9 @@ return array(
 
         'vaccineCalendar' => 'services/vaccineCalendar/default/index',
         'vaccineCalendar/<_a>' => 'services/vaccineCalendar/default/<_a>',
+
+        '<_m:(dailyCalories|weightLoss|idealWeight)>/' => 'services/<_m>/default/index',
+        'services/<_m:(dailyCalories|weightLoss|idealWeight)>/default/<_c>' => 'services/<_m>/default/<_c>',
 
         /***** global *****/
         '<_q:\w+>' => '<_q>/index',

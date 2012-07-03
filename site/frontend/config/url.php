@@ -62,7 +62,7 @@ return array(
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
         'albums/addPhoto/a/<id:\d+>' => 'albums/addPhoto',
         'albums/addPhoto' => 'albums/addPhoto',
-        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|RecipePhoto|CookDecorationPhoto|CookDecorationCategory|CommentPhoto|crop|ChangeAvatar)>' => 'albums/<_a>',
+        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar)>' => 'albums/<_a>',
 
         //===================== Modules =========================//
         '<_c:.*>/index' => 404,

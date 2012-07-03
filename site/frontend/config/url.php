@@ -7,6 +7,8 @@ return array(
     'urlSuffix' => '/',
     'useStrictParsing' => true,
     'rules' => array(
+        'activity' => 'activity/index',
+
         '/user/<user_id:\d+>' => 'user/profile',
         '/user/<user_id:\d+>/clubs' => 'user/clubs',
         '/user/<user_id:\d+>/friends' => 'user/friends',

@@ -7,6 +7,10 @@ return array(
     'urlSuffix' => '/',
     'useStrictParsing' => true,
     'rules' => array(
+        /***** global *****/
+        '.*/index' => 404,
+        '<_c:(activity|ajax|notification|signup)>/<_a>' => '<_c>/<_a>',
+
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
 
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
@@ -65,8 +69,6 @@ return array(
         'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar)>' => 'albums/<_a>',
 
         //===================== Modules =========================//
-        '<_c:.*>/index' => 404,
-
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',
         'contest/<id:\d+>/list/<sort:\w+>' => 'contest/default/list',
@@ -97,7 +99,7 @@ return array(
         'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
 
-        'cook/' => 'cook/default/index',
+        //'cook/' => 'cook/default/index',
 
         'cook/recipe/add' => 'cook/recipe/form',
         'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
@@ -159,5 +161,9 @@ return array(
 
         'vaccineCalendar' => 'services/vaccineCalendar/default/index',
         'vaccineCalendar/<_a>' => 'services/vaccineCalendar/default/<_a>',
+
+        /***** global *****/
+        '<_q:\w+>' => '<_q>/index',
+        '<_q:\w+>' => '<_q>/default/index',
     ),
 );

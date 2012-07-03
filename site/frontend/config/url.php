@@ -15,6 +15,8 @@ return array(
         'site/<_a:(login|logout|link)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
+        'signup/validate/step/<step:\d+>' => 'signup/validate',
+
         'user/<user_id:\d+>' => 'user/profile',
         'user/<user_id:\d+>/clubs' => 'user/clubs',
         'user/<user_id:\d+>/friends' => 'user/friends',
@@ -144,7 +146,7 @@ return array(
 
         array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 
-        '<_c:(activity|ajax)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|ajax|notification|signup)>/<_a>' => '<_c>/<_a>',
         '<_c>' => '<_c>/index',
     ),
 );

@@ -28,7 +28,7 @@ $(document).ready(function() {
     	$.ajax({
     		type: 'POST',
     		dataType: 'json',
-    		url: '/signup/validate/step/1/',
+    		url: '/signup/validate/step/2/',
     		data: $('#signup').serialize(),
     		success: function(response) {
     			if (response.status == 'ok') {
@@ -42,16 +42,6 @@ $(document).ready(function() {
     	return false;
     });
 
-    $('.inc').click(function() {
-    	var input = $(this).prev();
-    	var old_val = parseInt(input.val());
-    	input.val(old_val + 1);
-    });
-    $('.dec').click(function() {
-    	var input = $(this).next();
-    	var old_val = parseInt(input.val());
-    	if (old_val > 0) input.val(parseInt(input.val()) - 1);
-    });
     $('#agree').change(function() {
     	$('#next_2').toggleClass('disabled').toggleDisabled();
     });

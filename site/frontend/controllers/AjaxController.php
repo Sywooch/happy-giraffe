@@ -307,11 +307,6 @@ class AjaxController extends HController
         }
     }
 
-    public function actionView($path)
-    {
-        $this->renderPartial($path);
-    }
-
     public function actionVideo()
     {
         $link = $_POST['url'];

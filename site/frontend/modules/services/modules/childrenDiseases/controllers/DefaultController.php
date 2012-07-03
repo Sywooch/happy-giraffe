@@ -24,6 +24,7 @@ class DefaultController extends HController
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
             $this->category_id = $model->id;
+            $this->pageTitle = $model->title;
             $this->render('category', compact('model'));
         } else {
 

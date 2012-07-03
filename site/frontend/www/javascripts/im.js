@@ -61,13 +61,13 @@ Im.prototype.OnlineCount = function (result) {
     if (result.user_type == 0 || result.user_type == 2) {
         var el = $('#user-nav-messages span.online-count');
         var comment_count = el.text();
-        current_count = parseInt(comment_count) + i;
+        var current_count = parseInt(comment_count) + i;
         el.text(current_count).toggleClass('count-gray', current_count == 0);
     }
     if (result.user_type == 1 || result.user_type == 2) {
         var el = $('#user-nav-friends span.online-count');
         var comment_count = el.text();
-        current_count = parseInt(comment_count) + i;
+        var current_count = parseInt(comment_count) + i;
 
         el.text(current_count).toggleClass('count-gray', current_count == 0);
     }

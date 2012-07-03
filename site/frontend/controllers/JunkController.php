@@ -5,8 +5,8 @@
  */
 class JunkController extends HController
 {
-    function actionIndex($lol = null)
+    function actionIndex()
     {
-        echo Yii::app()->request->url . Yii::app()->user->id;
+
     }
 }

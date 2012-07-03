@@ -11,7 +11,7 @@ return array(
 
         'ajax/view/path/<path:\w+>' => 'ajax/view',
         'ajax/contentsLive/id/<id:\d+>/containerClass/<containerClass:(short|full)>' => 'ajax/contentsLive',
-        'ajax/duelShow/question_id/<question_id:\d+' => 'ajax/duelShow',
+        'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
 
         'user/<user_id:\d+>' => 'user/profile',
         'user/<user_id:\d+>/clubs' => 'user/clubs',

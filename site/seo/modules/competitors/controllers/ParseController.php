@@ -2,7 +2,7 @@
 
 class ParseController extends SController
 {
-    public $layout = 'main';
+    public $layout = '//layouts/empty';
     public $cookie = 'pwd=1lwsZTdjVuTb2TFFwKo; suid=0IwZPl0hY8W_; per_page=100; adv-uid=d2ea12.d2608c.b9b2c0';
 
     public function beforeAction($action)

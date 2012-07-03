@@ -7,11 +7,11 @@ return array(
     'urlSuffix' => '/',
     'useStrictParsing' => true,
     'rules' => array(
-        'activity/friendsNext/page/<page:\d+>' => 'activity/friendsNext',
-
-        'ajax/view/path/<path:\w+>' => 'ajax/view',
-        'ajax/contentsLive/id/<id:\d+>/containerClass/<containerClass:(short|full)>' => 'ajax/contentsLive',
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
+
+        'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
+        'search' => 'site/search',
+        'site/<_a:(login)>' => 'site/<_a>',
 
         'user/<user_id:\d+>' => 'user/profile',
         'user/<user_id:\d+>/clubs' => 'user/clubs',
@@ -140,11 +140,8 @@ return array(
         'signal' => 'signal/default/index',
         'score' => 'scores/default/index',
         '/contest' => '/site/contest',
-        'search' => 'site/search',
 
         array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
-
-        'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
 
         '<_c:(activity|ajax)>/<_a>' => '<_c>/<_a>',
         '<_c>' => '<_c>/index',

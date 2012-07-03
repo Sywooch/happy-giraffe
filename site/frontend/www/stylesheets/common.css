@@ -1037,7 +1037,7 @@ a:hover {text-decoration:none;}
 #dialogs .dialog-message-new-out table td.content, #dialogs .dialog-message-new-out table td.meta, #dialogs .dialog-message-new-out table td.actions {background:#ebf5ff;}
 
 #dialogs .dialog-message .user {width:180px;padding-left:15px;color:#1ba3c4;font-size:11px;font-family:tahoma, arial, sans-serif;}
-#dialogs .dialog-message .user .ava {float:left;margin-right:10px;}
+#dialogs .dialog-message .user .details .username {width:80px;}
 
 #dialogs .dialog-message .message-icon {width:75px;padding-top:8px;text-align:center;font-size:9px;color:#bfc1c1;font-family:tahoma, arial, sans-serif;line-height:1.4;}
 #dialogs .dialog-message .message-icon .icon {width:55px;height:38px;margin:0 auto;background:url(../images/dialogs_icons.png) no-repeat;}

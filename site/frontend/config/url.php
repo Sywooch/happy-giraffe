@@ -5,6 +5,7 @@ return array(
     'urlFormat'=>'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
+    'useStrictParsing' => true,
     'rules' => array(
         '/user/<user_id:\d+>' => 'user/profile',
         '/user/<user_id:\d+>/clubs' => 'user/clubs',

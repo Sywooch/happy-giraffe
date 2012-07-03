@@ -26,4 +26,21 @@ class SController extends CController
             ),
         );
     }
+
+    public function getUserModules(){
+        if (Yii::app()->user->checkAccess('superuser'))
+            return array(
+                'Ключевые слова'=>$this->createUrl('/competitors/default/index'),
+                'Готовое'=>$this->createUrl('/writing/existArticles/index'),
+                'Продвижение'=>$this->createUrl('/promotion/queries/admin'),
+            );
+
+        if (Yii::app()->user->checkAccess('admin'))
+            return array(
+                'Ключевые слова'=>$this->createUrl('/competitors/default/index'),
+                'Продвижение'=>$this->createUrl('/promotion/queries/admin'),
+            );
+
+        return array();
+    }
 }

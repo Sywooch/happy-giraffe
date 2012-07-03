@@ -3,6 +3,7 @@
 class QueryController extends SController
 {
 	public $defaultAction='admin';
+    public $layout = '//layouts/promotion';
 
     public function beforeAction($action)
     {

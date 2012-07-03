@@ -5,6 +5,7 @@ return array(
     'urlFormat'=>'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
+    'useStrictParsing' => true,
     'rules' => array(
         '/user/<user_id:\d+>' => 'user/profile',
         '/user/<user_id:\d+>/clubs' => 'user/clubs',
@@ -109,6 +110,8 @@ return array(
 
         'cook/recipe/add' => 'cook/recipe/form',
         'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
+        'cook/recipe/<id:\d+>' => 'cook/recipe/view',
+        'cook/recipe/type/<type:\d+>' => 'cook/recipe/index',
 
         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
@@ -135,5 +138,6 @@ return array(
 
         array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 
+        'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
     ),
 );

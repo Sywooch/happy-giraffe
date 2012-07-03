@@ -21,7 +21,11 @@
         }
     ";
 
-    $cs->registerScript('cookRecipeView', $js, CClientScript::POS_HEAD);
+    $cs
+        ->registerScript('cookRecipeView', $js, CClientScript::POS_HEAD)
+        ->registerMetaTag(trim(Str::truncate(strip_tags($recipe->text), 90)), 'description')
+        ->registerMetaTag('', 'keywords')
+    ;
 ?>
 
 <div class="entry hrecipe clearfix">
@@ -40,7 +44,7 @@
 
         <div class="meta">
             <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $recipe->created)?></div>
-            <div class="seen">Просмотров:&nbsp;<span><?=PageView::model()->viewsByPath($recipe->url)?></span></div><br>
+            <div class="seen">Просмотров:&nbsp;<span><?=$this->getViews()?></span></div><br>
             <a href="<?=$recipe->getUrl(true)?>">Комментариев: <?php echo $recipe->commentsCount; ?></a>
         </div>
 
@@ -303,6 +307,10 @@
     </div>
 <?php endif; ?>
 
-<?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
-    'model' => $recipe,
-)); ?>
+<?php
+$this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $recipe));
+$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+$remove_tmpl->registerTemplates();
+$this->endWidget();
+
+?>

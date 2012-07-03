@@ -5,6 +5,14 @@
  */
 class ParsingController extends SController
 {
+    public $layout = '//layouts/empty';
+
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('admin'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
     public function actionIndex(){
         $this->render('index');
     }

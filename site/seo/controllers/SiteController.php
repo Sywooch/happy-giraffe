@@ -6,7 +6,7 @@ class SiteController extends SController
     {
         return array(
             array('allow',
-                'actions'=>array('index', 'logout'),
+                'actions'=>array('index', 'logout', 'modules'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -21,6 +21,9 @@ class SiteController extends SController
 
 	public function actionIndex()
 	{
+        if (count($this->getUserModules()) > 1)
+            $this->redirect($this->createUrl('site/modules'));
+
         if (Yii::app()->user->checkAccess('moderator'))
             $this->redirect($this->createUrl('writing/task/moderator'));
 
@@ -43,7 +46,7 @@ class SiteController extends SController
             $this->redirect($this->createUrl('writing/task/corrector'));
 
         if (Yii::app()->user->checkAccess('superuser'))
-            $this->redirect($this->createUrl('writing/editor/index'));
+            $this->redirect($this->createUrl('competitors/default/index'));
 	}
 
     /**
@@ -97,5 +100,9 @@ class SiteController extends SController
     {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
+    }
+
+    public function actionModules(){
+        $this->render('modules');
     }
 }

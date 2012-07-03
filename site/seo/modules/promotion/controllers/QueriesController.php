@@ -7,6 +7,7 @@ class QueriesController extends SController
 {
     public $secret_key = 'kastgpij35iyiehi';
     public $pageTitle = 'продвижение';
+    public $layout = '//layouts/promotion';
 
     public function accessRules()
     {
@@ -22,7 +23,7 @@ class QueriesController extends SController
         if ($action->id == 'startThread')
             return true;
 
-        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser') && !Yii::app()->user->checkAccess('editor'))
+        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }

@@ -11,7 +11,9 @@ return array(
 
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
-        'site/<_a:(login)>' => 'site/<_a>',
+        'site/rememberPassword/step/<step:\d+>' => 'site/rememberPassword',
+        'site/<_a:(login|logout|link)>' => 'site/<_a>',
+        'contest' => 'site/contest',
 
         'user/<user_id:\d+>' => 'user/profile',
         'user/<user_id:\d+>/clubs' => 'user/clubs',
@@ -139,7 +141,6 @@ return array(
 
         'signal' => 'signal/default/index',
         'score' => 'scores/default/index',
-        '/contest' => '/site/contest',
 
         array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 

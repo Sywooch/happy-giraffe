@@ -4,6 +4,7 @@ return array(
     'class' => 'HUrlManager',
     'urlFormat'=>'path',
     'showScriptName' => false,
+    'useStrictParsing'=>true,
     'urlSuffix' => '/',
     'rules' => array(
         '/user/<user_id:\d+>' => 'user/profile',
@@ -30,14 +31,6 @@ return array(
         'community/22' => 'cook',
         '^community/list' => 404,
 
-        'contest/<id:\d+>' => 'contest/default/view',
-        'contest/<id:\d+>/rules' => 'contest/default/rules',
-        'contest/<id:\d+>/list/<sort:\w+>' => 'contest/default/list',
-        'contest/<id:\d+>/list' => 'contest/default/list',
-        'contest/<id:\d+>/results' => 'contest/default/results',
-        'contest/work/<id:\d+>' => 'contest/default/work',
-        'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
-
         'morning/saveLocation' => 'morning/saveLocation',
         'morning/<id:\d+>' => 'morning/view',
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
@@ -46,19 +39,18 @@ return array(
         'morning/index/'=>'404',
 
         '/' => 'site/index',
+        'site/login' => 'site/login',
         'admin/' => 'admin/site/index',
-        '<controller:\w+>/admin'=>'site/index',
-        '<controller:\w+>/master'=>'<controller>/admin',
-        '<controller:\w+>/<title:\w+>_<id:\d+>/photo<pid:\d+>'=>'<controller>/view',
-        '<controller:\w+>/<title:\w+>_<id:\d+>'=>'<controller>/view',
+//        '<controller:\w+>/admin'=>'site/index',
+//        '<controller:\w+>/master'=>'<controller>/admin',
+//        '<controller:\w+>/<title:\w+>_<id:\d+>/photo<pid:\d+>'=>'<controller>/view',
+//        '<controller:\w+>/<title:\w+>_<id:\d+>'=>'<controller>/view',
         'babySex/<action:\w+>'=>'services/babySex/default/<action>',
         'sewing/<action:\w+>'=>'services/sewing/default/<action>',
         'sewing/default/<action:\w+>'=>'services/sewing/default/<action>',
         'sizes/<action:\w+>'=>'services/sizes/default/<action>',
         'test/'=>'services/test/default/index',
         'test/<slug:[\w-]+>'=>'services/test/default/view',
-        'im/<action:[\w-]+>'=>'im/default/<action>',
-        'geo/<action:[\w-]+>'=>'geo/geo/<action>',
 
         'tester/'=>'services/tester/default/index',
         'tester/<slug:[\w-]+>'=>'services/tester/default/view',
@@ -130,13 +122,28 @@ return array(
         'maternityLeave' => 'services/maternityLeave/default/index',
         'repair/<controller:[\w-]+>'=>'services/repair/<controller>/index',
 
-        'signal' => 'signal/default/index',
-        'score' => 'scores/default/index',
         '/contest' => '/site/contest',
         'search' => 'site/search',
 
         array('class'=>'ext.sitemapgenerator.SGUrlRule', 'route'=>'/sitemap'),
 
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
+
+
+
+        //===================== Modules =========================//
+
+        'contest/<id:\d+>' => 'contest/default/view',
+        'contest/<id:\d+>/rules' => 'contest/default/rules',
+        'contest/<id:\d+>/list/<sort:\w+>' => 'contest/default/list',
+        'contest/<id:\d+>/list' => 'contest/default/list',
+        'contest/<id:\d+>/results' => 'contest/default/results',
+        'contest/work/<id:\d+>' => 'contest/default/work',
+        'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
+
+        '<_c:.*>/index' => 404,
+        '<_m:(geo|im|signal)>/<_a>'=>'<_m>/default/<_a>',
+        '<_m:(geo|im|signal)>/'=>'<_m>/default/index',
+        'score' => 'scores/default/index',
     ),
 );

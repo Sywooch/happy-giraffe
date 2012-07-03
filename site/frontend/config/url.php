@@ -9,7 +9,7 @@ return array(
     'rules' => array(
         // global
         '.*/index' => 404,
-        '<_c:(activity|ajax|notification|signup)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|ajax|notification|signup|profile)>/<_a>' => '<_c>/<_a>',
 
         //site controller
         '/' => 'site/index',

@@ -7,18 +7,23 @@ return array(
     'urlSuffix' => '/',
     'useStrictParsing' => true,
     'rules' => array(
-        /***** global *****/
+        // global
         '.*/index' => 404,
-        '<_c:(activity|ajax|notification|signup)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|ajax|notification|signup|profile)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|signup|profile)>' => '<_c>/index',
 
-        'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
-
+        // site controller
+        '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
         'site/rememberPassword/step/<step:\d+>' => 'site/rememberPassword',
         'site/<_a:(login|logout|link)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
+        // ajax controller
+        'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
+
+        // signup controller
         'signup/validate/step/<step:\d+>' => 'signup/validate',
 
         'user/<user_id:\d+>' => 'user/profile',
@@ -43,7 +48,7 @@ return array(
         '^community/list' => 404,
 
 
-        '/' => 'site/index',
+
         'site/login' => 'site/login',
 
         'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
@@ -99,7 +104,7 @@ return array(
         'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
 
-        //'cook/' => 'cook/default/index',
+        'cook/' => 'cook/default/index',
 
         'cook/recipe/add' => 'cook/recipe/form',
         'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',

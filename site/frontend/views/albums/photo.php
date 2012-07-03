@@ -20,12 +20,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                         <?php $neighboringPhotos = $photo->neighboringPhotos; ?>
                         <div class="img"><?php echo CHtml::image($photo->getPreviewUrl(678, 400, Image::WIDTH)) ?></div>
                         <?php if($neighboringPhotos['prev']): ?>
-                            <?php echo CHtml::link('<i class="icon"></i>', array('/albums/photo', 'id' => $neighboringPhotos['prev']), array('class' => 'prev')); ?>
+                            <?php echo CHtml::link('<i class="icon"></i>', array('/albums/photo', 'id' => $neighboringPhotos['prev'], 'user_id'=>$photo->author_id, 'album_id'=>$photo->album_id), array('class' => 'prev')); ?>
                         <?php else: ?>
                             <a href="#" class="prev disabled" onclick="return false;"></a>
                         <?php endif; ?>
                         <?php if($neighboringPhotos['next']): ?>
-                            <?php echo CHtml::link('<i class="icon"></i>', array('/albums/photo', 'id' => $neighboringPhotos['next']), array('class' => 'next')); ?>
+                            <?php echo CHtml::link('<i class="icon"></i>', array('/albums/photo', 'id' => $neighboringPhotos['next'], 'user_id'=>$photo->author_id, 'album_id'=>$photo->album_id), array('class' => 'next')); ?>
                         <?php else: ?>
                             <a href="#" class="next disabled" onclick="return false;"></a>
                         <?php endif; ?>
@@ -42,7 +42,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                                         <tr>
                                             <td class="img">
                                                 <div>
-                                                    <?php echo CHtml::link('<img data-src="' . $item->getPreviewUrl(180, 180) . '" alt="" />', array('/albums/photo', 'id' => $item->id)); ?>
+                                                    <?php echo CHtml::link('<img data-src="' . $item->getPreviewUrl(180, 180) . '" alt="" />', $item->url); ?>
                                                 </div>
                                             </td>
                                         </tr>

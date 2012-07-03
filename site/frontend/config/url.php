@@ -4,22 +4,32 @@ return array(
     'class' => 'HUrlManager',
     'urlFormat' => 'path',
     'showScriptName' => false,
-    'useStrictParsing' => true,
     'urlSuffix' => '/',
+    'useStrictParsing' => true,
     'rules' => array(
-        '/user/<user_id:\d+>' => 'user/profile',
-        '/user/<user_id:\d+>/clubs' => 'user/clubs',
-        '/user/<user_id:\d+>/friends' => 'user/friends',
-        '/user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
-        '/user/<user_id:\d+>/blog' => 'blog/list',
-        '/user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
-        '/user/<id:\d+>/albums' => 'albums/user',
-        '/user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
-        '/user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
-        '/user/<user_id:\d+>/rss/page/<page:\d+>' => 'rss/user',
-        '/user/<user_id:\d+>/rss' => 'rss/user',
-        '/user/<user_id:\d+>/comments/rss/page/<page:\d+>' => 'rss/comments',
-        '/user/<user_id:\d+>/comments/rss' => 'rss/comments',
+        'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
+
+        'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
+        'search' => 'site/search',
+        'site/rememberPassword/step/<step:\d+>' => 'site/rememberPassword',
+        'site/<_a:(login|logout|link)>' => 'site/<_a>',
+        'contest' => 'site/contest',
+
+        'signup/validate/step/<step:\d+>' => 'signup/validate',
+
+        'user/<user_id:\d+>' => 'user/profile',
+        'user/<user_id:\d+>/clubs' => 'user/clubs',
+        'user/<user_id:\d+>/friends' => 'user/friends',
+        'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
+        'user/<user_id:\d+>/blog' => 'blog/list',
+        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
+        'user/<id:\d+>/albums' => 'albums/user',
+        'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
+        'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
+        'user/<user_id:\d+>/rss/page/<page:\d+>' => 'rss/user',
+        'user/<user_id:\d+>/rss' => 'rss/user',
+        'user/<user_id:\d+>/comments/rss/page/<page:\d+>' => 'rss/comments',
+        'user/<user_id:\d+>/comments/rss' => 'rss/comments',
 
         'user/blog/add' => 'community/add/community_id/999999/content_type_slug/post/blog/1/',
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
@@ -37,12 +47,7 @@ return array(
 
         'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
 
-        '/contest' => '/site/contest',
-        'search' => 'site/search',
-
         array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
-
-        'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
 
         //===================== Alex Controllers =========================//
         'ajax/<_a>' => 'ajax/<_a>',

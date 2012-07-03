@@ -118,6 +118,7 @@ return array(
         'horoscope/' => 'services/horoscope/default/index',
         'horoscope/<_a:(year|month|today|tomorrow|yesterday)>/<zodiac:[\w]+>' => 'services/horoscope/default/<_a>',
         'horoscope/<zodiac:[\w]+>/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'services/horoscope/default/view',
+        'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/view',
 
         'hospitalBag' => 'services/hospitalBag/default/index',
         'hospitalBag/<_a>' => 'services/hospitalBag/default/<_a>',

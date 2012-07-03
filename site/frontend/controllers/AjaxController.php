@@ -2,6 +2,13 @@
 
 class AjaxController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'ajaxOnly',
+        );
+    }
+
     public function actionSetValue()
     {
         if(!Yii::app()->request->isAjaxRequest)

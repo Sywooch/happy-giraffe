@@ -16,30 +16,18 @@ class CommunityController extends HController
         );
     }
 
-    /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
-     * @return array access control rules
-     */
     public function accessRules()
     {
         return array(
-            array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map', 'rewrite', 'postRewrite', 'stats'),
-                'users'=>array('*'),
-            ),
-            array('allow',
-                'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete', 'transfer', 'uploadImage'),
-                'users' => array('@'),
-            ),
             array('deny',
-                'users'=>array('*'),
+                'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete', 'transfer', 'uploadImage'),
+                'users' => array('?'),
             ),
         );
     }
 
     protected function beforeAction($action) {
-        if(!Yii::app()->request->isAjaxRequest)
+        if (! Yii::app()->request->isAjaxRequest)
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/community.js');
         return parent::beforeAction($action);
     }

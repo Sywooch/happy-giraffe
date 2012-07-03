@@ -5,13 +5,21 @@
  */
 class ActivityController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'ajaxOnly + friendsNext',
+        );
+    }
+
     public function actionIndex()
     {
-        $this->pageTitle = 'Самое свежее на Веселом Жирафе';
-        if (! Yii::app()->user->isGuest) {
+        if (! Yii::app()->user->isGuest)
             UserAttributes::set(Yii::app()->user->id, 'activityLastVisited', time());
-        }
         Yii::import('application.widgets.activity.*');
+
+        $this->pageTitle = 'Самое свежее на Веселом Жирафе';
         $this->render('index');
     }
 
@@ -24,6 +32,7 @@ class ActivityController extends HController
             ),
         ));
 
+        $this->pageTitle = 'Прямой эфир';
         $this->render('live', compact('live'));
     }
 
@@ -31,6 +40,7 @@ class ActivityController extends HController
     {
         $friends = User::findFriends(12);
 
+        $this->pageTitle = 'Найти друзей';
         $this->render('friends', compact('friends'));
     }
 

@@ -15,7 +15,7 @@ $model = new YarnCalcForm;
         'validateOnSubmit' => true,
         'validateOnChange' => false,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/sewing/default/YarnCalculator'),
+        'validationUrl' => $this->createUrl('yarnCalculator'),
         'afterValidate' => "js:function(form, data, hasError) {
                                     if (!hasError)
                                         StartCalc();

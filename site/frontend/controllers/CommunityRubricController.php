@@ -9,7 +9,7 @@ class CommunityRubricController extends HController
     {
         return array(
             'accessControl',
-            'create,update,delete + ajaxOnly'
+            'ajaxOnly'
         );
     }
 
@@ -78,20 +78,18 @@ class CommunityRubricController extends HController
 
     public function actionDelete()
     {
-        if (Yii::app()->request->isAjaxRequest) {
-            $id = Yii::app()->request->getPost('id');
-            $model = $this->loadModel($id);
-            if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array(
-                'community_id' => $model->community_id
-            ))
-            ) {
-                $themesCount = $model->getCount();
-                if ($themesCount == 0) {
-                    echo CJSON::encode(array(
-                        'status' => $model->delete()
-                    ));
-                    Yii::app()->end();
-                }
+        $id = Yii::app()->request->getPost('id');
+        $model = $this->loadModel($id);
+        if (Yii::app()->authManager->checkAccess('editCommunityRubric', Yii::app()->user->id, array(
+            'community_id' => $model->community_id
+        ))
+        ) {
+            $themesCount = $model->getCount();
+            if ($themesCount == 0) {
+                echo CJSON::encode(array(
+                    'status' => $model->delete()
+                ));
+                Yii::app()->end();
             }
         }
         echo CJSON::encode(array(

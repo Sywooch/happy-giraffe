@@ -125,40 +125,28 @@ return array(
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
 
         //===================== Services =========================//
-        'babyBloodGroup' => 'services/babyBloodGroup/default/index',
-
         'babySex/<_a>/' => 'services/babySex/default/<_a>',
         'babySex/default/<_a:(bloodUpdate, japanCalc, ovulationCalc)>/' => 'services/babySex/default/<_a>',
 
         'childrenDiseases/' => 'services/childrenDiseases/default/index',
         'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',
 
-        'contractionsTime' => 'services/contractionsTime/default/index',
-
         'horoscope/' => 'services/horoscope/default/index',
         'horoscope/<_a:(year|month|today|tomorrow|yesterday)>/<zodiac:[\w]+>' => 'services/horoscope/default/<_a>',
         'horoscope/<zodiac:[\w]+>/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'services/horoscope/default/view',
         'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/view',
 
-        'hospitalBag' => 'services/hospitalBag/default/index',
         'hospitalBag/<_a>' => 'services/hospitalBag/default/<_a>',
-
-        'maternityLeave' => 'services/maternityLeave/default/index',
 
         'menstrualCycle' => 'services/menstrualCycle/default/index',
         'menstrualCycle/calculate' => 'services/menstrualCycle/default/calculate',
 
-        'names/' => 'services/names/default/index',
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
 
-        'placentaThickness' => 'services/placentaThickness/default/index',
         'placentaThickness/calculate' => 'services/placentaThickness/default/calculate',
-
-        'pregnancyWeight' => 'services/pregnancyWeight/default/index',
         'pregnancyWeight/calculate' => 'services/pregnancyWeight/default/calculate',
 
-        'recipeBook' => 'services/recipeBook/default/index',
         'recipeBook/<_a:(getAlphabetList|getCategoryList|edit|list|diseases|vote)>' => 'services/recipeBook/default/<_a>',
         'recipeBook/recipe/<id:\d+>' => 'services/recipeBook/default/view',
         'recipeBook/<url:\w+>' => 'services/recipeBook/default/disease',
@@ -177,7 +165,7 @@ return array(
         'vaccineCalendar' => 'services/vaccineCalendar/default/index',
         'vaccineCalendar/<_a>' => 'services/vaccineCalendar/default/<_a>',
 
-        '<_m:(dailyCalories|weightLoss|idealWeight)>/' => 'services/<_m>/default/index',
+        '<_m:(babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight)>/' => 'services/<_m>/default/index',
         'services/<_m:(dailyCalories|weightLoss|idealWeight)>/default/<_c>' => 'services/<_m>/default/<_c>',
     ),
 );

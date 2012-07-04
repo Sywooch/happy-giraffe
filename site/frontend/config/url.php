@@ -46,6 +46,9 @@ return array(
 
         array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 
+        'community/add'=>'community/add',
+        'community/edit'=>'community/edit',
+
         //===================== Alex Controllers =========================//
         'ajax/<_a>' => 'ajax/<_a>',
 

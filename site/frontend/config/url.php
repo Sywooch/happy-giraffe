@@ -89,11 +89,10 @@ return array(
         'contest/<id:\d+>/list' => 'contest/default/list',
         'contest/<id:\d+>/results' => 'contest/default/results',
         'contest/work/<id:\d+>' => 'contest/default/work',
-        'contest/<action:\w+>/<id:\d+>' => 'contest/default/<action>',
+        'contest/<_a>/<id:\d+>' => 'contest/default/<_a>',
 
-        '<_m:(geo|im|signal)>/' => '<_m>/default/index',
+        '<_m:(geo|im|signal|score|cook)>/' => '<_m>/default/index',
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
-        'score' => 'scores/default/index',
 
         //cook
         'cook/<_c:(spices|choose|decor|calorisator|converter|decor|recipe)>' => 'cook/<_c>/index',
@@ -113,8 +112,6 @@ return array(
         'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
 
-        'cook/' => 'cook/default/index',
-
         'cook/recipe/add' => 'cook/recipe/form',
         'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
         'cook/recipe/<id:\d+>' => 'cook/recipe/view',
@@ -125,27 +122,19 @@ return array(
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
 
         //===================== Services =========================//
-        'babySex/<_a>/' => 'services/babySex/default/<_a>',
+        '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight)>/' => 'services/<_m>/default/index',
+        '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
+
         'babySex/default/<_a:(bloodUpdate, japanCalc, ovulationCalc)>/' => 'services/babySex/default/<_a>',
 
-        'childrenDiseases/' => 'services/childrenDiseases/default/index',
         'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',
 
-        'horoscope/' => 'services/horoscope/default/index',
         'horoscope/<_a:(year|month|today|tomorrow|yesterday)>/<zodiac:[\w]+>' => 'services/horoscope/default/<_a>',
         'horoscope/<zodiac:[\w]+>/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'services/horoscope/default/view',
         'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/view',
 
-        'hospitalBag/<_a>' => 'services/hospitalBag/default/<_a>',
-
-        'menstrualCycle' => 'services/menstrualCycle/default/index',
-        'menstrualCycle/calculate' => 'services/menstrualCycle/default/calculate',
-
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
-
-        'placentaThickness/calculate' => 'services/placentaThickness/default/calculate',
-        'pregnancyWeight/calculate' => 'services/pregnancyWeight/default/calculate',
 
         'recipeBook/<_a:(getAlphabetList|getCategoryList|edit|list|diseases|vote)>' => 'services/recipeBook/default/<_a>',
         'recipeBook/recipe/<id:\d+>' => 'services/recipeBook/default/view',
@@ -154,18 +143,12 @@ return array(
         'services/repair/<_c>/<_a>' => 'services/repair/<_c>/<_a>',
         'repair/<_c>' => 'services/repair/<_c>/index',
 
-        'sewing/<action:\w+>' => 'services/sewing/default/<action>',
-
-        'test/' => 'services/test/default/index',
         'test/<slug:[\w-]+>' => 'services/test/default/view',
 
-        'tester/' => 'services/tester/default/index',
         'tester/<slug:[\w-]+>' => 'services/tester/default/view',
 
-        'vaccineCalendar' => 'services/vaccineCalendar/default/index',
-        'vaccineCalendar/<_a>' => 'services/vaccineCalendar/default/<_a>',
+        '<_m:(menstrualCycle|placentaThickness|pregnancyWeight)>/<_a:(calculate)>' => 'services/<_m>/default/<_a>',
 
-        '<_m:(babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight)>/' => 'services/<_m>/default/index',
         'services/<_m:(dailyCalories|weightLoss|idealWeight)>/default/<_c>' => 'services/<_m>/default/<_c>',
     ),
 );

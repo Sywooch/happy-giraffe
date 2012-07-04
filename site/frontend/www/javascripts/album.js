@@ -82,7 +82,7 @@ Album.removeAlbum = function () {
 
 Album.changeAlbum = function (select) {
     if ($(select).val() == '') {
-        this.album_id = null;
+        Album.album_id = null;
         if ($('#new_album_title').val() == '') {
             if (this.initFlash) {
                 Album.clearFlash();
@@ -93,7 +93,7 @@ Album.changeAlbum = function (select) {
         }
         return false;
     }
-    this.album_id = $(select).val();
+    Album.album_id = $(select).val();
 
     upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/' + $(select).val() + '/');
     $('#new_album_title').val('');
@@ -383,12 +383,12 @@ Album.registerUploadEvents = function (elem) {
 }
 
 Album.savePhotos = function () {
-    $.fancybox.close();
-    if (Album.album_id && ($('#comment_list_view').size() == 0 || Album.current_album_id != null && Album.current_album_id != Album.album_id)) {
+    if (Album.album_id && (Album.current_album_id != null && Album.current_album_id != Album.album_id)) {
         document.location.href = base_url + '/albums/redirect/' + Album.album_id + '/';
     } else {
         $.fn.yiiListView.update('comment_list_view');
     }
+    $.fancybox.close();
     return false;
 };
 

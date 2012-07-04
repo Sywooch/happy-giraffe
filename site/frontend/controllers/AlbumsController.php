@@ -671,7 +671,6 @@ class AlbumsController extends HController
             ->registerScriptFile($flashUrl . '/' . 'swfupload.js')
             ->registerScriptFile($flashUrl . '/' . 'jquery.swfupload.js')
             ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/scrollbarpaper.js')
-            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jscrollpane.min.js')
 
             ->registerScriptFile($jUrl . '/jquery.ui.widget.js')
             ->registerScriptFile($jUrl . '/jquery.iframe-transport.js')

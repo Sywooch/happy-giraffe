@@ -66,7 +66,9 @@ return array(
         'community/<community_id:\d+>/forum' => 'community/list',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>/uploadImage' => 'community/uploadImage',
-        'community/<_a:(join)>' => 'community/<_a>',
+        'community/<_a:(join|add)>' => 'community/<_a>',
+        'community/add/community_id/<community_id:\d+>' => 'community/add',
+        'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>/content_type_slug/<content_type_slug:(post|video|travel)>' => 'community/add',
 
         //global
         '<_c:(activity|ajax|notification|signup|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',

@@ -68,7 +68,7 @@ return array(
 
         //global
         '<_c:(activity|ajax|notification|signup|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',
-        '<_c:(activity|signup|profile|rss|family|morning)>' => '<_c>/index',
+        '<_c:(activity|signup|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
         array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),

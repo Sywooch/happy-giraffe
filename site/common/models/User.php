@@ -941,4 +941,14 @@ class User extends HActiveRecord
             return $activityLastUpdated > UserAttributes::get($this->id, 'activityLastVisited');
         }
     }
+
+    public function getBlogPopular()
+    {
+        return BlogContent::model()->full()->findAll(array(
+            'condition' => 'rubric.user_id = :user_id',
+            'params' => array(':user_id' => $this->id),
+            'order' => 't.rate DESC',
+            'limit' => 3,
+        ));
+    }
 }

@@ -7,10 +7,12 @@ return array(
     'urlSuffix' => '/',
     'useStrictParsing' => true,
     'rules' => array(
+       /*************************
+        *      CONTROLLERS      *
+        *************************/
+
         // global
         '.*/index' => 404,
-        '<_c:(activity|ajax|notification|signup|profile|friendRequests)>/<_a>' => '<_c>/<_a>',
-        '<_c:(activity|signup|profile|rss)>' => '<_c>/index',
 
         // site controller
         '/' => 'site/index',
@@ -30,7 +32,7 @@ return array(
         'friendRequests/update/request_id/<request_id:\d+>/action/<action:(accept|decline|retry|cancel)>' => 'friendRequests/update',
 
         // rss controller
-        'rss/index/page/<page:\d+>' => 'rss/index',
+        'rss/page<page:\d+>' => 'rss/index',
 
         'user/<user_id:\d+>' => 'user/profile',
         'user/<user_id:\d+>/clubs' => 'user/clubs',
@@ -53,16 +55,9 @@ return array(
         'community/22' => 'cook',
         '^community/list' => 404,
 
-
-
-        'site/login' => 'site/login',
-
         'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
 
         array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
-
-        //===================== Alex Controllers =========================//
-        'ajax/<_a>' => 'ajax/<_a>',
 
         'family' => 'family/index',
         'family/<_a>' => 'family/<_a>',
@@ -79,7 +74,14 @@ return array(
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar)>' => 'albums/<_a>',
 
-        //===================== Modules =========================//
+        //global
+        '<_c:(activity|ajax|notification|signup|profile|friendRequests)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|signup|profile|rss)>' => '<_c>/index',
+
+        /*************************
+         *        MODULES        *
+         *************************/
+
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',
         'contest/<id:\d+>/list/<sort:\w+>' => 'contest/default/list',

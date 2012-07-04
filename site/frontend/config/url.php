@@ -91,7 +91,7 @@ return array(
         'contest/work/<id:\d+>' => 'contest/default/work',
         'contest/<_a>/<id:\d+>' => 'contest/default/<_a>',
 
-        '<_m:(geo|im|signal|score|cook)>/' => '<_m>/default/index',
+        '<_m:(geo|im|signal|scores|cook)>/' => '<_m>/default/index',
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
 
         //cook

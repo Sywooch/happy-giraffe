@@ -5,6 +5,14 @@ class DefaultController extends HController
 	public $layout = '//layouts/new';
     public $pageTitle = 'Сумка в роддом';
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'addOffer,putIn,vote + ajaxOnly'
+        );
+    }
+
 	public function actionIndex()
 	{	
 		$item = new BagItem;

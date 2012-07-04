@@ -463,18 +463,4 @@ class DefaultController extends HController
             sleep(1);
         }
     }*/
-
-    public function actionSlug()
-    {
-        if (!Yii::app()->user->checkAccess('administrator'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $models = Name::model()->findAll('slug IS NULL OR slug = ""');
-        echo count($models);
-        foreach($models as $model){
-            $model->scenario = 'edit';
-            $model->save();
-        }
-    }
-
 }

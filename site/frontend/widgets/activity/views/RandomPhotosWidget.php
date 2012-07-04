@@ -14,7 +14,7 @@
                             <?=CHtml::link(CHtml::encode($p->author->fullName), $p->author->url)?>
                         </div>
                         <div class="img">
-                            <?php echo CHtml::link(CHtml::image($p->getPreviewUrl(170, 130, Image::WIDTH, true)), array('/albums/photo', 'id' => $p->id)); ?>
+                            <?php echo CHtml::link(CHtml::image($p->getPreviewUrl(170, 130, Image::WIDTH, true)), $p->url); ?>
                         </div>
                         <div class="item-title"><?php echo $p->title != '' ? $p->title : '&nbsp;' ?></div>
                     </li>

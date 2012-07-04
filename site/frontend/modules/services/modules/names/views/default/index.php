@@ -2,8 +2,9 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript
-    ->registerScriptFile($baseUrl . '/main.js', CClientScript::POS_HEAD)
-;
+    ->registerScriptFile($baseUrl . '/main.js', CClientScript::POS_HEAD);
+if (empty($letter))
+    Yii::app()->clientScript->registerMetaTag('Нет ничего сложнее, чем выбрать имя для только что появившегося на свет человечка. Упростите себе эту задачу, воспользовавшись нашим сервисом: можно посмотреть имена по святкам, по известным личностям, по алфавиту и по популярности', 'description');
 
 ?><ul class="letters">
     <li<?php if (empty($letter)) echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index') ?>">Все</a></li>

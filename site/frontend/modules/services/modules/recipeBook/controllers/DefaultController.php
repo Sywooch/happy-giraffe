@@ -5,6 +5,13 @@ class DefaultController extends HController
     public $layout = 'rec-layout';
     public $index = false;
 
+    public function filters()
+    {
+        return array(
+            'ajaxOnly + diseases, getAlphabetList, getCategoryList, vote',
+        );
+    }
+
     public function actionIndex()
     {
         $this->pageTitle = 'Книга народных рецептов от детских болезней';

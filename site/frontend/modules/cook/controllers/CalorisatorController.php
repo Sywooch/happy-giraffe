@@ -2,6 +2,14 @@
 
 class CalorisatorController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'ac + ajaxOnly'
+        );
+    }
+
     public function actionIndex()
     {
         $this->pageTitle = 'Счетчик калорий';

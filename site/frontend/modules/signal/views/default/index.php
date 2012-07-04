@@ -19,7 +19,7 @@ $cs = Yii::app()->clientScript;
 $cs
     ->registerScriptFile('/javascripts/soundmanager2.js', CClientScript::POS_HEAD)
     ->registerScriptFile('/javascripts/comet.js')
-    ->registerScriptFile($baseUrl . '/signal.js?r=1', CClientScript::POS_HEAD)
+    ->registerScriptFile($baseUrl . '/signal.js?r=2', CClientScript::POS_HEAD)
     ->registerScript('SignalInit2', $js);
 
 ?>

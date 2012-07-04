@@ -34,6 +34,22 @@ return array(
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',
 
+        // family controller
+        'family' => 'family/index',
+        'family/<_a>' => 'family/<_a>',
+
+        // morning controller
+        'morning/' => 'morning/index',
+        'morning/<id:\d+>' => 'morning/view',
+        'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
+        'morning/<_a>' => 'morning/<_a>',
+
+        // albums controller
+        'albums/addPhoto/a/<id:\d+>' => 'albums/addPhoto',
+        'albums/addPhoto' => 'albums/addPhoto',
+        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar)>' => 'albums/<_a>',
+
+        // user/*
         'user/<user_id:\d+>' => 'user/profile',
         'user/<user_id:\d+>/clubs' => 'user/clubs',
         'user/<user_id:\d+>/friends' => 'user/friends',
@@ -44,39 +60,24 @@ return array(
         'user/<user_id:\d+>/rss' => 'rss/user',
         'user/<user_id:\d+>/comments/rss/page/<page:\d+>' => 'rss/comments',
         'user/<user_id:\d+>/comments/rss' => 'rss/comments',
+        'user/<id:\d+>/albums' => 'albums/user',
+        'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
+        'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
 
-        'user/blog/add' => 'community/add/community_id/999999/content_type_slug/post/blog/1/',
+        // community/*
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/list',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>' => 'community/list',
         'community/<community_id:\d+>/forum' => 'community/list',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>/uploadImage' => 'community/uploadImage',
-        'community/22' => 'cook',
-        '^community/list' => 404,
-
-        'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
-
-        array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
-
-        'family' => 'family/index',
-        'family/<_a>' => 'family/<_a>',
-
-        'morning/' => 'morning/index',
-        'morning/<id:\d+>' => 'morning/view',
-        'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
-        'morning/<_a>' => 'morning/<_a>',
-
-        'user/<id:\d+>/albums' => 'albums/user',
-        'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
-        'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
-        'albums/addPhoto/a/<id:\d+>' => 'albums/addPhoto',
-        'albums/addPhoto' => 'albums/addPhoto',
-        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar)>' => 'albums/<_a>',
 
         //global
-        '<_c:(activity|ajax|notification|signup|profile|friendRequests)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|ajax|notification|signup|profile|friendRequests|communityRubric)>/<_a>' => '<_c>/<_a>',
         '<_c:(activity|signup|profile|rss)>' => '<_c>/index',
+
+        //others
+        array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 
         /*************************
          *        MODULES        *
@@ -178,9 +179,5 @@ return array(
 
         '<_m:(dailyCalories|weightLoss|idealWeight)>/' => 'services/<_m>/default/index',
         'services/<_m:(dailyCalories|weightLoss|idealWeight)>/default/<_c>' => 'services/<_m>/default/<_c>',
-
-        /***** global *****/
-        '<_q:\w+>' => '<_q>/index',
-        '<_q:\w+>' => '<_q>/default/index',
     ),
 );

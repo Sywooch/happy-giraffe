@@ -385,7 +385,7 @@ Album.registerUploadEvents = function (elem) {
 Album.savePhotos = function () {
     $.fancybox.close();
     if (Album.album_id && ($('#comment_list_view').size() == 0 || Album.current_album_id != null && Album.current_album_id != Album.album_id)) {
-        document.location.href = base_url + '/albums/' + Album.album_id + '/';
+        document.location.href = base_url + '/albums/redirect/' + Album.album_id + '/';
     } else {
         $.fn.yiiListView.update('comment_list_view');
     }

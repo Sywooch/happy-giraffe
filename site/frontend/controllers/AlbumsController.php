@@ -9,7 +9,7 @@ class AlbumsController extends HController
     {
         if(!Yii::app()->request->isAjaxRequest){
             $this->pageTitle = 'Фотоальбомы';
-            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js');
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js?r=11');
             Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/jquery.jscrollpane.css');
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jscrollpane.min.js');
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.mousewheel.js');
@@ -667,13 +667,20 @@ class AlbumsController extends HController
         $jUrl = Yii::app()->baseUrl . '/javascripts/j_upload/';
         Yii::app()->clientScript->registerCoreScript('jquery')
             ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/flash_detect_min.js')
-            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js?r=11')
             ->registerScriptFile($flashUrl . '/' . 'swfupload.js')
             ->registerScriptFile($flashUrl . '/' . 'jquery.swfupload.js')
             ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/scrollbarpaper.js')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jscrollpane.min.js')
 
             ->registerScriptFile($jUrl . '/jquery.ui.widget.js')
             ->registerScriptFile($jUrl . '/jquery.iframe-transport.js')
             ->registerScriptFile($jUrl . '/jquery.fileupload.js');
+    }
+
+    public function actionRedirect(){
+        $id = Yii::app()->request->getPost('id');
+        $album = Album::model()->findByPk($id);
+        $this->redirect($album->url);
     }
 }

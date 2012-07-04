@@ -34,9 +34,33 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
     ?>
 
     <div class="row">
+        <?php echo $form->labelEx($model, 'sex'); ?>
+        <?php echo $form->dropDownList($model, 'sex', $dailyModel->sexes, array('class' => 'chzn')) ?>
+        <?php echo $form->error($model, 'sex'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'age'); ?>
+        <?php echo $form->textField($model, 'age'); ?>
+        <?php echo $form->error($model, 'age'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'growth'); ?>
+        <?php echo $form->textField($model, 'growth'); ?>
+        <?php echo $form->error($model, 'growth'); ?>
+    </div>
+
+    <div class="row">
         <?php echo $form->labelEx($model, 'weight'); ?>
         <?php echo $form->textField($model, 'weight'); ?>
         <?php echo $form->error($model, 'weight'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'activity'); ?>
+        <?php echo $form->dropDownList($model, 'activity', $dailyModel->activities, array('class' => 'chzn')) ?>
+        <?php echo $form->error($model, 'activity'); ?>
     </div>
 
     <div class="row">

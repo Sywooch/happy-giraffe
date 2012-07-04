@@ -7,15 +7,32 @@ return array(
     'urlSuffix' => '/',
     'useStrictParsing' => true,
     'rules' => array(
-        'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
+       /*************************
+        *      CONTROLLERS      *
+        *************************/
 
+        // global
+        '.*/index' => 404,
+
+        // site controller
+        '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
         'site/rememberPassword/step/<step:\d+>' => 'site/rememberPassword',
         'site/<_a:(login|logout|link)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
+        // ajax controller
+        'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
+
+        // signup controller
         'signup/validate/step/<step:\d+>' => 'signup/validate',
+
+        // friendRequests controller
+        'friendRequests/update/request_id/<request_id:\d+>/action/<action:(accept|decline|retry|cancel)>' => 'friendRequests/update',
+
+        // rss controller
+        'rss/page<page:\d+>' => 'rss/index',
 
         'user/<user_id:\d+>' => 'user/profile',
         'user/<user_id:\d+>/clubs' => 'user/clubs',
@@ -38,19 +55,9 @@ return array(
         'community/22' => 'cook',
         '^community/list' => 404,
 
-
-        '/' => 'site/index',
-        'site/login' => 'site/login',
-
         'shop' => array('product/view', 'defaultParams' => array('title' => 'Jetem_Turbo_4S', 'id' => 10)),
 
         array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
-
-        'community/add'=>'community/add',
-        'community/edit'=>'community/edit',
-
-        //===================== Alex Controllers =========================//
-        'ajax/<_a>' => 'ajax/<_a>',
 
         'family' => 'family/index',
         'family/<_a>' => 'family/<_a>',
@@ -67,8 +74,13 @@ return array(
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar)>' => 'albums/<_a>',
 
-        //===================== Modules =========================//
-        '<_c:.*>/index' => 404,
+        //global
+        '<_c:(activity|ajax|notification|signup|profile|friendRequests)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|signup|profile|rss)>' => '<_c>/index',
+
+        /*************************
+         *        MODULES        *
+         *************************/
 
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',
@@ -112,44 +124,33 @@ return array(
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
 
         //===================== Services =========================//
-        'babyBloodGroup' => 'services/babyBloodGroup/default/index',
-
         'babySex/<_a>/' => 'services/babySex/default/<_a>',
         'babySex/default/<_a:(bloodUpdate, japanCalc, ovulationCalc)>/' => 'services/babySex/default/<_a>',
 
         'childrenDiseases/' => 'services/childrenDiseases/default/index',
         'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',
 
-        'contractionsTime' => 'services/contractionsTime/default/index',
-
         'horoscope/' => 'services/horoscope/default/index',
         'horoscope/<_a:(year|month|today|tomorrow|yesterday)>/<zodiac:[\w]+>' => 'services/horoscope/default/<_a>',
         'horoscope/<zodiac:[\w]+>/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'services/horoscope/default/view',
         'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/view',
 
-        'hospitalBag' => 'services/hospitalBag/default/index',
         'hospitalBag/<_a>' => 'services/hospitalBag/default/<_a>',
-
-        'maternityLeave' => 'services/maternityLeave/default/index',
 
         'menstrualCycle' => 'services/menstrualCycle/default/index',
         'menstrualCycle/calculate' => 'services/menstrualCycle/default/calculate',
 
-        'names/' => 'services/names/default/index',
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
 
-        'placentaThickness' => 'services/placentaThickness/default/index',
         'placentaThickness/calculate' => 'services/placentaThickness/default/calculate',
-
-        'pregnancyWeight' => 'services/pregnancyWeight/default/index',
         'pregnancyWeight/calculate' => 'services/pregnancyWeight/default/calculate',
 
-        'recipeBook' => 'services/recipeBook/default/index',
         'recipeBook/<_a:(getAlphabetList|getCategoryList|edit|list|diseases|vote)>' => 'services/recipeBook/default/<_a>',
         'recipeBook/recipe/<id:\d+>' => 'services/recipeBook/default/view',
         'recipeBook/<url:\w+>' => 'services/recipeBook/default/disease',
 
+        'services/repair/<_c>/<_a>' => 'services/repair/<_c>/<_a>',
         'repair/<_c>' => 'services/repair/<_c>/index',
 
         'sewing/<action:\w+>' => 'services/sewing/default/<action>',
@@ -162,5 +163,8 @@ return array(
 
         'vaccineCalendar' => 'services/vaccineCalendar/default/index',
         'vaccineCalendar/<_a>' => 'services/vaccineCalendar/default/<_a>',
+
+        '<_m:(babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight)>/' => 'services/<_m>/default/index',
+        'services/<_m:(dailyCalories|weightLoss|idealWeight)>/default/<_c>' => 'services/<_m>/default/<_c>',
     ),
 );

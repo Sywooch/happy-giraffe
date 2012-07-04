@@ -19,10 +19,10 @@ class AddImageTagsBehavior extends CActiveRecordBehavior
                 $i++;
 
                 if (empty($alt))
-                    pq($image)->attr('alt', $this->owner->content->title.' рисунок '.$i);
+                    pq($image)->attr('alt', $this->owner->content->title.' фото '.$i);
 
                 if (empty($title))
-                    pq($image)->attr('title', $this->owner->content->title.' рисунок '.$i);
+                    pq($image)->attr('title', $this->owner->content->title.' фото '.$i);
             }
         }
         $this->owner->text = $doc->html();

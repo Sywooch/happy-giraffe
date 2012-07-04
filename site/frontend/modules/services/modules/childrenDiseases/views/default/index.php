@@ -2,6 +2,8 @@
 /* @var $this Controller
  * @var $categories RecipeBookDiseaseCategory[]
  */
+Yii::app()->clientScript->registerMetaTag('Здесь собраны самые распространённые детские болезни, от которых, к сожалению, не застрахован ни один ребенок. Выберите название и узнайте о симптомах, лечении и профилактике заболевания', 'description');
+
 ?><h1>Справочник детских болезней</h1>
 
 <div class="wysiwyg-content">

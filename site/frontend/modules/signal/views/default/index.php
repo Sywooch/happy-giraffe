@@ -7,13 +7,7 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
-$js = "Signal.takeSignalUrl = '". Yii::app()->createUrl("/signal/default/take") ."';
-        Signal.declineSignalUrl = '". Yii::app()->createUrl("/signal/default/decline") ."';
-        Signal.calendarUrl = '". Yii::app()->createUrl("/signal/default/calendar") ."';
-        Signal.historyUrl = '". Yii::app()->createUrl("/signal/default/history") ."';
-        Signal.signalUrl = '". Yii::app()->createUrl("/signal/default/index") ."';
-        Signal.removeUrl = '". Yii::app()->createUrl("/signal/default/removeAll") ."';
-
+$js = "
         comet.addEvent(".CometModel::TYPE_SIGNAL_UPDATE.", 'UpdateTable');
         comet.addEvent(".CometModel::TYPE_SIGNAL_EXECUTED.", 'TaskExecuted');
 
@@ -25,7 +19,7 @@ $cs = Yii::app()->clientScript;
 $cs
     ->registerScriptFile('/javascripts/soundmanager2.js', CClientScript::POS_HEAD)
     ->registerScriptFile('/javascripts/comet.js')
-    ->registerScriptFile($baseUrl . '/signal.js', CClientScript::POS_HEAD)
+    ->registerScriptFile($baseUrl . '/signal.js?r=2', CClientScript::POS_HEAD)
     ->registerScript('SignalInit2', $js);
 
 ?>
@@ -66,5 +60,3 @@ $cs
 <div class="fast-list">
     <?php $this->renderPartial('_history', array('history' => $history)); ?>
 </div>
-
-<!--<a href="#" onclick="Play();">play</a>-->

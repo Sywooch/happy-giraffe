@@ -16,30 +16,18 @@ class CommunityController extends HController
         );
     }
 
-    /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
-     * @return array access control rules
-     */
     public function accessRules()
     {
         return array(
-            array('allow',
-                'actions' => array('index', 'list', 'view', 'fixList', 'fixUsers', 'fixSave', 'fixUser', 'shortList', 'shortListContents', 'join', 'leave', 'purify', 'ping', 'map', 'rewrite', 'postRewrite', 'stats'),
-                'users'=>array('*'),
-            ),
-            array('allow',
-                'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete', 'transfer', 'uploadImage'),
-                'users' => array('@'),
-            ),
             array('deny',
-                'users'=>array('*'),
+                'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete', 'transfer', 'uploadImage'),
+                'users' => array('?'),
             ),
         );
     }
 
     protected function beforeAction($action) {
-        if(!Yii::app()->request->isAjaxRequest)
+        if (! Yii::app()->request->isAjaxRequest)
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/community.js');
         return parent::beforeAction($action);
     }
@@ -650,6 +638,11 @@ class CommunityController extends HController
 
     public function actionJoin($action, $community_id)
     {
+        if (Yii::app()->user->isGuest)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        if (empty($community_id))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         $result = ($action == 'join') ? Yii::app()->user->model->addCommunity($community_id) : Yii::app()->user->model->delCommunity($community_id);
 
         if (Yii::app()->request->isAjaxRequest) {

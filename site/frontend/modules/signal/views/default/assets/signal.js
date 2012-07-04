@@ -18,11 +18,6 @@ var Signal = {
     month:null,
     current_date:null,
 
-    takeSignalUrl:null,
-    declineSignalUrl:null,
-    calendarUrl:null,
-    historyUrl:null,
-    signalUrl:null,
     removeUrl:null,
 
     TYPE_SIGNAL_UPDATE:null,
@@ -31,7 +26,7 @@ var Signal = {
     TakeSignal:function (elem) {
         var id = elem.prev().val();
         $.ajax({
-            url:this.takeSignalUrl,
+            url:'/signal/take/',
             data:{id:id},
             type:'POST',
             dataType:'JSON',
@@ -54,7 +49,7 @@ var Signal = {
             this.Play();
 
         $.ajax({
-            url:this.signalUrl,
+            url:'/signal/',
             type:'POST',
             data:{filter:this.filter},
             dataType:'JSON',
@@ -66,7 +61,7 @@ var Signal = {
     },
     DeclineSignal:function (elem) {
         $.ajax({
-            url:this.declineSignalUrl,
+            url:'/signal/decline/',
             data:{id:elem.parents('td.actions').find('input').val()},
             type:'POST',
             dataType:'JSON',
@@ -95,7 +90,7 @@ var Signal = {
         }
 
         $.ajax({
-            url:this.calendarUrl,
+            url:'/signal/calendar/',
             data:{month:this.month, year:this.year, current_date:this.current_date},
             type:'POST',
             success:function (response) {
@@ -111,7 +106,7 @@ var Signal = {
         }
 
         $.ajax({
-            url:this.calendarUrl,
+            url:'/signal/calendar/',
             data:{month:this.month, year:this.year, current_date:this.current_date},
             type:'POST',
             success:function (response) {
@@ -123,7 +118,7 @@ var Signal = {
         this.current_date = this.year.toString() + '-' + this.AddZero(this.month) + '-' + this.AddZero(elem.text());
 
         $.ajax({
-            url:this.historyUrl,
+            url:'/signal/history/',
             data:{date:this.current_date},
             type:'POST',
             success:function (response) {
@@ -149,7 +144,7 @@ var Signal = {
     },
     removeHistory:function () {
         $.ajax({
-            url:this.removeUrl,
+            url:'/signal/removeAll/',
             type:'POST'
         });
     }

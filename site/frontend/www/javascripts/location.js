@@ -7,7 +7,7 @@ var UserLocation = {
     SelectCounty:function (elem) {
         this.clearCity();
         $.ajax({
-            url:'/geo/geo/regions/',
+            url:'/geo/regions/',
             data:{id:elem.val()},
             type:'POST',
             success:function (response) {
@@ -19,7 +19,7 @@ var UserLocation = {
     RegionChanged:function (elem) {
         this.clearCity();
         $.ajax({
-            url:'/geo/geo/regionIsCity/',
+            url:'/geo/regionIsCity/',
             data:{id:elem.val()},
             type:'POST',
             dataType:'JSON',
@@ -39,7 +39,7 @@ var UserLocation = {
     },
     saveLocation:function () {
         $.ajax({
-            url:'/geo/geo/saveLocation/',
+            url:'/geo/saveLocation/',
             data:{
                 country_id:$('#country_id').val(),
                 city_id:$('#city_id').val(),
@@ -64,7 +64,7 @@ var UserLocation = {
     },
     OpenEdit:function (elem) {
         $.ajax({
-            url: '/geo/geo/locationForm/',
+            url: '/geo/locationForm/',
             type: 'POST',
             success: function(response) {
                 $("#loc-flipbox").flip({

@@ -82,8 +82,9 @@ return array(
         'contest/<id:\d+>/rules' => 'contest/default/rules',
         'contest/<id:\d+>/list/<sort:\w+>' => 'contest/default/list',
         'contest/<id:\d+>/list' => 'contest/default/list',
+        'contest/<id:\d+>/results/work<work:\d+>' => 'contest/default/results',
         'contest/<id:\d+>/results' => 'contest/default/results',
-        'contest/work/<id:\d+>' => 'contest/default/work',
+        'contest/work<id:\d+>' => 'contest/default/work',
         'contest/<_a>/<id:\d+>' => 'contest/default/<_a>',
 
         '<_m:(geo|im|signal|scores|cook)>/' => '<_m>/default/index',

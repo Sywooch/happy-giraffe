@@ -4,20 +4,17 @@ class AjaxController extends HController
 {
     public function actionSetValue()
     {
-        if(!Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->request->isAjaxRequest)
             Yii::app()->end();
         $modelName = Yii::app()->request->getPost('entity');
         $modelPk = Yii::app()->request->getPost('entity_id');
         $attribute = Yii::app()->request->getPost('attribute');
         $value = Yii::app()->request->getPost('value');
 
-        if($modelName == 'CookDecoration' && $attribute == 'description')
-        {
+        if ($modelName == 'CookDecoration' && $attribute == 'description') {
             Yii::import('site.frontend.modules.cook.models.*');
             $model = $modelName::model()->findByAttributes(array('photo_id' => $modelPk));
-        }
-        else
-        {
+        } else {
             $model = $modelName::model()->findByPk($modelPk);
         }
         $model->setAttribute($attribute, $value);
@@ -67,8 +64,7 @@ class AjaxController extends HController
 
         if ($url = Yii::app()->request->getPost('url')) {
             Rating::model()->updateByApi($model, $social_key, $url);
-        }
-        else {
+        } else {
             Rating::model()->saveByEntity($model, $social_key, $value, true);
         }
 
@@ -185,12 +181,12 @@ class AjaxController extends HController
     {
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
 
-        if(Yii::app()->request->getPost('PhotoViewComment'))
+        if (Yii::app()->request->getPost('PhotoViewComment'))
             $_POST['Comment'] = CMap::mergeArray($_POST['Comment'], $_POST['PhotoViewComment']);
 
-        if(isset($_POST['CommentProduct']))
+        if (isset($_POST['CommentProduct']))
             $model = 'CommentProduct';
-        elseif(isset($_POST['Comment']))
+        elseif (isset($_POST['Comment']))
             $model = 'Comment';
         else
             Yii::app()->end();
@@ -217,8 +213,7 @@ class AjaxController extends HController
             $response = array(
                 'status' => 'ok',
             );
-        }
-        else {
+        } else {
             $response = array(
                 'status' => 'error',
             );
@@ -408,8 +403,7 @@ class AjaxController extends HController
                 if (isset($model->vote_attributes[0]) && isset($model->vote_attributes[1])) {
                     $response['rating'] = $model->{$model->vote_attributes[1]} - $model->{$model->vote_attributes[0]};
                 }
-            }
-            else
+            } else
                 $response = array('success' => false);
 
             echo CJSON::encode($response);
@@ -418,7 +412,7 @@ class AjaxController extends HController
 
     public function actionDuelVote()
     {
-        if (Yii::app()->request->isAjaxRequest && ! Yii::app()->user->isGuest) {
+        if (Yii::app()->request->isAjaxRequest && !Yii::app()->user->isGuest) {
             $id = Yii::app()->request->getPost('id');
             $model = DuelAnswer::model()->findByPk($id);
             $model->vote(Yii::app()->user->id, 1);
@@ -463,7 +457,7 @@ class AjaxController extends HController
 
             $model = $modelName::model()->findByPk($modelPk);
             $success = false;
-            if ($model){
+            if ($model) {
                 $success = Favourites::toggle($model, $index, $param);
             }
             echo CJSON::encode(array('status' => $success));
@@ -472,9 +466,9 @@ class AjaxController extends HController
 
     public function actionWantToChat()
     {
-        if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)) {
+        if (!Yii::app()->user->isGuest && !WantToChat::hasCooldown(Yii::app()->user->id)) {
             $model = new WantToChat;
-            $model->user_id = (int) Yii::app()->user->id;
+            $model->user_id = (int)Yii::app()->user->id;
             $model->created = time();
             echo $model->save();
         }
@@ -537,5 +531,40 @@ class AjaxController extends HController
     {
         $question = DuelQuestion::model()->with('answers.user')->findByPk($question_id);
         $this->renderPartial('duel_show', compact('question'));
+    }
+
+    public function actionEditMeta($route = null, $params = null)
+    {
+        if (!Yii::app()->user->checkAccess('editMeta'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $id = Yii::app()->request->getPost('_id');
+
+        if (!empty($id)){
+            $model = $this->loadModel($id);
+        }else{
+            $model = PageMetaTag::getModel(urldecode($route), unserialize(urldecode($params)), true);
+        }
+        if (isset($_POST['meta'])) {
+            $model->attributes = $_POST['meta'];
+            $model->save();
+            echo CJSON::encode(array('status' => true));
+        }
+        else
+            $this->renderPartial('_edit_meta', compact('model'));
+    }
+
+    /**
+     * @param int $id model id
+     * @return PageMetaTag
+     * @throws CHttpException
+     */
+    public function loadModel($id)
+    {
+        $model = PageMetaTag::model()->findByPk(new MongoId($id));
+        if ($model === null){
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        }
+        return $model;
     }
 }

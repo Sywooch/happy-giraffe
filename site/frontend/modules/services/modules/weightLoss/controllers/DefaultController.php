@@ -10,7 +10,7 @@ class DefaultController extends HController
     public function actionIndex()
     {
         $this->pageTitle = 'Расчет похудения';
-        $this->render('index', array('model' => new WeightLossForm()));
+        $this->render('index', array('model' => new WeightLossForm(), 'dailyModel' => new DailyCaloriesForm()));
     }
 
     public function actionCalculate()
@@ -23,8 +23,8 @@ class DefaultController extends HController
                 echo $validationResult;
                 Yii::app()->end();
             }
-            //$result['html'] = $this->renderPartial('_result', array('result' => $model->calculate()), true);
-            $result = $model->calculate();
+            $result['html'] = $this->renderPartial('_result', array('result' => $model->calculate()), true);
+            //$result = $model->calculate();
             header('Content-type: application/json');
             echo CJSON::encode($result);
         }

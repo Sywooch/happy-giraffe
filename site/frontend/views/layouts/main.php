@@ -117,7 +117,7 @@
                                     <div class="actions">
                                         <ul>
                                             <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>">Мой профайл<i class="icon icon-profile"></i></a></li>
-                                            <li><a href="<?php echo $this->createUrl('/profile/index') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/profile') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
                                             <li><a href="<?php echo $this->createUrl('/site/logout') ?>">Выйти<i class="icon icon-logout"></i></a></li>
                                         </ul>
                                     </div>

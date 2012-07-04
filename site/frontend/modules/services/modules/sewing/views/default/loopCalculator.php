@@ -18,7 +18,7 @@ $model = new LoopCalculationForm();
             'validateOnSubmit' => true,
             'validateOnChange' => false,
             'validateOnType' => false,
-            'validationUrl' => $this->createUrl('/sewing/default/LoopCalculator'),
+            'validationUrl' => $this->createUrl('loopCalculator'),
             'afterValidate' => "js:function(form, data, hasError) {
                                     if (!hasError)
                                         loopCalculator.calc();

@@ -5,6 +5,10 @@ class WeightLossForm extends HFormModel
     public $weight;
     public $loss;
     public $days;
+    public $growth;
+    public $activity;
+    public $sex;
+    public $age;
 
     public function rules()
     {
@@ -29,16 +33,66 @@ class WeightLossForm extends HFormModel
         return array(
             'weight' => 'Вес, кг',
             'loss' => 'похудедение, кг',
-            'days' => 'в течении скольких дней'
+            'days' => 'в течении скольких дней',
+            'sex' => 'Пол',
+            'age' => 'Возраст',
+            'growth' => 'Рост',
+            'activity' => 'Активность'
         );
     }
 
     public function calculate()
     {
-        $result = array('dailyCalories' => 0, 'days' => 0);
-        $result['dailyCalories'] = ceil(9000 * $this->loss / $this->days);
+
+        $result = array();
+
+        $idealModel = new IdealWeightForm();
+        $idealModel->attributes = array(
+            'height' => $this->growth,
+            'weight' => $this->weight
+        );
+        $result['idealWeight'] = $idealModel->calculate();
+
+        $lossRight = ($result['idealWeight']['deviation'] > 100) ? $this->weight - $result['idealWeight']['result'] : 0;
+
+
+        $dailyModel = new DailyCaloriesForm();
+        $dailyModel->attributes = array(
+            'sex' => $this->sex,
+            'age' => $this->sex,
+            'growth' => $this->growth,
+            'weight' => $this->weight,
+            'activity' => $this->activity
+        );
+
+
+        $result['dailyCalories'] = $dailyModel->calculate();
+
+        $result['dailyCaloriesLoss'] = ceil(9000 * $lossRight / $this->days);
+        if ($result['dailyCaloriesLoss'] < 0)
+            $result['dailyCaloriesLoss'] = 0;
+
+
+        $minCalories = ($this->sex == 1) ? 1800 : 1200;
+        $minFact = $result['dailyCalories']['calories'] - $result['dailyCaloriesLoss'];
+        if ($minCalories > $minFact) {
+            $result['dailyCaloriesLossRight'] = $result['dailyCalories']['calories'] - $minCalories;
+        }
+
+        if ($result['dailyCaloriesLossRight'] < 0) {
+            $result['dailyCaloriesLossRight'] = 200;
+        }
+
+        if ($result['dailyCaloriesLossRight'] > 1000) {
+            $result['dailyCaloriesLossRight'] = 1000;
+        }
+
+        $result['days'] = ceil(9000 * $lossRight / $result['dailyCaloriesLossRight']);
+
+        /*$result = array('dailyCalories' => 0, 'days' => 0);
+
         if ($result['dailyCalories'] > 1000)
-            $result['days'] = ceil(9000 * $this->loss / 1000);
+            $result['days'] = ceil(9000 * $this->loss / 1000);*/
 
         return $result;
     }

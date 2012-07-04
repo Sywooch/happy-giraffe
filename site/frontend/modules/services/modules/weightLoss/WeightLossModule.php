@@ -9,7 +9,9 @@ class WeightLossModule extends CWebModule
 
         // import the module-level models and components
         $this->setImport(array(
-            'weightLoss.models.*'
+            'weightLoss.models.*',
+            'dailyCalories.models.*',
+            'idealWeight.models.*'
         ));
     }
 

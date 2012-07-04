@@ -34,15 +34,9 @@ return array(
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',
 
-        // family controller
-        'family' => 'family/index',
-        'family/<_a>' => 'family/<_a>',
-
         // morning controller
-        'morning/' => 'morning/index',
         'morning/<id:\d+>' => 'morning/view',
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
-        'morning/<_a>' => 'morning/<_a>',
 
         // albums controller
         'albums/addPhoto/a/<id:\d+>' => 'albums/addPhoto',
@@ -73,8 +67,8 @@ return array(
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>/uploadImage' => 'community/uploadImage',
 
         //global
-        '<_c:(activity|ajax|notification|signup|profile|friendRequests|communityRubric)>/<_a>' => '<_c>/<_a>',
-        '<_c:(activity|signup|profile|rss)>' => '<_c>/index',
+        '<_c:(activity|ajax|notification|signup|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|signup|profile|rss|family|morning)>' => '<_c>/index',
 
         //others
         array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),

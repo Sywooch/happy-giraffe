@@ -10,6 +10,8 @@ class AvatarWidget extends CWidget
     public $sendButton = true;
     public $filled = false;
     public $location = true;
+    public $nav = false;
+    public $status = false;
 	
 	public function run()
 	{

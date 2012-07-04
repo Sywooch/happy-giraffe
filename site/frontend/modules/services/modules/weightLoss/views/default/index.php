@@ -63,11 +63,11 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
         <?php echo $form->error($model, 'activity'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'loss'); ?>
-        <?php echo $form->textField($model, 'loss'); ?>
-        <?php echo $form->error($model, 'loss'); ?>
-    </div>
+    <!--<div class="row">
+        <?php /*echo $form->labelEx($model, 'loss'); */?>
+        <?php /*echo $form->textField($model, 'loss'); */?>
+        <?php /*echo $form->error($model, 'loss'); */?>
+    </div>-->
 
     <div class="row">
         <?php echo $form->labelEx($model, 'days'); ?>

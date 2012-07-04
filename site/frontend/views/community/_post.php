@@ -8,8 +8,10 @@
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
     }
 
-    Yii::app()->clientScript->registerMetaTag(trim(Str::truncate(strip_tags($data->content->text), 90)), 'description');
-    Yii::app()->clientScript->registerMetaTag('', 'keywords');
+    if ($full) {
+        Yii::app()->clientScript->registerMetaTag(trim(Str::truncate(strip_tags($data->content->text), 90)), 'description');
+        Yii::app()->clientScript->registerMetaTag('', 'keywords');
+    }
 ?>
 
 <div class="entry<?php if ($full): ?> entry-full<?php endif; ?>">

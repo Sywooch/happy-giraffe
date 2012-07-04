@@ -9,8 +9,8 @@ return array(
     'rules' => array(
         // global
         '.*/index' => 404,
-        '<_c:(activity|ajax|notification|signup|profile)>/<_a>' => '<_c>/<_a>',
-        '<_c:(activity|signup|profile)>' => '<_c>/index',
+        '<_c:(activity|ajax|notification|signup|profile|friendRequests)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|signup|profile|rss)>' => '<_c>/index',
 
         // site controller
         '/' => 'site/index',
@@ -25,6 +25,12 @@ return array(
 
         // signup controller
         'signup/validate/step/<step:\d+>' => 'signup/validate',
+
+        // friendRequests controller
+        'friendRequests/update/request_id/<request_id:\d+>/action/<action:(accept|decline|retry|cancel)>' => 'friendRequests/update',
+
+        // rss controller
+        'rss/index/page/<page:\d+>' => 'rss/index',
 
         'user/<user_id:\d+>' => 'user/profile',
         'user/<user_id:\d+>/clubs' => 'user/clubs',

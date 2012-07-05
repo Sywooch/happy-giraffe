@@ -79,11 +79,8 @@ class FixHttpErrorsCommand extends CConsoleCommand
     {
         echo $this->fixBlogUrl('community__contents', 'preview') . "\n";
         echo $this->fixBlogUrl('community__posts', 'text') . "\n";
+        echo $this->fixBlogUrl('community__videos', 'text') . "\n";
         echo $this->fixBlogUrl('comments', 'text') . "\n";
-
-        echo $this->fixCommunityUrl('community__contents', 'preview') . "\n";
-        echo $this->fixCommunityUrl('community__posts', 'text') . "\n";
-        echo $this->fixCommunityUrl('comments', 'text') . "\n";
     }
 
     public function fixBlogUrl($table, $field_name)

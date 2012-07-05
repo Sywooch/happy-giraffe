@@ -301,7 +301,7 @@ return array(
                             'application.modules.services.modules.repair.controllers',
                             'application.modules.services.modules.horoscope.controllers',
                             'application.modules.services.modules.test.controllers',
-                            'application.modules.cook.RecipeController',
+                            'application.modules.cook.controllers.RecipeController',
                         ),
                     ),
                 ),

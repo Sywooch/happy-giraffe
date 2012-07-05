@@ -32,7 +32,7 @@ Yii::app()->clientScript
                            onclick="ODKL.Share(this);return false;"><span>0</span></a>
                     </td>
                     <td style="vertical-align:top;">
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Твитнуть</a>
+                        <?=HHtml::link('Tweet', 'https://twitter.com/share', array('class'=>'twitter-share-button', 'data-lang'=>'en'), true) ?>
                         <script>!function (d, s, id) {
                             var js, fjs = d.getElementsByTagName(s)[0];
                             if (!d.getElementById(id)) {

@@ -152,30 +152,5 @@ class RssController extends HController
         $feed->generateFeed();
         Yii::app()->end();
     }
-
-    public function actionTest()
-    {
-        $xmlDoc = new DOMDocument;
-        $methodCall = $xmlDoc->createElement('methodCall');
-        $xmlDoc->appendChild($methodCall);
-        $methodCall->appendChild($xmlDoc->createElement('methodName', 'weblogUpdates.ping'));
-        $params = $xmlDoc->createElement('params');
-        $methodCall->appendChild($params);
-        $param = $xmlDoc->createElement('param');
-        $param->appendChild($xmlDoc->createElement('value', 'название'));
-        $params->appendChild($param);
-        $param = $xmlDoc->createElement('param');
-        $param->appendChild($xmlDoc->createElement('value', 'http://lenta.ru'));
-        $params->appendChild($param);
-        $xml = $xmlDoc->saveXML();
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://ping.blogs.yandex.ru/RPC2');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $output = curl_exec($ch);
-        curl_close($ch);
-    }
 }
 

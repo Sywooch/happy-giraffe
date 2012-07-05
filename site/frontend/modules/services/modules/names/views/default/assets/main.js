@@ -28,7 +28,7 @@ $(function () {
         }
 
         $.ajax({
-            url:'/services/names/default/index/',
+            url:'/names/',
             data:{
                 letter:letter,
                 gender:gender
@@ -52,7 +52,7 @@ $(function () {
         gender = $(this).attr('rel');
 
         $.ajax({
-            url:'/services/names/default/index/',
+            url:'/names/',
             data:{
                 letter:letter,
                 gender:gender

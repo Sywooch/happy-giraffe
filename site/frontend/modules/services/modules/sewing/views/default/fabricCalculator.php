@@ -18,7 +18,7 @@ $model = new FabricCalculatorForm1();
             'validateOnSubmit' => true,
             'validateOnChange' => false,
             'validateOnType' => false,
-            'validationUrl' => $this->createUrl('/sewing/default/FabricCalculator'),
+            'validationUrl' => $this->createUrl('fabricCalculator'),
             'afterValidate' => "js:function(form, data, hasError) {
                                     if (!hasError)
                                         fabricCalculator.calc();

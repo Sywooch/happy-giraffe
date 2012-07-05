@@ -12,7 +12,10 @@ class normalizeNumber extends CValidator
             foreach ($object->rules() as $rule) {
                 foreach (explode(',', $rule[0]) as $attr) {
                     if (trim($attr) == $attribute and $rule[1] == 'ext.validators.normalizeNumber') {
-                        $message = $rule['message'];
+                        if (isset($rule['message']))
+                            $message = $rule['message'];
+                        else
+                            $message = '';
                     }
                 }
             }

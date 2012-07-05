@@ -328,4 +328,12 @@ class CommunityCommand extends CConsoleCommand
             $offset += 500;
         }
     }
+
+    public function actionFixLinks()
+    {
+        $raws = Yii::app()->db->createCommand()
+            ->select('*')
+            ->from('community__posts')
+            ->queryAll();
+    }
 }

@@ -194,7 +194,7 @@ class BlogController extends HController
             ->from('community__contents')
             ->join('community__rubrics', 'community__contents.rubric_id = community__rubrics.id')
             ->join('community__content_types', 'community__contents.type_id = community__content_types.id')
-            ->where('community__rubrics.user_id IS NOT NULL')
+            ->where('community__rubrics.user_id IS NOT NULL AND community__contents.removed = 0')
             ->order('community__contents.id ASC')
             ->queryAll();
         foreach ($models as $model)

@@ -216,7 +216,7 @@ class DefaultController extends HController
     public function LoadModelBySlugName($name)
     {
         $model = Name::model()->with(array(
-            'nameFamouses' => array('order' => 'nameFamouses.last_name'),
+            'famous' => array('order' => 'famous.last_name'),
             'nameSaintDates' => array('order' => 'nameSaintDates.month, nameSaintDates.day'),
 //            'nameMiddles'=>array('select'=>'value'),
 //            'nameOptions'=>array('select'=>'value'),

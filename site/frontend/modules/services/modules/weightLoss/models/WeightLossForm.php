@@ -86,7 +86,7 @@ class WeightLossForm extends HFormModel
             }
 
             $result['dailyCaloriesRightLoss'] = $result['dailyCalories']['calories'] - $dailyDelta;
-            $result['daysRight'] = $result['lossRight'] * 9000 / $dailyDelta;
+            $result['daysRight'] = ceil($result['lossRight'] * 9000 / $dailyDelta);
         }
 
         return $result;

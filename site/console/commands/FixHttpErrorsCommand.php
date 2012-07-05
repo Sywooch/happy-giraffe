@@ -288,9 +288,7 @@ class FixHttpErrorsCommand extends CConsoleCommand
                 return $this->getPageHeader($url, $ref);
             }
             elseif (strpos($html, 'YouTube') === false && strpos($html, 'Rutube') === false) {
-                echo $url." - bad page\n";
-                $this->getProxy();
-                return $this->getPageHeader($url, $ref);
+                return false;
             }elseif (strpos($html, '404 Not Found')){
                 return true;
             }

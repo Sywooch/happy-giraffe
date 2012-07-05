@@ -78,7 +78,7 @@ class BlogController extends HController
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
-                $this->redirect(array('/blog/view', 'content_id' => $model->id));
+                $this->redirect($model->url);
             }
         }
 
@@ -115,7 +115,7 @@ class BlogController extends HController
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
-                $this->redirect(array('/blog/view', 'content_id' => $model->id));
+                $this->redirect($model->url);
             }
         }
 
@@ -194,7 +194,7 @@ class BlogController extends HController
             ->from('community__contents')
             ->join('community__rubrics', 'community__contents.rubric_id = community__rubrics.id')
             ->join('community__content_types', 'community__contents.type_id = community__content_types.id')
-            ->where('community__rubrics.user_id IS NOT NULL')
+            ->where('community__rubrics.user_id IS NOT NULL AND community__contents.removed = 0')
             ->order('community__contents.id ASC')
             ->queryAll();
         foreach ($models as $model)

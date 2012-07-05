@@ -33,7 +33,8 @@ class ServicesModule extends CWebModule
             'childrenDiseases',
             'dailyCalories',
             'idealWeight',
-            'weightLoss'
+            'weightLoss',
+            'bodyFat'
         ));
     }
 

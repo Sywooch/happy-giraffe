@@ -59,6 +59,9 @@ return array(
         'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
 
+        //blog
+        'blog/<_a:(add|edit|empty)>'=>'blog/<_a>',
+
         // community/*
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/list',

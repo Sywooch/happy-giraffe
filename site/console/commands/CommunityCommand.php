@@ -452,4 +452,40 @@ class CommunityCommand extends CConsoleCommand
         return $i;
 
     }
+
+    public function actionFixRutube()
+    {
+
+    }
+
+    public function fixRutube($table, $field_name)
+    {
+        $i = 0;
+        $k = 0;
+
+        $raws = 1;
+        while (!empty($raws)) {
+            $raws = Yii::app()->db->createCommand()
+                ->select('*')
+                ->from($table)
+                ->limit(1000)
+                ->offset($k * 1000)
+                ->queryAll();
+
+            foreach ($raws as $raw) {
+                if (strpos($raw[$field_name], 'http://video.rutube.ru/')) {
+                    $field_value = str_replace('http://video.rutube.ru/', 'http://rutube.ru/player.swf?hash=', $raw[$field_name]);
+                    Yii::app()->db->createCommand()
+                        ->update($table, array(
+                        $field_name => $field_value
+                    ), 'id=' . $raw['id']);
+                    $i++;
+                }
+            }
+
+            $k++;
+        }
+        return $i;
+
+    }
 }

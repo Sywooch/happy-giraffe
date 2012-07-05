@@ -134,7 +134,7 @@ return array(
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
 
         //===================== Services =========================//
-        '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight)>/' => 'services/<_m>/default/index',
+        '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat)>/' => 'services/<_m>/default/index',
         '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
         'babySex/default/<_a:(bloodUpdate, japanCalc, ovulationCalc)>/' => 'services/babySex/default/<_a>',
@@ -161,6 +161,6 @@ return array(
 
         '<_m:(menstrualCycle|placentaThickness|pregnancyWeight)>/<_a:(calculate)>' => 'services/<_m>/default/<_a>',
 
-        'services/<_m:(dailyCalories|weightLoss|idealWeight)>/default/<_c>' => 'services/<_m>/default/<_c>',
+        'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
     ),
 );

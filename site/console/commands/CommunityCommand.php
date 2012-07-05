@@ -8,6 +8,8 @@
  */
 class CommunityCommand extends CConsoleCommand
 {
+    public $proxy;
+
     public function actionUpdateViews()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
@@ -494,16 +496,98 @@ class CommunityCommand extends CConsoleCommand
 
     }
 
-    public function actionCheckNameFamous(){
+    public function actionCheckNameFamous()
+    {
         Yii::import('site.frontend.modules.services.modules.names.models.*');
         Yii::import('site.frontend.components.ManyToManyBehavior');
         $names = Name::model()->findAll();
-        foreach($names as $name){
-            foreach($name->famous as $famous){
-                $path = Yii::getPathOfAlias('site.frontend.www').DIRECTORY_SEPARATOR.$famous->uploadTo().$famous->photo;
+        foreach ($names as $name) {
+            foreach ($name->famous as $famous) {
+                $path = Yii::getPathOfAlias('site.frontend.www') . DIRECTORY_SEPARATOR . $famous->uploadTo() . $famous->photo;
                 if (!file_exists($path))
-                    echo 'http://www.happy-giraffe.ru/names/'.$name->slug."\n";
+                    echo 'http://www.happy-giraffe.ru/names/' . $name->slug . "\n";
             }
+        }
+    }
+
+    public function actionRemoveDeletedVideo($thread)
+    {
+        $this->getProxy();
+        $i = 0;
+        $raws = 1;
+        while (!empty($raws)) {
+            $raws = Yii::app()->db->createCommand()
+                ->select('*')
+                ->from('community__videos')
+                ->limit(100)
+                ->offset($thread * 100)
+                ->queryAll();
+
+            foreach ($raws as $raw) {
+                $link = $raw['link'];
+                if ($this->getPageHeader($link, 'http://www.happy-giraffe.ru/')){
+                    //remove
+                    Yii::app()->db->createCommand()
+                        ->delete('community__contents', 'id='.$raw['content_id']);
+                }
+                $i++;
+                echo $i."\n";
+            }
+        }
+    }
+
+    public function getPageHeader($url, $ref)
+    {
+        if ($ch = curl_init($url)) {
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
+            curl_setopt($ch, CURLOPT_REFERER, $ref);
+
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
+            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+            curl_setopt($ch, CURLOPT_HEADER, 1);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+            $html = curl_exec($ch);
+            if ($html === false) {
+                //echo "curl error\n";
+                return $this->getPageHeader($url, $ref);
+            }
+            elseif (!strpos($html, 'YouTube')) {
+                //echo "bad page\n";
+                return $this->getPageHeader($url, $ref);
+            }elseif (strpos($html, '404 Not Found')){
+                echo $url."\n";
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function getProxy()
+    {
+        Yii::import('site.seo.models.*');
+        $criteria = new CDbCriteria;
+        $criteria->compare('active', 0);
+        $criteria->order = 'rand()';
+
+        $transaction = Yii::app()->db_seo->beginTransaction();
+        try {
+            $this->proxy = Proxy::model()->find($criteria);
+            if ($this->proxy === null) {
+                Yii::app()->end();
+            }
+
+            $this->proxy->active = 1;
+            $this->proxy->save();
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            Yii::app()->end();
         }
     }
 }

@@ -12,6 +12,8 @@ class BodyFatForm extends HFormModel
     public function rules()
     {
         return array(
+            array('weight, height, waist', 'ext.validators.positiveNumber', 'message' => '{attribute} не может быть отрицательным'),
+            array('weight, height, waist', 'ext.validators.normalizeNumber', 'message' => 'Вводите цифры, допустимы дробные числа с запятой'),
             array('weight, height, waist, sex', 'required', 'message' => 'Укажите {attribute}'),
         );
     }

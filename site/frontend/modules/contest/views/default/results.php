@@ -80,8 +80,8 @@
                 $next = $index == 4 ? $winners[0] : $winners[$index + 1];
                 ?>
 				<div class="img"><?php echo CHtml::image($work->photo->photo->getPreviewUrl(800, 400, Image::WIDTH)) ?></div>
-				<a href="<?php echo $this->createUrl('/contest/results', array('id' => 1, 'work' => $prev)); ?>" class="prev"><i class="icon"></i></a>
-				<a href="<?php echo $this->createUrl('/contest/results', array('id' => 1, 'work' => $next)); ?>" class="next"><i class="icon"></i></a>
+				<a href="<?php echo $this->createUrl('/contest/default/results', array('id' => 1, 'work' => $prev)); ?>" class="prev"><i class="icon"></i></a>
+				<a href="<?php echo $this->createUrl('/contest/default/results', array('id' => 1, 'work' => $next)); ?>" class="next"><i class="icon"></i></a>
 			</div>
 		</div>
 

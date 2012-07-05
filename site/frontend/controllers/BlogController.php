@@ -115,7 +115,7 @@ class BlogController extends HController
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
-                $this->redirect(array('/blog/view', 'content_id' => $model->id));
+                $this->redirect($model->url);
             }
         }
 

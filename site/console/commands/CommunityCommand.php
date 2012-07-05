@@ -328,9 +328,12 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionFixLinks()
     {
-        echo $this->fixLink('community__contents', 'preview', 'http://http/', 'http://') . "\n";
-        echo $this->fixLink('community__posts', 'text', 'http://http/', 'http://') . "\n";
-        echo $this->fixLink('comments', 'text', 'http://http/', 'http://') . "\n";
+        $find = 'http://www.nepropadu.ru/uploads/images';
+        $replace = 'http://nepropadu.ru/uploads/images';
+
+        echo $this->fixLink('community__contents', 'preview', $find, $replace) . "\n";
+        echo $this->fixLink('community__posts', 'text', $find, $replace) . "\n";
+        echo $this->fixLink('comments', 'text', $find, $replace) . "\n";
     }
 
     public function actionFixImages()

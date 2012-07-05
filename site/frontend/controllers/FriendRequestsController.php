@@ -6,6 +6,7 @@ class FriendRequestsController extends HController
     {
         return array(
             'accessControl',
+            'ajaxOnly + send, delete'
         );
     }
 
@@ -20,46 +21,42 @@ class FriendRequestsController extends HController
 
     public function actionSend()
     {
-        if (Yii::app()->request->isAjaxRequest) {
-            $to_id = Yii::app()->request->getPost('to_id');
-            $model = new FriendRequest;
-            $model->from_id = Yii::app()->user->id;
-            $model->to_id = $to_id;
-            if ($model->save()) {
-                $response = array(
-                    'status' => true,
-                    'html' => $this->renderPartial('//user/_friend_button', array(
-                        'user' => $model->to,
-                    ), true),
-                );
-            } else {
-                $response = array(
-                    'status' => false,
-                );
-            }
-            echo CJSON::encode($response);
+        $to_id = Yii::app()->request->getPost('to_id');
+        $model = new FriendRequest;
+        $model->from_id = Yii::app()->user->id;
+        $model->to_id = $to_id;
+        if ($model->save()) {
+            $response = array(
+                'status' => true,
+                'html' => $this->renderPartial('//user/_friend_button', array(
+                    'user' => $model->to,
+                ), true),
+            );
+        } else {
+            $response = array(
+                'status' => false,
+            );
         }
+        echo CJSON::encode($response);
     }
 
     public function actionDelete()
     {
-        if (Yii::app()->request->isAjaxRequest) {
-            $friend_id = Yii::app()->request->getPost('friend_id');
-            if (Yii::app()->user->model->delFriend($friend_id)) {
-                $model = User::model()->findByPk($friend_id);
-                $response = array(
-                    'status' => true,
-                    'html' => $this->renderPartial('//user/_friend_button', array(
-                        'user' => $model,
-                    ), true),
-                );
-            } else {
-                $response = array(
-                    'status' => false,
-                );
-            }
-            echo CJSON::encode($response);
+        $friend_id = Yii::app()->request->getPost('friend_id');
+        if (Yii::app()->user->model->delFriend($friend_id)) {
+            $model = User::model()->findByPk($friend_id);
+            $response = array(
+                'status' => true,
+                'html' => $this->renderPartial('//user/_friend_button', array(
+                    'user' => $model,
+                ), true),
+            );
+        } else {
+            $response = array(
+                'status' => false,
+            );
         }
+        echo CJSON::encode($response);
     }
 
     public function actionList()

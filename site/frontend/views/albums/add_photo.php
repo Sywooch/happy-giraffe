@@ -75,8 +75,8 @@
             </div>
         </div>
         <div class="bottom" style="overflow:hidden;height:0;" id="upload_finish_wrapper">
-            <a href="" class="a-left" id="upload-link">Добавить еще фотографий</a>
-            <a href="" class="btn btn-green-medium" onclick="return Album.savePhotos();"><span><span>Завершить</span></span></a>
+            <a href="javascript:;" class="a-left" id="upload-link">Добавить еще фотографий</a>
+            <a href="javascript:;" class="btn btn-green-medium" onclick="return Album.savePhotos();"><span><span>Завершить</span></span></a>
         </div>
     </div>
 </div>

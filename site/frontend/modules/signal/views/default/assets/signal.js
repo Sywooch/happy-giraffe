@@ -49,7 +49,7 @@ var Signal = {
             this.Play();
 
         $.ajax({
-            url:'/signal/index/',
+            url:'/signal/',
             type:'POST',
             data:{filter:this.filter},
             dataType:'JSON',

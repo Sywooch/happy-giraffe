@@ -141,6 +141,9 @@ class RecipeController extends HController
         $this->render('form', compact('recipe', 'ingredients', 'cuisines', 'units'));
     }
 
+    /**
+     * @sitemap dataSource=getContentUrls
+     */
     public function actionView($id)
     {
         $recipe = CookRecipe::model()->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
@@ -249,5 +252,21 @@ class RecipeController extends HController
     {
         $ingredients = CookIngredient::model()->autoComplete($term, 10, false, true);
         echo CJSON::encode($ingredients);
+    }
+
+    public function getContentUrls()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('cook__recipes')
+            ->order('id ASC')
+            ->queryAll();
+        foreach ($models as $model)
+        {
+            $data[] = array(
+                'params' => $model,
+            );
+        }
+        return $data;
     }
 }

@@ -18,12 +18,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                 <?php $neighboringWorks = $work->neighboringWorks; ?>
                 <div class="img"><?php echo CHtml::image($work->photo->photo->getPreviewUrl(800, 400, Image::WIDTH)) ?></div>
                 <?php if($neighboringWorks['prev']): ?>
-                <?php echo CHtml::link('<i class="icon"></i>', array('/contest/work', 'id' => $neighboringWorks['prev']), array('class' => 'prev')); ?>
+                <?php echo CHtml::link('<i class="icon"></i>', $this->createUrl('/contest/default/work', array('id' => $neighboringWorks['prev'])), array('class' => 'prev')); ?>
                 <?php else: ?>
                 <a href="#" class="prev disabled" onclick="return false;"></a>
                 <?php endif; ?>
                 <?php if($neighboringWorks['next']): ?>
-                <?php echo CHtml::link('<i class="icon"></i>', array('/contest/work', 'id' => $neighboringWorks['next']), array('class' => 'next')); ?>
+                <?php echo CHtml::link('<i class="icon"></i>', $this->createUrl('/contest/default/work', array('id' => $neighboringWorks['next'])), array('class' => 'next')); ?>
                 <?php else: ?>
                 <a href="#" class="next disabled" onclick="return false;"></a>
                 <?php endif; ?>
@@ -57,7 +57,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                             <tr>
                                 <td class="img">
                                     <div>
-                                        <?php echo CHtml::link(CHtml::image($item->photo->photo->getPreviewUrl(180, 180)), array('/contest/work', 'id' => $item->id)); ?>
+                                        <?php echo CHtml::link(CHtml::image($item->photo->photo->getPreviewUrl(180, 180)), $this->createUrl('/contest/default/work', array('id' => $item->id))); ?>
                                     </div>
                                 </td>
                             </tr>

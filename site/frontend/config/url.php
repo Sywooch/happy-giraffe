@@ -58,11 +58,14 @@ return array(
         'user/<id:\d+>/albums' => 'albums/user',
         'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
+        'user/<_a:(updateMood)>' => 'user/<_a>',
+        'user/createRelated/relation/<relation:\w+>/'=>'user/createRelated',
+        'user/myFriendRequests/<direction:\w+>/'=>'user/myFriendRequests',
 
         //blog
-        'blog/edit/content_id/<content_id:\d+>' => 'community/edit',
-        'blog/add/content_type_slug/<content_type_slug>' => 'community/add',
-        'blog/add/content_type_slug/<content_type_slug>/rubric_id/<rubric_id:\d+>' => 'community/add',
+        'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
+        'blog/add/content_type_slug/<content_type_slug>' => 'blog/add',
+        'blog/add/content_type_slug/<content_type_slug>/rubric_id/<rubric_id:\d+>' => 'blog/add',
         'blog/<_a:(add|empty)>' => 'blog/<_a>',
 
         // community/*

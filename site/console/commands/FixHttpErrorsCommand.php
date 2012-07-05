@@ -6,7 +6,7 @@
  */
 class FixHttpErrorsCommand extends CConsoleCommand
 {
-    public $proxy;
+    public $proxy = null;
 
     public function fixImage($attr)
     {
@@ -284,6 +284,7 @@ class FixHttpErrorsCommand extends CConsoleCommand
             curl_close($ch);
             if ($html === false) {
                 //echo "curl error\n";
+                $this->getProxy();
                 return $this->getPageHeader($url, $ref);
             }
             elseif (strpos($html, 'YouTube') === false && strpos($html, 'Rutube') === false) {
@@ -307,6 +308,10 @@ class FixHttpErrorsCommand extends CConsoleCommand
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
+            if ($this->proxy !== null){
+                $this->proxy->active = 0;
+                $this->proxy->save();
+            }
             $this->proxy = Proxy::model()->find($criteria);
             if ($this->proxy === null) {
                 Yii::app()->end();

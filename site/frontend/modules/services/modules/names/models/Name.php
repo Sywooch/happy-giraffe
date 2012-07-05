@@ -18,7 +18,7 @@
  * @property NameMiddle[] $nameMiddles
  * @property NameOption[] $nameOptions
  * @property NameSweet[] $nameSweets
- * @property NameFamous[] $nameFamouses
+ * @property NameFamous[] $famous
  * @property NameSaintDate[] $nameSaintDates
  * @property NameStats $nameStats
  * @property User[] $users
@@ -78,7 +78,7 @@ class Name extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'nameFamouses' => array(self::HAS_MANY, 'NameFamous', 'name_id'),
+            'famous' => array(self::HAS_MANY, 'NameFamous', 'name_id'),
             'nameSaintDates' => array(self::HAS_MANY, 'NameSaintDate', 'name_id'),
             'nameStats' => array(self::HAS_MANY, 'NameStats', 'name_id'),
             'users' => array(self::MANY_MANY, 'User', 'name__likes(name_id, user_id)'),

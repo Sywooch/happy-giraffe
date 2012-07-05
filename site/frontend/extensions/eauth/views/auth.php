@@ -10,7 +10,7 @@
                             <div class="img-box">';
                     $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'small' => true));
                     echo '<label class="' . $service->id . '"></label>
-                            ' . CHtml::link('', array('/profile/disableSocialService', 'name' => $name), array('class' => 'remove')) . '
+                            ' . HHtml::link('', array('/profile/disableSocialService', 'name' => $name), array('class' => 'remove'), true) . '
                         </div>
                         <span class="name">' . Yii::app()->user->model->fullName . '</span>
                     </li>';
@@ -21,9 +21,9 @@
                     echo '<li>';
                     $html = '<div class="line-title">' . $service->title . '</div>';
                     $link_text = '<span class="auth-icon ' . $service->id . '"><i></i></span>';
-                    $html .= CHtml::link($link_text, array($action, 'service' => $name), array(
+                    $html .= HHtml::link($link_text, array($action, 'service' => $name), array(
                         'class' => 'auth-link ' . $service->id,
-                    ));
+                    ), true);
                 }
             }
             else
@@ -31,9 +31,9 @@
                 echo '<li class="auth-service ' . $service->id . '">';
                 $html = '<span class="auth-icon ' . $service->id . '"><i></i></span>';
                 $html .= '<span class="auth-title">' . $service->title . '</span>';
-                $html = CHtml::link($html, array($action, 'service' => $name), array(
+                $html = HHtml::link($html, array($action, 'service' => $name), array(
                     'class' => 'auth-link ' . $service->id,
-                ));
+                ), true);
             }
             echo $html;
 

@@ -455,7 +455,9 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionFixRutube()
     {
-
+        echo $this->fixRutube('community__contents', 'preview') . "\n";
+        echo $this->fixRutube('community__posts', 'text') . "\n";
+        echo $this->fixRutube('comments', 'text') . "\n";
     }
 
     public function fixRutube($table, $field_name)

@@ -13,7 +13,7 @@ class MorningController extends HController
     {
         return array(
             'accessControl',
-            //'addBaby,removeBaby,removePhoto,removeFutureBaby + onlyAjax'
+            'location,saveLocation,updatePos + onlyAjax'
         );
     }
 
@@ -159,20 +159,6 @@ class MorningController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
     }
 
-    public function saveImage($lat, $lon, $zoom)
-    {
-        $dir = Yii::getPathOfAlias('site.frontend.www.upload.morning.location');
-        $url = "http://maps.googleapis.com/maps/api/staticmap?center=$lat,$lon&zoom=$zoom&size=223x65&maptype=roadmap&sensor=false&language=ru";
-        $name = substr(sha1(time()), 0, 7);
-        while (file_exists($dir . DIRECTORY_SEPARATOR . $name)) {
-            $name = substr(sha1(time()), 0, 7);
-        }
-        $name .= '.png';
-        file_put_contents($dir . DIRECTORY_SEPARATOR . $name, file_get_contents($url));
-
-        return $name;
-    }
-
     public function actionLocation($id)
     {
         $post = CommunityContent::model()->findByPk($id);
@@ -260,6 +246,9 @@ class MorningController extends HController
 
     public function actionPublicAll()
     {
+        if (!Yii::app()->user->checkAccess('editMorning'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         $posts = CommunityPhotoPost::model()->findAll('is_published = 0 AND content_id IS NOT NULL ');
         foreach ($posts as $post) {
             $post->is_published = 1;
@@ -311,5 +300,19 @@ class MorningController extends HController
 
         $post->photoPost->position = Yii::app()->request->getPost('pos');;
         echo CJSON::encode(array('status' => $post->photoPost->save()));
+    }
+
+    public function saveImage($lat, $lon, $zoom)
+    {
+        $dir = Yii::getPathOfAlias('site.frontend.www.upload.morning.location');
+        $url = "http://maps.googleapis.com/maps/api/staticmap?center=$lat,$lon&zoom=$zoom&size=223x65&maptype=roadmap&sensor=false&language=ru";
+        $name = substr(sha1(time()), 0, 7);
+        while (file_exists($dir . DIRECTORY_SEPARATOR . $name)) {
+            $name = substr(sha1(time()), 0, 7);
+        }
+        $name .= '.png';
+        file_put_contents($dir . DIRECTORY_SEPARATOR . $name, file_get_contents($url));
+
+        return $name;
     }
 }

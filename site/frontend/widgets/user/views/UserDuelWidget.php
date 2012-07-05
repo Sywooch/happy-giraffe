@@ -31,7 +31,7 @@
                 голосов
             </div>
             <br/>
-            <a href="<?=Yii::app()->createUrl('ajax/duelShow', array('question_id' => $this->question->id))?>" class="pseudo fancy">Посмотреть дуэль</a>
+            <?=HHtml::link('Посмотреть дуэль', array('ajax/duelShow', 'question_id' => $this->question->id), array('class' => 'pseudo fancy'), true)?>
         </div>
     </div>
 

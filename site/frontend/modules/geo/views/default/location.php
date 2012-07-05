@@ -47,7 +47,7 @@ if ($user->getUserAddress()->country_id !== null) {
                 'value' => ($user->userAddress->city === null) ? '' : $user->userAddress->city->name,
                 'source' => "js: function(request, response){
                             $.ajax({
-                                url: '" . $this->createUrl('/geo/geo/cities') . "',
+                                url: '" . $this->createUrl('/geo/default/cities') . "',
                                 dataType: 'json',
                                 data: {
                                     term: request.term,

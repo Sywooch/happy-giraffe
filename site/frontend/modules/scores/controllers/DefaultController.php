@@ -9,6 +9,7 @@ class DefaultController extends HController
     {
         return array(
             'accessControl',
+            'Remove + ajaxOnly'
         );
     }
 
@@ -41,17 +42,6 @@ class DefaultController extends HController
             'userScores' => $userScores,
             'dataProvider' => $dataProvider
         ));
-    }
-
-    public function actionRemoveAll()
-    {
-        if (Yii::app()->user->checkAccess('administrator')) {
-            ScoreInput::model()->deleteAll();
-            ScoreOutput::model()->deleteAll();
-            ScoreVisits::model()->deleteAll();
-            Yii::app()->db->createCommand()
-                ->update('score__user_scores', array('full' => 0));
-        }
     }
 
     public function actionRemove($id)

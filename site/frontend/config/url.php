@@ -72,7 +72,7 @@ return array(
         'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>' => 'community/add',
         'community/add/community_id/<community_id:\d+>/content_type_slug/<content_type_slug:(post|video|travel)>' => 'community/add',
         'community/add/community_id/<community_id:\d+>' => 'community/add',
-        'community/<_a:(join|add|transfer)>' => 'community/<_a>',
+        'community/<_a:(join|add|transfer|edit|editTravel)>' => 'community/<_a>',
 
         //global
         '<_c:(activity|ajax|notification|signup|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',

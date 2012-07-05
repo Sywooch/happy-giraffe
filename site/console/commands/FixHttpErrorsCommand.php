@@ -253,11 +253,11 @@ class FixHttpErrorsCommand extends CConsoleCommand
 
             foreach ($raws as $raw) {
                 $link = $raw['link'];
-                if ($this->getPageHeader($link, 'http://www.happy-giraffe.ru/')){
+                if ($this->getPageHeader($link, 'http://www.happy-giraffe.ru/')) {
                     //remove
-                    echo $raw['content_id'].'  '.$link."\n";
+                    echo $raw['content_id'] . '  ' . $link . "\n";
                     Yii::app()->db->createCommand()
-                        ->delete('community__contents', 'id='.$raw['content_id']);
+                        ->delete('community__contents', 'id=' . $raw['content_id']);
                 }
                 $i++;
                 //echo $i."\n";
@@ -286,10 +286,9 @@ class FixHttpErrorsCommand extends CConsoleCommand
                 //echo "curl error\n";
                 $this->getProxy();
                 return $this->getPageHeader($url, $ref);
-            }
-            elseif (strpos($html, 'YouTube') === false && strpos($html, 'Rutube') === false) {
+            } elseif (strpos($html, 'YouTube') === false && strpos($html, 'Rutube') === false) {
                 return false;
-            }elseif (strpos($html, '404 Not Found')){
+            } elseif (strpos($html, '404 Not Found')) {
                 return true;
             }
         }
@@ -306,7 +305,7 @@ class FixHttpErrorsCommand extends CConsoleCommand
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
-            if ($this->proxy !== null){
+            if ($this->proxy !== null) {
                 $this->proxy->active = 0;
                 $this->proxy->save();
             }
@@ -322,5 +321,48 @@ class FixHttpErrorsCommand extends CConsoleCommand
             $transaction->rollback();
             Yii::app()->end();
         }
+    }
+
+    public function actionFixMalformed()
+    {
+        echo $this->fixMalformed('community__contents', 'preview') . "\n";
+        echo $this->fixMalformed('community__posts', 'text') . "\n";
+        echo $this->fixMalformed('comments', 'text') . "\n";
+    }
+
+    public function fixMalformed($table, $field_name)
+    {
+        $i = 0;
+        $k = 0;
+
+        $raws = 1;
+        while (!empty($raws)) {
+            $raws = Yii::app()->db->createCommand()
+                ->select('*')
+                ->from($table)
+                ->limit(1000)
+                ->offset($k * 1000)
+                ->queryAll();
+
+            foreach ($raws as $raw) {
+                if (strpos($raw[$field_name], 'http:/')) {
+                    preg_match_all('/http:\/[\w]+/', $raw[$field_name], $matches);
+
+                    if (count($matches[0]) > 0) {
+                        $field_value = str_replace('http:/', 'http://', $raw[$field_name]);
+                        $field_value = str_replace('////', '//', $field_value);
+                        Yii::app()->db->createCommand()
+                            ->update($table, array(
+                            $field_name => $field_value
+                        ), 'id=' . $raw['id']);
+                        $i++;
+                    }
+                }
+            }
+
+            $k++;
+        }
+        return $i;
+
     }
 }

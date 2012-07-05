@@ -345,29 +345,13 @@ class FixHttpErrorsCommand extends CConsoleCommand
                 ->queryAll();
 
             foreach ($raws as $raw) {
-                if (strpos($raw[$field_name], 'http:///')) {
-                    $field_value = str_replace('http:///', 'http://', $raw[$field_name]);
+                if (strpos($raw[$field_name], 'http://http/')) {
+                    $field_value = str_replace('http://http/', 'http://', $raw[$field_name]);
                     Yii::app()->db->createCommand()
                         ->update($table, array(
                         $field_name => $field_value
                     ), 'id=' . $raw['id']);
                     $i++;
-                }
-
-                if (strpos($raw[$field_name], 'http:/')) {
-
-                    preg_match_all('/http:\/[\w]+/', $raw[$field_name], $matches);
-
-                    if (count($matches[0]) > 0) {
-                        $field_value = str_replace('http:/', 'http://', $raw[$field_name]);
-                        $field_value = str_replace('http:///', 'http://', $field_value);
-                        $field_value = str_replace('http:///', 'http://', $field_value);
-                        Yii::app()->db->createCommand()
-                            ->update($table, array(
-                            $field_name => $field_value
-                        ), 'id=' . $raw['id']);
-                        $i++;
-                    }
                 }
             }
 

@@ -343,6 +343,11 @@ class CommunityCommand extends CConsoleCommand
     {
         echo $this->fixBlogUrl('community__contents', 'preview') . "\n";
         echo $this->fixBlogUrl('community__posts', 'text') . "\n";
+        echo $this->fixBlogUrl('comments', 'text') . "\n";
+
+        echo $this->fixCommunityUrl('community__contents', 'preview') . "\n";
+        echo $this->fixCommunityUrl('community__posts', 'text') . "\n";
+        echo $this->fixCommunityUrl('comments', 'text') . "\n";
     }
 
     public function fixBlogUrl($table, $field_name)
@@ -361,16 +366,53 @@ class CommunityCommand extends CConsoleCommand
 
             foreach ($raws as $raw) {
                 if (strpos($raw[$field_name], '/blog/view/content_id/')) {
-                    preg_match_all('/\/blog\/view\/content_id\/([\d+])\//', $raw[$field_name], $matches);
-                    for ($i=0; $i< count($matches[0]); $i++) {
+                    preg_match_all('/\/blog\/view\/content_id\/([\d]+)\//', $raw[$field_name], $matches);
+                    for ($i = 0; $i < count($matches[0]); $i++) {
                         $post = BlogContent::model()->findByPk($matches[1][$i]);
-                        $field_value = str_replace('/blog/view/content_id/'.$post->id.'/', '/user/'.$post->author_id.'/blog/post'.$post->id.'/', $raw[$field_name]);
+                        $field_value = str_replace('/blog/view/content_id/' . $post->id . '/', '/user/' . $post->author_id . '/blog/post' . $post->id . '/', $raw[$field_name]);
                         Yii::app()->db->createCommand()
                             ->update($table, array(
                             $field_name => $field_value
                         ), 'id=' . $raw['id']);
                         $j++;
-                        echo $post->id."\n";
+                        echo $post->id . "\n";
+                    }
+                }
+            }
+
+            $k++;
+        }
+        return $j;
+    }
+
+    public function fixCommunityUrl($table, $field_name)
+    {
+        $j = 0;
+        $k = 0;
+
+        $raws = 1;
+        while (!empty($raws)) {
+            $raws = Yii::app()->db->createCommand()
+                ->select('*')
+                ->from($table)
+                ->limit(1000)
+                ->offset($k * 1000)
+                ->queryAll();
+
+            foreach ($raws as $raw) {
+                if (strpos($raw[$field_name], '/community/view/content_id/')) {
+                    preg_match_all('/\/community\/view\/content_id\/([\d]+)\//', $raw[$field_name], $matches);
+                    for ($i = 0; $i < count($matches[0]); $i++) {
+                        $post = CommunityContent::model()->findByPk($matches[1][$i]);
+                        if (isset($post->community_id)) {
+                            $field_value = str_replace('/community/' . $post->community_id . '/', '/forum/post/' . $post->id . '/', $raw[$field_name]);
+                            Yii::app()->db->createCommand()
+                                ->update($table, array(
+                                $field_name => $field_value
+                            ), 'id=' . $raw['id']);
+                            $j++;
+                            echo $post->id . "\n";
+                        }
                     }
                 }
             }

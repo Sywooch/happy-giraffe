@@ -38,16 +38,14 @@ class CommunityCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
         Yii::import('site.frontend.components.CutBehavior');
         $community = CommunityContent::model()->full()->findAll();
-        foreach($community as $model)
-        {
-            if(!$model->content || !$model->content->text)
-            {
+        foreach ($community as $model) {
+            if (!$model->content || !$model->content->text) {
                 echo 'Беда!!!11 ID: ' . $model->id . ' --- ';
                 continue;
             }
             $p = new CHtmlPurifier();
             $p->options = array(
-                'URI.AllowedSchemes'=>array(
+                'URI.AllowedSchemes' => array(
                     'http' => true,
                     'https' => true,
                 ),
@@ -136,9 +134,9 @@ class CommunityCommand extends CConsoleCommand
         }
 
         //убираем лишние теги
-        while (count(pq(':not(' . $allowedTags .')')) > 0) {
-            foreach (pq(':not(' . $allowedTags .')') as $s) {
-                pq($s)->replaceWith((string) pq($s)->html());
+        while (count(pq(':not(' . $allowedTags . ')')) > 0) {
+            foreach (pq(':not(' . $allowedTags . ')') as $s) {
+                pq($s)->replaceWith((string)pq($s)->html());
             }
         }
 
@@ -170,7 +168,7 @@ class CommunityCommand extends CConsoleCommand
             if (preg_match('/font-size:?(\d+)px;/', pq($s)->attr('style'), $matches)) {
                 $fontSize = $matches[1];
                 if ($fontSize == $maxFontSize && mb_strlen(pq($s)->text(), 'utf-8') <= 70 && count(pq($s)->find('img')) == 0) {
-                    pq($s)->replaceWith('<h2>'. pq($s)->html() . '</h2>');
+                    pq($s)->replaceWith('<h2>' . pq($s)->html() . '</h2>');
                 }
             }
         }
@@ -228,26 +226,25 @@ class CommunityCommand extends CConsoleCommand
 
     public $junk_parts = array(' alt="null"', ' title="null"', 'http://img.happy-giraffe.ru/thumbs/300x185/');
 
-    public function actionCleanImages(){
+    public function actionCleanImages()
+    {
         Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
         Yii::import('site.frontend.extensions.image.Image');
         Yii::import('site.frontend.helpers.*');
 
         $community = CommunityContent::model()->full()->findAll();
-        foreach($community as $model)
-        {
-            if(!$model->content || !$model->content->text)
-            {
+        foreach ($community as $model) {
+            if (!$model->content || !$model->content->text) {
                 echo 'Беда!!!11 ID: ' . $model->id . ' --- ';
                 continue;
             }
 
-            if ($this->containsJunk($model->preview)){
+            if ($this->containsJunk($model->preview)) {
                 $model->preview = $this->cleanAttributes($model->preview);
                 //$model->preview = $this->fixImage($model->preview);
                 $model->update('preview');
             }
-            if($this->containsJunk($model->content->text)){
+            if ($this->containsJunk($model->content->text)) {
                 $model->content->text = $this->cleanAttributes($model->content->text);
                 $model->content->text = $this->fixImage($model->content->text);
                 $model->content->update('text');
@@ -257,7 +254,7 @@ class CommunityCommand extends CConsoleCommand
 
     public function containsJunk($attr)
     {
-        foreach($this->junk_parts as $part)
+        foreach ($this->junk_parts as $part)
             if (strpos($attr, $part))
                 return true;
         return false;
@@ -281,7 +278,7 @@ class CommunityCommand extends CConsoleCommand
     public function fixImage($attr)
     {
         preg_match_all("|src=\"http://img.happy-giraffe.ru/thumbs/300x185/([\d]+)/([\w\.]+)\"|", $attr, $matches);
-        for ($i=0; $i < count($matches[0]); $i++) {
+        for ($i = 0; $i < count($matches[0]); $i++) {
             $user_id = $matches[1][$i];
             $pic_name = $matches[2][$i];
 
@@ -291,7 +288,7 @@ class CommunityCommand extends CConsoleCommand
 
                 return str_replace('src="http://img.happy-giraffe.ru/thumbs/300x185/',
                     'src="http://img.happy-giraffe.ru/thumbs/650x650/', $attr);
-            }else{
+            } else {
                 echo 'picture not found';
             }
         }
@@ -331,30 +328,39 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionFixLinks()
     {
-        echo $this->fixLink('community__contents', 'preview')."\n";
-        echo $this->fixLink('community__posts', 'text')."\n";
-        echo $this->fixLink('comments', 'text')."\n";
+        echo $this->fixLink('community__contents', 'preview') . "\n";
+        echo $this->fixLink('community__posts', 'text') . "\n";
+        echo $this->fixLink('comments', 'text') . "\n";
     }
 
     public function fixLink($table, $field_name)
     {
         $i = 0;
-        $raws = Yii::app()->db->createCommand()
-            ->select('*')
-            ->from($table)
-            ->queryAll();
+        $k = 0;
 
-        foreach($raws as $raw){
-            if (strpos($raw[$field_name], 'http://http/')){
-                $field_value = str_replace('http://http/', 'http://', $raw[$field_name]);
-                Yii::app()->db->createCommand()
-                    ->update($table, array(
-                    $field_name => $field_value
-                ), 'id='.$raw['id']);
-                $i++;
+        $raws = 1;
+        while (!empty($raws)) {
+            $raws = Yii::app()->db->createCommand()
+                ->select('*')
+                ->from($table)
+                ->limit(1000)
+                ->offset($k * 1000)
+                ->queryAll();
+
+            foreach ($raws as $raw) {
+                if (strpos($raw[$field_name], 'http://http/')) {
+                    $field_value = str_replace('http://http/', 'http://', $raw[$field_name]);
+                    Yii::app()->db->createCommand()
+                        ->update($table, array(
+                        $field_name => $field_value
+                    ), 'id=' . $raw['id']);
+                    $i++;
+                }
             }
-        }
 
+            $k++;
+        }
         return $i;
+
     }
 }

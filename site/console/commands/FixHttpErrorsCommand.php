@@ -350,7 +350,8 @@ class FixHttpErrorsCommand extends CConsoleCommand
 
                     if (count($matches[0]) > 0) {
                         $field_value = str_replace('http:/', 'http://', $raw[$field_name]);
-                        $field_value = str_replace('////', '//', $field_value);
+                        $field_value = str_replace('http:///', 'http://', $field_value);
+                        $field_value = str_replace('http:///', 'http://', $field_value);
                         Yii::app()->db->createCommand()
                             ->update($table, array(
                             $field_name => $field_value

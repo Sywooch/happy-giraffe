@@ -57,7 +57,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                             <tr>
                                 <td class="img">
                                     <div>
-                                        <?php echo CHtml::link(CHtml::image($item->photo->photo->getPreviewUrl(180, 180)), array('/contest/work', 'id' => $item->id)); ?>
+                                        <?php echo CHtml::link(CHtml::image($item->photo->photo->getPreviewUrl(180, 180)), $this->createUrl('/contest/default/work', array('id' => $item->id))); ?>
                                     </div>
                                 </td>
                             </tr>

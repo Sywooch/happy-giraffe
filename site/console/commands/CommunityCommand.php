@@ -328,12 +328,18 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionFixLinks()
     {
-        echo $this->fixLink('community__contents', 'preview') . "\n";
-        echo $this->fixLink('community__posts', 'text') . "\n";
-        echo $this->fixLink('comments', 'text') . "\n";
+        echo $this->fixLink('community__contents', 'preview', 'http://http/', 'http://') . "\n";
+        echo $this->fixLink('community__posts', 'text', 'http://http/', 'http://') . "\n";
+        echo $this->fixLink('comments', 'text', 'http://http/', 'http://') . "\n";
     }
 
-    public function fixLink($table, $field_name)
+    public function actionFixImages()
+    {
+        echo $this->fixLink('community__contents', 'preview', '/club/upload/images/', '/upload/images/') . "\n";
+        echo $this->fixLink('community__posts', 'text', '/club/upload/images/', '/upload/images/') . "\n";
+    }
+
+    public function fixLink($table, $field_name, $find, $replace)
     {
         $i = 0;
         $k = 0;
@@ -348,8 +354,8 @@ class CommunityCommand extends CConsoleCommand
                 ->queryAll();
 
             foreach ($raws as $raw) {
-                if (strpos($raw[$field_name], 'http://http/')) {
-                    $field_value = str_replace('http://http/', 'http://', $raw[$field_name]);
+                if (strpos($raw[$field_name], $find)) {
+                    $field_value = str_replace($find, $replace, $raw[$field_name]);
                     Yii::app()->db->createCommand()
                         ->update($table, array(
                         $field_name => $field_value

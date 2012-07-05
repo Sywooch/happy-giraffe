@@ -490,4 +490,17 @@ class CommunityCommand extends CConsoleCommand
         return $i;
 
     }
+
+    public function actionCheckNameFamous(){
+        Yii::import('site.frontend.modules.services.modules.names.models.*');
+        Yii::import('site.frontend.components.ManyToManyBehavior');
+        $names = Name::model()->findAll();
+        foreach($names as $name){
+            foreach($name->famous as $famous){
+                $path = Yii::getPathOfAlias('site.frontend.www').DIRECTORY_SEPARATOR.$famous->uploadTo().$famous->photo;
+                if (!file_exists($path))
+                    echo 'http://www.happy-giraffe.ru/names/'.$name->slug."\n";
+            }
+        }
+    }
 }

@@ -1,6 +1,6 @@
 <div class="entry hrecipe clearfix">
 
-    <h1 class="fn"><?=$data->title?></h1>
+    <?=CHtml::link($data->title, $data->url, array('class' => 'entry-title'))?>
 
     <div class="entry-header clearfix">
 

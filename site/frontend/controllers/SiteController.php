@@ -99,16 +99,7 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
-/*        if(!Yii::app()->user->isGuest)
-            $this->redirect(array('/user/profile', 'user_id' => Yii::app()->user->id));
-        $this->layout = '//site/index_layout';*/
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-/*		Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
-		Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
-        $model = new User;
-		$this->render('index', array(
-            'model' => $model
-        ));*/
         Yii::import('site.frontend.widgets.*');
         Yii::import('site.frontend.widgets.home.*');
         $user = Yii::app()->user->getModel();
@@ -315,51 +306,6 @@ class SiteController extends HController
 	{
 		Yii::app()->user->logout(false);
 		$this->redirect(Yii::app()->request->urlReferrer);
-	}
-
-	public function actionProfile()
-	{
-		$service = Yii::app()->request->getQuery('service');
-		if (isset($service)) {
-			$authIdentity = Yii::app()->eauth->getIdentity($service);
-			$authIdentity->redirectUrl = $this->createAbsoluteUrl('site/profile/#yw6_tab_2');
-
-			if ($authIdentity->authenticate()) {
-				$name = $authIdentity->getServiceName();
-				$id = $authIdentity->getAttribute('id');
-				$service = new UserSocialService;
-				$service->service = $name;
-				$service->service_id = $id;
-				$service->user_id = Yii::app()->user->id;
-				$service->save();
-			}
-
-			$authIdentity->redirect();
-		}
-
-		$user = User::model()->with('babies', 'settlement', 'social_services')->findByPk(Yii::app()->user->id);
-		$babies = array(
-			array('label' => 'Ждем ребенка', 'content' => array()),
-			array('label' => 'Дети в возрасте от 0 до 1', 'content' => array()),
-			array('label' => 'Дети в возрасте от 1 до 3', 'content' => array()),
-			array('label' => 'Дети в возрасте от 3 до 7', 'content' => array()),
-			array('label' => 'Дети в возрасте от 7 до 18', 'content' => array()),
-		);
-		foreach ($user->babies as $b)
-		{
-			$babies[$b->age_group]['content'][] = $b;
-		}
-		$regions = GeoRusRegion::model()->findAll();
-		$_regions = array('' => '---');
-		foreach ($regions as $r)
-		{
-			$_regions[$r->id] = $r->name;
-		}
-		$this->render('profile', array(
-			'model' => $user,
-			'babies' => $babies,
-			'regions' => $_regions,
-		));
 	}
 
 	public function actionEmptyCache()

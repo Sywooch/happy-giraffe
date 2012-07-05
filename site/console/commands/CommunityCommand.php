@@ -331,9 +331,30 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionFixLinks()
     {
+        echo $this->fixLink('community__contents', 'preview')."\n";
+        echo $this->fixLink('community__posts', 'text')."\n";
+        echo $this->fixLink('comments', 'text')."\n";
+    }
+
+    public function fixLink($table, $field_name)
+    {
+        $i = 0;
         $raws = Yii::app()->db->createCommand()
             ->select('*')
-            ->from('community__posts')
+            ->from($table)
             ->queryAll();
+
+        foreach($raws as $raw){
+            if (strpos($raw[$field_name], 'http://http/')){
+                $field_value = str_replace('http://http/', 'http://', $raw[$field_name]);
+                Yii::app()->db->createCommand()
+                    ->update($table, array(
+                    $field_name => $field_value
+                ), 'id='.$raw['id']);
+                $i++;
+            }
+        }
+
+        return $i;
     }
 }

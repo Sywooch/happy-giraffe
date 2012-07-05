@@ -60,7 +60,10 @@ return array(
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
 
         //blog
-        'blog/<_a:(add|edit|empty)>'=>'blog/<_a>',
+        'blog/edit/content_id/<content_id:\d+>' => 'community/edit',
+        'blog/add/content_type_slug/<content_type_slug>' => 'community/add',
+        'blog/add/content_type_slug/<content_type_slug>/rubric_id/<rubric_id:\d+>' => 'community/add',
+        'blog/<_a:(add|empty)>' => 'blog/<_a>',
 
         // community/*
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
@@ -70,10 +73,10 @@ return array(
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>/uploadImage' => 'community/uploadImage',
 
-        'community/edit/content_id/<content_id:\d+>' => 'community/id',
-        'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>/content_type_slug/<content_type_slug:(post|video|travel)>' => 'community/add',
+        'community/edit/content_id/<content_id:\d+>' => 'community/edit',
+        'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
         'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>' => 'community/add',
-        'community/add/community_id/<community_id:\d+>/content_type_slug/<content_type_slug:(post|video|travel)>' => 'community/add',
+        'community/add/community_id/<community_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
         'community/add/community_id/<community_id:\d+>' => 'community/add',
         'community/<_a:(join|add|transfer|edit|editTravel)>' => 'community/<_a>',
 

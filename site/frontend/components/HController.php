@@ -15,7 +15,14 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
-        if (in_array($this->uniqueId, array('blog' , 'community')) || in_array($this->route, array('cook/recipe/view'))  || in_array($this->route, array('cook/recipe/index'))) {
+        if (in_array($this->uniqueId, array(
+            'blog',
+            'community',
+            'services/horoscope/default',
+            'services/childrenDiseases/default',
+            'cook/spices',
+            'cook/choose',
+        )) || in_array($this->route, array('cook/recipe/view'))  || in_array($this->route, array('cook/recipe/index'))) {
             $reflector = new ReflectionClass($this);
             $parametersObjects = $reflector->getMethod('action' . $this->action->id)->getParameters();
             $parametersNames = array();

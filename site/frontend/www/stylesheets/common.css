@@ -535,11 +535,14 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 
 .gallery-box {text-align:center;}
+.gallery-box a {color:#fff;text-decoration:none;}
 .gallery-box .img {position:relative;display:inline-block;}
-.gallery-box .img .title {position:absolute;bottom:0;left:0;padding:3%;background:#000;width:94%;background:rgba(0,0,0,.44);text-align:left;}
-.gallery-box .img .title .icon-play {display:inline-block;width:68px;height:68px;background:url(/images/gallery_box_icon_play.png) no-repeat;vertical-align:middle;}
-.gallery-box .img .title .title-in {display:inline-block;vertical-align:middle;max-width:80%;margin-left:20px;color:#fff;font-size:16px;}
-.gallery-box .img .title .title-in span {display:block;font-weight:bold;font-size:22px;line-height:22px;margin-bottom:5px;}
+.gallery-box .img .title {position:absolute;top:0;left:0;background:#000;width:90%;background:rgba(0,0,0,.44);padding:2% 5%;font-weight:bold;font-size:34px;line-height:1;text-align:center;}
+.gallery-box .img .count {position:absolute;bottom:0;left:0;background:#000;width:90%;background:rgba(0,0,0,.44);padding:3% 5%;font-size:34px;line-height:1;text-align:center;font-size:32px;}
+.gallery-box .img .count span {font-size:40px;}
+
+.gallery-box .img .icon-play {display:block;width:190px;height:190px;background:url(/images/gallery_box_icon_play.png) no-repeat;position:absolute;top:50%;left:50%;margin:-85px 0 0 -95px;}
+
 
 
 .counter {display:inline-block;line-height:20px;vertical-align:top;}
@@ -1468,11 +1471,11 @@ behavior: url(/stylesheets/PIE.htc);
 
 /* */
 
-.default-comments {padding-bottom:20px;margin-top:20px;}
+.default-comments {padding-bottom:20px;margin-top:20px;border-bottom:1px dashed #95c8ff;}
 .default-comments .add, .default-comments .all {padding-top:10px;text-align:right;}
 .default-comments ul {padding-top:10px;list-style:none;}
 .default-comments > ul > li {padding:2px 0px;border-top:1px dashed #95c8ff;}
-.default-comments > ul > li:first {border-top:0;}
+.default-comments > ul > li:first-child {border-top:0;}
 .default-comments li .comment-in {padding:10px;}
 .default-comments li .header {padding-bottom:8px;}
 .default-comments li .header .user-info .details .username:hover {text-decoration:underline;}
@@ -1542,8 +1545,23 @@ behavior: url(/stylesheets/PIE.htc);
 .default-comments .user-info .details .icon-status {vertical-align:middle;}
 .default-comments .user-info .details .username {width:auto;vertical-align:middle;}
 
+.default-comments .no-comments {background:#f8f8f8;margin-top:3px;padding:50px 0;text-align:center;color:#c7c6c6;font-size:16px;}
+.default-comments .no-comments img {margin-top:-30px;}
+
 
 /* */
+
+
+.interesting {margin-top:30px;}
+.interesting .block-title {font-size:16px;color:#6a6969;font-weight:bold;margin-bottom:10px;}
+.interesting ul {list-style:none;}
+.interesting ul li {margin:5px 0;}
+
+
+.entry-nav {margin:30px 0;line-height:16px;}
+.entry-nav .prev {width:45%;float:left;}
+.entry-nav .next {width:45%;float:right;text-align:right;}
+.entry-nav .next span, .entry-nav .prev span {display:block;margin-bottom:4px;font-size:11px;color:#464546;font-family:tahoma, arial, helvetica, sans-serif;}
 
 
 /* */

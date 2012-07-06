@@ -15,9 +15,15 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
-        if (in_array(Yii::app()->user->id, array(10186, 10127, 12678, 10229, 12980))){
-            Yii::app()->user->logout(true);
-            $this->redirect('/');
+        if (in_array($this->uniqueId, array('blog' , 'community')) || in_array($this->route, array('cook/recipe/view'))) {
+            $reflector = new ReflectionClass($this);
+            $parametersObjects = $reflector->getMethod('action' . $this->action->id)->getParameters();
+            $parametersNames = array();
+            foreach ($parametersObjects as $p)
+                $parametersNames[] = $p->name;
+            foreach ($this->actionParams as $p => $v)
+                if (array_search($p, $parametersNames) === false && strpos($p, '_page') === false)
+                    throw new CHttpException(404, 'Такой записи не существует');
         }
 
         return parent::beforeAction($action);

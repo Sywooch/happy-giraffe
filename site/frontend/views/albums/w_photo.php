@@ -14,13 +14,12 @@
         <a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
 
         <div class="user">
-            <div class="user-info clearfix">
-                <a class="ava female small"></a>
-                <div class="details">
-                    <span class="icon-status status-online"></span>
-                    <a href="" class="username">Александр Богоявленский</a>
-                </div>
-            </div>
+            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                'user' => $photo->author,
+                'size' => 'small',
+                'sendButton' => false,
+                'location' => false
+            )); ?>
         </div>
 
         <div class="photo-info">

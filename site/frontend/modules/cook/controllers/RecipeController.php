@@ -144,7 +144,7 @@ class RecipeController extends HController
     /**
      * @sitemap dataSource=getContentUrls
      */
-    public function actionView($id)
+    public function actionView($id, $lastPage = null, $ajax = null)
     {
         $recipe = CookRecipe::model()->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)

@@ -194,7 +194,7 @@ class RecipeController extends HController
         $this->render('search', compact('dataProvider', 'criteria', 'text', 'allCount', 'type'));
     }
 
-    public function actionSearchByIngredients()
+    public function actionSearchByIngredients($ingredients = null)
     {
         $this->render('searchByIngredients');
     }

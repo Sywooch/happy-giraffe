@@ -21,8 +21,8 @@ class HController extends CController
             'community',
             'services/horoscope/default',
             'services/childrenDiseases/default',
-            'services/spices/default',
-            'services/choose/default',
+            'cook/spices/default',
+            'cook/choose/default',
         )) || in_array($this->route, array('cook/recipe/view'))  || in_array($this->route, array('cook/recipe/index'))) {
             $reflector = new ReflectionClass($this);
             $parametersObjects = $reflector->getMethod('action' . $this->action->id)->getParameters();

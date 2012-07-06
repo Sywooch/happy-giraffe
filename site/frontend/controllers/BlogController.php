@@ -190,17 +190,22 @@ class BlogController extends HController
     public function getContentUrls()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('community__contents.id AS content_id, community__contents.author_id AS user_id')
-            ->from('community__contents')
-            ->join('community__rubrics', 'community__contents.rubric_id = community__rubrics.id')
-            ->join('community__content_types', 'community__contents.type_id = community__content_types.id')
-            ->where('community__rubrics.user_id IS NOT NULL AND community__contents.removed = 0')
-            ->order('community__contents.id ASC')
+            ->select('c.id, c.created, c.updated, c.author_id')
+            ->from('community__contents c')
+            ->join('community__rubrics r', 'c.rubric_id = r.id')
+            ->join('community__content_types ct', 'c.type_id = ct.id')
+            ->where('r.user_id IS NOT NULL AND c.removed = 0')
             ->queryAll();
         foreach ($models as $model)
         {
             $data[] = array(
-                'params' => $model,
+                'params' => array(
+                    'content_id' => $model['id'],
+                    'user_id' => $model['author_id'],
+                ),
+                'priority' => 0.5,
+                'changefreq' => 'daily',
+                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
         return $data;

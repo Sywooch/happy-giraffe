@@ -136,7 +136,7 @@ Attach.prototype.insertToRecipe = function (fsn) {
 }
 
 Attach.prototype.CommunityContentEdit = function(val) {
-    $.post(base_url + '/albums/CommunityContentEdit/', {val:val, widget_id:this.object_name}, function (html) {
+    $.post(base_url + '/albums/communityContentEdit/', {val:val, widget_id:this.object_name}, function (html) {
         $('#attach_content').html(html);
     }, 'html');
 }
@@ -150,7 +150,7 @@ Attach.prototype.CommunityContentInsert = function(val) {
     }
 
     $.post(
-        '/albums/CommunityContentSave/',
+        '/albums/communityContentSave/',
         {
             description:$('#attach_content textarea').val(),
             val:val

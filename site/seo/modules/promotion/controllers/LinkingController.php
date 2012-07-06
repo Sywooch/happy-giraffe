@@ -104,10 +104,12 @@ class LinkingController extends SController
             $article = $phrase->page->getArticle();
             $our_article = $page->getArticle();
             if (!empty($article) && !empty($our_article)){
-                foreach ($article->getRelatedPosts() as $post){
-                    if ($post->id == $our_article->id)
-                        unset($pages[$key]);
-                }
+                $post = $article->getPrevPost();
+                if ($post !== null && $post->id == $our_article->id)
+                    unset($pages[$key]);
+                $post = $article->getNextPost();
+                if ($post !== null && $post->id == $our_article->id)
+                    unset($pages[$key]);
             }
         }
 

@@ -113,7 +113,7 @@ class CommunityController extends HController
     /**
      * @sitemap dataSource=getContentUrls
      */
-    public function actionView($community_id, $content_type_slug, $content_id)
+    public function actionView($community_id, $content_type_slug, $content_id, $lastPage = null, $ajax = null)
     {
         /* <ИМПОРТ РЕЦЕПТОВ> */
         if ($community_id == 22) {

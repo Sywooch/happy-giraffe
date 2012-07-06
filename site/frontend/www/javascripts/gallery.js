@@ -75,6 +75,7 @@ jQuery.fn.pGallery = function(options) {
     };
 
     plugin.openImage = function(id, callback) {
+        alert(id);
         var photo = $('#photo', this.window);
         photo.find('.img').children('img').attr({src : pGallery_photos[id].src});
         if(photo.find('.in').size() > 0) {

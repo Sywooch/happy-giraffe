@@ -32,39 +32,23 @@
     <script type="text/javascript">
         <?php ob_start(); ?>
         <?php foreach($model->photoCollection as $i => $p): ?>
-        pGallery_photos[<?php echo $p->primaryKey ?>] = {
-            src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
-            title : '<?php echo isset($p->title) && $p->title != '' ? $p->title : null ?>',
-            description : <?php echo isset($p->options['description']) ? "'" . $p->options['description'] . "'" : 'null'; ?>,
-            avatar : '<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $p->author,
-                'size' => 'small',
-                'sendButton' => false,
-                'location' => false
-            )); ?>'
-        };
-            <?php endforeach; ?>
+            pGallery_photos[<?php echo $p->primaryKey ?>] = {
+                src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
+                title : '<?php echo isset($p->title) && $p->title != '' ? $p->title : null ?>',
+                description : <?php echo isset($p->options['description']) ? "'" . $p->options['description'] . "'" : 'null'; ?>,
+                avatar : '<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                    'user' => $p->author,
+                    'size' => 'small',
+                    'sendButton' => false,
+                    'location' => false
+                )); ?>'
+            };
+        <?php endforeach; ?>
         <?
-        $params = ob_get_contents();
-        ob_end_clean();
-        echo preg_replace('/\s+/i', ' ', $params);
+            $params = ob_get_contents();
+            ob_end_clean();
+            echo preg_replace('/\s+/i', ' ', $params);
         ?>
-        <?php if($selected_index !== null): ?>
-        $('#photo-thumbs', $('#photo-window')).bind('jcarouselinitend', function(carousel) {
-            var count = $('#photo-thumbs li').size();
-            var ready = 0;
-            $('#photo-thumbs img', $('#photo-window')).each(function(){
-                $(this).get(0).onload = function() {
-                    ready++;
-                    if (ready == count) {
-                        $(this).parents('#photo-thumbs').find('li:eq(<?php echo $selected_index; ?>)').addClass('active');
-                        $('#photo-thumbs', $('#photo-window')).jcarousel('scroll', <?php echo $selected_index; ?>);
-                    }
-                };
-                $(this).attr('src', $(this).attr('data-src'));
-            });
-        });
-            <?php endif; ?>
     </script>
 
     <div id="photo">

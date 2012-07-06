@@ -251,7 +251,7 @@
 
 #interestsManage .interests-steps .step-3 {float: left; width: 340px;}
 
-#interestsManage .interests-steps .step-3 .drag-in-area {padding: 15px 30px 15px; border: 2px dashed #c5c6c7; margin-bottom: 20px;}
+#interestsManage .interests-steps .step-3 .drag-in-area {padding: 15px 30px 15px; border: 2px dashed #c5c6c7; margin-bottom: 20px; text-align: center;}
 #interestsManage .interests-steps .step-3 .drag-in-area {/*css3*/ border-radius: 15px; -moz-border-radius: 15px; -webkit-border-radius: 15px; behavior: url(/stylesheets/PIE.htc);}
 #interestsManage .interests-steps .step-3 .drag-in-area .small {font-size: 11px; font-family: tahoma, arial, helvetica, sans-serif; color: #b4b4b5;}
 #interestsManage .interests-steps .step-3 .drag-in-area .text {padding: 20px 0 10px; display: block; font-size: 20px; color: #bababa; line-height: 24px;}

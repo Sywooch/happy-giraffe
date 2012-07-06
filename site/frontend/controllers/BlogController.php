@@ -149,7 +149,7 @@ class BlogController extends HController
     /**
      * @sitemap dataSource=getContentUrls
      */
-    public function actionView($content_id)
+    public function actionView($content_id, $user_id, $lastPage = null, $ajax = null)
     {
         $this->layout = '//layouts/user_blog';
 

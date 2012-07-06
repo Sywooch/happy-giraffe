@@ -4,10 +4,13 @@ if ($this->user->gender !== null) $class .= ' ' . (($this->user->gender) ? 'male
 if ($this->size !== 'ava') $class .= ' ' . $this->size;
 if ($this->filled) $class .= ' filled';
 
-$link_to_profile = $this->user->url;
-if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
-    $link_to_profile = Yii::app()->createUrl('profile/photo', array('returnUrl' => urlencode(Yii::app()->createUrl('user/profile', array('user_id' => $this->user->id)))));
-
+if ($this->user->blocked)
+    $link_to_profile = 'javascript:;';
+else {
+    $link_to_profile = $this->user->url;
+    if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
+        $link_to_profile = Yii::app()->createUrl('profile/photo', array('returnUrl' => urlencode(Yii::app()->createUrl('user/profile', array('user_id' => $this->user->id)))));
+}
 ?>
 <?php if (!$this->small): ?>
     <div class="user-info clearfix">
@@ -22,7 +25,7 @@ if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
     <?php if ($this->user->id != User::HAPPY_GIRAFFE): ?>
         <div class="details">
             <span class="icon-status status-<?php echo $this->user->online == 1 ? 'online' : 'offline'; ?>"></span>
-            <a class="username" href="<?=$this->user->url ?>"><?php echo CHtml::encode($this->user->fullName); ?></a>
+            <a class="username" href="<?=$link_to_profile ?>"><?php echo CHtml::encode($this->user->fullName); ?></a>
             <?php if ($this->user->getUserAddress()->country !== null && $this->location): ?>
             <div class="location">
                 <div class="flag flag-<?php echo $this->user->getUserAddress()->country->iso_code; ?>"></div>

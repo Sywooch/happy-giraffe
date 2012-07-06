@@ -45,7 +45,7 @@ class BlogController extends HController
         return $this->createUrl($route, $params);
     }
 
-    public function actionAdd($content_type_slug = 'post', $rubric_id = null)
+    public function actionAdd($user_id, $content_type_slug = 'post', $rubric_id = null)
     {
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
         $model = new BlogContent;
@@ -78,7 +78,7 @@ class BlogController extends HController
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
-                $this->redirect(array('/blog/view', 'content_id' => $model->id));
+                $this->redirect($model->url);
             }
         }
 
@@ -115,7 +115,7 @@ class BlogController extends HController
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
-                $this->redirect(array('/blog/view', 'content_id' => $model->id));
+                $this->redirect($model->url);
             }
         }
 
@@ -149,7 +149,7 @@ class BlogController extends HController
     /**
      * @sitemap dataSource=getContentUrls
      */
-    public function actionView($content_id)
+    public function actionView($content_id, $user_id, $lastPage = null, $ajax = null)
     {
         $this->layout = '//layouts/user_blog';
 
@@ -190,17 +190,22 @@ class BlogController extends HController
     public function getContentUrls()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('community__contents.id AS content_id, community__contents.author_id AS user_id')
-            ->from('community__contents')
-            ->join('community__rubrics', 'community__contents.rubric_id = community__rubrics.id')
-            ->join('community__content_types', 'community__contents.type_id = community__content_types.id')
-            ->where('community__rubrics.user_id IS NOT NULL')
-            ->order('community__contents.id ASC')
+            ->select('c.id, c.created, c.updated, c.author_id')
+            ->from('community__contents c')
+            ->join('community__rubrics r', 'c.rubric_id = r.id')
+            ->join('community__content_types ct', 'c.type_id = ct.id')
+            ->where('r.user_id IS NOT NULL AND c.removed = 0')
             ->queryAll();
         foreach ($models as $model)
         {
             $data[] = array(
-                'params' => $model,
+                'params' => array(
+                    'content_id' => $model['id'],
+                    'user_id' => $model['author_id'],
+                ),
+                'priority' => 0.5,
+                'changefreq' => 'daily',
+                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
         return $data;

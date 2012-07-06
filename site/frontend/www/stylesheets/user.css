@@ -222,6 +222,60 @@
 #interestsEdit .interests-list label {cursor:pointer;}
 #interestsEdit .interests-list input {visibility:hidden;}
 
+
+#interestsManage {width:860px;}
+
+#interestsManage .interests-steps {padding-top:15px;}
+
+#interestsManage .interests-steps .step-title {margin-bottom: 20px;}
+#interestsManage .interests-steps .step-title .num {float: left; width: 35px; font-size: 53px; color: #80c87a; font-weight: bold;line-height:44px;}
+#interestsManage .interests-steps .step-title .text {float: left; width: 165px; font-size: 22px;color: #62a3e5; line-height: 1;}
+
+#interestsManage .interests-steps .step-1 {float: left; width: 200px; padding-right: 20px;}
+
+#interestsManage .interests-steps .step-1 ul {list-style: none;}
+#interestsManage .interests-steps .step-1 ul li {margin: 5px 0;}
+#interestsManage .interests-steps .step-1 ul li a {color: #5a5a5b; text-decoration: none; border-bottom: 1px dashed #5a5a5b;}
+#interestsManage .interests-steps .step-1 ul li a:hover {border: 0;}
+#interestsManage .interests-steps .step-1 ul li.active a {background: #fdfb91; border: 0;}
+
+#interestsManage .interests-steps .step-2 {float: left; width: 280px; padding-right: 20px;}
+
+#interestsManage .interests-steps .step-2 .interests-drag-list {margin-bottom: 20px;}
+#interestsManage .interests-steps .step-2 .interests-drag-list .interest-drag {background: #dfeefe; float: left; height: 22px; line-height: 22px; padding: 0 10px 0 6px; margin: 0 10px 10px 0; cursor: move; color: #575757;}
+#interestsManage .interests-steps .step-2 .interests-drag-list .interest-drag {/*css3*/ border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; behavior: url(/stylesheets/PIE.htc);}
+#interestsManage .interests-steps .step-2 .interests-drag-list .interest-drag .icon {float: left; width: 4px; height: 10px; background: url(/images/common.png) no-repeat -383px -179px; margin: 6px 6px 0 0;}
+
+#interestsManage .interests-steps .step-2 .note {color: #646465;margin-bottom:15px;}
+#interestsManage .interests-steps .step-2 .note span {font-size: 25px; font-weight: bold; color: #62a3e5; position: relative; top: 8px; margin-right: 5px;}
+
+#interestsManage .interests-steps .step-3 {float: left; width: 340px;}
+
+#interestsManage .interests-steps .step-3 .drag-in-area {padding: 15px 30px 15px; border: 2px dashed #c5c6c7; margin-bottom: 20px; text-align: center;}
+#interestsManage .interests-steps .step-3 .drag-in-area {/*css3*/ border-radius: 15px; -moz-border-radius: 15px; -webkit-border-radius: 15px; behavior: url(/stylesheets/PIE.htc);}
+#interestsManage .interests-steps .step-3 .drag-in-area .small {font-size: 11px; font-family: tahoma, arial, helvetica, sans-serif; color: #b4b4b5;}
+#interestsManage .interests-steps .step-3 .drag-in-area .text {padding: 20px 0 10px; display: block; font-size: 20px; color: #bababa; line-height: 24px;}
+#interestsManage .interests-steps .step-3 .drag-in-area .text img {float: left; margin-top: -10px; margin-right: 10px;}
+
+#interestsManage .interests-steps .step-3 .selected-interests-list {}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul {list-style: none; font-size: 11px; line-height: 12px; margin-bottom: 30px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li {width:160px; display: inline-block; vertical-align: middle; padding: 10px 5px 10px 0;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .img {display: inline-block; width: 50px; text-align: right; vertical-align: middle; margin-right: 3px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .img img {}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .text {display: inline-block; max-width: 85px; vertical-align: middle;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .text a {color: #4d92d9; font-family: tahoma; text-decoration: none;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .remove {display: inline-block; width: 12px; height: 14px; background: url(/images/common.png) no-repeat -314px -135px; vertical-align: middle; position: relative; top: 2px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .remove:hover {background-position:-314px -148px;}
+
+#interestsManage .interests-steps .step-3 .selected-interests-list .btn-box {text-align: center;}
+#interestsManage .interests-steps .step-3 .selected-interests-list .btn-box .btn-finish {display: inline-block; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list .btn-box .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
+
+
+
+
+
+
 #user .user-clubs {padding-bottom:20px;padding-left:15px;}
 #user .user-clubs ul {list-style:none;}
 #user .user-clubs ul li {float:left;margin:0 15px 0px 0;}

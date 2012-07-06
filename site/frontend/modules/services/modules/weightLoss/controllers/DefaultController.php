@@ -24,6 +24,7 @@ class DefaultController extends HController
                 Yii::app()->end();
             }
             $result['html'] = $this->renderPartial('_result', array('result' => $model->calculate()), true);
+            $result['result'] = $model->calculate();
             //$result = $model->calculate();
             header('Content-type: application/json');
             echo CJSON::encode($result);

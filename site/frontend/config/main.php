@@ -292,6 +292,7 @@ return array(
                     'sitemap.xml' => array(
                         'aliases' => array(
                             'application.controllers',
+                            'application.modules.cook.controllers.RecipeController',
                             'application.modules.services.modules.pregnancyWeight.controllers',
                             'application.modules.services.modules.contractionsTime.controllers',
                             'application.modules.services.modules.placentaThickness.controllers',

@@ -19,7 +19,7 @@
             <?php endforeach; ?>
         </ul>
 
-        <div class="more-friends"><?=CHtml::link('Найти ещё друзей', '/activity/friends')?><?php if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)): ?> <a href="" class="wannachat" onclick="WantToChat.send(this); return false;">Хочу общаться!</a><?php endif; ?></div>
+        <div class="more-friends"><?=CHtml::link('Найти ещё друзей', array('/activity/friends'))?><?php if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)): ?> <a href="" class="wannachat" onclick="WantToChat.send(this); return false;">Хочу общаться!</a><?php endif; ?></div>
     <?php endif; ?>
 
 </div>

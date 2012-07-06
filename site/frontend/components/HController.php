@@ -26,11 +26,6 @@ class HController extends CController
                     throw new CHttpException(404, 'Такой записи не существует');
         }
 
-        if (in_array(Yii::app()->user->id, array(10186, 10127, 12678, 10229, 12980))){
-            Yii::app()->user->logout(true);
-            $this->redirect('/');
-        }
-
         return parent::beforeAction($action);
     }
 

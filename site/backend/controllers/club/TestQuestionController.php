@@ -6,6 +6,14 @@ class TestQuestionController extends HController
     public $section = 'club';
     public $layout = '//layouts/club';
 
+
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('cook_ingredients'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.

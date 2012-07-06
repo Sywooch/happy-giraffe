@@ -45,7 +45,7 @@ class BlogController extends HController
         return $this->createUrl($route, $params);
     }
 
-    public function actionAdd($content_type_slug = 'post', $rubric_id = null)
+    public function actionAdd($user_id, $content_type_slug = 'post', $rubric_id = null)
     {
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
         $model = new BlogContent;

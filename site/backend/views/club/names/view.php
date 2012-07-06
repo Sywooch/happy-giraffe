@@ -86,7 +86,7 @@
 
             <div class="famous">
                 <div class="name_bold">Известные личности с именем</div>
-                <?php foreach ($name->nameFamouses as $famous): ?>
+                <?php foreach ($name->famous as $famous): ?>
                     <?php $this->renderPartial('_famous',array('model'=>$famous)); ?>
                 <?php endforeach; ?>
                 <a class="famous_add fancy" href="#famous_add"></a>

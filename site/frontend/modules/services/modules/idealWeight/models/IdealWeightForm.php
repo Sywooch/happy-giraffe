@@ -38,7 +38,7 @@ class IdealWeightForm extends HFormModel
 
     public function calculate()
     {
-        $result = array('formulas' => array(), 'result' => 0);
+        $result = array('formulas' => array(), 'result' => 0, 'input' => $this->attributes);
         if ($this->height >= 155 and $this->height <= 170)
             $result['formulas']['broka'] = $this->height - 100;
         $result['formulas']['braitman'] = $this->height * 0.7 - 50;

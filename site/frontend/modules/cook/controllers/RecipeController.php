@@ -141,7 +141,10 @@ class RecipeController extends HController
         $this->render('form', compact('recipe', 'ingredients', 'cuisines', 'units'));
     }
 
-    public function actionView($id)
+    /**
+     * @sitemap dataSource=getContentUrls
+     */
+    public function actionView($id, $lastPage = null, $ajax = null)
     {
         $recipe = CookRecipe::model()->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)
@@ -196,7 +199,7 @@ class RecipeController extends HController
         $this->render('searchByIngredients');
     }
 
-    public function actionSearchByIngredientsResult()
+    public function actionSearchByIngredientsResult($ingredients = null)
     {
         $ingredients = Yii::app()->request->getQuery('ingredients', array());
         $type = Yii::app()->request->getQuery('type', null);
@@ -249,5 +252,25 @@ class RecipeController extends HController
     {
         $ingredients = CookIngredient::model()->autoComplete($term, 10, false, true);
         echo CJSON::encode($ingredients);
+    }
+
+    public function getContentUrls()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('id, created, updated')
+            ->from('cook__recipes')
+            ->queryAll();
+        foreach ($models as $model)
+        {
+            $data[] = array(
+                'params' => array(
+                    'id' => $model['id'],
+                ),
+                'priority' => 0.5,
+                'changefreq' => 'daily',
+                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
+            );
+        }
+        return $data;
     }
 }

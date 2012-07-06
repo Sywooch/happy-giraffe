@@ -42,7 +42,7 @@ return array(
         'albums/addPhoto/a/<id:\d+>' => 'albums/addPhoto',
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/redirect/<id:\d+>' => 'albums/redirect',
-        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar)>' => 'albums/<_a>',
+        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto)>' => 'albums/<_a>',
 
         // user/*
         'user/<user_id:\d+>' => 'user/profile',
@@ -58,6 +58,15 @@ return array(
         'user/<id:\d+>/albums' => 'albums/user',
         'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
+        'user/<_a:(updateMood)>' => 'user/<_a>',
+        'user/createRelated/relation/<relation:\w+>/'=>'user/createRelated',
+        'user/myFriendRequests/<direction:\w+>/'=>'user/myFriendRequests',
+
+        //blog
+        'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
+        'blog/add/content_type_slug/<content_type_slug>' => 'blog/add',
+        'blog/add/content_type_slug/<content_type_slug>/rubric_id/<rubric_id:\d+>' => 'blog/add',
+        'blog/<_a:(add|empty)>' => 'blog/<_a>',
 
         // community/*
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
@@ -66,6 +75,13 @@ return array(
         'community/<community_id:\d+>/forum' => 'community/list',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>/uploadImage' => 'community/uploadImage',
+
+        'community/edit/content_id/<content_id:\d+>' => 'community/edit',
+        'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
+        'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>' => 'community/add',
+        'community/add/community_id/<community_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
+        'community/add/community_id/<community_id:\d+>' => 'community/add',
+        'community/<_a:(join|add|transfer|edit|editTravel)>' => 'community/<_a>',
 
         //global
         '<_c:(activity|ajax|notification|signup|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',
@@ -82,8 +98,9 @@ return array(
         'contest/<id:\d+>/rules' => 'contest/default/rules',
         'contest/<id:\d+>/list/<sort:\w+>' => 'contest/default/list',
         'contest/<id:\d+>/list' => 'contest/default/list',
+        'contest/<id:\d+>/results/work<work:\d+>' => 'contest/default/results',
         'contest/<id:\d+>/results' => 'contest/default/results',
-        'contest/work/<id:\d+>' => 'contest/default/work',
+        'contest/work<id:\d+>' => 'contest/default/work',
         'contest/<_a>/<id:\d+>' => 'contest/default/<_a>',
 
         '<_m:(geo|im|signal|scores|cook)>/' => '<_m>/default/index',
@@ -117,7 +134,7 @@ return array(
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
 
         //===================== Services =========================//
-        '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight)>/' => 'services/<_m>/default/index',
+        '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat)>/' => 'services/<_m>/default/index',
         '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
         'babySex/default/<_a:(bloodUpdate, japanCalc, ovulationCalc)>/' => 'services/babySex/default/<_a>',
@@ -144,6 +161,6 @@ return array(
 
         '<_m:(menstrualCycle|placentaThickness|pregnancyWeight)>/<_a:(calculate)>' => 'services/<_m>/default/<_a>',
 
-        'services/<_m:(dailyCalories|weightLoss|idealWeight)>/default/<_c>' => 'services/<_m>/default/<_c>',
+        'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
     ),
 );

@@ -1,5 +1,5 @@
-<?php
-/**3123
+<?php  die;
+/**
  * Author: choo
  * Date: 13.05.2012
  */

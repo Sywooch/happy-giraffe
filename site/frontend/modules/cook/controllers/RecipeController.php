@@ -194,12 +194,12 @@ class RecipeController extends HController
         $this->render('search', compact('dataProvider', 'criteria', 'text', 'allCount', 'type'));
     }
 
-    public function actionSearchByIngredients($ingredients = null)
+    public function actionSearchByIngredients()
     {
         $this->render('searchByIngredients');
     }
 
-    public function actionSearchByIngredientsResult()
+    public function actionSearchByIngredientsResult($ingredients = null)
     {
         $ingredients = Yii::app()->request->getQuery('ingredients', array());
         $type = Yii::app()->request->getQuery('type', null);

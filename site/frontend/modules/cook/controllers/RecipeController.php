@@ -257,14 +257,18 @@ class RecipeController extends HController
     public function getContentUrls()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('id')
+            ->select('id, created, updated')
             ->from('cook__recipes')
-            ->order('id ASC')
             ->queryAll();
         foreach ($models as $model)
         {
             $data[] = array(
-                'params' => $model,
+                'params' => array(
+                    'id' => $model['id'],
+                ),
+                'priority' => 0.5,
+                'changefreq' => 'daily',
+                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
         return $data;

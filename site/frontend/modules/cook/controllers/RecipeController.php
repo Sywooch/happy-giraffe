@@ -144,7 +144,7 @@ class RecipeController extends HController
     /**
      * @sitemap dataSource=getContentUrls
      */
-    public function actionView($id)
+    public function actionView($id, $lastPage = null, $ajax = null)
     {
         $recipe = CookRecipe::model()->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)
@@ -199,7 +199,7 @@ class RecipeController extends HController
         $this->render('searchByIngredients');
     }
 
-    public function actionSearchByIngredientsResult()
+    public function actionSearchByIngredientsResult($ingredients = null)
     {
         $ingredients = Yii::app()->request->getQuery('ingredients', array());
         $type = Yii::app()->request->getQuery('type', null);
@@ -257,14 +257,18 @@ class RecipeController extends HController
     public function getContentUrls()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('id')
+            ->select('id, created, updated')
             ->from('cook__recipes')
-            ->order('id ASC')
             ->queryAll();
         foreach ($models as $model)
         {
             $data[] = array(
-                'params' => $model,
+                'params' => array(
+                    'id' => $model['id'],
+                ),
+                'priority' => 0.5,
+                'changefreq' => 'daily',
+                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
         return $data;

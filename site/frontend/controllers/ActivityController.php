@@ -1,4 +1,4 @@
-<?php  die;
+<?php
 /**
  * Author: choo
  * Date: 13.05.2012

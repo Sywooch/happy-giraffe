@@ -32,7 +32,7 @@
 
     <script type="text/javascript">
         <?php ob_start(); ?>
-        <?php foreach($collection as $i => $p): ?>
+        <?php foreach($model->photoCollection as $i => $p): ?>
             pGallery_photos[<?php echo $p->primaryKey ?>] = {
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
                 title : '<?php echo isset($p->title) && $p->title != '' ? $p->title : null ?>',

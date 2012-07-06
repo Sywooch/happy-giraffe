@@ -4,6 +4,7 @@
      * @var AlbumPhoto $photo
      */
     $selected_index = null;
+    $collection = $model->photoCollection;
     $count = count($model->photoCollection);
 ?>
 
@@ -31,8 +32,10 @@
 
     <script type="text/javascript">
         <?php ob_start(); ?>
-        <?php foreach($model->photoCollection as $i => $p): ?>
+        <?php foreach ($collection as $i => $p): ?>
             pGallery_photos[<?php echo $p->primaryKey ?>] = {
+                prev : <?=($i != 0) ? '\'' . $collection[--$i]->primaryKey . '\'' : 'null'?>,
+                next : <?=($i < $count - 1) ? '\'' . $collection[++$i]->primaryKey . '\'' : 'null'?>,
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
                 title : '<?php echo isset($p->title) && $p->title != '' ? $p->title : null ?>',
                 description : <?php echo isset($p->options['description']) ? "'" . $p->options['description'] . "'" : 'null'; ?>,

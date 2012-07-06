@@ -22,7 +22,7 @@ class HController extends CController
             $parametersNames[] = $p->name;
         foreach ($this->actionParams as $p => $v)
             if (array_search($p, $parametersNames) === false && strpos($p, '_page') === false)
-                throw new CHttpException(404, 'Страница не существует');
+                throw new CHttpException(404, 'Такой записи не существует');
 
         if (in_array(Yii::app()->user->id, array(10186, 10127, 12678, 10229, 12980))){
             Yii::app()->user->logout(true);

@@ -508,17 +508,23 @@ class CommunityController extends HController
     public function getContentUrls()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('community__contents.id AS content_id, community__rubrics.community_id AS community_id, community__content_types.slug AS content_type_slug')
-            ->from('community__contents')
-            ->join('community__rubrics', 'community__contents.rubric_id = community__rubrics.id')
-            ->join('community__content_types', 'community__contents.type_id = community__content_types.id')
-            ->where('community__rubrics.community_id IS NOT NULL AND community__contents.removed = 0')
-            ->order('community__contents.id ASC')
+            ->select('c.id, c.created, c.updated, r.community_id, ct.slug')
+            ->from('community__contents c')
+            ->join('community__rubrics r', 'c.rubric_id = r.id')
+            ->join('community__content_types ct', 'c.type_id = ct.id')
+            ->where('r.community_id IS NOT NULL AND c.removed = 0')
             ->queryAll();
         foreach ($models as $model)
         {
             $data[] = array(
-                'params' => $model,
+                'params' => array(
+                    'content_id' => $model['id'],
+                    'community_id' => $model['community_id'],
+                    'content_type_slug' => $model['slug'],
+                ),
+                'priority' => 0.5,
+                'changefreq' => 'daily',
+                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
         return $data;

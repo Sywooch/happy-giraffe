@@ -4,7 +4,7 @@ if ($this->user->gender !== null) $class .= ' ' . (($this->user->gender) ? 'male
 if ($this->size !== 'ava') $class .= ' ' . $this->size;
 if ($this->filled) $class .= ' filled';
 
-if ($this->user->blocked)
+if ($this->user->blocked || $this->user->deleted)
     $link_to_profile = 'javascript:;';
 else {
     $link_to_profile = $this->user->url;

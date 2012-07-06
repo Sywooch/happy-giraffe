@@ -13,7 +13,8 @@ class SeoLinksWidget extends CWidget
         Yii::import('site.seo.modules.promotion.models.*');
 
         $page = self::getPage();
-        $this->render('index', array('link_pages'=>$page->outputLinks));
+        if ($page !== null && isset($page->outputLinks) && !empty($page->outputLinks))
+            $this->render('index', array('link_pages'=>$page->outputLinks));
     }
 
     /**

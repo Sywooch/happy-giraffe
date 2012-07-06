@@ -3,22 +3,17 @@
  * Author: alexk984
  * Date: 15.05.12
  */
-class SeoHelper
+class SeoLinksWidget extends CWidget
 {
-    public static function getLinkBock()
+    public function run()
     {
+        if (!Yii::app()->user->isGuest)
+            return;
         Yii::import('site.seo.models.*');
         Yii::import('site.seo.modules.promotion.models.*');
 
-        $str = '';
         $page = self::getPage();
-        if (!empty($page) && !empty($page->outputLinks)) {
-            foreach ($page->outputLinks as $link_page) {
-                $str.= CHtml::link($link_page->keyword->name, $link_page->pageTo->url);
-            }
-        }
-
-        return $str;
+        $this->render('index', array('link_pages'=>$page->outputLinks));
     }
 
     /**

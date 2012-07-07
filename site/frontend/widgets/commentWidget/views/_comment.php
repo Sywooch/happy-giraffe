@@ -13,7 +13,7 @@
 
         </div>
     </li>
-    <?php else: ?>
+    <?php elseif($this->type != 'guestBook'): ?>
     <div class="removed-comment content-in">
         <?= $data->getRemoveDescription() ?>
     </div>

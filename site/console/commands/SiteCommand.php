@@ -156,7 +156,31 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionFirstCommentFix(){
+    public function actionSendCard($photo_id)
+    {
+        $users = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('users')
+            ->where('deleted = 0 AND blocked = 0')
+            ->queryAll();
+
+        foreach ($users as $u) {
+            $comment = new Comment('giraffe');
+            $comment->author_id = 1;
+            $comment->entity = 'User';
+            $comment->entity_id = $u['id'];
+            $comment->save();
+
+            $attach = new AttachPhoto;
+            $attach->photo_id = $photo_id;
+            $attach->entity = 'Comment';
+            $attach->entity_id = $comment->id;
+            $attach->save();
+        }
+    }
+
+    public function actionFirstCommentFix()
+    {
         $k = 0;
 
         $raws = 1;

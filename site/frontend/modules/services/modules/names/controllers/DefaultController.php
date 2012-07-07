@@ -216,7 +216,7 @@ class DefaultController extends HController
     public function LoadModelBySlugName($name)
     {
         $model = Name::model()->with(array(
-            'nameFamouses' => array('order' => 'nameFamouses.last_name'),
+            'famous' => array('order' => 'famous.last_name'),
             'nameSaintDates' => array('order' => 'nameSaintDates.month, nameSaintDates.day'),
 //            'nameMiddles'=>array('select'=>'value'),
 //            'nameOptions'=>array('select'=>'value'),
@@ -463,18 +463,4 @@ class DefaultController extends HController
             sleep(1);
         }
     }*/
-
-    public function actionSlug()
-    {
-        if (!Yii::app()->user->checkAccess('administrator'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $models = Name::model()->findAll('slug IS NULL OR slug = ""');
-        echo count($models);
-        foreach($models as $model){
-            $model->scenario = 'edit';
-            $model->save();
-        }
-    }
-
 }

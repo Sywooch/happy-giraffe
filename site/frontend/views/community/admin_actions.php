@@ -10,9 +10,9 @@ if (!Yii::app()->user->isGuest && ($c->canEdit() || $c->canRemove())): ?>
             if ($c->isFromBlog) {
                 $edit_url = $this->createUrl('/blog/edit', array('content_id' => $c->id));
             } elseif ($c->type->slug == 'travel') {
-                $edit_url = $this->createUrl('community/editTravel', array('id' => $c->id));
+                $edit_url = $this->createUrl('/community/editTravel', array('id' => $c->id));
             } else {
-                $edit_url = $this->createUrl('community/edit', array('content_id' => $c->id));
+                $edit_url = $this->createUrl('/community/edit', array('content_id' => $c->id));
             }
         ?>
 

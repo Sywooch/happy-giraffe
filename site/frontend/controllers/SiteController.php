@@ -30,37 +30,6 @@ class SiteController extends HController
         }
     }
 
-    public function actionRss()
-    {
-        Yii::import('ext.EFeed.*');
-        $feed = new EFeed();
-
-        $feed->title= 'Веселый Жираф - сайт для всей семьи';
-        $feed->description = 'Социальная сеть для родителей и их детей';
-        $feed->setImage('Веселый Жираф - сайт для всей семьи', 'http://www.happy-giraffe.ru/rss/', 'http://www.happy-giraffe.ru/images/logo_2.0.png');
-        $feed->addChannelTag('language', 'ru-ru');
-        $feed->addChannelTag('pubDate', date(DATE_RSS, time()));
-        $feed->addChannelTag('link', 'http://www.happy-giraffe.ru/rss/' );
-
-        $contents = CommunityContent::model()->full()->findAll(array(
-            'limit' => 20,
-            'order' => 'created DESC',
-        ));
-
-        foreach ($contents as $c) {
-            $item = $feed->createNewItem();
-            $item->title = $c->title;
-            $item->link = $c->getUrl(false, true);
-            $item->date = $c->created;
-            $item->description = $c->preview;
-            $item->addTag('author', $c->author->email);
-            $feed->addItem($item);
-        }
-
-        $feed->generateFeed();
-        Yii::app()->end();
-    }
-
     public function actionSearch($text = false, $index = false)
     {
         $index = $index ? $index : 'community';
@@ -146,9 +115,6 @@ class SiteController extends HController
 		}
 	}
 
-	/**
-	 * Displays the login page
-	 */
 	public function actionLogin()
 	{
 		$service = Yii::app()->request->getQuery('service');
@@ -221,6 +187,12 @@ class SiteController extends HController
                 $this->redirect(Yii::app()->request->urlReferrer);
 		}
 	}
+
+    public function actionLogout()
+    {
+        Yii::app()->user->logout(false);
+        $this->redirect(Yii::app()->request->urlReferrer);
+    }
 
     public function actionRememberPassword($step)
     {
@@ -299,40 +271,13 @@ class SiteController extends HController
         $this->renderPartial('remember_password/step' . $step, array('step' => $step, 'email' => $email, 'code' => $code,'error' => $error));
     }
 
-	/**
-	 * Logs out the current user and redirect to homepage.
-	 */
-	public function actionLogout()
-	{
-		Yii::app()->user->logout(false);
-		$this->redirect(Yii::app()->request->urlReferrer);
-	}
-
-	public function actionEmptyCache()
-	{
-		Y::cache()->flush();
-		$this->redirect('/shop/');
-	}
-
-	public function actionMap()
-	{
-		$contents = CommunityContent::model()->with('rubric.community', 'type')->findAll();
-
-		$this->render('map', array(
-			'contents' => $contents,
-		));
-	}
-
-    public function actionContest(){
+    public function actionContest()
+    {
          $this->render('contest');
     }
 
-    public function actionLink($text){
-        $this->renderPartial('link', compact('text'));
-    }
-
-    public function actionTest()
+    public function actionLink($text)
     {
-        $this->render("test");
+        $this->renderPartial('link', compact('text'));
     }
 }

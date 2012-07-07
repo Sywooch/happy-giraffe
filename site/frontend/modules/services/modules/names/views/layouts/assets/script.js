@@ -7,7 +7,7 @@ var NameModule = {
     like:function(el){
         var id = $(el).attr('rel');
         $.ajax({
-            url:'/services/names/default/like/',
+            url:'/names/like/',
             data:{
                 id:id
             },

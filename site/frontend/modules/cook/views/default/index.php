@@ -18,8 +18,8 @@
                 <div class="title">
 
                     <div class="links">
-                        <?=CHtml::link('По ингредиентам', '/cook/recipe/searchByIngredients')?>
-                        <?=CHtml::link('Расширеный поиск', '/cook/recipe/advancedSearch')?>
+                        <?=CHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'))?>
+                        <?=CHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'))?>
                     </div>
 
                     <i class="icon"></i>
@@ -177,7 +177,7 @@
 
                 <?php foreach ($chooses as $choose): ?>
                 <li>
-                    <a href="<?=$this->createUrl('/cook/choose', array('id' => $choose->slug))?>">
+                    <a href="<?=$this->createUrl('/cook/choose/view', array('id' => $choose->slug))?>">
                         <img src="<?=isset($choose->photo) ? $choose->photo->getPreviewUrl(69, 57, Image::WIDTH) : '' ?>"/>
                         <span>Как выбрать <?=$choose->title_accusative?>?</span>
                     </a>

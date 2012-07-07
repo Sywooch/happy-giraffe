@@ -1,5 +1,11 @@
-<?php if ($data->author_id == 1): ?>
-    <img src="/images/happy_giraffe_comment.jpg" alt="Веселый Жираф приветствует вас!">
+<?php
+/* @var $this Controller
+ * @var $data Comment
+ */
+if ($data->author_id == 1): ?>
+    <?php if (!empty($data->photoAttaches)):?>
+        <?= $data->photoAttach->getContent(true); ?>
+    <?php endif ?>
 <?php else: ?>
 <?php if ($data->removed == 0): ?>
     <li class="clearfix item<?php if ($data->author_id == Yii::app()->user->id) echo ' author-comment' ?>" id="comment_<?php echo $data->id; ?>">

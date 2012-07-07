@@ -160,6 +160,9 @@ class Comment extends HActiveRecord
 
     public function afterSave()
     {
+        if (get_class(Yii::app()) == 'CConsoleApplication')
+            return parent::afterSave();
+
         if ($this->isNewRecord) {
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);

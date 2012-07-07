@@ -361,4 +361,24 @@ class Comment extends HActiveRecord
     {
         return empty($this->photoAttaches);
     }
+
+    /**
+     * Первый коммент от веселого жирафа
+     * @param $user_id
+     */
+    public function addGiraffeFirstComment($user_id)
+    {
+        //коммент от веселого жирафа
+        $comment = new Comment('giraffe');
+        $comment->author_id = User::HAPPY_GIRAFFE;
+        $comment->entity = 'User';
+        $comment->entity_id = $user_id;
+        $comment->save();
+
+        $attach = new AttachPhoto;
+        $attach->entity = 'Comment';
+        $attach->entity_id = $comment->id;
+        $attach->photo_id = 35000;
+        $attach->save();
+    }
 }

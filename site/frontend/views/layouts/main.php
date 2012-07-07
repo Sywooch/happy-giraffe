@@ -174,7 +174,7 @@
                 </div>
 
                 <div class="nav">
-                    <ul class="width-2 clearfix">
+                    <ul class="clearfix">
                         <?php if (false): ?>
                             <li class="morning">
                                 <a href="<?=$this->createUrl('/morning/index') ?>"><i class="text"></i></a>
@@ -426,7 +426,7 @@
                                 </div>
                             </div>
                         </li>
-
+                        <li class="fday"><a href=""><i class="text"></i></a></li>
                     </ul>
                 </div>
 

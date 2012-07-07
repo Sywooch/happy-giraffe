@@ -150,6 +150,6 @@ class CommunityPhotoPost extends HActiveRecord
 
     public function getPhoto(){
         foreach($this->photos as $photo)
-            return $photo->image;
+            return $photo->getUrl();
     }
 }

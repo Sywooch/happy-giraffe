@@ -18,7 +18,7 @@ Yii::app()->clientScript->registerCss('signup', $css_signup)->registerScriptFile
                     <span>Войти с помощью<br/>социальной сети</span>
 
                     <div class="fast-login socials socials-inline">
-                        <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index')); ?>
+                        <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/')); ?>
                     </div>
 
                 </div>

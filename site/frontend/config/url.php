@@ -26,6 +26,7 @@ return array(
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
 
         // signup controller
+        'signup/' => 'signup/index',
         'signup/validate/step/<step:\d+>' => 'signup/validate',
 
         // friendRequests controller

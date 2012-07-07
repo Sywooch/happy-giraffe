@@ -128,6 +128,7 @@
                     </div>
                 <?php else: ?>
                     <?php $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
+                    <?php $this->widget('application.widgets.registerWidget.RegisterWidget'); ?>
                 <?php endif; ?>
 
                 <ul class="fast-links clearfix">

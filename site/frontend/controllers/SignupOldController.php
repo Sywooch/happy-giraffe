@@ -1,16 +1,26 @@
 <?php
 
-class Signup2Controller extends HController
+class SignupOldController extends HController
 {
-    public function filters()
+
+    public $layout = 'signup';
+
+    public function actions()
     {
         return array(
-            'ajaxOnly + Validate',
+            'captcha' => array(
+                'class' => 'CaptchaAction',
+                'backColor' => 0xFFFFFF,
+                'width' => 125,
+                'height' => 46,
+                'onlyDigits' => TRUE,
+            ),
         );
     }
 
     public function actionIndex()
     {
+        $this->pageTitle = 'Регистрация - Веселый Жираф';
         $session = Yii::app()->session;
         $service = Yii::app()->request->getQuery('service');
         if (isset($service)) {
@@ -83,12 +93,35 @@ class Signup2Controller extends HController
         }
     }
 
-    public function actionValidate()
+    public function actionValidate($step)
     {
+        $steps = array(
+            array('first_name', 'password', 'email', 'verifyCode'),
+            array('gender'),
+        );
+
         $model = new User('signup');
         $model->setAttributes($_POST['User']);
 
-        echo CActiveForm::validate($model, array('first_name', 'password', 'email', 'gender'));
+        if ($model->validate($steps[$step - 1])) {
+            $response = array(
+                'status' => 'ok',
+            );
+        } else {
+            $errors = $model->getErrors();
+            $_errors = array();
+            foreach ($errors as $attribute) {
+                foreach ($attribute as $error) {
+                    $_errors[] = $error;
+                }
+            }
+            $errors = $this->renderPartial('errors', array('errors' => $_errors), TRUE);
+            $response = array(
+                'status' => 'error',
+                'errors' => $errors,
+            );
+        }
+        echo CJSON::encode($response);
     }
 
 }

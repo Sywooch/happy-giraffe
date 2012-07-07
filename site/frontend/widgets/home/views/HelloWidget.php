@@ -6,7 +6,7 @@
         </div>
 
         <div class="b">
-            <?=HHtml::link('', array('/signup'), array('class' => 'register'), true)?>
+            <?=HHtml::link('', '#register', array('class' => 'register fancy'))?>
             <br>
             <small>Уже зарегистрированы?</small> &nbsp; <a class="fancy" rel="nofollow" href="#login">Войти</a>
         </div>

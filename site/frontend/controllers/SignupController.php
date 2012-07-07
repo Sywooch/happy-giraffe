@@ -2,25 +2,15 @@
 
 class SignupController extends HController
 {
-
-    public $layout = 'signup';
-
-    public function actions()
+    public function filters()
     {
         return array(
-            'captcha' => array(
-                'class' => 'CaptchaAction',
-                'backColor' => 0xFFFFFF,
-                'width' => 125,
-                'height' => 46,
-                'onlyDigits' => TRUE,
-            ),
+            'ajaxOnly + validate1',
         );
     }
 
     public function actionIndex()
     {
-        $this->pageTitle = 'Регистрация - Веселый Жираф';
         $session = Yii::app()->session;
         $service = Yii::app()->request->getQuery('service');
         if (isset($service)) {
@@ -46,14 +36,6 @@ class SignupController extends HController
 
 			$authIdentity->redirect();
 		}
-		$regdata = Yii::app()->user->getFlash('regdata');
-		
-		$model = new User;
-		
-		$this->render('index', array(
-			'model' => $model,
-			'regdata' => $regdata,
-		));
 	}
 	
 	public function actionFinish()
@@ -75,7 +57,7 @@ class SignupController extends HController
 				$model->social_services = array($service);
 			}
 			$model->register_date = date('Y-m-d H:i:s');
-			if($model->save(true, array('first_name', 'password', 'email', 'gender')))
+			if($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender')))
 			{
                 /*Yii::app()->mc->sendToEmail($model->email, $model, 'user_registration');*/
 				unset($session['service']);
@@ -85,43 +67,26 @@ class SignupController extends HController
                 $model->login_date = date('Y-m-d H:i:s');
                 $model->last_ip = $_SERVER['REMOTE_ADDR'];
                 $model->save(false);
-                if (!Yii::app()->request->getQuery('redirectUrl') || Yii::app()->request->getQuery('redirectUrl') == '')
-                    $this->redirect(array('/user/profile', 'user_id' => $model->id));
-                else
-                    $this->redirect(array(urldecode(Yii::app()->request->getQuery('redirectUrl'))));
+                echo CJSON::encode(array(
+                    'status' => true,
+                    'profile'=>$model->getUrl()
+                ));
+                Yii::app()->end();
             }
         }
+        echo CJSON::encode(array('status' => false));
     }
 
     public function actionValidate($step)
     {
         $steps = array(
-            array('first_name', 'password', 'email', 'verifyCode'),
-            array('gender'),
+            array('email'),
+            array('first_name', 'last_name', 'password', 'gender', 'email'),
         );
 
         $model = new User('signup');
         $model->setAttributes($_POST['User']);
 
-        if ($model->validate($steps[$step - 1])) {
-            $response = array(
-                'status' => 'ok',
-            );
-        } else {
-            $errors = $model->getErrors();
-            $_errors = array();
-            foreach ($errors as $attribute) {
-                foreach ($attribute as $error) {
-                    $_errors[] = $error;
-                }
-            }
-            $errors = $this->renderPartial('errors', array('errors' => $_errors), TRUE);
-            $response = array(
-                'status' => 'error',
-                'errors' => $errors,
-            );
-        }
-        echo CJSON::encode($response);
+        echo CActiveForm::validate($model, $steps[$step - 1]);
     }
-
 }

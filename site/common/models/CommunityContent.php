@@ -419,7 +419,7 @@ class CommunityContent extends HActiveRecord
                     'travel',
                     'commentsCount',
                     'contentAuthor' => array(
-                        'select' => 'id, first_name, last_name, avatar_id, online',
+                        'select' => 'id, first_name, last_name, avatar_id, online, blocked, deleted',
                     ),
                 ),
             ),

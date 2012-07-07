@@ -4,7 +4,7 @@
  */
 if ($data->author_id == 1): ?>
     <?php if (!empty($data->photoAttaches)):?>
-        <?php $data->photoAttach->getContent(); ?>
+        <?= $data->photoAttach->getContent(); ?>
     <?php endif ?>
     <img src="/images/happy_giraffe_comment.jpg" alt="Веселый Жираф приветствует вас!">
 <?php else: ?>

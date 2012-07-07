@@ -390,7 +390,7 @@ var Register = {
     step1:function(){
         $('.reg1').hide();
         $('.reg2').show();
-        $('#regmail2').val($('#regmail1').val());
+        $('.regmail2').val($('.regmail1').val());
     },
     timer:function () {
         var obj = document.getElementById('reg_timer');

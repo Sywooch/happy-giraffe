@@ -7,56 +7,79 @@ if (Yii::app()->controller->registerUserData !== null){
     Yii::app()->clientScript->registerScript('reg23','Register.showSocialStep2();');
     $regdata = Yii::app()->controller->registerUserData;
     $model = Yii::app()->controller->registerUserModel;
-
 }
-
 ?>
 <div style="display:none">
     <div id="register" class="popup">
         <div class="reg1">
-            <div class="popup-title">Регистрация</div>
-            <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index')); ?>
 
-            <?php $form = $this->beginWidget('CActiveForm', array(
-            'id' => 'reg-form1',
-            'action' => '#',
-            'enableClientValidation' => true,
-            'enableAjaxValidation' => true,
-            'clientOptions' => array(
-                'validateOnSubmit' => true,
-                'validateOnChange' => true,
-                'validateOnType' => true,
-                'validationUrl' => Yii::app()->createUrl('/signup/validate', array('step' => 1)),
-                'afterValidate' => "js:function(form, data, hasError) {
+            <div class="block-title"><img src="/images/bg_register_title.png" />Регистрация на Веселом Жирафе</div>
+
+            <div class="hl">
+                <span>Стань полноправным участником сайта за 1 минуту!</span>
+            </div>
+
+            <div class="clearfix">
+
+                <div class="register-socials">
+
+                    <div class="box-title">Регистрация через<br/>социальные сети</div>
+
+                    <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index')); ?>
+
+                </div>
+
+                <div class="register-mail">
+
+                    <div class="box-title">Регистрация с помощью<br/>электронной почты</div>
+
+                    <?php $form = $this->beginWidget('CActiveForm', array(
+                    'id' => 'reg-form1',
+                    'action' => '#',
+                    'enableClientValidation' => false,
+                    'enableAjaxValidation' => true,
+                    'clientOptions' => array(
+                        'validateOnSubmit' => true,
+                        'validateOnChange' => true,
+                        'validateOnType' => true,
+                        'validationUrl' => Yii::app()->createUrl('/signup/validate', array('step' => 1)),
+                        'afterValidate' => "js:function(form, data, hasError) {
                             if (!hasError){
                                 Register.step1();
                             }
                             return false;
                           }",
-            )));?>
-            <div class="form">
+                    )));?>
+                        <?php echo $form->textField($model, 'email', array('class'=>'regmail1', 'placeholder'=>'Введите ваш e-mail')); ?>
+                        <?php echo $form->error($model, 'email'); ?>
+                        <input type="submit" value="OK" />
+                    <?php $this->endWidget(); ?>
 
-                <div class="row">
-                    <div class="row-title">Ваш e-mail:</div>
-                    <div class="row-elements"><?php echo $form->textField($model, 'email', array('id'=>'regmail1')); ?></div>
-                    <p><?php echo $form->error($model, 'email'); ?></p>
+                    <ul>
+                        <li>Мы не любим спам</li>
+                        <li>Мы не передадим ваши контакты третьим лицам</li>
+                        <li>Вы можете изменить настройки электронной почты в любое время</li>
+                    </ul>
+
                 </div>
 
             </div>
-            <input type="submit" value="Рег">
-            <?php $this->endWidget(); ?>
+
+            <div class="is-user">
+                Вы уже зарегистрированы? <a href="">Войти</a>
+            </div>
 
         </div>
 
         <div class="reg2" style="display: none;">
 
-            <div class="popup-title">Регистрация</div>
             <?php $form = $this->beginWidget('CActiveForm', array(
             'id' => 'reg-form2',
             'action' => '#',
             'enableClientValidation' => true,
             'enableAjaxValidation' => true,
             'clientOptions' => array(
+                'inputContainer'=>'.row',
                 'validateOnSubmit' => true,
                 'validateOnChange' => true,
                 'validateOnType' => false,
@@ -68,61 +91,121 @@ if (Yii::app()->controller->registerUserData !== null){
                             return false;
                           }",
             )));?>
-            <div class="form">
-                <?php if (isset($regdata['birthday'])) echo $form->hiddenField($model, 'birthday', array('value' => $regdata['birthday'])); ?>
-                <?php if (isset($regdata['avatar'])) echo $form->hiddenField($model, 'avatar', array('value' => $regdata['avatar'])); ?>
 
-                <div class="row email2-row" style="display: none;">
-                    <div class="row-title">Ваш e-mail:</div>
-                    <div class="row-elements"><?php echo $form->textField($model, 'email', array('id'=>'regmail2')); ?></div>
-                    <p><?php echo $form->error($model, 'email'); ?></p>
+            <div class="register-form">
+
+                <div class="block-title">Вы уже почти с нами!</div>
+
+                <div class="hl">
+                    <span>Осталось ввести ваши имя, фамилию и пароль</span>
                 </div>
 
-                <div class="row clearfix">
-                    <div class="row-title">имя:</div>
-                    <div class="row-elements">
-                        <?php echo $form->textField($model, 'first_name'); ?>
-                        <?php echo $form->error($model, 'first_name'); ?>
+                <div class="clearfix">
+
+                    <div class="ava-box">
+
+                        <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>></div>
+
+                    </div>
+
+                    <?php if (isset($regdata['birthday'])) echo $form->hiddenField($model, 'birthday', array('value' => $regdata['birthday'])); ?>
+                    <?php if (isset($regdata['avatar'])) echo $form->hiddenField($model, 'avatar', array('value' => $regdata['avatar'])); ?>
+
+                    <div class="form-in">
+
+                        <div class="row clearfix">
+                            <div class="row-title">
+                                <label>Имя:</label>
+                            </div>
+                            <div class="row-elements">
+                                <?php echo $form->textField($model, 'first_name'); ?>
+                            </div>
+                            <div class="row-error">
+                                <i class="error-ok"></i>
+                                <?php echo $form->error($model, 'first_name'); ?>
+                            </div>
+                        </div>
+
+                        <div class="row clearfix">
+                            <div class="row-title">
+                                <label>Фамилия:</label>
+                            </div>
+                            <div class="row-elements">
+                                <?php echo $form->textField($model, 'last_name'); ?>
+                            </div>
+                            <div class="row-error">
+                                <i class="error-ok"></i>
+                                <?php echo $form->error($model, 'last_name'); ?>
+                            </div>
+                        </div>
+
+                        <div class="row clearfix email2-row" style="display: none;">
+                            <div class="row-title">
+                                <label>E-mail:</label>
+                            </div>
+                            <div class="row-elements">
+                                <?php echo $form->textField($model, 'email', array('class'=>'regmail2', 'placeholder'=>'Введите ваш e-mail')); ?>
+                            </div>
+                            <div class="row-error">
+                                <i class="error-ok"></i>
+                                <?php echo $form->error($model, 'email'); ?>
+                            </div>
+                        </div>
+
+                        <div class="row clearfix">
+                            <div class="row-title">
+                                <label>Пароль:</label>
+                            </div>
+                            <div class="row-elements">
+                                <?php echo $form->passwordField($model, 'password'); ?>
+                            </div>
+                            <div class="row-error">
+                                <i class="error-ok"></i>
+                                <?php echo $form->error($model, 'password'); ?>
+                            </div>
+                        </div>
+
+                        <div class="row clearfix">
+                            <div class="row-title">
+                                <label>Пол:</label>
+                            </div>
+                            <div class="row-elements">
+                                <?php echo $form->radioButtonList($model, 'gender', array(1 => 'Мужской', 0 => 'Женский'), array(
+                                'template'=>'{input}{label}',
+                                'separator'=>'',
+                            )); ?>
+                            </div>
+                            <div class="row-error">
+                                <i class="error-ok"></i>
+                                <?php echo $form->error($model, 'gender'); ?>
+                            </div>
+                        </div>
+
+                        <div class="row clearfix">
+                            <input type="submit" value="Регистрация">
+                        </div>
+
                     </div>
 
                 </div>
-
-                <div class="row clearfix">
-                    <div class="row-title">Фамилия:</div>
-                    <div class="row-elements">
-                        <?php echo $form->textField($model, 'last_name'); ?>
-                        <?php echo $form->error($model, 'last_name'); ?>
-                    </div>
-
-                </div>
-
-                <div class="row clearfix">
-                    <div class="row-title">Ваш пароль:</div>
-                    <div class="row-elements">
-                        <?php echo $form->passwordField($model, 'password'); ?>
-                        <?php echo $form->error($model, 'password'); ?>
-                    </div>
-
-                </div>
-
-                <div class="row clearfix">
-                    <div class="row-title">Ваш e-mail:</div>
-                    <div class="row-elements">
-                        <?php echo $form->radioButtonList($model, 'gender', array(1 => 'man', 0 => 'woman')); ?>
-                        <?php echo $form->error($model, 'gender'); ?>
-                    </div>
-
-                </div>
-
-                <input type="submit" value="Рег">
 
             </div>
-            <?php $this->endWidget(); ?>
 
+            <?php $this->endWidget(); ?>
         </div>
 
-        <div class="reg3" style="display: none;">
-            УРа <span id="reg_timer">3</span>
+        <div class="register-finish reg3 clearfix" style="display: none;">
+
+            <div class="logo-box">
+                <a class="logo" href=""></a>
+            </div>
+
+            <div class="green">Ура, вы с нами!</div>
+
+            <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>></div>
+
+            <div class="preparing">Мы готовим для вас личную страницу <span><span id="reg_timer">3</span> сек.</span></div>
+
         </div>
 
     </div>

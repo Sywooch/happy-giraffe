@@ -143,14 +143,14 @@ class Comment extends HActiveRecord
         );
     }
 
-	public function get($entity, $entity_id)
+	public function get($entity, $entity_id, $type)
 	{
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => array(
 				'condition' => 'entity=:entity AND entity_id=:entity_id',
 				'params' => array(':entity' => $entity, ':entity_id' => $entity_id),
 				'with' => array('author'),
-				'order' => 'created ASC',
+				'order' => ($type != 'guestBook') ? 'created ASC' : 'created DESC',
 			),
 			'pagination' => array(
 				'pageSize' => 25,

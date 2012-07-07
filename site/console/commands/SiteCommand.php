@@ -155,4 +155,26 @@ class SiteCommand extends CConsoleCommand
             $diz->save();
         }
     }
+
+    public function actionSendCard($photo_id)
+    {
+        $users = User::model()->findAll(array(
+            'select' => 'id',
+            'condition' => 'removed = 0',
+        ));
+
+        foreach ($users as $u) {
+            $comment = new Comment('giraffe');
+            $comment->author_id = User::HAPPY_GIRAFFE;
+            $comment->entity = 'User';
+            $comment->entity_id = $u->id;
+            $comment->save();
+
+            $attach = new AttachPhoto;
+            $attach->photo_id = $photo_id;
+            $attach->entity = 'Comment';
+            $attach->entity_id = $comment->id;
+            $attach->save();
+        }
+    }
 }

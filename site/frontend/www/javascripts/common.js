@@ -417,5 +417,11 @@ var Register = {
             }
         }, 'json');
         setTimeout(Register.timer, 3000);
+    },
+    showSocialStep2:function(){
+        $('.register.fancy').trigger('click');
+        $(".reg1").hide();
+        $(".reg2").show();
+        $(".email2-row").show();
     }
 }

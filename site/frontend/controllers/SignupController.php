@@ -5,7 +5,7 @@ class SignupController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly + validate1',
+            'ajaxOnly + validate, finish',
         );
     }
 
@@ -13,7 +13,7 @@ class SignupController extends HController
     {
         $session = Yii::app()->session;
         $service = Yii::app()->request->getQuery('service');
-        if (isset($service)) {
+        if (!empty($service)) {
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $authIdentity->redirectUrl = $this->createAbsoluteUrl('signup/index');
 
@@ -35,7 +35,22 @@ class SignupController extends HController
             }
 
 			$authIdentity->redirect();
-		}
+		}else{
+            if (empty($regdata))
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+            $this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
+            Yii::import('site.frontend.widgets.*');
+            Yii::import('site.frontend.widgets.home.*');
+
+            $regdata = Yii::app()->user->getFlash('regdata');
+
+            $model = new User;
+            $this->registerUserModel = $model;
+            $this->registerUserData = $regdata;
+
+            $this->render('/site/home',array('user'=>Yii::app()->user));
+        }
 	}
 	
 	public function actionFinish()

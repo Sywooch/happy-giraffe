@@ -2,6 +2,14 @@
 /**
  * @var $form CActiveForm
  */
+
+if (Yii::app()->controller->registerUserData !== null){
+    Yii::app()->clientScript->registerScript('reg23','Register.showSocialStep2();');
+    $regdata = Yii::app()->controller->registerUserData;
+    $model = Yii::app()->controller->registerUserModel;
+
+}
+
 ?>
 <div style="display:none">
     <div id="register" class="popup">
@@ -64,7 +72,11 @@
                 <?php if (isset($regdata['birthday'])) echo $form->hiddenField($model, 'birthday', array('value' => $regdata['birthday'])); ?>
                 <?php if (isset($regdata['avatar'])) echo $form->hiddenField($model, 'avatar', array('value' => $regdata['avatar'])); ?>
 
-                <?php echo $form->hiddenField($model, 'email', array('id' => 'regmail2')); ?>
+                <div class="row email2-row" style="display: none;">
+                    <div class="row-title">Ваш e-mail:</div>
+                    <div class="row-elements"><?php echo $form->textField($model, 'email', array('id'=>'regmail2')); ?></div>
+                    <p><?php echo $form->error($model, 'email'); ?></p>
+                </div>
 
                 <div class="row clearfix">
                     <div class="row-title">имя:</div>

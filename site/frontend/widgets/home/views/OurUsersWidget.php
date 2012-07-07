@@ -15,7 +15,7 @@
 
     <?php if (Yii::app()->user->isGuest):?>
         <div class="join">
-            <a href="<?= Yii::app()->createUrl('signup/', array()) ?>">Присоединяйтесь!</a>
+            <a href="#register" class="fancy">Присоединяйтесь!</a>
         </div>
     <?php endif ?>
 

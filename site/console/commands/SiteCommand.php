@@ -158,16 +158,17 @@ class SiteCommand extends CConsoleCommand
 
     public function actionSendCard($photo_id)
     {
-        $users = User::model()->findAll(array(
-            'select' => 'id',
-            'condition' => 'removed = 0',
-        ));
+        $users = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('users')
+            ->where('deleted = 0 AND blocked = 0')
+            ->queryAll();
 
         foreach ($users as $u) {
             $comment = new Comment('giraffe');
-            $comment->author_id = User::HAPPY_GIRAFFE;
+            $comment->author_id = 1;
             $comment->entity = 'User';
-            $comment->entity_id = $u->id;
+            $comment->entity_id = $u['id'];
             $comment->save();
 
             $attach = new AttachPhoto;

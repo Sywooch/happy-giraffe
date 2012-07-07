@@ -17,8 +17,10 @@
             ->registerCoreScript('jquery')
             ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
             ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js')
+            ->registerScriptFile('/javascripts/comet.js')
             ->registerScriptFile('/javascripts/common.js')
             ->registerCssFile('/stylesheets/ie.css', 'screen')
+            ->registerScriptFile('/javascripts/base64.js')
             ->registerMetaTag('noindex, nofollow', 'robots');
         ;
     ?>

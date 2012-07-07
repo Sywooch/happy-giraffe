@@ -850,6 +850,9 @@ a:hover {text-decoration:none;}
 #header-new .nav ul li.morning i.text {height:74px;position:relative;top:-34px;width:109px;background:url(/images/nav_text_morning.png) no-repeat;}
 #header-new .nav ul li.morning > a {background:url(/images/bg_nav_morning.gif) repeat-x;padding:0;}
 
+#header-new .nav ul li.fday i.text {height:47px;position:relative;top:-10px;width:104px;background:url(/images/nav_text_fday.png) no-repeat;}
+#header-new .nav ul li.fday > a {background:url(/images/bg_nav_morning.gif) repeat-x;padding:0;}
+
 #header-new .nav ul li.kids i.text {width:55px;background:url(/images/nav_text_kids.png) no-repeat;}
 #header-new .nav ul li.kids > a {background:#5488d0;}
 #header-new .nav ul li.kids:hover > a, #header-new .nav ul li.kids.active > a {background:#97bbea;}

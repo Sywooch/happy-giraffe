@@ -20,7 +20,7 @@ if ($data->author_id == 1): ?>
 
         </div>
     </li>
-    <?php else: ?>
+    <?php elseif($this->type != 'guestBook'): ?>
     <div class="removed-comment content-in">
         <?= $data->getRemoveDescription() ?>
     </div>

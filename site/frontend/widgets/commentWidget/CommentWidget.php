@@ -70,7 +70,7 @@ class CommentWidget extends CWidget
 
         $comment_model = call_user_func(array($this->commentModel, 'model'));
 
-        $dataProvider = $comment_model->get($this->entity, $this->entity_id);
+        $dataProvider = $comment_model->get($this->entity, $this->entity_id, $this->type);
         $dataProvider->getData();
         if(isset($_GET['lastPage']))
         {

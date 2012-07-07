@@ -25,14 +25,14 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/us
                     <div class="preview">
                         <?php $index = 1; ?>
                         <?php foreach($album->getRelated('photos', true, array('limit' => 3)) as $photo): ?>
-                            <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180), '', array('class' => 'img-' . $index)), array('/albums/photo', 'id' => $photo->id)); ?>
+                            <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180), '', array('class' => 'img-' . $index)), $photo->url); ?>
                             <?php $index++; ?>
                         <?php endforeach; ?>
                     </div>
                     <?php if(($count = count($album->photos)) > 3): ?>
-                        <a class="more" href="<?php echo Yii::app()->createUrl('albums/view', array('id' => $album->id)); ?>"><i class="icon"></i>еще <?php echo $count - 3; ?> фото</a>
+                        <a class="more" href="<?= $album->url ?>"><i class="icon"></i>еще <?php echo $count - 3; ?> фото</a>
                     <?php else: ?>
-                        <a class="more" href="<?php echo Yii::app()->createUrl('albums/view', array('id' => $album->id)); ?>"><i class="icon"></i>смотреть</a>
+                        <a class="more" href="<?= $album->url ?>"><i class="icon"></i>смотреть</a>
                     <?php endif; ?>
                 </div>
             </li>

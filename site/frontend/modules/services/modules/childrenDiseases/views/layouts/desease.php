@@ -1,5 +1,7 @@
 <?php $this->beginContent('//layouts/main');
 $categories = RecipeBookDiseaseCategory::model()->findAll(array('order'=>'id'));
+Yii::app()->clientScript
+    ->registerMetaTag('', 'description');
 ?>
 <div id="disease">
 

@@ -101,7 +101,7 @@
                     <li>
                         <table>
                             <tr>
-                                <td class="img"><div><?php echo CHtml::link(CHtml::image($w->photo->photo->getPreviewUrl(150, 150), $w->title), $this->createUrl('/contest/work/' . $w->id)); ?></div></td>
+                                <td class="img"><div><?php echo CHtml::link(CHtml::image($w->photo->photo->getPreviewUrl(150, 150), $w->title), $this->createUrl('/contest/default/work', array('id' => $w->id))); ?></div></td>
                             </tr>
                             <tr class="title">
                                 <td align="center"><div><?php echo $w->paredDownTitle; ?></div></td>

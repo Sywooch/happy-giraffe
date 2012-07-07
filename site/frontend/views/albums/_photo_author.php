@@ -3,7 +3,7 @@
         <tr>
             <td class="img">
                 <div>
-                    <?php echo CHtml::link(CHtml::image($data->getPreviewUrl(150, 150, Image::WIDTH)), array('/albums/photo', 'id' => $data->id)); ?>
+                    <?php echo CHtml::link(CHtml::image($data->getPreviewUrl(150, 150, Image::WIDTH)), $data->url); ?>
                     <?php if($data->album->isNotSystem): ?>
                         <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
                             'model' => $data,

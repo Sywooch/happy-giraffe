@@ -41,7 +41,7 @@
         <script type="text/javascript">
 
             var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-27545132-1']);
+            _gaq.push(['_setAccount', '<?=Yii::app()->params['gaCode']  ?>']);
             _gaq.push(['_trackPageview']);
 
             (function() {

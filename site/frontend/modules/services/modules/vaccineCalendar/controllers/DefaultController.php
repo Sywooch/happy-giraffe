@@ -4,6 +4,14 @@ class DefaultController extends HController
 {
     public $layout = '//layouts/new';
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'validateDate,vaccineTable,vote  + ajaxOnly'
+        );
+    }
+
     /**
      * @sitemap
      */

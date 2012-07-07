@@ -117,7 +117,7 @@
                                     <div class="actions">
                                         <ul>
                                             <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>">Мой профайл<i class="icon icon-profile"></i></a></li>
-                                            <li><a href="<?php echo $this->createUrl('/profile/index') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/profile') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
                                             <li><a href="<?php echo $this->createUrl('/site/logout') ?>">Выйти<i class="icon icon-logout"></i></a></li>
                                         </ul>
                                     </div>
@@ -134,7 +134,7 @@
                     <li><a href="/">Главная</a></li>
                     <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
 <!--                    <li><a href="">Сервисы</a></li>-->
-                    <li><a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>">Конкурсы</a></li>
+                    <li><a href="<?=$this->createUrl('/contest/default/view', array('id' => 1)) ?>">Конкурсы</a></li>
                 </ul>
 
             </div>
@@ -495,7 +495,7 @@
         <script type="text/javascript">
 
             var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-27545132-1']);
+            _gaq.push(['_setAccount', '<?=Yii::app()->params['gaCode']  ?>']);
             _gaq.push(['_trackPageview']);
 
             (function() {
@@ -503,6 +503,7 @@
                 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
+
         </script>
     </noindex>
 

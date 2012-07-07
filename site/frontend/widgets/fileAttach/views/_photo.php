@@ -4,7 +4,7 @@
             <tr>
                 <td class="img">
                     <div>
-                        <?php echo CHtml::link(CHtml::image($data->getPreviewUrl(150, 150)), array('/albums/photo', 'id' => $data->id)); ?>
+                        <?php echo CHtml::link(CHtml::image($data->getPreviewUrl(150, 150)), array('/albums/photo', $data->url)); ?>
                         <div class="contest-send">
                             <?php $image = new Imagick($data->originalPath); ?>
                             <?php if($image->getimagewidth() < 240 || $image->getimageheight() < 240): ?>

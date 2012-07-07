@@ -267,6 +267,7 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
         'gaPass'=>'',
+        'gaCode' => 'UA-27545132-1',
 		'ufileStorageRoot'=>'temp_upload',
 		'social' => array(
 			'vk' => array(
@@ -291,6 +292,7 @@ return array(
                     'sitemap.xml' => array(
                         'aliases' => array(
                             'application.controllers',
+                            'application.modules.cook.controllers.RecipeController',
                             'application.modules.services.modules.pregnancyWeight.controllers',
                             'application.modules.services.modules.contractionsTime.controllers',
                             'application.modules.services.modules.placentaThickness.controllers',

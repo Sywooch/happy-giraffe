@@ -9,7 +9,7 @@
 </div>
 
 <div class="wysiwyg-content clearfix">
-    <?php echo $model->text ?>
+    <em><?php echo $model->text ?></em>
 </div>
 
 <div class="fast-nav">

@@ -39,7 +39,7 @@
                         <?php endforeach; ?>
                         <?php if (($count = count($model->photos)) >= 3): ?>
                         <li class="more">
-                            <?php echo CHtml::link('', array('albums/view', 'id' => $model->id), array('class' => 'icon')); ?>
+                            <?php echo CHtml::link('', $model->url, array('class' => 'icon')); ?>
                             <?php if($count > 3): ?>
                                 еще <?php echo $count - 3; ?> фото
                             <?php else: ?>

@@ -11,6 +11,9 @@ return array(
         *      CONTROLLERS      *
         *************************/
 
+        //temporarily
+        'signup/index/' => 'signup/index',
+
         // global
         '.*/index' => 404,
 

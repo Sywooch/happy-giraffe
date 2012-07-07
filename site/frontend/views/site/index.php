@@ -58,7 +58,7 @@
         </li>
 
         <li>
-            <a href="<?=$this->createUrl('/contest/view', array('id' => 1))?>">
+            <a href="<?=$this->createUrl('/contest/default/view', array('id' => 1))?>">
                 <big>Участвуй в <span class="green">Конкурсах</span></big>
                 <div class="img"><img src="/images/teaser_img_02.png" /></div>
                 <div class="text">Используй возможность выиграть отличные призы</div>

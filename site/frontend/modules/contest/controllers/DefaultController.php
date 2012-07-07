@@ -177,7 +177,7 @@ class DefaultController extends HController
                         $attach->photo_id = $photo->id;
                 }
                 $attach->save();
-                $this->redirect(array('/contest/view', 'id' => $this->contest->primaryKey));
+                $this->redirect(array('/contest/default/view', 'id' => $this->contest->primaryKey));
             }
         }
         $this->render('statement', array('model' => $model));

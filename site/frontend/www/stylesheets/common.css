@@ -566,6 +566,64 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #login.popup .reg-link .row span {display:inline-block;height:32px;padding:0 45px;background:#fefeda;font:italic 14px/32px arial, sans-serif;color:#575757;}
 
 
+#register.popup {width:700px;}
+
+#register.popup .block-title {color:#aa82d1;font-size:40px;line-height:1;margin-bottom:20px;}
+#register.popup .block-title img {margin-right:10px;}
+
+#register.popup .hl {text-align:center;margin-bottom:20px;margin-top:-5px;color:#6b6b6b;font-size:14px;font-weight:bold;}
+#register.popup .hl span {padding:3px 6px;background:#fffbc9;}
+
+#register.popup .register-socials {float:left;width:329px;border-right:1px solid #d2d1d2;padding:10px 20px 20px 0;}
+#register.popup .register-socials .box-title {font-size:20px;color:#6b6b6b;line-height:1;margin-bottom:15px;}
+#register.popup .register-socials ul {list-style:none;}
+#register.popup .register-socials ul li {margin-bottom:12px;}
+
+#register.popup .register-mail {float:left;width:329px;border-left:1px solid #d2d1d2;padding:10px 0px 20px 20px;margin-left:-1px;}
+#register.popup .register-mail .box-title {font-size:20px;color:#6b6b6b;line-height:1;margin-bottom:15px;}
+
+#register.popup .register-mail form {margin-bottom:25px;}
+#register.popup .register-mail form input[type=text] {padding:3px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;margin-bottom:8px;font-size:15px;color:#3d3d3d;}
+#register.popup .register-mail form input[type=submit] {height:33px;line-height:33px;display:block;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 30px;cursor:pointer;border:0;margin:0;}
+
+#register.popup .register-mail ul {color:#6b6b6b;padding-left:15px;}
+#register.popup .register-mail ul li {margin-bottom:6px;}
+
+#register.popup .is-user {margin-top:30px;text-align:center;color:#6b6b6b;font-size:15px;}
+#register.popup .is-user a {margin-left:5px;}
+
+#register.popup a {color:#1c93f8;}
+
+#register.popup .register-social {text-align:center;padding:100px 0;}
+#register.popup .register-social .block-title {margin-bottom:55px;}
+
+#register.popup .register-finish {text-align:center;padding:70px 0;line-height:normal;}
+
+#register.popup .register-finish .logo-box {width:280px;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:9px;letter-spacing:3px;line-height:25px;margin:0 auto;}
+#register.popup .register-finish .logo-box a.logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;}
+
+#register.popup .register-finish .green {padding:25px 0;font-size:40px;color:#42bc58;}
+
+#register.popup .register-finish .ava {margin:0 auto;}
+
+#register.popup .register-finish .preparing {font-size:15px;color:#6b6b6b;margin-top:30px;}
+#register.popup .register-finish .preparing span {font-size:18px;color:#fe7143;margin-left:10px;}
+
+#register.popup .register-form {text-align:center;}
+#register.popup .register-form .ava-box {float:left;padding-left:50px;width:100px;}
+#register.popup .register-form .form-in {text-align:left;float:left;width:550px;text-align:left;}
+#register.popup .register-form .form-in .row {margin-bottom:30px;}
+#register.popup .register-form .form-in .row .row-title {float:left;width:70px;padding-right:10px;padding-top:8px;}
+#register.popup .register-form .form-in .row .row-elements {float:left;width:300px;}
+#register.popup .register-form .form-in .row .row-elements input[type=text], #register.popup .register-form .form-in .row .row-elements input[type=password] {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:278px;font-size:15px;color:#3d3d3d;}
+#register.popup .register-form .form-in .row .row-elements label {display:inline-block;margin-right:10px;margin-top:6px;}
+#register.popup .register-form .form-in .row .row-error {float:left;padding-left:10px;width:160px;padding-top:8px;}
+#register.popup .register-form .form-in .row .row-error * {display:none;}
+#register.popup .register-form .form-in .row.ok .row-error .error-ok {display:inline-block;width:20px;height:19px;background:url(/images/common.png) no-repeat -424px -293px;}
+#register.popup .register-form .form-in .row.error .row-error .error {display:inline-block;color:#f11a1a;}
+#register.popup .register-form .form-in .row input[type=submit] {height:33px;line-height:33px;display:block;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 15px;cursor:pointer;border:0;margin:0;}
+
+
 #takeapartPhotoContest {width:600px;}
 #takeapartPhotoContest .upload-file {width:170px;height:200px;background:#c7ebf8;position:relative;}
 #takeapartPhotoContest .upload-file .photo {display:table-cell;vertical-align:middle;text-align:center;width:170px;height:200px;}

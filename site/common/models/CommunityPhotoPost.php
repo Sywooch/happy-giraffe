@@ -147,4 +147,9 @@ class CommunityPhotoPost extends HActiveRecord
     {
         return "http://maps.google.com/maps?q={$this->location}&hl=ru";
     }
+
+    public function getPhoto(){
+        foreach($this->photos as $photo)
+            return $photo->image;
+    }
 }

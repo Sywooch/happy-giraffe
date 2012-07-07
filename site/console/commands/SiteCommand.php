@@ -177,4 +177,31 @@ class SiteCommand extends CConsoleCommand
             $attach->save();
         }
     }
+
+    public function actionFirstCommentFix()
+    {
+        $k = 0;
+
+        $raws = 1;
+        while (!empty($raws)) {
+            $raws = Yii::app()->db->createCommand()
+                ->select('*')
+                ->from('comments')
+                ->where('author_id=1')
+                ->limit(1000)
+                ->offset($k * 1000)
+                ->queryAll();
+
+            foreach ($raws as $raw) {
+                $attach = new AttachPhoto;
+                $attach->entity = 'Comment';
+                $attach->entity_id = $raw['id'];
+                $attach->photo_id = 35000;
+                $attach->save();
+            }
+
+            $k++;
+        }
+        return $k;
+    }
 }

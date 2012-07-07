@@ -19,6 +19,7 @@
  * The followings are the available model relations:
  * @property User author
  * @property AttachPhoto[] $photoAttaches
+ * @property AttachPhoto $photoAttach
  */
 class Comment extends HActiveRecord
 {
@@ -77,6 +78,7 @@ class Comment extends HActiveRecord
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
             'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
+            'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
 		);
 	}
 

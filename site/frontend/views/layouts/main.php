@@ -426,7 +426,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="fday"><a href=""><i class="text"></i></a></li>
+                        <li class="fday"><a href="<?=$this->createUrl('community/view', array('community_id' => 20, 'content_type_slug' => 'post', 'content_id' => 23151))?>"><i class="text"></i></a></li>
                     </ul>
                 </div>
 

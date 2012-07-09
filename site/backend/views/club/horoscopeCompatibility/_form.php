@@ -2,12 +2,20 @@
 /* @var $model HoroscopeCompatibility
  * @var $form CActiveForm
  */
- echo CHtml::link('К таблице', array('/club/HoroscopeCompatibility/admin')) ?><div class="form">
+ echo CHtml::link('К таблице', array('/club/HoroscopeCompatibility/admin'));
+$list2 = array();
+if (!empty($model->zodiac1))
+    $list2 = $model->getAvailableZodiacs();
+?><div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'horoscope-compatibility-form',
-	'enableAjaxValidation'=>false,
-)); ?>
+	'enableAjaxValidation'=>true,
+    'enableClientValidation' => true,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => true,
+    )));?>
 
 	<p class="note">Поля с <span class="required">*</span> обязательны.</p>
 
@@ -15,13 +23,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'zodiac1'); ?>
-		<?php echo $form->dropDownList($model,'zodiac1', Horoscope::model()->zodiac_list); ?>
+		<?php echo $form->dropDownList($model,'zodiac1', Horoscope::model()->zodiac_list, array('empty'=>' ')); ?>
 		<?php echo $form->error($model,'zodiac1'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row" id="zodiac-2">
 		<?php echo $form->labelEx($model,'zodiac2'); ?>
-        <?php echo $form->dropDownList($model,'zodiac2', Horoscope::model()->zodiac_list); ?>
+        <?php echo $form->dropDownList($model,'zodiac2', $list2); ?>
 		<?php echo $form->error($model,'zodiac2'); ?>
 	</div>
 
@@ -38,3 +46,17 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+<script type="text/javascript">
+    var zodiacs = ['Овен','Телец','Близнецы','Рак', 'Лев', 'Дева', 'Весы','Скорпион','Стрелец', 'Козерог', 'Водолей', 'Рыбы'];
+    $(function() {
+        $('#HoroscopeCompatibility_zodiac1').change(function(){
+            var z1 = $('#HoroscopeCompatibility_zodiac1').val();
+
+            $("#HoroscopeCompatibility_zodiac2 option").remove();
+            for(var i = z1 - 1; i < 12; i++){
+                $('#HoroscopeCompatibility_zodiac2').append($('<option></option>').val(i+1).html(zodiacs[i]));
+            }
+        });
+    });
+</script>

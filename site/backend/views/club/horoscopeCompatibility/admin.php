@@ -8,10 +8,12 @@
 		array(
 		    'name'=>'zodiac1',
 		    'value'=>'$data->getZodiacText($data->zodiac1)',
+            'filter' => Horoscope::model()->zodiac_list
 		),
         array(
             'name'=>'zodiac2',
             'value'=>'$data->getZodiacText($data->zodiac2)',
+            'filter' => Horoscope::model()->zodiac_list
         ),
 		'text',
 		array(

@@ -21,6 +21,7 @@ class ConverterController extends HController
     public function actionUnits()
     {
         $ingredient = CookIngredient::model()->findByPk($_POST['id']);
+        header('Content-type: application/json');
         echo CJSON::encode($ingredient->getUnitsIds());
     }
 
@@ -28,6 +29,7 @@ class ConverterController extends HController
     {
         $condition = ' (SELECT COUNT(cook__ingredient_units.id) FROM cook__ingredient_units WHERE cook__ingredient_units.ingredient_id = t.id) > 1 ';
         $ingredients = CookIngredient::model()->autoComplete($term, 20, false, true, $condition);
+        header('Content-type: application/json');
         echo CJSON::encode($ingredients);
     }
 
@@ -38,6 +40,7 @@ class ConverterController extends HController
             $result = $converter->convert($_POST['ConverterForm']);
 
             $result['qty'] = (round($result['qty']) == $result['qty']) ? $result['qty'] : round($result['qty'], 2);
+            header('Content-type: application/json');
             echo CJSON::encode($result['qty']);
         }
     }

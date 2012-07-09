@@ -73,7 +73,7 @@ if (Yii::app()->controller->registerUserData !== null){
             </div>
 
             <div class="is-user">
-                Вы уже зарегистрированы? <a href="">Войти</a>
+                Вы уже зарегистрированы? <a href="#login" class="fancy">Войти</a>
             </div>
 
         </div>

@@ -15,7 +15,7 @@
 
     <?php if (Yii::app()->user->isGuest):?>
         <div class="join">
-            <a href="#register" class="fancy">Присоединяйтесь!</a>
+            <?=CHtml::link('Присоединяйтесь!', '#register', array('class' => 'fancy', 'data-theme'=>'white-square'))?>
         </div>
     <?php endif ?>
 

@@ -48,12 +48,12 @@
             };
 
             <?php if ($i == 0): ?>
-                $.pGallery.first = <?=$p->primaryKey?>;
+               pGallery.first = <?=$p->primaryKey?>;
             <?php endif; ?>
 
             <?php if ($i < $count - 1): ?>
-            $.pGallery.last = <?=$p->primaryKey?>;
-                <?php endif; ?>
+                pGallery.last = <?=$p->primaryKey?>;
+            <?php endif; ?>
         <?php endforeach; ?>
         <?
             $params = ob_get_contents();

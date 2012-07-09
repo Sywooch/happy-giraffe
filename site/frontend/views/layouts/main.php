@@ -1,18 +1,20 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" xmlns:fb="http://ogp.me/ns/fb#">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
-<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
 <head>
     <?php if ($this->rssFeed !== null): ?>
         <?=CHtml::linkTag('alternate', 'application/rss+xml', $this->rssFeed)?>
     <?php endif; ?>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <?=CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type')?>
-    <title><?=CHtml::encode($this->pageTitle)?></title>
+    <?php if (!empty($this->meta_title)):?>
+        <title><?=CHtml::encode($this->meta_title)?></title>
+    <?php else: ?>
+        <title><?=CHtml::encode($this->pageTitle)?></title>
+    <?php endif;
 
-    <?php
     $cs = Yii::app()->clientScript;
-
     $cs
         ->registerScriptFile('/javascripts/comet.js')
         ->registerScriptFile('/javascripts/dklab_realplexor.js')
@@ -33,6 +35,11 @@
         ->registerScriptFile('/javascripts/base64.js')
     ;
 
+    if (!empty($this->meta_description))
+        $cs->registerMetaTag($this->meta_description, 'description');
+    if (!empty($this->meta_keywords))
+        $cs->registerMetaTag($this->meta_keywords, 'keywords');
+
     if (! Yii::app()->user->isGuest) {
         $cs
             ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
@@ -48,6 +55,9 @@
     ?>
 </head>
 <body class="body-club" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
+<?php if (Yii::app()->user->checkAccess('editMeta')):?>
+    <a style="display: none;" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy">meta</a>
+<?php endif ?>
     <div id="layout" class="wrapper">
 
         <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix">
@@ -175,7 +185,7 @@
                 </div>
 
                 <div class="nav">
-                    <ul class="width-2 clearfix">
+                    <ul class="clearfix">
                         <?php if (false): ?>
                             <li class="morning">
                                 <a href="<?=$this->createUrl('/morning/index') ?>"><i class="text"></i></a>
@@ -427,6 +437,7 @@
                                 </div>
                             </div>
                         </li>
+                        <li class="fday"><a href="<?=$this->createUrl('community/view', array('community_id' => 20, 'content_type_slug' => 'post', 'content_id' => 23151))?>"><i class="text"></i></a></li>
                     </ul>
                 </div>
 

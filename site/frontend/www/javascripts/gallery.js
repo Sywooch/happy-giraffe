@@ -153,7 +153,8 @@ jQuery.fn.pGallery = function(options) {
     plugin.preloadPhotos = function() {
         var depth = 3;
         var images = [];
-        var currentPrev = currentNext = pGallery.photos[pGallery.currentPhoto];
+        var currentPrev = pGallery.photos[pGallery.currentPhoto];
+        var currentNext = pGallery.photos[pGallery.currentPhoto];
         for (var i; i < depth; i++) {
             currentNext = pGallery.photos[currentNext.next];
             currentPrev = pGallery.photos[currentPrev.prev];

@@ -1,4 +1,8 @@
 var pGallery_photos = {};
+$.pGallery = {
+    photos : {},
+    currentPhoto : null
+};
 jQuery.fn.pGallery = function(options) {
     var plugin = {};
     plugin.data = options,

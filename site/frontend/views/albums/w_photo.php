@@ -77,7 +77,7 @@
     </div>
 
 
-    <div id="photo-content">
+    <div id="w-photo-content">
         <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
     </div>
 

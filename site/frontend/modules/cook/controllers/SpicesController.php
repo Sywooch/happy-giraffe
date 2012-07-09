@@ -29,8 +29,6 @@ class SpicesController extends HController
 
         $this->pageTitle = 'Приправы и специи '.$model->title;
         $recipes = CookRecipe::model()->findByIngredient($model->ingredient_id, 3);
-        /*print_r($recipes);
-        exit();*/
 
         $this->render('view', compact('model', 'recipes'));
     }

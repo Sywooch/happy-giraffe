@@ -28,6 +28,9 @@ class CommunityPost extends HActiveRecord
 	public function behaviors()
 	{
 		return array(
+            'addImageTags'=>array(
+                'class' => 'site.common.behaviors.AddImageTagsBehavior',
+            ),
 			'cut' => array(
 				'class' => 'site.common.behaviors.CutBehavior',
 				'attributes' => array('text'),

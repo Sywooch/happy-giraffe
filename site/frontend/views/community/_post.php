@@ -2,13 +2,16 @@
 /* @var $this CommunityController
  * @var $data CommunityContent
  */
-?>
-<?php
+
     if (Yii::app()->request->getParam('Comment_page', 1) != 1) {
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
     }
-?>
 
+    if ($full) {
+        Yii::app()->clientScript->registerMetaTag(trim(Str::truncate(strip_tags($data->content->text), 90)), 'description');
+        Yii::app()->clientScript->registerMetaTag('', 'keywords');
+    }
+?>
 <div class="entry<?php if ($full): ?> entry-full<?php endif; ?>">
 
     <div class="entry-header">
@@ -19,7 +22,7 @@
         <?php endif; ?>
 
         <noindex>
-            <?php if (! $data->by_happy_giraffe): ?>
+            <?php if (! $data->by_happy_giraffe && $data->author_id != User::HAPPY_GIRAFFE): ?>
                 <div class="user">
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
                 </div>
@@ -159,16 +162,15 @@
             <?php $photo = $data->gallery->items[0]; ?>
             <div class="gallery-box">
                 <a class="img" data-id="<?=$data->gallery->items[0]->photo->id?>">
-                    <?php echo CHtml::image($photo->photo->getPreviewUrl(480, 360, Image::WIDTH)) ?>
+                    <?php echo CHtml::image($photo->photo->getPreviewUrl(695, 463, Image::WIDTH)) ?>
+
                     <div class="title">
-                        <i class="icon-play"></i>
-                        <div class="title-in">
-                            <span><?=CHtml::encode($data->gallery->title)?></span>
-                            <?php if(count($data->gallery->items) > 1): ?>
-                            еще <?=count($data->gallery->items) - 1?> фотографий
-                            <?php endif; ?>
-                        </div>
+                        <?=CHtml::encode($data->gallery->title)?>
                     </div>
+                    <div class="count">
+                        смотреть <span><?=count($data->gallery->items)?> ФОТО</span>
+                    </div>
+                    <i class="icon-play"></i>
                 </a>
             </div>
             <?php

@@ -101,8 +101,11 @@ class TestResult extends HActiveRecord
 		$criteria->compare('points',$this->points);
 		$criteria->compare('text',$this->text,true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => '25',
+            )
+        ));
 	}
 }

@@ -127,6 +127,18 @@ class CookIngredientsController extends BController
                 }
             }
 
+            if ($model->unit->type == 'qty') {
+                $ingredientDefaultUnit = CookIngredientUnit::model()->findByAttributes(array(
+                    'ingredient_id' => $model->id,
+                    'unit_id' => $model->unit_id
+                ));
+                if ($ingredientDefaultUnit == null or !$ingredientDefaultUnit->weight)
+                    $model->addError(
+                        'unit_id',
+                        'Для ед.изм. по умолчанию "' . $model->unit->title . '" нужно указать вес в граммах'
+                    );
+            }
+
             $errors = $model->getErrors();
             if (empty($errors)) {
                 $model->checked = 1;
@@ -323,6 +335,23 @@ class CookIngredientsController extends BController
 
         header('Content-type: application/json');
         echo CJSON::encode($response);
+    }
+
+    public function actionTempIngredients()
+    {
+        echo '<h1>Ингредиенты со штучными ед.изм по умолчанию без веса</h1>';
+        $ingredients = CookIngredient::model()->findAll();
+        foreach ($ingredients as $i) {
+            if ($i->unit->type == 'qty') {
+                $ingredientDefaultUnit = CookIngredientUnit::model()->findByAttributes(array(
+                    'ingredient_id' => $i->id,
+                    'unit_id' => $i->unit_id
+                ));
+                if ($ingredientDefaultUnit == null or !$ingredientDefaultUnit->weight) {
+                    echo CHtml::link(CHtml::encode($i->title), array("club/cookIngredients/update", "id" => $i->id), array('target' => '_blank')) . '<br>';
+                }
+            }
+        }
     }
 
 }

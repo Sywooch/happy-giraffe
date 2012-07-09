@@ -30,11 +30,8 @@ class ProfileController extends HController
     public function accessRules()
     {
         return array(
-            array('allow',
-                'users' => array('@'),
-            ),
             array('deny',
-                'users' => array('*'),
+                'users' => array('?'),
             ),
         );
     }

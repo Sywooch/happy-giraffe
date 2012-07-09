@@ -3,6 +3,7 @@
 class UserController extends SController
 {
     public $defaultAction = 'admin';
+    public $layout = '//layouts/empty';
 
     public function beforeAction($action)
     {

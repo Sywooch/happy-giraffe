@@ -13,7 +13,7 @@
 
     <div class="vaccination-birthday">
         <big>День рождения:</big>   <?php echo Yii::app()->dateFormatter->format('d MMMM y', strtotime($baby->birthday)) ?>
-        <?php echo CHtml::ajaxLink('<span><span>Рассчитать</span></span>',$this->createUrl('default/VaccineTable'),array(
+        <?php echo CHtml::ajaxLink('<span><span>Рассчитать</span></span>',$this->createUrl('default/vaccineTable'),array(
                 'type'=>'POST',
                 'data'=>'baby_id='.$baby_id,
                 'success'=>'function(data){$("#vaccine-result'.$baby_id.'").html(data);}'

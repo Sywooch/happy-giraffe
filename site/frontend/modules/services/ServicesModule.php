@@ -31,7 +31,10 @@ class ServicesModule extends CWebModule
             'recipeBook',
             'names',
             'childrenDiseases',
-            'dailyCalories'
+            'dailyCalories',
+            'idealWeight',
+            'weightLoss',
+            'bodyFat'
         ));
     }
 
@@ -41,8 +44,7 @@ class ServicesModule extends CWebModule
             // this method is called before any module controller action is performed
             // you may place customized code here
             return true;
-        }
-        else
+        } else
             return false;
     }
 }

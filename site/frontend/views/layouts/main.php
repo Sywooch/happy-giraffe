@@ -127,7 +127,7 @@
                                     <div class="actions">
                                         <ul>
                                             <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>">Мой профайл<i class="icon icon-profile"></i></a></li>
-                                            <li><a href="<?php echo $this->createUrl('/profile/index') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
+                                            <li><a href="<?php echo $this->createUrl('/profile') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
                                             <li><a href="<?php echo $this->createUrl('/site/logout') ?>">Выйти<i class="icon icon-logout"></i></a></li>
                                         </ul>
                                     </div>
@@ -144,7 +144,7 @@
                     <li><a href="/">Главная</a></li>
                     <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
 <!--                    <li><a href="">Сервисы</a></li>-->
-                    <li><a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>">Конкурсы</a></li>
+                    <li><a href="<?=$this->createUrl('/contest/default/view', array('id' => 1)) ?>">Конкурсы</a></li>
                 </ul>
 
             </div>
@@ -175,7 +175,7 @@
 
                     <div class="banner-box">
                         <?php if (! Yii::app()->user->isGuest): ?>
-                            <a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
+                            <a href="<?=$this->createUrl('/contest/default/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
                         <?php else: ?>
                             <?=HHtml::link(CHtml::image('/images/banner_06.png'), $this->createUrl('/signup'), array(), true)?>
                         <?php endif; ?>
@@ -184,7 +184,7 @@
                 </div>
 
                 <div class="nav">
-                    <ul class="width-2 clearfix">
+                    <ul class="clearfix">
                         <?php if (false): ?>
                             <li class="morning">
                                 <a href="<?=$this->createUrl('/morning/index') ?>"><i class="text"></i></a>
@@ -436,6 +436,7 @@
                                 </div>
                             </div>
                         </li>
+                        <li class="fday"><a href="<?=$this->createUrl('community/view', array('community_id' => 20, 'content_type_slug' => 'post', 'content_id' => 23151))?>"><i class="text"></i></a></li>
                     </ul>
                 </div>
 
@@ -483,7 +484,7 @@
             (function (d, w, c) {
                 (w[c] = w[c] || []).push(function() {
                     try {
-                        w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true, webvisor:true});
+                        w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true, trackHash:true, webvisor:true});
                     } catch(e) {}
                 });
 
@@ -505,7 +506,7 @@
         <script type="text/javascript">
 
             var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-27545132-1']);
+            _gaq.push(['_setAccount', '<?=Yii::app()->params['gaCode']  ?>']);
             _gaq.push(['_trackPageview']);
 
             (function() {
@@ -513,6 +514,7 @@
                 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
+
         </script>
     </noindex>
 

@@ -141,16 +141,25 @@ class RecipeController extends HController
         $this->render('form', compact('recipe', 'ingredients', 'cuisines', 'units'));
     }
 
-    public function actionView($id)
+    /**
+     * @sitemap dataSource=getContentUrls
+     */
+    public function actionView($id, $lastPage = null, $ajax = null)
     {
-        $this->layout = '//layouts/recipe';
-
         $recipe = CookRecipe::model()->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');
 
+        if (! preg_match('#^\/cook\/recipe\/(\d+)\/#', Yii::app()->request->requestUri)) {
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: " . $recipe->url);
+            Yii::app()->end();
+        }
+
         $this->counts = CookRecipe::model()->counts;
         $this->currentType = $recipe->type;
+        $this->layout = '//layouts/recipe';
+        $this->pageTitle = $recipe->title;
 
         $this->render('view', compact('recipe'));
     }
@@ -190,7 +199,7 @@ class RecipeController extends HController
         $this->render('searchByIngredients');
     }
 
-    public function actionSearchByIngredientsResult()
+    public function actionSearchByIngredientsResult($ingredients = null)
     {
         $ingredients = Yii::app()->request->getQuery('ingredients', array());
         $type = Yii::app()->request->getQuery('type', null);
@@ -236,14 +245,32 @@ class RecipeController extends HController
             $ingredient = array('label' => $i->title, 'value' => $i->title, 'id' => $i->id, 'units' => $units, 'unit' => $unit);
             $_ingredients[] = $ingredient;
         }
-        header('Content-type: application/json');
         echo CJSON::encode($_ingredients);
     }
 
     public function actionAc($term)
     {
         $ingredients = CookIngredient::model()->autoComplete($term, 10, false, true);
-        header('Content-type: application/json');
         echo CJSON::encode($ingredients);
+    }
+
+    public function getContentUrls()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('id, created, updated')
+            ->from('cook__recipes')
+            ->queryAll();
+        foreach ($models as $model)
+        {
+            $data[] = array(
+                'params' => array(
+                    'id' => $model['id'],
+                ),
+                'priority' => 0.5,
+                'changefreq' => 'daily',
+                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
+            );
+        }
+        return $data;
     }
 }

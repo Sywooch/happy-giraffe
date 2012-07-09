@@ -95,7 +95,7 @@ class NamesController extends BController
     public function loadModel($id)
     {
         $model = Name::model()->with(array(
-            'nameFamouses',
+            'famous',
             'nameSaintDates' => array('order' => 'month, day'),
 //            'nameMiddles' => array('order' => 'nameMiddles.id'),
 //            'nameOptions' => array('order' => 'nameOptions.id'),

@@ -2,6 +2,13 @@
 
 class AjaxController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'ajaxOnly',
+        );
+    }
+
     public function actionSetValue()
     {
         if (!Yii::app()->request->isAjaxRequest)
@@ -293,11 +300,6 @@ class AjaxController extends HController
             $report->form();
             $this->endWidget();
         }
-    }
-
-    public function actionView($path)
-    {
-        $this->renderPartial($path);
     }
 
     public function actionVideo()

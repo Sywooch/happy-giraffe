@@ -25,7 +25,6 @@ class PositionParserThread extends ProxyParserThread
 
     public function start()
     {
-        $this->debug = true;
         while (true) {
             $this->getPage();
             $this->parsePage();

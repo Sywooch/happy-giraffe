@@ -208,6 +208,8 @@ class WordstatParser extends ProxyParserThread
             $this->log('next page: ' . $this->next_page);
         }
 
+        $document->unloadDocument();
+
         return true;
     }
 

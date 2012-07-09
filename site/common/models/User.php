@@ -386,12 +386,7 @@ class User extends HActiveRecord
             $rubric->user_id = $this->id;
             $rubric->save();
 
-            //коммент от веселого жирафа
-            $comment = new Comment('giraffe');
-            $comment->author_id = User::HAPPY_GIRAFFE;
-            $comment->entity = get_class($this);
-            $comment->entity_id = $this->id;
-            $comment->save();
+            Comment::model()->addGiraffeFirstComment($this->id);
         } else {
             self::clearCache($this->id);
 

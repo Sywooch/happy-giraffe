@@ -84,7 +84,7 @@ jQuery.fn.pGallery = function(options) {
 
     plugin.openImage = function(id, callback) {
         var photo = $('#photo', this.window);
-        photo.find('.img').children('img').attr({src : pGallery.photos[id].src});
+        photo.find('.img').find('img').attr({src : pGallery.photos[id].src});
         if(photo.find('.in').size() > 0) {
             if(pGallery.photos[id].title != null) {
                 photo.find('.in').show().find('.title-text').text(pGallery.photos[id].title);

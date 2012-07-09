@@ -91,4 +91,19 @@ class DefaultController extends HController
 
         $this->render('year', compact('model'));
     }
+
+    public function actionCompatibility($zodiac1 = null, $zodiac2 = null){
+        if ($zodiac1 == null && $zodiac2 == null){
+            $model = new HoroscopeCompatibility();
+            $this->render('compatibility_main', compact('model'));
+        }elseif($zodiac1 == null && $zodiac2 != null){
+            $this->render('compatibility_one',array('zodiac'=>$zodiac1));
+        }elseif($zodiac1 == null && $zodiac2 != null){
+            $this->render('compatibility_two',compact('zodiac1', 'zodiac2'));
+        }
+    }
+
+    public function actionCalculate(){
+
+    }
 }

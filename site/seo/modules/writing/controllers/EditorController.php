@@ -233,6 +233,7 @@ class EditorController extends SController
         $criteria = new CDbCriteria;
         $criteria->compare('owner_id', Yii::app()->user->id);
         $criteria->compare('status >', SeoTask::STATUS_NEW);
+        $criteria->order = 'created desc';
         $tasks = SeoTask::model()->findAll($criteria);
 
         $this->render('reports', array(

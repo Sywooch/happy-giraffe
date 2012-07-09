@@ -81,7 +81,7 @@ class EditorController extends SController
 
         $criteria = new CDbCriteria;
         $criteria->condition = 'owner_id=' . Yii::app()->user->id . ' AND status = 0';
-        $criteria->order = 'created desc';
+        $criteria->order = 'created asc';
         $tasks = SeoTask::model()->findAll();
 
         $this->render('editor_panel', array(

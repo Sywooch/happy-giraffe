@@ -610,7 +610,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #register.popup .register-finish .preparing span {font-size:18px;color:#fe7143;margin-left:10px;}
 
 #register.popup .register-form {text-align:center;}
-#register.popup .register-form .ava-box {float:left;padding-left:50px;width:100px;}
+#register.popup .register-form .ava-box {float:left;padding-left:50px;width:100px;min-height:1px;}
 #register.popup .register-form .form-in {text-align:left;float:left;width:550px;text-align:left;}
 #register.popup .register-form .form-in .row {margin-bottom:30px;}
 #register.popup .register-form .form-in .row .row-title {float:left;width:70px;padding-right:10px;padding-top:8px;}
@@ -619,7 +619,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #register.popup .register-form .form-in .row .row-elements label {display:inline-block;margin-right:10px;margin-top:6px;}
 #register.popup .register-form .form-in .row .row-error {float:left;padding-left:10px;width:160px;padding-top:8px;}
 #register.popup .register-form .form-in .row .row-error * {display:none;}
-#register.popup .register-form .form-in .row.ok .row-error .error-ok {display:inline-block;width:20px;height:19px;background:url(/images/common.png) no-repeat -424px -293px;}
+#register.popup .register-form .form-in .row.success .row-error .error-ok {display:inline-block;width:20px;height:19px;background:url(/images/common.png) no-repeat -424px -293px;}
 #register.popup .register-form .form-in .row.error .row-error .error {display:inline-block;color:#f11a1a;}
 #register.popup .register-form .form-in .row input[type=submit] {height:33px;line-height:33px;display:block;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 15px;cursor:pointer;border:0;margin:0;}
 
